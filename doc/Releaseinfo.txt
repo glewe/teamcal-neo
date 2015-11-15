@@ -1,0 +1,149 @@
+==============================================================================
+TEAMCAL NEO RELEASE INFO
+==============================================================================
+
+------------------------------------------------------------------------------
+[0.3.00]
+
+DATE
+2015-xx-xx
+
+BUGFIXES
+https://georgelewe.atlassian.net/browse/TCN-1
+Period input in calendar
+
+https://georgelewe.atlassian.net/browse/TCN-2
+Recurring input in calendar
+
+CHANGES
+01 Code optimizations
+
+NEW FEATURES
+01 Transparent absence background
+02 Declination check
+
+
+------------------------------------------------------------------------------
+[0.2.00]
+
+DATE
+2014-12-17
+
+BUGFIXES
+
+CHANGES
+01 Complete rebuilt of models. Now named .class.php
+02 Replaced class instance check with global PHP autoloader.
+03 Introduced Controller array.
+04 Introduced controller-based and feature-based permissions.
+05 Rebuilt database
+06 Streamlined code, e.g. global modal dialog header/footer
+07 Restructured menu
+08 Removed status bar
+09 Announcements now called "Messages"
+10 Mobile support now optional
+11 Unlimited roles
+12 Role based permissions
+13 Introduced IconShock user icons
+14 Switch to Fontawesome icons (instead of Glyphicons)
+15 Merged config files into two
+16 Added Releaseinfo to About page
+17 Separation between Application Configuration and Calendar Configuration
+18 Sample SQL file
+
+NEW FEATURES
+
+
+------------------------------------------------------------------------------
+[0.1.06]
+
+DATE
+2014-11-13
+
+BUGFIXES
+
+CHANGES
+
+NEW FEATURES
+01 Edit calendar, Phase 1
+
+
+------------------------------------------------------------------------------
+[0.1.05]
+
+DATE
+2014-08-03
+
+BUGFIXES
+
+CHANGES
+
+NEW FEATURES
+01 Year calendar
+
+
+------------------------------------------------------------------------------
+[0.1.04] Public Alpha
+
+DATE
+2014-04-24
+
+BUGFIXES
+
+CHANGES
+
+NEW FEATURES
+01 Year calendar
+
+
+------------------------------------------------------------------------------
+[0.1.03]
+
+DATE
+2014-04-22
+
+BUGFIXES
+
+CHANGES
+
+NEW FEATURES
+01 Responsive month table II
+
+
+------------------------------------------------------------------------------
+[0.1.02]
+
+DATE
+2014-04-12
+
+BUGFIXES
+
+CHANGES
+
+NEW FEATURES
+01 Responsive month table
+02 Cleanup of DB interface
+
+
+------------------------------------------------------------------------------
+[0.1.01]
+
+DATE
+12.APR.2014
+
+BUGFIXES
+
+CHANGES
+
+NEW FEATURES
+01 Font Awesome absence icons
+
+
+------------------------------------------------------------------------------
+[0.1.00]
+
+DATE
+2014-04-11
+
+INFO
+This is the alpha TeamCal Neo release.

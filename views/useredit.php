@@ -1,0 +1,202 @@
+<?php
+/**
+ * useredit.php
+ * 
+ * The view of the profile page
+ *
+ * @category TeamCal Neo 
+ * @version 0.3.00
+ * @author George Lewe <george@lewe.com>
+ * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @link http://www.lewe.com
+ * @license
+ */
+if (!defined('VALID_ROOT')) die('No direct access allowed!');
+?>
+
+      <!-- ==================================================================== 
+      view.useredit
+      -->
+      <div class="container content">
+      
+         <div class="col-lg-12">
+            <?php 
+            if ($showAlert AND $C->read("showAlerts")!="none")
+            { 
+               if ( $C->read("showAlerts")=="all" OR 
+                    $C->read("showAlerts")=="warnings" AND ($alertData['type']=="warning" OR $alertData['type']=="danger")
+                  ) 
+               {
+                  echo createAlertBox($alertData);
+               }
+            } 
+            $tabindex = 1; $colsleft = 8; $colsright = 4;
+            ?>
+            
+            <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;profile=<?=$profileData['profile']?>" method="post" target="_self" accept-charset="utf-8">
+
+               <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['profile_edit_title'].$profileData['fullname']?></div>
+                  <div class="panel-body">
+
+                     <div class="panel panel-default">
+                        <div class="panel-body">
+                           <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++?>" name="btn_profileUpdate"><?=$LANG['btn_update']?></button>
+                           <?php if (isAllowed("users")) { ?> 
+                              <a href="index.php?action=users" class="btn btn-default pull-right" tabindex="<?=$tabindex++?>"><?=$LANG['btn_user_list']?></a>
+                           <?php } ?>
+                        </div>
+                     </div>
+                     
+                     <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                        <li class="active"><a href="#personal" data-toggle="tab"><?=$LANG['profile_tab_personal']?></a></li>
+                        <li><a href="#contact" data-toggle="tab"><?=$LANG['profile_tab_contact']?></a></li>
+                        <li><a href="#options" data-toggle="tab"><?=$LANG['options']?></a></li>
+                        <li><a href="#avatar" data-toggle="tab"><?=$LANG['profile_tab_avatar']?></a></li>
+                        <?php if (isAllowed("useraccount")) { ?>
+                           <li><a href="#account" data-toggle="tab"><?=$LANG['profile_tab_account']?></a></li>
+                        <?php } ?>
+                        <li><a href="#groups" data-toggle="tab"><?=$LANG['profile_tab_groups']?></a></li>
+                        <li><a href="#setpassword" data-toggle="tab"><?=$LANG['profile_tab_password']?></a></li>
+                     </ul>
+                     
+                     <div id="myTabContent" class="tab-content">
+                        
+                        <!-- Personal tab -->
+                        <div class="tab-pane fade active in" id="personal">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                                 <?php foreach($profileData['personal'] as $formObject) {
+                                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                                 } ?>
+                              </div>
+                           </div>
+                        </div>
+      
+                        <!-- Contact tab -->
+                        <div class="tab-pane fade" id="contact">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                                 <?php foreach($profileData['contact'] as $formObject) {
+                                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                                 } ?>
+                              </div>
+                           </div>
+                        </div>
+      
+                        <!-- Options tab -->
+                        <div class="tab-pane fade" id="options">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                                 <?php foreach($profileData['options'] as $formObject) {
+                                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                                 } ?>
+                              </div>
+                           </div>
+                        </div>
+
+                        <!-- Avatar tab -->
+                        <div class="tab-pane fade" id="avatar">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                              
+                                 <div class="form-group">
+                                    <label class="col-lg-<?=$colsleft?> control-label">
+                                       <?=$LANG['profile_avatar']?><br>
+                                       <span class="text-normal"><?=$LANG['profile_avatar_comment']?></span>
+                                    </label>
+                                    <div class="col-lg-<?=$colsright?>">
+                                       <img src="<?=$CONF['app_avatar_dir']?>/<?=$profileData['avatar']?>" alt="" style="width: 80px; height: 80px;"><br>
+                                       <br>
+                                       <?php if (substr($profileData['avatar'], 0, 9) != 'noavatar_') { ?><button type="submit" class="btn btn-primary btn-sm" tabindex="<?=$tabindex++?>" name="btn_deleteAvatar"><?=$LANG['btn_reset']?></button><?php } ?>
+                                    </div>
+                                 </div>
+                                 <div class="divider"><hr></div>
+                                 
+                                 <div class="form-group">
+                                    <label class="col-lg-<?=$colsleft?> control-label">
+                                       <?=$LANG['profile_avatar_upload']?><br>
+                                       <span class="text-normal">
+                                          <?=sprintf($LANG['profile_avatar_upload_comment'],$profileData['avatar_maxsize'],$profileData['avatar_formats'])?></span>
+                                    </label>
+                                    <div class="col-lg-<?=$colsright?>">
+                                       <input type="hidden" name="MAX_FILE_SIZE" value="<?=$profileData['avatar_maxsize']?>"><br>
+                                       <input class="form-control" tabindex="<?=$tabindex++?>" name="file_avatar" type="file"><br>
+                                       <button type="submit" class="btn btn-primary btn-sm" tabindex="<?=$tabindex++?>" name="btn_uploadAvatar"><?=$LANG['btn_upload']?></button>
+                                    </div>
+                                 </div>
+                                 <div class="divider"><hr></div>
+                                 
+                                 <div class="form-group">
+                                    <label class="col-lg-12 control-label">
+                                       <?=$LANG['profile_avatar_available']?><br>
+                                       <span class="text-normal">
+                                          <?=$LANG['profile_avatar_available_comment']?></span>
+                                    </label>
+                                    <div class="col-lg-12">
+                                       <?php foreach($profileData['avatars'] as $avatar) {?>
+                                          <div class="pull-left" style="border: 1px solid #eeeeee; padding: 4px;"><input name="opt_avatar" value="<?=$avatar?>" tabindex="<?=$tabindex++?>" <?= ($profileData['avatar']==$avatar)?' checked="checked"':''?>type="radio"><img src="<?=$CONF['app_avatar_dir']?>/<?=$avatar?>" alt="" style="width: 80px; height: 80px;"></div>
+                                       <?php } ?>
+                                    </div>
+                                 </div>
+                                 <div class="divider"><hr></div>
+                                 
+                              </div>
+                           </div>
+                        </div>
+      
+                        <?php if (isAllowed("useraccount")) { ?>
+                           <!-- Account tab -->
+                           <div class="tab-pane fade" id="account">
+                              <div class="panel panel-default">
+                                 <div class="panel-body">
+                                    <?php foreach($profileData['account'] as $formObject) {
+                                       echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                                    } ?>
+                                 </div>
+                              </div>
+                           </div>
+                        <?php } ?>
+                           
+                        <!-- Groups tab -->
+                        <div class="tab-pane fade" id="groups">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                                 <?php foreach($profileData['groups'] as $formObject) {
+                                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                                 } ?>
+                              </div>
+                           </div>
+                        </div>
+      
+                        <!-- Password tab -->
+                        <div class="tab-pane fade" id="setpassword">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                                 <?php foreach($profileData['password'] as $formObject) {
+                                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                                 } ?>
+                              </div>
+                           </div>
+                        </div>
+      
+                     </div>
+                     
+                     <div class="panel panel-default">
+                        <div class="panel-body">
+                           <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++?>" name="btn_profileUpdate"><?=$LANG['btn_update']?></button>
+                           <?php if (isAllowed("manageUsers")) { ?> 
+                              <a href="index.php?action=users" class="btn btn-default pull-right" tabindex="<?=$tabindex++?>"><?=$LANG['btn_user_list']?></a>
+                           <?php } ?>
+                        </div>
+                     </div>
+                     
+                  </div>
+               </div>
+                  
+            </form>
+            
+         </div>
+         
+      </div>      
+            

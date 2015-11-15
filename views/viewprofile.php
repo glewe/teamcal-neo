@@ -1,0 +1,119 @@
+<?php
+/**
+ * viewprofile.php
+ * 
+ * The view of the view profile page
+ *
+ * @category TeamCal Neo 
+ * @version 0.3.00
+ * @author George Lewe <george@lewe.com>
+ * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @link http://www.lewe.com
+ * @license
+ */
+if (!defined('VALID_ROOT')) die('No direct access allowed!');
+?>
+
+      <!-- ==================================================================== 
+      view.viewprofile
+      -->
+      <div class="container content">
+      
+         <div class="col-lg-12">
+            <?php 
+            if ($showAlert AND $C->read("showAlerts")!="none")
+            { 
+               if ( $C->read("showAlerts")=="all" OR 
+                    $C->read("showAlerts")=="warnings" AND ($alertData['type']=="warning" OR $alertData['type']=="danger")
+                  ) 
+               {
+                  echo createAlertBox($alertData);
+               }
+            } ?>
+            <?php $tabindex = 1; $colsleft = 8; $colsright = 4;?>
+            
+            <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+               <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['profile_view_title'].$profileData['fullname']?> (<?=$profileData['username']?>)</div>
+
+               <div class="panel-body">
+                  <div class="bs-example table-responsive">
+                     <table class="table table-striped table-bordered table-hover">
+                        <tbody>
+                           <tr>
+                              <td><i class="fa fa-camera text-danger" style="width: 26px;"></i><strong><?=$LANG['profile_avatar']?></strong></td>
+                              <td><img src="<?=$CONF['app_avatar_dir']?>/<?=$profileData['avatar']?>" alt="" class="boxshadow-1" style="width: 80px; height: 80px; padding: 4px; border: 1px solid #999999;"></td>
+                           </tr>
+                           <tr>
+                              <td><i class="fa fa-users text-<?=$CONF['controller']['roles']['menucolor']?>" style="width: 26px;"></i><strong><?=$LANG['profile_role']?></strong></td>
+                              <td><?=$profileData['role']?></td>
+                           </tr>
+                           <?php if (strlen($profileData['title'])) { ?>
+                           <tr>
+                              <td><i class="fa fa-pencil text-info" style="width: 26px;"></i><strong><?=$LANG['profile_title']?></strong></td>
+                              <td><?=$profileData['title']?></td>
+                           </tr>
+                           <?php } ?>
+                           <?php if (strlen($profileData['position'])) { ?>
+                           <tr>
+                              <td><i class="fa fa-building text-default" style="width: 26px;"></i><strong><?=$LANG['profile_position']?></strong></td>
+                              <td><?=$profileData['position']?></td>
+                           </tr>
+                           <?php } ?>
+                           <?php if (strlen($profileData['email'])) { ?>
+                           <tr>
+                              <td><i class="fa fa-envelope-o text-success" style="width: 26px;"></i><strong><?=$LANG['profile_email']?></strong></td>
+                              <td><?=$profileData['email']?></td>
+                           </tr>
+                           <?php } ?>
+                           <?php if (strlen($profileData['phone'])) { ?>
+                           <tr>
+                              <td><i class="fa fa-phone text-info" style="width: 26px;"></i><strong><?=$LANG['profile_phone']?></strong></td>
+                              <td><?=$profileData['phone']?></td>
+                           </tr>
+                           <?php } ?>
+                           <?php if (strlen($profileData['mobile'])) { ?>
+                           <tr>
+                              <td><i class="fa fa-mobile text-warning" style="width: 26px;"></i><strong><?=$LANG['profile_mobilephone']?></strong></td>
+                              <td><?=$profileData['mobile']?></td>
+                           </tr>
+                           <?php } ?>
+                           <?php if (strlen($profileData['facebook'])) { ?>
+                           <tr>
+                              <td><i class="fa fa-facebook text-primary" style="width: 26px;"></i><strong><?=$LANG['profile_facebook']?></strong></td>
+                              <td><?=$profileData['facebook']?></td>
+                           </tr>
+                           <?php } ?>
+                           <?php if (strlen($profileData['google'])) { ?>
+                           <tr>
+                              <td><i class="fa fa-google-plus text-danger" style="width: 26px;"></i><strong><?=$LANG['profile_google']?></strong></td>
+                              <td><?=$profileData['google']?></td>
+                           </tr>
+                           <?php } ?>
+                           <?php if (strlen($profileData['linkedin'])) { ?>
+                           <tr>
+                              <td><i class="fa fa-linkedin text-primary" style="width: 26px;"></i><strong><?=$LANG['profile_linkedin']?></strong></td>
+                              <td><?=$profileData['linkedin']?></td>
+                           </tr>
+                           <?php } ?>
+                           <?php if (strlen($profileData['skype'])) { ?>
+                           <tr>
+                              <td><i class="fa fa-skype text-success" style="width: 26px;"></i><strong><?=$LANG['profile_skype']?></strong></td>
+                              <td><?=$profileData['skype']?></td>
+                           </tr>
+                           <?php } ?>
+                           <?php if (strlen($profileData['twitter'])) { ?>
+                           <tr>
+                              <td><i class="fa fa-twitter text-primary" style="width: 26px;"></i><strong><?=$LANG['profile_twitter']?></strong></td>
+                              <td><?=$profileData['twitter']?></td>
+                           </tr>
+                           <?php } ?>
+                           
+                        </tbody>
+                     </table>
+                  </div>
+                  
+               </div>
+            </div>
+         </div>
+      </div>      
+            
