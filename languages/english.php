@@ -851,7 +851,6 @@ if ( $C->read('googleAnalytics') AND $C->read("googleAnalyticsID")) {
 }
 
 
-
 /**
  * Log
  */
@@ -927,6 +926,7 @@ $LANG['mnu_app_language'] = 'Language';
 $LANG['mnu_view'] = 'View';
 $LANG['mnu_view_calendar'] = 'Calendar (Month)';
 $LANG['mnu_view_messages'] = 'Messages';
+$LANG['mnu_view_statistics'] = 'Statistics';
 $LANG['mnu_view_year'] = 'Calendar (Year)';
 $LANG['mnu_edit'] = 'Edit';
 $LANG['mnu_edit_calendaredit'] = 'Personal Calendar';
@@ -1103,6 +1103,8 @@ $LANG['perm_regions_title'] = 'Manage Regions';
 $LANG['perm_regions_desc'] = 'Allows to list and edit regions and their holidays.';
 $LANG['perm_roles_title'] = 'Manage Roles';
 $LANG['perm_roles_desc'] = 'Allows to list and edit roles.';
+$LANG['perm_statistics_title'] = 'View Statistics';
+$LANG['perm_statistics_desc'] = 'Allows to view the statistics page.';
 $LANG['perm_useraccount_title'] = 'Edit User Account Info';
 $LANG['perm_useraccount_desc'] = 'Allows to edit the Account tab when editing a user profile.';
 $LANG['perm_useradmin_title'] = 'Manage User Accounts';
@@ -1304,6 +1306,11 @@ $LANG['roles_alert_deleted'] = 'The role was deleted.';
 $LANG['roles_confirm_delete'] = 'Are you sure you want to delete this role: ';
 $LANG['roles_description'] = 'Description';
 $LANG['roles_name'] = 'Name';
+
+/**
+ * Statistics
+ */
+$LANG['stats_title'] = 'Statistics';
 
 /**
  * Status Bar

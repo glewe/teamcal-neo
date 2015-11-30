@@ -58,9 +58,14 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <?php if ($menuData['mnu_view_year']) { ?>
                            <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['year']->name?>&amp;year=<?=date('Y')?>&amp;region=1&amp;user=<?=$UL->username?>"><i class="fa fa-<?=$CONF['controllers']['year']->faIcon?> fa-lg text-<?=$CONF['controllers']['year']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_year']?></a></li>
                         <?php } ?>
-                        <?php if ($menuData['mnu_view_messages']) { ?>
+                        <?php if ($menuData['mnu_view_messages'] OR $menuData['mnu_view_statistics']) { ?>
                            <li class="divider"></li>
+                        <?php } ?>
+                        <?php if ($menuData['mnu_view_messages']) { ?>
                            <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['messages']->name?>"><i class="fa fa-<?=$CONF['controllers']['messages']->faIcon?> fa-lg text-<?=$CONF['controllers']['messages']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_messages']?></a></li>
+                        <?php } ?>
+                        <?php if ($menuData['mnu_view_statistics']) { ?>
+                           <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['statistics']->name?>"><i class="fa fa-<?=$CONF['controllers']['statistics']->faIcon?> fa-lg text-<?=$CONF['controllers']['statistics']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_statistics']?></a></li>
                         <?php } ?>
                      </ul>
                   </li>

@@ -926,6 +926,7 @@ $LANG['mnu_app_language'] = 'Sprache';
 $LANG['mnu_view'] = 'Anzeige';
 $LANG['mnu_view_calendar'] = 'Kalender (Monat)';
 $LANG['mnu_view_messages'] = 'Benachrichtigungen';
+$LANG['mnu_view_statistics'] = 'Statistiken';
 $LANG['mnu_view_year'] = 'Kalender (Jahr)';
 $LANG['mnu_edit'] = 'Bearbeiten';
 $LANG['mnu_edit_calendaredit'] = 'Personenkalender';
@@ -1102,6 +1103,8 @@ $LANG['perm_regions_title'] = 'Regionen Bearbeiten';
 $LANG['perm_regions_desc'] = 'Erlaubt as Listen und Bearbeiten von Regionen und deren Feiertagen.';
 $LANG['perm_roles_title'] = 'Rollen Bearbeiten';
 $LANG['perm_roles_desc'] = 'Erlaubt as Listen und Bearbeiten von Rollen.';
+$LANG['perm_statistics_title'] = 'Statistiken Anzeigen';
+$LANG['perm_statistics_desc'] = 'Erlaubt das Anzeigen der Statistik Seite.';
 $LANG['perm_useraccount_title'] = 'Nutzerkonto Bearbeiten';
 $LANG['perm_useraccount_desc'] = 'Erlaubt das Bearbeiten des Konto Reiters im Nutzerprofil.';
 $LANG['perm_useradmin_title'] = 'Benutzerkonten Bearbeiten';
@@ -1303,6 +1306,11 @@ $LANG['roles_alert_role_deleted'] = 'Die Rolle wurde gel&ouml;scht.';
 $LANG['roles_confirm_delete'] = 'Bist du sicher, dass du diese Rolle l&ouml;schen willst?';
 $LANG['roles_description'] = 'Beschreibung';
 $LANG['roles_name'] = 'Name';
+
+/**
+ * Statistics
+ */
+$LANG['stats_title'] = 'Statistiken';
 
 /**
  * Status Bar

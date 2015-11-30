@@ -35,6 +35,7 @@ function buildMenu()
       "mnu_view_calendar" => FALSE,
       "mnu_view_year" => FALSE,
       "mnu_view_messages" => FALSE,
+      "mnu_view_statistics" => FALSE,
       "mnu_edit" => FALSE,
       "mnu_edit_calendaredit" => FALSE,
       "mnu_edit_monthedit" => FALSE,
@@ -100,7 +101,13 @@ function buildMenu()
       $mnu['mnu_view'] = TRUE;
       $mnu['mnu_view_year'] = TRUE;
    }
-   
+
+   if (isAllowed("statistics"))
+   {
+      $mnu['mnu_view'] = TRUE;
+      $mnu['mnu_view_statistics'] = TRUE;
+   }
+    
    if (isAllowed("calendaredit") AND 
        (isAllowed("calendareditall") OR isAllowed("calendareditgroup") OR isAllowed("calendareditown")) 
    )

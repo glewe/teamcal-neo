@@ -30,7 +30,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <h2><?=$CONF['app_name']?></h2>
                      <p>
                         <strong><?=$LANG['about_version']?>:</strong>&nbsp;&nbsp;<?=$CONF['app_version']?><br>
-                        <strong><?=$LANG['about_copyright']?>:</strong>&nbsp;&nbsp;&copy;&nbsp;<?=$CONF['app_year']?> by <a class="about" href="http://www.lewe.com/" target="_blank"><?=$CONF['app_author']?></a><br>
+                        <strong><?=$LANG['about_copyright']?>:</strong>&nbsp;&nbsp;&copy;&nbsp;<?=$CONF['app_year'] . "-" . $CONF['app_curr_year']?> by <a class="about" href="http://www.lewe.com/" target="_blank"><?=$CONF['app_author']?></a><br>
                         <strong><?=$LANG['about_license']?>:</strong>&nbsp;&nbsp;<?=$LANG['license']?><br>
                      </p>
                      <h3><?=$LANG['about_credits']?>:</h3>
@@ -44,6 +44,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <li>David Vignoni <?=$LANG['about_for']?> <a href="http://www.icon-king.com" target="_blank">Nuvola Icons</a></li>
                         <li>Iconshock Team <?=$LANG['about_for']?> <a href="http://www.iconshock.com/icon_sets/vector-user-icons/" target="_blank">User Icons</a></li>
                         <li>Drew Phillips <?=$LANG['about_for']?> <a href="https://www.phpcaptcha.org/" target="_blank">SecureImage</a></li>
+                        <li>Nick Downie <?=$LANG['about_for']?> <a href="https://www.chartjs.org/" target="_blank">Chart.js</a></li>
+                        <li>Promotably <?=$LANG['about_for']?> <a href="https://devblog.promotably.com/how-to-create-horizontal-bar-charts-with-chartjs/" target="_blank">HorizontalBar for Chart.js</a></li>
                         <li><?=$LANG['about_misc']?></li>
                      </ul>
                   </div>
