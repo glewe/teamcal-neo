@@ -91,6 +91,10 @@ Copyright:   <?=$htmlData['copyright']."\n"?>
       <!-- Google Code Prettify -->
       <link rel="stylesheet" href="addons/google-code-prettify/prettify.css" type="text/css">
       <script src="addons/google-code-prettify/prettify.js"></script>
+
+      <!-- Chart.js --> 
+      <script src="addons/chart.js/Chart.min.js"></script>
+      <script src="addons/chart.js/src/Chart.HorizontalBar.js"></script>
       
       <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
       <!--[if lt IE 9]>

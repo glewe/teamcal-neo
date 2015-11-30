@@ -21,6 +21,7 @@ CHANGES
 NEW FEATURES
 01 Transparent absence background
 02 Declination check
+03 Added Chart.js addon plus HorizontalBar plugin
 
 
 ------------------------------------------------------------------------------
