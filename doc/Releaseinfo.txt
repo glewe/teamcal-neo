@@ -6,7 +6,7 @@ TEAMCAL NEO RELEASE INFO
 [0.3.00]
 
 DATE
-2015-xx-xx
+2015-11-15
 
 BUGFIXES
 https://georgelewe.atlassian.net/browse/TCN-1
