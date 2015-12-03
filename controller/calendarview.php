@@ -121,7 +121,7 @@ $calData['absence'] = $LANG['all'];
 $calData['absences'] = $A->getAll();
 $calData['groupid'] = 'all';
 $calData['group'] = $LANG['all'];
-$calData['users'] = $U->getAllButAdmin();
+$calData['users'] = $U->getAll();
 $calData['search'] = '';
 
 /**
@@ -165,7 +165,7 @@ if (!empty($_POST))
       {
          if ($_POST['sel_group'] == "all")
          {
-            $calData['users'] = $U->getAllButAdmin();
+            $calData['users'] = $U->getAll();
          }
          else 
          {

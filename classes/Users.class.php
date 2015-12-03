@@ -235,35 +235,17 @@ class Users
     *
     * @return array $records Array with all records
     */
-   function getAll($order1 = 'lastname', $order2 = 'firstname', $sort = 'ASC', $archive = FALSE)
+   function getAll($order1 = 'lastname', $order2 = 'firstname', $sort = 'ASC', $archive = false, $includeAdmin = false)
    {
       $records = array ();
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
       
-      $query = $this->db->prepare('SELECT * FROM ' . $table . ' ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
-      $result = $query->execute();
-      
-      if ($result)
-      {
-         while ( $row = $query->fetch() )
-         {
-            $records[] = $row;
-         }
-      }
-      return $records;
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
-    * Reads all records into an array, except admin
-    *
-    * @return string $records Array with all records
-    */
-   function getAllButAdmin()
-   {
-      $records = array ();
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username != "admin" ORDER BY lastname ASC, firstname ASC');
+      if ($includeAdmin)
+         $query = $this->db->prepare('SELECT * FROM ' . $table . ' ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
+      else 
+         $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != "admin" ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
+          
       $result = $query->execute();
       
       if ($result)

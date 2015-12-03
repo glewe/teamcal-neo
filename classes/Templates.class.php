@@ -86,44 +86,104 @@ class Templates
    
    // ---------------------------------------------------------------------
    /**
-    * Restores all records for a given user
+    * Counts a sepcific absences of a given username, year, month and day
     *
-    * @param string $name Username to restore
-    * @return bool $result Query result
+    * @param string $username Username to find
+    * @param string $year Year to find (YYYY)
+    * @param string $month Month to find (MM)
+    * @param string $start Start day
+    * @param string $end End day
+    * @return integer 0 or absence ID count
     */
-   function restore($username)
+   function countAbsence($username = '%', $year = '', $month = '', $absid, $start = 1, $end = 0)
    {
-      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
+      $count = 0;
+      $mytime = $month . " ".$start."," . $year;
+      $myts = strtotime($mytime);
+      if (!$end or $end > 31) $end = date("t", $myts);
+      
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username LIKE :val1 AND year = :val2 AND month = :val3');
+      $month = sprintf("%02d", $month);
       $query->bindParam('val1', $username);
+      $query->bindParam('val2', $year);
+      $query->bindParam('val3', sprintf("%02d", $month));
       $result = $query->execute();
-      return $result;
+      
+      if ($result)
+      {
+         if ($username != "%")
+         {
+            if ($row = $query->fetch())
+            {
+               for($i = $start; $i <= $end; $i++)
+               {
+                  if ($row['abs' . $i] == $absid) $count++;
+               }
+            }
+         }
+         else
+         {
+            while ( $row = $query->fetch() )
+            {
+               for($i = $start; $i <= $end; $i++)
+               {
+                  if ($row['abs' . $i] == $absid) $count++;
+               }
+            }
+         }
+      }
+      return $count;
    }
    
    // ---------------------------------------------------------------------
    /**
-    * Checks whether a record exists
+    * Counts any absence of a given username, year, month and day
     *
     * @param string $username Username to find
-    * @param boolean $archive Whether to search in archive table
-    * @return bool True if found, false if not
+    * @param string $year Year to find (YYYY)
+    * @param string $month Month to find (MM)
+    * @param string $start Start day
+    * @param string $end End day
+    * @return integer 0 or absence ID count
     */
-   function exists($username = '', $archive = FALSE)
+   function countAllAbsences($username = '%', $year = '', $month = '', $start = 1, $end = 0)
    {
-      if ($archive) $table = $this->archive_table;
-      else $table = $this->table;
+      $count = 0;
+      $mytime = $month . " ".$start."," . $year;
+      $myts = strtotime($mytime);
+      if (!$end or $end > 31) $end = date("t", $myts);
       
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :val1');
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username LIKE :val1 AND year = :val2 AND month = :val3');
+      $month = sprintf("%02d", $month);
       $query->bindParam('val1', $username);
+      $query->bindParam('val2', $year);
+      $query->bindParam('val3', sprintf("%02d", $month));
       $result = $query->execute();
       
-      if ($result and $query->fetchColumn())
+      if ($result)
       {
-         return true;
+         if ($username != "%")
+         {
+            if ($row = $query->fetch())
+            {
+               for($i = $start; $i <= $end; $i++)
+               {
+                  if ($row['abs' . $i] != 0) $count++;
+               }
+            }
+         }
+         else
+         {
+            while ( $row = $query->fetch() )
+            {
+               for($i = $start; $i <= $end; $i++)
+               {
+                  if ($row['abs' . $i] != 0) $count++;
+               }
+            }
+         }
       }
-      else
-      {
-         return false;
-      }
+      return $count;
    }
    
    // ---------------------------------------------------------------------
@@ -247,6 +307,33 @@ class Templates
    
    // ---------------------------------------------------------------------
    /**
+    * Checks whether a record exists
+    *
+    * @param string $username Username to find
+    * @param boolean $archive Whether to search in archive table
+    * @return bool True if found, false if not
+    */
+   function exists($username = '', $archive = FALSE)
+   {
+      if ($archive) $table = $this->archive_table;
+      else $table = $this->table;
+      
+      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :val1');
+      $query->bindParam('val1', $username);
+      $result = $query->execute();
+      
+      if ($result and $query->fetchColumn())
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
     * Gets the absence ID of a given username, year, month and day
     *
     * @param string $username Username to find
@@ -303,108 +390,6 @@ class Templates
          }
       }
       return $records;
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
-    * Counts a sepcific absences of a given username, year, month and day
-    *
-    * @param string $username Username to find
-    * @param string $year Year to find (YYYY)
-    * @param string $month Month to find (MM)
-    * @param string $start Start day
-    * @param string $end End day
-    * @return integer 0 or absence ID count
-    */
-   function countAbsence($username = '%', $year = '', $month = '', $absid, $start = 1, $end = 0)
-   {
-      $count = 0;
-      $mytime = $month . " ".$start."," . $year;
-      $myts = strtotime($mytime);
-      if (!$end or $end > 31) $end = date("t", $myts);
-      
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username LIKE :val1 AND year = :val2 AND month = :val3');
-      $month = sprintf("%02d", $month);
-      $query->bindParam('val1', $username);
-      $query->bindParam('val2', $year);
-      $query->bindParam('val3', sprintf("%02d", $month));
-      $result = $query->execute();
-      
-      if ($result)
-      {
-         if ($username != "%")
-         {
-            if ($row = $query->fetch())
-            {
-               for($i = $start; $i <= $end; $i++)
-               {
-                  if ($row['abs' . $i] == $absid) $count++;
-               }
-            }
-         }
-         else
-         {
-            while ( $row = $query->fetch() )
-            {
-               for($i = $start; $i <= $end; $i++)
-               {
-                  if ($row['abs' . $i] == $absid) $count++;
-               }
-            }
-         }
-      }
-      return $rc;
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
-    * Counts any absence of a given username, year, month and day
-    *
-    * @param string $username Username to find
-    * @param string $year Year to find (YYYY)
-    * @param string $month Month to find (MM)
-    * @param string $start Start day
-    * @param string $end End day
-    * @return integer 0 or absence ID count
-    */
-   function countAllAbsences($username = '%', $year = '', $month = '', $start = 1, $end = 0)
-   {
-      $count = 0;
-      $mytime = $month . " ".$start."," . $year;
-      $myts = strtotime($mytime);
-      if (!$end or $end > 31) $end = date("t", $myts);
-      
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username LIKE :val1 AND year = :val2 AND month = :val3');
-      $month = sprintf("%02d", $month);
-      $query->bindParam('val1', $username);
-      $query->bindParam('val2', $year);
-      $query->bindParam('val3', sprintf("%02d", $month));
-      $result = $query->execute();
-      
-      if ($result)
-      {
-         if ($username != "%")
-         {
-            if ($row = $query->fetch())
-            {
-               for($i = $start; $i <= $end; $i++)
-               {
-                  if ($row['abs' . $i] != 0) $count++;
-               }
-            }
-         }
-         else
-         {
-            while ( $row = $query->fetch() )
-            {
-               for($i = $start; $i <= $end; $i++)
-               {
-                  if ($row['abs' . $i] != 0) $count++;
-               }
-            }
-         }
-      }
-      return $count;
    }
    
    // ---------------------------------------------------------------------
@@ -471,6 +456,70 @@ class Templates
    
    // ---------------------------------------------------------------------
    /**
+    * Optimize table
+    *
+    * @return bool $result Query result
+    */
+   function optimize()
+   {
+      $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
+      $result = $query->execute();
+      $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->archive_table);
+      $result = $query->execute();
+      return $result;
+   }
+   // ---------------------------------------------------------------------
+   /**
+    * Replaces an absence ID in all templates.
+    *
+    * @param string $symopld Symbol to be replaced
+    * @param string $symnew Symbol to replace with
+    */
+   function replaceAbsId($absidold, $absidnew)
+   {
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table);
+      $result = $query->execute();
+      
+      if ($result)
+      {
+         while ( $row = $query->fetch() )
+         {
+            $stmt = 'UPDATE ' . $this->table . ' SET ';
+            for($i = 1; $i <= 31; $i++)
+            {
+               if ($row['abs' . $i] == $absidold)
+               {
+                  $prop = 'abs' . $i;
+                  $row[$prop] = $absidnew;
+                  $stmt .= $prop . ' = "' . $absidnew . '", ';
+               }
+            }
+            $stmt = substr($stmt, 0, -2);
+            $stmt .= ' WHERE id = "' . $row['id'] . '";';
+            $query2 = $this->db->prepare($stmt);
+            $result2 = $query2->execute();
+         }
+      }
+      return $result;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
+    * Restores all records for a given user
+    *
+    * @param string $name Username to restore
+    * @return bool $result Query result
+    */
+   function restore($username)
+   {
+      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
+      $query->bindParam('val1', $username);
+      $result = $query->execute();
+      return $result;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
     * Set an absence for a given username, year, month and day
     *
     * @param string $username Username for update
@@ -522,54 +571,5 @@ class Templates
       return $result;
    }
    
-   // ---------------------------------------------------------------------
-   /**
-    * Replaces an absence ID in all templates.
-    *
-    * @param string $symopld Symbol to be replaced
-    * @param string $symnew Symbol to replace with
-    */
-   function replaceAbsId($absidold, $absidnew)
-   {
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table);
-      $result = $query->execute();
-      
-      if ($result)
-      {
-         while ( $row = $query->fetch() )
-         {
-            $stmt = 'UPDATE ' . $this->table . ' SET ';
-            for($i = 1; $i <= 31; $i++)
-            {
-               if ($row['abs' . $i] == $absidold)
-               {
-                  $prop = 'abs' . $i;
-                  $row[$prop] = $absidnew;
-                  $stmt .= $prop . ' = "' . $absidnew . '", ';
-               }
-            }
-            $stmt = substr($stmt, 0, -2);
-            $stmt .= ' WHERE id = "' . $row['id'] . '";';
-            $query2 = $this->db->prepare($stmt);
-            $result2 = $query2->execute();
-         }
-      }
-      return $result;
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
-    * Optimize table
-    *
-    * @return bool $result Query result
-    */
-   function optimize()
-   {
-      $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
-      $result = $query->execute();
-      $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->archive_table);
-      $result = $query->execute();
-      return $result;
-   }
 }
 ?>

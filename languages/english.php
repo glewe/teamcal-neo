@@ -60,6 +60,7 @@ $LANG['role_user'] = 'User';
 $LANG['role_public'] = 'Public';
 $LANG['search'] = 'Search';
 $LANG['select_all'] = 'Select all';
+$LANG['settings'] = 'Settings';
 $LANG['to'] = 'To';
 $LANG['today'] = 'Today';
 $LANG['type'] = 'Type';
@@ -1310,7 +1311,16 @@ $LANG['roles_name'] = 'Name';
 /**
  * Statistics
  */
-$LANG['stats_title'] = 'Statistics';
+$LANG['stats_title_absences'] = 'Total Absences';
+$LANG['stats_absenceType'] = 'Absence Type';
+$LANG['stats_absenceType_comment'] = 'Select the absence type for the statistic.';
+$LANG['stats_endDate'] = 'End Date';
+$LANG['stats_endDate_comment'] = 'Select the end date for the statistic.';
+$LANG['stats_period'] = 'Period';
+$LANG['stats_period_comment'] = 'Select the period for the statistic.';
+$LANG['stats_settingsTitle'] = 'Settings for the Statistic';
+$LANG['stats_startDate'] = 'Start Date';
+$LANG['stats_startDate_comment'] = 'Select the start date for the statistic.';
 
 /**
  * Status Bar

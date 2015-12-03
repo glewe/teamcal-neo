@@ -137,7 +137,7 @@ if (isset($_POST['btn_confApply']))
    if ($_POST['sel_theme']) $C->save("theme", $_POST['sel_theme']); else $C->save("theme", "bootstrap");
    if (isset($_POST['chk_menuBarInverse']) && $_POST['chk_menuBarInverse']) $C->save("menuBarInverse", "1"); else $C->save("menuBarInverse", "0");
    if (isset($_POST['chk_allowUserTheme']) && $_POST['chk_allowUserTheme']) $C->save("allowUserTheme", "1"); else $C->save("allowUserTheme", "0");
-    
+     
    /**
     * User
     */

@@ -30,7 +30,6 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                }
             }
              
-            if ($showAlert) echo createAlertBox($alertData); 
             $tabindex = 1; $colsleft = 1; $colsright = 4;
             $xeditable = false;
             ?>

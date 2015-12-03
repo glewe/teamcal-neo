@@ -299,8 +299,8 @@ function createModalBottom($buttonID, $buttonColor, $buttonText)
    $modalbottom = '
                </div>
                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">'.$LANG['btn_cancel'].'</button>
                   <button type="submit" class="btn btn-'.$buttonColor.'" name="'.$buttonID.'">'.$buttonText.'</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">'.$LANG['btn_cancel'].'</button>
                </div>
             </div>
          </div>

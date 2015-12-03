@@ -29,7 +29,7 @@ if (isset($_GET['year']) AND isset($_GET['region']) AND isset($_GET['user']))
    $region = sanitize($_GET['region']);
    if (!$R->getById($region)) $missingData = TRUE;
    
-   $users = $U->getAllButAdmin();
+   $users = $U->getAll();
    if (strlen($_GET['user']))
    {
       $user = sanitize($_GET['user']);

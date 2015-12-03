@@ -231,6 +231,143 @@ function cleanInput($input)
 
 // ---------------------------------------------------------------------------
 /**
+ * Counts all occurences of a given absence type for a given user in a given
+ * time period
+ *
+ * @param   string $user       User to count for
+ * @param   string $absid      Absence type ID to count
+ * @param   string $from       Date to count from (including)
+ * @param   string $to         Date to count to (including)
+ * @param   boolean $useFactor Multiply count by factor
+ * @param   boolean $combined  Count other absences that count as this one
+ * @return  integer            Result of the count
+ */
+function countAbsence($user='%', $absid, $from, $to, $useFactor=FALSE, $combined=FALSE)
+{
+   global $A, $CONF, $T;
+
+   $absences=$A->getAll();
+   
+   //
+   // Figure out starting month and ending month
+   //
+   $startyear = intval(substr($from, 0, 4));
+   $startmonth = intval(substr($from, 4, 2));
+   $startday = intval(substr($from, 6, 2));
+   $endyear = intval(substr($to, 0, 4));
+   $endmonth = intval(substr($to, 4, 2));
+   $endday = intval(substr($to, 6, 2));
+
+   //
+   // Get the count for this absence type
+   //
+   $factor = $A->getFactor($absid);
+   $count = 0;
+   $firstday = $startday;
+   if ($firstday < 1 || $firstday > 31) $firstday = 1;
+
+   $year = $startyear;
+   $month = $startmonth;
+   $ymstart = intval($year.sprintf("%02d",$month));
+   $ymend= intval($endyear.sprintf("%02d",$endmonth));
+
+   //
+   // Loop through every month of the requested period
+   //
+   while ($ymstart<=$ymend)
+   {
+      if ($year==$startyear AND $month==$startmonth)
+      {
+         $lastday = 0;
+         if ($startmonth == $endmonth)
+         {
+            //
+            // We only have one month. Make sure to only count until the requested end day.
+            //
+            $lastday = $endday;
+         }
+         $count+=$T->countAbsence($user,$year,$month,$absid,$startday,$lastday);
+      }
+      else if ($year==$endyear AND $month==$endmonth)
+      {
+         $count+=$T->countAbsence($user,$year,$month,$absid,1,$endday);
+      }
+      else
+      {
+         $count+=$T->countAbsence($user,$year,$month,$absid);
+      }
+      
+      if ($month==12)
+      {
+         $year++;
+         $month = 1;
+      }
+      else
+      {
+         $month++;
+      }
+      $ymstart = intval($year.sprintf("%02d",$month));
+   }
+    
+   if ($useFactor) $count*=$factor;
+
+   //
+   // If requested, count all those absence types that count as this one
+   //
+   $otherTotal = 0;
+   if ($combined)
+   {
+      foreach ($absences as $otherAbs)
+      {
+         if ($otherId=$otherAbs['counts_as'] AND $otherId==$absid)
+         {
+            $otherCount = 0;
+            $otherFactor = $otherAbs['factor'];
+            $year = $startyear;
+            $month = $startmonth;
+            $ymstart = intval($year.sprintf("%02d",$month));
+            $ymend= intval($endyear.sprintf("%02d",$endmonth));
+            while ($ymstart<=$ymend)
+            {
+               if ($year==$startyear AND $month==$startmonth)
+               {
+                  $otherCount+=$T->countAbsence($user,$year,$month,$otherAbs['id'],$startday);
+               }
+               else if ($year==$endyear AND $month==$endmonth)
+               {
+                  $otherCount+=$T->countAbsence($user,$year,$month,$otherAbs['id'],1,$endday);
+               }
+               else
+               {
+                  $otherCount+=$T->countAbsence($user,$year,$month,$otherAbs['id']);
+               }
+                
+               if ($month==12)
+               {
+                  $year++;
+                  $month = 1;
+               }
+               else
+               {
+                  $month++;
+               }
+               $ymstart = intval($year.sprintf("%02d",$month));
+            }
+
+            //
+            // A combined count always uses the factor. Doesn't make sense otherwise.
+            //
+            $otherTotal += $otherCount * $otherFactor;
+         }
+      }
+   }
+
+   $count += $otherTotal;
+   return $count;
+}
+
+// ---------------------------------------------------------------------------
+/**
  * Computes several date related information for a given date
  *
  * @param string $year 4 digit number of the year (example: 2014)

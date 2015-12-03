@@ -108,7 +108,7 @@ if (!$allowed)
  * ========================================================================
  * Initialize variables
  */
-$users = $U->getAllButAdmin();
+$users = $U->getAll();
 $inputAlert = array();
 $currDate = date('Y-m-d');
 $calData['dateInfo'] = dateInfo($calData['year'], $calData['month']);
