@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 0.3.00
+ * @version 0.3.002
  * @author George Lewe
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -207,7 +207,7 @@ $CONF['app_jqueryui_dir'] = 'js/jquery/ui/1.10.4/';
  * !Do not change this information. It is protected by the license agreement!
  */
 $CONF['app_name'] = "TeamCal Neo";
-$CONF['app_version'] = "0.3.00";
+$CONF['app_version'] = "0.3.002";
 $CONF['app_help_root'] = "https://georgelewe.atlassian.net/wiki/display/CP10/";
 $CONF['app_version_date'] = "2015-02-07";
 $CONF['app_year'] = "2014";
