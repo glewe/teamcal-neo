@@ -5,7 +5,7 @@
  * Statistics page controller
  *
  * @category TeamCal Neo 
- * @version 0.3.002
+ * @version 0.3.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -34,7 +34,6 @@ if (!isAllowed($controller))
  * ========================================================================
  * Load controller stuff
  */
-$users = $U->getAll('lastname', 'firstname', 'DESC', $archive = false, $includeAdmin = false);
 
 /**
  * ========================================================================
@@ -58,11 +57,20 @@ $statsData['labels'] = "";
 $statsData['data'] = "";
 
 $statsData['absences'] = $A->getAll();
+$statsData['groups'] = $G->getAll();
 
-$statsData['absence'] = 'all';
-$statsData['period'] = 'quarter';
+$statsData['absid'] = 'all';
+$statsData['groupid'] = 'all';
+$statsData['period'] = 'year';
 $statsData['from'] = date("Y") . '-01-01';
 $statsData['to'] = date("Y") . '-12-31';
+$statsData['scale'] = 'auto';
+$statsData['scaleSmart'] = '';
+$statsData['scaleMax'] = '';
+$statsData['chartjsScaleSettings'] = "scaleOverride: false";
+
+
+$users = $U->getAll('lastname', 'firstname', 'DESC', $archive = false, $includeAdmin = false);
 
 /**
  * ========================================================================
@@ -81,8 +89,10 @@ if (!empty($_POST))
    $inputError = false;
    if (isset($_POST['btn_apply']))
    {
-      if (!formInputValid('txt_from', 'required|date')) $inputError = true;
-      if (!formInputValid('txt_to', 'required|date')) $inputError = true;
+      if (!formInputValid('txt_from', 'date')) $inputError = true;
+      if (!formInputValid('txt_to', 'date')) $inputError = true;
+      if (!formInputValid('txt_scaleSmart', 'numeric')) $inputError = true;
+      if (!formInputValid('txt_scaleMax', 'numeric')) $inputError = true;
    }
 
    if (!$inputError)
@@ -94,10 +104,57 @@ if (!empty($_POST))
        */
       if (isset($_POST['btn_apply']))
       {
-         $statsData['absence'] = $_POST['sel_absence'];
+         //
+         // Read absence type selection
+         //
+         $statsData['absid'] = $_POST['sel_absence'];
+         
+         //
+         // Read group selection
+         //
+         $statsData['groupid'] = $_POST['sel_group'];
+         
+         //
+         // Read period selection
+         //
          $statsData['period'] = $_POST['sel_period'];
-         $statsData['from'] = $_POST['txt_from'];
-         $statsData['to'] = $_POST['txt_to'];
+         if ($statsData['period']=='custom')
+         {
+            $statsData['from'] = $_POST['txt_from'];
+            $statsData['to'] = $_POST['txt_to'];
+         }
+         
+         //
+         // Read scale selection
+         //
+         $statsData['scale'] = $_POST['sel_scale'];
+         if ($statsData['scale']=='custom')
+         {
+            if (strlen($_POST['txt_scaleMax']))
+            {
+               $statsData['scaleMax'] = $_POST['txt_scaleMax'];
+            }
+            else
+            {
+               $statsData['scaleMax'] = '30'; // Default value if none was given
+            }
+            $statsData['chartjsScaleSettings'] = "scaleOverride: true,scaleSteps: ".$statsData['scaleMax'].",scaleStepWidth: 1,scaleStartValue: 0";
+         }
+         elseif ($statsData['scale']=='smart')
+         {
+            if (strlen($_POST['txt_scaleSmart']))
+            {
+               $statsData['scaleSmart'] = $_POST['txt_scaleSmart'];
+            }
+            else
+            {
+               $statsData['scaleSmart'] = '4'; // Default value if none was given
+            }
+         }
+         else 
+         {
+            $statsData['chartjsScaleSettings'] = "scaleOverride: false";
+         }
       }
    }
    else
@@ -168,35 +225,56 @@ switch ($statsData['period'])
       break;
 
    case 'custom':
+      // 
       // Nothing to do. POST variables already read.
+      //
       break;
 }
 
 /**
- * Build the title pieces for absence type and period
+ * Build the name pieces for the buttons
  */
-if ($statsData['absence']=='all')
-   $statsData['titleAbsenceType'] = $LANG['all'];
+if ($statsData['absid']=='all')
+{
+   $statsData['absName'] = $LANG['all'];
+}
 else 
-   $statsData['titleAbsenceType'] = $A->getName($statsData['absence']);
-    
-$statsData['titlePeriod'] = $statsData['from'] . ' =&gt; ' . $statsData['from']; 
+{
+   $statsData['absName'] = $A->getName($statsData['absid']);
+}
+
+if ($statsData['groupid'] == "all")
+{
+   $statsData['groupName'] = $LANG['all'];
+   $users = $U->getAll('lastname', 'firstname', 'DESC', $archive = false, $includeAdmin = false);
+}
+else
+{
+   $statsData['groupName'] = $G->getNameById($_POST['sel_group']);
+   $users = $UG->getAllForGroup($_POST['sel_group']);
+}
+
+$statsData['periodName'] = $statsData['from'] . ' - ' . $statsData['to']; 
+
+$statsData['scaleName'] = $LANG[$statsData['scale']];
 
 /**
  * Load active users
  */
 $statsData['users'] = array();
+$labels = array();
+$values = array();
 foreach ($users as $user)
 {
    $U->findByName($user['username']);
    
    if ( $U->firstname!="" ) 
-      $statsData['labels'] .= '"' . $U->lastname.", ".$U->firstname . '",';
+      $labels[] = '"' . $U->lastname.", ".$U->firstname . '"';
    else 
-      $statsData['labels'] .= '"' . $U->lastname . '",';
+      $labels[] = '"' . $U->lastname . '"';
 
    $count = 0;
-   if ($statsData['absence'] == 'all')
+   if ($statsData['absid'] == 'all')
    {
       foreach ($statsData['absences'] as $abs)
       {
@@ -212,18 +290,23 @@ foreach ($users as $user)
    {
       $countFrom = str_replace('-', '' , $statsData['from']);
       $countTo = str_replace('-', '' , $statsData['to']);
-      $count += countAbsence($user['username'], $statsData['absence'], $countFrom, $countTo, false, false);
+      $count += countAbsence($user['username'], $statsData['absid'], $countFrom, $countTo, false, false);
    }
 
-   // Remove last comma
-   $statsData['data'] .= $count.',';
+   // Add count to array
+   $values[] = $count;
 }
 
 /**
  * Build Chart.js labels and data
  */
-$statsData['labels'] = rtrim($statsData['labels'],',');
-$statsData['data'] = rtrim($statsData['data'],',');
+$statsData['labels'] = implode(',', $labels);
+$statsData['data'] = implode(',', $values);
+if ($statsData['scale']=='smart')
+{
+   $scaleSteps = max($values) + $statsData['scaleSmart'];
+   $statsData['chartjsScaleSettings'] = "scaleOverride: true,scaleSteps: ".$scaleSteps.",scaleStepWidth: 1,scaleStartValue: 0";
+}
 
 /**
  * ========================================================================

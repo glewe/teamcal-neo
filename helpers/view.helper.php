@@ -5,7 +5,7 @@
  * Collection of view related helpers
  *
  * @category TeamCal Neo 
- * @version 0.3.002
+ * @version 0.3.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -299,7 +299,7 @@ function createModalBottom($buttonID, $buttonColor, $buttonText)
    $modalbottom = '
                </div>
                <div class="modal-footer">
-                  <button type="submit" class="btn btn-'.$buttonColor.'" name="'.$buttonID.'">'.$buttonText.'</button>
+                  <button type="submit" class="btn btn-'.$buttonColor.'" name="'.$buttonID.'" style="margin-top: 4px;">'.$buttonText.'</button>
                   <button type="button" class="btn btn-default" data-dismiss="modal">'.$LANG['btn_cancel'].'</button>
                </div>
             </div>

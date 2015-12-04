@@ -5,7 +5,7 @@
  * Language file (German)
  *
  * @category TeamCal Neo 
- * @version 0.3.002
+ * @version 0.3.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -19,8 +19,10 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 $LANG['absence'] = 'Abwesenheitstyp';
 $LANG['action'] = 'Aktion';
 $LANG['all'] = 'Alle';
+$LANG['auto'] = 'Automatisch';
 $LANG['avatar'] = 'Avatar';
 $LANG['back_to_top'] = 'Zur&uuml;ck zum Anfang';
+$LANG['custom'] = 'Individuell';
 $LANG['description'] = 'Beschreibung';
 $LANG['display'] = 'Anzeige';
 $LANG['from'] = 'Von';
@@ -58,9 +60,11 @@ $LANG['role_manager'] = 'Manager';
 $LANG['role_assistant'] = 'Assistent';
 $LANG['role_user'] = 'Nutzer';
 $LANG['role_public'] = '&Ouml;ffentlich';
+$LANG['scale'] = 'Skala';
 $LANG['search'] = 'Suche';
 $LANG['select_all'] = 'Alle ausw&auml;hlen';
 $LANG['settings'] = 'Einstellungen';
+$LANG['smart'] = 'Smart';
 $LANG['to'] = 'Bis';
 $LANG['today'] = 'Heute';
 $LANG['type'] = 'Typ';
@@ -1312,15 +1316,29 @@ $LANG['roles_name'] = 'Name';
  * Statistics
  */
 $LANG['stats_title_absences'] = 'Gesamte Abwesenheiten';
-$LANG['stats_absenceType'] = 'Abwesenheitstype';
+$LANG['stats_absenceType'] = 'Abwesenheitstyp';
 $LANG['stats_absenceType_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Statistik.';
-$LANG['stats_endDate'] = 'Ende Datum';
-$LANG['stats_endDate_comment'] = 'W&auml;hle das Enddatum f&uuml;r die Statistik.';
+$LANG['stats_endDate'] = 'Eigenes Ende Datum';
+$LANG['stats_endDate_comment'] = 'W&auml;hle ein eigenes Enddatum f&uuml;r die Statistik. Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "'.$LANG['custom'].'" ausgew&auml;hlt sein.';
+$LANG['stats_modalAbsenceTitle'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Statistik.';
+$LANG['stats_modalGroupTitle'] = 'W&auml;hle die Gruppe f&uuml;r die Statistik.';
+$LANG['stats_modalPeriodTitle'] = 'W&auml;hle den Zeitraum f&uuml;r die Statistik.';
+$LANG['stats_modalScaleTitle'] = 'W&auml;hle die Skala f&uuml;r die Statistik.';
 $LANG['stats_period'] = 'Zeitraum';
 $LANG['stats_period_comment'] = 'W&auml;hle den Zeitraum f&uuml;r die Statistik.';
-$LANG['stats_settingsTitle'] = 'Einstellungen f&uuml;r die Statistik';
-$LANG['stats_startDate'] = 'Start Datum';
-$LANG['stats_startDate_comment'] = 'W&auml;hle das Startdatum f&uuml;r die Statistik.';
+$LANG['stats_scale'] = 'Skala';
+$LANG['stats_scale_comment'] = 'W&auml;hle die Skala f&uuml;r das Diagramm.
+      <ul>
+         <li>Automatisch: Der Maximalwert des Diagramms ist der maximal gelesene Wert.</li>
+         <li>Smart: Der Maximalwert des Diagramms ist der maximal gelesene Wert plus 5.</li>
+         <li>Individuell: Der Maximalwert des Diagramms kann im Feld unten selbst angegeben werden.</li>
+      </ul>';
+$LANG['stats_scale_max'] = 'Maximalwert';
+$LANG['stats_scale_max_comment'] = 'W&auml;hle einen eigenen Maximalwert f&uuml;r das Diagramm. Standard ist 30.<br>Damit dieser Wert angewendet wird, muss in der Skala Liste "'.$LANG['custom'].'" ausgew&auml;hlt sein.';
+$LANG['stats_scale_smart'] = 'Smartwert';
+$LANG['stats_scale_smart_comment'] = 'Der Smartwert wird zum gr&ouml;&szlig;ten gelesenen Wert addiert. Die Summe wird als Maximalwert der Diagrammskala benutzt. Standard ist 4.<br>Damit dieser Wert angewendet wird, muss in der Skala Liste "'.$LANG['smart'].'" ausgew&auml;hlt sein.';
+$LANG['stats_startDate'] = 'Eigenes Start Datum';
+$LANG['stats_startDate_comment'] = 'W&auml;hle ein eigenes Startdatum f&uuml;r die Statistik.<br>Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "'.$LANG['custom'].'" ausgew&auml;hlt sein.';
 
 /**
  * Status Bar

@@ -3,7 +3,7 @@
  * index.php
  * 
  * @category TeamCal Neo 
- * @version 0.3.002
+ * @version 0.3.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -39,6 +39,8 @@ spl_autoload_register('my_autoloader');
 /**
  * CONFIG
  */
+require_once (WEBSITE_ROOT . '/config/config.db.php');
+require_once (WEBSITE_ROOT . '/config/config.controller.php');
 require_once (WEBSITE_ROOT . '/config/config.app.php');
 
 //=============================================================================

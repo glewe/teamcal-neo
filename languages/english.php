@@ -5,7 +5,7 @@
  * Language file (English)
  *
  * @category TeamCal Neo 
- * @version 0.3.002
+ * @version 0.3.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -19,8 +19,10 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 $LANG['absence'] = 'Absence Type';
 $LANG['action'] = 'Action';
 $LANG['all'] = 'All';
+$LANG['auto'] = 'Automatic';
 $LANG['avatar'] = 'Avatar';
 $LANG['back_to_top'] = 'Back to top';
+$LANG['custom'] = 'Custom';
 $LANG['description'] = 'Description';
 $LANG['display'] = 'Display';
 $LANG['from'] = 'From';
@@ -58,9 +60,11 @@ $LANG['role_manager'] = 'Manager';
 $LANG['role_assistant'] = 'Assistant';
 $LANG['role_user'] = 'User';
 $LANG['role_public'] = 'Public';
+$LANG['scale'] = 'Scale';
 $LANG['search'] = 'Search';
 $LANG['select_all'] = 'Select all';
 $LANG['settings'] = 'Settings';
+$LANG['smart'] = 'Smart';
 $LANG['to'] = 'To';
 $LANG['today'] = 'Today';
 $LANG['type'] = 'Type';
@@ -1315,12 +1319,26 @@ $LANG['stats_title_absences'] = 'Total Absences';
 $LANG['stats_absenceType'] = 'Absence Type';
 $LANG['stats_absenceType_comment'] = 'Select the absence type for the statistic.';
 $LANG['stats_endDate'] = 'End Date';
-$LANG['stats_endDate_comment'] = 'Select the end date for the statistic.';
+$LANG['stats_endDate_comment'] = 'Select a custom end date for the statistic. This date only applies if "'.$LANG['custom'].'" was selected in the Period list.';
+$LANG['stats_modalAbsenceTitle'] = 'Select Absence Type for the Statistic';
+$LANG['stats_modalGroupTitle'] = 'Select Group for the Statistic';
+$LANG['stats_modalPeriodTitle'] = 'Select Period for the Statistic';
+$LANG['stats_modalScaleTitle'] = 'Select the Scale for the Statistic';
 $LANG['stats_period'] = 'Period';
 $LANG['stats_period_comment'] = 'Select the period for the statistic.';
-$LANG['stats_settingsTitle'] = 'Settings for the Statistic';
+$LANG['stats_scale'] = 'Scale';
+$LANG['stats_scale_comment'] = 'Select the scale for the diagram.
+      <ul>
+         <li>Automatic: The diagram\'s max value is the maximal absence value.</li>
+         <li>Smart: The diagram\'s max value is the maximal absence value plus 5.</li>
+         <li>Custom: The diagram\'s max value can be specified in the field below.</li>
+      </ul>';
+$LANG['stats_scale_max'] = 'Max Value';
+$LANG['stats_scale_max_comment'] = 'Select a custom max value for the diagram. Default value is 30.<br>This value only applies if "'.$LANG['custom'].'" was selected in the Scale list.';
+$LANG['stats_scale_smart'] = 'Smart Value';
+$LANG['stats_scale_smart_comment'] = 'The smart value is added to the maximal value read and the sum is used as the diagram\'s scale maximum. Default value is 4.<br>This value only applies if "'.$LANG['smart'].'" was selected in the Scale list.';
 $LANG['stats_startDate'] = 'Start Date';
-$LANG['stats_startDate_comment'] = 'Select the start date for the statistic.';
+$LANG['stats_startDate_comment'] = 'Select a custom start date for the statistic.<br>This date only applies if "'.$LANG['custom'].'" was selected in the Period list.';
 
 /**
  * Status Bar

@@ -5,7 +5,7 @@
  * The view of the statitics page
  *
  * @category TeamCal Neo 
- * @version 0.3.002
+ * @version 0.3.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -35,83 +35,170 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
 
             <input name="hidden_absence" type="hidden" class="text" value="<?=$statsData['absence']?>">
+            <input name="hidden_groupid" type="hidden" class="text" value="<?=$statsData['groupid']?>">
             <input name="hidden_period" type="hidden" class="text" value="<?=$statsData['period']?>">
             <input name="hidden_from" type="hidden" class="text" value="<?=$statsData['from']?>">
             <input name="hidden_to" type="hidden" class="text" value="<?=$statsData['to']?>">
 
             <div class="page-menu">
-               <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSettings"><?=$LANG['settings']?></button>
+               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalAbsence"><?=$LANG['absence'] . ': ' . $statsData['absName']?></button>
+               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalGroup"><?=$LANG['group'] . ': ' . $statsData['groupName']?></button>
+               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalPeriod"><?=$LANG['period'] . ': ' . $statsData['periodName']?></button>
+               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalScale"><?=$LANG['scale'] . ': ' . $statsData['scaleName']?></button>
             </div>
 
+            <!-- Modal: Absence Type -->
+            <?=createModalTop('modalAbsence', $LANG['stats_modalAbsenceTitle'])?>
+               <div>
+                  <span class="text-bold"><?=$LANG['stats_absenceType']?></span><br>
+                  <span class="text-normal"><?=$LANG['stats_absenceType_comment']?></span>
+                  <select id="user" class="form-control" name="sel_absence" tabindex="<?=$tabindex++?>">
+                     <option value="all" <?=(($statsData['absid']=='all')?"selected":"")?>><?=$LANG['all']?></option>
+                     <?php foreach($statsData['absences'] as $abs) { ?>
+                        <option value="<?=$abs['id']?>" <?=(($statsData['absid']==$abs['id'])?"selected":"")?>><?=$abs['name']?></option>
+                     <?php } ?>
+                  </select>
+               </div>
+            <?=createModalBottom('btn_apply', 'success', $LANG['btn_apply'])?>
+
+              <!-- Modal: Group -->
+            <?=createModalTop('modalGroup', $LANG['stats_modalGroupTitle'])?>
+               <select id="group" class="form-control" name="sel_group" tabindex="<?=$tabindex++?>">
+                  <option value="all"<?=(($statsData['groupid'] == 'all')?' selected="selected"':'')?>><?=$LANG['all']?></option>
+                  <?php foreach($statsData['groups'] as $grp) { ?>
+                     <option value="<?=$grp['id']?>" <?=(($statsData['groupid'] == $grp['id'])?'selected="selected"':'')?>><?=$grp['name']?></option>
+                  <?php } ?>
+               </select>
+            <?=createModalBottom('btn_apply', 'success', $LANG['btn_apply'])?>
+  
             <!-- Modal: Period -->
-            <?=createModalTop('modalSettings', $LANG['stats_settingsTitle'])?>
+            <?=createModalTop('modalPeriod', $LANG['stats_modalPeriodTitle'])?>
                <div>
-                  <div style="width: 60%; float: left; margin-bottom: 20px;">
-                     <span class="text-bold"><?=$LANG['stats_absenceType']?></span><br>
-                     <span class="text-normal"><?=$LANG['stats_absenceType_comment']?></span>
-                  </div>
-                  <div style="width: 40%; margin-bottom: 20px;">
-                     <select id="user" class="form-control" name="sel_absence" tabindex="<?=$tabindex++?>">
-                        <option value="all" <?=(($statsData['absence']=='all')?"selected":"")?>><?=$LANG['all']?></option>
-                        <?php foreach($statsData['absences'] as $abs) { ?>
-                           <option value="<?=$abs['id']?>" <?=(($statsData['absence']==$abs['id'])?"selected":"")?>><?=$abs['name']?></option>
-                        <?php } ?>
-                     </select>
-                  </div>
+                  <span class="text-bold"><?=$LANG['stats_period']?></span><br>
+                  <span class="text-normal"><?=$LANG['stats_period_comment']?></span>
+                  <select id="sel_period" class="form-control" name="sel_period" tabindex="<?=$tabindex++?>">
+                     <option value="year" <?=(($statsData['period']=='year')?"selected":"")?>><?=$LANG['period_year']?></option>
+                     <option value="half" <?=(($statsData['period']=='half')?"selected":"")?>><?=$LANG['period_half']?></option>
+                     <option value="quarter" <?=(($statsData['period']=='quarter')?"selected":"")?>><?=$LANG['period_quarter']?></option>
+                     <option value="month" <?=(($statsData['period']=='month')?"selected":"")?>><?=$LANG['period_month']?></option>
+                     <option value="custom" <?=(($statsData['period']=='custom')?"selected":"")?>><?=$LANG['custom']?></option>
+                  </select>
+                  <script>
+                  $( "#sel_period" ).change(function() 
+                  {
+                     if ($(this).val() == 'custom')
+                     {
+                        $('#from').prop('disabled', false);
+                        $('#to').prop('disabled', false);
+                     }
+                     else
+                     {
+                        $('#from').prop('disabled', true);
+                        $('#to').prop('disabled', true);
+                     }
+                  });
+                  </script>
                </div>
                <div>&nbsp;</div>
+               
                <div>
-                  <div style="width: 60%; float: left; margin-bottom: 20px;">
-                     <span class="text-bold"><?=$LANG['stats_period']?></span><br>
-                     <span class="text-normal"><?=$LANG['stats_period_comment']?></span>
-                  </div>
-                  <div style="width: 40%; margin-bottom: 20px;">
-                     <select id="user" class="form-control" name="sel_period" tabindex="<?=$tabindex++?>">
-                        <option value="year" <?=(($statsData['period']=='year')?"selected":"")?>><?=$LANG['period_year']?></option>
-                        <option value="half" <?=(($statsData['period']=='half')?"selected":"")?>><?=$LANG['period_half']?></option>
-                        <option value="quarter" <?=(($statsData['period']=='quarter')?"selected":"")?>><?=$LANG['period_quarter']?></option>
-                        <option value="month" <?=(($statsData['period']=='month')?"selected":"")?>><?=$LANG['period_month']?></option>
-                        <option value="custom" <?=(($statsData['period']=='custom')?"selected":"")?>><?=$LANG['period_custom']?></option>
-                     </select>
-                  </div>
-               </div>
-               <div>&nbsp;</div>
-               <div>
-                  <div style="width: 60%; float: left; margin-bottom: 20px;">
-                     <span class="text-bold"><?=$LANG['stats_startDate']?></span><br>
-                     <span class="text-normal"><?=$LANG['stats_startDate_comment']?></span>
-                  </div>
-                  <div style="width: 40%; margin-bottom: 20px;">
-                     <input id="from" class="form-control" tabindex="<?=$tabindex++?>" name="txt_from" type="text" maxlength="10" value="<?=$statsData['from']?>">
-                     <script type="text/javascript">$(function() { $( "#from" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });</script>
-                  </div>
+                  <span class="text-bold"><?=$LANG['stats_startDate']?></span><br>
+                  <span class="text-normal"><?=$LANG['stats_startDate_comment']?></span>
+                  <input id="from" class="form-control" tabindex="<?=$tabindex++?>" name="txt_from" type="text" maxlength="10" value="<?=$statsData['from']?>" <?=(($statsData['period']=='custom')?"":"disabled")?>>
+                  <script>
+                     $(function(){ 
+                        $( "#from" ).datepicker({ 
+                           changeMonth: true, 
+                           changeYear: true, 
+                           dateFormat: "yy-mm-dd" 
+                        });
+                     });
+                  </script>
                   <?php if ( isset($inputAlert["from"]) AND strlen($inputAlert["from"]) ) { ?> 
                   <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['from']?></div>
                   <?php } ?>
                </div>
                <div>&nbsp;</div>
+               
                <div>
-                  <div style="width: 60%; float: left; margin-bottom: 20px;">
-                     <span class="text-bold"><?=$LANG['stats_endDate']?></span><br>
-                     <span class="text-normal"><?=$LANG['stats_endDate_comment']?></span>
-                  </div>
-                  <div style="width: 40%; margin-bottom: 20px;">
-                     <input id="to" class="form-control" tabindex="<?=$tabindex++?>" name="txt_to" type="text" maxlength="10" value="<?=$statsData['to']?>">
-                     <script type="text/javascript">$(function() { $( "#to" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });</script>
-                  </div>
+                  <span class="text-bold"><?=$LANG['stats_endDate']?></span><br>
+                  <span class="text-normal"><?=$LANG['stats_endDate_comment']?></span>
+                  <input id="to" class="form-control" tabindex="<?=$tabindex++?>" name="txt_to" type="text" maxlength="10" value="<?=$statsData['to']?>" <?=(($statsData['period']=='custom')?"":"disabled")?>>
+                  <script>
+                     $(function(){ 
+                        $( "#to" ).datepicker({ 
+                           changeMonth: true, 
+                           changeYear: true, 
+                           dateFormat: "yy-mm-dd" 
+                        });
+                     });
+                  </script>
                   <?php if ( isset($inputAlert["to"]) AND strlen($inputAlert["to"]) ) { ?> 
                   <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['to']?></div>
                   <?php } ?>
                </div>
             <?=createModalBottom('btn_apply', 'success', $LANG['btn_apply'])?>
             
+            <!-- Modal: Scale -->
+            <?=createModalTop('modalScale', $LANG['stats_modalScaleTitle'])?>
+               <div>
+                  <span class="text-bold"><?=$LANG['stats_scale']?></span><br>
+                  <span class="text-normal"><?=$LANG['stats_scale_comment']?></span>
+                  <select id="sel_scale" class="form-control" name="sel_scale" tabindex="<?=$tabindex++?>">
+                     <option value="auto" <?=(($statsData['scale']=='auto')?"selected":"")?>><?=$LANG['auto']?></option>
+                     <option value="smart" <?=(($statsData['scale']=='smart')?"selected":"")?>><?=$LANG['smart']?></option>
+                     <option value="custom" <?=(($statsData['scale']=='custom')?"selected":"")?>><?=$LANG['custom']?></option>
+                  </select>
+                  <script>
+                  $( "#sel_scale" ).change(function() 
+                  {
+                     if ($(this).val() == 'custom')
+                     {
+                        $('#scaleSmart').prop('disabled', true);
+                        $('#scaleMax').prop('disabled', false);
+                     }
+                     else if ($(this).val() == 'smart')
+                     {
+                        $('#scaleSmart').prop('disabled', false);
+                        $('#scaleMax').prop('disabled', true);
+                     }
+                     else
+                     {
+                        $('#scaleSmart').prop('disabled', true);
+                        $('#scaleMax').prop('disabled', true);
+                     }
+                  });
+                  </script>
+               </div>
+               <div>&nbsp;</div>
+               
+               <div>
+                  <span class="text-bold"><?=$LANG['stats_scale_smart']?></span><br>
+                  <span class="text-normal"><?=$LANG['stats_scale_smart_comment']?></span>
+                  <input id="scaleSmart" class="form-control" tabindex="<?=$tabindex++?>" name="txt_scaleSmart" type="text" maxlength="3" value="<?=$statsData['scaleSmart']?>" <?=(($statsData['scale']=='smart')?"":"disabled")?>>
+                  <?php if ( isset($inputAlert["scaleSmart"]) AND strlen($inputAlert["scaleSmart"]) ) { ?> 
+                  <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['scaleSmart']?></div>
+                  <?php } ?>
+               </div>
+               <div>&nbsp;</div>
+               
+               <div>
+                  <span class="text-bold"><?=$LANG['stats_scale_max']?></span><br>
+                  <span class="text-normal"><?=$LANG['stats_scale_max_comment']?></span>
+                  <input id="scaleMax" class="form-control" tabindex="<?=$tabindex++?>" name="txt_scaleMax" type="text" maxlength="3" value="<?=$statsData['scaleMax']?>" <?=(($statsData['scale']=='custom')?"":"disabled")?>>
+                  <?php if ( isset($inputAlert["scaleMax"]) AND strlen($inputAlert["scaleMax"]) ) { ?> 
+                  <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['scaleMax']?></div>
+                  <?php } ?>
+               </div>
+               <div>&nbsp;</div>
+               
+            <?=createModalBottom('btn_apply', 'success', $LANG['btn_apply'])?>
+            
          </form>
 
          <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
             <div class="panel-heading">
-               <i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['stats_title_absences']?>:&nbsp;
-               <span class="label label-default"><?=$statsData['titleAbsenceType']?></span>&nbsp;
-               <span class="label label-info"><?=$statsData['titlePeriod']?></span>
+               <i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['stats_title_absences']?>
             </div>
          </div>
          
@@ -135,6 +222,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                window.myBar = new Chart(ctx).HorizontalBar(barChartData, 
                   {
                      responsive: true,
+                     <?=$statsData['chartjsScaleSettings']?>
                   }
                );
             }
