@@ -408,7 +408,6 @@ table.month td.m-day {
    padding-bottom: 0px;
 }
 
-
 /**
  * Responsive setup of month table
  */
@@ -568,4 +567,9 @@ table.year div.weeknumber {
    margin-left: -4px;
    margin-bottom: -8px;
    text-align: left;
+}
+
+@media print
+{
+   .noprint { display:none; }
 }

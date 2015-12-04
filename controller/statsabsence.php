@@ -64,11 +64,17 @@ $statsData['groupid'] = 'all';
 $statsData['period'] = 'year';
 $statsData['from'] = date("Y") . '-01-01';
 $statsData['to'] = date("Y") . '-12-31';
-$statsData['scale'] = 'auto';
-$statsData['scaleSmart'] = '';
+$statsData['scale'] = $C->read('statsScale');
+if ($statsData['scale']=='smart')
+{
+   $statsData['scaleSmart'] = '4';
+}
+else 
+{
+   $statsData['scaleSmart'] = '';
+}
 $statsData['scaleMax'] = '';
 $statsData['chartjsScaleSettings'] = "scaleOverride: false";
-
 
 $users = $U->getAll('lastname', 'firstname', 'DESC', $archive = false, $includeAdmin = false);
 

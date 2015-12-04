@@ -66,9 +66,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <?php } ?>
                         <?php if ($menuData['mnu_view_stats']) { ?>
                         <li class="dropdown-submenu">
-                           <a tabindex="-1" href="#"><i class="fa fa-bar-chart fa-lg text-warning fa-menu"></i><?=$LANG['mnu_view_statistics']?></a>
+                           <a tabindex="-1" href="#"><i class="fa fa-bar-chart fa-lg text-warning fa-menu"></i><?=$LANG['mnu_view_stats']?></a>
                            <ul class="dropdown-menu">
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['statsabsence']->name?>"><i class="fa fa-<?=$CONF['controllers']['statsabsence']->faIcon?> fa-lg text-<?=$CONF['controllers']['statsabsence']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_statistics']?></a></li>
+                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['statsabsence']->name?>"><i class="fa fa-<?=$CONF['controllers']['statsabsence']->faIcon?> fa-lg text-<?=$CONF['controllers']['statsabsence']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_stats_absences']?></a></li>
                            </ul>
                         </li>
                         <?php } ?>

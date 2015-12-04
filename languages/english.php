@@ -484,6 +484,7 @@ $LANG['config_title'] = $appTitle.' Configuration';
 $LANG['config_email'] = 'E-mail';
 $LANG['config_login'] = 'Login';
 $LANG['config_registration'] = 'Registration';
+$LANG['config_stats'] = 'Statistics';
 $LANG['config_system'] = 'System';
 $LANG['config_tab_theme'] = 'Theme';
 $LANG['config_user'] = 'User';
@@ -595,6 +596,12 @@ $LANG['config_showAvatars_comment'] = 'Checking this option will show a user ava
       Note: This feature only works when user icons are switched on.';
 $LANG['config_showUserIcons'] = 'Show User Icons';
 $LANG['config_showUserIcons_comment'] = 'Checking this option will show user icons to the left of the users\' name indicating the users\' role and gender.';
+$LANG['config_statsScale'] = 'Statistics Scale';
+$LANG['config_statsScale_comment'] = 'Select a scale option for the statistics pages.
+      <ul>
+         <li>Automatic: The diagram\'s max value is the actual maximal value.</li>
+         <li>Smart: The diagram\'s max value is the actual maximal value plus 4.</li>
+      </ul>';
 $LANG['config_theme'] = 'Default Theme';
 $LANG['config_theme_comment'] = 'Select a theme to change the looks of the application. You can create your own skin by making a renamed
       copy of any of the other theme folders in the \'themes\' directory and adjust the styles to your liking. Your new directory will
@@ -931,7 +938,8 @@ $LANG['mnu_app_language'] = 'Language';
 $LANG['mnu_view'] = 'View';
 $LANG['mnu_view_calendar'] = 'Calendar (Month)';
 $LANG['mnu_view_messages'] = 'Messages';
-$LANG['mnu_view_statistics'] = 'Statistics';
+$LANG['mnu_view_stats'] = 'Statistics';
+$LANG['mnu_view_stats_absences'] = 'Absence Statistics';
 $LANG['mnu_view_year'] = 'Calendar (Year)';
 $LANG['mnu_edit'] = 'Edit';
 $LANG['mnu_edit_calendaredit'] = 'Personal Calendar';
@@ -1330,7 +1338,7 @@ $LANG['stats_scale'] = 'Scale';
 $LANG['stats_scale_comment'] = 'Select the scale for the diagram.
       <ul>
          <li>Automatic: The diagram\'s max value is the maximal absence value.</li>
-         <li>Smart: The diagram\'s max value is the maximal absence value plus 5.</li>
+         <li>Smart: The diagram\'s max value is the maximal absence value plus 4.</li>
          <li>Custom: The diagram\'s max value can be specified in the field below.</li>
       </ul>';
 $LANG['stats_scale_max'] = 'Max Value';

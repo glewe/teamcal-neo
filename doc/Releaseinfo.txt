@@ -12,6 +12,7 @@ BUGFIXES
 01 Controller permissions
 
 CHANGES
+01 Config paramater statsScale
 
 
 ------------------------------------------------------------------------------

@@ -52,6 +52,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <li><a href="#system" data-toggle="tab"><?=$LANG['config_system']?></a></li>
                         <li><a href="#theme" data-toggle="tab"><?=$LANG['config_tab_theme']?></a></li>
                         <li><a href="#usericons" data-toggle="tab"><?=$LANG['config_user']?></a></li>
+                        <li><a href="#stats" data-toggle="tab"><?=$LANG['config_stats']?></a></li>
                      </ul>
 
                      <div id="myTabContent" class="tab-content">
@@ -127,6 +128,17 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <div class="panel panel-default">
                               <div class="panel-body">
                                  <?php foreach($configData['user'] as $formObject) {
+                                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                                 } ?>
+                              </div>
+                           </div>
+                        </div>
+                        
+                        <!-- Statistics tab -->
+                        <div class="tab-pane fade" id="stats">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                                 <?php foreach($configData['stats'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>

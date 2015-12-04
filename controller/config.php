@@ -148,6 +148,11 @@ if (isset($_POST['btn_confApply']))
    $C->save("avatarMaxSize",intval($_POST['txt_avatarMaxSize']));
     
    /**
+    * Statistics
+    */
+   if ($_POST['sel_statsScale']) $C->save("statsScale", $_POST['sel_statsScale']); else $C->save("statsScale", "auto");
+   
+   /**
     * Log this event
     */
    $LOG->log("logConfig", $UL->username, "log_config");
@@ -262,6 +267,12 @@ $configData['user'] = array (
    array ( 'prefix' => 'config', 'name' => 'userCustom3', 'type' => 'text', 'value' => $C->read("userCustom3"), 'maxlength' => '50' ),
    array ( 'prefix' => 'config', 'name' => 'userCustom4', 'type' => 'text', 'value' => $C->read("userCustom4"), 'maxlength' => '50' ),
    array ( 'prefix' => 'config', 'name' => 'userCustom5', 'type' => 'text', 'value' => $C->read("userCustom5"), 'maxlength' => '50' ),
+);
+
+$configData['statsScale'][] = array ('val' => 'auto', 'name' => $LANG['auto'], 'selected' => ($C->read("statsScale") == 'auto')?true:false );
+$configData['statsScale'][] = array ('val' => 'smart', 'name' => $LANG['smart'], 'selected' => ($C->read("statsScale") == 'smart')?true:false );
+$configData['stats'] = array (
+   array ( 'prefix' => 'config', 'name' => 'statsScale', 'type' => 'list', 'values' => $configData['statsScale'] ),
 );
 
 /**

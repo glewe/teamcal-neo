@@ -484,6 +484,7 @@ $LANG['config_title'] = $appTitle. ' Konfiguration';
 $LANG['config_email'] = 'E-mail';
 $LANG['config_login'] = 'Login';
 $LANG['config_registration'] = 'Registrierung';
+$LANG['config_stats'] = 'Statistik';
 $LANG['config_system'] = 'System';
 $LANG['config_tab_theme'] = 'Theme';
 $LANG['config_user'] = 'Nutzer';

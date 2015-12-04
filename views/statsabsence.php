@@ -18,7 +18,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       view.statistics 
       -->
       <div class="container content">
-      
+
          <?php 
          if ($showAlert AND $C->read("showAlerts")!="none")
          { 
@@ -32,7 +32,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          $tabindex = 1;
          ?>
 
-         <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
+         <form  class="bs-example form-control-horizontal noprint" enctype="multipart/form-data" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
 
             <input name="hidden_absence" type="hidden" class="text" value="<?=$statsData['absence']?>">
             <input name="hidden_groupid" type="hidden" class="text" value="<?=$statsData['groupid']?>">
