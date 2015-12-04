@@ -5,7 +5,7 @@
  * Calendar page controller
  *
  * @category TeamCal Neo 
- * @version 0.3.003
+ * @version 0.3.004
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -67,7 +67,7 @@ if ($missingData)
  * ========================================================================
  * Check if allowed
  */
-if (!isAllowed($controller))
+if (!isAllowed($CONF['controllers'][$controller]->permission))
 {
    $alertData['type'] = 'warning';
    $alertData['title'] = $LANG['alert_alert_title'];

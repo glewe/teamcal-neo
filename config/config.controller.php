@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 0.3.003
+ * @version 0.3.004
  * @author George Lewe
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -54,14 +54,14 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  * For each permission you use here you need two language entries that will be used
  * on the permission page. Example: For the permission "admin" you need:
  * $LANG['perm_admin_title'] = 'Administration'; 
- * $LANG['perm_admin_desc'] = 'Allows access to the dministration pages.'; 
+ * $LANG['perm_admin_desc'] = 'Allows access to the administration pages.'; 
  *   
  */
 $CONF['controllers'] = array (
    'about' => new Controller('about', 'info-circle', 'info', 'default', ''),
-   'absences' => new Controller('absences', 'check-square-o', 'primary', 'primary', 'absencetypes'),
-   'absenceedit' => new Controller('absenceedit', 'check-square-o', 'warning', 'warning', 'absencetypes'),
-   'absenceicon' => new Controller('absenceicon', 'file-image-o', 'primary', 'primary', 'absencetypes'),
+   'absences' => new Controller('absences', 'check-square-o', 'primary', 'primary', 'absenceedit'),
+   'absenceedit' => new Controller('absenceedit', 'check-square-o', 'warning', 'warning', 'absenceedit'),
+   'absenceicon' => new Controller('absenceicon', 'file-image-o', 'primary', 'primary', 'absenceedit'),
    'calendarview' => new Controller('calendarview', 'calendar', 'danger', 'primary', 'calendarview'),
    'calendaredit' => new Controller('calendaredit', 'calendar-o', 'danger', 'primary', 'calendaredit'),
    'calendaroptions' => new Controller('calendaroptions', 'wrench', 'primary', 'primary', 'calendaroptions'),
@@ -87,10 +87,10 @@ $CONF['controllers'] = array (
    'register' => new Controller('register', 'pencil', 'warning', 'success', ''),
    'roles' => new Controller('roles', 'group', 'warning', 'primary', 'roles'),
    'roleedit' => new Controller('roleedit', 'edit', 'warning', 'warning', 'roles'),
-   'statistics' => new Controller('statistics', 'bar-chart', 'warning', 'default', 'statistics'),
-   'users' => new Controller('users', 'user', 'primary', 'primary', 'useradmin'),
-   'useredit' => new Controller('useredit', 'edit', 'warning', 'warning', 'useredit'),
-   'useradd' => new Controller('useradd', 'edit', 'warning', 'warning', 'useradmin'),
+   'statsabsence' => new Controller('statsabsence', 'bar-chart', 'warning', 'default', 'statistics'),
+   'users' => new Controller('users', 'user', 'primary', 'primary', 'admin'),
+   'useredit' => new Controller('useredit', 'edit', 'warning', 'warning', 'admin'),
+   'useradd' => new Controller('useradd', 'edit', 'warning', 'warning', 'admin'),
    'viewprofile' => new Controller('viewprofile', 'user', 'default', 'default', 'viewprofile'),
    'year' => new Controller('year', 'calendar', 'info', 'primary', 'calendarview'),
 );

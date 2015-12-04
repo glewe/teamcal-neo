@@ -5,7 +5,7 @@
  * The view of the top navigation menu
  *
  * @category TeamCal Neo 
- * @version 0.3.003
+ * @version 0.3.004
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -64,8 +64,13 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <?php if ($menuData['mnu_view_messages']) { ?>
                            <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['messages']->name?>"><i class="fa fa-<?=$CONF['controllers']['messages']->faIcon?> fa-lg text-<?=$CONF['controllers']['messages']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_messages']?></a></li>
                         <?php } ?>
-                        <?php if ($menuData['mnu_view_statistics']) { ?>
-                           <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['statistics']->name?>"><i class="fa fa-<?=$CONF['controllers']['statistics']->faIcon?> fa-lg text-<?=$CONF['controllers']['statistics']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_statistics']?></a></li>
+                        <?php if ($menuData['mnu_view_stats']) { ?>
+                        <li class="dropdown-submenu">
+                           <a tabindex="-1" href="#"><i class="fa fa-bar-chart fa-lg text-warning fa-menu"></i><?=$LANG['mnu_view_statistics']?></a>
+                           <ul class="dropdown-menu">
+                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['statsabsence']->name?>"><i class="fa fa-<?=$CONF['controllers']['statsabsence']->faIcon?> fa-lg text-<?=$CONF['controllers']['statsabsence']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_statistics']?></a></li>
+                           </ul>
+                        </li>
                         <?php } ?>
                      </ul>
                   </li>

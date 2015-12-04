@@ -5,7 +5,7 @@
  * Collection of global helper functions
  *
  * @category TeamCal Neo 
- * @version 0.3.003
+ * @version 0.3.004
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -35,7 +35,7 @@ function buildMenu()
       "mnu_view_calendar" => FALSE,
       "mnu_view_year" => FALSE,
       "mnu_view_messages" => FALSE,
-      "mnu_view_statistics" => FALSE,
+      "mnu_view_stats" => FALSE,
       "mnu_edit" => FALSE,
       "mnu_edit_calendaredit" => FALSE,
       "mnu_edit_monthedit" => FALSE,
@@ -90,25 +90,25 @@ function buildMenu()
       if ($C->read("allowRegistration")) $mnu['mnu_user_register'] = TRUE;
    }
    
-   if (isAllowed("calendarview"))
+   if (isAllowed($CONF['controllers']['calendarview']->permission))
    {
       $mnu['mnu_view'] = TRUE;
       $mnu['mnu_view_calendar'] = TRUE;
    }
    
-   if (isAllowed("year"))
+   if (isAllowed($CONF['controllers']['year']->permission))
    {
       $mnu['mnu_view'] = TRUE;
       $mnu['mnu_view_year'] = TRUE;
    }
 
-   if (isAllowed("statistics"))
+   if (isAllowed($CONF['controllers']['statsabsence']->permission))
    {
       $mnu['mnu_view'] = TRUE;
-      $mnu['mnu_view_statistics'] = TRUE;
+      $mnu['mnu_view_stats'] = TRUE;
    }
     
-   if (isAllowed("calendaredit") AND 
+   if (isAllowed($CONF['controllers']['calendaredit']->permission) AND 
        (isAllowed("calendareditall") OR isAllowed("calendareditgroup") OR isAllowed("calendareditown")) 
    )
    {
@@ -116,85 +116,85 @@ function buildMenu()
       $mnu['mnu_edit_calendaredit'] = TRUE;
    }
    
-   if (isAllowed("monthedit"))
+   if (isAllowed($CONF['controllers']['monthedit']->permission))
    {
       $mnu['mnu_edit'] = TRUE;
       $mnu['mnu_edit_monthedit'] = TRUE;
    }
    
-   if (isAllowed("config"))
+   if (isAllowed($CONF['controllers']['config']->permission))
    {
       $mnu['mnu_admin'] = TRUE;
       $mnu['mnu_admin_config'] = TRUE;
    }
    
-   if (isAllowed("calendaroptions"))
+   if (isAllowed($CONF['controllers']['calendaroptions']->permission))
    {
       $mnu['mnu_admin'] = TRUE;
       $mnu['mnu_admin_calendaroptions'] = TRUE;
    }
    
-   if (isAllowed("permissions"))
+   if (isAllowed($CONF['controllers']['permissions']->permission))
    {
       $mnu['mnu_admin'] = TRUE;
       $mnu['mnu_admin_perm'] = TRUE;
    }
    
-   if (isAllowed("users"))
+   if (isAllowed($CONF['controllers']['users']->permission))
    {
       $mnu['mnu_admin'] = TRUE;
       $mnu['mnu_admin_users'] = TRUE;
    }
    
-   if (isAllowed("groups"))
+   if (isAllowed($CONF['controllers']['groups']->permission))
    {
       $mnu['mnu_admin'] = TRUE;
       $mnu['mnu_admin_groups'] = TRUE;
    }
    
-   if (isAllowed("roles"))
+   if (isAllowed($CONF['controllers']['roles']->permission))
    {
       $mnu['mnu_admin'] = TRUE;
       $mnu['mnu_admin_roles'] = TRUE;
    }
    
-   if (isAllowed("absences"))
+   if (isAllowed($CONF['controllers']['absences']->permission))
    {
       $mnu['mnu_admin'] = TRUE;
       $mnu['mnu_admin_absences'] = TRUE;
    }
    
-   if (isAllowed("holidays"))
+   if (isAllowed($CONF['controllers']['holidays']->permission))
    {
       $mnu['mnu_admin'] = TRUE;
       $mnu['mnu_admin_holidays'] = TRUE;
    }
    
-   if (isAllowed("regions"))
+   if (isAllowed($CONF['controllers']['regions']->permission))
    {
       $mnu['mnu_admin'] = TRUE;
       $mnu['mnu_admin_regions'] = TRUE;
    }
    
-   if (isAllowed("declination"))
+   if (isAllowed($CONF['controllers']['declination']->permission))
    {
       $mnu['mnu_admin'] = TRUE;
       $mnu['mnu_admin_declination'] = TRUE;
    }
    
-   if (isAllowed("database"))
+   if (isAllowed($CONF['controllers']['database']->permission))
    {
       $mnu['mnu_admin'] = TRUE;
       $mnu['mnu_admin_database'] = TRUE;
    }
    
-   if (isAllowed("log"))
+   if (isAllowed($CONF['controllers']['log']->permission))
    {
       $mnu['mnu_admin'] = TRUE;
       $mnu['mnu_admin_systemlog'] = TRUE;
    }
    
-   if (isAllowed("phpinfo"))
+   if (isAllowed($CONF['controllers']['phpinfo']->permission))
    {
       $mnu['mnu_admin'] = TRUE;
       $mnu['mnu_admin_env'] = TRUE;

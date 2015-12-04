@@ -5,7 +5,7 @@
  * The view of the statitics page
  *
  * @category TeamCal Neo 
- * @version 0.3.003
+ * @version 0.3.004
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -45,6 +45,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalGroup"><?=$LANG['group'] . ': ' . $statsData['groupName']?></button>
                <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalPeriod"><?=$LANG['period'] . ': ' . $statsData['periodName']?></button>
                <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalScale"><?=$LANG['scale'] . ': ' . $statsData['scaleName']?></button>
+               <a class="btn btn-default" href="index.php?action=<?=$controller?>"><?=$LANG['btn_reset']?></a>
             </div>
 
             <!-- Modal: Absence Type -->
@@ -154,18 +155,24 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   {
                      if ($(this).val() == 'custom')
                      {
+                        $('#scaleSmart').val('');
                         $('#scaleSmart').prop('disabled', true);
                         $('#scaleMax').prop('disabled', false);
+                        $('#scaleMax').val('30');
                      }
                      else if ($(this).val() == 'smart')
                      {
                         $('#scaleSmart').prop('disabled', false);
+                        $('#scaleSmart').val('4');
                         $('#scaleMax').prop('disabled', true);
+                        $('#scaleMax').val('');
                      }
                      else
                      {
                         $('#scaleSmart').prop('disabled', true);
+                        $('#scaleSmart').val('');
                         $('#scaleMax').prop('disabled', true);
+                        $('#scaleMax').val('');
                      }
                   });
                   </script>
@@ -200,33 +207,36 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <div class="panel-heading">
                <i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['stats_title_absences']?>
             </div>
-         </div>
-         
-         <canvas id="myChart" style="padding-right: 40px;"></canvas>
+            <div class="panel-body">
+               <strong><?=$LANG['absence'] . ':</strong> ' . $statsData['absName']?><br>
+               <strong><?=$LANG['group'] . ':</strong> ' . $statsData['groupName']?><br>
+               <strong><?=$LANG['period'] . ':</strong> ' . $statsData['periodName']?>
+               <canvas id="myChart" style="padding-right: 40px;"></canvas>
+               <script>
+                  var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
       
-         <script>
-            var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
-
-            var barChartData = {
-               labels : [<?=$statsData['labels']?>],
-               datasets : [
-                  {
-                     <?=$statsData['colorSet']['red']?>
-                     data : [<?=$statsData['data']?>]
+                  var barChartData = {
+                     labels : [<?=$statsData['labels']?>],
+                     datasets : [
+                        {
+                           <?=$statsData['colorSet']['red']?>
+                           data : [<?=$statsData['data']?>]
+                        }
+                     ]
                   }
-               ]
-            }
-            
-            window.onload = function(){
-               var ctx = document.getElementById("myChart").getContext("2d");
-               window.myBar = new Chart(ctx).HorizontalBar(barChartData, 
-                  {
-                     responsive: true,
-                     <?=$statsData['chartjsScaleSettings']?>
+                  
+                  window.onload = function(){
+                     var ctx = document.getElementById("myChart").getContext("2d");
+                     window.myBar = new Chart(ctx).HorizontalBar(barChartData, 
+                        {
+                           responsive: true,
+                           <?=$statsData['chartjsScaleSettings']?>
+                        }
+                     );
                   }
-               );
-            }
-         </script>
+               </script>
+            </div>
+         </div>
          
       </div>
 

@@ -5,7 +5,7 @@
  * Language file (English)
  *
  * @category TeamCal Neo 
- * @version 0.3.003
+ * @version 0.3.004
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -1071,8 +1071,8 @@ $LANG['perm_select_confirm'] = 'When you confirm a new scheme selection, all cha
 $LANG['perm_view_by_perm'] = 'View by permission';
 $LANG['perm_view_by_role'] = 'View by role';
 
-$LANG['perm_absencetypes_title'] = 'Manage Absence Types';
-$LANG['perm_absencetypes_desc'] = 'Allows to list and edit absence types.';
+$LANG['perm_absenceedit_title'] = 'Manage Absence Types';
+$LANG['perm_absenceedit_desc'] = 'Allows to list and edit absence types.';
 $LANG['perm_admin_title'] = 'System Administration';
 $LANG['perm_admin_desc'] = 'Allows to access the system administration pages.';
 $LANG['perm_calendaredit_title'] = 'Calendar Editor';
