@@ -151,7 +151,8 @@ if (isset($_POST['btn_confApply']))
     * Statistics
     */
    if ($_POST['sel_statsScale']) $C->save("statsScale", $_POST['sel_statsScale']); else $C->save("statsScale", "auto");
-   
+   $C->save("statsSmartValue",intval($_POST['txt_statsSmartValue']));
+    
    /**
     * Log this event
     */
@@ -273,6 +274,7 @@ $configData['statsScale'][] = array ('val' => 'auto', 'name' => $LANG['auto'], '
 $configData['statsScale'][] = array ('val' => 'smart', 'name' => $LANG['smart'], 'selected' => ($C->read("statsScale") == 'smart')?true:false );
 $configData['stats'] = array (
    array ( 'prefix' => 'config', 'name' => 'statsScale', 'type' => 'list', 'values' => $configData['statsScale'] ),
+   array ( 'prefix' => 'config', 'name' => 'statsSmartValue', 'type' => 'text', 'value' => $C->read("statsSmartValue"), 'maxlength' => '3' ),
 );
 
 /**

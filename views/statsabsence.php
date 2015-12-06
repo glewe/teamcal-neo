@@ -1,8 +1,8 @@
 <?php
 /**
- * statistics.php
+ * statsabsence.php
  * 
- * The view of the statitics page
+ * The view of the statitics page for absences
  *
  * @category TeamCal Neo 
  * @version 0.3.004
@@ -15,7 +15,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
-      view.statistics 
+      view.statsabsences
       -->
       <div class="container content">
 
@@ -34,17 +34,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
          <form  class="bs-example form-control-horizontal noprint" enctype="multipart/form-data" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
 
-            <input name="hidden_absence" type="hidden" class="text" value="<?=$statsData['absence']?>">
-            <input name="hidden_groupid" type="hidden" class="text" value="<?=$statsData['groupid']?>">
-            <input name="hidden_period" type="hidden" class="text" value="<?=$statsData['period']?>">
-            <input name="hidden_from" type="hidden" class="text" value="<?=$statsData['from']?>">
-            <input name="hidden_to" type="hidden" class="text" value="<?=$statsData['to']?>">
-
             <div class="page-menu">
-               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalAbsence"><?=$LANG['absence'] . ': ' . $statsData['absName']?></button>
-               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalGroup"><?=$LANG['group'] . ': ' . $statsData['groupName']?></button>
-               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalPeriod"><?=$LANG['period'] . ': ' . $statsData['periodName']?></button>
-               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalScale"><?=$LANG['scale'] . ': ' . $statsData['scaleName']?></button>
+               <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalAbsence"><?=$LANG['absence']?> <span class="badge"><?=$statsData['absName']?></span></button>
+               <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalGroup"><?=$LANG['group']?> <span class="badge"><?=$statsData['groupName']?></span></button>
+               <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalPeriod"><?=$LANG['period']?> <span class="badge"><?=$statsData['periodName']?></span></button>
+               <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDiagram"><?=$LANG['diagram']?></button>
                <a class="btn btn-default" href="index.php?action=<?=$controller?>"><?=$LANG['btn_reset']?></a>
             </div>
 
@@ -64,12 +58,18 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
               <!-- Modal: Group -->
             <?=createModalTop('modalGroup', $LANG['stats_modalGroupTitle'])?>
+               <span class="text-bold"><?=$LANG['stats_group']?></span><br>
+               <span class="text-normal"><?=$LANG['stats_group_comment']?></span>
                <select id="group" class="form-control" name="sel_group" tabindex="<?=$tabindex++?>">
                   <option value="all"<?=(($statsData['groupid'] == 'all')?' selected="selected"':'')?>><?=$LANG['all']?></option>
                   <?php foreach($statsData['groups'] as $grp) { ?>
                      <option value="<?=$grp['id']?>" <?=(($statsData['groupid'] == $grp['id'])?'selected="selected"':'')?>><?=$grp['name']?></option>
                   <?php } ?>
-               </select>
+               </select><br>
+               <span class="text-bold"><?=$LANG['stats_yaxis']?></span><br>
+               <span class="text-normal"><?=$LANG['stats_yaxis_comment']?></span>
+               <div class="radio"><label><input type="radio" name="opt_yaxis" value="groups" <?=(($statsData['yaxis']=='groups')?"checked":"")?>><?=$LANG['stats_yaxis_groups']?></label></div>
+               <div class="radio"><label><input type="radio" name="opt_yaxis" value="users" <?=(($statsData['yaxis']=='users')?"checked":"")?>><?=$LANG['stats_yaxis_users']?></label></div>
             <?=createModalBottom('btn_apply', 'success', $LANG['btn_apply'])?>
   
             <!-- Modal: Period -->
@@ -140,9 +140,43 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                </div>
             <?=createModalBottom('btn_apply', 'success', $LANG['btn_apply'])?>
             
-            <!-- Modal: Scale -->
-            <?=createModalTop('modalScale', $LANG['stats_modalScaleTitle'])?>
+            <!-- Modal: Diagram -->
+            <?=createModalTop('modalDiagram', $LANG['stats_modalDiagramTitle'])?>
                <div>
+                  <span class="text-bold"><?=$LANG['stats_color']?></span><br>
+                  <span class="text-normal"><?=$LANG['stats_color_comment']?></span>
+                  <select id="sel_color" class="form-control" name="sel_color" tabindex="<?=$tabindex++?>">
+                     <option value="blue" <?=(($statsData['color']=='blue')?"selected":"")?>><?=$LANG['blue']?></option>
+                     <option value="cyan" <?=(($statsData['color']=='cyan')?"selected":"")?>><?=$LANG['cyan']?></option>
+                     <option value="green" <?=(($statsData['color']=='green')?"selected":"")?>><?=$LANG['green']?></option>
+                     <option value="magenta" <?=(($statsData['color']=='magenta')?"selected":"")?>><?=$LANG['magenta']?></option>
+                     <option value="orange" <?=(($statsData['color']=='orange')?"selected":"")?>><?=$LANG['orange']?></option>
+                     <option value="red" <?=(($statsData['color']=='red')?"selected":"")?>><?=$LANG['red']?></option>
+                     <option value="custom" <?=(($statsData['color']=='custom')?"selected":"")?>><?=$LANG['custom']?></option>
+                  </select><br>
+                  <script>
+                  $( "#sel_color" ).change(function() 
+                  {
+                     if ($(this).val() == 'custom')
+                     {
+                        $('#colorHex').prop('disabled', false);
+                     }
+                     else
+                     {
+                        $('#colorHex').prop('disabled', true);
+                     }
+                  });
+                  </script>
+                  
+                  <span class="text-bold"><?=$LANG['stats_customColor']?></span><br>
+                  <span class="text-normal"><?=$LANG['stats_customColor_comment']?></span>
+                  <input id="colorHex" class="form-control" tabindex="6" name="txt_colorHex" maxlength="6" value="<?=$statsData['colorHex']?>" type="text" <?=(($statsData['color']=='custom')?"":"disabled")?>>
+                  <script type="text/javascript">$(function() { $( "#colorHex" ).ColorPicker({ onSubmit: function(hsb, hex, rgb, el) { $(el).val(hex.toUpperCase()); $(el).ColorPickerHide(); }, onBeforeShow: function () { $(this).ColorPickerSetColor(this.value); } }) .bind('keyup', function(){ $(this).ColorPickerSetColor(this.value); }); });</script>
+                  <?php if ( isset($inputAlert["colorHex"]) AND strlen($inputAlert["colorHex"]) ) { ?> 
+                  <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['colorHex']?></div>
+                  <?php } ?>
+                  <br>
+                  
                   <span class="text-bold"><?=$LANG['stats_scale']?></span><br>
                   <span class="text-normal"><?=$LANG['stats_scale_comment']?></span>
                   <select id="sel_scale" class="form-control" name="sel_scale" tabindex="<?=$tabindex++?>">
@@ -205,12 +239,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
          <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
             <div class="panel-heading">
-               <i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['stats_title_absences']?>
+               <i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['stats_title_absences']?>&nbsp;<span class="label label-default pull-right"><i data-position="tooltip-bottom" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['stats_total']?>"><?=$statsData['total']?></i></span>
             </div>
             <div class="panel-body">
-               <strong><?=$LANG['absence'] . ':</strong> ' . $statsData['absName']?><br>
-               <strong><?=$LANG['group'] . ':</strong> ' . $statsData['groupName']?><br>
-               <strong><?=$LANG['period'] . ':</strong> ' . $statsData['periodName']?>
                <canvas id="myChart" style="padding-right: 40px;"></canvas>
                <script>
                   var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
@@ -219,7 +250,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      labels : [<?=$statsData['labels']?>],
                      datasets : [
                         {
-                           <?=$statsData['colorSet']['red']?>
+                           <?=$statsData['chartjsColor']?>
                            data : [<?=$statsData['data']?>]
                         }
                      ]

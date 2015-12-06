@@ -169,10 +169,10 @@ class Groups
     * @param boolean $excludeHidden If TRUE, exclude hidden groups
     * @return array $records Array with all group records
     */
-   function getAll()
+   function getAll($sort='ASC')
    {
       $records = array ();
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name ASC');
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name '. $sort);
       $result = $query->execute();
       
       if ($result)

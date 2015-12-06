@@ -6,13 +6,19 @@ TEAMCAL NEO RELEASE INFO
 [0.3.004]
 
 DATE
-2015-12-04
+2015-12-06
 
 BUGFIXES
 01 Controller permissions
+02 Bootstrap/jQuery modal patch
+03 Colorpicker modal patch
 
 CHANGES
 01 Config paramater statsScale
+
+NEW FEATURES
+https://georgelewe.atlassian.net/browse/TCN-7
+01 Presence statistics
 
 
 ------------------------------------------------------------------------------
@@ -24,8 +30,11 @@ DATE
 BUGFIXES
 
 CHANGES
-01 Statistics page updates/features
-02 Config files split
+01 Config files split
+
+NEW FEATURES
+https://georgelewe.atlassian.net/browse/TCN-7
+01 Absence statistics
 
 
 ------------------------------------------------------------------------------

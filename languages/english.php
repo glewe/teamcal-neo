@@ -22,13 +22,18 @@ $LANG['all'] = 'All';
 $LANG['auto'] = 'Automatic';
 $LANG['avatar'] = 'Avatar';
 $LANG['back_to_top'] = 'Back to top';
+$LANG['blue'] = 'Blue';
 $LANG['custom'] = 'Custom';
+$LANG['cyan'] = 'Cyan';
 $LANG['description'] = 'Description';
+$LANG['diagram'] = 'Diagram';
 $LANG['display'] = 'Display';
 $LANG['from'] = 'From';
 $LANG['general'] = 'General';
+$LANG['green'] = 'Green';
 $LANG['group'] = 'Group';
 $LANG['license'] = 'Not available yet...';
+$LANG['magenta'] = 'Magenta';
 $LANG['monthnames'] = array (
    1 => "January",
    "February",
@@ -46,12 +51,14 @@ $LANG['monthnames'] = array (
 $LANG['name'] = 'Name';
 $LANG['none'] = 'None';
 $LANG['options'] = 'Options';
+$LANG['orange'] = 'Orange';
 $LANG['period'] = 'Period';
 $LANG['period_custom'] = 'Custom';
 $LANG['period_month'] = 'Current month';
 $LANG['period_quarter'] = 'Current quarter';
 $LANG['period_half'] = 'Current half year';
 $LANG['period_year'] = 'Current year';
+$LANG['red'] = 'Red';
 $LANG['region'] = 'Region';
 $LANG['role'] = 'Role';
 $LANG['role_admin'] = 'Administrator';
@@ -67,6 +74,7 @@ $LANG['settings'] = 'Settings';
 $LANG['smart'] = 'Smart';
 $LANG['to'] = 'To';
 $LANG['today'] = 'Today';
+$LANG['total'] = 'Total';
 $LANG['type'] = 'Type';
 $LANG['user'] = 'User';
 $LANG['weekdayShort'] = array (
@@ -596,12 +604,14 @@ $LANG['config_showAvatars_comment'] = 'Checking this option will show a user ava
       Note: This feature only works when user icons are switched on.';
 $LANG['config_showUserIcons'] = 'Show User Icons';
 $LANG['config_showUserIcons_comment'] = 'Checking this option will show user icons to the left of the users\' name indicating the users\' role and gender.';
-$LANG['config_statsScale'] = 'Statistics Scale';
-$LANG['config_statsScale_comment'] = 'Select a scale option for the statistics pages.
+$LANG['config_statsScale'] = 'Diagram Scale';
+$LANG['config_statsScale_comment'] = 'Select a diagram scale option for the statistics pages.
       <ul>
          <li>Automatic: The diagram\'s max value is the actual maximal value.</li>
-         <li>Smart: The diagram\'s max value is the actual maximal value plus 4.</li>
+         <li>Smart: The diagram\'s max value is the actual maximal value plus the Smart Value.</li>
       </ul>';
+$LANG['config_statsSmartValue'] = 'Diagram Scale Smart Value';
+$LANG['config_statsSmartValue_comment'] = 'The smart value is added to the maximal value read and the sum is used as the diagram\'s scale maximum.<br>This value only applies if the diagram scale is set to "'.$LANG['smart'].'".';
 $LANG['config_theme'] = 'Default Theme';
 $LANG['config_theme_comment'] = 'Select a theme to change the looks of the application. You can create your own skin by making a renamed
       copy of any of the other theme folders in the \'themes\' directory and adjust the styles to your liking. Your new directory will
@@ -940,6 +950,7 @@ $LANG['mnu_view_calendar'] = 'Calendar (Month)';
 $LANG['mnu_view_messages'] = 'Messages';
 $LANG['mnu_view_stats'] = 'Statistics';
 $LANG['mnu_view_stats_absences'] = 'Absence Statistics';
+$LANG['mnu_view_stats_presences'] = 'Presence Statistics';
 $LANG['mnu_view_year'] = 'Calendar (Year)';
 $LANG['mnu_edit'] = 'Edit';
 $LANG['mnu_edit_calendaredit'] = 'Personal Calendar';
@@ -1323,28 +1334,42 @@ $LANG['roles_name'] = 'Name';
 /**
  * Statistics
  */
-$LANG['stats_title_absences'] = 'Total Absences';
+$LANG['stats_title_absences'] = 'Absence Statistics';
+$LANG['stats_title_presences'] = 'Presence Statistics';
 $LANG['stats_absenceType'] = 'Absence Type';
 $LANG['stats_absenceType_comment'] = 'Select the absence type for the statistic.';
+$LANG['stats_bygroups'] = '(Per Group)';
+$LANG['stats_byusers'] = '(Per User)';
+$LANG['stats_color'] = 'Color';
+$LANG['stats_color_comment'] = 'Select the color for the diagram.';
+$LANG['stats_customColor'] = 'Custom Color';
+$LANG['stats_customColor_comment'] = 'Select a custom color for the diagram.<br>This value only applies if "'.$LANG['custom'].'" was selected in the Color list.';
 $LANG['stats_endDate'] = 'End Date';
 $LANG['stats_endDate_comment'] = 'Select a custom end date for the statistic. This date only applies if "'.$LANG['custom'].'" was selected in the Period list.';
+$LANG['stats_group'] = 'Group';
+$LANG['stats_group_comment'] = 'Select the group for the statistic.';
 $LANG['stats_modalAbsenceTitle'] = 'Select Absence Type for the Statistic';
 $LANG['stats_modalGroupTitle'] = 'Select Group for the Statistic';
 $LANG['stats_modalPeriodTitle'] = 'Select Period for the Statistic';
-$LANG['stats_modalScaleTitle'] = 'Select the Scale for the Statistic';
+$LANG['stats_modalDiagramTitle'] = 'Select Diagram Options for the Statistic';
 $LANG['stats_period'] = 'Period';
 $LANG['stats_period_comment'] = 'Select the period for the statistic.';
 $LANG['stats_scale'] = 'Scale';
-$LANG['stats_scale_comment'] = 'Select the scale for the diagram.
+$LANG['stats_scale_comment'] = 'Select the scale for the diagram (The default can be set by the administrator.).
       <ul>
          <li>Automatic: The diagram\'s max value is the maximal absence value.</li>
-         <li>Smart: The diagram\'s max value is the maximal absence value plus 4.</li>
+         <li>Smart: The diagram\'s max value is the maximal absence value plus the Smart Value.</li>
          <li>Custom: The diagram\'s max value can be specified in the field below.</li>
       </ul>';
 $LANG['stats_scale_max'] = 'Max Value';
 $LANG['stats_scale_max_comment'] = 'Select a custom max value for the diagram. Default value is 30.<br>This value only applies if "'.$LANG['custom'].'" was selected in the Scale list.';
 $LANG['stats_scale_smart'] = 'Smart Value';
-$LANG['stats_scale_smart_comment'] = 'The smart value is added to the maximal value read and the sum is used as the diagram\'s scale maximum. Default value is 4.<br>This value only applies if "'.$LANG['smart'].'" was selected in the Scale list.';
+$LANG['stats_scale_smart_comment'] = 'The smart value is added to the maximal value read and the sum is used as the diagram\'s scale maximum (The default can be set by the administrator.).<br>This value only applies if "'.$LANG['smart'].'" was selected in the Scale list.';
+$LANG['stats_total'] = 'Total sum';
+$LANG['stats_yaxis'] = 'Diagram Y-axis';
+$LANG['stats_yaxis_comment'] = 'Select what the diagram y-axis shall show.';
+$LANG['stats_yaxis_groups'] = 'Groups';
+$LANG['stats_yaxis_users'] = 'Users';
 $LANG['stats_startDate'] = 'Start Date';
 $LANG['stats_startDate_comment'] = 'Select a custom start date for the statistic.<br>This date only applies if "'.$LANG['custom'].'" was selected in the Period list.';
 

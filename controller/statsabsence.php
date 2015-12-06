@@ -1,8 +1,8 @@
 <?php
 /**
- * statistics.php
+ * statsabsence.php
  * 
- * Statistics page controller
+ * Absence statistics page controller
  *
  * @category TeamCal Neo 
  * @version 0.3.004
@@ -39,44 +39,41 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
  * ========================================================================
  * Initialize variables
  */
-$statsData['blue'] = '96,96,255';
-$statsData['cyan'] = '96,200,255';
-$statsData['green'] = '96,192,96';
-$statsData['magenta'] = '200,96,200';
-$statsData['orange'] = '255,179,0';
-$statsData['red'] = '255,96,96';
 
-$statsData['colorSet']['blue'] = 'fillColor:"rgba('.$statsData['blue'].',0.5)",strokeColor:"rgba('.$statsData['blue'].',0.8)",highlightFill:"rgba('.$statsData['blue'].',0.75)",highlightStroke:"rgba('.$statsData['blue'].',1)",';
-$statsData['colorSet']['cyan'] = 'fillColor:"rgba('.$statsData['cyan'].',0.5)",strokeColor:"rgba('.$statsData['cyan'].',0.8)",highlightFill:"rgba('.$statsData['cyan'].',0.75)",highlightStroke:"rgba('.$statsData['cyan'].',1)",';
-$statsData['colorSet']['green'] = 'fillColor:"rgba('.$statsData['green'].',0.5)",strokeColor:"rgba('.$statsData['green'].',0.8)",highlightFill:"rgba('.$statsData['green'].',0.75)",highlightStroke:"rgba('.$statsData['green'].',1)",';
-$statsData['colorSet']['magenta'] = 'fillColor:"rgba('.$statsData['magenta'].',0.5)",strokeColor:"rgba('.$statsData['magenta'].',0.8)",highlightFill:"rgba('.$statsData['magenta'].',0.75)",highlightStroke:"rgba('.$statsData['magenta'].',1)",';
-$statsData['colorSet']['orange'] = 'fillColor:"rgba('.$statsData['orange'].',0.5)",strokeColor:"rgba('.$statsData['orange'].',0.8)",highlightFill:"rgba('.$statsData['orange'].',0.75)",highlightStroke:"rgba('.$statsData['orange'].',1)",';
-$statsData['colorSet']['red'] = 'fillColor:"rgba('.$statsData['red'].',0.5)",strokeColor:"rgba('.$statsData['red'].',0.8)",highlightFill:"rgba('.$statsData['red'].',0.75)",highlightStroke:"rgba('.$statsData['red'].',1)",';
+//
+// Standard colors
+//
+$rgb['blue'] = '32,96,255';
+$rgb['cyan'] = '96,200,255';
+$rgb['green'] = '96,192,96';
+$rgb['magenta'] = '200,96,200';
+$rgb['orange'] = '255,179,0';
+$rgb['red'] = '255,96,96';
 
 $statsData['labels'] = "";
 $statsData['data'] = "";
-
 $statsData['absences'] = $A->getAll();
-$statsData['groups'] = $G->getAll();
+$statsData['groups'] = $G->getAll('DESC');
 
+//
+// Defaults
+//
 $statsData['absid'] = 'all';
 $statsData['groupid'] = 'all';
 $statsData['period'] = 'year';
 $statsData['from'] = date("Y") . '-01-01';
 $statsData['to'] = date("Y") . '-12-31';
 $statsData['scale'] = $C->read('statsScale');
-if ($statsData['scale']=='smart')
-{
-   $statsData['scaleSmart'] = '4';
-}
-else 
-{
-   $statsData['scaleSmart'] = '';
-}
+if ($statsData['scale']=='smart') $statsData['scaleSmart'] = $C->read("statsSmartValue");
+else                              $statsData['scaleSmart'] = '';
 $statsData['scaleMax'] = '';
 $statsData['chartjsScaleSettings'] = "scaleOverride: false";
-
-$users = $U->getAll('lastname', 'firstname', 'DESC', $archive = false, $includeAdmin = false);
+$statsData['yaxis'] = 'users';
+$chartColor = $rgb['red'];
+$statsData['color'] = 'red';
+$statsData['colorHex'] = rgb2hex($rgb['red'],false);
+$statsData['defaultColorHex'] = rgb2hex($rgb['red'],false);
+$statsData['chartjsColor'] = 'fillColor:"rgba('.$chartColor.',0.5)",strokeColor:"rgba('.$chartColor.',0.8)",highlightFill:"rgba('.$chartColor.',0.75)",highlightStroke:"rgba('.$chartColor.',1)",';
 
 /**
  * ========================================================================
@@ -99,6 +96,7 @@ if (!empty($_POST))
       if (!formInputValid('txt_to', 'date')) $inputError = true;
       if (!formInputValid('txt_scaleSmart', 'numeric')) $inputError = true;
       if (!formInputValid('txt_scaleMax', 'numeric')) $inputError = true;
+      if (!formInputValid('txt_colorHex', 'hexadecimal')) $inputError = true;
    }
 
    if (!$inputError)
@@ -119,7 +117,8 @@ if (!empty($_POST))
          // Read group selection
          //
          $statsData['groupid'] = $_POST['sel_group'];
-         
+         $statsData['yaxis'] = $_POST['opt_yaxis'];
+          
          //
          // Read period selection
          //
@@ -131,12 +130,28 @@ if (!empty($_POST))
          }
          
          //
-         // Read scale selection
+         // Read diagram options
          //
+         $statsData['color'] = $_POST['sel_color'];
+         if ($statsData['color']=='custom')
+         {
+            if (isset($_POST['txt_colorHex']) AND strlen($_POST['txt_colorHex']))
+            {
+               $statsData['colorHex'] = $_POST['txt_colorHex'];
+            }
+         }
+         else
+         {
+            $statsData['colorHex'] = rgb2hex($rgb[$statsData['color']],false);
+         }
+         $chartColor = implode(',',hex2rgb($statsData['colorHex']));
+         $statsData['chartjsColor'] = 'fillColor:"rgba('.$chartColor.',0.5)",strokeColor:"rgba('.$chartColor.',0.8)",highlightFill:"rgba('.$chartColor.',0.75)",highlightStroke:"rgba('.$chartColor.',1)",';
+         
+         
          $statsData['scale'] = $_POST['sel_scale'];
          if ($statsData['scale']=='custom')
          {
-            if (strlen($_POST['txt_scaleMax']))
+            if (isset($_POST['txt_scaleMax']) AND strlen($_POST['txt_scaleMax']))
             {
                $statsData['scaleMax'] = $_POST['txt_scaleMax'];
             }
@@ -148,7 +163,7 @@ if (!empty($_POST))
          }
          elseif ($statsData['scale']=='smart')
          {
-            if (strlen($_POST['txt_scaleSmart']))
+            if (isset($_POST['txt_scaleSmart']) AND strlen($_POST['txt_scaleSmart']))
             {
                $statsData['scaleSmart'] = $_POST['txt_scaleSmart'];
             }
@@ -161,6 +176,7 @@ if (!empty($_POST))
          {
             $statsData['chartjsScaleSettings'] = "scaleOverride: false";
          }
+         $statsData['yaxis'] = $_POST['opt_yaxis'];
       }
    }
    else
@@ -227,7 +243,8 @@ switch ($statsData['period'])
       
    case 'month':
       $statsData['from'] = date("Y") . '-' . date("m") . '-01';
-      $statsData['to'] = date("Y") . '-' . date("m") . '-' . sprintf('%02d',cal_days_in_month(CAL_GREGORIAN, date("j"), date("Y")));
+      $myts = strtotime($statsData['from']);
+      $statsData['to'] = date("Y") . '-' . date("m") . '-' . sprintf('%02d',date("t", $myts));
       break;
 
    case 'custom':
@@ -238,7 +255,7 @@ switch ($statsData['period'])
 }
 
 /**
- * Build the name pieces for the buttons
+ * Button titles
  */
 if ($statsData['absid']=='all')
 {
@@ -252,65 +269,153 @@ else
 if ($statsData['groupid'] == "all")
 {
    $statsData['groupName'] = $LANG['all'];
-   $users = $U->getAll('lastname', 'firstname', 'DESC', $archive = false, $includeAdmin = false);
 }
 else
 {
    $statsData['groupName'] = $G->getNameById($_POST['sel_group']);
-   $users = $UG->getAllForGroup($_POST['sel_group']);
+}
+
+if ($statsData['yaxis'] == "users")
+{
+   $statsData['groupName'] .= ' ' . $LANG['stats_byusers'];
+}
+else
+{
+   $statsData['groupName'] .= ' ' . $LANG['stats_bygroups'];
 }
 
 $statsData['periodName'] = $statsData['from'] . ' - ' . $statsData['to']; 
-
 $statsData['scaleName'] = $LANG[$statsData['scale']];
 
-/**
- * Load active users
- */
-$statsData['users'] = array();
 $labels = array();
-$values = array();
-foreach ($users as $user)
-{
-   $U->findByName($user['username']);
-   
-   if ( $U->firstname!="" ) 
-      $labels[] = '"' . $U->lastname.", ".$U->firstname . '"';
-   else 
-      $labels[] = '"' . $U->lastname . '"';
+$data = array();
 
-   $count = 0;
-   if ($statsData['absid'] == 'all')
+/**
+ * Read data based on yaxis selection
+ */
+if ($statsData['yaxis'] == 'users')
+{
+   /**
+    * Y-axis: Users
+    */
+   $statsData['total'] = 0;
+   if ($statsData['groupid'] == "all")
    {
-      foreach ($statsData['absences'] as $abs)
+      $users = $U->getAll('lastname', 'firstname', 'DESC', $archive = false, $includeAdmin = false);
+   }
+   else 
+   {
+      $users = $UG->getAllforGroup($statsData['groupid']);
+   }
+   foreach ($users as $user)
+   {
+      $U->findByName($user['username']);
+      
+      if ( $U->firstname!="" ) 
+         $labels[] = '"' . $U->lastname.", ".$U->firstname . '"';
+      else 
+         $labels[] = '"' . $U->lastname . '"';
+   
+      $count = 0;
+      if ($statsData['absid'] == 'all')
       {
-         if ($A->get($abs['id']) AND !$A->counts_as_present)
+         foreach ($statsData['absences'] as $abs)
+         {
+            if ($A->get($abs['id']) AND !$A->counts_as_present)
+            {
+               $countFrom = str_replace('-', '' , $statsData['from']);
+               $countTo = str_replace('-', '' , $statsData['to']);
+               $count += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
+            }
+         }
+      }
+      else 
+      {
+         $countFrom = str_replace('-', '' , $statsData['from']);
+         $countTo = str_replace('-', '' , $statsData['to']);
+         $count += countAbsence($user['username'], $statsData['absid'], $countFrom, $countTo, false, false);
+      }
+      $data[] = $count;
+      $statsData['total'] += $count;
+   }
+}
+else 
+{
+   /**
+    * Y-axis: Groups
+    */
+   $statsData['total'] = 0;
+   if ($statsData['groupid'] == "all")
+   {
+      foreach ($statsData['groups'] as $group)
+      {
+         $labels[] = '"' . $group['name'] . '"';
+         $users = $UG->getAllforGroup($group['id']);
+         $count = 0;
+         foreach ($users as $user)
+         {
+            if ($statsData['absid'] == 'all')
+            {
+               foreach ($statsData['absences'] as $abs)
+               {
+                  if ($A->get($abs['id']) AND !$A->counts_as_present)
+                  {
+                     $countFrom = str_replace('-', '' , $statsData['from']);
+                     $countTo = str_replace('-', '' , $statsData['to']);
+                     $count += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
+                  }
+               }
+            }
+            else
+            {
+               $countFrom = str_replace('-', '' , $statsData['from']);
+               $countTo = str_replace('-', '' , $statsData['to']);
+               $count += countAbsence($user['username'], $statsData['absid'], $countFrom, $countTo, false, false);
+            }
+         }
+         $data[] = $count;
+         $statsData['total'] += $count;
+      }
+   }
+   else
+   {
+      $labels[] = '"' . $G->getNameById($statsData['groupid']) . '"';
+      $users = $UG->getAllforGroup($statsData['groupid']);
+      $count = 0;
+      foreach ($users as $user)
+      {
+         if ($statsData['absid'] == 'all')
+         {
+            foreach ($statsData['absences'] as $abs)
+            {
+               if ($A->get($abs['id']) AND !$A->counts_as_present)
+               {
+                  $countFrom = str_replace('-', '' , $statsData['from']);
+                  $countTo = str_replace('-', '' , $statsData['to']);
+                  $count += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
+               }
+            }
+         }
+         else
          {
             $countFrom = str_replace('-', '' , $statsData['from']);
             $countTo = str_replace('-', '' , $statsData['to']);
-            $count += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
+            $count += countAbsence($user['username'], $statsData['absid'], $countFrom, $countTo, false, false);
          }
       }
+      $data[] = $count;
+      $statsData['total'] += $count;
    }
-   else 
-   {
-      $countFrom = str_replace('-', '' , $statsData['from']);
-      $countTo = str_replace('-', '' , $statsData['to']);
-      $count += countAbsence($user['username'], $statsData['absid'], $countFrom, $countTo, false, false);
-   }
-
-   // Add count to array
-   $values[] = $count;
 }
 
 /**
  * Build Chart.js labels and data
  */
 $statsData['labels'] = implode(',', $labels);
-$statsData['data'] = implode(',', $values);
+$statsData['data'] = implode(',', $data);
 if ($statsData['scale']=='smart')
 {
-   $scaleSteps = max($values) + $statsData['scaleSmart'];
+   $scaleSteps = max($data) + $statsData['scaleSmart'];
    $statsData['chartjsScaleSettings'] = "scaleOverride: true,scaleSteps: ".$scaleSteps.",scaleStepWidth: 1,scaleStartValue: 0";
 }
 

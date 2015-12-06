@@ -368,6 +368,109 @@ function countAbsence($user='%', $absid, $from, $to, $useFactor=FALSE, $combined
 
 // ---------------------------------------------------------------------------
 /**
+ * Counts all business days or man days in a given time period
+ *
+ * @param string $cntfrom Date to count from (including)
+ * @param string $cntto Date to count to (including)
+ * @param string $region Region to count for
+ * @param boolean $cntManDays Switch whether to multiply the business days by the amount of users and return that value instead
+ * @return integer Result of the count
+ */
+function countBusinessDays($cntfrom, $cntto, $region = '1', $cntManDays = false)
+{
+   global $CONF, $H, $M, $U;
+
+   $startyear = intval(substr($cntfrom, 0, 4));
+   $startmonth = intval(substr($cntfrom, 4, 2));
+   $startday = intval(substr($cntfrom, 6, 2));
+   $endyear = intval(substr($cntto, 0, 4));
+   $endmonth = intval(substr($cntto, 4, 2));
+   $endday = intval(substr($cntto, 6, 2));
+   $startyearmonth = intval(substr($cntfrom, 0, 6));
+   $endyearmonth = intval(substr($cntto, 0, 6));
+    
+   $count = 0;
+   $year = $startyear;
+   $month = $startmonth;
+   $firstday = $startday;
+   if ($firstday < 1 OR $firstday > 31) $firstday = 1;
+
+   $yearmonth = $startyearmonth;
+   while ($yearmonth <= $endyearmonth)
+   {
+      $M->getMonth($year, $month, $region);
+      $monthInfo = dateInfo($year, $month, '1');
+      $lastday = $monthInfo['daysInMonth'];
+      if ($yearmonth == $endyearmonth)
+      {
+         // 
+         // This is the last month. Make sure we just read it up to the specified endday.
+         //
+         if ($endday < $monthInfo['daysInMonth']) $lastday = $endday;
+      }
+      
+      // 
+      // Now loop through each day of the month
+      //
+      for ($i = $firstday; $i <= $lastday; $i++)
+      {
+         $weekday = 'wday'.$i;
+         $holiday = 'hol'.$i;
+         if ($M->$weekday < 6)
+         {
+            //
+            // This is a weekday. Check if Holiday before counting it.
+            //
+            if ($M->$holiday)
+            {
+               //
+               // This is a weekday but a Holiday. Only count this if this Holiday counts as business day.
+               //
+               if ($H->isBusinessDay($month['hol'.$i])) $count++;
+            }
+            else
+            {
+               $count++;
+            }
+         }
+      }
+      
+      //
+      // Now set the next month for the loop
+      //
+      if (intval(substr($yearmonth, 4, 2)) == 12)
+      {
+         $year = intval(substr($yearmonth, 0, 4));
+         $year++;
+         $yearmonth = strval($year) . "01";
+      }
+      else
+      {
+         $year = intval(substr($yearmonth, 0, 4));
+         $month = intval(substr($yearmonth, 4, 2));
+         $month++;
+         $yearmonth = strval($year) . sprintf("%02d",strval($month));
+      }
+      $firstday = 1;
+   }
+
+   if ($cntManDays)
+   {
+      //
+      // Now we have the amount of business days in this period.
+      // In order to get the remaining man days we need to multiply that amount
+      // with all users (not hidden and not admin).
+      //
+      return $count * $U->countUsers();
+   }
+   else
+   {
+      return $count;
+   }
+}
+
+// ---------------------------------------------------------------------------
+/**
  * Computes several date related information for a given date
  *
  * @param string $year 4 digit number of the year (example: 2014)
@@ -1202,6 +1305,45 @@ function getTheme()
    }
    
    return $theme;
+}
+
+// ---------------------------------------------------------------------------
+/**
+ * Returns a hex color value as an array of decimal RGB values
+ *
+ * @param string $color Hex color string to convert
+ * 
+ * @return array RGB values in an array
+ */
+function hex2rgb($color)
+{
+   $color = str_replace('#', '', $color);
+   if (strlen($color) != 6) return array(0,0,0); 
+   $rgb = array();
+   for ($x=0;$x<3;$x++)
+   {
+      $rgb[$x] = hexdec(substr($color,(2*$x),2));
+   }
+   return $rgb;
+}
+
+// ---------------------------------------------------------------------------
+/**
+ * Returns a comma separated string of RGB decimal values as a hex color value
+ *
+ * @param string $color Comma separated string of RGB decimal values
+ *
+ * @return string Hex color value
+ */
+function rgb2hex($color, $hashPrefix=true)
+{
+   $rgbArray = explode(',', $color);
+   if ($hashPrefix) $hex = '#'; else $hex = ''; 
+   foreach ($rgbArray as $dec)
+   {
+      $hex .= sprintf("%02s", dechex($dec));
+   }
+   return $hex;
 }
 
 // ---------------------------------------------------------------------------

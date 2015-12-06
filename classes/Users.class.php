@@ -108,17 +108,22 @@ class Users
    /**
     * Reads all usernames of a given group
     *
-    * @param string $groupid Group ID to search by
-    * @return array $records Array with all group records
+    * @param boolean $skipAdmin Flag to include/exclude admin in the count
+    * @return integer Count
     */
-   function countUsers($skipAdmin=true)
+   function countUsers($countAdmin=false, $countHidden=false)
    {
-      $count= 0;
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
-      $query->bindParam('val1', $groupid);
+      if ($countHidden)
+         $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
+      else 
+         $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE hidden = 0');
+      
       $result = $query->execute();
-      if ($skipAdmin) return $result->fetchColumn()-1;
-      else return $result->fetchColumn();
+      
+      if ($countAdmin) 
+         return $result->fetchColumn();
+      else 
+         return $result->fetchColumn()-1;
    }
    
    // ---------------------------------------------------------------------

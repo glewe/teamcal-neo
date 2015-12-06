@@ -340,5 +340,4 @@ class Holidays
       return $result;
    }
 }
-
 ?>

@@ -241,10 +241,10 @@ class UserGroup
     * @param string $groupid Group ID to search by
     * @return array $records Array with all group records
     */
-   function getAllforGroup($groupid)
+   function getAllforGroup($groupid, $sort='ASC')
    {
       $records = array ();
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE groupid = :val1 ORDER BY username ASC');
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE groupid = :val1 ORDER BY username '. $sort);
       $query->bindParam('val1', $groupid);
       $result = $query->execute();
       

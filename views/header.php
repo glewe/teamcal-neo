@@ -71,6 +71,9 @@ Copyright:   <?=$htmlData['copyright']."\n"?>
       <link rel="stylesheet" media="screen" type="text/css" href="js/colorpicker/css/colorpicker.css">
       <script type="text/javascript" src="js/colorpicker/js/colorpicker.js"></script>
 
+      <!-- Bootstrap/jQuery Modal Patch -->
+      <script type="text/javascript" src="js/modal.js"></script>
+
       <!-- Bootstrap Paginator -->
       <script src="js/bootstrap-paginator.min.js"></script>
       

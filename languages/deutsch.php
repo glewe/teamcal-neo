@@ -22,13 +22,18 @@ $LANG['all'] = 'Alle';
 $LANG['auto'] = 'Automatisch';
 $LANG['avatar'] = 'Avatar';
 $LANG['back_to_top'] = 'Zur&uuml;ck zum Anfang';
+$LANG['blue'] = 'Blau';
 $LANG['custom'] = 'Individuell';
+$LANG['cyan'] = 'Cyan';
 $LANG['description'] = 'Beschreibung';
+$LANG['diagram'] = 'Diagramm';
 $LANG['display'] = 'Anzeige';
 $LANG['from'] = 'Von';
 $LANG['general'] = 'Allgemein';
+$LANG['green'] = 'Gr&uuml;n';
 $LANG['group'] = 'Gruppe';
 $LANG['license'] = 'Noch nicht verf&uuml;gbar...';
+$LANG['magenta'] = 'Magenta';
 $LANG['monthnames'] = array (
    1 => "Januar",
    "Februar",
@@ -46,12 +51,14 @@ $LANG['monthnames'] = array (
 $LANG['name'] = 'Name';
 $LANG['none'] = 'Keine/r';
 $LANG['options'] = 'Optionen';
+$LANG['orange'] = 'Orange';
 $LANG['period'] = 'Periode';
 $LANG['period_custom'] = 'Individuell';
 $LANG['period_month'] = 'Aktueller Monat';
 $LANG['period_quarter'] = 'Aktuelles Quartal';
 $LANG['period_half'] = 'Aktuelles Halbjahr';
 $LANG['period_year'] = 'Aktuelles Jahr';
+$LANG['red'] = 'Rot';
 $LANG['region'] = 'Region';
 $LANG['role'] = 'Rolle';
 $LANG['role_admin'] = 'Administrator';
@@ -67,6 +74,7 @@ $LANG['settings'] = 'Einstellungen';
 $LANG['smart'] = 'Smart';
 $LANG['to'] = 'Bis';
 $LANG['today'] = 'Heute';
+$LANG['total'] = 'Gesamt';
 $LANG['type'] = 'Typ';
 $LANG['user'] = 'Nutzer';
 $LANG['weekdayShort'] = array (
@@ -596,6 +604,14 @@ $LANG['config_showAvatars_comment'] = 'Mit dieser Option wird ein User Avatar in
       Hinweis: Diese Funktion arbeitet nur, wenn User Icons eingschaltet sind.';
 $LANG['config_showUserIcons'] = 'User Icons anzeigen';
 $LANG['config_showUserIcons_comment'] = 'Mir dieser Option werden links vom Benutzernamen User Icons angezeigt, die die User Rolle und das Geschlecht anzeigen.';
+$LANG['config_statsScale'] = 'Diagramm Skala der Statistiken';
+$LANG['config_statsScale_comment'] = 'W&auml;hle die Diagramm Skala f&uuml;r die Statistik Seiten.
+      <ul>
+         <li>Automatisch: Der Maximalwert des Diagramms ist der maximal gelesene Wert.</li>
+         <li>Smart: Der Maximalwert des Diagramms ist der maximal gelesene Wert plus dem Smartwert.</li>
+      </ul>';
+$LANG['config_statsSmartValue'] = 'Smartwert';
+$LANG['stats_statsSmartValue_comment'] = 'Der Smartwert wird zum gr&ouml;&szlig;ten gelesenen Wert addiert. Die Summe wird als Maximalwert der Diagrammskala benutzt.<br>Damit dieser Wert angewendet wird, muss in der Skala Liste "'.$LANG['smart'].'" ausgew&auml;hlt sein.';
 $LANG['config_theme'] = 'Theme';
 $LANG['config_theme_comment'] = 'W&auml;hle ein Theme aus, umd das Aussehen der User Interface zu &auml;ndern. Du kannst ein eigenes 
       Theme erstellen, indem du eine Kopie eines Verzeichnis im \'themes\' Ordner anlegst und das Style Sheet entsprechend anpasst. 
@@ -932,7 +948,9 @@ $LANG['mnu_app_language'] = 'Sprache';
 $LANG['mnu_view'] = 'Anzeige';
 $LANG['mnu_view_calendar'] = 'Kalender (Monat)';
 $LANG['mnu_view_messages'] = 'Benachrichtigungen';
-$LANG['mnu_view_statistics'] = 'Statistiken';
+$LANG['mnu_view_stats'] = 'Statistiken';
+$LANG['mnu_view_stats_absences'] = 'Abwesenheits-Statistik';
+$LANG['mnu_view_stats_presences'] = 'Anwesenheits-Statistik';
 $LANG['mnu_view_year'] = 'Kalender (Jahr)';
 $LANG['mnu_edit'] = 'Bearbeiten';
 $LANG['mnu_edit_calendaredit'] = 'Personenkalender';
@@ -1316,28 +1334,42 @@ $LANG['roles_name'] = 'Name';
 /**
  * Statistics
  */
-$LANG['stats_title_absences'] = 'Gesamte Abwesenheiten';
+$LANG['stats_title_absences'] = 'Abwesenheits-Statistik';
+$LANG['stats_title_presences'] = 'Anwesenheits-Statistik';
 $LANG['stats_absenceType'] = 'Abwesenheitstyp';
 $LANG['stats_absenceType_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Statistik.';
+$LANG['stats_bygroups'] = '(Pro Gruppe)';
+$LANG['stats_byusers'] = '(Pro Nutzer)';
+$LANG['stats_color'] = 'Farbe';
+$LANG['stats_color_comment'] = 'W&auml;hle die Farbe f&uuml;r das Diagramm.';
+$LANG['stats_customColor'] = 'Individuelle Frabe';
+$LANG['stats_customColor_comment'] = 'W&auml;hle eine individuelle Farbe f&uuml;r das Diagramm.<br>Damit die Farbe angewendet wird, muss in der Farbe Liste "'.$LANG['custom'].'" ausgew&auml;hlt sein.';
 $LANG['stats_endDate'] = 'Eigenes Ende Datum';
 $LANG['stats_endDate_comment'] = 'W&auml;hle ein eigenes Enddatum f&uuml;r die Statistik. Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "'.$LANG['custom'].'" ausgew&auml;hlt sein.';
+$LANG['stats_group'] = 'Gruppe';
+$LANG['stats_group_comment'] = 'W&auml;hle die Gruppe f&uuml;r die Statistik.';
 $LANG['stats_modalAbsenceTitle'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Statistik.';
 $LANG['stats_modalGroupTitle'] = 'W&auml;hle die Gruppe f&uuml;r die Statistik.';
 $LANG['stats_modalPeriodTitle'] = 'W&auml;hle den Zeitraum f&uuml;r die Statistik.';
-$LANG['stats_modalScaleTitle'] = 'W&auml;hle die Skala f&uuml;r die Statistik.';
+$LANG['stats_modalDiagramTitle'] = 'W&auml;hle die Skala f&uuml;r die Statistik.';
 $LANG['stats_period'] = 'Zeitraum';
 $LANG['stats_period_comment'] = 'W&auml;hle den Zeitraum f&uuml;r die Statistik.';
 $LANG['stats_scale'] = 'Skala';
-$LANG['stats_scale_comment'] = 'W&auml;hle die Skala f&uuml;r das Diagramm.
+$LANG['stats_scale_comment'] = 'W&auml;hle die Skala f&uuml;r das Diagramm (Der Standard kann vom Administrator gesetzt werden.).
       <ul>
          <li>Automatisch: Der Maximalwert des Diagramms ist der maximal gelesene Wert.</li>
-         <li>Smart: Der Maximalwert des Diagramms ist der maximal gelesene Wert plus 5.</li>
+         <li>Smart: Der Maximalwert des Diagramms ist der maximal gelesene Wert plus dem Smartwert.</li>
          <li>Individuell: Der Maximalwert des Diagramms kann im Feld unten selbst angegeben werden.</li>
       </ul>';
 $LANG['stats_scale_max'] = 'Maximalwert';
 $LANG['stats_scale_max_comment'] = 'W&auml;hle einen eigenen Maximalwert f&uuml;r das Diagramm. Standard ist 30.<br>Damit dieser Wert angewendet wird, muss in der Skala Liste "'.$LANG['custom'].'" ausgew&auml;hlt sein.';
 $LANG['stats_scale_smart'] = 'Smartwert';
-$LANG['stats_scale_smart_comment'] = 'Der Smartwert wird zum gr&ouml;&szlig;ten gelesenen Wert addiert. Die Summe wird als Maximalwert der Diagrammskala benutzt. Standard ist 4.<br>Damit dieser Wert angewendet wird, muss in der Skala Liste "'.$LANG['smart'].'" ausgew&auml;hlt sein.';
+$LANG['stats_scale_smart_comment'] = 'Der Smartwert wird zum gr&ouml;&szlig;ten gelesenen Wert addiert. Die Summe wird als Maximalwert der Diagrammskala benutzt (Der Standard kann vom Administrator gesetzt werden.).<br>Damit dieser Wert angewendet wird, muss in der Skala Liste "'.$LANG['smart'].'" ausgew&auml;hlt sein.';
+$LANG['stats_total'] = 'Gesamtsumme';
+$LANG['stats_yaxis'] = 'Diagramm Y-Achse';
+$LANG['stats_yaxis_comment'] = 'W&auml;hle, was auf der Y-Achse gezeigt werden soll.';
+$LANG['stats_yaxis_groups'] = 'Gruppen';
+$LANG['stats_yaxis_users'] = 'Nutzer';
 $LANG['stats_startDate'] = 'Eigenes Start Datum';
 $LANG['stats_startDate_comment'] = 'W&auml;hle ein eigenes Startdatum f&uuml;r die Statistik.<br>Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "'.$LANG['custom'].'" ausgew&auml;hlt sein.';
 
