@@ -5,7 +5,7 @@
  * The view of the top navigation menu
  *
  * @category TeamCal Neo 
- * @version 0.3.004
+ * @version 0.3.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -20,7 +20,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          <div class="container">
             
             <div class="navbar-header">
-               <a href="<?=WEBSITE_URL?>" class="navbar-brand" style="padding: 2px 8px 0 8px;"><img src="images/logo.png" alt=""></a>
+               <a href="<?=WEBSITE_URL?>" class="navbar-brand" style="padding: 2px 8px 0 8px;"><img src="images/logo.png" width="48" height="48" alt=""></a>
                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                   <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
                </button>
@@ -160,7 +160,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   <!-- User Menu -->
                   <li class="dropdown">
                      <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="user">
-                        <img src="<?=$CONF['app_avatar_dir']?>/<?=$userData['avatar']?>" alt="" style="height: 40px; margin: -10px 0 -10px 0;"><span class="caret"></span>
+                        <img src="<?=$CONF['app_avatar_dir']?>/<?=$userData['avatar']?>" width="40" height="40" alt="" style="margin: -10px 0 -10px 0;"><span class="caret"></span>
                      </a>
                      <ul class="dropdown-menu" aria-labelledby="user">
                         <li style="padding: 0 10px 0 10px;"><a tabindex="-1" href="#"><?=$userData['loginInfo']?></a></li>

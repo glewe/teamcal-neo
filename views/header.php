@@ -5,7 +5,7 @@
  * The view of the HTML header
  *
  * @category TeamCal Neo 
- * @version 0.3.004
+ * @version 0.3.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -27,10 +27,9 @@ Copyright:   <?=$htmlData['copyright']."\n"?>
       <title><?=$htmlData['title']?></title>
       
       <meta http-equiv="Content-type" content="text/html;charset=utf8">
-      
       <meta name="viewport" content="width=device-width,initial-scale=1">
       <meta name="keywords" content="Lewe <?=$CONF['app_name']?>">
-      <meta name="description" content="Lewe <?=$CONF['app_name']?> - The Online Application!">
+      <meta name="description" content="Lewe <?=$CONF['app_name']?> - The Online Calendar!">
       
       <link rel="shortcut icon" href="images/icons/logo-16.png">
       

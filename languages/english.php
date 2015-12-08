@@ -5,7 +5,7 @@
  * Language file (English)
  *
  * @category TeamCal Neo 
- * @version 0.3.004
+ * @version 0.3.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -103,6 +103,8 @@ $LANG['weeknumber'] = 'Calendar week';
 $LANG['about_version'] = 'Version';
 $LANG['about_copyright'] = 'Copyright';
 $LANG['about_license'] = 'License';
+$LANG['about_forum'] = 'Forum';
+$LANG['about_tracker'] = 'Issue Tracker';
 $LANG['about_credits'] = 'Credits';
 $LANG['about_for'] = 'for';
 $LANG['about_and'] = 'and';

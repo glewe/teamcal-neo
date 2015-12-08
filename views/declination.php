@@ -4,14 +4,12 @@
  * 
  * The view of the declination page
  *
- * @package TeamCal Neo
- * @subpackage Administration
- * @category View
- * @version 0.1.06
+ * @category TeamCal Neo 
+ * @version 0.3.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
- * @license http://tcneo.lewe.com/doc/license.txt
+ * @license
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>

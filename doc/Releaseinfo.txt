@@ -3,6 +3,21 @@ TEAMCAL NEO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[0.3.005]
+
+DATE
+2015-12-08 (John Lennon killed 35 years ago)
+
+BUGFIXES
+
+CHANGES
+01 Forum and Tracker added to About page
+02 Speed optimizations
+
+NEW FEATURES
+
+
+------------------------------------------------------------------------------
 [0.3.004]
 
 DATE
@@ -58,6 +73,7 @@ NEW FEATURES
 02 Declination check
 03 Added Chart.js addon plus HorizontalBar plugin
 04 Basic statistics page
+05 Absence approval function
 
 
 ------------------------------------------------------------------------------

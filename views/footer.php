@@ -5,7 +5,7 @@
  * The view of the footer
  *
  * @category TeamCal Neo 
- * @version 0.3.004
+ * @version 0.3.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -41,9 +41,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             
             <div class="col-lg-3 text-right">
                <a href="#top" title="<?=$LANG['back_to_top']?>"><i class="glyphicon glyphicon-arrow-up"></i></a><br>
-               <img src="images/valid-html5.gif" alt="Valid HTML5"><br>
-               <img src="images/valid-css3.gif" alt="Valid CSS3"><br>
-               <img src="images/responsive.gif" alt="Responsive"><br>
+               <img src="images/valid-html5.gif" width="80" height="15" alt="Valid HTML5"><br>
+               <img src="images/valid-css3.gif" width="80" height="15" alt="Valid CSS3"><br>
+               <img src="images/responsive.gif" width="80" height="15" alt="Responsive"><br>
                <br>
                <i id="size" class="small"></i>
             </div>

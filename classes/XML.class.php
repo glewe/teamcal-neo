@@ -3,7 +3,7 @@
  * XML.class.php
  *
  * @category TeamCal Neo 
- * @version 0.3.004
+ * @version 0.3.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com

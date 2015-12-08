@@ -5,7 +5,7 @@
  * The view of the about page
  *
  * @category TeamCal Neo 
- * @version 0.3.004
+ * @version 0.3.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2015 by George Lewe
  * @link http://www.lewe.com
@@ -24,7 +24,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['mnu_help_about']?></div>
                <div class="panel-body">
-                  <div class="col-lg-3"><img src="images/icons/logo-128.png" alt="" class="img_floatleft">
+                  <div class="col-lg-3"><img src="images/icons/logo-128.png" width="128" height="128" alt="" class="img_floatleft">
                   </div>
                   <div class="col-lg-9">
                      <h2><?=$CONF['app_name']?></h2>
@@ -32,6 +32,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <strong><?=$LANG['about_version']?>:</strong>&nbsp;&nbsp;<?=$CONF['app_version']?><br>
                         <strong><?=$LANG['about_copyright']?>:</strong>&nbsp;&nbsp;&copy;&nbsp;<?=$CONF['app_year'] . "-" . $CONF['app_curr_year']?> by <a class="about" href="http://www.lewe.com/" target="_blank"><?=$CONF['app_author']?></a><br>
                         <strong><?=$LANG['about_license']?>:</strong>&nbsp;&nbsp;<?=$LANG['license']?><br>
+                        <strong><?=$LANG['about_forum']?>:</strong>&nbsp;&nbsp;<a class="about" href="http://forum.lewe.com/" target="_blank">Lewe Forum</a><br>
+                        <strong><?=$LANG['about_tracker']?>:</strong>&nbsp;&nbsp;<a class="about" href="http://georgelewe.atlassian.net/" target="_blank">Lewe Issue Tracker</a><br><br>
                      </p>
                      <h3><?=$LANG['about_credits']?>:</h3>
                      <ul>
