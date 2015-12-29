@@ -5,9 +5,9 @@
  * Edit calendar page controller
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license http://tcneo.lewe.com/doc/license.txt
  */
@@ -15,18 +15,18 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
 
-/**
- * ========================================================================
- * Check URL params
- */
+//=============================================================================
+//
+// CHECK URL PARAMETERS
+//
 if (isset($_GET['month']) AND isset($_GET['region']) AND isset($_GET['user']))
 {
    $missingData = FALSE;
    
    $yyyymm = sanitize($_GET['month']);
-   $calData['year'] = substr($yyyymm, 0, 4);
-   $calData['month'] = substr($yyyymm, 4, 2);
-   if (!is_numeric($yyyymm) OR strlen($yyyymm) != 6 OR !checkdate(intval($calData['month']),1,intval($calData['year'])) ) 
+   $viewData['year'] = substr($yyyymm, 0, 4);
+   $viewData['month'] = substr($yyyymm, 4, 2);
+   if (!is_numeric($yyyymm) OR strlen($yyyymm) != 6 OR !checkdate(intval($viewData['month']),1,intval($viewData['year'])) ) 
    {
       $missingData = TRUE;
    }
@@ -38,8 +38,8 @@ if (isset($_GET['month']) AND isset($_GET['region']) AND isset($_GET['user']))
    }
    else
    {
-      $calData['regionid'] = $R->id;
-      $calData['regionname'] = $R->name;
+      $viewData['regionid'] = $R->id;
+      $viewData['regionname'] = $R->name;
    }
     
    $caluser = sanitize($_GET['user']);
@@ -55,9 +55,9 @@ else
 
 if ($missingData)
 {
-   /**
-    * URL param fail
-    */
+   //
+   // URL param fail
+   //
    $alertData['type'] = 'danger';
    $alertData['title'] = $LANG['alert_danger_title'];
    $alertData['subject'] = $LANG['alert_no_data_subject'];
@@ -67,12 +67,12 @@ if ($missingData)
    die();
 }
 
-/**
- * ========================================================================
- * Check if allowed
- */
+//=============================================================================
+//
+// CHECK PERMISSION
+//
 $allowed = false;
-if (isAllowed("calendaredit"))
+if (isAllowed($CONF['controllers'][$controller]->permission))
 {
    if ( $UL->username == $caluser )
    {
@@ -99,80 +99,78 @@ if (!$allowed)
    die();
 }
 
-/**
- * ========================================================================
- * Load controller stuff
- */
+//=============================================================================
+//
+// LOAD CONTROLLER RESOURCES
+//
 
-/**
- * ========================================================================
- * Initialize variables
- */
+//=============================================================================
+//
+// VARIABLE DEFAULTS
+//
 $users = $U->getAll();
 $inputAlert = array();
 $currDate = date('Y-m-d');
-$calData['dateInfo'] = dateInfo($calData['year'], $calData['month']);
+$viewData['dateInfo'] = dateInfo($viewData['year'], $viewData['month']);
 
-/**
- * See if a region template exists. If not, create one.
- */
-if (!$M->getMonth($calData['year'], $calData['month'], $calData['regionid'])) 
+//
+// See if a region template exists. If not, create one.
+//
+if (!$M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid'])) 
 {
-   createMonth($calData['year'], $calData['month'], 'region', $calData['regionid']);
-   $M->getMonth($calData['year'], $calData['month'], $calData['regionid']);
+   createMonth($viewData['year'], $viewData['month'], 'region', $viewData['regionid']);
+   $M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']);
     
-   /**
-    * Log this event
-    */
+   //
+   // Log this event
+   //
    $LOG->log("logMonth", $L->checkLogin(), "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
 }
 
-/**
- * See if a user template exists. If not, create one.
- */
-if (!$T->getTemplate($caluser, $calData['year'], $calData['month']))
+//
+// See if a user template exists. If not, create one.
+//
+if (!$T->getTemplate($caluser, $viewData['year'], $viewData['month']))
 {
-   createMonth($calData['year'], $calData['month'], 'user', $caluser);
-   $T->getTemplate($caluser, $calData['year'], $calData['month']);
+   createMonth($viewData['year'], $viewData['month'], 'user', $caluser);
+   $T->getTemplate($caluser, $viewData['year'], $viewData['month']);
    
-   /**
-    * Log this event
-    */
+   //
+   // Log this event
+   //
    $LOG->log("logMonth", $L->checkLogin(), "log_month_tpl_created", $caluser . ": " . $M->year . "-" . $M->month);
 }
 
-/**
- * ========================================================================
- * Process form
- */
+//=============================================================================
+//
+// PROCESS FORM
+//
 if (!empty($_POST))
 {
    if (isset($_POST['btn_save']) OR isset($_POST['btn_clearall']) OR isset($_POST['btn_saveperiod']) OR isset($_POST['btn_saverecurring']))
    {
-      /**
-       * All changes to the calendar are handled in this block since it finishes with the Approval routine.
-       * First, get the current absences of the user into an array $currentAbsences
-       * Second, set initialize the $requestedAbsences array to the current ones. Updates are done below.
-       */
-      for ($i=1; $i<=$calData['dateInfo']['daysInMonth']; $i++)
+      //
+      // All changes to the calendar are handled in this block since it finishes with the Approval routine.
+      // First, get the current absences of the user into an array $currentAbsences
+      // Second, set initialize the $requestedAbsences array to the current ones. Updates are done below.
+      //
+      for ($i=1; $i<=$viewData['dateInfo']['daysInMonth']; $i++)
       {
-         $currentAbsences[$i] = $T->getAbsence($caluser, $calData['year'], $calData['month'], $i);
+         $currentAbsences[$i] = $T->getAbsence($caluser, $viewData['year'], $viewData['month'], $i);
          $requestedAbsences[$i] = $currentAbsences[$i];
          $approvedAbsences[$i] = '0';
          $declinedAbsences[$i] = '0';
       }
       
-      /**
-       * ,------,
-       * | Save |
-       * '------'
-       */
+      // ,------,
+      // | Save |
+      // '------'
       if (isset($_POST['btn_save']))
       {
-         /**
-          * Loop thru the radio boxes
-          */
-         for ($i=1; $i<=$calData['dateInfo']['daysInMonth']; $i++)
+         //
+         // Loop thru the radio boxes
+         //
+         for ($i=1; $i<=$viewData['dateInfo']['daysInMonth']; $i++)
          {
             $key = 'opt_abs_'.$i;
             if (isset($_POST[$key]))
@@ -185,31 +183,27 @@ if (!empty($_POST))
             }
          }
       }
-      /**
-       * ,-----------,
-       * | Clear all |
-       * '-----------'
-       */
+      // ,-----------,
+      // | Clear All |
+      // '-----------'
       else if (isset($_POST['btn_clearall']))
       {
-         /**
-          * Loop thru the radio boxes
-          */
-         for ($i=1; $i<=$calData['dateInfo']['daysInMonth']; $i++)
+         //
+         // Loop thru the radio boxes
+         //
+         for ($i=1; $i<=$viewData['dateInfo']['daysInMonth']; $i++)
          {
             $requestedAbsences[$i] = '0';
          }
       }
-      /**
-       * ,---------------,
-       * | Save Period   |
-       * '---------------'
-       */
+      // ,-------------,
+      // | Save Period |
+      // '-------------'
       elseif (isset($_POST['btn_saveperiod']))
       {
-         /**
-          * Form validation
-          */
+         //
+         // Form validation
+         //
          $inputError = false;
          if (!formInputValid('txt_periodStart', 'required|date')) $inputError = true;
          if (!formInputValid('txt_periodEnd', 'required|date')) $inputError = true;
@@ -224,7 +218,7 @@ if (!empty($_POST))
             $endYear = $endPieces[0];
             $endMonth = $endPieces[1];
             
-            if ($startYear==$calData['year'] AND $endYear==$calData['year'] AND $startMonth==$calData['month'] AND $endMonth==$calData['month'])
+            if ($startYear==$viewData['year'] AND $endYear==$viewData['year'] AND $startMonth==$viewData['month'] AND $endMonth==$viewData['month'])
             {
                $startDate = str_replace("-", "", $_POST['txt_periodStart']);
                $endDate = str_replace("-", "", $_POST['txt_periodEnd']);
@@ -239,9 +233,9 @@ if (!empty($_POST))
             }
             else 
             {
-               /**
-                * Input out of range
-                */
+               //
+               // Input out of range
+               //
                $showAlert = TRUE;
                $alertData['type'] = 'danger';
                $alertData['title'] = $LANG['alert_danger_title'];
@@ -252,9 +246,9 @@ if (!empty($_POST))
          }
          else
          {
-            /**
-             * Input validation failed
-             */
+            //
+            // Input validation failed
+            //
             $showAlert = TRUE;
             $alertData['type'] = 'danger';
             $alertData['title'] = $LANG['alert_danger_title'];
@@ -263,15 +257,13 @@ if (!empty($_POST))
             $alertData['help'] = '';
          }
       }
-      /**
-       * ,----------------,
-       * | Save Recurring |
-       * '----------------'
-       */
+      // ,----------------,
+      // | Save Recurring |
+      // '----------------'
       elseif (isset($_POST['btn_saverecurring']))
       {
-         $startDate = $calData['year'].$calData['month'].'01';
-         $endDate =  $calData['year'].$calData['month'].$calData['dateInfo']['daysInMonth'];
+         $startDate = $viewData['year'].$viewData['month'].'01';
+         $endDate =  $viewData['year'].$viewData['month'].$viewData['dateInfo']['daysInMonth'];
          $wdays = array('monday'=>1, 'tuesday'=>2, 'wednesday'=>3, 'thursday'=>4, 'friday'=>5, 'saturday'=>6, 'sunday'=>7);
          
          foreach($_POST as $key=>$value)
@@ -280,13 +272,13 @@ if (!empty($_POST))
             {
                if ( $key==$wday )
                {
-                  /*
-                   * The checkbox for this weekday was set. Loop through the month and mark all of them.
-                   */ 
+                  //
+                  // The checkbox for this weekday was set. Loop through the month and mark all of them.
+                  // 
                   for ($i=$startDate; $i<=$endDate; $i++)
                   {
                      $day = intval(substr($i, 6, 2));
-                     $loopDayInfo = dateInfo($calData['year'],$calData['month'],$day);
+                     $loopDayInfo = dateInfo($viewData['year'],$viewData['month'],$day);
                      if ( $loopDayInfo['wday']==$wdaynr )
                      {
                         $requestedAbsences[$day] = $_POST['sel_recurringAbsence'];
@@ -295,13 +287,13 @@ if (!empty($_POST))
                }
                elseif ( $key=="workdays" )
                {
-                  /*
-                   * The checkbox for workdays was set. Loop through the month and mark all workdays.
-                   */
+                  //
+                  // The checkbox for workdays was set. Loop through the month and mark all workdays.
+                  //
                   for ($i=$startDate; $i<=$endDate; $i++)
                   {
                      $day = intval(substr($i, 6, 2));
-                     $loopDayInfo = dateInfo($calData['year'],$calData['month'],$day);
+                     $loopDayInfo = dateInfo($viewData['year'],$viewData['month'],$day);
                      if ( $loopDayInfo['wday']>=1 AND $loopDayInfo['wday']<=5 )
                      {
                         $requestedAbsences[$day] = $_POST['sel_recurringAbsence'];
@@ -310,13 +302,13 @@ if (!empty($_POST))
                }
                elseif ( $key=="weekends" )
                {
-                  /*
-                   * The checkbox for weekends was set. Loop through the month and mark all weekend days.
-                   */
+                  //
+                  // The checkbox for weekends was set. Loop through the month and mark all weekend days.
+                  //
                   for ($i=$startDate; $i<=$endDate; $i++)
                   {
                     $day = intval(substr($i, 6, 2));
-                     $loopDayInfo = dateInfo($calData['year'],$calData['month'],$day);
+                     $loopDayInfo = dateInfo($viewData['year'],$viewData['month'],$day);
                      if ( $loopDayInfo['wday']>=6 AND $loopDayInfo['wday']<=7 )
                      {
                         $requestedAbsences[$day] = $_POST['sel_recurringAbsence'];
@@ -330,14 +322,14 @@ if (!empty($_POST))
       
       if (!$showAlert)
       {
-         /*
-          * At this point we have four arrays:
-          * - $currentAbsences (Absences before this request)
-          * - $requestedAbsences (Absences requested)
-          * - $approved['approvedAbsences'] (Absences approved, coming back from the approval function)
-          * - $approved['declinedReasons'] (Declined Reasons, coming back from the approval function)
-          */
-         $approved = approveAbsences($caluser, $calData['year'], $calData['month'], $currentAbsences, $requestedAbsences);
+         //
+         // At this point we have four arrays:
+         // - $currentAbsences (Absences before this request)
+         // - $requestedAbsences (Absences requested)
+         // - $approved['approvedAbsences'] (Absences approved, coming back from the approval function)
+         // - $approved['declinedReasons'] (Declined Reasons, coming back from the approval function)
+         //
+         $approved = approveAbsences($caluser, $viewData['year'], $viewData['month'], $currentAbsences, $requestedAbsences);
          
          $sendNotification = false;
          $alerttype = 'success';
@@ -350,7 +342,7 @@ if (!empty($_POST))
                   $col = 'abs'.$key;
                   $T->$col = $val;
                }
-               $T->update($caluser, $calData['year'], $calData['month']);
+               $T->update($caluser, $viewData['year'], $viewData['month']);
                $sendNotification = true;
                break;
                
@@ -360,7 +352,7 @@ if (!empty($_POST))
                   $col = 'abs'.$key;
                   $T->$col = $val;
                }
-               $T->update($caluser, $calData['year'], $calData['month']);
+               $T->update($caluser, $viewData['year'], $viewData['month']);
                $sendNotification = true;
                $alerttype = 'info';
                foreach ($approved['declinedReasons'] as $reason)
@@ -374,22 +366,22 @@ if (!empty($_POST))
                break;
          }
          
-         /**
-          * Send notification e-mails to the subscribers of user events
-          */
+         //
+         // Send notification e-mails to the subscribers of user events
+         //
          if ($C->read("emailNotifications") AND $sendNotification)
          {
-            sendUserCalEventNotifications("changed", $calData['year'], $calData['month'], $caluser);
+            sendUserCalEventNotifications("changed", $viewData['year'], $viewData['month'], $caluser);
          }
              
-         /**
-          * Log this event
-          */
-         $LOG->log("logUser", $UL->username, "log_cal_usr_tpl_chg", $caluser . " " . $calData['year'].$calData['month']);
+         //
+         // Log this event
+         //
+         $LOG->log("logUser", $UL->username, "log_cal_usr_tpl_chg", $caluser . " " . $viewData['year'].$viewData['month']);
          
-         /**
-          * Success
-          */
+         //
+         // Success
+         //
          $showAlert = TRUE;
          $alertData['type'] = $alerttype;
          $alertData['title'] = $LANG['alert_'.$alerttype.'_title'];
@@ -398,40 +390,36 @@ if (!empty($_POST))
          $alertData['help'] = $alertHelp;
       }
    }
-   /**
-    * ,---------------,
-    * | Select region |
-    * '---------------'
-    */
+   // ,---------------,
+   // | Select Region |
+   // '---------------'
    elseif (isset($_POST['btn_region']))
    {
-      header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $calData['year'] . $calData['month'] . "&region=" . $_POST['sel_region'] . "&user=" . $caluser);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $_POST['sel_region'] . "&user=" . $caluser);
       die();
    }
-   /**
-    * ,-------------,
-    * | Select User |
-    * '-------------'
-    */
+   // ,-------------,
+   // | Select User |
+   // '-------------'
    elseif (isset($_POST['btn_user']))
    {
-      header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $calData['year'] . $calData['month'] . "&region=" . $_POST['sel_region'] . "&user=" . $_POST['sel_user']);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $_POST['sel_region'] . "&user=" . $_POST['sel_user']);
       die();
    }
 }
 
-/**
- * ========================================================================
- * Prepare data for the view
- */
-$calData['username'] = $caluser;
-$calData['fullname'] = $U->getFullname($caluser);
-$calData['absences'] = $A->getAll();
-$calData['holidays'] = $H->getAllCustom();
-$calData['regions'] = $R->getAll();
-$calData['dayStyles'] = array();
+//=============================================================================
+//
+// PREPARE VIEW
+//
+$viewData['username'] = $caluser;
+$viewData['fullname'] = $U->getFullname($caluser);
+$viewData['absences'] = $A->getAll();
+$viewData['holidays'] = $H->getAllCustom();
+$viewData['regions'] = $R->getAll();
+$viewData['dayStyles'] = array();
 
-$calData['users'] = array();
+$viewData['users'] = array();
 foreach ($users as $usr)
 {
    $allowed = false;
@@ -452,67 +440,67 @@ foreach ($users as $usr)
    }
    if ($allowed)
    {
-      $calData['users'][] = array ('username' => $usr['username'], 'lastfirst' => $U->getLastFirst($usr['username']));
+      $viewData['users'][] = array ('username' => $usr['username'], 'lastfirst' => $U->getLastFirst($usr['username']));
    }
 }
 
-/**
- * Get the holiday and weekend colors
- */
-for ($i=1; $i<=$calData['dateInfo']['daysInMonth']; $i++) 
+//
+// Get the holiday and weekend colors
+//
+for ($i=1; $i<=$viewData['dateInfo']['daysInMonth']; $i++) 
 {
    $color = '';
    $bgcolor = '';
    $border = '';
-   $calData['dayStyles'][$i] = '';
+   $viewData['dayStyles'][$i] = '';
    $hprop = 'hol'.$i;
    $wprop = 'wday'.$i;
    if ($M->$hprop) 
    {
-      /**
-       * This is a holiday. Get the coloring info.
-       */
+      //
+      // This is a holiday. Get the coloring info.
+      //
       $color = 'color:#' . $H->getColor($M->$hprop) . ';';
       $bgcolor = 'background-color:#' . $H->getBgColor($M->$hprop) . ';';
    }
    else if ($M->$wprop==6 OR $M->$wprop==7) 
    {
-      /**
-       * This is a Saturday or Sunday. Get the coloring info.
-       */
+      //
+      // This is a Saturday or Sunday. Get the coloring info.
+      //
       $color = 'color:#' . $H->getColor($M->$wprop-4) . ';';
       $bgcolor = 'background-color:#' . $H->getBgColor($M->$wprop-4) . ';';
    }
    
-   /**
-    * Get today style
-    */
-   $loopDate = date('Y-m-d', mktime(0, 0, 0, $calData['month'], $i, $calData['year']));
+   //
+   // Get today style
+   //
+   $loopDate = date('Y-m-d', mktime(0, 0, 0, $viewData['month'], $i, $viewData['year']));
    if ( $loopDate == $currDate )
    {
       $border = 'border-left: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';border-right: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';';
    }
    
-   /**
-    * Build styles
-    */
+   //
+   // Build styles
+   //
    if ( strlen($color) OR strlen($bgcolor) OR strlen($border) )
    {
-      $calData['dayStyles'][$i] = ' style="' . $color . $bgcolor . $border . '"';
+      $viewData['dayStyles'][$i] = ' style="' . $color . $bgcolor . $border . '"';
    }
 }
 
 $todayDate = getdate(time());
-$calData['yearToday'] = $todayDate['year'];
-$calData['monthToday'] = sprintf("%02d", $todayDate['mon']);
-$calData['showWeekNumbers'] = $C->read('showWeekNumbers');
-$mobilecols['full'] = $calData['dateInfo']['daysInMonth'];
-$calData['supportMobile'] = $C->read('supportMobile');
+$viewData['yearToday'] = $todayDate['year'];
+$viewData['monthToday'] = sprintf("%02d", $todayDate['mon']);
+$viewData['showWeekNumbers'] = $C->read('showWeekNumbers');
+$mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
+$viewData['supportMobile'] = $C->read('supportMobile');
 
-/**
- * ========================================================================
- * Show view
- */
+//=============================================================================
+//
+// SHOW VIEW
+//
 require (WEBSITE_ROOT . '/views/header.php');
 require (WEBSITE_ROOT . '/views/menu.php');
 include (WEBSITE_ROOT . '/views/'.$controller.'.php');

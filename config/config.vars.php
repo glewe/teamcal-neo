@@ -6,41 +6,26 @@
  * Do NOT change anything here (unless you know what you're doing!)
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
-/**
- * Default time zone
- */
+//
+// DEFAULT TIME ZONE
+//
 $timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
 $tz = $C->read("timeZone");
 if (!strlen($tz) or $tz == "default") date_default_timezone_set('UTC');
 else date_default_timezone_set($tz);
 
-/**
- * Default data array passed to the HTML header view
- */
-$htmlData = array (
-   'application' => $CONF['app_name'],
-   'version' => $CONF['app_version'],
-   'date' => $CONF['app_version_date'],
-   'author' => $CONF['app_author'],
-   'copyright' => $CONF['app_copyright_html'],
-   'license' => $CONF['app_license_html'],
-   'title' => $CONF['app_name'],
-   'theme' => 'bootstrap',
-   'jQueryCDN' => FALSE,
-   'jQueryTheme' => 'smoothness' 
-);
-
-/**
- * Default data array of the current user
- */
+//
+// USER DATA
+// Used for the currently logged in user
+//
 $userData = array (
    'isLoggedIn' => FALSE,
    'role' => 'public',
@@ -49,9 +34,10 @@ $userData = array (
    'tooltip' => '' 
 );
 
-/**
- * Data array passed to the alert view
- */
+//
+// ALERT DATA
+// Used for the alert view
+//
 $alertData = array (
    'type' => 'info',
    'title' => 'Information',
@@ -60,45 +46,32 @@ $alertData = array (
    'help' => '' 
 );
 
-/**
- * Welcome Icons
- */
-$appWelcomeIcons = getFiles($CONF['app_homepage_dir'], $fileTypes = array (
-   'gif',
-   'jpg',
-   'png' 
-));
-asort($appWelcomeIcons);
-
-/**
- * Application Languages
- */
+//
+// LANGUAGES
+//
 $appLanguages = getLanguages();
 asort($appLanguages);
-
-/**
- * Log Languages
- */
 $logLanguages = getLanguages('log');
 asort($logLanguages);
 
-/**
- * Themes
- */
+//
+// THEMES
+//
 $appThemes = getFolders("themes");
 asort($appThemes);
 
-/**
- * jQuery UI Themes
- */
+//
+// JQUERY UI THEMES
+//
 $appJqueryUIThemes = getFolders($CONF['app_jqueryui_dir'] . 'themes');
 asort($appJqueryUIThemes);
 
-/**
- * Number of day columns in the month display for mobile devices.
- * The controller will overwrite the value for 'full' which needs to be the 
- * exact amount of days of the month displayed.
- */
+//
+// MOBILE COLUMNS
+// Number of day columns in the month display for mobile devices.
+// The controller will overwrite the value for 'full' which needs to be the 
+// exact amount of days of the month displayed.
+//
 $mobilecols = array (
    '240' => 3,
    '320' => 5,
@@ -111,16 +84,19 @@ $mobilecols = array (
    'full' => 31
 );
 
-/**
- * Font Awesome icon names
- */
+//
+// FONT AWESOME ICON NAMES
+// Used in select lists
+//
 $faIcons = array (
+   '500px',
    'adjust',
    'adn',
    'align-center',
    'align-justify',
    'align-left',
    'align-right',
+   'amazon',
    'ambulance',
    'anchor',
    'android',
@@ -156,12 +132,24 @@ $faIcons = array (
    'at',
    'automobile',
    'backward',
+   'balance-scale',
    'ban',
    'bank',
    'bar-chart',
    'bar-chart-o',
    'barcode',
    'bars',
+   'battery-0',
+   'battery-1',
+   'battery-2',
+   'battery-3',
+   'battery-4',
+   'battery-empty',
+   'battery-full',
+   'battery-half',
+   'battery-quarter',
+   'battery-three-quarters',
+   'bed',
    'beer',
    'behance',
    'behance-square',
@@ -175,6 +163,9 @@ $faIcons = array (
    'bitbucket',
    'bitbucket-square',
    'bitcoin',
+   'black-tie',
+   'bluetooth',
+   'bluetooth-b',
    'bold',
    'bolt',
    'bomb',
@@ -189,10 +180,15 @@ $faIcons = array (
    'bullhorn',
    'bullseye',
    'bus',
+   'buysellads',
    'cab',
    'calculator',
    'calendar',
+   'calendar-check-o',
+   'calendar-minus-o',
    'calendar-o',
+   'calendar-plus-o',
+   'calendar-times-o',
    'camera',
    'camera-retro',
    'car',
@@ -204,9 +200,13 @@ $faIcons = array (
    'caret-square-o-right',
    'caret-square-o-up',
    'caret-up',
+   'cart-arrow-down',
+   'cart-plus',
    'cc',
    'cc-amex',
+   'cc-diners-club',
    'cc-discover',
+   'cc-jcb',
    'cc-mastercard',
    'cc-paypal',
    'cc-stripe',
@@ -228,12 +228,14 @@ $faIcons = array (
    'chevron-right',
    'chevron-up',
    'child',
+   'chrome',
    'circle',
    'circle-o',
    'circle-o-notch',
    'circle-thin',
    'clipboard',
    'clock-o',
+   'clone',
    'close',
    'cloud',
    'cloud-download',
@@ -242,19 +244,26 @@ $faIcons = array (
    'code',
    'code-fork',
    'codepen',
+   'codiepie',
    'coffee',
    'cog',
    'cogs',
    'columns',
    'comment',
+   'commenting',
+   'commenting-o',
    'comment-o',
    'comments',
    'comments-o',
    'compass',
    'compress',
+   'connectdevelop',
+   'contao',
    'copy',
    'copyright',
+   'creative-commons',
    'credit-card',
+   'credit-card-alt',
    'crop',
    'crosshairs',
    'css3',
@@ -263,11 +272,13 @@ $faIcons = array (
    'cut',
    'cutlery',
    'dashboard',
+   'dashcube',
    'database',
    'dedent',
    'delicious',
    'desktop',
    'deviantart',
+   'diamond',
    'digg',
    'dollar',
    'dot-circle-o',
@@ -275,6 +286,7 @@ $faIcons = array (
    'dribbble',
    'dropbox',
    'drupal',
+   'edge',
    'edit',
    'eject',
    'ellipsis-h',
@@ -291,16 +303,20 @@ $faIcons = array (
    'exclamation-circle',
    'exclamation-triangle',
    'expand',
+   'expeditedssl',
    'external-link',
    'external-link-square',
    'eye',
    'eyedropper',
    'eye-slash',
    'facebook',
+   'facebook-f',
+   'facebook-official',
    'facebook-square',
    'fast-backward',
    'fast-forward',
    'fax',
+   'feed',
    'female',
    'fighter-jet',
    'file',
@@ -326,6 +342,7 @@ $faIcons = array (
    'filter',
    'fire',
    'fire-extinguisher',
+   'firefox',
    'flag',
    'flag-checkered',
    'flag-o',
@@ -338,6 +355,9 @@ $faIcons = array (
    'folder-open',
    'folder-open-o',
    'font',
+   'fonticons',
+   'fort-awesome',
+   'forumbee',
    'forward',
    'foursquare',
    'frown-o',
@@ -348,6 +368,10 @@ $faIcons = array (
    'ge',
    'gear',
    'gears',
+   'genderless',
+   'get-pocket',
+   'gg',
+   'gg-circle',
    'gift',
    'git',
    'github',
@@ -362,31 +386,57 @@ $faIcons = array (
    'google-plus-square',
    'google-wallet',
    'graduation-cap',
+   'gratipay',
    'group',
    'hacker-news',
+   'hand-grab-o',
+   'hand-lizard-o',
    'hand-o-down',
    'hand-o-left',
    'hand-o-right',
    'hand-o-up',
+   'hand-paper-o',
+   'hand-peace-o',
+   'hand-pointer-o',
+   'hand-rock-o',
+   'hand-scissors-o',
+   'hand-spock-o',
+   'hand-stop-o',
+   'hashtag',
    'hdd-o',
    'header',
    'headphones',
    'heart',
+   'heartbeat',
    'heart-o',
    'history',
    'home',
    'hospital-o',
+   'hotel',
+   'hourglass',
+   'hourglass-1',
+   'hourglass-2',
+   'hourglass-3',
+   'hourglass-end',
+   'hourglass-half',
+   'hourglass-o',
+   'hourglass-start',
+   'houzz',
    'h-square',
    'html5',
+   'i-cursor',
    'ils',
    'image',
    'inbox',
    'indent',
+   'industry',
    'info',
    'info-circle',
    'inr',
    'instagram',
    'institution',
+   'internet-explorer',
+   'intersex',
    'ioxhost',
    'italic',
    'joomla',
@@ -400,6 +450,7 @@ $faIcons = array (
    'lastfm',
    'lastfm-square',
    'leaf',
+   'leanpub',
    'legal',
    'lemon-o',
    'level-down',
@@ -430,26 +481,49 @@ $faIcons = array (
    'mail-reply',
    'mail-reply-all',
    'male',
+   'map',
    'map-marker',
+   'map-o',
+   'map-pin',
+   'map-signs',
+   'mars',
+   'mars-double',
+   'mars-stroke',
+   'mars-stroke-h',
+   'mars-stroke-v',
    'maxcdn',
    'meanpath',
+   'medium',
    'medkit',
    'meh-o',
+   'mercury',
    'microphone',
    'microphone-slash',
    'minus',
    'minus-circle',
    'minus-square',
    'minus-square-o',
+   'mixcloud',
    'mobile',
    'mobile-phone',
+   'modx',
    'money',
    'moon-o',
    'mortar-board',
+   'motorcycle',
+   'mouse-pointer',
    'music',
    'navicon',
+   'neuter',
    'newspaper-o',
+   'object-group',
+   'object-ungroup',
+   'odnoklassniki',
+   'odnoklassniki-square',
+   'opencart',
    'openid',
+   'opera',
+   'optin-monster',
    'outdent',
    'pagelines',
    'paint-brush',
@@ -459,11 +533,14 @@ $faIcons = array (
    'paragraph',
    'paste',
    'pause',
+   'pause-circle',
+   'pause-circle-o',
    'paw',
    'paypal',
    'pencil',
    'pencil-square',
    'pencil-square-o',
+   'percent',
    'phone',
    'phone-square',
    'photo',
@@ -472,6 +549,7 @@ $faIcons = array (
    'pied-piper',
    'pied-piper-alt',
    'pinterest',
+   'pinterest-p',
    'pinterest-square',
    'plane',
    'play',
@@ -484,6 +562,7 @@ $faIcons = array (
    'plus-square-o',
    'power-off',
    'print',
+   'product-hunt',
    'puzzle-piece',
    'qq',
    'qrcode',
@@ -496,8 +575,10 @@ $faIcons = array (
    'rebel',
    'recycle',
    'reddit',
+   'reddit-alien',
    'reddit-square',
    'refresh',
+   'registered',
    'remove',
    'renren',
    'reorder',
@@ -516,13 +597,17 @@ $faIcons = array (
    'rub',
    'ruble',
    'rupee',
+   'safari',
    'save',
    'scissors',
+   'scribd',
    'search',
    'search-minus',
    'search-plus',
+   'sellsy',
    'send',
    'send-o',
+   'server',
    'share',
    'share-alt',
    'share-alt-square',
@@ -531,11 +616,17 @@ $faIcons = array (
    'shekel',
    'sheqel',
    'shield',
+   'ship',
+   'shirtsinbulk',
+   'shopping-bag',
+   'shopping-basket',
    'shopping-cart',
    'signal',
    'sign-in',
    'sign-out',
+   'simplybuilt',
    'sitemap',
+   'skyatlas',
    'skype',
    'slack',
    'sliders',
@@ -573,11 +664,17 @@ $faIcons = array (
    'step-backward',
    'step-forward',
    'stethoscope',
+   'sticky-note',
+   'sticky-note-o',
    'stop',
+   'stop-circle',
+   'stop-circle-o',
+   'street-view',
    'strikethrough',
    'stumbleupon',
    'stumbleupon-circle',
    'subscript',
+   'subway',
    'suitcase',
    'sun-o',
    'superscript',
@@ -589,6 +686,7 @@ $faIcons = array (
    'tags',
    'tasks',
    'taxi',
+   'television',
    'tencent-weibo',
    'terminal',
    'text-height',
@@ -612,10 +710,15 @@ $faIcons = array (
    'toggle-on',
    'toggle-right',
    'toggle-up',
+   'trademark',
+   'train',
+   'transgender',
+   'transgender-alt',
    'trash',
    'trash-o',
    'tree',
    'trello',
+   'tripadvisor',
    'trophy',
    'truck',
    'try',
@@ -623,6 +726,7 @@ $faIcons = array (
    'tumblr',
    'tumblr-square',
    'turkish-lira',
+   'tv',
    'twitch',
    'twitter',
    'twitter-square',
@@ -635,11 +739,20 @@ $faIcons = array (
    'unlock-alt',
    'unsorted',
    'upload',
+   'usb',
    'usd',
    'user',
    'user-md',
+   'user-plus',
    'users',
+   'user-secret',
+   'user-times',
+   'venus',
+   'venus-double',
+   'venus-mars',
+   'viacoin',
    'video-camera',
+   'vimeo',
    'vimeo-square',
    'vine',
    'vk',
@@ -650,8 +763,10 @@ $faIcons = array (
    'wechat',
    'weibo',
    'weixin',
+   'whatsapp',
    'wheelchair',
    'wifi',
+   'wikipedia-w',
    'windows',
    'won',
    'wordpress',
@@ -659,6 +774,10 @@ $faIcons = array (
    'xing',
    'xing-square',
    'yahoo',
+   'yc',
+   'y-combinator',
+   'y-combinator-square',
+   'yc-square',
    'yelp',
    'yen',
    'youtube',

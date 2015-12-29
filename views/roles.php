@@ -2,12 +2,12 @@
 /**
  * roles.php
  * 
- * The view of the roles page
+ * Roles page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -42,7 +42,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="panel-body">
                            <div class="col-lg-4">
                               <label for="inputSearch"><?=$LANG['search']?></label>
-                              <input id="inputSearch" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_searchRole" maxlength="40" value="<?=$rolesData['searchRole']?>" type="text">
+                              <input id="inputSearch" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_searchRole" maxlength="40" value="<?=$viewData['searchRole']?>" type="text">
                            </div>
                            <div class="col-lg-3">
                               <br>
@@ -59,12 +59,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <!-- Modal: Create role -->
                      <?=createModalTop('modalCreateRole', $LANG['btn_create_role'])?>
                         <label for="inputName"><?=$LANG['name']?></label>
-                        <input id="inputName" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_name" maxlength="40" value="<?=$rolesData['txt_name']?>" type="text">
+                        <input id="inputName" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_name" maxlength="40" value="<?=$viewData['txt_name']?>" type="text">
                         <?php if ( isset($inputAlert["name"]) AND strlen($inputAlert["name"]) ) { ?> 
                            <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert">x</button><?=$inputAlert["name"]?></div>
                         <?php } ?> 
                         <label for="inputDescription"><?=$LANG['description']?></label>
-                        <input id="inputDescription" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_description" maxlength="100" value="<?=$rolesData['txt_description']?>" type="text">
+                        <input id="inputDescription" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_description" maxlength="100" value="<?=$viewData['txt_description']?>" type="text">
                         <?php if ( isset($inputAlert["description"]) AND strlen($inputAlert["description"]) ) { ?> 
                            <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert">x</button><?=$inputAlert["description"]?></div>
                         <?php } ?>
@@ -78,7 +78,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="col-lg-2 text-right"><?=$LANG['action']?></div>
                   </div>
                               
-                  <?php foreach ($rolesData['roles'] as $role) { ?>
+                  <?php foreach ($viewData['roles'] as $role) { ?>
                   <form  class="bs-example form-control-horizontal" name="form_<?=$role['name']?>" action="index.php?action=roles" method="post" target="_self" accept-charset="utf-8">
                      <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                         <div class="col-lg-3"><?=$role['name']?></div>

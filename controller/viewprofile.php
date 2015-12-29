@@ -5,9 +5,9 @@
  * View profile page controller
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -15,10 +15,25 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
 
-/**
- * ========================================================================
- * Check URL params
- */
+//=============================================================================
+//
+// CHECK PERMISSION
+//
+if (!isAllowed($CONF['controllers'][$controller]->permission))
+{
+   $alertData['type'] = 'warning';
+   $alertData['title'] = $LANG['alert_alert_title'];
+   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
+   $alertData['text'] = $LANG['alert_not_allowed_text'];
+   $alertData['help'] = $LANG['alert_not_allowed_help'];
+   require (WEBSITE_ROOT . '/controller/alert.php');
+   die();
+}
+
+//=============================================================================
+//
+// CHECK URL PARAMETER
+//
 if (isset($_GET['profile']))
 {
    $missingData = FALSE;
@@ -32,9 +47,9 @@ else
 
 if ($missingData)
 {
-   /**
-    * URL param fail
-    */
+   //
+   // URL param fail
+   //
    $alertData['type'] = 'danger';
    $alertData['title'] = $LANG['alert_danger_title'];
    $alertData['subject'] = $LANG['alert_no_data_subject'];
@@ -44,61 +59,45 @@ if ($missingData)
    die();
 }
 
-/**
- * ========================================================================
- * Check if allowed
- */
-if (!isAllowed($CONF['controllers'][$controller]->permission))
-{
-   $alertData['type'] = 'warning';
-   $alertData['title'] = $LANG['alert_alert_title'];
-   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
-   $alertData['text'] = $LANG['alert_not_allowed_text'];
-   $alertData['help'] = $LANG['alert_not_allowed_help'];
-   require (WEBSITE_ROOT . '/controller/alert.php');
-   die();
-}
+//=============================================================================
+//
+// LOAD CONTROLLER RESOURCES
+//
 
-/**
- * ========================================================================
- * Load controller stuff
- */
+//=============================================================================
+//
+// VARIABLE DEFAULTS
+//
 
-/**
- * ========================================================================
- * Initialize variables
- */
+//=============================================================================
+//
+// PROCESS FORM
+//
 
-/**
- * ========================================================================
- * Process form
- */
-
-/**
- * ========================================================================
- * Prepare data for the view
- */
+//=============================================================================
+//
+// PREPARE VIEW
+//
 $U->findByName($profile);
-$profileData['username'] = $profile;
-$profileData['fullname'] = $U->getFullname($U->username);
-$profileData['avatar'] = ($UO->read($U->username, 'avatar')) ? $UO->read($U->username, 'avatar') : 'noavatar_' . $UO->read($U->username, 'gender') . '.png';
-$profileData['role'] = $RO->getNameById($U->role);
-$profileData['title'] = $UO->read($U->username, 'title');
-$profileData['position'] = $UO->read($U->username, 'position');
-$profileData['email'] = $U->email;
-$profileData['phone'] = $UO->read($U->username, 'phone');
-$profileData['mobile'] = $UO->read($U->username, 'mobile');
-$profileData['facebook'] = $UO->read($U->username, 'facebook');
-$profileData['google'] = $UO->read($U->username, 'google');
-$profileData['linkedin'] = $UO->read($U->username, 'linkedin');
-$profileData['skype'] = $UO->read($U->username, 'skype');
-$profileData['twitter'] = $UO->read($U->username, 'twitter');
+$viewData['username'] = $profile;
+$viewData['fullname'] = $U->getFullname($U->username);
+$viewData['avatar'] = ($UO->read($U->username, 'avatar')) ? $UO->read($U->username, 'avatar') : 'noavatar_' . $UO->read($U->username, 'gender') . '.png';
+$viewData['role'] = $RO->getNameById($U->role);
+$viewData['title'] = $UO->read($U->username, 'title');
+$viewData['position'] = $UO->read($U->username, 'position');
+$viewData['email'] = $U->email;
+$viewData['phone'] = $UO->read($U->username, 'phone');
+$viewData['mobile'] = $UO->read($U->username, 'mobile');
+$viewData['facebook'] = $UO->read($U->username, 'facebook');
+$viewData['google'] = $UO->read($U->username, 'google');
+$viewData['linkedin'] = $UO->read($U->username, 'linkedin');
+$viewData['skype'] = $UO->read($U->username, 'skype');
+$viewData['twitter'] = $UO->read($U->username, 'twitter');
 
-
-/**
- * ========================================================================
- * Show view
- */
+//=============================================================================
+//
+// SHOW VIEW
+//
 require (WEBSITE_ROOT . '/views/header.php');
 require (WEBSITE_ROOT . '/views/menu.php');
 include (WEBSITE_ROOT . '/views/'.$controller.'.php');

@@ -2,12 +2,12 @@
 /**
  * permissions.php
  * 
- * The view of the permissions page
+ * Permissions page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -32,10 +32,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             } ?>
             <?php $tabindex = 1; $colsleft = 8; $colsright = 4;?>
             
-            <form  class="bs-example form-control-horizontal" action="index.php?action=<?=$controller?>&amp;scheme=<?=$permData['scheme']?>" method="post" target="_self" accept-charset="utf-8">
+            <form  class="bs-example form-control-horizontal" action="index.php?action=<?=$controller?>&amp;scheme=<?=$viewData['scheme']?>" method="post" target="_self" accept-charset="utf-8">
                
                <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['perm_title'].': '.$permData['scheme'].' '.(($permData['scheme']==$permData['currentScheme'])?$LANG['perm_active']:$LANG['perm_inactive'])?></div>
+                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['perm_title'].': '.$viewData['scheme'].' '.(($viewData['scheme']==$viewData['currentScheme'])?$LANG['perm_active']:$LANG['perm_inactive'])?></div>
                   <div class="panel-body">
                   
                      <div class="panel panel-default">
@@ -45,23 +45,23 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <button class="btn btn-info" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectScheme"><?=$LANG['perm_select_scheme']?></button>
                            <button class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalCreateScheme"><?=$LANG['perm_create_scheme']?></button>
                            <button class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalResetScheme"><?=$LANG['perm_reset_scheme']?></button>
-                           <?php if ( $permData['scheme'] != $permData['currentScheme'] ) { ?>
+                           <?php if ( $viewData['scheme'] != $viewData['currentScheme'] ) { ?>
                            <button class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalActivateScheme"><?=$LANG['perm_activate_scheme']?></button>
-                              <?php if ( $permData['scheme'] != "Default" ) { ?>
+                              <?php if ( $viewData['scheme'] != "Default" ) { ?>
                               <button class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteScheme"><?=$LANG['perm_delete_scheme']?></button>
                               <?php }
                            } ?>
-                           <?php if ( $permData['mode'] == 'byrole' ) { ?>
-                              <a href="index.php?action=permissions&amp;scheme=<?=$permData['scheme']?>&amp;mode=byperm" class="btn btn-default pull-right" style="margin-right: 4px;" tabindex="<?=$tabindex++;?>"><?=$LANG['perm_view_by_perm']?></a>
+                           <?php if ( $viewData['mode'] == 'byrole' ) { ?>
+                              <a href="index.php?action=permissions&amp;scheme=<?=$viewData['scheme']?>&amp;mode=byperm" class="btn btn-default pull-right" style="margin-right: 4px;" tabindex="<?=$tabindex++;?>"><?=$LANG['perm_view_by_perm']?></a>
                            <?php } else { ?>
-                              <a href="index.php?action=permissions&amp;scheme=<?=$permData['scheme']?>&amp;mode=byrole" class="btn btn-default pull-right" style="margin-right: 4px;" tabindex="<?=$tabindex++;?>"><?=$LANG['perm_view_by_role']?></a>
+                              <a href="index.php?action=permissions&amp;scheme=<?=$viewData['scheme']?>&amp;mode=byrole" class="btn btn-default pull-right" style="margin-right: 4px;" tabindex="<?=$tabindex++;?>"><?=$LANG['perm_view_by_role']?></a>
                            <?php } ?>
                            
                            <!-- Modal: Select scheme -->
                            <?=createModalTop('modalSelectScheme', $LANG['perm_select_scheme'])?>
                               <select id="sel_scheme" class="form-control" name="sel_scheme">
-                              <?php foreach ( $permData['schemes'] as $schm ) { ?>
-                                 <option value="<?=$schm?>"<?=(($schm == $permData['scheme']) ? " selected" : "")?>><?=$schm?></option>
+                              <?php foreach ( $viewData['schemes'] as $schm ) { ?>
+                                 <option value="<?=$schm?>"<?=(($schm == $viewData['scheme']) ? " selected" : "")?>><?=$schm?></option>
                               <?php } ?>
                               </select>
                               <?=$LANG['perm_select_confirm']?>
@@ -85,32 +85,32 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
                            <!-- Modal: Delete scheme -->
                            <?=createModalTop('modalDeleteScheme', $LANG['modal_confirm'])?>
-                              <?=$permData['scheme']?>":<br><?=$LANG['perm_delete_confirm']?>
+                              <?=$viewData['scheme']?>":<br><?=$LANG['perm_delete_confirm']?>
                            <?=createModalBottom('btn_permDelete', 'danger', $LANG['btn_delete'])?>
                            
                         </div>
                      </div>
                   
-                     <?php if ( $permData['mode'] == 'byrole' ) { ?>
+                     <?php if ( $viewData['mode'] == 'byrole' ) { ?>
                       
                         <!-- View: By role -->
                         <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                           <?php foreach ($permData['roles'] as $role ) { ?> 
+                           <?php foreach ($viewData['roles'] as $role ) { ?> 
                            <li<?=(($role['id']==1)?" class=\"active\"":"")?>><a href="#tab<?=$role['id']?>" data-toggle="tab"><?=$role['name']?></a></li>
                            <?php } ?>
                         </ul>
                         
                         <div id="myTabContent" class="tab-content">
-                           <?php foreach ($permData['roles'] as $role ) { ?> 
+                           <?php foreach ($viewData['roles'] as $role ) { ?> 
                            <!-- Role <?=$role['name']?> tab -->
                            <div class="tab-pane fade<?=(($role['id']==1)?" active in":"")?>" id="tab<?=$role['id']?>">
                               <div class="panel panel-default">
                                  <div class="panel-body">
                                  
-                                    <?php foreach ($permData['permgroups'] as $permgroup => $permnames ) {
+                                    <?php foreach ($viewData['permgroups'] as $permgroup => $permnames ) {
                                        $checked = 'checked="checked"';
                                        foreach ($permnames as $permname ) { 
-                                          if (!$P->isAllowed($permData['scheme'],$permname,$role['id'])) $checked = ''; ?> 
+                                          if (!$P->isAllowed($viewData['scheme'],$permname,$role['id'])) $checked = ''; ?> 
                                        <?php } ?> 
                                        <div class="checkbox">
                                           <label><input type="checkbox" name="chk_<?=$permgroup?>_<?=$role['id']?>" value="chk_<?=$permgroup?>_<?=$role['id']?>" tabindex="<?=$tabindex++?>" <?=$checked?> <?=(($role['id']=='1')?'disabled="disabled"':'')?>><strong><?=$LANG['perm_'.$permgroup.'_title']?></strong><br><?=$LANG['perm_'.$permgroup.'_desc']?></label>
@@ -118,9 +118,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <hr>
                                     <?php } ?>
                                     
-                                    <?php foreach ($permData['fperms'] as $fperm ) { ?> 
+                                    <?php foreach ($viewData['fperms'] as $fperm ) { ?> 
                                        <div class="checkbox">
-                                          <label><input type="checkbox" name="chk_<?=$fperm?>_<?=$role['id']?>" value="chk_<?=$fperm?>_<?=$role['id']?>" tabindex="<?=$tabindex++?>"<?=(($P->isAllowed($permData['scheme'],$fperm,$role['id']))?" checked":"")?> <?=(($role['id']=='1')?'disabled="disabled"':'')?>><strong><?=$LANG['perm_'.$fperm.'_title']?></strong><br><?=$LANG['perm_'.$fperm.'_desc']?></label>
+                                          <label><input type="checkbox" name="chk_<?=$fperm?>_<?=$role['id']?>" value="chk_<?=$fperm?>_<?=$role['id']?>" tabindex="<?=$tabindex++?>"<?=(($P->isAllowed($viewData['scheme'],$fperm,$role['id']))?" checked":"")?> <?=(($role['id']=='1')?'disabled="disabled"':'')?>><strong><?=$LANG['perm_'.$fperm.'_title']?></strong><br><?=$LANG['perm_'.$fperm.'_desc']?></label>
                                        </div>
                                        <hr>
                                     <?php } ?>
@@ -145,17 +145,17 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <div class="tab-pane fade active in" id="tabGeneral">
                               <div class="panel panel-default">
                                  <div class="panel-body">
-                                    <?php foreach ($permData['permgroups'] as $key => $pages ) { ?>
+                                    <?php foreach ($viewData['permgroups'] as $key => $pages ) { ?>
                                        <div class="form-group">
                                           <label class="col-lg-<?=$colsleft?> control-label">
                                              <?=$LANG['perm_' . $key . '_title']?><br>
                                              <span class="text-normal"><?=$LANG['perm_' . $key . '_desc']?></span>
                                           </label>
                                           <div class="col-lg-<?=$colsright?>">
-                                             <?php foreach ($permData['roles'] as $role ) {
+                                             <?php foreach ($viewData['roles'] as $role ) {
                                                 $checked = 'checked="checked"'; 
                                                 foreach ($pages as $page) {
-                                                   if (!$P->isAllowed($permData['scheme'],$page,$role['id'])) $checked = '';
+                                                   if (!$P->isAllowed($viewData['scheme'],$page,$role['id'])) $checked = '';
                                                 } ?> 
                                                 <div class="checkbox">
                                                    <label><input type="checkbox" name="chk_<?=$key?>_<?=$role['id']?>" value="chk_<?=$key?>_<?=$role['id']?>" tabindex="<?=$tabindex++?>" <?=$checked?> <?=(($role['id']=='1')?'disabled="disabled"':'')?>><?=$role['name']?></label>
@@ -173,16 +173,16 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <div class="tab-pane fade" id="tabFeatures">
                               <div class="panel panel-default">
                                  <div class="panel-body">
-                                    <?php foreach ($permData['fperms'] as $fperm ) { ?>
+                                    <?php foreach ($viewData['fperms'] as $fperm ) { ?>
                                        <div class="form-group">
                                           <label class="col-lg-<?=$colsleft?> control-label">
                                              <?=$LANG['perm_'.$fperm.'_title']?><br>
                                              <span class="text-normal"><?=$LANG['perm_'.$fperm.'_desc']?></span>
                                           </label>
                                           <div class="col-lg-<?=$colsright?>">
-                                             <?php foreach ($permData['roles'] as $role ) { ?> 
+                                             <?php foreach ($viewData['roles'] as $role ) { ?> 
                                                 <div class="checkbox">
-                                                   <label><input type="checkbox" name="chk_<?=$fperm?>_<?=$role['id']?>" value="chk_<?=$fperm?>_<?=$role['id']?>" tabindex="<?=$tabindex++?>"<?=(($P->isAllowed($permData['scheme'],$fperm,$role['id']))?" checked":"")?> <?=(($role['id']=='1')?'disabled="disabled"':'')?>><?=$role['name']?></label>
+                                                   <label><input type="checkbox" name="chk_<?=$fperm?>_<?=$role['id']?>" value="chk_<?=$fperm?>_<?=$role['id']?>" tabindex="<?=$tabindex++?>"<?=(($P->isAllowed($viewData['scheme'],$fperm,$role['id']))?" checked":"")?> <?=(($role['id']=='1')?'disabled="disabled"':'')?>><?=$role['name']?></label>
                                                 </div>
                                              <?php } ?>
                                           </div>

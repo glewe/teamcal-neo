@@ -5,9 +5,9 @@
  * Database page controller
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -15,10 +15,10 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
 
-/**
- * ========================================================================
- * Check if allowed
- */
+//=============================================================================
+//
+// CHECK PERMISSION
+//
 if (!isAllowed($CONF['controllers'][$controller]->permission))
 {
    $alertData['type'] = 'warning';
@@ -30,33 +30,31 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
    die();
 }
 
-/**
- * ========================================================================
- * Load controller stuff
- */
+//=============================================================================
+//
+// LOAD CONTROLLER RESOURCES
+//
 
-/**
- * ========================================================================
- * Initialize variables
- */
+//=============================================================================
+//
+// VARIABLE DEFAULTS
+//
 $inputAlert = array();
-$dbData['year'] = '';
-$dbData['month'] = '';
 
-/**
- * ========================================================================
- * Process form
- */
+//=============================================================================
+//
+// PROCESS FORM
+//
 if (!empty($_POST))
 {
-   /**
-    * Sanitize input
-    */
+   //
+   // Sanitize input
+   //
    $_POST = sanitize($_POST);
     
-   /**
-    * Form validation
-    */
+   //
+   // Form validation
+   //
    $inputError = false;
    if (isset($_POST['btn_delete']))
    {
@@ -65,70 +63,71 @@ if (!empty($_POST))
     
    if (!$inputError)
    {
-      /**
-       * ,--------,
-       * | Delete |
-       * '--------'
-       */
+      // ,--------,
+      // | Delete |
+      // '--------'
       if ( isset($_POST['btn_delete']) )
       {
          if ( isset($_POST['chk_delUsers']) )
          {
-            /**
-             * Delete Users (all but admin)
-             * Delete User options (all but admin)
-             * Delete Daynotes
-             * Delete Templates
-             * Delete Allowances
-             */
+            //
+            // Delete Users (all but admin)
+            // Delete User options (all but admin)
+            // Delete Daynotes
+            // Delete Templates
+            // Delete Allowances
+            //
             $result = $U->deleteAll();
             $result = $UO->deleteAll();
+            $result = $D->deleteAll();
+            $result = $T->deleteAll();
+            $result = $AL->deleteAll();
             
-            /**
-             * Log this event
-             */
+            //
+            // Log this event
+            //
             $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_users");
          }
          
          if ( isset($_POST['chk_delGroups']) )
          {
-            /**
-             * Delete Groups
-             * Delete User-Group assignments
-             */
+            //
+            // Delete Groups
+            // Delete User-Group assignments
+            //
             $result = $G->deleteAll();
             $result = $UG->deleteAll();
             
-            /**
-             * Log this event
-             */
+            //
+            // Log this event
+            //
             $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_groups");
          }
          
          if ( isset($_POST['chk_delMessages']) )
          {
-            /**
-             * Delete Messages and all User-Message assignments
-             */
+            //
+            // Delete Messages and all User-Message assignments
+            //
             $result = $MSG->deleteAll();
             $result = $UMSG->deleteAll();
             
-            /**
-             * Log this event
-            */
+            //
+            // Log this event
+           //
             $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_msg");
          }
           
          if ( isset($_POST['chk_delOrphMessages']) )
          {
-            /**
-             * Delete orphaned announcements
-             */
+            //
+            // Delete orphaned announcements
+            //
             deleteOrphanedMessages();
              
-            /**
-             * Log this event
-             */
+            //
+            // Log this event
+            //
             $LOG->log("logMessages",$L->checkLogin(),"log_db_delete_msg_orph");
          }
           
@@ -136,9 +135,9 @@ if (!empty($_POST))
          {
             $P->deleteAll();
             
-            /**
-             * Log this event
-             */
+            //
+            // Log this event
+            //
             $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_perm");
          }
           
@@ -146,30 +145,30 @@ if (!empty($_POST))
          {
             $LOG->deleteAll();
              
-            /**
-             * Log this event
-             */
+            //
+            // Log this event
+            //
             $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_log");
          }
          
          if ( isset($_POST['chkDBDeleteArchive']) )
          {
-            /**
-             * Delete archive records
-             */
+            //
+            // Delete archive records
+            //
             $U->deleteAll(TRUE);
             $UG->deleteAll(TRUE);
             $UO->deleteAll(TRUE);
             $UMSG->deleteAll(TRUE);
              
-            /**
-             * Log this event
-             */
+            //
+            // Log this event
+            //
             $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_archive");
          }
-         /**
-          * Success
-          */
+         //
+         // Success
+         //
          $showAlert = TRUE;
          $alertData['type'] = 'success';
          $alertData['title'] = $LANG['alert_success_title'];
@@ -177,49 +176,19 @@ if (!empty($_POST))
          $alertData['text'] = $LANG['db_alert_delete_success'];
          $alertData['help'] = '';
       }
-      /**
-       * ,--------,
-       * | Export |
-       * '--------'
-       */
-      else if ( isset($_POST['btn_export']) )
-      {
-         switch ($_POST['opt_expFormat'])
-         {
-            case 'csv': $format="csv"; break;
-            case 'sql': $format="sql"; break;
-            case 'xml': $format="xml"; break;
-            default:    $format="sql"; break;
-         }
-         
-         switch ($_POST['opt_expOutput'])
-         {
-            case 'browser': $type="browser"; break;
-            case 'file':    $type="download"; break;
-            default:        $type=""; break;
-         }
-         
-         /**
-          * Log this event
-          */
-         $LOG->log("logDatabase",$L->checkLogin(),"log_db_export", "$format | $what | $type");
-         header('Location: index.php?action=export&what=all&format='.$format.'&type='.$type);
-      }
-      /**
-       * ,----------,
-       * | Optimize |
-       * '----------'
-       */
+      // ,----------,
+      // | Optimize |
+      // '----------'
       else if ( isset($_POST['btn_optimize']) )
       {
-         /**
-          * Optimize tables
-          */
+         //
+         // Optimize tables
+         //
          $DB->optimizeTables();
          
-         /**
-          * Success
-          */
+         //
+         // Success
+         //
          $showAlert = TRUE;
          $alertData['type'] = 'success';
          $alertData['title'] = $LANG['alert_success_title'];
@@ -227,12 +196,45 @@ if (!empty($_POST))
          $alertData['text'] = $LANG['db_alert_optimize_success'];
          $alertData['help'] = '';
       }
+      // ,----------,
+      // | Save URL |
+      // '----------'
+      else if ( isset($_POST['btn_saveURL']) )
+      {
+         if (filter_var($_POST['txt_dbURL'], FILTER_VALIDATE_URL)) 
+         {
+            $C->save("dbURL",$_POST['txt_dbURL']); 
+            
+            //
+            // Success
+            //
+            $showAlert = TRUE;
+            $alertData['type'] = 'success';
+            $alertData['title'] = $LANG['alert_success_title'];
+            $alertData['subject'] = $LANG['db_alert_url'];
+            $alertData['text'] = $LANG['db_alert_url_success'];
+            $alertData['help'] = '';
+         }
+         else 
+         {
+            //
+            // Fail
+            //
+            $showAlert = TRUE;
+            $alertData['type'] = 'warning';
+            $alertData['title'] = $LANG['alert_warning_title'];
+            $alertData['subject'] = $LANG['db_alert_url'];
+            $alertData['text'] = $LANG['db_alert_url_fail'];
+            $alertData['help'] = '';
+            $C->save("dbURL","#");
+         }
+      }
    }
    else
    {
-      /**
-       * Input validation failed
-       */
+      //
+      // Input validation failed
+      //
       $showAlert = TRUE;
       $alertData['type'] = 'danger';
       $alertData['title'] = $LANG['alert_danger_title'];
@@ -242,15 +244,16 @@ if (!empty($_POST))
    }
 }
 
-/**
- * ========================================================================
- * Prepare data for the view
- */
+//=============================================================================
+//
+// PREPARE VIEW
+//
+$viewData['dbURL'] = $C->read('dbURL');
 
-/**
- * ========================================================================
- * Show view
- */
+//=============================================================================
+//
+// SHOW VIEW
+//
 require (WEBSITE_ROOT . '/views/header.php');
 require (WEBSITE_ROOT . '/views/menu.php');
 include (WEBSITE_ROOT . '/views/'.$controller.'.php');

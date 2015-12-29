@@ -5,9 +5,9 @@
  * Register page controller
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -15,15 +15,10 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
 
-/**
- * ========================================================================
- * Check URL params
- */
-
-/**
- * ========================================================================
- * Check if allowed
- */
+//=============================================================================
+//
+// CHECK PERMISSION
+//
 if (!$C->read('allowRegistration'))
 {
    $alertData['type'] = 'warning';
@@ -35,32 +30,32 @@ if (!$C->read('allowRegistration'))
    die();
 }
 
-/**
- * ========================================================================
- * Load controller stuff
- */
+//=============================================================================
+//
+// LOAD CONTROLLER RESOURCES
+//
 
-/**
- * ========================================================================
- * Initialize variables
- */
+//=============================================================================
+//
+// VARIABLE DEFAULTS
+//
 $UR = new Users(); // for the profile to be registered
 $inputAlert = array();
 
-/**
- * ========================================================================
- * Process form
- */
+//=============================================================================
+//
+// PROCESS FORM
+//
 if (!empty($_POST))
 {
-   /**
-    * Sanitize input
-    */
+   //
+   // Sanitize input
+   //
    $_POST = sanitize($_POST);
     
-   /**
-    * Form validation
-    */
+   //
+   // Form validation
+   //
    $inputError = false;
    if (!formInputValid('txt_username', 'required|alpha_numeric')) $inputError = true;
    if (!formInputValid('txt_lastname', 'required|alpha_numeric_dash')) $inputError = true;
@@ -76,26 +71,24 @@ if (!empty($_POST))
     
    if (!$inputError)
    {
-      /**
-       * ,----------,
-       * | Register |
-       * '----------'
-       */
+      // ,----------,
+      // | Register |
+      // '----------'
       if (isset($_POST['btn_register']))
       {
-         /**
-          * Personal
-          */
+         //
+         // Personal
+         //
          $UR->username = $_POST['txt_username'];
          $UR->lastname = $_POST['txt_lastname'];
          $UR->firstname = $_POST['txt_firstname'];
          $UR->email = $_POST['txt_email'];
           
-         /**
-          * Account
-          */
+         //
+         // Account
+         //
          $UR->role = 'User';
-         $UR->locked = '0';
+         $UR->locked = '1';
          $UR->hidden = '0';
          $UR->onhold = '0';
          $UR->verify = '1';
@@ -103,35 +96,35 @@ if (!empty($_POST))
          $UR->grace_start = '0000-00-00 00:00:00.000000';
          $UR->created = date('YmdHis');
 
-         /**
-          * Password
-          */
+         //
+         // Password
+         //
          $UR->password = crypt($_POST['txt_password'], $CONF['salt']);
          $UR->last_pw_change = date('YmdHis');
           
          $UR->create();
-         $UO->save($_POST['txt_username'], 'avatar', 'noavatar_male.png');
+         $UO->save($UR->username, 'avatar', 'noavatar_male.png');
          
-         /**
-          * Verify code
-          */
+         //
+         // Verify code
+         //
          $alphanum = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
          $verifycode = substr(str_shuffle($alphanum), 0, 32);
-         $UO->create($U->username, "verifycode", $verifycode);
+         $UO->save($UR->username, "verifycode", $verifycode);
           
-         /**
-          * Send notification to user
-          */
+         //
+         // Send notification to user
+         //
          sendAccountRegisteredMail($UR->email, $UR->username, $UR->lastname, $UR->firstname, $verifycode);
          
-         /**
-          * Log this event
-          */
-         $LOG->log("logUser",$L->checkLogin(),"log_user_registered", $UR->username);
+         //
+         // Log this event
+         //
+         $LOG->log("logRegistration",$L->checkLogin(),"log_user_registered", $UR->username);
          
-         /**
-          * Success
-          */
+         //
+         // Success
+         //
          $showAlert = TRUE;
          $alertData['type'] = 'success';
          $alertData['title'] = $LANG['alert_success_title'];
@@ -142,9 +135,9 @@ if (!empty($_POST))
    }
    else
    {
-      /**
-       * Input validation failed
-       */
+      //
+      // Input validation failed
+      //
       $showAlert = TRUE;
       $alertData['type'] = 'danger';
       $alertData['title'] = $LANG['alert_danger_title'];
@@ -154,12 +147,12 @@ if (!empty($_POST))
    }
 }
 
-/**
- * ========================================================================
- * Prepare data for the view
- */
+//=============================================================================
+//
+// PREPARE VIEW
+//
 $LANG['profile_password_comment'] .= $LANG['password_rules_'.$C->read('pwdStrength')];
-$registerData['personal'] = array (
+$viewData['personal'] = array (
    array ( 'prefix' => 'register', 'name' => 'username', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['username'])?$inputAlert['username']:'') ),
    array ( 'prefix' => 'register', 'name' => 'lastname', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['lastname'])?$inputAlert['lastname']:'') ),
    array ( 'prefix' => 'register', 'name' => 'firstname', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['firstname'])?$inputAlert['firstname']:'') ), 
@@ -168,10 +161,10 @@ $registerData['personal'] = array (
    array ( 'prefix' => 'register', 'name' => 'password2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'mandatory' => true, 'error' =>  (isset($inputAlert['password2'])?$inputAlert['password2']:'') ),
 );
 
-/**
- * ========================================================================
- * Show view
- */
+//=============================================================================
+//
+// SHOW VIEW
+//
 require (WEBSITE_ROOT . '/views/header.php');
 require (WEBSITE_ROOT . '/views/menu.php');
 include (WEBSITE_ROOT . '/views/'.$controller.'.php');

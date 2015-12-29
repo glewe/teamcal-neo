@@ -5,9 +5,9 @@
  * Role edit page controller
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -15,10 +15,25 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
 
-/**
- * ========================================================================
- * Check URL params
- */
+//=============================================================================
+//
+// CHECK PERMISSION
+//
+if (!isAllowed($CONF['controllers'][$controller]->permission))
+{
+   $alertData['type'] = 'warning';
+   $alertData['title'] = $LANG['alert_alert_title'];
+   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
+   $alertData['text'] = $LANG['alert_not_allowed_text'];
+   $alertData['help'] = $LANG['alert_not_allowed_help'];
+   require (WEBSITE_ROOT . '/controller/alert.php');
+   die();
+}
+
+//=============================================================================
+//
+// CHECK URL PARAMETERS
+//
 $RO2 = new Roles(); // for the profile to be created or updated
 if (isset($_GET['id']))
 {
@@ -33,9 +48,9 @@ else
 
 if ($missingData)
 {
-   /**
-    * URL param fail
-    */
+   //
+   // URL param fail
+   //
    $alertData['type'] = 'danger';
    $alertData['title'] = $LANG['alert_danger_title'];
    $alertData['subject'] = $LANG['alert_no_data_subject'];
@@ -44,52 +59,35 @@ if ($missingData)
    require (WEBSITE_ROOT . '/controller/alert.php');
    die();
 }
-else
-{
-   /**
-    * ========================================================================
-    * Check if allowed
-    */
-   if (!isAllowed($CONF['controllers'][$controller]->permission))
-   {
-      $alertData['type'] = 'warning';
-      $alertData['title'] = $LANG['alert_alert_title'];
-      $alertData['subject'] = $LANG['alert_not_allowed_subject'];
-      $alertData['text'] = $LANG['alert_not_allowed_text'];
-      $alertData['help'] = $LANG['alert_not_allowed_help'];
-      require (WEBSITE_ROOT . '/controller/alert.php');
-      die();
-   }
-}
 
-/**
- * ========================================================================
- * Load controller stuff
- */
-$roleData['id'] = $RO2->id;
-$roleData['name'] = $RO2->name;
-$roleData['description'] = $RO2->description;
+//=============================================================================
+//
+// LOAD CONTROLLER RESOURCES
+//
 
-/**
- * ========================================================================
- * Initialize variables
- */
+//=============================================================================
+//
+// VARIABLE DEFAULTS
+//
+$viewData['id'] = $RO2->id;
+$viewData['name'] = $RO2->name;
+$viewData['description'] = $RO2->description;
 $inputAlert = array();
 
-/**
- * ========================================================================
- * Process form
- */
+//=============================================================================
+//
+// PROCESS FORM
+//
 if (!empty($_POST))
 {
-   /**
-    * Sanitize input
-    */
+   //
+   // Sanitize input
+   //
    $_POST = sanitize($_POST);
     
-   /**
-    * Form validation
-    */
+   //
+   // Form validation
+   //
    $inputError = false;
    if (!formInputValid('txt_name', 'required|alpha_numeric_dash') OR
     !formInputValid('txt_description', 'alpha_numeric_dash_blank')) 
@@ -98,19 +96,17 @@ if (!empty($_POST))
       $alertData['text'] = $LANG['role_alert_save_failed'];
    }
 
-   /**
-    * Load sanitized form info for the view
-    */
-   $roleData['name'] = $_POST['txt_name'];
-   $roleData['description'] = $_POST['txt_description'];
+   //
+   // Load sanitized form info for the view
+   //
+   $viewData['name'] = $_POST['txt_name'];
+   $viewData['description'] = $_POST['txt_description'];
     
    if (!$inputError)
    {
-      /**
-       * ,--------,
-       * | Update |
-       * '--------'
-       */
+      // ,--------,
+      // | Update |
+      // '--------'
       if (isset($_POST['btn_roleUpdate']))
       {
          $oldName = $RO2->name; 
@@ -120,22 +116,22 @@ if (!empty($_POST))
           
          $RO2->update($RO2->id);
           
-         /**
-          * Send notification e-mails to the subscribers of user events
-          */
+         //
+         // Send notification e-mails to the subscribers of user events
+         //
          if ($C->read("emailNotifications"))
          {
             sendRoleEventNotifications("changed", $RO2->name.' (ex: '.$oldName.')', $RO2->description);
          }
           
-         /**
-          * Log this event
-          */
+         //
+         // Log this event
+         //
          $LOG->log("logRole",$L->checkLogin(),"log_role_updated", $RO2->name.' (ex: '.$oldName.')');
           
-         /**
-          * Success
-          */
+         //
+         // Success
+         //
          $showAlert = TRUE;
          $alertData['type'] = 'success';
          $alertData['title'] = $LANG['alert_success_title'];
@@ -143,19 +139,19 @@ if (!empty($_POST))
          $alertData['text'] = $LANG['role_alert_edit_success'];
          $alertData['help'] = '';
          
-         /**
-          * Load new info for the view
-          */
-         $roleData['name'] = $RO2->name;
-         $roleData['description'] = $RO2->description;
-         $roleData['color'] = $RO2->color;
+         //
+         // Load new info for the view
+         //
+         $viewData['name'] = $RO2->name;
+         $viewData['description'] = $RO2->description;
+         $viewData['color'] = $RO2->color;
       }
    }
    else
    {
-      /**
-       * Input validation failed
-       */
+      //
+      // Input validation failed
+      //
       $showAlert = TRUE;
       $alertData['type'] = 'danger';
       $alertData['title'] = $LANG['alert_danger_title'];
@@ -164,21 +160,20 @@ if (!empty($_POST))
    }
 }
 
-/**
- * ========================================================================
- * Prepare data for the view
- */
-
-$roleData['role'] = array (
-   array ( 'prefix' => 'role', 'name' => 'name', 'type' => 'text', 'value' => $roleData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
-   array ( 'prefix' => 'role', 'name' => 'description', 'type' => 'text', 'value' => $roleData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
-   array ( 'prefix' => 'role', 'name' => 'color', 'type' => 'radio', 'values' => array ('default', 'primary', 'info', 'success', 'warning', 'danger'), 'value' => $RO2->getColorByName($roleData['name']) ),
+//=============================================================================
+//
+// PREPARE VIEW
+//
+$viewData['role'] = array (
+   array ( 'prefix' => 'role', 'name' => 'name', 'type' => 'text', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
+   array ( 'prefix' => 'role', 'name' => 'description', 'type' => 'text', 'value' => $viewData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
+   array ( 'prefix' => 'role', 'name' => 'color', 'type' => 'radio', 'values' => array ('default', 'primary', 'info', 'success', 'warning', 'danger'), 'value' => $RO2->getColorByName($viewData['name']) ),
 );
 
-/**
- * ========================================================================
- * Show view
- */
+//=============================================================================
+//
+// SHOW VIEW
+//
 require (WEBSITE_ROOT . '/views/header.php');
 require (WEBSITE_ROOT . '/views/menu.php');
 include (WEBSITE_ROOT . '/views/'.$controller.'.php');

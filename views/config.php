@@ -2,12 +2,12 @@
 /**
  * config.php
  * 
- * The view of the config page
+ * Framework config page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -46,13 +46,13 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      
                      <ul class="nav nav-tabs" style="margin-bottom: 15px;">
                         <li class="active"><a href="#general" data-toggle="tab"><?=$LANG['general']?></a></li>
-                        <li><a href="#email" data-toggle="tab"><?=$LANG['config_email']?></a></li>
-                        <li><a href="#login" data-toggle="tab"><?=$LANG['config_login']?></a></li>
-                        <li><a href="#registration" data-toggle="tab"><?=$LANG['config_registration']?></a></li>
-                        <li><a href="#system" data-toggle="tab"><?=$LANG['config_system']?></a></li>
-                        <li><a href="#theme" data-toggle="tab"><?=$LANG['config_tab_theme']?></a></li>
-                        <li><a href="#usericons" data-toggle="tab"><?=$LANG['config_user']?></a></li>
-                        <li><a href="#stats" data-toggle="tab"><?=$LANG['config_stats']?></a></li>
+                        <li><a href="#email" data-toggle="tab"><?=$LANG['config_tab_email']?></a></li>
+                        <li><a href="#homepage" data-toggle="tab"><?=$LANG['config_tab_homepage']?></a></li>
+                        <li><a href="#login" data-toggle="tab"><?=$LANG['config_tab_login']?></a></li>
+                        <li><a href="#registration" data-toggle="tab"><?=$LANG['config_tab_registration']?></a></li>
+                        <li><a href="#system" data-toggle="tab"><?=$LANG['config_tab_system']?></a></li>
+                        <li><a href="#tabtheme" data-toggle="tab"><?=$LANG['config_tab_theme']?></a></li>
+                        <li><a href="#usericons" data-toggle="tab"><?=$LANG['config_tab_user']?></a></li>
                      </ul>
 
                      <div id="myTabContent" class="tab-content">
@@ -61,7 +61,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade active in" id="general">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($configData['general'] as $formObject) {
+                                 <?php foreach($viewData['general'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>
@@ -72,18 +72,29 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade" id="email">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($configData['email'] as $formObject) {
+                                 <?php foreach($viewData['email'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>
                            </div>
                         </div>
                         
+                        <!-- Homepage tab -->
+                        <div class="tab-pane fade" id="homepage">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                                 <?php foreach($viewData['homepage'] as $formObject) {
+                                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                                 } ?>
+                              </div>
+                           </div>
+                        </div>
+      
                         <!-- Login tab -->
                         <div class="tab-pane fade" id="login">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($configData['login'] as $formObject) {
+                                 <?php foreach($viewData['login'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>
@@ -94,7 +105,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade" id="registration">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($configData['registration'] as $formObject) {
+                                 <?php foreach($viewData['registration'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>
@@ -105,7 +116,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade" id="system">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($configData['system'] as $formObject) {
+                                 <?php foreach($viewData['system'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>
@@ -113,10 +124,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
                         
                         <!-- Theme tab -->
-                        <div class="tab-pane fade" id="theme">
+                        <div class="tab-pane fade" id="tabtheme">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($configData['theme'] as $formObject) {
+                                 <?php foreach($viewData['theme'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>
@@ -127,18 +138,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade" id="usericons">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($configData['user'] as $formObject) {
-                                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-                                 } ?>
-                              </div>
-                           </div>
-                        </div>
-                        
-                        <!-- Statistics tab -->
-                        <div class="tab-pane fade" id="stats">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
-                                 <?php foreach($configData['stats'] as $formObject) {
+                                 <?php foreach($viewData['user'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>

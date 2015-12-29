@@ -2,12 +2,12 @@
 /**
  * messageedit.php
  * 
- * The view of the message page
+ * Message editor view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -46,9 +46,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <span class="text-normal"><?=$LANG['msg_type_desc']?></span>
                         </label>
                         <div class="col-lg-<?=$colsright?>">
-                           <div class="radio"><label><input name="opt_msgtype" value="email" tabindex="<?=$tabindex++?>" <?=($messageData['msgtype']=='email')?"checked":"";?> type="radio"><?=$LANG['msg_type_email']?></label></div>
-                           <div class="radio"><label><input name="opt_msgtype" value="silent" tabindex="<?=$tabindex++?>" <?=($messageData['msgtype']=='silent')?"checked":"";?> type="radio"><?=$LANG['msg_type_silent']?></label></div>
-                           <div class="radio"><label><input name="opt_msgtype" value="popup" tabindex="<?=$tabindex++?>" <?=($messageData['msgtype']=='popup')?"checked":"";?> type="radio"><?=$LANG['msg_type_popup']?></label></div>
+                           <div class="radio"><label><input name="opt_msgtype" value="email" tabindex="<?=$tabindex++?>" <?=($viewData['msgtype']=='email')?"checked":"";?> type="radio"><?=$LANG['msg_type_email']?></label></div>
+                           <div class="radio"><label><input name="opt_msgtype" value="silent" tabindex="<?=$tabindex++?>" <?=($viewData['msgtype']=='silent')?"checked":"";?> type="radio"><?=$LANG['msg_type_silent']?></label></div>
+                           <div class="radio"><label><input name="opt_msgtype" value="popup" tabindex="<?=$tabindex++?>" <?=($viewData['msgtype']=='popup')?"checked":"";?> type="radio"><?=$LANG['msg_type_popup']?></label></div>
                         </div>
                      </div>
                      <div class="divider"><hr></div>
@@ -60,11 +60,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <span class="text-normal"><?=$LANG['msg_content_type_desc']?></span>
                         </label>
                         <div class="col-lg-<?=$colsright?>">
-                           <div class="radio"><label><input name="opt_contenttype" value="primary" tabindex="<?=$tabindex++?>" <?=($messageData['contenttype']=='primary')?"checked":"";?> type="radio"><span class="label label-primary"><?=$LANG['msg_content_type_primary']?></span></label></div>
-                           <div class="radio"><label><input name="opt_contenttype" value="info" tabindex="<?=$tabindex++?>"  <?=($messageData['contenttype']=='info')?"checked":"";?> type="radio"><span class="label label-info"><?=$LANG['msg_content_type_info']?></span></label></div>
-                           <div class="radio"><label><input name="opt_contenttype" value="success" tabindex="<?=$tabindex++?>" <?=($messageData['contenttype']=='success')?"checked":"";?> type="radio"><span class="label label-success"><?=$LANG['msg_content_type_success']?></span></label></div>
-                           <div class="radio"><label><input name="opt_contenttype" value="warning" tabindex="<?=$tabindex++?>" <?=($messageData['contenttype']=='warning')?"checked":"";?> type="radio"><span class="label label-warning"><?=$LANG['msg_content_type_warning']?></span></label></div>
-                           <div class="radio"><label><input name="opt_contenttype" value="danger" tabindex="<?=$tabindex++?>" <?=($messageData['contenttype']=='danger')?"checked":"";?> type="radio"><span class="label label-danger"><?=$LANG['msg_content_type_danger']?></span></label></div>
+                           <div class="radio"><label><input name="opt_contenttype" value="primary" tabindex="<?=$tabindex++?>" <?=($viewData['contenttype']=='primary')?"checked":"";?> type="radio"><span class="label label-primary"><?=$LANG['msg_content_type_primary']?></span></label></div>
+                           <div class="radio"><label><input name="opt_contenttype" value="info" tabindex="<?=$tabindex++?>"  <?=($viewData['contenttype']=='info')?"checked":"";?> type="radio"><span class="label label-info"><?=$LANG['msg_content_type_info']?></span></label></div>
+                           <div class="radio"><label><input name="opt_contenttype" value="success" tabindex="<?=$tabindex++?>" <?=($viewData['contenttype']=='success')?"checked":"";?> type="radio"><span class="label label-success"><?=$LANG['msg_content_type_success']?></span></label></div>
+                           <div class="radio"><label><input name="opt_contenttype" value="warning" tabindex="<?=$tabindex++?>" <?=($viewData['contenttype']=='warning')?"checked":"";?> type="radio"><span class="label label-warning"><?=$LANG['msg_content_type_warning']?></span></label></div>
+                           <div class="radio"><label><input name="opt_contenttype" value="danger" tabindex="<?=$tabindex++?>" <?=($viewData['contenttype']=='danger')?"checked":"";?> type="radio"><span class="label label-danger"><?=$LANG['msg_content_type_danger']?></span></label></div>
                         </div>
                      </div>
                      <div class="divider"><hr></div>
@@ -76,21 +76,21 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <span class="text-normal"><?=$LANG['msg_sendto_desc']?></span>
                         </label>
                         <div class="col-lg-<?=$colsright?>">
-                           <div class="radio"><label><input name="opt_sendto" value="all" tabindex="<?=$tabindex++?>" <?=($messageData['sendto']=='all')?"checked":"";?> type="radio"><?=$LANG['msg_sendto_all']?></label></div>
+                           <div class="radio"><label><input name="opt_sendto" value="all" tabindex="<?=$tabindex++?>" <?=($viewData['sendto']=='all')?"checked":"";?> type="radio"><?=$LANG['msg_sendto_all']?></label></div>
                            
-                           <div class="radio"><label><input name="opt_sendto" value="group" tabindex="<?=$tabindex++?>" <?=($messageData['sendto']=='group')?"checked":"";?> type="radio"><?=$LANG['msg_sendto_group']?></label></div>
+                           <div class="radio"><label><input name="opt_sendto" value="group" tabindex="<?=$tabindex++?>" <?=($viewData['sendto']=='group')?"checked":"";?> type="radio"><?=$LANG['msg_sendto_group']?></label></div>
                            <select class="form-control" name="sel_sendToGroup[]" multiple="multiple" size="5" tabindex="<?=$tabindex++?>">
-                              <?php foreach ($messageData['groups'] as $group) { ?>
-                                 <option value="<?=$group?>" <?=(in_array($group,$messageData['sendToGroup']))?"selected":"";?>><?=$group?></option>
+                              <?php foreach ($viewData['groups'] as $group) { ?>
+                                 <option value="<?=$group?>" <?=(in_array($group,$viewData['sendToGroup']))?"selected":"";?>><?=$group?></option>
                               <?php } ?>
                            </select>
                            
-                           <div class="radio"><label><input name="opt_sendto" value="user" tabindex="<?=$tabindex++?>" <?=($messageData['sendto']=='user')?"checked":"";?> type="radio"><?=$LANG['msg_sendto_user']?></label></div>
+                           <div class="radio"><label><input name="opt_sendto" value="user" tabindex="<?=$tabindex++?>" <?=($viewData['sendto']=='user')?"checked":"";?> type="radio"><?=$LANG['msg_sendto_user']?></label></div>
                            <select class="form-control" name="sel_sendToUser[]" multiple="multiple" size="5" tabindex="<?=$tabindex++?>">
-                           <?php foreach ($messageData['users'] as $user) {
+                           <?php foreach ($viewData['users'] as $user) {
                               if ( $user['firstname']!="" ) $showname = $user['lastname'].", ".$user['firstname'];
                               else $showname = $user['lastname']; ?>
-                              <option class="option" value="<?=$user['username']?>" <?=(in_array($user['username'],$messageData['sendToUser']))?"selected":"";?>><?=$showname?></option>
+                              <option class="option" value="<?=$user['username']?>" <?=(in_array($user['username'],$viewData['sendToUser']))?"selected":"";?>><?=$showname?></option>
                            <?php } ?>
                            </select>
                            
@@ -105,7 +105,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <span class="text-normal"><?=$LANG['msg_msg_title_comment']?></span>
                         </label>
                         <div class="col-lg-6">
-                           <input class="form-control" tabindex="<?=$tabindex++?>" name="txt_subject" maxlength="160" value="<?=$messageData['subject']?>" type="text" placeholder="<?=$LANG['msg_msg_title_sample']?>">
+                           <input class="form-control" tabindex="<?=$tabindex++?>" name="txt_subject" maxlength="160" value="<?=$viewData['subject']?>" type="text" placeholder="<?=$LANG['msg_msg_title_sample']?>">
                         </div>
                      </div>
                      <div class="divider"><hr></div>
@@ -117,7 +117,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <span class="text-normal"><?=$LANG['msg_msg_body_comment']?></span>
                         </label>
                         <div class="col-lg-6">
-                           <textarea class="form-control" tabindex="<?=$tabindex++?>" name="txt_text" rows="8" placeholder="<?=$LANG['msg_msg_body_sample']?>"><?=$messageData['text']?></textarea>
+                           <textarea class="form-control" tabindex="<?=$tabindex++?>" name="txt_text" rows="8" placeholder="<?=$LANG['msg_msg_body_sample']?>"><?=$viewData['text']?></textarea>
                         </div>
                      </div>
                      <div class="divider"><hr></div>

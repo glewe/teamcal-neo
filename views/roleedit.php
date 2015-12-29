@@ -2,12 +2,12 @@
 /**
  * roleedit.php
  * 
- * The view of the role edit page
+ * Role edit page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -32,10 +32,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             } ?>
             <?php $tabindex = 1; $colsleft = 8; $colsright = 4;?>
             
-            <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;id=<?=$roleData['id']?>" method="post" target="_self" accept-charset="utf-8">
+            <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;id=<?=$viewData['id']?>" method="post" target="_self" accept-charset="utf-8">
 
                <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['role_edit_title'].$roleData['name']?></div>
+                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['role_edit_title'].$viewData['name']?></div>
                   <div class="panel-body">
 
                      <div class="panel panel-default">
@@ -47,7 +47,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      
                      <div class="panel panel-default">
                         <div class="panel-body">
-                           <?php foreach($roleData['role'] as $formObject) {
+                           <?php foreach($viewData['role'] as $formObject) {
                               echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                            } ?>
                         </div>

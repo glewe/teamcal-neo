@@ -2,12 +2,12 @@
 /**
  * useredit.php
  * 
- * The view of the profile page
+ * User edit page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -33,10 +33,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             $tabindex = 1; $colsleft = 8; $colsright = 4;
             ?>
             
-            <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;profile=<?=$profileData['profile']?>" method="post" target="_self" accept-charset="utf-8">
+            <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;profile=<?=$viewData['profile']?>" method="post" target="_self" accept-charset="utf-8">
 
                <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['profile_edit_title'].$profileData['fullname']?></div>
+                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['profile_edit_title'].$viewData['fullname']?></div>
                   <div class="panel-body">
 
                      <div class="panel panel-default">
@@ -66,7 +66,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade active in" id="personal">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($profileData['personal'] as $formObject) {
+                                 <?php foreach($viewData['personal'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>
@@ -77,7 +77,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade" id="contact">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($profileData['contact'] as $formObject) {
+                                 <?php foreach($viewData['contact'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>
@@ -88,7 +88,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade" id="options">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($profileData['options'] as $formObject) {
+                                 <?php foreach($viewData['options'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>
@@ -106,9 +106,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <span class="text-normal"><?=$LANG['profile_avatar_comment']?></span>
                                     </label>
                                     <div class="col-lg-<?=$colsright?>">
-                                       <img src="<?=$CONF['app_avatar_dir']?>/<?=$profileData['avatar']?>" alt="" style="width: 80px; height: 80px;"><br>
+                                       <img src="<?=$CONF['app_avatar_dir'].$viewData['avatar']?>" alt="" style="width: 80px; height: 80px;"><br>
                                        <br>
-                                       <?php if (substr($profileData['avatar'], 0, 9) != 'noavatar_') { ?><button type="submit" class="btn btn-primary btn-sm" tabindex="<?=$tabindex++?>" name="btn_deleteAvatar"><?=$LANG['btn_reset']?></button><?php } ?>
+                                       <?php if (substr($viewData['avatar'], 0, 9) != 'noavatar_') { ?><button type="submit" class="btn btn-primary btn-sm" tabindex="<?=$tabindex++?>" name="btn_deleteAvatar"><?=$LANG['btn_reset']?></button><?php } ?>
                                     </div>
                                  </div>
                                  <div class="divider"><hr></div>
@@ -117,10 +117,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <label class="col-lg-<?=$colsleft?> control-label">
                                        <?=$LANG['profile_avatar_upload']?><br>
                                        <span class="text-normal">
-                                          <?=sprintf($LANG['profile_avatar_upload_comment'],$profileData['avatar_maxsize'],$profileData['avatar_formats'])?></span>
+                                          <?=sprintf($LANG['profile_avatar_upload_comment'],$viewData['avatar_maxsize'],$viewData['avatar_formats'])?></span>
                                     </label>
                                     <div class="col-lg-<?=$colsright?>">
-                                       <input type="hidden" name="MAX_FILE_SIZE" value="<?=$profileData['avatar_maxsize']?>"><br>
+                                       <input type="hidden" name="MAX_FILE_SIZE" value="<?=$viewData['avatar_maxsize']?>"><br>
                                        <input class="form-control" tabindex="<?=$tabindex++?>" name="file_avatar" type="file"><br>
                                        <button type="submit" class="btn btn-primary btn-sm" tabindex="<?=$tabindex++?>" name="btn_uploadAvatar"><?=$LANG['btn_upload']?></button>
                                     </div>
@@ -134,8 +134,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <?=$LANG['profile_avatar_available_comment']?></span>
                                     </label>
                                     <div class="col-lg-12">
-                                       <?php foreach($profileData['avatars'] as $avatar) {?>
-                                          <div class="pull-left" style="border: 1px solid #eeeeee; padding: 4px;"><input name="opt_avatar" value="<?=$avatar?>" tabindex="<?=$tabindex++?>" <?= ($profileData['avatar']==$avatar)?' checked="checked"':''?>type="radio"><img src="<?=$CONF['app_avatar_dir']?>/<?=$avatar?>" alt="" style="width: 80px; height: 80px;"></div>
+                                       <?php foreach($viewData['avatars'] as $avatar) {?>
+                                          <div class="pull-left" style="border: 1px solid #eeeeee; padding: 4px;"><input name="opt_avatar" value="<?=$avatar?>" tabindex="<?=$tabindex++?>" <?= ($viewData['avatar']==$avatar)?' checked="checked"':''?>type="radio"><img src="<?=$CONF['app_avatar_dir'].$avatar?>" alt="" style="width: 80px; height: 80px;"></div>
                                        <?php } ?>
                                     </div>
                                  </div>
@@ -150,7 +150,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <div class="tab-pane fade" id="account">
                               <div class="panel panel-default">
                                  <div class="panel-body">
-                                    <?php foreach($profileData['account'] as $formObject) {
+                                    <?php foreach($viewData['account'] as $formObject) {
                                        echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                     } ?>
                                  </div>
@@ -162,7 +162,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade" id="groups">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($profileData['groups'] as $formObject) {
+                                 <?php foreach($viewData['groups'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>
@@ -173,7 +173,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade" id="setpassword">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($profileData['password'] as $formObject) {
+                                 <?php foreach($viewData['password'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>

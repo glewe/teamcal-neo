@@ -2,12 +2,12 @@
 /**
  * declination.php
  * 
- * The view of the declination page
+ * Declination page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -15,7 +15,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
-      view.profile
+      view.declination
       -->
       <div class="container content">
       
@@ -45,11 +45,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      </div>
                      
                      <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                        <li class="active"><a href="#tab_absence" data-toggle="tab"><?=$LANG['decl_tab_absence']?><?=(($declData['declAbsence'])?' <i class="fa fa-check text-success"></i>':'')?></a></li>
-                        <li><a href="#tab_before" data-toggle="tab"><?=$LANG['decl_tab_before']?><?=(($declData['declBefore'])?' <i class="fa fa-check text-success"></i>':'')?></a></li>
-                        <li><a href="#tab_period1" data-toggle="tab"><?=$LANG['decl_tab_period1']?><?=(($declData['declPeriod1'])?' <i class="fa fa-check text-success"></i>':'')?></a></li>
-                        <li><a href="#tab_period2" data-toggle="tab"><?=$LANG['decl_tab_period2']?><?=(($declData['declPeriod2'])?' <i class="fa fa-check text-success"></i>':'')?></a></li>
-                        <li><a href="#tab_period3" data-toggle="tab"><?=$LANG['decl_tab_period3']?><?=(($declData['declPeriod3'])?' <i class="fa fa-check text-success"></i>':'')?></a></li>
+                        <li class="active"><a href="#tab_absence" data-toggle="tab"><?=$LANG['decl_tab_absence']?><?=(($viewData['declAbsence'])?' <i class="fa fa-check text-success"></i>':'')?></a></li>
+                        <li><a href="#tab_before" data-toggle="tab"><?=$LANG['decl_tab_before']?><?=(($viewData['declBefore'])?' <i class="fa fa-check text-success"></i>':'')?></a></li>
+                        <li><a href="#tab_period1" data-toggle="tab"><?=$LANG['decl_tab_period1']?><?=(($viewData['declPeriod1'])?' <i class="fa fa-check text-success"></i>':'')?></a></li>
+                        <li><a href="#tab_period2" data-toggle="tab"><?=$LANG['decl_tab_period2']?><?=(($viewData['declPeriod2'])?' <i class="fa fa-check text-success"></i>':'')?></a></li>
+                        <li><a href="#tab_period3" data-toggle="tab"><?=$LANG['decl_tab_period3']?><?=(($viewData['declPeriod3'])?' <i class="fa fa-check text-success"></i>':'')?></a></li>
                         <li><a href="#tab_scope" data-toggle="tab"><?=$LANG['decl_tab_scope']?></a></li>
                      </ul>
                      
@@ -59,7 +59,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade active in" id="tab_absence">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($declData['absence'] as $formObject) {
+                                 <?php foreach($viewData['absence'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>
@@ -70,7 +70,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade" id="tab_before">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($declData['before'] as $formObject) {
+                                 <?php foreach($viewData['before'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>
@@ -81,7 +81,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade" id="tab_period1">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($declData['period1'] as $formObject) {
+                                 <?php foreach($viewData['period1'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>
@@ -92,7 +92,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade" id="tab_period2">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($declData['period2'] as $formObject) {
+                                 <?php foreach($viewData['period2'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>
@@ -103,7 +103,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade" id="tab_period3">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($declData['period3'] as $formObject) {
+                                 <?php foreach($viewData['period3'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>
@@ -114,7 +114,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade" id="tab_scope">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($declData['scope'] as $formObject) {
+                                 <?php foreach($viewData['scope'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>

@@ -5,9 +5,9 @@
  * User edit page controller
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -15,10 +15,10 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
 
-/**
- * ========================================================================
- * Check URL params
- */
+//=============================================================================
+//
+// CHECK URL PARAMETERS
+//
 $UP = new Users(); // for the profile to be created or updated
 if (isset($_GET['profile']))
 {
@@ -33,9 +33,9 @@ else
 
 if ($missingData)
 {
-   /**
-    * URL param fail
-    */
+   //
+   // URL param fail
+   //
    $alertData['type'] = 'danger';
    $alertData['title'] = $LANG['alert_danger_title'];
    $alertData['subject'] = $LANG['alert_no_data_subject'];
@@ -44,58 +44,53 @@ if ($missingData)
    require (WEBSITE_ROOT . '/controller/alert.php');
    die();
 }
-else
+
+//=============================================================================
+//
+// CHECK PERMISSION
+//
+$allowed = FALSE;
+if ($UL->username == $profile OR isAllowed($CONF['controllers'][$controller]->permission))
 {
-   /**
-    * ========================================================================
-    * Check if allowed
-    */
-   $allowed = FALSE;
-   if ($UL->username == $profile OR isAllowed($CONF['controllers'][$controller]->permission))
-   {
-      $allowed = TRUE;
-   }
-   
-   if (!$allowed)
-   {
-      $alertData['type'] = 'warning';
-      $alertData['title'] = $LANG['alert_alert_title'];
-      $alertData['subject'] = $LANG['alert_not_allowed_subject'];
-      $alertData['text'] = $LANG['alert_not_allowed_text'];
-      $alertData['help'] = $LANG['alert_not_allowed_help'];
-      require (WEBSITE_ROOT . '/controller/alert.php');
-      die();
-   }
+   $allowed = TRUE;
 }
 
-/**
- * ========================================================================
- * Load controller stuff
- */
+if (!$allowed)
+{
+   $alertData['type'] = 'warning';
+   $alertData['title'] = $LANG['alert_alert_title'];
+   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
+   $alertData['text'] = $LANG['alert_not_allowed_text'];
+   $alertData['help'] = $LANG['alert_not_allowed_help'];
+   require (WEBSITE_ROOT . '/controller/alert.php');
+   die();
+}
 
-/**
- * ========================================================================
- * Initialize variables
- */
-$UPL = new Upload();
-$UPL->upload_dir = WEBSITE_ROOT . '/' . $CONF['app_avatar_dir'];
-$UPL->extensions = array ( '.gif', '.jpg', '.png' );
+//=============================================================================
+//
+// LOAD CONTROLLER RESOURCES
+//
+
+//=============================================================================
+//
+// VARIABLE DEFAULTS
+//
 $inputAlert = array();
 
-/**
- * ========================================================================
- * Process form
- */
+//=============================================================================
+//
+// PROCESS FORM
+//
 if (!empty($_POST))
 {
-   /**
-    * Sanitize input
-    */
+   //
+   // Sanitize input
+   //
    $_POST = sanitize($_POST);
     
-   /**
-    * Form validation
-    */
+   //
+   // Form validation
+   //
    $inputError = false;
    if (isset($_POST['btn_profileUpdate']))
    {
@@ -124,17 +119,16 @@ if (!empty($_POST))
     
    if (!$inputError)
    {
-      /**
-       * ,--------,
-       * | Update |
-       * '--------'
-       */
+      // ,--------,
+      // | Update |
+      // '--------'
       if (isset($_POST['btn_profileUpdate']))
       {
          $reloadPage = false;
-         /**
-          * Personal
-          */
+         
+         //
+         // Personal
+         //
          $UP->lastname = $_POST['txt_lastname'];
          $UP->firstname = $_POST['txt_firstname'];
          $UO->save($profile, 'title', $_POST['txt_title']);
@@ -142,9 +136,9 @@ if (!empty($_POST))
          $UO->save($profile, 'id', $_POST['txt_id']);
          if (isset($_POST['opt_gender'])) $UO->save($profile, 'gender', $_POST['opt_gender']); else $UO->save($profile, 'gender', 'male');
           
-         /**
-          * Contact
-          */
+         //
+         // Contact
+         //
          $UP->email = $_POST['txt_email'];
          $UO->save($profile, 'phone', $_POST['txt_phone']);
          $UO->save($profile, 'mobile', $_POST['txt_mobilephone']);
@@ -154,18 +148,30 @@ if (!empty($_POST))
          $UO->save($profile, 'skype', $_POST['txt_skype']);
          $UO->save($profile, 'twitter', $_POST['txt_twitter']);
           
-         /**
-          * Options
-          */
-         if (isset($_POST['sel_theme'])) {
+         //
+         // Options
+         //
+         if (isset($_POST['sel_theme'])) 
+         {
             if ($_POST['sel_theme'] != $UO->read($profile,'theme')) $reloadPage = true; // New theme needs a page reload later
             $UO->save($profile, "theme", $_POST['sel_theme']); 
          }
          else 
          {
-            $UO->save($profile, 'language', 'bootstrap');
+            $UO->save($profile, 'language', 'default');
          }
-              
+         
+         if (isset($_POST['chk_menuBarInverse']) && $_POST['chk_menuBarInverse']) 
+         {
+            if (!$UO->read($profile,'menuBarInverse')) $reloadPage = true; // New navbar setting needs a page reload later
+            $UO->save($profile, 'menuBarInverse', '1'); 
+         } 
+         else 
+         {
+            if ($UO->read($profile,'menuBarInverse')) $reloadPage = true; // New navbar setting needs a page reload later
+            $UO->save($profile, 'menuBarInverse', '0');
+         }
+          
          if (isset($_POST['sel_language']))
          {
             if ($_POST['sel_language'] != $UO->read($profile,'language')) $reloadPage = true; // New language needs a page reload later
@@ -176,9 +182,9 @@ if (!empty($_POST))
             $UO->save($profile, 'language', 'default');
          }
          
-         /**
-          * Account
-          */
+         //
+         // Account
+         //
          if (isAllowed("useraccount")) 
          {
             if (isset($_POST['sel_role'])) $UP->role = $_POST['sel_role']; else $UP->role = '2';
@@ -188,18 +194,18 @@ if (!empty($_POST))
             if (isset($_POST['chk_verify']) AND $_POST['chk_verify']) $UP->verify = '1'; else $UP->verify = '0';
          }
           
-         /**
-          * Password
-          */
+         //
+         // Password
+         //
          if ( isset($_POST['txt_password']) AND strlen($_POST['txt_password']) AND isset($_POST['txt_password2']) AND strlen($_POST['txt_password2']) AND $_POST['txt_password'] == $_POST['txt_password2'] )
          {
             $UP->password = crypt($_POST['txt_password'], $CONF['salt']);
             $UP->last_pw_change = date("Y-m-d H:I:s");
          }
           
-         /**
-          * Groups
-          */
+         //
+         // Groups
+         //
          if (isAllowed("groupmemberships"))
          {
             $UG->deleteByUser($profile);
@@ -219,16 +225,16 @@ if (!empty($_POST))
             }
          }
           
-         /**
-          * Avatar
-          */
+         //
+         // Avatar
+         //
          if (isset($_POST['opt_avatar'])) 
          {
             $UO->save($profile, 'avatar', $_POST['opt_avatar']);
          }
          elseif ( (!$UO->read($profile, 'avatar') AND ($UO->read($profile, 'gender') == 'male' OR $UO->read($profile, 'gender') == 'female')) OR 
-              ($UO->read($profile, 'avatar') == 'noavatar_male.png' AND $UO->read($profile, 'gender') == 'female') OR
-              ($UO->read($profile, 'avatar') == 'noavatar_female.png' AND $UO->read($profile, 'gender') == 'male')
+                  ($UO->read($profile, 'avatar') == 'noavatar_male.png' AND $UO->read($profile, 'gender') == 'female') OR
+                  ($UO->read($profile, 'avatar') == 'noavatar_female.png' AND $UO->read($profile, 'gender') == 'male')
             )
          {
             $UO->save($profile, 'avatar', 'noavatar_'.$UO->read($profile, 'gender').'.png');
@@ -240,31 +246,31 @@ if (!empty($_POST))
           
          $UP->update($profile);
           
-         /**
-          * Send notification e-mails to the subscribers of user events
-          */
+         //
+         // Send notification e-mails to the subscribers of user events
+         //
          if ($C->read("emailNotifications"))
          {
             sendUserEventNotifications("changed", $UP->username, $UP->firstname, $UP->lastname);
          }
           
-         /**
-          * Log this event
-          */
+         //
+         // Log this event
+         //
          $LOG->log("logUser",$L->checkLogin(),"log_user_updated", $UP->username);
           
-         /**
-          * Reload page in case of language change, so it takes effect.
-          */
+         //
+         // Reload page in case of language change, so it takes effect.
+         //
          if ($reloadPage)
          {
             header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&profile=" . $profile);
             die();
          }
          
-         /**
-          * Success
-          */
+         //
+         // Success
+         //
          $showAlert = TRUE;
          $alertData['type'] = 'success';
          $alertData['title'] = $LANG['alert_success_title'];
@@ -272,29 +278,44 @@ if (!empty($_POST))
          $alertData['text'] = $LANG['profile_alert_update_success'];
          $alertData['help'] = '';
       }
-      /**
-       * ,--------,
-       * | Upload |
-       * '--------'
-       */
+      // ,--------,
+      // | Upload |
+      // '--------'
       else if (isset ($_POST['btn_uploadAvatar']))
       {
+         $UPL = new Upload();
+         $UPL->upload_dir = $CONF['app_avatar_dir'];
+         $UPL->extensions = $CONF['avatarExtensions'];
          $UPL->do_filename_check = "y";
          $UPL->replace = "y";
          $UPL->the_temp_file = $_FILES['file_avatar']['tmp_name'];
-         $UPL->the_file = $_FILES['file_avatar']['name'];
          $UPL->http_error = $_FILES['file_avatar']['error'];
+         
+         //
+         // One avatar per user at a time. Change filename to username
+         //
+         $pieces = explode('.',$_FILES['file_avatar']['name']);
+         $UPL->the_file = $UL->username . "." . $pieces[1];
+         
          if ($UPL->upload())
          {
             $full_path = $UPL->upload_dir . $UPL->file_copy;
             $info = $UPL->getUploadedFileInfo($full_path);
             $UO->save($profile, 'avatar', $UPL->uploaded_file['name']);
+            
+            //
+            // Log this event
+            //
+            $LOG->log("logUser",$L->checkLogin(),"log_user_updated", $UP->username);
+            
+            header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&profile=" . $profile);
+            die();
          }
          else
          {
-            /**
-             * Upload failed
-             */
+            //
+            // Upload failed
+            //
             $showAlert = TRUE;
             $alertData['type'] = 'danger';
             $alertData['title'] = $LANG['alert_danger_title'];
@@ -303,23 +324,32 @@ if (!empty($_POST))
             $alertData['help'] = '';
          }
       }
-      /**
-       * ,--------------,
-       * | Reset Avatar |
-       * '--------------'
-       */
+      // ,---------------,
+      // | Delete Avatar |
+      // '---------------'
       else if (isset ($_POST['btn_deleteAvatar']))
       {
-         $file = $UPL->upload_dir . $UO->read($profile, 'avatar');
-         if(is_file("$file")) unlink("$file");
-         $UO->save($profile, 'avatar', '0');
+         //
+         // Delete all avatar files for this user
+         //
+         $mask = $CONF['app_avatar_dir'] . $UL->username . ".*";
+         array_map('unlink', glob($mask));
+         $UO->save($profile, 'avatar', '');
+            
+         //
+         // Log this event
+         //
+         $LOG->log("logUser",$L->checkLogin(),"log_user_updated", $UP->username);
+            
+         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&profile=" . $profile);
+         die();
       }
    }
    else
    {
-      /**
-       * Input validation failed
-       */
+      //
+      // Input validation failed
+      //
       $showAlert = TRUE;
       $alertData['type'] = 'danger';
       $alertData['title'] = $LANG['alert_danger_title'];
@@ -329,21 +359,21 @@ if (!empty($_POST))
    }
 }
 
-/**
- * ========================================================================
- * Prepare data for the view
- */
-$profileData['profile'] = $profile;
-$profileData['fullname'] = $UP->firstname . ' ' . $UP->lastname . ' (' . $UP->username . ')';
-$profileData['avatar'] = ($UO->read($profile, 'avatar')) ? $UO->read($profile, 'avatar') : 'noavatar_' . $UO->read($profile, 'gender') . '.png';
-$profileData['avatar_maxsize'] = 1024 * 100; // 100 KB
-$profileData['avatar_formats'] = implode(', ', $UPL->extensions);
-$profileData['showingroups'] = $UO->read($profile, 'showingroups');
-$profileData['notifycalgroup'] = $UO->read($profile, 'notifycalgroup');
+//=============================================================================
+//
+// PREPARE VIEW
+//
+$viewData['profile'] = $profile;
+$viewData['fullname'] = $UP->firstname . ' ' . $UP->lastname . ' (' . $UP->username . ')';
+$viewData['avatar'] = ($UO->read($profile, 'avatar')) ? $UO->read($profile, 'avatar') : 'noavatar_' . $UO->read($profile, 'gender') . '.png';
+$viewData['avatar_maxsize'] = $CONF['avatarMaxsize'];
+$viewData['avatar_formats'] = implode(', ', $CONF['avatarExtensions']);
+$viewData['showingroups'] = $UO->read($profile, 'showingroups');
+$viewData['notifycalgroup'] = $UO->read($profile, 'notifycalgroup');
 
 $groups = $G->getAll();
 
-$profileData['personal'] = array (
+$viewData['personal'] = array (
    array ( 'prefix' => 'profile', 'name' => 'username', 'type' => 'text', 'value' => $UP->username, 'maxlength' => '80', 'disabled' => true, 'mandatory' => true, 'error' =>  (isset($inputAlert['username'])?$inputAlert['username']:'') ),
    array ( 'prefix' => 'profile', 'name' => 'lastname', 'type' => 'text', 'value' => $UP->lastname, 'maxlength' => '80', 'error' =>  (isset($inputAlert['lastname'])?$inputAlert['lastname']:'') ),
    array ( 'prefix' => 'profile', 'name' => 'firstname', 'type' => 'text', 'value' => $UP->firstname, 'maxlength' => '80', 'error' =>  (isset($inputAlert['firstname'])?$inputAlert['firstname']:'') ), 
@@ -353,7 +383,7 @@ $profileData['personal'] = array (
    array ( 'prefix' => 'profile', 'name' => 'gender', 'type' => 'radio', 'values' => array ('male', 'female'), 'value' => $UO->read($profile, 'gender') ),
 );
 
-$profileData['contact'] = array (
+$viewData['contact'] = array (
    array ( 'prefix' => 'profile', 'name' => 'email', 'type' => 'text', 'value' => $UP->email, 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['email'])?$inputAlert['email']:'') ),
    array ( 'prefix' => 'profile', 'name' => 'phone', 'type' => 'text', 'value' => $UO->read($profile, 'phone'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['phone'])?$inputAlert['phone']:'') ),
    array ( 'prefix' => 'profile', 'name' => 'mobilephone', 'type' => 'text', 'value' => $UO->read($profile, 'mobile'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['mobile'])?$inputAlert['mobile']:'') ),
@@ -364,64 +394,65 @@ $profileData['contact'] = array (
    array ( 'prefix' => 'profile', 'name' => 'twitter', 'type' => 'text', 'value' => $UO->read($profile, 'twitter'), 'maxlength' => '80' ),
 );
 
-$profileData['languageList'][] = array ('val' => "default", 'name' => "Default", 'selected' => ($UO->read($profile, 'language') == "default")?true:false );
+$viewData['languageList'][] = array ('val' => "default", 'name' => "Default", 'selected' => ($UO->read($profile, 'language') == "default")?true:false );
 foreach ($appLanguages as $appLang)
 {
-   $profileData['languageList'][] = array ('val' => $appLang, 'name' => proper($appLang), 'selected' => ($UO->read($profile, 'language') == $appLang)?true:false );
+   $viewData['languageList'][] = array ('val' => $appLang, 'name' => proper($appLang), 'selected' => ($UO->read($profile, 'language') == $appLang)?true:false );
 }
 
-$profileData['options'] = array ();
+$viewData['options'] = array ();
 if ($C->read('allowUserTheme'))
 {
-   $profileData['themeList'][] = array ('val' => 'default', 'name' => 'Default', 'selected' => ($UO->read($profile, 'theme') == 'default')?true:false );
+   $viewData['themeList'][] = array ('val' => 'default', 'name' => 'Default', 'selected' => ($UO->read($profile, 'theme') == 'default')?true:false );
    foreach ($appThemes as $appTheme)
    {
-      $profileData['themeList'][] = array ('val' => $appTheme, 'name' => proper($appTheme), 'selected' => ($UO->read($profile, 'theme') == $appTheme)?true:false );
+      $viewData['themeList'][] = array ('val' => $appTheme, 'name' => proper($appTheme), 'selected' => ($UO->read($profile, 'theme') == $appTheme)?true:false );
    }
-   $profileData['options'][] = array ( 'prefix' => 'profile', 'name' => 'theme', 'type' => 'list', 'values' => $profileData['themeList'] );
+   $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'theme', 'type' => 'list', 'values' => $viewData['themeList'] );
+   $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'menuBarInverse', 'type' => 'check', 'values' => '', 'value' => $UO->read($profile, 'menuBarInverse') );
 }
-$profileData['options'][] = array ( 'prefix' => 'profile', 'name' => 'language', 'type' => 'list', 'values' => $profileData['languageList'] );
+$viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'language', 'type' => 'list', 'values' => $viewData['languageList'] );
 
 $roles = $RO->getAll();
 foreach ($roles as $role)
 {
-   $profileData['roles'][] = array ('val' => $role['id'], 'name' => $role['name'], 'selected' => ($UP->getRole($UP->username) == $role['id'])?true:false );
+   $viewData['roles'][] = array ('val' => $role['id'], 'name' => $role['name'], 'selected' => ($UP->getRole($UP->username) == $role['id'])?true:false );
 }
-$profileData['account'] = array (
-   array ( 'prefix' => 'profile', 'name' => 'role', 'type' => 'list', 'values' => $profileData['roles']),
+$viewData['account'] = array (
+   array ( 'prefix' => 'profile', 'name' => 'role', 'type' => 'list', 'values' => $viewData['roles']),
    array ( 'prefix' => 'profile', 'name' => 'locked', 'type' => 'check', 'values' => '', 'value' => $UP->locked ),
    array ( 'prefix' => 'profile', 'name' => 'onhold', 'type' => 'check', 'values' => '', 'value' => $UP->onhold ),
    array ( 'prefix' => 'profile', 'name' => 'verify', 'type' => 'check', 'values' => '', 'value' => $UP->verify ),
 );
 
-$profileData['memberships'][] = array('val' => '0', 'name' => $LANG['none'], 'selected' => !$UG->isGroupMember($profileData['profile']));
+$viewData['memberships'][] = array('val' => '0', 'name' => $LANG['none'], 'selected' => !$UG->isGroupMember($viewData['profile']));
 foreach ($groups as $group)
 {
-   $profileData['memberships'][] = array('val' => $group['id'], 'name' => $group['name'], 'selected' => ($UG->isMemberOfGroup($profileData['profile'], $group['id']))?true:false);
+   $viewData['memberships'][] = array('val' => $group['id'], 'name' => $group['name'], 'selected' => ($UG->isMemberOfGroup($viewData['profile'], $group['id']))?true:false);
 }
-$profileData['managerships'][] = array('val' => '0', 'name' => $LANG['none'], 'selected' => !$UG->isGroupManager($profileData['profile']));
+$viewData['managerships'][] = array('val' => '0', 'name' => $LANG['none'], 'selected' => !$UG->isGroupManager($viewData['profile']));
 foreach ($groups as $group)
 {
-   $profileData['managerships'][] = array('val' => $group['id'], 'name' => $group['name'], 'selected' => ($UG->isGroupManagerOfGroup($profileData['profile'], $group['id']))?true:false);
+   $viewData['managerships'][] = array('val' => $group['id'], 'name' => $group['name'], 'selected' => ($UG->isGroupManagerOfGroup($viewData['profile'], $group['id']))?true:false);
 }
 if (isAllowed("groupmemberships")) $disabled = false; else $disabled = true;
-$profileData['groups'] = array (
-   array ( 'prefix' => 'profile', 'name' => 'memberships', 'type' => 'listmulti', 'values' => $profileData['memberships'], 'disabled' => $disabled ),
-   array ( 'prefix' => 'profile', 'name' => 'managerships', 'type' => 'listmulti', 'values' => $profileData['managerships'], 'disabled' => $disabled ),
+$viewData['groups'] = array (
+   array ( 'prefix' => 'profile', 'name' => 'memberships', 'type' => 'listmulti', 'values' => $viewData['memberships'], 'disabled' => $disabled ),
+   array ( 'prefix' => 'profile', 'name' => 'managerships', 'type' => 'listmulti', 'values' => $viewData['managerships'], 'disabled' => $disabled ),
 );
 
 $LANG['profile_password_comment'] .= $LANG['password_rules_'.$C->read('pwdStrength')];
-$profileData['password'] = array (
+$viewData['password'] = array (
    array ( 'prefix' => 'profile', 'name' => 'password', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['password'])?$inputAlert['password']:'') ),
    array ( 'prefix' => 'profile', 'name' => 'password2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['password2'])?$inputAlert['password2']:'') ),
 );
 
-$profileData['avatars'] = getFiles($CONF['app_avatar_dir'], NULL, 'is_');
+$viewData['avatars'] = getFiles($CONF['app_avatar_dir'], NULL, 'is_');
 
-/**
- * ========================================================================
- * Show view
- */
+//=============================================================================
+//
+// SHOW VIEW
+//
 require (WEBSITE_ROOT . '/views/header.php');
 require (WEBSITE_ROOT . '/views/menu.php');
 include (WEBSITE_ROOT . '/views/'.$controller.'.php');

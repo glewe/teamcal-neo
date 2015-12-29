@@ -5,9 +5,9 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -58,42 +58,53 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  *   
  */
 $CONF['controllers'] = array (
+   //
+   // LeAF Controllers
+   //
    'about' => new Controller('about', 'info-circle', 'info', 'default', ''),
+   'config' => new Controller('config', 'cog', 'default', 'primary', 'admin'),
+   'configapp' => new Controller('configapp', 'cog', 'success', 'success', 'admin'),
+   'database' => new Controller('database', 'database', 'danger', 'danger', 'admin'),
+   'groups' => new Controller('groups', 'group', 'success', 'primary', 'groups'),
+   'groupedit' => new Controller('groupedit', 'group', 'warning', 'danger', 'groups'),
+   'home' => new Controller('home', 'home', 'primary', 'default', ''),
+   'imprint' => new Controller('imprint', 'file-text-o', 'default', 'default', ''),
+   'log' => new Controller('log', 'list-ol', 'info', 'info', 'admin'),
+   'login' => new Controller('login', 'sign-in', 'success', 'default', ''),
+   'maintenance' => new Controller('maintenance', 'wrench', 'danger', 'danger', ''),
+   'messages' => new Controller('messages', 'comments-o', 'info', 'default', 'messageview'),
+   'messageedit' => new Controller('messageedit', 'comment-o', 'danger', 'danger', 'messageedit'),
+   'permissions' => new Controller('permissions', 'lock', 'danger', 'danger', 'admin'),
+   'phpinfo' => new Controller('phpinfo', 'cogs', 'default', 'default', 'admin'),
+   'register' => new Controller('register', 'pencil', 'warning', 'success', ''),
+   'roles' => new Controller('roles', 'group', 'warning', 'primary', 'roles'),
+   'roleedit' => new Controller('roleedit', 'edit', 'warning', 'danger', 'roles'),
+   'upload' => new Controller('upload', 'upload', 'warning', 'warning', 'upload'),
+   'users' => new Controller('users', 'user', 'primary', 'primary', 'admin'),
+   'useredit' => new Controller('useredit', 'edit', 'warning', 'warning', 'admin'),
+   'useradd' => new Controller('useradd', 'edit', 'warning', 'warning', 'admin'),
+   'verify' => new Controller('verify', 'user', 'info', 'default', ''),
+   'viewprofile' => new Controller('viewprofile', 'user', 'default', 'default', 'viewprofile'),
+   //
+   // Application Controllers
+   // Enter your application controllers below
+   //
    'absences' => new Controller('absences', 'check-square-o', 'primary', 'primary', 'absenceedit'),
    'absenceedit' => new Controller('absenceedit', 'check-square-o', 'warning', 'warning', 'absenceedit'),
    'absenceicon' => new Controller('absenceicon', 'file-image-o', 'primary', 'primary', 'absenceedit'),
    'calendarview' => new Controller('calendarview', 'calendar', 'danger', 'primary', 'calendarview'),
    'calendaredit' => new Controller('calendaredit', 'calendar-o', 'danger', 'primary', 'calendaredit'),
    'calendaroptions' => new Controller('calendaroptions', 'wrench', 'primary', 'primary', 'calendaroptions'),
-   'config' => new Controller('config', 'cog', 'default', 'primary', 'admin'),
-   'database' => new Controller('database', 'database', 'danger', 'danger', 'admin'),
    'declination' => new Controller('declination', 'minus-circle', 'danger', 'danger', 'declination'),
-   'groups' => new Controller('groups', 'group', 'primary', 'primary', 'groups'),
-   'groupedit' => new Controller('groupedit', 'group', 'warning', 'warning', 'groups'),
    'holidays' => new Controller('holidays', 'calendar-o', 'danger', 'primary', 'holidays'),
    'holidayedit' => new Controller('holidayedit', 'calendar-o', 'danger', 'primary', 'holidays'),
-   'home' => new Controller('home', 'home', 'primary', 'default', ''),
-   'imprint' => new Controller('imprint', 'file-text-o', 'default', 'default', ''),
-   'log' => new Controller('log', 'list-ol', 'info', 'default', 'admin'),
-   'login' => new Controller('login', 'sign-in', 'success', 'default', ''),
-   'maintenance' => new Controller('maintenance', 'wrench', 'danger', 'danger', ''),
-   'messages' => new Controller('messages', 'comments-o', 'info', 'default', 'messageview'),
-   'messageedit' => new Controller('messageedit', 'comment-o', 'warning', 'warning', 'messageedit'),
    'monthedit' => new Controller('monthedit', 'calendar-o', 'success', 'primary', 'regions'),
-   'permissions' => new Controller('permissions', 'lock', 'warning', 'danger', 'admin'),
-   'phpinfo' => new Controller('phpinfo', 'cogs', 'danger', 'danger', 'admin'),
    'regions' => new Controller('regions', 'globe', 'success', 'primary', 'regions'),
    'regionedit' => new Controller('regionedit', 'globe', 'success', 'primary', 'regions'),
-   'register' => new Controller('register', 'pencil', 'warning', 'success', ''),
-   'roles' => new Controller('roles', 'group', 'warning', 'primary', 'roles'),
-   'roleedit' => new Controller('roleedit', 'edit', 'warning', 'warning', 'roles'),
    'statsabsence' => new Controller('statsabsence', 'bar-chart', 'danger', 'default', 'statistics'),
+   'statsabstype' => new Controller('statsabstype', 'bar-chart', 'info', 'default', 'statistics'),
    'statspresence' => new Controller('statspresence', 'bar-chart', 'success', 'default', 'statistics'),
-   'users' => new Controller('users', 'user', 'primary', 'primary', 'admin'),
-   'useredit' => new Controller('useredit', 'edit', 'warning', 'warning', 'admin'),
-   'useradd' => new Controller('useradd', 'edit', 'warning', 'warning', 'admin'),
-   'viewprofile' => new Controller('viewprofile', 'user', 'default', 'default', 'viewprofile'),
+   'statsremainder' => new Controller('statsremainder', 'bar-chart', 'warning', 'default', 'statistics'),
    'year' => new Controller('year', 'calendar', 'info', 'primary', 'calendarview'),
 );
-
 ?>

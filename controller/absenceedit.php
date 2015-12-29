@@ -2,12 +2,12 @@
 /**
  * absenceedit.php
  * 
- * Config page controller
+ * Absence edit controller
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -15,10 +15,25 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
 
-/**
- * ========================================================================
- * Check URL params
- */
+//=============================================================================
+//
+// CHECK PERMISSION
+//
+if (!isAllowed($CONF['controllers'][$controller]->permission))
+{
+   $alertData['type'] = 'warning';
+   $alertData['title'] = $LANG['alert_alert_title'];
+   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
+   $alertData['text'] = $LANG['alert_not_allowed_text'];
+   $alertData['help'] = $LANG['alert_not_allowed_help'];
+   require (WEBSITE_ROOT . '/controller/alert.php');
+   die();
+}
+
+//=============================================================================
+//
+// CHECK URL PARAMETERS
+//
 $AA = new Absences(); // for the absence type to be edited
 
 if (isset($_GET['id']))
@@ -34,9 +49,9 @@ else
 
 if ($missingData)
 {
-   /**
-    * URL param fail
-    */
+   //
+   // URL param fail
+   //
    $alertData['type'] = 'danger';
    $alertData['title'] = $LANG['alert_danger_title'];
    $alertData['subject'] = $LANG['alert_no_data_subject'];
@@ -45,54 +60,37 @@ if ($missingData)
    require (WEBSITE_ROOT . '/controller/alert.php');
    die();
 }
-else
-{
-   /**
-    * ========================================================================
-    * Check if allowed
-    */
-   if (!isAllowed($CONF['controllers'][$controller]->permission))
-   {
-      $alertData['type'] = 'warning';
-      $alertData['title'] = $LANG['alert_alert_title'];
-      $alertData['subject'] = $LANG['alert_not_allowed_subject'];
-      $alertData['text'] = $LANG['alert_not_allowed_text'];
-      $alertData['help'] = $LANG['alert_not_allowed_help'];
-      require (WEBSITE_ROOT . '/controller/alert.php');
-      die();
-   }
-}
 
-/**
- * ========================================================================
- * Load controller stuff
- */
+//=============================================================================
+//
+// LOAD CONTROLLER RESOURCES
+//
 
-/**
- * ========================================================================
- * Initialize variables
- */
+//=============================================================================
+//
+// VARIABLE DEFAULTS
+//
 $inputAlert = array();
 
-/**
- * ========================================================================
- * Process form
- */
+//=============================================================================
+//
+// PROCESS FORM
+//
 if (!empty($_POST))
 {
-   /**
-    * Sanitize input
-    */
+   //
+   // Sanitize input
+   //
    $_POST = sanitize($_POST);
     
-   /**
-    * Load sanitized form info for the view
-    */
-   $absData['name'] = $_POST['txt_name'];
+   //
+   // Load sanitized form info for the view
+   //
+   $viewData['name'] = $_POST['txt_name'];
      
-   /**
-    * Form validation
-    */
+   //
+   // Form validation
+   //
    $inputError = false;
    if (isset($_POST['btn_save']))
    {
@@ -106,18 +104,16 @@ if (!empty($_POST))
     
    if (!$inputError)
    {
-      /**
-       * ,------,
-       * | Save |
-       * '------'
-       */
+      // ,------,
+      // | Save |
+      // '------'
       if (isset($_POST['btn_save']))
       {
          $AA->id = $_POST['hidden_id'];
 
-         /**
-          * General
-          */
+         //
+         // General
+         //
          $AA->name = $_POST['txt_name'];
          if (isset($_POST['txt_symbol'])) $AA->symbol = $_POST['txt_symbol']; else $AA->symbol = strtoupper(substr($_POST['txt_name'], 0, 1));
          if (isset($_POST['opt_iconcolor'])) $AA->iconcolor = $_POST['opt_iconcolor']; else $AA->iconcolor = 'default';
@@ -125,9 +121,9 @@ if (!empty($_POST))
          $AA->bgcolor = $_POST['txt_bgcolor'];
          if (isset($_POST['chk_bgtrans'])) $AA->bgtrans = '1'; else $AA->bgtrans = '0';
           
-         /**
-          * Options
-          */
+         //
+         // Options
+         //
          $AA->factor = $_POST['txt_factor'];
          $AA->allowance = $_POST['txt_allowance'];
          $AA->counts_as = $_POST['sel_counts_as'];
@@ -139,9 +135,9 @@ if (!empty($_POST))
          if (isset($_POST['chk_hide_in_profile'])) $AA->hide_in_profile = '1'; else $AA->hide_in_profile = '0';
          if (isset($_POST['chk_confidential'])) $AA->confidential = '1'; else $AA->confidential = '0';
 
-         /**
-          * Group assignments
-          */
+         //
+         // Group assignments
+         //
          $AG->unassignAbs($AA->id);
          if (isset($_POST['sel_groups']) )
          {
@@ -151,27 +147,27 @@ if (!empty($_POST))
             }
          }
          
-         /**
-          * Update the record
-          */
+         //
+         // Update the record
+         //
          $AA->update($AA->id);
           
-         /**
-          * Send notification e-mails to the subscribers of user events
-          */
+         //
+         // Send notification e-mails to the subscribers of user events
+         //
          if ($C->read("emailNotifications"))
          {
             sendAbsenceEventNotifications("changed", $AA->name);
          }
           
-         /**
-          * Log this event
-          */
+         //
+         // Log this event
+         //
          $LOG->log("logAbsence",$L->checkLogin(),"log_abs_updated", $AA->name);
           
-         /**
-          * Success
-          */
+         //
+         // Success
+         //
          $showAlert = TRUE;
          $alertData['type'] = 'success';
          $alertData['title'] = $LANG['alert_success_title'];
@@ -182,9 +178,9 @@ if (!empty($_POST))
    }
    else
    {
-      /**
-       * Input validation failed
-       */
+      //
+      // Input validation failed
+      //
       $showAlert = TRUE;
       $alertData['type'] = 'danger';
       $alertData['title'] = $LANG['alert_danger_title'];
@@ -194,72 +190,72 @@ if (!empty($_POST))
    }
 }
 
-/**
- * ========================================================================
- * Prepare data for the view
- */
-$absData['id'] = $AA->id;
-$absData['name'] = $AA->name;
-$absData['symbol'] = $AA->symbol;
-$absData['icon'] = $AA->icon;
-$absData['color'] = $AA->color;
-$absData['bgcolor'] = $AA->bgcolor;
-$absData['bgtrans'] = $AA->bgtrans;
+//=============================================================================
+//
+// PREPARE VIEW
+//
+$viewData['id'] = $AA->id;
+$viewData['name'] = $AA->name;
+$viewData['symbol'] = $AA->symbol;
+$viewData['icon'] = $AA->icon;
+$viewData['color'] = $AA->color;
+$viewData['bgcolor'] = $AA->bgcolor;
+$viewData['bgtrans'] = $AA->bgtrans;
 
-$absData['general'] = array (
-   array ( 'prefix' => 'abs', 'name' => 'name', 'type' => 'text', 'value' => $absData['name'], 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
-   array ( 'prefix' => 'abs', 'name' => 'symbol', 'type' => 'text', 'value' => $absData['symbol'], 'maxlength' => '1', 'mandatory' => true, 'error' =>  (isset($inputAlert['symbol'])?$inputAlert['symbol']:'') ),
-   array ( 'prefix' => 'abs', 'name' => 'color', 'type' => 'color', 'value' => $absData['color'], 'maxlength' => '6', 'error' =>  (isset($inputAlert['color'])?$inputAlert['color']:'') ), 
-   array ( 'prefix' => 'abs', 'name' => 'bgcolor', 'type' => 'color', 'value' => $absData['bgcolor'], 'maxlength' => '6', 'error' =>  (isset($inputAlert['bgcolor'])?$inputAlert['bgcolor']:'') ), 
-   array ( 'prefix' => 'abs', 'name' => 'bgtrans', 'type' => 'check', 'value' => $absData['bgtrans'] ), 
+$viewData['general'] = array (
+   array ( 'prefix' => 'abs', 'name' => 'name', 'type' => 'text', 'value' => $viewData['name'], 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
+   array ( 'prefix' => 'abs', 'name' => 'symbol', 'type' => 'text', 'value' => $viewData['symbol'], 'maxlength' => '1', 'mandatory' => true, 'error' =>  (isset($inputAlert['symbol'])?$inputAlert['symbol']:'') ),
+   array ( 'prefix' => 'abs', 'name' => 'color', 'type' => 'color', 'value' => $viewData['color'], 'maxlength' => '6', 'error' =>  (isset($inputAlert['color'])?$inputAlert['color']:'') ), 
+   array ( 'prefix' => 'abs', 'name' => 'bgcolor', 'type' => 'color', 'value' => $viewData['bgcolor'], 'maxlength' => '6', 'error' =>  (isset($inputAlert['bgcolor'])?$inputAlert['bgcolor']:'') ), 
+   array ( 'prefix' => 'abs', 'name' => 'bgtrans', 'type' => 'check', 'value' => $viewData['bgtrans'] ), 
 );
 
-$absData['factor'] = $AA->factor;
-$absData['allowance'] = $AA->allowance;
+$viewData['factor'] = $AA->factor;
+$viewData['allowance'] = $AA->allowance;
 $otherAbs = $AA->getAllPrimaryBut($AA->id);
-$absData['otherAbs'][] = array('val' => '0', 'name' => "None", 'selected' => ($AA->counts_as == '0')?true:false );
+$viewData['otherAbs'][] = array('val' => '0', 'name' => "None", 'selected' => ($AA->counts_as == '0')?true:false );
 foreach ($otherAbs as $abs)
 {
-   $absData['otherAbs'][] = array('val' => $abs['id'], 'name' => $abs['name'], 'selected' => ($AA->counts_as == $abs['id'])?true:false );
+   $viewData['otherAbs'][] = array('val' => $abs['id'], 'name' => $abs['name'], 'selected' => ($AA->counts_as == $abs['id'])?true:false );
 }
-$absData['counts_as']['val'] = $AA->counts_as;
-if ($absData['counts_as']['val']) $absData['counts_as']['name'] = $AA->getName($AA->counts_as); else $absData['counts_as']['name'] = "None";
-$absData['counts_as_present'] = $AA->counts_as_present;
-$absData['show_in_remainder'] = $AA->show_in_remainder;
-$absData['show_totals'] = $AA->show_totals;
-$absData['approval_required'] = $AA->approval_required;
-$absData['manager_only'] = $AA->manager_only;
-$absData['hide_in_profile'] = $AA->hide_in_profile;
-$absData['confidential'] = $AA->confidential;
+$viewData['counts_as']['val'] = $AA->counts_as;
+if ($viewData['counts_as']['val']) $viewData['counts_as']['name'] = $AA->getName($AA->counts_as); else $viewData['counts_as']['name'] = "None";
+$viewData['counts_as_present'] = $AA->counts_as_present;
+$viewData['show_in_remainder'] = $AA->show_in_remainder;
+$viewData['show_totals'] = $AA->show_totals;
+$viewData['approval_required'] = $AA->approval_required;
+$viewData['manager_only'] = $AA->manager_only;
+$viewData['hide_in_profile'] = $AA->hide_in_profile;
+$viewData['confidential'] = $AA->confidential;
 
-$absData['options'] = array (
-   array ( 'prefix' => 'abs', 'name' => 'factor', 'type' => 'text', 'value' => $absData['factor'], 'maxlength' => '4', 'error' =>  (isset($inputAlert['factor'])?$inputAlert['factor']:'') ), 
-   array ( 'prefix' => 'abs', 'name' => 'allowance', 'type' => 'text', 'value' => $absData['allowance'], 'maxlength' => '4', 'error' =>  (isset($inputAlert['allowance'])?$inputAlert['allowance']:'') ), 
-   array ( 'prefix' => 'abs', 'name' => 'counts_as', 'type' => 'list', 'values' => $absData['otherAbs'], 'topvalue' => array('val' => '0', 'name' => 'None') ),
-   array ( 'prefix' => 'abs', 'name' => 'counts_as_present', 'type' => 'check', 'value' => $absData['counts_as_present'] ), 
-   array ( 'prefix' => 'abs', 'name' => 'show_in_remainder', 'type' => 'check', 'value' => $absData['show_in_remainder'] ), 
-   array ( 'prefix' => 'abs', 'name' => 'show_totals', 'type' => 'check', 'value' => $absData['show_totals'] ), 
-   array ( 'prefix' => 'abs', 'name' => 'approval_required', 'type' => 'check', 'value' => $absData['approval_required'] ), 
-   array ( 'prefix' => 'abs', 'name' => 'manager_only', 'type' => 'check', 'value' => $absData['manager_only'] ), 
-   array ( 'prefix' => 'abs', 'name' => 'hide_in_profile', 'type' => 'check', 'value' => $absData['hide_in_profile'] ), 
-   array ( 'prefix' => 'abs', 'name' => 'confidential', 'type' => 'check', 'value' => $absData['confidential'] ), 
+$viewData['options'] = array (
+   array ( 'prefix' => 'abs', 'name' => 'factor', 'type' => 'text', 'value' => $viewData['factor'], 'maxlength' => '4', 'error' =>  (isset($inputAlert['factor'])?$inputAlert['factor']:'') ), 
+   array ( 'prefix' => 'abs', 'name' => 'allowance', 'type' => 'text', 'value' => $viewData['allowance'], 'maxlength' => '4', 'error' =>  (isset($inputAlert['allowance'])?$inputAlert['allowance']:'') ), 
+   array ( 'prefix' => 'abs', 'name' => 'counts_as', 'type' => 'list', 'values' => $viewData['otherAbs'], 'topvalue' => array('val' => '0', 'name' => 'None') ),
+   array ( 'prefix' => 'abs', 'name' => 'counts_as_present', 'type' => 'check', 'value' => $viewData['counts_as_present'] ), 
+   array ( 'prefix' => 'abs', 'name' => 'show_in_remainder', 'type' => 'check', 'value' => $viewData['show_in_remainder'] ), 
+   array ( 'prefix' => 'abs', 'name' => 'show_totals', 'type' => 'check', 'value' => $viewData['show_totals'] ), 
+   array ( 'prefix' => 'abs', 'name' => 'approval_required', 'type' => 'check', 'value' => $viewData['approval_required'] ), 
+   array ( 'prefix' => 'abs', 'name' => 'manager_only', 'type' => 'check', 'value' => $viewData['manager_only'] ), 
+   array ( 'prefix' => 'abs', 'name' => 'hide_in_profile', 'type' => 'check', 'value' => $viewData['hide_in_profile'] ), 
+   array ( 'prefix' => 'abs', 'name' => 'confidential', 'type' => 'check', 'value' => $viewData['confidential'] ), 
 );
 
 $groups = $G->getAll();
 foreach ($groups as $group)
 {
-   if ($AG->isAssigned($absData['id'], $group['id'])) $selected = true; else $selected = false;
-   $absData['groupsAssigned'][] = array('val' => $group['id'], 'name' => $group['name'], 'selected' => $selected);
+   if ($AG->isAssigned($viewData['id'], $group['id'])) $selected = true; else $selected = false;
+   $viewData['groupsAssigned'][] = array('val' => $group['id'], 'name' => $group['name'], 'selected' => $selected);
 }
 
-$absData['groups'] = array (
-   array ( 'prefix' => 'abs', 'name' => 'groups', 'type' => 'listmulti', 'values' => $absData['groupsAssigned'] ),
+$viewData['groups'] = array (
+   array ( 'prefix' => 'abs', 'name' => 'groups', 'type' => 'listmulti', 'values' => $viewData['groupsAssigned'] ),
 );
 
-/**
- * ========================================================================
- * Show view
- */
+//=============================================================================
+//
+// SHOW VIEW
+//
 require (WEBSITE_ROOT . '/views/header.php');
 require (WEBSITE_ROOT . '/views/menu.php');
 include (WEBSITE_ROOT . '/views/'.$controller.'.php');

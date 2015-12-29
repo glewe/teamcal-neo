@@ -2,12 +2,12 @@
 /**
  * holidayedit.php
  * 
- * Config page controller
+ * Holiday edit page controller
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -15,11 +15,26 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
 
-/**
- * ========================================================================
- * Check URL params
- */
-$HH = new Holidays(); // for the absence type to be edited
+//=============================================================================
+//
+// CHECK PERMISSION
+//
+if (!isAllowed($CONF['controllers'][$controller]->permission))
+{
+   $alertData['type'] = 'warning';
+   $alertData['title'] = $LANG['alert_alert_title'];
+   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
+   $alertData['text'] = $LANG['alert_not_allowed_text'];
+   $alertData['help'] = $LANG['alert_not_allowed_help'];
+   require (WEBSITE_ROOT . '/controller/alert.php');
+   die();
+}
+
+//=============================================================================
+//
+// CHECK URL PARAMETERS
+//
+$HH = new Holidays(); // for the holiday to be edited
 
 if (isset($_GET['id']))
 {
@@ -34,9 +49,9 @@ else
 
 if ($missingData)
 {
-   /**
-    * URL param fail
-    */
+   //
+   // URL param fail
+   //
    $alertData['type'] = 'danger';
    $alertData['title'] = $LANG['alert_danger_title'];
    $alertData['subject'] = $LANG['alert_no_data_subject'];
@@ -45,59 +60,42 @@ if ($missingData)
    require (WEBSITE_ROOT . '/controller/alert.php');
    die();
 }
-else
-{
-   /**
-    * ========================================================================
-    * Check if allowed
-    */
-   if (!isAllowed($CONF['controllers'][$controller]->permission))
-   {
-      $alertData['type'] = 'warning';
-      $alertData['title'] = $LANG['alert_alert_title'];
-      $alertData['subject'] = $LANG['alert_not_allowed_subject'];
-      $alertData['text'] = $LANG['alert_not_allowed_text'];
-      $alertData['help'] = $LANG['alert_not_allowed_help'];
-      require (WEBSITE_ROOT . '/controller/alert.php');
-      die();
-   }
-}
 
-/**
- * ========================================================================
- * Load controller stuff
- */
+//=============================================================================
+//
+// LOAD CONTROLLER RESOURCES
+//
 
-/**
- * ========================================================================
- * Initialize variables
- */
+//=============================================================================
+//
+// VARIABLE DEFAULTS
+//
 $inputAlert = array();
 
-/**
- * ========================================================================
- * Process form
- */
+//=============================================================================
+//
+// PROCESS FORM
+//
 if (!empty($_POST))
 {
-   /**
-    * Sanitize input
-    */
+   //
+   // Sanitize input
+   //
    $_POST = sanitize($_POST);
 
-   /**
-    * Load sanitized form info for the view
-    */
-   $holidayData['id'] = $_POST['hidden_id'];
-   $holidayData['name'] = $_POST['txt_name'];
-   $holidayData['description'] = $_POST['txt_description'];
-   $holidayData['color'] = $_POST['txt_color'];
-   $holidayData['bgcolor'] = $_POST['txt_bgcolor'];
-   if (isset($_POST['chk_businessday'])) $holidayData['businessday'] = '1'; else $holidayData['businessday'] = '0';
+   //
+   // Load sanitized form info for the view
+   //
+   $viewData['id'] = $_POST['hidden_id'];
+   $viewData['name'] = $_POST['txt_name'];
+   $viewData['description'] = $_POST['txt_description'];
+   $viewData['color'] = $_POST['txt_color'];
+   $viewData['bgcolor'] = $_POST['txt_bgcolor'];
+   if (isset($_POST['chk_businessday'])) $viewData['businessday'] = '1'; else $viewData['businessday'] = '0';
     
-   /**
-    * Form validation
-    */
+   //
+   // Form validation
+   //
    $inputError = false;
    if (isset($_POST['btn_holidayUpdate']))
    {
@@ -109,11 +107,9 @@ if (!empty($_POST))
     
    if (!$inputError)
    {
-      /**
-       * ,--------,
-       * | Update |
-       * '--------'
-       */
+      // ,--------,
+      // | Update |
+      // '--------'
       if (isset($_POST['btn_holidayUpdate']))
       {
          $id  = $_POST['hidden_id'];
@@ -125,22 +121,22 @@ if (!empty($_POST))
          
          $HH->update($id);
          
-         /**
-          * Send notification e-mails to the subscribers of user events
-         */
+         //
+         // Send notification e-mails to the subscribers of user events
+         //
          if ($C->read("emailNotifications"))
          {
             sendHolidayEventNotifications("changed", $HH->name, $HH->description, $HH->description);
          }
          
-         /**
-          * Log this event
-          */
+         //
+         // Log this event
+         //
          $LOG->log("logHoliday",$L->checkLogin(),"log_hol_updated", $HH->name);
           
-         /**
-          * Success
-          */
+         //
+         // Success
+         //
          $showAlert = TRUE;
          $alertData['type'] = 'success';
          $alertData['title'] = $LANG['alert_success_title'];
@@ -150,9 +146,9 @@ if (!empty($_POST))
       }
       else
       {
-         /**
-          * Input validation failed
-          */
+         //
+         // Input validation failed
+         //
          $showAlert = TRUE;
          $alertData['type'] = 'danger';
          $alertData['title'] = $LANG['alert_danger_title'];
@@ -163,29 +159,29 @@ if (!empty($_POST))
    }
 }
 
-/**
- * ========================================================================
- * Prepare data for the view
- */
-$holidayData['id'] = $HH->id;
-$holidayData['name'] = $HH->name;
-$holidayData['description'] = $HH->description;
-$holidayData['color'] = $HH->color;
-$holidayData['bgcolor'] = $HH->bgcolor;
-$holidayData['businessday'] = $HH->businessday;
+//=============================================================================
+//
+// PREPARE VIEW
+//
+$viewData['id'] = $HH->id;
+$viewData['name'] = $HH->name;
+$viewData['description'] = $HH->description;
+$viewData['color'] = $HH->color;
+$viewData['bgcolor'] = $HH->bgcolor;
+$viewData['businessday'] = $HH->businessday;
 
-$holidayData['holiday'] = array (
-   array ( 'prefix' => 'hol', 'name' => 'name', 'type' => 'text', 'value' => $holidayData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
-   array ( 'prefix' => 'hol', 'name' => 'description', 'type' => 'text', 'value' => $holidayData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
-   array ( 'prefix' => 'hol', 'name' => 'color', 'type' => 'color', 'value' => $holidayData['color'], 'maxlength' => '6', 'error' =>  (isset($inputAlert['color'])?$inputAlert['color']:'') ),
-   array ( 'prefix' => 'hol', 'name' => 'bgcolor', 'type' => 'color', 'value' => $holidayData['bgcolor'], 'maxlength' => '6', 'error' =>  (isset($inputAlert['bgcolor'])?$inputAlert['bgcolor']:'') ),
-   array ( 'prefix' => 'hol', 'name' => 'businessday', 'type' => 'check', 'value' => $holidayData['businessday'] ),
+$viewData['holiday'] = array (
+   array ( 'prefix' => 'hol', 'name' => 'name', 'type' => 'text', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
+   array ( 'prefix' => 'hol', 'name' => 'description', 'type' => 'text', 'value' => $viewData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
+   array ( 'prefix' => 'hol', 'name' => 'color', 'type' => 'color', 'value' => $viewData['color'], 'maxlength' => '6', 'error' =>  (isset($inputAlert['color'])?$inputAlert['color']:'') ),
+   array ( 'prefix' => 'hol', 'name' => 'bgcolor', 'type' => 'color', 'value' => $viewData['bgcolor'], 'maxlength' => '6', 'error' =>  (isset($inputAlert['bgcolor'])?$inputAlert['bgcolor']:'') ),
+   array ( 'prefix' => 'hol', 'name' => 'businessday', 'type' => 'check', 'value' => $viewData['businessday'] ),
 );
 
-/**
- * ========================================================================
- * Show view
- */
+//=============================================================================
+//
+// SHOW VIEW
+//
 require (WEBSITE_ROOT . '/views/header.php');
 require (WEBSITE_ROOT . '/views/menu.php');
 include (WEBSITE_ROOT . '/views/'.$controller.'.php');

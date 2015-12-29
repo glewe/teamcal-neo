@@ -5,9 +5,9 @@
  * The view of the HTML header
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -15,7 +15,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?><!DOCTYPE html>
 <!--
 ===============================================================================
-Application: <?=$htmlData['application']." ".$htmlData['version']."\n"?>
+Application: <?=$htmlData['title']." ".$htmlData['version']."\n"?>
 Author:      <?=$htmlData['author']."\n"?>
 Copyright:   <?=$htmlData['copyright']."\n"?>
              All rights reserved.
@@ -27,25 +27,28 @@ Copyright:   <?=$htmlData['copyright']."\n"?>
       <title><?=$htmlData['title']?></title>
       
       <meta http-equiv="Content-type" content="text/html;charset=utf8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      <meta name="keywords" content="Lewe <?=$CONF['app_name']?>">
+      <meta charset="utf-8">
+      <meta name="application-name" content="<?=$htmlData['title']?>">
       <meta name="description" content="Lewe <?=$CONF['app_name']?> - The Online Calendar!">
+      <meta name="keywords" content="Lewe <?=$CONF['app_name']?>">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
       
       <link rel="shortcut icon" href="images/icons/logo-16.png">
       
       <!-- Theme CSS -->
-      <link rel="stylesheet" href="themes/<?=$htmlData['theme']?>/css/bootstrap.min.css">
+      <link rel="stylesheet" href="themes/<?=$htmlData['theme']['name']?>/css/bootstrap.min.css">
       <?php if ($htmlData['theme']=='bootstrap') { ?><link rel="stylesheet" href="themes/bootstrap/css/bootstrap-theme.min.css"><?php } ?>
       
       
       <!-- Google Fonts -->
       <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
       
       <!-- Font Awesome -->
       <?php if ($htmlData['faCDN']) { ?>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
       <?php } else { ?>
-<link rel="stylesheet" href="fonts/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="fonts/font-awesome/4.5.0/css/font-awesome.min.css">
       <?php } ?>
          
       <!-- jQuery -->
@@ -62,47 +65,59 @@ Copyright:   <?=$htmlData['copyright']."\n"?>
       <!-- Bootstrap Javascript -->
       <script src="themes/bootstrap/js/bootstrap.min.js"></script>
       
-      <!-- Custom CSS -->
-      <link rel="stylesheet" href="css/bootstrap-submenu.css">
-      <link rel="stylesheet" href="css/custom.css">
-
-      <!-- Colorpicker -->
-      <link rel="stylesheet" media="screen" type="text/css" href="js/colorpicker/css/colorpicker.css">
-      <script type="text/javascript" src="js/colorpicker/js/colorpicker.js"></script>
-
       <!-- Bootstrap/jQuery Modal Patch -->
       <script type="text/javascript" src="js/modal.js"></script>
 
       <!-- Bootstrap Paginator -->
       <script src="js/bootstrap-paginator.min.js"></script>
-      
-      <!-- select2 --> 
-      <link href="addons/select2/select2.css" rel="stylesheet">
-      <script src="addons/select2/select2.js"></script>
-                     
-      <!-- select2 bootstrap -->
-      <link href="addons/select2/select2-bootstrap.css" rel="stylesheet">
-      
-      <!-- Bootstrap Editable -->
-      <link href="addons/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
-      <script src="addons/bootstrap3-editable/js/bootstrap-editable.js"></script>      
 
-      <!-- CKEditor --> 
-      <script src="addons/ckeditor/ckeditor.js"></script>
+      <!-- Custom CSS -->
+      <link rel="stylesheet" href="css/bootstrap-submenu.css">
+      <link rel="stylesheet" href="css/custom.css">
+
+      <!-- Magnific Popup -->
+      <link rel="stylesheet" href="addons/magnific/magnific-popup.css" type="text/css">
+      <script async src="addons/magnific/jquery.magnific-popup.min.js"></script>
+      
+      <!-- Colorpicker -->
+      <link rel="stylesheet" media="screen" type="text/css" href="js/colorpicker/css/colorpicker.css">
+      <script type="text/javascript" src="js/colorpicker/js/colorpicker.js"></script>
 
       <!-- Google Code Prettify -->
       <link rel="stylesheet" href="addons/google-code-prettify/prettify.css" type="text/css">
       <script src="addons/google-code-prettify/prettify.js"></script>
 
-      <!-- Chart.js --> 
+      <?php if ($CONF['addon_syntaxhighlighter']) { ?><!-- Syntax Highlighter -->
+      <link rel="stylesheet" href="addons/syntaxhighlighter/styles/shCore.css" type="text/css">
+      <link rel="stylesheet" href="addons/syntaxhighlighter/styles/shThemeDefault.css" type="text/css">
+      <script src="addons/syntaxhighlighter/scripts/shCore.js" type="text/javascript"></script>
+      <script src="addons/syntaxhighlighter/scripts/shAutoloader.js" type="text/javascript"></script>
+      <script src="addons/syntaxhighlighter/scripts/shBrushCss.js" type="text/javascript"></script>
+      <script src="addons/syntaxhighlighter/scripts/shBrushJScript.js" type="text/javascript"></script>
+      <script src="addons/syntaxhighlighter/scripts/shBrushPhp.js" type="text/javascript"></script>
+      <script src="addons/syntaxhighlighter/scripts/shBrushXml.js" type="text/javascript"></script>
+      <?php } ?>
+      
+      <?php if ($CONF['addon_select2']) { ?><!-- select2 --> 
+      <link href="addons/select2/select2.css" rel="stylesheet">
+      <script src="addons/select2/select2.js"></script>
+      <link href="addons/select2/select2-bootstrap.css" rel="stylesheet">
+      <?php } ?>
+      
+      <?php if ($CONF['addon_bootstrap_editable']) { ?><!-- Bootstrap Editable -->
+      <link href="addons/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+      <script src="addons/bootstrap3-editable/js/bootstrap-editable.js"></script>      
+      <?php } ?>
+
+      <?php if ($CONF['addon_ckeditor']) { ?><!-- CKEditor -->
+      <script src="addons/ckeditor/ckeditor.js"></script>
+      <?php } ?>
+
+      <?php if ($CONF['addon_chartjs']) { ?><!-- Chart.js -->  
       <script src="addons/chart.js/Chart.min.js"></script>
       <script src="addons/chart.js/src/Chart.HorizontalBar.js"></script>
+      <?php } ?>
       
-      <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-      <!--[if lt IE 9]>
-         <script src="js/html5shiv.js"></script>
-         <script src="js/respond.min.js"></script>
-      <![endif]-->
    </head>
 
    <body>

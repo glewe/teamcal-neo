@@ -5,9 +5,9 @@
  * Collection of model related functions
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -69,64 +69,6 @@ function archiveUser($username)
     */
    $LOG->log("logUser", $L->checkLogin(), "log_user_archived", $fullname . " (" . $username . ")");
    
-   return true;
-}
-
-// ---------------------------------------------------------------------------
-/**
- * Creates an empty month template marking Saturdays and Sundays as weekend
- *
- * @param string $target Month template (month) or user template (user)
- * @param string $owner Template owner. Either region name for month template or user ID for user template
- * @param string $year Four character string representing the year
- * @param string $month Two character string representing the month
- *
- * @return bool Success code
- */
-function createMonth($year, $month, $target, $owner)
-{
-   $dateInfo = dateInfo($year, $month, '1');
-   $dayofweek = $dateInfo['wday'];
-   $weeknumber = $dateInfo['week'];
-
-   if ($target == 'region')
-   {
-      $MT = new Months();
-      $MT->region = $owner;
-
-      for($i = 1; $i <= $dateInfo['daysInMonth']; $i++)
-      {
-         $prop = 'wday' . $i;
-         $MT->$prop = $dayofweek;
-          
-         $prop = 'week' . $i;
-         $myts = strtotime($year . '-' . $month . '-' . $i);
-         $MT->$prop = date("W", $myts);
-
-         $dayofweek += 1;
-         if ($dayofweek == 8)
-         {
-            $dayofweek = 1;
-            $weeknumber++;
-         }
-      }
-   }
-   else if ($target == 'user')
-   {
-      $MT = new Templates();
-      $MT->username = $owner;
-   }
-   else
-   {
-      return false;
-   }
-    
-   //echo "<script type=\"text/javascript\">alert(\"Debug: ".$MT->year.'|'.$MT->month.'|'.$MT->region."\");</script>";
-   //print_r($MT);
-    
-   $MT->year = $year;
-   $MT->month = sprintf("%02d", $month);
-   $MT->create();
    return true;
 }
 

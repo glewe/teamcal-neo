@@ -2,12 +2,12 @@
 /**
  * viewprofile.php
  * 
- * The view of the view profile page
+ * View profile page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -33,7 +33,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <?php $tabindex = 1; $colsleft = 8; $colsright = 4;?>
             
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-               <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['profile_view_title'].$profileData['fullname']?> (<?=$profileData['username']?>)</div>
+               <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['profile_view_title'].$viewData['fullname']?> (<?=$viewData['username']?>)</div>
 
                <div class="panel-body">
                   <div class="bs-example table-responsive">
@@ -41,70 +41,70 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <tbody>
                            <tr>
                               <td><i class="fa fa-camera text-danger" style="width: 26px;"></i><strong><?=$LANG['profile_avatar']?></strong></td>
-                              <td><img src="<?=$CONF['app_avatar_dir']?>/<?=$profileData['avatar']?>" alt="" class="boxshadow-1" style="width: 80px; height: 80px; padding: 4px; border: 1px solid #999999;"></td>
+                              <td><img src="<?=$CONF['app_avatar_dir'].$viewData['avatar']?>" alt="" class="boxshadow-1" style="width: 80px; height: 80px; padding: 4px; border: 1px solid #999999;"></td>
                            </tr>
                            <tr>
                               <td><i class="fa fa-users text-<?=$CONF['controller']['roles']['menucolor']?>" style="width: 26px;"></i><strong><?=$LANG['profile_role']?></strong></td>
-                              <td><?=$profileData['role']?></td>
+                              <td><?=$viewData['role']?></td>
                            </tr>
-                           <?php if (strlen($profileData['title'])) { ?>
+                           <?php if (strlen($viewData['title'])) { ?>
                            <tr>
                               <td><i class="fa fa-pencil text-info" style="width: 26px;"></i><strong><?=$LANG['profile_title']?></strong></td>
-                              <td><?=$profileData['title']?></td>
+                              <td><?=$viewData['title']?></td>
                            </tr>
                            <?php } ?>
-                           <?php if (strlen($profileData['position'])) { ?>
+                           <?php if (strlen($viewData['position'])) { ?>
                            <tr>
                               <td><i class="fa fa-building text-default" style="width: 26px;"></i><strong><?=$LANG['profile_position']?></strong></td>
-                              <td><?=$profileData['position']?></td>
+                              <td><?=$viewData['position']?></td>
                            </tr>
                            <?php } ?>
-                           <?php if (strlen($profileData['email'])) { ?>
+                           <?php if (strlen($viewData['email'])) { ?>
                            <tr>
                               <td><i class="fa fa-envelope-o text-success" style="width: 26px;"></i><strong><?=$LANG['profile_email']?></strong></td>
-                              <td><?=$profileData['email']?></td>
+                              <td><?=$viewData['email']?></td>
                            </tr>
                            <?php } ?>
-                           <?php if (strlen($profileData['phone'])) { ?>
+                           <?php if (strlen($viewData['phone'])) { ?>
                            <tr>
                               <td><i class="fa fa-phone text-info" style="width: 26px;"></i><strong><?=$LANG['profile_phone']?></strong></td>
-                              <td><?=$profileData['phone']?></td>
+                              <td><?=$viewData['phone']?></td>
                            </tr>
                            <?php } ?>
-                           <?php if (strlen($profileData['mobile'])) { ?>
+                           <?php if (strlen($viewData['mobile'])) { ?>
                            <tr>
                               <td><i class="fa fa-mobile text-warning" style="width: 26px;"></i><strong><?=$LANG['profile_mobilephone']?></strong></td>
-                              <td><?=$profileData['mobile']?></td>
+                              <td><?=$viewData['mobile']?></td>
                            </tr>
                            <?php } ?>
-                           <?php if (strlen($profileData['facebook'])) { ?>
+                           <?php if (strlen($viewData['facebook'])) { ?>
                            <tr>
                               <td><i class="fa fa-facebook text-primary" style="width: 26px;"></i><strong><?=$LANG['profile_facebook']?></strong></td>
-                              <td><?=$profileData['facebook']?></td>
+                              <td><?=$viewData['facebook']?></td>
                            </tr>
                            <?php } ?>
-                           <?php if (strlen($profileData['google'])) { ?>
+                           <?php if (strlen($viewData['google'])) { ?>
                            <tr>
                               <td><i class="fa fa-google-plus text-danger" style="width: 26px;"></i><strong><?=$LANG['profile_google']?></strong></td>
-                              <td><?=$profileData['google']?></td>
+                              <td><?=$viewData['google']?></td>
                            </tr>
                            <?php } ?>
-                           <?php if (strlen($profileData['linkedin'])) { ?>
+                           <?php if (strlen($viewData['linkedin'])) { ?>
                            <tr>
                               <td><i class="fa fa-linkedin text-primary" style="width: 26px;"></i><strong><?=$LANG['profile_linkedin']?></strong></td>
-                              <td><?=$profileData['linkedin']?></td>
+                              <td><?=$viewData['linkedin']?></td>
                            </tr>
                            <?php } ?>
-                           <?php if (strlen($profileData['skype'])) { ?>
+                           <?php if (strlen($viewData['skype'])) { ?>
                            <tr>
                               <td><i class="fa fa-skype text-success" style="width: 26px;"></i><strong><?=$LANG['profile_skype']?></strong></td>
-                              <td><?=$profileData['skype']?></td>
+                              <td><?=$viewData['skype']?></td>
                            </tr>
                            <?php } ?>
-                           <?php if (strlen($profileData['twitter'])) { ?>
+                           <?php if (strlen($viewData['twitter'])) { ?>
                            <tr>
                               <td><i class="fa fa-twitter text-primary" style="width: 26px;"></i><strong><?=$LANG['profile_twitter']?></strong></td>
-                              <td><?=$profileData['twitter']?></td>
+                              <td><?=$viewData['twitter']?></td>
                            </tr>
                            <?php } ?>
                            

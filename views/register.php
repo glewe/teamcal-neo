@@ -2,12 +2,12 @@
 /**
  * register.php
  * 
- * The view of the registration page
+ * Register page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -42,7 +42,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="tab-pane fade active in" id="personal">
                         <div class="panel panel-default">
                            <div class="panel-body">
-                              <?php foreach($registerData['personal'] as $formObject) {
+                              <?php foreach($viewData['personal'] as $formObject) {
                                  echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                               } ?>
                            </div>

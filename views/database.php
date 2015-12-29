@@ -2,12 +2,12 @@
 /**
  * database.php
  * 
- * The view of the database page
+ * Database page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -41,7 +41,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <ul class="nav nav-tabs" style="margin-bottom: 15px;">
                         <li class="active"><a href="#tab_optimize" data-toggle="tab"><?=$LANG['db_tab_optimize']?></a></li>
                         <li><a href="#tab_delete" data-toggle="tab"><?=$LANG['db_tab_delete']?></a></li>
-                        <li><a href="#tab_export" data-toggle="tab"><?=$LANG['db_tab_export']?></a></li>
+                        <li><a href="#tab_admin" data-toggle="tab"><?=$LANG['db_tab_admin']?></a></li>
                      </ul>
                      
                      <div id="myTabContent" class="tab-content">
@@ -120,17 +120,23 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                         </div>
       
-                        <!-- Export/Import tab -->
-                        <div class="tab-pane fade" id="tab_export">
+                        <!-- Administration tab -->
+                        <div class="tab-pane fade" id="tab_admin">
                            <div class="panel panel-default">
                               <div class="panel-body">
 
                                  <div class="form-group">
-                                    <label class="col-lg-12 control-label">
-                                       <?=$LANG['db_export']?><br>
-                                       <span class="text-normal"><?=$LANG['db_export_comment']?></span>
+                                    <label for="dbURL" class="col-lg-12 control-label">
+                                       <?=$LANG['db_dbURL']?><br>
+                                       <span class="text-normal"><?=$LANG['db_dbURL_comment']?></span>
                                     </label>
-                                 </div>
+                                    <div class="col-lg-12 control-label">
+                                       <input id="dbURL" class="form-control" tabindex="37" name="txt_dbURL" maxlength="160" value="<?=$viewData['dbURL']?>" type="text"><br>
+                                       <button type="submit" class="btn btn-danger" tabindex="<?=$tabindex++;?>" name="btn_saveURL"><?=$LANG['btn_save']?></button>
+                                    </div>
+                                 </div>                                 
+                                 <div class="divider"><hr></div>
+                                 <a href="<?=$C->read('dbURL')?>" class="btn btn-info" tabindex="<?=$tabindex++;?>" target="_blank"><?=$LANG['db_application']?></a>
                                  
                               </div>
                            </div>

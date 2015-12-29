@@ -2,12 +2,12 @@
 /**
  * absence.php
  * 
- * The view of the absence edit page
+ * Absence edit view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -15,7 +15,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
-      view.absence
+      view.absenceedit
       -->
       <div class="container content">
       
@@ -32,12 +32,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             } ?>
             <?php $tabindex = 1; $colsleft = 8; $colsright = 4;?>
             
-            <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;id=<?=$absData['id']?>" method="post" target="_self" accept-charset="utf-8">
+            <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;id=<?=$viewData['id']?>" method="post" target="_self" accept-charset="utf-8">
 
-               <input name="hidden_id" type="hidden" class="text" value="<?=$absData['id']?>">
+               <input name="hidden_id" type="hidden" class="text" value="<?=$viewData['id']?>">
                
                <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['abs_edit_title'].$absData['name']?></div>
+                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['abs_edit_title'].$viewData['name']?></div>
                   <div class="panel-body">
 
                      <div class="panel panel-default">
@@ -66,12 +66,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <span class="text-normal"><?=$LANG['abs_sample_comment']?></span>
                                     </label>
                                     <div class="col-lg-<?=$colsright?>">
-                                       <?php if ($absData['bgtrans']) $bgStyle = ""; else $bgStyle = "background-color: #".$absData['bgcolor']; ?>
-                                       <div id="sample" style="color: #<?=$absData['color']?>; <?=$bgStyle?>; border: 1px solid #333333; width: 26px; height: 26px; text-align: center; padding-top: 2px;">
-                                          <?php if ($absData['icon'] != "No") { ?>
-                                             <span class="fa fa-<?=$absData['icon']?>"></span>
+                                       <?php if ($viewData['bgtrans']) $bgStyle = ""; else $bgStyle = "background-color: #".$viewData['bgcolor']; ?>
+                                       <div id="sample" style="color: #<?=$viewData['color']?>; <?=$bgStyle?>; border: 1px solid #333333; width: 26px; height: 26px; text-align: center; padding-top: 2px;">
+                                          <?php if ($viewData['icon'] != "No") { ?>
+                                             <span class="fa fa-<?=$viewData['icon']?>"></span>
                                           <?php } else { ?>
-                                             <?=$absData['symbol']?>
+                                             <?=$viewData['symbol']?>
                                           <?php } ?>
                                        </div>
                                     </div>
@@ -85,13 +85,13 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <span class="text-normal"><?=$LANG['abs_icon_comment']?></span>
                                     </label>
                                     <div class="col-lg-<?=$colsright?>">
-                                       <span class="fa fa-<?=$absData['icon']?> text-<?=$absData['iconcolor']?>" style="font-size: 150%; padding-right: 8px; vertical-align: middle;"></span>
-                                       <a href="index.php?action=absenceicon&amp;id=<?=$absData['id']?>" class="btn btn-primary btn-sm" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_abs_icon']?></a>
+                                       <span class="fa fa-<?=$viewData['icon']?> text-<?=$viewData['iconcolor']?>" style="font-size: 150%; padding-right: 8px; vertical-align: middle;"></span>
+                                       <a href="index.php?action=absenceicon&amp;id=<?=$viewData['id']?>" class="btn btn-primary btn-sm" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_abs_icon']?></a>
                                     </div>
                                  </div>
                                  <div class="divider"><hr></div>
                                        
-                                 <?php foreach($absData['general'] as $formObject) {
+                                 <?php foreach($viewData['general'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
 
@@ -102,7 +102,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade in" id="options">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($absData['options'] as $formObject) {
+                                 <?php foreach($viewData['options'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>
@@ -112,7 +112,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade in" id="groupassignments">
                            <div class="panel panel-default">
                               <div class="panel-body">
-                                 <?php foreach($absData['groups'] as $formObject) {
+                                 <?php foreach($viewData['groups'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>

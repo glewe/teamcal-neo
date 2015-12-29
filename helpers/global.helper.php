@@ -5,204 +5,15 @@
  * Collection of global helper functions
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
-
-// ---------------------------------------------------------------------------
-/**
- * Builds the menu based on permissions
- *
- * @return array menu
- */
-function buildMenu()
-{
-   global $C, $CONF, $L, $UL;
-   
-   /**
-    * Create default public menu
-    */
-   $mnu = array (
-      "mnu_app" => TRUE,
-      "mnu_app_home" => TRUE,
-      "mnu_view" => FALSE,
-      "mnu_view_calendar" => FALSE,
-      "mnu_view_year" => FALSE,
-      "mnu_view_messages" => FALSE,
-      "mnu_view_stats" => FALSE,
-      "mnu_edit" => FALSE,
-      "mnu_edit_calendaredit" => FALSE,
-      "mnu_edit_monthedit" => FALSE,
-      "mnu_edit_messageedit" => FALSE,
-      "mnu_admin" => FALSE,
-      "mnu_admin_config" => FALSE,
-      "mnu_admin_calendaroptions" => FALSE,
-      "mnu_admin_perm" => FALSE,
-      "mnu_admin_users" => FALSE,
-      "mnu_admin_groups" => FALSE,
-      "mnu_admin_absences" => FALSE,
-      "mnu_admin_holidays" => FALSE,
-      "mnu_admin_regions" => FALSE,
-      "mnu_admin_declination" => FALSE,
-      "mnu_admin_database" => FALSE,
-      "mnu_admin_systemlog" => FALSE,
-      "mnu_admin_env" => FALSE,
-      "mnu_admin_phpinfo" => FALSE,
-      "mnu_help" => TRUE,
-      "mnu_help_help" => TRUE,
-      "mnu_help_imprint" => TRUE,
-      "mnu_help_about" => TRUE, 
-      "mnu_user_login" => TRUE,
-      "mnu_user_logout" => FALSE,
-      "mnu_user_register" => FALSE,
-      "mnu_user_profile" => FALSE,
-   );
-   
-   /**
-    * Now enable entries based on permission
-    */
-   if ($L->checkLogin())
-   {
-      $mnu['mnu_user_login'] = FALSE;
-      $mnu['mnu_user_logout'] = TRUE;
-      $mnu['mnu_user_profile'] = TRUE;
-      
-      if ($C->read("activateMessages"))
-      {
-         $mnu['mnu_view'] = TRUE;
-         $mnu['mnu_view_messages'] = TRUE;
-      
-         if (isAllowed("messageedit"))
-         {
-            $mnu['mnu_edit'] = TRUE;
-            $mnu['mnu_edit_messageedit'] = TRUE;
-         }
-      }
-   }
-   else
-   {
-      if ($C->read("allowRegistration")) $mnu['mnu_user_register'] = TRUE;
-   }
-   
-   if (isAllowed($CONF['controllers']['calendarview']->permission))
-   {
-      $mnu['mnu_view'] = TRUE;
-      $mnu['mnu_view_calendar'] = TRUE;
-   }
-   
-   if (isAllowed($CONF['controllers']['year']->permission))
-   {
-      $mnu['mnu_view'] = TRUE;
-      $mnu['mnu_view_year'] = TRUE;
-   }
-
-   if (isAllowed($CONF['controllers']['statsabsence']->permission))
-   {
-      $mnu['mnu_view'] = TRUE;
-      $mnu['mnu_view_stats'] = TRUE;
-   }
-    
-   if (isAllowed($CONF['controllers']['calendaredit']->permission) AND 
-       (isAllowed("calendareditall") OR isAllowed("calendareditgroup") OR isAllowed("calendareditown")) 
-   )
-   {
-      $mnu['mnu_edit'] = TRUE;
-      $mnu['mnu_edit_calendaredit'] = TRUE;
-   }
-   
-   if (isAllowed($CONF['controllers']['monthedit']->permission))
-   {
-      $mnu['mnu_edit'] = TRUE;
-      $mnu['mnu_edit_monthedit'] = TRUE;
-   }
-   
-   if (isAllowed($CONF['controllers']['config']->permission))
-   {
-      $mnu['mnu_admin'] = TRUE;
-      $mnu['mnu_admin_config'] = TRUE;
-   }
-   
-   if (isAllowed($CONF['controllers']['calendaroptions']->permission))
-   {
-      $mnu['mnu_admin'] = TRUE;
-      $mnu['mnu_admin_calendaroptions'] = TRUE;
-   }
-   
-   if (isAllowed($CONF['controllers']['permissions']->permission))
-   {
-      $mnu['mnu_admin'] = TRUE;
-      $mnu['mnu_admin_perm'] = TRUE;
-   }
-   
-   if (isAllowed($CONF['controllers']['users']->permission))
-   {
-      $mnu['mnu_admin'] = TRUE;
-      $mnu['mnu_admin_users'] = TRUE;
-   }
-   
-   if (isAllowed($CONF['controllers']['groups']->permission))
-   {
-      $mnu['mnu_admin'] = TRUE;
-      $mnu['mnu_admin_groups'] = TRUE;
-   }
-   
-   if (isAllowed($CONF['controllers']['roles']->permission))
-   {
-      $mnu['mnu_admin'] = TRUE;
-      $mnu['mnu_admin_roles'] = TRUE;
-   }
-   
-   if (isAllowed($CONF['controllers']['absences']->permission))
-   {
-      $mnu['mnu_admin'] = TRUE;
-      $mnu['mnu_admin_absences'] = TRUE;
-   }
-   
-   if (isAllowed($CONF['controllers']['holidays']->permission))
-   {
-      $mnu['mnu_admin'] = TRUE;
-      $mnu['mnu_admin_holidays'] = TRUE;
-   }
-   
-   if (isAllowed($CONF['controllers']['regions']->permission))
-   {
-      $mnu['mnu_admin'] = TRUE;
-      $mnu['mnu_admin_regions'] = TRUE;
-   }
-   
-   if (isAllowed($CONF['controllers']['declination']->permission))
-   {
-      $mnu['mnu_admin'] = TRUE;
-      $mnu['mnu_admin_declination'] = TRUE;
-   }
-   
-   if (isAllowed($CONF['controllers']['database']->permission))
-   {
-      $mnu['mnu_admin'] = TRUE;
-      $mnu['mnu_admin_database'] = TRUE;
-   }
-   
-   if (isAllowed($CONF['controllers']['log']->permission))
-   {
-      $mnu['mnu_admin'] = TRUE;
-      $mnu['mnu_admin_systemlog'] = TRUE;
-   }
-   
-   if (isAllowed($CONF['controllers']['phpinfo']->permission))
-   {
-      $mnu['mnu_admin'] = TRUE;
-      $mnu['mnu_admin_env'] = TRUE;
-      $mnu['mnu_admin_phpinfo'] = TRUE;
-   }
-   
-   return $mnu;
-}
 
 // ---------------------------------------------------------------------------
 /**
@@ -227,246 +38,6 @@ function cleanInput($input)
    );
    $output = preg_replace($search, '', $input);
    return $output;
-}
-
-// ---------------------------------------------------------------------------
-/**
- * Counts all occurences of a given absence type for a given user in a given
- * time period
- *
- * @param   string $user       User to count for
- * @param   string $absid      Absence type ID to count
- * @param   string $from       Date to count from (including)
- * @param   string $to         Date to count to (including)
- * @param   boolean $useFactor Multiply count by factor
- * @param   boolean $combined  Count other absences that count as this one
- * @return  integer            Result of the count
- */
-function countAbsence($user='%', $absid, $from, $to, $useFactor=FALSE, $combined=FALSE)
-{
-   global $A, $CONF, $T;
-
-   $absences=$A->getAll();
-   
-   //
-   // Figure out starting month and ending month
-   //
-   $startyear = intval(substr($from, 0, 4));
-   $startmonth = intval(substr($from, 4, 2));
-   $startday = intval(substr($from, 6, 2));
-   $endyear = intval(substr($to, 0, 4));
-   $endmonth = intval(substr($to, 4, 2));
-   $endday = intval(substr($to, 6, 2));
-
-   //
-   // Get the count for this absence type
-   //
-   $factor = $A->getFactor($absid);
-   $count = 0;
-   $firstday = $startday;
-   if ($firstday < 1 || $firstday > 31) $firstday = 1;
-
-   $year = $startyear;
-   $month = $startmonth;
-   $ymstart = intval($year.sprintf("%02d",$month));
-   $ymend= intval($endyear.sprintf("%02d",$endmonth));
-
-   //
-   // Loop through every month of the requested period
-   //
-   while ($ymstart<=$ymend)
-   {
-      if ($year==$startyear AND $month==$startmonth)
-      {
-         $lastday = 0;
-         if ($startmonth == $endmonth)
-         {
-            //
-            // We only have one month. Make sure to only count until the requested end day.
-            //
-            $lastday = $endday;
-         }
-         $count+=$T->countAbsence($user,$year,$month,$absid,$startday,$lastday);
-      }
-      else if ($year==$endyear AND $month==$endmonth)
-      {
-         $count+=$T->countAbsence($user,$year,$month,$absid,1,$endday);
-      }
-      else
-      {
-         $count+=$T->countAbsence($user,$year,$month,$absid);
-      }
-      
-      if ($month==12)
-      {
-         $year++;
-         $month = 1;
-      }
-      else
-      {
-         $month++;
-      }
-      $ymstart = intval($year.sprintf("%02d",$month));
-   }
-    
-   if ($useFactor) $count*=$factor;
-
-   //
-   // If requested, count all those absence types that count as this one
-   //
-   $otherTotal = 0;
-   if ($combined)
-   {
-      foreach ($absences as $otherAbs)
-      {
-         if ($otherId=$otherAbs['counts_as'] AND $otherId==$absid)
-         {
-            $otherCount = 0;
-            $otherFactor = $otherAbs['factor'];
-            $year = $startyear;
-            $month = $startmonth;
-            $ymstart = intval($year.sprintf("%02d",$month));
-            $ymend= intval($endyear.sprintf("%02d",$endmonth));
-            while ($ymstart<=$ymend)
-            {
-               if ($year==$startyear AND $month==$startmonth)
-               {
-                  $otherCount+=$T->countAbsence($user,$year,$month,$otherAbs['id'],$startday);
-               }
-               else if ($year==$endyear AND $month==$endmonth)
-               {
-                  $otherCount+=$T->countAbsence($user,$year,$month,$otherAbs['id'],1,$endday);
-               }
-               else
-               {
-                  $otherCount+=$T->countAbsence($user,$year,$month,$otherAbs['id']);
-               }
-                
-               if ($month==12)
-               {
-                  $year++;
-                  $month = 1;
-               }
-               else
-               {
-                  $month++;
-               }
-               $ymstart = intval($year.sprintf("%02d",$month));
-            }
-
-            //
-            // A combined count always uses the factor. Doesn't make sense otherwise.
-            //
-            $otherTotal += $otherCount * $otherFactor;
-         }
-      }
-   }
-
-   $count += $otherTotal;
-   return $count;
-}
-
-// ---------------------------------------------------------------------------
-/**
- * Counts all business days or man days in a given time period
- *
- * @param string $cntfrom Date to count from (including)
- * @param string $cntto Date to count to (including)
- * @param string $region Region to count for
- * @param boolean $cntManDays Switch whether to multiply the business days by the amount of users and return that value instead
- * @return integer Result of the count
- */
-function countBusinessDays($cntfrom, $cntto, $region = '1', $cntManDays = false)
-{
-   global $CONF, $H, $M, $U;
-
-   $startyear = intval(substr($cntfrom, 0, 4));
-   $startmonth = intval(substr($cntfrom, 4, 2));
-   $startday = intval(substr($cntfrom, 6, 2));
-   $endyear = intval(substr($cntto, 0, 4));
-   $endmonth = intval(substr($cntto, 4, 2));
-   $endday = intval(substr($cntto, 6, 2));
-   $startyearmonth = intval(substr($cntfrom, 0, 6));
-   $endyearmonth = intval(substr($cntto, 0, 6));
-    
-   $count = 0;
-   $year = $startyear;
-   $month = $startmonth;
-   $firstday = $startday;
-   if ($firstday < 1 OR $firstday > 31) $firstday = 1;
-
-   $yearmonth = $startyearmonth;
-   while ($yearmonth <= $endyearmonth)
-   {
-      $M->getMonth($year, $month, $region);
-      $monthInfo = dateInfo($year, $month, '1');
-      $lastday = $monthInfo['daysInMonth'];
-      if ($yearmonth == $endyearmonth)
-      {
-         // 
-         // This is the last month. Make sure we just read it up to the specified endday.
-         //
-         if ($endday < $monthInfo['daysInMonth']) $lastday = $endday;
-      }
-      
-      // 
-      // Now loop through each day of the month
-      //
-      for ($i = $firstday; $i <= $lastday; $i++)
-      {
-         $weekday = 'wday'.$i;
-         $holiday = 'hol'.$i;
-         if ($M->$weekday < 6)
-         {
-            //
-            // This is a weekday. Check if Holiday before counting it.
-            //
-            if ($M->$holiday)
-            {
-               //
-               // This is a weekday but a Holiday. Only count this if this Holiday counts as business day.
-               //
-               if ($H->isBusinessDay($month['hol'.$i])) $count++;
-            }
-            else
-            {
-               $count++;
-            }
-         }
-      }
-      
-      //
-      // Now set the next month for the loop
-      //
-      if (intval(substr($yearmonth, 4, 2)) == 12)
-      {
-         $year = intval(substr($yearmonth, 0, 4));
-         $year++;
-         $yearmonth = strval($year) . "01";
-      }
-      else
-      {
-         $year = intval(substr($yearmonth, 0, 4));
-         $month = intval(substr($yearmonth, 4, 2));
-         $month++;
-         $yearmonth = strval($year) . sprintf("%02d",strval($month));
-      }
-      $firstday = 1;
-   }
-
-   if ($cntManDays)
-   {
-      //
-      // Now we have the amount of business days in this period.
-      // In order to get the remaining man days we need to multiply that amount
-      // with all users (not hidden and not admin).
-      //
-      return $count * $U->countUsers();
-   }
-   else
-   {
-      return $count;
-   }
 }
 
 // ---------------------------------------------------------------------------
@@ -1226,6 +797,83 @@ function getPhpInfo()
 
 // ---------------------------------------------------------------------------
 /**
+ * Reads phpinfo() and parses it into a Bootstrap panel display.
+ *
+ * @return string $output Bootstrap formatted phpinfo() output
+ */
+function getPhpInfoBootstrap()
+{
+   $output = '';
+   $rowstart = "<div class='col-lg-12' style='border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;'>\n";
+   $rowend   = "</div>\n";
+    
+   ob_start();
+   phpinfo(11);
+   $phpinfo = array('phpinfo' => array());
+
+   if (preg_match_all('#(?:<h2>(?:<a name=".*?">)?(.*?)(?:</a>)?</h2>)|(?:<tr(?: class=".*?")?><t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>)?)?</tr>)#s', ob_get_clean(), $matches, PREG_SET_ORDER))
+   {
+      foreach($matches as $match)
+      {
+         if(strlen($match[1]))
+         {
+            $phpinfo[$match[1]] = array();
+         }
+         elseif(isset($match[3]))
+         {
+            $keys1 = array_keys($phpinfo);
+            $phpinfo[end($keys1)][$match[2]] = isset($match[4]) ? array($match[3], $match[4]) : $match[3];
+         }
+         else
+         {
+            $keys1 = array_keys($phpinfo);
+            $phpinfo[end($keys1)][] = $match[2];
+         }
+      }
+   }
+
+   if(!empty($phpinfo))
+   {
+      foreach($phpinfo as $name => $section)
+      {
+         $output .= "<div class='panel panel-default'>\n<div class='panel-heading'>".ucwords($name)."</div>\n<div class='panel-body'>\n";
+         foreach($section as $key => $val)
+         {
+            $output .= $rowstart;
+            if(is_array($val))
+            {
+               $output .= "<div class='col-lg-4 text-bold'>".$key."</div>\n<div class='col-lg-4'>".$val[0]."</div>\n<div class='col-lg-4'>".$val[1]."</div>\n";
+            }
+            elseif(is_string($key))
+            {
+               $output .= "<div class='col-lg-6 text-bold'>".$key."</div>\n<div class='col-lg-6'>".$val."</div>\n";
+            }
+            else
+            {
+               $output .= "<div class='col-lg-12'>".$val."</div>\n";
+            }
+            $output .= $rowend;
+         }
+         $output .= "</div>\n</div>\n";
+      }
+   }
+   else
+   {
+      $output .= '<p>An error occurred executing the phpinfo() function. It may not be accessible or disabled. <a href="http://php.net/manual/en/function.phpinfo.php">See the documentation.</a></p>';
+   }
+   
+   //
+   // Some HTML fixes
+   //
+   $output = str_replace('border="0"', 'style="border: 0px;"', $output);
+   $output = str_replace("<font ", "<span ", $output);
+   $output = str_replace("</font>", "</span>", $output);
+   
+   return $output;
+}
+
+// ---------------------------------------------------------------------------
+/**
  * Determines the role bootstrap color
  *
  * @param class $role Role name
@@ -1269,39 +917,29 @@ function getTheme()
 {
    global $C, $L, $UO;
    
-   $theme = $C->read("theme");
+   $theme = array (
+      'name' => $C->read("theme"),
+      'navbarInverse' => $C->read("menuBarInverse")
+   );
+   
    if ($thisuser = $L->checkLogin())
    {
-      /**
-       * A user is logged in
-       */
       if ($C->read("allowUserTheme"))
       {
-         /**
-          * User theme selection is allowed.
-          * If none is found set it to 'default'
-          */
-         if (!$theme = $UO->read($thisuser, "theme"))
+         if (!$theme['name'] = $UO->read($thisuser, "theme"))
          {
-            $UO->create($thisuser, "theme", "bootstrap");
+            $UO->create($thisuser, "theme", "default");
          }
          else
          {
-            /**
-             * If user wants the default theme, use it.
-             */
-            if ($theme == "default") $theme = $C->read("theme");
+            if ($theme['name'] == "default") $theme['name'] = $C->read("theme");
+         }
+         
+         if (!$theme['navbarInverse'] = $UO->read($thisuser, "menuBarInverse"))
+         {
+            $UO->create($thisuser, "menuBarInverse", "1");
          }
       }
-   }
-   
-   /**
-    * If by now nothing is in $theme set it to 'bootstrap'
-    */
-   if (!strlen($theme))
-   {
-      $theme = "bootstrap";
-      $C->save("theme", "bootstrap");
    }
    
    return $theme;

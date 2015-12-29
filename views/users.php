@@ -2,12 +2,12 @@
 /**
  * users.php
  * 
- * The view of the users page
+ * Users page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -43,23 +43,23 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="panel-body">
                            <div class="col-lg-3">
                               <label for="inputSearch"><?=$LANG['search']?></label>
-                              <input id="inputSearch" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_searchUser" maxlength="40" value="<?=$usersData['searchUser']?>" type="text">
+                              <input id="inputSearch" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_searchUser" maxlength="40" value="<?=$viewData['searchUser']?>" type="text">
                            </div>
                            <div class="col-lg-2">
                               <label for="inputSearch"><?=$LANG['group']?></label>
                               <select class="form-control" name="sel_searchGroup" tabindex="<?=$tabindex++?>">
-                                 <option value="All"<?=('All'==$usersData['searchGroup'])?' selected=""':'';?>><?=$LANG['all']?></option>
-                                 <?php foreach ($usersData['groups'] as $group) { ?>
-                                    <option value="<?=$group['id']?>"<?=($group['id']==$usersData['searchGroup'])?' selected=""':'';?>><?=$group['name']?></option>
+                                 <option value="All"<?=('All'==$viewData['searchGroup'])?' selected=""':'';?>><?=$LANG['all']?></option>
+                                 <?php foreach ($viewData['groups'] as $group) { ?>
+                                    <option value="<?=$group['id']?>"<?=($group['id']==$viewData['searchGroup'])?' selected=""':'';?>><?=$group['name']?></option>
                                  <?php } ?>
                               </select>
                            </div>
                            <div class="col-lg-2">
                               <label for="inputSearch"><?=$LANG['role']?></label>
                               <select class="form-control" name="sel_searchRole" tabindex="<?=$tabindex++?>">
-                                 <option value="All"<?=('All'==$usersData['searchRole'])?' selected=""':'';?>><?=$LANG['all']?></option>
-                                 <?php foreach ($usersData['roles'] as $role) { ?>
-                                    <option value="<?=$role['id']?>"<?=($role['id']==$usersData['searchRole'])?' selected=""':'';?>><?=$role['name']?></option>
+                                 <option value="All"<?=('All'==$viewData['searchRole'])?' selected=""':'';?>><?=$LANG['all']?></option>
+                                 <?php foreach ($viewData['roles'] as $role) { ?>
+                                    <option value="<?=$role['id']?>"<?=($role['id']==$viewData['searchRole'])?' selected=""':'';?>><?=$role['name']?></option>
                                  <?php } ?>
                               </select>
                            </div>
@@ -92,11 +92,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="col-lg-2 text-right"><?=$LANG['action']?></div>
                                  </div>
                                  
-                                 <?php foreach ($usersData['users'] as $user) { ?>
+                                 <?php foreach ($viewData['users'] as $user) { ?>
                                  <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                                     <div class="col-lg-4">
                                        <?php if ($user['username']!="admin") {?><input type="checkbox" name="chk_userActive[]" value="<?=$user['username']?>">&nbsp;&nbsp;<?php } else { ?><span style="padding-left: 16px;">&nbsp;</span><?php } ?>
-                                       <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<img src='<?=$CONF['app_avatar_dir']?>/<?=$UO->read($user['username'],'avatar')?>' alt='' style='width: 80px; height: 80px;'>"><img src="<?=$CONF['app_avatar_dir']?>/<?=$UO->read($user['username'],'avatar')?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?=$user['dispname']?>
+                                       <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<img src='<?=$CONF['app_avatar_dir'].$UO->read($user['username'],'avatar')?>' alt='' style='width: 80px; height: 80px;'>"><img src="<?=$CONF['app_avatar_dir']?>/<?=$UO->read($user['username'],'avatar')?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?=$user['dispname']?>
                                     </div>
                                     <div class="col-lg-2">
                                        <a href="#" data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$user['role']?>"><i class="fa fa-user text-<?=$user['color']?>" style="font-size: 128%; padding-right: 8px;"></i></a>
@@ -159,11 +159,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="col-lg-2 text-right"><?=$LANG['action']?></div>
                                  </div>
                                  
-                                 <?php foreach ($usersData['users1'] as $user1) { ?>
+                                 <?php foreach ($viewData['users1'] as $user1) { ?>
                                  <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                                     <div class="col-lg-4">
                                        <?php if ($user1['username']!="admin") {?><input type="checkbox" name="chk_userArchived[]" value="<?=$user1['username']?>">&nbsp;&nbsp;<?php }?>
-                                       <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<img src='<?=$CONF['app_avatar_dir']?>/<?=$UO->read($user1['username'],'avatar',true)?>' alt='' style='width: 80px; height: 80px;'>"><img src="<?=$CONF['app_avatar_dir']?>/<?=$UO->read($user1['username'],'avatar',true)?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?=$user1['dispname']?>
+                                       <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<img src='<?=$CONF['app_avatar_dir'].$UO->read($user1['username'],'avatar',true)?>' alt='' style='width: 80px; height: 80px;'>"><img src="<?=$CONF['app_avatar_dir']?>/<?=$UO->read($user1['username'],'avatar',true)?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?=$user1['dispname']?>
                                     </div>
                                     <div class="col-lg-2">
                                        <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$LANG['role_'.$user1['role']]?>"><i class="fa fa-user text-<?=$user1['color']?>" style="font-size: 128%; padding-right: 8px;"></i></i>

@@ -5,13 +5,25 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
+
+//=============================================================================
+/**
+ * ADDONS
+ * 
+ * Switch add-ons on or off. These settings are read in view/header.php
+ */
+$CONF['addon_bootstrap_editable'] = true;
+$CONF['addon_chartjs'] = true;
+$CONF['addon_ckeditor'] = true;
+$CONF['addon_select2'] = true;
+$CONF['addon_syntaxhighlighter'] = false;
 
 //=============================================================================
 /**
@@ -29,6 +41,22 @@ $CONF['cookie_name'] = 'tcneo';
  * to any other 9 char string.
  */
 $CONF['salt'] = 's7*9fgJ#R';
+
+//=============================================================================
+/**
+ * FILE UPLOAD
+ *
+ * Defines the allowed file types for upload
+ * Defines the allowed max file sizes for upload
+ */
+$CONF['avatarExtensions'] = array ( 'gif', 'jpg', 'png' );
+$CONF['avatarMaxsize'] = 1024 * 100; // 100 KB
+
+$CONF['docExtensions'] = array ( 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'zip' );
+$CONF['docMaxsize'] = 2048 * 1024; // 2 MB
+
+$CONF['imgExtensions'] = array ( 'gif', 'jpg', 'png' );
+$CONF['imgMaxsize'] = 1024 * 1024; // 1 MB
 
 //=============================================================================
 /**
@@ -60,8 +88,9 @@ $CONF['LDAP_TLS'] = 0; // To avoid "Undefined index: LDAP_TLS" error message for
 /**
  * PATHS
  */
-$CONF['app_avatar_dir'] = 'upload/avatar';
-$CONF['app_homepage_dir'] = 'upload/homepage';
+$CONF['app_avatar_dir'] = 'upload/avatars/';
+$CONF['app_image_dir'] = 'upload/images/';
+$CONF['app_doc_dir'] = 'upload/documents/';
 $CONF['app_jqueryui_dir'] = 'js/jquery/ui/1.10.4/';
 
 //=============================================================================
@@ -71,20 +100,15 @@ $CONF['app_jqueryui_dir'] = 'js/jquery/ui/1.10.4/';
  * !Do not change this information. It is protected by the license agreement!
  */
 $CONF['app_name'] = "TeamCal Neo";
-$CONF['app_version'] = "0.3.005";
+$CONF['app_version'] = "0.4.000";
 $CONF['app_help_root'] = "https://georgelewe.atlassian.net/wiki/display/CP10/";
-$CONF['app_version_date'] = "2015-02-07";
-$CONF['app_year'] = "2014";
-$CONF['app_curr_year'] = date('Y');
+$CONF['app_version_date'] = "2015-12-29";
+$CONF['app_year_start'] = "2014";
+$CONF['app_year_current'] = date('Y');
 $CONF['app_author'] = "George Lewe";
-$CONF['app_author_url'] = "http://www.lewe.com";
-$CONF['app_author_email'] = "george@lewe.com";
-$CONF['app_copyright'] = "&copy; " . $CONF['app_year'] . "-" . $CONF['app_curr_year'] . " by <a href=\"mailto:" . $CONF['app_author_email'] . "?subject=" . $CONF['app_name'] . "&nbsp;" . $CONF['app_version'] . "\" class=\"copyright\">" . $CONF['app_author'] . "</a>.";
-$CONF['app_copyright_html'] = "(c) " . $CONF['app_year'] . "-" . $CONF['app_curr_year'] . " by " . $CONF['app_author'] . " (" . $CONF['app_author_url'] . ")";
-$CONF['app_powered_by'] = "Powered by " . $CONF['app_name'] . " " . $CONF['app_version'] . " &copy; " . $CONF['app_year'] . "-" . $CONF['app_curr_year'] . " by <a href=\"http://www.lewe.com\" class=\"copyright\" target=\"_blank\">" . $CONF['app_author'] . "</a>";
-$CONF['app_license_html'] = "This program is under development and cannot be licensed yet. Redistribution is not allowed.
-
-This program is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTIBILITY or FITNESS FOR A PARTICULAR PURPOSE.\n";
+$CONF['app_url'] = "http://www.lewe.com";
+$CONF['app_email'] = "george@lewe.com";
+$CONF['app_copyright'] = "(c) " . $CONF['app_year_start'] . "-" . $CONF['app_year_current'] . " by " . $CONF['app_author'] . " (" . $CONF['app_url'] . ")";
+$CONF['app_powered'] = "Powered by " . $CONF['app_name'] . " " . $CONF['app_version'] . " &copy; " . $CONF['app_year_start'] . "-" . $CONF['app_year_current'] . " by <a href=\"http://www.lewe.com\" class=\"copyright\" target=\"_blank\">" . $CONF['app_author'] . "</a>";
+$CONF['app_license'] = "This program is cannot be licensed yet. Redistribution is not allowed.";
 ?>

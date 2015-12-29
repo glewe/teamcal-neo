@@ -5,9 +5,9 @@
  * Calendar config page controller
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -91,6 +91,12 @@ if (isset($_POST['btn_caloptApply']))
    if (isset($_POST['chk_showRemainder']) && $_POST['chk_showRemainder']) $C->save("showRemainder", "1"); else $C->save("showRemainder", "0");
     
    /**
+    * Statistics
+    */
+   if ($_POST['sel_statsScale']) $C->save("statsScale", $_POST['sel_statsScale']); else $C->save("statsScale", "auto");
+   $C->save("statsSmartValue",intval($_POST['txt_statsSmartValue']));
+    
+   /**
     * Summary
     */
    if (isset($_POST['chk_includeSummary']) && $_POST['chk_includeSummary']) $C->save("includeSummary", "1"); else $C->save("includeSummary", "0");
@@ -145,6 +151,15 @@ $caloptData['remainder'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'includeRemainderTotal', 'type' => 'check', 'values' => '', 'value' => $C->read("includeRemainderTotal") ),
    array ( 'prefix' => 'calopt', 'name' => 'includeTotals', 'type' => 'check', 'values' => '', 'value' => $C->read("includeTotals") ),
    array ( 'prefix' => 'calopt', 'name' => 'showRemainder', 'type' => 'check', 'values' => '', 'value' => $C->read("showRemainder") ),
+);
+
+$statsScale = array (
+   array ( 'val' => 'auto', 'name' => $LANG['auto'], 'selected' => ($C->read("statsScale") == 'auto')?true:false ),
+   array ( 'val' => 'smart', 'name' => $LANG['smart'], 'selected' => ($C->read("statsScale") == 'smart')?true:false ),
+);
+$caloptData['stats'] = array (
+   array ( 'prefix' => 'calopt', 'name' => 'statsScale', 'type' => 'list', 'values' => $statsScale ),
+   array ( 'prefix' => 'calopt', 'name' => 'statsSmartValue', 'type' => 'text', 'value' => $C->read("statsSmartValue"), 'maxlength' => '3' ),
 );
 
 $caloptData['summary'] = array (

@@ -2,12 +2,12 @@
 /**
  * absences.php
  * 
- * The view of the roles page
+ * Absence type list page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -49,7 +49,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <!-- Modal: Creates Absence -->
                      <?=createModalTop('modalCreateAbsence', $LANG['btn_create_abs'])?>
                         <label for="inputName"><?=$LANG['name']?></label>
-                        <input id="inputName" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_name" maxlength="40" value="<?=$absData['txt_name']?>" type="text">
+                        <input id="inputName" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_name" maxlength="40" value="<?=$viewData['txt_name']?>" type="text">
                         <?php if ( isset($inputAlert["name"]) AND strlen($inputAlert["name"]) ) { ?> 
                            <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert">x</button><?=$inputAlert["name"]?></div>
                         <?php } ?> 
@@ -64,7 +64,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="col-lg-2 text-right"><?=$LANG['action']?></div>
                   </div>
                               
-                  <?php foreach ($absData['absences'] as $absence) { 
+                  <?php foreach ($viewData['absences'] as $absence) { 
                      if (!$absence['counts_as']) { ?>
                      <form  class="bs-example form-control-horizontal" name="form_<?=$absence['id']?>" action="index.php?action=<?=$CONF['controllers'][$controller]->name?>" method="post" target="_self" accept-charset="utf-8">
                         <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">

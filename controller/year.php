@@ -5,9 +5,9 @@
  * Year calendar page controller
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license http://tcneo.lewe.com/doc/license.txt
  */
@@ -15,10 +15,10 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
 
-/**
- * ========================================================================
- * Check URL params
- */
+//=============================================================================
+//
+// CHECK URL PARAMETERS
+//
 if (isset($_GET['year']) AND isset($_GET['region']) AND isset($_GET['user']))
 {
    $missingData = FALSE;
@@ -47,9 +47,9 @@ else
 
 if ($missingData)
 {
-   /**
-    * URL param fail
-    */
+   //
+   // URL param fail
+   //
    $alertData['type'] = 'danger';
    $alertData['title'] = $LANG['alert_danger_title'];
    $alertData['subject'] = $LANG['alert_no_data_subject'];
@@ -59,12 +59,12 @@ if ($missingData)
    die();
 }
 
-/**
- * ========================================================================
- * Check if allowed
- */
-if ( !isAllowed($controller) OR 
-     (isAllowed($controller) AND !$L->checkLogin() AND !isAllowed("calendarviewall"))
+//=============================================================================
+//
+// CHECK PERMISSION
+//
+if ( !isAllowed($CONF['controllers'][$controller]->permission) OR 
+     (isAllowed($CONF['controllers'][$controller]->permission) AND !$L->checkLogin() AND !isAllowed("calendarviewall"))
    )
 {
    $alertData['type'] = 'warning';
@@ -76,140 +76,136 @@ if ( !isAllowed($controller) OR
    die();
 }
 
-/**
- * ========================================================================
- * Load controller stuff
- */
+//=============================================================================
+//
+// LOAD CONTROLLER RESOURCES
+//
 
-/**
- * ========================================================================
- * Initialize variables
- */
+//=============================================================================
+//
+// VARIABLE DEFAULTS
+//
 $inputAlert = array();
 $currDate = date('Y-m-d');
 
-/**
- * Loop through all months
- */
+//
+// Loop through all months
+//
 for ($i=1; $i<=12; $i++)
 {
-   /**
-    * See if a template for the month exists. If not, create one.
-    */
+   //
+   // See if a template for the month exists. If not, create one.
+   //
    if (!$M->getMonth($yyyy, $i, $R->id)) 
    {
       createMonth($yyyy, $i, 'region', $R->id);
         
-      /**
-       * Send notification e-mails to the subscribers of user events
-       */
+      //
+      // Send notification e-mails to the subscribers of user events
+      //
       if ($C->read("emailNotifications"))
       {
          sendMonthEventNotifications("created", $yyyy, $i, $R->name);
       }
              
-      /**
-       * Log this event
-       */
+      //
+      // Log this event
+      //
       $LOG->log("logMonth", $L->checkLogin(), "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
    }
 
-   /**
-    * See if a template for the month for the user exists. If not, create one.
-    */
+   //
+   // See if a template for the month for the user exists. If not, create one.
+   //
    if (!$T->getTemplate($user, $yyyy, $i))
    {
       createMonth($yyyy, $i, 'user', $user);
    }
    
-   $yearData['monthInfo'][$i] = dateInfo($yyyy, $i);
+   $viewData['monthInfo'][$i] = dateInfo($yyyy, $i);
     
-   /**
-    * Loop through all days of the current month
-    */
-   for ($d=1; $d<=$yearData['monthInfo'][$i]['daysInMonth']; $d++)
+   //
+   // Loop through all days of the current month
+   //
+   for ($d=1; $d<=$viewData['monthInfo'][$i]['daysInMonth']; $d++)
    {
-      $yearData['month'][$i][$d]['wday'] = $M->getWeekday($yyyy, $i, $d, $R->id);
-      $yearData['month'][$i][$d]['hol'] = $M->getHoliday($yyyy, $i, $d, $R->id);
-      $yearData['month'][$i][$d]['abs'] = $T->getAbsence($user, $yyyy, $i, $d);
-      $yearData['month'][$i][$d]['symbol'] = '';
-      $yearData['month'][$i][$d]['icon'] = '';
-      $yearData['month'][$i][$d]['style'] = '';
-      $yearData['month'][$i][$d]['absstyle'] = '';
+      $viewData['month'][$i][$d]['wday'] = $M->getWeekday($yyyy, $i, $d, $R->id);
+      $viewData['month'][$i][$d]['hol'] = $M->getHoliday($yyyy, $i, $d, $R->id);
+      $viewData['month'][$i][$d]['abs'] = $T->getAbsence($user, $yyyy, $i, $d);
+      $viewData['month'][$i][$d]['symbol'] = '';
+      $viewData['month'][$i][$d]['icon'] = '';
+      $viewData['month'][$i][$d]['style'] = '';
+      $viewData['month'][$i][$d]['absstyle'] = '';
       
       $color = '';
       $bgcolor = '';
       $border = '';
       
-      /**
-       * Get weekend style
-       */
-      if ($yearData['month'][$i][$d]['wday']==6 or $yearData['month'][$i][$d]['wday']==7)
+      //
+      // Get weekend style
+      //
+      if ($viewData['month'][$i][$d]['wday']==6 or $viewData['month'][$i][$d]['wday']==7)
       {
-         $color = 'color: #' . $H->getColor($yearData['month'][$i][$d]['wday']-4) . ';';
-         $bgcolor = 'background-color: #' . $H->getBgColor($yearData['month'][$i][$d]['wday']-4) . ';';
+         $color = 'color: #' . $H->getColor($viewData['month'][$i][$d]['wday']-4) . ';';
+         $bgcolor = 'background-color: #' . $H->getBgColor($viewData['month'][$i][$d]['wday']-4) . ';';
       }
       
-      /**
-       * Get holiday style (overwrites weekend style)
-       */
-      if ($yearData['month'][$i][$d]['hol'])
+      //
+      // Get holiday style (overwrites weekend style)
+      //
+      if ($viewData['month'][$i][$d]['hol'])
       {
-         $color = 'color: #' . $H->getColor($yearData['month'][$i][$d]['hol']) . ';';
-         $bgcolor = 'background-color: #' . $H->getBgColor($yearData['month'][$i][$d]['hol']) . ';';
+         $color = 'color: #' . $H->getColor($viewData['month'][$i][$d]['hol']) . ';';
+         $bgcolor = 'background-color: #' . $H->getBgColor($viewData['month'][$i][$d]['hol']) . ';';
       }
       
-      /**
-       * Get today style
-       */
+      //
+      // Get today style
+      //
       $loopDate = date('Y-m-d', mktime(0, 0, 0, $i, $d, $yyyy));
       if ( $loopDate == $currDate )
       {
          $border = 'border: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';';
       }
       
-      /**
-       * Build styles
-       */
+      //
+      // Build styles
+      //
       if ( strlen($color) OR strlen($bgcolor) OR strlen($border) )
       {
-         $yearData['month'][$i][$d]['style'] = ' style="' . $color . $bgcolor . $border . '"';
+         $viewData['month'][$i][$d]['style'] = ' style="' . $color . $bgcolor . $border . '"';
       }
       
-      /**
-       * Get absence style of user template.
-       */
-      if ( $yearData['month'][$i][$d]['abs'] )
+      //
+      // Get absence style of user template.
+      //
+      if ( $viewData['month'][$i][$d]['abs'] )
       {
-         $A->get($yearData['month'][$i][$d]['abs']);
-         $yearData['month'][$i][$d]['icon'] = $A->icon;
+         $A->get($viewData['month'][$i][$d]['abs']);
+         $viewData['month'][$i][$d]['icon'] = $A->icon;
          if ($A->bgtrans) $bgStyle = ""; else $bgStyle = "background-color: #" . $A->bgcolor . ';"';
-         $yearData['month'][$i][$d]['absstyle'] = ' style="color: #' . $A->color . ';' . $bgStyle . '"';
+         $viewData['month'][$i][$d]['absstyle'] = ' style="color: #' . $A->color . ';' . $bgStyle . '"';
       }
    }
 }
 
-/**
- * ========================================================================
- * Process form
- */
+//=============================================================================
+//
+// PROCESS FORM
+//
 if (!empty($_POST))
 {
-   /**
-    * ,---------------,
-    * | Select Region |
-    * '---------------'
-    */
+   // ,---------------,
+   // | Select Region |
+   // '---------------'
    if (isset($_POST['btn_region']))
    {
       header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&year=" . $yyyy . "&region=" . $_POST['sel_region'] . "&user=" . $user);
       die();
    }
-   /**
-    * ,-------------,
-    * | Select User |
-    * '-------------'
-    */
+   // ,---------------,
+   // | Select User   |
+   // '---------------'
    elseif (isset($_POST['btn_user']))
    {
       header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&year=" . $yyyy . "&region=" . $region . "&user=" . $_POST['sel_user']);
@@ -217,18 +213,18 @@ if (!empty($_POST))
    }
 }
 
-/**
- * ========================================================================
- * Prepare data for the view
- */
-$yearData['username'] = $user;
-$yearData['fullname'] = $U->getFullname($user);
-$yearData['year'] = $yyyy;
-$yearData['regionid'] = $R->id;
-$yearData['regionname'] = $R->name;
-$yearData['regions'] = $R->getAll();
+//=============================================================================
+//
+// PREPARE VIEW
+//
+$viewData['username'] = $user;
+$viewData['fullname'] = $U->getFullname($user);
+$viewData['year'] = $yyyy;
+$viewData['regionid'] = $R->id;
+$viewData['regionname'] = $R->name;
+$viewData['regions'] = $R->getAll();
 
-$yearData['users'] = array();
+$viewData['users'] = array();
 foreach ($users as $usr) 
 {
    $allowed = false;
@@ -249,23 +245,22 @@ foreach ($users as $usr)
    }
    if ($allowed) 
    {
-      $yearData['users'][] = array ('username' => $usr['username'], 'lastfirst' => $U->getLastFirst($usr['username']));
+      $viewData['users'][] = array ('username' => $usr['username'], 'lastfirst' => $U->getLastFirst($usr['username']));
    }
 }
 
 $color = $H->getColor(2);
 $bgcolor = $H->getBgColor(2);
-$yearData['satStyle'] = ' style="color: #' . $color . '; background-color: #' . $bgcolor . ';"';
+$viewData['satStyle'] = ' style="color: #' . $color . '; background-color: #' . $bgcolor . ';"';
 
 $color = $H->getColor(3);
 $bgcolor = $H->getBgColor(3);
-$yearData['sunStyle'] = ' style="color: #' . $color . '; background-color: #' . $bgcolor . ';"';
+$viewData['sunStyle'] = ' style="color: #' . $color . '; background-color: #' . $bgcolor . ';"';
 
-
-/**
- * ========================================================================
- * Show view
- */
+//=============================================================================
+//
+// SHOW VIEW
+//
 require (WEBSITE_ROOT . '/views/header.php');
 require (WEBSITE_ROOT . '/views/menu.php');
 include (WEBSITE_ROOT . '/views/'.$controller.'.php');

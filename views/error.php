@@ -2,12 +2,12 @@
 /**
  * error.php
  * 
- * The view of the alert page
+ * Error page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -16,15 +16,17 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 <!DOCTYPE html>
 <!--
 ===============================================================================
-Version:     TeamCal Neo 0.2.00
+Application: TeamCal Neo 0.3.005
 Author:      George Lewe
-Copyright:   (c) 2014 by George Lewe (http://www.lewe.com)
+Copyright:   (c) 2014-2016
              All rights reserved.
 ===============================================================================
 -->
-<html lang="en">
+<html>
    <head>
-      <title>TeamCal Neo</title>
+      <title>TeamCal Neo Error</title>
+      <meta http-equiv="Content-type" content="text/html;charset=utf8">
+      <meta charset="utf-8">
       <link rel="stylesheet" href="themes/bootstrap/css/bootstrap.min.css">
       <link rel="stylesheet" href="themes/bootstrap/css/bootstrap-theme.min.css">
    </head>

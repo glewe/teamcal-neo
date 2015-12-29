@@ -2,12 +2,12 @@
 /**
  * regionedit.php
  * 
- * The view of the group edit page
+ * Region edit page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -32,15 +32,15 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             } ?>
             <?php $tabindex = 1; $colsleft = 8; $colsright = 4;?>
             
-            <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;id=<?=$regionData['id']?>" method="post" target="_self" accept-charset="utf-8">
+            <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;id=<?=$viewData['id']?>" method="post" target="_self" accept-charset="utf-8">
 
                <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['group_edit_title'].$regionData['name']?></div>
+                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['group_edit_title'].$viewData['name']?></div>
                   <div class="panel-body">
 
                      <div class="panel panel-default">
                         <div class="panel-body">
-                           <input name="hidden_id" type="hidden" value="<?=$regionData['id']?>">
+                           <input name="hidden_id" type="hidden" value="<?=$viewData['id']?>">
                            <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_regionUpdate"><?=$LANG['btn_update']?></button>
                            <a href="index.php?action=regions" class="btn btn-default pull-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_region_list']?></a>
                         </div>
@@ -48,7 +48,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      
                      <div class="panel panel-default">
                         <div class="panel-body">
-                           <?php foreach($regionData['region'] as $formObject) {
+                           <?php foreach($viewData['region'] as $formObject) {
                               echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                            } ?>
                         </div>

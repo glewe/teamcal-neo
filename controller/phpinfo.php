@@ -5,9 +5,9 @@
  * Phpinfo page controller
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -15,10 +15,10 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
 
-/**
- * ========================================================================
- * Check if allowed
- */
+//=============================================================================
+//
+// CHECK PERMISSION
+//
 if (!isAllowed($CONF['controllers'][$controller]->permission))
 {
    $alertData['type'] = 'warning';
@@ -30,30 +30,31 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
    die();
 }
 
-/**
- * ========================================================================
- * Load controller stuff
- */
+//=============================================================================
+//
+// LOAD CONTROLLER RESOURCES
+//
 
-/**
- * ========================================================================
- * Initialize variables
- */
+//=============================================================================
+//
+// VARIABLE DEFAULTS
+//
 
-/**
- * ========================================================================
- * Process form
- */
+//=============================================================================
+//
+// PROCESS FORM
+//
 
-/**
- * ========================================================================
- * Prepare data for the view
- */
-$phpinfoData = getPhpInfo();
-/**
- * ========================================================================
- * Show view
- */
+//=============================================================================
+//
+// PREPARE VIEW
+//
+$viewData['phpInfo'] = bootstrapPhpInfo();
+
+//=============================================================================
+//
+// SHOW VIEW
+//
 require (WEBSITE_ROOT . '/views/header.php');
 require (WEBSITE_ROOT . '/views/menu.php');
 include (WEBSITE_ROOT . '/views/'.$controller.'.php');

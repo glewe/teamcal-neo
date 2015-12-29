@@ -1,13 +1,13 @@
 <?php
 /**
- * declination.php
+ * monthedit.php
  * 
- * The view of the month edit page
+ * Month edit page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -31,16 +31,16 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          } ?>
          <?php $tabindex = 1; $colsleft = 1; $colsright = 4;?>
          
-         <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;month=<?=$monthData['year'].$monthData['month']?>&amp;region=<?=$monthData['regionid']?>" method="post" target="_self" accept-charset="utf-8">
+         <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;month=<?=$viewData['year'].$viewData['month']?>&amp;region=<?=$viewData['regionid']?>" method="post" target="_self" accept-charset="utf-8">
 
-            <input name="hidden_month" type="hidden" class="text" value="<?=$monthData['month']?>">
-            <input name="hidden_region" type="hidden" class="text" value="<?=$monthData['regionid']?>">
+            <input name="hidden_month" type="hidden" class="text" value="<?=$viewData['month']?>">
+            <input name="hidden_region" type="hidden" class="text" value="<?=$viewData['regionid']?>">
 
             <div class="page-menu">
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$monthData['regionid']?>"><span class="fa fa-angle-double-left"></span></a>
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$monthData['regionid']?>"><span class="fa fa-angle-double-right"></span></a>
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$monthData['yearToday'].$monthData['monthToday']?>&amp;region=<?=$monthData['regionid']?>"><?=$LANG['today']?></a>
-               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectRegion"><?=$LANG['region'] . ': ' . $monthData['regionname']?></button>
+               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>"><span class="fa fa-angle-double-left"></span></a>
+               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>"><span class="fa fa-angle-double-right"></span></a>
+               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$viewData['yearToday'].$viewData['monthToday']?>&amp;region=<?=$viewData['regionid']?>"><?=$LANG['today']?></a>
+               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectRegion"><?=$LANG['region'] . ': ' . $viewData['regionname']?></button>
                
                <div class="pull-right">
                   <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_save"><?=$LANG['btn_save']?></button>
@@ -49,13 +49,13 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             </div>
             
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-               <div class="panel-heading"><?=sprintf($LANG['monthedit_title'], $monthData['year'], $monthData['month'], $monthData['regionname'])?></div>
+               <div class="panel-heading"><?=sprintf($LANG['monthedit_title'], $viewData['year'], $viewData['month'], $viewData['regionname'])?></div>
             </div>
             
-            <?php if (!$monthData['supportMobile']) $mobilecols = array('full'=>$monthData['dateInfo']['daysInMonth']);
+            <?php if (!$viewData['supportMobile']) $mobilecols = array('full'=>$viewData['dateInfo']['daysInMonth']);
             foreach ($mobilecols as $key => $cols) 
             { 
-               $days = $monthData['dateInfo']['daysInMonth'];
+               $days = $viewData['dateInfo']['daysInMonth'];
                $tables = ceil( $days / $cols);
                for ($t=0; $t<$tables; $t++)
                {
@@ -64,14 +64,14 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   if ($daysleft >= $cols) $dayend = $daystart + ($cols - 1);
                   else $dayend = $days;
             ?>
-                  <div class="table<?=($monthData['supportMobile'])?$key:'';?>">
+                  <div class="table<?=($viewData['supportMobile'])?$key:'';?>">
                      <table class="table table-bordered month">
                         <thead>
                            <!-- Row: Month name and day numbers -->
                            <tr>
-                              <th class="m-monthname"><?=$monthData['dateInfo']['monthname']?> <?=$monthData['dateInfo']['year']?></th>
+                              <th class="m-monthname"><?=$viewData['dateInfo']['monthname']?> <?=$viewData['dateInfo']['year']?></th>
                               <?php for ($i=$daystart; $i<=$dayend; $i++) { ?> 
-                                 <th class="m-daynumber text-center"<?=$monthData['dayStyles'][$i]?>><?=$i?></th>
+                                 <th class="m-daynumber text-center"<?=$viewData['dayStyles'][$i]?>><?=$i?></th>
                               <?php } ?>
                            </tr>
                            
@@ -80,11 +80,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <th class="m-label">&nbsp;</th>
                               <?php for ($i=$daystart; $i<=$dayend; $i++) { 
                                  $prop = 'wday'.$i; ?>
-                                 <th class="m-weekday text-center"<?=$monthData['dayStyles'][$i]?>><?=$LANG['weekdayShort'][$M->$prop]?></th>
+                                 <th class="m-weekday text-center"<?=$viewData['dayStyles'][$i]?>><?=$LANG['weekdayShort'][$M->$prop]?></th>
                               <?php } ?>
                            </tr>
                            
-                           <?php if ($monthData['showWeekNumbers']) { ?>
+                           <?php if ($viewData['showWeekNumbers']) { ?>
                               <!-- Row: Week numbers -->
                               <tr>
                                  <th class="m-label"><?=$LANG['weeknumber']?></th>
@@ -98,12 +98,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </thead>
                         <tbody>
                            <!-- Rows 4ff: Holidays -->
-                           <?php foreach ($monthData['holidays'] as $hol) { ?>
+                           <?php foreach ($viewData['holidays'] as $hol) { ?>
                               <tr>
                                  <td class="m-name"><?=$hol['name']?></td>
                                  <?php for ($i=$daystart; $i<=$dayend; $i++) { 
                                     $prop = 'hol'.$i; ?>
-                                    <td class="m-day text-center"<?=$monthData['dayStyles'][$i]?>><input name="opt_hol_<?=$i?>" type="radio" value="<?=$hol['id']?>"<?=(($M->$prop==$hol['id'])?' checked':'')?>></td>
+                                    <td class="m-day text-center"<?=$viewData['dayStyles'][$i]?>><input name="opt_hol_<?=$i?>" type="radio" value="<?=$hol['id']?>"<?=(($M->$prop==$hol['id'])?' checked':'')?>></td>
                                  <?php } ?>
                               </tr>
                            <?php } ?>
@@ -123,39 +123,39 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <?php } ?>
             
             <?php 
-            if ($monthData['month']==1) 
+            if ($viewData['month']==1) 
             {
-               $pageBwdYear = $monthData['year'] - 1;
+               $pageBwdYear = $viewData['year'] - 1;
                $pageBwdMonth = 12; 
-               $pageFwdYear = $monthData['year']; 
-               $pageFwdMonth = sprintf('%02d', $monthData['month'] + 1); 
+               $pageFwdYear = $viewData['year']; 
+               $pageFwdMonth = sprintf('%02d', $viewData['month'] + 1); 
             }
-            elseif ($monthData['month']==12) 
+            elseif ($viewData['month']==12) 
             {
-               $pageBwdYear = $monthData['year']; 
-               $pageBwdMonth = sprintf('%02d', $monthData['month'] - 1); 
-               $pageFwdYear = $monthData['year'] + 1; 
+               $pageBwdYear = $viewData['year']; 
+               $pageBwdMonth = sprintf('%02d', $viewData['month'] - 1); 
+               $pageFwdYear = $viewData['year'] + 1; 
                $pageFwdMonth = '01'; 
             }
             else 
             {
-               $pageBwdYear = $monthData['year']; 
-               $pageBwdMonth = sprintf('%02d', $monthData['month'] - 1); 
-               $pageFwdYear = $monthData['year']; 
-               $pageFwdMonth = sprintf('%02d', $monthData['month'] + 1); 
+               $pageBwdYear = $viewData['year']; 
+               $pageBwdMonth = sprintf('%02d', $viewData['month'] - 1); 
+               $pageFwdYear = $viewData['year']; 
+               $pageFwdMonth = sprintf('%02d', $viewData['month'] + 1); 
             }
             ?>
             
             <!-- Modal: Clear All -->
             <?=createModalTop('modalClearAll', $LANG['modal_confirm'])?>
-               <?=sprintf($LANG['monthedit_confirm_clearall'], $monthData['year'], $monthData['month'], $monthData['regionname'])?>
+               <?=sprintf($LANG['monthedit_confirm_clearall'], $viewData['year'], $viewData['month'], $viewData['regionname'])?>
             <?=createModalBottom('btn_clearall', 'success', $LANG['btn_clear_all'])?>
             
             <!-- Modal: Select Region -->
             <?=createModalTop('modalSelectRegion', $LANG['monthedit_selRegion'])?>
                <select id="region" class="form-control" name="sel_region" tabindex="<?=$tabindex++?>">
-                  <?php foreach($monthData['regions'] as $reg) { ?>
-                     <option  value="<?=$reg['id']?>"<?=(($monthData['regionid'] == $reg['id'])?' selected="selected"':'')?>><?=$reg['name']?></option>
+                  <?php foreach($viewData['regions'] as $reg) { ?>
+                     <option  value="<?=$reg['id']?>"<?=(($viewData['regionid'] == $reg['id'])?' selected="selected"':'')?>><?=$reg['name']?></option>
                   <?php } ?>
                </select>
             <?=createModalBottom('btn_region', 'success', $LANG['btn_select'])?>

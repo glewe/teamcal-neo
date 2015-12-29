@@ -2,12 +2,12 @@
 /**
  * calendar.php
  * 
- * The view of the calendar page
+ * Calendar view page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license http://tcneo.lewe.com/doc/license.txt
  */
@@ -15,7 +15,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
-      view.calendar
+      view.calendarview
       -->
       <div class="container content" style="padding-left: 4px; padding-right: 4px;">
       
@@ -34,54 +34,54 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             $xeditable = false;
             ?>
          
-         <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;month=<?=$calData['year'].$calData['month']?>&amp;region=<?=$calData['regionid']?>" method="post" target="_self" accept-charset="utf-8">
+         <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;month=<?=$viewData['year'].$viewData['month']?>&amp;region=<?=$viewData['regionid']?>" method="post" target="_self" accept-charset="utf-8">
 
-            <input name="hidden_month" type="hidden" class="text" value="<?=$calData['month']?>">
-            <input name="hidden_region" type="hidden" class="text" value="<?=$calData['region']?>">
+            <input name="hidden_month" type="hidden" class="text" value="<?=$viewData['month']?>">
+            <input name="hidden_region" type="hidden" class="text" value="<?=$viewData['region']?>">
 
             <?php 
-            if ($calData['month']==1) 
+            if ($viewData['month']==1) 
             {
-               $pageBwdYear = $calData['year'] - 1;
+               $pageBwdYear = $viewData['year'] - 1;
                $pageBwdMonth = '12'; 
-               $pageFwdYear = $calData['year']; 
-               $pageFwdMonth = sprintf('%02d', $calData['month'] + 1); 
+               $pageFwdYear = $viewData['year']; 
+               $pageFwdMonth = sprintf('%02d', $viewData['month'] + 1); 
             }
-            elseif ($calData['month']==12) 
+            elseif ($viewData['month']==12) 
             {
-               $pageBwdYear = $calData['year']; 
-               $pageBwdMonth = sprintf('%02d', $calData['month'] - 1); 
-               $pageFwdYear = $calData['year'] + 1; 
+               $pageBwdYear = $viewData['year']; 
+               $pageBwdMonth = sprintf('%02d', $viewData['month'] - 1); 
+               $pageFwdYear = $viewData['year'] + 1; 
                $pageFwdMonth = '01'; 
             }
             else 
             {
-               $pageBwdYear = $calData['year']; 
-               $pageFwdYear = $calData['year']; 
-               $pageBwdMonth = sprintf('%02d', $calData['month'] - 1); 
-               $pageFwdMonth = sprintf('%02d', $calData['month'] + 1); 
+               $pageBwdYear = $viewData['year']; 
+               $pageFwdYear = $viewData['year']; 
+               $pageBwdMonth = sprintf('%02d', $viewData['month'] - 1); 
+               $pageFwdMonth = sprintf('%02d', $viewData['month'] + 1); 
             }
             ?>
             
             <div class="page-menu">
-               <a class="btn btn-default tooltip-warning" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$calData['regionid']?>" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_backward']?>"><span class="fa fa-angle-double-left"></span></a>
-               <a class="btn btn-default tooltip-warning" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$calData['regionid']?>" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_forward']?>"><span class="fa fa-angle-double-right"></span></a>
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$calData['yearToday'].$calData['monthToday']?>&amp;region=<?=$calData['regionid']?>"><?=$LANG['today']?></a>
-               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectRegion"><?=$LANG['region'] . ': ' . $calData['regionname']?></button>
-               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectGroup"><?=$LANG['group'] . ': ' . $calData['group']?></button>
-               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectAbsence"><?=$LANG['absence'] . ': ' . $calData['absence']?></button>
-               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSearchUser"><?=$LANG['search'] . ': ' . $calData['search']?></button>
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=date('Y').date('m')?>&amp;region=<?=$calData['regionid']?>"><?=$LANG['btn_reset']?></a>
+               <a class="btn btn-default tooltip-warning" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_backward']?>"><span class="fa fa-angle-double-left"></span></a>
+               <a class="btn btn-default tooltip-warning" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_forward']?>"><span class="fa fa-angle-double-right"></span></a>
+               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$viewData['yearToday'].$viewData['monthToday']?>&amp;region=<?=$viewData['regionid']?>"><?=$LANG['today']?></a>
+               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectRegion"><?=$LANG['region'] . ': ' . $viewData['regionname']?></button>
+               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectGroup"><?=$LANG['group'] . ': ' . $viewData['group']?></button>
+               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectAbsence"><?=$LANG['absence'] . ': ' . $viewData['absence']?></button>
+               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSearchUser"><?=$LANG['search'] . ': ' . $viewData['search']?></button>
+               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=date('Y').date('m')?>&amp;region=<?=$viewData['regionid']?>"><?=$LANG['btn_reset']?></a>
             </div>
             
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-               <div class="panel-heading"><?=sprintf($LANG['cal_title'], $calData['year'], $calData['month'], $calData['regionname'])?></div>
+               <div class="panel-heading"><?=sprintf($LANG['cal_title'], $viewData['year'], $viewData['month'], $viewData['regionname'])?></div>
             </div>
             
-            <?php if (!$calData['supportMobile']) $mobilecols = array('full'=>$calData['dateInfo']['daysInMonth']);
+            <?php if (!$viewData['supportMobile']) $mobilecols = array('full'=>$viewData['dateInfo']['daysInMonth']);
             foreach ($mobilecols as $key => $cols) 
             { 
-               $days = $calData['dateInfo']['daysInMonth'];
+               $days = $viewData['dateInfo']['daysInMonth'];
                $tables = ceil( $days / $cols);
                $script = '';
                for ($t=0; $t<$tables; $t++)
@@ -91,14 +91,14 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   if ($daysleft >= $cols) $dayend = $daystart + ($cols - 1);
                   else $dayend = $days;
                ?>
-                  <div class="table<?=($calData['supportMobile'])?$key:'';?>">
+                  <div class="table<?=($viewData['supportMobile'])?$key:'';?>">
                      <table class="table table-bordered month">
                         <thead>
                            <!-- Row: Month name and day numbers -->
                            <tr>
-                              <th class="m-monthname"><?=$calData['dateInfo']['monthname']?> <?=$calData['dateInfo']['year']?></th>
+                              <th class="m-monthname"><?=$viewData['dateInfo']['monthname']?> <?=$viewData['dateInfo']['year']?></th>
                               <?php for ($i=$daystart; $i<=$dayend; $i++) { 
-                                 if (isset($calData['dayStyles'][$i]) AND strlen($calData['dayStyles'][$i])) $dayStyles = ' style="' . $calData['dayStyles'][$i] . '"';
+                                 if (isset($viewData['dayStyles'][$i]) AND strlen($viewData['dayStyles'][$i])) $dayStyles = ' style="' . $viewData['dayStyles'][$i] . '"';
                                  else $dayStyles = '';
                                  ?> 
                                  <th class="m-daynumber text-center"<?=$dayStyles?>><?=$i?></th>
@@ -109,7 +109,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <tr>
                               <th class="m-label">&nbsp;</th>
                               <?php for ($i=$daystart; $i<=$dayend; $i++) { 
-                                 if (isset($calData['dayStyles'][$i]) AND strlen($calData['dayStyles'][$i])) $dayStyles = ' style="' . $calData['dayStyles'][$i] . '"';
+                                 if (isset($viewData['dayStyles'][$i]) AND strlen($viewData['dayStyles'][$i])) $dayStyles = ' style="' . $viewData['dayStyles'][$i] . '"';
                                  else $dayStyles = '';
                                  $prop = 'wday'.$i; 
                                  ?>
@@ -117,7 +117,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <?php } ?>
                            </tr>
                            
-                           <?php if ($calData['showWeekNumbers']) { ?>
+                           <?php if ($viewData['showWeekNumbers']) { ?>
                               <!-- Row: Week numbers -->
                               <tr>
                                  <th class="m-label"><?=$LANG['weeknumber']?></th>
@@ -131,7 +131,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </thead>
                         <tbody>
                            <!-- Rows 4ff: Users -->
-                           <?php foreach ($calData['users'] as $usr) { 
+                           <?php foreach ($viewData['users'] as $usr) { 
                               $href = 'index.php?action=viewprofile&amp;profile=' . $usr['username'];
                               if ( ($UL->username==$usr['username']) 
                                     OR isAllowed("editAllUserProfiles") 
@@ -144,13 +144,13 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <tr>
                                  <td class="m-name"><a href="<?=$href?>"><?=$U->getLastFirst($usr['username'])?></a></td>
                                  <?php 
-                                 $T->getTemplate($usr['username'], $calData['year'], $calData['month']);
+                                 $T->getTemplate($usr['username'], $viewData['year'], $viewData['month']);
                                  $currDate = date('Y-m-d');
                                  for ($i=$daystart; $i<=$dayend; $i++) 
                                  { 
-                                    $loopDate = date('Y-m-d', mktime(0, 0, 0, $calData['month'], $i, $calData['year']));
+                                    $loopDate = date('Y-m-d', mktime(0, 0, 0, $viewData['month'], $i, $viewData['year']));
                                     $abs = 'abs'.$i; 
-                                    $style = $calData['dayStyles'][$i];
+                                    $style = $viewData['dayStyles'][$i];
                                     $icon = '&nbsp;';
                                     $absstart = '';
                                     $absend = '';
@@ -173,7 +173,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        $absend = '</div>';                 
                                     }
                                     
-                                    if ($D->findByDay($calData['year'] . $calData['month'] . sprintf("%02d", $i), $usr['username']))
+                                    if ($D->findByDay($viewData['year'] . $viewData['month'] . sprintf("%02d", $i), $usr['username']))
                                     {
                                        /**
                                         * This is a user's daynote
@@ -262,8 +262,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <!-- Modal: Select Region -->
             <?=createModalTop('modalSelectRegion', $LANG['cal_selRegion'])?>
                <select id="region" class="form-control" name="sel_region" tabindex="<?=$tabindex++?>">
-                  <?php foreach($calData['regions'] as $reg) { ?>
-                     <option value="<?=$reg['id']?>" <?=(($calData['regionid'] == $reg['id'])?'selected="selected"':'')?>><?=$reg['name']?></option>
+                  <?php foreach($viewData['regions'] as $reg) { ?>
+                     <option value="<?=$reg['id']?>" <?=(($viewData['regionid'] == $reg['id'])?'selected="selected"':'')?>><?=$reg['name']?></option>
                   <?php } ?>
                </select>
             <?=createModalBottom('btn_region', 'success', $LANG['btn_select'])?>
@@ -271,9 +271,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <!-- Modal: Select Group -->
             <?=createModalTop('modalSelectGroup', $LANG['cal_selGroup'])?>
                <select id="group" class="form-control" name="sel_group" tabindex="<?=$tabindex++?>">
-                  <option value="all"<?=(($calData['groupid'] == 'all')?' selected="selected"':'')?>><?=$LANG['all']?></option>
-                  <?php foreach($calData['groups'] as $grp) { ?>
-                     <option value="<?=$grp['id']?>" <?=(($calData['groupid'] == $grp['id'])?'selected="selected"':'')?>><?=$grp['name']?></option>
+                  <option value="all"<?=(($viewData['groupid'] == 'all')?' selected="selected"':'')?>><?=$LANG['all']?></option>
+                  <?php foreach($viewData['groups'] as $grp) { ?>
+                     <option value="<?=$grp['id']?>" <?=(($viewData['groupid'] == $grp['id'])?'selected="selected"':'')?>><?=$grp['name']?></option>
                   <?php } ?>
                </select>
             <?=createModalBottom('btn_group', 'success', $LANG['btn_select'])?>
@@ -282,9 +282,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <?=createModalTop('modalSelectAbsence', $LANG['cal_selAbsence'])?>
                <p><?=$LANG['cal_selAbsence_comment']?></p>
                <select id="absence" class="form-control" name="sel_absence" tabindex="<?=$tabindex++?>">
-                  <option value="all" <?=(($calData['absid'] == 'all')?'selected="selected"':'')?>><?=$LANG['all']?></option>
-                  <?php foreach($calData['absences'] as $abs) { ?>
-                     <option value="<?=$abs['id']?>" <?=(($calData['absid'] == $abs['id'])?'selected="selected"':'')?>><?=$abs['name']?></option>
+                  <option value="all" <?=(($viewData['absid'] == 'all')?'selected="selected"':'')?>><?=$LANG['all']?></option>
+                  <?php foreach($viewData['absences'] as $abs) { ?>
+                     <option value="<?=$abs['id']?>" <?=(($viewData['absid'] == $abs['id'])?'selected="selected"':'')?>><?=$abs['name']?></option>
                   <?php } ?>
                </select>
             <?=createModalBottom('btn_abssearch', 'warning', $LANG['btn_search'])?>

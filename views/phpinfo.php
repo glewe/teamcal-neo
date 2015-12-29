@@ -2,12 +2,12 @@
 /**
  * phpinfo.php
  * 
- * The view of the Phpinfo page
+ * Phpinfo page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -23,7 +23,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['phpinfo_title']?></div>
                <div class="panel-body">
-                  <?=$phpinfoData?>
+                  <?=$viewData['phpInfo']?>
                </div>
             </div>
          </div>

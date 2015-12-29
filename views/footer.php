@@ -5,9 +5,9 @@
  * The view of the footer
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -22,7 +22,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                
             <div class="col-lg-3">
                <ul class="list-unstyled">
-                  <li><?=$C->read("appFooterCpy")?></li>
+                  <li>&copy; <?=date('Y')." ".$C->read("appFooterCpy")?></li>
                </ul>
             </div>
             
@@ -40,18 +40,15 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             </div>
             
             <div class="col-lg-3 text-right">
-               <a href="#top" title="<?=$LANG['back_to_top']?>"><i class="glyphicon glyphicon-arrow-up"></i></a><br>
-               <img src="images/valid-html5.gif" width="80" height="15" alt="Valid HTML5"><br>
-               <img src="images/valid-css3.gif" width="80" height="15" alt="Valid CSS3"><br>
-               <img src="images/responsive.gif" width="80" height="15" alt="Responsive"><br>
-               <br>
-               <i id="size" class="small"></i>
+               <a href="http://www.w3.org/html/logo/"><img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3.png" style="margin-right: -12px; margin-bottom: 60px;" width="66" height="32" alt="HTML5 Powered with CSS3 / Styling" title="HTML5 Powered with CSS3 / Styling"></a><br>
+               <?php if ($C->read("showSize")) { ?><i id="size" class="text-italic xsmall"></i><?php } ?>
             </div>
             
          </div>
          
+         <!-- As per license, you are not allowed to change or remove the following block! -->
          <div class="container">
-            <div class="col-lg-12 text-right small"><?=$CONF['app_powered_by']?></div>
+            <div class="col-lg-12 text-right text-italic xsmall"><?=$CONF['app_powered']?></div>
          </div>
          
       </footer>

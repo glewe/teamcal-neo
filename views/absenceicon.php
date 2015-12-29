@@ -2,12 +2,12 @@
 /**
  * absenceicon.php
  * 
- * The view of the absence edit page
+ * Absence icon page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -32,19 +32,19 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             } ?>
             <?php $tabindex = 1; $colsleft = 8; $colsright = 4;?>
             
-            <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;id=<?=$absData['id']?>" method="post" target="_self" accept-charset="utf-8">
+            <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;id=<?=$viewData['id']?>" method="post" target="_self" accept-charset="utf-8">
 
-               <input name="hidden_id" type="hidden" class="text" value="<?=$absData['id']?>">
-               <input name="hidden_name" type="hidden" class="text" value="<?=$absData['name']?>">
+               <input name="hidden_id" type="hidden" class="text" value="<?=$viewData['id']?>">
+               <input name="hidden_name" type="hidden" class="text" value="<?=$viewData['name']?>">
                            
                <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['abs_icon_title'].$absData['name']?></div>
+                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['abs_icon_title'].$viewData['name']?></div>
                   <div class="panel-body">
 
                      <div class="panel panel-default">
                         <div class="panel-body">
                            <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_save"><?=$LANG['btn_save']?></button>
-                           <a href="index.php?action=absence&amp;id=<?=$absData['id']?>" class="btn btn-default pull-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_abs_edit']?></a>
+                           <a href="index.php?action=absenceedit&amp;id=<?=$viewData['id']?>" class="btn btn-default pull-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_abs_edit']?></a>
                         </div>
                      </div>
 
@@ -53,11 +53,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <div class="col-lg-12">
                            <?php
                            $count = 0; 
-                           foreach ( $absData['faIcons'] as $fai )
+                           foreach ( $viewData['faIcons'] as $fai )
                            {
                               if ($count % 12 == 0) echo '</div><div class="col-lg-12">';
-                              echo '<div class="col-lg-1" style="border: ' . (($fai['val'] == $absData['icon']) ? "1" : "0") . 'px solid #CC0000;"><div class="radio">';
-                              echo '<label><input name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . $tabindex++ . '" type="radio"' . (($fai['val'] == $absData['icon']) ? " checked" : "") . '><span class="fa fa-' . $fai['val'] . ' text-info"></span></label>';
+                              echo '<div class="col-lg-1" style="border: ' . (($fai['val'] == $viewData['icon']) ? "1" : "0") . 'px solid #CC0000;"><div class="radio">';
+                              echo '<label><input name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . $tabindex++ . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><span class="fa fa-' . $fai['val'] . ' text-info"></span></label>';
                               echo '</div></div>';
                               $count++;
                            } ?>
@@ -68,7 +68,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="panel panel-default">
                         <div class="panel-body">
                            <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_save"><?=$LANG['btn_save']?></button>
-                           <a href="index.php?action=absence&amp;id=<?=$absData['id']?>" class="btn btn-default pull-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_abs_edit']?></a>
+                           <a href="index.php?action=absence&amp;id=<?=$viewData['id']?>" class="btn btn-default pull-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_abs_edit']?></a>
                         </div>
                      </div>
                   

@@ -5,58 +5,15 @@
  * Collection of notification functions
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
-
-// ---------------------------------------------------------------------------
-/**
- * Sends an email to all users that subscribed to an absence change event
- *
- * @param string $event The event type: added, changed, deleted
- * @param string $absname The absence name
- */
-function sendAbsenceEventNotifications($event, $absname)
-{
-   global $C, $LANG, $U, $UO;
-   $language = $C->read('defaultLanguage');
-   $appTitle = $C->read('appTitle');
-   $events = array (
-      'changed',
-      'created',
-      'deleted'
-   );
-    
-   if (in_array($event, $events))
-   {
-      $subject = $LANG['email_subject_group_' . $event];
-
-      $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
-      $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
-      $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_absence_' . $event . '.html');
-      $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
-
-      $message = str_replace('%intro%', $intro, $message);
-      $message = str_replace('%body%', $body, $message);
-      $message = str_replace('%outro%', $outro, $message);
-      $message = str_replace('%app_name%', $appTitle, $message);
-      $message = str_replace('%app_url%', WEBSITE_URL, $message);
-
-      $message = str_replace('%absname%', $absname, $message);
-
-      $users = $U->getAll();
-      foreach ( $users as $profile )
-      {
-         if ($UO->read($profile['username'], 'notifyabsence')) sendEmail($profile['username'], $subject, $message);
-      }
-   }
-}
 
 // ---------------------------------------------------------------------------
 /**
@@ -97,6 +54,43 @@ function sendAccountCreatedMail($email, $username, $password)
 
 // ---------------------------------------------------------------------------
 /**
+ * If a user has registered and admin approval is needed, we send a mail to admin.
+ *
+ * @param string $email Recipient's email address
+ * @param string $username The username created
+ * @param string $lastname The user's lastname
+ * @param string $firstname The user's firstname
+ */
+function sendAccountNeedsApprovalMail($email, $username, $lastname, $firstname)
+{
+   global $C, $LANG;
+   
+   $language = $C->read('defaultLanguage');
+   $appTitle = $C->read('appTitle');
+   $to = $email;
+   $subject = $LANG['email_subject_user_account_needs_approval'];
+   
+   $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
+   $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
+   $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_needs_approval.html');
+   $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
+   
+   $message = str_replace('%intro%', $intro, $message);
+   $message = str_replace('%body%', $body, $message);
+   $message = str_replace('%outro%', $outro, $message);
+    
+   $message = str_replace('%app_name%', $appTitle, $message);
+   $message = str_replace('%app_url%', WEBSITE_URL, $message);
+   $message = str_replace('%username%', $username, $message);
+   $message = str_replace('%lastname%', $lastname, $message);
+   $message = str_replace('%firstname%', $firstname, $message);
+
+   //print($message);
+   sendEmail($to, $subject, $message);
+}
+
+// ---------------------------------------------------------------------------
+/**
  * If a user has registered we send him a mail with the verification link.
  *
  * @param string $email Recipient's email address
@@ -130,6 +124,46 @@ function sendAccountRegisteredMail($email, $username, $lastname, $firstname, $ve
    $message = str_replace('%lastname%', $lastname, $message);
    $message = str_replace('%firstname%', $firstname, $message);
 
+   //print($message);
+   sendEmail($to, $subject, $message);
+}
+
+// ---------------------------------------------------------------------------
+/**
+ * If a user has tried to verify his account with an incorrect verify code
+ * we send a mail to admin about it.
+ *
+ * @param string $email Recipient's email address
+ * @param string $username The username created
+ * @param string $lastname The user's lastname
+ * @param string $firstname The user's firstname
+ * @param string $vcode The verification code for the user
+ * @param string $vcodeSubmitted The verification submitted by the user
+ */
+function sendAccountVerificationMismatchMail($email, $username, $vcode, $vcodeSubmitted)
+{
+   global $C, $LANG;
+   
+   $language = $C->read('defaultLanguage');
+   $appTitle = $C->read('appTitle');
+   $to = $email;
+   $subject = $LANG['email_subject_user_account_mismatch'];
+   
+   $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
+   $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
+   $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_verify_mismatch.html');
+   $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
+   
+   $message = str_replace('%intro%', $intro, $message);
+   $message = str_replace('%body%', $body, $message);
+   $message = str_replace('%outro%', $outro, $message);
+    
+   $message = str_replace('%app_name%', $appTitle, $message);
+   $message = str_replace('%app_url%', WEBSITE_URL, $message);
+   $message = str_replace('%username%', $username, $message);
+   $message = str_replace('%vcode%', $vcode, $message);
+   $message = str_replace('%vcode_submitted%', $vcodeSubmitted, $message);
+    
    //print($message);
    sendEmail($to, $subject, $message);
 }
@@ -182,100 +216,6 @@ function sendGroupEventNotifications($event, $groupname, $groupdesc = '')
 
 // ---------------------------------------------------------------------------
 /**
- * Sends an email to all users that subscribed to a holiday change event
- *
- * @param string $event The event type: added, changed, deleted
- * @param string $holname The holiday name
- * @param string $holdesc The holiday description
- */
-function sendHolidayEventNotifications($event, $holname, $holdesc = '')
-{
-   global $C, $LANG, $U, $UO;
-       
-   $language = $C->read('defaultLanguage');
-   $appTitle = $C->read('appTitle');
-   $events = array (
-      'changed',
-      'created',
-      'deleted'
-   );
-    
-   if (in_array($event, $events))
-   {
-      $subject = $LANG['email_subject_group_' . $event];
-
-      $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
-      $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
-      $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_holiday_' . $event . '.html');
-      $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
-
-      $message = str_replace('%intro%', $intro, $message);
-      $message = str_replace('%body%', $body, $message);
-      $message = str_replace('%outro%', $outro, $message);
-      $message = str_replace('%app_name%', $appTitle, $message);
-      $message = str_replace('%app_url%', WEBSITE_URL, $message);
-
-      $message = str_replace('%holname%', $holname, $message);
-      $message = str_replace('%holdesc%', $holdesc, $message);
-
-      $users = $U->getAll();
-      foreach ( $users as $profile )
-      {
-         if ($UO->read($profile['username'], 'notifyholiday')) sendEmail($profile['username'], $subject, $message);
-      }
-   }
-}
-
-// ---------------------------------------------------------------------------
-/**
- * Sends an email to all users that subscribed to a month change event
- *
- * @param string $event The event type: added, changed, deleted
- * @param string $year The year
- * @param string $month The month
- * @param string $region The region
- */
-function sendMonthEventNotifications($event, $year, $month, $region)
-{
-   global $C, $LANG, $U, $UO;
-   
-   $language = $C->read('defaultLanguage');
-   $appTitle = $C->read('appTitle');
-   $events = array (
-      'created',
-      'changed',
-      'deleted' 
-   );
-   
-   if (in_array($event, $events))
-   {
-      $subject = $LANG['email_subject_month_' . $event];
-      
-      $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
-      $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
-      $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_month_' . $event . '.html');
-      $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
-      
-      $message = str_replace('%intro%', $intro, $message);
-      $message = str_replace('%body%', $body, $message);
-      $message = str_replace('%outro%', $outro, $message);
-      $message = str_replace('%app_name%', $appTitle, $message);
-      $message = str_replace('%app_url%', WEBSITE_URL, $message);
-      
-      $message = str_replace('%year%', $year, $message);
-      $message = str_replace('%month%', $month, $message);
-      $message = str_replace('%region%', $region, $message);
-      
-      $users = $U->getAll();
-      foreach ( $users as $profile )
-      {
-         if ($UO->read($profile['username'], 'notifymonth')) sendEmail($profile['username'], $subject, $message);
-      }
-   }
-}
-
-// ---------------------------------------------------------------------------
-/**
  * Sends an email to all users that subscribed to a role change event
  *
  * @param string $event The event type: added, changed, deleted
@@ -316,69 +256,6 @@ function sendRoleEventNotifications($event, $rolename, $roledesc = '')
       foreach ( $users as $profile )
       {
          if ($UO->read($profile['username'], 'notifyrole')) sendEmail($profile['username'], $subject, $message);
-      }
-   }
-}
-
-// ---------------------------------------------------------------------------
-/**
- * Sends an email to all users that subscribed to a user calendar change event
- *
- * @param string $event The event type: added, changed, deleted
- * @param string $username The username
- * @param string $year Numeric representation of the year
- * @param string $month Numeric representation of the year
- */
-function sendUserCalEventNotifications($event, $username, $year, $month)
-{
-   global $C, $LANG, $U, $UG, $UO;
-   
-   $language = $C->read('defaultLanguage');
-   $appTitle = $C->read('appTitle');
-
-   $events = array (
-      'changed',
-   );
-   
-   if (in_array($event, $events))
-   {
-      $subject = $LANG['email_subject_user_account_' . $event];
-      
-      $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
-      $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
-      $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_' . $event . '.html');
-      $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
-      
-      $message = str_replace('%intro%', $intro, $message);
-      $message = str_replace('%body%', $body, $message);
-      $message = str_replace('%outro%', $outro, $message);
-      $message = str_replace('%app_name%', $appTitle, $message);
-      $message = str_replace('%app_url%', WEBSITE_URL, $message);
-      
-      $message = str_replace('%fullname%', $U->getFullname($username), $message);
-      $message = str_replace('%username%', $username, $message);
-      
-      $calendar = '';
-      // TODO: Build html calendar table for email
-      $message = str_replace('%calendar%', $calendar, $message);
-      
-      $users = $U->getAll();
-      $ugroups = $UG->getAllforUser($username);
-      $sendmail = false;
-      foreach ( $users as $profile )
-      {
-         if ($UO->read($profile['username'], 'notifycal')) 
-         {
-            if ($notifycalgroup = $UO->read($profile['username'], 'notifycalgroup'))
-            {
-               $ngroups = explode(',', $notifycalgroup);
-               foreach ($ugroups as $ugroup)
-               {
-                  if (is_array($ngroups) AND in_array($ugroup['name'], $ngroups)) $sendmail = true;
-               }
-               if ($sendmail) sendEmail($profile['username'], $subject, $message);
-            }
-         }
       }
    }
 }

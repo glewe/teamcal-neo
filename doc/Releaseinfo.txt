@@ -3,16 +3,56 @@ TEAMCAL NEO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[0.4.000]
+
+DATE
+2015-12-29
+
+BUGFIXES
+01 https://georgelewe.atlassian.net/browse/TCN-8 
+   Absence statistics
+02 https://georgelewe.atlassian.net/browse/TCN-9 
+   Presence statistics
+
+CHANGES
+01 Separated framework from application helpers
+02 Separated framework from application language
+03 Removed menu builder. All done in the view now.
+04 New coding standards
+05 Registration email templates
+
+NEW FEATURES
+01 Verify controller
+02 File upload
+03 Homepage text now editable with CKEditor
+04 https://georgelewe.atlassian.net/browse/TCN-14 
+   Link to database administration
+05 https://georgelewe.atlassian.net/browse/TCN-10 
+   Absence type statistics
+06 https://georgelewe.atlassian.net/browse/TCN-11 
+   Remainder statistics
+07 Footer copyright auto year
+08 Sample database SQL file
+09 Empty database SQL file
+
+
+------------------------------------------------------------------------------
 [0.3.005]
 
 DATE
 2015-12-08 (John Lennon killed 35 years ago)
 
 BUGFIXES
+01 Fixed user selected theme settings
+02 Fixed Year controller permission check
 
 CHANGES
 01 Forum and Tracker added to About page
 02 Speed optimizations
+03 Added Navbar Invers Option
+04 Updated to Font Awesome 4.5.0
+05 Updated CKEditor to 4.5.6
+06 Moved statistic settings to calendar options controller
 
 NEW FEATURES
 
@@ -32,8 +72,8 @@ CHANGES
 01 Config paramater statsScale
 
 NEW FEATURES
-https://georgelewe.atlassian.net/browse/TCN-7
-01 Presence statistics
+01 https://georgelewe.atlassian.net/browse/TCN-9 
+   Presence statistics
 
 
 ------------------------------------------------------------------------------
@@ -48,8 +88,8 @@ CHANGES
 01 Config files split
 
 NEW FEATURES
-https://georgelewe.atlassian.net/browse/TCN-7
-01 Absence statistics
+01 https://georgelewe.atlassian.net/browse/TCN-8 
+   Absence statistics
 
 
 ------------------------------------------------------------------------------
@@ -59,11 +99,11 @@ DATE
 2015-12-03
 
 BUGFIXES
-https://georgelewe.atlassian.net/browse/TCN-1
-Period input in calendar
+01 https://georgelewe.atlassian.net/browse/TCN-1
+   Period input in calendar
 
-https://georgelewe.atlassian.net/browse/TCN-2
-Recurring input in calendar
+02 https://georgelewe.atlassian.net/browse/TCN-2
+   Recurring input in calendar
 
 CHANGES
 01 Code optimizations

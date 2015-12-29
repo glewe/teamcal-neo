@@ -5,9 +5,9 @@
  * Collection of view related helpers
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -255,6 +255,23 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
             </label>
             <div class="col-lg-' . $colsright . '">
                <textarea id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" rows="' . $data['rows'] . '"' . $disabled . '>' . $data['value'] . '</textarea>
+            '.$button.$error.'</div>
+         </div>';
+         break;
+      
+      /**
+       * Textarea CKEditor
+       */
+      case 'ckeditor' :
+         $formGroup = '
+         <div class="form-group">
+            <label for="' . $data['name'] . '" class="col-lg-12 control-label">
+               ' . $mandatory.$LANG[$langIdx1] . '<br>
+               <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+            </label>
+            <div class="col-lg-12">
+               <textarea id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" rows="' . $data['rows'] . '"' . $disabled . '>' . $data['value'] . '</textarea>
+               <script>CKEDITOR.replace( "'.$data['name'].'" );</script>
             '.$button.$error.'</div>
          </div>';
          break;

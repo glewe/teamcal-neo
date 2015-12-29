@@ -5,9 +5,9 @@
  * Declination page controller
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -15,10 +15,10 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
 
-/**
- * ========================================================================
- * Check if allowed
- */
+//=============================================================================
+//
+// CHECK PERMISSION
+//
 if (!isAllowed($CONF['controllers'][$controller]->permission))
 {
    $alertData['type'] = 'warning';
@@ -30,36 +30,36 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
    die();
 }
 
-/**
- * ========================================================================
- * Load controller stuff
- */
+//=============================================================================
+//
+// LOAD CONTROLLER RESOURCES
+//
 
-/**
- * ========================================================================
- * Initialize variables
- */
+//=============================================================================
+//
+// VARIABLE DEFAULTS
+//
 $inputAlert = array();
 
-/**
- * ========================================================================
- * Process form
- */
+//=============================================================================
+//
+// PROCESS FORM
+//
 if (!empty($_POST))
 {
-   /**
-    * Sanitize input
-    */
+   //
+   // Sanitize input
+   //
    $_POST = sanitize($_POST);
     
-   /**
-    * Load sanitized form info for the view
-    */
-   $declData['threshold'] = $_POST['txt_threshold'];
+   //
+   // Load sanitized form info for the view
+   //
+   $viewData['threshold'] = $_POST['txt_threshold'];
      
-   /**
-    * Form validation
-    */
+   //
+   // Form validation
+   //
    $inputError = false;
    if (isset($_POST['btn_save']))
    {
@@ -136,16 +136,14 @@ if (!empty($_POST))
     
    if (!$inputError)
    {
-      /**
-       * ,------,
-       * | Save |
-       * '------'
-       */
+      // ,------,
+      // | Save |
+      // '------'
       if (isset($_POST['btn_save']))
       {
-         /**
-          * Absence threshold
-          */
+         //
+         // Absence threshold
+         //
          if ( isset($_POST['chk_absence']) ) 
          {
             $C->save("declAbsence","1");
@@ -157,9 +155,9 @@ if (!empty($_POST))
             $C->save("declAbsence","0");
          }
          
-         /**
-          * Before date
-          */
+         //
+         // Before date
+         //
          if ( isset($_POST['chk_before']) ) 
          {
             $C->save("declBefore","1");
@@ -181,9 +179,9 @@ if (!empty($_POST))
             $C->save("declBefore","0");
          }
           
-         /**
-          * Period 1
-          */
+         //
+         // Period 1
+         //
          if ( isset($_POST['chk_period1']) )
          {
             $C->save("declPeriod1","1");
@@ -197,9 +195,9 @@ if (!empty($_POST))
             $C->save("declPeriod1End", "");
          }
          
-         /**
-          * Period 2
-          */
+         //
+         // Period 2
+         //
          if ( isset($_POST['chk_period2']) )
          {
             $C->save("declPeriod2","1");
@@ -213,9 +211,9 @@ if (!empty($_POST))
             $C->save("declPeriod2End", "");
          }
           
-         /**
-          * Period 3
-          */
+         //
+         // Period 3
+         //
          if ( isset($_POST['chk_period3']) )
          {
             $C->save("declPeriod3","1");
@@ -229,9 +227,9 @@ if (!empty($_POST))
             $C->save("declPeriod3End", "");
          }
           
-         /**
-          * Scope
-          */
+         //
+         // Scope
+         //
          $scope = '';
          if (isset($_POST['sel_roles']) )
          {
@@ -243,14 +241,14 @@ if (!empty($_POST))
          $scope = rtrim($scope,',');
          $C->save("declScope", $scope);
           
-         /**
-          * Log this event
-          */
+         //
+         // Log this event
+         //
          $LOG->log("logConfig",$L->checkLogin(),"log_decl_updated");
           
-         /**
-          * Success
-          */
+         //
+         // Success
+         //
          $showAlert = TRUE;
          $alertData['type'] = 'success';
          $alertData['title'] = $LANG['alert_success_title'];
@@ -261,9 +259,9 @@ if (!empty($_POST))
    }
    else
    {
-      /**
-       * Input validation failed
-       */
+      //
+      // Input validation failed
+      //
       $showAlert = TRUE;
       $alertData['type'] = 'danger';
       $alertData['title'] = $LANG['alert_danger_title'];
@@ -273,66 +271,65 @@ if (!empty($_POST))
    }
 }
 
-/**
- * ========================================================================
- * Prepare data for the view
- */
+//=============================================================================
+//
+// PREPARE VIEW
+//
+$viewData['declAbsence'] = $C->read('declAbsence');
+$viewData['declThreshold'] = $C->read('declThreshold');
+$viewData['declBase'] = $C->read('declBase');
 
-$declData['declAbsence'] = $C->read('declAbsence');
-$declData['declThreshold'] = $C->read('declThreshold');
-$declData['declBase'] = $C->read('declBase');
+$viewData['declBefore'] = $C->read('declBefore');
+$viewData['declBeforeOption'] = $C->read('declBeforeOption');
+$viewData['declBeforeDate'] = $C->read('declBeforeDate');
 
-$declData['declBefore'] = $C->read('declBefore');
-$declData['declBeforeOption'] = $C->read('declBeforeOption');
-$declData['declBeforeDate'] = $C->read('declBeforeDate');
+$viewData['declPeriod1'] = $C->read('declPeriod1');
+$viewData['declPeriod1Start'] = $C->read('declPeriod1Start');
+$viewData['declPeriod1End'] = $C->read('declPeriod1End');
 
-$declData['declPeriod1'] = $C->read('declPeriod1');
-$declData['declPeriod1Start'] = $C->read('declPeriod1Start');
-$declData['declPeriod1End'] = $C->read('declPeriod1End');
+$viewData['declPeriod2'] = $C->read('declPeriod2');
+$viewData['declPeriod2Start'] = $C->read('declPeriod2Start');
+$viewData['declPeriod2End'] = $C->read('declPeriod2End');
 
-$declData['declPeriod2'] = $C->read('declPeriod2');
-$declData['declPeriod2Start'] = $C->read('declPeriod2Start');
-$declData['declPeriod2End'] = $C->read('declPeriod2End');
+$viewData['declPeriod3'] = $C->read('declPeriod3');
+$viewData['declPeriod3Start'] = $C->read('declPeriod3Start');
+$viewData['declPeriod3End'] = $C->read('declPeriod3End');
 
-$declData['declPeriod3'] = $C->read('declPeriod3');
-$declData['declPeriod3Start'] = $C->read('declPeriod3Start');
-$declData['declPeriod3End'] = $C->read('declPeriod3End');
+$viewData['declNotifyUser'] = $C->read('declNotifyUser');
+$viewData['declNotifyManager'] = $C->read('declNotifyManager');
+$viewData['declNotifyDirector'] = $C->read('declNotifyDirector');
+$viewData['declNotifyAdmin'] = $C->read('declNotifyAdmin');
 
-$declData['declNotifyUser'] = $C->read('declNotifyUser');
-$declData['declNotifyManager'] = $C->read('declNotifyManager');
-$declData['declNotifyDirector'] = $C->read('declNotifyDirector');
-$declData['declNotifyAdmin'] = $C->read('declNotifyAdmin');
+$viewData['declApplyToAll'] = $C->read('declApplyToAll');
 
-$declData['declApplyToAll'] = $C->read('declApplyToAll');
-
-$declData['absence'] = array (
-   array ( 'prefix' => 'decl', 'name' => 'absence', 'type' => 'check', 'value' => $declData['declAbsence'] ),
-   array ( 'prefix' => 'decl', 'name' => 'threshold', 'type' => 'text', 'value' => $declData['declThreshold'], 'maxlength' => '2', 'error' => (isset($inputAlert['threshold'])?$inputAlert['threshold']:'') ),
-   array ( 'prefix' => 'decl', 'name' => 'base', 'type' => 'radio', 'values' => array ('all', 'group'), 'value' => $declData['declBase'] ),
+$viewData['absence'] = array (
+   array ( 'prefix' => 'decl', 'name' => 'absence', 'type' => 'check', 'value' => $viewData['declAbsence'] ),
+   array ( 'prefix' => 'decl', 'name' => 'threshold', 'type' => 'text', 'value' => $viewData['declThreshold'], 'maxlength' => '2', 'error' => (isset($inputAlert['threshold'])?$inputAlert['threshold']:'') ),
+   array ( 'prefix' => 'decl', 'name' => 'base', 'type' => 'radio', 'values' => array ('all', 'group'), 'value' => $viewData['declBase'] ),
 );
 
-$declData['before'] = array (
-   array ( 'prefix' => 'decl', 'name' => 'before', 'type' => 'check', 'value' => $declData['declBefore'] ),
-   array ( 'prefix' => 'decl', 'name' => 'beforeoption', 'type' => 'radio', 'values' => array ('today', 'date'), 'value' => $declData['declBeforeOption'], 'error' => (isset($inputAlert['beforeoption'])?$inputAlert['beforeoption']:'') ),
-   array ( 'prefix' => 'decl', 'name' => 'beforedate', 'type' => 'date', 'value' => $declData['declBeforeDate'], 'error' => (isset($inputAlert['beforedate'])?$inputAlert['beforedate']:'') ), 
+$viewData['before'] = array (
+   array ( 'prefix' => 'decl', 'name' => 'before', 'type' => 'check', 'value' => $viewData['declBefore'] ),
+   array ( 'prefix' => 'decl', 'name' => 'beforeoption', 'type' => 'radio', 'values' => array ('today', 'date'), 'value' => $viewData['declBeforeOption'], 'error' => (isset($inputAlert['beforeoption'])?$inputAlert['beforeoption']:'') ),
+   array ( 'prefix' => 'decl', 'name' => 'beforedate', 'type' => 'date', 'value' => $viewData['declBeforeDate'], 'error' => (isset($inputAlert['beforedate'])?$inputAlert['beforedate']:'') ), 
 );
 
-$declData['period1'] = array (
-   array ( 'prefix' => 'decl', 'name' => 'period1', 'type' => 'check', 'value' => $declData['declPeriod1'] ),
-   array ( 'prefix' => 'decl', 'name' => 'period1start', 'type' => 'date', 'value' => $declData['declPeriod1Start'], 'error' => (isset($inputAlert['period1start'])?$inputAlert['period1start']:'') ),
-   array ( 'prefix' => 'decl', 'name' => 'period1end', 'type' => 'date', 'value' => $declData['declPeriod1End'], 'error' => (isset($inputAlert['period1end'])?$inputAlert['period1end']:'') ),
+$viewData['period1'] = array (
+   array ( 'prefix' => 'decl', 'name' => 'period1', 'type' => 'check', 'value' => $viewData['declPeriod1'] ),
+   array ( 'prefix' => 'decl', 'name' => 'period1start', 'type' => 'date', 'value' => $viewData['declPeriod1Start'], 'error' => (isset($inputAlert['period1start'])?$inputAlert['period1start']:'') ),
+   array ( 'prefix' => 'decl', 'name' => 'period1end', 'type' => 'date', 'value' => $viewData['declPeriod1End'], 'error' => (isset($inputAlert['period1end'])?$inputAlert['period1end']:'') ),
 );
 
-$declData['period2'] = array (
-   array ( 'prefix' => 'decl', 'name' => 'period2', 'type' => 'check', 'value' => $declData['declPeriod2'] ),
-   array ( 'prefix' => 'decl', 'name' => 'period2start', 'type' => 'date', 'value' => $declData['declPeriod2Start'], 'error' => (isset($inputAlert['period2start'])?$inputAlert['period2start']:'') ),
-   array ( 'prefix' => 'decl', 'name' => 'period2end', 'type' => 'date', 'value' => $declData['declPeriod2End'], 'error' => (isset($inputAlert['period2end'])?$inputAlert['period2end']:'') ),
+$viewData['period2'] = array (
+   array ( 'prefix' => 'decl', 'name' => 'period2', 'type' => 'check', 'value' => $viewData['declPeriod2'] ),
+   array ( 'prefix' => 'decl', 'name' => 'period2start', 'type' => 'date', 'value' => $viewData['declPeriod2Start'], 'error' => (isset($inputAlert['period2start'])?$inputAlert['period2start']:'') ),
+   array ( 'prefix' => 'decl', 'name' => 'period2end', 'type' => 'date', 'value' => $viewData['declPeriod2End'], 'error' => (isset($inputAlert['period2end'])?$inputAlert['period2end']:'') ),
 );
 
-$declData['period3'] = array (
-   array ( 'prefix' => 'decl', 'name' => 'period3', 'type' => 'check', 'value' => $declData['declPeriod3'] ),
-   array ( 'prefix' => 'decl', 'name' => 'period3start', 'type' => 'date', 'value' => $declData['declPeriod3Start'], 'error' => (isset($inputAlert['period3start'])?$inputAlert['period3start']:'') ),
-   array ( 'prefix' => 'decl', 'name' => 'period3end', 'type' => 'date', 'value' => $declData['declPeriod3End'], 'error' => (isset($inputAlert['period3end'])?$inputAlert['period3end']:'') ),
+$viewData['period3'] = array (
+   array ( 'prefix' => 'decl', 'name' => 'period3', 'type' => 'check', 'value' => $viewData['declPeriod3'] ),
+   array ( 'prefix' => 'decl', 'name' => 'period3start', 'type' => 'date', 'value' => $viewData['declPeriod3Start'], 'error' => (isset($inputAlert['period3start'])?$inputAlert['period3start']:'') ),
+   array ( 'prefix' => 'decl', 'name' => 'period3end', 'type' => 'date', 'value' => $viewData['declPeriod3End'], 'error' => (isset($inputAlert['period3end'])?$inputAlert['period3end']:'') ),
 );
 
 $roles = $RO->getAll();
@@ -340,16 +337,16 @@ $currentScope = $C->read('declScope');
 $currentScopeArray = explode(',', $currentScope);  
 foreach ($roles as $role)
 {
-   $declData['roles'][] = array('val' => $role['id'], 'name' => $role['name'], 'selected' => (in_array($role['id'],$currentScopeArray))?true:false);
+   $viewData['roles'][] = array('val' => $role['id'], 'name' => $role['name'], 'selected' => (in_array($role['id'],$currentScopeArray))?true:false);
 }
-$declData['scope'] = array (
-   array ( 'prefix' => 'decl', 'name' => 'roles', 'type' => 'listmulti', 'values' => $declData['roles'] ),
+$viewData['scope'] = array (
+   array ( 'prefix' => 'decl', 'name' => 'roles', 'type' => 'listmulti', 'values' => $viewData['roles'] ),
 );
 
-/**
- * ========================================================================
- * Show view
- */
+//=============================================================================
+//
+// SHOW VIEW
+//
 require (WEBSITE_ROOT . '/views/header.php');
 require (WEBSITE_ROOT . '/views/menu.php');
 include (WEBSITE_ROOT . '/views/'.$controller.'.php');

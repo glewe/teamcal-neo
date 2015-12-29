@@ -5,9 +5,9 @@
  * Group edit page controller
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -15,10 +15,25 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
 
-/**
- * ========================================================================
- * Check URL params
- */
+//=============================================================================
+//
+// CHECK PERMISSION
+//
+if (!isAllowed($CONF['controllers'][$controller]->permission))
+{
+   $alertData['type'] = 'warning';
+   $alertData['title'] = $LANG['alert_alert_title'];
+   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
+   $alertData['text'] = $LANG['alert_not_allowed_text'];
+   $alertData['help'] = $LANG['alert_not_allowed_help'];
+   require (WEBSITE_ROOT . '/controller/alert.php');
+   die();
+}
+
+//=============================================================================
+//
+// CHECK URL PARAMETERS
+//
 $GG = new Groups(); // for the profile to be created or updated
 if (isset($_GET['id']))
 {
@@ -33,9 +48,9 @@ else
 
 if ($missingData)
 {
-   /**
-    * URL param fail
-    */
+   //
+   // URL param fail
+   //
    $alertData['type'] = 'danger';
    $alertData['title'] = $LANG['alert_danger_title'];
    $alertData['subject'] = $LANG['alert_no_data_subject'];
@@ -44,59 +59,42 @@ if ($missingData)
    require (WEBSITE_ROOT . '/controller/alert.php');
    die();
 }
-else
-{
-   /**
-    * ========================================================================
-    * Check if allowed
-    */
-   if (!isAllowed($CONF['controllers'][$controller]->permission))
-   {
-      $alertData['type'] = 'warning';
-      $alertData['title'] = $LANG['alert_alert_title'];
-      $alertData['subject'] = $LANG['alert_not_allowed_subject'];
-      $alertData['text'] = $LANG['alert_not_allowed_text'];
-      $alertData['help'] = $LANG['alert_not_allowed_help'];
-      require (WEBSITE_ROOT . '/controller/alert.php');
-      die();
-   }
-}
 
-/**
- * ========================================================================
- * Load controller stuff
- */
-$groupData['id'] = $GG->id;
-$groupData['name'] = $GG->name;
-$groupData['description'] = $GG->description;
+//=============================================================================
+//
+// LOAD CONTROLLER RESOURCES
+//
 
-/**
- * ========================================================================
- * Initialize variables
- */
+//=============================================================================
+//
+// VARIABLE DEFAULTS
+//
+$viewData['id'] = $GG->id;
+$viewData['name'] = $GG->name;
+$viewData['description'] = $GG->description;
 $inputAlert = array();
 
-/**
- * ========================================================================
- * Process form
- */
+//=============================================================================
+//
+// PROCESS FORM
+//
 if (!empty($_POST))
 {
-   /**
-    * Sanitize input
-    */
+   //
+   // Sanitize input
+   //
    $_POST = sanitize($_POST);
     
-   /**
-    * Load sanitized form info for the view
-    */
-   $groupData['id'] = $_POST['hidden_id'];
-   $groupData['name'] = $_POST['txt_name'];
-   $groupData['description'] = $_POST['txt_description'];
+   //
+   // Load sanitized form info for the view
+   //
+   $viewData['id'] = $_POST['hidden_id'];
+   $viewData['name'] = $_POST['txt_name'];
+   $viewData['description'] = $_POST['txt_description'];
      
-   /**
-    * Form validation
-    */
+   //
+   // Form validation
+   //
    $inputError = false;
    if (isset($_POST['btn_groupUpdate']))
    {
@@ -106,11 +104,9 @@ if (!empty($_POST))
     
    if (!$inputError)
    {
-      /**
-       * ,--------,
-       * | Update |
-       * '--------'
-       */
+      // ,--------,
+      // | Update |
+      // '--------'
       if (isset($_POST['btn_groupUpdate']))
       {
          $GG->name = $_POST['txt_name'];
@@ -118,22 +114,22 @@ if (!empty($_POST))
           
          $GG->update($_POST['hidden_id']);
           
-         /**
-          * Send notification e-mails to the subscribers of user events
-          */
+         //
+         // Send notification e-mails to the subscribers of user events
+         //
          if ($C->read("emailNotifications"))
          {
             sendGroupEventNotifications("changed", $GG->name, $GG->description);
          }
           
-         /**
-          * Log this event
-          */
+         //
+         // Log this event
+         //
          $LOG->log("logGroup",$L->checkLogin(),"log_group_updated", $GG->name);
           
-         /**
-          * Success
-          */
+         //
+         // Success
+         //
          $showAlert = TRUE;
          $alertData['type'] = 'success';
          $alertData['title'] = $LANG['alert_success_title'];
@@ -141,18 +137,18 @@ if (!empty($_POST))
          $alertData['text'] = $LANG['group_alert_edit_success'];
          $alertData['help'] = '';
          
-         /**
-          * Load new info for the view
-          */
-         $groupData['name'] = $GG->name;
-         $groupData['description'] = $GG->description;
+         //
+         // Load new info for the view
+         //
+         $viewData['name'] = $GG->name;
+         $viewData['description'] = $GG->description;
       }
    }
    else
    {
-      /**
-       * Input validation failed
-       */
+      //
+      // Input validation failed
+      //
       $showAlert = TRUE;
       $alertData['type'] = 'danger';
       $alertData['title'] = $LANG['alert_danger_title'];
@@ -162,20 +158,19 @@ if (!empty($_POST))
    }
 }
 
-/**
- * ========================================================================
- * Prepare data for the view
- */
-
-$groupData['group'] = array (
-   array ( 'prefix' => 'group', 'name' => 'name', 'type' => 'text', 'value' => $groupData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
-   array ( 'prefix' => 'group', 'name' => 'description', 'type' => 'text', 'value' => $groupData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
+//=============================================================================
+//
+// PREPARE VIEW
+//
+$viewData['group'] = array (
+   array ( 'prefix' => 'group', 'name' => 'name', 'type' => 'text', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
+   array ( 'prefix' => 'group', 'name' => 'description', 'type' => 'text', 'value' => $viewData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
 );
 
-/**
- * ========================================================================
- * Show view
- */
+//=============================================================================
+//
+// SHOW VIEW
+//
 require (WEBSITE_ROOT . '/views/header.php');
 require (WEBSITE_ROOT . '/views/menu.php');
 include (WEBSITE_ROOT . '/views/'.$controller.'.php');

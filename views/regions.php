@@ -2,12 +2,12 @@
 /**
  * roles.php
  * 
- * The view of the roles page
+ * Regions page view
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -49,12 +49,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <!-- Modal: Create region -->
                      <?=createModalTop('modalCreateRole', $LANG['btn_create_region'])?>
                         <label for="inputName"><?=$LANG['name']?></label>
-                        <input id="inputName" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_name" maxlength="40" value="<?=$regionsData['txt_name']?>" type="text">
+                        <input id="inputName" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_name" maxlength="40" value="<?=$viewData['txt_name']?>" type="text">
                         <?php if ( isset($inputAlert["name"]) AND strlen($inputAlert["name"]) ) { ?> 
                            <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert">x</button><?=$inputAlert["name"]?></div>
                         <?php } ?> 
                         <label for="inputDescription"><?=$LANG['description']?></label>
-                        <input id="inputDescription" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_description" maxlength="100" value="<?=$regionsData['txt_description']?>" type="text">
+                        <input id="inputDescription" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_description" maxlength="100" value="<?=$viewData['txt_description']?>" type="text">
                         <?php if ( isset($inputAlert["description"]) AND strlen($inputAlert["description"]) ) { ?> 
                            <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert">x</button><?=$inputAlert["description"]?></div>
                         <?php } ?> 
@@ -89,7 +89,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  </div>
                               </div>
                               
-                              <?php foreach ($regionsData['regions'] as $region) { 
+                              <?php foreach ($viewData['regions'] as $region) { 
                                  if ($region['id'] != '1') { ?>
                                     <form  class="bs-example form-control-horizontal" name="form_<?=$region['name']?>" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
                                        <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
@@ -123,7 +123,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="panel panel-default">
                            <div class="panel-body">
                               <form class="bs-example form-control-horizontal" name="form_ical" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8" enctype="multipart/form-data">
-                                 <?php foreach($regionsData['ical'] as $formObject) {
+                                 <?php foreach($viewData['ical'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                                  <div class="form-group">
@@ -151,7 +151,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="panel panel-default">
                            <div class="panel-body">
                               <form class="bs-example form-control-horizontal" name="form_merge" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
-                                 <?php foreach($regionsData['merge'] as $formObject) {
+                                 <?php foreach($viewData['merge'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                                  <div class="form-group">

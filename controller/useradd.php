@@ -2,12 +2,12 @@
 /**
  * useradd.php
  * 
- * Add profile page controller
+ * Add user page controller
  *
  * @category TeamCal Neo 
- * @version 0.3.005
+ * @version 0.4.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2015 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license
  */
@@ -15,15 +15,10 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
 
-/**
- * ========================================================================
- * Check URL params
- */
-
-/**
- * ========================================================================
- * Check if allowed
- */
+//=============================================================================
+//
+// CHECK PERMISSION
+//
 if (!isAllowed($CONF['controllers'][$controller]->permission))
 {
    $alertData['type'] = 'warning';
@@ -35,32 +30,32 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
    die();
 }
 
-/**
- * ========================================================================
- * Load controller stuff
- */
+//=============================================================================
+//
+// LOAD CONTROLLER RESOURCES
+//
 
-/**
- * ========================================================================
- * Initialize variables
- */
+//=============================================================================
+//
+// VARIABLE DEFAULTS
+//
 $UP = new Users(); // for the profile to be created
 $inputAlert = array();
 
-/**
- * ========================================================================
- * Process form
- */
+//=============================================================================
+//
+// PROCESS FORM
+//
 if (!empty($_POST))
 {
-   /**
-    * Sanitize input
-    */
+   //
+   // Sanitize input
+   //
    $_POST = sanitize($_POST);
     
-   /**
-    * Form validation
-    */
+   //
+   // Form validation
+   //
    $inputError = false;
    if (!formInputValid('txt_username', 'required|alpha_numeric')) $inputError = true;
    if (!formInputValid('txt_lastname', 'alpha_numeric_dash')) $inputError = true;
@@ -76,24 +71,22 @@ if (!empty($_POST))
     
    if (!$inputError)
    {
-      /**
-       * ,--------,
-       * | Create |
-       * '--------'
-       */
+      // ,--------,
+      // | Create |
+      // '--------'
       if (isset($_POST['btn_profileCreate']))
       {
-         /**
-          * Personal
-          */
+         //
+         // Personal
+         //
          $UP->username = $_POST['txt_username'];
          $UP->lastname = $_POST['txt_lastname'];
          $UP->firstname = $_POST['txt_firstname'];
          $UP->email = $_POST['txt_email'];
           
-         /**
-          * Account
-          */
+         //
+         // Account
+         //
          $UP->role = 'User';
          $UP->locked = '0';
          $UP->hidden = '0';
@@ -103,14 +96,14 @@ if (!empty($_POST))
          $UP->grace_start = '0000-00-00 00:00:00.000000';
          $UP->created = date('YmdHis');
 
-         /**
-          * Avatar
-          */
+         //
+         // Aavatar: Default
+         //
          $UO->save($_POST['txt_username'], 'avatar', 'noavatar_male.png');
           
-         /**
-          * Password
-          */
+         //
+         // Password
+         //
          if ( isset($_POST['txt_password']) AND isset($_POST['txt_password2']) AND $_POST['txt_password'] == $_POST['txt_password2'] )
          {
             $UP->password = crypt($_POST['txt_password'], $CONF['salt']);
@@ -119,39 +112,39 @@ if (!empty($_POST))
           
          $UP->create();
           
-         /**
-          * Send notification e-mail to the created uses
-          */
+         //
+         // Send notification e-mail to the created uses
+         //
          if (isset($_POST['chk_create_mail'])) 
          {
             sendAccountCreatedMail($UP->email, $UP->username, $_POST['txt_password']);
          }
          
-         /**
-          * Send notification e-mails to the subscribers of user events
-          */
+         //
+         // Send notification e-mails to the subscribers of user events
+         //
          if ($C->read("emailNotifications"))
          {
             sendUserEventNotifications("created", $UP->username, $UP->firstname, $UP->lastname);
          }
           
-         /**
-          * Log this event
-          */
+         //
+         // Log this event
+         //
          $LOG->log("logUser",$L->checkLogin(),"log_user_added", $UP->username);
          
-         /**
-          * Load profile page
-          */
+         //
+         // Load profile page
+         //
          header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&profile=" . $UP->username);
          die();
       }
    }
    else
    {
-      /**
-       * Input validation failed
-       */
+      //
+      // Input validation failed
+      //
       $showAlert = TRUE;
       $alertData['type'] = 'danger';
       $alertData['title'] = $LANG['alert_danger_title'];
@@ -161,12 +154,12 @@ if (!empty($_POST))
    }
 }
 
-/**
- * ========================================================================
- * Prepare data for the view
- */
+//=============================================================================
+//
+// PREPARE VIEW
+//
 $LANG['profile_password_comment'] .= $LANG['password_rules_'.$C->read('pwdStrength')];
-$addProfileData['personal'] = array (
+$viewData['personal'] = array (
    array ( 'prefix' => 'profile', 'name' => 'username', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['username'])?$inputAlert['username']:'') ),
    array ( 'prefix' => 'profile', 'name' => 'lastname', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['lastname'])?$inputAlert['lastname']:'') ),
    array ( 'prefix' => 'profile', 'name' => 'firstname', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['firstname'])?$inputAlert['firstname']:'') ), 
@@ -176,10 +169,10 @@ $addProfileData['personal'] = array (
    array ( 'prefix' => 'profile', 'name' => 'create_mail', 'type' => 'check', 'value' => '0' ),
 );
 
-/**
- * ========================================================================
- * Show view
- */
+//=============================================================================
+//
+// SHOW VIEW
+//
 require (WEBSITE_ROOT . '/views/header.php');
 require (WEBSITE_ROOT . '/views/menu.php');
 include (WEBSITE_ROOT . '/views/'.$controller.'.php');
