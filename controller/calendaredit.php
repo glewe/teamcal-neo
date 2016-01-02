@@ -5,7 +5,7 @@
  * Edit calendar page controller
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -423,17 +423,17 @@ $viewData['users'] = array();
 foreach ($users as $usr)
 {
    $allowed = false;
-   if ($usr['username']==$UL->username)
+   if ($usr['username']==$UL->username AND isAllowed("calendareditown"))
    {
       $allowed = true;
    }
    else if ( !$U->isHidden($usr['username']) )
    {
-      if (isAllowed("calendarviewall"))
+      if (isAllowed("calendareditall"))
       {
          $allowed = true;
       }
-      elseif (isAllowed("calendarviewgroup") AND $UG->shareGroups($usr['username'], $UL->username) )
+      elseif (isAllowed("calendareditgroup") AND $UG->shareGroups($usr['username'], $UL->username) )
       {
          $allowed = true;
       }

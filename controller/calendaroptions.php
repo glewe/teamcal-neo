@@ -5,7 +5,7 @@
  * Calendar config page controller
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -61,7 +61,8 @@ if (isset($_POST['btn_caloptApply']))
    if (isset($_POST['chk_showWeekNumbers']) && $_POST['chk_showWeekNumbers']) $C->save("showWeekNumbers", "1"); else $C->save("showWeekNumbers", "0");
    $C->save("repeatHeaderCount", intval($_POST['txt_repeatHeaderCount']));
    $C->save("usersPerPage", intval($_POST['txt_usersPerPage']));
-   if (isset($_POST['chk_userSearch']) && $_POST['chk_userSearch']) $C->save("userSearch", "1"); else $C->save("userSearch", "0");
+   if ( isset($_POST['chk_showAvatars']) && $_POST['chk_showAvatars'] ) $C->save("showAvatars","1"); else $C->save("showAvatars","0");
+   if ( isset($_POST['chk_showRoleIcons']) && $_POST['chk_showRoleIcons'] ) $C->save("showRoleIcons","1"); else $C->save("showRoleIcons","0");
    if (isset($_POST['chk_supportMobile']) && $_POST['chk_supportMobile']) $C->save("supportMobile", "1"); else $C->save("supportMobile", "0");
     
    /**
@@ -81,14 +82,6 @@ if (isset($_POST['btn_caloptApply']))
    if (isset($_POST['chk_sunBusi']) && $_POST['chk_sunBusi']) $C->save("sunBusi", "1"); else $C->save("sunBusi", "0");
    if ($_POST['sel_defregion']) $C->save("defregion", $_POST['sel_defregion']); else $C->save("defregion", "default");
    if ($_POST['opt_defgroupfilter']) $C->save("defgroupfilter", $_POST['opt_defgroupfilter']); else $C->save("defgroupfilter", 'All');
-    
-   /**
-    * Remainder
-    */
-   if (isset($_POST['chk_includeRemainder']) && $_POST['chk_includeRemainder']) $C->save("includeRemainder", "1"); else $C->save("includeRemainder", "0");
-   if (isset($_POST['chk_includeRemainderTotal']) && $_POST['chk_includeRemainderTotal']) $C->save("includeRemainderTotal", "1"); else $C->save("includeRemainderTotal", "0");
-   if (isset($_POST['chk_includeTotals']) && $_POST['chk_includeTotals']) $C->save("includeTotals", "1"); else $C->save("includeTotals", "0");
-   if (isset($_POST['chk_showRemainder']) && $_POST['chk_showRemainder']) $C->save("showRemainder", "1"); else $C->save("showRemainder", "0");
     
    /**
     * Statistics
@@ -121,7 +114,8 @@ $caloptData['display'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'showWeekNumbers', 'type' => 'check', 'values' => '', 'value' => $C->read("showWeekNumbers") ),
    array ( 'prefix' => 'calopt', 'name' => 'repeatHeaderCount', 'type' => 'text', 'value' => $C->read("repeatHeaderCount"), 'maxlength' => '4' ),
    array ( 'prefix' => 'calopt', 'name' => 'usersPerPage', 'type' => 'text', 'value' => $C->read("usersPerPage"), 'maxlength' => '4' ),
-   array ( 'prefix' => 'calopt', 'name' => 'userSearch', 'type' => 'check', 'values' => '', 'value' => $C->read("userSearch") ),
+   array ( 'prefix' => 'calopt', 'name' => 'showAvatars', 'type' => 'check', 'values' => '', 'value' => $C->read("showAvatars") ),
+   array ( 'prefix' => 'calopt', 'name' => 'showRoleIcons', 'type' => 'check', 'values' => '', 'value' => $C->read("showRoleIcons") ),
    array ( 'prefix' => 'calopt', 'name' => 'supportMobile', 'type' => 'check', 'values' => '', 'value' => $C->read("supportMobile") ),
    );
 
@@ -144,13 +138,6 @@ $caloptData['options'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'sunBusi', 'type' => 'check', 'values' => '', 'value' => $C->read("sunBusi") ),
    array ( 'prefix' => 'calopt', 'name' => 'defregion', 'type' => 'list', 'values' => $caloptData['regionList'] ),
    array ( 'prefix' => 'calopt', 'name' => 'defgroupfilter', 'type' => 'radio', 'values' => array ('all', 'allbygroup'), 'value' => $C->read("defgroupfilter") ),
-);
-
-$caloptData['remainder'] = array (
-   array ( 'prefix' => 'calopt', 'name' => 'includeRemainder', 'type' => 'check', 'values' => '', 'value' => $C->read("includeRemainder") ),
-   array ( 'prefix' => 'calopt', 'name' => 'includeRemainderTotal', 'type' => 'check', 'values' => '', 'value' => $C->read("includeRemainderTotal") ),
-   array ( 'prefix' => 'calopt', 'name' => 'includeTotals', 'type' => 'check', 'values' => '', 'value' => $C->read("includeTotals") ),
-   array ( 'prefix' => 'calopt', 'name' => 'showRemainder', 'type' => 'check', 'values' => '', 'value' => $C->read("showRemainder") ),
 );
 
 $statsScale = array (

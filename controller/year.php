@@ -5,7 +5,7 @@
  * Year calendar page controller
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -29,7 +29,6 @@ if (isset($_GET['year']) AND isset($_GET['region']) AND isset($_GET['user']))
    $region = sanitize($_GET['region']);
    if (!$R->getById($region)) $missingData = TRUE;
    
-   $users = $U->getAll();
    if (strlen($_GET['user']))
    {
       $user = sanitize($_GET['user']);
@@ -37,7 +36,7 @@ if (isset($_GET['year']) AND isset($_GET['region']) AND isset($_GET['user']))
    }
    else
    {
-      $user = $users[0]['username'];
+      $user = '';
    }
 }
 else
@@ -63,9 +62,7 @@ if ($missingData)
 //
 // CHECK PERMISSION
 //
-if ( !isAllowed($CONF['controllers'][$controller]->permission) OR 
-     (isAllowed($CONF['controllers'][$controller]->permission) AND !$L->checkLogin() AND !isAllowed("calendarviewall"))
-   )
+if ( !isAllowed($CONF['controllers'][$controller]->permission) )
 {
    $alertData['type'] = 'warning';
    $alertData['title'] = $LANG['alert_alert_title'];
@@ -87,6 +84,7 @@ if ( !isAllowed($CONF['controllers'][$controller]->permission) OR
 //
 $inputAlert = array();
 $currDate = date('Y-m-d');
+$users = $U->getAll();
 
 //
 // Loop through all months

@@ -5,7 +5,7 @@
  * Calendar view page view
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -31,7 +31,6 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             }
              
             $tabindex = 1; $colsleft = 1; $colsright = 4;
-            $xeditable = false;
             ?>
          
          <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;month=<?=$viewData['year'].$viewData['month']?>&amp;region=<?=$viewData['regionid']?>" method="post" target="_self" accept-charset="utf-8">
@@ -131,18 +130,61 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </thead>
                         <tbody>
                            <!-- Rows 4ff: Users -->
-                           <?php foreach ($viewData['users'] as $usr) { 
-                              $href = 'index.php?action=viewprofile&amp;profile=' . $usr['username'];
-                              if ( ($UL->username==$usr['username']) 
-                                    OR isAllowed("editAllUserProfiles") 
-                                    OR (isAllowed("editGroupUserProfiles") AND $UG->shareGroups($UL->username, $usr['username'])) 
-                                 ) 
+                           <?php
+                           $dayAbsCount = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+                           $dayPresCount = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+                           foreach ($viewData['users'] as $usr) 
+                           { 
+                              //
+                              // Check whether the current user may view users profiles.
+                              // If so, we link the name to the viewprofile page
+                              //
+                              $profileLink = '';
+                              if (isAllowed($CONF['controllers']['viewprofile']->permission))
                               {
-                                 $href = 'index.php?action=profile&amp;profile=' . $usr['username'];
-                              }                        
+                                 $profileName = '<a href="index.php?action=viewprofile&amp;profile=' . $usr['username'] . '">'.$U->getLastFirst($usr['username']).'</a>';
+                              }
+                              else
+                              {
+                                 $profileName = $U->getLastFirst($usr['username']);
+                              }
+                              
+                              //
+                              // Check whether the current user may edit this loop users calendar.
+                              // If so, we link each table cell to the editcalendar page (done so in the day loop below).
+                              //
+                              $editAllowed = false;
+                              $editLink = '';
+                              if (isAllowed($CONF['controllers']['calendaredit']->permission))
+                              {
+                                 if ( $UL->username == $usr['username'] )
+                                 {
+                                    if (isAllowed("calendareditown")) $editAllowed = true;
+                                 }
+                                 else if ( $UG->shareGroups($UL->username, $usr['username']) )
+                                 {
+                                    if (isAllowed("calendareditgroup")) $editAllowed = true;
+                                 }
+                                 else
+                                 {
+                                    if (isAllowed("calendareditall")) $editAllowed = true;
+                                 }
+                              }
+                              if ($editAllowed)
+                              {
+                                 $editLink = ' onclick="window.location.href = \'index.php?action=calendaredit&amp;month='.date('Y').date('m').'&amp;region='.$viewData['regionid'].'&user='.$usr['username'].'\';"';
+                              }
                               ?>
                               <tr>
-                                 <td class="m-name"><a href="<?=$href?>"><?=$U->getLastFirst($usr['username'])?></a></td>
+                                 <td class="m-name">
+                                    <?php if ($C->read('showAvatars')) { ?>
+                                       <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<img src='<?=$CONF['app_avatar_dir'].$UO->read($usr['username'],'avatar')?>' alt='' style='width: 80px; height: 80px;'>"><img src="<?=$CONF['app_avatar_dir']?>/<?=$UO->read($usr['username'],'avatar')?>" alt="" style="width: 16px; height: 16px;"></i>
+                                    <?php } ?>
+                                    <?php if ($C->read('showRoleIcons')) { ?>
+                                       <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$RO->getNameById($usr['role'])?>"><i class="fa fa-user text-<?=$RO->getColorById($usr['role'])?>" style="font-size: 128%; padding-right: 8px;"></i></i>
+                                    <?php } ?>
+                                    <?=$profileName?>
+                                 </td>
                                  <?php 
                                  $T->getTemplate($usr['username'], $viewData['year'], $viewData['month']);
                                  $currDate = date('Y-m-d');
@@ -163,21 +205,26 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     
                                     if ($T->$abs) 
                                     {
-                                       /**
-                                        * This is an absence. Get icon and coloring info.
-                                        */
+                                       //
+                                       // This is an absence. Get icon and coloring info.
+                                       //
                                        if ($A->getBgTrans($T->$abs)) $bgStyle = ""; else $bgStyle = "background-color: #". $A->getBgColor($T->$abs) . ";";
                                        $style .= 'color: #' . $A->getColor($T->$abs) . ';' . $bgStyle;
                                        $icon = '<span class="fa fa-'.$A->getIcon($T->$abs).'"></span>';
                                        $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$A->getName($T->$abs).'">';                 
-                                       $absend = '</div>';                 
+                                       $absend = '</div>';
+                                       $dayAbsCount[$i]++;
+                                    }
+                                    else 
+                                    {
+                                       $dayPresCount[$i]++;
                                     }
                                     
                                     if ($D->findByDay($viewData['year'] . $viewData['month'] . sprintf("%02d", $i), $usr['username']))
                                     {
-                                       /**
-                                        * This is a user's daynote
-                                        */
+                                       //
+                                       // This is a user's daynote
+                                       //
                                        $note = true;
                                        $notestart = '<div class="tooltip-info" style="width: 100%; height: 100%;" data-position="tooltip-right" data-toggle="tooltip" data-title="' . $D->daynote . '">';
                                        $noteend = '</div>';
@@ -185,17 +232,17 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     
                                     if ( $bdate = $UO->read($usr['username'], 'birthday') AND $bdate == $loopDate AND $UO->read($usr['username'], 'showbirthday') )
                                     {
-                                       /**
-                                        * This is the user's birthday and he wants to show it
-                                        */
+                                       //
+                                       // This is the user's birthday and he wants to show it
+                                       //
                                        $bday = true;
                                        $bdaystart = '<div class="tooltip-warning" style="width: 100%; height: 100%;" data-position="tooltip-bottom" data-toggle="tooltip" data-title="Birthday!!!">';                 
                                        $bdayend = '</div>';                 
                                     }
                                     
-                                    /**
-                                     * Select the upper right corner indicator if applicable
-                                     */
+                                    //
+                                    // Select the upper right corner indicator if applicable
+                                    //
                                     if ($note AND $bday)
                                     {
                                        $style .= 'background-image: url(images/ovl_bdaynote.gif); background-repeat: no-repeat; background-position: top right;';
@@ -209,37 +256,52 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        $style .= 'background-image: url(images/ovl_birthday.gif); background-repeat: no-repeat; background-position: top right;';
                                     }
                                     
-                                    /**
-                                     * If we have styles collected, build the style attribute
-                                     */
+                                    //
+                                    // If we have styles collected, build the style attribute
+                                    //
                                     if (strlen($style)) $style = ' style="' . $style . '"';
-                                    
                                     ?>
-                                    <td class="m-day text-center"<?=$style?>>
                                     
-                                       <?php if ($xeditable) 
-                                       { ?>
-                                          <a href="#" id="<?=$usr['username'].$loopDate.$key?>" data-type="select2" data-pk="1" data-url="/post" data-value="HO" data-title="Select absence">
-                                          <?php 
-                                          echo $bdaystart . $notestart. $absstart . $icon . $absend . $noteend . $bdayend;
-                                          $script .= "$('#".$usr['username'].$loopDate.$key."').editable({source: absences, select2: { width: 200, placeholder: 'Select absence', allowClear: true } });\n"
-                                          ?>
-                                          </a>
-                                       <?php } 
-                                       else 
-                                       {
-                                          echo $bdaystart . $notestart. $absstart . $icon . $absend . $noteend . $bdayend;
-                                       } ?>
-                                       
+                                    <td class="m-day text-center"<?=$style?><?=$editLink?>>
+                                       <?php echo $bdaystart . $notestart. $absstart . $icon . $absend . $noteend . $bdayend; ?>
                                     </td>
+                                    
                                  <?php } ?>
                               </tr>
                            <?php } ?>
                            
-                           <!-- Last Row: Summary -->
+                           <?php if ($C->read('includeSummary')) { ?>
+                           <!-- Row: Summary Header -->
                            <tr>
-                              <td class="m-label" colspan="<?=$dayend-$daystart+2?>"><?=$LANG['cal_summary']?></td>
+                              <td class="m-label" colspan="<?=$dayend-$daystart+2?>">
+                                 <span style="float: left;"><?=$LANG['cal_summary']?>&nbsp;<a class="btn btn-default btn-xs" data-toggle="collapse" data-target=".summary">...</a></span>
+                                 <span class="pull-right text-normal"><?=$viewData['businessDays']?>&nbsp;<?=$LANG['cal_businessDays']?></span>
+                              </td>
                            </tr>
+
+                           <!-- Row: Summary Absences -->
+                           <tr class="summary <?=(!$C->read('showSummary'))?'collapse':'in';?>">
+                              <td class="m-name"><?=$LANG['sum_absent']?></td>
+                              <?php for ($i=$daystart; $i<=$dayend; $i++) { 
+                                 $style = substr($viewData['dayStyles'][$i], 14);
+                                 $style = ' style="' . $style . '"';
+                                 ?>   
+                                 <td class="m-day text-center text-danger"<?=$style?>><?=$dayAbsCount[$i]?></td>
+                              <?php } ?> 
+                           </tr>
+                           
+                           <!-- Row: Summary Presences -->
+                           <tr class="summary <?=(!$C->read('showSummary'))?'collapse':'in';?>">
+                              <td class="m-name"><?=$LANG['sum_present']?></td>
+                              <?php for ($i=$daystart; $i<=$dayend; $i++) { 
+                                 $style = substr($viewData['dayStyles'][$i], 14);
+                                 $style = ' style="' . $style . '"';
+                                 ?>   
+                                 <td class="m-day text-center text-success"<?=$style?>><?=$dayPresCount[$i]?></td>
+                              <?php } ?> 
+                           </tr>
+                           <?php } ?> 
+                           
                         </tbody>
                      </table>
                   </div>
@@ -247,18 +309,6 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <?php } ?>
             <?php } ?>
 
-            <?php if ($xeditable) { ?>
-            <script type="text/javascript">
-               $(document).ready(function() {
-                  var absences = [];
-                  $.each({"HO": "Ho", "VA": "Va"}, function(k, v) {
-                      absences.push({id: k, text: v});
-                  }); 
-                  <?=$script?> 
-               });
-            </script>
-            <?php } ?>
-            
             <!-- Modal: Select Region -->
             <?=createModalTop('modalSelectRegion', $LANG['cal_selRegion'])?>
                <select id="region" class="form-control" name="sel_region" tabindex="<?=$tabindex++?>">

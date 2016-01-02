@@ -5,7 +5,7 @@
  * Permissions page view
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -41,7 +41,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="panel panel-default">
                         <div class="panel-body">
                            
-                           <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_permApply"><?=$LANG['perm_save_scheme']?></button>
+                           <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_permSave"><?=$LANG['perm_save_scheme']?></button>
                            <button class="btn btn-info" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectScheme"><?=$LANG['perm_select_scheme']?></button>
                            <button class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalCreateScheme"><?=$LANG['perm_create_scheme']?></button>
                            <button class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalResetScheme"><?=$LANG['perm_reset_scheme']?></button>

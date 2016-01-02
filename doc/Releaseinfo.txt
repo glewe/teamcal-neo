@@ -3,6 +3,37 @@ TEAMCAL NEO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[0.4.001]
+
+DATE
+2016-01-02
+
+BUGFIXES
+01 showUserIcons and showAvatars now apply to calendar display
+02 Fixed Back/Fwd/Today buttons of Year calendar view
+03 Fixed view calendar permissions
+04 Fixed edit calendar permissions
+05 Indexes and auto-increment info in sample.sql
+
+CHANGES
+01 Removed searchUser option from calendar display. Always present now.
+02 Moved showAvatars and showRoleIcons from framework to application configuration
+03 Permission reset will apply "Default" scheme settings
+
+NEW FEATURES
+01 https://georgelewe.atlassian.net/browse/TCN-6
+   Absence summary page
+02 https://georgelewe.atlassian.net/browse/TCN-12
+   Installation script
+03 https://georgelewe.atlassian.net/browse/TCN-15
+   Summary section   
+04 https://georgelewe.atlassian.net/browse/TCN-16
+   Direct link from calendar view to calendar edit   
+05 https://georgelewe.atlassian.net/browse/TCN-17
+   Direct link from profile view to profile edit   
+
+
+------------------------------------------------------------------------------
 [0.4.000]
 
 DATE

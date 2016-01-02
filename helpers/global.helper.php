@@ -5,7 +5,7 @@
  * Collection of global helper functions
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -967,6 +967,60 @@ function hex2rgb($color)
 
 // ---------------------------------------------------------------------------
 /**
+ * Restores a user and all related records from archive
+ *
+ * @return string Login information
+ */
+function loginInfo()
+{
+   global $L, $LANG, $RO, $UL;
+   
+   $loginInfo = $LANG['status_logged_out'];
+   
+   if ($luser = $L->checkLogin())
+   {
+      /**
+       * Get the user
+       */
+      $UL->findByName($luser);
+      $loginInfo  = $UL->getFullname($luser) . " (" . $luser . ")<br>";
+      $loginInfo .= $LANG['role'] . ': '. $RO->getNameById($UL->role);
+   }
+   
+   return $loginInfo;
+}
+
+// ---------------------------------------------------------------------------
+/**
+ * Reads a value out of a config file
+ *
+ * @param string $var Array index to read
+ * @param string $file File to scan
+ * @return string The value of the read variable
+ */
+function readConfig($var='',$file) 
+{
+   $value="";
+   $handle = fopen($file,"r");
+   if ($handle) 
+   {
+      while (!feof($handle)) 
+      {
+         $buffer = fgets($handle, 4096);
+         if (strpos($buffer, "'".$var."'")==6) 
+         {
+            $pos1=strpos($buffer,'"');
+            $pos2=strrpos($buffer,'"');
+            $value=trim(substr($buffer,$pos1+1,$pos2-($pos1+1)));
+         }
+      }
+      fclose($handle);
+   }
+   return $value;
+}
+
+// ---------------------------------------------------------------------------
+/**
  * Returns a comma separated string of RGB decimal values as a hex color value
  *
  * @param string $color Comma separated string of RGB decimal values
@@ -1045,26 +1099,35 @@ function startsWith($haystack, $needle)
 
 // ---------------------------------------------------------------------------
 /**
- * Restores a user and all related records from archive
+ * Writes a value into config.tcpro.php
  *
- * @return string Login information
+ * @param string $var Variable name
+ * @param string $value Value to assign to variable
+ * @param string $file File in which to do so
  */
-function loginInfo()
+function writeConfig($var='',$value='', $file) 
 {
-   global $L, $LANG, $RO, $UL;
-   
-   $loginInfo = $LANG['status_logged_out'];
-   
-   if ($luser = $L->checkLogin())
-   {
-      /**
-       * Get the user
-       */
-      $UL->findByName($luser);
-      $loginInfo  = $UL->getFullname($luser) . " (" . $luser . ")<br>";
-      $loginInfo .= $LANG['role'] . ': '. $RO->getNameById($UL->role);
+   $newbuffer="";
+   $handle = fopen($file,"r");
+   if ($handle) {
+      while (!feof($handle)) 
+      {
+         $buffer = fgets($handle, 4096);
+         if (strpos($buffer, "'".$var."'")==6) 
+         {
+            $pos1=strpos($buffer,'"');
+            $pos2=strrpos($buffer,'"');
+            $newbuffer.=substr_replace($buffer,$value."\"",$pos1+1,$pos2-($pos1));
+         }
+         else
+         {
+            $newbuffer.=$buffer;
+         }
+      }
+      fclose($handle);
+      $handle = fopen($file,"w");
+      fwrite($handle,$newbuffer);
+      fclose($handle);
    }
-   
-   return $loginInfo;
 }
 ?>

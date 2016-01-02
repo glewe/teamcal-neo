@@ -5,7 +5,7 @@
  * The view of the top navigation menu
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -54,7 +54,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               isAllowed($CONF['controllers']['statsabsence']->permission) OR
                               isAllowed($CONF['controllers']['statsabstype']->permission) OR
                               isAllowed($CONF['controllers']['statspresence']->permission) OR
-                              isAllowed($CONF['controllers']['statsremainder']->permission)
+                              isAllowed($CONF['controllers']['statsremainder']->permission) OR
+                              isAllowed($CONF['controllers']['absum']->permission)
                         ) { ?>
                      <!-- View Menu -->
                      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="view"><?=$LANG['mnu_view']?><span class="caret"></span></a>
@@ -65,7 +66,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <?php if (isAllowed($CONF['controllers']['year']->permission)) { ?>
                               <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['year']->name?>&amp;year=<?=date('Y')?>&amp;region=1&amp;user=<?=$UL->username?>"><i class="fa fa-<?=$CONF['controllers']['year']->faIcon?> fa-lg text-<?=$CONF['controllers']['year']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_year']?></a></li>
                            <?php } ?>
-                           <?php if (isAllowed($CONF['controllers']['messages']->permission)) { ?>
+                           <?php if (isAllowed($CONF['controllers']['messages']->permission) AND $C->read('activateMessages')) { ?>
                               <li class="divider"></li>
                               <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['messages']->name?>"><i class="fa fa-<?=$CONF['controllers']['messages']->faIcon?> fa-lg text-<?=$CONF['controllers']['messages']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_messages']?></a></li>
                            <?php } ?>
@@ -87,6 +88,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <?php if (isAllowed($CONF['controllers']['statsremainder']->permission)) { ?>
                                        <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['statsremainder']->name?>"><i class="fa fa-<?=$CONF['controllers']['statsremainder']->faIcon?> fa-lg text-<?=$CONF['controllers']['statsremainder']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_stats_remainder']?></a></li>
                                     <?php } ?>
+                                    <?php if (isAllowed($CONF['controllers']['absum']->permission)) { ?>
+                                       <li class="divider"></li>
+                                       <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['absum']->name?>&amp;user=<?=$userData['username']?>"><i class="fa fa-<?=$CONF['controllers']['absum']->faIcon?> fa-lg text-<?=$CONF['controllers']['absum']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_stats_absum']?></a></li>
+                                    <?php } ?>
                                  </ul>
                               </li>
                            <?php } ?>
@@ -107,7 +112,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                             <?php if (isAllowed($CONF['controllers']['monthedit']->permission)) { ?>
                               <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['monthedit']->name?>&amp;month=<?=date('Y').date('m')?>&amp;region=1"><i class="fa fa-<?=$CONF['controllers']['monthedit']->faIcon?> fa-lg text-<?=$CONF['controllers']['monthedit']->iconColor?> fa-menu"></i><?=$LANG['mnu_edit_monthedit']?></a></li>
                            <?php } ?>
-                            <?php if (isAllowed($CONF['controllers']['messageedit']->permission)) { ?>
+                            <?php if (isAllowed($CONF['controllers']['messageedit']->permission) AND $C->read('activateMessages')) { ?>
                               <li class="divider"></li>
                               <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['messageedit']->name?>"><i class="fa fa-<?=$CONF['controllers']['messageedit']->faIcon?> fa-lg text-<?=$CONF['controllers']['messageedit']->iconColor?> fa-menu"></i><?=$LANG['mnu_edit_messageedit']?></a></li>
                            <?php } ?>

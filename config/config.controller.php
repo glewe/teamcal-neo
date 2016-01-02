@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -92,6 +92,7 @@ $CONF['controllers'] = array (
    'absences' => new Controller('absences', 'check-square-o', 'primary', 'primary', 'absenceedit'),
    'absenceedit' => new Controller('absenceedit', 'check-square-o', 'warning', 'warning', 'absenceedit'),
    'absenceicon' => new Controller('absenceicon', 'file-image-o', 'primary', 'primary', 'absenceedit'),
+   'absum' => new Controller('absum', 'list-ol', 'primary', 'primary', 'absum'),
    'calendarview' => new Controller('calendarview', 'calendar', 'danger', 'primary', 'calendarview'),
    'calendaredit' => new Controller('calendaredit', 'calendar-o', 'danger', 'primary', 'calendaredit'),
    'calendaroptions' => new Controller('calendaroptions', 'wrench', 'primary', 'primary', 'calendaroptions'),

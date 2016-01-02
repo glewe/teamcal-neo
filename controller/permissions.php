@@ -5,7 +5,7 @@
  * Permissions page controller
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -148,43 +148,38 @@ if (!empty($_POST))
             header("Location: index.php?action=permissions&scheme=Default");
          }
       }
-      // ,-------, ,--------,
-      // | Reset | | Create |
-      // '-------' '--------'
-      // Reset Default permission scheme or create a new with standard settings
+      // ,--------,
+      // | Create |
+      // '--------'
+      // Create a new scheme with admin-only settings
       //
-      else if ( isset($_POST['btn_permReset']) OR isset($_POST['btn_permCreate']) )
+      else if ( isset($_POST['btn_permCreate']) )
       {
-         $event = "log_perm_reset";
-         if ( isset($_POST['btn_permCreate']) ) 
+         if (!preg_match('/^[a-zA-Z0-9-]*$/', $_POST['txt_newScheme'])) 
          {
-            if (!preg_match('/^[a-zA-Z0-9-]*$/', $_POST['txt_newScheme'])) 
+            //
+            // Permission name invalid
+            //
+            $showAlert = true;
+            $alertData['type'] = 'danger';
+            $alertData['title'] = $LANG['alert_danger_title'];
+            $alertData['subject'] = $LANG['alert_input_validation_subject'];
+            $alertData['text'] = str_replace('%1%', $_POST['txt_newScheme'], $LANG['alert_perm_invalid']);
+         }
+         else 
+         {
+            $scheme = $_POST['txt_newScheme'];
+            if ($P->schemeExists($scheme)) 
             {
                //
-               // Permission name invalid
+               // Permission name exists
                //
                $showAlert = true;
                $alertData['type'] = 'danger';
                $alertData['title'] = $LANG['alert_danger_title'];
                $alertData['subject'] = $LANG['alert_input_validation_subject'];
-               $alertData['text'] = str_replace('%1%', $_POST['txt_newScheme'], $LANG['alert_perm_invalid']);
+               $alertData['text'] = str_replace('%1%', $_POST['txt_newScheme'], $LANG['alert_perm_exists']);
             }
-            else 
-            {
-               $scheme = $_POST['txt_newScheme'];
-               if ($P->schemeExists($scheme)) 
-               {
-                  //
-                  // Permission name exists
-                  //
-                  $showAlert = true;
-                  $alertData['type'] = 'danger';
-                  $alertData['title'] = $LANG['alert_danger_title'];
-                  $alertData['subject'] = $LANG['alert_input_validation_subject'];
-                  $alertData['text'] = str_replace('%1%', $_POST['txt_newScheme'], $LANG['alert_perm_exists']);
-               }
-            }
-            $event = "log_perm_created";
          }
       
          if (!$showAlert) 
@@ -221,14 +216,69 @@ if (!empty($_POST))
             //
             // Log this event
             //
-            $LOG->log("logPermission",$L->checkLogin(), $event, $scheme);
+            $LOG->log("logPermission",$L->checkLogin(), "log_perm_created", $scheme);
             header("Location: index.php?action=permissions&scheme=".$scheme);
+         }
+      }
+      // ,-------,
+      // | Reset |
+      // '-------'
+      // Reset a permission scheme with Default settings
+      //
+      else if ( isset($_POST['btn_permReset']) )
+      {
+         if ($scheme != "Default") 
+         {
+            //
+            // Set entries for controller permissions based on Default
+            //
+            foreach($perms as $perm) 
+            {
+               foreach($roles as $role) 
+               {
+                  if ($P->isAllowed("Default",$perm,$role['id'])) $allowed = 1;
+                  else $allowed = 0;
+                  if ($role['id'] == 1) $allowed = 1;
+                  $P->setPermission($scheme, $perm, $role['id'], $allowed);
+               }
+            }
+      
+            //
+            // Set entries for feature permissions based on Default
+            //
+            foreach($fperms as $fperm)
+            {
+               foreach($roles as $role)
+               {
+                  if ($P->isAllowed("Default",$fperm,$role['id'])) $allowed = 1;
+                  else $allowed = 0;
+                  if ($role['id'] == 1) $allowed = 1;
+                  $P->setPermission($scheme, $fperm, $role['id'], $allowed);
+               }
+            }
+            
+            //
+            // Log this event
+            //
+            $LOG->log("logPermission",$L->checkLogin(), "log_perm_reset", $scheme);
+            header("Location: index.php?action=permissions&scheme=".$scheme);
+         }
+         else 
+         {
+            //
+            // Default permission scheme cannot be reset
+            //
+            $showAlert = true;
+            $alertData['type'] = 'warning';
+            $alertData['title'] = $LANG['alert_warning_title'];
+            $alertData['subject'] = $LANG['alert_input_validation_subject'];
+            $alertData['text'] = $LANG['alert_perm_default'];
          }
       }
       // ,------,
       // | Save |
       // '------'
-      else if ( isset($_POST['btn_permApply']) ) 
+      else if ( isset($_POST['btn_permSave']) ) 
       {
          //
          // Controller permission groups

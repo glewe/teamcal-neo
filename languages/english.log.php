@@ -5,7 +5,7 @@
  * Log language file (English)
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -35,7 +35,7 @@ $LANG['log_db_delete_perm'] = 'Database delete: All custom permission schemes';
 $LANG['log_db_delete_users'] = 'Database delete: All Users';
 $LANG['log_db_export'] = 'Database export: ';
 $LANG['log_db_restore'] = 'Database restored from ';
-$LANG['log_decl_updated'] = 'Decline settings updated: ';
+$LANG['log_decl_updated'] = 'Declination settings updated';
 $LANG['log_group_created'] = 'Group created: ';
 $LANG['log_group_updated'] = 'Group updated: ';
 $LANG['log_group_deleted'] = 'Group deleted: ';

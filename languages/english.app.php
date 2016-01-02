@@ -5,7 +5,7 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -109,6 +109,15 @@ $LANG['abs_symbol_comment'] = 'The absence type symbol is used in the calendar d
 $LANG['abs_tab_groups'] = 'Group Assignments';
 
 //
+// Absences Summary
+//
+$LANG['absum_title'] = 'Absence Summary %s: %s';
+$LANG['absum_modalYearTitle'] = 'Select the Year for the Summary';
+$LANG['absum_unlimited'] = 'Unlimited';
+$LANG['absum_year'] = 'Year';
+$LANG['absum_year_comment'] = 'Select the year for this summary.';
+
+//
 // Alerts
 //
 $LANG['alert_decl_before_date'] = ": Absence changes before the following date are not allowed: ";
@@ -122,6 +131,7 @@ $LANG['alert_decl_total_threshold'] = ": Total absence threshold reached.";
 $LANG['btn_abs_edit'] = 'Back to Edit';
 $LANG['btn_abs_icon'] = 'Select Icon';
 $LANG['btn_abs_list'] = 'Absence Type List';
+$LANG['btn_absum'] = 'Absence Summary';
 $LANG['btn_calendar'] = 'Calendar';
 $LANG['btn_create_abs'] = 'Create Absence Type';
 $LANG['btn_create_holiday'] = 'Create Holiday';
@@ -144,6 +154,7 @@ $LANG['cal_selAbsence_comment'] = 'Shows all entries having this absence type fo
 $LANG['cal_selGroup'] = 'Select Group';
 $LANG['cal_selRegion'] = 'Select Region';
 $LANG['cal_summary'] = 'Summary';
+$LANG['cal_businessDays'] = 'Business Days';
 
 $LANG['cal_caption_weeknumber'] = 'Week';
 $LANG['cal_caption_name'] = 'Name';
@@ -222,17 +233,8 @@ $LANG['calopt_hideManagers_comment'] = 'Checking this option will hide all manag
 $LANG['calopt_hideManagerOnlyAbsences'] = 'Hide Management Only Absences';
 $LANG['calopt_hideManagerOnlyAbsences_comment'] = 'Absence types can be marked as "manager-only", making them only editable to managers. 
       These absences are shown to the regular users but they cannot edit them. You can hide these absences to regular users here.';
-$LANG['calopt_includeRemainder'] = 'Include Remainder';
-$LANG['calopt_includeRemainder_comment'] = 'Checking this option will add an expandable column to the calendar display showing each users\'s remainder per 
-      absence type.<br>Note: You need to configure the absence types that you want to be included in the remainder column.';
-$LANG['calopt_includeRemainderTotal'] = 'Include Remainder Allowance';
-$LANG['calopt_includeRemainderTotal_comment'] = 'Checking this option will add the total allowance per absence type to the expandable remainder display. 
-      The value is seperated by a slash.';
 $LANG['calopt_includeSummary'] = 'Include Summary';
 $LANG['calopt_includeSummary_comment'] = 'Checking this option will add an expandable summary section at the bottom of each month, showing the sums of all absences.';
-$LANG['calopt_includeTotals'] = 'Include Remainder Totals';
-$LANG['calopt_includeTotals_comment'] = 'Checking this option will add a "totals this month" section in the remainder column showing each users\'s totals 
-      per absence type for the month displayed. Note: You need to configure the absence types that you want to be included in the totals column.';
 $LANG['calopt_markConfidential'] = 'Mark Confidential Absences';
 $LANG['calopt_markConfidential_comment'] = 'Regular users cannot see confidential absences of others. However, with this option 
       checked they will be marked with an "X" in the calendar to show that the person is not present. The type of absence will not be shown.';
@@ -244,6 +246,8 @@ $LANG['calopt_repeatHeaderCount_comment'] = 'Specifies the amount of user lines 
 $LANG['calopt_satBusi'] = 'Saturday is a Business Day';
 $LANG['calopt_satBusi_comment'] = 'By default, Saturday and Sunday are weekend days and displayed accordingly in the calendar. 
       Check this option if you want to make Saturday a business day.';
+$LANG['calopt_showAvatars'] = 'Show Avatars';
+$LANG['calopt_showAvatars_comment'] = 'Checking this option will show a user avatar pop-up when moving the mouse over the user avatar icon.'; 
 $LANG['calopt_showMonths'] = 'Amount of Months';
 $LANG['calopt_showMonths_comment'] = 'Specify here how many months you want to display in the calendar view by default.';
 $LANG['calopt_showMonths_1'] = '1 month';
@@ -251,8 +255,8 @@ $LANG['calopt_showMonths_2'] = '2 months';
 $LANG['calopt_showMonths_3'] = '3 months';
 $LANG['calopt_showMonths_6'] = '6 months';
 $LANG['calopt_showMonths_12'] = '12 months';
-$LANG['calopt_showRemainder'] = 'Expand Remainder';
-$LANG['calopt_showRemainder_comment'] = 'Checking this option will show/expand the remainder section by default.';
+$LANG['calopt_showRoleIcons'] = 'Show Role Icons';
+$LANG['calopt_showRoleIcons_comment'] = 'Checking this option will show an icons next to the users\' name indicating the users\' role.';
 $LANG['calopt_showSummary'] = 'Expand Summary';
 $LANG['calopt_showSummary_comment'] = 'Checking this option will show/expand the summary section by default.';
 $LANG['calopt_showUserRegion'] = 'Show regional holidays per user';
@@ -286,8 +290,6 @@ $LANG['calopt_usersPerPage'] = 'Number of users per page';
 $LANG['calopt_usersPerPage_comment'] = 'If you maintain a large amount of users in TeamCal Neo you might want to use paging in the calendar display.
       Indicate how much users you want to display on each page. A value of 0 will disable paging. In case you chose paging, there will be paging
       buttons at the bottom of each page.';
-$LANG['calopt_userSearch'] = 'Show User Search Box';
-$LANG['calopt_userSearch_comment'] = 'Enable/Disable a user search box in the Calendar view, enabling to search for single users.';
 
 //
 // Declination
@@ -391,6 +393,7 @@ $LANG['mnu_view_calendar'] = 'Calendar (Month)';
 $LANG['mnu_view_stats'] = 'Statistics';
 $LANG['mnu_view_stats_absences'] = 'Absence Statistics';
 $LANG['mnu_view_stats_abstype'] = 'Absence Type Statistics';
+$LANG['mnu_view_stats_absum'] = 'User Absence Summary';
 $LANG['mnu_view_stats_presences'] = 'Presence Statistics';
 $LANG['mnu_view_stats_remainder'] = 'Remainder Statistics';
 $LANG['mnu_view_year'] = 'Calendar (Year)';
@@ -418,6 +421,8 @@ $LANG['monthedit_selUser'] = 'Select User';
 //
 $LANG['perm_absenceedit_title'] = 'Manage Absence Types';
 $LANG['perm_absenceedit_desc'] = 'Allows to list and edit absence types.';
+$LANG['perm_absum_title'] = 'View Absence Summary';
+$LANG['perm_absum_desc'] = 'Allows to view the absence summary page for users.';
 $LANG['perm_calendaredit_title'] = 'Calendar Editor';
 $LANG['perm_calendaredit_desc'] = 'Allows to open the calendar editor. This permission is required to edit any user calendars.';
 $LANG['perm_calendareditall_title'] = 'Edit All Calendars';

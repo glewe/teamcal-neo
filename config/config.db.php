@@ -5,7 +5,7 @@
  * Database parameters.
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -19,17 +19,11 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  * 
  * Enter your database parameter here
  */
-$CONF['db_server'] = "db527920860.db.1and1.com";
-$CONF['db_name'] = "db527920860";
-$CONF['db_user'] = "dbo527920860";
-$CONF['db_pass'] = "jdHhCYWU";
-$CONF['db_table_prefix'] = "";
-
 $CONF['db_server'] = "localhost";
 $CONF['db_name'] = "tcneo";
 $CONF['db_user'] = "root";
 $CONF['db_pass'] = "";
-$CONF['db_table_prefix'] = "";
+$CONF['db_table_prefix'] = "tcneo_";
 
 /**
  * The ID array is used to create the table names below.
@@ -66,5 +60,4 @@ foreach ($tableIDs as $tid)
    $CONF[$confIndex] = $CONF['db_table_prefix'] . $tid;
    $CONF[$confArchiveIndex] = $CONF['db_table_prefix'] . 'archive_' . $tid;
 }
-
 ?>

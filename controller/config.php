@@ -5,7 +5,7 @@
  * Framework config page controller
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -154,11 +154,6 @@ if (!empty($_POST))
          //
          // User
          //
-         if ( isset($_POST['chk_showUserIcons']) && $_POST['chk_showUserIcons'] ) $C->save("showUserIcons","1"); else $C->save("showUserIcons","0");
-         if ( isset($_POST['chk_showAvatars']) && $_POST['chk_showAvatars'] ) $C->save("showAvatars","1"); else $C->save("showAvatars","0");
-         $C->save("avatarWidth",intval($_POST['txt_avatarWidth']));
-         $C->save("avatarHeight",intval($_POST['txt_avatarHeight']));
-         $C->save("avatarMaxSize",intval($_POST['txt_avatarMaxSize']));
          $C->save("userCustom1",sanitize($_POST['txt_userCustom1']));
          $C->save("userCustom2",sanitize($_POST['txt_userCustom2']));
          $C->save("userCustom3",sanitize($_POST['txt_userCustom3']));
@@ -282,8 +277,6 @@ $viewData['theme'] = array (
 );
 
 $viewData['user'] = array (
-   array ( 'prefix' => 'config', 'name' => 'showUserIcons', 'type' => 'check', 'values' => '', 'value' => $C->read("showUserIcons") ),
-   array ( 'prefix' => 'config', 'name' => 'showAvatars', 'type' => 'check', 'values' => '', 'value' => $C->read("showAvatars") ),
    array ( 'prefix' => 'config', 'name' => 'userCustom1', 'type' => 'text', 'value' => $C->read("userCustom1"), 'maxlength' => '50' ),
    array ( 'prefix' => 'config', 'name' => 'userCustom2', 'type' => 'text', 'value' => $C->read("userCustom2"), 'maxlength' => '50' ),
    array ( 'prefix' => 'config', 'name' => 'userCustom3', 'type' => 'text', 'value' => $C->read("userCustom3"), 'maxlength' => '50' ),

@@ -5,7 +5,7 @@
  * Log language file (German)
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -36,7 +36,7 @@ $LANG['log_db_delete_perm'] = 'Datenbank L&ouml;schung: Alle individuellen Berec
 $LANG['log_db_delete_users'] = 'Datenbank L&ouml;schung: Alle Benutzer';
 $LANG['log_db_export'] = 'Datenbank Export: ';
 $LANG['log_db_restore'] = 'Datenbank wiederhergestellt von ';
-$LANG['log_decl_updated'] = 'Ablehnungseinstellungen aktualisiert: ';
+$LANG['log_decl_updated'] = 'Ablehnungseinstellungen aktualisiert';
 $LANG['log_group_created'] = 'Gruppe angelegt: ';
 $LANG['log_group_updated'] = 'Gruppe aktualisiert: ';
 $LANG['log_group_deleted'] = 'Gruppe gel&ouml;scht: ';

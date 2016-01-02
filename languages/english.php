@@ -5,7 +5,7 @@
  * Language file (English)
  *
  * @category LeAF 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -163,6 +163,7 @@ $LANG['alert_input_pwdhigh'] = 'The password must be at least 8 characters long,
       at least one special character. Allowed are small and capital letters, numbers and the following special characters: !@#$%^&*()';
 $LANG['alert_input_regex_match'] = 'The input of this field did not match the regular expression "%s".';
 $LANG['alert_input_required'] = 'This field is mandatory.';
+$LANG['alert_input_validation_subject'] = 'Input validation';
 
 $LANG['alert_maintenance_subject'] = 'Site Under Maintenance';
 $LANG['alert_maintenance_text'] = 'The site is currently set to "Under Maintenance". Regular users will not be able to use any feature.';
@@ -178,6 +179,7 @@ $LANG['alert_not_allowed_help'] = 'If you are not logged in, then public access 
 
 $LANG['alert_perm_invalid'] = 'The new permission scheme name "%1%" is invalid. Choose upper or lower case characters or numbers from 0 to 9. Don\'t use blanks.';
 $LANG['alert_perm_exists'] = 'The permission scheme "%1%" already exists. Use a different name or delete the old one first.';
+$LANG['alert_perm_default'] = 'The "Default" permission scheme cannot be reset to itself.';
 
 $LANG['alert_reg_subject'] = 'User Registration';
 $LANG['alert_reg_approval_needed'] = 'Your verification was successful. However, your account needs to be finally activated by an administrator. A mail has been sent to him/her.';
@@ -255,6 +257,7 @@ $LANG['btn_send'] = 'Send';
 $LANG['btn_showcalendar'] = 'Show calendar';
 $LANG['btn_submit'] = 'Submit';
 $LANG['btn_switch'] = 'Switch';
+$LANG['btn_testdb'] = 'Test Database';
 $LANG['btn_transfer'] = 'Transfer';
 $LANG['btn_update'] = 'Update';
 $LANG['btn_user_list'] = 'Show User List';
@@ -371,15 +374,10 @@ $LANG['config_showAlerts_comment'] = 'Select what type of alerts will be shown.'
 $LANG['config_showAlerts_all'] = 'All (including Success messages)';
 $LANG['config_showAlerts_warnings'] = 'Warnings and Errors only';
 $LANG['config_showAlerts_none'] = 'None';
-$LANG['config_showAvatars'] = 'Show Avatars';
-$LANG['config_showAvatars_comment'] = 'Checking this option will show a user avatar pop-up when moving the mouse over the user icon. 
-      Note: This feature only works when user icons are switched on.';
 $LANG['config_showBanner'] = 'Show Banner';
 $LANG['config_showBanner_comment'] = 'Checking this option will show a banner between the navbar and the content section displaying the application title and a search box.';
 $LANG['config_showSize'] = 'Show Viewport Size';
 $LANG['config_showSize_comment'] = 'Checking this option will show the viewport size in the footer.';
-$LANG['config_showUserIcons'] = 'Show User Icons';
-$LANG['config_showUserIcons_comment'] = 'Checking this option will show user icons to the left of the users\' name indicating the users\' role and gender.';
 $LANG['config_theme'] = 'Default Theme';
 $LANG['config_theme_comment'] = 'Select a theme to change the looks of the application. You can create your own skin by making a renamed
       copy of any of the other theme folders in the \'themes\' directory and adjust the styles to your liking. Your new directory will
@@ -748,7 +746,7 @@ $LANG['perm_delete_scheme'] = 'Delete scheme';
 $LANG['perm_delete_confirm'] = 'Are you sure you want to delete this permission scheme? The Default scheme will be loaded and activated.';
 $LANG['perm_inactive'] = '(Inactive)';
 $LANG['perm_reset_scheme'] = 'Reset scheme';
-$LANG['perm_reset_confirm'] = 'Are you sure you want to reset the current permission scheme? All values will be set to their default?';
+$LANG['perm_reset_confirm'] = 'Are you sure you want to reset the current permission scheme to the "Default" scheme?';
 $LANG['perm_save_scheme'] = 'Save scheme';
 $LANG['perm_select_scheme'] = 'Select scheme';
 $LANG['perm_select_confirm'] = 'When you confirm a new scheme selection, all changes to the current scheme that have not been applied will be lost.';

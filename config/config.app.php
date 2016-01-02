@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -15,14 +15,26 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 //=============================================================================
 /**
+ * APP INSTALLED
+ *
+ * A flag indicating whether the installation script has been executed. 
+ * 0 = Not run yet
+ * 1 = Was run
+ * Set this to 0 if you want to run the installtion.php script again.
+ * If not, it is recommended that you delete the installation.php file.
+ */
+$CONF['app_installed'] = "0";
+
+//=============================================================================
+/**
  * ADDONS
  * 
  * Switch add-ons on or off. These settings are read in view/header.php
  */
-$CONF['addon_bootstrap_editable'] = true;
+$CONF['addon_bootstrap_editable'] = false;
 $CONF['addon_chartjs'] = true;
 $CONF['addon_ckeditor'] = true;
-$CONF['addon_select2'] = true;
+$CONF['addon_select2'] = false;
 $CONF['addon_syntaxhighlighter'] = false;
 
 //=============================================================================
@@ -100,9 +112,9 @@ $CONF['app_jqueryui_dir'] = 'js/jquery/ui/1.10.4/';
  * !Do not change this information. It is protected by the license agreement!
  */
 $CONF['app_name'] = "TeamCal Neo";
-$CONF['app_version'] = "0.4.000";
+$CONF['app_version'] = "0.4.001";
 $CONF['app_help_root'] = "https://georgelewe.atlassian.net/wiki/display/CP10/";
-$CONF['app_version_date'] = "2015-12-29";
+$CONF['app_version_date'] = "2016-01-02";
 $CONF['app_year_start'] = "2014";
 $CONF['app_year_current'] = date('Y');
 $CONF['app_author'] = "George Lewe";

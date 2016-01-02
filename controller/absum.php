@@ -1,10 +1,10 @@
 <?php
 /**
- * groupedit.php
+ * absum.php
  * 
- * Group edit page controller
+ * Absence Summary page controller
  *
- * @category TeamCal Neo 
+ * @category TemCal Neo 
  * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
@@ -34,12 +34,14 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
 //
 // CHECK URL PARAMETERS
 //
-$GG = new Groups(); // for the profile to be created or updated
-if (isset($_GET['id']))
+if (isset($_GET['user']))
 {
    $missingData = FALSE;
-   $id = sanitize($_GET['id']);
-   if (!$GG->getById($id)) $missingData = TRUE;
+   $caluser = sanitize($_GET['user']);
+   if (!$U->findByName($caluser)) 
+   {
+      $missingData = TRUE;
+   }
 }
 else
 {
@@ -69,10 +71,9 @@ if ($missingData)
 //
 // VARIABLE DEFAULTS
 //
-$viewData['id'] = $GG->id;
-$viewData['name'] = $GG->name;
-$viewData['description'] = $GG->description;
+$users = $U->getAll();
 $inputAlert = array();
+$viewData['year'] = date("Y");
 
 //=============================================================================
 //
@@ -86,62 +87,31 @@ if (!empty($_POST))
    $_POST = sanitize($_POST);
     
    //
-   // Load sanitized form info for the view
-   //
-   $viewData['id'] = $_POST['hidden_id'];
-   $viewData['name'] = $_POST['txt_name'];
-   $viewData['description'] = $_POST['txt_description'];
-     
-   //
    // Form validation
    //
    $inputError = false;
-   if (isset($_POST['btn_groupUpdate']))
-   {
-      if (!formInputValid('txt_name', 'required|alpha_numeric_dash')) $inputError = true;
-      if (!formInputValid('txt_description', 'alpha_numeric_dash_blank')) $inputError = true;
-   }
-    
+   
+   //
+   // TODO
+   // Validate input data. If something is wrong or missing, set $inputError = true
+   //
+   
    if (!$inputError)
    {
-      // ,--------,
-      // | Update |
-      // '--------'
-      if (isset($_POST['btn_groupUpdate']))
+      // ,-------------,
+      // | Select User |
+      // '-------------'
+      if (isset($_POST['btn_user']))
       {
-         $GG->name = $_POST['txt_name'];
-         $GG->description = $_POST['txt_description'];
-          
-         $GG->update($_POST['hidden_id']);
-          
-         //
-         // Send notification e-mails to the subscribers of user events
-         //
-         if ($C->read("emailNotifications"))
-         {
-            sendGroupEventNotifications("changed", $GG->name, $GG->description);
-         }
-          
-         //
-         // Log this event
-         //
-         $LOG->log("logGroup",$L->checkLogin(),"log_group_updated", $GG->name);
-          
-         //
-         // Success
-         //
-         $showAlert = TRUE;
-         $alertData['type'] = 'success';
-         $alertData['title'] = $LANG['alert_success_title'];
-         $alertData['subject'] = $LANG['group_alert_edit'];
-         $alertData['text'] = $LANG['group_alert_edit_success'];
-         $alertData['help'] = '';
-         
-         //
-         // Load new info for the view
-         //
-         $viewData['name'] = $GG->name;
-         $viewData['description'] = $GG->description;
+         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller . "&user=" . $_POST['sel_user']);
+         die();
+      }
+      // ,-------------,
+      // | Select Year |
+      // '-------------'
+      elseif (isset($_POST['btn_year']))
+      {
+         $viewData['year'] = $_POST['sel_year'];
       }
    }
    else
@@ -153,7 +123,7 @@ if (!empty($_POST))
       $alertData['type'] = 'danger';
       $alertData['title'] = $LANG['alert_danger_title'];
       $alertData['subject'] = $LANG['alert_input'];
-      $alertData['text'] = $LANG['group_alert_save_failed'];
+      $alertData['text'] = $LANG['register_alert_failed'];
       $alertData['help'] = '';
    }
 }
@@ -162,10 +132,40 @@ if (!empty($_POST))
 //
 // PREPARE VIEW
 //
-$viewData['group'] = array (
-   array ( 'prefix' => 'group', 'name' => 'name', 'type' => 'text', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
-   array ( 'prefix' => 'group', 'name' => 'description', 'type' => 'text', 'value' => $viewData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
-);
+$viewData['username'] = $caluser;
+$viewData['fullname'] = $U->getFullname($caluser);
+
+$viewData['users'] = array();
+foreach ($users as $usr)
+{
+   $viewData['users'][] = array ('username' => $usr['username'], 'lastfirst' => $U->getLastFirst($usr['username']));
+}
+
+$viewData['from'] = $viewData['year'] . '-01-01';
+$viewData['to'] = $viewData['year'] . '-12-31';
+
+$viewData['absences'] = array();
+$absences = $A->getAll();
+foreach ($absences as $abs)
+{
+   $count = 0;
+   if ($A->get($abs['id']) AND !$A->counts_as_present)
+   {
+      $countFrom = str_replace('-', '' , $viewData['from']);
+      $countTo = str_replace('-', '' , $viewData['to']);
+      $count += countAbsence($caluser, $abs['id'], $countFrom, $countTo, false, false);
+   }
+   $viewData['absences'][] = array (
+      'icon' => $abs['icon'],
+      'bgcolor' => $abs['bgcolor'],
+      'color' => $abs['color'],
+      'name' => $abs['name'],
+      'allowance' => ($abs['allowance']?$abs['allowance']:$LANG['none']),
+      'taken' => $count,
+      'remainder' => ($abs['allowance']?$abs['allowance']-$count:$LANG['absum_unlimited']),
+   );
+}
+
 
 //=============================================================================
 //

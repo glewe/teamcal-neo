@@ -5,7 +5,7 @@
  * Language file (German)
  *
  * @category LeAF 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -175,6 +175,7 @@ $LANG['alert_not_allowed_text'] = 'Du hast nicht die n&ouml;tige Berechtigung au
 $LANG['alert_not_allowed_help'] = 'Wenn du nicht eingeloggt bist, dann ist &ouml;ffentlicher Zugriff auf diese Seite nicht erlaubt. Wenn du eingeloggt bist, fehlt deiner Rolle die n&ouml;tige Berechtigung f&uuml;r den Zugriff.';
 
 $LANG['alert_perm_invalid'] = 'Das neue Berechtigungsschema "%1%" ist ung&uuml;ltig. Im Namen sind nur Buchstaben und Zahlen erlaubt.';
+$LANG['alert_perm_default'] = 'Das "Default" Schema kann nicht auf sich selbst zur&uuml;ckgesetzt werden.';
 $LANG['alert_perm_exists'] = 'Das Berechtigungsschema "%1%" existiert bereits. Bitte w&auml;hle einen anderen Name oder l&ouml;sche das existierende zuerst.';
 
 $LANG['alert_reg_subject'] = 'Nutzerregistrierung';
@@ -369,15 +370,10 @@ $LANG['config_showAlerts_comment'] = 'Mit dieser Option kann ausgew&auml;hlt wer
 $LANG['config_showAlerts_all'] = 'Alle (inkl. Erfolgsnachrichten)';
 $LANG['config_showAlerts_warnings'] = 'Nur Warnungen und Fehler';
 $LANG['config_showAlerts_none'] = 'Keine';
-$LANG['config_showAvatars'] = 'Avatars anzeigen';
-$LANG['config_showAvatars_comment'] = 'Mit dieser Option wird ein User Avatar in einem Pop-Up Fenster angezeigt, wenn die Maus &uuml;ber das User Icon gef&uuml;hrt wird. 
-      Hinweis: Diese Funktion arbeitet nur, wenn User Icons eingschaltet sind.';
 $LANG['config_showBanner'] = 'Banner anzeigen';
 $LANG['config_showBanner_comment'] = 'Mit dieser Option wird zwischen Menu und Inhalt ein Banner mit dem Applikationstitel und einer Suchbox angezeigt.';
 $LANG['config_showSize'] = 'Viewport-Gr&ouml;&szlig; anzeigen';
 $LANG['config_showSize_comment'] = 'Mit dieser Option wird im Footer die Viewport-Gr&ouml;&szlig; angezeigt.';
-$LANG['config_showUserIcons'] = 'User Icons anzeigen';
-$LANG['config_showUserIcons_comment'] = 'Mir dieser Option werden links vom Benutzernamen User Icons angezeigt, die die User Rolle und das Geschlecht anzeigen.';
 $LANG['config_theme'] = 'Theme';
 $LANG['config_theme_comment'] = 'W&auml;hle ein Theme aus, umd das Aussehen der User Interface zu &auml;ndern. Du kannst ein eigenes 
       Theme erstellen, indem du eine Kopie eines Verzeichnis im \'themes\' Ordner anlegst und das Style Sheet entsprechend anpasst. 
@@ -746,7 +742,7 @@ $LANG['perm_delete_scheme'] = 'Schema l&ouml;schen';
 $LANG['perm_delete_confirm'] = 'Soll dieses Berechtigungsschema gel&ouml;scht werden? Dadurch wird das Standard Schema geladen und aktiviert.';
 $LANG['perm_inactive'] = '(Inaktiv)';
 $LANG['perm_reset_scheme'] = 'Schema zur&uuml;cksetzen';
-$LANG['perm_reset_confirm'] = 'Soll dieses Berechtigungsschema auf den Standard zur&uuml;ckgesetzt werden?';
+$LANG['perm_reset_confirm'] = 'Soll dieses Berechtigungsschema auf das "Default" Schema zur&uuml;ckgesetzt werden?';
 $LANG['perm_save_scheme'] = 'Schema speichern';
 $LANG['perm_select_scheme'] = 'Schema ausw&auml;hlen';
 $LANG['perm_select_confirm'] = 'Soll dieses Berechtigungsschema geladen werden? Alle nicht gespeicherten &Auml;nderungen des momentanen Schemas gehen verloren.';

@@ -5,7 +5,7 @@
  * View profile page view
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -36,6 +36,20 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['profile_view_title'].$viewData['fullname']?> (<?=$viewData['username']?>)</div>
 
                <div class="panel-body">
+
+                  <?php if ($viewData['allowEdit'] OR $viewData['allowAbsum']) { ?>
+                  <div class="panel panel-default">
+                     <div class="panel-body">
+                        <?php if ($viewData['allowEdit']) { ?>
+                           <a class="btn btn-primary" tabindex="<?=$tabindex++;?>" href="index.php?action=<?=$CONF['controllers']['useredit']->name?>&amp;profile=<?=$viewData['username']?>"><?=$LANG['btn_edit']?></a>
+                        <?php } ?>
+                        <?php if ($viewData['allowAbsum']) { ?>
+                           <a class="btn btn-info" tabindex="<?=$tabindex++;?>" href="index.php?action=<?=$CONF['controllers']['absum']->name?>&amp;user=<?=$viewData['username']?>"><?=$LANG['btn_absum']?></a>
+                        <?php } ?>
+                     </div>
+                  </div>
+                  <?php } ?>
+               
                   <div class="bs-example table-responsive">
                      <table class="table table-striped table-bordered table-hover">
                         <tbody>
@@ -111,9 +125,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </tbody>
                      </table>
                   </div>
-                  
                </div>
             </div>
          </div>
       </div>      
-            

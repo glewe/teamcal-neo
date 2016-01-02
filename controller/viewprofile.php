@@ -5,7 +5,7 @@
  * View profile page controller
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -93,6 +93,18 @@ $viewData['google'] = $UO->read($U->username, 'google');
 $viewData['linkedin'] = $UO->read($U->username, 'linkedin');
 $viewData['skype'] = $UO->read($U->username, 'skype');
 $viewData['twitter'] = $UO->read($U->username, 'twitter');
+
+$viewData['allowEdit'] = false;
+if ( ($userData['isLoggedIn'] AND $userData['username'] == $viewData['username']) OR isAllowed($CONF['controllers']['useredit']->permission))
+{
+   $viewData['allowEdit'] = true;
+}
+
+$viewData['allowAbsum'] = false;
+if (isAllowed($CONF['controllers']['absum']->permission))
+{
+   $viewData['allowAbsum'] = true;
+}
 
 //=============================================================================
 //

@@ -5,7 +5,7 @@
  * The view of the calendar options page
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -48,7 +48,6 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <li class="active"><a href="#display" data-toggle="tab"><?=$LANG['calopt_tab_display']?></a></li>
                         <li><a href="#filter" data-toggle="tab"><?=$LANG['calopt_tab_filter']?></a></li>
                         <li><a href="#options" data-toggle="tab"><?=$LANG['calopt_tab_options']?></a></li>
-                        <li><a href="#remainder" data-toggle="tab"><?=$LANG['calopt_tab_remainder']?></a></li>
                         <li><a href="#stats" data-toggle="tab"><?=$LANG['calopt_tab_stats']?></a></li>
                         <li><a href="#summary" data-toggle="tab"><?=$LANG['calopt_tab_summary']?></a></li>
                      </ul>
@@ -88,17 +87,6 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                         </div>
                         
-                        <!-- Tab: Remainder -->
-                        <div class="tab-pane fade" id="remainder">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
-                                 <?php foreach($caloptData['remainder'] as $formObject) {
-                                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-                                 } ?>
-                              </div>
-                           </div>
-                        </div>
-
                         <!-- Tab: Summary -->
                         <div class="tab-pane fade" id="summary">
                            <div class="panel panel-default">

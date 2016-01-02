@@ -5,7 +5,7 @@
  * Collection of calendar related functions
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -576,6 +576,20 @@ function countBusinessDays($cntfrom, $cntto, $region = '1', $cntManDays = false)
             {
                $count++;
             }
+         }
+         elseif ($M->$weekday == 6)
+         {
+            //
+            // This is a Saturday. Check if counts as business day.
+            //
+            if ($H->isBusinessDay('2')) $count++;
+         }
+         elseif ($M->$weekday == 7)
+         {
+            //
+            // This is a Sunday. Check if counts as business day.
+            //
+            if ($H->isBusinessDay('3')) $count++;
          }
       }
       

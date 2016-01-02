@@ -5,7 +5,7 @@
  * Calendar view page controller
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -121,8 +121,9 @@ $viewData['absence'] = $LANG['all'];
 $viewData['absences'] = $A->getAll();
 $viewData['groupid'] = 'all';
 $viewData['group'] = $LANG['all'];
-$viewData['users'] = $U->getAll();
 $viewData['search'] = '';
+
+$users = $U->getAll();
 
 //=============================================================================
 //
@@ -161,13 +162,13 @@ if (!empty($_POST))
       {
          if ($_POST['sel_group'] == "all")
          {
-            $viewData['users'] = $U->getAll();
+            $users = $U->getAll();
          }
          else 
          {
             $viewData['groupval'] = $_POST['sel_group'];
             $viewData['group'] = $G->getNameById($_POST['sel_group']);
-            $viewData['users'] = $UG->getAllForGroup($_POST['sel_group']);
+            $users = $UG->getAllForGroup($_POST['sel_group']);
          }
       }
       // ,---------------,
@@ -176,18 +177,16 @@ if (!empty($_POST))
       elseif (isset($_POST['btn_search']))
       {
          $viewData['search'] = $_POST['txt_search'];
-         $viewData['users'] = $U->getAllLike($_POST['txt_search']);
+         $users = $U->getAllLike($_POST['txt_search']);
       }
       // ,----------------,
       // | Search Absence |
       // '----------------'
       elseif (isset($_POST['btn_abssearch']))
       {
-         $viewData['users'] = array();
-         $usernames = array();
          $viewData['absid'] = $_POST['sel_absence'];
          $viewData['absence'] = $A->getName($_POST['sel_absence']);
-         $viewData['users'] = $T->getUsersForAbsence(date('Y'), date('m'), intval(date('d')), $_POST['sel_absence']);
+         $users = $T->getUsersForAbsence(date('Y'), date('m'), intval(date('d')), $_POST['sel_absence']);
       }
    }
    else
@@ -211,6 +210,31 @@ if (!empty($_POST))
 $viewData['holidays'] = $H->getAllCustom();
 $viewData['groups'] = $G->getAll();
 $viewData['dayStyles'] = array();
+
+$viewData['users'] = array();
+foreach ($users as $usr)
+{
+   $allowed = false;
+   if ($usr['username']==$UL->username)
+   {
+      $allowed = true;
+   }
+   else if ( !$U->isHidden($usr['username']) )
+   {
+      if (isAllowed("calendarviewall"))
+      {
+         $allowed = true;
+      }
+      elseif (isAllowed("calendarviewgroup") AND $UG->shareGroups($usr['username'], $UL->username) )
+      {
+         $allowed = true;
+      }
+   }
+   if ($allowed)
+   {
+      $viewData['users'][] = $usr;
+   }
+}
 
 //
 // See if a month template for each user exists. If not, create one.
@@ -270,6 +294,13 @@ for ($i=1; $i<=$viewData['dateInfo']['daysInMonth']; $i++)
       $viewData['dayStyles'][$i] = $color . $bgcolor . $border;
    }
 }
+
+//
+// Get the number of business days
+//
+$cntfrom = $viewData['year'].$viewData['month'].'01';
+$cntto = $viewData['year'].$viewData['month'].$viewData['dateInfo']['daysInMonth'];
+$viewData['businessDays'] = countBusinessDays($cntfrom, $cntto, $viewData['regionid']);
 
 $todayDate = getdate(time());
 $viewData['yearToday'] = $todayDate['year'];

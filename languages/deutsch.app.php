@@ -5,7 +5,7 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -109,6 +109,15 @@ $LANG['abs_symbol_comment'] = 'Das Symbol wird im Kalender angezeigt, wenn kein 
 $LANG['abs_tab_groups'] = 'Gruppenzuordnung';
 
 //
+// Absences Summary
+//
+$LANG['absum_title'] = 'Abwesenheits&uuml;bersicht %s: %s';
+$LANG['absum_modalYearTitle'] = 'W&auml;hle, das Jahr f&uml;r die &Uuml;bersicht.';
+$LANG['absum_unlimited'] = 'Unbegrenzt';
+$LANG['absum_year'] = 'Jahr';
+$LANG['absum_year_comment'] = 'W&auml;hle, das Jahr f&uml;r die &Uuml;bersicht.';
+
+//
 // Alerts
 //
 $LANG['alert_decl_before_date'] = ": Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";
@@ -122,6 +131,7 @@ $LANG['alert_decl_total_threshold'] = ": Die generelle Abwesenheitsgrenze wurde 
 $LANG['btn_abs_edit'] = 'Bearbeiten';
 $LANG['btn_abs_icon'] = 'Icon Ausw&auml;hlen';
 $LANG['btn_abs_list'] = 'Abwesenheitstypenliste';
+$LANG['btn_absum'] = 'Abwesenheits&uuml;bersicht';
 $LANG['btn_calendar'] = 'Kalender';
 $LANG['btn_create_abs'] = 'Abwesenheitstyp anlegen';
 $LANG['btn_create_holiday'] = 'Feiertag anlegen';
@@ -144,6 +154,7 @@ $LANG['cal_selAbsence_comment'] = 'Zeigt alle Eintr&auml;ge an, die am heutigen 
 $LANG['cal_selGroup'] = 'Gruppe ausw&auml;hlen';
 $LANG['cal_selRegion'] = 'Region ausw&auml;hlen';
 $LANG['cal_summary'] = 'Summen';
+$LANG['cal_businessDays'] = 'Arbeitstage';
 
 $LANG['cal_caption_weeknumber'] = 'Kalenderwoche';
 $LANG['cal_caption_name'] = 'Name';
@@ -222,17 +233,8 @@ $LANG['calopt_hideManagers_comment'] = 'Mit dieser Option werden alle Manager in
 $LANG['calopt_hideManagerOnlyAbsences'] = 'Management Abwesenheiten verbergen';
 $LANG['calopt_hideManagerOnlyAbsences_comment'] = 'Abwesenheitstypen k&ouml;nnen als "Nur Management" markiert werden, so dass nur Manager und Direktoren sie editieren k&ouml;nnen.
       Diese Abwesenheiten werden normalen Benutzern angezeigt, sie k&ouml;nnen sie aber nicht editieren. Mit diesem Schalter k&ouml;nnen sie die Anzeige f&uuml;r normale Benutzer verbergen.';
-$LANG['calopt_includeRemainder'] = 'Resttage Spalte';
-$LANG['calopt_includeRemainder_comment'] = 'Mit dieser Option wird im Kalender eine aufklappbare Spalte mit den Resttagen hinzugef&uuml;gt, die f&uuml;r jeden Nutzer die
-      verbleibenden Tage pro Abwesenheitstyp anzeigt. Hinweis: Die Abwesenheitstypen, die in der Resttage Anzeige enthalten sein sollen, m&uuml;ssen entsprechend konfiguriert werden.';
-$LANG['calopt_includeRemainderTotal'] = 'Resttage Summe';
-$LANG['calopt_includeRemainderTotal_comment'] = 'Mit dieser Option werden der Resttage Anzeige die erlaubten Tage pro Abwesenheitstyp hinzugef&uuml;gt
-      (getrennt durch einen Schr&auml;gstrich).';
 $LANG['calopt_includeSummary'] = 'Summen Abschnitt';
 $LANG['calopt_includeSummary_comment'] = 'Mit dieser Option wird eine aufklappbare Zusammenfassung unter jedem Monat angezeigt, die die Summen der Abwesenheiten auff&uuml;hrt.';
-$LANG['calopt_includeTotals'] = 'Monatssummen anzeigen';
-$LANG['calopt_includeTotals_comment'] = 'Mit dieser Option wird in der Resttage Spalte ein weiterer Bereich mit den Monatssummen pro Abwesenheitstyp angezeigt.<br>
-      Hinweis: Die Abwesenheitstypen, die in der Summenanzeige enthalten sein sollen, m&uuml;ssen entsprechend konfiguriert werden.';
 $LANG['calopt_markConfidential'] = 'Vertrauliche Abwesenheiten Markieren';
 $LANG['calopt_markConfidential_comment'] = 'Normale Nutzer k&ouml;nnen vertrauliche Abwesenheiten anderer Nutzer nicht sehen. Mit dieser
       Option hier k&ouml;nnen diese jedoch mit einem "X" im Kalender gekennzeichnet werden, so dass deren Abwesenheit erkennbar ist.';
@@ -244,6 +246,8 @@ $LANG['calopt_repeatHeaderCount_comment'] = 'Gibt die Anzahl von Zeilen an, nach
 $LANG['calopt_satBusi'] = 'Samstag ist ein Arbeitstag';
 $LANG['calopt_satBusi_comment'] = 'Normalerweise sind Samstage und Sonntage Wochenendtage und werden entsprechend im Kalender als solche angezeigt.
       Hier kann Samstag als Arbeitstag definiert werden.';
+$LANG['config_showAvatars'] = 'Avatars anzeigen';
+$LANG['config_showAvatars_comment'] = 'Mit dieser Option wird ein User Avatar in einem Pop-Up angezeigt, wenn die Maus &uuml;ber das User Icon gef&uuml;hrt wird.';
 $LANG['calopt_showMonths'] = 'Anzahl Monate';
 $LANG['calopt_showMonths_comment'] = 'Mit dieser Option wird die Anzahl der Monate angegeben, die standardm&auml;&szlig;ig in der Kalenderansicht dargestellt werden.';
 $LANG['calopt_showMonths_1'] = '1 Monat';
@@ -251,8 +255,8 @@ $LANG['calopt_showMonths_2'] = '2 Monate';
 $LANG['calopt_showMonths_3'] = '3 Monate';
 $LANG['calopt_showMonths_6'] = '6 Monate';
 $LANG['calopt_showMonths_12'] = '12 Monate';
-$LANG['calopt_showRemainder'] = 'Resttage anzeigen';
-$LANG['calopt_showRemainder_comment'] = 'Mit dieser Option wird die Resttage Spalte standardm&auml;&szlig;ig aufgeklappt.';
+$LANG['calopt_showRoleIcons'] = 'Rollen Icons anzeigen';
+$LANG['calopt_showRoleIcons_comment'] = 'Mir dieser Option wird neben dem Benutzernamen ein Icon angezeigt, das die User Rolle anzeigt.';
 $LANG['calopt_showSummary'] = 'Summen Abschnitt anzeigen';
 $LANG['calopt_showSummary_comment'] = 'Mit dieser Option wird der Summen Abschnitt standardm&auml;&szlig;ig aufgeklappt.';
 $LANG['calopt_showUserRegion'] = 'Regionale Feiertage pro User anzeigen';
@@ -286,8 +290,6 @@ $LANG['calopt_usersPerPage'] = 'Anzahl User pro Seite';
 $LANG['calopt_usersPerPage_comment'] = 'Wenn du eine gro&szlig;e Anzahl an Usern in TeamCal Neo pflegst, bietet es sich an, die Kalenderanzeige in Seiten aufzuteilen.
       Gebe hier an, wieviel User pro Seite angezeigt werden sollen. Ein Wert von 0 zeigt alle User auf einer Seite an. Wenn du eine Seitenaufteilung w&auml;hlst,
       werden am Ende der Seite Schaltfl&auml;chen fuer das Bl&auml;ttern angezeigt.';
-$LANG['calopt_userSearch'] = 'Nutzer Suchfeld Anzeigen';
-$LANG['calopt_userSearch_comment'] = 'Aktivierung/Deaktivierung eines Suchfelds in der Kalenderanzeige, mit dem einzelne Nutzer gesucht werden k&ouml;nnen.';
 
 //
 // Declination
@@ -391,6 +393,7 @@ $LANG['mnu_view_calendar'] = 'Kalender (Monat)';
 $LANG['mnu_view_stats'] = 'Statistiken';
 $LANG['mnu_view_stats_absences'] = 'Abwesenheits-Statistik';
 $LANG['mnu_view_stats_abstype'] = 'Abwesenheitstyp-Statistik';
+$LANG['mnu_view_stats_absum'] = 'Nutzer Abwesenheits&uuml;bersicht';
 $LANG['mnu_view_stats_presences'] = 'Anwesenheits-Statistik';
 $LANG['mnu_view_stats_remainder'] = 'Resttage-Statistik';
 $LANG['mnu_view_year'] = 'Kalender (Jahr)';
@@ -418,6 +421,8 @@ $LANG['monthedit_selUser'] = 'Nutzer ausw&auml;hlen';
 //
 $LANG['perm_absenceedit_title'] = 'Abwesenheitstypen Bearbeiten';
 $LANG['perm_absenceedit_desc'] = 'Erlaubt das Listen und Bearbeiten von Abwesenheitstypen.';
+$LANG['perm_absum_title'] = 'Abwesenheits&uuml;bersicht Anzeigen';
+$LANG['perm_absum_desc'] = 'Erlaubt das Anzeigen der Abwesenheits&uuml;bersicht von Nutzern.';
 $LANG['perm_calendaredit_title'] = 'Kalender Editor';
 $LANG['perm_calendaredit_desc'] = 'Erlaubt die Benutzung des Kalendereditors. Diese Berechtigung ist mindestens erforderlich, um Kalender zu Bearbeiten.';
 $LANG['perm_calendareditall_title'] = 'Alle Kalender Bearbeiten';

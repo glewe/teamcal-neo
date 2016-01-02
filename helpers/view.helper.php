@@ -5,7 +5,7 @@
  * Collection of view related helpers
  *
  * @category TeamCal Neo 
- * @version 0.4.000
+ * @version 0.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -26,7 +26,7 @@ function createAlertBox($data)
    $alertBox = '
       <div class="alert alert-dismissable alert-'.$data['type'].'">
          <button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button>
-         <h4><strong>'.$data['title'].'!</strong></h4>
+         <h4><strong>'.$data['title'].'</strong></h4>
          <hr>
          <p><strong>'.$data['subject'].'</strong></p>
          <p>'.$data['text'].'</p>
