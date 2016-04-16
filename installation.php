@@ -1,11 +1,11 @@
 <?php
 /**
- * index.php
+ * installation.php
  * 
  * Installation script
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -62,7 +62,7 @@ $LANG['inst_dbServer_comment'] = 'Specify the URL of the database server.';
 $LANG['inst_executed'] = 'Installation already executed';
 $LANG['inst_executed_comment'] = 'The configuration file shows that the installation script was already executed for this instance.<br>
       For security reasons, if you want to run it again, you need to reset the flag in the application config file.<br>
-      Otherwise, it is highly recommended to delete the installation script from the server.<br><br><a class="btn btn-primary" href="index.php">Start TeamCal Neo</a>';
+      Otherwise, delete the installation script from the server. Then click the button below.<br><br><a class="btn btn-primary" href="index.php">Start TeamCal Neo</a>';
 $LANG['inst_lic'] = 'License Agreement';
 $LANG['inst_lic_comment'] = 'TeamCal Neo is a free open source application. However, if you want to use it you must accept the license agreements.';
 $LANG['inst_lic_gpl'] = 'I accept the General Public License';

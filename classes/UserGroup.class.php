@@ -3,7 +3,7 @@
  * UserGroup.class.php
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -18,6 +18,7 @@ class UserGroup
 {
    var $db = '';
    var $table = '';
+   var $utable = '';
    var $archive_table = '';
    var $id = NULL;
    var $username = NULL;
@@ -34,6 +35,7 @@ class UserGroup
       $this->db = $DB->db;
       $this->table = $CONF['db_table_user_group'];
       $this->archive_table = $CONF['db_table_archive_user_group'];
+      $this->utable = $CONF['db_table_users'];
    }
    
    // ---------------------------------------------------------------------
@@ -76,7 +78,7 @@ class UserGroup
     * @param string $type Type of membership (member, manager)
     * @return bool Query result or false
     */
-   function createUserGroupEntry($username, $groupid, $type)
+   function create($username, $groupid, $type)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, groupid, type) VALUES (:val1, :val2, :val3)');
       $query->bindParam('val1', $username);
@@ -350,6 +352,34 @@ class UserGroup
          while ( $row = $query->fetch() )
          {
             $records[$row['groupid']] = $row['username'];
+         }
+      }
+      return $records;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
+    * Reads all usernames of a given group
+    *
+    * @param string $groupid Group ID to search by
+    * @return array $records Array with all group records
+    */
+   function getMembers($groupid, $sort='ASC')
+   {
+      $records = array ();
+      $myQuery = 'SELECT * FROM '.$this->utable.' 
+                     INNER JOIN ('.$this->table.') ON ('.$this->table.'.username = '.$this->utable.'.username) 
+                     WHERE groupid = :val1 
+                     ORDER BY '.$this->table.'.username '. $sort;
+      $query = $this->db->prepare($myQuery);
+      $query->bindParam('val1', $groupid);
+      $result = $query->execute();
+      
+      if ($result)
+      {
+         while ( $row = $query->fetch() )
+         {
+            $records[] = $row;
          }
       }
       return $records;

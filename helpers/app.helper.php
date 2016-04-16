@@ -5,7 +5,7 @@
  * Collection of calendar related functions
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -670,17 +670,23 @@ function createMonth($year, $month, $target, $owner)
    {
       $MT = new Templates();
       $MT->username = $owner;
+      for($i = 1; $i <= $dateInfo['daysInMonth']; $i++)
+      {
+         $prop = 'abs' . $i;
+         $MT->$prop = '0';
+      }
    }
    else
    {
       return false;
    }
     
-   //echo "<script type=\"text/javascript\">alert(\"Debug: ".$MT->year.'|'.$MT->month.'|'.$MT->region."\");</script>";
-   //print_r($MT);
-    
    $MT->year = $year;
    $MT->month = sprintf("%02d", $month);
+   
+   //echo "<script type=\"text/javascript\">alert(\"Debug: ".$MT->year.'|'.$MT->month.'|'.$MT->region."\");</script>";
+   //print_r($MT);
+   
    $MT->create();
    return true;
 }

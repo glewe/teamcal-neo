@@ -3,7 +3,7 @@
  * Upload.class.php
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -40,7 +40,7 @@ class Upload
     */
    function __construct()
    {
-      global $LANG;
+      global $CONF, $LANG;
       
       $this->rename_file = false;
       $this->ext_string = "";
@@ -226,8 +226,7 @@ class Upload
    /**
     * Gets the uploaded file info
     *
-    * @param string $name
-    *           Filename to check
+    * @param string $name Filename to check
     * @return string $str File info
     */
    function getUploadedFileInfo($name)
@@ -256,7 +255,7 @@ class Upload
     */
    function isValidExtension()
    {
-      $extension = $this->getExtension($this->the_file);
+      $extension = strtolower(substr($this->getExtension($this->the_file),1)); // Remove first character dot (.)
       $ext_array = $this->extensions;
       if (in_array($extension, $ext_array))
       {
@@ -272,10 +271,8 @@ class Upload
    /**
     * Moves the uploaded temporary file to its final folder/name
     *
-    * @param string $tmp_file
-    *           Temp filename
-    * @param string $new_file
-    *           New filename
+    * @param string $tmp_file Temp filename
+    * @param string $new_file New filename
     * @return bool True if successful, false if not.
     */
    function moveUpload($tmp_file, $new_file)

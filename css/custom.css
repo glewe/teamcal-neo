@@ -4,7 +4,7 @@
  * Global custom style sheet
  *
  * @category LeAF 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -31,6 +31,7 @@ div.page-menu {
 
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
    font-family: inherit;
+   font-weight: bold;
 }
 
 #top-link-block.affix {
@@ -221,6 +222,11 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 
 .text-bold {
    font-weight: bold;
+}
+
+.tooltip-inner {
+   text-align: left;
+   max-width: 300px !important;
 }
 
 .tooltip-info+.tooltip .tooltip-inner {

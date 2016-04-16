@@ -5,7 +5,7 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -246,8 +246,8 @@ $LANG['calopt_repeatHeaderCount_comment'] = 'Gibt die Anzahl von Zeilen an, nach
 $LANG['calopt_satBusi'] = 'Samstag ist ein Arbeitstag';
 $LANG['calopt_satBusi_comment'] = 'Normalerweise sind Samstage und Sonntage Wochenendtage und werden entsprechend im Kalender als solche angezeigt.
       Hier kann Samstag als Arbeitstag definiert werden.';
-$LANG['config_showAvatars'] = 'Avatars anzeigen';
-$LANG['config_showAvatars_comment'] = 'Mit dieser Option wird ein User Avatar in einem Pop-Up angezeigt, wenn die Maus &uuml;ber das User Icon gef&uuml;hrt wird.';
+$LANG['calopt_showAvatars'] = 'Avatars anzeigen';
+$LANG['calopt_showAvatars_comment'] = 'Mit dieser Option wird ein User Avatar in einem Pop-Up angezeigt, wenn die Maus &uuml;ber das User Icon gef&uuml;hrt wird.';
 $LANG['calopt_showMonths'] = 'Anzahl Monate';
 $LANG['calopt_showMonths_comment'] = 'Mit dieser Option wird die Anzahl der Monate angegeben, die standardm&auml;&szlig;ig in der Kalenderansicht dargestellt werden.';
 $LANG['calopt_showMonths_1'] = '1 Monat';
@@ -290,6 +290,14 @@ $LANG['calopt_usersPerPage'] = 'Anzahl User pro Seite';
 $LANG['calopt_usersPerPage_comment'] = 'Wenn du eine gro&szlig;e Anzahl an Usern in TeamCal Neo pflegst, bietet es sich an, die Kalenderanzeige in Seiten aufzuteilen.
       Gebe hier an, wieviel User pro Seite angezeigt werden sollen. Ein Wert von 0 zeigt alle User auf einer Seite an. Wenn du eine Seitenaufteilung w&auml;hlst,
       werden am Ende der Seite Schaltfl&auml;chen fuer das Bl&auml;ttern angezeigt.';
+
+//
+// Database
+//
+$LANG['db_tab_tcpimp'] = 'TeamCal Pro Import';
+$LANG['db_tcpimp'] = 'TeamCal Pro Import';
+$LANG['db_tcpimp_comment'] = 'Wenn du bisher TeamCal Pro benutzt hast, kannst du Daten davon importieren. Klicke dazu den Import Button.';
+$LANG['db_tcpimp2'] = 'Aber...';
 
 //
 // Declination
@@ -450,6 +458,18 @@ $LANG['perm_statistics_title'] = 'Statistiken Anzeigen';
 $LANG['perm_statistics_desc'] = 'Erlaubt das Anzeigen der Statistik Seite.';
 
 //
+// Profile
+//
+$LANG['profile_tab_absences'] = 'Abwesenheiten';
+$LANG['profile_abs_name'] = 'Abwesenheitstyp';
+$LANG['profile_abs_allowance'] = 'Erlaubt';
+$LANG['profile_abs_carryover'] = '&Uuml;bertrag';
+$LANG['profile_abs_carryover_tt'] = 'Das &Uuml;bertragsfeld akzeptiert auch negative Werte. So kann der Verleib f&uuml;r diesen Benutzer f&uuml;r dieses Jahr reduziert werden.';
+$LANG['profile_abs_taken'] = 'Genommen';
+$LANG['profile_abs_factor'] = 'Faktor';
+$LANG['profile_abs_remainder'] = 'Verbleib';
+
+//
 // Region
 //
 $LANG['region_edit_title'] = 'Gruppe editieren: ';
@@ -468,7 +488,7 @@ $LANG['regions_title'] = 'Regionen';
 $LANG['regions_tab_list'] = 'Liste';
 $LANG['regions_tab_ical'] = 'iCal Import';
 $LANG['regions_tab_transfer'] = 'Region &uuml;bertragen';
-$LANG['regions_alert_merge_same'] = 'Die Quell- und Zielregion bei einer &Uuml;bertragung muss unterschiedlich sein.';
+$LANG['regions_alert_transfer_same'] = 'Die Quell- und Zielregion bei einer &Uuml;bertragung muss unterschiedlich sein.';
 $LANG['regions_alert_no_file'] = 'Es wurde keine iCal Datei ausgew&auml;hlt.';
 $LANG['regions_alert_region_created'] = 'Die Region wurde angelegt.';
 $LANG['regions_alert_region_created_fail'] = 'Die Region wurde nicht angelegt. Bitte &uuml;berpr&uuml;fe den "Region anlegen" Dialog nach Eingabefehlern.';
@@ -545,6 +565,100 @@ $LANG['stats_year'] = 'Jahr';
 $LANG['stats_year_comment'] = 'W&auml;hle, das Jahr f&uml;r die Statistik.';
 $LANG['stats_startDate'] = 'Eigenes Start Datum';
 $LANG['stats_startDate_comment'] = 'W&auml;hle ein eigenes Startdatum f&uuml;r die Statistik.<br>Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "'.$LANG['custom'].'" ausgew&auml;hlt sein.';
+
+//
+// TeamCal Pro Import
+//
+$LANG['tcpimp_title'] = 'TeamCal Pro Import';
+$LANG['tcpimp_tab_info'] = 'Information';
+$LANG['tcpimp_tab_tcpdb'] = 'TeamCal Pro Datenbank';
+$LANG['tcpimp_tab_import'] = 'Import';
+
+$LANG['tcpimp_add'] = 'TeamCal Neo Daten erg&auml;nzen';
+$LANG['tcpimp_btn_add_all'] = 'Alle hinzuf&uuml;gen';
+$LANG['tcpimp_btn_replace_all'] = 'Alle ersetzen';
+$LANG['tcpimp_from'] = 'TeamCal Pro 3.6.019 (oder h&ouml;her)';
+$LANG['tcpimp_no'] = 'Nicht importieren';
+$LANG['tcpimp_replace'] = 'TeamCal Neo Daten ersetzen';
+$LANG['tcpimp_to'] = 'TeamCal Neo 1.0.000';
+
+$LANG['tcpimp_alert_title'] = 'TeamCal Pro Import';
+$LANG['tcpimp_alert_fail'] = 'Eine oder mehrere TeamCal Pro Abfragen sind fehlgeschlagen. &Uuml;berpr&uuml;fe die Daten und f&uuml;hre die notwendigen Anpassungen durch. Im Datenbank Management kann ein Reset auf Beispieldaten gemacht werden.';
+$LANG['tcpimp_alert_success'] = 'Der TeamCal Pro Import war erfolgreich. &Uuml;berpr&uuml;fe die Daten und f&uuml;hre die notwendigen Anpassungen durch.';
+
+$LANG['tcpimp_info'] = '<p>TeamCal Neo wurde komplett neu programmiert. Speziell die Datenbankstrukturen haben sich ge&auml;ndert. Es ist nicht mehr kompatibel mit TeamCal Pro.
+      Es k&ouml;nnen nur Stammdaten von TeamCal Pro importiert werden. Manuelle Einstellungen in TeamCal Neo sind danach immer noch n&ouml;tig.</p>
+      <p>Es ist wichtig, dass die TeamCal Pro Instanz, von der gelesen wird, das Release '.$LANG['tcpimp_from'].' hat!</p>
+      <p>Die TeamCal Pro Datenbank wird nicht ver&auml;ndert, nur gelesen.</p>';
+
+$LANG['tcpimp_tcp_dbName'] = 'Datenbankname';
+$LANG['tcpimp_tcp_dbName_comment'] = 'Gib den Namen der existierenden TeamCal Pro Datenbank ein.';
+$LANG['tcpimp_tcp_dbUser'] = 'Benutzername';
+$LANG['tcpimp_tcp_dbUser_comment'] = 'Gib den Benutzernamen f&uuml;r die TeamCal Pro Datenbank ein.';
+$LANG['tcpimp_tcp_dbPassword'] = 'Passwort';
+$LANG['tcpimp_tcp_dbPassword_comment'] = 'Gib das Passwort f&uuml;r die TeamCal Pro Datenbank ein.';
+$LANG['tcpimp_tcp_dbPrefix'] = 'Tabellenprefix';
+$LANG['tcpimp_tcp_dbPrefix_comment'] = 'Wenn ein Tabellenprefix benutzt wird, muss er hier angegeben werden, z.B. "tcpro_".';
+$LANG['tcpimp_tcp_dbServer'] = 'Datenbankserver';
+$LANG['tcpimp_tcp_dbServer_comment'] = 'Gib die URL des Datenbankservers ein.';
+
+$LANG['tcpimp_abs'] = 'Abwesenheitstypen';
+$LANG['tcpimp_abs_comment'] = '<p>Die "z&auml;hlt als" Relationen zwischen Abwesenheitstypen k&ouml;nnen nicht importiert werden. Diese m&uuml;ssen nach dem Import manuell gesetzt werden.<br>
+      Dieser Import ist notwendig f&uuml;r diese anderen Importe:</p>
+      <ul>
+         <li>Erlaubte Abwesenheiten</li>
+      </ul>';
+$LANG['tcpimp_allo'] = 'Erlaubte Abwesenheiten';
+$LANG['tcpimp_allo_comment'] = '<p>Um die erlaubten Abwesenheiten zu importieren, m&uuml;ssen auch die folgenden Tabellen importiert werden:</p>
+      <ul>
+         <li>Abwesenheitstypen</li>
+         <li>Benutzerkonten</li>
+      </ul>';
+$LANG['tcpimp_groups'] = 'Gruppen';
+$LANG['tcpimp_groups_comment'] = '<p>Alle Gruppen werden importiert<br>
+      Dieser Import ist notwendig f&uuml;r diese anderen Importe:</p>
+      <ul>
+         <li>Gruppenmitgliedschaften</li>
+      </ul>';
+$LANG['tcpimp_hols'] = 'Feiertage';
+$LANG['tcpimp_hols_comment'] = '<p>Alle Feiertage werden importiert<br>
+      Dieser Import ist notwendig f&uuml;r diese anderen Importe:</p>
+      <ul>
+         <li>Regionenkalender</li>
+      </ul>';
+$LANG['tcpimp_mtpl'] = 'Regionenkalender';
+$LANG['tcpimp_mtpl_comment'] = '<p>Um die Regionenkalender zu importieren, m&uuml;ssen auch die folgenden Tabellen importiert werden:</p>
+      <ul>
+         <li>Feiertage</li>
+         <li>Regionen</li>
+      </ul>';
+$LANG['tcpimp_regs'] = 'Regionen';
+$LANG['tcpimp_regs_comment'] = '<p>Alle Regionen werden importiert<br>
+      Dieser Import ist notwendig f&uuml;r diese anderen Importe:</p>
+      <ul>
+         <li>Regionenkalender</li>
+      </ul>';
+$LANG['tcpimp_roles'] = 'Rollen';
+$LANG['tcpimp_roles_comment'] = 'Die Rollen "Direktor" and "Assistent" werden hinzugef&uuml;gt. Sollten auch die Benutzerkonten importiert werden, werden diese beiden Rollen entsprechend zugewiesen.';
+$LANG['tcpimp_ugr'] = 'Gruppenmitgliedschaften';
+$LANG['tcpimp_ugr_comment'] = '<p>Um die Gruppenmitgliedschaften zu importieren, m&uuml;ssen auch die folgenden Tabellen importiert werden:</p>
+      <ul>
+         <li>Gruppen</li>
+         <li>Benutzerkonten</li>
+      </ul>';
+$LANG['tcpimp_users'] = 'Benutzerkonten';
+$LANG['tcpimp_users_comment'] = '<p>Benutzerkonten und Basisoptionen werden importiert. Avatars werden nicht importiert. Wenn die TeamCal Pro Rollen nicht importiert werden, werden die Rollen auf "Administrator" oder "User" gemapped.<br>
+      Dieser Import ist notwendig f&uuml;r diese anderen Importe:</p>
+      <ul>
+         <li>Erlaubte Abwesenheiten</li>
+         <li>Gruppenmitgliedschaften</li>
+      </ul>';
+$LANG['tcpimp_utpl'] = 'Nutzerkalender';
+$LANG['tcpimp_utpl_comment'] = '<p>Um die Nutzerkalender zu importieren, m&uuml;ssen auch die folgenden Tabellen importiert werden:</p>
+      <ul>
+         <li>Abwesenheitstypen</li>
+         <li>Benutzerkonten</li>
+      </ul>';
 
 //
 // Year

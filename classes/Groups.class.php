@@ -3,7 +3,7 @@
  * Groups.class.php
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -77,7 +77,7 @@ class Groups
        
       if ($result and $query->fetchColumn())
       {
-         $query = $this->db->prepare('TRUNCATE TABLE ' . $table);
+         $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
          $result = $query->execute();
          return $result;
       }

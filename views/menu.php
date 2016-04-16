@@ -5,7 +5,7 @@
  * The view of the top navigation menu
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -132,7 +132,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                              isAllowed($CONF['controllers']['groups']->permission) OR
                              isAllowed($CONF['controllers']['roles']->permission) OR
                              isAllowed($CONF['controllers']['database']->permission) OR
-                             isAllowed($CONF['controllers']['log']->permission) OR
+                             isAllowed($CONF['controllers']['database']->permission) OR
                              isAllowed($CONF['controllers']['phpinfo']->permission) OR
                              isAllowed($CONF['controllers']['absences']->permission) OR
                              isAllowed($CONF['controllers']['holidays']->permission) OR

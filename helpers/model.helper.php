@@ -5,7 +5,7 @@
  * Collection of model related functions
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -199,7 +199,7 @@ function importUsersFromCSV($defgroup, $lock = true, $hide = true)
                   $UI->notify = 0;
                   $UI->create();
                   
-                  $UGI->createUserGroupEntry($UI->username, $defgroup, "member");
+                  $UGI->create($UI->username, $defgroup, "member");
                   
                   $UOI->create($UI->username, "owngroupsonly", "no");
                   if (strtolower($arr[10]) == "yes" || strtolower($arr[10]) == "1")

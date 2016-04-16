@@ -79,14 +79,14 @@ function ajaxCheckPath(reldir, url, where) {
 }
 
 /**
- * Calls a PHP script to check whether a path exists 
+ * Calls a PHP script to check database settings 
  *
- * @param string server = mySQL server name
- * @param string user   = mySQL user name
- * @param string pass   = mySQL password
- * @param string db     = mySQL database name
- * @param string prefix = mySQL table prefix
- * @param string where  = DOM object ID where the output goes
+ * @param string server  = mySQL server name
+ * @param string user    = mySQL user name
+ * @param string pass    = mySQL password
+ * @param string db      = mySQL database name
+ * @param string prefix  = mySQL table prefix
+ * @param string where   = DOM object ID where the output goes
  */
 function ajaxCheckDB(server, user, pass, db, prefix, where) {
    var url="helpers/ajax_checkdb.php?server="+server+"&user="+user+"&pass="+pass+"&db="+db+"&prefix="+prefix;

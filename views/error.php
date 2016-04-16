@@ -5,7 +5,7 @@
  * Error page view
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -16,7 +16,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 <!DOCTYPE html>
 <!--
 ===============================================================================
-Application: TeamCal Neo 0.3.005
+Application: TeamCal Neo
 Author:      George Lewe
 Copyright:   (c) 2014-2016
              All rights reserved.

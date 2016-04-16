@@ -3,7 +3,7 @@
  * Allowances.class.php
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -22,8 +22,7 @@ class Allowances
    var $id = NULL;
    var $username = '';
    var $absid = 0;
-   var $lastyear = 0;
-   var $curryear = 0;
+   var $carryover = 0;
    
    // ---------------------------------------------------------------------
    /**
@@ -80,7 +79,7 @@ class Allowances
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
       
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :val1');
+      $query = $this->db->prepare('SELECT COUNT(1) FROM ' . $table . ' WHERE username = :val1');
       $query->bindParam('val1', $username);
       $result = $query->execute();
       
@@ -102,29 +101,10 @@ class Allowances
     */
    function create()
    {
-      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, absid, lastyear, curryear) VALUES (:val1, :val2, :val3, :val4)');
+      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, absid, carryover) VALUES (:val1, :val2, :val3)');
       $query->bindParam('val1', $this->username);
       $query->bindParam('val2', $this->absid);
-      $query->bindParam('val3', $this->lastyear);
-      $query->bindParam('val4', $this->curryear);
-      $result = $query->execute();
-      return $result;
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
-    * Updates an allowance record from the local variables
-    *
-    * @return bool Query result
-    */
-   function update()
-   {
-      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET username = :val1, absid = :val2, lastyear = :val3, curryear = :val4 WHERE id = :val5');
-      $query->bindParam('val1', $this->username);
-      $query->bindParam('val2', $this->absid);
-      $query->bindParam('val3', $this->lastyear);
-      $query->bindParam('val4', $this->curryear);
-      $query->bindParam('val5', $this->id);
+      $query->bindParam('val3', $this->carryover);
       $result = $query->execute();
       return $result;
    }
@@ -224,8 +204,7 @@ class Allowances
          $this->id = $row['id'];
          $this->username = $row['username'];
          $this->absid = $row['absid'];
-         $this->lastyear = $row['lastyear'];
-         $this->curryear = $row['curryear'];
+         $this->carryover = $row['carryover'];
          return true;
       }
       else
@@ -236,59 +215,50 @@ class Allowances
    
    // ---------------------------------------------------------------------
    /**
-    * Updates the last year amount for a user/absence
+    * Saves an allowance record (either creates or updates it)
     *
-    * @param string $username Username to find
-    * @param string $absid Absence ID to find
-    * @param integer $lastyear New value for last year
     * @return bool Query result
     */
-   function updateLastyear($username, $absid, $lastyear)
+   function save()
    {
-      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET lastyear = :val1 WHERE username = :val2 AND absid = :val3');
-      $query->bindParam('val1', $lastyear);
-      $query->bindParam('val2', $username);
-      $query->bindParam('val3', $absid);
+      $query = $this->db->prepare('SELECT COUNT(1) FROM ' . $this->table . ' WHERE username = :val1 AND absid = :val2');
+      $query->bindParam('val1', $this->username);
+      $query->bindParam('val2', $this->absid);
+      $result = $query->execute();
+      
+      if ($result and $query->fetchColumn())
+      {
+         $query = $this->db->prepare('UPDATE ' . $this->table . ' SET carryover = :val3 WHERE username = :val1 AND absid = :val2');
+         $query->bindParam('val1', $this->username);
+         $query->bindParam('val2', $this->absid);
+         $query->bindParam('val3', $this->carryover);
+      }
+      else
+      {
+         $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, absid, carryover) VALUES (:val1, :val2, :val3)');
+         $query->bindParam('val1', $this->username);
+         $query->bindParam('val2', $this->absid);
+         $query->bindParam('val3', $this->carryover);
+      }
+      
       $result = $query->execute();
       return $result;
    }
    
    // ---------------------------------------------------------------------
    /**
-    * Updates the current year amount for a user/absence
+    * Updates an allowance record from the local variables
     *
-    * @param string $username Username to find
-    * @param string $absid Absence ID to find
-    * @param integer $curryear New value for current year
     * @return bool Query result
     */
-   function updateCurryear($username, $absid, $curryear)
+   function update()
    {
-      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET curryear = :val1 WHERE username = :val2 AND absid = :val3');
-      $query->bindParam('val1', $curryear);
-      $query->bindParam('val2', $username);
-      $query->bindParam('val3', $absid);
-      $result = $query->execute();
-      return $result;
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
-    * Updates the ast year and current year amount for a user/absence
-    *
-    * @param string $username Username to find
-    * @param string $absid Absence ID to find
-    * @param integer $lastyear New value for last year
-    * @param integer $curryear New value for current year
-    * @return bool Query result
-    */
-   function updateAllowance($username, $absid, $lastyear, $curryear)
-   {
-      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET lastyear = :val1, curryear = :val2 WHERE username = :val3 AND absid = :val4');
-      $query->bindParam('val1', $lastyear);
-      $query->bindParam('val2', $curryear);
-      $query->bindParam('val3', $username);
-      $query->bindParam('val4', $absid);
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET username = :val1, absid = :val2, carryover = :val3 WHERE id = :val4');
+      $query->bindParam('val1', $this->username);
+      $query->bindParam('val2', $this->absid);
+      $query->bindParam('val3', $this->carryover);
+      $query->bindParam('val4', $this->id);
+      
       $result = $query->execute();
       return $result;
    }

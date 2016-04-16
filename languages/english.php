@@ -5,7 +5,7 @@
  * Language file (English)
  *
  * @category LeAF 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -26,6 +26,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 //
 $LANG['action'] = 'Action';
 $LANG['all'] = 'All';
+$LANG['attention'] = 'Attention';
 $LANG['auto'] = 'Automatic';
 $LANG['avatar'] = 'Avatar';
 $LANG['back_to_top'] = 'Back to top';
@@ -54,6 +55,20 @@ $LANG['monthnames'] = array (
    "October",
    "November",
    "December" 
+);
+$LANG['monthShort'] = array (
+   1 => "Jan",
+   "Feb",
+   "Mar",
+   "Apr",
+   "May",
+   "Jun",
+   "Jul",
+   "Aug",
+   "Sep",
+   "Oct",
+   "Nov",
+   "Dec" 
 );
 $LANG['name'] = 'Name';
 $LANG['none'] = 'None';
@@ -133,6 +148,11 @@ $LANG['alert_captcha_wrong_help'] = 'The Captcha code must be entered as display
 $LANG['alert_controller_not_found_subject'] = 'Controller not found';
 $LANG['alert_controller_not_found_text'] = 'The controller "%1%" could not be found.';
 $LANG['alert_controller_not_found_help'] = 'Please check your installation. The file does not exist or you may not have permission to read it.';
+
+$LANG['alert_decl_before_date'] = ": Absence changes before the following date are not allowed: ";
+$LANG['alert_decl_group_threshold'] = ": Group absence threshold reached for your group(s): ";
+$LANG['alert_decl_period'] = ": Absence changes in the following period are not allowed: ";
+$LANG['alert_decl_total_threshold'] = ": Total absence threshold reached.";
 
 $LANG['alert_input'] = 'Input validation failed';
 $LANG['alert_input_alpha'] = 'This field allows alphabetical characters only.';
@@ -245,6 +265,7 @@ $LANG['btn_region_list'] = 'Show Region List';
 $LANG['btn_register'] = 'Register';
 $LANG['btn_remove'] = 'Remove';
 $LANG['btn_reset'] = 'Reset';
+$LANG['btn_reset_database'] = 'Reset Database';
 $LANG['btn_reset_password'] = 'Reset Password';
 $LANG['btn_reset_password_selected'] = 'Reset password of selected';
 $LANG['btn_restore'] = 'Restore';
@@ -418,12 +439,16 @@ $LANG['db_tab_cleanup'] = 'Clean up';
 $LANG['db_tab_delete'] = 'Delete records';
 $LANG['db_tab_admin'] = 'Administration';
 $LANG['db_tab_optimize'] = 'Optimize tables';
+$LANG['db_tab_reset'] = 'Reset database';
 
 $LANG['db_alert_delete'] = 'Record Deletion';
 $LANG['db_alert_delete_success'] = 'The delete activities have been performed.';
 $LANG['db_alert_failed'] = 'The operation could not be performed. Please check your input.';
 $LANG['db_alert_optimize'] = 'Optimize Tables';
 $LANG['db_alert_optimize_success'] = 'All database tables were optimized.';
+$LANG['db_alert_reset'] = 'Reset Database';
+$LANG['db_alert_reset_fail'] = 'One or more queries failed. Your database maybe incomplete or corrupt.';
+$LANG['db_alert_reset_success'] = 'Your database was successfully reset with sample data.';
 $LANG['db_alert_url'] = 'Save Database URL';
 $LANG['db_alert_url_fail'] = 'Please enter a valid URL for the database application.';
 $LANG['db_alert_url_success'] = 'The database application URL was saved successfully.';
@@ -443,6 +468,10 @@ $LANG['db_del_what'] = 'What to delete';
 $LANG['db_del_what_comment'] = 'Select here what you want to delete.';
 $LANG['db_optimize'] = 'Optimize Database Tables';
 $LANG['db_optimize_comment'] = 'Reorganizes the physical storage of table data and associated index data, to reduce storage space and improve I/O efficiency when accessing the tables.';
+$LANG['db_reset_danger'] = '<strong>Danger!</strong> Resetting the database will delete ALL your data!!';
+$LANG['db_resetString'] = 'Database Reset Confirmation String';
+$LANG['db_resetString_comment'] = 'Resetting the database will replace all your information with the installation sample database.<br>
+      Type the following in the text box to confirm your decision: "YesIAmSure".';
 
 //
 // E-Mail
@@ -466,15 +495,23 @@ $LANG['email_subject_user_account_registered'] = $CONF['app_name'] . ' User Acco
 //
 // Error Messages
 //
-$LANG['alert_decl_before_date'] = ": Absence changes before the following date are not allowed: ";
-$LANG['alert_decl_group_threshold'] = ": Group absence threshold reached for your group(s): ";
-$LANG['alert_decl_period'] = ": Absence changes in the following period are not allowed: ";
-$LANG['alert_decl_total_threshold'] = ": Total absence threshold reached.";
+$LANG['error_title'] = 'Application Error';
+
+$LANG['error_installation_script'] = 'Installation Script Exists';
+$LANG['error_installation_script_text'] = '<p>The installation script "installation.php" still exists in TeamCal Neo\'s root directory while "config/config.app.php" indicates that an installation has been performed</p>
+      <p>TeamCal Neo will not start until either one has been resolved:</p>
+      <ol>
+         <li>Delete or rename "installation.php"</li>
+         <li>Set $CONF[\'app_installed\'] to 0 in "config/config.app.php"</li>
+      </ol>';
 
 //
 // Group
 //
 $LANG['group_edit_title'] = 'Edit Group: ';
+$LANG['group_tab_settings'] = 'Group Settings';
+$LANG['group_tab_members'] = 'Group Members';
+
 $LANG['group_alert_edit'] = 'Update group';
 $LANG['group_alert_edit_success'] = 'The information for this group was updated.';
 $LANG['group_alert_save_failed'] = 'The new information for this group could not be saved. There was invalid input. Please check for error messages.';
@@ -482,6 +519,10 @@ $LANG['group_name'] = 'Name';
 $LANG['group_name_comment'] = '';
 $LANG['group_description'] = 'Description';
 $LANG['group_description_comment'] = '';
+$LANG['group_managers'] = 'Managers of this group';
+$LANG['group_managers_comment'] = 'Select the managers of this group.';
+$LANG['group_members'] = 'Members of this group';
+$LANG['group_members_comment'] = 'Select the members of this group.';
 
 //
 // Groups
@@ -609,6 +650,7 @@ $LANG['login_error_4_text'] = 'This was bad attempt number %1%. After %2% bad at
 $LANG['login_error_6_text'] = 'This account is on hold due to too many bad login attempts. The grace period ends in %1% seconds.';
 $LANG['login_error_7'] = 'Username or password incorrect';
 $LANG['login_error_7_text'] = 'The username and/or password you entered are not correct. Please try again.';
+$LANG['login_error_8'] = 'Account not verified';
 $LANG['login_error_8_text'] = 'Your account is not verified yet. You may have received an E-mail with a verification link.';
 $LANG['login_error_91'] = 'LDAP error: Password missing';
 $LANG['login_error_92'] = 'LDAP error: Authentication/Bind failed';

@@ -3,7 +3,7 @@
  * Users.class.php
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -488,6 +488,25 @@ class Users
          }
       }
       return true;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
+    * Checks whether a user has a certain role
+    *
+    * @param string $username Username to find
+    * @param string $role Role to set
+    * @return boolean True or False
+    */
+   function setRole($username, $role)
+   {
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET role = :val1 WHERE username = :val2');
+      $query->bindParam('val1', $role);
+      $query->bindParam('val2', $username);
+      $result = $query->execute();
+      
+      if ($result) return true;
+      else         return false;
    }
    
    // ---------------------------------------------------------------------

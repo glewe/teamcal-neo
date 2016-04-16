@@ -3,7 +3,7 @@
  * Roles.class.php
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -207,6 +207,30 @@ class Absences
    
    // ----------------------------------------------------------------------
    /**
+    * Gets the allowance of an absence type
+    *
+    * @param string $id Record ID
+    * @return string Absence type allowance
+    */
+   function getAllowance($id = '')
+   {
+      $rc = '0';
+      if (isset($id))
+      {
+         $query = $this->db->prepare('SELECT allowance FROM ' . $this->table . ' WHERE id = :val1');
+         $query->bindParam('val1', $id);
+         $result = $query->execute();
+         
+         if ($result and $row = $query->fetch())
+         {
+            $rc = $row['allowance'];
+         }
+      }
+      return $rc;
+   }
+   
+   // ----------------------------------------------------------------------
+   /**
     * Gets the approval required value of an absence type
     *
     * @param string $id Record ID
@@ -275,6 +299,46 @@ class Absences
          }
       }
       return $rc;
+   }
+   
+   // ----------------------------------------------------------------------
+   /**
+    * Gets an absence type record
+    *
+    * @param string $name Absence type name
+    * @return bool $result Query result
+    */
+   function getByName($name = '')
+   {
+      $result = 0;
+      if (isset($name))
+      {
+         $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name = :val1');
+         $query->bindParam('val1', $name);
+         $result = $query->execute();
+         
+         if ($result and $row = $query->fetch())
+         {
+            $this->id = $row['id'];
+            $this->name = $row['name'];
+            $this->symbol = $row['symbol'];
+            $this->icon = $row['icon'];
+            $this->color = $row['color'];
+            $this->bgcolor = $row['bgcolor'];
+            $this->bgtrans = $row['bgtrans'];
+            $this->factor = $row['factor'];
+            $this->allowance = $row['allowance'];
+            $this->counts_as = $row['counts_as'];
+            $this->show_in_remainder = $row['show_in_remainder'];
+            $this->show_totals = $row['show_totals'];
+            $this->approval_required = $row['approval_required'];
+            $this->counts_as_present = $row['counts_as_present'];
+            $this->manager_only = $row['manager_only'];
+            $this->hide_in_profile = $row['hide_in_profile'];
+            $this->confidential = $row['confidential'];
+         }
+      }
+      return $result;
    }
    
    // ----------------------------------------------------------------------

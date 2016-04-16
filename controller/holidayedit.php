@@ -5,7 +5,7 @@
  * Holiday edit page controller
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -173,8 +173,8 @@ $viewData['businessday'] = $HH->businessday;
 $viewData['holiday'] = array (
    array ( 'prefix' => 'hol', 'name' => 'name', 'type' => 'text', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
    array ( 'prefix' => 'hol', 'name' => 'description', 'type' => 'text', 'value' => $viewData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
-   array ( 'prefix' => 'hol', 'name' => 'color', 'type' => 'color', 'value' => $viewData['color'], 'maxlength' => '6', 'error' =>  (isset($inputAlert['color'])?$inputAlert['color']:'') ),
-   array ( 'prefix' => 'hol', 'name' => 'bgcolor', 'type' => 'color', 'value' => $viewData['bgcolor'], 'maxlength' => '6', 'error' =>  (isset($inputAlert['bgcolor'])?$inputAlert['bgcolor']:'') ),
+   array ( 'prefix' => 'hol', 'name' => 'color', 'type' => 'color', 'value' => $viewData['color'], 'maxlength' => '6', 'mandatory' => true, 'error' =>  (isset($inputAlert['color'])?$inputAlert['color']:'') ),
+   array ( 'prefix' => 'hol', 'name' => 'bgcolor', 'type' => 'color', 'value' => $viewData['bgcolor'], 'maxlength' => '6', 'mandatory' => true, 'error' =>  (isset($inputAlert['bgcolor'])?$inputAlert['bgcolor']:'') ),
    array ( 'prefix' => 'hol', 'name' => 'businessday', 'type' => 'check', 'value' => $viewData['businessday'] ),
 );
 

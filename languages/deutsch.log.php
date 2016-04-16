@@ -5,7 +5,7 @@
  * Log language file (German)
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -78,6 +78,16 @@ $LANG['log_region_deleted'] = 'Region gel&ouml;scht: ';
 $LANG['log_role_created'] = 'Rolle angelegt: ';
 $LANG['log_role_updated'] = 'Rolle aktualisiert: ';
 $LANG['log_role_deleted'] = 'Rolle gel&ouml;scht: ';
+$LANG['log_tcpimp_abs'] = 'TeamCal Pro Abwesenheitstypen importiert';
+$LANG['log_tcpimp_allo'] = 'TeamCal Pro Erlaubte Abwesenheiten importiert';
+$LANG['log_tcpimp_groups'] = 'TeamCal Pro Gruppen importiert';
+$LANG['log_tcpimp_hols'] = 'TeamCal Pro Feiertage importiert';
+$LANG['log_tcpimp_mtpl'] = 'TeamCal Pro Regionenkalender importiert';
+$LANG['log_tcpimp_regs'] = 'TeamCal Pro Regionen importiert';
+$LANG['log_tcpimp_roles'] = 'TeamCal Pro Rollen importiert';
+$LANG['log_tcpimp_ugr'] = 'TeamCal Pro Gruppenmitgliedschaften importiert';
+$LANG['log_tcpimp_users'] = 'TeamCal Pro Benutzerkonten importiert';
+$LANG['log_tcpimp_utpl'] = 'TeamCal Pro Nutzerkalender importiert';
 $LANG['log_user_added'] = 'Benutzer anegelegt: ';
 $LANG['log_user_updated'] = 'Benutzerprofil aktualisiert: ';
 $LANG['log_user_deleted'] = 'Benutzer gel&ouml;scht: ';

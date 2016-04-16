@@ -5,7 +5,7 @@
  * Group edit page view
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -45,13 +45,39 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <a href="index.php?action=groups" class="btn btn-default pull-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_group_list']?></a>
                         </div>
                      </div>
+
+                     <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                        <li class="active"><a href="#tab_settings" data-toggle="tab"><?=$LANG['group_tab_settings']?></a></li>
+                        <li><a href="#tab_members" data-toggle="tab"><?=$LANG['group_tab_members']?></a></li>
+                     </ul>
+
+                     <div id="myTabContent" class="tab-content">
                      
-                     <div class="panel panel-default">
-                        <div class="panel-body">
-                           <?php foreach($viewData['group'] as $formObject) {
-                              echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-                           } ?>
+                        <!-- Group Settings -->
+                        <div class="tab-pane fade active in" id="tab_settings">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                                 <?php foreach($viewData['group'] as $formObject) {
+                                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                                 } ?>
+                              </div>
+                           </div>
                         </div>
+                        
+                        <!-- Group Members -->
+                        <div class="tab-pane fade" id="tab_members">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                                 <?php foreach($viewData['members'] as $formObject) {
+                                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                                 } ?>
+                                 <?php foreach($viewData['managers'] as $formObject) {
+                                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                                 } ?>
+                              </div>
+                           </div>
+                        </div>
+                        
                      </div>
                      
                      <div class="panel panel-default">

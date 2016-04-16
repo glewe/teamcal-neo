@@ -5,7 +5,7 @@
  * Roles page view
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -81,7 +81,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   <?php foreach ($viewData['roles'] as $role) { ?>
                   <form  class="bs-example form-control-horizontal" name="form_<?=$role['name']?>" action="index.php?action=roles" method="post" target="_self" accept-charset="utf-8">
                      <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-                        <div class="col-lg-3"><?=$role['name']?></div>
+                        <div class="col-lg-3"><span class="glyphicon glyphicon-menu glyphicon-user text-<?=$role['color']?>" style="margin-right: 8px;"></span><?=$role['name']?></div>
                         <div class="col-lg-7"><?=$role['description']?></div>
                         <div class="col-lg-2 text-right">
                            <?php

@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -59,7 +59,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 $CONF['controllers'] = array (
    //
-   // LeAF Controllers
+   // LeAF Controllers (Lewe Application Framework)
    //
    'about' => new Controller('about', 'info-circle', 'info', 'default', ''),
    'config' => new Controller('config', 'cog', 'default', 'primary', 'admin'),
@@ -72,14 +72,14 @@ $CONF['controllers'] = array (
    'log' => new Controller('log', 'list-ol', 'info', 'info', 'admin'),
    'login' => new Controller('login', 'sign-in', 'success', 'default', ''),
    'maintenance' => new Controller('maintenance', 'wrench', 'danger', 'danger', ''),
-   'messages' => new Controller('messages', 'comments-o', 'info', 'default', 'messageview'),
-   'messageedit' => new Controller('messageedit', 'comment-o', 'danger', 'danger', 'messageedit'),
-   'permissions' => new Controller('permissions', 'lock', 'danger', 'danger', 'admin'),
-   'phpinfo' => new Controller('phpinfo', 'cogs', 'default', 'default', 'admin'),
+   'messages' => new Controller('messages', 'comments-o', 'info', 'info', 'messageview'),
+   'messageedit' => new Controller('messageedit', 'comment-o', 'info', 'info', 'messageedit'),
+   'permissions' => new Controller('permissions', 'lock', 'danger', 'primary', 'admin'),
+   'phpinfo' => new Controller('phpinfo', 'cogs', 'default', 'primary', 'admin'),
    'register' => new Controller('register', 'pencil', 'warning', 'success', ''),
    'roles' => new Controller('roles', 'group', 'warning', 'primary', 'roles'),
    'roleedit' => new Controller('roleedit', 'edit', 'warning', 'danger', 'roles'),
-   'upload' => new Controller('upload', 'upload', 'warning', 'warning', 'upload'),
+   'upload' => new Controller('upload', 'upload', 'warning', 'primary', 'upload'),
    'users' => new Controller('users', 'user', 'primary', 'primary', 'admin'),
    'useredit' => new Controller('useredit', 'edit', 'warning', 'warning', 'admin'),
    'useradd' => new Controller('useradd', 'edit', 'warning', 'warning', 'admin'),
@@ -92,7 +92,7 @@ $CONF['controllers'] = array (
    'absences' => new Controller('absences', 'check-square-o', 'primary', 'primary', 'absenceedit'),
    'absenceedit' => new Controller('absenceedit', 'check-square-o', 'warning', 'warning', 'absenceedit'),
    'absenceicon' => new Controller('absenceicon', 'file-image-o', 'primary', 'primary', 'absenceedit'),
-   'absum' => new Controller('absum', 'list-ol', 'primary', 'primary', 'absum'),
+   'absum' => new Controller('absum', 'list-ol', 'primary', 'default', 'absum'),
    'calendarview' => new Controller('calendarview', 'calendar', 'danger', 'primary', 'calendarview'),
    'calendaredit' => new Controller('calendaredit', 'calendar-o', 'danger', 'primary', 'calendaredit'),
    'calendaroptions' => new Controller('calendaroptions', 'wrench', 'primary', 'primary', 'calendaroptions'),
@@ -106,6 +106,7 @@ $CONF['controllers'] = array (
    'statsabstype' => new Controller('statsabstype', 'bar-chart', 'info', 'default', 'statistics'),
    'statspresence' => new Controller('statspresence', 'bar-chart', 'success', 'default', 'statistics'),
    'statsremainder' => new Controller('statsremainder', 'bar-chart', 'warning', 'default', 'statistics'),
+   'tcpimport' => new Controller('tcpimport', 'upload', 'warning', 'warning', 'admin'),
    'year' => new Controller('year', 'calendar', 'info', 'primary', 'calendarview'),
 );
 ?>

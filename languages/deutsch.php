@@ -5,7 +5,7 @@
  * Language file (German)
  *
  * @category LeAF 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -13,17 +13,20 @@
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
-/**
- * LeAF Language
- * Go to the bottom of this file to enter your application language strings.
- * 
- */
+//=============================================================================
+//
+// LeAF LANGUAGE
+// The following are the Lewe Appliation Framework language entries. To easier
+// update the framework at a later point, go to the bottom of this file to 
+// enter your application language strings to keep them separate.
+//
 
-/**
- * Common
- */
+//
+// Common
+//
 $LANG['action'] = 'Aktion';
 $LANG['all'] = 'Alle';
+$LANG['attention'] = 'Achtung';
 $LANG['auto'] = 'Automatisch';
 $LANG['avatar'] = 'Avatar';
 $LANG['back_to_top'] = 'Zur&uuml;ck zum Anfang';
@@ -52,6 +55,20 @@ $LANG['monthnames'] = array (
    "Oktober",
    "November",
    "Dezember" 
+);
+$LANG['monthShort'] = array (
+   1 => "Jan",
+   "Feb",
+   "M&auml;r",
+   "Apr",
+   "Mai",
+   "Jun",
+   "Jul",
+   "Aug",
+   "Sep",
+   "Okt",
+   "Nov",
+   "Dez" 
 );
 $LANG['name'] = 'Name';
 $LANG['none'] = 'Keine/r';
@@ -101,9 +118,9 @@ $LANG['weekdayLong'] = array (
    "Sonntag" 
 );
 
-/**
- * About
- */
+//
+// About
+//
 $LANG['about_version'] = 'Version';
 $LANG['about_copyright'] = 'Copyright';
 $LANG['about_license'] = 'Lizenz';
@@ -115,9 +132,9 @@ $LANG['about_and'] = 'und';
 $LANG['about_misc'] = 'viele Nutzer f&uuml;r Tests und Vorschl&auml;ge...';
 $LANG['about_view_releaseinfo'] = 'Releaseinfo &raquo;';
 
-/**
- * Alerts
- */
+//
+// Alerts
+//
 $LANG['alert_alert_title'] = 'ALARM';
 $LANG['alert_danger_title'] = 'FEHLER';
 $LANG['alert_info_title'] = 'INFORMATION';
@@ -131,6 +148,11 @@ $LANG['alert_captcha_wrong_help'] = 'Der Sicherheitscode muss genau wie angezeig
 $LANG['alert_controller_not_found_subject'] = 'Controller nicht gefunden';
 $LANG['alert_controller_not_found_text'] = 'Der Controller "%1%" konnte nicht gefunden werden.';
 $LANG['alert_controller_not_found_help'] = 'Bitte &uuml;berpr&uuml;fe die Installation. Die Datei existiert nicht oder es fehlt die n&ouml;tige Berechtigung f&uuml;r den Zugriff.';
+
+$LANG['alert_decl_before_date'] = ": Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";
+$LANG['alert_decl_group_threshold'] = ": Die Abwesenheitsgrenze wurde erreicht für die Gruppe(n): ";
+$LANG['alert_decl_period'] = ": Abwesenheits&auml;nderungen in folgendem Zeitraum sind nicht erlaubt: ";
+$LANG['alert_decl_total_threshold'] = ": Die generelle Abwesenheitsgrenze wurde erreicht.";
 
 $LANG['alert_input'] = 'Eingabevalidierung fehlgeschlagen';
 $LANG['alert_input_alpha'] = 'Diese Feld erlaubt nur eine Eingabe von alphabetischen Zeichen.';
@@ -161,6 +183,7 @@ $LANG['alert_input_pwdhigh'] = 'Das Passwort muss mindestens 8 Zeichen lang sein
       Erlaubt sind Klein- und Gro&szlig;buchstaben, Zahlen und die folgenden Sonderzeichen: !@#$%^&amp;*()';
 $LANG['alert_input_regex_match'] = 'Die Eingabe dieses Feldes entsprach nicht dem regul&auml;ren Ausdruck "%s".';
 $LANG['alert_input_required'] = 'Dieses Feld ist eine Pflichteingabe.';
+$LANG['alert_input_validation_subject'] = 'Eingabevalidierung';
 
 $LANG['alert_maintenance_subject'] = 'Website in Wartung';
 $LANG['alert_maintenance_text'] = 'Die Website is zurzeit auf "Unter Wartung" gesetzt. Normale Nutzer k&ouml;nnen keine Funktionen nutzen.';
@@ -185,9 +208,9 @@ $LANG['alert_reg_mismatch'] = 'Der Verfizierungscode stimmt nicht mit dem &uuml;
 $LANG['alert_reg_no_user'] = 'Der Benutzername konnte nicht gefunden werden. Wurde er registriert?';
 $LANG['alert_reg_no_vcode'] = 'Ein Verfizierungscode konnte nicht gefunden werden. Wurde er registriert?';
 
-/**
- * Buttons
- */
+//
+// Buttons
+//
 $LANG['btn_abs_edit'] = 'Bearbeiten';
 $LANG['btn_abs_icon'] = 'Icon Ausw&auml;hlen';
 $LANG['btn_abs_list'] = 'Abwesenheitstypenliste';
@@ -242,6 +265,7 @@ $LANG['btn_role_list'] = 'Regionsliste';
 $LANG['btn_register'] = 'Registrieren';
 $LANG['btn_remove'] = 'Entfernen';
 $LANG['btn_reset'] = 'Zur&uuml;cksetzen';
+$LANG['btn_reset_database'] = 'Datenbank zur&uuml;cksetzen';
 $LANG['btn_reset_password'] = 'Passwort zur&uuml;cksetzen';
 $LANG['btn_reset_password_selected'] = 'Auswahl Passwort zur&uuml;cksetzen';
 $LANG['btn_restore'] = 'Wiederherstellen';
@@ -254,15 +278,16 @@ $LANG['btn_send'] = 'Senden';
 $LANG['btn_showcalendar'] = 'Kalender anzeigen';
 $LANG['btn_submit'] = 'Abschicken';
 $LANG['btn_switch'] = 'Anwenden';
+$LANG['btn_testdb'] = 'Datenbank testen';
 $LANG['btn_transfer'] = '&Uuml;bertragen';
 $LANG['btn_update'] = 'Aktualisieren';
 $LANG['btn_user_list'] = 'Benutzerliste';
 $LANG['btn_upload'] = 'Hochladen';
 $LANG['btn_view'] = 'Anzeigen';
 
-/**
- * Config
- */
+//
+// Config
+//
 $LANG['config_title'] = 'Framework Konfiguration';
 
 $LANG['config_tab_email'] = 'E-mail';
@@ -401,25 +426,29 @@ $LANG['config_userManual_comment'] = $appTitle . '\'s Nutzerhandbuch ist in Engl
 $LANG['config_welcomeText'] = 'Willkommen Seite Text';
 $LANG['config_welcomeText_comment'] = 'Hier kann ein ein Text f&uuml;r die Startseite eingegeben werden.';
 
-/**
- * Config App
- */
+//
+// Config App
+//
 $LANG['configapp_title'] = 'Applikations-Konfiguration';
 
-/**
- * Database
- */
+//
+// Database
+//
 $LANG['db_title'] = 'Datenbank Verwaltung';
 $LANG['db_tab_cleanup'] = 'Aufr&auml;umen';
 $LANG['db_tab_delete'] = 'Datens&auml;tze l&ouml;schen';
 $LANG['db_tab_admin'] = 'Verwaltung';
 $LANG['db_tab_optimize'] = 'Tabellen optimieren';
+$LANG['db_tab_reset'] = 'Datenbank zur&uuml;cksetzen';
 
 $LANG['db_alert_delete'] = 'Datens&auml;tze L&ouml;schen';
 $LANG['db_alert_delete_success'] = 'Die L&ouml;schungen wurden durchgef&uuml;hrt.';
 $LANG['db_alert_failed'] = 'Die Operation konnte nicht durchgef&uuml;hrt werden. Bitte &uuml;berpr&uuml;fe deine Eingaben.';
 $LANG['db_alert_optimize'] = 'Tabellen optimieren';
 $LANG['db_alert_optimize_success'] = 'Alle Datenbanktabellen wurden optimiert.';
+$LANG['db_alert_reset'] = 'Datenbank zur&uuml;cksetzen';
+$LANG['db_alert_reset_fail'] = 'Eine oder mehrere SQL Anweisungen sind fehlgeschlagen. Die Datenbank k&ouml;nnte unvollst&auml;ndig oder korrupt sein.';
+$LANG['db_alert_reset_success'] = 'Die Datenbank wurde erfolgreich auf die Beispieldaten zur&uuml;ckgesetzt.';
 $LANG['db_alert_url'] = 'Datenbank Verwaltungs-URL';
 $LANG['db_alert_url_fail'] = 'Bitte gib eine g&uuml;ltige URL f&uuml;r die Datenbankverwaltung ein.';
 $LANG['db_alert_url_success'] = 'Die URL zur Datenbankverwaltung wurde erfolgreich gespeichert.';
@@ -439,10 +468,14 @@ $LANG['db_del_what'] = 'Was soll gel&ouml;scht werden?';
 $LANG['db_del_what_comment'] = 'Gebe hier an, was gel&ouml;scht werden soll.';
 $LANG['db_optimize'] = 'Datenbanktabellen optimieren';
 $LANG['db_optimize_comment'] = 'Reorganisiert die Tabellendaten und deren Indexinformationen in der Datenbank, um Speicherplatz zu reduzieren und die I/O Effizienz zu verbessern.';
+$LANG['db_reset_danger'] = '<strong>Achtung!</strong> Alle aktuellen Daten werden durch das Zur&uuml;cksetzen gel&ouml;scht!!';
+$LANG['db_resetString'] = 'Best&auml;tigung';
+$LANG['db_resetString_comment'] = 'Das Zur&uuml;cksetzen der Datenbank wird alle Daten mit den Beispieldaten der Applikation ersetzen.<br>
+      Gebe den folgenden Text zur Best&auml;tigung ein: "YesIAmSure".';
 
-/**
- * E-Mail
- */
+//
+// E-Mail
+//
 $LANG['email_subject_group_changed'] = $CONF['app_name'] . ' Gruppe ge&auml;ndert';
 $LANG['email_subject_group_created'] = $CONF['app_name'] . ' Gruppe angelegt';
 $LANG['email_subject_group_deleted'] = $CONF['app_name'] . ' Gruppe gel&ouml;scht';
@@ -459,18 +492,26 @@ $LANG['email_subject_user_account_needs_approval'] = $CONF['app_name'] . ' Benut
 $LANG['email_subject_user_account_mismatch'] = $CONF['app_name'] . ' Benutzerkonto Verifizierungsfehler';
 $LANG['email_subject_user_account_registered'] = $CONF['app_name'] . ' Benutzerkonto registriert';
 
-/**
- * Error messages
- */
-$LANG['alert_decl_before_date'] = ": Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";
-$LANG['alert_decl_group_threshold'] = ": Die Abwesenheitsgrenze wurde erreicht für die Gruppe(n): ";
-$LANG['alert_decl_period'] = ": Abwesenheits&auml;nderungen in folgendem Zeitraum sind nicht erlaubt: ";
-$LANG['alert_decl_total_threshold'] = ": Die generelle Abwesenheitsgrenze wurde erreicht.";
+//
+// Error messages
+//
+$LANG['error_title'] = 'Applicationsfehler';
 
-/**
- * Group
- */
+$LANG['error_installation_script'] = 'Installationsscript Existiert';
+$LANG['error_installation_script_text'] = '<p>Das Installationsscript "installation.php" befindet sich noch in TeamCal Neo\'s Verzeichnis, obwohl "config/config.app.php" eine ausgef&uuml;hrte Installation meldet.</p>
+      <p>TeamCal Neo kann ohne Behebung diese Fehlers nicht starten:</p>
+      <ol>
+         <li>L&ouml;sche oder umbenenne "installation.php"</li>
+         <li>Setze $CONF[\'app_installed\'] auf 0 in "config/config.app.php"</li>
+      </ol>';
+
+//
+// Group
+//
 $LANG['group_edit_title'] = 'Gruppe editieren: ';
+$LANG['group_tab_settings'] = 'Einstellungen';
+$LANG['group_tab_members'] = 'Mitgliedschaften';
+
 $LANG['group_alert_edit'] = 'Gruppe aktualisieren';
 $LANG['group_alert_edit_success'] = 'Die Informationen f&uuml;r diese Gruppe wurden aktualisiert.';
 $LANG['group_alert_save_failed'] = 'Die neuen Informationen f&uuml;r diese Gruppe konnten nicht gespeichert werden. Es gab fehlerhafte Eingaben. Bitte pr&uuml;fe die Fehlermeldungen.';
@@ -478,10 +519,14 @@ $LANG['group_name'] = 'Name';
 $LANG['group_name_comment'] = '';
 $LANG['group_description'] = 'Beschreibung';
 $LANG['group_description_comment'] = '';
+$LANG['group_managers'] = 'Manager dieser Gruppe';
+$LANG['group_managers_comment'] = 'W&auml;hle die Manager dieser Gruppe aus.';
+$LANG['group_members'] = 'Mitglieder dieser Gruppe';
+$LANG['group_members_comment'] = 'W&auml;hle die Mitglieder dieser Gruppe aus.';
 
-/**
- * Groups
- */
+//
+// Groups
+//
 $LANG['groups_title'] = 'Gruppen';
 $LANG['groups_alert_group_created'] = 'Die Gruppe wurde angelegt.';
 $LANG['groups_alert_group_created_fail'] = 'Die Gruppe wurde nicht angelegt. Bitte &uuml;berpr&uuml;fe den "Gruppe anlegen" Dialog nach Eingabefehlern.';
@@ -490,15 +535,15 @@ $LANG['groups_confirm_delete'] = 'Bist du sicher, dass du diese Gruppe l&ouml;sc
 $LANG['groups_description'] = 'Beschreibung';
 $LANG['groups_name'] = 'Name';
 
-/**
- * Home Page
- */
+//
+// Home Page
+//
 $LANG['home_title'] = 'Willkommen bei ' . $appTitle;
 
-/**
- * Imprint
- * You can add more arrays here in order to display them on the Imprint page
- */
+//
+// Imprint
+// You can add more arrays here in order to display them on the Imprint page
+//
 $LANG['imprint'] = array ( 
    array (
       'title' => 'Author',
@@ -556,9 +601,9 @@ if ( $C->read('googleAnalytics') AND $C->read("googleAnalyticsID")) {
    );
 }
       
-/**
- * Log
- */
+//
+// Log
+//
 $LANG['log_title'] = 'System Logbuch';
 $LANG['log_title_events'] = 'Ereignisse';
 
@@ -587,9 +632,9 @@ $LANG['log_settings_show'] = 'Ereignistyp anzeigen';
 $LANG['log_sort_asc'] = 'Aufsteigend sortieren...';
 $LANG['log_sort_desc'] = 'Absteigend sortieren...';
 
-/**
- * Login
- */
+//
+// Login
+//
 $LANG['login_login'] = $appTitle . ' Login';
 $LANG['login_username'] = 'Benutzername:';
 $LANG['login_password'] = 'Passwort:';
@@ -605,7 +650,8 @@ $LANG['login_error_4_text'] = 'Das Passwort ist falsch. Dies war Fehlversuch Num
 $LANG['login_error_6_text'] = 'Dieser Account ist wegen zu vieler falscher Loginversuche vor&uuml;bergehend gesperrt. Die Grace Periode endet in %1% Sekunden.';
 $LANG['login_error_7'] = 'Benutzername oder Passwort inkorrekt';
 $LANG['login_error_7_text'] = 'Der Benutzername oder das Passwort waren nicht korrekt. Bitte versuche es erneut.';
-$LANG['login_error_8'] = 'Konto nicht verifiziert. Du solltest eine E-Mail mit einem Verfizierungslink erhalten haben.';
+$LANG['login_error_8'] = 'Konto Verifizierung';
+$LANG['login_error_8_text'] = 'Konto nicht verifiziert. Du solltest eine E-Mail mit einem Verfizierungslink erhalten haben.';
 $LANG['login_error_91'] = 'LDAP Fehler: Passwort fehlt';
 $LANG['login_error_92'] = 'LDAP Fehler: Authentifizierung fehlgeschlagen';
 $LANG['login_error_92_text'] = 'Die LDAP Authentifizierung/Bindung ist fehlgeschlagen. Bitte versuche es erneut.';
@@ -617,15 +663,15 @@ $LANG['login_error_95'] = 'LDAP Fehler: Benutzername nicht gefunden';
 $LANG['login_error_96'] = 'LDAP Fehler: "Search bind" fehlgeschlagen';
 $LANG['login_error_96_text'] = 'Der LDAP "Search bind" ist fehlgeschlagen. Bitte versuche es erneut.';
 
-/**
- * Maintenance
- */
+//
+// Maintenance
+//
 $LANG['mtce_title'] = 'Unter Wartung';
 $LANG['mtce_text'] = 'Wir f&uuml;hren gerade Wartungsarbeiten an der Site durch. Wir entschuldigen die Unanehmlichkeit. Bitte versuche es sp&auml;ter nochmal...';
 
-/**
- * Menu
- */
+//
+// Menu
+//
 $LANG['mnu_app'] = $appTitle;
 $LANG['mnu_app_homepage'] = 'Startseite';
 $LANG['mnu_app_language'] = 'Sprache';
@@ -655,9 +701,9 @@ $LANG['mnu_user_register'] = 'Registrieren';
 $LANG['mnu_user_logout'] = 'Logout';
 $LANG['mnu_user_profile'] = 'User Profil';
 
-/**
- * Messages
- */
+//
+// Messages
+//
 $LANG['msg_title'] = 'Benachrichtigungen f&uuml;r: ';
 $LANG['msg_title_edit'] = 'Benachrichtigung Erstellen';
 $LANG['msg_code'] = 'Sicherheitscode';
@@ -703,14 +749,14 @@ $LANG['msg_type_email'] = 'E-Mail';
 $LANG['msg_type_silent'] = 'Stille Benachrichtigung';
 $LANG['msg_type_popup'] = 'Prompt Benachrichtigung';
 
-/**
- * Modal dialogs
- */
+//
+// Modal dialogs
+//
 $LANG['modal_confirm'] = 'Bitte Best&auml;tigen';
 
-/**
- * Password rules
- */
+//
+// Password rules
+//
 $LANG['password_rules_low'] = '<br>Die Passwort Sicherheit ist zurzeit auf "Niedrig" eingestellt. Daraus ergeben sich folgende Regeln:<br>
      - Mindestens 4 Zeichen<br>';
 $LANG['password_rules_medium'] = '<br>Die Passwort Sicherheit ist zurzeit auf "Medium" eingestellt. Daraus ergeben sich folgende Regeln:<br>
@@ -725,9 +771,9 @@ $LANG['password_rules_high'] = '<br>Die Passwort Sicherheit ist zurzeit auf "Hoc
       - Mindestens eine Zahl<br>
       - Mindestens ein Sonderzeichen<br>';
 
-/**
- * Permissions
- */
+//
+// Permissions
+//
 $LANG['perm_title'] = 'Berechtigungsschema';
 $LANG['perm_tab_general'] = 'Allgemein';
 $LANG['perm_tab_features'] = 'Funktionen';
@@ -773,14 +819,14 @@ $LANG['perm_viewprofile_title'] = 'Nutzerprofil Anzeigen';
 $LANG['perm_viewprofile_desc'] = 'Erlaubt den Zugriff auf die Nutzerprofil-Anzeige-Seite mit Basisinformationen wie Name oder Telefonnummer. Das Anzeigen von User Popups ist 
       ebenfalls abh&auml;ngig von dieser Berechtigung.';
 
-/**
- * Phpinfo
- */
+//
+// Phpinfo
+//
 $LANG['phpinfo_title'] = 'PHP Info';
 
-/**
- * Profile
- */
+//
+// Profile
+//
 $LANG['profile_create_title'] = 'Neues Benutzerkonto anlegen';
 $LANG['profile_create_mail'] = 'E-Mail an Benutzer senden';
 $LANG['profile_create_mail_comment'] = 'Sendet eine E-Mail an den angelegten Benutzer.';
@@ -868,9 +914,9 @@ $LANG['profile_verify'] = '<i class="glyphicon glyphicon-menu glyphicon-exclamat
 $LANG['profile_verify_comment'] = 'Wenn der Benutzer sich selbst registriert hat, aber die Best&auml;tigung noch nicht durchgef&uuml;hrt hat, gilt dieser Zustand. Der Account ist angelegt
       aber gesperrt. Hier kann dieser Zustand manuell aufgehoben werden.';
 
-/**
- * Register
- */
+//
+// Register
+//
 $LANG['register_title'] = 'Benutzer Registrierung';
 $LANG['register_alert_success'] = 'Das Benutzerkonto wurde registriert und eine E-mail mit den entsprechenden Informationen versendet.';
 $LANG['register_alert_failed'] = 'Die Registrierung ist fehlgeschlagen. Bitte &uuml;ber&uuml;fe die Eingaben.';
@@ -888,9 +934,9 @@ $LANG['register_password2_comment'] = 'Wiederhole hier das Passwort.';
 $LANG['register_username'] = 'Loginname';
 $LANG['register_username_comment'] = 'Der Loginname kann f&uuml;r existierende Benutzerkonten nicht ge&auml;ndert werden.';
 
-/**
- * Role
- */
+//
+// Role
+//
 $LANG['role_edit_title'] = 'Rolle editieren: ';
 $LANG['role_alert_edit'] = 'Rolle aktualisieren';
 $LANG['role_alert_edit_success'] = 'Die Informationen f&uuml;r diese Rolle wurden aktualisiert.';
@@ -909,21 +955,21 @@ $LANG['role_name_comment'] = '';
 $LANG['role_description'] = 'Beschreibung';
 $LANG['role_description_comment'] = '';
 
-/**
- * Roles
- */
+//
+// Roles
+//
 $LANG['roles_title'] = 'Rollen';
-$LANG['roles_alert_role_created'] = 'Die Rollee wurde angelegt.';
-$LANG['roles_alert_role_created_fail_input'] = 'Die Rolle wurde nicht angelegt. Bitte &uuml;berpr&uuml;fe den "Rolle anlegen" Dialog nach Eingabefehlern.';
-$LANG['roles_alert_role_created_fail_duplicate'] = 'Die Rolle wurde nicht angelegt. Eine Rolle mit diesem Namen existiert bereits.';
-$LANG['roles_alert_role_deleted'] = 'Die Rolle wurde gel&ouml;scht.';
+$LANG['roles_alert_created'] = 'Die Rollee wurde angelegt.';
+$LANG['roles_alert_created_fail_input'] = 'Die Rolle wurde nicht angelegt. Bitte &uuml;berpr&uuml;fe den "Rolle anlegen" Dialog nach Eingabefehlern.';
+$LANG['roles_alert_created_fail_duplicate'] = 'Die Rolle wurde nicht angelegt. Eine Rolle mit diesem Namen existiert bereits.';
+$LANG['roles_alert_deleted'] = 'Die Rolle wurde gel&ouml;scht.';
 $LANG['roles_confirm_delete'] = 'Bist du sicher, dass du diese Rolle l&ouml;schen willst?';
 $LANG['roles_description'] = 'Beschreibung';
 $LANG['roles_name'] = 'Name';
 
-/**
- * Status Bar
- */
+//
+// Status Bar
+//
 $LANG['status_logged_in'] = 'Du bist eingeloggt als ';
 $LANG['status_logged_out'] = 'Nicht eingeloggt';
 $LANG['status_ut_user'] = 'Regul&auml;rer Nutzer';
@@ -932,9 +978,9 @@ $LANG['status_ut_director'] = 'Direktor';
 $LANG['status_ut_assistant'] = 'Assistent';
 $LANG['status_ut_admin'] = 'Administrator';
 
-/**
- * Upload
- */
+//
+// Upload
+//
 $LANG['upload_title'] = 'Dateien Hochladen';
 $LANG['upload_tab_image'] = 'Bilder';
 $LANG['upload_tab_doc'] = 'Dokumente';
@@ -964,9 +1010,9 @@ $LANG['upload_images'] = 'Hochgeladene Bilder';
 $LANG['upload_images_comment'] = 'Dies sind die bisher hochgeladenen Bilder. Hier werden sie in einer Gr&ouml;&szlig;e von 80x80 Pixeln dargestellt. Ein Klick auf das Bild zeigt es in Originalgr&ouml;&szlig;e.';
 $LANG['upload_maxsize'] = 'Maximale Dateigr&ouml;&szlig;e';
 
-/**
- * Users
- */
+//
+// Users
+//
 $LANG['users_title'] = 'Benutzerkonten';
 $LANG['users_alert_archive_selected_users'] = 'Die ausgew&auml;hlten Nutzer wurden archiviert.';
 $LANG['users_alert_archive_selected_users_failed'] = 'Ein oder mehr Benutzer existieren bereits im Archive. Das kann der gleiche Benutzer oder einer mit selbem Benutzernamen sein.<br>Bitte l&ouml;sche diese archivierten Benutzer zuerst.';
@@ -989,9 +1035,9 @@ $LANG['users_tab_active'] = 'Aktive Nutzer';
 $LANG['users_tab_archived'] = 'Archivierte Nutzer';
 $LANG['users_user'] = 'Nutzer';
 
-/**
- * Application Language
- * 
- * Enter your own log language variables below this line.
- */
+//
+// Custom Language
+// 
+// Enter your own log language variables below this line.
+//
 ?>

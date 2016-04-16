@@ -5,7 +5,7 @@
  * User edit page controller
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -76,6 +76,7 @@ if (!$allowed)
 // VARIABLE DEFAULTS
 //
 $inputAlert = array();
+$absences = $A->getAll();
 
 //=============================================================================
 //
@@ -158,7 +159,7 @@ if (!empty($_POST))
          }
          else 
          {
-            $UO->save($profile, 'language', 'default');
+            $UO->save($profile, 'theme', 'default');
          }
          
          if (isset($_POST['chk_menuBarInverse']) && $_POST['chk_menuBarInverse']) 
@@ -242,6 +243,20 @@ if (!empty($_POST))
          else
          {
             if (!$UO->read($profile, 'avatar')) $UO->save($profile, 'avatar', 'noavatar_male.png');
+         }
+          
+         //
+         // Allowance
+         //
+         if (isAllowed("useraccount"))
+         {
+            foreach ($absences as $abs)
+            {
+               $AL->username = $profile;
+               $AL->absid = $abs['id'];
+               $AL->carryover = $_POST['txt_'.$abs['id'].'_carryover'];
+               $AL->save();
+            }
          }
           
          $UP->update($profile);
@@ -373,6 +388,9 @@ $viewData['notifycalgroup'] = $UO->read($profile, 'notifycalgroup');
 
 $groups = $G->getAll();
 
+//
+// Personal
+//
 $viewData['personal'] = array (
    array ( 'prefix' => 'profile', 'name' => 'username', 'type' => 'text', 'value' => $UP->username, 'maxlength' => '80', 'disabled' => true, 'mandatory' => true, 'error' =>  (isset($inputAlert['username'])?$inputAlert['username']:'') ),
    array ( 'prefix' => 'profile', 'name' => 'lastname', 'type' => 'text', 'value' => $UP->lastname, 'maxlength' => '80', 'error' =>  (isset($inputAlert['lastname'])?$inputAlert['lastname']:'') ),
@@ -383,6 +401,9 @@ $viewData['personal'] = array (
    array ( 'prefix' => 'profile', 'name' => 'gender', 'type' => 'radio', 'values' => array ('male', 'female'), 'value' => $UO->read($profile, 'gender') ),
 );
 
+//
+// Contact
+//
 $viewData['contact'] = array (
    array ( 'prefix' => 'profile', 'name' => 'email', 'type' => 'text', 'value' => $UP->email, 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['email'])?$inputAlert['email']:'') ),
    array ( 'prefix' => 'profile', 'name' => 'phone', 'type' => 'text', 'value' => $UO->read($profile, 'phone'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['phone'])?$inputAlert['phone']:'') ),
@@ -394,12 +415,14 @@ $viewData['contact'] = array (
    array ( 'prefix' => 'profile', 'name' => 'twitter', 'type' => 'text', 'value' => $UO->read($profile, 'twitter'), 'maxlength' => '80' ),
 );
 
+//
+// Options
+//
 $viewData['languageList'][] = array ('val' => "default", 'name' => "Default", 'selected' => ($UO->read($profile, 'language') == "default")?true:false );
 foreach ($appLanguages as $appLang)
 {
    $viewData['languageList'][] = array ('val' => $appLang, 'name' => proper($appLang), 'selected' => ($UO->read($profile, 'language') == $appLang)?true:false );
 }
-
 $viewData['options'] = array ();
 if ($C->read('allowUserTheme'))
 {
@@ -413,6 +436,14 @@ if ($C->read('allowUserTheme'))
 }
 $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'language', 'type' => 'list', 'values' => $viewData['languageList'] );
 
+//
+// Avatar
+//
+$viewData['avatars'] = getFiles($CONF['app_avatar_dir'], NULL, 'is_');
+
+//
+// Account
+//
 $roles = $RO->getAll();
 foreach ($roles as $role)
 {
@@ -425,29 +456,64 @@ $viewData['account'] = array (
    array ( 'prefix' => 'profile', 'name' => 'verify', 'type' => 'check', 'values' => '', 'value' => $UP->verify ),
 );
 
+//
+// Groups
+//
 $viewData['memberships'][] = array('val' => '0', 'name' => $LANG['none'], 'selected' => !$UG->isGroupMember($viewData['profile']));
 foreach ($groups as $group)
 {
    $viewData['memberships'][] = array('val' => $group['id'], 'name' => $group['name'], 'selected' => ($UG->isMemberOfGroup($viewData['profile'], $group['id']))?true:false);
 }
+
 $viewData['managerships'][] = array('val' => '0', 'name' => $LANG['none'], 'selected' => !$UG->isGroupManager($viewData['profile']));
 foreach ($groups as $group)
 {
    $viewData['managerships'][] = array('val' => $group['id'], 'name' => $group['name'], 'selected' => ($UG->isGroupManagerOfGroup($viewData['profile'], $group['id']))?true:false);
 }
+
 if (isAllowed("groupmemberships")) $disabled = false; else $disabled = true;
 $viewData['groups'] = array (
    array ( 'prefix' => 'profile', 'name' => 'memberships', 'type' => 'listmulti', 'values' => $viewData['memberships'], 'disabled' => $disabled ),
    array ( 'prefix' => 'profile', 'name' => 'managerships', 'type' => 'listmulti', 'values' => $viewData['managerships'], 'disabled' => $disabled ),
 );
 
+//
+// Password
+//
 $LANG['profile_password_comment'] .= $LANG['password_rules_'.$C->read('pwdStrength')];
 $viewData['password'] = array (
    array ( 'prefix' => 'profile', 'name' => 'password', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['password'])?$inputAlert['password']:'') ),
    array ( 'prefix' => 'profile', 'name' => 'password2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['password2'])?$inputAlert['password2']:'') ),
 );
 
-$viewData['avatars'] = getFiles($CONF['app_avatar_dir'], NULL, 'is_');
+//
+// Allowances
+//
+$countFrom = date('Y').'0101';
+$countTo = date('Y').'1231';
+foreach ($absences as $abs)
+{
+   $allowance = $abs['allowance'];
+   if ($AL->find($viewData['profile'], $abs['id'])) 
+   {
+      $carryover = $AL->carryover;
+   }
+   else 
+   {
+      $carryover = 0;
+   }
+   $taken = countAbsence($viewData['profile'], $abs['id'], $countFrom, $countTo, false, false);
+   $remainder = $allowance + $carryover - ($taken * $abs['factor']);
+   $viewData['abs'][] = array(
+      'id' => $abs['id'],
+      'name' => $abs['name'],
+      'allowance' => $allowance,
+      'carryover' => $carryover,
+      'taken' => $taken,
+      'factor' => $abs['factor'],
+      'remainder' => $remainder
+   );
+}
 
 //=============================================================================
 //

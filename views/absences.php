@@ -5,7 +5,7 @@
  * Absence type list page view
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -69,7 +69,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <form  class="bs-example form-control-horizontal" name="form_<?=$absence['id']?>" action="index.php?action=<?=$CONF['controllers'][$controller]->name?>" method="post" target="_self" accept-charset="utf-8">
                         <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                            <div class="col-lg-1">
-                              <div style="color: #<?=$absence['color']?>; background-color: #<?=$absence['bgcolor']?>; border: 1px solid #333333; width: 26px; height: 26px; text-align: center; padding-top: 2px;">
+                              <?php if($absence['bgtrans']) $bgstyle=""; else $bgstyle="background-color: #".$absence['bgcolor'].";";?>
+                              <div style="color: #<?=$absence['color']?>;<?=$bgstyle?>border: 1px solid #333333; width: 26px; height: 26px; text-align: center; padding-top: 2px;">
                                  <?php if ($absence['icon'] != "No") { ?>
                                     <span class="fa fa-<?=$absence['icon']?>"></span>
                                  <?php } else { ?>

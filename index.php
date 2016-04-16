@@ -3,7 +3,7 @@
  * index.php
  * 
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -61,7 +61,6 @@ $L    = new Login();
 $LOG  = new Log();
 $MSG  = new Messages();
 $P    = new Permissions();
-$R    = new Regions();
 $RO   = new Roles();
 $U    = new Users();
 $UG   = new UserGroup();
@@ -77,6 +76,7 @@ $AL   = new Allowances();
 $D    = new Daynotes();
 $H    = new Holidays();
 $M    = new Months();
+$R    = new Regions();
 $T    = new Templates();
 $UL   = new Users(); // For the currently logged in user
 
@@ -103,6 +103,7 @@ require_once (WEBSITE_ROOT . '/helpers/app.helper.php');
 // VARIABLE DEFAULTS
 //
 require_once (WEBSITE_ROOT . '/config/config.vars.php');
+$configAppFile = "config/config.app.php";
 $showAlert = false;
 $appTitle = $C->read('appTitle');
 $language = $C->read("defaultLanguage");
@@ -179,10 +180,92 @@ if ($luser = $L->checkLogin() AND (isset($_GET['action']) AND $_GET['action'] !=
 
 //=============================================================================
 //
+// COMPARE LANGUAGES
+// Set condition to true for debug
+//
+if (false)
+{
+   $lang1 = "english";
+   $lang2 = "deutsch";
+   
+   require (WEBSITE_ROOT . '/languages/' . $lang1 . '.php');     // Framework
+   require (WEBSITE_ROOT . '/languages/' . $lang1 . '.app.php'); // Application
+   $lang1Array = $LANG;
+   
+   unset($LANG);
+   
+   require (WEBSITE_ROOT . '/languages/' . $lang2 . '.php');     // Framework
+   require (WEBSITE_ROOT . '/languages/' . $lang2 . '.app.php'); // Application
+   $lang2Array = $LANG;
+
+   $errorData['title'] = 'Debug Info';
+   $errorData['subject'] = '<h4>Language File Comparison</h4>';
+   $errorData['text'] = '<p><strong>The following language keys exist in "'.$lang1.'" but not in "'.$lang2.':</strong></p>';
+   foreach ($lang1Array as $key => $val) 
+   {
+      if ( !array_key_exists($key,$lang2Array) ) 
+      {
+         $errorData['text'] .= '<p>['.$key.']</p>';
+      }
+   }
+
+   $errorData['text'] .= '<p><strong>The following language keys exist in "'.$lang2.'" but not in "'.$lang1.':</strong></p>';
+   foreach ($lang2Array as $key => $val) 
+   {
+      if ( !array_key_exists($key,$lang1Array) ) 
+      {
+         $errorData['text'] .= '<p>['.$key.']</p>';
+      }
+   }
+   require (WEBSITE_ROOT . '/views/error.php');
+   die();
+}
+
+//=============================================================================
+//
 // LOAD LANGUAGE
 //
 require_once (WEBSITE_ROOT . '/languages/' . $language . '.php');     // Framework
 require_once (WEBSITE_ROOT . '/languages/' . $language . '.app.php'); // Application
+
+//=============================================================================
+//
+// CHECK INSTALLATION SCRIPT
+//
+if (file_exists('installation.php'))
+{
+   if (!readConfig("app_installed",$configAppFile))
+   {
+      header("Location: installation.php");
+   }
+   else
+   {
+      //
+      // Installation.php found after installation
+      //
+      $errorData['title'] = $LANG['error_title'];
+      $errorData['subject'] = $LANG['error_installation_script'];
+      $errorData['text'] = $LANG['error_installation_script_text'];
+      require (WEBSITE_ROOT . '/views/error.php');
+      die();
+   }
+}
+
+//=============================================================================
+//
+// CHECK UPDATE SCRIPT
+//
+if (file_exists('tcpupdate.php'))
+{
+   //
+   // Tcpupdate.php found
+   //
+   $errorData['title'] = $LANG['error_title'];
+   $errorData['subject'] = $LANG['error_update_script'];
+   $errorData['text'] = $LANG['error_update_script_text'];
+   require (WEBSITE_ROOT . '/views/error.php');
+   die();
+}
 
 //=============================================================================
 //

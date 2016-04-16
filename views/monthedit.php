@@ -5,7 +5,7 @@
  * Month edit page view
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -36,6 +36,30 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <input name="hidden_month" type="hidden" class="text" value="<?=$viewData['month']?>">
             <input name="hidden_region" type="hidden" class="text" value="<?=$viewData['regionid']?>">
 
+            <?php 
+            if ($viewData['month']==1) 
+            {
+               $pageBwdYear = $viewData['year'] - 1;
+               $pageBwdMonth = '12'; 
+               $pageFwdYear = $viewData['year']; 
+               $pageFwdMonth = sprintf('%02d', $viewData['month'] + 1); 
+            }
+            elseif ($viewData['month']==12) 
+            {
+               $pageBwdYear = $viewData['year']; 
+               $pageBwdMonth = sprintf('%02d', $viewData['month'] - 1); 
+               $pageFwdYear = $viewData['year'] + 1; 
+               $pageFwdMonth = '01'; 
+            }
+            else 
+            {
+               $pageBwdYear = $viewData['year']; 
+               $pageFwdYear = $viewData['year']; 
+               $pageBwdMonth = sprintf('%02d', $viewData['month'] - 1); 
+               $pageFwdMonth = sprintf('%02d', $viewData['month'] + 1); 
+            }
+            ?>
+                        
             <div class="page-menu">
                <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>"><span class="fa fa-angle-double-left"></span></a>
                <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>"><span class="fa fa-angle-double-right"></span></a>

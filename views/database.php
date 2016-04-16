@@ -5,7 +5,7 @@
  * Database page view
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -42,6 +42,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <li class="active"><a href="#tab_optimize" data-toggle="tab"><?=$LANG['db_tab_optimize']?></a></li>
                         <li><a href="#tab_delete" data-toggle="tab"><?=$LANG['db_tab_delete']?></a></li>
                         <li><a href="#tab_admin" data-toggle="tab"><?=$LANG['db_tab_admin']?></a></li>
+                        <li><a href="#tab_reset" data-toggle="tab"><?=$LANG['db_tab_reset']?></a></li>
+                        <li><a href="#tab_tcpimp" data-toggle="tab"><?=$LANG['db_tab_tcpimp']?></a></li>
                      </ul>
                      
                      <div id="myTabContent" class="tab-content">
@@ -50,12 +52,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade active in" id="tab_optimize">
                            <div class="panel panel-default">
                               <div class="panel-body">
-
                                  <div class="form-group">
-                                    <label class="col-lg-12 control-label">
-                                       <?=$LANG['db_optimize']?><br>
-                                       <span class="text-normal"><?=$LANG['db_optimize_comment']?></span>
-                                    </label>
+                                    <div class="col-lg-12">
+                                       <h4><?=$LANG['db_optimize']?></h4>
+                                       <div class="text-normal"><?=$LANG['db_optimize_comment']?></div>
+                                    </div>
                                  </div>
                                  <div class="divider"><hr></div>
                                  <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" name="btn_optimize"><?=$LANG['btn_optimize_tables']?></button>
@@ -70,10 +71,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <div class="panel-body">
                               
                                  <div class="form-group">
-                                    <label class="col-lg-<?=$colsleft?> control-label">
-                                       <?=$LANG['db_del_what']?><br>
-                                       <span class="text-normal"><?=$LANG['db_del_what_comment']?></span>
-                                    </label>
+                                    <div class="col-lg-<?=$colsleft?>">
+                                       <div class="text-bold"><?=$LANG['db_del_what']?></div>
+                                       <div class="text-normal"><?=$LANG['db_del_what_comment']?></div>
+                                    </div>
                                     <div class="col-lg-<?=$colsright?>">
                                        <div class="checkbox">
                                           <label><input name="chk_delUsers" value="chk_delUsers" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['db_del_users']?></label>
@@ -101,10 +102,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  <div class="divider"><hr></div>
 
                                  <div class="form-group">
-                                    <label class="col-lg-<?=$colsleft?> control-label">
-                                       <?=$LANG['db_confirm']?><br>
-                                       <span class="text-normal"><?=$LANG['db_del_confirm_comment']?></span>
-                                    </label>
+                                    <div class="col-lg-<?=$colsleft?>">
+                                       <div class="text-bold"><?=$LANG['db_confirm']?></div>
+                                       <div class="text-normal"><?=$LANG['db_del_confirm_comment']?></div>
+                                    </div>
                                     <div class="col-lg-<?=$colsright?>">
                                        <input class="form-control" tabindex="<?=$tabindex++?>" name="txt_deleteConfirm" maxlength="6" value="" type="text">
                                        <?php if ( isset($inputAlert["deleteConfirm"]) AND strlen($inputAlert["deleteConfirm"]) ) { ?> 
@@ -124,20 +125,57 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="tab-pane fade" id="tab_admin">
                            <div class="panel panel-default">
                               <div class="panel-body">
-
                                  <div class="form-group">
-                                    <label for="dbURL" class="col-lg-12 control-label">
-                                       <?=$LANG['db_dbURL']?><br>
-                                       <span class="text-normal"><?=$LANG['db_dbURL_comment']?></span>
-                                    </label>
+                                    <div class="col-lg-12">
+                                       <h4><?=$LANG['db_dbURL']?></h4>
+                                       <div class="text-normal"><?=$LANG['db_dbURL_comment']?></div>
+                                    </div>
                                     <div class="col-lg-12 control-label">
-                                       <input id="dbURL" class="form-control" tabindex="37" name="txt_dbURL" maxlength="160" value="<?=$viewData['dbURL']?>" type="text"><br>
+                                       <input id="dbURL" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_dbURL" maxlength="160" value="<?=$viewData['dbURL']?>" type="text"><br>
                                        <button type="submit" class="btn btn-danger" tabindex="<?=$tabindex++;?>" name="btn_saveURL"><?=$LANG['btn_save']?></button>
                                     </div>
                                  </div>                                 
                                  <div class="divider"><hr></div>
                                  <a href="<?=$C->read('dbURL')?>" class="btn btn-info" tabindex="<?=$tabindex++;?>" target="_blank"><?=$LANG['db_application']?></a>
-                                 
+                              </div>
+                           </div>
+                        </div>
+
+                        <!-- Reset tab -->
+                        <div class="tab-pane fade" id="tab_reset">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                                 <div class="alert alert-danger"><?=$LANG['db_reset_danger']?></div>
+                                 <div class="form-group">
+                                    <div class="col-lg-8">
+                                       <div class="text-bold"><?=$LANG['db_resetString']?></div>
+                                       <div class="text-normal"><?=$LANG['db_resetString_comment']?></div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                       <input id="dbResetString" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_dbResetString" maxlength="40" value="" type="text"><br>
+                                    </div>
+                                 </div>                                 
+                                 <div class="divider"><hr></div>
+                                 <button type="submit" class="btn btn-danger" tabindex="<?=$tabindex++;?>" name="btn_reset"><?=$LANG['btn_reset_database']?></button>
+                              </div>
+                           </div>
+                        </div>
+
+                        <!-- TeamCal Pro Import tab -->
+                        <div class="tab-pane fade" id="tab_tcpimp">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                                 <div class="form-group">
+                                    <div class="col-lg-12">
+                                       <h4><?=$LANG['db_tcpimp']?></h4>
+                                       <div class="text-normal"><?=$LANG['db_tcpimp_comment']?></div>
+                                       <div class="text-normal">&nbsp;</div>
+                                       <h4><?=$LANG['db_tcpimp2']?></h4>
+                                       <div class="text-normal"><?=$LANG['tcpimp_info']?></div>
+                                    </div>
+                                 </div>                                 
+                                 <div class="divider"><hr></div>
+                                 <a href="index.php?action=tcpimport" class="btn btn-primary" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_import']?></a>
                               </div>
                            </div>
                         </div>

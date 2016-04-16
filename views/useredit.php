@@ -5,7 +5,7 @@
  * User edit page view
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -58,6 +58,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <?php } ?>
                         <li><a href="#groups" data-toggle="tab"><?=$LANG['profile_tab_groups']?></a></li>
                         <li><a href="#setpassword" data-toggle="tab"><?=$LANG['profile_tab_password']?></a></li>
+                        <li><a href="#absences" data-toggle="tab"><?=$LANG['profile_tab_absences']?></a></li>
                      </ul>
                      
                      <div id="myTabContent" class="tab-content">
@@ -180,6 +181,32 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                         </div>
       
+                        <!-- Absences tab -->
+                        <div class="tab-pane fade" id="absences">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                                 <div class="col-lg-2"><strong><?=$LANG['profile_abs_name']?></strong></div>
+                                 <div class="col-lg-2"><div class="text-bold text-center"><?=$LANG['profile_abs_allowance']?></div></div>
+                                 <div class="col-lg-2"><div class="text-bold text-center"><?=$LANG['profile_abs_carryover']?>&nbsp;<?=iconTooltip($LANG['profile_abs_carryover_tt'],$LANG['profile_abs_carryover'])?></div></div>
+                                 <div class="col-lg-2"><div class="text-bold text-center"><?=$LANG['profile_abs_taken']?></div></div>
+                                 <div class="col-lg-2"><div class="text-bold text-center"><?=$LANG['profile_abs_factor']?></div></div>
+                                 <div class="col-lg-2"><div class="text-bold text-center"><?=$LANG['profile_abs_remainder']?></div></div>
+                                 <div class="divider"><hr></div>
+                                 <?php foreach($viewData['abs'] as $abs) { ?>
+                                    <div class="form-group">
+                                       <div class="col-lg-2"><div class="text-normal"><?=$abs['name']?></div></div>
+                                       <div class="col-lg-2"><div class="text-center"><?=$abs['allowance']?></div></div>
+                                       <div class="col-lg-2"><div class="text-center"><input id="txt_<?=$abs['id']?>_carryover" class="form-control text-center" tabindex="<?=$tabindex++?>" name="txt_<?=$abs['id']?>_carryover" maxlength="3" value="<?=$abs['carryover']?>"></div></div>
+                                       <div class="col-lg-2"><div class="text-center"><?=$abs['taken']?></div></div>
+                                       <div class="col-lg-2"><div class="text-center"><?=$abs['factor']?></div></div>
+                                       <div class="col-lg-2 <?=($abs['remainder']<0?'text-danger':'text-success')?>"><div class="text-center"><?=$abs['remainder']?></div></div>
+                                    </div>
+                                    <div class="divider"><hr></div>
+                                 <?php } ?>
+                              </div>
+                           </div>
+                        </div>
+      
                      </div>
                      
                      <div class="panel panel-default">
@@ -199,4 +226,3 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          </div>
          
       </div>      
-            

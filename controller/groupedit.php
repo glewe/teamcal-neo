@@ -5,7 +5,7 @@
  * Group edit page controller
  *
  * @category TeamCal Neo 
- * @version 0.4.001
+ * @version 0.5.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -113,6 +113,27 @@ if (!empty($_POST))
          $GG->description = $_POST['txt_description'];
           
          $GG->update($_POST['hidden_id']);
+
+         //
+         // Memberships, Managersihps
+         //
+         if (isAllowed("groupmemberships"))
+         {
+            if (isset($_POST['sel_members']) )
+            {
+               foreach ($_POST['sel_members'] as $uname)
+               {
+                  $UG->save($uname, $_POST['hidden_id'], 'member');
+               }
+            }
+            if (isset($_POST['sel_managers']) )
+            {
+               foreach ($_POST['sel_managers'] as $uname)
+               {
+                  $UG->save($uname, $_POST['hidden_id'], 'manager');
+               }
+            }
+         }
           
          //
          // Send notification e-mails to the subscribers of user events
@@ -165,6 +186,22 @@ if (!empty($_POST))
 $viewData['group'] = array (
    array ( 'prefix' => 'group', 'name' => 'name', 'type' => 'text', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
    array ( 'prefix' => 'group', 'name' => 'description', 'type' => 'text', 'value' => $viewData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
+);
+
+if (isAllowed("groupmemberships")) $disabled = false; else $disabled = true;
+$members = $U->getAll();
+foreach ($members as $member)
+{
+   $fullname = $member['lastname'].', '.$member['firstname'];
+   $username = $member['username'];
+   $viewData['memberlist'][] = array('val' => $username, 'name' => $fullname, 'selected' => ($UG->isMemberOfGroup($username, $viewData['id']))?true:false);
+   $viewData['managerlist'][] = array('val' => $username, 'name' => $fullname, 'selected' => ($UG->isGroupManagerOfGroup($username, $viewData['id']))?true:false);
+}
+$viewData['members'] = array (
+   array ( 'prefix' => 'group', 'name' => 'members', 'type' => 'listmulti', 'values' => $viewData['memberlist'], 'disabled' => $disabled ),
+);
+$viewData['managers'] = array (
+   array ( 'prefix' => 'group', 'name' => 'managers', 'type' => 'listmulti', 'values' => $viewData['managerlist'], 'disabled' => $disabled ),
 );
 
 //=============================================================================

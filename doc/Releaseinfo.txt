@@ -3,6 +3,39 @@ TEAMCAL NEO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[0.5.000]
+
+DATE
+2016-04-16
+
+BUGFIXES
+01 Transparent background was not shown in absence type list
+02 Fixed Back/Fwd/Today buttons of monthedit
+03 https://georgelewe.atlassian.net/browse/TCN-22
+   Phpinfo page error
+04 https://georgelewe.atlassian.net/browse/TCN-23
+   File Upload page error
+05 https://georgelewe.atlassian.net/browse/TCN-24
+   Unique indexes in database
+
+CHANGES
+
+NEW FEATURES
+01 Added month short names for year calendar
+02 https://georgelewe.atlassian.net/browse/TCN-18
+   Database Reset
+03 https://georgelewe.atlassian.net/browse/TCN-13
+   TeamCal Pro Update Script
+04 https://georgelewe.atlassian.net/browse/TCN-20
+   Member/Manager list/update on Group Edit page
+05 https://georgelewe.atlassian.net/browse/TCN-21
+   Add role color ro role list
+06 Allowances are now based on one field "Carryover"
+07 https://georgelewe.atlassian.net/browse/TCN-19
+   Allowance tab on User Edit page
+
+
+------------------------------------------------------------------------------
 [0.4.001]
 
 DATE
