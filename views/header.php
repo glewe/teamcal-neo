@@ -5,11 +5,11 @@
  * The view of the HTML header
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?><!DOCTYPE html>
@@ -46,20 +46,20 @@ Copyright:   <?=$htmlData['copyright']."\n"?>
       
       <!-- Font Awesome -->
       <?php if ($htmlData['faCDN']) { ?>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
       <?php } else { ?>
-<link rel="stylesheet" href="fonts/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="fonts/font-awesome/4.6.1/css/font-awesome.min.css">
       <?php } ?>
          
       <!-- jQuery -->
       <?php if ($htmlData['jQueryCDN']) { ?>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-      <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
-      <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/<?=$htmlData['jQueryTheme']?>/jquery-ui.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
+      <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+      <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/<?=$htmlData['jQueryTheme']?>/jquery-ui.css">
       <?php } else { ?>
-<script type="text/javascript" src="js/jquery/jquery-1.11.0.min.js"></script>
-      <script type="text/javascript" src="js/jquery/ui/1.10.4/jquery-ui.min.js"></script>
-      <link rel="stylesheet" href="js/jquery/ui/1.10.4/themes/<?=$htmlData['jQueryTheme']?>/jquery-ui.css">
+<script type="text/javascript" src="js/jquery/jquery-1.12.3.min.js"></script>
+      <script type="text/javascript" src="js/jquery/ui/1.11.4/jquery-ui.min.js"></script>
+      <link rel="stylesheet" href="js/jquery/ui/1.11.4/themes/<?=$htmlData['jQueryTheme']?>/jquery-ui.css">
       <?php } ?>
       
       <!-- Bootstrap Javascript -->

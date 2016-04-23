@@ -5,11 +5,11 @@
  * The view of the footer
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
@@ -28,26 +28,28 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             
             <div class="col-lg-3">
                <ul class="list-unstyled">
-                  <li><a href="index.php">Home</a></li>
+                  <li><a href="index.php"><?=$LANG['footer_home']?></a></li>
                </ul>
             </div>
             
             <div class="col-lg-3">
                <ul class="list-unstyled">
-                  <li><a href="index.php?action=about">About</a></li>
-                  <li><a href="index.php?action=imprint">Imprint</a></li>
+                  <?php if ($docLink = $C->read("userManual")) {?>
+                     <li><a href="<?=urldecode($docLink)?>" target="_blank"><?=$LANG['footer_help']?></a></li>
+                  <?php } ?>
+                  <li><a href="index.php?action=about"><?=$LANG['footer_about']?></a></li>
+                  <li><a href="index.php?action=imprint"><?=$LANG['footer_imprint']?></a></li>
                </ul>
             </div>
             
             <div class="col-lg-3 text-right">
-               <a href="http://www.w3.org/html/logo/"><img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3.png" style="margin-right: -12px; margin-bottom: 60px;" width="66" height="32" alt="HTML5 Powered with CSS3 / Styling" title="HTML5 Powered with CSS3 / Styling"></a><br>
                <?php if ($C->read("showSize")) { ?><i id="size" class="text-italic xsmall"></i><?php } ?>
             </div>
             
          </div>
          
-         <!-- As per license, you are not allowed to change or remove the following block! -->
-         <div class="container">
+         <!-- As per the license agreement, you are not allowed to change or remove the following block! -->
+         <div class="container" style="margin-top: 40px">
             <div class="col-lg-12 text-right text-italic xsmall"><?=$CONF['app_powered']?></div>
          </div>
          

@@ -5,7 +5,7 @@
  * Installation script
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -56,22 +56,22 @@ $LANG['inst_dbUser_comment'] = 'Specify the username to log in to your database.
 $LANG['inst_dbPassword'] = 'Database Password';
 $LANG['inst_dbPassword_comment'] = 'Specify the password to log in to your database.';
 $LANG['inst_dbPrefix'] = 'Database Table Prefix';
-$LANG['inst_dbPrefix_comment'] = 'Specify a prefix for your TeamCal Neo database tables or leave empty for none. E.g. "tcneo_".';
+$LANG['inst_dbPrefix_comment'] = 'Specify a prefix for your database tables or leave empty for none. E.g. "myapp_".';
 $LANG['inst_dbServer'] = 'Database Server';
 $LANG['inst_dbServer_comment'] = 'Specify the URL of the database server.';
 $LANG['inst_executed'] = 'Installation already executed';
 $LANG['inst_executed_comment'] = 'The configuration file shows that the installation script was already executed for this instance.<br>
       For security reasons, if you want to run it again, you need to reset the flag in the application config file.<br>
-      Otherwise, delete the installation script from the server. Then click the button below.<br><br><a class="btn btn-primary" href="index.php">Start TeamCal Neo</a>';
+      Otherwise, delete the installation script from the server. Then click the button below.<br><br><a class="btn btn-primary" href="index.php">Start</a>';
 $LANG['inst_lic'] = 'License Agreement';
-$LANG['inst_lic_comment'] = 'TeamCal Neo is a free open source application. However, if you want to use it you must accept the license agreements.';
+$LANG['inst_lic_comment'] = 'You must accept the license agreements if you want to use this application.';
 $LANG['inst_lic_gpl'] = 'I accept the General Public License';
-$LANG['inst_lic_app'] = 'I accept the TeamCal Neo License';
+$LANG['inst_lic_app'] = 'I accept the Application License';
 $LANG['inst_lic_error'] = 'Before you can start the installation you must accept both licenses!';
 $LANG['inst_error'] = 'Installation Error';
 $LANG['inst_congrats'] = 'Congratulations';
 $LANG['inst_success'] = 'Installation Success';
-$LANG['inst_success_comment'] = 'The installation of TeamCal Neo was successful. It is highly recommended to delete the installation script from the server.<br><br><a class="btn btn-primary" href="index.php">Start TeamCal Neo</a>';
+$LANG['inst_success_comment'] = 'The installation was successful. It is highly recommended to delete the installation script from the server.<br><br><a class="btn btn-primary" href="index.php">Start</a>';
 $LANG['inst_warning'] = 'Installation Warning';
 
 //=============================================================================
@@ -251,7 +251,7 @@ if (!$installationComplete AND readConfig('app_installed', $configAppFile) <> '0
 <!DOCTYPE html>
 <html>
    <head>
-      <title>TeamCal Neo Installation</title>
+      <title>Installation</title>
       <meta http-equiv="Content-type" content="text/html;charset=utf8">
       <meta charset="utf-8">
       <script type="text/javascript" src="js/ajax.js"></script>
@@ -294,7 +294,7 @@ if (!$installationComplete AND readConfig('app_installed', $configAppFile) <> '0
             <form  class="bs-example form-control-horizontal" action="installation.php" method="post" target="_self" accept-charset="utf-8">
 
                <div class="panel panel-default">
-                  <div class="panel-heading"><i class="fa fa-cog fa-lg"></i>&nbsp;TeamCal Neo <?=readConfig('app_version',$configAppFile)?> Installation</div>
+                  <div class="panel-heading"><i class="fa fa-cog fa-lg"></i>&nbsp;<?=readConfig('app_name',$configAppFile)?> <?=readConfig('app_version',$configAppFile)?> Installation</div>
                   <div class="panel-body">
 
                      <!-- DB Server -->

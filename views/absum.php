@@ -5,11 +5,11 @@
  * Absence summary page view
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
@@ -33,16 +33,16 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <div class="panel-body">
                
                   <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-                     <div class="col-lg-6 text-bold">Name</div>
-                     <div class="col-lg-2 text-right text-bold">Allowance</div>
-                     <div class="col-lg-2 text-right text-bold">Taken</div>
-                     <div class="col-lg-2 text-right text-bold">Remainder</div>
+                     <div class="col-lg-6 text-bold"><?=$LANG['absum_absencetype']?></div>
+                     <div class="col-lg-2 text-right text-bold"><?=$LANG['absum_contingent']?>&nbsp;<?=iconTooltip($LANG['absum_contingent_tt'],$LANG['absum_contingent'],'bottom')?></div>
+                     <div class="col-lg-2 text-right text-bold"><?=$LANG['absum_taken']?></div>
+                     <div class="col-lg-2 text-right text-bold"><?=$LANG['absum_remainder']?></div>
                   </div>
                   <?php if ( count($viewData['absences']) ) {
                      foreach ($viewData['absences'] as $abs) { ?>
                         <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                            <div id="sample" class="col-lg-6"><i class="fa fa-<?=$abs['icon']?> fa-lg" style="color: #<?=$abs['color']?>; background-color: #<?=$abs['bgcolor']?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px; margin-right: 8px;"></i><?=$abs['name']?></div>
-                           <div class="col-lg-2 text-right"><?=$abs['allowance']?></div>
+                           <div class="col-lg-2 text-right"><?=$abs['contingent']?></div>
                            <div class="col-lg-2 text-right <?=(is_int($abs['allowance']) AND intval($abs['taken'])>intval($abs['allowance']))?'text-warning':'';?>"><?=$abs['taken']?></div>
                            <div class="col-lg-2 text-right <?=(is_int($abs['allowance']) AND intval($abs['remainder'])<0)?'text-danger':'text-success';?>"><?=$abs['remainder']?></div>
                         </div>

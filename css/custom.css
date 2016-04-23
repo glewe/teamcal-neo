@@ -4,11 +4,11 @@
  * Global custom style sheet
  *
  * @category LeAF 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license http://tcneo.lewe.com/doc/license.txt
+ * @license (Not available yet) http://tcneo.lewe.com/doc/license.txt
  */
  
 /**
@@ -226,7 +226,9 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 
 .tooltip-inner {
    text-align: left;
-   max-width: 300px !important;
+   min-width: 200px;
+   max-width: 300px;
+   padding-bottom: 8px;
 }
 
 .tooltip-info+.tooltip .tooltip-inner {

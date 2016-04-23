@@ -5,11 +5,11 @@
  * Calendar view page controller
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license http://tcneo.lewe.com/doc/license.txt
+ * @license (Not available yet) http://tcneo.lewe.com/doc/license.txt
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -186,7 +186,12 @@ if (!empty($_POST))
       {
          $viewData['absid'] = $_POST['sel_absence'];
          $viewData['absence'] = $A->getName($_POST['sel_absence']);
-         $users = $T->getUsersForAbsence(date('Y'), date('m'), intval(date('d')), $_POST['sel_absence']);
+         // TODO
+         $users = array();
+         for ($i=1; $i<=31; $i++)
+         {
+            array_push($users,$T->getUsersForAbsence(date('Y'), date('m'), $i, $_POST['sel_absence']));
+         }
       }
    }
    else

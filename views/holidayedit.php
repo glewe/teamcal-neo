@@ -5,11 +5,11 @@
  * Holiday edit page view
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
@@ -40,7 +40,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
                      <div class="panel panel-default">
                         <div class="panel-body">
-                           <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_holidayUpdate"><?=$LANG['btn_update']?></button>
+                           <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_holidayUpdate"><?=$LANG['btn_save']?></button>
                            <a href="index.php?action=holidays" class="btn btn-default pull-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_holiday_list']?></a>
                         </div>
                      </div>

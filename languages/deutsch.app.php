@@ -5,11 +5,11 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -116,6 +116,11 @@ $LANG['absum_modalYearTitle'] = 'W&auml;hle, das Jahr f&uml;r die &Uuml;bersicht
 $LANG['absum_unlimited'] = 'Unbegrenzt';
 $LANG['absum_year'] = 'Jahr';
 $LANG['absum_year_comment'] = 'W&auml;hle, das Jahr f&uml;r die &Uuml;bersicht.';
+$LANG['absum_absencetype'] = 'Abwesenheitstyp';
+$LANG['absum_contingent'] = 'Kontingent';
+$LANG['absum_contingent_tt'] = 'Das Kontingent errechnet sich aus der erlaubten Anzahl des aktuellen Jahres plus dem &Uuml;bertrag vom letzen Jahr. Der &Uuml;bertrag kann auch negativ sein.';
+$LANG['absum_taken'] = 'Genommen';
+$LANG['absum_remainder'] = 'Verbleib';
 
 //
 // Alerts
@@ -130,7 +135,7 @@ $LANG['alert_decl_total_threshold'] = ": Die generelle Abwesenheitsgrenze wurde 
 //
 $LANG['btn_abs_edit'] = 'Bearbeiten';
 $LANG['btn_abs_icon'] = 'Icon Ausw&auml;hlen';
-$LANG['btn_abs_list'] = 'Abwesenheitstypenliste';
+$LANG['btn_abs_list'] = 'Abwesenheitstypliste';
 $LANG['btn_absum'] = 'Abwesenheits&uuml;bersicht';
 $LANG['btn_calendar'] = 'Kalender';
 $LANG['btn_create_abs'] = 'Abwesenheitstyp anlegen';

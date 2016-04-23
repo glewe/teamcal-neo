@@ -5,11 +5,11 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -23,7 +23,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  * Set this to 0 if you want to run the installation.php script again.
  * If not, it is recommended that you delete the installation.php file.
  */
-$CONF['app_installed'] = "1";
+$CONF['app_installed'] = "0";
 
 //=============================================================================
 /**
@@ -103,7 +103,7 @@ $CONF['LDAP_TLS'] = 0; // To avoid "Undefined index: LDAP_TLS" error message for
 $CONF['app_avatar_dir'] = 'upload/avatars/';
 $CONF['app_image_dir'] = 'upload/images/';
 $CONF['app_doc_dir'] = 'upload/documents/';
-$CONF['app_jqueryui_dir'] = 'js/jquery/ui/1.10.4/';
+$CONF['app_jqueryui_dir'] = 'js/jquery/ui/1.11.4/';
 
 //=============================================================================
 /**
@@ -112,9 +112,8 @@ $CONF['app_jqueryui_dir'] = 'js/jquery/ui/1.10.4/';
  * !Do not change this information. It is protected by the license agreement!
  */
 $CONF['app_name'] = "TeamCal Neo";
-$CONF['app_version'] = "0.5.000";
-$CONF['app_help_root'] = "https://georgelewe.atlassian.net/wiki/display/CP10/";
-$CONF['app_version_date'] = "2016-04-16";
+$CONF['app_version'] = "0.5.001";
+$CONF['app_version_date'] = "2016-04-23";
 $CONF['app_year_start'] = "2014";
 $CONF['app_year_current'] = date('Y');
 $CONF['app_author'] = "George Lewe";

@@ -5,11 +5,11 @@
  * Collection of global helper functions
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -964,25 +964,6 @@ function hex2rgb($color)
       $rgb[$x] = hexdec(substr($color,(2*$x),2));
    }
    return $rgb;
-}
-
-// ---------------------------------------------------------------------------
-/**
- * Returns a tooltip span element with a Font Aweseom icon
- *
- * @param string $type BS color code (info,success,warning,danger) (Default: info) 
- * @param string $icon Font Awesome icon to use (Default: question-circle)
- * @param string $position Tooltip position (top,right,bottom,left) (Default: top)
- * @param string $text Tooltip text (HTML allowed)
- * 
- * @return string
- */
-function iconTooltip($text='Tooltip text', $title='', $type='info', $icon='question-circle', $position='top')
-{
-   if (strlen($title)) $ttText  = "<div class='text-bold' style='padding-top: 4px; padding-bottom: 4px'>".$title."</div>";
-   $ttText .= "<div class='text-normal'>".$text."</div>";
-   $html = '<span data-position="tooltip-'.$position.'" class="tooltip-'.$type.' fa fa-'.$icon.' text-'.$type.'" data-toggle="tooltip" data-title="'.$ttText.'"></span>';
-   return $html;
 }
 
 // ---------------------------------------------------------------------------

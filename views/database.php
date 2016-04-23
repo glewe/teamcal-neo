@@ -5,11 +5,11 @@
  * Database page view
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
@@ -134,9 +134,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <input id="dbURL" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_dbURL" maxlength="160" value="<?=$viewData['dbURL']?>" type="text"><br>
                                        <button type="submit" class="btn btn-danger" tabindex="<?=$tabindex++;?>" name="btn_saveURL"><?=$LANG['btn_save']?></button>
                                     </div>
-                                 </div>                                 
+                                 </div>
+                                 <?php if (strlen($viewData['dbURL']) AND $viewData['dbURL'] != "#") { ?>                                 
                                  <div class="divider"><hr></div>
                                  <a href="<?=$C->read('dbURL')?>" class="btn btn-info" tabindex="<?=$tabindex++;?>" target="_blank"><?=$LANG['db_application']?></a>
+                                 <?php } ?>
                               </div>
                            </div>
                         </div>

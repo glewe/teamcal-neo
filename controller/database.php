@@ -5,11 +5,11 @@
  * Database page controller
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -234,39 +234,22 @@ if (!empty($_POST))
       // '----------'
       else if ( isset($_POST['btn_reset']) AND $_POST['txt_dbResetString'] == "YesIAmSure" )
       {
-         $resetDBSuccess = true;
+         $query = file_get_contents("sql/sample.sql");
          
-         $myQuery = '';
-         $lines = file(WEBSITE_ROOT . '/sql/sample.sql');
-            
-         // 
-         // Loop through each line
          //
-         foreach ($lines as $line)
-         {
-            // Skip if comment
-            if (substr($line, 0, 2) == '--' || $line == '') continue;
+         // Replace prefix in sample file
+         //
+         if (strlen($CONF['db_table_prefix']))
+            $query = str_replace("leaf_",$CONF['db_table_prefix'],$query);
+         else
+            $query = str_replace("leaf_","",$query);
          
-            // Add this line to the current segment
-            $myQuery .= $line;
+         //
+         // Run query
+         //
+         $result = $DB->runQuery($query);
             
-            // If it has a semicolon at the end, it's the end of the query
-            if (substr(trim($line), -1, 1) == ';')
-            {
-               // Run query
-               if ($DB->runQuery($myQuery))
-               {
-                  // Reset query
-                  $myQuery = '';
-               }
-               else 
-               {
-                  $resetDBSuccess = false;
-               }
-            }
-         }
-          
-         if ($resetDBSuccess) 
+         if ($result) 
          {
             //
             // Success

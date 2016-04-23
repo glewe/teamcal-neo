@@ -5,11 +5,11 @@
  * User edit page controller
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -502,11 +502,20 @@ foreach ($absences as $abs)
    {
       $carryover = 0;
    }
-   $taken = countAbsence($viewData['profile'], $abs['id'], $countFrom, $countTo, false, false);
+   
+   $taken = 0;
+   if (!$abs['counts_as_present'])
+   {
+      $taken = countAbsence($viewData['profile'], $abs['id'], $countFrom, $countTo, false, false);
+   }
+    
    $remainder = $allowance + $carryover - ($taken * $abs['factor']);
    $viewData['abs'][] = array(
       'id' => $abs['id'],
       'name' => $abs['name'],
+      'icon' => $abs['icon'],
+      'color' => $abs['color'],
+      'bgcolor' => $abs['bgcolor'],
       'allowance' => $allowance,
       'carryover' => $carryover,
       'taken' => $taken,

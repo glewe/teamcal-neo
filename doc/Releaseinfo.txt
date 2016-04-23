@@ -3,6 +3,27 @@ TEAMCAL NEO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[0.5.001]
+
+DATE
+2016-04-23
+
+BUGFIXES
+01 Logout cookie handling
+02 User manual link now put into Help menu
+03 Minor bugfixes
+
+CHANGES
+01 Code maintenance
+02 Footer links made language compatible
+03 Less controller colors (primary for display, danger for edit)
+04 Update to jQuery 1.12.3 and jQuery UI 1.11.4
+05 Update Font Awesome to 4.6.1
+
+NEW FEATURES
+
+
+------------------------------------------------------------------------------
 [0.5.000]
 
 DATE

@@ -3,11 +3,11 @@
  * Allowances.class.php
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -210,6 +210,31 @@ class Allowances
       else
       {
          return false;
+      }
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
+    * Gets the carryover value of a user/absenceype
+    *
+    * @param string $username Username to find
+    * @param string $absid Absence ID to find
+    * @return string Carryover value or 0
+    */
+   function getCarryover($username, $absid)
+   {
+      $query = $this->db->prepare('SELECT carryover FROM ' . $this->table . ' WHERE username = :val1 AND absid = :val2');
+      $query->bindParam('val1', $username);
+      $query->bindParam('val2', $absid);
+      $result = $query->execute();
+      
+      if ($result and $row = $query->fetch())
+      {
+         return $row['carryover'];
+      }
+      else
+      {
+         return '0';
       }
    }
    

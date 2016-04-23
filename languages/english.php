@@ -5,11 +5,11 @@
  * Language file (English)
  *
  * @category LeAF 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -211,9 +211,6 @@ $LANG['alert_reg_no_vcode'] = 'A verification could not be found. Are you sure i
 //
 // Buttons
 //
-$LANG['btn_abs_edit'] = 'Back to Edit';
-$LANG['btn_abs_icon'] = 'Select Icon';
-$LANG['btn_abs_list'] = 'Absence Type List';
 $LANG['btn_activate'] = "Activate";
 $LANG['btn_add'] = 'Add';
 $LANG['btn_apply'] = 'Apply';
@@ -250,7 +247,6 @@ $LANG['btn_enable'] = 'Enable';
 $LANG['btn_export'] = 'Export';
 $LANG['btn_group_list'] = 'Show Group List';
 $LANG['btn_help'] = 'Help';
-$LANG['btn_holiday_list'] = 'Show Holiday List';
 $LANG['btn_icon'] = 'Icon...';
 $LANG['btn_import'] = 'Import';
 $LANG['btn_install'] = 'Install';
@@ -261,7 +257,6 @@ $LANG['btn_next'] = 'Next';
 $LANG['btn_optimize_tables'] = 'Optimize Tables';
 $LANG['btn_prev'] = 'Prev';
 $LANG['btn_refresh'] = 'Refresh';
-$LANG['btn_region_list'] = 'Show Region List';
 $LANG['btn_register'] = 'Register';
 $LANG['btn_remove'] = 'Remove';
 $LANG['btn_reset'] = 'Reset';
@@ -275,7 +270,6 @@ $LANG['btn_save'] = 'Save';
 $LANG['btn_search'] = 'Search';
 $LANG['btn_select'] = "Select";
 $LANG['btn_send'] = 'Send';
-$LANG['btn_showcalendar'] = 'Show calendar';
 $LANG['btn_submit'] = 'Submit';
 $LANG['btn_switch'] = 'Switch';
 $LANG['btn_testdb'] = 'Test Database';
@@ -419,10 +413,8 @@ $LANG['config_userCustom4_comment'] = 'Enter the caption of this custom user fie
 $LANG['config_userCustom5'] = 'User Custom Field 5 Caption';
 $LANG['config_userCustom5_comment'] = 'Enter the caption of this custom user field. The caption will be shown in the profile dialog.';
 $LANG['config_userManual'] = 'User Manual';
-$LANG['config_userManual_comment'] = $appTitle . '\'s user manual is maintained in English and is available at the '.$appTitle.' community site.
-      Translations might be available authored by the community. If your language is available, change the link to it here. If you are interested
-      in participating or creating a translation, register at the <a href="https://georgelewe.atlassian.net" target="_blank">'.$appTitle.' community
-      site (https://georgelewe.atlassian.net)</a> and create a task in the issue tracker for it. If you leave this field empty, a default link will be used.';
+$LANG['config_userManual_comment'] = $appTitle . '\'s user manual is maintained in English and is available at <a href="https://georgelewe.atlassian.net/wiki/display/TCNEO/" target="_blank">Lewe.com\'s Confluence site</a>.
+      If you have written your own manual, enter the link here. It will be displayed in the Help menu as long as the field is not empty.';
 $LANG['config_welcomeText'] = 'Welcome Page Text';
 $LANG['config_welcomeText_comment'] = 'Enter a text for the welcome message on the Home Page.';
 
@@ -506,6 +498,14 @@ $LANG['error_installation_script_text'] = '<p>The installation script "installat
       </ol>';
 
 //
+// Footer
+//
+$LANG['footer_home'] = 'Home';
+$LANG['footer_help'] = 'Help';
+$LANG['footer_about'] = 'About';
+$LANG['footer_imprint'] = 'Imprint';
+
+//
 // Group
 //
 $LANG['group_edit_title'] = 'Edit Group: ';
@@ -548,14 +548,13 @@ $LANG['imprint'] = array (
    array (
       'title' => 'Author',
       'text' => '<i class="fa fa-thumbs-o-up fa-3x pull-left" style="color: #999999;"></i>'.$appTitle.' was created by George Lewe (<a href="http://www.lewe.com/">Lewe.com</a>). 
-      '.$appTitle.' uses free modules by other great people providing those awesome techonolgies to the public. 
+      '.$appTitle.' also uses free modules by other great people providing those awesome techonolgies to the public. 
       See detailed credits on the <a href="index.php?action=about">About page</a>.',
    ),
    array (
       'title' => 'Content',
-      'text' => '<p><i class="fa fa-file-text-o fa-3x pull-left" style="color: #999999;"></i>The design and content of '.$appTitle.' was created by George Lewe.  
-      Where this is not the case it is properly indicated. If you feel that any material is used inappropriately, please let me know via 
-      <a href="http://www.lewe.com/index.php?page=contact">this contact form</a>.</p>
+      'text' => '<p><i class="fa fa-file-text-o fa-3x pull-left" style="color: #999999;"></i>The application '.$appTitle.' was created by George Lewe.  
+      If you feel that any material is used inappropriately, please let me know via <a href="http://www.lewe.com">my website</a>.</p>
       <p>None of the content, as a whole or in parts may be reproduced, copied or reused in any form or by any means, electronic or mechanical, 
       for any purpose, without the express written permission of George Lewe.</p>',
    ),
@@ -598,8 +597,6 @@ if ( $C->read('googleAnalytics') AND $C->read("googleAnalyticsID")) {
       <p><a class="btn btn-default" data-toggle="collapse" data-target="#readmore">Read more/less...</a></p>',
    );
 }
-
-
 
 //
 // Log

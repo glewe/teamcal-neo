@@ -5,11 +5,11 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -73,7 +73,7 @@ $CONF['controllers'] = array (
    'login' => new Controller('login', 'sign-in', 'success', 'default', ''),
    'maintenance' => new Controller('maintenance', 'wrench', 'danger', 'danger', ''),
    'messages' => new Controller('messages', 'comments-o', 'info', 'info', 'messageview'),
-   'messageedit' => new Controller('messageedit', 'comment-o', 'info', 'info', 'messageedit'),
+   'messageedit' => new Controller('messageedit', 'comment-o', 'info', 'danger', 'messageedit'),
    'permissions' => new Controller('permissions', 'lock', 'danger', 'primary', 'admin'),
    'phpinfo' => new Controller('phpinfo', 'cogs', 'default', 'primary', 'admin'),
    'register' => new Controller('register', 'pencil', 'warning', 'success', ''),
@@ -81,7 +81,7 @@ $CONF['controllers'] = array (
    'roleedit' => new Controller('roleedit', 'edit', 'warning', 'danger', 'roles'),
    'upload' => new Controller('upload', 'upload', 'warning', 'primary', 'upload'),
    'users' => new Controller('users', 'user', 'primary', 'primary', 'admin'),
-   'useredit' => new Controller('useredit', 'edit', 'warning', 'warning', 'admin'),
+   'useredit' => new Controller('useredit', 'edit', 'warning', 'danger', 'admin'),
    'useradd' => new Controller('useradd', 'edit', 'warning', 'warning', 'admin'),
    'verify' => new Controller('verify', 'user', 'info', 'default', ''),
    'viewprofile' => new Controller('viewprofile', 'user', 'default', 'default', 'viewprofile'),
@@ -90,16 +90,16 @@ $CONF['controllers'] = array (
    // Enter your application controllers below
    //
    'absences' => new Controller('absences', 'check-square-o', 'primary', 'primary', 'absenceedit'),
-   'absenceedit' => new Controller('absenceedit', 'check-square-o', 'warning', 'warning', 'absenceedit'),
+   'absenceedit' => new Controller('absenceedit', 'check-square-o', 'warning', 'danger', 'absenceedit'),
    'absenceicon' => new Controller('absenceicon', 'file-image-o', 'primary', 'primary', 'absenceedit'),
    'absum' => new Controller('absum', 'list-ol', 'primary', 'default', 'absum'),
    'calendarview' => new Controller('calendarview', 'calendar', 'danger', 'primary', 'calendarview'),
-   'calendaredit' => new Controller('calendaredit', 'calendar-o', 'danger', 'primary', 'calendaredit'),
+   'calendaredit' => new Controller('calendaredit', 'calendar-o', 'danger', 'danger', 'calendaredit'),
    'calendaroptions' => new Controller('calendaroptions', 'wrench', 'primary', 'primary', 'calendaroptions'),
    'declination' => new Controller('declination', 'minus-circle', 'danger', 'danger', 'declination'),
    'holidays' => new Controller('holidays', 'calendar-o', 'danger', 'primary', 'holidays'),
-   'holidayedit' => new Controller('holidayedit', 'calendar-o', 'danger', 'primary', 'holidays'),
-   'monthedit' => new Controller('monthedit', 'calendar-o', 'success', 'primary', 'regions'),
+   'holidayedit' => new Controller('holidayedit', 'calendar-o', 'danger', 'danger', 'holidays'),
+   'monthedit' => new Controller('monthedit', 'calendar-o', 'success', 'danger', 'regions'),
    'regions' => new Controller('regions', 'globe', 'success', 'primary', 'regions'),
    'regionedit' => new Controller('regionedit', 'globe', 'success', 'primary', 'regions'),
    'statsabsence' => new Controller('statsabsence', 'bar-chart', 'danger', 'default', 'statistics'),

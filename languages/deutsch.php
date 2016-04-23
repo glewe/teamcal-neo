@@ -5,11 +5,11 @@
  * Language file (German)
  *
  * @category LeAF 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -211,9 +211,6 @@ $LANG['alert_reg_no_vcode'] = 'Ein Verfizierungscode konnte nicht gefunden werde
 //
 // Buttons
 //
-$LANG['btn_abs_edit'] = 'Bearbeiten';
-$LANG['btn_abs_icon'] = 'Icon Ausw&auml;hlen';
-$LANG['btn_abs_list'] = 'Abwesenheitstypenliste';
 $LANG['btn_activate'] = 'Aktivieren';
 $LANG['btn_add'] = 'Hinzuf&uuml;gen';
 $LANG['btn_apply'] = 'Anwenden';
@@ -250,7 +247,6 @@ $LANG['btn_enable'] = 'Aktivieren';
 $LANG['btn_export'] = 'Export';
 $LANG['btn_group_list'] = 'Gruppenliste';
 $LANG['btn_help'] = 'Hilfe';
-$LANG['btn_holiday_list'] = 'Feiertagsliste';
 $LANG['btn_icon'] = 'Icon...';
 $LANG['btn_import'] = 'Import';
 $LANG['btn_install'] = 'Installation';
@@ -261,7 +257,7 @@ $LANG['btn_next'] = 'N&auml;ch';
 $LANG['btn_optimize_tables'] = 'Tabellen optimieren';
 $LANG['btn_prev'] = 'Vorh';
 $LANG['btn_refresh'] = 'Aktualisieren';
-$LANG['btn_role_list'] = 'Regionsliste';
+$LANG['btn_role_list'] = 'Rollenliste';
 $LANG['btn_register'] = 'Registrieren';
 $LANG['btn_remove'] = 'Entfernen';
 $LANG['btn_reset'] = 'Zur&uuml;cksetzen';
@@ -275,7 +271,6 @@ $LANG['btn_save'] = 'Speichern';
 $LANG['btn_search'] = 'Suchen';
 $LANG['btn_select'] = 'Ausw&auml;hlen';
 $LANG['btn_send'] = 'Senden';
-$LANG['btn_showcalendar'] = 'Kalender anzeigen';
 $LANG['btn_submit'] = 'Abschicken';
 $LANG['btn_switch'] = 'Anwenden';
 $LANG['btn_testdb'] = 'Datenbank testen';
@@ -419,10 +414,8 @@ $LANG['config_userCustom4_comment'] = 'Gibt den Titel dieses Feldes an, der im B
 $LANG['config_userCustom5'] = 'Profilfeld 5 Titel';
 $LANG['config_userCustom5_comment'] = 'Gibt den Titel dieses Feldes an, der im Benutzerprofil Dialog angezeigt wird.';
 $LANG['config_userManual'] = 'Nutzerhandbuch';
-$LANG['config_userManual_comment'] = $appTitle . '\'s Nutzerhandbuch ist in Englisch verf&uuml;gbar auf der Community site. Eventuell sind &Uuml;bersetzungen von 
-      anderen Nutzern verf&uuml;gbar. Wenn das so ist, kann der Link dazu hier eingegeben werden. Wenn du selbst an der Mitarbeit oder and einer neuen 
-      &Uuml;bersetzung interessiert bist, registriere dich einfach bei der <a href="https://georgelewe.atlassian.net" target="_blank"> Community Site 
-      (https://georgelewe.atlassian.net)</a> und &ouml;ffne eine Task im Issue Tracker dazu. Wenn hier kein Eintrag gemacht wird, setzt '.$appTitle.' den Standard Link ein.';
+$LANG['config_userManual_comment'] = $appTitle . '\'s Nutzerhandbuch ist in Englisch verf&uuml;gbar auf <a href="https://georgelewe.atlassian.net/wiki/display/TCNEO/" target="_blank">Lewe.com\'s Confluence site</a>.
+      Solltest du ein eigenes Handbuch geschrieben haben, kannst du den Link hier angeben. Der Link wird im Hilfe Menu angezeigt. Wenn dieses Feld leer ist, wird kein Eintrag im Hilfe Menu angezeigt.';
 $LANG['config_welcomeText'] = 'Willkommen Seite Text';
 $LANG['config_welcomeText_comment'] = 'Hier kann ein ein Text f&uuml;r die Startseite eingegeben werden.';
 
@@ -506,6 +499,14 @@ $LANG['error_installation_script_text'] = '<p>Das Installationsscript "installat
       </ol>';
 
 //
+// Footer
+//
+$LANG['footer_home'] = 'Startseite';
+$LANG['footer_help'] = 'Hilfe';
+$LANG['footer_about'] = '&Uuml;ber';
+$LANG['footer_imprint'] = 'Impressum';
+
+//
 // Group
 //
 $LANG['group_edit_title'] = 'Gruppe editieren: ';
@@ -548,15 +549,15 @@ $LANG['imprint'] = array (
    array (
       'title' => 'Author',
       'text' => '<i class="fa fa-thumbs-o-up fa-3x pull-left" style="color: #999999;"></i>'.$appTitle.' wurde von George Lewe erstellt (<a href="http://www.lewe.com/">Lewe.com</a>).  
-      '.$appTitle.' nutzt kostenlose Module von anderen gro&szlig;artigen Entwicklern, die dankenswerter Weise
+      '.$appTitle.' nutzt auch kostenlose Module von anderen gro&szlig;artigen Entwicklern, die dankenswerter Weise
       ihre Arbeit &ouml;ffentlich verf&uuml;gbar machen. Details dazu befinden sich auf der <a href="index.php?action=about">About Seite</a>.',
    ),
    array (
       'title' => 'Inhalt',
       'text' => '<p><i class="fa fa-file-text-o fa-3x pull-left" style="color: #999999;"></i>Die Inhalte von '.$appTitle.' wurden sorgf&auml;tig vorbereitet und
       erstellt. Wo andere Quellen benutzt wurde, wird auch darauf hingewiesen. Sollte dies nicht der Fall sein, bitte informiere George Lewe mittels dieser 
-      <a href="http://www.lewe.com/index.php?page=contact">Kontaktseite</a>.</p> 
-      <p>Kein Inhalt der Site, ganz oder in Teilen darf vervielf&auml;tigt, reproduziert, kopiert oder wiederwendet werden, in keiner Form, 
+      <a href="http://www.lewe.com">Website</a>.</p> 
+      <p>Kein Inhalt der Applikation/Site, ganz oder in Teilen darf vervielf&auml;tigt, reproduziert, kopiert oder wiederwendet werden, in keiner Form, 
       elektronisch oder mechanisch, egal f&uuml;r welchen Zweck ohne ausdr&uuml;ckliche Erlaubnis von George Lewe.</p>',
    ),
    array (

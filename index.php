@@ -3,11 +3,11 @@
  * index.php
  * 
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
@@ -189,12 +189,14 @@ if (false)
    $lang2 = "deutsch";
    
    require (WEBSITE_ROOT . '/languages/' . $lang1 . '.php');     // Framework
+   require (WEBSITE_ROOT . '/languages/' . $lang1 . '.log.php'); // Log
    require (WEBSITE_ROOT . '/languages/' . $lang1 . '.app.php'); // Application
    $lang1Array = $LANG;
    
    unset($LANG);
    
    require (WEBSITE_ROOT . '/languages/' . $lang2 . '.php');     // Framework
+   require (WEBSITE_ROOT . '/languages/' . $lang1 . '.log.php'); // Log
    require (WEBSITE_ROOT . '/languages/' . $lang2 . '.app.php'); // Application
    $lang2Array = $LANG;
 
@@ -253,22 +255,6 @@ if (file_exists('installation.php'))
 
 //=============================================================================
 //
-// CHECK UPDATE SCRIPT
-//
-if (file_exists('tcpupdate.php'))
-{
-   //
-   // Tcpupdate.php found
-   //
-   $errorData['title'] = $LANG['error_title'];
-   $errorData['subject'] = $LANG['error_update_script'];
-   $errorData['text'] = $LANG['error_update_script_text'];
-   require (WEBSITE_ROOT . '/views/error.php');
-   die();
-}
-
-//=============================================================================
-//
 // DETERMINE CONTROLLER
 //
 if (isset($_GET['action']))
@@ -278,13 +264,16 @@ if (isset($_GET['action']))
    {
       $L->logout();
       $LOG->log("logLogin", $L->checkLogin(), "log_logout");
-      header("Location: " . $_SERVER['PHP_SELF']);
-      die();
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=home");
    }
-   else
+   else 
    {
       $controller = $_GET['action'];
    }
+}
+else
+{
+   header("Location: " . $_SERVER['PHP_SELF'] . "?action=home");
 }
 
 if ($C->read('underMaintenance'))

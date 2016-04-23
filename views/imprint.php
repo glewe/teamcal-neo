@@ -5,11 +5,11 @@
  * Imprint page view
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
@@ -25,7 +25,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <div class="panel-body">
                   <div class="col-lg-12">
                      <?php foreach ($LANG['imprint'] as $imprint) { ?>
-                        <h3><?=$imprint['title']?></h3>
+                        <h4 style="margin-top: 40px"><?=$imprint['title']?></h4>
                         <?=$imprint['text']?>
                      <?php } ?>
                   </div>

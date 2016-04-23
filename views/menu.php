@@ -5,11 +5,11 @@
  * The view of the top navigation menu
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
@@ -20,7 +20,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          <div class="container">
             
             <div class="navbar-header">
-               <a href="<?=WEBSITE_URL?>" class="navbar-brand" style="padding: 2px 8px 0 8px;"><img src="images/logo.png" width="48" height="48" alt=""></a>
+               <a href="index.php?action=<?=$CONF['controllers']['home']->name?>" class="navbar-brand" style="padding: 2px 8px 0 8px;"><img src="images/logo.png" width="48" height="48" alt=""></a>
                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                   <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
                </button>
@@ -194,6 +194,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   <!-- Help Menu -->
                   <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="help"><?=$LANG['mnu_help']?><span class="caret"></span></a>
                      <ul class="dropdown-menu" aria-labelledby="help">
+                        <?php if ($docLink = $C->read("userManual")) {?>
+                           <li><a tabindex="-1" href="<?=urldecode($docLink)?>" target="_blank"><i class="fa fa-question-circle fa-lg text-success fa-menu"></i>TeamCal Neo Documentation</a></li>
+                           <li class="divider"></li>
+                        <?php } ?>
                         <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['imprint']->name?>"><i class="fa fa-<?=$CONF['controllers']['imprint']->faIcon?> fa-lg text-<?=$CONF['controllers']['imprint']->iconColor?> fa-menu"></i><?=$LANG['mnu_help_imprint']?></a></li>
                         <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['about']->name?>"><i class="fa fa-<?=$CONF['controllers']['about']->faIcon?> fa-lg text-<?=$CONF['controllers']['about']->iconColor?> fa-menu"></i><?=$LANG['mnu_help_about']?></a></li>
                      </ul>

@@ -5,11 +5,11 @@
  * Users page controller
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -272,7 +272,7 @@ if (!empty($_POST))
 //
 // Default: Get all active users
 //
-$users = $U->getAll('lastname', 'firstname', 'ASC', $archive = false);
+$users = $U->getAll('lastname', 'firstname', 'ASC', $archive = false, $includeAmin = true);
 
 // ,--------,
 // | Search |

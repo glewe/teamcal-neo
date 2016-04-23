@@ -3,11 +3,11 @@
  * Login.class.php
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -330,9 +330,7 @@ class Login
     */
    function logout()
    {
-      global $C;
-      setcookie($this->cookie_name, ''); // Clear current cookie
-      setcookie($this->cookie_name, '', time() + intval($C->read("cookieLifetime")), '', $_SERVER['HTTP_HOST'], false, true);
+      setcookie($this->cookie_name, '', time() - 3600, '', $_SERVER['HTTP_HOST'], false, true);
    }
 
    // ---------------------------------------------------------------------

@@ -3,11 +3,11 @@
  * Users.class.php
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -247,9 +247,13 @@ class Users
       else $table = $this->table;
       
       if ($includeAdmin)
+      {
          $query = $this->db->prepare('SELECT * FROM ' . $table . ' ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
-      else 
+      }
+      else
+      {
          $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != "admin" ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
+      }
           
       $result = $query->execute();
       

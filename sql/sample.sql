@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_absences`
+-- Table structure for table `absences`
 --
 
 DROP TABLE IF EXISTS `tcneo_absences`;
@@ -43,7 +43,7 @@ CREATE TABLE `tcneo_absences` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `tcneo_absences`
+-- Dumping data for table `absences`
 --
 
 INSERT INTO `tcneo_absences` (`id`, `name`, `symbol`, `icon`, `color`, `bgcolor`, `bgtrans`, `factor`, `allowance`, `counts_as`, `show_in_remainder`, `show_totals`, `approval_required`, `counts_as_present`, `manager_only`, `hide_in_profile`, `confidential`) VALUES
@@ -60,7 +60,7 @@ INSERT INTO `tcneo_absences` (`id`, `name`, `symbol`, `icon`, `color`, `bgcolor`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_absence_group`
+-- Table structure for table `absence_group`
 --
 
 DROP TABLE IF EXISTS `tcneo_absence_group`;
@@ -73,7 +73,7 @@ CREATE TABLE `tcneo_absence_group` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `tcneo_absence_group`
+-- Dumping data for table `absence_group`
 --
 
 INSERT INTO `tcneo_absence_group` (`id`, `absid`, `groupid`) VALUES
@@ -128,7 +128,7 @@ INSERT INTO `tcneo_absence_group` (`id`, `absid`, `groupid`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_allowances`
+-- Table structure for table `allowances`
 --
 
 DROP TABLE IF EXISTS `tcneo_allowances`;
@@ -144,7 +144,7 @@ CREATE TABLE `tcneo_allowances` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_archive_allowances`
+-- Table structure for table `archive_allowances`
 --
 
 DROP TABLE IF EXISTS `tcneo_archive_allowances`;
@@ -160,7 +160,7 @@ CREATE TABLE `tcneo_archive_allowances` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_archive_daynotes`
+-- Table structure for table `archive_daynotes`
 --
 
 DROP TABLE IF EXISTS `tcneo_archive_daynotes`;
@@ -176,7 +176,7 @@ CREATE TABLE `tcneo_archive_daynotes` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_archive_templates`
+-- Table structure for table `archive_templates`
 --
 
 DROP TABLE IF EXISTS `tcneo_archive_templates`;
@@ -223,7 +223,7 @@ CREATE TABLE `tcneo_archive_templates` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_archive_users`
+-- Table structure for table `archive_users`
 --
 
 DROP TABLE IF EXISTS `tcneo_archive_users`;
@@ -249,7 +249,7 @@ CREATE TABLE `tcneo_archive_users` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_archive_user_group`
+-- Table structure for table `archive_user_group`
 --
 
 DROP TABLE IF EXISTS `tcneo_archive_user_group`;
@@ -265,7 +265,7 @@ CREATE TABLE `tcneo_archive_user_group` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_archive_user_message`
+-- Table structure for table `archive_user_message`
 --
 
 DROP TABLE IF EXISTS `tcneo_archive_user_message`;
@@ -280,7 +280,7 @@ CREATE TABLE `tcneo_archive_user_message` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_archive_user_option`
+-- Table structure for table `archive_user_option`
 --
 
 DROP TABLE IF EXISTS `tcneo_archive_user_option`;
@@ -290,13 +290,13 @@ CREATE TABLE `tcneo_archive_user_option` (
   `option` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `value` text CHARACTER SET utf8,
   PRIMARY KEY (id),
-  UNIQUE useroption (username,option)
+  UNIQUE useroption (username,`option`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_config`
+-- Table structure for table `config`
 --
 
 DROP TABLE IF EXISTS `tcneo_config`;
@@ -309,7 +309,7 @@ CREATE TABLE `tcneo_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `tcneo_config`
+-- Dumping data for table `config`
 --
 
 INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
@@ -467,7 +467,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_daynotes`
+-- Table structure for table `daynotes`
 --
 
 DROP TABLE IF EXISTS `tcneo_daynotes`;
@@ -483,7 +483,7 @@ CREATE TABLE `tcneo_daynotes` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_groups`
+-- Table structure for table `groups`
 --
 
 DROP TABLE IF EXISTS `tcneo_groups`;
@@ -495,7 +495,7 @@ CREATE TABLE `tcneo_groups` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `tcneo_groups`
+-- Dumping data for table `groups`
 --
 
 INSERT INTO `tcneo_groups` (`id`, `name`, `description`) VALUES
@@ -507,7 +507,7 @@ INSERT INTO `tcneo_groups` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_holidays`
+-- Table structure for table `holidays`
 --
 
 DROP TABLE IF EXISTS `tcneo_holidays`;
@@ -522,7 +522,7 @@ CREATE TABLE `tcneo_holidays` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `tcneo_holidays`
+-- Dumping data for table `holidays`
 --
 
 INSERT INTO `tcneo_holidays` (`id`, `name`, `description`, `color`, `bgcolor`, `businessday`) VALUES
@@ -535,7 +535,7 @@ INSERT INTO `tcneo_holidays` (`id`, `name`, `description`, `color`, `bgcolor`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_log`
+-- Table structure for table `log`
 --
 
 DROP TABLE IF EXISTS `tcneo_log`;
@@ -551,7 +551,7 @@ CREATE TABLE `tcneo_log` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_messages`
+-- Table structure for table `messages`
 --
 
 DROP TABLE IF EXISTS `tcneo_messages`;
@@ -566,7 +566,7 @@ CREATE TABLE `tcneo_messages` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_months`
+-- Table structure for table `months`
 --
 
 DROP TABLE IF EXISTS `tcneo_months`;
@@ -675,7 +675,7 @@ CREATE TABLE `tcneo_months` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_permissions`
+-- Table structure for table `permissions`
 --
 
 DROP TABLE IF EXISTS `tcneo_permissions`;
@@ -690,7 +690,7 @@ CREATE TABLE `tcneo_permissions` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `tcneo_permissions`
+-- Dumping data for table `permissions`
 --
 
 INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`) VALUES
@@ -790,7 +790,7 @@ INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_regions`
+-- Table structure for table `regions`
 --
 
 DROP TABLE IF EXISTS `tcneo_regions`;
@@ -802,7 +802,7 @@ CREATE TABLE `tcneo_regions` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `tcneo_regions`
+-- Dumping data for table `regions`
 --
 
 INSERT INTO `tcneo_regions` (`id`, `name`, `description`) VALUES
@@ -813,7 +813,7 @@ INSERT INTO `tcneo_regions` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_roles`
+-- Table structure for table `roles`
 --
 
 DROP TABLE IF EXISTS `tcneo_roles`;
@@ -827,7 +827,7 @@ CREATE TABLE `tcneo_roles` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `tcneo_roles`
+-- Dumping data for table `roles`
 --
 
 INSERT INTO `tcneo_roles` (`id`, `name`, `description`, `color`) VALUES
@@ -839,7 +839,7 @@ INSERT INTO `tcneo_roles` (`id`, `name`, `description`, `color`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_templates`
+-- Table structure for table `templates`
 --
 
 DROP TABLE IF EXISTS `tcneo_templates`;
@@ -884,7 +884,7 @@ CREATE TABLE `tcneo_templates` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `tcneo_templates`
+-- Dumping data for table `templates`
 --
 
 INSERT INTO `tcneo_templates` (`id`, `username`, `year`, `month`, `abs1`, `abs2`, `abs3`, `abs4`, `abs5`, `abs6`, `abs7`, `abs8`, `abs9`, `abs10`, `abs11`, `abs12`, `abs13`, `abs14`, `abs15`, `abs16`, `abs17`, `abs18`, `abs19`, `abs20`, `abs21`, `abs22`, `abs23`, `abs24`, `abs25`, `abs26`, `abs27`, `abs28`, `abs29`, `abs30`, `abs31`) VALUES
@@ -899,7 +899,7 @@ INSERT INTO `tcneo_templates` (`id`, `username`, `year`, `month`, `abs1`, `abs2`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_users`
+-- Table structure for table `users`
 --
 
 DROP TABLE IF EXISTS `tcneo_users`;
@@ -923,7 +923,7 @@ CREATE TABLE `tcneo_users` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `tcneo_users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `tcneo_users` (`username`, `password`, `firstname`, `lastname`, `email`, `role`, `locked`, `hidden`, `onhold`, `verify`, `bad_logins`, `grace_start`, `last_pw_change`, `last_login`, `created`) VALUES
@@ -940,7 +940,7 @@ INSERT INTO `tcneo_users` (`username`, `password`, `firstname`, `lastname`, `ema
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_user_group`
+-- Table structure for table `user_group`
 --
 
 DROP TABLE IF EXISTS `tcneo_user_group`;
@@ -953,7 +953,7 @@ CREATE TABLE `tcneo_user_group` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `tcneo_user_group`
+-- Dumping data for table `user_group`
 --
 
 INSERT INTO `tcneo_user_group` (`id`, `username`, `groupid`, `type`) VALUES
@@ -969,7 +969,7 @@ INSERT INTO `tcneo_user_group` (`id`, `username`, `groupid`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_user_message`
+-- Table structure for table `user_message`
 --
 
 DROP TABLE IF EXISTS `tcneo_user_message`;
@@ -984,7 +984,7 @@ CREATE TABLE `tcneo_user_message` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tcneo_user_option`
+-- Table structure for table `user_option`
 --
 
 DROP TABLE IF EXISTS `tcneo_user_option`;
@@ -994,11 +994,11 @@ CREATE TABLE `tcneo_user_option` (
   `option` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `value` text CHARACTER SET utf8,
   PRIMARY KEY (id),
-  UNIQUE useroption (username,option)
+  UNIQUE useroption (username,`option`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `tcneo_user_option`
+-- Dumping data for table `user_option`
 --
 
 INSERT INTO `tcneo_user_option` (`id`, `username`, `option`, `value`) VALUES

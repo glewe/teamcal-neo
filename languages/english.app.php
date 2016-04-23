@@ -5,11 +5,11 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -116,6 +116,11 @@ $LANG['absum_modalYearTitle'] = 'Select the Year for the Summary';
 $LANG['absum_unlimited'] = 'Unlimited';
 $LANG['absum_year'] = 'Year';
 $LANG['absum_year_comment'] = 'Select the year for this summary.';
+$LANG['absum_absencetype'] = 'Absence Type';
+$LANG['absum_contingent'] = 'Contingent';
+$LANG['absum_contingent_tt'] = 'The Contingent is the result of the Allowance for this year plus the Carryover from last year. Note, that the Carryover value can also be negative.';
+$LANG['absum_taken'] = 'Taken';
+$LANG['absum_remainder'] = 'Remainder';
 
 //
 // Alerts
@@ -138,9 +143,9 @@ $LANG['btn_create_holiday'] = 'Create Holiday';
 $LANG['btn_create_region'] = 'Create Region';
 $LANG['btn_delete_abs'] = 'Delete Absence Type';
 $LANG['btn_delete_holiday'] = 'Delete Holiday';
-$LANG['btn_holiday_list'] = 'Show Holiday List';
-$LANG['btn_region_list'] = 'Show Region List';
-$LANG['btn_showcalendar'] = 'Show calendar';
+$LANG['btn_holiday_list'] = 'Holiday List';
+$LANG['btn_region_list'] = 'Region List';
+$LANG['btn_showcalendar'] = 'Show Calendar';
 
 //
 // Calendar

@@ -5,11 +5,11 @@
  * Region edit page view
  *
  * @category TeamCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
@@ -41,7 +41,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="panel panel-default">
                         <div class="panel-body">
                            <input name="hidden_id" type="hidden" value="<?=$viewData['id']?>">
-                           <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_regionUpdate"><?=$LANG['btn_update']?></button>
+                           <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_regionUpdate"><?=$LANG['btn_save']?></button>
                            <a href="index.php?action=regions" class="btn btn-default pull-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_region_list']?></a>
                         </div>
                      </div>
@@ -56,7 +56,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      
                      <div class="panel panel-default">
                         <div class="panel-body">
-                           <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_regionUpdate"><?=$LANG['btn_update']?></button>
+                           <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_regionUpdate"><?=$LANG['btn_save']?></button>
                         </div>
                      </div>
                      

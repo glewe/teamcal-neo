@@ -5,11 +5,11 @@
  * Absence Summary page controller
  *
  * @category TemCal Neo 
- * @version 0.5.000
+ * @version 0.5.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license
+ * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -155,14 +155,21 @@ foreach ($absences as $abs)
       $countTo = str_replace('-', '' , $viewData['to']);
       $count += countAbsence($caluser, $abs['id'], $countFrom, $countTo, false, false);
    }
+   
+   $contingent = $LANG['absum_unlimited'];
+   if ($abs['allowance']) $contingent = $abs['allowance'] + $AL->getCarryover($caluser, $abs['id']);
+
+   $remainder = $LANG['absum_unlimited'];
+   if ($abs['allowance']) $remainder = $contingent - $count;
+    
    $viewData['absences'][] = array (
       'icon' => $abs['icon'],
       'bgcolor' => $abs['bgcolor'],
       'color' => $abs['color'],
       'name' => $abs['name'],
-      'allowance' => ($abs['allowance']?$abs['allowance']:$LANG['none']),
+      'contingent' => $contingent,
       'taken' => $count,
-      'remainder' => ($abs['allowance']?$abs['allowance']-$count:$LANG['absum_unlimited']),
+      'remainder' => $remainder,
    );
 }
 
