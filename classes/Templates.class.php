@@ -3,7 +3,7 @@
  * Templates.class.php
  *
  * @category TeamCal Neo 
- * @version 0.5.001
+ * @version 0.5.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -358,41 +358,6 @@ class Templates
    
    // ---------------------------------------------------------------------
    /**
-    * Gets all usernames that hold a given absence for a given day
-    *
-    * @param string $year Year to find (YYYY)
-    * @param string $month Month to find (MM)
-    * @param string $day Day of month to find (D)
-    * @param string $absid Absence ID to find
-    * @return bool 0 or absence ID
-    */
-   function getUsersForAbsence($year = '', $month = '', $day = '', $absid)
-   {
-      $records = array();
-      
-      $query = $this->db->prepare('
-      SELECT u.*
-      FROM '.$this->utable.' u JOIN '.$this->table.' t ON u.username = t.username
-      WHERE t.abs'.$day.' = :val3 AND year = :val1 AND month = :val2;
-      ');
-      
-      $query->bindParam('val1', $year);
-      $query->bindParam('val2', $month);
-      $query->bindParam('val3', $absid);
-      $result = $query->execute();
-      
-      if ($result)
-      {
-         while ($row = $query->fetch())
-         {
-            $records[] = $row;
-         }
-      }
-      return $records;
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
     * Gest a template by username, year and month
     *
     * @param string $username Username to find
@@ -451,6 +416,31 @@ class Templates
          }
       }
       return $result;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
+    * Checks whether a given user has a given absence in a given month
+    *
+    * @param string $username Username to find
+    * @param string $year Year to find (YYYY)
+    * @param string $month Month to find (MM)
+    * @param string $absid Absence ID to find
+    * @return bool 0 or 1
+    */
+   function hasAbsence($username='', $year = '', $month = '', $absid)
+   {
+      for ($i=1; $i<=31; $i++)
+      {
+         $myQuery = 'SELECT username FROM '.$this->table.' WHERE username = "'.$username.'" AND year = "'.$year.'" AND month = "'.$month.'" AND abs'.$i.' = "'.$absid.'";';
+         $query = $this->db->prepare($myQuery);
+         $result = $query->execute();
+         if ($result and $row = $query->fetch())
+         {
+            return true;
+         }
+      }
+      return false;
    }
    
    // ---------------------------------------------------------------------

@@ -5,7 +5,7 @@
  * Calendar view page controller
  *
  * @category TeamCal Neo 
- * @version 0.5.001
+ * @version 0.5.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -162,12 +162,14 @@ if (!empty($_POST))
       {
          if ($_POST['sel_group'] == "all")
          {
+            unset($users);
             $users = $U->getAll();
          }
          else 
          {
             $viewData['groupval'] = $_POST['sel_group'];
             $viewData['group'] = $G->getNameById($_POST['sel_group']);
+            unset($users);
             $users = $UG->getAllForGroup($_POST['sel_group']);
          }
       }
@@ -177,6 +179,7 @@ if (!empty($_POST))
       elseif (isset($_POST['btn_search']))
       {
          $viewData['search'] = $_POST['txt_search'];
+         unset($users);
          $users = $U->getAllLike($_POST['txt_search']);
       }
       // ,----------------,
@@ -184,13 +187,20 @@ if (!empty($_POST))
       // '----------------'
       elseif (isset($_POST['btn_abssearch']))
       {
-         $viewData['absid'] = $_POST['sel_absence'];
-         $viewData['absence'] = $A->getName($_POST['sel_absence']);
-         // TODO
-         $users = array();
-         for ($i=1; $i<=31; $i++)
+         if ($_POST['sel_absence'] != "all")
          {
-            array_push($users,$T->getUsersForAbsence(date('Y'), date('m'), $i, $_POST['sel_absence']));
+            $viewData['absid'] = $_POST['sel_absence'];
+            $viewData['absence'] = $A->getName($_POST['sel_absence']);
+            $ausers = array();
+            foreach ($users as $usr)
+            {
+               if ($T->hasAbsence($usr['username'], date('Y'), date('m'),$_POST['sel_absence']))
+               {
+                  array_push($ausers,$usr);
+               }
+            }
+            unset($users);
+            $users = $ausers;
          }
       }
    }
@@ -217,6 +227,7 @@ $viewData['groups'] = $G->getAll();
 $viewData['dayStyles'] = array();
 
 $viewData['users'] = array();
+
 foreach ($users as $usr)
 {
    $allowed = false;

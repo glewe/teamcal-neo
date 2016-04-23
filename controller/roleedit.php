@@ -5,7 +5,7 @@
  * Role edit page controller
  *
  * @category TeamCal Neo 
- * @version 0.5.001
+ * @version 0.5.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com

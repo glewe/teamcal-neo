@@ -3,6 +3,21 @@ TEAMCAL NEO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[0.5.002]
+
+DATE
+2016-04-23
+
+BUGFIXES
+01 https://georgelewe.atlassian.net/browse/TCN-25
+   View Calendar by Absence type does not show any entry
+
+CHANGES
+
+NEW FEATURES
+
+
+------------------------------------------------------------------------------
 [0.5.001]
 
 DATE
