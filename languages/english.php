@@ -5,7 +5,7 @@
  * Language file (English)
  *
  * @category LeAF 
- * @version 0.5.002
+ * @version 0.5.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -704,7 +704,7 @@ $LANG['mnu_user_profile'] = 'Edit Profile';
 $LANG['msg_title'] = 'Messages for: ';
 $LANG['msg_title_edit'] = 'Create Message';
 $LANG['msg_code'] = 'Captcha Code';
-$LANG['msg_code_desc'] = 'Please enter the Captcha code as displayed. Capitalization is not relevant.';
+$LANG['msg_code_comment'] = 'Please enter the Captcha code as displayed. Capitalization is not relevant.';
 $LANG['msg_code_new'] = 'Load new image';
 $LANG['msg_confirm_all_confirm'] = 'Are you sure you want to confirm all your messages?';
 $LANG['msg_confirm_confirm'] = 'Are you sure you want to confirm message "%s" ? The message will not be deleted but not pop up at login anymore.';
@@ -917,6 +917,9 @@ $LANG['profile_verify_comment'] = 'When a user has registered himself but did no
 $LANG['register_title'] = 'User Registration';
 $LANG['register_alert_success'] = 'You user account was registered and an E-mail with the corresponding information was sent to you.';
 $LANG['register_alert_failed'] = 'Your registration could not be completed. Please check your input.';
+$LANG['register_code'] = 'Captcha Code';
+$LANG['register_code_comment'] = 'Please enter the Captcha code as displayed. Capitalization is not relevant.';
+$LANG['register_code_new'] = 'Load new image';
 $LANG['register_email'] = 'E-mail';
 $LANG['register_email_comment'] = '';
 $LANG['register_firstname'] = 'Firstname';

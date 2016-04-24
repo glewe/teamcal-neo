@@ -3,6 +3,21 @@ TEAMCAL NEO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[0.5.003]
+
+DATE
+2016-04-24
+
+BUGFIXES
+
+CHANGES
+
+NEW FEATURES
+01 https://georgelewe.atlassian.net/browse/TCN-26
+   Securimage confirmation on Registration page
+
+
+------------------------------------------------------------------------------
 [0.5.002]
 
 DATE

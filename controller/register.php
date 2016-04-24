@@ -5,7 +5,7 @@
  * Register page controller
  *
  * @category TeamCal Neo 
- * @version 0.5.002
+ * @version 0.5.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -34,11 +34,13 @@ if (!$C->read('allowRegistration'))
 //
 // LOAD CONTROLLER RESOURCES
 //
+require_once (WEBSITE_ROOT . '/addons/securimage/securimage.php');
 
 //=============================================================================
 //
 // VARIABLE DEFAULTS
 //
+$securimage = new Securimage();
 $UR = new Users(); // for the profile to be registered
 $inputAlert = array();
 
@@ -68,6 +70,7 @@ if (!empty($_POST))
       $inputAlert['password2'] = sprintf($LANG['alert_input_match'], $LANG['profile_password2'], $LANG['profile_password']);
       $inputError = true;
    }
+   if (!formInputValid('txt_code', 'required|alpha_numeric')) $inputError = true;
     
    if (!$inputError)
    {
@@ -77,60 +80,78 @@ if (!empty($_POST))
       if (isset($_POST['btn_register']))
       {
          //
-         // Personal
+         // Get Captcha
          //
-         $UR->username = $_POST['txt_username'];
-         $UR->lastname = $_POST['txt_lastname'];
-         $UR->firstname = $_POST['txt_firstname'];
-         $UR->email = $_POST['txt_email'];
-          
-         //
-         // Account
-         //
-         $UR->role = 'User';
-         $UR->locked = '1';
-         $UR->hidden = '0';
-         $UR->onhold = '0';
-         $UR->verify = '1';
-         $UR->bad_logins = '0';
-         $UR->grace_start = '0000-00-00 00:00:00.000000';
-         $UR->created = date('YmdHis');
-
-         //
-         // Password
-         //
-         $UR->password = crypt($_POST['txt_password'], $CONF['salt']);
-         $UR->last_pw_change = date('YmdHis');
-          
-         $UR->create();
-         $UO->save($UR->username, 'avatar', 'noavatar_male.png');
-         
-         //
-         // Verify code
-         //
-         $alphanum = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-         $verifycode = substr(str_shuffle($alphanum), 0, 32);
-         $UO->save($UR->username, "verifycode", $verifycode);
-          
-         //
-         // Send notification to user
-         //
-         sendAccountRegisteredMail($UR->email, $UR->username, $UR->lastname, $UR->firstname, $verifycode);
-         
-         //
-         // Log this event
-         //
-         $LOG->log("logRegistration",$L->checkLogin(),"log_user_registered", $UR->username);
-         
-         //
-         // Success
-         //
-         $showAlert = TRUE;
-         $alertData['type'] = 'success';
-         $alertData['title'] = $LANG['alert_success_title'];
-         $alertData['subject'] = $LANG['register_title'];
-         $alertData['text'] = $LANG['register_alert_success'];
-         $alertData['help'] = '';
+         if ($securimage->check($_POST['txt_code']) == false)
+         {
+            //
+            // Captcha code wrong
+            //
+            $showAlert = TRUE;
+            $alertData['type'] = 'warning';
+            $alertData['title'] = $LANG['alert_warning_title'];
+            $alertData['subject'] = $LANG['alert_captcha_wrong'];
+            $alertData['text'] = $LANG['alert_captcha_wrong_text'];
+            $alertData['help'] = $LANG['alert_captcha_wrong_help'];
+         }
+         else
+         {
+            //
+            // Personal
+            //
+            $UR->username = $_POST['txt_username'];
+            $UR->lastname = $_POST['txt_lastname'];
+            $UR->firstname = $_POST['txt_firstname'];
+            $UR->email = $_POST['txt_email'];
+             
+            //
+            // Account
+            //
+            $UR->role = 'User';
+            $UR->locked = '1';
+            $UR->hidden = '0';
+            $UR->onhold = '0';
+            $UR->verify = '1';
+            $UR->bad_logins = '0';
+            $UR->grace_start = '0000-00-00 00:00:00.000000';
+            $UR->created = date('YmdHis');
+   
+            //
+            // Password
+            //
+            $UR->password = crypt($_POST['txt_password'], $CONF['salt']);
+            $UR->last_pw_change = date('YmdHis');
+             
+            $UR->create();
+            $UO->save($UR->username, 'avatar', 'noavatar_male.png');
+            
+            //
+            // Verify code
+            //
+            $alphanum = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            $verifycode = substr(str_shuffle($alphanum), 0, 32);
+            $UO->save($UR->username, "verifycode", $verifycode);
+             
+            //
+            // Send notification to user
+            //
+            sendAccountRegisteredMail($UR->email, $UR->username, $UR->lastname, $UR->firstname, $verifycode);
+            
+            //
+            // Log this event
+            //
+            $LOG->log("logRegistration",$L->checkLogin(),"log_user_registered", $UR->username);
+            
+            //
+            // Success
+            //
+            $showAlert = TRUE;
+            $alertData['type'] = 'success';
+            $alertData['title'] = $LANG['alert_success_title'];
+            $alertData['subject'] = $LANG['register_title'];
+            $alertData['text'] = $LANG['register_alert_success'];
+            $alertData['help'] = '';
+         }
       }
    }
    else
@@ -159,6 +180,7 @@ $viewData['personal'] = array (
    array ( 'prefix' => 'register', 'name' => 'email', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['email'])?$inputAlert['email']:'') ),
    array ( 'prefix' => 'register', 'name' => 'password', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'mandatory' => true, 'error' =>  (isset($inputAlert['password'])?$inputAlert['password']:'') ),
    array ( 'prefix' => 'register', 'name' => 'password2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'mandatory' => true, 'error' =>  (isset($inputAlert['password2'])?$inputAlert['password2']:'') ),
+   array ( 'prefix' => 'register', 'name' => 'code', 'type' => 'securimage', 'value' => '', 'maxlength' => '6', 'mandatory' => true, 'error' =>  (isset($inputAlert['code'])?$inputAlert['code']:'') ),
 );
 
 //=============================================================================

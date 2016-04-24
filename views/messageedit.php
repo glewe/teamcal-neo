@@ -5,7 +5,7 @@
  * Message editor view
  *
  * @category TeamCal Neo 
- * @version 0.5.002
+ * @version 0.5.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -126,7 +126,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="form-group">
                         <label for="inputCode" class="col-lg-<?=$colsleft?> control-label">
                            <?=$LANG['msg_code']?><br>
-                           <span class="text-normal"><?=$LANG['msg_code_desc']?></span>
+                           <span class="text-normal"><?=$LANG['msg_code_comment']?></span>
                         </label>
                         <div class="col-lg-<?=$colsright?>">
                            <img id="captcha" src="addons/securimage/securimage_show.php" alt="CAPTCHA Image"><br>

@@ -5,7 +5,7 @@
  * Language file (German)
  *
  * @category LeAF 
- * @version 0.5.002
+ * @version 0.5.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -708,7 +708,7 @@ $LANG['mnu_user_profile'] = 'User Profil';
 $LANG['msg_title'] = 'Benachrichtigungen f&uuml;r: ';
 $LANG['msg_title_edit'] = 'Benachrichtigung Erstellen';
 $LANG['msg_code'] = 'Sicherheitscode';
-$LANG['msg_code_desc'] = 'Bitte geben Sie den Code ein wie angezeigt. Gro&szlig;- und Kleinschreibung ist nicht relevant.';
+$LANG['msg_code_comment'] = 'Bitte geben Sie den Code ein wie angezeigt. Gro&szlig;- und Kleinschreibung ist nicht relevant.';
 $LANG['msg_code_new'] = 'Neues Bild laden';
 $LANG['msg_confirm_all_confirm'] = 'Bist du sicher, dass du alle Benachrichtigungen best&auml;tigen willst?';
 $LANG['msg_confirm_confirm'] = 'Bist du sicher, dass du die Benchrichtigung "%s" best&auml;tigen willst? Sie wird nicht gel&ouml;scht aber nicht mehr automatisch angezeigt.';
@@ -921,6 +921,9 @@ $LANG['profile_verify_comment'] = 'Wenn der Benutzer sich selbst registriert hat
 $LANG['register_title'] = 'Benutzer Registrierung';
 $LANG['register_alert_success'] = 'Das Benutzerkonto wurde registriert und eine E-mail mit den entsprechenden Informationen versendet.';
 $LANG['register_alert_failed'] = 'Die Registrierung ist fehlgeschlagen. Bitte &uuml;ber&uuml;fe die Eingaben.';
+$LANG['register_code'] = 'Sicherheitscode';
+$LANG['register_code_comment'] = 'Bitte geben Sie den Code ein wie angezeigt. Gro&szlig;- und Kleinschreibung ist nicht relevant.';
+$LANG['register_code_new'] = 'Neues Bild laden';
 $LANG['register_email'] = 'E-Mail';
 $LANG['register_email_comment'] = '';
 $LANG['register_firstname'] = 'Vorname';

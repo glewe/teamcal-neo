@@ -5,7 +5,7 @@
  * Collection of global helper functions
  *
  * @category TeamCal Neo 
- * @version 0.5.002
+ * @version 0.5.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -391,7 +391,7 @@ function formInputValid($field, $ruleset, $param = '')
    {
       if (isset($_POST[$field]) and strlen($_POST[$field]) and isset($_POST[$param]) and strlen($_POST[$param]) and $_POST[$field] != $_POST[$param])
       {
-         $inputAlert[$label[1]] = sprintf($LANG['alert_input_match'], $param);
+         $inputAlert[$label[1]] = sprintf($LANG['alert_input_match'], $field, $param);
          return false;
       }
    }

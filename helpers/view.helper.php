@@ -5,7 +5,7 @@
  * Collection of view related helpers
  *
  * @category TeamCal Neo 
- * @version 0.5.002
+ * @version 0.5.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -227,6 +227,25 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
          </div>';
          break;
          
+      /**
+       * Securimage
+       */
+      case 'securimage' :
+         $langIdx3 = $data['prefix'] . '_' . $data['name'] . '_new';
+         $formGroup = '
+         <div class="form-group">
+            <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
+               ' . $mandatory.$LANG[$langIdx1] . '<br>
+               <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+            </label>
+            <div class="col-lg-' . $colsright . '">
+               <img id="captcha" src="addons/securimage/securimage_show.php" alt="CAPTCHA Image"><br>
+               [<a href="#" onclick="document.getElementById(\'captcha\').src = \'addons/securimage/securimage_show.php?\' + Math.random(); return false">'.$LANG[$langIdx3].'</a>]
+               <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" placeholder="Code"  value="' . $data['value'] . '" type="text" maxlength="' . $data['maxlength'] . '"' . $disabled . '>
+            '.$button.$error.'</div>
+         </div>';
+         break;
+      
       /**
        * Text field
        */
