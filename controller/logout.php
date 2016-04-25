@@ -1,8 +1,8 @@
 <?php
 /**
- * about.php
+ * logout.php
  * 
- * About page controller
+ * Logout page controller
  *
  * @category TeamCal Neo 
  * @version 0.5.004
@@ -12,6 +12,26 @@
  * @license (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
+
+// echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
+
+//=============================================================================
+//
+// VARIABLE DEFAULTS
+//
+
+//=============================================================================
+//
+// PROCESS FORM
+//
+$L->logout();
+$LOG->log("logLogin", $L->checkLogin(), "log_logout");
+
+//=============================================================================
+//
+// PREPARE VIEW
+//
+$viewData['cookie_name'] = $CONF['cookie_name'];
 
 //=============================================================================
 //

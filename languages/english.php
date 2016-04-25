@@ -4,8 +4,8 @@
  * 
  * Language file (English)
  *
- * @category LeAF 
- * @version 0.5.003
+ * @category TeamCal Neo 
+ * @version 0.5.004
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -659,6 +659,12 @@ $LANG['login_error_94_text'] = 'The LDAP start TLS failed. Please try again.';
 $LANG['login_error_95'] = 'LDAP error: Username not found';
 $LANG['login_error_96'] = 'LDAP error: Search bind failed';
 $LANG['login_error_96_text'] = 'The LDAP search bind failed. Please try again.';
+
+//
+// Logout
+//
+$LANG['logout_title'] = 'Logout';
+$LANG['logout_comment'] = 'You have been logged out.';
 
 //
 // Maintenance

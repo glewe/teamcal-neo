@@ -3,7 +3,7 @@
  * index.php
  * 
  * @category TeamCal Neo 
- * @version 0.5.003
+ * @version 0.5.004
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -257,29 +257,15 @@ if (file_exists('installation.php'))
 //
 // DETERMINE CONTROLLER
 //
-if (isset($_GET['action']))
-{
-   $action = sanitize($_GET['action']);
-   if ($action == 'logout')
-   {
-      $L->logout();
-      $LOG->log("logLogin", $L->checkLogin(), "log_logout");
-      header("Location: " . $_SERVER['PHP_SELF'] . "?action=home");
-   }
-   else 
-   {
-      $controller = $_GET['action'];
-   }
-}
-else
-{
-   header("Location: " . $_SERVER['PHP_SELF'] . "?action=home");
-}
-
 if ($C->read('underMaintenance'))
 {
    $appStatus['maintenance'] = true;
    if ($luser != 'admin' AND $controller != 'login') $controller = 'maintenance';
+}
+else 
+{
+   $controller = 'home';
+   if (isset($_GET['action'])) $controller = sanitize($_GET['action']);
 }
 
 //=============================================================================

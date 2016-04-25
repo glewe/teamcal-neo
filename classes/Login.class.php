@@ -3,7 +3,7 @@
  * Login.class.php
  *
  * @category TeamCal Neo 
- * @version 0.5.003
+ * @version 0.5.004
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -315,7 +315,8 @@ class Login
       $secret = crypt($loginname, $this->salt);
       $value = $loginname . ":" . $secret;
       setcookie($this->cookie_name, ''); // Clear current cookie
-      setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '', $_SERVER['HTTP_HOST'], false, true); // Set new cookie
+      //setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '', $_SERVER['HTTP_HOST'], false, true); // Set new cookie
+      setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '/'); // Set new cookie
       $U->bad_logins = 0;
       $U->grace_start = '';
       $U->last_login = date("YmdHis");
@@ -331,6 +332,8 @@ class Login
    function logout()
    {
       setcookie($this->cookie_name, '', time() - 3600, '', $_SERVER['HTTP_HOST'], false, true);
+      setcookie($this->cookie_name, false, time() - 60*100000, '/');
+      setcookie($this->cookie_name, ''); // Clear current cookie
    }
 
    // ---------------------------------------------------------------------

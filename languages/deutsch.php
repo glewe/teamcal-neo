@@ -4,8 +4,8 @@
  * 
  * Language file (German)
  *
- * @category LeAF 
- * @version 0.5.003
+ * @category TeamCal Neo 
+ * @version 0.5.004
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -663,6 +663,12 @@ $LANG['login_error_94_text'] = 'Der Start von TLS ist fehlgeschlagen. Bitte vers
 $LANG['login_error_95'] = 'LDAP Fehler: Benutzername nicht gefunden';
 $LANG['login_error_96'] = 'LDAP Fehler: "Search bind" fehlgeschlagen';
 $LANG['login_error_96_text'] = 'Der LDAP "Search bind" ist fehlgeschlagen. Bitte versuche es erneut.';
+
+//
+// Logout
+//
+$LANG['logout_title'] = 'Logout';
+$LANG['logout_comment'] = 'Du bist nun ausgeloggt.';
 
 //
 // Maintenance

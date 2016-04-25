@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 0.5.003
+ * @version 0.5.004
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -71,6 +71,7 @@ $CONF['controllers'] = array (
    'imprint' => new Controller('imprint', 'file-text-o', 'default', 'default', ''),
    'log' => new Controller('log', 'list-ol', 'info', 'info', 'admin'),
    'login' => new Controller('login', 'sign-in', 'success', 'default', ''),
+   'logout' => new Controller('logout', 'sign-out', 'success', 'default', ''),
    'maintenance' => new Controller('maintenance', 'wrench', 'danger', 'danger', ''),
    'messages' => new Controller('messages', 'comments-o', 'info', 'info', 'messageview'),
    'messageedit' => new Controller('messageedit', 'comment-o', 'info', 'danger', 'messageedit'),
