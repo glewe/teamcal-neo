@@ -5,11 +5,11 @@
  * Collection of view related helpers
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -95,7 +95,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
        */
       case 'check' :
          $formGroup = '
-         <div class="form-group">
+         <div class="form-group" id="form-group-' . $data['name'] . '">
             <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
                ' . $mandatory.$LANG[$langIdx1] . '<br>
                <span class="text-normal">' . $LANG[$langIdx2] . '</span>
@@ -105,6 +105,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
                   <label><input type="checkbox" id="' . $data['name'] . '" name="chk_' . $data['name'] . '" value="chk_' . $data['name'] . '"' . ((intval($data['value'])) ? " checked" : "") . ' tabindex="' . $tabindex . '"' . $disabled . '>' . $LANG[$langIdx1] . '</label>
                </div>
             '.$button.$error.'</div>
+            <div class="divider"><hr></div>
          </div>';
          break;
       
@@ -113,7 +114,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
        */
       case 'color' :
          $formGroup = '
-         <div class="form-group">
+         <div class="form-group" id="form-group-' . $data['name'] . '">
             <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
                ' . $mandatory.$LANG[$langIdx1] . '<br>
                <span class="text-normal">' . $LANG[$langIdx2] . '</span>
@@ -122,6 +123,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
                <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="text" maxlength="6" value="' . $data['value'] . '"' . $disabled . '>
             '.$button.$error.'</div>
             <script type="text/javascript">$(function() { $( "#' . $data['name'] . '" ).ColorPicker({ onSubmit: function(hsb, hex, rgb, el) { $(el).val(hex.toUpperCase()); $(el).ColorPickerHide(); }, onBeforeShow: function () { $(this).ColorPickerSetColor(this.value); } }) .bind(\'keyup\', function(){ $(this).ColorPickerSetColor(this.value); }); });</script>
+            <div class="divider"><hr></div>
          </div>';
          break;
          
@@ -130,7 +132,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
        */
       case 'date' :
          $formGroup = '
-         <div class="form-group">
+         <div class="form-group" id="form-group-' . $data['name'] . '">
             <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
                ' . $mandatory.$LANG[$langIdx1] . '<br>
                <span class="text-normal">' . $LANG[$langIdx2] . '</span>
@@ -139,6 +141,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
                <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="text" maxlength="10" value="' . $data['value'] . '"' . $disabled . '>
             '.$button.$error.'</div>
             <script type="text/javascript">$(function() { $( "#' . $data['name'] . '" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });</script>
+            <div class="divider"><hr></div>
          </div>';
          break;
 
@@ -148,7 +151,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
       case 'list' :
          $style = '';
          $formGroup = '
-         <div class="form-group">
+         <div class="form-group" id="form-group-' . $data['name'] . '">
             <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
                ' . $mandatory.$LANG[$langIdx1] . '<br>
                <span class="text-normal">' . $LANG[$langIdx2] . '</span>
@@ -165,6 +168,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
                }
                $formGroup .= '</select>
             '.$button.$error.'</div>
+            <div class="divider"><hr></div>
          </div>';
          break;
 
@@ -173,7 +177,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
        */
       case 'listmulti' :
          $formGroup = '
-         <div class="form-group">
+         <div class="form-group" id="form-group-' . $data['name'] . '">
             <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
                ' . $mandatory.$LANG[$langIdx1] . '<br>
                <span class="text-normal">' . $LANG[$langIdx2] . '</span>
@@ -186,6 +190,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
                }
                $formGroup .= '</select>
             '.$button.$error.'</div>
+            <div class="divider"><hr></div>
          </div>';
          break;
       
@@ -194,7 +199,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
        */
       case 'password' :
          $formGroup = '
-         <div class="form-group">
+         <div class="form-group" id="form-group-' . $data['name'] . '">
             <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
                ' . $mandatory.$LANG[$langIdx1] . '<br>
                <span class="text-normal">' . $LANG[$langIdx2] . '</span>
@@ -202,6 +207,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
             <div class="col-lg-' . $colsright . '">
                <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="password" maxlength="' . $data['maxlength'] . '" value="' . $data['value'] . '" autocomplete="off"' . $disabled . '>
             '.$button.$error.'</div>
+            <div class="divider"><hr></div>
          </div>';
          break;
       
@@ -210,7 +216,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
        */
       case 'radio' :
          $formGroup = '
-         <div class="form-group">
+         <div class="form-group" id="form-group-' . $data['name'] . '">
             <label class="col-lg-' . $colsleft . ' control-label">
                ' . $mandatory.$LANG[$langIdx1] . '<br>
                <span class="text-normal">' . $LANG[$langIdx2] . '</span>
@@ -224,6 +230,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
                $formGroup .= '</div>';
             }
             $formGroup .= $button.$error.'</div>
+            <div class="divider"><hr></div>
          </div>';
          break;
          
@@ -233,7 +240,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
       case 'securimage' :
          $langIdx3 = $data['prefix'] . '_' . $data['name'] . '_new';
          $formGroup = '
-         <div class="form-group">
+         <div class="form-group" id="form-group-' . $data['name'] . '">
             <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
                ' . $mandatory.$LANG[$langIdx1] . '<br>
                <span class="text-normal">' . $LANG[$langIdx2] . '</span>
@@ -243,6 +250,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
                [<a href="#" onclick="document.getElementById(\'captcha\').src = \'addons/securimage/securimage_show.php?\' + Math.random(); return false">'.$LANG[$langIdx3].'</a>]
                <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" placeholder="Code"  value="' . $data['value'] . '" type="text" maxlength="' . $data['maxlength'] . '"' . $disabled . '>
             '.$button.$error.'</div>
+            <div class="divider"><hr></div>
          </div>';
          break;
       
@@ -251,7 +259,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
        */
       case 'text' :
          $formGroup = '
-         <div class="form-group">
+         <div class="form-group" id="form-group-' . $data['name'] . '">
             <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
                ' . $mandatory.$LANG[$langIdx1] . '<br>
                <span class="text-normal">' . $LANG[$langIdx2] . '</span>
@@ -259,6 +267,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
             <div class="col-lg-' . $colsright . '">
                <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="text" maxlength="' . $data['maxlength'] . '" value="' . $data['value'] . '"' . $disabled . '>
             '.$button.$error.'</div>
+            <div class="divider"><hr></div>
          </div>';
          break;
       
@@ -267,14 +276,15 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
        */
       case 'textarea' :
          $formGroup = '
-         <div class="form-group">
+         <div class="form-group" id="form-group-' . $data['name'] . '">
             <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
                ' . $mandatory.$LANG[$langIdx1] . '<br>
                <span class="text-normal">' . $LANG[$langIdx2] . '</span>
             </label>
             <div class="col-lg-' . $colsright . '">
-               <textarea id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" rows="' . $data['rows'] . '"' . $disabled . '>' . $data['value'] . '</textarea>
+               <textarea id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" rows="' . $data['rows'] . '" placeholder="' . $data['placeholder'] . '" ' . $disabled . '>' . $data['value'] . '</textarea>
             '.$button.$error.'</div>
+            <div class="divider"><hr></div>
          </div>';
          break;
       
@@ -283,7 +293,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
        */
       case 'ckeditor' :
          $formGroup = '
-         <div class="form-group">
+         <div class="form-group" id="form-group-' . $data['name'] . '">
             <label for="' . $data['name'] . '" class="col-lg-12 control-label">
                ' . $mandatory.$LANG[$langIdx1] . '<br>
                <span class="text-normal">' . $LANG[$langIdx2] . '</span>
@@ -292,11 +302,11 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
                <textarea id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" rows="' . $data['rows'] . '"' . $disabled . '>' . $data['value'] . '</textarea>
                <script>CKEDITOR.replace( "'.$data['name'].'" );</script>
             '.$button.$error.'</div>
+            <div class="divider"><hr></div>
          </div>';
          break;
    }
    
-   $formGroup .= '<div class="divider"><hr></div>';
    return $formGroup;
 }
 

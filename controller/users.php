@@ -4,12 +4,12 @@
  * 
  * Users page controller
  *
- * @category TeamCal Neo 
- * @version 0.5.004
+ * @category JAM 
+ * @version 0.1.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2016 by George Lewe
+ * @copyright Copyright (c) 2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -60,16 +60,36 @@ if (!empty($_POST))
    //
    $inputError = false;
     
-   //
-   // Validate input data. If something is wrong or missing, set $inputError = true
-   //
-    
    if (!$inputError)
    {
+      // ,----------,
+      // | Activate |
+      // '-----------'
+      if ( isset($_POST['btn_userActivate']) AND isset($_POST['chk_userActive']) )
+      {
+         $selected_users = $_POST['chk_userActive'];
+         foreach($selected_users as $su=>$value)
+         {
+            $U->unhide($value);
+            $U->unlock($value);
+            $U->unverify($value);
+            $U1->findByName($value);
+            sendAccountActivatedMail($U1->email, $U1->username, $U1->firstname, $U1->lastname);
+         }
+         //
+         // Success
+         //
+         $showAlert = TRUE;
+         $alertData['type'] = 'success';
+         $alertData['title'] = $LANG['alert_success_title'];
+         $alertData['subject'] = $LANG['btn_activate_selected'];
+         $alertData['text'] = $LANG['users_alert_activate_selected_users'];
+         $alertData['help'] = '';
+      }
       // ,---------,
       // | Archive |
       // '---------'
-      if ( isset($_POST['btn_userArchive']) AND isset($_POST['chk_userActive']) ) 
+      else if ( isset($_POST['btn_userArchive']) AND isset($_POST['chk_userActive']) ) 
       {
          $selected_users = $_POST['chk_userActive'];
          
@@ -272,7 +292,7 @@ if (!empty($_POST))
 //
 // Default: Get all active users
 //
-$users = $U->getAll('lastname', 'firstname', 'ASC', $archive = false, $includeAmin = true);
+$users = $U->getAll('lastname', 'firstname', 'ASC', $archive = false, $includeAdmin = true);
 
 // ,--------,
 // | Search |

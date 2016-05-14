@@ -167,10 +167,12 @@ DROP TABLE IF EXISTS `tcneo_archive_daynotes`;
 CREATE TABLE `tcneo_archive_daynotes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `yyyymmdd` varchar(8) CHARACTER SET utf8 DEFAULT NULL,
-  `daynote` text CHARACTER SET utf8,
   `username` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT 'all',
-  `region` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT 'default',
-  PRIMARY KEY (id)
+  `region` int(11) NOT NULL DEFAULT '1',
+  `daynote` text CHARACTER SET utf8,
+  `color` varchar(16) COLLATE utf8_bin NOT NULL DEFAULT 'default',
+  PRIMARY KEY (id),
+  UNIQUE( `yyyymmdd`, `username`, `region`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -364,7 +366,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (51, 'logperiod', 'curr_all'),
 (50, 'faCDN', '0'),
 (52, 'logfrom', '2014-01-01 00:00:00.000000'),
-(53, 'logto', '2016-01-02 23:59:59.999999'),
+(53, 'logto', '2016-12-31 23:59:59.999999'),
 (54, 'logConfig', '1'),
 (55, 'logfilterConfig', '1'),
 (56, 'logDatabase', '1'),
@@ -474,10 +476,12 @@ DROP TABLE IF EXISTS `tcneo_daynotes`;
 CREATE TABLE `tcneo_daynotes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `yyyymmdd` varchar(8) CHARACTER SET utf8 DEFAULT NULL,
-  `daynote` text CHARACTER SET utf8,
   `username` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT 'all',
-  `region` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT 'default',
-  PRIMARY KEY (id)
+  `region` int(11) NOT NULL DEFAULT '1',
+  `daynote` text CHARACTER SET utf8,
+  `color` varchar(16) COLLATE utf8_bin NOT NULL DEFAULT 'default',
+  PRIMARY KEY (id),
+  UNIQUE( `yyyymmdd`, `username`, `region`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -697,11 +701,11 @@ INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`
 (1, 'Default', 'calendareditall', 1, 1),
 (2, 'Default', 'calendareditgroup', 2, 0),
 (3, 'Default', 'calendareditgroup', 3, 0),
-(4, 'Default', 'calendareditgroup', 4, 0),
+(4, 'Default', 'calendareditgroup', 4, 1),
 (5, 'Default', 'calendareditgroup', 1, 1),
-(6, 'Default', 'calendareditown', 2, 0),
+(6, 'Default', 'calendareditown', 2, 1),
 (7, 'Default', 'calendareditown', 3, 0),
-(8, 'Default', 'calendareditown', 4, 0),
+(8, 'Default', 'calendareditown', 4, 1),
 (9, 'Default', 'calendareditown', 1, 1),
 (10, 'Default', 'statistics', 2, 0),
 (11, 'Default', 'statistics', 3, 0),
@@ -713,7 +717,7 @@ INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`
 (17, 'Default', 'regions', 1, 1),
 (18, 'Default', 'holidays', 2, 0),
 (19, 'Default', 'holidays', 3, 0),
-(20, 'Default', 'holidays', 4, 0),
+(20, 'Default', 'holidays', 4, 1),
 (21, 'Default', 'holidays', 1, 1),
 (22, 'Default', 'declination', 2, 0),
 (23, 'Default', 'declination', 3, 0),
@@ -723,9 +727,9 @@ INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`
 (27, 'Default', 'calendaroptions', 3, 0),
 (28, 'Default', 'calendaroptions', 4, 0),
 (29, 'Default', 'calendaroptions', 1, 1),
-(30, 'Default', 'calendaredit', 2, 0),
+(30, 'Default', 'calendaredit', 2, 1),
 (31, 'Default', 'calendaredit', 3, 0),
-(32, 'Default', 'calendaredit', 4, 0),
+(32, 'Default', 'calendaredit', 4, 1),
 (33, 'Default', 'calendaredit', 1, 1),
 (34, 'Default', 'calendarview', 2, 1),
 (35, 'Default', 'calendarview', 3, 1),
@@ -739,7 +743,7 @@ INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`
 (43, 'Default', 'viewprofile', 3, 0),
 (44, 'Default', 'viewprofile', 4, 1),
 (45, 'Default', 'viewprofile', 1, 1),
-(46, 'Default', 'upload', 2, 0),
+(46, 'Default', 'upload', 2, 1),
 (47, 'Default', 'upload', 3, 0),
 (48, 'Default', 'upload', 4, 1),
 (49, 'Default', 'upload', 1, 1),
@@ -767,11 +771,11 @@ INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`
 (71, 'Default', 'calendareditall', 3, 0),
 (72, 'Default', 'calendareditall', 2, 0),
 (73, 'Default', 'calendarviewgroup', 1, 1),
-(74, 'Default', 'calendarviewgroup', 4, 0),
+(74, 'Default', 'calendarviewgroup', 4, 1),
 (75, 'Default', 'calendarviewgroup', 3, 0),
-(76, 'Default', 'calendarviewgroup', 2, 0),
+(76, 'Default', 'calendarviewgroup', 2, 1),
 (77, 'Default', 'calendarviewall', 1, 1),
-(78, 'Default', 'calendarviewall', 4, 0),
+(78, 'Default', 'calendarviewall', 4, 1),
 (79, 'Default', 'calendarviewall', 3, 0),
 (80, 'Default', 'calendarviewall', 2, 0),
 (81, 'Default', 'useraccount', 1, 1),
@@ -785,7 +789,16 @@ INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`
 (89, 'Default', 'absum', 1, 1),
 (90, 'Default', 'absum', 4, 0),
 (91, 'Default', 'absum', 3, 0),
-(92, 'Default', 'absum', 2, 0);
+(92, 'Default', 'absum', 2, 0),
+(93, 'Default', 'daynote', 1, 1),
+(94, 'Default', 'daynote', 4, 1),
+(95, 'Default', 'daynote', 3, 0),
+(96, 'Default', 'daynote', 2, 1),
+(97, 'Default', 'daynoteglobal', 1, 1),
+(98, 'Default', 'daynoteglobal', 4, 1),
+(99, 'Default', 'daynoteglobal', 3, 0),
+(100, 'Default', 'daynoteglobal', 2, 0);
+
 
 -- --------------------------------------------------------
 

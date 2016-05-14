@@ -3,11 +3,11 @@
  * UserOption.class.php
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -180,6 +180,31 @@ class UserOption
    
    // ---------------------------------------------------------------------
    /**
+    * Checks the existence of an option for a given user
+    *
+    * @param string $username Username to find
+    * @param string $option Option to find
+    * @return string TRUE if exists, FALSE if not
+    */
+   function hasOption($username, $option)
+   {
+      $query = $this->db->prepare('SELECT :val1 FROM ' . $this->table . ' WHERE `username` = :val2');
+      $query->bindParam('val1', $option);
+      $query->bindParam('val2', $username);
+      $result = $query->execute();
+      
+      if ($result and $row = $query->fetch())
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
     * Finds the value of an option for a given user
     *
     * @param string $username Username to find
@@ -192,7 +217,6 @@ class UserOption
       else $table = $this->table;
       
       $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE `username` = :val1 AND `option` = :val2');
-      if (is_array($username)) print_r($username);
       $query->bindParam('val1', $username);
       $query->bindParam('val2', $option);
       $result = $query->execute();

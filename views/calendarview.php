@@ -5,11 +5,11 @@
  * Calendar view page view
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet) http://tcneo.lewe.com/doc/license.txt
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet) http://tcneo.lewe.com/doc/license.txt
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
@@ -96,11 +96,33 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <!-- Row: Month name and day numbers -->
                            <tr>
                               <th class="m-monthname"><?=$viewData['dateInfo']['monthname']?> <?=$viewData['dateInfo']['year']?></th>
-                              <?php for ($i=$daystart; $i<=$dayend; $i++) { 
-                                 if (isset($viewData['dayStyles'][$i]) AND strlen($viewData['dayStyles'][$i])) $dayStyles = ' style="' . $viewData['dayStyles'][$i] . '"';
-                                 else $dayStyles = '';
+                              <?php for ($i=$daystart; $i<=$dayend; $i++) {
+                                 if ($D->get($viewData['year'] . $viewData['month'] . sprintf("%02d", $i), 'all', $viewData['regionid'], true))
+                                 {
+                                    //
+                                    // This is a global daynote
+                                    //
+                                    $notestart = '<div class="tooltip-'.$D->color.'" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="' . $D->daynote . '">';
+                                    $noteend = '</div>';
+                                    $notestyle = 'background-image: url(images/ovl_daynote.gif); background-repeat: no-repeat; background-position: top right;';
+                                 }
+                                 else
+                                 {
+                                    $notestart = '';
+                                    $noteend = '';
+                                    $notestyle = '';
+                                 }
+                                 
+                                 if (isset($viewData['dayStyles'][$i]) AND strlen($viewData['dayStyles'][$i]))
+                                 {
+                                    $dayStyles = ' style="' . $viewData['dayStyles'][$i] . $notestyle . '"';
+                                 }
+                                 else
+                                 {
+                                    $dayStyles = '';
+                                 }
                                  ?> 
-                                 <th class="m-daynumber text-center"<?=$dayStyles?>><?=$i?></th>
+                                 <th class="m-daynumber text-center"<?=$dayStyles?>><?=$notestart.$i.$noteend?></th>
                               <?php } ?>
                            </tr>
                            
@@ -220,13 +242,13 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        $dayPresCount[$i]++;
                                     }
                                     
-                                    if ($D->findByDay($viewData['year'] . $viewData['month'] . sprintf("%02d", $i), $usr['username']))
+                                    if ($D->get($viewData['year'] . $viewData['month'] . sprintf("%02d", $i), $usr['username'], $viewData['regionid'], true))
                                     {
                                        //
                                        // This is a user's daynote
                                        //
                                        $note = true;
-                                       $notestart = '<div class="tooltip-info" style="width: 100%; height: 100%;" data-position="tooltip-right" data-toggle="tooltip" data-title="' . $D->daynote . '">';
+                                       $notestart = '<div class="tooltip-'.$D->color.'" style="width: 100%; height: 100%;" data-position="tooltip-right" data-toggle="tooltip" data-title="' . $D->daynote . '">';
                                        $noteend = '</div>';
                                     }
                                     

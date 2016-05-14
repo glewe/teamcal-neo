@@ -5,11 +5,11 @@
  * Language file (English)
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -194,7 +194,7 @@ $LANG['alert_no_data_text'] = 'This operation was requested with invalid or insu
 $LANG['alert_no_data_help'] = 'The operation failed due to missing or invalid data.';
 
 $LANG['alert_not_allowed_subject'] = 'Access not allowed';
-$LANG['alert_not_allowed_text'] = 'You do not have permission to access this page.';
+$LANG['alert_not_allowed_text'] = 'You do not have permission to access this page or feature.';
 $LANG['alert_not_allowed_help'] = 'If you are not logged in, then public access to this page is not allowed. If you are logged in, your account role is not permitted to view this page.';
 
 $LANG['alert_perm_invalid'] = 'The new permission scheme name "%1%" is invalid. Choose upper or lower case characters or numbers from 0 to 9. Don\'t use blanks.';
@@ -223,6 +223,7 @@ $LANG['btn_cancel'] = 'Cancel';
 $LANG['btn_clear'] = 'Clear';
 $LANG['btn_clear_all'] = 'Clear All';
 $LANG['btn_close'] = 'Close';
+$LANG['btn_configure'] = 'Configure';
 $LANG['btn_confirm'] = 'Confirm';
 $LANG['btn_confirm_all'] = 'Confirm All';
 $LANG['btn_create'] = 'Create';
@@ -488,14 +489,6 @@ $LANG['email_subject_user_account_registered'] = $CONF['app_name'] . ' User Acco
 // Error Messages
 //
 $LANG['error_title'] = 'Application Error';
-
-$LANG['error_installation_script'] = 'Installation Script Exists';
-$LANG['error_installation_script_text'] = '<p>The installation script "installation.php" still exists in TeamCal Neo\'s root directory while "config/config.app.php" indicates that an installation has been performed</p>
-      <p>TeamCal Neo will not start until either one has been resolved:</p>
-      <ol>
-         <li>Delete or rename "installation.php"</li>
-         <li>Set $CONF[\'app_installed\'] to 0 in "config/config.app.php"</li>
-      </ol>';
 
 //
 // Footer
@@ -798,27 +791,27 @@ $LANG['perm_select_confirm'] = 'When you confirm a new scheme selection, all cha
 $LANG['perm_view_by_perm'] = 'View by permission';
 $LANG['perm_view_by_role'] = 'View by role';
 
-$LANG['perm_admin_title'] = 'System Administration';
+$LANG['perm_admin_title'] = 'Administration (System)';
 $LANG['perm_admin_desc'] = 'Allows to access the system administration pages.';
-$LANG['perm_groups_title'] = 'Manage Groups';
+$LANG['perm_groups_title'] = 'Groups (Edit)';
 $LANG['perm_groups_desc'] = 'Allows to list and edit user groups.';
-$LANG['perm_groupmemberships_title'] = 'Manage Group Memberships';
+$LANG['perm_groupmemberships_title'] = 'Users (Edit Memberships)';
 $LANG['perm_groupmemberships_desc'] = 'Allows to assign users to groups as members or managers.';
-$LANG['perm_messageview_title'] = 'View Messages';
+$LANG['perm_messageview_title'] = 'Messages (View)';
 $LANG['perm_messageview_desc'] = 'Allows to access the messages page. Note, that the messages page only shows messages for the logged in user.';
-$LANG['perm_messageedit_title'] = 'Create Messages';
+$LANG['perm_messageedit_title'] = 'Messages (Create)';
 $LANG['perm_messageedit_desc'] = 'Allows to create and send messages.';
-$LANG['perm_roles_title'] = 'Manage Roles';
+$LANG['perm_roles_title'] = 'Roles (Edit)';
 $LANG['perm_roles_desc'] = 'Allows to list and edit roles.';
 $LANG['perm_upload_title'] = 'Upload Files';
 $LANG['perm_upload_desc'] = 'Allows file uploads.';
-$LANG['perm_useraccount_title'] = 'Edit User Account Info';
+$LANG['perm_useraccount_title'] = 'Users (Account Tab)';
 $LANG['perm_useraccount_desc'] = 'Allows to edit the Account tab when editing a user profile.';
-$LANG['perm_useradmin_title'] = 'Manage User Accounts';
+$LANG['perm_useradmin_title'] = 'Users (List and Add)';
 $LANG['perm_useradmin_desc'] = 'Allows to list and add user accounts.';
-$LANG['perm_useredit_title'] = 'Edit User Profile';
+$LANG['perm_useredit_title'] = 'Users (Edit)';
 $LANG['perm_useredit_desc'] = 'Allows editing the own Userprofile.';
-$LANG['perm_viewprofile_title'] = 'View User Profiles';
+$LANG['perm_viewprofile_title'] = 'Users (View)';
 $LANG['perm_viewprofile_desc'] = 'Allows to access the view profile page showing basic info like name, phone number etc. Viewing user popups is also 
       dependent on this permission.';
 
@@ -889,14 +882,20 @@ $LANG['profile_menuBarInverse'] = 'Menu Bar Inverse';
 $LANG['profile_menuBarInverse_comment'] = 'With this switch you can inverse the color set of the menu bar. For some themes this is the better choice.';
 $LANG['profile_mobilephone'] = 'Mobile';
 $LANG['profile_mobilephone_comment'] = '';
+$LANG['profile_notifyGroupEvents'] = 'Group Events';
+$LANG['profile_notifyGroupEvents_comment'] = 'Select this option if you want to be informed on changes to groups.';
+$LANG['profile_notifyRoleEvents'] = 'Role Events';
+$LANG['profile_notifyRoleEvents_comment'] = 'Select this option if you want to be informed on changes to roles.';
+$LANG['profile_notifyUserEvents'] = 'User Events';
+$LANG['profile_notifyUserEvents_comment'] = 'Select this option if you want to be informed on changes to user accounts.';
 $LANG['profile_onhold'] = 'On hold';
 $LANG['profile_onhold_comment'] = 'This status is applied after a user has entered a wrong password too many times. This causes a grace period in which no login is possible. 
       The grace period can be configured on the configuration page. You can manually release the status here as well.';
-$LANG['profile_password'] = 'Password';
-$LANG['profile_password_comment'] = 'You can enter a new password here. If the field stays empty, the current password will not be changed.<br>
+$LANG['profile_profilePassword'] = 'Password';
+$LANG['profile_profilePassword_comment'] = 'You can enter a new password here. If the field stays empty, the current password will not be changed.<br>
       Allowed are small and capital letters, numbers and the following special characters: !@#$%^&amp;*()';
-$LANG['profile_password2'] = 'Confirm password';
-$LANG['profile_password2_comment'] = 'Repeat the new password here.';
+$LANG['profile_profilePassword2'] = 'Confirm password';
+$LANG['profile_profilePassword2_comment'] = 'Repeat the new password here.';
 $LANG['profile_phone'] = 'Phone';
 $LANG['profile_phone_comment'] = '';
 $LANG['profile_position'] = 'Position';

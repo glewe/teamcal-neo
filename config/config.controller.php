@@ -5,11 +5,11 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -97,6 +97,7 @@ $CONF['controllers'] = array (
    'calendarview' => new Controller('calendarview', 'calendar', 'danger', 'primary', 'calendarview'),
    'calendaredit' => new Controller('calendaredit', 'calendar-o', 'danger', 'danger', 'calendaredit'),
    'calendaroptions' => new Controller('calendaroptions', 'wrench', 'primary', 'primary', 'calendaroptions'),
+   'daynote' => new Controller('daynote', 'sticky-note-o', 'info', 'info', 'daynote'),
    'declination' => new Controller('declination', 'minus-circle', 'danger', 'danger', 'declination'),
    'holidays' => new Controller('holidays', 'calendar-o', 'danger', 'primary', 'holidays'),
    'holidayedit' => new Controller('holidayedit', 'calendar-o', 'danger', 'danger', 'holidays'),

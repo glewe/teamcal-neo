@@ -3,6 +3,32 @@ TEAMCAL NEO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[0.5.005]
+
+DATE
+2016-05-14
+
+BUGFIXES
+01 User verify code had to be cleared when the user is unverfied by admin
+02 Installation script check corrected
+03 Changing the avatar reloads the page to show it
+04 Default registration role is '2' (User)
+05 Profile avatar file was named after logged in user, not after profile user
+
+CHANGES
+01 Unique field name/id for password fields on useredit page
+
+NEW FEATURES
+01 User activation email
+02 User notification settings
+03 New language entry btn_configure
+04 https://georgelewe.atlassian.net/browse/TCN-28
+   Daynote feature
+05 https://georgelewe.atlassian.net/browse/TCN-29
+   Database cleanup feature
+
+
+------------------------------------------------------------------------------
 [0.5.004]
 
 DATE

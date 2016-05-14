@@ -5,11 +5,11 @@
  * Language file (German)
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -194,7 +194,7 @@ $LANG['alert_no_data_text'] = 'Es wurden falsche oder unzureichende Daten f&uuml
 $LANG['alert_no_data_help'] = 'Die Operation konnte wegen fehlender oder falscher Daten nicht ausfgefuehrt werden.';
 
 $LANG['alert_not_allowed_subject'] = 'Zugriff nicht erlaubt';
-$LANG['alert_not_allowed_text'] = 'Du hast nicht die n&ouml;tige Berechtigung auf diese Seite zuzugreifen.';
+$LANG['alert_not_allowed_text'] = 'Du hast nicht die n&ouml;tige Berechtigung auf diese Seite oder Funktion zuzugreifen.';
 $LANG['alert_not_allowed_help'] = 'Wenn du nicht eingeloggt bist, dann ist &ouml;ffentlicher Zugriff auf diese Seite nicht erlaubt. Wenn du eingeloggt bist, fehlt deiner Rolle die n&ouml;tige Berechtigung f&uuml;r den Zugriff.';
 
 $LANG['alert_perm_invalid'] = 'Das neue Berechtigungsschema "%1%" ist ung&uuml;ltig. Im Namen sind nur Buchstaben und Zahlen erlaubt.';
@@ -223,6 +223,7 @@ $LANG['btn_cancel'] = 'Abbrechen';
 $LANG['btn_clear'] = 'Entfernen';
 $LANG['btn_clear_all'] = 'Alle entfernen';
 $LANG['btn_close'] = 'Schlie&szlig;en';
+$LANG['btn_configure'] = 'Konfigurieren';
 $LANG['btn_confirm'] = 'Best&auml;tigen';
 $LANG['btn_confirm_all'] = 'Alle best&auml;tigen';
 $LANG['btn_create'] = 'Anlegen';
@@ -489,14 +490,6 @@ $LANG['email_subject_user_account_registered'] = $CONF['app_name'] . ' Benutzerk
 // Error messages
 //
 $LANG['error_title'] = 'Applicationsfehler';
-
-$LANG['error_installation_script'] = 'Installationsscript Existiert';
-$LANG['error_installation_script_text'] = '<p>Das Installationsscript "installation.php" befindet sich noch in TeamCal Neo\'s Verzeichnis, obwohl "config/config.app.php" eine ausgef&uuml;hrte Installation meldet.</p>
-      <p>TeamCal Neo kann ohne Behebung diese Fehlers nicht starten:</p>
-      <ol>
-         <li>L&ouml;sche oder umbenenne "installation.php"</li>
-         <li>Setze $CONF[\'app_installed\'] auf 0 in "config/config.app.php"</li>
-      </ol>';
 
 //
 // Footer
@@ -802,27 +795,27 @@ $LANG['perm_select_confirm'] = 'Soll dieses Berechtigungsschema geladen werden? 
 $LANG['perm_view_by_perm'] = 'Nach Berechtigungen anzeigen';
 $LANG['perm_view_by_role'] = 'Nach Rollen anzeigen';
 
-$LANG['perm_admin_title'] = 'Systemadministration';
+$LANG['perm_admin_title'] = 'Administration (System)';
 $LANG['perm_admin_desc'] = 'Erlaubt den Zugriff auf die Systemadministrationsseiten.';
-$LANG['perm_groups_title'] = 'Gruppen Bearbeiten';
+$LANG['perm_groups_title'] = 'Gruppen (Bearbeiten)';
 $LANG['perm_groups_desc'] = 'Erlaubt as Listen und Bearbeiten von Gruppen.';
-$LANG['perm_groupmemberships_title'] = 'Gruppenmitgliedschaften Bearbeiten';
+$LANG['perm_groupmemberships_title'] = 'Benutzerprofil (Gruppenmitgliedschaften)';
 $LANG['perm_groupmemberships_desc'] = 'Erlaubt es, Benutzer als Mitglied oder Manager Gruppen zuzuordnen.';
-$LANG['perm_messageview_title'] = 'Benachrichtigungen Anzeigen';
+$LANG['perm_messageview_title'] = 'Benachrichtigungen (Anzeigen)';
 $LANG['perm_messageview_desc'] = 'Erlaubt den Zugriff auf die Benachrichtigung-Anzeige-Seite.';
-$LANG['perm_messageedit_title'] = 'Benachrichtigungen Erstellen';
+$LANG['perm_messageedit_title'] = 'Benachrichtigungen (Erstellen)';
 $LANG['perm_messageedit_desc'] = 'Erlaubt den Zugriff auf die Benachrichtigung-Erstellen-Seite.';
-$LANG['perm_roles_title'] = 'Rollen Bearbeiten';
+$LANG['perm_roles_title'] = 'Rollen (Bearbeiten)';
 $LANG['perm_roles_desc'] = 'Erlaubt das Listen und Bearbeiten von Rollen.';
 $LANG['perm_upload_title'] = 'Dateien Hochladen';
 $LANG['perm_upload_desc'] = 'Erlaubt das Hochladen von Dateien.';
-$LANG['perm_useraccount_title'] = 'Nutzerkonto Bearbeiten';
+$LANG['perm_useraccount_title'] = 'Benutzerprofil (Kontoeinstellungen)';
 $LANG['perm_useraccount_desc'] = 'Erlaubt das Bearbeiten des Konto Reiters im Nutzerprofil.';
-$LANG['perm_useradmin_title'] = 'Benutzerkonten Bearbeiten';
+$LANG['perm_useradmin_title'] = 'Benutzerprofil (Anzeigen und Hinzuf&uuml;gen)';
 $LANG['perm_useradmin_desc'] = 'Erlaubt das Listen und Hinzuf&uuml;gen von Benutzerkonten.';
-$LANG['perm_useredit_title'] = 'Nutzerprofil Bearbeiten';
+$LANG['perm_useredit_title'] = 'Benutzerprofil (Bearbeiten)';
 $LANG['perm_useredit_desc'] = 'Erlaubt das Bearbeiten des eignen Nutzerprofils.';
-$LANG['perm_viewprofile_title'] = 'Nutzerprofil Anzeigen';
+$LANG['perm_viewprofile_title'] = 'Benutzerprofil (Anzeigen)';
 $LANG['perm_viewprofile_desc'] = 'Erlaubt den Zugriff auf die Nutzerprofil-Anzeige-Seite mit Basisinformationen wie Name oder Telefonnummer. Das Anzeigen von User Popups ist 
       ebenfalls abh&auml;ngig von dieser Berechtigung.';
 
@@ -893,14 +886,20 @@ $LANG['profile_menuBarInverse'] = 'Men&uuml;zeile Invertieren';
 $LANG['profile_menuBarInverse_comment'] = 'Mit diesem Schalter kann die Farbkombination der Men&uuml;zeile invertiert werden. F&uuml;r einige Themes sieht das besser aus.';
 $LANG['profile_mobilephone'] = 'Handy';
 $LANG['profile_mobilephone_comment'] = '';
+$LANG['profile_notifyGroupEvents'] = 'Gruppenereignisse';
+$LANG['profile_notifyGroupEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Gruppen benachrichtigt werden m&ouml;chtest.';
+$LANG['profile_notifyRoleEvents'] = 'Rollenereignisse';
+$LANG['profile_notifyRoleEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Rollen benachrichtigt werden m&ouml;chtest.';
+$LANG['profile_notifyUserEvents'] = 'Benutzerkontenereignisse';
+$LANG['profile_notifyUserEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Benutzerkonten benachrichtigt werden m&ouml;chtest.';
 $LANG['profile_onhold'] = '<i class="glyphicon glyphicon-menu glyphicon-time text-warning" style="font-size: 80%; padding-right: 16px;"></i>Tempor&auml;r gesperrt';
 $LANG['profile_onhold_comment'] = 'Dieser Zustand tritt ein, wenn der Benutzer zu h&auml;ufig ein falsches Passwort eingegeben hat. Dann wirkt die Schonfrist, 
       in der das Konto gesperrt ist. Die L&auml;nge der Schonfrist kann in der Konfiguration eingestellt werden. Hier kann die Schonfrist manuell wieder aufgehoben werden.';
-$LANG['profile_password'] = 'Passwort';
-$LANG['profile_password_comment'] = 'Hier kann ein neues Passwort eingegeben werden. Wenn das Feld leer bleibt, wird das aktuelle Passwort nicht ver&auml;ndert.<br>
+$LANG['profile_profilePassword'] = 'Passwort';
+$LANG['profile_profilePassword_comment'] = 'Hier kann ein neues Passwort eingegeben werden. Wenn das Feld leer bleibt, wird das aktuelle Passwort nicht ver&auml;ndert.<br>
       Erlaubt sind Gro&szlig;- und Kleinbuchstaben, Zahlen und die Sonderzeichen: !@#$%^&amp;*()';
-$LANG['profile_password2'] = 'Passwort wiederholen';
-$LANG['profile_password2_comment'] = 'Wiederhole hier das neue Passwort.';
+$LANG['profile_profilePassword2'] = 'Passwort wiederholen';
+$LANG['profile_profilePassword2_comment'] = 'Wiederhole hier das neue Passwort.';
 $LANG['profile_phone'] = 'Telefon';
 $LANG['profile_phone_comment'] = '';
 $LANG['profile_position'] = 'Position';

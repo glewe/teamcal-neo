@@ -5,11 +5,11 @@
  * Database page controller
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -40,6 +40,8 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
 // VARIABLE DEFAULTS
 //
 $inputAlert = array();
+$viewData['cleanBefore'] = '';
+
 
 //=============================================================================
 //
@@ -51,7 +53,7 @@ if (!empty($_POST))
    // Sanitize input
    //
    $_POST = sanitize($_POST);
-    
+
    //
    // Form validation
    //
@@ -60,13 +62,50 @@ if (!empty($_POST))
    {
       if (!formInputValid('txt_deleteConfirm', 'required|alpha|equals_string', 'DELETE')) $inputError = true;
    }
+   
+   if (isset($_POST['btn_cleanup']))
+   {
+      if (!formInputValid('txt_cleanBefore', 'required|date')) $inputError = true;
+      if (!formInputValid('txt_cleanConfirm', 'required|alpha|equals_string', 'CLEANUP')) $inputError = true;
+      $viewData['cleanBefore'] = $_POST['txt_cleanBefore'];
+   }
     
    if (!$inputError)
    {
+      // ,---------,
+      // | Cleanup |
+      // '---------'
+      if ( isset($_POST['btn_cleanup']) )
+      {
+         if ( isset($_POST['chk_cleanDaynotes']) )
+         {
+            $result = $D->deleteAllBefore(str_replace('-'.'',$_POST['txt_cleanBefore']));
+         }
+         
+         if ( isset($_POST['chk_cleanMonths']) )
+         {
+            $result = $M->deleteBefore(substr($_POST['txt_cleanBefore'],0,4), substr($_POST['txt_cleanBefore'],4,2));
+         }
+
+         if ( isset($_POST['chk_cleanTemplates']) )
+         {
+            $result = $T->deleteBefore(substr($_POST['txt_cleanBefore'],0,4), substr($_POST['txt_cleanBefore'],4,2));
+         }
+          
+         //
+         // Success
+         //
+         $showAlert = TRUE;
+         $alertData['type'] = 'success';
+         $alertData['title'] = $LANG['alert_success_title'];
+         $alertData['subject'] = $LANG['db_alert_delete'];
+         $alertData['text'] = $LANG['db_alert_delete_success'];
+         $alertData['help'] = '';
+      }
       // ,--------,
       // | Delete |
       // '--------'
-      if ( isset($_POST['btn_delete']) )
+      else if ( isset($_POST['btn_delete']) )
       {
          if ( isset($_POST['chk_delUsers']) )
          {

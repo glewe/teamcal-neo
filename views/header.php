@@ -5,11 +5,11 @@
  * The view of the HTML header
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?><!DOCTYPE html>
@@ -37,7 +37,7 @@ Copyright:   <?=$htmlData['copyright']."\n"?>
       
       <!-- Theme CSS -->
       <link rel="stylesheet" href="themes/<?=$htmlData['theme']['name']?>/css/bootstrap.min.css">
-      <?php if ($htmlData['theme']=='bootstrap') { ?><link rel="stylesheet" href="themes/bootstrap/css/bootstrap-theme.min.css"><?php } ?>
+      <?php if ($htmlData['theme']['name']=='bootstrap') { ?><link rel="stylesheet" href="themes/bootstrap/css/bootstrap-theme.min.css"><?php } ?>
       
       
       <!-- Google Fonts -->
@@ -121,3 +121,9 @@ Copyright:   <?=$htmlData['copyright']."\n"?>
    </head>
 
    <body>
+
+      <!-- Back to Top -->
+      <span id="top-link-block" class="hidden" data-spy="affix">
+         <a class="back-to-top fa fa-arrow-circle-up fa-3x" href="#top" title="Back to top..."></a>
+      </span>   
+   

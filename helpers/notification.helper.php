@@ -4,16 +4,50 @@
  *
  * Collection of notification functions
  *
- * @category TeamCal Neo 
- * @version 0.5.004
+ * @category JAM 
+ * @version 0.1.000
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2016 by George Lewe
+ * @copyright Copyright (c) 2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
+
+// ---------------------------------------------------------------------------
+/**
+ * If a user was activatd by the admin we send him a mail about it
+ *
+ * @param string $email Recipient's email address
+ * @param string $username The username created
+ * @param string $lastname The user's lastname
+ * @param string $firstname The user's firstname
+ */
+function sendAccountActivatedMail($email, $username, $lastname, $firstname)
+{
+   global $C, $LANG;
+   
+   $language = $C->read('defaultLanguage');
+   $appTitle = $C->read('appTitle');
+   $to = $email;
+   $subject = $LANG['email_subject_user_account_activated'];
+   
+   $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
+   $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
+   $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_activated.html');
+   $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
+   
+   $message = str_replace('%intro%', $intro, $message);
+   $message = str_replace('%body%', $body, $message);
+   $message = str_replace('%outro%', $outro, $message);
+    
+   $message = str_replace('%app_name%', $appTitle, $message);
+   $message = str_replace('%app_url%', WEBSITE_URL, $message);
+
+   print($subject.'<br>'.$message);
+   //sendEmail($to, $subject, $message);
+}
 
 // ---------------------------------------------------------------------------
 /**

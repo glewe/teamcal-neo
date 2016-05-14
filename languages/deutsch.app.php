@@ -5,11 +5,11 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -138,6 +138,7 @@ $LANG['btn_abs_icon'] = 'Icon Ausw&auml;hlen';
 $LANG['btn_abs_list'] = 'Abwesenheitstypliste';
 $LANG['btn_absum'] = 'Abwesenheits&uuml;bersicht';
 $LANG['btn_calendar'] = 'Kalender';
+$LANG['btn_cleanup'] = 'Aufr&auml;umen';
 $LANG['btn_create_abs'] = 'Abwesenheitstyp anlegen';
 $LANG['btn_create_holiday'] = 'Feiertag anlegen';
 $LANG['btn_create_region'] = 'Region anlegen';
@@ -300,9 +301,42 @@ $LANG['calopt_usersPerPage_comment'] = 'Wenn du eine gro&szlig;e Anzahl an Usern
 // Database
 //
 $LANG['db_tab_tcpimp'] = 'TeamCal Pro Import';
+$LANG['db_clean_what'] = 'Was soll aufger&auml;umt werden';
+$LANG['db_clean_what_comment'] = 'W&auml;hle hier, was aufger&auml;umt werden soll. Alle Datens&auml;tze, die gleich alt oder &auml;lter sind als das "Bevor-Datum" werden gel&ouml;scht. 
+      Regions- und Benutzerkalender werden nach Monat gel&ouml;scht, unabh&auml;ngig vom Tag. Neuere Datens&auml;tze bleiben erhalten.';
+$LANG['db_clean_daynotes'] = 'Tagesnotizen aufr&auml;umen...';
+$LANG['db_clean_holidays'] = 'Feiertage aufr&auml;umen...';
+$LANG['db_clean_months'] = 'Regionskalender aufr&auml;umen...';
+$LANG['db_clean_templates'] = 'Benutzerkalender aufr&auml;umen...';
+$LANG['db_clean_before'] = 'Bevor-Datum';
+$LANG['db_clean_before_comment'] = 'Die oben gew&auml;hlten Datens&auml;tze, die gleich alt oder &auml;ter sind als das Datum hier, werden gle&ouml;scht.';
+$LANG['db_clean_confirm'] = 'Best&auml;tigung';
+$LANG['db_clean_confirm_comment'] = 'Bitte gebe hier "CLEANUP" ein, um die Aktion zu best&auml;tigen.';
 $LANG['db_tcpimp'] = 'TeamCal Pro Import';
 $LANG['db_tcpimp_comment'] = 'Wenn du bisher TeamCal Pro benutzt hast, kannst du Daten davon importieren. Klicke dazu den Import Button.';
 $LANG['db_tcpimp2'] = 'Aber...';
+
+//
+// Daynote
+//
+$LANG['dn_title'] = 'Tagesnotiz';
+$LANG['dn_title_for'] = 'f&uuml;r';
+$LANG['dn_alert_update'] = 'Tagesnotiz aktualisieren';
+$LANG['dn_alert_update_success'] = 'Die Tagesnotiz wurde erfolgreich aktualisiert.';
+$LANG['dn_color'] = 'Tagesnotiz Farbe';
+$LANG['dn_color_comment'] = 'W&auml;hle eine Farbe f&uuml;r die Tagesnotiz. Sie wird als Hintergrundfarbe f&uuml;r ihr Popup benutzt.';
+$LANG['dn_color_danger'] = '<i class="fa fa-square text-danger"></i>';
+$LANG['dn_color_default'] = '<i class="fa fa-square text-default"></i>';
+$LANG['dn_color_info'] = '<i class="fa fa-square text-info"></i>';
+$LANG['dn_color_primary'] = '<i class="fa fa-square text-primary"></i>';
+$LANG['dn_color_success'] = '<i class="fa fa-square text-success"></i>';
+$LANG['dn_color_warning'] = '<i class="fa fa-square text-warning"></i>';
+$LANG['dn_confirm_delete'] = 'Bist du sicher, dass du die Tagesnotiz l&ouml;schen willst?';
+$LANG['dn_date'] = 'Tagesnotiz Datum';
+$LANG['dn_date_comment'] = 'W&auml;hle ein Datum f&uuml;r die Tagesnotiz.';
+$LANG['dn_daynote'] = 'Tagesnotiz Text';
+$LANG['dn_daynote_comment'] = 'Gib den Text der Tagesnotiz ein.';
+$LANG['dn_daynote_placeholder'] = 'Hier ist der Tagesnotiztext...';
 
 //
 // Declination
@@ -432,34 +466,38 @@ $LANG['monthedit_selUser'] = 'Nutzer ausw&auml;hlen';
 //
 // Permissions
 //
-$LANG['perm_absenceedit_title'] = 'Abwesenheitstypen Bearbeiten';
+$LANG['perm_absenceedit_title'] = 'Abwesenheitstypen (Bearbeiten)';
 $LANG['perm_absenceedit_desc'] = 'Erlaubt das Listen und Bearbeiten von Abwesenheitstypen.';
-$LANG['perm_absum_title'] = 'Abwesenheits&uuml;bersicht Anzeigen';
+$LANG['perm_absum_title'] = 'Abwesenheits&uuml;bersicht (Anzeigen)';
 $LANG['perm_absum_desc'] = 'Erlaubt das Anzeigen der Abwesenheits&uuml;bersicht von Nutzern.';
-$LANG['perm_calendaredit_title'] = 'Kalender Editor';
+$LANG['perm_calendaredit_title'] = 'Kalender (Bearbeiten)';
 $LANG['perm_calendaredit_desc'] = 'Erlaubt die Benutzung des Kalendereditors. Diese Berechtigung ist mindestens erforderlich, um Kalender zu Bearbeiten.';
-$LANG['perm_calendareditall_title'] = 'Alle Kalender Bearbeiten';
+$LANG['perm_calendareditall_title'] = 'Kalender (Alle Bearbeiten)';
 $LANG['perm_calendareditall_desc'] = 'Erlaubt die Bearbeitung aller Benutzerkalender.';
-$LANG['perm_calendareditgroup_title'] = 'Gruppenkalender Bearbeiten';
+$LANG['perm_calendareditgroup_title'] = 'Kalender (Gruppen Bearbeiten)';
 $LANG['perm_calendareditgroup_desc'] = 'Erlaubt die Bearbeitung aller Benutzerkalender der eigenen Gruppen.';
-$LANG['perm_calendareditown_title'] = 'Eigenen Kalender Bearbeiten';
+$LANG['perm_calendareditown_title'] = 'Kalender (Eigenen Bearbeiten)';
 $LANG['perm_calendareditown_desc'] = 'Erlaubt die Bearbeitung des eigenen Kalenders. Wenn nur eine zentrale Bearbeitung erw&uuml;nscht ist, kann man hiermit die Berechtigung den Nutzern entziehen.';
-$LANG['perm_calendaroptions_title'] = 'Kalenderoptionen';
+$LANG['perm_calendaroptions_title'] = 'Kalender (Optionen)';
 $LANG['perm_calendaroptions_desc'] = 'Erlaubt das Bearbeiten der Kalenderoptionen.';
-$LANG['perm_calendarview_title'] = 'Kalender Anzeigen';
+$LANG['perm_calendarview_title'] = 'Kalender (Anzeigen)';
 $LANG['perm_calendarview_desc'] = 'Erlaubt die generelle Anzeige des Kalenders (Monat und Jahr). Ohne diese Berechtigung kann kein Kalender angezeigt werden. Mit dieser Berechtigung kann 
       nicht angemeldeten Besuchern die Anzeige des Kalenders erlaubt werden.';
-$LANG['perm_calendarviewall_title'] = 'Alle Kalender Anzeigen';
+$LANG['perm_calendarviewall_title'] = 'Kalender (Alle Anzeigen)';
 $LANG['perm_calendarviewall_desc'] = 'Erlaubt das Anzeigen der Kalender aller Benutzer.';
-$LANG['perm_calendarviewgroup_title'] = 'Gruppen Kalender Anzeigen';
+$LANG['perm_calendarviewgroup_title'] = 'Kalender (Gruppen Anzeigen)';
 $LANG['perm_calendarviewgroup_desc'] = 'Erlaubt das Anzeigen der Kalender von Benutzern in eigenen Gruppen.';
-$LANG['perm_declination_title'] = 'Ablehnungsregeln Bearbeiten';
+$LANG['perm_daynote_title'] = 'Tagesnotizen (Bearbeiten)';
+$LANG['perm_daynote_desc'] = 'Erlaubt das Bearbeiten pers&ouml;nlicher Tagesnotizen.';
+$LANG['perm_daynoteglobal_title'] = 'Tagesnotizen (Global)';
+$LANG['perm_daynoteglobal_desc'] = 'Erlaubt das Bearbeiten globaler Tagesnotizen.';
+$LANG['perm_declination_title'] = 'Ablehnungsregeln (Bearbeiten)';
 $LANG['perm_declination_desc'] = 'Erlaubt das Bearbeiten der Ablehnungsregeln.';
-$LANG['perm_holidays_title'] = 'Feiertage Bearbeiten';
+$LANG['perm_holidays_title'] = 'Feiertage (Bearbeiten)';
 $LANG['perm_holidays_desc'] = 'Erlaubt as Listen und Bearbeiten von Feiertagen.';
-$LANG['perm_regions_title'] = 'Regionen Bearbeiten';
+$LANG['perm_regions_title'] = 'Regionen (Bearbeiten)';
 $LANG['perm_regions_desc'] = 'Erlaubt as Listen und Bearbeiten von Regionen und deren Feiertagen.';
-$LANG['perm_statistics_title'] = 'Statistiken Anzeigen';
+$LANG['perm_statistics_title'] = 'Statistiken (Anzeigen)';
 $LANG['perm_statistics_desc'] = 'Erlaubt das Anzeigen der Statistik Seite.';
 
 //

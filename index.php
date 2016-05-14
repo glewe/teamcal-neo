@@ -3,11 +3,11 @@
  * index.php
  * 
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
@@ -21,6 +21,51 @@ define('WEBSITE_ROOT', __DIR__);
 $fullURL = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $pos = strrpos($fullURL,'/');
 define('WEBSITE_URL', substr($fullURL,0,$pos)); //Remove trailing slash
+
+//=============================================================================
+//
+// CHECK INSTALLATION SCRIPT
+//
+if (file_exists('installation.php'))
+{
+   $value = '1';
+   $handle = fopen("config/config.app.php","r");
+   if ($handle) 
+   {
+      while (!feof($handle)) 
+      {
+         $buffer = fgets($handle, 4096);
+         if (strpos($buffer, "'app_installed'")==6) 
+         {
+            $pos1=strpos($buffer,'"');
+            $pos2=strrpos($buffer,'"');
+            $value=trim(substr($buffer,$pos1+1,$pos2-($pos1+1)));
+         }
+      }
+      fclose($handle);
+   }
+   
+   if (!$value)
+   {
+      header("Location: installation.php");
+   }
+   else
+   {
+      //
+      // Installation.php found after installation
+      //
+      $errorData['title'] = 'Application Error';
+      $errorData['subject'] = 'Installation Script Exists';
+      $errorData['text'] = '<p>The installation script "installation.php" still exists in the root directory while "config/config.app.php" indicates that an installation has been performed</p>
+      <p>The application will not start until either one has been resolved:</p>
+      <ol>
+         <li>Delete or rename "installation.php"</li>
+         <li>Set $CONF[\'app_installed\'] to 0 in "config/config.app.php"</li>
+      </ol>';
+      require ('views/error.php');
+      die();
+   }
+}
 
 //=============================================================================
 //
@@ -229,29 +274,6 @@ if (false)
 //
 require_once (WEBSITE_ROOT . '/languages/' . $language . '.php');     // Framework
 require_once (WEBSITE_ROOT . '/languages/' . $language . '.app.php'); // Application
-
-//=============================================================================
-//
-// CHECK INSTALLATION SCRIPT
-//
-if (file_exists('installation.php'))
-{
-   if (!readConfig("app_installed",$configAppFile))
-   {
-      header("Location: installation.php");
-   }
-   else
-   {
-      //
-      // Installation.php found after installation
-      //
-      $errorData['title'] = $LANG['error_title'];
-      $errorData['subject'] = $LANG['error_installation_script'];
-      $errorData['text'] = $LANG['error_installation_script_text'];
-      require (WEBSITE_ROOT . '/views/error.php');
-      die();
-   }
-}
 
 //=============================================================================
 //

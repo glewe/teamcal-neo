@@ -3,11 +3,11 @@
  * Daynotes.class.php
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -22,11 +22,11 @@ class Daynotes
    var $id = NULL;
    var $yyyymmdd = '';
    var $daynote = '';
-   var $daynotes = array ();
-   var $count = NULL;
+   var $daynotes = array();
    var $username = '';
    var $region = '';
-   
+   var $color = '';
+    
    // ---------------------------------------------------------------------
    /**
     * Constructor
@@ -71,13 +71,13 @@ class Daynotes
    
    // ---------------------------------------------------------------------
    /**
-    * Checks whether a record exists
+    * Checks whether records for a given user exist
     *
     * @param string $username Username to find
     * @param boolean $archive Whether to use the archive table
     * @return bool True if found, false if not
     */
-   function exists($username = '', $archive = FALSE)
+   function exists($username, $archive = false)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -104,11 +104,31 @@ class Daynotes
     */
    function create()
    {
-      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (yyyymmdd, daynote, username, region) VALUES (:val1, :val2, :val3, :val4)');
+      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (yyyymmdd, daynote, username, region, color) VALUES (:val1, :val2, :val3, :val4, :val5)');
       $query->bindParam('val1', $this->yyyymmdd);
       $query->bindParam('val2', $this->daynote);
       $query->bindParam('val3', $this->username);
       $query->bindParam('val4', $this->region);
+      $query->bindParam('val5', $this->color);
+      $result = $query->execute();
+      return $result;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
+    * Deletes a daynote record for a given date/username/region
+    *
+    * @param string $yyyymmdd 8 character date (YYYYMMDD) to find for deletion
+    * @param string $username Userame to find for deletion
+    * @param string $region Region to find for deletion
+    * @return bool $result Query result
+    */
+   function delete($yyyymmdd = '', $username = '', $region = 'default')
+   {
+      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE yyyymmdd = :val1 AND username = :val2 AND region = :val3');
+      $query->bindParam('val1', $yyyymmdd);
+      $query->bindParam('val2', $username);
+      $query->bindParam('val3', $region);
       $result = $query->execute();
       return $result;
    }
@@ -142,63 +162,15 @@ class Daynotes
 
    // ---------------------------------------------------------------------
    /**
-    * Delete an announcement by timestamp
-    *
-    * @return bool Query result or false
-    */
-   function deleteAllGlobal()
-   {
-      $query = $this->db->prepare('DELETE FROM '.$this->table.' WHERE username = "all"');
-      $query->bindParam('val1', $timestamp);
-      $result = $query->execute();
-      return $result;
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
     * Deletes all daynotes before (and including) a given day
     *
     * @param string $yyyymmdd 8 character date (YYYYMMDD) to find for deletion
     * @return bool $result Query result
     */
-   function deleteBefore($yyyymmdd = '')
+   function deleteAllBefore($yyyymmdd = '')
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE yyyymmdd <= :val1');
       $query->bindParam('val1', $yyyymmdd);
-      $result = $query->execute();
-      return $result;
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
-    * Deletes a daynote record by date and username
-    *
-    * @param string $yyyymmdd 8 character date (YYYYMMDD) to find for deletion
-    * @param string $username Userame to find for deletion
-    * @param string $region Region to find for deletion
-    * @return bool $result Query result
-    */
-   function deleteByDay($yyyymmdd = '', $username = '', $region = 'default')
-   {
-      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE yyyymmdd = :val1 AND username = :val2 AND region = :val3');
-      $query->bindParam('val1', $yyyymmdd);
-      $query->bindParam('val2', $username);
-      $query->bindParam('val3', $region);
-      $result = $query->execute();
-      return $result;
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
-    * Deletes a daynote record by id
-    *
-    * @param string $id ID to find for deletion
-    * @return bool $result Query result
-    */
-   function deleteById($id = '')
-   {
-      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
-      $query->bindParam('val1', $id);
       $result = $query->execute();
       return $result;
    }
@@ -210,7 +182,7 @@ class Daynotes
     * @param string $region Region to find for deletion
     * @return bool $result Query result
     */
-   function deleteByRegion($region = 'default')
+   function deleteAllForRegion($region = 'default')
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE region = :val1');
       $query->bindParam('val1', $region);
@@ -225,7 +197,7 @@ class Daynotes
     * @param string $uname Username to find for deletion
     * @return bool $result Query result
     */
-   function deleteByUser($username = '', $archive = FALSE)
+   function deleteAllForUser($username = '', $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -238,13 +210,42 @@ class Daynotes
    
    // ---------------------------------------------------------------------
    /**
-    * Finds a daynote record by date and username and loads values in local class variables
+    * Delete an announcement by timestamp
     *
-    * @param string $yyyymmdd 8 character date (YYYYMMDD) to find
-    * @param string $username Userame to find
+    * @return bool Query result or false
+    */
+   function deleteAllGlobal()
+   {
+      $query = $this->db->prepare('DELETE FROM '.$this->table.' WHERE username = "all"');
+      $result = $query->execute();
+      return $result;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
+    * Deletes a daynote record by id
+    *
+    * @param string $id ID to find for deletion
     * @return bool $result Query result
     */
-   function findByDay($yyyymmdd = '', $username = '', $region = 'default')
+   function deleteById($id)
+   {
+      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
+      $query->bindParam('val1', $id);
+      $result = $query->execute();
+      return $result;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
+    * Finds a daynote record for a given date/username/region
+    *
+    * @param string $yyyymmdd Date (YYYYMMDD) to find
+    * @param string $username Userame to find
+    * @param string $region Userame to find
+    * @return bool $result Query result
+    */
+   function get($yyyymmdd = '', $username = '', $region = 'default', $replaceCRLF = false)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE yyyymmdd = :val1 AND username = :val2 AND region = :val3');
       $query->bindParam('val1', $yyyymmdd);
@@ -256,9 +257,11 @@ class Daynotes
       {
          $this->id = $row['id'];
          $this->yyyymmdd = $row['yyyymmdd'];
-         $this->daynote = stripslashes($row['daynote']);
          $this->username = $row['username'];
          $this->region = $row['region'];
+         if ($replaceCRLF) $this->daynote = str_replace("\r\n","<br>",$row['daynote']);
+         else $this->daynote = $row['daynote'];
+         $this->color = $row['color'];
          return true;
       }
       return false;
@@ -270,14 +273,14 @@ class Daynotes
     *
     * @param string $yyyy Year to find
     * @param string $mm Month to find
-    * @param string $days Number of days in month (used to set end date)
     * @param string $username Username to find
     * @param string $region Region to find
     * @return bool $result Query result
     */
-   function findAllByMonthUser($yyyy = '', $mm = '', $days = '', $username = '', $region = 'default')
+   function getForMonthUser($yyyy, $mm, $username, $region = 'default', $replaceCRLF = false)
    {
-      if ($days < 10) $days = '0' + "0" . strval($days);
+      $number = cal_days_in_month(CAL_GREGORIAN, intval($mm), intval($yyyy));
+      $days = sprintf('%02d', $number);
       $startdate = $yyyy . $mm . '01';
       $enddate = $yyyy . $mm . $days;
       
@@ -292,7 +295,8 @@ class Daynotes
       {
          while ( $row = $query->fetch() )
          {
-            $this->daynotes[$row['username']][$row['yyyymmdd']] = stripslashes($row['daynote']);
+            if ($replaceCRLF) $this->daynotes[$row['username']][$row['yyyymmdd']] = str_replace("\r\n","<br>",$row['daynote']);
+            else $this->daynotes[$row['username']][$row['yyyymmdd']] = $row['daynote'];
          }
       }
       return $result;
@@ -300,18 +304,18 @@ class Daynotes
    
    // ---------------------------------------------------------------------
    /**
-    * Find all daynotes for all users in a given month and load them in daynotes array
+    * Find all daynotes for all users for a given month/region
     *
     * @param string $yyyy Year to find
     * @param string $mm Month to find
-    * @param string $days Number of days in month (used to set end date)
     * @param string $usernames Array of usernames to find
     * @param string $region Region to find
     * @return bool $result Query result
     */
-   function findAllByMonth($yyyy = '', $mm = '', $days = '', $usernames, $region = 'default')
+   function getforMonth($yyyy, $mm, $usernames, $region = 'default', $replaceCRLF = false)
    {
-      if ($days < 10) $days = '0' + "0" . strval($days);
+      $number = cal_days_in_month(CAL_GREGORIAN, intval($mm), intval($yyyy));
+      $days = sprintf('%02d', $number);
       $startdate = $yyyy . $mm . '01';
       $enddate = $yyyy . $mm . $days;
       
@@ -326,7 +330,8 @@ class Daynotes
       {
          while ( $row = $query->fetch() )
          {
-            $this->daynotes[$row['username']][$row['yyyymmdd']] = $row['daynote'];
+            if ($replaceCRLF) $this->daynotes[$row['username']][$row['yyyymmdd']] = str_replace("\r\n","<br>",$row['daynote']);
+            else  $this->daynotes[$row['username']][$row['yyyymmdd']] = $row['daynote'];
          }
       }
       return $result;
@@ -339,7 +344,7 @@ class Daynotes
     * @param string $id ID to find
     * @return bool $result Query result
     */
-   function findById($id = '')
+   function getById($id, $replaceCRLF = false)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -349,9 +354,11 @@ class Daynotes
       {
          $this->id = $row['id'];
          $this->yyyymmdd = $row['yyyymmdd'];
-         $this->daynote = stripslashes($row['daynote']);
          $this->username = $row['username'];
          $this->region = $row['region'];
+         if ($replaceCRLF) $this->daynote = str_replace("\r\n","<br>",$row['daynote']);
+         else $this->daynote = $row['daynote'];
+         $this->color = $row['color'];
       }
       return $result;
    }
@@ -364,12 +371,13 @@ class Daynotes
     */
    function update()
    {
-      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET yyyymmdd = :val1, daynote = :val2, username = :val3, region = :val4 WHERE id = :val5');
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET yyyymmdd = :val1, daynote = :val2, username = :val3, region = :val4, color = :val5 WHERE id = :val6');
       $query->bindParam('val1', $this->yyyymmdd);
       $query->bindParam('val2', $this->daynote);
       $query->bindParam('val3', $this->username);
       $query->bindParam('val4', $this->region);
-      $query->bindParam('val5', $this->id);
+      $query->bindParam('val5', $this->color);
+      $query->bindParam('val6', $this->id);
       $result = $query->execute();
       return $result;
    }

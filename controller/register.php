@@ -5,11 +5,11 @@
  * Register page controller
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -107,7 +107,7 @@ if (!empty($_POST))
             //
             // Account
             //
-            $UR->role = 'User';
+            $UR->role = '2'; // user
             $UR->locked = '1';
             $UR->hidden = '0';
             $UR->onhold = '0';

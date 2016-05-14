@@ -5,11 +5,11 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -138,6 +138,7 @@ $LANG['btn_abs_icon'] = 'Select Icon';
 $LANG['btn_abs_list'] = 'Absence Type List';
 $LANG['btn_absum'] = 'Absence Summary';
 $LANG['btn_calendar'] = 'Calendar';
+$LANG['btn_cleanup'] = 'Cleanup';
 $LANG['btn_create_abs'] = 'Create Absence Type';
 $LANG['btn_create_holiday'] = 'Create Holiday';
 $LANG['btn_create_region'] = 'Create Region';
@@ -300,9 +301,42 @@ $LANG['calopt_usersPerPage_comment'] = 'If you maintain a large amount of users 
 // Database
 //
 $LANG['db_tab_tcpimp'] = 'TeamCal Pro Import';
+$LANG['db_clean_what'] = 'What to clean up';
+$LANG['db_clean_what_comment'] = 'Select here what you want to clean up. All records selected here that are equal or older then the "Before Date" will be deleted. 
+      Region and user calendars are deleted by month, independently from the day you enter. Newer records will stay in place.';
+$LANG['db_clean_daynotes'] = 'Clean up daynotes before...';
+$LANG['db_clean_holidays'] = 'Clean up holidays before...';
+$LANG['db_clean_months'] = 'Clean up region calendars before...';
+$LANG['db_clean_templates'] = 'Clean up user calendars before...';
+$LANG['db_clean_before'] = 'Before Date';
+$LANG['db_clean_before_comment'] = 'Records from the above checked tables will be deleted when they are equal or older than the date selected here.';
+$LANG['db_clean_confirm'] = 'Confirmation';
+$LANG['db_clean_confirm_comment'] = 'Please type in "CLEANUP" to confirm this action.';
 $LANG['db_tcpimp'] = 'TeamCal Pro Import';
 $LANG['db_tcpimp_comment'] = 'If you have used TeamCal Pro before and want to import data from it, you can do so by clicking the Import button below.';
 $LANG['db_tcpimp2'] = 'However...';
+
+//
+// Daynote
+//
+$LANG['dn_title'] = 'Daynote';
+$LANG['dn_title_for'] = 'for';
+$LANG['dn_alert_update'] = 'Update Daynote';
+$LANG['dn_alert_update_success'] = 'The daynote was updated successfully.';
+$LANG['dn_color'] = 'Daynote Color';
+$LANG['dn_color_comment'] = 'Select a color for this daynote. This color will be used for the background of the daynote popup.';
+$LANG['dn_color_danger'] = '<i class="fa fa-square text-danger"></i>';
+$LANG['dn_color_default'] = '<i class="fa fa-square text-default"></i>';
+$LANG['dn_color_info'] = '<i class="fa fa-square text-info"></i>';
+$LANG['dn_color_primary'] = '<i class="fa fa-square text-primary"></i>';
+$LANG['dn_color_success'] = '<i class="fa fa-square text-success"></i>';
+$LANG['dn_color_warning'] = '<i class="fa fa-square text-warning"></i>';
+$LANG['dn_confirm_delete'] = 'Are you sure you want to delete this daynote?';
+$LANG['dn_date'] = 'Daynote Date';
+$LANG['dn_date_comment'] = 'Select a date for this daynote.';
+$LANG['dn_daynote'] = 'Daynote Text';
+$LANG['dn_daynote_comment'] = 'Enter the text of the daynote.';
+$LANG['dn_daynote_placeholder'] = 'Enter your daynote here...';
 
 //
 // Declination
@@ -432,34 +466,38 @@ $LANG['monthedit_selUser'] = 'Select User';
 //
 // Permissions
 //
-$LANG['perm_absenceedit_title'] = 'Manage Absence Types';
+$LANG['perm_absenceedit_title'] = 'Absence Types (Edit)';
 $LANG['perm_absenceedit_desc'] = 'Allows to list and edit absence types.';
-$LANG['perm_absum_title'] = 'View Absence Summary';
+$LANG['perm_absum_title'] = 'Absence Summary (View)';
 $LANG['perm_absum_desc'] = 'Allows to view the absence summary page for users.';
-$LANG['perm_calendaredit_title'] = 'Calendar Editor';
+$LANG['perm_calendaredit_title'] = 'Calendar (Edit)';
 $LANG['perm_calendaredit_desc'] = 'Allows to open the calendar editor. This permission is required to edit any user calendars.';
-$LANG['perm_calendareditall_title'] = 'Edit All Calendars';
+$LANG['perm_calendareditall_title'] = 'Calendar (Edit All)';
 $LANG['perm_calendareditall_desc'] = 'Allows to edit the calendars of all users.';
-$LANG['perm_calendareditgroup_title'] = 'Edit Group Calendars';
+$LANG['perm_calendareditgroup_title'] = 'Calendar (Edit Group)';
 $LANG['perm_calendareditgroup_desc'] = 'Allows to edit all user calendars of own groups.';
-$LANG['perm_calendareditown_title'] = 'Edit Own Calendar';
+$LANG['perm_calendareditown_title'] = 'Calendar (Edit Own)';
 $LANG['perm_calendareditown_desc'] = 'Allows to edit the own calendar. If you run a central absence management you might want to switch this off for regular users.';
-$LANG['perm_calendaroptions_title'] = 'Calendar Options';
+$LANG['perm_calendaroptions_title'] = 'Calendar (Options)';
 $LANG['perm_calendaroptions_desc'] = 'Allows to configure the calendar options.';
-$LANG['perm_calendarview_title'] = 'View Calendar';
+$LANG['perm_calendarview_title'] = 'Calendar (View)';
 $LANG['perm_calendarview_desc'] = 'Allows to view the calendar (month and year). If this is not permitted, no calendars can be displayed. Can be used to allow the public
        to view the calendar.';
-$LANG['perm_calendarviewall_title'] = 'View All Calendars';
+$LANG['perm_calendarviewall_title'] = 'Calendar (View All)';
 $LANG['perm_calendarviewall_desc'] = 'Allows to view all calendars.';
-$LANG['perm_calendarviewgroup_title'] = 'View Group Calendars';
+$LANG['perm_calendarviewgroup_title'] = 'Calendar (View Group)';
 $LANG['perm_calendarviewgroup_desc'] = 'Allows to view all calendars of users that are in the same group as the logged in user.';
+$LANG['perm_daynote_title'] = 'Daynotes (Edit)';
+$LANG['perm_daynote_desc'] = 'Allows to edit personal daynotes.';
+$LANG['perm_daynoteglobal_title'] = 'Daynotes (Edit Global)';
+$LANG['perm_daynoteglobal_desc'] = 'Allows to edit global daynotes for region calendars.';
 $LANG['perm_declination_title'] = 'Declination Management';
 $LANG['perm_declination_desc'] = 'Allows to access the declination management page.';
-$LANG['perm_holidays_title'] = 'Manage Holidays';
+$LANG['perm_holidays_title'] = 'Holidays (Edit)';
 $LANG['perm_holidays_desc'] = 'Allows to list and edit holidays.';
-$LANG['perm_regions_title'] = 'Manage Regions';
+$LANG['perm_regions_title'] = 'Regions (Edit)';
 $LANG['perm_regions_desc'] = 'Allows to list and edit regions and their holidays.';
-$LANG['perm_statistics_title'] = 'View Statistics';
+$LANG['perm_statistics_title'] = 'Statistics (View)';
 $LANG['perm_statistics_desc'] = 'Allows to view the statistics page.';
 
 //

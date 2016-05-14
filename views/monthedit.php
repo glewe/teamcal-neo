@@ -5,11 +5,11 @@
  * Month edit page view
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
@@ -119,6 +119,31 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  <?php } ?>
                               </tr>
                            <?php } ?>
+                           
+                           <!-- Row: Daynotes -->
+                           <tr>
+                              <th class="m-label"><?=$LANG['dn_title']?></th>
+                              <?php for ($i=$daystart; $i<=$dayend; $i++) { 
+                                 $prop = 'wday'.$i;
+                                 if ($D->get($viewData['year'].$viewData['month'].sprintf("%02d",$i), 'all', $viewData['regionid'], true)) {
+                                    $icon = 'sticky-note';
+                                    $tooltipColor = ' tooltip-'.$D->color;
+                                    $tooltip = ' data-position="tooltip-top" data-toggle="tooltip" data-title="'.$D->daynote.'"';
+                                 }
+                                 else {
+                                    $icon = 'sticky-note-o';
+                                    $tooltipColor = '';
+                                    $tooltip = '';
+                                 }
+                                 ?>
+                                 <th class="m-weekday text-center"<?=$viewData['dayStyles'][$i]?>>
+                                    <a href="index.php?action=daynote&amp;date=<?=$viewData['year'].$viewData['month'].sprintf("%02d",$i)?>&amp;for=all&amp;region=<?=$viewData['regionid']?>">
+                                       <i class="fa fa-<?=$icon?> text-info<?=$tooltipColor?>"<?=$tooltip?>></i>
+                                    </a>
+                                 </th>
+                              <?php } ?>
+                           </tr>
+                           
                         </thead>
                         <tbody>
                            <!-- Rows 4ff: Holidays -->

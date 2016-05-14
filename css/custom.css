@@ -4,11 +4,11 @@
  * Global custom style sheet
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet) http://tcneo.lewe.com/doc/license.txt
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet) http://tcneo.lewe.com/doc/license.txt
  */
  
 /**
@@ -22,7 +22,7 @@ body {
 
 div.divider {
    clear: both;
-   padding: 2px 0px 2px 0;
+   padding: 2px 0px 0px 0px;
 }
 
 div.page-menu {
@@ -226,9 +226,9 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 
 .tooltip-inner {
    text-align: left;
-   min-width: 200px;
    max-width: 300px;
    padding-bottom: 8px;
+   font-weight: normal;
 }
 
 .tooltip-info+.tooltip .tooltip-inner {
@@ -393,6 +393,12 @@ table.month td.m-name {
    overflow: hidden;
    text-overflow: ellipsis;
    white-space: nowrap;
+   background-color: #ffffff;
+   color: #333333;
+}
+
+table.month td.m-name a {
+   color: #333333;
 }
 
 table.month th.m-label,
@@ -414,11 +420,12 @@ table.month th.m-daynumber {
 }
 
 table.month th.m-weekday {
-   color: #000000;
+   color: #333333;
+   background-color: #f2f2f2;
 }
 
 table.month th.m-weeknumber {
-   color: #000000;
+   color: #333333;
    background-color: #f2f2f2;
 }
 
@@ -455,6 +462,7 @@ table.month td.m-day {
    padding-left: 0px;
    padding-right: 0px;
    padding-bottom: 0px;
+   background-color: #ffffff;
 }
 
 /**

@@ -5,11 +5,11 @@
  * Year calendar page view
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet) http://tcneo.lewe.com/doc/license.txt
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet) http://tcneo.lewe.com/doc/license.txt
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>

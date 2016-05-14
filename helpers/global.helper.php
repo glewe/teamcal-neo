@@ -5,11 +5,11 @@
  * Collection of global helper functions
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -927,18 +927,15 @@ function getTheme()
    {
       if ($C->read("allowUserTheme"))
       {
-         if (!$theme['name'] = $UO->read($thisuser, "theme"))
+         if ($UO->hasOption($thisuser, "theme"))
          {
-            $UO->create($thisuser, "theme", "default");
-         }
-         else
-         {
-            if ($theme['name'] == "default") $theme['name'] = $C->read("theme");
+            $userTheme = $UO->read($thisuser, "theme");
+            if ($userTheme!='default') $theme['name'] = $UO->read($thisuser, "theme");
          }
          
-         if (!$theme['navbarInverse'] = $UO->read($thisuser, "menuBarInverse"))
+         if ($UO->hasOption($thisuser, "menuBarInverse"))
          {
-            $UO->create($thisuser, "menuBarInverse", "1");
+            $theme['navbarInverse'] = $UO->read($thisuser, "menuBarInverse");
          }
       }
    }

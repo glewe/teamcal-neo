@@ -5,11 +5,11 @@
  * The view of the footer
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
@@ -57,10 +57,45 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
       <script type="text/javascript">
 
-         /**
-          * Initialize tooltip
-          */
          $(document).ready(function(){
+            /**
+             * Magnific Popup
+             */
+            $('.image-popup').magnificPopup({
+               type: 'image',
+               closeOnContentClick: true,
+               closeBtnInside: false,
+               fixedContentPos: true,
+               mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+               image: {
+                  verticalFit: true
+               },
+               zoom: {
+                  enabled: true,
+                  duration: 300 // don't forget to change the duration also in CSS
+               }
+            });
+            
+            $('.image-popup-vertical-fit').magnificPopup({
+               type: 'image',
+               closeOnContentClick: true,
+               mainClass: 'mfp-img-mobile',
+               image: {
+                  verticalFit: true
+               }
+            });
+
+            $('.image-popup-fit-width').magnificPopup({
+               type: 'image',
+               closeOnContentClick: true,
+               image: {
+                  verticalFit: false
+               }
+            });
+                     
+            /**
+             * Tooltip
+             */
             $("[data-position=tooltip-top]").tooltip({
                placement : 'top',
                html: true
@@ -80,14 +115,29 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          });
 
          /**
+          * Back to Top Icon
+          */
+         $(function() {
+            $(window).scroll(function() {
+                if($(window).scrollTop() >= 400) { // Set vertical offset in pixel when to appear  
+                   $('#top-link-block').removeClass('hidden');
+                   $('#top-link-block').fadeIn('fast');
+                }else{
+                   $('#top-link-block').fadeOut('fast');
+                }
+            });
+         });
+
+         <?php if ($C->read("showSize")) { ?>
+         /**
           * Window size in footer
           */
          $(window).on('resize', showSize);
          showSize();
          function showSize() { $('#size').html($(window).width() + ' x ' + $(window).height()); }
+         <?php } ?>
          
          <?php if ($C->read("googleAnalytics") AND $C->read("googleAnalyticsID")) { ?>
-         
          /**
           * Google Analytics
           */

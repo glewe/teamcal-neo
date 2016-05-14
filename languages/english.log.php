@@ -5,11 +5,11 @@
  * Log language file (English)
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 
 /**
@@ -36,6 +36,9 @@ $LANG['log_db_delete_users'] = 'Database delete: All Users';
 $LANG['log_db_export'] = 'Database export: ';
 $LANG['log_db_restore'] = 'Database restored from ';
 $LANG['log_decl_updated'] = 'Declination settings updated';
+$LANG['log_dn_updated'] = 'Daynote updated: ';
+$LANG['log_dn_created'] = 'Daynote created: ';
+$LANG['log_dn_deleted'] = 'Daynote deleted: ';
 $LANG['log_group_created'] = 'Group created: ';
 $LANG['log_group_updated'] = 'Group updated: ';
 $LANG['log_group_deleted'] = 'Group deleted: ';

@@ -5,11 +5,11 @@
  * Database page view
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
@@ -40,6 +40,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
                      <ul class="nav nav-tabs" style="margin-bottom: 15px;">
                         <li class="active"><a href="#tab_optimize" data-toggle="tab"><?=$LANG['db_tab_optimize']?></a></li>
+                        <li><a href="#tab_cleanup" data-toggle="tab"><?=$LANG['db_tab_cleanup']?></a></li>
                         <li><a href="#tab_delete" data-toggle="tab"><?=$LANG['db_tab_delete']?></a></li>
                         <li><a href="#tab_admin" data-toggle="tab"><?=$LANG['db_tab_admin']?></a></li>
                         <li><a href="#tab_reset" data-toggle="tab"><?=$LANG['db_tab_reset']?></a></li>
@@ -65,6 +66,65 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                         </div>
                      
+                        <!-- Cleanup tab -->
+                        <div class="tab-pane fade" id="tab_cleanup">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                              
+                                 <div class="form-group">
+                                    <div class="col-lg-<?=$colsleft?>">
+                                       <div class="text-bold"><?=$LANG['db_clean_what']?></div>
+                                       <div class="text-normal"><?=$LANG['db_clean_what_comment']?></div>
+                                    </div>
+                                    <div class="col-lg-<?=$colsright?>">
+                                       <div class="checkbox">
+                                          <label><input name="chk_cleanDaynotes" value="chk_cleanDaynotes" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['db_clean_daynotes']?></label>
+                                       </div>
+                                       <div class="checkbox">
+                                          <label><input name="chk_cleanMonths" value="chk_cleanMonths" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['db_clean_months']?></label>
+                                       </div>
+                                       <div class="checkbox">
+                                          <label><input name="chk_cleanTemplates" value="chk_cleanTemplates" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['db_clean_templates']?></label>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="divider"><hr></div>
+
+                                 <div class="form-group">
+                                    <div class="col-lg-<?=$colsleft?>">
+                                       <div class="text-bold"><?=$LANG['db_clean_before']?></div>
+                                       <div class="text-normal"><?=$LANG['db_clean_before_comment']?></div>
+                                    </div>
+                                    <div class="col-lg-<?=$colsright?>">
+                                       <input id="cleanBefore" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_cleanBefore" maxlength="10" value="<?=$viewData['cleanBefore']?>" type="text">
+                                       <?php if ( isset($inputAlert["cleanBefore"]) AND strlen($inputAlert["cleanBefore"]) ) { ?> 
+                                          <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['cleanBefore']?></div>
+                                       <?php } ?> 
+                                       <script type="text/javascript">$(function() { $( "#cleanBefore" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });</script>
+                                    </div>
+                                 </div>
+                                 <div class="divider"><hr></div>
+
+                                 <div class="form-group">
+                                    <div class="col-lg-<?=$colsleft?>">
+                                       <div class="text-bold"><?=$LANG['db_clean_confirm']?></div>
+                                       <div class="text-normal"><?=$LANG['db_clean_confirm_comment']?></div>
+                                    </div>
+                                    <div class="col-lg-<?=$colsright?>">
+                                       <input class="form-control" tabindex="<?=$tabindex++?>" name="txt_cleanConfirm" maxlength="7" value="" type="text">
+                                       <?php if ( isset($inputAlert["cleanConfirm"]) AND strlen($inputAlert["cleanConfirm"]) ) { ?> 
+                                          <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['cleanConfirm']?></div>
+                                       <?php } ?> 
+                                    </div>
+                                 </div>
+                                 <div class="divider"><hr></div>
+                                 
+                                 <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_cleanup"><?=$LANG['btn_cleanup']?></button>
+                                 
+                              </div>
+                           </div>
+                        </div>
+      
                         <!-- Delete tab -->
                         <div class="tab-pane fade" id="tab_delete">
                            <div class="panel panel-default">

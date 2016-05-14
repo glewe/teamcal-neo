@@ -5,11 +5,11 @@
  * User edit page controller
  *
  * @category TeamCal Neo 
- * @version 0.5.004
+ * @version 0.5.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -100,13 +100,13 @@ if (!empty($_POST))
       if (!formInputValid('txt_title', 'alpha_numeric_dash_blank_dot')) $inputError = true;
       if (!formInputValid('txt_position', 'alpha_numeric_dash_blank')) $inputError = true;
       if (!formInputValid('txt_email', 'required|email')) $inputError = true;
-      if ( (isset($_POST['txt_password']) and strlen($_POST['txt_password'])) or (isset($_POST['txt_password2']) and strlen($_POST['txt_password2'])))
+      if ( (isset($_POST['txt_profilePassword']) and strlen($_POST['txt_profilePassword'])) or (isset($_POST['txt_profilePassword2']) and strlen($_POST['txt_profilePassword2'])))
       {
-         if (!formInputValid('txt_password', 'pwd'.$C->read('pwdStrength'))) $inputError = true;
-         if (!formInputValid('txt_password2', 'required|pwd'.$C->read('pwdStrength'))) $inputError = true;
-         if (!formInputValid('txt_password2', 'match', 'txt_password'))
+         if (!formInputValid('txt_profilePassword', 'pwd'.$C->read('pwdStrength'))) $inputError = true;
+         if (!formInputValid('txt_profilePassword2', 'required|pwd'.$C->read('pwdStrength'))) $inputError = true;
+         if (!formInputValid('txt_profilePassword2', 'match', 'txt_profilePassword'))
          {
-            $inputAlert['password2'] = sprintf($LANG['alert_input_match'], $LANG['profile_password2'], $LANG['profile_password']);
+            $inputAlert['profilePassword2'] = sprintf($LANG['alert_input_match'], $LANG['profile_profilePassword2'], $LANG['profile_profilePassword']);
             $inputError = true;
          }
       }
@@ -192,15 +192,28 @@ if (!empty($_POST))
             if (isset($_POST['chk_locked']) AND $_POST['chk_locked']) $UP->locked = '1'; else $UP->locked = '0';
             if (isset($_POST['chk_hidden']) AND $_POST['chk_hidden']) $UP->hidden = '1'; else $UP->hidden = '0';
             if (isset($_POST['chk_onhold']) AND $_POST['chk_onhold']) $UP->onhold = '1'; else $UP->onhold = '0';
-            if (isset($_POST['chk_verify']) AND $_POST['chk_verify']) $UP->verify = '1'; else $UP->verify = '0';
+            if (isset($_POST['chk_verify']) AND $_POST['chk_verify']) 
+            {
+               $UP->verify = '1';
+            }
+            else 
+            {
+               $UP->verify = '0';
+               $UO->save($profile,'verifycode', '');
+            }
          }
           
          //
          // Password
          //
-         if ( isset($_POST['txt_password']) AND strlen($_POST['txt_password']) AND isset($_POST['txt_password2']) AND strlen($_POST['txt_password2']) AND $_POST['txt_password'] == $_POST['txt_password2'] )
+         if ( isset($_POST['txt_profilePassword']) AND 
+              strlen($_POST['txt_profilePassword']) AND 
+              isset($_POST['txt_profilePassword2']) AND 
+              strlen($_POST['txt_profilePassword2']) AND 
+              $_POST['txt_profilePassword'] == $_POST['txt_profilePassword2'] 
+            )
          {
-            $UP->password = crypt($_POST['txt_password'], $CONF['salt']);
+            $UP->password = crypt($_POST['txt_profilePassword'], $CONF['salt']);
             $UP->last_pw_change = date("Y-m-d H:I:s");
          }
           
@@ -310,7 +323,7 @@ if (!empty($_POST))
          // One avatar per user at a time. Change filename to username
          //
          $pieces = explode('.',$_FILES['file_avatar']['name']);
-         $UPL->the_file = $UL->username . "." . $pieces[1];
+         $UPL->the_file = $profile . "." . $pieces[1];
          
          if ($UPL->upload())
          {
@@ -480,10 +493,10 @@ $viewData['groups'] = array (
 //
 // Password
 //
-$LANG['profile_password_comment'] .= $LANG['password_rules_'.$C->read('pwdStrength')];
+$LANG['profile_profilePassword_comment'] .= $LANG['password_rules_'.$C->read('pwdStrength')];
 $viewData['password'] = array (
-   array ( 'prefix' => 'profile', 'name' => 'password', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['password'])?$inputAlert['password']:'') ),
-   array ( 'prefix' => 'profile', 'name' => 'password2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['password2'])?$inputAlert['password2']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'profilePassword', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['profilePassword'])?$inputAlert['profilePassword']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'profilePassword2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['profilePassword2'])?$inputAlert['profilePassword2']:'') ),
 );
 
 //
