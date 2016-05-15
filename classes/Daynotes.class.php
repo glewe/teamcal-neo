@@ -3,7 +3,7 @@
  * Daynotes.class.php
  *
  * @category TeamCal Neo 
- * @version 0.5.005
+ * @version 0.5.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -104,11 +104,11 @@ class Daynotes
     */
    function create()
    {
-      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (yyyymmdd, daynote, username, region, color) VALUES (:val1, :val2, :val3, :val4, :val5)');
+      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (yyyymmdd, username, region, daynote, color) VALUES (:val1, :val2, :val3, :val4, :val5)');
       $query->bindParam('val1', $this->yyyymmdd);
-      $query->bindParam('val2', $this->daynote);
-      $query->bindParam('val3', $this->username);
-      $query->bindParam('val4', $this->region);
+      $query->bindParam('val2', $this->username);
+      $query->bindParam('val3', $this->region);
+      $query->bindParam('val4', $this->daynote);
       $query->bindParam('val5', $this->color);
       $result = $query->execute();
       return $result;

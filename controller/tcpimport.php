@@ -5,7 +5,7 @@
  * TeamCal Pro Import page controller
  *
  * @category TemCal Neo 
- * @version 0.5.005
+ * @version 0.5.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -39,6 +39,10 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
 //
 // VARIABLE DEFAULTS
 //
+$viewData['tcpDbServer'] = '';
+$viewData['tcpDbName']   = '';
+$viewData['tcpDbUser']   = '';
+$viewData['tcpDbPrefix'] = '';
 
 //=============================================================================
 //
@@ -50,15 +54,16 @@ if (!empty($_POST))
    // Sanitize input
    //
    $_POST = sanitize($_POST);
+
+   $viewData['tcpDbServer'] = $_POST['txt_tcpDbServer'];
+   $viewData['tcpDbName']   = $_POST['txt_tcpDbName'];
+   $viewData['tcpDbUser']   = $_POST['txt_tcpDbUser'];
+   $viewData['tcpDbPrefix'] = $_POST['txt_tcpDbPrefix'];
     
    //
    // Form validation
    //
    $inputError = false;
-   
-   //
-   // Validate input data. If something is wrong or missing, set $inputError = true
-   //
    
    if (!$inputError)
    {
@@ -83,6 +88,7 @@ if (!empty($_POST))
          {
             $tcpPrefix = $_POST['txt_tcpDbPrefix'];
             $queryFailed = false;
+            $importResult = '';
             
             //-----------------------------------------------------------------
             //
@@ -138,6 +144,7 @@ if (!empty($_POST))
                   // Log this event
                   //
                   $LOG->log("logImport",$L->checkLogin(),"log_tcpimp_abs", " (".$_POST['opt_absImport'].")");
+                  $importResult .= '<li>'.$LANG['tcpimp_abs'].'</li>';
                }
                else
                {
@@ -186,6 +193,7 @@ if (!empty($_POST))
                   // Log this event
                   //
                   $LOG->log("logImport",$L->checkLogin(),"log_tcpimp_groups", " (".$_POST['opt_groupsImport'].")");
+                  $importResult .= '<li>'.$LANG['tcpimp_groups'].'</li>';
                }
                else
                {
@@ -241,6 +249,7 @@ if (!empty($_POST))
                   // Log this event
                   //
                   $LOG->log("logImport",$L->checkLogin(),"log_tcpimp_hols", " (".$_POST['opt_holsImport'].")");
+                  $importResult .= '<li>'.$LANG['tcpimp_hols'].'</li>';
                }
                else
                {
@@ -290,6 +299,7 @@ if (!empty($_POST))
                   // Log this event
                   //
                   $LOG->log("logImport",$L->checkLogin(),"log_tcpimp_regs", " (".$_POST['opt_regsImport'].")");
+                  $importResult .= '<li>'.$LANG['tcpimp_regs'].'</li>';
                }
                else
                {
@@ -386,6 +396,7 @@ if (!empty($_POST))
                   // Log this event
                   //
                   $LOG->log("logImport",$L->checkLogin(),"log_tcpimp_users", " (".$_POST['opt_usersImport'].")");
+                  $importResult .= '<li>'.$LANG['tcpimp_users'].'</li>';
                }
                else
                {
@@ -467,12 +478,76 @@ if (!empty($_POST))
                   // Log this event
                   //
                   $LOG->log("logImport",$L->checkLogin(),"log_tcpimp_allo", " (".$_POST['opt_alloImport'].")");
+                  $importResult .= '<li>'.$LANG['tcpimp_allo'].'</li>';
                }
                else
                {
                   $queryFailed = true;
                }
             } // Allowances
+          
+            //-----------------------------------------------------------------
+            //
+            // Daynotes
+            // 
+            // Required imports from above
+            // - Regions
+            // - Users
+            //
+            if (  ($_POST['opt_daynImport'] == 'replace' OR $_POST['opt_daynImport'] == 'add') AND 
+                  ($_POST['opt_regsImport'] == 'replace' OR $_POST['opt_regsImport'] == 'add') AND
+                  ($_POST['opt_usersImport'] == 'replace' OR $_POST['opt_usersImport'] == 'add')
+               )
+            {
+               //
+               // Read TeamCal Pro table
+               //
+               $myQuery = "SELECT * FROM `".$tcpPrefix."daynotes`;";
+               $query = $pdoTCP->prepare($myQuery);
+               $result = $query->execute();
+               if ($result)
+               {
+                  $records = array ();
+                  while ( $row = $query->fetch() )
+                  {
+                     $records[] = $row;
+                  }
+                   
+                  if ($_POST['opt_daynImport'] == 'replace' )
+                  {
+                     //
+                     // Empty corresponding TeamCal Neo table
+                     //
+                     $D->deleteAll();
+                  }
+                   
+                  //
+                  // Fill corresponding TeamCal Neo table
+                  //
+                  foreach ($records as $rec)
+                  {
+                     //
+                     // Create TCN Daynote record
+                     //
+                     $D->yyyymmdd = $rec['yyyymmdd'];
+                     $D->username = $rec['username'];
+                     $D->daynote = $rec['daynote'];
+                     if ($regId = $R->getId($rec['region'])) $D->region = $regId; else $D->region = '1';
+                     $D->color = 'info';
+                     $D->create();
+                  }
+                  
+                  //
+                  // Log this event
+                  //
+                  $LOG->log("logImport",$L->checkLogin(),"log_tcpimp_dayn", " (".$_POST['opt_daynImport'].")");
+                  $importResult .= '<li>'.$LANG['tcpimp_dayn'].'</li>';
+               }
+               else
+               {
+                  $queryFailed = true;
+               }
+            } // Daynotes
           
             //-----------------------------------------------------------------
             //
@@ -522,12 +597,17 @@ if (!empty($_POST))
                         }
                      }
                   }
+                  else
+                  {
+                     $queryFailed = true;
+                  }
+                  
+                  //
+                  // Log this event
+                  //
+                  $LOG->log("logImport",$L->checkLogin(),"log_tcpimp_roles", " (".$_POST['opt_rolesImport'].")");
+                  $importResult .= '<li>'.$LANG['tcpimp_roles'].'</li>';
                }
-                
-               //
-               // Log this event
-               //
-               $LOG->log("logImport",$L->checkLogin(),"log_tcpimp_roles", " (".$_POST['opt_rolesImport'].")");
             }
             
             //-----------------------------------------------------------------
@@ -585,6 +665,7 @@ if (!empty($_POST))
                   // Log this event
                   //
                   $LOG->log("logImport",$L->checkLogin(),"log_tcpimp_ugr", " (".$_POST['opt_ugrImport'].")");
+                  $importResult .= '<li>'.$LANG['tcpimp_ugr'].'</li>';
                }
                else
                {
@@ -605,7 +686,6 @@ if (!empty($_POST))
                   ($_POST['opt_regsImport'] == 'replace' OR $_POST['opt_regsImport'] == 'add')
                )
             {
-               
                //
                // Read TeamCal Pro table
                //
@@ -736,6 +816,7 @@ if (!empty($_POST))
                   // Log this event
                   //
                   $LOG->log("logImport",$L->checkLogin(),"log_tcpimp_mtpl", " (".$_POST['opt_mtplImport'].")");
+                  $importResult .= '<li>'.$LANG['tcpimp_mtpl'].'</li>';
                }
                else
                {
@@ -830,6 +911,7 @@ if (!empty($_POST))
                   // Log this event
                   //
                   $LOG->log("logImport",$L->checkLogin(),"log_tcpimp_utpl", " (".$_POST['opt_utplImport'].")");
+                  $importResult .= '<li>'.$LANG['tcpimp_utpl'].'</li>';
                }
                else
                {
@@ -842,7 +924,7 @@ if (!empty($_POST))
             //
             // Prepare result message
             //
-            if (!$queryFailed)
+            if (!$queryFailed AND strlen($importResult))
             {
                //
                // Success
@@ -852,7 +934,7 @@ if (!empty($_POST))
                $alertData['title'] = $LANG['alert_success_title'];
                $alertData['subject'] = $LANG['tcpimp_alert_title'];
                $alertData['text'] = $LANG['tcpimp_alert_success'];
-               $alertData['help'] = '';
+               $alertData['help'] = $LANG['tcpimp_alert_success_help'].'<ul>'.$importResult.'</ul>';
             }
             else 
             {

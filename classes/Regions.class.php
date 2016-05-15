@@ -3,7 +3,7 @@
  * Regions.class.php
  *
  * @category TeamCal Neo 
- * @version 0.5.005
+ * @version 0.5.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -202,6 +202,29 @@ class Regions
          $this->name = $row['name'];
          $this->description = $row['description'];
          return true;
+      }
+      else 
+      {
+         return false;
+      }
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
+    * Gets the region ID for a given name
+    *
+    * @param string $name Region name to find
+    * @return bool $result Region ID or FALSE
+    */
+   function getId($name)
+   {
+      $query = $this->db->prepare('SELECT id FROM ' . $this->table . ' WHERE name = :val1');
+      $query->bindParam('val1', $name);
+      $result = $query->execute();
+      
+      if ($result and $row = $query->fetch())
+      {
+         return $row['id'];
       }
       else 
       {

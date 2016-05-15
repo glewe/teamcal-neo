@@ -5,7 +5,7 @@
  * TeamCal Pro Import page view
  *
  * @category TeamCal Neo 
- * @version 0.5.005
+ * @version 0.5.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -74,7 +74,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="text-normal"><?=$LANG['tcpimp_tcp_dbServer_comment']?></div>
                                        </div>
                                        <div class="col-lg-4">
-                                          <input id="txt_tcpDbServer" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_tcpDbServer" type="text" maxlength="160" value="">
+                                          <input id="txt_tcpDbServer" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_tcpDbServer" type="text" maxlength="160" value="<?=$viewData['tcpDbServer']?>">
                                        </div>
                                     </div>
                                     <div class="divider"><hr></div>
@@ -86,7 +86,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="text-normal"><?=$LANG['tcpimp_tcp_dbName_comment']?></div>
                                        </div>
                                        <div class="col-lg-4">
-                                          <input id="txt_tcpDbName" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_tcpDbName" type="text" maxlength="40" value="">
+                                          <input id="txt_tcpDbName" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_tcpDbName" type="text" maxlength="40" value="<?=$viewData['tcpDbName']?>">
                                        </div>
                                     </div>
                                     <div class="divider"><hr></div>
@@ -98,7 +98,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="text-normal"><?=$LANG['tcpimp_tcp_dbUser_comment']?></div>
                                        </div>
                                        <div class="col-lg-4">
-                                          <input id="txt_tcpDbUser" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_tcpDbUser" type="text" maxlength="40" value="">
+                                          <input id="txt_tcpDbUser" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_tcpDbUser" type="text" maxlength="40" value="<?=$viewData['tcpDbUser']?>">
                                        </div>
                                     </div>
                                     <div class="divider"><hr></div>
@@ -110,7 +110,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="text-normal"><?=$LANG['tcpimp_tcp_dbPassword_comment']?></div>
                                        </div>
                                        <div class="col-lg-4">
-                                          <input id="txt_tcpDbPassword" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_tcpDbPassword" type="text" maxlength="40" value="">
+                                          <input id="txt_tcpDbPassword" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_tcpDbPassword" type="password" maxlength="40" value="">
                                        </div>
                                     </div>
                                     <div class="divider"><hr></div>
@@ -122,7 +122,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="text-normal"><?=$LANG['tcpimp_tcp_dbPrefix_comment']?></div>
                                        </div>
                                        <div class="col-lg-4">
-                                          <input id="txt_tcpDbPrefix" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_tcpDbPrefix" type="text" maxlength="40" value="">
+                                          <input id="txt_tcpDbPrefix" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_tcpDbPrefix" type="text" maxlength="40" value="<?=$viewData['tcpDbPrefix']?>">
                                        </div>
                                     </div>
                                     <div class="divider"><hr></div>
@@ -179,6 +179,20 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="radio"><label><input name="opt_alloImport" id="opt_alloImport_no" value="no" tabindex="<?=$tabindex++;?>" checked="" type="radio"><?=$LANG['tcpimp_no']?></label></div>
                                           <div class="radio"><label><input name="opt_alloImport" id="opt_alloImport_replace" value="replace" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_replace']?></label></div>
                                           <div class="radio"><label><input name="opt_alloImport" id="opt_alloImport_add" value="add" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_add']?></label></div>
+                                       </div>
+                                    </div>
+                                    <div class="divider"><hr></div>
+   
+                                    <!-- Daynotes -->
+                                    <div class="form-group">
+                                       <div class="col-lg-8 control-label">
+                                          <div class="text-bold"><?=$LANG['tcpimp_dayn']?></div>
+                                          <div class="text-normal"><?=$LANG['tcpimp_dayn_comment']?></div>
+                                       </div>
+                                       <div class="col-lg-4">
+                                          <div class="radio"><label><input name="opt_daynImport" id="opt_daynImport_no" value="no" tabindex="<?=$tabindex++;?>" checked="" type="radio"><?=$LANG['tcpimp_no']?></label></div>
+                                          <div class="radio"><label><input name="opt_daynImport" id="opt_daynImport_replace" value="replace" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_replace']?></label></div>
+                                          <div class="radio"><label><input name="opt_daynImport" id="opt_daynImport_add" value="add" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_add']?></label></div>
                                        </div>
                                     </div>
                                     <div class="divider"><hr></div>

@@ -5,7 +5,7 @@
  * Database page controller
  *
  * @category TeamCal Neo 
- * @version 0.5.005
+ * @version 0.5.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -79,7 +79,7 @@ if (!empty($_POST))
       {
          if ( isset($_POST['chk_cleanDaynotes']) )
          {
-            $result = $D->deleteAllBefore(str_replace('-'.'',$_POST['txt_cleanBefore']));
+            $result = $D->deleteAllBefore(str_replace('-','',$_POST['txt_cleanBefore']));
          }
          
          if ( isset($_POST['chk_cleanMonths']) )

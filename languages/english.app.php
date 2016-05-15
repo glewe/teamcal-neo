@@ -5,7 +5,7 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 0.5.005
+ * @version 0.5.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -626,8 +626,9 @@ $LANG['tcpimp_replace'] = 'Replace TeamCal Neo records';
 $LANG['tcpimp_to'] = 'TeamCal Neo 1.0.000';
 
 $LANG['tcpimp_alert_title'] = 'TeamCal Pro Import';
-$LANG['tcpimp_alert_fail'] = 'One or more TeamCal Pro queries failed. Please check your data and apply the necessary manual adjustments. You may also reset to the sample data in Database Management.';
+$LANG['tcpimp_alert_fail'] = 'One or more database queries failed or no or incorrect tables were selected. Please check your data and apply the necessary manual adjustments. You may also reset to the sample data in Database Management.';
 $LANG['tcpimp_alert_success'] = 'Your TeamCal Pro import was successfull. Please check your data and apply the necessary manual adjustments.';
+$LANG['tcpimp_alert_success_help'] = 'The following tables were imported:';
 
 $LANG['tcpimp_info'] = '<p>TeamCal Neo has been completely rewritten. Specifically the database has seen many structural changes. It is not compatible anymore to TeamCal Pro.
       You can only import core data from TeamCal Pro. You have to still adjust TeamCal Neo settings after.</p>
@@ -655,6 +656,12 @@ $LANG['tcpimp_allo'] = 'Allowances';
 $LANG['tcpimp_allo_comment'] = '<p>To import the allowances you also need to import the following tables:</p>
       <ul>
          <li>Absence Types</li>
+         <li>User Accounts</li>
+      </ul>';
+$LANG['tcpimp_dayn'] = 'Daynotes';
+$LANG['tcpimp_dayn_comment'] = '<p>To import the daynotes you also need to import the following tables:</p>
+      <ul>
+         <li>Regions</li>
          <li>User Accounts</li>
       </ul>';
 $LANG['tcpimp_groups'] = 'Groups';

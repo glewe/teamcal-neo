@@ -5,7 +5,7 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 0.5.005
+ * @version 0.5.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -626,8 +626,9 @@ $LANG['tcpimp_replace'] = 'TeamCal Neo Daten ersetzen';
 $LANG['tcpimp_to'] = 'TeamCal Neo 1.0.000';
 
 $LANG['tcpimp_alert_title'] = 'TeamCal Pro Import';
-$LANG['tcpimp_alert_fail'] = 'Eine oder mehrere TeamCal Pro Abfragen sind fehlgeschlagen. &Uuml;berpr&uuml;fe die Daten und f&uuml;hre die notwendigen Anpassungen durch. Im Datenbank Management kann ein Reset auf Beispieldaten gemacht werden.';
+$LANG['tcpimp_alert_fail'] = 'Eine oder mehrere TeamCal Pro Abfragen sind fehlgeschlagen oder es wurden keine bzw. falsche Tabellen ausgew&auml;hlt. &Uuml;berpr&uuml;fe die Daten und f&uuml;hre die notwendigen Anpassungen durch. Im Datenbank Management kann ein Reset auf Beispieldaten gemacht werden.';
 $LANG['tcpimp_alert_success'] = 'Der TeamCal Pro Import war erfolgreich. &Uuml;berpr&uuml;fe die Daten und f&uuml;hre die notwendigen Anpassungen durch.';
+$LANG['tcpimp_alert_success_help'] = 'Die folgenden Tabellen wurden importiert:';
 
 $LANG['tcpimp_info'] = '<p>TeamCal Neo wurde komplett neu programmiert. Speziell die Datenbankstrukturen haben sich ge&auml;ndert. Es ist nicht mehr kompatibel mit TeamCal Pro.
       Es k&ouml;nnen nur Stammdaten von TeamCal Pro importiert werden. Manuelle Einstellungen in TeamCal Neo sind danach immer noch n&ouml;tig.</p>
@@ -655,6 +656,12 @@ $LANG['tcpimp_allo'] = 'Erlaubte Abwesenheiten';
 $LANG['tcpimp_allo_comment'] = '<p>Um die erlaubten Abwesenheiten zu importieren, m&uuml;ssen auch die folgenden Tabellen importiert werden:</p>
       <ul>
          <li>Abwesenheitstypen</li>
+         <li>Benutzerkonten</li>
+      </ul>';
+$LANG['tcpimp_dayn'] = 'Tagesnotizen';
+$LANG['tcpimp_dayn_comment'] = '<p>Um die Tagesnotizen zu importieren, m&uuml;ssen auch die folgenden Tabellen importiert werden:</p>
+      <ul>
+         <li>Regionen</li>
          <li>Benutzerkonten</li>
       </ul>';
 $LANG['tcpimp_groups'] = 'Gruppen';

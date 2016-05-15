@@ -5,7 +5,7 @@
  * Log language file (English)
  *
  * @category TeamCal Neo 
- * @version 0.5.005
+ * @version 0.5.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -82,6 +82,7 @@ $LANG['log_role_updated'] = 'Role updated: ';
 $LANG['log_role_deleted'] = 'Role deleted: ';
 $LANG['log_tcpimp_abs'] = 'TeamCal Pro absence types imported';
 $LANG['log_tcpimp_allo'] = 'TeamCal Pro allowances imported';
+$LANG['log_tcpimp_dayn'] = 'TeamCal Pro daynotes imported';
 $LANG['log_tcpimp_groups'] = 'TeamCal Pro groups imported';
 $LANG['log_tcpimp_hols'] = 'TeamCal Pro holidays imported';
 $LANG['log_tcpimp_mtpl'] = 'TeamCal Pro region calendars imported';
