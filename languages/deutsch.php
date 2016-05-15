@@ -5,7 +5,7 @@
  * Language file (German)
  *
  * @category TeamCal Neo 
- * @version 0.5.006
+ * @version 0.6.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -31,6 +31,9 @@ $LANG['auto'] = 'Automatisch';
 $LANG['avatar'] = 'Avatar';
 $LANG['back_to_top'] = 'Zur&uuml;ck zum Anfang';
 $LANG['blue'] = 'Blau';
+$LANG['cookie_message'] = 'Diese Applikation nutzt Cookies um eine optimale Nutzung zu gew&auml;hrleisten.';
+$LANG['cookie_dismiss'] = 'Alles klar!';
+$LANG['cookie_learnMore'] = '[Mehr dazu...]';
 $LANG['custom'] = 'Individuell';
 $LANG['cyan'] = 'Cyan';
 $LANG['description'] = 'Beschreibung';
@@ -40,7 +43,7 @@ $LANG['from'] = 'Von';
 $LANG['general'] = 'Allgemein';
 $LANG['green'] = 'Gr&uuml;n';
 $LANG['group'] = 'Gruppe';
-$LANG['license'] = 'Noch nicht verf&uuml;gbar...';
+$LANG['license'] = 'TeamCal Neo Lizenz';
 $LANG['magenta'] = 'Magenta';
 $LANG['monthnames'] = array (
    1 => "Januar",
@@ -126,6 +129,7 @@ $LANG['about_copyright'] = 'Copyright';
 $LANG['about_license'] = 'Lizenz';
 $LANG['about_forum'] = 'Forum';
 $LANG['about_tracker'] = 'Issue Tracker';
+$LANG['about_documentation'] = 'Dokumentation';
 $LANG['about_credits'] = 'Dank an';
 $LANG['about_for'] = 'f&uuml;r';
 $LANG['about_and'] = 'und';
@@ -304,17 +308,21 @@ $LANG['config_allowRegistration'] = 'User Selbst-Registration erlauben';
 $LANG['config_allowRegistration_comment'] = 'Erlaubt die Registrierung durch den User. Ein zus&auml;tzlicher Menueintrag erscheint im Menu.';
 $LANG['config_allowUserTheme'] = 'User Theme';
 $LANG['config_allowUserTheme_comment'] = 'W&auml;hle aus, ob jeder User sein eigenes Theme w&auml;hlen kann.';
-$LANG['config_appDescription'] = 'Applikations-Beschreibung';
+$LANG['config_appDescription'] = 'HTML Beschreibung';
 $LANG['config_appDescription_comment'] = 'Hier kann eine Applikations-Beschreibung eingetragen werden. Sie wird im HTML Header benutzt und von Suchmaschinen gelesen.';
 $LANG['config_appFooterCpy'] = 'Fu&szlig;zeilen Copyright Name';
 $LANG['config_appFooterCpy_comment'] = 'Wird in der Fu&szlig;zeile oben links angezeigt. Gib nur den Namen ein, das (aktuelle) Jahr wird autmatisch angezeigt.';
-$LANG['config_appTitle'] = 'Applikationstitel';
-$LANG['config_appTitle_comment'] = 'Hier kann der Applikations-Title eingetragen werden. Er wird an mehreren Stellen benutzt, z.B. im HTML Header, Menu und auf anderen Seiten.';
-$LANG['config_appURL'] = 'Applications-URL';
+$LANG['config_appKeywords'] = 'HTML Schl&uuml;sselw&ouml;rter';
+$LANG['config_appKeywords_comment'] = 'Hier k&ouml;nnen Schl&uuml;sselw&ouml;rter eingetragen werden. Sie wird im HTML Header benutzt und von Suchmaschinen gelesen.';
+$LANG['config_appTitle'] = 'Applikationsname';
+$LANG['config_appTitle_comment'] = 'Hier kann ein Applikations-Title eingetragen werden. Er wird an mehreren Stellen benutzt, z.B. im HTML Header, Menu und auf anderen Seiten.';
+$LANG['config_appURL'] = 'Applikations-URL';
 $LANG['config_appURL_comment'] = 'Gib die volle Applikations-URL hier ein. Sie wird z.B. in Benachrichtiguns-E-Mails benutzt.';
 $LANG['config_badLogins'] = 'Ung&uuml;ltige Logins';
 $LANG['config_badLogins_comment'] = 'Anzahl der ung&uuml;ltigen Login Versuche bevore der User Status auf \'LOCKED\' gesetzt wird. Der User muss danach solange 
       warten wie in der Schonfrist angegeben, bevor er sich erneut einloggen kann. Wenn dieser Wert auf 0 gesetzt wird, ist diese Funktion deaktiviert.';
+$LANG['config_cookieConsent'] = 'Cookie Zustimmung';
+$LANG['config_cookieConsent_comment'] = 'Mit dieser Option wird am unteren Bildschirmrand ein Popup f&uuml;r die Zustimmung zu Cookienutzung angezeigt. Dies ist legale Pflicht in der EU.';
 $LANG['config_cookieLifetime'] = 'Cookie Lebensdauer';
 $LANG['config_cookieLifetime_comment'] = 'Bei erfolgreichem Einloggen wird ein Cookie auf dem lokalen Rechner des Users abgelegt. Dieser Cookie hat eine 
       bestimmte Lebensdauer, nach dem er nicht mehr anerkannt wird. Ein erneutes Login is notwendig. Die Lebensdauer kann hier in Sekunden angegeben werden (0-999999).';

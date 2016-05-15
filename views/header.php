@@ -5,32 +5,31 @@
  * The view of the HTML header
  *
  * @category TeamCal Neo 
- * @version 0.5.006
+ * @version 0.6.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
-?><!DOCTYPE html>
-<!--
-===============================================================================
-Application: <?=$htmlData['title']." ".$htmlData['version']."\n"?>
-Author:      <?=$htmlData['author']."\n"?>
-Copyright:   <?=$htmlData['copyright']."\n"?>
-             All rights reserved.
-===============================================================================
--->
+if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
 <html lang="en">
 
    <head>
+      <!--
+      ===============================================================================
+      Application: <?=$htmlData['title']." ".$htmlData['version']."\n"?>
+      Author:      <?=$htmlData['author']."\n"?>
+      Copyright:   <?=$htmlData['copyright']."\n"?>
+                   All rights reserved.
+      ===============================================================================
+      -->
       <title><?=$htmlData['title']?></title>
       
       <meta http-equiv="Content-type" content="text/html;charset=utf-8">
       <meta charset="utf-8">
       <meta name="application-name" content="<?=$htmlData['title']?>">
-      <meta name="description" content="Lewe <?=$CONF['app_name']?> - The Online Calendar!">
-      <meta name="keywords" content="Lewe <?=$CONF['app_name']?>">
+      <meta name="description" content="<?=$htmlData['description']?>">
+      <meta name="keywords" content="<?=$htmlData['keywords']?>">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
       <link rel="shortcut icon" href="images/icons/logo-16.png">
@@ -116,6 +115,20 @@ Copyright:   <?=$htmlData['copyright']."\n"?>
       <?php if ($CONF['addon_chartjs']) { ?><!-- Chart.js -->  
       <script src="addons/chart.js/Chart.min.js"></script>
       <script src="addons/chart.js/src/Chart.HorizontalBar.js"></script>
+      <?php } ?>
+
+      <?php if ($htmlData['cookieConsent']) { ?>
+      <!-- Cookie Consent by Silktide - http://silktide.com/cookieconsent -->
+      <script type="text/javascript">
+          window.cookieconsent_options = {
+             "message":"<?=$LANG['cookie_message']?>",
+             "dismiss":"<?=$LANG['cookie_dismiss']?>",
+             "learnMore":"<?=$LANG['cookie_learnMore']?>",
+             "link":"index.php?action=imprint",
+             "theme":"dark-bottom"
+          };
+      </script>
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
       <?php } ?>
       
    </head>

@@ -5,7 +5,7 @@
  * Database page view
  *
  * @category TeamCal Neo 
- * @version 0.5.006
+ * @version 0.6.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -119,7 +119,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  </div>
                                  <div class="divider"><hr></div>
                                  
-                                 <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_cleanup"><?=$LANG['btn_cleanup']?></button>
+                                 <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" name="btn_cleanup"><?=$LANG['btn_cleanup']?></button>
                                  
                               </div>
                            </div>
@@ -175,7 +175,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  </div>
                                  <div class="divider"><hr></div>
                                  
-                                 <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_delete"><?=$LANG['btn_delete_records']?></button>
+                                 <button type="submit" class="btn btn-danger" tabindex="<?=$tabindex++;?>" name="btn_delete"><?=$LANG['btn_delete_records']?></button>
                                  
                               </div>
                            </div>
@@ -192,7 +192,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     </div>
                                     <div class="col-lg-12 control-label">
                                        <input id="dbURL" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_dbURL" maxlength="160" value="<?=$viewData['dbURL']?>" type="text"><br>
-                                       <button type="submit" class="btn btn-danger" tabindex="<?=$tabindex++;?>" name="btn_saveURL"><?=$LANG['btn_save']?></button>
+                                       <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_saveURL"><?=$LANG['btn_save']?></button>
                                     </div>
                                  </div>
                                  <?php if (strlen($viewData['dbURL']) AND $viewData['dbURL'] != "#") { ?>                                 

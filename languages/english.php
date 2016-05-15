@@ -5,7 +5,7 @@
  * Language file (English)
  *
  * @category TeamCal Neo 
- * @version 0.5.006
+ * @version 0.6.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -31,6 +31,9 @@ $LANG['auto'] = 'Automatic';
 $LANG['avatar'] = 'Avatar';
 $LANG['back_to_top'] = 'Back to top';
 $LANG['blue'] = 'Blue';
+$LANG['cookie_message'] = 'This application uses cookies to ensure you get the best experience out of it.';
+$LANG['cookie_dismiss'] = 'Got it!';
+$LANG['cookie_learnMore'] = '[More info...]';
 $LANG['custom'] = 'Custom';
 $LANG['cyan'] = 'Cyan';
 $LANG['description'] = 'Description';
@@ -40,7 +43,7 @@ $LANG['from'] = 'From';
 $LANG['general'] = 'General';
 $LANG['green'] = 'Green';
 $LANG['group'] = 'Group';
-$LANG['license'] = 'Not available yet...';
+$LANG['license'] = 'TeamCal Neo License';
 $LANG['magenta'] = 'Magenta';
 $LANG['monthnames'] = array (
    1 => "January",
@@ -126,6 +129,7 @@ $LANG['about_copyright'] = 'Copyright';
 $LANG['about_license'] = 'License';
 $LANG['about_forum'] = 'Forum';
 $LANG['about_tracker'] = 'Issue Tracker';
+$LANG['about_documentation'] = 'Documentation';
 $LANG['about_credits'] = 'Credits go to';
 $LANG['about_for'] = 'for';
 $LANG['about_and'] = 'and';
@@ -303,17 +307,21 @@ $LANG['config_allowRegistration'] = 'Allow User Self-Registration';
 $LANG['config_allowRegistration_comment'] = 'Allow users to self-register their account. A menu entry will be available in the '.$appTitle.' menu.';
 $LANG['config_allowUserTheme'] = 'Allow User Theme';
 $LANG['config_allowUserTheme_comment'] = 'Check whether you want each user to be able to select his individual theme.';
-$LANG['config_appDescription'] = 'Application Description';
-$LANG['config_appDescription_comment'] = 'Enter an application description here. It will be used in the HTML header so it can be read by search engines.';
+$LANG['config_appDescription'] = 'HTML Description';
+$LANG['config_appDescription_comment'] = 'Enter an application description here. It will be used in the HTML header for search engines.';
 $LANG['config_appFooterCpy'] = 'Footer Copyright Name';
 $LANG['config_appFooterCpy_comment'] = 'Will be displayed in the upper left footer section. Just enter the name, the (current) year will be displayed automatically.';
-$LANG['config_appTitle'] = 'Application Title';
+$LANG['config_appKeywords'] = 'HTML Keywords';
+$LANG['config_appKeywords_comment'] = 'Enter a few keywords here. They will be used in the HTML header for search engines.';
+$LANG['config_appTitle'] = 'Application Name';
 $LANG['config_appTitle_comment'] = 'Enter an application title here. It is used at several locations, e.g. the HTML header, menu and other pages where the title is referenced.';
 $LANG['config_appURL'] = 'Application URL';
 $LANG['config_appURL_comment'] = 'Enter the full application URL here. It will be used in notification emails.';
 $LANG['config_badLogins'] = 'Bad Logins';
 $LANG['config_badLogins_comment'] = 'Number of bad login attempts that will cause the user status to be set to \'LOCKED\'. The user has to wait as long 
       as the grace period specifies before he can login again. If you set this value to 0 the bad login feature is disabled.';
+$LANG['config_cookieConsent'] = 'Cookie Consent';
+$LANG['config_cookieConsent_comment'] = 'With this option, a cookie consent confirmation will pop up at the bottom of the screen. This is legally required in the EU.';
 $LANG['config_cookieLifetime'] = 'Cookie Lifetime';
 $LANG['config_cookieLifetime_comment'] = 'Upon successful login a cookie is stored on the local hard drive of the user. This cookie has a certain 
       lifetime after which it becomes invalid. A new login is necessary. This lifetime can be specified here in seconds (0-999999).';

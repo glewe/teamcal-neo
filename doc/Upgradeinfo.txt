@@ -2,25 +2,3 @@
 TEAMCAL NEO UPGRADE INFO
 ==============================================================================
 
-------------------------------------------------------------------------------
-[0.5.004] => [0.5.005]
-
-1. Backup your current files and database!
-
-2. Download the new release and overwrite all files.
-
-3. Changes to the database:
-
-   ALTER TABLE `tcneo_daynotes` ADD `color` VARCHAR(16) NOT NULL DEFAULT 'default' AFTER `region`;
-   ALTER TABLE `tcneo_archive_daynotes` ADD `color` VARCHAR(16) NOT NULL DEFAULT 'default' AFTER `region`;
-   ALTER TABLE `tcneo_daynotes` CHANGE `region` `region` INT(11) NOT NULL DEFAULT '1';
-   ALTER TABLE `tcneo_archive_daynotes` CHANGE `region` `region` INT(11) NOT NULL DEFAULT '1';
-   ALTER TABLE `tcneo_daynotes` ADD UNIQUE( `yyyymmdd`, `username`, `region`);
-   ALTER TABLE `tcneo_archive_daynotes` ADD UNIQUE( `yyyymmdd`, `username`, `region`);
-
-4. Edit config/config.db.php and update the database credentials.
-
-5. Edit config/config.app.php and set $CONF['app_installed'] to "1".
-
-6. Delete/rename installation.php.
-

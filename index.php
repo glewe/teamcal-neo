@@ -3,7 +3,7 @@
  * index.php
  * 
  * @category TeamCal Neo 
- * @version 0.5.006
+ * @version 0.6.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -296,12 +296,14 @@ else
 //
 $htmlData['title'] = $C->read("appTitle");
 $htmlData['description'] = $C->read("appDescription");
+$htmlData['keywords'] = $C->read("appKeywords");
 $htmlData['version'] = $CONF['app_version'];
 $htmlData['author'] = $CONF['app_author'];
 $htmlData['copyright'] = $CONF['app_copyright'];
 $htmlData['license'] = $CONF['app_license'];
 $htmlData['theme'] = getTheme();
 $htmlData['jQueryTheme'] = $C->read("jqtheme");
+if ($C->read("cookieConsent")) $htmlData['cookieConsent'] = true; else $htmlData['cookieConsent'] = false; 
 if ($C->read("faCDN")) $htmlData['faCDN'] = true; else $htmlData['faCDN'] = false; 
 if ($C->read("jQueryCDN")) $htmlData['jQueryCDN'] = true; else $htmlData['jQueryCDN'] = false; 
 

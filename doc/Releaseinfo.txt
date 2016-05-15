@@ -3,6 +3,22 @@ TEAMCAL NEO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[0.6.000] Release Candidate
+
+DATE
+2016-05-xx
+
+BUGFIXES
+01 Some links on the about page did not work anymore
+
+CHANGES
+
+NEW FEATURES
+01 License and Documentation
+02 Added Cookie Consent by Silktide
+
+
+------------------------------------------------------------------------------
 [0.5.006]
 
 DATE
@@ -110,7 +126,7 @@ NEW FEATURES
 
 
 ------------------------------------------------------------------------------
-[0.5.000]
+[0.5.000] Beta Release
 
 DATE
 2016-04-16

@@ -5,7 +5,7 @@
  * About page view
  *
  * @category TeamCal Neo 
- * @version 0.5.006
+ * @version 0.6.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -31,16 +31,17 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <p>
                         <strong><?=$LANG['about_version']?>:</strong>&nbsp;&nbsp;<?=$CONF['app_version']?><br>
                         <strong><?=$LANG['about_copyright']?>:</strong>&nbsp;&nbsp;&copy;&nbsp;<?=$CONF['app_year_start'] . "-" . $CONF['app_year_current']?> by <a class="about" href="http://www.lewe.com/" target="_blank"><?=$CONF['app_author']?></a><br>
-                        <strong><?=$LANG['about_license']?>:</strong>&nbsp;&nbsp;<?=$LANG['license']?><br>
+                        <strong><?=$LANG['about_license']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/wiki/display/TCNEO/TeamCal+Neo+License" target="_blank"><?=$LANG['license']?></a><br>
                         <strong><?=$LANG['about_forum']?>:</strong>&nbsp;&nbsp;<a class="about" href="http://forum.lewe.com/" target="_blank">Lewe Forum</a><br>
-                        <strong><?=$LANG['about_tracker']?>:</strong>&nbsp;&nbsp;<a class="about" href="http://georgelewe.atlassian.net/" target="_blank">Lewe Issue Tracker</a><br><br>
+                        <strong><?=$LANG['about_tracker']?>:</strong>&nbsp;&nbsp;<a class="about" href="http://georgelewe.atlassian.net/" target="_blank">Lewe Issue Tracker (JIRA)</a><br>
+                        <strong><?=$LANG['about_documentation']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/wiki/display/TCNEO/TeamCal+Neo+Documentation" target="_blank">Lewe Wiki (Confluence)</a><br><br>
                      </p>
                      <h3><?=$LANG['about_credits']?>:</h3>
                      <ul>
                         <li>Bootstrap Team <?=$LANG['about_for']?> <a href="http://getbootstrap.com/" target="_blank">Bootstrap framework</a></li>
                         <li>Thomas Park <?=$LANG['about_for']?> <a href="http://bootswatch.com/" target="_blank">Bootswatch themes</a></li>
-                        <li>Yun Lai <?=$LANG['about_for']?> <a href="http://bootstrappaginator.org/" target="_blank">Bootstrap Paginator</a></li>
-                        <li>Dave Gandy <?=$LANG['about_for']?> <a href="https://fortawesome.github.io/Font-Awesome/" target="_blank">Font Awesome</a></li>
+                        <li>Yun Lai <?=$LANG['about_for']?> <a href="https://github.com/lyonlai/bootstrap-paginator" target="_blank">Bootstrap Paginator</a></li>
+                        <li>Dave Gandy <?=$LANG['about_for']?> <a href="https://fontawesome.github.io/Font-Awesome/" target="_blank">Font Awesome</a></li>
                         <li>Google Team <?=$LANG['about_for']?> <a href="https://www.google.com/fonts/" target="_blank">Google Fonts</a></li>
                         <li>jQuery Team <?=$LANG['about_for']?> <a href="http://www.jquery.com/" target="_blank">jQuery</a> <?=$LANG['about_and']?> <a href="http://www.jqueryui.com/" target="_blank">jQuery UI</a></li>
                         <li>Dimitri Semenov <?=$LANG['about_for']?> <a href="http://dimsemenov.com/plugins/magnific-popup/" target="_blank">Magnific Popup</a></li>
@@ -52,8 +53,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <li>CKSource Sp. <?=$LANG['about_for']?> <a href="http://ckeditor.com/" target="_blank">CKEditor</a></li>
                         <?php } ?>
                         <?php if ($CONF['addon_chartjs']) { ?>
-                        <li>Nick Downie <?=$LANG['about_for']?> <a href="https://www.chartjs.org/" target="_blank">Chart.js</a></li>
-                        <li>Promotably <?=$LANG['about_for']?> <a href="https://devblog.promotably.com/how-to-create-horizontal-bar-charts-with-chartjs/" target="_blank">HorizontalBar for Chart.js</a></li>
+                        <li>Nick Downie <?=$LANG['about_for']?> <a href="http://www.chartjs.org/" target="_blank">Chart.js</a></li>
+                        <li>Promotably <?=$LANG['about_for']?> HorizontalBar for Chart.js</li>
                         <?php } ?>
                         <li><?=$LANG['about_misc']?></li>
                      </ul>

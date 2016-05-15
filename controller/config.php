@@ -5,7 +5,7 @@
  * Framework config page controller
  *
  * @category TeamCal Neo 
- * @version 0.5.006
+ * @version 0.6.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -73,6 +73,7 @@ if (!empty($_POST))
          if (filter_var($_POST['txt_appURL'], FILTER_VALIDATE_URL)) $C->save("appURL",$_POST['txt_appURL']); else $C->save("appURL", "#");  
          $C->save("appTitle", sanitize($_POST['txt_appTitle']));
          $C->save("appDescription", sanitize($_POST['txt_appDescription']));
+         $C->save("appKeywords", sanitize($_POST['txt_appKeywords']));
          $C->save("appFooterCpy", sanitize($_POST['txt_appFooterCpy']));
          if ($_POST['sel_defaultLanguage']) $C->save("defaultLanguage", $_POST['sel_defaultLanguage']); else $C->save("defaultLanguage", "english");
          if ($_POST['sel_logLanguage']) $C->save("logLanguage", $_POST['sel_logLanguage']); else $C->save("logLanguage", "english");
@@ -129,6 +130,7 @@ if (!empty($_POST))
          //
          // System
          //
+         if (isset($_POST['chk_cookieConsent']) && $_POST['chk_cookieConsent']) $C->save("cookieConsent", "1"); else $C->save("cookieConsent", "0");
          if (isset($_POST['chk_faCDN']) && $_POST['chk_faCDN']) $C->save("faCDN", "1"); else $C->save("faCDN", "0");
          if (isset($_POST['chk_jQueryCDN']) && $_POST['chk_jQueryCDN']) $C->save("jQueryCDN", "1"); else $C->save("jQueryCDN", "0");
          if ($_POST['sel_jqtheme']) $C->save("jqtheme", $_POST['sel_jqtheme']); else $C->save("jqtheme", "smoothness");
@@ -211,6 +213,7 @@ $viewData['general'] = array (
    array ( 'prefix' => 'config', 'name' => 'appURL', 'type' => 'text', 'value' => strip_tags($C->read("appURL")), 'maxlength' => '160' ),
    array ( 'prefix' => 'config', 'name' => 'appTitle', 'type' => 'text', 'value' => strip_tags($C->read("appTitle")), 'maxlength' => '160' ),
    array ( 'prefix' => 'config', 'name' => 'appDescription', 'type' => 'text', 'value' => strip_tags($C->read("appDescription")), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'appKeywords', 'type' => 'text', 'value' => strip_tags($C->read("appKeywords")), 'maxlength' => '160' ),
    array ( 'prefix' => 'config', 'name' => 'defaultLanguage', 'type' => 'list', 'values' => $viewData['languageList'] ),
    array ( 'prefix' => 'config', 'name' => 'logLanguage', 'type' => 'list', 'values' => $viewData['logLanguageList'] ),
    array ( 'prefix' => 'config', 'name' => 'showAlerts', 'type' => 'radio', 'values' => array ('all', 'warnings', 'none'), 'value' => $C->read("showAlerts") ),
@@ -261,6 +264,7 @@ foreach ($timezones as $tz)
    $viewData['timezoneList'][] = array ('val' => $tz, 'name' => $tz, 'selected' => ($C->read("timeZone") == $tz)?true:false );
 }
 $viewData['system'] = array (
+   array ( 'prefix' => 'config', 'name' => 'cookieConsent', 'type' => 'check', 'values' => '', 'value' => $C->read("cookieConsent") ),
    array ( 'prefix' => 'config', 'name' => 'faCDN', 'type' => 'check', 'values' => '', 'value' => $C->read("faCDN") ),
    array ( 'prefix' => 'config', 'name' => 'jQueryCDN', 'type' => 'check', 'values' => '', 'value' => $C->read("jQueryCDN") ),
    array ( 'prefix' => 'config', 'name' => 'jqtheme', 'type' => 'list', 'values' => $viewData['jqueryUIThemeList'] ),
