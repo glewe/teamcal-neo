@@ -5,7 +5,7 @@
  * Collection of global helper functions
  *
  * @category TeamCal Neo 
- * @version 0.6.000
+ * @version 0.7.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -935,7 +935,17 @@ function getTheme()
          
          if ($UO->hasOption($thisuser, "menuBarInverse"))
          {
-            $theme['navbarInverse'] = $UO->read($thisuser, "menuBarInverse");
+            switch ($UO->read($thisuser, "menuBarInverse"))
+            {
+               case "normal":
+                  $theme['navbarInverse'] = '';
+                  break;
+               case "inverse":
+                  $theme['navbarInverse'] = 'inverse';
+                  break;
+               default:
+                  break;
+            }
          }
       }
    }

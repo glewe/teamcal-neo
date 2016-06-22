@@ -5,7 +5,7 @@
  * User edit page controller
  *
  * @category TeamCal Neo 
- * @version 0.6.000
+ * @version 0.7.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -162,15 +162,14 @@ if (!empty($_POST))
             $UO->save($profile, 'theme', 'default');
          }
          
-         if (isset($_POST['chk_menuBarInverse']) && $_POST['chk_menuBarInverse']) 
+         if (!$UO->read($profile, 'menuBarInverse')) $UO->save($profile, 'menuBarInverse', 'default');
+         if (isset($_POST['opt_menuBar'])) 
          {
-            if (!$UO->read($profile,'menuBarInverse')) $reloadPage = true; // New navbar setting needs a page reload later
-            $UO->save($profile, 'menuBarInverse', '1'); 
-         } 
-         else 
-         {
-            if ($UO->read($profile,'menuBarInverse')) $reloadPage = true; // New navbar setting needs a page reload later
-            $UO->save($profile, 'menuBarInverse', '0');
+            if ($_POST['opt_menuBar'] != $UO->read($profile, 'menuBarInverse'))
+            {
+               $UO->save($profile, 'menuBarInverse', $_POST['opt_menuBar']);
+               $reloadPage = true;
+            }
          }
           
          if (isset($_POST['sel_language']))
@@ -440,12 +439,13 @@ $viewData['options'] = array ();
 if ($C->read('allowUserTheme'))
 {
    $viewData['themeList'][] = array ('val' => 'default', 'name' => 'Default', 'selected' => ($UO->read($profile, 'theme') == 'default')?true:false );
+   $viewData['menuBarOptions']= array ('default', 'normal', 'inverse');
    foreach ($appThemes as $appTheme)
    {
       $viewData['themeList'][] = array ('val' => $appTheme, 'name' => proper($appTheme), 'selected' => ($UO->read($profile, 'theme') == $appTheme)?true:false );
    }
    $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'theme', 'type' => 'list', 'values' => $viewData['themeList'] );
-   $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'menuBarInverse', 'type' => 'check', 'values' => '', 'value' => $UO->read($profile, 'menuBarInverse') );
+   $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'menuBar', 'type' => 'radio', 'values' => $viewData['menuBarOptions'], 'value' => $UO->read($profile, 'menuBarInverse') );
 }
 $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'language', 'type' => 'list', 'values' => $viewData['languageList'] );
 

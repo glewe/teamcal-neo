@@ -5,7 +5,7 @@
  * Language file (English)
  *
  * @category TeamCal Neo 
- * @version 0.6.000
+ * @version 0.7.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -212,6 +212,9 @@ $LANG['alert_reg_mismatch'] = 'The submitted verification code does not match th
 $LANG['alert_reg_no_user'] = 'The username cannot be found. Are you sure it was registered?';
 $LANG['alert_reg_no_vcode'] = 'A verification could not be found. Are you sure it was registered?';
 
+$LANG['alert_upl_img_subject'] = 'Upload Images';
+$LANG['alert_upl_doc_subject'] = 'Upload Documents';
+
 //
 // Buttons
 //
@@ -246,6 +249,7 @@ $LANG['btn_delete_records'] = 'Delete Records';
 $LANG['btn_delete_role'] = 'Delete Role';
 $LANG['btn_delete_selected'] = 'Delete Selected';
 $LANG['btn_done'] = 'Done';
+$LANG['btn_download_view'] = 'Download/View';
 $LANG['btn_edit'] = 'Edit';
 $LANG['btn_edit_profile'] = 'Edit Profile';
 $LANG['btn_enable'] = 'Enable';
@@ -693,7 +697,7 @@ $LANG['mnu_admin_perm'] = "Permissions";
 $LANG['mnu_admin_phpinfo'] = 'PHP Info';
 $LANG['mnu_admin_roles'] = 'Roles';
 $LANG['mnu_admin_systemlog'] = 'System Log';
-$LANG['mnu_admin_upload'] = 'File Upload';
+$LANG['mnu_admin_upload'] = 'Attachments';
 $LANG['mnu_admin_users'] = 'Users';
 $LANG['mnu_help'] = 'Help';
 $LANG['mnu_help_legend'] = 'Legend';
@@ -886,8 +890,11 @@ $LANG['profile_managerships_comment'] = 'Select the groups that this user is man
 $LANG['profile_memberships'] = 'Member of';
 $LANG['profile_memberships_comment'] = 'Select the groups that this user is member of. Should the same group be selected here and in the manager list, 
       then the manager position is saved.';
-$LANG['profile_menuBarInverse'] = 'Menu Bar Inverse';
-$LANG['profile_menuBarInverse_comment'] = 'With this switch you can inverse the color set of the menu bar. For some themes this is the better choice.';
+$LANG['profile_menuBar'] = 'Menu Bar Display';
+$LANG['profile_menuBar_comment'] = 'With this switch you can inverse the color set of the menu bar. For some themes this is the better choice.';
+$LANG['profile_menuBar_default'] = 'Default';
+$LANG['profile_menuBar_inverse'] = 'Inverse';
+$LANG['profile_menuBar_normal'] = 'Normal';
 $LANG['profile_mobilephone'] = 'Mobile';
 $LANG['profile_mobilephone_comment'] = '';
 $LANG['profile_notifyGroupEvents'] = 'Group Events';
@@ -995,8 +1002,9 @@ $LANG['status_ut_admin'] = 'Administrator';
 // Upload
 //
 $LANG['upload_title'] = 'File Upload';
-$LANG['upload_tab_image'] = 'Images';
-$LANG['upload_tab_doc'] = 'Documents';
+$LANG['upload_tab_files'] = 'Files';
+$LANG['upload_tab_upload'] = 'Upload';
+$LANG['upload_col_file'] = 'File';
 
 $LANG['upload_confirm_delete'] = 'Are you sure you want to delete the selected files?';
 $LANG['upload_error_0'] = 'The file "%s" was successfully uploaded.';
@@ -1013,15 +1021,15 @@ $LANG['upload_error_15'] = 'A file with the name "%s" already exists.';
 $LANG['upload_error_16'] = 'The uploaded file was renamed to: %s';
 $LANG['upload_error_17'] = 'The file "%s" does not exist.';
 $LANG['upload_extensions'] = 'Allowed extensions';
-$LANG['upload_docUpload'] = 'Upload document';
-$LANG['upload_docUpload_comment'] = 'You can upload a custom document. The size of the file is limited to %d KBytes and the allowed formats are "%s". The file will be saved in "%s".';
-$LANG['upload_docs'] = 'Uploaded Documents';
-$LANG['upload_docs_comment'] = 'These are the currently uploaded documents. A tooltip will show the filename.';
-$LANG['upload_imageUpload'] = 'Upload image';
-$LANG['upload_imageUpload_comment'] = 'You can upload a custom image. The size of the file is limited to %d KBytes and the allowed formats are "%s". The file will be saved in "%s".';
-$LANG['upload_images'] = 'Uploaded Images';
-$LANG['upload_images_comment'] = 'These are the currently uploaded images. They are all resized here to 80x80 pixels. A click on an image will show it in its original size.';
+$LANG['upload_file'] = 'Upload File';
+$LANG['upload_file_comment'] = 'You can upload a custom file. The size of the file is limited to %d KBytes and the allowed formats are "%s".';
 $LANG['upload_maxsize'] = 'Maximum filesize';
+$LANG['upload_shareWith'] = 'Share with';
+$LANG['upload_shareWith_comment'] = 'Select the groups or users you want to share this file with. Note, that these users must have access to this upload page to retrieve the file.';
+$LANG['upload_shareWith_all'] = 'All';
+$LANG['upload_shareWith_group'] = 'Group';
+$LANG['upload_shareWith_role'] = 'Role';
+$LANG['upload_shareWith_user'] = 'User';
 
 //
 // Users

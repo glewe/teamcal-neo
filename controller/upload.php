@@ -5,7 +5,7 @@
  * Upload page controller
  *
  * @category TeamCal Neo 
- * @version 0.6.000
+ * @version 0.7.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -34,14 +34,22 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
 //
 // LOAD CONTROLLER RESOURCES
 //
+$UPL = new Upload();
+$UPF = new UploadedFile();
+$UF =  new UserFile();
 
 //=============================================================================
 //
 // VARIABLE DEFAULTS
 //
+$uplDir = WEBSITE_ROOT . '/' . $CONF['app_upl_dir'];
+
 $viewData = array();
-$imgDir = WEBSITE_ROOT . '/' . $CONF['app_image_dir'];
-$docDir = WEBSITE_ROOT . '/' . $CONF['app_doc_dir'];
+$viewData['shareWith'] = 'all';
+$viewData['shareWithGroup'] = array ();
+$viewData['shareWithRole'] = array ();
+$viewData['shareWithUser'] = array ();
+$viewData['uplFiles'] = array ();
 
 //=============================================================================
 //
@@ -65,14 +73,13 @@ if (!empty($_POST))
     
    if (!$inputError)
    {
-      // ,--------------,
-      // | Upload Image |
-      // '--------------'
-      if (isset($_POST['btn_uploadImage']))
+      // ,-------------,
+      // | Upload File |
+      // '-------------'
+      if (isset($_POST['btn_uploadFile']))
       {
-         $UPL = new Upload();
-         $UPL->upload_dir = $imgDir;
-         $UPL->extensions = $CONF['imgExtensions'];
+         $UPL->upload_dir = $uplDir;
+         $UPL->extensions = $CONF['uplExtensions'];
          $UPL->do_filename_check = "y";
          $UPL->replace = "y";
          $UPL->the_temp_file = $_FILES['file_image']['tmp_name'];
@@ -81,97 +88,130 @@ if (!empty($_POST))
          
          if ($UPL->upload())
          {
-            //
-            // Log this event
-            //
-            $LOG->log("logUpload", $UL->username, "log_upload_image", $UPL->uploaded_file['name']);
-            header("Location: index.php?action=upload");
-         }
-         else
-         {
-            //
-            // Upload failed
-            //
-            $showAlert = true;
-            $alertData['type'] = 'danger';
-            $alertData['title'] = $LANG['alert_danger_title'];
-            $alertData['subject'] = $LANG['btn_upload'];
-            $alertData['text'] = $UPL->getErrors();
-            $alertData['help'] = '';
-         }
-      }
-      // ,-----------------,
-      // | Upload Document |
-      // '-----------------'
-      elseif (isset($_POST['btn_uploadDoc']))
-      {
-         $UPL = new Upload();
-         $UPL->upload_dir = $docDir;
-         $UPL->extensions = $CONF['docExtensions'];
-         $UPL->do_filename_check = "y";
-         $UPL->replace = "y";
-         $UPL->the_temp_file = $_FILES['file_doc']['tmp_name'];
-         $UPL->the_file = $_FILES['file_doc']['name'];
-         $UPL->http_error = $_FILES['file_doc']['error'];
-         
-         if ($UPL->upload())
-         {
-            //
-            // Log this event
-            //
-            $LOG->log("logUpload", $UL->username, "log_upload_image", $UPL->uploaded_file['name']);
-            header("Location: index.php?action=upload");
-         }
-         else
-         {
-            //
-            // Upload failed
-            //
-            $showAlert = true;
-            $alertData['type'] = 'danger';
-            $alertData['title'] = $LANG['alert_danger_title'];
-            $alertData['subject'] = $LANG['btn_upload'];
-            $alertData['text'] = $UPL->getErrors();
-            $alertData['help'] = '';
-         }
-      }
-      // ,--------------,
-      // | Delete Image |
-      // '--------------'
-      elseif (isset($_POST['btn_deleteImage']))
-      {
-         if (isset($_POST['chk_image']))
-         {
-            $selected_files = $_POST['chk_image'];
-            foreach($selected_files as $file)
+            $UPF->create($UPL->the_file, $UL->username);
+            $fileid = $UPF->getId($UPL->the_file);
+            $UF->create($UL->username, $fileid);
+            
+            switch ($_POST['opt_shareWith'])
             {
-               unlink($imgDir . $file);
+               case "admin" :
+                  $UF->create('admin', $fileid);
+                  break;
+                      
+               case "all" :
+                  $users = $U->getAll();
+                  foreach ( $users as $user ) $UF->create($user['username'], $fileid);
+                  break;
+                      
+               case "group" :
+                  if (isset($_POST['sel_shareWithGroup']))
+                  {
+                     foreach ( $_POST['sel_shareWithGroup'] as $gto )
+                     {
+                        $groupusers = $UG->getAllForGroup($gto);
+                        foreach ( $groupusers as $groupuser ) {
+                           $UF->create($groupuser['username'], $fileid);
+                        }
+                     }
+                  }
+                  else
+                  {
+                     //
+                     // No group selected
+                     //
+                     $showAlert = TRUE;
+                     $alertData['type'] = 'warning';
+                     $alertData['title'] = $LANG['alert_warning_title'];
+                     $alertData['subject'] = $LANG['msg_no_group_subject'];
+                     $alertData['text'] = $LANG['msg_no_group_text'];
+                     $alertData['help'] = '';
+                  }
+                  break;
+                   
+               case "role" :
+                  if (isset($_POST['sel_shareWithRole']))
+                  {
+                     foreach ( $_POST['sel_shareWithRole'] as $rto )
+                     {
+                        $roleusers = $U->getAllForRole($rto);
+                        foreach ( $roleusers as $roleuser ) {
+                           $UF->create($roleuser['username'], $fileid);
+                        }
+                     }
+                  }
+                  else
+                  {
+                     //
+                     // No group selected
+                     //
+                     $showAlert = TRUE;
+                     $alertData['type'] = 'warning';
+                     $alertData['title'] = $LANG['alert_warning_title'];
+                     $alertData['subject'] = $LANG['msg_no_group_subject'];
+                     $alertData['text'] = $LANG['msg_no_group_text'];
+                     $alertData['help'] = '';
+                  }
+                  break;
+                   
+               case "user" :
+                  if (isset($_POST['sel_shareWithUser']))
+                  {
+                     foreach ( $_POST['sel_shareWithUser'] as $uto ) $UF->create($uto, $fileid);
+                  }
+                  else
+                  {
+                     //
+                     // No user selected
+                     //
+                     $showAlert = TRUE;
+                     $alertData['type'] = 'warning';
+                     $alertData['title'] = $LANG['alert_warning_title'];
+                     $alertData['subject'] = $LANG['msg_no_user_subject'];
+                     $alertData['text'] = $LANG['msg_no_user_text'];
+                     $alertData['help'] = '';
+                  }
+                  break;
+            }
+            
+            if (!$showAlert)
+            {
+               //
+               // Log this event
+               //
+               $LOG->log("logUpload", $UL->username, "log_upload_image", $UPL->uploaded_file['name']);
+               header("Location: index.php?action=upload");
             }
          }
          else
          {
             //
-            // No file selected
+            // Upload failed
             //
             $showAlert = true;
-            $alertData['type'] = 'warning';
-            $alertData['title'] = $LANG['alert_warning_title'];
-            $alertData['subject'] = $LANG['msg_no_file_subject'];
-            $alertData['text'] = $LANG['msg_no_file_text'];
+            $alertData['type'] = 'danger';
+            $alertData['title'] = $LANG['alert_danger_title'];
+            $alertData['subject'] = $LANG['alert_upl_img_subject'];
+            $alertData['text'] = $UPL->getErrors();
             $alertData['help'] = '';
          }
       }
-      // ,-----------------,
-      // | Delete Document |
-      // '-----------------'
-      elseif (isset($_POST['btn_deleteDoc']))
+      // ,-------------,
+      // | Delete File |
+      // '-------------'
+      elseif (isset($_POST['btn_deleteFile']))
       {
-         if (isset($_POST['chk_doc']))
+         if (isset($_POST['chk_file']))
          {
-            $selected_files = $_POST['chk_doc'];
+            $selected_files = $_POST['chk_file'];
             foreach($selected_files as $file)
             {
-               unlink($docDir . $file);
+               if ($UL->username == 'admin' OR $UL->username == $UPF->getUploader($file))
+               {
+                  $fileid = $UPF->getId($file);
+                  $UPF->delete($file);
+                  $UF->deleteFile($fileid);
+                  unlink($uplDir . $file);
+               }
             }
          }
          else
@@ -206,13 +246,25 @@ if (!empty($_POST))
 //
 // PREPARE VIEW
 //
-$viewData['image_maxsize'] = $CONF['imgMaxsize'];
-$viewData['image_formats'] = implode(', ', $CONF['imgExtensions']);
-$viewData['imageFiles'] = getFiles($CONF['app_image_dir'], $CONF['imgExtensions'], NULL);
+$viewData['upl_maxsize'] = $CONF['uplMaxsize'];
+$viewData['upl_formats'] = implode(', ', $CONF['uplExtensions']);
+$files = getFiles($CONF['app_upl_dir'], $CONF['uplExtensions'], NULL);
+foreach ($files as $file)
+{
+   if ($UL->username != 'admin')
+   {
+      $fid = $UPF->getId($file);
+      if ($UF->hasAccess($UL->username, $fid)) $viewData['uplFiles'][] = $file;
+   }
+   else 
+   {
+      $viewData['uplFiles'][] = $file;
+   }
+}
 
-$viewData['doc_maxsize'] = $CONF['docMaxsize'];
-$viewData['doc_formats'] = implode(', ', $CONF['docExtensions']);
-$viewData['docFiles'] = getFiles($CONF['app_doc_dir'], $CONF['docExtensions'], NULL);
+$viewData['groups'] = $G->getAll();
+$viewData['roles'] = $RO->getAll();
+$viewData['users'] = $U->getAll();
 
 //=============================================================================
 //

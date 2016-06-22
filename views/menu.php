@@ -5,7 +5,7 @@
  * The view of the top navigation menu
  *
  * @category TeamCal Neo 
- * @version 0.6.000
+ * @version 0.7.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -37,7 +37,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <?php if ($userData['isLoggedIn']) { ?>
                         <li class="divider"></li>
                         <li class="dropdown-submenu">
-                           <a tabindex="-1" href="#"><i class="fa fa-language fa-lg text-danger fa-menu"></i><?=$LANG['mnu_app_language']?></a>
+                           <a tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-language fa-lg text-danger fa-menu"></i><?=$LANG['mnu_app_language']?></a>
                            <ul class="dropdown-menu">
                               <?php foreach ($appLanguages as $appLang) { ?>
                                  <li><a href="index.php?<?=str_replace('&','&amp;',$_SERVER['QUERY_STRING'])?>&amp;applang=<?=$appLang?>"><img src="languages/<?=$appLang?>.png" style="margin-right: 4px;" alt="<?=proper($appLang)?>"><?=proper($appLang)?></a></li>
@@ -74,7 +74,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                      isAllowed($CONF['controllers']['statspresence']->permission)
                                  ) { ?>
                               <li class="dropdown-submenu">
-                                 <a tabindex="-1" href="#"><i class="fa fa-bar-chart fa-lg text-warning fa-menu"></i><?=$LANG['mnu_view_stats']?></a>
+                                 <a tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bar-chart fa-lg text-warning fa-menu"></i><?=$LANG['mnu_view_stats']?></a>
                                  <ul class="dropdown-menu">
                                     <?php if (isAllowed($CONF['controllers']['statsabsence']->permission)) { ?>
                                        <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['statsabsence']->name?>"><i class="fa fa-<?=$CONF['controllers']['statsabsence']->faIcon?> fa-lg text-<?=$CONF['controllers']['statsabsence']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_stats_absences']?></a></li>

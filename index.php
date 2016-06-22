@@ -3,7 +3,7 @@
  * index.php
  * 
  * @category TeamCal Neo 
- * @version 0.6.000
+ * @version 0.7.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -181,9 +181,13 @@ if ($luser = $L->checkLogin() AND (isset($_GET['action']) AND $_GET['action'] !=
     
    $userData['color'] = getRoleColor($UL->role);
    
-   if (!$userData['avatar']=$UO->read($UL->username, 'avatar'))
+   if ($userData['avatar'] = $UO->read($UL->username, 'avatar'))
    {
-      if ($UO->read($UL->username, 'gender') == "female") $userData['avatar'] = 'noavatar_female.png';
+      if (!file_exists($CONF['app_avatar_dir'].$userData['avatar'])) $userData['avatar'] = 'noavatar_' . $UO->read($UL->username, 'gender') . '.png';
+   }
+   else 
+   {
+      $userData['avatar'] = 'noavatar_' . $UO->read($UL->username, 'gender') . '.png';
    }
    
    $userlang = $UO->read($UL->username, 'language');

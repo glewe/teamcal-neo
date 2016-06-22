@@ -5,7 +5,7 @@
  * Database parameters.
  *
  * @category TeamCal Neo 
- * @version 0.6.000
+ * @version 0.7.000
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -43,9 +43,11 @@ $tableIDs = array (
    'regions',
    'roles',
    'templates',
+   'uploads',
    'users',
-   'user_message',
+   'user_file',
    'user_group',
+   'user_message',
    'user_option',
 );
 

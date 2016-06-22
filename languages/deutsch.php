@@ -5,7 +5,7 @@
  * Language file (German)
  *
  * @category TeamCal Neo 
- * @version 0.6.000
+ * @version 0.7.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -212,6 +212,9 @@ $LANG['alert_reg_mismatch'] = 'Der Verfizierungscode stimmt nicht mit dem &uuml;
 $LANG['alert_reg_no_user'] = 'Der Benutzername konnte nicht gefunden werden. Wurde er registriert?';
 $LANG['alert_reg_no_vcode'] = 'Ein Verfizierungscode konnte nicht gefunden werden. Wurde er registriert?';
 
+$LANG['alert_upl_img_subject'] = 'Bilder Hochladen';
+$LANG['alert_upl_doc_subject'] = 'Dokumente Hochladen';
+
 //
 // Buttons
 //
@@ -246,6 +249,7 @@ $LANG['btn_delete_records'] = 'Datens&auml;tze l&ouml;schen';
 $LANG['btn_delete_role'] = 'Rolle l&ouml;schen';
 $LANG['btn_delete_selected'] = 'Auswahl l&ouml;schen';
 $LANG['btn_done'] = 'Fertig';
+$LANG['btn_download_view'] = 'Runterladen/Anzeigen';
 $LANG['btn_edit'] = 'Editieren';
 $LANG['btn_edit_profile'] = 'Profil bearbeiten';
 $LANG['btn_enable'] = 'Aktivieren';
@@ -697,7 +701,7 @@ $LANG['mnu_admin_perm'] = "Berechtigungen";
 $LANG['mnu_admin_phpinfo'] = 'PHP Info';
 $LANG['mnu_admin_roles'] = 'Rollen';
 $LANG['mnu_admin_systemlog'] = 'System Log';
-$LANG['mnu_admin_upload'] = 'Dateien Hochladen';
+$LANG['mnu_admin_upload'] = 'Anh&auml;nge';
 $LANG['mnu_admin_users'] = 'Nutzer';
 $LANG['mnu_help'] = 'Hilfe';
 $LANG['mnu_help_legend'] = 'Legende';
@@ -890,8 +894,11 @@ $LANG['profile_managerships_comment'] = 'W&auml;hle hier die Gruppen, von denen 
 $LANG['profile_memberships'] = 'Mitglied von';
 $LANG['profile_memberships_comment'] = 'W&auml;hle hier die Gruppen, in denen dieser Benutzer Mitglied ist. Sollte eine Gruppe sowohl hier als auch
       in der Managerliste gew&auml;hlt werden, wird die Managerposition &uuml;bernommen.';
-$LANG['profile_menuBarInverse'] = 'Men&uuml;zeile Invertieren';
-$LANG['profile_menuBarInverse_comment'] = 'Mit diesem Schalter kann die Farbkombination der Men&uuml;zeile invertiert werden. F&uuml;r einige Themes sieht das besser aus.';
+$LANG['profile_menuBar'] = 'Men&uuml;zeilenanzeige';
+$LANG['profile_menuBar_comment'] = 'Mit diesem Schalter kann die Farbkombination der Men&uuml;zeile invertiert werden. F&uuml;r einige Themes sieht das besser aus.';
+$LANG['profile_menuBar_default'] = 'Default';
+$LANG['profile_menuBar_inverse'] = 'Invertiert';
+$LANG['profile_menuBar_normal'] = 'Normal';
 $LANG['profile_mobilephone'] = 'Handy';
 $LANG['profile_mobilephone_comment'] = '';
 $LANG['profile_notifyGroupEvents'] = 'Gruppenereignisse';
@@ -999,8 +1006,9 @@ $LANG['status_ut_admin'] = 'Administrator';
 // Upload
 //
 $LANG['upload_title'] = 'Dateien Hochladen';
-$LANG['upload_tab_image'] = 'Bilder';
-$LANG['upload_tab_doc'] = 'Dokumente';
+$LANG['upload_tab_files'] = 'Dateien';
+$LANG['upload_tab_upload'] = 'Hochladen';
+$LANG['upload_col_file'] = 'Datei';
 
 $LANG['upload_confirm_delete'] = 'Bist du sicher, dass du die ausgew&auml;hlten Dateien l&ouml;schen m&ouml;chtest?';
 $LANG['upload_error_0'] = 'Die Datei "%s" wurde erfolgreich hochgeladen.';
@@ -1017,15 +1025,15 @@ $LANG['upload_error_15'] = 'Eine Datei mit dem Name "%s" existiert bereits.';
 $LANG['upload_error_16'] = 'Die hochgeladene Datei wurde in "%s" umbenannt.';
 $LANG['upload_error_17'] = 'Die Datei "%s" existiert nicht.';
 $LANG['upload_extensions'] = 'Erlaubte Bildformate';
-$LANG['upload_docUpload'] = 'Dokument hochladen';
-$LANG['upload_docUpload_comment'] = 'Hier kann ein Dokument hochgeladen werden. Die Dateigr&ouml;&szlig;e ist limitiert auf %d KBytes und die erlaubten Formate sind "%s". Die Datei wird in "%s" gespeichert.';
-$LANG['upload_docs'] = 'Hochgeladene Dokumente';
-$LANG['upload_docs_comment'] = 'Dies sind die bisher hochgeladenen Dokumente. Ein Tooltip zeigt den Dateinamen an.';
-$LANG['upload_imageUpload'] = 'Bild hochladen';
-$LANG['upload_imageUpload_comment'] = 'Hier kann ein Bild hochgeladen werden. Die Dateigr&ouml;&szlig;e ist limitiert auf %d KBytes und die erlaubten Formate sind "%s". Die Datei wird in "%s" gespeichert.';
-$LANG['upload_images'] = 'Hochgeladene Bilder';
-$LANG['upload_images_comment'] = 'Dies sind die bisher hochgeladenen Bilder. Hier werden sie in einer Gr&ouml;&szlig;e von 80x80 Pixeln dargestellt. Ein Klick auf das Bild zeigt es in Originalgr&ouml;&szlig;e.';
+$LANG['upload_file'] = 'Datei hochladen';
+$LANG['upload_file_comment'] = 'Hier kann eine Datei hochgeladen werden. Die Dateigr&ouml;&szlig;e ist limitiert auf %d KBytes und die erlaubten Formate sind "%s".';
 $LANG['upload_maxsize'] = 'Maximale Dateigr&ouml;&szlig;e';
+$LANG['upload_shareWith'] = 'Teilen mit';
+$LANG['upload_shareWith_comment'] = 'W&auml;hle die Gruppen oder Benutzer, mit denen du diese Datei teilen willst. Hinweis: Diese Benutzer m&uuml;ssen Zugriff auf diese Seite habe, um auf die Datei zuzugreifen.';
+$LANG['upload_shareWith_all'] = 'Alle';
+$LANG['upload_shareWith_group'] = 'Gruppe';
+$LANG['upload_shareWith_role'] = 'Rolle';
+$LANG['upload_shareWith_user'] = 'Benutzer';
 
 //
 // Users

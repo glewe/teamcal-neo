@@ -5,7 +5,7 @@
  * Message editor view
  *
  * @category TeamCal Neo 
- * @version 0.6.000
+ * @version 0.7.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -93,7 +93,6 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <option class="option" value="<?=$user['username']?>" <?=(in_array($user['username'],$viewData['sendToUser']))?"selected":"";?>><?=$showname?></option>
                            <?php } ?>
                            </select>
-                           
                         </div>
                      </div>
                      <div class="divider"><hr></div>

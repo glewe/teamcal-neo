@@ -5,7 +5,7 @@
  * The view of the HTML header
  *
  * @category TeamCal Neo 
- * @version 0.6.000
+ * @version 0.7.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -71,7 +71,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
       <script src="js/bootstrap-paginator.min.js"></script>
 
       <!-- Custom CSS -->
-      <link rel="stylesheet" href="css/bootstrap-submenu.css">
+      <link rel="stylesheet" href="css/bootstrap-submenu.min.css">
       <link rel="stylesheet" href="css/custom.css">
 
       <!-- Magnific Popup -->

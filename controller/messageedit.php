@@ -5,7 +5,7 @@
  * Message editor controller
  *
  * @category TeamCal Neo
- * @version 0.6.000
+ * @version 0.7.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -284,7 +284,7 @@ if (!empty($_POST))
                      foreach ( $_POST['sel_sendToUser'] as $uto )
                      {
                         $to .= $uto . ", ";
-                        if ($U->findByName($uto)) $UMSG->add($username, $uto, $popup);
+                        if ($U->findByName($uto)) $UMSG->add($uto, $newsid, $popup);
                      }
                      $to = substr($to, 0, strlen($to) - 2); // remove the last ", "
                      $to .= ')';

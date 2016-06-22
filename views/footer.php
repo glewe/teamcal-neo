@@ -5,7 +5,7 @@
  * The view of the footer
  *
  * @category TeamCal Neo 
- * @version 0.6.000
+ * @version 0.7.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -58,6 +58,16 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       <script type="text/javascript">
 
          $(document).ready(function(){
+            /**
+             * Bootstrap Submenu
+             */
+            $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
+               event.preventDefault(); 
+               event.stopPropagation(); 
+               $(this).parent().siblings().removeClass('open');
+               $(this).parent().toggleClass('open');
+            });
+            
             /**
              * Magnific Popup
              */

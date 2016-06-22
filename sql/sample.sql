@@ -2,8 +2,6 @@
 -- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 02, 2016 at 11:31 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -1145,3 +1143,48 @@ INSERT INTO `tcneo_user_option` (`id`, `username`, `option`, `value`) VALUES
 (128, 'admin', 'menuBarInverse', '1'),
 (129, 'mmouse', 'menuBarInverse', '1'),
 (130, 'dduck', 'menuBarInverse', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `uploads`
+--
+
+DROP TABLE IF EXISTS `tcneo_uploads`;
+CREATE TABLE `tcneo_uploads` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `filename` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `uploader` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (id),
+  UNIQUE uploadedFile (filename)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_file`
+--
+
+DROP TABLE IF EXISTS `tcneo_user_file`;
+CREATE TABLE `tcneo_user_file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
+  `fileid` int(11) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE userFile (username,fileid)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `archive_user_file`
+--
+
+DROP TABLE IF EXISTS `tcneo_archive_user_file`;
+CREATE TABLE `tcneo_archive_user_file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
+  `fileid` int(11) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE userFile (username,fileid)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

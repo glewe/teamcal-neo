@@ -3,7 +3,7 @@
  * Users.class.php
  *
  * @category TeamCal Neo 
- * @version 0.6.000
+ * @version 0.7.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -294,6 +294,32 @@ class Users
          }
       }
       return $records;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
+    * Reads all records for a given role
+    *
+    * @param string $roleId Role ID to search for
+    * @return array $records Array with all records
+    */
+   function getAllForRole($roleId)
+   {
+      $records = array ();
+      
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE role = :val1 ORDER BY lastname ASC, firstname ASC');
+      $query->bindParam('val1', $roleId);
+      $result = $query->execute();
+      
+      if ($result)
+      {
+         while ( $row = $query->fetch() ) $records[] = $row;
+         return $records;
+      }
+      else 
+      {
+         return false;
+      }
    }
    
    // ---------------------------------------------------------------------

@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 0.6.000
+ * @version 0.7.000
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -23,7 +23,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  * Set this to 0 if you want to run the installation.php script again.
  * If not, it is recommended that you delete the installation.php file.
  */
-$CONF['app_installed'] = "0";
+$CONF['app_installed'] = "1";
 
 //=============================================================================
 /**
@@ -64,11 +64,9 @@ $CONF['salt'] = 's7*9fgJ#R';
 $CONF['avatarExtensions'] = array ( 'gif', 'jpg', 'png' );
 $CONF['avatarMaxsize'] = 1024 * 100; // 100 KB
 
-$CONF['docExtensions'] = array ( 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'zip' );
-$CONF['docMaxsize'] = 2048 * 1024; // 2 MB
-
 $CONF['imgExtensions'] = array ( 'gif', 'jpg', 'png' );
-$CONF['imgMaxsize'] = 1024 * 1024; // 1 MB
+$CONF['uplExtensions'] = array ( 'gif', 'jpg', 'png', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'zip' );
+$CONF['uplMaxsize'] = 2048 * 1024; // 2 MB
 
 //=============================================================================
 /**
@@ -101,8 +99,7 @@ $CONF['LDAP_TLS'] = 0; // To avoid "Undefined index: LDAP_TLS" error message for
  * PATHS
  */
 $CONF['app_avatar_dir'] = 'upload/avatars/';
-$CONF['app_image_dir'] = 'upload/images/';
-$CONF['app_doc_dir'] = 'upload/documents/';
+$CONF['app_upl_dir'] = 'upload/files/';
 $CONF['app_jqueryui_dir'] = 'js/jquery/ui/1.11.4/';
 
 //=============================================================================
@@ -112,8 +109,8 @@ $CONF['app_jqueryui_dir'] = 'js/jquery/ui/1.11.4/';
  * !Do not change this information. It is protected by the license agreement!
  */
 $CONF['app_name'] = "TeamCal Neo";
-$CONF['app_version'] = "0.6.000";
-$CONF['app_version_date'] = "2016-05-15";
+$CONF['app_version'] = "0.7.000";
+$CONF['app_version_date'] = "2016-06-22";
 $CONF['app_year_start'] = "2014";
 $CONF['app_year_current'] = date('Y');
 $CONF['app_author'] = "George Lewe";

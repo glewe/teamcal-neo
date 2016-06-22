@@ -3,10 +3,28 @@ TEAMCAL NEO RELEASE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[0.7.000]
+
+DATE
+2016-06-22
+
+BUGFIXES
+01 Fixes to the installation script
+02 Fixed missing avatar file check
+03 Fixed bootstrap submenu behaviour
+
+CHANGES
+
+NEW FEATURES
+01 https://georgelewe.atlassian.net/browse/TCN-31
+   File upload managed/visibility by users/groups
+
+
+------------------------------------------------------------------------------
 [0.6.000] Release Candidate
 
 DATE
-2016-05-xx
+2016-05-15
 
 BUGFIXES
 01 Some links on the about page did not work anymore

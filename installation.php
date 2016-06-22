@@ -5,7 +5,7 @@
  * Installation script
  *
  * @category TeamCal Neo 
- * @version 0.5.006
+ * @version 0.7.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -43,35 +43,34 @@ require_once (WEBSITE_ROOT . '/helpers/global.helper.php');
 $LANG['btn_install'] = 'Install';
 $LANG['btn_test'] = 'Test Database';
 $LANG['inst_db_error'] = 'An error occured trying to connect to the database.';
-$LANG['inst_dbData'] = 'Sample data';
+$LANG['inst_dbData'] = '<span class="text-bold text-danger">*&nbsp;</span>Sample data';
 $LANG['inst_dbData_comment'] = 'Check whether you want a set of sample data loaded or not. Select "Use existing data" if your database already exists and you want to use the existing data.<br>
       Attention! "Use existing data" only works if your existing data set is compatible with the version you are installing. Find details in Upgradeinfo.txt.';
 $LANG['inst_dbData_sample'] = 'Sample data';
 $LANG['inst_dbData_none'] = 'Use existing data';
 $LANG['inst_dbData_error'] = 'An error occured trying to load the sample data into the database.';
-$LANG['inst_dbName'] = 'Database Name';
+$LANG['inst_dbName'] = '<span class="text-bold text-danger">*&nbsp;</span>Database Name';
 $LANG['inst_dbName_comment'] = 'Specify the name of the database. This needs to be an existing database.';
-$LANG['inst_dbUser'] = 'Database User';
+$LANG['inst_dbUser'] = '<span class="text-bold text-danger">*&nbsp;</span>Database User';
 $LANG['inst_dbUser_comment'] = 'Specify the username to log in to your database.';
 $LANG['inst_dbPassword'] = 'Database Password';
 $LANG['inst_dbPassword_comment'] = 'Specify the password to log in to your database.';
 $LANG['inst_dbPrefix'] = 'Database Table Prefix';
 $LANG['inst_dbPrefix_comment'] = 'Specify a prefix for your database tables or leave empty for none. E.g. "myapp_".';
-$LANG['inst_dbServer'] = 'Database Server';
+$LANG['inst_dbServer'] = '<span class="text-bold text-danger">*&nbsp;</span>Database Server';
 $LANG['inst_dbServer_comment'] = 'Specify the URL of the database server.';
 $LANG['inst_executed'] = 'Installation already executed';
 $LANG['inst_executed_comment'] = 'The configuration file shows that the installation script was already executed for this instance.<br>
       For security reasons, if you want to run it again, you need to reset the flag in the application config file.<br>
       Otherwise, delete the installation script from the server. Then click the button below.<br><br><a class="btn btn-primary" href="index.php">Start</a>';
-$LANG['inst_lic'] = 'License Agreement';
-$LANG['inst_lic_comment'] = 'You must accept the license agreements if you want to use this application.';
-$LANG['inst_lic_gpl'] = 'I accept the General Public License';
-$LANG['inst_lic_app'] = 'I accept the Application License';
-$LANG['inst_lic_error'] = 'Before you can start the installation you must accept both licenses!';
+$LANG['inst_lic'] = '<span class="text-bold text-danger">*&nbsp;</span>License Agreement';
+$LANG['inst_lic_comment'] = 'You must accept the license agreement if you want to use this application.';
+$LANG['inst_lic_app'] = 'I accept the TeamCal Neo License';
+$LANG['inst_lic_error'] = 'Before you can start the installation you must accept the license agreement!\n\rBe aware that this might require a support fee dependent on your usage of TeamCal Neo.';
 $LANG['inst_error'] = 'Installation Error';
 $LANG['inst_congrats'] = 'Congratulations';
 $LANG['inst_success'] = 'Installation Success';
-$LANG['inst_success_comment'] = 'The installation was successful. It is highly recommended to delete the installation script from the server.<br><br><a class="btn btn-primary" href="index.php">Start</a>';
+$LANG['inst_success_comment'] = 'The installation was successful. Please delete the installation script from the server before you start.<br><br><a class="btn btn-primary" href="index.php">Start</a>';
 $LANG['inst_warning'] = 'Installation Warning';
 
 //=============================================================================
@@ -101,8 +100,7 @@ if (!empty($_POST))
    // '---------'
    if ( isset($_POST['btn_install']) ) 
    {
-      if ( isset($_POST['chk_licGpl']) AND 
-           isset($_POST['chk_licApp']) AND
+      if ( isset($_POST['chk_licApp']) AND
            ( isset($_POST['txt_instDbServer']) AND strlen($_POST['txt_instDbServer']) ) AND
            ( isset($_POST['txt_instDbName'])   AND strlen($_POST['txt_instDbName'])   ) AND
            ( isset($_POST['txt_instDbUser'])   AND strlen($_POST['txt_instDbUser'])   )
@@ -340,7 +338,7 @@ if (!$installationComplete AND readConfig('app_installed', $configAppFile) <> '0
                            <span class="text-normal"><?=$LANG['inst_dbPassword_comment']?></span>
                         </label>
                         <div class="col-lg-4">
-                           <input id="txt_instDbPassword" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_instDbPassword" type="text" maxlength="160" value="<?=readConfig('db_password',$configDbFile)?>">
+                           <input id="txt_instDbPassword" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_instDbPassword" type="password" maxlength="80" value="<?=readConfig('db_password',$configDbFile)?>">
                         </div>
                      </div>
                      <div class="divider"><hr></div>
@@ -387,10 +385,7 @@ if (!$installationComplete AND readConfig('app_installed', $configAppFile) <> '0
                         </label>
                         <div class="col-lg-4">
                            <div class="checkbox">
-                              <label><input type="checkbox" id="chk_licGpl" name="chk_licGpl" value="chk_activateMessages" tabindex="<?=$tabindex++;?>"><a href="doc/gpl.txt"><?=$LANG['inst_lic_gpl']?></a></label>
-                           </div>
-                           <div class="checkbox">
-                              <label><input type="checkbox" id="chk_licApp" name="chk_licApp" value="chk_activateMessages" tabindex="<?=$tabindex++;?>"><a href="doc/license.txt"><?=$LANG['inst_lic_app']?></a></label>
+                              <label><input type="checkbox" id="chk_licApp" name="chk_licApp" value="chk_activateMessages" tabindex="<?=$tabindex++;?>"><a href="https://georgelewe.atlassian.net/wiki/display/TCNEO/TeamCal+Neo+License"><?=$LANG['inst_lic_app']?></a></label>
                            </div>
                         </div>
                      </div>
@@ -448,9 +443,8 @@ if (!$installationComplete AND readConfig('app_installed', $configAppFile) <> '0
       }
       
       function checkLicense(){
-         var myLicGpl = document.getElementById('chk_licGpl');
          var myLicApp = document.getElementById('chk_licApp');
-         if ( !myLicGpl.checked || !myLicApp.checked ) {
+         if ( !myLicApp.checked ) {
             alert("<?=$LANG['inst_lic_error']?>");
          }
       }
