@@ -1,11 +1,11 @@
 <?php
 /**
- * upload.php
+ * attachments.php
  * 
- * Upload page controller
+ * Attachments page controller
  *
  * @category TeamCal Neo 
- * @version 0.7.000
+ * @version 0.8.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com

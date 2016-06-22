@@ -5,7 +5,7 @@
  * Language file (German)
  *
  * @category TeamCal Neo 
- * @version 0.7.000
+ * @version 0.8.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -690,6 +690,7 @@ $LANG['mnu_app_language'] = 'Sprache';
 $LANG['mnu_view'] = 'Anzeige';
 $LANG['mnu_view_messages'] = 'Benachrichtigungen';
 $LANG['mnu_edit'] = 'Bearbeiten';
+$LANG['mnu_edit_attachments'] = 'Anh&auml;nge';
 $LANG['mnu_edit_messageedit'] = 'Benachrichtigung';
 $LANG['mnu_admin'] = 'Administration';
 $LANG['mnu_admin_config'] = 'Framework-Konfiguration';
@@ -701,7 +702,6 @@ $LANG['mnu_admin_perm'] = "Berechtigungen";
 $LANG['mnu_admin_phpinfo'] = 'PHP Info';
 $LANG['mnu_admin_roles'] = 'Rollen';
 $LANG['mnu_admin_systemlog'] = 'System Log';
-$LANG['mnu_admin_upload'] = 'Anh&auml;nge';
 $LANG['mnu_admin_users'] = 'Nutzer';
 $LANG['mnu_help'] = 'Hilfe';
 $LANG['mnu_help_legend'] = 'Legende';
@@ -819,8 +819,8 @@ $LANG['perm_messageedit_title'] = 'Benachrichtigungen (Erstellen)';
 $LANG['perm_messageedit_desc'] = 'Erlaubt den Zugriff auf die Benachrichtigung-Erstellen-Seite.';
 $LANG['perm_roles_title'] = 'Rollen (Bearbeiten)';
 $LANG['perm_roles_desc'] = 'Erlaubt das Listen und Bearbeiten von Rollen.';
-$LANG['perm_upload_title'] = 'Dateien Hochladen';
-$LANG['perm_upload_desc'] = 'Erlaubt das Hochladen von Dateien.';
+$LANG['perm_upload_title'] = 'Anh&auml;nge';
+$LANG['perm_upload_desc'] = 'Erlaubt den Zugriff auf und das Hochladen von Dateien.';
 $LANG['perm_useraccount_title'] = 'Benutzerprofil (Kontoeinstellungen)';
 $LANG['perm_useraccount_desc'] = 'Erlaubt das Bearbeiten des Konto Reiters im Nutzerprofil.';
 $LANG['perm_useradmin_title'] = 'Benutzerprofil (Anzeigen und Hinzuf&uuml;gen)';
@@ -1005,7 +1005,7 @@ $LANG['status_ut_admin'] = 'Administrator';
 //
 // Upload
 //
-$LANG['upload_title'] = 'Dateien Hochladen';
+$LANG['upload_title'] = 'Anh&auml;nge';
 $LANG['upload_tab_files'] = 'Dateien';
 $LANG['upload_tab_upload'] = 'Hochladen';
 $LANG['upload_col_file'] = 'Datei';

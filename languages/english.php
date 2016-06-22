@@ -5,7 +5,7 @@
  * Language file (English)
  *
  * @category TeamCal Neo 
- * @version 0.7.000
+ * @version 0.8.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -686,6 +686,7 @@ $LANG['mnu_app_language'] = 'Language';
 $LANG['mnu_view'] = 'View';
 $LANG['mnu_view_messages'] = 'Messages';
 $LANG['mnu_edit'] = 'Edit';
+$LANG['mnu_edit_attachments'] = 'Attachments';
 $LANG['mnu_edit_messageedit'] = 'Message Editor';
 $LANG['mnu_admin'] = 'Administration';
 $LANG['mnu_admin_config'] = 'Framework Configuration';
@@ -697,7 +698,6 @@ $LANG['mnu_admin_perm'] = "Permissions";
 $LANG['mnu_admin_phpinfo'] = 'PHP Info';
 $LANG['mnu_admin_roles'] = 'Roles';
 $LANG['mnu_admin_systemlog'] = 'System Log';
-$LANG['mnu_admin_upload'] = 'Attachments';
 $LANG['mnu_admin_users'] = 'Users';
 $LANG['mnu_help'] = 'Help';
 $LANG['mnu_help_legend'] = 'Legend';
@@ -815,8 +815,8 @@ $LANG['perm_messageedit_title'] = 'Messages (Create)';
 $LANG['perm_messageedit_desc'] = 'Allows to create and send messages.';
 $LANG['perm_roles_title'] = 'Roles (Edit)';
 $LANG['perm_roles_desc'] = 'Allows to list and edit roles.';
-$LANG['perm_upload_title'] = 'Upload Files';
-$LANG['perm_upload_desc'] = 'Allows file uploads.';
+$LANG['perm_upload_title'] = 'Attachments';
+$LANG['perm_upload_desc'] = 'Allows the access and upload of file attachments.';
 $LANG['perm_useraccount_title'] = 'Users (Account Tab)';
 $LANG['perm_useraccount_desc'] = 'Allows to edit the Account tab when editing a user profile.';
 $LANG['perm_useradmin_title'] = 'Users (List and Add)';
@@ -1001,7 +1001,7 @@ $LANG['status_ut_admin'] = 'Administrator';
 //
 // Upload
 //
-$LANG['upload_title'] = 'File Upload';
+$LANG['upload_title'] = 'Attachments';
 $LANG['upload_tab_files'] = 'Files';
 $LANG['upload_tab_upload'] = 'Upload';
 $LANG['upload_col_file'] = 'File';

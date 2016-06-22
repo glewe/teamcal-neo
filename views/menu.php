@@ -5,7 +5,7 @@
  * The view of the top navigation menu
  *
  * @category TeamCal Neo 
- * @version 0.7.000
+ * @version 0.8.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -116,6 +116,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <li class="divider"></li>
                               <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['messageedit']->name?>"><i class="fa fa-<?=$CONF['controllers']['messageedit']->faIcon?> fa-lg text-<?=$CONF['controllers']['messageedit']->iconColor?> fa-menu"></i><?=$LANG['mnu_edit_messageedit']?></a></li>
                            <?php } ?>
+                           <?php if (isAllowed($CONF['controllers']['attachments']->permission)) { ?>
+                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['attachments']->name?>"><i class="fa fa-<?=$CONF['controllers']['attachments']->faIcon?> fa-lg text-<?=$CONF['controllers']['attachments']->iconColor?> fa-menu"></i><?=$LANG['mnu_edit_attachments']?></a></li>
+                           <?php } ?>
                         </ul>
                      </li>
                   <?php } ?>                     
@@ -150,9 +153,6 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <?php } ?>
                            <?php if (isAllowed($CONF['controllers']['permissions']->permission)) { ?>
                               <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['permissions']->name?>"><i class="fa fa-<?=$CONF['controllers']['permissions']->faIcon?> fa-lg text-<?=$CONF['controllers']['permissions']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_perm']?></a></li>
-                           <?php } ?>
-                           <?php if (isAllowed($CONF['controllers']['upload']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['upload']->name?>"><i class="fa fa-<?=$CONF['controllers']['upload']->faIcon?> fa-lg text-<?=$CONF['controllers']['upload']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_upload']?></a></li>
                            <?php } ?>
                            <?php if (isAllowed($CONF['controllers']['users']->permission)) { ?>
                               <li class="divider"></li>

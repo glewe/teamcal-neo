@@ -5,7 +5,7 @@
  * About page view
  *
  * @category TeamCal Neo 
- * @version 0.7.000
+ * @version 0.8.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -62,11 +62,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                </div>
             </div>
 
-<p><a class="btn btn-default" data-toggle="collapse" data-target="#releaseinfo"><?=$LANG['about_view_releaseinfo']?></a></p>
-<pre class="prettyprint collapse" style="font-size: 100%; padding: 16px;" id="releaseinfo">
-<?php include('doc/Releaseinfo.txt');?>
-</pre>
-<script>!function ($) { $(function(){ window.prettyPrint && prettyPrint() }) }(window.jQuery)</script>
+            <p><a class="btn btn-default" data-toggle="collapse" data-target="#releaseinfo"><?=$LANG['about_view_releaseinfo']?></a></p>
+            <div class="collapse" id="releaseinfo"><?php include('doc/releasenotes.html');?></div>
 
          </div>
          

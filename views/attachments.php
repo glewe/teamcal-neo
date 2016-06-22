@@ -1,11 +1,11 @@
 <?php
 /**
- * upload.php
+ * attachments.php
  * 
- * The view of the upload page
+ * The view of the attachments page
  *
  * @category TeamCal Neo 
- * @version 0.7.000
+ * @version 0.8.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -15,7 +15,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
-      view.upload 
+      view.attachments
       -->
       <div class="container content">
       

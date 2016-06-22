@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 0.7.000
+ * @version 0.8.000
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -62,6 +62,7 @@ $CONF['controllers'] = array (
    // LeAF Controllers (Lewe Application Framework)
    //
    'about' => new Controller('about', 'info-circle', 'info', 'default', ''),
+   'attachments' => new Controller('attachments', 'upload', 'warning', 'primary', 'upload'),
    'config' => new Controller('config', 'cog', 'default', 'primary', 'admin'),
    'configapp' => new Controller('configapp', 'cog', 'success', 'success', 'admin'),
    'database' => new Controller('database', 'database', 'danger', 'danger', 'admin'),
@@ -80,7 +81,6 @@ $CONF['controllers'] = array (
    'register' => new Controller('register', 'pencil', 'warning', 'success', ''),
    'roles' => new Controller('roles', 'group', 'warning', 'primary', 'roles'),
    'roleedit' => new Controller('roleedit', 'edit', 'warning', 'danger', 'roles'),
-   'upload' => new Controller('upload', 'upload', 'warning', 'primary', 'upload'),
    'users' => new Controller('users', 'user', 'primary', 'primary', 'admin'),
    'useredit' => new Controller('useredit', 'edit', 'warning', 'danger', 'admin'),
    'useradd' => new Controller('useradd', 'edit', 'warning', 'warning', 'admin'),
