@@ -1147,44 +1147,55 @@ INSERT INTO `tcneo_user_option` (`id`, `username`, `option`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `uploads`
+-- Table structure for table `attachments`
 --
 
-DROP TABLE IF EXISTS `tcneo_uploads`;
-CREATE TABLE `tcneo_uploads` (
+DROP TABLE IF EXISTS `tcneo_attachments`;
+CREATE TABLE `tcneo_attachments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `filename` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `uploader` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (id),
-  UNIQUE uploadedFile (filename)
+  UNIQUE attachment (filename)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+INSERT INTO `tcneo_attachments` (`id`, `filename`, `uploader`) VALUES
+(1, 'logo-16.png', 'admin'),
+(2, 'logo-22.png', 'admin'),
+(3, 'logo-32.png', 'admin'),
+(4, 'logo-48.png', 'admin'),
+(5, 'logo-64.png', 'admin'),
+(6, 'logo-72.png', 'admin'),
+(7, 'logo-96.png', 'admin'),
+(8, 'logo-128.png', 'admin'),
+(9, 'logo-200.png', 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_attachment`
+--
+
+DROP TABLE IF EXISTS `tcneo_user_attachment`;
+CREATE TABLE `tcneo_user_attachment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
+  `fileid` int(11) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE userAttachment (username,fileid)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_file`
+-- Table structure for table `archive_user_attachment`
 --
 
-DROP TABLE IF EXISTS `tcneo_user_file`;
-CREATE TABLE `tcneo_user_file` (
+DROP TABLE IF EXISTS `tcneo_archive_user_attachment`;
+CREATE TABLE `tcneo_archive_user_attachment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `fileid` int(11) NOT NULL,
   PRIMARY KEY (id),
-  UNIQUE userFile (username,fileid)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `archive_user_file`
---
-
-DROP TABLE IF EXISTS `tcneo_archive_user_file`;
-CREATE TABLE `tcneo_archive_user_file` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
-  `fileid` int(11) NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE userFile (username,fileid)
+  UNIQUE userAttachment (username,fileid)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

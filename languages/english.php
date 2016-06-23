@@ -5,7 +5,7 @@
  * Language file (English)
  *
  * @category TeamCal Neo 
- * @version 0.8.000
+ * @version 0.8.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -216,6 +216,41 @@ $LANG['alert_upl_img_subject'] = 'Upload Images';
 $LANG['alert_upl_doc_subject'] = 'Upload Documents';
 
 //
+// Attachments
+//
+$LANG['att_title'] = 'Attachments';
+$LANG['att_tab_files'] = 'Files';
+$LANG['att_tab_upload'] = 'Upload';
+$LANG['att_col_file'] = 'File';
+$LANG['att_col_owner'] = 'Owner';
+$LANG['att_col_shares'] = 'Shares';
+
+$LANG['att_confirm_delete'] = 'Are you sure you want to delete the selected files?';
+$LANG['att_error_0'] = 'The file "%s" was successfully uploaded.';
+$LANG['att_error_1'] = 'The uploaded file exceeds the maximum upload filesize directive in the server configuration.';
+$LANG['att_error_2'] = 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.';
+$LANG['att_error_3'] = 'The file was only partially uploaded.';
+$LANG['att_error_4'] = 'No file was uploaded.';
+$LANG['att_error_10'] = 'Please select a file for upload.';
+$LANG['att_error_11'] = 'Only files with the following extensions are allowed: %s';
+$LANG['att_error_12'] = 'The filename contains invalid characters. Use only alphanumeric characters and separate parts of the name (if needed) with an underscore. A valid filename ends with one dot followed by the extension.';
+$LANG['att_error_13'] = 'The filename exceeds the maximum length of %d characters.';
+$LANG['att_error_14'] = 'The upload directory does not exist!';
+$LANG['att_error_15'] = 'A file with the name "%s" already exists.';
+$LANG['att_error_16'] = 'The uploaded file was renamed to: %s';
+$LANG['att_error_17'] = 'The file "%s" does not exist.';
+$LANG['att_extensions'] = 'Allowed extensions';
+$LANG['att_file'] = 'Upload File';
+$LANG['att_file_comment'] = 'You can upload a custom file. The size of the file is limited to %d KBytes and the allowed formats are "%s".';
+$LANG['att_maxsize'] = 'Maximum filesize';
+$LANG['att_shareWith'] = 'Share with';
+$LANG['att_shareWith_comment'] = 'Select the groups or users you want to share this file with. Note, that these users must have access to this upload page to retrieve the file.';
+$LANG['att_shareWith_all'] = 'All';
+$LANG['att_shareWith_group'] = 'Group';
+$LANG['att_shareWith_role'] = 'Role';
+$LANG['att_shareWith_user'] = 'User';
+
+//
 // Buttons
 //
 $LANG['btn_activate'] = "Activate";
@@ -279,6 +314,7 @@ $LANG['btn_save'] = 'Save';
 $LANG['btn_search'] = 'Search';
 $LANG['btn_select'] = "Select";
 $LANG['btn_send'] = 'Send';
+$LANG['btn_show_hide'] = 'Show/Hide';
 $LANG['btn_submit'] = 'Submit';
 $LANG['btn_switch'] = 'Switch';
 $LANG['btn_testdb'] = 'Test Database';
@@ -997,39 +1033,6 @@ $LANG['status_ut_manager'] = 'Manager of group: ';
 $LANG['status_ut_director'] = 'Director';
 $LANG['status_ut_assistant'] = 'Assistant';
 $LANG['status_ut_admin'] = 'Administrator';
-
-//
-// Upload
-//
-$LANG['upload_title'] = 'Attachments';
-$LANG['upload_tab_files'] = 'Files';
-$LANG['upload_tab_upload'] = 'Upload';
-$LANG['upload_col_file'] = 'File';
-
-$LANG['upload_confirm_delete'] = 'Are you sure you want to delete the selected files?';
-$LANG['upload_error_0'] = 'The file "%s" was successfully uploaded.';
-$LANG['upload_error_1'] = 'The uploaded file exceeds the maximum upload filesize directive in the server configuration.';
-$LANG['upload_error_2'] = 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.';
-$LANG['upload_error_3'] = 'The file was only partially uploaded.';
-$LANG['upload_error_4'] = 'No file was uploaded.';
-$LANG['upload_error_10'] = 'Please select a file for upload.';
-$LANG['upload_error_11'] = 'Only files with the following extensions are allowed: %s';
-$LANG['upload_error_12'] = 'The filename contains invalid characters. Use only alphanumeric characters and separate parts of the name (if needed) with an underscore. A valid filename ends with one dot followed by the extension.';
-$LANG['upload_error_13'] = 'The filename exceeds the maximum length of %d characters.';
-$LANG['upload_error_14'] = 'The upload directory does not exist!';
-$LANG['upload_error_15'] = 'A file with the name "%s" already exists.';
-$LANG['upload_error_16'] = 'The uploaded file was renamed to: %s';
-$LANG['upload_error_17'] = 'The file "%s" does not exist.';
-$LANG['upload_extensions'] = 'Allowed extensions';
-$LANG['upload_file'] = 'Upload File';
-$LANG['upload_file_comment'] = 'You can upload a custom file. The size of the file is limited to %d KBytes and the allowed formats are "%s".';
-$LANG['upload_maxsize'] = 'Maximum filesize';
-$LANG['upload_shareWith'] = 'Share with';
-$LANG['upload_shareWith_comment'] = 'Select the groups or users you want to share this file with. Note, that these users must have access to this upload page to retrieve the file.';
-$LANG['upload_shareWith_all'] = 'All';
-$LANG['upload_shareWith_group'] = 'Group';
-$LANG['upload_shareWith_role'] = 'Role';
-$LANG['upload_shareWith_user'] = 'User';
 
 //
 // Users

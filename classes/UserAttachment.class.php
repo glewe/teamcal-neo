@@ -1,9 +1,9 @@
 <?php
 /**
- * UserFile.class.php
+ * UserAttachment.class.php
  *
  * @category TeamCal Neo 
- * @version 0.8.000
+ * @version 0.8.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -14,7 +14,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 /**
  * Provides objects and methods to manage the user-option table
  */
-class UserFile
+class UserAttachment
 {
    var $db = '';
    var $table = '';
@@ -31,8 +31,8 @@ class UserFile
    {
       global $CONF, $DB;
       $this->db = $DB->db;
-      $this->table = $CONF['db_table_user_file'];
-      $this->archive_table = $CONF['db_table_archive_user_file'];
+      $this->table = $CONF['db_table_user_attachment'];
+      $this->archive_table = $CONF['db_table_archive_user_attachment'];
    }
    
    // ---------------------------------------------------------------------
@@ -122,20 +122,6 @@ class UserFile
       else $table = $this->table;
       
       $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username <> "admin"');
-      $result = $query->execute();
-      return $result;
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
-    * Deletes a user-option record by ID from local class variable
-    *
-    * @return bool Query result or false
-    */
-   function deleteById()
-   {
-      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
-      $query->bindParam('val1', $this->id);
       $result = $query->execute();
       return $result;
    }

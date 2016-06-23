@@ -5,7 +5,7 @@
  * Language file (German)
  *
  * @category TeamCal Neo 
- * @version 0.8.000
+ * @version 0.8.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -216,6 +216,41 @@ $LANG['alert_upl_img_subject'] = 'Bilder Hochladen';
 $LANG['alert_upl_doc_subject'] = 'Dokumente Hochladen';
 
 //
+// Attachments
+//
+$LANG['att_title'] = 'Anh&auml;nge';
+$LANG['att_tab_files'] = 'Dateien';
+$LANG['att_tab_upload'] = 'Hochladen';
+$LANG['att_col_file'] = 'Datei';
+$LANG['att_col_owner'] = 'Besitzer';
+$LANG['att_col_shares'] = 'Zugriff';
+
+$LANG['att_confirm_delete'] = 'Bist du sicher, dass du die ausgew&auml;hlten Dateien l&ouml;schen m&ouml;chtest?';
+$LANG['att_error_0'] = 'Die Datei "%s" wurde erfolgreich hochgeladen.';
+$LANG['att_error_1'] = 'Die hochgeladene Datei &uuml;bersteigt die maximale Dateigr&ouml;&szlig;e der Severkonfiguration.';
+$LANG['att_error_2'] = 'Die hochgeladene Datei &uuml;bersteigt die MAX_FILE_SIZE Direktive des HTML Formulars.';
+$LANG['att_error_3'] = 'Die Datei wurde nur teilweise hochgeladen.';
+$LANG['att_error_4'] = 'Es wurde keine Datei hochgeladen.';
+$LANG['att_error_10'] = 'Bitte w&auml;hle eine Datei zum Hochladen aus.';
+$LANG['att_error_11'] = 'Nur Dateien der folgenden Formate sind erlaubt: %s';
+$LANG['att_error_12'] = 'Der Dateiname enth&auml;lt ung&uuml;ltige Zeichen. Bitte benutze nur alphanumerische Zeichen und den Unterstrich. Der Dateiname muss mit einem Punkt und der Erweiterung enden.';
+$LANG['att_error_13'] = 'Der Dateiname &uuml;bersteigt die maximale L&auml;nge von %d Zeichen.';
+$LANG['att_error_14'] = 'Das Uploadverzeichnis existiert nicht.';
+$LANG['att_error_15'] = 'Eine Datei mit dem Name "%s" existiert bereits.';
+$LANG['att_error_16'] = 'Die hochgeladene Datei wurde in "%s" umbenannt.';
+$LANG['att_error_17'] = 'Die Datei "%s" existiert nicht.';
+$LANG['att_extensions'] = 'Erlaubte Bildformate';
+$LANG['att_file'] = 'Datei hochladen';
+$LANG['att_file_comment'] = 'Hier kann eine Datei hochgeladen werden. Die Dateigr&ouml;&szlig;e ist limitiert auf %d KBytes und die erlaubten Formate sind "%s".';
+$LANG['att_maxsize'] = 'Maximale Dateigr&ouml;&szlig;e';
+$LANG['att_shareWith'] = 'Teilen mit';
+$LANG['att_shareWith_comment'] = 'W&auml;hle die Gruppen oder Benutzer, mit denen du diese Datei teilen willst. Hinweis: Diese Benutzer m&uuml;ssen Zugriff auf diese Seite habe, um auf die Datei zuzugreifen.';
+$LANG['att_shareWith_all'] = 'Alle';
+$LANG['att_shareWith_group'] = 'Gruppe';
+$LANG['att_shareWith_role'] = 'Rolle';
+$LANG['att_shareWith_user'] = 'Benutzer';
+
+//
 // Buttons
 //
 $LANG['btn_activate'] = 'Aktivieren';
@@ -280,6 +315,7 @@ $LANG['btn_save'] = 'Speichern';
 $LANG['btn_search'] = 'Suchen';
 $LANG['btn_select'] = 'Ausw&auml;hlen';
 $LANG['btn_send'] = 'Senden';
+$LANG['btn_show_hide'] = 'Anzeigen/Verbergen';
 $LANG['btn_submit'] = 'Abschicken';
 $LANG['btn_switch'] = 'Anwenden';
 $LANG['btn_testdb'] = 'Datenbank testen';
@@ -1001,39 +1037,6 @@ $LANG['status_ut_manager'] = 'Manager der Gruppe: ';
 $LANG['status_ut_director'] = 'Direktor';
 $LANG['status_ut_assistant'] = 'Assistent';
 $LANG['status_ut_admin'] = 'Administrator';
-
-//
-// Upload
-//
-$LANG['upload_title'] = 'Anh&auml;nge';
-$LANG['upload_tab_files'] = 'Dateien';
-$LANG['upload_tab_upload'] = 'Hochladen';
-$LANG['upload_col_file'] = 'Datei';
-
-$LANG['upload_confirm_delete'] = 'Bist du sicher, dass du die ausgew&auml;hlten Dateien l&ouml;schen m&ouml;chtest?';
-$LANG['upload_error_0'] = 'Die Datei "%s" wurde erfolgreich hochgeladen.';
-$LANG['upload_error_1'] = 'Die hochgeladene Datei &uuml;bersteigt die maximale Dateigr&ouml;&szlig;e der Severkonfiguration.';
-$LANG['upload_error_2'] = 'Die hochgeladene Datei &uuml;bersteigt die MAX_FILE_SIZE Direktive des HTML Formulars.';
-$LANG['upload_error_3'] = 'Die Datei wurde nur teilweise hochgeladen.';
-$LANG['upload_error_4'] = 'Es wurde keine Datei hochgeladen.';
-$LANG['upload_error_10'] = 'Bitte w&auml;hle eine Datei zum Hochladen aus.';
-$LANG['upload_error_11'] = 'Nur Dateien der folgenden Formate sind erlaubt: %s';
-$LANG['upload_error_12'] = 'Der Dateiname enth&auml;lt ung&uuml;ltige Zeichen. Bitte benutze nur alphanumerische Zeichen und den Unterstrich. Der Dateiname muss mit einem Punkt und der Erweiterung enden.';
-$LANG['upload_error_13'] = 'Der Dateiname &uuml;bersteigt die maximale L&auml;nge von %d Zeichen.';
-$LANG['upload_error_14'] = 'Das Uploadverzeichnis existiert nicht.';
-$LANG['upload_error_15'] = 'Eine Datei mit dem Name "%s" existiert bereits.';
-$LANG['upload_error_16'] = 'Die hochgeladene Datei wurde in "%s" umbenannt.';
-$LANG['upload_error_17'] = 'Die Datei "%s" existiert nicht.';
-$LANG['upload_extensions'] = 'Erlaubte Bildformate';
-$LANG['upload_file'] = 'Datei hochladen';
-$LANG['upload_file_comment'] = 'Hier kann eine Datei hochgeladen werden. Die Dateigr&ouml;&szlig;e ist limitiert auf %d KBytes und die erlaubten Formate sind "%s".';
-$LANG['upload_maxsize'] = 'Maximale Dateigr&ouml;&szlig;e';
-$LANG['upload_shareWith'] = 'Teilen mit';
-$LANG['upload_shareWith_comment'] = 'W&auml;hle die Gruppen oder Benutzer, mit denen du diese Datei teilen willst. Hinweis: Diese Benutzer m&uuml;ssen Zugriff auf diese Seite habe, um auf die Datei zuzugreifen.';
-$LANG['upload_shareWith_all'] = 'Alle';
-$LANG['upload_shareWith_group'] = 'Gruppe';
-$LANG['upload_shareWith_role'] = 'Rolle';
-$LANG['upload_shareWith_user'] = 'Benutzer';
 
 //
 // Users

@@ -1,9 +1,9 @@
 <?php
 /**
- * UploadedFile.class.php
+ * Attachment.class.php
  *
  * @category TeamCal Neo 
- * @version 0.8.000
+ * @version 0.8.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -14,7 +14,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 /**
  * Provides objects and methods to manage the user-option table
  */
-class UploadedFile
+class Attachment
 {
    var $db = '';
    var $filename = '';
@@ -28,7 +28,7 @@ class UploadedFile
    {
       global $CONF, $DB;
       $this->db = $DB->db;
-      $this->table = $CONF['db_table_uploads'];
+      $this->table = $CONF['db_table_attachments'];
    }
    
    // ---------------------------------------------------------------------
@@ -68,7 +68,7 @@ class UploadedFile
        
       if ($result and $query->fetchColumn())
       {
-         $query = $this->db->prepare('TRUNCATE TABLE ' . $table);
+         $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
          $result = $query->execute();
          return $result;
       }
@@ -106,6 +106,28 @@ class UploadedFile
       $query->bindParam('val1', $id);
       $result = $query->execute();
       return $result;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
+    * Reads all records into an array
+    *
+    * @return array $records Array with all region records
+    */
+   function getAll()
+   {
+      $records = array ();
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY filename ASC');
+      $result = $query->execute();
+      
+      if ($result)
+      {
+         while ( $row = $query->fetch() )
+         {
+            $records[] = $row;
+         }
+      }
+      return $records;
    }
    
    // ---------------------------------------------------------------------

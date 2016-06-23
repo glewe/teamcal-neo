@@ -2,10 +2,10 @@
 /**
  * config.db.php
  * 
- * Database parameters.
+ * Database parameters
  *
  * @category TeamCal Neo 
- * @version 0.8.000
+ * @version 0.8.001
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -32,6 +32,7 @@ $tableIDs = array (
    'absences',
    'absence_group',
    'allowances',
+   'attachments',
    'config',
    'daynotes',
    'holidays',
@@ -43,9 +44,8 @@ $tableIDs = array (
    'regions',
    'roles',
    'templates',
-   'uploads',
    'users',
-   'user_file',
+   'user_attachment',
    'user_group',
    'user_message',
    'user_option',

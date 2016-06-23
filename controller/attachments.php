@@ -5,7 +5,7 @@
  * Attachments page controller
  *
  * @category TeamCal Neo 
- * @version 0.8.000
+ * @version 0.8.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -35,8 +35,8 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
 // LOAD CONTROLLER RESOURCES
 //
 $UPL = new Upload();
-$UPF = new UploadedFile();
-$UF =  new UserFile();
+$AT = new Attachment();
+$UAT =  new UserAttachment();
 
 //=============================================================================
 //
@@ -88,19 +88,19 @@ if (!empty($_POST))
          
          if ($UPL->upload())
          {
-            $UPF->create($UPL->the_file, $UL->username);
-            $fileid = $UPF->getId($UPL->the_file);
-            $UF->create($UL->username, $fileid);
+            $AT->create($UPL->the_file, $UL->username);
+            $fileid = $AT->getId($UPL->the_file);
+            $UAT->create($UL->username, $fileid);
             
             switch ($_POST['opt_shareWith'])
             {
                case "admin" :
-                  $UF->create('admin', $fileid);
+                  $UAT->create('admin', $fileid);
                   break;
                       
                case "all" :
                   $users = $U->getAll();
-                  foreach ( $users as $user ) $UF->create($user['username'], $fileid);
+                  foreach ( $users as $user ) $UAT->create($user['username'], $fileid);
                   break;
                       
                case "group" :
@@ -110,7 +110,7 @@ if (!empty($_POST))
                      {
                         $groupusers = $UG->getAllForGroup($gto);
                         foreach ( $groupusers as $groupuser ) {
-                           $UF->create($groupuser['username'], $fileid);
+                           $UAT->create($groupuser['username'], $fileid);
                         }
                      }
                   }
@@ -135,7 +135,7 @@ if (!empty($_POST))
                      {
                         $roleusers = $U->getAllForRole($rto);
                         foreach ( $roleusers as $roleuser ) {
-                           $UF->create($roleuser['username'], $fileid);
+                           $UAT->create($roleuser['username'], $fileid);
                         }
                      }
                   }
@@ -156,7 +156,7 @@ if (!empty($_POST))
                case "user" :
                   if (isset($_POST['sel_shareWithUser']))
                   {
-                     foreach ( $_POST['sel_shareWithUser'] as $uto ) $UF->create($uto, $fileid);
+                     foreach ( $_POST['sel_shareWithUser'] as $uto ) $UAT->create($uto, $fileid);
                   }
                   else
                   {
@@ -179,7 +179,7 @@ if (!empty($_POST))
                // Log this event
                //
                $LOG->log("logUpload", $UL->username, "log_upload_image", $UPL->uploaded_file['name']);
-               header("Location: index.php?action=upload");
+               header("Location: index.php?action=".$controller);
             }
          }
          else
@@ -205,11 +205,11 @@ if (!empty($_POST))
             $selected_files = $_POST['chk_file'];
             foreach($selected_files as $file)
             {
-               if ($UL->username == 'admin' OR $UL->username == $UPF->getUploader($file))
+               if ($UL->username == 'admin' OR $UL->username == $AT->getUploader($file))
                {
-                  $fileid = $UPF->getId($file);
-                  $UPF->delete($file);
-                  $UF->deleteFile($fileid);
+                  $fileid = $AT->getId($file);
+                  $AT->delete($file);
+                  $UAT->deleteFile($fileid);
                   unlink($uplDir . $file);
                }
             }
@@ -225,6 +225,25 @@ if (!empty($_POST))
             $alertData['subject'] = $LANG['msg_no_file_subject'];
             $alertData['text'] = $LANG['msg_no_file_text'];
             $alertData['help'] = '';
+         }
+      }
+      // ,---------------,
+      // | Update Shares |
+      // '---------------'
+      $files = $AT->getAll();
+      foreach ($files as $file)
+      {
+         if (isset($_POST['btn_updateShares'.$file['id']]))
+         {
+            $UAT->deleteFile($file['id']);
+            if (isset($_POST['sel_shares'.$file['id']]))
+            {
+               foreach ( $_POST['sel_shares'.$file['id']] as $uto ) $UAT->create($uto, $file['id']);
+            }
+         }
+         else if (isset($_POST['btn_clearShares'.$file['id']]))
+         {
+            $UAT->deleteFile($file['id']);
          }
       }
    }
@@ -251,14 +270,14 @@ $viewData['upl_formats'] = implode(', ', $CONF['uplExtensions']);
 $files = getFiles($CONF['app_upl_dir'], $CONF['uplExtensions'], NULL);
 foreach ($files as $file)
 {
+   $fid = $AT->getId($file);
    if ($UL->username != 'admin')
    {
-      $fid = $UPF->getId($file);
-      if ($UF->hasAccess($UL->username, $fid)) $viewData['uplFiles'][] = $file;
+      if ($UAT->hasAccess($UL->username, $fid)) $viewData['uplFiles'][] = array('fid' => $fid, 'fname' => $file);
    }
    else 
    {
-      $viewData['uplFiles'][] = $file;
+      $viewData['uplFiles'][] = array('fid' => $fid, 'fname' => $file);
    }
 }
 

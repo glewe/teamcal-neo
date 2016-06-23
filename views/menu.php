@@ -5,7 +5,7 @@
  * The view of the top navigation menu
  *
  * @category TeamCal Neo 
- * @version 0.8.000
+ * @version 0.8.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -129,7 +129,6 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                
                   <?php if ( isAllowed($CONF['controllers']['config']->permission) OR 
                              isAllowed($CONF['controllers']['configapp']->permission) OR
-                             isAllowed($CONF['controllers']['upload']->permission) OR
                              isAllowed($CONF['controllers']['permissions']->permission) OR
                              isAllowed($CONF['controllers']['users']->permission) OR
                              isAllowed($CONF['controllers']['groups']->permission) OR

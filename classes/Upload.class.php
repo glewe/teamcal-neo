@@ -3,7 +3,7 @@
  * Upload.class.php
  *
  * @category TeamCal Neo 
- * @version 0.8.000
+ * @version 0.8.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -45,18 +45,18 @@ class Upload
       $this->rename_file = false;
       $this->ext_string = "";
       
-      $this->error[0] = $LANG['upload_error_0'];
-      $this->error[1] = $LANG['upload_error_1'];
-      $this->error[2] = $LANG['upload_error_2'];
-      $this->error[3] = $LANG['upload_error_3'];
-      $this->error[4] = $LANG['upload_error_4'];
-      $this->error[10] = $LANG['upload_error_10'];
-      $this->error[11] = $LANG['upload_error_11'];
-      $this->error[12] = $LANG['upload_error_12'];
-      $this->error[13] = $LANG['upload_error_13'];
-      $this->error[14] = $LANG['upload_error_14'];
-      $this->error[15] = $LANG['upload_error_15'];
-      $this->error[16] = $LANG['upload_error_16'];
+      $this->error[0] = $LANG['att_error_0'];
+      $this->error[1] = $LANG['att_error_1'];
+      $this->error[2] = $LANG['att_error_2'];
+      $this->error[3] = $LANG['att_error_3'];
+      $this->error[4] = $LANG['att_error_4'];
+      $this->error[10] = $LANG['att_error_10'];
+      $this->error[11] = $LANG['att_error_11'];
+      $this->error[12] = $LANG['att_error_12'];
+      $this->error[13] = $LANG['att_error_13'];
+      $this->error[14] = $LANG['att_error_14'];
+      $this->error[15] = $LANG['att_error_15'];
+      $this->error[16] = $LANG['att_error_16'];
    }
    
    // ---------------------------------------------------------------------
