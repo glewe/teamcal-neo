@@ -5,7 +5,7 @@
  * Month edit page view
  *
  * @category TeamCal Neo 
- * @version 0.8.001
+ * @version 0.9.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com

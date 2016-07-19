@@ -5,7 +5,7 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 0.8.001
+ * @version 0.9.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -125,6 +125,8 @@ $LANG['absum_remainder'] = 'Verbleib';
 //
 // Alerts
 //
+$LANG['alert_decl_approval_required'] = ": Dieser Abwesenheitstyp ben&ouml;tigt Managerbest&auml;tigung. Die Abwesenheit wurde in den Kalender eingetragen aber auch eine Tagesnotiz &uuml;ber die ausstehende Best&auml;tigung. Dein Manager wurde per Email informiert.";
+$LANG['alert_decl_approval_required_daynote'] = "Diese Abwesenheit wurde angefragt, ist aber noch nicht best&auml;tigt.";
 $LANG['alert_decl_before_date'] = ": Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";
 $LANG['alert_decl_group_threshold'] = ": Die Abwesenheitsgrenze wurde erreicht für die Gruppe(n): ";
 $LANG['alert_decl_period'] = ": Abwesenheits&auml;nderungen in folgendem Zeitraum sind nicht erlaubt: ";
@@ -194,6 +196,7 @@ $LANG['caledit_alert_update_partial'] = 'Nur ein Teil der &Auml;nderungen wurden
 $LANG['caledit_alert_update_none'] = 'Keine der &Auml;nderungen wurden akzeptiert und der Monat nicht aktualisert. 
       Die abgelehnten &Auml;nderungen wurden an einen Manager zur Best&auml;tigung geschickt.';
 $LANG['caledit_clearAbsence'] = 'L&ouml;schen';
+$LANG['caledit_clearDaynotes'] = 'Tagesnotizen l&ouml;schen';
 $LANG['caledit_confirm_clearall'] = 'Bist du sicher, dass du alle Abwesenheiten f&uuml;r diesen Monat l&ouml;schen willst?<br><br><strong>Jahr:</strong> %s<br><strong>Monat:</strong> %s<br><strong>Nutzer:</strong> %s';
 $LANG['caledit_currentAbsence'] = 'Aktuell';
 $LANG['caledit_endDate'] = 'Ende Datum';
@@ -254,13 +257,6 @@ $LANG['calopt_satBusi_comment'] = 'Normalerweise sind Samstage und Sonntage Woch
       Hier kann Samstag als Arbeitstag definiert werden.';
 $LANG['calopt_showAvatars'] = 'Avatars anzeigen';
 $LANG['calopt_showAvatars_comment'] = 'Mit dieser Option wird ein User Avatar in einem Pop-Up angezeigt, wenn die Maus &uuml;ber das User Icon gef&uuml;hrt wird.';
-$LANG['calopt_showMonths'] = 'Anzahl Monate';
-$LANG['calopt_showMonths_comment'] = 'Mit dieser Option wird die Anzahl der Monate angegeben, die standardm&auml;&szlig;ig in der Kalenderansicht dargestellt werden.';
-$LANG['calopt_showMonths_1'] = '1 Monat';
-$LANG['calopt_showMonths_2'] = '2 Monate';
-$LANG['calopt_showMonths_3'] = '3 Monate';
-$LANG['calopt_showMonths_6'] = '6 Monate';
-$LANG['calopt_showMonths_12'] = '12 Monate';
 $LANG['calopt_showRoleIcons'] = 'Rollen Icons anzeigen';
 $LANG['calopt_showRoleIcons_comment'] = 'Mir dieser Option wird neben dem Benutzernamen ein Icon angezeigt, das die User Rolle anzeigt.';
 $LANG['calopt_showSummary'] = 'Summen Abschnitt anzeigen';
@@ -321,6 +317,8 @@ $LANG['db_tcpimp2'] = 'Aber...';
 //
 $LANG['dn_title'] = 'Tagesnotiz';
 $LANG['dn_title_for'] = 'f&uuml;r';
+$LANG['dn_alert_create'] = 'Tagesnotiz anlegen';
+$LANG['dn_alert_create_success'] = 'Die Tagesnotiz wurde erfolgreich angelegt.';
 $LANG['dn_alert_update'] = 'Tagesnotiz aktualisieren';
 $LANG['dn_alert_update_success'] = 'Die Tagesnotiz wurde erfolgreich aktualisiert.';
 $LANG['dn_color'] = 'Tagesnotiz Farbe';
@@ -337,6 +335,8 @@ $LANG['dn_date_comment'] = 'W&auml;hle ein Datum f&uuml;r die Tagesnotiz.';
 $LANG['dn_daynote'] = 'Tagesnotiz Text';
 $LANG['dn_daynote_comment'] = 'Gib den Text der Tagesnotiz ein.';
 $LANG['dn_daynote_placeholder'] = 'Hier ist der Tagesnotiztext...';
+$LANG['dn_enddate'] = 'Tagesnotiz End-Datum';
+$LANG['dn_enddate_comment'] = 'Wenn hier ein Datum eingetragen ist, wird die Tagesnotiz f&uuml;r alle Tage vom Tagesnotiz Datum an kopiert bzw. gel&ouml;scht. Dieses Datum muss gr&ouml;&szlig;er sein als das Tagesnotiz Datum.';
 
 //
 // Declination
@@ -401,9 +401,11 @@ $LANG['decl_threshold_comment'] = 'Hier kann eine Abwesenheitsrate in Prozent an
 //
 // E-Mail
 //
+$LANG['email_subject_absence_approval'] = $CONF['app_name'] . ' Abwesenheitsbestätigung Erforderlich';
 $LANG['email_subject_month_created'] = $CONF['app_name'] . ' Monat angelegt';
 $LANG['email_subject_month_changed'] = $CONF['app_name'] . ' Monat geändert';
 $LANG['email_subject_month_deleted'] = $CONF['app_name'] . ' Monat gelöscht';
+$LANG['email_subject_usercal_changed'] = $CONF['app_name'] . ' Benutzerkalender geändert';
 
 //
 // Holidays

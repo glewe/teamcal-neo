@@ -5,7 +5,7 @@
  * Daynote editor controller
  *
  * @category TeamCal Neo
- * @version 0.8.001
+ * @version 0.9.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -77,6 +77,7 @@ if ($missingData)
 //
 $viewData['id'] = '';
 $viewData['date'] = substr($date,0,4).'-'.substr($date,4,2).'-'.substr($date,6,2);
+$viewData['enddate'] = '';
 $viewData['user'] = $for;
 if ($for=='all') $viewData['userFullname'] = $LANG['all']; else $viewData['userFullname'] = $U->getFullname($for);
 $viewData['region'] = '1';
@@ -125,6 +126,7 @@ if (!empty($_POST))
    if (isset($_POST['btn_save']))
    {
       if (!formInputValid('txt_date', 'required|date')) $inputError = true;
+      if (!formInputValid('txt_enddate', 'date')) $inputError = true;
       if (!formInputValid('txt_daynote', 'required')) $inputError = true;
    }
     
@@ -142,6 +144,24 @@ if (!empty($_POST))
          $D->color = $viewData['color'];
          $D->create();
          
+         if (isset($_POST['txt_enddate']))
+         {
+            $viewData['enddate'] = $_POST['txt_enddate'];
+            $enddate = str_replace('-', '', $viewData['enddate']);
+            if ($enddate > $D->yyyymmdd)
+            {
+               for ($i=$D->yyyymmdd+1; $i<=$enddate; $i++)
+               {
+                  $D->yyyymmdd = $i;
+                  $D->username = $viewData['user'];
+                  $D->region = $viewData['region'];
+                  $D->daynote = $viewData['daynote'];
+                  $D->color = $viewData['color'];
+                  $D->create();
+               }
+            }
+         }
+         
          //
          // Log this event
          //
@@ -149,8 +169,15 @@ if (!empty($_POST))
          else                          $logentry = $viewData['date']."|".$viewData['user'].": ".substr($viewData['daynote'],0,20)."...";
          $LOG->log("logDaynote",$L->checkLogin(),"log_dn_created", $logentry);
          
-         //header("Location: index.php?action=".$controller."&date=".str_replace('-','',$viewData['date']).'&for='.$viewData['user'].'&region='.$viewData['region']);
-         //die();
+         //
+         // Success
+         //
+         $showAlert = TRUE;
+         $alertData['type'] = 'success';
+         $alertData['title'] = $LANG['alert_success_title'];
+         $alertData['subject'] = $LANG['dn_alert_create'];
+         $alertData['text'] = $LANG['dn_alert_create_success'];
+         $alertData['help'] = '';
       }
       // ,--------,
       // | Delete |
@@ -158,6 +185,19 @@ if (!empty($_POST))
       if (isset($_POST['btn_delete']))
       {
          $D->deleteById($D->id);
+         
+         if (isset($_POST['txt_enddate']))
+         {
+            $startdate = str_replace('-', '', $_POST['txt_date']);
+            $enddate = str_replace('-', '', $_POST['txt_enddate']);
+            if ($enddate > $startdate)
+            {
+               for ($i=$startdate; $i<=$enddate; $i++)
+               {
+                  $D->delete($i, $viewData['user'], $viewData['region']);
+               }
+            }
+         }
          
          //
          // Log this event
@@ -177,6 +217,24 @@ if (!empty($_POST))
          $D->daynote = $viewData['daynote'];
          $D->color = $viewData['color'];
          $D->update();
+         
+         if (isset($_POST['txt_enddate']))
+         {
+            $viewData['enddate'] = $_POST['txt_enddate'];
+            $enddate = str_replace('-', '', $viewData['enddate']);
+            if ($enddate > $D->yyyymmdd)
+            {
+               for ($i=$D->yyyymmdd+1; $i<=$enddate; $i++)
+               {
+                  $D->yyyymmdd = $i;
+                  $D->username = $viewData['user'];
+                  $D->region = $viewData['region'];
+                  $D->daynote = $viewData['daynote'];
+                  $D->color = $viewData['color'];
+                  $D->create();
+               }
+            }
+         }
          
          //
          // Log this event
@@ -217,6 +275,7 @@ if (!empty($_POST))
 //
 $viewData['daynote'] = array (
    array ( 'prefix' => 'dn', 'name' => 'date', 'type' => 'date', 'value' => $viewData['date'], 'maxlength' => '10', 'mandatory' => true, 'error' =>  (isset($inputAlert['date'])?$inputAlert['date']:'') ),
+   array ( 'prefix' => 'dn', 'name' => 'enddate', 'type' => 'date', 'value' => $viewData['enddate'], 'maxlength' => '10', 'mandatory' => false, 'error' =>  (isset($inputAlert['enddate'])?$inputAlert['enddate']:'') ),
    array ( 'prefix' => 'dn', 'name' => 'daynote', 'type' => 'textarea', 'value' => $viewData['daynote'], 'rows' => '10', 'placeholder' => $LANG['dn_daynote_placeholder'], 'mandatory' => true, 'error' =>  (isset($inputAlert['daynote'])?$inputAlert['daynote']:'') ),
    array ( 'prefix' => 'dn', 'name' => 'color', 'type' => 'radio', 'values' => array('info', 'success', 'warning', 'danger'), 'value' => $viewData['color'] ),
 );

@@ -5,7 +5,7 @@
  * Edit calendar page controller
  *
  * @category TeamCal Neo 
- * @version 0.8.001
+ * @version 0.9.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -194,6 +194,11 @@ if (!empty($_POST))
          for ($i=1; $i<=$viewData['dateInfo']['daysInMonth']; $i++)
          {
             $requestedAbsences[$i] = '0';
+            if (isset($_POST['chk_clearDaynotes'])) 
+            {
+               $daynoteDate = $viewData['year'] . $viewData['month'] . sprintf("%02d",($i));
+               $D->delete($daynoteDate, $caluser, $viewData['regionid']);
+            }
          }
       }
       // ,-------------,
@@ -329,7 +334,7 @@ if (!empty($_POST))
          // - $approved['approvedAbsences'] (Absences approved, coming back from the approval function)
          // - $approved['declinedReasons'] (Declined Reasons, coming back from the approval function)
          //
-         $approved = approveAbsences($caluser, $viewData['year'], $viewData['month'], $currentAbsences, $requestedAbsences);
+         $approved = approveAbsences($caluser, $viewData['year'], $viewData['month'], $currentAbsences, $requestedAbsences, $viewData['regionid']);
          
          $sendNotification = false;
          $alerttype = 'success';

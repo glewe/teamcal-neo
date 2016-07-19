@@ -5,7 +5,7 @@
  * Calendar config page controller
  *
  * @category TeamCal Neo 
- * @version 0.8.001
+ * @version 0.9.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -54,7 +54,6 @@ if (isset($_POST['btn_caloptApply']))
    /**
     * Display
     */
-   if ($_POST['opt_showMonths']) $C->save("showMonths", $_POST['opt_showMonths']);
    $C->save("todayBorderColor", sanitize($_POST['txt_todayBorderColor']));
    $C->save("todayBorderSize", intval($_POST['txt_todayBorderSize']));
    $C->save("pastDayColor", sanitize($_POST['txt_pastDayColor']));
@@ -107,7 +106,6 @@ if (isset($_POST['btn_caloptApply']))
  * Prepare data for the view
  */
 $caloptData['display'] = array (
-   array ( 'prefix' => 'calopt', 'name' => 'showMonths', 'type' => 'radio', 'values' => array ('1', '2', '3', '6', '12'), 'value' => $C->read("showMonths") ),
    array ( 'prefix' => 'calopt', 'name' => 'todayBorderColor', 'type' => 'color', 'value' => $C->read("todayBorderColor"), 'maxlength' => '6' ),
    array ( 'prefix' => 'calopt', 'name' => 'todayBorderSize', 'type' => 'text', 'value' => $C->read("todayBorderSize"), 'maxlength' => '2' ),
    array ( 'prefix' => 'calopt', 'name' => 'pastDayColor', 'type' => 'color', 'value' => $C->read("pastDayColor"), 'maxlength' => '6' ),

@@ -5,7 +5,7 @@
  * Edit calendar page view
  *
  * @category TeamCal Neo 
- * @version 0.8.001
+ * @version 0.9.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -207,6 +207,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <!-- Modal: Clear All -->
             <?=createModalTop('modalClearAll', $LANG['modal_confirm'])?>
                <?=sprintf($LANG['caledit_confirm_clearall'], $viewData['year'], $viewData['month'], $viewData['fullname'])?>
+               <div class="checkbox">
+                  <label><input type="checkbox" name="chk_clearDaynotes" tabindex="<?=$tabindex++?>"><strong><?=$LANG['caledit_clearDaynotes']?></strong></label>
+               </div>
             <?=createModalBottom('btn_clearall', 'success', $LANG['btn_clear_all'])?>
             
             <!-- Modal: Select Region -->

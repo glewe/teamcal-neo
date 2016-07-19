@@ -5,7 +5,7 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 0.8.001
+ * @version 0.9.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -125,6 +125,8 @@ $LANG['absum_remainder'] = 'Remainder';
 //
 // Alerts
 //
+$LANG['alert_decl_approval_required'] = ": This absence type requires approval. It has been entered in your calendar but a daynote was added to indicate that it is not approved yet. Your manager was informed by mail.";
+$LANG['alert_decl_approval_required_daynote'] = "This absence was requested but is not approved yet.";
 $LANG['alert_decl_before_date'] = ": Absence changes before the following date are not allowed: ";
 $LANG['alert_decl_group_threshold'] = ": Group absence threshold reached for your group(s): ";
 $LANG['alert_decl_period'] = ": Absence changes in the following period are not allowed: ";
@@ -194,6 +196,7 @@ $LANG['caledit_alert_update_partial'] = 'The changes were only partially accepte
 $LANG['caledit_alert_update_none'] = 'The changes were not accepted because the requested absences violate restrictions set up by the management. 
       The calendar was not updated.';
 $LANG['caledit_clearAbsence'] = 'Clear';
+$LANG['caledit_clearDaynotes'] = 'Clear Daynotes';
 $LANG['caledit_confirm_clearall'] = 'Are you sure you want to clear all absences in this month?<br><br><strong>Year:</strong> %s<br><strong>Month:</strong> %s<br><strong>User:</strong> %s';
 $LANG['caledit_currentAbsence'] = 'Current absence';
 $LANG['caledit_endDate'] = 'End Date';
@@ -254,13 +257,6 @@ $LANG['calopt_satBusi_comment'] = 'By default, Saturday and Sunday are weekend d
       Check this option if you want to make Saturday a business day.';
 $LANG['calopt_showAvatars'] = 'Show Avatars';
 $LANG['calopt_showAvatars_comment'] = 'Checking this option will show a user avatar pop-up when moving the mouse over the user avatar icon.'; 
-$LANG['calopt_showMonths'] = 'Amount of Months';
-$LANG['calopt_showMonths_comment'] = 'Specify here how many months you want to display in the calendar view by default.';
-$LANG['calopt_showMonths_1'] = '1 month';
-$LANG['calopt_showMonths_2'] = '2 months';
-$LANG['calopt_showMonths_3'] = '3 months';
-$LANG['calopt_showMonths_6'] = '6 months';
-$LANG['calopt_showMonths_12'] = '12 months';
 $LANG['calopt_showRoleIcons'] = 'Show Role Icons';
 $LANG['calopt_showRoleIcons_comment'] = 'Checking this option will show an icons next to the users\' name indicating the users\' role.';
 $LANG['calopt_showSummary'] = 'Expand Summary';
@@ -321,6 +317,8 @@ $LANG['db_tcpimp2'] = 'However...';
 //
 $LANG['dn_title'] = 'Daynote';
 $LANG['dn_title_for'] = 'for';
+$LANG['dn_alert_create'] = 'Create Daynote';
+$LANG['dn_alert_create_success'] = 'The daynote was created successfully.';
 $LANG['dn_alert_update'] = 'Update Daynote';
 $LANG['dn_alert_update_success'] = 'The daynote was updated successfully.';
 $LANG['dn_color'] = 'Daynote Color';
@@ -337,6 +335,8 @@ $LANG['dn_date_comment'] = 'Select a date for this daynote.';
 $LANG['dn_daynote'] = 'Daynote Text';
 $LANG['dn_daynote_comment'] = 'Enter the text of the daynote.';
 $LANG['dn_daynote_placeholder'] = 'Enter your daynote here...';
+$LANG['dn_enddate'] = 'Daynote End Date';
+$LANG['dn_enddate_comment'] = 'If a date is entered here, the daynote will be copied/deleted to all days from start to end. This date must be greater than the Daynote Date.';
 
 //
 // Declination
@@ -401,9 +401,11 @@ $LANG['decl_threshold_comment'] = 'Enter the threshold in percent here. An absen
 //
 // E-Mail
 //
+$LANG['email_subject_absence_approval'] = $CONF['app_name'] . ' Absence Approval Needed';
 $LANG['email_subject_month_changed'] = $CONF['app_name'] . ' Month Changed';
 $LANG['email_subject_month_created'] = $CONF['app_name'] . ' Month Created';
 $LANG['email_subject_month_deleted'] = $CONF['app_name'] . ' Month Deleted';
+$LANG['email_subject_usercal_changed'] = $CONF['app_name'] . ' User Calendar Changed';
 
 //
 // Holidays

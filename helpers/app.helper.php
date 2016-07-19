@@ -5,7 +5,7 @@
  * Collection of calendar related functions
  *
  * @category TeamCal Neo 
- * @version 0.8.001
+ * @version 0.9.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -102,9 +102,9 @@ function absenceThresholdReached($year, $month, $day, $base, $group = '')
  *         boolean allChangesInPast
  *         )
  */
-function approveAbsences($username, $year, $month, $currentAbsences, $requestedAbsences)
+function approveAbsences($username, $year, $month, $currentAbsences, $requestedAbsences, $regionId)
 {
-   global $C, $LANG, $T, $U, $UG, $UL;
+   global $A, $C, $D, $LANG, $T, $U, $UG, $UL;
    
    $approvalResult = array (
       'approvalResult' => 'all',
@@ -196,6 +196,43 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             $approvedAbsences[$i] = $requestedAbsences[$i];
             
             /**
+             * ABSENCE APPROVAL REQUIRED
+             */
+            if ($A->getApprovalRequired($requestedAbsences[$i]))
+            {
+               /**
+                * Only decline if the requesting user
+                * - is not allowed to edit group calendars OR
+                * - is neither member nor manager of the affected group
+                */
+               if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOfGroup($UL->username, $row['groupid'])))
+               {
+                  /**
+                   * Absence requires approval.
+                   */
+                  $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . ")" . $LANG['alert_decl_approval_required'];
+                  
+                  /**
+                   * Set absence but add approval daynote.
+                   */
+                  $declinedAbsences[$i] = $requestedAbsences[$i];
+                  $approvedAbsences[$i] = $requestedAbsences[$i];
+                  
+                  $D->yyyymmdd = $T->year . $T->month . sprintf("%02d", ($i));
+                  $D->username = $username;
+                  $D->region = $regionId;
+                  $D->daynote = $LANG['alert_decl_approval_required_daynote'];
+                  $D->color = 'warning';
+                  $D->create();
+                  
+                  /**
+                   * Notify managers
+                   */
+                  sendAbsenceApprovalNotifications($username, $year, $month, $i, $requestedAbsences[$i]);
+               }
+            }
+            
+            /**
              * ABSENCE THRESHOLD
              * Only check this if the requested absence is in fact an absence (not Zero)
              */
@@ -218,7 +255,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                          * - is not allowed to edit group calendars OR
                          * - is neither member nor manager of the affected group
                          */
-                        if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($luser, $row['id']) and !$UG->isMemberOfGroup($luser, $row['groupid'])))
+                        if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOfGroup($UL->username, $row['groupid'])))
                         {
                            $affectedgroups[] = $row['groupid'];
                            $groups .= $row['groupid'] . ", ";
@@ -318,7 +355,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
       $declined = false;
       for($i = 1; $i <= $monthInfo['daysInMonth']; $i++)
       {
-         if ($approvedAbsences[$i] != $requestedAbsences[$i])
+         if ( ($approvedAbsences[$i] != $requestedAbsences[$i]) OR $declinedAbsences[$i] != '0')
          {
             /**
              * At least one request is declined
@@ -693,6 +730,50 @@ function createMonth($year, $month, $target, $owner)
 
 // ---------------------------------------------------------------------------
 /**
+ * Sends an email to all users that subscribed to a user calendar change event
+ *
+ * @param string $event The event type: added, changed, deleted
+ * @param string $username The username
+ * @param string $year Numeric representation of the year
+ * @param string $month Numeric representation of the month
+ * @param string $day Numeric representation of the day
+ * @param string $absence Absence ID
+ */
+function sendAbsenceApprovalNotifications($username, $year, $month, $day, $absence)
+{
+   global $A, $C, $LANG, $U, $UG, $UO;
+   
+   $language = $C->read('defaultLanguage');
+   $appTitle = $C->read('appTitle');
+   $appURL = $C->read('appURL');
+   
+   $subject = $LANG['email_subject_absence_approval'];
+   
+   $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
+   $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
+   $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_absence_approval.html');
+   $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
+   
+   $message = str_replace('%intro%', $intro, $message);
+   $message = str_replace('%body%', $body, $message);
+   $message = str_replace('%outro%', $outro, $message);
+   $message = str_replace('%app_name%', $appTitle, $message);
+   $message = str_replace('%app_url%', $appURL, $message);
+   
+   $message = str_replace('%fullname%', $U->getFullname($username), $message);
+   $message = str_replace('%username%', $username, $message);
+   $message = str_replace('%absence%', $A->getName($absence), $message);
+   $message = str_replace('%date%', $year . "-" . $month . "-" . $day, $message);
+   
+   $users = $U->getAll();
+   foreach ( $users as $profile )
+   {
+      if ($UG->isGroupManagerOfUser($profile['username'], $username)) sendEmail($profile['username'], $subject, $message);
+   }
+}
+
+// ---------------------------------------------------------------------------
+/**
  * Sends an email to all users that subscribed to an absence change event
  *
  * @param string $event The event type: added, changed, deleted
@@ -838,26 +919,26 @@ function sendMonthEventNotifications($event, $year, $month, $region)
  * @param string $event The event type: added, changed, deleted
  * @param string $username The username
  * @param string $year Numeric representation of the year
- * @param string $month Numeric representation of the year
+ * @param string $month Numeric representation of the month
  */
 function sendUserCalEventNotifications($event, $username, $year, $month)
 {
-   global $C, $LANG, $U, $UG, $UO;
+   global $A, $C, $LANG, $T, $U, $UG, $UO;
    
    $language = $C->read('defaultLanguage');
    $appTitle = $C->read('appTitle');
    $appURL = $C->read('appURL');
    $events = array (
-      'changed',
+      'changed'
    );
-   
+    
    if (in_array($event, $events))
    {
-      $subject = $LANG['email_subject_user_account_' . $event];
+      $subject = $LANG['email_subject_usercal_' . $event];
       
       $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
       $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
-      $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_' . $event . '.html');
+      $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_usercal_' . $event . '.html');
       $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
       
       $message = str_replace('%intro%', $intro, $message);
@@ -868,11 +949,24 @@ function sendUserCalEventNotifications($event, $username, $year, $month)
       
       $message = str_replace('%fullname%', $U->getFullname($username), $message);
       $message = str_replace('%username%', $username, $message);
+      $message = str_replace('%month%', $year . "-" . $month, $message);
       
       //
-      // TODO: Build html calendar table for email
+      // Build html calendar table for email
       //
-      $calendar = '';
+      $template = $T->getTemplate($username, $year, $month);
+      $calendar = '<table><tr>';
+      for ($i=1; $i<=31; $i++)
+      {
+         $calendar .= '<th>' . $i . '</th>';
+      }
+      $calendar .= '</tr><tr>';
+      for ($i=1; $i<=31; $i++)
+      {
+         $prop = 'abs' . $i;
+         $calendar .= '<td>' . $A->getName($template[$prop]) . '</td>';
+      }
+      $calendar .= '</tr></table>';
       
       $message = str_replace('%calendar%', $calendar, $message);
       
