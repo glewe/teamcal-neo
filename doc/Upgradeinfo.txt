@@ -2,3 +2,26 @@
 TEAMCAL NEO UPGRADE INFO
 ==============================================================================
 
+[0.0.000 -> 0.9.001]
+No upgrade info. 0.9.001 is the first downloadable release.
+
+
+Importing data from TeamCal Pro
+===============================
+If you have used TeamCal Pro before and want to import data from it, TeamCal
+Neo offers such an option through it's GUI.
+ 
+(!) However...
+
+TeamCal Neo has been completely rewritten. Specifically the database has seen 
+many structural changes. It is not compatible anymore to TeamCal Pro. You can 
+only import core data from TeamCal Pro. You have to still adjust TeamCal Neo 
+settings after.
+
+It is important that you have upgraded your TeamCal Pro instance to the latest 
+release TeamCal Pro 3.6.019 (or higher) before you attempt these imports.
+
+Your TeamCal Pro database will not be changed, just read.
+
+Read more here:
+https://georgelewe.atlassian.net/wiki/display/TCNEO/TeamCal+Pro+Import

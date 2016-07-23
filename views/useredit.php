@@ -5,7 +5,7 @@
  * User edit page view
  *
  * @category TeamCal Neo 
- * @version 0.9.000
+ * @version 0.9.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -42,7 +42,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="panel panel-default">
                         <div class="panel-body">
                            <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++?>" name="btn_profileUpdate"><?=$LANG['btn_update']?></button>
-                           <?php if (isAllowed("users")) { ?> 
+                           <?php if (isAllowed("useraccount")) { ?> 
                               <a href="index.php?action=users" class="btn btn-default pull-right" tabindex="<?=$tabindex++?>"><?=$LANG['btn_user_list']?></a>
                            <?php } ?>
                         </div>

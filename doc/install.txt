@@ -4,49 +4,19 @@ TeamCal Neo Installation
 
 Installation
 ============
+
+Refer to this documentation for how to install TeamCal Neo:
+https://georgelewe.atlassian.net/wiki/display/TCNEO/Installing+TeamCal+Neo
  
-Adjust your personal preferences (optional)
-===========================================
 
-Header
-------
+Support
+=======
 
-Style
------
-
-Languages
----------
-TeamCal Neo supports different languages. The distribution comes with 
-an English and German language file. You are free to add more languages 
-which is a fairly easy process.
-
-Make a copy of languagesg/english.php (or any other language you wanna base
-your translation on) and name it according to the language you are preparing, 
-e.g. portugese.php.
- 
-Open your new language file and change the original lanuguage values to 
-Portugese. Make sure not to touch any of the PHP code around it. Also there 
-might be some strings beginning or ending with blanks. These blanks are used on 
-purpose and are displayed in TeamCal Neo. You will have to leave them there if 
-the language you are building bases on the same grammar and structure as English.
-If that is not the case play around with the values and see how it looks when 
-you view TeamCal Neo with your file.
-
-Where there are white spaces (&nbsp;) it is important you use them too if you 
-have blanks in the string you wanna use. The white spaces avoid that the 
-browsers uses carriage returns.
-
-Manual
-------
-
-Installation Support
---------------------
 I will try to provide support for TeamCal Neo as far as my time allows. 
 
-Comments: http://forum.lewe.com
-Support: http://forum.lewe.com, https://georgelewe.atlassian.net
-Bugs: https://georgelewe.atlassian.net
-Change requests: https://georgelewe.atlassian.net
+Forum: http://forum.lewe.com
+Support: https://georgelewe.atlassian.net
+Documentation: https://georgelewe.atlassian.net/wiki/display/TCNEO/TeamCal+Neo+Documentation
 
 Please forgive me if I can't react right away. I'll try my best.
 

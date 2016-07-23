@@ -5,7 +5,7 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 0.9.000
+ * @version 0.9.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -513,6 +513,14 @@ $LANG['profile_abs_carryover_tt'] = 'Das &Uuml;bertragsfeld akzeptiert auch nega
 $LANG['profile_abs_taken'] = 'Genommen';
 $LANG['profile_abs_factor'] = 'Faktor';
 $LANG['profile_abs_remainder'] = 'Verbleib';
+$LANG['profile_notifyAbsenceEvents'] = 'Abwesenheitstyp-Ereignisse';
+$LANG['profile_notifyAbsenceEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Abwesenheitstypen benachrichtigt werden m&ouml;chtest.';
+$LANG['profile_notifyHolidayEvents'] = 'Feiertag-Ereignisse';
+$LANG['profile_notifyHolidayEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Feiertagen benachrichtigt werden m&ouml;chtest.';
+$LANG['profile_notifyMonthEvents'] = 'Monatsschablonen-Ereignisse';
+$LANG['profile_notifyMonthEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Monatsschablonen benachrichtigt werden m&ouml;chtest.';
+$LANG['profile_notifyUserCalEvents'] = 'Benutzerkalender-Ereignisse';
+$LANG['profile_notifyUserCalEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Benutzerkalendern benachrichtigt werden m&ouml;chtest.';
 
 //
 // Region

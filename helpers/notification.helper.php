@@ -337,7 +337,7 @@ function sendUserEventNotifications($event, $username, $firstname, $lastname)
       $users = $U->getAll();
       foreach ( $users as $profile )
       {
-         if ($UO->read($profile['username'], 'notifyteam')) sendEmail($profile['username'], $subject, $message);
+         if ($UO->read($profile['username'], 'notifyuser')) sendEmail($profile['username'], $subject, $message);
       }
    }
 }
@@ -465,6 +465,14 @@ function sendEmail($to, $subject, $body, $from = '')
       $headers .= "Reply-To: " . $replyto;
       $body = '<html><body>' . $body . '</body></html>';
       $result = mail($toValid, $subject, $body, $headers);
+      
+      //
+      // Enable to debug mail content
+      //
+      if (false)
+      {
+         print "To: " .$toValid . "<br>" . "From: " . $from . "\r\n" . $body;
+      }
       
       return $result;
    }

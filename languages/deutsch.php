@@ -5,7 +5,7 @@
  * Language file (German)
  *
  * @category TeamCal Neo 
- * @version 0.9.000
+ * @version 0.9.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -937,11 +937,11 @@ $LANG['profile_menuBar_inverse'] = 'Invertiert';
 $LANG['profile_menuBar_normal'] = 'Normal';
 $LANG['profile_mobilephone'] = 'Handy';
 $LANG['profile_mobilephone_comment'] = '';
-$LANG['profile_notifyGroupEvents'] = 'Gruppenereignisse';
+$LANG['profile_notifyGroupEvents'] = 'Gruppen-Ereignisse';
 $LANG['profile_notifyGroupEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Gruppen benachrichtigt werden m&ouml;chtest.';
-$LANG['profile_notifyRoleEvents'] = 'Rollenereignisse';
+$LANG['profile_notifyRoleEvents'] = 'Rollen-Ereignisse';
 $LANG['profile_notifyRoleEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Rollen benachrichtigt werden m&ouml;chtest.';
-$LANG['profile_notifyUserEvents'] = 'Benutzerkontenereignisse';
+$LANG['profile_notifyUserEvents'] = 'Benutzerkonten-Ereignisse';
 $LANG['profile_notifyUserEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Benutzerkonten benachrichtigt werden m&ouml;chtest.';
 $LANG['profile_onhold'] = '<i class="glyphicon glyphicon-menu glyphicon-time text-warning" style="font-size: 80%; padding-right: 16px;"></i>Tempor&auml;r gesperrt';
 $LANG['profile_onhold_comment'] = 'Dieser Zustand tritt ein, wenn der Benutzer zu h&auml;ufig ein falsches Passwort eingegeben hat. Dann wirkt die Schonfrist, 

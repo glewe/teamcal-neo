@@ -5,7 +5,7 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 0.9.000
+ * @version 0.9.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -513,6 +513,14 @@ $LANG['profile_abs_carryover_tt'] = 'The Carryover field also allows negative va
 $LANG['profile_abs_taken'] = 'Taken';
 $LANG['profile_abs_factor'] = 'Factor';
 $LANG['profile_abs_remainder'] = 'Remainder';
+$LANG['profile_notifyAbsenceEvents'] = 'Absence Events';
+$LANG['profile_notifyAbsenceEvents_comment'] = 'Select this option if you want to be informed on changes to absence types.';
+$LANG['profile_notifyHolidayEvents'] = 'Holidays Events';
+$LANG['profile_notifyHolidayEvents_comment'] = 'Select this option if you want to be informed on changes to holidays.';
+$LANG['profile_notifyMonthEvents'] = 'Month Template Events';
+$LANG['profile_notifyMonthEvents_comment'] = 'Select this option if you want to be informed on changes to month templates.';
+$LANG['profile_notifyUserCalEvents'] = 'User Calendar Events';
+$LANG['profile_notifyUserCalEvents_comment'] = 'Select this option if you want to be informed on changes to user calendars.';
 
 //
 // Region

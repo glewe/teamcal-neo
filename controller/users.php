@@ -4,12 +4,12 @@
  * 
  * Users page controller
  *
- * @category JAM 
- * @version 0.1.000
+ * @category TeamCal Neo 
+ * @version 0.9.001
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2016 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed.
+ * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 

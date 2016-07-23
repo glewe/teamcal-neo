@@ -5,7 +5,7 @@
  * Language file (English)
  *
  * @category TeamCal Neo 
- * @version 0.9.000
+ * @version 0.9.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -937,7 +937,7 @@ $LANG['profile_notifyGroupEvents'] = 'Group Events';
 $LANG['profile_notifyGroupEvents_comment'] = 'Select this option if you want to be informed on changes to groups.';
 $LANG['profile_notifyRoleEvents'] = 'Role Events';
 $LANG['profile_notifyRoleEvents_comment'] = 'Select this option if you want to be informed on changes to roles.';
-$LANG['profile_notifyUserEvents'] = 'User Events';
+$LANG['profile_notifyUserEvents'] = 'User Account Events';
 $LANG['profile_notifyUserEvents_comment'] = 'Select this option if you want to be informed on changes to user accounts.';
 $LANG['profile_onhold'] = 'On hold';
 $LANG['profile_onhold_comment'] = 'This status is applied after a user has entered a wrong password too many times. This causes a grace period in which no login is possible. 
