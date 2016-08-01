@@ -5,7 +5,7 @@
  * The view of the top navigation menu
  *
  * @category TeamCal Neo 
- * @version 0.9.001
+ * @version 0.9.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -194,11 +194,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="help"><?=$LANG['mnu_help']?><span class="caret"></span></a>
                      <ul class="dropdown-menu" aria-labelledby="help">
                         <?php if ($docLink = $C->read("userManual")) {?>
-                           <li><a tabindex="-1" href="<?=urldecode($docLink)?>" target="_blank"><i class="fa fa-question-circle fa-lg text-success fa-menu"></i>TeamCal Neo Documentation</a></li>
+                           <li><a tabindex="-1" href="<?=urldecode($docLink)?>" target="_blank"><i class="fa fa-book fa-lg text-success fa-menu"></i><?=$LANG['mnu_help_help']?></a></li>
                            <li class="divider"></li>
                         <?php } ?>
                         <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['imprint']->name?>"><i class="fa fa-<?=$CONF['controllers']['imprint']->faIcon?> fa-lg text-<?=$CONF['controllers']['imprint']->iconColor?> fa-menu"></i><?=$LANG['mnu_help_imprint']?></a></li>
                         <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['about']->name?>"><i class="fa fa-<?=$CONF['controllers']['about']->faIcon?> fa-lg text-<?=$CONF['controllers']['about']->iconColor?> fa-menu"></i><?=$LANG['mnu_help_about']?></a></li>
+                        <li><a tabindex="-1" href="http://www.lewe.com/teamcal-neo/#tcnvote" target="_blank"><i class="fa fa-comment fa-lg text-warning fa-menu"></i><?=$LANG['mnu_help_vote']?></a></li>
                      </ul>
                   </li>
 

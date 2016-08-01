@@ -5,7 +5,7 @@
  * Calendar view page controller
  *
  * @category TeamCal Neo 
- * @version 0.9.001
+ * @version 0.9.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -116,6 +116,7 @@ if (!$M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']))
 //
 // Select default users (All)
 //
+$viewData['absfilter'] = false;
 $viewData['absid'] = 'all';
 $viewData['absence'] = $LANG['all'];
 $viewData['absences'] = $A->getAll();
@@ -189,6 +190,7 @@ if (!empty($_POST))
       {
          if ($_POST['sel_absence'] != "all")
          {
+            $viewData['absfilter'] = true;
             $viewData['absid'] = $_POST['sel_absence'];
             $viewData['absence'] = $A->getName($_POST['sel_absence']);
             $ausers = array();

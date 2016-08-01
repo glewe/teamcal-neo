@@ -463,7 +463,8 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (149, 'logImport', '1'),
 (150, 'logcolorImport', 'warning'),
 (151, 'logfilterImport', '1'),
-(152, 'appKeywords', 'Lewe TeamCal Neo');
+(152, 'appKeywords', 'Lewe TeamCal Neo'),
+(153, 'userManual', 'https%3A%2F%2Fgeorgelewe.atlassian.net%2Fwiki%2Fdisplay%2FTCNEO');
 
 -- --------------------------------------------------------
 

@@ -5,7 +5,7 @@
  * Language file (German)
  *
  * @category TeamCal Neo 
- * @version 0.9.001
+ * @version 0.9.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -31,6 +31,7 @@ $LANG['auto'] = 'Automatisch';
 $LANG['avatar'] = 'Avatar';
 $LANG['back_to_top'] = 'Zur&uuml;ck zum Anfang';
 $LANG['blue'] = 'Blau';
+$LANG['close_this_message'] = 'Diese Nachricht schlie&szlig;en';
 $LANG['cookie_message'] = 'Diese Applikation nutzt Cookies um eine optimale Nutzung zu gew&auml;hrleisten.';
 $LANG['cookie_dismiss'] = 'Alles klar!';
 $LANG['cookie_learnMore'] = '[Mehr dazu...]';
@@ -135,6 +136,8 @@ $LANG['about_for'] = 'f&uuml;r';
 $LANG['about_and'] = 'und';
 $LANG['about_misc'] = 'viele Nutzer f&uuml;r Tests und Vorschl&auml;ge...';
 $LANG['about_view_releaseinfo'] = 'Releaseinfo &raquo;';
+$LANG['about_vote'] = 'Bewerte TeamCal Neo';
+$LANG['about_vote_comment'] = 'Wenn dir TeamCal Neo gef&auml;llt, gib <a href="http://www.lewe.com/teamcal-neo/#tcnvote" target="_blank">hier deine Stimme ab...</a>';
 
 //
 // Alerts

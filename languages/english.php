@@ -5,7 +5,7 @@
  * Language file (English)
  *
  * @category TeamCal Neo 
- * @version 0.9.001
+ * @version 0.9.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -31,6 +31,7 @@ $LANG['auto'] = 'Automatic';
 $LANG['avatar'] = 'Avatar';
 $LANG['back_to_top'] = 'Back to top';
 $LANG['blue'] = 'Blue';
+$LANG['close_this_message'] = 'Close this message';
 $LANG['cookie_message'] = 'This application uses cookies to ensure you get the best experience out of it.';
 $LANG['cookie_dismiss'] = 'Got it!';
 $LANG['cookie_learnMore'] = '[More info...]';
@@ -135,6 +136,8 @@ $LANG['about_for'] = 'for';
 $LANG['about_and'] = 'and';
 $LANG['about_misc'] = 'many users for testing and suggesting...';
 $LANG['about_view_releaseinfo'] = 'Show/Hide Releaseinfo &raquo;';
+$LANG['about_vote'] = 'Vote for TeamCal Neo';
+$LANG['about_vote_comment'] = 'If you like TeamCal Neo, please vote for it <a href="http://www.lewe.com/teamcal-neo/#tcnvote" target="_blank">here...</a>';
 
 //
 // Alerts
@@ -942,11 +945,11 @@ $LANG['profile_notifyUserEvents_comment'] = 'Select this option if you want to b
 $LANG['profile_onhold'] = 'On hold';
 $LANG['profile_onhold_comment'] = 'This status is applied after a user has entered a wrong password too many times. This causes a grace period in which no login is possible. 
       The grace period can be configured on the configuration page. You can manually release the status here as well.';
-$LANG['profile_profilePassword'] = 'Password';
-$LANG['profile_profilePassword_comment'] = 'You can enter a new password here. If the field stays empty, the current password will not be changed.<br>
+$LANG['profile_password'] = 'Password';
+$LANG['profile_password_comment'] = 'You can enter a new password here. If the field stays empty, the current password will not be changed.<br>
       Allowed are small and capital letters, numbers and the following special characters: !@#$%^&amp;*()';
-$LANG['profile_profilePassword2'] = 'Confirm password';
-$LANG['profile_profilePassword2_comment'] = 'Repeat the new password here.';
+$LANG['profile_password2'] = 'Confirm password';
+$LANG['profile_password2_comment'] = 'Repeat the new password here.';
 $LANG['profile_phone'] = 'Phone';
 $LANG['profile_phone_comment'] = '';
 $LANG['profile_position'] = 'Position';

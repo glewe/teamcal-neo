@@ -5,7 +5,7 @@
  * Register page controller
  *
  * @category TeamCal Neo 
- * @version 0.9.001
+ * @version 0.9.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -172,7 +172,7 @@ if (!empty($_POST))
 //
 // PREPARE VIEW
 //
-$LANG['profile_password_comment'] .= $LANG['password_rules_'.$C->read('pwdStrength')];
+$LANG['register_password_comment'] .= $LANG['password_rules_'.$C->read('pwdStrength')];
 $viewData['personal'] = array (
    array ( 'prefix' => 'register', 'name' => 'username', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['username'])?$inputAlert['username']:'') ),
    array ( 'prefix' => 'register', 'name' => 'lastname', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['lastname'])?$inputAlert['lastname']:'') ),

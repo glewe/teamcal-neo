@@ -5,7 +5,7 @@
  * About page view
  *
  * @category TeamCal Neo 
- * @version 0.9.001
+ * @version 0.9.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -34,7 +34,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <strong><?=$LANG['about_license']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/wiki/display/TCNEO/TeamCal+Neo+License" target="_blank"><?=$LANG['license']?></a><br>
                         <strong><?=$LANG['about_forum']?>:</strong>&nbsp;&nbsp;<a class="about" href="http://forum.lewe.com/" target="_blank">Lewe Forum</a><br>
                         <strong><?=$LANG['about_tracker']?>:</strong>&nbsp;&nbsp;<a class="about" href="http://georgelewe.atlassian.net/" target="_blank">Lewe Issue Tracker (JIRA)</a><br>
-                        <strong><?=$LANG['about_documentation']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/wiki/display/TCNEO/TeamCal+Neo+Documentation" target="_blank">Lewe Wiki (Confluence)</a><br><br>
+                        <strong><?=$LANG['about_documentation']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/wiki/display/TCNEO/TeamCal+Neo+Documentation" target="_blank">Lewe Wiki (Confluence)</a><br>
+                        <strong><?=$LANG['about_vote']?>:</strong>&nbsp;&nbsp;<?=$LANG['about_vote_comment']?><br><br>
                      </p>
                      <h3><?=$LANG['about_credits']?>:</h3>
                      <ul>

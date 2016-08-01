@@ -5,7 +5,7 @@
  * Calendar view page view
  *
  * @category TeamCal Neo 
- * @version 0.9.001
+ * @version 0.9.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -230,12 +230,26 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        //
                                        // This is an absence. Get icon and coloring info.
                                        //
-                                       if ($A->getBgTrans($T->$abs)) $bgStyle = ""; else $bgStyle = "background-color: #". $A->getBgColor($T->$abs) . ";";
-                                       $style .= 'color: #' . $A->getColor($T->$abs) . ';' . $bgStyle;
-                                       $icon = '<span class="fa fa-'.$A->getIcon($T->$abs).'"></span>';
-                                       $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$A->getName($T->$abs).'">';                 
-                                       $absend = '</div>';
-                                       $dayAbsCount[$i]++;
+                                       if (!$viewData['absfilter'] OR ($viewData['absfilter'] AND $T->$abs==$viewData['absid']))
+                                       {
+                                          if ($A->getBgTrans($T->$abs)) $bgStyle = ""; else $bgStyle = "background-color: #". $A->getBgColor($T->$abs) . ";";
+                                          $style .= 'color: #' . $A->getColor($T->$abs) . ';' . $bgStyle;
+                                          $icon = '<span class="fa fa-'.$A->getIcon($T->$abs).'"></span>';
+                                          $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$A->getName($T->$abs).'">';                 
+                                          $absend = '</div>';
+                                          $dayAbsCount[$i]++;
+                                       }
+                                       else
+                                       {
+                                          //
+                                          // An absence filter was submitted. This is not it but a different absence. Just color it gray and add a tooltip.
+                                          //
+                                          $style .= 'color: #d5d5d5;background-color: #d5d5d5;';
+                                          $icon = '&nbsp;';
+                                          $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$LANG['cal_tt_anotherabsence'].'">';
+                                          $absend = '</div>';
+                                          $dayAbsCount[$i]++;
+                                       }
                                     }
                                     else 
                                     {

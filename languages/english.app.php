@@ -5,7 +5,7 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 0.9.001
+ * @version 0.9.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -154,6 +154,7 @@ $LANG['btn_showcalendar'] = 'Show Calendar';
 // Calendar
 //
 $LANG['cal_title'] = 'Calendar %s-%s (Region: %s)';
+$LANG['cal_tt_anotherabsence'] = 'Another absence';
 $LANG['cal_tt_backward'] = 'Go back one month...';
 $LANG['cal_tt_forward'] = 'Go forward one month...';
 $LANG['cal_search'] = 'Search User';
@@ -190,10 +191,10 @@ $LANG['caledit_absenceType_comment'] = 'Select the absence type for this input.'
 $LANG['caledit_alert_out_of_range'] = 'The dates entered were at least partially out of the currently displayed month. No changes were saved.';
 $LANG['caledit_alert_save_failed'] = 'The absence information could not be saved. There was invalid input. Please check your last input.';
 $LANG['caledit_alert_update'] = 'Update month';
-$LANG['caledit_alert_update_all'] = 'All changes were accepted and the calendar was updated accordingly.';
-$LANG['caledit_alert_update_partial'] = 'The changes were only partially accepted because some of the requested absences violate restrictions set 
+$LANG['caledit_alert_update_all'] = 'All absences were accepted and the calendar was updated accordingly.';
+$LANG['caledit_alert_update_partial'] = 'The absences were only partially accepted because some of the violate restrictions set 
       up by the management. The calendar was updated with the accepted absences. The following requests were declined:';
-$LANG['caledit_alert_update_none'] = 'The changes were not accepted because the requested absences violate restrictions set up by the management. 
+$LANG['caledit_alert_update_none'] = 'The absences were not accepted because the requested absences violate restrictions set up by the management. 
       The calendar was not updated.';
 $LANG['caledit_clearAbsence'] = 'Clear';
 $LANG['caledit_clearDaynotes'] = 'Clear Daynotes';
@@ -453,6 +454,7 @@ $LANG['mnu_admin_calendaroptions'] = 'Calendar Options';
 $LANG['mnu_admin_declination'] = 'Declination Management';
 $LANG['mnu_admin_holidays'] = 'Holidays';
 $LANG['mnu_admin_regions'] = 'Regions';
+$LANG['mnu_help_vote'] = 'Vote for TeamCal Neo';
 
 //
 // Month

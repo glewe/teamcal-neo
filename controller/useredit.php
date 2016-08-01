@@ -5,7 +5,7 @@
  * User edit page controller
  *
  * @category TeamCal Neo 
- * @version 0.9.001
+ * @version 0.9.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -493,10 +493,10 @@ $viewData['groups'] = array (
 //
 // Password
 //
-$LANG['profile_profilePassword_comment'] .= $LANG['password_rules_'.$C->read('pwdStrength')];
+$LANG['profile_password_comment'] .= $LANG['password_rules_'.$C->read('pwdStrength')];
 $viewData['password'] = array (
-   array ( 'prefix' => 'profile', 'name' => 'profilePassword', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['profilePassword'])?$inputAlert['profilePassword']:'') ),
-   array ( 'prefix' => 'profile', 'name' => 'profilePassword2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['profilePassword2'])?$inputAlert['profilePassword2']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'password', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['profilePassword'])?$inputAlert['profilePassword']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'password2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['profilePassword2'])?$inputAlert['profilePassword2']:'') ),
 );
 
 //

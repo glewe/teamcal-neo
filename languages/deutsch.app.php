@@ -5,7 +5,7 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 0.9.001
+ * @version 0.9.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -154,6 +154,7 @@ $LANG['btn_showcalendar'] = 'Kalender anzeigen';
 // Calendar
 //
 $LANG['cal_title'] = 'Kalender %s-%s (Region: %s)';
+$LANG['cal_tt_anotherabsence'] = 'Eine andere Abwesenheit';
 $LANG['cal_tt_backward'] = 'Einen Monat zur&uuml;ck...';
 $LANG['cal_tt_forward'] = 'Einen Monat vorw&auml;rts...';
 $LANG['cal_search'] = 'Nutzer suchen';
@@ -190,11 +191,11 @@ $LANG['caledit_absenceType_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r 
 $LANG['caledit_alert_out_of_range'] = 'Die Datumsangaben war zumindest teilweise ausserhalb des angezeigten Monats. Es wurden keine &Auml;nderungen gespeichert.';
 $LANG['caledit_alert_save_failed'] = 'Die Abwesenheitsinformationen konnten nicht gespeichert werden. Es gab fehlerhafte Eingaben. Bitte pr&uuml;fe die letzte Eingabe.';
 $LANG['caledit_alert_update'] = 'Monat aktualisieren';
-$LANG['caledit_alert_update_all'] = 'Alle &Auml;nderungen wurden akzeptiert und der Monat entsprechend aktualisert.';
-$LANG['caledit_alert_update_partial'] = 'Nur ein Teil der &Auml;nderungen wurden akzeptiert weil einige vom Management konfigurierte Ablehnungsregeln verletzen. 
-      Die folgenden &Auml;nderungen wurden abgelehnt:';
-$LANG['caledit_alert_update_none'] = 'Keine der &Auml;nderungen wurden akzeptiert und der Monat nicht aktualisert. 
-      Die abgelehnten &Auml;nderungen wurden an einen Manager zur Best&auml;tigung geschickt.';
+$LANG['caledit_alert_update_all'] = 'Alle Abwesenheiten wurden akzeptiert und der Monat entsprechend aktualisert.';
+$LANG['caledit_alert_update_partial'] = 'Nur ein Teil der Abwesenheiten wurden akzeptiert weil einige vom Management konfigurierte Ablehnungsregeln verletzen. 
+      Die folgenden Abwesenheiten wurden abgelehnt:';
+$LANG['caledit_alert_update_none'] = 'Keine der Abwesenheiten wurde akzeptiert und der Monat nicht aktualisert. 
+      Die abgelehnten Abwesenheiten wurden an einen Manager zur Best&auml;tigung geschickt.';
 $LANG['caledit_clearAbsence'] = 'L&ouml;schen';
 $LANG['caledit_clearDaynotes'] = 'Tagesnotizen l&ouml;schen';
 $LANG['caledit_confirm_clearall'] = 'Bist du sicher, dass du alle Abwesenheiten f&uuml;r diesen Monat l&ouml;schen willst?<br><br><strong>Jahr:</strong> %s<br><strong>Monat:</strong> %s<br><strong>Nutzer:</strong> %s';
@@ -453,6 +454,7 @@ $LANG['mnu_admin_calendaroptions'] = 'Kalenderoptionen';
 $LANG['mnu_admin_declination'] = 'Ablehnungsregeln';
 $LANG['mnu_admin_holidays'] = 'Feiertage';
 $LANG['mnu_admin_regions'] = 'Regionen';
+$LANG['mnu_help_vote'] = 'Bewerte TeamCal Neo';
 
 //
 // Month Edit
