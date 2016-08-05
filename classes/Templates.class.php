@@ -106,7 +106,8 @@ class Templates
       $month = sprintf("%02d", $month);
       $query->bindParam('val1', $username);
       $query->bindParam('val2', $year);
-      $query->bindParam('val3', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val3', $month);
       $result = $query->execute();
       
       if ($result)
@@ -157,7 +158,8 @@ class Templates
       $month = sprintf("%02d", $month);
       $query->bindParam('val1', $username);
       $query->bindParam('val2', $year);
-      $query->bindParam('val3', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val3', $month);
       $result = $query->execute();
       
       if ($result)
@@ -248,7 +250,8 @@ class Templates
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE username = :val1 AND year = :val2 AND month = :val3');
       $query->bindParam('val1', $username);
       $query->bindParam('val2', $year);
-      $query->bindParam('val3', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val3', $month);
       $result = $query->execute();
       return $result;
    }
@@ -265,7 +268,8 @@ class Templates
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year < :val1 OR (year = :val1 AND month <= :val2)');
       $query->bindParam('val1', $year);
-      $query->bindParam('val2', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val2', $month);
       $result = $query->execute();
       return $result;
    }
@@ -346,7 +350,8 @@ class Templates
       $query = $this->db->prepare('SELECT abs' . $day . ' FROM ' . $this->table . ' WHERE username = :val1 AND year = :val2 AND month = :val3');
       $query->bindParam('val1', $username);
       $query->bindParam('val2', $year);
-      $query->bindParam('val3', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val3', $month);
       $result = $query->execute();
       
       if ($result and $row = $query->fetch())
@@ -370,7 +375,8 @@ class Templates
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username LIKE :val1 AND year = :val2 AND month = :val3');
       $query->bindParam('val1', $username);
       $query->bindParam('val2', $year);
-      $query->bindParam('val3', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val3', $month);
       $result = $query->execute();
       
       if ($result and $row = $query->fetch())
@@ -430,6 +436,8 @@ class Templates
     */
    function hasAbsence($username='', $year = '', $month = '', $absid)
    {
+      $month = sprintf("%02d", $month);
+      
       for ($i=1; $i<=31; $i++)
       {
          $myQuery = 'SELECT username FROM '.$this->table.' WHERE username = "'.$username.'" AND year = "'.$year.'" AND month = "'.$month.'" AND abs'.$i.' = "'.$absid.'";';
@@ -457,6 +465,7 @@ class Templates
       $result = $query->execute();
       return $result;
    }
+   
    // ---------------------------------------------------------------------
    /**
     * Replaces an absence ID in all templates.
@@ -524,7 +533,8 @@ class Templates
       $query->bindParam('val1', $abs);
       $query->bindParam('val2', $username);
       $query->bindParam('val3', $year);
-      $query->bindParam('val4', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val4', $month);
       $result = $query->execute();
       return $result;
    }
@@ -555,7 +565,8 @@ class Templates
       $query->bindParam('val3', $this->month);
       $query->bindParam('val4', $uname);
       $query->bindParam('val5', $year);
-      $query->bindParam('val6', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val6', $month);
       $result = $query->execute();
       return $result;
    }

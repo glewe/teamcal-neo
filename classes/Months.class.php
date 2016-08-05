@@ -150,7 +150,8 @@ class Months
 
       $query = $this->db->prepare($stmt);
       $query->bindParam('val1', $year);
-      $query->bindParam('val2', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val2', $month);
       $query->bindParam('val3', $region);
       $result = $query->execute();
       return $result;
@@ -184,7 +185,8 @@ class Months
       $query = $this->db->prepare($stmt);
       $query->bindParam('val1', $this->region);
       $query->bindParam('val2', $this->year);
-      $query->bindParam('val3', sprintf("%02d", $this->month));
+      $month = sprintf("%02d", $this->month);
+      $query->bindParam('val3', $month);
       for($i = 1; $i <= 31; $i++)
       {
          $prop = 'hol' . $i;
@@ -234,6 +236,7 @@ class Months
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year < :val1 OR (year = :val1 AND month <= :val2)');
       $query->bindParam('val1', $year);
+      $month = sprintf("%02d", $month);
       $query->bindParam('val2', $month);
       $result = $query->execute();
       return $result;
@@ -251,6 +254,7 @@ class Months
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year = :val1 AND month = :val2');
       $query->bindParam('val1', $year);
+      $month = sprintf("%02d", $month);
       $query->bindParam('val2', $month);
       $result = $query->execute();
       return $result;
@@ -288,6 +292,7 @@ class Months
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE region = :val1 AND year = :val2 AND month = :val3');
       $query->bindParam('val1', $region);
       $query->bindParam('val2', $year);
+      $month = sprintf("%02d", $month);
       $query->bindParam('val3', $month);
       $result = $query->execute();
       return $result;
@@ -308,7 +313,8 @@ class Months
       $query = $this->db->prepare('SELECT hol' . $day . ' FROM ' . $this->table . ' WHERE region = :val1 AND year = :val2 AND month = :val3');
       $query->bindParam('val1', $region);
       $query->bindParam('val2', $year);
-      $query->bindParam('val3', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val3', $month);
       $result = $query->execute();
       
       if ($result and $row = $query->fetch())
@@ -332,7 +338,8 @@ class Months
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE region = :val1 AND year = :val2 AND month = :val3');
       $query->bindParam('val1', $region);
       $query->bindParam('val2', $year);
-      $query->bindParam('val3', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val3', $month);
       $result = $query->execute();
       
       if ($result AND $row = $query->fetch())
@@ -407,7 +414,8 @@ class Months
       $query = $this->db->prepare('SELECT week' . $day . ' FROM ' . $this->table . ' WHERE region = :val1 AND year = :val2 AND month = :val3');
       $query->bindParam('val1', $region);
       $query->bindParam('val2', $year);
-      $query->bindParam('val3', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val3', $month);
       $result = $query->execute();
       
       if ($result and $row = $query->fetch())
@@ -432,7 +440,8 @@ class Months
       $query = $this->db->prepare('SELECT wday' . $day . ' FROM ' . $this->table . ' WHERE region = :val1 AND year = :val2 AND month = :val3');
       $query->bindParam('val1', $region);
       $query->bindParam('val2', $year);
-      $query->bindParam('val3', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val3', $month);
       $result = $query->execute();
       
       if ($result and $row = $query->fetch())
@@ -459,7 +468,8 @@ class Months
       $query->bindParam('val1', $hol);
       $query->bindParam('val2', $region);
       $query->bindParam('val3', $year);
-      $query->bindParam('val4', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val4', $month);
       $result = $query->execute();
       return $result;
    }
@@ -481,7 +491,8 @@ class Months
       $query->bindParam('val1', $wday);
       $query->bindParam('val2', $region);
       $query->bindParam('val3', $year);
-      $query->bindParam('val4', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val4', $month);
       $result = $query->execute();
       return $result;
    }
@@ -503,7 +514,8 @@ class Months
       $query->bindParam('val1', $week);
       $query->bindParam('val2', $region);
       $query->bindParam('val3', $year);
-      $query->bindParam('val4', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val4', $month);
       $result = $query->execute();
       return $result;
    }
@@ -538,7 +550,8 @@ class Months
       $query->bindParam('val3', $this->month);
       $query->bindParam('val4', $region);
       $query->bindParam('val5', $year);
-      $query->bindParam('val6', sprintf("%02d", $month));
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val6', $month);
       $result = $query->execute();
       return $result;
    }
