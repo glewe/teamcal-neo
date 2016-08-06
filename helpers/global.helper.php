@@ -209,7 +209,8 @@ function formInputValid($field, $ruleset, $param = '')
     */
    if (in_array('alpha', $rules))
    {
-      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^([a-z])+$/i", $_POST[$field]))
+      //if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^([a-z])+$/i", $_POST[$field]))
+      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^[\pL]+$/u", $_POST[$field]))
       {
          $inputAlert[$label[1]] = $LANG['alert_input_alpha'];
          return false;
@@ -221,7 +222,8 @@ function formInputValid($field, $ruleset, $param = '')
     */
    if (in_array('alpha_numeric', $rules))
    {
-      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^([a-z0-9])+$/i", $_POST[$field]))
+      //if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^([a-z0-9])+$/i", $_POST[$field]))
+      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^[\pL\w]+$/u", $_POST[$field]))
       {
          $inputAlert[$label[1]] = $LANG['alert_input_alpha_numeric'];
          return false;
@@ -233,7 +235,8 @@ function formInputValid($field, $ruleset, $param = '')
     */
    if (in_array('alpha_numeric_dash', $rules))
    {
-      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^([a-z0-9_-])+$/i", $_POST[$field]))
+      //if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^([a-z0-9_-])+$/i", $_POST[$field]))
+      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^([\pL\w_-])+$/u", $_POST[$field]))
       {
          $inputAlert[$label[1]] = $LANG['alert_input_alpha_numeric_dash'];
          return false;
@@ -245,7 +248,8 @@ function formInputValid($field, $ruleset, $param = '')
     */
    if (in_array('alpha_numeric_dash_blank', $rules))
    {
-      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^([ a-z0-9_-])+$/i", $_POST[$field]))
+      //if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^([ a-z0-9_-])+$/i", $_POST[$field]))
+      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^[ \pL\w_-]+$/u", $_POST[$field]))
       {
          $inputAlert[$label[1]] = $LANG['alert_input_alpha_numeric_dash_blank'];
          return false;
@@ -257,7 +261,8 @@ function formInputValid($field, $ruleset, $param = '')
     */
    if (in_array('alpha_numeric_dash_blank_dot', $rules))
    {
-      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^([ a-z0-9._-])+$/i", $_POST[$field]))
+      //if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^([ a-z0-9._-])+$/i", $_POST[$field]))
+      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^[ \pL\w._-]+$/u", $_POST[$field]))
       {
          $inputAlert[$label[1]] = $LANG['alert_input_alpha_numeric_dash_blank_dot'];
          return false;
@@ -269,7 +274,8 @@ function formInputValid($field, $ruleset, $param = '')
     */
    if (in_array('alpha_numeric_dash_blank_special', $rules))
    {
-      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^([ a-z0-9'!@#$%^&*()_-])+$/i", $_POST[$field]))
+      //if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^([ a-z0-9'!@#$%^&*()_-])+$/i", $_POST[$field]))
+      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^[ \pL\w'!@#$%^&*()._-]+$/u", $_POST[$field]))
       {
          $inputAlert[$label[1]] = $LANG['alert_input_alpha_numeric_dash_blank_special'];
          return false;

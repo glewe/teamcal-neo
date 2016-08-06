@@ -113,7 +113,7 @@ if (!empty($_POST))
       if (!formInputValid('txt_phone', 'phone_number')) $inputError = true;
       if (!formInputValid('txt_mobilephone', 'phone_number')) $inputError = true;
       if (!formInputValid('txt_google', 'alpha_numeric_dash')) $inputError = true;
-      if (!formInputValid('txt_linekdin', 'alpha_numeric_dash')) $inputError = true;
+      if (!formInputValid('txt_linkedin', 'alpha_numeric_dash')) $inputError = true;
       if (!formInputValid('txt_skype', 'alpha_numeric_dash')) $inputError = true;
       if (!formInputValid('txt_twitter', 'alpha_numeric_dash')) $inputError = true;
    }
