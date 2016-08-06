@@ -5,7 +5,7 @@
  * The view of the footer
  *
  * @category TeamCal Neo 
- * @version 0.9.002
+ * @version 0.9.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -22,7 +22,19 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                
             <div class="col-lg-3">
                <ul class="list-unstyled">
-                  <li>&copy; <?=date('Y')." ".$C->read("appFooterCpy")?></li>
+                  <?php
+                  $footerCopyright = "";
+                  if ($copyright = $C->read("footerCopyright")) {
+                     $footerCopyright .= "&copy; ".date('Y')." by ";
+                     if ($copyrightUrl = $C->read("footerCopyrightUrl")) {
+                        $footerCopyright .= '<a href="'.$copyrightUrl.'" target="_blank">'.$copyright.'</a>';
+                     }
+                     else {
+                        $footerCopyright .= $copyright;
+                     }
+                  }
+                  ?>
+                  <li><?=$footerCopyright?></li>
                </ul>
             </div>
             
@@ -43,14 +55,21 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             </div>
             
             <div class="col-lg-3 text-right">
-               <?php if ($C->read("showSize")) { ?><i id="size" class="text-italic xsmall"></i><?php } ?>
+               <?php if ($url = $C->read("footerFacebookUrl") AND strlen($url)) { ?><a href="<?=$url?>" target="_blank"><i class="fa fa-facebook fa-lg fa-menu social-icon facebook"></i></a><?php } ?>
+               <?php if ($url = $C->read("footerGoogleplusUrl") AND strlen($url)) { ?><a href="<?=$url?>" target="_blank"><i class="fa fa-google-plus fa-lg fa-menu social-icon googleplus"></i></a><?php } ?>
+               <?php if ($url = $C->read("footerLinkedinUrl") AND strlen($url)) { ?><a href="<?=$url?>" target="_blank"><i class="fa fa-linkedin fa-lg fa-menu social-icon linkedin"></i></a><?php } ?>
+               <?php if ($url = $C->read("footerTwitterUrl") AND strlen($url)) { ?><a href="<?=$url?>" target="_blank"><i class="fa fa-twitter fa-lg fa-menu social-icon twitter"></i></a><?php } ?>
+               <?php if ($url = $C->read("footerXingUrl") AND strlen($url)) { ?><a href="<?=$url?>" target="_blank"><i class="fa fa-xing fa-lg fa-menu social-icon xing"></i></a><?php } ?>
             </div>
             
          </div>
          
          <!-- As per the license agreement, you are not allowed to change or remove the following block! -->
          <div class="container" style="margin-top: 40px">
-            <div class="col-lg-12 text-right text-italic xsmall"><?=$CONF['app_powered']?></div>
+            <div class="col-lg-12 text-right text-italic xsmall">
+               <?=$CONF['app_powered']?><br>
+               <?php if ($C->read("footerViewport")) { ?><i id="size" class="text-italic xsmall"></i><?php } ?>
+            </div>
          </div>
          
       </footer>

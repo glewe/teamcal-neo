@@ -5,7 +5,7 @@
  * Framework config page view
  *
  * @category TeamCal Neo 
- * @version 0.9.002
+ * @version 0.9.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -47,6 +47,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <ul class="nav nav-tabs" style="margin-bottom: 15px;">
                         <li class="active"><a href="#general" data-toggle="tab"><?=$LANG['general']?></a></li>
                         <li><a href="#email" data-toggle="tab"><?=$LANG['config_tab_email']?></a></li>
+                        <li><a href="#footer" data-toggle="tab"><?=$LANG['config_tab_footer']?></a></li>
                         <li><a href="#homepage" data-toggle="tab"><?=$LANG['config_tab_homepage']?></a></li>
                         <li><a href="#login" data-toggle="tab"><?=$LANG['config_tab_login']?></a></li>
                         <li><a href="#registration" data-toggle="tab"><?=$LANG['config_tab_registration']?></a></li>
@@ -73,6 +74,17 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <div class="panel panel-default">
                               <div class="panel-body">
                                  <?php foreach($viewData['email'] as $formObject) {
+                                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                                 } ?>
+                              </div>
+                           </div>
+                        </div>
+                        
+                        <!-- Footer tab -->
+                        <div class="tab-pane fade" id="footer">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                                 <?php foreach($viewData['footer'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
                               </div>

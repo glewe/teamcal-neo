@@ -1,10 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
---
--- Server version: 10.1.9-MariaDB
--- PHP Version: 5.6.15
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -317,7 +310,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (2, 'defaultLanguage', 'english'),
 (3, 'permissionScheme', 'Default'),
 (4, 'appTitle', 'TeamCal Neo'),
-(5, 'appFooterCpy', 'Lewe.com'),
+(5, 'footerCopyright', 'Lewe.com'),
 (6, 'allowUserTheme', '1'),
 (7, 'logLanguage', 'english'),
 (8, 'showAlerts', 'all'),
@@ -458,13 +451,20 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (144, 'appURL', '#'),
 (145, 'appDescription', 'Lewe TeamCal Neo. The Online Team Calendar!'),
 (146, 'showBanner', '0'),
-(147, 'showSize', '0'),
-(148, 'showRoleIcons', '0'),
-(149, 'logImport', '1'),
-(150, 'logcolorImport', 'warning'),
-(151, 'logfilterImport', '1'),
-(152, 'appKeywords', 'Lewe TeamCal Neo'),
-(153, 'userManual', 'https%3A%2F%2Fgeorgelewe.atlassian.net%2Fwiki%2Fdisplay%2FTCNEO');
+(147, 'showRoleIcons', '0'),
+(148, 'logImport', '1'),
+(149, 'logcolorImport', 'warning'),
+(150, 'logfilterImport', '1'),
+(151, 'appKeywords', 'Lewe TeamCal Neo'),
+(152, 'userManual', 'https%3A%2F%2Fgeorgelewe.atlassian.net%2Fwiki%2Fdisplay%2FTCNEO'),
+(153, 'footerCopyrightUrl', 'http://www.lewe.com'),
+(154, 'footerFacebookUrl', ''),
+(155, 'footerGoogleplusUrl', 'https://plus.google.com/u/0/+GeorgeLewe'),
+(156, 'footerLinkedinUrl', 'https://www.linkedin.com/in/george-lewe-a9ab6411b'),
+(157, 'footerTwitterUrl', 'https://twitter.com/gekale'),
+(158, 'footerXingUrl', 'https://www.xing.com/profile/George_Lewe'),
+(159, 'footerViewport', '0'),
+(160, 'cookieConsent', '0');
 
 -- --------------------------------------------------------
 

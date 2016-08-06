@@ -5,7 +5,7 @@
  * Language file (English)
  *
  * @category TeamCal Neo 
- * @version 0.9.002
+ * @version 0.9.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -333,6 +333,7 @@ $LANG['btn_view'] = 'View';
 $LANG['config_title'] = 'Framework Configuration';
 
 $LANG['config_tab_email'] = 'E-mail';
+$LANG['config_tab_footer'] = 'Footer';
 $LANG['config_tab_homepage'] = 'Homepage';
 $LANG['config_tab_images'] = 'Images';
 $LANG['config_tab_login'] = 'Login';
@@ -352,8 +353,6 @@ $LANG['config_allowUserTheme'] = 'Allow User Theme';
 $LANG['config_allowUserTheme_comment'] = 'Check whether you want each user to be able to select his individual theme.';
 $LANG['config_appDescription'] = 'HTML Description';
 $LANG['config_appDescription_comment'] = 'Enter an application description here. It will be used in the HTML header for search engines.';
-$LANG['config_appFooterCpy'] = 'Footer Copyright Name';
-$LANG['config_appFooterCpy_comment'] = 'Will be displayed in the upper left footer section. Just enter the name, the (current) year will be displayed automatically.';
 $LANG['config_appKeywords'] = 'HTML Keywords';
 $LANG['config_appKeywords_comment'] = 'Enter a few keywords here. They will be used in the HTML header for search engines.';
 $LANG['config_appTitle'] = 'Application Name';
@@ -377,6 +376,22 @@ $LANG['config_emailConfirmation_comment'] = 'Upon registration the user will rec
 $LANG['config_emailNotifications'] = 'E-Mail Notifications';
 $LANG['config_emailNotifications_comment'] = 'Enable/Disable E-Mail notifications. If you uncheck this option no automated notifications E-Mails are sent. 
       However, this does not apply to self-registration mails and to manually sent mails via the Message Center and the Viewprofile dialog.';
+$LANG['config_footerCopyright'] = 'Footer Copyright Name';
+$LANG['config_footerCopyright_comment'] = 'Will be displayed in the upper left footer section. Just enter the name, the (current) year will be displayed automatically.';
+$LANG['config_footerCopyrightUrl'] = 'Footer Copyright URL';
+$LANG['config_footerCopyrightUrl_comment'] = 'Enter the URL to which the footer copyright name shall link to. If none is provided, just the name is displayed.';
+$LANG['config_footerFacebookUrl'] = 'Facebook URL';
+$LANG['config_footerFacebookUrl_comment'] = 'If you provide a URL here it will be put with the corresponding social media icon in the footer.';
+$LANG['config_footerGoogleplusUrl'] = 'Google+ URL';
+$LANG['config_footerGoogleplusUrl_comment'] = 'If you provide a URL here it will be put with the corresponding social media icon in the footer.';
+$LANG['config_footerLinkedinUrl'] = 'LinkedIn URL';
+$LANG['config_footerLinkedinUrl_comment'] = 'If you provide a URL here it will be put with the corresponding social media icon in the footer.';
+$LANG['config_footerTwitterUrl'] = 'Twitter URL';
+$LANG['config_footerTwitterUrl_comment'] = 'If you provide a URL here it will be put with the corresponding social media icon in the footer.';
+$LANG['config_footerXingUrl'] = 'Xing URL';
+$LANG['config_footerXingUrl_comment'] = 'If you provide a URL here it will be put with the corresponding social media icon in the footer.';
+$LANG['config_footerViewport'] = 'Show Viewport Size';
+$LANG['config_footerViewport_comment'] = 'Checking this option will show the viewport size in the footer.';
 $LANG['config_faCDN'] = 'Fontawesome CDN';
 $LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) can offer a performance benefit by hosting popular web modules on servers spread 
       across the globe. Fontawesome is such a module. Pulling it from a CDN location also offers an advantage that if the visitor 
@@ -443,8 +458,6 @@ $LANG['config_showAlerts_warnings'] = 'Warnings and Errors only';
 $LANG['config_showAlerts_none'] = 'None';
 $LANG['config_showBanner'] = 'Show Banner';
 $LANG['config_showBanner_comment'] = 'Checking this option will show a banner between the navbar and the content section displaying the application title and a search box.';
-$LANG['config_showSize'] = 'Show Viewport Size';
-$LANG['config_showSize_comment'] = 'Checking this option will show the viewport size in the footer.';
 $LANG['config_theme'] = 'Default Theme';
 $LANG['config_theme_comment'] = 'Select a theme to change the looks of the application. You can create your own skin by making a renamed
       copy of any of the other theme folders in the \'themes\' directory and adjust the styles to your liking. Your new directory will

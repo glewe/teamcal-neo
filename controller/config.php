@@ -5,7 +5,7 @@
  * Framework config page controller
  *
  * @category TeamCal Neo 
- * @version 0.9.002
+ * @version 0.9.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -74,14 +74,12 @@ if (!empty($_POST))
          $C->save("appTitle", sanitize($_POST['txt_appTitle']));
          $C->save("appDescription", sanitize($_POST['txt_appDescription']));
          $C->save("appKeywords", sanitize($_POST['txt_appKeywords']));
-         $C->save("appFooterCpy", sanitize($_POST['txt_appFooterCpy']));
          if ($_POST['sel_defaultLanguage']) $C->save("defaultLanguage", $_POST['sel_defaultLanguage']); else $C->save("defaultLanguage", "english");
          if ($_POST['sel_logLanguage']) $C->save("logLanguage", $_POST['sel_logLanguage']); else $C->save("logLanguage", "english");
          if ($_POST['sel_permissionScheme']) $C->save("permissionScheme", $_POST['sel_permissionScheme']); else $C->save("permissionScheme", "Default");
          if ($_POST['opt_showAlerts']) $C->save("showAlerts", $_POST['opt_showAlerts']);
          if (isset($_POST['chk_activateMessages']) && $_POST['chk_activateMessages']) $C->save("activateMessages", "1"); else $C->save("activateMessages", "0");
          if (isset($_POST['chk_showBanner']) && $_POST['chk_showBanner']) $C->save("showBanner", "1"); else $C->save("showBanner", "0");
-         if ( isset($_POST['chk_showSize']) && $_POST['chk_showSize'] ) $C->save("showSize","1"); else $C->save("showSize","0");
          if (strlen($_POST['txt_userManual']))
          {
             $myUrl = rtrim($_POST['txt_userManual'], '/') . '/'; // Ensure trailing slash
@@ -106,6 +104,18 @@ if (!empty($_POST))
          $C->save("mailSMTPpassword", sanitize($_POST['txt_mailSMTPpassword']));
          if ( isset($_POST['chk_mailSMTPSSL']) && $_POST['chk_mailSMTPSSL'] ) $C->save("mailSMTPSSL","1"); else $C->save("mailSMTPSSL","0");
          
+         //
+         // Footer
+         //
+         $C->save("footerCopyright", sanitize($_POST['txt_footerCopyright']));
+         if (strlen($_POST['txt_footerCopyrightUrl']) AND filter_var($_POST['txt_footerCopyrightUrl'], FILTER_VALIDATE_URL)) $C->save("footerCopyrightUrl",$_POST['txt_footerCopyrightUrl']); else $C->save("footerCopyrightUrl","");
+         if (strlen($_POST['txt_footerFacebookUrl']) AND filter_var($_POST['txt_footerFacebookUrl'], FILTER_VALIDATE_URL)) $C->save("footerFacebookUrl",$_POST['txt_footerFacebookUrl']); else $C->save("footerFacebookUrl","");
+         if (strlen($_POST['txt_footerGoogleplusUrl']) AND filter_var($_POST['txt_footerGoogleplusUrl'], FILTER_VALIDATE_URL)) $C->save("footerGoogleplusUrl",$_POST['txt_footerGoogleplusUrl']); else $C->save("footerGoogleplusUrl","");
+         if (strlen($_POST['txt_footerLinkedinUrl']) AND filter_var($_POST['txt_footerLinkedinUrl'], FILTER_VALIDATE_URL)) $C->save("footerLinkedinUrl",$_POST['txt_footerLinkedinUrl']); else $C->save("footerLinkedinUrl","");
+         if (strlen($_POST['txt_footerTwitterUrl']) AND filter_var($_POST['txt_footerTwitterUrl'], FILTER_VALIDATE_URL)) $C->save("footerTwitterUrl",$_POST['txt_footerTwitterUrl']); else $C->save("footerTwitterUrl","");
+         if (strlen($_POST['txt_footerXingUrl']) AND filter_var($_POST['txt_footerXingUrl'], FILTER_VALIDATE_URL)) $C->save("footerXingUrl",$_POST['txt_footerXingUrl']); else $C->save("footerXingUrl","");
+         if ( isset($_POST['chk_footerViewport']) && $_POST['chk_footerViewport'] ) $C->save("footerViewport","1"); else $C->save("footerViewport","0");
+          
          //
          // Homepage
          //
@@ -221,8 +231,6 @@ $viewData['general'] = array (
    array ( 'prefix' => 'config', 'name' => 'permissionScheme', 'type' => 'list', 'values' => $viewData['schemeList'] ),
    array ( 'prefix' => 'config', 'name' => 'userManual', 'type' => 'text', 'value' => urldecode($C->read("userManual")), 'maxlength' => '160' ),
    array ( 'prefix' => 'config', 'name' => 'showBanner', 'type' => 'check', 'values' => '', 'value' => $C->read("showBanner") ),
-   array ( 'prefix' => 'config', 'name' => 'showSize', 'type' => 'check', 'values' => '', 'value' => $C->read("showSize") ),
-   array ( 'prefix' => 'config', 'name' => 'appFooterCpy', 'type' => 'text', 'value' => $C->read("appFooterCpy"), 'maxlength' => '160' ),
 );
 
 $viewData['email'] = array (
@@ -235,6 +243,17 @@ $viewData['email'] = array (
    array ( 'prefix' => 'config', 'name' => 'mailSMTPusername', 'type' => 'text', 'value' => $C->read("mailSMTPusername"), 'maxlength' => '50' ),
    array ( 'prefix' => 'config', 'name' => 'mailSMTPpassword', 'type' => 'password', 'value' => $C->read("mailSMTPpassword"), 'maxlength' => '50' ),
    array ( 'prefix' => 'config', 'name' => 'mailSMTPSSL', 'type' => 'check', 'values' => '', 'value' => $C->read("mailSMTPSSL") ),
+);
+
+$viewData['footer'] = array (
+   array ( 'prefix' => 'config', 'name' => 'footerCopyright', 'type' => 'text', 'value' => $C->read("footerCopyright"), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'footerCopyrightUrl', 'type' => 'text', 'value' => $C->read("footerCopyrightUrl"), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'footerFacebookUrl', 'type' => 'text', 'value' => $C->read("footerFacebookUrl"), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'footerGoogleplusUrl', 'type' => 'text', 'value' => $C->read("footerGoogleplusUrl"), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'footerLinkedinUrl', 'type' => 'text', 'value' => $C->read("footerLinkedinUrl"), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'footerTwitterUrl', 'type' => 'text', 'value' => $C->read("footerTwitterUrl"), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'footerXingUrl', 'type' => 'text', 'value' => $C->read("footerXingUrl"), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'footerViewport', 'type' => 'check', 'values' => '', 'value' => $C->read("footerViewport") ),
 );
 
 $viewData['homepage'] = array (

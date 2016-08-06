@@ -5,7 +5,7 @@
  * Language file (German)
  *
  * @category TeamCal Neo 
- * @version 0.9.002
+ * @version 0.9.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -334,6 +334,7 @@ $LANG['btn_view'] = 'Anzeigen';
 $LANG['config_title'] = 'Framework Konfiguration';
 
 $LANG['config_tab_email'] = 'E-mail';
+$LANG['config_tab_footer'] = 'Fu&szlig;zeile';
 $LANG['config_tab_homepage'] = 'Startseite';
 $LANG['config_tab_images'] = 'Bilder';
 $LANG['config_tab_login'] = 'Login';
@@ -353,8 +354,6 @@ $LANG['config_allowUserTheme'] = 'User Theme';
 $LANG['config_allowUserTheme_comment'] = 'W&auml;hle aus, ob jeder User sein eigenes Theme w&auml;hlen kann.';
 $LANG['config_appDescription'] = 'HTML Beschreibung';
 $LANG['config_appDescription_comment'] = 'Hier kann eine Applikations-Beschreibung eingetragen werden. Sie wird im HTML Header benutzt und von Suchmaschinen gelesen.';
-$LANG['config_appFooterCpy'] = 'Fu&szlig;zeilen Copyright Name';
-$LANG['config_appFooterCpy_comment'] = 'Wird in der Fu&szlig;zeile oben links angezeigt. Gib nur den Namen ein, das (aktuelle) Jahr wird autmatisch angezeigt.';
 $LANG['config_appKeywords'] = 'HTML Schl&uuml;sselw&ouml;rter';
 $LANG['config_appKeywords_comment'] = 'Hier k&ouml;nnen Schl&uuml;sselw&ouml;rter eingetragen werden. Sie wird im HTML Header benutzt und von Suchmaschinen gelesen.';
 $LANG['config_appTitle'] = 'Applikationsname';
@@ -378,6 +377,22 @@ $LANG['config_emailConfirmation_comment'] = 'Durch die Registrierung erh&auml;lt
 $LANG['config_emailNotifications'] = 'E-Mail Benachrichtigungen';
 $LANG['config_emailNotifications_comment'] = 'Aktivierung/Deaktivierung von E-Mail Benachrichtigungen. Wenn diese Option ausgeschaltet ist, werden keine automatischen 
       Benachrichtigungen per E-Mails verschickt. Dies trifft aber nicht auf Selbst-Registrierungsmails und auf manuell gesendete Mails im Message Center und im Viewprofile Dialog zu.';
+$LANG['config_footerCopyright'] = 'Fu&szlig;zeilen Copyright Name';
+$LANG['config_footerCopyright_comment'] = 'Wird in der Fu&szlig;zeile oben links angezeigt. Gib nur den Namen ein, das (aktuelle) Jahr wird autmatisch angezeigt.';
+$LANG['config_footerCopyrightUrl'] = 'Fu&szlig;zeilen Copyright URL';
+$LANG['config_footerCopyrightUrl_comment'] = 'Gib die URL ein, zu der der Copyright Name verlinken soll. Wenn keine URL angegeben wird, wird nur der Name angezeigt.';
+$LANG['config_footerFacebookUrl'] = 'Facebook URL';
+$LANG['config_footerFacebookUrl_comment'] = 'Wenn hier eine URL angegeben wird, wird ein entsprechendes verlinktes Icon in der Fu&szlig;zeile angezeigt.';
+$LANG['config_footerGoogleplusUrl'] = 'Google+ URL';
+$LANG['config_footerGoogleplusUrl_comment'] = 'Wenn hier eine URL angegeben wird, wird ein entsprechendes verlinktes Icon in der Fu&szlig;zeile angezeigt.';
+$LANG['config_footerLinkedinUrl'] = 'LinkedIn URL';
+$LANG['config_footerLinkedinUrl_comment'] = 'Wenn hier eine URL angegeben wird, wird ein entsprechendes verlinktes Icon in der Fu&szlig;zeile angezeigt.';
+$LANG['config_footerTwitterUrl'] = 'Twitter URL';
+$LANG['config_footerTwitterUrl_comment'] = 'Wenn hier eine URL angegeben wird, wird ein entsprechendes verlinktes Icon in der Fu&szlig;zeile angezeigt.';
+$LANG['config_footerXingUrl'] = 'Xing URL';
+$LANG['config_footerXingUrl_comment'] = 'Wenn hier eine URL angegeben wird, wird ein entsprechendes verlinktes Icon in der Fu&szlig;zeile angezeigt.';
+$LANG['config_footerViewport'] = 'Viewport-Gr&ouml;&szlig;e anzeigen';
+$LANG['config_footerViewport_comment'] = 'Mit dieser Option wird im Footer die Viewport-Gr&ouml;&szlig; angezeigt.';
 $LANG['config_faCDN'] = 'Fontawesome CDN';
 $LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) k&ouml;nnen einen Performance-Vorteil bieten dadurch dass popul&auml;re Web Module von Servern rund 
       um den Globus geladen werden. Fontawesome ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul 
@@ -444,8 +459,6 @@ $LANG['config_showAlerts_warnings'] = 'Nur Warnungen und Fehler';
 $LANG['config_showAlerts_none'] = 'Keine';
 $LANG['config_showBanner'] = 'Banner anzeigen';
 $LANG['config_showBanner_comment'] = 'Mit dieser Option wird zwischen Menu und Inhalt ein Banner mit dem Applikationstitel und einer Suchbox angezeigt.';
-$LANG['config_showSize'] = 'Viewport-Gr&ouml;&szlig; anzeigen';
-$LANG['config_showSize_comment'] = 'Mit dieser Option wird im Footer die Viewport-Gr&ouml;&szlig; angezeigt.';
 $LANG['config_theme'] = 'Theme';
 $LANG['config_theme_comment'] = 'W&auml;hle ein Theme aus, umd das Aussehen der User Interface zu &auml;ndern. Du kannst ein eigenes 
       Theme erstellen, indem du eine Kopie eines Verzeichnis im \'themes\' Ordner anlegst und das Style Sheet entsprechend anpasst. 
