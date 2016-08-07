@@ -901,6 +901,7 @@ $LANG['profile_edit_title'] = 'Benutzerkonto editieren: ';
 $LANG['profile_tab_account'] = 'Konto';
 $LANG['profile_tab_avatar'] = 'Avatar';
 $LANG['profile_tab_contact'] = 'Kontakt';
+$LANG['profile_tab_custom'] = 'Extra';
 $LANG['profile_tab_groups'] = 'Gruppen';
 $LANG['profile_tab_notifications'] = 'Benachrichtigungen';
 $LANG['profile_tab_password'] = 'Passwort';
@@ -918,6 +919,16 @@ $LANG['profile_avatar_available_comment'] = 'W&auml;hle einen der standard Avata
 $LANG['profile_avatar_upload'] = 'Avatar hochladen';
 $LANG['profile_avatar_upload_comment'] = 'Es kann ein individueller Avatar hochlgeaden werden. Die Dateigr&ouml;&szlig;e ist limitiert auf %d Bytes, das Bild sollte 
       80x80 Pixel gro&szlig; sein (wird ohnehin nur in dieser Gr&ouml;&szlig;e dargestellt) und die erlaubten Formate sind "%s".';
+$LANG['profile_custom1'] = $C->read('userCustom1');
+$LANG['profile_custom1_comment'] = 'Gib einen Text von maximal 80 Zeichen ein.';
+$LANG['profile_custom2'] = $C->read('userCustom2');
+$LANG['profile_custom2_comment'] = 'Gib einen Text von maximal 80 Zeichen ein.';
+$LANG['profile_custom3'] = $C->read('userCustom3');
+$LANG['profile_custom3_comment'] = 'Gib einen Text von maximal 80 Zeichen ein.';
+$LANG['profile_custom4'] = $C->read('userCustom4');
+$LANG['profile_custom4_comment'] = 'Gib einen Text von maximal 80 Zeichen ein.';
+$LANG['profile_custom5'] = $C->read('userCustom5');
+$LANG['profile_custom5_comment'] = 'Gib einen Text von maximal 80 Zeichen ein.';
 $LANG['profile_email'] = 'E-Mail';
 $LANG['profile_email_comment'] = '';
 $LANG['profile_facebook'] = 'Facebook';
@@ -962,11 +973,11 @@ $LANG['profile_notifyUserEvents_comment'] = 'W&auml;hle diese Option, wenn du pe
 $LANG['profile_onhold'] = '<i class="glyphicon glyphicon-menu glyphicon-time text-warning" style="font-size: 80%; padding-right: 16px;"></i>Tempor&auml;r gesperrt';
 $LANG['profile_onhold_comment'] = 'Dieser Zustand tritt ein, wenn der Benutzer zu h&auml;ufig ein falsches Passwort eingegeben hat. Dann wirkt die Schonfrist, 
       in der das Konto gesperrt ist. Die L&auml;nge der Schonfrist kann in der Konfiguration eingestellt werden. Hier kann die Schonfrist manuell wieder aufgehoben werden.';
-$LANG['profile_profilePassword'] = 'Passwort';
-$LANG['profile_profilePassword_comment'] = 'Hier kann ein neues Passwort eingegeben werden. Wenn das Feld leer bleibt, wird das aktuelle Passwort nicht ver&auml;ndert.<br>
+$LANG['profile_password'] = 'Passwort';
+$LANG['profile_password_comment'] = 'Hier kann ein neues Passwort eingegeben werden. Wenn das Feld leer bleibt, wird das aktuelle Passwort nicht ver&auml;ndert.<br>
       Erlaubt sind Gro&szlig;- und Kleinbuchstaben, Zahlen und die Sonderzeichen: !@#$%^&amp;*()';
-$LANG['profile_profilePassword2'] = 'Passwort wiederholen';
-$LANG['profile_profilePassword2_comment'] = 'Wiederhole hier das neue Passwort.';
+$LANG['profile_password2'] = 'Passwort wiederholen';
+$LANG['profile_password2_comment'] = 'Wiederhole hier das neue Passwort.';
 $LANG['profile_phone'] = 'Telefon';
 $LANG['profile_phone_comment'] = '';
 $LANG['profile_position'] = 'Position';

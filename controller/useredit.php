@@ -100,13 +100,13 @@ if (!empty($_POST))
       if (!formInputValid('txt_title', 'alpha_numeric_dash_blank_dot')) $inputError = true;
       if (!formInputValid('txt_position', 'alpha_numeric_dash_blank')) $inputError = true;
       if (!formInputValid('txt_email', 'required|email')) $inputError = true;
-      if ( (isset($_POST['txt_profilePassword']) and strlen($_POST['txt_profilePassword'])) or (isset($_POST['txt_profilePassword2']) and strlen($_POST['txt_profilePassword2'])))
+      if ( (isset($_POST['txt_password']) and strlen($_POST['txt_password'])) or (isset($_POST['txt_password2']) and strlen($_POST['txt_password2'])))
       {
-         if (!formInputValid('txt_profilePassword', 'pwd'.$C->read('pwdStrength'))) $inputError = true;
-         if (!formInputValid('txt_profilePassword2', 'required|pwd'.$C->read('pwdStrength'))) $inputError = true;
-         if (!formInputValid('txt_profilePassword2', 'match', 'txt_profilePassword'))
+         if (!formInputValid('txt_password', 'pwd'.$C->read('pwdStrength'))) $inputError = true;
+         if (!formInputValid('txt_password2', 'required|pwd'.$C->read('pwdStrength'))) $inputError = true;
+         if (!formInputValid('txt_password2', 'match', 'txt_password'))
          {
-            $inputAlert['profilePassword2'] = sprintf($LANG['alert_input_match'], $LANG['profile_profilePassword2'], $LANG['profile_profilePassword']);
+            $inputAlert['password2'] = sprintf($LANG['alert_input_match'], $LANG['profile_password2'], $LANG['profile_password']);
             $inputError = true;
          }
       }
@@ -116,6 +116,11 @@ if (!empty($_POST))
       if (!formInputValid('txt_linkedin', 'alpha_numeric_dash')) $inputError = true;
       if (!formInputValid('txt_skype', 'alpha_numeric_dash')) $inputError = true;
       if (!formInputValid('txt_twitter', 'alpha_numeric_dash')) $inputError = true;
+      if (!formInputValid('txt_custom1', 'alpha_numeric_dash_blank_dot')) $inputError = true;
+      if (!formInputValid('txt_custom2', 'alpha_numeric_dash_blank_dot')) $inputError = true;
+      if (!formInputValid('txt_custom3', 'alpha_numeric_dash_blank_dot')) $inputError = true;
+      if (!formInputValid('txt_custom4', 'alpha_numeric_dash_blank_dot')) $inputError = true;
+      if (!formInputValid('txt_custom5', 'alpha_numeric_dash_blank_dot')) $inputError = true;
    }
     
    if (!$inputError)
@@ -270,6 +275,15 @@ if (!empty($_POST))
                $AL->save();
             }
          }
+
+         //
+         // Custom
+         //
+         $UO->save($profile, 'custom1', $_POST['txt_custom1']);
+         $UO->save($profile, 'custom2', $_POST['txt_custom2']);
+         $UO->save($profile, 'custom3', $_POST['txt_custom3']);
+         $UO->save($profile, 'custom4', $_POST['txt_custom4']);
+         $UO->save($profile, 'custom5', $_POST['txt_custom5']);
 
          $UP->update($profile);
           
@@ -536,6 +550,17 @@ foreach ($absences as $abs)
       'remainder' => $remainder
    );
 }
+
+//
+// Custom
+//
+$viewData['custom'] = array (
+   array ( 'prefix' => 'profile', 'name' => 'custom1', 'type' => 'text', 'value' => $UO->read($profile, 'custom1'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom1'])?$inputAlert['custom1']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'custom2', 'type' => 'text', 'value' => $UO->read($profile, 'custom2'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom2'])?$inputAlert['custom2']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'custom3', 'type' => 'text', 'value' => $UO->read($profile, 'custom3'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom3'])?$inputAlert['custom3']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'custom4', 'type' => 'text', 'value' => $UO->read($profile, 'custom4'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom4'])?$inputAlert['custom4']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'custom5', 'type' => 'text', 'value' => $UO->read($profile, 'custom5'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom5'])?$inputAlert['custom5']:'') ),
+);
 
 //=============================================================================
 //
