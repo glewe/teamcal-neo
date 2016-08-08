@@ -5,7 +5,7 @@
  * Roles page controller
  *
  * @category TeamCal Neo 
- * @version 0.9.003
+ * @version 0.9.004
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -210,7 +210,7 @@ if (isset($_POST['btn_search']))
 
    if (isset($_POST['txt_searchRole']))
    {
-      $searchGroup = sanitize($_POST['txt_searchRole']);
+      $searchRole = sanitize($_POST['txt_searchRole']);
       $viewData['searchRole'] = $searchRole;
       $viewData['roles'] = $RO->getAllLike($searchRole);
    }

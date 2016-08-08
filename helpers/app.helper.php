@@ -5,7 +5,7 @@
  * Collection of calendar related functions
  *
  * @category TeamCal Neo 
- * @version 0.9.003
+ * @version 0.9.004
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
