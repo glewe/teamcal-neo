@@ -210,14 +210,14 @@ if (!empty($_POST))
          //
          // Password
          //
-         if ( isset($_POST['txt_profilePassword']) AND 
-              strlen($_POST['txt_profilePassword']) AND 
-              isset($_POST['txt_profilePassword2']) AND 
-              strlen($_POST['txt_profilePassword2']) AND 
-              $_POST['txt_profilePassword'] == $_POST['txt_profilePassword2'] 
+         if ( isset($_POST['txt_password']) AND 
+              strlen($_POST['txt_password']) AND 
+              isset($_POST['txt_password2']) AND 
+              strlen($_POST['txt_password2']) AND 
+              $_POST['txt_password'] == $_POST['txt_password2'] 
             )
          {
-            $UP->password = crypt($_POST['txt_profilePassword'], $CONF['salt']);
+            $UP->password = crypt($_POST['txt_password'], $CONF['salt']);
             $UP->last_pw_change = date("Y-m-d H:I:s");
          }
           
@@ -509,8 +509,8 @@ $viewData['groups'] = array (
 //
 $LANG['profile_password_comment'] .= $LANG['password_rules_'.$C->read('pwdStrength')];
 $viewData['password'] = array (
-   array ( 'prefix' => 'profile', 'name' => 'password', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['profilePassword'])?$inputAlert['profilePassword']:'') ),
-   array ( 'prefix' => 'profile', 'name' => 'password2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['profilePassword2'])?$inputAlert['profilePassword2']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'password', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['password'])?$inputAlert['password']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'password2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['password2'])?$inputAlert['password2']:'') ),
 );
 
 //
