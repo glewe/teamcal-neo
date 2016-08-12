@@ -97,9 +97,11 @@ if (!empty($_POST))
          $UP->created = date('YmdHis');
 
          //
-         // Aavatar: Default
+         // Default user options
          //
          $UO->save($_POST['txt_username'], 'avatar', 'noavatar_male.png');
+         $UO->save($_POST['txt_username'], 'language', 'default');
+         $UO->save($_POST['txt_username'], 'theme', 'default');
           
          //
          // Password

@@ -276,6 +276,7 @@ if (false)
 //
 // LOAD LANGUAGE
 //
+if (!strlen($language)) $language = 'english';
 require_once (WEBSITE_ROOT . '/languages/' . $language . '.php');     // Framework
 require_once (WEBSITE_ROOT . '/languages/' . $language . '.app.php'); // Application
 
