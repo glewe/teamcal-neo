@@ -55,11 +55,14 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             </div>
             
             <div class="col-lg-3 text-right">
-               <?php if ($url = $C->read("footerFacebookUrl") AND strlen($url)) { ?><a href="<?=$url?>" target="_blank"><i class="fa fa-facebook fa-lg fa-menu social-icon facebook"></i></a><?php } ?>
-               <?php if ($url = $C->read("footerGoogleplusUrl") AND strlen($url)) { ?><a href="<?=$url?>" target="_blank"><i class="fa fa-google-plus fa-lg fa-menu social-icon googleplus"></i></a><?php } ?>
-               <?php if ($url = $C->read("footerLinkedinUrl") AND strlen($url)) { ?><a href="<?=$url?>" target="_blank"><i class="fa fa-linkedin fa-lg fa-menu social-icon linkedin"></i></a><?php } ?>
-               <?php if ($url = $C->read("footerTwitterUrl") AND strlen($url)) { ?><a href="<?=$url?>" target="_blank"><i class="fa fa-twitter fa-lg fa-menu social-icon twitter"></i></a><?php } ?>
-               <?php if ($url = $C->read("footerXingUrl") AND strlen($url)) { ?><a href="<?=$url?>" target="_blank"><i class="fa fa-xing fa-lg fa-menu social-icon xing"></i></a><?php } ?>
+               <?php if ($urls = $C->read("footerSocialLinks") AND strlen($urls)) {
+                  $urlArray = explode(';', $urls);
+                  foreach ($urlArray as $url) { 
+                     if (strlen($url)) { ?>
+                        <span class="social-icon"><a href="<?=$url?>" target="_blank"><i class="fa fa-lg"></i></a></span>                     
+                     <?php } 
+                  }
+               } ?>
             </div>
             
          </div>

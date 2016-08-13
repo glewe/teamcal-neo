@@ -109,12 +109,8 @@ if (!empty($_POST))
          //
          $C->save("footerCopyright", sanitize($_POST['txt_footerCopyright']));
          if (strlen($_POST['txt_footerCopyrightUrl']) AND filter_var($_POST['txt_footerCopyrightUrl'], FILTER_VALIDATE_URL)) $C->save("footerCopyrightUrl",$_POST['txt_footerCopyrightUrl']); else $C->save("footerCopyrightUrl","");
-         if (strlen($_POST['txt_footerFacebookUrl']) AND filter_var($_POST['txt_footerFacebookUrl'], FILTER_VALIDATE_URL)) $C->save("footerFacebookUrl",$_POST['txt_footerFacebookUrl']); else $C->save("footerFacebookUrl","");
-         if (strlen($_POST['txt_footerGoogleplusUrl']) AND filter_var($_POST['txt_footerGoogleplusUrl'], FILTER_VALIDATE_URL)) $C->save("footerGoogleplusUrl",$_POST['txt_footerGoogleplusUrl']); else $C->save("footerGoogleplusUrl","");
-         if (strlen($_POST['txt_footerLinkedinUrl']) AND filter_var($_POST['txt_footerLinkedinUrl'], FILTER_VALIDATE_URL)) $C->save("footerLinkedinUrl",$_POST['txt_footerLinkedinUrl']); else $C->save("footerLinkedinUrl","");
-         if (strlen($_POST['txt_footerTwitterUrl']) AND filter_var($_POST['txt_footerTwitterUrl'], FILTER_VALIDATE_URL)) $C->save("footerTwitterUrl",$_POST['txt_footerTwitterUrl']); else $C->save("footerTwitterUrl","");
-         if (strlen($_POST['txt_footerXingUrl']) AND filter_var($_POST['txt_footerXingUrl'], FILTER_VALIDATE_URL)) $C->save("footerXingUrl",$_POST['txt_footerXingUrl']); else $C->save("footerXingUrl","");
          if ( isset($_POST['chk_footerViewport']) && $_POST['chk_footerViewport'] ) $C->save("footerViewport","1"); else $C->save("footerViewport","0");
+         $C->save("footerSocialLinks", sanitize($_POST['txt_footerSocialLinks']));
           
          //
          // Homepage
@@ -248,11 +244,7 @@ $viewData['email'] = array (
 $viewData['footer'] = array (
    array ( 'prefix' => 'config', 'name' => 'footerCopyright', 'type' => 'text', 'value' => $C->read("footerCopyright"), 'maxlength' => '160' ),
    array ( 'prefix' => 'config', 'name' => 'footerCopyrightUrl', 'type' => 'text', 'value' => $C->read("footerCopyrightUrl"), 'maxlength' => '160' ),
-   array ( 'prefix' => 'config', 'name' => 'footerFacebookUrl', 'type' => 'text', 'value' => $C->read("footerFacebookUrl"), 'maxlength' => '160' ),
-   array ( 'prefix' => 'config', 'name' => 'footerGoogleplusUrl', 'type' => 'text', 'value' => $C->read("footerGoogleplusUrl"), 'maxlength' => '160' ),
-   array ( 'prefix' => 'config', 'name' => 'footerLinkedinUrl', 'type' => 'text', 'value' => $C->read("footerLinkedinUrl"), 'maxlength' => '160' ),
-   array ( 'prefix' => 'config', 'name' => 'footerTwitterUrl', 'type' => 'text', 'value' => $C->read("footerTwitterUrl"), 'maxlength' => '160' ),
-   array ( 'prefix' => 'config', 'name' => 'footerXingUrl', 'type' => 'text', 'value' => $C->read("footerXingUrl"), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'footerSocialLinks', 'type' => 'textarea', 'value' => $C->read("footerSocialLinks"), 'rows' => 5, 'placeholder' => "" ),
    array ( 'prefix' => 'config', 'name' => 'footerViewport', 'type' => 'check', 'values' => '', 'value' => $C->read("footerViewport") ),
 );
 
