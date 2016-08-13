@@ -3,6 +3,22 @@ TEAMCAL NEO UPGRADE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[0.9.004] -> [0.9.005]
+
+1. Backup your current files and database!
+
+2. Download the new release and overwrite all files.
+
+3. Edit config/config.app.php and change line 26 to:
+   $CONF['app_installed'] = "1";
+
+4. Edit config/config.db.php and update lines 22-26 to your database settings
+   from your backup.
+   
+5. Delete file installation.php in the root directory
+   
+
+------------------------------------------------------------------------------
 [0.9.003] -> [0.9.004]
 
 1. Backup your current files and database!

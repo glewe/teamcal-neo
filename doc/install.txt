@@ -12,7 +12,9 @@ https://georgelewe.atlassian.net/wiki/display/TCNEO/Installing+TeamCal+Neo
 Support
 =======
 
-I will try to provide support for TeamCal Neo as far as my time allows. 
+Commercial license holders will get priority support.
+
+For personal users I will try to provide support as far as my time allows. 
 
 Forum: http://forum.lewe.com
 Support: https://georgelewe.atlassian.net

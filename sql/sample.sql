@@ -458,11 +458,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (151, 'appKeywords', 'Lewe TeamCal Neo'),
 (152, 'userManual', 'https%3A%2F%2Fgeorgelewe.atlassian.net%2Fwiki%2Fdisplay%2FTCNEO'),
 (153, 'footerCopyrightUrl', 'http://www.lewe.com'),
-(154, 'footerFacebookUrl', ''),
-(155, 'footerGoogleplusUrl', 'https://plus.google.com/u/0/+GeorgeLewe'),
-(156, 'footerLinkedinUrl', 'https://www.linkedin.com/in/george-lewe-a9ab6411b'),
-(157, 'footerTwitterUrl', 'https://twitter.com/gekale'),
-(158, 'footerXingUrl', 'https://www.xing.com/profile/George_Lewe'),
+(154, 'footerSocialLinks', ''),
 (159, 'footerViewport', '0'),
 (160, 'cookieConsent', '0');
 

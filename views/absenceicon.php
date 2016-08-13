@@ -5,7 +5,7 @@
  * Absence icon page view
  *
  * @category TeamCal Neo 
- * @version 0.9.004
+ * @version 0.9.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -57,7 +57,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            {
                               if ($count % 12 == 0) echo '</div><div class="col-lg-12">';
                               echo '<div class="col-lg-1" style="border: ' . (($fai['val'] == $viewData['icon']) ? "1" : "0") . 'px solid #CC0000;"><div class="radio">';
-                              echo '<label><input name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . $tabindex++ . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><span class="fa fa-' . $fai['val'] . ' text-info"></span></label>';
+                              echo '<label><input name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . $tabindex++ . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><span class="fa fa-' . $fai['val'] . ' fa-lg text-info"></span></label>';
                               echo '</div></div>';
                               $count++;
                            } ?>
