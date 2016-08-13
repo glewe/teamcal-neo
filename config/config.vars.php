@@ -90,8 +90,8 @@ $mobilecols = array (
 );
 
 //
-// FONT AWESOME ICON NAMES
-// Used in select lists
+// Fontawesome 4.6.3
+// Names used in select lists
 //
 $faIcons = array (
 '500px',
@@ -323,6 +323,7 @@ $faIcons = array (
 'eye',
 'eye-slash',
 'eyedropper',
+'fa',
 'facebook',
 'facebook-f',
 'facebook-official',
@@ -357,6 +358,7 @@ $faIcons = array (
 'fire',
 'fire-extinguisher',
 'firefox',
+'first-order',
 'flag',
 'flag-checkered',
 'flag-o',
@@ -369,6 +371,7 @@ $faIcons = array (
 'folder-open',
 'folder-open-o',
 'font',
+'font-awesome',
 'fonticons',
 'fort-awesome',
 'forumbee',
@@ -400,6 +403,8 @@ $faIcons = array (
 'globe',
 'google',
 'google-plus',
+'google-plus-circle',
+'google-plus-official',
 'google-plus-square',
 'google-wallet',
 'graduation-cap',
@@ -567,6 +572,7 @@ $faIcons = array (
 'pie-chart',
 'pied-piper',
 'pied-piper-alt',
+'pied-piper-pp',
 'pinterest',
 'pinterest-p',
 'pinterest-square',
@@ -605,6 +611,7 @@ $faIcons = array (
 'repeat',
 'reply',
 'reply-all',
+'resistance',
 'retweet',
 'rmb',
 'road',
@@ -719,6 +726,7 @@ $faIcons = array (
 'th',
 'th-large',
 'th-list',
+'themeisle',
 'thumb-tack',
 'thumbs-down',
 'thumbs-o-down',
@@ -812,6 +820,7 @@ $faIcons = array (
 'yc-square',
 'yelp',
 'yen',
+'yoast',
 'youtube',
 'youtube-play',
 'youtube-square',
