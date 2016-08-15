@@ -5,7 +5,7 @@
  * The view of the top navigation menu
  *
  * @category TeamCal Neo 
- * @version 0.9.005
+ * @version 0.9.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -16,11 +16,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       <!-- ==================================================================== 
       view.menu
       -->
-      <div class="navbar navbar<?=($htmlData['theme']['navbarInverse'])?'-inverse':'';?> navbar-fixed-top">
+      <div class="navbar navbar<?=($htmlData['theme']['menuBarInverse'])?'-inverse':'';?> navbar-fixed-top">
          <div class="container">
             
             <div class="navbar-header">
-               <a href="index.php?action=<?=$CONF['controllers']['home']->name?>" class="navbar-brand" style="padding: 2px 8px 0 8px;"><img src="images/logo.png" width="48" height="48" alt=""></a>
+               <a href="<?=WEBSITE_URL?>" class="navbar-brand" style="padding: 2px 8px 0 8px;"><img src="images/logo.png" width="48" height="48" alt=""></a>
                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                   <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
                </button>

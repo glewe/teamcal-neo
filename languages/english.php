@@ -5,7 +5,7 @@
  * Language file (English)
  *
  * @category TeamCal Neo 
- * @version 0.9.005
+ * @version 0.9.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -376,6 +376,11 @@ $LANG['config_emailConfirmation_comment'] = 'Upon registration the user will rec
 $LANG['config_emailNotifications'] = 'E-Mail Notifications';
 $LANG['config_emailNotifications_comment'] = 'Enable/Disable E-Mail notifications. If you uncheck this option no automated notifications E-Mails are sent. 
       However, this does not apply to self-registration mails and to manually sent mails via the Message Center and the Viewprofile dialog.';
+$LANG['config_faCDN'] = 'Fontawesome CDN';
+$LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) can offer a performance benefit by hosting popular web modules on servers spread 
+      across the globe. Fontawesome is such a module. Pulling it from a CDN location also offers an advantage that if the visitor 
+      to your webpage has already downloaded a copy of it from the same CDN, it won\'t have to be re-downloaded.<br>This option only works with an
+      Internet connection of course. Switch this option off if you are running the application in an environment without Internet connectivity.';
 $LANG['config_footerCopyright'] = 'Footer Copyright Name';
 $LANG['config_footerCopyright_comment'] = 'Will be displayed in the upper left footer section. Just enter the name, the (current) year will be displayed automatically.';
 $LANG['config_footerCopyrightUrl'] = 'Footer Copyright URL';
@@ -384,11 +389,6 @@ $LANG['config_footerSocialLinks'] = 'Social Links';
 $LANG['config_footerSocialLinks_comment'] = 'Enter all URLs to the social sites you want to link to from TeamCal Neo\'s footer. Separate them by smicolon. TeamCal Neo will identify them and place the proper icons in the footer.';
 $LANG['config_footerViewport'] = 'Show Viewport Size';
 $LANG['config_footerViewport_comment'] = 'Checking this option will show the viewport size in the footer.';
-$LANG['config_faCDN'] = 'Fontawesome CDN';
-$LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) can offer a performance benefit by hosting popular web modules on servers spread 
-      across the globe. Fontawesome is such a module. Pulling it from a CDN location also offers an advantage that if the visitor 
-      to your webpage has already downloaded a copy of it from the same CDN, it won\'t have to be re-downloaded.<br>This option only works with an
-      Internet connection of course. Switch this option off if you are running the application in an environment without Internet connectivity.';
 $LANG['config_googleAnalytics'] = 'Google Analytics';
 $LANG['config_googleAnalytics_comment'] = $appTitle . ' supports Google Analytics. If you run your instance in the Internet and want to use Google Analytics 
       to trace access to it, you can check this box and enter your Google Analytics ID below. The corresponding Javascript code will be added automatically.';

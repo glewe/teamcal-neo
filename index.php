@@ -3,7 +3,7 @@
  * index.php
  * 
  * @category TeamCal Neo 
- * @version 0.9.005
+ * @version 0.9.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -163,7 +163,7 @@ $userData['avatar'] = 'noavatar_male.png';
 //
 // If someone is logged in, overwrite defaults
 //
-if ($luser = $L->checkLogin() AND (isset($_GET['action']) AND $_GET['action'] != 'logout'))
+if ($luser = $L->checkLogin() AND (!isset($_GET['action']) OR isset($_GET['action']) AND $_GET['action'] != 'logout'))
 {
    $userData['isLoggedIn'] = true;
    

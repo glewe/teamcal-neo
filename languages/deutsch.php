@@ -5,7 +5,7 @@
  * Language file (German)
  *
  * @category TeamCal Neo 
- * @version 0.9.005
+ * @version 0.9.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -377,6 +377,11 @@ $LANG['config_emailConfirmation_comment'] = 'Durch die Registrierung erh&auml;lt
 $LANG['config_emailNotifications'] = 'E-Mail Benachrichtigungen';
 $LANG['config_emailNotifications_comment'] = 'Aktivierung/Deaktivierung von E-Mail Benachrichtigungen. Wenn diese Option ausgeschaltet ist, werden keine automatischen 
       Benachrichtigungen per E-Mails verschickt. Dies trifft aber nicht auf Selbst-Registrierungsmails und auf manuell gesendete Mails im Message Center und im Viewprofile Dialog zu.';
+$LANG['config_faCDN'] = 'Fontawesome CDN';
+$LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) k&ouml;nnen einen Performance-Vorteil bieten dadurch dass popul&auml;re Web Module von Servern rund 
+      um den Globus geladen werden. Fontawesome ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul 
+      f&uuml;r den Nutzer schon durch eine andere Anwednung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Diese Option
+      funktioniert nat&uuml;rlich nur mit Internetverbindung. Schalte diese Option aus, wenn du '.$appTitle.' in einer Umgebung ohne Internetverbindung betreibst.';
 $LANG['config_footerCopyright'] = 'Fu&szlig;zeilen Copyright Name';
 $LANG['config_footerCopyright_comment'] = 'Wird in der Fu&szlig;zeile oben links angezeigt. Gib nur den Namen ein, das (aktuelle) Jahr wird autmatisch angezeigt.';
 $LANG['config_footerCopyrightUrl'] = 'Fu&szlig;zeilen Copyright URL';
@@ -386,11 +391,6 @@ $LANG['config_footerSocialLinks_comment'] = 'Gebe alle URLs zu sozialen Netzwerk
       TeamCal Neo wird die Netzwerke identifizieren und die entsprechende Icons in der Fu&szlig;zeile anzeigen.';
 $LANG['config_footerViewport'] = 'Viewport-Gr&ouml;&szlig;e anzeigen';
 $LANG['config_footerViewport_comment'] = 'Mit dieser Option wird im Footer die Viewport-Gr&ouml;&szlig; angezeigt.';
-$LANG['config_faCDN'] = 'Fontawesome CDN';
-$LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) k&ouml;nnen einen Performance-Vorteil bieten dadurch dass popul&auml;re Web Module von Servern rund 
-      um den Globus geladen werden. Fontawesome ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul 
-      f&uuml;r den Nutzer schon durch eine andere Anwednung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Diese Option
-      funktioniert nat&uuml;rlich nur mit Internetverbindung. Schalte diese Option aus, wenn du '.$appTitle.' in einer Umgebung ohne Internetverbindung betreibst.';
 $LANG['config_googleAnalytics'] = 'Google Analytics';
 $LANG['config_googleAnalytics_comment'] = $appTitle . ' unterst&uuml;tzt Google Analytics. Wenn du deine Instanz im Internet betreibst und den Zugriff 
       von Google Analytics tracken lassen willst, ticke die Checkbox hier und trage deine Google Analytics ID ein. Der entsprechende Javascript Code wird dann eingef&uuml;gt.';

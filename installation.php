@@ -5,7 +5,7 @@
  * Installation script
  *
  * @category TeamCal Neo 
- * @version 0.9.005
+ * @version 0.9.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -71,6 +71,9 @@ $LANG['inst_error'] = 'Installation Error';
 $LANG['inst_congrats'] = 'Congratulations';
 $LANG['inst_success'] = 'Installation Success';
 $LANG['inst_success_comment'] = 'The installation was successful. Please delete the installation script from the server before you start.<br><br><a class="btn btn-primary" href="index.php">Start</a>';
+$LANG['inst_update'] = 'Do not run for update';
+$LANG['inst_update_comment'] = 'Do not run the installation script for updating TeamCal Neo. Instead, follow the instructions <a href="doc/upgradeinfo.txt">here</a>.<br>
+      If this is a fresh install, you can close this message in the upper right corner and continue below.';
 $LANG['inst_warning'] = 'Installation Warning';
 
 //=============================================================================
@@ -258,6 +261,9 @@ if (!$installationComplete AND readConfig('app_installed', $configAppFile) <> '0
       <link rel="stylesheet" href="css/custom.css">
       <link rel="shortcut icon" href="images/icons/logo-16.png">
       <link rel="stylesheet" href="fonts/font-awesome/4.5.0/css/font-awesome.min.css">   
+      <script type="text/javascript" src="js/jquery/jquery-1.12.3.min.js"></script>
+      <script type="text/javascript" src="js/jquery/ui/1.11.4/jquery-ui.min.js"></script>
+      <script src="themes/bootstrap/js/bootstrap.min.js"></script>
    </head>
    
    <body>
@@ -287,7 +293,15 @@ if (!$installationComplete AND readConfig('app_installed', $configAppFile) <> '0
                   <p><?=$alertData['text']?></p>
                </div>
             <?php } ?>
-         
+
+           <div class="alert alert-dismissable alert-warning">
+               <button type="button" class="close" data-dismiss="alert" title="Close this message"><span class="glyphicon glyphicon-remove-circle"></span></button>
+               <h4><strong><?=$LANG['inst_warning']?></strong></h4>
+               <hr>
+               <p><strong><?=$LANG['inst_update']?></strong></p>
+               <p><?=$LANG['inst_update_comment']?></p>
+            </div>        
+               
             <?php if (!$installationExecuted and !$installationComplete) { ?> 
             <form  class="bs-example form-control-horizontal" action="installation.php" method="post" target="_self" accept-charset="utf-8">
 
