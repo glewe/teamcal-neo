@@ -924,39 +924,71 @@ function getTheme()
 {
    global $C, $L, $UO;
    
-   if (!$defaultTheme=$C->read("theme")) $defaultTheme = 'bootstrap';
-   if (!$defaultNavbarInverse=$C->read("menuBarInverse")) $defaultNavbarInverse = '1';
+   //
+   // Set the defaults
+   //
+   if (!$name=$C->read("theme")) $name = 'bootstrap';
+   if (!$menuBarInverse=$C->read("menuBarInverse")) $menuBarInverse = '1';
    
+   //
+   // Fill the array with the defaults
+   //
    $theme = array (
-      'name' => $defaultTheme,
-      'navbarInverse' => $defaultNavbarInverse
+      'name' => $name,
+      'menuBarInverse' => $menuBarInverse
    );
    
    if ($thisuser = $L->checkLogin())
    {
+      //
+      // Someone is logged in...
+      //
       if ($C->read("allowUserTheme"))
       {
-         if ($UO->hasOption($thisuser, "theme"))
+         //
+         // User themes are allowed...
+         //
+         if ($userTheme=$UO->read($thisuser, "theme") AND strlen($userTheme) AND $userTheme!='default')
          {
-            $userTheme = $UO->read($thisuser, "theme");
-            if ($userTheme!='default') $theme['name'] = $UO->read($thisuser, "theme");
+             $theme['name'] = $userTheme;
          }
-         
-         if ($UO->hasOption($thisuser, "menuBarInverse"))
+         else
          {
-            switch ($UO->read($thisuser, "menuBarInverse"))
+            //
+            // User theme cannot be found. Set it to default.
+            //
+            $UO->save($thisuser, 'theme', 'default');
+         }
+          
+         if ($menubar=$UO->read($thisuser, 'menuBar') AND strlen($menubar))
+         {
+            switch ($menubar)
             {
+               case "default":
+                  $theme['menuBarInverse'] = $menuBarInverse;
+                  break;
                case "normal":
-                  $theme['navbarInverse'] = '';
+                  $theme['menuBarInverse'] = '0';
                   break;
                case "inverse":
-                  $theme['navbarInverse'] = 'inverse';
+                  $theme['menuBarInverse'] = '1';
                   break;
                default:
+                  $theme['menuBarInverse'] = $menuBarInverse;
                   break;
             }
          }
+         else 
+         {
+            //
+            // User menubar setting cannot be found. Set it to default.
+            //
+            $UO->save($thisuser, 'menuBar', 'default');
+         }
       }
+      //
+      // Nobody is logged in. Luckily, we have set the defaults above.
+      //
    }
    
    return $theme;

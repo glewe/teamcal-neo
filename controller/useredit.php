@@ -167,12 +167,12 @@ if (!empty($_POST))
             $UO->save($profile, 'theme', 'default');
          }
          
-         if (!$UO->read($profile, 'menuBarInverse')) $UO->save($profile, 'menuBarInverse', 'default');
+         if (!$UO->read($profile, 'menuBar')) $UO->save($profile, 'menuBar', 'default');
          if (isset($_POST['opt_menuBar'])) 
          {
-            if ($_POST['opt_menuBar'] != $UO->read($profile, 'menuBarInverse'))
+            if ($_POST['opt_menuBar'] != $UO->read($profile, 'menuBar'))
             {
-               $UO->save($profile, 'menuBarInverse', $_POST['opt_menuBar']);
+               $UO->save($profile, 'menuBar', $_POST['opt_menuBar']);
                $reloadPage = true;
             }
          }
@@ -459,7 +459,7 @@ if ($C->read('allowUserTheme'))
       $viewData['themeList'][] = array ('val' => $appTheme, 'name' => proper($appTheme), 'selected' => ($UO->read($profile, 'theme') == $appTheme)?true:false );
    }
    $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'theme', 'type' => 'list', 'values' => $viewData['themeList'] );
-   $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'menuBar', 'type' => 'radio', 'values' => $viewData['menuBarOptions'], 'value' => $UO->read($profile, 'menuBarInverse') );
+   $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'menuBar', 'type' => 'radio', 'values' => $viewData['menuBarOptions'], 'value' => $UO->read($profile, 'menuBar') );
 }
 $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'language', 'type' => 'list', 'values' => $viewData['languageList'] );
 

@@ -1066,7 +1066,7 @@ INSERT INTO `tcneo_user_option` (`id`, `username`, `option`, `value`) VALUES
 (54, 'sgonzales', 'linkedin', ''),
 (55, 'sgonzales', 'skype', ''),
 (56, 'sgonzales', 'twitter', ''),
-(57, 'sgonzales', 'theme', 'amelia'),
+(57, 'sgonzales', 'theme', 'slate'),
 (58, 'sgonzales', 'language', 'default'),
 (59, 'sgonzales', 'avatar', 'sgonzales.gif'),
 (60, 'phead', 'title', ''),
@@ -1080,7 +1080,7 @@ INSERT INTO `tcneo_user_option` (`id`, `username`, `option`, `value`) VALUES
 (68, 'phead', 'linkedin', ''),
 (69, 'phead', 'skype', ''),
 (70, 'phead', 'twitter', ''),
-(71, 'phead', 'theme', 'amelia'),
+(71, 'phead', 'theme', 'cerulean'),
 (72, 'phead', 'language', 'default'),
 (73, 'phead', 'avatar', 'phead.jpg'),
 (74, 'blightyear', 'title', ''),
@@ -1108,7 +1108,7 @@ INSERT INTO `tcneo_user_option` (`id`, `username`, `option`, `value`) VALUES
 (96, 'mimouse', 'linkedin', ''),
 (97, 'mimouse', 'skype', ''),
 (98, 'mimouse', 'twitter', ''),
-(99, 'mimouse', 'theme', 'amelia'),
+(99, 'mimouse', 'theme', 'cosmo'),
 (100, 'mimouse', 'language', 'default'),
 (101, 'mimouse', 'avatar', 'mimouse.jpg'),
 (102, 'sman', 'title', ''),
@@ -1122,7 +1122,7 @@ INSERT INTO `tcneo_user_option` (`id`, `username`, `option`, `value`) VALUES
 (110, 'sman', 'linkedin', ''),
 (111, 'sman', 'skype', ''),
 (112, 'sman', 'twitter', ''),
-(113, 'sman', 'theme', 'amelia'),
+(113, 'sman', 'theme', 'cyborg'),
 (114, 'sman', 'language', 'default'),
 (115, 'sman', 'avatar', 'spiderman.jpg'),
 (116, 'mmouse', 'title', ''),
@@ -1136,10 +1136,7 @@ INSERT INTO `tcneo_user_option` (`id`, `username`, `option`, `value`) VALUES
 (124, 'mmouse', 'linkedin', ''),
 (125, 'mmouse', 'skype', ''),
 (126, 'mmouse', 'twitter', ''),
-(127, 'mmouse', 'theme', 'amelia'),
-(128, 'admin', 'menuBarInverse', '1'),
-(129, 'mmouse', 'menuBarInverse', '1'),
-(130, 'dduck', 'menuBarInverse', '1');
+(127, 'mmouse', 'theme', 'darkly');
 
 -- --------------------------------------------------------
 
