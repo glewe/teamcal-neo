@@ -16,17 +16,18 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class AbsenceGroup
 {
-   var $db = '';
-   var $table = '';
-   var $id = NULL;
-   var $absid = NULL;
-   var $groupid = NULL;
+   public $id = NULL;
+   public $absid = NULL;
+   public $groupid = NULL;
+   
+   private $db = '';
+   private $table = '';
    
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -39,9 +40,9 @@ class AbsenceGroup
     *
     * @param string $absid Absence ID
     * @param string $groupid Group short name
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function assign($absid, $groupid)
+   public function assign($absid, $groupid)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (absid, groupid) VALUES (:val1, :val2)');
       $query->bindParam('val1', $absid);
@@ -54,9 +55,9 @@ class AbsenceGroup
    /**
     * Deletes all records
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteAll()
+   public function deleteAll()
    {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
       $result = $query->execute();
@@ -68,9 +69,9 @@ class AbsenceGroup
     * Gets all group IDs that the given absence ID is assigend to
     *
     * @param string $absid Absence ID
-    * @return array $records Array of group IDs
+    * @return array Array of group IDs
     */
-   function getAssignments($absid)
+   public function getAssignments($absid)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE absid = :val1');
       $query->bindParam('val1', $absid);
@@ -85,9 +86,9 @@ class AbsenceGroup
     *
     * @param string $absid Absence ID
     * @param string $groupid Group short name
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function unassign($absid = '', $groupid = '')
+   public function unassign($absid = '', $groupid = '')
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE absid = :val1 AND groupid = :val2');
       $query->bindParam('val1', $absid);
@@ -101,9 +102,9 @@ class AbsenceGroup
     * Deletes all records for an absence type
     *
     * @param string $absid Absence ID
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function unassignAbs($absid = '')
+   public function unassignAbs($absid = '')
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE absid = :val1');
       $query->bindParam('val1', $absid);
@@ -115,10 +116,10 @@ class AbsenceGroup
    /**
     * Deletes all records for a group
     *
-    * @param string $groupid Group short name
-    * @return bool $result Query result
+    * @param string $group Group short name
+    * @return boolean Query result
     */
-   function unassignGroup($group = '')
+   public function unassignGroup($group = '')
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE groupid = :val1');
       $query->bindParam('val1', $groupid);
@@ -131,10 +132,10 @@ class AbsenceGroup
     * Checks whether an absence is assigned to a group
     *
     * @param string $absid Absence ID
-    * @param string $groupid Group short name
-    * @return bool $result Query result
+    * @param string $groupid Group ID
+    * @return boolean Query result
     */
-   function isAssigned($absid, $groupid)
+   public function isAssigned($absid, $groupid)
    {
       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE absid = :val1 AND groupid = :val2');
       $query->bindParam('val1', $absid);
@@ -155,9 +156,9 @@ class AbsenceGroup
    /**
     * Updates a record with the values in the class variables
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function update()
+   public function update()
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET absid = :val1, groupid = :val2 WHERE id = :val3');
       $query->bindParam('val1', $this->absid);
@@ -173,9 +174,9 @@ class AbsenceGroup
     *
     * @param string $absold Absence ID to change
     * @param string $absnew New absence ID
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function updateAbsence($absold, $absnew)
+   public function updateAbsence($absold, $absnew)
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET absid = :val1 WHERE absid = :val2');
       $query->bindParam('val1', $absnew);
@@ -190,9 +191,9 @@ class AbsenceGroup
     *
     * @param string $groupold Old group name
     * @param string $groupnew New group name
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function updateGroupname($groupold, $groupnew)
+   public function updateGroupname($groupold, $groupnew)
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET groupid = :val1 WHERE groupid = :val2');
       $query->bindParam('val1', $groupnew);
@@ -205,9 +206,9 @@ class AbsenceGroup
    /**
     * Optimize table
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

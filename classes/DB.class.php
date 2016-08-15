@@ -2,12 +2,12 @@
 /**
  * DB.class.php
  * 
- * @category TeamCal Neo 
- * @version 0.9.005
+ * @category LeAF 
+ * @version 0.6.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -16,7 +16,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class DB
 {
-   var $db;
+   public $db;
    
    // ---------------------------------------------------------------------
    /**
@@ -27,7 +27,7 @@ class DB
     * @param string $user Database username
     * @param string $password Password
     */
-   function __construct($server, $database, $user, $password)
+   public function __construct($server, $database, $user, $password)
    {
       /**
        * Connect to database
@@ -58,7 +58,7 @@ class DB
    /**
     * Optimize tables
     */
-   function optimizeTables()
+   public function optimizeTables()
    {
       $tables = array();
       
@@ -80,8 +80,10 @@ class DB
    // ---------------------------------------------------------------------
    /**
     * Run query
+    * 
+    * @param string $myQyery MySQL query
     */
-   function runQuery($myQuery)
+   public function runQuery($myQuery)
    {
       $query = $this->db->prepare($myQuery);
       $result = $query->execute();

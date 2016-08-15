@@ -16,18 +16,19 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class UserAttachment
 {
-   var $db = '';
-   var $table = '';
-   var $archive_table = '';
-   var $id = NULL;
-   var $username = '';
-   var $fileid = NULL;
+   public $id = NULL;
+   public $username = '';
+   public $fileid = NULL;
+   
+   private $db = '';
+   private $table = '';
+   private $archive_table = '';
    
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -40,9 +41,9 @@ class UserAttachment
     * Archives all records for a given user
     *
     * @param string $username Username to archive
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function archive($username)
+   public function archive($username)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -55,9 +56,9 @@ class UserAttachment
     * Restores all records for a given user
     *
     * @param string $name Username to restore
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function restore($username)
+   public function restore($username)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -70,10 +71,10 @@ class UserAttachment
     * Checks whether a record exists
     *
     * @param string $username Username to find
-    * @param boolean $archive Whether to search in archive table
-    * @return bool True if found, false if not
+    * @param boolean $archive Whether to use archive table
+    * @return boolean True if found, false if not
     */
-   function exists($username = '', $archive = FALSE)
+   public function exists($username = '', $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -98,9 +99,9 @@ class UserAttachment
     *
     * @param string $username Username
     * @param string $fileid File ID
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function create($username, $fileid)
+   public function create($username, $fileid)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, fileid) VALUES (:val1, :val2)');
       $query->bindParam('val1', $username);
@@ -113,10 +114,10 @@ class UserAttachment
    /**
     * Deletes all records
     *
-    * @param boolean $archive Whether to search in archive table
-    * @return bool Query result or false
+    * @param boolean $archive Whether to use archive table
+    * @return boolean Query result
     */
-   function deleteAll($archive = FALSE)
+   public function deleteAll($archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -131,9 +132,10 @@ class UserAttachment
     * Deletes all records for a given username
     *
     * @param string $username Username to delete
-    * @return bool Query result or false
+    * @param boolean $archive Whether to use archive table
+    * @return boolean Query result
     */
-   function deleteUser($username = '', $archive = FALSE)
+   public function deleteUser($username = '', $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -149,9 +151,9 @@ class UserAttachment
     * Delete all records for a given file ID
     *
     * @param string $fileid File ID
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function deleteFile($fileid)
+   public function deleteFile($fileid)
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE fileid = :val1');
       $query->bindParam('val1', $fileid);
@@ -167,7 +169,7 @@ class UserAttachment
     * @param string $fileid File ID to find
     * @return string TRUE if exists, FALSE if not
     */
-   function hasAccess($username, $fileid)
+   public function hasAccess($username, $fileid)
    {
       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND fileid = :val2');
       $query->bindParam('val1', $username);
@@ -188,9 +190,9 @@ class UserAttachment
    /**
     * Optimize table
     *
-    * @return bool $result Query result
+    * @return boolean $result Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

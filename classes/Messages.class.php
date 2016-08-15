@@ -2,12 +2,12 @@
 /**
  * Messages.class.php
  *
- * @category TeamCal Neo 
- * @version 0.9.005
+ * @category LeAF 
+ * @version 0.6.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -16,20 +16,21 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Messages
 {
-   var $table = '';
-   var $db = '';
-   var $id = NULL;
-   var $timestamp = '';
-   var $username = '';
-   var $text = '';
-   var $popup = '0';
-   var $type = 'info';
+   public $id = NULL;
+   public $timestamp = '';
+   public $username = '';
+   public $text = '';
+   public $popup = '0';
+   public $type = 'info';
+   
+   private $table = '';
+   private $db = '';
    
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -45,16 +46,24 @@ class Messages
     * @param string $username Username
     * @param string $text Text of the message
     * @param string $type Type of the message
-    * @return bool Query result or false
+    * @return integer Last inserted record ID
     */
-   function create($timestamp, $text, $type = 'info')
+   public function create($timestamp, $text, $type = 'info')
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (timestamp, text, type) VALUES (:val1, :val2, :val3)');
       $query->bindParam('val1', $timestamp);
       $query->bindParam('val2', $text);
       $query->bindParam('val3', $type);
       $result = $query->execute();
-      return $this->db->lastInsertId();
+      
+      if ($result)
+      {
+         return $this->db->lastInsertId();
+      }
+      else 
+      {
+         return false;
+      }
    }
    
    // ---------------------------------------------------------------------
@@ -62,9 +71,9 @@ class Messages
     * Deletes a message
     *
     * @param string $id Record ID to delete
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function delete($id)
+   public function delete($id)
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -76,9 +85,9 @@ class Messages
    /**
     * Deletes all records
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteAll()
+   public function deleteAll()
    {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
       $result = $query->execute();
@@ -91,7 +100,7 @@ class Messages
     *
     * @return array $records Array with all records
     */
-   function getAll()
+   public function getAll()
    {
       $records = array ();
       $query = $this->db->prepare('SELECT * FROM ' . $this->table);
@@ -102,13 +111,13 @@ class Messages
    
    // ---------------------------------------------------------------------
    /**
-    * Reads all records for a given username linked from the user-message
+    * Gets all records for a given username linked from the user-message
     * table.
     *
     * @param string $username Username to search for
-    * @return array $records Array with all records
+    * @return array Array with all records
     */
-   function getAllByUser($username)
+   public function getAllByUser($username)
    {
       $records = array ();
        
@@ -127,7 +136,6 @@ class Messages
             $records[] = $row;
          }
       }
-      //print_r($records);
       return $records;
    }
    
@@ -135,9 +143,9 @@ class Messages
    /**
     * Optimize table
     *
-    * @return bool Optimize result
+    * @return boolean Optimize result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

@@ -2,12 +2,12 @@
 /**
  * CSV.class.php
  * 
- * @category TeamCal Neo 
- * @version 0.9.005
+ * @category LeAF 
+ * @version 0.6.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -16,26 +16,24 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class CSV
 {
-   var $headrow;
-   var $body;
+   private $headrow = '';
+   private $body = '';
    
    // ---------------------------------------------------------------------
    /**
     * Class constructor
     */
-   function __construct()
+   public function __construct()
    {
-      $this->headrow = "";
-      $this->body = "";
    }
    
    // ---------------------------------------------------------------------
    /**
     * Creates the CSV header line with the field names
     *
-    * @param integer $rows MySQL query result (contains the number of fields)
+    * @param integer $rows MySQL query result
     */
-   function addHeadrow($rows)
+   public function addHeadrow($rows)
    {
       $out = '';
       for($i = 0; $i < mysql_num_fields($rows); $i++)
@@ -52,10 +50,10 @@ class CSV
    /**
     * Writes each field value of a row
     *
-    * @param integer $rows MySQL query result
     * @param array $row Array of field values
+    * @param integer $rows MySQL query result
     */
-   function addElement($row, $rows)
+   public function addElement($row, $rows)
    {
       $out = '';
       for($i = 0; $i < mysql_num_fields($rows); $i++)
@@ -82,7 +80,7 @@ class CSV
     *
     * @return string CSV text (header row and body)
     */
-   function getCSVDocument()
+   public function getCSVDocument()
    {
       return $this->headrow . $this->body;
    }

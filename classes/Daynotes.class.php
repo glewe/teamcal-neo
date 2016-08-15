@@ -16,22 +16,23 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Daynotes
 {
-   var $db = '';
-   var $table = '';
-   var $archive_table = '';
-   var $id = NULL;
-   var $yyyymmdd = '';
-   var $daynote = '';
-   var $daynotes = array();
-   var $username = '';
-   var $region = '';
-   var $color = '';
+   public $id = NULL;
+   public $yyyymmdd = '';
+   public $daynote = '';
+   public $daynotes = array();
+   public $username = '';
+   public $region = '';
+   public $color = '';
     
+   private $db = '';
+   private $table = '';
+   private $archive_table = '';
+   
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -44,7 +45,7 @@ class Daynotes
     * Archives all records for a given user
     *
     * @param string $username Username to archive
-    * @return bool $result Query result
+    * @return boolean Query result
     */
    function archive($username)
    {
@@ -59,9 +60,9 @@ class Daynotes
     * Restores all records for a given user
     *
     * @param string $name Username to restore
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function restore($username)
+   public function restore($username)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -75,9 +76,9 @@ class Daynotes
     *
     * @param string $username Username to find
     * @param boolean $archive Whether to use the archive table
-    * @return bool True if found, false if not
+    * @return boolean True if found, false if not
     */
-   function exists($username, $archive = false)
+   public function exists($username, $archive = false)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -100,9 +101,9 @@ class Daynotes
    /**
     * Creates a daynote record from class variables
     *
-    * @return bool Query result or false
+    * @return boolean Query result or false
     */
-   function create()
+   public function create()
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (yyyymmdd, username, region, daynote, color) VALUES (:val1, :val2, :val3, :val4, :val5)');
       $query->bindParam('val1', $this->yyyymmdd);
@@ -121,9 +122,9 @@ class Daynotes
     * @param string $yyyymmdd 8 character date (YYYYMMDD) to find for deletion
     * @param string $username Userame to find for deletion
     * @param string $region Region to find for deletion
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function delete($yyyymmdd = '', $username = '', $region = 'default')
+   public function delete($yyyymmdd = '', $username = '', $region = 'default')
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE yyyymmdd = :val1 AND username = :val2 AND region = :val3');
       $query->bindParam('val1', $yyyymmdd);
@@ -138,9 +139,9 @@ class Daynotes
     * Deletes all records
     *
     * @param boolean $archive Whether to use the archive table
-    * @return bool Query result or false
+    * @return boolean Query result or false
     */
-   function deleteAll($archive = FALSE)
+   public function deleteAll($archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -165,9 +166,9 @@ class Daynotes
     * Deletes all daynotes before (and including) a given day
     *
     * @param string $yyyymmdd 8 character date (YYYYMMDD) to find for deletion
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteAllBefore($yyyymmdd = '')
+   public function deleteAllBefore($yyyymmdd = '')
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE yyyymmdd <= :val1');
       $query->bindParam('val1', $yyyymmdd);
@@ -180,9 +181,9 @@ class Daynotes
     * Deletes all daynotes for a region
     *
     * @param string $region Region to find for deletion
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteAllForRegion($region = 'default')
+   public function deleteAllForRegion($region = 'default')
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE region = :val1');
       $query->bindParam('val1', $region);
@@ -195,9 +196,9 @@ class Daynotes
     * Deletes all daynotes for a user
     *
     * @param string $uname Username to find for deletion
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteAllForUser($username = '', $archive = FALSE)
+   public function deleteAllForUser($username = '', $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -212,9 +213,9 @@ class Daynotes
    /**
     * Delete an announcement by timestamp
     *
-    * @return bool Query result or false
+    * @return boolean Query result or false
     */
-   function deleteAllGlobal()
+   public function deleteAllGlobal()
    {
       $query = $this->db->prepare('DELETE FROM '.$this->table.' WHERE username = "all"');
       $result = $query->execute();
@@ -226,9 +227,9 @@ class Daynotes
     * Deletes a daynote record by id
     *
     * @param string $id ID to find for deletion
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteById($id)
+   public function deleteById($id)
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -238,14 +239,14 @@ class Daynotes
    
    // ---------------------------------------------------------------------
    /**
-    * Finds a daynote record for a given date/username/region
+    * Gets a daynote record for a given date/username/region
     *
     * @param string $yyyymmdd Date (YYYYMMDD) to find
     * @param string $username Userame to find
     * @param string $region Userame to find
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function get($yyyymmdd = '', $username = '', $region = 'default', $replaceCRLF = false)
+   public function get($yyyymmdd = '', $username = '', $region = 'default', $replaceCRLF = false)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE yyyymmdd = :val1 AND username = :val2 AND region = :val3');
       $query->bindParam('val1', $yyyymmdd);
@@ -269,15 +270,16 @@ class Daynotes
    
    // ---------------------------------------------------------------------
    /**
-    * Find all daynotes for a given user and month and load them in daynotes array
+    * Gets all daynotes for a given user and month and load them in daynotes array
     *
     * @param string $yyyy Year to find
     * @param string $mm Month to find
     * @param string $username Username to find
     * @param string $region Region to find
-    * @return bool $result Query result
+    * @param boolean $replaceCLRF Flag to replace CRLF with <br>
+    * @return boolean Query result
     */
-   function getForMonthUser($yyyy, $mm, $username, $region = 'default', $replaceCRLF = false)
+   public function getForMonthUser($yyyy, $mm, $username, $region = 'default', $replaceCRLF = false)
    {
       $number = cal_days_in_month(CAL_GREGORIAN, intval($mm), intval($yyyy));
       $days = sprintf('%02d', $number);
@@ -310,9 +312,10 @@ class Daynotes
     * @param string $mm Month to find
     * @param string $usernames Array of usernames to find
     * @param string $region Region to find
-    * @return bool $result Query result
+    * @param boolean $replaceCLRF Flag to replace CRLF with <br>
+    * @return boolean Query result
     */
-   function getforMonth($yyyy, $mm, $usernames, $region = 'default', $replaceCRLF = false)
+   public function getforMonth($yyyy, $mm, $usernames, $region = 'default', $replaceCRLF = false)
    {
       $number = cal_days_in_month(CAL_GREGORIAN, intval($mm), intval($yyyy));
       $days = sprintf('%02d', $number);
@@ -342,9 +345,10 @@ class Daynotes
     * Finds a daynote record by id and loads values in local class variables
     *
     * @param string $id ID to find
-    * @return bool $result Query result
+    * @param boolean $replaceCLRF Flag to replace CRLF with <br>
+    * @return boolean Query result
     */
-   function getById($id, $replaceCRLF = false)
+   public function getById($id, $replaceCRLF = false)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -367,9 +371,9 @@ class Daynotes
    /**
     * Updates a daynote record from local class variables
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function update()
+   public function update()
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET yyyymmdd = :val1, daynote = :val2, username = :val3, region = :val4, color = :val5 WHERE id = :val6');
       $query->bindParam('val1', $this->yyyymmdd);
@@ -386,9 +390,9 @@ class Daynotes
    /**
     * Optimize table
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

@@ -16,113 +16,114 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Months
 {
-   var $db = '';
-   var $table = '';
-   var $year = '';
-   var $month = '';
-   var $region = 1;
+   public $year = '';
+   public $month = '';
+   public $region = 1;
    
-   var $wday1 = 0;
-   var $wday2 = 0;
-   var $wday3 = 0;
-   var $wday4 = 0;
-   var $wday5 = 0;
-   var $wday6 = 0;
-   var $wday7 = 0;
-   var $wday8 = 0;
-   var $wday9 = 0;
-   var $wday10 = 0;
-   var $wday11 = 0;
-   var $wday12 = 0;
-   var $wday13 = 0;
-   var $wday14 = 0;
-   var $wday15 = 0;
-   var $wday16 = 0;
-   var $wday17 = 0;
-   var $wday18 = 0;
-   var $wday19 = 0;
-   var $wday20 = 0;
-   var $wday21 = 0;
-   var $wday22 = 0;
-   var $wday23 = 0;
-   var $wday24 = 0;
-   var $wday25 = 0;
-   var $wday26 = 0;
-   var $wday27 = 0;
-   var $wday28 = 0;
-   var $wday29 = 0;
-   var $wday30 = 0;
-   var $wday31 = 0;
+   public $wday1 = 0;
+   public $wday2 = 0;
+   public $wday3 = 0;
+   public $wday4 = 0;
+   public $wday5 = 0;
+   public $wday6 = 0;
+   public $wday7 = 0;
+   public $wday8 = 0;
+   public $wday9 = 0;
+   public $wday10 = 0;
+   public $wday11 = 0;
+   public $wday12 = 0;
+   public $wday13 = 0;
+   public $wday14 = 0;
+   public $wday15 = 0;
+   public $wday16 = 0;
+   public $wday17 = 0;
+   public $wday18 = 0;
+   public $wday19 = 0;
+   public $wday20 = 0;
+   public $wday21 = 0;
+   public $wday22 = 0;
+   public $wday23 = 0;
+   public $wday24 = 0;
+   public $wday25 = 0;
+   public $wday26 = 0;
+   public $wday27 = 0;
+   public $wday28 = 0;
+   public $wday29 = 0;
+   public $wday30 = 0;
+   public $wday31 = 0;
    
-   var $week1 = 0;
-   var $week2 = 0;
-   var $week3 = 0;
-   var $week4 = 0;
-   var $week5 = 0;
-   var $week6 = 0;
-   var $week7 = 0;
-   var $week8 = 0;
-   var $week9 = 0;
-   var $week10 = 0;
-   var $week11 = 0;
-   var $week12 = 0;
-   var $week13 = 0;
-   var $week14 = 0;
-   var $week15 = 0;
-   var $week16 = 0;
-   var $week17 = 0;
-   var $week18 = 0;
-   var $week19 = 0;
-   var $week20 = 0;
-   var $week21 = 0;
-   var $week22 = 0;
-   var $week23 = 0;
-   var $week24 = 0;
-   var $week25 = 0;
-   var $week26 = 0;
-   var $week27 = 0;
-   var $week28 = 0;
-   var $week29 = 0;
-   var $week30 = 0;
-   var $week31 = 0;
+   public $week1 = 0;
+   public $week2 = 0;
+   public $week3 = 0;
+   public $week4 = 0;
+   public $week5 = 0;
+   public $week6 = 0;
+   public $week7 = 0;
+   public $week8 = 0;
+   public $week9 = 0;
+   public $week10 = 0;
+   public $week11 = 0;
+   public $week12 = 0;
+   public $week13 = 0;
+   public $week14 = 0;
+   public $week15 = 0;
+   public $week16 = 0;
+   public $week17 = 0;
+   public $week18 = 0;
+   public $week19 = 0;
+   public $week20 = 0;
+   public $week21 = 0;
+   public $week22 = 0;
+   public $week23 = 0;
+   public $week24 = 0;
+   public $week25 = 0;
+   public $week26 = 0;
+   public $week27 = 0;
+   public $week28 = 0;
+   public $week29 = 0;
+   public $week30 = 0;
+   public $week31 = 0;
    
-   var $hol1 = 0;
-   var $hol2 = 0;
-   var $hol3 = 0;
-   var $hol4 = 0;
-   var $hol5 = 0;
-   var $hol6 = 0;
-   var $hol7 = 0;
-   var $hol8 = 0;
-   var $hol9 = 0;
-   var $hol10 = 0;
-   var $hol11 = 0;
-   var $hol12 = 0;
-   var $hol13 = 0;
-   var $hol14 = 0;
-   var $hol15 = 0;
-   var $hol16 = 0;
-   var $hol17 = 0;
-   var $hol18 = 0;
-   var $hol19 = 0;
-   var $hol20 = 0;
-   var $hol21 = 0;
-   var $hol22 = 0;
-   var $hol23 = 0;
-   var $hol24 = 0;
-   var $hol25 = 0;
-   var $hol26 = 0;
-   var $hol27 = 0;
-   var $hol28 = 0;
-   var $hol29 = 0;
-   var $hol30 = 0;
-   var $hol31 = 0;
+   public $hol1 = 0;
+   public $hol2 = 0;
+   public $hol3 = 0;
+   public $hol4 = 0;
+   public $hol5 = 0;
+   public $hol6 = 0;
+   public $hol7 = 0;
+   public $hol8 = 0;
+   public $hol9 = 0;
+   public $hol10 = 0;
+   public $hol11 = 0;
+   public $hol12 = 0;
+   public $hol13 = 0;
+   public $hol14 = 0;
+   public $hol15 = 0;
+   public $hol16 = 0;
+   public $hol17 = 0;
+   public $hol18 = 0;
+   public $hol19 = 0;
+   public $hol20 = 0;
+   public $hol21 = 0;
+   public $hol22 = 0;
+   public $hol23 = 0;
+   public $hol24 = 0;
+   public $hol25 = 0;
+   public $hol26 = 0;
+   public $hol27 = 0;
+   public $hol28 = 0;
+   public $hol29 = 0;
+   public $hol30 = 0;
+   public $hol31 = 0;
+   
+   private $db = '';
+   private $table = '';
    
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -135,9 +136,10 @@ class Months
     *
     * @param string $year Year of the template (YYYY)
     * @param string $month Month of the template (MM)
-    * @return bool $result Query result
+    * @param string $region Region of the template
+    * @return boolean Query result
     */
-   function clearHolidays($year, $month, $region)
+   public function clearHolidays($year, $month, $region)
    {
       $stmt = 'UPDATE ' . $this->table . ' SET ';
       for($i = 1; $i <= 31; $i++)
@@ -161,9 +163,9 @@ class Months
    /**
     * Creates a template from local variables
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function create()
+   public function create()
    {
       $stmt = '
          INSERT INTO ' . $this->table . ' 
@@ -205,9 +207,9 @@ class Months
    /**
     * Deletes all records
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteAll()
+   public function deleteAll()
    {
       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
       $result = $query->execute();
@@ -230,9 +232,9 @@ class Months
     *
     * @param string $year Year of the template (YYYY)
     * @param string $month Month of the template (MM)
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteBefore($year, $month)
+   public function deleteBefore($year, $month)
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year < :val1 OR (year = :val1 AND month <= :val2)');
       $query->bindParam('val1', $year);
@@ -248,9 +250,9 @@ class Months
     *
     * @param string $year Year of the template (YYYY)
     * @param string $month Month of the template (MM)
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteMonth($year, $month)
+   public function deleteMonth($year, $month)
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year = :val1 AND month = :val2');
       $query->bindParam('val1', $year);
@@ -262,12 +264,12 @@ class Months
    
    // ---------------------------------------------------------------------
    /**
-    * Deletes all templates for a username
+    * Deletes all templates for a region
     *
-    * @param string $region Region ID to delete all records of
-    * @return bool $result Query result
+    * @param string $region Region ID
+    * @return boolean Query result
     */
-   function deleteRegion($region)
+   public function deleteRegion($region)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -282,12 +284,12 @@ class Months
    /**
     * Deletes a template by region, year and month
     *
-    * @param string $region Region ID this template is for
     * @param string $year Year of the template (YYYY)
     * @param string $month Month of the template (MM)
-    * @return bool $result Query result
+    * @param string $region Region ID
+    * @return boolean Query result
     */
-   function deleteRegionMonth($year, $month, $region)
+   public function deleteRegionMonth($year, $month, $region)
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE region = :val1 AND year = :val2 AND month = :val3');
       $query->bindParam('val1', $region);
@@ -302,13 +304,13 @@ class Months
    /**
     * Gets the holiday ID of a given region, year, month and day
     *
-    * @param string $region Region ID to find
     * @param string $year Year to find (YYYY)
     * @param string $month Month to find (MM)
     * @param string $day Day of month to find (D)
-    * @return bool 0 or absence ID
+    * @param string $region Region ID
+    * @return boolean 0 or absence ID
     */
-   function getHoliday($year, $month, $day, $region)
+   public function getHoliday($year, $month, $day, $region)
    {
       $query = $this->db->prepare('SELECT hol' . $day . ' FROM ' . $this->table . ' WHERE region = :val1 AND year = :val2 AND month = :val3');
       $query->bindParam('val1', $region);
@@ -328,12 +330,12 @@ class Months
    /**
     * Gest a template by region, year and month
     *
-    * @param string $region Region ID to find
     * @param string $year Year to find (YYYY)
     * @param string $month Month to find (MM)
-    * @return bool $result Query result
+    * @param string $region Region ID
+    * @return boolean Query result
     */
-   function getMonth($year, $month, $region)
+   public function getMonth($year, $month, $region)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE region = :val1 AND year = :val2 AND month = :val3');
       $query->bindParam('val1', $region);
@@ -368,10 +370,10 @@ class Months
    /**
     * Gest all templates for a given region ID
     *
-    * @param string $region Region ID to find
-    * @return bool $result Query result
+    * @param string $region Region ID
+    * @return boolean Query result
     */
-   function getRegion($region)
+   public function getRegion($region)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE region = :val1');
       $query->bindParam('val1', $region);
@@ -403,13 +405,13 @@ class Months
    /**
     * Gets the weeknumber of a given region, year, month and day
     *
-    * @param string $region Region ID to find
     * @param string $year Year to find (YYYY)
     * @param string $month Month to find (MM)
     * @param string $day Day of month to find (D)
-    * @return bool 0 or absence ID
+    * @param string $region Region ID
+    * @return boolean 0 or absence ID
     */
-   function getWeek($year, $month, $day, $region)
+   public function getWeek($year, $month, $day, $region)
    {
       $query = $this->db->prepare('SELECT week' . $day . ' FROM ' . $this->table . ' WHERE region = :val1 AND year = :val2 AND month = :val3');
       $query->bindParam('val1', $region);
@@ -429,13 +431,13 @@ class Months
    /**
     * Gets the weekday of a given region, year, month and day
     *
-    * @param string $region Region ID to find
     * @param string $year Year to find (YYYY)
     * @param string $month Month to find (MM)
     * @param string $day Day of month to find (D)
-    * @return bool 0 or absence ID
+    * @param string $region Region ID
+    * @return boolean 0 or absence ID
     */
-   function getWeekday($year, $month, $day, $region)
+   public function getWeekday($year, $month, $day, $region)
    {
       $query = $this->db->prepare('SELECT wday' . $day . ' FROM ' . $this->table . ' WHERE region = :val1 AND year = :val2 AND month = :val3');
       $query->bindParam('val1', $region);
@@ -455,14 +457,14 @@ class Months
    /**
     * Sets a holiday for a given year, month, day and region
     *
-    * @param string $region Region ID to update
     * @param string $year Year to update (YYYY)
     * @param string $month Month to update (MM)
     * @param string $day Day to update
+    * @param string $region Region ID
     * @param string $hol Absence to set
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function setHoliday($year, $month, $day, $region, $hol)
+   public function setHoliday($year, $month, $day, $region, $hol)
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET hol' . $day . ' = :val1 WHERE region = :val2 AND year = :val3 AND month = :val4');
       $query->bindParam('val1', $hol);
@@ -478,14 +480,14 @@ class Months
    /**
     * Sets a weekday for a given year, month, day and region
     *
-    * @param string $region Region ID to update
     * @param string $year Year to update (YYYY)
     * @param string $month Month to update (MM)
     * @param string $day Day to update
+    * @param string $region Region ID
     * @param string $wday Weekday number
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function setWeekday($year, $month, $day, $region, $wday)
+   public function setWeekday($year, $month, $day, $region, $wday)
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET wday' . $day . ' = :val1 WHERE region = :val2 AND year = :val3 AND month = :val4');
       $query->bindParam('val1', $wday);
@@ -501,14 +503,14 @@ class Months
    /**
     * Sets a week number for a given year, month, day and region
     *
-    * @param string $region Region ID to update
     * @param string $year Year to update (YYYY)
     * @param string $month Month to update (MM)
     * @param string $day Day to update
+    * @param string $region Region ID
     * @param string $week Week number
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function setWeek($year, $month, $day, $region, $week)
+   public function setWeek($year, $month, $day, $region, $week)
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET week' . $day . ' = :val1 WHERE region = :val2 AND year = :val3 AND month = :val4');
       $query->bindParam('val1', $week);
@@ -524,12 +526,12 @@ class Months
    /**
     * Updates a template for a given region, year and month
     *
-    * @param string $region Region ID to update
     * @param string $year Year to update (YYYY)
     * @param string $month Month to update (MM)
-    * @return bool $result Query result
+    * @param string $region Region ID
+    * @return boolean Query result
     */
-   function update($year, $month, $region)
+   public function update($year, $month, $region)
    {
       $stmt = 'UPDATE ' . $this->table . ' SET region = :val1, year = :val2, month = :val3, ';
       for($i = 1; $i <= 31; $i++)
@@ -563,7 +565,7 @@ class Months
     * @param string $idold ID to be replaced
     * @param string $idnew ID to replace with
     */
-   function replaceHoliday($idold, $idnew)
+   public function replaceHoliday($idold, $idnew)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table);
       $result = $query->execute();
@@ -595,9 +597,9 @@ class Months
    /**
     * Optimize table
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

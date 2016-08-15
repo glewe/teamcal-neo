@@ -16,19 +16,20 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Allowances
 {
-   var $db = NULL;
-   var $table = '';
-   var $archive_table = '';
-   var $id = NULL;
-   var $username = '';
-   var $absid = 0;
-   var $carryover = 0;
+   public $id = NULL;
+   public $username = '';
+   public $absid = 0;
+   public $carryover = 0;
    
+   private $db;
+   private $table = '';
+   private $archive_table = '';
+
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -41,9 +42,9 @@ class Allowances
     * Archives all records for a given user
     *
     * @param string $username Username to archive
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function archive($username)
+   public function archive($username)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -56,9 +57,9 @@ class Allowances
     * Restores all records for a given user
     *
     * @param string $name Username to restore
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function restore($username)
+   public function restore($username)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -71,10 +72,10 @@ class Allowances
     * Checks whether a record exists
     *
     * @param string $username Username to find
-    * @param boolean $archive Whether to search in archive table
-    * @return bool True if exists
+    * @param boolean $archive Whether to use archive table
+    * @return boolean True if exists
     */
-   function exists($username = '', $archive = FALSE)
+   public function exists($username = '', $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -97,9 +98,9 @@ class Allowances
    /**
     * Creates an allowance record
     *
-    * @return bool Query result
+    * @return boolean Query result
     */
-   function create()
+   public function create()
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, absid, carryover) VALUES (:val1, :val2, :val3)');
       $query->bindParam('val1', $this->username);
@@ -113,9 +114,9 @@ class Allowances
    /**
     * Deletes an allowance record
     *
-    * @return bool Query result
+    * @return boolean Query result
     */
-   function delete()
+   public function delete()
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $this->id);
@@ -128,9 +129,9 @@ class Allowances
     * Deletes all allowance records for a given absence type
     *
     * @param string $absid Absence ID to delete
-    * @return bool Query result
+    * @return boolean Query result
     */
-   function deleteAbs($absid = '')
+   public function deleteAbs($absid = '')
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE absid = :val1');
       $query->bindParam('val1', $absid);
@@ -143,9 +144,9 @@ class Allowances
     * Deletes all records
     *
     * @param boolean $archive Whether to use the archive table
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function deleteAll($archive = FALSE)
+   public function deleteAll($archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -170,9 +171,9 @@ class Allowances
     * Deletes all allowance records for a given username
     *
     * @param string $username Username to delete
-    * @return bool Query result
+    * @return boolean Query result
     */
-   function deleteByUser($username = '', $archive = FALSE)
+   public function deleteByUser($username = '', $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -190,9 +191,9 @@ class Allowances
     *
     * @param string $username Username to find
     * @param string $absid Absence ID to find
-    * @return bool True if allowance exists, false if not
+    * @return boolean True if allowance exists, false if not
     */
-   function find($username, $absid)
+   public function find($username, $absid)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1 AND absid = :val2');
       $query->bindParam('val1', $username);
@@ -221,7 +222,7 @@ class Allowances
     * @param string $absid Absence ID to find
     * @return string Carryover value or 0
     */
-   function getCarryover($username, $absid)
+   public function getCarryover($username, $absid)
    {
       $query = $this->db->prepare('SELECT carryover FROM ' . $this->table . ' WHERE username = :val1 AND absid = :val2');
       $query->bindParam('val1', $username);
@@ -242,9 +243,9 @@ class Allowances
    /**
     * Saves an allowance record (either creates or updates it)
     *
-    * @return bool Query result
+    * @return boolean Query result
     */
-   function save()
+   public function save()
    {
       $query = $this->db->prepare('SELECT COUNT(1) FROM ' . $this->table . ' WHERE username = :val1 AND absid = :val2');
       $query->bindParam('val1', $this->username);
@@ -254,18 +255,15 @@ class Allowances
       if ($result and $query->fetchColumn())
       {
          $query = $this->db->prepare('UPDATE ' . $this->table . ' SET carryover = :val3 WHERE username = :val1 AND absid = :val2');
-         $query->bindParam('val1', $this->username);
-         $query->bindParam('val2', $this->absid);
-         $query->bindParam('val3', $this->carryover);
       }
       else
       {
          $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, absid, carryover) VALUES (:val1, :val2, :val3)');
-         $query->bindParam('val1', $this->username);
-         $query->bindParam('val2', $this->absid);
-         $query->bindParam('val3', $this->carryover);
       }
       
+      $query->bindParam('val1', $this->username);
+      $query->bindParam('val2', $this->absid);
+      $query->bindParam('val3', $this->carryover);
       $result = $query->execute();
       return $result;
    }
@@ -274,9 +272,9 @@ class Allowances
    /**
     * Updates an allowance record from the local variables
     *
-    * @return bool Query result
+    * @return boolean Query result
     */
-   function update()
+   public function update()
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET username = :val1, absid = :val2, carryover = :val3 WHERE id = :val4');
       $query->bindParam('val1', $this->username);
@@ -292,9 +290,9 @@ class Allowances
    /**
     * Optimize table
     *
-    * @return bool Query result
+    * @return boolean Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

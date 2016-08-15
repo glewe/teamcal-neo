@@ -2,12 +2,12 @@
 /**
  * Groups.class.php
  *
- * @category TeamCal Neo 
- * @version 0.9.005
+ * @category LeAF 
+ * @version 0.6.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -16,17 +16,18 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Groups
 {
-   var $db = '';
-   var $table = '';
-   var $id = '';
-   var $name = '';
-   var $description = '';
+   public $id = '';
+   public $name = '';
+   public $description = '';
+   
+   private $db = '';
+   private $table = '';
    
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -37,9 +38,9 @@ class Groups
    /**
     * Creates a new group record from local class variables
     *
-    * @return bool $result Query result
+    * @return boolean $result Query result
     */
-   function create()
+   public function create()
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description) VALUES (:val1, :val2)');
       $query->bindParam('val1', $this->name);
@@ -50,12 +51,12 @@ class Groups
    
    // ---------------------------------------------------------------------
    /**
-    * Deletes a group record for a given group name
+    * Deletes a record by ID
     *
-    * @param string $id Group ID to delete
-    * @return bool $result Query result
+    * @param string $id Record ID to delete
+    * @return boolean $result Query result
     */
-   function delete($id)
+   public function delete($id)
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -67,17 +68,16 @@ class Groups
    /**
     * Deletes all records
     *
-    * @param boolean $archive Whether to use the archive table
-    * @return bool Query result or false
+    * @return boolean Query result or false
     */
-   function deleteAll()
+   public function deleteAll()
    {
       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
       $result = $query->execute();
        
       if ($result and $query->fetchColumn())
       {
-         $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
+         $query = $this->db->prepare('TRUNCATE TABLE ' . $table);
          $result = $query->execute();
          return $result;
       }
@@ -89,12 +89,12 @@ class Groups
    
    // ---------------------------------------------------------------------
    /**
-    * Finds a group record for a given group name and loads values in local class variables
+    * Gets a group record for a given group name
     *
     * @param string $name Group name to find
-    * @return bool $result Query result
+    * @return boolean True or false
     */
-   function getByName($name)
+   public function getByName($name)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name = :val1');
       $query->bindParam('val1', $name);
@@ -118,9 +118,9 @@ class Groups
     * Gets a group record for a given ID
     *
     * @param string $id Group ID to find
-    * @return bool $result Query result
+    * @return boolean True or false
     */
-   function getById($id)
+   public function getById($id)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -143,10 +143,10 @@ class Groups
    /**
     * Gets a group name for a given ID
     *
-    * @param string $id Group ID to find
-    * @return bool $result Query result
+    * @param string $id ID to find
+    * @return string Group name (or false if not found)
     */
-   function getNameById($id)
+   public function getNameById($id)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -164,12 +164,12 @@ class Groups
    
    // ---------------------------------------------------------------------
    /**
-    * Reads all group records into an array
+    * Gets all group records into an array
     *
-    * @param boolean $excludeHidden If TRUE, exclude hidden groups
-    * @return array $records Array with all group records
+    * @param string $sort Sort direction (ASC or DESC)
+    * @return array Array with all group records
     */
-   function getAll($sort='ASC')
+   public function getAll($sort='ASC')
    {
       $records = array ();
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name '. $sort);
@@ -187,12 +187,13 @@ class Groups
    
    // ---------------------------------------------------------------------
    /**
-    * Reads all records into an array where groupname is like specified
+    * Gets all records into an array where likeness is found in group name
+    * or description
     *
     * @param string $like Likeness to search for
-    * @return array $records Array with all records
+    * @return array Array with all records
     */
-   function getAllLike($like)
+   public function getAllLike($like)
    {
       $records = array ();
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name LIKE :val1 OR description LIKE :val1 ORDER BY name ASC');
@@ -212,11 +213,11 @@ class Groups
    
    // ---------------------------------------------------------------------
    /**
-    * Reads all group names into an array
+    * Gets all group names into an array
     *
-    * @return array $records Array with all group names
+    * @return array Array with all group names
     */
-   function getAllNames()
+   public function getAllNames()
    {
       $records = array ();
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name ASC');
@@ -234,12 +235,12 @@ class Groups
    
    // ---------------------------------------------------------------------
    /**
-    * Updates a group record for a given group ID
+    * Updates a record for a given ID
     *
-    * @param string $name Group ID to update
-    * @return bool $result Query result
+    * @param string $name Record ID
+    * @return boolean Query result
     */
-   function update($id)
+   public function update($id)
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET name = :val1, description = :val2 WHERE id = :val3');
       $query->bindParam('val1', $this->name);
@@ -253,9 +254,9 @@ class Groups
    /**
     * Optimize table
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

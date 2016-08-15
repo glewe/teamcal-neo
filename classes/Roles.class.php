@@ -2,12 +2,12 @@
 /**
  * Roles.class.php
  *
- * @category TeamCal Neo 
- * @version 0.9.005
+ * @category LeAF 
+ * @version 0.6.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -16,18 +16,19 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Roles
 {
-   var $db = '';
-   var $table = '';
-   var $id = '';
-   var $name = '';
-   var $description = '';
-   var $color = '';
+   public $id = '';
+   public $name = '';
+   public $description = '';
+   public $color = '';
+   
+   private $db = '';
+   private $table = '';
    
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -38,11 +39,11 @@ class Roles
    /**
     * Creates a new role record from local class variables
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function create()
+   public function create()
    {
-      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description,color) VALUES (:val1, :val2, :val3)');
+      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, color) VALUES (:val1, :val2, :val3)');
       $query->bindParam('val1', $this->name);
       $query->bindParam('val2', $this->description);
       $query->bindParam('val3', $this->color);
@@ -52,12 +53,12 @@ class Roles
    
    // ---------------------------------------------------------------------
    /**
-    * Deletes a role record for a given role name
+    * Deletes a record by ID
     *
-    * @param string $id Role ID to delete
-    * @return bool $result Query result
+    * @param string $id ID to delete
+    * @return boolean Query result
     */
-   function delete($id)
+   public function delete($id)
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -69,10 +70,9 @@ class Roles
    /**
     * Deletes all records
     *
-    * @param boolean $archive Whether to use the archive table
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function deleteAll()
+   public function deleteAll()
    {
       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
       $result = $query->execute();
@@ -91,12 +91,11 @@ class Roles
    
    // ---------------------------------------------------------------------
    /**
-    * Reads all role records into an array
+    * Gets all records
     *
-    * @param boolean $excludeHidden If TRUE, exclude hidden roles
-    * @return array $records Array with all role records
+    * @return array Array with all role records
     */
-   function getAll()
+   public function getAll()
    {
       $records = array ();
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name ASC');
@@ -114,12 +113,12 @@ class Roles
    
    // ---------------------------------------------------------------------
    /**
-    * Reads all records into an array where rolename is like specified
+    * Gets all records with a likeness i name or description
     *
     * @param string $like Likeness to search for
-    * @return array $records Array with all records
+    * @return array Array with all records
     */
-   function getAllLike($like)
+   public function getAllLike($like)
    {
       $records = array ();
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name LIKE :val1 OR description LIKE :val1 ORDER BY name ASC');
@@ -139,11 +138,11 @@ class Roles
    
    // ---------------------------------------------------------------------
    /**
-    * Reads all role names into an array
+    * Gets all role names
     *
-    * @return array $records Array with all role names
+    * @return array Array with all role names
     */
-   function getAllNames()
+   public function getAllNames()
    {
       $records = array ();
       $query = $this->db->prepare('SELECT name FROM ' . $this->table . ' ORDER BY name ASC');
@@ -161,12 +160,12 @@ class Roles
    
    // ---------------------------------------------------------------------
    /**
-    * Gets a role record for a given ID
+    * Gets a record by ID
     *
     * @param string $id Role ID to find
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function getById($id)
+   public function getById($id)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -188,12 +187,12 @@ class Roles
    
    // ---------------------------------------------------------------------
    /**
-    * Finds a role record for a given role name and loads values in local class variables
+    * Gets a role record for a given role name
     *
     * @param string $name Role name to find
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function getByName($name)
+   public function getByName($name)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name = :val1');
       $query->bindParam('val1', $name);
@@ -218,9 +217,9 @@ class Roles
     * Gets the role color by ID
     *
     * @param string $id Role ID to find
-    * @return bool $result Query result
+    * @return string Color
     */
-   function getColorById($id)
+   public function getColorById($id)
    {
       $query = $this->db->prepare('SELECT color FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -241,9 +240,9 @@ class Roles
     * Gets the role color by name
     *
     * @param string $name Role name to find
-    * @return bool $result Query result
+    * @return string Role color
     */
-   function getColorByName($name)
+   public function getColorByName($name)
    {
       $query = $this->db->prepare('SELECT color FROM ' . $this->table . ' WHERE name = :val1');
       $query->bindParam('val1', $name);
@@ -264,9 +263,9 @@ class Roles
     * Gets a role name for a given ID
     *
     * @param string $id Role ID to find
-    * @return bool $result Query result
+    * @return string Role name
     */
-   function getNameById($id)
+   public function getNameById($id)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -284,12 +283,12 @@ class Roles
    
    // ---------------------------------------------------------------------
    /**
-    * Updates a role record for a given role ID
+    * Updates a record for a given ID
     *
     * @param string $name Role ID to update
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function update($id)
+   public function update($id)
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET name = :val1, description = :val2, color = :val3 WHERE id = :val4');
       $query->bindParam('val1', $this->name);
@@ -304,9 +303,9 @@ class Roles
    /**
     * Optimize table
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

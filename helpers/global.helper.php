@@ -924,9 +924,12 @@ function getTheme()
 {
    global $C, $L, $UO;
    
+   if (!$defaultTheme=$C->read("theme")) $defaultTheme = 'bootstrap';
+   if (!$defaultNavbarInverse=$C->read("menuBarInverse")) $defaultNavbarInverse = '1';
+   
    $theme = array (
-      'name' => $C->read("theme"),
-      'navbarInverse' => $C->read("menuBarInverse")
+      'name' => $defaultTheme,
+      'navbarInverse' => $defaultNavbarInverse
    );
    
    if ($thisuser = $L->checkLogin())

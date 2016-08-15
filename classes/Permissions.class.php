@@ -2,12 +2,12 @@
 /**
  * Permissions.class.php
  *
- * @category TeamCal Neo 
- * @version 0.9.005
+ * @category LeAF 
+ * @version 0.6.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -16,14 +16,14 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Permissions
 {
-   var $db = '';
-   var $table = '';
+   private $db = '';
+   private $table = '';
    
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -34,9 +34,9 @@ class Permissions
    /**
     * Read all unique scheme names
     *
-    * @return array $records Array containing the scheme names
+    * @return array Array of scheme names
     */
-   function getSchemes()
+   public function getSchemes()
    {
       $records = array ();
       $query = $this->db->prepare('SELECT DISTINCT scheme FROM ' . $this->table);
@@ -57,9 +57,9 @@ class Permissions
     * Checks whether a scheme exists
     *
     * @param string $scheme Scheme name to look for
-    * @return bool True if yes, false if no
+    * @return boolean True or false
     */
-   function schemeExists($scheme)
+   public function schemeExists($scheme)
    {
       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE scheme = :val1');
       $query->bindParam('val1', $scheme);
@@ -77,14 +77,14 @@ class Permissions
    
    // ---------------------------------------------------------------------
    /**
-    * Read the value of a permission
+    * Checks whether a given role has a given permission
     *
     * @param string $scheme Name of the permission scheme
     * @param string $permission Name of the permission
     * @param string $role Role of the permission
     * @return boolean True or False
     */
-   function isAllowed($scheme, $permission, $role)
+   public function isAllowed($scheme, $permission, $role)
    {
       $query = $this->db->prepare('SELECT allowed FROM ' . $this->table . ' WHERE scheme = :val1 AND permission = :val2 AND role = :val3' );
       $query->bindParam('val1', $scheme);
@@ -94,8 +94,7 @@ class Permissions
       
       if ($result and $row = $query->fetch())
       {
-         if ($row['allowed']) return true;
-         else return false;
+         if ($row['allowed']) return true; else return false;
       }
       else
       {
@@ -111,9 +110,9 @@ class Permissions
     * @param string $permission Name of the permission
     * @param string $role Role of the permission
     * @param bool $allowed True or False
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function setPermission($scheme, $permission, $role, $allowed)
+   public function setPermission($scheme, $permission, $role, $allowed)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE scheme = :val1 AND permission = :val2 AND role = :val3');
       $query->bindParam('val1', $scheme);
@@ -126,20 +125,15 @@ class Permissions
          if (!$row = $query->fetch())
          {
             $query2 = $this->db->prepare('INSERT INTO ' . $this->table . ' (scheme, permission, role, allowed) VALUES (:val1, :val2, :val3, :val4)');
-            $query2->bindParam('val1', $scheme);
-            $query2->bindParam('val2', $permission);
-            $query2->bindParam('val3', $role);
-            $query2->bindParam('val4', $allowed);
          }
          else
          {
-            $query2 = $this->db->prepare('UPDATE ' . $this->table . ' SET allowed = :val1 WHERE scheme = :val2 AND permission = :val3 AND role = :val4');
-            $query2->bindParam('val1', $allowed);
-            $query2->bindParam('val2', $scheme);
-            $query2->bindParam('val3', $permission);
-            $query2->bindParam('val4', $role);
+            $query2 = $this->db->prepare('UPDATE ' . $this->table . ' SET allowed = :val4 WHERE scheme = :val1 AND permission = :val2 AND role = :val3');
          }
-         
+         $query2->bindParam('val1', $scheme);
+         $query2->bindParam('val2', $permission);
+         $query2->bindParam('val3', $role);
+         $query2->bindParam('val4', $allowed);
          $result2 = $query2->execute();
          return $result2;
       }
@@ -154,9 +148,9 @@ class Permissions
     * Delete a role from all permission schemes
     *
     * @param integer $role Role ID
-    * @return integer Query result, or 0 if query not successful
+    * @return boolean Query result
     */
-   function deleteRole($role)
+   public function deleteRole($role)
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE role = :val1');
       $query->bindParam('val1', $role);
@@ -169,9 +163,9 @@ class Permissions
     * Delete a permission scheme
     *
     * @param string $scheme Name of the permission scheme
-    * @return integer Query result, or 0 if query not successful
+    * @return boolean Query result
     */
-   function deleteScheme($scheme)
+   public function deleteScheme($scheme)
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE scheme = :val1');
       $query->bindParam('val1', $scheme);
@@ -183,9 +177,9 @@ class Permissions
    /**
     * Delete all records (except default)
     *
-    * @return integer Query result, or 0 if query not successful
+    * @return boolean Query result
     */
-   function deleteAll()
+   public function deleteAll()
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE scheme <> "Default"');
       $result = $query->execute();
@@ -196,9 +190,9 @@ class Permissions
    /**
     * Optimize table
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

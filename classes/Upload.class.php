@@ -2,12 +2,12 @@
 /**
  * Upload.class.php
  *
- * @category TeamCal Neo 
- * @version 0.9.005
+ * @category LeAF 
+ * @version 0.6.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -16,58 +16,57 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Upload
 {
-   var $the_file;
-   var $the_temp_file;
-   var $the_new_file;
+   public $create_directory = true;
+   public $do_filename_check;
+   public $error;
+   public $ext_string;
+   public $extensions = array();
+   public $file_copy; // the new name
+   public $http_error;
+   public $max_length_filename = 100;
+   public $message = array ();
+   public $rename_file; // if this private is true the file copy get a new name
+   public $replace;
+   public $upload_dir;
+   public $uploaded_file = array();
    
-   var $create_directory = true;
-   var $do_filename_check;
-   var $error;
-   var $ext_string;
-   var $extensions = array();
-   var $file_copy; // the new name
-   var $http_error;
-   var $max_length_filename = 100;
-   var $message = array ();
-   var $rename_file; // if this var is true the file copy get a new name
-   var $replace;
-   var $upload_dir;
-   var $uploaded_file = array();
+   private $the_file;
+   private $the_temp_file;
+   private $the_new_file;
    
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
-      global $CONF, $LANG;
+      global $LANG;
       
       $this->rename_file = false;
       $this->ext_string = "";
       
-      $this->error[0] = $LANG['att_error_0'];
-      $this->error[1] = $LANG['att_error_1'];
-      $this->error[2] = $LANG['att_error_2'];
-      $this->error[3] = $LANG['att_error_3'];
-      $this->error[4] = $LANG['att_error_4'];
-      $this->error[10] = $LANG['att_error_10'];
-      $this->error[11] = $LANG['att_error_11'];
-      $this->error[12] = $LANG['att_error_12'];
-      $this->error[13] = $LANG['att_error_13'];
-      $this->error[14] = $LANG['att_error_14'];
-      $this->error[15] = $LANG['att_error_15'];
-      $this->error[16] = $LANG['att_error_16'];
+      $this->error[0] = $LANG['upload_error_0'];
+      $this->error[1] = $LANG['upload_error_1'];
+      $this->error[2] = $LANG['upload_error_2'];
+      $this->error[3] = $LANG['upload_error_3'];
+      $this->error[4] = $LANG['upload_error_4'];
+      $this->error[10] = $LANG['upload_error_10'];
+      $this->error[11] = $LANG['upload_error_11'];
+      $this->error[12] = $LANG['upload_error_12'];
+      $this->error[13] = $LANG['upload_error_13'];
+      $this->error[14] = $LANG['upload_error_14'];
+      $this->error[15] = $LANG['upload_error_15'];
+      $this->error[16] = $LANG['upload_error_16'];
    }
    
    // ---------------------------------------------------------------------
    /**
-    * Checks whether a given directory exists. If not, it creates it.
+    * Check whether a given directory exists. If not, create it.
     *
-    * @param string $directory
-    *           Directory to check
+    * @param string $directory Directory to check
     * @return boolean True if exists or created, false if not or creation failed.
     */
-   function checkDir($directory)
+   public function checkDir($directory)
    {
       if (!is_dir($directory))
       {
@@ -92,11 +91,10 @@ class Upload
    /**
     * Checks the filename
     *
-    * @param string $the_name
-    *           Filename to check
-    * @return bool True if correct, false if not.
+    * @param string $the_name Filename to check
+    * @return boolean True if correct, false if not.
     */
-   function checkFileName($the_name)
+   public function checkFileName($the_name)
    {
       if ($the_name != "")
       {
@@ -136,10 +134,9 @@ class Upload
    /**
     * Deletes a temporary file
     *
-    * @param string $file
-    *           Temp file to delete
+    * @param string $file Temp file to delete
     */
-   function deleteTempFile($file)
+   private function deleteTempFile($file)
    {
       $delete = @ unlink($file);
       clearstatcache();
@@ -161,11 +158,10 @@ class Upload
    /**
     * Checks whether a given file exists.
     *
-    * @param string $file_name
-    *           Filename to check
-    * @return bool True if exists, false if not
+    * @param string $file_name Filename to check
+    * @return boolean True if exists, false if not
     */
-   function fileExists($file_name)
+   public function fileExists($file_name)
    {
       if ($this->replace == "y")
       {
@@ -190,7 +186,7 @@ class Upload
     *
     * @return string HTML error messages
     */
-   function getErrors()
+   public function getErrors()
    {
       $msg_string = '';
       foreach ( $this->message as $value ) $msg_string .= $value . "<br>";
@@ -201,13 +197,13 @@ class Upload
    /**
     * Gets the extension of a given filename
     *
-    * @param string $from_file
-    *           Filename to check
+    * @param string $from_file Filename to check
     * @return string Filename extension
     */
-   function getExtension($from_file)
+   private function getExtension($from_file)
    {
       $ext = strtolower(strrchr($from_file, "."));
+      $ext = ltrim($ext, ".");
       return $ext;
    }
    
@@ -217,7 +213,7 @@ class Upload
     * 
     * @return string Allowed file extensions
     */
-   function getExtensions()
+   private function getExtensions()
    {
       $this->ext_string = implode(", ", $this->extensions);
    }
@@ -229,7 +225,7 @@ class Upload
     * @param string $name Filename to check
     * @return string $str File info
     */
-   function getUploadedFileInfo($name)
+   public function getUploadedFileInfo($name)
    {
       $this->uploaded_file['name'] = basename($name);
       $this->uploaded_file['size'] = filesize($name);
@@ -251,11 +247,11 @@ class Upload
     * Validates the file extension of the file to upload against an array of
     * allowed extensions.
     *
-    * @return bool True if valid, false if not
+    * @return boolean True if valid, false if not
     */
-   function isValidExtension()
+   private function isValidExtension()
    {
-      $extension = strtolower(substr($this->getExtension($this->the_file),1)); // Remove first character dot (.)
+      $extension = $this->getExtension($this->the_file);
       $ext_array = $this->extensions;
       if (in_array($extension, $ext_array))
       {
@@ -273,9 +269,9 @@ class Upload
     *
     * @param string $tmp_file Temp filename
     * @param string $new_file New filename
-    * @return bool True if successful, false if not.
+    * @return boolean True if successful, false if not.
     */
-   function moveUpload($tmp_file, $new_file)
+   private function moveUpload($tmp_file, $new_file)
    {
       if ($this->fileExists($new_file))
       {
@@ -311,11 +307,10 @@ class Upload
    /**
     * Creates and returns a unique new filename
     *
-    * @param string $new_name
-    *           New desired file name (optional)
+    * @param string $new_name New desired file name (optional)
     * @return string $name New filename
     */
-   function setFileName($new_name = "")
+   private function setFileName($new_name = "")
    {
       if ($this->rename_file)
       {
@@ -339,11 +334,10 @@ class Upload
    /**
     * Uploads the file submitted thru class variables
     *
-    * @param string $to_name
-    *           New desired file name (optional)
+    * @param string $to_name New desired file name (optional)
     * @return string True if upload successful, false if not
     */
-   function upload($to_name = "")
+   public function upload($to_name = "")
    {
       $new_name = $this->setFileName($to_name);
       

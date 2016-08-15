@@ -2,12 +2,12 @@
 /**
  * Avatar.class.php
  *
- * @category TeamCal Neo 
- * @version 0.9.005
+ * @category LeAF 
+ * @version 0.6.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -16,33 +16,29 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Avatar
 {
-   var $allowedTypes = '';
-   var $fileExtension = '';
-   var $fileName = '';
-   var $tmpFileName = '';
-   var $maxHeight = '';
-   var $maxWidth = '';
-   var $maxSize = '';
-   var $message = '';
-   var $path = '';
+   private $allowedTypes = '';
+   private $fileExtension = '';
+   private $fileName = '';
+   private $tmpFileName = '';
+   private $maxHeight = '';
+   private $maxWidth = '';
+   private $maxSize = '';
+   private $message = '';
+   private $path = '';
    
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $C, $CONF;
       
-      $this->maxHeight = $C->read("avatarHeight");
-      $this->maxWidth = $C->read("avatarWidth");
-      $this->maxSize = $C->read("avatarMaxSize");
-      $this->path = $CONF['app_avatar_dir'];
-      $this->allowedTypes = array (
-         "gif",
-         "jpg",
-         "png" 
-      );
+      $this->maxHeight = 80;
+      $this->maxWidth = 80;
+      $this->maxSize = $CONF['avatarMaxsize'];
+      $this->path = 'upload/images/avatars/';
+      $this->allowedTypes = $CONF['avatarExtensions'];
    }
    
    // ---------------------------------------------------------------------
@@ -52,7 +48,7 @@ class Avatar
     * @param string $uname Username (file name) to find
     * @return boolean True if found, false if not
     */
-   function find($uname)
+   public function find($uname)
    {
       foreach ( $this->allowedTypes as $extension )
       {
@@ -73,7 +69,7 @@ class Avatar
     * @param string $uname Username (for avatars named like the username)
     * @param string $avatar Current user avatar (file name with extension)
     */
-   function delete($uname, $avatar)
+   public function delete($uname, $avatar)
    {
       foreach ( $this->allowedTypes as $extension )
       {
@@ -95,7 +91,7 @@ class Avatar
     *
     * @param string $uname Username (file name) to save
     */
-   function save($uname)
+   public function save($uname)
    {
       global $_FILES;
       global $LANG;
@@ -140,8 +136,7 @@ class Avatar
                $nWidth = floor($width * $ratio);
                $nHeight = floor($height * $ratio);
                
-               // echo "<script type=\"text/javascript\">alert(\"Debug: ".$imgsize[0]." ".$imgsize[1]." ".$nWidth."
-               // ".$nHeight."\");</script>";
+               // echo "<script type=\"text/javascript\">alert(\"Debug: ".$imgsize[0]." ".$imgsize[1]." ".$nWidth." ".$nHeight."\");</script>";
                
                switch (strtolower($this->fileExtension))
                {
@@ -241,7 +236,7 @@ class Avatar
     * @param string $str File name to scan
     * @return string File extension if exists
     */
-   function getFileExtension($str)
+   private function getFileExtension($str)
    {
       $i = strrpos($str, ".");
       if (!$i) return "";

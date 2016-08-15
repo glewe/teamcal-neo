@@ -2,12 +2,12 @@
 /**
  * UserMessage.class.php
  *
- * @category TeamCal Neo 
- * @version 0.9.005
+ * @category LeAF 
+ * @version 0.6.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -16,15 +16,15 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class UserMessage
 {
-   var $db = '';
-   var $table = '';
-   var $archive_table = '';
+   private $db = '';
+   private $table = '';
+   private $archive_table = '';
    
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -37,9 +37,9 @@ class UserMessage
     * Archives a user record
     *
     * @param string $username Username to archive
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function archive($username)
+   public function archive($username)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -53,9 +53,10 @@ class UserMessage
     *
     * @param string $username Username to assign to
     * @param string $msgid Message ID
-    * @return bool $result Query result
+    * @param string $popup Popup type
+    * @return boolean Query result
     */
-   function add($username, $msgid, $popup)
+   public function add($username, $msgid, $popup)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, msgid, popup) VALUES (:val1, :val2, :val3)');
       $query->bindParam('val1', $username);
@@ -71,9 +72,9 @@ class UserMessage
     *
     * @param string $username Username to find
     * @param boolean $archive Whether to search in archive table
-    * @return bool True if found, false if not
+    * @return boolean True if found, false if not
     */
-   function exists($username = '', $archive = FALSE)
+   public function exists($username = '', $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -98,9 +99,9 @@ class UserMessage
     *
     * @param string $id ID of the records to delete
     * @param boolean $archive Whether to search in archive table
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function delete($id, $archive = false)
+   public function delete($id, $archive = false)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -116,9 +117,9 @@ class UserMessage
     * Deletes all records
     *
     * @param boolean $archive Whether to search in archive table
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function deleteAll($archive = FALSE)
+   public function deleteAll($archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -144,9 +145,9 @@ class UserMessage
     *
     * @param string $username Username of the records to delete
     * @param boolean $archive Whether to search in archive table
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteByUser($username, $archive = false)
+   public function deleteByUser($username, $archive = false)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -162,9 +163,9 @@ class UserMessage
     * Gets all message link IDs for a given user
     *
     * @param string $username Username
-    * @return array $records Array with all records
+    * @return array Array with records
     */
-   function getAllByUser($username)
+   public function getAllByUser($username)
    {
       $records = array ();
       $query = $this->db->prepare('SELECT msgid FROM ' . $this->table . ' WHERE username = :val1');
@@ -186,9 +187,9 @@ class UserMessage
     * Gets all message links for a given message ID
     *
     * @param string $msgid Message ID
-    * @return array $records Array with all records
+    * @return array Array with records
     */
-   function getAllByMsgId($msgid)
+   public function getAllByMsgId($msgid)
    {
       $records = array ();
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE msgid = :val1');
@@ -210,9 +211,9 @@ class UserMessage
     * Gets all popup message link IDs for a given user
     *
     * @param string $username Username
-    * @return array $records Array with all records
+    * @return array Array with records
     */
-   function getAllPopupByUser($username)
+   public function getAllPopupByUser($username)
    {
       $records = array ();
       $query = $this->db->prepare('SELECT msgid FROM ' . $this->table . ' WHERE username = :val1 AND popup = "1"');
@@ -234,9 +235,9 @@ class UserMessage
     * Restore arcived user records
     *
     * @param string $username Username to restore
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function restore($username)
+   public function restore($username)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -249,9 +250,9 @@ class UserMessage
     * Sets a message link to silent
     *
     * @param string $id Record ID
-    * @return array $records Array with all records
+    * @return boolen Query result
     */
-   function setSilent($id)
+   public function setSilent($id)
    {
       $records = array ();
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET popup = "0" WHERE id = :val1');
@@ -265,9 +266,9 @@ class UserMessage
     * Sets all message links for a given username to silent
     *
     * @param string $username Username
-    * @return array $records Array with all records
+    * @return boolen Query result
     */
-   function setSilentByUser($username)
+   public function setSilentByUser($username)
    {
       $records = array ();
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET popup = "0" WHERE username = :val1');
@@ -280,9 +281,9 @@ class UserMessage
    /**
     * Optimize table
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

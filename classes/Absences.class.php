@@ -16,31 +16,32 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Absences
 {
-   var $db = NULL;
-   var $table = '';
-   var $id = 0;
-   var $name = '';
-   var $symbol = '';
-   var $icon = 'No';
-   var $color = '000000';
-   var $bgcolor = 'ffffff';
-   var $bgtrans = 0;
-   var $factor = 1;
-   var $allowance = '0';
-   var $counts_as = 0;
-   var $show_in_remainder = 1;
-   var $show_totals = 1;
-   var $approval_required = 0;
-   var $counts_as_present = 0;
-   var $manager_only = 0;
-   var $hide_in_profile = 0;
-   var $confidential = 0;
+   public $id = 0;
+   public $name = '';
+   public $symbol = '';
+   public $icon = 'No';
+   public $color = '000000';
+   public $bgcolor = 'ffffff';
+   public $bgtrans = 0;
+   public $factor = 1;
+   public $allowance = '0';
+   public $counts_as = 0;
+   public $show_in_remainder = 1;
+   public $show_totals = 1;
+   public $approval_required = 0;
+   public $counts_as_present = 0;
+   public $manager_only = 0;
+   public $hide_in_profile = 0;
+   public $confidential = 0;
+   
+   private $db = NULL;
+   private $table = '';
    
    // ----------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -51,9 +52,9 @@ class Absences
    /**
     * Creates an absence type record
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function create()
+   public function create()
    {
       $query = $this->db->prepare(
             'INSERT INTO ' . $this->table . 
@@ -84,9 +85,9 @@ class Absences
     * Deletes an absence type record
     *
     * @param string $id Record ID
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function delete($id = '')
+   public function delete($id = '')
    {
       $result = 0;
       if (isset($id))
@@ -102,9 +103,9 @@ class Absences
    /**
     * Deletes all absence type records
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteAll()
+   public function deleteAll()
    {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
       $result = $query->execute();
@@ -116,9 +117,9 @@ class Absences
     * Gets an absence type record
     *
     * @param string $id Record ID
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function get($id = '')
+   public function get($id = '')
    {
       $result = 0;
       if (isset($id))
@@ -155,9 +156,9 @@ class Absences
    /**
     * Reads all records into an array
     *
-    * @return array $records Array with all records
+    * @return array $records Array with records
     */
-   function getAll()
+   public function getAll()
    {
       $records = array ();
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name ASC');
@@ -174,9 +175,9 @@ class Absences
     * Reads all absence types counting as the given ID
     *
     * @param string $id ID to search for
-    * @return array $records Array with all records
+    * @return array $records Array with records
     */
-   function getAllSub($id)
+   public function getAllSub($id)
    {
       $records = array ();
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE counts_as = :val1 ORDER BY name ASC');
@@ -192,9 +193,9 @@ class Absences
     * Gets all primary absences (not counts_as) types but the one with the given ID
     *
     * @param string $id ID to skip
-    * @return array $records Array with all records
+    * @return array $records Array with records
     */
-   function getAllPrimaryBut($id)
+   public function getAllPrimaryBut($id)
    {
       $records = array ();
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id != :val1 AND counts_as = "0" ORDER BY name ASC');
@@ -212,7 +213,7 @@ class Absences
     * @param string $id Record ID
     * @return string Absence type allowance
     */
-   function getAllowance($id = '')
+   public function getAllowance($id = '')
    {
       $rc = '0';
       if (isset($id))
@@ -234,9 +235,9 @@ class Absences
     * Gets the approval required value of an absence type
     *
     * @param string $id Record ID
-    * @return bool Approval required
+    * @return boolean Approval required
     */
-   function getApprovalRequired($id = '')
+   public function getApprovalRequired($id = '')
    {
       $rc = false;
       if (isset($id))
@@ -258,9 +259,9 @@ class Absences
     * Gets the background color of an absence type
     *
     * @param string $id Record ID
-    * @return string Absence type color
+    * @return string Absence type bgcolor
     */
-   function getBgColor($id = '')
+   public function getBgColor($id = '')
    {
       $rc = '';
       if (isset($id))
@@ -282,9 +283,9 @@ class Absences
     * Gets the background transparency flag of an absence type
     *
     * @param string $id Record ID
-    * @return string Absence type color
+    * @return string Absence type bgtrans
     */
-   function getBgTrans($id = '')
+   public function getBgTrans($id = '')
    {
       $rc = '';
       if (isset($id))
@@ -306,9 +307,9 @@ class Absences
     * Gets an absence type record
     *
     * @param string $name Absence type name
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function getByName($name = '')
+   public function getByName($name = '')
    {
       $result = 0;
       if (isset($name))
@@ -348,7 +349,7 @@ class Absences
     * @param string $id Record ID
     * @return string Absence type color
     */
-   function getColor($id = '')
+   public function getColor($id = '')
    {
       $rc = '';
       if (isset($id))
@@ -372,7 +373,7 @@ class Absences
     * @param string $id Record ID
     * @return string Absence counts as
     */
-   function getCountsAs($id = '')
+   public function getCountsAs($id = '')
    {
       $rc = false;
       if (isset($id))
@@ -396,7 +397,7 @@ class Absences
     * @param string $id Record ID
     * @return string Absence type factor
     */
-   function getFactor($id = '')
+   public function getFactor($id = '')
    {
       $rc = 1; // Default factor is 1
       if (isset($id))
@@ -420,7 +421,7 @@ class Absences
     * @param string $id Record ID
     * @return string Absence type icon
     */
-   function getIcon($id = '')
+   public function getIcon($id = '')
    {
       $rc = '.';
       if (isset($id))
@@ -443,7 +444,7 @@ class Absences
     *
     * @return string Last auto-increment ID
     */
-   function getLastId()
+   public function getLastId()
    {
       $query = $this->db->prepare('SHOW TABLE STATUS LIKE ' . $this->table);
       $result = $query->execute();
@@ -459,9 +460,9 @@ class Absences
     * Gets the manager only flag of an absence type
     *
     * @param string $id Record ID
-    * @return bool Manager only flag
+    * @return boolean Manager only flag
     */
-   function getManagerOnly($id = '')
+   public function getManagerOnly($id = '')
    {
       $rc = false;
       if (isset($id))
@@ -485,7 +486,7 @@ class Absences
     * @param string $id Record ID
     * @return string Absence type name
     */
-   function getName($id = '')
+   public function getName($id = '')
    {
       $rc = 'unknown';
       if (isset($id))
@@ -508,7 +509,7 @@ class Absences
     *
     * @return string Next auto-increment ID
     */
-   function getNextId()
+   public function getNextId()
    {
       $query = $this->db->prepare('SHOW TABLE STATUS LIKE ' . $this->table);
       $result = $query->execute();
@@ -526,7 +527,7 @@ class Absences
     * @param string $id Record ID
     * @return string Absence type symbol
     */
-   function getSymbol($id = '')
+   public function getSymbol($id = '')
    {
       $rc = '.';
       if (isset($id))
@@ -548,9 +549,9 @@ class Absences
     * Updates an absence type by it's symbol from the current array data
     *
     * @param string $id Record ID
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function update($id = '')
+   public function update($id = '')
    {
       $result = 0;
       if (isset($id))
@@ -600,9 +601,9 @@ class Absences
    /**
     * Optimize table
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

@@ -2,12 +2,12 @@
 /**
  * Controller.class.php
  *
- * @category TeamCal Neo 
- * @version 0.9.005
+ * @category LeAF 
+ * @version 0.6.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -16,11 +16,11 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Controller
 {
-   var $name = '';
-   var $faIcon = 'folder-o';
-   var $iconColor = 'default';
-   var $panelColor = 'default';
-   var $permission = '';
+   public $name = '';
+   public $faIcon = 'folder-o';
+   public $iconColor = 'default';
+   public $panelColor = 'default';
+   public $permission = '';
     
    // ---------------------------------------------------------------------
    /**
@@ -33,7 +33,7 @@ class Controller
     * @param string $permission The permission a user role must have to access this controller. Leave empty for public access.
     * 
     */
-   function __construct($name, $faIcon, $iconColor, $panelColor, $permission)
+   public function __construct($name, $faIcon, $iconColor, $panelColor, $permission)
    {
       if (!strlen($name))
       {

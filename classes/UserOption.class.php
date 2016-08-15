@@ -2,12 +2,12 @@
 /**
  * UserOption.class.php
  *
- * @category TeamCal Neo 
- * @version 0.9.005
+ * @category LeAF 
+ * @version 0.6.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -16,19 +16,20 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class UserOption
 {
-   var $db = '';
-   var $table = '';
-   var $archive_table = '';
-   var $id = NULL;
-   var $username = NULL;
-   var $option = NULL;
-   var $value = NULL;
+   public $id = NULL;
+   public $username = NULL;
+   public $option = NULL;
+   public $value = NULL;
    
+   private $db = '';
+   private $table = '';
+   private $archive_table = '';
+
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -41,9 +42,9 @@ class UserOption
     * Archives all records for a given user
     *
     * @param string $username Username to archive
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function archive($username)
+   public function archive($username)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -56,9 +57,9 @@ class UserOption
     * Restores all records for a given user
     *
     * @param string $name Username to restore
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function restore($username)
+   public function restore($username)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -72,9 +73,9 @@ class UserOption
     *
     * @param string $username Username to find
     * @param boolean $archive Whether to search in archive table
-    * @return bool True if found, false if not
+    * @return boolean True if found, false if not
     */
-   function exists($username = '', $archive = FALSE)
+   public function exists($username = '', $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -100,9 +101,9 @@ class UserOption
     * @param string $username Username
     * @param string $option Option name
     * @param string $value Option value
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function create($username, $option, $value)
+   public function create($username, $option, $value)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, option, value) VALUES (:val1, :val2, :val3)');
       $query->bindParam('val1', $username);
@@ -117,9 +118,9 @@ class UserOption
     * Deletes all records
     *
     * @param boolean $archive Whether to search in archive table
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function deleteAll($archive = FALSE)
+   public function deleteAll($archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -133,9 +134,9 @@ class UserOption
    /**
     * Deletes a user-option record by ID from local class variable
     *
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function deleteById()
+   public function deleteById()
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $this->id);
@@ -148,9 +149,9 @@ class UserOption
     * Deletes all records for a given user
     *
     * @param string $username Username to delete
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function deleteByUser($username = '', $archive = FALSE)
+   public function deleteByUser($username = '', $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -167,9 +168,9 @@ class UserOption
     *
     * @param string $username Username to find
     * @param string $option Option to delete
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function deleteUserOption($username, $option)
+   public function deleteUserOption($username, $option)
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE username = :val1 AND option = :val2');
       $query->bindParam('val1', $username);
@@ -180,20 +181,20 @@ class UserOption
    
    // ---------------------------------------------------------------------
    /**
-    * Checks the existence of an option for a given user
+    * Checks whether an option record for a given user exists
     *
     * @param string $username Username to find
-    * @param string $option Option to find
-    * @return string TRUE if exists, FALSE if not
+    * @param string $option Option to earch for
+    * @return boolean True if found, false if not
     */
-   function hasOption($username, $option)
+   public function hasOption($username, $option)
    {
-      $query = $this->db->prepare('SELECT :val1 FROM ' . $this->table . ' WHERE `username` = :val2');
-      $query->bindParam('val1', $option);
-      $query->bindParam('val2', $username);
+      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND option = :val2');
+      $query->bindParam('val1', $username);
+      $query->bindParam('val2', $option);
       $result = $query->execute();
       
-      if ($result and $row = $query->fetch())
+      if ($result and $query->fetchColumn())
       {
          return true;
       }
@@ -211,12 +212,13 @@ class UserOption
     * @param string $option Option to find
     * @return string Value of the option (or FALSE if not found)
     */
-   function read($username, $option, $archive = FALSE)
+   public function read($username, $option, $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
       
       $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE `username` = :val1 AND `option` = :val2');
+      if (is_array($username)) print_r($username);
       $query->bindParam('val1', $username);
       $query->bindParam('val2', $option);
       $result = $query->execute();
@@ -238,9 +240,9 @@ class UserOption
     * @param string $username Username to find
     * @param string $option Option to find
     * @param string $value New value
-    * @return bool $result2 Query result
+    * @return boolean Query result
     */
-   function save($username, $option, $value)
+   public function save($username, $option, $value)
    {
       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE `username` = "' . $username . '" AND `option` = "' . $option . '"');
       $result = $query->execute();
@@ -275,9 +277,9 @@ class UserOption
     *
     * @param string $username Username to find
     * @param string $option Option to find
-    * @return bool True or false
+    * @return boolean True or false
     */
-   function true($username, $findoption)
+   public function true($username, $option)
    {
       $query = $this->db->prepare('SELECT value FROM ' . $this->table . ' WHERE `username` = :val1 AND `option` = :val2');
       $query->bindParam('val1', $username);
@@ -300,9 +302,9 @@ class UserOption
     *
     * @param string $regionold Old regionname
     * @param string $regionnew New regionname
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function updateRegion($regionold, $regionnew = 'default')
+   public function updateRegion($regionold, $regionnew = 'default')
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET value = :val1 WHERE option = :val2 AND value = :val3');
       $query->bindParam('val1', $regionnew);
@@ -316,9 +318,9 @@ class UserOption
    /**
     * Optimize table
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

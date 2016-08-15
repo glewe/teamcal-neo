@@ -16,15 +16,14 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Attachment
 {
-   var $db = '';
-   var $filename = '';
-   var $uploader = '';
-    
+   private $db = '';
+   private $table = '';
+   
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -35,11 +34,11 @@ class Attachment
    /**
     * Creates a record
     *
-    * @param string $filetype File type
     * @param string $filename File name
-    * @return bool Query result
+    * @param string $uploader Uploader username
+    * @return boolean Query result
     */
-   function create($filename, $uploader)
+   public function create($filename, $uploader)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (`filename`, `uploader`) VALUES (:val1, :val2)');
       $query->bindParam('val1', $filename);
@@ -59,9 +58,9 @@ class Attachment
    /**
     * Deletes all records
     *
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function deleteAll()
+   public function deleteAll()
    {
       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
       $result = $query->execute();
@@ -82,11 +81,10 @@ class Attachment
    /**
     * Deletes a record by filetype/filename
     *
-    * @param string $filetype File type to delete
     * @param string $filename File name to delete
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function delete($filename)
+   public function delete($filename)
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE filename = :val1');
       $query->bindParam('val1', $filename);
@@ -98,9 +96,9 @@ class Attachment
    /**
     * Deletes a record by ID
     *
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function deleteById($id)
+   public function deleteById($id)
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -112,9 +110,9 @@ class Attachment
    /**
     * Reads all records into an array
     *
-    * @return array $records Array with all region records
+    * @return array Array with records
     */
-   function getAll()
+   public function getAll()
    {
       $records = array ();
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY filename ASC');
@@ -134,11 +132,10 @@ class Attachment
    /**
     * Gets the record ID of a given file
     *
-    * @param string $filetype File type to find
     * @param string $filename File name to find
-    * @return bool $result Query result
+    * @return string Record ID
     */
-   function getId($filename)
+   public function getId($filename)
    {
       $query = $this->db->prepare('SELECT id FROM ' . $this->table . ' WHERE filename = :val1');
       $query->bindParam('val1', $filename);
@@ -158,11 +155,10 @@ class Attachment
    /**
     * Gets the uploader of a given file
     *
-    * @param string $filetype File type to find
     * @param string $filename File name to find
-    * @return bool $result Query result
+    * @return string Uploader
     */
-   function getUploader($filename)
+   public function getUploader($filename)
    {
       $query = $this->db->prepare('SELECT uploader FROM ' . $this->table . ' WHERE filename = :val1');
       $query->bindParam('val1', $filename);
@@ -182,9 +178,9 @@ class Attachment
    /**
     * Optimize table
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

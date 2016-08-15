@@ -2,12 +2,12 @@
 /**
  * Login.class.php
  *
- * @category TeamCal Neo 
- * @version 0.9.005
+ * @category LeAF 
+ * @version 0.6.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -16,21 +16,21 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Login
 {
-   var $user = '';
-   var $salt = '';
-   var $bad_logins = 0;
-   var $grace_period = 0;
-   var $min_pw_length = 0;
-   var $pw_strength = 0;
-   var $php_self = '';
-   var $log = '';
-   var $logtype = '';
+   private $user = '';
+   private $salt = '';
+   private $bad_logins = 0;
+   private $grace_period = 0;
+   private $min_pw_length = 0;
+   private $pw_strength = 0;
+   private $php_self = '';
+   private $log = '';
+   private $logtype = '';
    
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $C, $_POST, $_SERVER; 
       
@@ -46,12 +46,12 @@ class Login
    
    // ---------------------------------------------------------------------
    /**
-    * Checks the TeamCal cookie and if it exists and is valid and if the user
+    * Checks the login cookie and if it exists and is valid and if the user
     * is logged in we get the user info from the database.
     *
-    * @return string Username of the user logged in, or emtpy
+    * @return string Username of the user logged in, or false
     */
-   function checkLogin()
+   public function checkLogin()
    {
       global $U;
       
@@ -60,11 +60,9 @@ class Login
        */
       if (isset($_COOKIE[$this->cookie_name]))
       {
-         // echo ("<script type=\"text/javascript\">alert(\"[checkLogin]\\nCookie '".$this->cookie_name."' is
-         // set\")</script>");
+         // echo ("<script type=\"text/javascript\">alert(\"[checkLogin]\\nCookie '".$this->cookie_name."' is set\")</script>");
          $array = explode(":", $_COOKIE[$this->cookie_name]);
-         // echo ("<script type=\"text/javascript\">alert(\"[checkLogin]\\nCookie array[0]=".$array[0]."\\nCookie
-         // array[1]=".$array[1]."\")</script>");
+         // echo ("<script type=\"text/javascript\">alert(\"[checkLogin]\\nCookie array[0]=".$array[0]."\\nCookie array[1]=".$array[1]."\")</script>");
          if (!isset($array[1])) $array[1] = '';
          if (crypt($array[0], $this->salt) === $array[1])
          {
@@ -78,8 +76,7 @@ class Login
       }
       else
       {
-         // echo ("<script type=\"text/javascript\">alert(\"[checkLogin]\\nCookie '".$this->cookie_name."' is NOT
-         // set\")</script>");
+         // echo ("<script type=\"text/javascript\">alert(\"[checkLogin]\\nCookie '".$this->cookie_name."' is NOT set\")</script>");
          return false;
       }
    }
@@ -97,7 +94,7 @@ class Login
     * @param string $pw Current password
     * @param string $pwnew1 New password
     * @param string $pwnew2 Repeated new password
-    * @return integer $result
+    * @return integer
     *         10 - Username missing
     *         11 - Password missing
     *         12 - Password mismatch
@@ -110,7 +107,7 @@ class Login
     *         51 - Password contains no upper case character
     *         52 - Password contains no special characters
     */
-   function isPasswordValid($uname = '', $pw = '', $pwnew1 = '', $pwnew2 = '')
+   public function isPasswordValid($uname = '', $pw = '', $pwnew1 = '', $pwnew2 = '')
    {
       if (!isset($this->pw_strength)) $this->pw_strength = 0;
       $result = 0;
@@ -169,9 +166,9 @@ class Login
     * LDAP authentication
     * (Thanks to Aleksandr Babenko for the original code.)
     *
-    * !!! Beta 2 mode !!! Use at own risk.
+    * !!! Beta !!! Use at own risk.
     *
-    * retcode = 0 : successful LDAP authentication
+    * retcode = 0  : successful LDAP authentication
     * retcode = 91 : password missing
     * retcode = 92 : LDAP user bind failed
     * retcode = 93 : Unable to connect to LDAP server
@@ -182,7 +179,7 @@ class Login
     * @param string $uidpass LDAP password
     * @return integer Authentication return code
     */
-   function ldapVerify($uidpass)
+   private function ldapVerify($uidpass)
    {
       global $CONF, $U;
       
@@ -238,6 +235,60 @@ class Login
    
    // ---------------------------------------------------------------------
    /**
+    * Local Authentication
+    * Refactored local-database authentication method
+    *
+    * Return Codes
+    * retcode = 0 : successful login
+    * retcode = 4 : first bad login
+    * retcode = 5 : second/higher bad login
+    * retcode = 6 : too many bad logins
+    * retcode = 7 : bad password
+    *
+    * @param string password
+    * @return integer authentication return code
+    */
+   private function localVerify($password)
+   {
+      global $CONF, $U;
+       
+      //echo "<script type=\"text/javascript\">alert(\"Login: ".$password."|".crypt($password, $this->salt)."|".$U->password."\");</script>";
+      if (crypt($password, $this->salt) == $U->password) return 0; // Password correct
+      if ($this->bad_logins == 0) return 7; // if we don't need to enumerate/manage bad logins, just return "bad password"
+       
+      if (!$U->bad_logins)
+      {
+         /**
+          * 1st bad login attempt, set the counter = 1
+          * Set the timestamp to seconds since UNIX epoch (makes checking grace period easy)
+          */
+         $U->bad_logins = 1;
+         $U->bad_logins_start = date("U");
+         $retcode = 4;
+      }
+      elseif (++$U->bad_logins >= $this->bad_logins)
+      {
+         /**
+          * That's too much! I've had it now with your bad logins.
+          * Login locked for grace period of time.
+          */
+         $U->bad_logins_start = date("U");
+         $U->setStatus($CONF['USLOGLOC']);
+         $retcode = 6;
+      }
+      else
+      {
+         /**
+          * 2nd or higher bad login attempt
+          */
+         $retcode = 5;
+      }
+      $U->update($U->username);
+      return $retcode;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
     * Login.
     * Checks the login credentials and sets cookie if accepted
     *
@@ -262,7 +313,7 @@ class Login
     * @param string $loginpwd Password
     * @return integer Login return code
     */
-   function login($loginname = '', $loginpwd = '')
+   public function login($loginname = '', $loginpwd = '')
    {
       global $C, $CONF, $U, $UO;
       
@@ -304,7 +355,7 @@ class Login
          /**
           * Otherwise use TcNeo authentication
           */
-         $retcode = $this->tcneoVerify($loginpwd);
+         $retcode = $this->localVerify($loginpwd);
       }
       if ($retcode != 0) return $retcode;
       
@@ -315,8 +366,7 @@ class Login
       $secret = crypt($loginname, $this->salt);
       $value = $loginname . ":" . $secret;
       setcookie($this->cookie_name, ''); // Clear current cookie
-      //setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '', $_SERVER['HTTP_HOST'], false, true); // Set new cookie
-      setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '/'); // Set new cookie
+      setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '', $_SERVER['HTTP_HOST'], false, true); // Set new cookie
       $U->bad_logins = 0;
       $U->grace_start = '';
       $U->last_login = date("YmdHis");
@@ -327,101 +377,11 @@ class Login
    
    // ---------------------------------------------------------------------
    /**
-    * Logs the current user out and clears the cookie
+    * Clears the login cookie
     */
-   function logout()
+   public function logout()
    {
       setcookie($this->cookie_name, '', time() - 3600, '', $_SERVER['HTTP_HOST'], false, true);
-      setcookie($this->cookie_name, false, time() - 60*100000, '/');
-      setcookie($this->cookie_name, ''); // Clear current cookie
-   }
-
-   // ---------------------------------------------------------------------
-   /**
-    * Returns the current password rules
-    *
-    * @return string The current password rules
-    */
-   function pwRules()
-   {
-      switch ($this->pw_strength)
-      {
-         case 0 :
-            $pws = "minimum";
-            break;
-         case 1 :
-            $pws = "low";
-            break;
-         case 2 :
-            $pws = "medium";
-            break;
-         case 3 :
-            $pws = "maximum";
-            break;
-      }
-       
-      $errors = "<b>The Password \"level\" of TeamCal Neo is set to " . $pws . "</b>.<br>Passwords must be at least " . $this->min_pw_length . " characters long and a new password cannot be the same as the old one.";
-       
-      if ($this->pw_strength > 0) $errors .= "<br>The password cannot contain the username forward or backward. Also you can't use the numbers '53011' for the letters 'seoll'";
-      if ($this->pw_strength > 1) $errors .= "The password must also contain at least one number";
-      if ($this->pw_strength > 2) $errors .= "and it must contain one UPPER and one lower case letter and one punctuation character";
-      if ($this->pw_strength > 0) $errors .= ".<br>";
-       
-      return $errors;
-   }
- 
-   // ---------------------------------------------------------------------
-   /**
-    * TcNeo Authentication
-    * Refactored local-database authentication method
-    *
-    * Return Codes
-    * retcode = 0 : successful login
-    * retcode = 4 : first bad login
-    * retcode = 5 : second/higher bad login
-    * retcode = 6 : too many bad logins
-    * retcode = 7 : bad password
-    *
-    * @param string password
-    * @return integer authentication return code
-    */
-   function tcneoVerify($password)
-   {
-      global $CONF, $U;
-       
-      //echo "<script type=\"text/javascript\">alert(\"Login: ".$password."|".crypt($password, $this->salt)."|".$U->password."\");</script>";
-      if (crypt($password, $this->salt) == $U->password) return 0; // Password correct
-      if ($this->bad_logins == 0) return 7; // if we don't need to enumerate/manage bad logins, just return "bad password"
-       
-      if (!$U->bad_logins)
-      {
-         /**
-          * 1st bad login attempt, set the counter = 1
-          * Set the timestamp to seconds since UNIX epoch (makes checking grace period easy)
-          */
-         $U->bad_logins = 1;
-         $U->bad_logins_start = date("U");
-         $retcode = 4;
-      }
-      elseif (++$U->bad_logins >= $this->bad_logins)
-      {
-         /**
-          * That's too much! I've had it now with your bad logins.
-          * Login locked for grace period of time.
-          */
-         $U->bad_logins_start = date("U");
-         $U->setStatus($CONF['USLOGLOC']);
-         $retcode = 6;
-      }
-      else
-      {
-         /**
-          * 2nd or higher bad login attempt
-          */
-         $retcode = 5;
-      }
-      $U->update($U->username);
-      return $retcode;
    }
 }
 ?>

@@ -16,49 +16,50 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Templates
 {
-   var $db = '';
-   var $table = '';
-   var $archive_table = '';
-   var $username = '';
-   var $year = '';
-   var $month = '';
-   var $abs1 = 0;
-   var $abs2 = 0;
-   var $abs3 = 0;
-   var $abs4 = 0;
-   var $abs5 = 0;
-   var $abs6 = 0;
-   var $abs7 = 0;
-   var $abs8 = 0;
-   var $abs9 = 0;
-   var $abs10 = 0;
-   var $abs11 = 0;
-   var $abs12 = 0;
-   var $abs13 = 0;
-   var $abs14 = 0;
-   var $abs15 = 0;
-   var $abs16 = 0;
-   var $abs17 = 0;
-   var $abs18 = 0;
-   var $abs19 = 0;
-   var $abs20 = 0;
-   var $abs21 = 0;
-   var $abs22 = 0;
-   var $abs23 = 0;
-   var $abs24 = 0;
-   var $abs25 = 0;
-   var $abs26 = 0;
-   var $abs27 = 0;
-   var $abs28 = 0;
-   var $abs29 = 0;
-   var $abs30 = 0;
-   var $abs31 = 0;
+   public $username = '';
+   public $year = '';
+   public $month = '';
+   public $abs1 = 0;
+   public $abs2 = 0;
+   public $abs3 = 0;
+   public $abs4 = 0;
+   public $abs5 = 0;
+   public $abs6 = 0;
+   public $abs7 = 0;
+   public $abs8 = 0;
+   public $abs9 = 0;
+   public $abs10 = 0;
+   public $abs11 = 0;
+   public $abs12 = 0;
+   public $abs13 = 0;
+   public $abs14 = 0;
+   public $abs15 = 0;
+   public $abs16 = 0;
+   public $abs17 = 0;
+   public $abs18 = 0;
+   public $abs19 = 0;
+   public $abs20 = 0;
+   public $abs21 = 0;
+   public $abs22 = 0;
+   public $abs23 = 0;
+   public $abs24 = 0;
+   public $abs25 = 0;
+   public $abs26 = 0;
+   public $abs27 = 0;
+   public $abs28 = 0;
+   public $abs29 = 0;
+   public $abs30 = 0;
+   public $abs31 = 0;
+   
+   private $db = '';
+   private $table = '';
+   private $archive_table = '';
    
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       global $myDb;
@@ -74,9 +75,9 @@ class Templates
     * Archives all records for a given user
     *
     * @param string $username Username to archive
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function archive($username)
+   public function archive($username)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -95,7 +96,7 @@ class Templates
     * @param string $end End day
     * @return integer 0 or absence ID count
     */
-   function countAbsence($username = '%', $year = '', $month = '', $absid, $start = 1, $end = 0)
+   public function countAbsence($username = '%', $year = '', $month = '', $absid, $start = 1, $end = 0)
    {
       $count = 0;
       $mytime = $month . " ".$start."," . $year;
@@ -147,7 +148,7 @@ class Templates
     * @param string $end End day
     * @return integer 0 or absence ID count
     */
-   function countAllAbsences($username = '%', $year = '', $month = '', $start = 1, $end = 0)
+   public function countAllAbsences($username = '%', $year = '', $month = '', $start = 1, $end = 0)
    {
       $count = 0;
       $mytime = $month . " ".$start."," . $year;
@@ -192,9 +193,9 @@ class Templates
    /**
     * Creates a template from local variables
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function create()
+   public function create()
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, year, month, abs1, abs2, abs3, abs4, abs5, abs6, abs7, abs8, abs9, abs10, abs11, abs12, abs13, abs14, abs15, abs16, abs17, abs18, abs19, abs20, abs21, abs22, abs23, abs24, abs25, abs26, abs27, abs28, abs29, abs30, abs31) VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12, :val13, :val14, :val15, :val16, :val17, :val18, :val19, :val20, :val21, :val22, :val23, :val24, :val25, :val26, :val27, :val28, :val29, :val30, :val31, :val32, :val33, :val34)');
       $query->bindParam('val1', $this->username);
@@ -213,10 +214,10 @@ class Templates
    /**
     * Deletes all records
     *
-    * @param boolean $archive Whether to search in archive table
-    * @return bool $result Query result
+    * @param boolean $archive Whether to use archive table
+    * @return boolean Query result
     */
-   function deleteAll($archive = FALSE)
+   public function deleteAll($archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -243,9 +244,9 @@ class Templates
     * @param string $username Username this template is for
     * @param string $year Year of the template (YYYY)
     * @param string $month Month of the template (MM)
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteTemplate($username = '', $year = '', $month = '')
+   public function deleteTemplate($username = '', $year = '', $month = '')
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE username = :val1 AND year = :val2 AND month = :val3');
       $query->bindParam('val1', $username);
@@ -262,9 +263,9 @@ class Templates
     *
     * @param string $year Year (YYYY)
     * @param string $month Month (MM)
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteBefore($year = '', $month = '')
+   public function deleteBefore($year = '', $month = '')
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year < :val1 OR (year = :val1 AND month <= :val2)');
       $query->bindParam('val1', $year);
@@ -279,9 +280,9 @@ class Templates
     * Deletes a template by ID
     *
     * @param integer $id ID of record to delete
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteById($id = '')
+   public function deleteById($id = '')
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -294,10 +295,10 @@ class Templates
     * Deletes all templates for a username
     *
     * @param string $uname Username to delete all records of
-    * @param boolean $archive Whether to search in archive table
-    * @return bool $result Query result
+    * @param boolean $archive Whether to use archive table
+    * @return boolean Query result
     */
-   function deleteByUser($username = '', $archive = FALSE)
+   public function deleteByUser($username = '', $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -313,10 +314,10 @@ class Templates
     * Checks whether a record exists
     *
     * @param string $username Username to find
-    * @param boolean $archive Whether to search in archive table
-    * @return bool True if found, false if not
+    * @param boolean $archive Whether to use archive table
+    * @return boolean True if found, false if not
     */
-   function exists($username = '', $archive = FALSE)
+   public function exists($username = '', $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -343,9 +344,9 @@ class Templates
     * @param string $year Year to find (YYYY)
     * @param string $month Month to find (MM)
     * @param string $day Day of month to find (D)
-    * @return bool 0 or absence ID
+    * @return boolean 0 or absence ID
     */
-   function getAbsence($username = '', $year = '', $month = '', $day = '1')
+   public function getAbsence($username = '', $year = '', $month = '', $day = '1')
    {
       $query = $this->db->prepare('SELECT abs' . $day . ' FROM ' . $this->table . ' WHERE username = :val1 AND year = :val2 AND month = :val3');
       $query->bindParam('val1', $username);
@@ -368,9 +369,9 @@ class Templates
     * @param string $username Username to find
     * @param string $year Year to find (YYYY)
     * @param string $month Month to find (MM)
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function getTemplate($username = '', $year = '', $month = '')
+   public function getTemplate($username = '', $year = '', $month = '')
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username LIKE :val1 AND year = :val2 AND month = :val3');
       $query->bindParam('val1', $username);
@@ -402,9 +403,9 @@ class Templates
     * Gets a template by ID
     *
     * @param string $id Record ID to find
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function getTemplateById($id = '')
+   public function getTemplateById($id = '')
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -432,9 +433,9 @@ class Templates
     * @param string $year Year to find (YYYY)
     * @param string $month Month to find (MM)
     * @param string $absid Absence ID to find
-    * @return bool 0 or 1
+    * @return boolean 0 or 1
     */
-   function hasAbsence($username='', $year = '', $month = '', $absid)
+   public function hasAbsence($username='', $year = '', $month = '', $absid)
    {
       $month = sprintf("%02d", $month);
       
@@ -453,27 +454,12 @@ class Templates
    
    // ---------------------------------------------------------------------
    /**
-    * Optimize table
-    *
-    * @return bool $result Query result
-    */
-   function optimize()
-   {
-      $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
-      $result = $query->execute();
-      $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->archive_table);
-      $result = $query->execute();
-      return $result;
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
     * Replaces an absence ID in all templates.
     *
     * @param string $symopld Symbol to be replaced
     * @param string $symnew Symbol to replace with
     */
-   function replaceAbsId($absidold, $absidnew)
+   public function replaceAbsId($absidold, $absidnew)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table);
       $result = $query->execute();
@@ -506,9 +492,9 @@ class Templates
     * Restores all records for a given user
     *
     * @param string $name Username to restore
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function restore($username)
+   public function restore($username)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -525,9 +511,9 @@ class Templates
     * @param string $month Month for update (MM)
     * @param string $day Day for update
     * @param string $abs Absence to set
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function setAbsence($username, $year, $month, $day, $abs)
+   public function setAbsence($username, $year, $month, $day, $abs)
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET abs' . $day . ' = :val1 WHERE username = :val2 AND year = :val3 AND month = :val4');
       $query->bindParam('val1', $abs);
@@ -546,9 +532,9 @@ class Templates
     * @param string $uname Username for update
     * @param string $year Year for update (YYYY)
     * @param string $month Month for update (MM)
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function update($uname, $year, $month)
+   public function update($uname, $year, $month)
    {
       $stmt = 'UPDATE ' . $this->table . ' SET username = :val1, year = :val2, month = :val3, ';
       for($i = 1; $i <= 31; $i++)
@@ -571,5 +557,19 @@ class Templates
       return $result;
    }
    
+   // ---------------------------------------------------------------------
+   /**
+    * Optimize table
+    *
+    * @return boolean Query result
+    */
+   public function optimize()
+   {
+      $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
+      $result = $query->execute();
+      $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->archive_table);
+      $result = $query->execute();
+      return $result;
+   }
 }
 ?>

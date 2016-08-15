@@ -16,20 +16,21 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Holidays
 {
-   var $db = NULL;
-   var $table = '';
-   var $id = 0;
-   var $name = '';
-   var $description = '';
-   var $color = '000000';
-   var $bgcolor = 'ffffff';
-   var $businessday = 0;
+   public $id = 0;
+   public $name = '';
+   public $description = '';
+   public $color = '000000';
+   public $bgcolor = 'ffffff';
+   public $businessday = 0;
+   
+   private $db = NULL;
+   private $table = '';
    
    // ----------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -40,9 +41,9 @@ class Holidays
    /**
     * Creates a holiday record
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function create()
+   public function create()
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, color, bgcolor, businessday) VALUES (:val1, :val2, :val3, :val4, :val5)');
       $query->bindParam('val1', $this->name);
@@ -59,9 +60,9 @@ class Holidays
     * Deletes a holiday record
     *
     * @param string $id Record ID
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function delete($id = '')
+   public function delete($id = '')
    {
       $result = 0;
       if (isset($id))
@@ -77,9 +78,9 @@ class Holidays
    /**
     * Deletes all records (except Business day, Saturday, Sunday)
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteAll()
+   public function deleteAll()
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id > "3"');
       $result = $query->execute();
@@ -91,9 +92,9 @@ class Holidays
     * Gets a holiday record
     *
     * @param string $id Record ID
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function get($id = '')
+   public function get($id = '')
    {
       $result = 0;
       if (isset($id))
@@ -120,9 +121,9 @@ class Holidays
     * Gets a holiday record
     *
     * @param string $name Holiday name
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function getByName($name = '')
+   public function getByName($name = '')
    {
       $result = 0;
       if (isset($name))
@@ -153,9 +154,9 @@ class Holidays
     * Reads all records into an array. Only true holidays are selected (id > 3)
     *
     * @param string $sort What to sort by
-    * @return array $records Array with all records
+    * @return array Array with records
     */
-   function getAll($sort='name')
+   public function getAll($sort='name')
    {
       $records = array ();
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY ' . $sort . ' ASC');
@@ -167,12 +168,12 @@ class Holidays
    
    // ----------------------------------------------------------------------
    /**
-    * Reads all records into an array. Only true holidays are selected (id > 3)
+    * Gets all custom records. Only true holidays are selected (id > 3)
     *
     * @param string $sort What to sort by
-    * @return array $records Array with all records
+    * @return array Array with records
     */
-   function getAllCustom($sort='name')
+   public function getAllCustom($sort='name')
    {
       $records = array ();
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id > 3 ORDER BY ' . $sort . ' ASC');
@@ -187,9 +188,9 @@ class Holidays
     * Checks whether the given holiday counts as business day
     *
     * @param string $id Record ID
-    * @return bool 0 or 1
+    * @return boolean True or false
     */
-   function isBusinessDay($id = '')
+   public function isBusinessDay($id = '')
    {
       $rc = 0;
       if (isset($id))
@@ -213,7 +214,7 @@ class Holidays
     * @param string $id Record ID
     * @return string Holiday name
     */
-   function getName($id = '')
+   public function getName($id = '')
    {
       $rc = 'unknown';
       if (isset($id))
@@ -237,7 +238,7 @@ class Holidays
     * @param string $id Record ID
     * @return string Holiday description
     */
-   function getDescription($id = '')
+   public function getDescription($id = '')
    {
       $rc = '.';
       if (isset($id))
@@ -261,7 +262,7 @@ class Holidays
     * @param string $id Record ID
     * @return string Holiday color
     */
-   function getColor($id = '')
+   public function getColor($id = '')
    {
       $rc = '000000';
       if (isset($id))
@@ -285,7 +286,7 @@ class Holidays
     * @param string $id Record ID
     * @return string Holiday background color
     */
-   function getBgColor($id = '')
+   public function getBgColor($id = '')
    {
       $rc = '000000';
       if (isset($id))
@@ -308,7 +309,7 @@ class Holidays
     *
     * @return string Last auto-increment ID
     */
-   function getLastId()
+   public function getLastId()
    {
       $query = $this->db->prepare('SHOW TABLE STATUS LIKE ' . $this->table);
       $result = $query->execute();
@@ -325,7 +326,7 @@ class Holidays
     *
     * @return string Next auto-increment ID
     */
-   function getNextId()
+   public function getNextId()
    {
       $query = $this->db->prepare('SHOW TABLE STATUS LIKE ' . $this->table);
       $result = $query->execute();
@@ -341,9 +342,9 @@ class Holidays
     * Updates a holiday
     *
     * @param string $id Record ID
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function update($id = '')
+   public function update($id = '')
    {
       $result = 0;
       if (isset($id))
@@ -364,9 +365,9 @@ class Holidays
    /**
     * Optimize table
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

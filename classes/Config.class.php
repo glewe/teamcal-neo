@@ -2,12 +2,12 @@
 /**
  * Config.class.php
  *
- * @category TeamCal Neo 
- * @version 0.9.005
+ * @category LeAF 
+ * @version 0.6.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -16,17 +16,18 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Config
 {
-   var $db = '';
-   var $table = '';
-   var $id = NULL;
-   var $name = '';
-   var $value = '';
+   public $id = NULL;
+   public $name = '';
+   public $value = '';
+   
+   private $db = '';
+   private $table = '';
    
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -37,11 +38,10 @@ class Config
    /**
     * Read the value of an option
     *
-    * @param string $name
-    *           Name of the option
-    * @return string Value of the option or empty if not found
+    * @param string $name Name of the option
+    * @return string Value of the option or false if not found
     */
-   function read($name)
+   public function read($name)
    {
       $query = $this->db->prepare('SELECT value FROM ' . $this->table . ' WHERE `name` = "' . $name .'"');
       $result = $query->execute();
@@ -52,7 +52,7 @@ class Config
       }
       else
       {
-         return FALSE;
+         return false;
       }
    }
    
@@ -60,13 +60,11 @@ class Config
    /**
     * Save a value
     *
-    * @param string $name
-    *           Name of the option
-    * @param string $value
-    *           Value to save
-    * @return bool $result Query result or false
+    * @param string $name Name of the option
+    * @param string $value Value to save
+    * @return boolean $result Query result or false
     */
-   function save($name, $value)
+   public function save($name, $value)
    {
       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE `name` = "' . $name .'"');
       $result = $query->execute();
@@ -74,15 +72,13 @@ class Config
       if ($result and $query->fetchColumn())
       {
          $query2 = $this->db->prepare('UPDATE ' . $this->table . ' SET value = :val2 WHERE name = :val1');
-         $query2->bindParam('val1', $name);
-         $query2->bindParam('val2', $value);
       }
       else
       {
          $query2 = $this->db->prepare('INSERT INTO ' . $this->table . ' (`name`, `value`) VALUES (:val1, :val2)');
-         $query2->bindParam('val1', $name);
-         $query2->bindParam('val2', $value);
       }
+      $query2->bindParam('val1', $name);
+      $query2->bindParam('val2', $value);
       $result2 = $query2->execute();
       return $result2;
    }
@@ -91,9 +87,9 @@ class Config
    /**
     * Optimize table
     *
-    * @return bool $result Query result
+    * @return boolean $result Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

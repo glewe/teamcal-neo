@@ -2,12 +2,12 @@
 /**
  * Users.class.php
  *
- * @category TeamCal Neo 
- * @version 0.9.005
+ * @category LeAF 
+ * @version 0.6.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -16,30 +16,31 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Users
 {
-   var $db = '';
-   var $table = '';
-   var $archive_table = '';
-   var $username = '';
-   var $password = '';
-   var $firstname = '';
-   var $lastname = '';
-   var $email = '';
-   var $role = '';
-   var $locked = 0;
-   var $hidden = 0;
-   var $onhold = 0;
-   var $verify = 0;
-   var $bad_logins = 0;
-   var $grace_start = NULL;
-   var $last_pw_change = NULL;
-   var $last_login = NULL;
-   var $created = NULL;
+   public $username = '';
+   public $password = '';
+   public $firstname = '';
+   public $lastname = '';
+   public $email = '';
+   public $role = '';
+   public $locked = 0;
+   public $hidden = 0;
+   public $onhold = 0;
+   public $verify = 0;
+   public $bad_logins = 0;
+   public $grace_start = NULL;
+   public $last_pw_change = NULL;
+   public $last_login = NULL;
+   public $created = NULL;
+   
+   private $db = '';
+   private $table = '';
+   private $archive_table = '';
    
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -52,9 +53,9 @@ class Users
     * Archives a user record
     *
     * @param string $username Username to archive
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function archive($username)
+   public function archive($username)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT u.* FROM ' . $this->table . ' u WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -67,9 +68,9 @@ class Users
     * Restore arcived user records
     *
     * @param string $username Username to restore
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function restore($username)
+   public function restore($username)
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -83,9 +84,9 @@ class Users
     *
     * @param string $username Username to find
     * @param boolean $archive Whether to search in archive table
-    * @return bool True if found, false if not
+    * @return boolean True if found, false if not
     */
-   function exists($username = '', $archive = FALSE)
+   public function exists($username = '', $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -106,12 +107,13 @@ class Users
    
    // ---------------------------------------------------------------------
    /**
-    * Reads all usernames of a given group
+    * Reads all user records
     *
-    * @param boolean $skipAdmin Flag to include/exclude admin in the count
+    * @param boolean $countAdmin Flag to include/exclude admin account
+    * @param boolean $countHidden Flag to include/exclude hidden accounts
     * @return integer Count
     */
-   function countUsers($countAdmin=false, $countHidden=false)
+   public function countUsers($countAdmin=false, $countHidden=false)
    {
       if ($countHidden)
          $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
@@ -130,9 +132,9 @@ class Users
    /**
     * Creates a new user record from local variables
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function create()
+   public function create()
    {
       $stmt = 'INSERT INTO ' . $this->table . ' (username, password, firstname, lastname, email, role, locked, hidden, onhold, verify, bad_logins, grace_start, last_pw_change, last_login, created) ';
       $stmt .= 'VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12, :val13, :val14, :val15)';
@@ -161,9 +163,9 @@ class Users
     * Deletes all records
     *
     * @param boolean $archive Whether to search in archive table
-    * @return bool Query result or false
+    * @return boolean Query result
     */
-   function deleteAll($archive = FALSE)
+   public function deleteAll($archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -179,9 +181,9 @@ class Users
     *
     * @param string $username Username to find
     * @param boolean $archive Whether to search in archive table
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteByName($username = '', $archive = FALSE)
+   public function deleteByName($username = '', $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -198,9 +200,9 @@ class Users
     *
     * @param string $username Username to find
     * @param boolean $archive Whether to search in archive table
-    * @return integer Result of MySQL query
+    * @return boolean Query result
     */
-   function findByName($username = '', $archive = FALSE)
+   public function findByName($username = '', $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
@@ -226,34 +228,31 @@ class Users
          $this->last_pw_change = $row['last_pw_change'];
          $this->last_login = $row['last_login'];
          $this->created = $row['created'];
-         return true;
       }
-      else
-      {
-         return false;
-      }
+      return $result;
    }
    
    // ---------------------------------------------------------------------
    /**
-    * Reads all records into an array
+    * Gets all records into an array
     *
-    * @return array $records Array with all records
+    * @param string $order1 First order criteria
+    * @param string $order2 First order criteria
+    * @param string $sort Sort order (ASC or DESC)
+    * @param boolean $archive Whether to use archive table
+    * @param boolean $includeAdmin Whether to include admin account or not
+    * @return array Array with records
     */
-   function getAll($order1 = 'lastname', $order2 = 'firstname', $sort = 'ASC', $archive = false, $includeAdmin = false)
+   public function getAll($order1 = 'lastname', $order2 = 'firstname', $sort = 'ASC', $archive = false, $includeAdmin = false)
    {
       $records = array ();
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
       
       if ($includeAdmin)
-      {
          $query = $this->db->prepare('SELECT * FROM ' . $table . ' ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
-      }
-      else
-      {
+      else 
          $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != "admin" ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
-      }
           
       $result = $query->execute();
       
@@ -269,13 +268,12 @@ class Users
    
    // ---------------------------------------------------------------------
    /**
-    * Reads all records into an array where username, lastname or firstname
-    * is like specified
+    * Gets all records with likeness in username, lastname or firstname
     *
     * @param string $like Likeness to search for
-    * @return array $records Array with all records
+    * @return array Array with records
     */
-   function getAllLike($like, $archive = FALSE)
+   public function getAllLike($like, $archive = FALSE)
    {
       $records = array ();
       if ($archive) $table = $this->archive_table;
@@ -298,38 +296,13 @@ class Users
    
    // ---------------------------------------------------------------------
    /**
-    * Reads all records for a given role
-    *
-    * @param string $roleId Role ID to search for
-    * @return array $records Array with all records
-    */
-   function getAllForRole($roleId)
-   {
-      $records = array ();
-      
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE role = :val1 ORDER BY lastname ASC, firstname ASC');
-      $query->bindParam('val1', $roleId);
-      $result = $query->execute();
-      
-      if ($result)
-      {
-         while ( $row = $query->fetch() ) $records[] = $row;
-         return $records;
-      }
-      else 
-      {
-         return false;
-      }
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
-    * Reads a record for a given username
+    * Gets a record for a given username
     *
     * @param string $uname Username to search for
-    * @return array $records Array with all records
+    * @param boolean $archive Whether to use archive table
+    * @return array Array with records
     */
-   function getByUsername($uname, $archive = FALSE)
+   public function getByUsername($uname, $archive = FALSE)
    {
       $records = array ();
       if ($archive) $table = $this->archive_table;
@@ -351,12 +324,12 @@ class Users
    
    // ---------------------------------------------------------------------
    /**
-    * Reads the E-mail address of a given username
+    * Gets the E-mail address of a given username
     *
     * @param string $username Username to find
-    * @return string $email Email address or empty
+    * @return string Email address or empty
     */
-   function getEmail($username)
+   public function getEmail($username)
    {
       $query = $this->db->prepare('SELECT email FROM ' . $this->table . ' WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -371,12 +344,12 @@ class Users
    
    // ---------------------------------------------------------------------
    /**
-    * Delivers the fullname of a given username
+    * Gets the fullname of a given username
     *
     * @param string $username Username to find
-    * @return string $email Email address or empty
+    * @return string Fullname or empty
     */
-   function getFullname($username)
+   public function getFullname($username)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -401,12 +374,12 @@ class Users
    
    // ---------------------------------------------------------------------
    /**
-    * Delivers Lastname, Firstname of a given username
+    * Gets Lastname, Firstname of a given username
     *
     * @param string $username Username to find
-    * @return string $email Email address or empty
+    * @return string Lastname, Firtsname or empty
     */
-   function getLastFirst($username)
+   public function getLastFirst($username)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -431,12 +404,12 @@ class Users
    
    // ---------------------------------------------------------------------
    /**
-    * Reads the role of a given username
+    * Gets the role of a given username
     *
     * @param string $username Username to find
-    * @return string $role Role or empty
+    * @return string Role or empty
     */
-   function getRole($username)
+   public function getRole($username)
    {
       $query = $this->db->prepare('SELECT role FROM ' . $this->table . ' WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -451,11 +424,11 @@ class Users
    
    // ---------------------------------------------------------------------
    /**
-    * Reads all usernames into an array
+    * Gets all usernames
     *
-    * @return array $records Array with all usernames
+    * @return array Array with usernames
     */
-   function getUsernames()
+   public function getUsernames()
    {
       $records = array ();
       $query = $this->db->prepare('SELECT username FROM ' . $this->table . ' ORDER BY username ASC');
@@ -479,7 +452,7 @@ class Users
     * @param string $role Role to check
     * @return boolean True or False
     */
-   function hasRole($username, $role)
+   public function hasRole($username, $role)
    {
       $query = $this->db->prepare('SELECT role FROM ' . $this->table . ' WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -498,9 +471,9 @@ class Users
     * Checks whether a user is hidden
     *
     * @param string $username Username to find
-    * @return bool True or False
+    * @return boolean True or False
     */
-   function isHidden($username)
+   public function isHidden($username)
    {
       $query = $this->db->prepare('SELECT hidden FROM ' . $this->table . ' WHERE username = :val1');
       $query->bindParam('val1', $username);
@@ -522,21 +495,44 @@ class Users
    
    // ---------------------------------------------------------------------
    /**
-    * Checks whether a user has a certain role
+    * Unhides a user record
     *
-    * @param string $username Username to find
-    * @param string $role Role to set
-    * @return boolean True or False
+    * @param string $username Username of record to update
+    * @return boolean Query result
     */
-   function setRole($username, $role)
+   public function unhide($username)
    {
-      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET role = :val1 WHERE username = :val2');
-      $query->bindParam('val1', $role);
-      $query->bindParam('val2', $username);
-      $result = $query->execute();
-      
-      if ($result) return true;
-      else         return false;
+      $stmt = 'UPDATE ' . $this->table . ' SET `hidden` = "0" WHERE `username` = "' . $username . '"';
+      $result = $this->db->exec($stmt);
+      return $result;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
+    * Unlocks a user record
+    *
+    * @param string $username Username of record to update
+    * @return boolean Query result
+    */
+   public function unlock($username)
+   {
+      $stmt = 'UPDATE ' . $this->table . ' SET `locked` = "0" WHERE `username` = "' . $username . '"';
+      $result = $this->db->exec($stmt);
+      return $result;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
+    * Unverifies a user record (Sets verify to 0)
+    *
+    * @param string $username Username of record to update
+    * @return boolean Query result
+    */
+   public function unverify($username)
+   {
+      $stmt = 'UPDATE ' . $this->table . ' SET `verify` = "0" WHERE `username` = "' . $username . '"';
+      $result = $this->db->exec($stmt);
+      return $result;
    }
    
    // ---------------------------------------------------------------------
@@ -544,9 +540,9 @@ class Users
     * Updates an existing user record from local class variables
     *
     * @param string $username Username of record to update
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function update($username)
+   public function update($username)
    {
       $stmt = 'UPDATE ' . $this->table . ' SET ';
       $stmt .= '`username` = "' . $this->username . '", ';
@@ -573,9 +569,9 @@ class Users
    /**
     * Optimize table
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

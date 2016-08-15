@@ -2,12 +2,12 @@
 /**
  * Log.class.php
  *
- * @category TeamCal Neo 
- * @version 0.9.005
+ * @category LeAF 
+ * @version 0.6.003
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -16,19 +16,20 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Log
 {
-   var $db = '';
-   var $table = '';
-   var $id = NULL;
-   var $type = NULL;
-   var $timestamp = '';
-   var $user = '';
-   var $event = '';
+   public $id = NULL;
+   public $type = NULL;
+   public $timestamp = '';
+   public $user = '';
+   public $event = '';
+   
+   private $db = '';
+   private $table = '';
    
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $C, $CONF, $DB;
       $this->C = $C;
@@ -38,12 +39,13 @@ class Log
    
    // ---------------------------------------------------------------------
    /**
-    * Delete events
+    * Deletes log records by date range
     *
     * @param string $from ISO formatted start date
     * @param string $to ISO formatted end date
+    * @return boolean Query result
     */
-   function delete($from = '', $to = '')
+   public function delete($from = '', $to = '')
    {
       $records = array ();
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE (timestamp >= :val1 AND timestamp <= :val2)');
@@ -55,11 +57,11 @@ class Log
    
    // ---------------------------------------------------------------------
    /**
-    * Delete all records
+    * Deletes all records
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function deleteAll()
+   public function deleteAll()
    {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
       $result = $query->execute();
@@ -68,14 +70,14 @@ class Log
    
    // ---------------------------------------------------------------------
    /**
-    * Read events
+    * Reads records by date range
     *
-    * @param integer $sort Sort order (1=DESC, 0=ASC)
+    * @param string $sort Sort order (ASC or DESC)
     * @param string $from ISO formatted start date
     * @param string $to ISO formatted end date
-    * @return array $records Array of events
+    * @return array Array of records
     */
-   function read($sort = 'DESC', $from = '', $to = '')
+   public function read($sort='DESC', $from = '', $to = '')
    {
       $records = array ();
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE (timestamp >= :val1 AND timestamp <= :val2) ORDER BY timestamp ' . $sort);
@@ -95,14 +97,14 @@ class Log
    
    // ---------------------------------------------------------------------
    /**
-    * Event Logging
+    * Creates a log record
     *
-    * @param string $type Type of log entry
-    * @param string $user Corresponding user name of log entry
-    * @param string $event Type of event to log
-    * @return bool $result Query result
+    * @param string $type Log type
+    * @param string $user Username
+    * @param string $event Event
+    * @return boolean Query result
     */
-   function log($type, $user, $event, $object = '')
+   public function log($type, $user, $event, $object = '')
    {
       if (!strlen($this->C->read("logLanguage"))) $loglang = 'english';
       else $loglang = $this->C->read("logLanguage");
@@ -114,7 +116,6 @@ class Log
       if ($this->C->read($type))
       {
          $ts = date("YmdHis");
-         
          $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (type, timestamp, user, event) VALUES (:val1, :val2, :val3, :val4)');
          $query->bindParam('val1', $type);
          $query->bindParam('val2', $ts);
@@ -129,9 +130,9 @@ class Log
    /**
     * Optimize table
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();

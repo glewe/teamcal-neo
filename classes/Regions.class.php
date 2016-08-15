@@ -16,17 +16,18 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Regions
 {
-   var $db = '';
-   var $table = '';
-   var $id = '';
-   var $name = '';
-   var $description = '';
+   public $id = '';
+   public $name = '';
+   public $description = '';
+   
+   private $db = '';
+   private $table = '';
    
    // ---------------------------------------------------------------------
    /**
     * Constructor
     */
-   function __construct()
+   public function __construct()
    {
       global $CONF, $DB;
       $this->db = $DB->db;
@@ -37,9 +38,9 @@ class Regions
    /**
     * Creates a new region record from local class variables
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function create()
+   public function create()
    {
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description) VALUES (:val1, :val2)');
       $query->bindParam('val1', $this->name);
@@ -52,10 +53,10 @@ class Regions
    /**
     * Deletes a region record for a given region name
     *
-    * @param string $id Role ID to delete
-    * @return bool $result Query result
+    * @param string $id Region ID
+    * @return boolean Query result
     */
-   function delete($id)
+   public function delete($id)
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -68,9 +69,9 @@ class Regions
     * Deletes all records
     *
     * @param boolean $archive Whether to use the archive table
-    * @return bool Query result or false
+    * @return boolean Query result or false
     */
-   function deleteAll()
+   public function deleteAll()
    {
       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
       $result = $query->execute();
@@ -92,9 +93,9 @@ class Regions
     * Reads all region records into an array
     *
     * @param boolean $excludeHidden If TRUE, exclude hidden regions
-    * @return array $records Array with all region records
+    * @return array Array with records
     */
-   function getAll()
+   public function getAll()
    {
       $records = array ();
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name ASC');
@@ -112,12 +113,12 @@ class Regions
    
    // ---------------------------------------------------------------------
    /**
-    * Reads all records into an array where regionname is like specified
+    * Gets all records with likeness in name or description
     *
     * @param string $like Likeness to search for
-    * @return array $records Array with all records
+    * @return array Array with records
     */
-   function getAllLike($like)
+   public function getAllLike($like)
    {
       $records = array ();
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name LIKE :val1 OR description LIKE :val1 ORDER BY name ASC');
@@ -139,9 +140,9 @@ class Regions
    /**
     * Reads all region names into an array
     *
-    * @return array $records Array with all region names
+    * @return array Array with all region names
     */
-   function getAllNames()
+   public function getAllNames()
    {
       $records = array ();
       $query = $this->db->prepare('SELECT name FROM ' . $this->table . ' ORDER BY name ASC');
@@ -161,10 +162,10 @@ class Regions
    /**
     * Gets a region record for a given ID
     *
-    * @param string $id Role ID to find
-    * @return bool $result Query result
+    * @param string $id Region ID to find
+    * @return boolean Query result
     */
-   function getById($id)
+   public function getById($id)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -185,12 +186,12 @@ class Regions
    
    // ---------------------------------------------------------------------
    /**
-    * Finds a region record for a given region name and loads values in local class variables
+    * Gets a record by region name
     *
-    * @param string $name Role name to find
-    * @return bool $result Query result
+    * @param string $name Region name to find
+    * @return boolean Query result
     */
-   function getByName($name)
+   public function getByName($name)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name = :val1');
       $query->bindParam('val1', $name);
@@ -214,9 +215,9 @@ class Regions
     * Gets the region ID for a given name
     *
     * @param string $name Region name to find
-    * @return bool $result Region ID or FALSE
+    * @return string Record ID
     */
-   function getId($name)
+   public function getId($name)
    {
       $query = $this->db->prepare('SELECT id FROM ' . $this->table . ' WHERE name = :val1');
       $query->bindParam('val1', $name);
@@ -236,10 +237,10 @@ class Regions
    /**
     * Gets a region name for a given ID
     *
-    * @param string $id Role ID to find
-    * @return bool $result Query result
+    * @param string $id Region ID to find
+    * @return boolean Query result
     */
-   function getNameById($id)
+   public function getNameById($id)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -259,10 +260,10 @@ class Regions
    /**
     * Updates a region record for a given region ID
     *
-    * @param string $name Role ID to update
-    * @return bool $result Query result
+    * @param string $name Region ID to update
+    * @return boolean Query result
     */
-   function update($id)
+   public function update($id)
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET name = :val1, description = :val2 WHERE id = :val3');
       $query->bindParam('val1', $this->name);
@@ -276,9 +277,9 @@ class Regions
    /**
     * Optimize table
     *
-    * @return bool $result Query result
+    * @return boolean Query result
     */
-   function optimize()
+   public function optimize()
    {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
       $result = $query->execute();
