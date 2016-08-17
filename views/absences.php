@@ -84,6 +84,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <?=(($absence['manager_only'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_manager_only'].'"><i class="fa fa-user fa-lg text-warning"></i></i>':'')?>
                               <?=(($absence['hide_in_profile'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_hide_in_profile'].'"><i class="fa fa-eye-slash fa-lg text-info"></i></i>':'')?>
                               <?=(($absence['confidential'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_confidential'].'"><i class="fa fa-exclamation-circle fa-lg text-success"></i></i>':'')?>
+                              <?=(($absence['allowmonth'] OR ($absence['allowweek']))?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_allow_active'].'"><i class="fa fa-hand-stop-o fa-lg text-warning"></i></i>':'')?>
                            </div>
                            <div class="col-lg-2 text-right">
                               <a href="index.php?action=absenceedit&amp;id=<?=$absence['id']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>

@@ -24,7 +24,9 @@ class Absences
    public $bgcolor = 'ffffff';
    public $bgtrans = 0;
    public $factor = 1;
-   public $allowance = '0';
+   public $allowance = 0;
+   public $allowmonth = 0;
+   public $allowweek = 0;
    public $counts_as = 0;
    public $show_in_remainder = 1;
    public $show_totals = 1;
@@ -58,8 +60,8 @@ class Absences
    {
       $query = $this->db->prepare(
             'INSERT INTO ' . $this->table . 
-            ' (name, symbol, icon, color, bgcolor, bgtrans, factor, allowance, counts_as, show_in_remainder, show_totals, approval_required, counts_as_present, manager_only, hide_in_profile, confidential)'.
-            ' VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12, :val13, :val14, :val15, :val16)');
+            ' (name, symbol, icon, color, bgcolor, bgtrans, factor, allowance, allowmonth, allowweek, counts_as, show_in_remainder, show_totals, approval_required, counts_as_present, manager_only, hide_in_profile, confidential)'.
+            ' VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12, :val13, :val14, :val15, :val16, :val17, :val18)');
       $query->bindParam('val1', $this->name);
       $query->bindParam('val2', $this->symbol);
       $query->bindParam('val3', $this->icon);
@@ -68,14 +70,16 @@ class Absences
       $query->bindParam('val6', $this->bgtrans);
       $query->bindParam('val7', $this->factor);
       $query->bindParam('val8', $this->allowance);
-      $query->bindParam('val9', $this->counts_as);
-      $query->bindParam('val10', $this->show_in_remainder);
-      $query->bindParam('val11', $this->show_totals);
-      $query->bindParam('val12', $this->approval_required);
-      $query->bindParam('val13', $this->counts_as_present);
-      $query->bindParam('val14', $this->manager_only);
-      $query->bindParam('val15', $this->hide_in_profile);
-      $query->bindParam('val16', $this->confidential);
+      $query->bindParam('val9', $this->allowmonth);
+      $query->bindParam('val10', $this->allowweek);
+      $query->bindParam('val11', $this->counts_as);
+      $query->bindParam('val12', $this->show_in_remainder);
+      $query->bindParam('val13', $this->show_totals);
+      $query->bindParam('val14', $this->approval_required);
+      $query->bindParam('val15', $this->counts_as_present);
+      $query->bindParam('val16', $this->manager_only);
+      $query->bindParam('val17', $this->hide_in_profile);
+      $query->bindParam('val18', $this->confidential);
       $result = $query->execute();
       return $result;
    }
@@ -139,6 +143,8 @@ class Absences
             $this->bgtrans = $row['bgtrans'];
             $this->factor = $row['factor'];
             $this->allowance = $row['allowance'];
+            $this->allowmonth = $row['allowmonth'];
+            $this->allowweek = $row['allowweek'];
             $this->counts_as = $row['counts_as'];
             $this->show_in_remainder = $row['show_in_remainder'];
             $this->show_totals = $row['show_totals'];
@@ -225,6 +231,54 @@ class Absences
          if ($result and $row = $query->fetch())
          {
             $rc = $row['allowance'];
+         }
+      }
+      return $rc;
+   }
+   
+   // ----------------------------------------------------------------------
+   /**
+    * Gets the allowance per month
+    *
+    * @param string $id Record ID
+    * @return string Absence type allowance
+    */
+   public function getAllowMonth($id = '')
+   {
+      $rc = '0';
+      if (isset($id))
+      {
+         $query = $this->db->prepare('SELECT allowmonth FROM ' . $this->table . ' WHERE id = :val1');
+         $query->bindParam('val1', $id);
+         $result = $query->execute();
+         
+         if ($result and $row = $query->fetch())
+         {
+            $rc = $row['allowmonth'];
+         }
+      }
+      return $rc;
+   }
+   
+   // ----------------------------------------------------------------------
+   /**
+    * Gets the allowance per week
+    *
+    * @param string $id Record ID
+    * @return string Absence type allowance
+    */
+   public function getAllowWeek($id = '')
+   {
+      $rc = '0';
+      if (isset($id))
+      {
+         $query = $this->db->prepare('SELECT allowweek FROM ' . $this->table . ' WHERE id = :val1');
+         $query->bindParam('val1', $id);
+         $result = $query->execute();
+         
+         if ($result and $row = $query->fetch())
+         {
+            $rc = $row['allowweek'];
          }
       }
       return $rc;
@@ -329,6 +383,8 @@ class Absences
             $this->bgtrans = $row['bgtrans'];
             $this->factor = $row['factor'];
             $this->allowance = $row['allowance'];
+            $this->allowmonth = $row['allowmonth'];
+            $this->allowweek = $row['allowweek'];
             $this->counts_as = $row['counts_as'];
             $this->show_in_remainder = $row['show_in_remainder'];
             $this->show_totals = $row['show_totals'];
@@ -457,30 +513,6 @@ class Absences
    
    // ----------------------------------------------------------------------
    /**
-    * Gets the manager only flag of an absence type
-    *
-    * @param string $id Record ID
-    * @return boolean Manager only flag
-    */
-   public function getManagerOnly($id = '')
-   {
-      $rc = false;
-      if (isset($id))
-      {
-         $query = $this->db->prepare('SELECT manager_only FROM ' . $this->table . ' WHERE id = :val1');
-         $query->bindParam('val1', $id);
-         $result = $query->execute();
-         
-         if ($result and $row = $query->fetch())
-         {
-            $rc = $row['manager_only'];
-         }
-      }
-      return $rc;
-   }
-   
-   // ----------------------------------------------------------------------
-   /**
     * Gets the name of an absence type
     *
     * @param string $id Record ID
@@ -556,24 +588,28 @@ class Absences
       $result = 0;
       if (isset($id))
       {
-         $query = $this->db->prepare('UPDATE ' . $this->table . ' SET 
-               name = :val1, 
-               symbol = :val2, 
-               icon = :val3, 
-               color = :val4, 
-               bgcolor = :val5, 
-               bgtrans = :val6, 
-               factor = :val7, 
-               allowance = :val8, 
-               counts_as = :val9, 
-               show_in_remainder = :val10, 
-               show_totals = :val11, 
-               approval_required = :val12, 
-               counts_as_present = :val13, 
-               manager_only = :val14, 
-               hide_in_profile = :val15, 
-               confidential = :val16 
-               WHERE id = :val17');
+         $query = $this->db->prepare('UPDATE ' . $this->table . ' 
+               SET 
+                  name = :val1, 
+                  symbol = :val2, 
+                  icon = :val3, 
+                  color = :val4, 
+                  bgcolor = :val5, 
+                  bgtrans = :val6, 
+                  factor = :val7, 
+                  allowance = :val8, 
+                  allowmonth = :val9, 
+                  allowweek = :val10, 
+                  counts_as = :val11, 
+                  show_in_remainder = :val12, 
+                  show_totals = :val13, 
+                  approval_required = :val14, 
+                  counts_as_present = :val15, 
+                  manager_only = :val16, 
+                  hide_in_profile = :val17, 
+                  confidential = :val18 
+               WHERE 
+                  id = :val19');
          
          $query->bindParam('val1', $this->name);
          $query->bindParam('val2', $this->symbol);
@@ -583,15 +619,17 @@ class Absences
          $query->bindParam('val6', $this->bgtrans);
          $query->bindParam('val7', $this->factor);
          $query->bindParam('val8', $this->allowance);
-         $query->bindParam('val9', $this->counts_as);
-         $query->bindParam('val10', $this->show_in_remainder);
-         $query->bindParam('val11', $this->show_totals);
-         $query->bindParam('val12', $this->approval_required);
-         $query->bindParam('val13', $this->counts_as_present);
-         $query->bindParam('val14', $this->manager_only);
-         $query->bindParam('val15', $this->hide_in_profile);
-         $query->bindParam('val16', $this->confidential);
-         $query->bindParam('val17', $id);
+         $query->bindParam('val9', $this->allowmonth);
+         $query->bindParam('val10', $this->allowweek);
+         $query->bindParam('val11', $this->counts_as);
+         $query->bindParam('val12', $this->show_in_remainder);
+         $query->bindParam('val13', $this->show_totals);
+         $query->bindParam('val14', $this->approval_required);
+         $query->bindParam('val15', $this->counts_as_present);
+         $query->bindParam('val16', $this->manager_only);
+         $query->bindParam('val17', $this->hide_in_profile);
+         $query->bindParam('val18', $this->confidential);
+         $query->bindParam('val19', $id);
          $result = $query->execute();
       }
       return $result;

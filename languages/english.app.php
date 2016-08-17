@@ -41,10 +41,15 @@ $LANG['abs_alert_created'] = 'The absence type was created.';
 $LANG['abs_alert_created_fail'] = 'The abensce type could not be created. Please check the "Create absence type" dialog for input errors.';
 $LANG['abs_alert_deleted'] = 'The absence type was deleted.';
 $LANG['abs_alert_save_failed'] = 'The new information for this absence type could not be saved. There was invalid input. Please check for error messages.';
-$LANG['abs_allowance'] = 'Allowance';
+$LANG['abs_allow_active'] = 'Restricted Amount';
+$LANG['abs_allowance'] = 'Allowance per Year';
 $LANG['abs_allowance_comment'] = 'Set an allowance for this absence type per year here. This amount refers to the current calendar year. When displaying
       a user profile the absence count section will contain the remaining amount for this absence type for the user (A negative value will indicate that the
       user has used too many absence days of this type.). If allowance is set to 0 no limit is assumed.';
+$LANG['abs_allowmonth'] = 'Allowance per Month';
+$LANG['abs_allowmonth_comment'] = 'Set an allowance for this absence type per month here. If allowance is set to 0 no limit is assumed.';
+$LANG['abs_allowweek'] = 'Allowance per Week';
+$LANG['abs_allowweek_comment'] = 'Set an allowance for this absence type per week here. If allowance is set to 0 no limit is assumed.';
 $LANG['abs_approval_required'] = 'Approval required';
 $LANG['abs_approval_required_comment'] = 'Checking this box defines that this absence type requires approval by the group manager, director or administrator.
       A regular user choosing this absence type in his calendar will receive an error message telling him so. The group manager of this user will receive
@@ -84,10 +89,9 @@ $LANG['abs_hide_in_profile_comment'] = 'Checking this box defines that regular u
       purposes only or if the remainders are of no interest to regular users.';
 $LANG['abs_icon'] = 'Icon';
 $LANG['abs_icon_comment'] = 'The absence type icon is used in the calendar display.';
-$LANG['abs_manager_only'] = 'Management only';
-$LANG['abs_manager_only_comment'] = 'Checking this box defines that this absence type is only available to directors and managers. A regular
-      member can see this absence type in his calendar but setting them will be refused. Only his manager or the director can check the boxes for him.
-      This feature comes in handy if only the manager or director is supposed to manage this absence, e.g. vacation.';
+$LANG['abs_manager_only'] = 'Manager Only';
+$LANG['abs_manager_only_comment'] = 'Checking this box defines that only managers can set this absence type. Only if the logged in user is the manager of
+      the user who\'s calendar is being edited will this absence type be available.';
 $LANG['abs_name'] = 'Name';
 $LANG['abs_name_comment'] = 'The absence type name is used in lists and descriptions and should tell what this absence type is about, e.g. "Duty trip". It can be 80 characters long.';
 $LANG['abs_sample'] = 'Sample display';
@@ -125,6 +129,8 @@ $LANG['absum_remainder'] = 'Remainder';
 //
 // Alerts
 //
+$LANG['alert_decl_allowmonth_reached'] = ": The maximum amount of %1% per month for this absence type was already taken.";
+$LANG['alert_decl_allowweek_reached'] = ": The maximum amount of %1% per week for this absence type was already taken.";
 $LANG['alert_decl_approval_required'] = ": This absence type requires approval. It has been entered in your calendar but a daynote was added to indicate that it is not approved yet. Your manager was informed by mail.";
 $LANG['alert_decl_approval_required_daynote'] = "This absence was requested but is not approved yet.";
 $LANG['alert_decl_before_date'] = ": Absence changes before the following date are not allowed: ";
@@ -192,7 +198,7 @@ $LANG['caledit_alert_out_of_range'] = 'The dates entered were at least partially
 $LANG['caledit_alert_save_failed'] = 'The absence information could not be saved. There was invalid input. Please check your last input.';
 $LANG['caledit_alert_update'] = 'Update month';
 $LANG['caledit_alert_update_all'] = 'All absences were accepted and the calendar was updated accordingly.';
-$LANG['caledit_alert_update_partial'] = 'The absences were only partially accepted because some of the violate restrictions set 
+$LANG['caledit_alert_update_partial'] = 'The absences were only partially accepted because some of them violate restrictions set 
       up by the management. The calendar was updated with the accepted absences. The following requests were declined:';
 $LANG['caledit_alert_update_none'] = 'The absences were not accepted because the requested absences violate restrictions set up by the management. 
       The calendar was not updated.';

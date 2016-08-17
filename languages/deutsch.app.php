@@ -41,10 +41,15 @@ $LANG['abs_alert_created'] = 'Der Abwesenheitstyp wurde angelegt.';
 $LANG['abs_alert_created_fail'] = 'Der Abwesenheitstyp wurde nicht angelegt. Bitte &uuml;berpr&uuml;fe den "Abwesenheitstyp anlegen" Dialog nach Eingabefehlern.';
 $LANG['abs_alert_deleted'] = 'Der Abwesenheitstyp wurde gel&ouml;scht.';
 $LANG['abs_alert_save_failed'] = 'Die neuen Informationen f&uuml;r diesen Abwesenheitstyp konnten nicht gespeichert. Es gab fehlerhafte Eingaben. Bitte pr&uuml;fe die Fehlermeldungen.';
-$LANG['abs_allowance'] = 'Erlaubte Anzahl';
+$LANG['abs_allow_active'] = 'Eingeschr&auml;nkte Anzahl';
+$LANG['abs_allowance'] = 'Erlaubte Anzahl pro Jahr';
 $LANG['abs_allowance_comment'] = 'Hier kann die erlaubte Anzahl pro Kalenderjahr f&uuml;r diesen Typen gesetzt werden. Im Nutzerprofil 
       wird die genommene und noch verbleibende Anzahl angezeigt (Ein negativer Wert in der Anzeige bedeutet, dass der Nutzer die erlaubte Anzahl 
       &uuml;berschritten hat.). Wenn der Wert auf 0 gesetzt wird, gilt eine unbegrenzte Erlaubnis.';
+$LANG['abs_allowmonth'] = 'Erlaubte Anzahl pro Monat';
+$LANG['abs_allowmonth_comment'] = 'Hier kann die erlaubte Anzahl pro Monat f&uuml;r diesen Typen gesetzt werden. Wenn der Wert auf 0 gesetzt wird, gilt eine unbegrenzte Erlaubnis.';
+$LANG['abs_allowweek'] = 'Erlaubte Anzahl pro Woche';
+$LANG['abs_allowweek_comment'] = 'Hier kann die erlaubte Anzahl pro Woche f&uuml;r diesen Typen gesetzt werden. Wenn der Wert auf 0 gesetzt wird, gilt eine unbegrenzte Erlaubnis.';
 $LANG['abs_approval_required'] = 'Genehmigung erforderlich';
 $LANG['abs_approval_required_comment'] = 'Dieser Schalter macht den Typen genehmigungspflichtig durch einen Manager, Direktor oder Administrator. Ein normaler Nutzer wird dann eine 
       Fehlermeldung erhalten, wenn er diesen Typen eintr&auml;gt. Der Manager der Gruppe erh&auml;lt aber eine E-Mail, dass eine Genehmigung seinerseits erforderlich ist. 
@@ -84,10 +89,9 @@ $LANG['abs_hide_in_profile_comment'] = 'Dieser Schalter kann benutzt werden, um 
       nur zum Zwecke von Nachverfolgung nutzt oder die verbleibende Anzahl f&uuml;r den normalen Nutzer uninteressant ist.';
 $LANG['abs_icon'] = 'Icon';
 $LANG['abs_icon_comment'] = 'Das Icon wird im Kalender benutzt.';
-$LANG['abs_manager_only'] = 'Nur Management';
-$LANG['abs_manager_only_comment'] = 'Mit diesem Schalter aktiviert k&ouml;nnen nur Manager und Direktoren diesen Typen setzen. Ein normaler 
-      Nutzer kann den Abwesenheitstypen zwar sehen, aber nicht setzen. Diese Funktion macht Sinn, wenn z.B. nur Manager und Direktoren einen 
-      Typen wie Urlaub" managen.';
+$LANG['abs_manager_only'] = 'Nur Manager';
+$LANG['abs_manager_only_comment'] = 'Mit diesem Schalter aktiviert k&ouml;nnen nur Manager diesen Typen setzen. Nur wenn der eingeloggte User der Manager des Users
+      ist, dessen Kalender er bearbeitet, steht dieser Abwesenheitstyp zur Verf&uuml;gung.';
 $LANG['abs_name'] = 'Name';
 $LANG['abs_name_comment'] = 'Der Name wird in Listen und Beschreibungen benutzt. Er sollte aussagekr&auml;ftig sein, z.B. "Dienstreise". Maximal 80 Zeichen.';
 $LANG['abs_sample'] = 'Beispielanzeige';
@@ -125,6 +129,8 @@ $LANG['absum_remainder'] = 'Verbleib';
 //
 // Alerts
 //
+$LANG['alert_decl_allowmonth_reached'] = ": Die maximale Anzahl von %s pro Monat f&uuml;r diesen Abwesenheitstyp wurde schon genommen.";
+$LANG['alert_decl_allowweek_reached'] = ": Die maximale Anzahl von %s pro Woche f&uuml;r diesen Abwesenheitstyp wurde schon genommen.";
 $LANG['alert_decl_approval_required'] = ": Dieser Abwesenheitstyp ben&ouml;tigt Managerbest&auml;tigung. Die Abwesenheit wurde in den Kalender eingetragen aber auch eine Tagesnotiz &uuml;ber die ausstehende Best&auml;tigung. Dein Manager wurde per Email informiert.";
 $LANG['alert_decl_approval_required_daynote'] = "Diese Abwesenheit wurde angefragt, ist aber noch nicht best&auml;tigt.";
 $LANG['alert_decl_before_date'] = ": Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";

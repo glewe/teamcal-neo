@@ -99,7 +99,9 @@ if (!empty($_POST))
       if (!formInputValid('txt_color', 'hexadecimal|exact_length', 6)) $inputError = true;
       if (!formInputValid('txt_bgcolor', 'hexadecimal|exact_length', 6)) $inputError = true;
       if (!formInputValid('txt_factor', 'numeric|max_length', 4)) $inputError = true;
-      if (!formInputValid('txt_allowance', 'numeric|max_length', 4)) $inputError = true;
+      if (!formInputValid('txt_allowance', 'numeric|max_length', 3)) $inputError = true;
+      if (!formInputValid('txt_allowmonth', 'numeric|max_length', 2)) $inputError = true;
+      if (!formInputValid('txt_allowweek', 'numeric|max_length', 1)) $inputError = true;
    }
     
    if (!$inputError)
@@ -126,6 +128,8 @@ if (!empty($_POST))
          //
          $AA->factor = $_POST['txt_factor'];
          $AA->allowance = $_POST['txt_allowance'];
+         $AA->allowmonth = $_POST['txt_allowmonth'];
+         $AA->allowweek = $_POST['txt_allowweek'];
          $AA->counts_as = $_POST['sel_counts_as'];
          if (isset($_POST['chk_counts_as_present'])) $AA->counts_as_present = '1'; else $AA->counts_as_present = '0';
          if (isset($_POST['chk_show_in_remainder'])) $AA->show_in_remainder = '1'; else $AA->show_in_remainder = '0';
@@ -212,6 +216,8 @@ $viewData['general'] = array (
 
 $viewData['factor'] = $AA->factor;
 $viewData['allowance'] = $AA->allowance;
+$viewData['allowmonth'] = $AA->allowmonth;
+$viewData['allowweek'] = $AA->allowweek;
 $otherAbs = $AA->getAllPrimaryBut($AA->id);
 $viewData['otherAbs'][] = array('val' => '0', 'name' => "None", 'selected' => ($AA->counts_as == '0')?true:false );
 foreach ($otherAbs as $abs)
@@ -230,7 +236,9 @@ $viewData['confidential'] = $AA->confidential;
 
 $viewData['options'] = array (
    array ( 'prefix' => 'abs', 'name' => 'factor', 'type' => 'text', 'value' => $viewData['factor'], 'maxlength' => '4', 'error' =>  (isset($inputAlert['factor'])?$inputAlert['factor']:'') ), 
-   array ( 'prefix' => 'abs', 'name' => 'allowance', 'type' => 'text', 'value' => $viewData['allowance'], 'maxlength' => '4', 'error' =>  (isset($inputAlert['allowance'])?$inputAlert['allowance']:'') ), 
+   array ( 'prefix' => 'abs', 'name' => 'allowance', 'type' => 'text', 'value' => $viewData['allowance'], 'maxlength' => '3', 'error' =>  (isset($inputAlert['allowance'])?$inputAlert['allowance']:'') ), 
+   array ( 'prefix' => 'abs', 'name' => 'allowmonth', 'type' => 'text', 'value' => $viewData['allowmonth'], 'maxlength' => '2', 'error' =>  (isset($inputAlert['allowmonth'])?$inputAlert['allowmonth']:'') ), 
+   array ( 'prefix' => 'abs', 'name' => 'allowweek', 'type' => 'text', 'value' => $viewData['allowweek'], 'maxlength' => '2', 'error' =>  (isset($inputAlert['allowweek'])?$inputAlert['allowweek']:'') ), 
    array ( 'prefix' => 'abs', 'name' => 'counts_as', 'type' => 'list', 'values' => $viewData['otherAbs'], 'topvalue' => array('val' => '0', 'name' => 'None') ),
    array ( 'prefix' => 'abs', 'name' => 'counts_as_present', 'type' => 'check', 'value' => $viewData['counts_as_present'] ), 
    array ( 'prefix' => 'abs', 'name' => 'show_in_remainder', 'type' => 'check', 'value' => $viewData['show_in_remainder'] ), 

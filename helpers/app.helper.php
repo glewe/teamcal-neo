@@ -278,7 +278,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                   $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>" . $LANG['alert_decl_before_date'] . $beforeDate;
                   $declinedAbsences[$i] = $requestedAbsences[$i];
                   $approvedAbsences[$i] = $currentAbsences[$i];
-                 $thresholdReached = true;
+                  $thresholdReached = true;
                }
             }
             
@@ -341,6 +341,85 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                    * Notify managers
                    */
                   sendAbsenceApprovalNotifications($username, $year, $month, $i, $requestedAbsences[$i]);
+               }
+            }
+            
+            /**
+             * ALLOWANCE PER MONTH REACHED
+             */
+            if ($allow=$A->getAllowMonth($requestedAbsences[$i]) AND !$thresholdReached)
+            {
+               /**
+                * Allowance per month is positive
+                * Check how much of the absence this user took already in this month
+                */
+               $myts = strtotime($T->year . '-' . $T->month . '-01');
+               $daysInMonth = date("t", $myts);
+               $countFrom = $T->year.$T->month.'01';
+               $countTo = $T->year.$T->month.$daysInMonth;
+
+               $taken = countAbsence($username, $requestedAbsences[$i], $countFrom, $countTo, true, false);
+                
+               if ($taken >= $allow)
+               {
+                  /**
+                   * Absence allowance per month reached
+                   */
+                  $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . ")" . str_replace('%1%', $allow, $LANG['alert_decl_allowmonth_reached']);
+                  
+                  /**
+                   * Set absence but add approval daynote.
+                   */
+                  $declinedAbsences[$i] = $requestedAbsences[$i];
+                  $approvedAbsences[$i] = $currentAbsences[$i];
+               }
+            }
+            
+            /**
+             * ALLOWANCE PER WEEK REACHED
+             */
+            if ($allow=$A->getAllowWeek($requestedAbsences[$i]) AND !$thresholdReached)
+            {
+               /**
+                * Allowance per week is positive
+                * Check how much of the absence this user took already in this week
+                * 
+                * Get the first day of the week that this absence request is in
+                */
+               $date = new DateTime($T->year . '-' . $T->month . '-' . sprintf("%02d", ($i)));
+               $first = $date->modify('this week -1 days');
+               $myts = $date->getTimestamp();
+               $fromyear = date("Y", $myts);
+               $frommonth = date("m", $myts);
+               $fromday = date("d", $myts);
+               $countFrom = $fromyear.$frommonth.$fromday;
+
+               /**
+                * Get the last day of the week that this absence request is in
+                */
+               $date = new DateTime($T->year . '-' . $T->month . '-' . sprintf("%02d", ($i)));
+               $last = $date->modify('this week +5 days');
+               $myts = $date->getTimestamp();
+               $toyear = date("Y", $myts);
+               $tomonth = date("m", $myts);
+               $today = date("d", $myts);
+               $countTo = $toyear.$tomonth.$today;
+               
+               $taken = countAbsence($username, $requestedAbsences[$i], $countFrom, $countTo, true, false);
+               //echo "<script type=\"text/javascript\">alert(\"Debug: ".$countFrom." - ".$countTo.": ".$taken."\");</script>";
+                
+               if ($taken >= $allow)
+               {
+                  /**
+                   * Absence allowance per month reached
+                   */
+                  $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . ")" . str_replace('%1%', $allow, $LANG['alert_decl_allowweek_reached']);
+                  
+                  /**
+                   * Set absence but add approval daynote.
+                   */
+                  $declinedAbsences[$i] = $requestedAbsences[$i];
+                  $approvedAbsences[$i] = $currentAbsences[$i];
                }
             }
             
