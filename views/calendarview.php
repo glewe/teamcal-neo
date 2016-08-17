@@ -145,7 +145,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  <?php for ($i=$daystart; $i<=$dayend; $i++) { 
                                     $prop = 'week'.$i; 
                                     $wprop = 'wday'.$i; ?>
-                                    <th class="m-weeknumber text-center<?=(($M->$wprop==1)?' first':' inner')?>"><?=(($M->$wprop==1)?$M->$prop:'')?></th>
+                                    <th class="m-weeknumber text-center<?=(($M->$wprop==$viewData['firstDayOfWeek'])?' first':' inner')?>"><?=(($M->$wprop==$viewData['firstDayOfWeek'])?$M->$prop:'')?></th>
                                  <?php } ?>
                               </tr>
                            <?php } ?>

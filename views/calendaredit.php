@@ -119,7 +119,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  <?php for ($i=$daystart; $i<=$dayend; $i++) { 
                                     $prop = 'week'.$i; 
                                     $wprop = 'wday'.$i; ?>
-                                    <th class="m-weeknumber text-center<?=(($M->$wprop==1)?' first':' inner')?>"><?=(($M->$wprop==1)?$M->$prop:'')?></th>
+                                    <th class="m-weeknumber text-center<?=(($M->$wprop==$viewData['firstDayOfWeek'])?' first':' inner')?>"><?=(($M->$wprop==$viewData['firstDayOfWeek'])?$M->$prop:'')?></th>
                                  <?php } ?>
                               </tr>
                            <?php } ?>
@@ -178,7 +178,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </tr>
                            
                            <!-- Rows ff: Absences -->
-                           <?php foreach ($viewData['absences'] as $abs) { ?>
+                           <?php foreach ($viewData['absences'] as $abs) { 
+                              if( ($abs['manager_only'] AND ($UG->isGroupManagerOfUser($UL->username, $viewData['username']) OR $UL->username=='admin')) OR !$abs['manager_only']) { ?>
                               <tr>
                                  <td class="m-name"><?=$abs['name']?></td>
                                  <?php 
@@ -188,7 +189,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <td class="m-day text-center"<?=$viewData['dayStyles'][$i]?>><input name="opt_abs_<?=$i?>" type="radio" value="<?=$abs['id']?>"<?=(($T->$prop==$abs['id'])?' checked':'')?>></td>
                                  <?php } ?>
                               </tr>
-                           <?php } ?>
+                           <?php } 
+                           } ?>
                            
                            <!-- Last Row: Clear radio button -->
                            <tr>

@@ -501,6 +501,7 @@ $viewData['monthToday'] = sprintf("%02d", $todayDate['mon']);
 $viewData['showWeekNumbers'] = $C->read('showWeekNumbers');
 $mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
 $viewData['supportMobile'] = $C->read('supportMobile');
+$viewData['firstDayOfWeek'] = $C->read("firstDayOfWeek");
 
 //=============================================================================
 //
