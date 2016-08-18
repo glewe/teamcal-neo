@@ -121,6 +121,7 @@ if (!empty($_POST))
          {
             if (isset($_POST['sel_members']) )
             {
+               $UG->deleteAllMembers($_POST['hidden_id']);
                foreach ($_POST['sel_members'] as $uname)
                {
                   $UG->save($uname, $_POST['hidden_id'], 'member');
@@ -128,6 +129,7 @@ if (!empty($_POST))
             }
             if (isset($_POST['sel_managers']) )
             {
+               $UG->deleteAllManagers($_POST['hidden_id']);
                foreach ($_POST['sel_managers'] as $uname)
                {
                   $UG->save($uname, $_POST['hidden_id'], 'manager');

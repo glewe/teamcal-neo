@@ -167,21 +167,40 @@ class UserGroup
    
    // ---------------------------------------------------------------------
    /**
-    * Deletes all records for a given user and group (Deletes membership)
+    * Deletes all managers of a groups
     *
     * @param string $username Username
     * @param string $groupid Group ID
     * @param bool $archive Whether to use the archive table
     * @return boolean Query result
     */
-   public function deleteMembership($username = '', $groupid = '', $archive = FALSE)
+   public function deleteAllManagers($groupid = '', $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
       
-      $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE groupid = :val1 AND username = :val2');
+      $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE groupid = :val1 AND type = "manager"');
       $query->bindParam('val1', $groupid);
-      $query->bindParam('val2', $username);
+      $result = $query->execute();
+      return $result;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
+    * Deletes all members of a groups
+    *
+    * @param string $username Username
+    * @param string $groupid Group ID
+    * @param bool $archive Whether to use the archive table
+    * @return boolean Query result
+    */
+   public function deleteAllMembers($groupid = '', $archive = FALSE)
+   {
+      if ($archive) $table = $this->archive_table;
+      else $table = $this->table;
+      
+      $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE groupid = :val1 AND type = "member"');
+      $query->bindParam('val1', $groupid);
       $result = $query->execute();
       return $result;
    }
