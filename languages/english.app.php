@@ -129,8 +129,8 @@ $LANG['absum_remainder'] = 'Remainder';
 //
 // Alerts
 //
-$LANG['alert_decl_allowmonth_reached'] = ": The maximum amount of %1% per month for this absence type was already taken.";
-$LANG['alert_decl_allowweek_reached'] = ": The maximum amount of %1% per week for this absence type was already taken.";
+$LANG['alert_decl_allowmonth_reached'] = ": The maximum amount of %1% per month for this absence type is exceeded.";
+$LANG['alert_decl_allowweek_reached'] = ": The maximum amount of %1% per week for this absence type is exceeded.";
 $LANG['alert_decl_approval_required'] = ": This absence type requires approval. It has been entered in your calendar but a daynote was added to indicate that it is not approved yet. Your manager was informed by mail.";
 $LANG['alert_decl_approval_required_daynote'] = "This absence was requested but is not approved yet.";
 $LANG['alert_decl_before_date'] = ": Absence changes before the following date are not allowed: ";
@@ -198,8 +198,8 @@ $LANG['caledit_alert_out_of_range'] = 'The dates entered were at least partially
 $LANG['caledit_alert_save_failed'] = 'The absence information could not be saved. There was invalid input. Please check your last input.';
 $LANG['caledit_alert_update'] = 'Update month';
 $LANG['caledit_alert_update_all'] = 'All absences were accepted and the calendar was updated accordingly.';
-$LANG['caledit_alert_update_partial'] = 'The absences were only partially accepted because some of them violate restrictions set 
-      up by the management. The calendar was updated with the accepted absences. The following requests were declined:';
+$LANG['caledit_alert_update_partial'] = 'Some absences were not accepted because they violate restrictions set by the management. 
+      The following requests were declined:';
 $LANG['caledit_alert_update_none'] = 'The absences were not accepted because the requested absences violate restrictions set up by the management. 
       The calendar was not updated.';
 $LANG['caledit_clearAbsence'] = 'Clear';

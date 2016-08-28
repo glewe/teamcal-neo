@@ -129,8 +129,8 @@ $LANG['absum_remainder'] = 'Verbleib';
 //
 // Alerts
 //
-$LANG['alert_decl_allowmonth_reached'] = ": Die maximale Anzahl von %s pro Monat f&uuml;r diesen Abwesenheitstyp wurde schon genommen.";
-$LANG['alert_decl_allowweek_reached'] = ": Die maximale Anzahl von %s pro Woche f&uuml;r diesen Abwesenheitstyp wurde schon genommen.";
+$LANG['alert_decl_allowmonth_reached'] = ": Die maximale Anzahl von %1% pro Monat f&uuml;r diesen Abwesenheitstyp wurde erreicht.";
+$LANG['alert_decl_allowweek_reached'] = ": Die maximale Anzahl von %1% pro Woche f&uuml;r diesen Abwesenheitstyp wurde erreicht.";
 $LANG['alert_decl_approval_required'] = ": Dieser Abwesenheitstyp ben&ouml;tigt Managerbest&auml;tigung. Die Abwesenheit wurde in den Kalender eingetragen aber auch eine Tagesnotiz &uuml;ber die ausstehende Best&auml;tigung. Dein Manager wurde per Email informiert.";
 $LANG['alert_decl_approval_required_daynote'] = "Diese Abwesenheit wurde angefragt, ist aber noch nicht best&auml;tigt.";
 $LANG['alert_decl_before_date'] = ": Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";
@@ -198,7 +198,7 @@ $LANG['caledit_alert_out_of_range'] = 'Die Datumsangaben war zumindest teilweise
 $LANG['caledit_alert_save_failed'] = 'Die Abwesenheitsinformationen konnten nicht gespeichert werden. Es gab fehlerhafte Eingaben. Bitte pr&uuml;fe die letzte Eingabe.';
 $LANG['caledit_alert_update'] = 'Monat aktualisieren';
 $LANG['caledit_alert_update_all'] = 'Alle Abwesenheiten wurden akzeptiert und der Monat entsprechend aktualisert.';
-$LANG['caledit_alert_update_partial'] = 'Nur ein Teil der Abwesenheiten wurden akzeptiert weil einige vom Management konfigurierte Ablehnungsregeln verletzen. 
+$LANG['caledit_alert_update_partial'] = 'Einige Abwesenheiten konnten nicht akzeptiert werden, weil sie vom Management konfigurierte Regeln verletzen. 
       Die folgenden Abwesenheiten wurden abgelehnt:';
 $LANG['caledit_alert_update_none'] = 'Keine der Abwesenheiten wurde akzeptiert und der Monat nicht aktualisert. 
       Die abgelehnten Abwesenheiten wurden an einen Manager zur Best&auml;tigung geschickt.';
