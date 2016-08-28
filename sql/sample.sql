@@ -1,3 +1,15 @@
+/**
+ * sample.sql
+ * 
+ * Sample MySQL database
+ *
+ * @category TeamCal Neo 
+ * @version 0.9.008
+ * @author George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
+ * @link http://www.lewe.com
+ * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ */
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -460,9 +472,10 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (151, 'appKeywords', 'Lewe TeamCal Neo'),
 (152, 'userManual', 'https%3A%2F%2Fgeorgelewe.atlassian.net%2Fwiki%2Fdisplay%2FTCNEO'),
 (153, 'footerCopyrightUrl', 'http://www.lewe.com'),
-(154, 'footerSocialLinks', ''),
-(159, 'footerViewport', '0'),
-(160, 'cookieConsent', '0');
+(154, 'footerSocialLinks', 'https://plus.google.com/u/0/+GeorgeLewe;https://www.linkedin.com/in/george-lewe-a9ab6411b;https://twitter.com/gekale;https://www.xing.com/profile/George_Lewe;https://www.paypal.me/GeorgeLewe'),
+(155, 'footerViewport', '0'),
+(156, 'cookieConsent', '0'),
+(157, 'noIndex', '1');
 
 -- --------------------------------------------------------
 

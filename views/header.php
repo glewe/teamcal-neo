@@ -5,11 +5,11 @@
  * The view of the HTML header
  *
  * @category TeamCal Neo 
- * @version 0.9.007
+ * @version 0.9.008
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
 <html lang="en">
@@ -19,6 +19,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
       ===============================================================================
       Application: <?=$htmlData['title']." ".$htmlData['version']."\n"?>
       Author:      <?=$htmlData['author']."\n"?>
+      License:     <?=$htmlData['license']."\n"?>
       Copyright:   <?=$htmlData['copyright']."\n"?>
                    All rights reserved.
       ===============================================================================
@@ -27,12 +28,30 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
       
       <meta http-equiv="Content-type" content="text/html;charset=utf-8">
       <meta charset="utf-8">
-      <meta name="application-name" content="<?=$htmlData['title']?>">
-      <meta name="description" content="<?=$htmlData['description']?>">
-      <meta name="keywords" content="<?=$htmlData['keywords']?>">
       <meta name="viewport" content="width=device-width,initial-scale=1">
-      
       <link rel="shortcut icon" href="images/icons/logo-16.png">
+      
+      <!-- Robots -->
+      <meta name="robots" content="<?=$htmlData['robots']?>"/>
+      
+      <?php if (!$C->read('noIndex')) { ?><!-- SEO -->
+      <link rel="canonical" href="<?=WEBSITE_URL?>/" />
+      <meta name="description" content="<?=$htmlData['description']?>" />
+      <meta name="keywords" content="<?=$htmlData['keywords']?>">
+      <meta property="og:locale" content="<?=$htmlData['locale']?>" />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="<?=$htmlData['title']?>" />
+      <meta property="og:description" content="<?=$htmlData['description']?>" />
+      <meta property="og:url" content="<?=WEBSITE_URL?>/" />
+      <meta property="og:site_name" content="<?=$htmlData['title']?>" />
+      <meta property="og:image" content="<?=WEBSITE_URL?>/images/icons/logo-200.png" />
+      <meta property="og:image:width" content="200" />
+      <meta property="og:image:height" content="200" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:description" content="<?=$htmlData['description']?>" />
+      <meta name="twitter:title" content="<?=$htmlData['title']?>" />
+      <meta name="twitter:image" content="<?=WEBSITE_URL?>/images/icons/logo-200.png" />
+      <?php } ?>
       
       <!-- Theme CSS -->
       <link rel="stylesheet" href="themes/<?=$htmlData['theme']['name']?>/css/bootstrap.min.css">

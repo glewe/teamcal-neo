@@ -5,11 +5,11 @@
  * Collection of calendar related functions
  *
  * @category TeamCal Neo 
- * @version 0.9.007
+ * @version 0.9.008
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet) http://tcneo.lewe.com/doc/license.txt
+ * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag http://tcneo.lewe.com/doc/license.txt
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -117,7 +117,6 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
    
    $approvedAbsences = array ();
    $declinedAbsences = array ();
-   $mergedAbsences = array ();
    $declinedReasons = array ();
    $thresholdReached = false;
     
@@ -139,7 +138,6 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
    {
       $approvedAbsences[$i] = '0';
       $declinedAbsences[$i] = '0';
-      $mergedAbsences[$i] = '0';
       $declinedReasons[$i] = '';
    }
    

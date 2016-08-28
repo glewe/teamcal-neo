@@ -5,11 +5,11 @@
  * Calendar view page view
  *
  * @category TeamCal Neo 
- * @version 0.9.007
+ * @version 0.9.008
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet) http://tcneo.lewe.com/doc/license.txt
+ * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag http://tcneo.lewe.com/doc/license.txt
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
@@ -210,6 +210,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  <?php 
                                  $T->getTemplate($usr['username'], $viewData['year'], $viewData['month']);
                                  $currDate = date('Y-m-d');
+                                 //
+                                 // Loop through all days of this month
+                                 //
                                  for ($i=$daystart; $i<=$dayend; $i++) 
                                  { 
                                     $loopDate = date('Y-m-d', mktime(0, 0, 0, $viewData['month'], $i, $viewData['year']));
@@ -235,7 +238,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           if ($A->getBgTrans($T->$abs)) $bgStyle = ""; else $bgStyle = "background-color: #". $A->getBgColor($T->$abs) . ";";
                                           $style .= 'color: #' . $A->getColor($T->$abs) . ';' . $bgStyle;
                                           $icon = '<span class="fa fa-'.$A->getIcon($T->$abs).'"></span>';
-                                          $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$A->getName($T->$abs).'">';                 
+                                          $countFrom = $viewData['year'].$viewData['month'].'01'; 
+                                          $countTo = $viewData['year'].$viewData['month'].$dayend; 
+                                          $taken = countAbsence($usr['username'], $T->$abs, $countFrom, $countTo, true, false);
+                                          $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$A->getName($T->$abs).' ('.$taken.')">';                 
                                           $absend = '</div>';
                                           $dayAbsCount[$i]++;
                                        }

@@ -5,11 +5,11 @@
  * Language file (German)
  *
  * @category TeamCal Neo 
- * @version 0.9.007
+ * @version 0.9.008
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -20,6 +20,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 // update the framework at a later point, go to the bottom of this file to 
 // enter your application language strings to keep them separate.
 //
+$LANG['locale'] = 'de_DE';
 
 //
 // Common
@@ -435,6 +436,8 @@ $LANG['config_mailSMTPSSL'] = 'SMTP TLS/SSL Protokoll';
 $LANG['config_mailSMTPSSL_comment'] = 'TLS/SSL Protokoll f&uuml;r die SMTP Verbindung benutzen.';
 $LANG['config_menuBarInverse'] = 'Men&uuml;zeile Invertieren';
 $LANG['config_menuBarInverse_comment'] = 'Mit diesem Schalter kann die Farbkombination der Men&uuml;zeile invertiert werden. F&uuml;r einige Themes sieht das besser aus.';
+$LANG['config_noIndex'] = 'Keine Suchmaschinen-Indizierung';
+$LANG['config_noIndex_comment'] = 'Mit diesem Schalter werden Suchmaschinen angewiesen, diese TeamCal Neo Website nicht zu indizieren. Es werden ausserdem keine SEO Eintr&auml;ge im Header erzeugt.';
 $LANG['config_permissionScheme'] = 'Berechtigungsschema';
 $LANG['config_permissionScheme_comment'] = 'Hiermit wird das aktive Berechtigungsschema ausgew&auml;hlt. Das Schema kann auf der Berechtigungsschema Seite bearbeitet werden.';
 $LANG['config_pwdStrength'] = 'Passwort Sicherheit';

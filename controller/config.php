@@ -5,11 +5,11 @@
  * Framework config page controller
  *
  * @category TeamCal Neo 
- * @version 0.9.007
+ * @version 0.9.008
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -154,6 +154,7 @@ if (!empty($_POST))
             $C->save("googleAnalytics","0");
             $C->save("googleAnalyticsID","");
          }
+         if ( isset($_POST['chk_noIndex']) && $_POST['chk_noIndex'] ) $C->save("noIndex","1"); else $C->save("noIndex","0");
          if ( isset($_POST['chk_underMaintenance']) && $_POST['chk_underMaintenance'] ) $C->save("underMaintenance","1"); else $C->save("underMaintenance","0");
       
          //
@@ -282,6 +283,7 @@ $viewData['system'] = array (
    array ( 'prefix' => 'config', 'name' => 'timeZone', 'type' => 'list', 'values' => $viewData['timezoneList'] ),
    array ( 'prefix' => 'config', 'name' => 'googleAnalytics', 'type' => 'check', 'values' => '', 'value' => $C->read("googleAnalytics") ),
    array ( 'prefix' => 'config', 'name' => 'googleAnalyticsID', 'type' => 'text', 'value' => $C->read("googleAnalyticsID"), 'maxlength' => '16' ),
+   array ( 'prefix' => 'config', 'name' => 'noIndex', 'type' => 'check', 'values' => '', 'value' => $C->read("noIndex") ),
    array ( 'prefix' => 'config', 'name' => 'underMaintenance', 'type' => 'check', 'values' => '', 'value' => $C->read("underMaintenance") ),
 );
 

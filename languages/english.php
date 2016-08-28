@@ -5,11 +5,11 @@
  * Language file (English)
  *
  * @category TeamCal Neo 
- * @version 0.9.007
+ * @version 0.9.008
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -20,6 +20,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 // update the framework at a later point, go to the bottom of this file to 
 // enter your application language strings to keep them separate.
 //
+$LANG['locale'] = 'en_US';
 
 //
 // Common
@@ -433,6 +434,8 @@ $LANG['config_mailSMTPSSL'] = 'SMTP TLS/SSL protocol';
 $LANG['config_mailSMTPSSL_comment'] = 'Use the TLS/SSL protocol for the SMTP connection';
 $LANG['config_menuBarInverse'] = 'Menu Bar Inverse';
 $LANG['config_menuBarInverse_comment'] = 'With this switch you can inverse the color set of the menu bar. For some themes this is the better choice.';
+$LANG['config_noIndex'] = 'No Search Engine Indexing';
+$LANG['config_noIndex_comment'] = 'With this switch on, search engine robots are instructed not to index this TeamCal Neo website. Also, no SEO header entries will be generated.';
 $LANG['config_permissionScheme'] = 'Permission Scheme';
 $LANG['config_permissionScheme_comment'] = 'The permission defines who can do what. The permisson schemes can be configured on the permissions page.';
 $LANG['config_pwdStrength'] = 'Password Strength';

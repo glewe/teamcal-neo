@@ -3,11 +3,11 @@
  * index.php
  * 
  * @category TeamCal Neo 
- * @version 0.9.007
+ * @version 0.9.008
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
  */
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
@@ -28,7 +28,7 @@ define('WEBSITE_URL', substr($fullURL,0,$pos)); //Remove trailing slash
 //
 if (file_exists('installation.php'))
 {
-   $value = '1';
+   $app_installed = '1';
    $handle = fopen("config/config.app.php","r");
    if ($handle) 
    {
@@ -39,13 +39,13 @@ if (file_exists('installation.php'))
          {
             $pos1=strpos($buffer,'"');
             $pos2=strrpos($buffer,'"');
-            $value=trim(substr($buffer,$pos1+1,$pos2-($pos1+1)));
+            $app_installed=trim(substr($buffer,$pos1+1,$pos2-($pos1+1)));
          }
       }
       fclose($handle);
    }
    
-   if (!$value)
+   if (!$app_installed)
    {
       header("Location: installation.php");
    }
@@ -56,11 +56,46 @@ if (file_exists('installation.php'))
       //
       $errorData['title'] = 'Application Error';
       $errorData['subject'] = 'Installation Script Exists';
-      $errorData['text'] = '<p>The installation script "installation.php" still exists in the root directory while "config/config.app.php" indicates that an installation has been performed</p>
+      $errorData['text'] = '<p>The installation script "installation.php" still exists in the root directory while "config/config.app.php" indicates that an installation has been performed.</p>
       <p>The application will not start until either one has been resolved:</p>
       <ol>
          <li>Delete or rename "installation.php"</li>
          <li>Set $CONF[\'app_installed\'] to 0 in "config/config.app.php"</li>
+      </ol>';
+      require ('views/error.php');
+      die();
+   }
+}
+else
+{
+   $app_installed = '1';
+   $handle = fopen("config/config.app.php","r");
+   if ($handle)
+   {
+      while (!feof($handle))
+      {
+         $buffer = fgets($handle, 4096);
+         if (strpos($buffer, "'app_installed'")==6)
+         {
+            $pos1=strpos($buffer,'"');
+            $pos2=strrpos($buffer,'"');
+            $app_installed=trim(substr($buffer,$pos1+1,$pos2-($pos1+1)));
+         }
+      }
+      fclose($handle);
+   }
+   if (!$app_installed)
+   {
+      //
+      // App not installed but Installation.php not found
+      //
+      $errorData['title'] = 'Application Error';
+      $errorData['subject'] = 'Installation Script Not Found';
+      $errorData['text'] = '<p>The installation script "installation.php" does not exist in the root directory while "config/config.app.php" indicates that no installation has been performed yet.</p>
+      <p>The application will not start until either one has been resolved:</p>
+      <ol>
+         <li>Recover "installation.php"</li>
+         <li>Set $CONF[\'app_installed\'] to 1 in "config/config.app.php"</li>
       </ol>';
       require ('views/error.php');
       die();
@@ -306,11 +341,13 @@ $htmlData['version'] = $CONF['app_version'];
 $htmlData['author'] = $CONF['app_author'];
 $htmlData['copyright'] = $CONF['app_copyright'];
 $htmlData['license'] = $CONF['app_license'];
+$htmlData['locale'] = $LANG['locale'];
 $htmlData['theme'] = getTheme();
 $htmlData['jQueryTheme'] = $C->read("jqtheme");
 if ($C->read("cookieConsent")) $htmlData['cookieConsent'] = true; else $htmlData['cookieConsent'] = false; 
 if ($C->read("faCDN")) $htmlData['faCDN'] = true; else $htmlData['faCDN'] = false; 
 if ($C->read("jQueryCDN")) $htmlData['jQueryCDN'] = true; else $htmlData['jQueryCDN'] = false; 
+if ($C->read("noIndex")) $htmlData['robots'] = 'noindex,nofollow,noopd'; else $htmlData['robots'] = 'index,follow,noopd';
 
 $userData['loginInfo'] = loginInfo();
 

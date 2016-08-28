@@ -5,11 +5,11 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 0.9.007
+ * @version 0.9.008
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed. (Not available yet)
+ * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -109,8 +109,8 @@ $CONF['app_jqueryui_dir'] = 'js/jquery/ui/1.11.4/';
  * !Do not change this information. It is protected by the license agreement!
  */
 $CONF['app_name'] = "TeamCal Neo";
-$CONF['app_version'] = "0.9.007";
-$CONF['app_version_date'] = "2016-08-18";
+$CONF['app_version'] = "0.9.008";
+$CONF['app_version_date'] = "2016-08-28";
 $CONF['app_year_start'] = "2014";
 $CONF['app_year_current'] = date('Y');
 $CONF['app_author'] = "George Lewe";
@@ -118,5 +118,5 @@ $CONF['app_url'] = "http://www.lewe.com";
 $CONF['app_email'] = "george@lewe.com";
 $CONF['app_copyright'] = "(c) " . $CONF['app_year_start'] . "-" . $CONF['app_year_current'] . " by " . $CONF['app_author'] . " (" . $CONF['app_url'] . ")";
 $CONF['app_powered'] = "Powered by " . $CONF['app_name'] . " " . $CONF['app_version'] . " &copy; " . $CONF['app_year_start'] . "-" . $CONF['app_year_current'] . " by <a href=\"http://www.lewe.com\" class=\"copyright\" target=\"_blank\">" . $CONF['app_author'] . "</a>";
-$CONF['app_license'] = "This program is cannot be licensed yet. Redistribution is not allowed.";
+$CONF['app_license'] = "https://georgelewe.atlassian.net/wiki/x/AoC3Ag";
 ?>

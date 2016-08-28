@@ -32,8 +32,8 @@ you agree to the following conditions if you decide to use or modify TeamCal Neo
 
 6. Distribution of modifications are not allowed.
 
-Commercial use of TeamCal Neo requires licensing. Refer to this documentation
-for further information:
+*Commercial use of TeamCal Neo requires licensing.* 
+Refer to this documentation for further information:
 https://georgelewe.atlassian.net/wiki/display/TCNEO/TeamCal+Neo+License
         
 George Lewe (george@lewe.com)
