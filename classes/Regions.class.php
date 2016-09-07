@@ -20,7 +20,12 @@ class Regions
    public $name = '';
    public $description = '';
    
+   public $roleid = '';
+   public $regionid = '';
+   public $access = '';
+   
    private $db = '';
+   private $accessTable = '';
    private $table = '';
    
    // ---------------------------------------------------------------------
@@ -32,11 +37,12 @@ class Regions
       global $CONF, $DB;
       $this->db = $DB->db;
       $this->table = $CONF['db_table_regions'];
+      $this->accessTable = $CONF['db_table_region_role'];
    }
    
    // ---------------------------------------------------------------------
    /**
-    * Creates a new region record from local class variables
+    * Creates a region record
     *
     * @return boolean Query result
     */
@@ -51,7 +57,7 @@ class Regions
    
    // ---------------------------------------------------------------------
    /**
-    * Deletes a region record for a given region name
+    * Deletes a region record
     *
     * @param string $id Region ID
     * @return boolean Query result
@@ -59,6 +65,21 @@ class Regions
    public function delete($id)
    {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
+      $query->bindParam('val1', $id);
+      $result = $query->execute();
+      return $result;
+   }
+
+   // ---------------------------------------------------------------------
+   /**
+    * Deletes a region from access table
+    *
+    * @param string $id Region ID
+    * @return boolean Query result
+    */
+   public function deleteAccess($id)
+   {
+      $query = $this->db->prepare('DELETE FROM ' . $this->accessTable . ' WHERE regionid = :val1');
       $query->bindParam('val1', $id);
       $result = $query->execute();
       return $result;
@@ -83,6 +104,31 @@ class Regions
          return $result;
       }
       else
+      {
+         return false;
+      }
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
+    * Gets the region_role access
+    *
+    * @param integer $id Region ID
+    * @param integer $roleid Role ID
+    * @return string Access type
+    */
+   public function getAccess($id, $roleid)
+   {
+      $query = $this->db->prepare('SELECT access FROM ' . $this->accessTable . ' WHERE regionid = :val1 AND roleid = :val2');
+      $query->bindParam('val1', $id);
+      $query->bindParam('val2', $roleid);
+      $result = $query->execute();
+      
+      if ($result and $row = $query->fetch())
+      {
+         return $row['access'];
+      }
+      else 
       {
          return false;
       }
@@ -254,6 +300,22 @@ class Regions
       {
          return false;
       }
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
+    * Creates a region_role record
+    *
+    * @return boolean Query result
+    */
+   public function setAccess($id, $roleid, $access)
+   {
+      $query = $this->db->prepare('INSERT INTO ' . $this->accessTable . ' (regionid, roleid, access) VALUES (:val1, :val2, :val3)');
+      $query->bindParam('val1', $id);
+      $query->bindParam('val2', $roleid);
+      $query->bindParam('val3', $access);
+      $result = $query->execute();
+      return $result;
    }
    
    // ---------------------------------------------------------------------

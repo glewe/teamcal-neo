@@ -38,6 +38,14 @@ if (isset($_GET['month']) AND isset($_GET['region']) AND isset($_GET['user']))
    }
    else
    {
+      if ($R->getAccess($R->id, $UL->getRole($UL->username)) == 'view')
+      {
+         //
+         // The current user (role) can only view the region specified in the URL.
+         // So we replace it with the default region.
+         //
+         $R->getById('1'); 
+      }
       $viewData['regionid'] = $R->id;
       $viewData['regionname'] = $R->name;
    }
@@ -421,8 +429,20 @@ $viewData['username'] = $caluser;
 $viewData['fullname'] = $U->getFullname($caluser);
 $viewData['absences'] = $A->getAll();
 $viewData['holidays'] = $H->getAllCustom();
-$viewData['regions'] = $R->getAll();
 $viewData['dayStyles'] = array();
+
+//
+// Only prepare those regions the current user (role) can edit
+//
+$allRegions = $R->getAll();
+foreach ($allRegions as $reg)
+{
+   if (!$R->getAccess($reg['id'], $UL->getRole($UL->username)) OR $R->getAccess($reg['id'], $UL->getRole($UL->username)) == 'edit' )
+   {
+      $viewData['regions'][] = $reg;
+   }
+}
+
 
 $viewData['users'] = array();
 foreach ($users as $usr)

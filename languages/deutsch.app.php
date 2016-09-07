@@ -541,6 +541,8 @@ $LANG['region_name'] = 'Name';
 $LANG['region_name_comment'] = '';
 $LANG['region_description'] = 'Beschreibung';
 $LANG['region_description_comment'] = '';
+$LANG['region_viewOnlyRoles'] = 'Nur Lesen Rollen';
+$LANG['region_viewOnlyRoles_comment'] = 'Die hier ausgew&auml;hlten Rollen k&ouml;nnen diese Region nur in der Kalenderansicht sehen. Sie k&ouml;nnen keine Abwesenheiten f&uuml;r diese Region eintragen.';
 
 //
 // Regions

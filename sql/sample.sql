@@ -1208,3 +1208,18 @@ CREATE TABLE `tcneo_archive_user_attachment` (
   PRIMARY KEY (id),
   UNIQUE userAttachment (username,fileid)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `region_role`
+--
+
+DROP TABLE IF EXISTS `tcneo_region_role`;
+CREATE TABLE `tcneo_region_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `regionid` int(11) NOT NULL,
+  `roleid` int(11) NOT NULL,
+  `access` varchar(4) CHARACTER SET utf8 DEFAULT "edit",
+  PRIMARY KEY (id)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

@@ -41,6 +41,7 @@ $tableIDs = array (
    'messages',
    'months',
    'permissions',
+   'region_role',
    'regions',
    'roles',
    'templates',

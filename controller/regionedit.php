@@ -112,7 +112,22 @@ if (!empty($_POST))
          $RR->name = $_POST['txt_name'];
          $RR->description = $_POST['txt_description'];
           
+         //
+         // Update region record
+         //
          $RR->update($_POST['hidden_id']);
+          
+         //
+         // Update region access table
+         //
+         $RR->deleteAccess($_POST['hidden_id']);
+         if (isset($_POST['sel_viewOnlyRoles']) )
+         {
+            foreach ($_POST['sel_viewOnlyRoles'] as $roleid)
+            {
+               $RR->setAccess($_POST['hidden_id'], $roleid, 'view');
+            }
+         }
           
          //
          // Log this event
@@ -154,9 +169,15 @@ if (!empty($_POST))
 //
 // PREPARE VIEW
 //
+$roles = $RO->getAll();
+foreach ($roles as $role)
+{
+   $viewData['viewOnlyRoles'][] = array ('val' => $role['id'], 'name' => $role['name'], 'selected' => ($R->getAccess($viewData['id'],$role['id']) == "view")?true:false );
+}
 $viewData['region'] = array (
    array ( 'prefix' => 'region', 'name' => 'name', 'type' => 'text', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
    array ( 'prefix' => 'region', 'name' => 'description', 'type' => 'text', 'value' => $viewData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
+   array ( 'prefix' => 'region', 'name' => 'viewOnlyRoles', 'type' => 'listmulti', 'values' => $viewData['viewOnlyRoles']),
 );
 
 //=============================================================================

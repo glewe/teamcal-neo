@@ -535,12 +535,14 @@ $LANG['profile_notifyUserCalEvents_comment'] = 'Select this option if you want t
 //
 $LANG['region_edit_title'] = 'Edit Group: ';
 $LANG['region_alert_edit'] = 'Update group';
-$LANG['region_alert_edit_success'] = 'The information for this group was updated.';
-$LANG['region_alert_save_failed'] = 'The new information for this group could not be saved. There was invalid input. Please check for error messages.';
+$LANG['region_alert_edit_success'] = 'The information for this region was updated.';
+$LANG['region_alert_save_failed'] = 'The new information for this region could not be saved. There was invalid input. Please check for error messages.';
 $LANG['region_name'] = 'Name';
 $LANG['region_name_comment'] = '';
 $LANG['region_description'] = 'Description';
 $LANG['region_description_comment'] = '';
+$LANG['region_viewOnlyRoles'] = 'View Only Roles';
+$LANG['region_viewOnlyRoles_comment'] = 'The roles selected here can only see this region in the calendar view. They cannot enter absences for this region.';
 
 //
 // Regions
