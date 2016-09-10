@@ -5,7 +5,7 @@
  * The view of the footer
  *
  * @category TeamCal Neo 
- * @version 0.9.008
+* @version 0.9.009
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -160,45 +160,42 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             });
          });
 
-         <?php if ($C->read("showSize")) { ?>
-            /**
-             * Window size in footer
-             */
-            $(window).on('resize', showSize);
-            showSize();
-            function showSize() { $('#size').html($(window).width() + ' x ' + $(window).height()); }
+         <?php if ($C->read("showSize")) { ?>/**
+          * Window size in footer
+          */
+         $(window).on('resize', showSize);
+         showSize();
+         function showSize() { $('#size').html($(window).width() + ' x ' + $(window).height()); }
          <?php } ?>
          
-         <?php if ($C->read("googleAnalytics") AND $C->read("googleAnalyticsID")) { ?>
-            /**
-             * Google Analytics
-             */
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', '<?=$C->read("googleAnalyticsID")?>']);
-            _gaq.push(['_trackPageview']);
-            (function() {
-               var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-               ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-               var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-   
-            /**
-             * Opt out Google Analytics
-             */
-            // Set to the same value as the web property used on the site
-            var gaID = '<?=$C->read('googleAnalyticsID');?>';
-             
-            // Disable tracking if the opt-out cookie exists.
-            var disableStr = 'ga-disable-' + gaID;
-            if (document.cookie.indexOf(disableStr + '=true') > -1) {
-              window[disableStr] = true;
-            }
-             
-            // Opt-out function
-            function gaOptout() {
-              document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
-              window[disableStr] = true;
-            }
+         <?php if ($C->read("googleAnalytics") AND $C->read("googleAnalyticsID")) { ?>/**
+          * Google Analytics
+          */
+         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+         ga('create', '<?=$C->read("googleAnalyticsID")?>', 'auto');
+         ga('send', 'pageview');
+
+         /**
+          * Opt out Google Analytics
+          */
+         // Set to the same value as the web property used on the site
+         var gaID = '<?=$C->read('googleAnalyticsID');?>';
+          
+         // Disable tracking if the opt-out cookie exists.
+         var disableStr = 'ga-disable-' + gaID;
+         if (document.cookie.indexOf(disableStr + '=true') > -1) {
+           window[disableStr] = true;
+         }
+          
+         // Opt-out function
+         function gaOptout() {
+           document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+           window[disableStr] = true;
+         }
          <?php } ?>
          
       </script>
