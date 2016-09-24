@@ -87,13 +87,14 @@ if (!empty($_POST))
          //
          // Account
          //
-         $UP->role = 'User';
+         $UP->role = '2'; // Default role "User"
          $UP->locked = '0';
          $UP->hidden = '0';
          $UP->onhold = '0';
          $UP->verify = '0';
          $UP->bad_logins = '0';
          $UP->grace_start = '0000-00-00 00:00:00.000000';
+         $UP->last_login = '0000-00-00 00:00:00.000000';
          $UP->created = date('YmdHis');
 
          //
@@ -138,8 +139,8 @@ if (!empty($_POST))
          //
          // Load profile page
          //
-         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&profile=" . $UP->username);
-         die();
+         //header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&profile=" . $UP->username);
+         //die();
       }
    }
    else
