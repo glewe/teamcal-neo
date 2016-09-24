@@ -416,7 +416,7 @@ function sendEmail($to, $subject, $body, $from = '')
          'Reply-To' => $replyto,
          'To' => $toValid,
          'Subject' => $subject,
-         'Content-type' => "text/html;  charset=iso-8859-1" 
+         'Content-type' => "text/html; charset=iso-8859-1" 
       );
       
       /*
