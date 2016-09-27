@@ -360,7 +360,7 @@ function sendEmail($to, $subject, $body, $from = '')
    error_reporting(E_ALL ^ E_STRICT);
    
    $from_regexp = preg_match('/<(.*?)>/', $from, $fetch);
-   
+
    /**
     * Set From and ReplyTo
     */
@@ -380,6 +380,8 @@ function sendEmail($to, $subject, $body, $from = '')
     *
     * It might be empty if a user to be notified has not setup his email address
     */
+   $to = rtrim($to,', '); // remove the last ", " if exists
+   $to = rtrim($to,','); // remove the last "," if exists
    $toArray = explode(",", $to);
    $toValid = "";
    foreach ( $toArray as $toPiece )
@@ -387,7 +389,7 @@ function sendEmail($to, $subject, $body, $from = '')
       if (!validEmail($toPiece)) $toValid .= $C->read("mailReply") . ",";
       else $toValid .= $toPiece . ",";
    }
-   $toValid = substr($toValid, 0, strlen($toValid) - 1); // remove the last ","
+   $toValid = rtrim($to,','); // remove the last "," if exists (just in case)
    
    if ($C->read("mailSMTP"))
    {

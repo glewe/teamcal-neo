@@ -138,7 +138,10 @@ if (!empty($_POST))
                case "all" :
                   $users = $U->getAll();
                   foreach ( $users as $user )
+                  {
                      if (strlen($user['email'])) $to .= $user['email'] . ',';
+                  }
+                  $to = rtrim($to,','); // remove the last ","
                   $sendMail = true;
                   break;
                
@@ -149,9 +152,11 @@ if (!empty($_POST))
                      {
                         $groupusers = $UG->getAllForGroup($gto);
                         foreach ( $groupusers as $groupuser )
+                        {
                            if (strlen($U->getEmail($groupuser))) $to .= $U->getEmail($groupuser) . ',';
+                        }
+                        $to = rtrim($to,','); // remove the last ","
                      }
-                     $to = substr($to, 0, strlen($to) - 2); // remove the last ", "
                      $sendMail = true;
                   }
                   else
@@ -172,8 +177,10 @@ if (!empty($_POST))
                   if (isset($_POST['sel_sendToUser']))
                   {
                      foreach ( $_POST['sel_sendToUser'] as $uto )
+                     {
                         if (strlen($U->getEmail($uto))) $to .= $U->getEmail($uto) . ",";
-                     $to = substr($to, 0, strlen($to) - 2); // remove the last ", "
+                     }
+                     $to = rtrim($to,','); // remove the last ","
                      $sendMail = true;
                   }
                   else
@@ -252,14 +259,14 @@ if (!empty($_POST))
                      $to = " Groups (";
                      foreach ( $_POST['sel_sendToGroup'] as $gto )
                      {
-                        $to .= $gto . ", ";
+                        $to .= $gto . ",";
                         $groupusers = $UG->getAllForGroup($gto);
                         foreach ( $groupusers as $groupuser )
                         {
                            $UMSG->add($username, $groupuser['username'], $popup);
                         }
                      }
-                     $to = substr($to, 0, strlen($to) - 2); // remove the last ", "
+                     $to = rtrim($to,','); // remove the last ","
                      $to .= ')';
                      $msgsent = true;
                   }
@@ -283,10 +290,10 @@ if (!empty($_POST))
                      $to = " Users (";
                      foreach ( $_POST['sel_sendToUser'] as $uto )
                      {
-                        $to .= $uto . ", ";
+                        $to .= $uto . ",";
                         if ($U->findByName($uto)) $UMSG->add($uto, $newsid, $popup);
                      }
-                     $to = substr($to, 0, strlen($to) - 2); // remove the last ", "
+                     $to = rtrim($to,','); // remove the last ","
                      $to .= ')';
                      $msgsent = true;
                   }
