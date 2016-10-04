@@ -658,7 +658,7 @@ if (!empty($_POST))
                      //
                      // Create TCN user_group record
                      //
-                     $UG->create($rec['username'],$G->id,$rec['type']);
+                     $UG->save($rec['username'],$G->id,$rec['type']);
                   }
             
                   //

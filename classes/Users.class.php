@@ -498,6 +498,25 @@ class Users
    
    // ---------------------------------------------------------------------
    /**
+    * Sets the role ID for a given user
+    *
+    * @param string $username Username to find
+    * @param string $role Role to set
+    * @return boolean True or False
+    */
+   function setRole($username, $role)
+   {
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET role = :val1 WHERE username = :val2');
+      $query->bindParam('val1', $role);
+      $query->bindParam('val2', $username);
+      $result = $query->execute();
+      
+      if ($result) return true;
+      else         return false;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
     * Unhides a user record
     *
     * @param string $username Username of record to update

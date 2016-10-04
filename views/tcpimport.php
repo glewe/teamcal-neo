@@ -308,7 +308,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     </div>
                                     <div class="divider"><hr></div>
    
-                                    <button type="submit" class="btn btn-danger" tabindex="<?=$tabindex++;?>" name="btn_import"><?=$LANG['btn_import']?></button>
+                                    <button type="submit" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalImportTCP"><?=$LANG['btn_import']?></button>
+
+                                    <!-- Modal: Delete selected -->
+                                    <?=createModalTop('modalImportTCP', $LANG['modal_confirm'])?>
+                                       <?=$LANG['tcpimp_confirm_import']?>
+                                    <?=createModalBottom('btn_import', 'danger', $LANG['btn_import'])?>
                                     
                                  </div>
                               </div>
@@ -337,6 +342,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       function resetAll() {
          document.getElementById('opt_absImport_no').checked = true;
          document.getElementById('opt_alloImport_no').checked = true;
+         document.getElementById('opt_daynImport_no').checked = true;
          document.getElementById('opt_groupsImport_no').checked = true;
          document.getElementById('opt_ugrImport_no').checked = true;
          document.getElementById('opt_holsImport_no').checked = true;
@@ -349,6 +355,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       function addAll() {
          document.getElementById('opt_absImport_add').checked = true;
          document.getElementById('opt_alloImport_add').checked = true;
+         document.getElementById('opt_daynImport_add').checked = true;
          document.getElementById('opt_groupsImport_add').checked = true;
          document.getElementById('opt_ugrImport_add').checked = true;
          document.getElementById('opt_holsImport_add').checked = true;
@@ -361,6 +368,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       function replaceAll() {
          document.getElementById('opt_absImport_replace').checked = true;
          document.getElementById('opt_alloImport_replace').checked = true;
+         document.getElementById('opt_daynImport_replace').checked = true;
          document.getElementById('opt_groupsImport_replace').checked = true;
          document.getElementById('opt_ugrImport_replace').checked = true;
          document.getElementById('opt_holsImport_replace').checked = true;

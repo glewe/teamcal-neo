@@ -645,6 +645,8 @@ $LANG['tcpimp_no'] = 'Nicht importieren';
 $LANG['tcpimp_replace'] = 'TeamCal Neo Daten ersetzen';
 $LANG['tcpimp_to'] = 'TeamCal Neo 1.0.000';
 
+$LANG['tcpimp_confirm_import'] = 'Soll der Import gestartet werden? Dabei werden &Auml;nderungen and der aktuellen Datenbank vorgenommen. Es ist empfehlenswert, vorher eine Sicherung zu machen.';
+
 $LANG['tcpimp_alert_title'] = 'TeamCal Pro Import';
 $LANG['tcpimp_alert_fail'] = 'Eine oder mehrere TeamCal Pro Abfragen sind fehlgeschlagen oder es wurden keine bzw. falsche Tabellen ausgew&auml;hlt. &Uuml;berpr&uuml;fe die Daten und f&uuml;hre die notwendigen Anpassungen durch. Im Datenbank Management kann ein Reset auf Beispieldaten gemacht werden.';
 $LANG['tcpimp_alert_success'] = 'Der TeamCal Pro Import war erfolgreich. &Uuml;berpr&uuml;fe die Daten und f&uuml;hre die notwendigen Anpassungen durch.';
@@ -709,7 +711,7 @@ $LANG['tcpimp_regs_comment'] = '<p>Alle Regionen werden importiert<br>
          <li>Regionenkalender</li>
       </ul>';
 $LANG['tcpimp_roles'] = 'Rollen';
-$LANG['tcpimp_roles_comment'] = 'Die Rollen "Direktor" and "Assistent" werden hinzugef&uuml;gt. Sollten auch die Benutzerkonten importiert werden, werden diese beiden Rollen entsprechend zugewiesen.';
+$LANG['tcpimp_roles_comment'] = 'Die Rollen "Direktor" and "Assistent" werden hinzugef&uuml;gt. Es werden keine Rollen ersetzt. Sollten auch die Benutzerkonten importiert werden, werden diese beiden Rollen entsprechend zugewiesen.';
 $LANG['tcpimp_ugr'] = 'Gruppenmitgliedschaften';
 $LANG['tcpimp_ugr_comment'] = '<p>Um die Gruppenmitgliedschaften zu importieren, m&uuml;ssen auch die folgenden Tabellen importiert werden:</p>
       <ul>

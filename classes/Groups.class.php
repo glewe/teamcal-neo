@@ -77,7 +77,7 @@ class Groups
        
       if ($result and $query->fetchColumn())
       {
-         $query = $this->db->prepare('TRUNCATE TABLE ' . $table);
+         $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
          $result = $query->execute();
          return $result;
       }
