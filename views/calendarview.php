@@ -239,9 +239,15 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           $style .= 'color: #' . $A->getColor($T->$abs) . ';' . $bgStyle;
                                           $icon = '<span class="fa fa-'.$A->getIcon($T->$abs).'"></span>';
                                           $countFrom = $viewData['year'].$viewData['month'].'01'; 
-                                          $countTo = $viewData['year'].$viewData['month'].$dayend; 
-                                          $taken = countAbsence($usr['username'], $T->$abs, $countFrom, $countTo, true, false);
-                                          $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$A->getName($T->$abs).' ('.$taken.')">';                 
+                                          $countTo = $viewData['year'].$viewData['month'].$dayend;
+                                          $taken = '';
+                                          if ($C->read("showTooltipCount"))
+                                          {
+                                             $taken .= ' (';
+                                             $taken .= countAbsence($usr['username'], $T->$abs, $countFrom, $countTo, true, false);
+                                             $taken .= ')';
+                                          }
+                                          $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$A->getName($T->$abs).$taken.'">';                 
                                           $absend = '</div>';
                                           $dayAbsCount[$i]++;
                                        }

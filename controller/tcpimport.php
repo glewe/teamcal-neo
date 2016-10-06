@@ -125,7 +125,7 @@ if (!empty($_POST))
                   {
                      $A->name = $rec['name'];
                      $A->symbol = $rec['symbol'];
-                     $A->icon = 'question-circle'; // Default Font Awesome icon
+                     $A->icon = 'times'; // Default Font Awesome icon X
                      $A->color = $rec['color'];
                      $A->bgcolor = $rec['bgcolor'];
                      $A->bgtrans = $rec['bgtransparent'];

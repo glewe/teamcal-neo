@@ -62,6 +62,7 @@ if (isset($_POST['btn_caloptApply']))
    $C->save("usersPerPage", intval($_POST['txt_usersPerPage']));
    if ( isset($_POST['chk_showAvatars']) && $_POST['chk_showAvatars'] ) $C->save("showAvatars","1"); else $C->save("showAvatars","0");
    if ( isset($_POST['chk_showRoleIcons']) && $_POST['chk_showRoleIcons'] ) $C->save("showRoleIcons","1"); else $C->save("showRoleIcons","0");
+   if ( isset($_POST['chk_showTooltipCount']) && $_POST['chk_showTooltipCount'] ) $C->save("showTooltipCount","1"); else $C->save("showTooltipCount","0");
    if (isset($_POST['chk_supportMobile']) && $_POST['chk_supportMobile']) $C->save("supportMobile", "1"); else $C->save("supportMobile", "0");
     
    /**
@@ -114,6 +115,7 @@ $caloptData['display'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'usersPerPage', 'type' => 'text', 'value' => $C->read("usersPerPage"), 'maxlength' => '4' ),
    array ( 'prefix' => 'calopt', 'name' => 'showAvatars', 'type' => 'check', 'values' => '', 'value' => $C->read("showAvatars") ),
    array ( 'prefix' => 'calopt', 'name' => 'showRoleIcons', 'type' => 'check', 'values' => '', 'value' => $C->read("showRoleIcons") ),
+   array ( 'prefix' => 'calopt', 'name' => 'showTooltipCount', 'type' => 'check', 'values' => '', 'value' => $C->read("showTooltipCount") ),
    array ( 'prefix' => 'calopt', 'name' => 'supportMobile', 'type' => 'check', 'values' => '', 'value' => $C->read("supportMobile") ),
    );
 

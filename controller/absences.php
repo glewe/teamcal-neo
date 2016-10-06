@@ -86,6 +86,7 @@ if (!empty($_POST))
          {
             $AA = new Absences();
             $AA->name = $viewData['txt_name'];
+            $AA->icon = 'times';
             $AA->symbol = strtoupper(substr($viewData['txt_name'], 0, 1));
             $AA->create();
       

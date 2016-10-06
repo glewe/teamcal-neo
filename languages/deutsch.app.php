@@ -107,9 +107,9 @@ $LANG['abs_show_totals_comment'] = 'Die Verbleibend-Anzeige kann konfiguriert we
       die Summe der genommenen Tage dieses Typen f&uuml;r den angezeigten Monat an. Dieser Schalter aktiviert diesen Typen daf&uuml;r. 
       Wenn kein Abwesenheitstyp dafuer aktiviert ist, wird der Summenteil nicht angezeigt.';
 $LANG['abs_symbol'] = 'Symbol';
-$LANG['abs_symbol_comment'] = 'Das Symbol wird im Kalender angezeigt, wenn kein Icon gesetzt wurde. Es wird ausserdem in E-Mails benutzt. 
+$LANG['abs_symbol_comment'] = 'Das Symbol wird in E-Mails benutzt, da die Font Icons dort nicht unterst&uuml;tzt werden. 
       Das Symbol ist ein alphanumerisches Zeichen lang und muss angegeben werden. Allerdings kann das gleiche Symbol f&uuml;r mehrere 
-      Abwesenheitstypen benutzt werden. Als Standard wird der Anfangsbuchstabe des Namens eingesetzt.';
+      Abwesenheitstypen benutzt werden. Als Standard wird der Anfangsbuchstabe des Namens eingesetzt, wenn der Abwesenheitstyp angelegt wird.';
 $LANG['abs_tab_groups'] = 'Gruppenzuordnung';
 
 //
@@ -268,6 +268,8 @@ $LANG['calopt_showRoleIcons'] = 'Rollen Icons anzeigen';
 $LANG['calopt_showRoleIcons_comment'] = 'Mir dieser Option wird neben dem Benutzernamen ein Icon angezeigt, das die User Rolle anzeigt.';
 $LANG['calopt_showSummary'] = 'Summen Abschnitt anzeigen';
 $LANG['calopt_showSummary_comment'] = 'Mit dieser Option wird der Summen Abschnitt standardm&auml;&szlig;ig aufgeklappt.';
+$LANG['calopt_showTooltipCount'] = 'Tooltip Z&auml;hler';
+$LANG['calopt_showTooltipCount_comment'] = 'Mit dieser Option wird im Abwesenheits-Tooltip die Anzahl der im aktuellen Monat genommenen angezeigt.';
 $LANG['calopt_showUserRegion'] = 'Regionale Feiertage pro User anzeigen';
 $LANG['calopt_showUserRegion_comment'] = 'Mit dieser Option zeigt der Kalender in jeder Nutzerzeile die regionalen Feiertage der Region an, die in den Optionen des
       Nutzers eingestellt ist. Diese Feiertage k&ouml;nnen sich von den globalen regionalen Feiertagen unterscheiden, die im Kopf des Kalenders angezeigt werden.

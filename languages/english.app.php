@@ -107,9 +107,9 @@ $LANG['abs_show_totals_comment'] = 'The remainder section can be configured to a
       section shows the sums of each absence type taken for the month displayed. Use this switch to include this absence type in that section.
       If none of the absence types is marked for display in the totals section then the totals section will not be shown at all.';
 $LANG['abs_symbol'] = 'Symbol';
-$LANG['abs_symbol_comment'] = 'The absence type symbol is used in the calendar display if no icon is set for this absence type. It is also used in
-      notification e-mails. Chose a single character. A symbol is mandatory for each absence type, however, you are not restricted and can use the same
-      character for mutliple absence types. The default is "A".';
+$LANG['abs_symbol_comment'] = 'The absence type symbol is used in notification e-mails since font icons are not supported there. Chose a single character. 
+      A symbol is mandatory for each absence type, however, you can use the same character for mutliple absence types. The default is  
+      is the first letter of the absence type name when it is created.';
 $LANG['abs_tab_groups'] = 'Group Assignments';
 
 //
@@ -268,6 +268,8 @@ $LANG['calopt_showRoleIcons'] = 'Show Role Icons';
 $LANG['calopt_showRoleIcons_comment'] = 'Checking this option will show an icons next to the users\' name indicating the users\' role.';
 $LANG['calopt_showSummary'] = 'Expand Summary';
 $LANG['calopt_showSummary_comment'] = 'Checking this option will show/expand the summary section by default.';
+$LANG['calopt_showTooltipCount'] = 'Tooltip Counter';
+$LANG['calopt_showTooltipCount_comment'] = 'Checking this option will show the amount taken for the current absence type and current month in the absence type tooltip.';
 $LANG['calopt_showUserRegion'] = 'Show regional holidays per user';
 $LANG['calopt_showUserRegion_comment'] = 'If this option is on, the calendar will show the regional holidays in each user row based on the default region 
       set for the user. These holidays might then differ from the global regional holidays shown in the month header. This offers a better view on regional 
