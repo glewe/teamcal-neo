@@ -27,7 +27,6 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
       <title><?=$htmlData['title']?></title>
       
       <meta http-equiv="Content-type" content="text/html;charset=utf-8">
-      <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       <link rel="shortcut icon" href="images/icons/logo-16.png">
       

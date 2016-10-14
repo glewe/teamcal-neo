@@ -419,6 +419,12 @@ table.month th.m-daynumber {
    background-color: #a5a5a5;
 }
 
+table.month th.m-groupname {
+   color: #333333;
+   background-color: #f2f2f2;
+   text-align: left;
+}
+
 table.month th.m-weekday {
    color: #333333;
    background-color: #f2f2f2;
