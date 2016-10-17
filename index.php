@@ -335,7 +335,7 @@ else
 //
 // PREPARE VIEW
 //
-$htmlData['title'] = $C->read("appTitle");
+$htmlData['title'] = $C->read("appTitle").' - '.$CONF['controllers'][$controller]->title;
 $htmlData['description'] = $C->read("appDescription");
 $htmlData['keywords'] = $C->read("appKeywords");
 $htmlData['version'] = $CONF['app_version'];

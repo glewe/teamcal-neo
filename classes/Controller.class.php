@@ -33,7 +33,7 @@ class Controller
     * @param string $permission The permission a user role must have to access this controller. Leave empty for public access.
     * 
     */
-   public function __construct($name, $faIcon, $iconColor, $panelColor, $permission)
+   public function __construct($name, $faIcon, $iconColor, $panelColor, $permission, $title)
    {
       if (!strlen($name))
       {
@@ -51,6 +51,7 @@ class Controller
       $this->iconColor = $iconColor;
       $this->panelColor = $panelColor;
       $this->permission = $permission;
+      $this->title = $title;
    }
 }
 ?>
