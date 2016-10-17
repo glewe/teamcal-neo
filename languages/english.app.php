@@ -95,7 +95,8 @@ $LANG['abs_manager_only_comment'] = 'Checking this box defines that only manager
 $LANG['abs_name'] = 'Name';
 $LANG['abs_name_comment'] = 'The absence type name is used in lists and descriptions and should tell what this absence type is about, e.g. "Duty trip". It can be 80 characters long.';
 $LANG['abs_sample'] = 'Sample display';
-$LANG['abs_sample_comment'] = 'This is how your absence type will look in your calendar based on your current settings.';
+$LANG['abs_sample_comment'] = 'This is how your absence type will look in your calendar based on your current settings.<br>
+      Note: In the Calendar Options you can configure whether the Icon or the Character ID shall be used for the display.';
 $LANG['abs_show_in_remainder'] = 'Show in remainder';
 $LANG['abs_show_in_remainder_comment'] = 'The Calendar Display offers an expandable section to display the remaining allowance for each absence type for
       each user for the current year. Use this switch to decide which absence types shall be included in that display. If none of the absence types is
@@ -106,9 +107,9 @@ $LANG['abs_show_totals'] = 'Show totals';
 $LANG['abs_show_totals_comment'] = 'The remainder section can be configured to also include a totals display for the current month. This totals
       section shows the sums of each absence type taken for the month displayed. Use this switch to include this absence type in that section.
       If none of the absence types is marked for display in the totals section then the totals section will not be shown at all.';
-$LANG['abs_symbol'] = 'Symbol';
-$LANG['abs_symbol_comment'] = 'The absence type symbol is used in notification e-mails since font icons are not supported there. Chose a single character. 
-      A symbol is mandatory for each absence type, however, you can use the same character for mutliple absence types. The default is  
+$LANG['abs_symbol'] = 'Character ID';
+$LANG['abs_symbol_comment'] = 'The absence type character ID is used in notification e-mails since font icons are not supported there. Chose a single character. 
+      A character ID is mandatory for each absence type, however, you can use the same character for mutliple absence types. The default is  
       is the first letter of the absence type name when it is created.';
 $LANG['abs_tab_groups'] = 'Group Assignments';
 
@@ -293,6 +294,8 @@ $LANG['calopt_supportMobile_comment'] = 'With this switch on, the calendar view 
       common screen sizes. The browser will automatically display the one that best fits the screen. Downside is, that the page will take longer to load. 
       Switch this off if the calendar is only viewed on full size computer screens. The calendar will still be displayed on mobile devices but horizontal
       scrolling will be necessary.';
+$LANG['calopt_symbolAsIcon'] = 'Absence Type Character ID as Icon';
+$LANG['calopt_symbolAsIcon_comment'] = 'With this option the character ID will be used in the calendar display instead of it\'s icon.';
 $LANG['calopt_todayBorderColor'] = 'Today Border Color';
 $LANG['calopt_todayBorderColor_comment'] = 'Specifies the color in hexadecimal of the left and right border of the today column.';
 $LANG['calopt_todayBorderSize'] = 'Today Border Size';

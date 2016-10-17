@@ -68,10 +68,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="col-lg-<?=$colsright?>">
                                        <?php if ($viewData['bgtrans']) $bgStyle = ""; else $bgStyle = "background-color: #".$viewData['bgcolor']; ?>
                                        <div id="sample" style="color: #<?=$viewData['color']?>; <?=$bgStyle?>; border: 1px solid #333333; width: 26px; height: 26px; text-align: center; padding-top: 2px;">
-                                          <?php if ($viewData['icon'] != "No") { ?>
+                                          <?php if ($C->read('symbolAsIcon')) {
+                                             echo $viewData['symbol'];
+                                          } else { ?>
                                              <span class="fa fa-<?=$viewData['icon']?>"></span>
-                                          <?php } else { ?>
-                                             <?=$viewData['symbol']?>
                                           <?php } ?>
                                        </div>
                                     </div>

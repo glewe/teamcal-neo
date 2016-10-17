@@ -95,7 +95,8 @@ $LANG['abs_manager_only_comment'] = 'Mit diesem Schalter aktiviert k&ouml;nnen n
 $LANG['abs_name'] = 'Name';
 $LANG['abs_name_comment'] = 'Der Name wird in Listen und Beschreibungen benutzt. Er sollte aussagekr&auml;ftig sein, z.B. "Dienstreise". Maximal 80 Zeichen.';
 $LANG['abs_sample'] = 'Beispielanzeige';
-$LANG['abs_sample_comment'] = 'So w&uuml;rde der Abswesenheitstyp im Kalender angezeigt werden basierend auf den aktuellen Einstellungen.';
+$LANG['abs_sample_comment'] = 'So w&uuml;rde der Abswesenheitstyp im Kalender angezeigt werden basierend auf den aktuellen Einstellungen.<br>
+      Hinweis: In den Kalenderoptionen kann eingestellt werden, ob das Icon oder die Zeichen ID f&uuml;r die Anzeige benutzt werden soll.';
 $LANG['abs_show_in_remainder'] = 'Verbleibende anzeigen';
 $LANG['abs_show_in_remainder_comment'] = 'Im Kalender gibt es eine aufklappbare "Verbleibend" Anzeige f&uuml;r alle Abwesenheitstypen pro Jahr pro Nutzer. 
       Mit diesem Schalter kann bestimmt werden, ob dieser Typ in der Anzeige enthalten sein soll. Wenn kein Abwesenheitstyp f&uuml;r diese Anzeige 
@@ -106,9 +107,9 @@ $LANG['abs_show_totals'] = 'Summen anzeigen';
 $LANG['abs_show_totals_comment'] = 'Die Verbleibend-Anzeige kann konfiguriert werden, so dass sie die genommenen Tage pro Monat anzeigt. Dieser Wert zeigt 
       die Summe der genommenen Tage dieses Typen f&uuml;r den angezeigten Monat an. Dieser Schalter aktiviert diesen Typen daf&uuml;r. 
       Wenn kein Abwesenheitstyp dafuer aktiviert ist, wird der Summenteil nicht angezeigt.';
-$LANG['abs_symbol'] = 'Symbol';
-$LANG['abs_symbol_comment'] = 'Das Symbol wird in E-Mails benutzt, da die Font Icons dort nicht unterst&uuml;tzt werden. 
-      Das Symbol ist ein alphanumerisches Zeichen lang und muss angegeben werden. Allerdings kann das gleiche Symbol f&uuml;r mehrere 
+$LANG['abs_symbol'] = 'Zeichen ID';
+$LANG['abs_symbol_comment'] = 'Die Zeichen ID wird in E-Mails benutzt, da die Font Icons dort nicht unterst&uuml;tzt werden. 
+      Die Zeichen ID ist ein alphanumerisches Zeichen lang und muss angegeben werden. Allerdings kann das gleiche Zeichen f&uuml;r mehrere 
       Abwesenheitstypen benutzt werden. Als Standard wird der Anfangsbuchstabe des Namens eingesetzt, wenn der Abwesenheitstyp angelegt wird.';
 $LANG['abs_tab_groups'] = 'Gruppenzuordnung';
 
@@ -293,6 +294,8 @@ $LANG['calopt_supportMobile_comment'] = 'Mit dieser Einstellung bereitet die Kal
       Bildschirmgr&ouml;&szlig;en vor. Je nach Display zeigt der Browser dann automatisch die richtige an. Nachteil ist, dass die Seite dadurch mehr Zeit zum Laden 
       braucht. Schalte diese Option aus, wenn der Kalender nur auf gro&szlig;en Bildschirmen genutzt wird. Der Kalender wird dann immer noch auf kleineren Bildschirmen
       angezeigt, aber horizontales Scrollen wird dann n&ouml;tig.';
+$LANG['calopt_symbolAsIcon'] = 'Abwesenheitszeichen ID als Icon';
+$LANG['calopt_symbolAsIcon_comment'] = 'Mit dieser Option wird die Abwesenheitszeichen ID in der Kalenderanzeige benutzt anstatt des Icons.';
 $LANG['calopt_todayBorderColor'] = 'Heute Randfarbe';
 $LANG['calopt_todayBorderColor_comment'] = 'Gibt die Farbe in Hexadezimal an, in der der rechte und linke Rand der Heute Spalte erscheint.';
 $LANG['calopt_todayBorderSize'] = 'Heute Randst&auml;rke';

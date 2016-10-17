@@ -93,7 +93,14 @@ if ($editAllowed)
          {
             if ($A->getBgTrans($T->$abs)) $bgStyle = ""; else $bgStyle = "background-color: #". $A->getBgColor($T->$abs) . ";";
             $style .= 'color: #' . $A->getColor($T->$abs) . ';' . $bgStyle;
-            $icon = '<span class="fa fa-'.$A->getIcon($T->$abs).'"></span>';
+            if ($C->read('symbolAsIcon'))
+            {
+               $icon = $A->getSymbol($T->$abs);
+            }
+            else
+            {
+               $icon = '<span class="fa fa-'.$A->getIcon($T->$abs).'"></span>';
+            }
             $countFrom = $viewData['year'].$viewData['month'].'01'; 
             $countTo = $viewData['year'].$viewData['month'].$dayend;
             $taken = '';

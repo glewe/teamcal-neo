@@ -100,10 +100,18 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               for ($d=1; $d<=$viewData['monthInfo'][$m]['daysInMonth']; $d++)
                               {
                                  if ( $viewData['month'][$m][$d]['wday'] == 1 ) $wn = date('W', mktime(0, 0, 0, $m, $d, $viewData['year'])); else $wn = '&nbsp;';
+                                 if ($C->read('symbolAsIcon'))
+                                 {
+                                    $icon = $viewData['month'][$m][$d]['symbol'];
+                                 }
+                                 else
+                                 {
+                                    $icon = '<span class="fa fa-'.$viewData['month'][$m][$d]['icon'].'"></span>';
+                                 }
                                  echo "
                                  <td class=\"y-day text-center\"" . $viewData['month'][$m][$d]['style'] . ">
                                     <div class=\"daynumber\">" . $d . "</div>
-                                    <div class=\"absence\"" . $viewData['month'][$m][$d]['absstyle'] . "><span class=\"fa fa-" . $viewData['month'][$m][$d]['icon'] . "\"></span></div>
+                                    <div class=\"absence\"" . $viewData['month'][$m][$d]['absstyle'] . ">".$icon."</div>
                                     <div class=\"weeknumber text-info\">" . $wn . "</div>
                                  </td>\n";
                                  $i++; 

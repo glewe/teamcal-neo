@@ -164,7 +164,14 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                      * This is an absence. Get the coloring info.
                                      */
                                     $style = ' style="color: #' . $A->getColor($abs) . '; background-color: #' . $A->getBgColor($abs) . ';';
-                                    $icon = '<span class="fa fa-'.$A->getIcon($abs).'"></span>';
+                                    if ($C->read('symbolAsIcon'))
+                                    {
+                                       $icon = $A->getSymbol($abs);
+                                    }
+                                    else
+                                    {
+                                       $icon = '<span class="fa fa-'.$A->getIcon($abs).'"></span>';
+                                    }
                                     $loopDate = date('Y-m-d', mktime(0, 0, 0, $viewData['month'], $i, $viewData['year']));
                                     if ( $loopDate == $currDate )
                                     {

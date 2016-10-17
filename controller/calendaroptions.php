@@ -64,6 +64,7 @@ if (isset($_POST['btn_caloptApply']))
    if ( isset($_POST['chk_showRoleIcons']) && $_POST['chk_showRoleIcons'] ) $C->save("showRoleIcons","1"); else $C->save("showRoleIcons","0");
    if ( isset($_POST['chk_showTooltipCount']) && $_POST['chk_showTooltipCount'] ) $C->save("showTooltipCount","1"); else $C->save("showTooltipCount","0");
    if (isset($_POST['chk_supportMobile']) && $_POST['chk_supportMobile']) $C->save("supportMobile", "1"); else $C->save("supportMobile", "0");
+   if (isset($_POST['chk_symbolAsIcon']) && $_POST['chk_symbolAsIcon']) $C->save("symbolAsIcon", "1"); else $C->save("symbolAsIcon", "0");
     
    /**
     * Filter
@@ -111,13 +112,14 @@ $caloptData['display'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'todayBorderSize', 'type' => 'text', 'value' => $C->read("todayBorderSize"), 'maxlength' => '2' ),
    array ( 'prefix' => 'calopt', 'name' => 'pastDayColor', 'type' => 'color', 'value' => $C->read("pastDayColor"), 'maxlength' => '6' ),
    array ( 'prefix' => 'calopt', 'name' => 'showWeekNumbers', 'type' => 'check', 'values' => '', 'value' => $C->read("showWeekNumbers") ),
-   array ( 'prefix' => 'calopt', 'name' => 'repeatHeaderCount', 'type' => 'text', 'value' => $C->read("repeatHeaderCount"), 'maxlength' => '4' ),
-   array ( 'prefix' => 'calopt', 'name' => 'usersPerPage', 'type' => 'text', 'value' => $C->read("usersPerPage"), 'maxlength' => '4' ),
+   // TODO TCN-78 array ( 'prefix' => 'calopt', 'name' => 'repeatHeaderCount', 'type' => 'text', 'value' => $C->read("repeatHeaderCount"), 'maxlength' => '4' ),
+   // TODO TCN-76 array ( 'prefix' => 'calopt', 'name' => 'usersPerPage', 'type' => 'text', 'value' => $C->read("usersPerPage"), 'maxlength' => '4' ),
    array ( 'prefix' => 'calopt', 'name' => 'showAvatars', 'type' => 'check', 'values' => '', 'value' => $C->read("showAvatars") ),
    array ( 'prefix' => 'calopt', 'name' => 'showRoleIcons', 'type' => 'check', 'values' => '', 'value' => $C->read("showRoleIcons") ),
    array ( 'prefix' => 'calopt', 'name' => 'showTooltipCount', 'type' => 'check', 'values' => '', 'value' => $C->read("showTooltipCount") ),
    array ( 'prefix' => 'calopt', 'name' => 'supportMobile', 'type' => 'check', 'values' => '', 'value' => $C->read("supportMobile") ),
-   );
+   array ( 'prefix' => 'calopt', 'name' => 'symbolAsIcon', 'type' => 'check', 'values' => '', 'value' => $C->read("symbolAsIcon") ),
+);
 
 $caloptData['filter'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'hideManagers', 'type' => 'check', 'values' => '', 'value' => $C->read("hideManagers") ),
