@@ -42,6 +42,7 @@ class Login
       $this->pw_strength = intval($C->read("pwdStrength"));
       $this->php_self = $_SERVER['PHP_SELF'];
       $this->log = $CONF['db_table_log'];
+      $this->hostName = $this->getHost();
    }
    
    // ---------------------------------------------------------------------
@@ -79,6 +80,38 @@ class Login
          // echo ("<script type=\"text/javascript\">alert(\"[checkLogin]\\nCookie '".$this->cookie_name."' is NOT set\")</script>");
          return false;
       }
+   }
+
+   // ---------------------------------------------------------------------
+   /**
+    * Determines the current host name
+    *
+    * @return string
+    */
+   function getHost()
+   {
+      if ($host = getenv('HTTP_X_FORWARDED_HOST'))
+      {
+         $elements = explode(',', $host);
+         $host = trim(end($elements));
+      }
+      else
+      {
+         if (!$host = $_SERVER['HTTP_HOST'])
+         {
+            if (!$host = $_SERVER['SERVER_NAME'])
+            {
+               $host = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
+            }
+         }
+      }
+   
+      //
+      // Remove port number from host
+      //
+      $host = preg_replace('/:\d+$/', '', $host);
+   
+      return trim($host);
    }
    
    // ---------------------------------------------------------------------
@@ -366,7 +399,7 @@ class Login
       $secret = crypt($loginname, $this->salt);
       $value = $loginname . ":" . $secret;
       setcookie($this->cookie_name, ''); // Clear current cookie
-      setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '', $_SERVER['HTTP_HOST'], false, true); // Set new cookie
+      setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '', $this->hostName, false, true); // Set new cookie
       $U->bad_logins = 0;
       $U->grace_start = '';
       $U->last_login = date("YmdHis");
@@ -381,7 +414,7 @@ class Login
     */
    public function logout()
    {
-      setcookie($this->cookie_name, '', time() - 3600, '', $_SERVER['HTTP_HOST'], false, true);
+      setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, false, true);
    }
 }
 ?>

@@ -201,7 +201,8 @@ $userData['avatar'] = 'noavatar_male.png';
 if ($luser = $L->checkLogin() AND (!isset($_GET['action']) OR isset($_GET['action']) AND $_GET['action'] != 'logout'))
 {
    $userData['isLoggedIn'] = true;
-   
+   $userData['loginInfo'] = loginInfo();
+    
    //
    // Get the user
    //
@@ -349,7 +350,14 @@ if ($C->read("faCDN")) $htmlData['faCDN'] = true; else $htmlData['faCDN'] = fals
 if ($C->read("jQueryCDN")) $htmlData['jQueryCDN'] = true; else $htmlData['jQueryCDN'] = false; 
 if ($C->read("noIndex")) $htmlData['robots'] = 'noindex,nofollow,noopd'; else $htmlData['robots'] = 'index,follow,noopd';
 
-$userData['loginInfo'] = loginInfo();
+if ($luser = $L->checkLogin() AND (!isset($_GET['action']) OR isset($_GET['action']) AND $_GET['action'] != 'logout'))
+{
+   $userData['loginInfo'] = loginInfo();
+}
+else 
+{
+   $userData['loginInfo'] = $LANG['status_logged_out'];
+}
 
 //=============================================================================
 //
