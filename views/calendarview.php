@@ -160,17 +160,17 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            {
                               foreach ($viewData['groups'] as $grp)
                               { 
-                              ?>
-                                 <!-- Row: Group <?=$grp['name']?> -->
-                                 <tr>
-                                    <th class="m-groupname" colspan="<?=$days+1?>"><?=$LANG['group'].': '.$grp['name']?></th>
-                                 </tr>
-                                 <?php
-                                 
+                                 $groupHeader = false;
                                  foreach ($viewData['users'] as $usr)
                                  {
                                     if ($UG->isMemberOfGroup($usr['username'], $grp['id']))
-                                    { ?>
+                                    {
+                                       if (!$groupHeader)
+                                       { ?>
+                                          <!-- Row: Group <?=$grp['name']?> -->
+                                          <tr><th class="m-groupname" colspan="<?=$days+1?>"><?=$LANG['group'].': '.$grp['name']?></th></tr>
+                                          <?php  $groupHeader = true; 
+                                       }?>
                                        <!-- Row: User <?=$usr['username']?> --> 
                                        <?php require("calendarviewuserrow.php");
                                     }
