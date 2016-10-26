@@ -265,6 +265,9 @@ $LANG['calopt_satBusi_comment'] = 'Normalerweise sind Samstage und Sonntage Woch
       Hier kann Samstag als Arbeitstag definiert werden.';
 $LANG['calopt_showAvatars'] = 'Avatars anzeigen';
 $LANG['calopt_showAvatars_comment'] = 'Mit dieser Option wird ein User Avatar in einem Pop-Up angezeigt, wenn die Maus &uuml;ber das User Icon gef&uuml;hrt wird.';
+$LANG['calopt_showRegionButton'] = 'Regionsfilter anzeigen';
+$LANG['calopt_showRegionButton_comment'] = 'Mit dieser Option wird oberhalb des Kalenders ein Button angezeigt, mit dem eine andere Region gew&auml;hlt werden kann.
+      Wenn nur die Standard Region benutzt wird, kann es Sinn machen, diesen auszublenden.';
 $LANG['calopt_showRoleIcons'] = 'Rollen Icons anzeigen';
 $LANG['calopt_showRoleIcons_comment'] = 'Mir dieser Option wird neben dem Benutzernamen ein Icon angezeigt, das die User Rolle anzeigt.';
 $LANG['calopt_showSummary'] = 'Summen Abschnitt anzeigen';

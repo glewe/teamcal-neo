@@ -76,12 +76,13 @@ if (isset($_POST['btn_caloptApply']))
    if (isset($_POST['chk_markConfidential'])) $C->save("markConfidential", "1"); else $C->save("markConfidential", "0");
     
    /**
-    * Options
+    * Settings
     */
    if ($_POST['opt_firstDayOfWeek']) $C->save("firstDayOfWeek", $_POST['opt_firstDayOfWeek']);
    if (isset($_POST['chk_satBusi']) && $_POST['chk_satBusi']) $C->save("satBusi", "1"); else $C->save("satBusi", "0");
    if (isset($_POST['chk_sunBusi']) && $_POST['chk_sunBusi']) $C->save("sunBusi", "1"); else $C->save("sunBusi", "0");
    if ($_POST['sel_defregion']) $C->save("defregion", $_POST['sel_defregion']); else $C->save("defregion", "default");
+   if (isset($_POST['chk_showRegionButton']) && $_POST['chk_showRegionButton']) $C->save("showRegionButton", "1"); else $C->save("showRegionButton", "0");
    if ($_POST['opt_defgroupfilter']) $C->save("defgroupfilter", $_POST['opt_defgroupfilter']); else $C->save("defgroupfilter", 'All');
     
    /**
@@ -139,6 +140,7 @@ $caloptData['options'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'satBusi', 'type' => 'check', 'values' => '', 'value' => $C->read("satBusi") ),
    array ( 'prefix' => 'calopt', 'name' => 'sunBusi', 'type' => 'check', 'values' => '', 'value' => $C->read("sunBusi") ),
    array ( 'prefix' => 'calopt', 'name' => 'defregion', 'type' => 'list', 'values' => $caloptData['regionList'] ),
+   array ( 'prefix' => 'calopt', 'name' => 'showRegionButton', 'type' => 'check', 'values' => '', 'value' => $C->read("showRegionButton") ),
    array ( 'prefix' => 'calopt', 'name' => 'defgroupfilter', 'type' => 'radio', 'values' => array ('all', 'allbygroup'), 'value' => $C->read("defgroupfilter") ),
 );
 

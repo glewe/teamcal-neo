@@ -475,7 +475,11 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (154, 'footerSocialLinks', 'https://plus.google.com/u/0/+GeorgeLewe;https://www.linkedin.com/in/george-lewe-a9ab6411b;https://twitter.com/gekale;https://www.xing.com/profile/George_Lewe;https://www.paypal.me/GeorgeLewe'),
 (155, 'footerViewport', '0'),
 (156, 'cookieConsent', '0'),
-(157, 'noIndex', '1');
+(157, 'noIndex', '1'),
+(158, 'showTooltipCount', '0'),
+(159, 'symbolAsIcon', '0'),
+(160, 'showRegionButton', '1');
+
 
 -- --------------------------------------------------------
 

@@ -265,6 +265,9 @@ $LANG['calopt_satBusi_comment'] = 'By default, Saturday and Sunday are weekend d
       Check this option if you want to make Saturday a business day.';
 $LANG['calopt_showAvatars'] = 'Show Avatars';
 $LANG['calopt_showAvatars_comment'] = 'Checking this option will show a user avatar pop-up when moving the mouse over the user avatar icon.'; 
+$LANG['calopt_showRegionButton'] = 'Show Region Filter Button';
+$LANG['calopt_showRegionButton_comment'] = 'Checking this option will show the region filter button on top of the calendar for easy switching between different regions.
+      If you only use the standard region it might make sense to hide the button by unchecking this option.';
 $LANG['calopt_showRoleIcons'] = 'Show Role Icons';
 $LANG['calopt_showRoleIcons_comment'] = 'Checking this option will show an icons next to the users\' name indicating the users\' role.';
 $LANG['calopt_showSummary'] = 'Expand Summary';
