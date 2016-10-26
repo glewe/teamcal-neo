@@ -61,7 +61,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="view"><?=$LANG['mnu_view']?><span class="caret"></span></a>
                         <ul class="dropdown-menu" aria-labelledby="view">
                            <?php if (isAllowed($CONF['controllers']['calendarview']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['calendarview']->name?>&amp;month=<?=date('Y').date('m')?>&amp;region=1"><i class="fa fa-<?=$CONF['controllers']['calendarview']->faIcon?> fa-lg text-<?=$CONF['controllers']['calendarview']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_calendar']?></a></li>
+                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['calendarview']->name?>&amp;month=<?=date('Y').date('m')?>&amp;region=1&amp;group=all&amp;abs=all"><i class="fa fa-<?=$CONF['controllers']['calendarview']->faIcon?> fa-lg text-<?=$CONF['controllers']['calendarview']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_calendar']?></a></li>
                            <?php } ?>
                            <?php if (isAllowed($CONF['controllers']['year']->permission)) { ?>
                               <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['year']->name?>&amp;year=<?=date('Y')?>&amp;region=1&amp;user=<?=$UL->username?>"><i class="fa fa-<?=$CONF['controllers']['year']->faIcon?> fa-lg text-<?=$CONF['controllers']['year']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_year']?></a></li>
@@ -128,7 +128,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <ul class="nav navbar-nav navbar-right">
                
                   <?php if ( isAllowed($CONF['controllers']['config']->permission) OR 
-                             isAllowed($CONF['controllers']['configapp']->permission) OR
+                             isAllowed($CONF['controllers']['calendaroptions']->permission) OR
                              isAllowed($CONF['controllers']['permissions']->permission) OR
                              isAllowed($CONF['controllers']['users']->permission) OR
                              isAllowed($CONF['controllers']['groups']->permission) OR

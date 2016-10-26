@@ -33,7 +33,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             $tabindex = 1; $colsleft = 1; $colsright = 4;
             ?>
          
-         <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;month=<?=$viewData['year'].$viewData['month']?>&amp;region=<?=$viewData['regionid']?>" method="post" target="_self" accept-charset="utf-8">
+         <form class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;month=<?=$viewData['year'].$viewData['month']?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>&amp;abs=<?=$viewData['absid']?>" method="post" target="_self" accept-charset="utf-8">
 
             <input name="hidden_month" type="hidden" class="text" value="<?=$viewData['month']?>">
             <input name="hidden_region" type="hidden" class="text" value="<?=$viewData['region']?>">
@@ -63,14 +63,14 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             ?>
             
             <div class="page-menu">
-               <a class="btn btn-default tooltip-warning" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_backward']?>"><span class="fa fa-angle-double-left"></span></a>
-               <a class="btn btn-default tooltip-warning" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_forward']?>"><span class="fa fa-angle-double-right"></span></a>
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$viewData['yearToday'].$viewData['monthToday']?>&amp;region=<?=$viewData['regionid']?>"><?=$LANG['today']?></a>
+               <a class="btn btn-default tooltip-warning" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>&amp;abs=<?=$viewData['absid']?>" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_backward']?>"><span class="fa fa-angle-double-left"></span></a>
+               <a class="btn btn-default tooltip-warning" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>&amp;abs=<?=$viewData['absid']?>" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_forward']?>"><span class="fa fa-angle-double-right"></span></a>
+               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$viewData['yearToday'].$viewData['monthToday']?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>&amp;abs=<?=$viewData['absid']?>"><?=$LANG['today']?></a>
                <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectRegion"><?=$LANG['region'] . ': ' . $viewData['regionname']?></button>
                <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectGroup"><?=$LANG['group'] . ': ' . $viewData['group']?></button>
                <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectAbsence"><?=$LANG['absence'] . ': ' . $viewData['absence']?></button>
-               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSearchUser"><?=$LANG['search'] . ': ' . $viewData['search']?></button>
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=date('Y').date('m')?>&amp;region=<?=$viewData['regionid']?>"><?=$LANG['btn_reset']?></a>
+               <button type="submit" class="btn btn-info" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSearchUser"><?=$LANG['search'] . ': ' . $viewData['search']?></button>
+               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=date('Y').date('m')?>&amp;region=<?=$viewData['regionid']?>&amp;group=all&amp;abs=all"><?=$LANG['btn_reset']?></a>
             </div>
             
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
@@ -229,7 +229,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <?=createModalTop('modalSelectRegion', $LANG['cal_selRegion'])?>
                <select id="region" class="form-control" name="sel_region" tabindex="<?=$tabindex++?>">
                   <?php foreach($viewData['regions'] as $reg) { ?>
-                     <option value="<?=$reg['id']?>" <?=(($viewData['regionid'] == $reg['id'])?'selected="selected"':'')?>><?=$reg['name']?></option>
+                     <option value="<?=$reg['id']?>"<?=(($viewData['regionid'] == $reg['id'])?' selected="selected"':'')?>><?=$reg['name']?></option>
                   <?php } ?>
                </select>
             <?=createModalBottom('btn_region', 'success', $LANG['btn_select'])?>
@@ -239,7 +239,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <select id="group" class="form-control" name="sel_group" tabindex="<?=$tabindex++?>">
                   <option value="all"<?=(($viewData['groupid'] == 'all')?' selected="selected"':'')?>><?=$LANG['all']?></option>
                   <?php foreach($viewData['groups'] as $grp) { ?>
-                     <option value="<?=$grp['id']?>" <?=(($viewData['groupid'] == $grp['id'])?'selected="selected"':'')?>><?=$grp['name']?></option>
+                     <option value="<?=$grp['id']?>"<?=(($viewData['groupid'] == $grp['id'])?' selected="selected"':'')?>><?=$grp['name']?></option>
                   <?php } ?>
                </select>
             <?=createModalBottom('btn_group', 'success', $LANG['btn_select'])?>
@@ -250,7 +250,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <select id="absence" class="form-control" name="sel_absence" tabindex="<?=$tabindex++?>">
                   <option value="all" <?=(($viewData['absid'] == 'all')?'selected="selected"':'')?>><?=$LANG['all']?></option>
                   <?php foreach($viewData['absences'] as $abs) { ?>
-                     <option value="<?=$abs['id']?>" <?=(($viewData['absid'] == $abs['id'])?'selected="selected"':'')?>><?=$abs['name']?></option>
+                     <option value="<?=$abs['id']?>"<?=(($viewData['absid'] == $abs['id'])?' selected="selected"':'')?>><?=$abs['name']?></option>
                   <?php } ?>
                </select>
             <?=createModalBottom('btn_abssearch', 'warning', $LANG['btn_search'])?>
@@ -261,7 +261,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <?php if ( isset($inputAlert["search"]) ) { ?> 
                   <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['search']?></div>
                <?php } ?> 
-            <?=createModalBottom('btn_search', 'warning', $LANG['btn_search'])?>
+            <?=createModalBottom('btn_search', 'info', $LANG['btn_search'])?>
             
          </form>
             

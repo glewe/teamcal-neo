@@ -34,6 +34,10 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
 //
 // CHECK URL PARAMETERS
 //
+
+//
+// Month and Region mandatory
+//
 if (isset($_GET['month']) AND isset($_GET['region']))
 {
    $missingData = FALSE;
@@ -78,6 +82,66 @@ if ($missingData)
    die();
 }
 
+//
+// Group filter
+//
+if (isset($_GET['group']))
+{
+   $groupfilter = sanitize($_GET['group']);
+   $viewData['groupid'] = $groupfilter;
+   if ($groupfilter == "all")
+   {
+      $viewData['group'] = $LANG['all'];
+      $users = $U->getAll();
+   }
+   else
+   {
+      $viewData['group'] = $G->getNameById($groupfilter);
+      $users = $UG->getAllForGroup($groupfilter);
+   }
+}
+else 
+{
+   $viewData['groupid'] = 'all';
+   $viewData['group'] = $LANG['all'];
+   $users = $U->getAll();
+}
+
+//
+// Absence filter
+//
+if (isset($_GET['abs']))
+{
+   $absfilter = sanitize($_GET['abs']);
+   $viewData['absid'] = $absfilter;
+   if ($absfilter == "all")
+   {
+      $viewData['absfilter'] = false;
+      $viewData['absence'] = $LANG['all'];
+   }
+   else
+   {
+      $viewData['absfilter'] = true;
+      $viewData['absence'] = $A->getName($absfilter);
+      $ausers = array();
+      foreach ($users as $usr)
+      {
+         if ($T->hasAbsence($usr['username'], date('Y'), date('m'),$absfilter))
+         {
+            array_push($ausers,$usr);
+         }
+      }
+      unset($users);
+      $users = $ausers;
+   }
+}
+else 
+{
+   $viewData['absfilter'] = false;
+   $viewData['absid'] = 'all';
+   $viewData['absence'] = $LANG['all'];
+}
+
 //=============================================================================
 //
 // LOAD CONTROLLER RESOURCES
@@ -113,23 +177,11 @@ if (!$M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']))
    $LOG->log("logMonth", $L->checkLogin(), "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
 }
 
-//
-// Select default users (All)
-//
-$viewData['absfilter'] = false;
-$viewData['absid'] = 'all';
-$viewData['absence'] = $LANG['all'];
-$viewData['absences'] = $A->getAll();
-$viewData['groupid'] = 'all';
-$viewData['group'] = $LANG['all'];
-$viewData['search'] = '';
-
-$users = $U->getAll();
-
 //=============================================================================
 //
 // PROCESS FORM
 //
+$viewData['search'] = '';
 if (!empty($_POST))
 {
    //
@@ -153,7 +205,7 @@ if (!empty($_POST))
       // '---------------'
       if (isset($_POST['btn_region']))
       {
-         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $_POST['sel_region']);
+         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $_POST['sel_region'] . "&group=" . $groupfilter . "&abs=" . $absfilter);
          die();
       }
       // ,---------------,
@@ -161,18 +213,16 @@ if (!empty($_POST))
       // '---------------'
       elseif (isset($_POST['btn_group']))
       {
-         if ($_POST['sel_group'] == "all")
-         {
-            unset($users);
-            $users = $U->getAll();
-         }
-         else 
-         {
-            $viewData['groupval'] = $_POST['sel_group'];
-            $viewData['group'] = $G->getNameById($_POST['sel_group']);
-            unset($users);
-            $users = $UG->getAllForGroup($_POST['sel_group']);
-         }
+         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $_POST['sel_region'] . "&group=" . $_POST['sel_group'] . "&abs=" . $absfilter);
+         die();
+      }
+      // ,----------------,
+      // | Select Absence |
+      // '----------------'
+      elseif (isset($_POST['btn_abssearch']))
+      {
+         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $_POST['sel_region'] . "&group=" . $groupfilter . "&abs=" . $_POST['sel_absence']);
+         die();
       }
       // ,---------------,
       // | Search User   |
@@ -182,28 +232,6 @@ if (!empty($_POST))
          $viewData['search'] = $_POST['txt_search'];
          unset($users);
          $users = $U->getAllLike($_POST['txt_search']);
-      }
-      // ,----------------,
-      // | Search Absence |
-      // '----------------'
-      elseif (isset($_POST['btn_abssearch']))
-      {
-         if ($_POST['sel_absence'] != "all")
-         {
-            $viewData['absfilter'] = true;
-            $viewData['absid'] = $_POST['sel_absence'];
-            $viewData['absence'] = $A->getName($_POST['sel_absence']);
-            $ausers = array();
-            foreach ($users as $usr)
-            {
-               if ($T->hasAbsence($usr['username'], date('Y'), date('m'),$_POST['sel_absence']))
-               {
-                  array_push($ausers,$usr);
-               }
-            }
-            unset($users);
-            $users = $ausers;
-         }
       }
    }
    else
@@ -224,8 +252,10 @@ if (!empty($_POST))
 //
 // PREPARE VIEW
 //
-$viewData['holidays'] = $H->getAllCustom();
+$viewData['absences'] = $A->getAll();
 $viewData['groups'] = $G->getAll();
+$viewData['holidays'] = $H->getAllCustom();
+
 $viewData['dayStyles'] = array();
 
 $viewData['users'] = array();
