@@ -306,7 +306,7 @@ class Login
           * Login locked for grace period of time.
           */
          $U->bad_logins_start = date("U");
-         $U->setStatus($CONF['USLOGLOC']);
+         $U->locked = '1';
          $retcode = 6;
       }
       else
