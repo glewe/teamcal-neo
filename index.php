@@ -18,7 +18,8 @@
 //
 define('VALID_ROOT', 1);
 define('WEBSITE_ROOT', __DIR__);
-$fullURL = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+$protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+$fullURL = $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $pos = strrpos($fullURL,'/');
 define('WEBSITE_URL', substr($fullURL,0,$pos)); //Remove trailing slash
 
