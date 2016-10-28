@@ -109,7 +109,7 @@ class Upload
          {
             if ($this->do_filename_check == "y")
             {
-               if (preg_match("/^[a-z0-9_-]*\.(.){1,5}$/i", $the_name))
+               if (preg_match("/^[a-z0-9\._-]*\.(.){1,5}$/i", $the_name))
                {
                   return true;
                }

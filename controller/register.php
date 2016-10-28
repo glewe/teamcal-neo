@@ -123,7 +123,7 @@ if (!empty($_POST))
             $UR->last_pw_change = date('YmdHis');
              
             $UR->create();
-            $UO->save($UR->username, 'avatar', 'noavatar_male.png');
+            $UO->save($UR->username, 'avatar', 'default_male.png');
             
             //
             // Verify code

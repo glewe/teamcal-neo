@@ -97,7 +97,7 @@ class Avatar
          }
       }
       
-      if (file_exists($this->path . $avatar) and $avatar != 'noavatar_male.png' and $avatar != 'noavatar_female.png' and substr($avatar, 0, 3) != 'is_')
+      if (file_exists($this->path . $avatar) and $avatar != 'default_male.png' and $avatar != 'default_female.png' and substr($avatar, 0, 3) != 'is_')
       {
          unlink($this->path . $avatar);
       }

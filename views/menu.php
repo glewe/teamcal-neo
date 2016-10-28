@@ -18,7 +18,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       -->
       <div class="navbar navbar<?=($htmlData['theme']['menuBarInverse'])?'-inverse':'';?> navbar-fixed-top">
          <div class="container">
-            
+
             <div class="navbar-header">
                <a href="<?=WEBSITE_URL?>" class="navbar-brand" style="padding: 2px 8px 0 8px;"><img src="images/logo.png" width="48" height="48" alt=""></a>
                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">

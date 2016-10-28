@@ -110,7 +110,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="col-lg-<?=$colsright?>">
                                        <img src="<?=$CONF['app_avatar_dir'].$viewData['avatar']?>" alt="" style="width: 80px; height: 80px;"><br>
                                        <br>
-                                       <?php if (substr($viewData['avatar'], 0, 9) != 'noavatar_') { ?><button type="submit" class="btn btn-primary btn-sm" tabindex="<?=$tabindex++?>" name="btn_deleteAvatar"><?=$LANG['btn_reset']?></button><?php } ?>
+                                       <?php if (substr($viewData['avatar'], 0, 9) != 'default_') { ?><button type="submit" class="btn btn-primary btn-sm" tabindex="<?=$tabindex++?>" name="btn_reset"><?=$LANG['btn_reset']?></button><?php } ?>
                                     </div>
                                  </div>
                                  <div class="divider"><hr></div>

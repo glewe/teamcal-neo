@@ -251,15 +251,15 @@ if (!empty($_POST))
             $UO->save($profile, 'avatar', $_POST['opt_avatar']);
          }
          elseif ( (!$UO->read($profile, 'avatar') AND ($UO->read($profile, 'gender') == 'male' OR $UO->read($profile, 'gender') == 'female')) OR 
-                  ($UO->read($profile, 'avatar') == 'noavatar_male.png' AND $UO->read($profile, 'gender') == 'female') OR
-                  ($UO->read($profile, 'avatar') == 'noavatar_female.png' AND $UO->read($profile, 'gender') == 'male')
+                  ($UO->read($profile, 'avatar') == 'default_male.png' AND $UO->read($profile, 'gender') == 'female') OR
+                  ($UO->read($profile, 'avatar') == 'default_female.png' AND $UO->read($profile, 'gender') == 'male')
             )
          {
-            $UO->save($profile, 'avatar', 'noavatar_'.$UO->read($profile, 'gender').'.png');
+            $UO->save($profile, 'avatar', 'default_'.$UO->read($profile, 'gender').'.png');
          }
          else
          {
-            if (!$UO->read($profile, 'avatar')) $UO->save($profile, 'avatar', 'noavatar_male.png');
+            if (!$UO->read($profile, 'avatar')) $UO->save($profile, 'avatar', 'default_male.png');
          }
           
          //
@@ -333,10 +333,10 @@ if (!empty($_POST))
          $UPL->http_error = $_FILES['file_avatar']['error'];
          
          //
-         // One avatar per user at a time. Change filename to username
+         // One avatar per username. Change filename to username
          //
-         $pieces = explode('.',$_FILES['file_avatar']['name']);
-         $UPL->the_file = $profile . "." . $pieces[1];
+         $fileExtension = getFileExtension($_FILES['file_avatar']['name']);
+         $UPL->the_file = $profile . "." . $fileExtension;
          
          if ($UPL->upload())
          {
@@ -365,17 +365,16 @@ if (!empty($_POST))
             $alertData['help'] = '';
          }
       }
-      // ,---------------,
-      // | Delete Avatar |
-      // '---------------'
-      else if (isset ($_POST['btn_deleteAvatar']))
+      // ,-------,
+      // | Reset |
+      // '-------'
+      else if (isset ($_POST['btn_reset']))
       {
          //
-         // Delete all avatar files for this user
+         // Delete existing avatars and set to default.
          //
-         $mask = $CONF['app_avatar_dir'] . $UL->username . ".*";
-         array_map('unlink', glob($mask));
-         $UO->save($profile, 'avatar', '');
+         $AV->delete($username, $UO->read($profile, 'avatar'));
+         $UO->save($profile, 'avatar', 'default_' . $UO->read($profile, 'gender') . '.png');
             
          //
          // Log this event
@@ -406,7 +405,15 @@ if (!empty($_POST))
 //
 $viewData['profile'] = $profile;
 $viewData['fullname'] = $UP->firstname . ' ' . $UP->lastname . ' (' . $UP->username . ')';
-$viewData['avatar'] = ($UO->read($profile, 'avatar')) ? $UO->read($profile, 'avatar') : 'noavatar_' . $UO->read($profile, 'gender') . '.png';
+$viewData['avatar'] = ($UO->read($profile, 'avatar')) ? $UO->read($profile, 'avatar') : 'default_' . $UO->read($profile, 'gender') . '.png';
+//
+// If, for some reason, the avatar file does not exists, reset to default.
+//
+if (!file_exists($CONF['app_avatar_dir'].$viewData['avatar']))
+{
+   $viewData['avatar'] = 'default_' . $UO->read($profile, 'gender') . '.png';
+   $UO->save($profile, 'avatar', $viewData['avatar']);
+}
 $viewData['avatar_maxsize'] = $CONF['avatarMaxsize'];
 $viewData['avatar_formats'] = implode(', ', $CONF['avatarExtensions']);
 $viewData['showingroups'] = $UO->read($profile, 'showingroups');

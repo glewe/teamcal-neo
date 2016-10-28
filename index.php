@@ -194,7 +194,7 @@ $userData['isLoggedIn'] = false;
 $userData['username'] = 'Public';
 $userData['roleid'] = '3'; // 3 = Public
 $userData['color'] = 'default';
-$userData['avatar'] = 'noavatar_male.png';
+$userData['avatar'] = 'default_male.png';
 
 //
 // If someone is logged in, overwrite defaults
@@ -220,11 +220,11 @@ if ($luser = $L->checkLogin() AND (!isset($_GET['action']) OR isset($_GET['actio
    
    if ($userData['avatar'] = $UO->read($UL->username, 'avatar'))
    {
-      if (!file_exists($CONF['app_avatar_dir'].$userData['avatar'])) $userData['avatar'] = 'noavatar_' . $UO->read($UL->username, 'gender') . '.png';
+      if (!file_exists($CONF['app_avatar_dir'].$userData['avatar'])) $userData['avatar'] = 'default_' . $UO->read($UL->username, 'gender') . '.png';
    }
    else 
    {
-      $userData['avatar'] = 'noavatar_' . $UO->read($UL->username, 'gender') . '.png';
+      $userData['avatar'] = 'default_' . $UO->read($UL->username, 'gender') . '.png';
    }
    
    $userlang = $UO->read($UL->username, 'language');

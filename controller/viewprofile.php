@@ -81,7 +81,7 @@ if ($missingData)
 $U->findByName($profile);
 $viewData['username'] = $profile;
 $viewData['fullname'] = $U->getFullname($U->username);
-$viewData['avatar'] = ($UO->read($U->username, 'avatar')) ? $UO->read($U->username, 'avatar') : 'noavatar_' . $UO->read($U->username, 'gender') . '.png';
+$viewData['avatar'] = ($UO->read($U->username, 'avatar')) ? $UO->read($U->username, 'avatar') : 'default_' . $UO->read($U->username, 'gender') . '.png';
 $viewData['role'] = $RO->getNameById($U->role);
 $viewData['title'] = $UO->read($U->username, 'title');
 $viewData['position'] = $UO->read($U->username, 'position');

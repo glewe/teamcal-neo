@@ -100,7 +100,7 @@ if (!empty($_POST))
          //
          // Default user options
          //
-         $UO->save($_POST['txt_username'], 'avatar', 'noavatar_male.png');
+         $UO->save($_POST['txt_username'], 'avatar', 'default_male.png');
          $UO->save($_POST['txt_username'], 'language', 'default');
          $UO->save($_POST['txt_username'], 'theme', 'default');
           

@@ -280,7 +280,6 @@ foreach ($files as $file)
       $viewData['uplFiles'][] = array('fid' => $fid, 'fname' => $file);
    }
 }
-
 $viewData['groups'] = $G->getAll();
 $viewData['roles'] = $RO->getAll();
 $viewData['users'] = $U->getAll();

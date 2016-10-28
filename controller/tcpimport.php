@@ -375,12 +375,12 @@ if (!empty($_POST))
                      if ($rec['usertype'] & 0x08)
                      {
                         $myGender = 'male';
-                        $myAvatar = 'noavatar_male.png';
+                        $myAvatar = 'default_male.png';
                      }
                      else
                      {
                         $myGender = 'female';
-                        $myAvatar = 'noavatar_female.png';
+                        $myAvatar = 'default_female.png';
                      }
                      $UO->create($rec['username'], 'title', $rec['title']);
                      $UO->create($rec['username'], 'position', $rec['position']);

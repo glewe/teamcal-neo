@@ -557,24 +557,26 @@ function getFiles($myDir, $myExt = NULL, $myPrefix = NULL)
       {
          foreach ( $files as $pos => $file )
          {
-            $thisExt = explode(".", strtolower($file));
+            $thisPref = getFilePrefix(strtolower($file));
+            $thisExt = getFileExtension(strtolower($file));
+            //$thisExt = explode(".", strtolower($file));
             if (count($myExt) AND !$myPrefix)
             {
-               if (in_array($thisExt[1], $myExt))
+               if (in_array($thisExt, $myExt))
                {
                   $filearray[] = $file;
                }
             }
             elseif (!count($myExt) AND $myPrefix)
             {
-               if (startsWith($thisExt[0], $myPrefix))
+               if (startsWith($thisPref, $myPrefix))
                {
                   $filearray[] = $file;
                }
             }
             elseif (count($myExt) AND $myPrefix)
             {
-               if (in_array($thisExt[1], $myExt) AND startsWith($thisExt[0], $myPrefix))
+               if (in_array($thisExt, $myExt) AND startsWith($thisPref, $myPrefix))
                {
                   $filearray[] = $file;
                }
@@ -604,6 +606,22 @@ function getFileExtension($str)
    $l = strlen($str) - $i;
    $ext = substr($str, $i + 1, $l);
    return $ext;
+}
+
+// ---------------------------------------------------------------------------
+/**
+ * Extracts the file extension from a given file name
+ *
+ * @param string $str String containing the path or filename
+ * 
+ * @return string File extension of the string passed
+ */
+function getFilePrefix($str)
+{
+   $i = strpos($str, ".");
+   if (!$i) return "";
+   $pref = substr($str, 0, $i);
+   return $pref;
 }
 
 // ---------------------------------------------------------------------------
