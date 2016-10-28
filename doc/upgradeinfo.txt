@@ -3,6 +3,25 @@ TEAMCAL NEO UPGRADE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[0.9.012] -> [0.9.013]
+
+1. Backup your current files and database!
+
+2. Download the new release and overwrite all files.
+
+3. Delete the files:
+   upload/avatar/noavatar_male.png
+   upload/avatar/noavatar_female.png
+
+4. Edit config/config.app.php and change line 26 to:
+   $CONF['app_installed'] = "1";
+
+5. Edit config/config.db.php and update your database settings from your backup.
+   
+6. Delete file installation.php in the root directory
+   
+
+------------------------------------------------------------------------------
 [0.9.011] -> [0.9.012]
 
 1. Backup your current files and database!
