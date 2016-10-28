@@ -242,19 +242,6 @@ $LANG['att_shareWith_role'] = 'Role';
 $LANG['att_shareWith_user'] = 'User';
 
 //
-// Avatar errors
-//
-$LANG['ava_wrongtype_1'] = 'Wrong file type: "%s". ';
-$LANG['ava_wrongtype_2'] = "Allowed are the file types ";
-$LANG['ava_write_error'] = "An error occurred while writing the avatar file to its destination.";
-$LANG['ava_upload_error'] = "An unspecified error occurred during upload. Maybe you want to double-check the size and type of the file you just uploaded.";
-$LANG['ava_upload_error_1'] = "The file is too big. It exceeds the upload_max_filesize directive in php.ini.";
-$LANG['ava_upload_error_2a'] = "The file is too big. The upload file size is limited to ";
-$LANG['ava_upload_error_2b'] = " bytes.";
-$LANG['ava_upload_error_3'] = "The uploaded file was only partially uploaded.";
-$LANG['ava_upload_error_4'] = "No file was uploaded.";
-
-//
 // Buttons
 //
 $LANG['btn_activate'] = "Activate";
