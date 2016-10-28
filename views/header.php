@@ -63,9 +63,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
       
       <!-- Font Awesome -->
       <?php if ($htmlData['faCDN']) { ?>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
       <?php } else { ?>
-<link rel="stylesheet" href="fonts/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="fonts/font-awesome/4.7.0/css/font-awesome.min.css">
       <?php } ?>
          
       <!-- jQuery -->
