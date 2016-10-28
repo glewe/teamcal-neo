@@ -230,19 +230,6 @@ $LANG['att_col_owner'] = 'Besitzer';
 $LANG['att_col_shares'] = 'Zugriff';
 
 $LANG['att_confirm_delete'] = 'Bist du sicher, dass du die ausgew&auml;hlten Dateien l&ouml;schen m&ouml;chtest?';
-$LANG['att_error_0'] = 'Die Datei "%s" wurde erfolgreich hochgeladen.';
-$LANG['att_error_1'] = 'Die hochgeladene Datei &uuml;bersteigt die maximale Dateigr&ouml;&szlig;e der Severkonfiguration.';
-$LANG['att_error_2'] = 'Die hochgeladene Datei &uuml;bersteigt die MAX_FILE_SIZE Direktive des HTML Formulars.';
-$LANG['att_error_3'] = 'Die Datei wurde nur teilweise hochgeladen.';
-$LANG['att_error_4'] = 'Es wurde keine Datei hochgeladen.';
-$LANG['att_error_10'] = 'Bitte w&auml;hle eine Datei zum Hochladen aus.';
-$LANG['att_error_11'] = 'Nur Dateien der folgenden Formate sind erlaubt: %s';
-$LANG['att_error_12'] = 'Der Dateiname enth&auml;lt ung&uuml;ltige Zeichen. Bitte benutze nur alphanumerische Zeichen und den Unterstrich. Der Dateiname muss mit einem Punkt und der Erweiterung enden.';
-$LANG['att_error_13'] = 'Der Dateiname &uuml;bersteigt die maximale L&auml;nge von %d Zeichen.';
-$LANG['att_error_14'] = 'Das Uploadverzeichnis existiert nicht.';
-$LANG['att_error_15'] = 'Eine Datei mit dem Name "%s" existiert bereits.';
-$LANG['att_error_16'] = 'Die hochgeladene Datei wurde in "%s" umbenannt.';
-$LANG['att_error_17'] = 'Die Datei "%s" existiert nicht.';
 $LANG['att_extensions'] = 'Erlaubte Bildformate';
 $LANG['att_file'] = 'Datei hochladen';
 $LANG['att_file_comment'] = 'Hier kann eine Datei hochgeladen werden. Die Dateigr&ouml;&szlig;e ist limitiert auf %d KBytes und die erlaubten Formate sind "%s".';
@@ -1060,6 +1047,25 @@ $LANG['status_ut_manager'] = 'Manager der Gruppe: ';
 $LANG['status_ut_director'] = 'Direktor';
 $LANG['status_ut_assistant'] = 'Assistent';
 $LANG['status_ut_admin'] = 'Administrator';
+
+//
+// Upload Errors
+//
+$LANG['upl_error_0'] = 'Die Datei "%s" wurde erfolgreich hochgeladen.';
+$LANG['upl_error_1'] = 'Die hochgeladene Datei &uuml;bersteigt die maximale Dateigr&ouml;&szlig;e der Severkonfiguration.';
+$LANG['upl_error_2'] = 'Die hochgeladene Datei &uuml;bersteigt die MAX_FILE_SIZE Direktive des HTML Formulars.';
+$LANG['upl_error_3'] = 'Die Datei wurde nur teilweise hochgeladen.';
+$LANG['upl_error_4'] = 'Es wurde keine Datei hochgeladen.';
+$LANG['upl_error_10'] = 'Bitte w&auml;hle eine Datei zum Hochladen aus.';
+$LANG['upl_error_11'] = 'Nur Dateien der folgenden Formate sind erlaubt: %s';
+$LANG['upl_error_12'] = 'Der Dateiname enth&auml;lt ung&uuml;ltige Zeichen. Bitte benutze nur alphanumerische Zeichen und den Unterstrich. Der Dateiname muss mit einem Punkt und der Erweiterung enden.';
+$LANG['upl_error_13'] = 'Der Dateiname &uuml;bersteigt die maximale L&auml;nge von %d Zeichen.';
+$LANG['upl_error_14'] = 'Das Uploadverzeichnis existiert nicht.';
+$LANG['upl_error_15'] = 'Eine Datei mit dem Name "%s" existiert bereits.';
+$LANG['upl_error_16'] = 'Die hochgeladene Datei wurde in "%s" umbenannt.';
+$LANG['upl_error_17'] = 'Die Datei "%s" existiert nicht.';
+$LANG['upl_error_18'] = 'Ein unbestimmter Fehler ist bem Hochladen aufgetreten.';
+$LANG['upl_error_19'] = 'Die Datei konnte nicht ins Zielverzeichnis geschrieben werden.';
 
 //
 // Users

@@ -18,7 +18,7 @@ class Upload
 {
    public $create_directory = true;
    public $do_filename_check;
-   public $error;
+   public $error = array();
    public $ext_string;
    public $extensions = array();
    public $file_copy; // the new name
@@ -27,12 +27,11 @@ class Upload
    public $message = array ();
    public $rename_file; // if this private is true the file copy get a new name
    public $replace;
+   public $the_file;
+   public $the_temp_file;
+   public $the_new_file;
    public $upload_dir;
    public $uploaded_file = array();
-   
-   private $the_file;
-   private $the_temp_file;
-   private $the_new_file;
    
    // ---------------------------------------------------------------------
    /**
@@ -45,18 +44,21 @@ class Upload
       $this->rename_file = false;
       $this->ext_string = "";
       
-      $this->error[0] = $LANG['upload_error_0'];
-      $this->error[1] = $LANG['upload_error_1'];
-      $this->error[2] = $LANG['upload_error_2'];
-      $this->error[3] = $LANG['upload_error_3'];
-      $this->error[4] = $LANG['upload_error_4'];
-      $this->error[10] = $LANG['upload_error_10'];
-      $this->error[11] = $LANG['upload_error_11'];
-      $this->error[12] = $LANG['upload_error_12'];
-      $this->error[13] = $LANG['upload_error_13'];
-      $this->error[14] = $LANG['upload_error_14'];
-      $this->error[15] = $LANG['upload_error_15'];
-      $this->error[16] = $LANG['upload_error_16'];
+      $this->error[0]  = $LANG['upl_error_0'];
+      $this->error[1]  = $LANG['upl_error_1'];
+      $this->error[2]  = $LANG['upl_error_2'];
+      $this->error[3]  = $LANG['upl_error_3'];
+      $this->error[4]  = $LANG['upl_error_4'];
+      $this->error[10] = $LANG['upl_error_10'];
+      $this->error[11] = $LANG['upl_error_11'];
+      $this->error[12] = $LANG['upl_error_12'];
+      $this->error[13] = $LANG['upl_error_13'];
+      $this->error[14] = $LANG['upl_error_14'];
+      $this->error[15] = $LANG['upl_error_15'];
+      $this->error[16] = $LANG['upl_error_16'];
+      $this->error[17] = $LANG['upl_error_17'];
+      $this->error[18] = $LANG['upl_error_18'];
+      $this->error[19] = $LANG['upl_error_19'];
    }
    
    // ---------------------------------------------------------------------
@@ -286,7 +288,7 @@ class Upload
             }
             else
             {
-               $this->message[] = 'Could not move uploaded file.';
+               $this->message[] = $this->error[19];
                return false;
             }
          }

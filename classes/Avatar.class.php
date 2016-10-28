@@ -16,15 +16,16 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  */
 class Avatar
 {
-   private $allowedTypes = '';
-   private $fileExtension = '';
-   private $fileName = '';
-   private $tmpFileName = '';
-   private $maxHeight = '';
-   private $maxWidth = '';
-   private $maxSize = '';
-   private $message = '';
-   private $path = '';
+   public $allowedTypes = '';
+   public $error = array();
+   public $fileExtension = '';
+   public $fileName = '';
+   public $tmpFileName = '';
+   public $maxHeight = '';
+   public $maxWidth = '';
+   public $maxSize = '';
+   public $message = '';
+   public $path = '';
    
    // ---------------------------------------------------------------------
    /**
@@ -39,6 +40,23 @@ class Avatar
       $this->maxSize = $CONF['avatarMaxsize'];
       $this->path = 'upload/images/avatars/';
       $this->allowedTypes = $CONF['avatarExtensions'];
+     
+      
+      $this->error[0]  = $LANG['upl_error_0'];
+      $this->error[1]  = $LANG['upl_error_1'];
+      $this->error[2]  = $LANG['upl_error_2'];
+      $this->error[3]  = $LANG['upl_error_3'];
+      $this->error[4]  = $LANG['upl_error_4'];
+      $this->error[10] = $LANG['upl_error_10'];
+      $this->error[11] = $LANG['upl_error_11'];
+      $this->error[12] = $LANG['upl_error_12'];
+      $this->error[13] = $LANG['upl_error_13'];
+      $this->error[14] = $LANG['upl_error_14'];
+      $this->error[15] = $LANG['upl_error_15'];
+      $this->error[16] = $LANG['upl_error_16'];
+      $this->error[17] = $LANG['upl_error_17'];
+      $this->error[18] = $LANG['upl_error_18'];
+      $this->error[19] = $LANG['upl_error_19'];
    }
    
    // ---------------------------------------------------------------------
@@ -107,9 +125,10 @@ class Avatar
          if (is_numeric(array_search(strtolower($this->fileExtension), $this->allowedTypes)))
          {
             $newfile = $this->path . $uname . "." . $this->fileExtension;
-            /**
-             * Check size and resize if necessary
-             */
+            
+            //
+            // Check size and resize if necessary
+            //
             $imgsize = GetImageSize($this->tmpFileName);
             $width = $imgsize[0];
             $height = $imgsize[1];
@@ -174,7 +193,7 @@ class Avatar
                 */
                if (!copy($this->tmpFileName, $newfile))
                {
-                  $this->message = $LANG['ava_write_error'];
+                  $this->message = $this->error[19];
                }
             }
             /**
@@ -191,15 +210,8 @@ class Avatar
          }
          else
          {
-            $this->message = $LANG['ava_wrongtype_1'];
-            $this->message .= $this->fileextension . " . ";
-            $this->message .= $LANG['ava_wrongtype_2'];
-            foreach ( $this->allowedTypes as $allowedtype )
-            {
-               $this->message .= strtoupper($allowedtype) . ", ";
-            }
-            $this->message = substr($this->message, 0, strlen($this->message) - 2);
-            $this->message .= ".";
+            $extList = implode(',', $this->allowedTypes); 
+            $this->message = sprintf($this->error[11], $extList);
          }
       }
       else
@@ -207,23 +219,23 @@ class Avatar
          switch ($_FILES['imgfile']['error'])
          {
             case 1 : // UPLOAD_ERR_INI_SIZE
-               $this->message = $LANG['ava_upload_error_1'];
+               $this->message = $this->error[1];
                break;
             
             case 2 : // UPLOAD_ERR_FORM_SIZE
-               $this->message = $LANG['ava_upload_error_2a'] . $this->maxSize . $LANG['ava_upload_error_2b'];
+               $this->message = $this->error[2];
                break;
             
             case 3 : // UPLOAD_ERR_PARTIAL
-               $this->message = $LANG['ava_upload_error_3'];
+               $this->message = $this->error[3];
                break;
             
             case 4 : // UPLOAD_ERR_NO_FILE
-               $this->message = $LANG['ava_upload_error_4'];
+               $this->message = $this->error[4];
                break;
             
             default :
-               $this->message = $LANG['ava_upload_error'];
+               $this->message = $this->error[18];
                break;
          }
       }
