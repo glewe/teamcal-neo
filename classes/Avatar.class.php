@@ -33,7 +33,7 @@ class Avatar
     */
    public function __construct()
    {
-      global $C, $CONF;
+      global $C, $CONF, $LANG;
       
       $this->maxHeight = 80;
       $this->maxWidth = 80;
