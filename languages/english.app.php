@@ -259,7 +259,7 @@ $LANG['calopt_pastDayColor'] = 'Past Day Color';
 $LANG['calopt_pastDayColor_comment'] = 'Sets a background color that is used for every day in the current month that lies in the past. 
       Delete this value if you don\'t want to color the past days.';
 $LANG['calopt_repeatHeaderCount'] = 'Repeat Header Count';
-$LANG['calopt_repeatHeaderCount_comment'] = 'Specifies the amount of user lines in the calender before the month header is repeated for better readability.';
+$LANG['calopt_repeatHeaderCount_comment'] = 'Specifies the amount of user lines in the calender before the month header is repeated for better readability. If set to 0, the month header will not be repeated.';
 $LANG['calopt_satBusi'] = 'Saturday is a Business Day';
 $LANG['calopt_satBusi_comment'] = 'By default, Saturday and Sunday are weekend days and displayed accordingly in the calendar. 
       Check this option if you want to make Saturday a business day.';

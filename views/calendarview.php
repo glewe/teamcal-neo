@@ -9,9 +9,11 @@
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag http://tcneo.lewe.com/doc/license.txt
+ * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
+
+$formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$viewData['month'].'&amp;region='.$viewData['regionid'].'&amp;group='.$viewData['groupid'].'&amp;abs='.$viewData['absid'];
 ?>
 
       <!-- ==================================================================== 
@@ -33,7 +35,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             $tabindex = 1; $colsleft = 1; $colsright = 4;
             ?>
          
-         <form class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;month=<?=$viewData['year'].$viewData['month']?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>&amp;abs=<?=$viewData['absid']?>" method="post" target="_self" accept-charset="utf-8">
+         <form class="bs-example form-control-horizontal" enctype="multipart/form-data" action="<?=$formLink?>" method="post" target="_self" accept-charset="utf-8">
 
             <input name="hidden_month" type="hidden" class="text" value="<?=$viewData['month']?>">
             <input name="hidden_region" type="hidden" class="text" value="<?=$viewData['region']?>">
@@ -94,133 +96,92 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                ?>
                   <div class="table<?=($viewData['supportMobile'])?$key:'';?>">
                      <table class="table table-bordered month">
-                        <thead>
-                           <!-- Row: Month name and day numbers -->
-                           <tr>
-                              <th class="m-monthname"><?=$viewData['dateInfo']['monthname']?> <?=$viewData['dateInfo']['year']?></th>
-                              <?php for ($i=$daystart; $i<=$dayend; $i++) {
-                                 if ($D->get($viewData['year'] . $viewData['month'] . sprintf("%02d", $i), 'all', $viewData['regionid'], true))
+                        
+                        <?php require("calendarviewmonthheader.php"); ?>
+                        
+                        <!-- Rows 4ff: Users -->
+                        <?php
+                        $dayAbsCount = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+                        $dayPresCount = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+                        
+                        if ($C->read("defgroupfilter") == "allbygroup")
+                        {
+                           foreach ($viewData['groups'] as $grp)
+                           { 
+                              $groupHeader = false;
+                              $repeatHeaderCount = $C->read("repeatHeaderCount");
+                              if ($repeatHeaderCount) $rowcount = 1;
+                              foreach ($viewData['users'] as $usr)
+                              {
+                                 if ($UG->isMemberOfGroup($usr['username'], $grp['id']))
                                  {
-                                    //
-                                    // This is a global daynote
-                                    //
-                                    $notestart = '<div class="tooltip-'.$D->color.'" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="' . $D->daynote . '">';
-                                    $noteend = '</div>';
-                                    $notestyle = 'background-image: url(images/ovl_daynote.gif); background-repeat: no-repeat; background-position: top right;';
-                                 }
-                                 else
-                                 {
-                                    $notestart = '';
-                                    $noteend = '';
-                                    $notestyle = '';
-                                 }
-                                 
-                                 if (isset($viewData['dayStyles'][$i]) AND strlen($viewData['dayStyles'][$i]))
-                                 {
-                                    $dayStyles = ' style="' . $viewData['dayStyles'][$i] . $notestyle . '"';
-                                 }
-                                 else
-                                 {
-                                    $dayStyles = '';
-                                 }
-                                 ?> 
-                                 <th class="m-daynumber text-center"<?=$dayStyles?>><?=$notestart.$i.$noteend?></th>
-                              <?php } ?>
-                           </tr>
-                           
-                           <!-- Row: Weekdays -->
-                           <tr>
-                              <th class="m-label">&nbsp;</th>
-                              <?php for ($i=$daystart; $i<=$dayend; $i++) { 
-                                 if (isset($viewData['dayStyles'][$i]) AND strlen($viewData['dayStyles'][$i])) $dayStyles = ' style="' . $viewData['dayStyles'][$i] . '"';
-                                 else $dayStyles = '';
-                                 $prop = 'wday'.$i; 
-                                 ?>
-                                 <th class="m-weekday text-center"<?=$dayStyles?>><?=$LANG['weekdayShort'][$M->$prop]?></th>
-                              <?php } ?>
-                           </tr>
-                           
-                           <?php if ($viewData['showWeekNumbers']) { ?>
-                              <!-- Row: Week numbers -->
-                              <tr>
-                                 <th class="m-label"><?=$LANG['weeknumber']?></th>
-                                 <?php for ($i=$daystart; $i<=$dayend; $i++) { 
-                                    $prop = 'week'.$i; 
-                                    $wprop = 'wday'.$i; ?>
-                                    <th class="m-weeknumber text-center<?=(($M->$wprop==$viewData['firstDayOfWeek'])?' first':' inner')?>"><?=(($M->$wprop==$viewData['firstDayOfWeek'])?$M->$prop:'')?></th>
-                                 <?php } ?>
-                              </tr>
-                           <?php } ?>
-                        </thead>
-                        <tbody>
-                           <!-- Rows 4ff: Users -->
-                           <?php
-                           $dayAbsCount = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-                           $dayPresCount = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
-                           
-                           if ($C->read("defgroupfilter") == "allbygroup")
-                           {
-                              foreach ($viewData['groups'] as $grp)
-                              { 
-                                 $groupHeader = false;
-                                 foreach ($viewData['users'] as $usr)
-                                 {
-                                    if ($UG->isMemberOfGroup($usr['username'], $grp['id']))
-                                    {
-                                       if (!$groupHeader)
-                                       { ?>
-                                          <!-- Row: Group <?=$grp['name']?> -->
-                                          <tr><th class="m-groupname" colspan="<?=$days+1?>"><?=$LANG['group'].': '.$grp['name']?></th></tr>
-                                          <?php  $groupHeader = true; 
-                                       }?>
-                                       <!-- Row: User <?=$usr['username']?> --> 
-                                       <?php require("calendarviewuserrow.php");
+                                    if (!$groupHeader)
+                                    { ?>
+                                       <!-- Row: Group <?=$grp['name']?> -->
+                                       <tr><th class="m-groupname" colspan="<?=$days+1?>"><?=$LANG['group'].': '.$grp['name']?></th></tr>
+                                       <?php  $groupHeader = true; 
                                     }
+                                    
+                                    if ($repeatHeaderCount AND $rowcount>$repeatHeaderCount)
+                                    {
+                                       require("calendarviewmonthheader.php");
+                                       $rowcount = 1;
+                                    } ?>
+                                    <!-- Row: User <?=$usr['username']?> --> 
+                                    <?php require("calendarviewuserrow.php");
+                                    if ($repeatHeaderCount) $rowcount++;
                                  }
                               }
-                           }                                                                  
-                           else
+                           }
+                        }                                                                  
+                        else
+                        {
+                           $repeatHeaderCount = $C->read("repeatHeaderCount");
+                           if ($repeatHeaderCount) $rowcount = 1;
+                           foreach ($viewData['users'] as $usr) 
                            {
-                              foreach ($viewData['users'] as $usr) 
-                              { ?>
-                                 <!-- Row: User <?=$usr['username']?> --> 
-                                 <?php require("calendarviewuserrow.php");
-                              } 
-                           } // End if AllByGroup ?>
-                           
-                           <?php if ($C->read('includeSummary')) { ?>
-                           <!-- Row: Summary Header -->
-                           <tr>
-                              <td class="m-label" colspan="<?=$dayend-$daystart+2?>">
-                                 <span style="float: left;"><?=$LANG['cal_summary']?>&nbsp;<a class="btn btn-default btn-xs" data-toggle="collapse" data-target=".summary">...</a></span>
-                                 <span class="pull-right text-normal"><?=$viewData['businessDays']?>&nbsp;<?=$LANG['cal_businessDays']?></span>
-                              </td>
-                           </tr>
+                              if ($repeatHeaderCount AND $rowcount>$repeatHeaderCount)
+                              {
+                                 require("calendarviewmonthheader.php");
+                                 $rowcount = 1;
+                              } ?>
+                              <!-- Row: User <?=$usr['username']?> --> 
+                              <?php require("calendarviewuserrow.php");
+                              if ($repeatHeaderCount) $rowcount++;
+                           } 
+                        } // End if AllByGroup ?>
+                        
+                        <?php if ($C->read('includeSummary')) { ?>
+                        <!-- Row: Summary Header -->
+                        <tr>
+                           <td class="m-label" colspan="<?=$dayend-$daystart+2?>">
+                              <span style="float: left;"><?=$LANG['cal_summary']?>&nbsp;<a class="btn btn-default btn-xs" data-toggle="collapse" data-target=".summary">...</a></span>
+                              <span class="pull-right text-normal"><?=$viewData['businessDays']?>&nbsp;<?=$LANG['cal_businessDays']?></span>
+                           </td>
+                        </tr>
 
-                           <!-- Row: Summary Absences -->
-                           <tr class="summary <?=(!$C->read('showSummary'))?'collapse':'in';?>">
-                              <td class="m-name"><?=$LANG['sum_absent']?></td>
-                              <?php for ($i=$daystart; $i<=$dayend; $i++) { 
-                                 $style = substr($viewData['dayStyles'][$i], 14);
-                                 $style = ' style="' . $style . '"';
-                                 ?>   
-                                 <td class="m-day text-center text-danger"<?=$style?>><?=$dayAbsCount[$i]?></td>
-                              <?php } ?> 
-                           </tr>
-                           
-                           <!-- Row: Summary Presences -->
-                           <tr class="summary <?=(!$C->read('showSummary'))?'collapse':'in';?>">
-                              <td class="m-name"><?=$LANG['sum_present']?></td>
-                              <?php for ($i=$daystart; $i<=$dayend; $i++) { 
-                                 $style = substr($viewData['dayStyles'][$i], 14);
-                                 $style = ' style="' . $style . '"';
-                                 ?>   
-                                 <td class="m-day text-center text-success"<?=$style?>><?=$dayPresCount[$i]?></td>
-                              <?php } ?> 
-                           </tr>
+                        <!-- Row: Summary Absences -->
+                        <tr class="summary <?=(!$C->read('showSummary'))?'collapse':'in';?>">
+                           <td class="m-name"><?=$LANG['sum_absent']?></td>
+                           <?php for ($i=$daystart; $i<=$dayend; $i++) { 
+                              $style = substr($viewData['dayStyles'][$i], 14);
+                              $style = ' style="' . $style . '"';
+                              ?>   
+                              <td class="m-day text-center text-danger"<?=$style?>><?=$dayAbsCount[$i]?></td>
                            <?php } ?> 
-                           
-                        </tbody>
+                        </tr>
+                        
+                        <!-- Row: Summary Presences -->
+                        <tr class="summary <?=(!$C->read('showSummary'))?'collapse':'in';?>">
+                           <td class="m-name"><?=$LANG['sum_present']?></td>
+                           <?php for ($i=$daystart; $i<=$dayend; $i++) { 
+                              $style = substr($viewData['dayStyles'][$i], 14);
+                              $style = ' style="' . $style . '"';
+                              ?>   
+                              <td class="m-day text-center text-success"<?=$style?>><?=$dayPresCount[$i]?></td>
+                           <?php } ?> 
+                        </tr>
+                        <?php } ?> 
                      </table>
                   </div>
                
@@ -266,5 +227,50 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <?=createModalBottom('btn_search', 'info', $LANG['btn_search'])?>
             
          </form>
+         
+         <?php if ($limit = $C->read("usersPerPage")) { ?>
+         <nav aria-label="Paging">
+            <ul class="pagination">
             
+               <!-- First Page Link -->
+               <?php if ($page==1) { ?>
+                  <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span></span></li>
+               <?php } else { ?>
+                  <li><a href="<?=$formLink?>&amp;page=1" title="<?=$LANG['page_first']?>"><span><i class="fa fa-angle-double-left"></i></span></a></li>
+               <?php } ?>
+               
+               <!-- Previous Page Link -->
+               <?php if ($page==1) { ?>
+                  <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-left"></i></span></span></li>
+               <?php } else { ?>
+                  <li><a href="<?=$formLink?>&amp;page=<?=$page-1?>" title="<?=$LANG['page_prev']?>"><span><i class="fa fa-angle-left"></i></span></a></li>
+               <?php } ?>
+               
+               <!-- Page Link -->
+               <?php for ($p=1; $p<=$pages; $p++) { 
+                  if ($p==$page) { ?>
+                     <li class="active"><span><?=$p?><span class="sr-only">(current)</span></span></li>
+                  <?php } else { ?>
+                     <li><a href="<?=$formLink?>&amp;page=<?=$p?>" title="<?=sprintf($LANG['page_page'],$p)?>"><span><?=$p?></span></a></li>
+                  <?php } 
+               } ?>
+               
+               <!-- Next Page Link -->
+               <?php if ($page==$pages) { ?>
+                  <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-right"></i></span></span></li>
+               <?php } else { ?>
+                  <li><a href="<?=$formLink?>&amp;page=<?=$page+1?>" title="<?=$LANG['page_next']?>"><span><i class="fa fa-angle-right"></i></span></a></li>
+               <?php } ?>
+               
+               <!-- Last Page Link -->
+               <?php if ($page==$pages) { ?>
+                  <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span></span></li>
+               <?php } else { ?>
+                  <li><a href="<?=$formLink?>&amp;page=<?=$pages?>" title="<?=$LANG['page_last']?>"><span><i class="fa fa-angle-double-right"></i></span></a></li>
+               <?php } ?>
+               
+           </ul>
+         </nav>
+         <?php } ?>
+         
       </div>      

@@ -259,7 +259,7 @@ $LANG['calopt_pastDayColor'] = 'Vergangenheitsfarbe';
 $LANG['calopt_pastDayColor_comment'] = 'Setzt die Hintergrundfarbe f&uuml;r die Tage des aktuellen Monats, die in der Vergangenheit liegen.
       Bei keinem Wert in diesem Feld wird keine Farbe eingesetzt.';
 $LANG['calopt_repeatHeaderCount'] = 'Kopfzeilen Wiederholungs Z&auml;hler';
-$LANG['calopt_repeatHeaderCount_comment'] = 'Gibt die Anzahl von Zeilen an, nach der die Monatskopfzeile f&uuml;r bessere Lesbarkeit wiederholt wird.';
+$LANG['calopt_repeatHeaderCount_comment'] = 'Gibt die Anzahl von Zeilen an, nach der die Monatskopfzeile f&uuml;r bessere Lesbarkeit wiederholt wird. Wenn der Wert auf 0 gesetzt ist, wird die Kopfzeile nicht wiederholt.';
 $LANG['calopt_satBusi'] = 'Samstag ist ein Arbeitstag';
 $LANG['calopt_satBusi_comment'] = 'Normalerweise sind Samstage und Sonntage Wochenendtage und werden entsprechend im Kalender als solche angezeigt.
       Hier kann Samstag als Arbeitstag definiert werden.';

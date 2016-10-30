@@ -9,7 +9,7 @@
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag http://tcneo.lewe.com/doc/license.txt
+ * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 

@@ -797,6 +797,15 @@ $LANG['msg_type_popup'] = 'Prompt Message';
 $LANG['modal_confirm'] = 'Please Confirm';
 
 //
+// Paging
+//
+$LANG['page_first'] = 'Go to first page...';
+$LANG['page_prev'] = 'Go to previous page...';
+$LANG['page_page'] = 'Go to page %s...';
+$LANG['page_next'] = 'Go to next page...';
+$LANG['page_last'] = 'Go to last page...';
+
+//
 // Password rules
 //
 $LANG['password_rules_low'] = '<br>The password strength is currently set to "low", resulting in the following rules:<br>

@@ -802,6 +802,15 @@ $LANG['msg_type_popup'] = 'Prompt Benachrichtigung';
 $LANG['modal_confirm'] = 'Bitte Best&auml;tigen';
 
 //
+// Paging
+//
+$LANG['page_first'] = 'Zur ersten Seite...';
+$LANG['page_prev'] = 'Zur vorherigen Seite...';
+$LANG['page_page'] = 'Zur Seite %s...';
+$LANG['page_next'] = 'Zur n&auml;chsten Seite...';
+$LANG['page_last'] = 'Zur letzten Seite...';
+
+//
 // Password rules
 //
 $LANG['password_rules_low'] = '<br>Die Passwort Sicherheit ist zurzeit auf "Niedrig" eingestellt. Daraus ergeben sich folgende Regeln:<br>

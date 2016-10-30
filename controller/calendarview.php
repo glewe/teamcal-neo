@@ -9,7 +9,7 @@
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag http://tcneo.lewe.com/doc/license.txt
+ * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
@@ -140,6 +140,48 @@ else
    $viewData['absfilter'] = false;
    $viewData['absid'] = 'all';
    $viewData['absence'] = $LANG['all'];
+}
+
+//
+// Paging
+//
+if ($limit = $C->read("usersPerPage"))
+{
+   // 
+   // How many users do we have?
+   //
+   $total = count($users);
+   
+   // 
+   // How many pages do we need for them?
+   //
+   $pages = ceil($total/$limit);
+   
+   // 
+   // What page are we currently on?
+   //
+   $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, 
+      array(
+         'options' => array(
+            'default'   => 1,
+            'min_range' => 1,
+         ),
+      )
+   ));   
+
+   // 
+   // Get the $users records do we need for this page
+   //
+   $offset = ($page - 1)  * $limit;
+   $start = $offset;
+   $end = min(($offset + $limit), $total) - 1;
+   $pageusers = array();
+   for ($i=$start; $i<=$end; $i++)
+   {
+      array_push($pageusers,$users[$i]);
+   }
+   unset($users);
+   $users = $pageusers;
 }
 
 //=============================================================================
