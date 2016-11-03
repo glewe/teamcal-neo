@@ -5,7 +5,7 @@
  * The view of the HTML header
  *
  * @category TeamCal Neo 
-* @version 1.0.000
+ * @version 1.0.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -53,9 +53,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
       <?php } ?>
       
       <!-- Theme CSS -->
-      <link rel="stylesheet" href="themes/<?=$htmlData['theme']['name']?>/css/bootstrap.min.css">
-      <?php if ($htmlData['theme']['name']=='bootstrap') { ?><link rel="stylesheet" href="themes/bootstrap/css/bootstrap-theme.min.css"><?php } ?>
-      
+      <?php if ($htmlData['theme']['name']=='bootstrap') { ?>
+<link rel="stylesheet" href="themes/bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="themes/bootstrap/css/bootstrap-theme.min.css">
+      <?php } else { ?>
+<link rel="stylesheet" href="themes/<?=$htmlData['theme']['name']?>/css/bootstrap.min.css" media="screen">
+      <?php } ?>
       
       <!-- Google Fonts -->
       <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
@@ -70,13 +73,13 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
          
       <!-- jQuery -->
       <?php if ($htmlData['jQueryCDN']) { ?>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
-      <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-      <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/<?=$htmlData['jQueryTheme']?>/jquery-ui.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-<?=JQUERY_VER?>.min.js"></script>
+      <script type="text/javascript" src="http://code.jquery.com/ui/<?=JQUERY_UI_VER?>/jquery-ui.min.js"></script>
+      <link rel="stylesheet" href="http://code.jquery.com/ui/<?=JQUERY_UI_VER?>/themes/<?=$htmlData['jQueryTheme']?>/jquery-ui.min.css">
       <?php } else { ?>
-<script type="text/javascript" src="js/jquery/jquery-1.12.3.min.js"></script>
-      <script type="text/javascript" src="js/jquery/ui/1.11.4/jquery-ui.min.js"></script>
-      <link rel="stylesheet" href="js/jquery/ui/1.11.4/themes/<?=$htmlData['jQueryTheme']?>/jquery-ui.css">
+<script type="text/javascript" src="js/jquery/jquery-<?=JQUERY_VER?>.min.js"></script>
+      <script type="text/javascript" src="js/jquery/ui/<?=JQUERY_UI_VER?>/jquery-ui.min.js"></script>
+      <link rel="stylesheet" href="js/jquery/ui/<?=JQUERY_UI_VER?>/themes/<?=$htmlData['jQueryTheme']?>/jquery-ui.min.css">
       <?php } ?>
       
       <!-- Bootstrap Javascript -->

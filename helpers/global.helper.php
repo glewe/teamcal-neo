@@ -5,7 +5,7 @@
  * Collection of global helper functions
  *
  * @category TeamCal Neo 
-* @version 1.0.000
+ * @version 1.0.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -946,7 +946,7 @@ function getTheme()
    // Set the defaults
    //
    if (!$name=$C->read("theme")) $name = 'bootstrap';
-   if (!$menuBarInverse=$C->read("menuBarInverse")) $menuBarInverse = '1';
+   if (!$menuBarInverse=$C->read("menuBarInverse")) $menuBarInverse = '0';
    
    //
    // Fill the array with the defaults
