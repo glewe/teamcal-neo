@@ -5,7 +5,7 @@
  * The view of the top navigation menu
  *
  * @category TeamCal Neo 
-* @version 1.0.000
+ * @version 1.0.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -16,7 +16,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       <!-- ==================================================================== 
       view.menu
       -->
-      <div class="navbar navbar<?=($htmlData['theme']['menuBarInverse'])?'-inverse':'';?> navbar-fixed-top">
+      <div class="navbar navbar<?=($htmlData['theme']['menuBarInverse'])?'-inverse':'-default';?> navbar-fixed-top">
          <div class="container">
 
             <div class="navbar-header">

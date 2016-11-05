@@ -5,7 +5,7 @@
  * Installation script
  *
  * @category TeamCal Neo 
-* @version 1.0.000
+ * @version 1.0.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -20,7 +20,8 @@
 //
 define('VALID_ROOT', 1);
 define('WEBSITE_ROOT', __DIR__);
-$fullURL = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+$protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+$fullURL = $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 $pos = strrpos($fullURL,'/');
 define('WEBSITE_URL', substr($fullURL,0,$pos)); //Remove trailing slash
 
@@ -29,6 +30,7 @@ define('WEBSITE_URL', substr($fullURL,0,$pos)); //Remove trailing slash
 // CONFIG
 //
 require_once (WEBSITE_ROOT . '/config/config.app.php');
+require_once (WEBSITE_ROOT . '/config/config.ver.php');
 
 //=============================================================================
 //
@@ -260,9 +262,9 @@ if (!$installationComplete AND readConfig('app_installed', $configAppFile) <> '0
       <link rel="stylesheet" href="themes/bootstrap/css/bootstrap-theme.min.css">
       <link rel="stylesheet" href="css/custom.css">
       <link rel="shortcut icon" href="images/icons/logo-16.png">
-      <link rel="stylesheet" href="fonts/font-awesome/4.5.0/css/font-awesome.min.css">   
-      <script type="text/javascript" src="js/jquery/jquery-1.12.3.min.js"></script>
-      <script type="text/javascript" src="js/jquery/ui/1.11.4/jquery-ui.min.js"></script>
+      <link rel="stylesheet" href="fonts/font-awesome/4.7.0/css/font-awesome.min.css">   
+      <script type="text/javascript" src="js/jquery/jquery-3.1.1.min.js"></script>
+      <script type="text/javascript" src="js/jquery/ui/1.12.1/jquery-ui.min.js"></script>
       <script src="themes/bootstrap/js/bootstrap.min.js"></script>
    </head>
    
@@ -441,7 +443,7 @@ if (!$installationComplete AND readConfig('app_installed', $configAppFile) <> '0
          
          <!-- As per license, you are not allowed to change or remove the following block! -->
          <div class="container">
-            <div class="col-lg-12 text-right text-italic xsmall"><?=$CONF['app_powered']?></div>
+            <div class="col-lg-12 text-right text-italic xsmall"><?=APP_POWERED?></div>
          </div>
          
       </footer>

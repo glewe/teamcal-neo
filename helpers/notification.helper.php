@@ -4,12 +4,12 @@
  *
  * Collection of notification functions
  *
- * @category JAM 
- * @version 0.1.000
+ * @category TeamCal Neo 
+ * @version 1.0.001
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2016 by George Lewe
+ * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed.
+ * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 

@@ -3,7 +3,7 @@
  * index.php
  * 
  * @category TeamCal Neo 
-* @version 1.0.000
+ * @version 1.0.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -18,10 +18,7 @@
 //
 define('VALID_ROOT', 1);
 define('WEBSITE_ROOT', __DIR__);
-$protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
-$fullURL = $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-$pos = strrpos($fullURL,'/');
-define('WEBSITE_URL', substr($fullURL,0,$pos)); //Remove trailing slash
+require_once (WEBSITE_ROOT . '/config/config.defs.php');
 
 //=============================================================================
 //
@@ -339,10 +336,10 @@ else
 $htmlData['title'] = $C->read("appTitle").' - '.$CONF['controllers'][$controller]->title;
 $htmlData['description'] = $C->read("appDescription");
 $htmlData['keywords'] = $C->read("appKeywords");
-$htmlData['version'] = $CONF['app_version'];
-$htmlData['author'] = $CONF['app_author'];
-$htmlData['copyright'] = $CONF['app_copyright'];
-$htmlData['license'] = $CONF['app_license'];
+$htmlData['version'] = APP_VER;
+$htmlData['author'] = APP_AUTHOR;
+$htmlData['copyright'] = APP_COPYRIGHT;
+$htmlData['license'] = APP_LICENSE;
 $htmlData['locale'] = $LANG['locale'];
 $htmlData['theme'] = getTheme();
 $htmlData['jQueryTheme'] = $C->read("jqtheme");

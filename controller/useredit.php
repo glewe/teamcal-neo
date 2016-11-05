@@ -5,7 +5,7 @@
  * User edit page controller
  *
  * @category TeamCal Neo 
-* @version 1.0.000
+ * @version 1.0.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -460,7 +460,7 @@ $viewData['options'] = array ();
 if ($C->read('allowUserTheme'))
 {
    $viewData['themeList'][] = array ('val' => 'default', 'name' => 'Default', 'selected' => ($UO->read($profile, 'theme') == 'default')?true:false );
-   $viewData['menuBarOptions']= array ('default', 'normal', 'inverse');
+   $viewData['menuBarOptions']= array ('default', 'inverse');
    foreach ($appThemes as $appTheme)
    {
       $viewData['themeList'][] = array ('val' => $appTheme, 'name' => proper($appTheme), 'selected' => ($UO->read($profile, 'theme') == $appTheme)?true:false );

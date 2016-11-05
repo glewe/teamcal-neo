@@ -5,7 +5,7 @@
  * Login page controller
  *
  * @category TeamCal Neo 
-* @version 1.0.000
+ * @version 1.0.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -71,7 +71,7 @@ if (!empty($_POST))
                   // Add this alert to the admin's notifications
                   //
                   $tstamp = date("YmdHis");
-                  $message = "<strong>" . $LANG['err_instfile_title'] . "</strong><br>" . $LANG['err_instfile'] . "<br><br>" . "[".$CONF['app_name']."]</span>";
+                  $message = "<strong>" . $LANG['err_instfile_title'] . "</strong><br>" . $LANG['err_instfile'] . "<br><br>" . "[".APP_NAME."]</span>";
                   $MSG->create($tstamp, 'admin', $message, '1', 'danger');
                }
                

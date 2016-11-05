@@ -5,7 +5,7 @@
  * Application language file
  *
  * @category TeamCal Neo 
-* @version 1.0.000
+ * @version 1.0.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -416,11 +416,11 @@ $LANG['decl_threshold_comment'] = 'Enter the threshold in percent here. An absen
 //
 // E-Mail
 //
-$LANG['email_subject_absence_approval'] = $CONF['app_name'] . ' Absence Approval Needed';
-$LANG['email_subject_month_changed'] = $CONF['app_name'] . ' Month Changed';
-$LANG['email_subject_month_created'] = $CONF['app_name'] . ' Month Created';
-$LANG['email_subject_month_deleted'] = $CONF['app_name'] . ' Month Deleted';
-$LANG['email_subject_usercal_changed'] = $CONF['app_name'] . ' User Calendar Changed';
+$LANG['email_subject_absence_approval'] = APP_NAME . ' Absence Approval Needed';
+$LANG['email_subject_month_changed'] = APP_NAME . ' Month Changed';
+$LANG['email_subject_month_created'] = APP_NAME . ' Month Created';
+$LANG['email_subject_month_deleted'] = APP_NAME . ' Month Deleted';
+$LANG['email_subject_usercal_changed'] = APP_NAME . ' User Calendar Changed';
 
 //
 // Holidays

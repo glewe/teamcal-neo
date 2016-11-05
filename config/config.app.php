@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
-* @version 1.0.000
+ * @version 1.0.001
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -21,21 +21,9 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  * 0 = Not run yet
  * 1 = Was run
  * Set this to 0 if you want to run the installation.php script again.
- * If not, it is recommended that you delete the installation.php file.
+ * If not, you need to delete or rename the installation.php file.
  */
 $CONF['app_installed'] = "0";
-
-//=============================================================================
-/**
- * ADDONS
- * 
- * Switch add-ons on or off. These settings are read in view/header.php
- */
-$CONF['addon_bootstrap_editable'] = false;
-$CONF['addon_chartjs'] = true;
-$CONF['addon_ckeditor'] = true;
-$CONF['addon_select2'] = false;
-$CONF['addon_syntaxhighlighter'] = false;
 
 //=============================================================================
 /**
@@ -100,23 +88,4 @@ $CONF['LDAP_TLS'] = 0; // To avoid "Undefined index: LDAP_TLS" error message for
  */
 $CONF['app_avatar_dir'] = 'upload/avatars/';
 $CONF['app_upl_dir'] = 'upload/files/';
-$CONF['app_jqueryui_dir'] = 'js/jquery/ui/1.11.4/';
-
-//=============================================================================
-/**
- * PRODUCT, AUTHOR, COPYRIGHT, LICENSE INFORMATION
- * 
- * !Do not change this information. It is protected by the license agreement!
- */
-$CONF['app_name'] = "TeamCal Neo";
-$CONF['app_version'] = "1.0.000";
-$CONF['app_version_date'] = "2016-10-30";
-$CONF['app_year_start'] = "2014";
-$CONF['app_year_current'] = date('Y');
-$CONF['app_author'] = "George Lewe";
-$CONF['app_url'] = "http://www.lewe.com";
-$CONF['app_email'] = "george@lewe.com";
-$CONF['app_copyright'] = "(c) " . $CONF['app_year_start'] . "-" . $CONF['app_year_current'] . " by " . $CONF['app_author'] . " (" . $CONF['app_url'] . ")";
-$CONF['app_powered'] = "Powered by " . $CONF['app_name'] . " " . $CONF['app_version'] . " &copy; " . $CONF['app_year_start'] . "-" . $CONF['app_year_current'] . " by <a href=\"http://www.lewe.com\" class=\"copyright\" target=\"_blank\">" . $CONF['app_author'] . "</a>";
-$CONF['app_license'] = "https://georgelewe.atlassian.net/wiki/x/AoC3Ag";
 ?>

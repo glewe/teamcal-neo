@@ -5,7 +5,7 @@
  * Application language file
  *
  * @category TeamCal Neo 
-* @version 1.0.000
+ * @version 1.0.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -416,11 +416,11 @@ $LANG['decl_threshold_comment'] = 'Hier kann eine Abwesenheitsrate in Prozent an
 //
 // E-Mail
 //
-$LANG['email_subject_absence_approval'] = $CONF['app_name'] . ' Abwesenheitsbestätigung Erforderlich';
-$LANG['email_subject_month_created'] = $CONF['app_name'] . ' Monat angelegt';
-$LANG['email_subject_month_changed'] = $CONF['app_name'] . ' Monat geändert';
-$LANG['email_subject_month_deleted'] = $CONF['app_name'] . ' Monat gelöscht';
-$LANG['email_subject_usercal_changed'] = $CONF['app_name'] . ' Benutzerkalender geändert';
+$LANG['email_subject_absence_approval'] = APP_NAME . ' Abwesenheitsbestätigung Erforderlich';
+$LANG['email_subject_month_created'] = APP_NAME . ' Monat angelegt';
+$LANG['email_subject_month_changed'] = APP_NAME . ' Monat geändert';
+$LANG['email_subject_month_deleted'] = APP_NAME . ' Monat gelöscht';
+$LANG['email_subject_usercal_changed'] = APP_NAME . ' Benutzerkalender geändert';
 
 //
 // Holidays

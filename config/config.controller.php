@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
-* @version 1.0.000
+ * @version 1.0.001
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -56,6 +56,9 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  * $LANG['perm_admin_title'] = 'Administration'; 
  * $LANG['perm_admin_desc'] = 'Allows access to the administration pages.'; 
  *   
+ * <title>:
+ * String to be displayed as the browser tab title
+ *
  */
 $CONF['controllers'] = array (
    //

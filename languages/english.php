@@ -5,7 +5,7 @@
  * Language file (English)
  *
  * @category TeamCal Neo 
-* @version 1.0.000
+ * @version 1.0.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -515,21 +515,21 @@ $LANG['db_resetString_comment'] = 'Resetting the database will replace all your 
 //
 // E-Mail
 //
-$LANG['email_subject_group_changed'] = $CONF['app_name'] . ' Group Changed';
-$LANG['email_subject_group_created'] = $CONF['app_name'] . ' Group Created';
-$LANG['email_subject_group_deleted'] = $CONF['app_name'] . ' Group Deleted';
-$LANG['email_subject_month_changed'] = $CONF['app_name'] . ' Month Changed';
-$LANG['email_subject_month_created'] = $CONF['app_name'] . ' Month Created';
-$LANG['email_subject_month_deleted'] = $CONF['app_name'] . ' Month Deleted';
-$LANG['email_subject_role_changed'] = $CONF['app_name'] . ' Role Changed';
-$LANG['email_subject_role_created'] = $CONF['app_name'] . ' Role Created';
-$LANG['email_subject_role_deleted'] = $CONF['app_name'] . ' Role Deleted';
-$LANG['email_subject_user_account_changed'] = $CONF['app_name'] . ' User Account Changed';
-$LANG['email_subject_user_account_created'] = $CONF['app_name'] . ' User Account Created';
-$LANG['email_subject_user_account_deleted'] = $CONF['app_name'] . ' User Account Deleted';
-$LANG['email_subject_user_account_mismatch'] = $CONF['app_name'] . ' User Account Verification Mismatch';
-$LANG['email_subject_user_account_needs_approval'] = $CONF['app_name'] . ' User Account Needs Approval';
-$LANG['email_subject_user_account_registered'] = $CONF['app_name'] . ' User Account Registered';
+$LANG['email_subject_group_changed'] = APP_NAME . ' Group Changed';
+$LANG['email_subject_group_created'] = APP_NAME . ' Group Created';
+$LANG['email_subject_group_deleted'] = APP_NAME . ' Group Deleted';
+$LANG['email_subject_month_changed'] = APP_NAME . ' Month Changed';
+$LANG['email_subject_month_created'] = APP_NAME . ' Month Created';
+$LANG['email_subject_month_deleted'] = APP_NAME . ' Month Deleted';
+$LANG['email_subject_role_changed'] = APP_NAME . ' Role Changed';
+$LANG['email_subject_role_created'] = APP_NAME . ' Role Created';
+$LANG['email_subject_role_deleted'] = APP_NAME . ' Role Deleted';
+$LANG['email_subject_user_account_changed'] = APP_NAME . ' User Account Changed';
+$LANG['email_subject_user_account_created'] = APP_NAME . ' User Account Created';
+$LANG['email_subject_user_account_deleted'] = APP_NAME . ' User Account Deleted';
+$LANG['email_subject_user_account_mismatch'] = APP_NAME . ' User Account Verification Mismatch';
+$LANG['email_subject_user_account_needs_approval'] = APP_NAME . ' User Account Needs Approval';
+$LANG['email_subject_user_account_registered'] = APP_NAME . ' User Account Registered';
 
 //
 // Error Messages

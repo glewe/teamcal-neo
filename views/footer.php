@@ -5,7 +5,7 @@
  * The view of the footer
  *
  * @category TeamCal Neo 
-* @version 1.0.000
+ * @version 1.0.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -70,7 +70,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          <!-- As per the license agreement, you are not allowed to change or remove the following block! -->
          <div class="container" style="margin-top: 40px">
             <div class="col-lg-12 text-right text-italic xsmall">
-               <?=$CONF['app_powered']?><br>
+               <?=APP_POWERED?><br>
                <?php if ($C->read("footerViewport")) { ?><i id="size" class="text-italic xsmall"></i><?php } ?>
             </div>
          </div>
@@ -90,7 +90,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                $(this).parent().toggleClass('open');
             });
             
-            /**
+            <?php if (MAGNIFICPOPUP) { ?>/**
              * Magnific Popup
              */
             $('.image-popup').magnificPopup({
@@ -124,6 +124,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   verticalFit: false
                }
             });
+            <?php } ?>
                      
             /**
              * Tooltip
