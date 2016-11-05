@@ -20,17 +20,13 @@
 //
 define('VALID_ROOT', 1);
 define('WEBSITE_ROOT', __DIR__);
-$protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
-$fullURL = $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-$pos = strrpos($fullURL,'/');
-define('WEBSITE_URL', substr($fullURL,0,$pos)); //Remove trailing slash
 
 //=============================================================================
 //
 // CONFIG
 //
+require_once (WEBSITE_ROOT . '/config/config.defs.php');
 require_once (WEBSITE_ROOT . '/config/config.app.php');
-require_once (WEBSITE_ROOT . '/config/config.ver.php');
 
 //=============================================================================
 //
@@ -436,7 +432,6 @@ if (!$installationComplete AND readConfig('app_installed', $configAppFile) <> '0
             </div>
             
             <div class="col-lg-3 text-right">
-               <a href="http://www.w3.org/html/logo/"><img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3.png" style="margin-right: -12px; margin-bottom: 60px;" width="66" height="32" alt="HTML5 Powered with CSS3 / Styling" title="HTML5 Powered with CSS3 / Styling"></a><br>
             </div>
             
          </div>
