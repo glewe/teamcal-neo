@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 1.0.001
+ * @version 1.0.002
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -19,7 +19,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  * 
  * The controller class expects the following paramter upon instantiation:
  * 
- * <key> => new Controller (<name>, <faIcon>, <iconColor>, <panelColor>, <permission>)
+ * <key> => new Controller (<name>, <faIcon>, <iconColor>, <panelColor>, <permission>, <title>)
  * 
  * <key>:
  * Used in views/menu.php to access the controller instance for icon and 

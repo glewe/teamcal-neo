@@ -5,7 +5,7 @@
  * Defines
  *
  * @category TeamCal Neo 
- * @version 1.0.001
+ * @version 1.0.002
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -91,8 +91,8 @@ define('XEDITABLE_VER', '1.5.1');
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', 'TeamCal Neo');
-define('APP_VER', '1.0.001');
-define('APP_DATE', '2016-11-05');
+define('APP_VER', '1.0.002');
+define('APP_DATE', '2016-11-09');
 define('APP_YEAR', '2014-'.date('Y'));
 define('APP_AUTHOR', 'George Lewe');
 define('APP_URL', 'http://www.lewe.com');

@@ -5,7 +5,7 @@
  * <view> page view
  *
  * @category TeamCal Neo 
- * @version 1.0.001
+ * @version 1.0.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
