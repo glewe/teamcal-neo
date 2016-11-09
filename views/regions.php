@@ -41,7 +41,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="panel panel-default">
                         <div class="panel-body">
                            <div class="col-lg-12 text-right">
-                              <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalCreateRegion"><?=$LANG['btn_create_region']?></button>
+                              <button type="button" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalCreateRegion"><?=$LANG['btn_create_region']?></button>
                            </div>
                         </div>
                      </div>
@@ -98,7 +98,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="col-lg-3 text-right">
                                              <a href="index.php?action=regionedit&amp;id=<?=$region['id']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>
                                              <a href="index.php?action=monthedit&amp;month=<?=date('Y').date('m')?>&amp;region=<?=$region['id']?>" class="btn btn-info btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_calendar']?></a>
-                                             <button type="submit" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteRegion_<?=$region['name']?>"><?=$LANG['btn_delete']?></button>
+                                             <button type="button" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteRegion_<?=$region['name']?>"><?=$LANG['btn_delete']?></button>
                                              <input name="hidden_id" type="hidden" value="<?=$region['id']?>">
                                              <input name="hidden_name" type="hidden" value="<?=$region['name']?>">
                                              <input name="hidden_description" type="hidden" value="<?=$region['description']?>">

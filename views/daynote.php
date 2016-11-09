@@ -49,7 +49,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <?php if ($viewData['exists']) { ?>
                               <input name="hidden_id" type="hidden" value="<?=$viewData['id']?>">
                               <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" name="btn_update"><?=$LANG['btn_update']?></button>
-                              <button type="submit" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteDaynote_<?=$viewData['id']?>"><?=$LANG['btn_delete']?></button>
+                              <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteDaynote_<?=$viewData['id']?>"><?=$LANG['btn_delete']?></button>
                            <?php } else { ?>
                               <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_create"><?=$LANG['btn_create']?></button>
                            <?php } ?>

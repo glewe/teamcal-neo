@@ -41,7 +41,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="panel panel-default">
                         <div class="panel-body">
                            <div class="col-lg-12 text-right">
-                              <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalCreateHoliday"><?=$LANG['btn_create_holiday']?></button>
+                              <button type="button" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalCreateHoliday"><?=$LANG['btn_create_holiday']?></button>
                            </div>
                         </div>
                      </div>
@@ -86,7 +86,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <div class="col-lg-2 text-right">
                               <a href="index.php?action=holidayedit&amp;id=<?=$holiday['id']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>
                               <?php if ($holiday['id'] > 3) { ?>
-                                 <button type="submit" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteHoliday_<?=$holiday['id']?>"><?=$LANG['btn_delete']?></button>
+                                 <button type="button" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteHoliday_<?=$holiday['id']?>"><?=$LANG['btn_delete']?></button>
                                  <input name="hidden_id" type="hidden" value="<?=$holiday['id']?>">
                                  <input name="hidden_name" type="hidden" value="<?=$holiday['name']?>">
                                  <input name="hidden_description" type="hidden" value="<?=$holiday['description']?>">

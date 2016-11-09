@@ -102,7 +102,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  <?php } ?>
                                  
                                  <div style="clear: both; padding: 16px 0 0 16px;">
-                                    <button type="submit" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteFiles"><?=$LANG['btn_delete_selected']?></button>
+                                    <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteFiles"><?=$LANG['btn_delete_selected']?></button>
                                  </div>
                                     
                               </div>

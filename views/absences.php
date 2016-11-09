@@ -41,7 +41,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="panel panel-default">
                         <div class="panel-body">
                            <div class="col-lg-12 text-right">
-                              <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalCreateAbsence"><?=$LANG['btn_create_abs']?></button>
+                              <button type="button" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalCreateAbsence"><?=$LANG['btn_create_abs']?></button>
                            </div>
                         </div>
                      </div>
@@ -88,7 +88,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                            <div class="col-lg-2 text-right">
                               <a href="index.php?action=absenceedit&amp;id=<?=$absence['id']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>
-                              <button type="submit" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteAbsence_<?=$absence['id']?>"><?=$LANG['btn_delete']?></button>
+                              <button type="button" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteAbsence_<?=$absence['id']?>"><?=$LANG['btn_delete']?></button>
                               <input name="hidden_id" type="hidden" value="<?=$absence['id']?>">
                               <input name="hidden_name" type="hidden" value="<?=$absence['name']?>">
                            </div>
@@ -118,7 +118,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               </div>
                               <div class="col-lg-2 text-right">
                                  <a href="index.php?action=absenceedit&amp;id=<?=$subabs['id']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>
-                                 <button type="submit" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteSubAbsence_<?=$subabs['id']?>"><?=$LANG['btn_delete']?></button>
+                                 <button type="button" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteSubAbsence_<?=$subabs['id']?>"><?=$LANG['btn_delete']?></button>
                                  <input name="hidden_id" type="hidden" value="<?=$subabs['id']?>">
                                  <input name="hidden_name" type="hidden" value="<?=$subabs['name']?>">
                               </div>

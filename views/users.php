@@ -124,9 +124,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     </div>
                                     <div class="col-lg-10">
                                        
-                                       <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalResetPassword"><?=$LANG['btn_reset_password_selected']?></button>
-                                       <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalArchiveSelected"><?=$LANG['btn_archive_selected']?></button>
-                                       <button type="submit" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteSelected"><?=$LANG['btn_delete_selected']?></button>
+                                       <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalResetPassword"><?=$LANG['btn_reset_password_selected']?></button>
+                                       <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalArchiveSelected"><?=$LANG['btn_archive_selected']?></button>
+                                       <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteSelected"><?=$LANG['btn_delete_selected']?></button>
                                        
                                        <!-- Modal: Delete selected -->
                                        <?=createModalTop('modalDeleteSelected', $LANG['modal_confirm'])?>
@@ -187,8 +187,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     </div>
                                     <div class="col-lg-10">
                                        
-                                       <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalRestoreArchived"><?=$LANG['btn_restore_selected']?></button>
-                                       <button type="submit" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteArchived"><?=$LANG['btn_delete_selected']?></button>
+                                       <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalRestoreArchived"><?=$LANG['btn_restore_selected']?></button>
+                                       <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteArchived"><?=$LANG['btn_delete_selected']?></button>
                                        
                                        <!-- Modal: Delete archived -->
                                        <?=createModalTop('modalDeleteArchived', $LANG['modal_confirm'])?>

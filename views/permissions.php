@@ -42,13 +42,13 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="panel-body">
                            
                            <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_permSave"><?=$LANG['perm_save_scheme']?></button>
-                           <button class="btn btn-info" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectScheme"><?=$LANG['perm_select_scheme']?></button>
-                           <button class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalCreateScheme"><?=$LANG['perm_create_scheme']?></button>
-                           <button class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalResetScheme"><?=$LANG['perm_reset_scheme']?></button>
+                           <button type="button" class="btn btn-info" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectScheme"><?=$LANG['perm_select_scheme']?></button>
+                           <button type="button" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalCreateScheme"><?=$LANG['perm_create_scheme']?></button>
+                           <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalResetScheme"><?=$LANG['perm_reset_scheme']?></button>
                            <?php if ( $viewData['scheme'] != $viewData['currentScheme'] ) { ?>
-                           <button class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalActivateScheme"><?=$LANG['perm_activate_scheme']?></button>
+                           <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalActivateScheme"><?=$LANG['perm_activate_scheme']?></button>
                               <?php if ( $viewData['scheme'] != "Default" ) { ?>
-                              <button class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteScheme"><?=$LANG['perm_delete_scheme']?></button>
+                              <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteScheme"><?=$LANG['perm_delete_scheme']?></button>
                               <?php }
                            } ?>
                            <?php if ( $viewData['mode'] == 'byrole' ) { ?>

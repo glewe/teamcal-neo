@@ -31,8 +31,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   <div class="panel panel-default">
                      <div class="panel-body">
                         <form class="bs-example form-control-horizontal" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
-                           <button class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalConfirmAll"><?=$LANG['btn_confirm_all']?></button>
-                           <button class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteAll"><?=$LANG['btn_delete_all']?></button>
+                           <button type="button" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalConfirmAll"><?=$LANG['btn_confirm_all']?></button>
+                           <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteAll"><?=$LANG['btn_delete_all']?></button>
                            
                            <!-- Modal: Confirm all -->
                            <?=createModalTop('modalConfirmAll', $LANG['modal_confirm'])?>
@@ -53,8 +53,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   <form class="bs-example form-control-horizontal" action="index.php?action=messages" method="post" target="_self" accept-charset="utf-8">
                      <div class="alert alert-<?=$msg['type']?>">
                         <input name="msgId" type="hidden" class="text" value="<?=$msg['id']?>">
-                        <button class="btn btn-danger btn-xs pull-right" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDelete-<?=$msg['id']?>"><?=$LANG['btn_delete']?></button>
-                        <?php if ($msg['popup']) { ?><button class="btn btn-success btn-xs pull-right" style="margin-right: 4px;" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalConfirm-<?=$msg['id']?>"><?=$LANG['btn_confirm']?></button><?php } ?>
+                        <button type="button" class="btn btn-danger btn-xs pull-right" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDelete-<?=$msg['id']?>"><?=$LANG['btn_delete']?></button>
+                        <?php if ($msg['popup']) { ?><button type="button" class="btn btn-success btn-xs pull-right" style="margin-right: 4px;" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalConfirm-<?=$msg['id']?>"><?=$LANG['btn_confirm']?></button><?php } ?>
                         <h4><strong><?=$msg['timestamp']?></strong></h4>
                         <hr>
                         <p><?=$msg['text']?></p>

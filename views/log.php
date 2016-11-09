@@ -69,7 +69,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <br>
                               <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_refresh"><?=$LANG['btn_refresh']?></button>
                               <button type="submit" class="btn btn-default" tabindex="<?=$tabindex++;?>" name="btn_reset"><?=$LANG['btn_reset']?></button>
-                              <button class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalClear"><?=$LANG['log_clear']?></button>
+                              <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalClear"><?=$LANG['log_clear']?></button>
                               <button type="submit" class="btn btn-info" title="<?=($viewData['sort']=='DESC')?$LANG['log_sort_asc']:$LANG['log_sort_desc']?>" tabindex="<?=$tabindex++;?>" name="btn_sort"><?=($viewData['sort']=='DESC')?'<i class="fa fa-arrow-up fa-lg"></i>':'<i class="fa fa-arrow-down fa-lg"></i>'?></button>
                               
                               <!-- Modal: Clear -->

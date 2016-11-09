@@ -51,7 +51,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                            <div class="col-lg-5 text-right">
                               <br>
-                              <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalCreateRole"><?=$LANG['btn_create_role']?></button>
+                              <button type="button" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalCreateRole"><?=$LANG['btn_create_role']?></button>
                            </div>
                         </div>
                      </div>
@@ -87,7 +87,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <?php
                            $protectedRoles = array(1, 2, 3);
                            if (!in_array($role['id'], $protectedRoles)) { ?>
-                           <button type="submit" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteRole_<?=$role['id']?>"><?=$LANG['btn_delete']?></button>
+                           <button type="button" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteRole_<?=$role['id']?>"><?=$LANG['btn_delete']?></button>
                            <input name="hidden_id" type="hidden" value="<?=$role['id']?>">
                            <input name="hidden_name" type="hidden" value="<?=$role['name']?>">
                            <input name="hidden_description" type="hidden" value="<?=$role['description']?>">

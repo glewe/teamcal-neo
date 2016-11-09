@@ -308,7 +308,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     </div>
                                     <div class="divider"><hr></div>
    
-                                    <button type="submit" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalImportTCP"><?=$LANG['btn_import']?></button>
+                                    <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalImportTCP"><?=$LANG['btn_import']?></button>
 
                                     <!-- Modal: Delete selected -->
                                     <?=createModalTop('modalImportTCP', $LANG['modal_confirm'])?>

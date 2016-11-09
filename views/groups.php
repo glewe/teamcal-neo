@@ -51,7 +51,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                            <div class="col-lg-5 text-right">
                               <br>
-                              <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalCreateGroup"><?=$LANG['btn_create_group']?></button>
+                              <button type="button" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalCreateGroup"><?=$LANG['btn_create_group']?></button>
                            </div>
                         </div>
                      </div>
@@ -84,7 +84,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <div class="col-lg-3"><?=$group['name']?></div>
                         <div class="col-lg-7"><?=$group['description']?></div>
                         <div class="col-lg-2 text-right">
-                           <button type="submit" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteGroup_<?=$group['id']?>"><?=$LANG['btn_delete']?></button>
+                           <button type="button" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteGroup_<?=$group['id']?>"><?=$LANG['btn_delete']?></button>
                            <a href="index.php?action=groupedit&amp;id=<?=$group['id']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>
                            <input name="hidden_id" type="hidden" value="<?=$group['id']?>">
                            <input name="hidden_name" type="hidden" value="<?=$group['name']?>">
