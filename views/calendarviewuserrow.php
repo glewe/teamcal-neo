@@ -95,28 +95,52 @@ if ($editAllowed)
                //
                if (!$viewData['absfilter'] OR ($viewData['absfilter'] AND $T->$abs==$viewData['absid']))
                {
-                  if ($A->getBgTrans($T->$abs)) $bgStyle = ""; else $bgStyle = "background-color: #". $A->getBgColor($T->$abs) . ";";
-                  $style .= 'color: #' . $A->getColor($T->$abs) . ';' . $bgStyle;
-                  if ($C->read('symbolAsIcon'))
+                  if ($A->isConfidential($T->$abs))
                   {
-                     $icon = $A->getSymbol($T->$abs);
+                     //
+                     // This absence type is confidential. Check whether the logged in user may see it.
+                     // Rules:
+                     // - Logged in user must be Administrator (1) or Manager (4) or the user that this absence belongs to
+                     //
+                     $allowed = false;
+                     if ($UL->hasRole($UL->username,1) OR $UL->hasRole($UL->username,4) OR $UL->username==$usr['username']) $allowed = true;
+                  }
+                  if ($allowed)
+                  {
+                     if ($A->getBgTrans($T->$abs)) $bgStyle = ""; else $bgStyle = "background-color: #". $A->getBgColor($T->$abs) . ";";
+                     $style .= 'color: #' . $A->getColor($T->$abs) . ';' . $bgStyle;
+                     if ($C->read('symbolAsIcon'))
+                     {
+                        $icon = $A->getSymbol($T->$abs);
+                     }
+                     else
+                     {
+                        $icon = '<span class="fa fa-'.$A->getIcon($T->$abs).'"></span>';
+                     }
+                     $countFrom = $viewData['year'].$viewData['month'].'01'; 
+                     $countTo = $viewData['year'].$viewData['month'].$dayend;
+                     $taken = '';
+                     if ($C->read("showTooltipCount"))
+                     {
+                        $taken .= ' (';
+                        $taken .= countAbsence($usr['username'], $T->$abs, $countFrom, $countTo, true, false);
+                        $taken .= ')';
+                     }
+                     $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$A->getName($T->$abs).$taken.'">';                 
+                     $absend = '</div>';
+                     $dayAbsCount[$i]++;
                   }
                   else
                   {
-                     $icon = '<span class="fa fa-'.$A->getIcon($T->$abs).'"></span>';
+                     //
+                     // This is a confidential absence and the logged in user is not allowed to see it. Just color it gray and add a tooltip.
+                     //
+                     $style .= 'color: #d5d5d5;background-color: #d5d5d5;';
+                     $icon = '&nbsp;';
+                     $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$LANG['cal_tt_absent'].'">';
+                     $absend = '</div>';
+                     $dayAbsCount[$i]++;
                   }
-                  $countFrom = $viewData['year'].$viewData['month'].'01'; 
-                  $countTo = $viewData['year'].$viewData['month'].$dayend;
-                  $taken = '';
-                  if ($C->read("showTooltipCount"))
-                  {
-                     $taken .= ' (';
-                     $taken .= countAbsence($usr['username'], $T->$abs, $countFrom, $countTo, true, false);
-                     $taken .= ')';
-                  }
-                  $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$A->getName($T->$abs).$taken.'">';                 
-                  $absend = '</div>';
-                  $dayAbsCount[$i]++;
                }
                else
                {

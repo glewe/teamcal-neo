@@ -161,6 +161,7 @@ $LANG['btn_showcalendar'] = 'Kalender anzeigen';
 // Calendar
 //
 $LANG['cal_title'] = 'Kalender %s-%s (Region: %s)';
+$LANG['cal_tt_absent'] = 'Abwesend';
 $LANG['cal_tt_anotherabsence'] = 'Eine andere Abwesenheit';
 $LANG['cal_tt_backward'] = 'Einen Monat zur&uuml;ck...';
 $LANG['cal_tt_forward'] = 'Einen Monat vorw&auml;rts...';

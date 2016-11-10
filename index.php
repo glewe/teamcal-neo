@@ -142,6 +142,7 @@ $P    = new Permissions();
 $RO   = new Roles();
 $U    = new Users();
 $UG   = new UserGroup();
+$UL   = new Users(); // For the currently logged in user
 $UMSG = new UserMessage();
 $UO   = new UserOption();
 
@@ -156,7 +157,6 @@ $H    = new Holidays();
 $M    = new Months();
 $R    = new Regions();
 $T    = new Templates();
-$UL   = new Users(); // For the currently logged in user
 
 //=============================================================================
 //

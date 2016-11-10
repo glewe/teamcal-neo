@@ -578,6 +578,30 @@ class Absences
    
    // ----------------------------------------------------------------------
    /**
+    * Checks whether an absence is confidential
+    *
+    * @param string $id Record ID
+    * @return boolean
+    */
+   public function isConfidential($id = '')
+   {
+      if (isset($id))
+      {
+         $query = $this->db->prepare('SELECT confidential FROM ' . $this->table . ' WHERE id = :val1');
+         $query->bindParam('val1', $id);
+         $result = $query->execute();
+         
+         if ($result and $row = $query->fetch())
+         {
+            if($row['confidential']) return true;
+            else return false;
+         }
+      }
+      return false;
+   }
+   
+   // ----------------------------------------------------------------------
+   /**
     * Updates an absence type by it's symbol from the current array data
     *
     * @param string $id Record ID

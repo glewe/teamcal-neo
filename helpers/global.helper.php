@@ -966,16 +966,10 @@ function getTheme()
          //
          // User themes are allowed...
          //
-         if ($userTheme=$UO->read($thisuser, "theme") AND strlen($userTheme) AND $userTheme!='default')
+         if ($userTheme=$UO->read($thisuser, "theme") AND strlen($userTheme))
          {
-             $theme['name'] = $userTheme;
-         }
-         else
-         {
-            //
-            // User theme cannot be found. Set it to default.
-            //
-            $UO->save($thisuser, 'theme', 'default');
+            if ($userTheme=='default') $theme['name'] = 'bootstrap';
+            else $theme['name'] = $userTheme;
          }
           
          if ($menubar=$UO->read($thisuser, 'menuBar') AND strlen($menubar))
