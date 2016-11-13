@@ -143,6 +143,15 @@ else
 }
 
 //
+// Default back to current yearmonth if option is set
+//
+if ($C->read('currentYearOnly') AND $viewData['year']!=date('Y'))
+{
+   header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . date('Ym') . "&region=" . $region . "&group=" . $groupfilter . "&abs=" . $absfilter);
+   die();
+}
+
+//
 // Paging
 //
 if ($limit = $C->read("usersPerPage"))

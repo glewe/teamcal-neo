@@ -36,7 +36,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
             <div class="page-menu">
                <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalGroup"><?=$LANG['group']?> <span class="badge"><?=$viewData['groupName']?></span></button>
-               <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalYear"><?=$LANG['year']?> <span class="badge"><?=$viewData['year']?></span></button>
+               <?php if (!$C->read('currentYearOnly')) {?>
+                  <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalYear"><?=$LANG['year']?> <span class="badge"><?=$viewData['year']?></span></button>
+               <?php } ?>
                <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDiagram"><?=$LANG['diagram']?></button>
                <a class="btn btn-default" href="index.php?action=<?=$controller?>"><?=$LANG['btn_reset']?></a>
             </div>
@@ -54,17 +56,19 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <?=createModalBottom('btn_apply', 'success', $LANG['btn_apply'])?>
   
             <!-- Modal: Year -->
-            <?=createModalTop('modalYear', $LANG['stats_modalYearTitle'])?>
-               <div>
-                  <span class="text-bold"><?=$LANG['stats_year']?></span><br>
-                  <span class="text-normal"><?=$LANG['stats_year_comment']?></span>
-                  <select id="sel_year" class="form-control" name="sel_year" tabindex="<?=$tabindex++?>">
-                     <option value="<?=date("Y")-1?>" <?=(($viewData['year']==date("Y")-1)?"selected":"")?>><?=date("Y")-1?></option>
-                     <option value="<?=date("Y")?>" <?=(($viewData['year']==date("Y"))?"selected":"")?>><?=date("Y")?></option>
-                     <option value="<?=date("Y")+1?>" <?=(($viewData['year']==date("Y")+1)?"selected":"")?>><?=date("Y")+1?></option>
-                  </select><br>
-               </div>
-            <?=createModalBottom('btn_apply', 'success', $LANG['btn_apply'])?>
+            <?php if (!$C->read('currentYearOnly')) {
+               createModalTop('modalYear', $LANG['stats_modalYearTitle']); ?>
+                  <div>
+                     <span class="text-bold"><?=$LANG['stats_year']?></span><br>
+                     <span class="text-normal"><?=$LANG['stats_year_comment']?></span>
+                     <select id="sel_year" class="form-control" name="sel_year" tabindex="<?=$tabindex++?>">
+                        <option value="<?=date("Y")-1?>" <?=(($viewData['year']==date("Y")-1)?"selected":"")?>><?=date("Y")-1?></option>
+                        <option value="<?=date("Y")?>" <?=(($viewData['year']==date("Y"))?"selected":"")?>><?=date("Y")?></option>
+                        <option value="<?=date("Y")+1?>" <?=(($viewData['year']==date("Y")+1)?"selected":"")?>><?=date("Y")+1?></option>
+                     </select><br>
+                  </div>
+               <?php createModalBottom('btn_apply', 'success', $LANG['btn_apply']);
+            } ?>
             
             <!-- Modal: Diagram -->
             <?=createModalTop('modalDiagram', $LANG['stats_modalDiagramTitle'])?>

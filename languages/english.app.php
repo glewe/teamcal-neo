@@ -233,6 +233,8 @@ $LANG['calopt_tab_remainder'] = 'Remainder';
 $LANG['calopt_tab_stats'] = 'Statistics';
 $LANG['calopt_tab_summary'] = 'Summary';
 
+$LANG['calopt_currentYearOnly'] = 'Current Year Only';
+$LANG['calopt_currentYearOnly_comment'] = 'With this switch, the calendar will be restricted to the current year. Other years cannot be viewed or edited.';
 $LANG['calopt_defgroupfilter'] = 'Default Group Filter';
 $LANG['calopt_defgroupfilter_comment'] = ' Select the default group filter for the calendar display. Each user can still change his individual default filter in his profile.';
 $LANG['calopt_defgroupfilter_all'] = 'All';

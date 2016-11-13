@@ -58,6 +58,15 @@ if ($missingData)
    die();
 }
 
+//
+// Default back to current yearmonth if option is set
+//
+if ($C->read('currentYearOnly') AND $yyyy!=date('Y'))
+{
+   header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&year=" . date('Y') . "&region=" . $region . "&user=" . $user);
+   die();
+}
+
 //=============================================================================
 //
 // CHECK PERMISSION

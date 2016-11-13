@@ -82,7 +82,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <option value="half" <?=(($viewData['period']=='half')?"selected":"")?>><?=$LANG['period_half']?></option>
                      <option value="quarter" <?=(($viewData['period']=='quarter')?"selected":"")?>><?=$LANG['period_quarter']?></option>
                      <option value="month" <?=(($viewData['period']=='month')?"selected":"")?>><?=$LANG['period_month']?></option>
-                     <option value="custom" <?=(($viewData['period']=='custom')?"selected":"")?>><?=$LANG['custom']?></option>
+                     <?php if (!$C->read('currentYearOnly')) {?>
+                        <option value="custom" <?=(($viewData['period']=='custom')?"selected":"")?>><?=$LANG['custom']?></option>
+                     <?php } ?>
                   </select>
                   <script>
                   $( "#sel_period" ).change(function() 
@@ -102,42 +104,45 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                </div>
                <div>&nbsp;</div>
                
-               <div>
-                  <span class="text-bold"><?=$LANG['stats_startDate']?></span><br>
-                  <span class="text-normal"><?=$LANG['stats_startDate_comment']?></span>
-                  <input id="from" class="form-control" tabindex="<?=$tabindex++?>" name="txt_from" type="text" maxlength="10" value="<?=$viewData['from']?>" <?=(($viewData['period']=='custom')?"":"disabled")?>>
-                  <script>
-                     $(function(){ 
-                        $( "#from" ).datepicker({ 
-                           changeMonth: true, 
-                           changeYear: true, 
-                           dateFormat: "yy-mm-dd" 
+               <?php if (!$C->read('currentYearOnly')) {?>
+                  <div>
+                     <span class="text-bold"><?=$LANG['stats_startDate']?></span><br>
+                     <span class="text-normal"><?=$LANG['stats_startDate_comment']?></span>
+                     <input id="from" class="form-control" tabindex="<?=$tabindex++?>" name="txt_from" type="text" maxlength="10" value="<?=$viewData['from']?>" <?=(($viewData['period']=='custom')?"":"disabled")?>>
+                     <script>
+                        $(function(){ 
+                           $( "#from" ).datepicker({ 
+                              changeMonth: true, 
+                              changeYear: true, 
+                              dateFormat: "yy-mm-dd" 
+                           });
                         });
-                     });
-                  </script>
-                  <?php if ( isset($inputAlert["from"]) AND strlen($inputAlert["from"]) ) { ?> 
-                  <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['from']?></div>
-                  <?php } ?>
-               </div>
-               <div>&nbsp;</div>
+                     </script>
+                     <?php if ( isset($inputAlert["from"]) AND strlen($inputAlert["from"]) ) { ?> 
+                     <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['from']?></div>
+                     <?php } ?>
+                  </div>
+                  <div>&nbsp;</div>
+                  
+                  <div>
+                     <span class="text-bold"><?=$LANG['stats_endDate']?></span><br>
+                     <span class="text-normal"><?=$LANG['stats_endDate_comment']?></span>
+                     <input id="to" class="form-control" tabindex="<?=$tabindex++?>" name="txt_to" type="text" maxlength="10" value="<?=$viewData['to']?>" <?=(($viewData['period']=='custom')?"":"disabled")?>>
+                     <script>
+                        $(function(){ 
+                           $( "#to" ).datepicker({ 
+                              changeMonth: true, 
+                              changeYear: true, 
+                              dateFormat: "yy-mm-dd" 
+                           });
+                        });
+                     </script>
+                     <?php if ( isset($inputAlert["to"]) AND strlen($inputAlert["to"]) ) { ?> 
+                     <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['to']?></div>
+                     <?php } ?>
+                  </div>
+               <?php } ?>
                
-               <div>
-                  <span class="text-bold"><?=$LANG['stats_endDate']?></span><br>
-                  <span class="text-normal"><?=$LANG['stats_endDate_comment']?></span>
-                  <input id="to" class="form-control" tabindex="<?=$tabindex++?>" name="txt_to" type="text" maxlength="10" value="<?=$viewData['to']?>" <?=(($viewData['period']=='custom')?"":"disabled")?>>
-                  <script>
-                     $(function(){ 
-                        $( "#to" ).datepicker({ 
-                           changeMonth: true, 
-                           changeYear: true, 
-                           dateFormat: "yy-mm-dd" 
-                        });
-                     });
-                  </script>
-                  <?php if ( isset($inputAlert["to"]) AND strlen($inputAlert["to"]) ) { ?> 
-                  <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['to']?></div>
-                  <?php } ?>
-               </div>
             <?=createModalBottom('btn_apply', 'success', $LANG['btn_apply'])?>
             
             <!-- Modal: Diagram -->

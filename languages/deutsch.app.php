@@ -233,6 +233,8 @@ $LANG['calopt_tab_remainder'] = 'Resttage';
 $LANG['calopt_tab_stats'] = 'Statistik';
 $LANG['calopt_tab_summary'] = 'Summen';
 
+$LANG['calopt_currentYearOnly'] = 'Nur aktuelles Jahr';
+$LANG['calopt_currentYearOnly_comment'] = 'Mit diesem Schalter wird der Kalender auf das aktuelle Jahr beschr&auml;nkt. Andere Jahre k&ouml;nnen nicht angezeigt oder bearbeitet werden.';
 $LANG['calopt_defgroupfilter'] = 'Default Gruppenfilter';
 $LANG['calopt_defgroupfilter_comment'] = 'Auswahl des Default Gruppenfilters f&uuml;r die Kalenderanzeige. Jeder User kann diese Einstellung individuell in seinem Profil &auml;ndern.';
 $LANG['calopt_defgroupfilter_all'] = 'Alle';

@@ -25,7 +25,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
             <div class="page-menu">
                <button type="button" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectUser"><?=$LANG['user'] . ': ' . $viewData['fullname']?></button>
-               <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalYear"><?=$LANG['year']?> <span class="badge"><?=$viewData['year']?></span></button>
+               <?php if (!$C->read('currentYearOnly')) {?>
+                  <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalYear"><?=$LANG['year']?> <span class="badge"><?=$viewData['year']?></span></button>
+               <?php } ?>
             </div>
 
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">

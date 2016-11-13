@@ -84,6 +84,7 @@ if (isset($_POST['btn_caloptApply']))
    if ($_POST['sel_defregion']) $C->save("defregion", $_POST['sel_defregion']); else $C->save("defregion", "default");
    if (isset($_POST['chk_showRegionButton']) && $_POST['chk_showRegionButton']) $C->save("showRegionButton", "1"); else $C->save("showRegionButton", "0");
    if ($_POST['opt_defgroupfilter']) $C->save("defgroupfilter", $_POST['opt_defgroupfilter']); else $C->save("defgroupfilter", 'All');
+   if (isset($_POST['chk_currentYearOnly']) && $_POST['chk_currentYearOnly']) $C->save("currentYearOnly", "1"); else $C->save("currentYearOnly", "0");
     
    /**
     * Statistics
@@ -142,6 +143,7 @@ $caloptData['options'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'defregion', 'type' => 'list', 'values' => $caloptData['regionList'] ),
    array ( 'prefix' => 'calopt', 'name' => 'showRegionButton', 'type' => 'check', 'values' => '', 'value' => $C->read("showRegionButton") ),
    array ( 'prefix' => 'calopt', 'name' => 'defgroupfilter', 'type' => 'radio', 'values' => array ('all', 'allbygroup'), 'value' => $C->read("defgroupfilter") ),
+   array ( 'prefix' => 'calopt', 'name' => 'currentYearOnly', 'type' => 'check', 'values' => '', 'value' => $C->read("currentYearOnly") ),
 );
 
 $statsScale = array (

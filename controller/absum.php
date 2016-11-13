@@ -91,11 +91,6 @@ if (!empty($_POST))
    //
    $inputError = false;
    
-   //
-   // TODO
-   // Validate input data. If something is wrong or missing, set $inputError = true
-   //
-   
    if (!$inputError)
    {
       // ,-------------,
