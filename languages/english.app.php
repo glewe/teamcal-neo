@@ -130,14 +130,14 @@ $LANG['absum_remainder'] = 'Remainder';
 //
 // Alerts
 //
-$LANG['alert_decl_allowmonth_reached'] = ": The maximum amount of %1% per month for this absence type is exceeded.";
-$LANG['alert_decl_allowweek_reached'] = ": The maximum amount of %1% per week for this absence type is exceeded.";
-$LANG['alert_decl_approval_required'] = ": This absence type requires approval. It has been entered in your calendar but a daynote was added to indicate that it is not approved yet. Your manager was informed by mail.";
+$LANG['alert_decl_allowmonth_reached'] = "The maximum amount of %1% per month for this absence type is exceeded.";
+$LANG['alert_decl_allowweek_reached'] = "The maximum amount of %1% per week for this absence type is exceeded.";
+$LANG['alert_decl_approval_required'] = "This absence type requires approval. It has been entered in your calendar but a daynote was added to indicate that it is not approved yet. Your manager was informed by mail.";
 $LANG['alert_decl_approval_required_daynote'] = "This absence was requested but is not approved yet.";
-$LANG['alert_decl_before_date'] = ": Absence changes before the following date are not allowed: ";
-$LANG['alert_decl_group_threshold'] = ": Group absence threshold reached for your group(s): ";
-$LANG['alert_decl_period'] = ": Absence changes in the following period are not allowed: ";
-$LANG['alert_decl_total_threshold'] = ": Total absence threshold reached.";
+$LANG['alert_decl_before_date'] = "Absence changes before the following date are not allowed: ";
+$LANG['alert_decl_group_threshold'] = "Group absence threshold reached for your group(s): ";
+$LANG['alert_decl_period'] = "Absence changes in the following period are not allowed: ";
+$LANG['alert_decl_total_threshold'] = "Total absence threshold reached.";
 
 //
 // Buttons
@@ -357,9 +357,34 @@ $LANG['dn_enddate_comment'] = 'If a date is entered here, the daynote will be co
 //
 // Declination
 //
+$LANG['decl_Enddate'] = 'Automatic End Date';
+$LANG['decl_Enddate_comment'] = 'Select the date here at which this declination rule shall end. The rule will expire after this day.';
+$LANG['decl_Message'] = 'Declination Message';
+$LANG['decl_Message_comment'] = 'You can enter a custom declination message here that will be shown to the user when an absence is declined by this rule.
+      Leave this field empty to show a default message.';
+$LANG['decl_Period'] = 'Active Period';
+$LANG['decl_Period_comment'] = 'Select from when to when this declination rule shall be active. If you select an option with a start or end date, enter them below.<br>
+      <i>You have to activate this rule at the top before these options will take effect.</i>';
+$LANG['decl_Period_nowForever'] = 'As long as activated';
+$LANG['decl_Period_nowEnddate'] = 'From activation to end date';
+$LANG['decl_Period_startdateForever'] = 'From start date to deactivation';
+$LANG['decl_Period_startdateEnddate'] = 'From start date to end date';
+$LANG['decl_Startdate'] = 'Automatic Start Date';
+$LANG['decl_Startdate_comment'] = 'Select the date here at which this declination rule shall get active. The rule will start being active on this day.';
+
 $LANG['decl_title'] = 'Declination Management';
 $LANG['decl_absence'] = 'Activate';
 $LANG['decl_absence_comment'] = 'You can setup an absence threshold declination rule below. Activate this rule here.';
+$LANG['decl_absenceEnddate'] = $LANG['decl_Enddate'];
+$LANG['decl_absenceEnddate_comment'] = $LANG['decl_Enddate_comment'];
+$LANG['decl_absencePeriod'] = $LANG['decl_Period'];
+$LANG['decl_absencePeriod_comment'] = $LANG['decl_Period_comment'];
+$LANG['decl_absencePeriod_nowForever'] = $LANG['decl_Period_nowForever'];
+$LANG['decl_absencePeriod_nowEnddate'] = $LANG['decl_Period_nowEnddate'];
+$LANG['decl_absencePeriod_startdateForever'] = $LANG['decl_Period_startdateForever'];
+$LANG['decl_absencePeriod_startdateEnddate'] = $LANG['decl_Period_startdateEnddate'];
+$LANG['decl_absenceStartdate'] = $LANG['decl_Startdate'];
+$LANG['decl_absenceStartdate_comment'] = $LANG['decl_Startdate_comment'];
 $LANG['decl_alert_period_wrong'] = 'When specifying a period, the start date must be before the end date.';
 $LANG['decl_alert_period_missing'] = 'When specifying a period, both date fields must be filled in.';
 $LANG['decl_alert_save'] = 'Save Declination Settings';
@@ -382,6 +407,16 @@ $LANG['decl_beforeoption_comment'] = 'Select "Before today" to decline absence r
       "Before date" and entering the date below.';
 $LANG['decl_beforeoption_today'] = 'Before today (not included)';
 $LANG['decl_beforeoption_date'] = 'Before date (not included)';
+$LANG['decl_beforeEnddate'] = $LANG['decl_Enddate'];
+$LANG['decl_beforeEnddate_comment'] = $LANG['decl_Enddate_comment'];
+$LANG['decl_beforePeriod'] = $LANG['decl_Period'];
+$LANG['decl_beforePeriod_comment'] = $LANG['decl_Period_comment'];
+$LANG['decl_beforePeriod_nowForever'] = $LANG['decl_Period_nowForever'];
+$LANG['decl_beforePeriod_nowEnddate'] = $LANG['decl_Period_nowEnddate'];
+$LANG['decl_beforePeriod_startdateForever'] = $LANG['decl_Period_startdateForever'];
+$LANG['decl_beforePeriod_startdateEnddate'] = $LANG['decl_Period_startdateEnddate'];
+$LANG['decl_beforeStartdate'] = $LANG['decl_Startdate'];
+$LANG['decl_beforeStartdate_comment'] = $LANG['decl_Startdate_comment'];
 $LANG['decl_period1'] = 'Activate';
 $LANG['decl_period1_comment'] = 'You can setup a declination period below. The start and end date you pick here is included in that period.
       Activate this rule here.';
@@ -389,6 +424,18 @@ $LANG['decl_period1start'] = 'Start date (including)';
 $LANG['decl_period1start_comment'] = 'Enter the start date here.';
 $LANG['decl_period1end'] = 'End date (including)';
 $LANG['decl_period1end_comment'] = 'Enter the end date here.';
+$LANG['decl_period1Enddate'] = $LANG['decl_Enddate'];
+$LANG['decl_period1Enddate_comment'] = $LANG['decl_Enddate_comment'];
+$LANG['decl_period1Message'] = $LANG['decl_Message'];
+$LANG['decl_period1Message_comment'] = $LANG['decl_Message_comment'];
+$LANG['decl_period1Period'] = $LANG['decl_Period'];
+$LANG['decl_period1Period_comment'] = $LANG['decl_Period_comment'];
+$LANG['decl_period1Period_nowForever'] = $LANG['decl_Period_nowForever'];
+$LANG['decl_period1Period_nowEnddate'] = $LANG['decl_Period_nowEnddate'];
+$LANG['decl_period1Period_startdateForever'] = $LANG['decl_Period_startdateForever'];
+$LANG['decl_period1Period_startdateEnddate'] = $LANG['decl_Period_startdateEnddate'];
+$LANG['decl_period1Startdate'] = $LANG['decl_Startdate'];
+$LANG['decl_period1Startdate_comment'] = $LANG['decl_Startdate_comment'];
 $LANG['decl_period2'] = 'Activate';
 $LANG['decl_period2_comment'] = 'You can setup a declination period below. The start and end date you pick here is included in that period.
       Activate this rule here.';
@@ -396,6 +443,18 @@ $LANG['decl_period2start'] = 'Start date (including)';
 $LANG['decl_period2start_comment'] = 'Enter the start date here.';
 $LANG['decl_period2end'] = 'End date (including)';
 $LANG['decl_period2end_comment'] = 'Enter the end date here.';
+$LANG['decl_period2Enddate'] = $LANG['decl_Enddate'];
+$LANG['decl_period2Enddate_comment'] = $LANG['decl_Enddate_comment'];
+$LANG['decl_period2Message'] = $LANG['decl_Message'];
+$LANG['decl_period2Message_comment'] = $LANG['decl_Message_comment'];
+$LANG['decl_period2Period'] = $LANG['decl_Period'];
+$LANG['decl_period2Period_comment'] = $LANG['decl_Period_comment'];
+$LANG['decl_period2Period_nowForever'] = $LANG['decl_Period_nowForever'];
+$LANG['decl_period2Period_nowEnddate'] = $LANG['decl_Period_nowEnddate'];
+$LANG['decl_period2Period_startdateForever'] = $LANG['decl_Period_startdateForever'];
+$LANG['decl_period2Period_startdateEnddate'] = $LANG['decl_Period_startdateEnddate'];
+$LANG['decl_period2Startdate'] = $LANG['decl_Startdate'];
+$LANG['decl_period2Startdate_comment'] = $LANG['decl_Startdate_comment'];
 $LANG['decl_period3'] = 'Activate';
 $LANG['decl_period3_comment'] = 'You can setup a declination period below. The start and end date you pick here is included in that period.
       Activate this rule here.';
@@ -403,6 +462,18 @@ $LANG['decl_period3start'] = 'Start date (including)';
 $LANG['decl_period3start_comment'] = 'Enter the start date here.';
 $LANG['decl_period3end'] = 'End date (including)';
 $LANG['decl_period3end_comment'] = 'Enter the end date here.';
+$LANG['decl_period3Enddate'] = $LANG['decl_Enddate'];
+$LANG['decl_period3Enddate_comment'] = $LANG['decl_Enddate_comment'];
+$LANG['decl_period3Message'] = $LANG['decl_Message'];
+$LANG['decl_period3Message_comment'] = $LANG['decl_Message_comment'];
+$LANG['decl_period3Period'] = $LANG['decl_Period'];
+$LANG['decl_period3Period_comment'] = $LANG['decl_Period_comment'];
+$LANG['decl_period3Period_nowForever'] = $LANG['decl_Period_nowForever'];
+$LANG['decl_period3Period_nowEnddate'] = $LANG['decl_Period_nowEnddate'];
+$LANG['decl_period3Period_startdateForever'] = $LANG['decl_Period_startdateForever'];
+$LANG['decl_period3Period_startdateEnddate'] = $LANG['decl_Period_startdateEnddate'];
+$LANG['decl_period3Startdate'] = $LANG['decl_Startdate'];
+$LANG['decl_period3Startdate_comment'] = $LANG['decl_Startdate_comment'];
 $LANG['decl_roles'] = 'Apply to Roles';
 $LANG['decl_roles_comment'] = 'Select the roles to which the declination rules will apply.';
 $LANG['decl_tab_absence'] = 'Absence Threshold';

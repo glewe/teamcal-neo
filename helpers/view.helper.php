@@ -273,6 +273,24 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
          break;
       
       /**
+       * Text Long
+       * Textbox will appear underneath the label in full width.
+       */
+      case 'textlong' :
+         $formGroup = '
+         <div class="form-group" id="form-group-' . $data['name'] . '">
+            <label for="' . $data['name'] . '" class="col-lg-12 control-label">
+               ' . $mandatory.$LANG[$langIdx1] . '<br>
+               <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+            </label>
+            <div class="col-lg-12">
+               <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="text" maxlength="' . $data['maxlength'] . '" value="' . $data['value'] . '"' . $disabled . '>
+            '.$button.$error.'</div>
+            <div class="divider"><hr></div>
+         </div>';
+         break;
+         
+      /**
        * Textarea
        */
       case 'textarea' :

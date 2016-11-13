@@ -130,14 +130,14 @@ $LANG['absum_remainder'] = 'Verbleib';
 //
 // Alerts
 //
-$LANG['alert_decl_allowmonth_reached'] = ": Die maximale Anzahl von %1% pro Monat f&uuml;r diesen Abwesenheitstyp wurde erreicht.";
-$LANG['alert_decl_allowweek_reached'] = ": Die maximale Anzahl von %1% pro Woche f&uuml;r diesen Abwesenheitstyp wurde erreicht.";
-$LANG['alert_decl_approval_required'] = ": Dieser Abwesenheitstyp ben&ouml;tigt Managerbest&auml;tigung. Die Abwesenheit wurde in den Kalender eingetragen aber auch eine Tagesnotiz &uuml;ber die ausstehende Best&auml;tigung. Dein Manager wurde per Email informiert.";
+$LANG['alert_decl_allowmonth_reached'] = "Die maximale Anzahl von %1% pro Monat f&uuml;r diesen Abwesenheitstyp wurde erreicht.";
+$LANG['alert_decl_allowweek_reached'] = "Die maximale Anzahl von %1% pro Woche f&uuml;r diesen Abwesenheitstyp wurde erreicht.";
+$LANG['alert_decl_approval_required'] = "Dieser Abwesenheitstyp ben&ouml;tigt Managerbest&auml;tigung. Die Abwesenheit wurde in den Kalender eingetragen aber auch eine Tagesnotiz &uuml;ber die ausstehende Best&auml;tigung. Dein Manager wurde per Email informiert.";
 $LANG['alert_decl_approval_required_daynote'] = "Diese Abwesenheit wurde angefragt, ist aber noch nicht best&auml;tigt.";
-$LANG['alert_decl_before_date'] = ": Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";
-$LANG['alert_decl_group_threshold'] = ": Die Abwesenheitsgrenze wurde erreicht für die Gruppe(n): ";
+$LANG['alert_decl_before_date'] = "Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";
+$LANG['alert_decl_group_threshold'] = "Die Abwesenheitsgrenze wurde erreicht für die Gruppe(n): ";
 $LANG['alert_decl_period'] = ": Abwesenheits&auml;nderungen in folgendem Zeitraum sind nicht erlaubt: ";
-$LANG['alert_decl_total_threshold'] = ": Die generelle Abwesenheitsgrenze wurde erreicht.";
+$LANG['alert_decl_total_threshold'] = "Die generelle Abwesenheitsgrenze wurde erreicht.";
 
 //
 // Buttons
@@ -357,9 +357,34 @@ $LANG['dn_enddate_comment'] = 'Wenn hier ein Datum eingetragen ist, wird die Tag
 //
 // Declination
 //
+$LANG['decl_Enddate'] = 'Aktivierungs-Endedatum';
+$LANG['decl_Enddate_comment'] = 'W&auml;hle das Datum, an dem diese Ablehnungsregel autmatisch enden soll. Die Regel ist dann bis einschlie&szlig;lich diesen Tages aktiv.';
+$LANG['decl_Message'] = 'Ablehnungsnachricht';
+$LANG['decl_Message_comment'] = 'Hier kann eine individuelle Nachricht eingegeben werden, die dem Nutzer bei Ablehnung einer Abwesenheit durch diese Regel angezeigt wird. 
+      Wenn hier kein Text eingetragen ist, wird eine Standardnachricht angezeigt.';
+$LANG['decl_Period'] = 'Anwendungszeitraum';
+$LANG['decl_Period_comment'] = 'W&auml;hle hier, von wann bis wann diese Regel aktiv sein soll. Wenn eine Option mit Start- oder Endedatum gew&auml;hlt wird, m&uuml;ssen diese unten ein getragen werden.<br>
+      <i>Die Regel muss grunds&auml;tzlich aktiviert sein, bevor diese Einstellung greift.</i>';
+$LANG['decl_Period_nowForever'] = 'Solange Regel aktiv';
+$LANG['decl_Period_nowEnddate'] = 'Von Aktivierung bis Endedatum';
+$LANG['decl_Period_startdateForever'] = 'Von Startdatum bis Deaktivierung';
+$LANG['decl_Period_startdateEnddate'] = 'Von Startdatum bis Endedatum';
+$LANG['decl_Startdate'] = 'Aktivierungs-Startdatum';
+$LANG['decl_Startdate_comment'] = 'W&auml;hle das Datum, an dem diese Ablehnungsregel autmatisch beginnen soll. Die Regel wird an diesem Tag aktiv.';
+
 $LANG['decl_title'] = 'Ablehnungsmanagement';
 $LANG['decl_absence'] = 'Aktivieren';
 $LANG['decl_absence_comment'] = 'Aktiviere diesen Schalter, wenn bei Erreichen einer Abwesenheitsgrenze abgelehnt werden soll.';
+$LANG['decl_absenceEnddate'] = $LANG['decl_Enddate'];
+$LANG['decl_absenceEnddate_comment'] = $LANG['decl_Enddate_comment'];
+$LANG['decl_absencePeriod'] = $LANG['decl_Period'];
+$LANG['decl_absencePeriod_comment'] = $LANG['decl_Period_comment'];
+$LANG['decl_absencePeriod_nowForever'] = $LANG['decl_Period_nowForever'];
+$LANG['decl_absencePeriod_nowEnddate'] = $LANG['decl_Period_nowEnddate'];
+$LANG['decl_absencePeriod_startdateForever'] = $LANG['decl_Period_startdateForever'];
+$LANG['decl_absencePeriod_startdateEnddate'] = $LANG['decl_Period_startdateEnddate'];
+$LANG['decl_absenceStartdate'] = $LANG['decl_Startdate'];
+$LANG['decl_absenceStartdate_comment'] = $LANG['decl_Startdate_comment'];
 $LANG['decl_alert_period_wrong'] = 'Bei Angabe einer Periode muss das Startdatum vor dem Endedatum liegen.';
 $LANG['decl_alert_period_missing'] = 'Bei Angabe einer Periode m&uuml;ssen beide Datumsfelder ausgef&uuml;llt werden.';
 $LANG['decl_alert_save'] = 'Ablehnungseinstellungen speichern';
@@ -382,6 +407,16 @@ $LANG['decl_beforeoption_comment'] = 'Bei Auswahl von "vor Heute werden Abwesenh
       sein soll, w&auml;hle hier "vor Datum" und gebe das Datum unten ein.';
 $LANG['decl_beforeoption_today'] = 'vor Heute (nicht eingeschlossen)';
 $LANG['decl_beforeoption_date'] = 'vor Datum (nicht eingeschlossen)';
+$LANG['decl_beforeEnddate'] = $LANG['decl_Enddate'];
+$LANG['decl_beforeEnddate_comment'] = $LANG['decl_Enddate_comment'];
+$LANG['decl_beforePeriod'] = $LANG['decl_Period'];
+$LANG['decl_beforePeriod_comment'] = $LANG['decl_Period_comment'];
+$LANG['decl_beforePeriod_nowForever'] = $LANG['decl_Period_nowForever'];
+$LANG['decl_beforePeriod_nowEnddate'] = $LANG['decl_Period_nowEnddate'];
+$LANG['decl_beforePeriod_startdateForever'] = $LANG['decl_Period_startdateForever'];
+$LANG['decl_beforePeriod_startdateEnddate'] = $LANG['decl_Period_startdateEnddate'];
+$LANG['decl_beforeStartdate'] = $LANG['decl_Startdate'];
+$LANG['decl_beforeStartdate_comment'] = $LANG['decl_Startdate_comment'];
 $LANG['decl_period1'] = 'Aktivieren';
 $LANG['decl_period1_comment'] = 'Hier kann eine Periode definiert werden, innerhalb derer Abwesenheitsanfragen abgelehnt werden. Start und Ende Datum sind in diesem Fall mit eingeschlossen.
       Die Option kann hier aktiviert werden.';
@@ -389,6 +424,18 @@ $LANG['decl_period1start'] = 'Startdatum (einschlie&szlig;lig)';
 $LANG['decl_period1start_comment'] = 'Gebe hier das Startdatum der Periode ein.';
 $LANG['decl_period1end'] = 'Enddatum (einschlie&szlig;lig)';
 $LANG['decl_period1end_comment'] = 'Gebe hier das Enddatum der Periode ein.';
+$LANG['decl_period1Enddate'] = $LANG['decl_Enddate'];
+$LANG['decl_period1Enddate_comment'] = $LANG['decl_Enddate_comment'];
+$LANG['decl_period1Message'] = $LANG['decl_Message'];
+$LANG['decl_period1Message_comment'] = $LANG['decl_Message_comment'];
+$LANG['decl_period1Period'] = $LANG['decl_Period'];
+$LANG['decl_period1Period_comment'] = $LANG['decl_Period_comment'];
+$LANG['decl_period1Period_nowForever'] = $LANG['decl_Period_nowForever'];
+$LANG['decl_period1Period_nowEnddate'] = $LANG['decl_Period_nowEnddate'];
+$LANG['decl_period1Period_startdateForever'] = $LANG['decl_Period_startdateForever'];
+$LANG['decl_period1Period_startdateEnddate'] = $LANG['decl_Period_startdateEnddate'];
+$LANG['decl_period1Startdate'] = $LANG['decl_Startdate'];
+$LANG['decl_period1Startdate_comment'] = $LANG['decl_Startdate_comment'];
 $LANG['decl_period2'] = 'Aktivieren';
 $LANG['decl_period2_comment'] = 'Hier kann eine weitere Periode definiert werden, innerhalb derer Abwesenheitsanfragen abgelehnt werden. Start und Ende Datum sind in diesem Fall mit eingeschlossen.
       Die Option kann hier aktiviert werden.';
@@ -396,6 +443,18 @@ $LANG['decl_period2start'] = 'Startdatum (einschlie&szlig;lig)';
 $LANG['decl_period2start_comment'] = 'Gebe hier das Startdatum der Periode ein.';
 $LANG['decl_period2end'] = 'Enddatum (einschlie&szlig;lig)';
 $LANG['decl_period2end_comment'] = 'Gebe hier das Enddatum der Periode ein.';
+$LANG['decl_period2Enddate'] = $LANG['decl_Enddate'];
+$LANG['decl_period2Enddate_comment'] = $LANG['decl_Enddate_comment'];
+$LANG['decl_period2Message'] = $LANG['decl_Message'];
+$LANG['decl_period2Message_comment'] = $LANG['decl_Message_comment'];
+$LANG['decl_period2Period'] = $LANG['decl_Period'];
+$LANG['decl_period2Period_comment'] = $LANG['decl_Period_comment'];
+$LANG['decl_period2Period_nowForever'] = $LANG['decl_Period_nowForever'];
+$LANG['decl_period2Period_nowEnddate'] = $LANG['decl_Period_nowEnddate'];
+$LANG['decl_period2Period_startdateForever'] = $LANG['decl_Period_startdateForever'];
+$LANG['decl_period2Period_startdateEnddate'] = $LANG['decl_Period_startdateEnddate'];
+$LANG['decl_period2Startdate'] = $LANG['decl_Startdate'];
+$LANG['decl_period2Startdate_comment'] = $LANG['decl_Startdate_comment'];
 $LANG['decl_period3'] = 'Aktivieren';
 $LANG['decl_period3_comment'] = 'Hier kann eine weitere Periode definiert werden, innerhalb derer Abwesenheitsanfragen abgelehnt werden. Start und Ende Datum sind in diesem Fall mit eingeschlossen.
       Die Option kann hier aktiviert werden.';
@@ -403,6 +462,18 @@ $LANG['decl_period3start'] = 'Startdatum (einschlie&szlig;lig)';
 $LANG['decl_period3start_comment'] = 'Gebe hier das Startdatum der Periode ein.';
 $LANG['decl_period3end'] = 'Enddatum (einschlie&szlig;lig)';
 $LANG['decl_period3end_comment'] = 'Gebe hier das Enddatum der Periode ein.';
+$LANG['decl_period3Enddate'] = $LANG['decl_Enddate'];
+$LANG['decl_period3Enddate_comment'] = $LANG['decl_Enddate_comment'];
+$LANG['decl_period3Message'] = $LANG['decl_Message'];
+$LANG['decl_period3Message_comment'] = $LANG['decl_Message_comment'];
+$LANG['decl_period3Period'] = $LANG['decl_Period'];
+$LANG['decl_period3Period_comment'] = $LANG['decl_Period_comment'];
+$LANG['decl_period3Period_nowForever'] = $LANG['decl_Period_nowForever'];
+$LANG['decl_period3Period_nowEnddate'] = $LANG['decl_Period_nowEnddate'];
+$LANG['decl_period3Period_startdateForever'] = $LANG['decl_Period_startdateForever'];
+$LANG['decl_period3Period_startdateEnddate'] = $LANG['decl_Period_startdateEnddate'];
+$LANG['decl_period3Startdate'] = $LANG['decl_Startdate'];
+$LANG['decl_period3Startdate_comment'] = $LANG['decl_Startdate_comment'];
 $LANG['decl_roles'] = 'Anwenden bei Rollen';
 $LANG['decl_roles_comment'] = 'W&auml;hle hier die Rollen aus, bei denen die Ablehnungsregeln angewendet werden sollen.';
 $LANG['decl_tab_absence'] = 'Abwesenheitsgrenze';

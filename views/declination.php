@@ -45,11 +45,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      </div>
                      
                      <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                        <li class="active"><a href="#tab_absence" data-toggle="tab"><?=$LANG['decl_tab_absence']?><?=(($viewData['declAbsence'])?' <i class="fa fa-check text-success"></i>':'')?></a></li>
-                        <li><a href="#tab_before" data-toggle="tab"><?=$LANG['decl_tab_before']?><?=(($viewData['declBefore'])?' <i class="fa fa-check text-success"></i>':'')?></a></li>
-                        <li><a href="#tab_period1" data-toggle="tab"><?=$LANG['decl_tab_period1']?><?=(($viewData['declPeriod1'])?' <i class="fa fa-check text-success"></i>':'')?></a></li>
-                        <li><a href="#tab_period2" data-toggle="tab"><?=$LANG['decl_tab_period2']?><?=(($viewData['declPeriod2'])?' <i class="fa fa-check text-success"></i>':'')?></a></li>
-                        <li><a href="#tab_period3" data-toggle="tab"><?=$LANG['decl_tab_period3']?><?=(($viewData['declPeriod3'])?' <i class="fa fa-check text-success"></i>':'')?></a></li>
+                        <li class="active"><a href="#tab_absence" data-toggle="tab"><?=$LANG['decl_tab_absence']?><?=(($viewData['declAbsence'])?' <i class="fa fa-check text-danger"></i>':'')?></a></li>
+                        <li><a href="#tab_before" data-toggle="tab"><?=$LANG['decl_tab_before']?><?=(($viewData['declBefore'])?' <i class="fa fa-check text-danger"></i>':'')?></a></li>
+                        <li><a href="#tab_period1" data-toggle="tab"><?=$LANG['decl_tab_period1']?><?=(($viewData['declPeriod1'])?' <i class="fa fa-check text-danger"></i>':'')?></a></li>
+                        <li><a href="#tab_period2" data-toggle="tab"><?=$LANG['decl_tab_period2']?><?=(($viewData['declPeriod2'])?' <i class="fa fa-check text-danger"></i>':'')?></a></li>
+                        <li><a href="#tab_period3" data-toggle="tab"><?=$LANG['decl_tab_period3']?><?=(($viewData['declPeriod3'])?' <i class="fa fa-check text-danger"></i>':'')?></a></li>
                         <li><a href="#tab_scope" data-toggle="tab"><?=$LANG['decl_tab_scope']?></a></li>
                      </ul>
                      
@@ -137,3 +137,104 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          </div>
       </div>      
             
+      <script>
+         $(document).ready(function() {
+             
+             $('input[type=radio][name=opt_absencePeriod]').change(function() {
+                 if (this.value == 'nowForever') {
+                     $( "#absenceStartdate" ).prop( "disabled", true );
+                     $( "#absenceEnddate" ).prop( "disabled", true );
+                 }
+                 else if (this.value == 'nowEnddate') {
+                     $( "#absenceStartdate" ).prop( "disabled", true );
+                     $( "#absenceEnddate" ).prop( "disabled", false );
+                 }
+                 else if (this.value == 'startdateForever') {
+                     $( "#absenceStartdate" ).prop( "disabled", false );
+                     $( "#absenceEnddate" ).prop( "disabled", true );
+                 }
+                 else if (this.value == 'startdateEnddate') {
+                     $( "#absenceStartdate" ).prop( "disabled", false );
+                     $( "#absenceEnddate" ).prop( "disabled", false );
+                 }
+             });
+             
+             $('input[type=radio][name=opt_beforePeriod]').change(function() {
+                 if (this.value == 'nowForever') {
+                     $( "#beforeStartdate" ).prop( "disabled", true );
+                     $( "#beforeEnddate" ).prop( "disabled", true );
+                 }
+                 else if (this.value == 'nowEnddate') {
+                     $( "#beforeStartdate" ).prop( "disabled", true );
+                     $( "#beforeEnddate" ).prop( "disabled", false );
+                 }
+                 else if (this.value == 'startdateForever') {
+                     $( "#beforeStartdate" ).prop( "disabled", false );
+                     $( "#beforeEnddate" ).prop( "disabled", true );
+                 }
+                 else if (this.value == 'startdateEnddate') {
+                     $( "#beforeStartdate" ).prop( "disabled", false );
+                     $( "#beforeEnddate" ).prop( "disabled", false );
+                 }
+             });
+             
+             $('input[type=radio][name=opt_period1Period]').change(function() {
+                 if (this.value == 'nowForever') {
+                     $( "#period1Startdate" ).prop( "disabled", true );
+                     $( "#period1Enddate" ).prop( "disabled", true );
+                 }
+                 else if (this.value == 'nowEnddate') {
+                     $( "#period1Startdate" ).prop( "disabled", true );
+                     $( "#period1Enddate" ).prop( "disabled", false );
+                 }
+                 else if (this.value == 'startdateForever') {
+                     $( "#period1Startdate" ).prop( "disabled", false );
+                     $( "#period1Enddate" ).prop( "disabled", true );
+                 }
+                 else if (this.value == 'startdateEnddate') {
+                     $( "#period1Startdate" ).prop( "disabled", false );
+                     $( "#period1Enddate" ).prop( "disabled", false );
+                 }
+             });
+             
+             $('input[type=radio][name=opt_period2Period]').change(function() {
+                 if (this.value == 'nowForever') {
+                     $( "#period2Startdate" ).prop( "disabled", true );
+                     $( "#period2Enddate" ).prop( "disabled", true );
+                 }
+                 else if (this.value == 'nowEnddate') {
+                     $( "#period2Startdate" ).prop( "disabled", true );
+                     $( "#period2Enddate" ).prop( "disabled", false );
+                 }
+                 else if (this.value == 'startdateForever') {
+                     $( "#period2Startdate" ).prop( "disabled", false );
+                     $( "#period2Enddate" ).prop( "disabled", true );
+                 }
+                 else if (this.value == 'startdateEnddate') {
+                     $( "#period2Startdate" ).prop( "disabled", false );
+                     $( "#period2Enddate" ).prop( "disabled", false );
+                 }
+             });
+             
+             $('input[type=radio][name=opt_period3Period]').change(function() {
+                 if (this.value == 'nowForever') {
+                     $( "#period3Startdate" ).prop( "disabled", true );
+                     $( "#period3Enddate" ).prop( "disabled", true );
+                 }
+                 else if (this.value == 'nowEnddate') {
+                     $( "#period3Startdate" ).prop( "disabled", true );
+                     $( "#period3Enddate" ).prop( "disabled", false );
+                 }
+                 else if (this.value == 'startdateForever') {
+                     $( "#period3Startdate" ).prop( "disabled", false );
+                     $( "#period3Enddate" ).prop( "disabled", true );
+                 }
+                 else if (this.value == 'startdateEnddate') {
+                     $( "#period3Startdate" ).prop( "disabled", false );
+                     $( "#period3Enddate" ).prop( "disabled", false );
+                 }
+             });
+             
+         });
+      
+      </script>
