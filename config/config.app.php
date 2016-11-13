@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 1.0.002
+ * @version 1.1.000
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -23,7 +23,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  * Set this to 0 if you want to run the installation.php script again.
  * If not, you need to delete or rename the installation.php file.
  */
-$CONF['app_installed'] = "1";
+$CONF['app_installed'] = "0";
 
 //=============================================================================
 /**
