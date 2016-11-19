@@ -5,7 +5,7 @@
  * Log page controller
  *
  * @category TeamCal Neo 
- * @version 1.1.000
+ * @version 1.2.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
