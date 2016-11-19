@@ -271,6 +271,40 @@ class Users
    
    // ---------------------------------------------------------------------
    /**
+    * Gets all records into an array except hidden users
+    *
+    * @param string $order1 First order criteria
+    * @param string $order2 First order criteria
+    * @param string $sort Sort order (ASC or DESC)
+    * @param boolean $archive Whether to use archive table
+    * @param boolean $includeAdmin Whether to include admin account or not
+    * @return array Array with records
+    */
+   public function getAllButHidden($order1 = 'lastname', $order2 = 'firstname', $sort = 'ASC', $archive = false, $includeAdmin = false)
+   {
+      $records = array ();
+      if ($archive) $table = $this->archive_table;
+      else $table = $this->table;
+   
+      if ($includeAdmin)
+         $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE hidden != 1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
+         else
+            $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != "admin" AND hidden != 1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
+   
+            $result = $query->execute();
+   
+            if ($result)
+            {
+               while ( $row = $query->fetch() )
+               {
+                  $records[] = $row;
+               }
+            }
+            return $records;
+   }
+    
+   // ---------------------------------------------------------------------
+   /**
     * Gets all records with likeness in username, lastname or firstname
     *
     * @param string $like Likeness to search for

@@ -603,6 +603,12 @@ $LANG['profile_abs_carryover_tt'] = 'The Carryover field also allows negative va
 $LANG['profile_abs_taken'] = 'Taken';
 $LANG['profile_abs_factor'] = 'Factor';
 $LANG['profile_abs_remainder'] = 'Remainder';
+$LANG['profile_guestships'] = 'Show in other groups';
+$LANG['profile_guestships_comment'] = 'Show the calendar of this user in the selected groups, even if not a member (called a "guest membership"). Use this feature if the user is '.
+      'not a member but the absences are still important to see along with those of the selected groups.<br><i>Guest users will be shown in italic font in the calendar</i>.';
+$LANG['profile_hidden'] = '<i class="glyphicon glyphicon-menu glyphicon-eye-close text-info" style="font-size: 80%; padding-right: 16px;"></i>Hide in calendar';
+$LANG['profile_hidden_comment'] = 'With this option you can keep the user active but hide him in the calendar. The absences will still be counted in the statistics though. If that is
+      not wanted, consider archiving this user.';
 $LANG['profile_notifyAbsenceEvents'] = 'Absence Events';
 $LANG['profile_notifyAbsenceEvents_comment'] = 'Select this option if you want to be informed on changes to absence types.';
 $LANG['profile_notifyHolidayEvents'] = 'Holidays Events';
@@ -611,9 +617,6 @@ $LANG['profile_notifyMonthEvents'] = 'Month Template Events';
 $LANG['profile_notifyMonthEvents_comment'] = 'Select this option if you want to be informed on changes to month templates.';
 $LANG['profile_notifyUserCalEvents'] = 'User Calendar Events';
 $LANG['profile_notifyUserCalEvents_comment'] = 'Select this option if you want to be informed on changes to user calendars.';
-$LANG['profile_guestships'] = 'Show in other groups';
-$LANG['profile_guestships_comment'] = 'Show the calendar of this user in the selected groups, even if not a member (called a "guest membership"). Use this feature if the user is '.
-      'not a member but the absences are still important to see along with those of the selected groups.<br><i>Guest users will be shown in italic font in the calendar</i>.';
 
 //
 // Region

@@ -603,6 +603,12 @@ $LANG['profile_abs_carryover_tt'] = 'Das &Uuml;bertragsfeld akzeptiert auch nega
 $LANG['profile_abs_taken'] = 'Genommen';
 $LANG['profile_abs_factor'] = 'Faktor';
 $LANG['profile_abs_remainder'] = 'Verbleib';
+$LANG['profile_guestships'] = 'In anderen Gruppen anzeigen';
+$LANG['profile_guestships_comment'] = 'Zeigt den Kalender dieses Nutzers in den ausgew&auml;hlten Gruppen mit an, auch wenn keine Mitgliedschaft vorliegt (auch "Gastmitgliedschaft" genannt). Dieses Feature ist sinnvoll, wenn der Nutzer '.
+      'zwar kein Mitglied, seine Abwesenheiten aber trotzdem relevant f&uuml;r die Gruppe sind.<br><i>Gastmitglieder werden im Kalender in schr&auml;ger Schrift dargestellt.</i>';
+$LANG['profile_hidden'] = '<i class="glyphicon glyphicon-menu glyphicon-eye-close text-info" style="font-size: 80%; padding-right: 16px;"></i>Im Kalender verbergen';
+$LANG['profile_hidden_comment'] = 'Mit dieser Option kann der Nutzer aktiv bleiben aber im Kalender verborgen werden. Die Abwesenheiten werden in den Statistiken jedoch weiter gez&auml;hlt. Sollte das
+      nicht gew&uuml;nscht sein, wird die Archivierung des Nutzers empfohlen.';
 $LANG['profile_notifyAbsenceEvents'] = 'Abwesenheitstyp-Ereignisse';
 $LANG['profile_notifyAbsenceEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Abwesenheitstypen benachrichtigt werden m&ouml;chtest.';
 $LANG['profile_notifyHolidayEvents'] = 'Feiertag-Ereignisse';
@@ -611,9 +617,6 @@ $LANG['profile_notifyMonthEvents'] = 'Monatsschablonen-Ereignisse';
 $LANG['profile_notifyMonthEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Monatsschablonen benachrichtigt werden m&ouml;chtest.';
 $LANG['profile_notifyUserCalEvents'] = 'Benutzerkalender-Ereignisse';
 $LANG['profile_notifyUserCalEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Benutzerkalendern benachrichtigt werden m&ouml;chtest.';
-$LANG['profile_guestships'] = 'In anderen Gruppen anzeigen';
-$LANG['profile_guestships_comment'] = 'Zeigt den Kalender dieses Nutzers in den ausgew&auml;hlten Gruppen mit an, auch wenn keine Mitgliedschaft vorliegt (auch "Gastmitgliedschaft" genannt). Dieses Feature ist sinnvoll, wenn der Nutzer '.
-      'zwar kein Mitglied, seine Abwesenheiten aber trotzdem relevant f&uuml;r die Gruppe sind.<br><i>Gastmitglieder werden im Kalender in schr&auml;ger Schrift dargestellt.</i>';
 
 //
 // Region

@@ -85,7 +85,7 @@ if ($missingData)
 //
 // Group filter
 //
-$users = $U->getAll();
+$users = $U->getAllButHidden();
 if (isset($_GET['group']))
 {
    $groupfilter = sanitize($_GET['group']);

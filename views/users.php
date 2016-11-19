@@ -105,9 +105,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="col-lg-2">
                                        <a href="#" data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$user['role']?>"><i class="fa fa-user text-<?=$user['color']?>" style="font-size: 128%; padding-right: 8px;"></i></a>
                                        <?=(($user['locked'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_locked'].'"><i class="glyphicon glyphicon-menu glyphicon-lock text-danger"></i></i>':'')?>
-                                       <?=(($user['hidden'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_hidden'].'"><i class="glyphicon glyphicon-menu glyphicon-eye-close text-info"></i></i>':'')?>
                                        <?=(($user['onhold'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_onhold'].'"><i class="glyphicon glyphicon-menu glyphicon-time text-warning"></i></i>':'')?>
                                        <?=(($user['verify'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_verify'].'"><i class="glyphicon glyphicon-menu glyphicon-exclamation-sign text-success"></i></i>':'')?>
+                                       <?=(($user['hidden'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_hidden'].'"><i class="glyphicon glyphicon-menu glyphicon-eye-close text-info"></i></i>':'')?>
                                     </div>
                                     <div class="col-lg-2"><?=$user['created']?></div>
                                     <div class="col-lg-2"><?=$user['last_login']?></div>

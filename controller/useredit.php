@@ -495,6 +495,7 @@ $viewData['account'] = array (
    array ( 'prefix' => 'profile', 'name' => 'locked', 'type' => 'check', 'values' => '', 'value' => $UP->locked ),
    array ( 'prefix' => 'profile', 'name' => 'onhold', 'type' => 'check', 'values' => '', 'value' => $UP->onhold ),
    array ( 'prefix' => 'profile', 'name' => 'verify', 'type' => 'check', 'values' => '', 'value' => $UP->verify ),
+   array ( 'prefix' => 'profile', 'name' => 'hidden', 'type' => 'check', 'values' => '', 'value' => $UP->hidden ),
 );
 
 //
