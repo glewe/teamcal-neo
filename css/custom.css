@@ -387,7 +387,8 @@ table.month {
 table.month th.m-monthname,
 table.month th.m-label,
 table.month td.m-label,
-table.month td.m-name {
+table.month td.m-name,
+table.month td.m-name-guest {
    max-width: 130px;
    overflow: hidden;
    text-overflow: ellipsis;
@@ -396,7 +397,12 @@ table.month td.m-name {
    color: #333333;
 }
 
-table.month td.m-name a {
+table.month td.m-name-guest {
+   font-style: italic;
+}
+
+table.month td.m-name a,
+table.month td.m-name-guest a {
    color: #333333;
 }
 

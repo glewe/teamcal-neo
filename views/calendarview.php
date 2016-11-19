@@ -127,6 +127,7 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                                        require("calendarviewmonthheader.php");
                                        $rowcount = 1;
                                     } ?>
+                                    
                                     <!-- Row: User <?=$usr['username']?> --> 
                                     <?php require("calendarviewuserrow.php");
                                     if ($repeatHeaderCount) $rowcount++;

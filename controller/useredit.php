@@ -241,8 +241,15 @@ if (!empty($_POST))
                   if ($G->getById($grp)) $UG->save($profile, $grp, 'manager');
                }
             }
+            if (isset($_POST['sel_guestships']) )
+            {
+               foreach ($_POST['sel_guestships'] as $grp)
+               {
+                  if ($G->getById($grp)) $UG->save($profile, $grp, 'guest');
+               }
+            }
          }
-          
+
          //
          // Avatar
          //
@@ -505,10 +512,17 @@ foreach ($groups as $group)
    $viewData['managerships'][] = array('val' => $group['id'], 'name' => $group['name'], 'selected' => ($UG->isGroupManagerOfGroup($viewData['profile'], $group['id']))?true:false);
 }
 
+$viewData['guestships'][] = array('val' => '0', 'name' => $LANG['none'], 'selected' => !$UG->isGuest($viewData['profile']));
+foreach ($groups as $group)
+{
+   $viewData['guestships'][] = array('val' => $group['id'], 'name' => $group['name'], 'selected' => ($UG->isGuestOfGroup($viewData['profile'], $group['id']))?true:false);
+}
+
 if (isAllowed("groupmemberships")) $disabled = false; else $disabled = true;
 $viewData['groups'] = array (
    array ( 'prefix' => 'profile', 'name' => 'memberships', 'type' => 'listmulti', 'values' => $viewData['memberships'], 'disabled' => $disabled ),
    array ( 'prefix' => 'profile', 'name' => 'managerships', 'type' => 'listmulti', 'values' => $viewData['managerships'], 'disabled' => $disabled ),
+   array ( 'prefix' => 'profile', 'name' => 'guestships', 'type' => 'listmulti', 'values' => $viewData['guestships'], 'disabled' => $disabled ),
 );
 
 //

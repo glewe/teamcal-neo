@@ -62,7 +62,7 @@ class UserGroup
    public function countMembers($groupid)
    {
       $count= 0;
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE groupid = :val1');
+      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE groupid = :val1 AND (type = "manager" OR type ="member")');
       $query->bindParam('val1', $groupid);
       $result = $query->execute();
       return $query->fetchColumn();
@@ -167,7 +167,27 @@ class UserGroup
    
    // ---------------------------------------------------------------------
    /**
-    * Deletes all managers of a groups
+    * Deletes all guests of a group
+    *
+    * @param string $username Username
+    * @param string $groupid Group ID
+    * @param bool $archive Whether to use the archive table
+    * @return boolean Query result
+    */
+   public function deleteAllGuests($groupid = '', $archive = FALSE)
+   {
+      if ($archive) $table = $this->archive_table;
+      else $table = $this->table;
+   
+      $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE groupid = :val1 AND type = "guest"');
+      $query->bindParam('val1', $groupid);
+      $result = $query->execute();
+      return $result;
+   }
+    
+   // ---------------------------------------------------------------------
+   /**
+    * Deletes all managers of a group
     *
     * @param string $username Username
     * @param string $groupid Group ID
@@ -187,7 +207,7 @@ class UserGroup
    
    // ---------------------------------------------------------------------
    /**
-    * Deletes all members of a groups
+    * Deletes all members of a group
     *
     * @param string $username Username
     * @param string $groupid Group ID
@@ -234,7 +254,7 @@ class UserGroup
    
    // ---------------------------------------------------------------------
    /**
-    * Gets all usernames of a given group
+    * Gets all usernames of a given group (managers and members)
     *
     * @param string $groupid Group ID to search by
     * @return array Array with all group records
@@ -242,7 +262,7 @@ class UserGroup
    public function getAllforGroup($groupid, $sort='ASC')
    {
       $records = array ();
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE groupid = :val1 ORDER BY username '. $sort);
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE groupid = :val1 AND (type = "manager" OR type ="member") ORDER BY username '. $sort);
       $query->bindParam('val1', $groupid);
       $result = $query->execute();
       
@@ -258,6 +278,30 @@ class UserGroup
    
    // ---------------------------------------------------------------------
    /**
+    * Gets all usernames of a given group (managers and members and guests)
+    *
+    * @param string $groupid Group ID to search by
+    * @return array Array with all group records
+    */
+   public function getAllforGroupPlusGuests($groupid, $sort='ASC')
+   {
+      $records = array ();
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE groupid = :val1 ORDER BY username '. $sort);
+      $query->bindParam('val1', $groupid);
+      $result = $query->execute();
+   
+      if ($result)
+      {
+         while ( $row = $query->fetch() )
+         {
+            $records[] = $row;
+         }
+      }
+      return $records;
+   }
+    
+   // ---------------------------------------------------------------------
+   /**
     * Gets all records for a given user into an array
     *
     * @param string $username Username to find
@@ -266,7 +310,7 @@ class UserGroup
    public function getAllforUser($username)
    {
       $records = array ();
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1');
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1 AND (type = "manager" OR type ="member")');
       $query->bindParam('val1', $username);
       $result = $query->execute();
       
@@ -291,7 +335,7 @@ class UserGroup
    public function getAllforUser2($username)
    {
       $records = array ();
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1');
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1 AND (type = "manager" OR type ="member")');
       $query->bindParam('val1', $username);
       $result = $query->execute();
       
@@ -337,7 +381,7 @@ class UserGroup
     */
    public function getGroupName($username)
    {
-      $query = $this->db->prepare('SELECT groupid FROM ' . $this->table . ' WHERE username = :val1');
+      $query = $this->db->prepare('SELECT groupid FROM ' . $this->table . ' WHERE username = :val1 AND (type = "manager" OR type ="member")');
       $query->bindParam('val1', $username);
       $result = $query->execute();
       
@@ -376,6 +420,29 @@ class UserGroup
       return $records;
    }
    
+   // ---------------------------------------------------------------------
+   /**
+    * Gets all groups where the given user is guest
+    *
+    * @param string $username Username to check
+    * @return array Array with usernames of group managers
+    */
+   public function getGuestships($username)
+   {
+      $records = array ();
+      $query = $this->db->prepare('SELECT groupid FROM ' . $this->table . ' WHERE `username` = "' . $username . '" AND `type` = "guest"');
+      $result = $query->execute();
+   
+      if ($result)
+      {
+         while ( $row = $query->fetch() )
+         {
+            $records[] = $row['groupid'];
+         }
+      }
+      return $records;
+   }
+    
    // ---------------------------------------------------------------------
    /**
     * Gets all managed groups of a given user
@@ -526,6 +593,54 @@ class UserGroup
    
    // ---------------------------------------------------------------------
    /**
+    * Checks whether a given user is guest of any group
+    *
+    * @param string $username Username to check
+    * @return boolean True if he is, false if not
+    */
+   public function isGuest($username)
+   {
+      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND type = "guest"');
+      $query->bindParam('val1', $username);
+      $result = $query->execute();
+   
+      if ($result and $query->fetchColumn())
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
+   }
+    
+   // ---------------------------------------------------------------------
+   /**
+    * Checks whether a given user is guest of a given group
+    *
+    * @param string $username Username to check
+    * @param string $groupid Group ID to check
+    * @return boolean True if he is, false if not
+    */
+   public function isGuestOfGroup($username, $groupid)
+   {
+      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND type = "guest"');
+      $query->bindParam('val1', $username);
+      $query->bindParam('val2', $groupid);
+      $result = $query->execute();
+   
+      if ($result and $query->fetchColumn())
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
+   }
+    
+   // ---------------------------------------------------------------------
+   /**
     * Checks whether a given user is member od a given group
     *
     * @param string $username Username
@@ -534,7 +649,7 @@ class UserGroup
     */
    public function isMemberOfGroup($username, $groupid)
    {
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2');
+      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND (type = "manager" OR type ="member")');
       $query->bindParam('val1', $username);
       $query->bindParam('val2', $groupid);
       $result = $query->execute();
@@ -549,6 +664,31 @@ class UserGroup
       }
    }
    
+   // ---------------------------------------------------------------------
+   /**
+    * Checks whether a given user is member or guest of a given group
+    *
+    * @param string $username Username
+    * @param string $groupid Group ID
+    * @return boolean True if member, false if not
+    */
+   public function isMemberOrGuestOfGroup($username, $groupid)
+   {
+      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2');
+      $query->bindParam('val1', $username);
+      $query->bindParam('val2', $groupid);
+      $result = $query->execute();
+   
+      if ($result and $query->fetchColumn())
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
+   }
+    
    // ---------------------------------------------------------------------
    /**
     * Restores all user_group records for a given user
@@ -606,7 +746,7 @@ class UserGroup
     */
    public function shareGroups($user1, $user2)
    {
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1');
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1 AND (type = "manager" OR type ="member")');
       $query->bindParam('val1', $user1);
       $result = $query->execute();
       
@@ -614,7 +754,7 @@ class UserGroup
       {
          while ( $row = $query->fetch() )
          {
-            $query2 = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2');
+            $query2 = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND (type = "manager" OR type ="member")');
             $query2->bindParam('val1', $user2);
             $query2->bindParam('val2', $row['groupid']);
             $result2 = $query2->execute();

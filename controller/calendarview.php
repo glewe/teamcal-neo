@@ -85,6 +85,7 @@ if ($missingData)
 //
 // Group filter
 //
+$users = $U->getAll();
 if (isset($_GET['group']))
 {
    $groupfilter = sanitize($_GET['group']);
@@ -92,19 +93,28 @@ if (isset($_GET['group']))
    if ($groupfilter == "all")
    {
       $viewData['group'] = $LANG['all'];
-      $users = $U->getAll();
    }
    else
    {
       $viewData['group'] = $G->getNameById($groupfilter);
-      $users = $UG->getAllForGroup($groupfilter);
+      //
+      // Remove all users from array that are not in requested group.
+      //
+      $calusers = array();
+      foreach ($users as $key=>$usr)
+      {
+         if ($UG->isMemberOrGuestOfGroup($usr['username'], '4'))
+         {
+            $calusers[] = $usr;
+         }
+      }
+      $users = $calusers;
    }
 }
 else 
 {
    $viewData['groupid'] = 'all';
    $viewData['group'] = $LANG['all'];
-   $users = $U->getAll();
 }
 
 //

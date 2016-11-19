@@ -611,6 +611,9 @@ $LANG['profile_notifyMonthEvents'] = 'Monatsschablonen-Ereignisse';
 $LANG['profile_notifyMonthEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Monatsschablonen benachrichtigt werden m&ouml;chtest.';
 $LANG['profile_notifyUserCalEvents'] = 'Benutzerkalender-Ereignisse';
 $LANG['profile_notifyUserCalEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Benutzerkalendern benachrichtigt werden m&ouml;chtest.';
+$LANG['profile_guestships'] = 'In anderen Gruppen anzeigen';
+$LANG['profile_guestships_comment'] = 'Zeigt den Kalender dieses Nutzers in den ausgew&auml;hlten Gruppen mit an, auch wenn keine Mitgliedschaft vorliegt (auch "Gastmitgliedschaft" genannt). Dieses Feature ist sinnvoll, wenn der Nutzer '.
+      'zwar kein Mitglied, seine Abwesenheiten aber trotzdem relevant f&uuml;r die Gruppe sind.<br><i>Gastmitglieder werden im Kalender in schr&auml;ger Schrift dargestellt.</i>';
 
 //
 // Region

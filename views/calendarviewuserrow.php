@@ -58,12 +58,24 @@ if ($editAllowed)
       view.calendaruserrow
       -->
       <tr>
-         <td class="m-name">
+         <?php 
+         $nameStyle = "m-name";
+         if ($viewData['groupid']!="all") { 
+            //
+            // We have a group display. Let's display guests in italic letters.
+            //
+            if (!$UG->isMemberOfGroup($usr['username'], $viewData['groupid'])) {
+               $nameStyle = "m-name-guest";
+            }
+         }?>
+         <td class="<?=$nameStyle?>">
             <?php if ($C->read('showAvatars')) { ?>
                <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<img src='<?=$CONF['app_avatar_dir'].$UO->read($usr['username'],'avatar')?>' alt='' style='width: 80px; height: 80px;'>"><img src="<?=$CONF['app_avatar_dir']?>/<?=$UO->read($usr['username'],'avatar')?>" alt="" style="width: 16px; height: 16px;"></i>
             <?php } ?>
-            <?php if ($C->read('showRoleIcons')) { ?>
-               <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$RO->getNameById($usr['role'])?>"><i class="fa fa-user text-<?=$RO->getColorById($usr['role'])?>" style="font-size: 128%; padding-right: 8px;"></i></i>
+            <?php if ($C->read('showRoleIcons')) {
+               $thisRole = $U->getRole($usr['username']);
+               ?>
+               <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$RO->getNameById($thisRole)?>"><i class="fa fa-user text-<?=$RO->getColorById($thisRole)?>" style="font-size: 128%; padding-right: 8px;"></i></i>
             <?php } ?>
             <?=$profileName?>
          </td>
