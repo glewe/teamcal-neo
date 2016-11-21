@@ -103,7 +103,7 @@ if (isset($_GET['group']))
       $calusers = array();
       foreach ($users as $key=>$usr)
       {
-         if ($UG->isMemberOrGuestOfGroup($usr['username'], '4'))
+         if ($UG->isMemberOrGuestOfGroup($usr['username'], $groupfilter))
          {
             $calusers[] = $usr;
          }
