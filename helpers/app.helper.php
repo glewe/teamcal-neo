@@ -922,6 +922,47 @@ function createMonth($year, $month, $target, $owner)
 
 // ---------------------------------------------------------------------------
 /**
+ * Checks the status of a declination rule based on the curren date
+ *
+ * @param boolean $rule Active/inactive value of the rule
+ * @param string $period Period keyword
+ * @param string $startdate Period Startdate
+ * @param string $enddate Period Enddate
+ *
+ * @return string Status code (active,expired,inactive,scheduled)
+ */
+function getDeclinationStatus($rule, $period, $startdate, $enddate)
+{
+   $status = 'inactive';
+   if ($rule)
+   {
+      $status = 'active';
+      $today = date('Ymd');
+      $declStartdate = str_replace('-','',$startdate);
+      $declEnddate = str_replace('-','',$enddate);
+      switch ($period)
+      {
+         case 'nowEnddate':
+            if ($today>$declEnddate) $status = 'expired';
+            break;
+         case 'startdateForever':
+            if ($today<$declStartdate) $status = 'scheduled';
+            break;
+         case 'startdateEnddate':
+            if ($today<$declStartdate) $status = 'scheduled';
+            if ($today>$declEnddate) $status = 'expired';
+            break;
+      }
+   }
+   else
+   {
+      $status = 'inactive';
+   }
+   return $status;
+}
+
+// ---------------------------------------------------------------------------
+/**
  * Sends an email to all users that subscribed to a user calendar change event
  *
  * @param string $event The event type: added, changed, deleted

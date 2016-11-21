@@ -45,7 +45,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      </div>
                      
                      <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                        <li class="active"><a href="#tab_absence" data-toggle="tab"><?=$LANG['decl_tab_absence']?><?=(($viewData['declAbsence'])?' <i class="fa fa-check text-danger"></i>':'')?></a></li>
+                        <li class="active"><a href="#tab_overview" data-toggle="tab"><?=$LANG['decl_tab_overview']?></a></li>
+                        <li><a href="#tab_absence" data-toggle="tab"><?=$LANG['decl_tab_absence']?><?=(($viewData['declAbsence'])?' <i class="fa fa-check text-danger"></i>':'')?></a></li>
                         <li><a href="#tab_before" data-toggle="tab"><?=$LANG['decl_tab_before']?><?=(($viewData['declBefore'])?' <i class="fa fa-check text-danger"></i>':'')?></a></li>
                         <li><a href="#tab_period1" data-toggle="tab"><?=$LANG['decl_tab_period1']?><?=(($viewData['declPeriod1'])?' <i class="fa fa-check text-danger"></i>':'')?></a></li>
                         <li><a href="#tab_period2" data-toggle="tab"><?=$LANG['decl_tab_period2']?><?=(($viewData['declPeriod2'])?' <i class="fa fa-check text-danger"></i>':'')?></a></li>
@@ -55,8 +56,83 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      
                      <div id="myTabContent" class="tab-content">
                         
+                        <!-- Overview tab -->
+                        <div class="tab-pane fade active in" id="tab_overview">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                              
+                                 <?php $overviews = array('Absence', 'Before', 'Period1', 'Period2', 'Period3'); 
+                                 foreach ($overviews as $overview) { 
+                                 
+                                    $details='';
+                                    $schedule='';
+                                    
+                                    switch ($overview) {
+                                       case 'Absence':
+                                          $details = $viewData['declThreshold'] . '%';
+                                          break;
+                                       case 'Before':
+                                          $details = $viewData['declBeforeDate'];
+                                          break;
+                                       case 'Period1':
+                                          $details = $viewData['declPeriod1Start'] . ' - ' . $viewData['declPeriod1End'];
+                                          break;
+                                       case 'Period2':
+                                          $details = $viewData['declPeriod2Start'] . ' - ' . $viewData['declPeriod2End'];
+                                          break;
+                                       case 'Period3':
+                                          $details = $viewData['declPeriod3Start'] . ' - ' . $viewData['declPeriod3End'];
+                                          break;
+                                    }
+                                    
+                                    switch ($viewData['decl'.$overview.'Period']) {
+                                       case 'nowForever':
+                                          $schedule = $LANG['decl_schedule_nowForever'];
+                                          break;
+                                       case 'nowEnddate':
+                                          $schedule = sprintf($LANG['decl_schedule_nowEnddate'],$viewData['decl'.$overview.'Enddate']);
+                                          break;
+                                       case 'startdateForever':
+                                          $schedule = sprintf($LANG['decl_schedule_startdateForever'],$viewData['decl'.$overview.'Startdate']);
+                                          break;
+                                       case 'startdateEnddate':
+                                          $schedule = sprintf($LANG['decl_schedule_startdateEnddate'],$viewData['decl'.$overview.'Startdate'],$viewData['decl'.$overview.'Enddate']);
+                                          break;
+                                    }
+                                    ?>
+                              
+                                    <div class="form-group" id="form-group-overview-<?=$overview?>">
+                                       <label for="overview-<?=$overview?>" class="col-lg-8 control-label">
+                                          <?=$LANG['decl_tab_'.strtolower($overview)]?><br>
+                                          <span class="text-normal"><?=$LANG['decl_summary_'.strtolower($overview)]?><br><?=$details?></span>
+                                       </label>
+                                       <div class="col-lg-4">
+                                          <?php switch ($viewData['decl'.$overview.'Status']) { 
+                                             case 'active': ?>
+                                                <span class="label label-danger"><?=$LANG['decl_label_active']?></span><br><br><span class="small text-danger"><?=$schedule?></span>
+                                                <?php break;
+                                             case 'expired': ?>
+                                                <span class="label label-success"><?=$LANG['decl_label_expired']?></span><br><br><span class="small text-success"><?=$schedule?></span>
+                                                <?php break;
+                                             case 'inactive': ?>
+                                                <span class="label label-default"><?=$LANG['decl_label_inactive']?></span><br><br><span class="small text-default"><?=$schedule?></span>
+                                                <?php break;
+                                             case 'scheduled': ?>
+                                                <span class="label label-warning"><?=$LANG['decl_label_scheduled']?></span><br><br><span class="small text-warning"><?=$schedule?></span>
+                                                <?php break;
+                                          } ?>
+                                       </div>
+                                       <div class="divider"><hr></div>
+                                    </div>
+                                    
+                                 <?php } ?>                              
+                              
+                              </div>
+                           </div>
+                        </div>
+      
                         <!-- Absence tab -->
-                        <div class="tab-pane fade active in" id="tab_absence">
+                        <div class="tab-pane fade" id="tab_absence">
                            <div class="panel panel-default">
                               <div class="panel-body">
                                  <?php foreach($viewData['absence'] as $formObject) {

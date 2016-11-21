@@ -377,6 +377,10 @@ if (!empty($_POST))
 //
 // PREPARE VIEW
 //
+
+//
+// Absence Threshold Rule
+//
 $viewData['declAbsence'] = $C->read('declAbsence');
 $viewData['declThreshold'] = $C->read('declThreshold');
 $viewData['declBase'] = $C->read('declBase');
@@ -385,7 +389,7 @@ $viewData['declAbsenceStartdate'] = $C->read('declAbsenceStartdate');
 $viewData['declAbsenceEnddate'] = $C->read('declAbsenceEnddate');
 $absenceStartdateDisabled = true;
 $absenceEnddateDisabled = true;
-switch ($C->read('declAbsencePeriod'))
+switch ($viewData['declAbsencePeriod'])
 {
    case 'nowEnddate':
       $absenceStartdateDisabled = true;
@@ -401,6 +405,14 @@ switch ($C->read('declAbsencePeriod'))
       break;
 }
 
+//
+// Absence Threshold Rule Status
+//
+$viewData['declAbsenceStatus'] = getDeclinationStatus($C->read('declAbsence'), $viewData['declAbsencePeriod'], $viewData['declAbsenceStartdate'], $viewData['declAbsenceEnddate']);
+
+//
+// Before Date Rule
+//
 $viewData['declBefore'] = $C->read('declBefore');
 $viewData['declBeforeOption'] = $C->read('declBeforeOption');
 $viewData['declBeforeDate'] = $C->read('declBeforeDate');
@@ -409,7 +421,7 @@ $viewData['declBeforeStartdate'] = $C->read('declBeforeStartdate');
 $viewData['declBeforeEnddate'] = $C->read('declBeforeEnddate');
 $beforeStartdateDisabled = true;
 $beforeEnddateDisabled = true;
-switch ($C->read('declBeforePeriod'))
+switch ($viewData['declBeforePeriod'])
 {
    case 'nowEnddate':
       $beforeStartdateDisabled = true;
@@ -425,6 +437,14 @@ switch ($C->read('declBeforePeriod'))
       break;
 }
 
+//
+// Before Date Rule Status
+//
+$viewData['declBeforeStatus'] = getDeclinationStatus($C->read('declBefore'), $viewData['declBeforePeriod'], $viewData['declBeforeStartdate'], $viewData['declBeforeEnddate']);
+
+//
+// Period 1 Rule
+//
 $viewData['declPeriod1'] = $C->read('declPeriod1');
 $viewData['declPeriod1Start'] = $C->read('declPeriod1Start');
 $viewData['declPeriod1End'] = $C->read('declPeriod1End');
@@ -449,6 +469,14 @@ switch ($C->read('declPeriod1Period'))
       break;
 }
 
+//
+// Period 1 Rule Status
+//
+$viewData['declPeriod1Status'] = getDeclinationStatus($C->read('declPeriod1'), $viewData['declPeriod1Period'], $viewData['declPeriod1Startdate'], $viewData['declPeriod1Enddate']);
+
+//
+// Period 2 Rule
+//
 $viewData['declPeriod2'] = $C->read('declPeriod2');
 $viewData['declPeriod2Start'] = $C->read('declPeriod2Start');
 $viewData['declPeriod2End'] = $C->read('declPeriod2End');
@@ -473,6 +501,14 @@ switch ($C->read('declPeriod2Period'))
       break;
 }
 
+//
+// Period 2 Rule Status
+//
+$viewData['declPeriod2Status'] = getDeclinationStatus($C->read('declPeriod2'), $viewData['declPeriod2Period'], $viewData['declPeriod2Startdate'], $viewData['declPeriod2Enddate']);
+
+//
+// Period 3 Rule
+//
 $viewData['declPeriod3'] = $C->read('declPeriod3');
 $viewData['declPeriod3Start'] = $C->read('declPeriod3Start');
 $viewData['declPeriod3End'] = $C->read('declPeriod3End');
@@ -497,6 +533,14 @@ switch ($C->read('declPeriod3Period'))
       break;
 }
 
+//
+// Period 3 Rule Status
+//
+$viewData['declPeriod3Status'] = getDeclinationStatus($C->read('declPeriod3'), $viewData['declPeriod3Period'], $viewData['declPeriod3Startdate'], $viewData['declPeriod3Enddate']);
+
+//
+// Scope
+//
 $viewData['declNotifyUser'] = $C->read('declNotifyUser');
 $viewData['declNotifyManager'] = $C->read('declNotifyManager');
 $viewData['declNotifyDirector'] = $C->read('declNotifyDirector');
