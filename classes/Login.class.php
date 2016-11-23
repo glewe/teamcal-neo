@@ -401,7 +401,7 @@ class Login
       setcookie($this->cookie_name, ''); // Clear current cookie
       setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '', $this->hostName, false, true); // Set new cookie
       $U->bad_logins = 0;
-      $U->grace_start = '';
+      $U->grace_start = DEFAULT_TIMESTAMP;
       $U->last_login = date("YmdHis");
       $U->update($U->username);
       

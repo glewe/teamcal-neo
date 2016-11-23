@@ -1,16 +1,16 @@
 <?php
 /**
  * useradd.php
- * 
- * Add user page controller
- *
- * @category TeamCal Neo 
- * @version 1.2.001
- * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2016 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
- */
+*
+* Add user page controller
+*
+* @category TeamCal Neo
+* @version 1.2.001
+* @author George Lewe <george@lewe.com>
+* @copyright Copyright (c) 2014-2016 by George Lewe
+* @link http://www.lewe.com
+* @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+*/
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
@@ -52,7 +52,7 @@ if (!empty($_POST))
    // Sanitize input
    //
    $_POST = sanitize($_POST);
-    
+
    //
    // Form validation
    //
@@ -68,7 +68,7 @@ if (!empty($_POST))
       $inputAlert['password2'] = sprintf($LANG['alert_input_match'], $LANG['profile_password2'], $LANG['profile_password']);
       $inputError = true;
    }
-    
+
    if (!$inputError)
    {
       // ,--------,
@@ -83,7 +83,7 @@ if (!empty($_POST))
          $UP->lastname = $_POST['txt_lastname'];
          $UP->firstname = $_POST['txt_firstname'];
          $UP->email = $_POST['txt_email'];
-          
+
          //
          // Account
          //
@@ -93,8 +93,8 @@ if (!empty($_POST))
          $UP->onhold = '0';
          $UP->verify = '0';
          $UP->bad_logins = '0';
-         $UP->grace_start = '0000-00-00 00:00:00.000000';
-         $UP->last_login = '0000-00-00 00:00:00.000000';
+         $UP->grace_start = DEFAULT_TIMESTAMP;
+         $UP->last_login = DEFAULT_TIMESTAMP;
          $UP->created = date('YmdHis');
 
          //
@@ -103,7 +103,7 @@ if (!empty($_POST))
          $UO->save($_POST['txt_username'], 'avatar', 'default_male.png');
          $UO->save($_POST['txt_username'], 'language', 'default');
          $UO->save($_POST['txt_username'], 'theme', 'default');
-          
+
          //
          // Password
          //
@@ -112,17 +112,17 @@ if (!empty($_POST))
             $UP->password = crypt($_POST['txt_password'], $CONF['salt']);
             $UP->last_pw_change = date('YmdHis');
          }
-          
+
          $UP->create();
-          
+
          //
          // Send notification e-mail to the created uses
          //
-         if (isset($_POST['chk_create_mail'])) 
+         if (isset($_POST['chk_create_mail']))
          {
             sendAccountCreatedMail($UP->email, $UP->username, $_POST['txt_password']);
          }
-         
+          
          //
          // Send notification e-mails to the subscribers of user events
          //
@@ -130,12 +130,12 @@ if (!empty($_POST))
          {
             sendUserEventNotifications("created", $UP->username, $UP->firstname, $UP->lastname);
          }
-          
+
          //
          // Log this event
          //
          $LOG->log("logUser",$L->checkLogin(),"log_user_added", $UP->username);
-         
+          
          //
          // Load profile page
          //
@@ -163,13 +163,13 @@ if (!empty($_POST))
 //
 $LANG['profile_password_comment'] .= $LANG['password_rules_'.$C->read('pwdStrength')];
 $viewData['personal'] = array (
-   array ( 'prefix' => 'profile', 'name' => 'username', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['username'])?$inputAlert['username']:'') ),
-   array ( 'prefix' => 'profile', 'name' => 'lastname', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['lastname'])?$inputAlert['lastname']:'') ),
-   array ( 'prefix' => 'profile', 'name' => 'firstname', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['firstname'])?$inputAlert['firstname']:'') ), 
-   array ( 'prefix' => 'profile', 'name' => 'email', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['email'])?$inputAlert['email']:'') ),
-   array ( 'prefix' => 'profile', 'name' => 'password', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'mandatory' => true, 'error' =>  (isset($inputAlert['password'])?$inputAlert['password']:'') ),
-   array ( 'prefix' => 'profile', 'name' => 'password2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'mandatory' => true, 'error' =>  (isset($inputAlert['password2'])?$inputAlert['password2']:'') ),
-   array ( 'prefix' => 'profile', 'name' => 'create_mail', 'type' => 'check', 'value' => '0' ),
+array ( 'prefix' => 'profile', 'name' => 'username', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['username'])?$inputAlert['username']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'lastname', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['lastname'])?$inputAlert['lastname']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'firstname', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['firstname'])?$inputAlert['firstname']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'email', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['email'])?$inputAlert['email']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'password', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'mandatory' => true, 'error' =>  (isset($inputAlert['password'])?$inputAlert['password']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'password2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'mandatory' => true, 'error' =>  (isset($inputAlert['password2'])?$inputAlert['password2']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'create_mail', 'type' => 'check', 'value' => '0' ),
 );
 
 //=============================================================================

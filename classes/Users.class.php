@@ -1,14 +1,14 @@
 <?php
 /**
  * Users.class.php
- *
- * @category TeamCal Neo 
- * @version 1.2.001
- * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2016 by George Lewe
- * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed.
- */
+*
+* @category TeamCal Neo
+* @version 1.2.001
+* @author George Lewe <george@lewe.com>
+* @copyright Copyright (c) 2014-2016 by George Lewe
+* @link http://www.lewe.com
+* @license This program cannot be licensed. Redistribution is not allowed.
+*/
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 /**
@@ -21,21 +21,21 @@ class Users
    public $firstname = '';
    public $lastname = '';
    public $email = '';
-   public $role = '';
+   public $role = 2;
    public $locked = 0;
    public $hidden = 0;
    public $onhold = 0;
    public $verify = 0;
    public $bad_logins = 0;
-   public $grace_start = NULL;
-   public $last_pw_change = NULL;
-   public $last_login = NULL;
-   public $created = NULL;
-   
+   public $grace_start = DEFAULT_TIMESTAMP;
+   public $last_pw_change = DEFAULT_TIMESTAMP;
+   public $last_login = DEFAULT_TIMESTAMP;
+   public $created = DEFAULT_TIMESTAMP;
+    
    private $db = '';
    private $table = '';
    private $archive_table = '';
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Constructor
@@ -47,7 +47,7 @@ class Users
       $this->table = $CONF['db_table_users'];
       $this->archive_table = $CONF['db_table_archive_users'];
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Archives a user record
@@ -62,7 +62,7 @@ class Users
       $result = $query->execute();
       return $result;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Restore arcived user records
@@ -77,7 +77,7 @@ class Users
       $result = $query->execute();
       return $result;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Checks whether a user record exists
@@ -90,11 +90,11 @@ class Users
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
-      
+
       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :val1');
       $query->bindParam('val1', $username);
       $result = $query->execute();
-      
+
       if ($result and $query->fetchColumn())
       {
          return true;
@@ -104,7 +104,7 @@ class Users
          return false;
       }
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Reads all user records
@@ -117,17 +117,17 @@ class Users
    {
       if ($countHidden)
          $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
-      else 
-         $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE hidden = 0');
-      
-      $result = $query->execute();
-      
-      if ($countAdmin) 
-         return $result->fetchColumn();
-      else 
-         return $result->fetchColumn()-1;
+         else
+            $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE hidden = 0');
+
+            $result = $query->execute();
+
+            if ($countAdmin)
+               return $result->fetchColumn();
+               else
+                  return $result->fetchColumn()-1;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Creates a new user record from local variables
@@ -136,12 +136,46 @@ class Users
     */
    public function create()
    {
-//       $q = 'INSERT INTO ' . $this->table . ' (username, password, firstname, lastname, email, role, locked, hidden, onhold, verify, bad_logins, grace_start, last_pw_change, last_login, created) ';
-//       $q .= 'VALUES ("'.$this->username.'", "'.$this->password.'", "'.$this->firstname.'", "'.$this->lastname.'", "'.$this->email.'", "'.$this->role.'", "'.$this->locked.'", "'.$this->hidden.'", "'.$this->onhold.'", "'.$this->verify.'", "'.$this->bad_logins.'", "'.$this->grace_start.'", "'.$this->last_pw_change.'", "'.$this->last_login.'", "'.$this->created.'")';
-//       print $q;
+      //       $q = 'INSERT INTO ' . $this->table . ' (
+      //             username,
+      //             password,
+      //             firstname,
+      //             lastname,
+      //             email,
+      //             role,
+      //             locked,
+      //             hidden,
+      //             onhold,
+      //             verify,
+      //             bad_logins,
+      //             grace_start,
+      //             last_pw_change,
+      //             last_login,
+      //             created
+      //          ) VALUES (
+      //             "'.$this->username.'",
+      //             "'.$this->password.'",
+      //             "'.$this->firstname.'",
+      //             "'.$this->lastname.'",
+      //             "'.$this->email.'",
+      //             "'.$this->role.'",
+      //             "'.$this->locked.'",
+      //             "'.$this->hidden.'",
+      //             "'.$this->onhold.'",
+      //             "'.$this->verify.'",
+      //             "'.$this->bad_logins.'",
+      //             "'.$this->grace_start.'",
+      //             "'.$this->last_pw_change.'",
+      //             "'.$this->last_login.'",
+      //             "'.$this->created.'"
+      //          )';
+      //       print $q;
+
       $stmt = 'INSERT INTO ' . $this->table . ' (username, password, firstname, lastname, email, role, locked, hidden, onhold, verify, bad_logins, grace_start, last_pw_change, last_login, created) ';
       $stmt .= 'VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12, :val13, :val14, :val15)';
+
       $query = $this->db->prepare($stmt);
+
       $query->bindParam('val1', $this->username);
       $query->bindParam('val2', $this->password);
       $query->bindParam('val3', $this->firstname);
@@ -157,10 +191,11 @@ class Users
       $query->bindParam('val13', $this->last_pw_change);
       $query->bindParam('val14', $this->last_login);
       $query->bindParam('val15', $this->created);
+
       $result = $query->execute();
       return $result;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Deletes all records
@@ -172,12 +207,12 @@ class Users
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
-      
+
       $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username <> "admin"');
       $result = $query->execute();
       return $result;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Deletes a user record by username
@@ -190,13 +225,13 @@ class Users
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
-      
+
       $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username = :val1');
       $query->bindParam('val1', $username);
       $result = $query->execute();
       return $result;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Finds a user record by username and fills values into local variables
@@ -209,11 +244,11 @@ class Users
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
-      
+
       $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username = :val1');
       $query->bindParam('val1', $username);
       $result = $query->execute();
-      
+
       if ($result and $row = $query->fetch())
       {
          $this->username = $row['username'];
@@ -234,7 +269,7 @@ class Users
       }
       return $result;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Gets all records into an array
@@ -251,24 +286,24 @@ class Users
       $records = array ();
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
-      
+
       if ($includeAdmin)
          $query = $this->db->prepare('SELECT * FROM ' . $table . ' ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
-      else 
-         $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != "admin" ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
-          
-      $result = $query->execute();
-      
-      if ($result)
-      {
-         while ( $row = $query->fetch() )
-         {
-            $records[] = $row;
-         }
-      }
-      return $records;
+         else
+            $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != "admin" ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
+
+            $result = $query->execute();
+
+            if ($result)
+            {
+               while ( $row = $query->fetch() )
+               {
+                  $records[] = $row;
+               }
+            }
+            return $records;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Gets all records into an array except hidden users
@@ -285,14 +320,14 @@ class Users
       $records = array ();
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
-   
+       
       if ($includeAdmin)
          $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE hidden != 1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
          else
             $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != "admin" AND hidden != 1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
-   
+             
             $result = $query->execute();
-   
+             
             if ($result)
             {
                while ( $row = $query->fetch() )
@@ -302,7 +337,7 @@ class Users
             }
             return $records;
    }
-    
+
    // ---------------------------------------------------------------------
    /**
     * Gets all records with likeness in username, lastname or firstname
@@ -315,12 +350,12 @@ class Users
       $records = array ();
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
-      
+
       $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE firstname LIKE :val1 OR lastname LIKE :val1 OR username LIKE :val1 ORDER BY lastname ASC, firstname ASC');
       $val1 = '%' . $like . '%';
       $query->bindParam('val1', $val1);
       $result = $query->execute();
-      
+
       if ($result)
       {
          while ( $row = $query->fetch() )
@@ -330,7 +365,7 @@ class Users
       }
       return $records;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Gets a record for a given username
@@ -344,11 +379,11 @@ class Users
       $records = array ();
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
-      
+
       $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username = :val1');
       $query->bindParam('val1', $uname);
       $result = $query->execute();
-      
+
       if ($result)
       {
          while ( $row = $query->fetch() )
@@ -358,7 +393,7 @@ class Users
       }
       return $records;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Gets the E-mail address of a given username
@@ -371,14 +406,14 @@ class Users
       $query = $this->db->prepare('SELECT email FROM ' . $this->table . ' WHERE username = :val1');
       $query->bindParam('val1', $username);
       $result = $query->execute();
-      
+
       if ($result and $row = $query->fetch())
       {
          return $row['email'];
       }
       return '';
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Gets the fullname of a given username
@@ -391,7 +426,7 @@ class Users
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1');
       $query->bindParam('val1', $username);
       $result = $query->execute();
-      
+
       if ($result and $row = $query->fetch())
       {
          if (strlen($row['firstname']))
@@ -399,7 +434,7 @@ class Users
             $fullname = $row['firstname'];
             if (strlen($row['lastname'])) $fullname .= ' ' . $row['lastname'];
          }
-         else 
+         else
          {
             if (strlen($row['lastname'])) $fullname = $row['lastname'];
             else  $fullname = 'no name';
@@ -408,7 +443,7 @@ class Users
       }
       return '?';
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Gets Lastname, Firstname of a given username
@@ -421,7 +456,7 @@ class Users
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1');
       $query->bindParam('val1', $username);
       $result = $query->execute();
-      
+
       if ($result and $row = $query->fetch())
       {
          if (strlen($row['lastname']))
@@ -429,7 +464,7 @@ class Users
             $lastfirst = $row['lastname'];
             if (strlen($row['firstname'])) $lastfirst .= ', ' . $row['firstname'];
          }
-         else 
+         else
          {
             if (strlen($row['firstname'])) $lastfirst = $row['firstname'];
             else  $lastfirst = 'no name';
@@ -438,7 +473,7 @@ class Users
       }
       return '?';
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Gets the role of a given username
@@ -451,14 +486,14 @@ class Users
       $query = $this->db->prepare('SELECT role FROM ' . $this->table . ' WHERE username = :val1');
       $query->bindParam('val1', $username);
       $result = $query->execute();
-      
+
       if ($result AND $row = $query->fetch())
       {
          return $row['role'];
       }
       return '';
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Gets all usernames
@@ -470,7 +505,7 @@ class Users
       $records = array ();
       $query = $this->db->prepare('SELECT username FROM ' . $this->table . ' ORDER BY username ASC');
       $result = $query->execute();
-      
+
       if ($result)
       {
          while ( $row = $query->fetch() )
@@ -480,7 +515,7 @@ class Users
       }
       return $records;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Checks whether a user has a certain role
@@ -494,7 +529,7 @@ class Users
       $query = $this->db->prepare('SELECT role FROM ' . $this->table . ' WHERE username = :val1');
       $query->bindParam('val1', $username);
       $result = $query->execute();
-      
+
       if ($result AND $row = $query->fetch())
       {
          if ($row['role'] == $role) return true;
@@ -502,7 +537,7 @@ class Users
       }
       return false;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Checks whether a user is hidden
@@ -515,21 +550,21 @@ class Users
       $query = $this->db->prepare('SELECT hidden FROM ' . $this->table . ' WHERE username = :val1');
       $query->bindParam('val1', $username);
       $result = $query->execute();
-      
+
       if ($result and $row = $query->fetch())
       {
          if ($row['hidden'])
          {
             return true;
          }
-         else 
+         else
          {
             return false;
          }
       }
       return true;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Sets the role ID for a given user
@@ -544,11 +579,11 @@ class Users
       $query->bindParam('val1', $role);
       $query->bindParam('val2', $username);
       $result = $query->execute();
-      
+
       if ($result) return true;
       else         return false;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Unhides a user record
@@ -562,7 +597,7 @@ class Users
       $result = $this->db->exec($stmt);
       return $result;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Unlocks a user record
@@ -576,7 +611,7 @@ class Users
       $result = $this->db->exec($stmt);
       return $result;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Unverifies a user record (Sets verify to 0)
@@ -590,7 +625,7 @@ class Users
       $result = $this->db->exec($stmt);
       return $result;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Updates an existing user record from local class variables
@@ -620,7 +655,7 @@ class Users
       $result = $this->db->exec($stmt);
       return $result;
    }
-   
+    
    // ---------------------------------------------------------------------
    /**
     * Optimize table

@@ -110,7 +110,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <?=(($user['hidden'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_hidden'].'"><i class="glyphicon glyphicon-menu glyphicon-eye-close text-info"></i></i>':'')?>
                                     </div>
                                     <div class="col-lg-2"><?=$user['created']?></div>
-                                    <div class="col-lg-2"><?=$user['last_login']?></div>
+                                    <div class="col-lg-2"><?=(($user['last_login']!=DEFAULT_TIMESTAMP)?$user['last_login']:"")?></div>
                                     <div class="col-lg-2 text-right">
                                        <a href="index.php?action=viewprofile&amp;profile=<?=$user['username']?>" class="btn btn-default btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_view']?></a>
                                        <a href="index.php?action=useredit&amp;profile=<?=$user['username']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>

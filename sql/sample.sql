@@ -561,7 +561,7 @@ DROP TABLE IF EXISTS `tcneo_log`;
 CREATE TABLE `tcneo_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
-  `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `timestamp` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   `user` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `event` text CHARACTER SET utf8,
   PRIMARY KEY (id)
@@ -576,7 +576,7 @@ CREATE TABLE `tcneo_log` (
 DROP TABLE IF EXISTS `tcneo_messages`;
 CREATE TABLE `tcneo_messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `timestamp` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   `text` text CHARACTER SET utf8 NOT NULL,
   `type` varchar(8) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (id)
@@ -943,10 +943,10 @@ CREATE TABLE `tcneo_users` (
   `onhold` tinyint(4) DEFAULT '0',
   `verify` tinyint(4) DEFAULT '0',
   `bad_logins` tinyint(4) DEFAULT '0',
-  `grace_start` datetime DEFAULT NULL,
-  `last_pw_change` datetime DEFAULT NULL,
-  `last_login` datetime DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
+  `grace_start` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
+  `last_pw_change` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
+  `last_login` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
+  `created` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   PRIMARY KEY (username)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -955,15 +955,15 @@ CREATE TABLE `tcneo_users` (
 --
 
 INSERT INTO `tcneo_users` (`username`, `password`, `firstname`, `lastname`, `email`, `role`, `locked`, `hidden`, `onhold`, `verify`, `bad_logins`, `grace_start`, `last_pw_change`, `last_login`, `created`) VALUES
-('blightyear', 's7MuuIoROZfb2', 'Buzz', 'Lightyear', 'blightyear@yourserver.com', 4, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2016-04-23 00:00:00'),
-('sman', 's7MuuIoROZfb2', '', 'Spiderman', 'sman@yourserver.com', 2, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2016-04-23 00:00:00'),
-('mmouse', 's7MuuIoROZfb2', 'Mickey', 'Mouse', 'mmouse@yourserver.com', 4, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2016-04-23 00:00:00'),
-('admin', 's77dWZwOIYXss', '', 'Admin', 'webmaster@yourserver.com', 1, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2016-04-23 00:00:00'),
-('phead', 's7MuuIoROZfb2', 'Potatoe', 'Head', 'phead@yourserver.com', 2, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2016-04-23 00:00:00'),
-('ccarl', 's7MuuIoROZfb2', 'Coyote', 'Carl', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2016-04-23 00:00:00'),
-('dduck', 's7MuuIoROZfb2', 'Donald', 'Duck', 'dduck@yourserver.com', 2, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2016-04-23 00:00:00'),
-('sgonzales', 's7MuuIoROZfb2', 'Speedy', 'Gonzales', 'sgonzales@yourserver.com', 2, 0, 0, 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2016-04-23 00:00:00'),
-('mimouse', 's7MuuIoROZfb2', 'Minnie', 'Mouse', 'mimouse@yourserver.com', 2, 1, 1, 1, 1, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2016-04-23 00:00:00');
+('blightyear', 's7MuuIoROZfb2', 'Buzz', 'Lightyear', 'blightyear@yourserver.com', 4, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
+('sman', 's7MuuIoROZfb2', '', 'Spiderman', 'sman@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
+('mmouse', 's7MuuIoROZfb2', 'Mickey', 'Mouse', 'mmouse@yourserver.com', 4, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
+('admin', 's77dWZwOIYXss', '', 'Admin', 'webmaster@yourserver.com', 1, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
+('phead', 's7MuuIoROZfb2', 'Potatoe', 'Head', 'phead@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
+('ccarl', 's7MuuIoROZfb2', 'Coyote', 'Carl', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
+('dduck', 's7MuuIoROZfb2', 'Donald', 'Duck', 'dduck@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
+('sgonzales', 's7MuuIoROZfb2', 'Speedy', 'Gonzales', 'sgonzales@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
+('mimouse', 's7MuuIoROZfb2', 'Minnie', 'Mouse', 'mimouse@yourserver.com', 2, 1, 1, 1, 1, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00');
 
 -- --------------------------------------------------------
 
