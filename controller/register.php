@@ -5,7 +5,7 @@
  * Register page controller
  *
  * @category TeamCal Neo 
- * @version 1.2.001
+ * @version 1.3.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -174,10 +174,10 @@ if (!empty($_POST))
 //
 $LANG['register_password_comment'] .= $LANG['password_rules_'.$C->read('pwdStrength')];
 $viewData['personal'] = array (
-   array ( 'prefix' => 'register', 'name' => 'username', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['username'])?$inputAlert['username']:'') ),
-   array ( 'prefix' => 'register', 'name' => 'lastname', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['lastname'])?$inputAlert['lastname']:'') ),
-   array ( 'prefix' => 'register', 'name' => 'firstname', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['firstname'])?$inputAlert['firstname']:'') ), 
-   array ( 'prefix' => 'register', 'name' => 'email', 'type' => 'text', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['email'])?$inputAlert['email']:'') ),
+   array ( 'prefix' => 'register', 'name' => 'username', 'type' => 'text', 'placeholder' => '', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['username'])?$inputAlert['username']:'') ),
+   array ( 'prefix' => 'register', 'name' => 'lastname', 'type' => 'text', 'placeholder' => '', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['lastname'])?$inputAlert['lastname']:'') ),
+   array ( 'prefix' => 'register', 'name' => 'firstname', 'type' => 'text', 'placeholder' => '', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['firstname'])?$inputAlert['firstname']:'') ), 
+   array ( 'prefix' => 'register', 'name' => 'email', 'type' => 'text', 'placeholder' => '', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['email'])?$inputAlert['email']:'') ),
    array ( 'prefix' => 'register', 'name' => 'password', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'mandatory' => true, 'error' =>  (isset($inputAlert['password'])?$inputAlert['password']:'') ),
    array ( 'prefix' => 'register', 'name' => 'password2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'mandatory' => true, 'error' =>  (isset($inputAlert['password2'])?$inputAlert['password2']:'') ),
    array ( 'prefix' => 'register', 'name' => 'code', 'type' => 'securimage', 'value' => '', 'maxlength' => '6', 'mandatory' => true, 'error' =>  (isset($inputAlert['code'])?$inputAlert['code']:'') ),

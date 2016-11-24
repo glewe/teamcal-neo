@@ -5,7 +5,7 @@
  * Region edit page controller
  *
  * @category TeamCal Neo 
- * @version 1.2.001
+ * @version 1.3.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -175,8 +175,8 @@ foreach ($roles as $role)
    $viewData['viewOnlyRoles'][] = array ('val' => $role['id'], 'name' => $role['name'], 'selected' => ($R->getAccess($viewData['id'],$role['id']) == "view")?true:false );
 }
 $viewData['region'] = array (
-   array ( 'prefix' => 'region', 'name' => 'name', 'type' => 'text', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
-   array ( 'prefix' => 'region', 'name' => 'description', 'type' => 'text', 'value' => $viewData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
+   array ( 'prefix' => 'region', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
+   array ( 'prefix' => 'region', 'name' => 'description', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
    array ( 'prefix' => 'region', 'name' => 'viewOnlyRoles', 'type' => 'listmulti', 'values' => $viewData['viewOnlyRoles']),
 );
 

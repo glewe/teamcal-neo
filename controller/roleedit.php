@@ -5,7 +5,7 @@
  * Role edit page controller
  *
  * @category TeamCal Neo 
- * @version 1.2.001
+ * @version 1.3.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -165,8 +165,8 @@ if (!empty($_POST))
 // PREPARE VIEW
 //
 $viewData['role'] = array (
-   array ( 'prefix' => 'role', 'name' => 'name', 'type' => 'text', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
-   array ( 'prefix' => 'role', 'name' => 'description', 'type' => 'text', 'value' => $viewData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
+   array ( 'prefix' => 'role', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
+   array ( 'prefix' => 'role', 'name' => 'description', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
    array ( 'prefix' => 'role', 'name' => 'color', 'type' => 'radio', 'values' => array ('default', 'primary', 'info', 'success', 'warning', 'danger'), 'value' => $RO2->getColorByName($viewData['name']) ),
 );
 

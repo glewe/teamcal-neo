@@ -5,7 +5,7 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 1.2.001
+ * @version 1.3.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -136,7 +136,7 @@ $LANG['alert_decl_approval_required'] = "Dieser Abwesenheitstyp ben&ouml;tigt Ma
 $LANG['alert_decl_approval_required_daynote'] = "Diese Abwesenheit wurde angefragt, ist aber noch nicht best&auml;tigt.";
 $LANG['alert_decl_before_date'] = "Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";
 $LANG['alert_decl_group_threshold'] = "Die Abwesenheitsgrenze wurde erreicht für die Gruppe(n): ";
-$LANG['alert_decl_period'] = ": Abwesenheits&auml;nderungen in folgendem Zeitraum sind nicht erlaubt: ";
+$LANG['alert_decl_period'] = "Abwesenheits&auml;nderungen in folgendem Zeitraum sind nicht erlaubt: ";
 $LANG['alert_decl_total_threshold'] = "Die generelle Abwesenheitsgrenze wurde erreicht.";
 
 //
@@ -363,7 +363,7 @@ $LANG['decl_Enddate'] = 'Aktivierungs-Endedatum';
 $LANG['decl_Enddate_comment'] = 'W&auml;hle das Datum, an dem diese Ablehnungsregel autmatisch enden soll. Die Regel ist dann bis einschlie&szlig;lich diesen Tages aktiv.';
 $LANG['decl_Message'] = 'Ablehnungsnachricht';
 $LANG['decl_Message_comment'] = 'Hier kann eine individuelle Nachricht eingegeben werden, die dem Nutzer bei Ablehnung einer Abwesenheit durch diese Regel angezeigt wird. 
-      Wenn hier kein Text eingetragen ist, wird eine Standardnachricht angezeigt.';
+      Die konfigurierte Zeitperiode wird direkt dahinter angezeigt.';
 $LANG['decl_Period'] = 'Anwendungszeitraum';
 $LANG['decl_Period_comment'] = 'W&auml;hle hier, von wann bis wann diese Regel aktiv sein soll. Wenn eine Option mit Start- oder Endedatum gew&auml;hlt wird, m&uuml;ssen diese unten ein getragen werden.<br>
       <i>Die Regel muss grunds&auml;tzlich aktiviert sein, bevor diese Einstellung greift.</i>';
@@ -482,6 +482,7 @@ $LANG['decl_period3Startdate'] = $LANG['decl_Startdate'];
 $LANG['decl_period3Startdate_comment'] = $LANG['decl_Startdate_comment'];
 $LANG['decl_roles'] = 'Anwenden bei Rollen';
 $LANG['decl_roles_comment'] = 'W&auml;hle hier die Rollen aus, bei denen die Ablehnungsregeln angewendet werden sollen.';
+$LANG['decl_schedule'] = 'Zeitplan';
 $LANG['decl_schedule_nowForever'] = 'Solange aktiviert';
 $LANG['decl_schedule_nowEnddate'] = 'Von Aktivierung bis %s';
 $LANG['decl_schedule_startdateForever'] = 'Von %s bis Deaktivierung';
@@ -500,6 +501,7 @@ $LANG['decl_tab_period3'] = 'Zeitraum 3';
 $LANG['decl_tab_scope'] = 'Geltungsbereich';
 $LANG['decl_threshold'] = 'Abwesenheitsrate (%)';
 $LANG['decl_threshold_comment'] = 'Hier kann eine Abwesenheitsrate in Prozent angegeben werden, die nicht unterschritten werden darf.';
+$LANG['decl_value'] = 'Wert';
 
 //
 // E-Mail

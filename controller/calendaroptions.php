@@ -5,7 +5,7 @@
  * Calendar config page controller
  *
  * @category TeamCal Neo 
- * @version 1.2.001
+ * @version 1.3.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -111,11 +111,11 @@ if (isset($_POST['btn_caloptApply']))
  */
 $caloptData['display'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'todayBorderColor', 'type' => 'color', 'value' => $C->read("todayBorderColor"), 'maxlength' => '6' ),
-   array ( 'prefix' => 'calopt', 'name' => 'todayBorderSize', 'type' => 'text', 'value' => $C->read("todayBorderSize"), 'maxlength' => '2' ),
+   array ( 'prefix' => 'calopt', 'name' => 'todayBorderSize', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("todayBorderSize"), 'maxlength' => '2' ),
    array ( 'prefix' => 'calopt', 'name' => 'pastDayColor', 'type' => 'color', 'value' => $C->read("pastDayColor"), 'maxlength' => '6' ),
    array ( 'prefix' => 'calopt', 'name' => 'showWeekNumbers', 'type' => 'check', 'values' => '', 'value' => $C->read("showWeekNumbers") ),
-   array ( 'prefix' => 'calopt', 'name' => 'repeatHeaderCount', 'type' => 'text', 'value' => $C->read("repeatHeaderCount"), 'maxlength' => '4' ),
-   array ( 'prefix' => 'calopt', 'name' => 'usersPerPage', 'type' => 'text', 'value' => $C->read("usersPerPage"), 'maxlength' => '4' ),
+   array ( 'prefix' => 'calopt', 'name' => 'repeatHeaderCount', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("repeatHeaderCount"), 'maxlength' => '4' ),
+   array ( 'prefix' => 'calopt', 'name' => 'usersPerPage', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("usersPerPage"), 'maxlength' => '4' ),
    array ( 'prefix' => 'calopt', 'name' => 'showAvatars', 'type' => 'check', 'values' => '', 'value' => $C->read("showAvatars") ),
    array ( 'prefix' => 'calopt', 'name' => 'showRoleIcons', 'type' => 'check', 'values' => '', 'value' => $C->read("showRoleIcons") ),
    array ( 'prefix' => 'calopt', 'name' => 'showTooltipCount', 'type' => 'check', 'values' => '', 'value' => $C->read("showTooltipCount") ),
@@ -152,7 +152,7 @@ $statsScale = array (
 );
 $caloptData['stats'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'statsScale', 'type' => 'list', 'values' => $statsScale ),
-   array ( 'prefix' => 'calopt', 'name' => 'statsSmartValue', 'type' => 'text', 'value' => $C->read("statsSmartValue"), 'maxlength' => '3' ),
+   array ( 'prefix' => 'calopt', 'name' => 'statsSmartValue', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("statsSmartValue"), 'maxlength' => '3' ),
 );
 
 $caloptData['summary'] = array (

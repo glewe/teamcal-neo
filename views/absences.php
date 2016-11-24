@@ -5,7 +5,7 @@
  * Absence type list page view
  *
  * @category TeamCal Neo 
- * @version 1.2.001
+ * @version 1.3.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -87,8 +87,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <?=(($absence['allowmonth'] OR ($absence['allowweek']))?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_allow_active'].'"><i class="fa fa-hand-stop-o fa-lg text-warning"></i></i>':'')?>
                            </div>
                            <div class="col-lg-2 text-right">
-                              <a href="index.php?action=absenceedit&amp;id=<?=$absence['id']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>
                               <button type="button" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteAbsence_<?=$absence['id']?>"><?=$LANG['btn_delete']?></button>
+                              <a href="index.php?action=absenceedit&amp;id=<?=$absence['id']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>
                               <input name="hidden_id" type="hidden" value="<?=$absence['id']?>">
                               <input name="hidden_name" type="hidden" value="<?=$absence['name']?>">
                            </div>
@@ -117,8 +117,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  
                               </div>
                               <div class="col-lg-2 text-right">
-                                 <a href="index.php?action=absenceedit&amp;id=<?=$subabs['id']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>
                                  <button type="button" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteSubAbsence_<?=$subabs['id']?>"><?=$LANG['btn_delete']?></button>
+                                 <a href="index.php?action=absenceedit&amp;id=<?=$subabs['id']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>
                                  <input name="hidden_id" type="hidden" value="<?=$subabs['id']?>">
                                  <input name="hidden_name" type="hidden" value="<?=$subabs['name']?>">
                               </div>

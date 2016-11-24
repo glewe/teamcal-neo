@@ -5,7 +5,7 @@
  * Declination page view
  *
  * @category TeamCal Neo 
- * @version 1.2.001
+ * @version 1.3.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -102,23 +102,26 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     ?>
                               
                                     <div class="form-group" id="form-group-overview-<?=$overview?>">
-                                       <label for="overview-<?=$overview?>" class="col-lg-8 control-label">
+                                       <label class="col-lg-8 control-label">
                                           <?=$LANG['decl_tab_'.strtolower($overview)]?><br>
-                                          <span class="text-normal"><?=$LANG['decl_summary_'.strtolower($overview)]?><br><?=$details?></span>
+                                          <span class="text-normal"><?=$LANG['decl_summary_'.strtolower($overview)]?><br>
+                                             <span class="small text-italic text-info"><strong><?=$LANG['decl_value'].':</strong> '.$details?></span><br>
+                                             <span class="small text-italic text-info"><strong><?=$LANG['decl_schedule'].':</strong> '.$schedule?></span><br>
+                                          </span>
                                        </label>
                                        <div class="col-lg-4">
                                           <?php switch ($viewData['decl'.$overview.'Status']) { 
                                              case 'active': ?>
-                                                <span class="label label-danger"><?=$LANG['decl_label_active']?></span><br><br><span class="small text-danger"><?=$schedule?></span>
+                                                <span class="label label-danger"><?=$LANG['decl_label_active']?></span>
                                                 <?php break;
                                              case 'expired': ?>
-                                                <span class="label label-success"><?=$LANG['decl_label_expired']?></span><br><br><span class="small text-success"><?=$schedule?></span>
+                                                <span class="label label-success"><?=$LANG['decl_label_expired']?></span>
                                                 <?php break;
                                              case 'inactive': ?>
-                                                <span class="label label-default"><?=$LANG['decl_label_inactive']?></span><br><br><span class="small text-default"><?=$schedule?></span>
+                                                <span class="label label-default"><?=$LANG['decl_label_inactive']?></span>
                                                 <?php break;
                                              case 'scheduled': ?>
-                                                <span class="label label-warning"><?=$LANG['decl_label_scheduled']?></span><br><br><span class="small text-warning"><?=$schedule?></span>
+                                                <span class="label label-warning"><?=$LANG['decl_label_scheduled']?></span>
                                                 <?php break;
                                           } ?>
                                        </div>

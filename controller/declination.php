@@ -5,7 +5,7 @@
  * Declination page controller
  *
  * @category TeamCal Neo 
- * @version 1.2.001
+ * @version 1.3.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -550,7 +550,7 @@ $viewData['declApplyToAll'] = $C->read('declApplyToAll');
 
 $viewData['absence'] = array (
    array ( 'prefix' => 'decl', 'name' => 'absence', 'type' => 'check', 'value' => $viewData['declAbsence'] ),
-   array ( 'prefix' => 'decl', 'name' => 'threshold', 'type' => 'text', 'value' => $viewData['declThreshold'], 'maxlength' => '2', 'error' => (isset($inputAlert['threshold'])?$inputAlert['threshold']:'') ),
+   array ( 'prefix' => 'decl', 'name' => 'threshold', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['declThreshold'], 'maxlength' => '2', 'error' => (isset($inputAlert['threshold'])?$inputAlert['threshold']:'') ),
    array ( 'prefix' => 'decl', 'name' => 'base', 'type' => 'radio', 'values' => array ('all', 'group'), 'value' => $viewData['declBase'] ),
    array ( 'prefix' => 'decl', 'name' => 'absencePeriod', 'type' => 'radio', 'values' => array ('nowForever', 'nowEnddate', 'startdateForever', 'startdateEnddate'), 'value' => $viewData['declAbsencePeriod'] ),
    array ( 'prefix' => 'decl', 'name' => 'absenceStartdate', 'type' => 'date', 'value' => $viewData['declAbsenceStartdate'], 'error' => (isset($inputAlert['absenceStartdate'])?$inputAlert['absenceStartdate']:''), 'disabled' => $absenceStartdateDisabled ),
@@ -573,7 +573,7 @@ $viewData['period1'] = array (
    array ( 'prefix' => 'decl', 'name' => 'period1Period', 'type' => 'radio', 'values' => array ('nowForever', 'nowEnddate', 'startdateForever', 'startdateEnddate'), 'value' => $viewData['declPeriod1Period'] ),
    array ( 'prefix' => 'decl', 'name' => 'period1Startdate', 'type' => 'date', 'value' => $viewData['declPeriod1Startdate'], 'error' => (isset($inputAlert['period1Startdate'])?$inputAlert['period1Startdate']:''), 'disabled' => $period1StartdateDisabled ),
    array ( 'prefix' => 'decl', 'name' => 'period1Enddate', 'type' => 'date', 'value' => $viewData['declPeriod1Enddate'], 'error' => (isset($inputAlert['period1Enddate'])?$inputAlert['period1Enddate']:''), 'disabled' => $period1EnddateDisabled  ),
-   array ( 'prefix' => 'decl', 'name' => 'period1Message', 'type' => 'textlong', 'value' => strip_tags($C->read("declPeriod1Message")), 'maxlength' => '240', 'error' => (isset($inputAlert['period1Message'])?$inputAlert['period1Message']:'') ),
+   array ( 'prefix' => 'decl', 'name' => 'period1Message', 'type' => 'textlong', 'value' => strip_tags($C->read("declPeriod1Message")), 'placeholder' => $LANG['alert_decl_period'], 'maxlength' => '240', 'error' => (isset($inputAlert['period1Message'])?$inputAlert['period1Message']:'') ),
 );
 
 $viewData['period2'] = array (
@@ -583,7 +583,7 @@ $viewData['period2'] = array (
    array ( 'prefix' => 'decl', 'name' => 'period2Period', 'type' => 'radio', 'values' => array ('nowForever', 'nowEnddate', 'startdateForever', 'startdateEnddate'), 'value' => $viewData['declPeriod2Period'] ),
    array ( 'prefix' => 'decl', 'name' => 'period2Startdate', 'type' => 'date', 'value' => $viewData['declPeriod2Startdate'], 'error' => (isset($inputAlert['period2Startdate'])?$inputAlert['period2Startdate']:''), 'disabled' => $period2StartdateDisabled ),
    array ( 'prefix' => 'decl', 'name' => 'period2Enddate', 'type' => 'date', 'value' => $viewData['declPeriod2Enddate'], 'error' => (isset($inputAlert['period2Enddate'])?$inputAlert['period2Enddate']:''), 'disabled' => $period2EnddateDisabled  ),
-   array ( 'prefix' => 'decl', 'name' => 'period2Message', 'type' => 'textlong', 'value' => strip_tags($C->read("declPeriod2Message")), 'maxlength' => '240', 'error' => (isset($inputAlert['period2Message'])?$inputAlert['period2Message']:'') ),
+   array ( 'prefix' => 'decl', 'name' => 'period2Message', 'type' => 'textlong', 'value' => strip_tags($C->read("declPeriod2Message")), 'placeholder' => $LANG['alert_decl_period'], 'maxlength' => '240', 'error' => (isset($inputAlert['period2Message'])?$inputAlert['period2Message']:'') ),
 );
 
 $viewData['period3'] = array (
@@ -593,7 +593,7 @@ $viewData['period3'] = array (
    array ( 'prefix' => 'decl', 'name' => 'period3Period', 'type' => 'radio', 'values' => array ('nowForever', 'nowEnddate', 'startdateForever', 'startdateEnddate'), 'value' => $viewData['declPeriod3Period'] ),
    array ( 'prefix' => 'decl', 'name' => 'period3Startdate', 'type' => 'date', 'value' => $viewData['declPeriod3Startdate'], 'error' => (isset($inputAlert['period3Startdate'])?$inputAlert['period3Startdate']:''), 'disabled' => $period3StartdateDisabled ),
    array ( 'prefix' => 'decl', 'name' => 'period3Enddate', 'type' => 'date', 'value' => $viewData['declPeriod3Enddate'], 'error' => (isset($inputAlert['period3Enddate'])?$inputAlert['period3Enddate']:''), 'disabled' => $period3EnddateDisabled  ),
-   array ( 'prefix' => 'decl', 'name' => 'period3Message', 'type' => 'textlong', 'value' => strip_tags($C->read("declPeriod3Message")), 'maxlength' => '240', 'error' => (isset($inputAlert['period3Message'])?$inputAlert['period3Message']:'') ),
+   array ( 'prefix' => 'decl', 'name' => 'period3Message', 'type' => 'textlong', 'value' => strip_tags($C->read("declPeriod3Message")), 'placeholder' => $LANG['alert_decl_period'], 'maxlength' => '240', 'error' => (isset($inputAlert['period3Message'])?$inputAlert['period3Message']:'') ),
 );
 
 $roles = $RO->getAll();

@@ -5,7 +5,7 @@
  * Collection of view related helpers
  *
  * @category TeamCal Neo 
- * @version 1.2.001
+ * @version 1.3.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -266,7 +266,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
                <span class="text-normal">' . $LANG[$langIdx2] . '</span>
             </label>
             <div class="col-lg-' . $colsright . '">
-               <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="text" maxlength="' . $data['maxlength'] . '" value="' . $data['value'] . '"' . $disabled . '>
+               <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="text" maxlength="' . $data['maxlength'] . '" value="' . $data['value'] . '" placeholder="'.$data['placeholder'].'"' . $disabled . '>
             '.$button.$error.'</div>
             <div class="divider"><hr></div>
          </div>';
@@ -284,7 +284,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
                <span class="text-normal">' . $LANG[$langIdx2] . '</span>
             </label>
             <div class="col-lg-12">
-               <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="text" maxlength="' . $data['maxlength'] . '" value="' . $data['value'] . '"' . $disabled . '>
+               <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="text" maxlength="' . $data['maxlength'] . '" value="' . $data['value'] . '" placeholder="'.$data['placeholder'].'"' . $disabled . '>
             '.$button.$error.'</div>
             <div class="divider"><hr></div>
          </div>';

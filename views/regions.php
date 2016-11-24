@@ -5,7 +5,7 @@
  * Regions page view
  *
  * @category TeamCal Neo 
- * @version 1.2.001
+ * @version 1.3.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -96,9 +96,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="col-lg-3"><?=$region['name']?></div>
                                           <div class="col-lg-6"><?=$region['description']?></div>
                                           <div class="col-lg-3 text-right">
+                                             <button type="button" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteRegion_<?=$region['name']?>"><?=$LANG['btn_delete']?></button>
                                              <a href="index.php?action=regionedit&amp;id=<?=$region['id']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>
                                              <a href="index.php?action=monthedit&amp;month=<?=date('Y').date('m')?>&amp;region=<?=$region['id']?>" class="btn btn-info btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_calendar']?></a>
-                                             <button type="button" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteRegion_<?=$region['name']?>"><?=$LANG['btn_delete']?></button>
                                              <input name="hidden_id" type="hidden" value="<?=$region['id']?>">
                                              <input name="hidden_name" type="hidden" value="<?=$region['name']?>">
                                              <input name="hidden_description" type="hidden" value="<?=$region['description']?>">

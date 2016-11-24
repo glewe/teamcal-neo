@@ -5,7 +5,7 @@
  * Language file (German)
  *
  * @category TeamCal Neo 
- * @version 1.2.001
+ * @version 1.3.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -21,6 +21,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 // enter your application language strings to keep them separate.
 //
 $LANG['locale'] = 'de_DE';
+$LANG['html_locale'] = 'de';
 
 //
 // Common

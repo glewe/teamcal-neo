@@ -432,12 +432,12 @@ $groups = $G->getAll();
 // Personal
 //
 $viewData['personal'] = array (
-array ( 'prefix' => 'profile', 'name' => 'username', 'type' => 'text', 'value' => $UP->username, 'maxlength' => '80', 'disabled' => true, 'mandatory' => true, 'error' =>  (isset($inputAlert['username'])?$inputAlert['username']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'lastname', 'type' => 'text', 'value' => $UP->lastname, 'maxlength' => '80', 'error' =>  (isset($inputAlert['lastname'])?$inputAlert['lastname']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'firstname', 'type' => 'text', 'value' => $UP->firstname, 'maxlength' => '80', 'error' =>  (isset($inputAlert['firstname'])?$inputAlert['firstname']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'title', 'type' => 'text', 'value' => $UO->read($profile, 'title'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['title'])?$inputAlert['title']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'position', 'type' => 'text', 'value' => $UO->read($profile, 'position'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['position'])?$inputAlert['position']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'id', 'type' => 'text', 'value' => $UO->read($profile, 'id'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['id'])?$inputAlert['id']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'username', 'type' => 'text', 'placeholder' => '', 'value' => $UP->username, 'maxlength' => '80', 'disabled' => true, 'mandatory' => true, 'error' =>  (isset($inputAlert['username'])?$inputAlert['username']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'lastname', 'type' => 'text', 'placeholder' => '', 'value' => $UP->lastname, 'maxlength' => '80', 'error' =>  (isset($inputAlert['lastname'])?$inputAlert['lastname']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'firstname', 'type' => 'text', 'placeholder' => '', 'value' => $UP->firstname, 'maxlength' => '80', 'error' =>  (isset($inputAlert['firstname'])?$inputAlert['firstname']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'title', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'title'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['title'])?$inputAlert['title']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'position', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'position'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['position'])?$inputAlert['position']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'id', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'id'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['id'])?$inputAlert['id']:'') ),
 array ( 'prefix' => 'profile', 'name' => 'gender', 'type' => 'radio', 'values' => array ('male', 'female'), 'value' => $UO->read($profile, 'gender') ),
 );
 
@@ -445,14 +445,14 @@ array ( 'prefix' => 'profile', 'name' => 'gender', 'type' => 'radio', 'values' =
 // Contact
 //
 $viewData['contact'] = array (
-array ( 'prefix' => 'profile', 'name' => 'email', 'type' => 'text', 'value' => $UP->email, 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['email'])?$inputAlert['email']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'phone', 'type' => 'text', 'value' => $UO->read($profile, 'phone'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['phone'])?$inputAlert['phone']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'mobilephone', 'type' => 'text', 'value' => $UO->read($profile, 'mobile'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['mobile'])?$inputAlert['mobile']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'facebook', 'type' => 'text', 'value' => $UO->read($profile, 'facebook'), 'maxlength' => '80' ),
-array ( 'prefix' => 'profile', 'name' => 'google', 'type' => 'text', 'value' => $UO->read($profile, 'google'), 'maxlength' => '80' ),
-array ( 'prefix' => 'profile', 'name' => 'linkedin', 'type' => 'text', 'value' => $UO->read($profile, 'linkedin'), 'maxlength' => '80' ),
-array ( 'prefix' => 'profile', 'name' => 'skype', 'type' => 'text', 'value' => $UO->read($profile, 'skype'), 'maxlength' => '80' ),
-array ( 'prefix' => 'profile', 'name' => 'twitter', 'type' => 'text', 'value' => $UO->read($profile, 'twitter'), 'maxlength' => '80' ),
+array ( 'prefix' => 'profile', 'name' => 'email', 'type' => 'text', 'placeholder' => '', 'value' => $UP->email, 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['email'])?$inputAlert['email']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'phone', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'phone'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['phone'])?$inputAlert['phone']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'mobilephone', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'mobile'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['mobile'])?$inputAlert['mobile']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'facebook', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'facebook'), 'maxlength' => '80' ),
+array ( 'prefix' => 'profile', 'name' => 'google', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'google'), 'maxlength' => '80' ),
+array ( 'prefix' => 'profile', 'name' => 'linkedin', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'linkedin'), 'maxlength' => '80' ),
+array ( 'prefix' => 'profile', 'name' => 'skype', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'skype'), 'maxlength' => '80' ),
+array ( 'prefix' => 'profile', 'name' => 'twitter', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'twitter'), 'maxlength' => '80' ),
 );
 
 //
@@ -577,11 +577,11 @@ foreach ($absences as $abs)
 // Custom
 //
 $viewData['custom'] = array (
-array ( 'prefix' => 'profile', 'name' => 'custom1', 'type' => 'text', 'value' => $UO->read($profile, 'custom1'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom1'])?$inputAlert['custom1']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'custom2', 'type' => 'text', 'value' => $UO->read($profile, 'custom2'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom2'])?$inputAlert['custom2']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'custom3', 'type' => 'text', 'value' => $UO->read($profile, 'custom3'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom3'])?$inputAlert['custom3']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'custom4', 'type' => 'text', 'value' => $UO->read($profile, 'custom4'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom4'])?$inputAlert['custom4']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'custom5', 'type' => 'text', 'value' => $UO->read($profile, 'custom5'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom5'])?$inputAlert['custom5']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'custom1', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'custom1'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom1'])?$inputAlert['custom1']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'custom2', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'custom2'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom2'])?$inputAlert['custom2']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'custom3', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'custom3'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom3'])?$inputAlert['custom3']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'custom4', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'custom4'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom4'])?$inputAlert['custom4']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'custom5', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'custom5'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom5'])?$inputAlert['custom5']:'') ),
 );
 
 //=============================================================================

@@ -5,7 +5,7 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 1.2.001
+ * @version 1.3.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -363,7 +363,7 @@ $LANG['decl_Enddate'] = 'Automatic End Date';
 $LANG['decl_Enddate_comment'] = 'Select the date here at which this declination rule shall end. The rule will expire after this day.';
 $LANG['decl_Message'] = 'Declination Message';
 $LANG['decl_Message_comment'] = 'You can enter a custom declination message here that will be shown to the user when an absence is declined by this rule.
-      Leave this field empty to show a default message.';
+      Your configured date range will be displayed right after that message.';
 $LANG['decl_Period'] = 'Active Period';
 $LANG['decl_Period_comment'] = 'Select from when to when this declination rule shall be active. If you select an option with a start or end date, enter them below.<br>
       <i>You have to activate this rule at the top before these options will take effect.</i>';
@@ -482,6 +482,7 @@ $LANG['decl_period3Startdate'] = $LANG['decl_Startdate'];
 $LANG['decl_period3Startdate_comment'] = $LANG['decl_Startdate_comment'];
 $LANG['decl_roles'] = 'Apply to Roles';
 $LANG['decl_roles_comment'] = 'Select the roles to which the declination rules will apply.';
+$LANG['decl_schedule'] = 'Schedule';
 $LANG['decl_schedule_nowForever'] = 'As long as activated';
 $LANG['decl_schedule_nowEnddate'] = 'From activation until %s';
 $LANG['decl_schedule_startdateForever'] = 'From %s until deactivation';
@@ -500,6 +501,7 @@ $LANG['decl_tab_period3'] = 'Period 3';
 $LANG['decl_tab_scope'] = 'Scope';
 $LANG['decl_threshold'] = 'Threshold (%)';
 $LANG['decl_threshold_comment'] = 'Enter the threshold in percent here. An absence request will be declined if it would cause this threshold to be reached.';
+$LANG['decl_value'] = 'Value';
 
 //
 // E-Mail

@@ -5,7 +5,7 @@
  * Absence edit controller
  *
  * @category TeamCal Neo 
- * @version 1.2.001
+ * @version 1.3.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -207,8 +207,8 @@ $viewData['bgcolor'] = $AA->bgcolor;
 $viewData['bgtrans'] = $AA->bgtrans;
 
 $viewData['general'] = array (
-   array ( 'prefix' => 'abs', 'name' => 'name', 'type' => 'text', 'value' => $viewData['name'], 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
-   array ( 'prefix' => 'abs', 'name' => 'symbol', 'type' => 'text', 'value' => $viewData['symbol'], 'maxlength' => '1', 'mandatory' => true, 'error' =>  (isset($inputAlert['symbol'])?$inputAlert['symbol']:'') ),
+   array ( 'prefix' => 'abs', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
+   array ( 'prefix' => 'abs', 'name' => 'symbol', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['symbol'], 'maxlength' => '1', 'mandatory' => true, 'error' =>  (isset($inputAlert['symbol'])?$inputAlert['symbol']:'') ),
    array ( 'prefix' => 'abs', 'name' => 'color', 'type' => 'color', 'value' => $viewData['color'], 'maxlength' => '6', 'error' =>  (isset($inputAlert['color'])?$inputAlert['color']:'') ), 
    array ( 'prefix' => 'abs', 'name' => 'bgcolor', 'type' => 'color', 'value' => $viewData['bgcolor'], 'maxlength' => '6', 'error' =>  (isset($inputAlert['bgcolor'])?$inputAlert['bgcolor']:'') ), 
    array ( 'prefix' => 'abs', 'name' => 'bgtrans', 'type' => 'check', 'value' => $viewData['bgtrans'] ), 
@@ -235,10 +235,10 @@ $viewData['hide_in_profile'] = $AA->hide_in_profile;
 $viewData['confidential'] = $AA->confidential;
 
 $viewData['options'] = array (
-   array ( 'prefix' => 'abs', 'name' => 'factor', 'type' => 'text', 'value' => $viewData['factor'], 'maxlength' => '4', 'error' =>  (isset($inputAlert['factor'])?$inputAlert['factor']:'') ), 
-   array ( 'prefix' => 'abs', 'name' => 'allowance', 'type' => 'text', 'value' => $viewData['allowance'], 'maxlength' => '3', 'error' =>  (isset($inputAlert['allowance'])?$inputAlert['allowance']:'') ), 
-   array ( 'prefix' => 'abs', 'name' => 'allowmonth', 'type' => 'text', 'value' => $viewData['allowmonth'], 'maxlength' => '2', 'error' =>  (isset($inputAlert['allowmonth'])?$inputAlert['allowmonth']:'') ), 
-   array ( 'prefix' => 'abs', 'name' => 'allowweek', 'type' => 'text', 'value' => $viewData['allowweek'], 'maxlength' => '2', 'error' =>  (isset($inputAlert['allowweek'])?$inputAlert['allowweek']:'') ), 
+   array ( 'prefix' => 'abs', 'name' => 'factor', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['factor'], 'maxlength' => '4', 'error' =>  (isset($inputAlert['factor'])?$inputAlert['factor']:'') ), 
+   array ( 'prefix' => 'abs', 'name' => 'allowance', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['allowance'], 'maxlength' => '3', 'error' =>  (isset($inputAlert['allowance'])?$inputAlert['allowance']:'') ), 
+   array ( 'prefix' => 'abs', 'name' => 'allowmonth', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['allowmonth'], 'maxlength' => '2', 'error' =>  (isset($inputAlert['allowmonth'])?$inputAlert['allowmonth']:'') ), 
+   array ( 'prefix' => 'abs', 'name' => 'allowweek', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['allowweek'], 'maxlength' => '2', 'error' =>  (isset($inputAlert['allowweek'])?$inputAlert['allowweek']:'') ), 
    array ( 'prefix' => 'abs', 'name' => 'counts_as', 'type' => 'list', 'values' => $viewData['otherAbs'], 'topvalue' => array('val' => '0', 'name' => 'None') ),
    array ( 'prefix' => 'abs', 'name' => 'counts_as_present', 'type' => 'check', 'value' => $viewData['counts_as_present'] ), 
    array ( 'prefix' => 'abs', 'name' => 'show_in_remainder', 'type' => 'check', 'value' => $viewData['show_in_remainder'] ), 

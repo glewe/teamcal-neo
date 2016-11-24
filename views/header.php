@@ -5,14 +5,14 @@
  * The view of the HTML header
  *
  * @category TeamCal Neo 
- * @version 1.2.001
+ * @version 1.3.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
  * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
-<html lang="en">
+<html lang="<?=$LANG['html_locale']?>">
 
    <head>
       <!--

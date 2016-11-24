@@ -5,7 +5,7 @@
  * Framework config page controller
  *
  * @category TeamCal Neo 
- * @version 1.2.001
+ * @version 1.3.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -217,34 +217,34 @@ foreach ($schemes as $scheme)
 }
 
 $viewData['general'] = array (
-   array ( 'prefix' => 'config', 'name' => 'appURL', 'type' => 'text', 'value' => strip_tags($C->read("appURL")), 'maxlength' => '160' ),
-   array ( 'prefix' => 'config', 'name' => 'appTitle', 'type' => 'text', 'value' => strip_tags($C->read("appTitle")), 'maxlength' => '160' ),
-   array ( 'prefix' => 'config', 'name' => 'appDescription', 'type' => 'text', 'value' => strip_tags($C->read("appDescription")), 'maxlength' => '160' ),
-   array ( 'prefix' => 'config', 'name' => 'appKeywords', 'type' => 'text', 'value' => strip_tags($C->read("appKeywords")), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'appURL', 'type' => 'text', 'placeholder' => '', 'value' => strip_tags($C->read("appURL")), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'appTitle', 'type' => 'text', 'placeholder' => '', 'value' => strip_tags($C->read("appTitle")), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'appDescription', 'type' => 'text', 'placeholder' => '', 'value' => strip_tags($C->read("appDescription")), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'appKeywords', 'type' => 'text', 'placeholder' => '', 'value' => strip_tags($C->read("appKeywords")), 'maxlength' => '160' ),
    array ( 'prefix' => 'config', 'name' => 'defaultLanguage', 'type' => 'list', 'values' => $viewData['languageList'] ),
    array ( 'prefix' => 'config', 'name' => 'logLanguage', 'type' => 'list', 'values' => $viewData['logLanguageList'] ),
    array ( 'prefix' => 'config', 'name' => 'showAlerts', 'type' => 'radio', 'values' => array ('all', 'warnings', 'none'), 'value' => $C->read("showAlerts") ),
    array ( 'prefix' => 'config', 'name' => 'activateMessages', 'type' => 'check', 'values' => '', 'value' => $C->read("activateMessages") ),
    array ( 'prefix' => 'config', 'name' => 'permissionScheme', 'type' => 'list', 'values' => $viewData['schemeList'] ),
-   array ( 'prefix' => 'config', 'name' => 'userManual', 'type' => 'text', 'value' => urldecode($C->read("userManual")), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'userManual', 'type' => 'text', 'placeholder' => '', 'value' => urldecode($C->read("userManual")), 'maxlength' => '160' ),
    array ( 'prefix' => 'config', 'name' => 'showBanner', 'type' => 'check', 'values' => '', 'value' => $C->read("showBanner") ),
 );
 
 $viewData['email'] = array (
    array ( 'prefix' => 'config', 'name' => 'emailNotifications', 'type' => 'check', 'values' => '', 'value' => $C->read("emailNotifications") ),
-   array ( 'prefix' => 'config', 'name' => 'mailFrom', 'type' => 'text', 'value' => $C->read("mailFrom"), 'maxlength' => '50' ),
-   array ( 'prefix' => 'config', 'name' => 'mailReply', 'type' => 'text', 'value' => $C->read("mailReply"), 'maxlength' => '50' ),
+   array ( 'prefix' => 'config', 'name' => 'mailFrom', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailFrom"), 'maxlength' => '50' ),
+   array ( 'prefix' => 'config', 'name' => 'mailReply', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailReply"), 'maxlength' => '50' ),
    array ( 'prefix' => 'config', 'name' => 'mailSMTP', 'type' => 'check', 'values' => '', 'value' => $C->read("mailSMTP") ),
-   array ( 'prefix' => 'config', 'name' => 'mailSMTPhost', 'type' => 'text', 'value' => $C->read("mailSMTPhost"), 'maxlength' => '80' ),
-   array ( 'prefix' => 'config', 'name' => 'mailSMTPport', 'type' => 'text', 'value' => $C->read("mailSMTPport"), 'maxlength' => '8' ),
-   array ( 'prefix' => 'config', 'name' => 'mailSMTPusername', 'type' => 'text', 'value' => $C->read("mailSMTPusername"), 'maxlength' => '50' ),
+   array ( 'prefix' => 'config', 'name' => 'mailSMTPhost', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailSMTPhost"), 'maxlength' => '80' ),
+   array ( 'prefix' => 'config', 'name' => 'mailSMTPport', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailSMTPport"), 'maxlength' => '8' ),
+   array ( 'prefix' => 'config', 'name' => 'mailSMTPusername', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailSMTPusername"), 'maxlength' => '50' ),
    array ( 'prefix' => 'config', 'name' => 'mailSMTPpassword', 'type' => 'password', 'value' => $C->read("mailSMTPpassword"), 'maxlength' => '50' ),
    array ( 'prefix' => 'config', 'name' => 'mailSMTPSSL', 'type' => 'check', 'values' => '', 'value' => $C->read("mailSMTPSSL") ),
 );
 
 $viewData['footer'] = array (
-   array ( 'prefix' => 'config', 'name' => 'footerCopyright', 'type' => 'text', 'value' => $C->read("footerCopyright"), 'maxlength' => '160' ),
-   array ( 'prefix' => 'config', 'name' => 'footerCopyrightUrl', 'type' => 'text', 'value' => $C->read("footerCopyrightUrl"), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'footerCopyright', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("footerCopyright"), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'footerCopyrightUrl', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("footerCopyrightUrl"), 'maxlength' => '160' ),
    array ( 'prefix' => 'config', 'name' => 'footerSocialLinks', 'type' => 'textarea', 'value' => $C->read("footerSocialLinks"), 'rows' => 5, 'placeholder' => "" ),
    array ( 'prefix' => 'config', 'name' => 'footerViewport', 'type' => 'check', 'values' => '', 'value' => $C->read("footerViewport") ),
 );
@@ -256,9 +256,9 @@ $viewData['homepage'] = array (
 
 $viewData['login'] = array (
    array ( 'prefix' => 'config', 'name' => 'pwdStrength', 'type' => 'radio', 'values' => array ('low', 'medium', 'high'), 'value' => $C->read("pwdStrength") ),
-   array ( 'prefix' => 'config', 'name' => 'badLogins', 'type' => 'text', 'value' => $C->read("badLogins"), 'maxlength' => '2' ),
-   array ( 'prefix' => 'config', 'name' => 'gracePeriod', 'type' => 'text', 'value' => $C->read("gracePeriod"), 'maxlength' => '3' ),
-   array ( 'prefix' => 'config', 'name' => 'cookieLifetime', 'type' => 'text', 'value' => $C->read("cookieLifetime"), 'maxlength' => '6' ),
+   array ( 'prefix' => 'config', 'name' => 'badLogins', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("badLogins"), 'maxlength' => '2' ),
+   array ( 'prefix' => 'config', 'name' => 'gracePeriod', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("gracePeriod"), 'maxlength' => '3' ),
+   array ( 'prefix' => 'config', 'name' => 'cookieLifetime', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("cookieLifetime"), 'maxlength' => '6' ),
 );
 
 $viewData['registration'] = array (
@@ -282,7 +282,7 @@ $viewData['system'] = array (
    array ( 'prefix' => 'config', 'name' => 'jqtheme', 'type' => 'list', 'values' => $viewData['jqueryUIThemeList'] ),
    array ( 'prefix' => 'config', 'name' => 'timeZone', 'type' => 'list', 'values' => $viewData['timezoneList'] ),
    array ( 'prefix' => 'config', 'name' => 'googleAnalytics', 'type' => 'check', 'values' => '', 'value' => $C->read("googleAnalytics") ),
-   array ( 'prefix' => 'config', 'name' => 'googleAnalyticsID', 'type' => 'text', 'value' => $C->read("googleAnalyticsID"), 'maxlength' => '16' ),
+   array ( 'prefix' => 'config', 'name' => 'googleAnalyticsID', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("googleAnalyticsID"), 'maxlength' => '16' ),
    array ( 'prefix' => 'config', 'name' => 'noIndex', 'type' => 'check', 'values' => '', 'value' => $C->read("noIndex") ),
    array ( 'prefix' => 'config', 'name' => 'underMaintenance', 'type' => 'check', 'values' => '', 'value' => $C->read("underMaintenance") ),
 );
@@ -299,11 +299,11 @@ $viewData['theme'] = array (
 );
 
 $viewData['user'] = array (
-   array ( 'prefix' => 'config', 'name' => 'userCustom1', 'type' => 'text', 'value' => $C->read("userCustom1"), 'maxlength' => '50' ),
-   array ( 'prefix' => 'config', 'name' => 'userCustom2', 'type' => 'text', 'value' => $C->read("userCustom2"), 'maxlength' => '50' ),
-   array ( 'prefix' => 'config', 'name' => 'userCustom3', 'type' => 'text', 'value' => $C->read("userCustom3"), 'maxlength' => '50' ),
-   array ( 'prefix' => 'config', 'name' => 'userCustom4', 'type' => 'text', 'value' => $C->read("userCustom4"), 'maxlength' => '50' ),
-   array ( 'prefix' => 'config', 'name' => 'userCustom5', 'type' => 'text', 'value' => $C->read("userCustom5"), 'maxlength' => '50' ),
+   array ( 'prefix' => 'config', 'name' => 'userCustom1', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("userCustom1"), 'maxlength' => '50' ),
+   array ( 'prefix' => 'config', 'name' => 'userCustom2', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("userCustom2"), 'maxlength' => '50' ),
+   array ( 'prefix' => 'config', 'name' => 'userCustom3', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("userCustom3"), 'maxlength' => '50' ),
+   array ( 'prefix' => 'config', 'name' => 'userCustom4', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("userCustom4"), 'maxlength' => '50' ),
+   array ( 'prefix' => 'config', 'name' => 'userCustom5', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("userCustom5"), 'maxlength' => '50' ),
 );
 
 //=============================================================================

@@ -5,7 +5,7 @@
  * Holiday list view
  *
  * @category TeamCal Neo 
- * @version 1.2.001
+ * @version 1.3.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -84,13 +84,13 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <?=(($holiday['businessday'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['hol_businessday'].'"><i class="fa fa-wrench fa-lg text-danger"></i></i>':'')?>
                            </div>
                            <div class="col-lg-2 text-right">
-                              <a href="index.php?action=holidayedit&amp;id=<?=$holiday['id']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>
                               <?php if ($holiday['id'] > 3) { ?>
                                  <button type="button" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteHoliday_<?=$holiday['id']?>"><?=$LANG['btn_delete']?></button>
                                  <input name="hidden_id" type="hidden" value="<?=$holiday['id']?>">
                                  <input name="hidden_name" type="hidden" value="<?=$holiday['name']?>">
                                  <input name="hidden_description" type="hidden" value="<?=$holiday['description']?>">
                               <?php } ?>
+                              <a href="index.php?action=holidayedit&amp;id=<?=$holiday['id']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>
                            </div>
                         </div>
                         
