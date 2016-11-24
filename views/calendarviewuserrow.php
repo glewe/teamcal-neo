@@ -99,6 +99,7 @@ if ($editAllowed)
             $bday = false;
             $bdaystart = '';
             $bdayend = '';
+            $allowed = true;
             
             if ($T->$abs) 
             {
