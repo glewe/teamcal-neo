@@ -42,7 +42,7 @@ define('SECUREIMAGE_VER', '3.6.4');
 // http://www.chartjs.org/
 //
 define('CHARTJS', true);
-define('CHARTJS_VER', '1.0.2');
+define('CHARTJS_VER', '2.4.0');
 
 //
 // CKEditor

@@ -25,7 +25,11 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 // Common
 //
 $LANG['absence'] = 'Abwesenheitstyp';
+$LANG['absences'] = 'Abwesenheiten';
+$LANG['presences'] = 'Anwesenheiten';
 $LANG['region'] = 'Region';
+$LANG['remainder'] = 'Verbleibend';
+$LANG['taken'] = 'Genommen';
 $LANG['weeknumber'] = 'Kalenderwoche';
 $LANG['year'] = 'Jahr';
 
@@ -284,14 +288,14 @@ $LANG['calopt_showUserRegion_comment'] = 'Mit dieser Option zeigt der Kalender i
       werden, je nach Anzahl Nutzer und Regionen. Probier es aus.';
 $LANG['calopt_showWeekNumbers'] = 'Wochennummern anzeigen';
 $LANG['calopt_showWeekNumbers_comment'] = 'Mit dieser Option wird im Kalender eine Zeile mit den Nummern der Kalenderwochen hinzugef&uuml;gt.';
-$LANG['calopt_statsScale'] = 'Diagramm Skala der Statistiken';
-$LANG['calopt_statsScale_comment'] = 'W&auml;hle die Diagramm Skala f&uuml;r die Statistik Seiten.
-      <ul>
-         <li>Automatisch: Der Maximalwert des Diagramms ist der maximal gelesene Wert.</li>
-         <li>Smart: Der Maximalwert des Diagramms ist der maximal gelesene Wert plus dem Smartwert.</li>
-      </ul>';
-$LANG['calopt_statsSmartValue'] = 'Smartwert';
-$LANG['calopt_statsSmartValue_comment'] = 'Der Smartwert wird zum gr&ouml;&szlig;ten gelesenen Wert addiert. Die Summe wird als Maximalwert der Diagrammskala benutzt.<br>Damit dieser Wert angewendet wird, muss in der Skala Liste "'.$LANG['smart'].'" ausgew&auml;hlt sein.';
+$LANG['calopt_statsDefaultColorAbsences'] = 'Standardfarbe der Abwesenheitsstatistik';
+$LANG['calopt_statsDefaultColorAbsences_comment'] = 'W&auml;hle die Standardfarbe f&uuml;r diese Statistik aus.';
+$LANG['calopt_statsDefaultColorAbsencetype'] = 'Standardfarbe der Abwesenheitstypstatistik';
+$LANG['calopt_statsDefaultColorAbsencetype_comment'] = 'W&auml;hle die Standardfarbe f&uuml;r diese Statistik aus.';
+$LANG['calopt_statsDefaultColorPresences'] = 'Standardfarbe der Anwesenheitsstatistik';
+$LANG['calopt_statsDefaultColorPresences_comment'] = 'W&auml;hle die Standardfarbe f&uuml;r diese Statistik aus.';
+$LANG['calopt_statsDefaultColorRemainder'] = 'Standardfarbe der Resttagestatistik';
+$LANG['calopt_statsDefaultColorRemainder_comment'] = 'W&auml;hle die Standardfarbe f&uuml;r diese Statistik aus.';
 $LANG['calopt_sunBusi'] = 'Sonntag ist ein Arbeitstag';
 $LANG['calopt_sunBusi_comment'] = 'Normalerweise sind Samstage und Sonntage Wochenendtage und werden entsprechend im Kalender als solche angezeigt.
       Hier kann Sonntag als Arbeitstag definiert werden.';
@@ -712,17 +716,6 @@ $LANG['stats_absences_desc'] = 'Diese Statistik zeigt alle eingetragenen Abwesen
 $LANG['stats_abstype_desc'] = 'Diese Statistik zeigt alle eingetragenen Abwesenheiten nach Typ.';
 $LANG['stats_presences_desc'] = 'Diese Statistik zeigt alle Anwesenheiten.';
 $LANG['stats_remainder_desc'] = 'Diese Statistik zeigt die verbleibenden Resttage von allen Abwesenheitstypen, die eine begrenzte erlaubte Anzahl haben.';
-$LANG['stats_scale'] = 'Skala';
-$LANG['stats_scale_comment'] = 'W&auml;hle die Skala f&uuml;r das Diagramm (Der Standard kann vom Administrator gesetzt werden.).
-      <ul>
-         <li>Automatisch: Der Maximalwert des Diagramms ist der maximal gelesene Wert.</li>
-         <li>Smart: Der Maximalwert des Diagramms ist der maximal gelesene Wert plus dem Smartwert.</li>
-         <li>Individuell: Der Maximalwert des Diagramms kann im Feld unten selbst angegeben werden.</li>
-      </ul>';
-$LANG['stats_scale_max'] = 'Maximalwert';
-$LANG['stats_scale_max_comment'] = 'W&auml;hle einen eigenen Maximalwert f&uuml;r das Diagramm. Standard ist 30.<br>Damit dieser Wert angewendet wird, muss in der Skala Liste "'.$LANG['custom'].'" ausgew&auml;hlt sein.';
-$LANG['stats_scale_smart'] = 'Smartwert';
-$LANG['stats_scale_smart_comment'] = 'Der Smartwert wird zum gr&ouml;&szlig;ten gelesenen Wert addiert. Die Summe wird als Maximalwert der Diagrammskala benutzt (Der Standard kann vom Administrator gesetzt werden.).<br>Damit dieser Wert angewendet wird, muss in der Skala Liste "'.$LANG['smart'].'" ausgew&auml;hlt sein.';
 $LANG['stats_total'] = 'Gesamtsumme';
 $LANG['stats_yaxis'] = 'Diagramm Y-Achse';
 $LANG['stats_yaxis_comment'] = 'W&auml;hle, was auf der Y-Achse gezeigt werden soll.';

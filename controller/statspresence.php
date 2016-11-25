@@ -41,40 +41,20 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
 //
 
 //
-// Standard colors
+// Defaults
 //
-$rgb['blue'] = '32,96,255';
-$rgb['cyan'] = '96,200,255';
-$rgb['green'] = '96,192,96';
-$rgb['magenta'] = '200,96,200';
-$rgb['orange'] = '255,179,0';
-$rgb['red'] = '255,96,96';
-
 $viewData['labels'] = "";
 $viewData['data'] = "";
 $viewData['absences'] = $A->getAll();
 $viewData['groups'] = $G->getAll('DESC');
-
-//
-// Defaults
-//
 $viewData['region'] = '1';
 $viewData['absid'] = 'all';
 $viewData['groupid'] = 'all';
 $viewData['period'] = 'year';
 $viewData['from'] = date("Y") . '-01-01';
 $viewData['to'] = date("Y") . '-12-31';
-$viewData['scale'] = $C->read('statsScale');
-if ($viewData['scale']=='smart') $viewData['scaleSmart'] = $C->read("statsSmartValue");
-else                              $viewData['scaleSmart'] = '';
-$viewData['scaleMax'] = '';
-$viewData['chartjsScaleSettings'] = "scaleOverride: false";
 $viewData['yaxis'] = 'users';
-$chartColor = $rgb['green'];
 $viewData['color'] = 'green';
-$viewData['colorHex'] = rgb2hex($rgb['red'],false);
-$viewData['defaultColorHex'] = rgb2hex($rgb['red'],false);
-$viewData['chartjsColor'] = 'fillColor:"rgba('.$chartColor.',0.5)",strokeColor:"rgba('.$chartColor.',0.8)",highlightFill:"rgba('.$chartColor.',0.75)",highlightStroke:"rgba('.$chartColor.',1)",';
 
 //=============================================================================
 //
@@ -132,50 +112,6 @@ if (!empty($_POST))
          // Read diagram options
          //
          $viewData['color'] = $_POST['sel_color'];
-         if ($viewData['color']=='custom')
-         {
-            if (isset($_POST['txt_colorHex']) AND strlen($_POST['txt_colorHex']))
-            {
-               $viewData['colorHex'] = $_POST['txt_colorHex'];
-            }
-         }
-         else
-         {
-            $viewData['colorHex'] = rgb2hex($rgb[$viewData['color']],false);
-         }
-         $chartColor = implode(',',hex2rgb($viewData['colorHex']));
-         $viewData['chartjsColor'] = 'fillColor:"rgba('.$chartColor.',0.5)",strokeColor:"rgba('.$chartColor.',0.8)",highlightFill:"rgba('.$chartColor.',0.75)",highlightStroke:"rgba('.$chartColor.',1)",';
-         
-         
-         $viewData['scale'] = $_POST['sel_scale'];
-         if ($viewData['scale']=='custom')
-         {
-            if (isset($_POST['txt_scaleMax']) AND strlen($_POST['txt_scaleMax']))
-            {
-               $viewData['scaleMax'] = $_POST['txt_scaleMax'];
-            }
-            else
-            {
-               $viewData['scaleMax'] = '30'; // Default value if none was given
-            }
-            $viewData['chartjsScaleSettings'] = "scaleOverride: true,scaleSteps: ".$viewData['scaleMax'].",scaleStepWidth: 1,scaleStartValue: 0";
-         }
-         elseif ($viewData['scale']=='smart')
-         {
-            if (isset($_POST['txt_scaleSmart']) AND strlen($_POST['txt_scaleSmart']))
-            {
-               $viewData['scaleSmart'] = $_POST['txt_scaleSmart'];
-            }
-            else
-            {
-               $viewData['scaleSmart'] = '4'; // Default value if none was given
-            }
-         }
-         else 
-         {
-            $viewData['chartjsScaleSettings'] = "scaleOverride: false";
-         }
-         $viewData['yaxis'] = $_POST['opt_yaxis'];
       }
    }
    else
@@ -269,7 +205,6 @@ if ($viewData['yaxis'] == "users") $viewData['groupName'] .= ' ' . $LANG['stats_
 else                                $viewData['groupName'] .= ' ' . $LANG['stats_bygroups'];
 
 $viewData['periodName'] = $viewData['from'] . ' - ' . $viewData['to']; 
-$viewData['scaleName'] = $LANG[$viewData['scale']];
 
 $labels = array();
 $data = array();
@@ -369,7 +304,7 @@ else
             {
                $countFrom = str_replace('-', '' , $viewData['from']);
                $countTo = str_replace('-', '' , $viewData['to']);
-               $userAbscences += countAbsence($user['username'], $viewData['absid'], $countFrom, $countTo, false, false);
+               $userAbsences += countAbsence($user['username'], $viewData['absid'], $countFrom, $countTo, false, false);
             }
             
             //
@@ -428,11 +363,7 @@ else
 //
 $viewData['labels'] = implode(',', $labels);
 $viewData['data'] = implode(',', $data);
-if ($viewData['scale']=='smart')
-{
-   $scaleSteps = max($data) + $viewData['scaleSmart'];
-   $viewData['chartjsScaleSettings'] = "scaleOverride: true,scaleSteps: ".($scaleSteps/$stepWidth).",scaleStepWidth: ".$stepWidth.",scaleStartValue: 0";
-}
+if($color=$C->read("statsDefaultColorPresences")) $viewData['color'] = $color;
 
 //=============================================================================
 //

@@ -45,6 +45,7 @@ $LANG['display'] = 'Display';
 $LANG['from'] = 'From';
 $LANG['general'] = 'General';
 $LANG['green'] = 'Green';
+$LANG['grey'] = 'Grey';
 $LANG['group'] = 'Group';
 $LANG['license'] = 'TeamCal Neo License';
 $LANG['magenta'] = 'Magenta';
@@ -86,6 +87,7 @@ $LANG['period_month'] = 'Current month';
 $LANG['period_quarter'] = 'Current quarter';
 $LANG['period_half'] = 'Current half year';
 $LANG['period_year'] = 'Current year';
+$LANG['purple'] = 'Purple';
 $LANG['red'] = 'Red';
 $LANG['region'] = 'Region';
 $LANG['role'] = 'Role';
@@ -123,6 +125,7 @@ $LANG['weekdayLong'] = array (
    "Saturday",
    "Sunday" 
 );
+$LANG['yellow'] = 'Yellow';
 
 //
 // About

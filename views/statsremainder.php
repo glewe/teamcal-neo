@@ -56,8 +56,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <?=createModalBottom('btn_apply', 'success', $LANG['btn_apply'])?>
   
             <!-- Modal: Year -->
-            <?php if (!$C->read('currentYearOnly')) {
-               createModalTop('modalYear', $LANG['stats_modalYearTitle']); ?>
+            <?php if (!$C->read('currentYearOnly')) { 
+               echo createModalTop('modalYear', $LANG['stats_modalYearTitle']); ?>
                   <div>
                      <span class="text-bold"><?=$LANG['stats_year']?></span><br>
                      <span class="text-normal"><?=$LANG['stats_year_comment']?></span>
@@ -67,7 +67,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <option value="<?=date("Y")+1?>" <?=(($viewData['year']==date("Y")+1)?"selected":"")?>><?=date("Y")+1?></option>
                      </select><br>
                   </div>
-               <?php createModalBottom('btn_apply', 'success', $LANG['btn_apply']);
+               <?php echo createModalBottom('btn_apply', 'success', $LANG['btn_apply']);
             } ?>
             
             <!-- Modal: Diagram -->
@@ -79,90 +79,15 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <option value="blue" <?=(($viewData['color']=='blue')?"selected":"")?>><?=$LANG['blue']?></option>
                      <option value="cyan" <?=(($viewData['color']=='cyan')?"selected":"")?>><?=$LANG['cyan']?></option>
                      <option value="green" <?=(($viewData['color']=='green')?"selected":"")?>><?=$LANG['green']?></option>
+                     <option value="grey" <?=(($viewData['color']=='grey')?"selected":"")?>><?=$LANG['grey']?></option>
                      <option value="magenta" <?=(($viewData['color']=='magenta')?"selected":"")?>><?=$LANG['magenta']?></option>
                      <option value="orange" <?=(($viewData['color']=='orange')?"selected":"")?>><?=$LANG['orange']?></option>
+                     <option value="purple" <?=(($viewData['color']=='purple')?"selected":"")?>><?=$LANG['purple']?></option>
                      <option value="red" <?=(($viewData['color']=='red')?"selected":"")?>><?=$LANG['red']?></option>
-                     <option value="custom" <?=(($viewData['color']=='custom')?"selected":"")?>><?=$LANG['custom']?></option>
+                     <option value="yellow" <?=(($viewData['color']=='yellow')?"selected":"")?>><?=$LANG['yellow']?></option>
                   </select><br>
-                  <script>
-                  $( "#sel_color" ).change(function() 
-                  {
-                     if ($(this).val() == 'custom')
-                     {
-                        $('#colorHex').prop('disabled', false);
-                     }
-                     else
-                     {
-                        $('#colorHex').prop('disabled', true);
-                     }
-                  });
-                  </script>
-                  
-                  <span class="text-bold"><?=$LANG['stats_customColor']?></span><br>
-                  <span class="text-normal"><?=$LANG['stats_customColor_comment']?></span>
-                  <input id="colorHex" class="form-control" tabindex="6" name="txt_colorHex" maxlength="6" value="<?=$viewData['colorHex']?>" type="text" <?=(($viewData['color']=='custom')?"":"disabled")?>>
-                  <script type="text/javascript">$(function() { $( "#colorHex" ).ColorPicker({ onSubmit: function(hsb, hex, rgb, el) { $(el).val(hex.toUpperCase()); $(el).ColorPickerHide(); }, onBeforeShow: function () { $(this).ColorPickerSetColor(this.value); } }) .bind('keyup', function(){ $(this).ColorPickerSetColor(this.value); }); });</script>
-                  <?php if ( isset($inputAlert["colorHex"]) AND strlen($inputAlert["colorHex"]) ) { ?> 
-                  <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['colorHex']?></div>
-                  <?php } ?>
                   <br>
-                  
-                  <span class="text-bold"><?=$LANG['stats_scale']?></span><br>
-                  <span class="text-normal"><?=$LANG['stats_scale_comment']?></span>
-                  <select id="sel_scale" class="form-control" name="sel_scale" tabindex="<?=$tabindex++?>">
-                     <option value="auto" <?=(($viewData['scale']=='auto')?"selected":"")?>><?=$LANG['auto']?></option>
-                     <option value="smart" <?=(($viewData['scale']=='smart')?"selected":"")?>><?=$LANG['smart']?></option>
-                     <option value="custom" <?=(($viewData['scale']=='custom')?"selected":"")?>><?=$LANG['custom']?></option>
-                  </select>
-                  <script>
-                  $( "#sel_scale" ).change(function() 
-                  {
-                     if ($(this).val() == 'custom')
-                     {
-                        $('#scaleSmart').val('');
-                        $('#scaleSmart').prop('disabled', true);
-                        $('#scaleMax').prop('disabled', false);
-                        $('#scaleMax').val('30');
-                     }
-                     else if ($(this).val() == 'smart')
-                     {
-                        $('#scaleSmart').prop('disabled', false);
-                        $('#scaleSmart').val('4');
-                        $('#scaleMax').prop('disabled', true);
-                        $('#scaleMax').val('');
-                     }
-                     else
-                     {
-                        $('#scaleSmart').prop('disabled', true);
-                        $('#scaleSmart').val('');
-                        $('#scaleMax').prop('disabled', true);
-                        $('#scaleMax').val('');
-                     }
-                  });
-                  </script>
                </div>
-               <div>&nbsp;</div>
-               
-               <div>
-                  <span class="text-bold"><?=$LANG['stats_scale_smart']?></span><br>
-                  <span class="text-normal"><?=$LANG['stats_scale_smart_comment']?></span>
-                  <input id="scaleSmart" class="form-control" tabindex="<?=$tabindex++?>" name="txt_scaleSmart" type="text" maxlength="3" value="<?=$viewData['scaleSmart']?>" <?=(($viewData['scale']=='smart')?"":"disabled")?>>
-                  <?php if ( isset($inputAlert["scaleSmart"]) AND strlen($inputAlert["scaleSmart"]) ) { ?> 
-                  <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['scaleSmart']?></div>
-                  <?php } ?>
-               </div>
-               <div>&nbsp;</div>
-               
-               <div>
-                  <span class="text-bold"><?=$LANG['stats_scale_max']?></span><br>
-                  <span class="text-normal"><?=$LANG['stats_scale_max_comment']?></span>
-                  <input id="scaleMax" class="form-control" tabindex="<?=$tabindex++?>" name="txt_scaleMax" type="text" maxlength="3" value="<?=$viewData['scaleMax']?>" <?=(($viewData['scale']=='custom')?"":"disabled")?>>
-                  <?php if ( isset($inputAlert["scaleMax"]) AND strlen($inputAlert["scaleMax"]) ) { ?> 
-                  <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['scaleMax']?></div>
-                  <?php } ?>
-               </div>
-               <div>&nbsp;</div>
-               
             <?=createModalBottom('btn_apply', 'success', $LANG['btn_apply'])?>
             
          </form>
@@ -174,29 +99,41 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <div class="panel-body">
                <p><?=$LANG['stats_remainder_desc']?></p>
                <canvas id="myChart" style="padding-right: 40px;"></canvas>
+               
                <script>
-                  var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
-      
-                  var barChartData = {
-                     labels : [<?=$viewData['labels']?>],
-                     datasets : [
-                        {
-                           <?=$viewData['chartjsColor']?>
-                           data : [<?=$viewData['data']?>]
-                        }
-                     ]
-                  }
-                  
-                  window.onload = function(){
-                     var ctx = document.getElementById("myChart").getContext("2d");
-                     window.myBar = new Chart(ctx).HorizontalBar(barChartData, 
-                        {
-                           responsive: true,
-                           <?=$viewData['chartjsScaleSettings']?>
-                        }
-                     );
-                  }
+                  var color = Chart.helpers.color;
+                  var horizontalBarChartData = {
+                      labels: [<?=$viewData['labels']?>],
+                      datasets: [{
+                          label: '<?=$LANG['remainder']?>',
+                          backgroundColor: color(window.chartColors.<?=$viewData['color']?>).alpha(0.5).rgbString(),
+                          borderColor: window.chartColors.<?=$viewData['color']?>,
+                          borderWidth: 1,
+                          data: [<?=$viewData['data']?>]
+                      }]
+                  };
+
+                  window.onload = function() {
+                      var ctx = document.getElementById("myChart").getContext("2d");
+                      window.myHorizontalBar = new Chart(ctx, {
+                          type: 'horizontalBar',
+                          data: horizontalBarChartData,
+                          options: {
+                              // Elements options apply to all of the options unless overridden in a dataset
+                              // In this case, we are setting the border of each horizontal bar to be 2px wide
+                              elements: {
+                                  rectangle: {
+                                      borderWidth: 2,
+                                  }
+                              },
+                              responsive: true,
+                              legend: { display: false },
+                              title: { display: false }
+                          }
+                      });
+                  };
                </script>
+               
             </div>
          </div>
          

@@ -89,8 +89,10 @@ if (isset($_POST['btn_caloptApply']))
    /**
     * Statistics
     */
-   if ($_POST['sel_statsScale']) $C->save("statsScale", $_POST['sel_statsScale']); else $C->save("statsScale", "auto");
-   $C->save("statsSmartValue",intval($_POST['txt_statsSmartValue']));
+   if ($_POST['sel_statsDefaultColorAbsences']) $C->save("statsDefaultColorAbsences", $_POST['sel_statsDefaultColorAbsences']); else $C->save("statsDefaultColorAbsences", "red");
+   if ($_POST['sel_statsDefaultColorPresences']) $C->save("statsDefaultColorPresences", $_POST['sel_statsDefaultColorPresences']); else $C->save("statsDefaultColorPresences", "green");
+   if ($_POST['sel_statsDefaultColorAbsencetype']) $C->save("statsDefaultColorAbsencetype", $_POST['sel_statsDefaultColorAbsencetype']); else $C->save("statsDefaultColorAbsencetype", "cyan");
+   if ($_POST['sel_statsDefaultColorRemainder']) $C->save("statsDefaultColorRemainder", $_POST['sel_statsDefaultColorRemainder']); else $C->save("statsDefaultColorRemainder", "orange");
     
    /**
     * Summary
@@ -146,13 +148,21 @@ $caloptData['options'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'currentYearOnly', 'type' => 'check', 'values' => '', 'value' => $C->read("currentYearOnly") ),
 );
 
-$statsScale = array (
-   array ( 'val' => 'auto', 'name' => $LANG['auto'], 'selected' => ($C->read("statsScale") == 'auto')?true:false ),
-   array ( 'val' => 'smart', 'name' => $LANG['smart'], 'selected' => ($C->read("statsScale") == 'smart')?true:false ),
-);
+$statsPages = array('Absences', 'Presences', 'Absencetype', 'Remainder');
+$colors = array('blue', 'cyan', 'green', 'grey', 'magenta', 'orange', 'purple', 'red', 'yellow');
+foreach ($statsPages as $statsPage)
+{
+   $statsColorArray[$statsPage] = array();
+   foreach ($colors as $color)
+   {
+      $statsColorArray[$statsPage][] = array ( 'val' => $color, 'name' => $LANG[$color], 'selected' => ($C->read("statsDefaultColor".$statsPage) == $color)?true:false );
+   }
+}
 $caloptData['stats'] = array (
-   array ( 'prefix' => 'calopt', 'name' => 'statsScale', 'type' => 'list', 'values' => $statsScale ),
-   array ( 'prefix' => 'calopt', 'name' => 'statsSmartValue', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("statsSmartValue"), 'maxlength' => '3' ),
+   array ( 'prefix' => 'calopt', 'name' => 'statsDefaultColorAbsences', 'type' => 'list', 'values' => $statsColorArray['Absences'] ),
+   array ( 'prefix' => 'calopt', 'name' => 'statsDefaultColorPresences', 'type' => 'list', 'values' => $statsColorArray['Presences'] ),
+   array ( 'prefix' => 'calopt', 'name' => 'statsDefaultColorAbsencetype', 'type' => 'list', 'values' => $statsColorArray['Absencetype'] ),
+   array ( 'prefix' => 'calopt', 'name' => 'statsDefaultColorRemainder', 'type' => 'list', 'values' => $statsColorArray['Remainder'] ),
 );
 
 $caloptData['summary'] = array (

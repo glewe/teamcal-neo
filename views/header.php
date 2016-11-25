@@ -100,8 +100,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
       <script src="addons/google-code-prettify/prettify.js"></script>
 
       <?php if (CHARTJS) { ?><!-- Chart.js -->  
-      <script src="addons/chart.js/Chart.min.js"></script>
-      <script src="addons/chart.js/src/Chart.HorizontalBar.js"></script>
+      <script src="addons/chart.js/Chart.bundle.min.js"></script>
+      <script src="addons/chart.js/utils.js"></script>
       <?php } ?>
 
       <?php if (CKEDITOR) { ?><!-- CKEditor -->

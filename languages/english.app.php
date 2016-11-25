@@ -25,7 +25,11 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 // Common
 //
 $LANG['absence'] = 'Absence Type';
+$LANG['absences'] = 'Absences';
+$LANG['presences'] = 'Presences';
 $LANG['region'] = 'Region';
+$LANG['remainder'] = 'Remainder';
+$LANG['taken'] = 'Taken';
 $LANG['weeknumber'] = 'Calendar week';
 $LANG['year'] = 'Year';
 
@@ -284,14 +288,14 @@ $LANG['calopt_showUserRegion_comment'] = 'If this option is on, the calendar wil
       Check it out and pick your choice.';
 $LANG['calopt_showWeekNumbers'] = 'Show Week Numbers';
 $LANG['calopt_showWeekNumbers_comment'] = 'Checking this option will add a line to the calendar display showing the week of the year number.';
-$LANG['calopt_statsScale'] = 'Diagram Scale';
-$LANG['calopt_statsScale_comment'] = 'Select a diagram scale option for the statistics pages.
-      <ul>
-         <li>Automatic: The diagram\'s max value is the actual maximal value.</li>
-         <li>Smart: The diagram\'s max value is the actual maximal value plus the Smart Value.</li>
-      </ul>';
-$LANG['calopt_statsSmartValue'] = 'Diagram Scale Smart Value';
-$LANG['calopt_statsSmartValue_comment'] = 'The smart value is added to the maximal value read and the sum is used as the diagram\'s scale maximum.<br>This value only applies if the diagram scale is set to "'.$LANG['smart'].'".';
+$LANG['calopt_statsDefaultColorAbsences'] = 'Default Color Absence Statistics';
+$LANG['calopt_statsDefaultColorAbsences_comment'] = 'Select the default color for this stattistics page.';
+$LANG['calopt_statsDefaultColorAbsencetype'] = 'Default Color Absence Type Statistics';
+$LANG['calopt_statsDefaultColorAbsencetype_comment'] = 'Select the default color for this stattistics page.';
+$LANG['calopt_statsDefaultColorPresences'] = 'Default Color Presence Statistics';
+$LANG['calopt_statsDefaultColorPresences_comment'] = 'Select the default color for this stattistics page.';
+$LANG['calopt_statsDefaultColorRemainder'] = 'Default Color Remainder Statistics';
+$LANG['calopt_statsDefaultColorRemainder_comment'] = 'Select the default color for this stattistics page.';
 $LANG['calopt_sunBusi'] = 'Sunday is a Business Day';
 $LANG['calopt_sunBusi_comment'] = 'By default, Saturday and Sunday are weekend days and displayed accordingly in the calendar.
       Check this option if you want to make Sunday a business day.';
@@ -712,17 +716,6 @@ $LANG['stats_absences_desc'] = 'This statistics shows all entered absences.';
 $LANG['stats_abstype_desc'] = 'This statistics shows all entered absences by type.';
 $LANG['stats_presences_desc'] = 'This statistics shows all presences.';
 $LANG['stats_remainder_desc'] = 'This statistics shows the remainders of all absence types that have a limited allowance.';
-$LANG['stats_scale'] = 'Scale';
-$LANG['stats_scale_comment'] = 'Select the scale for the diagram (The default can be set by the administrator.).
-      <ul>
-         <li>Automatic: The diagram\'s max value is the maximal absence value.</li>
-         <li>Smart: The diagram\'s max value is the maximal absence value plus the Smart Value.</li>
-         <li>Custom: The diagram\'s max value can be specified in the field below.</li>
-      </ul>';
-$LANG['stats_scale_max'] = 'Max Value';
-$LANG['stats_scale_max_comment'] = 'Select a custom max value for the diagram. Default value is 30.<br>This value only applies if "'.$LANG['custom'].'" was selected in the Scale list.';
-$LANG['stats_scale_smart'] = 'Smart Value';
-$LANG['stats_scale_smart_comment'] = 'The smart value is added to the maximal value read and the sum is used as the diagram\'s scale maximum (The default can be set by the administrator.).<br>This value only applies if "'.$LANG['smart'].'" was selected in the Scale list.';
 $LANG['stats_total'] = 'Total sum';
 $LANG['stats_yaxis'] = 'Diagram Y-axis';
 $LANG['stats_yaxis_comment'] = 'Select what the diagram y-axis shall show.';

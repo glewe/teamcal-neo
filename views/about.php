@@ -41,9 +41,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <ul>
                         <li>Bootstrap Team <?=$LANG['about_for']?> <a href="http://getbootstrap.com/" target="_blank">Bootstrap Framework <?=BOOTSTRAP_VER?></a></li>
                         <li>Thomas Park <?=$LANG['about_for']?> <a href="http://bootswatch.com/" target="_blank">Bootswatch Themes</a></li>
-                        <?php if (CHARTJS) { ?><li>Nick Downie <?=$LANG['about_for']?> <a href="http://www.chartjs.org/" target="_blank">Chart.js <?=CHARTJS_VER?></a></li>
-                        <li>Promotably <?=$LANG['about_for']?> HorizontalBar for Chart.js</li>
-                        <?php } ?>
+                        <?php if (CHARTJS) { ?><li>Nick Downie <?=$LANG['about_for']?> <a href="http://www.chartjs.org/" target="_blank">Chart.js <?=CHARTJS_VER?></a></li><?php } ?>
                         <?php if (CKEDITOR) { ?><li>CKSource Sp. <?=$LANG['about_for']?> <a href="http://ckeditor.com/" target="_blank">CKEditor <?=CKEDITOR_VER?></a></li><?php } ?>
                         <li>Dave Gandy <?=$LANG['about_for']?> <a href="http://fontawesome.io/" target="_blank">Font Awesome <?=FONTAWESOME_VER?></a></li>
                         <li>Google Team <?=$LANG['about_for']?> <a href="https://www.google.com/fonts/" target="_blank">Google Fonts</a></li>
