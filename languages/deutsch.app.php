@@ -26,6 +26,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 //
 $LANG['absence'] = 'Abwesenheitstyp';
 $LANG['absences'] = 'Abwesenheiten';
+$LANG['allowance'] = 'Erlaubt';
 $LANG['presences'] = 'Anwesenheiten';
 $LANG['region'] = 'Region';
 $LANG['remainder'] = 'Verbleibend';
@@ -716,6 +717,7 @@ $LANG['stats_absences_desc'] = 'Diese Statistik zeigt alle eingetragenen Abwesen
 $LANG['stats_abstype_desc'] = 'Diese Statistik zeigt alle eingetragenen Abwesenheiten nach Typ.';
 $LANG['stats_presences_desc'] = 'Diese Statistik zeigt alle Anwesenheiten.';
 $LANG['stats_remainder_desc'] = 'Diese Statistik zeigt die verbleibenden Resttage von allen Abwesenheitstypen, die eine begrenzte erlaubte Anzahl haben.';
+$LANG['stats_showAsPieChart'] = 'Als Kuchendiagramm anzeigen';
 $LANG['stats_total'] = 'Gesamtsumme';
 $LANG['stats_yaxis'] = 'Diagramm Y-Achse';
 $LANG['stats_yaxis_comment'] = 'W&auml;hle, was auf der Y-Achse gezeigt werden soll.';

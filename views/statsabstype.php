@@ -130,7 +130,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <div>
                   <span class="text-bold"><?=$LANG['stats_color']?></span><br>
                   <span class="text-normal"><?=$LANG['stats_color_comment']?></span>
-                  <select id="sel_color" class="form-control" name="sel_color" tabindex="<?=$tabindex++?>">
+                  <select id="sel_color" class="form-control" name="sel_color" tabindex="<?=$tabindex++?>" <?=(($viewData['showAsPieChart'])?"disabled":"");?>>
                      <option value="blue" <?=(($viewData['color']=='blue')?"selected":"")?>><?=$LANG['blue']?></option>
                      <option value="cyan" <?=(($viewData['color']=='cyan')?"selected":"")?>><?=$LANG['cyan']?></option>
                      <option value="green" <?=(($viewData['color']=='green')?"selected":"")?>><?=$LANG['green']?></option>
@@ -141,8 +141,23 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <option value="red" <?=(($viewData['color']=='red')?"selected":"")?>><?=$LANG['red']?></option>
                      <option value="yellow" <?=(($viewData['color']=='yellow')?"selected":"")?>><?=$LANG['yellow']?></option>
                   </select><br>
-                  <br>
                </div>
+               <div>
+                  <div class="checkbox">
+                     <label><input id="chk_showAsPieChart" name="chk_showAsPieChart" value="chk_showAsPieChart" type="checkbox" <?=(($viewData['showAsPieChart'])?"checked":"");?>><?=$LANG['stats_showAsPieChart']?></label>
+                  </div>
+               </div>
+               <script>
+               $('#chk_showAsPieChart').change(function() {
+            	      if ($('#chk_showAsPieChart').prop('checked')) 
+                  {
+                     $( "#sel_color" ).prop( "disabled", true );
+                  }
+                  else {
+                     $( "#sel_color" ).prop( "disabled", false );
+                  }
+               });
+               </script>
             <?=createModalBottom('btn_apply', 'success', $LANG['btn_apply'])?>
             
          </form>
@@ -153,40 +168,71 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             </div>
             <div class="panel-body">
                <p><?=$LANG['stats_abstype_desc']?></p>
-               <canvas id="myChart" style="padding-right: 40px;"></canvas>
+               <canvas id="myChart" height="<?=$viewData['height']?>"></canvas>
                
                <script>
+               <?php if (!$viewData['showAsPieChart']) { ?>
+               
+                  //
+                  // Chart.js Bar Chart
+                  //
                   var color = Chart.helpers.color;
-                  var horizontalBarChartData = {
-                      labels: [<?=$viewData['labels']?>],
-                      datasets: [{
-                          label: '<?=$LANG['taken']?>',
-                          backgroundColor: color(window.chartColors.<?=$viewData['color']?>).alpha(0.5).rgbString(),
-                          borderColor: window.chartColors.<?=$viewData['color']?>,
-                          borderWidth: 1,
-                          data: [<?=$viewData['data']?>]
-                      }]
+                  var data = {
+                     labels: [<?=$viewData['labels']?>],
+                     datasets: [{
+                        label: '<?=$LANG['taken']?>',
+                        backgroundColor: color(window.chartColors.<?=$viewData['color']?>).alpha(0.5).rgbString(),
+                        borderColor: window.chartColors.<?=$viewData['color']?>,
+                        borderWidth: 1,
+                        data: [<?=$viewData['data']?>]
+                     }]
                   };
 
                   window.onload = function() {
-                      var ctx = document.getElementById("myChart").getContext("2d");
-                      window.myHorizontalBar = new Chart(ctx, {
-                          type: 'horizontalBar',
-                          data: horizontalBarChartData,
-                          options: {
-                              // Elements options apply to all of the options unless overridden in a dataset
-                              // In this case, we are setting the border of each horizontal bar to be 2px wide
-                              elements: {
-                                  rectangle: {
-                                      borderWidth: 2,
-                                  }
-                              },
-                              responsive: true,
-                              legend: { display: false },
-                              title: { display: false }
-                          }
-                      });
+                     var ctx = document.getElementById("myChart").getContext("2d");
+                     window.myHorizontalBar = new Chart(ctx, {
+                        type: 'horizontalBar',
+                        data: data,
+                        options: {
+                           elements: { rectangle: { borderWidth: 2, } },
+                           responsive: true,
+                           legend: { display: false },
+                           title: { display: false }
+                        }
+                     });
                   };
+               
+               <?php } else { ?>
+               
+                  //
+                  // Chart.js Pie Chart
+                  //
+                  var color = Chart.helpers.color;
+                  var data = {
+                     labels: [<?=$viewData['labels']?>],
+                     datasets: [
+                     {
+                        data: [<?=$viewData['data']?>],
+                        backgroundColor: [<?=$viewData['sliceColors']?>],
+                        hoverBackgroundColor: [<?=$viewData['sliceColors']?>],
+                     }]
+                  };
+
+                  window.onload = function() {
+                     var ctx = document.getElementById("myChart").getContext("2d");
+                     window.myHorizontalBar = new Chart(ctx, {
+                        type: 'pie',
+                        data: data,
+                        options: {
+                           responsive: true,
+                           legend: { display: false },
+                           title: { display: false }
+                        }
+                     });
+                  };
+
+               <?php } ?>
+                  
                </script>
                
             </div>

@@ -172,39 +172,36 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             </div>
             <div class="panel-body">
                <p><?=$LANG['stats_presences_desc']?></p>
-               <canvas id="myChart" style="padding-right: 40px;"></canvas>
+               <canvas id="myChart" height="<?=$viewData['height']?>"></canvas>
                
                <script>
+                  //
+                  // Chart.js Bar Chart
+                  //
                   var color = Chart.helpers.color;
-                  var horizontalBarChartData = {
-                      labels: [<?=$viewData['labels']?>],
-                      datasets: [{
-                          label: '<?=$LANG['presences']?>',
-                          backgroundColor: color(window.chartColors.<?=$viewData['color']?>).alpha(0.5).rgbString(),
-                          borderColor: window.chartColors.<?=$viewData['color']?>,
-                          borderWidth: 1,
-                          data: [<?=$viewData['data']?>]
-                      }]
+                  var data = {
+                     labels: [<?=$viewData['labels']?>],
+                     datasets: [{
+                        label: '<?=$LANG['presences']?>',
+                        backgroundColor: color(window.chartColors.<?=$viewData['color']?>).alpha(0.5).rgbString(),
+                        borderColor: window.chartColors.<?=$viewData['color']?>,
+                        borderWidth: 1,
+                        data: [<?=$viewData['data']?>]
+                     }]
                   };
 
                   window.onload = function() {
-                      var ctx = document.getElementById("myChart").getContext("2d");
-                      window.myHorizontalBar = new Chart(ctx, {
-                          type: 'horizontalBar',
-                          data: horizontalBarChartData,
-                          options: {
-                              // Elements options apply to all of the options unless overridden in a dataset
-                              // In this case, we are setting the border of each horizontal bar to be 2px wide
-                              elements: {
-                                  rectangle: {
-                                      borderWidth: 2,
-                                  }
-                              },
-                              responsive: true,
-                              legend: { display: false },
-                              title: { display: false }
-                          }
-                      });
+                     var ctx = document.getElementById("myChart").getContext("2d");
+                     window.myHorizontalBar = new Chart(ctx, {
+                        type: 'horizontalBar',
+                        data: horizontalBarChartData,
+                        options: {
+                           elements: { rectangle: { borderWidth: 2, } },
+                           responsive: true,
+                           legend: { display: false },
+                           title: { display: false }
+                        }
+                    });
                   };
                </script>
                

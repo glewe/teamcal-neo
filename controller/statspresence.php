@@ -54,7 +54,7 @@ $viewData['period'] = 'year';
 $viewData['from'] = date("Y") . '-01-01';
 $viewData['to'] = date("Y") . '-12-31';
 $viewData['yaxis'] = 'users';
-$viewData['color'] = 'green';
+if($color=$C->read("statsDefaultColorPresences")) $viewData['color'] = $color; else $viewData['color'] = 'green';
 
 //=============================================================================
 //
@@ -363,7 +363,7 @@ else
 //
 $viewData['labels'] = implode(',', $labels);
 $viewData['data'] = implode(',', $data);
-if($color=$C->read("statsDefaultColorPresences")) $viewData['color'] = $color;
+if (count($labels)<=10) $viewData['height'] = count($labels) * 20; else $viewData['height'] = count($labels) * 10;
 
 //=============================================================================
 //

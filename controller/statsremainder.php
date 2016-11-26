@@ -53,6 +53,7 @@ $viewData['from'] = date("Y") . '-01-01';
 $viewData['to'] = date("Y") . '-12-31';
 $viewData['yaxis'] = 'users';
 $viewData['color'] = 'orange';
+if($color=$C->read("statsDefaultColorRemainder")) $viewData['color'] = $color; else $viewData['color'] = 'orange';
 
 //=============================================================================
 //
@@ -130,7 +131,8 @@ else                                $viewData['groupName'] = $G->getNameById($_P
 $viewData['periodName'] = $viewData['from'] . ' - ' . $viewData['to']; 
 
 $labels = array();
-$data = array();
+$dataAllowance = array();
+$dataRemainder = array();
 
 //
 // Loop through all absence types (that count as absent and that have an allowance)
@@ -141,39 +143,50 @@ foreach ($viewData['absences'] as $abs)
    if ($A->get($abs['id']) AND !$A->counts_as_present AND intval($A->allowance) > 0 )
    {
       $labels[] = '"' . $abs['name'] . '"';
-      $count = intval($A->allowance);
+      $absenceAllowance = intval($A->allowance);
+      
       if ($viewData['groupid'] == "all")
       {
          //
          // Count for all groups
          //
+         $totalAbsenceAllowance = 0;
+         $totalGroupRemainder = 0;
          foreach ($viewData['groups'] as $group)
          {
             $users = $UG->getAllforGroup($group['id']);
+            $userCount = count($users);
+            $totalAbsenceAllowance += $absenceAllowance * $userCount;
+            $groupRemainder = $absenceAllowance * $userCount;
             foreach ($users as $user)
             {
                $countFrom = str_replace('-', '' , $viewData['from']);
                $countTo = str_replace('-', '' , $viewData['to']);
-               $count -= countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
+               $groupRemainder -= countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
             }
+            $totalGroupRemainder += $groupRemainder;
          }
-         $data[] = $count;
-         $viewData['total'] += $count;
+         $dataAllowance[] = $totalAbsenceAllowance;
+         $dataRemainder[] = $totalGroupRemainder;
+         $viewData['total'] += $totalGroupRemainder;
       }
       else 
       {
          //
-         // Count for a specific groups
+         // Count for a specific group
          //
          $users = $UG->getAllforGroup($viewData['groupid']);
+         $userCount = count($users);
+         $groupRemainder = $absenceAllowance * $userCount;
+         $dataAllowance[] = $groupRemainder;
          foreach ($users as $user)
          {
             $countFrom = str_replace('-', '' , $viewData['from']);
             $countTo = str_replace('-', '' , $viewData['to']);
-            $count -= countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
+            $groupRemainder -= countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
          }
-         $data[] = $count;
-         $viewData['total'] += $count;
+         $dataRemainder[] = $groupRemainder;
+         $viewData['total'] += $groupRemainder;
       }
    }
 }
@@ -182,8 +195,9 @@ foreach ($viewData['absences'] as $abs)
 // Build Chart.js labels and data
 //
 $viewData['labels'] = implode(',', $labels);
-$viewData['data'] = implode(',', $data);
-if($color=$C->read("statsDefaultColorRemainder")) $viewData['color'] = $color;
+$viewData['dataAllowance'] = implode(',', $dataAllowance);
+$viewData['dataRemainder'] = implode(',', $dataRemainder);
+if (count($labels)<=10) $viewData['height'] = count($labels) * 20; else $viewData['height'] = count($labels) * 10;
 
 //=============================================================================
 //

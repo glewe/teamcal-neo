@@ -52,7 +52,8 @@ $viewData['period'] = 'year';
 $viewData['from'] = date("Y") . '-01-01';
 $viewData['to'] = date("Y") . '-12-31';
 $viewData['yaxis'] = 'users';
-$viewData['color'] = 'cyan';
+if($color=$C->read("statsDefaultColorAbsencetype")) $viewData['color'] = $color; else $viewData['color'] = 'cyan';
+$viewData['showAsPieChart'] = false;
 
 //=============================================================================
 //
@@ -103,7 +104,8 @@ if (!empty($_POST))
          //
          // Read diagram options
          //
-         $viewData['color'] = $_POST['sel_color'];
+         if (isset($_POST['sel_color'])) $viewData['color'] = $_POST['sel_color'];
+         if (isset($_POST['chk_showAsPieChart']) && $_POST['chk_showAsPieChart']) $viewData['showAsPieChart'] = true; else $viewData['showAsPieChart'] = false;
       }
    }
    else
@@ -189,6 +191,7 @@ else                                $viewData['groupName'] = $G->getNameById($_P
 $viewData['periodName'] = $viewData['from'] . ' - ' . $viewData['to']; 
 
 $labels = array();
+$sliceColors = array();
 $data = array();
 
 //
@@ -200,7 +203,10 @@ foreach ($viewData['absences'] as $abs)
    if ($A->get($abs['id']) AND !$A->counts_as_present)
    {
       $labels[] = '"' . $abs['name'] . '"';
+      //$sliceColors[] = '"#'.bin2hex(openssl_random_pseudo_bytes(3)).'"';
+      $sliceColors[] = '"#'.$abs['bgcolor'].'"';
       $count = 0;
+      
       if ($viewData['groupid'] == "all")
       {
          //
@@ -241,8 +247,9 @@ foreach ($viewData['absences'] as $abs)
 // Build Chart.js labels and data
 //
 $viewData['labels'] = implode(',', $labels);
+$viewData['sliceColors'] = implode(',', $sliceColors);
 $viewData['data'] = implode(',', $data);
-if($color=$C->read("statsDefaultColorAbsencetype")) $viewData['color'] = $color;
+if (count($labels)<=10) $viewData['height'] = count($labels) * 20; else $viewData['height'] = count($labels) * 10;
 
 //=============================================================================
 //

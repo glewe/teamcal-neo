@@ -26,6 +26,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 //
 $LANG['absence'] = 'Absence Type';
 $LANG['absences'] = 'Absences';
+$LANG['allowance'] = 'Allowance';
 $LANG['presences'] = 'Presences';
 $LANG['region'] = 'Region';
 $LANG['remainder'] = 'Remainder';
@@ -716,6 +717,7 @@ $LANG['stats_absences_desc'] = 'This statistics shows all entered absences.';
 $LANG['stats_abstype_desc'] = 'This statistics shows all entered absences by type.';
 $LANG['stats_presences_desc'] = 'This statistics shows all presences.';
 $LANG['stats_remainder_desc'] = 'This statistics shows the remainders of all absence types that have a limited allowance.';
+$LANG['stats_showAsPieChart'] = 'Show as Pie Chart';
 $LANG['stats_total'] = 'Total sum';
 $LANG['stats_yaxis'] = 'Diagram Y-axis';
 $LANG['stats_yaxis_comment'] = 'Select what the diagram y-axis shall show.';
