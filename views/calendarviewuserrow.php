@@ -50,7 +50,7 @@ if (isAllowed($CONF['controllers']['calendaredit']->permission))
 }
 if ($editAllowed)
 {
-   $editLink = ' onclick="window.location.href = \'index.php?action=calendaredit&amp;month='.date('Y').date('m').'&amp;region='.$viewData['regionid'].'&user='.$usr['username'].'\';"';
+   $editLink = ' onclick="window.location.href = \'index.php?action=calendaredit&amp;month='.$viewData['year'].$viewData['month'].'&amp;region='.$viewData['regionid'].'&user='.$usr['username'].'\';"';
 }
 ?>
 
