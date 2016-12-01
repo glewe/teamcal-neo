@@ -321,6 +321,8 @@ require_once (WEBSITE_ROOT . '/languages/' . $language . '.app.php'); // Applica
 if ($C->read('underMaintenance'))
 {
    $appStatus['maintenance'] = true;
+   $controller = 'maintenance';
+   if (isset($_GET['action'])) $controller = sanitize($_GET['action']);
    if ($luser != 'admin' AND $controller != 'login') $controller = 'maintenance';
 }
 else 
@@ -328,6 +330,8 @@ else
    $controller = 'home';
    if (isset($_GET['action'])) $controller = sanitize($_GET['action']);
 }
+
+//echo "<script type=\"text/javascript\">alert(\"Controller: ".$controller."\");</script>";
 
 //=============================================================================
 //

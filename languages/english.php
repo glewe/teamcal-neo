@@ -199,7 +199,7 @@ $LANG['alert_input_validation_subject'] = 'Input validation';
 
 $LANG['alert_maintenance_subject'] = 'Site Under Maintenance';
 $LANG['alert_maintenance_text'] = 'The site is currently set to "Under Maintenance". Regular users will not be able to use any feature.';
-$LANG['alert_maintenance_help'] = 'As an administrator you can set the site back to active under Administration -> Configuration -> System.';
+$LANG['alert_maintenance_help'] = 'As an administrator you can set the site back to active under Administration -> Framework Configuration -> System.';
 
 $LANG['alert_no_data_subject'] = 'Invalid Data';
 $LANG['alert_no_data_text'] = 'This operation was requested with invalid or insufficient data.';

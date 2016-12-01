@@ -199,7 +199,7 @@ $LANG['alert_input_validation_subject'] = 'Eingabevalidierung';
 
 $LANG['alert_maintenance_subject'] = 'Website in Wartung';
 $LANG['alert_maintenance_text'] = 'Die Website is zurzeit auf "Unter Wartung" gesetzt. Normale Nutzer k&ouml;nnen keine Funktionen nutzen.';
-$LANG['alert_maintenance_help'] = 'Ein Administrator kann die Website wieder aktiv setzten unter Administration -> Konfiguration -> System.';
+$LANG['alert_maintenance_help'] = 'Ein Administrator kann die Website wieder aktiv setzten unter Administration -> Framework-Konfiguration -> System.';
 
 $LANG['alert_no_data_subject'] = 'Fehlerhafte Daten';
 $LANG['alert_no_data_text'] = 'Es wurden falsche oder unzureichende Daten f&uuml;r diese Operation &uuml;bermittelt.';
