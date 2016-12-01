@@ -331,8 +331,6 @@ else
    if (isset($_GET['action'])) $controller = sanitize($_GET['action']);
 }
 
-//echo "<script type=\"text/javascript\">alert(\"Controller: ".$controller."\");</script>";
-
 //=============================================================================
 //
 // PREPARE VIEW
