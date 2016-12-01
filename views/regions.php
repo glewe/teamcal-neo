@@ -47,7 +47,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      </div>
 
                      <!-- Modal: Create region -->
-                     <?=createModalTop('modalCreateRole', $LANG['btn_create_region'])?>
+                     <?=createModalTop('modalCreateRegion', $LANG['btn_create_region'])?>
                         <label for="inputName"><?=$LANG['name']?></label>
                         <input id="inputName" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_name" maxlength="40" value="<?=$viewData['txt_name']?>" type="text">
                         <?php if ( isset($inputAlert["name"]) AND strlen($inputAlert["name"]) ) { ?> 
@@ -58,7 +58,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <?php if ( isset($inputAlert["description"]) AND strlen($inputAlert["description"]) ) { ?> 
                            <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert">x</button><?=$inputAlert["description"]?></div>
                         <?php } ?> 
-                     <?=createModalBottom('btn_roleCreate', 'success', $LANG['btn_create_region'])?>
+                     <?=createModalBottom('btn_regionCreate', 'success', $LANG['btn_create_region'])?>
                      
                   </form>
 
