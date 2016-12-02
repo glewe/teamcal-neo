@@ -13,7 +13,7 @@
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
-// echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
+// echo '<script type="text/javascript">alert("Debug: ");</script>';
 
 //=============================================================================
 //
@@ -148,8 +148,8 @@ if (!empty($_POST))
       }
       else
       {
-         $viewData['icalRegionID'] = $_POST['sel_ical_regionID'];
-         $viewData['icalRegionName'] = $_POST['sel_ical_regionName'];
+         $viewData['icalRegionID'] = $_POST['sel_ical_region'];
+         $viewData['icalRegionName'] = $R->getNameById($viewData['icalRegionID']);
          
          //
          // Now parse the iCal file (original code by Franz)
@@ -195,7 +195,7 @@ if (!empty($_POST))
             $current_year = date("Y", $current_event);
             $current_month = date("m", $current_event);
             $current_yearmonth = date("Ym", $current_event);
-         
+            
             if ($M->year.$M->month != $current_yearmonth)
             {
                //
@@ -204,16 +204,16 @@ if (!empty($_POST))
                // - we stepped over a month border with our current_event
                //
                // Let's check with a second MM instance if there is a template for this month yet.
-               // We need the second instance cause getMonth() would overwrite an M instance that we might still
-               // have in memory and not saved yet.
+               // We need the second instance cause getMonth() would overwrite an M instance that 
+               // we might still have in memory and not saved yet.
                //
-               if ( !$MM->getMonth($viewData['icalRegionID'], $current_year, $current_month) )
+               if ( !$MM->getMonth($current_year, $current_month, $viewData['icalRegionID']) )
                {
                   //
                   // Seems there is no template for this month yet.
                   // If we have one in cache, write it first.
                   //
-                  if ( $M->year ) $M->update($viewData['icalRegionID'], $M->year, $M->month);
+                  if ( $M->year ) $M->update($M->year, $M->month, $viewData['icalRegionID']);
                   //
                   // Create the new blank template
                   //
@@ -225,11 +225,11 @@ if (!empty($_POST))
                   // There is a template for this month.
                   // Let's save the current and load the new.
                   //
-                  $M->update($viewData['icalRegionID'], $M->year, $M->month);
-                  $M->getMonth($viewData['icalRegionID'], $current_year, $current_month);
+                  $M->update($M->year, $M->month, $viewData['icalRegionID']);
+                  $M->getMonth($current_year, $current_month, $viewData['icalRegionID']);
                }
             }
-         
+            
             //
             // Put the user-selected absence type in the month template for the current iCal event
             //
@@ -244,12 +244,12 @@ if (!empty($_POST))
                   //
                   // We are currently inbetween begin and end of an iCal period
                   //
-                  if ($M->getDay($viewData['icalRegionID'], $current_year, $current_month, $dayno) <= 3)
+                  if ($M->getWeekday($current_year, $current_month, $dayno, $viewData['icalRegionID']) <= 3)
                   {
                      //
                      // This is a business or weekend day. Only change the holiday type in this case.
                      //
-                     $prop = 'abs' . $dayno;
+                     $prop = 'hol' . $dayno;
                      $M->$prop = $_POST['sel_ical_holiday']; 
                   }
                   else 
@@ -259,7 +259,7 @@ if (!empty($_POST))
                      //
                      if (isset($_POST['chk_ical_overwrite']))
                      {
-                        $prop = 'abs' . $dayno;
+                        $prop = 'hol' . $dayno;
                         $M->$prop = $_POST['sel_ical_holiday'];
                      }
                   }
@@ -268,7 +268,7 @@ if (!empty($_POST))
                {
                   //
                   // We are done with this event period! Remove this period from the iCalEvents array.
-                  // That makes the next one the earliest.
+                  // That makes the next one the earliest, meaning the next one to deal with.
                   //
                   unset($iCalEvents[$start_of_iCal_period]);
                }
@@ -279,7 +279,7 @@ if (!empty($_POST))
          //
          // Ok, lets save the last month
          //
-         $M->update($viewData['icalRegionID'], $M->year, $M->month);
+         $M->update($M->year, $M->month, $viewData['icalRegionID']);
          
          //
          // Log this event
@@ -297,9 +297,9 @@ if (!empty($_POST))
          $alertData['help'] = '';
       }
    }
-   // ,--------,
-   // | Merge  |
-   // '--------'
+   // ,----------,
+   // | Transfer |
+   // '----------'
    elseif ( isset($_POST['btn_regionTransfer']) )
    {
       if ($_POST['sel_region_a'] == $_POST['sel_region_b']) 
@@ -311,7 +311,7 @@ if (!empty($_POST))
          $alertData['type'] = 'danger';
          $alertData['title'] = $LANG['alert_danger_title'];
          $alertData['subject'] = $LANG['alert_input'];
-         $alertData['text'] = $LANG['regions_alert_merge_same'];
+         $alertData['text'] = $LANG['regions_alert_transfer_same'];
          $alertData['help'] = '';
       }
       else 
@@ -322,21 +322,22 @@ if (!empty($_POST))
          $sregion = $_POST['sel_region_a'];
          $tregion = $_POST['sel_region_b'];
          $stemplates = $M->getRegion($sregion);
-         foreach ($templates as $stpl)
+         
+         foreach ($stemplates as $stpl)
          {
-            if ( !$M->getMonth($tregion, $stpl['year'], $stpl['month']) )
+            if ( !$M->getMonth($stpl['year'], $stpl['month'], $tregion) )
             {
                //
-               // No target template found for this region/year/month
-               // Lets just create a base template first.
+               // No target template found for this year/month/region
+               // Create an empty template first.
                //
-               createMonthTemplate('month', $tregion, $stpl['year'], $stpl['month']);
+               createMonth($stpl['year'], $stpl['month'], 'region', $tregion);
             }
             
-            $M->getMonth($tregion, $stpl['year'], $stpl['month']);
-            for ($i = 0; $i<=31; $i++)
+            $M->getMonth($stpl['year'], $stpl['month'], $tregion);
+            for ($i = 1; $i<=31; $i++)
             {
-               $prop = 'abs' . $i;
+               $prop = 'hol' . $i;
                if ($stpl[$prop] > 3)
                {
                   //
@@ -358,10 +359,11 @@ if (!empty($_POST))
                   }
                }
             }
+            
             //
-           // And save the template
-           //
-            $M->update($tregion, $stpl['year'], $stpl['month']);
+            // And save the template
+            //
+            $M->update($stpl['year'], $stpl['month'], $tregion);
          }
          
          //
@@ -375,7 +377,7 @@ if (!empty($_POST))
          $showAlert = TRUE;
          $alertData['type'] = 'success';
          $alertData['title'] = $LANG['alert_success_title'];
-         $alertData['subject'] = $LANG['regions_tab_merge'];
+         $alertData['subject'] = $LANG['regions_tab_transfer'];
          $alertData['text'] = sprintf($LANG['regions_transferred'], $R->getNameById($sregion), $R->getNameById($tregion));
          $alertData['help'] = '';
       }

@@ -371,34 +371,22 @@ class Months
     * Gest all templates for a given region ID
     *
     * @param string $region Region ID
-    * @return boolean Query result
+    * @return array Month templates of the given region
     */
    public function getRegion($region)
    {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE region = :val1');
       $query->bindParam('val1', $region);
       $result = $query->execute();
-      
-      if ($result AND $row = $query->fetch())
+
+      if ($result)
       {
-         $this->region = $row['region'];
-         $this->year = $row['year'];
-         $this->month = $row['month'];
-         for($i = 1; $i <= 31; $i++)
+         while ( $row = $query->fetch() )
          {
-            $prop = 'hol' . $i;
-            $this->$prop = $row[$prop];
-            $prop = 'wday' . $i;
-            $this->$prop = $row[$prop];
-            $prop = 'week' . $i;
-            $this->$prop = $row[$prop];
+            $records[] = $row;
          }
-         return true;
       }
-      else
-      {
-         return false;
-      }
+      return $records;
    }
    
    // ---------------------------------------------------------------------
@@ -545,7 +533,7 @@ class Months
       }
       $stmt = substr($stmt, 0, -2);
       $stmt .= ' WHERE region = :val4 AND year = :val5 AND month = :val6';
-
+      
       $query = $this->db->prepare($stmt);
       $query->bindParam('val1', $this->region);
       $query->bindParam('val2', $this->year);
