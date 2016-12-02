@@ -5,7 +5,7 @@
  * <controller> page controller
  *
  * @category TemCal Neo 
- * @version 1.3.000
+ * @version 1.3.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -13,7 +13,7 @@
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
-// echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
+// echo '<script type="text/javascript">alert("Debug: ");</script>';
 
 //=============================================================================
 //
@@ -37,9 +37,9 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
 $missingData = FALSE;
 
 //
-// TODO
 // Check $_GET data. If something is wrong or missing, set $missingData = true
 //
+// TODO
 
 if ($missingData)
 {
@@ -82,10 +82,10 @@ if (!empty($_POST))
    $inputError = false;
    
    //
-   // TODO
    // Validate input data. If something is wrong or missing, set $inputError = true
    //
-   
+   // TODO
+     
    if (!$inputError)
    {
       // ,------,
@@ -96,9 +96,9 @@ if (!empty($_POST))
          $reloadPage = false;
          
          //
-         // TODO
          // Process form input. If a page reload is necessary to show the changes, set $reloadPage = true
          //
+         // TODO
               
          //
          // Log this event

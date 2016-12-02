@@ -4,7 +4,7 @@
  * Sample MySQL database
  *
  * @category TeamCal Neo 
- * @version 1.3.000
+ * @version 1.3.001
  * @author George Lewe
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -474,7 +474,13 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (153, 'statsDefaultColorAbsences', 'red'),
 (154, 'statsDefaultColorPresences', 'green'),
 (155, 'statsDefaultColorAbsencetype', 'cyan'),
-(156, 'statsDefaultColorRemainder', 'orange');
+(156, 'statsDefaultColorRemainder', 'orange'),
+(157, 'logDaynote', '0'),
+(158, 'logfilterDaynote', '0'),
+(159, 'logcolorDaynote', 'default'),
+(160, 'logRegion', '1'),
+(161, 'logfilterRegion', '1'),
+(162, 'logcolorRegion', 'success');
 
 
 -- --------------------------------------------------------

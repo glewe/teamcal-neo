@@ -5,7 +5,7 @@
  * Absence icon page controller
  *
  * @category TeamCal Neo 
- * @version 1.3.000
+ * @version 1.3.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -13,7 +13,7 @@
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
-// echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
+// echo '<script type="text/javascript">alert("Debug: ");</script>';
 
 //=============================================================================
 //

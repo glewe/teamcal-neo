@@ -13,7 +13,7 @@
 */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
-// echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
+// echo '<script type="text/javascript">alert("Debug: ");</script>';
 
 //=============================================================================
 //

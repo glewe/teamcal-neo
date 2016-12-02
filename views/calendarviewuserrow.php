@@ -5,7 +5,7 @@
  * Calendar view page - User row
  *
  * @category TeamCal Neo 
- * @version 1.3.000
+ * @version 1.3.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
