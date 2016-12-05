@@ -158,6 +158,7 @@ $LANG['btn_create_holiday'] = 'Create Holiday';
 $LANG['btn_create_region'] = 'Create Region';
 $LANG['btn_delete_abs'] = 'Delete Absence Type';
 $LANG['btn_delete_holiday'] = 'Delete Holiday';
+$LANG['btn_delete_region'] = 'Delete Region';
 $LANG['btn_holiday_list'] = 'Holiday List';
 $LANG['btn_region_list'] = 'Region List';
 $LANG['btn_showcalendar'] = 'Show Calendar';

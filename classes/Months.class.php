@@ -271,10 +271,7 @@ class Months
     */
    public function deleteRegion($region)
    {
-      if ($archive) $table = $this->archive_table;
-      else $table = $this->table;
-      
-      $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE region = :val1');
+      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE region = :val1');
       $query->bindParam('val1', $region);
       $result = $query->execute();
       return $result;

@@ -105,10 +105,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           </div>
                                        </div>
       
-                                       <!-- Modal: Delete role -->
+                                       <!-- Modal: Delete region -->
                                        <?=createModalTop('modalDeleteRegion_'.$region['name'], $LANG['modal_confirm'])?>
-                                          <?=$LANG['regions_confirm_delete'].$region['name']?> ?
-                                       <?=createModalBottom('btn_regionDelete', 'danger', $LANG['btn_delete_region'])?>
+                                          <?=$LANG['regions_confirm_delete'].": ".$region['name']?>
+                                       <?=createModalBottom('btn_regionDelete', 'danger', $LANG['btn_delete'])?>
                                        
                                     </form>
                                  <?php } 

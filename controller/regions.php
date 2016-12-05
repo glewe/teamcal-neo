@@ -152,134 +152,88 @@ if (!empty($_POST))
          $viewData['icalRegionName'] = $R->getNameById($viewData['icalRegionID']);
          
          //
-         // Now parse the iCal file (original code by Franz)
+         // Parse the iCal file events
          //
-         $begin_of_ical = 999999999999999999999999999999;
-         $end_of_ical = 0;
          $iCalEvents = array();
          preg_match_all("#(?sU)BEGIN:VEVENT.*END:VEVENT#", file_get_contents($_FILES['file_ical']['tmp_name']), $events);
          
+         //
+         // Now go through all events
+         //
          foreach($events[0] as $event)
          {
+            //
+            // Read the event start and end string
+            //
             preg_match("#(?sU)DTSTART;.*DATE:([0-9]{8})#", $event, $start);
             preg_match("#(?sU)DTEND;.*DATE:([0-9]{8})#", $event, $end);
+
+            //
+            // Create time stamps and substract 24h from the end date cause the 
+            // end date of an iCal event is not included
+            //
             $start = mktime (0,0,0, substr($start[1],4,2), substr($start[1],6,2), substr($start[1],0,4));
             $end = mktime (0,0,0, substr($end[1],4,2), substr($end[1],6,2), substr($end[1],0,4));
-            $end = $end - 86400; // Need to subtract 24h to limit entry to a single day (submitted by Stefan Mayr)
-             
+            $end = $end - 86400;
+            
             //
-            // Catch the earliest and latest event date of the iCal file
+            // Loop through all events and save the date string into an array
             //
-            if ($begin_of_ical > $start) $begin_of_ical = $start;
-            if ($end_of_ical < $end) $end_of_ical = $end;
-         
-            //
-            // Save this event to the array
-            //
-            $iCalEvents[$start] = $end;
+            for($i=$start; $i<=$end; $i+=86400)
+            {
+               $eventDate = date("Ymd", $i);
+               $iCalEvents[] = $eventDate;
+            }
          };
-         
+         //echo "<pre>".var_dump($iCalEvents)."</pre>";
+
          //
-         // Ok, now we have all events in our array.
-         // Let's loop through all events an do this for each:
-         // - create a region month template for the event start and event end if not exists
-         // - add the absence symbol(s) for this event to the month template(s)
-         // - save the template(s)
+         // Loop through the date string array and save each one in the region template 
          //
-         $current_event = $begin_of_ical;
-         $M->year = 0;
-         $M->month = 0;
-         $M->yearmonth = 0;
-         while ($current_event < $end_of_ical)
+         foreach($iCalEvents as $i)
          {
-            $current_year = date("Y", $current_event);
-            $current_month = date("m", $current_event);
-            $current_yearmonth = date("Ym", $current_event);
+            $eventYear = substr($i, 0, 4);
+            $eventMonth = substr($i, 4, 2);
+            $eventDay = intval(substr($i, 6, 2));
             
-            if ($M->year.$M->month != $current_yearmonth)
+            if ( !$MM->getMonth($eventYear, $eventMonth, $viewData['icalRegionID']) )
             {
                //
-               // We don't have the month template we want. Two possible reasons:
-               // - we haven't loaded one
-               // - we stepped over a month border with our current_event
+               // Seems there is no template for this month yet.
+               // If we have one in cache, write it first.
                //
-               // Let's check with a second MM instance if there is a template for this month yet.
-               // We need the second instance cause getMonth() would overwrite an M instance that 
-               // we might still have in memory and not saved yet.
+               if ( $M->year ) $M->update($M->year, $M->month, $viewData['icalRegionID']);
                //
-               if ( !$MM->getMonth($current_year, $current_month, $viewData['icalRegionID']) )
-               {
-                  //
-                  // Seems there is no template for this month yet.
-                  // If we have one in cache, write it first.
-                  //
-                  if ( $M->year ) $M->update($M->year, $M->month, $viewData['icalRegionID']);
-                  //
-                  // Create the new blank template
-                  //
-                  createMonth($current_year, $current_month, 'region', $viewData['icalRegionID']);
-               }
-               else
-               {
-                  //
-                  // There is a template for this month.
-                  // Let's save the current and load the new.
-                  //
-                  $M->update($M->year, $M->month, $viewData['icalRegionID']);
-                  $M->getMonth($current_year, $current_month, $viewData['icalRegionID']);
-               }
+               // Create the new blank template
+               //
+               createMonth($eventYear, $eventMonth, 'region', $viewData['icalRegionID']);
+            }
+            else
+            {
+               //
+               // There is a template for this month in memory. Save it first.
+               //
+               $M->update($M->year, $M->month, $viewData['icalRegionID']);
             }
             
-            //
-            // Put the user-selected absence type in the month template for the current iCal event
-            //
-            $dayno = date("j", $current_event);
-         
-            $start_of_iCal_period = min(array_keys($iCalEvents)); // Select start of earliest iCal period
-            $end_of_iCal_period = $iCalEvents[$start_of_iCal_period]; // Select end of earliest iCal period
-            if ($start_of_iCal_period <= $current_event)
+            if ($M->getWeekday($eventYear, $eventMonth, $eventDay, $viewData['icalRegionID']) <= 3)
             {
-               if ($end_of_iCal_period >= $current_event)
+               //
+               // This is a business or weekend day. Good to overwrite.
+               //
+               $M->setHoliday($eventYear, $eventMonth, $eventDay, $viewData['icalRegionID'], $_POST['sel_ical_holiday']);
+            }
+            else
+            {
+               //
+               // This is an existing holiday. Check the overwrite flag.
+               //
+               if (isset($_POST['chk_ical_overwrite']))
                {
-                  //
-                  // We are currently inbetween begin and end of an iCal period
-                  //
-                  if ($M->getWeekday($current_year, $current_month, $dayno, $viewData['icalRegionID']) <= 3)
-                  {
-                     //
-                     // This is a business or weekend day. Only change the holiday type in this case.
-                     //
-                     $prop = 'hol' . $dayno;
-                     $M->$prop = $_POST['sel_ical_holiday']; 
-                  }
-                  else 
-                  {
-                     //
-                     // This is an existing holiday. Check the overwrite flag.
-                     //
-                     if (isset($_POST['chk_ical_overwrite']))
-                     {
-                        $prop = 'hol' . $dayno;
-                        $M->$prop = $_POST['sel_ical_holiday'];
-                     }
-                  }
-               }
-               else
-               {
-                  //
-                  // We are done with this event period! Remove this period from the iCalEvents array.
-                  // That makes the next one the earliest, meaning the next one to deal with.
-                  //
-                  unset($iCalEvents[$start_of_iCal_period]);
+                  $M->setHoliday($eventYear, $eventMonth, $eventDay, $viewData['icalRegionID'], $_POST['sel_ical_holiday']);
                }
             }
-            $current_event = strtotime("+1 day", $current_event);
          }
-         
-         //
-         // Ok, lets save the last month
-         //
-         $M->update($M->year, $M->month, $viewData['icalRegionID']);
          
          //
          // Log this event
