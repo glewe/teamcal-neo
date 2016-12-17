@@ -185,7 +185,6 @@ if (!empty($_POST))
                $iCalEvents[] = $eventDate;
             }
          };
-         //echo "<pre>".var_dump($iCalEvents)."</pre>";
 
          //
          // Loop through the date string array and save each one in the region template 
@@ -216,10 +215,10 @@ if (!empty($_POST))
                $M->update($M->year, $M->month, $viewData['icalRegionID']);
             }
             
-            if ($M->getWeekday($eventYear, $eventMonth, $eventDay, $viewData['icalRegionID']) <= 3)
+            if ($M->getHoliday($eventYear, $eventMonth, $eventDay, $viewData['icalRegionID'])==0)
             {
                //
-               // This is a business or weekend day. Good to overwrite.
+               // No Holiday set yet for this day. Good to overwrite.
                //
                $M->setHoliday($eventYear, $eventMonth, $eventDay, $viewData['icalRegionID'], $_POST['sel_ical_holiday']);
             }
