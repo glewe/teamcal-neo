@@ -5,7 +5,7 @@
  * TeamCal Pro Import page view
  *
  * @category TeamCal Neo 
- * @version 1.3.001
+ * @version 1.3.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -162,7 +162,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="text-normal"><?=$LANG['tcpimp_abs_comment']?></div>
                                        </div>
                                        <div class="col-lg-4">
-                                          <div class="radio"><label><input name="opt_absImport" id="opt_absImport_no" value="no" tabindex="<?=$tabindex++;?>" checked="" type="radio"><?=$LANG['tcpimp_no']?></label></div>
+                                          <div class="radio"><label><input name="opt_absImport" id="opt_absImport_no" value="no" tabindex="<?=$tabindex++;?>" checked type="radio"><?=$LANG['tcpimp_no']?></label></div>
                                           <div class="radio"><label><input name="opt_absImport" id="opt_absImport_replace" value="replace" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_replace']?></label></div>
                                           <div class="radio"><label><input name="opt_absImport" id="opt_absImport_add" value="add" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_add']?></label></div>
                                        </div>
@@ -176,7 +176,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="text-normal"><?=$LANG['tcpimp_allo_comment']?></div>
                                        </div>
                                        <div class="col-lg-4">
-                                          <div class="radio"><label><input name="opt_alloImport" id="opt_alloImport_no" value="no" tabindex="<?=$tabindex++;?>" checked="" type="radio"><?=$LANG['tcpimp_no']?></label></div>
+                                          <div class="radio"><label><input name="opt_alloImport" id="opt_alloImport_no" value="no" tabindex="<?=$tabindex++;?>" checked type="radio"><?=$LANG['tcpimp_no']?></label></div>
                                           <div class="radio"><label><input name="opt_alloImport" id="opt_alloImport_replace" value="replace" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_replace']?></label></div>
                                           <div class="radio"><label><input name="opt_alloImport" id="opt_alloImport_add" value="add" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_add']?></label></div>
                                        </div>
@@ -190,7 +190,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="text-normal"><?=$LANG['tcpimp_dayn_comment']?></div>
                                        </div>
                                        <div class="col-lg-4">
-                                          <div class="radio"><label><input name="opt_daynImport" id="opt_daynImport_no" value="no" tabindex="<?=$tabindex++;?>" checked="" type="radio"><?=$LANG['tcpimp_no']?></label></div>
+                                          <div class="radio"><label><input name="opt_daynImport" id="opt_daynImport_no" value="no" tabindex="<?=$tabindex++;?>" checked type="radio"><?=$LANG['tcpimp_no']?></label></div>
                                           <div class="radio"><label><input name="opt_daynImport" id="opt_daynImport_replace" value="replace" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_replace']?></label></div>
                                           <div class="radio"><label><input name="opt_daynImport" id="opt_daynImport_add" value="add" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_add']?></label></div>
                                        </div>
@@ -204,7 +204,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="text-normal"><?=$LANG['tcpimp_groups_comment']?></div>
                                        </div>
                                        <div class="col-lg-4">
-                                          <div class="radio"><label><input name="opt_groupsImport" id="opt_groupsImport_no" value="no" tabindex="<?=$tabindex++;?>" checked="" type="radio"><?=$LANG['tcpimp_no']?></label></div>
+                                          <div class="radio"><label><input name="opt_groupsImport" id="opt_groupsImport_no" value="no" tabindex="<?=$tabindex++;?>" checked type="radio"><?=$LANG['tcpimp_no']?></label></div>
                                           <div class="radio"><label><input name="opt_groupsImport" id="opt_groupsImport_replace" value="replace" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_replace']?></label></div>
                                           <div class="radio"><label><input name="opt_groupsImport" id="opt_groupsImport_add" value="add" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_add']?></label></div>
                                        </div>
@@ -218,7 +218,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="text-normal"><?=$LANG['tcpimp_ugr_comment']?></div>
                                        </div>
                                        <div class="col-lg-4">
-                                          <div class="radio"><label><input name="opt_ugrImport" id="opt_ugrImport_no" value="no" tabindex="<?=$tabindex++;?>" checked="" type="radio"><?=$LANG['tcpimp_no']?></label></div>
+                                          <div class="radio"><label><input name="opt_ugrImport" id="opt_ugrImport_no" value="no" tabindex="<?=$tabindex++;?>" checked type="radio"><?=$LANG['tcpimp_no']?></label></div>
                                           <div class="radio"><label><input name="opt_ugrImport" id="opt_ugrImport_replace" value="replace" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_replace']?></label></div>
                                           <div class="radio"><label><input name="opt_ugrImport" id="opt_ugrImport_add" value="add" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_add']?></label></div>
                                        </div>
@@ -232,7 +232,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="text-normal"><?=$LANG['tcpimp_hols_comment']?></div>
                                        </div>
                                        <div class="col-lg-4">
-                                          <div class="radio"><label><input name="opt_holsImport" id="opt_holsImport_no" value="no" tabindex="<?=$tabindex++;?>" checked="" type="radio"><?=$LANG['tcpimp_no']?></label></div>
+                                          <div class="radio"><label><input name="opt_holsImport" id="opt_holsImport_no" value="no" tabindex="<?=$tabindex++;?>" checked type="radio"><?=$LANG['tcpimp_no']?></label></div>
                                           <div class="radio"><label><input name="opt_holsImport" id="opt_holsImport_replace" value="replace" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_replace']?></label></div>
                                           <div class="radio"><label><input name="opt_holsImport" id="opt_holsImport_add" value="add" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_add']?></label></div>
                                        </div>
@@ -246,7 +246,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="text-normal"><?=$LANG['tcpimp_regs_comment']?></div>
                                        </div>
                                        <div class="col-lg-4">
-                                          <div class="radio"><label><input name="opt_regsImport" id="opt_regsImport_no" value="no" tabindex="<?=$tabindex++;?>" checked="" type="radio"><?=$LANG['tcpimp_no']?></label></div>
+                                          <div class="radio"><label><input name="opt_regsImport" id="opt_regsImport_no" value="no" tabindex="<?=$tabindex++;?>" checked type="radio"><?=$LANG['tcpimp_no']?></label></div>
                                           <div class="radio"><label><input name="opt_regsImport" id="opt_regsImport_replace" value="replace" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_replace']?></label></div>
                                           <div class="radio"><label><input name="opt_regsImport" id="opt_regsImport_add" value="add" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_add']?></label></div>
                                        </div>
@@ -260,7 +260,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="text-normal"><?=$LANG['tcpimp_mtpl_comment']?></div>
                                        </div>
                                        <div class="col-lg-4">
-                                          <div class="radio"><label><input name="opt_mtplImport" id="opt_mtplImport_no" value="no" tabindex="<?=$tabindex++;?>" checked="" type="radio"><?=$LANG['tcpimp_no']?></label></div>
+                                          <div class="radio"><label><input name="opt_mtplImport" id="opt_mtplImport_no" value="no" tabindex="<?=$tabindex++;?>" checked type="radio"><?=$LANG['tcpimp_no']?></label></div>
                                           <div class="radio"><label><input name="opt_mtplImport" id="opt_mtplImport_replace" value="replace" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_replace']?></label></div>
                                           <div class="radio"><label><input name="opt_mtplImport" id="opt_mtplImport_add" value="add" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_add']?></label></div>
                                        </div>
@@ -274,7 +274,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="text-normal"><?=$LANG['tcpimp_roles_comment']?></div>
                                        </div>
                                        <div class="col-lg-4">
-                                          <div class="radio"><label><input name="opt_rolesImport" id="opt_rolesImport_no" value="no" tabindex="<?=$tabindex++;?>" checked="" type="radio"><?=$LANG['tcpimp_no']?></label></div>
+                                          <div class="radio"><label><input name="opt_rolesImport" id="opt_rolesImport_no" value="no" tabindex="<?=$tabindex++;?>" checked type="radio"><?=$LANG['tcpimp_no']?></label></div>
                                           <div class="radio"><label><input name="opt_rolesImport" id="opt_rolesImport_add" value="add" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_add']?></label></div>
                                        </div>
                                     </div>
@@ -287,7 +287,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="text-normal"><?=$LANG['tcpimp_users_comment']?></div>
                                        </div>
                                        <div class="col-lg-4">
-                                          <div class="radio"><label><input name="opt_usersImport" id="opt_usersImport_no" value="no" tabindex="<?=$tabindex++;?>" checked="" type="radio"><?=$LANG['tcpimp_no']?></label></div>
+                                          <div class="radio"><label><input name="opt_usersImport" id="opt_usersImport_no" value="no" tabindex="<?=$tabindex++;?>" checked type="radio"><?=$LANG['tcpimp_no']?></label></div>
                                           <div class="radio"><label><input name="opt_usersImport" id="opt_usersImport_replace" value="replace" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_replace']?></label></div>
                                           <div class="radio"><label><input name="opt_usersImport" id="opt_usersImport_add" value="add" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_add']?></label></div>
                                        </div>
@@ -301,7 +301,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="text-normal"><?=$LANG['tcpimp_utpl_comment']?></div>
                                        </div>
                                        <div class="col-lg-4">
-                                          <div class="radio"><label><input name="opt_utplImport" id="opt_utplImport_no" value="no" tabindex="<?=$tabindex++;?>" checked="" type="radio"><?=$LANG['tcpimp_no']?></label></div>
+                                          <div class="radio"><label><input name="opt_utplImport" id="opt_utplImport_no" value="no" tabindex="<?=$tabindex++;?>" checked type="radio"><?=$LANG['tcpimp_no']?></label></div>
                                           <div class="radio"><label><input name="opt_utplImport" id="opt_utplImport_replace" value="replace" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_replace']?></label></div>
                                           <div class="radio"><label><input name="opt_utplImport" id="opt_utplImport_add" value="add" tabindex="<?=$tabindex++;?>" type="radio"><?=$LANG['tcpimp_add']?></label></div>
                                        </div>

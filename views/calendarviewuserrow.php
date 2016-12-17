@@ -5,7 +5,7 @@
  * Calendar view page - User row
  *
  * @category TeamCal Neo 
- * @version 1.3.001
+ * @version 1.3.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -70,7 +70,7 @@ if ($editAllowed)
          }?>
          <td class="<?=$nameStyle?>">
             <?php if ($C->read('showAvatars')) { ?>
-               <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<img src='<?=$CONF['app_avatar_dir'].$UO->read($usr['username'],'avatar')?>' alt='' style='width: 80px; height: 80px;'>"><img src="<?=$CONF['app_avatar_dir']?>/<?=$UO->read($usr['username'],'avatar')?>" alt="" style="width: 16px; height: 16px;"></i>
+               <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<img src='<?=$CONF['app_avatar_dir'].$UO->read($usr['username'],'avatar')?>' style='width: 80px; height: 80px;'>"><img src="<?=$CONF['app_avatar_dir']?>/<?=$UO->read($usr['username'],'avatar')?>" alt="" style="width: 16px; height: 16px;"></i>
             <?php } ?>
             <?php if ($C->read('showRoleIcons')) {
                $thisRole = $U->getRole($usr['username']);

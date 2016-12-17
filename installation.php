@@ -5,7 +5,7 @@
  * Installation script
  *
  * @category TeamCal Neo 
- * @version 1.3.001
+ * @version 1.3.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -370,7 +370,7 @@ if (!$installationComplete AND readConfig('app_installed', $configAppFile) <> '0
                      <!-- Test Database -->
                      <div class="form-group">
                         <div class="col-lg-12">
-                           <a class="btn btn-default" tabindex="<?=$tabindex++;?>" name="btn_testDb" onclick="javascript:checkDB();"><?=$LANG['btn_test']?></a>
+                           <a class="btn btn-default" tabindex="<?=$tabindex++;?>" id="btn_testDb" onclick="javascript:checkDB();"><?=$LANG['btn_test']?></a>
                            <p><span id="checkDbOutput"></span></p>
                         </div>
                      </div>

@@ -5,7 +5,7 @@
  * Declination page view
  *
  * @category TeamCal Neo 
- * @version 1.3.001
+ * @version 1.3.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -105,8 +105,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <label class="col-lg-8 control-label">
                                           <?=$LANG['decl_tab_'.strtolower($overview)]?><br>
                                           <span class="text-normal"><?=$LANG['decl_summary_'.strtolower($overview)]?><br>
-                                             <span class="small text-italic text-info"><strong><?=$LANG['decl_value'].':</strong> '.$details?></span><br>
-                                             <span class="small text-italic text-info"><strong><?=$LANG['decl_schedule'].':</strong> '.$schedule?></span><br>
+                                             <span class="small text-italic text-info"><strong><?=$LANG['decl_value']?>: </strong><?=$details?></span><br>
+                                             <span class="small text-italic text-info"><strong><?=$LANG['decl_schedule']?>: </strong><?=$schedule?></span><br>
                                           </span>
                                        </label>
                                        <div class="col-lg-4">

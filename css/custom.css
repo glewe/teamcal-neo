@@ -4,7 +4,7 @@
  * Global custom style sheet
  *
  * @category TeamCal Neo 
- * @version 1.3.001
+ * @version 1.3.002
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2016 by George Lewe
  * @link http://www.lewe.com
@@ -104,7 +104,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 .footer {
    color: #999999;
    background-color: #212121;
-   padding: 20px 15px 640px 15px;
+   padding: 20px 15px 700px 15px;
    margin-top: 60px;
    margin-bottom: 0px;
 }
