@@ -323,7 +323,7 @@ if ($C->read('underMaintenance'))
    $appStatus['maintenance'] = true;
    $controller = 'maintenance';
    if (isset($_GET['action'])) $controller = sanitize($_GET['action']);
-   if ($luser != 'admin' AND $controller != 'login') $controller = 'maintenance';
+   if ($luser != 'admin' AND $userData['roleid'] != 1 AND $controller != 'login') $controller = 'maintenance';
 }
 else 
 {
