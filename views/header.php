@@ -84,9 +84,6 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
       <!-- Bootstrap Javascript -->
       <script src="themes/bootstrap/js/bootstrap.min.js"></script>
       
-      <!-- Bootstrap/jQuery Modal Patch -->
-      <script type="text/javascript" src="js/modal.js"></script>
-
       <!-- Custom CSS -->
       <link rel="stylesheet" href="css/bootstrap-submenu.min.css">
       <link rel="stylesheet" href="css/custom.css">

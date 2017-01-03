@@ -304,7 +304,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   <span class="text-bold"><?=$LANG['caledit_recurrence']?></span><br>
                   <span class="text-normal"><?=$LANG['caledit_recurrence_comment']?></span>
                </div>
-               <div>
+               <div style="padding-left: 20px;">
                   <div style="width: 50%; float: left; padding-right: 10px;">
                      <div class="checkbox"><input id="monday" name="monday" value="monday" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['weekdayLong'][1]?></div>
                      <div class="checkbox"><input id="tuesday" name="tuesday" value="tuesday" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['weekdayLong'][2]?></div>
