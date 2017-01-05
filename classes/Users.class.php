@@ -136,40 +136,40 @@ class Users
     */
    public function create()
    {
-      //       $q = 'INSERT INTO ' . $this->table . ' (
-      //             username,
-      //             password,
-      //             firstname,
-      //             lastname,
-      //             email,
-      //             role,
-      //             locked,
-      //             hidden,
-      //             onhold,
-      //             verify,
-      //             bad_logins,
-      //             grace_start,
-      //             last_pw_change,
-      //             last_login,
-      //             created
-      //          ) VALUES (
-      //             "'.$this->username.'",
-      //             "'.$this->password.'",
-      //             "'.$this->firstname.'",
-      //             "'.$this->lastname.'",
-      //             "'.$this->email.'",
-      //             "'.$this->role.'",
-      //             "'.$this->locked.'",
-      //             "'.$this->hidden.'",
-      //             "'.$this->onhold.'",
-      //             "'.$this->verify.'",
-      //             "'.$this->bad_logins.'",
-      //             "'.$this->grace_start.'",
-      //             "'.$this->last_pw_change.'",
-      //             "'.$this->last_login.'",
-      //             "'.$this->created.'"
-      //          )';
-      //       print $q;
+//       $q = 'INSERT INTO ' . $this->table . ' (
+//             username,
+//             password,
+//             firstname,
+//             lastname,
+//             email,
+//             role,
+//             locked,
+//             hidden,
+//             onhold,
+//             verify,
+//             bad_logins,
+//             grace_start,
+//             last_pw_change,
+//             last_login,
+//             created
+//          ) VALUES (
+//             "'.$this->username.'",
+//             "'.$this->password.'",
+//             "'.$this->firstname.'",
+//             "'.$this->lastname.'",
+//             "'.$this->email.'",
+//             "'.$this->role.'",
+//             "'.$this->locked.'",
+//             "'.$this->hidden.'",
+//             "'.$this->onhold.'",
+//             "'.$this->verify.'",
+//             "'.$this->bad_logins.'",
+//             "'.$this->grace_start.'",
+//             "'.$this->last_pw_change.'",
+//             "'.$this->last_login.'",
+//             "'.$this->created.'"
+//          )';
+//       print $q;
 
       $stmt = 'INSERT INTO ' . $this->table . ' (username, password, firstname, lastname, email, role, locked, hidden, onhold, verify, bad_logins, grace_start, last_pw_change, last_login, created) ';
       $stmt .= 'VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12, :val13, :val14, :val15)';

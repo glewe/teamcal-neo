@@ -351,20 +351,20 @@ if (!empty($_POST))
                      $U->firstname = $rec['firstname'];
                      $U->lastname = $rec['lastname'];
                      $U->email = $rec['email'];
-                     
+
                      // Only Admin and User roles are mapped
                      if ($rec['usertype'] & 0x04) $U->role = '1'; // Admin
                      if ($rec['usertype'] & 0x01) $U->role = '2'; // User
 
-                     if ($rec['status'] & 0x01) $U->locked = "'1',"; // Locked
-                     if ($rec['status'] & 0x08) $U->hidden = "'1',"; // Hidden
-                     if ($rec['status'] & 0x04) $U->onhold = "'1',"; // On hold
+                     if ($rec['status'] & 0x01) $U->locked = '1'; // Locked
+                     if ($rec['status'] & 0x08) $U->hidden = '1'; // Hidden
+                     if ($rec['status'] & 0x04) $U->onhold = '1'; // On hold
 
                      $U->verify = '0';
                      $U->bad_logins = '0';
-                     $U->grace_start = '';
-                     $U->last_pw_change = '';
-                     $U->last_login = '';
+                     $U->grace_start = DEFAULT_TIMESTAMP;
+                     $U->last_pw_change = date('YmdHis');
+                     $U->last_login = DEFAULT_TIMESTAMP;
                      $U->created = date('YmdHis');
                                 
                      $U->create();
