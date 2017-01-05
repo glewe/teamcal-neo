@@ -60,8 +60,13 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <!-- View Menu -->
                      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="view"><?=$LANG['mnu_view']?><span class="caret"></span></a>
                         <ul class="dropdown-menu" aria-labelledby="view">
-                           <?php if (isAllowed($CONF['controllers']['calendarview']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['calendarview']->name?>&amp;month=<?=date('Y').date('m')?>&amp;region=1&amp;group=all&amp;abs=all"><i class="fa fa-<?=$CONF['controllers']['calendarview']->faIcon?> fa-lg text-<?=$CONF['controllers']['calendarview']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_calendar']?></a></li>
+                           <?php if (isAllowed($CONF['controllers']['calendarview']->permission)) {
+                              if ($controller=='logout') 
+                                 $urlparams = "&amp;month=".date('Y').date('m')."&amp;region=1&amp;group=all&amp;abs=all";
+                              else
+                                 if (!$urlparams=$UO->read($UL->username, 'calfilter')) $urlparams = "&amp;month=".date('Y').date('m')."&amp;region=1&amp;group=all&amp;abs=all";
+                              ?>
+                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['calendarview']->name.$urlparams?>"><i class="fa fa-<?=$CONF['controllers']['calendarview']->faIcon?> fa-lg text-<?=$CONF['controllers']['calendarview']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_calendar']?></a></li>
                            <?php } ?>
                            <?php if (isAllowed($CONF['controllers']['year']->permission)) { ?>
                               <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['year']->name?>&amp;year=<?=date('Y')?>&amp;region=1&amp;user=<?=$UL->username?>"><i class="fa fa-<?=$CONF['controllers']['year']->faIcon?> fa-lg text-<?=$CONF['controllers']['year']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_year']?></a></li>

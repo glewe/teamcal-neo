@@ -68,13 +68,14 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                <a class="btn btn-default tooltip-warning" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>&amp;abs=<?=$viewData['absid']?>" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_backward']?>"><span class="fa fa-angle-double-left"></span></a>
                <a class="btn btn-default tooltip-warning" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>&amp;abs=<?=$viewData['absid']?>" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_forward']?>"><span class="fa fa-angle-double-right"></span></a>
                <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$viewData['yearToday'].$viewData['monthToday']?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>&amp;abs=<?=$viewData['absid']?>"><?=$LANG['today']?></a>
+               <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectMonth"><?=$LANG['month'] . ': ' . $viewData['year'].$viewData['month']?></button>
                <?php if ($C->read('showRegionButton')) { ?>
                   <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectRegion"><?=$LANG['region'] . ': ' . $viewData['regionname']?></button>
                <?php } ?>
                <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectGroup"><?=$LANG['group'] . ': ' . $viewData['group']?></button>
                <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectAbsence"><?=$LANG['absence'] . ': ' . $viewData['absence']?></button>
                <button type="button" class="btn btn-info" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSearchUser"><?=$LANG['search'] . ': ' . $viewData['search']?></button>
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=date('Y').date('m')?>&amp;region=<?=$viewData['regionid']?>&amp;group=all&amp;abs=all"><?=$LANG['btn_reset']?></a>
+               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=date('Y').date('m')?>&amp;region=1&amp;group=all&amp;abs=all&amp;search=reset"><?=$LANG['btn_reset']?></a>
             </div>
             
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
@@ -189,6 +190,23 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                <?php } ?>
             <?php } ?>
 
+            <!-- Modal: Select Month -->
+            <?=createModalTop('modalSelectMonth', $LANG['cal_selMonth'])?>
+            <div style="width:48%;float:left;">
+               <?=$LANG['year']?><br>
+               <input id="year" class="form-control" tabindex="<?=$tabindex++?>" name="txt_year" type="number" min="2000" max="2100" maxlength="4" value="<?=$viewData['year']?>">
+            </div>
+            <div style="width:45%;float:right;">
+               <?=$LANG['month']?><br>
+               <select id="month" class="form-control" name="sel_month" tabindex="<?=$tabindex++?>">
+                  <?php foreach ($LANG['monthnames'] as $key => $value) { ?>
+                     <option value="<?=sprintf('%02d',$key)?>" <?=($key==$viewData['month'])?'selected="selected"':'';?>><?=$value?></option>
+                  <?php } ?>
+               </select>
+            </div>
+            <div style="height:80px;"></div>
+            <?=createModalBottom('btn_month', 'success', $LANG['btn_select'])?>
+            
             <!-- Modal: Select Region -->
             <?=createModalTop('modalSelectRegion', $LANG['cal_selRegion'])?>
                <select id="region" class="form-control" name="sel_region" tabindex="<?=$tabindex++?>">
@@ -220,12 +238,27 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
             <?=createModalBottom('btn_abssearch', 'warning', $LANG['btn_search'])?>
 
             <!-- Modal: Search User -->
-            <?=createModalTop('modalSearchUser', $LANG['cal_search'])?>
-               <input id="search" class="form-control" tabindex="<?=$tabindex++?>" name="txt_search" type="text" value="">
-               <?php if ( isset($inputAlert["search"]) ) { ?> 
-                  <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['search']?></div>
-               <?php } ?> 
-            <?=createModalBottom('btn_search', 'info', $LANG['btn_search'])?>
+            <div class="modal fade" id="modalSearchUser" role="dialog" aria-labelledby="modalSearchUserLabel" aria-hidden="true">
+               <div class="modal-dialog">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalSearchUserLabel"><?=$LANG['cal_search']?></h4>
+                     </div>
+                     <div class="modal-body">
+                        <input id="search" class="form-control" tabindex="<?=$tabindex++?>" name="txt_search" type="text" value="<?=$viewData["search"]?>">
+                        <?php if ( isset($inputAlert["search"]) ) { ?> 
+                           <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['search']?></div>
+                        <?php } ?> 
+                     </div>
+                     <div class="modal-footer">
+                        <button type="submit" class="btn btn-info" tabindex="<?=$tabindex++?>" name="btn_search" style="margin-top: 4px;"><?=$LANG['btn_search']?></button>
+                        <?php if (strlen($viewData["search"])) { ?><button type="submit" class="btn btn-danger" tabindex="<?=$tabindex++?>" name="btn_search_clear"><?=$LANG['btn_clear']?></button><?php } ?>
+                        <button type="button" class="btn btn-default" tabindex="<?=$tabindex++?>" data-dismiss="modal"><?=$LANG['btn_search']?></button>
+                     </div>
+                  </div>
+               </div>
+            </div>                        
             
          </form>
          

@@ -27,12 +27,28 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 $LANG['absence'] = 'Abwesenheitstyp';
 $LANG['absences'] = 'Abwesenheiten';
 $LANG['allowance'] = 'Erlaubt';
+$LANG['month'] = 'Monat';
 $LANG['presences'] = 'Anwesenheiten';
 $LANG['region'] = 'Region';
 $LANG['remainder'] = 'Verbleibend';
 $LANG['taken'] = 'Genommen';
 $LANG['weeknumber'] = 'Kalenderwoche';
 $LANG['year'] = 'Jahr';
+
+$LANG['monthnames'] = array (
+   1 => "Januar",
+   2 => "Februar",
+   3 => "M&auml;rz",
+   4 => "April",
+   5 => "Mai",
+   6 => "Juni",
+   7 => "Juli",
+   8 => "August",
+   9 => "September",
+   10 => "Oktober",
+   11 => "November",
+   12 => "Dezember",
+);
 
 //
 // Absences
@@ -175,6 +191,7 @@ $LANG['cal_search'] = 'Nutzer suchen';
 $LANG['cal_selAbsence'] = 'Abwesenheit ausw&auml;hlen';
 $LANG['cal_selAbsence_comment'] = 'Zeigt alle Eintr&auml;ge an, die am heutigen Tage diese Abwesenheit eingetragen haben.';
 $LANG['cal_selGroup'] = 'Gruppe ausw&auml;hlen';
+$LANG['cal_selMonth'] = 'Monat ausw&auml;hlen';
 $LANG['cal_selRegion'] = 'Region ausw&auml;hlen';
 $LANG['cal_summary'] = 'Summen';
 $LANG['cal_businessDays'] = 'Arbeitstage';
