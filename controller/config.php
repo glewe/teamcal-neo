@@ -139,7 +139,6 @@ if (!empty($_POST))
          if (isset($_POST['chk_cookieConsent']) && $_POST['chk_cookieConsent']) $C->save("cookieConsent", "1"); else $C->save("cookieConsent", "0");
          if (isset($_POST['chk_faCDN']) && $_POST['chk_faCDN']) $C->save("faCDN", "1"); else $C->save("faCDN", "0");
          if (isset($_POST['chk_jQueryCDN']) && $_POST['chk_jQueryCDN']) $C->save("jQueryCDN", "1"); else $C->save("jQueryCDN", "0");
-         if ($_POST['sel_jqtheme']) $C->save("jqtheme", $_POST['sel_jqtheme']); else $C->save("jqtheme", "smoothness");
          if ($_POST['sel_timeZone']) $C->save("timeZone",$_POST['sel_timeZone']); else $C->save("timeZone","UTC");
          if ( isset($_POST['chk_googleAnalytics']) && $_POST['chk_googleAnalytics'] ) 
          {
@@ -164,7 +163,8 @@ if (!empty($_POST))
          if ($_POST['sel_theme']) $C->save("theme", $_POST['sel_theme']); else $C->save("theme", "bootstrap");
          if (isset($_POST['chk_menuBarInverse']) && $_POST['chk_menuBarInverse']) $C->save("menuBarInverse", "1"); else $C->save("menuBarInverse", "0");
          if (isset($_POST['chk_allowUserTheme']) && $_POST['chk_allowUserTheme']) $C->save("allowUserTheme", "1"); else $C->save("allowUserTheme", "0");
-           
+         if ($_POST['sel_jqtheme']) $C->save("jqtheme", $_POST['sel_jqtheme']); else $C->save("jqtheme", "smoothness");
+          
          //
          // User
          //
@@ -280,7 +280,6 @@ $viewData['system'] = array (
    array ( 'prefix' => 'config', 'name' => 'cookieConsent', 'type' => 'check', 'values' => '', 'value' => $C->read("cookieConsent") ),
    array ( 'prefix' => 'config', 'name' => 'faCDN', 'type' => 'check', 'values' => '', 'value' => $C->read("faCDN") ),
    array ( 'prefix' => 'config', 'name' => 'jQueryCDN', 'type' => 'check', 'values' => '', 'value' => $C->read("jQueryCDN") ),
-   array ( 'prefix' => 'config', 'name' => 'jqtheme', 'type' => 'list', 'values' => $viewData['jqueryUIThemeList'] ),
    array ( 'prefix' => 'config', 'name' => 'timeZone', 'type' => 'list', 'values' => $viewData['timezoneList'] ),
    array ( 'prefix' => 'config', 'name' => 'googleAnalytics', 'type' => 'check', 'values' => '', 'value' => $C->read("googleAnalytics") ),
    array ( 'prefix' => 'config', 'name' => 'googleAnalyticsID', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("googleAnalyticsID"), 'maxlength' => '16' ),
@@ -298,6 +297,7 @@ $viewData['theme'] = array (
    array ( 'prefix' => 'config', 'name' => 'theme', 'type' => 'list', 'values' => $viewData['themeList'] ),
    array ( 'prefix' => 'config', 'name' => 'allowUserTheme', 'type' => 'check', 'values' => '', 'value' => $C->read("allowUserTheme") ),
    array ( 'prefix' => 'config', 'name' => 'menuBarInverse', 'type' => 'check', 'values' => '', 'value' => $C->read("menuBarInverse") ),
+   array ( 'prefix' => 'config', 'name' => 'jqtheme', 'type' => 'list', 'values' => $viewData['jqueryUIThemeList'] ),
 );
 
 $viewData['user'] = array (
