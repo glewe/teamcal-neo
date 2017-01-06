@@ -139,6 +139,8 @@ $LANG['about_documentation'] = 'Dokumentation';
 $LANG['about_credits'] = 'Dank an';
 $LANG['about_for'] = 'f&uuml;r';
 $LANG['about_and'] = 'und';
+$LANG['about_majorUpdateAvailable'] = 'Major Update verf&uuml;gbar...';
+$LANG['about_minorUpdateAvailable'] = 'Minor oder Patch Update verf&uuml;gbar...';
 $LANG['about_misc'] = 'viele Nutzer f&uuml;r Tests und Vorschl&auml;ge...';
 $LANG['about_view_releaseinfo'] = 'Releaseinfo &raquo;';
 $LANG['about_vote'] = 'Bewerte TeamCal Neo';
@@ -468,6 +470,9 @@ $LANG['config_userCustom5_comment'] = 'Gibt den Titel dieses Feldes an, der im B
 $LANG['config_userManual'] = 'Nutzerhandbuch';
 $LANG['config_userManual_comment'] = $appTitle . '\'s Nutzerhandbuch ist in Englisch verf&uuml;gbar auf <a href="https://georgelewe.atlassian.net/wiki/display/TCNEO/" target="_blank">Lewe.com\'s Confluence site</a>.
       Solltest du ein eigenes Handbuch geschrieben haben, kannst du den Link hier angeben. Der Link wird im Hilfe Menu angezeigt. Wenn dieses Feld leer ist, wird kein Eintrag im Hilfe Menu angezeigt.';
+$LANG['config_versionCompare'] = 'Versionsvergleich';
+$LANG['config_versionCompare_comment'] = 'Mit dieser Option &uuml;berpr&uuml;ft TeamCal Neo auf der "&Uuml;ber TeamCal Neo" Seite die laufende Version und vergleicht sie mit der neusten verf&uuml;gbaren. Dazu ben&ouml;tigt
+      TeamCal Neo Internetzugriff. Wenn du TeamCal Neo in einer Umgebung ohne Internetzugriff betreibst, schalte diese Option aus. Bei abweichenden Versionen wird dies hinter der Versionsnummer angeziegt.';
 $LANG['config_welcomeText'] = 'Willkommen Seite Text';
 $LANG['config_welcomeText_comment'] = 'Hier kann ein ein Text f&uuml;r die Startseite eingegeben werden.';
 

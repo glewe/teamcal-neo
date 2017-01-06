@@ -29,7 +29,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   <div class="col-lg-9">
                      <h2><?=APP_NAME?></h2>
                      <p>
-                        <strong><?=$LANG['about_version']?>:</strong>&nbsp;&nbsp;<?=APP_VER?><br>
+                        <strong><?=$LANG['about_version']?>:</strong>&nbsp;&nbsp;<?=APP_VER?><span id="versioncompare"></span><br>
                         <strong><?=$LANG['about_copyright']?>:</strong>&nbsp;&nbsp;&copy;&nbsp;<?=APP_YEAR?> by <a class="about" href="http://www.lewe.com/" target="_blank"><?=APP_AUTHOR?></a><br>
                         <strong><?=$LANG['about_license']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/wiki/display/TCNEO/TeamCal+Neo+License" target="_blank"><?=$LANG['license']?></a><br>
                         <strong><?=$LANG['about_forum']?>:</strong>&nbsp;&nbsp;<a class="about" href="http://forum.lewe.com/" target="_blank">Lewe Forum</a><br>
@@ -66,3 +66,22 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          </div>
          
       </div>
+      
+      <?php if ($C->read("versionCompare")) { ?>
+         <script src="http://support.lewe.com/version/tcneo.js"></script>
+         <script>
+         var running_version = parseVersionString('<?=APP_VER?>');
+         if (running_version.major < latest_version.major) 
+         {
+             document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-alert" href="http://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_majorUpdateAvailable']?></a>';
+         } 
+         else if (running_version.minor < latest_version.minor || running_version.patch < latest_version.patch) 
+         {
+            document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-warning" href="http://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_minorUpdateAvailable']?></a>';
+         } 
+         else 
+         {
+            //document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<span class="btn btn-xs btn-success">You are running the newest version</span>';
+         }
+         </script>
+      <?php } ?>

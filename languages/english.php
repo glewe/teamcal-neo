@@ -139,6 +139,8 @@ $LANG['about_documentation'] = 'Documentation';
 $LANG['about_credits'] = 'Credits go to';
 $LANG['about_for'] = 'for';
 $LANG['about_and'] = 'and';
+$LANG['about_majorUpdateAvailable'] = 'Major update available...';
+$LANG['about_minorUpdateAvailable'] = 'Minor or patch update available...';
 $LANG['about_misc'] = 'many users for testing and suggesting...';
 $LANG['about_view_releaseinfo'] = 'Show/Hide Releaseinfo &raquo;';
 $LANG['about_vote'] = 'Vote for TeamCal Neo';
@@ -466,6 +468,9 @@ $LANG['config_userCustom5_comment'] = 'Enter the caption of this custom user fie
 $LANG['config_userManual'] = 'User Manual';
 $LANG['config_userManual_comment'] = $appTitle . '\'s user manual is maintained in English and is available at <a href="https://georgelewe.atlassian.net/wiki/display/TCNEO/" target="_blank">Lewe.com\'s Confluence site</a>.
       If you have written your own manual, enter the link here. It will be displayed in the Help menu as long as the field is not empty.';
+$LANG['config_versionCompare'] = 'Version Compare';
+$LANG['config_versionCompare_comment'] = 'With this option enabled, TeamCal Neo\'s About page will compare the running version with the newest version available. In order to do so, 
+      Internet access is necessary. If you are running TeamCal Neo in an environment where no Internet access is available, switch this option off. Available updates will be shown next to the version number.';
 $LANG['config_welcomeText'] = 'Welcome Page Text';
 $LANG['config_welcomeText_comment'] = 'Enter a text for the welcome message on the Home Page.';
 
