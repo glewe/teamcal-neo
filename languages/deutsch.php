@@ -5,9 +5,9 @@
  * Language file (German)
  *
  * @category TeamCal Neo 
- * @version 1.3.002
+ * @version 1.3.003
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2016 by George Lewe
+ * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
  * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
  */
@@ -604,8 +604,8 @@ $LANG['imprint'] = array (
    array (
       'title' => 'Inhalt',
       'text' => '<p><i class="fa fa-file-text-o fa-3x pull-left" style="color: #999999;"></i>Die Inhalte von '.$appTitle.' wurden sorgf&auml;tig vorbereitet und
-      erstellt. Wo andere Quellen benutzt wurde, wird auch darauf hingewiesen. Sollte dies nicht der Fall sein, bitte informiere George Lewe mittels dieser 
-      <a href="http://www.lewe.com">Website</a>.</p> 
+      erstellt. Wo andere Quellen benutzt wurde, wird auch darauf hingewiesen. Sollte dies nicht der Fall sein, bitte informiere George Lewe mittels dieses 
+      <a href="http://www.lewe.com/contact">Forumlars</a>.</p> 
       <p>Kein Inhalt der Applikation/Site, ganz oder in Teilen darf vervielf&auml;tigt, reproduziert, kopiert oder wiederwendet werden, in keiner Form, 
       elektronisch oder mechanisch, egal f&uuml;r welchen Zweck ohne ausdr&uuml;ckliche Erlaubnis von George Lewe.</p>',
    ),
@@ -630,8 +630,8 @@ if ( $C->read('googleAnalytics') AND $C->read("googleAnalyticsID")) {
       'title' => 'Google Analytics',
       'text' => '<p><i class="fa fa-google fa-3x pull-left" style="color: #999999;"></i>Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc.
       ("Google"). Google Analytics verwendet sog. "Cookies", Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website
-      durch Sie erm&ouml;glichen. Die durch den Cookie erzeugten Informationen &uuml;ber Ihre Benutzung dieser Website werden in der Regel an einen Server von Google in den USA
-      &uuml;bertragen und dort gespeichert.</p>
+      durch Sie erm&ouml;glichen. Die durch den Cookie erzeugten Informationen &uuml;ber die Nutzung dieser Website werden an Server von Google &uuml;bertragen und 
+      dort gespeichert. Diese Server k&ouml;nnen sich den USA befinden.</p>
       <div class="collapse" id="readmore">
          <p>Im Falle der Aktivierung der IP-Anonymisierung auf dieser Webseite, wird Ihre IP-Adresse von Google jedoch innerhalb von Mitgliedstaaten der Europ&auml;ischen
          Union oder in anderen Vertragsstaaten des Abkommens &uuml;ber den Europ&auml;ischen Wirtschaftsraum zuvor gek&uuml;rzt. Nur in Ausnahmef&auml;llen wird die volle IP-Adresse an einen

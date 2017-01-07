@@ -5,9 +5,9 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 1.3.002
+ * @version 1.3.003
  * @author George Lewe
- * @copyright Copyright (c) 2014-2016 by George Lewe
+ * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
  * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
  */
@@ -35,7 +35,7 @@ define('APP_UPL_DIR', "upload/files/");
 // Set this to 0 if you want to run the installation.php script again.
 // If not, you need to delete or rename the installation.php file.
 //
-define('APP_INSTALLED',"1");
+define('APP_INSTALLED',"0");
 
 //
 // The cookie prefix to be used on the browser client's device
@@ -113,10 +113,11 @@ define('XEDITABLE_VER', "1.5.1");
 //=============================================================================
 /**
  * FILE UPLOAD
- *
- * Defines the allowed file types for upload
- * Defines the allowed max file sizes for upload
  */
+//
+// Defines the allowed file types for upload
+// Defines the allowed max file sizes for upload
+//
 $CONF['avatarExtensions'] = array ( 'gif', 'jpg', 'png' );
 $CONF['avatarMaxsize'] = 1024 * 100; // 100 KB
 $CONF['imgExtensions'] = array ( 'gif', 'jpg', 'png' );
@@ -156,8 +157,8 @@ define('LDAP_TLS', 0); // To avoid "Undefined index: LDAP_TLS" error message for
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "1.3.002");
-define('APP_DATE', "2016-12-17");
+define('APP_VER', "1.3.003");
+define('APP_DATE', "2017-01-07");
 define('APP_YEAR', "2014-".date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "http://www.lewe.com");

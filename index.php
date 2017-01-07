@@ -3,9 +3,9 @@
  * index.php
  * 
  * @category TeamCal Neo 
- * @version 1.3.002
+ * @version 1.3.003
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2016 by George Lewe
+ * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
  * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
  */
@@ -147,7 +147,6 @@ $T    = new Templates();
 // VARIABLE DEFAULTS
 //
 require_once (WEBSITE_ROOT . '/config/config.vars.php');
-$configAppFile = "config/config.app.php";
 $showAlert = false;
 $appTitle = $C->read('appTitle');
 $language = $C->read("defaultLanguage");
