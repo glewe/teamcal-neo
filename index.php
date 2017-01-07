@@ -18,87 +18,6 @@
 //
 define('VALID_ROOT', 1);
 define('WEBSITE_ROOT', __DIR__);
-require_once (WEBSITE_ROOT . '/config/config.defs.php');
-
-//=============================================================================
-//
-// CHECK INSTALLATION SCRIPT
-//
-if (file_exists('installation.php'))
-{
-   $app_installed = '1';
-   $handle = fopen("config/config.app.php","r");
-   if ($handle) 
-   {
-      while (!feof($handle)) 
-      {
-         $buffer = fgets($handle, 4096);
-         if (strpos($buffer, "'app_installed'")==6) 
-         {
-            $pos1=strpos($buffer,'"');
-            $pos2=strrpos($buffer,'"');
-            $app_installed=trim(substr($buffer,$pos1+1,$pos2-($pos1+1)));
-         }
-      }
-      fclose($handle);
-   }
-   
-   if (!$app_installed)
-   {
-      header("Location: installation.php");
-   }
-   else
-   {
-      //
-      // Installation.php found after installation
-      //
-      $errorData['title'] = 'Application Error';
-      $errorData['subject'] = 'Installation Script Exists';
-      $errorData['text'] = '<p>The installation script "installation.php" still exists in the root directory while "config/config.app.php" indicates that an installation has been performed.</p>
-      <p>The application will not start until either one has been resolved:</p>
-      <ol>
-         <li>Delete or rename "installation.php"</li>
-         <li>Set $CONF[\'app_installed\'] to 0 in "config/config.app.php"</li>
-      </ol>';
-      require ('views/error.php');
-      die();
-   }
-}
-else
-{
-   $app_installed = '1';
-   $handle = fopen("config/config.app.php","r");
-   if ($handle)
-   {
-      while (!feof($handle))
-      {
-         $buffer = fgets($handle, 4096);
-         if (strpos($buffer, "'app_installed'")==6)
-         {
-            $pos1=strpos($buffer,'"');
-            $pos2=strrpos($buffer,'"');
-            $app_installed=trim(substr($buffer,$pos1+1,$pos2-($pos1+1)));
-         }
-      }
-      fclose($handle);
-   }
-   if (!$app_installed)
-   {
-      //
-      // App not installed but Installation.php not found
-      //
-      $errorData['title'] = 'Application Error';
-      $errorData['subject'] = 'Installation Script Not Found';
-      $errorData['text'] = '<p>The installation script "installation.php" does not exist in the root directory while "config/config.app.php" indicates that no installation has been performed yet.</p>
-      <p>The application will not start until either one has been resolved:</p>
-      <ol>
-         <li>Recover "installation.php"</li>
-         <li>Set $CONF[\'app_installed\'] to 1 in "config/config.app.php"</li>
-      </ol>';
-      require ('views/error.php');
-      die();
-   }
-}
 
 //=============================================================================
 //
@@ -119,6 +38,71 @@ spl_autoload_register('my_autoloader');
 require_once (WEBSITE_ROOT . '/config/config.db.php');
 require_once (WEBSITE_ROOT . '/config/config.controller.php');
 require_once (WEBSITE_ROOT . '/config/config.app.php');
+
+//=============================================================================
+//
+// HELPERS
+//
+//
+// LeAF Helpers
+//
+require_once (WEBSITE_ROOT . '/helpers/global.helper.php');
+require_once (WEBSITE_ROOT . '/helpers/model.helper.php');
+require_once (WEBSITE_ROOT . '/helpers/notification.helper.php');
+require_once (WEBSITE_ROOT . '/helpers/view.helper.php');
+
+//
+// Custom helpers
+//
+require_once (WEBSITE_ROOT . '/helpers/app.helper.php');
+
+//=============================================================================
+//
+// CHECK INSTALLATION SCRIPT
+//
+
+if (file_exists('installation.php'))
+{
+   if (!readDef('APP_INSTALLED', "config/config.app.php"))
+   {
+      header("Location: installation.php");
+   }
+   else
+   {
+      //
+      // Installation.php found after installation
+      //
+      $errorData['title'] = 'Application Error';
+      $errorData['subject'] = 'Installation Script Exists';
+      $errorData['text'] = '<p>The installation script "installation.php" still exists in the root directory while "config/config.app.php" indicates that an installation has been performed.</p>
+      <p>The application will not start until either one has been resolved:</p>
+      <ol>
+         <li>Delete or rename "installation.php"</li>
+         <li>Set define[\'APP_INSTALLED\'] to 0 in "config/config.app.php"</li>
+      </ol>';
+      require ('views/error.php');
+      die();
+   }
+}
+else
+{
+   if (!readDef('APP_INSTALLED', "config/config.app.php"))
+   {
+      //
+      // App not installed but Installation.php not found
+      //
+      $errorData['title'] = 'Application Error';
+      $errorData['subject'] = 'Installation Script Not Found';
+      $errorData['text'] = '<p>The installation script "installation.php" does not exist in the root directory while "config/config.app.php" indicates that no installation has been performed yet.</p>
+      <p>The application will not start until either one has been resolved:</p>
+      <ol>
+         <li>Recover "installation.php"</li>
+         <li>Set define[\'APP_INSTALLED\'] to 0 in "config/config.app.php"</li>
+      </ol>';
+      require ('views/error.php');
+      die();
+   }
+}
 
 //=============================================================================
 //
@@ -157,24 +141,6 @@ $H    = new Holidays();
 $M    = new Months();
 $R    = new Regions();
 $T    = new Templates();
-
-//=============================================================================
-//
-// HELPERS
-//
-
-//
-// LeAF Helpers
-//
-require_once (WEBSITE_ROOT . '/helpers/global.helper.php');
-require_once (WEBSITE_ROOT . '/helpers/model.helper.php');
-require_once (WEBSITE_ROOT . '/helpers/notification.helper.php');
-require_once (WEBSITE_ROOT . '/helpers/view.helper.php');
-
-//
-// Custom helpers
-//
-require_once (WEBSITE_ROOT . '/helpers/app.helper.php');
 
 //=============================================================================
 //
@@ -217,7 +183,7 @@ if ($luser = $L->checkLogin() AND (!isset($_GET['action']) OR isset($_GET['actio
    
    if ($userData['avatar'] = $UO->read($UL->username, 'avatar'))
    {
-      if (!file_exists($CONF['app_avatar_dir'].$userData['avatar'])) $userData['avatar'] = 'default_' . $UO->read($UL->username, 'gender') . '.png';
+      if (!file_exists(APP_AVATAR_DIR.$userData['avatar'])) $userData['avatar'] = 'default_' . $UO->read($UL->username, 'gender') . '.png';
    }
    else 
    {

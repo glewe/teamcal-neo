@@ -55,7 +55,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <tbody>
                            <tr>
                               <td><i class="fa fa-camera text-danger" style="width: 26px;"></i><strong><?=$LANG['profile_avatar']?></strong></td>
-                              <td><img src="<?=$CONF['app_avatar_dir'].$viewData['avatar']?>" alt="" class="boxshadow-1" style="width: 80px; height: 80px; padding: 4px; border: 1px solid #999999;"></td>
+                              <td><img src="<?=APP_AVATAR_DIR.$viewData['avatar']?>" alt="" class="boxshadow-1" style="width: 80px; height: 80px; padding: 4px; border: 1px solid #999999;"></td>
                            </tr>
                            <tr>
                               <td><i class="fa fa-users text-<?=$CONF['controller']['roles']['menucolor']?>" style="width: 26px;"></i><strong><?=$LANG['profile_role']?></strong></td>

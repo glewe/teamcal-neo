@@ -34,8 +34,8 @@ class Login
    {
       global $CONF, $C, $_POST, $_SERVER; 
       
-      $this->salt = $CONF['salt'];
-      $this->cookie_name = $CONF['cookie_name'];
+      $this->salt = SALT;
+      $this->cookie_name = COOKIE_NAME;
       $this->bad_logins = intval($C->read("badLogins"));
       $this->grace_period = intval($C->read("gracePeriod"));
       $this->min_pw_length = intval($C->read("pwdLength"));
@@ -214,54 +214,81 @@ class Login
     */
    private function ldapVerify($uidpass)
    {
-      global $CONF, $U;
+      global $U;
       
-      $ldaprdn = $CONF['LDAP_DIT'];
-      $ldappass = $CONF['LDAP_PASS'];
-      $ldaptls = $CONF['LDAP_TLS'];
-      $host = $CONF['LDAP_HOST'];
-      $port = $CONF['LDAP_PORT'];
-      // attributes to return
+      $ldaprdn = LDAP_DIT;
+      $ldappass = LDAP_PASS;
+      $ldaptls = LDAP_TLS;
+      $host = LDAP_HOST;
+      $port = LDAP_PORT;
+      $searchbase = LDAP_SBASE;
+      
+      // 
+      // Attributes to return
+      //
       $attr = array (
          "dn",
          "uid" 
       );
-      $searchbase = $CONF['LDAP_SBASE'];
       
-      /**
-       * Force Fail on NULL password
-       */
+      //
+      // Check missing password
+      //
       if (!$uidpass) return 91;
       
-      $ds = ldap_connect($host, $port); // Is always a ressource even if no connection possible (patch by Franz Gregor)
-      ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3); // Use v3 when possible
-      if (!@ldap_bind($ds)) return 93; // Test anonymous bind => Unable to connect to LDAP server (patch by Franz Gregor)
-      if ($ldaptls && !ldap_start_tls($ds)) return 94;
-      if (!@ldap_bind($ds, $ldaprdn, $ldappass)) return 96; // (patch by Franz Gregor)
+      //
+      // Connect to LDAP host
+      //
+      $ds = ldap_connect($host, $port);
       
-      /**
-       * Search for user UID
-       */
-      if ($CONF['LDAP_ADS'])
+      //
+      // Use LDAP v3 if possible
+      //
+      ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
+      
+      //
+      // Test anonymous bind. If that fails: Unable to connect to LDAP server
+      // (patch by Franz Gregor)
+      //
+      if (!@ldap_bind($ds)) return 93;
+      
+      //
+      // Start TLS
+      //
+      if ($ldaptls && !ldap_start_tls($ds)) return 94;
+      
+      //
+      // LDAP Search bind
+      // (patch by Franz Gregor)
+      //
+      if (!@ldap_bind($ds, $ldaprdn, $ldappass)) return 96;
+      
+      //
+      // Search for user UID
+      //
+      if (LDAP_ADS)
       {
-         if (!$info = ldap_first_entry($ds, ldap_search($ds, $searchbase, "sAMAccountName=" . $U->username, $attr))) return 95;
+         if (!$info = ldap_first_entry($ds, ldap_search($ds, $searchbase, "sAMAccountName=".$U->username, $attr))) return 95;
       }
       else
       {
-         if (!$info = ldap_first_entry($ds, ldap_search($ds, $searchbase, "uid=" . $U->username, $attr))) return 95;
+         if (!$info = ldap_first_entry($ds, ldap_search($ds, $searchbase, "uid=".$U->username, $attr))) return 95;
       }
       
-      /**
-       * Now authenticate the user using the user dn
-       */
+      //
+      // Now authenticate the user using the user dn
+      //
       $uiddn = ldap_get_dn($ds, $info);
       $ldapbind = ldap_bind($ds, $uiddn, $uidpass);
       
-      /**
-       * Close LDAP connection
-       */
+      //
+      // Close LDAP connection
+      //
       ldap_close($ds);
       
+      //
+      // Return result
+      //
       if ($ldapbind) return 0;
       else return 92;
    }
@@ -348,7 +375,7 @@ class Login
     */
    public function login($loginname = '', $loginpwd = '')
    {
-      global $C, $CONF, $U, $UO;
+      global $C, $U, $UO;
       
       $logged_in = 0;
       $showForm = 0;
@@ -373,7 +400,7 @@ class Login
       /**
        * Now check the password
        */
-      if ($CONF['LDAP_YES'] && $loginname != "admin")
+      if (LDAP_YES && $loginname != "admin")
       {
          /**
           * You need to have PHP LDAP libraries installed.

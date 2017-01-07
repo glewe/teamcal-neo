@@ -31,7 +31,7 @@ $LOG->log("logLogin", $L->checkLogin(), "log_logout");
 //
 // PREPARE VIEW
 //
-$viewData['cookie_name'] = $CONF['cookie_name'];
+$viewData['cookie_name'] = COOKIE_NAME;
 
 //=============================================================================
 //

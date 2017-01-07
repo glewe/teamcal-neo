@@ -232,7 +232,7 @@ if (!empty($_POST))
             //
             $U->findByName($value);
             $newpwd = generatePassword();
-            $U->password = crypt($newpwd,$CONF['salt']);
+            $U->password = crypt($newpwd,SALT);
             $U->last_pw_change = date("Y-m-d H:I:s");
             $U->update($U->username);
             $U->clearStatus($CONF['USCHGPWD']);

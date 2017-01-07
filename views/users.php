@@ -100,7 +100,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <?php } else { ?>
                                           <span style="padding-left: 16px;">&nbsp;</span>
                                        <?php } ?>
-                                       <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<img src='<?=$CONF['app_avatar_dir'].$UO->read($user['username'],'avatar')?>' style='width: 80px; height: 80px;'>"><img src="<?=$CONF['app_avatar_dir']?>/<?=$UO->read($user['username'],'avatar')?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?=$user['dispname']?>
+                                       <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<img src='<?=APP_AVATAR_DIR.$UO->read($user['username'],'avatar')?>' style='width: 80px; height: 80px;'>"><img src="<?=APP_AVATAR_DIR?>/<?=$UO->read($user['username'],'avatar')?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?=$user['dispname']?>
                                     </div>
                                     <div class="col-lg-2">
                                        <a href="#" data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$user['role']?>"><i class="fa fa-user text-<?=$user['color']?>" style="font-size: 128%; padding-right: 8px;"></i></a>
@@ -167,7 +167,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                                     <div class="col-lg-4">
                                        <?php if ($user1['username']!="admin") {?><input type="checkbox" name="chk_userArchived[]" value="<?=$user1['username']?>">&nbsp;&nbsp;<?php }?>
-                                       <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<img src='<?=$CONF['app_avatar_dir'].$UO->read($user1['username'],'avatar',true)?>' style='width: 80px; height: 80px;'>"><img src="<?=$CONF['app_avatar_dir']?>/<?=$UO->read($user1['username'],'avatar',true)?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?=$user1['dispname']?>
+                                       <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<img src='<?=APP_AVATAR_DIR.$UO->read($user1['username'],'avatar',true)?>' style='width: 80px; height: 80px;'>"><img src="<?=APP_AVATAR_DIR?>/<?=$UO->read($user1['username'],'avatar',true)?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?=$user1['dispname']?>
                                     </div>
                                     <div class="col-lg-2">
                                        <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$LANG['role_'.$user1['role']]?>"><i class="fa fa-user text-<?=$user1['color']?>" style="font-size: 128%; padding-right: 8px;"></i></i>

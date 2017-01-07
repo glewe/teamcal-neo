@@ -20,7 +20,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       <footer class="footer">
          <div class="container">
                
-            <div class="col-lg-3">
+            <div class="col-lg-4">
                <ul class="list-unstyled">
                   <?php
                   $footerCopyright = "";
@@ -38,14 +38,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                </ul>
             </div>
             
-            <div class="col-lg-3">
+            <div class="col-lg-4">
                <ul class="list-unstyled">
                   <li><a href="index.php"><?=$LANG['footer_home']?></a></li>
-               </ul>
-            </div>
-            
-            <div class="col-lg-3">
-               <ul class="list-unstyled">
                   <?php if ($docLink = $C->read("userManual")) {?>
                      <li><a href="<?=urldecode($docLink)?>" target="_blank"><?=$LANG['footer_help']?></a></li>
                   <?php } ?>
@@ -54,7 +49,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                </ul>
             </div>
             
-            <div class="col-lg-3 text-right">
+            <div class="col-lg-4 text-right">
                <?php if ($urls = $C->read("footerSocialLinks") AND strlen($urls)) {
                   $urlArray = explode(';', $urls);
                   foreach ($urlArray as $url) { 

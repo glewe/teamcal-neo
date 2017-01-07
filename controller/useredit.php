@@ -217,7 +217,7 @@ if (!empty($_POST))
                $_POST['txt_password'] == $_POST['txt_password2']
                )
          {
-            $UP->password = crypt($_POST['txt_password'], $CONF['salt']);
+            $UP->password = crypt($_POST['txt_password'], SALT);
             $UP->last_pw_change = date("YmdHis");
          }
 
@@ -332,7 +332,7 @@ if (!empty($_POST))
       else if (isset ($_POST['btn_uploadAvatar']))
       {
          $UPL = new Upload();
-         $UPL->upload_dir = $CONF['app_avatar_dir'];
+         $UPL->upload_dir = APP_AVATAR_DIR;
          $UPL->extensions = $CONF['avatarExtensions'];
          $UPL->do_filename_check = "y";
          $UPL->replace = "y";
@@ -416,7 +416,7 @@ $viewData['avatar'] = ($UO->read($profile, 'avatar')) ? $UO->read($profile, 'ava
 //
 // If, for some reason, the avatar file does not exists, reset to default.
 //
-if (!file_exists($CONF['app_avatar_dir'].$viewData['avatar']))
+if (!file_exists(APP_AVATAR_DIR.$viewData['avatar']))
 {
    $viewData['avatar'] = 'default_' . $UO->read($profile, 'gender') . '.png';
    $UO->save($profile, 'avatar', $viewData['avatar']);
@@ -480,7 +480,7 @@ $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'language', 't
 //
 // Avatar
 //
-$viewData['avatars'] = getFiles($CONF['app_avatar_dir'], NULL, 'is_');
+$viewData['avatars'] = getFiles(APP_AVATAR_DIR, NULL, 'is_');
 
 //
 // Account

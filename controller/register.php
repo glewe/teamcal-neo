@@ -119,7 +119,7 @@ if (!empty($_POST))
             //
             // Password
             //
-            $UR->password = crypt($_POST['txt_password'], $CONF['salt']);
+            $UR->password = crypt($_POST['txt_password'], SALT);
             $UR->last_pw_change = date('YmdHis');
              
             $UR->create();

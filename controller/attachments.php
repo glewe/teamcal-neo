@@ -42,7 +42,7 @@ $UAT =  new UserAttachment();
 //
 // VARIABLE DEFAULTS
 //
-$uplDir = WEBSITE_ROOT . '/' . $CONF['app_upl_dir'];
+$uplDir = WEBSITE_ROOT . '/' . APP_UPL_DIR;
 
 $viewData = array();
 $viewData['shareWith'] = 'all';
@@ -267,7 +267,7 @@ if (!empty($_POST))
 //
 $viewData['upl_maxsize'] = $CONF['uplMaxsize'];
 $viewData['upl_formats'] = implode(', ', $CONF['uplExtensions']);
-$files = getFiles($CONF['app_upl_dir'], $CONF['uplExtensions'], NULL);
+$files = getFiles(APP_UPL_DIR, $CONF['uplExtensions'], NULL);
 foreach ($files as $file)
 {
    $fid = $AT->getId($file);

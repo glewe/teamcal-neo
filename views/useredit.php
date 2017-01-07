@@ -108,7 +108,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <span class="text-normal"><?=$LANG['profile_avatar_comment']?></span>
                                     </label>
                                     <div class="col-lg-<?=$colsright?>">
-                                       <img src="<?=$CONF['app_avatar_dir'].$viewData['avatar']?>" alt="" style="width: 80px; height: 80px;"><br>
+                                       <img src="<?=APP_AVATAR_DIR.$viewData['avatar']?>" alt="" style="width: 80px; height: 80px;"><br>
                                        <br>
                                        <?php if (substr($viewData['avatar'], 0, 9) != 'default_') { ?><button type="submit" class="btn btn-primary btn-sm" tabindex="<?=$tabindex++?>" name="btn_reset"><?=$LANG['btn_reset']?></button><?php } ?>
                                     </div>
@@ -137,7 +137,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     </label>
                                     <div class="col-lg-12">
                                        <?php foreach($viewData['avatars'] as $avatar) {?>
-                                          <div class="pull-left" style="border: 1px solid #eeeeee; padding: 4px;"><input name="opt_avatar" value="<?=$avatar?>" tabindex="<?=$tabindex++?>" <?= ($viewData['avatar']==$avatar)?' checked="checked"':''?>type="radio"><img src="<?=$CONF['app_avatar_dir'].$avatar?>" alt="" style="width: 80px; height: 80px;"></div>
+                                          <div class="pull-left" style="border: 1px solid #eeeeee; padding: 4px;"><input name="opt_avatar" value="<?=$avatar?>" tabindex="<?=$tabindex++?>" <?= ($viewData['avatar']==$avatar)?' checked="checked"':''?>type="radio"><img src="<?=APP_AVATAR_DIR.$avatar?>" alt="" style="width: 80px; height: 80px;"></div>
                                        <?php } ?>
                                     </div>
                                  </div>

@@ -1082,6 +1082,35 @@ function readConfig($var='',$file)
 
 // ---------------------------------------------------------------------------
 /**
+ * Reads a define value out of a config file
+ *
+ * @param string $var Array index to read
+ * @param string $file File to scan
+ * @return string The value of the read variable
+ */
+function readDef($var='',$file)
+{
+   $value="";
+   $handle = fopen($file,"r");
+   if ($handle)
+   {
+      while (!feof($handle))
+      {
+         $buffer = fgets($handle, 4096);
+         if (strpos($buffer, "'".$var."'")==7)
+         {
+            $pos1=strpos($buffer,'"');
+            $pos2=strrpos($buffer,'"');
+            $value=trim(substr($buffer,$pos1+1,$pos2-($pos1+1)));
+         }
+      }
+      fclose($handle);
+   }
+   return $value;
+}
+
+// ---------------------------------------------------------------------------
+/**
  * Returns a comma separated string of RGB decimal values as a hex color value
  *
  * @param string $color Comma separated string of RGB decimal values
@@ -1175,6 +1204,40 @@ function writeConfig($var='',$value='', $file)
       {
          $buffer = fgets($handle, 4096);
          if (strpos($buffer, "'".$var."'")==6) 
+         {
+            $pos1=strpos($buffer,'"');
+            $pos2=strrpos($buffer,'"');
+            $newbuffer.=substr_replace($buffer,$value."\"",$pos1+1,$pos2-($pos1));
+         }
+         else
+         {
+            $newbuffer.=$buffer;
+         }
+      }
+      fclose($handle);
+      $handle = fopen($file,"w");
+      fwrite($handle,$newbuffer);
+      fclose($handle);
+   }
+}
+
+// ---------------------------------------------------------------------------
+/**
+ * Writes a define value into config.tcpro.php
+ *
+ * @param string $var Variable name
+ * @param string $value Value to assign to variable
+ * @param string $file File in which to do so
+ */
+function writeDef($var='',$value='', $file)
+{
+   $newbuffer="";
+   $handle = fopen($file,"r");
+   if ($handle) {
+      while (!feof($handle))
+      {
+         $buffer = fgets($handle, 4096);
+         if (strpos($buffer, "'".$var."'")==7)
          {
             $pos1=strpos($buffer,'"');
             $pos2=strrpos($buffer,'"');

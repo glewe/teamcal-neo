@@ -106,7 +106,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   
                   <?php if ( isAllowed($CONF['controllers']['calendaredit']->permission) OR
                              isAllowed($CONF['controllers']['monthedit']->permission) OR
-                             isAllowed($CONF['controllers']['messageedit']->permission)
+                             isAllowed($CONF['controllers']['messageedit']->permission) OR
+                             isAllowed($CONF['controllers']['attachments']->permission)
                         ) { ?>
                      <!-- Edit Menu -->
                      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="tools"><?=$LANG['mnu_edit']?><span class="caret"></span></a>
@@ -211,7 +212,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   <!-- User Menu -->
                   <li class="dropdown">
                      <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="user">
-                        <img src="<?=$CONF['app_avatar_dir'].$userData['avatar']?>" width="40" height="40" alt="" style="margin: -10px 0 -10px 0;"><span class="caret"></span>
+                        <img src="<?=APP_AVATAR_DIR.$userData['avatar']?>" width="40" height="40" alt="" style="margin: -10px 0 -10px 0;"><span class="caret"></span>
                      </a>
                      <ul class="dropdown-menu" aria-labelledby="user">
                         <li style="padding: 0 10px 0 10px;"><a tabindex="-1" href="#"><?=$userData['loginInfo']?></a></li>

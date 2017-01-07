@@ -64,11 +64,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="col-lg-5">
                                        <input name="chk_file[]" value="<?=$file['fname']?>" tabindex="<?=$tabindex++?>" type="checkbox" <?=(!$isOwner)?"disabled":"";?>>
                                        <?php if (in_array(getFileExtension($file['fname']),$CONF['imgExtensions'])) { ?>
-                                          <a class="image-popup" href="<?=$CONF['app_upl_dir'].$file['fname']?>" title="<?=$file['fname']?>">
-                                             <img src="<?=$CONF['app_upl_dir'].$file['fname']?>" alt="" style="width: 24px; height: 24px;">
+                                          <a class="image-popup" href="<?=APP_UPL_DIR.$file['fname']?>" title="<?=$file['fname']?>">
+                                             <img src="<?=APP_UPL_DIR.$file['fname']?>" alt="" style="width: 24px; height: 24px;">
                                           </a>
                                        <?php } else { ?>
-                                          <a href="<?=$CONF['app_upl_dir'].$file['fname']?>"><img src="images/icons/mimetypes/<?=getFileExtension($file['fname'])?>.png" alt="" style="width: 24px; height: 24px;"></a>
+                                          <a href="<?=APP_UPL_DIR.$file['fname']?>"><img src="images/icons/mimetypes/<?=getFileExtension($file['fname'])?>.png" alt="" style="width: 24px; height: 24px;"></a>
                                        <?php } ?>
                                        <?=$file['fname']?>
                                     </div>
@@ -93,9 +93,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     </div>
                                     <div class="col-lg-2 text-right">
                                        <?php if (in_array(getFileExtension($file['fname']),$CONF['imgExtensions'])) { ?>
-                                          <a href="<?=$CONF['app_upl_dir'].$file['fname']?>" class="image-popup btn btn-info btn-xs" tabindex="<?=$tabindex++;?>" title="<?=$file['fname']?>"><img src="#" alt=""><?=$LANG['btn_download_view']?></a>
+                                          <a href="<?=APP_UPL_DIR.$file['fname']?>" class="image-popup btn btn-info btn-xs" tabindex="<?=$tabindex++;?>" title="<?=$file['fname']?>"><img src="#" alt=""><?=$LANG['btn_download_view']?></a>
                                        <?php } else { ?>
-                                          <a href="<?=$CONF['app_upl_dir'].$file['fname']?>" class="btn btn-info btn-xs" tabindex="<?=$tabindex++;?>" title="<?=$file?>"><?=$LANG['btn_download_view']?></a>
+                                          <a href="<?=APP_UPL_DIR.$file['fname']?>" class="btn btn-info btn-xs" tabindex="<?=$tabindex++;?>" title="<?=$file?>"><?=$LANG['btn_download_view']?></a>
                                        <?php } ?>
                                     </div>
                                  </div>
@@ -116,7 +116,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  <div class="form-group">
                                     <label class="col-lg-<?=$colsleft?> control-label">
                                        <?=$LANG['att_file']?><br>
-                                       <span class="text-normal"><?=sprintf($LANG['att_file_comment'],$viewData['upl_maxsize']/1024,$viewData['upl_formats'],$CONF['app_upl_dir'])?></span>
+                                       <span class="text-normal"><?=sprintf($LANG['att_file_comment'],$viewData['upl_maxsize']/1024,$viewData['upl_formats'],APP_UPL_DIR)?></span>
                                     </label>
                                     <div class="col-lg-<?=$colsright?>">
                                        <input type="hidden" name="MAX_FILE_SIZE" value="<?=$viewData['upl_maxsize']?>"><br>

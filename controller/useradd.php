@@ -109,7 +109,7 @@ if (!empty($_POST))
          //
          if ( isset($_POST['txt_password']) AND isset($_POST['txt_password2']) AND $_POST['txt_password'] == $_POST['txt_password2'] )
          {
-            $UP->password = crypt($_POST['txt_password'], $CONF['salt']);
+            $UP->password = crypt($_POST['txt_password'], SALT);
             $UP->last_pw_change = date('YmdHis');
          }
 

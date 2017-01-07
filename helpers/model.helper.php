@@ -177,7 +177,7 @@ function importUsersFromCSV($defgroup, $lock = true, $hide = true)
                if (!$UI->findByName(trim($arr[0])) and $arr[0] != "admin" and preg_match('/^[a-zA-Z0-9]*$/', $arr[0]))
                {
                   $UI->username = trim($arr[0]);
-                  $UI->password = crypt("password", $CONF['salt']);
+                  $UI->password = crypt("password", SALT);
                   $UI->firstname = $arr[1];
                   $UI->lastname = $arr[2];
                   $UI->title = $arr[3];

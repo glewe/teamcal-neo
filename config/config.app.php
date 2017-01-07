@@ -15,32 +15,100 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 //=============================================================================
 /**
- * APP INSTALLED
- *
- * A flag indicating whether the installation script has been executed. 
- * 0 = Not run yet
- * 1 = Was run
- * Set this to 0 if you want to run the installation.php script again.
- * If not, you need to delete or rename the installation.php file.
+ * ROUTING
  */
-$CONF['app_installed'] = "0";
+$protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+$fullURL = $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+$pos = strrpos($fullURL,'/');
+define('WEBSITE_URL', substr($fullURL,0,$pos)); //Remove trailing slash
+define('APP_AVATAR_DIR', "upload/avatars/");
+define('APP_UPL_DIR', "upload/files/");
 
 //=============================================================================
 /**
- * COOKIE NAME
- * 
- * The cookie prefix to be used on the browser client's device
+ * TEAMCAL NEO
  */
-$CONF['cookie_name'] = 'tcneo';
+//
+// A flag indicating whether the installation script has been executed.
+// 0 = Not run yet
+// 1 = Was run
+// Set this to 0 if you want to run the installation.php script again.
+// If not, you need to delete or rename the installation.php file.
+//
+define('APP_INSTALLED',"1");
+
+//
+// The cookie prefix to be used on the browser client's device
+//
+define('COOKIE_NAME',"tcneo");
+
+//
+// Salt is a string that is used encrypt the passwords. You can change salt
+// to any other 9 char string.
+//
+define('SALT',"s7*9fgJ#R");
 
 //=============================================================================
 /**
- * ENCRYPTION
- * 
- * Salt is a string that is used encrypt the passwords. You can change salt
- * to any other 9 char string.
+ * MANDATORY MODULES
  */
-$CONF['salt'] = 's7*9fgJ#R';
+define('BOOTSTRAP_VER', "3.3.7");
+define('FONTAWESOME_VER', "4.7.0");
+define('JQUERY_VER', "3.1.1");
+define('JQUERY_UI_VER', "1.12.1");
+define('SECUREIMAGE_VER', "3.6.4");
+
+//=============================================================================
+/**
+ * OPTIONAL MODULES
+ */
+//
+// Chart.js
+// Simple yet flexible JavaScript charting for designers & developers
+// http://www.chartjs.org/
+//
+define('CHARTJS', true);
+define('CHARTJS_VER', "2.4.0");
+
+//
+// CKEditor
+// The best web text editor for everyone
+// http://ckeditor.com/
+//
+define('CKEDITOR', true);
+define('CKEDITOR_VER', "4.5.11");
+
+//
+// Magnific Popup
+// Magnific Popup is a responsive lightbox & dialog script
+// http://dimsemenov.com/plugins/magnific-popup/
+//
+define('MAGNIFICPOPUP', true);
+define('MAGNIFICPOPUP_VER', "1.1.0");
+
+//
+// Select2
+// The jQuery replacement for select boxes
+// https://select2.github.io/
+//
+define('SELECT2', false);
+define('SELECT2_VER', "4.0.3");
+
+//
+// Syntaxhighlighter
+// SyntaxHighlighter is a fully functional self-contained code syntax highlighter developed in JavaScript.
+// http://alexgorbatchev.com/SyntaxHighlighter/
+//
+define('SYNTAXHIGHLIGHTER', false);
+define('SYNTAXHIGHLIGHTER_VER', "3.0.83");
+
+//
+// X-Editable
+// In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery
+// https://vitalets.github.io/x-editable/
+//
+define('XEDITABLE', false);
+define('XEDITABLE_VER', "1.5.1");
 
 //=============================================================================
 /**
@@ -51,7 +119,6 @@ $CONF['salt'] = 's7*9fgJ#R';
  */
 $CONF['avatarExtensions'] = array ( 'gif', 'jpg', 'png' );
 $CONF['avatarMaxsize'] = 1024 * 100; // 100 KB
-
 $CONF['imgExtensions'] = array ( 'gif', 'jpg', 'png' );
 $CONF['uplExtensions'] = array ( 'gif', 'jpg', 'png', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'zip' );
 $CONF['uplMaxsize'] = 2048 * 1024; // 2 MB
@@ -73,19 +140,29 @@ $CONF['uplMaxsize'] = 2048 * 1024; // 2 MB
  * support. DIR is the LDAP base install directory. To enable SASL support,
  * be sure --with-ldap-sasl[=DIR] is used, and that sasl.h exists on the system.
  */
-$CONF['LDAP_YES'] = 0; // Use LDAP authentication
-$CONF['LDAP_ADS'] = 0; // Set to 1 when authenticating against an Active Directory
-$CONF['LDAP_HOST'] = "ldap.mydomain.com"; // LDAP host name
-$CONF['LDAP_PORT'] = "389"; // LDAP port
-$CONF['LDAP_PASS'] = 'XXXXXXXX'; // SA associated password
-$CONF['LDAP_DIT'] = "cn=<service account>,ou=fantastic_four,ou=superheroes,dc=marvel,dc=comics"; // Directory Information Tree (Relative Distinguished Name)
-$CONF['LDAP_SBASE'] = "ou=superheroes,ou=characters,dc=marvel,dc=comics"; // Search base, location in the LDAP dirctory to search
-$CONF['LDAP_TLS'] = 0; // To avoid "Undefined index: LDAP_TLS" error message for LDAP bind to Active Directory
+define('LDAP_YES', 0); // Use LDAP authentication
+define('LDAP_ADS', 0); // Set to 1 when authenticating against an Active Directory
+define('LDAP_HOST', "ldap.mydomain.com"); // LDAP host name
+define('LDAP_PORT', "389"); // LDAP port
+define('LDAP_PASS', "XXXXXXXX"); // SA associated password
+define('LDAP_DIT', "cn=<service account>,ou=fantastic_four,ou=superheroes,dc=marvel,dc=comics"); // Directory Information Tree (Relative Distinguished Name)
+define('LDAP_SBASE', "ou=superheroes,ou=characters,dc=marvel,dc=comics"); // Search base, location in the LDAP dirctory to search
+define('LDAP_TLS', 0); // To avoid "Undefined index: LDAP_TLS" error message for LDAP bind to Active Directory
 
 //=============================================================================
 /**
- * PATHS
+ * APPLICATION
+ *
+ * !Do not change anything below this line. It is protected by the license agreement!
  */
-$CONF['app_avatar_dir'] = 'upload/avatars/';
-$CONF['app_upl_dir'] = 'upload/files/';
+define('APP_NAME', "TeamCal Neo");
+define('APP_VER', "1.3.002");
+define('APP_DATE', "2016-12-17");
+define('APP_YEAR', "2014-".date('Y'));
+define('APP_AUTHOR', "George Lewe");
+define('APP_URL', "http://www.lewe.com");
+define('APP_EMAIL', "george@lewe.com");
+define('APP_LICENSE', "https://georgelewe.atlassian.net/wiki/x/AoC3Ag");
+define('APP_COPYRIGHT', "(c) " . APP_YEAR . " by " . APP_AUTHOR . " (" . APP_URL . ")");
+define('APP_POWERED', "Powered by " . APP_NAME . " " . APP_VER . " &copy; " . APP_YEAR . " by <a href=\"http://www.lewe.com\" class=\"copyright\" target=\"_blank\">" . APP_AUTHOR . "</a>");
 ?>
