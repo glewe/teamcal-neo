@@ -57,7 +57,7 @@ if (!empty($_POST))
    // Form validation
    //
    $inputError = false;
-   if (!formInputValid('txt_username', 'required|alpha_numeric')) $inputError = true;
+   if (!formInputValid('txt_username', 'required|alpha_numeric_dot_at')) $inputError = true;
    if (!formInputValid('txt_lastname', 'alpha_numeric_dash')) $inputError = true;
    if (!formInputValid('txt_firstname', 'alpha_numeric_dash')) $inputError = true;
    if (!formInputValid('txt_email', 'required|email')) $inputError = true;

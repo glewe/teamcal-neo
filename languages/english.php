@@ -176,6 +176,7 @@ $LANG['alert_input_alpha_numeric_dash_blank'] = 'This field allows alphanumerica
 $LANG['alert_input_alpha_numeric_dash_blank_dot'] = 'This field allows alphanumerical characters only plus blank, dot, dash and underscore.';
 $LANG['alert_input_alpha_numeric_dash_blank_special'] = 'This field allows alphanumerical characters only plus blank, dash, underscore and the
       special characters \'!@#$%^&*().';
+$LANG['alert_input_alpha_numeric_dot_at'] = 'This field allows alphanumerical characters, dots and the @ sign.';
 $LANG['alert_input_date'] = 'The date must be in ISO 8601 format, e.g. 2014-01-01.';
 $LANG['alert_input_email'] = 'The E-mail address is invalid.';
 $LANG['alert_input_equal'] = 'The value of this field must be the same as in the field "%s".';
