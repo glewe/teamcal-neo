@@ -982,6 +982,7 @@ function sendAbsenceApprovalNotifications($username, $year, $month, $day, $absen
    
    $subject = $LANG['email_subject_absence_approval'];
    
+   $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_absence_approval']);
    $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
    $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
    $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_absence_approval.html');
@@ -1030,7 +1031,8 @@ function sendAbsenceEventNotifications($event, $absname)
    if (in_array($event, $events))
    {
       $subject = $LANG['email_subject_group_' . $event];
-
+      $subject = str_replace('%app_name%', $appTitle, $subject);
+      
       $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
       $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
       $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_absence_' . $event . '.html');
@@ -1076,7 +1078,8 @@ function sendHolidayEventNotifications($event, $holname, $holdesc = '')
    if (in_array($event, $events))
    {
       $subject = $LANG['email_subject_group_' . $event];
-
+      $subject = str_replace('%app_name%', $appTitle, $subject);
+      
       $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
       $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
       $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_holiday_' . $event . '.html');
@@ -1124,6 +1127,7 @@ function sendMonthEventNotifications($event, $year, $month, $region)
    if (in_array($event, $events))
    {
       $subject = $LANG['email_subject_month_' . $event];
+      $subject = str_replace('%app_name%', $appTitle, $subject);
       
       $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
       $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
@@ -1171,6 +1175,7 @@ function sendUserCalEventNotifications($event, $username, $year, $month)
    if (in_array($event, $events))
    {
       $subject = $LANG['email_subject_usercal_' . $event];
+      $subject = str_replace('%app_name%', $appTitle, $subject);
       
       $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
       $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');

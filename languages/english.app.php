@@ -649,13 +649,10 @@ $LANG['profile_hidden'] = '<i class="glyphicon glyphicon-menu glyphicon-eye-clos
 $LANG['profile_hidden_comment'] = 'With this option you can keep the user active but hide him in the calendar. The absences will still be counted in the statistics though. If that is
       not wanted, consider archiving this user.';
 $LANG['profile_notifyAbsenceEvents'] = 'Absence Events';
-$LANG['profile_notifyAbsenceEvents_comment'] = 'Select this option if you want to be informed on changes to absence types.';
+$LANG['profile_notifyCalendarEvents'] = 'Calendar Events';
 $LANG['profile_notifyHolidayEvents'] = 'Holidays Events';
-$LANG['profile_notifyHolidayEvents_comment'] = 'Select this option if you want to be informed on changes to holidays.';
 $LANG['profile_notifyMonthEvents'] = 'Month Template Events';
-$LANG['profile_notifyMonthEvents_comment'] = 'Select this option if you want to be informed on changes to month templates.';
 $LANG['profile_notifyUserCalEvents'] = 'User Calendar Events';
-$LANG['profile_notifyUserCalEvents_comment'] = 'Select this option if you want to be informed on changes to user calendars.';
 
 //
 // Region

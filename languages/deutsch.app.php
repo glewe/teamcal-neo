@@ -529,11 +529,11 @@ $LANG['decl_value'] = 'Wert';
 //
 // E-Mail
 //
-$LANG['email_subject_absence_approval'] = APP_NAME . ' Abwesenheitsbestätigung Erforderlich';
-$LANG['email_subject_month_created'] = APP_NAME . ' Monat angelegt';
-$LANG['email_subject_month_changed'] = APP_NAME . ' Monat geändert';
-$LANG['email_subject_month_deleted'] = APP_NAME . ' Monat gelöscht';
-$LANG['email_subject_usercal_changed'] = APP_NAME . ' Benutzerkalender geändert';
+$LANG['email_subject_absence_approval'] = '%app_name% Abwesenheitsbestätigung Erforderlich';
+$LANG['email_subject_month_created'] = '%app_name% Monat angelegt';
+$LANG['email_subject_month_changed'] = '%app_name% Monat geändert';
+$LANG['email_subject_month_deleted'] = '%app_name% Monat gelöscht';
+$LANG['email_subject_usercal_changed'] = '%app_name% Benutzerkalender geändert';
 
 //
 // Holidays
