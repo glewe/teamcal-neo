@@ -966,12 +966,11 @@ $LANG['profile_menuBar_inverse'] = 'Invertiert';
 $LANG['profile_menuBar_normal'] = 'Normal';
 $LANG['profile_mobilephone'] = 'Handy';
 $LANG['profile_mobilephone_comment'] = '';
+$LANG['profile_notify'] = 'E-Mail Benachrichtigungen';
+$LANG['profile_notify_comment'] = 'W&auml;hle die Ereignisse, &uuml;ber die du per E-Mail benachrichtigt werden m&ouml;chtest. Dies beinhaltet das Anlegen, &Auml;ndern und L&ouml;schen. Mit Strg + Klick kannst du Ereignisse an- und abw&auml;hlen.';
 $LANG['profile_notifyGroupEvents'] = 'Gruppen-Ereignisse';
-$LANG['profile_notifyGroupEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Gruppen benachrichtigt werden m&ouml;chtest.';
 $LANG['profile_notifyRoleEvents'] = 'Rollen-Ereignisse';
-$LANG['profile_notifyRoleEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Rollen benachrichtigt werden m&ouml;chtest.';
 $LANG['profile_notifyUserEvents'] = 'Benutzerkonten-Ereignisse';
-$LANG['profile_notifyUserEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Benutzerkonten benachrichtigt werden m&ouml;chtest.';
 $LANG['profile_onhold'] = '<i class="glyphicon glyphicon-menu glyphicon-time text-warning" style="font-size: 80%; padding-right: 16px;"></i>Tempor&auml;r gesperrt';
 $LANG['profile_onhold_comment'] = 'Dieser Zustand tritt ein, wenn der Benutzer zu h&auml;ufig ein falsches Passwort eingegeben hat. Dann wirkt die Schonfrist, 
       in der das Konto gesperrt ist. Die L&auml;nge der Schonfrist kann in der Konfiguration eingestellt werden. Hier kann die Schonfrist manuell wieder aufgehoben werden.';

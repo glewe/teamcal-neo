@@ -999,12 +999,12 @@ function sendAbsenceApprovalNotifications($username, $year, $month, $day, $absen
    $message = str_replace('%absence%', $A->getName($absence), $message);
    $message = str_replace('%date%', $year . "-" . $month . "-" . $day, $message);
    
-   $users = $U->getAll();
+   $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
    foreach ( $users as $profile )
    {
       if ($UG->isGroupManagerOfUser($profile['username'], $username)) 
       {
-         sendEmail($profile['username'], $subject, $message);
+         sendEmail($profile['email'], $subject, $message);
       }
    }
 }
@@ -1046,10 +1046,10 @@ function sendAbsenceEventNotifications($event, $absname)
 
       $message = str_replace('%absname%', $absname, $message);
 
-      $users = $U->getAll();
+      $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
       foreach ( $users as $profile )
       {
-         if ($UO->read($profile['username'], 'notifyabsence')) sendEmail($profile['username'], $subject, $message);
+         if ($UO->read($profile['username'], 'notifyAbsenceEvents')) sendEmail($profile['email'], $subject, $message);
       }
    }
 }
@@ -1094,10 +1094,10 @@ function sendHolidayEventNotifications($event, $holname, $holdesc = '')
       $message = str_replace('%holname%', $holname, $message);
       $message = str_replace('%holdesc%', $holdesc, $message);
 
-      $users = $U->getAll();
+      $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
       foreach ( $users as $profile )
       {
-         if ($UO->read($profile['username'], 'notifyholiday')) sendEmail($profile['username'], $subject, $message);
+         if ($UO->read($profile['username'], 'notifyHolidayEvents')) sendEmail($profile['email'], $subject, $message);
       }
    }
 }
@@ -1144,10 +1144,10 @@ function sendMonthEventNotifications($event, $year, $month, $region)
       $message = str_replace('%month%', $month, $message);
       $message = str_replace('%region%', $region, $message);
       
-      $users = $U->getAll();
+      $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
       foreach ( $users as $profile )
       {
-         if ($UO->read($profile['username'], 'notifymonth')) sendEmail($profile['username'], $subject, $message);
+         if ($UO->read($profile['username'], 'notifyMonthEvents')) sendEmail($profile['email'], $subject, $message);
       }
    }
 }
@@ -1211,12 +1211,12 @@ function sendUserCalEventNotifications($event, $username, $year, $month)
       
       $message = str_replace('%calendar%', $calendar, $message);
       
-      $users = $U->getAll();
+      $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
       $ugroups = $UG->getAllforUser($username);
       $sendmail = false;
       foreach ( $users as $profile )
       {
-         if ($UO->read($profile['username'], 'notifycal')) 
+         if ($UO->read($profile['username'], 'notifyUserCalEvents')) 
          {
             if ($notifycalgroup = $UO->read($profile['username'], 'notifycalgroup'))
             {
@@ -1225,7 +1225,7 @@ function sendUserCalEventNotifications($event, $username, $year, $month)
                {
                   if (is_array($ngroups) AND in_array($ugroup['name'], $ngroups)) $sendmail = true;
                }
-               if ($sendmail) sendEmail($profile['username'], $subject, $message);
+               if ($sendmail) sendEmail($profile['email'], $subject, $message);
             }
          }
       }

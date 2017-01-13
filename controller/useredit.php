@@ -77,6 +77,14 @@ if (!$allowed)
 //
 $inputAlert = array();
 $absences = $A->getAll();
+if ($UL->hasRole($UL->username, '1')) // Administrator
+{
+   $events = array('notifyAbsenceEvents', 'notifyCalendarEvents', 'notifyGroupEvents', 'notifyHolidayEvents', 'notifyMonthEvents', 'notifyRoleEvents', 'notifyUserEvents', 'notifyUserCalEvents');
+}
+else 
+{
+   $events = array('notifyAbsenceEvents', 'notifyCalendarEvents', 'notifyHolidayEvents', 'notifyMonthEvents', 'notifyUserCalEvents');
+}
 
 //=============================================================================
 //
@@ -284,6 +292,21 @@ if (!empty($_POST))
          }
 
          //
+         // Notifications
+         //
+         foreach ($events as $event)
+         {
+            $UO->save($profile, $event, '0');
+         }
+         if (isset($_POST['sel_notify']) )
+         {
+            foreach ($_POST['sel_notify'] as $notify)
+            {
+               $UO->save($profile, $notify, '1');
+            }
+         }
+             
+         //
          // Custom
          //
          $UO->save($profile, 'custom1', $_POST['txt_custom1']);
@@ -432,27 +455,27 @@ $groups = $G->getAll();
 // Personal
 //
 $viewData['personal'] = array (
-array ( 'prefix' => 'profile', 'name' => 'username', 'type' => 'text', 'placeholder' => '', 'value' => $UP->username, 'maxlength' => '80', 'disabled' => true, 'mandatory' => true, 'error' =>  (isset($inputAlert['username'])?$inputAlert['username']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'lastname', 'type' => 'text', 'placeholder' => '', 'value' => $UP->lastname, 'maxlength' => '80', 'error' =>  (isset($inputAlert['lastname'])?$inputAlert['lastname']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'firstname', 'type' => 'text', 'placeholder' => '', 'value' => $UP->firstname, 'maxlength' => '80', 'error' =>  (isset($inputAlert['firstname'])?$inputAlert['firstname']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'title', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'title'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['title'])?$inputAlert['title']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'position', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'position'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['position'])?$inputAlert['position']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'id', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'id'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['id'])?$inputAlert['id']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'gender', 'type' => 'radio', 'values' => array ('male', 'female'), 'value' => $UO->read($profile, 'gender') ),
+   array ( 'prefix' => 'profile', 'name' => 'username', 'type' => 'text', 'placeholder' => '', 'value' => $UP->username, 'maxlength' => '80', 'disabled' => true, 'mandatory' => true, 'error' =>  (isset($inputAlert['username'])?$inputAlert['username']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'lastname', 'type' => 'text', 'placeholder' => '', 'value' => $UP->lastname, 'maxlength' => '80', 'error' =>  (isset($inputAlert['lastname'])?$inputAlert['lastname']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'firstname', 'type' => 'text', 'placeholder' => '', 'value' => $UP->firstname, 'maxlength' => '80', 'error' =>  (isset($inputAlert['firstname'])?$inputAlert['firstname']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'title', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'title'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['title'])?$inputAlert['title']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'position', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'position'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['position'])?$inputAlert['position']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'id', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'id'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['id'])?$inputAlert['id']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'gender', 'type' => 'radio', 'values' => array ('male', 'female'), 'value' => $UO->read($profile, 'gender') ),
 );
 
 //
 // Contact
 //
 $viewData['contact'] = array (
-array ( 'prefix' => 'profile', 'name' => 'email', 'type' => 'text', 'placeholder' => '', 'value' => $UP->email, 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['email'])?$inputAlert['email']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'phone', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'phone'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['phone'])?$inputAlert['phone']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'mobilephone', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'mobile'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['mobile'])?$inputAlert['mobile']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'facebook', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'facebook'), 'maxlength' => '80' ),
-array ( 'prefix' => 'profile', 'name' => 'google', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'google'), 'maxlength' => '80' ),
-array ( 'prefix' => 'profile', 'name' => 'linkedin', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'linkedin'), 'maxlength' => '80' ),
-array ( 'prefix' => 'profile', 'name' => 'skype', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'skype'), 'maxlength' => '80' ),
-array ( 'prefix' => 'profile', 'name' => 'twitter', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'twitter'), 'maxlength' => '80' ),
+   array ( 'prefix' => 'profile', 'name' => 'email', 'type' => 'text', 'placeholder' => '', 'value' => $UP->email, 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['email'])?$inputAlert['email']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'phone', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'phone'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['phone'])?$inputAlert['phone']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'mobilephone', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'mobile'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['mobile'])?$inputAlert['mobile']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'facebook', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'facebook'), 'maxlength' => '80' ),
+   array ( 'prefix' => 'profile', 'name' => 'google', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'google'), 'maxlength' => '80' ),
+   array ( 'prefix' => 'profile', 'name' => 'linkedin', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'linkedin'), 'maxlength' => '80' ),
+   array ( 'prefix' => 'profile', 'name' => 'skype', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'skype'), 'maxlength' => '80' ),
+   array ( 'prefix' => 'profile', 'name' => 'twitter', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'twitter'), 'maxlength' => '80' ),
 );
 
 //
@@ -491,11 +514,11 @@ foreach ($roles as $role)
    $viewData['roles'][] = array ('val' => $role['id'], 'name' => $role['name'], 'selected' => ($UP->getRole($UP->username) == $role['id'])?true:false );
 }
 $viewData['account'] = array (
-array ( 'prefix' => 'profile', 'name' => 'role', 'type' => 'list', 'values' => $viewData['roles']),
-array ( 'prefix' => 'profile', 'name' => 'locked', 'type' => 'check', 'values' => '', 'value' => $UP->locked ),
-array ( 'prefix' => 'profile', 'name' => 'onhold', 'type' => 'check', 'values' => '', 'value' => $UP->onhold ),
-array ( 'prefix' => 'profile', 'name' => 'verify', 'type' => 'check', 'values' => '', 'value' => $UP->verify ),
-array ( 'prefix' => 'profile', 'name' => 'hidden', 'type' => 'check', 'values' => '', 'value' => $UP->hidden ),
+   array ( 'prefix' => 'profile', 'name' => 'role', 'type' => 'list', 'values' => $viewData['roles']),
+   array ( 'prefix' => 'profile', 'name' => 'locked', 'type' => 'check', 'values' => '', 'value' => $UP->locked ),
+   array ( 'prefix' => 'profile', 'name' => 'onhold', 'type' => 'check', 'values' => '', 'value' => $UP->onhold ),
+   array ( 'prefix' => 'profile', 'name' => 'verify', 'type' => 'check', 'values' => '', 'value' => $UP->verify ),
+   array ( 'prefix' => 'profile', 'name' => 'hidden', 'type' => 'check', 'values' => '', 'value' => $UP->hidden ),
 );
 
 //
@@ -521,9 +544,9 @@ foreach ($groups as $group)
 
 if (isAllowed("groupmemberships")) $disabled = false; else $disabled = true;
 $viewData['groups'] = array (
-array ( 'prefix' => 'profile', 'name' => 'memberships', 'type' => 'listmulti', 'values' => $viewData['memberships'], 'disabled' => $disabled ),
-array ( 'prefix' => 'profile', 'name' => 'managerships', 'type' => 'listmulti', 'values' => $viewData['managerships'], 'disabled' => $disabled ),
-array ( 'prefix' => 'profile', 'name' => 'guestships', 'type' => 'listmulti', 'values' => $viewData['guestships'], 'disabled' => $disabled ),
+   array ( 'prefix' => 'profile', 'name' => 'memberships', 'type' => 'listmulti', 'values' => $viewData['memberships'], 'disabled' => $disabled ),
+   array ( 'prefix' => 'profile', 'name' => 'managerships', 'type' => 'listmulti', 'values' => $viewData['managerships'], 'disabled' => $disabled ),
+   array ( 'prefix' => 'profile', 'name' => 'guestships', 'type' => 'listmulti', 'values' => $viewData['guestships'], 'disabled' => $disabled ),
 );
 
 //
@@ -531,8 +554,8 @@ array ( 'prefix' => 'profile', 'name' => 'guestships', 'type' => 'listmulti', 'v
 //
 $LANG['profile_password_comment'] .= $LANG['password_rules_'.$C->read('pwdStrength')];
 $viewData['password'] = array (
-array ( 'prefix' => 'profile', 'name' => 'password', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['password'])?$inputAlert['password']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'password2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['password2'])?$inputAlert['password2']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'password', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['password'])?$inputAlert['password']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'password2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' =>  (isset($inputAlert['password2'])?$inputAlert['password2']:'') ),
 );
 
 //
@@ -574,14 +597,25 @@ foreach ($absences as $abs)
 }
 
 //
+// Notifications
+//
+foreach ($events as $event)
+{
+   $viewData['events'][] = array('val' => $event, 'name' => $LANG['profile_'.$event], 'selected' => $UO->read($profile, $event));
+}
+$viewData['notifications'] = array (
+   array ( 'prefix' => 'profile', 'name' => 'notify', 'type' => 'listmulti', 'values' => $viewData['events'], 'disabled' => false ),
+);
+
+//
 // Custom
 //
 $viewData['custom'] = array (
-array ( 'prefix' => 'profile', 'name' => 'custom1', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'custom1'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom1'])?$inputAlert['custom1']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'custom2', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'custom2'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom2'])?$inputAlert['custom2']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'custom3', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'custom3'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom3'])?$inputAlert['custom3']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'custom4', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'custom4'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom4'])?$inputAlert['custom4']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'custom5', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'custom5'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom5'])?$inputAlert['custom5']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'custom1', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'custom1'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom1'])?$inputAlert['custom1']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'custom2', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'custom2'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom2'])?$inputAlert['custom2']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'custom3', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'custom3'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom3'])?$inputAlert['custom3']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'custom4', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'custom4'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom4'])?$inputAlert['custom4']:'') ),
+   array ( 'prefix' => 'profile', 'name' => 'custom5', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'custom5'), 'maxlength' => '80', 'error' =>  (isset($inputAlert['custom5'])?$inputAlert['custom5']:'') ),
 );
 
 //=============================================================================

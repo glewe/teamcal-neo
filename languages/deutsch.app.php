@@ -649,13 +649,10 @@ $LANG['profile_hidden'] = '<i class="glyphicon glyphicon-menu glyphicon-eye-clos
 $LANG['profile_hidden_comment'] = 'Mit dieser Option kann der Nutzer aktiv bleiben aber im Kalender verborgen werden. Die Abwesenheiten werden in den Statistiken jedoch weiter gez&auml;hlt. Sollte das
       nicht gew&uuml;nscht sein, wird die Archivierung des Nutzers empfohlen.';
 $LANG['profile_notifyAbsenceEvents'] = 'Abwesenheitstyp-Ereignisse';
-$LANG['profile_notifyAbsenceEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Abwesenheitstypen benachrichtigt werden m&ouml;chtest.';
+$LANG['profile_notifyCalendarEvents'] = 'Kalender-Ereignisse';
 $LANG['profile_notifyHolidayEvents'] = 'Feiertag-Ereignisse';
-$LANG['profile_notifyHolidayEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Feiertagen benachrichtigt werden m&ouml;chtest.';
 $LANG['profile_notifyMonthEvents'] = 'Monatsschablonen-Ereignisse';
-$LANG['profile_notifyMonthEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Monatsschablonen benachrichtigt werden m&ouml;chtest.';
 $LANG['profile_notifyUserCalEvents'] = 'Benutzerkalender-Ereignisse';
-$LANG['profile_notifyUserCalEvents_comment'] = 'W&auml;hle diese Option, wenn du per Email &uuml;ber &Auml;nderungen von Benutzerkalendern benachrichtigt werden m&ouml;chtest.';
 
 //
 // Region

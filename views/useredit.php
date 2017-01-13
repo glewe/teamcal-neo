@@ -59,6 +59,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <li><a href="#groups" data-toggle="tab"><?=$LANG['profile_tab_groups']?></a></li>
                         <li><a href="#setpassword" data-toggle="tab"><?=$LANG['profile_tab_password']?></a></li>
                         <li><a href="#absences" data-toggle="tab"><?=$LANG['profile_tab_absences']?></a></li>
+                        <li><a href="#notifications" data-toggle="tab"><?=$LANG['profile_tab_notifications']?></a></li>
                         <li><a href="#custom" data-toggle="tab"><?=$LANG['profile_tab_custom']?></a></li>
                      </ul>
                      
@@ -208,6 +209,17 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                         </div>
       
+                        <!-- Notifications tab -->
+                        <div class="tab-pane fade" id="notifications">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                                 <?php foreach($viewData['notifications'] as $formObject) {
+                                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                                 } ?>
+                              </div>
+                           </div>
+                        </div>
+
                         <!-- Custom tab -->
                         <div class="tab-pane fade" id="custom">
                            <div class="panel panel-default">

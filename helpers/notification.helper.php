@@ -221,7 +221,7 @@ function sendGroupEventNotifications($event, $groupname, $groupdesc = '')
       'created',
       'deleted' 
    );
-   
+    
    if (in_array($event, $events))
    {
       $subject = $LANG['email_subject_group_' . $event];
@@ -241,10 +241,10 @@ function sendGroupEventNotifications($event, $groupname, $groupdesc = '')
       $message = str_replace('%groupname%', $groupname, $message);
       $message = str_replace('%groupdesc%', $groupdesc, $message);
       
-      $users = $U->getAll();
+      $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
       foreach ( $users as $profile )
       {
-         if ($UO->read($profile['username'], 'notifygroup')) sendEmail($profile['username'], $subject, $message);
+         if ($UO->read($profile['username'], 'notifyGroupEvents')) sendEmail($profile['email'], $subject, $message);
       }
    }
 }
@@ -288,10 +288,10 @@ function sendRoleEventNotifications($event, $rolename, $roledesc = '')
       $message = str_replace('%rolename%', $rolename, $message);
       $message = str_replace('%roledesc%', $roledesc, $message);
       
-      $users = $U->getAll();
+      $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
       foreach ( $users as $profile )
       {
-         if ($UO->read($profile['username'], 'notifyrole')) sendEmail($profile['username'], $subject, $message);
+         if ($UO->read($profile['username'], 'notifyRoleEvents')) sendEmail($profile['email'], $subject, $message);
       }
    }
 }
@@ -337,10 +337,10 @@ function sendUserEventNotifications($event, $username, $firstname, $lastname)
       $message = str_replace('%firstname%', $firstname, $message);
       $message = str_replace('%lastname%', $lastname, $message);
       
-      $users = $U->getAll();
+      $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
       foreach ( $users as $profile )
       {
-         if ($UO->read($profile['username'], 'notifyuser')) sendEmail($profile['username'], $subject, $message);
+         if ($UO->read($profile['username'], 'notifyUserEvents')) sendEmail($profile['email'], $subject, $message);
       }
    }
 }

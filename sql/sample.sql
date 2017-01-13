@@ -1157,7 +1157,15 @@ INSERT INTO `tcneo_user_option` (`id`, `username`, `option`, `value`) VALUES
 (124, 'mmouse', 'linkedin', ''),
 (125, 'mmouse', 'skype', ''),
 (126, 'mmouse', 'twitter', ''),
-(127, 'mmouse', 'theme', 'darkly');
+(127, 'mmouse', 'theme', 'darkly'),
+(128, 'admin', 'notifyAbsenceEvents', '1'),
+(129, 'admin', 'notifyCalendarEvents', '1'),
+(130, 'admin', 'notifyGroupEvents', '1'),
+(131, 'admin', 'notifyHolidayEvents', '1'),
+(132, 'admin', 'notifyMonthEvents', '1'),
+(133, 'admin', 'notifyRoleEvents', '1'),
+(134, 'admin', 'notifyUserEvents', '1'),
+(135, 'admin', 'notifyUserCalEvents', '1');
 
 -- --------------------------------------------------------
 

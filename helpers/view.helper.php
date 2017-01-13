@@ -184,7 +184,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
                <span class="text-normal">' . $LANG[$langIdx2] . '</span>
             </label>
             <div class="col-lg-' . $colsright . '">
-               <select id="' . $data['name'] . '" class="form-control" name="sel_' . $data['name'] . '[]" tabindex="' . $tabindex . '" multiple="multiple" size="6"' . $disabled . '>' . "\r\n";
+               <select id="' . $data['name'] . '" class="form-control" name="sel_' . $data['name'] . '[]" tabindex="' . $tabindex . '" multiple="multiple" size="10"' . $disabled . '>' . "\r\n";
                foreach ( $data['values'] as $val )
                {
                   $formGroup .= '<option value="' . $val['val'] . '"' . (($val['selected']) ? " selected=\"selected\"" : "") . '>' . $val['name'] . '</option>' . "\r\n";

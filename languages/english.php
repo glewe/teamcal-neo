@@ -961,12 +961,11 @@ $LANG['profile_menuBar_inverse'] = 'Inverse';
 $LANG['profile_menuBar_normal'] = 'Normal';
 $LANG['profile_mobilephone'] = 'Mobile';
 $LANG['profile_mobilephone_comment'] = '';
+$LANG['profile_notify'] = 'E-Mail Notifications';
+$LANG['profile_notify_comment'] = 'Select the event types that would like to be notified about via E-Mail. This includes add, change and delete actions. Add/remove entries by using Ctrl + Click.';
 $LANG['profile_notifyGroupEvents'] = 'Group Events';
-$LANG['profile_notifyGroupEvents_comment'] = 'Select this option if you want to be informed on changes to groups.';
 $LANG['profile_notifyRoleEvents'] = 'Role Events';
-$LANG['profile_notifyRoleEvents_comment'] = 'Select this option if you want to be informed on changes to roles.';
 $LANG['profile_notifyUserEvents'] = 'User Account Events';
-$LANG['profile_notifyUserEvents_comment'] = 'Select this option if you want to be informed on changes to user accounts.';
 $LANG['profile_onhold'] = '<i class="glyphicon glyphicon-menu glyphicon-time text-warning" style="font-size: 80%; padding-right: 16px;"></i>On hold';
 $LANG['profile_onhold_comment'] = 'This status is applied after a user has entered a wrong password too many times. This causes a grace period in which no login is possible. 
       The grace period can be configured on the configuration page. You can manually release the status here as well.';
