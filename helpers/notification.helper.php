@@ -31,8 +31,8 @@ function sendAccountActivatedMail($email, $username, $lastname, $firstname)
    $language = $C->read('defaultLanguage');
    $appTitle = $C->read('appTitle');
    $to = $email;
-   $subject = $LANG['email_subject_user_account_activated'];
    
+   $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_activated']);
    $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
    $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
    $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_activated.html');
@@ -66,8 +66,8 @@ function sendAccountCreatedMail($email, $username, $password)
    $language = $C->read('defaultLanguage');
    $appTitle = $C->read('appTitle');
    $to = $email;
-   $subject = $LANG['email_subject_user_account_created'];
    
+   $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_created']);
    $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
    $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
    $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_created.html');
@@ -102,8 +102,8 @@ function sendAccountNeedsApprovalMail($email, $username, $lastname, $firstname)
    $language = $C->read('defaultLanguage');
    $appTitle = $C->read('appTitle');
    $to = $email;
-   $subject = $LANG['email_subject_user_account_needs_approval'];
    
+   $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_needs_approval']);
    $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
    $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
    $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_needs_approval.html');
@@ -140,8 +140,8 @@ function sendAccountRegisteredMail($email, $username, $lastname, $firstname, $ve
    $language = $C->read('defaultLanguage');
    $appTitle = $C->read('appTitle');
    $to = $email;
-   $subject = $LANG['email_subject_user_account_registered'];
    
+   $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_registered']);
    $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
    $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
    $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_registered.html');
@@ -181,8 +181,8 @@ function sendAccountVerificationMismatchMail($email, $username, $vcode, $vcodeSu
    $language = $C->read('defaultLanguage');
    $appTitle = $C->read('appTitle');
    $to = $email;
-   $subject = $LANG['email_subject_user_account_mismatch'];
    
+   $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_mismatch']);
    $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
    $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
    $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_verify_mismatch.html');
@@ -225,6 +225,7 @@ function sendGroupEventNotifications($event, $groupname, $groupdesc = '')
    if (in_array($event, $events))
    {
       $subject = $LANG['email_subject_group_' . $event];
+      $subject = str_replace('%app_name%', $appTitle, $subject);
       
       $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
       $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
@@ -271,6 +272,7 @@ function sendRoleEventNotifications($event, $rolename, $roledesc = '')
    if (in_array($event, $events))
    {
       $subject = $LANG['email_subject_group_' . $event];
+      $subject = str_replace('%app_name%', $appTitle, $subject);
       
       $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
       $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
@@ -318,6 +320,7 @@ function sendUserEventNotifications($event, $username, $firstname, $lastname)
    if (in_array($event, $events))
    {
       $subject = $LANG['email_subject_user_account_' . $event];
+      $subject = str_replace('%app_name%', $appTitle, $subject);
       
       $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
       $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');

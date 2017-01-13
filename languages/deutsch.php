@@ -527,21 +527,21 @@ $LANG['db_resetString_comment'] = 'Das Zur&uuml;cksetzen der Datenbank wird alle
 //
 // E-Mail
 //
-$LANG['email_subject_group_changed'] = APP_NAME . ' Gruppe ge&auml;ndert';
-$LANG['email_subject_group_created'] = APP_NAME . ' Gruppe angelegt';
-$LANG['email_subject_group_deleted'] = APP_NAME . ' Gruppe gel&ouml;scht';
-$LANG['email_subject_month_created'] = APP_NAME . ' Monat angelegt';
-$LANG['email_subject_month_changed'] = APP_NAME . ' Monat geändert';
-$LANG['email_subject_month_deleted'] = APP_NAME . ' Monat gelöscht';
-$LANG['email_subject_role_changed'] = APP_NAME . ' Rolle ge&auml;ndert';
-$LANG['email_subject_role_created'] = APP_NAME . ' Rolle angelegt';
-$LANG['email_subject_role_deleted'] = APP_NAME . ' Rolle gel&ouml;scht';
-$LANG['email_subject_user_account_changed'] = APP_NAME . ' Benutzerkonto ge&auml;ndert';
-$LANG['email_subject_user_account_created'] = APP_NAME . ' Benutzerkonto angelegt';
-$LANG['email_subject_user_account_deleted'] = APP_NAME . ' Benutzerkonto gel&ouml;scht';
-$LANG['email_subject_user_account_needs_approval'] = APP_NAME . ' Benutzerkonto muss aktiviert werden';
-$LANG['email_subject_user_account_mismatch'] = APP_NAME . ' Benutzerkonto Verifizierungsfehler';
-$LANG['email_subject_user_account_registered'] = APP_NAME . ' Benutzerkonto registriert';
+$LANG['email_subject_group_changed'] = '%app_name% Gruppe ge&auml;ndert';
+$LANG['email_subject_group_created'] = '%app_name% Gruppe angelegt';
+$LANG['email_subject_group_deleted'] = '%app_name% Gruppe gel&ouml;scht';
+$LANG['email_subject_month_created'] = '%app_name% Monat angelegt';
+$LANG['email_subject_month_changed'] = '%app_name% Monat geändert';
+$LANG['email_subject_month_deleted'] = '%app_name% Monat gelöscht';
+$LANG['email_subject_role_changed'] = '%app_name% Rolle ge&auml;ndert';
+$LANG['email_subject_role_created'] = '%app_name% Rolle angelegt';
+$LANG['email_subject_role_deleted'] = '%app_name% Rolle gel&ouml;scht';
+$LANG['email_subject_user_account_changed'] = '%app_name% Benutzerkonto ge&auml;ndert';
+$LANG['email_subject_user_account_created'] = '%app_name% Benutzerkonto angelegt';
+$LANG['email_subject_user_account_deleted'] = '%app_name% Benutzerkonto gel&ouml;scht';
+$LANG['email_subject_user_account_needs_approval'] = '%app_name% Benutzerkonto muss aktiviert werden';
+$LANG['email_subject_user_account_mismatch'] = '%app_name% Benutzerkonto Verifizierungsfehler';
+$LANG['email_subject_user_account_registered'] = '%app_name% Benutzerkonto registriert';
 
 //
 // Error messages
