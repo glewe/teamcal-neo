@@ -113,7 +113,8 @@ if (!empty($_POST))
             $UR->onhold = '0';
             $UR->verify = '1';
             $UR->bad_logins = '0';
-            $UR->grace_start = '0000-00-00 00:00:00.000000';
+            $UR->grace_start = DEFAULT_TIMESTAMP;
+            $UR->last_login = DEFAULT_TIMESTAMP;
             $UR->created = date('YmdHis');
    
             //
