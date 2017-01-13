@@ -424,7 +424,7 @@ class Absences
    
    // ----------------------------------------------------------------------
    /**
-    * Gets the counts_as ID of the absence
+    * Gets the counts_as of the absence
     *
     * @param string $id Record ID
     * @return string Absence counts as
@@ -447,6 +447,30 @@ class Absences
    }
    
    // ----------------------------------------------------------------------
+   /**
+    * Gets the counts_as_present of the absence
+    *
+    * @param string $id Record ID
+    * @return string Absence counts as
+    */
+   public function getCountsAsPresent($id = '')
+   {
+      $rc = false;
+      if (isset($id))
+      {
+         $query = $this->db->prepare('SELECT counts_as_present FROM ' . $this->table . ' WHERE id = :val1');
+         $query->bindParam('val1', $id);
+         $result = $query->execute();
+          
+         if ($result and $row = $query->fetch())
+         {
+            $rc = $row['counts_as_present'];
+         }
+      }
+      return $rc;
+   }
+    
+    // ----------------------------------------------------------------------
    /**
     * Gets the factor value of an absence type
     *

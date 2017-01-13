@@ -13,6 +13,8 @@
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
+// echo "<script type=\"text/javascript\">alert(\"calendarviewuserrow.php: \");</script>";
+
 //
 // Check whether the current user may view users profiles.
 // If so, we link the name to the viewprofile page
@@ -118,6 +120,7 @@ if ($editAllowed)
                      $allowed = false;
                      if ($UL->hasRole($UL->username,1) OR $UL->hasRole($UL->username,4) OR $UL->username==$usr['username']) $allowed = true;
                   }
+                  
                   if ($allowed)
                   {
                      if ($A->getBgTrans($T->$abs)) $bgStyle = ""; else $bgStyle = "background-color: #". $A->getBgColor($T->$abs) . ";";
@@ -141,7 +144,7 @@ if ($editAllowed)
                      }
                      $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$A->getName($T->$abs).$taken.'">';                 
                      $absend = '</div>';
-                     $dayAbsCount[$i]++;
+                     if (!$A->getCountsAsPresent($T->$abs)) $dayAbsCount[$i]++; else $dayPresCount[$i]++;
                   }
                   else
                   {
@@ -152,7 +155,7 @@ if ($editAllowed)
                      $icon = '&nbsp;';
                      $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$LANG['cal_tt_absent'].'">';
                      $absend = '</div>';
-                     $dayAbsCount[$i]++;
+                     if (!$A->getCountsAsPresent($T->$abs)) $dayAbsCount[$i]++; else $dayPresCount[$i]++;
                   }
                }
                else
@@ -164,7 +167,7 @@ if ($editAllowed)
                   $icon = '&nbsp;';
                   $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$LANG['cal_tt_anotherabsence'].'">';
                   $absend = '</div>';
-                  $dayAbsCount[$i]++;
+                  if (!$A->getCountsAsPresent($T->$abs)) $dayAbsCount[$i]++; else $dayPresCount[$i]++;
                }
             }
             else 
