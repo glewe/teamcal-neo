@@ -58,8 +58,8 @@ if (!empty($_POST))
    //
    $inputError = false;
    if (!formInputValid('txt_username', 'required|alpha_numeric_dot_at')) $inputError = true;
-   if (!formInputValid('txt_lastname', 'alpha_numeric_dash')) $inputError = true;
-   if (!formInputValid('txt_firstname', 'alpha_numeric_dash')) $inputError = true;
+   if (!formInputValid('txt_lastname', 'alpha_numeric_dash_blank')) $inputError = true;
+   if (!formInputValid('txt_firstname', 'alpha_numeric_dash_blank')) $inputError = true;
    if (!formInputValid('txt_email', 'required|email')) $inputError = true;
    if (!formInputValid('txt_password', 'required|pwd'.$C->read('pwdStrength'))) $inputError = true;
    if (!formInputValid('txt_password2', 'required|pwd'.$C->read('pwdStrength'))) $inputError = true;
