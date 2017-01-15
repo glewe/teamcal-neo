@@ -368,7 +368,8 @@ $LANG['config_badLogins'] = 'Bad Logins';
 $LANG['config_badLogins_comment'] = 'Number of bad login attempts that will cause the user status to be set to \'LOCKED\'. The user has to wait as long 
       as the grace period specifies before he can login again. If you set this value to 0 the bad login feature is disabled.';
 $LANG['config_cookieConsent'] = 'Cookie Consent';
-$LANG['config_cookieConsent_comment'] = 'With this option, a cookie consent confirmation will pop up at the bottom of the screen. This is legally required in the EU.';
+$LANG['config_cookieConsent_comment'] = 'With this option, a cookie consent confirmation will pop up at the bottom of the screen. 
+      This is legally required in the EU. This feature requires Internet connectivity.';
 $LANG['config_cookieLifetime'] = 'Cookie Lifetime';
 $LANG['config_cookieLifetime_comment'] = 'Upon successful login a cookie is stored on the local hard drive of the user. This cookie has a certain 
       lifetime after which it becomes invalid. A new login is necessary. This lifetime can be specified here in seconds (0-999999).';

@@ -369,7 +369,8 @@ $LANG['config_badLogins'] = 'Ung&uuml;ltige Logins';
 $LANG['config_badLogins_comment'] = 'Anzahl der ung&uuml;ltigen Login Versuche bevore der User Status auf \'LOCKED\' gesetzt wird. Der User muss danach solange 
       warten wie in der Schonfrist angegeben, bevor er sich erneut einloggen kann. Wenn dieser Wert auf 0 gesetzt wird, ist diese Funktion deaktiviert.';
 $LANG['config_cookieConsent'] = 'Cookie Zustimmung';
-$LANG['config_cookieConsent_comment'] = 'Mit dieser Option wird am unteren Bildschirmrand ein Popup f&uuml;r die Zustimmung zu Cookienutzung angezeigt. Dies ist legale Pflicht in der EU.';
+$LANG['config_cookieConsent_comment'] = 'Mit dieser Option wird am unteren Bildschirmrand ein Popup f&uuml;r die Zustimmung zu Cookienutzung angezeigt. 
+      Dies ist legale Pflicht in der EU. Dieses Feature erordert eine Internetverbindung.';
 $LANG['config_cookieLifetime'] = 'Cookie Lebensdauer';
 $LANG['config_cookieLifetime_comment'] = 'Bei erfolgreichem Einloggen wird ein Cookie auf dem lokalen Rechner des Users abgelegt. Dieser Cookie hat eine 
       bestimmte Lebensdauer, nach dem er nicht mehr anerkannt wird. Ein erneutes Login is notwendig. Die Lebensdauer kann hier in Sekunden angegeben werden (0-999999).';

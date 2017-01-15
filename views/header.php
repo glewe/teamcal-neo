@@ -133,16 +133,25 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
 
       <?php if ($htmlData['cookieConsent']) { ?>
       <!-- Cookie Consent by Silktide - http://silktide.com/cookieconsent -->
-      <script type="text/javascript">
-          window.cookieconsent_options = {
-             "message":"<?=$LANG['cookie_message']?>",
-             "dismiss":"<?=$LANG['cookie_dismiss']?>",
-             "learnMore":"<?=$LANG['cookie_learnMore']?>",
-             "link":"index.php?action=imprint",
-             "theme":"dark-bottom"
-          };
+      <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+      <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+      <script>
+      window.addEventListener("load", function(){
+      window.cookieconsent.initialise({
+        "palette": {
+          "popup": {
+            "background": "#252e39"
+          },
+          "button": {
+            "background": "#14a7d0"
+          }
+        },
+        "theme": "classic",
+        "content": {
+          "href": "index.php?action=imprint"
+        }
+      })});
       </script>
-      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
       <?php } ?>
       
    </head>
