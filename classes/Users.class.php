@@ -1,13 +1,13 @@
 <?php
 /**
  * Users.class.php
-*
-* @category TeamCal Neo
-* @version 1.3.003
-* @author George Lewe <george@lewe.com>
-* @copyright Copyright (c) 2014-2017 by George Lewe
-* @link http://www.lewe.com
-* @license This program cannot be licensed. Redistribution is not allowed.
+ *
+ * @category TeamCal Neo
+ * @version 1.3.004
+ * @author George Lewe <george@lewe.com>
+ * @copyright Copyright (c) 2014-2017 by George Lewe
+ * @link http://www.lewe.com
+ * @license This program cannot be licensed. Redistribution is not allowed.
 */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
