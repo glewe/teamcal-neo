@@ -23,6 +23,7 @@ $pos = strrpos($fullURL,'/');
 define('WEBSITE_URL', substr($fullURL,0,$pos)); //Remove trailing slash
 define('APP_AVATAR_DIR', "upload/avatars/");
 define('APP_UPL_DIR', "upload/files/");
+define('APP_IMP_DIR', "upload/import/");
 
 //=============================================================================
 /**
@@ -121,6 +122,7 @@ define('XEDITABLE_VER', "1.5.1");
 $CONF['avatarExtensions'] = array ( 'gif', 'jpg', 'png' );
 $CONF['avatarMaxsize'] = 1024 * 100; // 100 KB
 $CONF['imgExtensions'] = array ( 'gif', 'jpg', 'png' );
+$CONF['impExtensions'] = array ( 'csv' );
 $CONF['uplExtensions'] = array ( 'gif', 'jpg', 'png', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'zip' );
 $CONF['uplMaxsize'] = 2048 * 1024; // 2 MB
 
