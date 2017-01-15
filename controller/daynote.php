@@ -84,6 +84,7 @@ $viewData['region'] = '1';
 $viewData['regionName'] = 'Default';
 $viewData['daynote'] = '';
 $viewData['color'] = 'info';
+$viewData['confidential'] = '0';
 $viewData['exists'] = false;
 
 //
@@ -98,6 +99,7 @@ if ($D->get($date,$for,$region))
    $viewData['regionName'] = $R->getNameById($D->region);
    $viewData['daynote'] = $D->daynote;
    $viewData['color'] = $D->color;
+   $viewData['confidential'] = $D->confidential;
    $viewData['exists'] = true;
 }
 
@@ -118,7 +120,8 @@ if (!empty($_POST))
    $viewData['date'] = $_POST['txt_date'];
    $viewData['daynote'] = $_POST['txt_daynote'];
    $viewData['color'] = $_POST['opt_color'];
-
+   if (isset($_POST['chk_confidential'])) $viewData['confidential'] = '1'; else $viewData['confidential'] = '0';
+    
    //
    // Form validation
    //
@@ -142,6 +145,7 @@ if (!empty($_POST))
          $D->region = $viewData['region'];
          $D->daynote = $viewData['daynote'];
          $D->color = $viewData['color'];
+         $D->confidential = $viewData['confidential'];
          $D->create();
          
          if (isset($_POST['txt_enddate']))
@@ -157,6 +161,7 @@ if (!empty($_POST))
                   $D->region = $viewData['region'];
                   $D->daynote = $viewData['daynote'];
                   $D->color = $viewData['color'];
+                  $D->confidential = $viewData['confidential'];
                   $D->create();
                }
             }
@@ -216,6 +221,7 @@ if (!empty($_POST))
       {
          $D->daynote = $viewData['daynote'];
          $D->color = $viewData['color'];
+         $D->confidential = $viewData['confidential'];
          $D->update();
          
          if (isset($_POST['txt_enddate']))
@@ -231,6 +237,7 @@ if (!empty($_POST))
                   $D->region = $viewData['region'];
                   $D->daynote = $viewData['daynote'];
                   $D->color = $viewData['color'];
+                  $D->confidential = $viewData['confidential'];
                   $D->create();
                }
             }
@@ -278,6 +285,7 @@ $viewData['daynote'] = array (
    array ( 'prefix' => 'dn', 'name' => 'enddate', 'type' => 'date', 'value' => $viewData['enddate'], 'maxlength' => '10', 'mandatory' => false, 'error' =>  (isset($inputAlert['enddate'])?$inputAlert['enddate']:'') ),
    array ( 'prefix' => 'dn', 'name' => 'daynote', 'type' => 'textarea', 'value' => $viewData['daynote'], 'rows' => '10', 'placeholder' => $LANG['dn_daynote_placeholder'], 'mandatory' => true, 'error' =>  (isset($inputAlert['daynote'])?$inputAlert['daynote']:'') ),
    array ( 'prefix' => 'dn', 'name' => 'color', 'type' => 'radio', 'values' => array('info', 'success', 'warning', 'danger'), 'value' => $viewData['color'] ),
+   array ( 'prefix' => 'dn', 'name' => 'confidential', 'type' => 'check', 'value' => $viewData['confidential'] ),
 );
 
 //=============================================================================

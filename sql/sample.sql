@@ -176,6 +176,7 @@ CREATE TABLE `tcneo_archive_daynotes` (
   `region` int(11) NOT NULL DEFAULT '1',
   `daynote` text CHARACTER SET utf8,
   `color` varchar(16) COLLATE utf8_bin NOT NULL DEFAULT 'default',
+  `confidential` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (id),
   UNIQUE( `yyyymmdd`, `username`, `region`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -497,6 +498,7 @@ CREATE TABLE `tcneo_daynotes` (
   `region` int(11) NOT NULL DEFAULT '1',
   `daynote` text CHARACTER SET utf8,
   `color` varchar(16) COLLATE utf8_bin NOT NULL DEFAULT 'default',
+  `confidential` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (id),
   UNIQUE( `yyyymmdd`, `username`, `region`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

@@ -23,6 +23,7 @@ class Daynotes
    public $username = '';
    public $region = '';
    public $color = '';
+   public $confidential = '';
     
    private $db = '';
    private $table = '';
@@ -105,12 +106,13 @@ class Daynotes
     */
    public function create()
    {
-      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (yyyymmdd, username, region, daynote, color) VALUES (:val1, :val2, :val3, :val4, :val5)');
+      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (yyyymmdd, username, region, daynote, color, confidential) VALUES (:val1, :val2, :val3, :val4, :val5, :val6)');
       $query->bindParam('val1', $this->yyyymmdd);
       $query->bindParam('val2', $this->username);
       $query->bindParam('val3', $this->region);
       $query->bindParam('val4', $this->daynote);
       $query->bindParam('val5', $this->color);
+      $query->bindParam('val5', $this->confidential);
       $result = $query->execute();
       return $result;
    }
@@ -263,6 +265,7 @@ class Daynotes
          if ($replaceCRLF) $this->daynote = str_replace("\r\n","<br>",$row['daynote']);
          else $this->daynote = $row['daynote'];
          $this->color = $row['color'];
+         $this->confidential = $row['confidential'];
          return true;
       }
       return false;
@@ -367,6 +370,30 @@ class Daynotes
       return $result;
    }
    
+   // ----------------------------------------------------------------------
+   /**
+    * Checks whether a daynote is confidential
+    *
+    * @param string $id Record ID
+    * @return boolean
+    */
+   public function isConfidential($id = '')
+   {
+      if (isset($id))
+      {
+         $query = $this->db->prepare('SELECT confidential FROM ' . $this->table . ' WHERE id = :val1');
+         $query->bindParam('val1', $id);
+         $result = $query->execute();
+          
+         if ($result and $row = $query->fetch())
+         {
+            if($row['confidential']) return true;
+            else return false;
+         }
+      }
+      return false;
+   }
+    
    // ---------------------------------------------------------------------
    /**
     * Updates a daynote record from local class variables
@@ -375,13 +402,14 @@ class Daynotes
     */
    public function update()
    {
-      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET yyyymmdd = :val1, daynote = :val2, username = :val3, region = :val4, color = :val5 WHERE id = :val6');
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET yyyymmdd = :val1, daynote = :val2, username = :val3, region = :val4, color = :val5, confidential = :val6 WHERE id = :val7');
       $query->bindParam('val1', $this->yyyymmdd);
       $query->bindParam('val2', $this->daynote);
       $query->bindParam('val3', $this->username);
       $query->bindParam('val4', $this->region);
       $query->bindParam('val5', $this->color);
-      $query->bindParam('val6', $this->id);
+      $query->bindParam('val6', $this->confidential);
+      $query->bindParam('val7', $this->id);
       $result = $query->execute();
       return $result;
    }

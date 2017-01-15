@@ -370,6 +370,10 @@ $LANG['dn_color_info'] = '<i class="fa fa-square text-info"></i>';
 $LANG['dn_color_primary'] = '<i class="fa fa-square text-primary"></i>';
 $LANG['dn_color_success'] = '<i class="fa fa-square text-success"></i>';
 $LANG['dn_color_warning'] = '<i class="fa fa-square text-warning"></i>';
+$LANG['dn_confidential'] = 'Vertraulich';
+$LANG['dn_confidential_comment'] = 'Dieser Schalter macht die Tagesnotiz "vertraulich". Normale Nutzer k&ouml;nnen sie nicht im Kalender
+      sehen, nur Admins, Manager und der Benutzer selbst. Dies kann f&uuml;r sensitive Tagesnotizen n&uuml;tzlich sein. Es kann Sinn machen, dies mit
+      einer vertraulichen Abwesenheit am gleichen Tag zu verbinden.';
 $LANG['dn_confirm_delete'] = 'Bist du sicher, dass du die Tagesnotiz l&ouml;schen willst?';
 $LANG['dn_date'] = 'Tagesnotiz Datum';
 $LANG['dn_date_comment'] = 'W&auml;hle ein Datum f&uuml;r die Tagesnotiz.';

@@ -180,9 +180,24 @@ if ($editAllowed)
                //
                // This is a user's daynote
                //
-               $note = true;
-               $notestart = '<div class="tooltip-'.$D->color.'" style="width: 100%; height: 100%;" data-position="tooltip-right" data-toggle="tooltip" data-title="' . $D->daynote . '">';
-               $noteend = '</div>';
+               $allowed = true;
+               if ($D->isConfidential($D->id))
+               {
+                  //
+                  // This daynote is confidential. Check whether the logged in user may see it.
+                  // Rules:
+                  // - Logged in user must be Administrator (1) or Manager (4) or the user that this absence belongs to
+                  //
+                  $allowed = false;
+                  if ($UL->hasRole($UL->username,1) OR $UL->hasRole($UL->username,4) OR $UL->username==$usr['username']) $allowed = true;
+               }
+               
+               if ($allowed)
+               {
+                  $note = true;
+                  $notestart = '<div class="tooltip-'.$D->color.'" style="width: 100%; height: 100%;" data-position="tooltip-right" data-toggle="tooltip" data-title="' . $D->daynote . '">';
+                  $noteend = '</div>';
+               }
             }
             
             if ( $bdate = $UO->read($usr['username'], 'birthday') AND $bdate == $loopDate AND $UO->read($usr['username'], 'showbirthday') )

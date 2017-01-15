@@ -370,6 +370,10 @@ $LANG['dn_color_info'] = '<i class="fa fa-square text-info"></i>';
 $LANG['dn_color_primary'] = '<i class="fa fa-square text-primary"></i>';
 $LANG['dn_color_success'] = '<i class="fa fa-square text-success"></i>';
 $LANG['dn_color_warning'] = '<i class="fa fa-square text-warning"></i>';
+$LANG['dn_confidential'] = 'Confidential';
+$LANG['dn_confidential_comment'] = 'Checking this box marks this daynote as "confidential". The public and regular users cannot see it
+      in the calendar, only admins, manager and the user himself/herself. This feature is useful if you want to hide sensitive daynotes from regular users.
+      You might want to use this feature in combination with a confidential absence type on the same day.';
 $LANG['dn_confirm_delete'] = 'Are you sure you want to delete this daynote?';
 $LANG['dn_date'] = 'Daynote Date';
 $LANG['dn_date_comment'] = 'Select a date for this daynote.';
