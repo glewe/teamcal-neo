@@ -103,8 +103,8 @@ if (!empty($_POST))
    $inputError = false;
    if (isset($_POST['btn_profileUpdate']))
    {
-      if (!formInputValid('txt_lastname', 'alpha_numeric_dash_blank')) $inputError = true;
-      if (!formInputValid('txt_firstname', 'alpha_numeric_dash_blank')) $inputError = true;
+      if (!formInputValid('txt_lastname', 'alpha_numeric_dash_blank_dot')) $inputError = true;
+      if (!formInputValid('txt_firstname', 'alpha_numeric_dash_blank_dot')) $inputError = true;
       if (!formInputValid('txt_title', 'alpha_numeric_dash_blank_dot')) $inputError = true;
       if (!formInputValid('txt_position', 'alpha_numeric_dash_blank')) $inputError = true;
       if (!formInputValid('txt_email', 'required|email')) $inputError = true;

@@ -68,6 +68,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_search"><?=$LANG['btn_search']?></button>
                               <button type="submit" class="btn btn-default" tabindex="<?=$tabindex++;?>" name="btn_reset"><?=$LANG['btn_reset']?></button>
                               <a href="index.php?action=useradd" class="btn btn-success" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_create_user']?></a>
+                              <a href="index.php?action=userimport" class="btn btn-info" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_import']?></a>
                            </div>
                         </div>
                      </div>

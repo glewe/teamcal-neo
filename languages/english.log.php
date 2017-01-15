@@ -45,6 +45,7 @@ $LANG['log_group_deleted'] = 'Group deleted: ';
 $LANG['log_hol_created'] = 'Holiday created: ';
 $LANG['log_hol_updated'] = 'Holiday updated: ';
 $LANG['log_hol_deleted'] = 'Holiday deleted: ';
+$LANG['log_imp_success'] = 'CSV Import: ';
 $LANG['log_log_updated'] = 'Log settings updated';
 $LANG['log_log_cleared'] = 'Log cleared';
 $LANG['log_login_success'] = 'Login successful';

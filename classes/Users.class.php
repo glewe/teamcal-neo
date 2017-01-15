@@ -266,8 +266,9 @@ class Users
          $this->last_pw_change = $row['last_pw_change'];
          $this->last_login = $row['last_login'];
          $this->created = $row['created'];
+         return true;
       }
-      return $result;
+      return false;
    }
     
    // ---------------------------------------------------------------------

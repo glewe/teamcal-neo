@@ -84,8 +84,9 @@ $CONF['controllers'] = array (
    'roles' => new Controller('roles', 'group', 'warning', 'primary', 'roles', 'Roles'),
    'roleedit' => new Controller('roleedit', 'edit', 'warning', 'danger', 'roles', 'Role Edit'),
    'users' => new Controller('users', 'user', 'primary', 'primary', 'admin', 'Users'),
-   'useredit' => new Controller('useredit', 'edit', 'warning', 'danger', 'admin', 'User Edit'),
    'useradd' => new Controller('useradd', 'edit', 'warning', 'warning', 'admin', 'User Add'),
+   'useredit' => new Controller('useredit', 'edit', 'warning', 'danger', 'admin', 'User Edit'),
+   'userimport' => new Controller('userimport', 'upload', 'warning', 'primary', 'admin', 'User Import'),
    'verify' => new Controller('verify', 'user', 'info', 'default', '', 'Verify'),
    'viewprofile' => new Controller('viewprofile', 'user', 'default', 'default', 'viewprofile', 'View Profile'),
    //

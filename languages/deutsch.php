@@ -168,6 +168,16 @@ $LANG['alert_decl_group_threshold'] = ": Die Abwesenheitsgrenze wurde erreicht f
 $LANG['alert_decl_period'] = ": Abwesenheits&auml;nderungen in folgendem Zeitraum sind nicht erlaubt: ";
 $LANG['alert_decl_total_threshold'] = ": Die generelle Abwesenheitsgrenze wurde erreicht.";
 
+$LANG['alert_imp_subject'] = 'CSV Import Fehler aufgetreten';
+$LANG['alert_imp_admin'] = 'Zeile %s: Der Benutzername "admin" ist f&uuml;r den Import nicht erlaubt.';
+$LANG['alert_imp_columns'] = 'Zeile %s: Es mehr oder weniger als %s Spalten in der Zeile.';
+$LANG['alert_imp_email'] = 'Zeile %s: "%s" ist keine g&uuml;ltige E-Mail Adresse.';
+$LANG['alert_imp_exists'] = 'Zeile %s: Der Benutzername "%s" existiert bereits.';
+$LANG['alert_imp_firstname'] = 'Zeile %s: Der Vorname "%s" entspricht nicht dem erlaubten Format (alphanumerische Zeichen, Leerzeichen, Punkt, Bindestrich, Unterstrich).';
+$LANG['alert_imp_gender'] = 'Zeile %s: Falsches Geschlecht "%s" (male or female).';
+$LANG['alert_imp_lastname'] = 'Zeile %s: Der Nachname "%s" entspricht nicht dem erlaubten Format (alphanumerische Zeichen, Leerzeichen, Punkt, Bindestrich, Unterstrich).';
+$LANG['alert_imp_username'] = 'Zeile %s: Der Benutzername "%s" entspricht nicht dem erlaubten Format (alphanumerische Zeichen, Punkt, @).';
+
 $LANG['alert_input'] = 'Eingabevalidierung fehlgeschlagen';
 $LANG['alert_input_alpha'] = 'Diese Feld erlaubt nur eine Eingabe von alphabetischen Zeichen.';
 $LANG['alert_input_alpha_numeric'] = 'Diese Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen.';
@@ -881,6 +891,8 @@ $LANG['perm_useradmin_title'] = 'Benutzerprofil (Anzeigen und Hinzuf&uuml;gen)';
 $LANG['perm_useradmin_desc'] = 'Erlaubt das Listen und Hinzuf&uuml;gen von Benutzerkonten.';
 $LANG['perm_useredit_title'] = 'Benutzerprofil (Bearbeiten)';
 $LANG['perm_useredit_desc'] = 'Erlaubt das Bearbeiten des eignen Nutzerprofils.';
+$LANG['perm_userimport_title'] = 'Benutzer Importieren';
+$LANG['perm_userimport_desc'] = 'Erlaubt das Importieren von Benutzern via CSV.';
 $LANG['perm_viewprofile_title'] = 'Benutzerprofil (Anzeigen)';
 $LANG['perm_viewprofile_desc'] = 'Erlaubt den Zugriff auf die Nutzerprofil-Anzeige-Seite mit Basisinformationen wie Name oder Telefonnummer. Das Anzeigen von User Popups ist 
       ebenfalls abh&auml;ngig von dieser Berechtigung.';
@@ -1111,8 +1123,22 @@ $LANG['users_tab_archived'] = 'Archivierte Nutzer';
 $LANG['users_user'] = 'Nutzer';
 
 //
-// Custom Language
-// 
-// Enter your own log language variables below this line.
+// User Import
 //
+$LANG['imp_title'] = 'CSV Benutzer Import';
+
+$LANG['imp_file'] = 'CSV Datei';
+$LANG['imp_alert_help'] = 'Die Dokumentation zum CSV Import findest du <a href="https://georgelewe.atlassian.net/wiki/display/TCNEO/User+Import" target="_blank">hier</a>.';
+$LANG['imp_alert_success'] = 'CSV Import erfolgreich';
+$LANG['imp_alert_success_text'] = '%s Benutzer wurden erfolgreich importiert.';
+$LANG['imp_file_comment'] = 'Lade eine CSV Datei hoch. Details zum Format findest du <a href="https://georgelewe.atlassian.net/wiki/display/TCNEO/User+Import" target="_blank">hier</a>. 
+      Die Gr&ouml;&szlig;e der Datei darf bis zu %d KBytes betragen und kann folgende Formate haben: "%s".';
+$LANG['imp_group'] = 'Gruppe';
+$LANG['imp_group_comment'] = 'W&auml;hle die Gruppe, der die importierten Benutzer zugeordnet werden sollen.';
+$LANG['imp_role'] = 'Rolle';
+$LANG['imp_role_comment'] = 'W&auml;hle die Rolle, der die importierten Benutzer zugeordnet werden sollen.';
+$LANG['imp_hidden'] = 'Verborgen';
+$LANG['imp_hidden_comment'] = 'W&auml;hle diese Option, wenn die importierten Benutzer als "verborgen" gekennzeichnet werden sollen.';
+$LANG['imp_locked'] = 'Gesperrt';
+$LANG['imp_locked_comment'] = 'W&auml;hle diese Option, wenn die importierten Benutzer als "gesperrt" gekennzeichnet werden sollen.';
 ?>

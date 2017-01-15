@@ -168,6 +168,16 @@ $LANG['alert_decl_group_threshold'] = ": Group absence threshold reached for you
 $LANG['alert_decl_period'] = ": Absence changes in the following period are not allowed: ";
 $LANG['alert_decl_total_threshold'] = ": Total absence threshold reached.";
 
+$LANG['alert_imp_subject'] = 'CSV import errors encountered';
+$LANG['alert_imp_admin'] = 'Line %s: The username "admin" is not allowed to be imported.';
+$LANG['alert_imp_columns'] = 'Line %s: There are less or more than %s columns.';
+$LANG['alert_imp_email'] = 'Line %s: "%s" is not a valid email address.';
+$LANG['alert_imp_exists'] = 'Line %s: Username "%s" already exists.';
+$LANG['alert_imp_firstname'] = 'Line %s: The firstname "%s" does not comply to the allowed format (alphanumeric characters, blank, dot, dash and underscore).';
+$LANG['alert_imp_gender'] = 'Line %s: Incorrect gender "%s" (male or female).';
+$LANG['alert_imp_lastname'] = 'Line %s: The lastname "%s" does not comply to the allowed format (alphanumeric characters, blank, dot, dash and underscore).';
+$LANG['alert_imp_username'] = 'Line %s: The username "%s" does not comply to the allowed format (alphanumeric characters, dot and @).';
+
 $LANG['alert_input'] = 'Input validation failed';
 $LANG['alert_input_alpha'] = 'This field allows alphabetical characters only.';
 $LANG['alert_input_alpha_numeric'] = 'This field allows alphanumerical characters only.';
@@ -280,7 +290,7 @@ $LANG['btn_delete_group'] = 'Delete Group';
 $LANG['btn_delete_holiday'] = 'Delete Holiday';
 $LANG['btn_delete_records'] = 'Delete Records';
 $LANG['btn_delete_role'] = 'Delete Role';
-$LANG['btn_delete_selected'] = 'Delete Selected';
+$LANG['btn_delete_selected'] = 'Delete selected';
 $LANG['btn_done'] = 'Done';
 $LANG['btn_download_view'] = 'Download/View';
 $LANG['btn_edit'] = 'Edit';
@@ -306,7 +316,7 @@ $LANG['btn_reset_database'] = 'Reset Database';
 $LANG['btn_reset_password'] = 'Reset Password';
 $LANG['btn_reset_password_selected'] = 'Reset password of selected';
 $LANG['btn_restore'] = 'Restore';
-$LANG['btn_restore_selected'] = 'Restore Selected';
+$LANG['btn_restore_selected'] = 'Restore selected';
 $LANG['btn_role_list'] = 'Show Role List';
 $LANG['btn_save'] = 'Save';
 $LANG['btn_search'] = 'Search';
@@ -876,6 +886,8 @@ $LANG['perm_useradmin_title'] = 'Users (List and Add)';
 $LANG['perm_useradmin_desc'] = 'Allows to list and add user accounts.';
 $LANG['perm_useredit_title'] = 'Users (Edit)';
 $LANG['perm_useredit_desc'] = 'Allows editing the own Userprofile.';
+$LANG['perm_userimport_title'] = 'User Import';
+$LANG['perm_userimport_desc'] = 'Allows the import of user accounts via CSV.';
 $LANG['perm_viewprofile_title'] = 'Users (View)';
 $LANG['perm_viewprofile_desc'] = 'Allows to access the view profile page showing basic info like name, phone number etc. Viewing user popups is also 
       dependent on this permission.';
@@ -1104,4 +1116,23 @@ $LANG['users_last_login'] = 'Last Login';
 $LANG['users_tab_active'] = 'Active Users';
 $LANG['users_tab_archived'] = 'Archived Users';
 $LANG['users_user'] = 'User';
+
+//
+// User Import
+//
+$LANG['imp_title'] = 'CSV User Import';
+
+$LANG['imp_file'] = 'CSV File';
+$LANG['imp_alert_help'] = 'Find the documentation of the CSV import <a href="https://georgelewe.atlassian.net/wiki/display/TCNEO/User+Import" target="_blank">here</a>.';
+$LANG['imp_alert_success'] = 'CSV import successful';
+$LANG['imp_alert_success_text'] = '%s users were successfully imported.';
+$LANG['imp_file_comment'] = 'Upload your CSV file. See details about the format <a href="https://georgelewe.atlassian.net/wiki/display/TCNEO/User+Import" target="_blank">here</a>. The size of the file is limited to %d KBytes and the allowed formats are "%s".';
+$LANG['imp_group'] = 'Group';
+$LANG['imp_group_comment'] = 'Select the group that the imported users shall be assigned to.';
+$LANG['imp_role'] = 'Role';
+$LANG['imp_role_comment'] = 'Select the role that the imported users shall be assigned to.';
+$LANG['imp_hidden'] = 'Hidden';
+$LANG['imp_hidden_comment'] = 'Select wether the imported users shall be set to hidden.';
+$LANG['imp_locked'] = 'Locked';
+$LANG['imp_locked_comment'] = 'Select wether the imported users shall be set to locked.';
 ?>

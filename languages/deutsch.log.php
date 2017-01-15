@@ -46,6 +46,7 @@ $LANG['log_group_deleted'] = 'Gruppe gel&ouml;scht: ';
 $LANG['log_hol_created'] = 'Feiertag angelegt: ';
 $LANG['log_hol_updated'] = 'Feiertag aktualisiert: ';
 $LANG['log_hol_deleted'] = 'Feiertag gel&ouml;scht: ';
+$LANG['log_imp_success'] = 'CSV Import: ';
 $LANG['log_log_updated'] = 'Logbucheinstellungen aktualisiert';
 $LANG['log_log_cleared'] = 'Logbuch geleert';
 $LANG['log_login_success'] = 'Login erfolgreich';
