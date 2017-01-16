@@ -373,6 +373,11 @@ $LANG['config_cookieConsent_comment'] = 'With this option, a cookie consent conf
 $LANG['config_cookieLifetime'] = 'Cookie Lifetime';
 $LANG['config_cookieLifetime_comment'] = 'Upon successful login a cookie is stored on the local hard drive of the user. This cookie has a certain 
       lifetime after which it becomes invalid. A new login is necessary. This lifetime can be specified here in seconds (0-999999).';
+$LANG['config_defaultHomepage'] = 'Default Homepage';
+$LANG['config_defaultHomepage_comment'] = 'Select the default homepage. It is shown to anonymous users and when clicking the application icon
+      in the top left. Caution, if you select "Calendar" here, "Public" should have sufficient permissions to view it.';
+$LANG['config_defaultHomepage_home'] = 'Welcome Page';
+$LANG['config_defaultHomepage_calendarview'] = 'Calendar';
 $LANG['config_defaultLanguage'] = 'Default Language';
 $LANG['config_defaultLanguage_comment'] = $appTitle . ' is distributed in English and German. The adminstrator might have added more languages. 
       Chose the default language of your installation here.';
@@ -402,8 +407,8 @@ $LANG['config_googleAnalyticsID'] = "Google Analytics ID";
 $LANG['config_googleAnalyticsID_comment'] = "If you enabled the Google Analytics feature, enter your Google Analytics ID here in the format UA-999999-99.";
 $LANG['config_gracePeriod'] = 'Grace Period';
 $LANG['config_gracePeriod_comment'] = 'The amount of time in seconds that a user has to wait after too many bad logins before he can try again.';
-$LANG['config_homepage'] = 'Homepage';
-$LANG['config_homepage_comment'] = 'Select what page to display after login. Anonymous users will always land on the Welcome Page.';
+$LANG['config_homepage'] = 'User Homepage';
+$LANG['config_homepage_comment'] = 'Select what page to display to registered users after login.';
 $LANG['config_homepage_calendarview'] = 'Calendar';
 $LANG['config_homepage_home'] = 'Welcome Page';
 $LANG['config_homepage_messages'] = 'Message Page';

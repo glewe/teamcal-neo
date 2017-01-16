@@ -292,7 +292,7 @@ if ($C->read('underMaintenance'))
 }
 else 
 {
-   $controller = 'home';
+   if (!$controller = $C->read("defaultHomepage")) $controller = 'home';
    if (isset($_GET['action'])) $controller = sanitize($_GET['action']);
 }
 

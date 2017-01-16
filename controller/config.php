@@ -116,6 +116,7 @@ if (!empty($_POST))
          // Homepage
          //
          if ($_POST['opt_homepage']) $C->save("homepage", $_POST['opt_homepage']);
+         if ($_POST['opt_defaultHomepage']) $C->save("defaultHomepage", $_POST['opt_defaultHomepage']);
          $C->save("welcomeText", $_POST['txt_welcomeText']);
           
          //
@@ -251,6 +252,7 @@ $viewData['footer'] = array (
 );
 
 $viewData['homepage'] = array (
+   array ( 'prefix' => 'config', 'name' => 'defaultHomepage', 'type' => 'radio', 'values' => array ('home', 'calendarview'), 'value' => $C->read("defaultHomepage") ),
    array ( 'prefix' => 'config', 'name' => 'homepage', 'type' => 'radio', 'values' => array ('home', 'calendarview', 'messages'), 'value' => $C->read("homepage") ),
    array ( 'prefix' => 'config', 'name' => 'welcomeText', 'type' => 'ckeditor', 'value' => $C->read("welcomeText"), 'rows' => '10' ),
 );

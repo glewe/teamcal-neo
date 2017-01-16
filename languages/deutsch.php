@@ -374,6 +374,11 @@ $LANG['config_cookieConsent_comment'] = 'Mit dieser Option wird am unteren Bilds
 $LANG['config_cookieLifetime'] = 'Cookie Lebensdauer';
 $LANG['config_cookieLifetime_comment'] = 'Bei erfolgreichem Einloggen wird ein Cookie auf dem lokalen Rechner des Users abgelegt. Dieser Cookie hat eine 
       bestimmte Lebensdauer, nach dem er nicht mehr anerkannt wird. Ein erneutes Login is notwendig. Die Lebensdauer kann hier in Sekunden angegeben werden (0-999999).';
+$LANG['config_defaultHomepage'] = 'Standard Startseite';
+$LANG['config_defaultHomepage_comment'] = 'Diese Option bestimmt die standard Startseite. Sie wird anonymen Benutzern angezeigt und wenn das Applikationsicon oben links
+      angeklickt wird. Achtung, wenn hier "Kalender" gew&auml;hlt wird, sollte "Public" auch View-Rechte f&uuml;r den Kalender haben.';
+$LANG['config_defaultHomepage_home'] = 'Willkommen Seite';
+$LANG['config_defaultHomepage_calendarview'] = 'Kalender';
 $LANG['config_defaultLanguage'] = 'Standard Sprache';
 $LANG['config_defaultLanguage_comment'] = $appTitle. ' enth&auml;lt die Sprachen Englisch und Deutsch. Der Administrator hat eventuell weitere Sprachen installiert. 
       Hier kann die Standard Sprache eingestellt werden.';
@@ -404,11 +409,11 @@ $LANG['config_googleAnalyticsID'] = "Google Analytics ID";
 $LANG['config_googleAnalyticsID_comment'] = "Wenn du die Google Analytics Funktion aktiviert hast, trage hier deine Google Analytics ID im Format UA-999999-99 ein.";
 $LANG['config_gracePeriod'] = 'Schonfrist';
 $LANG['config_gracePeriod_comment'] = 'Zeit in Sekunden, die ein User warten muss, bevor er sich nach zu vielen fehlgeschlagenen Versuchen wieder einloggen kann.';
-$LANG['config_homepage'] = 'Startseite';
-$LANG['config_homepage_comment'] = 'Diese Option bestimmt, welche Seite nach dem Login angezeigt werden soll. Anonymen Nutzern wird immer die Willkommen Seite angezeigt.';
+$LANG['config_homepage'] = 'Benutzer Startseite';
+$LANG['config_homepage_comment'] = 'Diese Option bestimmt, welche Seite registrierten Benutzern nach dem Login angezeigt wird.';
 $LANG['config_homepage_calendarview'] = 'Kalender';
 $LANG['config_homepage_home'] = 'Willkommen Seite';
-$LANG['config_homepage_messages'] = 'Nachrichtenseite';
+$LANG['config_homepage_messages'] = 'Nachrichten Seite';
 $LANG['config_jQueryCDN'] = 'jQuery CDN';
 $LANG['config_jQueryCDN_comment'] = 'CDNs (Content Distributed Network) k&ouml;nnen einen Performance-Vorteil bieten dadurch dass popul&auml;re Web Module von Servern rund 
       um den Globus geladen werden. jQuery ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul 

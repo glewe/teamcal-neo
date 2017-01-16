@@ -330,7 +330,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (7, 'logLanguage', 'english'),
 (8, 'showAlerts', 'all'),
 (9, 'activateMessages', '1'),
-(10, 'homepage', 'home'),
+(10, 'homepage', 'calendarview'),
 (11, 'welcomeIcon', 'None'),
 (12, 'welcomeText', '<h1><img alt="" src="upload/files/logo-128.png" style="float:left; height:128px; margin-bottom:12px; margin-right:12px; width:128px" />Welcome to TeamCal Neo</h1>\r\n\r\n<p>TeamCal Neo, successor to TeamCal Pro, has been completely re-written as a responsive web application based on HTML5 and CSS3.</p>\r\n\r\n<p>Select Login from the User menu to login and use the following accounts to test:</p>\r\n\r\n<h2>Admin account:</h2>\r\n\r\n<p>admin/root</p>\r\n\r\n<h2>User accounts:</h2>\r\n\r\n<p>ccarl/password<br />\r\nblightyear/password<br />\r\ndduck/password<br />\r\nsgonzalez/password<br />\r\nphead/password<br />\r\nmmouse/password<br />\r\nmimouse/password<br />\r\nsman/password</p>\r\n'),
 (13, 'welcomeTitle', 'Welcome To TeamCal Neo'),
@@ -481,7 +481,8 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (159, 'logcolorDaynote', 'default'),
 (160, 'logRegion', '1'),
 (161, 'logfilterRegion', '1'),
-(162, 'logcolorRegion', 'success');
+(162, 'logcolorRegion', 'success'),
+(162, 'defaultHomepage', 'home');
 
 
 -- --------------------------------------------------------
