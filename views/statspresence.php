@@ -194,7 +194,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      var ctx = document.getElementById("myChart").getContext("2d");
                      window.myHorizontalBar = new Chart(ctx, {
                         type: 'horizontalBar',
-                        data: horizontalBarChartData,
+                        data: data,
                         options: {
                            elements: { rectangle: { borderWidth: 2, } },
                            responsive: true,
