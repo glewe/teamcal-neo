@@ -58,9 +58,9 @@ elseif ($yyyymm=$UO->read($UL->username, 'calfilterMonth'))
 else
 {
    //
-   // No Month
+   // Default to current year and month
    //
-   $missingData = TRUE;
+   $yyyymm = date('Y').date('m');
 }
 
 //
@@ -103,7 +103,10 @@ elseif ($regionfilter=$UO->read($UL->username, 'calfilterRegion'))
 }
 else
 {
-    $missingData = TRUE;
+   //
+   // Default to default region
+   //
+   $regionfilter = '1';
 }
 
 //

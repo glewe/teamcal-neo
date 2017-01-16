@@ -251,7 +251,7 @@ $viewData['footer'] = array (
 );
 
 $viewData['homepage'] = array (
-   array ( 'prefix' => 'config', 'name' => 'homepage', 'type' => 'radio', 'values' => array ('home', 'messages'), 'value' => $C->read("homepage") ),
+   array ( 'prefix' => 'config', 'name' => 'homepage', 'type' => 'radio', 'values' => array ('home', 'calendarview', 'messages'), 'value' => $C->read("homepage") ),
    array ( 'prefix' => 'config', 'name' => 'welcomeText', 'type' => 'ckeditor', 'value' => $C->read("welcomeText"), 'rows' => '10' ),
 );
 
