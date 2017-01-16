@@ -119,7 +119,7 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                                     if (!$groupHeader)
                                     { ?>
                                        <!-- Row: Group <?=$grp['name']?> -->
-                                       <tr><th class="m-groupname" colspan="<?=$days+1?>"><?=$LANG['group'].': '.$grp['name']?></th></tr>
+                                       <tr><th class="m-groupname" colspan="<?=$days+1?>"><?=$grp['description'].' ('.$grp['name'].')'?></th></tr>
                                        <?php  $groupHeader = true; 
                                     }
                                     
