@@ -115,10 +115,10 @@ if ($editAllowed)
                      //
                      // This absence type is confidential. Check whether the logged in user may see it.
                      // Rules:
-                     // - Logged in user must be Administrator (1) or Manager (4) or the user that this absence belongs to
+                     // - Logged in user must be in a trusted role or must be "admin"
                      //
                      $allowed = false;
-                     if ($UL->hasRole($UL->username,1) OR $UL->hasRole($UL->username,4) OR $UL->username==$usr['username']) $allowed = true;
+                     if (in_array($UL->getRole($UL->username), $viewData['trustedRoles']) OR $UL->username=='admin') $allowed = true;
                   }
                   
                   if ($allowed)
@@ -186,10 +186,10 @@ if ($editAllowed)
                   //
                   // This daynote is confidential. Check whether the logged in user may see it.
                   // Rules:
-                  // - Logged in user must be Administrator (1) or Manager (4) or the user that this absence belongs to
+                  // - Logged in user must be in a trusted role or must be "admin"
                   //
                   $allowed = false;
-                  if ($UL->hasRole($UL->username,1) OR $UL->hasRole($UL->username,4) OR $UL->username==$usr['username']) $allowed = true;
+                  if (in_array($UL->getRole($UL->username), $viewData['trustedRoles']) OR $UL->username=='admin') $allowed = true;
                }
                
                if ($allowed)

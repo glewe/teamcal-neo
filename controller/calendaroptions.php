@@ -39,6 +39,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
  * ========================================================================
  * Initialize variables
  */
+$arrTrustedRoles = array();
 
 /**
  * ========================================================================
@@ -73,7 +74,6 @@ if (isset($_POST['btn_caloptApply']))
    if (isset($_POST['chk_hideManagers']) && $_POST['chk_hideManagers']) $C->save("hideManagers", "1"); else $C->save("hideManagers", "0");
    if (isset($_POST['chk_hideManagerOnlyAbsences'])) $C->save("hideManagerOnlyAbsences", "1"); else $C->save("hideManagerOnlyAbsences", "0");
    if (isset($_POST['chk_showUserRegion']) && $_POST['chk_showUserRegion']) $C->save("showUserRegion", "1"); else $C->save("showUserRegion", "0");
-   if (isset($_POST['chk_markConfidential'])) $C->save("markConfidential", "1"); else $C->save("markConfidential", "0");
     
    /**
     * Settings
@@ -85,7 +85,17 @@ if (isset($_POST['btn_caloptApply']))
    if (isset($_POST['chk_showRegionButton']) && $_POST['chk_showRegionButton']) $C->save("showRegionButton", "1"); else $C->save("showRegionButton", "0");
    if ($_POST['opt_defgroupfilter']) $C->save("defgroupfilter", $_POST['opt_defgroupfilter']); else $C->save("defgroupfilter", 'All');
    if (isset($_POST['chk_currentYearOnly']) && $_POST['chk_currentYearOnly']) $C->save("currentYearOnly", "1"); else $C->save("currentYearOnly", "0");
-    
+   
+   if (isset($_POST['sel_trustedRoles']))
+   {
+      foreach ( $_POST['sel_trustedRoles'] as $role )
+      {
+         $arrTrustedRoles[] = $role;
+      }
+      $trustedRoles = implode(',', $arrTrustedRoles);
+      $C->save("trustedRoles", $trustedRoles);
+   }
+   
    /**
     * Statistics
     */
@@ -125,12 +135,18 @@ $caloptData['display'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'symbolAsIcon', 'type' => 'check', 'values' => '', 'value' => $C->read("symbolAsIcon") ),
 );
 
+$roles = $RO->getAll();
+$arrTrustedRoles = explode(',', $C->read("trustedRoles"));
+foreach ($roles as $role)
+{
+   $caloptData['roleList'][] = array ('val' => $role['id'], 'name' => $role['name'], 'selected' => (in_array($role['id'],$arrTrustedRoles))?true:false );
+}
 $caloptData['filter'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'hideManagers', 'type' => 'check', 'values' => '', 'value' => $C->read("hideManagers") ),
    array ( 'prefix' => 'calopt', 'name' => 'hideDaynotes', 'type' => 'check', 'values' => '', 'value' => $C->read("hideDaynotes") ),
    array ( 'prefix' => 'calopt', 'name' => 'hideManagerOnlyAbsences', 'type' => 'check', 'values' => '', 'value' => $C->read("hideManagerOnlyAbsences") ),
    array ( 'prefix' => 'calopt', 'name' => 'showUserRegion', 'type' => 'check', 'values' => '', 'value' => $C->read("showUserRegion") ),
-   array ( 'prefix' => 'calopt', 'name' => 'markConfidential', 'type' => 'check', 'values' => '', 'value' => $C->read("markConfidential") ),
+   array ( 'prefix' => 'calopt', 'name' => 'trustedRoles', 'type' => 'listmulti', 'values' => $caloptData['roleList'] ),
 );
 
 $regions = $R->getAllNames();

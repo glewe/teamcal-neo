@@ -320,6 +320,15 @@ if ($limit = $C->read("usersPerPage"))
 $inputAlert = array();
 $currDate = date('Y-m-d');
 $viewData['dateInfo'] = dateInfo($viewData['year'], $viewData['month']);
+if ($trustedRoles=$C->read("trustedRoles"))
+{
+   $viewData['trustedRoles'] = explode(',', $trustedRoles);
+}
+else 
+{
+   $viewData['trustedRoles'] = array ('1');
+   $C->save("trustedRoles", '1');
+}
 
 //
 // See if a region month template exists. If not, create one.

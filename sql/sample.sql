@@ -482,7 +482,8 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (160, 'logRegion', '1'),
 (161, 'logfilterRegion', '1'),
 (162, 'logcolorRegion', 'success'),
-(162, 'defaultHomepage', 'home');
+(163, 'defaultHomepage', 'home'),
+(164, 'trustedRoles', '1');
 
 
 -- --------------------------------------------------------

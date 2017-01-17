@@ -329,6 +329,9 @@ $LANG['calopt_todayBorderColor'] = 'Heute Randfarbe';
 $LANG['calopt_todayBorderColor_comment'] = 'Gibt die Farbe in Hexadezimal an, in der der rechte und linke Rand der Heute Spalte erscheint.';
 $LANG['calopt_todayBorderSize'] = 'Heute Randst&auml;rke';
 $LANG['calopt_todayBorderSize_comment'] = 'Gibt die Dicke in Pixel an, in der der rechte und linke Rand der Heute Spalte erscheint.';
+$LANG['calopt_trustedRoles'] = 'Vertrauensw&uuml;rdige Rollen';
+$LANG['calopt_trustedRoles_comment'] = 'W&auml;hle die Rollen, die als "vertraulich" gekennzeichnete Abwesenheiten und Tagesnotizen sehen d&uuml;rfen.<br>
+      <i>Hinweis: Die Rolle "Administrator" kann hier zwar ausgeschlossen werden, der Benutzer "admin" jedoch gilt als Superuser und kann immer alle Daten sehen.</i>';
 $LANG['calopt_usersPerPage'] = 'Anzahl User pro Seite';
 $LANG['calopt_usersPerPage_comment'] = 'Wenn du eine gro&szlig;e Anzahl an Usern in TeamCal Neo pflegst, bietet es sich an, die Kalenderanzeige in Seiten aufzuteilen.
       Gebe hier an, wieviel User pro Seite angezeigt werden sollen. Ein Wert von 0 zeigt alle User auf einer Seite an. Wenn du eine Seitenaufteilung w&auml;hlst,

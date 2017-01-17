@@ -278,9 +278,6 @@ $LANG['calopt_hideManagerOnlyAbsences_comment'] = 'Absence types can be marked a
       These absences are shown to the regular users but they cannot edit them. You can hide these absences to regular users here.';
 $LANG['calopt_includeSummary'] = 'Include Summary';
 $LANG['calopt_includeSummary_comment'] = 'Checking this option will add an expandable summary section at the bottom of each month, showing the sums of all absences.';
-$LANG['calopt_markConfidential'] = 'Mark Confidential Absences';
-$LANG['calopt_markConfidential_comment'] = 'Regular users cannot see confidential absences of others. However, with this option 
-      checked they will be marked with an "X" in the calendar to show that the person is not present. The type of absence will not be shown.';
 $LANG['calopt_pastDayColor'] = 'Past Day Color';
 $LANG['calopt_pastDayColor_comment'] = 'Sets a background color that is used for every day in the current month that lies in the past. 
       Delete this value if you don\'t want to color the past days.';
@@ -329,6 +326,9 @@ $LANG['calopt_todayBorderColor'] = 'Today Border Color';
 $LANG['calopt_todayBorderColor_comment'] = 'Specifies the color in hexadecimal of the left and right border of the today column.';
 $LANG['calopt_todayBorderSize'] = 'Today Border Size';
 $LANG['calopt_todayBorderSize_comment'] = 'Specifies the size (thickness) in pixel of the left an right border of the today column.';
+$LANG['calopt_trustedRoles'] = 'Trusted Roles';
+$LANG['calopt_trustedRoles_comment'] = 'Select the roles that can view confidential absences and daynotes.<br>
+      <i>Note: You can exclude the role "Administrator" here but the user "admin" functions as a superuser and can always see all data.</i>';
 $LANG['calopt_usersPerPage'] = 'Number of users per page';
 $LANG['calopt_usersPerPage_comment'] = 'If you maintain a large amount of users in TeamCal Neo you might want to use paging in the calendar display.
       Indicate how much users you want to display on each page. A value of 0 will disable paging. In case you chose paging, there will be paging

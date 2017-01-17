@@ -21,19 +21,18 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
       -->
       <div class="container content" style="padding-left: 4px; padding-right: 4px;">
       
-            <?php 
-            if ($showAlert AND $C->read("showAlerts")!="none")
-            { 
-               if ( $C->read("showAlerts")=="all" OR 
-                    $C->read("showAlerts")=="warnings" AND ($alertData['type']=="warning" OR $alertData['type']=="danger")
-                  ) 
-               {
-                  echo createAlertBox($alertData);
-               }
+         <?php 
+         if ($showAlert AND $C->read("showAlerts")!="none")
+         { 
+            if ( $C->read("showAlerts")=="all" OR 
+                 $C->read("showAlerts")=="warnings" AND ($alertData['type']=="warning" OR $alertData['type']=="danger")
+               ) 
+            {
+               echo createAlertBox($alertData);
             }
-             
-            $tabindex = 1; $colsleft = 1; $colsright = 4;
-            ?>
+         }
+         $tabindex = 1; $colsleft = 1; $colsright = 4;
+         ?>
          
          <form class="bs-example form-control-horizontal" enctype="multipart/form-data" action="<?=$formLink?>" method="post" target="_self" accept-charset="utf-8">
 
