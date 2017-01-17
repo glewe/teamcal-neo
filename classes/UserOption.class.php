@@ -46,7 +46,7 @@ class UserOption
     */
    public function archive($username)
    {
-      $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE username = :val1');
+      $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE `username` = :val1');
       $query->bindParam('val1', $username);
       $result = $query->execute();
       return $result;
@@ -61,7 +61,7 @@ class UserOption
     */
    public function restore($username)
    {
-      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
+      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE `username` = :val1');
       $query->bindParam('val1', $username);
       $result = $query->execute();
       return $result;
@@ -80,7 +80,7 @@ class UserOption
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
       
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :val1');
+      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE `username` = :val1');
       $query->bindParam('val1', $username);
       $result = $query->execute();
       
@@ -138,7 +138,7 @@ class UserOption
     */
    public function deleteById()
    {
-      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
+      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE `id` = :val1');
       $query->bindParam('val1', $this->id);
       $result = $query->execute();
       return $result;
@@ -156,7 +156,7 @@ class UserOption
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
       
-      $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username = :val1');
+      $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE `username` = :val1');
       $query->bindParam('val1', $username);
       $result = $query->execute();
       return $result;
@@ -172,7 +172,7 @@ class UserOption
     */
    public function deleteUserOption($username, $option)
    {
-      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE username = :val1 AND option = :val2');
+      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE `username` = :val1 AND `option` = :val2');
       $query->bindParam('val1', $username);
       $query->bindParam('val2', $option);
       $result = $query->execute();
@@ -189,7 +189,7 @@ class UserOption
     */
    public function hasOption($username, $option)
    {
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND option = :val2');
+      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE `username` = :val1 AND `option` = :val2');
       $query->bindParam('val1', $username);
       $query->bindParam('val2', $option);
       $result = $query->execute();
@@ -306,7 +306,7 @@ class UserOption
     */
    public function updateRegion($regionold, $regionnew = 'default')
    {
-      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET value = :val1 WHERE option = :val2 AND value = :val3');
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `value` = :val1 WHERE `option` = :val2 AND `value` = :val3');
       $query->bindParam('val1', $regionnew);
       $query->bindParam('val2', 'defregion');
       $query->bindParam('val3', $regionold);
