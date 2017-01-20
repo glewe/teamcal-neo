@@ -3,7 +3,7 @@
  * ajax_checkdb.php
  * 
  * @category TeamCal Neo 
- * @version 1.3.004
+ * @version 1.3.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com

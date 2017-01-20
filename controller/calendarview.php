@@ -5,7 +5,7 @@
  * Calendar view page controller
  *
  * @category TeamCal Neo 
- * @version 1.3.004
+ * @version 1.3.005
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -251,7 +251,7 @@ if ($searchfilter=$UO->read($UL->username, 'calfilterSearch'))
 if (isset($_GET['search']) AND $_GET['search']=="reset")
 {
    $UO->deleteUserOption($UL->username, 'calfilterSearch');
-   header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $yyyymm . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
+   header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller);
    die();
 }
 
