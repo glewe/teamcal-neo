@@ -112,7 +112,7 @@ class Daynotes
       $query->bindParam('val3', $this->region);
       $query->bindParam('val4', $this->daynote);
       $query->bindParam('val5', $this->color);
-      $query->bindParam('val5', $this->confidential);
+      $query->bindParam('val6', $this->confidential);
       $result = $query->execute();
       return $result;
    }
