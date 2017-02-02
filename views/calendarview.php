@@ -106,26 +106,26 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                         
                         if ($C->read("defgroupfilter") == "allbygroup")
                         {
+                           $repeatHeaderCount = $C->read("repeatHeaderCount");
+                           if ($repeatHeaderCount) $rowcount = 1;
                            foreach ($viewData['groups'] as $grp)
                            { 
                               $groupHeader = false;
-                              $repeatHeaderCount = $C->read("repeatHeaderCount");
-                              if ($repeatHeaderCount) $rowcount = 1;
                               foreach ($viewData['users'] as $usr)
                               {
                                  if ($UG->isMemberOfGroup($usr['username'], $grp['id']))
                                  {
+                                    if ($repeatHeaderCount AND $rowcount>$repeatHeaderCount)
+                                    {
+                                       require("calendarviewmonthheader.php");
+                                       $rowcount = 1;
+                                    }
+                                    
                                     if (!$groupHeader)
                                     { ?>
                                        <!-- Row: Group <?=$grp['name']?> -->
                                        <tr><th class="m-groupname" colspan="<?=$days+1?>"><?=$grp['description'].' ('.$grp['name'].')'?></th></tr>
                                        <?php  $groupHeader = true; 
-                                    }
-                                    
-                                    if ($repeatHeaderCount AND $rowcount>$repeatHeaderCount)
-                                    {
-                                       require("calendarviewmonthheader.php");
-                                       $rowcount = 1;
                                     } ?>
                                     
                                     <!-- Row: User <?=$usr['username']?> --> 
