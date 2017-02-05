@@ -5,7 +5,7 @@
  * Collection of model related functions
  *
  * @category TeamCal Neo 
- * @version 1.3.005
+ * @version 1.3.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com

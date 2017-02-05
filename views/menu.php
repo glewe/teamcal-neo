@@ -5,7 +5,7 @@
  * The view of the top navigation menu
  *
  * @category TeamCal Neo 
- * @version 1.3.005
+ * @version 1.3.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -273,4 +273,3 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          </div>
       </div>
       <?php } ?>
-      

@@ -219,11 +219,11 @@ if (!empty($_POST))
          // Password
          //
          if ( isset($_POST['txt_password']) AND
-               strlen($_POST['txt_password']) AND
-               isset($_POST['txt_password2']) AND
-               strlen($_POST['txt_password2']) AND
-               $_POST['txt_password'] == $_POST['txt_password2']
-               )
+              strlen($_POST['txt_password']) AND
+              isset($_POST['txt_password2']) AND
+              strlen($_POST['txt_password2']) AND
+              $_POST['txt_password'] == $_POST['txt_password2']
+            )
          {
             $UP->password = crypt($_POST['txt_password'], SALT);
             $UP->last_pw_change = date("YmdHis");
@@ -266,8 +266,8 @@ if (!empty($_POST))
             $UO->save($profile, 'avatar', $_POST['opt_avatar']);
          }
          elseif ( (!$UO->read($profile, 'avatar') AND ($UO->read($profile, 'gender') == 'male' OR $UO->read($profile, 'gender') == 'female')) OR
-               ($UO->read($profile, 'avatar') == 'default_male.png' AND $UO->read($profile, 'gender') == 'female') OR
-               ($UO->read($profile, 'avatar') == 'default_female.png' AND $UO->read($profile, 'gender') == 'male')
+                  ($UO->read($profile, 'avatar') == 'default_male.png' AND $UO->read($profile, 'gender') == 'female') OR
+                  ($UO->read($profile, 'avatar') == 'default_female.png' AND $UO->read($profile, 'gender') == 'male')
                )
          {
             $UO->save($profile, 'avatar', 'default_'.$UO->read($profile, 'gender').'.png');
