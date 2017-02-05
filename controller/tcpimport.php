@@ -102,6 +102,7 @@ if (!empty($_POST))
                $myQuery = "SELECT * FROM `".$tcpPrefix."absences`;";
                $query = $pdoTCP->prepare($myQuery);
                $result = $query->execute();
+               
                if ($result)
                {
                   $records = array ();
@@ -149,6 +150,7 @@ if (!empty($_POST))
                else
                {
                   $queryFailed = true;
+                  $importResult .= '<li>'.$LANG['tcpimp_abs'].'</li>';
                }
             } // Absence Types
           
@@ -198,6 +200,7 @@ if (!empty($_POST))
                else
                {
                   $queryFailed = true;
+                  $importResult .= '<li>'.$LANG['tcpimp_groups'].'</li>';
                }
             } // Groups
           
@@ -254,6 +257,7 @@ if (!empty($_POST))
                else
                {
                   $queryFailed = true;
+                  $importResult .= '<li>'.$LANG['tcpimp_hols'].'</li>';
                }
             } // Holidays
           
@@ -304,6 +308,7 @@ if (!empty($_POST))
                else
                {
                   $queryFailed = true;
+                  $importResult .= '<li>'.$LANG['tcpimp_regs'].'</li>';
                }
             } // Regions
           
@@ -401,6 +406,7 @@ if (!empty($_POST))
                else
                {
                   $queryFailed = true;
+                  $importResult .= '<li>'.$LANG['tcpimp_users'].'</li>';
                }
                
             } // Users Table
@@ -483,6 +489,7 @@ if (!empty($_POST))
                else
                {
                   $queryFailed = true;
+                  $importResult .= '<li>'.$LANG['tcpimp_allo'].'</li>';
                }
             } // Allowances
           
@@ -546,6 +553,7 @@ if (!empty($_POST))
                else
                {
                   $queryFailed = true;
+                  $importResult .= '<li>'.$LANG['tcpimp_dayn'].'</li>';
                }
             } // Daynotes
           
@@ -600,6 +608,7 @@ if (!empty($_POST))
                   else
                   {
                      $queryFailed = true;
+                     $importResult .= '<li>'.$LANG['tcpimp_roles'].'</li>';
                   }
                   
                   //
@@ -670,6 +679,7 @@ if (!empty($_POST))
                else
                {
                   $queryFailed = true;
+                  $importResult .= '<li>'.$LANG['tcpimp_ugr'].'</li>';
                }
             } // User_group
             
@@ -821,6 +831,7 @@ if (!empty($_POST))
                else
                {
                   $queryFailed = true;
+                  $importResult .= '<li>'.$LANG['tcpimp_mtpl'].'</li>';
                }
             } // Month Templates
             
@@ -916,6 +927,7 @@ if (!empty($_POST))
                else
                {
                   $queryFailed = true;
+                  $importResult .= '<li>'.$LANG['tcpimp_utpl'].'</li>';
                }
             } // User Templates
             
@@ -946,7 +958,7 @@ if (!empty($_POST))
                $alertData['title'] = $LANG['alert_danger_title'];
                $alertData['subject'] = $LANG['tcpimp_alert_title'];
                $alertData['text'] = $LANG['tcpimp_alert_fail'];
-               $alertData['help'] = '';
+               $alertData['help'] = $importResult;
             }
          }
       }
