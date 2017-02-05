@@ -478,16 +478,16 @@ table.month td.m-day {
 
 /**
  * Responsive setup of month table
- */
 div.tablefull { display:none; }
 div.table1024 { display:none; }
-div.table800 { display:none; }
-div.table640 { display:none; }
-div.table480 { display:none; }
-div.table400 { display:none; }
-div.table360 { display:none; }
-div.table320 { display:none; }
-div.table240 { display:none; }
+div.table800  { display:none; }
+div.table640  { display:none; }
+div.table480  { display:none; }
+div.table400  { display:none; }
+div.table360  { display:none; }
+div.table320  { display:none; }
+div.table240  { display:none; }
+ */
 
 @media (min-width: 1400px) {
    table.month th.m-monthname,
@@ -500,7 +500,7 @@ div.table240 { display:none; }
 }
 
 @media (min-width: 1281px) {
-   div.tablefull { display:block; }
+/*   div.tablefull { display:block; } */
    #fullscreen {
       display: block;
    }
@@ -510,7 +510,7 @@ div.table240 { display:none; }
 }
 
 @media (max-width: 1280px) {
-   div.table1024 { display:block; }
+/*   div.table1024 { display:block; } */
    table.month th.m-monthname,
    table.month th.m-label,
    table.month td.m-monthname,
@@ -526,6 +526,7 @@ div.table240 { display:none; }
    }
 }
 
+/*
 @media (max-width: 1240px) {
    div.table1024 { display:none; }
    div.table800 { display:block; }
@@ -555,10 +556,13 @@ div.table240 { display:none; }
    div.table360 { display:none; }
    div.table320 { display:block; }
 }
+*/
 
 @media (max-width: 300px) {
+/*
    div.table320 { display:none; }
    div.table240 { display:block; }
+*/
    table.month th.m-monthname,
    table.month th.m-label,
    table.month td.m-monthname,

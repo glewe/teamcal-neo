@@ -446,6 +446,15 @@ if (!empty($_POST))
          header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $_POST['sel_absence']);
          die();
       }
+      // ,---------------------,
+      // | Select Screen Width |
+      // '---------------------'
+      elseif (isset($_POST['btn_width']))
+      {
+         $UO->save($UL->username, 'width', $_POST['sel_width']);
+         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $_POST['sel_absence']);
+         die();
+      }
       // ,---------------,
       // | Search User   |
       // '---------------'
@@ -611,6 +620,11 @@ $viewData['showWeekNumbers'] = $C->read('showWeekNumbers');
 $mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
 $viewData['supportMobile'] = $C->read('supportMobile');
 $viewData['firstDayOfWeek'] = $C->read("firstDayOfWeek");
+if (!$viewData['width']=$UO->read($UL->username, 'width')) 
+{
+   $UO->save($UL->username, 'width', 'full');
+   $viewData['width'] = 'full';
+}
 
 //=============================================================================
 //

@@ -31,6 +31,7 @@ $LANG['month'] = 'Monat';
 $LANG['presences'] = 'Anwesenheiten';
 $LANG['region'] = 'Region';
 $LANG['remainder'] = 'Verbleibend';
+$LANG['screen'] = 'Screen';
 $LANG['taken'] = 'Genommen';
 $LANG['weeknumber'] = 'Kalenderwoche';
 $LANG['year'] = 'Jahr';
@@ -48,6 +49,17 @@ $LANG['monthnames'] = array (
    10 => "Oktober",
    11 => "November",
    12 => "Dezember",
+);
+
+$LANG['widths'] = array (
+   'full' => "Vollbildschirm (Mehr als 1024 Pixel)",
+   '1024' => "1024 Pixel",
+   '800' => "800 Pixel",
+   '640' => "640 Pixel",
+   '480' => "480 Pixel",
+   '400' => "400 Pixel",
+   '320' => "320 Pixel",
+   '240' => "240 Pixel",
 );
 
 //
@@ -193,6 +205,9 @@ $LANG['cal_selAbsence_comment'] = 'Zeigt alle Eintr&auml;ge an, die am heutigen 
 $LANG['cal_selGroup'] = 'Gruppe ausw&auml;hlen';
 $LANG['cal_selMonth'] = 'Monat ausw&auml;hlen';
 $LANG['cal_selRegion'] = 'Region ausw&auml;hlen';
+$LANG['cal_selWidth'] = 'Bildschirmbreite ausw&auml;hlen';
+$LANG['cal_selWidth_comment'] = 'W&auml;hle deine Bildrschirmbreite in Pixel so dass die Kalendertablle sich daran anpasst. Sollte deine Breite nicht in der Liste sein, w&auml;hle die n&auml;chst h&ouml;here.
+      <br>Im Moment scheinst du eine Breite von <span id="currentwidth"></span> Pixeln zu benutzen. Lade die Seite neu und &ouml;ffne diesen Dialog erneut, um sicher zu gehen.';
 $LANG['cal_summary'] = 'Summen';
 $LANG['cal_businessDays'] = 'Arbeitstage';
 
@@ -319,10 +334,9 @@ $LANG['calopt_sunBusi'] = 'Sonntag ist ein Arbeitstag';
 $LANG['calopt_sunBusi_comment'] = 'Normalerweise sind Samstage und Sonntage Wochenendtage und werden entsprechend im Kalender als solche angezeigt.
       Hier kann Sonntag als Arbeitstag definiert werden.';
 $LANG['calopt_supportMobile'] = 'Unterst&uuml;tzung von Mobilen Ger&auml;ten';
-$LANG['calopt_supportMobile_comment'] = 'Mit dieser Einstellung bereitet die Kalender Seite gleich mehrere Versionen der Monatstabelle f&uuml;r die gebr&auml;chlichsten
-      Bildschirmgr&ouml;&szlig;en vor. Je nach Display zeigt der Browser dann automatisch die richtige an. Nachteil ist, dass die Seite dadurch mehr Zeit zum Laden 
-      braucht. Schalte diese Option aus, wenn der Kalender nur auf gro&szlig;en Bildschirmen genutzt wird. Der Kalender wird dann immer noch auf kleineren Bildschirmen
-      angezeigt, aber horizontales Scrollen wird dann n&ouml;tig.';
+$LANG['calopt_supportMobile_comment'] = 'Mit dieser Einstellung werden die Kalendertabellen (Ansicht und Bearbeitung) f&uuml;r eine bestimmte Bildschirmbreite erstellt, so dass kein horizontales Scrollen notwendig ist. 
+      Der Benutzer kann seine Bildschirmgr&ouml;&szlig;en w&auml;hlen.<br>Schalte diese Option aus, wenn der Kalender nur auf gro&szlig;en Bildschirmen genutzt wird (gr&ouml;&szlig;er 1024 Pixel breit). Der Kalender wird dann immer noch auf kleineren Bildschirmen
+      angezeigt, aber horizontales Scrollen ist dann notwendig.';
 $LANG['calopt_symbolAsIcon'] = 'Abwesenheitszeichen ID als Icon';
 $LANG['calopt_symbolAsIcon_comment'] = 'Mit dieser Option wird die Abwesenheitszeichen ID in der Kalenderanzeige benutzt anstatt des Icons.';
 $LANG['calopt_todayBorderColor'] = 'Heute Randfarbe';

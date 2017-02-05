@@ -77,17 +77,17 @@ asort($appJqueryUIThemes);
 // The controller will overwrite the value for 'full' which needs to be the 
 // exact amount of days of the month displayed.
 //
-$mobilecols = array (
-   '240' => 3,
-   '320' => 5,
-   '360' => 6,
-   '400' => 7,
-   '480' => 9,
-   '640' => 14,
-   '800' => 17,
-   '1024' => 25,
-   'full' => 31
-);
+// $mobilecols = array (
+//    '240' => 3,
+//    '320' => 5,
+//    '360' => 6,
+//    '400' => 7,
+//    '480' => 9,
+//    '640' => 14,
+//    '800' => 17,
+//    '1024' => 25,
+//    'full' => 31
+// );
 
 //
 // Fontawesome 4.7.0

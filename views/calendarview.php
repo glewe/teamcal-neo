@@ -74,14 +74,62 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectGroup"><?=$LANG['group'] . ': ' . $viewData['group']?></button>
                <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectAbsence"><?=$LANG['absence'] . ': ' . $viewData['absence']?></button>
                <button type="button" class="btn btn-info" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSearchUser"><?=$LANG['search'] . ': ' . $viewData['search']?></button>
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=date('Y').date('m')?>&amp;region=1&amp;group=all&amp;abs=all&amp;search=reset"><?=$LANG['btn_reset']?></a>
+               <a class="btn btn-success" href="index.php?action=<?=$controller?>&amp;month=<?=date('Y').date('m')?>&amp;region=1&amp;group=all&amp;abs=all&amp;search=reset"><?=$LANG['btn_reset']?></a>
+               <?php if ($viewData['supportMobile']) { ?> 
+                  <button type="button" class="btn btn-default" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectWidth"><?=$LANG['screen'] . ': ' . $viewData['width']?></button>
+               <?php } ?>
             </div>
             
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                <div class="panel-heading"><?=sprintf($LANG['cal_title'], $viewData['year'], $viewData['month'], $viewData['regionname'])?></div>
             </div>
             
-            <?php if (!$viewData['supportMobile']) $mobilecols = array('full'=>$viewData['dateInfo']['daysInMonth']);
+            <?php if (!$viewData['supportMobile']) 
+            {
+               $mobilecols = array('full'=>$viewData['dateInfo']['daysInMonth']);
+            }
+            else 
+            {
+               switch ($viewData['width'])
+               {
+                  case '1024plus':
+                     $mobilecols = array('full'=>$viewData['dateInfo']['daysInMonth']);
+                     break;
+                      
+                  case '1024':
+                     $mobilecols = array('1024'=>25);
+                     break;
+                     
+                  case '800':
+                     $mobilecols = array('800'=>17);
+                     break;
+                         
+                  case '640':
+                     $mobilecols = array('640'=>14);
+                     break;
+                         
+                  case '480':
+                     $mobilecols = array('480'=>9);
+                     break;
+
+                  case '400':
+                     $mobilecols = array('400'=>7);
+                     break;
+
+                  case '320':
+                     $mobilecols = array('320'=>5);
+                     break;
+
+                  case '240':
+                     $mobilecols = array('240'=>3);
+                     break;
+
+                  default:
+                     $mobilecols = array('full'=>$viewData['dateInfo']['daysInMonth']);
+                     break;
+               }
+            }
+            
             foreach ($mobilecols as $key => $cols) 
             { 
                $days = $viewData['dateInfo']['daysInMonth'];
@@ -235,6 +283,16 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                   <?php } ?>
                </select>
             <?=createModalBottom('btn_abssearch', 'warning', $LANG['btn_search'])?>
+
+            <!-- Modal: Screen Width -->
+            <?=createModalTop('modalSelectWidth', $LANG['cal_selWidth'])?>
+               <p><?=$LANG['cal_selWidth_comment']?></p>
+               <select id="width" class="form-control" name="sel_width" tabindex="<?=$tabindex++?>">
+                  <?php foreach($LANG['widths'] as $key => $value) { ?>
+                     <option value="<?=$key?>"<?=(($viewData['width'] == $key)?' selected="selected"':'')?>><?=$value?></option>
+                  <?php } ?>
+               </select>
+            <?=createModalBottom('btn_width', 'warning', $LANG['btn_select'])?>
 
             <!-- Modal: Search User -->
             <div class="modal fade" id="modalSearchUser" role="dialog" aria-labelledby="modalSearchUserLabel" aria-hidden="true">

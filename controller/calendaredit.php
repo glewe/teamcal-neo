@@ -420,12 +420,21 @@ if (!empty($_POST))
       header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $_POST['sel_region'] . "&user=" . $caluser);
       die();
    }
+   // ,---------------------,
+   // | Select Screen Width |
+   // '---------------------'
+   elseif (isset($_POST['btn_width']))
+   {
+      $UO->save($UL->username, 'width', $_POST['sel_width']);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $region . "&user=" . $caluser);
+      die();
+   }
    // ,-------------,
    // | Select User |
    // '-------------'
    elseif (isset($_POST['btn_user']))
    {
-      header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $_POST['sel_region'] . "&user=" . $_POST['sel_user']);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $region . "&user=" . $_POST['sel_user']);
       die();
    }
 }
@@ -531,6 +540,11 @@ $viewData['showWeekNumbers'] = $C->read('showWeekNumbers');
 $mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
 $viewData['supportMobile'] = $C->read('supportMobile');
 $viewData['firstDayOfWeek'] = $C->read("firstDayOfWeek");
+if (!$viewData['width']=$UO->read($UL->username, 'width'))
+{
+   $UO->save($UL->username, 'width', 'full');
+   $viewData['width'] = 'full';
+}
 
 //=============================================================================
 //

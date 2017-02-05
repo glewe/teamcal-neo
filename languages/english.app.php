@@ -31,6 +31,7 @@ $LANG['month'] = 'Month';
 $LANG['presences'] = 'Presences';
 $LANG['region'] = 'Region';
 $LANG['remainder'] = 'Remainder';
+$LANG['screen'] = 'Screen';
 $LANG['taken'] = 'Taken';
 $LANG['weeknumber'] = 'Calendar week';
 $LANG['year'] = 'Year';
@@ -48,6 +49,17 @@ $LANG['monthnames'] = array (
    10 => "October",
    11 => "November",
    12 => "December",
+);
+
+$LANG['widths'] = array (
+   'full' => "Full screen (More than 1024 pixels)",
+   '1024' => "1024 pixels",
+   '800' => "800 pixels",
+   '640' => "640 pixels",
+   '480' => "480 pixels",
+   '400' => "400 pixels",
+   '320' => "320 pixels",
+   '240' => "240 pixels",
 );
 
 //
@@ -193,6 +205,9 @@ $LANG['cal_selAbsence_comment'] = 'Shows all entries having this absence type fo
 $LANG['cal_selGroup'] = 'Select Group';
 $LANG['cal_selMonth'] = 'Select Month';
 $LANG['cal_selRegion'] = 'Select Region';
+$LANG['cal_selWidth'] = 'Select Screen Width';
+$LANG['cal_selWidth_comment'] = 'Select the width of your screen in pixel so the calendar table can adjust to it. If your width is not in the list, select the next higher one.
+      <br>It looks like you are currently using a screen with a width of <span id="currentwidth"></span> pixels. Reload the page to check this dialog again to confirm.';
 $LANG['cal_summary'] = 'Summary';
 $LANG['cal_businessDays'] = 'Business Days';
 
@@ -316,10 +331,9 @@ $LANG['calopt_sunBusi'] = 'Sunday is a Business Day';
 $LANG['calopt_sunBusi_comment'] = 'By default, Saturday and Sunday are weekend days and displayed accordingly in the calendar.
       Check this option if you want to make Sunday a business day.';
 $LANG['calopt_supportMobile'] = 'Support Mobile Devices';
-$LANG['calopt_supportMobile_comment'] = 'With this switch on, the calendar view will prepare several versions of the month tables for the most
-      common screen sizes. The browser will automatically display the one that best fits the screen. Downside is, that the page will take longer to load. 
-      Switch this off if the calendar is only viewed on full size computer screens. The calendar will still be displayed on mobile devices but horizontal
-      scrolling will be necessary.';
+$LANG['calopt_supportMobile_comment'] = 'With this switch on, TeamCal Neo will prepare the calendar tables (View and Edit) for a specific screen width so that no horizontal scrolling is necessary.
+      The user can select his screen width.<br>
+      Switch this off if the calendar is only viewed on full size computer screens (greater then 1024 pixels in width). The calendar will still be displayed then but horizontal scrolling will be necessary.';
 $LANG['calopt_symbolAsIcon'] = 'Absence Type Character ID as Icon';
 $LANG['calopt_symbolAsIcon_comment'] = 'With this option the character ID will be used in the calendar display instead of it\'s icon.';
 $LANG['calopt_todayBorderColor'] = 'Today Border Color';

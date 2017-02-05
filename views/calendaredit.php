@@ -69,18 +69,63 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalRecurring"><?=$LANG['caledit_Recurring']?></button>
                <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectRegion"><?=$LANG['region'] . ': ' . $viewData['regionname']?></button>
                <button type="button" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectUser"><?=$LANG['user'] . ': ' . $viewData['fullname']?></button>
-               
-               <div class="pull-right">
-                  <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_save"><?=$LANG['btn_save']?></button>
-                  <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalClearAll"><?=$LANG['btn_clear_all']?></button>
-               </div>
+               <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_save"><?=$LANG['btn_save']?></button>
+               <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalClearAll"><?=$LANG['btn_clear_all']?></button>
+               <?php if ($viewData['supportMobile']) { ?> 
+                  <button type="button" class="btn btn-default" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectWidth"><?=$LANG['screen'] . ': ' . $viewData['width']?></button>
+               <?php } ?>
             </div>
 
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                <div class="panel-heading"><?=sprintf($LANG['caledit_title'], $viewData['year'], $viewData['month'], $viewData['fullname'])?></div>
             </div>
             
-            <?php if (!$viewData['supportMobile']) $mobilecols = array('full'=>$viewData['dateInfo']['daysInMonth']);
+            <?php if (!$viewData['supportMobile']) 
+            {
+               $mobilecols = array('full'=>$viewData['dateInfo']['daysInMonth']);
+            }
+            else 
+            {
+               switch ($viewData['width'])
+               {
+                  case '1024plus':
+                     $mobilecols = array('full'=>$viewData['dateInfo']['daysInMonth']);
+                     break;
+                      
+                  case '1024':
+                     $mobilecols = array('1024'=>25);
+                     break;
+                     
+                  case '800':
+                     $mobilecols = array('800'=>17);
+                     break;
+                         
+                  case '640':
+                     $mobilecols = array('640'=>14);
+                     break;
+                         
+                  case '480':
+                     $mobilecols = array('480'=>9);
+                     break;
+
+                  case '400':
+                     $mobilecols = array('400'=>7);
+                     break;
+
+                  case '320':
+                     $mobilecols = array('320'=>5);
+                     break;
+
+                  case '240':
+                     $mobilecols = array('240'=>3);
+                     break;
+
+                  default:
+                     $mobilecols = array('full'=>$viewData['dateInfo']['daysInMonth']);
+                     break;
+               }
+            }
+            
             foreach ($mobilecols as $key => $cols) 
                         { 
                $days = $viewData['dateInfo']['daysInMonth'];
@@ -230,6 +275,16 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                </select>
             <?=createModalBottom('btn_region', 'success', $LANG['btn_select'])?>
             
+            <!-- Modal: Screen Width -->
+            <?=createModalTop('modalSelectWidth', $LANG['cal_selWidth'])?>
+               <p><?=$LANG['cal_selWidth_comment']?></p>
+               <select id="width" class="form-control" name="sel_width" tabindex="<?=$tabindex++?>">
+                  <?php foreach($LANG['widths'] as $key => $value) { ?>
+                     <option value="<?=$key?>"<?=(($viewData['width'] == $key)?' selected="selected"':'')?>><?=$value?></option>
+                  <?php } ?>
+               </select>
+            <?=createModalBottom('btn_width', 'warning', $LANG['btn_select'])?>
+
             <!-- Modal: Select User -->
             <?=createModalTop('modalSelectUser', $LANG['caledit_selUser'])?>
                <select id="user" class="form-control" name="sel_user" tabindex="<?=$tabindex++?>">
@@ -325,4 +380,3 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          </form>
             
       </div>      
-    
