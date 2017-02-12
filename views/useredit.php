@@ -53,12 +53,14 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <li><a href="#contact" data-toggle="tab"><?=$LANG['profile_tab_contact']?></a></li>
                         <li><a href="#options" data-toggle="tab"><?=$LANG['options']?></a></li>
                         <li><a href="#avatar" data-toggle="tab"><?=$LANG['profile_tab_avatar']?></a></li>
-                        <?php if (isAllowed("useraccount")) { ?>
+                        <?php if (isAllowed("useraccount") AND $viewData['profile'] != "admin") { ?>
                            <li><a href="#account" data-toggle="tab"><?=$LANG['profile_tab_account']?></a></li>
                         <?php } ?>
                         <li><a href="#groups" data-toggle="tab"><?=$LANG['profile_tab_groups']?></a></li>
                         <li><a href="#setpassword" data-toggle="tab"><?=$LANG['profile_tab_password']?></a></li>
-                        <li><a href="#absences" data-toggle="tab"><?=$LANG['profile_tab_absences']?></a></li>
+                        <?php if ($viewData['profile'] != "admin") { ?>
+                           <li><a href="#absences" data-toggle="tab"><?=$LANG['profile_tab_absences']?></a></li>
+                        <?php } ?>
                         <li><a href="#notifications" data-toggle="tab"><?=$LANG['profile_tab_notifications']?></a></li>
                         <li><a href="#custom" data-toggle="tab"><?=$LANG['profile_tab_custom']?></a></li>
                      </ul>
@@ -148,7 +150,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                         </div>
       
-                        <?php if (isAllowed("useraccount")) { ?>
+                        <?php if (isAllowed("useraccount") AND $viewData['profile'] != "admin") { ?>
                            <!-- Account tab -->
                            <div class="tab-pane fade" id="account">
                               <div class="panel panel-default">
@@ -183,6 +185,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                         </div>
       
+                        <?php if ($viewData['profile'] != "admin") { ?>
                         <!-- Absences tab -->
                         <div class="tab-pane fade" id="absences">
                            <div class="panel panel-default">
@@ -208,6 +211,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               </div>
                            </div>
                         </div>
+                        <?php } ?>
       
                         <!-- Notifications tab -->
                         <div class="tab-pane fade" id="notifications">
