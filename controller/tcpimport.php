@@ -604,6 +604,12 @@ if (!empty($_POST))
                            $U->setRole($rec['username'],$RO->id);
                         }
                      }
+                     
+                     //
+                     // Log this event
+                     //
+                     $LOG->log("logImport",$L->checkLogin(),"log_tcpimp_roles", " (".$_POST['opt_rolesImport'].")");
+                     $importResult .= '<li>'.$LANG['tcpimp_roles'].'</li>';
                   }
                   else
                   {
@@ -611,13 +617,8 @@ if (!empty($_POST))
                      $importResult .= '<li>'.$LANG['tcpimp_roles'].'</li>';
                   }
                   
-                  //
-                  // Log this event
-                  //
-                  $LOG->log("logImport",$L->checkLogin(),"log_tcpimp_roles", " (".$_POST['opt_rolesImport'].")");
-                  $importResult .= '<li>'.$LANG['tcpimp_roles'].'</li>';
                }
-            }
+            } // Roles
             
             //-----------------------------------------------------------------
             //
