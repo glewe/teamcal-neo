@@ -396,6 +396,8 @@ $LANG['dn_daynote_comment'] = 'Enter the text of the daynote.';
 $LANG['dn_daynote_placeholder'] = 'Enter your daynote here...';
 $LANG['dn_enddate'] = 'Daynote End Date';
 $LANG['dn_enddate_comment'] = 'If a date is entered here, the daynote will be copied/deleted to all days from start to end. This date must be greater than the Daynote Date.';
+$LANG['dn_regions'] = 'Daynote Regions';
+$LANG['dn_regions_comment'] = 'Select the regions for which this daynote shall be visible.';
 
 //
 // Declination

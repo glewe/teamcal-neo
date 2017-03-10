@@ -38,7 +38,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission) OR
 if (isset($_GET['date']) AND isset($_GET['for']))
 {
    $missingData = FALSE;
-   $date = sanitize($_GET['date']);
+   $dnDate = sanitize($_GET['date']);
    $for = sanitize($_GET['for']);
    $region = '1'; // Default
    if ($for=="all")
@@ -76,7 +76,7 @@ if ($missingData)
 // VARIABLE DEFAULTS
 //
 $viewData['id'] = '';
-$viewData['date'] = substr($date,0,4).'-'.substr($date,4,2).'-'.substr($date,6,2);
+$viewData['date'] = substr($dnDate,0,4).'-'.substr($dnDate,4,2).'-'.substr($dnDate,6,2);
 $viewData['enddate'] = '';
 $viewData['user'] = $for;
 if ($for=='all') $viewData['userFullname'] = $LANG['all']; else $viewData['userFullname'] = $U->getFullname($for);
@@ -86,11 +86,12 @@ $viewData['daynote'] = '';
 $viewData['color'] = 'info';
 $viewData['confidential'] = '0';
 $viewData['exists'] = false;
+$regions = $R->getAll();
 
 //
 // If Daynote exists, get it
 //
-if ($D->get($date,$for,$region)) 
+if ($D->get($dnDate,$for,$region)) 
 {
    $viewData['id'] = $D->id;
    $viewData['date'] = substr($D->yyyymmdd,0,4).'-'.substr($D->yyyymmdd,4,2).'-'.substr($D->yyyymmdd,6,2);
@@ -135,19 +136,24 @@ if (!empty($_POST))
     
    if (!$inputError)
    {
-      // ,--------,
-      // | Create |
-      // '--------'
-      if (isset($_POST['btn_create']))
+      // ,----------------,
+      // | Create, Update |
+      // '----------------'
+      if (isset($_POST['btn_create']) OR isset($_POST['btn_update']))
       {
-         $D->yyyymmdd = str_replace('-', '', $viewData['date']);
-         $D->username = $viewData['user'];
-         $D->region = $viewData['region'];
-         $D->daynote = $viewData['daynote'];
-         $D->color = $viewData['color'];
-         $D->confidential = $viewData['confidential'];
-         $D->create();
-         
+         $D->deleteByDateAndUser($dnDate, $viewData['user']);
+          
+         foreach ($_POST['sel_regions'] as $reg)
+         {
+            $D->yyyymmdd = $dnDate;
+            $D->username = $viewData['user'];
+            $D->region = $reg;
+            $D->daynote = $viewData['daynote'];
+            $D->color = $viewData['color'];
+            $D->confidential = $viewData['confidential'];
+            $D->create();
+         }
+
          if (isset($_POST['txt_enddate']))
          {
             $viewData['enddate'] = $_POST['txt_enddate'];
@@ -156,40 +162,62 @@ if (!empty($_POST))
             {
                for ($i=$D->yyyymmdd+1; $i<=$enddate; $i++)
                {
-                  $D->yyyymmdd = $i;
-                  $D->username = $viewData['user'];
-                  $D->region = $viewData['region'];
-                  $D->daynote = $viewData['daynote'];
-                  $D->color = $viewData['color'];
-                  $D->confidential = $viewData['confidential'];
-                  $D->create();
+                  $D->deleteByDateAndUser($i, $viewData['user']);
+                  foreach ($_POST['sel_regions'] as $reg)
+                  {
+                     $D->yyyymmdd = $i;
+                     $D->username = $viewData['user'];
+                     $D->region = $reg;
+                     $D->daynote = $viewData['daynote'];
+                     $D->color = $viewData['color'];
+                     $D->confidential = $viewData['confidential'];
+                     $D->create();
+                  }
                }
             }
          }
-         
+          
          //
          // Log this event
          //
          if ($viewData['user']=='all') $logentry = $viewData['date']."|".$R->getNameById($viewData['region']).": ".substr($viewData['daynote'],0,20)."...";
          else                          $logentry = $viewData['date']."|".$viewData['user'].": ".substr($viewData['daynote'],0,20)."...";
-         $LOG->log("logDaynote",$L->checkLogin(),"log_dn_created", $logentry);
+
+         if (isset($_POST['btn_create'])) 
+         {
+            $LOG->log("logDaynote",$L->checkLogin(),"log_dn_created", $logentry);
+            //
+            // Success
+            //
+            $showAlert = TRUE;
+            $alertData['type'] = 'success';
+            $alertData['title'] = $LANG['alert_success_title'];
+            $alertData['subject'] = $LANG['dn_alert_create'];
+            $alertData['text'] = $LANG['dn_alert_create_success'];
+            $alertData['help'] = '';
+         }
          
-         //
-         // Success
-         //
-         $showAlert = TRUE;
-         $alertData['type'] = 'success';
-         $alertData['title'] = $LANG['alert_success_title'];
-         $alertData['subject'] = $LANG['dn_alert_create'];
-         $alertData['text'] = $LANG['dn_alert_create_success'];
-         $alertData['help'] = '';
+         if (isset($_POST['btn_update'])) 
+         {
+            $LOG->log("logDaynote",$L->checkLogin(),"log_dn_updated", $logentry);
+            //
+            // Success
+            //
+            $showAlert = TRUE;
+            $alertData['type'] = 'success';
+            $alertData['title'] = $LANG['alert_success_title'];
+            $alertData['subject'] = $LANG['dn_alert_update'];
+            $alertData['text'] = $LANG['dn_alert_update_success'];
+            $alertData['help'] = '';
+         }
+          
       }
       // ,--------,
       // | Delete |
       // '--------'
       if (isset($_POST['btn_delete']))
       {
-         $D->deleteById($D->id);
+         $D->deleteByDateAndUser($dnDate, $viewData['user']);
          
          if (isset($_POST['txt_enddate']))
          {
@@ -199,7 +227,7 @@ if (!empty($_POST))
             {
                for ($i=$startdate; $i<=$enddate; $i++)
                {
-                  $D->delete($i, $viewData['user'], $viewData['region']);
+                  $D->deleteByDateAndUser($i, $viewData['user']);
                }
             }
          }
@@ -209,56 +237,11 @@ if (!empty($_POST))
          //
          if ($viewData['user']=='all') $logentry = $viewData['date']."|".$R->getNameById($viewData['region']).": ".substr($viewData['daynote'],0,20)."...";
          else                          $logentry = $viewData['date']."|".$viewData['user'].": ".substr($viewData['daynote'],0,20)."...";
+         
          $LOG->log("logDaynote",$L->checkLogin(),"log_dn_deleted", $logentry);
          
          header("Location: index.php?action=".$controller."&date=".str_replace('-','',$viewData['date']).'&for='.$viewData['user'].'&region='.$viewData['region']);
          die();
-      }
-      // ,--------,
-      // | Update |
-      // '--------'
-      if (isset($_POST['btn_update']))
-      {
-         $D->daynote = $viewData['daynote'];
-         $D->color = $viewData['color'];
-         $D->confidential = $viewData['confidential'];
-         $D->update();
-         
-         if (isset($_POST['txt_enddate']))
-         {
-            $viewData['enddate'] = $_POST['txt_enddate'];
-            $enddate = str_replace('-', '', $viewData['enddate']);
-            if ($enddate > $D->yyyymmdd)
-            {
-               for ($i=$D->yyyymmdd+1; $i<=$enddate; $i++)
-               {
-                  $D->yyyymmdd = $i;
-                  $D->username = $viewData['user'];
-                  $D->region = $viewData['region'];
-                  $D->daynote = $viewData['daynote'];
-                  $D->color = $viewData['color'];
-                  $D->confidential = $viewData['confidential'];
-                  $D->create();
-               }
-            }
-         }
-         
-         //
-         // Log this event
-         //
-         if ($viewData['user']=='all') $logentry = $viewData['date']."|".$R->getNameById($viewData['region']).": ".substr($viewData['daynote'],0,20)."...";
-         else                          $logentry = $viewData['date']."|".$viewData['user'].": ".substr($viewData['daynote'],0,20)."...";
-         $LOG->log("logDaynote",$L->checkLogin(),"log_dn_updated", $logentry);
-         
-         //
-         // Success
-         //
-         $showAlert = TRUE;
-         $alertData['type'] = 'success';
-         $alertData['title'] = $LANG['alert_success_title'];
-         $alertData['subject'] = $LANG['dn_alert_update'];
-         $alertData['text'] = $LANG['dn_alert_update_success'];
-         $alertData['help'] = '';
       }
    }
    else
@@ -280,10 +263,16 @@ if (!empty($_POST))
 //
 // PREPARE VIEW
 //
+foreach ($regions as $region)
+{
+   $viewData['regions'][] = array('val' => $region['id'], 'name' => $region['name'], 'selected' => ($D->get($dnDate,$for,$region['id']))?true:false);
+}
+
 $viewData['daynote'] = array (
    array ( 'prefix' => 'dn', 'name' => 'date', 'type' => 'date', 'value' => $viewData['date'], 'maxlength' => '10', 'mandatory' => true, 'error' =>  (isset($inputAlert['date'])?$inputAlert['date']:'') ),
    array ( 'prefix' => 'dn', 'name' => 'enddate', 'type' => 'date', 'value' => $viewData['enddate'], 'maxlength' => '10', 'mandatory' => false, 'error' =>  (isset($inputAlert['enddate'])?$inputAlert['enddate']:'') ),
    array ( 'prefix' => 'dn', 'name' => 'daynote', 'type' => 'textarea', 'value' => $viewData['daynote'], 'rows' => '10', 'placeholder' => $LANG['dn_daynote_placeholder'], 'mandatory' => true, 'error' =>  (isset($inputAlert['daynote'])?$inputAlert['daynote']:'') ),
+   array ( 'prefix' => 'dn', 'name' => 'regions', 'type' => 'listmulti', 'values' => $viewData['regions'] ),
    array ( 'prefix' => 'dn', 'name' => 'color', 'type' => 'radio', 'values' => array('info', 'success', 'warning', 'danger'), 'value' => $viewData['color'] ),
    array ( 'prefix' => 'dn', 'name' => 'confidential', 'type' => 'check', 'value' => $viewData['confidential'] ),
 );

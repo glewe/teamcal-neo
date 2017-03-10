@@ -399,6 +399,8 @@ $LANG['dn_daynote_comment'] = 'Gib den Text der Tagesnotiz ein.';
 $LANG['dn_daynote_placeholder'] = 'Hier ist der Tagesnotiztext...';
 $LANG['dn_enddate'] = 'Tagesnotiz End-Datum';
 $LANG['dn_enddate_comment'] = 'Wenn hier ein Datum eingetragen ist, wird die Tagesnotiz f&uuml;r alle Tage vom Tagesnotiz Datum an kopiert bzw. gel&ouml;scht. Dieses Datum muss gr&ouml;&szlig;er sein als das Tagesnotiz Datum.';
+$LANG['dn_regions'] = 'Tagesnotiz Regionen';
+$LANG['dn_regions_comment'] = 'W&auml;hle die Regionen, in denen diese Tagesnotiz angezeigt werden soll.';
 
 //
 // Declination

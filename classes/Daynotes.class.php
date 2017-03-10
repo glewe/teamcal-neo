@@ -226,6 +226,23 @@ class Daynotes
    
    // ---------------------------------------------------------------------
    /**
+    * Deletes all daynotes for a date and user
+    *
+    * @param string $date Date to find for deletion
+    * @param string $username Username to find for deletion
+    * @return boolean Query result
+    */
+   public function deleteByDateAndUser($date, $username)
+   {
+      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE yyyymmdd = :val1 AND username = :val2');
+      $query->bindParam('val1', $date);
+      $query->bindParam('val2', $username);
+      $result = $query->execute();
+      return $result;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
     * Deletes a daynote record by id
     *
     * @param string $id ID to find for deletion
