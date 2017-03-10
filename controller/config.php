@@ -155,6 +155,7 @@ if (!empty($_POST))
             $C->save("googleAnalyticsID","");
          }
          if ( isset($_POST['chk_noIndex']) && $_POST['chk_noIndex'] ) $C->save("noIndex","1"); else $C->save("noIndex","0");
+         if ( isset($_POST['chk_noCaching']) && $_POST['chk_noCaching'] ) $C->save("noCaching","1"); else $C->save("noCaching","0");
          if ( isset($_POST['chk_versionCompare']) && $_POST['chk_versionCompare'] ) $C->save("versionCompare","1"); else $C->save("versionCompare","0");
          if ( isset($_POST['chk_underMaintenance']) && $_POST['chk_underMaintenance'] ) $C->save("underMaintenance","1"); else $C->save("underMaintenance","0");
       
@@ -286,6 +287,7 @@ $viewData['system'] = array (
    array ( 'prefix' => 'config', 'name' => 'googleAnalytics', 'type' => 'check', 'values' => '', 'value' => $C->read("googleAnalytics") ),
    array ( 'prefix' => 'config', 'name' => 'googleAnalyticsID', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("googleAnalyticsID"), 'maxlength' => '16' ),
    array ( 'prefix' => 'config', 'name' => 'noIndex', 'type' => 'check', 'values' => '', 'value' => $C->read("noIndex") ),
+   array ( 'prefix' => 'config', 'name' => 'noCaching', 'type' => 'check', 'values' => '', 'value' => $C->read("noCaching") ),
    array ( 'prefix' => 'config', 'name' => 'versionCompare', 'type' => 'check', 'values' => '', 'value' => $C->read("versionCompare") ),
    array ( 'prefix' => 'config', 'name' => 'underMaintenance', 'type' => 'check', 'values' => '', 'value' => $C->read("underMaintenance") ),
 );
