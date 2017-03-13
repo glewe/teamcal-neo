@@ -35,7 +35,7 @@ you agree to the following conditions if you decide to use or modify TeamCal Neo
 *Commercial use of TeamCal Neo requires licensing.* 
 Refer to this documentation for further information:
 
-https://georgelewe.atlassian.net/wiki/display/TCNEO/TeamCal+Neo+License
+https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/45580290/TeamCal+Neo+License
         
 George Lewe (george@lewe.com)
 

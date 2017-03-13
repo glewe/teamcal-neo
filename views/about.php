@@ -5,7 +5,7 @@
  * About page view
  *
  * @category TeamCal Neo 
- * @version 1.3.007
+ * @version 1.4.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -31,10 +31,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <p>
                         <strong><?=$LANG['about_version']?>:</strong>&nbsp;&nbsp;<?=APP_VER?><span id="versioncompare"></span><br>
                         <strong><?=$LANG['about_copyright']?>:</strong>&nbsp;&nbsp;&copy;&nbsp;<?=APP_YEAR?> by <a class="about" href="http://www.lewe.com/" target="_blank"><?=APP_AUTHOR?></a><br>
-                        <strong><?=$LANG['about_license']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/wiki/display/TCNEO/TeamCal+Neo+License" target="_blank"><?=$LANG['license']?></a><br>
+                        <strong><?=$LANG['about_license']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/wiki/x/AoC3Ag" target="_blank"><?=$LANG['license']?></a><br>
                         <strong><?=$LANG['about_forum']?>:</strong>&nbsp;&nbsp;<a class="about" href="http://forum.lewe.com/" target="_blank">Lewe Forum</a><br>
                         <strong><?=$LANG['about_tracker']?>:</strong>&nbsp;&nbsp;<a class="about" href="http://georgelewe.atlassian.net/" target="_blank">Lewe Issue Tracker (JIRA)</a><br>
-                        <strong><?=$LANG['about_documentation']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/wiki/display/TCNEO/TeamCal+Neo+Documentation" target="_blank">Lewe Wiki (Confluence)</a><br>
+                        <strong><?=$LANG['about_documentation']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/wiki/spaces/TCNEO/overview" target="_blank">Lewe Wiki (Confluence)</a><br>
                         <strong><?=$LANG['about_vote']?>:</strong>&nbsp;&nbsp;<?=$LANG['about_vote_comment']?><br><br>
                      </p>
                      <h3><?=$LANG['about_credits']?>:</h3>
