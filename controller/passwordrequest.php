@@ -58,11 +58,15 @@ if (!empty($_POST))
                // One user found with the given email address. Create a token.
                //
                $token = hash('md5','PasswordResetRequestFor'.$pwdUsers[0]['username']);
-               // To be retrieved later with:
-               // $query = "SELECT * FROM users where md5(CONCAT('PasswordResetRequestFor',username))='".$token."'";
-               
+               $expiryDateTime = date('YmdHis', strtotime(date('YmdHis') . ' +1 day'));
+               $UO->save($pwdUsers[0]['username'], 'pwdTokenExpiry', $expiryDateTime);
                sendPasswordResetMail($pwdUsers[0]['email'], $pwdUsers[0]['username'], $pwdUsers[0]['lastname'], $pwdUsers[0]['firstname'], $token);
 
+               //
+               // Log this event
+               //
+               $LOG->log("logUser",$L->checkLogin(),"log_user_pwd_request", $pwdUsers[0]['username']);
+               
                //
                // Success
                //
@@ -83,6 +87,11 @@ if (!empty($_POST))
                   $UO->save($U->username, 'pwdTokenExpiry', $expiryDateTime);
                   sendPasswordResetMail($U->email, $U->username, $U->lastname, $U->firstname, $token);
                   
+                  //
+                  // Log this event
+                  //
+                  $LOG->log("logUser",$L->checkLogin(),"log_user_pwd_request", $U->username);
+                   
                   //
                   // Success
                   //

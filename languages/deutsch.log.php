@@ -102,6 +102,7 @@ $LANG['log_user_archived_deleted'] = 'Archivierter Benutzer gel&ouml;scht: ';
 $LANG['log_user_archived'] = 'Benutzer archiviert: ';
 $LANG['log_user_restored'] = 'Benutzer reaktiviert: ';
 $LANG['log_user_registered'] = 'Benutzer Registrierung: ';
+$LANG['log_user_pwd_request'] = 'Passwort Token an: ';
 $LANG['log_user_pwd_reset'] = 'Passwort zur&uuml;ckgesetzt: ';
 $LANG['log_user_avatar_updloaded'] = 'Benutzer Avatar hochgeladen: ';
 $LANG['log_user_group_updated'] = 'Benutzertyp oder -mitgliedschaft aktualisiert';

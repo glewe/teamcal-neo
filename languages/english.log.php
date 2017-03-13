@@ -101,6 +101,7 @@ $LANG['log_user_archived_deleted'] = 'Archived user deleted: ';
 $LANG['log_user_archived'] = 'User archived: ';
 $LANG['log_user_restored'] = 'User restored: ';
 $LANG['log_user_registered'] = 'User registration: ';
+$LANG['log_user_pwd_request'] = 'Password token to: ';
 $LANG['log_user_pwd_reset'] = 'User password reset: ';
 $LANG['log_user_avatar_updloaded'] = 'User avatar uploaded: ';
 $LANG['log_user_group_updated'] = 'User type and/or group assignment updated';

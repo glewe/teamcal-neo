@@ -341,7 +341,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (18, 'userCustom5', 'Custom Field 5'),
 (19, 'emailNotifications', '1'),
 (20, 'emailNoPastNotifications', '0'),
-(21, 'mailFrom', 'webmaster@mysite.com'),
+(21, 'mailFrom', 'TeamCal Neo'),
 (22, 'mailReply', 'webmaster@mysite.com'),
 (23, 'mailSMTP', '0'),
 (24, 'mailSMTPhost', ''),

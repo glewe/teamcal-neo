@@ -45,8 +45,7 @@ function sendAccountActivatedMail($email, $username, $lastname, $firstname)
    $message = str_replace('%app_name%', $appTitle, $message);
    $message = str_replace('%app_url%', WEBSITE_URL, $message);
 
-   print($subject.'<br>'.$message);
-   //sendEmail($to, $subject, $message);
+   sendEmail($to, $subject, $message);
 }
 
 // ---------------------------------------------------------------------------
@@ -82,7 +81,6 @@ function sendAccountCreatedMail($email, $username, $password)
    $message = str_replace('%username%', $username, $message);
    $message = str_replace('%password%', $password, $message);
 
-   // print($message);
    sendEmail($to, $subject, $message);
 }
 
@@ -119,7 +117,6 @@ function sendAccountNeedsApprovalMail($email, $username, $lastname, $firstname)
    $message = str_replace('%lastname%', $lastname, $message);
    $message = str_replace('%firstname%', $firstname, $message);
 
-   //print($message);
    sendEmail($to, $subject, $message);
 }
 
@@ -158,7 +155,6 @@ function sendAccountRegisteredMail($email, $username, $lastname, $firstname, $ve
    $message = str_replace('%lastname%', $lastname, $message);
    $message = str_replace('%firstname%', $firstname, $message);
 
-   //print($message);
    sendEmail($to, $subject, $message);
 }
 
@@ -198,7 +194,6 @@ function sendAccountVerificationMismatchMail($email, $username, $vcode, $vcodeSu
    $message = str_replace('%vcode%', $vcode, $message);
    $message = str_replace('%vcode_submitted%', $vcodeSubmitted, $message);
     
-   //print($message);
    sendEmail($to, $subject, $message);
 }
 
@@ -284,7 +279,6 @@ function sendPasswordResetMail($email, $username, $lastname, $firstname, $token)
    $message = str_replace('%lastname%', $lastname, $message);
    $message = str_replace('%firstname%', $firstname, $message);
 
-//   print($message);
    sendEmail($to, $subject, $message);
 }
 
