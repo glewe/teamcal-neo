@@ -226,6 +226,10 @@ $LANG['alert_perm_invalid'] = 'Das neue Berechtigungsschema "%1%" ist ung&uuml;l
 $LANG['alert_perm_default'] = 'Das "Default" Schema kann nicht auf sich selbst zur&uuml;ckgesetzt werden.';
 $LANG['alert_perm_exists'] = 'Das Berechtigungsschema "%1%" existiert bereits. Bitte w&auml;hle einen anderen Name oder l&ouml;sche das existierende zuerst.';
 
+$LANG['alert_pwdTokenExpired_subject'] = 'Token Abgelaufen';
+$LANG['alert_pwdTokenExpired_text'] = 'Der Token f&uuml;r das Zur&uuml;cksetzen des Passworts ist 24 Stunden g&uuml;tig und ist abgelaufen.';
+$LANG['alert_pwdTokenExpired_help'] = 'Gehe zum Login Screen und fordere einen neuen Token an.';
+
 $LANG['alert_reg_subject'] = 'Nutzerregistrierung';
 $LANG['alert_reg_approval_needed'] = 'Die Verifizierung war erfolgreich. Allerdings muss das Nutzerkonto von einem Administrator freigeschaltet werden. Er/Sie wurde per Mail informiert.';
 $LANG['alert_reg_success'] = 'Die Verifizierung war erfolgreich. Du kannst dich nun einloggen und die Applikation nutzen.';
@@ -552,6 +556,7 @@ $LANG['email_subject_group_deleted'] = '%app_name% Gruppe gel&ouml;scht';
 $LANG['email_subject_month_created'] = '%app_name% Monat angelegt';
 $LANG['email_subject_month_changed'] = '%app_name% Monat geändert';
 $LANG['email_subject_month_deleted'] = '%app_name% Monat gelöscht';
+$LANG['email_subject_password_reset'] = '%app_name% Passwort zur&uuml;cksetzen';
 $LANG['email_subject_role_changed'] = '%app_name% Rolle ge&auml;ndert';
 $LANG['email_subject_role_created'] = '%app_name% Rolle angelegt';
 $LANG['email_subject_role_deleted'] = '%app_name% Rolle gel&ouml;scht';
@@ -838,6 +843,19 @@ $LANG['page_prev'] = 'Zur vorherigen Seite...';
 $LANG['page_page'] = 'Zur Seite %s...';
 $LANG['page_next'] = 'Zur n&auml;chsten Seite...';
 $LANG['page_last'] = 'Zur letzten Seite...';
+
+//
+// Password request
+//
+$LANG['pwdreq_title'] = 'Passwort zur&uuml;cksetzen';
+$LANG['pwdreq_alert_failed'] = 'Bitte gebe eine g&uuml;ltige E-mail Adresse ein.';
+$LANG['pwdreq_alert_notfound'] = 'Benutzer nicht gefunden';
+$LANG['pwdreq_alert_notfound_text'] = 'Es wurde kein Nutzer mit dieser E-mail Adresse gefunden.';
+$LANG['pwdreq_alert_success'] = 'Eine E-mail mit Instruktionen zum Zur&uuml;cksetzen des Passworts wurde verschickt.';
+$LANG['pwdreq_email'] = 'E-mail';
+$LANG['pwdreq_email_comment'] = 'Bitte gebe die E-mail Adresse von deinem Konto ein. Eine E-Mail mit Instruktionen zum Zur&uuml;cksetzen des Passworts wird an sie versendet.';
+$LANG['pwdreq_selectUser'] = 'Benutzer w&auml;hlen';
+$LANG['pwdreq_selectUser_comment'] = 'Es wurden mehrere Benutzer mit der angegebenen E-Mail Adresse gefunden. Bitte w&auml;hle den Nutzer, fuer den das Passwort zur&uuml;ckgesetzt werden soll.';
 
 //
 // Password rules

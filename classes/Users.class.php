@@ -273,6 +273,41 @@ class Users
     
    // ---------------------------------------------------------------------
    /**
+    * Finds a user record by token and fills values into local variables
+    *
+    * @param string $token Token to find
+    * @return boolean Query result
+    */
+   public function findByToken($token)
+   {
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE md5(CONCAT("PasswordResetRequestFor",username)) = :val1');
+      $query->bindParam('val1', $token);
+      $result = $query->execute();
+   
+      if ($result and $row = $query->fetch())
+      {
+         $this->username = $row['username'];
+         $this->password = $row['password'];
+         $this->firstname = $row['firstname'];
+         $this->lastname = $row['lastname'];
+         $this->email = $row['email'];
+         $this->role = $row['role'];
+         $this->locked = $row['locked'];
+         $this->hidden = $row['hidden'];
+         $this->onhold = $row['onhold'];
+         $this->verify = $row['verify'];
+         $this->bad_logins = $row['bad_logins'];
+         $this->grace_start = $row['grace_start'];
+         $this->last_pw_change = $row['last_pw_change'];
+         $this->last_login = $row['last_login'];
+         $this->created = $row['created'];
+         return true;
+      }
+      return false;
+   }
+   
+    // ---------------------------------------------------------------------
+   /**
     * Gets all records into an array
     *
     * @param string $order1 First order criteria
@@ -305,6 +340,32 @@ class Users
             return $records;
    }
     
+   // ---------------------------------------------------------------------
+   /**
+    * Gets all records for a given email address
+    *
+    * @param string $email Email to find
+    * @return array Array with records
+    */
+   public function getAllForEmail($email)
+   {
+      $records = array ();
+   
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE email = :val1 ORDER BY lastname ASC, firstname ASC');
+      $query->bindParam('val1', $email);
+      $result = $query->execute();
+
+      if ($result)
+      {
+         while ( $row = $query->fetch() )
+         {
+            $records[] = $row;
+         }
+         return $records;
+      }
+      return false;
+   }
+   
    // ---------------------------------------------------------------------
    /**
     * Gets all records into an array except hidden users

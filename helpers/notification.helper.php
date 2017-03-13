@@ -251,6 +251,45 @@ function sendGroupEventNotifications($event, $groupname, $groupdesc = '')
 
 // ---------------------------------------------------------------------------
 /**
+ * Sends a password reset token mail
+ *
+ * @param string $email Recipient's email address
+ * @param string $username The username created
+ * @param string $lastname The user's lastname
+ * @param string $firstname The user's firstname
+ * @param string $token The password reset token
+ */
+function sendPasswordResetMail($email, $username, $lastname, $firstname, $token)
+{
+   global $C, $LANG;
+    
+   $language = $C->read('defaultLanguage');
+   $appTitle = $C->read('appTitle');
+   $to = $email;
+    
+   $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_password_reset']);
+   $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
+   $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
+   $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_pwdreq.html');
+   $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
+    
+   $message = str_replace('%intro%', $intro, $message);
+   $message = str_replace('%body%', $body, $message);
+   $message = str_replace('%outro%', $outro, $message);
+
+   $message = str_replace('%app_name%', $appTitle, $message);
+   $message = str_replace('%app_url%', WEBSITE_URL, $message);
+   $message = str_replace('%token%', $token, $message);
+   $message = str_replace('%username%', $username, $message);
+   $message = str_replace('%lastname%', $lastname, $message);
+   $message = str_replace('%firstname%', $firstname, $message);
+
+//   print($message);
+   sendEmail($to, $subject, $message);
+}
+
+// ---------------------------------------------------------------------------
+/**
  * Sends an email to all users that subscribed to a role change event
  *
  * @param string $event The event type: added, changed, deleted

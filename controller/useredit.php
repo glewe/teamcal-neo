@@ -200,7 +200,7 @@ if (!empty($_POST))
          //
          if (isAllowed("useraccount"))
          {
-            if (isset($_POST['sel_role'])) $UP->role = $_POST['sel_role']; else $UP->role = '2';
+            if (isset($_POST['sel_role'])) $UP->role = $_POST['sel_role'];
             if (isset($_POST['chk_locked']) AND $_POST['chk_locked']) $UP->locked = '1'; else $UP->locked = '0';
             if (isset($_POST['chk_hidden']) AND $_POST['chk_hidden']) $UP->hidden = '1'; else $UP->hidden = '0';
             if (isset($_POST['chk_onhold']) AND $_POST['chk_onhold']) $UP->onhold = '1'; else $UP->onhold = '0';

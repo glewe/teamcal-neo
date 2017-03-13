@@ -226,6 +226,10 @@ $LANG['alert_perm_invalid'] = 'The new permission scheme name "%1%" is invalid. 
 $LANG['alert_perm_exists'] = 'The permission scheme "%1%" already exists. Use a different name or delete the old one first.';
 $LANG['alert_perm_default'] = 'The "Default" permission scheme cannot be reset to itself.';
 
+$LANG['alert_pwdTokenExpired_subject'] = 'Token Expired';
+$LANG['alert_pwdTokenExpired_text'] = 'The token for resetting your password was valid for 24 hours and has expired.';
+$LANG['alert_pwdTokenExpired_help'] = 'Go to the Login Screen and request a new one.';
+
 $LANG['alert_reg_subject'] = 'User Registration';
 $LANG['alert_reg_approval_needed'] = 'Your verification was successful. However, your account needs to be finally activated by an administrator. A mail has been sent to him/her.';
 $LANG['alert_reg_success'] = 'Your verification was successful. You can now log in and use the application.';
@@ -550,6 +554,7 @@ $LANG['email_subject_group_deleted'] = '%app_name% Group Deleted';
 $LANG['email_subject_month_changed'] = '%app_name% Month Changed';
 $LANG['email_subject_month_created'] = '%app_name% Month Created';
 $LANG['email_subject_month_deleted'] = '%app_name% Month Deleted';
+$LANG['email_subject_password_reset'] = '%app_name% Password Reset';
 $LANG['email_subject_role_changed'] = '%app_name% Role Changed';
 $LANG['email_subject_role_created'] = '%app_name% Role Created';
 $LANG['email_subject_role_deleted'] = '%app_name% Role Deleted';
@@ -835,6 +840,19 @@ $LANG['page_next'] = 'Go to next page...';
 $LANG['page_last'] = 'Go to last page...';
 
 //
+// Password request
+//
+$LANG['pwdreq_title'] = 'Passwort Reset';
+$LANG['pwdreq_alert_failed'] = 'Please provide a valid E-mail address.';
+$LANG['pwdreq_alert_notfound'] = 'User Not Found';
+$LANG['pwdreq_alert_notfound_text'] = 'No user account with this E-mail address could be found.';
+$LANG['pwdreq_alert_success'] = 'An E-mail with instructions to reset the password was sent.';
+$LANG['pwdreq_email'] = 'E-mail';
+$LANG['pwdreq_email_comment'] = 'Please enter the E-mail address of your user account. A mail with further instructions to reset your password will be sent to it.';
+$LANG['pwdreq_selectUser'] = 'Select User';
+$LANG['pwdreq_selectUser_comment'] = 'Several users were found with this E-Mail address. Please select the user for which the password shall be reset.';
+
+//
 // Password rules
 //
 $LANG['password_rules_low'] = '<br>The password strength is currently set to "low", resulting in the following rules:<br>
@@ -928,7 +946,7 @@ $LANG['profile_tab_personal'] = 'Personal';
 $LANG['profile_alert_create'] = 'Create user profile';
 $LANG['profile_alert_create_success'] = 'The new user account was created.';
 $LANG['profile_alert_update'] = 'User profile update';
-$LANG['profile_alert_update_success'] = 'The information for this user profile eas updated.';
+$LANG['profile_alert_update_success'] = 'The information for this user profile was updated.';
 $LANG['profile_alert_save_failed'] = 'The new information for this user could not be saved. There was invalid input. Please check the tabs for error messages.';
 $LANG['profile_avatar'] = 'Avatar';
 $LANG['profile_avatar_comment'] = 'If you haven\'t uploaded an own avatar, a default avatar will be used.';
