@@ -293,9 +293,6 @@ $LANG['calopt_hideManagerOnlyAbsences_comment'] = 'Abwesenheitstypen k&ouml;nnen
       Diese Abwesenheiten werden normalen Benutzern angezeigt, sie k&ouml;nnen sie aber nicht editieren. Mit diesem Schalter k&ouml;nnen sie die Anzeige f&uuml;r normale Benutzer verbergen.';
 $LANG['calopt_includeSummary'] = 'Summen Abschnitt';
 $LANG['calopt_includeSummary_comment'] = 'Mit dieser Option wird eine aufklappbare Zusammenfassung unter jedem Monat angezeigt, die die Summen der Abwesenheiten auff&uuml;hrt.';
-$LANG['calopt_markConfidential'] = 'Vertrauliche Abwesenheiten Markieren';
-$LANG['calopt_markConfidential_comment'] = 'Normale Nutzer k&ouml;nnen vertrauliche Abwesenheiten anderer Nutzer nicht sehen. Mit dieser
-      Option hier k&ouml;nnen diese jedoch mit einem "X" im Kalender gekennzeichnet werden, so dass deren Abwesenheit erkennbar ist.';
 $LANG['calopt_pastDayColor'] = 'Vergangenheitsfarbe';
 $LANG['calopt_pastDayColor_comment'] = 'Setzt die Hintergrundfarbe f&uuml;r die Tage des aktuellen Monats, die in der Vergangenheit liegen.
       Bei keinem Wert in diesem Feld wird keine Farbe eingesetzt.';
