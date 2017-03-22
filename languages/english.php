@@ -235,7 +235,7 @@ $LANG['alert_reg_approval_needed'] = 'Your verification was successful. However,
 $LANG['alert_reg_success'] = 'Your verification was successful. You can now log in and use the application.';
 $LANG['alert_reg_mismatch'] = 'The submitted verification code does not match the one we have on record. A mail has been sent to the admin to review your case.';
 $LANG['alert_reg_no_user'] = 'The username cannot be found. Are you sure it was registered?';
-$LANG['alert_reg_no_vcode'] = 'A verification could not be found. Are you sure it was registered?';
+$LANG['alert_reg_no_vcode'] = 'A verification code could not be found. Was it verified already? Please contact the administrator to check your account settings.';
 
 $LANG['alert_upl_img_subject'] = 'Upload Images';
 $LANG['alert_upl_doc_subject'] = 'Upload Documents';

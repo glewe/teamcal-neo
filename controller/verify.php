@@ -77,8 +77,9 @@ if ($fverify = $UO->read($ruser, "verifycode"))
       if ($C->read("adminApproval")) 
       {
          //
-         // Success but admin needs to approve. Send mail to admin.
+         // Success but admin needs to approve. Unset verify flag, keep account locked, send mail to admin.
          //
+         $U->unverify($U->username);
          sendAccountNeedsApprovalMail($UA->email, $U->username, $U->lastname, $U->firstname);
           
          //
@@ -99,7 +100,7 @@ if ($fverify = $UO->read($ruser, "verifycode"))
       else 
       {
          //
-         // Success and no approval needed. Unlock and unhide user.
+         // Success and no approval needed. Unlock and unverify
          //
          $U->unlock($U->username);
          $U->unverify($U->username);

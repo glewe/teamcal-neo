@@ -235,7 +235,7 @@ $LANG['alert_reg_approval_needed'] = 'Die Verifizierung war erfolgreich. Allerdi
 $LANG['alert_reg_success'] = 'Die Verifizierung war erfolgreich. Du kannst dich nun einloggen und die Applikation nutzen.';
 $LANG['alert_reg_mismatch'] = 'Der Verfizierungscode stimmt nicht mit dem &uuml;berein, der erstellt wurde. Eine Mail wurde an den Admin geschickt, um die Anfrage zu pr&uuml;fen.';
 $LANG['alert_reg_no_user'] = 'Der Benutzername konnte nicht gefunden werden. Wurde er registriert?';
-$LANG['alert_reg_no_vcode'] = 'Ein Verfizierungscode konnte nicht gefunden werden. Wurde er registriert?';
+$LANG['alert_reg_no_vcode'] = 'Ein Verfizierungscode konnte nicht gefunden werden. Wurde bereits verifiziert? Kontaktiere den Administrator.';
 
 $LANG['alert_upl_img_subject'] = 'Bilder Hochladen';
 $LANG['alert_upl_doc_subject'] = 'Dokumente Hochladen';
