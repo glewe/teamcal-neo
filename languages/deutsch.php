@@ -5,7 +5,7 @@
  * Language file (German)
  *
  * @category TeamCal Neo 
- * @version 1.4.000
+ * @version 1.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -164,7 +164,7 @@ $LANG['alert_controller_not_found_text'] = 'Der Controller "%1%" konnte nicht ge
 $LANG['alert_controller_not_found_help'] = 'Bitte &uuml;berpr&uuml;fe die Installation. Die Datei existiert nicht oder es fehlt die n&ouml;tige Berechtigung f&uuml;r den Zugriff.';
 
 $LANG['alert_decl_before_date'] = ": Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";
-$LANG['alert_decl_group_threshold'] = ": Die Abwesenheitsgrenze wurde erreicht für die Gruppe(n): ";
+$LANG['alert_decl_group_threshold'] = ": Die Abwesenheitsgrenze wurde erreicht fï¿½r die Gruppe(n): ";
 $LANG['alert_decl_period'] = ": Abwesenheits&auml;nderungen in folgendem Zeitraum sind nicht erlaubt: ";
 $LANG['alert_decl_total_threshold'] = ": Die generelle Abwesenheitsgrenze wurde erreicht.";
 
@@ -554,8 +554,8 @@ $LANG['email_subject_group_changed'] = '%app_name% Gruppe ge&auml;ndert';
 $LANG['email_subject_group_created'] = '%app_name% Gruppe angelegt';
 $LANG['email_subject_group_deleted'] = '%app_name% Gruppe gel&ouml;scht';
 $LANG['email_subject_month_created'] = '%app_name% Monat angelegt';
-$LANG['email_subject_month_changed'] = '%app_name% Monat geändert';
-$LANG['email_subject_month_deleted'] = '%app_name% Monat gelöscht';
+$LANG['email_subject_month_changed'] = '%app_name% Monat geï¿½ndert';
+$LANG['email_subject_month_deleted'] = '%app_name% Monat gelï¿½scht';
 $LANG['email_subject_password_reset'] = '%app_name% Passwort zur&uuml;cksetzen';
 $LANG['email_subject_role_changed'] = '%app_name% Rolle ge&auml;ndert';
 $LANG['email_subject_role_created'] = '%app_name% Rolle angelegt';

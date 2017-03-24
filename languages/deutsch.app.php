@@ -5,7 +5,7 @@
  * Application language file
  *
  * @category TeamCal Neo 
- * @version 1.4.000
+ * @version 1.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -168,7 +168,7 @@ $LANG['alert_decl_allowweek_reached'] = "Die maximale Anzahl von %1% pro Woche f
 $LANG['alert_decl_approval_required'] = "Dieser Abwesenheitstyp ben&ouml;tigt Managerbest&auml;tigung. Die Abwesenheit wurde in den Kalender eingetragen aber auch eine Tagesnotiz &uuml;ber die ausstehende Best&auml;tigung. Dein Manager wurde per Email informiert.";
 $LANG['alert_decl_approval_required_daynote'] = "Diese Abwesenheit wurde angefragt, ist aber noch nicht best&auml;tigt.";
 $LANG['alert_decl_before_date'] = "Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";
-$LANG['alert_decl_group_threshold'] = "Die Abwesenheitsgrenze wurde erreicht für die Gruppe(n): ";
+$LANG['alert_decl_group_threshold'] = "Die Abwesenheitsgrenze wurde erreicht fï¿½r die Gruppe(n): ";
 $LANG['alert_decl_period'] = "Abwesenheits&auml;nderungen in folgendem Zeitraum sind nicht erlaubt: ";
 $LANG['alert_decl_total_threshold'] = "Die generelle Abwesenheitsgrenze wurde erreicht.";
 
@@ -549,11 +549,11 @@ $LANG['decl_value'] = 'Wert';
 //
 // E-Mail
 //
-$LANG['email_subject_absence_approval'] = '%app_name% Abwesenheitsbestätigung Erforderlich';
+$LANG['email_subject_absence_approval'] = '%app_name% Abwesenheitsbestï¿½tigung Erforderlich';
 $LANG['email_subject_month_created'] = '%app_name% Monat angelegt';
-$LANG['email_subject_month_changed'] = '%app_name% Monat geändert';
-$LANG['email_subject_month_deleted'] = '%app_name% Monat gelöscht';
-$LANG['email_subject_usercal_changed'] = '%app_name% Benutzerkalender geändert';
+$LANG['email_subject_month_changed'] = '%app_name% Monat geï¿½ndert';
+$LANG['email_subject_month_deleted'] = '%app_name% Monat gelï¿½scht';
+$LANG['email_subject_usercal_changed'] = '%app_name% Benutzerkalender geï¿½ndert';
 
 //
 // Holidays
