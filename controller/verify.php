@@ -5,7 +5,7 @@
  * Verify page controller
  *
  * @category TeamCal Neo 
- * @version 1.4.000
+ * @version 1.4.001
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -77,7 +77,8 @@ if ($fverify = $UO->read($ruser, "verifycode"))
       if ($C->read("adminApproval")) 
       {
          //
-         // Success but admin needs to approve. Unset verify flag, keep account locked, send mail to admin.
+         // Success but admin needs to approve. 
+         // Unset verify flag, keep account locked, send mail to admin.
          //
          $U->unverify($U->username);
          sendAccountNeedsApprovalMail($UA->email, $U->username, $U->lastname, $U->firstname);
