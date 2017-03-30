@@ -1,8 +1,8 @@
 <?php
 /**
- * calendaredit.php
+ * groupcalendaredit.php
  * 
- * Edit calendar page controller
+ * Group calendar edit page controller
  *
  * @category TeamCal Neo 
  * @version 1.4.001
@@ -19,7 +19,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 //
 // CHECK URL PARAMETERS
 //
-if (isset($_GET['month']) AND isset($_GET['region']) AND isset($_GET['user']))
+if (isset($_GET['month']) AND isset($_GET['region']) AND isset($_GET['group']))
 {
    $missingData = FALSE;
    
@@ -57,12 +57,20 @@ if (isset($_GET['month']) AND isset($_GET['region']) AND isset($_GET['user']))
    }
     
    //
-   // Check user
+   // Check group
+   // We will use the same template table as for the users. We just create a username like "group:<groupID>".
    //
-   $caluser = sanitize($_GET['user']);
-   if (!$U->findByName($caluser)) 
+   $calgroup = sanitize($_GET['group']);
+   $calgroupuser = 'group:' . $calgroup;
+   if (!$G->getById($calgroup)) 
    {
       $missingData = TRUE;
+   }
+   else
+   {
+      $viewData['groupid'] = $G->id;
+      $viewData['groupname'] = $G->name;
+      $viewData['groupusername'] = $calgroupuser;
    }
 }
 else
@@ -89,7 +97,7 @@ if ($missingData)
 //
 if ($C->read('currentYearOnly') AND $viewData['year']!=date('Y'))
 {
-   header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . date('Ym') . "&region=" . $region . "&user=" . $caluser);
+   header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . date('Ym') . "&region=" . $region . "&group=" . $calgroup);
    die();
 }
 
@@ -100,11 +108,7 @@ if ($C->read('currentYearOnly') AND $viewData['year']!=date('Y'))
 $allowed = false;
 if (isAllowed($CONF['controllers'][$controller]->permission))
 {
-   if ( $UL->username == $caluser )
-   {
-      if (isAllowed("calendareditown")) $allowed = true;
-   }
-   else if ( $UG->shareGroups($UL->username, $caluser) )
+   if ( $UG->shareGroups($UL->username, $calgroup) )
    {
       if (isAllowed("calendareditgroup")) $allowed = true;
    }
@@ -134,6 +138,7 @@ if (!$allowed)
 //
 // VARIABLE DEFAULTS
 //
+$groups = $G->getAll();
 $users = $U->getAll();
 $inputAlert = array();
 $currDate = date('Y-m-d');
@@ -154,17 +159,17 @@ if (!$M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']))
 }
 
 //
-// See if a user template exists. If not, create one.
+// See if a user template for this group exists. If not, create one.
 //
-if (!$T->getTemplate($caluser, $viewData['year'], $viewData['month']))
+if (!$T->getTemplate($calgroupuser, $viewData['year'], $viewData['month']))
 {
-   createMonth($viewData['year'], $viewData['month'], 'user', $caluser);
-   $T->getTemplate($caluser, $viewData['year'], $viewData['month']);
+   createMonth($viewData['year'], $viewData['month'], 'user', $calgroupuser);
+   $T->getTemplate($calgroupuser, $viewData['year'], $viewData['month']);
    
    //
    // Log this event
    //
-   $LOG->log("logMonth", $L->checkLogin(), "log_month_tpl_created", $caluser . ": " . $M->year . "-" . $M->month);
+   $LOG->log("logMonth", $L->checkLogin(), "log_month_tpl_created", "Group: " . $G->name . ": " . $M->year . "-" . $M->month);
 }
 
 //=============================================================================
@@ -176,13 +181,14 @@ if (!empty($_POST))
    if (isset($_POST['btn_save']) OR isset($_POST['btn_clearall']) OR isset($_POST['btn_saveperiod']) OR isset($_POST['btn_saverecurring']))
    {
       //
-      // All changes to the calendar are handled in this block since it finishes with the Approval routine.
-      // First, get the current absences of the user into an array $currentAbsences
+      // All changes to the calendar are handled in this block.
+      // Note: It does NOT finish with the Approval routine. All groups absences will overwrite every affected user's absences.
+      // First, get the current absences of the group into an array $currentAbsences
       // Second, set initialize the $requestedAbsences array to the current ones. Updates are done below.
       //
       for ($i=1; $i<=$viewData['dateInfo']['daysInMonth']; $i++)
       {
-         $currentAbsences[$i] = $T->getAbsence($caluser, $viewData['year'], $viewData['month'], $i);
+         $currentAbsences[$i] = $T->getAbsence($calgroupuser, $viewData['year'], $viewData['month'], $i);
          $requestedAbsences[$i] = $currentAbsences[$i];
          $approvedAbsences[$i] = '0';
          $declinedAbsences[$i] = '0';
@@ -220,11 +226,6 @@ if (!empty($_POST))
          for ($i=1; $i<=$viewData['dateInfo']['daysInMonth']; $i++)
          {
             $requestedAbsences[$i] = '0';
-            if (isset($_POST['chk_clearDaynotes'])) 
-            {
-               $daynoteDate = $viewData['year'] . $viewData['month'] . sprintf("%02d",($i));
-               $D->delete($daynoteDate, $caluser, $viewData['regionid']);
-            }
          }
       }
       // ,-------------,
@@ -354,61 +355,72 @@ if (!empty($_POST))
       if (!$showAlert)
       {
          //
-         // At this point we have four arrays:
+         // At this point we have two arrays:
          // - $currentAbsences (Absences before this request)
          // - $requestedAbsences (Absences requested)
-         // - $approved['approvedAbsences'] (Absences approved, coming back from the approval function)
-         // - $approved['declinedReasons'] (Declined Reasons, coming back from the approval function)
          //
-         $approved = approveAbsences($caluser, $viewData['year'], $viewData['month'], $currentAbsences, $requestedAbsences, $viewData['regionid']);
-         
-         $sendNotification = false;
-         $alerttype = 'success';
-         $alertHelp = '';
-         switch ($approved['approvalResult'])
+         // There is no approval check for group absences. So we just take all requested
+         // absences and write them to the calgroupuser template and to every group member's template.
+         //
+         foreach ($requestedAbsences as $key => $val)
          {
-            case 'all':
+            $col = 'abs'.$key;
+            $T->$col = $val;
+         }
+         $T->update($calgroupuser, $viewData['year'], $viewData['month']);
+
+         //
+         // Now loop through every user of the selected group
+         //
+         $groupmembers = $UG->getAllForGroup($calgroup);
+         foreach ($groupmembers as $member)
+         {
+            //
+            // Get the current template for this user
+            //
+            if ($T->getTemplate($member['username'], $viewData['year'], $viewData['month']))
+            {
+               //
+               // Loop through all requested absences for the group
+               //
                foreach ($requestedAbsences as $key => $val)
                {
                   $col = 'abs'.$key;
-                  $T->$col = $val;
+                  if ($T->$col)
+                  {
+                     //
+                     // User has an absence already. Only overwrite if keepExisting was not checked.
+                     //
+                     if (!isset($_POST['chk_keepExisting'])) $T->$col = $val;
+                  }
+                  else
+                  {
+                     //
+                     // User has no absence yet. Set the new group absence.
+                     //
+                     $T->$col = $val;
+                  }
                }
-               $T->update($caluser, $viewData['year'], $viewData['month']);
-               $sendNotification = true;
-               break;
-               
-            case 'partial':
-               foreach ($approved['approvedAbsences'] as $key => $val)
-               {
-                  $col = 'abs'.$key;
-                  $T->$col = $val;
-               }
-               $T->update($caluser, $viewData['year'], $viewData['month']);
-               $sendNotification = true;
-               $alerttype = 'info';
-               foreach ($approved['declinedReasons'] as $reason)
-               {
-                  if (strlen($reason)) $alertHelp .= $reason . "<br>";
-               }
-               break;
-               
-            case 'none':
-               $alerttype = 'info';
-               break;
+               $T->update($member['username'], $viewData['year'], $viewData['month']);
+            }
          }
+
+         $sendNotification = true;
+         $alerttype = 'success';
+         $alertHelp = '';
          
          //
          // Send notification e-mails to the subscribers of user events
          //
          if ($C->read("emailNotifications") AND $sendNotification)
          {
-            sendUserCalEventNotifications("changed", $viewData['year'], $viewData['month'], $caluser);
+            sendUserCalEventNotifications("changed", $viewData['year'], $viewData['month'], $calgroupuser);
          }
              
          //
          // Log this event
          //
-         $LOG->log("logUser", $UL->username, "log_cal_usr_tpl_chg", $caluser . " " . $viewData['year'].$viewData['month']);
+         $LOG->log("logUser", $UL->username, "log_cal_grp_tpl_chg", $G->name . ": " . $viewData['year'].$viewData['month']);
          
          //
          // Success
@@ -417,7 +429,7 @@ if (!empty($_POST))
          $alertData['type'] = $alerttype;
          $alertData['title'] = $LANG['alert_'.$alerttype.'_title'];
          $alertData['subject'] = $LANG['caledit_alert_update'];
-         $alertData['text'] = $LANG['caledit_alert_update_' . $approved['approvalResult']];
+         $alertData['text'] = $LANG['caledit_alert_update_group'];
          $alertData['help'] = $alertHelp;
       }
    }
@@ -426,7 +438,7 @@ if (!empty($_POST))
    // '---------------'
    elseif (isset($_POST['btn_region']))
    {
-      header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $_POST['sel_region'] . "&user=" . $caluser);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $_POST['sel_region'] . "&group=" . $calgroup);
       die();
    }
    // ,---------------------,
@@ -435,15 +447,15 @@ if (!empty($_POST))
    elseif (isset($_POST['btn_width']))
    {
       $UO->save($UL->username, 'width', $_POST['sel_width']);
-      header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $region . "&user=" . $caluser);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $region . "&group=" . $calgroup);
       die();
    }
-   // ,-------------,
-   // | Select User |
-   // '-------------'
-   elseif (isset($_POST['btn_user']))
+   // ,--------------,
+   // | Select Group |
+   // '--------------'
+   elseif (isset($_POST['btn_group']))
    {
-      header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $region . "&user=" . $_POST['sel_user']);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $region . "&group=" . $_POST['sel_group']);
       die();
    }
 }
@@ -452,8 +464,6 @@ if (!empty($_POST))
 //
 // PREPARE VIEW
 //
-$viewData['username'] = $caluser;
-$viewData['fullname'] = $U->getFullname($caluser);
 $viewData['absences'] = $A->getAll();
 $viewData['holidays'] = $H->getAllCustom();
 $viewData['dayStyles'] = array();
@@ -470,29 +480,25 @@ foreach ($allRegions as $reg)
    }
 }
 
-
-$viewData['users'] = array();
-foreach ($users as $usr)
+//
+// Only prepare those groups the current user (role) can edit
+//
+$viewData['groups'] = array();
+foreach ($groups as $group)
 {
    $allowed = false;
-   if ($usr['username']==$UL->username AND isAllowed("calendareditown"))
+   if ( $UG->shareGroups($UL->username, $group['id']) )
    {
-      $allowed = true;
+      if (isAllowed("calendareditgroup")) $allowed = true;
    }
-   else if ( !$U->isHidden($usr['username']) )
+   else
    {
-      if (isAllowed("calendareditall"))
-      {
-         $allowed = true;
-      }
-      elseif (isAllowed("calendareditgroup") AND $UG->shareGroups($usr['username'], $UL->username) )
-      {
-         $allowed = true;
-      }
+      if (isAllowed("calendareditall")) $allowed = true;
    }
+   
    if ($allowed)
    {
-      $viewData['users'][] = array ('username' => $usr['username'], 'lastfirst' => $U->getLastFirst($usr['username']));
+      $viewData['groups'][] = array ('id' => $group['id'], 'name' => $group['name']);
    }
 }
 

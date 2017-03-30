@@ -104,6 +104,7 @@ $CONF['controllers'] = array (
    'calendaroptions' => new Controller('calendaroptions', 'wrench', 'primary', 'primary', 'calendaroptions', 'Calendar Options'),
    'daynote' => new Controller('daynote', 'sticky-note-o', 'info', 'info', 'daynote', 'Daynote'),
    'declination' => new Controller('declination', 'minus-circle', 'danger', 'danger', 'declination', 'Declination'),
+   'groupcalendaredit' => new Controller('groupcalendaredit', 'calendar-o', 'info', 'danger', 'groupcalendaredit', 'Group Calendar Edit'),
    'holidays' => new Controller('holidays', 'calendar-o', 'danger', 'primary', 'holidays', 'Holidays'),
    'holidayedit' => new Controller('holidayedit', 'calendar-o', 'danger', 'danger', 'holidays', 'Holiday Edit'),
    'monthedit' => new Controller('monthedit', 'calendar-o', 'success', 'danger', 'regions', 'Month Edit'),

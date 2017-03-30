@@ -238,6 +238,7 @@ $LANG['caledit_alert_out_of_range'] = 'The dates entered were at least partially
 $LANG['caledit_alert_save_failed'] = 'The absence information could not be saved. There was invalid input. Please check your last input.';
 $LANG['caledit_alert_update'] = 'Update month';
 $LANG['caledit_alert_update_all'] = 'All absences were accepted and the calendar was updated accordingly.';
+$LANG['caledit_alert_update_group'] = 'The group absences were set for all users of the group.';
 $LANG['caledit_alert_update_partial'] = 'Some absences were not accepted because they violate restrictions set by the management. 
       The following requests were declined:';
 $LANG['caledit_alert_update_none'] = 'The absences were not accepted because the requested absences violate restrictions set up by the management. 
@@ -245,15 +246,20 @@ $LANG['caledit_alert_update_none'] = 'The absences were not accepted because the
 $LANG['caledit_clearAbsence'] = 'Clear';
 $LANG['caledit_clearDaynotes'] = 'Clear Daynotes';
 $LANG['caledit_confirm_clearall'] = 'Are you sure you want to clear all absences in this month?<br><br><strong>Year:</strong> %s<br><strong>Month:</strong> %s<br><strong>User:</strong> %s';
+$LANG['caledit_confirm_savegroup'] = '<p><strong class="text-danger">Attention!</strong><br>Saving Group absences will not perform any individual approval checks.<br>
+      All absences will be set for every user in the selected group. You can, however, select to not overwrite existing individual absences below.</p>
+      <p><strong>Year:</strong> %s<br><strong>Month:</strong> %s<br><strong>Group:</strong> %s</p>';
 $LANG['caledit_currentAbsence'] = 'Current absence';
 $LANG['caledit_endDate'] = 'End Date';
 $LANG['caledit_endDate_comment'] = 'Select the end date (must be in this month).';
+$LANG['caledit_keepExisting'] = 'Keep existing user absences';
 $LANG['caledit_Period'] = 'Period';
 $LANG['caledit_PeriodTitle'] = 'Select Absence Period';
 $LANG['caledit_Recurring'] = 'Recurring';
 $LANG['caledit_RecurringTitle'] = 'Select Recurring Absence';
 $LANG['caledit_recurrence'] = 'Recurrence';
 $LANG['caledit_recurrence_comment'] = 'Select the recurrence';
+$LANG['caledit_selGroup'] = 'Select Group';
 $LANG['caledit_selRegion'] = 'Select Region';
 $LANG['caledit_selUser'] = 'Select User';
 $LANG['caledit_startDate'] = 'Start Date';
@@ -644,6 +650,8 @@ $LANG['perm_daynoteglobal_title'] = 'Daynotes (Edit Global)';
 $LANG['perm_daynoteglobal_desc'] = 'Allows to edit global daynotes for region calendars.';
 $LANG['perm_declination_title'] = 'Declination Management';
 $LANG['perm_declination_desc'] = 'Allows to access the declination management page.';
+$LANG['perm_groupcalendaredit_title'] = 'Group Calendar (Edit)';
+$LANG['perm_groupcalendaredit_desc'] = 'Allows to edit group calendars.';
 $LANG['perm_holidays_title'] = 'Holidays (Edit)';
 $LANG['perm_holidays_desc'] = 'Allows to list and edit holidays.';
 $LANG['perm_regions_title'] = 'Regions (Edit)';

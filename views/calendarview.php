@@ -37,7 +37,7 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
          <form class="bs-example form-control-horizontal" enctype="multipart/form-data" action="<?=$formLink?>" method="post" target="_self" accept-charset="utf-8">
 
             <input name="hidden_month" type="hidden" class="text" value="<?=$viewData['month']?>">
-            <input name="hidden_region" type="hidden" class="text" value="<?=$viewData['region']?>">
+            <input name="hidden_region" type="hidden" class="text" value="<?=$viewData['regionid']?>">
 
             <?php 
             if ($viewData['month']==1) 

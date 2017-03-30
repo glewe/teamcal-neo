@@ -18,8 +18,9 @@
 $LANG['log_abs_created'] = 'Absence type created: ';
 $LANG['log_abs_updated'] = 'Absence type updated: ';
 $LANG['log_abs_deleted'] = 'Absence type deleted: ';
-$LANG['log_cal_usr_def_tpl'] = 'User default template created: ';
+$LANG['log_cal_grp_tpl_chg'] = 'Group template changed: ';
 $LANG['log_cal_tplusr_def_tpl'] = 'Template-User default template created: ';
+$LANG['log_cal_usr_def_tpl'] = 'User default template created: ';
 $LANG['log_cal_usr_tpl_chg'] = 'User template changed: ';
 $LANG['log_cal_usr_tpl_clr'] = 'User template cleared: ';
 $LANG['log_calopt'] = 'Calendar options changed';

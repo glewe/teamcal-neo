@@ -48,6 +48,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      </ul>
                   </li>
 
+                  <!-- View Menu -->
                   <?php if ( (isAllowed($CONF['controllers']['messages']->permission) AND $C->read('activateMessages')) OR
                               isAllowed($CONF['controllers']['calendarview']->permission) OR
                               isAllowed($CONF['controllers']['year']->permission) OR
@@ -57,7 +58,6 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               isAllowed($CONF['controllers']['statsremainder']->permission) OR
                               isAllowed($CONF['controllers']['absum']->permission)
                         ) { ?>
-                     <!-- View Menu -->
                      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="view"><?=$LANG['mnu_view']?><span class="caret"></span></a>
                         <ul class="dropdown-menu" aria-labelledby="view">
                            <?php if (isAllowed($CONF['controllers']['calendarview']->permission)) {
@@ -104,21 +104,21 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      </li>
                   <?php } ?>                     
                   
+                  <!-- Edit Menu -->
                   <?php if ( isAllowed($CONF['controllers']['calendaredit']->permission) OR
                              isAllowed($CONF['controllers']['monthedit']->permission) OR
                              isAllowed($CONF['controllers']['messageedit']->permission) OR
                              isAllowed($CONF['controllers']['attachments']->permission)
                         ) { ?>
-                     <!-- Edit Menu -->
                      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="tools"><?=$LANG['mnu_edit']?><span class="caret"></span></a>
                         <ul class="dropdown-menu" aria-labelledby="tools">
-                            <?php if (isAllowed($CONF['controllers']['calendaredit']->permission)) { ?>
+                           <?php if (isAllowed($CONF['controllers']['calendaredit']->permission)) { ?>
                               <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['calendaredit']->name?>&amp;month=<?=date('Y').date('m')?>&amp;region=1&amp;user=<?=$userData['username']?>"><i class="fa fa-<?=$CONF['controllers']['calendaredit']->faIcon?> fa-lg text-<?=$CONF['controllers']['calendaredit']->iconColor?> fa-menu"></i><?=$LANG['mnu_edit_calendaredit']?></a></li>
                            <?php } ?>
-                            <?php if (isAllowed($CONF['controllers']['monthedit']->permission)) { ?>
+                           <?php if (isAllowed($CONF['controllers']['monthedit']->permission)) { ?>
                               <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['monthedit']->name?>&amp;month=<?=date('Y').date('m')?>&amp;region=1"><i class="fa fa-<?=$CONF['controllers']['monthedit']->faIcon?> fa-lg text-<?=$CONF['controllers']['monthedit']->iconColor?> fa-menu"></i><?=$LANG['mnu_edit_monthedit']?></a></li>
                            <?php } ?>
-                            <?php if (isAllowed($CONF['controllers']['messageedit']->permission) AND $C->read('activateMessages')) { ?>
+                           <?php if (isAllowed($CONF['controllers']['messageedit']->permission) AND $C->read('activateMessages')) { ?>
                               <li class="divider"></li>
                               <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['messageedit']->name?>"><i class="fa fa-<?=$CONF['controllers']['messageedit']->faIcon?> fa-lg text-<?=$CONF['controllers']['messageedit']->iconColor?> fa-menu"></i><?=$LANG['mnu_edit_messageedit']?></a></li>
                            <?php } ?>
@@ -133,6 +133,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       
                <ul class="nav navbar-nav navbar-right">
                
+                  <!-- Admin Menu -->
                   <?php if ( isAllowed($CONF['controllers']['config']->permission) OR 
                              isAllowed($CONF['controllers']['calendaroptions']->permission) OR
                              isAllowed($CONF['controllers']['permissions']->permission) OR
@@ -147,7 +148,6 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                              isAllowed($CONF['controllers']['regions']->permission) OR
                              isAllowed($CONF['controllers']['declination']->permission)
                         ) { ?>
-                     <!-- Admin Menu -->
                      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="admin"><?=$LANG['mnu_admin']?><span class="caret"></span></a>
                         <ul class="dropdown-menu" aria-labelledby="admin">
                            <?php if (isAllowed($CONF['controllers']['config']->permission)) { ?>

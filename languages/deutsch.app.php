@@ -238,6 +238,7 @@ $LANG['caledit_alert_out_of_range'] = 'Die Datumsangaben war zumindest teilweise
 $LANG['caledit_alert_save_failed'] = 'Die Abwesenheitsinformationen konnten nicht gespeichert werden. Es gab fehlerhafte Eingaben. Bitte pr&uuml;fe die letzte Eingabe.';
 $LANG['caledit_alert_update'] = 'Monat aktualisieren';
 $LANG['caledit_alert_update_all'] = 'Alle Abwesenheiten wurden akzeptiert und der Monat entsprechend aktualisert.';
+$LANG['caledit_alert_update_group'] = 'Die Gruppenabwesenheiten wurden bei allen Benutzern der Gruppe eingetragen.';
 $LANG['caledit_alert_update_partial'] = 'Einige Abwesenheiten konnten nicht akzeptiert werden, weil sie vom Management konfigurierte Regeln verletzen. 
       Die folgenden Abwesenheiten wurden abgelehnt:';
 $LANG['caledit_alert_update_none'] = 'Keine der Abwesenheiten wurde akzeptiert und der Monat nicht aktualisert. 
@@ -245,15 +246,20 @@ $LANG['caledit_alert_update_none'] = 'Keine der Abwesenheiten wurde akzeptiert u
 $LANG['caledit_clearAbsence'] = 'L&ouml;schen';
 $LANG['caledit_clearDaynotes'] = 'Tagesnotizen l&ouml;schen';
 $LANG['caledit_confirm_clearall'] = 'Bist du sicher, dass du alle Abwesenheiten f&uuml;r diesen Monat l&ouml;schen willst?<br><br><strong>Jahr:</strong> %s<br><strong>Monat:</strong> %s<br><strong>Nutzer:</strong> %s';
+$LANG['caledit_confirm_savegroup'] = '<p><strong class="text-danger">Achtung!</strong><br>Das Speichern von Gruppenabwesenheiten erfolgt ohne Ablehnungspr&uuml;fung.<br>
+      Die Abwesenheiten werden f&uuml;r alle Benutzer der ausgew&auml;hlten Gruppe eingetragen. Du kannst aber unten ausw&auml;hlen, ob bereits existierende individuelle Abwesenheiten erhalten bleiben sollen.</p>
+      <p><strong>Jahr:</strong> %s<br><strong>Monat:</strong> %s<br><strong>Gruppe:</strong> %s</p>';
 $LANG['caledit_currentAbsence'] = 'Aktuell';
 $LANG['caledit_endDate'] = 'Ende Datum';
 $LANG['caledit_endDate_comment'] = 'W&auml;hle das Enddatum aus (muss in diesem Monat sein).';
+$LANG['caledit_keepExisting'] = 'Indivduelle Abwesenheiten beibehalten';
 $LANG['caledit_Period'] = 'Zeitraum';
 $LANG['caledit_PeriodTitle'] = 'Abwesenheitszeitraum ausw&auml;hlen';
 $LANG['caledit_Recurring'] = 'Wiederholung';
 $LANG['caledit_RecurringTitle'] = 'Abwesenheitswiederholung ausw&auml;hlen';
 $LANG['caledit_recurrence'] = 'Wiederholung';
 $LANG['caledit_recurrence_comment'] = 'W&auml;hle die Wiederholung aus';
+$LANG['caledit_selGroup'] = 'Gruppe ausw&auml;hlen';
 $LANG['caledit_selRegion'] = 'Region ausw&auml;hlen';
 $LANG['caledit_selUser'] = 'Benutzer ausw&auml;hlen';
 $LANG['caledit_startDate'] = 'Start Datum';
@@ -644,6 +650,8 @@ $LANG['perm_daynoteglobal_title'] = 'Tagesnotizen (Global)';
 $LANG['perm_daynoteglobal_desc'] = 'Erlaubt das Bearbeiten globaler Tagesnotizen.';
 $LANG['perm_declination_title'] = 'Ablehnungsregeln (Bearbeiten)';
 $LANG['perm_declination_desc'] = 'Erlaubt das Bearbeiten der Ablehnungsregeln.';
+$LANG['perm_groupcalendaredit_title'] = 'Gruppen-Kalender (Bearbeiten)';
+$LANG['perm_groupcalendaredit_desc'] = 'Erlaubt die Bearbeitung von Gruppenkalendern.';
 $LANG['perm_holidays_title'] = 'Feiertage (Bearbeiten)';
 $LANG['perm_holidays_desc'] = 'Erlaubt as Listen und Bearbeiten von Feiertagen.';
 $LANG['perm_regions_title'] = 'Regionen (Bearbeiten)';
