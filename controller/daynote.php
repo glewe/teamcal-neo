@@ -127,11 +127,16 @@ if (!empty($_POST))
    // Form validation
    //
    $inputError = false;
-   if (isset($_POST['btn_save']))
+   if (isset($_POST['btn_create']))
    {
       if (!formInputValid('txt_date', 'required|date')) $inputError = true;
       if (!formInputValid('txt_enddate', 'date')) $inputError = true;
       if (!formInputValid('txt_daynote', 'required')) $inputError = true;
+      if (!isset($_POST['sel_regions']))
+      {
+         $inputAlert['regions'] = $LANG['alert_input_required'];
+         $inputError = true;
+      }
    }
     
    if (!$inputError)
@@ -143,15 +148,18 @@ if (!empty($_POST))
       {
          $D->deleteByDateAndUser($dnDate, $viewData['user']);
           
-         foreach ($_POST['sel_regions'] as $reg)
+         if (isset($_POST['sel_regions']))
          {
-            $D->yyyymmdd = $dnDate;
-            $D->username = $viewData['user'];
-            $D->region = $reg;
-            $D->daynote = $viewData['daynote'];
-            $D->color = $viewData['color'];
-            $D->confidential = $viewData['confidential'];
-            $D->create();
+            foreach ($_POST['sel_regions'] as $reg)
+            {
+               $D->yyyymmdd = $dnDate;
+               $D->username = $viewData['user'];
+               $D->region = $reg;
+               $D->daynote = $viewData['daynote'];
+               $D->color = $viewData['color'];
+               $D->confidential = $viewData['confidential'];
+               $D->create();
+            }
          }
 
          if (isset($_POST['txt_enddate']))
@@ -253,7 +261,7 @@ if (!empty($_POST))
       $alertData['type'] = 'danger';
       $alertData['title'] = $LANG['alert_danger_title'];
       $alertData['subject'] = $LANG['alert_input'];
-      $alertData['text'] = $LANG['register_alert_failed'];
+      $alertData['text'] = $LANG['dn_alert_failed'];
       $alertData['help'] = '';
    }
 }
@@ -263,16 +271,33 @@ if (!empty($_POST))
 //
 // PREPARE VIEW
 //
-foreach ($regions as $region)
+if ($viewData['exists'])
 {
-   $viewData['regions'][] = array('val' => $region['id'], 'name' => $region['name'], 'selected' => ($D->get($dnDate,$for,$region['id']))?true:false);
+   //
+   // A daynote exists for this user and date. Select each reason it is valid for.
+   // If no region is set, select the Default region.
+   //
+   foreach ($regions as $region)
+   {
+      $viewData['regions'][] = array('val' => $region['id'], 'name' => $region['name'], 'selected' => ($D->get($dnDate,$for,$region['id']))?true:(($region['id']==1)?true:false));
+   }
+}
+else
+{
+   //
+   // Mo daynote exists for this user and date. Select the Default region.
+   //
+   foreach ($regions as $region)
+   {
+      $viewData['regions'][] = array('val' => $region['id'], 'name' => $region['name'], 'selected' => ($region['id']==1)?true:false);
+   }
 }
 
 $viewData['daynote'] = array (
    array ( 'prefix' => 'dn', 'name' => 'date', 'type' => 'date', 'value' => $viewData['date'], 'maxlength' => '10', 'mandatory' => true, 'error' =>  (isset($inputAlert['date'])?$inputAlert['date']:'') ),
    array ( 'prefix' => 'dn', 'name' => 'enddate', 'type' => 'date', 'value' => $viewData['enddate'], 'maxlength' => '10', 'mandatory' => false, 'error' =>  (isset($inputAlert['enddate'])?$inputAlert['enddate']:'') ),
    array ( 'prefix' => 'dn', 'name' => 'daynote', 'type' => 'textarea', 'value' => $viewData['daynote'], 'rows' => '10', 'placeholder' => $LANG['dn_daynote_placeholder'], 'mandatory' => true, 'error' =>  (isset($inputAlert['daynote'])?$inputAlert['daynote']:'') ),
-   array ( 'prefix' => 'dn', 'name' => 'regions', 'type' => 'listmulti', 'values' => $viewData['regions'] ),
+   array ( 'prefix' => 'dn', 'name' => 'regions', 'type' => 'listmulti', 'values' => $viewData['regions'], 'mandatory' => true, 'error' =>  (isset($inputAlert['regions'])?$inputAlert['regions']:'') ),
    array ( 'prefix' => 'dn', 'name' => 'color', 'type' => 'radio', 'values' => array('info', 'success', 'warning', 'danger'), 'value' => $viewData['color'] ),
    array ( 'prefix' => 'dn', 'name' => 'confidential', 'type' => 'check', 'value' => $viewData['confidential'] ),
 );

@@ -41,6 +41,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <ul class="nav nav-tabs" style="margin-bottom: 15px;">
                         <li class="active"><a href="#tab_optimize" data-toggle="tab"><?=$LANG['db_tab_optimize']?></a></li>
                         <li><a href="#tab_cleanup" data-toggle="tab"><?=$LANG['db_tab_cleanup']?></a></li>
+                        <li><a href="#tab_repair" data-toggle="tab"><?=$LANG['db_tab_repair']?></a></li>
                         <li><a href="#tab_delete" data-toggle="tab"><?=$LANG['db_tab_delete']?></a></li>
                         <li><a href="#tab_admin" data-toggle="tab"><?=$LANG['db_tab_admin']?></a></li>
                         <li><a href="#tab_reset" data-toggle="tab"><?=$LANG['db_tab_reset']?></a></li>
@@ -120,6 +121,44 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  <div class="divider"><hr></div>
                                  
                                  <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" name="btn_cleanup"><?=$LANG['btn_cleanup']?></button>
+                                 
+                              </div>
+                           </div>
+                        </div>
+      
+                        <!-- Repair tab -->
+                        <div class="tab-pane fade" id="tab_repair">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                              
+                                 <div class="form-group">
+                                    <div class="col-lg-<?=$colsleft?>">
+                                       <div class="text-bold"><?=$LANG['db_repair_daynoteRegions']?></div>
+                                       <div class="text-normal"><?=$LANG['db_repair_daynoteRegions_comment']?></div>
+                                    </div>
+                                    <div class="col-lg-<?=$colsright?>">
+                                       <div class="checkbox">
+                                          <label><input name="chk_daynoteRegions" value="chk_daynoteRegions" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['db_repair_daynoteRegions']?></label>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="divider"><hr></div>
+
+                                 <div class="form-group">
+                                    <div class="col-lg-<?=$colsleft?>">
+                                       <div class="text-bold"><?=$LANG['db_repair_confirm']?></div>
+                                       <div class="text-normal"><?=$LANG['db_repair_confirm_comment']?></div>
+                                    </div>
+                                    <div class="col-lg-<?=$colsright?>">
+                                       <input class="form-control" tabindex="<?=$tabindex++?>" name="txt_repairConfirm" maxlength="7" value="" type="text">
+                                       <?php if ( isset($inputAlert["repairConfirm"]) AND strlen($inputAlert["repairConfirm"]) ) { ?> 
+                                          <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['repairConfirm']?></div>
+                                       <?php } ?> 
+                                    </div>
+                                 </div>
+                                 <div class="divider"><hr></div>
+                                 
+                                 <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" name="btn_repair"><?=$LANG['btn_repair']?></button>
                                  
                               </div>
                            </div>

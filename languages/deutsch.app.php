@@ -357,6 +357,7 @@ $LANG['calopt_usersPerPage_comment'] = 'Wenn du eine gro&szlig;e Anzahl an Usern
 //
 // Database
 //
+$LANG['db_tab_repair'] = 'Reparieren';
 $LANG['db_tab_tcpimp'] = 'TeamCal Pro Import';
 $LANG['db_clean_what'] = 'Was soll aufger&auml;umt werden';
 $LANG['db_clean_what_comment'] = 'W&auml;hle hier, was aufger&auml;umt werden soll. Alle Datens&auml;tze, die gleich alt oder &auml;lter sind als das "Bevor-Datum" werden gel&ouml;scht. 
@@ -369,6 +370,10 @@ $LANG['db_clean_before'] = 'Bevor-Datum';
 $LANG['db_clean_before_comment'] = 'Die oben gew&auml;hlten Datens&auml;tze, die gleich alt oder &auml;ter sind als das Datum hier, werden gle&ouml;scht.';
 $LANG['db_clean_confirm'] = 'Best&auml;tigung';
 $LANG['db_clean_confirm_comment'] = 'Bitte gebe hier "CLEANUP" ein, um die Aktion zu best&auml;tigen.';
+$LANG['db_repair_confirm'] = 'Best&auml;tigung';
+$LANG['db_repair_confirm_comment'] = 'Bitte gebe hier "REPAIR" ein, um die Aktion zu best&auml;tigen.';
+$LANG['db_repair_daynoteRegions'] = 'Tagesnotiz-Regionen';
+$LANG['db_repair_daynoteRegions_comment'] = 'Diese Option prueft, ob es Tagesnotizen ohne Regionszurodnung gibt. Wenn dies der Fall ist, wird die Default Region eingetragen.';
 $LANG['db_tcpimp'] = 'TeamCal Pro Import';
 $LANG['db_tcpimp_comment'] = 'Wenn du bisher TeamCal Pro benutzt hast, kannst du Daten davon importieren. Klicke dazu den Import Button.';
 $LANG['db_tcpimp2'] = 'Aber...';
@@ -380,6 +385,7 @@ $LANG['dn_title'] = 'Tagesnotiz';
 $LANG['dn_title_for'] = 'f&uuml;r';
 $LANG['dn_alert_create'] = 'Tagesnotiz anlegen';
 $LANG['dn_alert_create_success'] = 'Die Tagesnotiz wurde erfolgreich angelegt.';
+$LANG['dn_alert_failed'] = 'Die Tagesnotiz wurde nicht gespeichert. Bitte &uuml;berpr&uuml;fe deine Eingaben.';
 $LANG['dn_alert_update'] = 'Tagesnotiz aktualisieren';
 $LANG['dn_alert_update_success'] = 'Die Tagesnotiz wurde erfolgreich aktualisiert.';
 $LANG['dn_color'] = 'Tagesnotiz Farbe';

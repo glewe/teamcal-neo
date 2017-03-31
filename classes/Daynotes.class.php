@@ -362,6 +362,32 @@ class Daynotes
    
    // ---------------------------------------------------------------------
    /**
+    * Gets all daynotes with no region set
+    *
+    * @return array
+    */
+   public function getAllRegionless()
+   {
+      $records = array ();
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE `region` = NULL OR `region` = 0;');
+      $result = $query->execute();
+      
+      if ($result)
+      {
+         while ( $row = $query->fetch() )
+         {
+            $records[] = $row;
+         }
+         return $records;
+      }
+      else
+      {
+         return false;
+      }
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
     * Finds a daynote record by id and loads values in local class variables
     *
     * @param string $id ID to find
@@ -411,6 +437,21 @@ class Daynotes
       return false;
    }
     
+   // ---------------------------------------------------------------------
+   /**
+    * Sets the region for a daynote record
+    *
+    * @return boolean Query result
+    */
+   public function setRegion($daynoteId, $regionId)
+   {
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `region` = :val1 WHERE id = :val2;');
+      $query->bindParam('val1', $regionId);
+      $query->bindParam('val2', $daynoteId);
+      $result = $query->execute();
+      return $result;
+   }
+   
    // ---------------------------------------------------------------------
    /**
     * Updates a daynote record from local class variables

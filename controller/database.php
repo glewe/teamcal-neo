@@ -42,7 +42,6 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
 $inputAlert = array();
 $viewData['cleanBefore'] = '';
 
-
 //=============================================================================
 //
 // PROCESS FORM
@@ -70,8 +69,40 @@ if (!empty($_POST))
       $viewData['cleanBefore'] = $_POST['txt_cleanBefore'];
    }
     
+   if (isset($_POST['btn_repair']))
+   {
+      if (!formInputValid('txt_repairConfirm', 'required|alpha|equals_string', 'REPAIR')) $inputError = true;
+   }
+
    if (!$inputError)
    {
+      // ,---------,
+      // | Repair  |
+      // '---------'
+      if ( isset($_POST['btn_repair']) )
+      {
+         //
+         // Daynote regions
+         //
+         if ( isset($_POST['chk_daynoteRegions']) )
+         {
+            $daynotes = $D->getAllRegionless();
+            foreach ($daynotes as $daynote)
+            {
+               $D->setRegion($daynote['id'], '1');
+            }
+         }
+         
+         //
+         // Success
+         //
+         $showAlert = TRUE;
+         $alertData['type'] = 'success';
+         $alertData['title'] = $LANG['alert_success_title'];
+         $alertData['subject'] = $LANG['db_alert_repair'];
+         $alertData['text'] = $LANG['db_alert_repair_success'];
+         $alertData['help'] = '';
+      }
       // ,---------,
       // | Cleanup |
       // '---------'

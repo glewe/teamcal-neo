@@ -357,6 +357,7 @@ $LANG['calopt_usersPerPage_comment'] = 'If you maintain a large amount of users 
 //
 // Database
 //
+$LANG['db_tab_repair'] = 'Repair';
 $LANG['db_tab_tcpimp'] = 'TeamCal Pro Import';
 $LANG['db_clean_what'] = 'What to clean up';
 $LANG['db_clean_what_comment'] = 'Select here what you want to clean up. All records selected here that are equal or older then the "Before Date" will be deleted. 
@@ -369,6 +370,10 @@ $LANG['db_clean_before'] = 'Before Date';
 $LANG['db_clean_before_comment'] = 'Records from the above checked tables will be deleted when they are equal or older than the date selected here.';
 $LANG['db_clean_confirm'] = 'Confirmation';
 $LANG['db_clean_confirm_comment'] = 'Please type in "CLEANUP" to confirm this action.';
+$LANG['db_repair_confirm'] = 'Confirmation';
+$LANG['db_repair_confirm_comment'] = 'Please type in "REPAIR" to confirm this action.';
+$LANG['db_repair_daynoteRegions'] = 'Daynote Regions';
+$LANG['db_repair_daynoteRegions_comment'] = 'This option checks whether there are daynotes without a region set. If so, the region will be set to Default.';
 $LANG['db_tcpimp'] = 'TeamCal Pro Import';
 $LANG['db_tcpimp_comment'] = 'If you have used TeamCal Pro before and want to import data from it, you can do so by clicking the Import button below.';
 $LANG['db_tcpimp2'] = 'However...';
@@ -380,6 +385,7 @@ $LANG['dn_title'] = 'Daynote';
 $LANG['dn_title_for'] = 'for';
 $LANG['dn_alert_create'] = 'Create Daynote';
 $LANG['dn_alert_create_success'] = 'The daynote was created successfully.';
+$LANG['dn_alert_failed'] = 'The daynote could not be saved. There was invalid input. Please check your last input.';
 $LANG['dn_alert_update'] = 'Update Daynote';
 $LANG['dn_alert_update_success'] = 'The daynote was updated successfully.';
 $LANG['dn_color'] = 'Daynote Color';
