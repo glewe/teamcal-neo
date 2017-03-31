@@ -1,15 +1,15 @@
 <?php
 /**
  * useradd.php
-*
-* Add user page controller
-*
-* @category TeamCal Neo
-* @version 1.3.003
-* @author George Lewe <george@lewe.com>
-* @copyright Copyright (c) 2014-2017 by George Lewe
-* @link http://www.lewe.com
-* @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ *
+ * Add user page controller
+ *
+ * @category TeamCal Neo
+ * @version 1.5.000
+ * @author George Lewe <george@lewe.com>
+ * @copyright Copyright (c) 2014-2017 by George Lewe
+ * @link http://www.lewe.com
+ * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
 */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 

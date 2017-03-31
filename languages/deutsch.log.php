@@ -5,7 +5,7 @@
  * Log language file (German)
  *
  * @category TeamCal Neo 
- * @version 1.4.001
+ * @version 1.5.000
  * @author George Lewe
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
