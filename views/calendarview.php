@@ -267,7 +267,7 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
             <?=createModalTop('modalSelectGroup', $LANG['cal_selGroup'])?>
                <select id="group" class="form-control" name="sel_group" tabindex="<?=$tabindex++?>">
                   <option value="all"<?=(($viewData['groupid'] == 'all')?' selected="selected"':'')?>><?=$LANG['all']?></option>
-                  <?php foreach($viewData['groups'] as $grp) { ?>
+                  <?php foreach($viewData['allGroups'] as $grp) { ?>
                      <option value="<?=$grp['id']?>"<?=(($viewData['groupid'] == $grp['id'])?' selected="selected"':'')?>><?=$grp['name']?></option>
                   <?php } ?>
                </select>

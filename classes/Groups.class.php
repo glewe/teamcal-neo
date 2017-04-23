@@ -141,6 +141,31 @@ class Groups
    
    // ---------------------------------------------------------------------
    /**
+    * Gets a group record for a given ID
+    *
+    * @param string $id Group ID to find
+    * @return boolean True or false
+    */
+   public function getRowById($id)
+   {
+      $records = array ();
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
+      $query->bindParam('val1', $id);
+      $result = $query->execute();
+      
+      if ($result and $row = $query->fetch())
+      {
+         $records[] = $row;
+         return $records;
+      }
+      else
+      {
+         return false;
+      }
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
     * Gets a group name for a given ID
     *
     * @param string $id ID to find

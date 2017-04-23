@@ -545,8 +545,17 @@ if (!empty($_POST))
 // PREPARE VIEW
 //
 $viewData['absences'] = $A->getAll();
-$viewData['groups'] = $G->getAll();
+$viewData['allGroups'] = $G->getAll();
 $viewData['holidays'] = $H->getAllCustom();
+
+if ($groupfilter == 'all')
+{
+   $viewData['groups'] = $G->getAll();
+}
+else 
+{
+   $viewData['groups'] = $G->getRowById($groupfilter);
+}
 
 $viewData['dayStyles'] = array();
 
