@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 1.5.000
+ * @version 1.5.001
  * @author George Lewe
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
