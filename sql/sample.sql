@@ -484,7 +484,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (162, 'logcolorRegion', 'success'),
 (163, 'defaultHomepage', 'home'),
 (164, 'trustedRoles', '1'),
-(164, 'noCaching', '0');
+(165, 'noCaching', '0');
 
 
 -- --------------------------------------------------------
