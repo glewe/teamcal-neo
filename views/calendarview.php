@@ -74,7 +74,7 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectGroup"><?=$LANG['group'] . ': ' . $viewData['group']?></button>
                <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectAbsence"><?=$LANG['absence'] . ': ' . $viewData['absence']?></button>
                <button type="button" class="btn btn-info" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSearchUser"><?=$LANG['search'] . ': ' . $viewData['search']?></button>
-               <a class="btn btn-success" href="index.php?action=<?=$controller?>&amp;month=<?=date('Y').date('m')?>&amp;region=1&amp;group=all&amp;abs=all&amp;search=reset"><?=$LANG['btn_reset']?></a>
+               <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" name="btn_reset"><?=$LANG['btn_reset']?></button>
                <?php if ($viewData['supportMobile']) { ?> 
                   <button type="button" class="btn btn-default" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectWidth"><?=$LANG['screen'] . ': ' . $viewData['width']?></button>
                <?php } ?>
@@ -311,7 +311,6 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                      <div class="modal-footer">
                         <button type="submit" class="btn btn-info" tabindex="<?=$tabindex++?>" name="btn_search" style="margin-top: 4px;"><?=$LANG['btn_search']?></button>
                         <?php if (strlen($viewData["search"])) { ?><button type="submit" class="btn btn-danger" tabindex="<?=$tabindex++?>" name="btn_search_clear"><?=$LANG['btn_clear']?></button><?php } ?>
-                        <button type="button" class="btn btn-default" tabindex="<?=$tabindex++?>" data-dismiss="modal"><?=$LANG['btn_search']?></button>
                      </div>
                   </div>
                </div>
