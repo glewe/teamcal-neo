@@ -201,11 +201,11 @@ $LANG['alert_input_max_length'] = 'Die Eingabe dieses Feldes darf maximal %s Zei
 $LANG['alert_input_min_length'] = 'Die Eingabe dieses Feldes muss minimal %s Zeichen lang sein.';
 $LANG['alert_input_numeric'] = 'Die Eingabe dieses Feldes muss numerisch sein.';
 $LANG['alert_input_phone_number'] = 'Die Eingabe dieses Feldes muss eine g&uuml;ltige Telefonnummer sein, z.B. (555) 123 4567 oder +49 172 123 4567.';
-$LANG['alert_input_pwdlow'] = 'Das Passwort muss mindestens 4 Zeichen lang sein. Erlaubt sind Klein- und Gro&szlig;buchstaben, Zahlen und die folgenden Sonderzeichen: !@#$%^&amp;*()';
+$LANG['alert_input_pwdlow'] = 'Das Passwort muss mindestens 4 Zeichen lang sein. Erlaubt sind Klein- und Gro&szlig;buchstaben, Zahlen und die folgenden Sonderzeichen: !@#$%^&amp;*().';
 $LANG['alert_input_pwdmedium'] = 'Das Passwort muss mindestens 6 Zeichen lang sein, mindestens einen Kleinbuchstaben, einen Gro&szlig;buchstaben und eine Zahl enthalten. 
-      Erlaubt sind Klein- und Gro&szlig;buchstaben, Zahlen und die folgenden Sonderzeichen: !@#$%^&amp;*()';
+      Erlaubt sind Klein- und Gro&szlig;buchstaben, Zahlen und die folgenden Sonderzeichen: !@#$%^&amp;*().';
 $LANG['alert_input_pwdhigh'] = 'Das Passwort muss mindestens 8 Zeichen lang sein, mindestens einen Kleinbuchstaben, einen Gro&szlig;buchstaben, eine Zahl und ein Sonderzeichen enthalten. 
-      Erlaubt sind Klein- und Gro&szlig;buchstaben, Zahlen und die folgenden Sonderzeichen: !@#$%^&amp;*()';
+      Erlaubt sind Klein- und Gro&szlig;buchstaben, Zahlen und die folgenden Sonderzeichen: !@#$%^&amp;*().';
 $LANG['alert_input_regex_match'] = 'Die Eingabe dieses Feldes entsprach nicht dem regul&auml;ren Ausdruck "%s".';
 $LANG['alert_input_required'] = 'Dieses Feld ist eine Pflichteingabe.';
 $LANG['alert_input_validation_subject'] = 'Eingabevalidierung';
@@ -459,7 +459,7 @@ $LANG['config_noIndex_comment'] = 'Mit diesem Schalter werden Suchmaschinen ange
 $LANG['config_permissionScheme'] = 'Berechtigungsschema';
 $LANG['config_permissionScheme_comment'] = 'Hiermit wird das aktive Berechtigungsschema ausgew&auml;hlt. Das Schema kann auf der Berechtigungsschema Seite bearbeitet werden.';
 $LANG['config_pwdStrength'] = 'Passwort Sicherheit';
-$LANG['config_pwdStrength_comment'] = 'Die Passwort Sicherheit bestimmt, welchen Anforderungen das User Passwort gen&uuml;gen muss. Erlaubt sind immer Gro&szlig;- und Kleinbuchstaben, Zahlen und die Sonderzeichen: !@#$%^&amp;*()<br><br> 
+$LANG['config_pwdStrength_comment'] = 'Die Passwort Sicherheit bestimmt, welchen Anforderungen das User Passwort gen&uuml;gen muss. Erlaubt sind immer Gro&szlig;- und Kleinbuchstaben, Zahlen und die Sonderzeichen: !@#$%^&amp;*().<br><br> 
       - <strong>Niedrig:</strong> Mindestens 4 Zeichen<br>
       - <strong>Mittel:</strong> Mindestens 6 Zeichen, mindestens ein Gro&szlig;buchstabe, ein Kleinbuchstabe und eine Zahl<br>
       - <strong>Hoch:</strong> Mindestens 8 Zeichen, mindestens ein Gro&szlig;buchstabe, ein Kleinbuchstabe, eine Zahl und ein Sonderzeichen<br>';
@@ -1018,7 +1018,7 @@ $LANG['profile_onhold_comment'] = 'Dieser Zustand tritt ein, wenn der Benutzer z
       in der das Konto gesperrt ist. Die L&auml;nge der Schonfrist kann in der Konfiguration eingestellt werden. Hier kann die Schonfrist manuell wieder aufgehoben werden.';
 $LANG['profile_password'] = 'Passwort';
 $LANG['profile_password_comment'] = 'Hier kann ein neues Passwort eingegeben werden. Wenn das Feld leer bleibt, wird das aktuelle Passwort nicht ver&auml;ndert.<br>
-      Erlaubt sind Gro&szlig;- und Kleinbuchstaben, Zahlen und die Sonderzeichen: !@#$%^&amp;*()';
+      Erlaubt sind Gro&szlig;- und Kleinbuchstaben, Zahlen und die Sonderzeichen: !@#$%^&amp;*().';
 $LANG['profile_password2'] = 'Passwort wiederholen';
 $LANG['profile_password2_comment'] = 'Wiederhole hier das neue Passwort.';
 $LANG['profile_phone'] = 'Telefon';
@@ -1058,7 +1058,7 @@ $LANG['register_lastname'] = 'Nachname';
 $LANG['register_lastname_comment'] = '';
 $LANG['register_password'] = 'Passwort';
 $LANG['register_password_comment'] = 'Bitte gebe ein Passwort ein.<br>
-      Erlaubt sind Gro&szlig;- und Kleinbuchstaben, Zahlen und die Sonderzeichen: !@#$%^&amp;*()';
+      Erlaubt sind Gro&szlig;- und Kleinbuchstaben, Zahlen und die Sonderzeichen: !@#$%^&amp;*().';
 $LANG['register_password2'] = 'Passwort wiederholen';
 $LANG['register_password2_comment'] = 'Wiederhole hier das Passwort.';
 $LANG['register_username'] = 'Loginname';
