@@ -195,19 +195,9 @@ if ($editAllowed)
                if ($allowed)
                {
                   $note = true;
-                  $notestart = '<div class="tooltip-'.$D->color.'" style="width: 100%; height: 100%;" data-position="tooltip-right" data-toggle="tooltip" data-title="' . $D->daynote . '">';
+                  $notestart = '<div class="tooltip-'.$D->color.'" style="width: 100%; height: 100%;" data-position="tooltip-bottom" data-toggle="tooltip" data-title="' . $D->daynote . '">';
                   $noteend = '</div>';
                }
-            }
-            
-            if ( $bdate = $UO->read($usr['username'], 'birthday') AND $bdate == $loopDate AND $UO->read($usr['username'], 'showbirthday') )
-            {
-               //
-               // This is the user's birthday and he wants to show it
-               //
-               $bday = true;
-               $bdaystart = '<div class="tooltip-warning" style="width: 100%; height: 100%;" data-position="tooltip-bottom" data-toggle="tooltip" data-title="Birthday!!!">';                 
-               $bdayend = '</div>';                 
             }
             
             //
