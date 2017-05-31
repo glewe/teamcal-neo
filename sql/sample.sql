@@ -4,7 +4,7 @@
  * Sample MySQL database
  *
  * @category TeamCal Neo 
- * @version 1.5.001
+ * @version 1.5.002
  * @author George Lewe
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -332,7 +332,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (9, 'activateMessages', '1'),
 (10, 'homepage', 'calendarview'),
 (11, 'welcomeIcon', 'None'),
-(12, 'welcomeText', '<h1><img alt="" src="upload/files/logo-128.png" style="float:left; height:128px; margin-bottom:12px; margin-right:12px; width:128px" />Welcome to TeamCal Neo</h1>\r\n\r\n<p>TeamCal Neo, successor to TeamCal Pro, has been completely re-written as a responsive web application based on HTML5 and CSS3.</p>\r\n\r\n<p>Select Login from the User menu to login and use the following accounts to test:</p>\r\n\r\n<h2>Admin account:</h2>\r\n\r\n<p>admin/root</p>\r\n\r\n<h2>User accounts:</h2>\r\n\r\n<p>ccarl/password<br />\r\nblightyear/password<br />\r\ndduck/password<br />\r\nsgonzalez/password<br />\r\nphead/password<br />\r\nmmouse/password<br />\r\nmimouse/password<br />\r\nsman/password</p>\r\n'),
+(12, 'welcomeText', '<h1><img alt="" src="upload/files/logo-128.png" style="float:left; height:128px; margin-bottom:12px; margin-right:12px; width:128px" />Welcome to TeamCal Neo</h1>\n\n<p>TeamCal Neo, successor to the popular TeamCal Pro, is a day-based online calendar that allows to easily manage your team&#39;s absences and displays them in a very intuitive interface. You can manage absence types, holidays, regional calendars and much more. Read more about it here:<br />\n<a href="http://www.lewe.com/teamcal-neo/" target="_blank">http://www.lewe.com/teamcal-neo/</a></p>\n\n<p>Select Login from the User menu to login and use the following accounts to test:</p>\n\n<h2>Admin account:</h2>\n\n<p>admin/root</p>\n\n<h2>User accounts:</h2>\n\n<p>ccarl/password<br />\nblightyear/password<br />\ndduck/password<br />\nsgonzalez/password<br />\nphead/password<br />\nmmouse/password<br />\nmimouse/password<br />\nsman/password</p>\n'),
 (13, 'welcomeTitle', 'Welcome To TeamCal Neo'),
 (14, 'userCustom1', 'Custom Field 1'),
 (15, 'userCustom2', 'Custom Field 2'),
@@ -463,7 +463,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (141, 'logcolorImport', 'warning'),
 (142, 'logfilterImport', '1'),
 (143, 'appKeywords', 'Lewe TeamCal Neo'),
-(144, 'userManual', 'https%3A%2F%2Fgeorgelewe.atlassian.net%2Fwiki%2Fspaces%2FTCNEO'),
+(144, 'userManual', 'https%3A%2F%2Fgeorgelewe.atlassian.net%2Fwiki%2Fdisplay%2FTCNEO%2FTeamCal%2BNeo%2BDocumentation%2F'),
 (145, 'footerCopyrightUrl', 'http://www.lewe.com'),
 (146, 'footerSocialLinks', 'https://plus.google.com/u/0/+GeorgeLewe;https://www.linkedin.com/in/george-lewe-a9ab6411b;https://twitter.com/gekale;https://www.xing.com/profile/George_Lewe;https://www.paypal.me/GeorgeLewe'),
 (147, 'footerViewport', '0'),
