@@ -449,7 +449,7 @@ function formInputValid($field, $ruleset, $param = '')
     */
    if (in_array('pwdlow', $rules))
    {
-      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^.*(?=.{4,})[a-zA-Z0-9!@#$%^&*()]+$/", $_POST[$field]))
+      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^.*(?=.{4,})[a-zA-Z0-9!@#$%^&*().]+$/", $_POST[$field]))
       {
          $inputAlert[$label[1]] = $LANG['alert_input_pwdlow'];
          return false;
@@ -461,7 +461,7 @@ function formInputValid($field, $ruleset, $param = '')
     */
    if (in_array('pwdmedium', $rules))
    {
-      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*()]+$/", $_POST[$field]))
+      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*().]+$/", $_POST[$field]))
       {
          $inputAlert[$label[1]] = $LANG['alert_input_pwdmedium'];
          return false;
@@ -473,7 +473,7 @@ function formInputValid($field, $ruleset, $param = '')
     */
    if (in_array('pwdhigh', $rules))
    {
-      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()])[a-zA-Z0-9!@#$%^&*()]+$/", $_POST[$field]))
+      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()])[a-zA-Z0-9!@#$%^&*().]+$/", $_POST[$field]))
       {
          $inputAlert[$label[1]] = $LANG['alert_input_pwdhigh'];
          return false;

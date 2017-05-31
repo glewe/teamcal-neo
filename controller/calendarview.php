@@ -525,6 +525,24 @@ if (!empty($_POST))
          header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $yyyymm . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
          die();
       }
+      // ,-------,
+      // | Reset |
+      // '-------'
+      elseif (isset($_POST['btn_reset']))
+      {
+         if ($L->checkLogin())
+         {
+            $UO->deleteUserOption($UL->username, 'calfilter');
+            $UO->deleteUserOption($UL->username, 'calfilterMonth');
+            $UO->deleteUserOption($UL->username, 'calfilterRegion');
+            $UO->deleteUserOption($UL->username, 'calfilterGroup');
+            $UO->deleteUserOption($UL->username, 'calfilterAbs');
+            $UO->deleteUserOption($UL->username, 'calfilterSearch');
+         }
+         
+         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller);
+         die();
+      }
    }
    else
    {

@@ -201,11 +201,11 @@ $LANG['alert_input_max_length'] = 'The input of this field can have a maximum of
 $LANG['alert_input_min_length'] = 'The input of this field must have a minimum of "%s" characters.';
 $LANG['alert_input_numeric'] = 'The input of this field must be numeric.';
 $LANG['alert_input_phone_number'] = 'The input in this field must be a valid phone number, e.g. (555) 123 4567 oder +49 172 123 4567.';
-$LANG['alert_input_pwdlow'] = 'The password must be at least 4 characters long and can contain small and capital letters, numbers and the following special characters: !@#$%^&*()';
+$LANG['alert_input_pwdlow'] = 'The password must be at least 4 characters long and can contain small and capital letters, numbers and the following special characters: !@#$%^&*().';
 $LANG['alert_input_pwdmedium'] = 'The password must be at least 6 characters long, must contain at least one small letter, at least one capital letter and at least one number. 
-      Allowed are small and capital letters, numbers and the following special characters: !@#$%^&*()';
+      Allowed are small and capital letters, numbers and the following special characters: !@#$%^&*().';
 $LANG['alert_input_pwdhigh'] = 'The password must be at least 8 characters long, must contain at least one small letter, at least one capital letter, at least one number and
-      at least one special character. Allowed are small and capital letters, numbers and the following special characters: !@#$%^&*()';
+      at least one special character. Allowed are small and capital letters, numbers and the following special characters: !@#$%^&*().';
 $LANG['alert_input_regex_match'] = 'The input of this field did not match the regular expression "%s".';
 $LANG['alert_input_required'] = 'This field is mandatory.';
 $LANG['alert_input_validation_subject'] = 'Input validation';
@@ -457,7 +457,7 @@ $LANG['config_noIndex_comment'] = 'With this switch on, search engine robots are
 $LANG['config_permissionScheme'] = 'Permission Scheme';
 $LANG['config_permissionScheme_comment'] = 'The permission defines who can do what. The permisson schemes can be configured on the permissions page.';
 $LANG['config_pwdStrength'] = 'Password Strength';
-$LANG['config_pwdStrength_comment'] = 'The password strength defines how picky you wanna be with the password check. Allowed are small and capital letters, numbers and the following special characters: !@#$%^&*()<br><br> 
+$LANG['config_pwdStrength_comment'] = 'The password strength defines how picky you wanna be with the password check. Allowed are small and capital letters, numbers and the following special characters: !@#$%^&*().<br><br> 
          - <strong>Low:</strong> At least 4 characters long<br>
          - <strong>Medium:</strong> At least 6 characters long, one small letter, one capital letter and one number<br>
          - <strong>High:</strong> At least 8 characters long, one small letter, one capital letter, one number and one special character<br>';
@@ -1013,7 +1013,7 @@ $LANG['profile_onhold_comment'] = 'This status is applied after a user has enter
       The grace period can be configured on the configuration page. You can manually release the status here as well.';
 $LANG['profile_password'] = 'Password';
 $LANG['profile_password_comment'] = 'You can enter a new password here. If the field stays empty, the current password will not be changed.<br>
-      Allowed are small and capital letters, numbers and the following special characters: !@#$%^&amp;*()';
+      Allowed are small and capital letters, numbers and the following special characters: !@#$%^&amp;*().';
 $LANG['profile_password2'] = 'Confirm password';
 $LANG['profile_password2_comment'] = 'Repeat the new password here.';
 $LANG['profile_phone'] = 'Phone';
@@ -1053,7 +1053,7 @@ $LANG['register_lastname'] = 'Lastname';
 $LANG['register_lastname_comment'] = '';
 $LANG['register_password'] = 'Password';
 $LANG['register_password_comment'] = 'Please enter a password here.<br>
-      Allowed are small and capital letters, numbers and the following special characters: !@#$%^&amp;*()';
+      Allowed are small and capital letters, numbers and the following special characters: !@#$%^&amp;*().';
 $LANG['register_password2'] = 'Confirm password';
 $LANG['register_password2_comment'] = 'Repeat the password here.';
 $LANG['register_username'] = 'Loginname';
