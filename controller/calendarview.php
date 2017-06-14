@@ -46,9 +46,9 @@ if (isset($_GET['month']))
    //
    // Passed by URL always wins
    //
-   $yyyymm = sanitize($_GET['month']);
+   $monthfilter = sanitize($_GET['month']);
 }
-elseif ($L->checkLogin() AND $yyyymm=$UO->read($UL->username, 'calfilterMonth')) 
+elseif ($L->checkLogin() AND $monthfilter=$UO->read($UL->username, 'calfilterMonth')) 
 {
    //
    // Nothing in URL but user has a last-used value in his profile. Let's try that one.
@@ -60,7 +60,7 @@ else
    //
    // Default to current year and month
    //
-   $yyyymm = date('Y').date('m');
+   $monthfilter = date('Y').date('m');
 }
 
 //
@@ -68,17 +68,17 @@ else
 //
 if (!$missingData)
 {
-   $viewData['year'] = substr($yyyymm, 0, 4);
-   $viewData['month'] = substr($yyyymm, 4, 2);
-   if ( !is_numeric($yyyymm) OR
-         strlen($yyyymm) != 6 OR
+   $viewData['year'] = substr($monthfilter, 0, 4);
+   $viewData['month'] = substr($monthfilter, 4, 2);
+   if ( !is_numeric($monthfilter) OR
+         strlen($monthfilter) != 6 OR
          !checkdate(intval($viewData['month']),1,intval($viewData['year'])) )
    {
       $missingData = TRUE;
    }
    else 
    {
-      if ($L->checkLogin()) $UO->save($UL->username, 'calfilterMonth', $yyyymm);
+      if ($L->checkLogin()) $UO->save($UL->username, 'calfilterMonth', $monthfilter);
    }
 }
 
@@ -379,22 +379,12 @@ if (!empty($_POST))
       // '--------------'
       if (isset($_POST['btn_month']))
       {
-         $calfilter = "&month=" . $_POST['txt_year'] . $_POST['sel_month'] . "&region=" . $_POST['sel_region'] . "&group=" . $groupfilter . "&abs=" . $absfilter;
-         $calfilterMonth = $_POST['txt_year'] . $_POST['sel_month'];
-         $calfilterRegion = $regionfilter;
-         $calfilterGroup = $groupfilter;
-         $calfilterAbs = $absfilter;
-         
          if ($L->checkLogin())
          {
-            $UO->save($UL->username, 'calfilter', $calfilter);
-            $UO->save($UL->username, 'calfilterMonth', $calfilterMonth);
-            $UO->save($UL->username, 'calfilterRegion', $calfilterRegion);
-            $UO->save($UL->username, 'calfilterGroup', $calfilterGroup);
-            $UO->save($UL->username, 'calfilterAbs', $calfilterAbs);
+            $UO->save($UL->username, 'calfilterMonth', $_POST['txt_year'] . $_POST['sel_month']);
          }
          
-         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $_POST['txt_year'] . $_POST['sel_month'] . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
+         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $_POST['txt_year'] . $_POST['sel_month']. "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
          die();
       }
       // ,---------------,
@@ -402,22 +392,12 @@ if (!empty($_POST))
       // '---------------'
       elseif (isset($_POST['btn_region']))
       {
-         $calfilter = "&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $_POST['sel_region'] . "&group=" . $groupfilter . "&abs=" . $absfilter;
-         $calfilterMonth = $viewData['year'] . $viewData['month'];
-         $calfilterRegion = $_POST['sel_region'];
-         $calfilterGroup = $groupfilter;
-         $calfilterAbs = $absfilter;
-
          if ($L->checkLogin())
          {
-            $UO->save($UL->username, 'calfilter', $calfilter);
-            $UO->save($UL->username, 'calfilterMonth', $calfilterMonth);
-            $UO->save($UL->username, 'calfilterRegion', $calfilterRegion);
-            $UO->save($UL->username, 'calfilterGroup', $calfilterGroup);
-            $UO->save($UL->username, 'calfilterAbs', $calfilterAbs);
+            $UO->save($UL->username, 'calfilterRegion', $_POST['sel_region']);
          }
           
-         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $_POST['sel_region'] . "&group=" . $groupfilter . "&abs=" . $absfilter);
+         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $monthfilter . "&region=" . $_POST['sel_region']. "&group=" . $groupfilter . "&abs=" . $absfilter);
          die();
       }
       // ,---------------,
@@ -425,22 +405,12 @@ if (!empty($_POST))
       // '---------------'
       elseif (isset($_POST['btn_group']))
       {
-         $calfilter = "&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $_POST['sel_region'] . "&group=" . $_POST['sel_group'] . "&abs=" . $absfilter;
-         $calfilterMonth = $viewData['year'] . $viewData['month'];
-         $calfilterRegion = $regionfilter;
-         $calfilterGroup = $_POST['sel_group'];
-         $calfilterAbs = $absfilter;
-
          if ($L->checkLogin())
          {
-            $UO->save($UL->username, 'calfilter', $calfilter);
-            $UO->save($UL->username, 'calfilterMonth', $calfilterMonth);
-            $UO->save($UL->username, 'calfilterRegion', $calfilterRegion);
-            $UO->save($UL->username, 'calfilterGroup', $calfilterGroup);
-            $UO->save($UL->username, 'calfilterAbs', $calfilterAbs);
+            $UO->save($UL->username, 'calfilterGroup', $_POST['sel_group']);
          }
           
-         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $regionfilter . "&group=" . $_POST['sel_group'] . "&abs=" . $absfilter);
+         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $monthfilter . "&region=" . $regionfilter . "&group=" . $_POST['sel_group'] . "&abs=" . $absfilter);
          die();
       }
       // ,----------------,
@@ -448,22 +418,12 @@ if (!empty($_POST))
       // '----------------'
       elseif (isset($_POST['btn_abssearch']))
       {
-         $calfilter = "&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $_POST['sel_absence'];
-         $calfilterMonth = $viewData['year'] . $viewData['month'];
-         $calfilterRegion = $regionfilter;
-         $calfilterGroup = $groupfilter;
-         $calfilterAbs = $_POST['sel_absence'];
-
          if ($L->checkLogin())
          {
-            $UO->save($UL->username, 'calfilter', $calfilter);
-            $UO->save($UL->username, 'calfilterMonth', $calfilterMonth);
-            $UO->save($UL->username, 'calfilterRegion', $calfilterRegion);
-            $UO->save($UL->username, 'calfilterGroup', $calfilterGroup);
-            $UO->save($UL->username, 'calfilterAbs', $calfilterAbs);
+            $UO->save($UL->username, 'calfilterAbs', $_POST['sel_absence']);
          }
           
-         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $_POST['sel_absence']);
+         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $monthfilter . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $_POST['sel_absence']);
          die();
       }
       // ,---------------------,
@@ -480,21 +440,9 @@ if (!empty($_POST))
       // '---------------'
       elseif (isset($_POST['btn_search']))
       {
-         $calfilter = "&month=" . $yyyymm . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter;
-         $calfilterMonth = $yyyymm;
-         $calfilterRegion = $regionfilter;
-         $calfilterGroup = $groupfilter;
-         $calfilterAbs = $absfilter;
-         $calfilterSearch =  $_POST['txt_search'];
-
          if ($L->checkLogin())
          {
-            $UO->save($UL->username, 'calfilter', $calfilter);
-            $UO->save($UL->username, 'calfilterMonth', $calfilterMonth);
-            $UO->save($UL->username, 'calfilterRegion', $calfilterRegion);
-            $UO->save($UL->username, 'calfilterGroup', $calfilterGroup);
-            $UO->save($UL->username, 'calfilterAbs', $calfilterAbs);
-            $UO->save($UL->username, 'calfilterSearch', $calfilterSearch);
+            $UO->save($UL->username, 'calfilterSearch', $_POST['txt_search']);
          }
           
          $viewData['search'] = $_POST['txt_search'];
@@ -506,23 +454,12 @@ if (!empty($_POST))
       // '-------------------'
       elseif (isset($_POST['btn_search_clear']))
       {
-         $calfilter = "&month=" . $yyyymm . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter;
-         $calfilterMonth = $yyyymm;
-         $calfilterRegion = $regionfilter;
-         $calfilterGroup = $groupfilter;
-         $calfilterAbs = $absfilter;
-
          if ($L->checkLogin())
          {
-            $UO->save($UL->username, 'calfilter', $calfilter);
-            $UO->save($UL->username, 'calfilterMonth', $calfilterMonth);
-            $UO->save($UL->username, 'calfilterRegion', $calfilterRegion);
-            $UO->save($UL->username, 'calfilterGroup', $calfilterGroup);
-            $UO->save($UL->username, 'calfilterAbs', $calfilterAbs);
             $UO->deleteUserOption($UL->username, 'calfilterSearch');
          }
          
-         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $yyyymm . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
+         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . $monthfilter . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
          die();
       }
       // ,-------,
