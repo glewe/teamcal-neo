@@ -4,7 +4,7 @@
  * Sample MySQL database
  *
  * @category TeamCal Neo 
- * @version 1.5.002
+ * @version 1.5.003
  * @author George Lewe
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -44,6 +44,7 @@ CREATE TABLE `tcneo_absences` (
   `manager_only` tinyint(1) NOT NULL,
   `hide_in_profile` tinyint(1) NOT NULL,
   `confidential` tinyint(1) NOT NULL,
+  `takeover` tinyint(1) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -51,16 +52,16 @@ CREATE TABLE `tcneo_absences` (
 -- Dumping data for table `absences`
 --
 
-INSERT INTO `tcneo_absences` (`id`, `name`, `symbol`, `icon`, `color`, `bgcolor`, `bgtrans`, `factor`, `allowance`, `allowmonth`, `allowweek`, `counts_as`, `show_in_remainder`, `show_totals`, `approval_required`, `counts_as_present`, `manager_only`, `hide_in_profile`, `confidential`) VALUES
-(1, 'Vacation', 'V', 'smile-o', 'FFEE00', 'FC3737', 0, 1, 20, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0),
-(2, 'Sick', 'S', 'ambulance', '8C208C', 'FFCCFF', 0, 1, 24, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1),
-(3, 'Day Off', 'F', 'coffee', '1A5C00', '00FF00', 0, 1, 12, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0),
-(4, 'Duty Trip', 'D', 'phone', '007A14', 'FFDB9E', 0, 1, 20, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0),
-(5, 'Home Office', 'H', 'home', '1E00FF', 'D6F5FF', 0, 1, 0, 4, 1, 0, 0, 0, 1, 1, 0, 0, 0),
-(6, 'Not Present', 'N', 'times', 'FF0000', 'C0C0C0', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1),
-(7, 'Training', 'T', 'book', 'FFFFFF', '6495ED', 0, 1, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(8, 'Tentative Absence', 'A', 'question-circle', '5E5E5E', 'EFEFEF', 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0),
-(9, 'Half day', 'H', 'star-half-empty', 'A10000', 'FFAAAA', 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0);
+INSERT INTO `tcneo_absences` (`id`, `name`, `symbol`, `icon`, `color`, `bgcolor`, `bgtrans`, `factor`, `allowance`, `allowmonth`, `allowweek`, `counts_as`, `show_in_remainder`, `show_totals`, `approval_required`, `counts_as_present`, `manager_only`, `hide_in_profile`, `confidential`, `takeover`) VALUES
+(1, 'Vacation', 'V', 'smile-o', 'FFEE00', 'FC3737', 0, 1, 20, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0),
+(2, 'Sick', 'S', 'ambulance', '8C208C', 'FFCCFF', 0, 1, 24, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
+(3, 'Day Off', 'F', 'coffee', '1A5C00', '00FF00', 0, 1, 12, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0),
+(4, 'Duty Trip', 'D', 'phone', '007A14', 'FFDB9E', 0, 1, 20, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0),
+(5, 'Home Office', 'H', 'home', '1E00FF', 'D6F5FF', 0, 1, 0, 4, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0),
+(6, 'Not Present', 'N', 'times', 'FF0000', 'C0C0C0', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0),
+(7, 'Training', 'T', 'book', 'FFFFFF', '6495ED', 0, 1, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(8, 'Tentative Absence', 'A', 'question-circle', '5E5E5E', 'EFEFEF', 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0),
+(9, 'Half day', 'H', 'star-half-empty', 'A10000', 'FFAAAA', 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 

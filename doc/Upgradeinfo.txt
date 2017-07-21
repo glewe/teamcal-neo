@@ -3,13 +3,13 @@ TEAMCAL NEO UPGRADE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
-[1.5.002] -> [1.5.xxx]
+[1.5.002] -> [1.5.003]
 
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
  
-3. Edit config/config.app.php and change line 38 to:
+3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
@@ -20,6 +20,7 @@ TEAMCAL NEO UPGRADE INFO
 
 DELETE FROM `tcneo_user_option` WHERE `tcneo_user_option`.`option` = "calfilter";
 ALTER TABLE `tcneo_absences` ADD `takeover` TINYINT(1) NOT NULL AFTER `confidential`;
+
 
 ------------------------------------------------------------------------------
 [1.5.001] -> [1.5.002]
