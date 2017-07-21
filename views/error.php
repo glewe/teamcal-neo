@@ -34,16 +34,14 @@ Copyright:   (c) 2014-2016
       <!-- ==================================================================== 
       view.error 
       -->
-      <div class="container content">
-         <div class="col-lg-12">
-            <p></p>
-            <div class="alert alert-danger">
-               <h4><strong><?=$errorData['title']?>!</strong></h4>
-               <hr>
-               <p><strong><?=$errorData['subject']?></strong></p>
-               <p><?=$errorData['text']?></p>
-               <p></p>
-            </div>         
+      <div class="container content" style="padding-left: 4px; padding-right: 4px;">
+         <p></p>
+         <div class="alert alert-dismissable alert-danger">
+            <button type="button" class="close" data-dismiss="alert" title="'.$LANG['close_this_message'].'"><span class="glyphicon glyphicon-remove-circle"></span></button>
+            <h4><strong><?=$errorData['title']?>!</strong></h4>
+            <hr>
+            <p><strong><?=$errorData['subject']?></strong></p>
+            <p><?=$errorData['text']?></p>
          </div>
       </div>
    </body>

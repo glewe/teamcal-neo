@@ -475,16 +475,13 @@ function sendEmail($to, $subject, $body, $from = '')
       if ($error = @PEAR::isError($mail))
       {
          /*
-          * Display SMTP error in a Javascript popup
+          * Display SMTP error
           */
-         $err = $mail->getMessage();
-         $err .= "<table style=\"border-collapse: collapse;\">
-                  <tr><td style=\"border: 1px solid #BBBBBB;\">From:</td><td style=\"border: 1px solid #BBBBBB;\">" . $headers['From'] . "</td></tr>
-                  <tr><td style=\"border: 1px solid #BBBBBB;\">To:</td><td style=\"border: 1px solid #BBBBBB;\">" . $headers['To'] . "</td></tr>
-                  <tr><td style=\"border: 1px solid #BBBBBB;\">Subject:</td><td style=\"border: 1px solid #BBBBBB;\">" . $headers['Subject'] . "</td></tr>
-                  <tr><td style=\"border: 1px solid #BBBBBB;\">Body:</td><td style=\"border: 1px solid #BBBBBB;\"><pre>" . $body . "</pre></td></tr>
-               </table>";
-         showError("smtp", $err);
+         $errorData['title'] = "E-mail Notification Problem";
+         $errorData['subject'] = "SMTP Error";
+         $errorData['text'] = $mail->getMessage();
+         require (WEBSITE_ROOT . '/views/error.php');
+         die();
          return FALSE;
       }
       else
