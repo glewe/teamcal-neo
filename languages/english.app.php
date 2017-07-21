@@ -145,6 +145,8 @@ $LANG['abs_symbol_comment'] = 'The absence type character ID is used in notifica
       A character ID is mandatory for each absence type, however, you can use the same character for mutliple absence types. The default is  
       is the first letter of the absence type name when it is created.';
 $LANG['abs_tab_groups'] = 'Group Assignments';
+$LANG['abs_takeover'] = 'Enable for Take-over';
+$LANG['abs_takeover_comment'] = 'Enables this absence type for taken over. Note, that the take-over feature must be enabled in TeamCal Neo for this to have an effect.';
 
 //
 // Absences Summary
@@ -170,6 +172,7 @@ $LANG['alert_decl_approval_required_daynote'] = "This absence was requested but 
 $LANG['alert_decl_before_date'] = "Absence changes before the following date are not allowed: ";
 $LANG['alert_decl_group_threshold'] = "Group absence threshold reached for your group(s): ";
 $LANG['alert_decl_period'] = "Absence changes in the following period are not allowed: ";
+$LANG['alert_decl_takeover'] = "Absence type '%s' not enabled for take-over.";
 $LANG['alert_decl_total_threshold'] = "Total absence threshold reached.";
 
 //
@@ -342,6 +345,9 @@ $LANG['calopt_supportMobile_comment'] = 'With this switch on, TeamCal Neo will p
       Switch this off if the calendar is only viewed on full size computer screens (greater then 1024 pixels in width). The calendar will still be displayed then but horizontal scrolling will be necessary.';
 $LANG['calopt_symbolAsIcon'] = 'Absence Type Character ID as Icon';
 $LANG['calopt_symbolAsIcon_comment'] = 'With this option the character ID will be used in the calendar display instead of it\'s icon.';
+$LANG['calopt_takeover'] = 'Enable Absence Take-over';
+$LANG['calopt_takeover_comment'] = 'With this option enabled, the logged in user can take over absences from other users if he/she can edit the corresponding calendar. Take-over absences are NOT validated
+      against any rules. They are removed from the other user and set for the logged in user. Note, that you have to enable each absence type for take-over as well.';
 $LANG['calopt_todayBorderColor'] = 'Today Border Color';
 $LANG['calopt_todayBorderColor_comment'] = 'Specifies the color in hexadecimal of the left and right border of the today column.';
 $LANG['calopt_todayBorderSize'] = 'Today Border Size';

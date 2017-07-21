@@ -35,6 +35,7 @@ class Absences
    public $manager_only = 0;
    public $hide_in_profile = 0;
    public $confidential = 0;
+   public $takeover = 0;
    
    private $db = NULL;
    private $table = '';
@@ -60,8 +61,8 @@ class Absences
    {
       $query = $this->db->prepare(
             'INSERT INTO ' . $this->table . 
-            ' (name, symbol, icon, color, bgcolor, bgtrans, factor, allowance, allowmonth, allowweek, counts_as, show_in_remainder, show_totals, approval_required, counts_as_present, manager_only, hide_in_profile, confidential)'.
-            ' VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12, :val13, :val14, :val15, :val16, :val17, :val18)');
+            ' (name, symbol, icon, color, bgcolor, bgtrans, factor, allowance, allowmonth, allowweek, counts_as, show_in_remainder, show_totals, approval_required, counts_as_present, manager_only, hide_in_profile, confidential, takeover)'.
+            ' VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12, :val13, :val14, :val15, :val16, :val17, :val18, val19)');
       $query->bindParam('val1', $this->name);
       $query->bindParam('val2', $this->symbol);
       $query->bindParam('val3', $this->icon);
@@ -80,6 +81,7 @@ class Absences
       $query->bindParam('val16', $this->manager_only);
       $query->bindParam('val17', $this->hide_in_profile);
       $query->bindParam('val18', $this->confidential);
+      $query->bindParam('val19', $this->takeover);
       $result = $query->execute();
       return $result;
    }
@@ -153,6 +155,7 @@ class Absences
             $this->manager_only = $row['manager_only'];
             $this->hide_in_profile = $row['hide_in_profile'];
             $this->confidential = $row['confidential'];
+            $this->takeover = $row['takeover'];
          }
       }
       return $result;
@@ -626,6 +629,30 @@ class Absences
    
    // ----------------------------------------------------------------------
    /**
+    * Checks whether an absence is takeover enabled
+    *
+    * @param string $id Record ID
+    * @return boolean
+    */
+   public function isTakeover($id = '')
+   {
+      if (isset($id))
+      {
+         $query = $this->db->prepare('SELECT takeover FROM ' . $this->table . ' WHERE id = :val1');
+         $query->bindParam('val1', $id);
+         $result = $query->execute();
+         
+         if ($result and $row = $query->fetch())
+         {
+            if($row['takeover']) return true;
+            else return false;
+         }
+      }
+      return false;
+   }
+   
+   // ----------------------------------------------------------------------
+   /**
     * Updates an absence type by it's symbol from the current array data
     *
     * @param string $id Record ID
@@ -655,9 +682,10 @@ class Absences
                   counts_as_present = :val15, 
                   manager_only = :val16, 
                   hide_in_profile = :val17, 
-                  confidential = :val18 
+                  confidential = :val18, 
+                  takeover = :val19 
                WHERE 
-                  id = :val19');
+                  id = :val20');
          
          $query->bindParam('val1', $this->name);
          $query->bindParam('val2', $this->symbol);
@@ -677,7 +705,8 @@ class Absences
          $query->bindParam('val16', $this->manager_only);
          $query->bindParam('val17', $this->hide_in_profile);
          $query->bindParam('val18', $this->confidential);
-         $query->bindParam('val19', $id);
+         $query->bindParam('val19', $this->takeover);
+         $query->bindParam('val20', $id);
          $result = $query->execute();
       }
       return $result;

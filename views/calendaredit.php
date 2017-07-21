@@ -252,6 +252,16 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <?php } ?>
                            </tr>
                            
+                           <?php if ($C->read('takeover') AND $UL->username != $viewData['username']) {?>
+                           <!-- Take over row -->
+                           <tr>
+                              <td class="m-label">Take over</td>
+                              <?php for ($i=$daystart; $i<=$dayend; $i++) { ?> 
+                                 <td class="m-label text-center"><input name="opt_abs_<?=$i?>" type="radio" value="takeover"></td>
+                              <?php } ?>
+                           </tr>
+                           <?php } ?>
+                           
                         </tbody>
                      </table>
                   </div>
