@@ -172,6 +172,7 @@ $LANG['alert_decl_approval_required_daynote'] = "This absence was requested but 
 $LANG['alert_decl_before_date'] = "Absence changes before the following date are not allowed: ";
 $LANG['alert_decl_group_threshold'] = "Group absence threshold reached for your group(s): ";
 $LANG['alert_decl_period'] = "Absence changes in the following period are not allowed: ";
+$LANG['alert_decl_takeover'] = "Absence type '%s' not enabled for take-over.";
 $LANG['alert_decl_total_threshold'] = "Total absence threshold reached.";
 
 //

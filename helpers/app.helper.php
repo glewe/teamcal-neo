@@ -119,6 +119,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
    $declinedAbsences = array ();
    $declinedReasons = array ();
    $thresholdReached = false;
+   $takeoverRequested = false;
     
    /**
     * Get date information about the month of the request
@@ -163,6 +164,12 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
           */
          $iDate = intval($year . $month . sprintf("%02d", $i));
          if ($iDate >= $todayDate) $approvalResult['allChangesInPast'] = false;
+         
+         //
+         // Check whether a takeover was requested. Needed for the next IF
+         // because even Admins need to know.
+         //
+         if ($requestedAbsences[$i] == 'takeover') $takeoverRequested = true;
       }
    }
    
@@ -170,8 +177,9 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
     * Before we go any further,
     * - if the requesting user is admin OR
     * - the affected user is in a role out of scope of declination
+    * - no takeover was requested
     */
-   if ($UL->username == 'admin' OR !$U->hasRole($username, $C->read("declScope")) OR isAllowed("calendareditall"))
+   if (($UL->username == 'admin' OR !$U->hasRole($username, $C->read("declScope")) OR isAllowed("calendareditall")) AND !$takeoverRequested)
    {
       $approvalResult['approvalResult'] = 'all';
       return $approvalResult;
@@ -199,20 +207,29 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             /**
              * TAKEOVER
              * The logged in user wants to take over this absence. This feature does not require
-             * validation.
+             * validation but the absence type must be enabled for it.
              */
             if ($requestedAbsences[$i] == 'takeover')
             {
-               //
-               // Remove from calendar user
-               //
-               $requestedAbsences[$i] = '0';
-               $approvedAbsences[$i] = '0';
-               $T->setAbsence($username, $year, $month, $i, '0');
-               //
-               // Add to logged in user
-               //
-               $T->setAbsence($UL->username, $year, $month, $i, $currentAbsences[$i]);
+               if ($A->isTakeover($currentAbsences[$i]))
+               {   
+                  //
+                  // Remove from calendar user
+                  //
+                  $requestedAbsences[$i] = '0';
+                  $approvedAbsences[$i] = '0';
+                  $T->setAbsence($username, $year, $month, $i, '0');
+                  //
+                  // Add to logged in user
+                  //
+                  $T->setAbsence($UL->username, $year, $month, $i, $currentAbsences[$i]);
+               }
+               else 
+               {
+                  $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . sprintf($LANG['alert_decl_takeover'],$A->getName($currentAbsences[$i]));
+                  $declinedAbsences[$i] = $currentAbsences[$i];
+                  $approvedAbsences[$i] = $currentAbsences[$i];
+               }
             }
             else 
             {
@@ -620,7 +637,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
    $approvalResult['approvedAbsences'] = $approvedAbsences;
    $approvalResult['declinedAbsences'] = $declinedAbsences;
    $approvalResult['declinedReasons'] = $declinedReasons;
-    
+
    return $approvalResult;
 }
 

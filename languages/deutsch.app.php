@@ -172,6 +172,7 @@ $LANG['alert_decl_approval_required_daynote'] = "Diese Abwesenheit wurde angefra
 $LANG['alert_decl_before_date'] = "Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";
 $LANG['alert_decl_group_threshold'] = "Die Abwesenheitsgrenze wurde erreicht f�r die Gruppe(n): ";
 $LANG['alert_decl_period'] = "Abwesenheits&auml;nderungen in folgendem Zeitraum sind nicht erlaubt: ";
+$LANG['alert_decl_takeover'] = "Abwesenheitstyp '%s' nicht f&uuml;r &Uuml;bernahme zugelassen.";
 $LANG['alert_decl_total_threshold'] = "Die generelle Abwesenheitsgrenze wurde erreicht.";
 
 //

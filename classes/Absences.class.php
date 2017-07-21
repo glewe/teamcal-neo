@@ -682,7 +682,7 @@ class Absences
                   counts_as_present = :val15, 
                   manager_only = :val16, 
                   hide_in_profile = :val17, 
-                  confidential = :val18 
+                  confidential = :val18, 
                   takeover = :val19 
                WHERE 
                   id = :val20');
