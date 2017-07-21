@@ -251,6 +251,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  <td class="m-label text-center"><input name="opt_abs_<?=$i?>" type="radio" value="0"></td>
                               <?php } ?>
                            </tr>
+                           
                         </tbody>
                      </table>
                   </div>
