@@ -95,6 +95,7 @@ if (isset($_POST['btn_caloptApply']))
       $trustedRoles = implode(',', $arrTrustedRoles);
       $C->save("trustedRoles", $trustedRoles);
    }
+   if (isset($_POST['chk_takeover']) && $_POST['chk_takeover']) $C->save("takeover", "1"); else $C->save("takeover", "0");
    
    /**
     * Statistics
@@ -162,6 +163,7 @@ $caloptData['options'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'showRegionButton', 'type' => 'check', 'values' => '', 'value' => $C->read("showRegionButton") ),
    array ( 'prefix' => 'calopt', 'name' => 'defgroupfilter', 'type' => 'radio', 'values' => array ('all', 'allbygroup'), 'value' => $C->read("defgroupfilter") ),
    array ( 'prefix' => 'calopt', 'name' => 'currentYearOnly', 'type' => 'check', 'values' => '', 'value' => $C->read("currentYearOnly") ),
+   array ( 'prefix' => 'calopt', 'name' => 'takeover', 'type' => 'check', 'values' => '', 'value' => $C->read("takeover") ),
 );
 
 $statsPages = array('Absences', 'Presences', 'Absencetype', 'Remainder');

@@ -145,6 +145,8 @@ $LANG['abs_symbol_comment'] = 'Die Zeichen ID wird in E-Mails benutzt, da die Fo
       Die Zeichen ID ist ein alphanumerisches Zeichen lang und muss angegeben werden. Allerdings kann das gleiche Zeichen f&uuml;r mehrere 
       Abwesenheitstypen benutzt werden. Als Standard wird der Anfangsbuchstabe des Namens eingesetzt, wenn der Abwesenheitstyp angelegt wird.';
 $LANG['abs_tab_groups'] = 'Gruppenzuordnung';
+$LANG['abs_takeover'] = '&Uuml;bernahme aktivieren';
+$LANG['abs_takeover_comment'] = 'Erm&ouml;glicht, dass dieser Abwesenheitstyp &uuml;bernommen werden kann. Dazu muss die Abwesenheits&uuml;bernahme in TeamCal Neo generell eingeschaltet sein.';
 
 //
 // Absences Summary
@@ -342,6 +344,9 @@ $LANG['calopt_supportMobile_comment'] = 'Mit dieser Einstellung werden die Kalen
       angezeigt, aber horizontales Scrollen ist dann notwendig.';
 $LANG['calopt_symbolAsIcon'] = 'Abwesenheitszeichen ID als Icon';
 $LANG['calopt_symbolAsIcon_comment'] = 'Mit dieser Option wird die Abwesenheitszeichen ID in der Kalenderanzeige benutzt anstatt des Icons.';
+$LANG['calopt_takeover'] = 'Abwesenheits&uuml;bernahme aktivieren';
+$LANG['calopt_takeover_comment'] = 'Mit dieser Option kann der eingeloggte Nutzer Abwesenheiten von anderen Nutzern &uuml;bernehmen, wenn er den entsprechenden Kalender edtitieren kann. Abwesenheits&uuml;bernahmen unterliegen KEINER
+      Regelpr&uuml;fung. Sie werden vom anderen Nutzer entfernt und beim eingeloggten Nutzer eingetragen.';
 $LANG['calopt_todayBorderColor'] = 'Heute Randfarbe';
 $LANG['calopt_todayBorderColor_comment'] = 'Gibt die Farbe in Hexadezimal an, in der der rechte und linke Rand der Heute Spalte erscheint.';
 $LANG['calopt_todayBorderSize'] = 'Heute Randst&auml;rke';
