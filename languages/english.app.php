@@ -594,10 +594,12 @@ $LANG['hol_color_comment'] = 'This is the text color used for this holiday, inde
 $LANG['hol_confirm_delete'] = 'Are you sure you want to delete this holiday: "%s" ?';
 $LANG['hol_description'] = 'Description';
 $LANG['hol_description_comment'] = 'Enter a description for the holiday here.';
+$LANG['hol_keepweekendcolor'] = 'Keep weekend color';
+$LANG['hol_keepweekendcolor_comment'] = 'The weekend color remains intact if this holiday falls on a Saturday or Sunday.';
 $LANG['hol_name'] = 'Name';
 $LANG['hol_name_comment'] = 'Enter a name for the holiday here.';
 $LANG['hol_noabsence'] = 'No absences allowed';
-$LANG['hol_noabsence_comment'] = 'If checked, no absences are allowed for this holiday. This will overrule all other declination rules.';
+$LANG['hol_noabsence_comment'] = 'No absences are allowed for this holiday. This will overrule all other declination rules.';
 
 //
 // Log

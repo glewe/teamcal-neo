@@ -81,7 +81,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <div class="col-lg-2"><?=$holiday['name']?></div>
                            <div class="col-lg-4"><?=$holiday['description']?></div>
                            <div class="col-lg-3">
-                              <?=(($holiday['businessday'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['hol_businessday'].'"><i class="fa fa-wrench fa-lg text-danger"></i></i>':'')?>
+                              <?=(($holiday['keepweekendcolor'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['hol_keepweekendcolor'].'"><i class="fa fa-paint-brush fa-lg text-success"></i></i>&nbsp;':'')?>
+                              <?=(($holiday['businessday'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['hol_businessday'].'"><i class="fa fa-wrench fa-lg text-default"></i></i>&nbsp;':'')?>
+                              <?=(($holiday['noabsence'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['hol_noabsence'].'"><i class="fa fa-minus-circle fa-lg text-danger"></i></i>':'')?>
                            </div>
                            <div class="col-lg-2 text-right">
                               <?php if ($holiday['id'] > 3) { ?>

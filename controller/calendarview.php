@@ -569,8 +569,27 @@ for ($i=1; $i<=$viewData['dateInfo']['daysInMonth']; $i++)
       //
       // This is a holiday. Get the coloring info.
       //
-      $color = 'color:#' . $H->getColor($M->$hprop) . ';';
-      $bgcolor = 'background-color:#' . $H->getBgColor($M->$hprop) . ';';
+      if ($H->keepWeekendColor($M->$hprop))
+      {
+         //
+         // Weekend color shall be kept. So if this a weekend day color it as such.
+         //
+         if ($M->$wprop==6 OR $M->$wprop==7)
+         {
+            $color = 'color:#' . $H->getColor($M->$wprop-4) . ';';
+            $bgcolor = 'background-color:#' . $H->getBgColor($M->$wprop-4) . ';';
+         }
+         else
+         {
+            $color = 'color:#' . $H->getColor($M->$hprop) . ';';
+            $bgcolor = 'background-color:#' . $H->getBgColor($M->$hprop) . ';';
+         }
+      }
+      else 
+      {
+         $color = 'color:#' . $H->getColor($M->$hprop) . ';';
+         $bgcolor = 'background-color:#' . $H->getBgColor($M->$hprop) . ';';
+      }
    }
    else if ($M->$wprop==6 OR $M->$wprop==7) 
    {

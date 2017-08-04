@@ -23,6 +23,7 @@ class Holidays
    public $bgcolor = 'ffffff';
    public $businessday = 0;
    public $noabsence = 0;
+   public $keepweekendcolor = 0;
    
    private $db = NULL;
    private $table = '';
@@ -46,13 +47,14 @@ class Holidays
     */
    public function create()
    {
-      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, color, bgcolor, businessday) VALUES (:val1, :val2, :val3, :val4, :val5, :val6)');
+      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, color, bgcolor, businessday) VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7)');
       $query->bindParam('val1', $this->name);
       $query->bindParam('val2', $this->description);
       $query->bindParam('val3', $this->color);
       $query->bindParam('val4', $this->bgcolor);
       $query->bindParam('val5', $this->businessday);
-      $query->bindParam('val5', $this->noabsence);
+      $query->bindParam('val6', $this->noabsence);
+      $query->bindParam('val7', $this->keepweekendcolor);
       $result = $query->execute();
       return $result;
    }
@@ -114,6 +116,7 @@ class Holidays
             $this->bgcolor = $row['bgcolor'];
             $this->businessday = $row['businessday'];
             $this->noabsence = $row['noabsence'];
+            $this->keepweekendcolor = $row['keepweekendcolor'];
          }
       }
       return $result;
@@ -206,6 +209,30 @@ class Holidays
          if ($result and $row = $query->fetch())
          {
             $rc = $row['businessday'];
+         }
+      }
+      return $rc;
+   }
+   
+   // ----------------------------------------------------------------------
+   /**
+    * Checks whether the given holiday shall not overwrite weekend coloring
+    *
+    * @param string $id Record ID
+    * @return boolean True or false
+    */
+   public function keepWeekendColor($id = '')
+   {
+      $rc = 0;
+      if (isset($id))
+      {
+         $query = $this->db->prepare('SELECT keepweekendcolor FROM ' . $this->table . ' WHERE id = :val1');
+         $query->bindParam('val1', $id);
+         $result = $query->execute();
+         
+         if ($result and $row = $query->fetch())
+         {
+            $rc = $row['keepweekendcolor'];
          }
       }
       return $rc;
@@ -377,14 +404,15 @@ class Holidays
       $result = 0;
       if (isset($id))
       {
-         $query = $this->db->prepare('UPDATE ' . $this->table . ' SET name = :val1, description = :val2, color = :val3, bgcolor = :val4, businessday = :val5, noabsence = :val6 WHERE id = :val7');
+         $query = $this->db->prepare('UPDATE ' . $this->table . ' SET name = :val1, description = :val2, color = :val3, bgcolor = :val4, businessday = :val5, noabsence = :val6, keepweekendcolor = :val7 WHERE id = :val8');
          $query->bindParam('val1', $this->name);
          $query->bindParam('val2', $this->description);
          $query->bindParam('val3', $this->color);
          $query->bindParam('val4', $this->bgcolor);
          $query->bindParam('val5', $this->businessday);
          $query->bindParam('val6', $this->noabsence);
-         $query->bindParam('val7', $id);
+         $query->bindParam('val7', $this->keepweekendcolor);
+         $query->bindParam('val8', $id);
          $result = $query->execute();
       }
       return $result;

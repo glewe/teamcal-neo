@@ -853,7 +853,7 @@ function countBusinessDays($cntfrom, $cntto, $region = '1', $cntManDays = false)
                //
                // This is a weekday but a Holiday. Only count this if this Holiday counts as business day.
                //
-               if ($H->isBusinessDay($month['hol'.$i])) $count++;
+               if ($H->isBusinessDay($M->$holiday)) $count++;
             }
             else
             {

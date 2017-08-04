@@ -92,7 +92,9 @@ if (!empty($_POST))
    $viewData['color'] = $_POST['txt_color'];
    $viewData['bgcolor'] = $_POST['txt_bgcolor'];
    if (isset($_POST['chk_businessday'])) $viewData['businessday'] = '1'; else $viewData['businessday'] = '0';
-    
+   if (isset($_POST['chk_noabsence'])) $viewData['noabsence'] = '1'; else $viewData['noabsence'] = '0';
+   if (isset($_POST['chk_keepweekendcolor'])) $viewData['keepweekendcolor'] = '1'; else $viewData['keepweekendcolor'] = '0';
+   
    //
    // Form validation
    //
@@ -119,6 +121,7 @@ if (!empty($_POST))
          $HH->bgcolor = $_POST['txt_bgcolor'];
          if (isset($_POST['chk_businessday'])) $HH->businessday = '1'; else $HH->businessday = '0';
          if (isset($_POST['chk_noabsence'])) $HH->noabsence = '1'; else $HH->noabsence = '0';
+         if (isset($_POST['chk_keepweekendcolor'])) $HH->keepweekendcolor= '1'; else $HH->keepweekendcolor= '0';
          
          $HH->update($id);
          
@@ -171,12 +174,14 @@ $viewData['color'] = $HH->color;
 $viewData['bgcolor'] = $HH->bgcolor;
 $viewData['businessday'] = $HH->businessday;
 $viewData['noabsence'] = $HH->noabsence;
+$viewData['keepweekendcolor'] = $HH->keepweekendcolor;
 
 $viewData['holiday'] = array (
    array ( 'prefix' => 'hol', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
    array ( 'prefix' => 'hol', 'name' => 'description', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
    array ( 'prefix' => 'hol', 'name' => 'color', 'type' => 'color', 'value' => $viewData['color'], 'maxlength' => '6', 'mandatory' => true, 'error' =>  (isset($inputAlert['color'])?$inputAlert['color']:'') ),
    array ( 'prefix' => 'hol', 'name' => 'bgcolor', 'type' => 'color', 'value' => $viewData['bgcolor'], 'maxlength' => '6', 'mandatory' => true, 'error' =>  (isset($inputAlert['bgcolor'])?$inputAlert['bgcolor']:'') ),
+   array ( 'prefix' => 'hol', 'name' => 'keepweekendcolor', 'type' => 'check', 'value' => $viewData['keepweekendcolor'] ),
    array ( 'prefix' => 'hol', 'name' => 'businessday', 'type' => 'check', 'value' => $viewData['businessday'] ),
    array ( 'prefix' => 'hol', 'name' => 'noabsence', 'type' => 'check', 'value' => $viewData['noabsence'] ),
 );
