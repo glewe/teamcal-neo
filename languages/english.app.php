@@ -171,6 +171,7 @@ $LANG['alert_decl_approval_required'] = "This absence type requires approval. It
 $LANG['alert_decl_approval_required_daynote'] = "This absence was requested but is not approved yet.";
 $LANG['alert_decl_before_date'] = "Absence changes before the following date are not allowed: ";
 $LANG['alert_decl_group_threshold'] = "Group absence threshold reached for your group(s): ";
+$LANG['alert_decl_holiday_noabsence'] = "This day is a holiday that does not allow absences.";
 $LANG['alert_decl_period'] = "Absence changes in the following period are not allowed: ";
 $LANG['alert_decl_takeover'] = "Absence type '%s' not enabled for take-over.";
 $LANG['alert_decl_total_threshold'] = "Total absence threshold reached.";
@@ -595,6 +596,8 @@ $LANG['hol_description'] = 'Description';
 $LANG['hol_description_comment'] = 'Enter a description for the holiday here.';
 $LANG['hol_name'] = 'Name';
 $LANG['hol_name_comment'] = 'Enter a name for the holiday here.';
+$LANG['hol_noabsence'] = 'No absences allowed';
+$LANG['hol_noabsence_comment'] = 'If checked, no absences are allowed for this holiday. This will overrule all other declination rules.';
 
 //
 // Log

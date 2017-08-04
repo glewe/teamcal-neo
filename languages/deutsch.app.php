@@ -171,6 +171,7 @@ $LANG['alert_decl_approval_required'] = "Dieser Abwesenheitstyp ben&ouml;tigt Ma
 $LANG['alert_decl_approval_required_daynote'] = "Diese Abwesenheit wurde angefragt, ist aber noch nicht best&auml;tigt.";
 $LANG['alert_decl_before_date'] = "Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";
 $LANG['alert_decl_group_threshold'] = "Die Abwesenheitsgrenze wurde erreicht f�r die Gruppe(n): ";
+$LANG['alert_decl_holiday_noabsence'] = "Dieser Tag ist ein Feiertag, der keine Abwesenheiten erlaubt.";
 $LANG['alert_decl_period'] = "Abwesenheits&auml;nderungen in folgendem Zeitraum sind nicht erlaubt: ";
 $LANG['alert_decl_takeover'] = "Abwesenheitstyp '%s' nicht f&uuml;r &Uuml;bernahme zugelassen.";
 $LANG['alert_decl_total_threshold'] = "Die generelle Abwesenheitsgrenze wurde erreicht.";
@@ -595,6 +596,8 @@ $LANG['hol_description'] = 'Beschreibung';
 $LANG['hol_description_comment'] = 'Gebe hier eine Beschreibung f&uuml;r den Feiertag ein.';
 $LANG['hol_name'] = 'Name';
 $LANG['hol_name_comment'] = 'Gebe hier einen Namen f&uuml;r den Feiertag ein.';
+$LANG['hol_noabsence'] = 'Keine Abwesenheiten erlaubt';
+$LANG['hol_noabsence_comment'] = 'Abwesenheiten f&uuml;r diesen Feiertagstyp sind nicht erlaubt und werden unabh&auml;ngig von allen anderen Regeln abgelehnt.';
 
 //
 // Log

@@ -104,7 +104,7 @@ function absenceThresholdReached($year, $month, $day, $base, $group = '')
  */
 function approveAbsences($username, $year, $month, $currentAbsences, $requestedAbsences, $regionId)
 {
-   global $A, $C, $D, $G, $LANG, $T, $U, $UG, $UL;
+   global $A, $C, $D, $G, $H, $LANG, $M, $T, $U, $UG, $UL;
    
    $approvalResult = array (
       'approvalResult' => 'all',
@@ -444,6 +444,21 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                      sendAbsenceApprovalNotifications($username, $year, $month, $i, $requestedAbsences[$i]);
                   }
                }
+               
+               /**
+                * HOLIDAY DOS NOT ALLOW ABSENCE
+                */
+               $isHoliday = $M->getHoliday($year, $month, $i, $regionId);
+               if ($isHoliday AND $H->noAbsenceAllowed($isHoliday))
+               {
+                  /**
+                   * This day is a holiday and the holiday is set to allow no absences
+                   */
+                  $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . $LANG['alert_decl_holiday_noabsence'];
+                  $declinedAbsences[$i] = $requestedAbsences[$i];
+                  $approvedAbsences[$i] = $currentAbsences[$i];
+               }
+               
             } // Endif Takeover
          }
          else

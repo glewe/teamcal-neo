@@ -118,6 +118,7 @@ if (!empty($_POST))
          $HH->color = $_POST['txt_color'];
          $HH->bgcolor = $_POST['txt_bgcolor'];
          if (isset($_POST['chk_businessday'])) $HH->businessday = '1'; else $HH->businessday = '0';
+         if (isset($_POST['chk_noabsence'])) $HH->noabsence = '1'; else $HH->noabsence = '0';
          
          $HH->update($id);
          
@@ -169,6 +170,7 @@ $viewData['description'] = $HH->description;
 $viewData['color'] = $HH->color;
 $viewData['bgcolor'] = $HH->bgcolor;
 $viewData['businessday'] = $HH->businessday;
+$viewData['noabsence'] = $HH->noabsence;
 
 $viewData['holiday'] = array (
    array ( 'prefix' => 'hol', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
@@ -176,6 +178,7 @@ $viewData['holiday'] = array (
    array ( 'prefix' => 'hol', 'name' => 'color', 'type' => 'color', 'value' => $viewData['color'], 'maxlength' => '6', 'mandatory' => true, 'error' =>  (isset($inputAlert['color'])?$inputAlert['color']:'') ),
    array ( 'prefix' => 'hol', 'name' => 'bgcolor', 'type' => 'color', 'value' => $viewData['bgcolor'], 'maxlength' => '6', 'mandatory' => true, 'error' =>  (isset($inputAlert['bgcolor'])?$inputAlert['bgcolor']:'') ),
    array ( 'prefix' => 'hol', 'name' => 'businessday', 'type' => 'check', 'value' => $viewData['businessday'] ),
+   array ( 'prefix' => 'hol', 'name' => 'noabsence', 'type' => 'check', 'value' => $viewData['noabsence'] ),
 );
 
 //=============================================================================
