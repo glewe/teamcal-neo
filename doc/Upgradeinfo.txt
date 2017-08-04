@@ -18,8 +18,8 @@ TEAMCAL NEO UPGRADE INFO
 
 6. Database changes
 
-ALTER TABLE `tcneo_holidays` ADD `noabsence` TINYINT(1) NOT NULL AFTER `businessday` 
-ALTER TABLE `tcneo_holidays` ADD `keepweekendcolor` TINYINT(1) NOT NULL AFTER `noabsence` 
+ALTER TABLE `tcneo_holidays` ADD `noabsence` TINYINT(1) NOT NULL DEFAULT '0' AFTER `businessday` 
+ALTER TABLE `tcneo_holidays` ADD `keepweekendcolor` TINYINT(1) NOT NULL DEFAULT '0' AFTER `noabsence` 
 
 
 ------------------------------------------------------------------------------

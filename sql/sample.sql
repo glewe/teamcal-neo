@@ -544,7 +544,9 @@ CREATE TABLE `tcneo_holidays` (
   `description` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `color` varchar(6) CHARACTER SET utf8 NOT NULL DEFAULT '000000',
   `bgcolor` varchar(6) CHARACTER SET utf8 NOT NULL DEFAULT 'ffffff',
-  `businessday` smallint(6) NOT NULL DEFAULT '0',
+  `businessday` tinyint(1) NOT NULL DEFAULT '0',
+  `noabsence` tinyint(1) NOT NULL DEFAULT '0',
+  `keepweekendcolor` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -552,12 +554,12 @@ CREATE TABLE `tcneo_holidays` (
 -- Dumping data for table `holidays`
 --
 
-INSERT INTO `tcneo_holidays` (`id`, `name`, `description`, `color`, `bgcolor`, `businessday`) VALUES
-(1, 'Business Day', 'Regular business day', '000000', 'ffffff', 0),
-(2, 'Saturday', 'Regular weekend day (Saturday)', '000000', 'fcfc9a', 1),
-(3, 'Sunday', 'Regular weekend day (Sunday)', '000000', 'fcfc9a', 0),
-(4, 'Public Holiday', 'Public bank holidays', '000000', 'EBAAAA', 0),
-(5, 'School Holiday', 'School holidays', '000000', 'BFFFDF', 1);
+INSERT INTO `tcneo_holidays` (`id`, `name`, `description`, `color`, `bgcolor`, `businessday`, `noabsence`, `keepweekendcolor`) VALUES
+(1, 'Business Day', 'Regular business day', '000000', 'ffffff', 1, 0, 0),
+(2, 'Saturday', 'Regular weekend day (Saturday)', '000000', 'fcfc9a', 1, 0, 0),
+(3, 'Sunday', 'Regular weekend day (Sunday)', '000000', 'fcfc9a', 0, 0, 0),
+(4, 'Public Holiday', 'Public bank holidays', '000000', 'EBAAAA', 0, 0, 0),
+(5, 'School Holiday', 'School holidays', '000000', 'BFFFDF', 1, 0, 1);
 
 -- --------------------------------------------------------
 
