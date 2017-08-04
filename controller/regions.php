@@ -5,7 +5,7 @@
  * Regions page controller
  *
  * @category TeamCal Neo 
- * @version 1.5.003
+ * @version 1.5.004
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
