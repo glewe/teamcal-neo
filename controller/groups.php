@@ -134,6 +134,7 @@ if (!empty($_POST))
       {
          $G->delete($_POST['hidden_id']);
          $UG->deleteByGroup($_POST['hidden_id']);
+         $UO->deleteOptionByValue('calfilterGroup', $_POST['hidden_id']);
          
          //
          // Send notification e-mails to the subscribers of group events

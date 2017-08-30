@@ -134,6 +134,7 @@ if (!empty($_POST))
          $T->replaceAbsId($_POST['hidden_id'], '0');
          $AG->unassignAbs($_POST['hidden_id']);
          $A->delete($_POST['hidden_id']);
+         $UO->deleteOptionByValue('calfilterAbs', $_POST['hidden_id']);
          
          //
          // Send notification e-mails to the subscribers of group events

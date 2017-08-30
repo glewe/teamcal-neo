@@ -60,9 +60,49 @@ class Absences
    public function create()
    {
       $query = $this->db->prepare(
-            'INSERT INTO ' . $this->table . 
-            ' (name, symbol, icon, color, bgcolor, bgtrans, factor, allowance, allowmonth, allowweek, counts_as, show_in_remainder, show_totals, approval_required, counts_as_present, manager_only, hide_in_profile, confidential, takeover)'.
-            ' VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12, :val13, :val14, :val15, :val16, :val17, :val18, val19)');
+            'INSERT INTO ' . $this->table . ' (
+               name, 
+               symbol, 
+               icon, 
+               color,
+               bgcolor,
+               bgtrans,
+               factor,
+               allowance,
+               allowmonth,
+               allowweek,
+               counts_as,
+               show_in_remainder,
+               show_totals,
+               approval_required,
+               counts_as_present,
+               manager_only,
+               hide_in_profile,
+               confidential,
+               takeover
+            )'.
+            ' VALUES (
+               :val1,
+               :val2,
+               :val3,
+               :val4,
+               :val5,
+               :val6,
+               :val7,
+               :val8,
+               :val9,
+               :val10,
+               :val11,
+               :val12,
+               :val13,
+               :val14,
+               :val15,
+               :val16,
+               :val17,
+               :val18,
+               :val19
+            )');
+
       $query->bindParam('val1', $this->name);
       $query->bindParam('val2', $this->symbol);
       $query->bindParam('val3', $this->icon);

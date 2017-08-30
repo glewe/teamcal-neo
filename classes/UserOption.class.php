@@ -164,6 +164,23 @@ class UserOption
    
    // ---------------------------------------------------------------------
    /**
+    * Delete all option records for a given value
+    *
+    * @param string $option Option to delete
+    * @param string $value Value to delete
+    * @return boolean Query result
+    */
+   public function deleteOptionByValue($option, $value)
+   {
+      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE `option` = :val1 AND `value` = :val2');
+      $query->bindParam('val1', $option);
+      $query->bindParam('val2', $value);
+      $result = $query->execute();
+      return $result;
+   }
+   
+   // ---------------------------------------------------------------------
+   /**
     * Delete an option records for a given user
     *
     * @param string $username Username to find

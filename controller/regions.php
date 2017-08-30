@@ -113,6 +113,7 @@ if (!empty($_POST))
    {
       $R->delete($_POST['hidden_id']);
       $M->deleteRegion($_POST['hidden_id']);
+      $UO->deleteOptionByValue('calfilterRegion', $_POST['hidden_id']);
       
       //
       // Log this event
