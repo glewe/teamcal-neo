@@ -57,8 +57,8 @@ if (!empty($_POST))
    // Form validation
    //
    $inputError = false;
-   if (!formInputValid('txt_username', 'required|alpha_numeric_dot_at')) $inputError = true;
-   if (!formInputValid('txt_lastname', 'alpha_numeric_dash_blank_dot')) $inputError = true;
+   if (!formInputValid('txt_username', 'required|username')) $inputError = true;
+   if (!formInputValid('txt_lastname', 'required|alpha_numeric_dash_blank_dot')) $inputError = true;
    if (!formInputValid('txt_firstname', 'alpha_numeric_dash_blank_dot')) $inputError = true;
    if (!formInputValid('txt_email', 'required|email')) $inputError = true;
    if (!formInputValid('txt_password', 'required|pwd'.$C->read('pwdStrength'))) $inputError = true;
@@ -138,6 +138,16 @@ if (!empty($_POST))
          $LOG->log("logUser",$L->checkLogin(),"log_user_added", $UP->username);
           
          //
+         // Input validation failed
+         //
+         $showAlert = TRUE;
+         $alertData['type'] = 'success';
+         $alertData['title'] = $LANG['alert_success_title'];
+         $alertData['subject'] = $LANG['profile_alert_create'];
+         $alertData['text'] = $LANG['profile_alert_create_success'];
+         $alertData['help'] = '';
+         
+         //
          // Load profile page
          //
          //header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&profile=" . $UP->username);
@@ -166,7 +176,7 @@ $LANG['profile_password_comment'] .= $LANG['password_rules_'.$C->read('pwdStreng
 $viewData['personal'] = array (
 array ( 'prefix' => 'profile', 'name' => 'username', 'type' => 'text', 'placeholder' => '', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['username'])?$inputAlert['username']:'') ),
 array ( 'prefix' => 'profile', 'name' => 'lastname', 'type' => 'text', 'placeholder' => '', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['lastname'])?$inputAlert['lastname']:'') ),
-array ( 'prefix' => 'profile', 'name' => 'firstname', 'type' => 'text', 'placeholder' => '', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['firstname'])?$inputAlert['firstname']:'') ),
+array ( 'prefix' => 'profile', 'name' => 'firstname', 'type' => 'text', 'placeholder' => '', 'value' => '', 'maxlength' => '80', 'mandatory' => false, 'error' =>  (isset($inputAlert['firstname'])?$inputAlert['firstname']:'') ),
 array ( 'prefix' => 'profile', 'name' => 'email', 'type' => 'text', 'placeholder' => '', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' =>  (isset($inputAlert['email'])?$inputAlert['email']:'') ),
 array ( 'prefix' => 'profile', 'name' => 'password', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'mandatory' => true, 'error' =>  (isset($inputAlert['password'])?$inputAlert['password']:'') ),
 array ( 'prefix' => 'profile', 'name' => 'password2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'mandatory' => true, 'error' =>  (isset($inputAlert['password2'])?$inputAlert['password2']:'') ),

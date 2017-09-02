@@ -243,11 +243,11 @@ function formInputValid($field, $ruleset, $param = '')
    /**
     * Alphanumeric plus dot and @?
     */
-   if (in_array('alpha_numeric_dot_at', $rules))
+   if (in_array('username', $rules))
    {
-      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^([\pL\w.@])+$/u", $_POST[$field]))
+      if (isset($_POST[$field]) and strlen($_POST[$field]) and !preg_match("/^([\pL\w.@_-])+$/u", $_POST[$field]))
       {
-         $inputAlert[$label[1]] = $LANG['alert_input_alpha_numeric_dot_at'];
+         $inputAlert[$label[1]] = $LANG['alert_input_username'];
          return false;
       }
    }

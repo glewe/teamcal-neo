@@ -40,7 +40,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
                      <div class="panel panel-default">
                         <div class="panel-body">
-                           <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" name="btn_profileCreate"><?=$LANG['btn_create_user']?></button>
+                           <div class="col-lg-6">
+                              <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" name="btn_profileCreate"><?=$LANG['btn_create_user']?></button>
+                           </div>
+                           <div class="col-lg-6 text-right">
+                              <a href="index.php?action=users" class="btn btn-default pull-right" tabindex="<?=$tabindex++?>"><?=$LANG['btn_user_list']?></a>
+                           </div>
                         </div>
                      </div>
                      
@@ -57,7 +62,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
                      <div class="panel panel-default">
                         <div class="panel-body">
-                           <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" name="btn_profileCreate"><?=$LANG['btn_create_user']?></button>
+                           <div class="col-lg-6">
+                              <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" name="btn_profileCreate"><?=$LANG['btn_create_user']?></button>
+                           </div>
+                           <div class="col-lg-6 text-right">
+                              <a href="index.php?action=users" class="btn btn-default pull-right" tabindex="<?=$tabindex++?>"><?=$LANG['btn_user_list']?></a>
+                           </div>
                         </div>
                      </div>
                      

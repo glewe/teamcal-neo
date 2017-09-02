@@ -186,7 +186,6 @@ $LANG['alert_input_alpha_numeric_dash_blank'] = 'Diese Feld erlaubt nur eine Ein
 $LANG['alert_input_alpha_numeric_dash_blank_dot'] = 'Diese Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen plus Leerzeichen, Punkt, Bindestrich und Unterstrich.';
 $LANG['alert_input_alpha_numeric_dash_blank_special'] = 'Diese Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen, Leerzeichen, Bindestrich, Unterstrich und die 
       Sonderzeichen \'!@#$%^&*().';
-$LANG['alert_input_alpha_numeric_dot_at'] = 'Diese Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen, Punkten und @.';
 $LANG['alert_input_date'] = 'Das Datum muss um ISO 8601 Format sein, z.b. 2014-01-01.';
 $LANG['alert_input_email'] = 'Die eingegebene E-Mail Adresse ist ung&uuml;ltig.';
 $LANG['alert_input_equal'] = 'Der Wert in diesem Feld muss gleich dem in Feld "%s" sein.';
@@ -208,6 +207,7 @@ $LANG['alert_input_pwdhigh'] = 'Das Passwort muss mindestens 8 Zeichen lang sein
       Erlaubt sind Klein- und Gro&szlig;buchstaben, Zahlen und die folgenden Sonderzeichen: !@#$%^&amp;*().';
 $LANG['alert_input_regex_match'] = 'Die Eingabe dieses Feldes entsprach nicht dem regul&auml;ren Ausdruck "%s".';
 $LANG['alert_input_required'] = 'Dieses Feld ist eine Pflichteingabe.';
+$LANG['alert_input_username'] = 'Diese Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen, Bindestrich, Unterstrich, Punkt und @.';
 $LANG['alert_input_validation_subject'] = 'Eingabevalidierung';
 
 $LANG['alert_maintenance_subject'] = 'Website in Wartung';
