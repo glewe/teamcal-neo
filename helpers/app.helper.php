@@ -459,14 +459,14 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                   $approvedAbsences[$i] = $currentAbsences[$i];
                }
                
-            } // Endif Takeover
+             } // Endif Takeover
          }
          else
          {
             /**
              * No absence change. Add to approved.
              */
-            $approvedAbsences[$i] = $currentAbsences[$i];
+             $approvedAbsences[$i] = $currentAbsences[$i];
          }
       }
       
