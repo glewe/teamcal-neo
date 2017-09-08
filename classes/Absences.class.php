@@ -669,6 +669,30 @@ class Absences
    
    // ----------------------------------------------------------------------
    /**
+    * Checks whether an absence is manager only
+    *
+    * @param string $id Record ID
+    * @return boolean
+    */
+    public function isManagerOnly($id = '')
+    {
+       if (isset($id))
+       {
+          $query = $this->db->prepare('SELECT manager_only FROM ' . $this->table . ' WHERE id = :val1');
+          $query->bindParam('val1', $id);
+          $result = $query->execute();
+          
+          if ($result and $row = $query->fetch())
+          {
+             if($row['manager_only']) return true;
+             else return false;
+          }
+       }
+       return false;
+    }
+    
+    // ----------------------------------------------------------------------
+   /**
     * Checks whether an absence is takeover enabled
     *
     * @param string $id Record ID

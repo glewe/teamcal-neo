@@ -178,7 +178,7 @@ if (!empty($_POST))
       //
       // All changes to the calendar are handled in this block since it finishes with the Approval routine.
       // First, get the current absences of the user into an array $currentAbsences
-      // Second, set initialize the $requestedAbsences array to the current ones. Updates are done below.
+      // Second, set the $requestedAbsences array to the current ones. Updates are done below.
       //
       for ($i=1; $i<=$viewData['dateInfo']['daysInMonth']; $i++)
       {
@@ -205,7 +205,12 @@ if (!empty($_POST))
             }
             else
             {
-               $requestedAbsences[$i] = '0';
+               //
+               // If no radio button is set, it could also mean that the user has an absence on this
+               // day already that he cannot see in his calendar edit screen, e.g. a manager only absence.
+               // Just take over the current absence.
+               //
+               $requestedAbsences[$i] = $currentAbsences[$i];
             }
          }
       }
