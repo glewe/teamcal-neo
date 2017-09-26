@@ -943,7 +943,7 @@ INSERT INTO `tcneo_templates` (`id`, `username`, `year`, `month`, `abs1`, `abs2`
 DROP TABLE IF EXISTS `tcneo_users`;
 CREATE TABLE `tcneo_users` (
   `username` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `password` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `firstname` varchar(80) CHARACTER SET utf8 DEFAULT NULL,
   `lastname` varchar(80) CHARACTER SET utf8 DEFAULT NULL,
   `email` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
