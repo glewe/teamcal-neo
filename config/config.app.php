@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 1.5.005
+ * @version 1.6.000
  * @author George Lewe
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -42,12 +42,6 @@ define('APP_INSTALLED',"0");
 // The cookie prefix to be used on the browser client's device
 //
 define('COOKIE_NAME',"tcneo");
-
-//
-// Salt is a string that is used encrypt the passwords. You can change salt
-// to any other 9 char string.
-//
-define('SALT',"s7*9fgJ#R");
 
 //=============================================================================
 /**
@@ -159,8 +153,8 @@ define('LDAP_TLS', 0); // To avoid "Undefined index: LDAP_TLS" error message for
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "1.5.005");
-define('APP_DATE', "2017-09-02");
+define('APP_VER', "1.6.000");
+define('APP_DATE', "2017-09-26");
 define('APP_YEAR', "2014-".date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "http://www.lewe.com");

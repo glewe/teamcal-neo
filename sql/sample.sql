@@ -4,7 +4,7 @@
  * Sample MySQL database
  *
  * @category TeamCal Neo 
- * @version 1.5.005
+ * @version 1.6.000
  * @author George Lewe
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -965,15 +965,15 @@ CREATE TABLE `tcneo_users` (
 --
 
 INSERT INTO `tcneo_users` (`username`, `password`, `firstname`, `lastname`, `email`, `role`, `locked`, `hidden`, `onhold`, `verify`, `bad_logins`, `grace_start`, `last_pw_change`, `last_login`, `created`) VALUES
-('blightyear', 's7MuuIoROZfb2', 'Buzz', 'Lightyear', 'blightyear@yourserver.com', 4, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
-('sman', 's7MuuIoROZfb2', '', 'Spiderman', 'sman@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
-('mmouse', 's7MuuIoROZfb2', 'Mickey', 'Mouse', 'mmouse@yourserver.com', 4, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
-('admin', 's77dWZwOIYXss', '', 'Admin', 'webmaster@yourserver.com', 1, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
-('phead', 's7MuuIoROZfb2', 'Potatoe', 'Head', 'phead@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
-('ccarl', 's7MuuIoROZfb2', 'Coyote', 'Carl', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
-('dduck', 's7MuuIoROZfb2', 'Donald', 'Duck', 'dduck@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
-('sgonzales', 's7MuuIoROZfb2', 'Speedy', 'Gonzales', 'sgonzales@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
-('mimouse', 's7MuuIoROZfb2', 'Minnie', 'Mouse', 'mimouse@yourserver.com', 2, 1, 1, 1, 1, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2016-04-23 00:00:00');
+('blightyear', '$2y$10$Vtw.3Vz.k7q0wWMRd48F6uW5QJ8R4z6r.ru7tL.aR.duXf4ynQgGm', 'Buzz', 'Lightyear', 'blightyear@yourserver.com', 4, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2017-09-26 17:37:16', '2017-09-26 17:22:21', '2016-04-23 00:00:00'),
+('sman', '$2y$10$xGRcN3kjQRcOaNFZHU1Oo.XqmTuiTNX0YzFdWZGFY/zbrfSw1HoR2', '', 'Spiderman', 'sman@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2017-09-26 17:39:18', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
+('mmouse', '$2y$10$UXHMBWNOPsohn0IxEfrkhOykPp/iO3JZSsYk3aywy9yXGmGrVU.CS', 'Mickey', 'Mouse', 'mmouse@yourserver.com', 4, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2017-09-26 17:37:47', '2017-09-08 18:43:02', '2016-04-23 00:00:00'),
+('admin', '$2y$10$Kt4r.PZIdqa.RU1qgPQP2ecN6pqDHG3qLifAu9IMMyLntlhnIMhaS', '', 'Admin', 'webmaster@yourserver.com', 1, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2017-09-26 17:39:59', '2017-09-26 17:33:12', '2016-04-23 00:00:00'),
+('phead', '$2y$10$qvuiMeWbC0lAZdl7EnlRZe2PF6PRjsd5cRT0IhOjPdzAvnupWwFMq', 'Potatoe', 'Head', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2017-09-26 17:36:46', '1000-01-01 00:00:00', '2016-04-23 00:00:00'),
+('ccarl', '$2y$10$r/8VfjUT9DDCF8efXd2yvOu/JiT.cBwSTaI8qVTFMcbBirdQ7JSSe', 'Coyote', 'Carl', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2017-09-26 17:34:12', '2017-09-26 17:22:37', '2016-04-23 00:00:00'),
+('dduck', '$2y$10$07tLV2ec1aG3eUQXCWuxC.qIgKm1Da9dRrms4YHLFxLasgYVm0Y1a', 'Donald', 'Duck', 'dduck@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2017-09-26 17:34:51', '2017-09-08 18:43:15', '2016-04-23 00:00:00'),
+('sgonzales', '$2y$10$J.Px4e14DNX6.indHyBZOeCEV6EuNAUZTmnnaHB4CDF5JWypexrvS', 'Speedy', 'Gonzales', 'sgonzales@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2017-09-26 17:36:17', '2017-03-30 21:03:01', '2016-04-23 00:00:00'),
+('mimouse', '$2y$10$IkWQeduBbmLn4m5rybEf6OCQRRFui0PEJ5bMWndCzlWMmpznXe3Xy', 'Minnie', 'Mouse', 'mimouse@yourserver.com', 2, 1, 1, 1, 1, 0, '1000-01-01 00:00:00', '2017-09-26 17:38:48', '1000-01-01 00:00:00', '2016-04-23 00:00:00');
 
 -- --------------------------------------------------------
 
