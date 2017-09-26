@@ -5,7 +5,7 @@
  * Collection of model related functions
  *
  * @category TeamCal Neo 
- * @version 1.5.005
+ * @version 1.6.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -177,7 +177,7 @@ function importUsersFromCSV($defgroup, $lock = true, $hide = true)
                if (!$UI->findByName(trim($arr[0])) and $arr[0] != "admin" and preg_match('/^[a-zA-Z0-9]*$/', $arr[0]))
                {
                   $UI->username = trim($arr[0]);
-                  $UI->password = crypt("password", SALT);
+                  $UI->password = password_hash("password", PASSWORD_DEFAULT);
                   $UI->firstname = $arr[1];
                   $UI->lastname = $arr[2];
                   $UI->title = $arr[3];

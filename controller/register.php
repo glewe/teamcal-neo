@@ -5,7 +5,7 @@
  * Register page controller
  *
  * @category TeamCal Neo 
- * @version 1.5.005
+ * @version 1.6.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -120,7 +120,7 @@ if (!empty($_POST))
             //
             // Password
             //
-            $UR->password = crypt($_POST['txt_password'], SALT);
+            $UP->password = password_hash(trim($_POST['txt_password']), PASSWORD_DEFAULT);
             $UR->last_pw_change = date('YmdHis');
              
             $UR->create();

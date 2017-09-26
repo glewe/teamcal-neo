@@ -5,7 +5,7 @@
  * User edit page controller
  *
  * @category TeamCal Neo
- * @version 1.5.005
+ * @version 1.6.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -218,14 +218,12 @@ if (!empty($_POST))
          //
          // Password
          //
-         if ( isset($_POST['txt_password']) AND
-              strlen($_POST['txt_password']) AND
-              isset($_POST['txt_password2']) AND
-              strlen($_POST['txt_password2']) AND
+         if ( isset($_POST['txt_password']) AND strlen($_POST['txt_password']) AND
+              isset($_POST['txt_password2']) AND strlen($_POST['txt_password2']) AND
               $_POST['txt_password'] == $_POST['txt_password2']
             )
          {
-            $UP->password = crypt($_POST['txt_password'], SALT);
+            $UP->password = password_hash(trim($_POST['txt_password']), PASSWORD_DEFAULT);
             $UP->last_pw_change = date("YmdHis");
          }
 
@@ -280,7 +278,7 @@ if (!empty($_POST))
          //
          // Absences
          //
-         if (isAllowed("useraccount"))
+         if (isAllowed("useraccount") && $profile != 'admin')
          {
             foreach ($absences as $abs)
             {

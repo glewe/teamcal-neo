@@ -3,7 +3,7 @@
  * Login.class.php
  *
  * @category TeamCal Neo 
- * @version 1.5.005
+ * @version 1.6.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -17,7 +17,6 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 class Login
 {
    private $user = '';
-   private $salt = '';
    private $bad_logins = 0;
    private $grace_period = 0;
    private $min_pw_length = 0;
@@ -34,7 +33,6 @@ class Login
    {
       global $CONF, $C, $_POST, $_SERVER; 
       
-      $this->salt = SALT;
       $this->cookie_name = COOKIE_NAME;
       $this->bad_logins = intval($C->read("badLogins"));
       $this->grace_period = intval($C->read("gracePeriod"));
@@ -56,16 +54,16 @@ class Login
    {
       global $U;
       
-      /**
-       * If the cookie is set, look up the username in the database
-       */
+      //
+      // If the cookie is set, look up the username in the database
+      //
       if (isset($_COOKIE[$this->cookie_name]))
       {
          // echo ("<script type=\"text/javascript\">alert(\"[checkLogin]\\nCookie '".$this->cookie_name."' is set\")</script>");
          $array = explode(":", $_COOKIE[$this->cookie_name]);
          // echo ("<script type=\"text/javascript\">alert(\"[checkLogin]\\nCookie array[0]=".$array[0]."\\nCookie array[1]=".$array[1]."\")</script>");
          if (!isset($array[1])) $array[1] = '';
-         if (crypt($array[0], $this->salt) === $array[1])
+         if (password_verify($array[0], $array[1]))
          {
             $U->findByName($array[0]);
             return $U->username;
@@ -149,21 +147,21 @@ class Login
       if (empty($pwnew1) || empty($pwnew2)) return 11;
       if ($pwnew1 != $pwnew2) return 12;
       
-      /**
-       * MINIMUM LENGTH
-       */
+      //
+      // MINIMUM LENGTH
+      //
       if (strlen($pwnew1) < $this->min_pw_length) return 20;
       
       if ($this->pw_strength > 0)
       {
-         /**
-          * LOW STRENGTH
-          * = anything allowed if min_pw_length and new<>old
-          *
-          * convert the password to lower case and strip out the
-          * common number for letter substitutions
-          * then lowercase the username as well.
-          */
+         //
+         // LOW STRENGTH
+         // = anything allowed if min_pw_length and new<>old
+         //
+         // convert the password to lower case and strip out the
+         // common number for letter substitutions
+         // then lowercase the username as well.
+         //
          $pw_lower = strtolower($pw);
          $pwnew1_lower = strtolower($pwnew1);
          $pwnew1_denum = strtr($pwnew1_lower, '5301!', 'seoll');
@@ -175,16 +173,16 @@ class Login
          
          if ($this->pw_strength > 1)
          {
-            /**
-             * MEDIUM STRENGTH
-             */
+            //
+            // MEDIUM STRENGTH
+            //
             if (!ereg('[0-9]', $pwnew1)) return 40;
             
             if ($this->pw_strength > 2)
             {
-               /**
-                * HIGH STRENGTH
-                */
+               //
+               // HIGH STRENGTH
+               //
                if (!ereg('[a-z]', $pwnew1)) return 50;
                if (!ereg('[A-Z]', $pwnew1)) return 51;
                if (!ereg('[^a-zA-Z0-9]', $pwnew1)) return 52;
@@ -312,39 +310,55 @@ class Login
    {
       global $CONF, $U;
        
-      //echo "<script type=\"text/javascript\">alert(\"Login: ".$password."|".crypt($password, $this->salt)."|".$U->password."\");</script>";
-      if (crypt($password, $this->salt) == $U->password) return 0; // Password correct
-      if ($this->bad_logins == 0) return 7; // if we don't need to enumerate/manage bad logins, just return "bad password"
-       
+      // $echotxt = "<script type=\"text/javascript\">alert(\"Login: ".$password."|".password_hash($password, PASSWORD_DEFAULT)."|".$U->password."\");</script>";
+      // die($echotxt);
+
+      if ($verifyResult = password_verify($password, $U->password)) 
+      {
+         //
+         // Password correct
+         //
+         return 0;
+      }
+
+      if ($this->bad_logins == 0) 
+      {
+         //
+         // Password not correct.
+         // Bad logins are not counted so just return "bad password"
+         //
+         return 7;
+      }
+      
       if (!$U->bad_logins)
       {
-         /**
-          * 1st bad login attempt, set the counter = 1
-          * Set the timestamp to seconds since UNIX epoch (makes checking grace period easy)
-          */
+         //
+         // 1st bad login attempt, set the counter = 1
+         // Set the timestamp to seconds since UNIX epoch (makes checking grace period easy)
+         //
          $U->bad_logins = 1;
          $U->bad_logins_start = date("U");
-         $retcode = 4;
+         $U->update($U->username);
+         return 4;
       }
       elseif (++$U->bad_logins >= $this->bad_logins)
       {
-         /**
-          * That's too much! I've had it now with your bad logins.
-          * Login locked for grace period of time.
-          */
+         //
+         // That's too much! I've had it now with your bad logins.
+         // Login locked for grace period of time.
+         //
          $U->bad_logins_start = date("U");
          $U->locked = '1';
-         $retcode = 6;
+         $U->update($U->username);
+         return 6;
       }
       else
       {
-         /**
-          * 2nd or higher bad login attempt
-          */
-         $retcode = 5;
+         //
+         // 2nd or higher bad login attempt
+         //
+         return 5;
       }
-      $U->update($U->username);
-      return $retcode;
    }
    
    // ---------------------------------------------------------------------
@@ -391,39 +405,39 @@ class Login
       if ($UO->read($loginname, "verifycode")) return 8; // Account not verified.
       if ($U->onhold and ($now - $U->grace_start <= $this->grace_period)) return 6; // Login is locked for this account and grace period is not over yet.
       
-      /**
-       * At this point we know that the user is not ONHOLD or the grace period is over.
-       * We can safely unset it.
-       */
+      //
+      // At this point we know that the user is not ONHOLD or the grace period is over.
+      // We can safely unset it.
+      //
       $U->onhold = 0;
       
-      /**
-       * Now check the password
-       */
+      //
+      // Now check the password
+      //
       if (LDAP_YES && $loginname != "admin")
       {
-         /**
-          * You need to have PHP LDAP libraries installed.
-          *
-          * The admin user is always logged in against the local database.
-          * In case the LDAP does not work an admin login must still be possible.
-          */
+         //
+         // You need to have PHP LDAP libraries installed.
+         //
+         // The admin user is always logged in against the local database.
+         // In case the LDAP does not work an admin login must still be possible.
+         //
          $retcode = $this->ldapVerify($loginpwd);
       }
       else
       {
-         /**
-          * Otherwise use TcNeo authentication
-          */
+         //
+         // Otherwise use TcNeo authentication
+         //
          $retcode = $this->localVerify($loginpwd);
-      }
+   }
       if ($retcode != 0) return $retcode;
       
-      /**
-       * Successful login!
-       * Set up the tc cookie and save the uname so TeamCal can get it.
-       */
-      $secret = crypt($loginname, $this->salt);
+      //
+      // Successful login!
+      // Set up the tc cookie and save the uname so TeamCal can get it.
+      //
+      $secret = password_hash($loginname, PASSWORD_DEFAULT);
       $value = $loginname . ":" . $secret;
       setcookie($this->cookie_name, ''); // Clear current cookie
       setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '', $this->hostName, false, true); // Set new cookie

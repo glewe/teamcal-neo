@@ -5,7 +5,7 @@
  * CSV user import page
  *
  * @category TeamCal Neo 
- * @version 1.5.005
+ * @version 1.6.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -188,7 +188,7 @@ if (!empty($_POST))
                      // All is good with this line. Let's create the user.
                      //
                      $U->username = $CSVusername;
-                     $U->password = crypt("password", SALT);
+                     $U->password = password_hash("password", PASSWORD_DEFAULT);
                      $U->firstname = $CSVfirstname;
                      $U->lastname = $CSVlastname;
                      $U->email = $CSVemail;
