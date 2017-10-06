@@ -48,7 +48,7 @@ if (isset($_GET['month']))
    //
    $monthfilter = sanitize($_GET['month']);
 }
-elseif ($L->checkLogin() AND $monthfilter=$UO->read($UL->username, 'calfilterMonth')) 
+elseif (L_USER AND $monthfilter=$UO->read($UL->username, 'calfilterMonth')) 
 {
    //
    // Nothing in URL but user has a last-used value in his profile. Let's try that one.
@@ -78,7 +78,7 @@ if (!$missingData)
    }
    else 
    {
-      if ($L->checkLogin()) $UO->save($UL->username, 'calfilterMonth', $monthfilter);
+      if (L_USER) $UO->save($UL->username, 'calfilterMonth', $monthfilter);
    }
 }
 
@@ -92,9 +92,9 @@ if (isset($_GET['region']))
    // Passed by URL always wins
    //
    $regionfilter = sanitize($_GET['region']);
-   if ($L->checkLogin()) $UO->save($UL->username, 'calfilterRegion', $regionfilter);
+   if (L_USER) $UO->save($UL->username, 'calfilterRegion', $regionfilter);
 }
-elseif ($L->checkLogin() AND $regionfilter=$UO->read($UL->username, 'calfilterRegion'))
+elseif (L_USER AND $regionfilter=$UO->read($UL->username, 'calfilterRegion'))
 {
    //
    // Nothing in URL but user has a last-used value in his profile. Let's try that one.
@@ -122,7 +122,7 @@ if (!$missingData)
    {
       $viewData['regionid'] = $R->id;
       $viewData['regionname'] = $R->name;
-      if ($L->checkLogin()) $UO->save($UL->username, 'calfilterRegion', $regionfilter);
+      if (L_USER) $UO->save($UL->username, 'calfilterRegion', $regionfilter);
    }
 }
 
@@ -149,9 +149,9 @@ $users = $U->getAllButHidden();
 if (isset($_GET['group']))
 {
    $groupfilter = sanitize($_GET['group']);
-   if ($L->checkLogin()) $UO->save($UL->username, 'calfilterGroup', $groupfilter);
+   if (L_USER) $UO->save($UL->username, 'calfilterGroup', $groupfilter);
 }
-elseif ($L->checkLogin() AND $groupfilter=$UO->read($UL->username, 'calfilterGroup'))
+elseif (L_USER AND $groupfilter=$UO->read($UL->username, 'calfilterGroup'))
 {
    //
    // Nothing in URL but user has a last-used value in his profile.
@@ -192,9 +192,9 @@ else
 if (isset($_GET['abs']))
 {
    $absfilter = sanitize($_GET['abs']);
-   if ($L->checkLogin()) $UO->save($UL->username, 'calfilterAbs', $absfilter);
+   if (L_USER) $UO->save($UL->username, 'calfilterAbs', $absfilter);
 }
-elseif ($L->checkLogin() AND $absfilter=$UO->read($UL->username, 'calfilterAbs'))
+elseif (L_USER AND $absfilter=$UO->read($UL->username, 'calfilterAbs'))
 {
    //
    // Nothing in URL but user has a last-used value in his profile.
@@ -233,7 +233,7 @@ else
 // Search filter (optional, defaults to 'all')
 //
 $viewData['search'] = '';
-if ($L->checkLogin() AND $searchfilter=$UO->read($UL->username, 'calfilterSearch'))
+if (L_USER AND $searchfilter=$UO->read($UL->username, 'calfilterSearch'))
 {
    //
    // Nothing in URL but user has a last-used value in his profile.
@@ -250,7 +250,7 @@ if ($L->checkLogin() AND $searchfilter=$UO->read($UL->username, 'calfilterSearch
 //
 if (isset($_GET['search']) AND $_GET['search']=="reset")
 {
-   if ($L->checkLogin()) $UO->deleteUserOption($UL->username, 'calfilterSearch');
+   if (L_USER) $UO->deleteUserOption($UL->username, 'calfilterSearch');
    header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller);
    die();
 }
@@ -349,7 +349,7 @@ if (!$M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']))
    //
    // Log this event
    //
-   $LOG->log("logMonth", $L->checkLogin(), "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
+   $LOG->log("logMonth", L_USER, "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
 }
 
 //=============================================================================
@@ -379,7 +379,7 @@ if (!empty($_POST))
       // '--------------'
       if (isset($_POST['btn_month']))
       {
-         if ($L->checkLogin())
+         if (L_USER)
          {
             $UO->save($UL->username, 'calfilterMonth', $_POST['txt_year'] . $_POST['sel_month']);
          }
@@ -392,7 +392,7 @@ if (!empty($_POST))
       // '---------------'
       elseif (isset($_POST['btn_region']))
       {
-         if ($L->checkLogin())
+         if (L_USER)
          {
             $UO->save($UL->username, 'calfilterRegion', $_POST['sel_region']);
          }
@@ -405,7 +405,7 @@ if (!empty($_POST))
       // '---------------'
       elseif (isset($_POST['btn_group']))
       {
-         if ($L->checkLogin())
+         if (L_USER)
          {
             $UO->save($UL->username, 'calfilterGroup', $_POST['sel_group']);
          }
@@ -418,7 +418,7 @@ if (!empty($_POST))
       // '----------------'
       elseif (isset($_POST['btn_abssearch']))
       {
-         if ($L->checkLogin())
+         if (L_USER)
          {
             $UO->save($UL->username, 'calfilterAbs', $_POST['sel_absence']);
          }
@@ -440,7 +440,7 @@ if (!empty($_POST))
       // '---------------'
       elseif (isset($_POST['btn_search']))
       {
-         if ($L->checkLogin())
+         if (L_USER)
          {
             $UO->save($UL->username, 'calfilterSearch', $_POST['txt_search']);
          }
@@ -454,7 +454,7 @@ if (!empty($_POST))
       // '-------------------'
       elseif (isset($_POST['btn_search_clear']))
       {
-         if ($L->checkLogin())
+         if (L_USER)
          {
             $UO->deleteUserOption($UL->username, 'calfilterSearch');
          }
@@ -467,7 +467,7 @@ if (!empty($_POST))
       // '-------'
       elseif (isset($_POST['btn_reset']))
       {
-         if ($L->checkLogin())
+         if (L_USER)
          {
             $UO->deleteUserOption($UL->username, 'calfilter');
             $UO->deleteUserOption($UL->username, 'calfilterMonth');

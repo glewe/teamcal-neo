@@ -156,7 +156,7 @@ if (!empty($_POST))
             //
             // Log this event
             //
-            $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_users");
+            $LOG->log("logDatabase",L_USER,"log_db_delete_users");
          }
          
          if ( isset($_POST['chk_delGroups']) )
@@ -171,7 +171,7 @@ if (!empty($_POST))
             //
             // Log this event
             //
-            $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_groups");
+            $LOG->log("logDatabase",L_USER,"log_db_delete_groups");
          }
          
          if ( isset($_POST['chk_delMessages']) )
@@ -185,7 +185,7 @@ if (!empty($_POST))
             //
             // Log this event
            //
-            $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_msg");
+            $LOG->log("logDatabase",L_USER,"log_db_delete_msg");
          }
           
          if ( isset($_POST['chk_delOrphMessages']) )
@@ -198,7 +198,7 @@ if (!empty($_POST))
             //
             // Log this event
             //
-            $LOG->log("logMessages",$L->checkLogin(),"log_db_delete_msg_orph");
+            $LOG->log("logMessages",L_USER,"log_db_delete_msg_orph");
          }
           
          if ( isset($_POST['chk_delPermissions']) )
@@ -208,7 +208,7 @@ if (!empty($_POST))
             //
             // Log this event
             //
-            $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_perm");
+            $LOG->log("logDatabase",L_USER,"log_db_delete_perm");
          }
           
          if ( isset($_POST['chk_delLog']) )
@@ -218,7 +218,7 @@ if (!empty($_POST))
             //
             // Log this event
             //
-            $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_log");
+            $LOG->log("logDatabase",L_USER,"log_db_delete_log");
          }
          
          if ( isset($_POST['chkDBDeleteArchive']) )
@@ -234,7 +234,7 @@ if (!empty($_POST))
             //
             // Log this event
             //
-            $LOG->log("logDatabase",$L->checkLogin(),"log_db_delete_archive");
+            $LOG->log("logDatabase",L_USER,"log_db_delete_archive");
          }
          //
          // Success

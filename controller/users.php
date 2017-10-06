@@ -256,7 +256,7 @@ if (!empty($_POST))
             //
             // Log this event
             //
-            $LOG->log("logUser",$L->checkLogin(),"log_user_pwd_reset", $U->username);
+            $LOG->log("logUser",L_USER,"log_user_pwd_reset", $U->username);
          }
          
          //

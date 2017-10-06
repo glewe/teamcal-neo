@@ -326,7 +326,7 @@ if (!empty($_POST))
          //
          // Log this event
          //
-         $LOG->log("logUser",$L->checkLogin(),"log_user_updated", $UP->username);
+         $LOG->log("logUser",L_USER,"log_user_updated", $UP->username);
 
          //
          // Reload page in case of language change, so it takes effect.
@@ -375,7 +375,7 @@ if (!empty($_POST))
             //
             // Log this event
             //
-            $LOG->log("logUser",$L->checkLogin(),"log_user_updated", $UP->username);
+            $LOG->log("logUser",L_USER,"log_user_updated", $UP->username);
 
             header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&profile=" . $profile);
             die();
@@ -407,7 +407,7 @@ if (!empty($_POST))
          //
          // Log this event
          //
-         $LOG->log("logUser",$L->checkLogin(),"log_user_updated", $UP->username);
+         $LOG->log("logUser",L_USER,"log_user_updated", $UP->username);
 
          header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&profile=" . $profile);
          die();

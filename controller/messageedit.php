@@ -214,7 +214,7 @@ if (!empty($_POST))
                   //
                   // Log this event
                   //
-                  $LOG->log("logMessages", $L->checkLogin(), "log_msg_email", $UL->username . " -> " . $to);
+                  $LOG->log("logMessages", L_USER, "log_msg_email", $UL->username . " -> " . $to);
                   
                   //
                   // E-mail success

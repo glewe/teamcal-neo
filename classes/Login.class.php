@@ -53,9 +53,12 @@ class Login
    public function checkLogin()
    {
       global $U;
-      
+
       //
       // If the cookie is set, look up the username in the database
+      //
+      // Cookie array[0]=username
+      // Cookie array[1]=password
       //
       if (isset($_COOKIE[$this->cookie_name]))
       {

@@ -193,7 +193,7 @@ if (!empty($_POST))
 
          if (isset($_POST['btn_create'])) 
          {
-            $LOG->log("logDaynote",$L->checkLogin(),"log_dn_created", $logentry);
+            $LOG->log("logDaynote",L_USER,"log_dn_created", $logentry);
             //
             // Success
             //
@@ -207,7 +207,7 @@ if (!empty($_POST))
          
          if (isset($_POST['btn_update'])) 
          {
-            $LOG->log("logDaynote",$L->checkLogin(),"log_dn_updated", $logentry);
+            $LOG->log("logDaynote",L_USER,"log_dn_updated", $logentry);
             //
             // Success
             //
@@ -246,7 +246,7 @@ if (!empty($_POST))
          if ($viewData['user']=='all') $logentry = $viewData['date']."|".$R->getNameById($viewData['region']).": ".substr($viewData['daynote'],0,20)."...";
          else                          $logentry = $viewData['date']."|".$viewData['user'].": ".substr($viewData['daynote'],0,20)."...";
          
-         $LOG->log("logDaynote",$L->checkLogin(),"log_dn_deleted", $logentry);
+         $LOG->log("logDaynote",L_USER,"log_dn_deleted", $logentry);
          
          header("Location: index.php?action=".$controller."&date=".str_replace('-','',$viewData['date']).'&for='.$viewData['user'].'&region='.$viewData['region']);
          die();

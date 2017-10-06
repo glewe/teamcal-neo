@@ -132,7 +132,7 @@ if (!empty($_POST))
          //
          // Log this event
          //
-         $LOG->log("logRegion",$L->checkLogin(),"log_region_updated", $RR->name);
+         $LOG->log("logRegion",L_USER,"log_region_updated", $RR->name);
           
          //
          // Success

@@ -942,11 +942,11 @@ INSERT INTO `tcneo_templates` (`id`, `username`, `year`, `month`, `abs1`, `abs2`
 
 DROP TABLE IF EXISTS `tcneo_users`;
 CREATE TABLE `tcneo_users` (
-  `username` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `password` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  `firstname` varchar(80) CHARACTER SET utf8 DEFAULT NULL,
-  `lastname` varchar(80) CHARACTER SET utf8 DEFAULT NULL,
-  `email` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `username` varchar(40) NOT NULL DEFAULT '',
+  `password` varchar(255) DEFAULT NULL,
+  `firstname` varchar(80) DEFAULT NULL,
+  `lastname` varchar(80) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
   `role` int(11) DEFAULT '2',
   `locked` tinyint(4) DEFAULT '0',
   `hidden` tinyint(4) DEFAULT '0',

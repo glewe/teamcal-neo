@@ -136,7 +136,7 @@ if (!empty($_POST))
          //
          // Log this event
          //
-         $LOG->log("logHoliday",$L->checkLogin(),"log_hol_updated", $HH->name);
+         $LOG->log("logHoliday",L_USER,"log_hol_updated", $HH->name);
           
          //
          // Success

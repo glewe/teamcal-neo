@@ -247,13 +247,13 @@ function isAllowed($permission = '')
    
    $pscheme = $C->read("permissionScheme");
    
-   if ($currentuser = $L->checkLogin())
+   if (L_USER)
    {
       /**
        * Someone is logged in.
        * Check permission by role.
        */
-      $UL->findByName($currentuser);
+      $UL->findByName(L_USER);
       return $P->isAllowed($pscheme, $permission, $UL->role);
    }
    else

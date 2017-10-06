@@ -148,7 +148,7 @@ if (!empty($_POST))
          //
          // Log this event
          //
-         $LOG->log("logGroup",$L->checkLogin(),"log_group_updated", $GG->name);
+         $LOG->log("logGroup",L_USER,"log_group_updated", $GG->name);
           
          //
          // Success

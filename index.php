@@ -159,9 +159,14 @@ $userData['color'] = 'default';
 $userData['avatar'] = 'default_male.png';
 
 //
+// Check login and make logged in username global
+//
+if ($luser = $L->checkLogin()) define('L_USER', $luser); else define('L_USER', 0);
+
+//
 // If someone is logged in, overwrite defaults
 //
-if ($luser = $L->checkLogin() AND (!isset($_GET['action']) OR isset($_GET['action']) AND $_GET['action'] != 'logout'))
+if (L_USER AND (!isset($_GET['action']) OR isset($_GET['action']) AND $_GET['action'] != 'logout'))
 {
    $userData['isLoggedIn'] = true;
    $userData['loginInfo'] = loginInfo();

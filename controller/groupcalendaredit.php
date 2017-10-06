@@ -155,7 +155,7 @@ if (!$M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']))
    //
    // Log this event
    //
-   $LOG->log("logMonth", $L->checkLogin(), "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
+   $LOG->log("logMonth", L_USER, "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
 }
 
 //
@@ -169,7 +169,7 @@ if (!$T->getTemplate($calgroupuser, $viewData['year'], $viewData['month']))
    //
    // Log this event
    //
-   $LOG->log("logMonth", $L->checkLogin(), "log_month_tpl_created", "Group: " . $G->name . ": " . $M->year . "-" . $M->month);
+   $LOG->log("logMonth", L_USER, "log_month_tpl_created", "Group: " . $G->name . ": " . $M->year . "-" . $M->month);
 }
 
 //=============================================================================

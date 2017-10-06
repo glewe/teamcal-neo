@@ -346,7 +346,7 @@ if (!empty($_POST))
          //
          // Log this event
          //
-         $LOG->log("logConfig",$L->checkLogin(),"log_decl_updated");
+         $LOG->log("logConfig",L_USER,"log_decl_updated");
           
          //
          // Success

@@ -25,7 +25,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 // PROCESS FORM
 //
 $L->logout();
-$LOG->log("logLogin", $L->checkLogin(), "log_logout");
+$LOG->log("logLogin", L_USER, "log_logout");
 
 //=============================================================================
 //

@@ -95,7 +95,7 @@ if (!$M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']))
    //
    // Log this event
    //
-   $LOG->log("logMonth", $L->checkLogin(), "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
+   $LOG->log("logMonth", L_USER, "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
 }
 
 $viewData['dateInfo'] = dateInfo($viewData['year'], $viewData['month']);
@@ -131,7 +131,7 @@ if (!empty($_POST))
       //
       // Log this event
       //
-      $LOG->log("logMonth", $L->checkLogin(), "log_month_tpl_updated", $M->region . " " . $M->year.$M->month);
+      $LOG->log("logMonth", L_USER, "log_month_tpl_updated", $M->region . " " . $M->year.$M->month);
       
       //
       // Success
@@ -161,7 +161,7 @@ if (!empty($_POST))
       //
       // Log this event
       //
-      $LOG->log("logMonth", $L->checkLogin(), "log_month_tpl_updated", $M->region . " " . $M->year.$M->month);
+      $LOG->log("logMonth", L_USER, "log_month_tpl_updated", $M->region . " " . $M->year.$M->month);
       
       //
       // Success

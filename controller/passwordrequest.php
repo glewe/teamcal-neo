@@ -65,7 +65,7 @@ if (!empty($_POST))
                //
                // Log this event
                //
-               $LOG->log("logUser",$L->checkLogin(),"log_user_pwd_request", $pwdUsers[0]['username']);
+               $LOG->log("logUser",L_USER,"log_user_pwd_request", $pwdUsers[0]['username']);
                
                //
                // Success
@@ -90,7 +90,7 @@ if (!empty($_POST))
                   //
                   // Log this event
                   //
-                  $LOG->log("logUser",$L->checkLogin(),"log_user_pwd_request", $U->username);
+                  $LOG->log("logUser",L_USER,"log_user_pwd_request", $U->username);
                    
                   //
                   // Success
