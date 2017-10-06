@@ -80,7 +80,7 @@ $fperms = array (
 );
 
 //
-// Get active scheme and view mode
+// Get the active scheme and view mode
 //
 if (!$scheme=$C->read('permissionScheme')) $scheme = "Default";
 if ( isset($_GET['scheme']) ) 
