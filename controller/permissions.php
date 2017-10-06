@@ -41,6 +41,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
 //
 $showAlert = false;
 $roles = $RO->getAll();
+$scheme = "Default";
 
 //
 // Controller based permission entries
@@ -79,9 +80,9 @@ $fperms = array (
 );
 
 //
-// Get requested scheme and view mode
+// Get active scheme and view mode
 //
-$scheme = "Default";
+if (!$scheme=$C->read('permissionScheme')) $scheme = "Default";
 if ( isset($_GET['scheme']) ) 
 {
    if ( $P->schemeExists($_GET['scheme']) ) $scheme = $_GET['scheme'];
@@ -127,7 +128,7 @@ if (!empty($_POST))
          //
          // Log this event
          //
-         $LOG->log("logPermission",$L->checkLogin(),"log_perm_activated", $_POST['sel_scheme']);
+         $LOG->log("logPermission",L_USER,"log_perm_activated", $_POST['sel_scheme']);
          header("Location: index.php?action=permissions&scheme=".$_POST['sel_scheme']);
       }
       // ,--------,
@@ -146,7 +147,7 @@ if (!empty($_POST))
             //
             // Log this event
             //
-            $LOG->log("logPermission",$L->checkLogin(),"log_perm_deleted", $_POST['sel_scheme']);
+            $LOG->log("logPermission",L_USER,"log_perm_deleted", $_POST['sel_scheme']);
             header("Location: index.php?action=permissions&scheme=Default");
          }
       }
@@ -218,7 +219,7 @@ if (!empty($_POST))
             //
             // Log this event
             //
-            $LOG->log("logPermission",$L->checkLogin(), "log_perm_created", $scheme);
+            $LOG->log("logPermission",L_USER, "log_perm_created", $scheme);
             header("Location: index.php?action=permissions&scheme=".$scheme);
          }
       }
@@ -262,7 +263,7 @@ if (!empty($_POST))
             //
             // Log this event
             //
-            $LOG->log("logPermission",$L->checkLogin(), "log_perm_reset", $scheme);
+            $LOG->log("logPermission",L_USER, "log_perm_reset", $scheme);
             header("Location: index.php?action=permissions&scheme=".$scheme);
          }
          else 
@@ -334,7 +335,7 @@ if (!empty($_POST))
          //
          // Log this event
          //
-         $LOG->log("logPermission",$L->checkLogin(),"log_perm_changed", $scheme);
+         $LOG->log("logPermission",L_USER,"log_perm_changed", $scheme);
          header("Location: index.php?action=permissions&scheme=".$scheme);
       }
       // ,--------,
