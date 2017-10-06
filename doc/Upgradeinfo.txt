@@ -3,6 +3,21 @@ TEAMCAL NEO UPGRADE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[1.6.000] -> [1.6.001]
+
+1. Backup your current files and database!
+
+2. Download the new release and overwrite all files.
+ 
+3. Edit config/config.app.php and change line 39 to:
+   define('APP_INSTALLED',"1");
+
+4. Edit config/config.db.php and update your database settings from your backup.
+   
+5. Delete file installation.php in the root directory
+
+
+------------------------------------------------------------------------------
 [1.5.005] -> [1.6.000]
 
 This is an important security update. Please read additional details here:
@@ -22,6 +37,7 @@ https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/109936641/Update+to+Tea
 6. Database changes
 
 ALTER TABLE `tcneo_users` CHANGE `password` `password` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+
 
 ------------------------------------------------------------------------------
 [1.5.004] -> [1.5.005]
