@@ -47,7 +47,7 @@ class Holidays
     */
    public function create()
    {
-      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, color, bgcolor, businessday) VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7)');
+      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, color, bgcolor, businessday, noabsence, keepweekendcolor) VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7)');
       $query->bindParam('val1', $this->name);
       $query->bindParam('val2', $this->description);
       $query->bindParam('val3', $this->color);
