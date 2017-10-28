@@ -304,8 +304,8 @@ $LANG['calopt_hideManagerOnlyAbsences_comment'] = 'Abwesenheitstypen k&ouml;nnen
 $LANG['calopt_includeSummary'] = 'Summen Abschnitt';
 $LANG['calopt_includeSummary_comment'] = 'Mit dieser Option wird eine aufklappbare Zusammenfassung unter jedem Monat angezeigt, die die Summen der Abwesenheiten auff&uuml;hrt.';
 $LANG['calopt_pastDayColor'] = 'Vergangenheitsfarbe';
-$LANG['calopt_pastDayColor_comment'] = 'Setzt die Hintergrundfarbe f&uuml;r die Tage des aktuellen Monats, die in der Vergangenheit liegen.
-      Bei keinem Wert in diesem Feld wird keine Farbe eingesetzt.';
+$LANG['calopt_pastDayColor_comment'] = 'Setzt im Monatskalender diese Hintergrundfarbe f&uuml;r die Tage, die in der Vergangenheit liegen.
+      Lasse dieses Feld leer, wenn keine Hintergrundfarbe f&uuml;r vergangene Tage benutzt werden soll.';
 $LANG['calopt_repeatHeaderCount'] = 'Kopfzeilen Wiederholungs Z&auml;hler';
 $LANG['calopt_repeatHeaderCount_comment'] = 'Gibt die Anzahl von Zeilen an, nach der die Monatskopfzeile f&uuml;r bessere Lesbarkeit wiederholt wird. Wenn der Wert auf 0 gesetzt ist, wird die Kopfzeile nicht wiederholt.';
 $LANG['calopt_satBusi'] = 'Samstag ist ein Arbeitstag';

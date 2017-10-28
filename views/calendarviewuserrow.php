@@ -172,6 +172,7 @@ if ($editAllowed)
             }
             else 
             {
+               if ($loopDate < $currDate AND $bgColor=$C->read('pastDayColor')) $style .= "background-color:#".$bgColor.";";
                $dayPresCount[$i]++;
             }
             
