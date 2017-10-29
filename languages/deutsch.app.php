@@ -167,6 +167,7 @@ $LANG['absum_remainder'] = 'Verbleib';
 //
 $LANG['alert_decl_allowmonth_reached'] = "Die maximale Anzahl von %1% pro Monat f&uuml;r diesen Abwesenheitstyp wurde erreicht.";
 $LANG['alert_decl_allowweek_reached'] = "Die maximale Anzahl von %1% pro Woche f&uuml;r diesen Abwesenheitstyp wurde erreicht.";
+$LANG['alert_decl_allowyear_reached'] = "Die maximale Anzahl von %1% pro Jahr f&uuml;r diesen Abwesenheitstyp wurde erreicht.";
 $LANG['alert_decl_approval_required'] = "Dieser Abwesenheitstyp ben&ouml;tigt Managerbest&auml;tigung. Die Abwesenheit wurde in den Kalender eingetragen aber auch eine Tagesnotiz &uuml;ber die ausstehende Best&auml;tigung. Dein Manager wurde per Email informiert.";
 $LANG['alert_decl_approval_required_daynote'] = "Diese Abwesenheit wurde angefragt, ist aber noch nicht best&auml;tigt.";
 $LANG['alert_decl_before_date'] = "Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";
@@ -675,6 +676,8 @@ $LANG['perm_regions_title'] = 'Regionen (Bearbeiten)';
 $LANG['perm_regions_desc'] = 'Erlaubt as Listen und Bearbeiten von Regionen und deren Feiertagen.';
 $LANG['perm_statistics_title'] = 'Statistiken (Anzeigen)';
 $LANG['perm_statistics_desc'] = 'Erlaubt das Anzeigen der Statistik Seite.';
+$LANG['perm_userallowance_title'] = 'Benuzter (Erlaubnis)';
+$LANG['perm_userallowance_desc'] = 'Erlaubt das Editieren von individuellen Erlaubnissen von Abwesenheitstagen im Benutzerprofil.';
 
 //
 // Profile
@@ -682,6 +685,8 @@ $LANG['perm_statistics_desc'] = 'Erlaubt das Anzeigen der Statistik Seite.';
 $LANG['profile_tab_absences'] = 'Abwesenheiten';
 $LANG['profile_abs_name'] = 'Abwesenheitstyp';
 $LANG['profile_abs_allowance'] = 'Erlaubt';
+$LANG['profile_abs_allowance_tt'] = 'Pers&ouml;nliche Erlaubnis. 0 &uuml;bernimmt den globalen Wert (in Klammern).';
+$LANG['profile_abs_allowance_tt2'] = 'Pers&ouml;nliche Erlaubnis. Globaler Wert in Klammern.';
 $LANG['profile_abs_carryover'] = '&Uuml;bertrag';
 $LANG['profile_abs_carryover_tt'] = 'Das &Uuml;bertragsfeld akzeptiert auch negative Werte. So kann der Verleib f&uuml;r diesen Benutzer f&uuml;r dieses Jahr reduziert werden.';
 $LANG['profile_abs_taken'] = 'Genommen';

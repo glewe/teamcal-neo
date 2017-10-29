@@ -77,6 +77,7 @@ $fperms = array (
    'daynoteglobal',
    'groupmemberships',
    'useraccount',
+   'userallowance',
 );
 
 //

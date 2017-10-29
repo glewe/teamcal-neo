@@ -104,7 +104,7 @@ function absenceThresholdReached($year, $month, $day, $base, $group = '')
  */
 function approveAbsences($username, $year, $month, $currentAbsences, $requestedAbsences, $regionId)
 {
-   global $A, $C, $D, $G, $H, $LANG, $M, $T, $U, $UG, $UL;
+   global $A, $AL, $C, $D, $G, $H, $LANG, $M, $T, $U, $UG, $UL;
    
    $approvalResult = array (
       'approvalResult' => 'all',
@@ -505,45 +505,18 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             $today = date("d", $myts);
             $countTo = $toyear.$tomonth.$today;
 
-            $fromThisMonth = intval($fromday);
-            $toThisMonth = intval($today);
-            
-            $taken = 0;
-            if (intval($frommonth) < intval($T->month))
-            {
-               //
-               // The week for this day starts in the previous month.
-               // Count what was already taken.
-               //
-               $taken = countAbsence($username, $requestedAbsences[$i], $countFrom, $countTo, true, false);
-               $fromThisMonth = 1;
-            }
-            
-            if (intval($tomonth) > intval($T->month))
-            {
-               //
-               // The week for this day ends in the next month.
-               // Count what was already taken.
-               //
-               $taken = countAbsence($username, $requestedAbsences[$i], $countFrom, $countTo, true, false);
-               $toThisMonth = $monthInfo['daysInMonth'];
-            }
-            
             //
-            // Add the ones for this month
+            // Count already taken (saved in database)
             //
-            $total = $taken;
-            for($j = $fromThisMonth; $j <= $toThisMonth; $j++)
+            $taken = countAbsence($username, $requestedAbsences[$i], $countFrom, $countTo, true, false);
+            
+            if (($taken+1) > $allow AND $requestedAbsences[$i] != $currentAbsences[$i])
             {
-               if($requestedAbsences[$j] == $requestedAbsences[$i]) $total++;
-            }
-
-            if ($total > $allow)
-            {
-               /**
-                * Absence allowance per month reached
-                */
-               $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . ")" . str_replace('%1%', $allow, $LANG['alert_decl_allowweek_reached']);
+               //
+               // Absence allowance per week reached AND
+               // the requested absence is not one of the already taken ones (new request)
+               //
+               $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . str_replace('%1%', $allow, $LANG['alert_decl_allowweek_reached']);
          
                /**
                 * Set absence but add approval daynote.
@@ -568,20 +541,58 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             $countTo = $T->year.$T->month.$daysInMonth;
 
             //
-            // Count total of this absence in merged array
+            // Count already taken (saved in database)
             //
-            $total = 0;
-            for($j = 1; $j <= $monthInfo['daysInMonth']; $j++)
+            $taken = countAbsence($username, $requestedAbsences[$i], $countFrom, $countTo, true, false);
+
+            if (($taken+1) > $allow AND $requestedAbsences[$i] != $currentAbsences[$i])
             {
-               if($requestedAbsences[$j] == $requestedAbsences[$i]) $total++;
+               //
+               // Absence allowance per month reached AND
+               // the requested absence is not one of the already taken ones (new request)
+               //
+               $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . str_replace('%1%', $allow, $LANG['alert_decl_allowmonth_reached']);
+               
+               //
+               // Decline absence
+               //
+               $declinedAbsences[$i] = $requestedAbsences[$i];
+               $approvedAbsences[$i] = $currentAbsences[$i];
             }
+         }
+
+         //
+         // CHECK ALLOWANCE PER YEAR
+         //
+         if ($A->getAllowance($requestedAbsences[$i]) OR $AL->getAllowance($username, $requestedAbsences[$i]))
+         {
+            //
+            // Allowance per year is positive
+            // If there is a positive personal allowance, take that one (can be lower or higher)
+            //
+            $allow=$A->getAllowance($requestedAbsences[$i]);
+            $pallow=$AL->getAllowance($username, $requestedAbsences[$i]);
+
+            //
+            // Personal allowance wins
+            //
+            if ($pallow) $allow = $pallow;
+
+            //
+            // Count already taken (saved in database)
+            //
+            $myts = strtotime($T->year . '-01-01');
+            $countFrom = $T->year.'0101';
+            $countTo = $T->year.'1231';
+            $taken = countAbsence($username, $requestedAbsences[$i], $countFrom, $countTo, true, false);
             
-            if ($total > $allow)
+            if (($taken+1) > $allow AND $requestedAbsences[$i] != $currentAbsences[$i])
             {
                //
-               // Absence allowance per month reached
+               // Absence allowance per year reached AND 
+               // the requested absence is not one of the already taken ones (new request)
                //
-               $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . ")" . str_replace('%1%', $allow, $LANG['alert_decl_allowmonth_reached']);
+               $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . str_replace('%1%', $allow, $LANG['alert_decl_allowyear_reached']);
                
                //
                // Decline absence
@@ -591,7 +602,6 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             }
          }
       }
-      
       
       /**
        * Check for partial or total declination
@@ -735,7 +745,7 @@ function countAbsence($user='%', $absid, $from, $to, $useFactor=FALSE, $combined
       }
       $ymstart = intval($year.sprintf("%02d",$month));
    }
-    
+
    if ($useFactor) $count*=$factor;
 
    //

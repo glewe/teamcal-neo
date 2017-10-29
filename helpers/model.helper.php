@@ -113,6 +113,7 @@ function deleteUser($username, $fromArchive = FALSE, $sendNotifications = true)
     * Delete messages
     * Delete avatars
     * Delete month templates
+    * Delete allowances records
     */
    $U->deleteByName($username, $fromArchive);
    $UG->deleteByUser($username, $fromArchive);
@@ -120,7 +121,8 @@ function deleteUser($username, $fromArchive = FALSE, $sendNotifications = true)
    $UMSG->deleteByUser($username, $fromArchive);
    if ($fromArchive) $AV->delete($username, $UO->read($username, 'avatar'));
    $T->deleteByUser($username, $fromArchive);
-    
+   $AL->deleteByUser($username, $fromArchive);
+   
    /**
     * Send notification e-mails
     */

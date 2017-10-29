@@ -191,7 +191,13 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <div class="panel panel-default">
                               <div class="panel-body">
                                  <div class="col-lg-3"><strong><?=$LANG['profile_abs_name']?></strong></div>
-                                 <div class="col-lg-2"><div class="text-bold text-center"><?=$LANG['profile_abs_allowance']?></div></div>
+                                 <div class="col-lg-2"><div class="text-bold text-center"><?=$LANG['profile_abs_allowance']?>&nbsp;
+                                    <?php if (isAllowed("userallowance")) { ?> 
+                                       <?=iconTooltip($LANG['profile_abs_allowance_tt'],$LANG['profile_abs_allowance'])?>
+                                    <?php } else { ?> 
+                                       <?=iconTooltip($LANG['profile_abs_allowance_tt2'],$LANG['profile_abs_allowance'])?>
+                                    <?php } ?> 
+                                 </div></div>
                                  <div class="col-lg-2"><div class="text-bold text-center"><?=$LANG['profile_abs_carryover']?>&nbsp;<?=iconTooltip($LANG['profile_abs_carryover_tt'],$LANG['profile_abs_carryover'])?></div></div>
                                  <div class="col-lg-2"><div class="text-bold text-center"><?=$LANG['profile_abs_taken']?></div></div>
                                  <div class="col-lg-1"><div class="text-bold text-center"><?=$LANG['profile_abs_factor']?></div></div>
@@ -200,7 +206,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  <?php foreach($viewData['abs'] as $abs) { ?>
                                     <div class="form-group">
                                        <div class="col-lg-3"><div class="text-normal"><i class="fa fa-<?=$abs['icon']?> fa-lg" style="color: #<?=$abs['color']?>; background-color: #<?=$abs['bgcolor']?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px; margin-right: 8px;"></i><?=$abs['name']?></div></div>
-                                       <div class="col-lg-2"><div class="text-center"><?=$abs['allowance']?></div></div>
+                                       <?php if (isAllowed("userallowance")) { ?> 
+                                          <div class="col-lg-2"><div class="text-center"><input style="width:66%;float:left;" id="txt_<?=$abs['id']?>_allowance" class="form-control text-center" tabindex="<?=$tabindex++?>" name="txt_<?=$abs['id']?>_allowance" maxlength="3" value="<?=$abs['allowance']?>"> <span class="small">(<?=$abs['gallowance']?>)</span></div></div>
+                                       <?php } else { ?> 
+                                          <div class="col-lg-2"><div class="text-center"><?=$abs['allowance']?> (<?=$abs['gallowance']?>)</div></div>
+                                       <?php } ?> 
                                        <div class="col-lg-2"><div class="text-center"><input id="txt_<?=$abs['id']?>_carryover" class="form-control text-center" tabindex="<?=$tabindex++?>" name="txt_<?=$abs['id']?>_carryover" maxlength="3" value="<?=$abs['carryover']?>"></div></div>
                                        <div class="col-lg-2"><div class="text-center"><?=$abs['taken']?></div></div>
                                        <div class="col-lg-1"><div class="text-center"><?=$abs['factor']?></div></div>

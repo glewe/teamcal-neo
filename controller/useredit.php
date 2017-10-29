@@ -285,6 +285,10 @@ if (!empty($_POST))
                $AL->username = $profile;
                $AL->absid = $abs['id'];
                $AL->carryover = $_POST['txt_'.$abs['id'].'_carryover'];
+               $AL->allowance = $_POST['txt_'.$abs['id'].'_allowance'];
+               if (!$AL->allowance) {
+                  $AL->allowance = $abs['allowance'];
+               }
                $AL->save();
             }
          }
@@ -563,14 +567,22 @@ $countFrom = date('Y').'0101';
 $countTo = date('Y').'1231';
 foreach ($absences as $abs)
 {
-   $allowance = $abs['allowance'];
    if ($AL->find($viewData['profile'], $abs['id']))
    {
       $carryover = $AL->carryover;
+      if (!$AL->allowance) {
+         //
+         // Zero personal allowance will take over global yearly allowance
+         //
+         $AL->allowance = $abs['allowance'];
+         $AL->update();
+      }
+      $allowance = $AL->allowance;
    }
    else
    {
       $carryover = 0;
+      $allowance = $abs['allowance'];
    }
     
    $taken = 0;
@@ -581,16 +593,17 @@ foreach ($absences as $abs)
 
    $remainder = $allowance + $carryover - ($taken * $abs['factor']);
    $viewData['abs'][] = array(
-   'id' => $abs['id'],
-   'name' => $abs['name'],
-   'icon' => $abs['icon'],
-   'color' => $abs['color'],
-   'bgcolor' => $abs['bgcolor'],
-   'allowance' => $allowance,
-   'carryover' => $carryover,
-   'taken' => $taken,
-   'factor' => $abs['factor'],
-   'remainder' => $remainder
+      'id' => $abs['id'],
+      'name' => $abs['name'],
+      'icon' => $abs['icon'],
+      'color' => $abs['color'],
+      'bgcolor' => $abs['bgcolor'],
+      'allowance' => $allowance,
+      'gallowance' => $abs['allowance'],
+      'carryover' => $carryover,
+      'taken' => $taken,
+      'factor' => $abs['factor'],
+      'remainder' => $remainder
    );
 }
 

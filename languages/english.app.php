@@ -167,6 +167,7 @@ $LANG['absum_remainder'] = 'Remainder';
 //
 $LANG['alert_decl_allowmonth_reached'] = "The maximum amount of %1% per month for this absence type is exceeded.";
 $LANG['alert_decl_allowweek_reached'] = "The maximum amount of %1% per week for this absence type is exceeded.";
+$LANG['alert_decl_allowyear_reached'] = "The maximum amount of %1% per year for this absence type is exceeded.";
 $LANG['alert_decl_approval_required'] = "This absence type requires approval. It has been entered in your calendar but a daynote was added to indicate that it is not approved yet. Your manager was informed by mail.";
 $LANG['alert_decl_approval_required_daynote'] = "This absence was requested but is not approved yet.";
 $LANG['alert_decl_before_date'] = "Absence changes before the following date are not allowed: ";
@@ -675,6 +676,8 @@ $LANG['perm_regions_title'] = 'Regions (Edit)';
 $LANG['perm_regions_desc'] = 'Allows to list and edit regions and their holidays.';
 $LANG['perm_statistics_title'] = 'Statistics (View)';
 $LANG['perm_statistics_desc'] = 'Allows to view the statistics page.';
+$LANG['perm_userallowance_title'] = 'User (Allowances)';
+$LANG['perm_userallowance_desc'] = 'Allows to edit individual allowances for absence types in the user profile.';
 
 //
 // Profile
@@ -682,6 +685,8 @@ $LANG['perm_statistics_desc'] = 'Allows to view the statistics page.';
 $LANG['profile_tab_absences'] = 'Absences';
 $LANG['profile_abs_name'] = 'Absence Type';
 $LANG['profile_abs_allowance'] = 'Allowance';
+$LANG['profile_abs_allowance_tt'] = 'Specify an individual yearly allowance. 0 will take over the global value (in brackets).';
+$LANG['profile_abs_allowance_tt2'] = 'Individual personal allowance. Global value in brackets.';
 $LANG['profile_abs_carryover'] = 'Carryover';
 $LANG['profile_abs_carryover_tt'] = 'The Carryover field also allows negative values and can be used to reduce the allowance for this user for the current year.';
 $LANG['profile_abs_taken'] = 'Taken';

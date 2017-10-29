@@ -20,6 +20,7 @@ class Allowances
    public $username = '';
    public $absid = 0;
    public $carryover = 0;
+   public $allowance = 0;
    
    private $db;
    private $table = '';
@@ -102,10 +103,11 @@ class Allowances
     */
    public function create()
    {
-      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, absid, carryover) VALUES (:val1, :val2, :val3)');
+      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, absid, carryover, allowance) VALUES (:val1, :val2, :val3, :val4)');
       $query->bindParam('val1', $this->username);
       $query->bindParam('val2', $this->absid);
       $query->bindParam('val3', $this->carryover);
+      $query->bindParam('val4', $this->allowance);
       $result = $query->execute();
       return $result;
    }
@@ -206,6 +208,7 @@ class Allowances
          $this->username = $row['username'];
          $this->absid = $row['absid'];
          $this->carryover = $row['carryover'];
+         $this->allowance = $row['allowance'];
          return true;
       }
       else
@@ -215,6 +218,31 @@ class Allowances
    }
    
    // ---------------------------------------------------------------------
+   /**
+    * Gets the allowance value of a user/absenceype
+    *
+    * @param string $username Username to find
+    * @param string $absid Absence ID to find
+    * @return string Allowance value or 0
+    */
+   public function getAllowance($username, $absid)
+   {
+      $query = $this->db->prepare('SELECT allowance FROM ' . $this->table . ' WHERE username = :val1 AND absid = :val2');
+      $query->bindParam('val1', $username);
+      $query->bindParam('val2', $absid);
+      $result = $query->execute();
+      
+      if ($result and $row = $query->fetch())
+      {
+         return $row['allowance'];
+      }
+      else
+      {
+         return '0';
+      }
+   }
+   
+    // ---------------------------------------------------------------------
    /**
     * Gets the carryover value of a user/absenceype
     *
@@ -254,16 +282,17 @@ class Allowances
       
       if ($result and $query->fetchColumn())
       {
-         $query = $this->db->prepare('UPDATE ' . $this->table . ' SET carryover = :val3 WHERE username = :val1 AND absid = :val2');
+         $query = $this->db->prepare('UPDATE ' . $this->table . ' SET carryover = :val3, allowance = :val4 WHERE username = :val1 AND absid = :val2');
       }
       else
       {
-         $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, absid, carryover) VALUES (:val1, :val2, :val3)');
+         $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, absid, carryover, allowance) VALUES (:val1, :val2, :val3, :val4)');
       }
       
       $query->bindParam('val1', $this->username);
       $query->bindParam('val2', $this->absid);
       $query->bindParam('val3', $this->carryover);
+      $query->bindParam('val4', $this->allowance);
       $result = $query->execute();
       return $result;
    }
@@ -276,11 +305,12 @@ class Allowances
     */
    public function update()
    {
-      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET username = :val1, absid = :val2, carryover = :val3 WHERE id = :val4');
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET username = :val1, absid = :val2, carryover = :val3, allowance = :val4 WHERE id = :val5');
       $query->bindParam('val1', $this->username);
       $query->bindParam('val2', $this->absid);
       $query->bindParam('val3', $this->carryover);
-      $query->bindParam('val4', $this->id);
+      $query->bindParam('val4', $this->allowance);
+      $query->bindParam('val5', $this->id);
       
       $result = $query->execute();
       return $result;
