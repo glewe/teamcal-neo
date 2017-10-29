@@ -356,7 +356,7 @@ if (!empty($_POST))
                      $U->firstname = $rec['firstname'];
                      $U->lastname = $rec['lastname'];
                      $U->email = $rec['email'];
-
+                     
                      // Only Admin and User roles are mapped
                      if ($rec['usertype'] & 0x04) $U->role = '1'; // Admin
                      if ($rec['usertype'] & 0x01) $U->role = '2'; // User
@@ -396,7 +396,30 @@ if (!empty($_POST))
                      $UO->create($rec['username'], 'avatar', $myAvatar);
                      $UO->create($rec['username'], 'theme', 'default');
                      $UO->create($rec['username'], 'language', 'default');
+                     $UO->create($rec['username'], 'custom1', $rec['custom1']);
+                     $UO->create($rec['username'], 'custom2', $rec['custom2']);
+                     $UO->create($rec['username'], 'custom3', $rec['custom3']);
+                     $UO->create($rec['username'], 'custom4', $rec['custom4']);
+
+                     //
+                     // Custom Field Titles
+                     //
+                     $arrCustomfields = array('userCustom1','userCustom2','userCustom3','userCustom4',);
+                     foreach($arrCustomfields as $customField) {
+                        $myQuery = "SELECT `value` FROM `".$tcpPrefix."config` WHERE `name` = '".$customField."';";
+                        $query = $pdoTCP->prepare($myQuery);
+                        $result = $query->execute();
+                        if ($result)
+                        {
+                           $records = array ();
+                           while ( $row = $query->fetch() )
+                           {
+                              $C->save($customField,$row['value']);
+                           }
+                        }
+                     }
                   }
+                  
                   //
                   // Log this event
                   //
