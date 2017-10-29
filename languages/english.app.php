@@ -284,6 +284,8 @@ $LANG['calopt_tab_summary'] = 'Summary';
 
 $LANG['calopt_currentYearOnly'] = 'Current Year Only';
 $LANG['calopt_currentYearOnly_comment'] = 'With this switch, the calendar will be restricted to the current year. Other years cannot be viewed or edited.';
+$LANG['calopt_currentYearRoles'] = 'Current Year Roles';
+$LANG['calopt_currentYearRoles_comment'] = 'If "Current Year Only" is selected, you can assign this restriction to certain roles here.';
 $LANG['calopt_defgroupfilter'] = 'Default Group Filter';
 $LANG['calopt_defgroupfilter_comment'] = ' Select the default group filter for the calendar display. Each user can still change his individual default filter in his profile.';
 $LANG['calopt_defgroupfilter_all'] = 'All';

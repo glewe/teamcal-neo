@@ -257,12 +257,29 @@ if (isset($_GET['search']) AND $_GET['search']=="reset")
 
 //-----------------------------------------------------------------------------
 //
-// Default back to current yearmonth if option is set
+// Default back to current yearmonth if option is set and role matches
 //
 if ($C->read('currentYearOnly') AND $viewData['year']!=date('Y'))
 {
-   header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . date('Ym') . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
-   die();
+   if ($C->read("currYearRoles")) {
+      //
+      // Applies to roles
+      //
+      $arrCurrYearRoles = array();
+      $arrCurrYearRoles = explode(',', $C->read("currYearRoles"));
+      $userRole = $U->getRole(L_USER);
+      if (in_array($userRole,$arrCurrYearRoles)) {
+         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . date('Ym') . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
+         die();
+      }
+   }
+   else {
+      //
+      // Just in case currYearRoles is not set yet
+      //
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . date('Ym') . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
+      die();
+   }
 }
 
 //-----------------------------------------------------------------------------

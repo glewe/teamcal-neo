@@ -40,6 +40,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
  * Initialize variables
  */
 $arrTrustedRoles = array();
+$arrCurrYearRoles = array();
 
 /**
  * ========================================================================
@@ -61,9 +62,9 @@ if (isset($_POST['btn_caloptApply']))
    if (isset($_POST['chk_showWeekNumbers']) && $_POST['chk_showWeekNumbers']) $C->save("showWeekNumbers", "1"); else $C->save("showWeekNumbers", "0");
    $C->save("repeatHeaderCount", intval($_POST['txt_repeatHeaderCount']));
    $C->save("usersPerPage", intval($_POST['txt_usersPerPage']));
-   if ( isset($_POST['chk_showAvatars']) && $_POST['chk_showAvatars'] ) $C->save("showAvatars","1"); else $C->save("showAvatars","0");
-   if ( isset($_POST['chk_showRoleIcons']) && $_POST['chk_showRoleIcons'] ) $C->save("showRoleIcons","1"); else $C->save("showRoleIcons","0");
-   if ( isset($_POST['chk_showTooltipCount']) && $_POST['chk_showTooltipCount'] ) $C->save("showTooltipCount","1"); else $C->save("showTooltipCount","0");
+   if (isset($_POST['chk_showAvatars']) && $_POST['chk_showAvatars'] ) $C->save("showAvatars","1"); else $C->save("showAvatars","0");
+   if (isset($_POST['chk_showRoleIcons']) && $_POST['chk_showRoleIcons'] ) $C->save("showRoleIcons","1"); else $C->save("showRoleIcons","0");
+   if (isset($_POST['chk_showTooltipCount']) && $_POST['chk_showTooltipCount'] ) $C->save("showTooltipCount","1"); else $C->save("showTooltipCount","0");
    if (isset($_POST['chk_supportMobile']) && $_POST['chk_supportMobile']) $C->save("supportMobile", "1"); else $C->save("supportMobile", "0");
    if (isset($_POST['chk_symbolAsIcon']) && $_POST['chk_symbolAsIcon']) $C->save("symbolAsIcon", "1"); else $C->save("symbolAsIcon", "0");
     
@@ -74,6 +75,15 @@ if (isset($_POST['btn_caloptApply']))
    if (isset($_POST['chk_hideManagers']) && $_POST['chk_hideManagers']) $C->save("hideManagers", "1"); else $C->save("hideManagers", "0");
    if (isset($_POST['chk_hideManagerOnlyAbsences'])) $C->save("hideManagerOnlyAbsences", "1"); else $C->save("hideManagerOnlyAbsences", "0");
    if (isset($_POST['chk_showUserRegion']) && $_POST['chk_showUserRegion']) $C->save("showUserRegion", "1"); else $C->save("showUserRegion", "0");
+   if (isset($_POST['sel_trustedRoles']))
+   {
+      foreach ( $_POST['sel_trustedRoles'] as $role )
+      {
+         $arrTrustedRoles[] = $role;
+      }
+      $trustedRoles = implode(',', $arrTrustedRoles);
+      $C->save("trustedRoles", $trustedRoles);
+   }
     
    /**
     * Settings
@@ -85,16 +95,16 @@ if (isset($_POST['btn_caloptApply']))
    if (isset($_POST['chk_showRegionButton']) && $_POST['chk_showRegionButton']) $C->save("showRegionButton", "1"); else $C->save("showRegionButton", "0");
    if ($_POST['opt_defgroupfilter']) $C->save("defgroupfilter", $_POST['opt_defgroupfilter']); else $C->save("defgroupfilter", 'All');
    if (isset($_POST['chk_currentYearOnly']) && $_POST['chk_currentYearOnly']) $C->save("currentYearOnly", "1"); else $C->save("currentYearOnly", "0");
-   
-   if (isset($_POST['sel_trustedRoles']))
+   if (isset($_POST['sel_currentYearRoles']))
    {
-      foreach ( $_POST['sel_trustedRoles'] as $role )
+      foreach ( $_POST['sel_currentYearRoles'] as $role )
       {
-         $arrTrustedRoles[] = $role;
+         $arrCurrYearRoles[] = $role;
       }
-      $trustedRoles = implode(',', $arrTrustedRoles);
-      $C->save("trustedRoles", $trustedRoles);
+      $currYearRoles = implode(',', $arrCurrYearRoles);
+      $C->save("currYearRoles", $currYearRoles);
    }
+   
    if (isset($_POST['chk_takeover']) && $_POST['chk_takeover']) $C->save("takeover", "1"); else $C->save("takeover", "0");
    
    /**
@@ -155,6 +165,11 @@ foreach ($regions as $region)
 {
    $caloptData['regionList'][] = array ('val' => $region, 'name' => $region, 'selected' => ($C->read("defregion") == $region)?true:false );
 }
+$arrCurrYearRoles = explode(',', $C->read("currYearRoles"));
+foreach ($roles as $role)
+{
+   $caloptData['roleList2'][] = array ('val' => $role['id'], 'name' => $role['name'], 'selected' => (in_array($role['id'],$arrCurrYearRoles))?true:false );
+}
 $caloptData['options'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'firstDayOfWeek', 'type' => 'radio', 'values' => array ('1', '7'), 'value' => $C->read("firstDayOfWeek") ),
    array ( 'prefix' => 'calopt', 'name' => 'satBusi', 'type' => 'check', 'values' => '', 'value' => $C->read("satBusi") ),
@@ -163,6 +178,7 @@ $caloptData['options'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'showRegionButton', 'type' => 'check', 'values' => '', 'value' => $C->read("showRegionButton") ),
    array ( 'prefix' => 'calopt', 'name' => 'defgroupfilter', 'type' => 'radio', 'values' => array ('all', 'allbygroup'), 'value' => $C->read("defgroupfilter") ),
    array ( 'prefix' => 'calopt', 'name' => 'currentYearOnly', 'type' => 'check', 'values' => '', 'value' => $C->read("currentYearOnly") ),
+   array ( 'prefix' => 'calopt', 'name' => 'currentYearRoles', 'type' => 'listmulti', 'values' => $caloptData['roleList2'] ),
    array ( 'prefix' => 'calopt', 'name' => 'takeover', 'type' => 'check', 'values' => '', 'value' => $C->read("takeover") ),
 );
 
