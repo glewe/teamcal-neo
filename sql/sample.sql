@@ -4,7 +4,7 @@
  * Sample MySQL database
  *
  * @category TeamCal Neo 
- * @version 1.6.002
+ * @version 1.7.000
  * @author George Lewe
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -143,6 +143,7 @@ CREATE TABLE `tcneo_allowances` (
   `username` varchar(40) CHARACTER SET utf8 NOT NULL,
   `absid` int(11) NOT NULL,
   `carryover` smallint(6) DEFAULT '0',
+  `allowance` smallint(6) DEFAULT '0',
   PRIMARY KEY (id),
   UNIQUE allowance (username,absid)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -485,7 +486,8 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (162, 'logcolorRegion', 'success'),
 (163, 'defaultHomepage', 'home'),
 (164, 'trustedRoles', '1'),
-(165, 'noCaching', '0');
+(165, 'noCaching', '0'),
+(166, 'currYearRoles', '2,3');
 
 
 -- --------------------------------------------------------
