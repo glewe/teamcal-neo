@@ -64,17 +64,16 @@ if (!empty($_POST))
    {
       // ,----------,
       // | Activate |
-      // '-----------'
-      if ( isset($_POST['btn_userActivate']) AND isset($_POST['chk_userActive']) )
+      // '----------'
+      if ( isset($_POST['btn_userActivate']) )
       {
          $selected_users = $_POST['chk_userActive'];
          foreach($selected_users as $su=>$value)
          {
             $U->unhide($value);
+            $U->unhold($value);
             $U->unlock($value);
             $U->unverify($value);
-            $U1->findByName($value);
-            sendAccountActivatedMail($U1->email, $U1->username, $U1->firstname, $U1->lastname);
          }
          //
          // Success

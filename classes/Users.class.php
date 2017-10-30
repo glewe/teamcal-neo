@@ -662,6 +662,20 @@ class Users
     
    // ---------------------------------------------------------------------
    /**
+    * Unholds a user record
+    *
+    * @param string $username Username of record to update
+    * @return boolean Query result
+    */
+    public function unhold($username)
+    {
+       $stmt = 'UPDATE ' . $this->table . ' SET `onhold` = "0" WHERE `username` = "' . $username . '"';
+       $result = $this->db->exec($stmt);
+       return $result;
+    }
+     
+    // ---------------------------------------------------------------------
+   /**
     * Unlocks a user record
     *
     * @param string $username Username of record to update

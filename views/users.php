@@ -128,16 +128,22 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalResetPassword"><?=$LANG['btn_reset_password_selected']?></button>
                                        <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalArchiveSelected"><?=$LANG['btn_archive_selected']?></button>
                                        <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteSelected"><?=$LANG['btn_delete_selected']?></button>
+                                       <button type="button" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalActivateSelected"><?=$LANG['btn_activate_selected']?></button>
                                        
-                                       <!-- Modal: Delete selected -->
-                                       <?=createModalTop('modalDeleteSelected', $LANG['modal_confirm'])?>
-                                          <?=$LANG['users_confirm_delete']?>
-                                       <?=createModalBottom('btn_profileDelete', 'danger', $LANG['btn_delete_selected'])?>
+                                       <!-- Modal: Activate selected -->
+                                       <?=createModalTop('modalActivateSelected', $LANG['modal_confirm'])?>
+                                          <?=$LANG['users_confirm_activate']?>
+                                       <?=createModalBottom('btn_userActivate', 'success', $LANG['btn_activate_selected'])?>
                                        
                                        <!-- Modal: Archive selected -->
                                        <?=createModalTop('modalArchiveSelected', $LANG['modal_confirm'])?>
                                           <?=$LANG['users_confirm_archive']?>
                                        <?=createModalBottom('btn_userArchive', 'warning', $LANG['btn_archive_selected'])?>
+                                       
+                                       <!-- Modal: Delete selected -->
+                                       <?=createModalTop('modalDeleteSelected', $LANG['modal_confirm'])?>
+                                          <?=$LANG['users_confirm_delete']?>
+                                       <?=createModalBottom('btn_profileDelete', 'danger', $LANG['btn_delete_selected'])?>
                                        
                                        <!-- Model: Reset password -->
                                        <?=createModalTop('modalResetPassword', $LANG['modal_confirm'])?>

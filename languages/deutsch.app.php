@@ -184,6 +184,7 @@ $LANG['btn_abs_edit'] = 'Bearbeiten';
 $LANG['btn_abs_icon'] = 'Icon Ausw&auml;hlen';
 $LANG['btn_abs_list'] = 'Abwesenheitstypliste';
 $LANG['btn_absum'] = 'Abwesenheits&uuml;bersicht';
+$LANG['btn_activate_selected'] = 'Auswahl aktivieren';
 $LANG['btn_calendar'] = 'Kalender';
 $LANG['btn_cleanup'] = 'Aufr&auml;umen';
 $LANG['btn_create_abs'] = 'Abwesenheitstyp anlegen';
@@ -897,6 +898,12 @@ $LANG['tcpimp_utpl_comment'] = '<p>Um die Nutzerkalender zu importieren, m&uuml;
          <li>Abwesenheitstypen</li>
          <li>Benutzerkonten</li>
       </ul>';
+
+//
+// Users
+//
+$LANG['users_alert_activate_selected_users'] = 'The augew&auml;hlten Benutzer wurden aktiviert.';
+$LANG['users_confirm_activate'] = 'Bist du sicher, dass du die ausgew&auml;hlten Benutzer aktivieren willst?<br>Dies entsperrt und verifiziert die User und zeigt sie im Kalender.';
 
 //
 // Year

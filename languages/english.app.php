@@ -184,6 +184,7 @@ $LANG['btn_abs_edit'] = 'Back to Edit';
 $LANG['btn_abs_icon'] = 'Select Icon';
 $LANG['btn_abs_list'] = 'Absence Type List';
 $LANG['btn_absum'] = 'Absence Summary';
+$LANG['btn_activate_selected'] = 'Activate selected';
 $LANG['btn_calendar'] = 'Calendar';
 $LANG['btn_cleanup'] = 'Cleanup';
 $LANG['btn_create_abs'] = 'Create Absence Type';
@@ -897,6 +898,12 @@ $LANG['tcpimp_utpl_comment'] = '<p>To import the user calendars you also need to
          <li>Absence Types</li>
          <li>User Accounts</li>
       </ul>';
+
+//
+// Users
+//
+$LANG['users_alert_activate_selected_users'] = 'The selected users were activated.';
+$LANG['users_confirm_activate'] = 'Are you sure you want to activate the selected users?<br>This will unhide, unhold, unlock and verify the selected users.';
 
 //
 // Year
