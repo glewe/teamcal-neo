@@ -5,7 +5,7 @@
  * Log page view
  *
  * @category TeamCal Neo 
- * @version 1.7.000
+ * @version 1.8.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -103,11 +103,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        $color = "text-" . $C->read("logcolor".substr($event['type'],3));
                                        ?>
                                        <div class="col-lg-12 <?=$color?>" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-                                          <div class="col-lg-1"><?=$i+1?></div>
-                                          <div class="col-lg-3"><i class="fa fa-clock-o fa-lg fa-menu" title="<?=$LANG['log_header_when']?>"></i><?=$event['timestamp']?></div>
-                                          <div class="col-lg-2"><i class="fa fa-tag fa-lg fa-menu" title="<?=$LANG['log_header_type']?>"></i><?=substr($event['type'],3)?></div>
-                                          <div class="col-lg-2"><i class="fa fa-user fa-lg fa-menu" title="<?=$LANG['log_header_user']?>"></i><?=$event['user']?></div>
-                                          <div class="col-lg-4"><i class="fa fa-pencil fa-lg fa-menu" title="<?=$LANG['log_header_event']?>"></i><?=$event['event']?></div>
+                                          <div class="col-lg-1 small"><?=$i+1?></div>
+                                          <div class="col-lg-3 small"><i class="fa fa-clock-o fa-lg fa-menu" title="<?=$LANG['log_header_when']?>"></i><?=$event['timestamp']?></div>
+                                          <div class="col-lg-2 small"><i class="fa fa-tag fa-lg fa-menu" title="<?=$LANG['log_header_type']?>"></i><?=substr($event['type'],3)?></div>
+                                          <div class="col-lg-2 small"><i class="fa fa-user fa-lg fa-menu" title="<?=$LANG['log_header_user']?>"></i><?=$event['user']?></div>
+                                          <div class="col-lg-4 small"><i class="fa fa-pencil fa-lg fa-menu" title="<?=$LANG['log_header_event']?>"></i><?=$event['event']?></div>
                                        </div>
                                     <?php } 
                                  } ?>
