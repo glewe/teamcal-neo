@@ -121,20 +121,20 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
    $thresholdReached = false;
    $takeoverRequested = false;
     
-   /**
-    * Get date information about the month of the request
-    */
+   //
+   // Get date information about the month of the request
+   //
    $monthInfo = dateInfo($year, $month);
    
-   /**
-    * Get the current template of the user for whom this request was made
-    * Also, get all related groups for this user (to check group thresholds)
-    */
+   //
+   // Get the current template of the user for whom this request was made
+   // Also, get all related groups for this user (to check group thresholds)
+   //
    $userGroups = $UG->getAllforUser($username);
    
-   /**
-    * Initialize arrays
-    */
+   //
+   // Initialize arrays
+   //
    for($i = 1; $i <= $monthInfo['daysInMonth']; $i++)
    {
       $approvedAbsences[$i] = '0';
@@ -142,10 +142,10 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
       $declinedReasons[$i] = '';
    }
    
-   /**
-    * Check whether $currentAbsences and $requestedAbsences differ in any way.
-    * If not, we can save us the trouble of the one by one comparison.
-    */
+   //
+   // Check whether $currentAbsences and $requestedAbsences differ in any way.
+   // If not, we can save us the trouble of the one by one comparison.
+   //
    $arraysDiffer = false;
    $approvalResult['allChangesInPast'] = true;
    $todayDate = date("Ymd", time());
@@ -153,15 +153,16 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
    {
       if ($currentAbsences[$i] != $requestedAbsences[$i])
       {
-         /**
-          * We have a difference
-          */
+         //
+         // We have a difference
+         //
          $arraysDiffer = true;
-         /**
-          * Check whether at least one change is not in the past.
-          * We need that info later for not sending notification mails if all 
-          * is in the past.
-          */
+
+         //
+         // Check whether at least one change is not in the past.
+         // We need that info later for not sending notification mails if all 
+         // is in the past.
+         //
          $iDate = intval($year . $month . sprintf("%02d", $i));
          if ($iDate >= $todayDate) $approvalResult['allChangesInPast'] = false;
          
@@ -173,42 +174,43 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
       }
    }
    
-   /**
-    * Before we go any further,
-    * - if the requesting user is admin OR
-    * - the affected user is in a role out of scope of declination
-    * - no takeover was requested
-    */
-   if (($UL->username == 'admin' OR !$U->hasRole($username, $C->read("declScope")) OR isAllowed("calendareditall")) AND !$takeoverRequested)
+   //
+   // Before we go any further,
+   // - if the requesting user is admin OR
+   // - if requesting user can edit all calendars AND
+   // - no takeover was requested
+   // retrun as approved
+   //
+   if (($UL->username == 'admin' OR isAllowed("calendareditall")) AND !$takeoverRequested)
    {
       $approvalResult['approvalResult'] = 'all';
       return $approvalResult;
    }
    
-   /**
-    * Now loop through each request and check for declination reasons
-    */
+   //
+   // Now loop through each request and check for declination reasons
+   //
    if ($arraysDiffer)
    {
       for($i = 1; $i <= $monthInfo['daysInMonth']; $i++)
       {
-         /**
-          * See if there was a change requested for this day
-          */
+         //
+         // See if there was a change requested for this day
+         //
          if ($currentAbsences[$i] != $requestedAbsences[$i])
          {
             $requestedDate = $year . '-' . $month . '-' . sprintf("%02d", ($i));
             
-            /**
-             * Assume approved for now. If one of the declination check fails we will overwrite.
-             */
+            //
+            // Assume approved for now. If one of the declination check fails we will overwrite.
+            //
             $approvedAbsences[$i] = $requestedAbsences[$i];
             
-            /**
-             * TAKEOVER
-             * The logged in user wants to take over this absence. This feature does not require
-             * validation but the absence type must be enabled for it.
-             */
+            //
+            // TAKEOVER
+            // The logged in user wants to take over this absence. This feature does not require
+            // validation but the absence type must be enabled for it.
+            //
             if ($requestedAbsences[$i] == 'takeover')
             {
                if ($A->isTakeover($currentAbsences[$i]))
@@ -233,148 +235,32 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             }
             else 
             {
-               /**
-                * ABSENCE THRESHOLD
-                * Only check this if the requested absence is in fact an absence (not Zero)
-                */
-               if ($C->read("declAbsence") AND $requestedAbsences[$i] != '0')
-               {
-                  $today = date('Ymd');
-                  $declStartdate = str_replace('-','',$C->read('declAbsenceStartdate'));
-                  $declEnddate = str_replace('-','',$C->read('declAbsenceEnddate'));
-                  
-                  $applyRule = true; // Assume true
-                  switch ($C->read('declAbsencePeriod'))
-                  {
-                     case 'nowEnddate':
-                        if ($today>$declEnddate) $applyRule = false;
-                        break;
-                     case 'startdateForever':
-                        if ($today<$declStartdate) $applyRule = false;
-                        break;
-                     case 'startdateEnddate':
-                        if ($today<$declStartdate OR $today>$declEnddate) $applyRule = false;
-                        break;
-                  }
-   
-                  if($applyRule)
-                  {
-                     if ($C->read("declBase") == "group")
-                     {
-                        /**
-                         * There is a declination threshold for groups.
-                         * We have to go through each group of this user and see
-                         * wether the threshold would be violated by this request.
-                         */
-                        $groups = "";
-                        foreach ( $userGroups as $row )
-                        {
-                           if (absenceThresholdReached($year, $month, $i, "group", $row['groupid']))
-                           {
-                              /**
-                               * Only decline and add the affected group if the requesting user
-                               * - is not allowed to edit group calendars OR
-                               * - is neither member nor manager of the affected group
-                               */
-                              if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOfGroup($UL->username, $row['groupid'])))
-                              {
-                                 $affectedgroups[] = $row['groupid'];
-                                 $groups .= $G->getNameById($row['groupid']) . ", ";
-                              }
-                           }
-                        }
-                        
-                        if (strlen($groups))
-                        {
-                           /**
-                            * Absence threshold for one or more groups is reached.
-                            * Absence cannot be set.
-                            */
-                           $groups = substr($groups, 0, strlen($groups) - 2);
-                           $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $LANG['alert_decl_group_threshold'] . $groups;
-                           $declinedAbsences[$i] = $requestedAbsences[$i];
-                           $approvedAbsences[$i] = $currentAbsences[$i];
-                           $thresholdReached = true;
-                        }
-                     }
-                     else
-                     {
-                        if (absenceThresholdReached($year, $month, $i, "all"))
-                        {
-                           /**
-                            * Absence threshold for all is reached.
-                            * Absence cannot be set.
-                            */
-                           $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $LANG['alert_decl_total_threshold'];
-                           $declinedAbsences[$i] = $requestedAbsences[$i];
-                           $approvedAbsences[$i] = $currentAbsences[$i];
-                           $thresholdReached = true;
-                        }
-                     }
-                  }
+               // 
+               // DECLINATION RULES
+               // Check whether logged in user role is in scope for declination rules
+               //
+               $declScopeRoles = array();
+               $declInScope = true; // Default is in scope
+               if ($declScope = $C->read("declScope")) {
+                  $declScopeRoles = explode(',', $declScope);
+                  $ulRole = $UL->getRole($UL->username);
+                  if (!in_array($ulRole, $declScopeRoles)) $declInScope = false;
                }
-               
-               /**
-                * BEFORE DATE
-                */
-               if ($C->read("declBefore"))
+
+               if ($declInScope)
                {
-                  $today = date('Ymd');
-                  $declStartdate = str_replace('-','',$C->read('declBeforeStartdate'));
-                  $declEnddate = str_replace('-','',$C->read('declBeforeEnddate'));
-                   
-                  $applyRule = true; // Assume true
-                  switch ($C->read('declBeforePeriod'))
-                  {
-                     case 'nowEnddate':
-                        if ($today>$declEnddate) $applyRule = false;
-                        break;
-                     case 'startdateForever':
-                        if ($today<$declStartdate) $applyRule = false;
-                        break;
-                     case 'startdateEnddate':
-                        if ($today<$declStartdate OR $today>$declEnddate) $applyRule = false;
-                        break;
-                  }
-                  
-                  if($applyRule)
-                  {
-                     if (!strlen($beforeDate = $C->read("declBeforeDate")))
-                     {
-                        /**
-                         * A specific before date is not set. The it is today.
-                         */
-                        $beforeDate = getISOToday();
-                     }
-                     
-                     if ($requestedDate < $beforeDate)
-                     {
-                        /**
-                         * Requested absence is before the before date.
-                         * Absence cannot be set.
-                         */
-                        $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $LANG['alert_decl_before_date'] . $beforeDate;
-                        $declinedAbsences[$i] = $requestedAbsences[$i];
-                        $approvedAbsences[$i] = $currentAbsences[$i];
-                        $thresholdReached = true;
-                     }
-                  }
-               }
-               
-               /**
-                * PERIOD 1-3
-                */
-               $periods = 3;
-               for ($p=1; $p<=$periods; $p++)
-               {
-                  if ($C->read("declPeriod".$p))
+                  //
+                  // ABSENCE THRESHOLD
+                  // Only check this if the requested absence is in fact an absence (not Zero)
+                  //
+                  if ($C->read("declAbsence") AND $requestedAbsences[$i] != '0')
                   {
                      $today = date('Ymd');
-                     $declStartdate = str_replace('-','',$C->read('declPeriod1Startdate'));
-                     $declEnddate = str_replace('-','',$C->read('declPeriod1Enddate'));
+                     $declStartdate = str_replace('-','',$C->read('declAbsenceStartdate'));
+                     $declEnddate = str_replace('-','',$C->read('declAbsenceEnddate'));
                      
                      $applyRule = true; // Assume true
-                     switch ($C->read('declPeriod1Period'))
+                     switch ($C->read('declAbsencePeriod'))
                      {
                         case 'nowEnddate':
                            if ($today>$declEnddate) $applyRule = false;
@@ -386,48 +272,179 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                            if ($today<$declStartdate OR $today>$declEnddate) $applyRule = false;
                            break;
                      }
-                      
+      
                      if($applyRule)
                      {
-                        $startDate = $C->read("declPeriod".$p."Start");
-                        $endDate = $C->read("declPeriod".$p."End");
-                        if ($requestedDate >= $startDate AND $requestedDate <= $endDate)
+                        if ($C->read("declBase") == "group")
                         {
-                           /**
-                            * Requested absence is inside a declination period.
-                            * Absence cannot be set.
-                            */
-                           if (!strlen($declMessage=$C->read("declPeriod".$p."Message"))) $declMessage = $LANG['alert_decl_period'] . $startDate . " - " . $endDate;
-                           $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $declMessage;
+                           //
+                           // There is a declination threshold for groups.
+                           // We have to go through each group of this user and see
+                           // wether the threshold would be violated by this request.
+                           //
+                           $groups = "";
+                           foreach ( $userGroups as $row )
+                           {
+                              if (absenceThresholdReached($year, $month, $i, "group", $row['groupid']))
+                              {
+                                 //
+                                 // Only decline and add the affected group if the requesting user
+                                 // - is not allowed to edit group calendars OR
+                                 // - is neither member nor manager of the affected group
+                                 //
+                                 if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOfGroup($UL->username, $row['groupid'])))
+                                 {
+                                    $affectedgroups[] = $row['groupid'];
+                                    $groups .= $G->getNameById($row['groupid']) . ", ";
+                                 }
+                              }
+                           }
+                           
+                           if (strlen($groups))
+                           {
+                              //
+                              // Absence threshold for one or more groups is reached.
+                              // Absence cannot be set.
+                              //
+                              $groups = substr($groups, 0, strlen($groups) - 2);
+                              $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $LANG['alert_decl_group_threshold'] . $groups;
+                              $declinedAbsences[$i] = $requestedAbsences[$i];
+                              $approvedAbsences[$i] = $currentAbsences[$i];
+                              $thresholdReached = true;
+                           }
+                        }
+                        else
+                        {
+                           if (absenceThresholdReached($year, $month, $i, "all"))
+                           {
+                              //
+                              // Absence threshold for all is reached.
+                              // Absence cannot be set.
+                              //
+                              $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $LANG['alert_decl_total_threshold'];
+                              $declinedAbsences[$i] = $requestedAbsences[$i];
+                              $approvedAbsences[$i] = $currentAbsences[$i];
+                              $thresholdReached = true;
+                           }
+                        }
+                     }
+                  }
+                  
+                  //
+                  // BEFORE DATE
+                  //
+                  if ($C->read("declBefore"))
+                  {
+                     $today = date('Ymd');
+                     $declStartdate = str_replace('-','',$C->read('declBeforeStartdate'));
+                     $declEnddate = str_replace('-','',$C->read('declBeforeEnddate'));
+                     
+                     $applyRule = true; // Assume true
+                     switch ($C->read('declBeforePeriod'))
+                     {
+                        case 'nowEnddate':
+                           if ($today>$declEnddate) $applyRule = false;
+                           break;
+                        case 'startdateForever':
+                           if ($today<$declStartdate) $applyRule = false;
+                           break;
+                        case 'startdateEnddate':
+                           if ($today<$declStartdate OR $today>$declEnddate) $applyRule = false;
+                           break;
+                     }
+                     
+                     if($applyRule)
+                     {
+                        if (!strlen($beforeDate = $C->read("declBeforeDate")))
+                        {
+                           //
+                           // A specific before date is not set. The it is today.
+                           //
+                           $beforeDate = getISOToday();
+                        }
+                        
+                        if ($requestedDate < $beforeDate)
+                        {
+                           //
+                           // Requested absence is before the before date.
+                           // Absence cannot be set.
+                           //
+                           $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $LANG['alert_decl_before_date'] . $beforeDate;
                            $declinedAbsences[$i] = $requestedAbsences[$i];
                            $approvedAbsences[$i] = $currentAbsences[$i];
                            $thresholdReached = true;
                         }
                      }
                   }
-               }
+                  
+                  //
+                  // PERIOD 1-3
+                  //
+                  $periods = 3;
+                  for ($p=1; $p<=$periods; $p++)
+                  {
+                     if ($C->read("declPeriod".$p))
+                     {
+                        $today = date('Ymd');
+                        $declStartdate = str_replace('-','',$C->read('declPeriod1Startdate'));
+                        $declEnddate = str_replace('-','',$C->read('declPeriod1Enddate'));
+                        
+                        $applyRule = true; // Assume true
+                        switch ($C->read('declPeriod1Period'))
+                        {
+                           case 'nowEnddate':
+                              if ($today>$declEnddate) $applyRule = false;
+                              break;
+                           case 'startdateForever':
+                              if ($today<$declStartdate) $applyRule = false;
+                              break;
+                           case 'startdateEnddate':
+                              if ($today<$declStartdate OR $today>$declEnddate) $applyRule = false;
+                              break;
+                        }
+                        
+                        if($applyRule)
+                        {
+                           $startDate = $C->read("declPeriod".$p."Start");
+                           $endDate = $C->read("declPeriod".$p."End");
+                           if ($requestedDate >= $startDate AND $requestedDate <= $endDate)
+                           {
+                              //
+                              // Requested absence is inside a declination period.
+                              // Absence cannot be set.
+                              //
+                              if (!strlen($declMessage=$C->read("declPeriod".$p."Message"))) $declMessage = $LANG['alert_decl_period'] . $startDate . " - " . $endDate;
+                              $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $declMessage;
+                              $declinedAbsences[$i] = $requestedAbsences[$i];
+                              $approvedAbsences[$i] = $currentAbsences[$i];
+                              $thresholdReached = true;
+                           }
+                        }
+                     }
+                  }
+               } // END if ($declInScope)
                
-               /**
-                * ABSENCE APPROVAL REQUIRED
-                */
+               //
+               // ABSENCE APPROVAL REQUIRED
+               //
                if ($A->getApprovalRequired($requestedAbsences[$i]) AND !$thresholdReached)
                {
-                  /**
-                   * ThresholdReached overrules absence approval
-                   * Only decline if the requesting user
-                   * - is not allowed to edit group calendars OR
-                   * - is neither member nor manager of the affected group
-                   */
+                  //
+                  // ThresholdReached overrules absence approval
+                  // Only decline if the requesting user
+                  // - is not allowed to edit group calendars OR
+                  // - is neither member nor manager of the affected group
+                  //
                   if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOfGroup($UL->username, $row['groupid'])))
                   {
-                     /**
-                      * Absence requires approval.
-                      */
+                     //
+                     // Absence requires approval.
+                     //
                      $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . $LANG['alert_decl_approval_required'];
                      
-                     /**
-                      * Set absence but add approval daynote.
-                      */
+                     //
+                     // Set absence but add approval daynote.
+                     //
                      $declinedAbsences[$i] = $requestedAbsences[$i];
                      $approvedAbsences[$i] = $requestedAbsences[$i];
                      
@@ -438,22 +455,22 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                      $D->color = 'warning';
                      $D->create();
                      
-                     /**
-                      * Notify managers
-                      */
+                     //
+                     // Notify managers
+                     //
                      sendAbsenceApprovalNotifications($username, $year, $month, $i, $requestedAbsences[$i]);
                   }
                }
                
-               /**
-                * HOLIDAY DOS NOT ALLOW ABSENCE
-                */
+               //
+               // HOLIDAY DOS NOT ALLOW ABSENCE
+               //
                $isHoliday = $M->getHoliday($year, $month, $i, $regionId);
                if ($isHoliday AND $H->noAbsenceAllowed($isHoliday))
                {
-                  /**
-                   * This day is a holiday and the holiday is set to allow no absences
-                   */
+                  //
+                  // This day is a holiday and the holiday is set to allow no absences
+                  //
                   $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . $LANG['alert_decl_holiday_noabsence'];
                   $declinedAbsences[$i] = $requestedAbsences[$i];
                   $approvedAbsences[$i] = $currentAbsences[$i];
@@ -463,10 +480,10 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
          }
          else
          {
-            /**
-             * No absence change. Add to approved.
-             */
-             $approvedAbsences[$i] = $currentAbsences[$i];
+            //
+            // No absence change. Add to approved.
+            //
+            $approvedAbsences[$i] = $currentAbsences[$i];
          }
       }
       
@@ -518,9 +535,9 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                //
                $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . str_replace('%1%', $allow, $LANG['alert_decl_allowweek_reached']);
          
-               /**
-                * Set absence but add approval daynote.
-                */
+               //
+               // Set absence but add approval daynote.
+               //
                $declinedAbsences[$i] = $requestedAbsences[$i];
                $approvedAbsences[$i] = $currentAbsences[$i];
             }
@@ -603,47 +620,47 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
          }
       }
       
-      /**
-       * Check for partial or total declination
-       */
+      //
+      // Check for partial or total declination
+      //
       $approved = true;
       $declined = false;
       for($i = 1; $i <= $monthInfo['daysInMonth']; $i++)
       {
          if ( ($approvedAbsences[$i] != $requestedAbsences[$i]) OR $declinedAbsences[$i] != '0')
          {
-            /**
-             * At least one request is declined
-             */
+            //
+            // At least one request is declined
+            //
             $declined = true;
          }
          else
          {
-            /**
-             * At least one request is approved
-             */
+            //
+            // At least one request is approved
+            //
             $approved = true;
          }
          
          if ($approved and !$declined)
          {
-            /**
-             * All requests are approved
-             */
+            //
+            // All requests are approved
+            //
             $approvalResult['approvalResult'] = 'all';
          }
          elseif ($approved and $declined)
          {
-            /**
-             * Some are approved, some declined
-             */
+            //
+            // Some are approved, some declined
+            //
             $approvalResult['approvalResult'] = 'partial';
          }
          else
          {
-            /**
-             * All declined
-             */
+            //
+            // All declined
+            //
             $approvalResult['approvalResult'] = 'none';
          }
       }
