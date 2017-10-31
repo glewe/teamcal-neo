@@ -587,7 +587,7 @@ class Absences
     */
    public function getName($id = '')
    {
-      $rc = 'unknown';
+      $rc = '';
       if (isset($id))
       {
          $query = $this->db->prepare('SELECT name FROM ' . $this->table . ' WHERE id = :val1');

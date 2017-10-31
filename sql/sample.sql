@@ -824,7 +824,11 @@ INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`
 (97, 'Default', 'daynoteglobal', 1, 1),
 (98, 'Default', 'daynoteglobal', 4, 1),
 (99, 'Default', 'daynoteglobal', 3, 0),
-(100, 'Default', 'daynoteglobal', 2, 0);
+(100, 'Default', 'daynoteglobal', 2, 0),
+(101, 'Default', 'userallowance', 1, 1),
+(102, 'Default', 'userallowance', 4, 0),
+(103, 'Default', 'userallowance', 3, 0),
+(104, 'Default', 'userallowance', 2, 0);
 
 
 -- --------------------------------------------------------

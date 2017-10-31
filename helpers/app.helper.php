@@ -1259,38 +1259,39 @@ function sendUserCalEventNotifications($event, $username, $year, $month)
       //
       // Build html calendar table for email
       //
-      $template = $T->getTemplate($username, $year, $month);
-      $calendar = '<table><tr>';
-      for ($i=1; $i<=31; $i++)
+      $monthInfo = dateInfo($year, $month, '1');
+      $lastday = $monthInfo['daysInMonth'];
+      $T->getTemplate($username, $year, $month);
+      $calendar = '<table style="border-collapse:collapse;"><tr style="background-color:#f0f0f0;">';
+      for ($i=1; $i<=$lastday; $i++)
       {
-         $calendar .= '<th>' . $i . '</th>';
+         $calendar .= '<th style="border:1px solid #bababa;padding:4px;text-align:center;">' . $i . '</th>';
       }
       $calendar .= '</tr><tr>';
-      for ($i=1; $i<=31; $i++)
+      for ($i=1; $i<=$lastday; $i++)
       {
          $prop = 'abs' . $i;
-         $calendar .= '<td>' . $A->getName($template[$prop]) . '</td>';
+         $calendar .= '<td style="border:1px solid #bababa;padding:4px;text-align:center;">' . $A->getName($T->$prop) . '</td>';
       }
       $calendar .= '</tr></table>';
       
       $message = str_replace('%calendar%', $calendar, $message);
       
       $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
-      $ugroups = $UG->getAllforUser($username);
       $sendmail = false;
       foreach ( $users as $profile )
       {
-         if ($UO->read($profile['username'], 'notifyUserCalEvents')) 
+         $ugroups = $UG->getAllforUser($profile['username']);
+         if ($notifyUserCalGroups = $UO->read($profile['username'], 'notifyUserCalGroups'))
          {
-            if ($notifycalgroup = $UO->read($profile['username'], 'notifycalgroup'))
+            $ngroups = explode(',', $notifyUserCalGroups);
+            foreach ($ugroups as $ugroup)
             {
-               $ngroups = explode(',', $notifycalgroup);
-               foreach ($ugroups as $ugroup)
-               {
-                  if (is_array($ngroups) AND in_array($ugroup['name'], $ngroups)) $sendmail = true;
+               if (in_array($ugroup['groupid'], $ngroups)) {
+                  $sendmail = true;
                }
-               if ($sendmail) sendEmail($profile['email'], $subject, $message);
             }
+            if ($sendmail) sendEmail($profile['email'], $subject, $message);
          }
       }
    }

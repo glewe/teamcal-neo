@@ -285,10 +285,17 @@ if (!empty($_POST))
                $AL->username = $profile;
                $AL->absid = $abs['id'];
                $AL->carryover = $_POST['txt_'.$abs['id'].'_carryover'];
-               $AL->allowance = $_POST['txt_'.$abs['id'].'_allowance'];
+
+               if (isset($_POST['txt_'.$abs['id'].'_allowance'])) {
+                  $AL->allowance = $_POST['txt_'.$abs['id'].'_allowance'];
+               }
+               else {
+                  $AL->allowance = $AL->getAllowance($profile,$abs['id']);                  
+               }
                if (!$AL->allowance) {
                   $AL->allowance = $abs['allowance'];
                }
+
                $AL->save();
             }
          }
@@ -306,6 +313,18 @@ if (!empty($_POST))
             {
                $UO->save($profile, $notify, '1');
             }
+         }
+
+         $UO->save($profile, 'notifyUserCalGroups', '0');
+         $notifygroups = '';
+         if (isset($_POST['sel_notifyUserCalGroups']) )
+         {
+            foreach ($_POST['sel_notifyUserCalGroups'] as $notifyUserCalGroup)
+            {
+               $notifygroups .= $notifyUserCalGroup.',';
+            }
+            $notifygroups = rtrim($notifygroups,',');
+            $UO->save($profile, 'notifyUserCalGroups', $notifygroups);
          }
              
          //
@@ -614,9 +633,27 @@ foreach ($events as $event)
 {
    $viewData['events'][] = array('val' => $event, 'name' => $LANG['profile_'.$event], 'selected' => $UO->read($profile, $event));
 }
+
+$nocalgroup = true;
+$ngroups = array();
+if ($notifyUserCalGroups = $UO->read($viewData['profile'], 'notifyUserCalGroups')) 
+{
+   $nocalgroup = false;
+   $ngroups = explode(',', $notifyUserCalGroups);
+}
+
+$viewData['userCalNotifyGroups'][] = array('val' => '0', 'name' => $LANG['none'], 'selected' => $nocalgroup);
+$ugroups = $UG->getAllforUser($viewData['profile']);
+foreach ($ugroups as $ugroup)
+{
+   $viewData['userCalNotifyGroups'][] = array('val' => $ugroup['groupid'], 'name' => $G->getNameById($ugroup['groupid']), 'selected' => (in_array($ugroup['groupid'], $ngroups))?true:false);
+}
+
 $viewData['notifications'] = array (
    array ( 'prefix' => 'profile', 'name' => 'notify', 'type' => 'listmulti', 'values' => $viewData['events'], 'disabled' => false ),
+   array ( 'prefix' => 'profile', 'name' => 'notifyUserCalGroups', 'type' => 'listmulti', 'values' => $viewData['userCalNotifyGroups'], 'disabled' => false ),
 );
+
 
 //
 // Custom

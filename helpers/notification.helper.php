@@ -507,6 +507,7 @@ function sendEmail($to, $subject, $body, $from = '')
       if (false)
       {
          print "To: " .$toValid . "<br>" . "From: " . $from . "\r\n" . $body;
+         // die();
       }
       
       return $result;

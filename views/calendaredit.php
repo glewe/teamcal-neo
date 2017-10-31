@@ -314,9 +314,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   </div>
                   <div style="width: 40%; margin-bottom: 20px;">
                      <select id="user" class="form-control" name="sel_periodAbsence" tabindex="<?=$tabindex++?>">
-                        <?php foreach($viewData['absences'] as $abs) { ?>
-                           <option  value="<?=$abs['id']?>"><?=$abs['name']?></option>
-                        <?php } ?>
+                        <?php foreach($viewData['absences'] as $abs) {
+                           if( ($abs['manager_only'] AND ($UG->isGroupManagerOfUser($UL->username, $viewData['username']) OR $UL->username=='admin')) OR !$abs['manager_only']) { ?>
+                              <option  value="<?=$abs['id']?>"><?=$abs['name']?></option>
+                           <?php } 
+                        } ?>
                      </select>
                   </div>
                </div>
@@ -359,9 +361,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   </div>
                   <div style="width: 40%; margin-bottom: 20px;">
                      <select id="user" class="form-control" name="sel_recurringAbsence" tabindex="<?=$tabindex++?>">
-                        <?php foreach($viewData['absences'] as $abs) { ?>
-                           <option  value="<?=$abs['id']?>"><?=$abs['name']?></option>
-                        <?php } ?>
+                        <?php foreach($viewData['absences'] as $abs) {
+                           if( ($abs['manager_only'] AND ($UG->isGroupManagerOfUser($UL->username, $viewData['username']) OR $UL->username=='admin')) OR !$abs['manager_only']) { ?>
+                              <option  value="<?=$abs['id']?>"><?=$abs['name']?></option>
+                           <?php } 
+                        } ?>
                      </select>
                   </div>
                </div>

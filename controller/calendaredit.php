@@ -407,7 +407,7 @@ if (!empty($_POST))
          //
          if ($C->read("emailNotifications") AND $sendNotification)
          {
-            sendUserCalEventNotifications("changed", $viewData['year'], $viewData['month'], $caluser);
+            sendUserCalEventNotifications("changed", $caluser, $viewData['year'], $viewData['month']);
          }
              
          //
