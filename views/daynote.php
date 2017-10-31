@@ -53,6 +53,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <?php } else { ?>
                               <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_create"><?=$LANG['btn_create']?></button>
                            <?php } ?>
+                           <a href="index.php?action=calendarview" class="btn btn-primary pull-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_showcalendar']?></a>
                         </div>
                      </div>
                      
