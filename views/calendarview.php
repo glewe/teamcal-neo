@@ -214,9 +214,9 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                            <td class="m-name"><?=$LANG['sum_absent']?></td>
                            <?php for ($i=$daystart; $i<=$dayend; $i++) { 
                               $style = substr($viewData['dayStyles'][$i], 14);
-                              $style = ' style="' . $style . '"';
+                              if(strlen($style)) $style = ' style="' . $style . '"';
                               ?>   
-                              <td class="m-day text-center text-danger"<?=$style?>><?=$dayAbsCount[$i]?></td>
+                              <td class="m-day m-summary text-center text-danger"<?=$style?>><?=$dayAbsCount[$i]?></td>
                            <?php } ?> 
                         </tr>
                         
@@ -225,9 +225,9 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                            <td class="m-name"><?=$LANG['sum_present']?></td>
                            <?php for ($i=$daystart; $i<=$dayend; $i++) { 
                               $style = substr($viewData['dayStyles'][$i], 14);
-                              $style = ' style="' . $style . '"';
+                              if(strlen($style)) $style = ' style="' . $style . '"';
                               ?>   
-                              <td class="m-day text-center text-success"<?=$style?>><?=$dayPresCount[$i]?></td>
+                              <td class="m-day m-summary text-center text-success"<?=$style?>><?=$dayPresCount[$i]?></td>
                            <?php } ?> 
                         </tr>
                         <?php } ?> 

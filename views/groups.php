@@ -74,7 +74,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             
                   <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight: bold;">
                      <div class="col-lg-3"><?=$LANG['groups_name']?></div>
-                     <div class="col-lg-6"><?=$LANG['groups_description']?></div>
+                     <div class="col-lg-4"><?=$LANG['groups_description']?></div>
+                     <div class="col-lg-1"><?=$LANG['groups_minpresent']?></div>
+                     <div class="col-lg-1"><?=$LANG['groups_maxabsent']?></div>
                      <div class="col-lg-3 text-right"><?=$LANG['action']?></div>
                   </div>
                               
@@ -82,7 +84,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   <form  class="bs-example form-control-horizontal" name="form_<?=$group['id']?>" action="index.php?action=groups" method="post" target="_self" accept-charset="utf-8">
                      <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                         <div class="col-lg-3"><?=$group['name']?></div>
-                        <div class="col-lg-6"><?=$group['description']?></div>
+                        <div class="col-lg-4"><?=$group['description']?></div>
+                        <div class="col-lg-1"><?=$group['minpresent']?></div>
+                        <div class="col-lg-1"><?=$group['maxabsent']?></div>
                         <div class="col-lg-3 text-right">
                            <button type="button" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteGroup_<?=$group['id']?>"><?=$LANG['btn_delete']?></button>
                            <a href="index.php?action=groupedit&amp;id=<?=$group['id']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>

@@ -171,6 +171,8 @@ $LANG['alert_decl_allowyear_reached'] = "The maximum amount of %1% per year for 
 $LANG['alert_decl_approval_required'] = "This absence type requires approval. It has been entered in your calendar but a daynote was added to indicate that it is not approved yet. Your manager was informed by mail.";
 $LANG['alert_decl_approval_required_daynote'] = "This absence was requested but is not approved yet.";
 $LANG['alert_decl_before_date'] = "Absence changes before the following date are not allowed: ";
+$LANG['alert_decl_group_minpresent'] = "Group minimum presence threshold reached for group(s): ";
+$LANG['alert_decl_group_maxabsent'] = "Group maximum absence threshold reached for group(s): ";
 $LANG['alert_decl_group_threshold'] = "Group absence threshold reached for your group(s): ";
 $LANG['alert_decl_holiday_noabsence'] = "This day is a holiday that does not allow absences.";
 $LANG['alert_decl_period'] = "Absence changes in the following period are not allowed: ";
@@ -547,7 +549,7 @@ $LANG['decl_period3Period_startdateEnddate'] = $LANG['decl_Period_startdateEndda
 $LANG['decl_period3Startdate'] = $LANG['decl_Startdate'];
 $LANG['decl_period3Startdate_comment'] = $LANG['decl_Startdate_comment'];
 $LANG['decl_roles'] = 'Apply to Roles';
-$LANG['decl_roles_comment'] = 'Select the roles to which the declination rules will apply.';
+$LANG['decl_roles_comment'] = 'Select the roles to which the declination rules will apply. This also applies to the "minimum present" and "maximal absent" settings of each group.';
 $LANG['decl_schedule'] = 'Schedule';
 $LANG['decl_schedule_nowForever'] = 'As long as activated';
 $LANG['decl_schedule_nowEnddate'] = 'From activation until %s';
@@ -577,6 +579,20 @@ $LANG['email_subject_month_changed'] = APP_NAME . ' Month Changed';
 $LANG['email_subject_month_created'] = APP_NAME . ' Month Created';
 $LANG['email_subject_month_deleted'] = APP_NAME . ' Month Deleted';
 $LANG['email_subject_usercal_changed'] = APP_NAME . ' User Calendar Changed';
+
+//
+// Group
+//
+$LANG['group_minpresent'] = 'Minimum Present Count';
+$LANG['group_minpresent_comment'] = 'Enter the minimum amount of present members for this group. This value is checked when absences are requested.';
+$LANG['group_maxabsent'] = 'Maximum Absent Count';
+$LANG['group_maxabsent_comment'] = 'Enter the maximum amount of absent members for this group. This value is checked when absences are requested.';
+
+//
+// Groups
+//
+$LANG['groups_minpresent'] = 'Minimum Present';
+$LANG['groups_maxabsent'] = 'Maximum Absent';
 
 //
 // Holidays

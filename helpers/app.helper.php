@@ -250,6 +250,76 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                if ($declInScope)
                {
                   //
+                  // MINIMUM PRESENT
+                  // Check the minimum present settings for each applicable group of this user
+                  //
+                  $groups = "";
+                  foreach ( $userGroups as $row )
+                  {
+                     if ($requestedAbsences[$i] AND presenceMinimumReached($year, $month, $i, $row['groupid']))
+                     {
+                        //
+                        // Only decline and add the affected group if the requesting user
+                        // - is not allowed to edit group calendars OR
+                        // - is neither member nor manager of the affected group
+                        //
+                        if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOfGroup($UL->username, $row['groupid'])))
+                        {
+                           $affectedgroups[] = $row['groupid'];
+                           $groups .= $G->getNameById($row['groupid']) . " (" . $G->getMinPresent($row['groupid']) . "), ";
+                        }
+                     }
+                  }
+                  
+                  if (strlen($groups))
+                  {
+                     //
+                     // Minimum presence threshold for one or more groups is reached.
+                     // Absence cannot be set.
+                     //
+                     $groups = substr($groups, 0, strlen($groups) - 2);
+                     $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $LANG['alert_decl_group_minpresent'] . $groups;
+                     $declinedAbsences[$i] = $requestedAbsences[$i];
+                     $approvedAbsences[$i] = $currentAbsences[$i];
+                     $thresholdReached = true;
+                  }
+
+                  //
+                  // MAXIMUM ABSENT
+                  // Check the maximum absent settings for each applicable group of this user
+                  //
+                  $groups = "";
+                  foreach ( $userGroups as $row )
+                  {
+                     if ($requestedAbsences[$i] AND absenceMaximumReached($year, $month, $i, $row['groupid']))
+                     {
+                        //
+                        // Only decline and add the affected group if the requesting user
+                        // - is not allowed to edit group calendars OR
+                        // - is neither member nor manager of the affected group
+                        //
+                        if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOfGroup($UL->username, $row['groupid'])))
+                        {
+                           $affectedgroups[] = $row['groupid'];
+                           $groups .= $G->getNameById($row['groupid']) . " (" . $G->getMaxAbsent($row['groupid']) . "), ";
+                        }
+                     }
+                  }
+                  
+                  if (strlen($groups))
+                  {
+                     //
+                     // Minimum presence threshold for one or more groups is reached.
+                     // Absence cannot be set.
+                     //
+                     $groups = substr($groups, 0, strlen($groups) - 2);
+                     $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $LANG['alert_decl_group_maxabsent'] . $groups;
+                     $declinedAbsences[$i] = $requestedAbsences[$i];
+                     $approvedAbsences[$i] = $currentAbsences[$i];
+                     $thresholdReached = true;
+                  }
+
+                  //
                   // ABSENCE THRESHOLD
                   // Only check this if the requested absence is in fact an absence (not Zero)
                   //
@@ -285,7 +355,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                            $groups = "";
                            foreach ( $userGroups as $row )
                            {
-                              if (absenceThresholdReached($year, $month, $i, "group", $row['groupid']))
+                              if ($requestedAbsences[$i] AND absenceThresholdReached($year, $month, $i, "group", $row['groupid']))
                               {
                                  //
                                  // Only decline and add the affected group if the requesting user
@@ -315,7 +385,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                         }
                         else
                         {
-                           if (absenceThresholdReached($year, $month, $i, "all"))
+                           if ($requestedAbsences[$i] AND absenceThresholdReached($year, $month, $i, "all"))
                            {
                               //
                               // Absence threshold for all is reached.
@@ -1040,6 +1110,106 @@ function getDeclinationStatus($rule, $period, $startdate, $enddate)
       $status = 'inactive';
    }
    return $status;
+}
+
+// ---------------------------------------------------------------------------
+/**
+ * Checks wether the maximum absence threshold is reached
+ *
+ * @param string $year Year of the day to count for
+ * @param string $month Month of the day to count for
+ * @param string $day Day to count for
+ * @param string $group Group to refer to in case of base=group
+ * @return boolean True if reached, false if not
+ */
+function absenceMaximumReached($year, $month, $day, $group = '')
+{
+   global $C, $CONF, $G, $T, $U, $UG;
+   
+   //
+   // Count group members
+   //
+   $usercount = $UG->countMembers($group);
+   
+   //
+   // Count all group absences for this day
+   //
+   $absences = 0;
+   $members = $UG->getAllForGroup($group);
+   foreach ( $members as $member )
+   {
+      $abss = $T->countAllAbsences($member['username'], $year, $month, $day, $day);
+      $absences += $abss;
+   }
+   
+   //
+   // Now we know how many absences we have already. +1 for the one requested.
+   //
+   $absences++;
+     
+   /**
+    * Check against threshold
+    */
+   $threshold = $G->getMaxAbsent($group);
+   if ($absences > $threshold)
+   {
+      return true;
+   }
+   else
+   {
+      return false;
+   }
+}
+
+// ---------------------------------------------------------------------------
+/**
+ * Checks wether the minimum presence threshold is reached
+ *
+ * @param string $year Year of the day to count for
+ * @param string $month Month of the day to count for
+ * @param string $day Day to count for
+ * @param string $group Group to refer to in case of base=group
+ * @return boolean True if reached, false if not
+ */
+function presenceMinimumReached($year, $month, $day, $group = '')
+{
+   global $C, $CONF, $G, $T, $U, $UG;
+   
+   //
+   // Count group members
+   //
+   $usercount = $UG->countMembers($group);
+   
+   //
+   // Count all group absences for this day
+   //
+   $absences = 0;
+   $members = $UG->getAllForGroup($group);
+   foreach ( $members as $member )
+   {
+      $abss = $T->countAllAbsences($member['username'], $year, $month, $day, $day);
+      $absences += $abss;
+   }
+   
+   //
+   // Now we know how many absences we have already. +1 for the one requested.
+   // Then compute the amount of present members.
+   //
+   $absences++;
+   $presences = $usercount - $absences;
+     
+   /**
+    * Check against threshold
+    */
+   $threshold = $G->getMinPresent($group);
+   if ($presences < $threshold)
+   {
+      return true;
+   }
+   else
+   {
+      return false;
+   }
 }
 
 // ---------------------------------------------------------------------------

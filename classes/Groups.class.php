@@ -19,6 +19,8 @@ class Groups
    public $id = '';
    public $name = '';
    public $description = '';
+   public $minpresent = '';
+   public $maxabsent = '';
    
    private $db = '';
    private $table = '';
@@ -42,9 +44,11 @@ class Groups
     */
    public function create()
    {
-      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description) VALUES (:val1, :val2)');
+      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, minpresent, maxabsent) VALUES (:val1, :val2, :val3, :val4)');
       $query->bindParam('val1', $this->name);
       $query->bindParam('val2', $this->description);
+      $query->bindParam('val3', $this->minpresent);
+      $query->bindParam('val4', $this->maxabsent);
       $result = $query->execute();
       return $result;
    }
@@ -82,106 +86,6 @@ class Groups
          return $result;
       }
       else
-      {
-         return false;
-      }
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
-    * Gets a group record for a given group name
-    *
-    * @param string $name Group name to find
-    * @return boolean True or false
-    */
-   public function getByName($name)
-   {
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name = :val1');
-      $query->bindParam('val1', $name);
-      $result = $query->execute();
-      
-      if ($result and $row = $query->fetch())
-      {
-         $this->id = $row['id'];
-         $this->name = $row['name'];
-         $this->description = $row['description'];
-         return true;
-      }
-      else 
-      {
-         return false;
-      }
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
-    * Gets a group record for a given ID
-    *
-    * @param string $id Group ID to find
-    * @return boolean True or false
-    */
-   public function getById($id)
-   {
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
-      $query->bindParam('val1', $id);
-      $result = $query->execute();
-      
-      if ($result and $row = $query->fetch())
-      {
-         $this->id = $row['id'];
-         $this->name = $row['name'];
-         $this->description = $row['description'];
-         return true;
-      }
-      else 
-      {
-         return false;
-      }
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
-    * Gets a group record for a given ID
-    *
-    * @param string $id Group ID to find
-    * @return boolean True or false
-    */
-   public function getRowById($id)
-   {
-      $records = array ();
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
-      $query->bindParam('val1', $id);
-      $result = $query->execute();
-      
-      if ($result and $row = $query->fetch())
-      {
-         $records[] = $row;
-         return $records;
-      }
-      else
-      {
-         return false;
-      }
-   }
-   
-   // ---------------------------------------------------------------------
-   /**
-    * Gets a group name for a given ID
-    *
-    * @param string $id ID to find
-    * @return string Group name (or false if not found)
-    */
-   public function getNameById($id)
-   {
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
-      $query->bindParam('val1', $id);
-      $result = $query->execute();
-      
-      if ($result and $row = $query->fetch())
-      {
-         return $row['name'];
-      }
-      else 
       {
          return false;
       }
@@ -260,6 +164,156 @@ class Groups
    
    // ---------------------------------------------------------------------
    /**
+    * Gets a group record for a given ID
+    *
+    * @param string $id Group ID to find
+    * @return boolean True or false
+    */
+    public function getById($id)
+    {
+       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
+       $query->bindParam('val1', $id);
+       $result = $query->execute();
+       
+       if ($result and $row = $query->fetch())
+       {
+          $this->id = $row['id'];
+          $this->name = $row['name'];
+          $this->description = $row['description'];
+          $this->minpresent = $row['minpresent'];
+          $this->maxabsent = $row['maxabsent'];
+          return true;
+       }
+       else 
+       {
+          return false;
+       }
+    }
+    
+   // ---------------------------------------------------------------------
+   /**
+    * Gets a group record for a given group name
+    *
+    * @param string $name Group name to find
+    * @return boolean True or false
+    */
+    public function getByName($name)
+    {
+       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name = :val1');
+       $query->bindParam('val1', $name);
+       $result = $query->execute();
+       
+       if ($result and $row = $query->fetch())
+       {
+          $this->id = $row['id'];
+          $this->name = $row['name'];
+          $this->description = $row['description'];
+          $this->minpresent = $row['minpresent'];
+          $this->maxabsent = $row['maxabsent'];
+          return true;
+       }
+       else 
+       {
+          return false;
+       }
+    }
+    
+   // ---------------------------------------------------------------------
+   /**
+    * Gets the maximum absent value for group
+    *
+    * @param string $id ID to find
+    * @return string Minimum present value
+    */
+    public function getMaxAbsent($id)
+    {
+       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
+       $query->bindParam('val1', $id);
+       $result = $query->execute();
+       
+       if ($result and $row = $query->fetch())
+       {
+          return $row['maxabsent'];
+       }
+       else 
+       {
+          return 0;
+       }
+    }
+    
+   // ---------------------------------------------------------------------
+   /**
+    * Gets the maximum absent value for group
+    *
+    * @param string $id ID to find
+    * @return string Maximum absent value
+    */
+    public function getMinPresent($id)
+    {
+       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
+       $query->bindParam('val1', $id);
+       $result = $query->execute();
+       
+       if ($result and $row = $query->fetch())
+       {
+          return $row['minpresent'];
+       }
+       else 
+       {
+          return 0;
+       }
+    }
+    
+   // ---------------------------------------------------------------------
+   /**
+    * Gets a group name for a given ID
+    *
+    * @param string $id ID to find
+    * @return string Group name (or false if not found)
+    */
+    public function getNameById($id)
+    {
+       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
+       $query->bindParam('val1', $id);
+       $result = $query->execute();
+       
+       if ($result and $row = $query->fetch())
+       {
+          return $row['name'];
+       }
+       else 
+       {
+          return false;
+       }
+    }
+    
+   // ---------------------------------------------------------------------
+   /**
+    * Gets a group record for a given ID
+    *
+    * @param string $id Group ID to find
+    * @return boolean True or false
+    */
+    public function getRowById($id)
+    {
+       $records = array ();
+       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
+       $query->bindParam('val1', $id);
+       $result = $query->execute();
+       
+       if ($result and $row = $query->fetch())
+       {
+          $records[] = $row;
+          return $records;
+       }
+       else
+       {
+          return false;
+       }
+    }
+    
+   // ---------------------------------------------------------------------
+   /**
     * Updates a record for a given ID
     *
     * @param string $name Record ID
@@ -267,10 +321,12 @@ class Groups
     */
    public function update($id)
    {
-      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET name = :val1, description = :val2 WHERE id = :val3');
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET name = :val1, description = :val2, minpresent = :val3, maxabsent = :val4 WHERE id = :val5');
       $query->bindParam('val1', $this->name);
       $query->bindParam('val2', $this->description);
-      $query->bindParam('val3', $id);
+      $query->bindParam('val3', $this->minpresent);
+      $query->bindParam('val4', $this->maxabsent);
+      $query->bindParam('val5', $id);
       $result = $query->execute();
       return $result;
    }

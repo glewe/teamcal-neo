@@ -171,6 +171,8 @@ $LANG['alert_decl_allowyear_reached'] = "Die maximale Anzahl von %1% pro Jahr f&
 $LANG['alert_decl_approval_required'] = "Dieser Abwesenheitstyp ben&ouml;tigt Managerbest&auml;tigung. Die Abwesenheit wurde in den Kalender eingetragen aber auch eine Tagesnotiz &uuml;ber die ausstehende Best&auml;tigung. Dein Manager wurde per Email informiert.";
 $LANG['alert_decl_approval_required_daynote'] = "Diese Abwesenheit wurde angefragt, ist aber noch nicht best&auml;tigt.";
 $LANG['alert_decl_before_date'] = "Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";
+$LANG['alert_decl_group_minpresent'] = "Die minimale Anzahl von anwesenden Mitgliedern wurde f&uuml;r folgende Gruppe/n unterschritten: ";
+$LANG['alert_decl_group_maxabsent'] = "Die maximale Anzahl von abwesenden Mitgliedern wurde f&uuml;r folgende Gruppe/n &uuml;berschritten: ";
 $LANG['alert_decl_group_threshold'] = "Die Abwesenheitsgrenze wurde erreicht f�r die Gruppe(n): ";
 $LANG['alert_decl_holiday_noabsence'] = "Dieser Tag ist ein Feiertag, der keine Abwesenheiten erlaubt.";
 $LANG['alert_decl_period'] = "Abwesenheits&auml;nderungen in folgendem Zeitraum sind nicht erlaubt: ";
@@ -547,7 +549,7 @@ $LANG['decl_period3Period_startdateEnddate'] = $LANG['decl_Period_startdateEndda
 $LANG['decl_period3Startdate'] = $LANG['decl_Startdate'];
 $LANG['decl_period3Startdate_comment'] = $LANG['decl_Startdate_comment'];
 $LANG['decl_roles'] = 'Anwenden bei Rollen';
-$LANG['decl_roles_comment'] = 'W&auml;hle hier die Rollen aus, bei denen die Ablehnungsregeln angewendet werden sollen.';
+$LANG['decl_roles_comment'] = 'W&auml;hle hier die Rollen aus, bei denen die Ablehnungsregeln angewendet werden sollen. Dies wirkt auch auf die "minimal anwesend" und "maximal abwesend" Einstellungen der einzelnen Gruppen.';
 $LANG['decl_schedule'] = 'Zeitplan';
 $LANG['decl_schedule_nowForever'] = 'Solange aktiviert';
 $LANG['decl_schedule_nowEnddate'] = 'Von Aktivierung bis %s';
@@ -577,6 +579,20 @@ $LANG['email_subject_month_created'] = '%app_name% Monat angelegt';
 $LANG['email_subject_month_changed'] = '%app_name% Monat ge�ndert';
 $LANG['email_subject_month_deleted'] = '%app_name% Monat gel�scht';
 $LANG['email_subject_usercal_changed'] = '%app_name% Benutzerkalender ge�ndert';
+
+//
+// Group
+//
+$LANG['group_minpresent'] = 'Mindestens Anwesende Mitglieder';
+$LANG['group_minpresent_comment'] = 'Gib die Anzahl der mindestens anwesenden Mitglieder dieser Gruppe ein. Dieser Wert wird bei Abwesenheitsanfragen &uuml;berpr&uuml;ft.';
+$LANG['group_maxabsent'] = 'Maximal Abwesende Mitglieder';
+$LANG['group_maxabsent_comment'] = 'Gib die Anzahl der maximal abwesenden Mitglieder dieser Gruppe ein. Dieser Wert wird bei Abwesenheitsanfragen &uuml;berpr&uuml;ft.';
+
+//
+// Groups
+//
+$LANG['groups_minpresent'] = 'Minimum Anwesend';
+$LANG['groups_maxabsent'] = 'Maximum Abwesend';
 
 //
 // Holidays

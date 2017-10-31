@@ -72,6 +72,8 @@ if ($missingData)
 $viewData['id'] = $GG->id;
 $viewData['name'] = $GG->name;
 $viewData['description'] = $GG->description;
+$viewData['minpresent'] = $GG->minpresent;
+$viewData['maxabsent'] = $GG->maxabsent;
 $inputAlert = array();
 
 //=============================================================================
@@ -100,6 +102,8 @@ if (!empty($_POST))
    {
       if (!formInputValid('txt_name', 'required|alpha_numeric_dash')) $inputError = true;
       if (!formInputValid('txt_description', 'alpha_numeric_dash_blank')) $inputError = true;
+      if (!formInputValid('txt_minpresent', 'numeric')) $inputError = true;
+      if (!formInputValid('txt_maxabsent', 'numeric')) $inputError = true;
    }
     
    if (!$inputError)
@@ -111,7 +115,9 @@ if (!empty($_POST))
       {
          $GG->name = $_POST['txt_name'];
          $GG->description = $_POST['txt_description'];
-          
+         $GG->minpresent = $_POST['txt_minpresent'];
+         $GG->maxabsent = $_POST['txt_maxabsent'];
+         
          $GG->update($_POST['hidden_id']);
 
          //
@@ -165,6 +171,8 @@ if (!empty($_POST))
          //
          $viewData['name'] = $GG->name;
          $viewData['description'] = $GG->description;
+         $viewData['minpresent'] = $GG->minpresent;
+         $viewData['maxabsent'] = $GG->maxabsent;
       }
    }
    else
@@ -188,6 +196,8 @@ if (!empty($_POST))
 $viewData['group'] = array (
    array ( 'prefix' => 'group', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
    array ( 'prefix' => 'group', 'name' => 'description', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
+   array ( 'prefix' => 'group', 'name' => 'minpresent', 'type' => 'text', 'placeholder' => '0', 'value' => $viewData['minpresent'], 'maxlength' => '4', 'error' =>  (isset($inputAlert['minpresent'])?$inputAlert['minpresent']:'') ),
+   array ( 'prefix' => 'group', 'name' => 'maxabsent', 'type' => 'text', 'placeholder' => '9999', 'value' => $viewData['maxabsent'], 'maxlength' => '4', 'error' =>  (isset($inputAlert['maxabsent'])?$inputAlert['maxabsent']:'') ),
 );
 
 if (isAllowed("groupmemberships")) $disabled = false; else $disabled = true;
