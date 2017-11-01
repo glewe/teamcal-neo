@@ -76,6 +76,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <?php if ($viewData['supportMobile']) { ?> 
                   <button type="button" class="btn btn-default" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectWidth"><?=$LANG['screen'] . ': ' . $viewData['width']?></button>
                <?php } ?>
+               <a href="index.php?action=calendarview" class="btn btn-default pull-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_showcalendar']?></a>
             </div>
 
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
