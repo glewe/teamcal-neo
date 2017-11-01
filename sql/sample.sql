@@ -4,7 +4,7 @@
  * Sample MySQL database
  *
  * @category TeamCal Neo 
- * @version 1.8.000
+ * @version 1.8.001
  * @author George Lewe
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -408,7 +408,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (84, 'showMonths', '1'),
 (85, 'todayBorderColor', 'FFB300'),
 (86, 'todayBorderSize', '2'),
-(87, 'pastDayColor', 'BABABA'),
+(87, 'pastDayColor', 'FAFAFA'),
 (88, 'showWeekNumbers', '1'),
 (89, 'repeatHeaderCount', '0'),
 (90, 'usersPerPage', '0'),
