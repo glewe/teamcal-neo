@@ -315,7 +315,7 @@ if (isset($_POST['btn_search']))
       $viewData['searchGroup'] = $searchGroup;
       foreach ($users as $user)
       {
-         if ($UG->isMemberOfGroup($user['username'],$searchGroup)) 
+         if ($UG->isMemberOrManagerOfGroup($user['username'],$searchGroup)) 
          {
             $searchUsers[] = $user;
          }

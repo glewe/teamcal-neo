@@ -66,7 +66,7 @@ if ($editAllowed)
             //
             // We have a group display. Let's display guests in italic letters.
             //
-            if (!$UG->isMemberOfGroup($usr['username'], $viewData['groupid'])) {
+            if (!$UG->isMemberOrManagerOfGroup($usr['username'], $viewData['groupid'])) {
                $nameStyle = "m-name-guest";
             }
          }?>

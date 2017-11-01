@@ -189,6 +189,8 @@ if (!empty($_POST))
                   {
                      $G->name = $rec['groupname'];
                      $G->description = $rec['description'];
+                     $G->minpresent = $rec['min_present'];
+                     $G->maxabsent = $rec['max_absent'];
                      $G->create();
                   }
                   //

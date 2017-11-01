@@ -649,7 +649,7 @@ class UserGroup
     */
    public function isMemberOfGroup($username, $groupid)
    {
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND (type = "manager" OR type ="member")');
+      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND type ="member"');
       $query->bindParam('val1', $username);
       $query->bindParam('val2', $groupid);
       $result = $query->execute();
@@ -665,6 +665,31 @@ class UserGroup
    }
    
    // ---------------------------------------------------------------------
+   /**
+    * Checks whether a given user is member od a given group
+    *
+    * @param string $username Username
+    * @param string $groupid Group ID
+    * @return boolean True if member, false if not
+    */
+    public function isMemberOrManagerOfGroup($username, $groupid)
+    {
+       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND (type = "manager" OR type ="member")');
+       $query->bindParam('val1', $username);
+       $query->bindParam('val2', $groupid);
+       $result = $query->execute();
+       
+       if ($result and $query->fetchColumn())
+       {
+          return true;
+       }
+       else
+       {
+          return false;
+       }
+    }
+    
+    // ---------------------------------------------------------------------
    /**
     * Checks whether a given user is member or guest of a given group
     *

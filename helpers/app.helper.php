@@ -263,7 +263,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                         // - is not allowed to edit group calendars OR
                         // - is neither member nor manager of the affected group
                         //
-                        if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOfGroup($UL->username, $row['groupid'])))
+                        if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOrManagerOfGroup($UL->username, $row['groupid'])))
                         {
                            $affectedgroups[] = $row['groupid'];
                            $groups .= $G->getNameById($row['groupid']) . " (" . $G->getMinPresent($row['groupid']) . "), ";
@@ -298,7 +298,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                         // - is not allowed to edit group calendars OR
                         // - is neither member nor manager of the affected group
                         //
-                        if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOfGroup($UL->username, $row['groupid'])))
+                        if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOrManagerOfGroup($UL->username, $row['groupid'])))
                         {
                            $affectedgroups[] = $row['groupid'];
                            $groups .= $G->getNameById($row['groupid']) . " (" . $G->getMaxAbsent($row['groupid']) . "), ";
@@ -362,7 +362,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                                  // - is not allowed to edit group calendars OR
                                  // - is neither member nor manager of the affected group
                                  //
-                                 if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOfGroup($UL->username, $row['groupid'])))
+                                 if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOrManagerOfGroup($UL->username, $row['groupid'])))
                                  {
                                     $affectedgroups[] = $row['groupid'];
                                     $groups .= $G->getNameById($row['groupid']) . ", ";
@@ -505,7 +505,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                   // - is not allowed to edit group calendars OR
                   // - is neither member nor manager of the affected group
                   //
-                  if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOfGroup($UL->username, $row['groupid'])))
+                  if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOrManagerOfGroup($UL->username, $row['groupid'])))
                   {
                      //
                      // Absence requires approval.
@@ -1464,19 +1464,27 @@ function sendUserCalEventNotifications($event, $username, $year, $month)
       
       $message = str_replace('%calendar%', $calendar, $message);
       
+      //
+      // Get all groups for the user whose calendar was changed
+      //
+      $ugroups = $UG->getAllforUser($username);
+
       $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
       $sendmail = false;
       foreach ( $users as $profile )
       {
-         $ugroups = $UG->getAllforUser($profile['username']);
+         //
+         // Get all notification groups for this loop user
+         //
          if ($notifyUserCalGroups = $UO->read($profile['username'], 'notifyUserCalGroups'))
          {
             $ngroups = explode(',', $notifyUserCalGroups);
             foreach ($ugroups as $ugroup)
             {
-               if (in_array($ugroup['groupid'], $ngroups)) {
-                  $sendmail = true;
-               }
+               //
+               // If there is any group match, send mail
+               //
+               if (in_array($ugroup['groupid'], $ngroups)) $sendmail = true;
             }
             if ($sendmail) sendEmail($profile['email'], $subject, $message);
          }

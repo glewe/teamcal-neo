@@ -161,7 +161,7 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                               $groupHeader = false;
                               foreach ($viewData['users'] as $usr)
                               {
-                                 if ($UG->isMemberOfGroup($usr['username'], $grp['id']))
+                                 if ($UG->isMemberOrManagerOfGroup($usr['username'], $grp['id']))
                                  {
                                     if ($repeatHeaderCount AND $rowcount>$repeatHeaderCount)
                                     {
