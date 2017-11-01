@@ -130,16 +130,6 @@ $LANG['abs_name_comment'] = 'Der Name wird in Listen und Beschreibungen benutzt.
 $LANG['abs_sample'] = 'Beispielanzeige';
 $LANG['abs_sample_comment'] = 'So w&uuml;rde der Abswesenheitstyp im Kalender angezeigt werden basierend auf den aktuellen Einstellungen.<br>
       Hinweis: In den Kalenderoptionen kann eingestellt werden, ob das Icon oder die Zeichen ID f&uuml;r die Anzeige benutzt werden soll.';
-$LANG['abs_show_in_remainder'] = 'Verbleibende anzeigen';
-$LANG['abs_show_in_remainder_comment'] = 'Im Kalender gibt es eine aufklappbare "Verbleibend" Anzeige f&uuml;r alle Abwesenheitstypen pro Jahr pro Nutzer. 
-      Mit diesem Schalter kann bestimmt werden, ob dieser Typ in der Anzeige enthalten sein soll. Wenn kein Abwesenheitstyp f&uuml;r diese Anzeige 
-      aktiviert it, ist die Anzeige auch nicht sichtbar, auch wenn die Anzeige grunds&auml;tzlich in der Konfiguration eingeschaltet ist<br>
-      Hinweis: Es macht keinen Sinn, einen Typen in der Verbleibend-Anzeige anzuzeigen, wenn der Faktor auf 0 gesetzt ist. Die erlaubte und 
-      verbleibende Anzahl wird dann immer gleich sein.';
-$LANG['abs_show_totals'] = 'Summen anzeigen';
-$LANG['abs_show_totals_comment'] = 'Die Verbleibend-Anzeige kann konfiguriert werden, so dass sie die genommenen Tage pro Monat anzeigt. Dieser Wert zeigt 
-      die Summe der genommenen Tage dieses Typen f&uuml;r den angezeigten Monat an. Dieser Schalter aktiviert diesen Typen daf&uuml;r. 
-      Wenn kein Abwesenheitstyp dafuer aktiviert ist, wird der Summenteil nicht angezeigt.';
 $LANG['abs_symbol'] = 'Zeichen ID';
 $LANG['abs_symbol_comment'] = 'Die Zeichen ID wird in E-Mails benutzt, da die Font Icons dort nicht unterst&uuml;tzt werden. 
       Die Zeichen ID ist ein alphanumerisches Zeichen lang und muss angegeben werden. Allerdings kann das gleiche Zeichen f&uuml;r mehrere 

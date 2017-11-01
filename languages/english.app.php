@@ -130,16 +130,6 @@ $LANG['abs_name_comment'] = 'The absence type name is used in lists and descript
 $LANG['abs_sample'] = 'Sample display';
 $LANG['abs_sample_comment'] = 'This is how your absence type will look in your calendar based on your current settings.<br>
       Note: In the Calendar Options you can configure whether the Icon or the Character ID shall be used for the display.';
-$LANG['abs_show_in_remainder'] = 'Show in remainder';
-$LANG['abs_show_in_remainder_comment'] = 'The Calendar Display offers an expandable section to display the remaining allowance for each absence type for
-      each user for the current year. Use this switch to decide which absence types shall be included in that display. If none of the absence types is
-      marked for display in the remainder section then no expand/collapse button will be visible in the calendar display even though showing the remainder
-      is generally switched on.<br>Note: It does not seem to make sense to include an absence type in the remainder display when the Factor is set to 0.
-      The allowance and remaining allowance will always be the same.';
-$LANG['abs_show_totals'] = 'Show totals';
-$LANG['abs_show_totals_comment'] = 'The remainder section can be configured to also include a totals display for the current month. This totals
-      section shows the sums of each absence type taken for the month displayed. Use this switch to include this absence type in that section.
-      If none of the absence types is marked for display in the totals section then the totals section will not be shown at all.';
 $LANG['abs_symbol'] = 'Character ID';
 $LANG['abs_symbol_comment'] = 'The absence type character ID is used in notification e-mails since font icons are not supported there. Chose a single character. 
       A character ID is mandatory for each absence type, however, you can use the same character for mutliple absence types. The default is  

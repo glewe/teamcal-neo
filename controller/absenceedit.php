@@ -132,8 +132,6 @@ if (!empty($_POST))
          $AA->allowweek = $_POST['txt_allowweek'];
          $AA->counts_as = $_POST['sel_counts_as'];
          if (isset($_POST['chk_counts_as_present'])) $AA->counts_as_present = '1'; else $AA->counts_as_present = '0';
-         if (isset($_POST['chk_show_in_remainder'])) $AA->show_in_remainder = '1'; else $AA->show_in_remainder = '0';
-         if (isset($_POST['chk_show_totals'])) $AA->show_totals = '1'; else $AA->show_totals = '0';
          if (isset($_POST['chk_approval_required'])) $AA->approval_required = '1'; else $AA->approval_required = '0';
          if (isset($_POST['chk_manager_only'])) $AA->manager_only = '1'; else $AA->manager_only = '0';
          if (isset($_POST['chk_hide_in_profile'])) $AA->hide_in_profile = '1'; else $AA->hide_in_profile = '0';
@@ -228,8 +226,6 @@ foreach ($otherAbs as $abs)
 $viewData['counts_as']['val'] = $AA->counts_as;
 if ($viewData['counts_as']['val']) $viewData['counts_as']['name'] = $AA->getName($AA->counts_as); else $viewData['counts_as']['name'] = "None";
 $viewData['counts_as_present'] = $AA->counts_as_present;
-$viewData['show_in_remainder'] = $AA->show_in_remainder;
-$viewData['show_totals'] = $AA->show_totals;
 $viewData['approval_required'] = $AA->approval_required;
 $viewData['manager_only'] = $AA->manager_only;
 $viewData['hide_in_profile'] = $AA->hide_in_profile;
@@ -243,8 +239,6 @@ $viewData['options'] = array (
    array ( 'prefix' => 'abs', 'name' => 'allowweek', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['allowweek'], 'maxlength' => '2', 'error' =>  (isset($inputAlert['allowweek'])?$inputAlert['allowweek']:'') ), 
    array ( 'prefix' => 'abs', 'name' => 'counts_as', 'type' => 'list', 'values' => $viewData['otherAbs'], 'topvalue' => array('val' => '0', 'name' => 'None') ),
    array ( 'prefix' => 'abs', 'name' => 'counts_as_present', 'type' => 'check', 'value' => $viewData['counts_as_present'] ), 
-   array ( 'prefix' => 'abs', 'name' => 'show_in_remainder', 'type' => 'check', 'value' => $viewData['show_in_remainder'] ), 
-   array ( 'prefix' => 'abs', 'name' => 'show_totals', 'type' => 'check', 'value' => $viewData['show_totals'] ), 
    array ( 'prefix' => 'abs', 'name' => 'approval_required', 'type' => 'check', 'value' => $viewData['approval_required'] ), 
    array ( 'prefix' => 'abs', 'name' => 'manager_only', 'type' => 'check', 'value' => $viewData['manager_only'] ), 
    array ( 'prefix' => 'abs', 'name' => 'hide_in_profile', 'type' => 'check', 'value' => $viewData['hide_in_profile'] ), 
