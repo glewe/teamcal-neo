@@ -98,7 +98,7 @@ function deleteOrphanedMessages()
  */
 function deleteUser($username, $fromArchive = FALSE, $sendNotifications = true)
 {
-   global $AV, $CONF, $L, $LOG, $T, $U, $UMSG, $UG, $UO;
+   global $AL, $AV, $CONF, $L, $LOG, $T, $U, $UMSG, $UG, $UO;
    
    /**
     * Get fullname for log
