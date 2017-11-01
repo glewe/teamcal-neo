@@ -73,7 +73,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          var running_version = parseVersionString('<?=APP_VER?>');
          if (running_version.major < latest_version.major) 
          {
-             document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-alert" href="http://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_majorUpdateAvailable']?></a>';
+             document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-danger" href="http://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_majorUpdateAvailable']?></a>';
          } 
          else if (running_version.minor < latest_version.minor || running_version.patch < latest_version.patch) 
          {
@@ -81,7 +81,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          } 
          else 
          {
-            //document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<span class="btn btn-xs btn-success">You are running the newest version</span>';
+            document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-success" href="http://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_newestVersion']?></a>';
          }
          </script>
       <?php } ?>

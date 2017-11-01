@@ -487,7 +487,8 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (163, 'defaultHomepage', 'home'),
 (164, 'trustedRoles', '1'),
 (165, 'noCaching', '0'),
-(166, 'currYearRoles', '2,3');
+(166, 'currYearRoles', '2,3'),
+(167, 'versionCompare', '1');
 
 
 -- --------------------------------------------------------
