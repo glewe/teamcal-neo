@@ -1474,19 +1474,25 @@ function sendUserCalEventNotifications($event, $username, $year, $month)
       foreach ( $users as $profile )
       {
          //
-         // Get all notification groups for this loop user
+         // Check whether this user wants to get userCalEvents notifications
          //
-         if ($notifyUserCalGroups = $UO->read($profile['username'], 'notifyUserCalGroups'))
+         if ($UO->read($profile['username'], 'notifyUserCalEvents'))
          {
-            $ngroups = explode(',', $notifyUserCalGroups);
-            foreach ($ugroups as $ugroup)
+            //
+            // Get the groups for which he wants them
+            //
+            if ($notifyUserCalGroups = $UO->read($profile['username'], 'notifyUserCalGroups'))
             {
                //
-               // If there is any group match, send mail
+               // Go through all groups and if there is a match, send the mail
                //
-               if (in_array($ugroup['groupid'], $ngroups)) $sendmail = true;
+               $ngroups = explode(',', $notifyUserCalGroups);
+               foreach ($ugroups as $ugroup)
+               {
+                  if (in_array($ugroup['groupid'], $ngroups)) $sendmail = true;
+               }
+               if ($sendmail) sendEmail($profile['email'], $subject, $message);
             }
-            if ($sendmail) sendEmail($profile['email'], $subject, $message);
          }
       }
    }

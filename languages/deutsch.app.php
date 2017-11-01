@@ -270,7 +270,7 @@ $LANG['calopt_title'] = 'Kalenderoptionen';
 
 $LANG['calopt_tab_display'] = 'Anzeige';
 $LANG['calopt_tab_filter'] = 'Filter';
-$LANG['calopt_tab_options'] = 'Einstellungen';
+$LANG['calopt_tab_options'] = 'Optionen';
 $LANG['calopt_tab_remainder'] = 'Resttage';
 $LANG['calopt_tab_stats'] = 'Statistik';
 $LANG['calopt_tab_summary'] = 'Summen';
@@ -299,6 +299,9 @@ $LANG['calopt_hideManagerOnlyAbsences_comment'] = 'Abwesenheitstypen k&ouml;nnen
       Diese Abwesenheiten werden normalen Benutzern angezeigt, sie k&ouml;nnen sie aber nicht editieren. Mit diesem Schalter k&ouml;nnen sie die Anzeige f&uuml;r normale Benutzer verbergen.';
 $LANG['calopt_includeSummary'] = 'Summen Abschnitt';
 $LANG['calopt_includeSummary_comment'] = 'Mit dieser Option wird eine aufklappbare Zusammenfassung unter jedem Monat angezeigt, die die Summen der Abwesenheiten auff&uuml;hrt.';
+$LANG['calopt_notificationsAllGroups'] = 'Benachrichtigungen f&uuml;r alle Gruppen';
+$LANG['calopt_notificationsAllGroups_comment'] = 'Standardm&auml;&szlig;ig k&ouml;nnen Nutzer E-mail Benachrichtigungne von Kalenderereignissen nur von eigenen Gruppen abbonieren. Mit dieser Option k&ouml;nnen sie auch andere Gruppen w&auml;hlen.<br>
+      <i>Hinweis: Wenn diese Option ausgeschaltet wird und Benutzer w&auml;hrend ihrer Aktivierung andere Gruppen f&uuml;r Benachrichtigungen ausgew&auml;hlt hatten, werden diese erst entfernt, wenn deren Profil erneut gespeichert wird.</i>';
 $LANG['calopt_pastDayColor'] = 'Vergangenheitsfarbe';
 $LANG['calopt_pastDayColor_comment'] = 'Setzt im Monatskalender diese Hintergrundfarbe f&uuml;r die Tage, die in der Vergangenheit liegen.
       Lasse dieses Feld leer, wenn keine Hintergrundfarbe f&uuml;r vergangene Tage benutzt werden soll.';

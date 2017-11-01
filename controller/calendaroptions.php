@@ -15,10 +15,9 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo '<script type="text/javascript">alert("Debug: ");</script>';
 
-/**
- * ========================================================================
- * Check if allowed
- */
+// ========================================================================
+// Check if allowed
+//
 if (!isAllowed($CONF['controllers'][$controller]->permission))
 {
    $alertData['type'] = 'warning';
@@ -30,32 +29,29 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
    die();
 }
 
-/**
- * ========================================================================
- * Load controller stuff
- */
+// ========================================================================
+// Load controller stuff
+//
 
-/**
- * ========================================================================
- * Initialize variables
- */
+// ========================================================================
+// Initialize variables
+//
 $arrTrustedRoles = array();
 $arrCurrYearRoles = array();
 
-/**
- * ========================================================================
- * Process form
- */
-/**
- * ,-------,
- * | Apply |
- * '-------'
- */
+// ========================================================================
+// Process form
+//
+//
+// ,-------,
+// | Apply |
+// '-------'
+//
 if (isset($_POST['btn_caloptApply']))
 {
-   /**
-    * Display
-    */
+   //
+   // Display
+   //
    $C->save("todayBorderColor", sanitize($_POST['txt_todayBorderColor']));
    $C->save("todayBorderSize", intval($_POST['txt_todayBorderSize']));
    $C->save("pastDayColor", sanitize($_POST['txt_pastDayColor']));
@@ -68,9 +64,9 @@ if (isset($_POST['btn_caloptApply']))
    if (isset($_POST['chk_supportMobile']) && $_POST['chk_supportMobile']) $C->save("supportMobile", "1"); else $C->save("supportMobile", "0");
    if (isset($_POST['chk_symbolAsIcon']) && $_POST['chk_symbolAsIcon']) $C->save("symbolAsIcon", "1"); else $C->save("symbolAsIcon", "0");
     
-   /**
-    * Filter
-    */
+   //
+   // Filter
+   //
    if (isset($_POST['chk_hideDaynotes']) && $_POST['chk_hideDaynotes']) $C->save("hideDaynotes", "1"); else $C->save("hideDaynotes", "0");
    if (isset($_POST['chk_hideManagers']) && $_POST['chk_hideManagers']) $C->save("hideManagers", "1"); else $C->save("hideManagers", "0");
    if (isset($_POST['chk_hideManagerOnlyAbsences'])) $C->save("hideManagerOnlyAbsences", "1"); else $C->save("hideManagerOnlyAbsences", "0");
@@ -85,9 +81,9 @@ if (isset($_POST['btn_caloptApply']))
       $C->save("trustedRoles", $trustedRoles);
    }
     
-   /**
-    * Settings
-    */
+   //
+   // Settings
+   //
    if ($_POST['opt_firstDayOfWeek']) $C->save("firstDayOfWeek", $_POST['opt_firstDayOfWeek']);
    if (isset($_POST['chk_satBusi']) && $_POST['chk_satBusi']) $C->save("satBusi", "1"); else $C->save("satBusi", "0");
    if (isset($_POST['chk_sunBusi']) && $_POST['chk_sunBusi']) $C->save("sunBusi", "1"); else $C->save("sunBusi", "0");
@@ -106,32 +102,35 @@ if (isset($_POST['btn_caloptApply']))
    }
    
    if (isset($_POST['chk_takeover']) && $_POST['chk_takeover']) $C->save("takeover", "1"); else $C->save("takeover", "0");
-   
-   /**
-    * Statistics
-    */
+   if (isset($_POST['chk_notificationsAllGroups']) && $_POST['chk_notificationsAllGroups']) $C->save("notificationsAllGroups", "1"); else $C->save("notificationsAllGroups", "0");
+
+   //
+   // Statistics
+   //
    if ($_POST['sel_statsDefaultColorAbsences']) $C->save("statsDefaultColorAbsences", $_POST['sel_statsDefaultColorAbsences']); else $C->save("statsDefaultColorAbsences", "red");
    if ($_POST['sel_statsDefaultColorPresences']) $C->save("statsDefaultColorPresences", $_POST['sel_statsDefaultColorPresences']); else $C->save("statsDefaultColorPresences", "green");
    if ($_POST['sel_statsDefaultColorAbsencetype']) $C->save("statsDefaultColorAbsencetype", $_POST['sel_statsDefaultColorAbsencetype']); else $C->save("statsDefaultColorAbsencetype", "cyan");
    if ($_POST['sel_statsDefaultColorRemainder']) $C->save("statsDefaultColorRemainder", $_POST['sel_statsDefaultColorRemainder']); else $C->save("statsDefaultColorRemainder", "orange");
     
-   /**
-    * Summary
-    */
+   //
+   // Summary
+   //
    if (isset($_POST['chk_includeSummary']) && $_POST['chk_includeSummary']) $C->save("includeSummary", "1"); else $C->save("includeSummary", "0");
    if (isset($_POST['chk_showSummary']) && $_POST['chk_showSummary']) $C->save("showSummary", "1"); else $C->save("showSummary", "0");
     
-   /**
-    * Log this event
-    */
+   //
+   // Log this event
+   //
    $LOG->log("logCalendarOptions", $UL->username, "log_calopt");
    header("Location: index.php?action=".$controller);
 }
 
-/**
- * ========================================================================
- * Prepare data for the view
- */
+// ========================================================================
+// Prepare data for the view
+//
+//
+// Display
+//
 $caloptData['display'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'todayBorderColor', 'type' => 'color', 'value' => $C->read("todayBorderColor"), 'maxlength' => '6' ),
    array ( 'prefix' => 'calopt', 'name' => 'todayBorderSize', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("todayBorderSize"), 'maxlength' => '2' ),
@@ -146,6 +145,9 @@ $caloptData['display'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'symbolAsIcon', 'type' => 'check', 'values' => '', 'value' => $C->read("symbolAsIcon") ),
 );
 
+//
+// Filter
+//
 $roles = $RO->getAll();
 $arrTrustedRoles = explode(',', $C->read("trustedRoles"));
 foreach ($roles as $role)
@@ -160,6 +162,9 @@ $caloptData['filter'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'trustedRoles', 'type' => 'listmulti', 'values' => $caloptData['roleList'] ),
 );
 
+//
+// Options
+//
 $regions = $R->getAllNames();
 foreach ($regions as $region)
 {
@@ -180,8 +185,12 @@ $caloptData['options'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'currentYearOnly', 'type' => 'check', 'values' => '', 'value' => $C->read("currentYearOnly") ),
    array ( 'prefix' => 'calopt', 'name' => 'currentYearRoles', 'type' => 'listmulti', 'values' => $caloptData['roleList2'] ),
    array ( 'prefix' => 'calopt', 'name' => 'takeover', 'type' => 'check', 'values' => '', 'value' => $C->read("takeover") ),
+   array ( 'prefix' => 'calopt', 'name' => 'notificationsAllGroups', 'type' => 'check', 'values' => '', 'value' => $C->read("notificationsAllGroups") ),
 );
 
+//
+// Statistics
+//
 $statsPages = array('Absences', 'Presences', 'Absencetype', 'Remainder');
 $colors = array('blue', 'cyan', 'green', 'grey', 'magenta', 'orange', 'purple', 'red', 'yellow');
 foreach ($statsPages as $statsPage)
@@ -199,6 +208,9 @@ $caloptData['stats'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'statsDefaultColorRemainder', 'type' => 'list', 'values' => $statsColorArray['Remainder'] ),
 );
 
+//
+// Summary
+//
 $caloptData['summary'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'includeSummary', 'type' => 'check', 'values' => '', 'value' => $C->read("includeSummary") ),
    array ( 'prefix' => 'calopt', 'name' => 'showSummary', 'type' => 'check', 'values' => '', 'value' => $C->read("showSummary") ),

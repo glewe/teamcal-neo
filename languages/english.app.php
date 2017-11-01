@@ -270,7 +270,7 @@ $LANG['calopt_title'] = 'Calendar Options';
 
 $LANG['calopt_tab_display'] = 'Display';
 $LANG['calopt_tab_filter'] = 'Filter';
-$LANG['calopt_tab_options'] = 'Settings';
+$LANG['calopt_tab_options'] = 'Options';
 $LANG['calopt_tab_remainder'] = 'Remainder';
 $LANG['calopt_tab_stats'] = 'Statistics';
 $LANG['calopt_tab_summary'] = 'Summary';
@@ -299,6 +299,9 @@ $LANG['calopt_hideManagerOnlyAbsences_comment'] = 'Absence types can be marked a
       These absences are shown to the regular users but they cannot edit them. You can hide these absences to regular users here.';
 $LANG['calopt_includeSummary'] = 'Include Summary';
 $LANG['calopt_includeSummary_comment'] = 'Checking this option will add an expandable summary section at the bottom of each month, showing the sums of all absences.';
+$LANG['calopt_notificationsAllGroups'] = 'Notifications for All Groups';
+$LANG['calopt_notificationsAllGroups_comment'] = 'Per default, users can subscribe to email notifications for user calendar events for own groups only. With this switch on, they can select from all groups.<br>
+      <i>Note: Should you switch off this option and users selected other groups for their notifications while it was on, that selection will not change until their profile is saved again.</i>';
 $LANG['calopt_pastDayColor'] = 'Past Day Color';
 $LANG['calopt_pastDayColor_comment'] = 'Sets a background color for days that lie in the past in month calendar view.
       Leave this field empty if you don\'t want to color the days in the past.';

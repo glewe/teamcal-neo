@@ -643,17 +643,27 @@ if ($notifyUserCalGroups = $UO->read($viewData['profile'], 'notifyUserCalGroups'
 }
 
 $viewData['userCalNotifyGroups'][] = array('val' => '0', 'name' => $LANG['none'], 'selected' => $nocalgroup);
-$ugroups = $UG->getAllforUser($viewData['profile']);
-foreach ($ugroups as $ugroup)
+if ($C->read('notificationsAllGroups'))
 {
-   $viewData['userCalNotifyGroups'][] = array('val' => $ugroup['groupid'], 'name' => $G->getNameById($ugroup['groupid']), 'selected' => (in_array($ugroup['groupid'], $ngroups))?true:false);
+   $ugroups = $G->getAll();
+   foreach ($ugroups as $ugroup)
+   {
+      $viewData['userCalNotifyGroups'][] = array('val' => $ugroup['id'], 'name' => $ugroup['name'], 'selected' => (in_array($ugroup['id'], $ngroups))?true:false);
+   }
+}
+else
+{
+   $ugroups = $UG->getAllforUser($viewData['profile']);
+   foreach ($ugroups as $ugroup)
+   {
+      $viewData['userCalNotifyGroups'][] = array('val' => $ugroup['groupid'], 'name' => $G->getNameById($ugroup['groupid']), 'selected' => (in_array($ugroup['groupid'], $ngroups))?true:false);
+   }
 }
 
 $viewData['notifications'] = array (
    array ( 'prefix' => 'profile', 'name' => 'notify', 'type' => 'listmulti', 'values' => $viewData['events'], 'disabled' => false ),
    array ( 'prefix' => 'profile', 'name' => 'notifyUserCalGroups', 'type' => 'listmulti', 'values' => $viewData['userCalNotifyGroups'], 'disabled' => false ),
 );
-
 
 //
 // Custom
