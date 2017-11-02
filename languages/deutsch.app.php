@@ -188,6 +188,8 @@ $LANG['btn_delete_region'] = 'Region l&ouml;schen';
 $LANG['btn_holiday_list'] = 'Feiertagsliste';
 $LANG['btn_region_list'] = 'Regionenliste';
 $LANG['btn_showcalendar'] = 'Kalender anzeigen';
+$LANG['btn_showOneMonths'] = 'Ein Monat';
+$LANG['btn_showTwoMonths'] = 'Zwei Monate';
 
 //
 // Calendar
@@ -321,6 +323,8 @@ $LANG['calopt_showSummary'] = 'Summen Abschnitt anzeigen';
 $LANG['calopt_showSummary_comment'] = 'Mit dieser Option wird der Summen Abschnitt standardm&auml;&szlig;ig aufgeklappt.';
 $LANG['calopt_showTooltipCount'] = 'Tooltip Z&auml;hler';
 $LANG['calopt_showTooltipCount_comment'] = 'Mit dieser Option wird im Abwesenheits-Tooltip die Anzahl der im aktuellen Monat genommenen angezeigt.';
+$LANG['calopt_showTwoMonths'] = 'Zwei Monate anzeigen';
+$LANG['calopt_showTwoMonths_comment'] = 'Mit dieser Option wird der ausgew&auml;hlte und der folgende Monat auf der Kalenderseite angezeigt.';
 $LANG['calopt_showUserRegion'] = 'Regionale Feiertage pro User anzeigen';
 $LANG['calopt_showUserRegion_comment'] = 'Mit dieser Option zeigt der Kalender in jeder Nutzerzeile die regionalen Feiertage der Region an, die in den Optionen des
       Nutzers eingestellt ist. Diese Feiertage k&ouml;nnen sich von den globalen regionalen Feiertagen unterscheiden, die im Kopf des Kalenders angezeigt werden.
@@ -704,6 +708,11 @@ $LANG['profile_abs_carryover_tt'] = 'Das &Uuml;bertragsfeld akzeptiert auch nega
 $LANG['profile_abs_taken'] = 'Genommen';
 $LANG['profile_abs_factor'] = 'Faktor';
 $LANG['profile_abs_remainder'] = 'Verbleib';
+$LANG['profile_calendarMonths'] = 'Kalendermonate';
+$LANG['profile_calendarMonths_comment'] = 'W&auml;hle die Anzahl der Kalendermonate, die auf der Kalenderseite angezeigt werden sollen.';
+$LANG['profile_calendarMonths_default'] = 'Default';
+$LANG['profile_calendarMonths_one'] = 'Ein';
+$LANG['profile_calendarMonths_two'] = 'Zwei';
 $LANG['profile_guestships'] = 'In anderen Gruppen anzeigen';
 $LANG['profile_guestships_comment'] = 'Zeigt den Kalender dieses Nutzers in den ausgew&auml;hlten Gruppen mit an, auch wenn keine Mitgliedschaft vorliegt (auch "Gastmitgliedschaft" genannt). Dieses Feature ist sinnvoll, wenn der Nutzer '.
       'zwar kein Mitglied, seine Abwesenheiten aber trotzdem relevant f&uuml;r die Gruppe sind.<br><i>Gastmitglieder werden im Kalender in schr&auml;ger Schrift dargestellt.</i>';

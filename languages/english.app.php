@@ -188,6 +188,8 @@ $LANG['btn_delete_region'] = 'Delete Region';
 $LANG['btn_holiday_list'] = 'Holiday List';
 $LANG['btn_region_list'] = 'Region List';
 $LANG['btn_showcalendar'] = 'Show Calendar';
+$LANG['btn_showOneMonths'] = 'One Month';
+$LANG['btn_showTwoMonths'] = 'Two Months';
 
 //
 // Calendar
@@ -321,6 +323,8 @@ $LANG['calopt_showSummary'] = 'Expand Summary';
 $LANG['calopt_showSummary_comment'] = 'Checking this option will show/expand the summary section by default.';
 $LANG['calopt_showTooltipCount'] = 'Tooltip Counter';
 $LANG['calopt_showTooltipCount_comment'] = 'Checking this option will show the amount taken for the current absence type and current month in the absence type tooltip.';
+$LANG['calopt_showTwoMonths'] = 'Show Two Months';
+$LANG['calopt_showTwoMonths_comment'] = 'Checking this option will show the selected and the following month on the calendar page.';
 $LANG['calopt_showUserRegion'] = 'Show regional holidays per user';
 $LANG['calopt_showUserRegion_comment'] = 'If this option is on, the calendar will show the regional holidays in each user row based on the default region 
       set for the user. These holidays might then differ from the global regional holidays shown in the month header. This offers a better view on regional 
@@ -704,6 +708,11 @@ $LANG['profile_abs_carryover_tt'] = 'The Carryover field also allows negative va
 $LANG['profile_abs_taken'] = 'Taken';
 $LANG['profile_abs_factor'] = 'Factor';
 $LANG['profile_abs_remainder'] = 'Remainder';
+$LANG['profile_calendarMonths'] = 'Calendar Months';
+$LANG['profile_calendarMonths_comment'] = 'Select the amount of months to display on the calendar page.';
+$LANG['profile_calendarMonths_default'] = 'Default';
+$LANG['profile_calendarMonths_one'] = 'One';
+$LANG['profile_calendarMonths_two'] = 'Two';
 $LANG['profile_guestships'] = 'Show in other groups';
 $LANG['profile_guestships_comment'] = 'Show the calendar of this user in the selected groups, even if not a member (called a "guest membership"). Use this feature if the user is '.
       'not a member but the absences are still important to see along with those of the selected groups.<br><i>Guest users will be shown in italic font in the calendar</i>.';
