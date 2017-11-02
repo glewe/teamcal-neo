@@ -767,6 +767,11 @@ $LANG['regions_region_overwrite_comment'] = 'Select here whether the source regi
       the target region will remain.';
 
 //
+// Remainder
+//
+$LANG['rem_title'] = 'Remainder';
+
+//
 // Statistics
 //
 $LANG['stats_title_absences'] = 'Absence Statistics';

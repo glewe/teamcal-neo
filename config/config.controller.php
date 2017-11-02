@@ -110,6 +110,7 @@ $CONF['controllers'] = array (
    'monthedit' => new Controller('monthedit', 'calendar-o', 'success', 'danger', 'regions', 'Month Edit'),
    'regions' => new Controller('regions', 'globe', 'success', 'primary', 'regions', 'Regions'),
    'regionedit' => new Controller('regionedit', 'globe', 'success', 'primary', 'regions', 'Region Edit'),
+   'remainder' => new Controller('remainder', 'calendar-check-o', 'info', 'primary', 'calendarview', 'Remainder View'),
    'statsabsence' => new Controller('statsabsence', 'bar-chart', 'danger', 'default', 'statistics', 'Absence Statistics'),
    'statsabstype' => new Controller('statsabstype', 'bar-chart', 'info', 'default', 'statistics', 'Absence Type Statistics'),
    'statspresence' => new Controller('statspresence', 'bar-chart', 'success', 'default', 'statistics', 'Presence Statistics'),

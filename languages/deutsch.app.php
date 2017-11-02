@@ -767,6 +767,11 @@ $LANG['regions_region_overwrite_comment'] = 'W&auml;hle hier, ob die Eintr&auml;
       bleiben die bestehenden Eintr&auml;ge in der Zielregion erhalten.';
 
 //
+// Remainder
+//
+$LANG['rem_title'] = 'Verbleibend';
+
+//
 // Statistics
 //
 $LANG['stats_title_absences'] = 'Abwesenheits-Statistik';
