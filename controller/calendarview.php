@@ -585,24 +585,6 @@ if (!empty($_POST))
          header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller);
          die();
       }
-      // ,---------------,
-      // | ShowTwoMonths |
-      // '---------------'
-      elseif (isset($_POST['btn_showTwoMonths']))
-      {
-         switch ($viewData['showTwoMonths'])
-         {
-            case true;
-               $UO->save($UL->username, 'calendarMonths', 'one');
-               break;
-            case false;
-               $UO->save($UL->username, 'calendarMonths', 'two');
-               break;
-         }
-
-         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller);
-         die();
-      }
    }
    else
    {

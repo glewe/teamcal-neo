@@ -59,7 +59,6 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                <!-- END: Following Month -->
             <?php } ?>
 
-
             <!-- Modal: Select Month -->
             <?=createModalTop('modalSelectMonth', $LANG['cal_selMonth'])?>
             <div style="width:48%;float:left;">

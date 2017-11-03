@@ -188,8 +188,6 @@ $LANG['btn_delete_region'] = 'Region l&ouml;schen';
 $LANG['btn_holiday_list'] = 'Feiertagsliste';
 $LANG['btn_region_list'] = 'Regionenliste';
 $LANG['btn_showcalendar'] = 'Kalender anzeigen';
-$LANG['btn_showOneMonths'] = 'Ein Monat';
-$LANG['btn_showTwoMonths'] = 'Zwei Monate';
 
 //
 // Calendar

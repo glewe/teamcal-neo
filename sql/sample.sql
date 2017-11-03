@@ -469,7 +469,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (145, 'footerCopyrightUrl', 'http://www.lewe.com'),
 (146, 'footerSocialLinks', 'https://plus.google.com/u/0/+GeorgeLewe;https://www.linkedin.com/in/george-lewe-a9ab6411b;https://twitter.com/gekale;https://www.xing.com/profile/George_Lewe;https://www.paypal.me/GeorgeLewe'),
 (147, 'footerViewport', '0'),
-(148, 'cookieConsent', '0'),
+(148, 'cookieConsent', '1'),
 (149, 'noIndex', '1'),
 (150, 'showTooltipCount', '0'),
 (151, 'symbolAsIcon', '0'),
@@ -488,7 +488,11 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (164, 'trustedRoles', '1'),
 (165, 'noCaching', '0'),
 (166, 'currYearRoles', '2,3'),
-(167, 'versionCompare', '1');
+(167, 'versionCompare', '1'),
+(168, 'currentYearOnly', '0'),
+(169, 'takeover', '0'),
+(170, 'notificationsAllGroups', '0'),
+(171, 'showTwoMonths', '0');
 
 
 -- --------------------------------------------------------
@@ -831,7 +835,19 @@ INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`
 (101, 'Default', 'userallowance', 1, 1),
 (102, 'Default', 'userallowance', 4, 0),
 (103, 'Default', 'userallowance', 3, 0),
-(104, 'Default', 'userallowance', 2, 0);
+(104, 'Default', 'userallowance', 2, 0),
+(105, 'Default', 'upload', 1, 1),
+(106, 'Default', 'upload', 4, 0),
+(107, 'Default', 'upload', 3, 0),
+(108, 'Default', 'upload', 2, 0),
+(109, 'Default', 'groupcalendaredit', 1, 1),
+(110, 'Default', 'groupcalendaredit', 4, 0),
+(111, 'Default', 'groupcalendaredit', 3, 0),
+(112, 'Default', 'groupcalendaredit', 2, 0),
+(113, 'Default', 'useredit', 1, 1),
+(114, 'Default', 'useredit', 4, 0),
+(115, 'Default', 'useredit', 3, 0),
+(116, 'Default', 'useredit', 2, 0);
 
 
 -- --------------------------------------------------------
