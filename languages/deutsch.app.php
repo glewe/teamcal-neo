@@ -690,8 +690,10 @@ $LANG['perm_regions_title'] = 'Regionen (Bearbeiten)';
 $LANG['perm_regions_desc'] = 'Erlaubt as Listen und Bearbeiten von Regionen und deren Feiertagen.';
 $LANG['perm_statistics_title'] = 'Statistiken (Anzeigen)';
 $LANG['perm_statistics_desc'] = 'Erlaubt das Anzeigen der Statistik Seite.';
-$LANG['perm_userallowance_title'] = 'Benuzter (Erlaubnis)';
-$LANG['perm_userallowance_desc'] = 'Erlaubt das Editieren von individuellen Erlaubnissen von Abwesenheitstagen im Benutzerprofil.';
+$LANG['perm_userabsences_title'] = 'Benuzter (Abwesenheiten Reiter)';
+$LANG['perm_userabsences_desc'] = 'Aktiviert den Abwesenheiten Reiter beim Editieren von Benutzerprofilen.';
+$LANG['perm_userallowance_title'] = 'Benuzter (Abwesenheiten-Erlaubnis)';
+$LANG['perm_userallowance_desc'] = 'Erlaubt das Editieren von individuellen Erlaubnissen von Abwesenheitstagen im Benutzerprofil auf dem Abwesenheiten Reiter. Dieser muss dazu aktiviert sein.';
 
 //
 // Profile

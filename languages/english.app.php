@@ -690,8 +690,10 @@ $LANG['perm_regions_title'] = 'Regions (Edit)';
 $LANG['perm_regions_desc'] = 'Allows to list and edit regions and their holidays.';
 $LANG['perm_statistics_title'] = 'Statistics (View)';
 $LANG['perm_statistics_desc'] = 'Allows to view the statistics page.';
-$LANG['perm_userallowance_title'] = 'User (Allowances)';
-$LANG['perm_userallowance_desc'] = 'Allows to edit individual allowances for absence types in the user profile.';
+$LANG['perm_userabsences_title'] = 'User (Absences Tab)';
+$LANG['perm_userabsences_desc'] = 'Enables the Absences tab when editing a user profile.';
+$LANG['perm_userallowance_title'] = 'User (Absences Allowances)';
+$LANG['perm_userallowance_desc'] = 'Allows to edit individual allowances for absence types in the user profile Absences tab. The tab has to be enabled.';
 
 //
 // Profile
