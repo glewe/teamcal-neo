@@ -51,18 +51,35 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <ul class="nav nav-tabs" style="margin-bottom: 15px;">
                         <li class="active"><a href="#personal" data-toggle="tab"><?=$LANG['profile_tab_personal']?></a></li>
                         <li><a href="#contact" data-toggle="tab"><?=$LANG['profile_tab_contact']?></a></li>
-                        <li><a href="#options" data-toggle="tab"><?=$LANG['options']?></a></li>
-                        <li><a href="#avatar" data-toggle="tab"><?=$LANG['profile_tab_avatar']?></a></li>
+                        <li><a href="#setpassword" data-toggle="tab"><?=$LANG['profile_tab_password']?></a></li>
+
+                        <?php if (isAllowed("userabsences") AND $viewData['profile'] != "admin") { ?>
+                           <li><a href="#absences" data-toggle="tab"><?=$LANG['profile_tab_absences']?></a></li>
+                        <?php } ?>
+
                         <?php if (isAllowed("useraccount") AND $viewData['profile'] != "admin") { ?>
                            <li><a href="#account" data-toggle="tab"><?=$LANG['profile_tab_account']?></a></li>
                         <?php } ?>
-                        <li><a href="#groups" data-toggle="tab"><?=$LANG['profile_tab_groups']?></a></li>
-                        <li><a href="#setpassword" data-toggle="tab"><?=$LANG['profile_tab_password']?></a></li>
-                        <?php if ($viewData['profile'] != "admin") { ?>
-                           <li><a href="#absences" data-toggle="tab"><?=$LANG['profile_tab_absences']?></a></li>
+
+                        <?php if (isAllowed("useravatar")) { ?>
+                           <li><a href="#avatar" data-toggle="tab"><?=$LANG['profile_tab_avatar']?></a></li>
                         <?php } ?>
-                        <li><a href="#notifications" data-toggle="tab"><?=$LANG['profile_tab_notifications']?></a></li>
-                        <li><a href="#custom" data-toggle="tab"><?=$LANG['profile_tab_custom']?></a></li>
+
+                        <?php if (isAllowed("usercustom")) { ?>
+                           <li><a href="#custom" data-toggle="tab"><?=$LANG['profile_tab_custom']?></a></li>
+                        <?php } ?>
+
+                        <?php if (isAllowed("usergroups")) { ?>
+                           <li><a href="#groups" data-toggle="tab"><?=$LANG['profile_tab_groups']?></a></li>
+                        <?php } ?>
+
+                        <?php if (isAllowed("usernotifications")) { ?>
+                           <li><a href="#notifications" data-toggle="tab"><?=$LANG['profile_tab_notifications']?></a></li>
+                        <?php } ?>
+
+                        <?php if (isAllowed("useroptions")) { ?>
+                           <li><a href="#options" data-toggle="tab"><?=$LANG['options']?></a></li>
+                        <?php } ?>
                      </ul>
                      
                      <div id="myTabContent" class="tab-content">
@@ -89,6 +106,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                         </div>
       
+                        <?php if (isAllowed("useroptions")) { ?>
                         <!-- Options tab -->
                         <div class="tab-pane fade" id="options">
                            <div class="panel panel-default">
@@ -99,7 +117,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               </div>
                            </div>
                         </div>
+                        <?php } ?>
 
+                        <?php if (isAllowed("useravatar")) { ?>
                         <!-- Avatar tab -->
                         <div class="tab-pane fade" id="avatar">
                            <div class="panel panel-default">
@@ -149,6 +169,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               </div>
                            </div>
                         </div>
+                        <?php } ?>
       
                         <?php if (isAllowed("useraccount") AND $viewData['profile'] != "admin") { ?>
                            <!-- Account tab -->
@@ -163,6 +184,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                         <?php } ?>
                            
+                        <?php if (isAllowed("usergroups")) { ?>
                         <!-- Groups tab -->
                         <div class="tab-pane fade" id="groups">
                            <div class="panel panel-default">
@@ -173,6 +195,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               </div>
                            </div>
                         </div>
+                        <?php } ?>
       
                         <!-- Password tab -->
                         <div class="tab-pane fade" id="setpassword">
@@ -185,7 +208,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                         </div>
       
-                        <?php if ($viewData['profile'] != "admin") { ?>
+                        <?php if (isAllowed("userabsences") AND $viewData['profile'] != "admin") { ?>
                         <!-- Absences tab -->
                         <div class="tab-pane fade" id="absences">
                            <div class="panel panel-default">
@@ -223,6 +246,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
                         <?php } ?>
       
+                        <?php if (isAllowed("usernotifications")) { ?>
                         <!-- Notifications tab -->
                         <div class="tab-pane fade" id="notifications">
                            <div class="panel panel-default">
@@ -233,7 +257,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               </div>
                            </div>
                         </div>
+                        <?php } ?>
 
+                        <?php if (isAllowed("usercustom")) { ?>
                         <!-- Custom tab -->
                         <div class="tab-pane fade" id="custom">
                            <div class="panel panel-default">
@@ -244,6 +270,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               </div>
                            </div>
                         </div>
+                        <?php } ?>
       
                      </div>
                      

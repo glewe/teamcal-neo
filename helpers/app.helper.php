@@ -902,8 +902,9 @@ function countAbsence($user='%', $absid, $from, $to, $useFactor=FALSE, $combined
  */
 function countBusinessDays($cntfrom, $cntto, $region = '1', $cntManDays = false)
 {
-   global $CONF, $H, $M, $U;
-
+   global $CONF, $H, $U;
+   $Mx = new Months();
+   
    $startyear = intval(substr($cntfrom, 0, 4));
    $startmonth = intval(substr($cntfrom, 4, 2));
    $startday = intval(substr($cntfrom, 6, 2));
@@ -922,7 +923,7 @@ function countBusinessDays($cntfrom, $cntto, $region = '1', $cntManDays = false)
    $yearmonth = $startyearmonth;
    while ($yearmonth <= $endyearmonth)
    {
-      $M->getMonth($year, $month, $region);
+      $Mx->getMonth($year, $month, $region);
       $monthInfo = dateInfo($year, $month, '1');
       $lastday = $monthInfo['daysInMonth'];
       if ($yearmonth == $endyearmonth)
@@ -940,31 +941,31 @@ function countBusinessDays($cntfrom, $cntto, $region = '1', $cntManDays = false)
       {
          $weekday = 'wday'.$i;
          $holiday = 'hol'.$i;
-         if ($M->$weekday < 6)
+         if ($Mx->$weekday < 6)
          {
             //
             // This is a weekday. Check if Holiday before counting it.
             //
-            if ($M->$holiday)
+            if ($Mx->$holiday)
             {
                //
                // This is a weekday but a Holiday. Only count this if this Holiday counts as business day.
                //
-               if ($H->isBusinessDay($M->$holiday)) $count++;
+               if ($H->isBusinessDay($Mx->$holiday)) $count++;
             }
             else
             {
                $count++;
             }
          }
-         elseif ($M->$weekday == 6)
+         elseif ($Mx->$weekday == 6)
          {
             //
             // This is a Saturday. Check if counts as business day.
             //
             if ($H->isBusinessDay('2')) $count++;
          }
-         elseif ($M->$weekday == 7)
+         elseif ($Mx->$weekday == 7)
          {
             //
             // This is a Sunday. Check if counts as business day.
@@ -1465,14 +1466,14 @@ function sendUserCalEventNotifications($event, $username, $year, $month)
       $message = str_replace('%calendar%', $calendar, $message);
       
       //
-      // Get all groups for the user whose calendar was changed
+      // Get all groups for the user whose calendar was changed.
+      // Then loop through all users and send mail if they want it.
       //
       $ugroups = $UG->getAllforUser($username);
-
       $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
-      $sendmail = false;
       foreach ( $users as $profile )
       {
+         $sendmail = false;
          //
          // Check whether this user wants to get userCalEvents notifications
          //
@@ -1489,9 +1490,15 @@ function sendUserCalEventNotifications($event, $username, $year, $month)
                $ngroups = explode(',', $notifyUserCalGroups);
                foreach ($ugroups as $ugroup)
                {
-                  if (in_array($ugroup['groupid'], $ngroups)) $sendmail = true;
+                  if (in_array($ugroup['groupid'], $ngroups)) 
+                  {
+                     $sendmail = true;
+                  }
                }
-               if ($sendmail) sendEmail($profile['email'], $subject, $message);
+               if ($sendmail) 
+               {
+                  sendEmail($profile['email'], $subject, $message);
+               }
             }
          }
       }

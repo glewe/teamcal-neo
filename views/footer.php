@@ -75,9 +75,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       <script type="text/javascript">
 
          $(document).ready(function(){
-            /**
-             * Bootstrap Submenu
-             */
+            //
+            // Bootstrap Submenu
+            //
             $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
                event.preventDefault(); 
                event.stopPropagation(); 
@@ -85,9 +85,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                $(this).parent().toggleClass('open');
             });
             
-            <?php if (MAGNIFICPOPUP) { ?>/**
-             * Magnific Popup
-             */
+            <?php if (MAGNIFICPOPUP) { ?>
+            //
+            // Magnific Popup
+            //
             $('.image-popup').magnificPopup({
                type: 'image',
                closeOnContentClick: true,
@@ -121,9 +122,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             });
             <?php } ?>
                      
-            /**
-             * Tooltip
-             */
+            //
+            // Tooltip
+            //
             $("[data-position=tooltip-top]").tooltip({
                placement : 'top',
                html: true
@@ -142,9 +143,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             });
          });
 
-         /**
-          * Back to Top Icon
-          */
+         //
+         // Back to Top Icon
+         //
          $(function() {
             $(window).scroll(function() {
                 if($(window).scrollTop() >= 400) { // Set vertical offset in pixel when to appear  
@@ -164,9 +165,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          function showSize() { $('#size').html($(window).width() + ' x ' + $(window).height()); }
          <?php } ?>
          
-         <?php if ($C->read("googleAnalytics") AND $C->read("googleAnalyticsID")) { ?>/**
-          * Google Analytics
-          */
+         <?php if ($C->read("googleAnalytics") AND $C->read("googleAnalyticsID")) { ?>
+         //
+         // Google Analytics
+         //
          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -175,9 +177,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          ga('create', '<?=$C->read("googleAnalyticsID")?>', 'auto');
          ga('send', 'pageview');
 
-         /**
-          * Opt out Google Analytics
-          */
+         //
+         // Opt out Google Analytics
+         //
          // Set to the same value as the web property used on the site
          var gaID = '<?=$C->read('googleAnalyticsID');?>';
           

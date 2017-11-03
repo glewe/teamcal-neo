@@ -75,9 +75,15 @@ $fperms = array (
    'calendarviewgroup',
    'calendarviewall',
    'daynoteglobal',
-   'groupmemberships',
    'useraccount',
+   'userabsences',
    'userallowance',
+   'useravatar',
+   'usercustom',
+   'usergroups',
+   'groupmemberships',
+   'usernotifications',
+   'useroptions',
 );
 
 //

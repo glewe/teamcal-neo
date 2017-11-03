@@ -195,6 +195,15 @@ if (!empty($_POST))
             $UO->save($profile, 'language', 'default');
          }
           
+         if (isset($_POST['sel_calendarMonths']))
+         {
+            $UO->save($profile, "calendarMonths", $_POST['sel_calendarMonths']);
+         }
+         else
+         {
+            $UO->save($profile, 'calendarMonths', 'default');
+         }
+          
          //
          // Account
          //
@@ -520,6 +529,13 @@ if ($C->read('allowUserTheme'))
    $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'menuBar', 'type' => 'radio', 'values' => $viewData['menuBarOptions'], 'value' => $UO->read($profile, 'menuBar') );
 }
 $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'language', 'type' => 'list', 'values' => $viewData['languageList'] );
+
+$viewData['calendarMonthsList'] = array (
+   array ('val' => "default", 'name' => "Default", 'selected' => (($UO->read($profile, 'calendarMonths') == "default")?true:false)),
+   array ('val' => "one", 'name' => $LANG['profile_calendarMonths_one'], 'selected' => (($UO->read($profile, 'calendarMonths') == "one")?true:false)),
+   array ('val' => "two", 'name' => $LANG['profile_calendarMonths_two'], 'selected' => (($UO->read($profile, 'calendarMonths') == "two")?true:false)),
+);
+$viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'calendarMonths', 'type' => 'list', 'values' => $viewData['calendarMonthsList'] );
 
 //
 // Avatar

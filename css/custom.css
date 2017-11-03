@@ -382,10 +382,9 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
  * Month table
  */
 table.month {
-   /* font-size: 14px; */
-   /* box-shadow: 6px 6px 5px #aaaaaa; */
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 5px rgba(0, 0, 0, 0.075);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 5px rgba(0, 0, 0, 0.075);
+   -webkit-box-shadow: 3px 3px 4px 0px rgba(0,0,0,0.15);
+   -moz-box-shadow: 3px 3px 4px 0px rgba(0,0,0,0.15);
+   box-shadow: 3px 3px 4px 0px rgba(0,0,0,0.15);          
 } 
 
 table.month th.m-monthname,
@@ -585,9 +584,9 @@ div.table240  { display:none; }
  * Year table
  */
 table.year {
-   /* box-shadow: 6px 6px 5px #aaaaaa; */
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 5px rgba(0, 0, 0, 0.075);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 5px rgba(0, 0, 0, 0.075);
+   -webkit-box-shadow: 3px 3px 4px 0px rgba(0,0,0,0.15);
+   -moz-box-shadow: 3px 3px 4px 0px rgba(0,0,0,0.15);
+   box-shadow: 3px 3px 4px 0px rgba(0,0,0,0.15);          
 } 
 
 table.year th.y-year,

@@ -357,35 +357,34 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
             <!-- Modal: Recurring -->
             <?=createModalTop('modalRecurring', $LANG['caledit_RecurringTitle'])?>
-               <div>
-                  <div style="width: 60%; float: left; margin-bottom: 20px; padding-right: 10px;">
-                     <span class="text-bold"><?=$LANG['caledit_absenceType']?></span><br>
-                     <span class="text-normal"><?=$LANG['caledit_absenceType_comment']?></span>
+               <div class="col-lg-12" style="margin-bottom:30px;padding-left:0px;">
+                  <div class="col-lg-6">
+                     <b><?=$LANG['caledit_absenceType']?></b><br>
+                     <?=$LANG['caledit_absenceType_comment']?>
                   </div>
-                  <div style="width: 40%; margin-bottom: 20px;">
+                  <div class="col-lg-6">
                      <select id="user" class="form-control" name="sel_recurringAbsence" tabindex="<?=$tabindex++?>">
                         <?php foreach($viewData['absences'] as $abs) {
                            if( ($abs['manager_only'] AND ($UG->isGroupManagerOfUser($UL->username, $viewData['username']) OR $UL->username=='admin')) OR !$abs['manager_only']) { ?>
-                              <option  value="<?=$abs['id']?>"><?=$abs['name']?></option>
+                              <option value="<?=$abs['id']?>"><?=$abs['name']?></option>
                            <?php } 
                         } ?>
                      </select>
                   </div>
                </div>
-               <div>&nbsp;</div>
-               <div style="clear: left;">
-                  <span class="text-bold"><?=$LANG['caledit_recurrence']?></span><br>
-                  <span class="text-normal"><?=$LANG['caledit_recurrence_comment']?></span>
+               <div class="col-lg-12">
+                  <b><?=$LANG['caledit_recurrence']?></b><br>
+                  <?=$LANG['caledit_recurrence_comment']?>
                </div>
-               <div style="padding-left: 20px;">
-                  <div style="width: 50%; float: left; padding-right: 10px;">
+               <div class="col-lg-12">
+                  <div class="col-lg-6" style="padding-left:20px;">
                      <div class="checkbox"><input id="monday" name="monday" value="monday" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['weekdayLong'][1]?></div>
                      <div class="checkbox"><input id="tuesday" name="tuesday" value="tuesday" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['weekdayLong'][2]?></div>
                      <div class="checkbox"><input id="wedensday" name="wednesday" value="wednesday" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['weekdayLong'][3]?></div>
                      <div class="checkbox"><input id="thursday" name="thursday" value="thursday" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['weekdayLong'][4]?></div>
                      <div class="checkbox"><input id="friday" name="friday" value="friday" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['weekdayLong'][5]?></div>
                   </div>
-                  <div style="width: 50%; float: right;">
+                  <div class="col-lg-6" style="padding-left:20px;">
                      <div class="checkbox"><input id="saturday" name="saturday" value="saturday" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['weekdayLong'][6]?></div>
                      <div class="checkbox"><input id="sunday" name="sunday" value="sunday" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['weekdayLong'][7]?></div>
                      <div class="checkbox"><input id="workdays" name="workdays" value="workdays" tabindex="<?=$tabindex++?>" type="checkbox">Mon-Fri</div>
