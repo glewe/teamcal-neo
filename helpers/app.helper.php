@@ -1466,14 +1466,14 @@ function sendUserCalEventNotifications($event, $username, $year, $month)
       $message = str_replace('%calendar%', $calendar, $message);
       
       //
-      // Get all groups for the user whose calendar was changed
+      // Get all groups for the user whose calendar was changed.
+      // Then loop through all users and send mail if they want it.
       //
       $ugroups = $UG->getAllforUser($username);
-
       $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
-      $sendmail = false;
       foreach ( $users as $profile )
       {
+         $sendmail = false;
          //
          // Check whether this user wants to get userCalEvents notifications
          //
@@ -1490,9 +1490,15 @@ function sendUserCalEventNotifications($event, $username, $year, $month)
                $ngroups = explode(',', $notifyUserCalGroups);
                foreach ($ugroups as $ugroup)
                {
-                  if (in_array($ugroup['groupid'], $ngroups)) $sendmail = true;
+                  if (in_array($ugroup['groupid'], $ngroups)) 
+                  {
+                     $sendmail = true;
+                  }
                }
-               if ($sendmail) sendEmail($profile['email'], $subject, $message);
+               if ($sendmail) 
+               {
+                  sendEmail($profile['email'], $subject, $message);
+               }
             }
          }
       }
