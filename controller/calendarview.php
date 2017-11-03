@@ -359,10 +359,12 @@ if ($calendarMonths=$UO->read($UL->username, 'calendarMonths'))
             $viewData['nbrMonths'] = 'Two';
          }
          break;
+
       case 'one':
          $viewData['showTwoMonths'] = false;
          $viewData['nbrMonths'] = 'Two';
          break;
+         
       case 'two':
          $viewData['showTwoMonths'] = true;
          $viewData['nbrMonths'] = 'One';
