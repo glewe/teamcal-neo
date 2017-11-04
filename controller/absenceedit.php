@@ -137,6 +137,7 @@ if (!empty($_POST))
          if (isset($_POST['chk_hide_in_profile'])) $AA->hide_in_profile = '1'; else $AA->hide_in_profile = '0';
          if (isset($_POST['chk_confidential'])) $AA->confidential = '1'; else $AA->confidential = '0';
          if (isset($_POST['chk_takeover'])) $AA->takeover = '1'; else $AA->takeover = '0';
+         if (isset($_POST['chk_show_in_remainder'])) $AA->show_in_remainder = '1'; else $AA->show_in_remainder = '0';
          
          //
          // Group assignments
@@ -231,6 +232,7 @@ $viewData['manager_only'] = $AA->manager_only;
 $viewData['hide_in_profile'] = $AA->hide_in_profile;
 $viewData['confidential'] = $AA->confidential;
 $viewData['takeover'] = $AA->takeover;
+$viewData['show_in_remainder'] = $AA->show_in_remainder;
 
 $viewData['options'] = array (
    array ( 'prefix' => 'abs', 'name' => 'factor', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['factor'], 'maxlength' => '4', 'error' =>  (isset($inputAlert['factor'])?$inputAlert['factor']:'') ), 
@@ -244,6 +246,7 @@ $viewData['options'] = array (
    array ( 'prefix' => 'abs', 'name' => 'hide_in_profile', 'type' => 'check', 'value' => $viewData['hide_in_profile'] ), 
    array ( 'prefix' => 'abs', 'name' => 'confidential', 'type' => 'check', 'value' => $viewData['confidential'] ), 
    array ( 'prefix' => 'abs', 'name' => 'takeover', 'type' => 'check', 'value' => $viewData['takeover'] ),
+   array ( 'prefix' => 'abs', 'name' => 'show_in_remainder', 'type' => 'check', 'value' => $viewData['show_in_remainder'] ),
 );
 
 $groups = $G->getAll();

@@ -52,6 +52,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   <?php if ( (isAllowed($CONF['controllers']['messages']->permission) AND $C->read('activateMessages')) OR
                               isAllowed($CONF['controllers']['calendarview']->permission) OR
                               isAllowed($CONF['controllers']['year']->permission) OR
+                              isAllowed($CONF['controllers']['remainder']->permission) OR
                               isAllowed($CONF['controllers']['statsabsence']->permission) OR
                               isAllowed($CONF['controllers']['statsabstype']->permission) OR
                               isAllowed($CONF['controllers']['statspresence']->permission) OR
@@ -70,6 +71,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <?php } ?>
                            <?php if (isAllowed($CONF['controllers']['year']->permission)) { ?>
                               <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['year']->name?>&amp;year=<?=date('Y')?>&amp;region=1&amp;user=<?=$UL->username?>"><i class="fa fa-<?=$CONF['controllers']['year']->faIcon?> fa-lg text-<?=$CONF['controllers']['year']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_year']?></a></li>
+                           <?php } ?>
+                           <?php if (isAllowed($CONF['controllers']['remainder']->permission)) { ?>
+                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['remainder']->name?>"><i class="fa fa-<?=$CONF['controllers']['remainder']->faIcon?> fa-lg text-<?=$CONF['controllers']['remainder']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_remainder']?></a></li>
                            <?php } ?>
                            <?php if (isAllowed($CONF['controllers']['messages']->permission) AND $C->read('activateMessages')) { ?>
                               <li class="divider"></li>

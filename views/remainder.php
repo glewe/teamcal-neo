@@ -2,7 +2,7 @@
 /**
  * remainder.php
  * 
- * Remainder view page view
+ * Remainder page view
  *
  * @category TeamCal Neo 
  * @version 1.8.001
@@ -13,7 +13,7 @@
  */
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
-$formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$viewData['month'].'&amp;region='.$viewData['regionid'].'&amp;group='.$viewData['groupid'].'&amp;abs='.$viewData['absid'];
+$formLink = 'index.php?action='.$controller.'&amp;group='.$viewData['groupid'];
 ?>
 
       <!-- ==================================================================== 
@@ -36,40 +36,10 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
          
          <form class="bs-example form-control-horizontal" enctype="multipart/form-data" action="<?=$formLink?>" method="post" target="_self" accept-charset="utf-8">
 
-            <input name="hidden_month" type="hidden" class="text" value="<?=$viewData['month']?>">
-            <input name="hidden_region" type="hidden" class="text" value="<?=$viewData['regionid']?>">
-
-            <?php 
-            if ($viewData['month']==1) 
-            {
-               $pageBwdYear = $viewData['year'] - 1;
-               $pageBwdMonth = '12'; 
-               $pageFwdYear = $viewData['year']; 
-               $pageFwdMonth = sprintf('%02d', $viewData['month'] + 1); 
-            }
-            elseif ($viewData['month']==12) 
-            {
-               $pageBwdYear = $viewData['year']; 
-               $pageBwdMonth = sprintf('%02d', $viewData['month'] - 1); 
-               $pageFwdYear = $viewData['year'] + 1; 
-               $pageFwdMonth = '01'; 
-            }
-            else 
-            {
-               $pageBwdYear = $viewData['year']; 
-               $pageFwdYear = $viewData['year']; 
-               $pageBwdMonth = sprintf('%02d', $viewData['month'] - 1); 
-               $pageFwdMonth = sprintf('%02d', $viewData['month'] + 1); 
-            }
-            ?>
-            
             <div class="page-menu">
                <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectGroup"><?=$LANG['group'] . ': ' . $viewData['group']?></button>
                <button type="button" class="btn btn-info" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSearchUser"><?=$LANG['search'] . ': ' . $viewData['search']?></button>
                <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" name="btn_reset"><?=$LANG['btn_reset']?></button>
-               <?php if ($viewData['supportMobile']) { ?> 
-                  <button type="button" class="btn btn-default" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectWidth"><?=$LANG['screen'] . ': ' . $viewData['width']?></button>
-               <?php } ?>
                <a href="index.php?action=calendarview" class="btn btn-default pull-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_showcalendar']?></a>
             </div>
             
@@ -77,143 +47,85 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                <div class="panel-heading"><?=$LANG['rem_title']?></div>
             </div>
             
-            <?php if (!$viewData['supportMobile']) 
-            {
-               $mobilecols = array('full'=>$viewData['dateInfo']['daysInMonth']);
-            }
-            else 
-            {
-               switch ($viewData['width'])
-               {
-                  case '1024plus':
-                     $mobilecols = array('full'=>$viewData['dateInfo']['daysInMonth']);
-                     break;
-                      
-                  case '1024':
-                     $mobilecols = array('1024'=>25);
-                     break;
-                     
-                  case '800':
-                     $mobilecols = array('800'=>17);
-                     break;
-                         
-                  case '640':
-                     $mobilecols = array('640'=>14);
-                     break;
-                         
-                  case '480':
-                     $mobilecols = array('480'=>9);
-                     break;
+            <!-- Remainder Table -->
+            <div class="panel panel-default">
+               <div class="panel-body">
 
-                  case '400':
-                     $mobilecols = array('400'=>7);
-                     break;
+                  <table class="table table-bordered table-hover year">
+                     <thead>
+                        <tr>
+                           <th><?=$LANG['users_user']?></th>
+                           <?php foreach ($viewData['absences'] as $abs) { 
+                              if ($abs['show_in_remainder']) {
+                              ?>
+                              <th class="text-center">
+                                 <?php if($abs['bgtrans']) $bgstyle=""; else $bgstyle="background-color: #".$abs['bgcolor'].";";?>
+                                 <div style="color:#<?=$abs['color']?>;<?=$bgstyle?>border:1px solid #333333; width:26px; height:26px;">
+                                    <?php if ($abs['icon'] != "No") { ?>
+                                       <a href="#" style="color:inherit;" data-position="tooltip-top" class="tooltip-default" data-toggle="tooltip" data-title="<?=$abs['name']?>"><span class="fa fa-<?=$abs['icon']?>"></span></a>
+                                    <?php } else { ?>
+                                       <?=$abs['symbol']?>
+                                    <?php } ?>
+                                 </div>
+                              </th>
+                              <?php } 
+                           } ?>
+                        </tr>
+                     </thead>
 
-                  case '320':
-                     $mobilecols = array('320'=>5);
-                     break;
-
-                  case '240':
-                     $mobilecols = array('240'=>3);
-                     break;
-
-                  default:
-                     $mobilecols = array('full'=>$viewData['dateInfo']['daysInMonth']);
-                     break;
-               }
-            }
-            
-            foreach ($mobilecols as $key => $cols) 
-            { 
-               $days = $viewData['dateInfo']['daysInMonth'];
-               $tables = ceil( $days / $cols);
-               $script = '';
-               for ($t=0; $t<$tables; $t++)
-               {
-                  $daystart = ($t * $cols) + 1;
-                  $daysleft = $days - ($cols * $t);
-                  if ($daysleft >= $cols) $dayend = $daystart + ($cols - 1);
-                  else $dayend = $days;
-               ?>
-                  <div class="table<?=($viewData['supportMobile'])?$key:'';?>">
-                     <table class="table table-bordered month">
-                        
-                        <?php 
-                        // 
-                        // TODO: Remainder Header
-                        //
-                        // require("calendarviewmonthheader.php"); 
-                        ?>
-                        
-                        <!-- Rows 4ff: Users -->
-                        <?php
-                        if ($C->read("defgroupfilter") == "allbygroup")
-                        {
-                           $repeatHeaderCount = $C->read("repeatHeaderCount");
-                           if ($repeatHeaderCount) $rowcount = 1;
-                           foreach ($viewData['groups'] as $grp)
-                           { 
-                              $groupHeader = false;
-                              foreach ($viewData['users'] as $usr)
+                     <tbody>
+                        <?php foreach ($viewData['users'] as $user) { ?>
+                        <tr>                  
+                           <td class="m-name"><a href="index.php?action=useredit&amp;profile=<?=$user['username']?>" tabindex="<?=$tabindex++;?>"><?=$user['dispname']?></a></td>
+                           <?php foreach ($viewData['absences'] as $abs) { 
+                              if ($abs['show_in_remainder']) 
                               {
-                                 if ($UG->isMemberOrManagerOfGroup($usr['username'], $grp['id']))
+                                 echo '<td class="m-day text-center">';
+
+                                 if ($AL->find($user['username'], $abs['id']))
                                  {
-                                    if ($repeatHeaderCount AND $rowcount>$repeatHeaderCount)
-                                    {
-                                       // 
-                                       // TODO: Remainder Header
+                                    $carryover = $AL->carryover;
+                                    if (!$AL->allowance) {
                                        //
-                                       // require("calendarviewmonthheader.php"); 
-                                       $rowcount = 1;
+                                       // Zero personal allowance will take over global yearly allowance
+                                       //
+                                       $AL->allowance = $abs['allowance'];
+                                       $AL->update();
                                     }
-                                    
-                                    if (!$groupHeader)
-                                    { ?>
-                                       <!-- Row: Group <?=$grp['name']?> -->
-                                       <tr><th class="m-groupname" colspan="<?=$days+1?>"><?=$grp['description'].' ('.$grp['name'].')'?></th></tr>
-                                       <?php  $groupHeader = true; 
-                                    } ?>
-                                    
-                                    <!-- Row: User <?=$usr['username']?> --> 
-                                    <?php 
-                                    // 
-                                    // TODO: Remainder User Row
-                                    //
-                                    // require("calendarviewuserrow.php");
-                                    if ($repeatHeaderCount) $rowcount++;
+                                    $allowance = $AL->allowance;
                                  }
+                                 else
+                                 {
+                                    $carryover = 0;
+                                    $allowance = $abs['allowance'];
+                                 }
+                                 $totalAllowance = $allowance + $carryover;
+                                 
+                                 $taken = 0;
+                                 if (!$abs['counts_as_present'])
+                                 {
+                                    $taken = countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
+                                 }
+
+                                 $remainder = $allowance + $carryover - ($taken * $abs['factor']);
+
+                                 $dispTaken = '<span class="badge btn-info">'.$taken.'</span>';
+                                 $dispAllowance = '<span class="badge btn-primary">'.$totalAllowance.'</span>';
+                                 $dispRemainder = '<span class="badge btn-'.(($remainder<0)?"danger":"success").'">'.$remainder.'</span>';
+                                 $separator = "-";
+                                 echo $dispTaken . $separator . $dispAllowance . $separator . $dispRemainder;
+                                 echo '</td>';
                               }
-                           }
-                        }                                                                  
-                        else
-                        {
-                           $repeatHeaderCount = $C->read("repeatHeaderCount");
-                           if ($repeatHeaderCount) $rowcount = 1;
-                           foreach ($viewData['users'] as $usr) 
-                           {
-                              if ($repeatHeaderCount AND $rowcount>$repeatHeaderCount)
-                              {
-                                 // 
-                                 // TODO: Remainder Header
-                                 //
-                                 // require("calendarviewmonthheader.php"); 
-                                 $rowcount = 1;
-                              } ?>
-                              <!-- Row: User <?=$usr['username']?> --> 
-                              <?php 
-                              // 
-                              // TODO: Remainder User Row
-                              //
-                              // require("calendarviewuserrow.php");
-                              if ($repeatHeaderCount) $rowcount++;
-                           } 
-                        } // End if AllByGroup ?>
-                        
-                     </table>
-                  </div>
-               
-               <?php } ?>
-            <?php } ?>
+                           } ?>
+                        </tr>
+                        <?php } ?>
+                     </tbody>
+                  </table>
+
+                  <p><span class="badge btn-info"><?=$LANG['rem_legend_taken']?></span>-<span class="badge btn-primary"><?=$LANG['rem_legend_allowance']?></span>-<span class="badge btn-success"><?=$LANG['rem_legend_remainder']?></span></p>
+
+               </div>
+            </div>
 
             <!-- Modal: Select Group -->
             <?=createModalTop('modalSelectGroup', $LANG['cal_selGroup'])?>
@@ -225,16 +137,6 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                </select>
             <?=createModalBottom('btn_group', 'success', $LANG['btn_select'])?>
             
-            <!-- Modal: Screen Width -->
-            <?=createModalTop('modalSelectWidth', $LANG['cal_selWidth'])?>
-               <p><?=$LANG['cal_selWidth_comment']?></p>
-               <select id="width" class="form-control" name="sel_width" tabindex="<?=$tabindex++?>">
-                  <?php foreach($LANG['widths'] as $key => $value) { ?>
-                     <option value="<?=$key?>"<?=(($viewData['width'] == $key)?' selected="selected"':'')?>><?=$value?></option>
-                  <?php } ?>
-               </select>
-            <?=createModalBottom('btn_width', 'warning', $LANG['btn_select'])?>
-
             <!-- Modal: Search User -->
             <div class="modal fade" id="modalSearchUser" role="dialog" aria-labelledby="modalSearchUserLabel" aria-hidden="true">
                <div class="modal-dialog">

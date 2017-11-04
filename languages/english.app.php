@@ -130,6 +130,8 @@ $LANG['abs_name_comment'] = 'The absence type name is used in lists and descript
 $LANG['abs_sample'] = 'Sample display';
 $LANG['abs_sample_comment'] = 'This is how your absence type will look in your calendar based on your current settings.<br>
       Note: In the Calendar Options you can configure whether the Icon or the Character ID shall be used for the display.';
+$LANG['abs_show_in_remainder'] = 'Show in Remainder';
+$LANG['abs_show_in_remainder_comment'] = 'Checking this option will include this absence on the Remainder page.'; 
 $LANG['abs_symbol'] = 'Character ID';
 $LANG['abs_symbol_comment'] = 'The absence type character ID is used in notification e-mails since font icons are not supported there. Chose a single character. 
       A character ID is mandatory for each absence type, however, you can use the same character for mutliple absence types. The default is  
@@ -625,13 +627,14 @@ $LANG['log_filterCalopt'] = 'Calender Options';
 // Menu
 //
 $LANG['mnu_view_calendar'] = 'Calendar (Month)';
+$LANG['mnu_view_remainder'] = 'Remainder';
+$LANG['mnu_view_year'] = 'Calendar (Year)';
 $LANG['mnu_view_stats'] = 'Statistics';
 $LANG['mnu_view_stats_absences'] = 'Absence Statistics';
 $LANG['mnu_view_stats_abstype'] = 'Absence Type Statistics';
 $LANG['mnu_view_stats_absum'] = 'User Absence Summary';
 $LANG['mnu_view_stats_presences'] = 'Presence Statistics';
 $LANG['mnu_view_stats_remainder'] = 'Remainder Statistics';
-$LANG['mnu_view_year'] = 'Calendar (Year)';
 $LANG['mnu_edit_calendaredit'] = 'Personal Calendar';
 $LANG['mnu_edit_monthedit'] = 'Region Calendar';
 $LANG['mnu_admin_absences'] = 'Absence Types';
@@ -688,6 +691,8 @@ $LANG['perm_holidays_title'] = 'Holidays (Edit)';
 $LANG['perm_holidays_desc'] = 'Allows to list and edit holidays.';
 $LANG['perm_regions_title'] = 'Regions (Edit)';
 $LANG['perm_regions_desc'] = 'Allows to list and edit regions and their holidays.';
+$LANG['perm_remainder_title'] = 'Remainder';
+$LANG['perm_remainder_desc'] = 'Allows to view the Remainder page.';
 $LANG['perm_statistics_title'] = 'Statistics (View)';
 $LANG['perm_statistics_desc'] = 'Allows to view the statistics page.';
 $LANG['perm_userabsences_title'] = 'User (Absences Tab)';
@@ -779,6 +784,9 @@ $LANG['regions_region_overwrite_comment'] = 'Select here whether the source regi
 // Remainder
 //
 $LANG['rem_title'] = 'Remainder';
+$LANG['rem_legend_taken'] = 'Taken';
+$LANG['rem_legend_allowance'] = 'Allowance';
+$LANG['rem_legend_remainder'] = 'Remainder';
 
 //
 // Statistics

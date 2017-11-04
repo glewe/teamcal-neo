@@ -130,6 +130,8 @@ $LANG['abs_name_comment'] = 'Der Name wird in Listen und Beschreibungen benutzt.
 $LANG['abs_sample'] = 'Beispielanzeige';
 $LANG['abs_sample_comment'] = 'So w&uuml;rde der Abswesenheitstyp im Kalender angezeigt werden basierend auf den aktuellen Einstellungen.<br>
       Hinweis: In den Kalenderoptionen kann eingestellt werden, ob das Icon oder die Zeichen ID f&uuml;r die Anzeige benutzt werden soll.';
+$LANG['abs_show_in_remainder'] = 'Verbleibend anzeigen';
+$LANG['abs_show_in_remainder_comment'] = 'Mit dieser Option wird der Abwesenheitstyp auf der Verbeleibend-Seite angezeigt.'; 
 $LANG['abs_symbol'] = 'Zeichen ID';
 $LANG['abs_symbol_comment'] = 'Die Zeichen ID wird in E-Mails benutzt, da die Font Icons dort nicht unterst&uuml;tzt werden. 
       Die Zeichen ID ist ein alphanumerisches Zeichen lang und muss angegeben werden. Allerdings kann das gleiche Zeichen f&uuml;r mehrere 
@@ -625,13 +627,14 @@ $LANG['log_filterCalopt'] = 'Kalenderoptionen';
 // Menu
 //
 $LANG['mnu_view_calendar'] = 'Kalender (Monat)';
+$LANG['mnu_view_remainder'] = 'Resttage';
+$LANG['mnu_view_year'] = 'Kalender (Jahr)';
 $LANG['mnu_view_stats'] = 'Statistiken';
 $LANG['mnu_view_stats_absences'] = 'Abwesenheits-Statistik';
 $LANG['mnu_view_stats_abstype'] = 'Abwesenheitstyp-Statistik';
 $LANG['mnu_view_stats_absum'] = 'Nutzer Abwesenheits&uuml;bersicht';
 $LANG['mnu_view_stats_presences'] = 'Anwesenheits-Statistik';
 $LANG['mnu_view_stats_remainder'] = 'Resttage-Statistik';
-$LANG['mnu_view_year'] = 'Kalender (Jahr)';
 $LANG['mnu_edit_calendaredit'] = 'Personenkalender';
 $LANG['mnu_edit_monthedit'] = 'Regionenkalender';
 $LANG['mnu_admin_absences'] = 'Abwesenheitstypen';
@@ -688,6 +691,8 @@ $LANG['perm_holidays_title'] = 'Feiertage (Bearbeiten)';
 $LANG['perm_holidays_desc'] = 'Erlaubt as Listen und Bearbeiten von Feiertagen.';
 $LANG['perm_regions_title'] = 'Regionen (Bearbeiten)';
 $LANG['perm_regions_desc'] = 'Erlaubt as Listen und Bearbeiten von Regionen und deren Feiertagen.';
+$LANG['perm_remainder_title'] = 'Resttage';
+$LANG['perm_remainder_desc'] = 'Erlaubt das Anzeigen der Resttage-Seite.';
 $LANG['perm_statistics_title'] = 'Statistiken (Anzeigen)';
 $LANG['perm_statistics_desc'] = 'Erlaubt das Anzeigen der Statistik Seite.';
 $LANG['perm_userabsences_title'] = 'Benuzter (Abwesenheiten Reiter)';
@@ -778,7 +783,10 @@ $LANG['regions_region_overwrite_comment'] = 'W&auml;hle hier, ob die Eintr&auml;
 //
 // Remainder
 //
-$LANG['rem_title'] = 'Verbleibend';
+$LANG['rem_title'] = 'Resttage';
+$LANG['rem_legend_taken'] = 'Genommen';
+$LANG['rem_legend_allowance'] = 'Erlaubt';
+$LANG['rem_legend_remainder'] = 'Verbleibend';
 
 //
 // Statistics
