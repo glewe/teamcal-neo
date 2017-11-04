@@ -5,7 +5,7 @@
  * About page view
  *
  * @category TeamCal Neo 
- * @version 1.8.001
+ * @version 1.9.000
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2017 by George Lewe
  * @link http://www.lewe.com
@@ -70,18 +70,33 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       <?php if ($C->read("versionCompare")) { ?>
          <script src="http://support.lewe.com/version/tcneo.js"></script>
          <script>
-         var running_version = parseVersionString('<?=APP_VER?>');
-         if (running_version.major < latest_version.major) 
-         {
-             document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-danger" href="http://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_majorUpdateAvailable']?></a>';
-         } 
-         else if (running_version.minor < latest_version.minor || running_version.patch < latest_version.patch) 
-         {
-            document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-warning" href="http://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_minorUpdateAvailable']?></a>';
-         } 
-         else 
-         {
-            document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-success" href="http://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_newestVersion']?></a>';
-         }
+            var running_version = parseVersionString('<?=APP_VER?>');
+            if (running_version.major < latest_version.major) 
+            {
+               //
+               // Major version smaller
+               //
+               document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-danger" href="http://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_majorUpdateAvailable']?></a>';
+            } 
+            else if (running_version.major == latest_version.major)
+            {
+               //
+               // Major version equal
+               //
+               if (running_version.minor < latest_version.minor || (running_version.minor == latest_version.minor && running_version.patch < latest_version.patch)) 
+               {
+                  //
+                  // Minor version smaller OR (minor version equal AND patch version smaller)
+                  //
+                  document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-warning" href="http://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_minorUpdateAvailable']?></a>';
+               }
+               else 
+               {
+                  //
+                  // Same versions
+                  //
+                  //document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-success" href="http://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_newestVersion']?></a>';
+               }
+            }
          </script>
       <?php } ?>
