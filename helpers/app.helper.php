@@ -1074,6 +1074,68 @@ function createMonth($year, $month, $target, $owner)
 
 // ---------------------------------------------------------------------------
 /**
+ * Gets absence summary for a given user, absence type and month
+ *
+ * @param string $username Username
+ * @param string $absid Period keyword
+ * @param string $year YYYY
+ *
+ * @return array Summary (allowance, taken, remainder)
+ */
+function getAbsenceSummary($username, $absid, $year)
+{
+   global $LANG;
+   $A = new Absences();
+   $AL = new Allowances();
+   $U = new Users();
+
+   $summary = array (
+      'allowance' => 0,
+      'carryover' => 0,
+      'totalallowance' => 0,
+      'taken' => 0,
+      'remainder' => 0
+   );
+
+   if ($A->get($absid))
+   {
+      if ($AL->find($username, $A->id))
+      {
+         $summary['carryover'] = $AL->carryover;
+         if (!$AL->allowance) {
+            //
+            // Zero personal allowance will take over global yearly allowance
+            //
+            $AL->allowance = $A->allowance;
+            $AL->update();
+         }
+         $summary['allowance'] = $AL->allowance;
+      }
+      else
+      {
+         $summary['carryover'] = 0;
+         $summary['allowance'] = $A->allowance;
+      }
+      $summary['totalallowance'] = $summary['allowance'] + $summary['carryover'];
+      if (!$summary['totalallowance']) $summary['totalallowance'] = $LANG['absum_unlimited'];
+
+      $summary['taken'] = 0;
+      if (!$A->counts_as_present)
+      {
+         $countFrom = $year.'01'.'01';
+         $countTo = $year.'12'.'31';
+         $summary['taken'] += countAbsence($username, $A->id, $countFrom, $countTo, false, false);
+      }
+      
+      $summary['remainder'] = $LANG['absum_unlimited'];
+      if ($A->allowance) $summary['remainder'] = $summary['totalallowance'] - $summary['taken'];
+   }
+
+   return $summary;
+}
+
+// ---------------------------------------------------------------------------
+/**
  * Checks the status of a declination rule based on the curren date
  *
  * @param boolean $rule Active/inactive value of the rule

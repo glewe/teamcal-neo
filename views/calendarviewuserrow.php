@@ -80,6 +80,11 @@ if ($editAllowed)
                <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$RO->getNameById($thisRole)?>"><i class="fa fa-user text-<?=$RO->getColorById($thisRole)?>" style="font-size: 128%; padding-right: 8px;"></i></i>
             <?php } ?>
             <?=$profileName?>
+            <?php if ($monAbsId=$C->read('monitorAbsence')) {
+                  $summary = getAbsenceSummary($usr['username'],$monAbsId,$viewData['year']);
+               ?>
+               <div style="text-align:right;" title="<?=$A->getName($monAbsId).' '.$viewData['year'].': '.$LANG['remainder'].'/'.$LANG['allowance']?>"><span class="text-danger"><?=$summary['remainder']?></span>/<?=$summary['totalallowance']?></div>
+            <?php } ?>
          </td>
          <?php 
          $T->getTemplate($usr['username'], $viewData['year'], $viewData['month']);

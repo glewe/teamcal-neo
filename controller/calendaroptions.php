@@ -64,6 +64,7 @@ if (isset($_POST['btn_caloptApply']))
    if (isset($_POST['chk_supportMobile']) && $_POST['chk_supportMobile']) $C->save("supportMobile", "1"); else $C->save("supportMobile", "0");
    if (isset($_POST['chk_symbolAsIcon']) && $_POST['chk_symbolAsIcon']) $C->save("symbolAsIcon", "1"); else $C->save("symbolAsIcon", "0");
    if (isset($_POST['chk_showTwoMonths']) && $_POST['chk_showTwoMonths']) $C->save("showTwoMonths", "1"); else $C->save("showTwoMonths", "0");
+   if ($_POST['sel_monitorAbsence']) $C->save("monitorAbsence", $_POST['sel_monitorAbsence']); else $C->save("monitorAbsence", 0);
    
    //
    // Filter
@@ -132,6 +133,12 @@ if (isset($_POST['btn_caloptApply']))
 //
 // Display
 //
+$absences = $A->getAll();
+$caloptData['absenceList'][] = array ('val' => 0, 'name' => $LANG['none'], 'selected' => (!$C->read("monitorAbsence"))?true:false );
+foreach ($absences as $abs)
+{
+   $caloptData['absenceList'][] = array ('val' => $abs['id'], 'name' => $abs['name'], 'selected' => ($C->read("monitorAbsence")==$abs['id'])?true:false );
+}
 $caloptData['display'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'todayBorderColor', 'type' => 'color', 'value' => $C->read("todayBorderColor"), 'maxlength' => '6' ),
    array ( 'prefix' => 'calopt', 'name' => 'todayBorderSize', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("todayBorderSize"), 'maxlength' => '2' ),
@@ -145,6 +152,7 @@ $caloptData['display'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'supportMobile', 'type' => 'check', 'values' => '', 'value' => $C->read("supportMobile") ),
    array ( 'prefix' => 'calopt', 'name' => 'symbolAsIcon', 'type' => 'check', 'values' => '', 'value' => $C->read("symbolAsIcon") ),
    array ( 'prefix' => 'calopt', 'name' => 'showTwoMonths', 'type' => 'check', 'values' => '', 'value' => $C->read("showTwoMonths") ),
+   array ( 'prefix' => 'calopt', 'name' => 'monitorAbsence', 'type' => 'list', 'values' => $caloptData['absenceList'] ),
 );
 
 //

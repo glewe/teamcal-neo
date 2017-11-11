@@ -143,28 +143,16 @@ $viewData['absences'] = array();
 $absences = $A->getAll();
 foreach ($absences as $abs)
 {
-   $count = 0;
-   if ($A->get($abs['id']) AND !$A->counts_as_present)
-   {
-      $countFrom = str_replace('-', '' , $viewData['from']);
-      $countTo = str_replace('-', '' , $viewData['to']);
-      $count += countAbsence($caluser, $abs['id'], $countFrom, $countTo, false, false);
-   }
-   
-   $contingent = $LANG['absum_unlimited'];
-   if ($abs['allowance']) $contingent = $abs['allowance'] + $AL->getCarryover($caluser, $abs['id']);
-
-   $remainder = $LANG['absum_unlimited'];
-   if ($abs['allowance']) $remainder = $contingent - $count;
+   $summary = getAbsenceSummary($caluser,$abs['id'],$viewData['year']);
     
    $viewData['absences'][] = array (
       'icon' => $abs['icon'],
       'bgcolor' => $abs['bgcolor'],
       'color' => $abs['color'],
       'name' => $abs['name'],
-      'contingent' => $contingent,
-      'taken' => $count,
-      'remainder' => $remainder,
+      'contingent' => $summary['totalallowance'],
+      'taken' => $summary['taken'],
+      'remainder' => $summary['remainder'],
    );
 }
 

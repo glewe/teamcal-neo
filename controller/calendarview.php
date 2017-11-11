@@ -619,8 +619,10 @@ else
 
 $viewData['dayStyles'] = array();
 
+//
+// Loop through all users and catch those that will be displayed
+//
 $viewData['users'] = array();
-
 foreach ($users as $usr)
 {
    $allowed = false;
@@ -646,6 +648,7 @@ foreach ($users as $usr)
 }
 
 //
+// Loop through all display users
 // See if a month template for each user exists. If not, create one.
 //
 foreach ($viewData['users'] as $user)
