@@ -56,6 +56,9 @@ view.calendarviewpagemenu
    <?php if ($viewData['supportMobile']) { ?> 
       <button type="button" class="btn btn-default" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectWidth"><?=$LANG['screen'] . ': ' . $viewData['width']?></button>
    <?php } ?>
+   <?php if (isAllowed($CONF['controllers']['calendaredit']->permission)) { ?>
+      <a class="btn btn-default pull-right" tabindex="<?=$tabindex++;?>" href="index.php?action=<?=$CONF['controllers']['calendaredit']->name?>&amp;month=<?=$viewData['year'].$viewData['month']?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=L_USER?>"><?=$LANG['btn_cal_edit']?></a>
+   <?php } ?>
 </div>
 
 <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">

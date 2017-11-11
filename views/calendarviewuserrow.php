@@ -229,7 +229,15 @@ if ($editAllowed)
             ?>
             
             <td class="m-day text-center"<?=$style?><?=$editLink?>>
-               <?php echo $bdaystart . $notestart. $absstart . $icon . $absend . $noteend . $bdayend; ?>
+               <?php
+               if ($editAllowed) {
+                  echo '<i data-position="tooltip-right" class="tooltip-success" data-toggle="tooltip" data-title="'.$LANG['cal_tt_clicktoedit'].'">';
+               }
+               echo $bdaystart . $notestart. $absstart . $icon . $absend . $noteend . $bdayend; 
+               if ($editAllowed) {
+                  echo '</i>';
+               }
+               ?>
             </td>
             
          <?php } ?>
