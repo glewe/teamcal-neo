@@ -3,6 +3,24 @@ TEAMCAL NEO UPGRADE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[1.9.000] -> [1.9.001]
+
+1. Backup your current files and database!
+
+2. Download the new release and overwrite all files.
+ 
+3. Edit config/config.app.php and change line 39 to:
+   define('APP_INSTALLED',"1");
+
+4. Edit config/config.db.php and update your database settings from your backup.
+   
+5. Delete file installation.php in the root directory
+
+6. Login as admin, go to the Calendar Options page. At the bottom of the Display
+   tab make your choice for Monitor Absence and click Apply.
+
+
+------------------------------------------------------------------------------
 [1.8.001] -> [1.9.000]
 
 1. Backup your current files and database!
