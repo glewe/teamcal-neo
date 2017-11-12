@@ -50,7 +50,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             </div>
                
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-               <div class="panel-heading"><?=sprintf($LANG['year_title'], $viewData['year'], $viewData['fullname'], $viewData['regionname'])?></div>
+               <?php 
+               $pageHelp = '';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+               ?>
+               <div class="panel-heading"><?=sprintf($LANG['year_title'], $viewData['year'], $viewData['fullname'], $viewData['regionname'])?><?=$pageHelp?></div>
                <div class="panel-body" id="mobile">
                   <p><button type="button" class="btn btn-primary" name="btn_showmobile" onclick="javascript: $('#mobile').hide(); $('#fullscreen').show();"><?=$LANG['btn_showcalendar']?></button></p>
                   <?=$LANG['year_showyearmobile']?>

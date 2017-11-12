@@ -21,7 +21,8 @@ class Controller
    public $iconColor = 'default';
    public $panelColor = 'default';
    public $permission = '';
-    
+   public $docurl = '';
+   
    // ---------------------------------------------------------------------
    /**
     * Constructor
@@ -31,9 +32,10 @@ class Controller
     * @param string $iconColor Bootstrap color name for icon text color
     * @param string $panelColor Bootstrap color name for panel header background color
     * @param string $permission The permission a user role must have to access this controller. Leave empty for public access.
+    * @param string $docurl URL to the documentation of this controller
     * 
     */
-   public function __construct($name, $faIcon, $iconColor, $panelColor, $permission, $title)
+   public function __construct($name, $faIcon, $iconColor, $panelColor, $permission, $title, $docurl)
    {
       if (!strlen($name))
       {
@@ -52,6 +54,7 @@ class Controller
       $this->panelColor = $panelColor;
       $this->permission = $permission;
       $this->title = $title;
+      $this->docurl = $docurl;
    }
 }
 ?>

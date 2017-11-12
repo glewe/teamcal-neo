@@ -62,6 +62,10 @@ view.calendarviewpagemenu
 </div>
 
 <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-   <div class="panel-heading"><?=sprintf($LANG['cal_title'], $viewData['year'], $viewData['month'], $viewData['regionname'])?></div>
+   <?php 
+   $pageHelp = '';
+   if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+   ?>
+   <div class="panel-heading"><?=sprintf($LANG['cal_title'], $viewData['year'], $viewData['month'], $viewData['regionname'])?><?=$pageHelp?></div>
 </div>
 

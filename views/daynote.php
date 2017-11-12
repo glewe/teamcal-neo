@@ -40,8 +40,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   $title = $LANG['dn_title'].' '.$LANG['dn_title_for'].' '.$viewData['date'].' ('.$LANG['user'].': '.$viewData['userFullname'];
                   if ($viewData['user']=='all') $title .= ', '.$LANG['region'].': '.$viewData['regionName'];
                   $title .= ')';
+                  $pageHelp = '';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$title?></div>
+                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$title.$pageHelp?></div>
                   <div class="panel-body">
                   
                      <div class="panel panel-default">

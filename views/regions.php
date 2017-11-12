@@ -33,7 +33,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <?php $tabindex = 1; $colsleft = 8; $colsright = 4;?>
 
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-               <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['regions_title']?></div>
+               <?php 
+               $pageHelp = '';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+               ?>
+               <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['regions_title'].$pageHelp?></div>
                
                <div class="panel-body">
 

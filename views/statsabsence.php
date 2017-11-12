@@ -168,8 +168,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          </form>
 
          <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+            <?php 
+            $pageHelp = '';
+            if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+            ?>
             <div class="panel-heading">
-               <i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['stats_title_absences']?>&nbsp;(<?=$viewData['periodName']?>)&nbsp;<span class="label label-default pull-right"><i data-position="tooltip-bottom" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['stats_total']?>"><?=$viewData['total']?></i></span>
+               <i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['stats_title_absences']?>&nbsp;(<?=$viewData['periodName']?>)&nbsp;<span class="label label-default pull-right"><i data-position="tooltip-bottom" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['stats_total']?>"><?=$viewData['total']?></i></span><?=$pageHelp?>
             </div>
             <div class="panel-body">
                <p><?=$LANG['stats_absences_desc']?></p>

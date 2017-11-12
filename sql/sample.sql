@@ -492,7 +492,9 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (168, 'currentYearOnly', '0'),
 (169, 'takeover', '0'),
 (170, 'notificationsAllGroups', '0'),
-(171, 'showTwoMonths', '0');
+(171, 'showTwoMonths', '0'),
+(172, 'monitorAbsence', '0'),
+(173, 'pageHelp', '0');
 
 
 -- --------------------------------------------------------

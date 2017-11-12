@@ -80,6 +80,7 @@ if (!empty($_POST))
          if ($_POST['opt_showAlerts']) $C->save("showAlerts", $_POST['opt_showAlerts']);
          if (isset($_POST['chk_activateMessages']) && $_POST['chk_activateMessages']) $C->save("activateMessages", "1"); else $C->save("activateMessages", "0");
          if (isset($_POST['chk_showBanner']) && $_POST['chk_showBanner']) $C->save("showBanner", "1"); else $C->save("showBanner", "0");
+         if (isset($_POST['chk_pageHelp']) && $_POST['chk_pageHelp']) $C->save("pageHelp", "1"); else $C->save("pageHelp", "0");
          if (strlen($_POST['txt_userManual']))
          {
             $myUrl = rtrim($_POST['txt_userManual'], '/') . '/'; // Ensure trailing slash
@@ -231,6 +232,7 @@ $viewData['general'] = array (
    array ( 'prefix' => 'config', 'name' => 'permissionScheme', 'type' => 'list', 'values' => $viewData['schemeList'] ),
    array ( 'prefix' => 'config', 'name' => 'userManual', 'type' => 'text', 'placeholder' => '', 'value' => urldecode($C->read("userManual")), 'maxlength' => '160' ),
    array ( 'prefix' => 'config', 'name' => 'showBanner', 'type' => 'check', 'values' => '', 'value' => $C->read("showBanner") ),
+   array ( 'prefix' => 'config', 'name' => 'pageHelp', 'type' => 'check', 'values' => '', 'value' => $C->read("pageHelp") ),
 );
 
 $viewData['email'] = array (

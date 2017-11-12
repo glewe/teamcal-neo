@@ -21,7 +21,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       
          <div class="col-lg-12">
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-               <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['home_title']?></div>
+               <?php 
+               $pageHelp = '';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+               ?>
+               <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['home_title'].$pageHelp?></div>
                <div class="panel-body">
                   <?php echo $C->read("welcomeText"); ?>
                </div>

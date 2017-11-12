@@ -35,7 +35,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
 
                <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['profile_create_title']?></div>
+                  <?php 
+                  $pageHelp = '';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+                  ?>
+                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['profile_create_title'].$pageHelp?></div>
                   <div class="panel-body">
 
                      <div class="panel panel-default">

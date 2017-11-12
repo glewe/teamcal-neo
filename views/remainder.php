@@ -44,7 +44,11 @@ $formLink = 'index.php?action='.$controller.'&amp;group='.$viewData['groupid'];
             </div>
             
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-               <div class="panel-heading"><?=$LANG['rem_title']?></div>
+               <?php 
+               $pageHelp = '';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+               ?>
+               <div class="panel-heading"><?=$LANG['rem_title'].$pageHelp?></div>
             </div>
             
             <!-- Remainder Table -->
