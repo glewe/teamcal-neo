@@ -651,20 +651,32 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
          //
          // CHECK ALLOWANCE PER YEAR
          //
-         if ($A->getAllowance($requestedAbsences[$i]) OR $AL->getAllowance($username, $requestedAbsences[$i]))
+         if ($AL->find($username, $requestedAbsences[$i]))
          {
             //
-            // Allowance per year is positive
-            // If there is a positive personal allowance, take that one (can be lower or higher)
+            // The user has a personal allowance record. That wins over global.
+            //
+            $allow=$AL->getAllowance($username, $requestedAbsences[$i]);
+            $checkAllowance = true;
+         }
+         else if ($A->getAllowance($requestedAbsences[$i]))
+         {
+            //
+            // Global allowance per year is positive
             //
             $allow=$A->getAllowance($requestedAbsences[$i]);
-            $pallow=$AL->getAllowance($username, $requestedAbsences[$i]);
-
+            $checkAllowance = true;
+         }
+         else
+         {
             //
-            // Personal allowance wins
+            // Neither a personal nor a global allowance. That means unlimited.
             //
-            if ($pallow) $allow = $pallow;
-
+            $checkAllowance = false;
+         }
+         
+         if ($checkAllowance)
+         {
             //
             // Count already taken (saved in database)
             //
@@ -1102,13 +1114,6 @@ function getAbsenceSummary($username, $absid, $year)
       if ($AL->find($username, $A->id))
       {
          $summary['carryover'] = $AL->carryover;
-         if (!$AL->allowance) {
-            //
-            // Zero personal allowance will take over global yearly allowance
-            //
-            $AL->allowance = $A->allowance;
-            $AL->update();
-         }
          $summary['allowance'] = $AL->allowance;
       }
       else
@@ -1117,7 +1122,6 @@ function getAbsenceSummary($username, $absid, $year)
          $summary['allowance'] = $A->allowance;
       }
       $summary['totalallowance'] = $summary['allowance'] + $summary['carryover'];
-      if (!$summary['totalallowance']) $summary['totalallowance'] = $LANG['absum_unlimited'];
 
       $summary['taken'] = 0;
       if (!$A->counts_as_present)

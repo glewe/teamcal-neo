@@ -287,24 +287,14 @@ if (!empty($_POST))
          //
          // Absences
          //
-         if (isAllowed("useraccount") && $profile != 'admin')
+         if (isAllowed("userabsences") && $profile != 'admin')
          {
             foreach ($absences as $abs)
             {
                $AL->username = $profile;
                $AL->absid = $abs['id'];
+               $AL->allowance = $_POST['txt_'.$abs['id'].'_allowance'];
                $AL->carryover = $_POST['txt_'.$abs['id'].'_carryover'];
-
-               if (isset($_POST['txt_'.$abs['id'].'_allowance'])) {
-                  $AL->allowance = $_POST['txt_'.$abs['id'].'_allowance'];
-               }
-               else {
-                  $AL->allowance = $AL->getAllowance($profile,$abs['id']);                  
-               }
-               if (!$AL->allowance) {
-                  $AL->allowance = $abs['allowance'];
-               }
-
                $AL->save();
             }
          }
@@ -604,20 +594,34 @@ foreach ($absences as $abs)
 {
    if ($AL->find($viewData['profile'], $abs['id']))
    {
-      $carryover = $AL->carryover;
-      if (!$AL->allowance) {
-         //
-         // Zero personal allowance will take over global yearly allowance
-         //
-         $AL->allowance = $abs['allowance'];
-         $AL->update();
-      }
       $allowance = $AL->allowance;
+      $carryover = $AL->carryover;
    }
    else
    {
+      //
+      // No allowance record yet. Let's create one.
+      //
+      if ($abs['allowance'])
+      {
+         //
+         // There is a positive global allowance. Save it in personal.
+         //
+         $allowance = $abs['allowance'];
+      }
+      else
+      {
+         //
+         // There is zero global allowance (unlimited). Save 365 in personal for the year.
+         //
+         $allowance = 365;
+      }
       $carryover = 0;
-      $allowance = $abs['allowance'];
+      $AL->username = $viewData['profile'];
+      $AL->absid = $abs['id'];
+      $AL->allowance = $allowance;
+      $AL->carryover = $carryover;
+      $AL->save();
    }
     
    $taken = 0;
