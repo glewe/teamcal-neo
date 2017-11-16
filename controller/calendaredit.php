@@ -32,6 +32,7 @@ if (isset($_GET['month']) AND isset($_GET['region']) AND isset($_GET['user']))
    if (!is_numeric($yyyymm) OR strlen($yyyymm) != 6 OR !checkdate(intval($viewData['month']),1,intval($viewData['year'])) ) 
    {
       $missingData = TRUE;
+      die("month");
    }
 
    //
@@ -475,7 +476,9 @@ foreach ($allRegions as $reg)
    }
 }
 
-
+//
+// Get the users to display
+//
 $viewData['users'] = array();
 foreach ($users as $usr)
 {

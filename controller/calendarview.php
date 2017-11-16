@@ -389,12 +389,12 @@ if ($viewData['showTwoMonths'])
    $M2 = new Months();
    if ($viewData['month']==12) 
    {
-      $viewData['month2'] = 1;
+      $viewData['month2'] = "01";
       $viewData['year2'] = $viewData['year'] + 1;
    }
    else 
    {
-      $viewData['month2'] = $viewData['month'] + 1;
+      $viewData['month2'] = sprintf('%02d',$viewData['month'] + 1);
       $viewData['year2'] = $viewData['year'];
    }
    $viewData['dateInfo2'] = dateInfo($viewData['year2'], $viewData['month2']);
