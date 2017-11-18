@@ -19,7 +19,7 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
       <!-- ==================================================================== 
       view.calendarview
       -->
-      <div class="container content" style="padding-left: 4px; padding-right: 4px;">
+      <div class="container content" style="padding-left: 4px; padding-right: 4px;<?=($fontSize=$C->read('calendarFontSize'))?" font-size:".$fontSize."%;":"";?>">
       
          <?php 
          if ($showAlert AND $C->read("showAlerts")!="none")

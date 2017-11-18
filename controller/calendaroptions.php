@@ -65,6 +65,7 @@ if (isset($_POST['btn_caloptApply']))
    if (isset($_POST['chk_symbolAsIcon']) && $_POST['chk_symbolAsIcon']) $C->save("symbolAsIcon", "1"); else $C->save("symbolAsIcon", "0");
    if (isset($_POST['chk_showTwoMonths']) && $_POST['chk_showTwoMonths']) $C->save("showTwoMonths", "1"); else $C->save("showTwoMonths", "0");
    if ($_POST['sel_monitorAbsence']) $C->save("monitorAbsence", $_POST['sel_monitorAbsence']); else $C->save("monitorAbsence", 0);
+   if (strlen($_POST['txt_calendarFontSize'])) $C->save("calendarFontSize", intval($_POST['txt_calendarFontSize'])); else $C->save("calendarFontSize", 100);
    
    //
    // Filter
@@ -153,6 +154,7 @@ $caloptData['display'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'symbolAsIcon', 'type' => 'check', 'values' => '', 'value' => $C->read("symbolAsIcon") ),
    array ( 'prefix' => 'calopt', 'name' => 'showTwoMonths', 'type' => 'check', 'values' => '', 'value' => $C->read("showTwoMonths") ),
    array ( 'prefix' => 'calopt', 'name' => 'monitorAbsence', 'type' => 'list', 'values' => $caloptData['absenceList'] ),
+   array ( 'prefix' => 'calopt', 'name' => 'calendarFontSize', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("calendarFontSize"), 'maxlength' => '3' ),
 );
 
 //

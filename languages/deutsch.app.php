@@ -279,6 +279,8 @@ $LANG['calopt_tab_remainder'] = 'Resttage';
 $LANG['calopt_tab_stats'] = 'Statistik';
 $LANG['calopt_tab_summary'] = 'Summen';
 
+$LANG['calopt_calendarFontSize'] = 'Kalender Schriftgr&ouml;&szlig;e';
+$LANG['calopt_calendarFontSize_comment'] = 'Hier kann die Schriftgr&ouml;&szlig;e des Monatskalenders mit einem Prozentwert vergr&ouml;&szlig;ert oder verkleinert werden, z.B. 80 oder 120.';
 $LANG['calopt_currentYearOnly'] = 'Nur aktuelles Jahr';
 $LANG['calopt_currentYearOnly_comment'] = 'Mit diesem Schalter wird der Kalender auf das aktuelle Jahr beschr&auml;nkt. Andere Jahre k&ouml;nnen nicht angezeigt oder bearbeitet werden.';
 $LANG['calopt_currentYearRoles'] = 'Nur aktuelles Jahr Rollen';

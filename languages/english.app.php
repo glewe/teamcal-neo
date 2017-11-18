@@ -279,6 +279,8 @@ $LANG['calopt_tab_remainder'] = 'Remainder';
 $LANG['calopt_tab_stats'] = 'Statistics';
 $LANG['calopt_tab_summary'] = 'Summary';
 
+$LANG['calopt_calendarFontSize'] = 'Calendar Font Size';
+$LANG['calopt_calendarFontSize_comment'] = 'You can decrease or increase the font size of the month calendar view here by entering a percentage value, e.g. 80 or 120.';
 $LANG['calopt_currentYearOnly'] = 'Current Year Only';
 $LANG['calopt_currentYearOnly_comment'] = 'With this switch, the calendar will be restricted to the current year. Other years cannot be viewed or edited.';
 $LANG['calopt_currentYearRoles'] = 'Current Year Roles';
