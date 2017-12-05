@@ -302,7 +302,22 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   </div>
                   <div style="width: 40%; margin-bottom: 20px;">
                      <input id="periodStart" class="form-control" tabindex="<?=$tabindex++?>" name="txt_periodStart" type="text" maxlength="10" value="">
-                     <script type="text/javascript">$(function() { $( "#periodStart" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });</script>
+                     <script type="text/javascript">
+                        $(function() { 
+                           $( "#periodStart" ).datepicker({ 
+                              changeMonth: true, 
+                              changeYear: true, 
+                              dateFormat: "yy-mm-dd"
+                           });
+                        });
+                        // Make drop downs work in modal dialogs. Needed once on page.
+                        var enforceModalFocusFn = $.fn.modal.Constructor.prototype.enforceFocus;
+                        $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+                        $confModal.on('hidden', function() {
+                           $.fn.modal.Constructor.prototype.enforceFocus = enforceModalFocusFn;
+                        });
+                        $confModal.modal({ backdrop : false });
+                     </script>
                   </div>
                   <?php if ( isset($inputAlert["periodStart"]) AND strlen($inputAlert["periodStart"]) ) { ?> 
                   <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['periodStart']?></div>
@@ -316,7 +331,15 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   </div>
                   <div style="width: 40%; margin-bottom: 20px;">
                      <input id="periodEnd" class="form-control" tabindex="<?=$tabindex++?>" name="txt_periodEnd" type="text" maxlength="10" value="">
-                     <script type="text/javascript">$(function() { $( "#periodEnd" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });</script>
+                     <script type="text/javascript"
+                        >$(function() { 
+                           $( "#periodEnd" ).datepicker({ 
+                              changeMonth: true, 
+                              changeYear: true, 
+                              dateFormat: "yy-mm-dd"
+                           });
+                        });
+                     </script>
                   </div>
                   <?php if ( isset($inputAlert["periodEnd"]) AND strlen($inputAlert["periodEnd"]) ) { ?> 
                   <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['periodEnd']?></div>
