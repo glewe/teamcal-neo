@@ -40,7 +40,6 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
             <input name="hidden_region" type="hidden" class="text" value="<?=$viewData['regionid']?>">
             <?php 
             require("calendarviewpagemenu.php");
-
             foreach ($viewData['months'] as $vmonth)
             {
                $M = $vmonth['M'];

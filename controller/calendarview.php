@@ -352,50 +352,24 @@ $viewData['months'] = array (
 //
 // Figure out how many months to display
 //
-$viewData['showTwoMonths'] = false;
-$viewData['nbrMonths'] = 'Two';
-
-if ($calendarMonths=$UO->read($UL->username, 'calendarMonths'))
+if ($showMonths=$UO->read($UL->username, 'showMonths'))
 {
-   switch($calendarMonths)
-   {
-      case 'default':
-         if ($C->read('showTwoMonths')) {
-            $viewData['showTwoMonths'] = true;
-            $viewData['nbrMonths'] = 'One';
-         }
-         else
-         {
-            $viewData['showTwoMonths'] = false;
-            $viewData['nbrMonths'] = 'Two';
-         }
-         break;
-
-      case 'one':
-         $viewData['showTwoMonths'] = false;
-         $viewData['nbrMonths'] = 'Two';
-         break;
-         
-      case 'two':
-         $viewData['showTwoMonths'] = true;
-         $viewData['nbrMonths'] = 'One';
-         break;
-   }
+   // Nothing to do. We have the profile value now.
+}
+else if ($showMonths=$C->read('showMonths'))
+{
+   // Nothing to do. We have the global value now.
 }
 else
 {
-   $UO->save($UL->username, 'calendarMonths', 'default');
-   if ($C->read('showTowMonths'))
-   {
-      $viewData['showTwoMonths'] = true;
-      $viewData['nbrMonths'] = 'One';
-   }
+   // Profile and global value missing. Set to default 1 and save as global.
+   $showMonths = 1;
+   $C->save('showMonths', 1);
 }
 
 //
-// Prepare following month if option set
+// Prepare following months if required
 //
-$showMonths = 3;
 if ($showMonths > 1)
 {
    $prevYear = intval($viewData['year']);

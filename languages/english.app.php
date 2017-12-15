@@ -320,6 +320,8 @@ $LANG['calopt_satBusi_comment'] = 'By default, Saturday and Sunday are weekend d
       Check this option if you want to make Saturday a business day.';
 $LANG['calopt_showAvatars'] = 'Show Avatars';
 $LANG['calopt_showAvatars_comment'] = 'Checking this option will show a user avatar pop-up when moving the mouse over the user avatar icon.'; 
+$LANG['calopt_showMonths'] = 'Show Multiple Months';
+$LANG['calopt_showMonths_comment'] = 'Enter the number of months to show on the calendar page, maximum 12.';
 $LANG['calopt_showRegionButton'] = 'Show Region Filter Button';
 $LANG['calopt_showRegionButton_comment'] = 'Checking this option will show the region filter button on top of the calendar for easy switching between different regions.
       If you only use the standard region it might make sense to hide the button by unchecking this option.';
@@ -329,8 +331,6 @@ $LANG['calopt_showSummary'] = 'Expand Summary';
 $LANG['calopt_showSummary_comment'] = 'Checking this option will show/expand the summary section by default.';
 $LANG['calopt_showTooltipCount'] = 'Tooltip Counter';
 $LANG['calopt_showTooltipCount_comment'] = 'Checking this option will show the amount taken for the current absence type and current month in the absence type tooltip.';
-$LANG['calopt_showTwoMonths'] = 'Show Two Months';
-$LANG['calopt_showTwoMonths_comment'] = 'Checking this option will show the selected and the following month on the calendar page.';
 $LANG['calopt_showUserRegion'] = 'Show regional holidays per user';
 $LANG['calopt_showUserRegion_comment'] = 'If this option is on, the calendar will show the regional holidays in each user row based on the default region 
       set for the user. These holidays might then differ from the global regional holidays shown in the month header. This offers a better view on regional 
@@ -737,6 +737,8 @@ $LANG['profile_notifyMonthEvents'] = 'Month Template Events';
 $LANG['profile_notifyUserCalEvents'] = 'User Calendar Events';
 $LANG['profile_notifyUserCalGroups'] = 'User Calendar Event Groups';
 $LANG['profile_notifyUserCalGroups_comment'] = 'If you have selected "'.$LANG['profile_notifyUserCalEvents'].'" in the event list above, select here for which of your groups you want to receive these notifications.';
+$LANG['profile_showMonths'] = 'Show Multiple Months';
+$LANG['profile_showMonths_comment'] = 'Enter the number of months to show on the calendar page, maximum 12.';
 
 //
 // Region

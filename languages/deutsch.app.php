@@ -320,6 +320,8 @@ $LANG['calopt_satBusi_comment'] = 'Normalerweise sind Samstage und Sonntage Woch
       Hier kann Samstag als Arbeitstag definiert werden.';
 $LANG['calopt_showAvatars'] = 'Avatars anzeigen';
 $LANG['calopt_showAvatars_comment'] = 'Mit dieser Option wird ein User Avatar in einem Pop-Up angezeigt, wenn die Maus &uuml;ber das User Icon gef&uuml;hrt wird.';
+$LANG['calopt_showMonths'] = 'Mehrere Monate anzeigen';
+$LANG['calopt_showMonths_comment'] = 'Gebe hier an, wieviele Monate auf der Kalenderseite angezeigt werden sollen, maximal 12.';
 $LANG['calopt_showRegionButton'] = 'Regionsfilter anzeigen';
 $LANG['calopt_showRegionButton_comment'] = 'Mit dieser Option wird oberhalb des Kalenders ein Button angezeigt, mit dem eine andere Region gew&auml;hlt werden kann.
       Wenn nur die Standard Region benutzt wird, kann es Sinn machen, diesen auszublenden.';
@@ -329,8 +331,6 @@ $LANG['calopt_showSummary'] = 'Summen Abschnitt anzeigen';
 $LANG['calopt_showSummary_comment'] = 'Mit dieser Option wird der Summen Abschnitt standardm&auml;&szlig;ig aufgeklappt.';
 $LANG['calopt_showTooltipCount'] = 'Tooltip Z&auml;hler';
 $LANG['calopt_showTooltipCount_comment'] = 'Mit dieser Option wird im Abwesenheits-Tooltip die Anzahl der im aktuellen Monat genommenen angezeigt.';
-$LANG['calopt_showTwoMonths'] = 'Zwei Monate anzeigen';
-$LANG['calopt_showTwoMonths_comment'] = 'Mit dieser Option wird der ausgew&auml;hlte und der folgende Monat auf der Kalenderseite angezeigt.';
 $LANG['calopt_showUserRegion'] = 'Regionale Feiertage pro User anzeigen';
 $LANG['calopt_showUserRegion_comment'] = 'Mit dieser Option zeigt der Kalender in jeder Nutzerzeile die regionalen Feiertage der Region an, die in den Optionen des
       Nutzers eingestellt ist. Diese Feiertage k&ouml;nnen sich von den globalen regionalen Feiertagen unterscheiden, die im Kopf des Kalenders angezeigt werden.
@@ -737,6 +737,8 @@ $LANG['profile_notifyMonthEvents'] = 'Monatsschablonen-Ereignisse';
 $LANG['profile_notifyUserCalEvents'] = 'Benutzerkalender-Ereignisse';
 $LANG['profile_notifyUserCalGroups'] = 'Benutzerkalender-Ereignis-Gruppen';
 $LANG['profile_notifyUserCalGroups_comment'] = 'Wenn oben das Ereignis "'.$LANG['profile_notifyUserCalEvents'].'" ausgew&auml;hlt wurde, w&auml;hle hier, f&uuml;r welche deiner Gruppen du diese Benachrichtigungen bekommen m&ouml;chtest.';
+$LANG['profile_showMonths'] = 'Mehrere Monate anzeigen';
+$LANG['profile_showMonths_comment'] = 'Gebe hier an, wieviele Monate auf der Kalenderseite angezeigt werden sollen, maximal 12.';
 
 //
 // Region

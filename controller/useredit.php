@@ -129,6 +129,7 @@ if (!empty($_POST))
       if (!formInputValid('txt_custom3', 'alpha_numeric_dash_blank_special')) $inputError = true;
       if (!formInputValid('txt_custom4', 'alpha_numeric_dash_blank_special')) $inputError = true;
       if (!formInputValid('txt_custom5', 'alpha_numeric_dash_blank_special')) $inputError = true;
+      if (!formInputValid('txt_showMonths', 'numeric')) $inputError = true;
    }
 
    if (!$inputError)
@@ -203,7 +204,19 @@ if (!empty($_POST))
          {
             $UO->save($profile, 'calendarMonths', 'default');
          }
-          
+
+         if (strlen($_POST['txt_showMonths'])) 
+         {
+            $postValue = intval($_POST['txt_showMonths']);
+            if ($postValue < 1) $postValue = 1;
+            else if ($postValue > 12) $postValue = 12;
+            $UO->save($profile, "showMonths", $postValue);
+         }
+         else
+         {
+            $UO->save($profile, "showMonths", 1);
+         }
+               
          //
          // Account
          //
@@ -519,13 +532,7 @@ if ($C->read('allowUserTheme'))
    $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'menuBar', 'type' => 'radio', 'values' => $viewData['menuBarOptions'], 'value' => $UO->read($profile, 'menuBar') );
 }
 $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'language', 'type' => 'list', 'values' => $viewData['languageList'] );
-
-$viewData['calendarMonthsList'] = array (
-   array ('val' => "default", 'name' => "Default", 'selected' => (($UO->read($profile, 'calendarMonths') == "default")?true:false)),
-   array ('val' => "one", 'name' => $LANG['profile_calendarMonths_one'], 'selected' => (($UO->read($profile, 'calendarMonths') == "one")?true:false)),
-   array ('val' => "two", 'name' => $LANG['profile_calendarMonths_two'], 'selected' => (($UO->read($profile, 'calendarMonths') == "two")?true:false)),
-);
-$viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'calendarMonths', 'type' => 'list', 'values' => $viewData['calendarMonthsList'] );
+$viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'showMonths', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'showMonths'), 'maxlength' => '2', 'error' =>  (isset($inputAlert['showMonths'])?$inputAlert['showMonths']:'') );
 
 //
 // Avatar
