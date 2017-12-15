@@ -257,7 +257,7 @@ if (isset($_GET['search']) AND $_GET['search']=="reset")
 
 //-----------------------------------------------------------------------------
 //
-// Default back to current yearmonth if option is set and role matches
+// Default back to current year/month if option is set and role matches
 //
 if ($C->read('currentYearOnly') AND $viewData['year']!=date('Y'))
 {
@@ -336,7 +336,18 @@ if ($limit = $C->read("usersPerPage"))
 //
 $inputAlert = array();
 $currDate = date('Y-m-d');
-$viewData['dateInfo'] = dateInfo($viewData['year'], $viewData['month']);
+// $viewData['dateInfo'] = dateInfo($viewData['year'], $viewData['month']);
+
+$viewData['months'] = array (
+   array ( 
+      'year' => $viewData['year'], 
+      'month' => $viewData['month'], 
+      'dateInfo' => dateInfo($viewData['year'], $viewData['month']),
+      'M' => new Months(),
+      'dayStyles' => array(),
+      'businessDays' => 0,
+   ),
+);
 
 //
 // Figure out how many months to display
@@ -384,22 +395,40 @@ else
 //
 // Prepare following month if option set
 //
-if ($viewData['showTwoMonths'])
+$showMonths = 3;
+if ($showMonths > 1)
 {
-   $M2 = new Months();
-   if ($viewData['month']==12) 
+   $prevYear = intval($viewData['year']);
+   $prevMonth = intval($viewData['month']);
+   for ($i=2; $i<=$showMonths; $i++)
    {
-      $viewData['month2'] = "01";
-      $viewData['year2'] = $viewData['year'] + 1;
+      if ($prevMonth==12) 
+      {
+         $nextMonth = "01";
+         $nextYear = $prevYear + 1;
+      }
+      else 
+      {
+         $nextMonth = sprintf('%02d',$prevMonth + 1);
+         $nextYear = $prevYear;
+      }
+
+      $viewData['months'][] = array (
+         'year' => $nextYear, 
+         'month' => $nextMonth, 
+         'dateInfo' => dateInfo($nextYear, $nextMonth),
+         'M' => new Months(),
+         'dayStyles' => array(),
+         'businessDays' => 0,
+      );
+      $prevYear = intval($nextYear);
+      $prevMonth = intval($nextMonth);
    }
-   else 
-   {
-      $viewData['month2'] = sprintf('%02d',$viewData['month'] + 1);
-      $viewData['year2'] = $viewData['year'];
-   }
-   $viewData['dateInfo2'] = dateInfo($viewData['year2'], $viewData['month2']);
 }
 
+//
+// Get the roles that can view confidential absences and daynotes
+//
 if ($trustedRoles=$C->read("trustedRoles"))
 {
    $viewData['trustedRoles'] = explode(',', $trustedRoles);
@@ -411,49 +440,27 @@ else
 }
 
 //
-// See if a region month template exists. If not, create one.
+// See if a region month template exists for each month to show. If not, create one.
 //
-if (!$M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid'])) 
+foreach($viewData['months'] as $vmonth) 
 {
-   createMonth($viewData['year'], $viewData['month'], 'region', $viewData['regionid']);
-   $M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']);
-    
-   //
-   // Send notification e-mails to the subscribers of user events
-   //
-   if ($C->read("emailNotifications"))
+   if (!$vmonth['M']->getMonth($vmonth['year'], $vmonth['month'], $viewData['regionid'])) 
    {
-      sendMonthEventNotifications("created", $viewData['year'], $viewData['month'], $viewData['regionname']);
-   }
-          
-   //
-   // Log this event
-   //
-   $LOG->log("logMonth", L_USER, "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
-}
-
-//
-// Do the above for the following month if option set
-//
-if ($viewData['showTwoMonths'])
-{
-   if (!$M2->getMonth($viewData['year2'], $viewData['month2'], $viewData['regionid'])) 
-   {
-      createMonth($viewData['year2'], $viewData['month2'], 'region', $viewData['regionid']);
-      $M2->getMonth($viewData['year2'], $viewData['month2'], $viewData['regionid']);
+      createMonth($vmonth['year'], $vmonth['month'], 'region', $viewData['regionid']);
+      $vmonth['M']->getMonth($vmonth['year'], $vmonth['month'], $viewData['regionid']);
       
       //
       // Send notification e-mails to the subscribers of user events
       //
       if ($C->read("emailNotifications"))
       {
-         sendMonthEventNotifications("created", $viewData['year2'], $viewData['month2'], $viewData['regionname']);
+         sendMonthEventNotifications("created", $vmonth['year'], $vmonth['month'], $viewData['regionname']);
       }
             
       //
       // Log this event
       //
-      $LOG->log("logMonth", L_USER, "log_month_tpl_created", $M2->region . ": " . $M2->year . "-" . $M2->month);
+      $LOG->log("logMonth", L_USER, "log_month_tpl_created", $vmonth['M']->region . ": " . $vmonth['M']->year . "-" . $vmonth['M']->month);
    }
 }
 
@@ -653,143 +660,72 @@ foreach ($users as $usr)
 //
 foreach ($viewData['users'] as $user)
 {
-   if (!$T->getTemplate($user['username'], $viewData['year'], $viewData['month']))
+   foreach ($viewData['months'] as $vmonth)
    {
-      createMonth($viewData['year'], $viewData['month'], 'user', $user['username']);
-   }
-
-   //
-   // Do the above for the following month if option set
-   //
-   if ($viewData['showTwoMonths'])
-   {
-      if (!$T->getTemplate($user['username'], $viewData['year2'], $viewData['month2']))
+      if (!$T->getTemplate($user['username'], $vmonth['year'], $vmonth['month']))
       {
-         createMonth($viewData['year2'], $viewData['month2'], 'user', $user['username']);
+         createMonth($vmonth['year'], $vmonth['month'], 'user', $user['username']);
       }
    }
 }
 
 //
 // Get the holiday and weekend colors
-// These styles are saved in the $viewData['dayStyles'] array and affect the whole
+// These styles are saved in the dayStyles array of each month and affect the whole
 // column of a day.
 //
-for ($i=1; $i<=$viewData['dateInfo']['daysInMonth']; $i++) 
+$j = 0;
+foreach ($viewData['months'] as $vmonth)
 {
-   $color = '';
-   $bgcolor = '';
-   $border = '';
-   $viewData['dayStyles'][$i] = '';
-   $hprop = 'hol'.$i;
-   $wprop = 'wday'.$i;
-   if ($M->$hprop) 
-   {
-      //
-      // This is a holiday. Get the coloring info.
-      //
-      if ($H->keepWeekendColor($M->$hprop))
-      {
-         //
-         // Weekend color shall be kept. So if this a weekend day color it as such.
-         //
-         if ($M->$wprop==6 OR $M->$wprop==7)
-         {
-            $color = 'color:#' . $H->getColor($M->$wprop-4) . ';';
-            $bgcolor = 'background-color:#' . $H->getBgColor($M->$wprop-4) . ';';
-         }
-         else
-         {
-            $color = 'color:#' . $H->getColor($M->$hprop) . ';';
-            $bgcolor = 'background-color:#' . $H->getBgColor($M->$hprop) . ';';
-         }
-      }
-      else 
-      {
-         $color = 'color:#' . $H->getColor($M->$hprop) . ';';
-         $bgcolor = 'background-color:#' . $H->getBgColor($M->$hprop) . ';';
-      }
-   }
-   else if ($M->$wprop==6 OR $M->$wprop==7) 
-   {
-      //
-      // This is a Saturday or Sunday. Get the coloring info.
-      //
-      $color = 'color:#' . $H->getColor($M->$wprop-4) . ';';
-      $bgcolor = 'background-color:#' . $H->getBgColor($M->$wprop-4) . ';';
-   }
-   
-   //
-   // Get today style
-   //
-   $loopDate = date('Y-m-d', mktime(0, 0, 0, $viewData['month'], $i, $viewData['year']));
-   if ( $loopDate == $currDate )
-   {
-      $border = 'border-left: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';border-right: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';';
-   }
-   
-   //
-   // Build styles
-   //
-   if ( strlen($color) OR strlen($bgcolor) OR strlen($border) )
-   {
-      $viewData['dayStyles'][$i] = $color . $bgcolor . $border;
-   }
-}
-
-//
-// Do the above for the following month if option set
-//
-if ($viewData['showTwoMonths'])
-{
-   for ($i=1; $i<=$viewData['dateInfo2']['daysInMonth']; $i++) 
+   $dayStyles = array();
+   for ($i=1; $i<=$vmonth['dateInfo']['daysInMonth']; $i++) 
    {
       $color = '';
       $bgcolor = '';
       $border = '';
-      $viewData['dayStyles2'][$i] = '';
+      $dayStyles[$i] = '';
       $hprop = 'hol'.$i;
       $wprop = 'wday'.$i;
-      if ($M2->$hprop) 
+      if ($vmonth['M']->$hprop) 
       {
          //
          // This is a holiday. Get the coloring info.
          //
-         if ($H->keepWeekendColor($M2->$hprop))
+         if ($H->keepWeekendColor($M->$hprop))
          {
             //
             // Weekend color shall be kept. So if this a weekend day color it as such.
             //
-            if ($M2->$wprop==6 OR $M2->$wprop==7)
+            if ($vmonth['M']->$wprop==6 OR $vmonth['M']->$wprop==7)
             {
-               $color = 'color:#' . $H->getColor($M2->$wprop-4) . ';';
-               $bgcolor = 'background-color:#' . $H->getBgColor($M2->$wprop-4) . ';';
+               $color = 'color:#' . $H->getColor($vmonth['M']->$wprop-4) . ';';
+               $bgcolor = 'background-color:#' . $H->getBgColor($vmonth['M']->$wprop-4) . ';';
             }
             else
             {
-               $color = 'color:#' . $H->getColor($M2->$hprop) . ';';
-               $bgcolor = 'background-color:#' . $H->getBgColor($M2->$hprop) . ';';
+               $color = 'color:#' . $H->getColor($vmonth['M']->$hprop) . ';';
+               $bgcolor = 'background-color:#' . $H->getBgColor($vmonth['M']->$hprop) . ';';
             }
          }
          else 
          {
-            $color = 'color:#' . $H->getColor($M2->$hprop) . ';';
-            $bgcolor = 'background-color:#' . $H->getBgColor($M2->$hprop) . ';';
+            $color = 'color:#' . $H->getColor($vmonth['M']->$hprop) . ';';
+            $bgcolor = 'background-color:#' . $H->getBgColor($vmonth['M']->$hprop) . ';';
          }
       }
-      else if ($M2->$wprop==6 OR $M2->$wprop==7) 
+      else if ($vmonth['M']->$wprop==6 OR $vmonth['M']->$wprop==7) 
       {
          //
          // This is a Saturday or Sunday. Get the coloring info.
          //
-         $color = 'color:#' . $H->getColor($M2->$wprop-4) . ';';
-         $bgcolor = 'background-color:#' . $H->getBgColor($M2->$wprop-4) . ';';
+         $color = 'color:#' . $H->getColor($vmonth['M']->$wprop-4) . ';';
+         $bgcolor = 'background-color:#' . $H->getBgColor($vmonth['M']->$wprop-4) . ';';
       }
       
       //
       // Get today style
       //
-      $loopDate = date('Y-m-d', mktime(0, 0, 0, $viewData['month2'], $i, $viewData['year2']));
+      $loopDate = date('Y-m-d', mktime(0, 0, 0, $vmonth['month'], $i, $vmonth['year']));
       if ( $loopDate == $currDate )
       {
          $border = 'border-left: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';border-right: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';';
@@ -800,26 +736,23 @@ if ($viewData['showTwoMonths'])
       //
       if ( strlen($color) OR strlen($bgcolor) OR strlen($border) )
       {
-         $viewData['dayStyles2'][$i] = $color . $bgcolor . $border;
+         $dayStyles[$i] = $color . $bgcolor . $border;
       }
    }
+   $viewData['months'][$j]['dayStyles'] = $dayStyles;
+   $j++;
 }
 
 //
 // Get the number of business days
 //
-$cntfrom = $viewData['year'].$viewData['month'].'01';
-$cntto = $viewData['year'].$viewData['month'].$viewData['dateInfo']['daysInMonth'];
-$viewData['businessDays'] = countBusinessDays($cntfrom, $cntto, $viewData['regionid']);
-
-//
-// Do the above for the following month if option set
-//
-if ($viewData['showTwoMonths'])
+$j = 0;
+foreach ($viewData['months'] as $vmonth)
 {
-   $cntfrom2 = $viewData['year2'].$viewData['month2'].'01';
-   $cntto2 = $viewData['year2'].$viewData['month2'].$viewData['dateInfo2']['daysInMonth'];
-   $viewData['businessDays2'] = countBusinessDays($cntfrom2, $cntto2, $viewData['regionid']);
+   $cntfrom = $vmonth['year'].$vmonth['month'].'01';
+   $cntto = $vmonth['year'].$vmonth['month'].$vmonth['dateInfo']['daysInMonth'];
+   $viewData['months'][$j]['businessDays'] = countBusinessDays($cntfrom, $cntto, $viewData['regionid']);
+   $j++;
 }
 
 $todayDate = getdate(time());
@@ -827,9 +760,10 @@ $viewData['yearToday'] = $todayDate['year'];
 $viewData['monthToday'] = sprintf("%02d", $todayDate['mon']);
 $viewData['regions'] = $R->getAll();
 $viewData['showWeekNumbers'] = $C->read('showWeekNumbers');
-$mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
 $viewData['supportMobile'] = $C->read('supportMobile');
 $viewData['firstDayOfWeek'] = $C->read("firstDayOfWeek");
+
+$mobilecols['full'] = $viewData['months'][0]['dateInfo']['daysInMonth'];
 
 if (!$viewData['width']=$UO->read($UL->username, 'width')) 
 {

@@ -39,25 +39,19 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
             <input name="hidden_month" type="hidden" class="text" value="<?=$viewData['month']?>">
             <input name="hidden_region" type="hidden" class="text" value="<?=$viewData['regionid']?>">
             <?php 
-            require("calendarviewpagemenu.php"); 
-            require("calendarviewmonth.php"); 
+            require("calendarviewpagemenu.php");
+
+            foreach ($viewData['months'] as $vmonth)
+            {
+               $M = $vmonth['M'];
+               $viewData['month'] =  $vmonth['month'];
+               $viewData['year'] =  $vmonth['year'];
+               $viewData['dateInfo'] =  $vmonth['dateInfo'];
+               $viewData['dayStyles'] =  $vmonth['dayStyles'];
+               $viewData['businessDays'] = $vmonth['businessDays'];
+               require("calendarviewmonth.php"); 
+            }
             ?>
-
-            <?php if ($viewData['showTwoMonths']) {
-               $M = $M2;
-               $viewData['month'] =  $viewData['month2'];
-               $viewData['year'] =  $viewData['year2'];
-               $viewData['dateInfo'] =  $viewData['dateInfo2'];
-               $viewData['dayStyles'] =  $viewData['dayStyles2'];
-               $viewData['businessDays'] = $viewData['businessDays2'];
-               ?>
-
-               <!-- START: Following Month -->
-               <input name="hidden_month" type="hidden" class="text" value="<?=$viewData['month']?>">
-               <input name="hidden_region" type="hidden" class="text" value="<?=$viewData['regionid']?>">
-               <?php require("calendarviewmonth.php"); ?>
-               <!-- END: Following Month -->
-            <?php } ?>
 
             <!-- Modal: Select Month -->
             <?=createModalTop('modalSelectMonth', $LANG['cal_selMonth'])?>
