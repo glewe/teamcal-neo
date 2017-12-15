@@ -124,11 +124,11 @@ if (!empty($_POST))
       if (!formInputValid('txt_linkedin', 'alpha_numeric_dash')) $inputError = true;
       if (!formInputValid('txt_skype', 'alpha_numeric_dash')) $inputError = true;
       if (!formInputValid('txt_twitter', 'alpha_numeric_dash')) $inputError = true;
-      if (!formInputValid('txt_custom1', 'alpha_numeric_dash_blank_dot')) $inputError = true;
-      if (!formInputValid('txt_custom2', 'alpha_numeric_dash_blank_dot')) $inputError = true;
-      if (!formInputValid('txt_custom3', 'alpha_numeric_dash_blank_dot')) $inputError = true;
-      if (!formInputValid('txt_custom4', 'alpha_numeric_dash_blank_dot')) $inputError = true;
-      if (!formInputValid('txt_custom5', 'alpha_numeric_dash_blank_dot')) $inputError = true;
+      if (!formInputValid('txt_custom1', 'alpha_numeric_dash_blank_special')) $inputError = true;
+      if (!formInputValid('txt_custom2', 'alpha_numeric_dash_blank_special')) $inputError = true;
+      if (!formInputValid('txt_custom3', 'alpha_numeric_dash_blank_special')) $inputError = true;
+      if (!formInputValid('txt_custom4', 'alpha_numeric_dash_blank_special')) $inputError = true;
+      if (!formInputValid('txt_custom5', 'alpha_numeric_dash_blank_special')) $inputError = true;
    }
 
    if (!$inputError)
