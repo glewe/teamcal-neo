@@ -263,7 +263,7 @@ if ($C->read('currentYearOnly') AND $viewData['year']!=date('Y'))
 {
    if ($C->read("currYearRoles")) {
       //
-      // Applies to roles
+      // Applies to roles. Check if current user in in one of them.
       //
       $arrCurrYearRoles = array();
       $arrCurrYearRoles = explode(',', $C->read("currYearRoles"));
@@ -368,6 +368,26 @@ else
 }
 
 //
+// Check for temp amount of months
+//
+// ,---,
+// | - |
+// '---'
+if (!empty($_POST) AND isset($_POST['btn_oneless']))
+{
+   $showMonths = intval($_POST['hidden_showmonths']);
+   if ($showMonths > 1) $showMonths--;
+}
+// ,---,
+// | + |
+// '---'
+if (!empty($_POST) AND isset($_POST['btn_onemore']))
+{
+   $showMonths = intval($_POST['hidden_showmonths']);
+   if ($showMonths <= 12) $showMonths++;
+}
+
+//
 // Prepare following months if required
 //
 if ($showMonths > 1)
@@ -378,8 +398,29 @@ if ($showMonths > 1)
    {
       if ($prevMonth==12) 
       {
-         $nextMonth = "01";
-         $nextYear = $prevYear + 1;
+         if ($C->read('currentYearOnly') AND $C->read("currYearRoles")) 
+         {
+            //
+            // Applies to roles
+            //
+            $arrCurrYearRoles = array();
+            $arrCurrYearRoles = explode(',', $C->read("currYearRoles"));
+            $userRole = $U->getRole(L_USER);
+            if (in_array($userRole,$arrCurrYearRoles)) {
+               $i = $showMonths + 1;
+               continue;
+            }
+            else
+            {
+               $nextMonth = "01";
+               $nextYear = $prevYear + 1;
+            }
+         }
+         else
+         {
+            $nextMonth = "01";
+            $nextYear = $prevYear + 1;
+         }
       }
       else 
       {

@@ -90,8 +90,18 @@ if ($missingData)
 //
 if ($C->read('currentYearOnly') AND $viewData['year']!=date('Y'))
 {
-   header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . date('Ym') . "&region=" . $region . "&user=" . $caluser);
-   die();
+   if ($C->read("currYearRoles")) {
+      //
+      // Applies to roles. Check if current user in in one of them.
+      //
+      $arrCurrYearRoles = array();
+      $arrCurrYearRoles = explode(',', $C->read("currYearRoles"));
+      $userRole = $U->getRole(L_USER);
+      if (in_array($userRole,$arrCurrYearRoles)) {
+         header("Location: " . $_SERVER['PHP_SELF'] . "?action=".$controller."&month=" . date('Ym') . "&region=" . $region . "&user=" . $caluser);
+         die();
+      }
+   }
 }
 
 //=============================================================================

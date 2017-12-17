@@ -755,3 +755,10 @@ table.year div.weeknumber {
 
 .social-icon a[href*="youtube.com"]:hover {background-color: #df3333 !important;}
 .social-icon a[href*="youtube.com"] .fa:before{content: "\f167"}
+
+.divTable         { display: table; width:275px; }
+.divTableRow      { display: table-row; }
+.divTableHeading  { display: table-header-group; }
+.divTableBody     { display: table-row-group; }
+.divTableFoot     { display: table-footer-group; }
+.divTableCell, .divTableHead  { display: table-cell; }

@@ -14,7 +14,7 @@
 if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
       <!-- ==================================================================== 
-      view.calendarviewmonthheader
+      view.calendarviewmonthheader (<?=$viewData['year'].$viewData['month']?>)
       -->
 
       <!-- Row: Month name and day numbers -->

@@ -17,7 +17,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
 <!-- ==================================================================== 
-view.calendarviewmonth
+view.calendarviewmonth (<?=$viewData['year'].$viewData['month']?>)
 -->
 <?php if (!$viewData['supportMobile']) 
 {
@@ -148,7 +148,8 @@ foreach ($mobilecols as $key => $cols)
             <tr class="summary <?=(!$C->read('showSummary'))?'collapse':'in';?>">
                <td class="m-name"><?=$LANG['sum_absent']?></td>
                <?php for ($i=$daystart; $i<=$dayend; $i++) { 
-                  $style = substr($viewData['dayStyles'][$i], 14);
+                  // $style = substr($viewData['dayStyles'][$i], 14);
+                  $style = $viewData['dayStyles'][$i];
                   if(strlen($style)) $style = ' style="' . $style . '"';
                   ?>   
                   <td class="m-day m-summary text-center text-danger"<?=$style?>><?=$dayAbsCount[$i]?></td>
@@ -159,7 +160,8 @@ foreach ($mobilecols as $key => $cols)
             <tr class="summary <?=(!$C->read('showSummary'))?'collapse':'in';?>">
                <td class="m-name"><?=$LANG['sum_present']?></td>
                <?php for ($i=$daystart; $i<=$dayend; $i++) { 
-                  $style = substr($viewData['dayStyles'][$i], 14);
+                  // $style = substr($viewData['dayStyles'][$i], 14);
+                  $style = $viewData['dayStyles'][$i];
                   if(strlen($style)) $style = ' style="' . $style . '"';
                   ?>   
                   <td class="m-day m-summary text-center text-success"<?=$style?>><?=$dayPresCount[$i]?></td>

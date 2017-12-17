@@ -19,14 +19,14 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 // Check whether the current user may view users profiles.
 // If so, we link the name to the viewprofile page
 //
-$profileLink = '';
+$fullName = $U->getLastFirst($usr['username']);
 if (isAllowed($CONF['controllers']['viewprofile']->permission))
 {
-   $profileName = '<a href="index.php?action=viewprofile&amp;profile=' . $usr['username'] . '">'.$U->getLastFirst($usr['username']).'</a>';
+   $profileName = '<a href="index.php?action=viewprofile&amp;profile=' . $usr['username'] . '">'.$fullName.'</a>';
 }
 else
 {
-   $profileName = $U->getLastFirst($usr['username']);
+   $profileName = $fullName;
 }
  
 //
@@ -57,7 +57,7 @@ if ($editAllowed)
 ?>
 
       <!-- ==================================================================== 
-      view.calendaruserrow
+      view.calendaruserrow (<?=$viewData['year'].$viewData['month']?> - <?=$fullName?>)
       -->
       <tr>
          <?php 
@@ -81,9 +81,9 @@ if ($editAllowed)
             <?php } ?>
             <?=$profileName?>
             <?php if ($monAbsId=$C->read('monitorAbsence')) {
-                  $summary = getAbsenceSummary($usr['username'],$monAbsId,$viewData['year']);
+               $summary = getAbsenceSummary($usr['username'],$monAbsId,$viewData['year']);
                ?>
-               <div style="text-align:right;" title="<?=$A->getName($monAbsId).' '.$viewData['year'].': '.$LANG['remainder'].'/'.$LANG['allowance']?>"><span class="text-danger"><?=$summary['remainder']?></span>/<?=$summary['totalallowance']?></div>
+               <div style="text-align:right;font-style:italic;" title="<?=$A->getName($monAbsId).' '.$viewData['year'].': '.$LANG['remainder'].'/'.$LANG['allowance']?>">&nbsp;<span class="text-danger"><?=$summary['remainder']?></span>/<?=$summary['totalallowance']?></div>
             <?php } ?>
          </td>
          <?php 

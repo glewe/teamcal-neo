@@ -304,11 +304,14 @@ if (!empty($_POST))
          {
             foreach ($absences as $abs)
             {
-               $AL->username = $profile;
-               $AL->absid = $abs['id'];
-               $AL->allowance = $_POST['txt_'.$abs['id'].'_allowance'];
-               $AL->carryover = $_POST['txt_'.$abs['id'].'_carryover'];
-               $AL->save();
+               if (isset($_POST['txt_'.$abs['id'].'_allowance']) AND isset($_POST['txt_'.$abs['id'].'_carryover']))
+               {
+                  $AL->username = $profile;
+                  $AL->absid = $abs['id'];
+                  $AL->allowance = $_POST['txt_'.$abs['id'].'_allowance'];
+                  $AL->carryover = $_POST['txt_'.$abs['id'].'_carryover'];
+                  $AL->save();
+               }
             }
          }
 
@@ -342,11 +345,11 @@ if (!empty($_POST))
          //
          // Custom
          //
-         $UO->save($profile, 'custom1', $_POST['txt_custom1']);
-         $UO->save($profile, 'custom2', $_POST['txt_custom2']);
-         $UO->save($profile, 'custom3', $_POST['txt_custom3']);
-         $UO->save($profile, 'custom4', $_POST['txt_custom4']);
-         $UO->save($profile, 'custom5', $_POST['txt_custom5']);
+         if (isset($_POST['txt_custom1'])) $UO->save($profile, 'custom1', $_POST['txt_custom1']);
+         if (isset($_POST['txt_custom2'])) $UO->save($profile, 'custom2', $_POST['txt_custom2']);
+         if (isset($_POST['txt_custom3'])) $UO->save($profile, 'custom3', $_POST['txt_custom3']);
+         if (isset($_POST['txt_custom4'])) $UO->save($profile, 'custom4', $_POST['txt_custom4']);
+         if (isset($_POST['txt_custom5'])) $UO->save($profile, 'custom5', $_POST['txt_custom5']);
 
          $UP->update($profile);
 

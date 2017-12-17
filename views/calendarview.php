@@ -38,19 +38,26 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
 
             <input name="hidden_month" type="hidden" class="text" value="<?=$viewData['month']?>">
             <input name="hidden_region" type="hidden" class="text" value="<?=$viewData['regionid']?>">
+            <input name="hidden_showmonths" type="hidden" class="text" value="<?=$showMonths?>">
             <?php 
             require("calendarviewpagemenu.php");
             foreach ($viewData['months'] as $vmonth)
             {
                $M = $vmonth['M'];
-               $viewData['month'] =  $vmonth['month'];
-               $viewData['year'] =  $vmonth['year'];
-               $viewData['dateInfo'] =  $vmonth['dateInfo'];
-               $viewData['dayStyles'] =  $vmonth['dayStyles'];
+               $viewData['month'] = $vmonth['month'];
+               $viewData['year'] = $vmonth['year'];
+               $viewData['dateInfo'] = $vmonth['dateInfo'];
+               $viewData['dayStyles'] = $vmonth['dayStyles'];
                $viewData['businessDays'] = $vmonth['businessDays'];
                require("calendarviewmonth.php"); 
             }
             ?>
+            <?php if ($showMonths < 12 ) { ?>
+               <button type="submit" name="btn_onemore" class="btn btn-default tooltip-default pull-right" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_onemore']?>"><span class="fa fa-plus"></span></button>
+            <?php } ?>
+            <?php if ($showMonths > 1 ) { ?>
+               <button type="submit" name="btn_oneless" class="btn btn-default tooltip-default pull-right" style="margin-right:4px;" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_oneless']?>"><span class="fa fa-minus"></span></button>
+            <?php } ?>
 
             <!-- Modal: Select Month -->
             <?=createModalTop('modalSelectMonth', $LANG['cal_selMonth'])?>
