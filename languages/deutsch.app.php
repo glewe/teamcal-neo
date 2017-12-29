@@ -726,6 +726,8 @@ $LANG['profile_calendarMonths_comment'] = 'W&auml;hle die Anzahl der Kalendermon
 $LANG['profile_calendarMonths_default'] = 'Default';
 $LANG['profile_calendarMonths_one'] = 'Ein';
 $LANG['profile_calendarMonths_two'] = 'Zwei';
+$LANG['profile_calfilterGroup'] = 'Standard Gruppenfilter';
+$LANG['profile_calfilterGroup_comment'] = 'Die Kalenderansicht kann auf eine Gruppe gefiltert werden. Dies kann hier oder auf der Kalenderseite eingestellt werden.';
 $LANG['profile_guestships'] = 'In anderen Gruppen anzeigen';
 $LANG['profile_guestships_comment'] = 'Zeigt den Kalender dieses Nutzers in den ausgew&auml;hlten Gruppen mit an, auch wenn keine Mitgliedschaft vorliegt (auch "Gastmitgliedschaft" genannt). Dieses Feature ist sinnvoll, wenn der Nutzer '.
       'zwar kein Mitglied, seine Abwesenheiten aber trotzdem relevant f&uuml;r die Gruppe sind.<br><i>Gastmitglieder werden im Kalender in schr&auml;ger Schrift dargestellt.</i>';

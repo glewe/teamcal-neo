@@ -216,7 +216,12 @@ if (!empty($_POST))
          {
             $UO->save($profile, "showMonths", 1);
          }
-               
+
+         if (isset($_POST['sel_calfilterGroup']))
+         {
+            $UO->save($profile, 'calfilterGroup', $_POST['sel_calfilterGroup']);
+         }
+          
          //
          // Account
          //
@@ -517,6 +522,18 @@ $viewData['contact'] = array (
 //
 // Options
 //
+$selected = false;
+if (!$UO->read($viewData['profile'], 'calfilterGroup') OR $UO->read($viewData['profile'], 'calfilterGroup') == 'All') $selected = true;
+$viewData['calfilterGroups'][] = array('val' => 'all', 'name' => $LANG['all'], 'selected' => $selected);
+foreach ($groups as $group)
+{
+   if ($UG->isMemberOrManagerOfGroup($viewData['profile'], $group['id']))
+   {
+      $selected = false;
+      if ($UO->read($viewData['profile'], 'calfilterGroup') == $group['id']) $selected = true;
+      $viewData['calfilterGroups'][] = array('val' => $group['id'], 'name' => $group['name'], 'selected' => $selected);
+   }
+}
 $viewData['languageList'][] = array ('val' => "default", 'name' => "Default", 'selected' => ($UO->read($profile, 'language') == "default")?true:false );
 foreach ($appLanguages as $appLang)
 {
@@ -536,6 +553,7 @@ if ($C->read('allowUserTheme'))
 }
 $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'language', 'type' => 'list', 'values' => $viewData['languageList'] );
 $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'showMonths', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'showMonths'), 'maxlength' => '2', 'error' =>  (isset($inputAlert['showMonths'])?$inputAlert['showMonths']:'') );
+$viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'calfilterGroup', 'type' => 'list', 'values' => $viewData['calfilterGroups'] );
 
 //
 // Avatar

@@ -726,6 +726,8 @@ $LANG['profile_calendarMonths_comment'] = 'Select the amount of months to displa
 $LANG['profile_calendarMonths_default'] = 'Default';
 $LANG['profile_calendarMonths_one'] = 'One';
 $LANG['profile_calendarMonths_two'] = 'Two';
+$LANG['profile_calfilterGroup'] = 'Default Group Filter';
+$LANG['profile_calfilterGroup_comment'] = 'The calendar view can be filtered to a single group. This can be set here or on the calendar page itself.';
 $LANG['profile_guestships'] = 'Show in other groups';
 $LANG['profile_guestships_comment'] = 'Show the calendar of this user in the selected groups, even if not a member (called a "guest membership"). Use this feature if the user is '.
       'not a member but the absences are still important to see along with those of the selected groups.<br><i>Guest users will be shown in italic font in the calendar</i>.';
