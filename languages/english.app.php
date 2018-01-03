@@ -307,6 +307,8 @@ $LANG['calopt_hideManagerOnlyAbsences_comment'] = 'Absence types can be marked a
       These absences are shown to the regular users but they cannot edit them. You can hide these absences to regular users here.';
 $LANG['calopt_includeSummary'] = 'Include Summary';
 $LANG['calopt_includeSummary_comment'] = 'Checking this option will add an expandable summary section at the bottom of each month, showing the sums of all absences.';
+$LANG['calopt_managerOnlyIncludesAdministrator'] = 'Manager-Only for Administrator';
+$LANG['calopt_managerOnlyIncludesAdministrator_comment'] = 'Manager-only absence types can only be set by group managers. With this switch on, also users of role "Administrator" can do so.';
 $LANG['calopt_monitorAbsence'] = 'Monitor Absence';
 $LANG['calopt_monitorAbsence_comment'] = 'If you select an absence type here, its Remainder/Allowance count will be shown in the user name field of the calendar.';
 $LANG['calopt_notificationsAllGroups'] = 'Notifications for All Groups';

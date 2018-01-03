@@ -95,7 +95,7 @@ if (isset($_POST['btn_caloptApply']))
    }
     
    //
-   // Settings
+   // Options
    //
    if ($_POST['opt_firstDayOfWeek']) $C->save("firstDayOfWeek", $_POST['opt_firstDayOfWeek']);
    if (isset($_POST['chk_satBusi']) && $_POST['chk_satBusi']) $C->save("satBusi", "1"); else $C->save("satBusi", "0");
@@ -116,6 +116,7 @@ if (isset($_POST['btn_caloptApply']))
    
    if (isset($_POST['chk_takeover']) && $_POST['chk_takeover']) $C->save("takeover", "1"); else $C->save("takeover", "0");
    if (isset($_POST['chk_notificationsAllGroups']) && $_POST['chk_notificationsAllGroups']) $C->save("notificationsAllGroups", "1"); else $C->save("notificationsAllGroups", "0");
+   if (isset($_POST['chk_managerOnlyIncludesAdministrator']) && $_POST['chk_managerOnlyIncludesAdministrator']) $C->save("managerOnlyIncludesAdministrator", "1"); else $C->save("managerOnlyIncludesAdministrator", "0");
 
    //
    // Statistics
@@ -208,6 +209,7 @@ $caloptData['options'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'currentYearRoles', 'type' => 'listmulti', 'values' => $caloptData['roleList2'] ),
    array ( 'prefix' => 'calopt', 'name' => 'takeover', 'type' => 'check', 'values' => '', 'value' => $C->read("takeover") ),
    array ( 'prefix' => 'calopt', 'name' => 'notificationsAllGroups', 'type' => 'check', 'values' => '', 'value' => $C->read("notificationsAllGroups") ),
+   array ( 'prefix' => 'calopt', 'name' => 'managerOnlyIncludesAdministrator', 'type' => 'check', 'values' => '', 'value' => $C->read("managerOnlyIncludesAdministrator") ),
 );
 
 //

@@ -307,6 +307,8 @@ $LANG['calopt_hideManagerOnlyAbsences_comment'] = 'Abwesenheitstypen k&ouml;nnen
       Diese Abwesenheiten werden normalen Benutzern angezeigt, sie k&ouml;nnen sie aber nicht editieren. Mit diesem Schalter k&ouml;nnen sie die Anzeige f&uuml;r normale Benutzer verbergen.';
 $LANG['calopt_includeSummary'] = 'Summen Abschnitt';
 $LANG['calopt_includeSummary_comment'] = 'Mit dieser Option wird eine aufklappbare Zusammenfassung unter jedem Monat angezeigt, die die Summen der Abwesenheiten auff&uuml;hrt.';
+$LANG['calopt_managerOnlyIncludesAdministrator'] = 'Nur-Manager f&uuml;r Administrator';
+$LANG['calopt_managerOnlyIncludesAdministrator_comment'] = 'Nur-Manager Abwesenheitstypen k&ouml;nnen nur von den Gruppenmanagern gesetzt werden. Mit diesem Schalter k&ouml;nnen das auch Nutzer mit der Rolle "Administrator" tun.';
 $LANG['calopt_monitorAbsence'] = 'Monitor Abwesenheit';
 $LANG['calopt_monitorAbsence_comment'] = 'Wenn hier ein Abwesenheitstyp gew&auml;hlt wird, wird der Verbleibend/Erlaubt Z&auml;hler im Namensfeld des Nutzers angezeigt.';
 $LANG['calopt_notificationsAllGroups'] = 'Benachrichtigungen f&uuml;r alle Gruppen';
