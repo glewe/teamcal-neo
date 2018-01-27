@@ -7,7 +7,7 @@
  * @category TeamCal Neo
  * @version 1.9.005
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2017 by George Lewe
+ * @copyright Copyright (c) 2014-2018 by George Lewe
  * @link http://www.lewe.com
  * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
 */

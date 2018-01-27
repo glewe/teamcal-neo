@@ -5,7 +5,7 @@
  * @category TeamCal Neo 
  * @version 1.9.005
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2017 by George Lewe
+ * @copyright Copyright (c) 2014-2018 by George Lewe
  * @link http://www.lewe.com
  * @license This program cannot be licensed. Redistribution is not allowed.
  */
