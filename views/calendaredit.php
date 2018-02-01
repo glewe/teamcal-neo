@@ -240,10 +240,13 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <?php foreach ($viewData['absences'] as $abs) { 
                               if ( 
                                     $UL->username=='admin' OR
-                                    !$abs['manager_only'] OR
-                                    ($abs['manager_only'] AND $UG->isGroupManagerOfUser($UL->username, $viewData['username'])) OR
-                                    ($abs['manager_only'] AND $C->read("managerOnlyIncludesAdministrator") AND $UL->hasRole($UL->username,1)) 
-                                 ) { ?>
+                                    absenceIsValidForUser($abs['id'],$UL->username) AND (
+                                       !$abs['manager_only'] OR
+                                       ($abs['manager_only'] AND $UG->isGroupManagerOfUser($UL->username, $viewData['username'])) OR
+                                       ($abs['manager_only'] AND $C->read("managerOnlyIncludesAdministrator") AND $UL->hasRole($UL->username,1))
+                                    )
+                                 ) { 
+                                 ?>
                               <tr>
                                  <td class="m-name"><?=$abs['name']?></td>
                                  <?php 

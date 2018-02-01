@@ -325,4 +325,32 @@ function restoreUser($username)
    
    return true;
 }
+
+// ---------------------------------------------------------------------------
+/**
+ * Checks whether an absence type is valid for a given user based on his
+ * group memberships
+ *
+ * @param string $absid Absence ID
+ * @param string $username Username
+ * 
+ * @return boolean True or False indicating success
+ */
+function absenceIsValidForUser($absid,$username)
+{
+   global $A, $AG, $U, $UG;
+   $isValid = false;
+   
+   /**
+    * Get all groups for the given user
+    */
+   $userGroups = $UG->getAllForUser($username);
+   
+   foreach ($userGroups as $group)
+   {
+      if ($AG->isAssigned($absid,$group['groupid'])) $isValid = true;
+   }
+   
+   return $isValid;
+}
 ?>
