@@ -120,7 +120,7 @@ if (!empty($_POST))
             //
             // Password
             //
-            $UP->password = password_hash(trim($_POST['txt_password']), PASSWORD_DEFAULT);
+            $UR->password = password_hash(trim($_POST['txt_password']), PASSWORD_DEFAULT);
             $UR->last_pw_change = date('YmdHis');
              
             $UR->create();
