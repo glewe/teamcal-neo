@@ -5,7 +5,7 @@
  * Group calendar edit page controller
  *
  * @category TeamCal Neo 
- * @version 1.9.005
+ * @version 1.9.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2018 by George Lewe
  * @link http://www.lewe.com

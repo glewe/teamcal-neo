@@ -6,7 +6,7 @@
  * Do NOT change anything here (unless you know what you're doing!)
  *
  * @category TeamCal Neo 
- * @version 1.9.005
+ * @version 1.9.006
  * @author George Lewe
  * @copyright Copyright (c) 2014-2018 by George Lewe
  * @link http://www.lewe.com

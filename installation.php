@@ -5,7 +5,7 @@
  * Installation script
  *
  * @category TeamCal Neo 
- * @version 1.9.005
+ * @version 1.9.006
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2018 by George Lewe
  * @link http://www.lewe.com
@@ -121,6 +121,8 @@ if (!empty($_POST))
          
          if (isset($_POST['txt_instDbPrefix']) AND strlen($_POST['txt_instDbPrefix'])) 
             writeConfig("db_table_prefix",$_POST['txt_instDbPrefix'],$configDbFile);
+         else
+            writeConfig("db_table_prefix",'',$configDbFile);
    
          //
          // Connect to database
