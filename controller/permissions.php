@@ -75,6 +75,7 @@ $fperms = array (
    'calendarviewgroup',
    'calendarviewall',
    'daynoteglobal',
+   'manageronlyabsences',
    'useraccount',
    'userabsences',
    'userallowance',

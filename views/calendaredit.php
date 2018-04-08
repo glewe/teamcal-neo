@@ -243,7 +243,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     absenceIsValidForUser($abs['id'],$UL->username) AND (
                                        !$abs['manager_only'] OR
                                        ($abs['manager_only'] AND $UG->isGroupManagerOfUser($UL->username, $viewData['username'])) OR
-                                       ($abs['manager_only'] AND $C->read("managerOnlyIncludesAdministrator") AND $UL->hasRole($UL->username,1))
+                                       ($abs['manager_only'] AND isAllowed('manageronlyabsences')) OR
+                                       ($abs['manager_only'] AND $C->read("managerOnlyIncludesAdministrator") AND $UL->hasRole($UL->username,1)) // Role 1 = Administrator
                                     )
                                  ) { 
                                  ?>

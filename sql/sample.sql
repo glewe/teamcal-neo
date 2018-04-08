@@ -877,7 +877,11 @@ INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`
 (141, 'Default', 'remainder', 1, 1),
 (142, 'Default', 'remainder', 4, 1),
 (143, 'Default', 'remainder', 3, 0),
-(144, 'Default', 'remainder', 2, 0);
+(144, 'Default', 'remainder', 2, 0),
+(145, 'Default', 'manageronlyabsences', 1, 1),
+(146, 'Default', 'manageronlyabsences', 4, 0),
+(147, 'Default', 'manageronlyabsences', 3, 0),
+(148, 'Default', 'manageronlyabsences', 2, 0);
 
 
 -- --------------------------------------------------------

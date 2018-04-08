@@ -95,7 +95,8 @@ $LANG['abs_color'] = 'Textfarbe';
 $LANG['abs_color_comment'] = 'Wenn das Symbol benutzt wird (kein Icon), wird diese Textfarbe benutzt. Ein Farbdialog erscheint beim Klicken in das Feld.';
 $LANG['abs_confidential'] = 'Vertraulich';
 $LANG['abs_confidential_comment'] = 'Dieser Schalter macht den Typen "vertraulich". Normale Nutzer k&ouml;nnen diese Abwesenheit nicht im Kalender 
-      sehen, ausser es ist ihre eigene Abwesenheit. Dies kann f&uuml;r sensitive Abwesenheiten wie "Krankheit" n&uuml;tzlich sein.';
+      sehen, ausser es ist ihre eigene Abwesenheit. Dies kann f&uuml;r sensitive Abwesenheiten wie "Krankheit" n&uuml;tzlich sein. Es ist m&ouml;glich, in den Kalenderoptionen
+      vertrauensw&uuml;rdige Rollen zu definieren, die diese Abwesenheiten auch sehen k&ouml;nnen.';
 $LANG['abs_confirm_delete'] = 'Bist du sicher, dass du den Abwesenheitstyp "%s" l&ouml;schen willst?<br>Alle bestehenden Eintr&auml;ge werden mit "Anwesend" ersetzt.';
 $LANG['abs_counts_as'] = 'Z&auml;hlt als';
 $LANG['abs_counts_as_comment'] = 'Hier kann ausgew&auml;hlt werden, ob die genommenen Tage diese Abwesenheitstyps gegen die Erlaubnis eines anderen Typs z&auml;hlen. 
@@ -122,8 +123,8 @@ $LANG['abs_hide_in_profile_comment'] = 'Dieser Schalter kann benutzt werden, um 
       nur zum Zwecke von Nachverfolgung nutzt oder die verbleibende Anzahl f&uuml;r den normalen Nutzer uninteressant ist.';
 $LANG['abs_icon'] = 'Icon';
 $LANG['abs_icon_comment'] = 'Das Icon wird im Kalender benutzt.';
-$LANG['abs_manager_only'] = 'Nur Manager';
-$LANG['abs_manager_only_comment'] = 'Mit diesem Schalter aktiviert k&ouml;nnen nur Manager diesen Typen setzen. Nur wenn der eingeloggte User der Manager des Users
+$LANG['abs_manager_only'] = 'Nur Gruppen-Manager';
+$LANG['abs_manager_only_comment'] = 'Mit diesem Schalter aktiviert k&ouml;nnen nur Gruppen-Manager diesen Typen setzen. Nur wenn der eingeloggte Benutzer der Gruppem-Manager des Benutzers
       ist, dessen Kalender er bearbeitet, steht dieser Abwesenheitstyp zur Verf&uuml;gung.';
 $LANG['abs_name'] = 'Name';
 $LANG['abs_name_comment'] = 'Der Name wird in Listen und Beschreibungen benutzt. Er sollte aussagekr&auml;ftig sein, z.B. "Dienstreise". Maximal 80 Zeichen.';
@@ -699,6 +700,8 @@ $LANG['perm_groupcalendaredit_title'] = 'Gruppen-Kalender (Bearbeiten)';
 $LANG['perm_groupcalendaredit_desc'] = 'Erlaubt die Bearbeitung von Gruppenkalendern.';
 $LANG['perm_holidays_title'] = 'Feiertage (Bearbeiten)';
 $LANG['perm_holidays_desc'] = 'Erlaubt as Listen und Bearbeiten von Feiertagen.';
+$LANG['perm_manageronlyabsences_title'] = 'Gruppen-Manager Abwesenheitstypen (Bearbeiten)';
+$LANG['perm_manageronlyabsences_desc'] = 'Erlaubt das Bearbeiten von Gruppen-Manager Abwesenheitstypen.';
 $LANG['perm_regions_title'] = 'Regionen (Bearbeiten)';
 $LANG['perm_regions_desc'] = 'Erlaubt as Listen und Bearbeiten von Regionen und deren Feiertagen.';
 $LANG['perm_remainder_title'] = 'Resttage';

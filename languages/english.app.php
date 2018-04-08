@@ -95,7 +95,8 @@ $LANG['abs_color'] = 'Text color';
 $LANG['abs_color_comment'] = 'In case the character symbol is used, this is the color it is displayed in. Click into the field to open the color picker.';
 $LANG['abs_confidential'] = 'Confidential';
 $LANG['abs_confidential_comment'] = 'Checking this box marks this absence type a "confidential". The public and regular users cannot see this absence
-      in the calendar, except it is the regular user\'s own absence. This feature is useful if you want to hide sensitive absence types from regular users.';
+      in the calendar, except it is the regular user\'s own absence. This feature is useful if you want to hide sensitive absence types from regular users. You can also define
+      trusted roles in the Calendar Options that will also be able to view these absences.';
 $LANG['abs_confirm_delete'] = 'Are you sure you want to delete the absence type "%s" ?<br>All existing entries in user templates will be replaced with "Present".';
 $LANG['abs_counts_as'] = 'Counts as';
 $LANG['abs_counts_as_comment'] = 'Select whether taken absences of this type count against the allowance of another absence type.
@@ -122,8 +123,8 @@ $LANG['abs_hide_in_profile_comment'] = 'Checking this box defines that regular u
       purposes only or if the remainders are of no interest to regular users.';
 $LANG['abs_icon'] = 'Icon';
 $LANG['abs_icon_comment'] = 'The absence type icon is used in the calendar display.';
-$LANG['abs_manager_only'] = 'Manager Only';
-$LANG['abs_manager_only_comment'] = 'Checking this box defines that only managers can set this absence type. Only if the logged in user is the manager of
+$LANG['abs_manager_only'] = 'Group Manager Only';
+$LANG['abs_manager_only_comment'] = 'Checking this box defines that only group managers can set this absence type. Only if the logged in user is the group manager of
       the user who\'s calendar is being edited will this absence type be available.';
 $LANG['abs_name'] = 'Name';
 $LANG['abs_name_comment'] = 'The absence type name is used in lists and descriptions and should tell what this absence type is about, e.g. "Duty trip". It can be 80 characters long.';
@@ -699,6 +700,8 @@ $LANG['perm_groupcalendaredit_title'] = 'Group Calendar (Edit)';
 $LANG['perm_groupcalendaredit_desc'] = 'Allows to edit group calendars.';
 $LANG['perm_holidays_title'] = 'Holidays (Edit)';
 $LANG['perm_holidays_desc'] = 'Allows to list and edit holidays.';
+$LANG['perm_manageronlyabsences_title'] = 'Group Manager Absence Types (Edit)';
+$LANG['perm_manageronlyabsences_desc'] = 'Allows to edit Group Manager Only absence types.';
 $LANG['perm_regions_title'] = 'Regions (Edit)';
 $LANG['perm_regions_desc'] = 'Allows to list and edit regions and their holidays.';
 $LANG['perm_remainder_title'] = 'Remainder';

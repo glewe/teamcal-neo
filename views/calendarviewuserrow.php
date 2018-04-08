@@ -123,7 +123,7 @@ if ($editAllowed)
                      // - Logged in user must be in a trusted role or must be "admin"
                      //
                      $allowed = false;
-                     if (in_array($UL->getRole($UL->username), $viewData['trustedRoles']) OR $UL->username=='admin') $allowed = true;
+                     if (in_array($UL->getRole($UL->username), $viewData['trustedRoles']) OR $UL->username=='admin' OR $UL->username == $usr['username']) $allowed = true;
                   }
                   
                   if ($allowed)
