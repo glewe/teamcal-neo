@@ -234,7 +234,6 @@ if (!empty($_POST))
             $U->password = password_hash($newpwd, PASSWORD_DEFAULT);
             $U->last_pw_change = date("Y-m-d H:I:s");
             $U->update($U->username);
-            $U->clearStatus($CONF['USCHGPWD']);
       
             //
             // Send notification e-mail
