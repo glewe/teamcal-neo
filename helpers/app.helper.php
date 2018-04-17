@@ -120,6 +120,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
    $declinedReasons = array ();
    $thresholdReached = false;
    $takeoverRequested = false;
+   $approvalDays = array();
     
    //
    // Get date information about the month of the request
@@ -511,6 +512,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                      // Absence requires approval.
                      //
                      $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . $LANG['alert_decl_approval_required'];
+                     $approvalDays[] = $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . " (" . $A->getName($requestedAbsences[$i]) . ")";
                      
                      //
                      // Set absence but add approval daynote.
@@ -524,11 +526,6 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                      $D->daynote = $LANG['alert_decl_approval_required_daynote'];
                      $D->color = 'warning';
                      $D->create();
-                     
-                     //
-                     // Notify managers
-                     //
-                     sendAbsenceApprovalNotifications($username, $year, $month, $i, $requestedAbsences[$i]);
                   }
                }
                
@@ -555,6 +552,15 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             //
             $approvedAbsences[$i] = $currentAbsences[$i];
          }
+
+      } // End loop through each day
+
+      //
+      // Send approval required mail if needed
+      //
+      if (!empty($approvalDays))
+      {
+         sendAbsenceApprovalNotifications($username, $approvalDays);
       }
       
       //
@@ -700,7 +706,8 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                $approvedAbsences[$i] = $currentAbsences[$i];
             }
          }
-      }
+
+      } // End loop through each day for max allowance
       
       //
       // Check for partial or total declination
@@ -1290,13 +1297,20 @@ function presenceMinimumReached($year, $month, $day, $group = '')
  * @param string $day Numeric representation of the day
  * @param string $absence Absence ID
  */
-function sendAbsenceApprovalNotifications($username, $year, $month, $day, $absence)
+function sendAbsenceApprovalNotifications($username, $absences)
 {
    global $A, $C, $LANG, $U, $UG, $UO;
    
    $language = $C->read('defaultLanguage');
    $appTitle = $C->read('appTitle');
    $appURL = $C->read('appURL');
+
+   $absList = "<ul>";
+   foreach ($absences as $abs)
+   {
+      $absList .= "<li>" . $abs . "</li>";
+   }
+   $absList .= "</ul>";
    
    $subject = $LANG['email_subject_absence_approval'];
    
@@ -1314,8 +1328,7 @@ function sendAbsenceApprovalNotifications($username, $year, $month, $day, $absen
    
    $message = str_replace('%fullname%', $U->getFullname($username), $message);
    $message = str_replace('%username%', $username, $message);
-   $message = str_replace('%absence%', $A->getName($absence), $message);
-   $message = str_replace('%date%', $year . "-" . $month . "-" . $day, $message);
+   $message = str_replace('%absences%', $absList, $message);
    
    $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
    foreach ( $users as $profile )
