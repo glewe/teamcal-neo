@@ -190,6 +190,7 @@ $LANG['btn_delete_abs'] = 'Abwesenheitstyp l&ouml;schen';
 $LANG['btn_delete_holiday'] = 'Feiertag l&ouml;schen';
 $LANG['btn_delete_region'] = 'Region l&ouml;schen';
 $LANG['btn_holiday_list'] = 'Feiertagsliste';
+$LANG['btn_region_calendar'] = 'Regionskalender';
 $LANG['btn_region_list'] = 'Regionenliste';
 $LANG['btn_showcalendar'] = 'Kalender anzeigen';
 

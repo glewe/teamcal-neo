@@ -77,10 +77,11 @@ if ($missingData)
 //
 $viewData['id'] = '';
 $viewData['date'] = substr($dnDate,0,4).'-'.substr($dnDate,4,2).'-'.substr($dnDate,6,2);
+$viewData['month'] = substr($dnDate,0,6);
 $viewData['enddate'] = '';
 $viewData['user'] = $for;
 if ($for=='all') $viewData['userFullname'] = $LANG['all']; else $viewData['userFullname'] = $U->getFullname($for);
-$viewData['region'] = '1';
+$viewData['region'] = $region;
 $viewData['regionName'] = 'Default';
 $viewData['daynote'] = '';
 $viewData['color'] = 'info';
@@ -279,7 +280,7 @@ if ($viewData['exists'])
    //
    foreach ($regions as $region)
    {
-      $viewData['regions'][] = array('val' => $region['id'], 'name' => $region['name'], 'selected' => ($D->get($dnDate,$for,$region['id']))?true:(($region['id']==1)?true:false));
+      $viewData['regions'][] = array('val' => $region['id'], 'name' => $region['name'], 'selected' => ($D->get($dnDate,$for,$region['id']))?true:(($region['id']==$viewData['region'])?true:false));
    }
 }
 else
@@ -289,7 +290,7 @@ else
    //
    foreach ($regions as $region)
    {
-      $viewData['regions'][] = array('val' => $region['id'], 'name' => $region['name'], 'selected' => ($region['id']==1)?true:false);
+      $viewData['regions'][] = array('val' => $region['id'], 'name' => $region['name'], 'selected' => ($region['id']==$viewData['region'])?true:false);
    }
 }
 

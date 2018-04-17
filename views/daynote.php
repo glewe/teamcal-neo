@@ -56,6 +56,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_create"><?=$LANG['btn_create']?></button>
                            <?php } ?>
                            <a href="index.php?action=calendarview" class="btn btn-primary pull-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_showcalendar']?></a>
+                           <?php if ($viewData['user']=='all' AND isAllowed($CONF['controllers']['monthedit']->permission)) { ?>
+                              <a href="index.php?action=monthedit&amp;month=<?=$viewData['month']?>&amp;region=<?=$viewData['region']?>" class="btn btn-danger pull-right" tabindex="<?=$tabindex++;?>" style="margin-right: 6px;"><?=$LANG['btn_region_calendar']?></a>
+                           <?php } ?>
                         </div>
                      </div>
                      
