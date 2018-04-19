@@ -79,11 +79,11 @@ $inputAlert = array();
 $absences = $A->getAll();
 if ($UL->hasRole($UL->username, '1')) // Administrator
 {
-   $events = array('notifyAbsenceEvents', 'notifyCalendarEvents', 'notifyGroupEvents', 'notifyHolidayEvents', 'notifyMonthEvents', 'notifyRoleEvents', 'notifyUserEvents', 'notifyUserCalEvents');
+   $events = array('notifyNone', 'notifyAbsenceEvents', 'notifyCalendarEvents', 'notifyGroupEvents', 'notifyHolidayEvents', 'notifyMonthEvents', 'notifyRoleEvents', 'notifyUserEvents', 'notifyUserCalEvents');
 }
 else 
 {
-   $events = array('notifyAbsenceEvents', 'notifyCalendarEvents', 'notifyHolidayEvents', 'notifyMonthEvents', 'notifyUserCalEvents');
+   $events = array('notifyNone', 'notifyAbsenceEvents', 'notifyCalendarEvents', 'notifyHolidayEvents', 'notifyMonthEvents', 'notifyUserCalEvents');
 }
 
 //=============================================================================
@@ -325,7 +325,8 @@ if (!empty($_POST))
          //
          foreach ($events as $event)
          {
-            $UO->save($profile, $event, '0');
+            if ($event != 'notifyNone') $UO->save($profile, $event, '0');
+            else $UO->save($profile, $event, '1');
          }
          if (isset($_POST['sel_notify']) )
          {

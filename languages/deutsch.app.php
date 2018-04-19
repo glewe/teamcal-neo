@@ -744,6 +744,7 @@ $LANG['profile_notifyAbsenceEvents'] = 'Abwesenheitstyp-Ereignisse';
 $LANG['profile_notifyCalendarEvents'] = 'Kalender-Ereignisse';
 $LANG['profile_notifyHolidayEvents'] = 'Feiertag-Ereignisse';
 $LANG['profile_notifyMonthEvents'] = 'Monatsschablonen-Ereignisse';
+$LANG['profile_notifyNone'] = 'Keine/r';
 $LANG['profile_notifyUserCalEvents'] = 'Benutzerkalender-Ereignisse';
 $LANG['profile_notifyUserCalGroups'] = 'Benutzerkalender-Ereignis-Gruppen';
 $LANG['profile_notifyUserCalGroups_comment'] = 'Wenn oben das Ereignis "'.$LANG['profile_notifyUserCalEvents'].'" ausgew&auml;hlt wurde, w&auml;hle hier, f&uuml;r welche deiner Gruppen du diese Benachrichtigungen bekommen m&ouml;chtest.';
