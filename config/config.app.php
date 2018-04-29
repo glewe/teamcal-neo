@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 1.9.006
+ * @version 1.9.007
  * @author George Lewe
  * @copyright Copyright (c) 2014-2018 by George Lewe
  * @link http://www.lewe.com
@@ -36,7 +36,7 @@ define('APP_IMP_DIR', "upload/import/");
 // Set this to 0 if you want to run the installation.php script again.
 // If not, you need to delete or rename the installation.php file.
 //
-define('APP_INSTALLED',"1");
+define('APP_INSTALLED',"0");
 
 //
 // The cookie prefix to be used on the browser client's device
@@ -153,8 +153,8 @@ define('LDAP_TLS', 0); // To avoid "Undefined index: LDAP_TLS" error message for
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "1.9.006");
-define('APP_DATE', "2018-04-08");
+define('APP_VER', "1.9.007");
+define('APP_DATE', "2018-04-29");
 define('APP_YEAR', "2014-".date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "http://www.lewe.com");
