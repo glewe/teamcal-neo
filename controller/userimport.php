@@ -264,7 +264,7 @@ if (!empty($_POST))
             $showAlert = true;
             $alertData['type'] = 'danger';
             $alertData['title'] = $LANG['alert_danger_title'];
-            $alertData['subject'] = $LANG['alert_upl_img_subject'];
+            $alertData['subject'] = $LANG['alert_upl_csv_subject'];
             $alertData['text'] = $UPL->getErrors();
             $alertData['help'] = '';
          }

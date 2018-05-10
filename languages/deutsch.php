@@ -164,11 +164,6 @@ $LANG['alert_controller_not_found_subject'] = 'Controller nicht gefunden';
 $LANG['alert_controller_not_found_text'] = 'Der Controller "%1%" konnte nicht gefunden werden.';
 $LANG['alert_controller_not_found_help'] = 'Bitte &uuml;berpr&uuml;fe die Installation. Die Datei existiert nicht oder es fehlt die n&ouml;tige Berechtigung f&uuml;r den Zugriff.';
 
-$LANG['alert_decl_before_date'] = ": Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";
-$LANG['alert_decl_group_threshold'] = ": Die Abwesenheitsgrenze wurde erreicht f�r die Gruppe(n): ";
-$LANG['alert_decl_period'] = ": Abwesenheits&auml;nderungen in folgendem Zeitraum sind nicht erlaubt: ";
-$LANG['alert_decl_total_threshold'] = ": Die generelle Abwesenheitsgrenze wurde erreicht.";
-
 $LANG['alert_imp_subject'] = 'CSV Import Fehler aufgetreten';
 $LANG['alert_imp_admin'] = 'Zeile %s: Der Benutzername "admin" ist f&uuml;r den Import nicht erlaubt.';
 $LANG['alert_imp_columns'] = 'Zeile %s: Es mehr oder weniger als %s Spalten in der Zeile.';
@@ -238,8 +233,9 @@ $LANG['alert_reg_mismatch'] = 'Der Verfizierungscode stimmt nicht mit dem &uuml;
 $LANG['alert_reg_no_user'] = 'Der Benutzername konnte nicht gefunden werden. Wurde er registriert?';
 $LANG['alert_reg_no_vcode'] = 'Ein Verfizierungscode konnte nicht gefunden werden. Wurde bereits verifiziert? Kontaktiere den Administrator.';
 
-$LANG['alert_upl_img_subject'] = 'Bilder Hochladen';
+$LANG['alert_upl_csv_subject'] = 'CSV Datei Hochladen';
 $LANG['alert_upl_doc_subject'] = 'Dokumente Hochladen';
+$LANG['alert_upl_img_subject'] = 'Bilder Hochladen';
 
 //
 // Attachments

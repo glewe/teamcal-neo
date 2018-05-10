@@ -164,11 +164,6 @@ $LANG['alert_controller_not_found_subject'] = 'Controller not found';
 $LANG['alert_controller_not_found_text'] = 'The controller "%1%" could not be found.';
 $LANG['alert_controller_not_found_help'] = 'Please check your installation. The file does not exist or you may not have permission to read it.';
 
-$LANG['alert_decl_before_date'] = ": Absence changes before the following date are not allowed: ";
-$LANG['alert_decl_group_threshold'] = ": Group absence threshold reached for your group(s): ";
-$LANG['alert_decl_period'] = ": Absence changes in the following period are not allowed: ";
-$LANG['alert_decl_total_threshold'] = ": Total absence threshold reached.";
-
 $LANG['alert_imp_subject'] = 'CSV import errors encountered';
 $LANG['alert_imp_admin'] = 'Line %s: The username "admin" is not allowed to be imported.';
 $LANG['alert_imp_columns'] = 'Line %s: There are less or more than %s columns.';
@@ -238,8 +233,9 @@ $LANG['alert_reg_mismatch'] = 'The submitted verification code does not match th
 $LANG['alert_reg_no_user'] = 'The username cannot be found. Are you sure it was registered?';
 $LANG['alert_reg_no_vcode'] = 'A verification code could not be found. Was it verified already? Please contact the administrator to check your account settings.';
 
-$LANG['alert_upl_img_subject'] = 'Upload Images';
+$LANG['alert_upl_csv_subject'] = 'Upload CSV File';
 $LANG['alert_upl_doc_subject'] = 'Upload Documents';
+$LANG['alert_upl_img_subject'] = 'Upload Images';
 
 //
 // Attachments
