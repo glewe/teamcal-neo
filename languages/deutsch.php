@@ -437,6 +437,8 @@ $LANG['config_mailSMTP_comment'] = 'Mit diesm Schalter wird ein externer SMTP Se
       Diese Feature erfordert das PEAR Mail Paket auf dem TcNeo Server. Viele Hoster installieren dieses Paket als Standard. Ausserdem ist es erforderlich, dass sich 
       der Tcro Server per SMTP oder TLS/SSL protocol mit den gebr&auml;chlichen SMTP port 25, 465 und 587 mit dem SMTP Server verbinden kann. Bei einigen Hostern 
       ist dies durch Firewalleinstellungen nicht m&ouml;glich. Es erscheint dann eie Fehlermeldung.';
+$LANG['config_mailSMTPAnonymous'] = 'Anonyme SMTP Anmeldung';
+$LANG['config_mailSMTPAnonymous_comment'] = 'Verwendung der SMTP Verbindung ohne Authentifizierung.';
 $LANG['config_mailSMTPhost'] = 'SMTP Host';
 $LANG['config_mailSMTPhost_comment'] = 'Gib den SMTP Host Namen an.';
 $LANG['config_mailSMTPport'] = 'SMTP Port';

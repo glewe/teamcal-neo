@@ -104,6 +104,7 @@ if (!empty($_POST))
          $C->save("mailSMTPusername", sanitize($_POST['txt_mailSMTPusername']));
          $C->save("mailSMTPpassword", sanitize($_POST['txt_mailSMTPpassword']));
          if ( isset($_POST['chk_mailSMTPSSL']) && $_POST['chk_mailSMTPSSL'] ) $C->save("mailSMTPSSL","1"); else $C->save("mailSMTPSSL","0");
+         if ( isset($_POST['chk_mailSMTPAnonymous']) && $_POST['chk_mailSMTPAnonymous'] ) $C->save("mailSMTPAnonymous","1"); else $C->save("mailSMTPAnonymous","0");
          
          //
          // Footer
@@ -237,14 +238,15 @@ $viewData['general'] = array (
 
 $viewData['email'] = array (
    array ( 'prefix' => 'config', 'name' => 'emailNotifications', 'type' => 'check', 'values' => '', 'value' => $C->read("emailNotifications") ),
-   array ( 'prefix' => 'config', 'name' => 'mailFrom', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailFrom"), 'maxlength' => '50' ),
-   array ( 'prefix' => 'config', 'name' => 'mailReply', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailReply"), 'maxlength' => '50' ),
+   array ( 'prefix' => 'config', 'name' => 'mailFrom', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailFrom"), 'maxlength' => '150' ),
+   array ( 'prefix' => 'config', 'name' => 'mailReply', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailReply"), 'maxlength' => '150' ),
    array ( 'prefix' => 'config', 'name' => 'mailSMTP', 'type' => 'check', 'values' => '', 'value' => $C->read("mailSMTP") ),
    array ( 'prefix' => 'config', 'name' => 'mailSMTPhost', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailSMTPhost"), 'maxlength' => '80' ),
    array ( 'prefix' => 'config', 'name' => 'mailSMTPport', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailSMTPport"), 'maxlength' => '8' ),
    array ( 'prefix' => 'config', 'name' => 'mailSMTPusername', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailSMTPusername"), 'maxlength' => '50' ),
    array ( 'prefix' => 'config', 'name' => 'mailSMTPpassword', 'type' => 'password', 'value' => $C->read("mailSMTPpassword"), 'maxlength' => '50' ),
    array ( 'prefix' => 'config', 'name' => 'mailSMTPSSL', 'type' => 'check', 'values' => '', 'value' => $C->read("mailSMTPSSL") ),
+   array ( 'prefix' => 'config', 'name' => 'mailSMTPAnonymous', 'type' => 'check', 'values' => '', 'value' => $C->read("mailSMTPAnonymous") ),
 );
 
 $viewData['footer'] = array (

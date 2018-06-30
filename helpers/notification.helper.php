@@ -462,13 +462,24 @@ function sendEmail($to, $subject, $body, $from = '')
        */
       $body = '<html><body>' . $body . '</body></html>';
       
-      $smtp = @Mail::factory('smtp', array (
+      if ($C->read("mailSMTPAnonymous"))
+      {
+         $smtp = @Mail::factory('smtp', array (
+         'host' => $ssl . $host,
+         'port' => $port,
+         'auth' => false
+         ));
+      } 
+      else 
+      {
+         $smtp = @Mail::factory('smtp', array (
          'host' => $ssl . $host,
          'port' => $port,
          'auth' => true,
          'username' => $username,
          'password' => $password 
-      ));
+         ));
+      }
       
       $mail = @$smtp->send($toValid, $headers, $body);
       

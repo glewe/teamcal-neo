@@ -435,6 +435,8 @@ $LANG['config_mailSMTP_comment'] = 'Use an external SMTP server instead of the P
       Mail package to be installed on your server. Many hosters install this package by default. It is also necessary for SMTP to work, that your TcNeo 
       server can connect to the selected SMTP server via the usual SMTP ports 25, 465 or 587, using plain SMTP or TLS/SSL protocol, depending on your settings. 
       Some hosters have this communication closed down by firewall rules. You will get a connection error then.';
+$LANG['config_mailSMTPAnonymous'] = 'Anonymous SMTP';
+$LANG['config_mailSMTPAnonymous_comment'] = 'Use SMTP connection without authentication.';
 $LANG['config_mailSMTPhost'] = 'SMTP Host';
 $LANG['config_mailSMTPhost_comment'] = 'Specify the SMTP host name.';
 $LANG['config_mailSMTPport'] = 'SMTP Port';
