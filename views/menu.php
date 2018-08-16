@@ -209,7 +209,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <?php } ?>
                         <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['imprint']->name?>"><i class="fa fa-<?=$CONF['controllers']['imprint']->faIcon?> fa-lg text-<?=$CONF['controllers']['imprint']->iconColor?> fa-menu"></i><?=$LANG['mnu_help_imprint']?></a></li>
                         <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['about']->name?>"><i class="fa fa-<?=$CONF['controllers']['about']->faIcon?> fa-lg text-<?=$CONF['controllers']['about']->iconColor?> fa-menu"></i><?=$LANG['mnu_help_about']?></a></li>
-                        <li><a tabindex="-1" href="http://www.lewe.com/teamcal-neo/#tcnvote" target="_blank"><i class="fa fa-comment fa-lg text-warning fa-menu"></i><?=$LANG['mnu_help_vote']?></a></li>
+                        <li><a tabindex="-1" href="https://www.lewe.com/teamcal-neo/#tcnvote" target="_blank"><i class="fa fa-comment fa-lg text-warning fa-menu"></i><?=$LANG['mnu_help_vote']?></a></li>
                      </ul>
                   </li>
 
@@ -249,7 +249,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <?=$C->read('appTitle')?>
             </div>
             <div class="col-lg-3" style="padding-top: 20px;">
-               <form name="search" method="get" action="http://www.google.com/search">
+               <form name="search" method="get" action="https://www.google.com/search">
                   <div class="input-group">
                      <input class="form-control" id="txt_search" type="text" name="q" size="20" maxlength="255" placeholder="Search">
                      <span class="input-group-btn">

@@ -36,7 +36,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <strong><?=$LANG['about_version']?>:</strong>&nbsp;&nbsp;<?=APP_VER?><span id="versioncompare"></span><br>
                         <strong><?=$LANG['about_copyright']?>:</strong>&nbsp;&nbsp;&copy;&nbsp;<?=APP_YEAR?> by <a class="about" href="http://www.lewe.com/" target="_blank"><?=APP_AUTHOR?></a><br>
                         <strong><?=$LANG['about_license']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/wiki/x/AoC3Ag" target="_blank"><?=$LANG['license']?></a><br>
-                        <strong><?=$LANG['about_forum']?>:</strong>&nbsp;&nbsp;<a class="about" href="http://forum.lewe.com/" target="_blank">Lewe Forum</a><br>
+                        <strong><?=$LANG['about_forum']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://forum.lewe.com/" target="_blank">Lewe Forum</a><br>
                         <strong><?=$LANG['about_tracker']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/projects/TCN/issues" target="_blank">Lewe Issue Tracker (JIRA)</a><br>
                         <strong><?=$LANG['about_documentation']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/wiki/spaces/TCNEO/overview" target="_blank">Lewe Wiki (Confluence)</a><br>
                         <strong><?=$LANG['about_vote']?>:</strong>&nbsp;&nbsp;<?=$LANG['about_vote_comment']?><br><br>
@@ -72,7 +72,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       </div>
       
       <?php if ($C->read("versionCompare")) { ?>
-         <script src="http://support.lewe.com/version/tcneo.js"></script>
+         <script src="https://support.lewe.com/version/tcneo.js"></script>
          <script>
             var running_version = parseVersionString('<?=APP_VER?>');
             if (running_version.major < latest_version.major) 
@@ -80,7 +80,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                //
                // Major version smaller
                //
-               document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-danger" href="http://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_majorUpdateAvailable']?></a>';
+               document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-danger" href="https://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_majorUpdateAvailable']?></a>';
             } 
             else if (running_version.major == latest_version.major)
             {
@@ -92,14 +92,14 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   //
                   // Minor version smaller OR (minor version equal AND patch version smaller)
                   //
-                  document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-warning" href="http://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_minorUpdateAvailable']?></a>';
+                  document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-warning" href="https://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_minorUpdateAvailable']?></a>';
                }
                else 
                {
                   //
                   // Same versions
                   //
-                  //document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-success" href="http://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_newestVersion']?></a>';
+                  //document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-success" href="https://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_newestVersion']?></a>';
                }
             }
          </script>
