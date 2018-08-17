@@ -289,6 +289,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <?=createModalTop('modalClearAll', $LANG['modal_confirm'])?>
                <?=sprintf($LANG['caledit_confirm_clearall'], $viewData['year'], $viewData['month'], $viewData['fullname'])?>
                <div class="checkbox">
+                  <label><input type="checkbox" name="chk_clearAbsences" tabindex="<?=$tabindex++?>"><strong><?=$LANG['caledit_clearAbsences']?></strong></label>
+               </div>
+               <div class="checkbox">
                   <label><input type="checkbox" name="chk_clearDaynotes" tabindex="<?=$tabindex++?>"><strong><?=$LANG['caledit_clearDaynotes']?></strong></label>
                </div>
             <?=createModalBottom('btn_clearall', 'success', $LANG['btn_clear_all'])?>

@@ -250,6 +250,7 @@ $LANG['caledit_alert_update_partial'] = 'Some absences were not accepted because
 $LANG['caledit_alert_update_none'] = 'The absences were not accepted because the requested absences violate restrictions set up by the management. 
       The calendar was not updated.';
 $LANG['caledit_clearAbsence'] = 'Clear';
+$LANG['caledit_clearAbsences'] = 'Clear Absences';
 $LANG['caledit_clearDaynotes'] = 'Clear Daynotes';
 $LANG['caledit_confirm_clearall'] = 'Are you sure you want to clear all absences in this month?<br><br><strong>Year:</strong> %s<br><strong>Month:</strong> %s<br><strong>User:</strong> %s';
 $LANG['caledit_confirm_savegroup'] = '<p><strong class="text-danger">Attention!</strong><br>Saving Group absences will not perform any individual approval checks.<br>

@@ -250,6 +250,7 @@ $LANG['caledit_alert_update_partial'] = 'Einige Abwesenheiten konnten nicht akze
 $LANG['caledit_alert_update_none'] = 'Keine der Abwesenheiten wurde akzeptiert und der Monat nicht aktualisert. 
       Die abgelehnten Abwesenheiten wurden an einen Manager zur Best&auml;tigung geschickt.';
 $LANG['caledit_clearAbsence'] = 'L&ouml;schen';
+$LANG['caledit_clearAbsences'] = 'Abwesenheiten l&ouml;schen';
 $LANG['caledit_clearDaynotes'] = 'Tagesnotizen l&ouml;schen';
 $LANG['caledit_confirm_clearall'] = 'Bist du sicher, dass du alle Abwesenheiten f&uuml;r diesen Monat l&ouml;schen willst?<br><br><strong>Jahr:</strong> %s<br><strong>Monat:</strong> %s<br><strong>Nutzer:</strong> %s';
 $LANG['caledit_confirm_savegroup'] = '<p><strong class="text-danger">Achtung!</strong><br>Das Speichern von Gruppenabwesenheiten erfolgt ohne Ablehnungspr&uuml;fung.<br>

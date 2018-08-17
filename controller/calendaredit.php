@@ -233,15 +233,32 @@ if (!empty($_POST))
          //
          // Loop thru the radio boxes
          //
-         for ($i=1; $i<=$viewData['dateInfo']['daysInMonth']; $i++)
+         if (isset($_POST['chk_clearAbsences']) OR isset($_POST['chk_clearDaynotes']))
          {
-            $requestedAbsences[$i] = '0';
-            if (isset($_POST['chk_clearDaynotes'])) 
+            //
+            // Clear Absences
+            //
+            if (isset($_POST['chk_clearAbsences']))
             {
-               $daynoteDate = $viewData['year'] . $viewData['month'] . sprintf("%02d",($i));
-               $D->delete($daynoteDate, $caluser, $viewData['regionid']);
+               for ($i=1; $i<=$viewData['dateInfo']['daysInMonth']; $i++)
+               {
+                  $requestedAbsences[$i] = '0';
+               }
+            }
+
+            //
+            // Clear Daynotes
+            //
+            if (isset($_POST['chk_clearDaynotes']))
+            {
+               for ($i=1; $i<=$viewData['dateInfo']['daysInMonth']; $i++)
+               {
+                  $daynoteDate = $viewData['year'] . $viewData['month'] . sprintf("%02d",($i));
+                  $D->delete($daynoteDate, $caluser, $viewData['regionid']);
+               }
             }
          }
+
       }
       // ,-------------,
       // | Save Period |
