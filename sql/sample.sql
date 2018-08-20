@@ -4,7 +4,7 @@
  * Sample MySQL database
  *
  * @category TeamCal Neo 
- * @version 1.9.007
+ * @version 1.9.008
  * @author George Lewe
  * @copyright Copyright (c) 2014-2018 by George Lewe
  * @link http://www.lewe.com
@@ -494,7 +494,9 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (170, 'notificationsAllGroups', '0'),
 (171, 'showTwoMonths', '0'),
 (172, 'monitorAbsence', '0'),
-(173, 'pageHelp', '0');
+(173, 'pageHelp', '0'),
+(174, 'regionalHolidays', '0'),
+(175, 'regionalHolidaysColor', 'CC0000');
 
 
 -- --------------------------------------------------------

@@ -3,7 +3,7 @@
  * UserGroup.class.php
  *
  * @category TeamCal Neo 
- * @version 1.9.007
+ * @version 1.9.008
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2018 by George Lewe
  * @link http://www.lewe.com
