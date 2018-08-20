@@ -76,6 +76,8 @@ if (isset($_POST['btn_caloptApply']))
    {
       $C->save("showMonths", 1);
    }
+   if (isset($_POST['chk_regionalHolidays']) && $_POST['chk_regionalHolidays']) $C->save("regionalHolidays", "1"); else $C->save("regionalHolidays", "0");
+   $C->save("regionalHolidaysColor", sanitize($_POST['txt_regionalHolidaysColor']));
    
    //
    // Filter
@@ -166,6 +168,8 @@ $caloptData['display'] = array (
    array ( 'prefix' => 'calopt', 'name' => 'monitorAbsence', 'type' => 'list', 'values' => $caloptData['absenceList'] ),
    array ( 'prefix' => 'calopt', 'name' => 'calendarFontSize', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("calendarFontSize"), 'maxlength' => '3' ),
    array ( 'prefix' => 'calopt', 'name' => 'showMonths', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("showMonths"), 'maxlength' => '2' ),
+   array ( 'prefix' => 'calopt', 'name' => 'regionalHolidays', 'type' => 'check', 'values' => '', 'value' => $C->read("regionalHolidays") ),
+   array ( 'prefix' => 'calopt', 'name' => 'regionalHolidaysColor', 'type' => 'color', 'value' => $C->read("regionalHolidaysColor"), 'maxlength' => '6' ),
 );
 
 //

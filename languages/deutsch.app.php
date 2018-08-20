@@ -320,6 +320,10 @@ $LANG['calopt_notificationsAllGroups_comment'] = 'Standardm&auml;&szlig;ig k&oum
 $LANG['calopt_pastDayColor'] = 'Vergangenheitsfarbe';
 $LANG['calopt_pastDayColor_comment'] = 'Setzt im Monatskalender diese Hintergrundfarbe f&uuml;r die Tage, die in der Vergangenheit liegen.
       Lasse dieses Feld leer, wenn keine Hintergrundfarbe f&uuml;r vergangene Tage benutzt werden soll.';
+$LANG['calopt_regionalHolidays'] = 'Regionale Feiertage markieren';
+$LANG['calopt_regionalHolidays_comment'] = 'Mir dieser Option werden Feiertage in anderen Regionen als die aktuell angezeigte mit einem farbigen Rahmen gekennzeichent.';
+$LANG['calopt_regionalHolidaysColor'] = 'Rahmenfarbe Regionaler Feiertage';
+$LANG['calopt_regionalHolidaysColor_comment'] = 'Setzt die Rahmenfarbe f&uum;r regionale Feiertage.';
 $LANG['calopt_repeatHeaderCount'] = 'Kopfzeilen Wiederholungs Z&auml;hler';
 $LANG['calopt_repeatHeaderCount_comment'] = 'Gibt die Anzahl von Zeilen an, nach der die Monatskopfzeile f&uuml;r bessere Lesbarkeit wiederholt wird. Wenn der Wert auf 0 gesetzt ist, wird die Kopfzeile nicht wiederholt.';
 $LANG['calopt_satBusi'] = 'Samstag ist ein Arbeitstag';

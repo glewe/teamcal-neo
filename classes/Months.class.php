@@ -305,7 +305,7 @@ class Months
     * @param string $month Month to find (MM)
     * @param string $day Day of month to find (D)
     * @param string $region Region ID
-    * @return boolean 0 or absence ID
+    * @return boolean 0 or Holiday ID
     */
    public function getHoliday($year, $month, $day, $region)
    {
@@ -320,7 +320,10 @@ class Months
       {
          return $row['hol' . $day];
       }
-      return $result;
+      else
+      {
+         return false;
+      }
    }
    
    // ---------------------------------------------------------------------

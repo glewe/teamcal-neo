@@ -221,6 +221,15 @@ if (!empty($_POST))
          {
             $UO->save($profile, 'calfilterGroup', $_POST['sel_calfilterGroup']);
          }
+
+         if (isset($_POST['sel_region']))
+         {
+            $UO->save($profile, "region", $_POST['sel_region']);
+         }
+         else
+         {
+            $UO->save($profile, 'region', '1'); // Region "Default"
+         }
           
          //
          // Account
@@ -535,11 +544,21 @@ foreach ($groups as $group)
       $viewData['calfilterGroups'][] = array('val' => $group['id'], 'name' => $group['name'], 'selected' => $selected);
    }
 }
+
 $viewData['languageList'][] = array ('val' => "default", 'name' => "Default", 'selected' => ($UO->read($profile, 'language') == "default")?true:false );
 foreach ($appLanguages as $appLang)
 {
    $viewData['languageList'][] = array ('val' => $appLang, 'name' => proper($appLang), 'selected' => ($UO->read($profile, 'language') == $appLang)?true:false );
 }
+
+$regions = $R->getAll();
+if (!$UO->read($profile, 'region')) $UO->save($profile, 'region', '1');
+$viewData['regionList'][] = array ('val' => "1", 'name' => "Default", 'selected' => ($UO->read($profile, 'region') == "1")?true:false );
+foreach ($regions as $region)
+{
+   if ($region['id'] != 1) $viewData['regionList'][] = array ('val' => $region['id'], 'name' => $region['name'], 'selected' => ($UO->read($profile, 'region') == $region['id'])?true:false );
+}
+
 $viewData['options'] = array ();
 if ($C->read('allowUserTheme'))
 {
@@ -555,6 +574,7 @@ if ($C->read('allowUserTheme'))
 $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'language', 'type' => 'list', 'values' => $viewData['languageList'] );
 $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'showMonths', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'showMonths'), 'maxlength' => '2', 'error' =>  (isset($inputAlert['showMonths'])?$inputAlert['showMonths']:'') );
 $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'calfilterGroup', 'type' => 'list', 'values' => $viewData['calfilterGroups'] );
+$viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'region', 'type' => 'list', 'values' => $viewData['regionList'] );
 
 //
 // Avatar

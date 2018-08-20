@@ -221,6 +221,29 @@ if ($editAllowed)
             {
                $style .= 'background-image: url(images/ovl_birthday.gif); background-repeat: no-repeat; background-position: top right;';
             }
+
+            //
+            // Regional holiday in another region
+            //
+            if ($C->read("regionalHolidays"))
+            {
+               if (!$userRegion = $UO->read($usr['username'], 'region')) $userRegion = '1';
+               if ($userRegion != $viewData['regionid'])
+               {
+                  if ($regionHoliday = $M->getHoliday($viewData['year'], $viewData['month'], $i, $userRegion))
+                  {
+                     //
+                     // We have a Holiday in another region than the one displayed
+                     //
+                     if (!$regionalHolidaysColor = $C->read("regionalHolidaysColor"))
+                     {
+                        $regionalHolidaysColor = "cc0000";
+                        $C->save("regionalHolidaysColor", $regionalHolidaysColor);
+                     }
+                     $style .= 'border: 2px solid #'.$regionalHolidaysColor.' !important;';
+                  }
+               }
+            }
             
             //
             // If we have styles collected, build the style attribute

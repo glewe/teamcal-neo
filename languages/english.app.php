@@ -320,6 +320,10 @@ $LANG['calopt_notificationsAllGroups_comment'] = 'Per default, users can subscri
 $LANG['calopt_pastDayColor'] = 'Past Day Color';
 $LANG['calopt_pastDayColor_comment'] = 'Sets a background color for days that lie in the past in month calendar view.
       Leave this field empty if you don\'t want to color the days in the past.';
+$LANG['calopt_regionalHolidays'] = 'Mark Regional Holidays';
+$LANG['calopt_regionalHolidays_comment'] = 'With this option on, holidays in regions other than the currently selected one will be marked with a colored border.';
+$LANG['calopt_regionalHolidaysColor'] = 'Regional Holiday Border Color';
+$LANG['calopt_regionalHolidaysColor_comment'] = 'Sets the border color for marking regional holidays.';
 $LANG['calopt_repeatHeaderCount'] = 'Repeat Header Count';
 $LANG['calopt_repeatHeaderCount_comment'] = 'Specifies the amount of user lines in the calender before the month header is repeated for better readability. If set to 0, the month header will not be repeated.';
 $LANG['calopt_satBusi'] = 'Saturday is a Business Day';
