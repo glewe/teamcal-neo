@@ -291,9 +291,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <div class="checkbox">
                   <label><input type="checkbox" name="chk_clearAbsences" tabindex="<?=$tabindex++?>"><strong><?=$LANG['caledit_clearAbsences']?></strong></label>
                </div>
+               <?php if (isAllowed($CONF['controllers']['daynote']->permission) OR isAllowed('daynoteglobal')) { ?>
                <div class="checkbox">
                   <label><input type="checkbox" name="chk_clearDaynotes" tabindex="<?=$tabindex++?>"><strong><?=$LANG['caledit_clearDaynotes']?></strong></label>
                </div>
+               <?php } ?>
             <?=createModalBottom('btn_clearall', 'success', $LANG['btn_clear_all'])?>
             
             <!-- Modal: Select Region -->
