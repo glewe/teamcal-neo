@@ -78,9 +78,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
          
       <!-- jQuery -->
       <?php if ($htmlData['jQueryCDN']) { ?>
-<script type="text/javascript" src="http://code.jquery.com/jquery-<?=JQUERY_VER?>.min.js"></script>
-      <script type="text/javascript" src="http://code.jquery.com/ui/<?=JQUERY_UI_VER?>/jquery-ui.min.js"></script>
-      <link rel="stylesheet" href="http://code.jquery.com/ui/<?=JQUERY_UI_VER?>/themes/<?=$htmlData['jQueryTheme']?>/jquery-ui.min.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-<?=JQUERY_VER?>.min.js"></script>
+      <script type="text/javascript" src="https://code.jquery.com/ui/<?=JQUERY_UI_VER?>/jquery-ui.min.js"></script>
+      <link rel="stylesheet" href="https://code.jquery.com/ui/<?=JQUERY_UI_VER?>/themes/<?=$htmlData['jQueryTheme']?>/jquery-ui.min.css">
       <?php } else { ?>
 <script type="text/javascript" src="js/jquery/jquery-<?=JQUERY_VER?>.min.js"></script>
       <script type="text/javascript" src="js/jquery/ui/<?=JQUERY_UI_VER?>/jquery-ui.min.js"></script>
