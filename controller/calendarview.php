@@ -142,7 +142,11 @@ if ($missingData)
 
 //-----------------------------------------------------------------------------
 //
-// Group filter (optional, defaults to 'all')
+// Get users for this calendar page
+//
+
+//
+// Get all users first
 //
 $users = $U->getAllButHidden();
 
@@ -155,7 +159,7 @@ elseif (L_USER AND $groupfilter=$UO->read($UL->username, 'calfilterGroup'))
 {
    //
    // Nothing in URL but user has a last-used value in his profile.
-   // (The value was loaded via the if statement so nothing needed in this block.)
+   // That value was loaded via the if statement so nothing needed in this block.
    //
 }
 else
@@ -163,6 +167,10 @@ else
    $groupfilter = 'all';
 }
     
+//
+// If a group filter has been specified, create a new array and only copy those
+// that belong to the group or are guests in that group.
+//
 $viewData['groupid'] = $groupfilter;
 if ($groupfilter == "all")
 {
@@ -171,9 +179,6 @@ if ($groupfilter == "all")
 else
 {
    $viewData['group'] = $G->getNameById($groupfilter);
-   //
-   // Remove all users from array that are not in requested group.
-   //
    $calusers = array();
    foreach ($users as $key=>$usr)
    {

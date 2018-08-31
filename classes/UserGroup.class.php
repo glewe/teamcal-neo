@@ -771,7 +771,7 @@ class UserGroup
     */
    public function shareGroups($user1, $user2)
    {
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1 AND (type = "manager" OR type ="member")');
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1 AND (type = "manager" OR type ="member" OR type ="guest")');
       $query->bindParam('val1', $user1);
       $result = $query->execute();
       
@@ -779,7 +779,7 @@ class UserGroup
       {
          while ( $row = $query->fetch() )
          {
-            $query2 = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND (type = "manager" OR type ="member")');
+            $query2 = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND (type = "manager" OR type ="member" OR type ="guest")');
             $query2->bindParam('val1', $user2);
             $query2->bindParam('val2', $row['groupid']);
             $result2 = $query2->execute();
