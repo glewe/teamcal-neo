@@ -579,7 +579,7 @@ $viewData['options'][] = array ( 'prefix' => 'profile', 'name' => 'region', 'typ
 //
 // Avatar
 //
-$viewData['avatars'] = getFiles(APP_AVATAR_DIR, NULL, 'is_');
+$viewData['avatars'] = getFiles(APP_AVATAR_DIR, $CONF['imgExtensions'], 'is_');
 
 //
 // Account

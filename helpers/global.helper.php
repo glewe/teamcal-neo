@@ -556,7 +556,7 @@ function getFiles($myDir, $myExt = NULL, $myPrefix = NULL)
       }
    }
    
-   if (count($myExt) OR $myPrefix)
+   if ( count($myExt) OR $myPrefix )
    {
       $filearray = array();
       if (count($files))

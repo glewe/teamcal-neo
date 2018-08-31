@@ -157,7 +157,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             });
          });
 
-         <?php if ($C->read("showSize")) { ?>/**
+         <?php if ($C->read("footerViewport")) { ?>/**
           * Window size in footer
           */
          $(window).on('resize', showSize);
