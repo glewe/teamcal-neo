@@ -116,32 +116,50 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <?php } 
                                  } ?>
                                  
-                                 <ul id="paginator"></ul>
-                                 <script type="text/javascript">
-                                    var bpOptions = {
-                                       bootstrapMajorVersion: 3,
-                                       currentPage: <?=$viewData['currentPage']?>,
-                                       numberOfPages: 5,
-                                       totalPages: <?=$viewData['numPages']?>,
-                                       pageUrl: function(type, page, current){return "index.php?action=log&page="+page;},
-                                       itemTexts: function (type, page, current) {
-                                          switch (type) {
-                                          case "first":
-                                              return "&laquo;";
-                                          case "prev":
-                                              return "&lsaquo;";
-                                          case "next":
-                                              return "&rsaquo;";
-                                          case "last":
-                                              return "&raquo;";
-                                          case "page":
-                                              return page;
-                                          }
-                                       },
-                                    };
-                                    $('#paginator').bootstrapPaginator(bpOptions);
-                                 </script>                                 
-                                 
+                                 <ul class="pagination">
+                                    <?php 
+                                    $formLink = 'index.php?action=log';
+                                    $page = $viewData['currentPage'];
+                                    $pages = $viewData['numPages'];
+                                    ?>
+                                    <!-- First Page Link -->
+                                    <?php if ($page==1) { ?>
+                                       <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span></span></li>
+                                    <?php } else { ?>
+                                       <li><a href="<?=$formLink?>&amp;page=1" title="<?=$LANG['page_first']?>"><span><i class="fa fa-angle-double-left"></i></span></a></li>
+                                    <?php } ?>
+                                    
+                                    <!-- Previous Page Link -->
+                                    <?php if ($page==1) { ?>
+                                       <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-left"></i></span></span></li>
+                                    <?php } else { ?>
+                                       <li><a href="<?=$formLink?>&amp;page=<?=$page-1?>" title="<?=$LANG['page_prev']?>"><span><i class="fa fa-angle-left"></i></span></a></li>
+                                    <?php } ?>
+                                    
+                                    <!-- Page Link -->
+                                    <?php for ($p=1; $p<=$pages; $p++) { 
+                                       if ($p==$page) { ?>
+                                          <li class="active"><span><?=$p?><span class="sr-only">(current)</span></span></li>
+                                       <?php } else { ?>
+                                          <li><a href="<?=$formLink?>&amp;page=<?=$p?>" title="<?=sprintf($LANG['page_page'],$p)?>"><span><?=$p?></span></a></li>
+                                       <?php } 
+                                    } ?>
+                                    
+                                    <!-- Next Page Link -->
+                                    <?php if ($page==$pages) { ?>
+                                       <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-right"></i></span></span></li>
+                                    <?php } else { ?>
+                                       <li><a href="<?=$formLink?>&amp;page=<?=$page+1?>" title="<?=$LANG['page_next']?>"><span><i class="fa fa-angle-right"></i></span></a></li>
+                                    <?php } ?>
+                                    
+                                    <!-- Last Page Link -->
+                                    <?php if ($page==$pages) { ?>
+                                       <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span></span></li>
+                                    <?php } else { ?>
+                                       <li><a href="<?=$formLink?>&amp;page=<?=$pages?>" title="<?=$LANG['page_last']?>"><span><i class="fa fa-angle-double-right"></i></span></a></li>
+                                    <?php } ?>
+                                 </ul>
+
                               </div>
                            </div>
                         </div>
