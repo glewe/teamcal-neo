@@ -5,7 +5,7 @@
  * Collection of notification functions
  *
  * @category TeamCal Neo 
- * @version 1.9.008
+ * @version 1.9.009
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2018 by George Lewe
  * @link http://www.lewe.com
