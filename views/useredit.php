@@ -46,6 +46,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="panel panel-default">
                         <div class="panel-body">
                            <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++?>" name="btn_profileUpdate"><?=$LANG['btn_update']?></button>
+                           <?php if (isAllowed("useraccount") AND $viewData['profile'] != "admin") { ?>
+                              <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalArchiveProfile"><?=$LANG['btn_archive']?></button>
+                              <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteProfile"><?=$LANG['btn_delete']?></button>
+                           <?php } ?>
                            <?php if (isAllowed("useraccount")) { ?> 
                               <a href="index.php?action=users" class="btn btn-default pull-right" tabindex="<?=$tabindex++?>"><?=$LANG['btn_user_list']?></a>
                            <?php } ?>
@@ -286,6 +290,16 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <?php } ?>
                         </div>
                      </div>
+
+                     <!-- Modal: Archive profile -->
+                     <?=createModalTop('modalArchiveProfile', $LANG['modal_confirm'])?>
+                        <?=$LANG['profile_confirm_archive']?>
+                     <?=createModalBottom('btn_profileArchive', 'warning', $LANG['btn_archive'])?>
+                     
+                     <!-- Modal: Delete profile -->
+                     <?=createModalTop('modalDeleteProfile', $LANG['modal_confirm'])?>
+                        <?=$LANG['profile_confirm_delete']?>
+                     <?=createModalBottom('btn_profileDelete', 'danger', $LANG['btn_delete'])?>
                      
                   </div>
                </div>

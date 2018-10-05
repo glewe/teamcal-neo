@@ -181,7 +181,7 @@ class Allowances
       else $table = $this->table;
       
       $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username = :val1');
-      $query->bindParam('val1', $this->username);
+      $query->bindParam('val1', $username);
       $result = $query->execute();
       return $result;
    }

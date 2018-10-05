@@ -400,6 +400,75 @@ if (!empty($_POST))
          $alertData['text'] = $LANG['profile_alert_update_success'];
          $alertData['help'] = '';
       }
+      // ,---------,
+      // | Archive |
+      // '---------'
+      else if (isset ($_POST['btn_profileArchive']))
+      {
+         //
+         // Check if one or more users already exists in any archive table.
+         // If so, we will not archive anything.
+         //
+         $exists = FALSE;
+         if (!archiveUser($profile)) $exists=TRUE;
+         
+         if (!$exists)
+         {
+            //
+            // Success
+            //
+            $showAlert = TRUE;
+            $alertData['type'] = 'success';
+            $alertData['title'] = $LANG['alert_success_title'];
+            $alertData['subject'] = $LANG['btn_archive'];
+            $alertData['text'] = $LANG['profile_alert_archive_user'];
+            $alertData['help'] = '';
+
+            header("Location: " . $_SERVER['PHP_SELF'] . "?action=users");
+            die();
+         }
+         else 
+         {
+            //
+            // Failed, at least partially
+            //
+            $showAlert = TRUE;
+            $alertData['type'] = 'danger';
+            $alertData['title'] = $LANG['alert_danger_title'];
+            $alertData['subject'] = $LANG['btn_archive'];
+            $alertData['text'] = $LANG['profile_alert_archive_user_failed'];
+            $alertData['help'] = '';
+         }
+      }
+      // ,---------,
+      // | Delete  |
+      // '---------'
+      else if (isset ($_POST['btn_profileDelete']))
+      {
+         //
+         // Send notification e-mails to the subscribers of user events. In this case,
+         // send before delete while we can still access info from the user.
+         //
+         if ($C->read("emailNotifications"))
+         {
+            $U->findByName($profile);
+            sendUserEventNotifications("deleted", $U->username, $U->firstname, $U->lastname);
+         }
+         deleteUser($profile, false);
+
+         //
+         // Success
+         //
+         $showAlert = TRUE;
+         $alertData['type'] = 'success';
+         $alertData['title'] = $LANG['alert_success_title'];
+         $alertData['subject'] = $LANG['btn_delete_selected'];
+         $alertData['text'] = $LANG['profile_alert_delete_user'];
+         $alertData['help'] = '';
+         
+         header("Location: " . $_SERVER['PHP_SELF'] . "?action=users");
+         die();
+   }
       // ,--------,
       // | Upload |
       // '--------'
