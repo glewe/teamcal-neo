@@ -98,7 +98,7 @@ function deleteOrphanedMessages()
  */
 function deleteUser($username, $fromArchive = FALSE, $sendNotifications = true)
 {
-   global $AL, $AV, $CONF, $L, $LOG, $T, $U, $UMSG, $UG, $UO;
+   global $AL, $AV, $CONF, $D, $L, $LOG, $T, $U, $UMSG, $UG, $UO;
    
    /**
     * Get fullname for log
@@ -121,6 +121,7 @@ function deleteUser($username, $fromArchive = FALSE, $sendNotifications = true)
    $UMSG->deleteByUser($username, $fromArchive);
    if ($fromArchive) $AV->delete($username, $UO->read($username, 'avatar'));
    $T->deleteByUser($username, $fromArchive);
+   $D->deleteByUser($username, $fromArchive);
    $AL->deleteByUser($username, $fromArchive);
    
    /**

@@ -200,7 +200,7 @@ class Daynotes
     * @param string $uname Username to find for deletion
     * @return boolean Query result
     */
-   public function deleteAllForUser($username = '', $archive = FALSE)
+   public function deleteByUser($username = '', $archive = FALSE)
    {
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
