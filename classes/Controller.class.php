@@ -21,6 +21,7 @@ class Controller
    public $iconColor = 'default';
    public $panelColor = 'default';
    public $permission = '';
+   public $title = '';
    public $docurl = '';
    
    // ---------------------------------------------------------------------

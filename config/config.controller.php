@@ -19,7 +19,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  * 
  * The controller class expects the following paramter upon instantiation:
  * 
- * <key> => new Controller (<name>, <faIcon>, <iconColor>, <panelColor>, <permission>, <title>)
+ * <key> => new Controller (<name>, <faIcon>, <iconColor>, <panelColor>, <permission>, <title>, <help URL>)
  * 
  * <key>:
  * Used in views/menu.php to access the controller instance for icon and 
