@@ -715,6 +715,23 @@ class Absences
       return false;
    }
    
+   // ---------------------------------------------------------------------
+   /**
+    * Makes all sub-abs of a given abs primary. Sets counts_as = 0.
+    *
+    * @param string $id Absence ID of the primary
+    * @return boolean True or False
+    */
+   function setAllSubsPrimary($id)
+   {
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET counts_as = 0 WHERE counts_as = :val1');
+      $query->bindParam('val1', $id);
+      $result = $query->execute();
+
+      if ($result) return true;
+      else         return false;
+   }
+      
    // ----------------------------------------------------------------------
    /**
     * Updates an absence type by it's symbol from the current array data
