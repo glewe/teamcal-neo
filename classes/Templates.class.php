@@ -65,6 +65,7 @@ class Templates
       global $myDb;
       $this->db = $DB->db;
       $this->table = $CONF['db_table_templates'];
+      $this->abs_table = $CONF['db_table_absences'];
       $this->archive_table = $CONF['db_table_archive_templates'];
       $this->utable = $CONF['db_table_users'];
       $this->archive_utable = $CONF['db_table_archive_users'];
@@ -171,7 +172,14 @@ class Templates
             {
                for($i = $start; $i <= $end; $i++)
                {
-                  if ($row['abs' . $i] != 0) $count++;
+                  if ($row['abs'.$i] != 0) {
+                     $countsAsPresent = false;
+                     $query2 = $this->db->prepare('SELECT counts_as_present FROM ' . $this->abs_table . ' WHERE id = :val1');
+                     $query2->bindParam('val1', $row['abs'.$i]);
+                     $result2 = $query2->execute();
+                     if ($result2 and $row2 = $query2->fetch()) $countsAsPresent = $row2['counts_as_present'];
+                     if (!$countsAsPresent) $count++;
+                  }
                }
             }
          }
@@ -181,7 +189,14 @@ class Templates
             {
                for($i = $start; $i <= $end; $i++)
                {
-                  if ($row['abs' . $i] != 0) $count++;
+                  if ($row['abs'.$i] != 0) {
+                     $countsAsPresent = false;
+                     $query2 = $this->db->prepare('SELECT counts_as_present FROM ' . $this->abs_table . ' WHERE id = :val1');
+                     $query2->bindParam('val1', $row['abs'.$i]);
+                     $result2 = $query2->execute();
+                     if ($result2 and $row2 = $query2->fetch()) $countsAsPresent = $row2['counts_as_present'];
+                     if (!$countsAsPresent) $count++;
+                  }
                }
             }
          }
