@@ -43,7 +43,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             }
             else
             {
-               $dayStyles = '';
+               $dayStyles = ' style="' . $notestyle . '"';
             }
             ?> 
             <th class="m-daynumber text-center"<?=$dayStyles?>><?=$notestart.$i.$noteend?></th>
