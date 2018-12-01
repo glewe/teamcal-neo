@@ -5,9 +5,9 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 1.9.010
+ * @version 1.9.011
  * @author George Lewe
- * @copyright Copyright (c) 2014-2018 by George Lewe
+ * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
  * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
  */
