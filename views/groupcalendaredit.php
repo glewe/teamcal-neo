@@ -313,10 +313,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         // Make drop downs work in modal dialogs. Needed once on page.
                         var enforceModalFocusFn = $.fn.modal.Constructor.prototype.enforceFocus;
                         $.fn.modal.Constructor.prototype.enforceFocus = function() {};
-                        $confModal.on('hidden', function() {
-                           $.fn.modal.Constructor.prototype.enforceFocus = enforceModalFocusFn;
-                        });
-                        $confModal.modal({ backdrop : false });
+                        // $confModal.on('hidden', function() {
+                        //    $.fn.modal.Constructor.prototype.enforceFocus = enforceModalFocusFn;
+                        // });
+                        // $confModal.modal({ backdrop : false });
                      </script>
                   </div>
                   <?php if ( isset($inputAlert["periodStart"]) AND strlen($inputAlert["periodStart"]) ) { ?> 
