@@ -57,7 +57,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <?php } ?>
                            <a href="index.php?action=calendarview" class="btn btn-primary pull-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_showcalendar']?></a>
                            <?php if ($viewData['user']=='all' AND isAllowed($CONF['controllers']['monthedit']->permission)) { ?>
-                              <a href="index.php?action=monthedit&amp;month=<?=$viewData['month']?>&amp;region=<?=$viewData['region']?>" class="btn btn-danger pull-right" tabindex="<?=$tabindex++;?>" style="margin-right: 6px;"><?=$LANG['btn_region_calendar']?></a>
+                              <a href="index.php?action=monthedit&amp;month=<?=$viewData['month']?>&amp;region=<?=$viewData['region']?>" class="btn btn-info pull-right" tabindex="<?=$tabindex++;?>" style="margin-right: 6px;"><?=$LANG['btn_region_calendar']?></a>
+                           <?php } 
+                           else { ?>
+                              <a href="index.php?action=calendaredit&amp;month=<?=substr($viewData['date'],0,4).substr($viewData['date'],5,2)?>&amp;region=<?=$viewData['region']?>&amp;user=<?=$viewData['user']?>" class="btn btn-info pull-right" style="margin-right:6px;"><?=$LANG['btn_user_calendar']?></a>
                            <?php } ?>
                         </div>
                      </div>

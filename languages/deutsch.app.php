@@ -193,6 +193,7 @@ $LANG['btn_holiday_list'] = 'Feiertagsliste';
 $LANG['btn_region_calendar'] = 'Regionskalender';
 $LANG['btn_region_list'] = 'Regionenliste';
 $LANG['btn_showcalendar'] = 'Kalender anzeigen';
+$LANG['btn_user_calendar'] = 'Benutzerkalender';
 
 //
 // Calendar
