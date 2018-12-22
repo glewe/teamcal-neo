@@ -39,8 +39,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
             <div class="page-menu">
                <?php if (!$C->read('currentYearOnly')) {?>
-                  <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;year=<?=($viewData['year']-1)?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>"><span class="fa fa-angle-double-left"></span></a>
-                  <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;year=<?=($viewData['year']+1)?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>"><span class="fa fa-angle-double-right"></span></a>
+                  <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;year=<?=($viewData['year']-1)?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>"><span class="fas fa-angle-double-left"></span></a>
+                  <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;year=<?=($viewData['year']+1)?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>"><span class="fas fa-angle-double-right"></span></a>
                   <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;year=<?=date('Y')?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>"><?=$LANG['today']?></a>
                <?php } ?>
                <?php if ($C->read('showRegionButton')) { ?>
@@ -52,7 +52,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
                <div class="panel-heading"><?=sprintf($LANG['year_title'], $viewData['year'], $viewData['fullname'], $viewData['regionname'])?><?=$pageHelp?></div>
                <div class="panel-body" id="mobile">
@@ -114,7 +114,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  }
                                  else
                                  {
-                                    $icon = '<span class="fa fa-'.$viewData['month'][$m][$d]['icon'].'"></span>';
+                                    $icon = '<span class="fas '.$viewData['month'][$m][$d]['icon'].'"></span>';
                                  }
                                  echo "
                                  <td class=\"y-day text-center\"" . $viewData['month'][$m][$d]['style'] . ">
@@ -142,7 +142,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   
                <!-- Modal: Select Region -->
                <?=createModalTop('modalSelectRegion', $LANG['year_selRegion'])?>
-                  <select id="region" class="form-control" name="sel_region" tabindex="<?=$tabindex++?>">
+                  <select class="form-control" name="sel_region" tabindex="<?=$tabindex++?>">
                      <?php foreach($viewData['regions'] as $reg) { ?>
                         <option  value="<?=$reg['id']?>"<?=(($viewData['regionid'] == $reg['id'])?' selected="selected"':'')?>><?=$reg['name']?></option>
                      <?php } ?>
@@ -151,7 +151,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             
                <!-- Modal: Select User -->
                <?=createModalTop('modalSelectUser', $LANG['year_selUser'])?>
-                  <select id="user" class="form-control" name="sel_user" tabindex="<?=$tabindex++?>">
+                  <select class="form-control" name="sel_user" tabindex="<?=$tabindex++?>">
                      <?php foreach($viewData['users'] as $usr) { ?>
                         <option  value="<?=$usr['username']?>"<?=(($viewData['username'] == $usr['username'])?' selected="selected"':'')?>><?=$usr['lastfirst']?></option>
                      <?php } ?>

@@ -37,9 +37,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <div class="panel panel-primary">
                   <?php 
                   $pageHelp = '';
-                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['decl_title'].$pageHelp?></div>
+                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['decl_title'].$pageHelp?></div>
                   <div class="panel-body">
 
                      <div class="panel panel-default">
@@ -50,11 +50,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      
                      <ul class="nav nav-tabs" style="margin-bottom: 15px;">
                         <li class="active"><a href="#tab_overview" data-toggle="tab"><?=$LANG['decl_tab_overview']?></a></li>
-                        <li><a href="#tab_absence" data-toggle="tab"><?=$LANG['decl_tab_absence']?><?=(($viewData['declAbsence'])?' <i class="fa fa-check text-danger"></i>':'')?></a></li>
-                        <li><a href="#tab_before" data-toggle="tab"><?=$LANG['decl_tab_before']?><?=(($viewData['declBefore'])?' <i class="fa fa-check text-danger"></i>':'')?></a></li>
-                        <li><a href="#tab_period1" data-toggle="tab"><?=$LANG['decl_tab_period1']?><?=(($viewData['declPeriod1'])?' <i class="fa fa-check text-danger"></i>':'')?></a></li>
-                        <li><a href="#tab_period2" data-toggle="tab"><?=$LANG['decl_tab_period2']?><?=(($viewData['declPeriod2'])?' <i class="fa fa-check text-danger"></i>':'')?></a></li>
-                        <li><a href="#tab_period3" data-toggle="tab"><?=$LANG['decl_tab_period3']?><?=(($viewData['declPeriod3'])?' <i class="fa fa-check text-danger"></i>':'')?></a></li>
+                        <li><a href="#tab_absence" data-toggle="tab"><?=$LANG['decl_tab_absence']?><?=(($viewData['declAbsence'])?' <i class="fas fa-check text-danger"></i>':'')?></a></li>
+                        <li><a href="#tab_before" data-toggle="tab"><?=$LANG['decl_tab_before']?><?=(($viewData['declBefore'])?' <i class="fas fa-check text-danger"></i>':'')?></a></li>
+                        <li><a href="#tab_period1" data-toggle="tab"><?=$LANG['decl_tab_period1']?><?=(($viewData['declPeriod1'])?' <i class="fas fa-check text-danger"></i>':'')?></a></li>
+                        <li><a href="#tab_period2" data-toggle="tab"><?=$LANG['decl_tab_period2']?><?=(($viewData['declPeriod2'])?' <i class="fas fa-check text-danger"></i>':'')?></a></li>
+                        <li><a href="#tab_period3" data-toggle="tab"><?=$LANG['decl_tab_period3']?><?=(($viewData['declPeriod3'])?' <i class="fas fa-check text-danger"></i>':'')?></a></li>
                         <li><a href="#tab_scope" data-toggle="tab"><?=$LANG['decl_tab_scope']?></a></li>
                      </ul>
                      

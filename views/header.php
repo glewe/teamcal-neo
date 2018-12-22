@@ -71,19 +71,19 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
       
       <!-- Font Awesome -->
       <?php if ($htmlData['faCDN']) { ?>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
       <?php } else { ?>
-<link rel="stylesheet" href="fonts/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="fonts/font-awesome/5.6.3/css/all.min.css">
       <?php } ?>
          
       <!-- jQuery -->
       <?php if ($htmlData['jQueryCDN']) { ?>
-<script type="text/javascript" src="https://code.jquery.com/jquery-<?=JQUERY_VER?>.min.js"></script>
-      <script type="text/javascript" src="https://code.jquery.com/ui/<?=JQUERY_UI_VER?>/jquery-ui.min.js"></script>
+<script src="https://code.jquery.com/jquery-<?=JQUERY_VER?>.min.js"></script>
+      <script src="https://code.jquery.com/ui/<?=JQUERY_UI_VER?>/jquery-ui.min.js"></script>
       <link rel="stylesheet" href="https://code.jquery.com/ui/<?=JQUERY_UI_VER?>/themes/<?=$htmlData['jQueryTheme']?>/jquery-ui.min.css">
       <?php } else { ?>
-<script type="text/javascript" src="js/jquery/jquery-<?=JQUERY_VER?>.min.js"></script>
-      <script type="text/javascript" src="js/jquery/ui/<?=JQUERY_UI_VER?>/jquery-ui.min.js"></script>
+<script src="js/jquery/jquery-<?=JQUERY_VER?>.min.js"></script>
+      <script src="js/jquery/ui/<?=JQUERY_UI_VER?>/jquery-ui.min.js"></script>
       <link rel="stylesheet" href="js/jquery/ui/<?=JQUERY_UI_VER?>/themes/<?=$htmlData['jQueryTheme']?>/jquery-ui.min.css">
       <?php } ?>
       
@@ -96,7 +96,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
 
       <!-- Colorpicker -->
       <link rel="stylesheet" media="screen" type="text/css" href="js/colorpicker/css/colorpicker.css">
-      <script type="text/javascript" src="js/colorpicker/js/colorpicker.js"></script>
+      <script src="js/colorpicker/js/colorpicker.js"></script>
 
       <!-- Google Code Prettify -->
       <link rel="stylesheet" href="addons/google-code-prettify/prettify.css" type="text/css">
@@ -124,12 +124,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
       <?php if (SYNTAXHIGHLIGHTER) { ?><!-- Syntax Highlighter -->
       <link rel="stylesheet" href="addons/syntaxhighlighter/styles/shCore.css" type="text/css">
       <link rel="stylesheet" href="addons/syntaxhighlighter/styles/shThemeDefault.css" type="text/css">
-      <script src="addons/syntaxhighlighter/scripts/shCore.js" type="text/javascript"></script>
-      <script src="addons/syntaxhighlighter/scripts/shAutoloader.js" type="text/javascript"></script>
-      <script src="addons/syntaxhighlighter/scripts/shBrushCss.js" type="text/javascript"></script>
-      <script src="addons/syntaxhighlighter/scripts/shBrushJScript.js" type="text/javascript"></script>
-      <script src="addons/syntaxhighlighter/scripts/shBrushPhp.js" type="text/javascript"></script>
-      <script src="addons/syntaxhighlighter/scripts/shBrushXml.js" type="text/javascript"></script>
+      <script src="addons/syntaxhighlighter/scripts/shCore.js"></script>
+      <script src="addons/syntaxhighlighter/scripts/shAutoloader.js"></script>
+      <script src="addons/syntaxhighlighter/scripts/shBrushCss.js"></script>
+      <script src="addons/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+      <script src="addons/syntaxhighlighter/scripts/shBrushPhp.js"></script>
+      <script src="addons/syntaxhighlighter/scripts/shBrushXml.js"></script>
       <?php } ?>
       
       <?php if (XEDITABLE) { ?><!-- Bootstrap Editable -->
@@ -137,8 +137,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
       <script src="addons/x-editable/js/bootstrap-editable.js"></script>      
       <?php } ?>
 
-      <?php if ($htmlData['cookieConsent']) { ?>
-      <!-- Cookie Consent by Silktide - http://silktide.com/cookieconsent -->
+      <?php if ($htmlData['cookieConsent']) { ?><!-- Cookie Consent by Silktide - http://silktide.com/cookieconsent -->
       <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
       <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
       <script>

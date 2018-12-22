@@ -37,9 +37,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                   <?php 
                   $pageHelp = '';
-                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['mnu_admin_systemlog'] . ' ( ' . count($viewData['events']) . ' ' . $LANG['log_title_events'] . ' )'.$pageHelp?></div>
+                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['mnu_admin_systemlog'] . ' ( ' . count($viewData['events']) . ' ' . $LANG['log_title_events'] . ' )'.$pageHelp?></div>
                   <div class="panel-body">
                   
                      <div class="panel panel-default">
@@ -60,13 +60,13 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <div class="col-lg-2">
                               <label><?=$LANG['from']?></label>
                               <input id="logPeriodFrom" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_logPeriodFrom" maxlength="10" value="<?=$viewData['logfrom']?>" type="text" <?=($viewData['logPeriod']!='custom')?'disabled="disabled"':''?>>
-                              <script type="text/javascript">$(function() { $( "#logPeriodFrom" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });</script>
+                              <script>$(function() { $( "#logPeriodFrom" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });</script>
                            </div>
                   
                            <div class="col-lg-2">
                               <label><?=$LANG['to']?></label>
                               <input id="logPeriodTo" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_logPeriodTo" maxlength="10" value="<?=$viewData['logto']?>" type="text" <?=($viewData['logPeriod']!='custom')?'disabled="disabled"':''?>>
-                              <script type="text/javascript">$(function() { $( "#logPeriodTo" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });</script>
+                              <script>$(function() { $( "#logPeriodTo" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });</script>
                            </div>
                         
                            <div class="col-lg-5">
@@ -74,7 +74,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_refresh"><?=$LANG['btn_refresh']?></button>
                               <button type="submit" class="btn btn-default" tabindex="<?=$tabindex++;?>" name="btn_reset"><?=$LANG['btn_reset']?></button>
                               <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalClear"><?=$LANG['log_clear']?></button>
-                              <button type="submit" class="btn btn-info" title="<?=($viewData['sort']=='DESC')?$LANG['log_sort_asc']:$LANG['log_sort_desc']?>" tabindex="<?=$tabindex++;?>" name="btn_sort"><?=($viewData['sort']=='DESC')?'<i class="fa fa-arrow-up fa-lg"></i>':'<i class="fa fa-arrow-down fa-lg"></i>'?></button>
+                              <button type="submit" class="btn btn-info" title="<?=($viewData['sort']=='DESC')?$LANG['log_sort_asc']:$LANG['log_sort_desc']?>" tabindex="<?=$tabindex++;?>" name="btn_sort"><?=($viewData['sort']=='DESC')?'<i class="fas fa-arrow-up fa-lg"></i>':'<i class="fas fa-arrow-down fa-lg"></i>'?></button>
                               
                               <!-- Modal: Clear -->
                               <?=createModalTop('modalClear', $LANG['modal_confirm'])?>
@@ -108,10 +108,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        ?>
                                        <div class="col-lg-12 <?=$color?>" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                                           <div class="col-lg-1 small"><?=$i+1?></div>
-                                          <div class="col-lg-3 small"><i class="fa fa-clock-o fa-lg fa-menu" title="<?=$LANG['log_header_when']?>"></i><?=$event['timestamp']?></div>
-                                          <div class="col-lg-2 small"><i class="fa fa-tag fa-lg fa-menu" title="<?=$LANG['log_header_type']?>"></i><?=substr($event['type'],3)?></div>
-                                          <div class="col-lg-2 small"><i class="fa fa-user fa-lg fa-menu" title="<?=$LANG['log_header_user']?>"></i><?=$event['user']?></div>
-                                          <div class="col-lg-4 small"><i class="fa fa-pencil fa-lg fa-menu" title="<?=$LANG['log_header_event']?>"></i><?=$event['event']?></div>
+                                          <div class="col-lg-3 small"><i class="far fa-clock fa-lg fa-menu" title="<?=$LANG['log_header_when']?>"></i><?=$event['timestamp']?></div>
+                                          <div class="col-lg-2 small"><i class="far fa-edit fa-lg fa-menu" title="<?=$LANG['log_header_type']?>"></i><?=substr($event['type'],3)?></div>
+                                          <div class="col-lg-2 small"><i class="far fa-user fa-lg fa-menu" title="<?=$LANG['log_header_user']?>"></i><?=$event['user']?></div>
+                                          <div class="col-lg-4 small"><i class="far fa-comment fa-lg fa-menu" title="<?=$LANG['log_header_event']?>"></i><?=$event['event']?></div>
                                        </div>
                                     <?php } 
                                  } ?>
@@ -124,16 +124,16 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     ?>
                                     <!-- First Page Link -->
                                     <?php if ($page==1) { ?>
-                                       <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span></span></li>
+                                       <li class="disabled"><span><span aria-hidden="true"><i class="fas fa-angle-double-left"></i></span></span></li>
                                     <?php } else { ?>
-                                       <li><a href="<?=$formLink?>&amp;page=1" title="<?=$LANG['page_first']?>"><span><i class="fa fa-angle-double-left"></i></span></a></li>
+                                       <li><a href="<?=$formLink?>&amp;page=1" title="<?=$LANG['page_first']?>"><span><i class="fas fa-angle-double-left"></i></span></a></li>
                                     <?php } ?>
                                     
                                     <!-- Previous Page Link -->
                                     <?php if ($page==1) { ?>
-                                       <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-left"></i></span></span></li>
+                                       <li class="disabled"><span><span aria-hidden="true"><i class="fas fa-angle-left"></i></span></span></li>
                                     <?php } else { ?>
-                                       <li><a href="<?=$formLink?>&amp;page=<?=$page-1?>" title="<?=$LANG['page_prev']?>"><span><i class="fa fa-angle-left"></i></span></a></li>
+                                       <li><a href="<?=$formLink?>&amp;page=<?=$page-1?>" title="<?=$LANG['page_prev']?>"><span><i class="fas fa-angle-left"></i></span></a></li>
                                     <?php } ?>
                                     
                                     <!-- Page Link -->
@@ -147,16 +147,16 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     
                                     <!-- Next Page Link -->
                                     <?php if ($page==$pages) { ?>
-                                       <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-right"></i></span></span></li>
+                                       <li class="disabled"><span><span aria-hidden="true"><i class="fas fa-angle-right"></i></span></span></li>
                                     <?php } else { ?>
-                                       <li><a href="<?=$formLink?>&amp;page=<?=$page+1?>" title="<?=$LANG['page_next']?>"><span><i class="fa fa-angle-right"></i></span></a></li>
+                                       <li><a href="<?=$formLink?>&amp;page=<?=$page+1?>" title="<?=$LANG['page_next']?>"><span><i class="fas fa-angle-right"></i></span></a></li>
                                     <?php } ?>
                                     
                                     <!-- Last Page Link -->
                                     <?php if ($page==$pages) { ?>
-                                       <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span></span></li>
+                                       <li class="disabled"><span><span aria-hidden="true"><i class="fas fa-angle-double-right"></i></span></span></li>
                                     <?php } else { ?>
-                                       <li><a href="<?=$formLink?>&amp;page=<?=$pages?>" title="<?=$LANG['page_last']?>"><span><i class="fa fa-angle-double-right"></i></span></a></li>
+                                       <li><a href="<?=$formLink?>&amp;page=<?=$pages?>" title="<?=$LANG['page_last']?>"><span><i class="fas fa-angle-double-right"></i></span></a></li>
                                     <?php } ?>
                                  </ul>
 
@@ -173,7 +173,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     $color = "text-" . $C->read("logcolor".$type);
                                     ?>
                                  <div class="col-lg-12" style="border-bottom: 1px dotted; padding-top: 10px; padding-bottom: 10px;">
-                                    <div class="col-lg-3 <?=$color?>"><label><i class="fa fa-tag fa-lg fa-menu"></i><?=$type?></label></div>
+                                    <div class="col-lg-3 <?=$color?>"><label><i class="fas fa-tag fa-lg fa-menu"></i><?=$type?></label></div>
                                     <div class="col-lg-3">
                                        <input style="margin-right: 10px;" name="chk_log<?=$type?>" value="chk_log<?=$type?>" type="checkbox"<?=($C->read("log".$type))?' checked=""':''?>><?=$LANG['log_settings_log']?>
                                     </div>
@@ -181,12 +181,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <input style="margin-right: 10px;" name="chk_logfilter<?=$type?>" value="chk_logfilter<?=$type?>" type="checkbox"<?=($C->read("logfilter".$type))?' checked=""':''?>><?=$LANG['log_settings_show']?>
                                     </div>
                                     <div class="col-lg-3">
-                                       <div class="radio"><label><input name="opt_logcolor<?=$type?>" value="default" tabindex="<?=$tabindex++;?>" type="radio"<?=($C->read("logcolor".$type)=="default")?' checked=""':''?>><i class="fa fa-square fa-sm text-default"></i></label></div>
-                                       <div class="radio"><label><input name="opt_logcolor<?=$type?>" value="primary" tabindex="<?=$tabindex++;?>" type="radio"<?=($C->read("logcolor".$type)=="primary")?' checked=""':''?>><i class="fa fa-square fa-sm text-primary"></i></label></div>
-                                       <div class="radio"><label><input name="opt_logcolor<?=$type?>" value="info" tabindex="<?=$tabindex++;?>" type="radio"<?=($C->read("logcolor".$type)=="info")?' checked=""':''?>><i class="fa fa-square fa-sm text-info"></i></label></div>
-                                       <div class="radio"><label><input name="opt_logcolor<?=$type?>" value="success" tabindex="<?=$tabindex++;?>" type="radio"<?=($C->read("logcolor".$type)=="success")?' checked=""':''?>><i class="fa fa-square fa-sm text-success"></i></label></div>
-                                       <div class="radio"><label><input name="opt_logcolor<?=$type?>" value="warning" tabindex="<?=$tabindex++;?>" type="radio"<?=($C->read("logcolor".$type)=="warning")?' checked=""':''?>><i class="fa fa-square fa-sm text-warning"></i></label></div>
-                                       <div class="radio"><label><input name="opt_logcolor<?=$type?>" value="danger" tabindex="<?=$tabindex++;?>" type="radio"<?=($C->read("logcolor".$type)=="danger")?' checked=""':''?>><i class="fa fa-square fa-sm text-danger"></i></label></div>
+                                       <div class="radio"><label><input name="opt_logcolor<?=$type?>" value="default" tabindex="<?=$tabindex++;?>" type="radio"<?=($C->read("logcolor".$type)=="default")?' checked=""':''?>><i class="fas fa-square fa-sm text-default"></i></label></div>
+                                       <div class="radio"><label><input name="opt_logcolor<?=$type?>" value="primary" tabindex="<?=$tabindex++;?>" type="radio"<?=($C->read("logcolor".$type)=="primary")?' checked=""':''?>><i class="fas fa-square fa-sm text-primary"></i></label></div>
+                                       <div class="radio"><label><input name="opt_logcolor<?=$type?>" value="info" tabindex="<?=$tabindex++;?>" type="radio"<?=($C->read("logcolor".$type)=="info")?' checked=""':''?>><i class="fas fa-square fa-sm text-info"></i></label></div>
+                                       <div class="radio"><label><input name="opt_logcolor<?=$type?>" value="success" tabindex="<?=$tabindex++;?>" type="radio"<?=($C->read("logcolor".$type)=="success")?' checked=""':''?>><i class="fas fa-square fa-sm text-success"></i></label></div>
+                                       <div class="radio"><label><input name="opt_logcolor<?=$type?>" value="warning" tabindex="<?=$tabindex++;?>" type="radio"<?=($C->read("logcolor".$type)=="warning")?' checked=""':''?>><i class="fas fa-square fa-sm text-warning"></i></label></div>
+                                       <div class="radio"><label><input name="opt_logcolor<?=$type?>" value="danger" tabindex="<?=$tabindex++;?>" type="radio"<?=($C->read("logcolor".$type)=="danger")?' checked=""':''?>><i class="fas fa-square fa-sm text-danger"></i></label></div>
                                     </div>
                                  </div>
                                  <?php } ?>
@@ -209,7 +209,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          </div>
       </div>
       
-      <script type="text/javascript">
+      <script>
       $('#sel_logPeriod').change(function() {
          if (this.value == "custom") {
             $("#logPeriodFrom").prop('disabled', false);

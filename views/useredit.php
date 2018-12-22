@@ -38,9 +38,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                   <?php 
                   $pageHelp = '';
-                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['profile_edit_title'].$viewData['fullname'].$pageHelp?></div>
+                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['profile_edit_title'].$viewData['fullname'].$pageHelp?></div>
                   <div class="panel-body">
 
                      <div class="panel panel-default">
@@ -236,7 +236,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  <div class="divider"><hr></div>
                                  <?php foreach($viewData['abs'] as $abs) { ?>
                                     <div class="form-group">
-                                       <div class="col-lg-3"><div class="text-normal"><i class="fa fa-<?=$abs['icon']?> fa-lg" style="color: #<?=$abs['color']?>; background-color: #<?=$abs['bgcolor']?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px; margin-right: 8px;"></i><?=$abs['name']?></div></div>
+                                       <div class="col-lg-3"><div class="text-normal"><i class="<?=$abs['icon']?> fa-lg" style="color: #<?=$abs['color']?>; background-color: #<?=$abs['bgcolor']?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px; margin-right: 8px;"></i><?=$abs['name']?></div></div>
                                        <?php if (isAllowed("userallowance")) { ?> 
                                           <div class="col-lg-2"><div class="text-center"><input style="width:66%;float:left;" id="txt_<?=$abs['id']?>_allowance" class="form-control text-center" tabindex="<?=$tabindex++?>" name="txt_<?=$abs['id']?>_allowance" maxlength="3" value="<?=$abs['allowance']?>"> <span class="small">(<?=$abs['gallowance']?>)</span></div></div>
                                        <?php } else { ?> 

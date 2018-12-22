@@ -33,9 +33,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><?=sprintf($LANG['absum_title'], $viewData['year'], $viewData['fullname'])?><?=$pageHelp?></div>
+               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=sprintf($LANG['absum_title'], $viewData['year'], $viewData['fullname'])?><?=$pageHelp?></div>
                <div class="panel-body">
                
                   <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
@@ -47,7 +47,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   <?php if ( count($viewData['absences']) ) {
                      foreach ($viewData['absences'] as $abs) { ?>
                         <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-                           <div id="sample" class="col-lg-6"><i class="fa fa-<?=$abs['icon']?> fa-lg" style="color: #<?=$abs['color']?>; background-color: #<?=$abs['bgcolor']?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px; margin-right: 8px;"></i><?=$abs['name']?></div>
+                           <div class="col-lg-6"><i class="<?=$abs['icon']?>" style="color: #<?=$abs['color']?>; background-color: #<?=$abs['bgcolor']?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;"></i><?=$abs['name']?></div>
                            <div class="col-lg-2 text-right"><?=$abs['contingent']?></div>
                            <div class="col-lg-2 text-right <?=(is_int($abs['allowance']) AND intval($abs['taken'])>intval($abs['allowance']))?'text-warning':'';?>"><?=$abs['taken']?></div>
                            <div class="col-lg-2 text-right <?=(is_int($abs['allowance']) AND intval($abs['remainder'])<0)?'text-danger':'text-success';?>"><?=$abs['remainder']?></div>
@@ -60,7 +60,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
             <!-- Modal: Select User -->
             <?=createModalTop('modalSelectUser', $LANG['caledit_selUser'])?>
-               <select id="user" class="form-control" name="sel_user" tabindex="<?=$tabindex++?>">
+               <select class="form-control" name="sel_user" tabindex="<?=$tabindex++?>">
                   <?php foreach($viewData['users'] as $usr) { ?>
                      <option value="<?=$usr['username']?>"<?=(($viewData['username'] == $usr['username'])?' selected="selected"':'')?>><?=$usr['lastfirst']?></option>
                   <?php } ?>

@@ -191,7 +191,7 @@ for ($i=1; $i<=12; $i++)
          $A->get($viewData['month'][$i][$d]['abs']);
          $viewData['month'][$i][$d]['icon'] = $A->icon;
          $viewData['month'][$i][$d]['symbol'] = $A->symbol;
-         if ($A->bgtrans) $bgStyle = ""; else $bgStyle = "background-color: #" . $A->bgcolor . ';"';
+         if ($A->bgtrans) $bgStyle = ""; else $bgStyle = "background-color: #" . $A->bgcolor . ";";
          $viewData['month'][$i][$d]['absstyle'] = ' style="color: #' . $A->color . ';' . $bgStyle . '"';
       }
    }

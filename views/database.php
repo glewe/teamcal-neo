@@ -37,9 +37,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                   <?php 
                   $pageHelp = '';
-                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['db_title']?><?=$pageHelp?></div>
+                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['db_title']?><?=$pageHelp?></div>
                   <div class="panel-body">
 
                      <ul class="nav nav-tabs" style="margin-bottom: 15px;">
@@ -105,7 +105,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <?php if ( isset($inputAlert["cleanBefore"]) AND strlen($inputAlert["cleanBefore"]) ) { ?> 
                                           <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['cleanBefore']?></div>
                                        <?php } ?> 
-                                       <script type="text/javascript">$(function() { $( "#cleanBefore" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });</script>
+                                       <script>$(function() { $( "#cleanBefore" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });</script>
                                     </div>
                                  </div>
                                  <div class="divider"><hr></div>

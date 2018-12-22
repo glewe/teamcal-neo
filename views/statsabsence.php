@@ -47,7 +47,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <div>
                   <span class="text-bold"><?=$LANG['stats_absenceType']?></span><br>
                   <span class="text-normal"><?=$LANG['stats_absenceType_comment']?></span>
-                  <select id="user" class="form-control" name="sel_absence" tabindex="<?=$tabindex++?>">
+                  <select id="absence" class="form-control" name="sel_absence" tabindex="<?=$tabindex++?>">
                      <option value="all" <?=(($viewData['absid']=='all')?"selected":"")?>><?=$LANG['all']?></option>
                      <?php foreach($viewData['absences'] as $abs) { ?>
                         <option value="<?=$abs['id']?>" <?=(($viewData['absid']==$abs['id'])?"selected":"")?>><?=$abs['name']?></option>
@@ -170,10 +170,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
             <?php 
             $pageHelp = '';
-            if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+            if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
             ?>
             <div class="panel-heading">
-               <i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['stats_title_absences']?>&nbsp;(<?=$viewData['periodName']?>)&nbsp;<span class="label label-default pull-right"><i data-position="tooltip-bottom" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['stats_total']?>"><?=$viewData['total']?></i></span><?=$pageHelp?>
+               <i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['stats_title_absences']?>&nbsp;(<?=$viewData['periodName']?>)<span class="label label-default pull-right label-header-right"><i data-position="tooltip-bottom" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['stats_total']?>"><?=$viewData['total']?></i></span><?=$pageHelp?>
             </div>
             <div class="panel-body">
                <p><?=$LANG['stats_absences_desc']?></p>

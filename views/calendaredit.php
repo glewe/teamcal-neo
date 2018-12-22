@@ -62,8 +62,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             ?>
                         
             <div class="page-menu">
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>"><span class="fa fa-angle-double-left"></span></a>
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>"><span class="fa fa-angle-double-right"></span></a>
+               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>"><span class="fas fa-angle-double-left"></span></a>
+               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>"><span class="fas fa-angle-double-right"></span></a>
                <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$viewData['yearToday'].$viewData['monthToday']?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>"><?=$LANG['today']?></a>
                <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalPeriod"><?=$LANG['caledit_Period']?></button>
                <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalRecurring"><?=$LANG['caledit_Recurring']?></button>
@@ -82,9 +82,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><?=sprintf($LANG['caledit_title'], $viewData['year'], $viewData['month'], $viewData['fullname'])?><?=$pageHelp?></div>
+               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=sprintf($LANG['caledit_title'], $viewData['year'], $viewData['month'], $viewData['fullname'])?><?=$pageHelp?></div>
             </div>
             
             <?php if (!$viewData['supportMobile']) 
@@ -194,7 +194,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  ?>
                                  <th class="m-weekday text-center"<?=$viewData['dayStyles'][$i]?>>
                                     <a href="index.php?action=daynote&amp;date=<?=$viewData['year'].$viewData['month'].sprintf("%02d",$i)?>&amp;for=<?=$viewData['username']?>&amp;region=<?=$viewData['regionid']?>">
-                                       <i class="fa fa-<?=$icon?> text-info<?=$tooltipColor?>"<?=$tooltip?>></i>
+                                       <i class="fas fa-<?=$icon?> text-info<?=$tooltipColor?>"<?=$tooltip?>></i>
                                     </a>
                                  </th>
                               <?php } ?>
@@ -222,7 +222,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     }
                                     else
                                     {
-                                       $icon = '<span class="fa fa-'.$A->getIcon($abs).'"></span>';
+                                       $icon = '<span class="'.$A->getIcon($abs).'"></span>';
                                     }
                                     $loopDate = date('Y-m-d', mktime(0, 0, 0, $viewData['month'], $i, $viewData['year']));
                                     if ( $loopDate == $currDate )
@@ -300,7 +300,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             
             <!-- Modal: Select Region -->
             <?=createModalTop('modalSelectRegion', $LANG['cal_selRegion'])?>
-               <select id="region" class="form-control" name="sel_region" tabindex="<?=$tabindex++?>">
+               <select class="form-control" name="sel_region" tabindex="<?=$tabindex++?>">
                   <?php foreach($viewData['regions'] as $reg) { ?>
                      <option value="<?=$reg['id']?>" <?=(($viewData['regionid'] == $reg['id'])?'selected="selected"':'')?>><?=$reg['name']?></option>
                   <?php } ?>
@@ -310,7 +310,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <!-- Modal: Screen Width -->
             <?=createModalTop('modalSelectWidth', $LANG['cal_selWidth'])?>
                <p><?=$LANG['cal_selWidth_comment']?></p>
-               <select id="width" class="form-control" name="sel_width" tabindex="<?=$tabindex++?>">
+               <select class="form-control" name="sel_width" tabindex="<?=$tabindex++?>">
                   <?php foreach($LANG['widths'] as $key => $value) { ?>
                      <option value="<?=$key?>"<?=(($viewData['width'] == $key)?' selected="selected"':'')?>><?=$value?></option>
                   <?php } ?>
@@ -319,7 +319,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
             <!-- Modal: Select User -->
             <?=createModalTop('modalSelectUser', $LANG['caledit_selUser'])?>
-               <select id="user" class="form-control" name="sel_user" tabindex="<?=$tabindex++?>">
+               <select class="form-control" name="sel_user" tabindex="<?=$tabindex++?>">
                   <?php foreach($viewData['users'] as $usr) { ?>
                      <option  value="<?=$usr['username']?>"<?=(($viewData['username'] == $usr['username'])?' selected="selected"':'')?>><?=$usr['lastfirst']?></option>
                   <?php } ?>
@@ -334,7 +334,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <span class="text-normal"><?=$LANG['caledit_absenceType_comment']?></span>
                   </div>
                   <div style="width: 40%; margin-bottom: 20px;">
-                     <select id="user" class="form-control" name="sel_periodAbsence" tabindex="<?=$tabindex++?>">
+                     <select class="form-control" name="sel_periodAbsence" tabindex="<?=$tabindex++?>">
                         <?php foreach($viewData['absences'] as $abs) {
                            if( ($abs['manager_only'] AND ($UG->isGroupManagerOfUser($UL->username, $viewData['username']) OR $UL->username=='admin')) OR !$abs['manager_only']) { ?>
                               <option  value="<?=$abs['id']?>"><?=$abs['name']?></option>
@@ -351,7 +351,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   </div>
                   <div style="width: 40%; margin-bottom: 20px;">
                      <input id="periodStart" class="form-control" tabindex="<?=$tabindex++?>" name="txt_periodStart" type="text" maxlength="10" value="">
-                     <script type="text/javascript">
+                     <script>
                         $(function() { 
                            $( "#periodStart" ).datepicker({ 
                               changeMonth: true, 
@@ -380,7 +380,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   </div>
                   <div style="width: 40%; margin-bottom: 20px;">
                      <input id="periodEnd" class="form-control" tabindex="<?=$tabindex++?>" name="txt_periodEnd" type="text" maxlength="10" value="">
-                     <script type="text/javascript">
+                     <script>
                         $(function() { 
                            $( "#periodEnd" ).datepicker({ 
                               changeMonth: true, 
@@ -404,7 +404,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <?=$LANG['caledit_absenceType_comment']?>
                   </div>
                   <div class="col-lg-6">
-                     <select id="user" class="form-control" name="sel_recurringAbsence" tabindex="<?=$tabindex++?>">
+                     <select class="form-control" name="sel_recurringAbsence" tabindex="<?=$tabindex++?>">
                         <?php foreach($viewData['absences'] as $abs) {
                            if( ($abs['manager_only'] AND ($UG->isGroupManagerOfUser($UL->username, $viewData['username']) OR $UL->username=='admin')) OR !$abs['manager_only']) { ?>
                               <option value="<?=$abs['id']?>"><?=$abs['name']?></option>

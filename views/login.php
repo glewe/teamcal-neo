@@ -35,7 +35,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             } ?>
                                              
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-               <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['login_login']?></div>
+               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['login_login']?></div>
                <div class="panel-body">
                   <div class="col-lg-12">
                      <?php $tabindex = 1; $colsleft = 4; $colsright = 8; $paddingBottom = "36px"; ?>

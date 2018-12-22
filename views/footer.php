@@ -54,7 +54,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   $urlArray = explode(';', $urls);
                   foreach ($urlArray as $url) { 
                      if (strlen($url)) { ?>
-                        <span class="social-icon"><a href="<?=$url?>" target="_blank"><i class="fa fa-lg"></i></a></span>                     
+                        <span class="social-icon"><a href="<?=$url?>" target="_blank"><i class="fab fa-lg"></i></a></span>                     
                      <?php } 
                   }
                } ?>
@@ -72,7 +72,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          
       </footer>
 
-      <script type="text/javascript">
+      <script>
 
          $(document).ready(function(){
             //

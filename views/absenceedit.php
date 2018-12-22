@@ -37,7 +37,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <input name="hidden_id" type="hidden" class="text" value="<?=$viewData['id']?>">
                
                <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['abs_edit_title'].$viewData['name']?></div>
+                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['abs_edit_title'].$viewData['name']?></div>
                   <div class="panel-body">
 
                      <div class="panel panel-default">
@@ -71,7 +71,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <?php if ($C->read('symbolAsIcon')) {
                                              echo $viewData['symbol'];
                                           } else { ?>
-                                             <span class="fa fa-<?=$viewData['icon']?>"></span>
+                                             <span class="<?=$viewData['icon']?>"></span>
                                           <?php } ?>
                                        </div>
                                     </div>
@@ -85,7 +85,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <span class="text-normal"><?=$LANG['abs_icon_comment']?></span>
                                     </label>
                                     <div class="col-lg-<?=$colsright?>">
-                                       <span class="fa fa-<?=$viewData['icon']?> text-<?=$viewData['iconcolor']?>" style="font-size: 150%; padding-right: 8px; vertical-align: middle;"></span>
+                                       <span class="<?=$viewData['icon']?> text-<?=$viewData['iconcolor']?>" style="font-size: 150%; padding-right: 8px; vertical-align: middle;"></span>
                                        <a href="index.php?action=absenceicon&amp;id=<?=$viewData['id']?>" class="btn btn-primary btn-sm" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_abs_icon']?></a>
                                     </div>
                                  </div>

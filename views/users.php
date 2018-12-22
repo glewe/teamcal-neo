@@ -37,9 +37,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                   <?php 
                   $pageHelp = '';
-                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['users_title'].$pageHelp?></div>
+                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['users_title'].$pageHelp?></div>
                   
                   <div class="panel-body">
 
@@ -108,11 +108,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<img src='<?=APP_AVATAR_DIR.$UO->read($user['username'],'avatar')?>' style='width: 80px; height: 80px;'>"><img src="<?=APP_AVATAR_DIR?>/<?=$UO->read($user['username'],'avatar')?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?=$user['dispname']?>
                                     </div>
                                     <div class="col-lg-2">
-                                       <a href="#" data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$user['role']?>"><i class="fa fa-user text-<?=$user['color']?>" style="font-size: 128%; padding-right: 4px;"></i></a>
-                                       <?=(($user['locked'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_locked'].'"><i class="glyphicon glyphicon-menu glyphicon-lock text-danger"></i></i>':'')?>
-                                       <?=(($user['onhold'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_onhold'].'"><i class="glyphicon glyphicon-menu glyphicon-time text-warning"></i></i>':'')?>
-                                       <?=(($user['verify'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_verify'].'"><i class="glyphicon glyphicon-menu glyphicon-exclamation-sign text-success"></i></i>':'')?>
-                                       <?=(($user['hidden'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_hidden'].'"><i class="glyphicon glyphicon-menu glyphicon-eye-close text-info"></i></i>':'')?>
+                                       <a href="#" data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$user['role']?>"><i class="fas fa-user-circle fa-sm text-<?=$user['color']?>"></i></a>
+                                       <?=(($user['locked'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_locked'].'"><i class="fas fa-lock fa-sm text-danger"></i></i>':'')?>
+                                       <?=(($user['onhold'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_onhold'].'"><i class="far fa-clock fa-sm text-warning"></i></i>':'')?>
+                                       <?=(($user['verify'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_verify'].'"><i class="fas fa-exclamation-circle fa-sm text-success"></i></i>':'')?>
+                                       <?=(($user['hidden'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_hidden'].'"><i class="far fa-eye-slash fa-sm text-info"></i></i>':'')?>
                                     </div>
                                     <div class="col-lg-2"><?=$user['created']?></div>
                                     <div class="col-lg-2"><?=(($user['last_login']!=DEFAULT_TIMESTAMP)?$user['last_login']:"")?></div>
@@ -181,11 +181,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<img src='<?=APP_AVATAR_DIR.$UO->read($user1['username'],'avatar',true)?>' style='width: 80px; height: 80px;'>"><img src="<?=APP_AVATAR_DIR?>/<?=$UO->read($user1['username'],'avatar',true)?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?=$user1['dispname']?>
                                     </div>
                                     <div class="col-lg-2">
-                                       <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$LANG['role_'.$user1['role']]?>"><i class="fa fa-user text-<?=$user1['color']?>" style="font-size: 128%; padding-right: 8px;"></i></i>
-                                       <?=(($user1['locked'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_locked'].'"><i class="glyphicon glyphicon-menu glyphicon-lock text-danger"></i></i>':'')?>
-                                       <?=(($user1['hidden'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_hidden'].'"><i class="glyphicon glyphicon-menu glyphicon-eye-close text-info"></i></i>':'')?>
-                                       <?=(($user1['onhold'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_onhold'].'"><i class="glyphicon glyphicon-menu glyphicon-time text-warning"></i></i>':'')?>
-                                       <?=(($user1['verify'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_verify'].'"><i class="glyphicon glyphicon-menu glyphicon-exclamation-sign text-success"></i></i>':'')?>
+                                       <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$LANG['role_'.$user1['role']]?>"><i class="fas fa-user-circle fa-sm text-<?=$user1['color']?>"></i></i>
+                                       <?=(($user1['locked'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_locked'].'"><i class="fas fa-lock fa-sm text-danger"></i></i>':'')?>
+                                       <?=(($user1['onhold'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_onhold'].'"><i class="far fa-clock fa-sm text-warning"></i></i>':'')?>
+                                       <?=(($user1['verify'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_verify'].'"><i class="fas fa-exclamation-circle fa-sm text-success"></i></i>':'')?>
+                                       <?=(($user1['hidden'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_hidden'].'"><i class="far fa-eye-slash fa-sm text-info"></i></i>':'')?>
                                     </div>
                                     <div class="col-lg-2"><?=$user1['created']?></div>
                                     <div class="col-lg-2"><?=$user1['last_login']?></div>
@@ -227,7 +227,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          </div>
       </div>
 
-      <script type="text/javascript">
+      <script>
       $('#chk_selectAllActive').click(function(event) {   
          if(this.checked) {
             $(":checkbox[name='chk_userActive[]']").each(function() {

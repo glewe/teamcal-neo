@@ -53,17 +53,17 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
             }
             ?>
             <?php if ($showMonths < 12 ) { ?>
-               <button type="submit" name="btn_onemore" class="btn btn-default tooltip-default pull-right" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_onemore']?>"><span class="fa fa-plus"></span></button>
+               <button type="submit" name="btn_onemore" class="btn btn-default tooltip-default pull-right" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_onemore']?>"><span class="fas fa-plus"></span></button>
             <?php } ?>
             <?php if ($showMonths > 1 ) { ?>
-               <button type="submit" name="btn_oneless" class="btn btn-default tooltip-default pull-right" style="margin-right:4px;" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_oneless']?>"><span class="fa fa-minus"></span></button>
+               <button type="submit" name="btn_oneless" class="btn btn-default tooltip-default pull-right" style="margin-right:4px;" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_oneless']?>"><span class="fas fa-minus"></span></button>
             <?php } ?>
 
             <!-- Modal: Select Month -->
             <?=createModalTop('modalSelectMonth', $LANG['cal_selMonth'])?>
             <div style="width:48%;float:left;">
                <?=$LANG['year']?><br>
-               <input id="year" class="form-control" tabindex="<?=$tabindex++?>" name="txt_year" type="number" min="2000" max="2100" maxlength="4" value="<?=$viewData['year']?>">
+               <input id="year" class="form-control" tabindex="<?=$tabindex++?>" name="txt_year" type="number" min="2000" max="2100" value="<?=$viewData['year']?>">
             </div>
             <div style="width:45%;float:right;">
                <?=$LANG['month']?><br>
@@ -148,16 +148,16 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
             
                <!-- First Page Link -->
                <?php if ($page==1) { ?>
-                  <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span></span></li>
+                  <li class="disabled"><span><span aria-hidden="true"><i class="fas fa-angle-double-left"></i></span></span></li>
                <?php } else { ?>
-                  <li><a href="<?=$formLink?>&amp;page=1" title="<?=$LANG['page_first']?>"><span><i class="fa fa-angle-double-left"></i></span></a></li>
+                  <li><a href="<?=$formLink?>&amp;page=1" title="<?=$LANG['page_first']?>"><span><i class="fas fa-angle-double-left"></i></span></a></li>
                <?php } ?>
                
                <!-- Previous Page Link -->
                <?php if ($page==1) { ?>
-                  <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-left"></i></span></span></li>
+                  <li class="disabled"><span><span aria-hidden="true"><i class="fas fa-angle-left"></i></span></span></li>
                <?php } else { ?>
-                  <li><a href="<?=$formLink?>&amp;page=<?=$page-1?>" title="<?=$LANG['page_prev']?>"><span><i class="fa fa-angle-left"></i></span></a></li>
+                  <li><a href="<?=$formLink?>&amp;page=<?=$page-1?>" title="<?=$LANG['page_prev']?>"><span><i class="fas fa-angle-left"></i></span></a></li>
                <?php } ?>
                
                <!-- Page Link -->
@@ -171,16 +171,16 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                
                <!-- Next Page Link -->
                <?php if ($page==$pages) { ?>
-                  <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-right"></i></span></span></li>
+                  <li class="disabled"><span><span aria-hidden="true"><i class="fas fa-angle-right"></i></span></span></li>
                <?php } else { ?>
-                  <li><a href="<?=$formLink?>&amp;page=<?=$page+1?>" title="<?=$LANG['page_next']?>"><span><i class="fa fa-angle-right"></i></span></a></li>
+                  <li><a href="<?=$formLink?>&amp;page=<?=$page+1?>" title="<?=$LANG['page_next']?>"><span><i class="fas fa-angle-right"></i></span></a></li>
                <?php } ?>
                
                <!-- Last Page Link -->
                <?php if ($page==$pages) { ?>
-                  <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span></span></li>
+                  <li class="disabled"><span><span aria-hidden="true"><i class="fas fa-angle-double-right"></i></span></span></li>
                <?php } else { ?>
-                  <li><a href="<?=$formLink?>&amp;page=<?=$pages?>" title="<?=$LANG['page_last']?>"><span><i class="fa fa-angle-double-right"></i></span></a></li>
+                  <li><a href="<?=$formLink?>&amp;page=<?=$pages?>" title="<?=$LANG['page_last']?>"><span><i class="fas fa-angle-double-right"></i></span></a></li>
                <?php } ?>
                
            </ul>

@@ -35,9 +35,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['hol_list_title'].$pageHelp?></div>
+               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['hol_list_title'].$pageHelp?></div>
                
                <div class="panel-body">
 
@@ -85,9 +85,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <div class="col-lg-2"><?=$holiday['name']?></div>
                            <div class="col-lg-4"><?=$holiday['description']?></div>
                            <div class="col-lg-3">
-                              <?=(($holiday['businessday'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['hol_businessday'].'"><i class="fa fa-wrench fa-lg text-default"></i></i>&nbsp;':'')?>
-                              <?=(($holiday['keepweekendcolor'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['hol_keepweekendcolor'].'"><i class="fa fa-paint-brush fa-lg text-success"></i></i>&nbsp;':'')?>
-                              <?=(($holiday['noabsence'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['hol_noabsence'].'"><i class="fa fa-minus-circle fa-lg text-danger"></i></i>':'')?>
+                              <?=(($holiday['businessday'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['hol_businessday'].'"><i class="fas fa-wrench fa-lg text-default"></i></i>&nbsp;':'')?>
+                              <?=(($holiday['keepweekendcolor'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['hol_keepweekendcolor'].'"><i class="fas fa-paint-brush fa-lg text-success"></i></i>&nbsp;':'')?>
+                              <?=(($holiday['noabsence'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['hol_noabsence'].'"><i class="fas fa-minus-circle fa-lg text-danger"></i></i>':'')?>
                            </div>
                            <div class="col-lg-2 text-right">
                               <?php if ($holiday['id'] > 3) { ?>

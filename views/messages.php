@@ -26,9 +26,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['msg_title']." ".$UL->firstname." ".$UL->lastname.$pageHelp?></div>
+               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['msg_title']." ".$UL->firstname." ".$UL->lastname.$pageHelp?></div>
                <div class="panel-body">
                   
                   <?php if (!empty($msgData)) { ?>

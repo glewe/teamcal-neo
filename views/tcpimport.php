@@ -37,9 +37,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                   <?php 
                   $pageHelp = '';
-                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['tcpimp_title'].$pageHelp?></div>
+                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['tcpimp_title'].$pageHelp?></div>
                   
                   <div class="panel-body">
    
@@ -333,8 +333,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          </div>
       </div>
 
-      <script type="text/javascript" src="js/ajax.js"></script>
-      <script type="text/javascript">
+      <script src="js/ajax.js"></script>
+      <script>
       function checkTcpDB() {
          var myDbServer = document.getElementById('txt_tcpDbServer');
          var myDbUser = document.getElementById('txt_tcpDbUser');

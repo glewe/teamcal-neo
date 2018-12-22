@@ -111,7 +111,9 @@ $viewData['icon'] = $AA->icon;
 
 foreach ($faIcons as $faIcon)
 {
-   $viewData['faIcons'][] = array ('val' => $faIcon, 'name' => proper($faIcon), 'selected' => ($AA->icon == $faIcon)?true:false );
+   if (strstr($faIcon,"fab ")) $viewData['fabIcons'][] = array ('val' => $faIcon, 'name' => proper($faIcon), 'selected' => ($AA->icon == $faIcon)?true:false );
+   if (strstr($faIcon,"far ")) $viewData['farIcons'][] = array ('val' => $faIcon, 'name' => proper($faIcon), 'selected' => ($AA->icon == $faIcon)?true:false );
+   if (strstr($faIcon,"fas ")) $viewData['fasIcons'][] = array ('val' => $faIcon, 'name' => proper($faIcon), 'selected' => ($AA->icon == $faIcon)?true:false );
 }
 
 //=============================================================================

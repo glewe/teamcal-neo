@@ -62,8 +62,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             ?>
                         
             <div class="page-menu">
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>"><span class="fa fa-angle-double-left"></span></a>
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>"><span class="fa fa-angle-double-right"></span></a>
+               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>"><span class="fas fa-angle-double-left"></span></a>
+               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>"><span class="fas fa-angle-double-right"></span></a>
                <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$viewData['yearToday'].$viewData['monthToday']?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>"><?=$LANG['today']?></a>
                <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalPeriod"><?=$LANG['caledit_Period']?></button>
                <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalRecurring"><?=$LANG['caledit_Recurring']?></button>
@@ -79,7 +79,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
                <div class="panel-heading"><?=sprintf($LANG['caledit_title'], $viewData['year'], $viewData['month'], $LANG['group'] . ': ' . $viewData['groupname'])?><?=$pageHelp?></div>
             </div>
@@ -195,7 +195,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     }
                                     else
                                     {
-                                       $icon = '<span class="fa fa-'.$A->getIcon($abs).'"></span>';
+                                       $icon = '<span class="'.$A->getIcon($abs).'"></span>';
                                     }
                                     $loopDate = date('Y-m-d', mktime(0, 0, 0, $viewData['month'], $i, $viewData['year']));
                                     if ( $loopDate == $currDate )
@@ -302,7 +302,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   </div>
                   <div style="width: 40%; margin-bottom: 20px;">
                      <input id="periodStart" class="form-control" tabindex="<?=$tabindex++?>" name="txt_periodStart" type="text" maxlength="10" value="">
-                     <script type="text/javascript">
+                     <script>
                         $(function() { 
                            $( "#periodStart" ).datepicker({ 
                               changeMonth: true, 
@@ -331,8 +331,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   </div>
                   <div style="width: 40%; margin-bottom: 20px;">
                      <input id="periodEnd" class="form-control" tabindex="<?=$tabindex++?>" name="txt_periodEnd" type="text" maxlength="10" value="">
-                     <script type="text/javascript"
-                        >$(function() { 
+                     <script>
+                        $(function() { 
                            $( "#periodEnd" ).datepicker({ 
                               changeMonth: true, 
                               changeYear: true, 

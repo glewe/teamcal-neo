@@ -67,7 +67,6 @@ $LANG['widths'] = array (
 //
 $LANG['abs_list_title'] = 'Abwesenheitstypen';
 $LANG['abs_edit_title'] = 'Abwesenheitstyp bearbeiten: ';
-$LANG['abs_icon_title'] = 'Icon-Auswahl: ';
 $LANG['abs_alert_edit'] = 'Abwesenheitstyp aktualisieren';
 $LANG['abs_alert_edit_success'] = 'Die Informationen f&uuml;r diesen Abwesenheitstyp wurden aktualisiert.';
 $LANG['abs_alert_created'] = 'Der Abwesenheitstyp wurde angelegt.';
@@ -140,6 +139,14 @@ $LANG['abs_symbol_comment'] = 'Die Zeichen ID wird in E-Mails benutzt, da die Fo
 $LANG['abs_tab_groups'] = 'Gruppenzuordnung';
 $LANG['abs_takeover'] = '&Uuml;bernahme aktivieren';
 $LANG['abs_takeover_comment'] = 'Erm&ouml;glicht, dass dieser Abwesenheitstyp &uuml;bernommen werden kann. Dazu muss die Abwesenheits&uuml;bernahme in TeamCal Neo generell eingeschaltet sein.';
+
+//
+// Absence Icon
+//
+$LANG['absico_title'] = 'Icon-Auswahl: ';
+$LANG['absico_tab_brand'] = 'Marken Icons';
+$LANG['absico_tab_regular'] = 'Regular Icons';
+$LANG['absico_tab_solid'] = 'Solid Icons';
 
 //
 // Absences Summary
@@ -418,12 +425,12 @@ $LANG['dn_alert_update'] = 'Tagesnotiz aktualisieren';
 $LANG['dn_alert_update_success'] = 'Die Tagesnotiz wurde erfolgreich aktualisiert.';
 $LANG['dn_color'] = 'Tagesnotiz Farbe';
 $LANG['dn_color_comment'] = 'W&auml;hle eine Farbe f&uuml;r die Tagesnotiz. Sie wird als Hintergrundfarbe f&uuml;r ihr Popup benutzt.';
-$LANG['dn_color_danger'] = '<i class="fa fa-square text-danger"></i>';
-$LANG['dn_color_default'] = '<i class="fa fa-square text-default"></i>';
-$LANG['dn_color_info'] = '<i class="fa fa-square text-info"></i>';
-$LANG['dn_color_primary'] = '<i class="fa fa-square text-primary"></i>';
-$LANG['dn_color_success'] = '<i class="fa fa-square text-success"></i>';
-$LANG['dn_color_warning'] = '<i class="fa fa-square text-warning"></i>';
+$LANG['dn_color_danger'] = '<i class="fas fa-square text-danger"></i>';
+$LANG['dn_color_default'] = '<i class="fas fa-square text-default"></i>';
+$LANG['dn_color_info'] = '<i class="fas fa-square text-info"></i>';
+$LANG['dn_color_primary'] = '<i class="fas fa-square text-primary"></i>';
+$LANG['dn_color_success'] = '<i class="fas fa-square text-success"></i>';
+$LANG['dn_color_warning'] = '<i class="fas fa-square text-warning"></i>';
 $LANG['dn_confidential'] = 'Vertraulich';
 $LANG['dn_confidential_comment'] = 'Dieser Schalter macht die Tagesnotiz "vertraulich". Normale Nutzer k&ouml;nnen sie nicht im Kalender
       sehen, nur Admins, Manager und der Benutzer selbst. Dies kann f&uuml;r sensitive Tagesnotizen n&uuml;tzlich sein. Es kann Sinn machen, dies mit

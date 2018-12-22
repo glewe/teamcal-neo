@@ -46,9 +46,9 @@ $formLink = 'index.php?action='.$controller.'&amp;group='.$viewData['groupid'];
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><?=$LANG['rem_title'].$pageHelp?></div>
+               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['rem_title'].$pageHelp?></div>
             </div>
             
             <!-- Remainder Table -->
@@ -66,7 +66,7 @@ $formLink = 'index.php?action='.$controller.'&amp;group='.$viewData['groupid'];
                                  <?php if($abs['bgtrans']) $bgstyle=""; else $bgstyle="background-color: #".$abs['bgcolor'].";";?>
                                  <div style="color:#<?=$abs['color']?>;<?=$bgstyle?>border:1px solid #333333; width:26px; height:26px;">
                                     <?php if ($abs['icon'] != "No") { ?>
-                                       <a href="#" style="color:inherit;" data-position="tooltip-top" class="tooltip-default" data-toggle="tooltip" data-title="<?=$abs['name']?>"><span class="fa fa-<?=$abs['icon']?>"></span></a>
+                                       <a href="#" style="color:inherit;" data-position="tooltip-top" class="tooltip-default" data-toggle="tooltip" data-title="<?=$abs['name']?>"><span class="<?=$abs['icon']?>"></span></a>
                                     <?php } else { ?>
                                        <?=$abs['symbol']?>
                                     <?php } ?>
@@ -171,16 +171,16 @@ $formLink = 'index.php?action='.$controller.'&amp;group='.$viewData['groupid'];
             
                <!-- First Page Link -->
                <?php if ($page==1) { ?>
-                  <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span></span></li>
+                  <li class="disabled"><span><span aria-hidden="true"><i class="fas fa-angle-double-left"></i></span></span></li>
                <?php } else { ?>
-                  <li><a href="<?=$formLink?>&amp;page=1" title="<?=$LANG['page_first']?>"><span><i class="fa fa-angle-double-left"></i></span></a></li>
+                  <li><a href="<?=$formLink?>&amp;page=1" title="<?=$LANG['page_first']?>"><span><i class="fas fa-angle-double-left"></i></span></a></li>
                <?php } ?>
                
                <!-- Previous Page Link -->
                <?php if ($page==1) { ?>
-                  <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-left"></i></span></span></li>
+                  <li class="disabled"><span><span aria-hidden="true"><i class="fas fa-angle-left"></i></span></span></li>
                <?php } else { ?>
-                  <li><a href="<?=$formLink?>&amp;page=<?=$page-1?>" title="<?=$LANG['page_prev']?>"><span><i class="fa fa-angle-left"></i></span></a></li>
+                  <li><a href="<?=$formLink?>&amp;page=<?=$page-1?>" title="<?=$LANG['page_prev']?>"><span><i class="fas fa-angle-left"></i></span></a></li>
                <?php } ?>
                
                <!-- Page Link -->
@@ -194,16 +194,16 @@ $formLink = 'index.php?action='.$controller.'&amp;group='.$viewData['groupid'];
                
                <!-- Next Page Link -->
                <?php if ($page==$pages) { ?>
-                  <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-right"></i></span></span></li>
+                  <li class="disabled"><span><span aria-hidden="true"><i class="fas fa-angle-right"></i></span></span></li>
                <?php } else { ?>
-                  <li><a href="<?=$formLink?>&amp;page=<?=$page+1?>" title="<?=$LANG['page_next']?>"><span><i class="fa fa-angle-right"></i></span></a></li>
+                  <li><a href="<?=$formLink?>&amp;page=<?=$page+1?>" title="<?=$LANG['page_next']?>"><span><i class="fas fa-angle-right"></i></span></a></li>
                <?php } ?>
                
                <!-- Last Page Link -->
                <?php if ($page==$pages) { ?>
-                  <li class="disabled"><span><span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span></span></li>
+                  <li class="disabled"><span><span aria-hidden="true"><i class="fas fa-angle-double-right"></i></span></span></li>
                <?php } else { ?>
-                  <li><a href="<?=$formLink?>&amp;page=<?=$pages?>" title="<?=$LANG['page_last']?>"><span><i class="fa fa-angle-double-right"></i></span></a></li>
+                  <li><a href="<?=$formLink?>&amp;page=<?=$pages?>" title="<?=$LANG['page_last']?>"><span><i class="fas fa-angle-double-right"></i></span></a></li>
                <?php } ?>
                
            </ul>

@@ -35,9 +35,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['abs_list_title']?><?=$pageHelp?></div>
+               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['abs_list_title']?><?=$pageHelp?></div>
                
                <div class="panel-body">
 
@@ -76,7 +76,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <?php if($absence['bgtrans']) $bgstyle=""; else $bgstyle="background-color: #".$absence['bgcolor'].";";?>
                               <div style="color: #<?=$absence['color']?>;<?=$bgstyle?>border: 1px solid #333333; width: 26px; height: 26px; text-align: center; padding-top: 2px;">
                                  <?php if ($absence['icon'] != "No") { ?>
-                                    <span class="fa fa-<?=$absence['icon']?>"></span>
+                                    <span class="<?=$absence['icon']?>"></span>
                                  <?php } else { ?>
                                     <?=$absence['symbol']?>
                                  <?php } ?>
@@ -84,11 +84,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                            <div class="col-lg-4"><?=$absence['name']?></div>
                            <div class="col-lg-5">
-                              <?=(($absence['approval_required'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_approval_required'].'"><i class="fa fa-pencil-square-o fa-lg text-danger"></i></i>':'')?>
-                              <?=(($absence['manager_only'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_manager_only'].'"><i class="fa fa-user fa-lg text-warning"></i></i>':'')?>
-                              <?=(($absence['hide_in_profile'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_hide_in_profile'].'"><i class="fa fa-eye-slash fa-lg text-info"></i></i>':'')?>
-                              <?=(($absence['confidential'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_confidential'].'"><i class="fa fa-exclamation-circle fa-lg text-success"></i></i>':'')?>
-                              <?=(($absence['allowmonth'] OR ($absence['allowweek']))?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_allow_active'].'"><i class="fa fa-hand-stop-o fa-lg text-warning"></i></i>':'')?>
+                              <?=(($absence['approval_required'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_approval_required'].'"><i class="far fa-edit fa-lg text-danger"></i></i>':'')?>
+                              <?=(($absence['manager_only'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_manager_only'].'"><i class="fas fa-user-circle fa-lg text-warning"></i></i>':'')?>
+                              <?=(($absence['hide_in_profile'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_hide_in_profile'].'"><i class="far fa-eye-slash fa-lg text-info"></i></i>':'')?>
+                              <?=(($absence['confidential'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_confidential'].'"><i class="fas fa-exclamation-circle fa-lg text-success"></i></i>':'')?>
+                              <?=(($absence['allowmonth'] OR ($absence['allowweek']))?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_allow_active'].'"><i class="far fa-hand-paper fa-lg text-warning"></i></i>':'')?>
                            </div>
                            <div class="col-lg-2 text-right">
                               <button type="button" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteAbsence_<?=$absence['id']?>"><?=$LANG['btn_delete']?></button>
@@ -110,10 +110,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      foreach ($subabsences as $subabs) { ?>
                         <form  class="bs-example form-control-horizontal" name="form_<?=$subabs['id']?>" action="index.php?action=absences" method="post" target="_self" accept-charset="utf-8">
                            <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-                              <div class="col-lg-1 text-right"><i class="fa fa-angle-double-right"></i></div>
+                              <div class="col-lg-1 text-right"><i class="fas fa-angle-double-right"></i></div>
                               <div class="col-lg-1">
-                                 <div id="sample" style="color: #<?=$subabs['color']?>; background-color: #<?=$subabs['bgcolor']?>; border: 1px solid #333333; width: 26px; height: 26px; text-align: center; padding-top: 2px;">
-                                    <span class="fa fa-<?=$subabs['icon']?>"></span>
+                                 <div style="color: #<?=$subabs['color']?>; background-color: #<?=$subabs['bgcolor']?>; border: 1px solid #333333; width: 26px; height: 26px; text-align: center; padding-top: 2px;">
+                                    <span class="<?=$subabs['icon']?>"></span>
                                  </div>
                               </div>
                               <div class="col-lg-3"><?=$subabs['name']?></div>

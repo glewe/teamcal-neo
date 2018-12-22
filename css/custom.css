@@ -101,6 +101,10 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
    width: 20px;   
 }
 
+.fa-header {
+   margin-right: 10px;
+}
+
 .footer {
    color: #999999;
    background-color: #212121;
@@ -126,6 +130,11 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
    border: solid #fff 5px;
    left: -5px;
    background: #fff;
+}
+
+.label-header-right {
+   margin-left: 8px;
+   margin-top: 2px;
 }
 
 .modal-header {
@@ -679,82 +688,82 @@ table.year div.weeknumber {
 }
 
 .social-icon a[href*="/feed"]:hover {background-color: #f39c12 !important;}
-.social-icon a[href*="/feed"] .fa:before{content:"\f09e"}
+.social-icon a[href*="/feed"] .fab:before{content:"\f09e"}
 
 .social-icon a[href*=".rss"]:hover {background-color: #f39c12 !important;}
-.social-icon a[href*=".rss"] .fa:before{content:"\f09e"}
+.social-icon a[href*=".rss"] .fab:before{content:"\f09e"}
 
 .social-icon a[href*="amazon."]:hover {background-color: #ff9900 !important;}
-.social-icon a[href*="amazon."] .fa:before{content:"\f270"}
+.social-icon a[href*="amazon."] .fab:before{content:"\f270"}
 
 .social-icon a[href*="behance.net"]:hover {background-color: #1769ff !important;}
-.social-icon a[href*="behance.net"] .fa:before{content: "\f1b4"}
+.social-icon a[href*="behance.net"] .fab:before{content: "\f1b4"}
 
 .social-icon a[href*="bitbucket.org"]:hover {background-color: #205081 !important;}
-.social-icon a[href*="bitbucket.org"] .fa:before{content: "\f171"}
+.social-icon a[href*="bitbucket.org"] .fab:before{content: "\f171"}
 
 .social-icon a[href*="deviantart.com"]:hover {background-color: #05cc47 !important;}
-.social-icon a[href*="deviantart.com"] .fa:before{content: "\f1bd"}
+.social-icon a[href*="deviantart.com"] .fab:before{content: "\f1bd"}
 
 .social-icon a[href*="dribbble.com"]:hover {background-color: #ea4c89 !important;}
-.social-icon a[href*="dribbble.com"] .fa:before{content: "\f17d"}
+.social-icon a[href*="dribbble.com"] .fab:before{content: "\f17d"}
 
 .social-icon a[href*="dropbox."]:hover {background-color: #007ee5 !important;}
-.social-icon a[href*="dropbox."] .fa:before{content: "\f16b"}
+.social-icon a[href*="dropbox."] .fab:before{content: "\f16b"}
 
 .social-icon a[href*="facebook.com"]:hover {background-color: #4265b9 !important;}
-.social-icon a[href*="facebook.com"] .fa:before{content:"\f09a"}
+.social-icon a[href*="facebook.com"] .fab:before{content:"\f09a"}
 
 .social-icon a[href*="flickr.com"]:hover {background-color: #ff0084 !important;}
-.social-icon a[href*="flickr.com"] .fa:before{content: "\f16e"}
+.social-icon a[href*="flickr.com"] .fab:before{content: "\f16e"}
 
 .social-icon a[href*="foursquare.com"]:hover {background-color: #2398C9 !important;}
-.social-icon a[href*="foursquare.com"] .fa:before{content: "\f180"}
+.social-icon a[href*="foursquare.com"] .fab:before{content: "\f180"}
 
 .social-icon a[href*="github.com"]:hover {background-color: #4183C4 !important;}
-.social-icon a[href*="github.com"] .fa:before{content:"\f09b"}
+.social-icon a[href*="github.com"] .fab:before{content:"\f09b"}
 
 .social-icon a[href*="instagram.com"]:hover {background-color: #F95B60 !important;}
 .social-icon a[href*="instagram.com"] .fa:before{content: "\f16d"}
 
 .social-icon a[href*="linkedin.com"]:hover {background-color: #005987 !important;}
-.social-icon a[href*="linkedin.com"] .fa:before{content: "\f0e1"}
+.social-icon a[href*="linkedin.com"] .fab:before{content: "\f0e1"}
 
 .social-icon a[href*="mailto"]:hover {background-color: #DA4453 !important;}
-.social-icon a[href*="mailto"] .fa:before{content: "\f003"}
+.social-icon a[href*="mailto"] .fab:before{content: "\f003"}
 
 .social-icon a[href*="paypal."]:hover {background-color: #003087 !important;}
-.social-icon a[href*="paypal."] .fa:before{content: "\f1ed"}
+.social-icon a[href*="paypal."] .fab:before{content: "\f1ed"}
 
 .social-icon a[href*="pinterest.com"]:hover {background-color: #c31e26 !important;}
-.social-icon a[href*="pinterest.com"] .fa:before{content: "\f0d2"}
+.social-icon a[href*="pinterest.com"] .fab:before{content: "\f0d2"}
 
 .social-icon a[href*="plus.google.com"]:hover {background-color: #dd4b39 !important;}
-.social-icon a[href*="plus.google.com"] .fa:before{content: "\f0d5"}
+.social-icon a[href*="plus.google.com"] .fab:before{content: "\f0d5"}
 
 .social-icon a[href*="skype.com"]:hover {background-color: #0bbff2 !important;}
-.social-icon a[href*="skype.com"] .fa:before{content: "\f17e"}
+.social-icon a[href*="skype.com"] .fab:before{content: "\f17e"}
 
 .social-icon a[href*="soundcloud.com"]:hover {background-color: #F50 !important;}
-.social-icon a[href*="soundcloud.com"] .fa:before{content: "\f1be"}
+.social-icon a[href*="soundcloud.com"] .fab:before{content: "\f1be"}
 
 .social-icon a[href*="spotify.com"]:hover {background-color: #81b71a !important;}
-.social-icon a[href*="spotify.com"] .fa:before{content: "\f1bc"}
+.social-icon a[href*="spotify.com"] .fab:before{content: "\f1bc"}
 
 .social-icon a[href*="tumblr.com"]:hover {background-color: #35506b !important;}
-.social-icon a[href*="tumblr.com"] .fa:before{content: "\f173"}
+.social-icon a[href*="tumblr.com"] .fab:before{content: "\f173"}
 
 .social-icon a[href*="twitter.com"]:hover {background-color: #55ACEE !important;}
-.social-icon a[href*="twitter.com"] .fa:before{content:"\f099"}
+.social-icon a[href*="twitter.com"] .fab:before{content:"\f099"}
 
 .social-icon a[href*="vimeo.com"]:hover {background-color: #1bb6ec !important;}
-.social-icon a[href*="vimeo.com"] .fa:before{content: "\f194"}
+.social-icon a[href*="vimeo.com"] .fab:before{content: "\f194"}
 
 .social-icon a[href*="xing.com"]:hover {background-color: #026466 !important;}
-.social-icon a[href*="xing.com"] .fa:before{content: "\f168"}
+.social-icon a[href*="xing.com"] .fab:before{content: "\f168"}
 
 .social-icon a[href*="youtube.com"]:hover {background-color: #df3333 !important;}
-.social-icon a[href*="youtube.com"] .fa:before{content: "\f167"}
+.social-icon a[href*="youtube.com"] .fab:before{content: "\f167"}
 
 .divTable         { display: table; width:275px; }
 .divTableRow      { display: table-row; }

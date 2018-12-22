@@ -61,8 +61,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             ?>
                         
             <div class="page-menu">
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>"><span class="fa fa-angle-double-left"></span></a>
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>"><span class="fa fa-angle-double-right"></span></a>
+               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>"><span class="fas fa-angle-double-left"></span></a>
+               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>"><span class="fas fa-angle-double-right"></span></a>
                <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$viewData['yearToday'].$viewData['monthToday']?>&amp;region=<?=$viewData['regionid']?>"><?=$LANG['today']?></a>
                <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectRegion"><?=$LANG['region'] . ': ' . $viewData['regionname']?></button>
                
@@ -75,9 +75,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><?=sprintf($LANG['monthedit_title'], $viewData['year'], $viewData['month'], $viewData['regionname']).$pageHelp?></div>
+               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=sprintf($LANG['monthedit_title'], $viewData['year'], $viewData['month'], $viewData['regionname']).$pageHelp?></div>
             </div>
             
             <?php if (!$viewData['supportMobile']) $mobilecols = array('full'=>$viewData['dateInfo']['daysInMonth']);
@@ -130,19 +130,19 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <?php for ($i=$daystart; $i<=$dayend; $i++) { 
                                  $prop = 'wday'.$i;
                                  if ($D->get($viewData['year'].$viewData['month'].sprintf("%02d",$i), 'all', $viewData['regionid'], true)) {
-                                    $icon = 'sticky-note';
+                                    $icon = 'fas fa-sticky-note';
                                     $tooltipColor = ' tooltip-'.$D->color;
                                     $tooltip = ' data-position="tooltip-top" data-toggle="tooltip" data-title="'.$D->daynote.'"';
                                  }
                                  else {
-                                    $icon = 'sticky-note-o';
+                                    $icon = 'far fa-sticky-note';
                                     $tooltipColor = '';
                                     $tooltip = '';
                                  }
                                  ?>
                                  <th class="m-weekday text-center"<?=$viewData['dayStyles'][$i]?>>
                                     <a href="index.php?action=daynote&amp;date=<?=$viewData['year'].$viewData['month'].sprintf("%02d",$i)?>&amp;for=all&amp;region=<?=$viewData['regionid']?>">
-                                       <i class="fa fa-<?=$icon?> text-info<?=$tooltipColor?>"<?=$tooltip?>></i>
+                                       <i class="<?=$icon?> text-info<?=$tooltipColor?>"<?=$tooltip?>></i>
                                     </a>
                                  </th>
                               <?php } ?>

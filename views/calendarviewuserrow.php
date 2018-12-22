@@ -77,7 +77,7 @@ if ($editAllowed)
             <?php if ($C->read('showRoleIcons')) {
                $thisRole = $U->getRole($usr['username']);
                ?>
-               <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$RO->getNameById($thisRole)?>"><i class="fa fa-user text-<?=$RO->getColorById($thisRole)?>" style="font-size: 128%; padding-right: 8px;"></i></i>
+               <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$RO->getNameById($thisRole)?>"><i class="fas fa-user-circle fa-sm text-<?=$RO->getColorById($thisRole)?>"></i></i>
             <?php } ?>
             <?=$profileName?>
             <?php if ($monAbsId=$C->read('monitorAbsence')) {
@@ -136,7 +136,7 @@ if ($editAllowed)
                      }
                      else
                      {
-                        $icon = '<span class="fa fa-'.$A->getIcon($T->$abs).'"></span>';
+                        $icon = '<span class="'.$A->getIcon($T->$abs).'"></span>';
                      }
                      $countFrom = $viewData['year'].$viewData['month'].'01'; 
                      $countTo = $viewData['year'].$viewData['month'].$dayend;
@@ -147,8 +147,8 @@ if ($editAllowed)
                         $taken .= countAbsence($usr['username'], $T->$abs, $countFrom, $countTo, true, false);
                         $taken .= ')';
                      }
-                     $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$A->getName($T->$abs).$taken.'">';                 
-                     $absend = '</div>';
+                     $absstart = '<span class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$A->getName($T->$abs).$taken.'">';                 
+                     $absend = '</span>';
                      if (!$A->getCountsAsPresent($T->$abs)) $dayAbsCount[$i]++; else $dayPresCount[$i]++;
                   }
                   else
@@ -158,8 +158,8 @@ if ($editAllowed)
                      //
                      $style .= 'color: #d5d5d5;background-color: #d5d5d5;';
                      $icon = '&nbsp;';
-                     $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$LANG['cal_tt_absent'].'">';
-                     $absend = '</div>';
+                     $absstart = '<span class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$LANG['cal_tt_absent'].'">';
+                     $absend = '</span>';
                      if (!$A->getCountsAsPresent($T->$abs)) $dayAbsCount[$i]++; else $dayPresCount[$i]++;
                   }
                }
@@ -170,8 +170,8 @@ if ($editAllowed)
                   //
                   $style .= 'color: #d5d5d5;background-color: #d5d5d5;';
                   $icon = '&nbsp;';
-                  $absstart = '<div class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$LANG['cal_tt_anotherabsence'].'">';
-                  $absend = '</div>';
+                  $absstart = '<span class="tooltip-danger" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="'.$LANG['cal_tt_anotherabsence'].'">';
+                  $absend = '</span>';
                   if (!$A->getCountsAsPresent($T->$abs)) $dayAbsCount[$i]++; else $dayPresCount[$i]++;
                }
             }
@@ -201,8 +201,8 @@ if ($editAllowed)
                if ($allowed)
                {
                   $note = true;
-                  $notestart = '<div class="tooltip-'.$D->color.'" style="width: 100%; height: 100%;" data-position="tooltip-bottom" data-toggle="tooltip" data-title="' . $D->daynote . '">';
-                  $noteend = '</div>';
+                  $notestart = '<span class="tooltip-'.$D->color.'" style="width: 100%; height: 100%;" data-position="tooltip-bottom" data-toggle="tooltip" data-title="' . $D->daynote . '">';
+                  $noteend = '</span>';
                }
             }
             

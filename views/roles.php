@@ -35,9 +35,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['roles_title'].$pageHelp?></div>
+               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['roles_title'].$pageHelp?></div>
                
                <div class="panel-body">
 
@@ -85,7 +85,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   <?php foreach ($viewData['roles'] as $role) { ?>
                   <form  class="bs-example form-control-horizontal" name="form_<?=$role['name']?>" action="index.php?action=roles" method="post" target="_self" accept-charset="utf-8">
                      <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-                        <div class="col-lg-3"><span class="glyphicon glyphicon-menu glyphicon-user text-<?=$role['color']?>" style="margin-right: 8px;"></span><?=$role['name']?></div>
+                        <div class="col-lg-3"><span class="fas fa-user-circle fa-lg text-<?=$role['color']?>" style="margin-right: 8px;"></span><?=$role['name']?></div>
                         <div class="col-lg-7"><?=$role['description']?></div>
                         <div class="col-lg-2 text-right">
                            <?php

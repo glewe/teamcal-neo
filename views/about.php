@@ -24,9 +24,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fa fa-question-circle fa-lg fa-menu"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><i class="fa fa-<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-menu"></i><?=$LANG['mnu_help_about']?><?=$pageHelp?></div>
+               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['mnu_help_about']?><?=$pageHelp?></div>
                <div class="panel-body">
                   <div class="col-lg-3"><img src="images/icons/logo-128.png" width="128" height="128" alt="" class="img_floatleft">
                   </div>
@@ -47,7 +47,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <li>Thomas Park <?=$LANG['about_for']?> <a href="http://bootswatch.com/" target="_blank">Bootswatch Themes</a></li>
                         <?php if (CHARTJS) { ?><li>Nick Downie <?=$LANG['about_for']?> <a href="http://www.chartjs.org/" target="_blank">Chart.js <?=CHARTJS_VER?></a></li><?php } ?>
                         <?php if (CKEDITOR) { ?><li>CKSource Sp. <?=$LANG['about_for']?> <a href="http://ckeditor.com/" target="_blank">CKEditor <?=CKEDITOR_VER?></a></li><?php } ?>
-                        <li>Dave Gandy <?=$LANG['about_for']?> <a href="http://fontawesome.io/" target="_blank">Font Awesome <?=FONTAWESOME_VER?></a></li>
+                        <li>Dave Gandy <?=$LANG['about_for']?> <a href="http://fontawesome.com/" target="_blank">Font Awesome <?=FONTAWESOME_VER?></a></li>
                         <li>Google Team <?=$LANG['about_for']?> <a href="https://www.google.com/fonts/" target="_blank">Google Fonts</a></li>
                         <li>jQuery Team <?=$LANG['about_for']?> <a href="http://www.jquery.com/" target="_blank">jQuery <?=JQUERY_VER?></a> <?=$LANG['about_and']?> <a href="http://www.jqueryui.com/" target="_blank">jQuery UI <?=JQUERY_UI_VER?></a></li>
                         <li>Stefan Petre <?=$LANG['about_for']?> <a href="http://www.eyecon.ro/colorpicker/" target="_blank">jQuery Color Picker</a></li>

@@ -67,7 +67,6 @@ $LANG['widths'] = array (
 //
 $LANG['abs_list_title'] = 'Absence Types';
 $LANG['abs_edit_title'] = 'Edit Absence Type: ';
-$LANG['abs_icon_title'] = 'Select Absence Type Icon: ';
 $LANG['abs_alert_edit'] = 'Update Absence Type';
 $LANG['abs_alert_edit_success'] = 'The information for this absence type was updated.';
 $LANG['abs_alert_created'] = 'The absence type was created.';
@@ -140,6 +139,14 @@ $LANG['abs_symbol_comment'] = 'The absence type character ID is used in notifica
 $LANG['abs_tab_groups'] = 'Group Assignments';
 $LANG['abs_takeover'] = 'Enable for Take-over';
 $LANG['abs_takeover_comment'] = 'Enables this absence type for taken over. Note, that the take-over feature must be enabled in TeamCal Neo for this to have an effect.';
+
+//
+// Absence Icon
+//
+$LANG['absico_title'] = 'Select Absence Type Icon: ';
+$LANG['absico_tab_brand'] = 'Brand Icons';
+$LANG['absico_tab_regular'] = 'Regular Icons';
+$LANG['absico_tab_solid'] = 'Solid Icons';
 
 //
 // Absences Summary
@@ -418,12 +425,12 @@ $LANG['dn_alert_update'] = 'Update Daynote';
 $LANG['dn_alert_update_success'] = 'The daynote was updated successfully.';
 $LANG['dn_color'] = 'Daynote Color';
 $LANG['dn_color_comment'] = 'Select a color for this daynote. This color will be used for the background of the daynote popup.';
-$LANG['dn_color_danger'] = '<i class="fa fa-square text-danger"></i>';
-$LANG['dn_color_default'] = '<i class="fa fa-square text-default"></i>';
-$LANG['dn_color_info'] = '<i class="fa fa-square text-info"></i>';
-$LANG['dn_color_primary'] = '<i class="fa fa-square text-primary"></i>';
-$LANG['dn_color_success'] = '<i class="fa fa-square text-success"></i>';
-$LANG['dn_color_warning'] = '<i class="fa fa-square text-warning"></i>';
+$LANG['dn_color_danger'] = '<i class="fas fa-square text-danger"></i>';
+$LANG['dn_color_default'] = '<i class="fas fa-square text-default"></i>';
+$LANG['dn_color_info'] = '<i class="fas fa-square text-info"></i>';
+$LANG['dn_color_primary'] = '<i class="fas fa-square text-primary"></i>';
+$LANG['dn_color_success'] = '<i class="fas fa-square text-success"></i>';
+$LANG['dn_color_warning'] = '<i class="fas fa-square text-warning"></i>';
 $LANG['dn_confidential'] = 'Confidential';
 $LANG['dn_confidential_comment'] = 'Checking this box marks this daynote as "confidential". The public and regular users cannot see it
       in the calendar, only admins, manager and the user himself/herself. This feature is useful if you want to hide sensitive daynotes from regular users.

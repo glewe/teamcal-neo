@@ -627,13 +627,13 @@ $LANG['home_title'] = 'Willkommen bei ' . $appTitle;
 $LANG['imprint'] = array ( 
    array (
       'title' => 'Author',
-      'text' => '<i class="fa fa-thumbs-o-up fa-3x pull-left" style="color: #999999;"></i>'.$appTitle.' wurde von George Lewe erstellt (<a href="http://www.lewe.com/">Lewe.com</a>).  
+      'text' => '<i class="fas fa-thumbs-up fa-3x fa-header pull-left" style="color: #999999;"></i>'.$appTitle.' wurde von George Lewe erstellt (<a href="http://www.lewe.com/">Lewe.com</a>).  
       '.$appTitle.' nutzt auch kostenlose Module von anderen gro&szlig;artigen Entwicklern, die dankenswerter Weise
       ihre Arbeit &ouml;ffentlich verf&uuml;gbar machen. Details dazu befinden sich auf der <a href="index.php?action=about">About Seite</a>.',
    ),
    array (
       'title' => 'Inhalt',
-      'text' => '<p><i class="fa fa-file-text-o fa-3x pull-left" style="color: #999999;"></i>Die Inhalte von '.$appTitle.' wurden sorgf&auml;tig vorbereitet und
+      'text' => '<p><i class="fas fa-file-alt fa-3x fa-header pull-left" style="color: #999999;"></i>Die Inhalte von '.$appTitle.' wurden sorgf&auml;tig vorbereitet und
       erstellt. Wo andere Quellen benutzt wurde, wird auch darauf hingewiesen. Sollte dies nicht der Fall sein, bitte informiere George Lewe mittels dieses 
       <a href="http://www.lewe.com/contact">Forumlars</a>.</p> 
       <p>Kein Inhalt der Applikation/Site, ganz oder in Teilen darf vervielf&auml;tigt, reproduziert, kopiert oder wiederwendet werden, in keiner Form, 
@@ -641,14 +641,14 @@ $LANG['imprint'] = array (
    ),
    array (
       'title' => 'Links',
-      'text' => '<p><i class="fa fa-external-link fa-3x pull-left" style="color: #999999;"></i>Alle Links bei '.$appTitle.' werden als Annehmlichkeit und nur
+      'text' => '<p><i class="fas fa-link fa-3x fa-header pull-left" style="color: #999999;"></i>Alle Links bei '.$appTitle.' werden als Annehmlichkeit und nur
       zu Informationszwecken angeboten. Sie stellen keine Bef&uuml;rwortung oder Akzeptanz der entfernten Inhalte durch '.$appTitle.' dar, weder in Bezug auf
       Produkte, Services oder Meinungen der verlinkten Anbieter. '.$appTitle.' ist nicht verantwortlich f&uuml;r die Richtigkeit oder Rechtm&auml;&szlig;keit
       der verlinkten Inhalte. Bei Fragen oder Bedenken zu den verlinkten Inhalten kontakiere bitte den Anbieter dort.</p>',
    ),
    array (
       'title' => 'Cookies',
-      'text' => '<p><i class="fa fa-download fa-3x pull-left" style="color: #999999;"></i>Diese Applikation benutzt Cookies. Cookies sind kleine Dateien mit 
+      'text' => '<p><i class="fas fa-cookie fa-3x fa-header pull-left" style="color: #999999;"></i>Diese Applikation benutzt Cookies. Cookies sind kleine Dateien mit 
       applikationsrelevanten Informationen, die auf der lokalen Festplatte gespeichert werden. Sie enthalten keine pers&ouml;nlichen Daten und werden auch 
       nicht &uuml;bertragen. Sie sind aber notwendig, damit diese Applikation funktioniert.</p>
       <p>In der EU ist es Gesetz, die Zustimmung des Nutzers dazu zu erhalten. Mit der Nutzung dieser Applikation wird diese Zustimmung vorausgesetzt.</p>',
@@ -658,7 +658,7 @@ $LANG['imprint'] = array (
 if ( $C->read('googleAnalytics') AND $C->read("googleAnalyticsID")) {
    $LANG['imprint'][] = array (
       'title' => 'Google Analytics',
-      'text' => '<p><i class="fa fa-google fa-3x pull-left" style="color: #999999;"></i>Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc.
+      'text' => '<p><i class="fab fa-google fa-3x fa-header pull-left" style="color: #999999;"></i>Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc.
       ("Google"). Google Analytics verwendet sog. "Cookies", Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website
       durch Sie erm&ouml;glichen. Die durch den Cookie erzeugten Informationen &uuml;ber die Nutzung dieser Website werden an Server von Google &uuml;bertragen und 
       dort gespeichert. Diese Server k&ouml;nnen sich den USA befinden.</p>
