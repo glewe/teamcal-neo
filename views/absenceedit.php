@@ -37,7 +37,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <input name="hidden_id" type="hidden" class="text" value="<?=$viewData['id']?>">
                
                <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
-                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['abs_edit_title'].$viewData['name']?></div>
+                  <?php 
+                  $pageHelp = '';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                  ?>
+                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['abs_edit_title'].$viewData['name']?><?=$pageHelp?></div>
+                  
                   <div class="panel-body">
 
                      <div class="panel panel-default">

@@ -44,7 +44,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="panel panel-default">
                         <div class="panel-body">
                            <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_save"><?=$LANG['btn_save']?></button>
-                           <a href="index.php?action=absenceedit&amp;id=<?=$viewData['id']?>" class="btn btn-success pull-right" style="margin-left:8px;" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_abs_edit']?></a>
+                           <a href="index.php?action=absenceedit&amp;id=<?=$viewData['id']?>" class="btn btn-default pull-right" style="margin-left:8px;" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_abs_edit']?></a>
                         </div>
                      </div>
 
@@ -124,7 +124,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="panel panel-default">
                         <div class="panel-body">
                            <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_save"><?=$LANG['btn_save']?></button>
-                           <a href="index.php?action=absence&amp;id=<?=$viewData['id']?>" class="btn btn-default pull-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_abs_edit']?></a>
+                           <a href="index.php?action=absenceedit&amp;id=<?=$viewData['id']?>" class="btn btn-default pull-right" style="margin-left:8px;" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_abs_edit']?></a>
                         </div>
                      </div>
                   
