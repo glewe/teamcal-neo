@@ -103,7 +103,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="col-lg-<?=$colsright?>">
                                        <input id="cleanBefore" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_cleanBefore" maxlength="10" value="<?=$viewData['cleanBefore']?>" type="text">
                                        <?php if ( isset($inputAlert["cleanBefore"]) AND strlen($inputAlert["cleanBefore"]) ) { ?> 
-                                          <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['cleanBefore']?></div>
+                                          <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?=$inputAlert['cleanBefore']?></div>
                                        <?php } ?> 
                                        <script>$(function() { $( "#cleanBefore" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });</script>
                                     </div>
@@ -118,7 +118,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="col-lg-<?=$colsright?>">
                                        <input class="form-control" tabindex="<?=$tabindex++?>" name="txt_cleanConfirm" maxlength="7" value="" type="text">
                                        <?php if ( isset($inputAlert["cleanConfirm"]) AND strlen($inputAlert["cleanConfirm"]) ) { ?> 
-                                          <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['cleanConfirm']?></div>
+                                          <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?=$inputAlert['cleanConfirm']?></div>
                                        <?php } ?> 
                                     </div>
                                  </div>
@@ -156,7 +156,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="col-lg-<?=$colsright?>">
                                        <input class="form-control" tabindex="<?=$tabindex++?>" name="txt_repairConfirm" maxlength="7" value="" type="text">
                                        <?php if ( isset($inputAlert["repairConfirm"]) AND strlen($inputAlert["repairConfirm"]) ) { ?> 
-                                          <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['repairConfirm']?></div>
+                                          <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?=$inputAlert['repairConfirm']?></div>
                                        <?php } ?> 
                                     </div>
                                  </div>
@@ -212,7 +212,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="col-lg-<?=$colsright?>">
                                        <input class="form-control" tabindex="<?=$tabindex++?>" name="txt_deleteConfirm" maxlength="6" value="" type="text">
                                        <?php if ( isset($inputAlert["deleteConfirm"]) AND strlen($inputAlert["deleteConfirm"]) ) { ?> 
-                                          <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['deleteConfirm']?></div>
+                                          <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?=$inputAlert['deleteConfirm']?></div>
                                        <?php } ?> 
                                     </div>
                                  </div>

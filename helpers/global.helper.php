@@ -951,14 +951,14 @@ function getTheme()
    //
    // Set the defaults
    //
-   if (!$name=$C->read("theme")) $name = 'bootstrap';
+   if (!$defaultTheme=$C->read("theme")) $defaultTheme = 'bootstrap';
    if (!$menuBarInverse=$C->read("menuBarInverse")) $menuBarInverse = '0';
    
    //
    // Fill the array with the defaults
    //
    $theme = array (
-      'name' => $name,
+      'name' => $defaultTheme,
       'menuBarInverse' => $menuBarInverse
    );
    
@@ -974,7 +974,7 @@ function getTheme()
          //
          if ($userTheme=$UO->read($thisuser, "theme") AND strlen($userTheme))
          {
-            if ($userTheme=='default') $theme['name'] = 'bootstrap';
+            if ($userTheme=='default') $theme['name'] = $defaultTheme;
             else $theme['name'] = $userTheme;
          }
           

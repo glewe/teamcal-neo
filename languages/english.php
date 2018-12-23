@@ -1025,7 +1025,7 @@ $LANG['profile_lastname'] = 'Lastname';
 $LANG['profile_lastname_comment'] = '';
 $LANG['profile_linkedin'] = 'LinkedIn';
 $LANG['profile_linkedin_comment'] = '';
-$LANG['profile_locked'] = '<i class="glyphicon glyphicon-menu glyphicon-lock text-danger" style="font-size: 80%; padding-right: 16px;"></i>Locked';
+$LANG['profile_locked'] = '<i class="fas fa-lock text-danger" style="padding-right: 8px;"></i>Locked';
 $LANG['profile_locked_comment'] = 'The account is locked. No login is possible.';
 $LANG['profile_managerships'] = 'Manager of';
 $LANG['profile_managerships_comment'] = 'Select the groups that this user is manager of. Should the same group be selected here and in the member list, 
@@ -1045,7 +1045,7 @@ $LANG['profile_notify_comment'] = 'Select the event types that would like to be 
 $LANG['profile_notifyGroupEvents'] = 'Group Events';
 $LANG['profile_notifyRoleEvents'] = 'Role Events';
 $LANG['profile_notifyUserEvents'] = 'User Account Events';
-$LANG['profile_onhold'] = '<i class="glyphicon glyphicon-menu glyphicon-time text-warning" style="font-size: 80%; padding-right: 16px;"></i>On hold';
+$LANG['profile_onhold'] = '<i class="far fa-clock text-warning" style="padding-right: 8px;"></i>On hold';
 $LANG['profile_onhold_comment'] = 'This status is applied after a user has entered a wrong password too many times. This causes a grace period in which no login is possible. 
       The grace period can be configured on the configuration page. You can manually release the status here as well.';
 $LANG['profile_password'] = 'Password';
@@ -1071,7 +1071,7 @@ $LANG['profile_twitter'] = 'Twitter';
 $LANG['profile_twitter_comment'] = '';
 $LANG['profile_username'] = 'Loginname';
 $LANG['profile_username_comment'] = 'The loginname cannot be changed for existing users.';
-$LANG['profile_verify'] = '<i class="glyphicon glyphicon-menu glyphicon-exclamation-sign text-success" style="font-size: 80%; padding-right: 16px;"></i>Verify';
+$LANG['profile_verify'] = '<i class="fas fa-exclamation-circle text-success" style="padding-right: 8px;"></i>Verify';
 $LANG['profile_verify_comment'] = 'When a user has registered himself but did not use the activation link yet, this status is applied. The account is created but no login is possible yet.
       You can manually release the status here as well.';
 
@@ -1108,12 +1108,12 @@ $LANG['role_alert_save_failed'] = 'The new information for this role could not b
 $LANG['role_alert_save_failed_duplicate'] = 'The new information for this role could not be saved. A role with that name already exists.';
 $LANG['role_color'] = 'Role Color';
 $LANG['role_color_comment'] = 'User icons will be colored based on the role color chosen here.';
-$LANG['role_color_danger'] = '<span class="glyphicon glyphicon-menu glyphicon-user text-danger"></span>';
-$LANG['role_color_default'] = '<span class="glyphicon glyphicon-menu glyphicon-user text-default"></span>';
-$LANG['role_color_info'] = '<span class="glyphicon glyphicon-menu glyphicon-user text-info"></span>';
-$LANG['role_color_primary'] = '<span class="glyphicon glyphicon-menu glyphicon-user text-primary"></span>';
-$LANG['role_color_success'] = '<span class="glyphicon glyphicon-menu glyphicon-user text-success"></span>';
-$LANG['role_color_warning'] = '<span class="glyphicon glyphicon-menu glyphicon-user text-warning"></span>';
+$LANG['role_color_danger'] = '<i class="fas fa-user-circle text-danger"></i>';
+$LANG['role_color_default'] = '<i class="fas fa-user-circle text-default"></i>';
+$LANG['role_color_info'] = '<i class="fas fa-user-circle text-info"></i>';
+$LANG['role_color_primary'] = '<i class="fas fa-user-circle text-primary"></i>';
+$LANG['role_color_success'] = '<i class="fas fa-user-circle text-success"></i>';
+$LANG['role_color_warning'] = '<i class="fas fa-user-circle text-warning"></i>';
 $LANG['role_description'] = 'Description';
 $LANG['role_description_comment'] = '';
 $LANG['role_name'] = 'Name';

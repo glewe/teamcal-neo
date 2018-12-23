@@ -750,7 +750,7 @@ $LANG['profile_calfilterGroup_comment'] = 'The calendar view can be filtered to 
 $LANG['profile_guestships'] = 'Show in other groups';
 $LANG['profile_guestships_comment'] = 'Show the calendar of this user in the selected groups, even if not a member (called a "guest membership"). Use this feature if the user is '.
       'not a member but the absences are still important to see along with those of the selected groups.<br><i>Guest users will be shown in italic font in the calendar</i>.';
-$LANG['profile_hidden'] = '<i class="glyphicon glyphicon-menu glyphicon-eye-close text-info" style="font-size: 80%; padding-right: 16px;"></i>Hide in calendar';
+$LANG['profile_hidden'] = '<i class="far fa-eye-slash text-info" style="padding-right: 8px;"></i>Hide in calendar';
 $LANG['profile_hidden_comment'] = 'With this option you can keep the user active but hide him in the calendar. The absences will still be counted in the statistics though. If that is
       not wanted, consider archiving this user.';
 $LANG['profile_notifyAbsenceEvents'] = 'Absence Events';

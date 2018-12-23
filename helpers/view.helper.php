@@ -26,7 +26,7 @@ function createAlertBox($data)
    global $LANG;
    $alertBox = '
       <div class="alert alert-dismissable alert-'.$data['type'].'">
-         <button type="button" class="close" data-dismiss="alert" title="'.$LANG['close_this_message'].'"><span class="glyphicon glyphicon-remove-circle"></span></button>
+         <button type="button" class="close" data-dismiss="alert" title="'.$LANG['close_this_message'].'"><i class="far fa-times-circle"></i></button>
          <h4><strong>'.$data['title'].'</strong></h4>
          <hr>
          <p><strong>'.$data['subject'].'</strong></p>
@@ -86,7 +86,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
    $error = '';
    if ( isset($data["error"]) AND strlen($data["error"]) ) 
    { 
-      $error = '<br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button>' . $data['error'] . '</div>';
+      $error = '<br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button>' . $data['error'] . '</div>';
    } 
     
    switch ($data['type'])

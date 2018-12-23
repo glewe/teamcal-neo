@@ -119,7 +119,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         });
                      </script>
                      <?php if ( isset($inputAlert["from"]) AND strlen($inputAlert["from"]) ) { ?> 
-                     <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['from']?></div>
+                     <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?=$inputAlert['from']?></div>
                      <?php } ?>
                   </div>
                   <div>&nbsp;</div>
@@ -138,7 +138,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         });
                      </script>
                      <?php if ( isset($inputAlert["to"]) AND strlen($inputAlert["to"]) ) { ?> 
-                     <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['to']?></div>
+                     <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?=$inputAlert['to']?></div>
                      <?php } ?>
                   </div>
                <?php } ?>

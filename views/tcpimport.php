@@ -56,7 +56,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <div class="panel panel-default">
                                  <div class="panel-body">
                                     <div class="alert alert-danger" role="alert">
-                                      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                      <span class="fas fa-exclamation-circle" aria-hidden="true"></span>
                                       <span class="sr-only">Error:</span>
                                       <?=$LANG['attention']?>
                                     </div>                                    

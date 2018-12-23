@@ -750,7 +750,7 @@ $LANG['profile_calfilterGroup_comment'] = 'Die Kalenderansicht kann auf eine Gru
 $LANG['profile_guestships'] = 'In anderen Gruppen anzeigen';
 $LANG['profile_guestships_comment'] = 'Zeigt den Kalender dieses Nutzers in den ausgew&auml;hlten Gruppen mit an, auch wenn keine Mitgliedschaft vorliegt (auch "Gastmitgliedschaft" genannt). Dieses Feature ist sinnvoll, wenn der Nutzer '.
       'zwar kein Mitglied, seine Abwesenheiten aber trotzdem relevant f&uuml;r die Gruppe sind.<br><i>Gastmitglieder werden im Kalender in schr&auml;ger Schrift dargestellt.</i>';
-$LANG['profile_hidden'] = '<i class="glyphicon glyphicon-menu glyphicon-eye-close text-info" style="font-size: 80%; padding-right: 16px;"></i>Im Kalender verbergen';
+$LANG['profile_hidden'] = '<i class="far fa-eye-slash text-info" style="padding-right: 8px;"></i>Im Kalender verbergen';
 $LANG['profile_hidden_comment'] = 'Mit dieser Option kann der Nutzer aktiv bleiben aber im Kalender verborgen werden. Die Abwesenheiten werden in den Statistiken jedoch weiter gez&auml;hlt. Sollte das
       nicht gew&uuml;nscht sein, wird die Archivierung des Nutzers empfohlen.';
 $LANG['profile_notifyAbsenceEvents'] = 'Abwesenheitstyp-Ereignisse';

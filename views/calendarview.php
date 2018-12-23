@@ -129,7 +129,7 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
                      <div class="modal-body">
                         <input id="search" class="form-control" tabindex="<?=$tabindex++?>" name="txt_search" type="text" value="<?=$viewData["search"]?>">
                         <?php if ( isset($inputAlert["search"]) ) { ?> 
-                           <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['search']?></div>
+                           <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?=$inputAlert['search']?></div>
                         <?php } ?> 
                      </div>
                      <div class="modal-footer">

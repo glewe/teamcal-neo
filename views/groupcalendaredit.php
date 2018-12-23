@@ -320,7 +320,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      </script>
                   </div>
                   <?php if ( isset($inputAlert["periodStart"]) AND strlen($inputAlert["periodStart"]) ) { ?> 
-                  <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['periodStart']?></div>
+                  <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?=$inputAlert['periodStart']?></div>
                   <?php } ?>
                </div>
                <div>&nbsp;</div>
@@ -342,7 +342,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      </script>
                   </div>
                   <?php if ( isset($inputAlert["periodEnd"]) AND strlen($inputAlert["periodEnd"]) ) { ?> 
-                  <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove-circle"></span></button><?=$inputAlert['periodEnd']?></div>
+                  <br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?=$inputAlert['periodEnd']?></div>
                   <?php } ?>
                </div>
             <?=createModalBottom('btn_saveperiod', 'success', $LANG['btn_save'])?>
