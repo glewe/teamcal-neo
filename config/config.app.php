@@ -36,7 +36,7 @@ define('APP_IMP_DIR', "upload/import/");
 // Set this to 0 if you want to run the installation.php script again.
 // If not, you need to delete or rename the installation.php file.
 //
-define('APP_INSTALLED',"0");
+define('APP_INSTALLED',"1");
 
 //
 // The cookie prefix to be used on the browser client's device
@@ -48,8 +48,8 @@ define('COOKIE_NAME',"tcneo");
  * MANDATORY MODULES
  */
 define('BOOTSTRAP_VER', "3.3.7");
-define('FONTAWESOME_VER', "4.7.0");
-define('JQUERY_VER', "3.1.1");
+define('FONTAWESOME_VER', "5.6.3");
+define('JQUERY_VER', "3.3.1");
 define('JQUERY_UI_VER', "1.12.1");
 define('SECUREIMAGE_VER', "3.6.4");
 
