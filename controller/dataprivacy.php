@@ -34,7 +34,7 @@ $viewData['gdpr_text'] = str_replace("%DATAPROTECTIONOFFICER%",nl2br($C->read('g
 
 $sectionNbr = 11;
 if ($C->read('gdprFacebook')) $viewData['gdpr_text'] .= sprintf($LANG['gdpr_facebook'],$sectionNbr++);
-if ($C->read('gdprGoogleAnalztics')) $viewData['gdpr_text'] .= sprintf($LANG['gdpr_google_analytics'],$sectionNbr++);
+if ($C->read('gdprGoogleAnalytics')) $viewData['gdpr_text'] .= sprintf($LANG['gdpr_google_analytics'],$sectionNbr++);
 if ($C->read('gdprGooglePlus')) $viewData['gdpr_text'] .= sprintf($LANG['gdpr_google_plus'],$sectionNbr++);
 if ($C->read('gdprInstagram')) $viewData['gdpr_text'] .= sprintf($LANG['gdpr_instagram'],$sectionNbr++);
 if ($C->read('gdprLinkedin')) $viewData['gdpr_text'] .= sprintf($LANG['gdpr_linkedin'],$sectionNbr++);
