@@ -69,6 +69,7 @@ $CONF['controllers'] = array (
    'attachments' => new Controller('attachments', 'fas fa-paperclip', $CONF['menuIconColor'], 'primary', 'upload', 'Attachments', 'https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/44138579/Attachments'),
    'config' => new Controller('config', 'fas fa-cog', $CONF['menuIconColor'], 'primary', 'admin', 'Configuration', 'https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/44138537/Framework+Configuration'),
    'database' => new Controller('database', 'fas fa-database', $CONF['menuIconColor'], 'danger', 'admin', 'Database', 'https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/44990477/Database+Management'),
+   'dataprivacy' => new Controller('dataprivacy', 'fas fa-shield-alt', $CONF['menuIconColor'], 'default', '', 'Data Privacy Policy', 'https://georgelewe.atlassian.net/wiki/spaces/TCNEO/overview'),
    'groups' => new Controller('groups', 'fas fa-users', $CONF['menuIconColor'], 'primary', 'groups', 'Groups', 'https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/44138585/Groups'),
    'groupedit' => new Controller('groupedit', 'fas fa-users', $CONF['menuIconColor'], 'danger', 'groups', 'Group Edit', 'https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/44138585/Groups'),
    'home' => new Controller('home', 'fas fa-home', $CONF['menuIconColor'], 'default', '', 'Home', 'https://georgelewe.atlassian.net/wiki/spaces/TCNEO/overview'),

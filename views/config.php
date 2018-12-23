@@ -58,6 +58,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         <li><a href="#system" data-toggle="tab"><?=$LANG['config_tab_system']?></a></li>
                         <li><a href="#tabtheme" data-toggle="tab"><?=$LANG['config_tab_theme']?></a></li>
                         <li><a href="#usericons" data-toggle="tab"><?=$LANG['config_tab_user']?></a></li>
+                        <li><a href="#gdpr" data-toggle="tab"><?=$LANG['config_tab_gdpr']?></a></li>
                      </ul>
 
                      <div id="myTabContent" class="tab-content">
@@ -157,6 +158,40 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  <?php foreach($viewData['user'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
+                              </div>
+                           </div>
+                        </div>
+
+                        <!-- GDPR tab -->
+                        <div class="tab-pane fade" id="gdpr">
+                           <div class="panel panel-default">
+                              <div class="panel-body">
+                                 <?php foreach($viewData['gdpr'] as $formObject) {
+                                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                                 } ?>
+                                 <div class="form-group" id="form-group-gdprPlatforms">
+                                    <label for="gdprFacebook" class="col-lg-8 control-label">
+                                       <?=$LANG['config_gdprPlatforms']?><br>
+                                       <span class="text-normal"><?=$LANG['config_gdprPlatforms_comment']?></span>
+                                    </label>
+                                    <div class="col-lg-4">
+                                       <div class="checkbox">
+                                          <label><input type="checkbox" id="gdprFacebook" name="chk_gdprFacebook" value="chk_gdprFacebook" tabindex="<?=$tabindex++;?>"<?=($C->read('gdprFacebook')?" checked":"")?>><i class="fab fa-facebook"></i>&nbsp;Facebook</label><br>
+                                          <label><input type="checkbox" id="gdprGoogleAnalytics" name="chk_gdprGoogleAnalytics" value="chk_gdprGoogleAnalytics" tabindex="<?=$tabindex++;?>"<?=($C->read('gdprGoogleAnalytics')?" checked":"")?>><i class="fab fa-google"></i>&nbsp;Google Analytics</label><br>
+                                          <label><input type="checkbox" id="gdprGooglePlus" name="chk_gdprGooglePlus" value="chk_gdprGooglePlus" tabindex="<?=$tabindex++;?>"<?=($C->read('gdprGooglePlus')?" checked":"")?>><i class="fab fa-google-plus-g"></i>&nbsp;Google+</label><br>
+                                          <label><input type="checkbox" id="gdprInstagram" name="chk_gdprInstagram" value="chk_gdprInstagram" tabindex="<?=$tabindex++;?>"<?=($C->read('gdprInstagram')?" checked":"")?>><i class="fab fa-instagram"></i>&nbsp;Instagram</label><br>
+                                          <label><input type="checkbox" id="gdprLinkedin" name="chk_gdprLinkedin" value="chk_gdprLinkedin" tabindex="<?=$tabindex++;?>"<?=($C->read('gdprLinkedin')?" checked":"")?>><i class="fab fa-linkedin"></i>&nbsp;LinkedIn</label><br>
+                                          <label><input type="checkbox" id="gdprPaypal" name="chk_gdprPaypal" value="chk_gdprPaypal" tabindex="<?=$tabindex++;?>"<?=($C->read('gdprPaypal')?" checked":"")?>><i class="fab fa-paypal"></i>&nbsp;Paypal</label><br>
+                                          <label><input type="checkbox" id="gdprPinterest" name="chk_gdprPinterest" value="chk_gdprPinterest" tabindex="<?=$tabindex++;?>"<?=($C->read('gdprPinterest')?" checked":"")?>><i class="fab fa-pinterest"></i>&nbsp;Pinterest</label><br>
+                                          <label><input type="checkbox" id="gdprSideshare" name="chk_gdprSideshare" value="chk_gdprSideshare" tabindex="<?=$tabindex++;?>"<?=($C->read('gdprSideshare')?" checked":"")?>><i class="fab fa-slideshare"></i>&nbsp;Slideshare</label><br>
+                                          <label><input type="checkbox" id="gdprTumblr" name="chk_gdprTumblr" value="chk_gdprTumblr" tabindex="<?=$tabindex++;?>"<?=($C->read('gdprTumblr')?" checked":"")?>><i class="fab fa-tumblr"></i>&nbsp;Tumblr</label><br>
+                                          <label><input type="checkbox" id="gdprTwitter" name="chk_gdprTwitter" value="chk_gdprTwitter" tabindex="<?=$tabindex++;?>"<?=($C->read('gdprTwitter')?" checked":"")?>><i class="fab fa-twitter"></i>&nbsp;Twitter</label><br>
+                                          <label><input type="checkbox" id="gdprXing" name="chk_gdprXing" value="chk_gdprXing" tabindex="<?=$tabindex++;?>"<?=($C->read('gdprXing')?" checked":"")?>><i class="fab fa-xing"></i>&nbsp;Xing</label><br>
+                                          <label><input type="checkbox" id="gdprYoutube" name="chk_gdprYoutube" value="chk_gdprYoutube" tabindex="<?=$tabindex++;?>"<?=($C->read('gdprYoutube')?" checked":"")?>><i class="fab fa-youtube"></i>&nbsp;Youtube</label>
+                                       </div>
+                                    </div>
+                                    <div class="divider"><hr></div>
+                                 </div>    
                               </div>
                            </div>
                         </div>

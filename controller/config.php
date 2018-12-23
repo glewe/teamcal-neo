@@ -179,6 +179,26 @@ if (!empty($_POST))
          $C->save("userCustom5",sanitize($_POST['txt_userCustom5']));
           
          //
+         // GDPR
+         //
+         if (isset($_POST['chk_gdprPolicyPage']) && $_POST['chk_gdprPolicyPage']) $C->save("gdprPolicyPage", "1"); else $C->save("gdprPolicyPage", "0");
+         $C->save("gdprOrganization", sanitize($_POST['txt_gdprOrganization']));
+         $C->save("gdprController", sanitize($_POST['txt_gdprController']));
+         $C->save("gdprOfficer", sanitize($_POST['txt_gdprOfficer']));
+         if (isset($_POST['chk_gdprFacebook']) && $_POST['chk_gdprFacebook']) $C->save("gdprFacebook", "1"); else $C->save("gdprFacebook", "0");
+         if (isset($_POST['chk_gdprGoogleAnalytics']) && $_POST['chk_gdprGoogleAnalytics']) $C->save("gdprGoogleAnalytics", "1"); else $C->save("gdprGoogleAnalytics", "0");
+         if (isset($_POST['chk_gdprGooglePlus']) && $_POST['chk_gdprGooglePlus']) $C->save("gdprGooglePlus", "1"); else $C->save("gdprGooglePlus", "0");
+         if (isset($_POST['chk_gdprInstagram']) && $_POST['chk_gdprInstagram']) $C->save("gdprInstagram", "1"); else $C->save("gdprInstagram", "0");
+         if (isset($_POST['chk_gdprLinkedin']) && $_POST['chk_gdprLinkedin']) $C->save("gdprLinkedin", "1"); else $C->save("gdprLinkedin", "0");
+         if (isset($_POST['chk_gdprPaypal']) && $_POST['chk_gdprPaypal']) $C->save("gdprPaypal", "1"); else $C->save("gdprPaypal", "0");
+         if (isset($_POST['chk_gdprPinterest']) && $_POST['chk_gdprPinterest']) $C->save("gdprPinterest", "1"); else $C->save("gdprPinterest", "0");
+         if (isset($_POST['chk_gdprSlideshare']) && $_POST['chk_gdprSlideshare']) $C->save("gdprSlideshare", "1"); else $C->save("gdprSlideshare", "0");
+         if (isset($_POST['chk_gdprTumblr']) && $_POST['chk_gdprTumblr']) $C->save("gdprTumblr", "1"); else $C->save("gdprTumblr", "0");
+         if (isset($_POST['chk_gdprTwitter']) && $_POST['chk_gdprTwitter']) $C->save("gdprTwitter", "1"); else $C->save("gdprTwitter", "0");
+         if (isset($_POST['chk_gdprXing']) && $_POST['chk_gdprXing']) $C->save("gdprXing", "1"); else $C->save("gdprXing", "0");
+         if (isset($_POST['chk_gdprYoutube']) && $_POST['chk_gdprYoutube']) $C->save("gdprYoutube", "1"); else $C->save("gdprYoutube", "0");
+          
+         //
          // Log this event
          //
          $LOG->log("logConfig", $UL->username, "log_config");
@@ -314,6 +334,13 @@ $viewData['user'] = array (
    array ( 'prefix' => 'config', 'name' => 'userCustom3', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("userCustom3"), 'maxlength' => '50' ),
    array ( 'prefix' => 'config', 'name' => 'userCustom4', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("userCustom4"), 'maxlength' => '50' ),
    array ( 'prefix' => 'config', 'name' => 'userCustom5', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("userCustom5"), 'maxlength' => '50' ),
+);
+
+$viewData['gdpr'] = array (
+   array ( 'prefix' => 'config', 'name' => 'gdprPolicyPage', 'type' => 'check', 'values' => '', 'value' => $C->read("gdprPolicyPage") ),
+   array ( 'prefix' => 'config', 'name' => 'gdprOrganization', 'type' => 'text', 'placeholder' => 'ACME Inc.', 'value' => strip_tags($C->read("gdprOrganization")), 'maxlength' => '160' ),
+   array ( 'prefix' => 'config', 'name' => 'gdprController', 'type' => 'textarea', 'value' => $C->read("gdprController"), 'rows' => 5, 'placeholder' => "ACME Inc.\nStreet\nTown\nCountry\nEmail" ),
+   array ( 'prefix' => 'config', 'name' => 'gdprOfficer', 'type' => 'textarea', 'value' => $C->read("gdprOfficer"), 'rows' => 5, 'placeholder' => "John Doe\nPhone\nEmail" ),
 );
 
 //=============================================================================

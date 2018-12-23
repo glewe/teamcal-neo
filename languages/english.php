@@ -349,6 +349,7 @@ $LANG['config_tab_registration'] = 'Registration';
 $LANG['config_tab_system'] = 'System';
 $LANG['config_tab_theme'] = 'Theme';
 $LANG['config_tab_user'] = 'User';
+$LANG['config_tab_gdpr'] = 'GDPR';
 
 $LANG['config_activateMessages'] = 'Activate Message Center';
 $LANG['config_activateMessages_comment'] = 'This option will activate the Message Center. User can use it to send announcements or e-mails to other
@@ -403,6 +404,19 @@ $LANG['config_footerSocialLinks'] = 'Social Links';
 $LANG['config_footerSocialLinks_comment'] = 'Enter all URLs to the social sites you want to link to from TeamCal Neo\'s footer. Separate them by smicolon. TeamCal Neo will identify them and place the proper icons in the footer.';
 $LANG['config_footerViewport'] = 'Show Viewport Size';
 $LANG['config_footerViewport_comment'] = 'Checking this option will show the viewport size in the footer.';
+
+$LANG['config_gdprController'] = 'Controller';
+$LANG['config_gdprController_comment'] = 'Enter the information about the controller for the purposes of the General Data Protection Regulation (GDPR), other data protection laws applicable in Member states of the European Union and other provisions related to data protection.';
+$LANG['config_gdprOfficer'] = 'Data Protection Officer';
+$LANG['config_gdprOfficer_comment'] = 'Name of the data protection officer of the controller.';
+$LANG['config_gdprOrganization'] = 'Organization';
+$LANG['config_gdprOrganization_comment'] = 'Name of the organisation oder company that provides this instance of TeamCal Neo.';
+$LANG['config_gdprPlatforms'] = 'Platform Policies';
+$LANG['config_gdprPlatforms_comment'] = 'Check the platforms that you want to have included in the data protection policy.';
+$LANG['config_gdprPolicyPage'] = 'Data Privacy Policy';
+$LANG['config_gdprPolicyPage_comment'] = 'Check to add a Data Privacy Policy page to the Help menu.<br>If selected, the fields "Organization", "Controller" and "Data Protection Officer" below must be filled in.<br>
+      Below that, you can optionally include policies for certain social networks in case you have linked them in your footer.';
+
 $LANG['config_googleAnalytics'] = 'Google Analytics';
 $LANG['config_googleAnalytics_comment'] = $appTitle . ' supports Google Analytics. If you run your instance in the Internet and want to use Google Analytics 
       to trace access to it, you can check this box and enter your Google Analytics ID below. The corresponding Javascript code will be added automatically.';
@@ -549,6 +563,11 @@ $LANG['db_reset_danger'] = '<strong>Danger!</strong> Resetting the database will
 $LANG['db_resetString'] = 'Database Reset Confirmation String';
 $LANG['db_resetString_comment'] = 'Resetting the database will replace all your information with the installation sample database.<br>
       Type the following in the text box to confirm your decision: "YesIAmSure".';
+
+//
+// Data Privacy Policy
+//
+$LANG['gdpr_title'] = 'Data Privacy Policy according to the GDPR';
 
 //
 // E-Mail
@@ -773,9 +792,10 @@ $LANG['mnu_admin_roles'] = 'Roles';
 $LANG['mnu_admin_systemlog'] = 'System Log';
 $LANG['mnu_admin_users'] = 'Users';
 $LANG['mnu_help'] = 'Help';
-$LANG['mnu_help_legend'] = 'Legend';
+$LANG['mnu_help_dataprivacy'] = 'Data Privacy Policy';
 $LANG['mnu_help_help'] = 'User Manual';
 $LANG['mnu_help_imprint'] = 'Imprint';
+$LANG['mnu_help_legend'] = 'Legend';
 $LANG['mnu_help_about'] = 'About ' . $appTitle;
 $LANG['mnu_user_login'] = 'Login';
 $LANG['mnu_user_register'] = 'Register';

@@ -771,3 +771,6 @@ table.year div.weeknumber {
 .divTableBody     { display: table-row-group; }
 .divTableFoot     { display: table-footer-group; }
 .divTableCell, .divTableHead  { display: table-cell; }
+
+.gdpr h4 {margin-top:24px;}
+.gdpr h5 {margin-top:16px;}

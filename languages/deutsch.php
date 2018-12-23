@@ -350,6 +350,7 @@ $LANG['config_tab_registration'] = 'Registrierung';
 $LANG['config_tab_system'] = 'System';
 $LANG['config_tab_theme'] = 'Theme';
 $LANG['config_tab_user'] = 'Nutzer';
+$LANG['config_tab_gdpr'] = 'DSVGO';
 
 $LANG['config_activateMessages'] = 'Message Center aktivieren';
 $LANG['config_activateMessages_comment'] = 'Mit diesem Schalter kann das Message Center aktiviert werden. Nutzer k&ouml;nnen damit anderen Nutzern und Gruppen 
@@ -405,6 +406,21 @@ $LANG['config_footerSocialLinks_comment'] = 'Gebe alle URLs zu sozialen Netzwerk
       TeamCal Neo wird die Netzwerke identifizieren und die entsprechende Icons in der Fu&szlig;zeile anzeigen.';
 $LANG['config_footerViewport'] = 'Viewport-Gr&ouml;&szlig;e anzeigen';
 $LANG['config_footerViewport_comment'] = 'Mit dieser Option wird im Footer die Viewport-Gr&ouml;&szlig; angezeigt.';
+
+$LANG['config_gdprController'] = 'Verantwortlicher';
+$LANG['config_gdprController_comment'] = 'Verantwortlicher im Sinne der Datenschutz-Grundverordnung, sonstiger in den Mitgliedstaaten der Europäischen Union geltenden Datenschutzgesetze und anderer Bestimmungen mit datenschutzrechtlichem Charakter.';
+$LANG['config_gdprFacebook'] = 'Facebook';
+$LANG['config_gdprFacebook_comment'] = 'Mir dieser Option wird eine Facebook Datenschutzerkl&auml;rung mit eingebunden.';
+$LANG['config_gdprOfficer'] = 'Datenschutzbeauftragter';
+$LANG['config_gdprOfficer_comment'] = 'Kontaktdaten des Datenschutzbeauftragten des Verantwortlichen.';
+$LANG['config_gdprOrganization'] = 'Organisation';
+$LANG['config_gdprOrganization_comment'] = 'Name der Organisation oder Firma, die diese TeamCal Neo Instanz bereitstellt.';
+$LANG['config_gdprPlatforms'] = 'Plattformen';
+$LANG['config_gdprPlatforms_comment'] = 'W&auml;hle die Plattformen, die in der Datenschutzerkl&auml;rung enthalten sein sollen.';
+$LANG['config_gdprPolicyPage'] = 'Datenschutzerkl&auml;rung';
+$LANG['config_gdprPolicyPage_comment'] = 'Mit dieser Option wird eine Seite mit der Datenschutzerkl&auml;rung im Hilfe Men&uuml; hinzugef&uuml;gt.<br>Dazu m&uuml;ssen die Felder "Organisation", "Verantwortlicher" und "Datenschutzbeauftragter" 
+      unten ausgef&uuml;llt werden.<br>Weiterhin k&ouml;nnen darunter optional Erkl&auml;rungen zu bestimmten sozialen Plattformen mit eingebunden werden, wenn sie beispielsweise im Fu&szlig;bereich verlinkt sind.';
+
 $LANG['config_googleAnalytics'] = 'Google Analytics';
 $LANG['config_googleAnalytics_comment'] = $appTitle . ' unterst&uuml;tzt Google Analytics. Wenn du deine Instanz im Internet betreibst und den Zugriff 
       von Google Analytics tracken lassen willst, ticke die Checkbox hier und trage deine Google Analytics ID ein. Der entsprechende Javascript Code wird dann eingef&uuml;gt.';
@@ -551,6 +567,11 @@ $LANG['db_reset_danger'] = '<strong>Achtung!</strong> Alle aktuellen Daten werde
 $LANG['db_resetString'] = 'Best&auml;tigung';
 $LANG['db_resetString_comment'] = 'Das Zur&uuml;cksetzen der Datenbank wird alle Daten mit den Beispieldaten der Applikation ersetzen.<br>
       Gebe den folgenden Text zur Best&auml;tigung ein: "YesIAmSure".';
+
+//
+// Data Privacy Policy
+//
+$LANG['gdpr_title'] = 'Datenschutzbestimmungen gem&auml;&szlig; DSVGO';
 
 //
 // E-Mail
@@ -778,10 +799,11 @@ $LANG['mnu_admin_roles'] = 'Rollen';
 $LANG['mnu_admin_systemlog'] = 'System Log';
 $LANG['mnu_admin_users'] = 'Nutzer';
 $LANG['mnu_help'] = 'Hilfe';
-$LANG['mnu_help_legend'] = 'Legende';
+$LANG['mnu_help_about'] = '&Uuml;ber '. $appTitle;
+$LANG['mnu_help_dataprivacy'] = 'Datenschutzerkl&auml;rung';
 $LANG['mnu_help_help'] = 'Nutzerhandbuch';
 $LANG['mnu_help_imprint'] = 'Impressum';
-$LANG['mnu_help_about'] = '&Uuml;ber '. $appTitle;
+$LANG['mnu_help_legend'] = 'Legende';
 $LANG['mnu_user_login'] = 'Login';
 $LANG['mnu_user_register'] = 'Registrieren';
 $LANG['mnu_user_logout'] = 'Logout';
