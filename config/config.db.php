@@ -5,7 +5,7 @@
  * Database parameters
  *
  * @category TeamCal Neo 
- * @version 1.9.011
+ * @version 2.0.0
  * @author George Lewe
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com

@@ -5,7 +5,7 @@
  * Log language file (German)
  *
  * @category TeamCal Neo 
- * @version 1.9.011
+ * @version 2.0.0
  * @author George Lewe
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
@@ -36,6 +36,8 @@ $LANG['log_db_delete_msg_orph'] = 'Datenbank L&ouml;schung: Alle verwaisten Bena
 $LANG['log_db_delete_perm'] = 'Datenbank L&ouml;schung: Alle individuellen Berechtigungsschemata';
 $LANG['log_db_delete_users'] = 'Datenbank L&ouml;schung: Alle Benutzer';
 $LANG['log_db_export'] = 'Datenbank Export: ';
+$LANG['log_db_optimized'] = 'Datenbank optimiert';
+$LANG['log_db_reset'] = 'Datenbank zur&uuml;ckgesetzt';
 $LANG['log_db_restore'] = 'Datenbank wiederhergestellt von ';
 $LANG['log_decl_updated'] = 'Ablehnungseinstellungen aktualisiert';
 $LANG['log_dn_created'] = 'Tagesnotiz angelegt: ';

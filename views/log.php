@@ -5,7 +5,7 @@
  * Log page view
  *
  * @category TeamCal Neo 
- * @version 1.9.011
+ * @version 2.0.0
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
@@ -110,8 +110,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           <div class="col-lg-1 small"><?=$i+1?></div>
                                           <div class="col-lg-3 small"><i class="far fa-clock fa-lg fa-menu" title="<?=$LANG['log_header_when']?>"></i><?=$event['timestamp']?></div>
                                           <div class="col-lg-2 small"><i class="far fa-edit fa-lg fa-menu" title="<?=$LANG['log_header_type']?>"></i><?=substr($event['type'],3)?></div>
-                                          <div class="col-lg-2 small"><i class="far fa-user fa-lg fa-menu" title="<?=$LANG['log_header_user']?>"></i><?=$event['user']?></div>
-                                          <div class="col-lg-4 small"><i class="far fa-comment fa-lg fa-menu" title="<?=$LANG['log_header_event']?>"></i><?=$event['event']?></div>
+                                          <div class="col-lg-2 small"><i class="far fa-user fa-lg fa-menu" title="<?=$LANG['log_header_user']?>"></i><a href="index.php?action=viewprofile&amp;profile=<?=$event['user']?>" target="_blank"><?=$event['user']?></a></div>
+                                          <div class="col-lg-4 small"><i class="far fa-hand-point-right fa-lg fa-menu" title="<?=$LANG['log_header_event']?>"></i><?=$event['event']?></div>
                                        </div>
                                     <?php } 
                                  } ?>

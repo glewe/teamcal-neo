@@ -4,7 +4,7 @@
  * Sample MySQL database
  *
  * @category TeamCal Neo 
- * @version 1.9.011
+ * @version 2.0.0
  * @author George Lewe
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
@@ -53,15 +53,15 @@ CREATE TABLE `tcneo_absences` (
 --
 
 INSERT INTO `tcneo_absences` (`id`, `name`, `symbol`, `icon`, `color`, `bgcolor`, `bgtrans`, `factor`, `allowance`, `allowmonth`, `allowweek`, `counts_as`, `show_in_remainder`, `show_totals`, `approval_required`, `counts_as_present`, `manager_only`, `hide_in_profile`, `confidential`, `takeover`) VALUES
-(1, 'Vacation', 'V', 'smile-o', 'FFEE00', 'FC3737', 0, 1, 20, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0),
-(2, 'Sick', 'S', 'ambulance', '8C208C', 'FFCCFF', 0, 1, 24, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
-(3, 'Day Off', 'F', 'coffee', '1A5C00', '00FF00', 0, 1, 12, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0),
-(4, 'Duty Trip', 'D', 'phone', '007A14', 'FFDB9E', 0, 1, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(5, 'Home Office', 'H', 'home', '1E00FF', 'D6F5FF', 0, 1, 0, 4, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0),
-(6, 'Not Present', 'N', 'times', 'FF0000', 'C0C0C0', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0),
-(7, 'Training', 'T', 'book', 'FFFFFF', '6495ED', 0, 1, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(8, 'Tentative Absence', 'A', 'question-circle', '5E5E5E', 'EFEFEF', 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0),
-(9, 'Half day', 'H', 'star-half-empty', 'A10000', 'FFAAAA', 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0);
+(1, 'Vacation', 'V', 'fas fa-umbrella-beach', 'FFEE00', 'FC3737', 0, 1, 20, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0),
+(2, 'Sick', 'S', 'fas fa-ambulance', '8C208C', 'FFCCFF', 0, 1, 24, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0),
+(3, 'Day Off', 'F', 'fas fa-coffee', '1A5C00', '00FF00', 0, 1, 12, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0),
+(4, 'Duty Trip', 'D', 'fas fa-plane-departure', 'A35D12', 'FFDB9E', 0, 1, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(5, 'Home Office', 'H', 'fas fa-home', '2717B5', 'D6F5FF', 0, 1, 0, 4, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0),
+(6, 'Not Present', 'N', 'fas fa-window-close', 'FF0000', 'C0C0C0', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0),
+(7, 'Training', 'T', 'fas fa-book-reader', 'FFFFFF', '6495ED', 0, 1, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(8, 'Tentative Absence', 'A', 'fas fa-question-circle', '5E5E5E', 'EFEFEF', 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0),
+(9, 'Half day', 'H', 'fas fa-star-half-alt', 'A10000', 'FFAAAA', 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -342,7 +342,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (16, 'userCustom3', 'Custom Field 3'),
 (17, 'userCustom4', 'Custom Field 4'),
 (18, 'userCustom5', 'Custom Field 5'),
-(19, 'emailNotifications', '1'),
+(19, 'emailNotifications', '0'),
 (20, 'emailNoPastNotifications', '0'),
 (21, 'mailFrom', 'TeamCal Neo'),
 (22, 'mailReply', 'webmaster@mysite.com'),
@@ -360,7 +360,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (34, 'emailConfirmation', '1'),
 (35, 'adminApproval', '1'),
 (36, 'jQueryCDN', '0'),
-(37, 'jqtheme', 'black-tie'),
+(37, 'jqtheme', 'base'),
 (38, 'debugHide', '0'),
 (39, 'timeZone', 'Europe/Berlin'),
 (40, 'googleAnalytics', '0'),
@@ -497,8 +497,27 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (172, 'monitorAbsence', '0'),
 (173, 'pageHelp', '0'),
 (174, 'regionalHolidays', '0'),
-(175, 'regionalHolidaysColor', 'CC0000');
-
+(175, 'regionalHolidaysColor', 'CC0000'),
+(176, 'calendarFontSize', '100'),
+(177, 'managerOnlyIncludesAdministrator', '0'),
+(178, 'declAbsencePeriod', 'nowForever'),
+(179, 'mailSMTPAnonymous', '0'),
+(180, 'gdprPolicyPage', '1'),
+(181, 'gdprOrganization', 'ACME Inc.'),
+(182, 'gdprController', 'ACME Inc.\r\n123 Street\r\nHometown, XY 4567\r\nGermany\r\nEmail: info@acme.com'),
+(183, 'gdprOfficer', 'John Doe\r\nPhone: +49 555 12345\r\nEmail: john.doe@acme.com'),
+(184, 'gdprFacebook', '1'),
+(185, 'gdprGoogleAnalytics', '0'),
+(186, 'gdprGooglePlus', '0'),
+(187, 'gdprInstagram', '0'),
+(188, 'gdprLinkedin', '1'),
+(189, 'gdprPaypal', '0'),
+(190, 'gdprPinterest', '0'),
+(191, 'gdprSlideshare', '0'),
+(192, 'gdprTumblr', '0'),
+(193, 'gdprTwitter', '1'),
+(194, 'gdprXing', '0'),
+(195, 'gdprYoutube', '0');
 
 -- --------------------------------------------------------
 
@@ -983,18 +1002,6 @@ CREATE TABLE `tcneo_templates` (
   UNIQUE template (username,year,month)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
---
--- Dumping data for table `templates`
---
-
-INSERT INTO `tcneo_templates` (`id`, `username`, `year`, `month`, `abs1`, `abs2`, `abs3`, `abs4`, `abs5`, `abs6`, `abs7`, `abs8`, `abs9`, `abs10`, `abs11`, `abs12`, `abs13`, `abs14`, `abs15`, `abs16`, `abs17`, `abs18`, `abs19`, `abs20`, `abs21`, `abs22`, `abs23`, `abs24`, `abs25`, `abs26`, `abs27`, `abs28`, `abs29`, `abs30`, `abs31`) VALUES
-(1, 'ccarl', '2016', '01', 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 5, 0, 0),
-(2, 'dduck', '2016', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(3, 'sgonzales', '2016', '01', 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(4, 'phead', '2016', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(5, 'blightyear', '2016', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(6, 'mmouse', '2016', '01', 0, 0, 0, 6, 0, 0, 0, 2, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(7, 'sman', '2016', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 

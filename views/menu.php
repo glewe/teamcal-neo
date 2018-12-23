@@ -5,7 +5,7 @@
  * The view of the top navigation menu
  *
  * @category TeamCal Neo 
- * @version 1.9.011
+ * @version 2.0.0
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
@@ -211,6 +211,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['dataprivacy']->name?>"><i class="<?=$CONF['controllers']['dataprivacy']->faIcon?> fa-lg text-<?=$CONF['controllers']['dataprivacy']->iconColor?> fa-menu"></i><?=$LANG['mnu_help_dataprivacy']?></a></li>
                         <?php } ?>
                         <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['imprint']->name?>"><i class="<?=$CONF['controllers']['imprint']->faIcon?> fa-lg text-<?=$CONF['controllers']['imprint']->iconColor?> fa-menu"></i><?=$LANG['mnu_help_imprint']?></a></li>
+                        <li class="divider"></li>
                         <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['about']->name?>"><i class="<?=$CONF['controllers']['about']->faIcon?> fa-lg text-<?=$CONF['controllers']['about']->iconColor?> fa-menu"></i><?=$LANG['mnu_help_about']?></a></li>
                         <li><a tabindex="-1" href="https://www.lewe.com/teamcal-neo/#tcnvote" target="_blank"><i class="fas fa-thumbs-up fa-lg text-<?=$CONF['menuIconColor']?> fa-menu"></i><?=$LANG['mnu_help_vote']?></a></li>
                      </ul>

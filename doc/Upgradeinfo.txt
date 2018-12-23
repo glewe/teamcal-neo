@@ -3,6 +3,31 @@ TEAMCAL NEO UPGRADE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[1.9.011] -> [2.0.0]
+
+1. Backup your current files and database!
+
+2. Download the new release and overwrite all files.
+ 
+3. Edit config/config.app.php and change line 39 to:
+   define('APP_INSTALLED',"1");
+
+4. Edit config/config.db.php and update your database settings from your backup.
+   
+5. Delete file installation.php in the root directory
+
+6. Update absence icons
+   TeamCal Neo 2 introduces Font Awesome 5 and all its 1480 free icons. Font
+   Awesome 5 has changed the way it works and as a consequence some of your
+   absence icons might not display anymore. Just edit those absence types and
+   select a new icon from the vast selection.
+
+7. Setup your Data Privacy Policy
+   Got to "Framework Configuration" and select the "GDPR" tab. Configure your
+   policy settings.
+
+
+------------------------------------------------------------------------------
 [1.9.010] -> [1.9.011]
 
 1. Backup your current files and database!

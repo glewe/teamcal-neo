@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 1.9.011
+ * @version 2.0.0
  * @author George Lewe
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
@@ -99,7 +99,7 @@ $CONF['controllers'] = array (
    //
    'absences' => new Controller('absences', 'fas fa-check-square', $CONF['menuIconColor'], 'primary', 'absenceedit', 'Absence Types', 'https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/44990493/Absence+Types'),
    'absenceedit' => new Controller('absenceedit', 'fas fa-check-square', $CONF['menuIconColor'], 'danger', 'absenceedit', 'Absence Type Edit', 'https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/44990495/Absence+Type+Edit'),
-   'absenceicon' => new Controller('absenceicon', 'fab fa-font-awesome', $CONF['menuIconColor'], 'primary', 'absenceedit', 'Absence Type Icon', 'https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/44990495/Absence+Type+Edit'),
+   'absenceicon' => new Controller('absenceicon', 'fab fa-font-awesome', $CONF['menuIconColor'], 'primary', 'absenceedit', 'Absence Type Icon', 'https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/563740674/Absence+Type+Icon'),
    'absum' => new Controller('absum', 'fas fa-list', $CONF['menuIconColor'], 'default', 'absum', 'Absence Summary', 'https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/44990567/User+Absence+Summary'),
    'calendarview' => new Controller('calendarview', 'fas fa-calendar-alt', $CONF['menuIconColor'], 'primary', 'calendarview', 'Calendar View', 'https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/44990571/View+Calendar+Month'),
    'calendaredit' => new Controller('calendaredit', 'fas fa-calendar-check', $CONF['menuIconColor'], 'danger', 'calendaredit', 'Calendar Edit', 'https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/44990577/Edit+User+Calendar+Month'),

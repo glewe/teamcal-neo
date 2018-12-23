@@ -5,7 +5,7 @@
  * Log language file (English)
  *
  * @category TeamCal Neo 
- * @version 1.9.011
+ * @version 2.0.0
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
@@ -35,7 +35,9 @@ $LANG['log_db_delete_msg_orph'] = 'Database delete: All Orphaned Messages';
 $LANG['log_db_delete_perm'] = 'Database delete: All custom permission schemes';
 $LANG['log_db_delete_users'] = 'Database delete: All Users';
 $LANG['log_db_export'] = 'Database export: ';
-$LANG['log_db_restore'] = 'Database restored from ';
+$LANG['log_db_export'] = 'Database export: ';
+$LANG['log_db_optimized'] = 'Database optimized';
+$LANG['log_db_reset'] = 'Database reset';
 $LANG['log_decl_updated'] = 'Declination settings updated';
 $LANG['log_dn_updated'] = 'Daynote updated: ';
 $LANG['log_dn_created'] = 'Daynote created: ';

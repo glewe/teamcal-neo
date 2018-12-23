@@ -5,7 +5,7 @@
  * Installation script
  *
  * @category TeamCal Neo 
- * @version 1.9.011
+ * @version 2.0.0
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
@@ -256,14 +256,14 @@ if (!$installationComplete AND readDef('APP_INSTALLED', $configAppFile) <> '0')
       <title>Installation</title>
       <meta http-equiv="Content-type" content="text/html;charset=utf8">
       <meta charset="utf-8">
-      <script type="text/javascript" src="js/ajax.js"></script>
+      <script src="js/ajax.js"></script>
       <link rel="stylesheet" href="themes/bootstrap/css/bootstrap.min.css">
       <link rel="stylesheet" href="themes/bootstrap/css/bootstrap-theme.min.css">
       <link rel="stylesheet" href="css/custom.css">
       <link rel="shortcut icon" href="images/icons/logo-16.png">
       <link rel="stylesheet" href="fonts/font-awesome/4.7.0/css/font-awesome.min.css">   
-      <script type="text/javascript" src="js/jquery/jquery-3.1.1.min.js"></script>
-      <script type="text/javascript" src="js/jquery/ui/1.12.1/jquery-ui.min.js"></script>
+      <script src="js/jquery/jquery-3.1.1.min.js"></script>
+      <script src="js/jquery/ui/1.12.1/jquery-ui.min.js"></script>
       <script src="themes/bootstrap/js/bootstrap.min.js"></script>
    </head>
    
@@ -296,7 +296,7 @@ if (!$installationComplete AND readDef('APP_INSTALLED', $configAppFile) <> '0')
             <?php } ?>
 
            <div class="alert alert-dismissable alert-warning">
-               <button type="button" class="close" data-dismiss="alert" title="Close this message"><span class="glyphicon glyphicon-remove-circle"></span></button>
+               <button type="button" class="close" data-dismiss="alert" title="Close this message"><i class="far fa-times-circle"></i></span></button>
                <h4><strong><?=$LANG['inst_warning']?></strong></h4>
                <hr>
                <p><strong><?=$LANG['inst_update']?></strong></p>
@@ -307,7 +307,7 @@ if (!$installationComplete AND readDef('APP_INSTALLED', $configAppFile) <> '0')
             <form  class="bs-example form-control-horizontal" action="installation.php" method="post" target="_self" accept-charset="utf-8">
 
                <div class="panel panel-default">
-                  <div class="panel-heading"><i class="fa fa-cog fa-lg"></i>&nbsp;<?=readConfig('app_name',$configAppFile)?> <?=readConfig('app_version',$configAppFile)?> Installation</div>
+                  <div class="panel-heading"><i class="fas fa-cog fa-lg"></i>&nbsp;<?=readConfig('app_name',$configAppFile)?> <?=readConfig('app_version',$configAppFile)?> Installation</div>
                   <div class="panel-body">
 
                      <!-- DB Server -->
@@ -446,7 +446,7 @@ if (!$installationComplete AND readDef('APP_INSTALLED', $configAppFile) <> '0')
          
       </footer>
          
-      <script type="text/javascript">
+      <script>
       function checkDB(){
          var myDbServer = document.getElementById('txt_instDbServer');
          var myDbUser = document.getElementById('txt_instDbUser');
