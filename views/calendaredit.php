@@ -182,19 +182,19 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <?php for ($i=$daystart; $i<=$dayend; $i++) { 
                                  $prop = 'wday'.$i;
                                  if ($D->get($viewData['year'].$viewData['month'].sprintf("%02d",$i), $viewData['username'], $viewData['regionid'], true)) {
-                                    $icon = 'sticky-note';
+                                    $icon = 'fas fa-sticky-note';
                                     $tooltipColor = ' tooltip-'.$D->color;
                                     $tooltip = ' data-position="tooltip-top" data-toggle="tooltip" data-title="'.$D->daynote.'"';
                                  }
                                  else {
-                                    $icon = 'sticky-note-o';
+                                    $icon = 'far fa-sticky-note';
                                     $tooltipColor = '';
                                     $tooltip = '';
                                  }
                                  ?>
                                  <th class="m-weekday text-center"<?=$viewData['dayStyles'][$i]?>>
                                     <a href="index.php?action=daynote&amp;date=<?=$viewData['year'].$viewData['month'].sprintf("%02d",$i)?>&amp;for=<?=$viewData['username']?>&amp;region=<?=$viewData['regionid']?>">
-                                       <i class="fas fa-<?=$icon?> text-info<?=$tooltipColor?>"<?=$tooltip?>></i>
+                                       <i class="<?=$icon?> text-info<?=$tooltipColor?>"<?=$tooltip?>></i>
                                     </a>
                                  </th>
                               <?php } ?>
