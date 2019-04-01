@@ -5,7 +5,7 @@
  * User edit page controller
  *
  * @category TeamCal Neo
- * @version 2.0.0
+ * @version 2.0.1
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
@@ -269,6 +269,13 @@ if (!empty($_POST))
          if (isAllowed("groupmemberships"))
          {
             $UG->deleteByUser($profile);
+            if (isset($_POST['sel_guestships']) )
+            {
+               foreach ($_POST['sel_guestships'] as $grp)
+               {
+                  if ($G->getById($grp)) $UG->save($profile, $grp, 'guest');
+               }
+            }
             if (isset($_POST['sel_memberships']) )
             {
                foreach ($_POST['sel_memberships'] as $grp)
@@ -280,14 +287,10 @@ if (!empty($_POST))
             {
                foreach ($_POST['sel_managerships'] as $grp)
                {
-                  if ($G->getById($grp)) $UG->save($profile, $grp, 'manager');
-               }
-            }
-            if (isset($_POST['sel_guestships']) )
-            {
-               foreach ($_POST['sel_guestships'] as $grp)
-               {
-                  if ($G->getById($grp)) $UG->save($profile, $grp, 'guest');
+                  if ($G->getById($grp)) {
+                     // die($profile.'|'.$grp);
+                     $UG->save($profile, $grp, 'manager');
+                  }
                }
             }
          }

@@ -5,7 +5,7 @@
  * Collection of global helper functions
  *
  * @category TeamCal Neo 
- * @version 2.0.0
+ * @version 2.0.1
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
@@ -1195,7 +1195,7 @@ function startsWith($haystack, $needle)
 
 // ---------------------------------------------------------------------------
 /**
- * Writes a value into config.tcpro.php
+ * Writes a value into config.tcneo.php
  *
  * @param string $var Variable name
  * @param string $value Value to assign to variable
@@ -1229,7 +1229,7 @@ function writeConfig($var='',$value='', $file)
 
 // ---------------------------------------------------------------------------
 /**
- * Writes a define value into config.tcpro.php
+ * Writes a define value into config.tcneo.php
  *
  * @param string $var Variable name
  * @param string $value Value to assign to variable

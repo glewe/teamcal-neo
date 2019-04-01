@@ -4,7 +4,7 @@
  * Sample MySQL database
  *
  * @category TeamCal Neo 
- * @version 2.0.0
+ * @version 2.0.1
  * @author George Lewe
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
@@ -468,7 +468,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (143, 'appKeywords', 'Lewe TeamCal Neo'),
 (144, 'userManual', 'https%3A%2F%2Fgeorgelewe.atlassian.net%2Fwiki%2Fdisplay%2FTCNEO%2FTeamCal%2BNeo%2BDocumentation%2F'),
 (145, 'footerCopyrightUrl', 'http://www.lewe.com'),
-(146, 'footerSocialLinks', 'https://plus.google.com/u/0/+GeorgeLewe;https://www.linkedin.com/in/george-lewe-a9ab6411b;https://twitter.com/gekale;https://www.xing.com/profile/George_Lewe;https://www.paypal.me/GeorgeLewe'),
+(146, 'footerSocialLinks', 'https://www.linkedin.com/in/george-lewe-a9ab6411b;https://www.xing.com/profile/George_Lewe;https://bitbucket.org/georgelewe/;https://www.paypal.me/GeorgeLewe'),
 (147, 'footerViewport', '0'),
 (148, 'cookieConsent', '1'),
 (149, 'noIndex', '1'),
@@ -941,6 +941,8 @@ CREATE TABLE `tcneo_roles` (
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `description` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `color` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT 'default',
+  `created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   UNIQUE (name)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -952,7 +954,7 @@ CREATE TABLE `tcneo_roles` (
 INSERT INTO `tcneo_roles` (`id`, `name`, `description`, `color`) VALUES
 (1, 'Administrator', 'Application administrator', 'danger'),
 (2, 'User', 'Standard role for logged in users', 'primary'),
-(3, 'Public', 'All users not logged in', 'default'),
+(3, 'Public', 'All users not logged in', 'secondary'),
 (4, 'Manager', 'Management Team', 'warning');
 
 -- --------------------------------------------------------

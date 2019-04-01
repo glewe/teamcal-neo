@@ -5,7 +5,7 @@
  * Application based parameters. Don't change anything in this file.
  *
  * @category TeamCal Neo 
- * @version 2.0.0
+ * @version 2.0.1
  * @author George Lewe
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
@@ -153,8 +153,8 @@ define('LDAP_TLS', 0); // To avoid "Undefined index: LDAP_TLS" error message for
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "2.0.0");
-define('APP_DATE', "2018-12-23");
+define('APP_VER', "2.0.1");
+define('APP_DATE', "2019-04-01");
 define('APP_YEAR', "2014-".date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "http://www.lewe.com");
