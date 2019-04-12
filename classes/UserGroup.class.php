@@ -763,7 +763,7 @@ class UserGroup
    
    // ---------------------------------------------------------------------
    /**
-    * Checks whether two given users share membership of at least one group
+    * Checks whether two given users share membership or guestship of at least one group
     *
     * @param string $user1 First username
     * @param string $user2 Second username
@@ -793,6 +793,37 @@ class UserGroup
    }
    
    // ---------------------------------------------------------------------
+   /**
+    * Checks whether two given users share membership or managership of at least one group
+    *
+    * @param string $user1 First username
+    * @param string $user2 Second username
+    * @return boolean True if they do, false if not
+    */
+   public function shareGroupMemberships($user1, $user2)
+   {
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1 AND (type = "manager" OR type ="member")');
+      $query->bindParam('val1', $user1);
+      $result = $query->execute();
+      
+      if ($result)
+      {
+         while ( $row = $query->fetch() )
+         {
+            $query2 = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND (type = "manager" OR type ="member")');
+            $query2->bindParam('val1', $user2);
+            $query2->bindParam('val2', $row['groupid']);
+            $result2 = $query2->execute();
+            if ($result2 and $query2->fetchColumn())
+            {
+               return true;
+            }
+         }
+      }
+      return false;
+   }
+    
+    // ---------------------------------------------------------------------
    /**
     * Updates a user-group record from local class variables
     * 

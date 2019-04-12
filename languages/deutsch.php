@@ -605,6 +605,7 @@ $LANG['footer_home'] = 'Startseite';
 $LANG['footer_help'] = 'Hilfe';
 $LANG['footer_about'] = '&Uuml;ber';
 $LANG['footer_imprint'] = 'Impressum';
+$LANG['footer_dataprivacy'] = 'Data Privacy Policy';
 
 //
 // Group
