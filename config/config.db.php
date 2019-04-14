@@ -5,7 +5,7 @@
  * Database parameters
  *
  * @category TeamCal Neo 
- * @version 2.0.1
+ * @version 2.1.0
  * @author George Lewe
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
@@ -20,7 +20,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  * Enter your database parameter here
  */
 $CONF['db_server'] = "localhost";
-$CONF['db_name'] = "tcneo-barney";
+$CONF['db_name'] = "tcneo";
 $CONF['db_user'] = "root";
 $CONF['db_pass'] = "";
 $CONF['db_table_prefix'] = "tcneo_";
