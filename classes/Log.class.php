@@ -75,14 +75,20 @@ class Log
     * @param string $sort Sort order (ASC or DESC)
     * @param string $from ISO formatted start date
     * @param string $to ISO formatted end date
+    * @param string $logtype Type to search for
+    * @param string $logsearchuser User to search for
+    * @param string $logsearchevent Event to search for
     * @return array Array of records
     */
-   public function read($sort='DESC', $from = '', $to = '')
+   public function read($sort='DESC', $from = '', $to = '', $logtype = '%', $logsearchuser = '%', $logsearchevent = '%')
    {
       $records = array ();
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE (timestamp >= :val1 AND timestamp <= :val2) ORDER BY timestamp ' . $sort);
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE (timestamp >= :val1 AND timestamp <= :val2 AND type LIKE :val3 AND user LIKE :val4 AND event LIKE :val5) ORDER BY timestamp ' . $sort);
       $query->bindParam('val1', $from);
       $query->bindParam('val2', $to);
+      $query->bindParam('val3', $logtype);
+      $query->bindParam('val4', $logsearchuser);
+      $query->bindParam('val5', $logsearchevent);
       $result = $query->execute();
       
       if ($result)

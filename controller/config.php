@@ -187,7 +187,6 @@ if (!empty($_POST))
          $C->save("gdprOfficer", sanitize($_POST['txt_gdprOfficer']));
          if (isset($_POST['chk_gdprFacebook']) && $_POST['chk_gdprFacebook']) $C->save("gdprFacebook", "1"); else $C->save("gdprFacebook", "0");
          if (isset($_POST['chk_gdprGoogleAnalytics']) && $_POST['chk_gdprGoogleAnalytics']) $C->save("gdprGoogleAnalytics", "1"); else $C->save("gdprGoogleAnalytics", "0");
-         if (isset($_POST['chk_gdprGooglePlus']) && $_POST['chk_gdprGooglePlus']) $C->save("gdprGooglePlus", "1"); else $C->save("gdprGooglePlus", "0");
          if (isset($_POST['chk_gdprInstagram']) && $_POST['chk_gdprInstagram']) $C->save("gdprInstagram", "1"); else $C->save("gdprInstagram", "0");
          if (isset($_POST['chk_gdprLinkedin']) && $_POST['chk_gdprLinkedin']) $C->save("gdprLinkedin", "1"); else $C->save("gdprLinkedin", "0");
          if (isset($_POST['chk_gdprPaypal']) && $_POST['chk_gdprPaypal']) $C->save("gdprPaypal", "1"); else $C->save("gdprPaypal", "0");

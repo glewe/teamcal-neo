@@ -399,23 +399,28 @@ if (!empty($_POST))
          $sendNotification = false;
          $alerttype = 'success';
          $alertHelp = '';
+         $logText = '<br>';
          switch ($approved['approvalResult'])
          {
             case 'all':
+               $logText .= $LANG['approved'].'<br>';
                foreach ($requestedAbsences as $key => $val)
                {
                   $col = 'abs'.$key;
                   $T->$col = $val;
+                  if ($val) $logText .= '- '.$viewData['year'].$viewData['month'].sprintf("%02d", $key).': '.$A->getName($val).'<br>';
                }
                $T->update($caluser, $viewData['year'], $viewData['month']);
                $sendNotification = true;
                break;
                
             case 'partial':
+               $logText .= $LANG['approved'].'<br>';
                foreach ($approved['approvedAbsences'] as $key => $val)
                {
                   $col = 'abs'.$key;
                   $T->$col = $val;
+                  if ($val) $logText .= '- '.$viewData['year'].$viewData['month'].sprintf("%02d", $key).': '.$A->getName($val).'<br>';
                }
                $T->update($caluser, $viewData['year'], $viewData['month']);
                $sendNotification = true;
@@ -442,7 +447,7 @@ if (!empty($_POST))
          //
          // Log this event
          //
-         $LOG->log("logUser", $UL->username, "log_cal_usr_tpl_chg", $caluser . " " . $viewData['year'].$viewData['month']);
+         $LOG->log("logCalendar", $UL->username, "log_cal_usr_tpl_chg", $caluser . " " . $viewData['year'].$viewData['month'] . $logText);
          
          //
          // Success

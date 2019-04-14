@@ -55,6 +55,17 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  <option class="option" value="curr_year" <?=(($viewData['logperiod']=="curr_year")?'selected':'')?>><?=$LANG['period_year']?></option>
                                  <option class="option" value="custom" <?=(($viewData['logperiod']=="custom")?'selected':'')?>><?=$LANG['period_custom']?></option>
                               </select>
+                              <label><?=$LANG['log_header_type']?></label>
+                              <select name="sel_logType" id="sel_logType" class="form-control" tabindex="<?=$tabindex++;?>">
+                                 <option class="option" value="%" <?=(($viewData['logtype']=="%")?'selected':'')?>><?=$LANG['all']?></option>
+                                 <?php foreach ($viewData['types'] as $type) { ?>
+                                    <option class="option" value="log<?=$type?>" <?=(($viewData['logtype']=="log".$type)?'selected':'')?>><?=$type?></option>
+                                 <?php } ?>
+                              </select>
+                              <label><?=$LANG['search'].' '.$LANG['user']?></label>
+                              <input id="logSearchUser" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_logSearchUser" maxlength="80" value="<?=$viewData['logSearchUser']?>" type="text">
+                              <label><?=$LANG['search'].' '.$LANG['event']?></label>
+                              <input id="logSearchEvent" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_logSearchEvent" maxlength="80" value="<?=$viewData['logSearchEvent']?>" type="text">
                            </div>
                         
                            <div class="col-lg-2">
@@ -69,7 +80,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               <script>$(function() { $( "#logPeriodTo" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });</script>
                            </div>
                         
-                           <div class="col-lg-5">
+                           <div class="col-lg-5 text-right">
                               <br>
                               <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_refresh"><?=$LANG['btn_refresh']?></button>
                               <button type="submit" class="btn btn-default" tabindex="<?=$tabindex++;?>" name="btn_reset"><?=$LANG['btn_reset']?></button>

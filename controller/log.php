@@ -40,6 +40,8 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
 // VARIABLE DEFAULTS
 //
 $viewData['logPeriod'] = '';
+$viewData['logSearchUser'] = '';
+$viewData['logSearchEvent'] = '';
 $sort = "DESC";
 if (isset($_GET['sort']) and strtoupper($_GET['sort']) == "ASC") $sort = "ASC";
 $eventsPerPage = 50;
@@ -51,6 +53,7 @@ $C->save("logto", $logToday['ISO'] . ' 23:59:59.999999'); // Default is today
 
 $showAlert = false;
 $logtypes = array (
+   'Calendar',
    'CalendarOptions',
    'Config',
    'Database',
@@ -60,6 +63,7 @@ $logtypes = array (
    'Login',
    'Log',
    'Message',
+   'Month',
    'Permission',
    'Region',
    'Registration',
@@ -176,6 +180,18 @@ if (!empty($_POST))
                }
                break;
          }
+
+         $C->save("logtype", $_POST['sel_logType']);
+
+         if ( isset($_POST['txt_logSearchUser']) AND strlen($_POST['txt_logSearchUser']) ) {
+            $viewData['logSearchUser'] = sanitize($_POST['txt_logSearchUser']);
+            $C->save("logsearchuser", '%'.$viewData['logSearchUser'].'%');
+         }
+
+         if ( isset($_POST['txt_logSearchEvent']) AND strlen($_POST['txt_logSearchEvent']) ) {
+            $viewData['logSearchEvent'] = sanitize($_POST['txt_logSearchEvent']);
+            $C->save("logsearchevent", '%'.$viewData['logSearchEvent'].'%');
+         }
       }
       // ,------,
       // | Save |
@@ -228,6 +244,9 @@ if (!empty($_POST))
          $C->save("logperiod", "curr_all");
          $C->save("logfrom", '2004-01-01 00:00:00.000000');
          $C->save("logto", $logToday['ISO'] . ' 23:59:59.999999');
+         $C->save("logtype", "%");
+         $C->save("logsearchuser", "%");
+         $C->save("logsearchevent", "%");
          header("Location: index.php?action=".$controller);
       }
       // ,------,
@@ -266,7 +285,10 @@ if (!empty($_POST))
 $periodFrom = $C->read("logfrom");
 $periodTo = $C->read("logto");
 $logPeriod = $C->read("logperiod");
-$events = $LOG->read($sort, $periodFrom, $periodTo);
+if (!$logType = $C->read("logtype")) $logType = '%';
+if (!$logSearchUser = $C->read("logsearchuser")) $logSearchUser = '%';
+if (!$logSearchEvent = $C->read("logsearchevent")) $logSearchEvent = '%';
+$events = $LOG->read($sort, $periodFrom, $periodTo, $logType, $logSearchUser, $logSearchEvent);
 $viewData['events'] = array ();
 if (count($events))
 {
@@ -279,6 +301,7 @@ $viewData['types'] = $logtypes;
 $viewData['logperiod'] = $logPeriod;
 $viewData['logfrom'] = substr($periodFrom, 0, 10);
 $viewData['logto'] = substr($periodTo, 0, 10);
+$viewData['logtype'] = $logType;
 $viewData['numEvents'] = count($viewData['events']);
 $viewData['eventsPerPage'] = $eventsPerPage;
 $viewData['sort'] = $sort;

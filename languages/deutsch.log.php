@@ -18,11 +18,11 @@
 $LANG['log_abs_created'] = 'Abwesenheitstyp angelegt: ';
 $LANG['log_abs_updated'] = 'Abwesenheitstyp aktualisiert: ';
 $LANG['log_abs_deleted'] = 'Abwesenheitstyp gel&ouml;scht: ';
-$LANG['log_cal_grp_tpl_chg'] = 'Gruppen-Template ge&auml;ndert: ';
-$LANG['log_cal_tplusr_def_tpl'] = 'Template-Benutzer Default-Template erstellt: ';
-$LANG['log_cal_usr_def_tpl'] = 'Benutzer Default-Template erstellt: ';
-$LANG['log_cal_usr_tpl_chg'] = 'Benutzer-Template ge&auml;ndert: ';
-$LANG['log_cal_usr_tpl_clr'] = 'Benutzer-Template geleert: ';
+$LANG['log_cal_grp_tpl_chg'] = 'Gruppenkalender ge&auml;ndert: ';
+$LANG['log_cal_tplusr_def_tpl'] = 'Template-Benutzerkalender erstellt: ';
+$LANG['log_cal_usr_def_tpl'] = 'Benutzerkalender erstellt: ';
+$LANG['log_cal_usr_tpl_chg'] = 'Benutzerkalender ge&auml;ndert: ';
+$LANG['log_cal_usr_tpl_clr'] = 'Benutzerkalender geleert: ';
 $LANG['log_calopt'] = 'Kalenderoptionen ge&auml;ndert';
 $LANG['log_config'] = 'Systemkonfiguration ge&auml;ndert';
 $LANG['log_csv_import'] = 'CSV Benutzerimport: ';
