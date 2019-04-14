@@ -46,6 +46,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   <?php } ?>
                   <li><a href="index.php?action=about"><?=$LANG['footer_about']?></a></li>
                   <li><a href="index.php?action=imprint"><?=$LANG['footer_imprint']?></a></li>
+                  <li><a href="index.php?action=dataprivacy"><?=$LANG['footer_dataprivacy']?></a></li>
                </ul>
             </div>
             
