@@ -260,10 +260,10 @@ if (!empty($_POST))
                      foreach ( $_POST['sel_sendToGroup'] as $gto )
                      {
                         $to .= $gto . ",";
-                        $groupusers = $UG->getAllForGroup($gto);
+                        $groupusers = $UG->getAllForGroup($G->getId($gto));
                         foreach ( $groupusers as $groupuser )
                         {
-                           $UMSG->add($username, $groupuser['username'], $popup);
+                           $UMSG->add($groupuser['username'], $newsid, $popup);
                         }
                      }
                      $to = rtrim($to,','); // remove the last ","
@@ -317,7 +317,7 @@ if (!empty($_POST))
                //
                // Log this event
                //
-               $LOG->log("logMessage", $UL->username, "log_msg_message", $tstamp . " " . $UL->username . " -> " . $to);
+               $LOG->log("logMessage", $UL->username, "log_msg_message", ": " . $UL->username . " -> " . $to);
                 
                //
                // Success

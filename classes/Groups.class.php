@@ -222,6 +222,29 @@ class Groups
    /**
     * Gets the maximum absent value for group
     *
+    * @param string $groupname Group name
+    * @return string Group ID
+    */
+    public function getId($name)
+    {
+       $query = $this->db->prepare('SELECT id FROM ' . $this->table . ' WHERE name = :val1');
+       $query->bindParam('val1', $name);
+       $result = $query->execute();
+       
+       if ($result and $row = $query->fetch())
+       {
+          return $row['id'];
+       }
+       else 
+       {
+          return 0;
+       }
+    }
+    
+   // ---------------------------------------------------------------------
+   /**
+    * Gets the maximum absent value for group
+    *
     * @param string $id ID to find
     * @return string Minimum present value
     */

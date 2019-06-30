@@ -41,9 +41,16 @@ if (isAllowed($CONF['controllers']['calendaredit']->permission))
    {
       if (isAllowed("calendareditown")) $editAllowed = true;
    }
-   else if ( $UG->shareGroups($UL->username, $usr['username']) )
+   else if ( $UG->shareGroupMemberships($UL->username, $usr['username']) ) 
    {
-      if (isAllowed("calendareditgroup")) $editAllowed = true;
+      if (isAllowed("calendareditgroup"))
+      {
+         $editAllowed = true;
+      }
+      elseif (isAllowed("calendareditgroupmanaged") AND $UG->isGroupManagerOfUser($UL->username, $usr['username']))
+      {
+         $editAllowed = true;
+      }
    }
    else
    {

@@ -1033,7 +1033,10 @@ $LANG['profile_locked'] = '<i class="fas fa-lock text-danger" style="padding-rig
 $LANG['profile_locked_comment'] = 'The account is locked. No login is possible.';
 $LANG['profile_managerships'] = 'Manager of';
 $LANG['profile_managerships_comment'] = 'Select the groups that this user is manager of. Should the same group be selected here and in the member list, 
-      then the manager position is saved.';
+      then the manager position is saved.<br>
+      The group manager will get group related notifications, e.g. absence approval requests.<br>
+      Group managers do not have more permissions than members. Permissions are managed with roles.<br>
+      <a href="https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/623738881/Group+Manager+Permission" target="_blank">Read more...</a>';
 $LANG['profile_memberships'] = 'Member of';
 $LANG['profile_memberships_comment'] = 'Select the groups that this user is member of. Should the same group be selected here and in the manager list, 
       then the manager position is saved.';

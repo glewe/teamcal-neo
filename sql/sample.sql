@@ -759,7 +759,7 @@ INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`
 (1, 'Default', 'calendareditall', 1, 1),
 (2, 'Default', 'calendareditgroup', 2, 0),
 (3, 'Default', 'calendareditgroup', 3, 0),
-(4, 'Default', 'calendareditgroup', 4, 1),
+(4, 'Default', 'calendareditgroup', 4, 0),
 (5, 'Default', 'calendareditgroup', 1, 1),
 (6, 'Default', 'calendareditown', 2, 1),
 (7, 'Default', 'calendareditown', 3, 0),
@@ -903,7 +903,11 @@ INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`
 (145, 'Default', 'manageronlyabsences', 1, 1),
 (146, 'Default', 'manageronlyabsences', 4, 0),
 (147, 'Default', 'manageronlyabsences', 3, 0),
-(148, 'Default', 'manageronlyabsences', 2, 0);
+(148, 'Default', 'manageronlyabsences', 2, 0),
+(149, 'Default', 'calendareditgroupmanaged', 2, 0),
+(150, 'Default', 'calendareditgroupmanaged', 3, 0),
+(151, 'Default', 'calendareditgroupmanaged', 4, 1),
+(152, 'Default', 'calendareditgroupmanaged', 1, 1);
 
 
 -- --------------------------------------------------------
@@ -1152,7 +1156,7 @@ INSERT INTO `tcneo_user_option` (`id`, `username`, `option`, `value`) VALUES
 (40, 'dduck', 'linkedin', ''),
 (41, 'dduck', 'skype', ''),
 (42, 'dduck', 'twitter', ''),
-(43, 'dduck', 'theme', 'amelia'),
+(43, 'dduck', 'theme', 'default'),
 (44, 'dduck', 'language', 'default'),
 (45, 'dduck', 'avatar', 'dduck.gif'),
 (46, 'sgonzales', 'title', ''),
@@ -1194,7 +1198,7 @@ INSERT INTO `tcneo_user_option` (`id`, `username`, `option`, `value`) VALUES
 (82, 'blightyear', 'linkedin', ''),
 (83, 'blightyear', 'skype', ''),
 (84, 'blightyear', 'twitter', ''),
-(85, 'blightyear', 'theme', 'amelia'),
+(85, 'blightyear', 'theme', 'journal'),
 (86, 'blightyear', 'language', 'default'),
 (87, 'blightyear', 'avatar', 'blightyear.jpg'),
 (88, 'mimouse', 'title', ''),

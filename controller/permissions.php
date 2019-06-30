@@ -71,6 +71,7 @@ foreach ($CONF['controllers'] as $contr)
 $fperms = array (
    'calendareditown',
    'calendareditgroup',
+   'calendareditgroupmanaged',
    'calendareditall',
    'calendarviewgroup',
    'calendarviewall',

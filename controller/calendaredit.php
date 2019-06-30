@@ -115,10 +115,16 @@ if (isAllowed($CONF['controllers'][$controller]->permission))
    {
       if (isAllowed("calendareditown")) $allowed = true;
    }
-   // else if ( $UG->shareGroups($UL->username, $caluser) )
    else if ( $UG->shareGroupMemberships($UL->username, $caluser) )
    {
-      if (isAllowed("calendareditgroup")) $allowed = true;
+      if (isAllowed("calendareditgroup"))
+      {
+         $allowed = true;
+      }
+      elseif (isAllowed("calendareditgroupmanaged") AND $UG->isGroupManagerOfUser($UL->username, $caluser))
+      {
+         $allowed = true;
+      }
    }
    else
    {
