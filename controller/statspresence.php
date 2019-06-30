@@ -5,7 +5,7 @@
  * Presence statistics page controller
  *
  * @category TeamCal Neo 
- * @version 2.1.0
+ * @version 2.1.1
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
