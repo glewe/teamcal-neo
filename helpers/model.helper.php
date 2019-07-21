@@ -17,6 +17,34 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // ---------------------------------------------------------------------------
 /**
+ * Checks whether an absence type is valid for a given user based on his
+ * group memberships
+ *
+ * @param string $absid Absence ID
+ * @param string $username Username
+ * 
+ * @return boolean True or False indicating success
+ */
+function absenceIsValidForUser($absid,$username)
+{
+   global $A, $AG, $U, $UG;
+   $isValid = false;
+   
+   /**
+    * Get all groups for the given user
+    */
+   $userGroups = $UG->getAllForUser($username);
+   
+   foreach ($userGroups as $group)
+   {
+      if ($AG->isAssigned($absid,$group['groupid'])) $isValid = true;
+   }
+   
+   return $isValid;
+}
+
+// ---------------------------------------------------------------------------
+/**
  * Archives a user and all related records
  *
  * @param string $username Username to archive
@@ -317,7 +345,7 @@ function restoreUser($username)
    /**
     * Delete user from archive tables
     */
-   deleteUser($username, $archive = true);
+   deleteUser($username, $archive = true, $sendNotifications = false);
    
    /**
     * Log this event
@@ -325,33 +353,5 @@ function restoreUser($username)
    $LOG->log("logUser", $L->checkLogin(), "log_user_restored", $fullname . " (" . $username . ")");
    
    return true;
-}
-
-// ---------------------------------------------------------------------------
-/**
- * Checks whether an absence type is valid for a given user based on his
- * group memberships
- *
- * @param string $absid Absence ID
- * @param string $username Username
- * 
- * @return boolean True or False indicating success
- */
-function absenceIsValidForUser($absid,$username)
-{
-   global $A, $AG, $U, $UG;
-   $isValid = false;
-   
-   /**
-    * Get all groups for the given user
-    */
-   $userGroups = $UG->getAllForUser($username);
-   
-   foreach ($userGroups as $group)
-   {
-      if ($AG->isAssigned($absid,$group['groupid'])) $isValid = true;
-   }
-   
-   return $isValid;
 }
 ?>

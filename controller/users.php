@@ -141,7 +141,9 @@ if (!empty($_POST))
          $exists = FALSE;
          foreach($selected_users as $su=>$value)
          {
-            if (!restoreUser($value)) $exists=TRUE;
+            if (!restoreUser($value)) {
+               $exists=TRUE;
+            }
          }
           
          if (!$exists)
