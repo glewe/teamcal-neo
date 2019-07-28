@@ -176,6 +176,29 @@ class Attachment
    
    // ---------------------------------------------------------------------
    /**
+    * Gets the uploader of a given file
+    *
+    * @param string $filename File name to find
+    * @return string Uploader
+    */
+   public function getUploaderById($fileid)
+   {
+      $query = $this->db->prepare('SELECT uploader FROM ' . $this->table . ' WHERE id = :val1');
+      $query->bindParam('val1', $fileid);
+      $result = $query->execute();
+      
+      if ($result and $row = $query->fetch())
+      {
+         return $row['uploader'];
+      }
+      else 
+      {
+         return false;
+      }
+   }
+    
+    // ---------------------------------------------------------------------
+   /**
     * Optimize table
     *
     * @return boolean Query result

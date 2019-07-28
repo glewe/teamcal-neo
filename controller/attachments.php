@@ -240,10 +240,14 @@ if (!empty($_POST))
             {
                foreach ( $_POST['sel_shares'.$file['id']] as $uto ) $UAT->create($uto, $file['id']);
             }
+            // Make sure the uploader has access
+            $UAT->create($AT->getUploaderById($file['id']), $file['id']);
          }
          else if (isset($_POST['btn_clearShares'.$file['id']]))
          {
             $UAT->deleteFile($file['id']);
+            // Make sure the uploader has access
+            $UAT->create($AT->getUploaderById($file['id']), $file['id']);
          }
       }
    }

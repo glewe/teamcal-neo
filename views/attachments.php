@@ -80,7 +80,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <?=$AT->getUploader($file['fname'])?>
                                     </div>
                                     <div class="col-lg-3">
-                                       <p><a class="btn btn-default btn-xs" data-toggle="collapse" data-target="#shares<?=$file['fid']?>"><?=$LANG['btn_show_hide']?></a></p>
+                                       <p><a class="btn btn-default btn-xs" data-toggle="collapse" data-target="#shares<?=$file['fid']?>"><?=$LANG['btn_shares']?></a></p>
                                        <div class="collapse" id="shares<?=$file['fid']?>">
                                           <select class="form-control" name="sel_shares<?=$file['fid']?>[]" multiple="multiple" size="10" tabindex="<?=$tabindex++?>"  <?=(!$isOwner)?"disabled":"";?>>
                                           <?php foreach ($viewData['users'] as $user) {
@@ -89,6 +89,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                              <option class="option" value="<?=$user['username']?>" <?=($UAT->hasAccess($user['username'], $file['fid']))?"selected":"";?>><?=$showname?></option>
                                           <?php } ?>
                                           </select>
+                                          <p class="small"><?=$LANG['att_owner_access']?></p>
                                           <?php if ($isOwner) { ?>
                                              <button type="submit" class="btn btn-success btn-xs" style="margin-top: 8px;" tabindex="<?=$tabindex++?>" name="btn_updateShares<?=$file['fid']?>"><?=$LANG['btn_update']?></button>
                                              <button type="submit" class="btn btn-danger btn-xs" style="margin-top: 8px;" tabindex="<?=$tabindex++?>" name="btn_clearShares<?=$file['fid']?>"><?=$LANG['btn_clear']?></button>
@@ -97,7 +98,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     </div>
                                     <div class="col-lg-2 text-right">
                                        <?php if (in_array(getFileExtension($file['fname']),$CONF['imgExtensions'])) { ?>
-                                          <a href="<?=APP_UPL_DIR.$file['fname']?>" class="image-popup btn btn-info btn-xs" tabindex="<?=$tabindex++;?>" title="<?=$file['fname']?>"><img src="#" alt=""><?=$LANG['btn_download_view']?></a>
+                                          <a href="<?=APP_UPL_DIR.$file['fname']?>" class="image-popup btn btn-info btn-xs" tabindex="<?=$tabindex++;?>" title="<?=$file['fname']?>"><?=$LANG['btn_download_view']?></a>
                                        <?php } else { ?>
                                           <a href="<?=APP_UPL_DIR.$file['fname']?>" class="btn btn-info btn-xs" tabindex="<?=$tabindex++;?>" title="<?=$file?>"><?=$LANG['btn_download_view']?></a>
                                        <?php } ?>
