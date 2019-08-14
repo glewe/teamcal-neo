@@ -96,8 +96,11 @@ foreach ($mobilecols as $key => $cols)
                   $groupHeader = false;
                   foreach ($viewData['users'] as $usr)
                   {
-                     if ($UG->isMemberOrManagerOfGroup($usr['username'], $grp['id']))
+                     if (count($viewData['groups']) == 1)
                      {
+                        //
+                        // Single group only, we will show the guests as well
+                        //
                         if ($repeatHeaderCount AND $rowcount>$repeatHeaderCount)
                         {
                            require("calendarviewmonthheader.php");
@@ -114,6 +117,31 @@ foreach ($mobilecols as $key => $cols)
                         <!-- Row: User <?=$usr['username']?> --> 
                         <?php require("calendarviewuserrow.php");
                         if ($repeatHeaderCount) $rowcount++;
+                     }
+                     else
+                     {
+                        //
+                        // Multiple groups, we will not show the guests
+                        //
+                        if ($UG->isMemberOrManagerOfGroup($usr['username'], $grp['id']))
+                        {
+                           if ($repeatHeaderCount AND $rowcount>$repeatHeaderCount)
+                           {
+                              require("calendarviewmonthheader.php");
+                              $rowcount = 1;
+                           }
+                           
+                           if (!$groupHeader)
+                           { ?>
+                              <!-- Row: Group <?=$grp['name']?> -->
+                              <tr><th class="m-groupname" colspan="<?=$days+1?>"><?=$grp['description'].' ('.$grp['name'].')'?></th></tr>
+                              <?php  $groupHeader = true; 
+                           } ?>
+                           
+                           <!-- Row: User <?=$usr['username']?> --> 
+                           <?php require("calendarviewuserrow.php");
+                           if ($repeatHeaderCount) $rowcount++;
+                        }
                      }
                   }
                }
