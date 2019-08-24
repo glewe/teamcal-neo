@@ -84,7 +84,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                $pageHelp = '';
                if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=sprintf($LANG['caledit_title'], $viewData['year'], $viewData['month'], $viewData['fullname'])?><?=$pageHelp?></div>
+               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=sprintf($LANG['caledit_title'], $viewData['year'], $viewData['month'], $viewData['fullname']).$viewData['groupnames']?><?=$pageHelp?></div>
             </div>
             
             <?php if (!$viewData['supportMobile']) 

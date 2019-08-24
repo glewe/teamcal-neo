@@ -504,6 +504,18 @@ $viewData['holidays'] = $H->getAllCustom();
 $viewData['dayStyles'] = array();
 
 //
+// Prepare a comma seperated group name list for the caluser
+//
+$usergroups = $UG->getAllforUser($caluser);
+$viewData['groupnames'] = " <span style=\"font-weight:normal;\">(";
+foreach ($usergroups as $ug)
+{
+   $viewData['groupnames'] .= $G->getNameByID($ug['groupid']) . ", ";
+}
+$viewData['groupnames'] = substr($viewData['groupnames'], 0, -2);
+$viewData['groupnames'] .= ")</span>";
+
+//
 // Only prepare those regions the current user (role) can edit
 //
 $allRegions = $R->getAll();
