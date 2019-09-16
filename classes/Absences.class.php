@@ -232,9 +232,12 @@ class Absences
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE counts_as = :val1 ORDER BY name ASC');
       $query->bindParam('val1', $id);
       $result = $query->execute();
-      while ( $row = $query->fetch() )
-         $records[] = $row;
-      return $records;
+      if ($result)
+      {
+         while ( $row = $query->fetch() ) $records[] = $row;
+         return $records;
+      }
+      return false;
    }
    
    // ----------------------------------------------------------------------

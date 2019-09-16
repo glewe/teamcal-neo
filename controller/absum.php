@@ -146,9 +146,11 @@ foreach ($absences as $abs)
    $summary = getAbsenceSummary($caluser,$abs['id'],$viewData['year']);
     
    $viewData['absences'][] = array (
+      'id' => $abs['id'],
       'icon' => $abs['icon'],
       'bgcolor' => $abs['bgcolor'],
       'color' => $abs['color'],
+      'counts_as' => $abs['counts_as'],
       'name' => $abs['name'],
       'contingent' => $summary['totalallowance'],
       'taken' => $summary['taken'],

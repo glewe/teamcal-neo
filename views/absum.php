@@ -45,14 +45,31 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="col-lg-2 text-right text-bold"><?=$LANG['absum_remainder']?></div>
                   </div>
                   <?php if ( count($viewData['absences']) ) {
-                     foreach ($viewData['absences'] as $abs) { ?>
-                        <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-                           <div class="col-lg-6"><i class="<?=$abs['icon']?>" style="color: #<?=$abs['color']?>; background-color: #<?=$abs['bgcolor']?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;"></i><?=$abs['name']?></div>
-                           <div class="col-lg-2 text-right"><?=$abs['contingent']?></div>
-                           <div class="col-lg-2 text-right <?=(is_int($abs['allowance']) AND intval($abs['taken'])>intval($abs['allowance']))?'text-warning':'';?>"><?=$abs['taken']?></div>
-                           <div class="col-lg-2 text-right <?=(is_int($abs['allowance']) AND intval($abs['remainder'])<0)?'text-danger':'text-success';?>"><?=$abs['remainder']?></div>
-                        </div>
-                     <?php } 
+                     foreach ($viewData['absences'] as $abs) { 
+                        if (!$abs['counts_as']) { ?>
+                           <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
+                              <div class="col-lg-6"><i class="<?=$abs['icon']?>" style="color: #<?=$abs['color']?>; background-color: #<?=$abs['bgcolor']?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;"></i><?=$abs['name']?></div>
+                              <div class="col-lg-2 text-right"><?=$abs['contingent']?></div>
+                              <div class="col-lg-2 text-right <?=(is_int($abs['allowance']) AND intval($abs['taken'])>intval($abs['allowance']))?'text-warning':'';?>"><?=$abs['taken']?></div>
+                              <div class="col-lg-2 text-right <?=(is_int($abs['allowance']) AND intval($abs['remainder'])<0)?'text-danger':'text-success';?>"><?=$abs['remainder']?></div>
+                           </div>
+                        <?php }
+                        $subabsences = $A->getAllSub($abs['id']);
+                        foreach ($subabsences as $subabs) { 
+                           $summary = getAbsenceSummary($caluser,$subabs['id'],$viewData['year']);
+                           $subabs['contingent'] = $summary['totalallowance'];
+                           $subabs['taken'] = $summary['taken'];
+                           $subabs['remainder'] = $summary['remainder'];
+                           ?>
+                           <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
+                              <div class="col-lg-1 text-right"><i class="fas fa-angle-double-right"></i></div>
+                              <div class="col-lg-5 text-italic"><i class="<?=$subabs['icon']?>" style="color: #<?=$subabs['color']?>; background-color: #<?=$subabs['bgcolor']?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;"></i><?=$subabs['name']?></div>
+                              <div class="col-lg-2 text-right text-italic"><?=$subabs['contingent']?></div>
+                              <div class="col-lg-2 text-right  text-italic <?=(is_int($subabs['allowance']) AND intval($subabs['taken'])>intval($subabs['allowance']))?'text-warning':'';?>"><?=$subabs['taken']?></div>
+                              <div class="col-lg-2 text-right  text-italic <?=(is_int($subabs['allowance']) AND intval($subabs['remainder'])<0)?'text-danger':'text-success';?>"><?=$subabs['remainder']?></div>
+                           </div>
+                        <?php } 
+                     } 
                   } ?>
                
                </div>

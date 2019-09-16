@@ -1105,6 +1105,7 @@ function getAbsenceSummary($username, $absid, $year)
 {
    global $LANG;
    $A = new Absences();
+   $A2 = new Absences(); // for counts-as absences
    $AL = new Allowances();
    $U = new Users();
 
@@ -1136,6 +1137,23 @@ function getAbsenceSummary($username, $absid, $year)
          $countFrom = $year.'01'.'01';
          $countTo = $year.'12'.'31';
          $summary['taken'] += countAbsence($username, $A->id, $countFrom, $countTo, false, false);
+
+         //
+         // Also get all taken "counts as" absences
+         //
+         if ($countsAsArray = $A->getAllSub($absid))
+         {
+            foreach ($countsAsArray as $countsAs)
+            {
+               if ($A2->get($countsAs['id']))
+               {
+                  if (!$A2->counts_as_present)
+                  {
+                     $summary['taken'] += countAbsence($username, $A2->id, $countFrom, $countTo, false, false);
+                  }
+               }
+            }
+         }
       }
       
       $summary['remainder'] = $LANG['absum_unlimited'];
