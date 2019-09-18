@@ -1136,7 +1136,7 @@ function getAbsenceSummary($username, $absid, $year)
       {
          $countFrom = $year.'01'.'01';
          $countTo = $year.'12'.'31';
-         $summary['taken'] += countAbsence($username, $A->id, $countFrom, $countTo, false, false);
+         $summary['taken'] += countAbsence($username, $A->id, $countFrom, $countTo, true, false);
 
          //
          // Also get all taken "counts as" absences
@@ -1149,7 +1149,7 @@ function getAbsenceSummary($username, $absid, $year)
                {
                   if (!$A2->counts_as_present)
                   {
-                     $summary['taken'] += countAbsence($username, $A2->id, $countFrom, $countTo, false, false);
+                     $summary['taken'] += countAbsence($username, $A2->id, $countFrom, $countTo, true, false);
                   }
                }
             }
