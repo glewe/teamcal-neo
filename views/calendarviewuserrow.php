@@ -90,7 +90,7 @@ if ($editAllowed)
             <?php if ($monAbsId=$C->read('monitorAbsence')) {
                $summary = getAbsenceSummary($usr['username'],$monAbsId,$viewData['year']);
                ?>
-               <div style="text-align:right;font-style:italic;" title="<?=$A->getName($monAbsId).' '.$viewData['year'].': '.$LANG['remainder'].'/'.$LANG['allowance']?>">&nbsp;<span class="text-danger"><?=$summary['remainder']?></span>/<?=$summary['totalallowance']?></div>
+               <div style="text-align:right;font-style:italic;" title="<?=$A->getName($monAbsId).' '.$viewData['year'].': '.$LANG['remainder'].' / '.$LANG['allowance']?>">&nbsp;<span class="text-danger"><?=$summary['remainder']?></span> / <?=$summary['totalallowance']?></div>
             <?php } ?>
          </td>
          <?php 

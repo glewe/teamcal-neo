@@ -1156,8 +1156,12 @@ function getAbsenceSummary($username, $absid, $year)
          }
       }
       
-      $summary['remainder'] = $LANG['absum_unlimited'];
-      if ($A->allowance) $summary['remainder'] = $summary['totalallowance'] - $summary['taken'];
+      if ($A->allowance || $summary['totalallowance']) {
+         $summary['remainder'] = $summary['totalallowance'] - $summary['taken'];
+      }
+      else {
+         $summary['remainder'] = $LANG['absum_unlimited'];
+      }
    }
 
    return $summary;
