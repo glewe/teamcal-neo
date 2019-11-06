@@ -5,7 +5,7 @@
  * The view of the footer
  *
  * @category TeamCal Neo 
- * @version 2.2.0
+ * @version 2.2.1
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
