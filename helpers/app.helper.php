@@ -657,10 +657,10 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
          //
          // CHECK ALLOWANCE PER YEAR
          //
-         if ($AL->find($username, $requestedAbsences[$i]))
+         if ($AL->find($username, $requestedAbsences[$i]) && $AL->getAllowance($username, $requestedAbsences[$i]))
          {
             //
-            // The user has a personal allowance record. That wins over global.
+            // The user has a positive personal allowance. That wins over global.
             //
             $allow=$AL->getAllowance($username, $requestedAbsences[$i]);
             $checkAllowance = true;
