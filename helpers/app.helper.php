@@ -598,16 +598,20 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             $today = date("d", $myts);
             $countTo = $toyear.$tomonth.$today;
 
+            // die(sprintf(countAbsenceRequested($requestedAbsences,$requestedAbsences[$i])));
+
             //
             // Count already taken (saved in database)
             //
             $taken = countAbsence($username, $requestedAbsences[$i], $countFrom, $countTo, true, false);
             
-            if (($taken+1) > $allow AND $requestedAbsences[$i] != $currentAbsences[$i])
+            if ( (($taken+1) > $allow AND $requestedAbsences[$i] != $currentAbsences[$i]) OR countAbsenceRequested($requestedAbsences,$requestedAbsences[$i]) > $allow )
             {
                //
                // Absence allowance per week reached AND
                // the requested absence is not one of the already taken ones (new request)
+               // OR
+               // the total of the requested absences already exceeds the limit
                //
                $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . str_replace('%1%', $allow, $LANG['alert_decl_allowweek_reached']);
          
@@ -638,11 +642,13 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             //
             $taken = countAbsence($username, $requestedAbsences[$i], $countFrom, $countTo, true, false);
 
-            if (($taken+1) > $allow AND $requestedAbsences[$i] != $currentAbsences[$i])
+            if ( (($taken+1) > $allow AND $requestedAbsences[$i] != $currentAbsences[$i]) OR countAbsenceRequested($requestedAbsences,$requestedAbsences[$i]) > $allow )
             {
                //
                // Absence allowance per month reached AND
                // the requested absence is not one of the already taken ones (new request)
+               // OR
+               // the total of the requested absences already exceeds the limit
                //
                $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . str_replace('%1%', $allow, $LANG['alert_decl_allowmonth_reached']);
                
@@ -691,11 +697,13 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             $countTo = $T->year.'1231';
             $taken = countAbsence($username, $requestedAbsences[$i], $countFrom, $countTo, true, false);
             
-            if (($taken+1) > $allow AND $requestedAbsences[$i] != $currentAbsences[$i])
+            if ( (($taken+1) > $allow AND $requestedAbsences[$i] != $currentAbsences[$i]) OR countAbsenceRequested($requestedAbsences,$requestedAbsences[$i]) > $allow )
             {
                //
                // Absence allowance per year reached AND 
                // the requested absence is not one of the already taken ones (new request)
+               // OR
+               // the total of the requested absences already exceeds the limit
                //
                $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . str_replace('%1%', $allow, $LANG['alert_decl_allowyear_reached']);
                
@@ -1025,6 +1033,25 @@ function countBusinessDays($cntfrom, $cntto, $region = '1', $cntManDays = false)
    {
       return $count;
    }
+}
+
+// ---------------------------------------------------------------------------
+/**
+ * Counts all business days or man days in a given time period
+ *
+ * @param array $requestedAbsences Array of requested absences
+ * @param string $absence Absence ID to count in array
+ * @return integer Result of the count
+ */
+function countAbsenceRequested($requestedAbsences, $absence)
+{
+   $count = 0;
+   foreach ($requestedAbsences as $abs) {
+      if ($abs == $absence) {
+         $count++;
+      }
+   }
+   return $count;
 }
 
 // ---------------------------------------------------------------------------
