@@ -3,7 +3,26 @@ TEAMCAL NEO UPGRADE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
-[2.1.1] -> [2.2.1]
+[2.2.1] -> [2.2.2]
+
+1. Backup your current files and database!
+
+2. Download the new release and overwrite all files.
+ 
+3. Edit config/config.app.php and change line 39 to:
+   define('APP_INSTALLED',"1");
+
+4. Edit config/config.db.php and update your database settings from your backup.
+   
+5. Delete file installation.php in the root directory
+
+6. Login as admin and load the Log page. On the Log Settings tab, select the
+   new event types "Calendar" (User calendar changes) and "Month" (month calendar
+   changes) to be logged/not logged.
+
+
+------------------------------------------------------------------------------
+[2.2.0] -> [2.2.1]
 
 1. Backup your current files and database!
 
