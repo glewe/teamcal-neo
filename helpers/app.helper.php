@@ -579,8 +579,10 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             //
             // Get the first day of the week that this absence request is in
             //
+            $firstDayOfWeek = $C->read("firstDayOfWeek");
+
             $date = new DateTime($T->year . '-' . $T->month . '-' . sprintf("%02d", ($i)));
-            $first = $date->modify('this week -1 days');
+            if ($firstDayOfWeek == 1) $first = $date->modify('monday this week'); else $first = $date->modify('sunday last week');
             $myts = $date->getTimestamp();
             $fromyear = date("Y", $myts);
             $frommonth = date("m", $myts);
@@ -591,21 +593,22 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             // Get the last day of the week that this absence request is in
             //
             $date = new DateTime($T->year . '-' . $T->month . '-' . sprintf("%02d", ($i)));
-            $last = $date->modify('this week +5 days');
+            if ($firstDayOfWeek == 1) $last = $date->modify('monday this week +6 days'); else $first = $date->modify('sunday last week +6 days');
             $myts = $date->getTimestamp();
             $toyear = date("Y", $myts);
             $tomonth = date("m", $myts);
             $today = date("d", $myts);
             $countTo = $toyear.$tomonth.$today;
 
-            // die(sprintf(countAbsenceRequested($requestedAbsences,$requestedAbsences[$i])));
-
             //
             // Count already taken (saved in database)
             //
             $taken = countAbsence($username, $requestedAbsences[$i], $countFrom, $countTo, true, false);
+
+            // die($countFrom.' | '.$countTo . ' = '.$taken.' of '.$allow);
+            // die(var_dump($requestedAbsences));
             
-            if ( (($taken+1) > $allow AND $requestedAbsences[$i] != $currentAbsences[$i]) OR countAbsenceRequested($requestedAbsences,$requestedAbsences[$i]) > $allow )
+            if ( (($taken+1) > $allow AND $requestedAbsences[$i] != $currentAbsences[$i]) OR countAbsenceRequestedWeek($requestedAbsences,$requestedAbsences[$i],intval($fromday)) > $allow)
             {
                //
                // Absence allowance per week reached AND
@@ -642,7 +645,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             //
             $taken = countAbsence($username, $requestedAbsences[$i], $countFrom, $countTo, true, false);
 
-            if ( (($taken+1) > $allow AND $requestedAbsences[$i] != $currentAbsences[$i]) OR countAbsenceRequested($requestedAbsences,$requestedAbsences[$i]) > $allow )
+            if ( (($taken+1) > $allow AND $requestedAbsences[$i] != $currentAbsences[$i]) OR countAbsenceRequestedMonth($requestedAbsences,$requestedAbsences[$i]) > $allow )
             {
                //
                // Absence allowance per month reached AND
@@ -697,7 +700,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             $countTo = $T->year.'1231';
             $taken = countAbsence($username, $requestedAbsences[$i], $countFrom, $countTo, true, false);
             
-            if ( (($taken+1) > $allow AND $requestedAbsences[$i] != $currentAbsences[$i]) OR countAbsenceRequested($requestedAbsences,$requestedAbsences[$i]) > $allow )
+            if ( (($taken+1) > $allow AND $requestedAbsences[$i] != $currentAbsences[$i]) OR countAbsenceRequestedMonth($requestedAbsences,$requestedAbsences[$i]) > $allow )
             {
                //
                // Absence allowance per year reached AND 
@@ -1037,19 +1040,38 @@ function countBusinessDays($cntfrom, $cntto, $region = '1', $cntManDays = false)
 
 // ---------------------------------------------------------------------------
 /**
- * Counts all business days or man days in a given time period
+ * Counts all requested absences for a month
  *
  * @param array $requestedAbsences Array of requested absences
  * @param string $absence Absence ID to count in array
  * @return integer Result of the count
  */
-function countAbsenceRequested($requestedAbsences, $absence)
+function countAbsenceRequestedMonth($requestedAbsences, $absence)
 {
    $count = 0;
    foreach ($requestedAbsences as $abs) {
       if ($abs == $absence) {
          $count++;
       }
+   }
+   return $count;
+}
+
+// ---------------------------------------------------------------------------
+/**
+ * Counts all requested absences for a week (7 sequential values in the array)
+ *
+ * @param array $requestedAbsences Array of requested absences
+ * @param string $absence Absence ID to count in array
+ * @param integer Index in absence array to start at
+ * @return integer Result of the count
+ */
+function countAbsenceRequestedWeek($requestedAbsences, $absence, $startAt)
+{
+   $count = 0;
+   for($i = $startAt; $i <= $startAt+6; $i++)
+   {
+      if ($requestedAbsences[$i] == $absence) $count++;
    }
    return $count;
 }
