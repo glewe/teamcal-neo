@@ -257,7 +257,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                   $groups = "";
                   foreach ( $userGroups as $row )
                   {
-                     if ($requestedAbsences[$i] AND presenceMinimumReached($year, $month, $i, $row['groupid']))
+                     if ($requestedAbsences[$i] AND !$A->getCountsAsPresent($requestedAbsences[$i]) AND presenceMinimumReached($year, $month, $i, $row['groupid']))
                      {
                         //
                         // Only decline and add the affected group if the requesting user
@@ -292,7 +292,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                   $groups = "";
                   foreach ( $userGroups as $row )
                   {
-                     if ($requestedAbsences[$i] AND absenceMaximumReached($year, $month, $i, $row['groupid']))
+                     if ($requestedAbsences[$i] AND !$A->getCountsAsPresent($requestedAbsences[$i]) AND absenceMaximumReached($year, $month, $i, $row['groupid']))
                      {
                         //
                         // Only decline and add the affected group if the requesting user
@@ -322,9 +322,9 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
 
                   //
                   // ABSENCE THRESHOLD
-                  // Only check this if the requested absence is in fact an absence (not Zero)
+                  // Only check this if the requested absence is in fact an absence (not Zero, not counting as present)
                   //
-                  if ($C->read("declAbsence") AND $requestedAbsences[$i] != '0')
+                  if ($C->read("declAbsence") AND $requestedAbsences[$i] != '0' AND !$A->getCountsAsPresent($requestedAbsences[$i]))
                   {
                      $today = date('Ymd');
                      $declStartdate = str_replace('-','',$C->read('declAbsenceStartdate'));
