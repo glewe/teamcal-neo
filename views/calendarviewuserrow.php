@@ -199,10 +199,12 @@ if ($editAllowed)
                   //
                   // This daynote is confidential. Check whether the logged in user may see it.
                   // Rules:
-                  // - Logged in user must be in a trusted role or must be "admin"
+                  // - Logged in user must be in a trusted role or 
+                  // - Daynote belongs to the logged in user
+                  // - Logged in user is admin
                   //
                   $allowed = false;
-                  if (in_array($UL->getRole($UL->username), $viewData['trustedRoles']) OR $UL->username=='admin') $allowed = true;
+                  if (in_array($UL->getRole($UL->username), $viewData['trustedRoles']) OR $UL->username==$D->username OR $UL->username=='admin') $allowed = true;
                }
                
                if ($allowed)
