@@ -466,7 +466,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (141, 'logcolorImport', 'warning'),
 (142, 'logfilterImport', '1'),
 (143, 'appKeywords', 'Lewe TeamCal Neo'),
-(144, 'userManual', 'https%3A%2F%2Fgeorgelewe.atlassian.net%2Fwiki%2Fdisplay%2FTCNEO%2FTeamCal%2BNeo%2BDocumentation%2F'),
+(144, 'userManual', 'https%3A%2F%2Fsupport.lewe.com%2Fdocs%2Fteamcal-neo-manual%2F'),
 (145, 'footerCopyrightUrl', 'http://www.lewe.com'),
 (146, 'footerSocialLinks', 'https://www.linkedin.com/in/george-lewe-a9ab6411b;https://www.xing.com/profile/George_Lewe;https://bitbucket.org/georgelewe/;https://www.paypal.me/GeorgeLewe'),
 (147, 'footerViewport', '0'),
@@ -1046,7 +1046,7 @@ INSERT INTO `tcneo_users` (`username`, `password`, `firstname`, `lastname`, `ema
 ('admin', '$2y$10$Kt4r.PZIdqa.RU1qgPQP2ecN6pqDHG3qLifAu9IMMyLntlhnIMhaS', '', 'Admin', 'webmaster@yourserver.com', 1, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
 ('phead', '$2y$10$qvuiMeWbC0lAZdl7EnlRZe2PF6PRjsd5cRT0IhOjPdzAvnupWwFMq', 'Potatoe', 'Head', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
 ('ccarl', '$2y$10$r/8VfjUT9DDCF8efXd2yvOu/JiT.cBwSTaI8qVTFMcbBirdQ7JSSe', 'Coyote', 'Carl', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
-('dduck', '$2y$10$07tLV2ec1aG3eUQXCWuxC.qIgKm1Da9dRrms4YHLFxLasgYVm0Y1a', 'Donald', 'Duck', 'dduck@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
+('dduck', '$2y$10$xGRcN3kjQRcOaNFZHU1Oo.XqmTuiTNX0YzFdWZGFY/zbrfSw1HoR2', 'Donald', 'Duck', 'dduck@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
 ('sgonzales', '$2y$10$J.Px4e14DNX6.indHyBZOeCEV6EuNAUZTmnnaHB4CDF5JWypexrvS', 'Speedy', 'Gonzales', 'sgonzales@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
 ('mimouse', '$2y$10$IkWQeduBbmLn4m5rybEf6OCQRRFui0PEJ5bMWndCzlWMmpznXe3Xy', 'Minnie', 'Mouse', 'mimouse@yourserver.com', 2, 1, 1, 1, 1, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00');
 
