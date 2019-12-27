@@ -5,7 +5,7 @@
  * Reaminder view page controller
  *
  * @category TeamCal Neo 
- * @version 2.2.2
+ * @version 2.2.3
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
@@ -37,10 +37,17 @@ if (!isAllowed($CONF['controllers'][$controller]->permission))
 
 //-----------------------------------------------------------------------------
 //
-// Group filter (optional, defaults to 'all')
+// Build array of users to show
+//
+
+//
+// First, load all users we have that are not hidden
 //
 $users = $U->getAllButHidden();
 
+//
+// Second, remove all users not covered by the group filter
+//
 if (isset($_GET['group']))
 {
    $groupfilter = sanitize($_GET['group']);
@@ -54,6 +61,18 @@ $viewData['groupid'] = $groupfilter;
 if ($groupfilter == "all")
 {
    $viewData['group'] = $LANG['all'];
+   //
+   // Remove all users from array that the current user is not manager of
+   //
+   $calusers = array();
+   foreach ($users as $key=>$usr)
+   {
+      if ( L_USER == $usr['username'] OR L_USER == 'admin' OR $UG->isGroupManagerOfUser(L_USER, $usr['username']))
+      {
+         $calusers[] = $usr;
+      }
+   }
+   $users = $calusers;
 }
 else
 {
@@ -64,7 +83,7 @@ else
    $calusers = array();
    foreach ($users as $key=>$usr)
    {
-      if ($UG->isMemberOrGuestOfGroup($usr['username'], $groupfilter))
+      if ( L_USER == 'admin' OR ($UG->isMemberOrGuestOfGroup($usr['username'], $groupfilter) AND ($UG->isGroupManagerOfUser(L_USER, $usr['username']) OR L_USER == $usr['username'])) )
       {
          $calusers[] = $usr;
       }

@@ -5,7 +5,7 @@
  * Users page controller
  *
  * @category TeamCal Neo 
- * @version 2.2.2
+ * @version 2.2.3
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com

@@ -5,7 +5,7 @@
  * Message editor controller
  *
  * @category TeamCal Neo
- * @version 2.2.2
+ * @version 2.2.3
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2019 by George Lewe
  * @link http://www.lewe.com
@@ -236,7 +236,16 @@ if (!empty($_POST))
             //
             $tstamp = date("YmdHis");
             $mmsg = str_replace("\r\n", "<br>", $_POST['txt_text']);
-            $message = "<strong>" . $_POST['txt_subject'] . "</strong><br>" . $mmsg . "<br><br>[" . ltrim($UL->firstname . " " . $UL->lastname) . "]";
+
+            if ($userAvatar = $UO->read($UL->username, 'avatar')) {
+               if (!file_exists(APP_AVATAR_DIR.$userAvatar)) $userAvatar = 'default_' . $UO->read($UL->username, 'gender') . '.png';
+            }
+            else {
+               $userAvatar = 'default_' . $UO->read($UL->username, 'gender') . '.png';
+            }
+            $signature = '<img src="'.APP_AVATAR_DIR.$userAvatar.'" width="40" height="40" alt="" style="margin: 0 8px 0 0; text-align:left;"><i>['. ltrim($UL->firstname . " " . $UL->lastname).']</i>';
+
+            $message = "<strong>" . $_POST['txt_subject'] . "</strong><br>" . $mmsg . "<br><br>" . $signature;
             $newsid = $MSG->create($tstamp, $message, $_POST['opt_contenttype']);
             
             if ($_POST['opt_msgtype'] == "popup") $popup = 1; else $popup = 0;
