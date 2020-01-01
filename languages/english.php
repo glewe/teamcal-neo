@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * english.php
- * 
- * Language file (English)
+ * English Framework Strings
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Languages
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 //=============================================================================
 //
@@ -209,6 +208,8 @@ $LANG['alert_input_required'] = 'This field is mandatory.';
 $LANG['alert_input_username'] = 'This field allows alphanumerical characters, dash, underscore, dot and the @ sign.';
 $LANG['alert_input_validation_subject'] = 'Input validation';
 
+$LANG['alert_license_subject'] = 'License Management';
+
 $LANG['alert_maintenance_subject'] = 'Site Under Maintenance';
 $LANG['alert_maintenance_text'] = 'The site is currently set to "Under Maintenance". Regular users will not be able to use any feature.';
 $LANG['alert_maintenance_help'] = 'As an administrator you can set the site back to active under Administration -> Framework Configuration -> System.';
@@ -289,6 +290,7 @@ $LANG['btn_create_holiday'] = 'Create Holiday';
 $LANG['btn_create_region'] = 'Create Region';
 $LANG['btn_create_role'] = 'Create Role';
 $LANG['btn_create_user'] = 'Create User';
+$LANG['btn_deactivate'] = "Deactivate";
 $LANG['btn_delete'] = 'Delete';
 $LANG['btn_delete_abs'] = 'Delete Absence Type';
 $LANG['btn_delete_all'] = 'Delete All';
@@ -297,6 +299,7 @@ $LANG['btn_delete_holiday'] = 'Delete Holiday';
 $LANG['btn_delete_records'] = 'Delete Records';
 $LANG['btn_delete_role'] = 'Delete Role';
 $LANG['btn_delete_selected'] = 'Delete selected';
+$LANG['btn_deregister'] = 'Deregister';
 $LANG['btn_done'] = 'Done';
 $LANG['btn_download_view'] = 'Download/View';
 $LANG['btn_edit'] = 'Edit';
@@ -312,6 +315,7 @@ $LANG['btn_login'] = 'Login';
 $LANG['btn_logout'] = 'Logout';
 $LANG['btn_merge'] = 'Merge';
 $LANG['btn_next'] = 'Next';
+$LANG['btn_ok'] = 'Ok';
 $LANG['btn_optimize_tables'] = 'Optimize Tables';
 $LANG['btn_prev'] = 'Prev';
 $LANG['btn_refresh'] = 'Refresh';
@@ -349,6 +353,7 @@ $LANG['config_tab_email'] = 'E-mail';
 $LANG['config_tab_footer'] = 'Footer';
 $LANG['config_tab_homepage'] = 'Homepage';
 $LANG['config_tab_images'] = 'Images';
+$LANG['config_tab_license'] = 'License';
 $LANG['config_tab_login'] = 'Login';
 $LANG['config_tab_registration'] = 'Registration';
 $LANG['config_tab_system'] = 'System';
@@ -443,6 +448,16 @@ $LANG['config_jqtheme'] = 'jQuery UI Theme';
 $LANG['config_jqtheme_comment'] = $appTitle . ' uses jQuery UI, a popular collection of Javascript utilities. jQuery UI offers themes as well used for the display 
       of the tabbed dialogs and other features. The default theme is "smoothness" which is a neutral gray shaded theme. Try more from the list, some of them are 
       quite colorful. This is a global setting, users cannot choose an indiviual jQuery UI theme.';
+$LANG['config_licActivate'] = "Activate License";
+$LANG['config_licActivate_comment'] = "Your license is not active yet. Please activate it.";
+$LANG['config_licExpiryWarning'] = "License Expiry Warning";
+$LANG['config_licExpiryWarning_comment'] = "Enter the number of days before license expiry at which TeamCal Neo should start showing a corresponding alert. Set to 0 for no alert.";
+$LANG['config_licKey'] = "License Key";
+$LANG['config_licKey_comment'] = "Enter your license key here. It was provided to you when you registered yout TeamCal Neo instance.";
+$LANG['config_licRegister'] = "Register Domain";
+$LANG['config_licRegister_comment'] = "This TeamCal Neo domain is not registered for your license yet. Please register it.";
+$LANG['config_licDeregister'] = "De-Register Domain";
+$LANG['config_licDeregister_comment'] = "You can deregsiter this TeamCal Neo domain from your license, e.g. to move your instance to a different domain. Deregister it here and then register it from the new domain.";
 $LANG['config_logLanguage'] = "Log Language";
 $LANG['config_logLanguage_comment'] = "This setting sets the language for the system log entries.";
 $LANG['config_mailFrom'] = 'Mail From';
@@ -650,37 +665,37 @@ $LANG['home_title'] = 'Welcome to ' . $appTitle;
 $LANG['imprint'] = array ( 
    array (
       'title' => 'Author',
-      'text' => '<i class="fas fa-thumbs-up fa-3x fa-header pull-left" style="color: #999999;"></i>'.$appTitle.' was created by George Lewe (<a href="http://www.lewe.com/">Lewe.com</a>). 
+      'text' => '<p>'.$appTitle.' was created by George Lewe (<a href="http://www.lewe.com/">Lewe.com</a>). 
       '.$appTitle.' also uses free modules by other great people providing those awesome techonolgies to the public. 
-      See detailed credits on the <a href="index.php?action=about">About page</a>.',
+      See detailed credits on the <a href="index.php?action=about">About page</a>.</p>',
    ),
    array (
       'title' => 'Content',
-      'text' => '<p><i class="fas fa-file-alt fa-3x fa-header pull-left" style="color: #999999;"></i>The application '.$appTitle.' was created by George Lewe (<a href="http://www.lewe.com/">Lewe.com</a>).  
+      'text' => '<p>All content delivered with the '.$appTitle.' application was created by George Lewe (<a href="http://www.lewe.com/">Lewe.com</a>).  
       If you feel that any material is used inappropriately, please contact <a href="http://www.lewe.com/contact/">Lewe.com</a>.</p>
-      <p>None of the content, as a whole or in parts may be reproduced, copied or reused in any form or by any means, electronic or mechanical, 
+      <p>None of the application content, as a whole or in parts may be reproduced, copied or reused in any form or by any means, electronic or mechanical, 
       for any purpose, without the express written permission of George Lewe.</p>',
    ),
    array (
       'title' => 'Links',
-      'text' => '<p><i class="fas fa-link fa-3x fa-header pull-left" style="color: #999999;"></i>All links on '.$appTitle.' are being provided as a convenience 
+      'text' => '<p>All links delivered with the '.$appTitle.' application are being provided as a convenience 
       and for informational purposes only; they do not constitute an endorsement or an approval by '.$appTitle.' of any of the products, services or opinions 
-      of the corporation or organization or individual. '.$appTitle.' bears no responsibility for the accuracy, legality or content of the external site or 
+      of the corporation or organization or individual. The application provider bears no responsibility for the accuracy, legality or content of the external site or 
       for that of subsequent links. Contact the external site for questions regarding its content.</p>',
    ),
    array (
-      'title' => 'Cookies',
-      'text' => '<p><i class="fas fa-cookie fa-3x fa-header pull-left" style="color: #999999;"></i>This application uses cookies. Cookies are small files with application 
-      related information that are stored on your local hard drive. They do not contain any personal information nor are they transmitted anywhere but they are 
-      needed to run the application properly.</p>
-      <p>In the EU, legislation requires to get your consent for using cookies. By using this application you agree to the usage of cookies.</p>',
+      'title' => 'GDPR',
+      'text' => '<p>No personal data is delivered with the '.$appTitle.' application. Data privacy protection of any data added by users lies in the
+      responsibility of the user.</p><p>'.$appTitle.' provides a general GDPR generator. If used, users of the application are obliged to review the generated statement
+      and to change or add any details that the generator does not properly cover.</p><p>The application provider bears no responsibility for the accuracy, 
+      legality or content of the Data Privacy statement used on any installation of the application.</p>',
    ),
 );
 
 if ( $C->read('googleAnalytics') AND $C->read("googleAnalyticsID")) {
    $LANG['imprint'][] = array (
       'title' => 'Google Analytics',
-      'text' => '<p><i class="fab fa-google fa-3x pull-left" style="color: #999999;"></i>This website uses Google Analytics, a web analytics service provided by
+      'text' => '<p><i class="fab fa-google fa-3x float-left" style="color: #999999;"></i>This website uses Google Analytics, a web analytics service provided by
       Google, Inc. ("Google"). Google Analytics uses "cookies", which are text files placed on your computer, to help the website analyze how users use the site.
       The information generated by the cookie about the use of this website will be transmitted to and stored by Google on servers that may reside in the United States.</p>
       <div class="collapse" id="readmore">
@@ -700,6 +715,47 @@ if ( $C->read('googleAnalytics') AND $C->read("googleAnalyticsID")) {
       <p><a class="btn btn-default" data-toggle="collapse" data-target="#readmore">Read more/less...</a></p>',
    );
 }
+
+//
+// License
+//
+$LANG['lic_active'] = 'Active License';
+$LANG['lic_active_subject'] = 'This is an active TeamCal Neo license for this domain. Awesome!';
+$LANG['lic_alert_activation_fail'] = 'The following error occurred while trying to activate your license:';
+$LANG['lic_alert_activation_success'] = 'Your license was successfully activated for this domain.';
+$LANG['lic_alert_registration_fail'] = 'The following error occurred while trying to register your domain to your license:';
+$LANG['lic_alert_registration_success'] = 'Your domain was successfully registered to your license.';
+$LANG['lic_alert_deregistration_fail'] = 'The following error occurred while trying to deregister your domain from your license:';
+$LANG['lic_alert_deregistration_success'] = 'Your domain was successfully deregistered from your license.';
+$LANG['lic_blocked'] = 'Blocked License';
+$LANG['lic_blocked_subject'] = 'This TeamCal Neo license is blocked.';
+$LANG['lic_blocked_help'] = 'Please contact your administrator to unblock this license.';
+$LANG['lic_company'] = 'Company';
+$LANG['lic_date_created'] = 'Date Created';
+$LANG['lic_date_expiry'] = 'Date Expiry';
+$LANG['lic_date_renewed'] = 'Date Renewed';
+$LANG['lic_daysleft'] = 'days left';
+$LANG['lic_details'] = 'License Details';
+$LANG['lic_email'] = 'E-mail';
+$LANG['lic_expired'] = 'Expired License';
+$LANG['lic_expired_subject'] = 'This TeamCal Neo license has expired.';
+$LANG['lic_expired_help'] = 'Please contact your administrator to renew this license.';
+$LANG['lic_expiringsoon'] = 'License Expiry Warning';
+$LANG['lic_expiringsoon_subject'] = 'Your TeamCal Neo license will expire in %d days.';
+$LANG['lic_expiringsoon_help'] = 'Please contact your administrator to renew this license in time.';
+$LANG['lic_invalid'] = 'Invalid License';
+$LANG['lic_invalid_subject'] = 'No license key was found or it is invalid.';
+$LANG['lic_invalid_text'] = 'This TeamCal Neo instance is unregistered or a proper license key was not entered and activated yet.';
+$LANG['lic_invalid_help'] = 'Please contact the administrator to obtain a valid license.';
+$LANG['lic_key'] = 'License Key';
+$LANG['lic_name'] = 'Licensee';
+$LANG['lic_max_allowed_domains'] = 'Maximum Allowed Domains';
+$LANG['lic_pending'] = 'Pending License';
+$LANG['lic_pending_subject'] = 'This TeamCal Neo license is registered but not activated yet.';
+$LANG['lic_pending_help'] = 'Please contact your administrator to activate this license.';
+$LANG['lic_registered_domains'] = 'Registered Domains';
+$LANG['lic_status'] = 'Status';
+$LANG['lic_product'] = 'Product';
 
 //
 // Log

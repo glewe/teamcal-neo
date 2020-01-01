@@ -1,12 +1,13 @@
 /**
- * ajax.js
- * 
- * @category TeamCal Neo 
- * @version 1.3.003
+ * Ajax Functions
+ *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Javascript
+ * @since 3.0.0
  */
 
 /**

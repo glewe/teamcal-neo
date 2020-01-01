@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * calendarviewmonth.php
- * 
- * Calendar view page - Month table
+ * Caolendar View Month View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
 // echo "<script type=\"text/javascript\">alert(\"calendarviewuserrow.php: \");</script>";
 ?>
@@ -167,8 +166,8 @@ foreach ($mobilecols as $key => $cols)
             <!-- Row: Summary Header -->
             <tr>
                <td class="m-label" colspan="<?=$dayend-$daystart+2?>">
-                  <span style="float: left;"><?=$LANG['cal_summary']?>&nbsp;<a class="btn btn-default btn-xs" data-toggle="collapse" data-target=".summary">...</a></span>
-                  <span class="pull-right text-normal"><?=$viewData['businessDays']?>&nbsp;<?=$LANG['cal_businessDays']?></span>
+                  <span style="float: left;"><?=$LANG['cal_summary']?>&nbsp;<a class="btn btn-secondary btn-sm" data-toggle="collapse" data-target=".summary">...</a></span>
+                  <span class="float-right text-normal"><?=$viewData['businessDays']?>&nbsp;<?=$LANG['cal_businessDays']?></span>
                </td>
             </tr>
 

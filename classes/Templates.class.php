@@ -1,18 +1,17 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * Templates.class.php
+ * Templates
  *
- * @category TeamCal Neo 
- * @version 2.2.3
+ * This class provides methods and properties for month templates.
+ * 
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
- */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
-
-/**
- * Provides objects and methods to manage the template table
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Calendar Management
+ * @since 3.0.0
  */
 class Templates
 {

@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * calendarviewmonthheader.php
- * 
- * Calendar view month header rows
+ * Calendar View Month Header View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
       <!-- ==================================================================== 
       view.calendarviewmonthheader (<?=$viewData['year'].$viewData['month']?>)

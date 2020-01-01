@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * remainder.php
- * 
- * Remainder page view
+ * Remainder View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
 $formLink = 'index.php?action='.$controller.'&amp;group='.$viewData['groupid'];
 ?>
@@ -34,26 +33,27 @@ $formLink = 'index.php?action='.$controller.'&amp;group='.$viewData['groupid'];
          $tabindex = 1; $colsleft = 1; $colsright = 4;
          ?>
          
-         <form class="bs-example form-control-horizontal" enctype="multipart/form-data" action="<?=$formLink?>" method="post" target="_self" accept-charset="utf-8">
+         <form class="form-control-horizontal" enctype="multipart/form-data" action="<?=$formLink?>" method="post" target="_self" accept-charset="utf-8">
 
             <div class="page-menu">
                <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectGroup"><?=$LANG['group'] . ': ' . $viewData['group']?></button>
                <button type="button" class="btn btn-info" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSearchUser"><?=$LANG['search'] . ': ' . $viewData['search']?></button>
                <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" name="btn_reset"><?=$LANG['btn_reset']?></button>
-               <a href="index.php?action=calendarview" class="btn btn-default pull-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_showcalendar']?></a>
+               <a href="index.php?action=calendarview" class="btn btn-secondary float-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_showcalendar']?></a>
             </div>
             
-            <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+            <div class="card">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['rem_title'].$pageHelp?></div>
+               <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['rem_title'].$pageHelp?></div>
             </div>
+            <div style="height:20px;"></div>
             
             <!-- Remainder Table -->
-            <div class="panel panel-default">
-               <div class="panel-body">
+            <div class="card">
+               <div class="card-body">
 
                   <table class="table table-bordered table-hover year">
                      <thead>
@@ -143,11 +143,11 @@ $formLink = 'index.php?action='.$controller.'&amp;group='.$viewData['groupid'];
             
             <!-- Modal: Search User -->
             <div class="modal fade" id="modalSearchUser" role="dialog" aria-labelledby="modalSearchUserLabel" aria-hidden="true">
-               <div class="modal-dialog">
+               <div class="modal-dialog" role="document">
                   <div class="modal-content">
                      <div class="modal-header">
+                        <h5 class="modal-title" id="modalSearchUserLabel"><?=$LANG['cal_search']?></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="modalSearchUserLabel"><?=$LANG['cal_search']?></h4>
                      </div>
                      <div class="modal-body">
                         <input id="search" class="form-control" tabindex="<?=$tabindex++?>" name="txt_search" type="text" value="<?=$viewData["search"]?>">
@@ -158,6 +158,7 @@ $formLink = 'index.php?action='.$controller.'&amp;group='.$viewData['groupid'];
                      <div class="modal-footer">
                         <button type="submit" class="btn btn-info" tabindex="<?=$tabindex++?>" name="btn_search" style="margin-top: 4px;"><?=$LANG['btn_search']?></button>
                         <?php if (strlen($viewData["search"])) { ?><button type="submit" class="btn btn-danger" tabindex="<?=$tabindex++?>" name="btn_search_clear"><?=$LANG['btn_clear']?></button><?php } ?>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><?=$LANG['btn_cancel']?></button>
                      </div>
                   </div>
                </div>

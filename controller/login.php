@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * login.php
- * 
- * Login page controller
+ * Login Controller
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Controllers
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo '<script type="text/javascript">alert("Debug: ");</script>';
 
@@ -61,20 +60,6 @@ if (!empty($_POST))
                //
                $LOG->log("logLogin", $uname, "log_login_success");
                 
-               //
-               // Check for installation file
-               //
-               if (file_exists("installation.php") && $uname == "admin")
-               {
-                  //
-                  // Installation file still exists.
-                  // Add this alert to the admin's notifications
-                  //
-                  $tstamp = date("YmdHis");
-                  $message = "<strong>" . $LANG['err_instfile_title'] . "</strong><br>" . $LANG['err_instfile'] . "<br><br>" . "[".APP_NAME."]</span>";
-                  $MSG->create($tstamp, 'admin', $message, '1', 'danger');
-               }
-               
                //
                // Check whether we have to force the announcement page to show.
                // This is the case if the user has popup announcements.

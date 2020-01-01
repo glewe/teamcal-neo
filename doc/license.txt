@@ -1,42 +1,7 @@
 ==============================================================================
-TEAMCAL NEO LICENSE
+TEAMCAL NEO LICENSE (BASIC AND PRO)
 ==============================================================================
 
-In addition to the GPL license (http://www.gnu.org/licenses/gpl-3.0.en.html) 
-you agree to the following conditions if you decide to use or modify TeamCal Neo:
+Refer to this documentation for the TeamCal Neo license details (Basic and Pro):
+https://support.lewe.com/docs/teamcal-neo-manual/teamcal-neo-license/
 
-1. You may NOT alter or disable comments, references, statements and displays 
-   of the:
-   - Application information (name, version) (exception see under 3.)
-   - Author's information (name, URL, e-mail)
-   - Author's copyright
-   - "Powered by" information in the footer (must be displayed on each page)
-   - Help-About page (exception see under 3.)
-
-2. You may alter the footer copyright name (see Framework Configuration)
-
-3. If you develop identifyable sections of code that are not derived from the 
-   original application and can be reasonably considered as independent and 
-   separate work in themselves, like an integration module for a CMS, you may 
-   identify your new sections by appropriate references to you as the modifying
-   author. In such a case you may also alter the version number of the 
-   Application based on the original version number in order to reflect the 
-   independent additions to the Application (e.g. 3.5.002 => 3.5.002m). 
-   You may also add information about your mod to the About page.
-
-4. Creation of modifications does not change the license agreements and usage 
-   classification. All conditions still apply.
-
-5. Usage of modifications under different license conditions than the original 
-   are not allowed and still require the same support fee.
-
-6. Distribution of modifications are not allowed.
-
-*Commercial use of TeamCal Neo requires licensing.* 
-Refer to this documentation for further information:
-
-https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/45580290/TeamCal+Neo+License
-        
-George Lewe (george@lewe.com)
-
-==============================================================================

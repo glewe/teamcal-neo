@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * footer.php
- * 
- * The view of the footer
+ * Footer View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -19,48 +18,49 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       -->
       <footer class="footer">
          <div class="container">
+            <div class="row">
                
-            <div class="col-lg-4">
-               <ul class="list-unstyled">
-                  <?php
-                  $footerCopyright = "";
-                  if ($copyright = $C->read("footerCopyright")) {
-                     $footerCopyright .= "&copy; ".date('Y')." by ";
-                     if ($copyrightUrl = $C->read("footerCopyrightUrl")) {
-                        $footerCopyright .= '<a href="'.$copyrightUrl.'" target="_blank">'.$copyright.'</a>';
+               <div class="col-lg-4">
+                  <ul class="list-unstyled">
+                     <?php
+                     $footerCopyright = "";
+                     if ($copyright = $C->read("footerCopyright")) {
+                        $footerCopyright .= "&copy; ".date('Y')." by ";
+                        if ($copyrightUrl = $C->read("footerCopyrightUrl")) {
+                           $footerCopyright .= '<a href="'.$copyrightUrl.'" target="_blank">'.$copyright.'</a>';
+                        }
+                        else {
+                           $footerCopyright .= $copyright;
+                        }
                      }
-                     else {
-                        $footerCopyright .= $copyright;
+                     ?>
+                     <li><?=$footerCopyright?></li>
+                  </ul>
+               </div>
+               
+               <div class="col-lg-4">
+                  <ul class="list-unstyled">
+                     <li><a href="index.php"><?=$LANG['footer_home']?></a></li>
+                     <?php if ($docLink = $C->read("userManual")) {?>
+                        <li><a href="<?=urldecode($docLink)?>" target="_blank"><?=$LANG['footer_help']?></a></li>
+                     <?php } ?>
+                     <li><a href="index.php?action=about"><?=$LANG['footer_about']?></a></li>
+                     <li><a href="index.php?action=imprint"><?=$LANG['footer_imprint']?></a></li>
+                     <li><a href="index.php?action=dataprivacy"><?=$LANG['footer_dataprivacy']?></a></li>
+                  </ul>
+               </div>
+            
+               <div class="col-lg-4 text-right">
+                  <?php if ($urls = $C->read("footerSocialLinks") AND strlen($urls)) {
+                     $urlArray = explode(';', $urls);
+                     foreach ($urlArray as $url) { 
+                        if (strlen($url)) { ?>
+                           <span class="social-icon"><a href="<?=$url?>" target="_blank"><i class="fab fa-lg"></i></a></span>                     
+                        <?php } 
                      }
-                  }
-                  ?>
-                  <li><?=$footerCopyright?></li>
-               </ul>
+                  } ?>
+               </div>
             </div>
-            
-            <div class="col-lg-4">
-               <ul class="list-unstyled">
-                  <li><a href="index.php"><?=$LANG['footer_home']?></a></li>
-                  <?php if ($docLink = $C->read("userManual")) {?>
-                     <li><a href="<?=urldecode($docLink)?>" target="_blank"><?=$LANG['footer_help']?></a></li>
-                  <?php } ?>
-                  <li><a href="index.php?action=about"><?=$LANG['footer_about']?></a></li>
-                  <li><a href="index.php?action=imprint"><?=$LANG['footer_imprint']?></a></li>
-                  <li><a href="index.php?action=dataprivacy"><?=$LANG['footer_dataprivacy']?></a></li>
-               </ul>
-            </div>
-            
-            <div class="col-lg-4 text-right">
-               <?php if ($urls = $C->read("footerSocialLinks") AND strlen($urls)) {
-                  $urlArray = explode(';', $urls);
-                  foreach ($urlArray as $url) { 
-                     if (strlen($url)) { ?>
-                        <span class="social-icon"><a href="<?=$url?>" target="_blank"><i class="fab fa-lg"></i></a></span>                     
-                     <?php } 
-                  }
-               } ?>
-            </div>
-            
          </div>
          
          <!-- As per the license agreement, you are not allowed to change or remove the following block! -->

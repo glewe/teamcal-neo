@@ -1,4 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
+/**
+ * English GDPR Strings
+ *
+ * @author George Lewe <george@lewe.com>
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Languages
+ * @since 3.0.0
+ */
 $LANG['gdpr_start'] = '<h4>1. Introduction</h4>
 <p>We are very delighted that you have shown interest in our enterprise. Data protection is of a particularly high priority for the management of the %ENTITY%. The use of the Internet pages of the %ENTITY% is possible without any indication of personal data; however, if a data subject wants to use special enterprise services via our website, processing of personal data could become necessary. If the processing of personal data is necessary and there is no statutory basis for such processing, we generally obtain consent from the data subject.</p>
 <p>The processing of personal data, such as the name, address, e-mail address, or telephone number of a data subject shall always be in line with the General Data Protection Regulation (GDPR), and in accordance with the country-specific data protection regulations applicable to the %ENTITY%. By means of this data protection declaration, our enterprise would like to inform the general public of the nature, scope, and purpose of the personal data we collect, use and process. Furthermore, data subjects are informed, by means of this data protection declaration, of the rights to which they are entitled.</p>

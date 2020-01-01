@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * config.db.php
- * 
- * Database parameters
+ * Database Configuration
  *
- * @category TeamCal Neo 
- * @version 2.2.3
- * @author George Lewe
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @author George Lewe <george@lewe.com>
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Application Configuration
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 //=============================================================================
 /**
@@ -20,7 +19,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  * Enter your database parameter here
  */
 $CONF['db_server'] = "localhost";
-$CONF['db_name'] = "tcneo";
+$CONF['db_name'] = "tcneopro";
 $CONF['db_user'] = "root";
 $CONF['db_pass'] = "";
 $CONF['db_table_prefix'] = "tcneo_";

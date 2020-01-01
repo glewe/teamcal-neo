@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * deutsch.php
- * 
- * Language file (German)
+ * German Framework   Strings
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Languages
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 //=============================================================================
 //
@@ -209,6 +208,8 @@ $LANG['alert_input_required'] = 'Dieses Feld ist eine Pflichteingabe.';
 $LANG['alert_input_username'] = 'Diese Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen, Bindestrich, Unterstrich, Punkt und @.';
 $LANG['alert_input_validation_subject'] = 'Eingabevalidierung';
 
+$LANG['alert_license_subject'] = 'Lizenzmanagement';
+
 $LANG['alert_maintenance_subject'] = 'Website in Wartung';
 $LANG['alert_maintenance_text'] = 'Die Website is zurzeit auf "Unter Wartung" gesetzt. Normale Nutzer k&ouml;nnen keine Funktionen nutzen.';
 $LANG['alert_maintenance_help'] = 'Ein Administrator kann die Website wieder aktiv setzten unter Administration -> Framework-Konfiguration -> System.';
@@ -289,6 +290,7 @@ $LANG['btn_create_holiday'] = 'Feiertag anlegen';
 $LANG['btn_create_region'] = 'Region anlegen';
 $LANG['btn_create_role'] = 'Rolle anlegen';
 $LANG['btn_create_user'] = 'Benutzer anlegen';
+$LANG['btn_deactivate'] = "Deaktivieren";
 $LANG['btn_delete'] = 'L&ouml;schen';
 $LANG['btn_delete_abs'] = 'Abwesenheitstyp l&ouml;schen';
 $LANG['btn_delete_all'] = 'Alle l&ouml;schen';
@@ -297,6 +299,7 @@ $LANG['btn_delete_holiday'] = 'Feiertag l&ouml;schen';
 $LANG['btn_delete_records'] = 'Datens&auml;tze l&ouml;schen';
 $LANG['btn_delete_role'] = 'Rolle l&ouml;schen';
 $LANG['btn_delete_selected'] = 'Auswahl l&ouml;schen';
+$LANG['btn_deregister'] = 'Deregistrieren';
 $LANG['btn_done'] = 'Fertig';
 $LANG['btn_download_view'] = 'Runterladen/Anzeigen';
 $LANG['btn_edit'] = 'Editieren';
@@ -312,6 +315,7 @@ $LANG['btn_login'] = 'Login';
 $LANG['btn_logout'] = 'Logout';
 $LANG['btn_merge'] = 'Verschmelzen';
 $LANG['btn_next'] = 'N&auml;ch';
+$LANG['btn_ok'] = 'Ok';
 $LANG['btn_optimize_tables'] = 'Tabellen optimieren';
 $LANG['btn_prev'] = 'Vorh';
 $LANG['btn_refresh'] = 'Aktualisieren';
@@ -350,6 +354,7 @@ $LANG['config_tab_email'] = 'E-mail';
 $LANG['config_tab_footer'] = 'Fu&szlig;zeile';
 $LANG['config_tab_homepage'] = 'Startseite';
 $LANG['config_tab_images'] = 'Bilder';
+$LANG['config_tab_license'] = 'Lizenz';
 $LANG['config_tab_login'] = 'Login';
 $LANG['config_tab_registration'] = 'Registrierung';
 $LANG['config_tab_system'] = 'System';
@@ -445,6 +450,16 @@ $LANG['config_jqtheme'] = 'jQuery UI Theme';
 $LANG['config_jqtheme_comment'] = $appTitle . ' nutzt jQuery UI, eine popul&auml;re Sammlung von Javascript Tools. jQuery UI bietet auch verschiedene Themes, die die Anzeige 
       der Reiterdialoge u.a. Objekten bestimmen. Das Standard Theme ist "smoothness", ein neutrales Schema mit Graut&ouml;nen. Versuche andere aus der Liste, manche sind 
       recht fabenfroh. Diese Einstellung wirkt global. Nutzer k&ouml;nnen kein eigenes jQuery UI Theme w&auml;hlen.';
+$LANG['config_licActivate'] = "Lizenz Aktivieren";
+$LANG['config_licActivate_comment'] = "Deine Lizenz ist noch nicht aktiv. Bitte aktiviere sie.";
+$LANG['config_licExpiryWarning'] = "Lizenz-Ablaufwarnung";
+$LANG['config_licExpiryWarning_comment'] = "Gib die Anzahl der Tage bis zum Ablaufen der Lizenz ein, ab dem TeamCal Neo eine entsprechende Warnung anzeigen soll. Setze den Wert auf 0 f&uuml;r keine Warnung.";
+$LANG['config_licKey'] = "Lizenzschl&uuml;ssel";
+$LANG['config_licKey_comment'] = "Gib hier den Lizenzschl&uuml;ssel ein, den du bei der Registrierung von TeamCal Neo erhalten hast.";
+$LANG['config_licRegister'] = "Domain Registrieren";
+$LANG['config_licRegister_comment'] = "Diese TeamCal Neo Domain is noch nicht f&uuml;r die Lizenz registriert. Bitte registriere sie.";
+$LANG['config_licDeregister'] = "Domain De-Registrieren";
+$LANG['config_licDeregister_comment'] = "Du kannst diese TeamCal Neo Domain von der Lizenz deregistrieren, z.B. wenn du auf eine neuen Domain umziehen willst. Deregistriere diese Domain hier und registriere die neue von dort.";
 $LANG['config_logLanguage'] = "Logbuchsprache";
 $LANG['config_logLanguage_comment'] = "Diese Einstellung bestimmt die Sprache der Logbucheintr&auml;ge.";
 $LANG['config_mailFrom'] = 'Mail Von';
@@ -652,38 +667,39 @@ $LANG['home_title'] = 'Willkommen bei ' . $appTitle;
 $LANG['imprint'] = array ( 
    array (
       'title' => 'Author',
-      'text' => '<i class="fas fa-thumbs-up fa-3x fa-header pull-left" style="color: #999999;"></i>'.$appTitle.' wurde von George Lewe erstellt (<a href="http://www.lewe.com/">Lewe.com</a>).  
-      '.$appTitle.' nutzt auch kostenlose Module von anderen gro&szlig;artigen Entwicklern, die dankenswerter Weise
+      'text' => '<p>'.$appTitle.' wurde von George Lewe erstellt (<a href="http://www.lewe.com/">Lewe.com</a>).  
+      '.$appTitle.' nutzt au&szlig;erdem kostenlose Module von anderen gro&szlig;artigen Entwicklern, die dankenswerter Weise
       ihre Arbeit &ouml;ffentlich verf&uuml;gbar machen. Details dazu befinden sich auf der <a href="index.php?action=about">About Seite</a>.',
    ),
    array (
       'title' => 'Inhalt',
-      'text' => '<p><i class="fas fa-file-alt fa-3x fa-header pull-left" style="color: #999999;"></i>Die Inhalte von '.$appTitle.' wurden sorgf&auml;tig vorbereitet und
-      erstellt. Wo andere Quellen benutzt wurde, wird auch darauf hingewiesen. Sollte dies nicht der Fall sein, bitte informiere George Lewe mittels dieses 
-      <a href="http://www.lewe.com/contact">Forumlars</a>.</p> 
-      <p>Kein Inhalt der Applikation/Site, ganz oder in Teilen darf vervielf&auml;tigt, reproduziert, kopiert oder wiederwendet werden, in keiner Form, 
+      'text' => '<p>Die Inhalte, die mit der '.$appTitle.' Applikation ausgeliefert werden, wurden sorgf&auml;tig vorbereitet und
+      erstellt. Wo andere Quellen benutzt wurde, wird entsprechend darauf hingewiesen. Sollte dies nicht der Fall sein, bitte informiere George Lewe mittels dieses 
+      <a href="http://www.lewe.com/contact">Formulars</a>.</p> 
+      <p>Keine Inhalt der ausgelieferten Applikation, ganz oder in Teilen darf vervielf&auml;tigt, reproduziert, kopiert oder wiederwendet werden, in keiner Form, 
       elektronisch oder mechanisch, egal f&uuml;r welchen Zweck ohne ausdr&uuml;ckliche Erlaubnis von George Lewe.</p>',
    ),
    array (
       'title' => 'Links',
-      'text' => '<p><i class="fas fa-link fa-3x fa-header pull-left" style="color: #999999;"></i>Alle Links bei '.$appTitle.' werden als Annehmlichkeit und nur
-      zu Informationszwecken angeboten. Sie stellen keine Bef&uuml;rwortung oder Akzeptanz der entfernten Inhalte durch '.$appTitle.' dar, weder in Bezug auf
-      Produkte, Services oder Meinungen der verlinkten Anbieter. '.$appTitle.' ist nicht verantwortlich f&uuml;r die Richtigkeit oder Rechtm&auml;&szlig;keit
-      der verlinkten Inhalte. Bei Fragen oder Bedenken zu den verlinkten Inhalten kontakiere bitte den Anbieter dort.</p>',
+      'text' => '<p>Alle Links, die mit der '.$appTitle.' Applikation ausgeliefert werden, dienen der Annehmlichkeit und zu Informationszwecken. 
+      Sie stellen keine Bef&uuml;rwortung oder Akzeptanz der verlinkten Inhalte dar, weder in Bezug auf Produkte, Services oder Meinungen der verlinkten
+      Anbieter. Der Hersteller der Applikation ist nicht verantwortlich f&uuml;r die Richtigkeit oder Rechtm&auml;&szlig;keit der verlinkten Inhalte. Bei Fragen
+      oder Bedenken zu den verlinkten Inhalten kontakiere bitte den Anbieter dort.</p>',
    ),
    array (
-      'title' => 'Cookies',
-      'text' => '<p><i class="fas fa-cookie fa-3x fa-header pull-left" style="color: #999999;"></i>Diese Applikation benutzt Cookies. Cookies sind kleine Dateien mit 
-      applikationsrelevanten Informationen, die auf der lokalen Festplatte gespeichert werden. Sie enthalten keine pers&ouml;nlichen Daten und werden auch 
-      nicht &uuml;bertragen. Sie sind aber notwendig, damit diese Applikation funktioniert.</p>
-      <p>In der EU ist es Gesetz, die Zustimmung des Nutzers dazu zu erhalten. Mit der Nutzung dieser Applikation wird diese Zustimmung vorausgesetzt.</p>',
+      'title' => 'DSGVO',
+      'text' => '<p>Die ausgelieferte Applikation '.$appTitle.' enth&auml;lt keine pers&ouml;nlichen Daten. Der Schutz von pers&ouml;nlichen Daten, die
+      der Nutzer hinzuf&uumll;gt, obliegt alleinig dem Nutzer der Applikation.</p>
+      <p>'.$appTitle.' bietet einen generellen DSGVO Generator. Falls dieser benutzt wird, ist es die Pflicht des Nutzers der Applikation, die generierte
+      DSVGO-Erkl&auml;rung auf Vollst&auml;ndigkeit und Korrektheit zu &uuml;berpr&uuml;fen und gegebenenfalls entpsrechend zu &auml;nder oder zu erweitern.</p>
+      <p>Der Hersteller der Applikation ist nicht verantwortlich f&uuml;r die Richtigkeit oder Rechtm&auml;&szlig;keit der DSGVO Erkl&auml;rung.</p>',
    ),
 );
 
 if ( $C->read('googleAnalytics') AND $C->read("googleAnalyticsID")) {
    $LANG['imprint'][] = array (
       'title' => 'Google Analytics',
-      'text' => '<p><i class="fab fa-google fa-3x fa-header pull-left" style="color: #999999;"></i>Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc.
+      'text' => '<p><i class="fab fa-google fa-3x fa-header float-left" style="color: #999999;"></i>Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc.
       ("Google"). Google Analytics verwendet sog. "Cookies", Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website
       durch Sie erm&ouml;glichen. Die durch den Cookie erzeugten Informationen &uuml;ber die Nutzung dieser Website werden an Server von Google &uuml;bertragen und 
       dort gespeichert. Diese Server k&ouml;nnen sich den USA befinden.</p>
@@ -706,6 +722,47 @@ if ( $C->read('googleAnalytics') AND $C->read("googleAnalyticsID")) {
    );
 }
       
+//
+// License
+//
+$LANG['lic_active'] = 'Aktive Lizenz';
+$LANG['lic_active_subject'] = 'Dies ist eine aktive TeamCal Neo Lizenz f&uuml;r diese Domain. Klasse!';
+$LANG['lic_alert_activation_fail'] = 'Der folgende Fehler ist beim Aktivieren der Lizenz aufgetreten:';
+$LANG['lic_alert_activation_success'] = 'Deine Lizenz wurde erfolgreich fuer diese Domain aktiviert.';
+$LANG['lic_alert_registration_fail'] = 'Der folgende Fehler ist beim Registrieren der Domain aufgetreten:';
+$LANG['lic_alert_registration_success'] = 'Die Domain wurde erfolgreich f&uuml;r die Lizenz registriert.';
+$LANG['lic_alert_deregistration_fail'] = 'Der folgende Fehler ist beim De-registrieren der Domain aufgetreten:';
+$LANG['lic_alert_deregistration_success'] = 'Die Domain wurde erfolgreich von der Lizenz de-registriert.';
+$LANG['lic_blocked'] = 'Geblockte Lizenz';
+$LANG['lic_blocked_subject'] = 'Dioese TeamCal Neo license ist geblockt.';
+$LANG['lic_blocked_help'] = 'Bitte kontaktiere den Administrator, um die Lizenz zu entblocken.';
+$LANG['lic_company'] = 'Firma';
+$LANG['lic_date_created'] = 'Erstellungsdatum';
+$LANG['lic_date_expiry'] = 'Ablaufdatum';
+$LANG['lic_date_renewed'] = 'Erneuerungsddatum';
+$LANG['lic_daysleft'] = 'Tage verbleibend';
+$LANG['lic_details'] = 'Lizenzdetails';
+$LANG['lic_email'] = 'E-mail';
+$LANG['lic_expired'] = 'Abgelaufene Lizenz';
+$LANG['lic_expired_subject'] = 'Diese TeamCal Neo Lizenz ist abgelaufen.';
+$LANG['lic_expired_help'] = 'Bitte kontaktiere den Administrator, um die Lizenz zu verl&aauml;ngern.';
+$LANG['lic_expiringsoon'] = 'Lizenz-Ablauf Warnung';
+$LANG['lic_expiringsoon_subject'] = 'Diese TeamCal Neo Lizenz wird in %d Tagen ablaufen.';
+$LANG['lic_expiringsoon_help'] = 'Bitte kontaktiere den Administrator, um die Lizenz rechtzeitig zu verl&auml;ngern.';
+$LANG['lic_invalid'] = 'Ung&uuml;ltige Lizenz';
+$LANG['lic_invalid_subject'] = 'Es wurde kein Lizenzschl&uuml;ssel f&uuml;r diese TeamCal Neo Instanz gefunden.';
+$LANG['lic_invalid_text'] = 'Diese TeamCal Neo Instanz ist nicht registriert oder hat keine g&uuml;tige Lizenz bzw. wurde sie noch nicht aktiviert.';
+$LANG['lic_invalid_help'] = 'Bitte kontaktiere den Administrator, um die Lizenz zu registrieren oder zu aktivieren.';
+$LANG['lic_key'] = 'Lizenzschl&uuml;ssel';
+$LANG['lic_name'] = 'Lizenznehmer';
+$LANG['lic_max_allowed_domains'] = 'Maximal erlaubte Domains';
+$LANG['lic_pending'] = 'Inaktive Lizenz';
+$LANG['lic_pending_subject'] = 'Diese TeamCal Neo Lizenz ist registriert, wurde aber noch nicht aktiviert.';
+$LANG['lic_pending_help'] = 'Bitte kontaktiere den Administrator, um die Lizenz zu aktivieren.';
+$LANG['lic_registered_domains'] = 'Registrierte Domains';
+$LANG['lic_status'] = 'Status';
+$LANG['lic_product'] = 'Produkt';
+
 //
 // Log
 //

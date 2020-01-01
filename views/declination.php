@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * declination.php
- * 
- * Declination page view
+ * Declination View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -32,38 +31,39 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             } ?>
             <?php $tabindex = 1; $colsleft = 8; $colsright = 4;?>
             
-            <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
+            <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
 
-               <div class="panel panel-primary">
+               <div class="card">
                   <?php 
                   $pageHelp = '';
-                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['decl_title'].$pageHelp?></div>
-                  <div class="panel-body">
+                  <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['decl_title'].$pageHelp?></div>
+                  <div class="card-body">
 
-                     <div class="panel panel-default">
-                        <div class="panel-body">
+                     <div class="card">
+                        <div class="card-body">
                            <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_save"><?=$LANG['btn_save']?></button>
                         </div>
                      </div>
+                     <div style="height:20px;"></div>
                      
-                     <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                        <li class="active"><a href="#tab_overview" data-toggle="tab"><?=$LANG['decl_tab_overview']?></a></li>
-                        <li><a href="#tab_absence" data-toggle="tab"><?=$LANG['decl_tab_absence']?><?=(($viewData['declAbsence'])?' <i class="fas fa-check text-danger"></i>':'')?></a></li>
-                        <li><a href="#tab_before" data-toggle="tab"><?=$LANG['decl_tab_before']?><?=(($viewData['declBefore'])?' <i class="fas fa-check text-danger"></i>':'')?></a></li>
-                        <li><a href="#tab_period1" data-toggle="tab"><?=$LANG['decl_tab_period1']?><?=(($viewData['declPeriod1'])?' <i class="fas fa-check text-danger"></i>':'')?></a></li>
-                        <li><a href="#tab_period2" data-toggle="tab"><?=$LANG['decl_tab_period2']?><?=(($viewData['declPeriod2'])?' <i class="fas fa-check text-danger"></i>':'')?></a></li>
-                        <li><a href="#tab_period3" data-toggle="tab"><?=$LANG['decl_tab_period3']?><?=(($viewData['declPeriod3'])?' <i class="fas fa-check text-danger"></i>':'')?></a></li>
-                        <li><a href="#tab_scope" data-toggle="tab"><?=$LANG['decl_tab_scope']?></a></li>
+                     <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" id="tab_overview-tab" href="#tab_overview" data-toggle="tab" role="tab" aria-controls="tab_overview" aria-selected="true"><?=$LANG['decl_tab_overview']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_absence-tab" href="#tab_absence" data-toggle="tab" role="tab" aria-controls="tab_absence" aria-selected="false"><?=$LANG['decl_tab_absence']?><?=(($viewData['declAbsence'])?' <i class="fas fa-check text-danger"></i>':'')?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_before-tab" href="#tab_before" data-toggle="tab" role="tab" aria-controls="tab_before" aria-selected="false"><?=$LANG['decl_tab_before']?><?=(($viewData['declBefore'])?' <i class="fas fa-check text-danger"></i>':'')?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_period1-tab" href="#tab_period1" data-toggle="tab" role="tab" aria-controls="tab_period1" aria-selected="false"><?=$LANG['decl_tab_period1']?><?=(($viewData['declPeriod1'])?' <i class="fas fa-check text-danger"></i>':'')?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_period2-tab" href="#tab_period2" data-toggle="tab" role="tab" aria-controls="tab_period2" aria-selected="false"><?=$LANG['decl_tab_period2']?><?=(($viewData['declPeriod2'])?' <i class="fas fa-check text-danger"></i>':'')?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_period3-tab" href="#tab_period3" data-toggle="tab" role="tab" aria-controls="tab_period3" aria-selected="false"><?=$LANG['decl_tab_period3']?><?=(($viewData['declPeriod3'])?' <i class="fas fa-check text-danger"></i>':'')?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_scope-tab" href="#tab_scope" data-toggle="tab" role="tab" aria-controls="tab_scope" aria-selected="false"><?=$LANG['decl_tab_scope']?></a></li>
                      </ul>
                      
                      <div id="myTabContent" class="tab-content">
                         
                         <!-- Overview tab -->
-                        <div class="tab-pane fade active in" id="tab_overview">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade show active" id="tab_overview" role="tabpanel" aria-labelledby="tab_overview-tab">
+                           <div class="card">
+                              <div class="card-body">
                               
                                  <?php $overviews = array('Absence', 'Before', 'Period1', 'Period2', 'Period3'); 
                                  foreach ($overviews as $overview) { 
@@ -105,7 +105,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     }
                                     ?>
                               
-                                    <div class="form-group" id="form-group-overview-<?=$overview?>">
+                                    <div class="form-group row" id="form-group-overview-<?=$overview?>">
                                        <label class="col-lg-8 control-label">
                                           <?=$LANG['decl_tab_'.strtolower($overview)]?><br>
                                           <span class="text-normal"><?=$LANG['decl_summary_'.strtolower($overview)]?><br>
@@ -116,16 +116,16 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <div class="col-lg-4">
                                           <?php switch ($viewData['decl'.$overview.'Status']) { 
                                              case 'active': ?>
-                                                <span class="label label-danger"><?=$LANG['decl_label_active']?></span>
+                                                <span class="badge badge-danger"><?=$LANG['decl_label_active']?></span>
                                                 <?php break;
                                              case 'expired': ?>
-                                                <span class="label label-success"><?=$LANG['decl_label_expired']?></span>
+                                                <span class="badge badge-success"><?=$LANG['decl_label_expired']?></span>
                                                 <?php break;
                                              case 'inactive': ?>
-                                                <span class="label label-default"><?=$LANG['decl_label_inactive']?></span>
+                                                <span class="badge badge-dark"><?=$LANG['decl_label_inactive']?></span>
                                                 <?php break;
                                              case 'scheduled': ?>
-                                                <span class="label label-warning"><?=$LANG['decl_label_scheduled']?></span>
+                                                <span class="badge badge-warning"><?=$LANG['decl_label_scheduled']?></span>
                                                 <?php break;
                                           } ?>
                                        </div>
@@ -139,9 +139,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
       
                         <!-- Absence tab -->
-                        <div class="tab-pane fade" id="tab_absence">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="tab_absence" role="tabpanel" aria-labelledby="tab_absence-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php foreach($viewData['absence'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
@@ -150,9 +150,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
       
                         <!-- Before tab -->
-                        <div class="tab-pane fade" id="tab_before">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="tab_before" role="tabpanel" aria-labelledby="tab_before-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php foreach($viewData['before'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
@@ -161,9 +161,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
       
                         <!-- Period 1 tab -->
-                        <div class="tab-pane fade" id="tab_period1">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="tab_period1" role="tabpanel" aria-labelledby="tab_period1-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php foreach($viewData['period1'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
@@ -172,9 +172,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
 
                         <!-- Period 2 tab -->
-                        <div class="tab-pane fade" id="tab_period2">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="tab_period2" role="tabpanel" aria-labelledby="tab_period2-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php foreach($viewData['period2'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
@@ -183,9 +183,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
 
                         <!-- Period 3 tab -->
-                        <div class="tab-pane fade" id="tab_period3">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="tab_period3" role="tabpanel" aria-labelledby="tab_period3-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php foreach($viewData['period3'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
@@ -194,9 +194,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
 
                         <!-- Scope tab -->
-                        <div class="tab-pane fade" id="tab_scope">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="tab_scope" role="tabpanel" aria-labelledby="tab_scope-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php foreach($viewData['scope'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
@@ -206,8 +206,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         
                      </div>
                      
-                     <div class="panel panel-default">
-                        <div class="panel-body">
+                     <div style="height:20px;"></div>
+                     <div class="card">
+                        <div class="card-body">
                            <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_save"><?=$LANG['btn_save']?></button>
                         </div>
                      </div>

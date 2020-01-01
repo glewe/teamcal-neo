@@ -1,18 +1,17 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * Avatar.class.php
+ * Avatar
  *
- * @category TeamCal Neo 
- * @version 2.2.3
+ * This class provides methods and properties for user avatars.
+ * 
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed.
- */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
-
-/**
- * Provides properties and methods to deal with user avatars
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage User Management
+ * @since 3.0.0
  */
 class Avatar
 {

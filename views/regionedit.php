@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * regionedit.php
- * 
- * Region edit page view
+ * Region Edit View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -32,35 +31,39 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             } ?>
             <?php $tabindex = 1; $colsleft = 8; $colsright = 4;?>
             
-            <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;id=<?=$viewData['id']?>" method="post" target="_self" accept-charset="utf-8">
+            <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;id=<?=$viewData['id']?>" method="post" target="_self" accept-charset="utf-8">
 
-               <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+               <div class="card">
                   <?php 
                   $pageHelp = '';
-                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['group_edit_title'].$viewData['name'].$pageHelp?></div>
-                  <div class="panel-body">
+                  <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['region_edit_title'].$viewData['name'].$pageHelp?></div>
+                  <div class="card-body">
 
-                     <div class="panel panel-default">
-                        <div class="panel-body">
+                     <div class="card">
+                        <div class="card-body">
                            <input name="hidden_id" type="hidden" value="<?=$viewData['id']?>">
                            <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_regionUpdate"><?=$LANG['btn_save']?></button>
-                           <a href="index.php?action=regions" class="btn btn-default pull-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_region_list']?></a>
+                           <a href="index.php?action=regions" class="btn btn-secondary float-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_region_list']?></a>
                         </div>
                      </div>
+                     <div style="height:20px;"></div>
                      
-                     <div class="panel panel-default">
-                        <div class="panel-body">
+                     <div class="card">
+                        <div class="card-body">
                            <?php foreach($viewData['region'] as $formObject) {
                               echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                            } ?>
                         </div>
                      </div>
                      
-                     <div class="panel panel-default">
-                        <div class="panel-body">
+                     <div style="height:20px;"></div>
+                     <div class="card">
+                        <div class="card-body">
+                           <input name="hidden_id" type="hidden" value="<?=$viewData['id']?>">
                            <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_regionUpdate"><?=$LANG['btn_save']?></button>
+                           <a href="index.php?action=regions" class="btn btn-secondary float-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_region_list']?></a>
                         </div>
                      </div>
                      
@@ -68,8 +71,6 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                </div>
                   
             </form>
-            
          </div>
-         
       </div>      
             

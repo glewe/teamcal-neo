@@ -1,51 +1,46 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * menu.php
- * 
- * The view of the top navigation menu
+ * Menu View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
       <!-- ==================================================================== 
       view.menu
       -->
-      <div class="navbar navbar<?=($htmlData['theme']['menuBarInverse'])?'-inverse':'-default';?> navbar-fixed-top">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
          <div class="container">
 
-            <div class="navbar-header">
+            <!-- <div class="navbar-header"> -->
                <a href="<?=WEBSITE_URL?>" class="navbar-brand" style="padding: 2px 8px 0 8px;"><img src="images/logo.png" width="48" height="48" alt=""></a>
-               <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                  <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-               </button>
-            </div>
+               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+               </button>       
+            <!-- </div> -->
             
             <div class="navbar-collapse collapse" id="navbar-main">
                
-               <ul class="nav navbar-nav">
+               <ul class="navbar-nav mr-auto">
 
                   <!-- App Menu -->
-                  <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="app"><?=$C->read("appTitle")?><span class="caret"></span></a>
-                     <ul class="dropdown-menu" aria-labelledby="app">
-                        <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['home']->name?>"><i class="<?=$CONF['controllers']['home']->faIcon?> fa-lg text-<?=$CONF['controllers']['home']->iconColor?> fa-menu"></i><?=$LANG['mnu_app_homepage']?></a></li>
+                  <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="app" aria-haspopup="true" aria-expanded="false"><?=$C->read("appTitle")?></a>
+                     <div class="dropdown-menu" aria-labelledby="app">
+                        <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['home']->name?>"><i class="<?=$CONF['controllers']['home']->faIcon?> fa-lg text-<?=$CONF['controllers']['home']->iconColor?> fa-menu"></i><?=$LANG['mnu_app_homepage']?></a>
                         <?php if ($userData['isLoggedIn']) { ?>
-                        <li class="divider"></li>
-                        <li class="dropdown-submenu">
-                           <a tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-language fa-lg text-<?=$CONF['menuIconColor']?> fa-menu"></i><?=$LANG['mnu_app_language']?></a>
-                           <ul class="dropdown-menu">
-                              <?php foreach ($appLanguages as $appLang) { ?>
-                                 <li><a href="index.php?<?=str_replace('&','&amp;',$_SERVER['QUERY_STRING'])?>&amp;applang=<?=$appLang?>"><img src="languages/<?=$appLang?>.png" style="margin-right: 4px;" alt="<?=proper($appLang)?>"><?=proper($appLang)?></a></li>
-                              <?php } ?>
-                           </ul>
-                        </li>
+                           <div class="dropdown-divider"></div>
+                           <?php foreach ($appLanguages as $appLang) { ?>
+                              <a class="dropdown-item" href="index.php?<?=str_replace('&','&amp;',$_SERVER['QUERY_STRING'])?>&amp;applang=<?=$appLang?>"><img src="languages/<?=$appLang?>.png" style="margin-right: 4px;" alt="<?=proper($appLang)?>"><?=proper($appLang)?></a>
+                           <?php } ?>
                         <?php } ?>
-                     </ul>
+                     </div>
                   </li>
 
                   <!-- View Menu -->
@@ -59,52 +54,52 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               isAllowed($CONF['controllers']['statsremainder']->permission) OR
                               isAllowed($CONF['controllers']['absum']->permission)
                         ) { ?>
-                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="view"><?=$LANG['mnu_view']?><span class="caret"></span></a>
-                        <ul class="dropdown-menu" aria-labelledby="view">
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="view" aria-haspopup="true" aria-expanded="false"><?=$LANG['mnu_view']?><span class="caret"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="view">
                            <?php if (isAllowed($CONF['controllers']['calendarview']->permission)) {
                               if ($controller=='logout') 
                                  $urlparams = "";
                               else
                                  if (!$urlparams=$UO->read($UL->username, 'calfilter')) $urlparams = "";
                               ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['calendarview']->name.$urlparams?>"><i class="<?=$CONF['controllers']['calendarview']->faIcon?> fa-lg text-<?=$CONF['controllers']['calendarview']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_calendar']?></a></li>
+                              <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['calendarview']->name.$urlparams?>"><i class="<?=$CONF['controllers']['calendarview']->faIcon?> fa-lg text-<?=$CONF['controllers']['calendarview']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_calendar']?></a>
                            <?php } ?>
                            <?php if (isAllowed($CONF['controllers']['year']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['year']->name?>&amp;year=<?=date('Y')?>&amp;region=1&amp;user=<?=$UL->username?>"><i class="<?=$CONF['controllers']['year']->faIcon?> fa-lg text-<?=$CONF['controllers']['year']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_year']?></a></li>
+                              <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['year']->name?>&amp;year=<?=date('Y')?>&amp;region=1&amp;user=<?=$UL->username?>"><i class="<?=$CONF['controllers']['year']->faIcon?> fa-lg text-<?=$CONF['controllers']['year']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_year']?></a>
                            <?php } ?>
                            <?php if (isAllowed($CONF['controllers']['remainder']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['remainder']->name?>"><i class="<?=$CONF['controllers']['remainder']->faIcon?> fa-lg text-<?=$CONF['controllers']['remainder']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_remainder']?></a></li>
+                              <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['remainder']->name?>"><i class="<?=$CONF['controllers']['remainder']->faIcon?> fa-lg text-<?=$CONF['controllers']['remainder']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_remainder']?></a>
                            <?php } ?>
                            <?php if (isAllowed($CONF['controllers']['messages']->permission) AND $C->read('activateMessages')) { ?>
-                              <li class="divider"></li>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['messages']->name?>"><i class="<?=$CONF['controllers']['messages']->faIcon?> fa-lg text-<?=$CONF['controllers']['messages']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_messages']?></a></li>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['messages']->name?>"><i class="<?=$CONF['controllers']['messages']->faIcon?> fa-lg text-<?=$CONF['controllers']['messages']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_messages']?></a>
                            <?php } ?>
                            <?php if (isAllowed($CONF['controllers']['statsabsence']->permission) OR
-                                     isAllowed($CONF['controllers']['statspresence']->permission)
+                                     isAllowed($CONF['controllers']['statspresence']->permission) OR
+                                     isAllowed($CONF['controllers']['statsabstype']->permission) OR
+                                     isAllowed($CONF['controllers']['statsremainder']->permission) OR
+                                     isAllowed($CONF['controllers']['absum']->permission)
                                  ) { ?>
-                              <li class="dropdown-submenu">
-                                 <a tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-chart-bar fa-lg text-<?=$CONF['menuIconColor']?> fa-menu"></i><?=$LANG['mnu_view_stats']?></a>
-                                 <ul class="dropdown-menu">
-                                    <?php if (isAllowed($CONF['controllers']['statsabsence']->permission)) { ?>
-                                       <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['statsabsence']->name?>"><i class="<?=$CONF['controllers']['statsabsence']->faIcon?> fa-lg text-<?=$CONF['controllers']['statsabsence']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_stats_absences']?></a></li>
-                                    <?php } ?>
-                                    <?php if (isAllowed($CONF['controllers']['statspresence']->permission)) { ?>
-                                       <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['statspresence']->name?>"><i class="<?=$CONF['controllers']['statspresence']->faIcon?> fa-lg text-<?=$CONF['controllers']['statspresence']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_stats_presences']?></a></li>
-                                    <?php } ?>
-                                    <?php if (isAllowed($CONF['controllers']['statsabstype']->permission)) { ?>
-                                       <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['statsabstype']->name?>"><i class="<?=$CONF['controllers']['statsabstype']->faIcon?> fa-lg text-<?=$CONF['controllers']['statsabstype']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_stats_abstype']?></a></li>
-                                    <?php } ?>
-                                    <?php if (isAllowed($CONF['controllers']['statsremainder']->permission)) { ?>
-                                       <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['statsremainder']->name?>"><i class="<?=$CONF['controllers']['statsremainder']->faIcon?> fa-lg text-<?=$CONF['controllers']['statsremainder']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_stats_remainder']?></a></li>
-                                    <?php } ?>
-                                    <?php if (isAllowed($CONF['controllers']['absum']->permission)) { ?>
-                                       <li class="divider"></li>
-                                       <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['absum']->name?>&amp;user=<?=$userData['username']?>"><i class="<?=$CONF['controllers']['absum']->faIcon?> fa-lg text-<?=$CONF['controllers']['absum']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_stats_absum']?></a></li>
-                                    <?php } ?>
-                                 </ul>
-                              </li>
+                              <div class="dropdown-divider"></div>
+                              <?php if (isAllowed($CONF['controllers']['statsabsence']->permission)) { ?>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['statsabsence']->name?>"><i class="<?=$CONF['controllers']['statsabsence']->faIcon?> fa-lg text-<?=$CONF['controllers']['statsabsence']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_stats_absences']?></a>
+                              <?php } ?>
+                              <?php if (isAllowed($CONF['controllers']['statspresence']->permission)) { ?>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['statspresence']->name?>"><i class="<?=$CONF['controllers']['statspresence']->faIcon?> fa-lg text-<?=$CONF['controllers']['statspresence']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_stats_presences']?></a>
+                              <?php } ?>
+                              <?php if (isAllowed($CONF['controllers']['statsabstype']->permission)) { ?>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['statsabstype']->name?>"><i class="<?=$CONF['controllers']['statsabstype']->faIcon?> fa-lg text-<?=$CONF['controllers']['statsabstype']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_stats_abstype']?></a>
+                              <?php } ?>
+                              <?php if (isAllowed($CONF['controllers']['statsremainder']->permission)) { ?>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['statsremainder']->name?>"><i class="<?=$CONF['controllers']['statsremainder']->faIcon?> fa-lg text-<?=$CONF['controllers']['statsremainder']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_stats_remainder']?></a>
+                              <?php } ?>
+                              <?php if (isAllowed($CONF['controllers']['absum']->permission)) { ?>
+                                 <div class="dropdown-divider"></div>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['absum']->name?>&amp;user=<?=$userData['username']?>"><i class="<?=$CONF['controllers']['absum']->faIcon?> fa-lg text-<?=$CONF['controllers']['absum']->iconColor?> fa-menu"></i><?=$LANG['mnu_view_stats_absum']?></a>
+                              <?php } ?>
                            <?php } ?>
-                        </ul>
+                        </div>
                      </li>
                   <?php } ?>                     
                   
@@ -114,136 +109,141 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                              isAllowed($CONF['controllers']['messageedit']->permission) OR
                              isAllowed($CONF['controllers']['attachments']->permission)
                         ) { ?>
-                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="tools"><?=$LANG['mnu_edit']?><span class="caret"></span></a>
-                        <ul class="dropdown-menu" aria-labelledby="tools">
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="tools" aria-haspopup="true" aria-expanded="false"><?=$LANG['mnu_edit']?><span class="caret"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="tools">
                            <?php if (isAllowed($CONF['controllers']['calendaredit']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['calendaredit']->name?>&amp;month=<?=date('Y').date('m')?>&amp;region=1&amp;user=<?=$userData['username']?>"><i class="<?=$CONF['controllers']['calendaredit']->faIcon?> fa-lg text-<?=$CONF['controllers']['calendaredit']->iconColor?> fa-menu"></i><?=$LANG['mnu_edit_calendaredit']?></a></li>
+                              <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['calendaredit']->name?>&amp;month=<?=date('Y').date('m')?>&amp;region=1&amp;user=<?=$userData['username']?>"><i class="<?=$CONF['controllers']['calendaredit']->faIcon?> fa-lg text-<?=$CONF['controllers']['calendaredit']->iconColor?> fa-menu"></i><?=$LANG['mnu_edit_calendaredit']?></a>
                            <?php } ?>
                            <?php if (isAllowed($CONF['controllers']['monthedit']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['monthedit']->name?>&amp;month=<?=date('Y').date('m')?>&amp;region=1"><i class="<?=$CONF['controllers']['monthedit']->faIcon?> fa-lg text-<?=$CONF['controllers']['monthedit']->iconColor?> fa-menu"></i><?=$LANG['mnu_edit_monthedit']?></a></li>
+                              <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['monthedit']->name?>&amp;month=<?=date('Y').date('m')?>&amp;region=1"><i class="<?=$CONF['controllers']['monthedit']->faIcon?> fa-lg text-<?=$CONF['controllers']['monthedit']->iconColor?> fa-menu"></i><?=$LANG['mnu_edit_monthedit']?></a>
                            <?php } ?>
                            <?php if (isAllowed($CONF['controllers']['messageedit']->permission) AND $C->read('activateMessages')) { ?>
-                              <li class="divider"></li>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['messageedit']->name?>"><i class="<?=$CONF['controllers']['messageedit']->faIcon?> fa-lg text-<?=$CONF['controllers']['messageedit']->iconColor?> fa-menu"></i><?=$LANG['mnu_edit_messageedit']?></a></li>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['messageedit']->name?>"><i class="<?=$CONF['controllers']['messageedit']->faIcon?> fa-lg text-<?=$CONF['controllers']['messageedit']->iconColor?> fa-menu"></i><?=$LANG['mnu_edit_messageedit']?></a>
                            <?php } ?>
                            <?php if (isAllowed($CONF['controllers']['attachments']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['attachments']->name?>"><i class="<?=$CONF['controllers']['attachments']->faIcon?> fa-lg text-<?=$CONF['controllers']['attachments']->iconColor?> fa-menu"></i><?=$LANG['mnu_edit_attachments']?></a></li>
+                              <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['attachments']->name?>"><i class="<?=$CONF['controllers']['attachments']->faIcon?> fa-lg text-<?=$CONF['controllers']['attachments']->iconColor?> fa-menu"></i><?=$LANG['mnu_edit_attachments']?></a>
                            <?php } ?>
-                        </ul>
+                        </div>
                      </li>
                   <?php } ?>                     
                   
                </ul>
-      
-               <ul class="nav navbar-nav navbar-right">
-               
-                  <!-- Admin Menu -->
-                  <?php if ( isAllowed($CONF['controllers']['config']->permission) OR 
-                             isAllowed($CONF['controllers']['calendaroptions']->permission) OR
-                             isAllowed($CONF['controllers']['permissions']->permission) OR
-                             isAllowed($CONF['controllers']['users']->permission) OR
-                             isAllowed($CONF['controllers']['groups']->permission) OR
-                             isAllowed($CONF['controllers']['roles']->permission) OR
-                             isAllowed($CONF['controllers']['database']->permission) OR
-                             isAllowed($CONF['controllers']['database']->permission) OR
-                             isAllowed($CONF['controllers']['phpinfo']->permission) OR
-                             isAllowed($CONF['controllers']['absences']->permission) OR
-                             isAllowed($CONF['controllers']['holidays']->permission) OR
-                             isAllowed($CONF['controllers']['regions']->permission) OR
-                             isAllowed($CONF['controllers']['declination']->permission)
-                        ) { ?>
-                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="admin"><?=$LANG['mnu_admin']?><span class="caret"></span></a>
-                        <ul class="dropdown-menu" aria-labelledby="admin">
-                           <?php if (isAllowed($CONF['controllers']['config']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['config']->name?>"><i class="<?=$CONF['controllers']['config']->faIcon?> fa-lg text-<?=$CONF['controllers']['config']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_config']?></a></li>
-                           <?php } ?>
-                           <?php if (isAllowed($CONF['controllers']['calendaroptions']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['calendaroptions']->name?>"><i class="<?=$CONF['controllers']['calendaroptions']->faIcon?> fa-lg text-<?=$CONF['controllers']['calendaroptions']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_calendaroptions']?></a></li>
-                           <?php } ?>
-                           <?php if (isAllowed($CONF['controllers']['permissions']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['permissions']->name?>"><i class="<?=$CONF['controllers']['permissions']->faIcon?> fa-lg text-<?=$CONF['controllers']['permissions']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_perm']?></a></li>
-                           <?php } ?>
-                           <?php if (isAllowed($CONF['controllers']['users']->permission)) { ?>
-                              <li class="divider"></li>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['users']->name?>"><i class="<?=$CONF['controllers']['users']->faIcon?> fa-lg text-<?=$CONF['controllers']['users']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_users']?></a></li>
-                           <?php } ?>
-                           <?php if (isAllowed($CONF['controllers']['groups']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['groups']->name?>"><i class="<?=$CONF['controllers']['groups']->faIcon?> fa-lg text-<?=$CONF['controllers']['groups']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_groups']?></a></li>
-                           <?php } ?>
-                           <?php if (isAllowed($CONF['controllers']['roles']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['roles']->name?>"><i class="<?=$CONF['controllers']['roles']->faIcon?> fa-lg text-<?=$CONF['controllers']['roles']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_roles']?></a></li>
-                           <?php } ?>
-                           <?php if (isAllowed($CONF['controllers']['absences']->permission)) { ?>
-                              <li class="divider"></li>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['absences']->name?>"><i class="<?=$CONF['controllers']['absences']->faIcon?> fa-lg text-<?=$CONF['controllers']['absences']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_absences']?></a></li>
-                           <?php } ?>
-                           <?php if (isAllowed($CONF['controllers']['holidays']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['holidays']->name?>"><i class="<?=$CONF['controllers']['holidays']->faIcon?> fa-lg text-<?=$CONF['controllers']['holidays']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_holidays']?></a></li>
-                           <?php } ?>
-                           <?php if (isAllowed($CONF['controllers']['regions']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['regions']->name?>"><i class="<?=$CONF['controllers']['regions']->faIcon?> fa-lg text-<?=$CONF['controllers']['regions']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_regions']?></a></li>
-                           <?php } ?>
-                           <?php if (isAllowed($CONF['controllers']['declination']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['declination']->name?>"><i class="<?=$CONF['controllers']['declination']->faIcon?> fa-lg text-<?=$CONF['controllers']['declination']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_declination']?></a></li>
-                           <?php } ?>
-                           <?php if (isAllowed($CONF['controllers']['database']->permission)) { ?>
-                              <li class="divider"></li>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['database']->name?>"><i class="<?=$CONF['controllers']['database']->faIcon?> fa-lg text-<?=$CONF['controllers']['database']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_database']?></a></li>
-                           <?php } ?>
-                           <?php if (isAllowed($CONF['controllers']['log']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['log']->name?>"><i class="<?=$CONF['controllers']['log']->faIcon?> fa-lg text-<?=$CONF['controllers']['log']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_systemlog']?></a></li>
-                           <?php } ?>
-                           <?php if (isAllowed($CONF['controllers']['phpinfo']->permission)) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['phpinfo']->name?>"><i class="<?=$CONF['controllers']['phpinfo']->faIcon?> fa-lg text-<?=$CONF['controllers']['phpinfo']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_phpinfo']?></a></li>
-                           <?php } ?>                     
-                        </ul>
-                     </li>
-                  <?php } ?>                     
+
+               <div class="float-right">
+                  <ul class="navbar-nav mr-auto">
                   
-                  <!-- Help Menu -->
-                  <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" id="help"><?=$LANG['mnu_help']?><span class="caret"></span></a>
-                     <ul class="dropdown-menu" aria-labelledby="help">
-                        <?php if ($docLink = $C->read("userManual")) {?>
-                           <li><a tabindex="-1" href="<?=urldecode($docLink)?>" target="_blank"><i class="fas fa-book fa-lg text-<?=$CONF['menuIconColor']?> fa-menu"></i><?=$LANG['mnu_help_help']?></a></li>
-                           <li class="divider"></li>
-                        <?php } ?>
-                        <?php if ($C->read("gdprPolicyPage")) {?>
-                           <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['dataprivacy']->name?>"><i class="<?=$CONF['controllers']['dataprivacy']->faIcon?> fa-lg text-<?=$CONF['controllers']['dataprivacy']->iconColor?> fa-menu"></i><?=$LANG['mnu_help_dataprivacy']?></a></li>
-                        <?php } ?>
-                        <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['imprint']->name?>"><i class="<?=$CONF['controllers']['imprint']->faIcon?> fa-lg text-<?=$CONF['controllers']['imprint']->iconColor?> fa-menu"></i><?=$LANG['mnu_help_imprint']?></a></li>
-                        <li class="divider"></li>
-                        <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['about']->name?>"><i class="<?=$CONF['controllers']['about']->faIcon?> fa-lg text-<?=$CONF['controllers']['about']->iconColor?> fa-menu"></i><?=$LANG['mnu_help_about']?></a></li>
-                        <li><a tabindex="-1" href="https://www.lewe.com/teamcal-neo/#tcnvote" target="_blank"><i class="fas fa-thumbs-up fa-lg text-<?=$CONF['menuIconColor']?> fa-menu"></i><?=$LANG['mnu_help_vote']?></a></li>
-                     </ul>
-                  </li>
-
-                  <!-- User Menu -->
-                  <li class="dropdown">
-                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="user">
-                        <img src="<?=APP_AVATAR_DIR.$userData['avatar']?>" width="40" height="40" alt="" style="margin: -10px 0 -10px 0;"><span class="caret"></span>
-                     </a>
-                     <ul class="dropdown-menu" aria-labelledby="user">
-                        <li style="padding: 0 10px 0 10px;"><a tabindex="-1" href="#"><?=$userData['loginInfo']?></a></li>
-                        <li class="divider"></li>
-                        <?php if ($userData['isLoggedIn']) { ?>
-                           <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['useredit']->name?>&amp;profile=<?=$userData['username']?>"><i class="<?=$CONF['controllers']['useredit']->faIcon?> fa-lg text-<?=$CONF['controllers']['useredit']->iconColor?> fa-menu"></i><?=$LANG['mnu_user_profile']?></a></li>
-                           <li><a tabindex="-1" href="index.php?action=logout"><i class="fas fa-sign-out-alt fa-lg text-<?=$CONF['menuIconColor']?> fa-menu"></i><?=$LANG['mnu_user_logout']?></a></li>
-                        <?php } 
-                        else { ?>
-                           <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['login']->name?>"><i class="<?=$CONF['controllers']['login']->faIcon?> fa-lg text-<?=$CONF['controllers']['login']->iconColor?> fa-menu"></i><?=$LANG['mnu_user_login']?></a></li>
-                           <?php if ($C->read("allowRegistration")) { ?>
-                              <li><a tabindex="-1" href="index.php?action=<?=$CONF['controllers']['register']->name?>"><i class="<?=$CONF['controllers']['register']->faIcon?> fa-lg text-<?=$CONF['controllers']['register']->iconColor?> fa-menu"></i><?=$LANG['mnu_user_register']?></a></li>
+                     <!-- Admin Menu -->
+                     <?php if ( isAllowed($CONF['controllers']['config']->permission) OR 
+                              isAllowed($CONF['controllers']['calendaroptions']->permission) OR
+                              isAllowed($CONF['controllers']['permissions']->permission) OR
+                              isAllowed($CONF['controllers']['users']->permission) OR
+                              isAllowed($CONF['controllers']['groups']->permission) OR
+                              isAllowed($CONF['controllers']['roles']->permission) OR
+                              isAllowed($CONF['controllers']['database']->permission) OR
+                              isAllowed($CONF['controllers']['database']->permission) OR
+                              isAllowed($CONF['controllers']['phpinfo']->permission) OR
+                              isAllowed($CONF['controllers']['absences']->permission) OR
+                              isAllowed($CONF['controllers']['holidays']->permission) OR
+                              isAllowed($CONF['controllers']['regions']->permission) OR
+                              isAllowed($CONF['controllers']['declination']->permission)
+                           ) { ?>
+                        <li class="nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="admin" aria-haspopup="true" aria-expanded="false"><?=$LANG['mnu_admin']?><span class="caret"></span></a>
+                           <div class="dropdown-menu" aria-labelledby="admin">
+                              <?php if (isAllowed($CONF['controllers']['config']->permission)) { ?>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['config']->name?>"><i class="<?=$CONF['controllers']['config']->faIcon?> fa-lg text-<?=$CONF['controllers']['config']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_config']?></a>
+                              <?php } ?>
+                              <?php if (isAllowed($CONF['controllers']['calendaroptions']->permission)) { ?>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['calendaroptions']->name?>"><i class="<?=$CONF['controllers']['calendaroptions']->faIcon?> fa-lg text-<?=$CONF['controllers']['calendaroptions']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_calendaroptions']?></a>
+                              <?php } ?>
+                              <?php if (isAllowed($CONF['controllers']['permissions']->permission)) { ?>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['permissions']->name?>"><i class="<?=$CONF['controllers']['permissions']->faIcon?> fa-lg text-<?=$CONF['controllers']['permissions']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_perm']?></a>
+                              <?php } ?>
+                              <?php if (isAllowed($CONF['controllers']['users']->permission)) { ?>
+                                 <div class="dropdown-divider"></div>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['users']->name?>"><i class="<?=$CONF['controllers']['users']->faIcon?> fa-lg text-<?=$CONF['controllers']['users']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_users']?></a>
+                              <?php } ?>
+                              <?php if (isAllowed($CONF['controllers']['groups']->permission)) { ?>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['groups']->name?>"><i class="<?=$CONF['controllers']['groups']->faIcon?> fa-lg text-<?=$CONF['controllers']['groups']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_groups']?></a>
+                              <?php } ?>
+                              <?php if (isAllowed($CONF['controllers']['roles']->permission)) { ?>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['roles']->name?>"><i class="<?=$CONF['controllers']['roles']->faIcon?> fa-lg text-<?=$CONF['controllers']['roles']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_roles']?></a>
+                              <?php } ?>
+                              <?php if (isAllowed($CONF['controllers']['absences']->permission)) { ?>
+                                 <div class="dropdown-divider"></div>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['absences']->name?>"><i class="<?=$CONF['controllers']['absences']->faIcon?> fa-lg text-<?=$CONF['controllers']['absences']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_absences']?></a>
+                              <?php } ?>
+                              <?php if (isAllowed($CONF['controllers']['holidays']->permission)) { ?>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['holidays']->name?>"><i class="<?=$CONF['controllers']['holidays']->faIcon?> fa-lg text-<?=$CONF['controllers']['holidays']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_holidays']?></a>
+                              <?php } ?>
+                              <?php if (isAllowed($CONF['controllers']['regions']->permission)) { ?>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['regions']->name?>"><i class="<?=$CONF['controllers']['regions']->faIcon?> fa-lg text-<?=$CONF['controllers']['regions']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_regions']?></a>
+                              <?php } ?>
+                              <?php if (isAllowed($CONF['controllers']['declination']->permission)) { ?>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['declination']->name?>"><i class="<?=$CONF['controllers']['declination']->faIcon?> fa-lg text-<?=$CONF['controllers']['declination']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_declination']?></a>
+                              <?php } ?>
+                              <?php if (isAllowed($CONF['controllers']['database']->permission)) { ?>
+                                 <div class="dropdown-divider"></div>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['database']->name?>"><i class="<?=$CONF['controllers']['database']->faIcon?> fa-lg text-<?=$CONF['controllers']['database']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_database']?></a>
+                              <?php } ?>
+                              <?php if (isAllowed($CONF['controllers']['log']->permission)) { ?>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['log']->name?>"><i class="<?=$CONF['controllers']['log']->faIcon?> fa-lg text-<?=$CONF['controllers']['log']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_systemlog']?></a>
+                              <?php } ?>
+                              <?php if (isAllowed($CONF['controllers']['phpinfo']->permission)) { ?>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['phpinfo']->name?>"><i class="<?=$CONF['controllers']['phpinfo']->faIcon?> fa-lg text-<?=$CONF['controllers']['phpinfo']->iconColor?> fa-menu"></i><?=$LANG['mnu_admin_phpinfo']?></a>
+                              <?php } ?>                     
+                           </div>
+                        </li>
+                     <?php } ?>                     
+                     
+                     <!-- Help Menu -->
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="help" aria-haspopup="true" aria-expanded="false"><?=$LANG['mnu_help']?><span class="caret"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="help">
+                           <?php if ($docLink = $C->read("userManual")) {?>
+                              <a class="dropdown-item" tabindex="-1" href="<?=urldecode($docLink)?>" target="_blank"><i class="fas fa-book fa-lg text-<?=$CONF['menuIconColor']?> fa-menu"></i><?=$LANG['mnu_help_help']?></a>
+                              <div class="dropdown-divider"></div>
                            <?php } ?>
-                        <?php } ?>
-                     </ul>
-                  </li>
+                           <?php if ($C->read("gdprPolicyPage")) {?>
+                              <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['dataprivacy']->name?>"><i class="<?=$CONF['controllers']['dataprivacy']->faIcon?> fa-lg text-<?=$CONF['controllers']['dataprivacy']->iconColor?> fa-menu"></i><?=$LANG['mnu_help_dataprivacy']?></a>
+                           <?php } ?>
+                           <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['imprint']->name?>"><i class="<?=$CONF['controllers']['imprint']->faIcon?> fa-lg text-<?=$CONF['controllers']['imprint']->iconColor?> fa-menu"></i><?=$LANG['mnu_help_imprint']?></a>
+                           <div class="dropdown-divider"></div>
+                           <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['about']->name?>"><i class="<?=$CONF['controllers']['about']->faIcon?> fa-lg text-<?=$CONF['controllers']['about']->iconColor?> fa-menu"></i><?=$LANG['mnu_help_about']?></a>
+                           <a class="dropdown-item" tabindex="-1" href="https://www.lewe.com/teamcal-neo/#tcnvote" target="_blank"><i class="fas fa-thumbs-up fa-lg text-<?=$CONF['menuIconColor']?> fa-menu"></i><?=$LANG['mnu_help_vote']?></a>
+                        </div>
+                     </li>
 
-               </ul>
-               
+                     <!-- User Menu -->
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="user" aria-haspopup="true" aria-expanded="false">
+                           <img src="<?=APP_AVATAR_DIR.$userData['avatar']?>" width="40" height="40" alt="" style="margin: -10px 0 -10px 0;"><span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="user">
+                           <a class="dropdown-item" tabindex="-1" href="#"><?=$userData['loginInfo']?></a>
+                           <div class="dropdown-divider"></div>
+                           <?php if ($userData['isLoggedIn']) { ?>
+                              <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['useredit']->name?>&amp;profile=<?=$userData['username']?>"><i class="<?=$CONF['controllers']['useredit']->faIcon?> fa-lg text-<?=$CONF['controllers']['useredit']->iconColor?> fa-menu"></i><?=$LANG['mnu_user_profile']?></a>
+                              <a class="dropdown-item" tabindex="-1" href="index.php?action=logout"><i class="fas fa-sign-out-alt fa-lg text-<?=$CONF['menuIconColor']?> fa-menu"></i><?=$LANG['mnu_user_logout']?></a>
+                           <?php } 
+                           else { ?>
+                              <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['login']->name?>"><i class="<?=$CONF['controllers']['login']->faIcon?> fa-lg text-<?=$CONF['controllers']['login']->iconColor?> fa-menu"></i><?=$LANG['mnu_user_login']?></a>
+                              <?php if ($C->read("allowRegistration")) { ?>
+                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?=$CONF['controllers']['register']->name?>"><i class="<?=$CONF['controllers']['register']->faIcon?> fa-lg text-<?=$CONF['controllers']['register']->iconColor?> fa-menu"></i><?=$LANG['mnu_user_register']?></a>
+                              <?php } ?>
+                           <?php } ?>
+                        </div>
+                     </li>
+
+                  </ul>
+               </div>
+
             </div>
                
          </div>
-      </div>
+      </nav>
       
       <?php if ($C->read('showBanner')) { ?>
       <!-- Banner -->

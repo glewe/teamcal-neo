@@ -1,13 +1,14 @@
 <?php
 /**
- * index.php
- * 
- * @category TeamCal Neo 
- * @version 2.2.3
+ * Index
+ *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
 
 // echo '<script type="text/javascript">alert("Debug: ");</script>';
@@ -120,6 +121,7 @@ $C   = new Config();
 $AV   = new Avatar();
 $G    = new Groups();
 $L    = new Login();
+$LIC  = new License();
 $LOG  = new Log();
 $MSG  = new Messages();
 $P    = new Permissions();
@@ -310,6 +312,7 @@ else
 //
 // PREPARE VIEW
 //
+$htmlData['title'] = $C->read("appTitle");
 if (isset($CONF['controllers'][$controller])) $htmlData['title'] = $C->read("appTitle").' - '.$CONF['controllers'][$controller]->title;
 $htmlData['description'] = $C->read("appDescription");
 $htmlData['keywords'] = $C->read("appKeywords");
@@ -333,6 +336,64 @@ else
 {
    $userData['loginInfo'] = $LANG['status_logged_out'];
 }
+
+//=============================================================================
+//
+// LICENSE STATUS AND EXPIRY CHECK
+//
+$LIC->load();
+switch ($licStatus=$LIC->status())
+{
+   case "blocked":
+      $alertData['type'] = 'warning';
+      $alertData['title'] = $LANG['lic_blocked'];
+      $alertData['subject'] = $LANG['lic_blocked_subject'];
+      $alertData['text'] = '';
+      $alertData['help'] = $LANG['lic_blocked_help'];
+      $showAlert = true;
+      break;
+
+   case "expired":
+      $alertData['type'] = 'warning';
+      $alertData['title'] = $LANG['lic_expired'];
+      $alertData['subject'] = $LANG['lic_expired_subject'];
+      $alertData['help'] = $LANG['lic_expired_help'];
+      $showAlert = true;
+      break;
+
+   case "invalid":
+      $alertData['type'] = 'danger';
+      $alertData['title'] = $LANG['lic_invalid'];
+      $alertData['subject'] = $LANG['lic_invalid_subject'];
+      $alertData['text'] = $LANG['lic_invalid_text'];
+      $alertData['help'] = $LANG['lic_invalid_help'];
+      $showAlert = true;
+      break;
+
+   case "pending":
+      $alertData['type'] = 'warning';
+      $alertData['title'] = $LANG['lic_pending'];
+      $alertData['subject'] = $LANG['lic_pending_subject'];
+      $alertData['text'] = '';
+      $alertData['help'] = $LANG['lic_pending_help'];
+      $showAlert = true;
+      break;
+}
+
+if ($licExpiryWarning=$C->read('licExpiryWarning'))
+{
+   $daysToExpiry=$LIC->daysToExpiry();
+   if ($daysToExpiry <= $licExpiryWarning)
+   {
+      $alertData['type'] = 'warning';
+      $alertData['title'] = $LANG['lic_expiringsoon'];
+      $alertData['subject'] = sprintf($LANG['lic_expiringsoon_subject'],$daysToExpiry);
+      $alertData['text'] = '';
+      $alertData['help'] = $LANG['lic_expiringsoon_help'];
+      $showAlert = true;
+   }
+}
+
 
 //=============================================================================
 //

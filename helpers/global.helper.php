@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * global.helper.php
+ * Global Helper Functions
  *
- * Collection of global helper functions
- *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Helpers
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo '<script type="text/javascript">alert("Debug: ");</script>';
 
@@ -1055,6 +1054,18 @@ function loginInfo()
    }
    
    return $loginInfo;
+}
+
+// ---------------------------------------------------------------------------
+/**
+ * Pretty prints an array dump
+ *
+ * @param array $a  Array to print out pretty
+ * @return string
+ */
+function pretty_dump($a) 
+{
+   return highlight_string("<?php\n\$data =\n" . var_export($a, true) . ";\n?>");
 }
 
 // ---------------------------------------------------------------------------

@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * config.controller.php
- * 
- * Application based parameters. Don't change anything in this file.
+ * Controller Configuration
  *
- * @category TeamCal Neo 
- * @version 2.2.3
- * @author George Lewe
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @author George Lewe <george@lewe.com>
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Application Configuration
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 //=============================================================================
 /**
@@ -36,9 +35,11 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  * <iconColor>:
  * Bootstrap text color to be used for the icon in the menu. See color names below.
  * Bootstrap color names:
- * - default (gray)
+ * - dark (dark gray)
+ * - default (text color)
  * - primary (blue)
  * - info (cyan)
+ * - secondary (light gray)
  * - success (green)
  * - warning (orange)
  * - danger (red)
@@ -60,7 +61,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
  * String to be displayed as the browser tab title
  *
  */
-$CONF['menuIconColor'] = "primary";
+$CONF['menuIconColor'] = "secondary";
 $CONF['controllers'] = array (
    //
    // LeAF Controllers (Lewe Application Framework)
@@ -76,12 +77,12 @@ $CONF['controllers'] = array (
    'imprint' => new Controller('imprint', 'fas fa-file-alt', $CONF['menuIconColor'], 'default', '', 'Imprint', 'https://support.lewe.com/docs/teamcal-neo-manual/'),
    'log' => new Controller('log', 'fas fa-list', $CONF['menuIconColor'], 'info', 'admin', 'Log', 'https://support.lewe.com/docs/teamcal-neo-manual/administration/system-log/'),
    'login' => new Controller('login', 'fas fa-sign-in-alt', $CONF['menuIconColor'], 'default', '', 'Login', 'https://support.lewe.com/docs/teamcal-neo-manual/'),
-   'logout' => new Controller('logout', 'fas fa-sign-out', $CONF['menuIconColor'], 'default', '', 'Logout', 'https://support.lewe.com/docs/teamcal-neo-manual/'),
+   'logout' => new Controller('logout', 'fas fa-sign-out-alt', $CONF['menuIconColor'], 'default', '', 'Logout', 'https://support.lewe.com/docs/teamcal-neo-manual/'),
    'maintenance' => new Controller('maintenance', 'fas fa-wrench', $CONF['menuIconColor'], 'danger', '', 'Maintenance', 'https://support.lewe.com/docs/teamcal-neo-manual/'),
    'messages' => new Controller('messages', 'fas fa-comments', $CONF['menuIconColor'], 'info', 'messageview', 'Messages', 'https://support.lewe.com/docs/teamcal-neo-manual/user-guide/messages/'),
    'messageedit' => new Controller('messageedit', 'fas fa-comment', $CONF['menuIconColor'], 'danger', 'messageedit', 'Message Edit', 'https://support.lewe.com/docs/teamcal-neo-manual/user-guide/messages/'),
-   'passwordrequest' => new Controller('passwordrequest', 'fas fa-sign-in', $CONF['menuIconColor'], 'primary', '', 'Password Request', 'https://support.lewe.com/docs/teamcal-neo-manual/'),
-   'passwordreset' => new Controller('passwordreset', 'fas fa-lock', $CONF['menuIconColor'], 'primary', '', 'Reset Password', 'https://support.lewe.com/docs/teamcal-neo-manual/'),
+   'passwordrequest' => new Controller('passwordrequest', 'fas fa-user-lock', $CONF['menuIconColor'], 'primary', '', 'Password Request', 'https://support.lewe.com/docs/teamcal-neo-manual/'),
+   'passwordreset' => new Controller('passwordreset', 'fas fa-user-lock', $CONF['menuIconColor'], 'primary', '', 'Reset Password', 'https://support.lewe.com/docs/teamcal-neo-manual/'),
    'permissions' => new Controller('permissions', 'fas fa-lock', $CONF['menuIconColor'], 'primary', 'admin', 'Permissions', 'https://support.lewe.com/docs/teamcal-neo-manual/administration/permissions/'),
    'phpinfo' => new Controller('phpinfo', 'fas fa-stethoscope', $CONF['menuIconColor'], 'primary', 'admin', 'PHP Info', 'https://support.lewe.com/docs/teamcal-neo-manual/administration/php-info/'),
    'register' => new Controller('register', 'fas fa-user-plus', $CONF['menuIconColor'], 'success', '', 'Register', 'https://support.lewe.com/docs/teamcal-neo-manual/'),
@@ -104,7 +105,7 @@ $CONF['controllers'] = array (
    'calendarview' => new Controller('calendarview', 'fas fa-calendar-alt', $CONF['menuIconColor'], 'primary', 'calendarview', 'Calendar View', 'https://support.lewe.com/docs/teamcal-neo-manual/user-guide/calendar-month/view-calendar-month/'),
    'calendaredit' => new Controller('calendaredit', 'fas fa-calendar-check', $CONF['menuIconColor'], 'danger', 'calendaredit', 'Calendar Edit', 'https://support.lewe.com/docs/teamcal-neo-manual/user-guide/calendar-month/edit-calendar-month/'),
    'calendaroptions' => new Controller('calendaroptions', 'fas fa-wrench', $CONF['menuIconColor'], 'primary', 'calendaroptions', 'Calendar Options', 'https://support.lewe.com/docs/teamcal-neo-manual/administration/calendar-options/'),
-   'daynote' => new Controller('daynote', 'fas fa-sticky-note-o', $CONF['menuIconColor'], 'info', 'daynote', 'Daynote', 'https://support.lewe.com/docs/teamcal-neo-manual/user-guide/calendar-month/edit-daynotes/'),
+   'daynote' => new Controller('daynote', 'fas fa-sticky-note', $CONF['menuIconColor'], 'info', 'daynote', 'Daynote', 'https://support.lewe.com/docs/teamcal-neo-manual/user-guide/calendar-month/edit-daynotes/'),
    'declination' => new Controller('declination', 'fas fa-minus-circle', $CONF['menuIconColor'], 'danger', 'declination', 'Declination', 'https://support.lewe.com/docs/teamcal-neo-manual/administration/declination-management/'),
    'groupcalendaredit' => new Controller('groupcalendaredit', 'fas fa-calendar-o', $CONF['menuIconColor'], 'danger', 'groupcalendaredit', 'Group Calendar Edit', 'https://support.lewe.com/docs/teamcal-neo-manual/user-guide/calendar-month/edit-group-calendar-month/'),
    'holidays' => new Controller('holidays', 'fas fa-calendar-day', $CONF['menuIconColor'], 'primary', 'holidays', 'Holidays', 'https://support.lewe.com/docs/teamcal-neo-manual/administration/holidays/'),

@@ -1,24 +1,23 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * error.php
- * 
- * Error page view
+ * Error View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 <!DOCTYPE html>
 <!--
 ===============================================================================
 Application: TeamCal Neo
 Author:      George Lewe
-Copyright:   (c) 2014-2016
+Copyright:   (c) 2014-2020
              All rights reserved.
 ===============================================================================
 -->
@@ -28,7 +27,6 @@ Copyright:   (c) 2014-2016
       <meta http-equiv="Content-type" content="text/html;charset=utf8">
       <meta charset="utf-8">
       <link rel="stylesheet" href="themes/bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" href="themes/bootstrap/css/bootstrap-theme.min.css">
    </head>
    <body>
       <!-- ==================================================================== 
@@ -38,7 +36,7 @@ Copyright:   (c) 2014-2016
          <p></p>
          <div class="alert alert-dismissable alert-danger">
             <button type="button" class="close" data-dismiss="alert" title="'.$LANG['close_this_message'].'"><i class="far fa-times-circle"></i></button>
-            <h4><strong><?=$errorData['title']?>!</strong></h4>
+            <h5><strong><?=$errorData['title']?>!</strong></h5>
             <hr>
             <p><strong><?=$errorData['subject']?></strong></p>
             <p><?=$errorData['text']?></p>

@@ -1,13 +1,14 @@
 <?php
 /**
- * ajax_checkdb.php
- * 
- * @category TeamCal Neo 
- * @version 2.2.3
+ * Database Check
+ *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Helpers
+ * @since 3.0.0
  */
 header("Cache-Control: no-cache");
 header("Pragma: no-cache");
@@ -20,22 +21,22 @@ if ( strlen($_REQUEST['server']) AND strlen($_REQUEST['db']) AND strlen($_REQUES
       $result = $query->execute();
       if ($result AND $query->rowCount())
       {
-         $msg  = "<div class='alert alert-success'><h4><strong>Database Connection Test</strong></h4><p>Connect to the mySQL server and database was successful.</p></div>";
-         $msg .= "<div class='alert alert-success'><h4><strong>Table Test</strong></h4><p>Tables with the given prefix exist.</p></div>";
+         $msg  = "<div class='alert alert-success'><h5>Database Connection Test</h5><p>Connect to the mySQL server and database was successful.</p></div>";
+         $msg .= "<div class='alert alert-success'><h5>Table Test</h5><p>Tables with the given prefix exist.</p></div>";
       }
       else 
       {
-         $msg  = "<div class='alert alert-success'><h4><strong>Database Connection Test</strong></h4><p>Connect to the mySQL server and database was successful.</p></div>";
-         $msg .= "<div class='alert alert-warning'><h4><strong>Table Test</strong></h4><p>Tables with the given prefix do not exist.</p></div>";
+         $msg  = "<div class='alert alert-success'><h5>Database Connection Test</h5><p>Connect to the mySQL server and database was successful.</p></div>";
+         $msg .= "<div class='alert alert-warning'><h5>Table Test</h5><p>Tables with the given prefix do not exist.</p></div>";
       }
    } catch ( PDOException $e )
    {
-      $msg = "<div class='alert alert-danger'><h4><strong>Database Connection Test</strong></h4><p>Connect to mySQL server and/or database failed.</p></div>";
+      $msg = "<div class='alert alert-danger'><h5>Database Connection Test</h5><p>Connect to mySQL server and/or database failed.</p></div>";
    }
 }
 else
 {
-   $msg = "<div class='alert alert-danger'><h4><strong>Database Connection Test</strong></h4><p>Connect to mySQL server and/or database failed.</p></div>";
+   $msg = "<div class='alert alert-danger'><h5>Database Connection Test</h5><p>Connect to mySQL server and/or database failed.</p></div>";
 }
 echo $msg;
 ?>

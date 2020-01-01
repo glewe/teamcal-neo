@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * groupcalendaredit.php
- * 
- * Group calendar edit page view
+ * Group Calendar Edit View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -32,7 +31,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
           
          <?php $tabindex = 1; $colsleft = 1; $colsright = 4;?>
          
-         <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;month=<?=$viewData['year'].$viewData['month']?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>" method="post" target="_self" accept-charset="utf-8">
+         <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;month=<?=$viewData['year'].$viewData['month']?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>" method="post" target="_self" accept-charset="utf-8">
 
             <input name="hidden_month" type="hidden" class="text" value="<?=$viewData['month']?>">
             <input name="hidden_region" type="hidden" class="text" value="<?=$viewData['regionid']?>">
@@ -62,9 +61,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             ?>
                         
             <div class="page-menu">
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>"><span class="fas fa-angle-double-left"></span></a>
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>"><span class="fas fa-angle-double-right"></span></a>
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$viewData['yearToday'].$viewData['monthToday']?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>"><?=$LANG['today']?></a>
+               <a class="btn btn-secondary" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>"><span class="fas fa-angle-double-left"></span></a>
+               <a class="btn btn-secondary" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>"><span class="fas fa-angle-double-right"></span></a>
+               <a class="btn btn-secondary" href="index.php?action=<?=$controller?>&amp;month=<?=$viewData['yearToday'].$viewData['monthToday']?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>"><?=$LANG['today']?></a>
                <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalPeriod"><?=$LANG['caledit_Period']?></button>
                <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalRecurring"><?=$LANG['caledit_Recurring']?></button>
                <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectRegion"><?=$LANG['region'] . ': ' . $viewData['regionname']?></button>
@@ -72,17 +71,18 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSave"><?=$LANG['btn_save']?></button>
                <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalClearAll"><?=$LANG['btn_clear_all']?></button>
                <?php if ($viewData['supportMobile']) { ?> 
-                  <button type="button" class="btn btn-default" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectWidth"><?=$LANG['screen'] . ': ' . $viewData['width']?></button>
+                  <button type="button" class="btn btn-secondary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectWidth"><?=$LANG['screen'] . ': ' . $viewData['width']?></button>
                <?php } ?>
             </div>
 
-            <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+            <div class="card">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><?=sprintf($LANG['caledit_title'], $viewData['year'], $viewData['month'], $LANG['group'] . ': ' . $viewData['groupname'])?><?=$pageHelp?></div>
+               <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><?=sprintf($LANG['caledit_title'], $viewData['year'], $viewData['month'], $LANG['group'] . ': ' . $viewData['groupname'])?><?=$pageHelp?></div>
             </div>
+            <div style="height:20px;"></div>
             
             <?php if (!$viewData['supportMobile']) 
             {
@@ -281,12 +281,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             
             <!-- Modal: Period -->
             <?=createModalTop('modalPeriod', $LANG['caledit_PeriodTitle'])?>
-               <div>
-                  <div style="width: 60%; float: left; margin-bottom: 20px;">
+               <div class="row">
+                  <div class="col-lg-7" style="margin-bottom: 20px;">
                      <span class="text-bold"><?=$LANG['caledit_absenceType']?></span><br>
                      <span class="text-normal"><?=$LANG['caledit_absenceType_comment']?></span>
                   </div>
-                  <div style="width: 40%; margin-bottom: 20px;">
+                  <div class="col-lg-5" style="margin-bottom: 20px;">
                      <select id="user" class="form-control" name="sel_periodAbsence" tabindex="<?=$tabindex++?>">
                         <?php foreach($viewData['absences'] as $abs) { ?>
                            <option  value="<?=$abs['id']?>"><?=$abs['name']?></option>
@@ -295,12 +295,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   </div>
                </div>
                <div>&nbsp;</div>
-               <div>
-                  <div style="width: 60%; float: left; margin-bottom: 20px;">
+               <div class="row">
+                  <div class="col-lg-7" style="margin-bottom: 20px;">
                      <span class="text-bold"><?=$LANG['caledit_startDate']?></span><br>
                      <span class="text-normal"><?=$LANG['caledit_startDate_comment']?></span>
                   </div>
-                  <div style="width: 40%; margin-bottom: 20px;">
+                  <div class="col-lg-5" style="margin-bottom: 20px;">
                      <input id="periodStart" class="form-control" tabindex="<?=$tabindex++?>" name="txt_periodStart" type="text" maxlength="10" value="">
                      <script>
                         $(function() { 
@@ -324,12 +324,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   <?php } ?>
                </div>
                <div>&nbsp;</div>
-               <div>
-                  <div style="width: 60%; float: left; margin-bottom: 20px;">
+               <div class="row">
+                  <div class="col-lg-7" style="margin-bottom: 20px;">
                      <span class="text-bold"><?=$LANG['caledit_endDate']?></span><br>
                      <span class="text-normal"><?=$LANG['caledit_endDate_comment']?></span>
                   </div>
-                  <div style="width: 40%; margin-bottom: 20px;">
+                  <div class="col-lg-5" style="margin-bottom: 20px;">
                      <input id="periodEnd" class="form-control" tabindex="<?=$tabindex++?>" name="txt_periodEnd" type="text" maxlength="10" value="">
                      <script>
                         $(function() { 
@@ -349,12 +349,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
             <!-- Modal: Recurring -->
             <?=createModalTop('modalRecurring', $LANG['caledit_RecurringTitle'])?>
-               <div>
-                  <div style="width: 60%; float: left; margin-bottom: 20px; padding-right: 10px;">
+               <div class="row">
+                  <div class="col-lg-7" style="margin-bottom: 20px;">
                      <span class="text-bold"><?=$LANG['caledit_absenceType']?></span><br>
                      <span class="text-normal"><?=$LANG['caledit_absenceType_comment']?></span>
                   </div>
-                  <div style="width: 40%; margin-bottom: 20px;">
+                  <div class="col-lg-5" style="margin-bottom: 20px;">
                      <select id="user" class="form-control" name="sel_recurringAbsence" tabindex="<?=$tabindex++?>">
                         <?php foreach($viewData['absences'] as $abs) { ?>
                            <option  value="<?=$abs['id']?>"><?=$abs['name']?></option>
@@ -363,19 +363,20 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   </div>
                </div>
                <div>&nbsp;</div>
-               <div style="clear: left;">
+               <div>
                   <span class="text-bold"><?=$LANG['caledit_recurrence']?></span><br>
                   <span class="text-normal"><?=$LANG['caledit_recurrence_comment']?></span>
                </div>
-               <div style="padding-left: 20px;">
-                  <div style="width: 50%; float: left; padding-right: 10px;">
+               <div>&nbsp;</div>
+               <div class="row">
+                  <div class="col-lg-5">
                      <div class="checkbox"><input id="monday" name="monday" value="monday" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['weekdayLong'][1]?></div>
                      <div class="checkbox"><input id="tuesday" name="tuesday" value="tuesday" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['weekdayLong'][2]?></div>
                      <div class="checkbox"><input id="wedensday" name="wednesday" value="wednesday" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['weekdayLong'][3]?></div>
                      <div class="checkbox"><input id="thursday" name="thursday" value="thursday" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['weekdayLong'][4]?></div>
                      <div class="checkbox"><input id="friday" name="friday" value="friday" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['weekdayLong'][5]?></div>
                   </div>
-                  <div style="width: 50%; float: right;">
+                  <div class="col-lg-5">
                      <div class="checkbox"><input id="saturday" name="saturday" value="saturday" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['weekdayLong'][6]?></div>
                      <div class="checkbox"><input id="sunday" name="sunday" value="sunday" tabindex="<?=$tabindex++?>" type="checkbox"><?=$LANG['weekdayLong'][7]?></div>
                      <div class="checkbox"><input id="workdays" name="workdays" value="workdays" tabindex="<?=$tabindex++?>" type="checkbox">Mon-Fri</div>

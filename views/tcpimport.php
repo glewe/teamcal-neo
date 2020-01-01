@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * tcpimport.php
- * 
- * TeamCal Pro Import page view
+ * TCPro Import View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -32,29 +31,29 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             } ?>
             <?php $tabindex = 1; $colsleft = 8; $colsright = 4;?>
 
-            <form  class="bs-example form-control-horizontal" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
+            <form class="form-control-horizontal" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
 
-               <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+               <div class="card">
                   <?php 
                   $pageHelp = '';
-                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['tcpimp_title'].$pageHelp?></div>
+                  <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['tcpimp_title'].$pageHelp?></div>
                   
-                  <div class="panel-body">
+                  <div class="card-body">
    
-                        <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                           <li class="active"><a href="#tab_optimize" data-toggle="tab"><?=$LANG['tcpimp_tab_info']?></a></li>
-                           <li><a href="#tab_tcpdb" data-toggle="tab"><?=$LANG['tcpimp_tab_tcpdb']?></a></li>
-                           <li><a href="#tab_import" data-toggle="tab"><?=$LANG['tcpimp_tab_import']?></a></li>
+                        <ul class="nav nav-tabs" role="tablist">
+                           <li class="nav-item"><a class="nav-link active" id="tab_info-tab" href="#tab_info" data-toggle="tab" role="tab" aria-controls="tab_info" aria-selected="true"><?=$LANG['tcpimp_tab_info']?></a></a></li>
+                           <li class="nav-item"><a class="nav-link" id="tab_tcpdb-tab" href="#tab_tcpdb" data-toggle="tab" role="tab" aria-controls="tab_tcpdb" aria-selected="false"><?=$LANG['tcpimp_tab_tcpdb']?></a></a></li>
+                           <li class="nav-item"><a class="nav-link" id="tab_import-tab" href="#tab_import" data-toggle="tab" role="tab" aria-controls="tab_import" aria-selected="false"><?=$LANG['tcpimp_tab_import']?></a></a></li>
                         </ul>
                         
                         <div id="myTabContent" class="tab-content">
    
                            <!-- Information tab -->
-                           <div class="tab-pane fade active in" id="tab_optimize">
-                              <div class="panel panel-default">
-                                 <div class="panel-body">
+                           <div class="tab-pane fade show active" id="tab_info" role="tabpanel" aria-labelledby="tab_info-tab">
+                              <div class="card">
+                                 <div class="card-body">
                                     <div class="alert alert-danger" role="alert">
                                       <span class="fas fa-exclamation-circle" aria-hidden="true"></span>
                                       <span class="sr-only">Error:</span>
@@ -67,12 +66,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
    
                            <!-- TeamCal Pro database tab -->
-                           <div class="tab-pane fade" id="tab_tcpdb">
-                              <div class="panel panel-default">
-                                 <div class="panel-body">
+                           <div class="tab-pane fade" id="tab_tcpdb" role="tabpanel" aria-labelledby="tab_tcpdb-tab">
+                              <div class="card">
+                                 <div class="card-body">
    
                                     <!-- DB Server -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-8 control-label">
                                           <div class="text-bold"><?=$LANG['tcpimp_tcp_dbServer']?></div>
                                           <div class="text-normal"><?=$LANG['tcpimp_tcp_dbServer_comment']?></div>
@@ -84,7 +83,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="divider"><hr></div>
                               
                                     <!-- DB Name -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-8 control-label">
                                           <div class="text-bold"><?=$LANG['tcpimp_tcp_dbName']?></div>
                                           <div class="text-normal"><?=$LANG['tcpimp_tcp_dbName_comment']?></div>
@@ -96,7 +95,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="divider"><hr></div>
                               
                                     <!-- DB User -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-8 control-label">
                                           <div class="text-bold"><?=$LANG['tcpimp_tcp_dbUser']?></div>
                                           <div class="text-normal"><?=$LANG['tcpimp_tcp_dbUser_comment']?></div>
@@ -108,7 +107,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="divider"><hr></div>
                               
                                     <!-- DB Password -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-8 control-label">
                                           <div class="text-bold"><?=$LANG['tcpimp_tcp_dbPassword']?></div>
                                           <div class="text-normal"><?=$LANG['tcpimp_tcp_dbPassword_comment']?></div>
@@ -120,7 +119,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="divider"><hr></div>
                               
                                     <!-- DB Table Prefix -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-8 control-label">
                                           <div class="text-bold"><?=$LANG['tcpimp_tcp_dbPrefix']?></div>
                                           <div class="text-normal"><?=$LANG['tcpimp_tcp_dbPrefix_comment']?></div>
@@ -132,9 +131,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="divider"><hr></div>
                
                                     <!-- Test Database -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-12">
-                                          <p><a class="btn btn-default" tabindex="<?=$tabindex++;?>" id="btn_testDb" onclick="javascript:checkTcpDB();"><?=$LANG['btn_testdb']?></a></p>
+                                          <p><a class="btn btn-secondary text-white" tabindex="<?=$tabindex++;?>" id="btn_testDb" onclick="javascript:checkTcpDB();"><?=$LANG['btn_testdb']?></a></p>
                                           <p><span id="checkTcpDbOutput"></span></p>
                                        </div>
                                     </div>
@@ -145,22 +144,22 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                               
                            <!-- Import tab -->
-                           <div class="tab-pane fade" id="tab_import">
-                              <div class="panel panel-default">
-                                 <div class="panel-body">
+                           <div class="tab-pane fade" id="tab_import" role="tabpanel" aria-labelledby="tab_import-tab">
+                              <div class="card">
+                                 <div class="card-body">
    
                                     <!-- Select buttonss -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-12 text-right">
-                                          <a class="btn btn-default" tabindex="<?=$tabindex++;?>" onclick="javascript:resetAll();"><?=$LANG['btn_reset']?></a>
-                                          <a class="btn btn-default" tabindex="<?=$tabindex++;?>" onclick="javascript:replaceAll();"><?=$LANG['tcpimp_btn_replace_all']?></a>
-                                          <a class="btn btn-default" tabindex="<?=$tabindex++;?>" onclick="javascript:addAll();"><?=$LANG['tcpimp_btn_add_all']?></a>
+                                          <a class="btn btn-secondary text-white" tabindex="<?=$tabindex++;?>" onclick="javascript:resetAll();"><?=$LANG['btn_reset']?></a>
+                                          <a class="btn btn-secondary text-white" tabindex="<?=$tabindex++;?>" onclick="javascript:replaceAll();"><?=$LANG['tcpimp_btn_replace_all']?></a>
+                                          <a class="btn btn-secondary text-white" tabindex="<?=$tabindex++;?>" onclick="javascript:addAll();"><?=$LANG['tcpimp_btn_add_all']?></a>
                                        </div>
                                     </div>
                                     <div class="divider"><hr></div>
    
                                     <!-- Absence types -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-8 control-label">
                                           <div class="text-bold"><?=$LANG['tcpimp_abs']?></div>
                                           <div class="text-normal"><?=$LANG['tcpimp_abs_comment']?></div>
@@ -174,7 +173,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="divider"><hr></div>
    
                                     <!-- Allowances -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-8 control-label">
                                           <div class="text-bold"><?=$LANG['tcpimp_allo']?></div>
                                           <div class="text-normal"><?=$LANG['tcpimp_allo_comment']?></div>
@@ -188,7 +187,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="divider"><hr></div>
    
                                     <!-- Daynotes -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-8 control-label">
                                           <div class="text-bold"><?=$LANG['tcpimp_dayn']?></div>
                                           <div class="text-normal"><?=$LANG['tcpimp_dayn_comment']?></div>
@@ -202,7 +201,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="divider"><hr></div>
    
                                     <!-- Groups -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-8 control-label">
                                           <div class="text-bold"><?=$LANG['tcpimp_groups']?></div>
                                           <div class="text-normal"><?=$LANG['tcpimp_groups_comment']?></div>
@@ -216,7 +215,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="divider"><hr></div>
    
                                     <!-- Group Memberships -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-8 control-label">
                                           <div class="text-bold"><?=$LANG['tcpimp_ugr']?></div>
                                           <div class="text-normal"><?=$LANG['tcpimp_ugr_comment']?></div>
@@ -230,7 +229,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="divider"><hr></div>
    
                                     <!-- Holidays -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-8 control-label">
                                           <div class="text-bold"><?=$LANG['tcpimp_hols']?></div>
                                           <div class="text-normal"><?=$LANG['tcpimp_hols_comment']?></div>
@@ -244,7 +243,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="divider"><hr></div>
    
                                     <!-- Regions -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-8 control-label">
                                           <div class="text-bold"><?=$LANG['tcpimp_regs']?></div>
                                           <div class="text-normal"><?=$LANG['tcpimp_regs_comment']?></div>
@@ -258,7 +257,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="divider"><hr></div>
    
                                     <!-- Region Calendars -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-8 control-label">
                                           <div class="text-bold"><?=$LANG['tcpimp_mtpl']?></div>
                                           <div class="text-normal"><?=$LANG['tcpimp_mtpl_comment']?></div>
@@ -272,7 +271,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="divider"><hr></div>
    
                                     <!-- Roles -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-8 control-label">
                                           <div class="text-bold"><?=$LANG['tcpimp_roles']?></div>
                                           <div class="text-normal"><?=$LANG['tcpimp_roles_comment']?></div>
@@ -285,7 +284,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="divider"><hr></div>
    
                                     <!-- User Accounts -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-8 control-label">
                                           <div class="text-bold"><?=$LANG['tcpimp_users']?></div>
                                           <div class="text-normal"><?=$LANG['tcpimp_users_comment']?></div>
@@ -299,7 +298,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="divider"><hr></div>
    
                                     <!-- User Calendars -->
-                                    <div class="form-group">
+                                    <div class="form-group row">
                                        <div class="col-lg-8 control-label">
                                           <div class="text-bold"><?=$LANG['tcpimp_utpl']?></div>
                                           <div class="text-normal"><?=$LANG['tcpimp_utpl_comment']?></div>

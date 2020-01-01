@@ -1,14 +1,13 @@
 /**
- * sample.sql
- * 
- * Sample MySQL database
+ * Sample MySQL Database
  *
- * @category TeamCal Neo 
- * @version 2.2.3
- * @author George Lewe
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @author George Lewe <george@lewe.com>
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Database
+ * @since 3.0.0
  */
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";

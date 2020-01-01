@@ -1,18 +1,17 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * Groups.class.php
+ * Groups
  *
- * @category TeamCal Neo 
- * @version 2.2.3
+ * This class provides methods and properties for user groups.
+ * 
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed.
- */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
-
-/**
- * Provides properties and methods to interface with the groups database table
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage User Management
+ * @since 3.0.0
  */
 class Groups
 {

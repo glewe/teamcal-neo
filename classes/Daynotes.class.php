@@ -2,12 +2,12 @@
 /**
  * Daynotes.class.php
  *
- * @category TeamCal Neo 
- * @version 2.2.3
+ * @category TeamCal Neo Basic
+ * @version 3.0.0
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+
+ * @license https://support.lewe.com/docs/teamcal-neo-manual/teamcal-neo-license/
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 

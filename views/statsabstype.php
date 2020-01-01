@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * statsabstype.php
- * 
- * Absence type statistics page view
+ * Absence Type Statistics View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -32,14 +31,15 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          $tabindex = 1;
          ?>
 
-         <form  class="bs-example form-control-horizontal noprint" enctype="multipart/form-data" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
+         <form class="form-control-horizontal noprint" enctype="multipart/form-data" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
 
             <div class="page-menu">
-               <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalGroup"><?=$LANG['group']?> <span class="badge"><?=$viewData['groupName']?></span></button>
-               <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalPeriod"><?=$LANG['period']?> <span class="badge"><?=$viewData['periodName']?></span></button>
+               <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalGroup"><?=$LANG['group']?> <span class="badge badge-light"><?=$viewData['groupName']?></span></button>
+               <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalPeriod"><?=$LANG['period']?> <span class="badge badge-light"><?=$viewData['periodName']?></span></button>
                <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDiagram"><?=$LANG['diagram']?></button>
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>"><?=$LANG['btn_reset']?></a>
+               <a class="btn btn-secondary" href="index.php?action=<?=$controller?>"><?=$LANG['btn_reset']?></a>
             </div>
+            <div style="height:20px;"></div>
 
             <!-- Modal: Group -->
             <?=createModalTop('modalGroup', $LANG['stats_modalGroupTitle'])?>
@@ -162,15 +162,15 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             
          </form>
 
-         <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+         <div class="card">
             <?php 
             $pageHelp = '';
-            if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+            if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
             ?>
-            <div class="panel-heading">
-               <i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['stats_title_abstype']?>&nbsp;(<?=$viewData['periodName']?>)<span class="label label-default pull-right label-header-right"><i data-position="tooltip-bottom" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['stats_total']?>"><?=$viewData['total']?></i></span><?=$pageHelp?>
+            <div class="card-header bg-<?=$CONF['controllers'][$controller]->panelColor?>">
+               <i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['stats_title_abstype']?>&nbsp;(<?=$viewData['periodName']?>)<span class="label label-default float-right label-header-right"><i data-position="tooltip-bottom" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['stats_total']?>"><?=$viewData['total']?></i></span><?=$pageHelp?>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
                <p><?=$LANG['stats_abstype_desc']?></p>
                <canvas id="myChart" height="<?=$viewData['height']?>"></canvas>
                

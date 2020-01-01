@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * messageedit.php
- * 
- * Message editor view
+ * Message Edit View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -33,18 +32,18 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             } ?>
             <?php $tabindex = 1; $colsleft = 8; $colsright = 4;?>
             
-            <form  class="bs-example form-control-horizontal" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
+            <form class="form-control-horizontal" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
 
-               <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+               <div class="card">
                   <?php 
                   $pageHelp = '';
-                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['msg_title_edit'].$pageHelp?></div>
-                  <div class="panel-body">
+                  <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['msg_title_edit'].$pageHelp?></div>
+                  <div class="card-body">
 
                      <!-- Message type -->
-                     <div class="form-group">
+                     <div class="form-group row">
                         <label class="col-lg-<?=$colsleft?> control-label">
                            <?=$LANG['msg_type']?><br>
                            <span class="text-normal"><?=$LANG['msg_type_desc']?></span>
@@ -58,7 +57,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="divider"><hr></div>
 
                      <!-- Content type -->
-                     <div class="form-group">
+                     <div class="form-group row">
                         <label class="col-lg-<?=$colsleft?> control-label">
                            <?=$LANG['msg_content_type']?><br>
                            <span class="text-normal"><?=$LANG['msg_content_type_desc']?></span>
@@ -74,7 +73,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="divider"><hr></div>
                            
                      <!-- Send to -->
-                     <div class="form-group">
+                     <div class="form-group row">
                         <label class="col-lg-<?=$colsleft?> control-label">
                            <?=$LANG['msg_sendto']?><br>
                            <span class="text-normal"><?=$LANG['msg_sendto_desc']?></span>
@@ -102,7 +101,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="divider"><hr></div>
 
                      <!-- Subject -->
-                     <div class="form-group">
+                     <div class="form-group row">
                         <label class="col-lg-6 control-label">
                            <?=$LANG['msg_msg_title']?><br>
                            <span class="text-normal"><?=$LANG['msg_msg_title_comment']?></span>
@@ -114,7 +113,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="divider"><hr></div>
 
                      <!-- Body -->
-                     <div class="form-group">
+                     <div class="form-group row">
                         <label class="col-lg-6 control-label">
                            <?=$LANG['msg_msg_body']?><br>
                            <span class="text-normal"><?=$LANG['msg_msg_body_comment']?></span>
@@ -126,7 +125,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      <div class="divider"><hr></div>
 
                      <!-- Captcha -->
-                     <div class="form-group">
+                     <div class="form-group row">
                         <label for="inputCode" class="col-lg-<?=$colsleft?> control-label">
                            <?=$LANG['msg_code']?><br>
                            <span class="text-normal"><?=$LANG['msg_code_comment']?></span>
@@ -142,8 +141,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   </div>
                </div>
 
-               <div class="panel panel-default">
-                  <div class="panel-body">
+               <div style="height:20px;"></div>
+               <div class="card">
+                  <div class="card-body">
                      <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_send"><?=$LANG['btn_send']?></button>
                   </div>
                </div>

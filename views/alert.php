@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * alert.php
- * 
- * Alert page view
+ * Alert View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -21,7 +20,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       
          <div class="col-lg-12">
             <div class="alert alert-<?=$alertData['type']?>">
-               <h4><strong><?=$alertData['title']?>!</strong></h4>
+               <h5><strong><?=$alertData['title']?>!</strong></h5>
                <hr>
                <p><strong><?=$alertData['subject']?></strong></p>
                <p><?=$alertData['text']?></p>

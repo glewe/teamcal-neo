@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * monthedit.php
- * 
- * Month edit page view
+ * Month Edit View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -31,7 +30,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          } ?>
          <?php $tabindex = 1; $colsleft = 1; $colsright = 4;?>
          
-         <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;month=<?=$viewData['year'].$viewData['month']?>&amp;region=<?=$viewData['regionid']?>" method="post" target="_self" accept-charset="utf-8">
+         <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;month=<?=$viewData['year'].$viewData['month']?>&amp;region=<?=$viewData['regionid']?>" method="post" target="_self" accept-charset="utf-8">
 
             <input name="hidden_month" type="hidden" class="text" value="<?=$viewData['month']?>">
             <input name="hidden_region" type="hidden" class="text" value="<?=$viewData['regionid']?>">
@@ -61,24 +60,25 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             ?>
                         
             <div class="page-menu">
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>"><span class="fas fa-angle-double-left"></span></a>
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>"><span class="fas fa-angle-double-right"></span></a>
-               <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;month=<?=$viewData['yearToday'].$viewData['monthToday']?>&amp;region=<?=$viewData['regionid']?>"><?=$LANG['today']?></a>
+               <a class="btn btn-secondary" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>"><span class="fas fa-angle-double-left"></span></a>
+               <a class="btn btn-secondary" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>"><span class="fas fa-angle-double-right"></span></a>
+               <a class="btn btn-secondary" href="index.php?action=<?=$controller?>&amp;month=<?=$viewData['yearToday'].$viewData['monthToday']?>&amp;region=<?=$viewData['regionid']?>"><?=$LANG['today']?></a>
                <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectRegion"><?=$LANG['region'] . ': ' . $viewData['regionname']?></button>
                
-               <div class="pull-right">
+               <div class="float-right">
                   <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_save"><?=$LANG['btn_save']?></button>
                   <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalClearAll"><?=$LANG['btn_clear_all']?></button>
                </div>
             </div>
             
-            <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+            <div class="card">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=sprintf($LANG['monthedit_title'], $viewData['year'], $viewData['month'], $viewData['regionname']).$pageHelp?></div>
+               <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=sprintf($LANG['monthedit_title'], $viewData['year'], $viewData['month'], $viewData['regionname']).$pageHelp?></div>
             </div>
+            <div style="height:20px;"></div>
             
             <?php if (!$viewData['supportMobile']) $mobilecols = array('full'=>$viewData['dateInfo']['daysInMonth']);
             foreach ($mobilecols as $key => $cols) 

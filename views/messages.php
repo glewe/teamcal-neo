@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * messages.php
- * 
- * Messages page view
+ * Messages View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -23,18 +22,18 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          
             <?php $tabindex = 1;?>
             
-            <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+            <div class="card">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['msg_title']." ".$UL->firstname." ".$UL->lastname.$pageHelp?></div>
-               <div class="panel-body">
+               <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['msg_title']." ".$UL->firstname." ".$UL->lastname.$pageHelp?></div>
+               <div class="card-body">
                   
                   <?php if (!empty($msgData)) { ?>
-                  <div class="panel panel-default">
-                     <div class="panel-body">
-                        <form class="bs-example form-control-horizontal" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
+                  <div class="card">
+                     <div class="card-body">
+                        <form class="form-control-horizontal" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
                            <button type="button" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalConfirmAll"><?=$LANG['btn_confirm_all']?></button>
                            <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteAll"><?=$LANG['btn_delete_all']?></button>
                            
@@ -51,14 +50,15 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </form>
                      </div>
                   </div>
+                  <div style="height:20px;"></div>
                   <?php } ?>
                   
                   <?php foreach ($msgData as $msg) { ?>
-                  <form class="bs-example form-control-horizontal" action="index.php?action=messages" method="post" target="_self" accept-charset="utf-8">
+                  <form class="form-control-horizontal" action="index.php?action=messages" method="post" target="_self" accept-charset="utf-8">
                      <div class="alert alert-<?=$msg['type']?>">
                         <input name="msgId" type="hidden" class="text" value="<?=$msg['id']?>">
-                        <button type="button" class="btn btn-danger btn-xs pull-right" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDelete-<?=$msg['id']?>"><?=$LANG['btn_delete']?></button>
-                        <?php if ($msg['popup']) { ?><button type="button" class="btn btn-success btn-xs pull-right" style="margin-right: 4px;" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalConfirm-<?=$msg['id']?>"><?=$LANG['btn_confirm']?></button><?php } ?>
+                        <button type="button" class="btn btn-danger btn-xs float-right" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDelete-<?=$msg['id']?>"><?=$LANG['btn_delete']?></button>
+                        <?php if ($msg['popup']) { ?><button type="button" class="btn btn-success btn-xs float-right" style="margin-right: 4px;" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalConfirm-<?=$msg['id']?>"><?=$LANG['btn_confirm']?></button><?php } ?>
                         <h4><strong><?=$msg['timestamp']?></strong></h4>
                         <hr>
                         <p><?=$msg['text']?></p>

@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * calendarview.php
- * 
- * Calendar view page view
+ * Calendar View View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
 $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$viewData['month'].'&amp;region='.$viewData['regionid'].'&amp;group='.$viewData['groupid'].'&amp;abs='.$viewData['absid'];
 ?>
@@ -34,7 +33,7 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
          $tabindex = 1; $colsleft = 1; $colsright = 4;
          ?>
          
-         <form class="bs-example form-control-horizontal" enctype="multipart/form-data" action="<?=$formLink?>" method="post" target="_self" accept-charset="utf-8">
+         <form class="form-control-horizontal" enctype="multipart/form-data" action="<?=$formLink?>" method="post" target="_self" accept-charset="utf-8">
 
             <input name="hidden_month" type="hidden" class="text" value="<?=$viewData['month']?>">
             <input name="hidden_region" type="hidden" class="text" value="<?=$viewData['regionid']?>">
@@ -53,10 +52,10 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
             }
             ?>
             <?php if ($showMonths < 12 ) { ?>
-               <button type="submit" name="btn_onemore" class="btn btn-default tooltip-default pull-right" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_onemore']?>"><span class="fas fa-plus"></span></button>
+               <button type="submit" name="btn_onemore" class="btn btn-secondary tooltip-default float-right" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_onemore']?>"><span class="fas fa-plus"></span></button>
             <?php } ?>
             <?php if ($showMonths > 1 ) { ?>
-               <button type="submit" name="btn_oneless" class="btn btn-default tooltip-default pull-right" style="margin-right:4px;" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_oneless']?>"><span class="fas fa-minus"></span></button>
+               <button type="submit" name="btn_oneless" class="btn btn-secondary tooltip-default float-right" style="margin-right:4px;" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_oneless']?>"><span class="fas fa-minus"></span></button>
             <?php } ?>
 
             <!-- Modal: Select Month -->

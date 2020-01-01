@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * log.php
- * 
- * Log page view
+ * Log View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -32,18 +31,18 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             } ?>
             <?php $tabindex = 1; $colsleft = 8; $colsright = 4;?>
             
-            <form  class="bs-example form-control-horizontal" action="index.php?action=log&amp;sort=<?=$viewData['sort']?>" method="post" target="_self" accept-charset="utf-8">
+            <form class="form-control-horizontal" action="index.php?action=log&amp;sort=<?=$viewData['sort']?>" method="post" target="_self" accept-charset="utf-8">
 
-               <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+               <div class="card">
                   <?php 
                   $pageHelp = '';
-                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['mnu_admin_systemlog'] . ' ( ' . count($viewData['events']) . ' ' . $LANG['log_title_events'] . ' )'.$pageHelp?></div>
-                  <div class="panel-body">
-                  
-                     <div class="panel panel-default">
-                        <div class="panel-body">
+                  <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['mnu_admin_systemlog'] . ' ( ' . count($viewData['events']) . ' ' . $LANG['log_title_events'] . ' )'.$pageHelp?></div>
+                  <div class="card-body">
+
+                     <div class="card">
+                        <div class="card-body row">
                         
                            <div class="col-lg-3">
                               <label><?=$LANG['period']?></label>
@@ -83,7 +82,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            <div class="col-lg-5 text-right">
                               <br>
                               <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_refresh"><?=$LANG['btn_refresh']?></button>
-                              <button type="submit" class="btn btn-default" tabindex="<?=$tabindex++;?>" name="btn_reset"><?=$LANG['btn_reset']?></button>
+                              <button type="submit" class="btn btn-secondary" tabindex="<?=$tabindex++;?>" name="btn_reset"><?=$LANG['btn_reset']?></button>
                               <button type="button" class="btn btn-danger" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalClear"><?=$LANG['log_clear']?></button>
                               <button type="submit" class="btn btn-info" title="<?=($viewData['sort']=='DESC')?$LANG['log_sort_asc']:$LANG['log_sort_desc']?>" tabindex="<?=$tabindex++;?>" name="btn_sort"><?=($viewData['sort']=='DESC')?'<i class="fas fa-arrow-up fa-lg"></i>':'<i class="fas fa-arrow-down fa-lg"></i>'?></button>
                               
@@ -96,18 +95,19 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            
                         </div>
                      </div>
-                  
-                     <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                        <li class="active"><a href="#tabLog" data-toggle="tab"><?=$LANG['log_title']?></a></li>
-                        <li><a href="#tabSettings" data-toggle="tab"><?=$LANG['log_settings']?></a></li>
+                     <div style="height:20px;"></div>
+
+                     <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" id="tabLog-tab" href="#tabLog" data-toggle="tab" role="tab" aria-controls="tabLog" aria-selected="true"><?=$LANG['log_title']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tabSettings-tab" href="#tabSettings" data-toggle="tab" role="tab" aria-controls="tabSettings" aria-selected="true"><?=$LANG['log_settings']?></a></li>
                      </ul>
                      
                      <div id="myTabContent" class="tab-content">
                         
                         <!-- Log tab -->
-                        <div class="tab-pane fade active in" id="tabLog">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade show active" id="tabLog" role="tabpanel" aria-labelledby="tabLog-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php
                                  if ( count($viewData['events']) ) {
                                     $color = 'text-default';
@@ -117,7 +117,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        if (isset($viewData['events'][$i])) $event = $viewData['events'][$i]; else break;
                                        $color = "text-" . $C->read("logcolor".substr($event['type'],3));
                                        ?>
-                                       <div class="col-lg-12 <?=$color?>" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
+                                       <div class="row <?=$color?>" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                                           <div class="col-lg-1 small"><?=$i+1?></div>
                                           <div class="col-lg-3 small"><i class="far fa-clock fa-lg fa-menu" title="<?=$LANG['log_header_when']?>"></i><?=$event['timestamp']?></div>
                                           <div class="col-lg-2 small"><i class="far fa-edit fa-lg fa-menu" title="<?=$LANG['log_header_type']?>"></i><?=substr($event['type'],3)?></div>
@@ -135,39 +135,39 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     ?>
                                     <!-- First Page Link -->
                                     <?php if ($page==1) { ?>
-                                       <li class="disabled"><span><span aria-hidden="true"><i class="fas fa-angle-double-left"></i></span></span></li>
+                                       <li class="mr-1"><span aria-hidden="true"><i class="fas fa-angle-double-left fa-border text-light"></i></span></li>
                                     <?php } else { ?>
-                                       <li><a href="<?=$formLink?>&amp;page=1" title="<?=$LANG['page_first']?>"><span><i class="fas fa-angle-double-left"></i></span></a></li>
+                                       <li class="mr-1"><a href="<?=$formLink?>&amp;page=1" title="<?=$LANG['page_first']?>"><span><i class="fas fa-angle-double-left fa-border"></i></span></a></li>
                                     <?php } ?>
                                     
                                     <!-- Previous Page Link -->
                                     <?php if ($page==1) { ?>
-                                       <li class="disabled"><span><span aria-hidden="true"><i class="fas fa-angle-left"></i></span></span></li>
+                                       <li><span><span aria-hidden="true"><i class="fas fa-angle-left fa-border text-light"></i></span></span></li>
                                     <?php } else { ?>
-                                       <li><a href="<?=$formLink?>&amp;page=<?=$page-1?>" title="<?=$LANG['page_prev']?>"><span><i class="fas fa-angle-left"></i></span></a></li>
+                                       <li><a href="<?=$formLink?>&amp;page=<?=$page-1?>" title="<?=$LANG['page_prev']?>"><span><i class="fas fa-angle-left fa-border"></i></span></a></li>
                                     <?php } ?>
                                     
                                     <!-- Page Link -->
                                     <?php for ($p=1; $p<=$pages; $p++) { 
                                        if ($p==$page) { ?>
-                                          <li class="active"><span><?=$p?><span class="sr-only">(current)</span></span></li>
+                                          <li class="active pl-3 pr-3"><span><?=$p?><span class="sr-only">(current)</span></span></li>
                                        <?php } else { ?>
-                                          <li><a href="<?=$formLink?>&amp;page=<?=$p?>" title="<?=sprintf($LANG['page_page'],$p)?>"><span><?=$p?></span></a></li>
+                                          <li class="pl-3 pr-3"><a href="<?=$formLink?>&amp;page=<?=$p?>" title="<?=sprintf($LANG['page_page'],$p)?>"><span><?=$p?></span></a></li>
                                        <?php } 
                                     } ?>
                                     
                                     <!-- Next Page Link -->
                                     <?php if ($page==$pages) { ?>
-                                       <li class="disabled"><span><span aria-hidden="true"><i class="fas fa-angle-right"></i></span></span></li>
+                                       <li class="mr-1"><span><span aria-hidden="true"><i class="fas fa-angle-right fa-border text-light"></i></span></span></li>
                                     <?php } else { ?>
-                                       <li><a href="<?=$formLink?>&amp;page=<?=$page+1?>" title="<?=$LANG['page_next']?>"><span><i class="fas fa-angle-right"></i></span></a></li>
+                                       <li class="mr-1"><a href="<?=$formLink?>&amp;page=<?=$page+1?>" title="<?=$LANG['page_next']?>"><span><i class="fas fa-angle-right fa-border"></i></span></a></li>
                                     <?php } ?>
                                     
                                     <!-- Last Page Link -->
                                     <?php if ($page==$pages) { ?>
-                                       <li class="disabled"><span><span aria-hidden="true"><i class="fas fa-angle-double-right"></i></span></span></li>
+                                       <li><span><span aria-hidden="true"><i class="fas fa-angle-double-right fa-border text-light"></i></span></span></li>
                                     <?php } else { ?>
-                                       <li><a href="<?=$formLink?>&amp;page=<?=$pages?>" title="<?=$LANG['page_last']?>"><span><i class="fas fa-angle-double-right"></i></span></a></li>
+                                       <li><a href="<?=$formLink?>&amp;page=<?=$pages?>" title="<?=$LANG['page_last']?>"><span><i class="fas fa-angle-double-right fa-border"></i></span></a></li>
                                     <?php } ?>
                                  </ul>
 
@@ -176,14 +176,23 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
                         
                         <!-- Log settings -->
-                        <div class="tab-pane fade" id="tabSettings">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="tabSettings" role="tabpanel" aria-labelledby="tabSettings-tab">
+
+                           <div style="height:20px;"></div>
+                           <div class="card">
+                              <div class="card-body">
+                                 <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_logSave"><?=$LANG['btn_save']?></button>
+                              </div>
+                           </div>
+                           <div style="height:20px;"></div>
+
+                           <div class="card">
+                              <div class="card-body">
                                  <?php 
                                  foreach( $viewData['types'] as $type ) { 
                                     $color = "text-" . $C->read("logcolor".$type);
                                     ?>
-                                 <div class="col-lg-12" style="border-bottom: 1px dotted; padding-top: 10px; padding-bottom: 10px;">
+                                 <div class="row" style="border-bottom: 1px dotted; padding-top: 10px; padding-bottom: 10px;">
                                     <div class="col-lg-3 <?=$color?>"><label><i class="fas fa-tag fa-lg fa-menu"></i><?=$type?></label></div>
                                     <div class="col-lg-3">
                                        <input style="margin-right: 10px;" name="chk_log<?=$type?>" value="chk_log<?=$type?>" type="checkbox"<?=($C->read("log".$type))?' checked=""':''?>><?=$LANG['log_settings_log']?>
@@ -204,8 +213,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                               </div>
                            </div>
                            
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                           <div style="height:20px;"></div>
+                           <div class="card">
+                              <div class="card-body">
                                  <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_logSave"><?=$LANG['btn_save']?></button>
                               </div>
                            </div>

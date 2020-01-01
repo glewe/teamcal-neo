@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * holidays.php
- * 
- * Holiday list view
+ * Holidays View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -32,23 +31,22 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             } ?>
             <?php $tabindex = 1; $colsleft = 8; $colsright = 4;?>
 
-            <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+            <div class="card">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['hol_list_title'].$pageHelp?></div>
+               <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['hol_list_title'].$pageHelp?></div>
                
-               <div class="panel-body">
+               <div class="card-body">
 
-                  <form class="bs-example form-control-horizontal" name="form_create" action="index.php?action=<?=$CONF['controllers'][$controller]->name?>" method="post" target="_self" accept-charset="utf-8">
-                     <div class="panel panel-default">
-                        <div class="panel-body">
-                           <div class="col-lg-12 text-right">
-                              <button type="button" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalCreateHoliday"><?=$LANG['btn_create_holiday']?></button>
-                           </div>
+                  <form class="form-control-horizontal" name="form_create" action="index.php?action=<?=$CONF['controllers'][$controller]->name?>" method="post" target="_self" accept-charset="utf-8">
+                     <div class="card">
+                        <div class="card-body">
+                           <button type="button" class="btn btn-success float-right" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalCreateHoliday"><?=$LANG['btn_create_holiday']?></button>
                         </div>
                      </div>
+                     <div style="height:20px;"></div>
                      
                      <!-- Modal: Create Holiday -->
                      <?=createModalTop('modalCreateHoliday', $LANG['btn_create_holiday'])?>
@@ -66,7 +64,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                      
                   </form>
             
-                  <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight: bold;">
+                  <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight: bold;">
                      <div class="col-lg-1"><?=$LANG['display']?></div>
                      <div class="col-lg-2"><?=$LANG['name']?></div>
                      <div class="col-lg-4"><?=$LANG['description']?></div>
@@ -75,8 +73,8 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                   </div>
                               
                   <?php foreach ($viewData['holidays'] as $holiday) { ?>
-                     <form  class="bs-example form-control-horizontal" name="form_<?=$holiday['id']?>" action="index.php?action=<?=$CONF['controllers'][$controller]->name?>" method="post" target="_self" accept-charset="utf-8">
-                        <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
+                     <form  class="rorm-control-horizontal" name="form_<?=$holiday['id']?>" action="index.php?action=<?=$CONF['controllers'][$controller]->name?>" method="post" target="_self" accept-charset="utf-8">
+                        <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                            <div class="col-lg-1">
                               <div style="color: #<?=$holiday['color']?>; background-color: #<?=$holiday['bgcolor']?>; border: 1px solid; width: 26px; height: 26px; text-align: center;">
                                  23
@@ -91,12 +89,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                            <div class="col-lg-2 text-right">
                               <?php if ($holiday['id'] > 3) { ?>
-                                 <button type="button" class="btn btn-danger btn-xs" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteHoliday_<?=$holiday['id']?>"><?=$LANG['btn_delete']?></button>
+                                 <button type="button" class="btn btn-danger btn-sm" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteHoliday_<?=$holiday['id']?>"><?=$LANG['btn_delete']?></button>
                                  <input name="hidden_id" type="hidden" value="<?=$holiday['id']?>">
                                  <input name="hidden_name" type="hidden" value="<?=$holiday['name']?>">
                                  <input name="hidden_description" type="hidden" value="<?=$holiday['description']?>">
                               <?php } ?>
-                              <a href="index.php?action=holidayedit&amp;id=<?=$holiday['id']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>
+                              <a href="index.php?action=holidayedit&amp;id=<?=$holiday['id']?>" class="btn btn-warning btn-sm" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>
                            </div>
                         </div>
                         

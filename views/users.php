@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * users.php
- * 
- * Users page view
+ * Users View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -32,19 +31,19 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             } ?>
             <?php $tabindex = 1; $colsleft = 8; $colsright = 4;?>
             
-            <form  class="bs-example form-control-horizontal" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
+            <form class="form-control-horizontal" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
 
-               <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+               <div class="card">
                   <?php 
                   $pageHelp = '';
-                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['users_title'].$pageHelp?></div>
+                  <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['users_title'].$pageHelp?></div>
                   
-                  <div class="panel-body">
+                  <div class="card-body">
 
-                     <div class="panel panel-default">
-                        <div class="panel-body">
+                     <div class="card">
+                        <div class="card-body row">
                            <div class="col-lg-3">
                               <label for="inputSearch"><?=$LANG['search']?></label>
                               <input id="inputSearch" class="form-control" tabindex="<?=$tabindex++;?>" name="txt_searchUser" maxlength="40" value="<?=$viewData['searchUser']?>" type="text">
@@ -76,20 +75,21 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                         </div>
                      </div>
+                     <div style="height:20px;"></div>
                
-                     <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                        <li class="active"><a href="#tabActive" data-toggle="tab"><?=$LANG['users_tab_active']?></a></li>
-                        <li><a href="#tabArchived" data-toggle="tab"><?=$LANG['users_tab_archived']?></a></li>
+                     <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" id="tabActive-tab" href="#tabActive" data-toggle="tab" role="tab" aria-controls="tabActive" aria-selected="true"><?=$LANG['users_tab_active']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tabArchived-tab" href="#tabArchived" data-toggle="tab" role="tab" aria-controls="tabArchived" aria-selected="false"><?=$LANG['users_tab_archived']?></a></li>
                      </ul>
                      
                      <div id="myTabContent" class="tab-content">
                         
                         <!-- Active tab -->
-                        <div class="tab-pane fade active in" id="tabActive">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade show active" id="tabActive" role="tabpanel" aria-labelledby="tabActive-tab">
+                           <div class="card">
+                              <div class="card-body">
                               
-                                 <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight: bold;">
+                                 <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight: bold;">
                                     <div class="col-lg-4"><?=$LANG['users_user']?></div>
                                     <div class="col-lg-2"><?=$LANG['users_attributes']?></div>
                                     <div class="col-lg-2"><?=$LANG['users_created']?></div>
@@ -98,7 +98,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  </div>
                                  
                                  <?php foreach ($viewData['users'] as $user) { ?>
-                                 <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
+                                 <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                                     <div class="col-lg-4">
                                        <?php if ($user['username']!="admin") {?>
                                           <input type="checkbox" name="chk_userActive[]" value="<?=$user['username']?>">&nbsp;&nbsp;
@@ -117,13 +117,13 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                     <div class="col-lg-2"><?=$user['created']?></div>
                                     <div class="col-lg-2"><?=(($user['last_login']!=DEFAULT_TIMESTAMP)?$user['last_login']:"")?></div>
                                     <div class="col-lg-2 text-right">
-                                       <a href="index.php?action=viewprofile&amp;profile=<?=$user['username']?>" class="btn btn-default btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_view']?></a>
-                                       <a href="index.php?action=useredit&amp;profile=<?=$user['username']?>" class="btn btn-warning btn-xs" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>
+                                       <a href="index.php?action=viewprofile&amp;profile=<?=$user['username']?>" class="btn btn-secondary btn-sm" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_view']?></a>
+                                       <a href="index.php?action=useredit&amp;profile=<?=$user['username']?>" class="btn btn-warning btn-sm" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>
                                     </div>
                                  </div>
                                  <?php } ?>
                                  
-                                 <div class="col-lg-12" style="margin-top: 10px; padding-bottom: 0px;">
+                                 <div class="row" style="margin-top: 10px; padding-bottom: 0px;">
                                     <div class="col-lg-2">
                                        <div class="checkbox"><label><input type="checkbox" name="chk_selectAllActive" id="chk_selectAllActive"><?=$LANG['select_all']?></label></div>
                                     </div>
@@ -162,9 +162,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
                         
                         <!-- Archived tab -->
-                        <div class="tab-pane fade" id="tabArchived">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="tabArchived" role="tabpanel" aria-labelledby="tabArchived-tab">
+                           <div class="card">
+                              <div class="card-body">
                               
                                  <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight: bold;">
                                     <div class="col-lg-4"><?=$LANG['users_user']?></div>

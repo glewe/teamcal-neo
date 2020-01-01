@@ -1,18 +1,17 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * Attachment.class.php
+ * AbsenceGroup
  *
- * @category TeamCal Neo 
- * @version 2.2.3
+ * This class provides methods and properties for attachments.
+ * 
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
- */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
-
-/**
- * Provides objects and methods to manage the user-option table
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Attachments
+ * @since 3.0.0
  */
 class Attachment
 {

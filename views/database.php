@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * database.php
- * 
- * Database page view
+ * Database View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -32,35 +31,35 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
             } ?>
             <?php $tabindex = 1; $colsleft = 6; $colsright = 6;?>
             
-            <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
+            <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
 
-               <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+               <div class="card">
                   <?php 
                   $pageHelp = '';
-                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['db_title']?><?=$pageHelp?></div>
-                  <div class="panel-body">
+                  <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['db_title']?><?=$pageHelp?></div>
+                  <div class="card-body">
 
-                     <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                        <li class="active"><a href="#tab_optimize" data-toggle="tab"><?=$LANG['db_tab_optimize']?></a></li>
-                        <li><a href="#tab_cleanup" data-toggle="tab"><?=$LANG['db_tab_cleanup']?></a></li>
-                        <li><a href="#tab_repair" data-toggle="tab"><?=$LANG['db_tab_repair']?></a></li>
-                        <li><a href="#tab_delete" data-toggle="tab"><?=$LANG['db_tab_delete']?></a></li>
-                        <li><a href="#tab_admin" data-toggle="tab"><?=$LANG['db_tab_admin']?></a></li>
-                        <li><a href="#tab_reset" data-toggle="tab"><?=$LANG['db_tab_reset']?></a></li>
-                        <li><a href="#tab_tcpimp" data-toggle="tab"><?=$LANG['db_tab_tcpimp']?></a></li>
+                     <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" id="tab_optimize-tab" href="#tab_optimize" data-toggle="tab" role="tab" aria-controls="tab_optimize" aria-selected="true"><?=$LANG['db_tab_optimize']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_cleanup-tab" href="#tab_cleanup" data-toggle="tab" role="tab" aria-controls="tab_cleanup" aria-selected="false"><?=$LANG['db_tab_cleanup']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_repair-tab" href="#tab_repair" data-toggle="tab" role="tab" aria-controls="tab_repair" aria-selected="false"><?=$LANG['db_tab_repair']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_delete-tab" href="#tab_delete" data-toggle="tab" role="tab" aria-controls="tab_delete" aria-selected="false"><?=$LANG['db_tab_delete']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_admin-tab" href="#tab_admin" data-toggle="tab" role="tab" aria-controls="tab_admin" aria-selected="false"><?=$LANG['db_tab_admin']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_reset-tab" href="#tab_reset" data-toggle="tab" role="tab" aria-controls="tab_reset" aria-selected="false"><?=$LANG['db_tab_reset']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_tcpimp-tab" href="#tab_tcpimp" data-toggle="tab" role="tab" aria-controls="tab_tcpimp" aria-selected="false"><?=$LANG['db_tab_tcpimp']?></a></li>
                      </ul>
                      
                      <div id="myTabContent" class="tab-content">
                      
                         <!-- Optimize Tables tab -->
-                        <div class="tab-pane fade active in" id="tab_optimize">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
-                                 <div class="form-group">
+                        <div class="tab-pane fade show active" id="tab_optimize" role="tabpanel" aria-labelledby="tab_optimize-tab">
+                           <div class="card">
+                              <div class="card-body">
+                                 <div class="form-group row">
                                     <div class="col-lg-12">
-                                       <h4><?=$LANG['db_optimize']?></h4>
+                                       <strong><?=$LANG['db_optimize']?></strong>
                                        <div class="text-normal"><?=$LANG['db_optimize_comment']?></div>
                                     </div>
                                  </div>
@@ -72,11 +71,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
                      
                         <!-- Cleanup tab -->
-                        <div class="tab-pane fade" id="tab_cleanup">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="tab_cleanup" role="tabpanel" aria-labelledby="tab_cleanup-tab">
+                           <div class="card">
+                              <div class="card-body">
                               
-                                 <div class="form-group">
+                                 <div class="form-group row">
                                     <div class="col-lg-<?=$colsleft?>">
                                        <div class="text-bold"><?=$LANG['db_clean_what']?></div>
                                        <div class="text-normal"><?=$LANG['db_clean_what_comment']?></div>
@@ -95,7 +94,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  </div>
                                  <div class="divider"><hr></div>
 
-                                 <div class="form-group">
+                                 <div class="form-group row">
                                     <div class="col-lg-<?=$colsleft?>">
                                        <div class="text-bold"><?=$LANG['db_clean_before']?></div>
                                        <div class="text-normal"><?=$LANG['db_clean_before_comment']?></div>
@@ -110,7 +109,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  </div>
                                  <div class="divider"><hr></div>
 
-                                 <div class="form-group">
+                                 <div class="form-group row">
                                     <div class="col-lg-<?=$colsleft?>">
                                        <div class="text-bold"><?=$LANG['db_clean_confirm']?></div>
                                        <div class="text-normal"><?=$LANG['db_clean_confirm_comment']?></div>
@@ -131,11 +130,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
       
                         <!-- Repair tab -->
-                        <div class="tab-pane fade" id="tab_repair">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="tab_repair" role="tabpanel" aria-labelledby="tab_repair-tab">
+                           <div class="card">
+                              <div class="card-body">
                               
-                                 <div class="form-group">
+                                 <div class="form-group row">
                                     <div class="col-lg-<?=$colsleft?>">
                                        <div class="text-bold"><?=$LANG['db_repair_daynoteRegions']?></div>
                                        <div class="text-normal"><?=$LANG['db_repair_daynoteRegions_comment']?></div>
@@ -148,7 +147,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  </div>
                                  <div class="divider"><hr></div>
 
-                                 <div class="form-group">
+                                 <div class="form-group row">
                                     <div class="col-lg-<?=$colsleft?>">
                                        <div class="text-bold"><?=$LANG['db_repair_confirm']?></div>
                                        <div class="text-normal"><?=$LANG['db_repair_confirm_comment']?></div>
@@ -169,11 +168,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
       
                         <!-- Delete tab -->
-                        <div class="tab-pane fade" id="tab_delete">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="tab_delete" role="tabpanel" aria-labelledby="tab_delete-tab">
+                           <div class="card">
+                              <div class="card-body">
                               
-                                 <div class="form-group">
+                                 <div class="form-group row">
                                     <div class="col-lg-<?=$colsleft?>">
                                        <div class="text-bold"><?=$LANG['db_del_what']?></div>
                                        <div class="text-normal"><?=$LANG['db_del_what_comment']?></div>
@@ -204,7 +203,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  </div>
                                  <div class="divider"><hr></div>
 
-                                 <div class="form-group">
+                                 <div class="form-group row">
                                     <div class="col-lg-<?=$colsleft?>">
                                        <div class="text-bold"><?=$LANG['db_confirm']?></div>
                                        <div class="text-normal"><?=$LANG['db_del_confirm_comment']?></div>
@@ -225,12 +224,12 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
       
                         <!-- Administration tab -->
-                        <div class="tab-pane fade" id="tab_admin">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
-                                 <div class="form-group">
+                        <div class="tab-pane fade" id="tab_admin" role="tabpanel" aria-labelledby="tab_admin-tab">
+                           <div class="card">
+                              <div class="card-body">
+                                 <div class="form-group row">
                                     <div class="col-lg-12">
-                                       <h4><?=$LANG['db_dbURL']?></h4>
+                                       <strong><?=$LANG['db_dbURL']?></strong>
                                        <div class="text-normal"><?=$LANG['db_dbURL_comment']?></div>
                                     </div>
                                     <div class="col-lg-12 control-label">
@@ -247,11 +246,11 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
 
                         <!-- Reset tab -->
-                        <div class="tab-pane fade" id="tab_reset">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="tab_reset" role="tabpanel" aria-labelledby="tab_reset-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <div class="alert alert-danger"><?=$LANG['db_reset_danger']?></div>
-                                 <div class="form-group">
+                                 <div class="form-group row">
                                     <div class="col-lg-8">
                                        <div class="text-bold"><?=$LANG['db_resetString']?></div>
                                        <div class="text-normal"><?=$LANG['db_resetString_comment']?></div>
@@ -267,15 +266,15 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
 
                         <!-- TeamCal Pro Import tab -->
-                        <div class="tab-pane fade" id="tab_tcpimp">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
-                                 <div class="form-group">
+                        <div class="tab-pane fade" id="tab_tcpimp" role="tabpanel" aria-labelledby="tab_tcpimp-tab">
+                           <div class="card">
+                              <div class="card-body">
+                                 <div class="form-group row">
                                     <div class="col-lg-12">
-                                       <h4><?=$LANG['db_tcpimp']?></h4>
+                                       <strong><?=$LANG['db_tcpimp']?></strong>
                                        <div class="text-normal"><?=$LANG['db_tcpimp_comment']?></div>
                                        <div class="text-normal">&nbsp;</div>
-                                       <h4><?=$LANG['db_tcpimp2']?></h4>
+                                       <strong><?=$LANG['db_tcpimp2']?></strong>
                                        <div class="text-normal"><?=$LANG['tcpimp_info']?></div>
                                     </div>
                                  </div>                                 

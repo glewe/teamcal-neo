@@ -1,18 +1,17 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * Roles.class.php
+ * Absences
  *
- * @category TeamCal Neo 
- * @version 2.2.3
+ * This class provides methods and properties for user roles.
+ * 
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
- */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
-
-/**
- * Provides properties and methods to interface with the role table
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Calendar Management
+ * @since 3.0.0
  */
 class Absences
 {
@@ -49,6 +48,23 @@ class Absences
       global $CONF, $DB;
       $this->db = $DB->db;
       $this->table = $CONF['db_table_absences'];
+   }
+   
+   // ----------------------------------------------------------------------
+   /**
+    * Counts the records
+    *
+    * @return integer
+    */
+   public function count()
+   {
+      $result = 0;
+      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table );
+      $result = $query->execute();
+      if ($result and $row = $query->fetch())
+      {
+         return $row[0];
+      }
    }
    
    // ----------------------------------------------------------------------

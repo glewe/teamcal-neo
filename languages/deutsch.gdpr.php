@@ -1,4 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
+/**
+ * German GDPR Strings
+ *
+ * @author George Lewe <george@lewe.com>
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Languages
+ * @since 3.0.0
+ */
 $LANG['gdpr_start'] = '<h4>1. Einleitung</h4>
 <p>Wir freuen uns sehr &uuml;ber Ihr Interesse an unserem Unternehmen. Datenschutz hat einen besonders hohen Stellenwert f&uuml;r die Gesch&auml;ftsleitung der %ENTITY%. Eine Nutzung der Internetseiten der %ENTITY% ist grunds&auml;tzlich ohne jede Angabe personenbezogener Daten m&ouml;glich. Sofern eine betroffene Person besondere Services unseres Unternehmens &uuml;ber unsere Internetseite in Anspruch nehmen m&ouml;chte, k&ouml;nnte jedoch eine Verarbeitung personenbezogener Daten erforderlich werden. Ist die Verarbeitung personenbezogener Daten erforderlich und besteht f&uuml;r eine solche Verarbeitung keine gesetzliche Grundlage, holen wir generell eine Einwilligung der betroffenen Person ein.</p>
 <p>Die Verarbeitung personenbezogener Daten, beispielsweise des Namens, der Anschrift, E-Mail-Adresse oder Telefonnummer einer betroffenen Person, erfolgt stets im Einklang mit der Datenschutz-Grundverordnung und in &uuml;bereinstimmung mit den f&uuml;r die %ENTITY% geltenden landesspezifischen Datenschutzbestimmungen. Mittels dieser Datenschutzerkl&auml;rung m&ouml;chte unser Unternehmen die &ouml;ffentlichkeit &uuml;ber Art, Umfang und Zweck der von uns erhobenen, genutzten und verarbeiteten personenbezogenen Daten informieren. Ferner werden betroffene Personen mittels dieser Datenschutzerkl&auml;rung &uuml;ber die ihnen zustehenden Rechte aufgekl&auml;rt.</p>

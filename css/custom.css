@@ -1,14 +1,13 @@
 /**
- * custom.css
- * 
- * Global custom style sheet
+ * Custom Styles
  *
- * @category TeamCal Neo 
- * @version 1.9.003
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Application Configuration
+ * @since 3.0.0
  */
  
 /**
@@ -16,7 +15,7 @@
  */
 body {
    font-family: "Open Sans", Helvetica, Arial, sans-serif;
-   font-size: 160%;
+   /* font-size: 160%; */
    padding-top: 50px;
 }
 
@@ -34,6 +33,26 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
    font-weight: bold;
 }
 
+div.form-group label {
+   font-weight: bold;
+}
+
+div.radio input, div.checkbox input {
+   margin-right: 8px;
+}
+
+div.radio label, div.checkbox label {
+   font-weight: normal;
+}
+
+.pull-left {
+   float: left !important;
+}
+ 
+.pull-right {
+   float: right !important;
+}
+ 
 #top-link-block.affix {
    position: fixed; /* keeps it on the bottom once in view */
    bottom: 20px;
@@ -111,6 +130,10 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
    padding: 20px 15px 900px 15px;
    margin-top: 60px;
    margin-bottom: 0px;
+}
+
+.footer a  {
+   color: #999999;
 }
 
 .img_floatleft {

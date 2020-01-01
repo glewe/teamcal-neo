@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * header.php
- * 
- * The view of the HTML header
+ * Header View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
- */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
+ */?><!DOCTYPE html>
 <html lang="<?=$LANG['html_locale']?>">
 
    <head>
@@ -61,7 +60,6 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
       <!-- Theme CSS -->
       <?php if ($htmlData['theme']['name']=='bootstrap') { ?>
 <link rel="stylesheet" href="themes/bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" href="themes/bootstrap/css/bootstrap-theme.min.css">
       <?php } else { ?>
 <link rel="stylesheet" href="themes/<?=$htmlData['theme']['name']?>/css/bootstrap.min.css" media="screen">
       <?php } ?>
@@ -71,11 +69,14 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');?><!DOCTYPE html>
       
       <!-- Font Awesome -->
       <?php if ($htmlData['faCDN']) { ?>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/<?=FONTAWESOME_VER?>/css/all.css" crossorigin="anonymous">
       <?php } else { ?>
-<link rel="stylesheet" href="fonts/font-awesome/5.6.3/css/all.min.css">
+<link rel="stylesheet" href="fonts/font-awesome/<?=FONTAWESOME_VER?>/css/all.min.css">
       <?php } ?>
-         
+
+      <!-- Popper.js -->
+      <script src="js/popper.min.js"></script>
+
       <!-- jQuery -->
       <?php if ($htmlData['jQueryCDN']) { ?>
 <script src="https://code.jquery.com/jquery-<?=JQUERY_VER?>.min.js"></script>

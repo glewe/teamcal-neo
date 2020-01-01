@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * attachments.php
- * 
- * The view of the attachments page
+ * Attachments View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -32,29 +31,29 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          } ?>
          <?php $tabindex = 1; $colsleft = 6; $colsright = 6;?>
             
-            <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
+            <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
 
-               <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+               <div class="card">
                   <?php 
                   $pageHelp = '';
-                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['att_title']?><?=$pageHelp?></div>
-                  <div class="panel-body">
+                  <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['att_title']?><?=$pageHelp?></div>
+                  <div class="card-body">
                   
-                     <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                        <li class="active"><a href="#tab_files" data-toggle="tab"><?=$LANG['att_tab_files']?></a></li>
-                        <li><a href="#tab_upload" data-toggle="tab"><?=$LANG['att_tab_upload']?></a></li>
+                     <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" id="tab_files-tab" href="#tab_files" data-toggle="tab" role="tab" aria-controls="tab_files" aria-selected="true"><?=$LANG['att_tab_files']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_upload-tab" href="#tab_upload" data-toggle="tab" role="tab" aria-controls="tab_upload" aria-selected="false"><?=$LANG['att_tab_upload']?></a></li>
                      </ul>
 
                      <div id="myTabContent" class="tab-content">
                      
                         <!-- Files -->
-                        <div class="tab-pane fade active in" id="tab_files">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade show active" id="tab_files" role="tabpanel" aria-labelledby="tab_files-tab">
+                           <div class="card">
+                              <div class="card-body">
                               
-                                 <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight: bold;">
+                                 <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight: bold;">
                                     <div class="col-lg-5"><?=$LANG['att_col_file']?></div>
                                     <div class="col-lg-2"><?=$LANG['att_col_owner']?></div>
                                     <div class="col-lg-3"><?=$LANG['att_col_shares']?></div>
@@ -64,7 +63,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  <?php foreach($viewData['uplFiles'] as $file) { 
                                     if ($UL->username != 'admin' AND $UL->username != $AT->getUploader($file['fname'])) $isOwner = false; else $isOwner = true;
                                     ?>
-                                 <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
+                                 <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                                     <div class="col-lg-5">
                                        <input name="chk_file[]" value="<?=$file['fname']?>" tabindex="<?=$tabindex++?>" type="checkbox" <?=(!$isOwner)?"disabled":"";?>>
                                        <?php if (in_array(getFileExtension($file['fname']),$CONF['imgExtensions'])) { ?>
@@ -80,7 +79,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                        <?=$AT->getUploader($file['fname'])?>
                                     </div>
                                     <div class="col-lg-3">
-                                       <p><a class="btn btn-default btn-xs" data-toggle="collapse" data-target="#shares<?=$file['fid']?>"><?=$LANG['btn_shares']?></a></p>
+                                       <a class="btn btn-secondary btn-sm text-white" data-toggle="collapse" data-target="#shares<?=$file['fid']?>"><?=$LANG['btn_shares']?></a>
                                        <div class="collapse" id="shares<?=$file['fid']?>">
                                           <select class="form-control" name="sel_shares<?=$file['fid']?>[]" multiple="multiple" size="10" tabindex="<?=$tabindex++?>"  <?=(!$isOwner)?"disabled":"";?>>
                                           <?php foreach ($viewData['users'] as $user) {
@@ -91,16 +90,16 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                           </select>
                                           <p class="small"><?=$LANG['att_owner_access']?></p>
                                           <?php if ($isOwner) { ?>
-                                             <button type="submit" class="btn btn-success btn-xs" style="margin-top: 8px;" tabindex="<?=$tabindex++?>" name="btn_updateShares<?=$file['fid']?>"><?=$LANG['btn_update']?></button>
-                                             <button type="submit" class="btn btn-danger btn-xs" style="margin-top: 8px;" tabindex="<?=$tabindex++?>" name="btn_clearShares<?=$file['fid']?>"><?=$LANG['btn_clear']?></button>
+                                             <button type="submit" class="btn btn-success btn-sm" style="margin-top: 8px;" tabindex="<?=$tabindex++?>" name="btn_updateShares<?=$file['fid']?>"><?=$LANG['btn_update']?></button>
+                                             <button type="submit" class="btn btn-danger btn-sm" style="margin-top: 8px;" tabindex="<?=$tabindex++?>" name="btn_clearShares<?=$file['fid']?>"><?=$LANG['btn_clear']?></button>
                                           <?php } ?>
                                        </div>
                                     </div>
                                     <div class="col-lg-2 text-right">
                                        <?php if (in_array(getFileExtension($file['fname']),$CONF['imgExtensions'])) { ?>
-                                          <a href="<?=APP_UPL_DIR.$file['fname']?>" class="image-popup btn btn-info btn-xs" tabindex="<?=$tabindex++;?>" title="<?=$file['fname']?>"><?=$LANG['btn_download_view']?></a>
+                                          <a href="<?=APP_UPL_DIR.$file['fname']?>" class="image-popup btn btn-info btn-sm" tabindex="<?=$tabindex++;?>" title="<?=$file['fname']?>"><?=$LANG['btn_download_view']?></a>
                                        <?php } else { ?>
-                                          <a href="<?=APP_UPL_DIR.$file['fname']?>" class="btn btn-info btn-xs" tabindex="<?=$tabindex++;?>" title="<?=$file?>"><?=$LANG['btn_download_view']?></a>
+                                          <a href="<?=APP_UPL_DIR.$file['fname']?>" class="btn btn-info btn-sm" tabindex="<?=$tabindex++;?>" title="<?=$file?>"><?=$LANG['btn_download_view']?></a>
                                        <?php } ?>
                                     </div>
                                  </div>
@@ -115,10 +114,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
 
                         <!-- Upload File -->
-                        <div class="tab-pane fade" id="tab_upload">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
-                                 <div class="form-group">
+                        <div class="tab-pane fade" id="tab_upload" role="tabpanel" aria-labelledby="tab_upload-tab">
+                           <div class="card">
+                              <div class="card-body">
+                                 <div class="form-group row">
                                     <label class="col-lg-<?=$colsleft?> control-label">
                                        <?=$LANG['att_file']?><br>
                                        <span class="text-normal"><?=sprintf($LANG['att_file_comment'],$viewData['upl_maxsize']/1024,$viewData['upl_formats'],APP_UPL_DIR)?></span>
@@ -131,7 +130,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                                  <div class="divider"><hr></div>
                                  
                                  <!-- Share with -->
-                                 <div class="form-group">
+                                 <div class="form-group row">
                                     <label class="col-lg-<?=$colsleft?> control-label">
                                        <?=$LANG['att_shareWith']?><br>
                                        <span class="text-normal"><?=$LANG['att_shareWith_comment']?></span>

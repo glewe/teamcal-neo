@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * config.php
- * 
- * Framework config page controller
+ * About Controller
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Controllers
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo '<script type="text/javascript">alert("Debug: ");</script>';
 
@@ -59,9 +58,10 @@ if (!empty($_POST))
    //
    // Validate input data. If something is wrong or missing, set $inputError = true
    //
-    
+
    if (!$inputError)
    {
+
       // ,-------,
       // | Apply |
       // '-------'
@@ -120,6 +120,17 @@ if (!empty($_POST))
          if ($_POST['opt_homepage']) $C->save("homepage", $_POST['opt_homepage']);
          if ($_POST['opt_defaultHomepage']) $C->save("defaultHomepage", $_POST['opt_defaultHomepage']);
          $C->save("welcomeText", $_POST['txt_welcomeText']);
+          
+         //
+         // License
+         //
+         $LIC->saveKey(trim($_POST['txt_licKey']));
+         if (strlen($_POST['txt_licExpiryWarning'])) {
+            $C->save("licExpiryWarning", intval($_POST['txt_licExpiryWarning']));
+         }
+         else {
+            $C->save("licExpiryWarning", 0);
+         }
           
          //
          // Login
@@ -204,6 +215,96 @@ if (!empty($_POST))
          header("Location: index.php?action=config");
          die();
       }
+      // ,--------------------,
+      // | License Activation |
+      // '--------------------'
+      else if (isset($_POST['btn_licActivate']))
+      {
+         $response = $LIC->activate();
+
+         if ($response->result == "success") {
+            //
+            // License activation success
+            //
+            $showAlert = TRUE;
+            $alertData['type'] = 'success';
+            $alertData['title'] = $LANG['alert_success_title'];
+            $alertData['subject'] = $LANG['alert_license_subject'];
+            $alertData['text'] = $LANG['lic_alert_activation_success'];
+            $alertData['help'] = '';
+         }
+         else {
+            //
+            // License activation failed
+            //
+            $showAlert = TRUE;
+            $alertData['type'] = 'danger';
+            $alertData['title'] = $LANG['alert_danger_title'];
+            $alertData['subject'] = $LANG['alert_license'];
+            $alertData['text'] = $LANG['lic_alert_activation_fail']." ".$response->message;
+            $alertData['help'] = '';
+         }
+      }
+      // ,-----------------------------,
+      // | License Domain Registration |
+      // '-----------------------------'
+      else if (isset($_POST['btn_licRegister']))
+      {
+         $response = $LIC->activate();
+
+         if ($response->result == "success") {
+            //
+            // Domain registration success
+            //
+            $showAlert = TRUE;
+            $alertData['type'] = 'success';
+            $alertData['title'] = $LANG['alert_success_title'];
+            $alertData['subject'] = $LANG['alert_license_subject'];
+            $alertData['text'] = $LANG['lic_alert_registration_success'];
+            $alertData['help'] = '';
+         }
+         else {
+            //
+            // Domain registration failed
+            //
+            $showAlert = TRUE;
+            $alertData['type'] = 'danger';
+            $alertData['title'] = $LANG['alert_danger_title'];
+            $alertData['subject'] = $LANG['alert_license_subject'];
+            $alertData['text'] = $LANG['lic_alert_registration_fail']."<br /><i>".$response->message."</i>";
+            $alertData['help'] = '';
+         }
+      }
+      // ,--------------------------------,
+      // | License Domain De-Registration |
+      // '--------------------------------'
+      else if (isset($_POST['btn_licDeregister']))
+      {
+         $response = $LIC->deactivate();
+
+         if ($response->result == "success") {
+            //
+            // Domain deregistration success
+            //
+            $showAlert = TRUE;
+            $alertData['type'] = 'success';
+            $alertData['title'] = $LANG['alert_success_title'];
+            $alertData['subject'] = $LANG['alert_license_subject'];
+            $alertData['text'] = $LANG['lic_alert_deregistration_success'];
+            $alertData['help'] = '';
+         }
+         else {
+            //
+            // Domain deregistration failed
+            //
+            $showAlert = TRUE;
+            $alertData['type'] = 'danger';
+            $alertData['title'] = $LANG['alert_danger_title'];
+            $alertData['subject'] = $LANG['alert_license_subject'];
+            $alertData['text'] = $LANG['lic_alert_deregistration_fail']."<br /><i>".$response->message."</i>";
+            $alertData['help'] = '';
+         }
+      }
    }
    else
    {
@@ -279,6 +380,12 @@ $viewData['homepage'] = array (
    array ( 'prefix' => 'config', 'name' => 'defaultHomepage', 'type' => 'radio', 'values' => array ('home', 'calendarview'), 'value' => $C->read("defaultHomepage") ),
    array ( 'prefix' => 'config', 'name' => 'homepage', 'type' => 'radio', 'values' => array ('home', 'calendarview', 'messages'), 'value' => $C->read("homepage") ),
    array ( 'prefix' => 'config', 'name' => 'welcomeText', 'type' => 'ckeditor', 'value' => $C->read("welcomeText"), 'rows' => '10' ),
+);
+
+$LIC->load();
+$viewData['license'] = array (
+   array ( 'prefix' => 'config', 'name' => 'licKey', 'type' => 'text', 'placeholder' => '', 'value' => $LIC->readKey(), 'maxlength' => '32' ),
+   array ( 'prefix' => 'config', 'name' => 'licExpiryWarning', 'type' => 'text', 'placeholder' => '', 'value' => $C->read('licExpiryWarning'), 'maxlength' => '3' ),
 );
 
 $viewData['login'] = array (

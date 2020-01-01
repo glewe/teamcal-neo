@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * year.php
- * 
- * Year calendar page view
+ * Year View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -31,7 +30,7 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          } ?>
          <?php $tabindex = 1; $colsleft = 1; $colsright = 4;?>
          
-         <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;year=<?=$viewData['year']?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>" method="post" target="_self" accept-charset="utf-8">
+         <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>&amp;year=<?=$viewData['year']?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>" method="post" target="_self" accept-charset="utf-8">
 
             <input name="hidden_user" type="hidden" class="text" value="<?=$viewData['user']?>">
             <input name="hidden_year" type="hidden" class="text" value="<?=$viewData['year']?>">
@@ -39,9 +38,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
 
             <div class="page-menu">
                <?php if (!$C->read('currentYearOnly')) {?>
-                  <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;year=<?=($viewData['year']-1)?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>"><span class="fas fa-angle-double-left"></span></a>
-                  <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;year=<?=($viewData['year']+1)?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>"><span class="fas fa-angle-double-right"></span></a>
-                  <a class="btn btn-default" href="index.php?action=<?=$controller?>&amp;year=<?=date('Y')?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>"><?=$LANG['today']?></a>
+                  <a class="btn btn-secondary" href="index.php?action=<?=$controller?>&amp;year=<?=($viewData['year']-1)?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>"><span class="fas fa-angle-double-left"></span></a>
+                  <a class="btn btn-secondary" href="index.php?action=<?=$controller?>&amp;year=<?=($viewData['year']+1)?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>"><span class="fas fa-angle-double-right"></span></a>
+                  <a class="btn btn-secondary" href="index.php?action=<?=$controller?>&amp;year=<?=date('Y')?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=$viewData['username']?>"><?=$LANG['today']?></a>
                <?php } ?>
                <?php if ($C->read('showRegionButton')) { ?>
                   <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectRegion"><?=$LANG['region'] . ': ' . $viewData['regionname']?></button>
@@ -49,17 +48,18 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                <button type="button" class="btn btn-success" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectUser"><?=$LANG['user'] . ': ' . $viewData['fullname']?></button>
             </div>
                
-            <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+            <div class="card">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><?=sprintf($LANG['year_title'], $viewData['year'], $viewData['fullname'], $viewData['regionname'])?><?=$pageHelp?></div>
-               <div class="panel-body" id="mobile">
+               <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="fas <?=$CONF['controllers']['year']->faIcon?> fa-lg fa-header"></i><?=sprintf($LANG['year_title'], $viewData['year'], $viewData['fullname'], $viewData['regionname'])?><?=$pageHelp?></div>
+               <div class="card-body" id="mobile">
                   <p><button type="button" class="btn btn-primary" name="btn_showmobile" onclick="javascript: $('#mobile').hide(); $('#fullscreen').show();"><?=$LANG['btn_showcalendar']?></button></p>
                   <?=$LANG['year_showyearmobile']?>
                </div>
             </div>
+            <div style="height:20px;"></div>
             
             <div id="fullscreen">
             

@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * config.php
- * 
- * Framework config page view
+ * Framework Configuration View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -31,42 +30,46 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                }
             } ?>
             <?php $tabindex = 1; $colsleft = 8; $colsright = 4;?>
-            
-            <form  class="bs-example form-control-horizontal" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
 
-               <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+            <form class="form-control-horizontal" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
+
+               <div class="card">
                   <?php 
                   $pageHelp = '';
-                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['config_title']?><?=$pageHelp?></div>
-                  <div class="panel-body">
+                  <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['config_title']?><?=$pageHelp?></div>
+                  <div class="card-body">
                   
-                     <div class="panel panel-default">
-                        <div class="panel-body">
+                     <div class="card">
+                        <div class="card-body">
                            <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_confApply"><?=$LANG['btn_apply']?></button>
                         </div>
                      </div>
+                     <div style="height:20px;"></div>
+
+                     <?php $attention = '<i class="fas fa-exclamation-triangle" style="color:#ffb000;margin-left: 8px;"></i>'; ?>
                      
-                     <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-                        <li class="active"><a href="#general" data-toggle="tab"><?=$LANG['general']?></a></li>
-                        <li><a href="#email" data-toggle="tab"><?=$LANG['config_tab_email']?></a></li>
-                        <li><a href="#footer" data-toggle="tab"><?=$LANG['config_tab_footer']?></a></li>
-                        <li><a href="#homepage" data-toggle="tab"><?=$LANG['config_tab_homepage']?></a></li>
-                        <li><a href="#login" data-toggle="tab"><?=$LANG['config_tab_login']?></a></li>
-                        <li><a href="#registration" data-toggle="tab"><?=$LANG['config_tab_registration']?></a></li>
-                        <li><a href="#system" data-toggle="tab"><?=$LANG['config_tab_system']?></a></li>
-                        <li><a href="#tabtheme" data-toggle="tab"><?=$LANG['config_tab_theme']?></a></li>
-                        <li><a href="#usericons" data-toggle="tab"><?=$LANG['config_tab_user']?></a></li>
-                        <li><a href="#gdpr" data-toggle="tab"><?=$LANG['config_tab_gdpr']?></a></li>
+                     <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" id="general-tab" href="#general" data-toggle="tab" role="tab" aria-controls="general" aria-selected="true"><?=$LANG['general']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="email-tab" href="#email" data-toggle="tab" role="tab" aria-controls="email" aria-selected="false"><?=$LANG['config_tab_email']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="footer-tab" href="#footer" data-toggle="tab" role="tab" aria-controls="footer" aria-selected="false"><?=$LANG['config_tab_footer']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="homepage-tab" href="#homepage" data-toggle="tab" role="tab" aria-controls="homepage" aria-selected="false"><?=$LANG['config_tab_homepage']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="license-tab" href="#license" data-toggle="tab" role="tab" aria-controls="license" aria-selected="false"><?=$LANG['config_tab_license']?><?=($LIC->status()!="active" || !$LIC->domainRegistered())?$attention:''; ?></i></a></li>
+                        <li class="nav-item"><a class="nav-link" id="login-tab" href="#login" data-toggle="tab" role="tab" aria-controls="login" aria-selected="false"><?=$LANG['config_tab_login']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="registration-tab" href="#registration" data-toggle="tab" role="tab" aria-controls="registration" aria-selected="false"><?=$LANG['config_tab_registration']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="system-tab" href="#system" data-toggle="tab" role="tab" aria-controls="system" aria-selected="false"><?=$LANG['config_tab_system']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tabtheme-tab" href="#tabtheme" data-toggle="tab" role="tab" aria-controls="tabtheme" aria-selected="false"><?=$LANG['config_tab_theme']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="usericons-tab" href="#usericons" data-toggle="tab" role="tab" aria-controls="usericons" aria-selected="false"><?=$LANG['config_tab_user']?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="gdpr-tab" href="#gdpr" data-toggle="tab" role="tab" aria-controls="gdpr" aria-selected="false"><?=$LANG['config_tab_gdpr']?></a></li>
                      </ul>
 
                      <div id="myTabContent" class="tab-content">
                         
                         <!-- General tab -->
-                        <div class="tab-pane fade active in" id="general">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php foreach($viewData['general'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
@@ -75,9 +78,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
       
                         <!-- E-mail tab -->
-                        <div class="tab-pane fade" id="email">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="email" role="tabpanel" aria-labelledby="email-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php foreach($viewData['email'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
@@ -86,9 +89,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
                         
                         <!-- Footer tab -->
-                        <div class="tab-pane fade" id="footer">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="footer" role="tabpanel" aria-labelledby="footer-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php foreach($viewData['footer'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
@@ -97,9 +100,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
                         
                         <!-- Homepage tab -->
-                        <div class="tab-pane fade" id="homepage">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="homepage" role="tabpanel" aria-labelledby="homepage-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php foreach($viewData['homepage'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
@@ -107,10 +110,63 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                         </div>
       
+                        <!-- License tab -->
+                        <div class="tab-pane fade" id="license" role="tabpanel" aria-labelledby="license-tab">
+                           <div class="card">
+                              <div class="card-body">
+                              <?php
+                                 // pretty_dump($LIC->details);
+                                 echo $LIC->show($LIC->details,true);
+                              ?>
+                              <?php foreach($viewData['license'] as $formObject) {
+                                 echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                              } ?>
+
+                              <?php if ($LIC->status()=="pending") { ?>
+                              <div class="form-group" id="form-lic-activate">
+                                 <label for="licActivate" class="col-lg-8 control-label">
+                                    <?=$LANG['config_licActivate']?><br>
+                                    <span class="text-normal"><?=$LANG['config_licActivate_comment']?></span>
+                                 </label>
+                                 <div class="col-lg-4">
+                                    <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" name="btn_licActivate"><?=$LANG['btn_activate']?></button>
+                                 </div>
+                                 <div class="divider"><hr></div>
+                              </div>    
+                              <?php } ?>
+
+                              <?php if ($LIC->status()=="active" && !$LIC->domainRegistered()) { ?>
+                              <div class="form-group" id="form-lic-register">
+                                 <label for="licRegister" class="col-lg-8 control-label alert alert-warning">
+                                    <?=$LANG['config_licRegister']?><br>
+                                    <span class="text-normal"><?=$LANG['config_licRegister_comment']?></span>
+                                 </label>
+                                 <div class="col-lg-4">
+                                    <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" name="btn_licRegister"><?=$LANG['btn_register']?></button>
+                                 </div>
+                                 <div class="divider"><hr></div>
+                              </div>    
+                              <?php } elseif ($LIC->status()=="active" && $LIC->domainRegistered()) { ?>
+                              <div class="form-group" id="form-lic-deregister">
+                                 <label for="licDeregister" class="col-lg-8 control-label">
+                                    <?=$LANG['config_licDeregister']?><br>
+                                    <span class="text-normal"><?=$LANG['config_licDeregister_comment']?></span>
+                                 </label>
+                                 <div class="col-lg-4">
+                                    <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" name="btn_licDeregister"><?=$LANG['btn_deregister']?></button>
+                                 </div>
+                                 <div class="divider"><hr></div>
+                              </div>
+                              <?php } ?>
+
+                             </div>
+                           </div>
+                        </div>
+
                         <!-- Login tab -->
-                        <div class="tab-pane fade" id="login">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="login" role="tabpanel" aria-labelledby="login-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php foreach($viewData['login'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
@@ -119,9 +175,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
                         
                         <!-- Registration tab -->
-                        <div class="tab-pane fade" id="registration">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="registration" role="tabpanel" aria-labelledby="registration-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php foreach($viewData['registration'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
@@ -130,9 +186,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
                         
                         <!-- System tab -->
-                        <div class="tab-pane fade" id="system">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="system" role="tabpanel" aria-labelledby="system-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php foreach($viewData['system'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
@@ -141,9 +197,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
                         
                         <!-- Theme tab -->
-                        <div class="tab-pane fade" id="tabtheme">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="tabtheme" role="tabpanel" aria-labelledby="tabtheme-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php foreach($viewData['theme'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
@@ -151,10 +207,10 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                            </div>
                         </div>
                         
-                        <!-- User tab -->
-                        <div class="tab-pane fade" id="usericons">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <!-- Usericons tab -->
+                        <div class="tab-pane fade" id="usericons" role="tabpanel" aria-labelledby="usericons-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php foreach($viewData['user'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
@@ -163,9 +219,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         </div>
 
                         <!-- GDPR tab -->
-                        <div class="tab-pane fade" id="gdpr">
-                           <div class="panel panel-default">
-                              <div class="panel-body">
+                        <div class="tab-pane fade" id="gdpr" role="tabpanel" aria-labelledby="gdpr-tab">
+                           <div class="card">
+                              <div class="card-body">
                                  <?php foreach($viewData['gdpr'] as $formObject) {
                                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                                  } ?>
@@ -197,8 +253,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         
                      </div>
                      
-                     <div class="panel panel-default">
-                        <div class="panel-body">
+                     <div style="height:20px;"></div>
+                     <div class="card">
+                        <div class="card-body">
                            <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++;?>" name="btn_confApply"><?=$LANG['btn_apply']?></button>
                         </div>
                      </div>

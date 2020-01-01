@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * config.app.php
- * 
- * Application based parameters. Don't change anything in this file.
+ * Application Configuration
  *
- * @category TeamCal Neo 
- * @version 2.2.3
- * @author George Lewe
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @author George Lewe <george@lewe.com>
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Application Configuration
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 //=============================================================================
 /**
@@ -36,19 +35,19 @@ define('APP_IMP_DIR', "upload/import/");
 // Set this to 0 if you want to run the installation.php script again.
 // If not, you need to delete or rename the installation.php file.
 //
-define('APP_INSTALLED',"0");
+define('APP_INSTALLED',"1");
 
 //
 // The cookie prefix to be used on the browser client's device
 //
-define('COOKIE_NAME',"tcneo");
+define('COOKIE_NAME',"tcneopro");
 
 //=============================================================================
 /**
  * MANDATORY MODULES
  */
-define('BOOTSTRAP_VER', "3.3.7");
-define('FONTAWESOME_VER', "5.6.3");
+define('BOOTSTRAP_VER', "4.4.1");
+define('FONTAWESOME_VER', "5.12.0");
 define('JQUERY_VER', "3.3.1");
 define('JQUERY_UI_VER', "1.12.1");
 define('SECUREIMAGE_VER', "3.6.4");
@@ -152,14 +151,17 @@ define('LDAP_TLS', 0); // To avoid "Undefined index: LDAP_TLS" error message for
  *
  * !Do not change anything below this line. It is protected by the license agreement!
  */
-define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "2.2.3");
-define('APP_DATE', "2019-12-27");
+define('APP_NAME', "TeamCal Neo Pro");
+define('APP_VER', "3.0.0");
+define('APP_DATE', "2020-01-01");
 define('APP_YEAR', "2014-".date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "http://www.lewe.com");
 define('APP_EMAIL', "george@lewe.com");
-define('APP_LICENSE', "https://georgelewe.atlassian.net/wiki/x/AoC3Ag");
+define('APP_LICENSE', "https://support.lewe.com/docs/teamcal-neo-manual/teamcal-neo-license/");
 define('APP_COPYRIGHT', "(c) " . APP_YEAR . " by " . APP_AUTHOR . " (" . APP_URL . ")");
 define('APP_POWERED', "Powered by " . APP_NAME . " " . APP_VER . " &copy; " . APP_YEAR . " by <a href=\"http://www.lewe.com\" class=\"copyright\" target=\"_blank\">" . APP_AUTHOR . "</a>");
+define('APP_LIC_KEY', "5e091d9b9cbf36.90197318");
+define('APP_LIC_SRV', "https://lic.lewe.com");
+define('APP_LIC_ITM', "TeamCal Neo Pro");
 ?>

@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * userimport.php
- * 
- * The view of the attachments page
+ * User Import View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -32,30 +31,31 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
          } ?>
          <?php $tabindex = 1; $colsleft = 6; $colsright = 6;?>
             
-            <form  class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
+            <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?=$controller?>" method="post" target="_self" accept-charset="utf-8">
 
-               <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+               <div class="card">
                   <?php 
                   $pageHelp = '';
-                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                  if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                   ?>
-                  <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['imp_title'].$pageHelp?></div>
-                  <div class="panel-body">
+                  <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['imp_title'].$pageHelp?></div>
+                  <div class="card-body">
 
-                     <div class="panel panel-default">
-                        <div class="panel-body">
+                     <div class="card">
+                        <div class="card-body row">
                            <div class="col-lg-6">
                               <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++?>" name="btn_import"><?=$LANG['btn_import']?></button>
                            </div>
                            <div class="col-lg-6 text-right">
                               <?php if (isAllowed("useraccount")) { ?> 
-                                 <a href="index.php?action=users" class="btn btn-default pull-right" tabindex="<?=$tabindex++?>"><?=$LANG['btn_user_list']?></a>
+                                 <a href="index.php?action=users" class="btn btn-secondary float-right" tabindex="<?=$tabindex++?>"><?=$LANG['btn_user_list']?></a>
                               <?php } ?>
                            </div>
                         </div>
                      </div>
+                     <div style="height:20px;"></div>
                   
-                     <div class="form-group">
+                     <div class="form-group row">
                         <label class="col-lg-<?=$colsleft?> control-label">
                            <?=$LANG['imp_file']?><br>
                            <span class="text-normal"><?=sprintf($LANG['imp_file_comment'],$viewData['upl_maxsize']/1024,$viewData['upl_formats'],APP_UPL_DIR)?></span>
@@ -71,14 +71,15 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                         echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                      } ?>
 
-                     <div class="panel panel-default">
-                        <div class="panel-body">
+                     <div style="height:20px;"></div>
+                     <div class="card">
+                        <div class="card-body row">
                            <div class="col-lg-6">
                               <button type="submit" class="btn btn-primary" tabindex="<?=$tabindex++?>" name="btn_import"><?=$LANG['btn_import']?></button>
                            </div>
                            <div class="col-lg-6 text-right">
                               <?php if (isAllowed("useraccount")) { ?> 
-                                 <a href="index.php?action=users" class="btn btn-default pull-right" tabindex="<?=$tabindex++?>"><?=$LANG['btn_user_list']?></a>
+                                 <a href="index.php?action=users" class="btn btn-secondary float-right" tabindex="<?=$tabindex++?>"><?=$LANG['btn_user_list']?></a>
                               <?php } ?>
                            </div>
                         </div>

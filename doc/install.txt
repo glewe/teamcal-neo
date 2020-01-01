@@ -1,27 +1,22 @@
 ==============================================================================
-TeamCal Neo Installation
+TeamCal Neo Pro Installation
 ==============================================================================
 
 Installation
 ============
 
-Refer to this documentation for how to install TeamCal Neo:
-https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/44138502/Installing+TeamCal+Neo
+Refer to this documentation for how to install TeamCal Neo (Basic and Pro):
+https://support.lewe.com/docs/teamcal-neo-manual/installation/
  
 
 Support
 =======
 
-Commercial license holders will get priority support.
+TeamCal Neo Pro support is available here: 
 
-For personal users I will try to provide support as far as my time allows. 
-
+Support: https://support.lewe.com/
 Forum: http://forum.lewe.com
-Support: https://georgelewe.atlassian.net
-Documentation: https://georgelewe.atlassian.net/wiki/spaces/TCNEO
-
-Please forgive me if I can't react right away. I'll try my best.
+Documentation: https://support.lewe.com/docs/teamcal-neo-manual/
 
 Best regards,
 George Lewe
-george@lewe.com 

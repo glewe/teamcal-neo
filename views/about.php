@@ -1,17 +1,16 @@
 <?php
+if (!defined('VALID_ROOT')) exit('');
 /**
- * about.php
- * 
- * About page view
+ * About View
  *
- * @category TeamCal Neo 
- * @version 2.2.3
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license https://georgelewe.atlassian.net/wiki/x/AoC3Ag
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo Pro
+ * @subpackage Views
+ * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) die('No direct access allowed!');
 ?>
 
       <!-- ==================================================================== 
@@ -20,28 +19,39 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
       <div class="container content">
       
          <div class="col-lg-12">
-            
-            <div class="panel panel-<?=$CONF['controllers'][$controller]->panelColor?>">
+
+            <?php 
+            if ($showAlert AND $C->read("showAlerts")!="none")
+            { 
+               if ( $C->read("showAlerts")=="all" OR 
+                    $C->read("showAlerts")=="warnings" AND ($alertData['type']=="warning" OR $alertData['type']=="danger")
+                  ) 
+               {
+                  echo createAlertBox($alertData);
+               }
+            } ?>
+
+            <div class="card text-<?=$CONF['controllers'][$controller]->panelColor?>">
                <?php 
                $pageHelp = '';
-               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="pull-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+               if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                ?>
-               <div class="panel-heading"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['mnu_help_about']?><?=$pageHelp?></div>
-               <div class="panel-body">
+               <div class="card-header"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['mnu_help_about']?><?=$pageHelp?></div>
+               <div class="card-body row">
                   <div class="col-lg-3"><img src="images/icons/logo-128.png" width="128" height="128" alt="" class="img_floatleft">
                   </div>
                   <div class="col-lg-9">
-                     <h2><?=APP_NAME?></h2>
+                     <h4><?=APP_NAME?></h4>
                      <p>
                         <strong><?=$LANG['about_version']?>:</strong>&nbsp;&nbsp;<?=APP_VER?><span id="versioncompare"></span><br>
                         <strong><?=$LANG['about_copyright']?>:</strong>&nbsp;&nbsp;&copy;&nbsp;<?=APP_YEAR?> by <a class="about" href="http://www.lewe.com/" target="_blank"><?=APP_AUTHOR?></a><br>
-                        <strong><?=$LANG['about_license']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/wiki/x/AoC3Ag" target="_blank"><?=$LANG['license']?></a><br>
+                        <strong><?=$LANG['about_license']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://support.lewe.com/docs/teamcal-neo-manual/teamcal-neo-license/" target="_blank"><?=$LANG['license']?></a><br>
                         <strong><?=$LANG['about_forum']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://forum.lewe.com/" target="_blank">Lewe.com Forum</a><br>
-                        <strong><?=$LANG['about_tracker']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/projects/TCN/issues" target="_blank">TeamCal Neo Issue Tracker (JIRA)</a><br>
-                        <strong><?=$LANG['about_documentation']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/wiki/spaces/TCNEO/overview" target="_blank">TeamCal Neo Wiki (Confluence)</a><br>
+                        <strong><?=$LANG['about_tracker']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://github.com/glewe/tcneobasic/issues" target="_blank">TeamCal Neo Basic Issue Tracker</a><br>
+                        <strong><?=$LANG['about_documentation']?>:</strong>&nbsp;&nbsp;<a class="about" href="https://support.lewe.com/docs/teamcal-neo-manual/" target="_blank">TeamCal Neo User Manual</a><br>
                         <strong><?=$LANG['about_vote']?>:</strong>&nbsp;&nbsp;<?=$LANG['about_vote_comment']?><br><br>
                      </p>
-                     <h3><?=$LANG['about_credits']?>:</h3>
+                     <h4><?=$LANG['about_credits']?>:</h4>
                      <ul>
                         <li>Bootstrap Team <?=$LANG['about_for']?> <a href="http://getbootstrap.com/" target="_blank">Bootstrap Framework <?=BOOTSTRAP_VER?></a></li>
                         <li>Thomas Park <?=$LANG['about_for']?> <a href="http://bootswatch.com/" target="_blank">Bootswatch Themes</a></li>
@@ -64,7 +74,9 @@ if (!defined('VALID_ROOT')) die('No direct access allowed!');
                </div>
             </div>
 
-            <p><a class="btn btn-default" data-toggle="collapse" data-target="#releaseinfo"><?=$LANG['about_view_releaseinfo']?></a></p>
+            <div style="height:20px;"></div>
+            <button class="btn btn-primary" data-toggle="collapse" data-target="#releaseinfo"><?=$LANG['about_view_releaseinfo']?></button>
+            <div style="height:20px;"></div>
             <div class="collapse" id="releaseinfo"><?php include('doc/releasenotes.html');?></div>
 
          </div>

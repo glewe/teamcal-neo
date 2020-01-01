@@ -2,11 +2,11 @@
 /**
  * DB.class.php
  * 
- * @category TeamCal Neo 
- * @version 2.2.3
+ * @category TeamCal Neo Basic
+ * @version 3.0.0
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+
  * @license This program cannot be licensed. Redistribution is not allowed.
  */
 if (!defined('VALID_ROOT')) exit('No direct access allowed!');
