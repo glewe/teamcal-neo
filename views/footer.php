@@ -148,13 +148,17 @@ if (!defined('VALID_ROOT')) exit('');
          // Back to Top Icon
          //
          $(function() {
+            var btn = $('#top-link-block');
             $(window).scroll(function() {
-                if($(window).scrollTop() >= 400) { // Set vertical offset in pixel when to appear  
-                   $('#top-link-block').removeClass('hidden');
-                   $('#top-link-block').fadeIn('fast');
-                }else{
-                   $('#top-link-block').fadeOut('fast');
-                }
+               if ($(window).scrollTop() > 400) {
+                  btn.addClass('show');
+               } else {
+                  btn.removeClass('show');
+               }
+            });
+            btn.on('click', function(e) {
+            e.preventDefault();
+               $('html, body').animate({scrollTop:0}, '400');
             });
          });
 

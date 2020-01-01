@@ -92,7 +92,7 @@ if (!defined('VALID_ROOT')) exit('');
       <script src="themes/bootstrap/js/bootstrap.min.js"></script>
       
       <!-- Custom CSS -->
-      <link rel="stylesheet" href="css/bootstrap-submenu.min.css">
+      <!-- <link rel="stylesheet" href="css/bootstrap-submenu.min.css"> -->
       <link rel="stylesheet" href="css/custom.css">
 
       <!-- Colorpicker -->
@@ -165,7 +165,5 @@ if (!defined('VALID_ROOT')) exit('');
    <body>
 
       <!-- Back to Top -->
-      <span id="top-link-block" class="hidden" data-spy="affix">
-         <a class="back-to-top fa fa-arrow-circle-up fa-3x" href="#top" title="Back to top..."></a>
-      </span>   
+      <a id="top-link-block"><i class="fas fa-chevron-up fa-3x text-white"></i></a>
    
