@@ -7,7 +7,7 @@ if (!defined('VALID_ROOT')) exit('');
  * @copyright Copyright (c) 2014-2020 by George Lewe
  * @link https://www.lewe.com
  *
- * @package TeamCal Neo Pro
+ * @package TeamCal Neo
  * @subpackage Views
  * @since 3.0.0
  */?><!DOCTYPE html>

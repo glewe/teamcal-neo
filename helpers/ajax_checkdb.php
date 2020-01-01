@@ -6,7 +6,7 @@
  * @copyright Copyright (c) 2014-2020 by George Lewe
  * @link https://www.lewe.com
  *
- * @package TeamCal Neo Pro
+ * @package TeamCal Neo
  * @subpackage Helpers
  * @since 3.0.0
  */
