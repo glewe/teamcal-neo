@@ -1,4 +1,43 @@
 ==============================================================================
-TEAMCAL NEO PRO UPGRADE INFO
+TEAMCAL NEO UPGRADE INFO
 ==============================================================================
+
+------------------------------------------------------------------------------
+[2.2.3] -> [3.0.0]
+
+ATTENTION !
+TeamCal Neo 3 now requires a proper license and is not free anymore.
+However, a separate free version with restricted features, TeamCal Neo Basic,
+is available too. Read all about it here:
+https://www.lewe.com/teamcal-Neo
+
+Only update to TeamCal Neo 3 after you obtained a valid license. You can then
+activate and register your license from within your installation.
+This process is documented here:
+https://support.lewe.com/docs/teamcal-neo-manual/administration/license/
+
+
+1. Go to Administration -> Framework Configuration -> Theme
+   - Select the 'bootstrap' theme
+   - Uncheck 'Allow User Theme'
+     This is a precautionary measure because the following themes are not
+     available anymore in TeamCal Neo 3+:
+     - paper
+     - readable
+     Make sure that no user has selected this theme before you switch it
+     back on.
+
+1. Backup your current files and database!
+
+2. Download the new release and overwrite all files.
+ 
+3. Edit config/config.app.php and change line 39 to:
+   define('APP_INSTALLED',"1");
+
+4. Edit config/config.db.php and update your database settings from your backup.
+   
+5. Delete file installation.php in the root directory
+
+6. Go to Administration -> Framework Configuration -> License tab
+   - Activate and register your license
 
