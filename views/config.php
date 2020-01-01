@@ -123,7 +123,7 @@ if (!defined('VALID_ROOT')) exit('');
                               } ?>
 
                               <?php if ($LIC->status()=="pending") { ?>
-                              <div class="form-group" id="form-lic-activate">
+                              <div class="form-group row" id="form-lic-activate">
                                  <label for="licActivate" class="col-lg-8 control-label">
                                     <?=$LANG['config_licActivate']?><br>
                                     <span class="text-normal"><?=$LANG['config_licActivate_comment']?></span>
@@ -136,7 +136,7 @@ if (!defined('VALID_ROOT')) exit('');
                               <?php } ?>
 
                               <?php if ($LIC->status()=="active" && !$LIC->domainRegistered()) { ?>
-                              <div class="form-group" id="form-lic-register">
+                              <div class="form-group row" id="form-lic-register">
                                  <label for="licRegister" class="col-lg-8 control-label alert alert-warning">
                                     <?=$LANG['config_licRegister']?><br>
                                     <span class="text-normal"><?=$LANG['config_licRegister_comment']?></span>
@@ -147,7 +147,7 @@ if (!defined('VALID_ROOT')) exit('');
                                  <div class="divider"><hr></div>
                               </div>    
                               <?php } elseif ($LIC->status()=="active" && $LIC->domainRegistered()) { ?>
-                              <div class="form-group" id="form-lic-deregister">
+                              <div class="form-group row" id="form-lic-deregister">
                                  <label for="licDeregister" class="col-lg-8 control-label">
                                     <?=$LANG['config_licDeregister']?><br>
                                     <span class="text-normal"><?=$LANG['config_licDeregister_comment']?></span>

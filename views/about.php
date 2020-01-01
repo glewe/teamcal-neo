@@ -92,7 +92,7 @@ if (!defined('VALID_ROOT')) exit('');
                //
                // Major version smaller
                //
-               document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-danger" href="https://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_majorUpdateAvailable']?></a>';
+               document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-sm btn-danger" href="https://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_majorUpdateAvailable']?></a>';
             } 
             else if (running_version.major == latest_version.major)
             {
@@ -104,14 +104,14 @@ if (!defined('VALID_ROOT')) exit('');
                   //
                   // Minor version smaller OR (minor version equal AND patch version smaller)
                   //
-                  document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-warning" href="https://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_minorUpdateAvailable']?></a>';
+                  document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-sm btn-warning" href="https://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_minorUpdateAvailable']?></a>';
                }
                else 
                {
                   //
                   // Same versions
                   //
-                  //document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-xs btn-success" href="https://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_newestVersion']?></a>';
+                  //document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-sm btn-success" href="https://www.lewe.com/teamcal-neo/" target="_blank"><?=$LANG['about_newestVersion']?></a>';
                }
             }
          </script>

@@ -457,7 +457,7 @@ $LANG['config_licKey_comment'] = "Enter your license key here. It was provided t
 $LANG['config_licRegister'] = "Register Domain";
 $LANG['config_licRegister_comment'] = "This TeamCal Neo domain is not registered for your license yet. Please register it.";
 $LANG['config_licDeregister'] = "De-Register Domain";
-$LANG['config_licDeregister_comment'] = "You can deregsiter this TeamCal Neo domain from your license, e.g. to move your instance to a different domain. Deregister it here and then register it from the new domain.";
+$LANG['config_licDeregister_comment'] = "You can deregister this TeamCal Neo domain from your license, e.g. to move your instance to a different domain. Deregister it here and then register it from the new domain.";
 $LANG['config_logLanguage'] = "Log Language";
 $LANG['config_logLanguage_comment'] = "This setting sets the language for the system log entries.";
 $LANG['config_mailFrom'] = 'Mail From';
@@ -539,7 +539,7 @@ $LANG['config_userCustom4_comment'] = 'Enter the caption of this custom user fie
 $LANG['config_userCustom5'] = 'User Custom Field 5 Caption';
 $LANG['config_userCustom5_comment'] = 'Enter the caption of this custom user field. The caption will be shown in the profile dialog.';
 $LANG['config_userManual'] = 'User Manual';
-$LANG['config_userManual_comment'] = $appTitle . '\'s user manual is maintained in English and is available at <a href="https://georgelewe.atlassian.net/wiki/display/TCNEO/" target="_blank">Lewe.com\'s Confluence site</a>.
+$LANG['config_userManual_comment'] = $appTitle . '\'s user manual is maintained in English and is available at the <a href="https://support.lewe.com/docs/teamcal-neo-manual/" target="_blank">Lewe.com Support site</a>.
       If you have written your own manual, enter the link here. It will be displayed in the Help menu as long as the field is not empty.';
 $LANG['config_versionCompare'] = 'Version Compare';
 $LANG['config_versionCompare_comment'] = 'With this option enabled, TeamCal Neo\'s About page will compare the running version with the newest version available. In order to do so, 

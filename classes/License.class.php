@@ -275,7 +275,7 @@ class License
             case "active":
                $alert['type'] = 'success';
                $title = $LANG['lic_active'];
-               $alert['title'] = $title.'<span class="btn btn-'.$alert['type'].' btn-xs" style="margin-left:16px;">'.proper($data->status).'</span>';
+               $alert['title'] = $title.'<span class="btn btn-'.$alert['type'].' btn-sm" style="margin-left:16px;">'.proper($data->status).'</span>';
                $alert['subject'] = $LANG['lic_active_subject'];
                $alert['text'] = '';
                $alert['help'] = '';
@@ -284,7 +284,7 @@ class License
             case "expired":
                $alert['type'] = 'warning';
                $title = $LANG['lic_expired'];
-               $alert['title'] = $title.'<span class="btn btn-'.$alert['type'].' btn-xs" style="margin-left:16px;">'.proper($data->status).'</span>';
+               $alert['title'] = $title.'<span class="btn btn-'.$alert['type'].' btn-sm" style="margin-left:16px;">'.proper($data->status).'</span>';
                $alert['subject'] = $LANG['lic_expired_subject'];
                $alert['help'] = $LANG['lic_expired_help'];
                break;
@@ -292,7 +292,7 @@ class License
             case "blocked":
                $alert['type'] = 'warning';
                $title = $LANG['lic_blocked'];
-               $alert['title'] = $title.'<span class="btn btn-'.$alert['type'].' btn-xs" style="margin-left:16px;">'.proper($data->status).'</span>';
+               $alert['title'] = $title.'<span class="btn btn-'.$alert['type'].' btn-sm" style="margin-left:16px;">'.proper($data->status).'</span>';
                $alert['subject'] = $LANG['lic_blocked_subject'];
                $alert['text'] = '';
                $alert['help'] = $LANG['lic_blocked_help'];
@@ -301,7 +301,7 @@ class License
             case "pending":
                $alert['type'] = 'warning';
                $title = $LANG['lic_pending'];
-               $alert['title'] = $title.'<span class="btn btn-'.$alert['type'].' btn-xs" style="margin-left:16px;">'.proper($data->status).'</span>';
+               $alert['title'] = $title.'<span class="btn btn-'.$alert['type'].' btn-sm" style="margin-left:16px;">'.proper($data->status).'</span>';
                $alert['subject'] = $LANG['lic_pending_subject'];
                $alert['text'] = '';
                $alert['help'] = $LANG['lic_pending_help'];
