@@ -176,7 +176,8 @@ if (!empty($_POST))
          // Theme
          //
          if ($_POST['sel_theme']) $C->save("theme", $_POST['sel_theme']); else $C->save("theme", "bootstrap");
-         if (isset($_POST['chk_menuBarInverse']) && $_POST['chk_menuBarInverse']) $C->save("menuBarInverse", "1"); else $C->save("menuBarInverse", "0");
+         if ($_POST['opt_menuBarBg']) $C->save("menuBarBg", $_POST['opt_menuBarBg']);
+         if (isset($_POST['chk_menuBarDark']) && $_POST['chk_menuBarDark']) $C->save("menuBarDark", "1"); else $C->save("menuBarDark", "0");
          if (isset($_POST['chk_allowUserTheme']) && $_POST['chk_allowUserTheme']) $C->save("allowUserTheme", "1"); else $C->save("allowUserTheme", "0");
          if ($_POST['sel_jqtheme']) $C->save("jqtheme", $_POST['sel_jqtheme']); else $C->save("jqtheme", "smoothness");
           
@@ -429,8 +430,9 @@ foreach ($appThemes as $appTheme)
 
 $viewData['theme'] = array (
    array ( 'prefix' => 'config', 'name' => 'theme', 'type' => 'list', 'values' => $viewData['themeList'] ),
+   array ( 'prefix' => 'config', 'name' => 'menuBarBg', 'type' => 'radio', 'values' => $bsBgColors, 'value' => $C->read("menuBarBg") ),
+   array ( 'prefix' => 'config', 'name' => 'menuBarDark', 'type' => 'check', 'values' => '', 'value' => $C->read("menuBarDark") ),
    array ( 'prefix' => 'config', 'name' => 'allowUserTheme', 'type' => 'check', 'values' => '', 'value' => $C->read("allowUserTheme") ),
-   array ( 'prefix' => 'config', 'name' => 'menuBarInverse', 'type' => 'check', 'values' => '', 'value' => $C->read("menuBarInverse") ),
    array ( 'prefix' => 'config', 'name' => 'jqtheme', 'type' => 'list', 'values' => $viewData['jqueryUIThemeList'] ),
 );
 

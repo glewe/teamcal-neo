@@ -166,7 +166,7 @@ if (!empty($_POST))
 $viewData['role'] = array (
    array ( 'prefix' => 'role', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' =>  (isset($inputAlert['name'])?$inputAlert['name']:'') ),
    array ( 'prefix' => 'role', 'name' => 'description', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['description'], 'maxlength' => '100', 'error' =>  (isset($inputAlert['description'])?$inputAlert['description']:'') ),
-   array ( 'prefix' => 'role', 'name' => 'color', 'type' => 'radio', 'values' => array ('default', 'primary', 'info', 'success', 'warning', 'danger'), 'value' => $RO2->getColorByName($viewData['name']) ),
+   array ( 'prefix' => 'role', 'name' => 'color', 'type' => 'radio', 'values' => $bsColors, 'value' => $RO2->getColorByName($viewData['name']) ),
 );
 
 //=============================================================================

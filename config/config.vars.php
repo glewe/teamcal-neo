@@ -15,7 +15,9 @@ if (!defined('VALID_ROOT')) exit('');
 //
 // BOOTSTRAP COLORS
 //
-$bsColors = array ( 'danger', 'default', 'info', 'primary', 'success', 'warning' );
+// $bsColors = array ( 'danger', 'default', 'info', 'primary', 'success', 'warning' );
+$bsColors = array ( 'black-50', 'body', 'danger', 'dark', 'info', 'light', 'muted', 'primary', 'secondary', 'success', 'warning', 'white', 'white-50' );
+$bsBgColors = array ( 'danger', 'dark', 'info', 'light', 'primary', 'secondary', 'success', 'transparent', 'warning', 'white' );
 
 //
 // DEFAULT TIME ZONE

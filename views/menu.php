@@ -15,7 +15,8 @@ if (!defined('VALID_ROOT')) exit('');
       <!-- ==================================================================== 
       view.menu
       -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <?php if ($C->read("menuBarDark")) $navcolor = "dark"; else $navcolor = "light"; ?>
+      <nav class="navbar navbar-expand-lg navbar-<?=$navcolor?> bg-<?=$C->read("menuBarBg")?> fixed-top">
          <div class="container">
 
             <!-- <div class="navbar-header"> -->
