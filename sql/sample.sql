@@ -1,36 +1,42 @@
-/**
- * Sample MySQL Database
- *
- * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2020 by George Lewe
- * @link https://www.lewe.com
- *
- * @package TeamCal Neo
- * @subpackage Database
- * @since 3.0.0
- */
+-- phpMyAdmin SQL Dump
+-- version 4.9.0.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jan 01, 2020 at 10:43 PM
+-- Server version: 10.3.16-MariaDB
+-- PHP Version: 7.3.7
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
--- Database: `tcneo`
+-- Database: `tcneopro`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `absences`
+-- Table structure for table `tcneo_absences`
 --
 
 DROP TABLE IF EXISTS `tcneo_absences`;
 CREATE TABLE `tcneo_absences` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(80) CHARACTER SET utf8 NOT NULL,
   `symbol` char(1) CHARACTER SET utf8 NOT NULL DEFAULT 'A',
   `icon` varchar(40) CHARACTER SET utf8 NOT NULL,
   `color` varchar(6) CHARACTER SET utf8 NOT NULL,
   `bgcolor` varchar(6) CHARACTER SET utf8 NOT NULL,
-  `bgtrans` tinyint(1) NOT NULL DEFAULT '0',
+  `bgtrans` tinyint(1) NOT NULL DEFAULT 0,
   `factor` float NOT NULL,
   `allowance` float NOT NULL,
   `allowmonth` float NOT NULL,
@@ -43,12 +49,11 @@ CREATE TABLE `tcneo_absences` (
   `manager_only` tinyint(1) NOT NULL,
   `hide_in_profile` tinyint(1) NOT NULL,
   `confidential` tinyint(1) NOT NULL,
-  `takeover` tinyint(1) NOT NULL,
-  PRIMARY KEY (id)
+  `takeover` tinyint(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `absences`
+-- Dumping data for table `tcneo_absences`
 --
 
 INSERT INTO `tcneo_absences` (`id`, `name`, `symbol`, `icon`, `color`, `bgcolor`, `bgtrans`, `factor`, `allowance`, `allowmonth`, `allowweek`, `counts_as`, `show_in_remainder`, `show_totals`, `approval_required`, `counts_as_present`, `manager_only`, `hide_in_profile`, `confidential`, `takeover`) VALUES
@@ -65,20 +70,18 @@ INSERT INTO `tcneo_absences` (`id`, `name`, `symbol`, `icon`, `color`, `bgcolor`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `absence_group`
+-- Table structure for table `tcneo_absence_group`
 --
 
 DROP TABLE IF EXISTS `tcneo_absence_group`;
 CREATE TABLE `tcneo_absence_group` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `absid` int(11) DEFAULT NULL,
-  `groupid` int(11) DEFAULT NULL,
-  PRIMARY KEY (id),
-  UNIQUE absgroup (absid,groupid)
+  `groupid` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `absence_group`
+-- Dumping data for table `tcneo_absence_group`
 --
 
 INSERT INTO `tcneo_absence_group` (`id`, `absid`, `groupid`) VALUES
@@ -133,65 +136,83 @@ INSERT INTO `tcneo_absence_group` (`id`, `absid`, `groupid`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `allowances`
+-- Table structure for table `tcneo_allowances`
 --
 
 DROP TABLE IF EXISTS `tcneo_allowances`;
 CREATE TABLE `tcneo_allowances` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 NOT NULL,
   `absid` int(11) NOT NULL,
-  `carryover` smallint(6) DEFAULT '0',
-  `allowance` smallint(6) DEFAULT '0',
-  PRIMARY KEY (id),
-  UNIQUE allowance (username,absid)
+  `carryover` smallint(6) DEFAULT 0,
+  `allowance` smallint(6) DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `tcneo_allowances`
+--
+
+INSERT INTO `tcneo_allowances` (`id`, `username`, `absid`, `carryover`, `allowance`) VALUES
+(1, 'admin', 3, 0, 12),
+(2, 'admin', 4, 0, 20),
+(3, 'admin', 9, 0, 365),
+(4, 'admin', 5, 0, 365),
+(5, 'admin', 6, 0, 365),
+(6, 'admin', 2, 0, 24),
+(7, 'admin', 8, 0, 365),
+(8, 'admin', 7, 0, 10),
+(9, 'admin', 1, 0, 20),
+(10, 'ccarl', 3, 0, 12),
+(11, 'ccarl', 4, 0, 20),
+(12, 'ccarl', 9, 0, 365),
+(13, 'ccarl', 5, 0, 365),
+(14, 'ccarl', 6, 0, 365),
+(15, 'ccarl', 2, 0, 24),
+(16, 'ccarl', 8, 0, 365),
+(17, 'ccarl', 7, 0, 10),
+(18, 'ccarl', 1, 0, 20);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `archive_allowances`
+-- Table structure for table `tcneo_archive_allowances`
 --
 
 DROP TABLE IF EXISTS `tcneo_archive_allowances`;
 CREATE TABLE `tcneo_archive_allowances` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 NOT NULL,
   `absid` int(11) NOT NULL,
-  `carryover` smallint(6) DEFAULT '0',
-  `allowance` smallint(6) DEFAULT '0',
-  PRIMARY KEY (id),
-  UNIQUE allowance (username,absid)
+  `carryover` smallint(6) DEFAULT 0,
+  `allowance` smallint(6) DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `archive_daynotes`
+-- Table structure for table `tcneo_archive_daynotes`
 --
 
 DROP TABLE IF EXISTS `tcneo_archive_daynotes`;
 CREATE TABLE `tcneo_archive_daynotes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `yyyymmdd` varchar(8) CHARACTER SET utf8 DEFAULT NULL,
   `username` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT 'all',
-  `region` int(11) NOT NULL DEFAULT '1',
-  `daynote` text CHARACTER SET utf8,
+  `region` int(11) NOT NULL DEFAULT 1,
+  `daynote` text CHARACTER SET utf8 DEFAULT NULL,
   `color` varchar(16) COLLATE utf8_bin NOT NULL DEFAULT 'default',
-  `confidential` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (id),
-  UNIQUE( `yyyymmdd`, `username`, `region`)
+  `confidential` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `archive_templates`
+-- Table structure for table `tcneo_archive_templates`
 --
 
 DROP TABLE IF EXISTS `tcneo_archive_templates`;
 CREATE TABLE `tcneo_archive_templates` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `year` varchar(4) CHARACTER SET utf8 DEFAULT NULL,
   `month` char(2) CHARACTER SET utf8 DEFAULT NULL,
@@ -225,15 +246,13 @@ CREATE TABLE `tcneo_archive_templates` (
   `abs28` int(11) DEFAULT NULL,
   `abs29` int(11) DEFAULT NULL,
   `abs30` int(11) DEFAULT NULL,
-  `abs31` int(11) DEFAULT NULL,
-  PRIMARY KEY (id),
-  UNIQUE template (username,year,month)
+  `abs31` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `archive_users`
+-- Table structure for table `tcneo_archive_users`
 --
 
 DROP TABLE IF EXISTS `tcneo_archive_users`;
@@ -243,83 +262,116 @@ CREATE TABLE `tcneo_archive_users` (
   `firstname` varchar(80) CHARACTER SET utf8 DEFAULT NULL,
   `lastname` varchar(80) CHARACTER SET utf8 DEFAULT NULL,
   `email` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `role` int(11) DEFAULT '2',
-  `locked` tinyint(4) DEFAULT '0',
-  `hidden` tinyint(4) DEFAULT '0',
-  `onhold` tinyint(4) DEFAULT '0',
-  `verify` tinyint(4) DEFAULT '0',
-  `bad_logins` tinyint(4) DEFAULT '0',
+  `role` int(11) DEFAULT 2,
+  `locked` tinyint(4) DEFAULT 0,
+  `hidden` tinyint(4) DEFAULT 0,
+  `onhold` tinyint(4) DEFAULT 0,
+  `verify` tinyint(4) DEFAULT 0,
+  `bad_logins` tinyint(4) DEFAULT 0,
   `grace_start` datetime DEFAULT NULL,
   `last_pw_change` datetime DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
-  PRIMARY KEY (username)
+  `created` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `archive_user_group`
+-- Table structure for table `tcneo_archive_user_attachment`
+--
+
+DROP TABLE IF EXISTS `tcneo_archive_user_attachment`;
+CREATE TABLE `tcneo_archive_user_attachment` (
+  `id` int(11) NOT NULL,
+  `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
+  `fileid` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tcneo_archive_user_group`
 --
 
 DROP TABLE IF EXISTS `tcneo_archive_user_group`;
 CREATE TABLE `tcneo_archive_user_group` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `groupid` int(11) DEFAULT NULL,
-  `type` tinytext CHARACTER SET utf8,
-  PRIMARY KEY (id),
-  UNIQUE usergroup (username,groupid)
+  `type` tinytext CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `archive_user_message`
+-- Table structure for table `tcneo_archive_user_message`
 --
 
 DROP TABLE IF EXISTS `tcneo_archive_user_message`;
 CREATE TABLE `tcneo_archive_user_message` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `msgid` int(11) DEFAULT NULL,
-  `popup` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (id)
+  `popup` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `archive_user_option`
+-- Table structure for table `tcneo_archive_user_option`
 --
 
 DROP TABLE IF EXISTS `tcneo_archive_user_option`;
 CREATE TABLE `tcneo_archive_user_option` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `option` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
-  `value` text CHARACTER SET utf8,
-  PRIMARY KEY (id),
-  UNIQUE useroption (username,`option`)
+  `value` text CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `config`
+-- Table structure for table `tcneo_attachments`
+--
+
+DROP TABLE IF EXISTS `tcneo_attachments`;
+CREATE TABLE `tcneo_attachments` (
+  `id` int(11) NOT NULL,
+  `filename` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `uploader` varchar(40) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `tcneo_attachments`
+--
+
+INSERT INTO `tcneo_attachments` (`id`, `filename`, `uploader`) VALUES
+(1, 'logo-16.png', 'admin'),
+(2, 'logo-22.png', 'admin'),
+(3, 'logo-32.png', 'admin'),
+(4, 'logo-48.png', 'admin'),
+(5, 'logo-64.png', 'admin'),
+(6, 'logo-72.png', 'admin'),
+(7, 'logo-96.png', 'admin'),
+(8, 'logo-128.png', 'admin'),
+(9, 'logo-200.png', 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tcneo_config`
 --
 
 DROP TABLE IF EXISTS `tcneo_config`;
 CREATE TABLE `tcneo_config` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `value` text CHARACTER SET utf8 NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE config (name)
+  `value` text CHARACTER SET utf8 NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `config`
+-- Dumping data for table `tcneo_config`
 --
 
 INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
@@ -334,7 +386,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (9, 'activateMessages', '1'),
 (10, 'homepage', 'calendarview'),
 (11, 'welcomeIcon', 'None'),
-(12, 'welcomeText', '<h1><img alt="" src="upload/files/logo-128.png" style="float:left; height:128px; margin-bottom:12px; margin-right:12px; width:128px" />Welcome to TeamCal Neo</h1>\n\n<p>TeamCal Neo, successor to the popular TeamCal Pro, is a day-based online calendar that allows to easily manage your team&#39;s absences and displays them in a very intuitive interface. You can manage absence types, holidays, regional calendars and much more. Read more about it here:<br />\n<a href="http://www.lewe.com/teamcal-neo/" target="_blank">http://www.lewe.com/teamcal-neo/</a></p>\n\n<p>Select Login from the User menu to login and use the following accounts to test:</p>\n\n<h2>Admin account:</h2>\n\n<p>admin/root</p>\n\n<h2>User accounts:</h2>\n\n<p>ccarl/password<br />\nblightyear/password<br />\ndduck/password<br />\nsgonzalez/password<br />\nphead/password<br />\nmmouse/password<br />\nmimouse/password<br />\nsman/password</p>\n'),
+(12, 'welcomeText', '<h3><img alt=\"\" src=\"upload/files/logo-128.png\" style=\"float:left; height:128px; margin-bottom:12px; margin-right:12px; width:128px\" />Welcome to TeamCal Neo</h3>\r\n\r\n<p>TeamCal Neo is a day-based online calendar that allows to easily manage your team&#39;s absences and displays them in a very intuitive interface. You can manage absence types, holidays, regional calendars and much more.</p>\r\n\r\n<p>TeamCal Neo Basic is free and offers the core features of the calendar. Advanced features are available in the full TeamCal Neo that is available for a yearly license fee.</p>\r\n\r\n<p>Read more about it here:<br />\r\n<a href=\"http://www.lewe.com/teamcal-neo/\" target=\"_blank\">http://www.lewe.com/teamcal-neo/</a></p>\r\n\r\n<h3>Login</h3>\r\n\r\n<p>Select Login from the User menu to login and use the following accounts to test:</p>\r\n\r\n<h4>Admin account:</h4>\r\n\r\n<p>admin/root</p>\r\n\r\n<h4>User accounts:</h4>\r\n\r\n<p>ccarl/password<br />\r\nblightyear/password<br />\r\ndduck/password<br />\r\nsgonzalez/password<br />\r\nphead/password<br />\r\nmmouse/password<br />\r\nmimouse/password<br />\r\nsman/password</p>\r\n'),
 (13, 'welcomeTitle', 'Welcome To TeamCal Neo'),
 (14, 'userCustom1', 'Custom Field 1'),
 (15, 'userCustom2', 'Custom Field 2'),
@@ -370,11 +422,11 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (45, 'avatarWidth', '0'),
 (46, 'avatarHeight', '0'),
 (47, 'avatarMaxSize', '0'),
-(48, 'menuBarInverse', '1'),
+(48, 'menuBarDark', '1'),
 (51, 'logperiod', 'curr_all'),
 (50, 'faCDN', '0'),
 (52, 'logfrom', '2014-01-01 00:00:00.000000'),
-(53, 'logto', '2016-12-31 23:59:59.999999'),
+(53, 'logto', '2019-12-30 23:59:59.999999'),
 (54, 'logConfig', '1'),
 (55, 'logfilterConfig', '1'),
 (56, 'logDatabase', '1'),
@@ -438,7 +490,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (114, 'declBase', 'group'),
 (115, 'declBeforeOption', 'date'),
 (116, 'declBeforeDate', '2016-01-01'),
-(117, 'dbURL', 'http://localhost/phpmyadmin/db_structure.php?server=1&db=tcneo'),
+(117, 'dbURL', '#'),
 (118, 'logcolorConfig', 'danger'),
 (119, 'logcolorDatabase', 'warning'),
 (120, 'logcolorGroup', 'primary'),
@@ -467,7 +519,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (143, 'appKeywords', 'Lewe TeamCal Neo'),
 (144, 'userManual', 'https%3A%2F%2Fsupport.lewe.com%2Fdocs%2Fteamcal-neo-manual%2F'),
 (145, 'footerCopyrightUrl', 'http://www.lewe.com'),
-(146, 'footerSocialLinks', 'https://www.linkedin.com/in/george-lewe-a9ab6411b;https://www.xing.com/profile/George_Lewe;https://bitbucket.org/georgelewe/;https://www.paypal.me/GeorgeLewe'),
+(146, 'footerSocialLinks', 'https://www.linkedin.com/in/george-lewe-a9ab6411b;https://www.xing.com/profile/George_Lewe'),
 (147, 'footerViewport', '0'),
 (148, 'cookieConsent', '1'),
 (149, 'noIndex', '1'),
@@ -494,7 +546,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (170, 'notificationsAllGroups', '0'),
 (171, 'showTwoMonths', '0'),
 (172, 'monitorAbsence', '0'),
-(173, 'pageHelp', '0'),
+(173, 'pageHelp', '1'),
 (174, 'regionalHolidays', '0'),
 (175, 'regionalHolidaysColor', 'CC0000'),
 (176, 'calendarFontSize', '100'),
@@ -516,45 +568,46 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (192, 'gdprTumblr', '0'),
 (193, 'gdprTwitter', '1'),
 (194, 'gdprXing', '0'),
-(195, 'gdprYoutube', '0');
+(195, 'gdprYoutube', '0'),
+(196, 'licenseKey', 'TCN-5e09e4006cd83'),
+(197, 'licKey', 'TCN-5e09e4006cd83'),
+(198, 'licExpiryWarning', '20'),
+(199, 'menuBarBg', 'primary');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `daynotes`
+-- Table structure for table `tcneo_daynotes`
 --
 
 DROP TABLE IF EXISTS `tcneo_daynotes`;
 CREATE TABLE `tcneo_daynotes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `yyyymmdd` varchar(8) CHARACTER SET utf8 DEFAULT NULL,
   `username` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT 'all',
-  `region` int(11) NOT NULL DEFAULT '1',
-  `daynote` text CHARACTER SET utf8,
+  `region` int(11) NOT NULL DEFAULT 1,
+  `daynote` text CHARACTER SET utf8 DEFAULT NULL,
   `color` varchar(16) COLLATE utf8_bin NOT NULL DEFAULT 'default',
-  `confidential` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (id),
-  UNIQUE( `yyyymmdd`, `username`, `region`)
+  `confidential` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groups`
+-- Table structure for table `tcneo_groups`
 --
 
 DROP TABLE IF EXISTS `tcneo_groups`;
 CREATE TABLE `tcneo_groups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `description` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `minpresent` smallint(6) NOT NULL DEFAULT '0',
-  `maxabsent` smallint(6) NOT NULL DEFAULT '9999',
-  PRIMARY KEY (id)
+  `minpresent` smallint(6) NOT NULL DEFAULT 0,
+  `maxabsent` smallint(6) NOT NULL DEFAULT 9999
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `groups`
+-- Dumping data for table `tcneo_groups`
 --
 
 INSERT INTO `tcneo_groups` (`id`, `name`, `description`, `minpresent`, `maxabsent`) VALUES
@@ -566,24 +619,23 @@ INSERT INTO `tcneo_groups` (`id`, `name`, `description`, `minpresent`, `maxabsen
 -- --------------------------------------------------------
 
 --
--- Table structure for table `holidays`
+-- Table structure for table `tcneo_holidays`
 --
 
 DROP TABLE IF EXISTS `tcneo_holidays`;
 CREATE TABLE `tcneo_holidays` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `description` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `color` varchar(6) CHARACTER SET utf8 NOT NULL DEFAULT '000000',
   `bgcolor` varchar(6) CHARACTER SET utf8 NOT NULL DEFAULT 'ffffff',
-  `businessday` tinyint(1) NOT NULL DEFAULT '0',
-  `noabsence` tinyint(1) NOT NULL DEFAULT '0',
-  `keepweekendcolor` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (id)
+  `businessday` tinyint(1) NOT NULL DEFAULT 0,
+  `noabsence` tinyint(1) NOT NULL DEFAULT 0,
+  `keepweekendcolor` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `holidays`
+-- Dumping data for table `tcneo_holidays`
 --
 
 INSERT INTO `tcneo_holidays` (`id`, `name`, `description`, `color`, `bgcolor`, `businessday`, `noabsence`, `keepweekendcolor`) VALUES
@@ -596,46 +648,53 @@ INSERT INTO `tcneo_holidays` (`id`, `name`, `description`, `color`, `bgcolor`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `log`
+-- Table structure for table `tcneo_log`
 --
 
 DROP TABLE IF EXISTS `tcneo_log`;
 CREATE TABLE `tcneo_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `type` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `timestamp` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   `user` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
-  `event` text CHARACTER SET utf8,
-  PRIMARY KEY (id)
+  `event` text CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `tcneo_log`
+--
+
+INSERT INTO `tcneo_log` (`id`, `type`, `timestamp`, `user`, `event`) VALUES
+(1, 'logDatabase', '2020-01-01 22:36:26', 'admin', 'Database delete: Log records cleared'),
+(2, 'logConfig', '2020-01-01 22:41:05', 'admin', 'System configuration changed'),
+(3, 'logConfig', '2020-01-01 22:42:03', 'admin', 'System configuration changed');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `messages`
+-- Table structure for table `tcneo_messages`
 --
 
 DROP TABLE IF EXISTS `tcneo_messages`;
 CREATE TABLE `tcneo_messages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `timestamp` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   `text` text CHARACTER SET utf8 NOT NULL,
-  `type` varchar(8) CHARACTER SET utf8 NOT NULL,
-  PRIMARY KEY (id)
+  `type` varchar(8) CHARACTER SET utf8 NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `months`
+-- Table structure for table `tcneo_months`
 --
 
 DROP TABLE IF EXISTS `tcneo_months`;
 CREATE TABLE `tcneo_months` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `year` varchar(4) CHARACTER SET utf8 DEFAULT NULL,
   `month` char(2) CHARACTER SET utf8 DEFAULT NULL,
-  `region` int(11) DEFAULT '1',
+  `region` int(11) DEFAULT 1,
   `wday1` tinyint(1) DEFAULT NULL,
   `wday2` tinyint(1) DEFAULT NULL,
   `wday3` tinyint(1) DEFAULT NULL,
@@ -728,30 +787,44 @@ CREATE TABLE `tcneo_months` (
   `hol28` int(11) DEFAULT NULL,
   `hol29` int(11) DEFAULT NULL,
   `hol30` int(11) DEFAULT NULL,
-  `hol31` int(11) DEFAULT NULL,
-  PRIMARY KEY (id),
-  UNIQUE month (year,month,region)
+  `hol31` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `tcneo_months`
+--
+
+INSERT INTO `tcneo_months` (`id`, `year`, `month`, `region`, `wday1`, `wday2`, `wday3`, `wday4`, `wday5`, `wday6`, `wday7`, `wday8`, `wday9`, `wday10`, `wday11`, `wday12`, `wday13`, `wday14`, `wday15`, `wday16`, `wday17`, `wday18`, `wday19`, `wday20`, `wday21`, `wday22`, `wday23`, `wday24`, `wday25`, `wday26`, `wday27`, `wday28`, `wday29`, `wday30`, `wday31`, `week1`, `week2`, `week3`, `week4`, `week5`, `week6`, `week7`, `week8`, `week9`, `week10`, `week11`, `week12`, `week13`, `week14`, `week15`, `week16`, `week17`, `week18`, `week19`, `week20`, `week21`, `week22`, `week23`, `week24`, `week25`, `week26`, `week27`, `week28`, `week29`, `week30`, `week31`, `hol1`, `hol2`, `hol3`, `hol4`, `hol5`, `hol6`, `hol7`, `hol8`, `hol9`, `hol10`, `hol11`, `hol12`, `hol13`, `hol14`, `hol15`, `hol16`, `hol17`, `hol18`, `hol19`, `hol20`, `hol21`, `hol22`, `hol23`, `hol24`, `hol25`, `hol26`, `hol27`, `hol28`, `hol29`, `hol30`, `hol31`) VALUES
+(14, '2020', '01', 1, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(15, '2020', '02', 1, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 0, 0, 5, 5, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(16, '2020', '03', 1, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 9, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 12, 12, 13, 13, 13, 13, 13, 13, 13, 14, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(17, '2020', '04', 1, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 0, 14, 14, 14, 14, 14, 15, 15, 15, 15, 15, 15, 15, 16, 16, 16, 16, 16, 16, 16, 17, 17, 17, 17, 17, 17, 17, 18, 18, 18, 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(18, '2020', '05', 1, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 18, 18, 18, 19, 19, 19, 19, 19, 19, 19, 20, 20, 20, 20, 20, 20, 20, 21, 21, 21, 21, 21, 21, 21, 22, 22, 22, 22, 22, 22, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(19, '2020', '06', 1, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 0, 23, 23, 23, 23, 23, 23, 23, 24, 24, 24, 24, 24, 24, 24, 25, 25, 25, 25, 25, 25, 25, 26, 26, 26, 26, 26, 26, 26, 27, 27, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(20, '2020', '07', 1, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 27, 27, 27, 27, 27, 28, 28, 28, 28, 28, 28, 28, 29, 29, 29, 29, 29, 29, 29, 30, 30, 30, 30, 30, 30, 30, 31, 31, 31, 31, 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(21, '2020', '08', 1, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 31, 31, 32, 32, 32, 32, 32, 32, 32, 33, 33, 33, 33, 33, 33, 33, 34, 34, 34, 34, 34, 34, 34, 35, 35, 35, 35, 35, 35, 35, 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(22, '2020', '09', 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 0, 36, 36, 36, 36, 36, 36, 37, 37, 37, 37, 37, 37, 37, 38, 38, 38, 38, 38, 38, 38, 39, 39, 39, 39, 39, 39, 39, 40, 40, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(23, '2020', '10', 1, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 40, 40, 40, 40, 41, 41, 41, 41, 41, 41, 41, 42, 42, 42, 42, 42, 42, 42, 43, 43, 43, 43, 43, 43, 43, 44, 44, 44, 44, 44, 44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(24, '2020', '11', 1, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 0, 44, 45, 45, 45, 45, 45, 45, 45, 46, 46, 46, 46, 46, 46, 46, 47, 47, 47, 47, 47, 47, 47, 48, 48, 48, 48, 48, 48, 48, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(25, '2020', '12', 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 49, 49, 49, 49, 49, 49, 50, 50, 50, 50, 50, 50, 50, 51, 51, 51, 51, 51, 51, 51, 52, 52, 52, 52, 52, 52, 52, 53, 53, 53, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `permissions`
+-- Table structure for table `tcneo_permissions`
 --
 
 DROP TABLE IF EXISTS `tcneo_permissions`;
 CREATE TABLE `tcneo_permissions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `scheme` varchar(80) CHARACTER SET utf8 NOT NULL,
   `permission` varchar(40) CHARACTER SET utf8 NOT NULL,
-  `role` int(11) NOT NULL DEFAULT '1',
-  `allowed` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (id),
-  UNIQUE permission (scheme,permission,role)
+  `role` int(11) NOT NULL DEFAULT 1,
+  `allowed` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `permissions`
+-- Dumping data for table `tcneo_permissions`
 --
 
 INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`) VALUES
@@ -908,23 +981,21 @@ INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`
 (151, 'Default', 'calendareditgroupmanaged', 4, 1),
 (152, 'Default', 'calendareditgroupmanaged', 1, 1);
 
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `regions`
+-- Table structure for table `tcneo_regions`
 --
 
 DROP TABLE IF EXISTS `tcneo_regions`;
 CREATE TABLE `tcneo_regions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `description` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  PRIMARY KEY (id)
+  `description` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `regions`
+-- Dumping data for table `tcneo_regions`
 --
 
 INSERT INTO `tcneo_regions` (`id`, `name`, `description`) VALUES
@@ -935,40 +1006,52 @@ INSERT INTO `tcneo_regions` (`id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Table structure for table `tcneo_region_role`
 --
 
-DROP TABLE IF EXISTS `tcneo_roles`;
-CREATE TABLE `tcneo_roles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `description` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  `color` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT 'default',
-  `created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (id),
-  UNIQUE (name)
+DROP TABLE IF EXISTS `tcneo_region_role`;
+CREATE TABLE `tcneo_region_role` (
+  `id` int(11) NOT NULL,
+  `regionid` int(11) NOT NULL,
+  `roleid` int(11) NOT NULL,
+  `access` varchar(4) CHARACTER SET utf8 DEFAULT 'edit'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Dumping data for table `roles`
---
-
-INSERT INTO `tcneo_roles` (`id`, `name`, `description`, `color`) VALUES
-(1, 'Administrator', 'Application administrator', 'danger'),
-(2, 'User', 'Standard role for logged in users', 'primary'),
-(3, 'Public', 'All users not logged in', 'secondary'),
-(4, 'Manager', 'Management Team', 'warning');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `templates`
+-- Table structure for table `tcneo_roles`
+--
+
+DROP TABLE IF EXISTS `tcneo_roles`;
+CREATE TABLE `tcneo_roles` (
+  `id` int(11) NOT NULL,
+  `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `description` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `color` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT 'default',
+  `created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `tcneo_roles`
+--
+
+INSERT INTO `tcneo_roles` (`id`, `name`, `description`, `color`, `created`, `updated`) VALUES
+(1, 'Administrator', 'Application administrator', 'danger', '0000-00-00 00:00:00', '2019-12-29 22:20:53'),
+(2, 'User', 'Standard role for logged in users', 'primary', '0000-00-00 00:00:00', '2019-12-29 22:20:53'),
+(3, 'Public', 'All users not logged in', 'secondary', '0000-00-00 00:00:00', '2019-12-29 22:20:53'),
+(4, 'Manager', 'Management Team', 'warning', '0000-00-00 00:00:00', '2019-12-29 22:20:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tcneo_templates`
 --
 
 DROP TABLE IF EXISTS `tcneo_templates`;
 CREATE TABLE `tcneo_templates` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `year` varchar(4) CHARACTER SET utf8 DEFAULT NULL,
   `month` char(2) CHARACTER SET utf8 DEFAULT NULL,
@@ -1002,47 +1085,68 @@ CREATE TABLE `tcneo_templates` (
   `abs28` int(11) DEFAULT NULL,
   `abs29` int(11) DEFAULT NULL,
   `abs30` int(11) DEFAULT NULL,
-  `abs31` int(11) DEFAULT NULL,
-  PRIMARY KEY (id),
-  UNIQUE template (username,year,month)
+  `abs31` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Dumping data for table `tcneo_templates`
+--
+
+INSERT INTO `tcneo_templates` (`id`, `username`, `year`, `month`, `abs1`, `abs2`, `abs3`, `abs4`, `abs5`, `abs6`, `abs7`, `abs8`, `abs9`, `abs10`, `abs11`, `abs12`, `abs13`, `abs14`, `abs15`, `abs16`, `abs17`, `abs18`, `abs19`, `abs20`, `abs21`, `abs22`, `abs23`, `abs24`, `abs25`, `abs26`, `abs27`, `abs28`, `abs29`, `abs30`, `abs31`) VALUES
+(21, 'ccarl', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(22, 'dduck', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(23, 'sgonzales', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(24, 'phead', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(25, 'blightyear', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(26, 'mmouse', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(27, 'sman', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(28, 'admin', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(29, 'admin', '2020', '02', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(30, 'admin', '2020', '03', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(31, 'admin', '2020', '04', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(32, 'admin', '2020', '05', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(33, 'admin', '2020', '06', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(34, 'admin', '2020', '07', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(35, 'admin', '2020', '08', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(36, 'admin', '2020', '09', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(37, 'admin', '2020', '10', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(38, 'admin', '2020', '11', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(39, 'admin', '2020', '12', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Table structure for table `tcneo_users`
 --
 
 DROP TABLE IF EXISTS `tcneo_users`;
 CREATE TABLE `tcneo_users` (
-  `username` varchar(40) NOT NULL DEFAULT '',
-  `password` varchar(255) DEFAULT NULL,
-  `firstname` varchar(80) DEFAULT NULL,
-  `lastname` varchar(80) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `role` int(11) DEFAULT '2',
-  `locked` tinyint(4) DEFAULT '0',
-  `hidden` tinyint(4) DEFAULT '0',
-  `onhold` tinyint(4) DEFAULT '0',
-  `verify` tinyint(4) DEFAULT '0',
-  `bad_logins` tinyint(4) DEFAULT '0',
+  `username` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `password` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `firstname` varchar(80) COLLATE utf8_bin DEFAULT NULL,
+  `lastname` varchar(80) COLLATE utf8_bin DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+  `role` int(11) DEFAULT 2,
+  `locked` tinyint(4) DEFAULT 0,
+  `hidden` tinyint(4) DEFAULT 0,
+  `onhold` tinyint(4) DEFAULT 0,
+  `verify` tinyint(4) DEFAULT 0,
+  `bad_logins` tinyint(4) DEFAULT 0,
   `grace_start` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   `last_pw_change` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   `last_login` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
-  `created` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
-  PRIMARY KEY (username)
+  `created` datetime NOT NULL DEFAULT '1000-01-01 00:00:00'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `tcneo_users`
 --
 
 INSERT INTO `tcneo_users` (`username`, `password`, `firstname`, `lastname`, `email`, `role`, `locked`, `hidden`, `onhold`, `verify`, `bad_logins`, `grace_start`, `last_pw_change`, `last_login`, `created`) VALUES
 ('blightyear', '$2y$10$Vtw.3Vz.k7q0wWMRd48F6uW5QJ8R4z6r.ru7tL.aR.duXf4ynQgGm', 'Buzz', 'Lightyear', 'blightyear@yourserver.com', 4, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
 ('sman', '$2y$10$xGRcN3kjQRcOaNFZHU1Oo.XqmTuiTNX0YzFdWZGFY/zbrfSw1HoR2', '', 'Spiderman', 'sman@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
 ('mmouse', '$2y$10$UXHMBWNOPsohn0IxEfrkhOykPp/iO3JZSsYk3aywy9yXGmGrVU.CS', 'Mickey', 'Mouse', 'mmouse@yourserver.com', 4, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
-('admin', '$2y$10$Kt4r.PZIdqa.RU1qgPQP2ecN6pqDHG3qLifAu9IMMyLntlhnIMhaS', '', 'Admin', 'webmaster@yourserver.com', 1, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
+('admin', '$2y$10$Kt4r.PZIdqa.RU1qgPQP2ecN6pqDHG3qLifAu9IMMyLntlhnIMhaS', '', 'Admin', 'webmaster@yourserver.com', 1, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2020-01-01 18:42:27', '2016-04-23 00:00:00'),
 ('phead', '$2y$10$qvuiMeWbC0lAZdl7EnlRZe2PF6PRjsd5cRT0IhOjPdzAvnupWwFMq', 'Potatoe', 'Head', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
 ('ccarl', '$2y$10$r/8VfjUT9DDCF8efXd2yvOu/JiT.cBwSTaI8qVTFMcbBirdQ7JSSe', 'Coyote', 'Carl', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
 ('dduck', '$2y$10$xGRcN3kjQRcOaNFZHU1Oo.XqmTuiTNX0YzFdWZGFY/zbrfSw1HoR2', 'Donald', 'Duck', 'dduck@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
@@ -1052,20 +1156,32 @@ INSERT INTO `tcneo_users` (`username`, `password`, `firstname`, `lastname`, `ema
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_group`
+-- Table structure for table `tcneo_user_attachment`
+--
+
+DROP TABLE IF EXISTS `tcneo_user_attachment`;
+CREATE TABLE `tcneo_user_attachment` (
+  `id` int(11) NOT NULL,
+  `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
+  `fileid` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tcneo_user_group`
 --
 
 DROP TABLE IF EXISTS `tcneo_user_group`;
 CREATE TABLE `tcneo_user_group` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `groupid` int(11) DEFAULT NULL,
-  `type` tinytext CHARACTER SET utf8,
-  PRIMARY KEY (id)
+  `type` tinytext CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `user_group`
+-- Dumping data for table `tcneo_user_group`
 --
 
 INSERT INTO `tcneo_user_group` (`id`, `username`, `groupid`, `type`) VALUES
@@ -1081,36 +1197,33 @@ INSERT INTO `tcneo_user_group` (`id`, `username`, `groupid`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_message`
+-- Table structure for table `tcneo_user_message`
 --
 
 DROP TABLE IF EXISTS `tcneo_user_message`;
 CREATE TABLE `tcneo_user_message` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `msgid` int(11) DEFAULT NULL,
-  `popup` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (id)
+  `popup` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_option`
+-- Table structure for table `tcneo_user_option`
 --
 
 DROP TABLE IF EXISTS `tcneo_user_option`;
 CREATE TABLE `tcneo_user_option` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `option` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
-  `value` text CHARACTER SET utf8,
-  PRIMARY KEY (id),
-  UNIQUE useroption (username,`option`)
+  `value` text CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `user_option`
+-- Dumping data for table `tcneo_user_option`
 --
 
 INSERT INTO `tcneo_user_option` (`id`, `username`, `option`, `value`) VALUES
@@ -1247,75 +1360,376 @@ INSERT INTO `tcneo_user_option` (`id`, `username`, `option`, `value`) VALUES
 (132, 'admin', 'notifyMonthEvents', '1'),
 (133, 'admin', 'notifyRoleEvents', '1'),
 (134, 'admin', 'notifyUserEvents', '1'),
-(135, 'admin', 'notifyUserCalEvents', '1');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `attachments`
---
-
-DROP TABLE IF EXISTS `tcneo_attachments`;
-CREATE TABLE `tcneo_attachments` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `filename` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
-  `uploader` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
-  PRIMARY KEY (id),
-  UNIQUE attachment (filename)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
-INSERT INTO `tcneo_attachments` (`id`, `filename`, `uploader`) VALUES
-(1, 'logo-16.png', 'admin'),
-(2, 'logo-22.png', 'admin'),
-(3, 'logo-32.png', 'admin'),
-(4, 'logo-48.png', 'admin'),
-(5, 'logo-64.png', 'admin'),
-(6, 'logo-72.png', 'admin'),
-(7, 'logo-96.png', 'admin'),
-(8, 'logo-128.png', 'admin'),
-(9, 'logo-200.png', 'admin');
-
--- --------------------------------------------------------
+(135, 'admin', 'notifyUserCalEvents', '1'),
+(136, 'admin', 'menuBar', 'default'),
+(139, 'admin', 'width', 'full'),
+(140, 'admin', 'region', '1'),
+(141, 'ccarl', 'region', '1'),
+(147, 'admin', 'calfilterRegion', '1'),
+(146, 'admin', 'calfilterMonth', '202001');
 
 --
--- Table structure for table `user_attachment`
+-- Indexes for dumped tables
 --
 
-DROP TABLE IF EXISTS `tcneo_user_attachment`;
-CREATE TABLE `tcneo_user_attachment` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
-  `fileid` int(11) NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE userAttachment (username,fileid)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- --------------------------------------------------------
+--
+-- Indexes for table `tcneo_absences`
+--
+ALTER TABLE `tcneo_absences`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Table structure for table `archive_user_attachment`
+-- Indexes for table `tcneo_absence_group`
 --
-
-DROP TABLE IF EXISTS `tcneo_archive_user_attachment`;
-CREATE TABLE `tcneo_archive_user_attachment` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
-  `fileid` int(11) NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE userAttachment (username,fileid)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- --------------------------------------------------------
+ALTER TABLE `tcneo_absence_group`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `absgroup` (`absid`,`groupid`);
 
 --
--- Table structure for table `region_role`
+-- Indexes for table `tcneo_allowances`
+--
+ALTER TABLE `tcneo_allowances`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `allowance` (`username`,`absid`);
+
+--
+-- Indexes for table `tcneo_archive_allowances`
+--
+ALTER TABLE `tcneo_archive_allowances`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `allowance` (`username`,`absid`);
+
+--
+-- Indexes for table `tcneo_archive_daynotes`
+--
+ALTER TABLE `tcneo_archive_daynotes`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `yyyymmdd` (`yyyymmdd`,`username`,`region`);
+
+--
+-- Indexes for table `tcneo_archive_templates`
+--
+ALTER TABLE `tcneo_archive_templates`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `template` (`username`,`year`,`month`);
+
+--
+-- Indexes for table `tcneo_archive_users`
+--
+ALTER TABLE `tcneo_archive_users`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `tcneo_archive_user_attachment`
+--
+ALTER TABLE `tcneo_archive_user_attachment`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `userAttachment` (`username`,`fileid`);
+
+--
+-- Indexes for table `tcneo_archive_user_group`
+--
+ALTER TABLE `tcneo_archive_user_group`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `usergroup` (`username`,`groupid`);
+
+--
+-- Indexes for table `tcneo_archive_user_message`
+--
+ALTER TABLE `tcneo_archive_user_message`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tcneo_archive_user_option`
+--
+ALTER TABLE `tcneo_archive_user_option`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `useroption` (`username`,`option`);
+
+--
+-- Indexes for table `tcneo_attachments`
+--
+ALTER TABLE `tcneo_attachments`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `attachment` (`filename`);
+
+--
+-- Indexes for table `tcneo_config`
+--
+ALTER TABLE `tcneo_config`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `config` (`name`);
+
+--
+-- Indexes for table `tcneo_daynotes`
+--
+ALTER TABLE `tcneo_daynotes`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `yyyymmdd` (`yyyymmdd`,`username`,`region`);
+
+--
+-- Indexes for table `tcneo_groups`
+--
+ALTER TABLE `tcneo_groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tcneo_holidays`
+--
+ALTER TABLE `tcneo_holidays`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tcneo_log`
+--
+ALTER TABLE `tcneo_log`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tcneo_messages`
+--
+ALTER TABLE `tcneo_messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tcneo_months`
+--
+ALTER TABLE `tcneo_months`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `month` (`year`,`month`,`region`);
+
+--
+-- Indexes for table `tcneo_permissions`
+--
+ALTER TABLE `tcneo_permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `permission` (`scheme`,`permission`,`role`);
+
+--
+-- Indexes for table `tcneo_regions`
+--
+ALTER TABLE `tcneo_regions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tcneo_region_role`
+--
+ALTER TABLE `tcneo_region_role`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tcneo_roles`
+--
+ALTER TABLE `tcneo_roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `tcneo_templates`
+--
+ALTER TABLE `tcneo_templates`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `template` (`username`,`year`,`month`);
+
+--
+-- Indexes for table `tcneo_users`
+--
+ALTER TABLE `tcneo_users`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `tcneo_user_attachment`
+--
+ALTER TABLE `tcneo_user_attachment`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `userAttachment` (`username`,`fileid`);
+
+--
+-- Indexes for table `tcneo_user_group`
+--
+ALTER TABLE `tcneo_user_group`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tcneo_user_message`
+--
+ALTER TABLE `tcneo_user_message`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tcneo_user_option`
+--
+ALTER TABLE `tcneo_user_option`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `useroption` (`username`,`option`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
-DROP TABLE IF EXISTS `tcneo_region_role`;
-CREATE TABLE `tcneo_region_role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `regionid` int(11) NOT NULL,
-  `roleid` int(11) NOT NULL,
-  `access` varchar(4) CHARACTER SET utf8 DEFAULT "edit",
-  PRIMARY KEY (id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+--
+-- AUTO_INCREMENT for table `tcneo_absences`
+--
+ALTER TABLE `tcneo_absences`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `tcneo_absence_group`
+--
+ALTER TABLE `tcneo_absence_group`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+
+--
+-- AUTO_INCREMENT for table `tcneo_allowances`
+--
+ALTER TABLE `tcneo_allowances`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `tcneo_archive_allowances`
+--
+ALTER TABLE `tcneo_archive_allowances`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tcneo_archive_daynotes`
+--
+ALTER TABLE `tcneo_archive_daynotes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tcneo_archive_templates`
+--
+ALTER TABLE `tcneo_archive_templates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tcneo_archive_user_attachment`
+--
+ALTER TABLE `tcneo_archive_user_attachment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tcneo_archive_user_group`
+--
+ALTER TABLE `tcneo_archive_user_group`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tcneo_archive_user_message`
+--
+ALTER TABLE `tcneo_archive_user_message`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tcneo_archive_user_option`
+--
+ALTER TABLE `tcneo_archive_user_option`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tcneo_attachments`
+--
+ALTER TABLE `tcneo_attachments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `tcneo_config`
+--
+ALTER TABLE `tcneo_config`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=200;
+
+--
+-- AUTO_INCREMENT for table `tcneo_daynotes`
+--
+ALTER TABLE `tcneo_daynotes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tcneo_groups`
+--
+ALTER TABLE `tcneo_groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tcneo_holidays`
+--
+ALTER TABLE `tcneo_holidays`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tcneo_log`
+--
+ALTER TABLE `tcneo_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tcneo_messages`
+--
+ALTER TABLE `tcneo_messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tcneo_months`
+--
+ALTER TABLE `tcneo_months`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `tcneo_permissions`
+--
+ALTER TABLE `tcneo_permissions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+
+--
+-- AUTO_INCREMENT for table `tcneo_regions`
+--
+ALTER TABLE `tcneo_regions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tcneo_region_role`
+--
+ALTER TABLE `tcneo_region_role`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tcneo_roles`
+--
+ALTER TABLE `tcneo_roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tcneo_templates`
+--
+ALTER TABLE `tcneo_templates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT for table `tcneo_user_attachment`
+--
+ALTER TABLE `tcneo_user_attachment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tcneo_user_group`
+--
+ALTER TABLE `tcneo_user_group`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `tcneo_user_message`
+--
+ALTER TABLE `tcneo_user_message`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tcneo_user_option`
+--
+ALTER TABLE `tcneo_user_option`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
