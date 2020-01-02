@@ -388,7 +388,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (9, 'activateMessages', '1'),
 (10, 'homepage', 'home'),
 (11, 'welcomeIcon', 'None'),
-(12, 'welcomeText', '<h3><img alt=\"\" src=\"upload/files/logo-128.png\" style=\"float:left; height:128px; margin-bottom:12px; margin-right:12px; width:128px\" />Welcome to TeamCal Neo 3</h3>\r\n\r\n<p>TeamCal Neo is a day-based online calendar that allows to easily manage your team&#39;s absences and displays them in an intuitive interface. You can manage absence types, holidays, regional calendars and much more.</p>\r\n\r\n<p>TeamCal Neo 3 rquires a proper license now for a yearly fee.</p>\r\n\r\n<p>However, its little brother &quot;<a href=\"http://tcneobasic.lewe.com\">TeamCal Neo Basic</a>&quot; remains free and offers the core features of the calendar.</p>\r\n\r\n<p>Read more about it here:<br />\r\n<a href=\"http://www.lewe.com/teamcal-neo/\" target=\"_blank\">http://www.lewe.com/teamcal-neo/</a></p>\r\n\r\n<h3>Login</h3>\r\n\r\n<p>Select Login from the User menu to login and use the following accounts to test:</p>\r\n\r\n<h4>Admin account:</h4>\r\n\r\n<p>admin/root</p>\r\n\r\n<h4>User accounts:</h4>\r\n\r\n<p>ccarl/password<br />\r\nblightyear/password<br />\r\ndduck/password<br />\r\nsgonzalez/password<br />\r\nphead/password<br />\r\nmmouse/password<br />\r\nmimouse/password<br />\r\nsman/password</p>\r\n'),
+(12, 'welcomeText', '<h3><img alt=\"\" src=\"upload/files/logo-128.png\" style=\"float:left; height:128px; margin-bottom:24px; margin-right:24px; width:128px\" />Welcome to TeamCal Neo 3</h3>\r\n\r\n<p>TeamCal Neo is a day-based online calendar that allows to easily manage your team&#39;s absences and displays them in an intuitive interface. You can manage absence types, holidays, regional calendars and much more.</p>\r\n\r\n<p>TeamCal Neo 3 requires a proper license now for a small yearly fee.</p>\r\n\r\n<p>Its little brother &quot;<a href=\"http://tcneobasic.lewe.com\">TeamCal Neo Basic</a>&quot; , however, remains free and offers the core features of the calendar.</p>\r\n\r\n<h3>Links:</h3>\r\n\r\n<ul>\r\n	<li><a href=\"http://www.lewe.com/teamcal-neo/\" target=\"_blank\">Product Page</a></li>\r\n	<li><a href=\"https://support.lewe.com/docs/teamcal-neo-manual/\" target=\"_blank\">Documentation</a></li>\r\n</ul>\r\n\r\n<h3>Login</h3>\r\n\r\n<p>Select Login from the User menu to login and use the following accounts to give this demo a test drive:</p>\r\n\r\n<h4>Admin account:</h4>\r\n\r\n<p>admin/root</p>\r\n\r\n<h4>User accounts:</h4>\r\n\r\n<p>ccarl/password<br />\r\nblightyear/password<br />\r\ndduck/password<br />\r\nsgonzalez/password<br />\r\nphead/password<br />\r\nmmouse/password<br />\r\nmimouse/password<br />\r\nsman/password</p>\r\n'),
 (13, 'welcomeTitle', 'Welcome To TeamCal Neo'),
 (14, 'userCustom1', 'Custom Field 1'),
 (15, 'userCustom2', 'Custom Field 2'),
@@ -675,8 +675,7 @@ CREATE TABLE `tcneo_log` (
 --
 
 INSERT INTO `tcneo_log` (`id`, `type`, `timestamp`, `user`, `event`) VALUES
-(1, 'logDatabase', '2020-01-02 23:55:38', 'admin', 'Database delete: Log records cleared'),
-(2, 'logDatabase', '2020-01-02 23:55:54', 'admin', 'Database optimized');
+(1, 'logDatabase', '2020-01-03 00:08:10', 'admin', 'Database delete: Log records cleared');
 
 -- --------------------------------------------------------
 
@@ -1704,7 +1703,7 @@ ALTER TABLE `tcneo_holidays`
 -- AUTO_INCREMENT for table `tcneo_log`
 --
 ALTER TABLE `tcneo_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tcneo_messages`
