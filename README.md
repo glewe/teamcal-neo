@@ -45,3 +45,18 @@ https://support.lewe.com/docs/teamcal-neo-manual/administration/license/
 6. Go to Administration -> Framework Configuration -> License tab
    - Activate and register your license
 
+## Credits
+A lot of work goes into TeamCal Neo but it would not be possible without the bits and pieces of other great developers that offer their work to the community for free. I am very thankful for that and would like pass my thanks to these people:
+
+1. Bootstrap team for [Bootstrap](https://getbootstrap.com/)
+2. Thomas Park for the [Bootswatch Theme](https://bootswatch.com/)
+3. Nick Downie for [Chart.js](https://www.chartjs.org/)
+4. CKSource Sp. for [CKEditor](https://ckeditor.com/)
+5. Dave Gandy and team for [Font Awesome](https://fontawesome.com/)
+6. Google team for [Googel Fonts](https://fonts.google.com/)
+7. jQuery team for [jQuery](https://jquery.com/) and []jQuery UI](https://jqueryui.com/)
+8. Stefan Petre for [jQuery Color Picker](https://www.eyecon.ro/colorpicker/)
+9. Dimitri Semenov [Magnific Popup](https://dimsemenov.com/plugins/magnific-popup/)
+10. Ahkâm for the beautiful [Calendar Icon](https://www.freeiconspng.com/img/4109)
+11. Iconshock for their free [User Icons](https://www.iconshock.com/icon_sets/vector-user-icons/)
+

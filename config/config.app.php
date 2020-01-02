@@ -50,7 +50,6 @@ define('BOOTSTRAP_VER', "4.4.1");
 define('FONTAWESOME_VER', "5.12.0");
 define('JQUERY_VER', "3.3.1");
 define('JQUERY_UI_VER', "1.12.1");
-define('SECUREIMAGE_VER', "3.6.4");
 
 //=============================================================================
 /**

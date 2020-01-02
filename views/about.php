@@ -63,7 +63,6 @@ if (!defined('VALID_ROOT')) exit('');
                         <li>Stefan Petre <?=$LANG['about_for']?> <a href="http://www.eyecon.ro/colorpicker/" target="_blank">jQuery Color Picker</a></li>
                         <li>Dimitri Semenov <?=$LANG['about_for']?> <a href="http://dimsemenov.com/plugins/magnific-popup/" target="_blank">Magnific Popup <?=MAGNIFICPOPUP_VER?></a></li>
                         <li>Ahkâm <?=$LANG['about_for']?> the beautiful <a href="https://www.freeiconspng.com/img/4109" target="_blank">Calendar Icon</a></li>
-                        <li>Drew Phillips <?=$LANG['about_for']?> <a href="https://www.phpcaptcha.org/" target="_blank">SecureImage <?=SECUREIMAGE_VER?></a></li>
                         <li>Iconshock Team <?=$LANG['about_for']?> <a href="http://www.iconshock.com/icon_sets/vector-user-icons/" target="_blank">User Icons</a></li>
                         <?php if (SELECT2) { ?><li>Kevin Brown &amp; Igor Vaynberg <?=$LANG['about_for']?> <a href="https://select2.github.io/" target="_blank">Select2 <?=SELECT2_VER?></a></li><?php } ?>
                         <?php if (SYNTAXHIGHLIGHTER) { ?><li>Alex Gorbatchev <?=$LANG['about_for']?> <a href="https://select2.github.io/" target="_blank">Syntaxhighlighter <?=SYNTAXHIGHLIGHTER_VER?></a></li><?php } ?>

@@ -91,9 +91,8 @@ if (!defined('VALID_ROOT')) exit('');
       <!-- Bootstrap Javascript -->
       <script src="themes/bootstrap/js/bootstrap.min.js"></script>
       
-      <!-- Custom CSS -->
-      <!-- <link rel="stylesheet" href="css/bootstrap-submenu.min.css"> -->
-      <link rel="stylesheet" href="css/custom.css">
+      <!-- TeamCalNeo CSS -->
+      <link rel="stylesheet" href="css/teamcalneo.css">
 
       <!-- Colorpicker -->
       <link rel="stylesheet" media="screen" type="text/css" href="js/colorpicker/css/colorpicker.css">

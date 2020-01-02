@@ -75,17 +75,8 @@ if (!defined('VALID_ROOT')) exit('');
 
       <script>
 
-         $(document).ready(function(){
-            //
-            // Bootstrap Submenu
-            //
-            $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
-               event.preventDefault(); 
-               event.stopPropagation(); 
-               $(this).parent().siblings().removeClass('open');
-               $(this).parent().toggleClass('open');
-            });
-            
+         $(document).ready(function()
+         {
             <?php if (MAGNIFICPOPUP) { ?>
             //
             // Magnific Popup
@@ -162,9 +153,10 @@ if (!defined('VALID_ROOT')) exit('');
             });
          });
 
-         <?php if ($C->read("footerViewport")) { ?>/**
-          * Window size in footer
-          */
+         <?php if ($C->read("footerViewport")) { ?>
+         /**
+         * Window size in footer
+         */
          $(window).on('resize', showSize);
          showSize();
          function showSize() { $('#size').html($(window).width() + ' x ' + $(window).height()); }
