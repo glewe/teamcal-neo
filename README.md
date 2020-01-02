@@ -6,7 +6,7 @@ TeamCal Neo is a web application of a day-based calendar. It's generic purpose i
 
 The goal of "Neo" remained the same, to create an optically attractive but also effective calendar display, showing the presences, absences and other events. TeamCal Neo supports the customization of holiday types, absence types and much more, thus its purpose can be altered to any graphical representation of timeline based processes or activities, e.g. a simple project plan or an event management.
 ## New in Version 3
-TeamCal Neo 3 now requires a proper license and is not free anymore.
+TeamCal Neo 3 now requires a __proper license__ and is not free anymore.
 However, a separate free version with restricted features, TeamCal Neo Basic,
 is available too. Read all about it here:
 https://www.lewe.com/teamcal-neo
