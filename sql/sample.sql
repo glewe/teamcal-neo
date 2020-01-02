@@ -1,11 +1,14 @@
--- phpMyAdmin SQL Dump
--- version 4.9.0.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Jan 01, 2020 at 10:43 PM
--- Server version: 10.3.16-MariaDB
--- PHP Version: 7.3.7
+/**
+ * Sample MySQL Database
+ *
+ * @author George Lewe <george@lewe.com>
+ * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo
+ * @subpackage Database
+ * @since 3.0.0
+ */
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -17,10 +20,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `tcneopro`
---
 
 -- --------------------------------------------------------
 
@@ -355,7 +354,10 @@ INSERT INTO `tcneo_attachments` (`id`, `filename`, `uploader`) VALUES
 (6, 'logo-72.png', 'admin'),
 (7, 'logo-96.png', 'admin'),
 (8, 'logo-128.png', 'admin'),
-(9, 'logo-200.png', 'admin');
+(9, 'logo-200.png', 'admin'),
+(10, 'logo-80.png', 'admin'),
+(11, 'logo-256.png', 'admin'),
+(12, 'logo-512.png', 'admin');
 
 -- --------------------------------------------------------
 
@@ -384,9 +386,9 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (7, 'logLanguage', 'english'),
 (8, 'showAlerts', 'all'),
 (9, 'activateMessages', '1'),
-(10, 'homepage', 'calendarview'),
+(10, 'homepage', 'home'),
 (11, 'welcomeIcon', 'None'),
-(12, 'welcomeText', '<h3><img alt=\"\" src=\"upload/files/logo-128.png\" style=\"float:left; height:128px; margin-bottom:12px; margin-right:12px; width:128px\" />Welcome to TeamCal Neo</h3>\r\n\r\n<p>TeamCal Neo is a day-based online calendar that allows to easily manage your team&#39;s absences and displays them in a very intuitive interface. You can manage absence types, holidays, regional calendars and much more.</p>\r\n\r\n<p>TeamCal Neo Basic is free and offers the core features of the calendar. Advanced features are available in the full TeamCal Neo that is available for a yearly license fee.</p>\r\n\r\n<p>Read more about it here:<br />\r\n<a href=\"http://www.lewe.com/teamcal-neo/\" target=\"_blank\">http://www.lewe.com/teamcal-neo/</a></p>\r\n\r\n<h3>Login</h3>\r\n\r\n<p>Select Login from the User menu to login and use the following accounts to test:</p>\r\n\r\n<h4>Admin account:</h4>\r\n\r\n<p>admin/root</p>\r\n\r\n<h4>User accounts:</h4>\r\n\r\n<p>ccarl/password<br />\r\nblightyear/password<br />\r\ndduck/password<br />\r\nsgonzalez/password<br />\r\nphead/password<br />\r\nmmouse/password<br />\r\nmimouse/password<br />\r\nsman/password</p>\r\n'),
+(12, 'welcomeText', '<h3><img alt=\"\" src=\"upload/files/logo-128.png\" style=\"float:left; height:128px; margin-bottom:12px; margin-right:12px; width:128px\" />Welcome to TeamCal Neo 3</h3>\r\n\r\n<p>TeamCal Neo is a day-based online calendar that allows to easily manage your team&#39;s absences and displays them in an intuitive interface. You can manage absence types, holidays, regional calendars and much more.</p>\r\n\r\n<p>TeamCal Neo 3 rquires a proper license now for a yearly fee.</p>\r\n\r\n<p>However, its little brother &quot;<a href=\"http://tcneobasic.lewe.com\">TeamCal Neo Basic</a>&quot; remains free and offers the core features of the calendar.</p>\r\n\r\n<p>Read more about it here:<br />\r\n<a href=\"http://www.lewe.com/teamcal-neo/\" target=\"_blank\">http://www.lewe.com/teamcal-neo/</a></p>\r\n\r\n<h3>Login</h3>\r\n\r\n<p>Select Login from the User menu to login and use the following accounts to test:</p>\r\n\r\n<h4>Admin account:</h4>\r\n\r\n<p>admin/root</p>\r\n\r\n<h4>User accounts:</h4>\r\n\r\n<p>ccarl/password<br />\r\nblightyear/password<br />\r\ndduck/password<br />\r\nsgonzalez/password<br />\r\nphead/password<br />\r\nmmouse/password<br />\r\nmimouse/password<br />\r\nsman/password</p>\r\n'),
 (13, 'welcomeTitle', 'Welcome To TeamCal Neo'),
 (14, 'userCustom1', 'Custom Field 1'),
 (15, 'userCustom2', 'Custom Field 2'),
@@ -426,7 +428,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (51, 'logperiod', 'curr_all'),
 (50, 'faCDN', '0'),
 (52, 'logfrom', '2014-01-01 00:00:00.000000'),
-(53, 'logto', '2019-12-30 23:59:59.999999'),
+(53, 'logto', '2020-01-02 23:59:59.999999'),
 (54, 'logConfig', '1'),
 (55, 'logfilterConfig', '1'),
 (56, 'logDatabase', '1'),
@@ -512,7 +514,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (136, 'appURL', '#'),
 (137, 'appDescription', 'Lewe TeamCal Neo. The Online Team Calendar!'),
 (138, 'showBanner', '0'),
-(139, 'showRoleIcons', '0'),
+(139, 'showRoleIcons', '1'),
 (140, 'logImport', '1'),
 (141, 'logcolorImport', 'warning'),
 (142, 'logfilterImport', '1'),
@@ -539,7 +541,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (163, 'defaultHomepage', 'home'),
 (164, 'trustedRoles', '1'),
 (165, 'noCaching', '0'),
-(166, 'currYearRoles', '2,3'),
+(166, 'currYearRoles', '3,2'),
 (167, 'versionCompare', '1'),
 (168, 'currentYearOnly', '0'),
 (169, 'takeover', '0'),
@@ -557,7 +559,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (181, 'gdprOrganization', 'ACME Inc.'),
 (182, 'gdprController', 'ACME Inc.\r\n123 Street\r\nHometown, XY 4567\r\nGermany\r\nEmail: info@acme.com'),
 (183, 'gdprOfficer', 'John Doe\r\nPhone: +49 555 12345\r\nEmail: john.doe@acme.com'),
-(184, 'gdprFacebook', '1'),
+(184, 'gdprFacebook', '0'),
 (185, 'gdprGoogleAnalytics', '0'),
 (186, 'gdprGooglePlus', '0'),
 (187, 'gdprInstagram', '0'),
@@ -566,13 +568,13 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (190, 'gdprPinterest', '0'),
 (191, 'gdprSlideshare', '0'),
 (192, 'gdprTumblr', '0'),
-(193, 'gdprTwitter', '1'),
-(194, 'gdprXing', '0'),
+(193, 'gdprTwitter', '0'),
+(194, 'gdprXing', '1'),
 (195, 'gdprYoutube', '0'),
 (196, 'licenseKey', 'TCN-5e09e4006cd83'),
 (197, 'licKey', 'TCN-5e09e4006cd83'),
-(198, 'licExpiryWarning', '20'),
-(199, 'menuBarBg', 'primary');
+(198, 'licExpiryWarning', '10'),
+(199, 'menuBarBg', 'dark');
 
 -- --------------------------------------------------------
 
@@ -590,6 +592,14 @@ CREATE TABLE `tcneo_daynotes` (
   `color` varchar(16) COLLATE utf8_bin NOT NULL DEFAULT 'default',
   `confidential` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `tcneo_daynotes`
+--
+
+INSERT INTO `tcneo_daynotes` (`id`, `yyyymmdd`, `username`, `region`, `daynote`, `color`, `confidential`) VALUES
+(1, '20200114', 'phead', 1, 'Here is a daynote', 'info', 0),
+(2, '20200116', 'phead', 1, 'Anopther daynote', 'info', 0);
 
 -- --------------------------------------------------------
 
@@ -665,9 +675,8 @@ CREATE TABLE `tcneo_log` (
 --
 
 INSERT INTO `tcneo_log` (`id`, `type`, `timestamp`, `user`, `event`) VALUES
-(1, 'logDatabase', '2020-01-01 22:36:26', 'admin', 'Database delete: Log records cleared'),
-(2, 'logConfig', '2020-01-01 22:41:05', 'admin', 'System configuration changed'),
-(3, 'logConfig', '2020-01-01 22:42:03', 'admin', 'System configuration changed');
+(1, 'logDatabase', '2020-01-02 23:55:38', 'admin', 'Database delete: Log records cleared'),
+(2, 'logDatabase', '2020-01-02 23:55:54', 'admin', 'Database optimized');
 
 -- --------------------------------------------------------
 
@@ -806,7 +815,8 @@ INSERT INTO `tcneo_months` (`id`, `year`, `month`, `region`, `wday1`, `wday2`, `
 (22, '2020', '09', 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 0, 36, 36, 36, 36, 36, 36, 37, 37, 37, 37, 37, 37, 37, 38, 38, 38, 38, 38, 38, 38, 39, 39, 39, 39, 39, 39, 39, 40, 40, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (23, '2020', '10', 1, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 40, 40, 40, 40, 41, 41, 41, 41, 41, 41, 41, 42, 42, 42, 42, 42, 42, 42, 43, 43, 43, 43, 43, 43, 43, 44, 44, 44, 44, 44, 44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (24, '2020', '11', 1, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 0, 44, 45, 45, 45, 45, 45, 45, 45, 46, 46, 46, 46, 46, 46, 46, 47, 47, 47, 47, 47, 47, 47, 48, 48, 48, 48, 48, 48, 48, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(25, '2020', '12', 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 49, 49, 49, 49, 49, 49, 50, 50, 50, 50, 50, 50, 50, 51, 51, 51, 51, 51, 51, 51, 52, 52, 52, 52, 52, 52, 52, 53, 53, 53, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(25, '2020', '12', 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 49, 49, 49, 49, 49, 49, 50, 50, 50, 50, 50, 50, 50, 51, 51, 51, 51, 51, 51, 51, 52, 52, 52, 52, 52, 52, 52, 53, 53, 53, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(26, '2020', '01', 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1096,7 +1106,7 @@ INSERT INTO `tcneo_templates` (`id`, `username`, `year`, `month`, `abs1`, `abs2`
 (21, 'ccarl', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (22, 'dduck', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (23, 'sgonzales', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(24, 'phead', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(24, 'phead', '2020', '01', 0, 0, 5, 0, 0, 6, 0, 0, 9, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 8, 0, 1, 0, 0, 0, 0, 0, 0, 7),
 (25, 'blightyear', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (26, 'mmouse', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (27, 'sman', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
@@ -1146,7 +1156,7 @@ INSERT INTO `tcneo_users` (`username`, `password`, `firstname`, `lastname`, `ema
 ('blightyear', '$2y$10$Vtw.3Vz.k7q0wWMRd48F6uW5QJ8R4z6r.ru7tL.aR.duXf4ynQgGm', 'Buzz', 'Lightyear', 'blightyear@yourserver.com', 4, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
 ('sman', '$2y$10$xGRcN3kjQRcOaNFZHU1Oo.XqmTuiTNX0YzFdWZGFY/zbrfSw1HoR2', '', 'Spiderman', 'sman@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
 ('mmouse', '$2y$10$UXHMBWNOPsohn0IxEfrkhOykPp/iO3JZSsYk3aywy9yXGmGrVU.CS', 'Mickey', 'Mouse', 'mmouse@yourserver.com', 4, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
-('admin', '$2y$10$Kt4r.PZIdqa.RU1qgPQP2ecN6pqDHG3qLifAu9IMMyLntlhnIMhaS', '', 'Admin', 'webmaster@yourserver.com', 1, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2020-01-01 18:42:27', '2016-04-23 00:00:00'),
+('admin', '$2y$10$Kt4r.PZIdqa.RU1qgPQP2ecN6pqDHG3qLifAu9IMMyLntlhnIMhaS', '', 'Admin', 'webmaster@yourserver.com', 1, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2020-01-02 23:26:53', '2016-04-23 00:00:00'),
 ('phead', '$2y$10$qvuiMeWbC0lAZdl7EnlRZe2PF6PRjsd5cRT0IhOjPdzAvnupWwFMq', 'Potatoe', 'Head', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
 ('ccarl', '$2y$10$r/8VfjUT9DDCF8efXd2yvOu/JiT.cBwSTaI8qVTFMcbBirdQ7JSSe', 'Coyote', 'Carl', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
 ('dduck', '$2y$10$xGRcN3kjQRcOaNFZHU1Oo.XqmTuiTNX0YzFdWZGFY/zbrfSw1HoR2', 'Donald', 'Duck', 'dduck@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
@@ -1165,6 +1175,39 @@ CREATE TABLE `tcneo_user_attachment` (
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `fileid` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `tcneo_user_attachment`
+--
+
+INSERT INTO `tcneo_user_attachment` (`id`, `username`, `fileid`) VALUES
+(1, 'admin', 10),
+(2, 'ccarl', 10),
+(3, 'dduck', 10),
+(4, 'sgonzales', 10),
+(5, 'phead', 10),
+(6, 'blightyear', 10),
+(7, 'mmouse', 10),
+(8, 'mimouse', 10),
+(9, 'sman', 10),
+(10, 'admin', 11),
+(11, 'ccarl', 11),
+(12, 'dduck', 11),
+(13, 'sgonzales', 11),
+(14, 'phead', 11),
+(15, 'blightyear', 11),
+(16, 'mmouse', 11),
+(17, 'mimouse', 11),
+(18, 'sman', 11),
+(19, 'admin', 12),
+(20, 'ccarl', 12),
+(21, 'dduck', 12),
+(22, 'sgonzales', 12),
+(23, 'phead', 12),
+(24, 'blightyear', 12),
+(25, 'mmouse', 12),
+(26, 'mimouse', 12),
+(27, 'sman', 12);
 
 -- --------------------------------------------------------
 
@@ -1631,7 +1674,7 @@ ALTER TABLE `tcneo_archive_user_option`
 -- AUTO_INCREMENT for table `tcneo_attachments`
 --
 ALTER TABLE `tcneo_attachments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tcneo_config`
@@ -1643,7 +1686,7 @@ ALTER TABLE `tcneo_config`
 -- AUTO_INCREMENT for table `tcneo_daynotes`
 --
 ALTER TABLE `tcneo_daynotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tcneo_groups`
@@ -1661,7 +1704,7 @@ ALTER TABLE `tcneo_holidays`
 -- AUTO_INCREMENT for table `tcneo_log`
 --
 ALTER TABLE `tcneo_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tcneo_messages`
@@ -1673,7 +1716,7 @@ ALTER TABLE `tcneo_messages`
 -- AUTO_INCREMENT for table `tcneo_months`
 --
 ALTER TABLE `tcneo_months`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tcneo_permissions`
@@ -1709,7 +1752,7 @@ ALTER TABLE `tcneo_templates`
 -- AUTO_INCREMENT for table `tcneo_user_attachment`
 --
 ALTER TABLE `tcneo_user_attachment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `tcneo_user_group`
