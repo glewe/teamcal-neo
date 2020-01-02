@@ -96,11 +96,7 @@ if (!defined('VALID_ROOT')) exit('');
                                        </div>
                                     </div>
                                     <div class="col-lg-2 text-right">
-                                       <?php if (in_array(getFileExtension($file['fname']),$CONF['imgExtensions'])) { ?>
-                                          <a href="<?=APP_UPL_DIR.$file['fname']?>" class="image-popup btn btn-info btn-sm" tabindex="<?=$tabindex++;?>" title="<?=$file['fname']?>"><?=$LANG['btn_download_view']?></a>
-                                       <?php } else { ?>
-                                          <a href="<?=APP_UPL_DIR.$file['fname']?>" class="btn btn-info btn-sm" tabindex="<?=$tabindex++;?>" title="<?=$file?>"><?=$LANG['btn_download_view']?></a>
-                                       <?php } ?>
+                                       <a href="<?=APP_UPL_DIR.$file['fname']?>" class="btn btn-info btn-sm" tabindex="<?=$tabindex++;?>" title="<?=$file['fname']?>"><?=$LANG['btn_download_view']?></a>
                                     </div>
                                  </div>
                                  <?php } ?>

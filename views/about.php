@@ -62,7 +62,7 @@ if (!defined('VALID_ROOT')) exit('');
                         <li>jQuery Team <?=$LANG['about_for']?> <a href="http://www.jquery.com/" target="_blank">jQuery <?=JQUERY_VER?></a> <?=$LANG['about_and']?> <a href="http://www.jqueryui.com/" target="_blank">jQuery UI <?=JQUERY_UI_VER?></a></li>
                         <li>Stefan Petre <?=$LANG['about_for']?> <a href="http://www.eyecon.ro/colorpicker/" target="_blank">jQuery Color Picker</a></li>
                         <li>Dimitri Semenov <?=$LANG['about_for']?> <a href="http://dimsemenov.com/plugins/magnific-popup/" target="_blank">Magnific Popup <?=MAGNIFICPOPUP_VER?></a></li>
-                        <li>David Vignoni <?=$LANG['about_for']?> <a href="http://www.icon-king.com/projects/nuvola/" target="_blank">Nuvola Icons</a></li>
+                        <li>Ahkâm <?=$LANG['about_for']?> the beautiful <a href="https://www.freeiconspng.com/img/4109" target="_blank">Calendar Icon</a></li>
                         <li>Drew Phillips <?=$LANG['about_for']?> <a href="https://www.phpcaptcha.org/" target="_blank">SecureImage <?=SECUREIMAGE_VER?></a></li>
                         <li>Iconshock Team <?=$LANG['about_for']?> <a href="http://www.iconshock.com/icon_sets/vector-user-icons/" target="_blank">User Icons</a></li>
                         <?php if (SELECT2) { ?><li>Kevin Brown &amp; Igor Vaynberg <?=$LANG['about_for']?> <a href="https://select2.github.io/" target="_blank">Select2 <?=SELECT2_VER?></a></li><?php } ?>

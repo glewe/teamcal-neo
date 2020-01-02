@@ -431,6 +431,10 @@ table.month {
    box-shadow: 3px 3px 4px 0px rgba(0,0,0,0.15);          
 } 
 
+table.month th, table.month td {
+   padding: 8px;
+}
+
 table.month th.m-monthname,
 table.month th.m-label,
 table.month td.m-label,
@@ -509,7 +513,7 @@ table.month th.m-weekday,
 table.month th.m-weeknumber 
 {
    min-width: 20px;
-   max-width: 28px;
+   max-width: 28px !important;
    padding-left: 4px;
    padding-right: 4px;
    text-align: center;
@@ -517,9 +521,7 @@ table.month th.m-weeknumber
 
 table.month td.m-day {
    font-size: 120%;
-   padding-left: 0px;
-   padding-right: 0px;
-   padding-bottom: 0px;
+   padding: 0px !important;
    background-color: #ffffff;
 }
 
