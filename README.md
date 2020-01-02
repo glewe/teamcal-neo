@@ -10,11 +10,13 @@ The goal of "Neo" remained the same, to create an optically attractive but also 
 TeamCal Neo 3 now requires a __proper license__ and is not free anymore.
 However, a separate free version with restricted features, TeamCal Neo Basic,
 is available too. Read all about it here:
+
 https://www.lewe.com/teamcal-neo
 
 Only update to TeamCal Neo 3 after you obtained a valid license. You can then
 activate and register your license from within your installation.
 This process is documented here:
+
 https://support.lewe.com/docs/teamcal-neo-manual/administration/license/
 
 ## Upgrading from 2.2.3
