@@ -57,6 +57,7 @@ A lot of work goes into TeamCal Neo but it would not be possible without the bit
 7. jQuery team for [jQuery](https://jquery.com/) and []jQuery UI](https://jqueryui.com/)
 8. Stefan Petre for [jQuery Color Picker](https://www.eyecon.ro/colorpicker/)
 9. Dimitri Semenov [Magnific Popup](https://dimsemenov.com/plugins/magnific-popup/)
+9. Drew Phillips for [SecureImage](https://www.phpcaptcha.org)
 10. Ahkâm for the beautiful [Calendar Icon](https://www.freeiconspng.com/img/4109)
 11. Iconshock for their free [User Icons](https://www.iconshock.com/icon_sets/vector-user-icons/)
 
