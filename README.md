@@ -24,6 +24,7 @@ https://support.lewe.com/docs/teamcal-neo-manual/administration/license/
      available anymore in TeamCal Neo 3+:
      - paper
      - readable
+     
      Make sure that no user has selected this theme before you switch it
      back on.
 
