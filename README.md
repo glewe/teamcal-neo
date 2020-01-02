@@ -1,4 +1,4 @@
-![logo-128.png](https://bitbucket.org/repo/ndb6gR/images/3454983152-logo-128.png)
+![logo-128.png](https://github.com/glewe/tcneo/blob/master/images/icons/logo-128.png)
 # TeamCal Neo 
 TeamCal Neo is a web application of a day-based calendar. It's generic purpose is the absence and event management of project teams, music bands and other groups needing a scheduler.
 
