@@ -117,22 +117,18 @@ if (!defined('VALID_ROOT')) exit('');
             //
             // Tooltip
             //
-            $("[data-position=tooltip-top]").tooltip({
-               placement : 'top',
-               html: true
+            $('[data-toggle="tooltip"]').each(function(){
+               var options = { html: true };
+               if ($(this)[0].hasAttribute('data-type')) {
+                  options['template'] = 
+                     '<div class="tooltip ' + $(this).attr('data-type') + '" role="tooltip">' + 
+                     '	<div class="tooltip-arrow"></div>' + 
+                     '	<div class="tooltip-inner"></div>' + 
+                     '</div>';
+               }
+               $(this).tooltip(options);
             });
-            $("[data-position=tooltip-right]").tooltip({
-              placement : 'right',
-              html: true
-            });
-            $("[data-position=tooltip-bottom]").tooltip({
-               placement : 'bottom',
-               html: true
-            });
-            $("[data-position=tooltip-left]").tooltip({
-               placement : 'left',
-               html: true
-            });
+
          });
 
          //

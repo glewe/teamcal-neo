@@ -41,8 +41,8 @@ else
 view.calendarviewpagemenu
 -->
 <div class="page-menu">
-   <a class="btn btn-secondary tooltip-warning" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>&amp;abs=<?=$viewData['absid']?>" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_backward']?>"><span class="fas fa-angle-double-left"></span></a>
-   <a class="btn btn-secondary tooltip-warning" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>&amp;abs=<?=$viewData['absid']?>" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_forward']?>"><span class="fas fa-angle-double-right"></span></a>
+   <a class="btn btn-secondary" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>&amp;abs=<?=$viewData['absid']?>" data-placement="top" data-type="warning" data-toggle="tooltip" title="<?=$LANG['cal_tt_backward']?>"><span class="fas fa-angle-double-left"></span></a>
+   <a class="btn btn-secondary" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>&amp;abs=<?=$viewData['absid']?>" data-placement="top" data-type="warning" data-toggle="tooltip" title="<?=$LANG['cal_tt_forward']?>"><span class="fas fa-angle-double-right"></span></a>
    <a class="btn btn-secondary" href="index.php?action=<?=$controller?>&amp;month=<?=$viewData['yearToday'].$viewData['monthToday']?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>&amp;abs=<?=$viewData['absid']?>"><?=$LANG['today']?></a>
    <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectMonth"><?=$LANG['month'] . ': ' . $viewData['year'].$viewData['month']?></button>
    <?php if ($C->read('showRegionButton')) { ?>

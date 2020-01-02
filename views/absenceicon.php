@@ -72,7 +72,7 @@ if (!defined('VALID_ROOT')) exit('');
                                     if ($count % 12 == 0) echo '</div><div class="row">';
                                     $iconTooltip = '<span class=\''.$fai['val'].' fa-5x text-info\' title=\''.$fai['val'].'\'></span>';
                                     echo '<div class="col-lg-1" style="border: '.(($fai['val'] == $viewData['icon']) ? "1" : "0").'px solid #CC0000;"><div class="radio">';
-                                    echo '<label><input name="opt_absIcon" value="'.$fai['val'].'" tabindex="'.$tabindex++.'" type="radio"'.(($fai['val'] == $viewData['icon']) ? " checked" : "").'><i data-position="tooltip-top" class="tooltip-info" data-toggle="tooltip" data-title="'.$iconTooltip.'"><span class="'.$fai['val'].' fa-lg text-info" title="'.$fai['val'].'"></span></i></label>';
+                                    echo '<label><input name="opt_absIcon" value="'.$fai['val'].'" tabindex="'.$tabindex++.'" type="radio"'.(($fai['val'] == $viewData['icon']) ? " checked" : "").'><i data-placement="top" data-type="info" data-toggle="tooltip" title="'.$iconTooltip.'"><span class="'.$fai['val'].' fa-lg text-info" title="'.$fai['val'].'"></span></i></label>';
                                     echo '</div></div>';
                                     $count++;
                                  } ?>
@@ -93,7 +93,7 @@ if (!defined('VALID_ROOT')) exit('');
                                     if ($count % 12 == 0) echo '</div><div class="row">';
                                     $iconTooltip = '<span class=\''.$fai['val'].' fa-5x text-info\' title=\''.$fai['val'].'\'></span>';
                                     echo '<div class="col-lg-1" style="border: '.(($fai['val'] == $viewData['icon']) ? "1" : "0").'px solid #CC0000;"><div class="radio">';
-                                    echo '<label><input name="opt_absIcon" value="'.$fai['val'].'" tabindex="'.$tabindex++.'" type="radio"'.(($fai['val'] == $viewData['icon']) ? " checked" : "").'><i data-position="tooltip-top" class="tooltip-info" data-toggle="tooltip" data-title="'.$iconTooltip.'"><span class="'.$fai['val'].' fa-lg text-info" title="'.$fai['val'].'"></span></i></label>';
+                                    echo '<label><input name="opt_absIcon" value="'.$fai['val'].'" tabindex="'.$tabindex++.'" type="radio"'.(($fai['val'] == $viewData['icon']) ? " checked" : "").'><i data-placement="top" data-type="info" data-toggle="tooltip" title="'.$iconTooltip.'"><span class="'.$fai['val'].' fa-lg text-info" title="'.$fai['val'].'"></span></i></label>';
                                     echo '</div></div>';
                                     $count++;
                                  } ?>
@@ -114,7 +114,7 @@ if (!defined('VALID_ROOT')) exit('');
                                     if ($count % 12 == 0) echo '</div><div class="row">';
                                     $iconTooltip = '<span class=\''.$fai['val'].' fa-5x text-info\' title=\''.$fai['val'].'\'></span>';
                                     echo '<div class="col-lg-1" style="border: '.(($fai['val'] == $viewData['icon']) ? "1" : "0").'px solid #CC0000;"><div class="radio">';
-                                    echo '<label><input name="opt_absIcon" value="'.$fai['val'].'" tabindex="'.$tabindex++.'" type="radio"'.(($fai['val'] == $viewData['icon']) ? " checked" : "").'><i data-position="tooltip-top" class="tooltip-info" data-toggle="tooltip" data-title="'.$iconTooltip.'"><span class="'.$fai['val'].' fa-lg text-info" title="'.$fai['val'].'"></span></i></label>';
+                                    echo '<label><input name="opt_absIcon" value="'.$fai['val'].'" tabindex="'.$tabindex++.'" type="radio"'.(($fai['val'] == $viewData['icon']) ? " checked" : "").'><i data-placement="top" data-type="info" data-toggle="tooltip" title="'.$iconTooltip.'"><span class="'.$fai['val'].' fa-lg text-info" title="'.$fai['val'].'"></span></i></label>';
                                     echo '</div></div>';
                                     $count++;
                                  } ?>

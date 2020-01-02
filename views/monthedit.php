@@ -131,18 +131,16 @@ if (!defined('VALID_ROOT')) exit('');
                                  $prop = 'wday'.$i;
                                  if ($D->get($viewData['year'].$viewData['month'].sprintf("%02d",$i), 'all', $viewData['regionid'], true)) {
                                     $icon = 'fas fa-sticky-note';
-                                    $tooltipColor = ' tooltip-'.$D->color;
-                                    $tooltip = ' data-position="tooltip-top" data-toggle="tooltip" data-title="'.$D->daynote.'"';
+                                    $tooltip = ' data-placement="top" data-type="'.$D->color.'" data-toggle="tooltip" title="'.$D->daynote.'"';
                                  }
                                  else {
                                     $icon = 'far fa-sticky-note';
-                                    $tooltipColor = '';
                                     $tooltip = '';
                                  }
                                  ?>
                                  <th class="m-weekday text-center"<?=$viewData['dayStyles'][$i]?>>
                                     <a href="index.php?action=daynote&amp;date=<?=$viewData['year'].$viewData['month'].sprintf("%02d",$i)?>&amp;for=all&amp;region=<?=$viewData['regionid']?>">
-                                       <i class="<?=$icon?> text-info<?=$tooltipColor?>"<?=$tooltip?>></i>
+                                       <i class="<?=$icon?> text-info"<?=$tooltip?>></i>
                                     </a>
                                  </th>
                               <?php } ?>

@@ -171,7 +171,7 @@ if (!defined('VALID_ROOT')) exit('');
             if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
             ?>
             <div class="card-header bg-<?=$CONF['controllers'][$controller]->panelColor?>">
-               <i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['stats_title_presences']?>&nbsp;(<?=$viewData['periodName']?>)<span class="label label-default float-right label-header-right"><i data-position="tooltip-bottom" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['stats_total']?>"><?=$viewData['total']?></i></span><?=$pageHelp?>
+               <i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['stats_title_presences']?>&nbsp;(<?=$viewData['periodName']?>)<span class="badge badge-secondary float-right badge-header-right"><i data-placement="bottom" data-type="info" data-toggle="tooltip" title="<?=$LANG['stats_total']?>"><?=$viewData['total']?></i></span><?=$pageHelp?>
             </div>
             <div class="card-body">
                <p><?=$LANG['stats_presences_desc']?></p>

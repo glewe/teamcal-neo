@@ -390,7 +390,7 @@ function iconTooltip($text='Tooltip text', $title='', $position='top', $type='in
 {
    if (strlen($title)) $ttText  = "<div class='text-bold' style='padding-top: 4px; padding-bottom: 4px'>".$title."</div>";
    $ttText .= "<div class='text-normal'>".$text."</div>";
-   $html = '<span data-position="tooltip-'.$position.'" class="tooltip-'.$type.' fas fa-'.$icon.' text-'.$type.'" data-toggle="tooltip" data-title="'.$ttText.'"></span>';
+   $html = '<span data-placement="'.$position.'" data-type="'.$type.' fas fa-'.$icon.' text-'.$type.'" data-toggle="tooltip" title="'.$ttText.'"></span>';
    return $html;
 }
 ?>

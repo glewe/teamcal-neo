@@ -25,7 +25,7 @@ if (!defined('VALID_ROOT')) exit('');
                //
                // This is a global daynote
                //
-               $notestart = '<div class="tooltip-'.$D->color.'" style="width: 100%; height: 100%;" data-position="tooltip-top" data-toggle="tooltip" data-title="' . $D->daynote . '">';
+               $notestart = '<div style="width: 100%; height: 100%;" data-placement="top" data-type="'.$D->color.'" data-toggle="tooltip" title="' . $D->daynote . '">';
                $noteend = '</div>';
                $notestyle = 'background-image: url(images/ovl_daynote.gif); background-repeat: no-repeat; background-position: top right;';
             }

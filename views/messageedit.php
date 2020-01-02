@@ -63,11 +63,11 @@ if (!defined('VALID_ROOT')) exit('');
                            <span class="text-normal"><?=$LANG['msg_content_type_desc']?></span>
                         </label>
                         <div class="col-lg-<?=$colsright?>">
-                           <div class="radio"><label><input name="opt_contenttype" value="primary" tabindex="<?=$tabindex++?>" <?=($viewData['contenttype']=='primary')?"checked":"";?> type="radio"><span class="label label-primary"><?=$LANG['msg_content_type_primary']?></span></label></div>
-                           <div class="radio"><label><input name="opt_contenttype" value="info" tabindex="<?=$tabindex++?>"  <?=($viewData['contenttype']=='info')?"checked":"";?> type="radio"><span class="label label-info"><?=$LANG['msg_content_type_info']?></span></label></div>
-                           <div class="radio"><label><input name="opt_contenttype" value="success" tabindex="<?=$tabindex++?>" <?=($viewData['contenttype']=='success')?"checked":"";?> type="radio"><span class="label label-success"><?=$LANG['msg_content_type_success']?></span></label></div>
-                           <div class="radio"><label><input name="opt_contenttype" value="warning" tabindex="<?=$tabindex++?>" <?=($viewData['contenttype']=='warning')?"checked":"";?> type="radio"><span class="label label-warning"><?=$LANG['msg_content_type_warning']?></span></label></div>
-                           <div class="radio"><label><input name="opt_contenttype" value="danger" tabindex="<?=$tabindex++?>" <?=($viewData['contenttype']=='danger')?"checked":"";?> type="radio"><span class="label label-danger"><?=$LANG['msg_content_type_danger']?></span></label></div>
+                           <div class="radio"><label><input name="opt_contenttype" value="primary" tabindex="<?=$tabindex++?>" <?=($viewData['contenttype']=='primary')?"checked":"";?> type="radio"><span class="badge badge-primary"><?=$LANG['msg_content_type_primary']?></span></label></div>
+                           <div class="radio"><label><input name="opt_contenttype" value="info" tabindex="<?=$tabindex++?>"  <?=($viewData['contenttype']=='info')?"checked":"";?> type="radio"><span class="badge badge-info"><?=$LANG['msg_content_type_info']?></span></label></div>
+                           <div class="radio"><label><input name="opt_contenttype" value="success" tabindex="<?=$tabindex++?>" <?=($viewData['contenttype']=='success')?"checked":"";?> type="radio"><span class="badge badge-success"><?=$LANG['msg_content_type_success']?></span></label></div>
+                           <div class="radio"><label><input name="opt_contenttype" value="warning" tabindex="<?=$tabindex++?>" <?=($viewData['contenttype']=='warning')?"checked":"";?> type="radio"><span class="badge badge-warning"><?=$LANG['msg_content_type_warning']?></span></label></div>
+                           <div class="radio"><label><input name="opt_contenttype" value="danger" tabindex="<?=$tabindex++?>" <?=($viewData['contenttype']=='danger')?"checked":"";?> type="radio"><span class="badge badge-danger"><?=$LANG['msg_content_type_danger']?></span></label></div>
                         </div>
                      </div>
                      <div class="divider"><hr></div>

@@ -52,10 +52,10 @@ $formLink = 'index.php?action='.$controller.'&amp;month='.$viewData['year'].$vie
             }
             ?>
             <?php if ($showMonths < 12 ) { ?>
-               <button type="submit" name="btn_onemore" class="btn btn-secondary tooltip-default float-right" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_onemore']?>"><span class="fas fa-plus"></span></button>
+               <button type="submit" name="btn_onemore" class="btn btn-secondary float-right" data-placement="top" data-type="secondary" data-toggle="tooltip" title="<?=$LANG['cal_tt_onemore']?>"><span class="fas fa-plus"></span></button>
             <?php } ?>
             <?php if ($showMonths > 1 ) { ?>
-               <button type="submit" name="btn_oneless" class="btn btn-secondary tooltip-default float-right" style="margin-right:4px;" data-position="tooltip-top" data-toggle="tooltip" data-title="<?=$LANG['cal_tt_oneless']?>"><span class="fas fa-minus"></span></button>
+               <button type="submit" name="btn_oneless" class="btn btn-secondary float-right" style="margin-right:4px;" data-placement="tooltip-top" data-type="secondary" data-toggle="tooltip" title="<?=$LANG['cal_tt_oneless']?>"><span class="fas fa-minus"></span></button>
             <?php } ?>
 
             <!-- Modal: Select Month -->

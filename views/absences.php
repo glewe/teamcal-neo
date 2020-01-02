@@ -82,11 +82,11 @@ if (!defined('VALID_ROOT')) exit('');
                            </div>
                            <div class="col-lg-4"><?=$absence['name']?></div>
                            <div class="col-lg-5">
-                              <?=(($absence['approval_required'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_approval_required'].'"><i class="far fa-edit fa-lg text-danger"></i></i>':'')?>
-                              <?=(($absence['manager_only'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_manager_only'].'"><i class="fas fa-user-circle fa-lg text-warning"></i></i>':'')?>
-                              <?=(($absence['hide_in_profile'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_hide_in_profile'].'"><i class="far fa-eye-slash fa-lg text-info"></i></i>':'')?>
-                              <?=(($absence['confidential'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_confidential'].'"><i class="fas fa-exclamation-circle fa-lg text-success"></i></i>':'')?>
-                              <?=(($absence['allowmonth'] OR ($absence['allowweek']))?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['abs_allow_active'].'"><i class="far fa-hand-paper fa-lg text-warning"></i></i>':'')?>
+                              <?=(($absence['approval_required'])?'<i data-placement="top" data-type="info" data-toggle="tooltip" title="'.$LANG['abs_approval_required'].'"><i class="far fa-edit fa-lg text-danger"></i></i>':'')?>
+                              <?=(($absence['manager_only'])?'<i data-placement="top" data-type="info" data-toggle="tooltip" title="'.$LANG['abs_manager_only'].'"><i class="fas fa-user-circle fa-lg text-warning"></i></i>':'')?>
+                              <?=(($absence['hide_in_profile'])?'<i data-placement="top" data-type="info" data-toggle="tooltip" title="'.$LANG['abs_hide_in_profile'].'"><i class="far fa-eye-slash fa-lg text-info"></i></i>':'')?>
+                              <?=(($absence['confidential'])?'<i data-placement="top" data-type="info" data-toggle="tooltip" title="'.$LANG['abs_confidential'].'"><i class="fas fa-exclamation-circle fa-lg text-success"></i></i>':'')?>
+                              <?=(($absence['allowmonth'] OR ($absence['allowweek']))?'<i data-placement="top" data-type="info" data-toggle="tooltip" title="'.$LANG['abs_allow_active'].'"><i class="far fa-hand-paper fa-lg text-warning"></i></i>':'')?>
                            </div>
                            <div class="col-lg-2 text-right">
                               <button type="button" class="btn btn-danger btn-sm" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteAbsence_<?=$absence['id']?>"><?=$LANG['btn_delete']?></button>

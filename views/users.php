@@ -105,14 +105,14 @@ if (!defined('VALID_ROOT')) exit('');
                                        <?php } else { ?>
                                           <span style="padding-left: 16px;">&nbsp;</span>
                                        <?php } ?>
-                                       <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<img src='<?=APP_AVATAR_DIR.$UO->read($user['username'],'avatar')?>' style='width: 80px; height: 80px;'>"><img src="<?=APP_AVATAR_DIR?>/<?=$UO->read($user['username'],'avatar')?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?=$user['dispname']?>
+                                       <i data-placement="top" data-type="info" data-toggle="tooltip" data-title="<img src='<?=APP_AVATAR_DIR.$UO->read($user['username'],'avatar')?>' style='width: 80px; height: 80px;'>"><img src="<?=APP_AVATAR_DIR?>/<?=$UO->read($user['username'],'avatar')?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?=$user['dispname']?>
                                     </div>
                                     <div class="col-lg-2">
-                                       <a href="#" data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$user['role']?>"><i class="fas fa-user-circle fa-sm text-<?=$user['color']?>"></i></a>
-                                       <?=(($user['locked'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_locked'].'"><i class="fas fa-lock fa-sm text-danger"></i></i>':'')?>
-                                       <?=(($user['onhold'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_onhold'].'"><i class="far fa-clock fa-sm text-warning"></i></i>':'')?>
-                                       <?=(($user['verify'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_verify'].'"><i class="fas fa-exclamation-circle fa-sm text-success"></i></i>':'')?>
-                                       <?=(($user['hidden'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_hidden'].'"><i class="far fa-eye-slash fa-sm text-info"></i></i>':'')?>
+                                       <a href="#" data-placement="top" data-type="info" data-toggle="tooltip" title="<?=$LANG['role']?>: <?=$user['role']?>"><i class="fas fa-user-circle fa-sm text-<?=$user['color']?>"></i></a>
+                                       <?=(($user['locked'])?'<i data-placement="top" data-type="info" data-toggle="tooltip" title="'.$LANG['users_attribute_locked'].'"><i class="fas fa-lock fa-sm text-danger"></i></i>':'')?>
+                                       <?=(($user['onhold'])?'<i data-placement="top" data-type="info" data-toggle="tooltip" title="'.$LANG['users_attribute_onhold'].'"><i class="far fa-clock fa-sm text-warning"></i></i>':'')?>
+                                       <?=(($user['verify'])?'<i data-placement="top" data-type="info" data-toggle="tooltip" title="'.$LANG['users_attribute_verify'].'"><i class="fas fa-exclamation-circle fa-sm text-success"></i></i>':'')?>
+                                       <?=(($user['hidden'])?'<i data-placement="top" data-type="info" data-toggle="tooltip" title="'.$LANG['users_attribute_hidden'].'"><i class="far fa-eye-slash fa-sm text-info"></i></i>':'')?>
                                     </div>
                                     <div class="col-lg-2"><?=$user['created']?></div>
                                     <div class="col-lg-2"><?=(($user['last_login']!=DEFAULT_TIMESTAMP)?$user['last_login']:"")?></div>
@@ -178,14 +178,14 @@ if (!defined('VALID_ROOT')) exit('');
                                  <div class="col-lg-12" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                                     <div class="col-lg-4">
                                        <?php if ($user1['username']!="admin") {?><input type="checkbox" name="chk_userArchived[]" value="<?=$user1['username']?>">&nbsp;&nbsp;<?php }?>
-                                       <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<img src='<?=APP_AVATAR_DIR.$UO->read($user1['username'],'avatar',true)?>' style='width: 80px; height: 80px;'>"><img src="<?=APP_AVATAR_DIR?>/<?=$UO->read($user1['username'],'avatar',true)?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?=$user1['dispname']?>
+                                       <i data-placement="top" data-type="info" data-toggle="tooltip" data-title="<img src='<?=APP_AVATAR_DIR.$UO->read($user1['username'],'avatar',true)?>' style='width: 80px; height: 80px;'>"><img src="<?=APP_AVATAR_DIR?>/<?=$UO->read($user1['username'],'avatar',true)?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?=$user1['dispname']?>
                                     </div>
                                     <div class="col-lg-2">
-                                       <i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$LANG['role_'.$user1['role']]?>"><i class="fas fa-user-circle fa-sm text-<?=$user1['color']?>"></i></i>
-                                       <?=(($user1['locked'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_locked'].'"><i class="fas fa-lock fa-sm text-danger"></i></i>':'')?>
-                                       <?=(($user1['onhold'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_onhold'].'"><i class="far fa-clock fa-sm text-warning"></i></i>':'')?>
-                                       <?=(($user1['verify'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_verify'].'"><i class="fas fa-exclamation-circle fa-sm text-success"></i></i>':'')?>
-                                       <?=(($user1['hidden'])?'<i data-position="tooltip-top" class="tooltip-warning" data-toggle="tooltip" data-title="'.$LANG['users_attribute_hidden'].'"><i class="far fa-eye-slash fa-sm text-info"></i></i>':'')?>
+                                       <i data-placement="top" data-type="info" data-toggle="tooltip" data-title="<?=$LANG['role']?>: <?=$LANG['role_'.$user1['role']]?>"><i class="fas fa-user-circle fa-sm text-<?=$user1['color']?>"></i></i>
+                                       <?=(($user1['locked'])?'<i data-placement="top" data-type="info" data-toggle="tooltip" data-title="'.$LANG['users_attribute_locked'].'"><i class="fas fa-lock fa-sm text-danger"></i></i>':'')?>
+                                       <?=(($user1['onhold'])?'<i data-placement="top" data-type="info" data-toggle="tooltip" data-title="'.$LANG['users_attribute_onhold'].'"><i class="far fa-clock fa-sm text-warning"></i></i>':'')?>
+                                       <?=(($user1['verify'])?'<i data-placement="top" data-type="info" data-toggle="tooltip" data-title="'.$LANG['users_attribute_verify'].'"><i class="fas fa-exclamation-circle fa-sm text-success"></i></i>':'')?>
+                                       <?=(($user1['hidden'])?'<i data-placement="top" data-type="info" data-toggle="tooltip" data-title="'.$LANG['users_attribute_hidden'].'"><i class="far fa-eye-slash fa-sm text-info"></i></i>':'')?>
                                     </div>
                                     <div class="col-lg-2"><?=$user1['created']?></div>
                                     <div class="col-lg-2"><?=$user1['last_login']?></div>

@@ -66,7 +66,7 @@ $formLink = 'index.php?action='.$controller.'&amp;group='.$viewData['groupid'];
                                  <?php if($abs['bgtrans']) $bgstyle=""; else $bgstyle="background-color: #".$abs['bgcolor'].";";?>
                                  <div style="color:#<?=$abs['color']?>;<?=$bgstyle?>border:1px solid #333333; width:26px; height:26px;">
                                     <?php if ($abs['icon'] != "No") { ?>
-                                       <a href="#" style="color:inherit;" data-position="tooltip-top" class="tooltip-default" data-toggle="tooltip" data-title="<?=$abs['name']?>"><span class="<?=$abs['icon']?>"></span></a>
+                                       <a href="#" style="color:inherit;" data-placement="top" data-type="secondary" data-toggle="tooltip" title="<?=$abs['name']?>"><span class="<?=$abs['icon']?>"></span></a>
                                     <?php } else { ?>
                                        <?=$abs['symbol']?>
                                     <?php } ?>
