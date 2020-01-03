@@ -571,10 +571,9 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (193, 'gdprTwitter', '0'),
 (194, 'gdprXing', '1'),
 (195, 'gdprYoutube', '0'),
-(196, 'licenseKey', 'TCN-5e09e4006cd83'),
-(197, 'licKey', 'TCN-5e09e4006cd83'),
-(198, 'licExpiryWarning', '10'),
-(199, 'menuBarBg', 'dark');
+(196, 'licKey', ''),
+(197, 'licExpiryWarning', '30'),
+(198, 'menuBarBg', 'dark');
 
 -- --------------------------------------------------------
 
