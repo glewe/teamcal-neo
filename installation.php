@@ -254,7 +254,7 @@ if (!$installationComplete AND readDef('APP_INSTALLED', $configAppFile) <> '0')
       <meta http-equiv="Content-type" content="text/html;charset=utf8">
       <meta charset="utf-8">
       <link rel="stylesheet" href="themes/bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" href="css/custom.css">
+      <link rel="stylesheet" href="css/teamcalneo.css">
       <link rel="shortcut icon" href="images/icons/logo-16.png">
       <link rel="stylesheet" href="fonts/font-awesome/5.12.0/css/all.css">   
       <script src="js/ajax.js"></script>
