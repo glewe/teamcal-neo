@@ -37,6 +37,10 @@ div.radio input, div.checkbox input {
    margin-right: 8px;
 }
 
+.form-group label {
+   font-weight: bold;
+}
+
 .pull-left {
    float: left !important;
 }

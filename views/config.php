@@ -122,42 +122,50 @@ if (!defined('VALID_ROOT')) exit('');
                                  echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                               } ?>
 
-                              <?php if ($LIC->status()=="pending") { ?>
-                              <div class="form-group row" id="form-lic-activate">
-                                 <label for="licActivate" class="col-lg-8 control-label">
-                                    <?=$LANG['config_licActivate']?><br>
-                                    <span class="text-normal"><?=$LANG['config_licActivate_comment']?></span>
-                                 </label>
-                                 <div class="col-lg-4">
-                                    <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" name="btn_licActivate"><?=$LANG['btn_activate']?></button>
-                                 </div>
-                                 <div class="divider"><hr></div>
-                              </div>    
-                              <?php } ?>
+                              <?php 
+                              $licStatus = $LIC->status();
+                              switch ($licStatus) { 
 
-                              <?php if ($LIC->status()=="active" && !$LIC->domainRegistered()) { ?>
-                              <div class="form-group row" id="form-lic-register">
-                                 <label for="licRegister" class="col-lg-8 control-label alert alert-warning">
-                                    <?=$LANG['config_licRegister']?><br>
-                                    <span class="text-normal"><?=$LANG['config_licRegister_comment']?></span>
-                                 </label>
-                                 <div class="col-lg-4">
-                                    <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" name="btn_licRegister"><?=$LANG['btn_register']?></button>
+                                 case "pending": ?>
+                                 <div class="form-group row" id="form-lic-activate">
+                                    <label for="licActivate" class="col-lg-8 control-label">
+                                       <?=$LANG['config_licActivate']?><br>
+                                       <span class="text-normal"><?=$LANG['config_licActivate_comment']?></span>
+                                    </label>
+                                    <div class="col-lg-4">
+                                       <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" name="btn_licActivate"><?=$LANG['btn_activate']?></button>
+                                    </div>
+                                    <div class="divider"><hr></div>
+                                 </div>    
+                                 <?php break;
+
+                                 case "unregistered": ?>
+                                 <div class="form-group row" id="form-lic-register">
+                                    <label for="licRegister" class="col-lg-8 control-label">
+                                       <?=$LANG['config_licRegister']?><br><br>
+                                       <div class="text-normal alert alert-warning"><?=$LANG['config_licRegister_comment']?></div>
+                                    </label>
+                                    <div class="col-lg-4">
+                                       <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" name="btn_licRegister"><?=$LANG['btn_register']?></button>
+                                    </div>
+                                    <div class="divider"><hr></div>
                                  </div>
-                                 <div class="divider"><hr></div>
-                              </div>    
-                              <?php } elseif ($LIC->status()=="active" && $LIC->domainRegistered()) { ?>
-                              <div class="form-group row" id="form-lic-deregister">
-                                 <label for="licDeregister" class="col-lg-8 control-label">
-                                    <?=$LANG['config_licDeregister']?><br>
-                                    <span class="text-normal"><?=$LANG['config_licDeregister_comment']?></span>
-                                 </label>
-                                 <div class="col-lg-4">
-                                    <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" name="btn_licDeregister"><?=$LANG['btn_deregister']?></button>
+                                 <?php break;
+
+                                 case "active": ?>
+                                 <div class="form-group row" id="form-lic-deregister">
+                                    <label for="licDeregister" class="col-lg-8 control-label">
+                                       <?=$LANG['config_licDeregister']?><br>
+                                       <span class="text-normal"><?=$LANG['config_licDeregister_comment']?></span>
+                                    </label>
+                                    <div class="col-lg-4">
+                                       <button type="submit" class="btn btn-warning" tabindex="<?=$tabindex++;?>" name="btn_licDeregister"><?=$LANG['btn_deregister']?></button>
+                                    </div>
+                                    <div class="divider"><hr></div>
                                  </div>
-                                 <div class="divider"><hr></div>
-                              </div>
-                              <?php } ?>
+                                 <?php break;
+                                 
+                              } ?>
 
                              </div>
                            </div>

@@ -270,11 +270,11 @@ class License
          <tr><th>".$LANG['lic_registered_domains'].":</th><td>".$domains."</td></tr>
          </table>";
 
-         switch ($data->status) {
+         switch ($this->status()) {
          
             case "active":
-               $alert['type'] = 'success';
                $title = $LANG['lic_active'];
+               $alert['type'] = 'success';
                $alert['title'] = $title.'<span class="btn btn-'.$alert['type'].' btn-sm" style="margin-left:16px;">'.proper($data->status).'</span>';
                $alert['subject'] = $LANG['lic_active_subject'];
                $alert['text'] = '';
@@ -282,8 +282,8 @@ class License
                break;
 
             case "expired":
-               $alert['type'] = 'warning';
                $title = $LANG['lic_expired'];
+               $alert['type'] = 'warning';
                $alert['title'] = $title.'<span class="btn btn-'.$alert['type'].' btn-sm" style="margin-left:16px;">'.proper($data->status).'</span>';
                $alert['subject'] = $LANG['lic_expired_subject'];
                $alert['help'] = $LANG['lic_expired_help'];
@@ -306,6 +306,15 @@ class License
                $alert['text'] = '';
                $alert['help'] = $LANG['lic_pending_help'];
                break;
+
+            case "unregistered":
+               $title = $LANG['lic_active'];
+               $alert['type'] = 'warning';
+               $alert['title'] = $title.'<span class="btn btn-'.$alert['type'].' btn-sm" style="margin-left:16px;">'.proper($data->status).'</span>';
+               $alert['subject'] = $LANG['lic_active_unregistered_subject'];
+               $alert['text'] = '';
+               $alert['help'] = '';
+               break;
          }
       }
 
@@ -326,7 +335,7 @@ class License
    /**
     * Get status
     *
-    * @return string  active/blocked/invalid/expired/pending
+    * @return string  active/blocked/invalid/expired/pending/unregistered
     */
    function status()
    {
@@ -334,6 +343,7 @@ class License
 
       switch ($this->details->status) {
          case "active":
+            if (!$this->domainRegistered()) return 'unregistered';
             return 'active';
             break;
 
@@ -350,6 +360,5 @@ class License
             break;
       }
    }
-
  }
 ?>

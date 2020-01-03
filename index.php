@@ -339,7 +339,8 @@ else
 
 //=============================================================================
 //
-// LICENSE STATUS AND EXPIRY CHECK
+// LICENSE CHECK
+// *** You are not allowed to alter or remove any license management code ***
 //
 $LIC->load();
 switch ($licStatus=$LIC->status())
@@ -376,6 +377,15 @@ switch ($licStatus=$LIC->status())
       $alertData['subject'] = $LANG['lic_pending_subject'];
       $alertData['text'] = '';
       $alertData['help'] = $LANG['lic_pending_help'];
+      $showAlert = true;
+      break;
+
+   case "unregistered":
+      $alertData['type'] = 'warning';
+      $alertData['title'] = $LANG['lic_unregistered'];
+      $alertData['subject'] = $LANG['lic_unregistered_subject'];
+      $alertData['text'] = '';
+      $alertData['help'] = $LANG['lic_unregistered_help'];
       $showAlert = true;
       break;
 }

@@ -455,7 +455,8 @@ $LANG['config_licExpiryWarning_comment'] = "Enter the number of days before lice
 $LANG['config_licKey'] = "License Key";
 $LANG['config_licKey_comment'] = "Enter your license key here. It was provided to you when you registered yout TeamCal Neo instance.";
 $LANG['config_licRegister'] = "Register Domain";
-$LANG['config_licRegister_comment'] = "This TeamCal Neo domain is not registered for your license yet. Please register it.";
+$LANG['config_licRegister_comment'] = "This TeamCal Neo domain is not registered for the given license key.<br>If the license key is valid and allows for more than one domain, 
+      click the '".$LANG['btn_register']."' button to add this domain. Otherwise, please enter a different valid license key and click '".$LANG['btn_apply']."'.";
 $LANG['config_licDeregister'] = "De-Register Domain";
 $LANG['config_licDeregister_comment'] = "You can deregister this TeamCal Neo domain from your license, e.g. to move your instance to a different domain. Deregister it here and then register it from the new domain.";
 $LANG['config_logLanguage'] = "Log Language";
@@ -733,6 +734,7 @@ if ( $C->read('googleAnalytics') AND $C->read("googleAnalyticsID")) {
 //
 $LANG['lic_active'] = 'Active License';
 $LANG['lic_active_subject'] = 'This is an active TeamCal Neo license for this domain. Awesome!';
+$LANG['lic_active_unregistered_subject'] = 'This is an active TeamCal Neo license but not registered for this domain.';
 $LANG['lic_alert_activation_fail'] = 'The following error occurred while trying to activate your license:';
 $LANG['lic_alert_activation_success'] = 'Your license was successfully activated for this domain.';
 $LANG['lic_alert_registration_fail'] = 'The following error occurred while trying to register your domain to your license:';
@@ -768,6 +770,9 @@ $LANG['lic_pending_help'] = 'Please contact your administrator to activate this 
 $LANG['lic_registered_domains'] = 'Registered Domains';
 $LANG['lic_status'] = 'Status';
 $LANG['lic_product'] = 'Product';
+$LANG['lic_unregistered'] = 'Unregistered License';
+$LANG['lic_unregistered_subject'] = 'The license key of this TeamCal Neo instance is not registered for this domain.';
+$LANG['lic_unregistered_help'] = 'Please contact the administrator to register this domain or obtain a valid license.';
 
 //
 // Log
