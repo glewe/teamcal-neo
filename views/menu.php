@@ -18,18 +18,12 @@ if (!defined('VALID_ROOT')) exit('');
       <?php if ($C->read("menuBarDark")) $navcolor = "dark"; else $navcolor = "light"; ?>
       <nav class="navbar navbar-expand-lg navbar-<?=$navcolor?> bg-<?=$C->read("menuBarBg")?> fixed-top">
          <div class="container">
-
-            <!-- <div class="navbar-header"> -->
-               <a href="<?=WEBSITE_URL?>" class="navbar-brand" style="padding: 2px 8px 0 8px;"><img src="images/logo.png" width="48" height="48" alt=""></a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-               </button>       
-            <!-- </div> -->
-            
-            <div class="navbar-collapse collapse" id="navbar-main">
-               
+            <a href="<?=WEBSITE_URL?>" class="navbar-brand" style="padding: 2px 8px 0 8px;"><img src="images/logo.png" width="48" height="48" alt=""></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+            </button>       
+            <div class="collapse navbar-collapse" id="navbarTop">
                <ul class="navbar-nav mr-auto">
-
                   <!-- App Menu -->
                   <li class="nav-item dropdown">
                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="app" aria-haspopup="true" aria-expanded="false"><?=$C->read("appTitle")?></a>
@@ -43,7 +37,6 @@ if (!defined('VALID_ROOT')) exit('');
                         <?php } ?>
                      </div>
                   </li>
-
                   <!-- View Menu -->
                   <?php if ( (isAllowed($CONF['controllers']['messages']->permission) AND $C->read('activateMessages')) OR
                               isAllowed($CONF['controllers']['calendarview']->permission) OR
@@ -103,7 +96,6 @@ if (!defined('VALID_ROOT')) exit('');
                         </div>
                      </li>
                   <?php } ?>                     
-                  
                   <!-- Edit Menu -->
                   <?php if ( isAllowed($CONF['controllers']['calendaredit']->permission) OR
                              isAllowed($CONF['controllers']['monthedit']->permission) OR
@@ -129,12 +121,9 @@ if (!defined('VALID_ROOT')) exit('');
                         </div>
                      </li>
                   <?php } ?>                     
-                  
                </ul>
-
                <div class="float-right">
                   <ul class="navbar-nav mr-auto">
-                  
                      <!-- Admin Menu -->
                      <?php if ( isAllowed($CONF['controllers']['config']->permission) OR 
                               isAllowed($CONF['controllers']['calendaroptions']->permission) OR
@@ -198,7 +187,6 @@ if (!defined('VALID_ROOT')) exit('');
                            </div>
                         </li>
                      <?php } ?>                     
-                     
                      <!-- Help Menu -->
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="help" aria-haspopup="true" aria-expanded="false"><?=$LANG['mnu_help']?><span class="caret"></span></a>
@@ -216,7 +204,6 @@ if (!defined('VALID_ROOT')) exit('');
                            <a class="dropdown-item" tabindex="-1" href="https://www.lewe.com/teamcal-neo/#tcnvote" target="_blank"><i class="fas fa-thumbs-up fa-lg text-<?=$CONF['menuIconColor']?> fa-menu"></i><?=$LANG['mnu_help_vote']?></a>
                         </div>
                      </li>
-
                      <!-- User Menu -->
                      <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="user" aria-haspopup="true" aria-expanded="false">
@@ -237,12 +224,9 @@ if (!defined('VALID_ROOT')) exit('');
                            <?php } ?>
                         </div>
                      </li>
-
                   </ul>
                </div>
-
             </div>
-               
          </div>
       </nav>
       
