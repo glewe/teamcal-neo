@@ -3,6 +3,21 @@ TEAMCAL NEO UPGRADE INFO
 ==============================================================================
 
 ------------------------------------------------------------------------------
+[3.0.0] -> [3.0.1]
+
+1. Backup your current files and database!
+
+2. Download the new release and overwrite all files.
+ 
+3. Edit config/config.app.php and change line 39 to:
+   define('APP_INSTALLED',"1");
+
+4. Edit config/config.db.php and update your database settings from your backup.
+   
+5. Delete file installation.php in the root directory
+
+
+------------------------------------------------------------------------------
 [2.2.3] -> [3.0.0]
 
 ATTENTION !
@@ -27,17 +42,17 @@ https://support.lewe.com/docs/teamcal-neo-manual/administration/license/
      Make sure that no user has selected this theme before you switch it
      back on.
 
-1. Backup your current files and database!
+2. Backup your current files and database!
 
-2. Download the new release and overwrite all files.
+3. Download the new release and overwrite all files.
  
-3. Edit config/config.app.php and change line 39 to:
+4. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
-4. Edit config/config.db.php and update your database settings from your backup.
+5. Edit config/config.db.php and update your database settings from your backup.
    
-5. Delete file installation.php in the root directory
+6. Delete file installation.php in the root directory
 
-6. Go to Administration -> Framework Configuration -> License tab
+7. Go to Administration -> Framework Configuration -> License tab
    - Activate and register your license
 
