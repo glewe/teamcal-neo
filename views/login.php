@@ -36,7 +36,7 @@ if (!defined('VALID_ROOT')) exit('');
                   <div class="card-header bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="<?=$CONF['controllers'][$controller]->faIcon?> fa-lg fa-header"></i><?=$LANG['login_login']?></div>
                   <div class="card-body">
                      <div class="col-lg-12">
-                        <?php $tabindex = 1; $colsleft = 4; $colsright = 8; $paddingBottom = "36px"; ?>
+                        <?php $tabindex = 1; $colsleft = 4; $colsright = 8; $paddingBottom = "12px"; ?>
                         <form id="login" action="index.php?action=<?=$controller?>" method="post" target="_self" name="loginform" accept-charset="utf-8">
                            <fieldset>
                               <div class="form-group row" style="padding-bottom: <?=$paddingBottom?>;">

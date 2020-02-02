@@ -118,7 +118,6 @@ $C   = new Config();
 //
 // Instantiate secondary classes
 //
-$AV   = new Avatar();
 $G    = new Groups();
 $L    = new Login();
 $LIC  = new License();
@@ -171,7 +170,6 @@ if ($luser = $L->checkLogin()) define('L_USER', $luser); else define('L_USER', 0
 if (L_USER AND (!isset($_GET['action']) OR isset($_GET['action']) AND $_GET['action'] != 'logout'))
 {
    $userData['isLoggedIn'] = true;
-   $userData['loginInfo'] = loginInfo();
     
    //
    // Get the user
@@ -198,6 +196,12 @@ if (L_USER AND (!isset($_GET['action']) OR isset($_GET['action']) AND $_GET['act
    
    $userlang = $UO->read($UL->username, 'language');
    if ($userlang != "default") $language = $userlang;
+
+   if (!strlen($language)) $language = 'english';
+   require_once (WEBSITE_ROOT . '/languages/' . $language . '.php');     // Framework
+   require_once (WEBSITE_ROOT . '/languages/' . $language . '.app.php'); // Application
+
+   $userData['loginInfo'] = loginInfo();
    
    $usertheme = $UO->read($UL->username, 'theme');
    if ($usertheme != "default") $theme = $usertheme;
@@ -285,6 +289,8 @@ if (false)
 if (!strlen($language)) $language = 'english';
 require_once (WEBSITE_ROOT . '/languages/' . $language . '.php');     // Framework
 require_once (WEBSITE_ROOT . '/languages/' . $language . '.app.php'); // Application
+
+$AV   = new Avatar($LANG);
 
 //=============================================================================
 //

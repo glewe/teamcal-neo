@@ -30,9 +30,9 @@ class Avatar
    /**
     * Constructor
     */
-   public function __construct()
+   public function __construct($LANG)
    {
-      global $C, $CONF, $LANG;
+      global $C, $CONF;
       
       $this->maxHeight = 80;
       $this->maxWidth = 80;
@@ -111,7 +111,6 @@ class Avatar
    public function save($uname)
    {
       global $_FILES;
-      global $LANG;
       $this->message = '';
       
       if (is_uploaded_file($_FILES['imgfile']['tmp_name']))
