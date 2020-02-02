@@ -37,7 +37,7 @@ div.radio input, div.checkbox input {
    margin-right: 8px;
 }
 
-.form-group label {
+.form-group .control-label {
    font-weight: bold;
 }
 
