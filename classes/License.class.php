@@ -149,6 +149,7 @@ class License
     */
    function daysToExpiry()
    {
+      if (!isset($this->details->date_expiry)) return 0;
       $todayDate = new DateTime('now');
       $expiryDate = new DateTime($this->details->date_expiry);
       $daysToExpiry = $todayDate->diff($expiryDate);

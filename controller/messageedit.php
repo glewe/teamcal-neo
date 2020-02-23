@@ -123,109 +123,124 @@ if (!empty($_POST))
             $alertData['text'] = $LANG['msg_no_text_text'];
             $alertData['help'] = '';
          }
-         else if ($_POST['opt_msgtype'] == "email" and $C->read("emailNotifications"))
+         else if ($_POST['opt_msgtype'] == "email")
          {
-            //
-            // Send as e-Mail
-            //
-            $viewData['msgtype'] = $_POST['opt_msgtype'];
-            $viewData['subject'] = $_POST['txt_subject'];
-            $viewData['text'] = $_POST['txt_text'];
-            $sendMail = false;
-            $to = "";
-            switch ($_POST['opt_sendto'])
+            if ($C->read("emailNotifications"))
             {
-               case "all" :
-                  $users = $U->getAll();
-                  foreach ( $users as $user )
-                  {
-                     if (strlen($user['email'])) $to .= $user['email'] . ',';
-                  }
-                  $to = rtrim($to,','); // remove the last ","
-                  $sendMail = true;
-                  break;
-               
-               case "group" :
-                  if (isset($_POST['sel_sendToGroup']))
-                  {
-                     foreach ( $_POST['sel_sendToGroup'] as $gto )
+               //
+               // Send as e-Mail
+               //
+               $viewData['msgtype'] = $_POST['opt_msgtype'];
+               $viewData['subject'] = $_POST['txt_subject'];
+               $viewData['text'] = $_POST['txt_text'];
+               $sendMail = false;
+               $to = "";
+               switch ($_POST['opt_sendto'])
+               {
+                  case "all" :
+                     $users = $U->getAll();
+                     foreach ( $users as $user )
                      {
-                        $groupusers = $UG->getAllForGroup($gto);
-                        foreach ( $groupusers as $groupuser )
-                        {
-                           if (strlen($U->getEmail($groupuser))) $to .= $U->getEmail($groupuser) . ',';
-                        }
-                        $to = rtrim($to,','); // remove the last ","
-                     }
-                     $sendMail = true;
-                  }
-                  else
-                  {
-                     //
-                     // No group selected
-                     //
-                     $showAlert = TRUE;
-                     $alertData['type'] = 'warning';
-                     $alertData['title'] = $LANG['alert_warning_title'];
-                     $alertData['subject'] = $LANG['msg_no_group_subject'];
-                     $alertData['text'] = $LANG['msg_no_group_text'];
-                     $alertData['help'] = '';
-                  }
-                  break;
-               
-               case "user" :
-                  if (isset($_POST['sel_sendToUser']))
-                  {
-                     foreach ( $_POST['sel_sendToUser'] as $uto )
-                     {
-                        if (strlen($U->getEmail($uto))) $to .= $U->getEmail($uto) . ",";
+                        if (strlen($user['email'])) $to .= $user['email'] . ',';
                      }
                      $to = rtrim($to,','); // remove the last ","
                      $sendMail = true;
+                     break;
+                  
+                  case "group" :
+                     if (isset($_POST['sel_sendToGroup']))
+                     {
+                        foreach ( $_POST['sel_sendToGroup'] as $gto )
+                        {
+                           $groupusers = $UG->getAllForGroup($gto);
+                           foreach ( $groupusers as $groupuser )
+                           {
+                              if (strlen($U->getEmail($groupuser))) $to .= $U->getEmail($groupuser) . ',';
+                           }
+                           $to = rtrim($to,','); // remove the last ","
+                        }
+                        $sendMail = true;
+                     }
+                     else
+                     {
+                        //
+                        // No group selected
+                        //
+                        $showAlert = TRUE;
+                        $alertData['type'] = 'warning';
+                        $alertData['title'] = $LANG['alert_warning_title'];
+                        $alertData['subject'] = $LANG['msg_no_group_subject'];
+                        $alertData['text'] = $LANG['msg_no_group_text'];
+                        $alertData['help'] = '';
+                     }
+                     break;
+                  
+                  case "user" :
+                     if (isset($_POST['sel_sendToUser']))
+                     {
+                        foreach ( $_POST['sel_sendToUser'] as $uto )
+                        {
+                           if (strlen($U->getEmail($uto))) $to .= $U->getEmail($uto) . ",";
+                        }
+                        $to = rtrim($to,','); // remove the last ","
+                        $sendMail = true;
+                     }
+                     else
+                     {
+                        //
+                        // No user selected
+                        //
+                        $showAlert = TRUE;
+                        $alertData['type'] = 'warning';
+                        $alertData['title'] = $LANG['alert_warning_title'];
+                        $alertData['subject'] = $LANG['msg_no_user_subject'];
+                        $alertData['text'] = $LANG['msg_no_user_text'];
+                        $alertData['help'] = '';
+                     }
+                     break;
+               }
+               
+               if ($sendMail)
+               {
+                  if (strlen($UL->email))
+                  {
+                     $from = ltrim(mb_encode_mimeheader($UL->firstname . " " . $UL->lastname)) . " <" . $UL->email . ">";
                   }
                   else
                   {
+                     $from = '';
+                  }
+                  
+                  if (sendEmail($to, stripslashes($_POST['txt_subject']), stripslashes($_POST['txt_text']), $from))
+                  {
                      //
-                     // No user selected
+                     // Log this event
+                     //
+                     $LOG->log("logMessages", L_USER, "log_msg_email", $UL->username . " -> " . $to);
+                     
+                     //
+                     // E-mail success
                      //
                      $showAlert = TRUE;
-                     $alertData['type'] = 'warning';
-                     $alertData['title'] = $LANG['alert_warning_title'];
-                     $alertData['subject'] = $LANG['msg_no_user_subject'];
-                     $alertData['text'] = $LANG['msg_no_user_text'];
+                     $alertData['type'] = 'success';
+                     $alertData['title'] = $LANG['alert_success_title'];
+                     $alertData['subject'] = $LANG['msg_msg_sent'];
+                     $alertData['text'] = $LANG['msg_msg_sent_text'];
                      $alertData['help'] = '';
                   }
-                  break;
+               }
             }
-            
-            if ($sendMail)
+            else
             {
-               if (strlen($UL->email))
-               {
-                  $from = ltrim(mb_encode_mimeheader($UL->firstname . " " . $UL->lastname)) . " <" . $UL->email . ">";
-               }
-               else
-               {
-                  $from = '';
-               }
-               
-               if (sendEmail($to, stripslashes($_POST['txt_subject']), stripslashes($_POST['txt_text']), $from))
-               {
-                  //
-                  // Log this event
-                  //
-                  $LOG->log("logMessages", L_USER, "log_msg_email", $UL->username . " -> " . $to);
-                  
-                  //
-                  // E-mail success
-                  //
-                  $showAlert = TRUE;
-                  $alertData['type'] = 'success';
-                  $alertData['title'] = $LANG['alert_success_title'];
-                  $alertData['subject'] = $LANG['msg_msg_sent'];
-                  $alertData['text'] = $LANG['msg_msg_sent_text'];
-                  $alertData['help'] = '';
-               }
+               //
+               // E-mail notifications are switched off
+               //
+               $showAlert = TRUE;
+               $alertData['type'] = 'warning';
+               $alertData['title'] = $LANG['alert_warning_title'];
+               $alertData['subject'] = $LANG['msg_email_off_subject'];
+               $alertData['text'] = $LANG['msg_email_off_text'];
+               $alertData['help'] = '';
             }
          }
          elseif ($_POST['opt_msgtype'] == "silent" or $_POST['opt_msgtype'] == "popup")

@@ -492,6 +492,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                         }
                      }
                   }
+                  
                } // END if ($declInScope)
                
                //
