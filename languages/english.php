@@ -136,6 +136,7 @@ $LANG['about_version'] = 'Version';
 $LANG['about_copyright'] = 'Copyright';
 $LANG['about_license'] = 'License';
 $LANG['about_forum'] = 'Forum';
+$LANG['about_support'] = 'Support';
 $LANG['about_tracker'] = 'Issue Tracker';
 $LANG['about_documentation'] = 'Documentation';
 $LANG['about_credits'] = 'Credits go to';

@@ -606,14 +606,14 @@ $LANG['email_subject_usercal_changed'] = APP_NAME . ' User Calendar Changed';
 //
 // Group
 //
-$LANG['group_minpresent'] = 'Minimum Present';
-$LANG['group_minpresent_comment'] = 'Enter the minimum amount of present members for this group. This value is checked when absences are requested. Enter 0 to allow a total absence of the group.';
-$LANG['group_maxabsent'] = 'Maximum Absent';
-$LANG['group_maxabsent_comment'] = 'Enter the maximum amount of absent members for this group. This value is checked when absences are requested. A high value exceeding the amount of group members (e.g. 9999) can be used to allow a total absence of the group.';
-$LANG['group_minpresentwe'] = 'Minimum Present on Weekends';
-$LANG['group_minpresentwe_comment'] = 'Enter the minimum amount of present members for this group. This value is checked when absences are requested. Enter 0 to allow a total absence of the group on weekends.';
-$LANG['group_maxabsentwe'] = 'Maximum Absent on Weekends';
-$LANG['group_maxabsentwe_comment'] = 'Enter the maximum amount of absent members for this group. This value is checked when absences are requested. A high value exceeding the amount of group members (e.g. 9999) can be used to allow a total absence of the group on weekends.';
+$LANG['group_minpresent'] = 'Minimum Present (Weekdays)';
+$LANG['group_minpresent_comment'] = 'Enter the minimum amount of present members for this group on weekdays (Monday-Friday). This value is checked when absences are requested.<br>Enter 0 to allow a total absence of the group.';
+$LANG['group_maxabsent'] = 'Maximum Absent (Weekdays)';
+$LANG['group_maxabsent_comment'] = 'Enter the maximum amount of absent members for this group on weekdays (Monday-Friday). This value is checked when absences are requested.<br>A high value exceeding the amount of group members (e.g. 9999) can be used to allow a total absence of the group.';
+$LANG['group_minpresentwe'] = 'Minimum Present (Weekends)';
+$LANG['group_minpresentwe_comment'] = 'Enter the minimum amount of present members for this group on weekends (Saturday and Suunday). This value is checked when absences are requested.<br>Enter 0 to allow a total absence of the group on weekends.';
+$LANG['group_maxabsentwe'] = 'Maximum Absent (Weekends)';
+$LANG['group_maxabsentwe_comment'] = 'Enter the maximum amount of absent members for this group on weekends (Saturday and Suunday). This value is checked when absences are requested.<br>A high value exceeding the amount of group members (e.g. 9999) can be used to allow a total absence of the group on weekends.';
 
 //
 // Groups
