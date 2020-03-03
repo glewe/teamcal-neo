@@ -90,6 +90,8 @@ if (!empty($_POST))
             $G->description = $viewData['txt_description'];
             $G->minpresent = 0;
             $G->maxabsent = 9999;
+            $G->minpresentwe = 0;
+            $G->maxabsentwe = 9999;
             $G->create();
       
             //

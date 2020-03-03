@@ -32,6 +32,8 @@ $LANG['region'] = 'Region';
 $LANG['remainder'] = 'Remainder';
 $LANG['screen'] = 'Screen';
 $LANG['taken'] = 'Taken';
+$LANG['weekdays'] = 'Weekdays';
+$LANG['weekends'] = 'Weekends';
 $LANG['weeknumber'] = 'Calendar week';
 $LANG['year'] = 'Year';
 
@@ -604,16 +606,22 @@ $LANG['email_subject_usercal_changed'] = APP_NAME . ' User Calendar Changed';
 //
 // Group
 //
-$LANG['group_minpresent'] = 'Minimum Present Count';
-$LANG['group_minpresent_comment'] = 'Enter the minimum amount of present members for this group. This value is checked when absences are requested.';
-$LANG['group_maxabsent'] = 'Maximum Absent Count';
-$LANG['group_maxabsent_comment'] = 'Enter the maximum amount of absent members for this group. This value is checked when absences are requested.';
+$LANG['group_minpresent'] = 'Minimum Present';
+$LANG['group_minpresent_comment'] = 'Enter the minimum amount of present members for this group. This value is checked when absences are requested. Enter 0 to allow a total absence of the group.';
+$LANG['group_maxabsent'] = 'Maximum Absent';
+$LANG['group_maxabsent_comment'] = 'Enter the maximum amount of absent members for this group. This value is checked when absences are requested. A high value exceeding the amount of group members (e.g. 9999) can be used to allow a total absence of the group.';
+$LANG['group_minpresentwe'] = 'Minimum Present on Weekends';
+$LANG['group_minpresentwe_comment'] = 'Enter the minimum amount of present members for this group. This value is checked when absences are requested. Enter 0 to allow a total absence of the group on weekends.';
+$LANG['group_maxabsentwe'] = 'Maximum Absent on Weekends';
+$LANG['group_maxabsentwe_comment'] = 'Enter the maximum amount of absent members for this group. This value is checked when absences are requested. A high value exceeding the amount of group members (e.g. 9999) can be used to allow a total absence of the group on weekends.';
 
 //
 // Groups
 //
-$LANG['groups_minpresent'] = 'Minimum Present';
-$LANG['groups_maxabsent'] = 'Maximum Absent';
+$LANG['groups_minpresent'] = 'Min Present';
+$LANG['groups_maxabsent'] = 'Max Absent';
+$LANG['groups_minpresentwe'] = 'Min Present WE';
+$LANG['groups_maxabsentwe'] = 'Max Absent WE';
 
 //
 // Holidays

@@ -256,7 +256,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                   $groups = "";
                   foreach ( $userGroups as $row )
                   {
-                     if ($requestedAbsences[$i] AND !$A->getCountsAsPresent($requestedAbsences[$i]) AND presenceMinimumReached($year, $month, $i, $row['groupid']))
+                     if ($requestedAbsences[$i] AND !$A->getCountsAsPresent($requestedAbsences[$i]) AND (presenceMinimumReached($year, $month, $i, $row['groupid']) OR presenceMinimumWeReached($year, $month, $i, $row['groupid']))  )
                      {
                         //
                         // Only decline and add the affected group if the requesting user
@@ -266,7 +266,17 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                         if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOrManagerOfGroup($UL->username, $row['groupid'])))
                         {
                            $affectedgroups[] = $row['groupid'];
-                           $groups .= $G->getNameById($row['groupid']) . " (" . $G->getMinPresent($row['groupid']) . "), ";
+
+                           if (presenceMinimumReached($year, $month, $i, $row['groupid']))
+                           {
+                              $minimum = $LANG['weekdays'].": ".$G->getMinPresent($row['groupid']);
+                           }
+                           else if (presenceMinimumWeReached($year, $month, $i, $row['groupid']))
+                           {
+                              $minimum = $LANG['weekends'].": ".$G->getMinPresentWe($row['groupid']);
+                           }
+                           
+                           $groups .= $G->getNameById($row['groupid']) . " (" . $minimum . "), ";
                         }
                      }
                   }
@@ -291,7 +301,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                   $groups = "";
                   foreach ( $userGroups as $row )
                   {
-                     if ($requestedAbsences[$i] AND !$A->getCountsAsPresent($requestedAbsences[$i]) AND absenceMaximumReached($year, $month, $i, $row['groupid']))
+                     if ($requestedAbsences[$i] AND !$A->getCountsAsPresent($requestedAbsences[$i]) AND (absenceMaximumReached($year, $month, $i, $row['groupid']) OR absenceMaximumWeReached($year, $month, $i, $row['groupid'])) )
                      {
                         //
                         // Only decline and add the affected group if the requesting user
@@ -301,7 +311,17 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                         if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) and !$UG->isMemberOrManagerOfGroup($UL->username, $row['groupid'])))
                         {
                            $affectedgroups[] = $row['groupid'];
-                           $groups .= $G->getNameById($row['groupid']) . " (" . $G->getMaxAbsent($row['groupid']) . "), ";
+
+                           if (absenceMaximumReached($year, $month, $i, $row['groupid']))
+                           {
+                              $maximum = $LANG['weekdays'].": ".$G->getMaxAbsent($row['groupid']);
+                           }
+                           else if (absenceMaximumWeReached($year, $month, $i, $row['groupid']))
+                           {
+                              $maximum = $LANG['weekends'].": ".$G->getMaxAbsentWe($row['groupid']);
+                           }
+                           
+                           $groups .= $G->getNameById($row['groupid']) . " (" . $maximum . "), ";
                         }
                      }
                   }
@@ -1259,7 +1279,7 @@ function getDeclinationStatus($rule, $period, $startdate, $enddate)
 
 // ---------------------------------------------------------------------------
 /**
- * Checks wether the maximum absence threshold is reached
+ * Checks wether the maximum absence threshold is reached for weekdays
  *
  * @param string $year Year of the day to count for
  * @param string $month Month of the day to count for
@@ -1296,6 +1316,55 @@ function absenceMaximumReached($year, $month, $day, $group = '')
     * Check against threshold
     */
    $threshold = $G->getMaxAbsent($group);
+   if ($absences > $threshold)
+   {
+      return true;
+   }
+   else
+   {
+      return false;
+   }
+}
+
+// ---------------------------------------------------------------------------
+/**
+ * Checks wether the maximum absence threshold is reached for weekends
+ *
+ * @param string $year Year of the day to count for
+ * @param string $month Month of the day to count for
+ * @param string $day Day to count for
+ * @param string $group Group to refer to in case of base=group
+ * @return boolean True if reached, false if not
+ */
+function absenceMaximumWeReached($year, $month, $day, $group = '')
+{
+   global $C, $CONF, $G, $T, $U, $UG;
+   
+   //
+   // Count group members
+   //
+   $usercount = $UG->countMembers($group);
+   
+   //
+   // Count all group absences for this day
+   //
+   $absences = 0;
+   $members = $UG->getAllForGroup($group);
+   foreach ( $members as $member )
+   {
+      $abss = $T->countAllAbsencesWe($member['username'], $year, $month, $day, $day);
+      $absences += $abss;
+   }
+   
+   //
+   // Now we know how many absences we have already. +1 for the one requested.
+   //
+   $absences++;
+     
+   /**
+    * Check against threshold
+    */
+   $threshold = $G->getMaxAbsentWe($group);
    if ($absences > $threshold)
    {
       return true;
@@ -1347,6 +1416,57 @@ function presenceMinimumReached($year, $month, $day, $group = '')
     * Check against threshold
     */
    $threshold = $G->getMinPresent($group);
+   if ($presences < $threshold)
+   {
+      return true;
+   }
+   else
+   {
+      return false;
+   }
+}
+
+// ---------------------------------------------------------------------------
+/**
+ * Checks wether the minimum presence threshold is reached
+ *
+ * @param string $year Year of the day to count for
+ * @param string $month Month of the day to count for
+ * @param string $day Day to count for
+ * @param string $group Group to refer to in case of base=group
+ * @return boolean True if reached, false if not
+ */
+function presenceMinimumWeReached($year, $month, $day, $group = '')
+{
+   global $C, $CONF, $G, $T, $U, $UG;
+   
+   //
+   // Count group members
+   //
+   $usercount = $UG->countMembers($group);
+   
+   //
+   // Count all group absences for this day
+   //
+   $absences = 0;
+   $members = $UG->getAllForGroup($group);
+   foreach ( $members as $member )
+   {
+      $abss = $T->countAllAbsencesWe($member['username'], $year, $month, $day, $day);
+      $absences += $abss;
+   }
+   
+   //
+   // Now we know how many absences we have already. +1 for the one requested.
+   // Then compute the amount of present members.
+   //
+   $absences++;
+   $presences = $usercount - $absences;
+     
+   /**
+    * Check against threshold
+    */
+   $threshold = $G->getMinPresentWe($group);
    if ($presences < $threshold)
    {
       return true;

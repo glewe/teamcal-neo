@@ -32,6 +32,8 @@ $LANG['region'] = 'Region';
 $LANG['remainder'] = 'Verbleibend';
 $LANG['screen'] = 'Screen';
 $LANG['taken'] = 'Genommen';
+$LANG['weekdays'] = 'Wochentags';
+$LANG['weekends'] = 'Wochenenden';
 $LANG['weeknumber'] = 'Kalenderwoche';
 $LANG['year'] = 'Jahr';
 
@@ -605,15 +607,21 @@ $LANG['email_subject_usercal_changed'] = '%app_name% Benutzerkalender ge�ndert
 // Group
 //
 $LANG['group_minpresent'] = 'Mindestens Anwesende Mitglieder';
-$LANG['group_minpresent_comment'] = 'Gib die Anzahl der mindestens anwesenden Mitglieder dieser Gruppe ein. Dieser Wert wird bei Abwesenheitsanfragen &uuml;berpr&uuml;ft.';
+$LANG['group_minpresent_comment'] = 'Gib die Anzahl der mindestens anwesenden Mitglieder dieser Gruppe ein. Dieser Wert wird bei Abwesenheitsanfragen &uuml;berpr&uuml;ft. Gib 0 ein, um eine komplette Abwesenheit der Gruppe zu erlauben.';
 $LANG['group_maxabsent'] = 'Maximal Abwesende Mitglieder';
-$LANG['group_maxabsent_comment'] = 'Gib die Anzahl der maximal abwesenden Mitglieder dieser Gruppe ein. Dieser Wert wird bei Abwesenheitsanfragen &uuml;berpr&uuml;ft.';
+$LANG['group_maxabsent_comment'] = 'Gib die Anzahl der maximal abwesenden Mitglieder dieser Gruppe ein. Dieser Wert wird bei Abwesenheitsanfragen &uuml;berpr&uuml;ft. Gib einen hohen Wert ein, der die Anzahl der Gruppenmitglieder &uuml;bersteigt (z.B. 9999), um eine komplette Abwesenheit der Gruppe zu erlauben.';
+$LANG['group_minpresentwe'] = 'Mindestens Anwesende Mitglieder an Wochenenden';
+$LANG['group_minpresentwe_comment'] = 'Gib die Anzahl der mindestens anwesenden Mitglieder dieser Gruppe an Wochenenden ein. Dieser Wert wird bei Abwesenheitsanfragen &uuml;berpr&uuml;ft. Gib 0 ein, um eine komplette Abwesenheit der Gruppe an Wochenenden zu erlauben.';
+$LANG['group_maxabsentwe'] = 'Maximal Abwesende Mitglieder an Wochenenden';
+$LANG['group_maxabsentwe_comment'] = 'Gib die Anzahl der maximal abwesenden Mitglieder dieser Gruppe an Wochenenden ein. Dieser Wert wird bei Abwesenheitsanfragen &uuml;berpr&uuml;ft. Gib einen hohen Wert ein, der die Anzahl der Gruppenmitglieder &uuml;bersteigt (z.B. 9999), um eine komplette Abwesenheit der Gruppe an Wochenenden zu erlauben.';
 
 //
 // Groups
 //
-$LANG['groups_minpresent'] = 'Minimum Anwesend';
-$LANG['groups_maxabsent'] = 'Maximum Abwesend';
+$LANG['groups_minpresent'] = 'Min Anwesend';
+$LANG['groups_maxabsent'] = 'Max Abwesend';
+$LANG['groups_minpresentwe'] = 'Min Anwesend WE';
+$LANG['groups_maxabsentwe'] = 'Max Abwesend WE';
 
 //
 // Holidays

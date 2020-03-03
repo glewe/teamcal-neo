@@ -571,7 +571,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (193, 'gdprTwitter', '0'),
 (194, 'gdprXing', '1'),
 (195, 'gdprYoutube', '0'),
-(196, 'licKey', ''),
+(196, 'licKey', 'TCN-5e0f5aa8026d5'),
 (197, 'licExpiryWarning', '30'),
 (198, 'menuBarBg', 'dark');
 
@@ -613,6 +613,8 @@ CREATE TABLE `tcneo_groups` (
   `description` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `minpresent` smallint(6) NOT NULL DEFAULT 0,
   `maxabsent` smallint(6) NOT NULL DEFAULT 9999
+  `minpresentwe` smallint(6) NOT NULL DEFAULT 0,
+  `maxabsentwe` smallint(6) NOT NULL DEFAULT 9999
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -620,10 +622,10 @@ CREATE TABLE `tcneo_groups` (
 --
 
 INSERT INTO `tcneo_groups` (`id`, `name`, `description`, `minpresent`, `maxabsent`) VALUES
-(1, 'Disney', 'Disney Characters', 0, 9999),
-(2, 'Marvel', 'Marvel Characters', 0, 9999),
-(3, 'Looney', 'Looney Characters', 0, 9999),
-(4, 'Pixar', 'Pixar Characters', 0, 9999);
+(1, 'Disney', 'Disney Characters', 0, 9999, 0, 9999),
+(2, 'Marvel', 'Marvel Characters', 0, 9999, 0, 9999),
+(3, 'Looney', 'Looney Characters', 0, 9999, 0, 9999),
+(4, 'Pixar', 'Pixar Characters', 0, 9999, 0, 9999);
 
 -- --------------------------------------------------------
 

@@ -79,8 +79,10 @@ if (!defined('VALID_ROOT')) exit('');
                   <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight:bold;">
                      <div class="col-lg-2"><?=$LANG['groups_name']?></div>
                      <div class="col-lg-3"><?=$LANG['groups_description']?></div>
-                     <div class="col-lg-2"><?=$LANG['groups_minpresent']?></div>
-                     <div class="col-lg-2"><?=$LANG['groups_maxabsent']?></div>
+                     <div class="col-lg-1"><?=$LANG['groups_minpresent']?></div>
+                     <div class="col-lg-1"><?=$LANG['groups_maxabsent']?></div>
+                     <div class="col-lg-1"><?=$LANG['groups_minpresentwe']?></div>
+                     <div class="col-lg-1"><?=$LANG['groups_maxabsentwe']?></div>
                      <div class="col-lg-3 text-right"><?=$LANG['action']?></div>
                   </div>
                               
@@ -89,8 +91,10 @@ if (!defined('VALID_ROOT')) exit('');
                      <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                         <div class="col-lg-2"><?=$group['name']?></div>
                         <div class="col-lg-3"><?=$group['description']?></div>
-                        <div class="col-lg-2"><?=$group['minpresent']?></div>
-                        <div class="col-lg-2"><?=$group['maxabsent']?></div>
+                        <div class="col-lg-1"><?=$group['minpresent']?></div>
+                        <div class="col-lg-1"><?=$group['maxabsent']?></div>
+                        <div class="col-lg-1"><?=$group['minpresentwe']?></div>
+                        <div class="col-lg-1"><?=$group['maxabsentwe']?></div>
                         <div class="col-lg-3 text-right">
                            <button type="button" class="btn btn-danger btn-sm" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalDeleteGroup_<?=$group['id']?>"><?=$LANG['btn_delete']?></button>
                            <a href="index.php?action=groupedit&amp;id=<?=$group['id']?>" class="btn btn-warning btn-sm" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_edit']?></a>

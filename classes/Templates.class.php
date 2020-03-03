@@ -99,7 +99,7 @@ class Templates
    public function countAbsence($username = '%', $year = '', $month = '', $absid, $start = 1, $end = 0)
    {
       $count = 0;
-      $mytime = $month . " ".$start."," . $year;
+      $mytime = $year."-".$month."-".$start;
       $myts = strtotime($mytime);
       if (!$end or $end > 31) $end = date("t", $myts);
       
@@ -134,12 +134,13 @@ class Templates
             }
          }
       }
+
       return $count;
    }
    
    // ---------------------------------------------------------------------
    /**
-    * Counts any absence of a given username, year, month and day
+    * Counts any weekday absence of a given username, year, month and day
     *
     * @param string $username Username to find
     * @param string $year Year to find (YYYY)
@@ -151,8 +152,9 @@ class Templates
    public function countAllAbsences($username = '%', $year = '', $month = '', $start = 1, $end = 0)
    {
       $count = 0;
-      $mytime = $month . " ".$start."," . $year;
+      $mytime = $year."-".$month."-".$start;
       $myts = strtotime($mytime);
+
       if (!$end or $end > 31) $end = date("t", $myts);
       
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username LIKE :val1 AND year = :val2 AND month = :val3');
@@ -172,12 +174,22 @@ class Templates
                for($i = $start; $i <= $end; $i++)
                {
                   if ($row['abs'.$i] != 0) {
-                     $countsAsPresent = false;
-                     $query2 = $this->db->prepare('SELECT counts_as_present FROM ' . $this->abs_table . ' WHERE id = :val1');
-                     $query2->bindParam('val1', $row['abs'.$i]);
-                     $result2 = $query2->execute();
-                     if ($result2 and $row2 = $query2->fetch()) $countsAsPresent = $row2['counts_as_present'];
-                     if (!$countsAsPresent) $count++;
+
+                     $thistime = $year."-".$month."-".$i;
+                     $thists = strtotime($thistime);
+                     $weekday = date("w",$thists);
+
+                     //
+                     // Only check weekdays (0 = Sunday, 6 = Saturday)
+                     //
+                     if ($weekday > 0 AND $weekday < 6) {
+                        $countsAsPresent = false;
+                        $query2 = $this->db->prepare('SELECT counts_as_present FROM ' . $this->abs_table . ' WHERE id = :val1');
+                        $query2->bindParam('val1', $row['abs'.$i]);
+                        $result2 = $query2->execute();
+                        if ($result2 and $row2 = $query2->fetch()) $countsAsPresent = $row2['counts_as_present'];
+                        if (!$countsAsPresent) $count++;
+                     }
                   }
                }
             }
@@ -189,20 +201,119 @@ class Templates
                for($i = $start; $i <= $end; $i++)
                {
                   if ($row['abs'.$i] != 0) {
-                     $countsAsPresent = false;
-                     $query2 = $this->db->prepare('SELECT counts_as_present FROM ' . $this->abs_table . ' WHERE id = :val1');
-                     $query2->bindParam('val1', $row['abs'.$i]);
-                     $result2 = $query2->execute();
-                     if ($result2 and $row2 = $query2->fetch()) $countsAsPresent = $row2['counts_as_present'];
-                     if (!$countsAsPresent) $count++;
+
+                     $thistime = $year."-".$month."-".$i;
+                     $thists = strtotime($thistime);
+                     $weekday = date("w",$thists);
+
+                     //
+                     // Only check weekdays (0 = Sunday, 6 = Saturday)
+                     //
+                     if ($weekday > 0 AND $weekday < 6) {
+                        $countsAsPresent = false;
+                        $query2 = $this->db->prepare('SELECT counts_as_present FROM ' . $this->abs_table . ' WHERE id = :val1');
+                        $query2->bindParam('val1', $row['abs'.$i]);
+                        $result2 = $query2->execute();
+                        if ($result2 and $row2 = $query2->fetch()) $countsAsPresent = $row2['counts_as_present'];
+                        if (!$countsAsPresent) $count++;
+                     }
                   }
                }
             }
          }
       }
+
       return $count;
    }
+    
+   // ---------------------------------------------------------------------
+   /**
+    * Counts any weekend absence of a given username, year, month and day
+    *
+    * @param string $username Username to find
+    * @param string $year Year to find (YYYY)
+    * @param string $month Month to find (MM)
+    * @param string $start Start day
+    * @param string $end End day
+    * @return integer 0 or absence ID count
+    */
+   public function countAllAbsencesWe($username = '%', $year = '', $month = '', $start = 1, $end = 0)
+   {
+      $count = 0;
+      $mytime = $year."-".$month."-".$start;
+      $myts = strtotime($mytime);
+
+      if (!$end or $end > 31) $end = date("t", $myts);
    
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username LIKE :val1 AND year = :val2 AND month = :val3');
+      $month = sprintf("%02d", $month);
+      $query->bindParam('val1', $username);
+      $query->bindParam('val2', $year);
+      $query->bindParam('val3', $month);
+      $result = $query->execute();
+
+      if ($result)
+      {
+         if ($username != "%")
+         {
+            if ($row = $query->fetch())
+            {
+               for($i = $start; $i <= $end; $i++)
+               {
+                  if ($row['abs'.$i] != 0)
+                  {
+                     $thistime = $year."-".$month."-".$i;
+                     $thists = strtotime($thistime);
+                     $weekday = date("w",$thists);
+                     // echo(pretty_dump($weekday));
+
+                     //
+                     // Only check weekends (0 = Sunday, 6 = Saturday)
+                     //
+                     if ($weekday == 0 OR $weekday == 6) {
+                        $countsAsPresent = false;
+                        $query2 = $this->db->prepare('SELECT counts_as_present FROM ' . $this->abs_table . ' WHERE id = :val1');
+                        $query2->bindParam('val1', $row['abs'.$i]);
+                        $result2 = $query2->execute();
+                        if ($result2 and $row2 = $query2->fetch()) $countsAsPresent = $row2['counts_as_present'];
+                        if (!$countsAsPresent) $count++;
+                     }
+                  }
+               }
+            }
+         }
+         else
+         {
+            while ( $row = $query->fetch() )
+            {
+               for($i = $start; $i <= $end; $i++)
+               {
+                  if ($row['abs'.$i] != 0)
+                  {
+                     $thistime = $month . " ".$i."," . $year;
+                     $thists = strtotime($thistime);
+                     $weekday = date("w",$thists);
+
+                     //
+                     // Only check weekends (0 = Sunday, 6 = Saturday)
+                     //
+                     if ($weekday == 0 OR $weekday == 6) {
+                        $countsAsPresent = false;
+                        $query2 = $this->db->prepare('SELECT counts_as_present FROM ' . $this->abs_table . ' WHERE id = :val1');
+                        $query2->bindParam('val1', $row['abs'.$i]);
+                        $result2 = $query2->execute();
+                        if ($result2 and $row2 = $query2->fetch()) $countsAsPresent = $row2['counts_as_present'];
+                        if (!$countsAsPresent) $count++;
+                     }
+                  }
+               }
+            }
+         }
+      }
+
+      return $count;
+   }
+    
    // ---------------------------------------------------------------------
    /**
     * Creates a template from local variables

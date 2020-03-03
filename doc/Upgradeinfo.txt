@@ -2,6 +2,9 @@
 TEAMCAL NEO UPGRADE INFO
 ==============================================================================
 
+
+ALTER TABLE `tcneo_groups` ADD `minpresentwe` SMALLINT(6) NOT NULL DEFAULT '0' AFTER `maxabsent`, ADD `maxabsentwe` SMALLINT(6) NOT NULL DEFAULT '9999' AFTER `minpresentwe`; 
+
 ------------------------------------------------------------------------------
 [3.0.1] -> [3.1.0]
 
