@@ -147,8 +147,9 @@ foreach ($absences as $abs)
    $viewData['absences'][] = array (
       'id' => $abs['id'],
       'icon' => $abs['icon'],
-      'bgcolor' => $abs['bgcolor'],
       'color' => $abs['color'],
+      'bgcolor' => $abs['bgcolor'],
+      'allowance' => $abs['allowance'],
       'counts_as' => $abs['counts_as'],
       'name' => $abs['name'],
       'contingent' => $summary['totalallowance'],
