@@ -64,5 +64,5 @@ foreach ($tableIDs as $tid)
    $CONF[$confArchiveIndex] = $CONF['db_table_prefix'] . 'archive_' . $tid;
 }
 
-define('DEFAULT_TIMESTAMP', '1000-01-01 00:00:00');
+define('DEFAULT_TIMESTAMP', '1900-01-01 00:00:00');
 ?>

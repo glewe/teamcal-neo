@@ -612,7 +612,7 @@ CREATE TABLE `tcneo_groups` (
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `description` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `minpresent` smallint(6) NOT NULL DEFAULT 0,
-  `maxabsent` smallint(6) NOT NULL DEFAULT 9999
+  `maxabsent` smallint(6) NOT NULL DEFAULT 9999,
   `minpresentwe` smallint(6) NOT NULL DEFAULT 0,
   `maxabsentwe` smallint(6) NOT NULL DEFAULT 9999
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -621,7 +621,7 @@ CREATE TABLE `tcneo_groups` (
 -- Dumping data for table `tcneo_groups`
 --
 
-INSERT INTO `tcneo_groups` (`id`, `name`, `description`, `minpresent`, `maxabsent`) VALUES
+INSERT INTO `tcneo_groups` (`id`, `name`, `description`, `minpresent`, `maxabsent`, `minpresentwe`, `maxabsentwe`) VALUES
 (1, 'Disney', 'Disney Characters', 0, 9999, 0, 9999),
 (2, 'Marvel', 'Marvel Characters', 0, 9999, 0, 9999),
 (3, 'Looney', 'Looney Characters', 0, 9999, 0, 9999),

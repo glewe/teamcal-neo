@@ -241,7 +241,7 @@ if (!empty($_POST))
             $showAlert = TRUE;
             $alertData['type'] = 'danger';
             $alertData['title'] = $LANG['alert_danger_title'];
-            $alertData['subject'] = $LANG['alert_license'];
+            $alertData['subject'] = $LANG['alert_license_subject'];
             $alertData['text'] = $LANG['lic_alert_activation_fail']." ".$response->message;
             $alertData['help'] = '';
          }
