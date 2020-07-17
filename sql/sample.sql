@@ -427,8 +427,8 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (48, 'menuBarDark', '1'),
 (51, 'logperiod', 'curr_all'),
 (50, 'faCDN', '0'),
-(52, 'logfrom', '2014-01-01 00:00:00.000000'),
-(53, 'logto', '2020-01-02 23:59:59.999999'),
+(52, 'logfrom', '2020-01-01 00:00:00.000000'),
+(53, 'logto', '2020-12-31 23:59:59.999999'),
 (54, 'logConfig', '1'),
 (55, 'logfilterConfig', '1'),
 (56, 'logDatabase', '1'),
@@ -491,7 +491,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (113, 'declThreshold', '40'),
 (114, 'declBase', 'group'),
 (115, 'declBeforeOption', 'date'),
-(116, 'declBeforeDate', '2016-01-01'),
+(116, 'declBeforeDate', '2020-01-01'),
 (117, 'dbURL', '#'),
 (118, 'logcolorConfig', 'danger'),
 (119, 'logcolorDatabase', 'warning'),
@@ -571,7 +571,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (193, 'gdprTwitter', '0'),
 (194, 'gdprXing', '1'),
 (195, 'gdprYoutube', '0'),
-(196, 'licKey', 'TCN-5e0f5aa8026d5'),
+(196, 'licKey', ''),
 (197, 'licExpiryWarning', '30'),
 (198, 'menuBarBg', 'dark');
 
@@ -1409,7 +1409,7 @@ INSERT INTO `tcneo_user_option` (`id`, `username`, `option`, `value`) VALUES
 (140, 'admin', 'region', '1'),
 (141, 'ccarl', 'region', '1'),
 (147, 'admin', 'calfilterRegion', '1'),
-(146, 'admin', 'calfilterMonth', '202001');
+(146, 'admin', 'calfilterMonth', '');
 
 --
 -- Indexes for dumped tables

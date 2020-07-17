@@ -41,7 +41,7 @@ $LANG['btn_test'] = 'Test Database';
 $LANG['inst_db_error'] = 'An error occured trying to connect to the database.';
 $LANG['inst_dbData'] = '<span class="text-bold text-danger">*&nbsp;</span>Sample data';
 $LANG['inst_dbData_comment'] = 'Check whether you want a set of sample data loaded or not. Select "Use existing data" if your database already exists and you want to use the existing data.<br>
-      Attention! "Use existing data" only works if your existing data set is compatible with the version you are installing. Find details in Upgradeinfo.txt.';
+      Attention! "Use existing data" only works if your existing data set is compatible with the version you are installing.<br>TeamCal Neo Basic is not compatible with TeamCal Neo Pro!';
 $LANG['inst_dbData_sample'] = 'Sample data';
 $LANG['inst_dbData_none'] = 'Use existing data';
 $LANG['inst_dbData_error'] = 'An error occured trying to load the sample data into the database.';

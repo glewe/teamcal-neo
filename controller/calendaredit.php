@@ -21,6 +21,7 @@ if (!defined('VALID_ROOT')) exit('');
 if (isset($_GET['month']) AND isset($_GET['region']) AND isset($_GET['user']))
 {
    $missingData = FALSE;
+   $doNotSave = FALSE;
    
    //
    // Check month
@@ -306,6 +307,7 @@ if (!empty($_POST))
                //
                // Input out of range
                //
+               $doNotSave = TRUE;
                $showAlert = TRUE;
                $alertData['type'] = 'danger';
                $alertData['title'] = $LANG['alert_danger_title'];
@@ -319,6 +321,7 @@ if (!empty($_POST))
             //
             // Input validation failed
             //
+            $doNotSave = TRUE;
             $showAlert = TRUE;
             $alertData['type'] = 'danger';
             $alertData['title'] = $LANG['alert_danger_title'];
@@ -390,7 +393,7 @@ if (!empty($_POST))
          
       }
       
-      if (!$showAlert)
+      if (!$doNotSave)
       {
          //
          // At this point we have four arrays:
