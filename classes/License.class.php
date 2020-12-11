@@ -65,7 +65,7 @@ class License
     * @param array  $parms   URL paramater: array("param" => "value") ==> index.php?param=value
     * @return JSON
     */
-    function callAPI($method, $url, $data = false)
+   function callAPI($method, $url, $data = false)
    {
       $curl = curl_init();
 
