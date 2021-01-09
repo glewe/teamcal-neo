@@ -828,6 +828,7 @@ $LANG['rem_title'] = 'Remainder';
 $LANG['rem_legend_taken'] = 'Taken';
 $LANG['rem_legend_allowance'] = 'Allowance';
 $LANG['rem_legend_remainder'] = 'Remainder';
+$LANG['rem_year_comment'] = 'Select the year for this summary.';
 
 //
 // Statistics

@@ -38,6 +38,9 @@ $formLink = 'index.php?action='.$controller.'&amp;group='.$viewData['groupid'];
             <div class="page-menu">
                <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectGroup"><?=$LANG['group'] . ': ' . $viewData['group']?></button>
                <button type="button" class="btn btn-info" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSearchUser"><?=$LANG['search'] . ': ' . $viewData['search']?></button>
+               <?php if (!$C->read('currentYearOnly')) {?>
+                  <button type="button" class="btn btn-primary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalYear"><?=$LANG['year']?> <span class="badge badge-light"><?=$viewData['year']?></span></button>
+               <?php } ?>
                <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" name="btn_reset"><?=$LANG['btn_reset']?></button>
                <a href="index.php?action=calendarview" class="btn btn-secondary float-right" tabindex="<?=$tabindex++;?>"><?=$LANG['btn_showcalendar']?></a>
             </div>
@@ -162,7 +165,20 @@ $formLink = 'index.php?action='.$controller.'&amp;group='.$viewData['groupid'];
                      </div>
                   </div>
                </div>
-            </div>                        
+            </div>
+
+            <!-- Modal: Year -->
+            <?=createModalTop('modalYear', $LANG['absum_modalYearTitle'])?>
+               <div>
+                  <span class="text-bold"><?=$LANG['year']?></span><br>
+                  <span class="text-normal"><?=$LANG['rem_year_comment']?></span>
+                  <select id="sel_year" class="form-control" name="sel_year" tabindex="<?=$tabindex++?>">
+                     <option value="<?=date("Y")-2?>" <?=(($viewData['year']==date("Y")-2)?"selected":"")?>><?=date("Y")-2?></option>
+                     <option value="<?=date("Y")-1?>" <?=(($viewData['year']==date("Y")-1)?"selected":"")?>><?=date("Y")-1?></option>
+                     <option value="<?=date("Y")?>" <?=(($viewData['year']==date("Y"))?"selected":"")?>><?=date("Y")?></option>
+                  </select><br>
+               </div>
+            <?=createModalBottom('btn_year', 'success', $LANG['btn_select'])?>
             
          </form>
          

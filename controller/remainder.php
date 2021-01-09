@@ -148,6 +148,7 @@ if ($limit = $C->read("usersPerPage"))
 // LOAD CONTROLLER RESOURCES
 //
 $viewData['search'] = '';
+$viewData['year'] = date("Y");
 
 //=============================================================================
 //
@@ -198,6 +199,13 @@ if (!empty($_POST))
          unset($users);
          $users = $U->getAllLike($_POST['txt_search']);
       }
+      // ,-------------,
+      // | Select Year |
+      // '-------------'
+      elseif (isset($_POST['btn_year']))
+      {
+         $viewData['year'] = $_POST['sel_year'];
+      }
       // ,-------,
       // | Reset |
       // '-------'
@@ -239,22 +247,24 @@ $viewData['absences'] = $A->getAll();
 $viewData['allGroups'] = $G->getAll();
 $viewData['holidays'] = $H->getAllCustom();
 
-$countFrom = date('Y').'0101';
-$countTo = date('Y').'1231';
+$countFrom = $viewData['year'].'0101';
+$countTo = $viewData['year'].'1231';
 
-if ($groupfilter == 'all')
-{
+if ($groupfilter == 'all') {
+
    $viewData['groups'] = $viewData['allGroups'];
-}
-else 
-{
+
+} else {
+
    $viewData['groups'] = $G->getRowById($groupfilter);
+
 }
 
 $viewData['users'] = array();
 $i = 0;
-foreach ($users as $user)
-{
+
+foreach ($users as $user) {
+
    $U->findByName($user['username']);
 
    $viewData['users'][$i]['username'] = $user['username'];
@@ -280,6 +290,7 @@ foreach ($users as $user)
    $viewData['users'][$i]['last_login'] = $U->last_login;
 
    $i++;
+
 }
 
 //=============================================================================

@@ -828,6 +828,7 @@ $LANG['rem_title'] = 'Resttage';
 $LANG['rem_legend_taken'] = 'Genommen';
 $LANG['rem_legend_allowance'] = 'Erlaubt';
 $LANG['rem_legend_remainder'] = 'Verbleibend';
+$LANG['rem_year_comment'] = 'W&auml;hle, das Jahr f&uml;r die &Uuml;bersicht.';
 
 //
 // Statistics
