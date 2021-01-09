@@ -157,7 +157,8 @@ if (!defined('VALID_ROOT')) exit('');
             "theme": "classic",
             "content": {
                "message": "<?=$LANG['cookie_message']?>",
-               "link": "Details",
+               "link": "<?=$LANG['cookie_learnMore']?>",
+               "dismiss": "<?=$LANG['cookie_dismiss']?>",
                "href": "index.php?action=dataprivacy"
             }
          })
