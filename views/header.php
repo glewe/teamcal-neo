@@ -142,20 +142,26 @@ if (!defined('VALID_ROOT')) exit('');
       <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
       <script>
       window.addEventListener("load", function(){
-      window.cookieconsent.initialise({
-        "palette": {
-          "popup": {
-            "background": "#252e39"
-          },
-          "button": {
-            "background": "#14a7d0"
-          }
-        },
-        "theme": "classic",
-        "content": {
-          "href": "index.php?action=imprint"
-        }
-      })});
+         window.cookieconsent.initialise({
+            "cookie": {
+               "name": "tcneo_cookieconsent"
+            },
+            "palette": {
+               "popup": {
+                  "background": "#252e39"
+               },
+               "button": {
+                  "background": "#14a7d0"
+               }
+            },
+            "theme": "classic",
+            "content": {
+               "message": "<?=$LANG['cookie_message']?>",
+               "link": "Details",
+               "href": "index.php?action=dataprivacy"
+            }
+         })
+      });
       </script>
       <?php } ?>
       
