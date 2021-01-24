@@ -224,7 +224,9 @@ class Users
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
 
-      $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username <> "admin"');
+      $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username <> :val1');
+      $val1 = 'admin';
+      $query->bindParam('val1', $val1);
       $result = $query->execute();
       return $result;
    }
@@ -342,7 +344,9 @@ class Users
       if ($includeAdmin)
          $query = $this->db->prepare('SELECT * FROM ' . $table . ' ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
          else
-            $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != "admin" ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
+            $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != :val1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
+            $val1 = 'admin';
+            $query->bindParam('val1', $val1);
 
             $result = $query->execute();
 
@@ -402,7 +406,8 @@ class Users
       if ($includeAdmin)
          $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE hidden != 1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
          else
-            $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != "admin" AND hidden != 1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
+            $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != :val1 AND hidden != 1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
+            $query->bindParam('val1', 'admin');
              
             $result = $query->execute();
              
@@ -671,8 +676,10 @@ class Users
     */
    public function unhide($username)
    {
-      $stmt = 'UPDATE ' . $this->table . ' SET `hidden` = "0" WHERE `username` = "' . $username . '"';
-      $result = $this->db->exec($stmt);
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `hidden` = :val1 WHERE `username` = :val2');
+      $query->bindParam('val1', '0');
+      $query->bindParam('val2', $username);
+      $result = $query->execute();
       return $result;
    }
     
@@ -683,12 +690,14 @@ class Users
     * @param string $username Username of record to update
     * @return boolean Query result
     */
-    public function unhold($username)
-    {
-       $stmt = 'UPDATE ' . $this->table . ' SET `onhold` = "0" WHERE `username` = "' . $username . '"';
-       $result = $this->db->exec($stmt);
-       return $result;
-    }
+   public function unhold($username)
+   {
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `onhold` = :val2 WHERE `username` = :val1');
+      $query->bindParam('val1', $username);
+      $query->bindParam('val2', '0');
+      $result = $query->execute();
+      return $result;
+   }
      
     // ---------------------------------------------------------------------
    /**
@@ -699,8 +708,10 @@ class Users
     */
    public function unlock($username)
    {
-      $stmt = 'UPDATE ' . $this->table . ' SET `locked` = "0" WHERE `username` = "' . $username . '"';
-      $result = $this->db->exec($stmt);
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `locked` = :val2 WHERE `username` = :val1');
+      $query->bindParam('val1', $username);
+      $query->bindParam('val2', '0');
+      $result = $query->execute();
       return $result;
    }
     
@@ -713,8 +724,10 @@ class Users
     */
    public function unverify($username)
    {
-      $stmt = 'UPDATE ' . $this->table . ' SET `verify` = "0" WHERE `username` = "' . $username . '"';
-      $result = $this->db->exec($stmt);
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `verify` = :val2 WHERE `username` = :val1');
+      $query->bindParam('val1', $username);
+      $query->bindParam('val2', '0');
+      $result = $query->execute();
       return $result;
    }
     
@@ -725,27 +738,65 @@ class Users
     * @param string $username Username of record to update
     * @return boolean Query result
     */
-   public function update($username)
-   {
-      $stmt = 'UPDATE ' . $this->table . ' SET ';
-      $stmt .= '`username` = "' . $this->username . '", ';
-      $stmt .= '`password` = "' . $this->password . '", ';
-      $stmt .= '`firstname` = "' . $this->firstname . '", ';
-      $stmt .= '`lastname` = "' . $this->lastname . '", ';
-      $stmt .= '`email` = "' . $this->email . '", ';
-      $stmt .= '`role` = "' . $this->role . '", ';
-      $stmt .= '`locked` = "' . $this->locked . '", ';
-      $stmt .= '`hidden` = "' . $this->hidden . '", ';
-      $stmt .= '`onhold` = "' . $this->onhold . '", ';
-      $stmt .= '`verify` = "' . $this->verify . '", ';
-      $stmt .= '`bad_logins` = "' . $this->bad_logins . '", ';
-      $stmt .= '`grace_start` = "' . $this->grace_start . '", ';
-      $stmt .= '`last_pw_change` = "' . $this->last_pw_change . '", ';
-      $stmt .= '`last_login` = "' . $this->last_login . '", ';
-      $stmt .= '`created` = "' . $this->created . '" ';
-      $stmt .= 'WHERE `username` = "' . $username . '"';
-      $result = $this->db->exec($stmt);
+   public function update($username) {
+
+      $query = $this->db->prepare("UPDATE ".$this->table." SET 
+      `username` = :val1,
+      `password` = :val2,
+      `firstname` = :val3,
+      `lastname` = :val4,
+      `email` = :val5,
+      `role` = :val6,
+      `locked` = :val7,
+      `hidden` = :val8,
+      `onhold` = :val9,
+      `verify` = :val10,
+      `bad_logins` = :val11,
+      `grace_start` = :val12,
+      `last_pw_change` = :val3,
+      `last_login` = :val14,
+      `created` = :val15 WHERE `username` = :val16;");
+
+      $query->bindParam('val1', $this->username);
+      $query->bindParam('val2', $this->password);
+      $query->bindParam('val3', $this->firstname);
+      $query->bindParam('val4', $this->lastname);
+      $query->bindParam('val5', $this->email);
+      $query->bindParam('val6', $this->role);
+      $query->bindParam('val7', $this->locked);
+      $query->bindParam('val8', $this->hidden);
+      $query->bindParam('val9', $this->onhold);
+      $query->bindParam('val10', $this->verify);
+      $query->bindParam('val11', $this->bad_logins);
+      $query->bindParam('val12', $this->grace_start);
+      $query->bindParam('val13', $this->last_pw_change);
+      $query->bindParam('val14', $this->last_login);
+      $query->bindParam('val15', $this->created);
+      $query->bindParam('val16', $username);
+
+      $result = $query->execute();
+
+      // $stmt = 'UPDATE ' . $this->table . ' SET ';
+      // $stmt .= '`username` = "' . $this->username . '", ';
+      // $stmt .= '`password` = "' . $this->password . '", ';
+      // $stmt .= '`firstname` = "' . $this->firstname . '", ';
+      // $stmt .= '`lastname` = "' . $this->lastname . '", ';
+      // $stmt .= '`email` = "' . $this->email . '", ';
+      // $stmt .= '`role` = "' . $this->role . '", ';
+      // $stmt .= '`locked` = "' . $this->locked . '", ';
+      // $stmt .= '`hidden` = "' . $this->hidden . '", ';
+      // $stmt .= '`onhold` = "' . $this->onhold . '", ';
+      // $stmt .= '`verify` = "' . $this->verify . '", ';
+      // $stmt .= '`bad_logins` = "' . $this->bad_logins . '", ';
+      // $stmt .= '`grace_start` = "' . $this->grace_start . '", ';
+      // $stmt .= '`last_pw_change` = "' . $this->last_pw_change . '", ';
+      // $stmt .= '`last_login` = "' . $this->last_login . '", ';
+      // $stmt .= '`created` = "' . $this->created . '" ';
+      // $stmt .= 'WHERE `username` = "' . $username . '"';
+      // $result = $this->db->exec($stmt);
+
       return $result;
+
    }
     
    // ---------------------------------------------------------------------

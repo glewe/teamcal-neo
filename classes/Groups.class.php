@@ -30,11 +30,12 @@ class Groups
    /**
     * Constructor
     */
-   public function __construct()
-   {
+   public function __construct() {
+
       global $CONF, $DB;
       $this->db = $DB->db;
       $this->table = $CONF['db_table_groups'];
+
    }
    
    // ---------------------------------------------------------------------

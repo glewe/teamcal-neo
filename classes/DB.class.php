@@ -14,8 +14,8 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 /**
  * Provides properties and methods to deal with the database
  */
-class DB
-{
+class DB {
+
    public $db;
    
    // ---------------------------------------------------------------------
@@ -27,16 +27,17 @@ class DB
     * @param string $user Database username
     * @param string $password Password
     */
-   public function __construct($server, $database, $user, $password)
-   {
+   public function __construct($server, $database, $user, $password) {
+
       /**
        * Connect to database
        */
-      try
-      {
+      try {
+
          $this->db = new PDO('mysql:host=' . $server . ';dbname=' . $database . ';charset=utf8', $user, $password);
-      } catch ( PDOException $e )
-      {
+
+      } catch ( PDOException $e ) {
+
          /**
           * Database connection error
           */
@@ -45,6 +46,7 @@ class DB
          $errorData['text'] = $e->getMessage();
          require (WEBSITE_ROOT . '/views/error.php');
          die();
+
       }
       
       /**
@@ -52,29 +54,73 @@ class DB
        */
       $query = $this->db->prepare('SET SQL_BIG_SELECTS=1');
       $result = $query->execute();
+
    }
    
    // ---------------------------------------------------------------------
    /**
+    * Get database info
+    *
+    * @return string    $dbInfo    PDO database information
+    */
+   public function getDatabaseInfo() {
+
+      $dbInfo = "\n";
+
+      $attributes = array(
+         "AUTOCOMMIT",
+         "ERRMODE",
+         "CASE",
+         "CLIENT_VERSION",
+         "CONNECTION_STATUS",
+         "ORACLE_NULLS",
+         "PERSISTENT",
+         "SERVER_INFO",
+         "SERVER_VERSION",
+      );
+     
+      foreach ( $attributes as $val ) {
+
+         $dbInfo .= "PDO::ATTR_$val: ";
+         try {
+
+            $dbInfo .= $this->db->getAttribute( constant( "PDO::ATTR_$val" ) ) . "\n";
+
+         } catch ( PDOException $e ) {
+
+            $dbInfo .=  $e->getMessage() . "\n";
+
+         }
+      }
+      // $dbInfo = rtrim($dbInfo, "\n");
+      return $dbInfo;
+
+   }
+   
+    // ---------------------------------------------------------------------
+   /**
     * Optimize tables
     */
-   public function optimizeTables()
-   {
+   public function optimizeTables() {
+
       $tables = array();
       
       $query = $this->db->prepare('SHOW TABLES');
       $result = $query->execute();
       
-      while ($result and $row = $query->fetch())
-      {
+      while ($result and $row = $query->fetch()) {
+
          $tables[] = $row[0];
+
       }
 
-      foreach ($tables as $table)
-      {
+      foreach ($tables as $table) {
+
          $query = $this->db->prepare('OPTIMIZE TABLE ' . $table);
          $result = $query->execute();
+
       }
+
    }
    
    // ---------------------------------------------------------------------
@@ -83,19 +129,22 @@ class DB
     * 
     * @param string $myQyery MySQL query
     */
-   public function runQuery($myQuery)
-   {
+   public function runQuery($myQuery) {
+
       $query = $this->db->prepare($myQuery);
       $result = $query->execute();
       
-      if ($result)
-      {
+      if ($result) {
+
          return true;
-      }
-      else 
-      {
+
+      } else {
+
          return false;
+
       }
+
    }
+
 }
 ?>

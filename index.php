@@ -113,12 +113,12 @@ else
 // Instantiate primary classes (used by other classes)
 //
 $DB  = new DB($CONF['db_server'], $CONF['db_name'], $CONF['db_user'], $CONF['db_pass']);
-$C   = new Config();
+$C   = new Config($CONF, $DB);
 
 //
 // Instantiate secondary classes
 //
-$G    = new Groups();
+$G    = new Groups($CONF, $DB);  
 $L    = new Login();
 $LIC  = new License();
 $LOG  = new Log();

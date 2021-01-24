@@ -266,7 +266,7 @@ class Absences
    public function getAllPrimaryBut($id)
    {
       $records = array ();
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id != :val1 AND counts_as = "0" ORDER BY name ASC');
+      $query = $this->db->prepare("SELECT * FROM ".$this->table." WHERE id != :val1 AND counts_as = '0' ORDER BY name ASC");
       $query->bindParam('val1', $id);
       $result = $query->execute();
       while ( $row = $query->fetch() )

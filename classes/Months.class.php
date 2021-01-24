@@ -561,18 +561,18 @@ class Months
       {
          while ( $row = $query->fetch() )
          {
-            $stmt = 'UPDATE ' . $this->table . ' SET ';
+            $stmt = "UPDATE ".$this->table." SET ";
             for($i = 1; $i <= 31; $i++)
             {
                if ($row['hol' . $i] == $idold)
                {
                   $prop = 'hol' . $i;
                   $row[$prop] = $idnew;
-                  $stmt .= $prop . ' = "' . $idnew . '", ';
+                  $stmt .= $prop . " = '".$idnew."', ";
                }
             }
             $stmt = substr($stmt, 0, -2);
-            $stmt .= ' WHERE id = "' . $row['id'] . '";';
+            $stmt .= " WHERE id = '".$row['id']."';";
             $query2 = $this->db->prepare($stmt);
             $result2 = $query2->execute();
          }

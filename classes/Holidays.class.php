@@ -85,7 +85,7 @@ class Holidays
     */
    public function deleteAll()
    {
-      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id > "3"');
+      $query = $this->db->prepare("DELETE FROM ".$this->table." WHERE id > 3;");
       $result = $query->execute();
       return $result;
    }

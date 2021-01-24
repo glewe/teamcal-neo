@@ -566,7 +566,7 @@ class Templates
       
       for ($i=1; $i<=31; $i++)
       {
-         $myQuery = 'SELECT username FROM '.$this->table.' WHERE username = "'.$username.'" AND year = "'.$year.'" AND month = "'.$month.'" AND abs'.$i.' = "'.$absid.'";';
+         $myQuery = "SELECT username FROM ".$this->table." WHERE username = '".$username."' AND year = '".$year."' AND month = '".$month."' AND abs".$i." = '".$absid."';";
          $query = $this->db->prepare($myQuery);
          $result = $query->execute();
          if ($result and $row = $query->fetch())
@@ -593,18 +593,18 @@ class Templates
       {
          while ( $row = $query->fetch() )
          {
-            $stmt = 'UPDATE ' . $this->table . ' SET ';
+            $stmt = "UPDATE ".$this->table." SET ";
             for($i = 1; $i <= 31; $i++)
             {
                if ($row['abs' . $i] == $absidold)
                {
                   $prop = 'abs' . $i;
                   $row[$prop] = $absidnew;
-                  $stmt .= $prop . ' = "' . $absidnew . '", ';
+                  $stmt .= $prop . " = '" . $absidnew . "', ";
                }
             }
             $stmt = substr($stmt, 0, -2);
-            $stmt .= ' WHERE id = "' . $row['id'] . '";';
+            $stmt .= " WHERE id = '".$row['id']."';";
             $query2 = $this->db->prepare($stmt);
             $result2 = $query2->execute();
          }

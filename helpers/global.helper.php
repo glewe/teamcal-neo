@@ -142,6 +142,21 @@ function dateInfo($year, $month, $day='1')
 
 // ---------------------------------------------------------------------------
 /**
+ * Echo a pre-formatted var_dump and die.
+ *
+ * @param     misc    $var    Variable or array to dump
+ */
+function dnd($var) {
+
+   echo "<pre>";
+   var_dump($var);
+   echo "</pre>";
+   die();
+
+}
+
+// ---------------------------------------------------------------------------
+/**
  * Checks whether a string ends with a given suffix
  *
  * @param string $haystack String to check

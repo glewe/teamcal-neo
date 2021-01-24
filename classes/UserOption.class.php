@@ -124,7 +124,9 @@ class UserOption
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
       
-      $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username <> "admin"');
+      $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username <> :val1');
+      $val1 = 'admin';
+      $query->bindParam('val1', $val1);
       $result = $query->execute();
       return $result;
    }
@@ -260,7 +262,9 @@ class UserOption
     */
    public function save($username, $option, $value)
    {
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE `username` = "' . $username . '" AND `option` = "' . $option . '"');
+      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE `username` = :val1 AND `option` = :val2');
+      $query->bindParam('val1', $username);
+      $query->bindParam('val2', $option);
       $result = $query->execute();
       
       // echo "<script type=\"text/javascript\">alert(\"Debug:
@@ -324,7 +328,8 @@ class UserOption
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `value` = :val1 WHERE `option` = :val2 AND `value` = :val3');
       $query->bindParam('val1', $regionnew);
-      $query->bindParam('val2', 'defregion');
+      $val2 = 'defregion';
+      $query->bindParam('val2', $val2);
       $query->bindParam('val3', $regionold);
       $result = $query->execute();
       return $result;

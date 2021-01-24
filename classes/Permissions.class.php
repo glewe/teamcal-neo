@@ -180,7 +180,7 @@ class Permissions
     */
    public function deleteAll()
    {
-      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE scheme <> "Default"');
+      $query = $this->db->prepare("DELETE FROM ".$this->table." WHERE scheme <> 'Default'");
       $result = $query->execute();
       return $result;
    }

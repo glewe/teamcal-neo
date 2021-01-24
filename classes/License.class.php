@@ -184,7 +184,7 @@ class License
     */
    public function readKey()
    {
-      $query = $this->db->prepare('SELECT value FROM ' . $this->table . ' WHERE `name` = "licKey"');
+      $query = $this->db->prepare("SELECT value FROM ".$this->table." WHERE `name` = 'licKey';");
       $result = $query->execute();
       
       if ($result and $row = $query->fetch())
@@ -206,16 +206,16 @@ class License
     */
    public function saveKey($value)
    {
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE `name` = "licKey"');
+      $query = $this->db->prepare("SELECT COUNT(*) FROM ".$this->table." WHERE `name` = 'licKey'");
       $result = $query->execute();
       
       if ($result and $query->fetchColumn())
       {
-         $query2 = $this->db->prepare('UPDATE ' . $this->table . ' SET value = :val1 WHERE name = "licKey"');
+         $query2 = $this->db->prepare("UPDATE ".$this->table." SET value = :val1 WHERE name = 'licKey'");
       }
       else
       {
-         $query2 = $this->db->prepare('INSERT INTO ' . $this->table . ' (`name`, `value`) VALUES ("licKey", :val1)');
+         $query2 = $this->db->prepare("INSERT INTO ".$this->table." (`name`, `value`) VALUES ('licKey', :val1)");
       }
       $query2->bindParam('val1', $value);
       $result2 = $query2->execute();

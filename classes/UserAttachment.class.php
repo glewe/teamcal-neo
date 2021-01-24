@@ -121,7 +121,7 @@ class UserAttachment
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
       
-      $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username <> "admin"');
+      $query = $this->db->prepare("DELETE FROM ".$table." WHERE username <> 'admin'");
       $result = $query->execute();
       return $result;
    }

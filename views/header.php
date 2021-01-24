@@ -172,4 +172,3 @@ if (!defined('VALID_ROOT')) exit('');
 
       <!-- Back to Top -->
       <a id="top-link-block"><i class="fas fa-chevron-up fa-3x text-white"></i></a>
-   

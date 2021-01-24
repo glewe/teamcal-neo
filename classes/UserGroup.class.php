@@ -61,8 +61,12 @@ class UserGroup
    public function countMembers($groupid)
    {
       $count= 0;
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE groupid = :val1 AND (type = "manager" OR type ="member")');
+      $query = $this->db->prepare("SELECT COUNT(*) FROM ".$this->table." WHERE groupid = :val1 AND (type = :val2 OR type = :val3)");
       $query->bindParam('val1', $groupid);
+      $val2 = 'manager';
+      $query->bindParam('val2', $val2);
+      $val3 = 'member';
+      $query->bindParam('val3', $val3);
       $result = $query->execute();
       return $query->fetchColumn();
    }
@@ -178,7 +182,7 @@ class UserGroup
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
    
-      $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE groupid = :val1 AND type = "guest"');
+      $query = $this->db->prepare("DELETE FROM ".$table." WHERE groupid = :val1 AND type = 'guest'");
       $query->bindParam('val1', $groupid);
       $result = $query->execute();
       return $result;
@@ -198,7 +202,7 @@ class UserGroup
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
       
-      $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE groupid = :val1 AND type = "manager"');
+      $query = $this->db->prepare("DELETE FROM ".$table." WHERE groupid = :val1 AND type = 'manager'");
       $query->bindParam('val1', $groupid);
       $result = $query->execute();
       return $result;
@@ -218,7 +222,7 @@ class UserGroup
       if ($archive) $table = $this->archive_table;
       else $table = $this->table;
       
-      $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE groupid = :val1 AND type = "member"');
+      $query = $this->db->prepare("DELETE FROM ".$table." WHERE groupid = :val1 AND type = 'member'");
       $query->bindParam('val1', $groupid);
       $result = $query->execute();
       return $result;
@@ -261,7 +265,7 @@ class UserGroup
    public function getAllforGroup($groupid, $sort='ASC')
    {
       $records = array ();
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE groupid = :val1 AND (type = "manager" OR type ="member") ORDER BY username '. $sort);
+      $query = $this->db->prepare("SELECT * FROM ".$this->table." WHERE groupid = :val1 AND (type = 'manager' OR type ='member') ORDER BY username ". $sort);
       $query->bindParam('val1', $groupid);
       $result = $query->execute();
       
@@ -309,7 +313,7 @@ class UserGroup
    public function getAllforUser($username)
    {
       $records = array ();
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1 AND (type = "manager" OR type ="member")');
+      $query = $this->db->prepare("SELECT * FROM ".$this->table." WHERE username = :val1 AND (type = 'manager' OR type = 'member')");
       $query->bindParam('val1', $username);
       $result = $query->execute();
       
@@ -334,7 +338,7 @@ class UserGroup
    public function getAllforUser2($username)
    {
       $records = array ();
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1 AND (type = "manager" OR type ="member")');
+      $query = $this->db->prepare("SELECT * FROM ".$this->table." WHERE username = :val1 AND (type = 'manager' OR type = 'member')");
       $query->bindParam('val1', $username);
       $result = $query->execute();
       
@@ -380,7 +384,7 @@ class UserGroup
     */
    public function getGroupName($username)
    {
-      $query = $this->db->prepare('SELECT groupid FROM ' . $this->table . ' WHERE username = :val1 AND (type = "manager" OR type ="member")');
+      $query = $this->db->prepare("SELECT groupid FROM ".$this->table." WHERE username = :val1 AND (type = 'manager' OR type = 'member')");
       $query->bindParam('val1', $username);
       $result = $query->execute();
       
@@ -406,7 +410,8 @@ class UserGroup
       $records = array ();
       $query = $this->db->prepare('SELECT username FROM ' . $this->table . ' WHERE groupid = :val1 AND type = :val2');
       $query->bindParam('val1', $groupid);
-      $query->bindParam('val2', 'manager');
+      $val2 = 'manager';
+      $query->bindParam('val2', $val2);
       $result = $query->execute();
       
       if ($result)
@@ -429,7 +434,7 @@ class UserGroup
    public function getGuestships($username)
    {
       $records = array ();
-      $query = $this->db->prepare('SELECT groupid FROM ' . $this->table . ' WHERE `username` = "' . $username . '" AND `type` = "guest"');
+      $query = $this->db->prepare("SELECT groupid FROM ".$this->table." WHERE `username` = '".$username."' AND `type` = 'guest'");
       $result = $query->execute();
    
       if ($result)
@@ -452,7 +457,7 @@ class UserGroup
    public function getManagerships($username)
    {
       $records = array ();
-      $query = $this->db->prepare('SELECT groupid FROM ' . $this->table . ' WHERE `username` = "' . $username . '" AND `type` = "manager"');
+      $query = $this->db->prepare("SELECT groupid FROM ".$this->table." WHERE `username` = '".$username."' AND `type` = 'manager'");
       $result = $query->execute();
       
       if ($result)
@@ -475,7 +480,7 @@ class UserGroup
    public function getMemberships($username)
    {
       $records = array ();
-      $query = $this->db->prepare('SELECT groupid FROM ' . $this->table . ' WHERE `username` = "' . $username . '" AND `type` = "member"');
+      $query = $this->db->prepare("SELECT groupid FROM ".$this->table." WHERE `username` = '".$username."' AND `type` = 'member'");
       $result = $query->execute();
       
       if ($result)
@@ -497,7 +502,7 @@ class UserGroup
     */
    public function isGroupManager($username)
    {
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND type = "manager"');
+      $query = $this->db->prepare("SELECT COUNT(*) FROM ".$this->table." WHERE username = :val1 AND type = 'manager'");
       $query->bindParam('val1', $username);
       $result = $query->execute();
       
@@ -521,7 +526,7 @@ class UserGroup
     */
    public function isGroupManagerOfGroup($username, $groupid)
    {
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND type = "manager"');
+      $query = $this->db->prepare("SELECT COUNT(*) FROM ".$this->table." WHERE username = :val1 AND groupid = :val2 AND type = 'manager'");
       $query->bindParam('val1', $username);
       $query->bindParam('val2', $groupid);
       $result = $query->execute();
@@ -554,7 +559,7 @@ class UserGroup
       {
          while ( $row = $query->fetch() )
          {
-            $query2 = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND type = "manager"');
+            $query2 = $this->db->prepare("SELECT COUNT(*) FROM ".$this->table." WHERE username = :val1 AND groupid = :val2 AND type = 'manager'");
             $query2->bindParam('val1', $user1);
             $query2->bindParam('val2', $row['groupid']);
             $result2 = $query2->execute();
@@ -576,7 +581,7 @@ class UserGroup
     */
    public function isGroupMember($username)
    {
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND type = "member"');
+      $query = $this->db->prepare("SELECT COUNT(*) FROM ".$this->table." WHERE username = :val1 AND type = 'member'");
       $query->bindParam('val1', $username);
       $result = $query->execute();
       
@@ -599,7 +604,7 @@ class UserGroup
     */
    public function isGuest($username)
    {
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND type = "guest"');
+      $query = $this->db->prepare("SELECT COUNT(*) FROM ".$this->table." WHERE username = :val1 AND type = 'guest'");
       $query->bindParam('val1', $username);
       $result = $query->execute();
    
@@ -623,7 +628,7 @@ class UserGroup
     */
    public function isGuestOfGroup($username, $groupid)
    {
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND type = "guest"');
+      $query = $this->db->prepare("SELECT COUNT(*) FROM ".$this->table." WHERE username = :val1 AND groupid = :val2 AND type = 'guest'");
       $query->bindParam('val1', $username);
       $query->bindParam('val2', $groupid);
       $result = $query->execute();
@@ -648,9 +653,11 @@ class UserGroup
     */
    public function isMemberOfGroup($username, $groupid)
    {
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND type ="member"');
+      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND type = :val3');
       $query->bindParam('val1', $username);
       $query->bindParam('val2', $groupid);
+      $val3 = 'member';
+      $query->bindParam('val3', $val3);
       $result = $query->execute();
       
       if ($result and $query->fetchColumn())
@@ -673,9 +680,13 @@ class UserGroup
     */
     public function isMemberOrManagerOfGroup($username, $groupid)
     {
-       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND (type = "manager" OR type ="member")');
+       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND (type = :val3 OR type = :val4)');
        $query->bindParam('val1', $username);
        $query->bindParam('val2', $groupid);
+       $val3 = 'manager';
+       $query->bindParam('val3', $val3);
+       $val4 = 'member';
+       $query->bindParam('val4', $val4);
        $result = $query->execute();
        
        if ($result and $query->fetchColumn())
@@ -739,7 +750,7 @@ class UserGroup
     */
    public function save($username, $groupid, $type)
    {
-      $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE `username` = "' . $username . '" AND `groupid` = "' . $groupid . '"');
+      $query = $this->db->prepare("SELECT COUNT(*) FROM ".$this->table." WHERE `username` = '".$username."' AND `groupid` = '".$groupid."'");
       $result = $query->execute();
       
       if ($result and $query->fetchColumn())
@@ -770,17 +781,29 @@ class UserGroup
     */
    public function shareGroups($user1, $user2)
    {
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1 AND (type = "manager" OR type ="member" OR type ="guest")');
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1 AND (type = :val2 OR type = :val3 OR type = :val4)');
       $query->bindParam('val1', $user1);
+      $val2 = 'manager';
+      $query->bindParam('val2', $val2);
+      $val3 = 'member';
+      $query->bindParam('val3', $val3);
+      $val4 = 'guest';
+      $query->bindParam('val4', $val4);
       $result = $query->execute();
       
       if ($result)
       {
          while ( $row = $query->fetch() )
          {
-            $query2 = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND (type = "manager" OR type ="member" OR type ="guest")');
+            $query2 = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND (type = :val3 OR type = :val4 OR type = :val5)');
             $query2->bindParam('val1', $user2);
             $query2->bindParam('val2', $row['groupid']);
+            $val3 = 'manager';
+            $query2->bindParam('val3', $val3);
+            $val4 = 'member';
+            $query2->bindParam('val4', $val4);
+            $val5 = 'guest';
+            $query2->bindParam('val5', $val5);
             $result2 = $query2->execute();
             if ($result2 and $query2->fetchColumn())
             {
@@ -801,17 +824,25 @@ class UserGroup
     */
    public function shareGroupMemberships($user1, $user2)
    {
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1 AND (type = "manager" OR type ="member")');
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1 AND (type = :val2 OR type = :val3)');
       $query->bindParam('val1', $user1);
+      $val2 = 'manager';
+      $query->bindParam('val2', $val2);
+      $val3 = 'member';
+      $query->bindParam('val3', $val3);
       $result = $query->execute();
       
       if ($result)
       {
          while ( $row = $query->fetch() )
          {
-            $query2 = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND (type = "manager" OR type ="member")');
+            $query2 = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND groupid = :val2 AND (type = :val3 OR type = :val4)');
             $query2->bindParam('val1', $user2);
             $query2->bindParam('val2', $row['groupid']);
+            $val3 = 'manager';
+            $query2->bindParam('val3', $val3);
+            $val4 = 'member';
+            $query2->bindParam('val4', $val4);
             $result2 = $query2->execute();
             if ($result2 and $query2->fetchColumn())
             {

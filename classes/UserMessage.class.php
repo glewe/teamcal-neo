@@ -215,8 +215,10 @@ class UserMessage
    public function getAllPopupByUser($username)
    {
       $records = array ();
-      $query = $this->db->prepare('SELECT msgid FROM ' . $this->table . ' WHERE username = :val1 AND popup = "1"');
+      $query = $this->db->prepare('SELECT msgid FROM ' . $this->table . ' WHERE username = :val1 AND popup = :val2');
       $query->bindParam('val1', $username);
+      $val2 = '1';
+      $query->bindParam('val2', $val2);
       $result = $query->execute();
       
       if ($result)
@@ -254,8 +256,10 @@ class UserMessage
    public function setSilent($id)
    {
       $records = array ();
-      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET popup = "0" WHERE id = :val1');
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET popup = :val2 WHERE id = :val1');
       $query->bindParam('val1', $id);
+      $val2 = '0';
+      $query->bindParam('val2', $val2);
       $result = $query->execute();
       return $result;
    }
@@ -270,8 +274,10 @@ class UserMessage
    public function setSilentByUser($username)
    {
       $records = array ();
-      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET popup = "0" WHERE username = :val1');
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET popup = :val2 WHERE username = :val1');
       $query->bindParam('val1', $username);
+      $val2 = '0';
+      $query->bindParam('val2', $val2);
       $result = $query->execute();
       return $result;
    }
