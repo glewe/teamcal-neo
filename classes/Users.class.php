@@ -755,7 +755,7 @@ class Users
       `grace_start` = :val12,
       `last_pw_change` = :val3,
       `last_login` = :val14,
-      `created` = :val15 WHERE `username` = :val16;");
+      `created` = :val15 WHERE `username` = :val16");
 
       $query->bindParam('val1', $this->username);
       $query->bindParam('val2', $this->password);
@@ -775,25 +775,6 @@ class Users
       $query->bindParam('val16', $username);
 
       $result = $query->execute();
-
-      // $stmt = 'UPDATE ' . $this->table . ' SET ';
-      // $stmt .= '`username` = "' . $this->username . '", ';
-      // $stmt .= '`password` = "' . $this->password . '", ';
-      // $stmt .= '`firstname` = "' . $this->firstname . '", ';
-      // $stmt .= '`lastname` = "' . $this->lastname . '", ';
-      // $stmt .= '`email` = "' . $this->email . '", ';
-      // $stmt .= '`role` = "' . $this->role . '", ';
-      // $stmt .= '`locked` = "' . $this->locked . '", ';
-      // $stmt .= '`hidden` = "' . $this->hidden . '", ';
-      // $stmt .= '`onhold` = "' . $this->onhold . '", ';
-      // $stmt .= '`verify` = "' . $this->verify . '", ';
-      // $stmt .= '`bad_logins` = "' . $this->bad_logins . '", ';
-      // $stmt .= '`grace_start` = "' . $this->grace_start . '", ';
-      // $stmt .= '`last_pw_change` = "' . $this->last_pw_change . '", ';
-      // $stmt .= '`last_login` = "' . $this->last_login . '", ';
-      // $stmt .= '`created` = "' . $this->created . '" ';
-      // $stmt .= 'WHERE `username` = "' . $username . '"';
-      // $result = $this->db->exec($stmt);
 
       return $result;
 
