@@ -84,6 +84,7 @@ if (!empty($_POST))
                $alertData['title'] = $LANG['alert_warning_title'];
                $alertData['subject'] = $LANG['login_error_1'];
                $alertData['text'] = $LANG['login_error_1_text'];
+               $alertData['help'] = '';
                $LOG->log("logLogin", $uname, "log_login_missing");
                break;
             
@@ -96,6 +97,7 @@ if (!empty($_POST))
                $alertData['title'] = $LANG['alert_warning_title'];
                $alertData['subject'] = $LANG['login_error_2'];
                $alertData['text'] = $LANG['login_error_2_text'];
+               $alertData['help'] = '';
                $LOG->log("logLogin", $uname, "log_login_unknown");
                break;
             
@@ -108,6 +110,7 @@ if (!empty($_POST))
                $alertData['title'] = $LANG['alert_warning_title'];
                $alertData['subject'] = $LANG['login_error_3'];
                $alertData['text'] = $LANG['login_error_3_text'];
+               $alertData['help'] = '';
                $LOG->log("logLogin", $uname, "log_login_locked");
                break;
             
@@ -125,6 +128,7 @@ if (!empty($_POST))
                $alertData['text'] = str_replace('%1%', strval($U->bad_logins), $LANG['login_error_4_text']);
                $alertData['text'] = str_replace('%2%', $C->read("badLogins"), $alertData['text']);
                $alertData['text'] = str_replace('%3%', $C->read("gracePeriod"), $alertData['text']);
+               $alertData['help'] = '';
                $LOG->log("logLogin", $uname, "log_login_pwd");
                break;
             
@@ -139,6 +143,7 @@ if (!empty($_POST))
                $alertData['title'] = $LANG['alert_warning_title'];
                $alertData['subject'] = $LANG['login_error_3'];
                $alertData['text'] = str_replace('%1%', $C->read("gracePeriod"), $LANG['login_error_6_text']);
+               $alertData['help'] = '';
                $LOG->log("logLogin", $uname, "log_login_attempts");
                break;
             
@@ -151,6 +156,7 @@ if (!empty($_POST))
                $alertData['title'] = $LANG['alert_warning_title'];
                $alertData['subject'] = $LANG['login_error_7'];
                $alertData['text'] = $LANG['login_error_7_text'];
+               $alertData['help'] = '';
                $LOG->log("logLogin", $uname, "log_login_pwd");
                break;
             
@@ -163,6 +169,7 @@ if (!empty($_POST))
                $alertData['title'] = $LANG['alert_warning_title'];
                $alertData['subject'] = $LANG['login_error_3'];
                $alertData['text'] = $LANG['login_error_8_text'];
+               $alertData['help'] = '';
                $LOG->log("logLogin", $uname, "log_login_not_verified");
                break;
             
@@ -175,6 +182,7 @@ if (!empty($_POST))
                $alertData['title'] = $LANG['alert_warning_title'];
                $alertData['subject'] = $LANG['login_error_91'];
                $alertData['text'] = $LANG['login_error_1_text'];
+               $alertData['help'] = '';
                $LOG->log("logLogin", $uname, "log_login_ldap_pwd_missing");
                break;
             
@@ -187,6 +195,7 @@ if (!empty($_POST))
                $alertData['title'] = $LANG['alert_warning_title'];
                $alertData['subject'] = $LANG['login_error_92'];
                $alertData['text'] = $LANG['login_error_92_text'];
+               $alertData['help'] = '';
                $LOG->log("logLogin", $uname, "log_login_ldap_bind_failed");
                break;
             
@@ -199,6 +208,7 @@ if (!empty($_POST))
                $alertData['title'] = $LANG['alert_warning_title'];
                $alertData['subject'] = $LANG['login_error_93'];
                $alertData['text'] = $LANG['login_error_93`_text'];
+               $alertData['help'] = '';
                $LOG->log("logLogin", $uname, "log_login_ldap_connect_failed");
                break;
             
@@ -211,6 +221,7 @@ if (!empty($_POST))
                $alertData['title'] = $LANG['alert_warning_title'];
                $alertData['subject'] = $LANG['login_error_94'];
                $alertData['text'] = $LANG['login_error_94_text'];
+               $alertData['help'] = '';
                $LOG->log("logLogin", $uname, "log_login_ldap_tls_failed");
                break;
             
@@ -223,6 +234,7 @@ if (!empty($_POST))
                $alertData['title'] = $LANG['alert_warning_title'];
                $alertData['subject'] = $LANG['login_error_95'];
                $alertData['text'] = $LANG['login_error_2_text'];
+               $alertData['help'] = '';
                $LOG->log("logLogin", $uname, "log_login_ldap_username");
                break;
             
@@ -235,6 +247,7 @@ if (!empty($_POST))
                $alertData['title'] = $LANG['alert_warning_title'];
                $alertData['subject'] = $LANG['login_error_96'];
                $alertData['text'] = $LANG['login_error_96_text'];
+               $alertData['help'] = '';
                $LOG->log("logLogin", $uname, "log_login_ldap_search_bind_failed");
                break;
          }

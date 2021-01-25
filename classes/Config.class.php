@@ -44,7 +44,7 @@ class Config {
     */
    public function read($name) {
 
-      $query = $this->db->prepare("SELECT value FROM ".$this->table." WHERE `name` = :val1;");
+      $query = $this->db->prepare("SELECT value FROM ".$this->table." WHERE `name` = :val1");
       $query->bindParam('val1', $name);
       $result = $query->execute();
       
@@ -70,7 +70,8 @@ class Config {
     */
    public function save($name, $value) {
 
-      $query = $this->db->prepare("SELECT COUNT(*) FROM ".$this->table." WHERE `name` = '".$name."';");
+      $query = $this->db->prepare("SELECT COUNT(*) FROM ".$this->table." WHERE `name` = :val1");
+      $query->bindParam('val1', $name);
       $result = $query->execute();
       
       if ($result and $query->fetchColumn()) {
