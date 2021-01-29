@@ -407,7 +407,8 @@ class Users
          $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE hidden != 1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
          else
             $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != :val1 AND hidden != 1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
-            $query->bindParam('val1', 'admin');
+            $val1 = 'admin';
+            $query->bindParam('val1', $val1);
              
             $result = $query->execute();
              
@@ -677,7 +678,8 @@ class Users
    public function unhide($username)
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `hidden` = :val1 WHERE `username` = :val2');
-      $query->bindParam('val1', '0');
+      $val1 = '0';
+      $query->bindParam('val1', $val1);
       $query->bindParam('val2', $username);
       $result = $query->execute();
       return $result;
@@ -694,7 +696,8 @@ class Users
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `onhold` = :val2 WHERE `username` = :val1');
       $query->bindParam('val1', $username);
-      $query->bindParam('val2', '0');
+      $val2 = '0';
+      $query->bindParam('val2', $val2);
       $result = $query->execute();
       return $result;
    }
@@ -710,7 +713,8 @@ class Users
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `locked` = :val2 WHERE `username` = :val1');
       $query->bindParam('val1', $username);
-      $query->bindParam('val2', '0');
+      $val2 = '0';
+      $query->bindParam('val2', $val2);
       $result = $query->execute();
       return $result;
    }
@@ -726,7 +730,8 @@ class Users
    {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `verify` = :val2 WHERE `username` = :val1');
       $query->bindParam('val1', $username);
-      $query->bindParam('val2', '0');
+      $val2 = '0';
+      $query->bindParam('val2', $val2);
       $result = $query->execute();
       return $result;
    }
