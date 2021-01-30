@@ -155,7 +155,6 @@ if ($editAllowed)
                      }
                      $absstart = '<span data-type="danger" data-placement="top" data-toggle="tooltip" title="'.$A->getName($T->$abs).$taken.'">';                 
                      $absend = '</span>';
-                     if (!$A->getCountsAsPresent($T->$abs)) $dayAbsCount[$i]++; else $dayPresCount[$i]++;
                   }
                   else
                   {
@@ -166,7 +165,6 @@ if ($editAllowed)
                      $icon = '&nbsp;';
                      $absstart = '<span data-type="danger" data-placement="top" data-toggle="tooltip" title="'.$LANG['cal_tt_absent'].'">';
                      $absend = '</span>';
-                     if (!$A->getCountsAsPresent($T->$abs)) $dayAbsCount[$i]++; else $dayPresCount[$i]++;
                   }
                }
                else
@@ -178,8 +176,27 @@ if ($editAllowed)
                   $icon = '&nbsp;';
                   $absstart = '<span data-type="danger" data-placement="top" data-toggle="tooltip" title="'.$LANG['cal_tt_anotherabsence'].'">';
                   $absend = '</span>';
-                  if (!$A->getCountsAsPresent($T->$abs)) $dayAbsCount[$i]++; else $dayPresCount[$i]++;
                }
+
+               //
+               // Count this absence/presence if we haven't done so for this user/day
+               //
+               if (!in_array($usr['username']."::".$i, $absCountUsers)) {
+
+                  if (!$A->getCountsAsPresent($T->$abs)) {
+                  
+                     $dayAbsCount[$i]++;
+
+                  } else {
+                     
+                     $dayPresCount[$i]++;
+
+                  }
+
+                  $absCountUsers[] = $usr['username']."::".$i; // Put username and day into array so we know we have counted him
+
+               }
+
             }
             else 
             {

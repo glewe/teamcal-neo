@@ -85,6 +85,13 @@ foreach ($mobilecols as $key => $cols)
             <?php
             $dayAbsCount = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
             $dayPresCount = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+
+            //
+            // Array to hold the users of which we have counted the absences in calendarviewuserrow.php
+            // If a user is in several groups and shown more than once on the calendar page
+            // we do not want to count his absences twice.
+            //
+            $absCountUsers = array();
             
             if ($C->read("defgroupfilter") == "allbygroup")
             {
