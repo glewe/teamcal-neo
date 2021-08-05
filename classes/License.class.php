@@ -287,6 +287,7 @@ class License
                $alert['type'] = 'warning';
                $alert['title'] = $title.'<span class="btn btn-'.$alert['type'].' btn-sm" style="margin-left:16px;">'.proper($data->status).'</span>';
                $alert['subject'] = $LANG['lic_expired_subject'];
+               $alert['text'] = '';
                $alert['help'] = $LANG['lic_expired_help'];
                break;
    
@@ -362,4 +363,3 @@ class License
       }
    }
  }
-?>

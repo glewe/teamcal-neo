@@ -24,21 +24,26 @@ if (!defined('VALID_ROOT')) exit('');
  * 
  * @return boolean True or False indicating success
  */
-function absenceIsValidForUser($absid,$username)
-{
-   global $A, $AG, $U, $UG;
+function absenceIsValidForUser($absid, $username) {
+   global $A, $AG, $P, $U, $UG;
    $isValid = false;
-   
+
+   if (!strlen($username)) {
+      //
+      // Public
+      //
+      if (isAllowed('calendaredit')) return true;
+   }
+
    /**
     * Get all groups for the given user
     */
    $userGroups = $UG->getAllForUser($username);
-   
-   foreach ($userGroups as $group)
-   {
-      if ($AG->isAssigned($absid,$group['groupid'])) $isValid = true;
+
+   foreach ($userGroups as $group) {
+      if ($AG->isAssigned($absid, $group['groupid'])) $isValid = true;
    }
-   
+
    return $isValid;
 }
 
@@ -48,10 +53,9 @@ function absenceIsValidForUser($absid,$username)
  *
  * @param string $username Username to archive
  */
-function archiveUser($username)
-{
+function archiveUser($username) {
    global $CONF, $AL, $D, $G, $L, $LOG, $T, $U, $UMSG, $UG, $UO;
-   
+
    /**
     * Do not archive if username exists in any of the archive table
     */
@@ -62,13 +66,13 @@ function archiveUser($username)
    if ($D->exists($username, TRUE)) return FALSE;
    if ($AL->exists($username, TRUE)) return FALSE;
    if ($UMSG->exists($username, TRUE)) return FALSE;
-   
+
    /**
     * Get fullname for log
     */
    $U->findByName($username);
    $fullname = trim($U->firstname . " " . $U->lastname);
-   
+
    /**
     * Archive user
     * Archive memberships
@@ -85,17 +89,17 @@ function archiveUser($username)
    $D->archive($username);
    $AL->archive($username);
    $UMSG->archive($username);
-   
+
    /**
     * Delete user from active tables
     */
    deleteUser($username, false, false);
-   
+
    /**
     * Log this event
     */
    $LOG->log("logUser", $L->checkLogin(), "log_user_archived", $fullname . " (" . $username . ")");
-   
+
    return true;
 }
 
@@ -104,13 +108,11 @@ function archiveUser($username)
  * Deletes all orphaned announcements, meaning those announcements that are
  * not assigned to any user.
  */
-function deleteOrphanedMessages()
-{
+function deleteOrphanedMessages() {
    global $MSG, $UMSG;
-   
+
    $messages = $MSG->getAll();
-   foreach ( $messages as $msg )
-   {
+   foreach ($messages as $msg) {
       if (!count($UMSG->getAllByMsgId($msg['id']))) $MSG->delete($msg['id']);
    }
 }
@@ -123,16 +125,15 @@ function deleteOrphanedMessages()
  * @param boolean $fromArchive Flag whether to delete from archive tables 
  * @param boolean $sendNotifications Flag whether to send notifications 
  */
-function deleteUser($username, $fromArchive = FALSE, $sendNotifications = true)
-{
+function deleteUser($username, $fromArchive = FALSE, $sendNotifications = true) {
    global $AL, $AV, $CONF, $D, $L, $LOG, $T, $U, $UMSG, $UG, $UO;
-   
+
    /**
     * Get fullname for log
     */
    $U->findByName($username);
    $fullname = trim($U->firstname . " " . $U->lastname);
-   
+
    /**
     * Delete user
     * Delete memberships
@@ -150,12 +151,12 @@ function deleteUser($username, $fromArchive = FALSE, $sendNotifications = true)
    $T->deleteByUser($username, $fromArchive);
    $D->deleteByUser($username, $fromArchive);
    $AL->deleteByUser($username, $fromArchive);
-   
+
    /**
     * Send notification e-mails
     */
    sendUserEventNotifications("deleted", $username, $U->firstname, $U->lastname);
-    
+
    /**
     * Log this event
     */
@@ -173,39 +174,31 @@ function deleteUser($username, $fromArchive = FALSE, $sendNotifications = true)
  * 
  * @return boolean Success flag
  */
-function importUsersFromCSV($defgroup, $lock = true, $hide = true)
-{
+function importUsersFromCSV($defgroup, $lock = true, $hide = true) {
    /**
     * The expected columns are:
     * 0        1         2        3     4        5     6      7     8
     * username|firstname|lastname|title|position|phone|mobile|email|idnumber
     */
-   global $CONF,$LANG, $L, $LOG;
+   global $CONF, $LANG, $L, $LOG;
    $UI = new User;
    $UGI = new UserGroup;
    $UOI = new UserOption;
-   
+
    $result = true;
    $fpointer = fopen($this->file_name, "r");
-   
-   if ($fpointer)
-   {
-      while ( $arr = fgetcsv($fpointer, 10 * 1024, ";") )
-      {
-         if (is_array($arr) && !empty($arr))
-         {
-            if (count($arr) != 11)
-            {
+
+   if ($fpointer) {
+      while ($arr = fgetcsv($fpointer, 10 * 1024, ";")) {
+         if (is_array($arr) && !empty($arr)) {
+            if (count($arr) != 11) {
                $this->error = $LANG['uimp_err_col_1'] . $arr[0] . $LANG['uimp_err_col_2'] . count($arr) . $LANG['uimp_err_col_3'];
                unset($arr);
                fclose($fpointer);
                $result = false;
                return;
-            }
-            else
-            {
-               if (!$UI->findByName(trim($arr[0])) and $arr[0] != "admin" and preg_match('/^[a-zA-Z0-9]*$/', $arr[0]))
-               {
+            } else {
+               if (!$UI->findByName(trim($arr[0])) and $arr[0] != "admin" and preg_match('/^[a-zA-Z0-9]*$/', $arr[0])) {
                   $UI->username = trim($arr[0]);
                   $UI->password = password_hash("password", PASSWORD_DEFAULT);
                   $UI->firstname = $arr[1];
@@ -228,29 +221,24 @@ function importUsersFromCSV($defgroup, $lock = true, $hide = true)
                   if ($hide) $UI->setStatus($CONF['USHIDDEN']);
                   $UI->notify = 0;
                   $UI->create();
-                  
+
                   $UGI->create($UI->username, $defgroup, "member");
-                  
+
                   $UOI->create($UI->username, "owngroupsonly", "no");
-                  if (strtolower($arr[10]) == "yes" || strtolower($arr[10]) == "1")
-                  {
+                  if (strtolower($arr[10]) == "yes" || strtolower($arr[10]) == "1") {
                      $UOI->create($UI->username, "showbirthday", "yes");
-                  }
-                  else
-                  {
+                  } else {
                      $UOI->create($UI->username, "showbirthday", "no");
                   }
                   $UOI->create($UI->username, "ignoreage", "no");
                   $UOI->create($UI->username, "notifybirthday", "no");
                   $UOI->create($UI->username, "language", $deflang);
                   $UOI->create($UI->username, "defgroup", "All");
-                  
+
                   $fullname = $UI->firstname . " " . $UI->lastname;
                   $LOG->log("logUser", $L->checkLogin(), "log_csv_import", $UI->username . " (" . $fullname . ")");
                   $this->count_imported++;
-               }
-               else
-               {
+               } else {
                   $this->count_skipped++;
                }
             }
@@ -271,23 +259,19 @@ function importUsersFromCSV($defgroup, $lock = true, $hide = true)
  * 
  * @return boolean True if allowed, false if not.
  */
-function isAllowed($permission = '')
-{
+function isAllowed($permission = '') {
    global $C, $L, $P, $UL;
-   
+
    $pscheme = $C->read("permissionScheme");
-   
-   if (L_USER)
-   {
+
+   if (L_USER) {
       /**
        * Someone is logged in.
        * Check permission by role.
        */
       $UL->findByName(L_USER);
       return $P->isAllowed($pscheme, $permission, $UL->role);
-   }
-   else
-   {
+   } else {
       /**
        * It's a public user
        */
@@ -303,10 +287,9 @@ function isAllowed($permission = '')
  * 
  * @return boolean True or False indicating success
  */
-function restoreUser($username)
-{
+function restoreUser($username) {
    global $CONF, $AL, $D, $L, $LOG, $T, $U, $UMSG, $UG, $UO;
-   
+
    /**
     * Do not restore if username exists in any of the active tables
     */
@@ -317,13 +300,13 @@ function restoreUser($username)
    if ($D->exists($username)) return FALSE;
    if ($AL->exists($username)) return FALSE;
    if ($UMSG->exists($username)) return FALSE;
-   
+
    /**
     * Get fullname for log
     */
    $U->findByName($username);
    $fullname = trim($U->firstname . " " . $U->lastname);
-   
+
    /**
     * Restore user
     * Restore memberships
@@ -340,17 +323,16 @@ function restoreUser($username)
    $D->restore($username);
    $AL->restore($username);
    $UMSG->restore($username);
-   
+
    /**
     * Delete user from archive tables
     */
    deleteUser($username, $archive = true, $sendNotifications = false);
-   
+
    /**
     * Log this event
     */
    $LOG->log("logUser", $L->checkLogin(), "log_user_restored", $fullname . " (" . $username . ")");
-   
+
    return true;
 }
-?>
