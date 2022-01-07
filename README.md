@@ -39,8 +39,7 @@ https://support.lewe.com/docs/teamcal-neo-manual/administration/license/
 
 2. Download the new release and overwrite all files.
  
-3. Edit `config/config.app.php` and change line 39 to:
-    define('APP_INSTALLED',"1");
+3. Edit `config/config.app.php` and change line 39 to: `define('APP_INSTALLED',"1");`
 
 4. Edit `config/config.db.php` and update your database settings from your backup.
    
