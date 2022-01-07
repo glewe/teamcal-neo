@@ -48,6 +48,10 @@ https://support.lewe.com/docs/teamcal-neo-manual/administration/license/
 6. Go to Administration -> Framework Configuration -> License tab
    - Activate and register your license
 
+## Support
+
+[Lewe Help Center](https://georgelewe.atlassian.net/servicedesk/customer/portal/5)
+
 ## Credits
 
 A lot of work goes into TeamCal Neo but it would not be possible without the bits and pieces of other great developers that offer their work to the community for free. I am very thankful for that and would like pass my thanks to these people:
