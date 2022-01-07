@@ -330,6 +330,7 @@ $htmlData['locale'] = $LANG['locale'];
 $htmlData['theme'] = getTheme();
 $htmlData['jQueryTheme'] = $C->read("jqtheme");
 if ($C->read("cookieConsent")) $htmlData['cookieConsent'] = true; else $htmlData['cookieConsent'] = false; 
+if ($C->read("cookieConsentCDN")) $htmlData['cookieConsentCDN'] = true; else $htmlData['cookieConsentCDN'] = false; 
 if ($C->read("faCDN")) $htmlData['faCDN'] = true; else $htmlData['faCDN'] = false; 
 if ($C->read("jQueryCDN")) $htmlData['jQueryCDN'] = true; else $htmlData['jQueryCDN'] = false; 
 if ($C->read("noIndex")) $htmlData['robots'] = 'noindex,nofollow,noopd'; else $htmlData['robots'] = 'index,follow,noopd';

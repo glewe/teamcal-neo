@@ -204,7 +204,7 @@ if (!empty($_POST))
             $UO->save($profile, 'calendarMonths', 'default');
          }
 
-         if (strlen($_POST['txt_showMonths'])) 
+         if (isset($_POST['txt_showMonths']) && strlen($_POST['txt_showMonths'])) 
          {
             $postValue = intval($_POST['txt_showMonths']);
             if ($postValue < 1) $postValue = 1;

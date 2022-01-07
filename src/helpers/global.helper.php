@@ -143,12 +143,12 @@ function dateInfo($year, $month, $day = '1') {
  *
  * @param     misc    $var    Variable or array to dump
  */
-function dnd($var) {
+function dnd($var,$dieafter=true) {
 
    echo "<pre>";
    var_dump($var);
    echo "</pre>";
-   die();
+   if ($dieafter) die();
 }
 
 // ---------------------------------------------------------------------------

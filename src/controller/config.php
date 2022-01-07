@@ -151,6 +151,7 @@ if (!empty($_POST))
          // System
          //
          if (isset($_POST['chk_cookieConsent']) && $_POST['chk_cookieConsent']) $C->save("cookieConsent", "1"); else $C->save("cookieConsent", "0");
+         if (isset($_POST['chk_cookieConsentCDN']) && $_POST['chk_cookieConsentCDN']) $C->save("cookieConsentCDN", "1"); else $C->save("cookieConsentCDN", "0");
          if (isset($_POST['chk_faCDN']) && $_POST['chk_faCDN']) $C->save("faCDN", "1"); else $C->save("faCDN", "0");
          if (isset($_POST['chk_jQueryCDN']) && $_POST['chk_jQueryCDN']) $C->save("jQueryCDN", "1"); else $C->save("jQueryCDN", "0");
          if ($_POST['sel_timeZone']) $C->save("timeZone",$_POST['sel_timeZone']); else $C->save("timeZone","UTC");
@@ -412,6 +413,7 @@ foreach ($timezones as $tz)
 }
 $viewData['system'] = array (
    array ( 'prefix' => 'config', 'name' => 'cookieConsent', 'type' => 'check', 'values' => '', 'value' => $C->read("cookieConsent") ),
+   array ( 'prefix' => 'config', 'name' => 'cookieConsentCDN', 'type' => 'check', 'values' => '', 'value' => $C->read("cookieConsentCDN") ),
    array ( 'prefix' => 'config', 'name' => 'faCDN', 'type' => 'check', 'values' => '', 'value' => $C->read("faCDN") ),
    array ( 'prefix' => 'config', 'name' => 'jQueryCDN', 'type' => 'check', 'values' => '', 'value' => $C->read("jQueryCDN") ),
    array ( 'prefix' => 'config', 'name' => 'timeZone', 'type' => 'list', 'values' => $viewData['timezoneList'] ),

@@ -1,7 +1,0 @@
-==============================================================================
-TEAMCAL NEO LICENSE (BASIC AND PRO)
-==============================================================================
-
-Refer to this documentation for the TeamCal Neo license details (Basic and Pro):
-https://support.lewe.com/docs/teamcal-neo-manual/teamcal-neo-license/
-

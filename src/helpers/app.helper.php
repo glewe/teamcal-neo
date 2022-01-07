@@ -545,6 +545,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                      $D->region = $regionId;
                      $D->daynote = $LANG['alert_decl_approval_required_daynote'];
                      $D->color = 'warning';
+                     $D->confidential = 0;
                      $D->create();
                   }
                }

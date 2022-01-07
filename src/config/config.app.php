@@ -17,9 +17,9 @@ if (!defined('VALID_ROOT')) exit('');
  * ROUTING
  */
 $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
-$fullURL = $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-$pos = strrpos($fullURL,'/');
-define('WEBSITE_URL', substr($fullURL,0,$pos)); //Remove trailing slash
+$fullURL = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$pos = strrpos($fullURL, '/');
+define('WEBSITE_URL', substr($fullURL, 0, $pos)); //Remove trailing slash
 define('APP_AVATAR_DIR', "upload/avatars/");
 define('APP_UPL_DIR', "upload/files/");
 define('APP_IMP_DIR', "upload/import/");
@@ -35,12 +35,12 @@ define('APP_IMP_DIR', "upload/import/");
 // Set this to 0 if you want to run the installation.php script again.
 // If not, you need to delete or rename the installation.php file.
 //
-define('APP_INSTALLED',"0");
+define('APP_INSTALLED', "0");
 
 //
 // The cookie prefix to be used on the browser client's device
 //
-define('COOKIE_NAME',"tcneopro");
+define('COOKIE_NAME', "tcneopro");
 
 //=============================================================================
 /**
@@ -112,11 +112,11 @@ define('XEDITABLE_VER', "1.5.1");
 // Defines the allowed file types for upload
 // Defines the allowed max file sizes for upload
 //
-$CONF['avatarExtensions'] = array ( 'gif', 'jpg', 'png' );
+$CONF['avatarExtensions'] = array('gif', 'jpg', 'png');
 $CONF['avatarMaxsize'] = 1024 * 100; // 100 KB
-$CONF['imgExtensions'] = array ( 'gif', 'jpg', 'png' );
-$CONF['impExtensions'] = array ( 'csv' );
-$CONF['uplExtensions'] = array ( 'gif', 'jpg', 'png', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'zip' );
+$CONF['imgExtensions'] = array('gif', 'jpg', 'png');
+$CONF['impExtensions'] = array('csv');
+$CONF['uplExtensions'] = array('gif', 'jpg', 'png', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'zip');
 $CONF['uplMaxsize'] = 2048 * 1024; // 2 MB
 
 //=============================================================================
@@ -152,9 +152,9 @@ define('LDAP_TLS', 0); // To avoid "Undefined index: LDAP_TLS" error message for
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "3.2.8");
-define('APP_DATE', "2021-08-05");
-define('APP_YEAR', "2014-".date('Y'));
+define('APP_VER', "3.2.9");
+define('APP_DATE', "2022-01-07");
+define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "http://www.lewe.com");
 define('APP_EMAIL', "george@lewe.com");

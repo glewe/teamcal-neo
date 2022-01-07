@@ -386,6 +386,11 @@ $LANG['config_badLogins_comment'] = 'Anzahl der ung&uuml;ltigen Login Versuche b
 $LANG['config_cookieConsent'] = 'Cookie Zustimmung';
 $LANG['config_cookieConsent_comment'] = 'Mit dieser Option wird am unteren Bildschirmrand ein Popup f&uuml;r die Zustimmung zu Cookienutzung angezeigt. 
       Dies ist legale Pflicht in der EU. Dieses Feature erordert eine Internetverbindung.';
+$LANG['config_cookieConsentCDN'] = 'Cookie Consent CDN';
+$LANG['config_cookieConsentCDN_comment'] = 'CDNs (Content Distributed Network) k&ouml;nnen einen Performance-Vorteil bieten dadurch dass popul&auml;re Web Module von Servern rund 
+      um den Globus geladen werden. Cookie Consent ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul 
+      f&uuml;r den Nutzer schon durch eine andere Anwendung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Schalte 
+      diese Option aus, wenn du '.$appTitle.' in einer Umgebung ohne Internetverbindung betreibst.';
 $LANG['config_cookieLifetime'] = 'Cookie Lebensdauer';
 $LANG['config_cookieLifetime_comment'] = 'Bei erfolgreichem Einloggen wird ein Cookie auf dem lokalen Rechner des Users abgelegt. Dieser Cookie hat eine 
       bestimmte Lebensdauer, nach dem er nicht mehr anerkannt wird. Ein erneutes Login is notwendig. Die Lebensdauer kann hier in Sekunden angegeben werden (0-999999).';

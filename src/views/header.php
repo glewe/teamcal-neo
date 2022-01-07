@@ -138,9 +138,14 @@ if (!defined('VALID_ROOT')) exit('');
       <?php } ?>
 
       <?php if ($htmlData['cookieConsent']) { ?><!-- Cookie Consent by Silktide - http://silktide.com/cookieconsent -->
-      <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+      <?php if ($htmlData['cookieConsentCDN']) { ?>
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
       <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
-      <script>
+      <?php } else { ?>
+<link rel="stylesheet" type="text/css" href="addons/cookieconsent2/3.0.3/cookieconsent.min.css" />
+      <script src="addons/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+      <?php } ?>
+<script>
       window.addEventListener("load", function(){
          window.cookieconsent.initialise({
             "cookie": {

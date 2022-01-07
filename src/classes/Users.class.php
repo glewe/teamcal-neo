@@ -43,6 +43,8 @@ class Users
    {
       global $CONF, $DB;
       $this->db = $DB->db;
+      $this->db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false); // Needed for PDO::errorInfo()
+      $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Needed for PDO:errorCode()
       $this->table = $CONF['db_table_users'];
       $this->archive_table = $CONF['db_table_archive_users'];
    }
@@ -338,26 +340,43 @@ class Users
    public function getAll($order1 = 'lastname', $order2 = 'firstname', $sort = 'ASC', $archive = false, $includeAdmin = false)
    {
       $records = array ();
-      if ($archive) $table = $this->archive_table;
-      else $table = $this->table;
 
-      if ($includeAdmin)
+      if ($archive) {
+         
+         $table = $this->archive_table;
+
+      } else {
+
+         $table = $this->table;
+
+      }
+
+      if ($includeAdmin) {
+
          $query = $this->db->prepare('SELECT * FROM ' . $table . ' ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
-         else
-            $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != :val1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
-            $val1 = 'admin';
-            $query->bindParam('val1', $val1);
 
-            $result = $query->execute();
+      } else {
 
-            if ($result)
-            {
-               while ( $row = $query->fetch() )
-               {
-                  $records[] = $row;
-               }
-            }
-            return $records;
+         $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != :val1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
+         $val1 = 'admin';
+         $query->bindParam('val1', $val1);
+         
+      }
+
+      $result = $query->execute();
+
+      if ($result) {
+
+         while ( $row = $query->fetch() ) {
+
+            $records[] = $row;
+
+         }
+
+      }
+
+      return $records;
+
    }
     
    // ---------------------------------------------------------------------
@@ -758,9 +777,14 @@ class Users
       `verify` = :val10,
       `bad_logins` = :val11,
       `grace_start` = :val12,
-      `last_pw_change` = :val3,
+      `last_pw_change` = :val13,
       `last_login` = :val14,
       `created` = :val15 WHERE `username` = :val16");
+
+      if (!$query) {
+         echo "\n<pre><b>MySQL Statment Error:</b></pre>\n";
+         dnd($this->db->errorInfo());
+      }
 
       $query->bindParam('val1', $this->username);
       $query->bindParam('val2', $this->password);
@@ -779,9 +803,37 @@ class Users
       $query->bindParam('val15', $this->created);
       $query->bindParam('val16', $username);
 
-      $result = $query->execute();
+      // $query = "UPDATE ".$this->table." SET 
+      // `username` = '".$this->username."',
+      // `password` = '".$this->password."',
+      // `firstname` = '".$this->firstname."',
+      // `lastname` = '".$this->lastname."',
+      // `email` = '".$this->email."',
+      // `role` = '".$this->role."',
+      // `locked` = '".$this->locked."',
+      // `hidden` = '".$this->hidden."',
+      // `onhold` = '".$this->onhold."',
+      // `verify` = '".$this->verify."',
+      // `bad_logins` = '".$this->bad_logins."',
+      // `grace_start` = '".$this->grace_start."',
+      // `last_pw_change` = '".$this->last_pw_change."',
+      // `last_login` = '".$this->last_login."',
+      // `created` = '".$this->created."' WHERE `username` = '".$username."';";
+      // dnd($query);
 
-      return $result;
+      // $result = $query->execute();
+
+      try {
+
+         $result = $query->execute();
+         // dnd($this->db->errorInfo());
+         return $result;
+
+      } catch (PDOException $e) {
+
+         dnd($e->getMessage());
+
+      }       
 
    }
     

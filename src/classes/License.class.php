@@ -67,6 +67,9 @@ class License
     */
    function callAPI($method, $url, $data = false)
    {
+
+      if (defined('APP_LIC_LOCAL')) return APP_LIC_LOCAL;
+
       $curl = curl_init();
 
       switch (strtoupper($method))
@@ -341,7 +344,7 @@ class License
     */
    function status()
    {
-      if ($this->details->result=='error') return "invalid";
+      if (!isset($this->details) || $this->details->result=='error') return "invalid";
 
       switch ($this->details->status) {
          case "active":
@@ -362,4 +365,4 @@ class License
             break;
       }
    }
- }
+}

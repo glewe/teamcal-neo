@@ -385,6 +385,11 @@ $LANG['config_badLogins_comment'] = 'Number of bad login attempts that will caus
 $LANG['config_cookieConsent'] = 'Cookie Consent';
 $LANG['config_cookieConsent_comment'] = 'With this option, a cookie consent confirmation will pop up at the bottom of the screen. 
       This is legally required in the EU. This feature requires Internet connectivity.';
+$LANG['config_cookieConsentCDN'] = 'Cookie Consent CDN';
+$LANG['config_cookieConsentCDN_comment'] = 'CDNs (Content Distributed Network) can offer a performance benefit by hosting popular web modules on servers spread 
+      across the globe. Cookie Consent is such a module. Pulling it from a CDN location also offers an advantage that if the visitor 
+      to your webpage has already downloaded a copy of it from the same CDN, it won\'t have to be re-downloaded.<br>Switch this option off if you are 
+      running the application in an environment with no Internet connectivity.';
 $LANG['config_cookieLifetime'] = 'Cookie Lifetime';
 $LANG['config_cookieLifetime_comment'] = 'Upon successful login a cookie is stored on the local hard drive of the user. This cookie has a certain 
       lifetime after which it becomes invalid. A new login is necessary. This lifetime can be specified here in seconds (0-999999).';
