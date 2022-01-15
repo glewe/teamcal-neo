@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * View Profile Controller
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @copyright Copyright (c) 2014-2022 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -18,44 +18,39 @@ if (!defined('VALID_ROOT')) exit('');
 //
 // CHECK PERMISSION
 //
-if (!isAllowed($CONF['controllers'][$controller]->permission))
-{
-   $alertData['type'] = 'warning';
-   $alertData['title'] = $LANG['alert_alert_title'];
-   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
-   $alertData['text'] = $LANG['alert_not_allowed_text'];
-   $alertData['help'] = $LANG['alert_not_allowed_help'];
-   require (WEBSITE_ROOT . '/controller/alert.php');
-   die();
+if (!isAllowed($CONF['controllers'][$controller]->permission)) {
+    $alertData['type'] = 'warning';
+    $alertData['title'] = $LANG['alert_alert_title'];
+    $alertData['subject'] = $LANG['alert_not_allowed_subject'];
+    $alertData['text'] = $LANG['alert_not_allowed_text'];
+    $alertData['help'] = $LANG['alert_not_allowed_help'];
+    require(WEBSITE_ROOT . '/controller/alert.php');
+    die();
 }
 
 //=============================================================================
 //
 // CHECK URL PARAMETER
 //
-if (isset($_GET['profile']))
-{
-   $missingData = FALSE;
-   $profile = sanitize($_GET['profile']);
-   if (!$U->findByName($profile)) $missingData = TRUE;
-}
-else
-{
-   $missingData = TRUE;
+if (isset($_GET['profile'])) {
+    $missingData = FALSE;
+    $profile = sanitize($_GET['profile']);
+    if (!$U->findByName($profile)) $missingData = TRUE;
+} else {
+    $missingData = TRUE;
 }
 
-if ($missingData)
-{
-   //
-   // URL param fail
-   //
-   $alertData['type'] = 'danger';
-   $alertData['title'] = $LANG['alert_danger_title'];
-   $alertData['subject'] = $LANG['alert_no_data_subject'];
-   $alertData['text'] = $LANG['alert_no_data_text'];
-   $alertData['help'] = $LANG['alert_no_data_help'];
-   require (WEBSITE_ROOT . '/controller/alert.php');
-   die();
+if ($missingData) {
+    //
+    // URL param fail
+    //
+    $alertData['type'] = 'danger';
+    $alertData['title'] = $LANG['alert_danger_title'];
+    $alertData['subject'] = $LANG['alert_no_data_subject'];
+    $alertData['text'] = $LANG['alert_no_data_text'];
+    $alertData['help'] = $LANG['alert_no_data_help'];
+    require(WEBSITE_ROOT . '/controller/alert.php');
+    die();
 }
 
 //=============================================================================
@@ -94,23 +89,20 @@ $viewData['skype'] = $UO->read($U->username, 'skype');
 $viewData['twitter'] = $UO->read($U->username, 'twitter');
 
 $viewData['allowEdit'] = false;
-if ( ($userData['isLoggedIn'] AND $userData['username'] == $viewData['username']) OR isAllowed($CONF['controllers']['useredit']->permission))
-{
-   $viewData['allowEdit'] = true;
+if (($userData['isLoggedIn'] and $userData['username'] == $viewData['username']) or isAllowed($CONF['controllers']['useredit']->permission)) {
+    $viewData['allowEdit'] = true;
 }
 
 $viewData['allowAbsum'] = false;
-if (isAllowed($CONF['controllers']['absum']->permission))
-{
-   $viewData['allowAbsum'] = true;
+if (isAllowed($CONF['controllers']['absum']->permission)) {
+    $viewData['allowAbsum'] = true;
 }
 
 //=============================================================================
 //
 // SHOW VIEW
 //
-require (WEBSITE_ROOT . '/views/header.php');
-require (WEBSITE_ROOT . '/views/menu.php');
-include (WEBSITE_ROOT . '/views/'.$controller.'.php');
-require (WEBSITE_ROOT . '/views/footer.php');
-?>
+require(WEBSITE_ROOT . '/views/header.php');
+require(WEBSITE_ROOT . '/views/menu.php');
+include(WEBSITE_ROOT . '/views/' . $controller . '.php');
+require(WEBSITE_ROOT . '/views/footer.php');

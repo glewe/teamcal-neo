@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * German Application Strings
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @copyright Copyright (c) 2014-2022 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -37,30 +37,30 @@ $LANG['weekends'] = 'Wochenenden';
 $LANG['weeknumber'] = 'Kalenderwoche';
 $LANG['year'] = 'Jahr';
 
-$LANG['monthnames'] = array (
-   1 => "Januar",
-   2 => "Februar",
-   3 => "M&auml;rz",
-   4 => "April",
-   5 => "Mai",
-   6 => "Juni",
-   7 => "Juli",
-   8 => "August",
-   9 => "September",
-   10 => "Oktober",
-   11 => "November",
-   12 => "Dezember",
+$LANG['monthnames'] = array(
+    1 => "Januar",
+    2 => "Februar",
+    3 => "M&auml;rz",
+    4 => "April",
+    5 => "Mai",
+    6 => "Juni",
+    7 => "Juli",
+    8 => "August",
+    9 => "September",
+    10 => "Oktober",
+    11 => "November",
+    12 => "Dezember",
 );
 
-$LANG['widths'] = array (
-   'full' => "Vollbildschirm (Mehr als 1024 Pixel)",
-   '1024' => "1024 Pixel",
-   '800' => "800 Pixel",
-   '640' => "640 Pixel",
-   '480' => "480 Pixel",
-   '400' => "400 Pixel",
-   '320' => "320 Pixel",
-   '240' => "240 Pixel",
+$LANG['widths'] = array(
+    'full' => "Vollbildschirm (Mehr als 1024 Pixel)",
+    '1024' => "1024 Pixel",
+    '800' => "800 Pixel",
+    '640' => "640 Pixel",
+    '480' => "480 Pixel",
+    '400' => "400 Pixel",
+    '320' => "320 Pixel",
+    '240' => "240 Pixel",
 );
 
 //
@@ -132,7 +132,7 @@ $LANG['abs_sample'] = 'Beispielanzeige';
 $LANG['abs_sample_comment'] = 'So w&uuml;rde der Abswesenheitstyp im Kalender angezeigt werden basierend auf den aktuellen Einstellungen.<br>
       Hinweis: In den Kalenderoptionen kann eingestellt werden, ob das Icon oder die Zeichen ID f&uuml;r die Anzeige benutzt werden soll.';
 $LANG['abs_show_in_remainder'] = 'Verbleibend anzeigen';
-$LANG['abs_show_in_remainder_comment'] = 'Mit dieser Option wird der Abwesenheitstyp auf der Verbeleibend-Seite angezeigt.'; 
+$LANG['abs_show_in_remainder_comment'] = 'Mit dieser Option wird der Abwesenheitstyp auf der Verbeleibend-Seite angezeigt.';
 $LANG['abs_symbol'] = 'Zeichen ID';
 $LANG['abs_symbol_comment'] = 'Die Zeichen ID wird in E-Mails benutzt, da die Font Icons dort nicht unterst&uuml;tzt werden. 
       Die Zeichen ID ist ein alphanumerisches Zeichen lang und muss angegeben werden. Allerdings kann das gleiche Zeichen f&uuml;r mehrere 
@@ -757,8 +757,8 @@ $LANG['profile_calendarMonths_two'] = 'Zwei';
 $LANG['profile_calfilterGroup'] = 'Standard Gruppenfilter';
 $LANG['profile_calfilterGroup_comment'] = 'Die Kalenderansicht kann auf eine Gruppe gefiltert werden. Dies kann hier oder auf der Kalenderseite eingestellt werden.';
 $LANG['profile_guestships'] = 'In anderen Gruppen anzeigen';
-$LANG['profile_guestships_comment'] = 'Zeigt den Kalender dieses Nutzers in den ausgew&auml;hlten Gruppen mit an, auch wenn keine Mitgliedschaft vorliegt (auch "Gastmitgliedschaft" genannt). Dieses Feature ist sinnvoll, wenn der Nutzer '.
-      'zwar kein Mitglied, seine Abwesenheiten aber trotzdem relevant f&uuml;r die Gruppe sind.<br><i>Gastmitglieder werden im Kalender in schr&auml;ger Schrift dargestellt.</i>';
+$LANG['profile_guestships_comment'] = 'Zeigt den Kalender dieses Nutzers in den ausgew&auml;hlten Gruppen mit an, auch wenn keine Mitgliedschaft vorliegt (auch "Gastmitgliedschaft" genannt). Dieses Feature ist sinnvoll, wenn der Nutzer ' .
+    'zwar kein Mitglied, seine Abwesenheiten aber trotzdem relevant f&uuml;r die Gruppe sind.<br><i>Gastmitglieder werden im Kalender in schr&auml;ger Schrift dargestellt.</i>';
 $LANG['profile_hidden'] = '<i class="far fa-eye-slash text-info" style="padding-right: 8px;"></i>Im Kalender verbergen';
 $LANG['profile_hidden_comment'] = 'Mit dieser Option kann der Nutzer aktiv bleiben aber im Kalender verborgen werden. Die Abwesenheiten werden in den Statistiken jedoch weiter gez&auml;hlt. Sollte das
       nicht gew&uuml;nscht sein, wird die Archivierung des Nutzers empfohlen.';
@@ -769,7 +769,7 @@ $LANG['profile_notifyMonthEvents'] = 'Monatsschablonen-Ereignisse';
 $LANG['profile_notifyNone'] = 'Keine/r';
 $LANG['profile_notifyUserCalEvents'] = 'Benutzerkalender-Ereignisse';
 $LANG['profile_notifyUserCalGroups'] = 'Benutzerkalender-Ereignis-Gruppen';
-$LANG['profile_notifyUserCalGroups_comment'] = 'Wenn oben das Ereignis "'.$LANG['profile_notifyUserCalEvents'].'" ausgew&auml;hlt wurde, w&auml;hle hier, f&uuml;r welche deiner Gruppen du diese Benachrichtigungen bekommen m&ouml;chtest.';
+$LANG['profile_notifyUserCalGroups_comment'] = 'Wenn oben das Ereignis "' . $LANG['profile_notifyUserCalEvents'] . '" ausgew&auml;hlt wurde, w&auml;hle hier, f&uuml;r welche deiner Gruppen du diese Benachrichtigungen bekommen m&ouml;chtest.';
 $LANG['profile_showMonths'] = 'Mehrere Monate anzeigen';
 $LANG['profile_showMonths_comment'] = 'Gebe hier an, wieviele Monate auf der Kalenderseite angezeigt werden sollen, maximal 12.';
 
@@ -844,9 +844,9 @@ $LANG['stats_byusers'] = '(Pro Nutzer)';
 $LANG['stats_color'] = 'Farbe';
 $LANG['stats_color_comment'] = 'W&auml;hle die Farbe f&uuml;r das Diagramm.';
 $LANG['stats_customColor'] = 'Individuelle Frabe';
-$LANG['stats_customColor_comment'] = 'W&auml;hle eine individuelle Farbe f&uuml;r das Diagramm.<br>Damit die Farbe angewendet wird, muss in der Farbe Liste "'.$LANG['custom'].'" ausgew&auml;hlt sein.';
+$LANG['stats_customColor_comment'] = 'W&auml;hle eine individuelle Farbe f&uuml;r das Diagramm.<br>Damit die Farbe angewendet wird, muss in der Farbe Liste "' . $LANG['custom'] . '" ausgew&auml;hlt sein.';
 $LANG['stats_endDate'] = 'Eigenes Ende Datum';
-$LANG['stats_endDate_comment'] = 'W&auml;hle ein eigenes Enddatum f&uuml;r die Statistik. Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "'.$LANG['custom'].'" ausgew&auml;hlt sein.';
+$LANG['stats_endDate_comment'] = 'W&auml;hle ein eigenes Enddatum f&uuml;r die Statistik. Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "' . $LANG['custom'] . '" ausgew&auml;hlt sein.';
 $LANG['stats_group'] = 'Gruppe';
 $LANG['stats_group_comment'] = 'W&auml;hle die Gruppe f&uuml;r die Statistik.';
 $LANG['stats_modalAbsenceTitle'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Statistik.';
@@ -869,7 +869,7 @@ $LANG['stats_yaxis_users'] = 'Nutzer';
 $LANG['stats_year'] = 'Jahr';
 $LANG['stats_year_comment'] = 'W&auml;hle, das Jahr f&uml;r die Statistik.';
 $LANG['stats_startDate'] = 'Eigenes Start Datum';
-$LANG['stats_startDate_comment'] = 'W&auml;hle ein eigenes Startdatum f&uuml;r die Statistik.<br>Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "'.$LANG['custom'].'" ausgew&auml;hlt sein.';
+$LANG['stats_startDate_comment'] = 'W&auml;hle ein eigenes Startdatum f&uuml;r die Statistik.<br>Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "' . $LANG['custom'] . '" ausgew&auml;hlt sein.';
 
 //
 // TeamCal Pro Import
@@ -896,7 +896,7 @@ $LANG['tcpimp_alert_success_help'] = 'Die folgenden Tabellen wurden importiert:'
 
 $LANG['tcpimp_info'] = '<p>TeamCal Neo wurde komplett neu programmiert. Speziell die Datenbankstrukturen haben sich ge&auml;ndert. Es ist nicht mehr kompatibel mit TeamCal Pro.
       Es k&ouml;nnen nur Stammdaten von TeamCal Pro importiert werden. Manuelle Einstellungen in TeamCal Neo sind danach immer noch n&ouml;tig.</p>
-      <p>Es ist wichtig, dass die TeamCal Pro Instanz, von der gelesen wird, das Release '.$LANG['tcpimp_from'].' hat!</p>
+      <p>Es ist wichtig, dass die TeamCal Pro Instanz, von der gelesen wird, das Release ' . $LANG['tcpimp_from'] . ' hat!</p>
       <p>Die TeamCal Pro Datenbank wird nicht ver&auml;ndert, nur gelesen.</p>';
 
 $LANG['tcpimp_tcp_dbName'] = 'Datenbankname';
@@ -988,4 +988,3 @@ $LANG['year_selRegion'] = 'Region ausw&auml;hlen';
 $LANG['year_selUser'] = 'Nutzer ausw&auml;hlen';
 $LANG['year_showyearmobile'] = 'Der Jahreskalender dient der &Uuml;bersicht "auf den ersten Blick". Auf mobilen Ger&auml;ten mit geringer Bildschirmbreite kann dies
       ohne horizontales Scrollen nicht erreicht werden.</p><p>Mit dem "Kalender anzeigen" Knopf kann die Anzeige aktiviert und horizontales Scrollen akzeptiert werden.</p>';
-?>

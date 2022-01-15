@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * English Log Strings
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @copyright Copyright (c) 2014-2022 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -113,4 +113,3 @@ $LANG['log_user_verify_unlocked'] = 'User verified, unlocked and unhidden: ';
 $LANG['log_user_verify_mismatch'] = 'User verification code does not match: ';
 $LANG['log_user_verify_usr_notexist'] = 'User does not exist: ';
 $LANG['log_user_verify_code_notexist'] = 'Verfication code does not exist: ';
-?>

@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * English GDPR Strings
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @copyright Copyright (c) 2014-2022 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -202,7 +202,7 @@ $LANG['gdpr_paypal'] = '<h4>%d. Payment Method: Data protection provisions about
 <p>PayPal will, if necessary, pass on personal data to affiliates and service providers or subcontractors to the extent that this is necessary to fulfill contractual obligations or for data to be processed in the order.</p>
 <p>The data subject has the possibility to revoke consent for the handling of personal data at any time from PayPal. A revocation shall not have any effect on personal data which must be processed, used or transmitted in accordance with (contractual) payment processing.</p>
 <p>The applicable data protection provisions of PayPal may be retrieved under https://www.paypal.com/us/webapps/mpp/ua/privacy-full.</p>';
-   
+
 $LANG['gdpr_pinterest'] = '<h4>%d. Data protection provisions about the application and use of Pinterest</h4>
 <p>On this website, the controller has integrated components of Pinterest Inc. Pinterest is a so-called social network. A social network is an Internet social meeting place, an online community that allows users to communicate and interact with each other in a virtual space. A social network may serve as a platform for the exchange of opinions and experiences, or allow the Internet community to provide personal or company-related information. Pinterest enables the users of the social network to publish, inter alia, picture collections and individual pictures as well as descriptions on virtual pinboards (so-called pins), which can then be shared by other user\'s (so-called re-pins) or commented on.</p>
 <p>The operating company of Pinterest is Pinterest Inc., 808 Brannan Street, San Francisco, CA 94103, UNITED STATES.</p>

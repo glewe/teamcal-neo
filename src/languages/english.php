@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * English Framework Strings
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @copyright Copyright (c) 2014-2022 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -51,33 +51,33 @@ $LANG['grey'] = 'Grey';
 $LANG['group'] = 'Group';
 $LANG['license'] = 'TeamCal Neo License';
 $LANG['magenta'] = 'Magenta';
-$LANG['monthnames'] = array (
-   1 => "January",
-   "February",
-   "March",
-   "April",
-   "May",
-   "June",
-   "July",
-   "August",
-   "September",
-   "October",
-   "November",
-   "December" 
+$LANG['monthnames'] = array(
+    1 => "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
 );
-$LANG['monthShort'] = array (
-   1 => "Jan",
-   "Feb",
-   "Mar",
-   "Apr",
-   "May",
-   "Jun",
-   "Jul",
-   "Aug",
-   "Sep",
-   "Oct",
-   "Nov",
-   "Dec" 
+$LANG['monthShort'] = array(
+    1 => "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
 );
 $LANG['name'] = 'Name';
 $LANG['none'] = 'None';
@@ -109,23 +109,23 @@ $LANG['today'] = 'Today';
 $LANG['total'] = 'Total';
 $LANG['type'] = 'Type';
 $LANG['user'] = 'User';
-$LANG['weekdayShort'] = array (
-   1 => "Mo",
-   "Tu",
-   "We",
-   "Th",
-   "Fr",
-   "Sa",
-   "Su" 
+$LANG['weekdayShort'] = array(
+    1 => "Mo",
+    "Tu",
+    "We",
+    "Th",
+    "Fr",
+    "Sa",
+    "Su"
 );
-$LANG['weekdayLong'] = array (
-   1 => "Monday",
-   "Tuesday",
-   "Wednesday",
-   "Thursday",
-   "Friday",
-   "Saturday",
-   "Sunday" 
+$LANG['weekdayLong'] = array(
+    1 => "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
 );
 $LANG['yellow'] = 'Yellow';
 
@@ -368,7 +368,7 @@ $LANG['config_activateMessages_comment'] = 'This option will activate the Messag
 $LANG['config_adminApproval'] = 'Require Admin Approval';
 $LANG['config_adminApproval_comment'] = 'The administrator will receive an e-mail about each user self-registration. He manually needs to confirm the account.';
 $LANG['config_allowRegistration'] = 'Allow User Self-Registration';
-$LANG['config_allowRegistration_comment'] = 'Allow users to self-register their account. A menu entry will be available in the '.$appTitle.' menu.';
+$LANG['config_allowRegistration_comment'] = 'Allow users to self-register their account. A menu entry will be available in the ' . $appTitle . ' menu.';
 $LANG['config_allowUserTheme'] = 'Allow User Theme';
 $LANG['config_allowUserTheme_comment'] = 'Check whether you want each user to be able to select his individual theme.';
 $LANG['config_appDescription'] = 'HTML Description';
@@ -462,7 +462,7 @@ $LANG['config_licKey'] = "License Key";
 $LANG['config_licKey_comment'] = "Enter your license key here. It was provided to you when you registered yout TeamCal Neo instance.";
 $LANG['config_licRegister'] = "Register Domain";
 $LANG['config_licRegister_comment'] = "This TeamCal Neo domain is not registered for the given license key.<br>If the license key is valid and allows for more than one domain, 
-      click the '".$LANG['btn_register']."' button to add this domain. Otherwise, please enter a different valid license key and click '".$LANG['btn_apply']."'.";
+      click the '" . $LANG['btn_register'] . "' button to add this domain. Otherwise, please enter a different valid license key and click '" . $LANG['btn_apply'] . "'.";
 $LANG['config_licDeregister'] = "De-Register Domain";
 $LANG['config_licDeregister_comment'] = "You can deregister this TeamCal Neo domain from your license, e.g. to move your instance to a different domain. Deregister it here and then register it from the new domain.";
 $LANG['config_logLanguage'] = "Log Language";
@@ -681,40 +681,40 @@ $LANG['home_title'] = 'Welcome to ' . $appTitle;
 // Imprint
 // You can add more arrays here in order to display them on the Imprint page
 //
-$LANG['imprint'] = array ( 
-   array (
-      'title' => 'Author',
-      'text' => '<p>'.$appTitle.' was created by George Lewe (<a href="http://www.lewe.com/">Lewe.com</a>). 
-      '.$appTitle.' also uses free modules by other great people providing those awesome techonolgies to the public. 
+$LANG['imprint'] = array(
+    array(
+        'title' => 'Author',
+        'text' => '<p>' . $appTitle . ' was created by George Lewe (<a href="http://www.lewe.com/">Lewe.com</a>). 
+      ' . $appTitle . ' also uses free modules by other great people providing those awesome techonolgies to the public. 
       See detailed credits on the <a href="index.php?action=about">About page</a>.</p>',
-   ),
-   array (
-      'title' => 'Content',
-      'text' => '<p>All content delivered with the '.$appTitle.' application was created by George Lewe (<a href="http://www.lewe.com/">Lewe.com</a>).  
+    ),
+    array(
+        'title' => 'Content',
+        'text' => '<p>All content delivered with the ' . $appTitle . ' application was created by George Lewe (<a href="http://www.lewe.com/">Lewe.com</a>).  
       If you feel that any material is used inappropriately, please contact <a href="http://www.lewe.com/contact/">Lewe.com</a>.</p>
       <p>None of the application content, as a whole or in parts may be reproduced, copied or reused in any form or by any means, electronic or mechanical, 
       for any purpose, without the express written permission of George Lewe.</p>',
-   ),
-   array (
-      'title' => 'Links',
-      'text' => '<p>All links delivered with the '.$appTitle.' application are being provided as a convenience 
-      and for informational purposes only; they do not constitute an endorsement or an approval by '.$appTitle.' of any of the products, services or opinions 
+    ),
+    array(
+        'title' => 'Links',
+        'text' => '<p>All links delivered with the ' . $appTitle . ' application are being provided as a convenience 
+      and for informational purposes only; they do not constitute an endorsement or an approval by ' . $appTitle . ' of any of the products, services or opinions 
       of the corporation or organization or individual. The application provider bears no responsibility for the accuracy, legality or content of the external site or 
       for that of subsequent links. Contact the external site for questions regarding its content.</p>',
-   ),
-   array (
-      'title' => 'GDPR',
-      'text' => '<p>No personal data is delivered with the '.$appTitle.' application. Data privacy protection of any data added by users lies in the
-      responsibility of the user.</p><p>'.$appTitle.' provides a general GDPR generator. If used, users of the application are obliged to review the generated statement
+    ),
+    array(
+        'title' => 'GDPR',
+        'text' => '<p>No personal data is delivered with the ' . $appTitle . ' application. Data privacy protection of any data added by users lies in the
+      responsibility of the user.</p><p>' . $appTitle . ' provides a general GDPR generator. If used, users of the application are obliged to review the generated statement
       and to change or add any details that the generator does not properly cover.</p><p>The application provider bears no responsibility for the accuracy, 
       legality or content of the Data Privacy statement used on any installation of the application.</p>',
-   ),
+    ),
 );
 
-if ( $C->read('googleAnalytics') AND $C->read("googleAnalyticsID")) {
-   $LANG['imprint'][] = array (
-      'title' => 'Google Analytics',
-      'text' => '<p><i class="fab fa-google fa-3x float-left" style="color: #999999;"></i>This website may use Google Analytics, if so configured by the adminstrator, a web analytics service provided by
+if ($C->read('googleAnalytics') and $C->read("googleAnalyticsID")) {
+    $LANG['imprint'][] = array(
+        'title' => 'Google Analytics',
+        'text' => '<p><i class="fab fa-google fa-3x float-left" style="color: #999999;"></i>This website may use Google Analytics, if so configured by the adminstrator, a web analytics service provided by
       Google, Inc. ("Google"). Google Analytics uses "cookies", which are text files placed on your computer, to help the website analyze how users use the site.
       The information generated by the cookie about the use of this website will be transmitted to and stored by Google on servers that may reside in the United States.</p>
       <div class="collapse" id="readmore">
@@ -732,7 +732,7 @@ if ( $C->read('googleAnalytics') AND $C->read("googleAnalyticsID")) {
          this domain). An opt-out cookie will be stored on your device, which means that you\'ll have to click this link again, if you delete your cookies.</p>
       </div>
       <p><a class="btn btn-default" data-toggle="collapse" data-target="#readmore">Read more/less...</a></p>',
-   );
+    );
 }
 
 //
@@ -1301,4 +1301,3 @@ $LANG['imp_hidden'] = 'Hidden';
 $LANG['imp_hidden_comment'] = 'Select wether the imported users shall be set to hidden.';
 $LANG['imp_locked'] = 'Locked';
 $LANG['imp_locked_comment'] = 'Select wether the imported users shall be set to locked.';
-?>

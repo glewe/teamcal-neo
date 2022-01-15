@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * English Application Strings
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @copyright Copyright (c) 2014-2022 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -37,30 +37,30 @@ $LANG['weekends'] = 'Weekends';
 $LANG['weeknumber'] = 'Calendar week';
 $LANG['year'] = 'Year';
 
-$LANG['monthnames'] = array (
-   1 => "January",
-   2 => "February",
-   3 => "March",
-   4 => "April",
-   5 => "May",
-   6 => "June",
-   7 => "July",
-   8 => "August",
-   9 => "September",
-   10 => "October",
-   11 => "November",
-   12 => "December",
+$LANG['monthnames'] = array(
+    1 => "January",
+    2 => "February",
+    3 => "March",
+    4 => "April",
+    5 => "May",
+    6 => "June",
+    7 => "July",
+    8 => "August",
+    9 => "September",
+    10 => "October",
+    11 => "November",
+    12 => "December",
 );
 
-$LANG['widths'] = array (
-   'full' => "Full screen (More than 1024 pixels)",
-   '1024' => "1024 pixels",
-   '800' => "800 pixels",
-   '640' => "640 pixels",
-   '480' => "480 pixels",
-   '400' => "400 pixels",
-   '320' => "320 pixels",
-   '240' => "240 pixels",
+$LANG['widths'] = array(
+    'full' => "Full screen (More than 1024 pixels)",
+    '1024' => "1024 pixels",
+    '800' => "800 pixels",
+    '640' => "640 pixels",
+    '480' => "480 pixels",
+    '400' => "400 pixels",
+    '320' => "320 pixels",
+    '240' => "240 pixels",
 );
 
 //
@@ -132,7 +132,7 @@ $LANG['abs_sample'] = 'Sample display';
 $LANG['abs_sample_comment'] = 'This is how your absence type will look in your calendar based on your current settings.<br>
       Note: In the Calendar Options you can configure whether the Icon or the Character ID shall be used for the display.';
 $LANG['abs_show_in_remainder'] = 'Show in Remainder';
-$LANG['abs_show_in_remainder_comment'] = 'Checking this option will include this absence on the Remainder page.'; 
+$LANG['abs_show_in_remainder_comment'] = 'Checking this option will include this absence on the Remainder page.';
 $LANG['abs_symbol'] = 'Character ID';
 $LANG['abs_symbol_comment'] = 'The absence type character ID is used in notification e-mails since font icons are not supported there. Chose a single character. 
       A character ID is mandatory for each absence type, however, you can use the same character for mutliple absence types. The default is  
@@ -339,7 +339,7 @@ $LANG['calopt_satBusi'] = 'Saturday is a Business Day';
 $LANG['calopt_satBusi_comment'] = 'By default, Saturday and Sunday are weekend days and displayed accordingly in the calendar. 
       Check this option if you want to make Saturday a business day.';
 $LANG['calopt_showAvatars'] = 'Show Avatars';
-$LANG['calopt_showAvatars_comment'] = 'Checking this option will show a user avatar pop-up when moving the mouse over the user avatar icon.'; 
+$LANG['calopt_showAvatars_comment'] = 'Checking this option will show a user avatar pop-up when moving the mouse over the user avatar icon.';
 $LANG['calopt_showMonths'] = 'Show Multiple Months';
 $LANG['calopt_showMonths_comment'] = 'Enter the number of months to show on the calendar page, maximum 12.';
 $LANG['calopt_showRegionButton'] = 'Show Region Filter Button';
@@ -757,8 +757,8 @@ $LANG['profile_calendarMonths_two'] = 'Two';
 $LANG['profile_calfilterGroup'] = 'Default Group Filter';
 $LANG['profile_calfilterGroup_comment'] = 'The calendar view can be filtered to a single group. This can be set here or on the calendar page itself.';
 $LANG['profile_guestships'] = 'Show in other groups';
-$LANG['profile_guestships_comment'] = 'Show the calendar of this user in the selected groups, even if not a member (called a "guest membership"). Use this feature if the user is '.
-      'not a member but the absences are still important to see along with those of the selected groups.<br><i>Guest users will be shown in italic font in the calendar</i>.';
+$LANG['profile_guestships_comment'] = 'Show the calendar of this user in the selected groups, even if not a member (called a "guest membership"). Use this feature if the user is ' .
+    'not a member but the absences are still important to see along with those of the selected groups.<br><i>Guest users will be shown in italic font in the calendar</i>.';
 $LANG['profile_hidden'] = '<i class="far fa-eye-slash text-info" style="padding-right: 8px;"></i>Hide in calendar';
 $LANG['profile_hidden_comment'] = 'With this option you can keep the user active but hide him in the calendar. The absences will still be counted in the statistics though. If that is
       not wanted, consider archiving this user.';
@@ -769,7 +769,7 @@ $LANG['profile_notifyMonthEvents'] = 'Month Template Events';
 $LANG['profile_notifyNone'] = 'None';
 $LANG['profile_notifyUserCalEvents'] = 'User Calendar Events';
 $LANG['profile_notifyUserCalGroups'] = 'User Calendar Event Groups';
-$LANG['profile_notifyUserCalGroups_comment'] = 'If you have selected "'.$LANG['profile_notifyUserCalEvents'].'" in the event list above, select here for which of your groups you want to receive these notifications.';
+$LANG['profile_notifyUserCalGroups_comment'] = 'If you have selected "' . $LANG['profile_notifyUserCalEvents'] . '" in the event list above, select here for which of your groups you want to receive these notifications.';
 $LANG['profile_showMonths'] = 'Show Multiple Months';
 $LANG['profile_showMonths_comment'] = 'Enter the number of months to show on the calendar page, maximum 12.';
 
@@ -844,9 +844,9 @@ $LANG['stats_byusers'] = '(Per User)';
 $LANG['stats_color'] = 'Color';
 $LANG['stats_color_comment'] = 'Select the color for the diagram.';
 $LANG['stats_customColor'] = 'Custom Color';
-$LANG['stats_customColor_comment'] = 'Select a custom color for the diagram.<br>This value only applies if "'.$LANG['custom'].'" was selected in the Color list.';
+$LANG['stats_customColor_comment'] = 'Select a custom color for the diagram.<br>This value only applies if "' . $LANG['custom'] . '" was selected in the Color list.';
 $LANG['stats_endDate'] = 'End Date';
-$LANG['stats_endDate_comment'] = 'Select a custom end date for the statistic. This date only applies if "'.$LANG['custom'].'" was selected in the Period list.';
+$LANG['stats_endDate_comment'] = 'Select a custom end date for the statistic. This date only applies if "' . $LANG['custom'] . '" was selected in the Period list.';
 $LANG['stats_group'] = 'Group';
 $LANG['stats_group_comment'] = 'Select the group for the statistics.';
 $LANG['stats_modalAbsenceTitle'] = 'Select Absence Type for the Statistics';
@@ -869,7 +869,7 @@ $LANG['stats_yaxis_users'] = 'Users';
 $LANG['stats_year'] = 'Year';
 $LANG['stats_year_comment'] = 'Select the year for this statistics.';
 $LANG['stats_startDate'] = 'Start Date';
-$LANG['stats_startDate_comment'] = 'Select a custom start date for the statistic.<br>This date only applies if "'.$LANG['custom'].'" was selected in the Period list.';
+$LANG['stats_startDate_comment'] = 'Select a custom start date for the statistic.<br>This date only applies if "' . $LANG['custom'] . '" was selected in the Period list.';
 
 //
 // TeamCal Pro Import
@@ -896,7 +896,7 @@ $LANG['tcpimp_alert_success_help'] = 'The following tables were imported:';
 
 $LANG['tcpimp_info'] = '<p>TeamCal Neo has been completely rewritten. Specifically the database has seen many structural changes. It is not compatible anymore to TeamCal Pro.
       You can only import core data from TeamCal Pro. You have to still adjust TeamCal Neo settings after.</p>
-      <p>It is important that you have upgraded your TeamCal Pro instance to the latest release '.$LANG['tcpimp_from'].' before you attempt these imports.</p>
+      <p>It is important that you have upgraded your TeamCal Pro instance to the latest release ' . $LANG['tcpimp_from'] . ' before you attempt these imports.</p>
       <p>Your TeamCal Pro database will not be changed, just read.</p>';
 
 $LANG['tcpimp_tcp_dbName'] = 'TeamCal Pro Database Name';
@@ -988,4 +988,3 @@ $LANG['year_selRegion'] = 'Select Region';
 $LANG['year_selUser'] = 'Select User';
 $LANG['year_showyearmobile'] = '<p>The Year Calendar serves the purpose of seeing the whole year "on first sight". On mobile devices with smaller screen sizes this
       is not possible without horizontal scrolling.</p><p>Click the "Show calendar" button below to enable this display and accept horizontal scrolling.</p>';
-?>

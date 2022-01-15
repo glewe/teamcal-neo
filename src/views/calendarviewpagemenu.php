@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * Calendar View Page Menu View
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2020 by George Lewe
+ * @copyright Copyright (c) 2014-2022 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -14,26 +14,21 @@ if (!defined('VALID_ROOT')) exit('');
 
 // echo "<script type=\"text/javascript\">alert(\"calendarviewuserrow.php: \");</script>";
 
-if ($viewData['month']==1) 
-{
-   $pageBwdYear = $viewData['year'] - 1;
-   $pageBwdMonth = '12'; 
-   $pageFwdYear = $viewData['year']; 
-   $pageFwdMonth = sprintf('%02d', $viewData['month'] + 1); 
-}
-elseif ($viewData['month']==12) 
-{
-   $pageBwdYear = $viewData['year']; 
-   $pageBwdMonth = sprintf('%02d', $viewData['month'] - 1); 
-   $pageFwdYear = $viewData['year'] + 1; 
-   $pageFwdMonth = '01'; 
-}
-else 
-{
-   $pageBwdYear = $viewData['year']; 
-   $pageFwdYear = $viewData['year']; 
-   $pageBwdMonth = sprintf('%02d', $viewData['month'] - 1); 
-   $pageFwdMonth = sprintf('%02d', $viewData['month'] + 1); 
+if ($viewData['month'] == 1) {
+    $pageBwdYear = $viewData['year'] - 1;
+    $pageBwdMonth = '12';
+    $pageFwdYear = $viewData['year'];
+    $pageFwdMonth = sprintf('%02d', $viewData['month'] + 1);
+} elseif ($viewData['month'] == 12) {
+    $pageBwdYear = $viewData['year'];
+    $pageBwdMonth = sprintf('%02d', $viewData['month'] - 1);
+    $pageFwdYear = $viewData['year'] + 1;
+    $pageFwdMonth = '01';
+} else {
+    $pageBwdYear = $viewData['year'];
+    $pageFwdYear = $viewData['year'];
+    $pageBwdMonth = sprintf('%02d', $viewData['month'] - 1);
+    $pageFwdMonth = sprintf('%02d', $viewData['month'] + 1);
 }
 ?>
 
@@ -41,32 +36,31 @@ else
 view.calendarviewpagemenu
 -->
 <div class="page-menu">
-   <a class="btn btn-secondary" href="index.php?action=<?=$controller?>&amp;month=<?=$pageBwdYear.$pageBwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>&amp;abs=<?=$viewData['absid']?>" data-placement="top" data-type="warning" data-toggle="tooltip" title="<?=$LANG['cal_tt_backward']?>"><span class="fas fa-angle-double-left"></span></a>
-   <a class="btn btn-secondary" href="index.php?action=<?=$controller?>&amp;month=<?=$pageFwdYear.$pageFwdMonth?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>&amp;abs=<?=$viewData['absid']?>" data-placement="top" data-type="warning" data-toggle="tooltip" title="<?=$LANG['cal_tt_forward']?>"><span class="fas fa-angle-double-right"></span></a>
-   <a class="btn btn-secondary" href="index.php?action=<?=$controller?>&amp;month=<?=$viewData['yearToday'].$viewData['monthToday']?>&amp;region=<?=$viewData['regionid']?>&amp;group=<?=$viewData['groupid']?>&amp;abs=<?=$viewData['absid']?>"><?=$LANG['today']?></a>
-   <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectMonth"><?=$LANG['month'] . ': ' . $viewData['year'].$viewData['month']?></button>
-   <?php if ($C->read('showRegionButton')) { ?>
-      <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectRegion"><?=$LANG['region'] . ': ' . $viewData['regionname']?></button>
-   <?php } ?>
-   <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectGroup"><?=$LANG['group'] . ': ' . $viewData['group']?></button>
-   <button type="button" class="btn btn-warning" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectAbsence"><?=$LANG['absence'] . ': ' . $viewData['absence']?></button>
-   <button type="button" class="btn btn-info" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSearchUser"><?=$LANG['search'] . ': ' . $viewData['search']?></button>
-   <button type="submit" class="btn btn-success" tabindex="<?=$tabindex++;?>" name="btn_reset"><?=$LANG['btn_reset']?></button>
-   <?php if ($viewData['supportMobile']) { ?> 
-      <button type="button" class="btn btn-secondary" tabindex="<?=$tabindex++;?>" data-toggle="modal" data-target="#modalSelectWidth"><?=$LANG['screen'] . ': ' . $viewData['width']?></button>
-   <?php } ?>
-   <?php if (isAllowed($CONF['controllers']['calendaredit']->permission)) { ?>
-      <a class="btn btn-secondary float-right" tabindex="<?=$tabindex++;?>" href="index.php?action=<?=$CONF['controllers']['calendaredit']->name?>&amp;month=<?=$viewData['year'].$viewData['month']?>&amp;region=<?=$viewData['regionid']?>&amp;user=<?=L_USER?>"><?=$LANG['btn_cal_edit']?></a>
-   <?php } ?>
+    <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageBwdYear . $pageBwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>&amp;abs=<?= $viewData['absid'] ?>" data-placement="top" data-type="warning" data-toggle="tooltip" title="<?= $LANG['cal_tt_backward'] ?>"><span class="fas fa-angle-double-left"></span></a>
+    <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageFwdYear . $pageFwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>&amp;abs=<?= $viewData['absid'] ?>" data-placement="top" data-type="warning" data-toggle="tooltip" title="<?= $LANG['cal_tt_forward'] ?>"><span class="fas fa-angle-double-right"></span></a>
+    <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $viewData['yearToday'] . $viewData['monthToday'] ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>&amp;abs=<?= $viewData['absid'] ?>"><?= $LANG['today'] ?></a>
+    <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectMonth"><?= $LANG['month'] . ': ' . $viewData['year'] . $viewData['month'] ?></button>
+    <?php if ($C->read('showRegionButton')) { ?>
+        <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
+    <?php } ?>
+    <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectGroup"><?= $LANG['group'] . ': ' . $viewData['group'] ?></button>
+    <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectAbsence"><?= $LANG['absence'] . ': ' . $viewData['absence'] ?></button>
+    <button type="button" class="btn btn-info" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSearchUser"><?= $LANG['search'] . ': ' . $viewData['search'] ?></button>
+    <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++; ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
+    <?php if ($viewData['supportMobile']) { ?>
+        <button type="button" class="btn btn-secondary" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectWidth"><?= $LANG['screen'] . ': ' . $viewData['width'] ?></button>
+    <?php } ?>
+    <?php if (isAllowed($CONF['controllers']['calendaredit']->permission)) { ?>
+        <a class="btn btn-secondary float-right" tabindex="<?= $tabindex++; ?>" href="index.php?action=<?= $CONF['controllers']['calendaredit']->name ?>&amp;month=<?= $viewData['year'] . $viewData['month'] ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= L_USER ?>"><?= $LANG['btn_cal_edit'] ?></a>
+    <?php } ?>
 </div>
 <div style="height:20px;"></div>
 
 <div class="card">
-   <?php 
-   $pageHelp = '';
-   if ($C->read('pageHelp')) $pageHelp = '<a href="'.$CONF['controllers'][$controller]->docurl.'" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
-   ?>
-   <div class="card-header text-white bg-<?=$CONF['controllers'][$controller]->panelColor?>"><i class="fas <?=$CONF['controllers']['calendarview']->faIcon?> fa-lg fa-header"></i><?=sprintf($LANG['cal_title'], $viewData['year'], $viewData['month'], $viewData['regionname'])?><?=$pageHelp?></div>
+    <?php
+    $pageHelp = '';
+    if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+    ?>
+    <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="fas <?= $CONF['controllers']['calendarview']->faIcon ?> fa-lg fa-header"></i><?= sprintf($LANG['cal_title'], $viewData['year'], $viewData['month'], $viewData['regionname']) ?><?= $pageHelp ?></div>
 </div>
 <div style="height:20px;"></div>
-
