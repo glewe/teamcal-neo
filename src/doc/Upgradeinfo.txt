@@ -2,6 +2,24 @@
 TEAMCAL NEO UPGRADE INFO
 ==============================================================================
 
+[3.3.0] -> [3.4.0]
+
+1. Backup your current files and database!
+
+2. From your 3.3.0 installation directory, delete the following folders:
+   - fonts/font-awesome/5.12.0
+   - themes/bootstrap
+
+3. Download the new release and overwrite all files.
+ 
+4. Edit config/config.app.php and change line 39 to:
+   define('APP_INSTALLED',"1");
+
+5. Edit config/config.db.php and update your database settings from your backup.
+   
+6. Delete file installation.php in the root directory
+
+
 [3.2.7] -> [3.3.0]
 
 1. Backup your current files and database!

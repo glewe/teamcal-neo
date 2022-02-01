@@ -35,7 +35,7 @@ define('APP_IMP_DIR', "upload/import/");
 // Set this to 0 if you want to run the installation.php script again.
 // If not, you need to delete or rename the installation.php file.
 //
-define('APP_INSTALLED', "1");
+define('APP_INSTALLED', "0");
 
 //
 // The cookie prefix to be used on the browser client's device
@@ -46,7 +46,7 @@ define('COOKIE_NAME', "tcneopro");
 /**
  * MANDATORY MODULES
  */
-define('BOOTSTRAP_VER', "4.4.1");
+define('BOOTSTRAP_VER', "4.6.1");
 define('FONTAWESOME_VER', "5.15.4");
 define('JQUERY_VER', "3.3.1");
 define('JQUERY_UI_VER', "1.12.1");
@@ -152,7 +152,7 @@ define('LDAP_TLS', 0); // To avoid "Undefined index: LDAP_TLS" error message for
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "3.2.9");
+define('APP_VER', "3.4.0");
 define('APP_DATE', "2022-01-07");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
