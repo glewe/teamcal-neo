@@ -1039,7 +1039,7 @@ CREATE TABLE `tcneo_roles` (
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `description` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `color` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT 'default',
-  `created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -1047,11 +1047,11 @@ CREATE TABLE `tcneo_roles` (
 -- Dumping data for table `tcneo_roles`
 --
 
-INSERT INTO `tcneo_roles` (`id`, `name`, `description`, `color`, `created`, `updated`) VALUES
-(1, 'Administrator', 'Application administrator', 'danger', '0000-00-00 00:00:00', '2019-12-29 22:20:53'),
-(2, 'User', 'Standard role for logged in users', 'primary', '0000-00-00 00:00:00', '2019-12-29 22:20:53'),
-(3, 'Public', 'All users not logged in', 'secondary', '0000-00-00 00:00:00', '2019-12-29 22:20:53'),
-(4, 'Manager', 'Management Team', 'warning', '0000-00-00 00:00:00', '2019-12-29 22:20:53');
+INSERT INTO `tcneo_roles` (`id`, `name`, `description`, `color`) VALUES
+(1, 'Administrator', 'Application administrator', 'danger'),
+(2, 'User', 'Standard role for logged in users', 'primary'),
+(3, 'Public', 'All users not logged in', 'secondary'),
+(4, 'Manager', 'Management Team', 'warning');
 
 -- --------------------------------------------------------
 
