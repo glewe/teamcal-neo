@@ -72,7 +72,7 @@ if (!defined('VALID_ROOT')) exit('');
 
     <!-- Font Awesome -->
     <?php if ($htmlData['faCDN']) { ?>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/<?= FONTAWESOME_VER ?>/css/all.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/<?= FONTAWESOME_VER ?>/css/all.min.css">
     <?php } else { ?>
         <link rel="stylesheet" href="fonts/font-awesome/<?= FONTAWESOME_VER ?>/css/all.min.css">
     <?php } ?>
