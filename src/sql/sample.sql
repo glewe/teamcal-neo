@@ -1,17 +1,13 @@
-/**
- * Sample MySQL Database
- *
- * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
- * @link https://www.lewe.com
- *
- * @package TeamCal Neo
- * @subpackage Database
- * @since 3.0.0
- */
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Feb 01, 2022 at 07:14 PM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 7.4.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -21,13 +17,16 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+--
+-- Database: `tcneo`
+--
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `tcneo_absences`
 --
 
-DROP TABLE IF EXISTS `tcneo_absences`;
 CREATE TABLE `tcneo_absences` (
   `id` int(11) NOT NULL,
   `name` varchar(80) CHARACTER SET utf8 NOT NULL,
@@ -72,7 +71,6 @@ INSERT INTO `tcneo_absences` (`id`, `name`, `symbol`, `icon`, `color`, `bgcolor`
 -- Table structure for table `tcneo_absence_group`
 --
 
-DROP TABLE IF EXISTS `tcneo_absence_group`;
 CREATE TABLE `tcneo_absence_group` (
   `id` int(11) NOT NULL,
   `absid` int(11) DEFAULT NULL,
@@ -138,7 +136,6 @@ INSERT INTO `tcneo_absence_group` (`id`, `absid`, `groupid`) VALUES
 -- Table structure for table `tcneo_allowances`
 --
 
-DROP TABLE IF EXISTS `tcneo_allowances`;
 CREATE TABLE `tcneo_allowances` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 NOT NULL,
@@ -177,7 +174,6 @@ INSERT INTO `tcneo_allowances` (`id`, `username`, `absid`, `carryover`, `allowan
 -- Table structure for table `tcneo_archive_allowances`
 --
 
-DROP TABLE IF EXISTS `tcneo_archive_allowances`;
 CREATE TABLE `tcneo_archive_allowances` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 NOT NULL,
@@ -192,7 +188,6 @@ CREATE TABLE `tcneo_archive_allowances` (
 -- Table structure for table `tcneo_archive_daynotes`
 --
 
-DROP TABLE IF EXISTS `tcneo_archive_daynotes`;
 CREATE TABLE `tcneo_archive_daynotes` (
   `id` int(11) NOT NULL,
   `yyyymmdd` varchar(8) CHARACTER SET utf8 DEFAULT NULL,
@@ -209,7 +204,6 @@ CREATE TABLE `tcneo_archive_daynotes` (
 -- Table structure for table `tcneo_archive_templates`
 --
 
-DROP TABLE IF EXISTS `tcneo_archive_templates`;
 CREATE TABLE `tcneo_archive_templates` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -254,7 +248,6 @@ CREATE TABLE `tcneo_archive_templates` (
 -- Table structure for table `tcneo_archive_users`
 --
 
-DROP TABLE IF EXISTS `tcneo_archive_users`;
 CREATE TABLE `tcneo_archive_users` (
   `username` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `password` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -279,7 +272,6 @@ CREATE TABLE `tcneo_archive_users` (
 -- Table structure for table `tcneo_archive_user_attachment`
 --
 
-DROP TABLE IF EXISTS `tcneo_archive_user_attachment`;
 CREATE TABLE `tcneo_archive_user_attachment` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -292,7 +284,6 @@ CREATE TABLE `tcneo_archive_user_attachment` (
 -- Table structure for table `tcneo_archive_user_group`
 --
 
-DROP TABLE IF EXISTS `tcneo_archive_user_group`;
 CREATE TABLE `tcneo_archive_user_group` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -306,7 +297,6 @@ CREATE TABLE `tcneo_archive_user_group` (
 -- Table structure for table `tcneo_archive_user_message`
 --
 
-DROP TABLE IF EXISTS `tcneo_archive_user_message`;
 CREATE TABLE `tcneo_archive_user_message` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -320,7 +310,6 @@ CREATE TABLE `tcneo_archive_user_message` (
 -- Table structure for table `tcneo_archive_user_option`
 --
 
-DROP TABLE IF EXISTS `tcneo_archive_user_option`;
 CREATE TABLE `tcneo_archive_user_option` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -334,7 +323,6 @@ CREATE TABLE `tcneo_archive_user_option` (
 -- Table structure for table `tcneo_attachments`
 --
 
-DROP TABLE IF EXISTS `tcneo_attachments`;
 CREATE TABLE `tcneo_attachments` (
   `id` int(11) NOT NULL,
   `filename` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
@@ -365,7 +353,6 @@ INSERT INTO `tcneo_attachments` (`id`, `filename`, `uploader`) VALUES
 -- Table structure for table `tcneo_config`
 --
 
-DROP TABLE IF EXISTS `tcneo_config`;
 CREATE TABLE `tcneo_config` (
   `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
@@ -427,8 +414,8 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (48, 'menuBarDark', '1'),
 (51, 'logperiod', 'curr_all'),
 (50, 'faCDN', '0'),
-(52, 'logfrom', '2020-01-01 00:00:00.000000'),
-(53, 'logto', '2020-12-31 23:59:59.999999'),
+(52, 'logfrom', '2022-01-01 00:00:00.000000'),
+(53, 'logto', '2022-12-31 23:59:59.999999'),
 (54, 'logConfig', '1'),
 (55, 'logfilterConfig', '1'),
 (56, 'logDatabase', '1'),
@@ -491,7 +478,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (113, 'declThreshold', '40'),
 (114, 'declBase', 'group'),
 (115, 'declBeforeOption', 'date'),
-(116, 'declBeforeDate', '2020-01-01'),
+(116, 'declBeforeDate', '2022-01-01'),
 (117, 'dbURL', '#'),
 (118, 'logcolorConfig', 'danger'),
 (119, 'logcolorDatabase', 'warning'),
@@ -581,7 +568,6 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 -- Table structure for table `tcneo_daynotes`
 --
 
-DROP TABLE IF EXISTS `tcneo_daynotes`;
 CREATE TABLE `tcneo_daynotes` (
   `id` int(11) NOT NULL,
   `yyyymmdd` varchar(8) CHARACTER SET utf8 DEFAULT NULL,
@@ -606,7 +592,6 @@ INSERT INTO `tcneo_daynotes` (`id`, `yyyymmdd`, `username`, `region`, `daynote`,
 -- Table structure for table `tcneo_groups`
 --
 
-DROP TABLE IF EXISTS `tcneo_groups`;
 CREATE TABLE `tcneo_groups` (
   `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
@@ -633,7 +618,6 @@ INSERT INTO `tcneo_groups` (`id`, `name`, `description`, `minpresent`, `maxabsen
 -- Table structure for table `tcneo_holidays`
 --
 
-DROP TABLE IF EXISTS `tcneo_holidays`;
 CREATE TABLE `tcneo_holidays` (
   `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
@@ -662,7 +646,6 @@ INSERT INTO `tcneo_holidays` (`id`, `name`, `description`, `color`, `bgcolor`, `
 -- Table structure for table `tcneo_log`
 --
 
-DROP TABLE IF EXISTS `tcneo_log`;
 CREATE TABLE `tcneo_log` (
   `id` int(11) NOT NULL,
   `type` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -676,7 +659,7 @@ CREATE TABLE `tcneo_log` (
 --
 
 INSERT INTO `tcneo_log` (`id`, `type`, `timestamp`, `user`, `event`) VALUES
-(1, 'logDatabase', '2020-01-03 00:08:10', 'admin', 'Database delete: Log records cleared');
+(1, 'logDatabase', '2022-01-01 00:00:01', 'admin', 'Database delete: Log records cleared');
 
 -- --------------------------------------------------------
 
@@ -684,7 +667,6 @@ INSERT INTO `tcneo_log` (`id`, `type`, `timestamp`, `user`, `event`) VALUES
 -- Table structure for table `tcneo_messages`
 --
 
-DROP TABLE IF EXISTS `tcneo_messages`;
 CREATE TABLE `tcneo_messages` (
   `id` int(11) NOT NULL,
   `timestamp` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
@@ -698,7 +680,6 @@ CREATE TABLE `tcneo_messages` (
 -- Table structure for table `tcneo_months`
 --
 
-DROP TABLE IF EXISTS `tcneo_months`;
 CREATE TABLE `tcneo_months` (
   `id` int(11) NOT NULL,
   `year` varchar(4) CHARACTER SET utf8 DEFAULT NULL,
@@ -824,7 +805,6 @@ INSERT INTO `tcneo_months` (`id`, `year`, `month`, `region`, `wday1`, `wday2`, `
 -- Table structure for table `tcneo_permissions`
 --
 
-DROP TABLE IF EXISTS `tcneo_permissions`;
 CREATE TABLE `tcneo_permissions` (
   `id` int(11) NOT NULL,
   `scheme` varchar(80) CHARACTER SET utf8 NOT NULL,
@@ -997,7 +977,6 @@ INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`
 -- Table structure for table `tcneo_regions`
 --
 
-DROP TABLE IF EXISTS `tcneo_regions`;
 CREATE TABLE `tcneo_regions` (
   `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
@@ -1019,7 +998,6 @@ INSERT INTO `tcneo_regions` (`id`, `name`, `description`) VALUES
 -- Table structure for table `tcneo_region_role`
 --
 
-DROP TABLE IF EXISTS `tcneo_region_role`;
 CREATE TABLE `tcneo_region_role` (
   `id` int(11) NOT NULL,
   `regionid` int(11) NOT NULL,
@@ -1033,7 +1011,6 @@ CREATE TABLE `tcneo_region_role` (
 -- Table structure for table `tcneo_roles`
 --
 
-DROP TABLE IF EXISTS `tcneo_roles`;
 CREATE TABLE `tcneo_roles` (
   `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
@@ -1047,11 +1024,11 @@ CREATE TABLE `tcneo_roles` (
 -- Dumping data for table `tcneo_roles`
 --
 
-INSERT INTO `tcneo_roles` (`id`, `name`, `description`, `color`) VALUES
-(1, 'Administrator', 'Application administrator', 'danger'),
-(2, 'User', 'Standard role for logged in users', 'primary'),
-(3, 'Public', 'All users not logged in', 'secondary'),
-(4, 'Manager', 'Management Team', 'warning');
+INSERT INTO `tcneo_roles` (`id`, `name`, `description`, `color`, `created`, `updated`) VALUES
+(1, 'Administrator', 'Application administrator', 'danger', '2022-02-01 18:11:39', '2022-02-01 18:11:39'),
+(2, 'User', 'Standard role for logged in users', 'primary', '2022-02-01 18:11:39', '2022-02-01 18:11:39'),
+(3, 'Public', 'All users not logged in', 'secondary', '2022-02-01 18:11:39', '2022-02-01 18:11:39'),
+(4, 'Manager', 'Management Team', 'warning', '2022-02-01 18:11:39', '2022-02-01 18:11:39');
 
 -- --------------------------------------------------------
 
@@ -1059,7 +1036,6 @@ INSERT INTO `tcneo_roles` (`id`, `name`, `description`, `color`) VALUES
 -- Table structure for table `tcneo_templates`
 --
 
-DROP TABLE IF EXISTS `tcneo_templates`;
 CREATE TABLE `tcneo_templates` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -1103,25 +1079,25 @@ CREATE TABLE `tcneo_templates` (
 --
 
 INSERT INTO `tcneo_templates` (`id`, `username`, `year`, `month`, `abs1`, `abs2`, `abs3`, `abs4`, `abs5`, `abs6`, `abs7`, `abs8`, `abs9`, `abs10`, `abs11`, `abs12`, `abs13`, `abs14`, `abs15`, `abs16`, `abs17`, `abs18`, `abs19`, `abs20`, `abs21`, `abs22`, `abs23`, `abs24`, `abs25`, `abs26`, `abs27`, `abs28`, `abs29`, `abs30`, `abs31`) VALUES
-(21, 'ccarl', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(22, 'dduck', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(23, 'sgonzales', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(24, 'phead', '2020', '01', 0, 0, 5, 0, 0, 6, 0, 0, 9, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 8, 0, 1, 0, 0, 0, 0, 0, 0, 7),
-(25, 'blightyear', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(26, 'mmouse', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(27, 'sman', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(28, 'admin', '2020', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(29, 'admin', '2020', '02', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(30, 'admin', '2020', '03', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(31, 'admin', '2020', '04', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(32, 'admin', '2020', '05', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(33, 'admin', '2020', '06', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(34, 'admin', '2020', '07', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(35, 'admin', '2020', '08', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(36, 'admin', '2020', '09', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(37, 'admin', '2020', '10', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(38, 'admin', '2020', '11', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(39, 'admin', '2020', '12', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(1, 'ccarl', '2022', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(2, 'dduck', '2022', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(3, 'sgonzales', '2022', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(4, 'phead', '2022', '01', 0, 0, 5, 0, 0, 6, 0, 0, 9, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 8, 0, 1, 0, 0, 0, 0, 0, 0, 7),
+(5, 'blightyear', '2022', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(6, 'mmouse', '2022', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(7, 'sman', '2022', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(8, 'admin', '2022', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(9, 'admin', '2022', '02', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(10, 'admin', '2022', '03', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(11, 'admin', '2022', '04', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(12, 'admin', '2022', '05', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(13, 'admin', '2022', '06', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(14, 'admin', '2022', '07', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(15, 'admin', '2022', '08', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(16, 'admin', '2022', '09', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(17, 'admin', '2022', '10', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(18, 'admin', '2022', '11', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(19, 'admin', '2022', '12', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1129,7 +1105,6 @@ INSERT INTO `tcneo_templates` (`id`, `username`, `year`, `month`, `abs1`, `abs2`
 -- Table structure for table `tcneo_users`
 --
 
-DROP TABLE IF EXISTS `tcneo_users`;
 CREATE TABLE `tcneo_users` (
   `username` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '',
   `password` varchar(255) COLLATE utf8_bin DEFAULT NULL,
@@ -1153,15 +1128,15 @@ CREATE TABLE `tcneo_users` (
 --
 
 INSERT INTO `tcneo_users` (`username`, `password`, `firstname`, `lastname`, `email`, `role`, `locked`, `hidden`, `onhold`, `verify`, `bad_logins`, `grace_start`, `last_pw_change`, `last_login`, `created`) VALUES
-('blightyear', '$2y$10$Vtw.3Vz.k7q0wWMRd48F6uW5QJ8R4z6r.ru7tL.aR.duXf4ynQgGm', 'Buzz', 'Lightyear', 'blightyear@yourserver.com', 4, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
-('sman', '$2y$10$xGRcN3kjQRcOaNFZHU1Oo.XqmTuiTNX0YzFdWZGFY/zbrfSw1HoR2', '', 'Spiderman', 'sman@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
-('mmouse', '$2y$10$UXHMBWNOPsohn0IxEfrkhOykPp/iO3JZSsYk3aywy9yXGmGrVU.CS', 'Mickey', 'Mouse', 'mmouse@yourserver.com', 4, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
-('admin', '$2y$10$Kt4r.PZIdqa.RU1qgPQP2ecN6pqDHG3qLifAu9IMMyLntlhnIMhaS', '', 'Admin', 'webmaster@yourserver.com', 1, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2020-01-02 23:26:53', '2016-04-23 00:00:00'),
-('phead', '$2y$10$qvuiMeWbC0lAZdl7EnlRZe2PF6PRjsd5cRT0IhOjPdzAvnupWwFMq', 'Potatoe', 'Head', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
-('ccarl', '$2y$10$r/8VfjUT9DDCF8efXd2yvOu/JiT.cBwSTaI8qVTFMcbBirdQ7JSSe', 'Coyote', 'Carl', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
-('dduck', '$2y$10$xGRcN3kjQRcOaNFZHU1Oo.XqmTuiTNX0YzFdWZGFY/zbrfSw1HoR2', 'Donald', 'Duck', 'dduck@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
-('sgonzales', '$2y$10$J.Px4e14DNX6.indHyBZOeCEV6EuNAUZTmnnaHB4CDF5JWypexrvS', 'Speedy', 'Gonzales', 'sgonzales@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00'),
-('mimouse', '$2y$10$IkWQeduBbmLn4m5rybEf6OCQRRFui0PEJ5bMWndCzlWMmpznXe3Xy', 'Minnie', 'Mouse', 'mimouse@yourserver.com', 2, 1, 1, 1, 1, 0, '1000-01-01 00:00:00', '2018-09-29 00:00:00', '2018-09-29 00:00:00', '2016-04-23 00:00:00');
+('blightyear', '$2y$10$Vtw.3Vz.k7q0wWMRd48F6uW5QJ8R4z6r.ru7tL.aR.duXf4ynQgGm', 'Buzz', 'Lightyear', 'blightyear@yourserver.com', 4, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00'),
+('sman', '$2y$10$xGRcN3kjQRcOaNFZHU1Oo.XqmTuiTNX0YzFdWZGFY/zbrfSw1HoR2', '', 'Spiderman', 'sman@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00'),
+('mmouse', '$2y$10$UXHMBWNOPsohn0IxEfrkhOykPp/iO3JZSsYk3aywy9yXGmGrVU.CS', 'Mickey', 'Mouse', 'mmouse@yourserver.com', 4, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00'),
+('admin', '$2y$10$Kt4r.PZIdqa.RU1qgPQP2ecN6pqDHG3qLifAu9IMMyLntlhnIMhaS', '', 'Admin', 'webmaster@yourserver.com', 1, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2020-01-02 23:26:53', '2022-01-01 00:00:00'),
+('phead', '$2y$10$qvuiMeWbC0lAZdl7EnlRZe2PF6PRjsd5cRT0IhOjPdzAvnupWwFMq', 'Potatoe', 'Head', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00'),
+('ccarl', '$2y$10$r/8VfjUT9DDCF8efXd2yvOu/JiT.cBwSTaI8qVTFMcbBirdQ7JSSe', 'Coyote', 'Carl', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00'),
+('dduck', '$2y$10$xGRcN3kjQRcOaNFZHU1Oo.XqmTuiTNX0YzFdWZGFY/zbrfSw1HoR2', 'Donald', 'Duck', 'dduck@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00'),
+('sgonzales', '$2y$10$J.Px4e14DNX6.indHyBZOeCEV6EuNAUZTmnnaHB4CDF5JWypexrvS', 'Speedy', 'Gonzales', 'sgonzales@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00'),
+('mimouse', '$2y$10$IkWQeduBbmLn4m5rybEf6OCQRRFui0PEJ5bMWndCzlWMmpznXe3Xy', 'Minnie', 'Mouse', 'mimouse@yourserver.com', 2, 1, 1, 1, 1, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1169,7 +1144,6 @@ INSERT INTO `tcneo_users` (`username`, `password`, `firstname`, `lastname`, `ema
 -- Table structure for table `tcneo_user_attachment`
 --
 
-DROP TABLE IF EXISTS `tcneo_user_attachment`;
 CREATE TABLE `tcneo_user_attachment` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -1215,7 +1189,6 @@ INSERT INTO `tcneo_user_attachment` (`id`, `username`, `fileid`) VALUES
 -- Table structure for table `tcneo_user_group`
 --
 
-DROP TABLE IF EXISTS `tcneo_user_group`;
 CREATE TABLE `tcneo_user_group` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -1243,7 +1216,6 @@ INSERT INTO `tcneo_user_group` (`id`, `username`, `groupid`, `type`) VALUES
 -- Table structure for table `tcneo_user_message`
 --
 
-DROP TABLE IF EXISTS `tcneo_user_message`;
 CREATE TABLE `tcneo_user_message` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -1257,7 +1229,6 @@ CREATE TABLE `tcneo_user_message` (
 -- Table structure for table `tcneo_user_option`
 --
 
-DROP TABLE IF EXISTS `tcneo_user_option`;
 CREATE TABLE `tcneo_user_option` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
