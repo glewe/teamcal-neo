@@ -52,32 +52,32 @@ $LANG['group'] = 'Gruppe';
 $LANG['license'] = 'TeamCal Neo Lizenz';
 $LANG['magenta'] = 'Magenta';
 $LANG['monthnames'] = array(
-    1 => "Januar",
-    "Februar",
-    "M&auml;rz",
-    "April",
-    "Mai",
-    "Juni",
-    "Juli",
-    "August",
-    "September",
-    "Oktober",
-    "November",
-    "Dezember"
+      1 => "Januar",
+      "Februar",
+      "M&auml;rz",
+      "April",
+      "Mai",
+      "Juni",
+      "Juli",
+      "August",
+      "September",
+      "Oktober",
+      "November",
+      "Dezember"
 );
 $LANG['monthShort'] = array(
-    1 => "Jan",
-    "Feb",
-    "M&auml;r",
-    "Apr",
-    "Mai",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Okt",
-    "Nov",
-    "Dez"
+      1 => "Jan",
+      "Feb",
+      "M&auml;r",
+      "Apr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Okt",
+      "Nov",
+      "Dez"
 );
 $LANG['name'] = 'Name';
 $LANG['none'] = 'Keine/r';
@@ -110,22 +110,22 @@ $LANG['total'] = 'Gesamt';
 $LANG['type'] = 'Typ';
 $LANG['user'] = 'Nutzer';
 $LANG['weekdayShort'] = array(
-    1 => "Mo",
-    "Di",
-    "Mi",
-    "Do",
-    "Fr",
-    "Sa",
-    "So"
+      1 => "Mo",
+      "Di",
+      "Mi",
+      "Do",
+      "Fr",
+      "Sa",
+      "So"
 );
 $LANG['weekdayLong'] = array(
-    1 => "Montag",
-    "Dienstag",
-    "Mittwoch",
-    "Donnerstag",
-    "Freitag",
-    "Samstag",
-    "Sonntag"
+      1 => "Montag",
+      "Dienstag",
+      "Mittwoch",
+      "Donnerstag",
+      "Freitag",
+      "Samstag",
+      "Sonntag"
 );
 $LANG['yellow'] = 'Gelb';
 
@@ -361,7 +361,7 @@ $LANG['config_tab_registration'] = 'Registrierung';
 $LANG['config_tab_system'] = 'System';
 $LANG['config_tab_theme'] = 'Theme';
 $LANG['config_tab_user'] = 'Nutzer';
-$LANG['config_tab_gdpr'] = 'DSVGO';
+$LANG['config_tab_gdpr'] = 'DSGVO';
 
 $LANG['config_activateMessages'] = 'Message Center aktivieren';
 $LANG['config_activateMessages_comment'] = 'Mit diesem Schalter kann das Message Center aktiviert werden. Nutzer k&ouml;nnen damit anderen Nutzern und Gruppen 
@@ -684,41 +684,41 @@ $LANG['home_title'] = 'Willkommen bei ' . $appTitle;
 // You can add more arrays here in order to display them on the Imprint page
 //
 $LANG['imprint'] = array(
-    array(
-        'title' => 'Author',
-        'text' => '<p>' . $appTitle . ' wurde von George Lewe erstellt (<a href="http://www.lewe.com/">Lewe.com</a>).  
+      array(
+            'title' => 'Author',
+            'text' => '<p>' . $appTitle . ' wurde von George Lewe erstellt (<a href="http://www.lewe.com/">Lewe.com</a>).  
       ' . $appTitle . ' nutzt au&szlig;erdem kostenlose Module von anderen gro&szlig;artigen Entwicklern, die dankenswerter Weise
       ihre Arbeit &ouml;ffentlich verf&uuml;gbar machen. Details dazu befinden sich auf der <a href="index.php?action=about">About Seite</a>.',
-    ),
-    array(
-        'title' => 'Inhalt',
-        'text' => '<p>Die Inhalte, die mit der ' . $appTitle . ' Applikation ausgeliefert werden, wurden sorgf&auml;tig vorbereitet und
+      ),
+      array(
+            'title' => 'Inhalt',
+            'text' => '<p>Die Inhalte, die mit der ' . $appTitle . ' Applikation ausgeliefert werden, wurden sorgf&auml;tig vorbereitet und
       erstellt. Wo andere Quellen benutzt wurde, wird entsprechend darauf hingewiesen. Sollte dies nicht der Fall sein, bitte informiere George Lewe mittels dieses 
       <a href="http://www.lewe.com/contact">Formulars</a>.</p> 
       <p>Keine Inhalt der ausgelieferten Applikation, ganz oder in Teilen darf vervielf&auml;tigt, reproduziert, kopiert oder wiederwendet werden, in keiner Form, 
       elektronisch oder mechanisch, egal f&uuml;r welchen Zweck ohne ausdr&uuml;ckliche Erlaubnis von George Lewe.</p>',
-    ),
-    array(
-        'title' => 'Links',
-        'text' => '<p>Alle Links, die mit der ' . $appTitle . ' Applikation ausgeliefert werden, dienen der Annehmlichkeit und zu Informationszwecken. 
+      ),
+      array(
+            'title' => 'Links',
+            'text' => '<p>Alle Links, die mit der ' . $appTitle . ' Applikation ausgeliefert werden, dienen der Annehmlichkeit und zu Informationszwecken. 
       Sie stellen keine Bef&uuml;rwortung oder Akzeptanz der verlinkten Inhalte dar, weder in Bezug auf Produkte, Services oder Meinungen der verlinkten
       Anbieter. Der Hersteller der Applikation ist nicht verantwortlich f&uuml;r die Richtigkeit oder Rechtm&auml;&szlig;keit der verlinkten Inhalte. Bei Fragen
       oder Bedenken zu den verlinkten Inhalten kontakiere bitte den Anbieter dort.</p>',
-    ),
-    array(
-        'title' => 'DSGVO',
-        'text' => '<p>Die ausgelieferte Applikation ' . $appTitle . ' enth&auml;lt keine pers&ouml;nlichen Daten. Der Schutz von pers&ouml;nlichen Daten, die
+      ),
+      array(
+            'title' => 'DSGVO',
+            'text' => '<p>Die ausgelieferte Applikation ' . $appTitle . ' enth&auml;lt keine pers&ouml;nlichen Daten. Der Schutz von pers&ouml;nlichen Daten, die
       der Nutzer hinzuf&uumll;gt, obliegt alleinig dem Nutzer der Applikation.</p>
       <p>' . $appTitle . ' bietet einen generellen DSGVO Generator. Falls dieser benutzt wird, ist es die Pflicht des Nutzers der Applikation, die generierte
       DSVGO-Erkl&auml;rung auf Vollst&auml;ndigkeit und Korrektheit zu &uuml;berpr&uuml;fen und gegebenenfalls entpsrechend zu &auml;nder oder zu erweitern.</p>
       <p>Der Hersteller der Applikation ist nicht verantwortlich f&uuml;r die Richtigkeit oder Rechtm&auml;&szlig;keit der DSGVO Erkl&auml;rung.</p>',
-    ),
+      ),
 );
 
 if ($C->read('googleAnalytics') and $C->read("googleAnalyticsID")) {
-    $LANG['imprint'][] = array(
-        'title' => 'Google Analytics',
-        'text' => '<p><i class="fab fa-google fa-3x fa-header float-left" style="color: #999999;"></i>Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc.
+      $LANG['imprint'][] = array(
+            'title' => 'Google Analytics',
+            'text' => '<p><i class="fab fa-google fa-3x fa-header float-left" style="color: #999999;"></i>Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc.
       ("Google"). Google Analytics verwendet sog. "Cookies", Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website
       durch Sie erm&ouml;glichen. Die durch den Cookie erzeugten Informationen &uuml;ber die Nutzung dieser Website werden an Server von Google &uuml;bertragen und 
       dort gespeichert. Diese Server k&ouml;nnen sich den USA befinden.</p>
@@ -738,7 +738,7 @@ if ($C->read('googleAnalytics') and $C->read("googleAnalyticsID")) {
          und nur f&uuml;r diese Domain). Dabei wird ein Opt-Out-Cookie auf Ihrem Ger&auml;t abgelegt. L&ouml;schen Sie Ihre Cookies in diesem Browser, m&uuml;ssen Sie diesen Link erneut klicken.</p>
       </div>
       <p><a class="btn btn-default" data-toggle="collapse" data-target="#readmore">Mehr/Weniger Details...</a></p>',
-    );
+      );
 }
 
 //

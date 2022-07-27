@@ -94,7 +94,7 @@ view.absenceedit
                                             <span class="text-normal"><?= $LANG['abs_icon_comment'] ?></span>
                                         </label>
                                         <div class="col-lg-<?= $colsright ?>">
-                                            <span class="<?= $viewData['icon'] ?> text-<?= $viewData['iconcolor'] ?>" style="font-size: 150%; padding-right: 8px; vertical-align: middle;"></span>
+                                            <span class="<?= $viewData['icon'] ?> text-<?= $viewData['color'] ?>" style="font-size: 150%; padding-right: 8px; vertical-align: middle;"></span>
                                             <a href="index.php?action=absenceicon&amp;id=<?= $viewData['id'] ?>" class="btn btn-primary btn-sm" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_abs_icon'] ?></a>
                                         </div>
                                     </div>

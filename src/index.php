@@ -62,7 +62,6 @@ require_once(WEBSITE_ROOT . '/helpers/app.helper.php');
 //
 // CHECK INSTALLATION SCRIPT
 //
-
 if (file_exists('installation.php')) {
     if (!readDef('APP_INSTALLED', "config/config.app.php")) {
         header("Location: installation.php");
