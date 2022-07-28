@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 01, 2022 at 07:14 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 7.4.21
+-- Generation Time: Jul 28, 2022 at 05:45 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `tcneo_absences`
 --
 
+DROP TABLE IF EXISTS `tcneo_absences`;
 CREATE TABLE `tcneo_absences` (
   `id` int(11) NOT NULL,
   `name` varchar(80) CHARACTER SET utf8 NOT NULL,
@@ -71,6 +72,7 @@ INSERT INTO `tcneo_absences` (`id`, `name`, `symbol`, `icon`, `color`, `bgcolor`
 -- Table structure for table `tcneo_absence_group`
 --
 
+DROP TABLE IF EXISTS `tcneo_absence_group`;
 CREATE TABLE `tcneo_absence_group` (
   `id` int(11) NOT NULL,
   `absid` int(11) DEFAULT NULL,
@@ -136,6 +138,7 @@ INSERT INTO `tcneo_absence_group` (`id`, `absid`, `groupid`) VALUES
 -- Table structure for table `tcneo_allowances`
 --
 
+DROP TABLE IF EXISTS `tcneo_allowances`;
 CREATE TABLE `tcneo_allowances` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 NOT NULL,
@@ -174,6 +177,7 @@ INSERT INTO `tcneo_allowances` (`id`, `username`, `absid`, `carryover`, `allowan
 -- Table structure for table `tcneo_archive_allowances`
 --
 
+DROP TABLE IF EXISTS `tcneo_archive_allowances`;
 CREATE TABLE `tcneo_archive_allowances` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 NOT NULL,
@@ -188,6 +192,7 @@ CREATE TABLE `tcneo_archive_allowances` (
 -- Table structure for table `tcneo_archive_daynotes`
 --
 
+DROP TABLE IF EXISTS `tcneo_archive_daynotes`;
 CREATE TABLE `tcneo_archive_daynotes` (
   `id` int(11) NOT NULL,
   `yyyymmdd` varchar(8) CHARACTER SET utf8 DEFAULT NULL,
@@ -204,6 +209,7 @@ CREATE TABLE `tcneo_archive_daynotes` (
 -- Table structure for table `tcneo_archive_templates`
 --
 
+DROP TABLE IF EXISTS `tcneo_archive_templates`;
 CREATE TABLE `tcneo_archive_templates` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -248,6 +254,7 @@ CREATE TABLE `tcneo_archive_templates` (
 -- Table structure for table `tcneo_archive_users`
 --
 
+DROP TABLE IF EXISTS `tcneo_archive_users`;
 CREATE TABLE `tcneo_archive_users` (
   `username` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `password` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -272,6 +279,7 @@ CREATE TABLE `tcneo_archive_users` (
 -- Table structure for table `tcneo_archive_user_attachment`
 --
 
+DROP TABLE IF EXISTS `tcneo_archive_user_attachment`;
 CREATE TABLE `tcneo_archive_user_attachment` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -284,6 +292,7 @@ CREATE TABLE `tcneo_archive_user_attachment` (
 -- Table structure for table `tcneo_archive_user_group`
 --
 
+DROP TABLE IF EXISTS `tcneo_archive_user_group`;
 CREATE TABLE `tcneo_archive_user_group` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -297,6 +306,7 @@ CREATE TABLE `tcneo_archive_user_group` (
 -- Table structure for table `tcneo_archive_user_message`
 --
 
+DROP TABLE IF EXISTS `tcneo_archive_user_message`;
 CREATE TABLE `tcneo_archive_user_message` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -310,6 +320,7 @@ CREATE TABLE `tcneo_archive_user_message` (
 -- Table structure for table `tcneo_archive_user_option`
 --
 
+DROP TABLE IF EXISTS `tcneo_archive_user_option`;
 CREATE TABLE `tcneo_archive_user_option` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -323,6 +334,7 @@ CREATE TABLE `tcneo_archive_user_option` (
 -- Table structure for table `tcneo_attachments`
 --
 
+DROP TABLE IF EXISTS `tcneo_attachments`;
 CREATE TABLE `tcneo_attachments` (
   `id` int(11) NOT NULL,
   `filename` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
@@ -353,6 +365,7 @@ INSERT INTO `tcneo_attachments` (`id`, `filename`, `uploader`) VALUES
 -- Table structure for table `tcneo_config`
 --
 
+DROP TABLE IF EXISTS `tcneo_config`;
 CREATE TABLE `tcneo_config` (
   `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
@@ -568,6 +581,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 -- Table structure for table `tcneo_daynotes`
 --
 
+DROP TABLE IF EXISTS `tcneo_daynotes`;
 CREATE TABLE `tcneo_daynotes` (
   `id` int(11) NOT NULL,
   `yyyymmdd` varchar(8) CHARACTER SET utf8 DEFAULT NULL,
@@ -592,6 +606,7 @@ INSERT INTO `tcneo_daynotes` (`id`, `yyyymmdd`, `username`, `region`, `daynote`,
 -- Table structure for table `tcneo_groups`
 --
 
+DROP TABLE IF EXISTS `tcneo_groups`;
 CREATE TABLE `tcneo_groups` (
   `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
@@ -618,6 +633,7 @@ INSERT INTO `tcneo_groups` (`id`, `name`, `description`, `minpresent`, `maxabsen
 -- Table structure for table `tcneo_holidays`
 --
 
+DROP TABLE IF EXISTS `tcneo_holidays`;
 CREATE TABLE `tcneo_holidays` (
   `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
@@ -646,6 +662,7 @@ INSERT INTO `tcneo_holidays` (`id`, `name`, `description`, `color`, `bgcolor`, `
 -- Table structure for table `tcneo_log`
 --
 
+DROP TABLE IF EXISTS `tcneo_log`;
 CREATE TABLE `tcneo_log` (
   `id` int(11) NOT NULL,
   `type` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -667,6 +684,7 @@ INSERT INTO `tcneo_log` (`id`, `type`, `timestamp`, `user`, `event`) VALUES
 -- Table structure for table `tcneo_messages`
 --
 
+DROP TABLE IF EXISTS `tcneo_messages`;
 CREATE TABLE `tcneo_messages` (
   `id` int(11) NOT NULL,
   `timestamp` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
@@ -680,6 +698,7 @@ CREATE TABLE `tcneo_messages` (
 -- Table structure for table `tcneo_months`
 --
 
+DROP TABLE IF EXISTS `tcneo_months`;
 CREATE TABLE `tcneo_months` (
   `id` int(11) NOT NULL,
   `year` varchar(4) CHARACTER SET utf8 DEFAULT NULL,
@@ -805,6 +824,7 @@ INSERT INTO `tcneo_months` (`id`, `year`, `month`, `region`, `wday1`, `wday2`, `
 -- Table structure for table `tcneo_permissions`
 --
 
+DROP TABLE IF EXISTS `tcneo_permissions`;
 CREATE TABLE `tcneo_permissions` (
   `id` int(11) NOT NULL,
   `scheme` varchar(80) CHARACTER SET utf8 NOT NULL,
@@ -977,6 +997,7 @@ INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`
 -- Table structure for table `tcneo_regions`
 --
 
+DROP TABLE IF EXISTS `tcneo_regions`;
 CREATE TABLE `tcneo_regions` (
   `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
@@ -998,6 +1019,7 @@ INSERT INTO `tcneo_regions` (`id`, `name`, `description`) VALUES
 -- Table structure for table `tcneo_region_role`
 --
 
+DROP TABLE IF EXISTS `tcneo_region_role`;
 CREATE TABLE `tcneo_region_role` (
   `id` int(11) NOT NULL,
   `regionid` int(11) NOT NULL,
@@ -1011,6 +1033,7 @@ CREATE TABLE `tcneo_region_role` (
 -- Table structure for table `tcneo_roles`
 --
 
+DROP TABLE IF EXISTS `tcneo_roles`;
 CREATE TABLE `tcneo_roles` (
   `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
@@ -1036,6 +1059,7 @@ INSERT INTO `tcneo_roles` (`id`, `name`, `description`, `color`, `created`, `upd
 -- Table structure for table `tcneo_templates`
 --
 
+DROP TABLE IF EXISTS `tcneo_templates`;
 CREATE TABLE `tcneo_templates` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -1105,6 +1129,7 @@ INSERT INTO `tcneo_templates` (`id`, `username`, `year`, `month`, `abs1`, `abs2`
 -- Table structure for table `tcneo_users`
 --
 
+DROP TABLE IF EXISTS `tcneo_users`;
 CREATE TABLE `tcneo_users` (
   `username` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '',
   `password` varchar(255) COLLATE utf8_bin DEFAULT NULL,
@@ -1144,6 +1169,7 @@ INSERT INTO `tcneo_users` (`username`, `password`, `firstname`, `lastname`, `ema
 -- Table structure for table `tcneo_user_attachment`
 --
 
+DROP TABLE IF EXISTS `tcneo_user_attachment`;
 CREATE TABLE `tcneo_user_attachment` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -1189,6 +1215,7 @@ INSERT INTO `tcneo_user_attachment` (`id`, `username`, `fileid`) VALUES
 -- Table structure for table `tcneo_user_group`
 --
 
+DROP TABLE IF EXISTS `tcneo_user_group`;
 CREATE TABLE `tcneo_user_group` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -1216,6 +1243,7 @@ INSERT INTO `tcneo_user_group` (`id`, `username`, `groupid`, `type`) VALUES
 -- Table structure for table `tcneo_user_message`
 --
 
+DROP TABLE IF EXISTS `tcneo_user_message`;
 CREATE TABLE `tcneo_user_message` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
@@ -1229,6 +1257,7 @@ CREATE TABLE `tcneo_user_message` (
 -- Table structure for table `tcneo_user_option`
 --
 
+DROP TABLE IF EXISTS `tcneo_user_option`;
 CREATE TABLE `tcneo_user_option` (
   `id` int(11) NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
