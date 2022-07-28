@@ -104,6 +104,11 @@ class Daynotes
      */
     public function create()
     {
+        //
+        // Make sure no daynote exists for this day
+        //
+        $this->delete($this->yyyymmdd, $this->username, $this->region);
+
         $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (yyyymmdd, username, region, daynote, color, confidential) VALUES (:val1, :val2, :val3, :val4, :val5, :val6)');
 
         $query->bindParam('val1', $this->yyyymmdd);
