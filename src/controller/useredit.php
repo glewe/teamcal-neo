@@ -233,7 +233,7 @@ if (!empty($_POST)) {
             //
             // Groups
             //
-            if (isAllowed("groupmemberships")) {
+            if (isAllowed("usergroups") && isAllowed("groupmemberships")) {
                 $UG->deleteByUser($profile);
                 if (isset($_POST['sel_guestships'])) {
                     foreach ($_POST['sel_guestships'] as $grp) {
