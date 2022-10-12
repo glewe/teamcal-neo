@@ -33,7 +33,7 @@ view.statsabsences
     <form class="form-control-horizontal noprint" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
 
         <div class="page-menu">
-            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalAbsence"><?= $LANG['absence'] ?> <span class="badge badge-light"><?= $viewData['absName'] ?></span></button>
+            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalAbsence"><?= $LANG['absencetype'] ?> <span class="badge badge-light"><?= $viewData['absName'] ?></span></button>
             <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalGroup"><?= $LANG['group'] ?> <span class="badge badge-light"><?= $viewData['groupName'] ?></span></button>
             <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalPeriod"><?= $LANG['period'] ?> <span class="badge badge-light"><?= $viewData['periodName'] ?></span></button>
             <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalDiagram"><?= $LANG['diagram'] ?></button>

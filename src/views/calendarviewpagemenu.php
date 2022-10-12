@@ -44,7 +44,7 @@ view.calendarviewpagemenu
         <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
     <?php } ?>
     <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectGroup"><?= $LANG['group'] . ': ' . $viewData['group'] ?></button>
-    <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectAbsence"><?= $LANG['absence'] . ': ' . $viewData['absence'] ?></button>
+    <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectAbsence"><?= $LANG['absencetype'] . ': ' . $viewData['absence'] ?></button>
     <button type="button" class="btn btn-info" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSearchUser"><?= $LANG['search'] . ': ' . $viewData['search'] ?></button>
     <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++; ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
     <?php if ($viewData['supportMobile']) { ?>

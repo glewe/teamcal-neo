@@ -40,9 +40,7 @@ view.users
                 if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['users_title'] . $pageHelp ?></div>
-
                 <div class="card-body">
-
                     <div class="card">
                         <div class="card-body row">
                             <div class="col-lg-3">
@@ -50,8 +48,8 @@ view.users
                                 <input id="inputSearch" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_searchUser" maxlength="40" value="<?= $viewData['searchUser'] ?>" type="text">
                             </div>
                             <div class="col-lg-2">
-                                <label for="inputSearch"><?= $LANG['group'] ?></label>
-                                <select class="form-control" name="sel_searchGroup" tabindex="<?= $tabindex++ ?>">
+                                <label for="sel_searchGroup"><?= $LANG['group'] ?></label>
+                                <select class="form-control" name="sel_searchGroup" id="sel_searchGroup" tabindex="<?= $tabindex++ ?>">
                                     <option value="All" <?= ('All' == $viewData['searchGroup']) ? ' selected=""' : ''; ?>><?= $LANG['all'] ?></option>
                                     <?php foreach ($viewData['groups'] as $group) { ?>
                                         <option value="<?= $group['id'] ?>" <?= ($group['id'] == $viewData['searchGroup']) ? ' selected=""' : ''; ?>><?= $group['name'] ?></option>
@@ -59,8 +57,8 @@ view.users
                                 </select>
                             </div>
                             <div class="col-lg-2">
-                                <label for="inputSearch"><?= $LANG['role'] ?></label>
-                                <select class="form-control" name="sel_searchRole" tabindex="<?= $tabindex++ ?>">
+                                <label for="sel_searchRole"><?= $LANG['role'] ?></label>
+                                <select class="form-control" name="sel_searchRole" id="sel_searchRole" tabindex="<?= $tabindex++ ?>">
                                     <option value="All" <?= ('All' == $viewData['searchRole']) ? ' selected=""' : ''; ?>><?= $LANG['all'] ?></option>
                                     <?php foreach ($viewData['roles'] as $role) { ?>
                                         <option value="<?= $role['id'] ?>" <?= ($role['id'] == $viewData['searchRole']) ? ' selected=""' : ''; ?>><?= $role['name'] ?></option>
