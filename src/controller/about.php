@@ -14,6 +14,15 @@ if (!defined('VALID_ROOT')) exit('');
 
 //=============================================================================
 //
+// CHECK LICENSE
+//
+$alertData = array();
+$showAlert = false;
+$licExpiryWarning = $C->read('licExpiryWarning');
+$LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
+
+//=============================================================================
+//
 // SHOW VIEW
 //
 require(WEBSITE_ROOT . '/views/header.php');
