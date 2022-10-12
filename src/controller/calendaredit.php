@@ -129,6 +129,20 @@ if (!$allowed) {
 
 //=============================================================================
 //
+// CHECK LICENSE
+// Checks when the current weekday matches a random number between 1 and 7
+//
+$date = new DateTime();
+$weekday = $date->format('N');
+if ($weekday == rand(1, 7)) {
+    $alertData = array();
+    $showAlert = false;
+    $licExpiryWarning = $C->read('licExpiryWarning');
+    $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
+}
+
+//=============================================================================
+//
 // VARIABLE DEFAULTS
 //
 $users = $U->getAll();

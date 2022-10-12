@@ -102,6 +102,87 @@ class License
 
     // ---------------------------------------------------------------------------
     /**
+     * Checks the license against the license server and fills the alert array in
+     * case of a problem. The alert array is used on pages to display messages.
+     *
+     * @param array &$alertData  Alert array. Passed by reference
+     * @param bool  &$showAlert  Flag to show the alert message. Passed by reference
+     * @param int   $liceExpiryWarning  Number of license days left for showing the expiry warning. 0 = no warning.
+     * @param bool  &$LANG       The language array. Passed by reference
+     */
+    function check(&$alertData, &$showAlert, $licExpiryWarning, &$LANG)
+    {
+        $parms = array(
+            'slm_action' => 'slm_check',
+            'secret_key' => APP_LIC_KEY,
+            'license_key' => $this->readKey(),
+        );
+
+        $response = $this->callAPI('GET', APP_LIC_SRV, $parms);
+        $response = json_decode((string)$response);
+        $this->details = $response;
+
+        switch ($this->status()) {
+            case "blocked":
+                $alertData['type'] = 'warning';
+                $alertData['title'] = $LANG['lic_blocked'];
+                $alertData['subject'] = $LANG['lic_blocked_subject'];
+                $alertData['text'] = '';
+                $alertData['help'] = $LANG['lic_blocked_help'];
+                $showAlert = true;
+                break;
+
+            case "expired":
+                $alertData['type'] = 'warning';
+                $alertData['title'] = $LANG['lic_expired'];
+                $alertData['subject'] = $LANG['lic_expired_subject'];
+                $alertData['help'] = $LANG['lic_expired_help'];
+                $showAlert = true;
+                break;
+
+            case "invalid":
+                $alertData['type'] = 'danger';
+                $alertData['title'] = $LANG['lic_invalid'];
+                $alertData['subject'] = $LANG['lic_invalid_subject'];
+                $alertData['text'] = $LANG['lic_invalid_text'];
+                $alertData['help'] = $LANG['lic_invalid_help'];
+                $showAlert = true;
+                break;
+
+            case "pending":
+                $alertData['type'] = 'warning';
+                $alertData['title'] = $LANG['lic_pending'];
+                $alertData['subject'] = $LANG['lic_pending_subject'];
+                $alertData['text'] = '';
+                $alertData['help'] = $LANG['lic_pending_help'];
+                $showAlert = true;
+                break;
+
+            case "unregistered":
+                $alertData['type'] = 'warning';
+                $alertData['title'] = $LANG['lic_unregistered'];
+                $alertData['subject'] = $LANG['lic_unregistered_subject'];
+                $alertData['text'] = '';
+                $alertData['help'] = $LANG['lic_unregistered_help'];
+                $showAlert = true;
+                break;
+        }
+
+        if ($licExpiryWarning) {
+            $daysToExpiry = $this->daysToExpiry();
+            if ($daysToExpiry <= $licExpiryWarning) {
+                $alertData['type'] = 'warning';
+                $alertData['title'] = $LANG['lic_expiringsoon'];
+                $alertData['subject'] = sprintf($LANG['lic_expiringsoon_subject'], $daysToExpiry);
+                $alertData['text'] = '';
+                $alertData['help'] = $LANG['lic_expiringsoon_help'];
+                $showAlert = true;
+            }
+        }
+    }
+
+    // ---------------------------------------------------------------------------
+    /**
      * Deactivates a license (deregisters the domain the request is coming from)
      *
      * @return JSON

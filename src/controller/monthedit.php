@@ -30,6 +30,20 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 
 //=============================================================================
 //
+// CHECK LICENSE
+// Checks when the current weekday matches a random number between 1 and 7
+//
+$date = new DateTime();
+$weekday = $date->format('N');
+if ($weekday == rand(1, 7)) {
+    $alertData = array();
+    $showAlert = false;
+    $licExpiryWarning = $C->read('licExpiryWarning');
+    $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
+}
+
+//=============================================================================
+//
 // CHECK URL PARAMETERS
 //
 if (isset($_GET['month']) and isset($_GET['region'])) {

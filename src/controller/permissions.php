@@ -28,6 +28,15 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 
 //=============================================================================
 //
+// CHECK LICENSE
+//
+$alertData = array();
+$showAlert = false;
+$licExpiryWarning = $C->read('licExpiryWarning');
+$LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
+
+//=============================================================================
+//
 // LOAD CONTROLLER RESOURCES
 //
 
@@ -35,7 +44,6 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //
 // VARIABLE DEFAULTS
 //
-$showAlert = false;
 $roles = $RO->getAll();
 $scheme = "Default";
 

@@ -27,6 +27,15 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
     die();
 }
 
+//=============================================================================
+//
+// CHECK LICENSE
+//
+$alertData = array();
+$showAlert = false;
+$licExpiryWarning = $C->read('licExpiryWarning');
+$LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
+
 // ========================================================================
 // Load controller stuff
 //

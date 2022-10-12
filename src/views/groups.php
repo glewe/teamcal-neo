@@ -91,7 +91,7 @@ view.groups
 
                 <?php foreach ($viewData['groups'] as $group) { ?>
                     <form class="form-control-horizontal" name="form_<?= $group['id'] ?>" action="index.php?action=groups" method="post" target="_self" accept-charset="utf-8">
-                        <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
+                        <div class="row">
                             <div class="col-lg-2"><?= $group['name'] ?></div>
                             <div class="col-lg-3"><?= $group['description'] ?></div>
                             <div class="col-lg-1"><?= $group['minpresent'] ?></div>

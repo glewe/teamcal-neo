@@ -87,7 +87,7 @@ view.roles
 
                 <?php foreach ($viewData['roles'] as $role) { ?>
                     <form class="form-control-horizontal" name="form_<?= $role['name'] ?>" action="index.php?action=roles" method="post" target="_self" accept-charset="utf-8">
-                        <div class="row">
+                        <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight:bold;">
                             <div class="col-lg-3"><span class="fas fa-user-circle fa-lg text-<?= $role['color'] ?>" style="margin-right: 8px;"></span><?= $role['name'] ?></div>
                             <div class="col-lg-7"><?= $role['description'] ?></div>
                             <div class="col-lg-2 text-right">

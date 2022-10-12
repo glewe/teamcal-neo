@@ -30,6 +30,15 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 
 //=============================================================================
 //
+// CHECK LICENSE
+//
+$alertData = array();
+$showAlert = false;
+$licExpiryWarning = $C->read('licExpiryWarning');
+$LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
+
+//=============================================================================
+//
 // LOAD CONTROLLER RESOURCES
 //
 
@@ -49,7 +58,6 @@ if (isset($_GET['page'])) $currentPage = intval(sanitize($_GET['page']));
 $logToday = dateInfo(date("Y"), date("m"), date("d"));
 $C->save("logto", $logToday['ISO'] . ' 23:59:59.999999'); // Default is today
 
-$showAlert = false;
 $logtypes = array(
     'Calendar',
     'CalendarOptions',
