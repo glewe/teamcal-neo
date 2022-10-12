@@ -141,7 +141,8 @@ else $navcolor = "light"; ?>
                         isAllowed($CONF['controllers']['absences']->permission) or
                         isAllowed($CONF['controllers']['holidays']->permission) or
                         isAllowed($CONF['controllers']['regions']->permission) or
-                        isAllowed($CONF['controllers']['declination']->permission)
+                        isAllowed($CONF['controllers']['declination']->permission) or
+                        isAllowed($CONF['controllers']['bulkedit']->permission)
                     ) { ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="admin" aria-haspopup="true" aria-expanded="false"><?= $LANG['mnu_admin'] ?><span class="caret"></span></a>
@@ -177,6 +178,9 @@ else $navcolor = "light"; ?>
                                 <?php } ?>
                                 <?php if (isAllowed($CONF['controllers']['declination']->permission)) { ?>
                                     <a class="dropdown-item" tabindex="-1" href="index.php?action=<?= $CONF['controllers']['declination']->name ?>"><i class="<?= $CONF['controllers']['declination']->faIcon ?> fa-lg text-<?= $CONF['controllers']['declination']->iconColor ?> fa-menu"></i><?= $LANG['mnu_admin_declination'] ?></a>
+                                <?php } ?>
+                                <?php if (isAllowed($CONF['controllers']['bulkedit']->permission)) { ?>
+                                    <a class="dropdown-item" tabindex="-1" href="index.php?action=<?= $CONF['controllers']['bulkedit']->name ?>"><i class="<?= $CONF['controllers']['bulkedit']->faIcon ?> fa-lg text-<?= $CONF['controllers']['bulkedit']->iconColor ?> fa-menu"></i><?= $LANG['mnu_admin_bulkedit'] ?></a>
                                 <?php } ?>
                                 <?php if (isAllowed($CONF['controllers']['database']->permission)) { ?>
                                     <div class="dropdown-divider"></div>

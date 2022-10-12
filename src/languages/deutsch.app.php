@@ -23,8 +23,9 @@ if (!defined('VALID_ROOT')) exit('');
 //
 // Common
 //
-$LANG['absence'] = 'Abwesenheitstyp';
+$LANG['absence'] = 'Abwesenheit';
 $LANG['absences'] = 'Abwesenheiten';
+$LANG['absencetype'] = 'Abwesenheitstyp';
 $LANG['allowance'] = 'Erlaubt';
 $LANG['month'] = 'Monat';
 $LANG['presences'] = 'Anwesenheiten';
@@ -179,6 +180,15 @@ $LANG['alert_decl_holiday_noabsence'] = "Dieser Tag ist ein Feiertag, der keine 
 $LANG['alert_decl_period'] = "Abwesenheits&auml;nderungen in folgendem Zeitraum sind nicht erlaubt: ";
 $LANG['alert_decl_takeover'] = "Abwesenheitstyp '%s' nicht f&uuml;r &Uuml;bernahme zugelassen.";
 $LANG['alert_decl_total_threshold'] = "Die generelle Abwesenheitsgrenze wurde erreicht.";
+
+//
+// Bulk Edit
+//
+$LANG['bulkedit_title'] = 'Kontingente Bearbeitung';
+$LANG['bulkedit_alert_update'] = 'Kontingente Aktualisierung';
+$LANG['bulkedit_alert_update_failed'] = 'Aktualisierung fehlgeschlagen. Stelle sicher, dass mindestens ein Benutzer ausgew&auml;hlt ist, dass alle Werte numerisch sind und in beiden Feldern ein Wert steht.';
+$LANG['bulkedit_alert_update_success'] = 'Erlaubt und &Uuml;bertrag Werte wurden f&uuml;r die ausgew&auml;hlten Nutzer aktualisiert.';
+$LANG['bulkedit_for_selected'] = 'F&uuml;r alle ausgew&auml;hlten';
 
 //
 // Buttons
@@ -670,6 +680,7 @@ $LANG['mnu_view_stats_remainder'] = 'Resttage-Statistik';
 $LANG['mnu_edit_calendaredit'] = 'Personenkalender';
 $LANG['mnu_edit_monthedit'] = 'Regionenkalender';
 $LANG['mnu_admin_absences'] = 'Abwesenheitstypen';
+$LANG['mnu_admin_bulkedit'] = 'Kontingente Bearbeitung';
 $LANG['mnu_admin_calendaroptions'] = 'Kalenderoptionen';
 $LANG['mnu_admin_declination'] = 'Ablehnungsregeln';
 $LANG['mnu_admin_holidays'] = 'Feiertage';
