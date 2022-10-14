@@ -19,6 +19,7 @@ if (!defined('VALID_ROOT')) exit('');
 $alertData = array();
 $showAlert = false;
 $licExpiryWarning = $C->read('licExpiryWarning');
+$LIC  = new License();
 $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 
 //=============================================================================

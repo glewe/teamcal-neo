@@ -113,7 +113,6 @@ $C   = new Config($CONF, $DB);
 //
 $G    = new Groups($CONF, $DB);
 $L    = new Login();
-$LIC  = new License();
 $LOG  = new Log();
 $MSG  = new Messages();
 $P    = new Permissions();

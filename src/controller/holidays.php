@@ -35,6 +35,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 $alertData = array();
 $showAlert = false;
 $licExpiryWarning = $C->read('licExpiryWarning');
+$LIC  = new License();
 $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 
 //=============================================================================
