@@ -290,7 +290,7 @@ if (!$installationComplete and readDef('APP_INSTALLED', $configAppFile) <> '0') 
                 <form class="form-control-horizontal" action="installation.php" method="post" target="_self" accept-charset="utf-8">
 
                     <div class="card">
-                        <div class="card-header"><i class="fas fa-cog fa-lg"></i>&nbsp;<?= readConfig('app_name', $configAppFile) ?> <?= readConfig('app_version', $configAppFile) ?> Installation<a href="https://support.lewe.com/docs/teamcal-neo-manual/installation/" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a></div>
+                        <div class="card-header"><i class="fas fa-cog fa-lg"></i>&nbsp;<?= readConfig('app_name', $configAppFile) ?> <?= readConfig('app_version', $configAppFile) ?> Installation<a href="https://lewe.gitbook.io/teamcal-neo/installation" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a></div>
                         <div class="card-body">
 
                             <!-- DB Server -->
@@ -398,7 +398,7 @@ if (!$installationComplete and readDef('APP_INSTALLED', $configAppFile) <> '0') 
                                 </label>
                                 <div class="col-lg-4">
                                     <div class="checkbox">
-                                        <label><input type="checkbox" id="chk_licApp" name="chk_licApp" value="chk_activateMessages" tabindex="<?= $tabindex++; ?>"><a href="https://support.lewe.com/docs/teamcal-neo-manual/teamcal-neo-license/"><?= $LANG['inst_lic_app'] ?></a></label>
+                                        <label><input type="checkbox" id="chk_licApp" name="chk_licApp" value="chk_activateMessages" tabindex="<?= $tabindex++; ?>"><a href="https://lewe.gitbook.io/teamcal-neo/readme/teamcal-neo-license"><?= $LANG['inst_lic_app'] ?></a></label>
                                     </div>
                                 </div>
                             </div>

@@ -1,19 +1,17 @@
 <?php
-
+if (!defined('VALID_ROOT')) exit('');
 /**
- * Daynotes.class.php
+ * Daynotes
  *
- * @category TeamCal Neo Basic
- * @version 3.0.0
+ * This class provides methods and properties for daynotes.
+ * 
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2022 by George Lewe
-
- * @license https://support.lewe.com/docs/teamcal-neo-manual/teamcal-neo-license/
- */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
-
-/**
- * Provides objects and methods to interface with the daynote table
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo
+ * @subpackage User Management
+ * @since 3.0.0
  */
 class Daynotes
 {

@@ -158,7 +158,7 @@ define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "http://www.lewe.com");
 define('APP_EMAIL', "george@lewe.com");
-define('APP_LICENSE', "https://support.lewe.com/docs/teamcal-neo-manual/teamcal-neo-license/");
+define('APP_LICENSE', "https://lewe.gitbook.io/teamcal-neo/readme/teamcal-neo-license/");
 define('APP_COPYRIGHT', "(c) " . APP_YEAR . " by " . APP_AUTHOR . " (" . APP_URL . ")");
 define('APP_POWERED', "Powered by " . APP_NAME . " " . APP_VER . " &copy; " . APP_YEAR . " by <a href=\"http://www.lewe.com\" class=\"copyright\" target=\"_blank\">" . APP_AUTHOR . "</a>");
 define('APP_LIC_KEY', "5e091d9b9cbf36.90197318");

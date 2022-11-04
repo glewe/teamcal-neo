@@ -6,7 +6,7 @@ Installation
 ============
 
 Refer to this documentation for how to install TeamCal Neo (Basic and Pro):
-https://support.lewe.com/docs/teamcal-neo-manual/installation/
+https://lewe.gitbook.io/teamcal-neo/installation
  
 
 Support
@@ -14,9 +14,8 @@ Support
 
 TeamCal Neo Pro support is available here: 
 
-Support: https://support.lewe.com/
-Forum: http://forum.lewe.com
-Documentation: https://support.lewe.com/docs/teamcal-neo-manual/
+Service Desk: https://georgelewe.atlassian.net/servicedesk/customer/portal/5
+Documentation: https://lewe.gitbook.io/teamcal-neo/
 
 Best regards,
 George Lewe
