@@ -71,7 +71,7 @@ view.editcalendar
             <?php if ($viewData['supportMobile']) { ?>
                 <button type="button" class="btn btn-secondary" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectWidth"><?= $LANG['screen'] . ': ' . $viewData['width'] ?></button>
             <?php } ?>
-            <a href="index.php?action=calendarview" class="btn btn-secondary float-right" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_showcalendar'] ?></a>
+            <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-secondary float-right" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_showcalendar'] ?></a>
         </div>
 
         <div class="card">

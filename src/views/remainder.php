@@ -43,7 +43,7 @@ view.remainder
                 <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalYear"><?= $LANG['year'] ?> <span class="badge badge-light"><?= $viewData['year'] ?></span></button>
             <?php } ?>
             <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++; ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
-            <a href="index.php?action=calendarview" class="btn btn-secondary float-right" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_showcalendar'] ?></a>
+            <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-secondary float-right" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_showcalendar'] ?></a>
         </div>
 
         <div class="card">
