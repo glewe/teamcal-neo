@@ -34,10 +34,8 @@ class DB
          * Connect to database
          */
         try {
-
             $this->db = new PDO('mysql:host=' . $server . ';dbname=' . $database . ';charset=utf8', $user, $password);
         } catch (PDOException $e) {
-
             /**
              * Database connection error
              */
