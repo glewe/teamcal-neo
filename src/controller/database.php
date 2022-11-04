@@ -304,7 +304,8 @@ if (!empty($_POST)) {
             //
             // Run query
             //
-            $result = $DB->runQuery($query);
+            $result = $DB->db->exec($query);
+
 
             if ($result) {
                 //
