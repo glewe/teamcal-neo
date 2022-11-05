@@ -12,8 +12,6 @@
  * @since 3.0.0
  */
 
-//echo "<script type=\"text/javascript\">alert(\"Debug: \");</script>";
-
 //=============================================================================
 //
 // DEFINES
@@ -105,7 +103,6 @@ if (!empty($_POST)) {
             (isset($_POST['txt_instDbName'])   and strlen($_POST['txt_instDbName'])) and
             (isset($_POST['txt_instDbUser'])   and strlen($_POST['txt_instDbUser']))
         ) {
-
             //
             // Write database info to config file
             //

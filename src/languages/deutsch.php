@@ -148,8 +148,6 @@ $LANG['about_minorUpdateAvailable'] = 'Minor oder Patch Update verf&uuml;gbar...
 $LANG['about_misc'] = 'viele Nutzer f&uuml;r Tests und Vorschl&auml;ge...';
 $LANG['about_newestVersion'] = 'Du hast die aktuellste Version';
 $LANG['about_view_releaseinfo'] = 'Releaseinfo &raquo;';
-$LANG['about_vote'] = 'Bewerte TeamCal Neo';
-$LANG['about_vote_comment'] = 'Wenn dir TeamCal Neo gef&auml;llt, gib <a href="http://www.lewe.com/teamcal-neo/#tcnvote" target="_blank">hier deine Stimme ab...</a>';
 
 //
 // Alerts

@@ -47,7 +47,6 @@ view.about
                         <strong><?= $LANG['about_license'] ?>:</strong>&nbsp;&nbsp;<a class="about" href="https://lewe.gitbook.io/teamcal-neo/readme/teamcal-neo-license" target="_blank"><?= $LANG['license'] ?></a><br>
                         <strong><?= $LANG['about_support'] ?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/servicedesk/customer/portal/5" target="_blank">Lewe Service Desk</a><br>
                         <strong><?= $LANG['about_documentation'] ?>:</strong>&nbsp;&nbsp;<a class="about" href="https://lewe.gitbook.io/teamcal-neo/" target="_blank">TeamCal Neo User Manual</a><br>
-                        <strong><?= $LANG['about_vote'] ?>:</strong>&nbsp;&nbsp;<?= $LANG['about_vote_comment'] ?><br><br>
                     </p>
                     <h4><?= $LANG['about_credits'] ?>:</h4>
                     <ul>
