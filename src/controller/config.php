@@ -210,6 +210,8 @@ if (!empty($_POST)) {
             else $C->save("allowUserTheme", "0");
             if ($_POST['sel_jqtheme']) $C->save("jqtheme", $_POST['sel_jqtheme']);
             else $C->save("jqtheme", "smoothness");
+            if ($_POST['sel_font']) $C->save("font", $_POST['sel_font']);
+            else $C->save("font", "default");
 
             //
             // User
@@ -457,12 +459,19 @@ foreach ($appThemes as $appTheme) {
     $viewData['themeList'][] = array('val' => $appTheme, 'name' => proper($appTheme), 'selected' => ($C->read("theme") == $appTheme) ? true : false);
 }
 
+$viewData['fonts'][] = array('val' => 'default', 'name' => 'Default', 'selected' => ($C->read("font") == 'default') ? true : false);
+$viewData['fonts'][] = array('val' => 'lato', 'name' => 'Lato', 'selected' => ($C->read("font") == 'lato') ? true : false);
+$viewData['fonts'][] = array('val' => 'montserrat', 'name' => 'Montserrat', 'selected' => ($C->read("font") == 'montserrat') ? true : false);
+$viewData['fonts'][] = array('val' => 'opensans', 'name' => 'Open Sans', 'selected' => ($C->read("font") == 'opensans') ? true : false);
+$viewData['fonts'][] = array('val' => 'roboto', 'name' => 'Roboto', 'selected' => ($C->read("font") == 'roboto') ? true : false);
+
 $viewData['theme'] = array(
     array('prefix' => 'config', 'name' => 'theme', 'type' => 'list', 'values' => $viewData['themeList']),
     array('prefix' => 'config', 'name' => 'menuBarBg', 'type' => 'radio', 'values' => $bsBgColors, 'value' => $C->read("menuBarBg")),
     array('prefix' => 'config', 'name' => 'menuBarDark', 'type' => 'check', 'values' => '', 'value' => $C->read("menuBarDark")),
     array('prefix' => 'config', 'name' => 'allowUserTheme', 'type' => 'check', 'values' => '', 'value' => $C->read("allowUserTheme")),
     array('prefix' => 'config', 'name' => 'jqtheme', 'type' => 'list', 'values' => $viewData['jqueryUIThemeList']),
+    array('prefix' => 'config', 'name' => 'font', 'type' => 'list', 'values' => $viewData['fonts']),
 );
 
 $viewData['user'] = array(

@@ -413,6 +413,11 @@ $LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) can offer a 
       across the globe. Fontawesome is such a module. Pulling it from a CDN location also offers an advantage that if the visitor 
       to your webpage has already downloaded a copy of it from the same CDN, it won\'t have to be re-downloaded.<br>This option only works with an
       Internet connection of course. Switch this option off if you are running the application in an environment without Internet connectivity.';
+$LANG['config_font'] = 'Font';
+$LANG['config_font_comment'] = 'Select the font to use. Options are:<ul>
+<li>Default <i>(will not load any extra font but use the default sans-serif font of your browser)</i></li>
+<li>... <i>(will load the selected Google font from the TeamCal Neo installation files)</i></li>
+</ul>';
 $LANG['config_footerCopyright'] = 'Footer Copyright Name';
 $LANG['config_footerCopyright_comment'] = 'Will be displayed in the upper left footer section. Just enter the name, the (current) year will be displayed automatically.';
 $LANG['config_footerCopyrightUrl'] = 'Footer Copyright URL';

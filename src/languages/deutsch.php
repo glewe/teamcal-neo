@@ -414,6 +414,11 @@ $LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) k&ouml;nnen 
       um den Globus geladen werden. Fontawesome ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul 
       f&uuml;r den Nutzer schon durch eine andere Anwednung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Diese Option
       funktioniert nat&uuml;rlich nur mit Internetverbindung. Schalte diese Option aus, wenn du ' . $appTitle . ' in einer Umgebung ohne Internetverbindung betreibst.';
+$LANG['config_font'] = 'Schriftart';
+$LANG['config_font_comment'] = 'W&auml;hle eine Schriftart aus. Optionen sind:<ul>
+      <li>Default <i>(l&auml;dt keine extra Schriftart und nutzt die standard sans-serif Schriftart des Browsers)</i></li>
+      <li>... <i>(l&auml;dt die ausgew&auml;hlte Google Schriftart von den TeamCal Neo Installationsdateien)</i></li>
+      </ul>';
 $LANG['config_footerCopyright'] = 'Fu&szlig;zeilen Copyright Name';
 $LANG['config_footerCopyright_comment'] = 'Wird in der Fu&szlig;zeile oben links angezeigt. Gib nur den Namen ein, das (aktuelle) Jahr wird autmatisch angezeigt.';
 $LANG['config_footerCopyrightUrl'] = 'Fu&szlig;zeilen Copyright URL';

@@ -67,8 +67,10 @@ if (!defined('VALID_ROOT')) exit('');
         <link rel="stylesheet" href="themes/<?= $htmlData['theme']['name'] ?>/css/bootstrap.min.css" media="screen">
     <?php } ?>
 
-    <!-- Google Fonts -->
-    <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'> -->
+    <!-- Fonts -->
+    <?php if ($C->read('font')) { ?>
+        <link rel="stylesheet" href="css/font-<?= $C->read('font') ?>.css">
+    <?php } ?>
 
     <!-- Font Awesome -->
     <?php if ($htmlData['faCDN']) { ?>
