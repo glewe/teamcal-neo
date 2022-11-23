@@ -83,6 +83,7 @@ $LANG['name'] = 'Name';
 $LANG['none'] = 'None';
 $LANG['options'] = 'Options';
 $LANG['orange'] = 'Orange';
+$LANG['partially_approved'] = 'Partially approved';
 $LANG['period'] = 'Period';
 $LANG['period_custom'] = 'Custom';
 $LANG['period_month'] = 'Current month';

@@ -88,11 +88,11 @@ function absenceThresholdReached($year, $month, $day, $base, $group = '')
  * @param array $requestedAbsences Array of the requested absences
  *       
  * @return array $approvalResult (
- *         boolean approvalResult // none, partial, all
- *         array declinedAbsences
- *         array approvedAbsences
- *         boolean allChangesInPast
- *         )
+ *     boolean approvalResult // none, partial, all
+ *     array declinedAbsences
+ *     array approvedAbsences
+ *     boolean allChangesInPast
+ * )
  */
 function approveAbsences($username, $year, $month, $currentAbsences, $requestedAbsences, $regionId)
 {
@@ -110,6 +110,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
     $approvedAbsences = array();
     $declinedAbsences = array();
     $declinedReasons = array();
+    $declinedReasonsLog = array();
     $thresholdReached = false;
     $takeoverRequested = false;
     $approvalDays = array();
@@ -132,6 +133,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
         $approvedAbsences[$i] = '0';
         $declinedAbsences[$i] = '0';
         $declinedReasons[$i] = '';
+        $declinedReasonsLog[$i] = '';
     }
 
     //
@@ -211,6 +213,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                         $T->setAbsence($UL->username, $year, $month, $i, $currentAbsences[$i]);
                     } else {
                         $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . sprintf($LANG['alert_decl_takeover'], $A->getName($currentAbsences[$i]));
+                        $declinedReasonsLog[$i] = "- " . $T->year . $T->month . sprintf("%02d", ($i)) . ": " . sprintf($LANG['alert_decl_takeover'], $A->getName($currentAbsences[$i]));
                         $declinedAbsences[$i] = $currentAbsences[$i];
                         $approvedAbsences[$i] = $currentAbsences[$i];
                     }
@@ -261,6 +264,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                             //
                             $groups = substr($groups, 0, strlen($groups) - 2);
                             $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $LANG['alert_decl_group_minpresent'] . $groups;
+                            $declinedReasonsLog[$i] = "- " . $T->year . $T->month . sprintf("%02d", ($i)) . ": " . $LANG['alert_decl_group_minpresent'] . $groups;
                             $declinedAbsences[$i] = $requestedAbsences[$i];
                             $approvedAbsences[$i] = $currentAbsences[$i];
                             $thresholdReached = true;
@@ -299,6 +303,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                             //
                             $groups = substr($groups, 0, strlen($groups) - 2);
                             $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $LANG['alert_decl_group_maxabsent'] . $groups;
+                            $declinedReasonsLog[$i] = "- " . $T->year . $T->month . sprintf("%02d", ($i)) . ": " . $LANG['alert_decl_group_maxabsent'] . $groups;
                             $declinedAbsences[$i] = $requestedAbsences[$i];
                             $approvedAbsences[$i] = $currentAbsences[$i];
                             $thresholdReached = true;
@@ -355,6 +360,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                                         //
                                         $groups = substr($groups, 0, strlen($groups) - 2);
                                         $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $LANG['alert_decl_group_threshold'] . $groups;
+                                        $declinedReasonsLog[$i] = "- " . $T->year . $T->month . sprintf("%02d", ($i)) . ": " . $LANG['alert_decl_group_threshold'] . $groups;
                                         $declinedAbsences[$i] = $requestedAbsences[$i];
                                         $approvedAbsences[$i] = $currentAbsences[$i];
                                         $thresholdReached = true;
@@ -366,6 +372,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                                         // Absence cannot be set.
                                         //
                                         $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $LANG['alert_decl_total_threshold'];
+                                        $declinedReasonsLog[$i] = "- " . $T->year . $T->month . sprintf("%02d", ($i)) . ": " . $LANG['alert_decl_total_threshold'];
                                         $declinedAbsences[$i] = $requestedAbsences[$i];
                                         $approvedAbsences[$i] = $currentAbsences[$i];
                                         $thresholdReached = true;
@@ -409,6 +416,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                                     // Absence cannot be set.
                                     //
                                     $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $LANG['alert_decl_before_date'] . $beforeDate;
+                                    $declinedReasonsLog[$i] = "- " . $T->year . $T->month . sprintf("%02d", ($i)) . ": " . $LANG['alert_decl_before_date'] . $beforeDate;
                                     $declinedAbsences[$i] = $requestedAbsences[$i];
                                     $approvedAbsences[$i] = $currentAbsences[$i];
                                     $thresholdReached = true;
@@ -449,6 +457,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                                         //
                                         if (!strlen($declMessage = $C->read("declPeriod" . $p . "Message"))) $declMessage = $LANG['alert_decl_period'] . $startDate . " - " . $endDate;
                                         $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $declMessage;
+                                        $declinedReasonsLog[$i] = "- " . $T->year . $T->month . sprintf("%02d", ($i)) . ": " . $declMessage;
                                         $declinedAbsences[$i] = $requestedAbsences[$i];
                                         $approvedAbsences[$i] = $currentAbsences[$i];
                                         $thresholdReached = true;
@@ -473,6 +482,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                             // Absence requires approval.
                             //
                             $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . $LANG['alert_decl_approval_required'];
+                            $declinedReasonsLog[$i] = "- " . $T->year . $T->month . sprintf("%02d", ($i)) . ": " . $LANG['approval_required'];
                             $approvalDays[] = $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . " (" . $A->getName($requestedAbsences[$i]) . ")";
 
                             //
@@ -500,6 +510,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                         // This day is a holiday and the holiday is set to allow no absences
                         //
                         $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . $LANG['alert_decl_holiday_noabsence'];
+                        $declinedReasonsLog[$i] = "- " . $T->year . $T->month . sprintf("%02d", ($i)) . ": " . $LANG['alert_decl_holiday_noabsence'];
                         $declinedAbsences[$i] = $requestedAbsences[$i];
                         $approvedAbsences[$i] = $currentAbsences[$i];
                     }
@@ -572,6 +583,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                     // the total of the requested absences already exceeds the limit
                     //
                     $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . str_replace('%1%', $allow, $LANG['alert_decl_allowweek_reached']);
+                    $declinedReasonsLog[$i] = "- " . $T->year . $T->month . sprintf("%02d", ($i)) . ": " . str_replace('%1%', $allow, $LANG['alert_decl_allowweek_reached']);
 
                     //
                     // Set absence but add approval daynote.
@@ -607,6 +619,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                     // the total of the requested absences already exceeds the limit
                     //
                     $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . str_replace('%1%', $allow, $LANG['alert_decl_allowmonth_reached']);
+                    $declinedReasonsLog[$i] = "- " . $T->year . $T->month . sprintf("%02d", ($i)) . ": " . str_replace('%1%', $allow, $LANG['alert_decl_allowmonth_reached']);
 
                     //
                     // Decline absence
@@ -655,6 +668,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                     // the total of the requested absences already exceeds the limit
                     //
                     $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . str_replace('%1%', $allow, $LANG['alert_decl_allowyear_reached']);
+                    $declinedReasonsLog[$i] = "- " . $T->year . $T->month . sprintf("%02d", ($i)) . ": " . str_replace('%1%', $allow, $LANG['alert_decl_allowyear_reached']);
 
                     //
                     // Decline absence
@@ -720,6 +734,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
     $approvalResult['approvedAbsences'] = $approvedAbsences;
     $approvalResult['declinedAbsences'] = $declinedAbsences;
     $approvalResult['declinedReasons'] = $declinedReasons;
+    $approvalResult['declinedReasonsLog'] = $declinedReasonsLog;
 
     return $approvalResult;
 }

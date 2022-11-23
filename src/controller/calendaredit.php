@@ -186,7 +186,9 @@ if (!empty($_POST)) {
         //
         // All changes to the calendar are handled in this block since it finishes with the Approval routine.
         // First, get the current absences of the user into an array $currentAbsences
-        // Second, set the $requestedAbsences array to the current ones. Updates are done below.
+        // Secondly, set the $requestedAbsences array to the current ones. Updates are done below.
+        // Thirdly, clear the $approvedAbsences array with 0s
+        // Fourthly, clear the $declinedAbsences array with 0s
         //
         for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
             $currentAbsences[$i] = $T->getAbsence($caluser, $viewData['year'], $viewData['month'], $i);
@@ -232,7 +234,6 @@ if (!empty($_POST)) {
                         $requestedAbsences[$i] = '0';
                     }
                 }
-
                 //
                 // Clear Daynotes
                 //
@@ -374,7 +375,7 @@ if (!empty($_POST)) {
                     break;
 
                 case 'partial':
-                    $logText .= $LANG['approved'] . '<br>';
+                    $logText .= $LANG['partially_approved'] . '<br>';
                     foreach ($approved['approvedAbsences'] as $key => $val) {
                         $col = 'abs' . $key;
                         $T->$col = $val;
@@ -384,7 +385,14 @@ if (!empty($_POST)) {
                     $sendNotification = true;
                     $alerttype = 'info';
                     foreach ($approved['declinedReasons'] as $reason) {
-                        if (strlen($reason)) $alertHelp .= $reason . "<br>";
+                        if (strlen($reason)) {
+                            $alertHelp .= $reason . "<br>";
+                        }
+                    }
+                    foreach ($approved['declinedReasonsLog'] as $reason) {
+                        if (strlen($reason)) {
+                            $logText .= "<i>" . $reason . "</i><br>";
+                        }
                     }
                     break;
 

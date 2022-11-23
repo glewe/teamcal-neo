@@ -27,6 +27,7 @@ $LANG['absence'] = 'Absence';
 $LANG['absences'] = 'Absences';
 $LANG['absencetype'] = 'Absence Type';
 $LANG['allowance'] = 'Allowance';
+$LANG['approval_required'] = 'Approval required';
 $LANG['month'] = 'Month';
 $LANG['presences'] = 'Presences';
 $LANG['region'] = 'Region';
