@@ -37,7 +37,7 @@ Copyright:   (c) 2014-2020
     <div class="container content" style="padding-left: 4px; padding-right: 4px;">
         <p></p>
         <div class="alert alert-dismissable alert-danger">
-            <button type="button" class="close" data-dismiss="alert" title="'.$LANG['close_this_message'].'"><i class="far fa-times-circle"></i></button>
+            <button type="button" class="close" data-bs-dismiss="alert" title="'.$LANG['close_this_message'].'"><i class="far fa-times-circle"></i></button>
             <h5><strong><?= $errorData['title'] ?>!</strong></h5>
             <hr>
             <p><strong><?= $errorData['subject'] ?></strong></p>

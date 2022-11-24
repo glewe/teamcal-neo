@@ -37,7 +37,7 @@ view.regionedit
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['region_edit_title'] . $viewData['name'] . $pageHelp ?></div>
                 <div class="card-body">
@@ -46,7 +46,7 @@ view.regionedit
                         <div class="card-body">
                             <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">
                             <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_regionUpdate"><?= $LANG['btn_save'] ?></button>
-                            <a href="index.php?action=regions" class="btn btn-secondary float-right" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_region_list'] ?></a>
+                            <a href="index.php?action=regions" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_region_list'] ?></a>
                         </div>
                     </div>
                     <div style="height:20px;"></div>
@@ -64,7 +64,7 @@ view.regionedit
                         <div class="card-body">
                             <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">
                             <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_regionUpdate"><?= $LANG['btn_save'] ?></button>
-                            <a href="index.php?action=regions" class="btn btn-secondary float-right" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_region_list'] ?></a>
+                            <a href="index.php?action=regions" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_region_list'] ?></a>
                         </div>
                     </div>
 

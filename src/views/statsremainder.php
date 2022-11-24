@@ -33,11 +33,11 @@ view.statsabstype
     <form class="form-control-horizontal noprint" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
 
         <div class="page-menu">
-            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalGroup"><?= $LANG['group'] ?> <span class="badge badge-light"><?= $viewData['groupName'] ?></span></button>
+            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalGroup"><?= $LANG['group'] ?> <span class="badge badge-light"><?= $viewData['groupName'] ?></span></button>
             <?php if (!$C->read('currentYearOnly')) { ?>
-                <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalYear"><?= $LANG['year'] ?> <span class="badge badge-light"><?= $viewData['year'] ?></span></button>
+                <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalYear"><?= $LANG['year'] ?> <span class="badge badge-light"><?= $viewData['year'] ?></span></button>
             <?php } ?>
-            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalDiagram"><?= $LANG['diagram'] ?></button>
+            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDiagram"><?= $LANG['diagram'] ?></button>
             <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>"><?= $LANG['btn_reset'] ?></a>
         </div>
         <div style="height:20px;"></div>
@@ -94,10 +94,10 @@ view.statsabstype
     <div class="card">
         <?php
         $pageHelp = '';
-        if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+        if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
         ?>
         <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>">
-            <i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['stats_title_remainder'] ?>&nbsp;(<?= $viewData['year'] ?>)<span class="badge badge-secondary float-right badge-header-right"><i data-placement="bottom" data-type="info" data-toggle="tooltip" title="<?= $LANG['stats_total'] ?>"><?= $viewData['total'] ?></i></span><?= $pageHelp ?>
+            <i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['stats_title_remainder'] ?>&nbsp;(<?= $viewData['year'] ?>)<span class="badge badge-secondary float-end badge-header-right"><i data-placement="bottom" data-type="info" data-bs-toggle="tooltip" title="<?= $LANG['stats_total'] ?>"><?= $viewData['total'] ?></i></span><?= $pageHelp ?>
         </div>
         <div class="card-body">
             <p><?= $LANG['stats_remainder_desc'] ?></p>

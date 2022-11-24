@@ -737,7 +737,7 @@ if ($C->read('googleAnalytics') and $C->read("googleAnalyticsID")) {
          opt-out from being tracked by Google Analytics within this website in the future (the opt-out applies only for the browser in which you set it and within
          this domain). An opt-out cookie will be stored on your device, which means that you\'ll have to click this link again, if you delete your cookies.</p>
       </div>
-      <p><a class="btn btn-default" data-toggle="collapse" data-target="#readmore">Read more/less...</a></p>',
+      <p><a class="btn btn-default" data-bs-toggle="collapse" data-bs-target="#readmore">Read more/less...</a></p>',
     );
 }
 

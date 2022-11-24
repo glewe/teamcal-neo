@@ -24,8 +24,8 @@ function createAlertBox($data)
 {
     global $LANG;
     $alertBox = '
-    <div class="alert alert-dismissable alert-' . $data['type'] . '">
-        <button type="button" class="close" data-dismiss="alert" title="' . $LANG['close_this_message'] . '"><i class="far fa-times-circle"></i></button>
+    <div class="alert alert-dismissable alert-' . $data['type'] . ' fade show" role="alert">
+        <button type="button" class="btn-close float-end" data-bs-dismiss="alert" title="' . $LANG['close_this_message'] . '"></button>
         <h5>' . $data['title'] . '</h5>
         <hr>
         <p><strong>' . $data['subject'] . '</strong></p>
@@ -83,7 +83,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
 
     $error = '';
     if (isset($data["error"]) and strlen($data["error"])) {
-        $error = '<br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button>' . $data['error'] . '</div>';
+        $error = '<br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button>' . $data['error'] . '</div>';
     }
 
     switch ($data['type']) {
@@ -155,7 +155,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
                 <span class="text-normal">' . $LANG[$langIdx2] . '</span>
                 </label>
                 <div class="col-lg-' . $colsright . '">
-                <select id="' . $data['name'] . '" class="form-control" name="sel_' . $data['name'] . '" tabindex="' . $tabindex . '"' . $disabled . '>' . "\r\n";
+                <select id="' . $data['name'] . '" class="form-select" name="sel_' . $data['name'] . '" tabindex="' . $tabindex . '"' . $disabled . '>' . "\r\n";
             foreach ($data['values'] as $val) {
                 if (isset($data['imagelist']) and $data['imagelist'] and isset($data['imagedir'])) {
                     $style = $style = 'style="background-image: url(\'' . $data['imagedir'] . '/' . $val['val'] . '\'); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;"';
@@ -179,7 +179,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
                 <span class="text-normal">' . $LANG[$langIdx2] . '</span>
                 </label>
                 <div class="col-lg-' . $colsright . '">
-                <select id="' . $data['name'] . '" class="form-control" name="sel_' . $data['name'] . '[]" tabindex="' . $tabindex . '" multiple="multiple" size="10"' . $disabled . '>' . "\r\n";
+                <select id="' . $data['name'] . '" class="form-select" name="sel_' . $data['name'] . '[]" tabindex="' . $tabindex . '" multiple="multiple" size="10"' . $disabled . '>' . "\r\n";
             foreach ($data['values'] as $val) {
                 $formGroup .= '<option value="' . $val['val'] . '"' . (($val['selected']) ? " selected=\"selected\"" : "") . '>' . $val['name'] . '</option>' . "\r\n";
             }
@@ -337,7 +337,7 @@ function createModalTop($id, $title)
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">' . $title . '</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">';
 
@@ -360,7 +360,7 @@ function createModalBottom($buttonID = '', $buttonColor, $buttonText)
 
     if (strlen($buttonID)) $modalbottom .= '          <button type="submit" class="btn btn-' . $buttonColor . '" name="' . $buttonID . '" style="margin-top: 4px;">' . $buttonText . '</button>';
 
-    $modalbottom .= '          <button type="button" class="btn btn-secondary" data-dismiss="modal">' . $LANG['btn_cancel'] . '</button>
+    $modalbottom .= '          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">' . $LANG['btn_cancel'] . '</button>
             </div>
         </div>
         </div>
@@ -384,6 +384,6 @@ function iconTooltip($text = 'Tooltip text', $title = '', $position = 'top', $ty
 {
     if (strlen($title)) $ttText  = "<div class='text-bold' style='padding-top: 4px; padding-bottom: 4px'>" . $title . "</div>";
     $ttText .= "<div class='text-normal'>" . $text . "</div>";
-    $html = '<span data-placement="' . $position . '" data-type="' . $type . ' fas fa-' . $icon . ' text-' . $type . '" data-toggle="tooltip" title="' . $ttText . '"></span>';
+    $html = '<span data-placement="' . $position . '" data-type="' . $type . ' fas fa-' . $icon . ' text-' . $type . '" data-bs-toggle="tooltip" title="' . $ttText . '"></span>';
     return $html;
 }

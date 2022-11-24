@@ -37,7 +37,7 @@ view.userimport
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['imp_title'] . $pageHelp ?></div>
                 <div class="card-body">
@@ -47,9 +47,9 @@ view.userimport
                             <div class="col-lg-6">
                                 <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_import"><?= $LANG['btn_import'] ?></button>
                             </div>
-                            <div class="col-lg-6 text-right">
+                            <div class="col-lg-6 text-end">
                                 <?php if (isAllowed("useraccount")) { ?>
-                                    <a href="index.php?action=users" class="btn btn-secondary float-right" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
+                                    <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
                                 <?php } ?>
                             </div>
                         </div>
@@ -80,9 +80,9 @@ view.userimport
                             <div class="col-lg-6">
                                 <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_import"><?= $LANG['btn_import'] ?></button>
                             </div>
-                            <div class="col-lg-6 text-right">
+                            <div class="col-lg-6 text-end">
                                 <?php if (isAllowed("useraccount")) { ?>
-                                    <a href="index.php?action=users" class="btn btn-secondary float-right" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
+                                    <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
                                 <?php } ?>
                             </div>
                         </div>

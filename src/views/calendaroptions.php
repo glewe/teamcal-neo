@@ -37,7 +37,7 @@ view.calendaroptions
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['calopt_title'] ?><?= $pageHelp ?></div>
                 <div class="card-body">
@@ -50,11 +50,11 @@ view.calendaroptions
                     <div style="height:20px;"></div>
 
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="display-tab" href="#display" data-toggle="tab" role="tab" aria-controls="display" aria-selected="true"><?= $LANG['calopt_tab_display'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="filter-tab" href="#filter" data-toggle="tab" role="tab" aria-controls="filter" aria-selected="false"><?= $LANG['calopt_tab_filter'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="options-tab" href="#options" data-toggle="tab" role="tab" aria-controls="options" aria-selected="false"><?= $LANG['calopt_tab_options'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="stats-tab" href="#stats" data-toggle="tab" role="tab" aria-controls="stats" aria-selected="false"><?= $LANG['calopt_tab_stats'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="summary-tab" href="#summary" data-toggle="tab" role="tab" aria-controls="summary" aria-selected="false"><?= $LANG['calopt_tab_summary'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link active" id="display-tab" href="#display" data-bs-toggle="tab" role="tab" aria-controls="display" aria-selected="true"><?= $LANG['calopt_tab_display'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="filter-tab" href="#filter" data-bs-toggle="tab" role="tab" aria-controls="filter" aria-selected="false"><?= $LANG['calopt_tab_filter'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="options-tab" href="#options" data-bs-toggle="tab" role="tab" aria-controls="options" aria-selected="false"><?= $LANG['calopt_tab_options'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="stats-tab" href="#stats" data-bs-toggle="tab" role="tab" aria-controls="stats" aria-selected="false"><?= $LANG['calopt_tab_stats'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="summary-tab" href="#summary" data-bs-toggle="tab" role="tab" aria-controls="summary" aria-selected="false"><?= $LANG['calopt_tab_summary'] ?></a></li>
                     </ul>
 
                     <div id="myTabContent" class="tab-content">

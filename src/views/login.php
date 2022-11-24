@@ -58,7 +58,7 @@ view.login
                                     <div class="col-lg-<?= $colsright ?>">
                                         <input id="inputSubmit" name="btn_login" type="text" value="true" style="visibility: hidden; display: none">
                                         <button type="submit" class="btn btn-primary" tabindex="3" name="submit"><?= $LANG['btn_login'] ?></button>
-                                        <a href="index.php?action=passwordrequest" class="btn btn-secondary float-right" tabindex="4"><?= $LANG['btn_reset_password'] ?></a>
+                                        <a href="index.php?action=passwordrequest" class="btn btn-secondary float-end" tabindex="4"><?= $LANG['btn_reset_password'] ?></a>
                                     </div>
                                 </div>
                             </fieldset>

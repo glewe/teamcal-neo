@@ -39,7 +39,7 @@ view.absenceedit
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['abs_edit_title'] . $viewData['name'] ?><?= $pageHelp ?></div>
 
@@ -48,15 +48,15 @@ view.absenceedit
                     <div class="card">
                         <div class="card-body">
                             <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
-                            <a href="index.php?action=absences" class="btn btn-secondary float-right" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_abs_list'] ?></a>
+                            <a href="index.php?action=absences" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_abs_list'] ?></a>
                         </div>
                     </div>
                     <div style="height:20px;"></div>
 
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="general-tab" href="#general" data-toggle="tab" role="tab" aria-controls="general" aria-selected="true"><?= $LANG['general'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="options-tab" href="#options" data-toggle="tab" role="tab" aria-controls="options" aria-selected="false"><?= $LANG['options'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="groupassignments-tab" href="#groupassignments" data-toggle="tab" role="tab" aria-controls="groupassignments" aria-selected="false"><?= $LANG['abs_tab_groups'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link active" id="general-tab" href="#general" data-bs-toggle="tab" role="tab" aria-controls="general" aria-selected="true"><?= $LANG['general'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="options-tab" href="#options" data-bs-toggle="tab" role="tab" aria-controls="options" aria-selected="false"><?= $LANG['options'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="groupassignments-tab" href="#groupassignments" data-bs-toggle="tab" role="tab" aria-controls="groupassignments" aria-selected="false"><?= $LANG['abs_tab_groups'] ?></a></li>
                     </ul>
 
                     <div id="myTabContent" class="tab-content">
@@ -136,7 +136,7 @@ view.absenceedit
                     <div class="card">
                         <div class="card-body">
                             <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
-                            <a href="index.php?action=absences" class="btn btn-secondary float-right" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_abs_list'] ?></a>
+                            <a href="index.php?action=absences" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_abs_list'] ?></a>
                         </div>
                     </div>
 

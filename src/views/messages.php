@@ -25,7 +25,7 @@ view.messages
         <div class="card">
             <?php
             $pageHelp = '';
-            if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+            if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
             ?>
             <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['msg_title'] . " " . $UL->firstname . " " . $UL->lastname . $pageHelp ?></div>
             <div class="card-body">
@@ -34,8 +34,8 @@ view.messages
                     <div class="card">
                         <div class="card-body">
                             <form class="form-control-horizontal" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
-                                <button type="button" class="btn btn-success" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalConfirmAll"><?= $LANG['btn_confirm_all'] ?></button>
-                                <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalDeleteAll"><?= $LANG['btn_delete_all'] ?></button>
+                                <button type="button" class="btn btn-success" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalConfirmAll"><?= $LANG['btn_confirm_all'] ?></button>
+                                <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteAll"><?= $LANG['btn_delete_all'] ?></button>
 
                                 <!-- Modal: Confirm all -->
                                 <?= createModalTop('modalConfirmAll', $LANG['modal_confirm']) ?>
@@ -57,8 +57,8 @@ view.messages
                     <form class="form-control-horizontal" action="index.php?action=messages" method="post" target="_self" accept-charset="utf-8">
                         <div class="alert alert-<?= $msg['type'] ?>">
                             <input name="msgId" type="hidden" class="text" value="<?= $msg['id'] ?>">
-                            <button type="button" class="btn btn-danger btn-sm float-right" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalDelete-<?= $msg['id'] ?>"><?= $LANG['btn_delete'] ?></button>
-                            <?php if ($msg['popup']) { ?><button type="button" class="btn btn-success btn-sm float-right" style="margin-right: 4px;" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalConfirm-<?= $msg['id'] ?>"><?= $LANG['btn_confirm'] ?></button><?php } ?>
+                            <button type="button" class="btn btn-danger btn-sm float-end" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDelete-<?= $msg['id'] ?>"><?= $LANG['btn_delete'] ?></button>
+                            <?php if ($msg['popup']) { ?><button type="button" class="btn btn-success btn-sm float-end" style="margin-right: 4px;" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalConfirm-<?= $msg['id'] ?>"><?= $LANG['btn_confirm'] ?></button><?php } ?>
                             <h5><?= $msg['timestamp'] ?></h5>
                             <hr>
                             <p><?= $msg['text'] ?></p>

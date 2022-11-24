@@ -37,14 +37,14 @@ view.attachments
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['att_title'] ?><?= $pageHelp ?></div>
                 <div class="card-body">
 
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="tab_files-tab" href="#tab_files" data-toggle="tab" role="tab" aria-controls="tab_files" aria-selected="true"><?= $LANG['att_tab_files'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tab_upload-tab" href="#tab_upload" data-toggle="tab" role="tab" aria-controls="tab_upload" aria-selected="false"><?= $LANG['att_tab_upload'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link active" id="tab_files-tab" href="#tab_files" data-bs-toggle="tab" role="tab" aria-controls="tab_files" aria-selected="true"><?= $LANG['att_tab_files'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_upload-tab" href="#tab_upload" data-bs-toggle="tab" role="tab" aria-controls="tab_upload" aria-selected="false"><?= $LANG['att_tab_upload'] ?></a></li>
                     </ul>
 
                     <div id="myTabContent" class="tab-content">
@@ -58,7 +58,7 @@ view.attachments
                                         <div class="col-lg-5"><?= $LANG['att_col_file'] ?></div>
                                         <div class="col-lg-2"><?= $LANG['att_col_owner'] ?></div>
                                         <div class="col-lg-3"><?= $LANG['att_col_shares'] ?></div>
-                                        <div class="col-lg-2 text-right"><?= $LANG['action'] ?></div>
+                                        <div class="col-lg-2 text-end"><?= $LANG['action'] ?></div>
                                     </div>
 
                                     <?php foreach ($viewData['uplFiles'] as $file) {
@@ -81,7 +81,7 @@ view.attachments
                                                 <?= $AT->getUploader($file['fname']) ?>
                                             </div>
                                             <div class="col-lg-3">
-                                                <a class="btn btn-secondary btn-sm text-white" data-toggle="collapse" data-target="#shares<?= $file['fid'] ?>"><?= $LANG['btn_shares'] ?></a>
+                                                <a class="btn btn-secondary btn-sm text-white" data-bs-toggle="collapse" data-bs-target="#shares<?= $file['fid'] ?>"><?= $LANG['btn_shares'] ?></a>
                                                 <div class="collapse" id="shares<?= $file['fid'] ?>">
                                                     <select class="form-control" name="sel_shares<?= $file['fid'] ?>[]" multiple="multiple" size="10" tabindex="<?= $tabindex++ ?>" <?= (!$isOwner) ? "disabled" : ""; ?>>
                                                         <?php foreach ($viewData['users'] as $user) {
@@ -97,14 +97,14 @@ view.attachments
                                                     <?php } ?>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-2 text-right">
+                                            <div class="col-lg-2 text-end">
                                                 <a href="<?= APP_UPL_DIR . $file['fname'] ?>" class="btn btn-info btn-sm" tabindex="<?= $tabindex++; ?>" title="<?= $file['fname'] ?>"><?= $LANG['btn_download_view'] ?></a>
                                             </div>
                                         </div>
                                     <?php } ?>
 
                                     <div style="clear: both; padding: 16px 0 0 16px;">
-                                        <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalDeleteFiles"><?= $LANG['btn_delete_selected'] ?></button>
+                                        <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteFiles"><?= $LANG['btn_delete_selected'] ?></button>
                                     </div>
 
                                 </div>

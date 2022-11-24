@@ -31,7 +31,7 @@ view.calendarviewmonthheader (<?= $viewData['year'] . $viewData['month'] ?>)
             //
             // This is a global daynote
             //
-            $notestart = '<div style="width: 100%; height: 100%;" data-placement="top" data-type="' . $D->color . '" data-toggle="tooltip" title="' . $D->daynote . '">';
+            $notestart = '<div style="width: 100%; height: 100%;" data-placement="top" data-type="' . $D->color . '" data-bs-toggle="tooltip" title="' . $D->daynote . '">';
             $noteend = '</div>';
             $notestyle = 'background-image: url(images/ovl_daynote.gif); background-repeat: no-repeat; background-position: top right;';
         }

@@ -37,19 +37,19 @@ view.remainder
     <form class="form-control-horizontal" enctype="multipart/form-data" action="<?= $formLink ?>" method="post" target="_self" accept-charset="utf-8">
 
         <div class="page-menu">
-            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectGroup"><?= $LANG['group'] . ': ' . $viewData['group'] ?></button>
-            <button type="button" class="btn btn-info" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSearchUser"><?= $LANG['search'] . ': ' . $viewData['search'] ?></button>
+            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectGroup"><?= $LANG['group'] . ': ' . $viewData['group'] ?></button>
+            <button type="button" class="btn btn-info" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSearchUser"><?= $LANG['search'] . ': ' . $viewData['search'] ?></button>
             <?php if (!$C->read('currentYearOnly')) { ?>
-                <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalYear"><?= $LANG['year'] ?> <span class="badge badge-light"><?= $viewData['year'] ?></span></button>
+                <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalYear"><?= $LANG['year'] ?> <span class="badge badge-light"><?= $viewData['year'] ?></span></button>
             <?php } ?>
             <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++; ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
-            <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-secondary float-right" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_showcalendar'] ?></a>
+            <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_showcalendar'] ?></a>
         </div>
 
         <div class="card">
             <?php
             $pageHelp = '';
-            if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+            if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
             ?>
             <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['rem_title'] . $pageHelp ?></div>
         </div>
@@ -71,7 +71,7 @@ view.remainder
                                         else $bgstyle = "background-color: #" . $abs['bgcolor'] . ";"; ?>
                                         <div style="color:#<?= $abs['color'] ?>;<?= $bgstyle ?>border:1px solid #333333; width:26px; height:26px;">
                                             <?php if ($abs['icon'] != "No") { ?>
-                                                <a href="#" style="color:inherit;" data-placement="top" data-type="secondary" data-toggle="tooltip" title="<?= $abs['name'] ?>"><span class="<?= $abs['icon'] ?>"></span></a>
+                                                <a href="#" style="color:inherit;" data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="<?= $abs['name'] ?>"><span class="<?= $abs['icon'] ?>"></span></a>
                                             <?php } else { ?>
                                                 <?= $abs['symbol'] ?>
                                             <?php } ?>
@@ -147,19 +147,19 @@ view.remainder
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalSearchUserLabel"><?= $LANG['cal_search'] ?></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
                         <input id="search" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_search" type="text" value="<?= $viewData["search"] ?>">
                         <?php if (isset($inputAlert["search"])) { ?>
                             <br>
-                            <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['search'] ?></div>
+                            <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['search'] ?></div>
                         <?php } ?>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-info" tabindex="<?= $tabindex++ ?>" name="btn_search" style="margin-top: 4px;"><?= $LANG['btn_search'] ?></button>
                         <?php if (strlen($viewData["search"])) { ?><button type="submit" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" name="btn_search_clear"><?= $LANG['btn_clear'] ?></button><?php } ?>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= $LANG['btn_cancel'] ?></button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= $LANG['btn_cancel'] ?></button>
                     </div>
                 </div>
             </div>

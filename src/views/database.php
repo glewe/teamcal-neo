@@ -37,19 +37,19 @@ view.database
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['db_title'] ?><?= $pageHelp ?></div>
                 <div class="card-body">
 
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="tab_optimize-tab" href="#tab_optimize" data-toggle="tab" role="tab" aria-controls="tab_optimize" aria-selected="true"><?= $LANG['db_tab_optimize'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tab_cleanup-tab" href="#tab_cleanup" data-toggle="tab" role="tab" aria-controls="tab_cleanup" aria-selected="false"><?= $LANG['db_tab_cleanup'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tab_repair-tab" href="#tab_repair" data-toggle="tab" role="tab" aria-controls="tab_repair" aria-selected="false"><?= $LANG['db_tab_repair'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tab_delete-tab" href="#tab_delete" data-toggle="tab" role="tab" aria-controls="tab_delete" aria-selected="false"><?= $LANG['db_tab_delete'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tab_admin-tab" href="#tab_admin" data-toggle="tab" role="tab" aria-controls="tab_admin" aria-selected="false"><?= $LANG['db_tab_admin'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tab_reset-tab" href="#tab_reset" data-toggle="tab" role="tab" aria-controls="tab_reset" aria-selected="false"><?= $LANG['db_tab_reset'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tab_tcpimp-tab" href="#tab_tcpimp" data-toggle="tab" role="tab" aria-controls="tab_tcpimp" aria-selected="false"><?= $LANG['db_tab_tcpimp'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link active" id="tab_optimize-tab" href="#tab_optimize" data-bs-toggle="tab" role="tab" aria-controls="tab_optimize" aria-selected="true"><?= $LANG['db_tab_optimize'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_cleanup-tab" href="#tab_cleanup" data-bs-toggle="tab" role="tab" aria-controls="tab_cleanup" aria-selected="false"><?= $LANG['db_tab_cleanup'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_repair-tab" href="#tab_repair" data-bs-toggle="tab" role="tab" aria-controls="tab_repair" aria-selected="false"><?= $LANG['db_tab_repair'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_delete-tab" href="#tab_delete" data-bs-toggle="tab" role="tab" aria-controls="tab_delete" aria-selected="false"><?= $LANG['db_tab_delete'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_admin-tab" href="#tab_admin" data-bs-toggle="tab" role="tab" aria-controls="tab_admin" aria-selected="false"><?= $LANG['db_tab_admin'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_reset-tab" href="#tab_reset" data-bs-toggle="tab" role="tab" aria-controls="tab_reset" aria-selected="false"><?= $LANG['db_tab_reset'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_tcpimp-tab" href="#tab_tcpimp" data-bs-toggle="tab" role="tab" aria-controls="tab_tcpimp" aria-selected="false"><?= $LANG['db_tab_tcpimp'] ?></a></li>
                     </ul>
 
                     <div id="myTabContent" class="tab-content">
@@ -108,7 +108,7 @@ view.database
                                             <input id="cleanBefore" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_cleanBefore" maxlength="10" value="<?= $viewData['cleanBefore'] ?>" type="text">
                                             <?php if (isset($inputAlert["cleanBefore"]) and strlen($inputAlert["cleanBefore"])) { ?>
                                                 <br>
-                                                <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['cleanBefore'] ?></div>
+                                                <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['cleanBefore'] ?></div>
                                             <?php } ?>
                                             <script>
                                                 $(function() {
@@ -134,7 +134,7 @@ view.database
                                             <input class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_cleanConfirm" maxlength="7" value="" type="text">
                                             <?php if (isset($inputAlert["cleanConfirm"]) and strlen($inputAlert["cleanConfirm"])) { ?>
                                                 <br>
-                                                <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['cleanConfirm'] ?></div>
+                                                <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['cleanConfirm'] ?></div>
                                             <?php } ?>
                                         </div>
                                     </div>
@@ -177,7 +177,7 @@ view.database
                                             <input class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_repairConfirm" maxlength="7" value="" type="text">
                                             <?php if (isset($inputAlert["repairConfirm"]) and strlen($inputAlert["repairConfirm"])) { ?>
                                                 <br>
-                                                <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['repairConfirm'] ?></div>
+                                                <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['repairConfirm'] ?></div>
                                             <?php } ?>
                                         </div>
                                     </div>
@@ -238,7 +238,7 @@ view.database
                                             <input class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_deleteConfirm" maxlength="6" value="" type="text">
                                             <?php if (isset($inputAlert["deleteConfirm"]) and strlen($inputAlert["deleteConfirm"])) { ?>
                                                 <br>
-                                                <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['deleteConfirm'] ?></div>
+                                                <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['deleteConfirm'] ?></div>
                                             <?php } ?>
                                         </div>
                                     </div>

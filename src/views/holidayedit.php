@@ -37,7 +37,7 @@ view.holidayedit
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['hol_edit_title'] . $viewData['name'] . $pageHelp ?></div>
                 <div class="card-body">
@@ -45,7 +45,7 @@ view.holidayedit
                     <div class="card">
                         <div class="card-body">
                             <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_holidayUpdate"><?= $LANG['btn_save'] ?></button>
-                            <a href="index.php?action=holidays" class="btn btn-secondary float-right" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_holiday_list'] ?></a>
+                            <a href="index.php?action=holidays" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_holiday_list'] ?></a>
                         </div>
                     </div>
                     <div style="height:20px;"></div>
@@ -63,7 +63,7 @@ view.holidayedit
                     <div class="card">
                         <div class="card-body">
                             <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_holidayUpdate"><?= $LANG['btn_save'] ?></button>
-                            <a href="index.php?action=holidays" class="btn btn-secondary float-right" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_holiday_list'] ?></a>
+                            <a href="index.php?action=holidays" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_holiday_list'] ?></a>
                         </div>
                     </div>
 

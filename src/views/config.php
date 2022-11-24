@@ -37,7 +37,7 @@ view.config
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['config_title'] ?><?= $pageHelp ?></div>
                 <div class="card-body">
@@ -52,17 +52,17 @@ view.config
                     <?php $attention = '<i class="fas fa-exclamation-triangle" style="color:#ffb000;margin-left: 8px;"></i>'; ?>
 
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="general-tab" href="#general" data-toggle="tab" role="tab" aria-controls="general" aria-selected="true"><?= $LANG['general'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="email-tab" href="#email" data-toggle="tab" role="tab" aria-controls="email" aria-selected="false"><?= $LANG['config_tab_email'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="footer-tab" href="#footer" data-toggle="tab" role="tab" aria-controls="footer" aria-selected="false"><?= $LANG['config_tab_footer'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="homepage-tab" href="#homepage" data-toggle="tab" role="tab" aria-controls="homepage" aria-selected="false"><?= $LANG['config_tab_homepage'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="license-tab" href="#license" data-toggle="tab" role="tab" aria-controls="license" aria-selected="false"><?= $LANG['config_tab_license'] ?><?= ($LIC->status() != "active" || !$LIC->domainRegistered()) ? $attention : ''; ?></i></a></li>
-                        <li class="nav-item"><a class="nav-link" id="login-tab" href="#login" data-toggle="tab" role="tab" aria-controls="login" aria-selected="false"><?= $LANG['config_tab_login'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="registration-tab" href="#registration" data-toggle="tab" role="tab" aria-controls="registration" aria-selected="false"><?= $LANG['config_tab_registration'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="system-tab" href="#system" data-toggle="tab" role="tab" aria-controls="system" aria-selected="false"><?= $LANG['config_tab_system'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tabtheme-tab" href="#tabtheme" data-toggle="tab" role="tab" aria-controls="tabtheme" aria-selected="false"><?= $LANG['config_tab_theme'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="usericons-tab" href="#usericons" data-toggle="tab" role="tab" aria-controls="usericons" aria-selected="false"><?= $LANG['config_tab_user'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="gdpr-tab" href="#gdpr" data-toggle="tab" role="tab" aria-controls="gdpr" aria-selected="false"><?= $LANG['config_tab_gdpr'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link active" id="general-tab" href="#general" data-bs-toggle="tab" role="tab" aria-controls="general" aria-selected="true"><?= $LANG['general'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="email-tab" href="#email" data-bs-toggle="tab" role="tab" aria-controls="email" aria-selected="false"><?= $LANG['config_tab_email'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="footer-tab" href="#footer" data-bs-toggle="tab" role="tab" aria-controls="footer" aria-selected="false"><?= $LANG['config_tab_footer'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="homepage-tab" href="#homepage" data-bs-toggle="tab" role="tab" aria-controls="homepage" aria-selected="false"><?= $LANG['config_tab_homepage'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="license-tab" href="#license" data-bs-toggle="tab" role="tab" aria-controls="license" aria-selected="false"><?= $LANG['config_tab_license'] ?><?= ($LIC->status() != "active" || !$LIC->domainRegistered()) ? $attention : ''; ?></i></a></li>
+                        <li class="nav-item"><a class="nav-link" id="login-tab" href="#login" data-bs-toggle="tab" role="tab" aria-controls="login" aria-selected="false"><?= $LANG['config_tab_login'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="registration-tab" href="#registration" data-bs-toggle="tab" role="tab" aria-controls="registration" aria-selected="false"><?= $LANG['config_tab_registration'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="system-tab" href="#system" data-bs-toggle="tab" role="tab" aria-controls="system" aria-selected="false"><?= $LANG['config_tab_system'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tabtheme-tab" href="#tabtheme" data-bs-toggle="tab" role="tab" aria-controls="tabtheme" aria-selected="false"><?= $LANG['config_tab_theme'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="usericons-tab" href="#usericons" data-bs-toggle="tab" role="tab" aria-controls="usericons" aria-selected="false"><?= $LANG['config_tab_user'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="gdpr-tab" href="#gdpr" data-bs-toggle="tab" role="tab" aria-controls="gdpr" aria-selected="false"><?= $LANG['config_tab_gdpr'] ?></a></li>
                     </ul>
 
                     <div id="myTabContent" class="tab-content">

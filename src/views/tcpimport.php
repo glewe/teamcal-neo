@@ -37,16 +37,16 @@ view.tcpimport
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['tcpimp_title'] . $pageHelp ?></div>
 
                 <div class="card-body">
 
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="tab_info-tab" href="#tab_info" data-toggle="tab" role="tab" aria-controls="tab_info" aria-selected="true"><?= $LANG['tcpimp_tab_info'] ?></a></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tab_tcpdb-tab" href="#tab_tcpdb" data-toggle="tab" role="tab" aria-controls="tab_tcpdb" aria-selected="false"><?= $LANG['tcpimp_tab_tcpdb'] ?></a></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tab_import-tab" href="#tab_import" data-toggle="tab" role="tab" aria-controls="tab_import" aria-selected="false"><?= $LANG['tcpimp_tab_import'] ?></a></a></li>
+                        <li class="nav-item"><a class="nav-link active" id="tab_info-tab" href="#tab_info" data-bs-toggle="tab" role="tab" aria-controls="tab_info" aria-selected="true"><?= $LANG['tcpimp_tab_info'] ?></a></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_tcpdb-tab" href="#tab_tcpdb" data-bs-toggle="tab" role="tab" aria-controls="tab_tcpdb" aria-selected="false"><?= $LANG['tcpimp_tab_tcpdb'] ?></a></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_import-tab" href="#tab_import" data-bs-toggle="tab" role="tab" aria-controls="tab_import" aria-selected="false"><?= $LANG['tcpimp_tab_import'] ?></a></a></li>
                     </ul>
 
                     <div id="myTabContent" class="tab-content">
@@ -163,7 +163,7 @@ view.tcpimport
 
                                     <!-- Select buttonss -->
                                     <div class="form-group row">
-                                        <div class="col-lg-12 text-right">
+                                        <div class="col-lg-12 text-end">
                                             <a class="btn btn-secondary text-white" tabindex="<?= $tabindex++; ?>" onclick="javascript:resetAll();"><?= $LANG['btn_reset'] ?></a>
                                             <a class="btn btn-secondary text-white" tabindex="<?= $tabindex++; ?>" onclick="javascript:replaceAll();"><?= $LANG['tcpimp_btn_replace_all'] ?></a>
                                             <a class="btn btn-secondary text-white" tabindex="<?= $tabindex++; ?>" onclick="javascript:addAll();"><?= $LANG['tcpimp_btn_add_all'] ?></a>
@@ -348,7 +348,7 @@ view.tcpimport
                                         <hr>
                                     </div>
 
-                                    <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalImportTCP"><?= $LANG['btn_import'] ?></button>
+                                    <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalImportTCP"><?= $LANG['btn_import'] ?></button>
 
                                     <!-- Modal: Delete selected -->
                                     <?= createModalTop('modalImportTCP', $LANG['modal_confirm']) ?>

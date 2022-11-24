@@ -39,7 +39,7 @@ view.bulkedit
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['bulkedit_title'] . ': ' . $viewData['abs']->name . $pageHelp ?></div>
                 <div class="card-body">
@@ -67,7 +67,7 @@ view.bulkedit
                                 <button type="submit" class="btn btn-info" tabindex="<?= $tabindex++; ?>" name="btn_load"><?= $LANG['btn_load'] ?></button>
                                 <button type="submit" class="btn btn-dark" tabindex="<?= $tabindex++; ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
                             </div>
-                            <div class="col-lg-2 text-right">
+                            <div class="col-lg-2 text-end">
                                 <label>&nbsp;</label><br>
                                 <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_bulkUpdate"><?= $LANG['btn_update'] ?></button>
                             </div>
@@ -76,7 +76,7 @@ view.bulkedit
                     <div style="height:20px;"></div>
 
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="absences-tab" href="#absences" data-toggle="tab" role="tab" aria-controls="absences" aria-selected="false"><?= $LANG['profile_tab_absences'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link active" id="absences-tab" href="#absences" data-bs-toggle="tab" role="tab" aria-controls="absences" aria-selected="false"><?= $LANG['profile_tab_absences'] ?></a></li>
                     </ul>
 
                     <div id="myTabContent" class="tab-content">
@@ -139,7 +139,7 @@ view.bulkedit
                         <div style="height:20px;"></div>
                         <div class="card">
                             <div class="card-body row">
-                                <div class="col-lg-12 text-right">
+                                <div class="col-lg-12 text-end">
                                     <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_bulkUpdate"><?= $LANG['btn_update'] ?></button>
                                 </div>
                             </div>

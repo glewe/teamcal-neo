@@ -52,10 +52,10 @@ view.calendarview
         }
         ?>
         <?php if ($showMonths < 12) { ?>
-            <button type="submit" name="btn_onemore" class="btn btn-secondary float-right" data-placement="top" data-type="secondary" data-toggle="tooltip" title="<?= $LANG['cal_tt_onemore'] ?>"><span class="fas fa-plus"></span></button>
+            <button type="submit" name="btn_onemore" class="btn btn-secondary float-end" data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="<?= $LANG['cal_tt_onemore'] ?>"><span class="fas fa-plus"></span></button>
         <?php } ?>
         <?php if ($showMonths > 1) { ?>
-            <button type="submit" name="btn_oneless" class="btn btn-secondary float-right" style="margin-right:4px;" data-placement="tooltip-top" data-type="secondary" data-toggle="tooltip" title="<?= $LANG['cal_tt_oneless'] ?>"><span class="fas fa-minus"></span></button>
+            <button type="submit" name="btn_oneless" class="btn btn-secondary float-end" style="margin-right:4px;" data-placement="tooltip-top" data-type="secondary" data-bs-toggle="tooltip" title="<?= $LANG['cal_tt_oneless'] ?>"><span class="fas fa-minus"></span></button>
         <?php } ?>
 
         <!-- Modal: Select Month -->
@@ -122,14 +122,14 @@ view.calendarview
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="modalSearchUserLabel"><?= $LANG['cal_search'] ?></h4>
                     </div>
                     <div class="modal-body">
                         <input id="search" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_search" type="text" value="<?= $viewData["search"] ?>">
                         <?php if (isset($inputAlert["search"])) { ?>
                             <br>
-                            <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['search'] ?></div>
+                            <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['search'] ?></div>
                         <?php } ?>
                     </div>
                     <div class="modal-footer">

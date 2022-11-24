@@ -62,9 +62,9 @@ if (!defined('VALID_ROOT')) exit('');
 
     <!-- Theme CSS -->
     <?php if ($htmlData['theme']['name'] == 'bootstrap') { ?>
-        <link rel="stylesheet" href="themes/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="themes/bootstrap/bootstrap.min.css">
     <?php } else { ?>
-        <link rel="stylesheet" href="themes/<?= $htmlData['theme']['name'] ?>/css/bootstrap.min.css" media="screen">
+        <link rel="stylesheet" href="themes/<?= $htmlData['theme']['name'] ?>/bootstrap.min.css" media="screen">
     <?php } ?>
 
     <?php if ($C->read('font') && $C->read('font') != 'default') { ?>
@@ -80,7 +80,7 @@ if (!defined('VALID_ROOT')) exit('');
     <?php } ?>
 
     <!-- Popper.js -->
-    <script src="js/popper.min.js"></script>
+    <!-- <script src="js/popper.min.js"></script> -->
 
     <!-- jQuery -->
     <?php if ($htmlData['jQueryCDN']) { ?>
@@ -94,7 +94,7 @@ if (!defined('VALID_ROOT')) exit('');
     <?php } ?>
 
     <!-- Bootstrap Javascript -->
-    <script src="themes/bootstrap/js/bootstrap.min.js"></script>
+    <script src="themes/bootstrap/bootstrap.bundle.min.js"></script>
 
     <!-- TeamCalNeo CSS -->
     <link rel="stylesheet" href="css/teamcalneo.css">

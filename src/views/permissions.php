@@ -37,7 +37,7 @@ view.permissions
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['perm_title'] . ': ' . $viewData['scheme'] . ' ' . (($viewData['scheme'] == $viewData['currentScheme']) ? $LANG['perm_active'] : $LANG['perm_inactive']) . $pageHelp ?></div>
                 <div class="card-body">
@@ -46,19 +46,19 @@ view.permissions
                         <div class="card-body">
 
                             <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_permSave"><?= $LANG['perm_save_scheme'] ?></button>
-                            <button type="button" class="btn btn-info" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectScheme"><?= $LANG['perm_select_scheme'] ?></button>
-                            <button type="button" class="btn btn-success" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalCreateScheme"><?= $LANG['perm_create_scheme'] ?></button>
-                            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalResetScheme"><?= $LANG['perm_reset_scheme'] ?></button>
+                            <button type="button" class="btn btn-info" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectScheme"><?= $LANG['perm_select_scheme'] ?></button>
+                            <button type="button" class="btn btn-success" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalCreateScheme"><?= $LANG['perm_create_scheme'] ?></button>
+                            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalResetScheme"><?= $LANG['perm_reset_scheme'] ?></button>
                             <?php if ($viewData['scheme'] != $viewData['currentScheme']) { ?>
-                                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalActivateScheme"><?= $LANG['perm_activate_scheme'] ?></button>
+                                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalActivateScheme"><?= $LANG['perm_activate_scheme'] ?></button>
                                 <?php if ($viewData['scheme'] != "Default") { ?>
-                                    <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalDeleteScheme"><?= $LANG['perm_delete_scheme'] ?></button>
+                                    <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteScheme"><?= $LANG['perm_delete_scheme'] ?></button>
                             <?php }
                             } ?>
                             <?php if ($viewData['mode'] == 'byrole') { ?>
-                                <a href="index.php?action=permissions&amp;scheme=<?= $viewData['scheme'] ?>&amp;mode=byperm" class="btn btn-secondary float-right" style="margin-right: 4px;" tabindex="<?= $tabindex++; ?>"><?= $LANG['perm_view_by_perm'] ?></a>
+                                <a href="index.php?action=permissions&amp;scheme=<?= $viewData['scheme'] ?>&amp;mode=byperm" class="btn btn-secondary float-end" style="margin-right: 4px;" tabindex="<?= $tabindex++; ?>"><?= $LANG['perm_view_by_perm'] ?></a>
                             <?php } else { ?>
-                                <a href="index.php?action=permissions&amp;scheme=<?= $viewData['scheme'] ?>&amp;mode=byrole" class="btn btn-secondary float-right" style="margin-right: 4px;" tabindex="<?= $tabindex++; ?>"><?= $LANG['perm_view_by_role'] ?></a>
+                                <a href="index.php?action=permissions&amp;scheme=<?= $viewData['scheme'] ?>&amp;mode=byrole" class="btn btn-secondary float-end" style="margin-right: 4px;" tabindex="<?= $tabindex++; ?>"><?= $LANG['perm_view_by_role'] ?></a>
                             <?php } ?>
 
                             <!-- Modal: Select scheme -->
@@ -101,7 +101,7 @@ view.permissions
                         <!-- View: By role -->
                         <ul class="nav nav-tabs" role="tablist">
                             <?php foreach ($viewData['roles'] as $role) { ?>
-                                <li class="nav-item"><a class="nav-link <?= (($role['id'] == 1) ? "active\"" : "") ?> id=" tab<?= $role['id'] ?>-tab" href="#tab<?= $role['id'] ?>" data-toggle="tab" role="tab" aria-controls="tab<?= $role['id'] ?>" aria-selected="<?= (($role['id'] == 1) ? "true" : "false") ?>"><?= $role['name'] ?></a></li>
+                                <li class="nav-item"><a class="nav-link <?= (($role['id'] == 1) ? "active\"" : "") ?> id=" tab<?= $role['id'] ?>-tab" href="#tab<?= $role['id'] ?>" data-bs-toggle="tab" role="tab" aria-controls="tab<?= $role['id'] ?>" aria-selected="<?= (($role['id'] == 1) ? "true" : "false") ?>"><?= $role['name'] ?></a></li>
                             <?php } ?>
                         </ul>
 
@@ -140,8 +140,8 @@ view.permissions
 
                         <!-- View: By permission -->
                         <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item"><a class="nav-link active" id="tabGeneral-tab" href="#tabGeneral" data-toggle="tab" role="tab" aria-controls="tabGeneral" aria-selected="true"><?= $LANG['perm_tab_general'] ?></a></li>
-                            <li class="nav-item"><a class="nav-link" id="tabFeatures-tab" href="#tabFeatures" data-toggle="tab" role="tab" aria-controls="tabFeatures" aria-selected="true"><?= $LANG['perm_tab_features'] ?></a></li>
+                            <li class="nav-item"><a class="nav-link active" id="tabGeneral-tab" href="#tabGeneral" data-bs-toggle="tab" role="tab" aria-controls="tabGeneral" aria-selected="true"><?= $LANG['perm_tab_general'] ?></a></li>
+                            <li class="nav-item"><a class="nav-link" id="tabFeatures-tab" href="#tabFeatures" data-bs-toggle="tab" role="tab" aria-controls="tabFeatures" aria-selected="true"><?= $LANG['perm_tab_features'] ?></a></li>
                         </ul>
 
                         <div id="myTabContent" class="tab-content">

@@ -38,7 +38,7 @@ view.useredit
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['profile_edit_title'] . $viewData['fullname'] . $pageHelp ?></div>
                 <div class="card-body">
@@ -47,47 +47,47 @@ view.useredit
                         <div class="card-body">
                             <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_profileUpdate"><?= $LANG['btn_update'] ?></button>
                             <?php if (isAllowed("useraccount") and $viewData['profile'] != "admin") { ?>
-                                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalArchiveProfile"><?= $LANG['btn_archive'] ?></button>
-                                <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalDeleteProfile"><?= $LANG['btn_delete'] ?></button>
+                                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalArchiveProfile"><?= $LANG['btn_archive'] ?></button>
+                                <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteProfile"><?= $LANG['btn_delete'] ?></button>
                             <?php } ?>
                             <?php if (isAllowed("useraccount")) { ?>
-                                <a href="index.php?action=users" class="btn btn-secondary float-right" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
+                                <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
                             <?php } ?>
                         </div>
                     </div>
                     <div style="height:20px;"></div>
 
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="personal-tab" href="#personal" data-toggle="tab" role="tab" aria-controls="personal" aria-selected="true"><?= $LANG['profile_tab_personal'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="contact-tab" href="#contact" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false"><?= $LANG['profile_tab_contact'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="setpassword-tab" href="#setpassword" data-toggle="tab" role="tab" aria-controls="setpassword" aria-selected="false"><?= $LANG['profile_tab_password'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link active" id="personal-tab" href="#personal" data-bs-toggle="tab" role="tab" aria-controls="personal" aria-selected="true"><?= $LANG['profile_tab_personal'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="contact-tab" href="#contact" data-bs-toggle="tab" role="tab" aria-controls="contact" aria-selected="false"><?= $LANG['profile_tab_contact'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="setpassword-tab" href="#setpassword" data-bs-toggle="tab" role="tab" aria-controls="setpassword" aria-selected="false"><?= $LANG['profile_tab_password'] ?></a></li>
 
                         <?php if (isAllowed("userabsences") and $viewData['profile'] != "admin") { ?>
-                            <li class="nav-item"><a class="nav-link" id="absences-tab" href="#absences" data-toggle="tab" role="tab" aria-controls="absences" aria-selected="false"><?= $LANG['profile_tab_absences'] ?></a></li>
+                            <li class="nav-item"><a class="nav-link" id="absences-tab" href="#absences" data-bs-toggle="tab" role="tab" aria-controls="absences" aria-selected="false"><?= $LANG['profile_tab_absences'] ?></a></li>
                         <?php } ?>
 
                         <?php if (isAllowed("useraccount") and $viewData['profile'] != "admin") { ?>
-                            <li class="nav-item"><a class="nav-link" id="account-tab" href="#account" data-toggle="tab" role="tab" aria-controls="account" aria-selected="false"><?= $LANG['profile_tab_account'] ?></a></li>
+                            <li class="nav-item"><a class="nav-link" id="account-tab" href="#account" data-bs-toggle="tab" role="tab" aria-controls="account" aria-selected="false"><?= $LANG['profile_tab_account'] ?></a></li>
                         <?php } ?>
 
                         <?php if (isAllowed("useravatar")) { ?>
-                            <li class="nav-item"><a class="nav-link" id="avatar-tab" href="#avatar" data-toggle="tab" role="tab" aria-controls="avatar" aria-selected="false"><?= $LANG['profile_tab_avatar'] ?></a></li>
+                            <li class="nav-item"><a class="nav-link" id="avatar-tab" href="#avatar" data-bs-toggle="tab" role="tab" aria-controls="avatar" aria-selected="false"><?= $LANG['profile_tab_avatar'] ?></a></li>
                         <?php } ?>
 
                         <?php if (isAllowed("usercustom")) { ?>
-                            <li class="nav-item"><a class="nav-link" id="custom-tab" href="#custom" data-toggle="tab" role="tab" aria-controls="custom" aria-selected="false"><?= $LANG['profile_tab_custom'] ?></a></li>
+                            <li class="nav-item"><a class="nav-link" id="custom-tab" href="#custom" data-bs-toggle="tab" role="tab" aria-controls="custom" aria-selected="false"><?= $LANG['profile_tab_custom'] ?></a></li>
                         <?php } ?>
 
                         <?php if (isAllowed("usergroups")) { ?>
-                            <li class="nav-item"><a class="nav-link" id="groups-tab" href="#groups" data-toggle="tab" role="tab" aria-controls="groups" aria-selected="false"><?= $LANG['profile_tab_groups'] ?></a></li>
+                            <li class="nav-item"><a class="nav-link" id="groups-tab" href="#groups" data-bs-toggle="tab" role="tab" aria-controls="groups" aria-selected="false"><?= $LANG['profile_tab_groups'] ?></a></li>
                         <?php } ?>
 
                         <?php if (isAllowed("usernotifications")) { ?>
-                            <li class="nav-item"><a class="nav-link" id="notifications-tab" href="#notifications" data-toggle="tab" role="tab" aria-controls="notifications" aria-selected="false"><?= $LANG['profile_tab_notifications'] ?></a></li>
+                            <li class="nav-item"><a class="nav-link" id="notifications-tab" href="#notifications" data-bs-toggle="tab" role="tab" aria-controls="notifications" aria-selected="false"><?= $LANG['profile_tab_notifications'] ?></a></li>
                         <?php } ?>
 
                         <?php if (isAllowed("useroptions")) { ?>
-                            <li class="nav-item"><a class="nav-link" id="options-tab" href="#options" data-toggle="tab" role="tab" aria-controls="options" aria-selected="false"><?= $LANG['options'] ?></a></li>
+                            <li class="nav-item"><a class="nav-link" id="options-tab" href="#options" data-bs-toggle="tab" role="tab" aria-controls="options" aria-selected="false"><?= $LANG['options'] ?></a></li>
                         <?php } ?>
                     </ul>
 
@@ -324,7 +324,7 @@ view.useredit
                         <div class="card-body">
                             <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_profileUpdate"><?= $LANG['btn_update'] ?></button>
                             <?php if (isAllowed("manageUsers")) { ?>
-                                <a href="index.php?action=users" class="btn btn-secondary float-right" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
+                                <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
                             <?php } ?>
                         </div>
                     </div>

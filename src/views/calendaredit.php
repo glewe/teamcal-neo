@@ -60,24 +60,24 @@ view.editcalendar
             <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageBwdYear . $pageBwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>"><span class="fas fa-angle-double-left"></span></a>
             <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageFwdYear . $pageFwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>"><span class="fas fa-angle-double-right"></span></a>
             <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $viewData['yearToday'] . $viewData['monthToday'] ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>"><?= $LANG['today'] ?></a>
-            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalPeriod"><?= $LANG['caledit_Period'] ?></button>
-            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalRecurring"><?= $LANG['caledit_Recurring'] ?></button>
+            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalPeriod"><?= $LANG['caledit_Period'] ?></button>
+            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalRecurring"><?= $LANG['caledit_Recurring'] ?></button>
             <?php if ($C->read("showRegionButton")) { ?>
-                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
+                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
             <?php } ?>
-            <button type="button" class="btn btn-success" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectUser"><?= $LANG['user'] . ': ' . $viewData['fullname'] ?></button>
+            <button type="button" class="btn btn-success" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectUser"><?= $LANG['user'] . ': ' . $viewData['fullname'] ?></button>
             <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
-            <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalClearAll"><?= $LANG['btn_clear_all'] ?></button>
+            <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalClearAll"><?= $LANG['btn_clear_all'] ?></button>
             <?php if ($viewData['supportMobile']) { ?>
-                <button type="button" class="btn btn-secondary" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectWidth"><?= $LANG['screen'] . ': ' . $viewData['width'] ?></button>
+                <button type="button" class="btn btn-secondary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectWidth"><?= $LANG['screen'] . ': ' . $viewData['width'] ?></button>
             <?php } ?>
-            <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-secondary float-right" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_showcalendar'] ?></a>
+            <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_showcalendar'] ?></a>
         </div>
 
         <div class="card">
             <?php
             $pageHelp = '';
-            if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+            if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
             ?>
             <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= sprintf($LANG['caledit_title'], $viewData['year'], $viewData['month'], $viewData['fullname']) . $viewData['groupnames'] ?><?= $pageHelp ?></div>
         </div>
@@ -173,7 +173,7 @@ view.editcalendar
                                     $prop = 'wday' . $i;
                                     if ($D->get($viewData['year'] . $viewData['month'] . sprintf("%02d", $i), $viewData['username'], $viewData['regionid'], true)) {
                                         $icon = 'fas fa-sticky-note';
-                                        $tooltip = ' data-placement="top" data-type="' . $D->color . '" data-toggle="tooltip" title="' . $D->daynote . '"';
+                                        $tooltip = ' data-placement="top" data-type="' . $D->color . '" data-bs-toggle="tooltip" title="' . $D->daynote . '"';
                                     } else {
                                         $icon = 'far fa-sticky-note';
                                         $tooltip = '';
@@ -355,7 +355,7 @@ view.editcalendar
             </div>
             <?php if (isset($inputAlert["periodStart"]) and strlen($inputAlert["periodStart"])) { ?>
                 <br>
-                <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['periodStart'] ?></div>
+                <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['periodStart'] ?></div>
             <?php } ?>
         </div>
         <div>&nbsp;</div>
@@ -378,7 +378,7 @@ view.editcalendar
             </div>
             <?php if (isset($inputAlert["periodEnd"]) and strlen($inputAlert["periodEnd"])) { ?>
                 <br>
-                <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['periodEnd'] ?></div>
+                <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['periodEnd'] ?></div>
             <?php } ?>
         </div>
         <?= createModalBottom('btn_saveperiod', 'success', $LANG['btn_save']) ?>

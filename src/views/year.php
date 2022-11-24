@@ -44,15 +44,15 @@ view.year
                 <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;year=<?= date('Y') ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>"><?= $LANG['today'] ?></a>
             <?php } ?>
             <?php if ($C->read('showRegionButton')) { ?>
-                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
+                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
             <?php } ?>
-            <button type="button" class="btn btn-success" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalSelectUser"><?= $LANG['user'] . ': ' . $viewData['fullname'] ?></button>
+            <button type="button" class="btn btn-success" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectUser"><?= $LANG['user'] . ': ' . $viewData['fullname'] ?></button>
         </div>
 
         <div class="card">
             <?php
             $pageHelp = '';
-            if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+            if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
             ?>
             <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="fas <?= $CONF['controllers']['year']->faIcon ?> fa-lg fa-header"></i><?= sprintf($LANG['year_title'], $viewData['year'], $viewData['fullname'], $viewData['regionname']) ?><?= $pageHelp ?></div>
             <div class="card-body" id="mobile">

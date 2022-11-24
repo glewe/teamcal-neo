@@ -37,7 +37,7 @@ view.log
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['mnu_admin_systemlog'] . ' ( ' . count($viewData['events']) . ' ' . $LANG['log_title_events'] . ' )' . $pageHelp ?></div>
                 <div class="card-body">
@@ -96,11 +96,11 @@ view.log
                                 </script>
                             </div>
 
-                            <div class="col-lg-5 text-right">
+                            <div class="col-lg-5 text-end">
                                 <br>
                                 <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_refresh"><?= $LANG['btn_refresh'] ?></button>
                                 <button type="submit" class="btn btn-secondary" tabindex="<?= $tabindex++; ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
-                                <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalClear"><?= $LANG['log_clear'] ?></button>
+                                <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalClear"><?= $LANG['log_clear'] ?></button>
                                 <button type="submit" class="btn btn-info" title="<?= ($viewData['sort'] == 'DESC') ? $LANG['log_sort_asc'] : $LANG['log_sort_desc'] ?>" tabindex="<?= $tabindex++; ?>" name="btn_sort"><?= ($viewData['sort'] == 'DESC') ? '<i class="fas fa-arrow-up fa-lg"></i>' : '<i class="fas fa-arrow-down fa-lg"></i>' ?></button>
 
                                 <!-- Modal: Clear -->
@@ -115,8 +115,8 @@ view.log
                     <div style="height:20px;"></div>
 
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="tabLog-tab" href="#tabLog" data-toggle="tab" role="tab" aria-controls="tabLog" aria-selected="true"><?= $LANG['log_title'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tabSettings-tab" href="#tabSettings" data-toggle="tab" role="tab" aria-controls="tabSettings" aria-selected="true"><?= $LANG['log_settings'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link active" id="tabLog-tab" href="#tabLog" data-bs-toggle="tab" role="tab" aria-controls="tabLog" aria-selected="true"><?= $LANG['log_title'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tabSettings-tab" href="#tabSettings" data-bs-toggle="tab" role="tab" aria-controls="tabSettings" aria-selected="true"><?= $LANG['log_settings'] ?></a></li>
                     </ul>
 
                     <div id="myTabContent" class="tab-content">

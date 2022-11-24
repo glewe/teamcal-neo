@@ -38,7 +38,7 @@ view.useradd
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['profile_create_title'] . $pageHelp ?></div>
                 <div class="card-body">
@@ -48,8 +48,8 @@ view.useradd
                             <div class="col-lg-6">
                                 <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++; ?>" name="btn_profileCreate"><?= $LANG['btn_create_user'] ?></button>
                             </div>
-                            <div class="col-lg-6 text-right">
-                                <a href="index.php?action=users" class="btn btn-secondary float-right" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
+                            <div class="col-lg-6 text-end">
+                                <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
                             </div>
                         </div>
                     </div>
@@ -70,8 +70,8 @@ view.useradd
                             <div class="col-lg-6">
                                 <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++; ?>" name="btn_profileCreate"><?= $LANG['btn_create_user'] ?></button>
                             </div>
-                            <div class="col-lg-6 text-right">
-                                <a href="index.php?action=users" class="btn btn-secondary float-right" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
+                            <div class="col-lg-6 text-end">
+                                <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
                             </div>
                         </div>
                     </div>

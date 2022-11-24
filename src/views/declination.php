@@ -37,7 +37,7 @@ view.declination
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['decl_title'] . $pageHelp ?></div>
                 <div class="card-body">
@@ -50,13 +50,13 @@ view.declination
                     <div style="height:20px;"></div>
 
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="tab_overview-tab" href="#tab_overview" data-toggle="tab" role="tab" aria-controls="tab_overview" aria-selected="true"><?= $LANG['decl_tab_overview'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tab_absence-tab" href="#tab_absence" data-toggle="tab" role="tab" aria-controls="tab_absence" aria-selected="false"><?= $LANG['decl_tab_absence'] ?><?= (($viewData['declAbsence']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tab_before-tab" href="#tab_before" data-toggle="tab" role="tab" aria-controls="tab_before" aria-selected="false"><?= $LANG['decl_tab_before'] ?><?= (($viewData['declBefore']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tab_period1-tab" href="#tab_period1" data-toggle="tab" role="tab" aria-controls="tab_period1" aria-selected="false"><?= $LANG['decl_tab_period1'] ?><?= (($viewData['declPeriod1']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tab_period2-tab" href="#tab_period2" data-toggle="tab" role="tab" aria-controls="tab_period2" aria-selected="false"><?= $LANG['decl_tab_period2'] ?><?= (($viewData['declPeriod2']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tab_period3-tab" href="#tab_period3" data-toggle="tab" role="tab" aria-controls="tab_period3" aria-selected="false"><?= $LANG['decl_tab_period3'] ?><?= (($viewData['declPeriod3']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tab_scope-tab" href="#tab_scope" data-toggle="tab" role="tab" aria-controls="tab_scope" aria-selected="false"><?= $LANG['decl_tab_scope'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link active" id="tab_overview-tab" href="#tab_overview" data-bs-toggle="tab" role="tab" aria-controls="tab_overview" aria-selected="true"><?= $LANG['decl_tab_overview'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_absence-tab" href="#tab_absence" data-bs-toggle="tab" role="tab" aria-controls="tab_absence" aria-selected="false"><?= $LANG['decl_tab_absence'] ?><?= (($viewData['declAbsence']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_before-tab" href="#tab_before" data-bs-toggle="tab" role="tab" aria-controls="tab_before" aria-selected="false"><?= $LANG['decl_tab_before'] ?><?= (($viewData['declBefore']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_period1-tab" href="#tab_period1" data-bs-toggle="tab" role="tab" aria-controls="tab_period1" aria-selected="false"><?= $LANG['decl_tab_period1'] ?><?= (($viewData['declPeriod1']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_period2-tab" href="#tab_period2" data-bs-toggle="tab" role="tab" aria-controls="tab_period2" aria-selected="false"><?= $LANG['decl_tab_period2'] ?><?= (($viewData['declPeriod2']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_period3-tab" href="#tab_period3" data-bs-toggle="tab" role="tab" aria-controls="tab_period3" aria-selected="false"><?= $LANG['decl_tab_period3'] ?><?= (($viewData['declPeriod3']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_scope-tab" href="#tab_scope" data-bs-toggle="tab" role="tab" aria-controls="tab_scope" aria-selected="false"><?= $LANG['decl_tab_scope'] ?></a></li>
                     </ul>
 
                     <div id="myTabContent" class="tab-content">

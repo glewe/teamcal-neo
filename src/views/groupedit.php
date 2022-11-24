@@ -37,7 +37,7 @@ view.groupedit
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header panel-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['group_edit_title'] . $viewData['name'] . $pageHelp ?></div>
                 <div class="card-body">
@@ -46,14 +46,14 @@ view.groupedit
                         <div class="card-body">
                             <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">
                             <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_groupUpdate"><?= $LANG['btn_update'] ?></button>
-                            <a href="index.php?action=groups" class="btn btn-secondary float-right" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_group_list'] ?></a>
+                            <a href="index.php?action=groups" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_group_list'] ?></a>
                         </div>
                     </div>
                     <div style="height:20px;"></div>
 
                     <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" id="tab_settings-tab" href="#tab_settings" data-toggle="tab" role="tab" aria-controls="tab_settings" aria-selected="true"><?= $LANG['group_tab_settings'] ?></a></li>
-                        <li class="nav-item"><a class="nav-link" id="tab_members-tab" href="#tab_members" data-toggle="tab" role="tab" aria-controls="tab_members" aria-selected="false"><?= $LANG['group_tab_members'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link active" id="tab_settings-tab" href="#tab_settings" data-bs-toggle="tab" role="tab" aria-controls="tab_settings" aria-selected="true"><?= $LANG['group_tab_settings'] ?></a></li>
+                        <li class="nav-item"><a class="nav-link" id="tab_members-tab" href="#tab_members" data-bs-toggle="tab" role="tab" aria-controls="tab_members" aria-selected="false"><?= $LANG['group_tab_members'] ?></a></li>
                     </ul>
 
                     <div id="myTabContent" class="tab-content">
@@ -90,7 +90,7 @@ view.groupedit
                         <div class="card-body">
                             <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">
                             <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_groupUpdate"><?= $LANG['btn_update'] ?></button>
-                            <a href="index.php?action=groups" class="btn btn-secondary float-right" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_group_list'] ?></a>
+                            <a href="index.php?action=groups" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_group_list'] ?></a>
                         </div>
                     </div>
 

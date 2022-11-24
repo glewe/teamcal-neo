@@ -49,7 +49,7 @@ view.footer
                 </ul>
             </div>
 
-            <div class="col-lg-4 text-right">
+            <div class="col-lg-4 text-end">
                 <?php if ($urls = $C->read("footerSocialLinks") and strlen($urls)) {
                     $urlArray = explode(';', $urls);
                     foreach ($urlArray as $url) {
@@ -64,7 +64,7 @@ view.footer
 
     <!-- As per the license agreement, you are not allowed to change or remove the following block! -->
     <div class="container" style="margin-top: 40px">
-        <div class="col-lg-12 text-right text-italic xsmall">
+        <div class="col-lg-12 text-end text-italic xsmall">
             <?= APP_POWERED ?><br>
             <?php if ($C->read("footerViewport")) { ?><i id="size" class="text-italic xsmall"></i><?php } ?>
         </div>
@@ -114,7 +114,7 @@ view.footer
         //
         // Tooltip
         //
-        $('[data-toggle="tooltip"]').each(function() {
+        $('[data-bs-toggle="tooltip"]').each(function() {
             var options = {
                 html: true
             };

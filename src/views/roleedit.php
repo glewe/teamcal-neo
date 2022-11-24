@@ -37,7 +37,7 @@ view.roleedit
             <div class="card">
                 <?php
                 $pageHelp = '';
-                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+                if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
                 <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['role_edit_title'] . $viewData['name'] . $pageHelp ?></div>
                 <div class="card-body">
@@ -45,7 +45,7 @@ view.roleedit
                     <div class="card">
                         <div class="card-body">
                             <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_roleUpdate"><?= $LANG['btn_update'] ?></button>
-                            <a href="index.php?action=roles" class="btn btn-default float-right" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_role_list'] ?></a>
+                            <a href="index.php?action=roles" class="btn btn-default float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_role_list'] ?></a>
                         </div>
                     </div>
                     <div style="height:20px;"></div>

@@ -157,8 +157,8 @@ foreach ($mobilecols as $key => $cols) {
                     <!-- Row: Summary Header -->
                     <tr>
                         <td class="m-label" colspan="<?= $dayend - $daystart + 2 ?>">
-                            <span style="float: left;"><?= $LANG['cal_summary'] ?>&nbsp;<a class="btn btn-secondary btn-sm" data-toggle="collapse" data-target=".summary">...</a></span>
-                            <span class="float-right text-normal"><?= $viewData['businessDays'] ?>&nbsp;<?= $LANG['cal_businessDays'] ?></span>
+                            <span style="float: left;"><?= $LANG['cal_summary'] ?>&nbsp;<a class="btn btn-secondary btn-sm" data-bs-toggle="collapse" data-bs-target=".summary">...</a></span>
+                            <span class="float-end text-normal"><?= $viewData['businessDays'] ?>&nbsp;<?= $LANG['cal_businessDays'] ?></span>
                         </td>
                     </tr>
 

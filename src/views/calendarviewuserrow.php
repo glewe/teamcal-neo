@@ -65,12 +65,12 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
     } ?>
     <td class="<?= $nameStyle ?>">
         <?php if ($C->read('showAvatars')) { ?>
-            <i data-placement="top" data-type="secondary" data-toggle="tooltip" title="<img src='<?= APP_AVATAR_DIR . $UO->read($usr['username'], 'avatar') ?>' style='width: 80px; height: 80px;'>"><img src="<?= APP_AVATAR_DIR ?>/<?= $UO->read($usr['username'], 'avatar') ?>" alt="" style="width: 16px; height: 16px;"></i>
+            <i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="<img src='<?= APP_AVATAR_DIR . $UO->read($usr['username'], 'avatar') ?>' style='width: 80px; height: 80px;'>"><img src="<?= APP_AVATAR_DIR ?>/<?= $UO->read($usr['username'], 'avatar') ?>" alt="" style="width: 16px; height: 16px;"></i>
         <?php } ?>
         <?php if ($C->read('showRoleIcons')) {
             $thisRole = $U->getRole($usr['username']);
         ?>
-            <i data-placement="top" data-type="info" data-toggle="tooltip" title="<?= $LANG['role'] ?>: <?= $RO->getNameById($thisRole) ?>"><i class="fas fa-user-circle fa-sm text-<?= $RO->getColorById($thisRole) ?>"></i></i>
+            <i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="<?= $LANG['role'] ?>: <?= $RO->getNameById($thisRole) ?>"><i class="fas fa-user-circle fa-sm text-<?= $RO->getColorById($thisRole) ?>"></i></i>
         <?php } ?>
         <?= $profileName ?>
         <?php if ($monAbsId = $C->read('monitorAbsence')) {
@@ -132,7 +132,7 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
                         $taken .= countAbsence($usr['username'], $T->$abs, $countFrom, $countTo, true, false);
                         $taken .= ')';
                     }
-                    $absstart = '<span data-type="danger" data-placement="top" data-toggle="tooltip" title="' . $A->getName($T->$abs) . $taken . '">';
+                    $absstart = '<span data-type="danger" data-placement="top" data-bs-toggle="tooltip" title="' . $A->getName($T->$abs) . $taken . '">';
                     $absend = '</span>';
                 } else {
                     //
@@ -140,7 +140,7 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
                     //
                     $style .= 'color: #d5d5d5;background-color: #d5d5d5;';
                     $icon = '&nbsp;';
-                    $absstart = '<span data-type="danger" data-placement="top" data-toggle="tooltip" title="' . $LANG['cal_tt_absent'] . '">';
+                    $absstart = '<span data-type="danger" data-placement="top" data-bs-toggle="tooltip" title="' . $LANG['cal_tt_absent'] . '">';
                     $absend = '</span>';
                 }
             } else {
@@ -149,7 +149,7 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
                 //
                 $style .= 'color: #d5d5d5;background-color: #d5d5d5;';
                 $icon = '&nbsp;';
-                $absstart = '<span data-type="danger" data-placement="top" data-toggle="tooltip" title="' . $LANG['cal_tt_anotherabsence'] . '">';
+                $absstart = '<span data-type="danger" data-placement="top" data-bs-toggle="tooltip" title="' . $LANG['cal_tt_anotherabsence'] . '">';
                 $absend = '</span>';
             }
 
@@ -193,7 +193,7 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
 
             if ($allowed) {
                 $note = true;
-                $notestart = '<span data-type="' . $D->color . '" data-placement="bottom" data-toggle="tooltip" title="' . $D->daynote . '">';
+                $notestart = '<span data-type="' . $D->color . '" data-placement="bottom" data-bs-toggle="tooltip" title="' . $D->daynote . '">';
                 $noteend = '</span>';
             }
         }
@@ -237,7 +237,7 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
         <td class="m-day text-center" <?= $style ?><?= $editLink ?>>
             <?php
             if ($editAllowed) {
-                echo '<i data-placement="right" data-type="secondary" data-toggle="tooltip" title="' . $LANG['cal_tt_clicktoedit'] . '">';
+                echo '<i data-placement="right" data-type="secondary" data-bs-toggle="tooltip" title="' . $LANG['cal_tt_clicktoedit'] . '">';
             }
             echo $bdaystart . $notestart . $absstart . $icon . $absend . $noteend . $bdayend;
             if ($editAllowed) {

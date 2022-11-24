@@ -35,7 +35,7 @@ view.groups
         <div class="card">
             <?php
             $pageHelp = '';
-            if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-right" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+            if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
             ?>
             <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['groups_title'] . $pageHelp ?></div>
 
@@ -53,9 +53,9 @@ view.groups
                                 <button type="submit" class="btn btn-secondary" tabindex="<?= $tabindex++; ?>" name="btn_search"><?= $LANG['btn_search'] ?></button>
                                 <a href="index.php?action=groups" class="btn btn-secondary" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_reset'] ?></a>
                             </div>
-                            <div class="col-lg-5 text-right">
+                            <div class="col-lg-5 text-end">
                                 <br>
-                                <button type="button" class="btn btn-success" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalCreateGroup"><?= $LANG['btn_create_group'] ?></button>
+                                <button type="button" class="btn btn-success" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalCreateGroup"><?= $LANG['btn_create_group'] ?></button>
                             </div>
                         </div>
                     </div>
@@ -67,13 +67,13 @@ view.groups
                     <input id="inputName" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_name" maxlength="40" value="<?= $viewData['txt_name'] ?>" type="text">
                     <?php if (isset($inputAlert["name"]) and strlen($inputAlert["name"])) { ?>
                         <br>
-                        <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert">x</button><?= $inputAlert["name"] ?></div>
+                        <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert">x</button><?= $inputAlert["name"] ?></div>
                     <?php } ?>
                     <label for="inputDescription"><?= $LANG['description'] ?></label>
                     <input id="inputDescription" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_description" maxlength="100" value="<?= $viewData['txt_description'] ?>" type="text">
                     <?php if (isset($inputAlert["description"]) and strlen($inputAlert["description"])) { ?>
                         <br>
-                        <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-dismiss="alert">x</button><?= $inputAlert["description"] ?></div>
+                        <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert">x</button><?= $inputAlert["description"] ?></div>
                     <?php } ?>
                     <?= createModalBottom('btn_groupCreate', 'success', $LANG['btn_create_group']) ?>
 
@@ -86,7 +86,7 @@ view.groups
                     <div class="col-lg-1"><?= $LANG['groups_maxabsent'] ?></div>
                     <div class="col-lg-1"><?= $LANG['groups_minpresentwe'] ?></div>
                     <div class="col-lg-1"><?= $LANG['groups_maxabsentwe'] ?></div>
-                    <div class="col-lg-3 text-right"><?= $LANG['action'] ?></div>
+                    <div class="col-lg-3 text-end"><?= $LANG['action'] ?></div>
                 </div>
 
                 <?php foreach ($viewData['groups'] as $group) { ?>
@@ -98,8 +98,8 @@ view.groups
                             <div class="col-lg-1"><?= $group['maxabsent'] ?></div>
                             <div class="col-lg-1"><?= $group['minpresentwe'] ?></div>
                             <div class="col-lg-1"><?= $group['maxabsentwe'] ?></div>
-                            <div class="col-lg-3 text-right">
-                                <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++; ?>" data-toggle="modal" data-target="#modalDeleteGroup_<?= $group['id'] ?>"><?= $LANG['btn_delete'] ?></button>
+                            <div class="col-lg-3 text-end">
+                                <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteGroup_<?= $group['id'] ?>"><?= $LANG['btn_delete'] ?></button>
                                 <a href="index.php?action=groupedit&amp;id=<?= $group['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_edit'] ?></a>
                                 <a href="index.php?action=groupcalendaredit&amp;month=<?= date('Y') . date('m') ?>&amp;region=1&amp;group=<?= $group['id'] ?>" class="btn btn-info btn-sm" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_calendar'] ?></a>
                                 <input name="hidden_id" type="hidden" value="<?= $group['id'] ?>">

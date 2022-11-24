@@ -743,7 +743,7 @@ if ($C->read('googleAnalytics') and $C->read("googleAnalyticsID")) {
          klicken Sie bitte diesen Link</a>, um die Erfassung durch Google Analytics innerhalb dieser Website zuk&uuml;nftig zu verhindern (das Opt Out funktioniert nur in dem Browser
          und nur f&uuml;r diese Domain). Dabei wird ein Opt-Out-Cookie auf Ihrem Ger&auml;t abgelegt. L&ouml;schen Sie Ihre Cookies in diesem Browser, m&uuml;ssen Sie diesen Link erneut klicken.</p>
       </div>
-      <p><a class="btn btn-default" data-toggle="collapse" data-target="#readmore">Mehr/Weniger Details...</a></p>',
+      <p><a class="btn btn-default" data-bs-toggle="collapse" data-bs-target="#readmore">Mehr/Weniger Details...</a></p>',
     );
 }
 
