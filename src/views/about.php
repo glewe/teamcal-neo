@@ -35,7 +35,7 @@ view.about
             $pageHelp = '';
             if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
             ?>
-            <div class="card-header"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['mnu_help_about'] ?><?= $pageHelp ?></div>
+            <div class="card-header"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['mnu_help_about'] ?><?= $pageHelp ?></div>
             <div class="card-body row">
                 <div class="col-lg-3"><img src="images/icons/logo-128.png" width="128" height="128" alt="" class="img_floatleft">
                 </div>

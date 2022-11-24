@@ -39,7 +39,7 @@ view.groupedit
                 $pageHelp = '';
                 if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
-                <div class="card-header panel-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['group_edit_title'] . $viewData['name'] . $pageHelp ?></div>
+                <div class="card-header panel-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['group_edit_title'] . $viewData['name'] . $pageHelp ?></div>
                 <div class="card-body">
 
                     <div class="card">

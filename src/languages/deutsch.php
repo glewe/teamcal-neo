@@ -724,7 +724,7 @@ $LANG['imprint'] = array(
 if ($C->read('googleAnalytics') and $C->read("googleAnalyticsID")) {
     $LANG['imprint'][] = array(
         'title' => 'Google Analytics',
-        'text' => '<p><i class="fab fa-google fa-3x fa-header float-left" style="color: #999999;"></i>Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc.
+        'text' => '<p><i class="fab fa-google fa-3x me-3 float-left" style="color: #999999;"></i>Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc.
       ("Google"). Google Analytics verwendet sog. "Cookies", Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website
       durch Sie erm&ouml;glichen. Die durch den Cookie erzeugten Informationen &uuml;ber die Nutzung dieser Website werden an Server von Google &uuml;bertragen und 
       dort gespeichert. Diese Server k&ouml;nnen sich den USA befinden.</p>

@@ -97,7 +97,7 @@ view.statsabstype
         if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
         ?>
         <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>">
-            <i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['stats_title_remainder'] ?>&nbsp;(<?= $viewData['year'] ?>)<span class="badge badge-secondary float-end badge-header-right"><i data-placement="bottom" data-type="info" data-bs-toggle="tooltip" title="<?= $LANG['stats_total'] ?>"><?= $viewData['total'] ?></i></span><?= $pageHelp ?>
+            <i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['stats_title_remainder'] ?>&nbsp;(<?= $viewData['year'] ?>)<span class="badge badge-secondary float-end badge-header-right"><i data-placement="bottom" data-type="info" data-bs-toggle="tooltip" title="<?= $LANG['stats_total'] ?>"><?= $viewData['total'] ?></i></span><?= $pageHelp ?>
         </div>
         <div class="card-body">
             <p><?= $LANG['stats_remainder_desc'] ?></p>

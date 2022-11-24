@@ -32,7 +32,7 @@ view.login
                 }
             } ?>
             <div class="card">
-                <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['login_login'] ?></div>
+                <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['login_login'] ?></div>
                 <div class="card-body">
                     <div class="col-lg-12">
                         <?php $tabindex = 1;

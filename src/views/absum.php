@@ -38,7 +38,7 @@ view.absum
             $pageHelp = '';
             if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
             ?>
-            <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= sprintf($LANG['absum_title'], $viewData['year'], $viewData['fullname']) ?><?= $pageHelp ?></div>
+            <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= sprintf($LANG['absum_title'], $viewData['year'], $viewData['fullname']) ?><?= $pageHelp ?></div>
             <div class="card-body">
 
                 <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">

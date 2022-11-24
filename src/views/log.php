@@ -39,7 +39,7 @@ view.log
                 $pageHelp = '';
                 if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
                 ?>
-                <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['mnu_admin_systemlog'] . ' ( ' . count($viewData['events']) . ' ' . $LANG['log_title_events'] . ' )' . $pageHelp ?></div>
+                <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['mnu_admin_systemlog'] . ' ( ' . count($viewData['events']) . ' ' . $LANG['log_title_events'] . ' )' . $pageHelp ?></div>
                 <div class="card-body">
 
                     <div class="card">
@@ -137,10 +137,10 @@ view.log
                                     ?>
                                             <div class="row <?= $color ?>" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                                                 <div class="col-lg-1 small"><?= $i + 1 ?></div>
-                                                <div class="col-lg-3 small"><i class="far fa-clock fa-lg fa-menu" title="<?= $LANG['log_header_when'] ?>"></i><?= $event['timestamp'] ?></div>
-                                                <div class="col-lg-2 small"><i class="far fa-edit fa-lg fa-menu" title="<?= $LANG['log_header_type'] ?>"></i><?= substr($event['type'], 3) ?></div>
-                                                <div class="col-lg-2 small"><i class="far fa-user fa-lg fa-menu" title="<?= $LANG['log_header_user'] ?>"></i><a href="index.php?action=viewprofile&amp;profile=<?= $event['user'] ?>" target="_blank"><?= $event['user'] ?></a></div>
-                                                <div class="col-lg-4 small"><i class="far fa-hand-point-right fa-lg fa-menu" title="<?= $LANG['log_header_event'] ?>"></i><?= $event['event'] ?></div>
+                                                <div class="col-lg-3 small"><i class="far fa-clock fa-lg me-3" title="<?= $LANG['log_header_when'] ?>"></i><?= $event['timestamp'] ?></div>
+                                                <div class="col-lg-2 small"><i class="far fa-edit fa-lg me-3" title="<?= $LANG['log_header_type'] ?>"></i><?= substr($event['type'], 3) ?></div>
+                                                <div class="col-lg-2 small"><i class="far fa-user fa-lg me-3" title="<?= $LANG['log_header_user'] ?>"></i><a href="index.php?action=viewprofile&amp;profile=<?= $event['user'] ?>" target="_blank"><?= $event['user'] ?></a></div>
+                                                <div class="col-lg-4 small"><i class="far fa-hand-point-right fa-lg me-3" title="<?= $LANG['log_header_event'] ?>"></i><?= $event['event'] ?></div>
                                             </div>
                                     <?php }
                                     } ?>
@@ -211,7 +211,7 @@ view.log
                                         $color = "text-" . $C->read("logcolor" . $type);
                                     ?>
                                         <div class="row" style="border-bottom: 1px dotted; padding-top: 10px; padding-bottom: 10px;">
-                                            <div class="col-lg-3 <?= $color ?>"><label><i class="fas fa-tag fa-lg fa-menu"></i><?= $type ?></label></div>
+                                            <div class="col-lg-3 <?= $color ?>"><label><i class="fas fa-tag fa-lg me-3"></i><?= $type ?></label></div>
                                             <div class="col-lg-3">
                                                 <input style="margin-right: 10px;" name="chk_log<?= $type ?>" value="chk_log<?= $type ?>" type="checkbox" <?= ($C->read("log" . $type)) ? ' checked=""' : '' ?>><?= $LANG['log_settings_log'] ?>
                                             </div>

@@ -98,8 +98,8 @@ $CONF['controllers'] = array(
     // Application Controllers
     // Enter your application controllers below
     //
-    'absences' => new Controller('absences', 'fas fa-check-square', $CONF['menuIconColor'], 'primary', 'absenceedit', 'Absence Types', 'https://lewe.gitbook.io/teamcal-neo/administration/absence-types/'),
-    'absenceedit' => new Controller('absenceedit', 'fas fa-check-square', $CONF['menuIconColor'], 'danger', 'absenceedit', 'Absence Type Edit', 'https://lewe.gitbook.io/teamcal-neo/administration/absence-types/absence-type-edit/'),
+    'absences' => new Controller('absences', 'fas fa-square-check', $CONF['menuIconColor'], 'primary', 'absenceedit', 'Absence Types', 'https://lewe.gitbook.io/teamcal-neo/administration/absence-types/'),
+    'absenceedit' => new Controller('absenceedit', 'fas fa-square-check', $CONF['menuIconColor'], 'danger', 'absenceedit', 'Absence Type Edit', 'https://lewe.gitbook.io/teamcal-neo/administration/absence-types/absence-type-edit/'),
     'absenceicon' => new Controller('absenceicon', 'fab fa-font-awesome', $CONF['menuIconColor'], 'primary', 'absenceedit', 'Absence Type Icon', 'https://lewe.gitbook.io/teamcal-neo/administration/absence-types/absence-type-icon/'),
     'absum' => new Controller('absum', 'fas fa-list', $CONF['menuIconColor'], 'default', 'absum', 'Absence Summary', 'https://lewe.gitbook.io/teamcal-neo/user-guide/statistics/user-absence-summary/'),
     'bulkedit' => new Controller('bulkedit', 'fas fa-check-square', $CONF['menuIconColor'], 'danger', 'admin', 'Allowance Bulk Edit', 'https://lewe.gitbook.io/teamcal-neo/administration/allowance-bulk-edit/'),

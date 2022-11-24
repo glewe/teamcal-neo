@@ -24,7 +24,7 @@ view.imprint
             $pageHelp = '';
             if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
             ?>
-            <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg fa-header"></i><?= $LANG['mnu_help_imprint'] . $pageHelp ?></div>
+            <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['mnu_help_imprint'] . $pageHelp ?></div>
             <div class="card-body">
                 <div class="col-lg-12">
                     <?php foreach ($LANG['imprint'] as $imprint) { ?>
