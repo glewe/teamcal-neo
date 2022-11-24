@@ -584,19 +584,19 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (183, 'gdprOfficer', 'John Doe\r\nPhone: +49 555 12345\r\nEmail: john.doe@acme.com'),
 (184, 'gdprFacebook', '0'),
 (185, 'gdprGoogleAnalytics', '0'),
-(186, 'gdprGooglePlus', '0'),
-(187, 'gdprInstagram', '0'),
-(188, 'gdprLinkedin', '1'),
-(189, 'gdprPaypal', '0'),
-(190, 'gdprPinterest', '0'),
-(191, 'gdprSlideshare', '0'),
-(192, 'gdprTumblr', '0'),
-(193, 'gdprTwitter', '0'),
-(194, 'gdprXing', '1'),
-(195, 'gdprYoutube', '0'),
-(196, 'licKey', ''),
-(197, 'licExpiryWarning', '30'),
-(198, 'menuBarBg', 'dark');
+(186, 'gdprInstagram', '0'),
+(187, 'gdprLinkedin', '1'),
+(188, 'gdprPaypal', '0'),
+(189, 'gdprPinterest', '0'),
+(190, 'gdprSlideshare', '0'),
+(191, 'gdprTumblr', '0'),
+(192, 'gdprTwitter', '0'),
+(193, 'gdprXing', '1'),
+(194, 'gdprYoutube', '0'),
+(195, 'licKey', ''),
+(196, 'licExpiryWarning', '30'),
+(197, 'menuBarBg', 'dark'),
+(198, 'font', 'default');
 
 -- --------------------------------------------------------
 

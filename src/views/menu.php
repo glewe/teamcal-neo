@@ -12,6 +12,7 @@ if (!defined('VALID_ROOT')) exit('');
  * @since 3.0.0
  */
 ?>
+
 <!-- ==================================================================== 
 view.menu
 -->
@@ -209,7 +210,6 @@ else $navcolor = "light"; ?>
                             <a class="dropdown-item" tabindex="-1" href="index.php?action=<?= $CONF['controllers']['imprint']->name ?>"><i class="<?= $CONF['controllers']['imprint']->faIcon ?> fa-lg text-<?= $CONF['controllers']['imprint']->iconColor ?> fa-menu"></i><?= $LANG['mnu_help_imprint'] ?></a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" tabindex="-1" href="index.php?action=<?= $CONF['controllers']['about']->name ?>"><i class="<?= $CONF['controllers']['about']->faIcon ?> fa-lg text-<?= $CONF['controllers']['about']->iconColor ?> fa-menu"></i><?= $LANG['mnu_help_about'] ?></a>
-                            <a class="dropdown-item" tabindex="-1" href="https://www.lewe.com/teamcal-neo/#tcnvote" target="_blank"><i class="fas fa-thumbs-up fa-lg text-<?= $CONF['menuIconColor'] ?> fa-menu"></i><?= $LANG['mnu_help_vote'] ?></a>
                         </div>
                     </li>
                     <!-- User Menu -->

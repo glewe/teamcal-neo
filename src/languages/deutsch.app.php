@@ -686,7 +686,6 @@ $LANG['mnu_admin_calendaroptions'] = 'Kalenderoptionen';
 $LANG['mnu_admin_declination'] = 'Ablehnungsregeln';
 $LANG['mnu_admin_holidays'] = 'Feiertage';
 $LANG['mnu_admin_regions'] = 'Regionen';
-$LANG['mnu_help_vote'] = 'Bewerte TeamCal Neo';
 
 //
 // Month Edit

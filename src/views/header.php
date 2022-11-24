@@ -67,8 +67,8 @@ if (!defined('VALID_ROOT')) exit('');
         <link rel="stylesheet" href="themes/<?= $htmlData['theme']['name'] ?>/css/bootstrap.min.css" media="screen">
     <?php } ?>
 
-    <!-- Fonts -->
-    <?php if ($C->read('font')) { ?>
+    <?php if ($C->read('font') && $C->read('font') != 'default') { ?>
+        <!-- Fonts -->
         <link rel="stylesheet" href="css/font-<?= $C->read('font') ?>.css">
     <?php } ?>
 

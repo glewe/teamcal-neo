@@ -686,7 +686,6 @@ $LANG['mnu_admin_calendaroptions'] = 'Calendar Options';
 $LANG['mnu_admin_declination'] = 'Declination Management';
 $LANG['mnu_admin_holidays'] = 'Holidays';
 $LANG['mnu_admin_regions'] = 'Regions';
-$LANG['mnu_help_vote'] = 'Vote for TeamCal Neo';
 
 //
 // Month
