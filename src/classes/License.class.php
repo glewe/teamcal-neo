@@ -395,7 +395,7 @@ class License
 
         $alertBox = '
         <div class="alert alert-dismissable alert-' . $alert['type'] . '">
-            <button type="button" class="close" data-bs-dismiss="alert" title="' . $LANG['close_this_message'] . '"><i class="far fa-times-circle"></i></button>
+            <button type="button" class="btn-close float-end" data-bs-dismiss="alert" title="' . $LANG['close_this_message'] . '"></button>
             <h4><strong>' . $alert['title'] . '</strong></h4>
             <hr>
             <p><strong>' . $alert['subject'] . '</strong></p>

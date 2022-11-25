@@ -1,12 +1,12 @@
 /**
- * @license Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or http://ckeditor.com/license
+ * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
 CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here.
 	// For complete reference see:
-	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
+	// https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html
 
 	// The toolbar groups arrangement, optimized for two toolbar rows.
 	config.toolbarGroups = [
@@ -22,8 +22,7 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
 		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
 		{ name: 'styles' },
-		{ name: 'colors'},
-		{ name: 'format',   groups: [ 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'pre' ] },
+		{ name: 'colors' },
 		{ name: 'about' }
 	];
 
@@ -32,7 +31,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeButtons = 'Underline,Subscript,Superscript';
 
 	// Set the most common block elements.
-	config.format_tags = 'p;h1;h2;h3;h4;h5;pre';
+	config.format_tags = 'p;h1;h2;h3;pre';
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';

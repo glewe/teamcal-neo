@@ -149,13 +149,13 @@ if (!defined('VALID_ROOT')) exit('');
     <?php } ?>
 
     <?php if ($htmlData['cookieConsent']) { ?>
-        <!-- Cookie Consent by Silktide - http://silktide.com/cookieconsent -->
+        <!-- Cookie Consent -->
         <?php if ($htmlData['cookieConsentCDN']) { ?>
-            <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
-            <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.css" />
+            <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.js"></script>
         <?php } else { ?>
-            <link rel="stylesheet" type="text/css" href="addons/cookieconsent2/3.0.3/cookieconsent.min.css" />
-            <script src="addons/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="addons/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.css" />
+            <script src="addons/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.js"></script>
         <?php } ?>
         <script>
             window.addEventListener("load", function() {

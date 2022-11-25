@@ -53,7 +53,7 @@ view.about
                         <li>Bootstrap Team <?= $LANG['about_for'] ?> <a href="http://getbootstrap.com/" target="_blank">Bootstrap Framework <?= BOOTSTRAP_VER ?></a></li>
                         <li>Thomas Park <?= $LANG['about_for'] ?> <a href="http://bootswatch.com/" target="_blank">Bootswatch Themes</a></li>
                         <?php if (CHARTJS) { ?><li>Nick Downie <?= $LANG['about_for'] ?> <a href="http://www.chartjs.org/" target="_blank">Chart.js <?= CHARTJS_VER ?></a></li><?php } ?>
-                        <?php if (CKEDITOR) { ?><li>CKSource Sp. <?= $LANG['about_for'] ?> <a href="http://ckeditor.com/" target="_blank">CKEditor <?= CKEDITOR_VER ?></a></li><?php } ?>
+                        <?php if (CKEDITOR) { ?><li>CKSource <?= $LANG['about_for'] ?> <a href="http://ckeditor.com/" target="_blank">CKEditor <?= CKEDITOR_VER ?></a></li><?php } ?>
                         <li>Dave Gandy <?= $LANG['about_for'] ?> <a href="http://fontawesome.com/" target="_blank">Font Awesome <?= FONTAWESOME_VER ?></a></li>
                         <li>Google Team <?= $LANG['about_for'] ?> <a href="https://www.google.com/fonts/" target="_blank">Google Fonts</a></li>
                         <li>jQuery Team <?= $LANG['about_for'] ?> <a href="http://www.jquery.com/" target="_blank">jQuery <?= JQUERY_VER ?></a> <?= $LANG['about_and'] ?> <a href="http://www.jqueryui.com/" target="_blank">jQuery UI <?= JQUERY_UI_VER ?></a></li>

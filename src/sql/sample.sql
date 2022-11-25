@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2022 at 08:56 PM
+-- Generation Time: Nov 25, 2022 at 10:30 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `test`
+-- Database: `tcneo`
 --
 
 -- --------------------------------------------------------
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_allowances` (
   `allowance` smallint(6) DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `allowance` (`username`,`absid`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `tcneo_allowances`
@@ -174,7 +174,14 @@ INSERT INTO `tcneo_allowances` (`id`, `username`, `absid`, `carryover`, `allowan
 (15, 'ccarl', 2, 0, 24),
 (16, 'ccarl', 8, 0, 365),
 (17, 'ccarl', 7, 0, 10),
-(18, 'ccarl', 1, 0, 20);
+(18, 'ccarl', 1, 0, 20),
+(19, 'dduck', 3, 0, 12),
+(20, 'sgonzales', 3, 0, 12),
+(21, 'phead', 3, 0, 12),
+(22, 'blightyear', 3, 0, 12),
+(23, 'mmouse', 3, 0, 12),
+(24, 'mimouse', 3, 0, 12),
+(25, 'sman', 3, 0, 12);
 
 -- --------------------------------------------------------
 
@@ -393,7 +400,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_config` (
   `value` text CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `config` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=200 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=207 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `tcneo_config`
@@ -411,7 +418,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (9, 'activateMessages', '1'),
 (10, 'homepage', 'home'),
 (11, 'welcomeIcon', 'None'),
-(12, 'welcomeText', '<h3><img alt=\"\" src=\"upload/files/logo-128.png\" style=\"float:left; height:128px; margin-bottom:24px; margin-right:24px; width:128px\" />Welcome to TeamCal Neo 3</h3>\r\n\r\n<p>TeamCal Neo is a day-based online calendar that allows to easily manage your team&#39;s absences and displays them in an intuitive interface. You can manage absence types, holidays, regional calendars and much more.</p>\r\n\r\n<p>TeamCal Neo 3 requires a proper license now for a small yearly fee.</p>\r\n\r\n<p>Its little brother &quot;<a href=\"http://tcneobasic.lewe.com\">TeamCal Neo Basic</a>&quot; , however, remains free and offers the core features of the calendar.</p>\r\n\r\n<h3>Links:</h3>\r\n\r\n<ul>\r\n	<li><a href=\"http://www.lewe.com/teamcal-neo/\" target=\"_blank\">Product Page</a></li>\r\n	<li><a href=\"https://lewe.gitbook.io/teamcal-neo/\" target=\"_blank\">Documentation</a></li>\r\n</ul>\r\n\r\n<h3>Login</h3>\r\n\r\n<p>Select Login from the User menu to login and use the following accounts to give this demo a test drive:</p>\r\n\r\n<h4>Admin account:</h4>\r\n\r\n<p>admin/root</p>\r\n\r\n<h4>User accounts:</h4>\r\n\r\n<p>ccarl/password<br />\r\nblightyear/password<br />\r\ndduck/password<br />\r\nsgonzalez/password<br />\r\nphead/password<br />\r\nmmouse/password<br />\r\nmimouse/password<br />\r\nsman/password</p>\r\n'),
+(12, 'welcomeText', '<h3><img alt=\"\" src=\"upload/files/logo-128.png\" style=\"float:left; height:128px; margin-bottom:24px; margin-right:24px; width:128px\" />Welcome to TeamCal Neo</h3>\r\n\r\n<p>TeamCal Neo is a day-based online calendar that allows to easily manage your team&#39;s absences and displays them in an intuitive interface. You can manage absence types, holidays, regional calendars and much more.</p>\r\n\r\n<p>TeamCal Neo requires a license for a small yearly fee.</p>\r\n\r\n<p>Its little brother &quot;<a href=\"http://tcneobasic.lewe.com\">TeamCal Neo Basic</a>&quot; , however, remains free and offers the core features of the calendar.</p>\r\n\r\n<h3>Links:</h3>\r\n\r\n<ul>\r\n	<li><a href=\"http://www.lewe.com/teamcal-neo/\" target=\"_blank\">Product Page</a></li>\r\n	<li><a href=\"https://lewe.gitbook.io/teamcal-neo/\" target=\"_blank\">Documentation</a></li>\r\n</ul>\r\n\r\n<h3>Login</h3>\r\n\r\n<p>Select Login from the User menu to login and use the following accounts to give this demo a test drive:</p>\r\n\r\n<p>Admin account:</p>\r\n\r\n<p>admin/root</p>\r\n\r\n<p>User accounts:</p>\r\n\r\n<p>ccarl/password<br />\r\nblightyear/password<br />\r\ndduck/password<br />\r\nsgonzalez/password<br />\r\nphead/password<br />\r\nmmouse/password<br />\r\nmimouse/password<br />\r\nsman/password</p>\r\n'),
 (13, 'welcomeTitle', 'Welcome To TeamCal Neo'),
 (14, 'userCustom1', 'Custom Field 1'),
 (15, 'userCustom2', 'Custom Field 2'),
@@ -451,7 +458,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (51, 'logperiod', 'curr_all'),
 (50, 'faCDN', '0'),
 (52, 'logfrom', '2022-01-01 00:00:00.000000'),
-(53, 'logto', '2022-12-31 23:59:59.999999'),
+(53, 'logto', '2022-11-24 23:59:59.999999'),
 (54, 'logConfig', '1'),
 (55, 'logfilterConfig', '1'),
 (56, 'logDatabase', '1'),
@@ -563,7 +570,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (162, 'logcolorRegion', 'success'),
 (163, 'defaultHomepage', 'home'),
 (164, 'trustedRoles', '1'),
-(165, 'noCaching', '0'),
+(165, 'noCaching', '1'),
 (166, 'currYearRoles', '3,2'),
 (167, 'versionCompare', '1'),
 (168, 'currentYearOnly', '0'),
@@ -584,19 +591,26 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (183, 'gdprOfficer', 'John Doe\r\nPhone: +49 555 12345\r\nEmail: john.doe@acme.com'),
 (184, 'gdprFacebook', '0'),
 (185, 'gdprGoogleAnalytics', '0'),
-(186, 'gdprInstagram', '0'),
-(187, 'gdprLinkedin', '1'),
-(188, 'gdprPaypal', '0'),
-(189, 'gdprPinterest', '0'),
-(190, 'gdprSlideshare', '0'),
-(191, 'gdprTumblr', '0'),
-(192, 'gdprTwitter', '0'),
-(193, 'gdprXing', '1'),
-(194, 'gdprYoutube', '0'),
-(195, 'licKey', ''),
-(196, 'licExpiryWarning', '30'),
-(197, 'menuBarBg', 'dark'),
-(198, 'font', 'default');
+(186, 'gdprGooglePlus', '0'),
+(187, 'gdprInstagram', '0'),
+(188, 'gdprLinkedin', '1'),
+(189, 'gdprPaypal', '0'),
+(190, 'gdprPinterest', '0'),
+(191, 'gdprSlideshare', '0'),
+(192, 'gdprTumblr', '0'),
+(193, 'gdprTwitter', '0'),
+(194, 'gdprXing', '1'),
+(195, 'gdprYoutube', '0'),
+(196, 'licKey', ''),
+(197, 'licExpiryWarning', '30'),
+(198, 'menuBarBg', 'dark'),
+(200, 'cookieConsentCDN', '0'),
+(201, 'logCalendar', '1'),
+(202, 'logcolorCalendar', 'default'),
+(203, 'logMonth', '0'),
+(204, 'logfilterMonth', '0'),
+(205, 'logcolorMonth', 'default'),
+(206, 'font', 'default');
 
 -- --------------------------------------------------------
 
@@ -615,7 +629,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_daynotes` (
   `confidential` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `yyyymmdd` (`yyyymmdd`,`username`,`region`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -689,14 +703,8 @@ CREATE TABLE IF NOT EXISTS `tcneo_log` (
   `user` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `event` text CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
---
--- Dumping data for table `tcneo_log`
---
-
-INSERT INTO `tcneo_log` (`id`, `type`, `timestamp`, `user`, `event`) VALUES
-(1, 'logDatabase', '2022-01-01 00:00:01', 'admin', 'Database delete: Log records cleared');
 
 -- --------------------------------------------------------
 
@@ -820,7 +828,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_months` (
   `hol31` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `month` (`year`,`month`,`region`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -847,7 +855,7 @@ INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`
 (1, 'Default', 'calendareditall', 1, 1),
 (2, 'Default', 'calendareditgroup', 2, 0),
 (3, 'Default', 'calendareditgroup', 3, 0),
-(4, 'Default', 'calendareditgroup', 4, 0),
+(4, 'Default', 'calendareditgroup', 4, 1),
 (5, 'Default', 'calendareditgroup', 1, 1),
 (6, 'Default', 'calendareditown', 2, 1),
 (7, 'Default', 'calendareditown', 3, 0),
@@ -1108,32 +1116,8 @@ CREATE TABLE IF NOT EXISTS `tcneo_templates` (
   `abs31` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `template` (`username`,`year`,`month`)
-) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
---
--- Dumping data for table `tcneo_templates`
---
-
-INSERT INTO `tcneo_templates` (`id`, `username`, `year`, `month`, `abs1`, `abs2`, `abs3`, `abs4`, `abs5`, `abs6`, `abs7`, `abs8`, `abs9`, `abs10`, `abs11`, `abs12`, `abs13`, `abs14`, `abs15`, `abs16`, `abs17`, `abs18`, `abs19`, `abs20`, `abs21`, `abs22`, `abs23`, `abs24`, `abs25`, `abs26`, `abs27`, `abs28`, `abs29`, `abs30`, `abs31`) VALUES
-(1, 'ccarl', '2022', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(2, 'dduck', '2022', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(3, 'sgonzales', '2022', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(4, 'phead', '2022', '01', 0, 0, 5, 0, 0, 6, 0, 0, 9, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 8, 0, 1, 0, 0, 0, 0, 0, 0, 7),
-(5, 'blightyear', '2022', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(6, 'mmouse', '2022', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(7, 'sman', '2022', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(8, 'admin', '2022', '01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(9, 'admin', '2022', '02', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(10, 'admin', '2022', '03', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(11, 'admin', '2022', '04', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(12, 'admin', '2022', '05', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(13, 'admin', '2022', '06', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(14, 'admin', '2022', '07', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(15, 'admin', '2022', '08', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(16, 'admin', '2022', '09', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(17, 'admin', '2022', '10', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(18, 'admin', '2022', '11', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(19, 'admin', '2022', '12', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1168,11 +1152,11 @@ CREATE TABLE IF NOT EXISTS `tcneo_users` (
 INSERT INTO `tcneo_users` (`username`, `password`, `firstname`, `lastname`, `email`, `role`, `locked`, `hidden`, `onhold`, `verify`, `bad_logins`, `grace_start`, `last_pw_change`, `last_login`, `created`) VALUES
 ('blightyear', '$2y$10$Vtw.3Vz.k7q0wWMRd48F6uW5QJ8R4z6r.ru7tL.aR.duXf4ynQgGm', 'Buzz', 'Lightyear', 'blightyear@yourserver.com', 4, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00'),
 ('sman', '$2y$10$xGRcN3kjQRcOaNFZHU1Oo.XqmTuiTNX0YzFdWZGFY/zbrfSw1HoR2', '', 'Spiderman', 'sman@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00'),
-('mmouse', '$2y$10$UXHMBWNOPsohn0IxEfrkhOykPp/iO3JZSsYk3aywy9yXGmGrVU.CS', 'Mickey', 'Mouse', 'mmouse@yourserver.com', 4, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00'),
-('admin', '$2y$10$Kt4r.PZIdqa.RU1qgPQP2ecN6pqDHG3qLifAu9IMMyLntlhnIMhaS', '', 'Admin', 'webmaster@yourserver.com', 1, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2020-01-02 23:26:53', '2022-01-01 00:00:00'),
+('mmouse', '$2y$10$UXHMBWNOPsohn0IxEfrkhOykPp/iO3JZSsYk3aywy9yXGmGrVU.CS', 'Mickey', 'Mouse', 'mmouse@yourserver.com', 4, 0, 0, 0, 0, 0, '1900-01-01 00:00:00', '1000-01-01 00:00:00', '2022-11-23 20:35:20', '2022-01-01 00:00:00'),
+('admin', '$2y$10$Kt4r.PZIdqa.RU1qgPQP2ecN6pqDHG3qLifAu9IMMyLntlhnIMhaS', '', 'Admin', 'webmaster@yourserver.com', 1, 0, 0, 0, 0, 0, '1900-01-01 00:00:00', '1000-01-01 00:00:00', '2022-11-24 17:29:56', '2022-01-01 00:00:00'),
 ('phead', '$2y$10$qvuiMeWbC0lAZdl7EnlRZe2PF6PRjsd5cRT0IhOjPdzAvnupWwFMq', 'Potatoe', 'Head', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00'),
 ('ccarl', '$2y$10$r/8VfjUT9DDCF8efXd2yvOu/JiT.cBwSTaI8qVTFMcbBirdQ7JSSe', 'Coyote', 'Carl', 'ccarl@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00'),
-('dduck', '$2y$10$xGRcN3kjQRcOaNFZHU1Oo.XqmTuiTNX0YzFdWZGFY/zbrfSw1HoR2', 'Donald', 'Duck', 'dduck@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00'),
+('dduck', '$2y$10$xGRcN3kjQRcOaNFZHU1Oo.XqmTuiTNX0YzFdWZGFY/zbrfSw1HoR2', 'Donald', 'Duck', 'dduck@yourserver.com', 2, 0, 0, 0, 0, 0, '1900-01-01 00:00:00', '1000-01-01 00:00:00', '2022-11-23 20:34:47', '2022-01-01 00:00:00'),
 ('sgonzales', '$2y$10$J.Px4e14DNX6.indHyBZOeCEV6EuNAUZTmnnaHB4CDF5JWypexrvS', 'Speedy', 'Gonzales', 'sgonzales@yourserver.com', 2, 0, 0, 0, 0, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00'),
 ('mimouse', '$2y$10$IkWQeduBbmLn4m5rybEf6OCQRRFui0PEJ5bMWndCzlWMmpznXe3Xy', 'Minnie', 'Mouse', 'mimouse@yourserver.com', 2, 1, 1, 1, 1, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00');
 
@@ -1282,7 +1266,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_user_option` (
   `value` text CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `useroption` (`username`,`option`)
-) ENGINE=MyISAM AUTO_INCREMENT=148 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM AUTO_INCREMENT=154 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `tcneo_user_option`
@@ -1303,7 +1287,7 @@ INSERT INTO `tcneo_user_option` (`id`, `username`, `option`, `value`) VALUES
 (12, 'admin', 'theme', 'default'),
 (13, 'admin', 'language', 'english'),
 (15, 'admin', 'avatar', 'is_administrator.png'),
-(16, 'mmouse', 'language', 'deutsch'),
+(16, 'mmouse', 'language', 'english'),
 (17, 'mmouse', 'avatar', 'mmouse.jpg'),
 (18, 'ccarl', 'title', 'Dr.'),
 (19, 'ccarl', 'position', 'Roadrunner Hunter'),
@@ -1428,7 +1412,13 @@ INSERT INTO `tcneo_user_option` (`id`, `username`, `option`, `value`) VALUES
 (140, 'admin', 'region', '1'),
 (141, 'ccarl', 'region', '1'),
 (147, 'admin', 'calfilterRegion', '1'),
-(146, 'admin', 'calfilterMonth', '');
+(146, 'admin', 'calfilterMonth', '202211'),
+(148, 'dduck', 'menuBar', 'default'),
+(149, 'dduck', 'width', 'full'),
+(150, 'mmouse', 'menuBar', 'default'),
+(151, 'mmouse', 'width', 'full'),
+(152, 'mmouse', 'calfilterMonth', '202211'),
+(153, 'mmouse', 'calfilterRegion', '1');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -49,3 +49,7 @@
         url('../fonts/lato-v23-latin-700italic.woff') format('woff');
     /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
+
+body {
+    font-family: "Lato", sans-serif !important;
+}

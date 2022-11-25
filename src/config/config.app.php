@@ -48,8 +48,8 @@ define('COOKIE_NAME', "tcneopro");
  */
 define('BOOTSTRAP_VER', "5.2.3");
 define('FONTAWESOME_VER', "6.2.1");
-define('JQUERY_VER', "3.3.1");
-define('JQUERY_UI_VER', "1.12.1");
+define('JQUERY_VER', "3.6.1");
+define('JQUERY_UI_VER', "1.13.2");
 define('SECUREIMAGE_VER', "3.6.4");
 
 //=============================================================================
@@ -70,7 +70,13 @@ define('CHARTJS_VER', "2.4.0");
 // http://ckeditor.com/
 //
 define('CKEDITOR', true);
-define('CKEDITOR_VER', "4.5.11");
+define('CKEDITOR_VER', "4.20.0");
+
+//
+// Cookie Consent by Silktide
+// https://silktide.com/cookieconsent
+//
+define('COOKIECONSENT_VER', "3.1.1");
 
 //
 // Magnific Popup
@@ -152,8 +158,8 @@ define('LDAP_TLS', 0); // To avoid "Undefined index: LDAP_TLS" error message for
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "3.5.2");
-define('APP_DATE', "2022-11-05");
+define('APP_VER', "3.6.0");
+define('APP_DATE', "2022-11-24");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "http://www.lewe.com");
