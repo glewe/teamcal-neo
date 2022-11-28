@@ -35,7 +35,7 @@ define('APP_IMP_DIR', "upload/import/");
 // Set this to 0 if you want to run the installation.php script again.
 // If not, you need to delete or rename the installation.php file.
 //
-define('APP_INSTALLED', "1");
+define('APP_INSTALLED', "0");
 
 //
 // The cookie prefix to be used on the browser client's device
@@ -159,7 +159,7 @@ define('LDAP_TLS', 0); // To avoid "Undefined index: LDAP_TLS" error message for
  */
 define('APP_NAME', "TeamCal Neo");
 define('APP_VER', "3.6.0");
-define('APP_DATE', "2022-11-24");
+define('APP_DATE', "2022-11-28");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "http://www.lewe.com");
