@@ -6,7 +6,7 @@
  * @category TeamCal Neo Basic
  * @version 3.0.0
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2023 by George Lewe
 
  * @license This program cannot be licensed. Redistribution is not allowed.
  */

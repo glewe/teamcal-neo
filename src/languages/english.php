@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * English Framework Strings
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -238,6 +238,10 @@ $LANG['alert_reg_mismatch'] = 'The submitted verification code does not match th
 $LANG['alert_reg_no_user'] = 'The username cannot be found. Are you sure it was registered?';
 $LANG['alert_reg_no_vcode'] = 'A verification code could not be found. Was it verified already? Please contact the administrator to check your account settings.';
 
+$LANG['alert_secret_exists_subject'] = 'Two Factor Authentication Already Set Up';
+$LANG['alert_secret_exists_text'] = 'A two factor authentication was already set up for your account.';
+$LANG['alert_secret_exists_help'] = 'For security reasons, you cannot remove or reset it yourself. Please contact the administrator to do that for you so you can start a new onboarding process.';
+
 $LANG['alert_upl_csv_subject'] = 'Upload CSV File';
 $LANG['alert_upl_doc_subject'] = 'Upload Documents';
 $LANG['alert_upl_img_subject'] = 'Upload Images';
@@ -323,6 +327,8 @@ $LANG['btn_prev'] = 'Prev';
 $LANG['btn_refresh'] = 'Refresh';
 $LANG['btn_register'] = 'Register';
 $LANG['btn_remove'] = 'Remove';
+$LANG['btn_remove_secret'] = 'Remove Secret';
+$LANG['btn_remove_secret_selected'] = 'Remove secret of selected';
 $LANG['btn_repair'] = 'Repair';
 $LANG['btn_reset'] = 'Reset';
 $LANG['btn_reset_database'] = 'Reset Database';
@@ -335,6 +341,7 @@ $LANG['btn_save'] = 'Save';
 $LANG['btn_search'] = 'Search';
 $LANG['btn_select'] = "Select";
 $LANG['btn_send'] = 'Send';
+$LANG['btn_setup2fa'] = 'Set up 2FA';
 $LANG['btn_shares'] = 'Shares...';
 $LANG['btn_show_hide'] = 'Show/Hide';
 $LANG['btn_submit'] = 'Submit';
@@ -344,6 +351,7 @@ $LANG['btn_transfer'] = 'Transfer';
 $LANG['btn_update'] = 'Update';
 $LANG['btn_user_list'] = 'Show User List';
 $LANG['btn_upload'] = 'Upload';
+$LANG['btn_verify'] = 'Verify';
 $LANG['btn_view'] = 'View';
 
 //
@@ -426,6 +434,8 @@ $LANG['config_footerSocialLinks'] = 'Social Links';
 $LANG['config_footerSocialLinks_comment'] = 'Enter all URLs to the social sites you want to link to from TeamCal Neo\'s footer. Separate them by smicolon. TeamCal Neo will identify them and place the proper icons in the footer.';
 $LANG['config_footerViewport'] = 'Show Viewport Size';
 $LANG['config_footerViewport_comment'] = 'Checking this option will show the viewport size in the footer.';
+$LANG['config_forceTfa'] = 'Force Two Factor Authentication';
+$LANG['config_forceTfa_comment'] = 'Force users to setup a two factor authentication, e.g. via Google or Microsoft Authenticator. If a user has not setup 2FA yet, he will be redirected to the setup page after regular login.';
 
 $LANG['config_gdprController'] = 'Controller';
 $LANG['config_gdprController_comment'] = 'Enter the information about the controller for the purposes of the General Data Protection Regulation (GDPR), other data protection laws applicable in Member states of the European Union and other provisions related to data protection.';
@@ -823,11 +833,15 @@ $LANG['log_sort_desc'] = 'Sort descending...';
 $LANG['login_login'] = 'Login';
 $LANG['login_username'] = 'Username:';
 $LANG['login_password'] = 'Password:';
+$LANG['login_authcode'] = 'Authenticator code:';
+$LANG['login_authcode_comment'] = 'In case you have set up a two factor authentication, enter you authenticator code here.';
 $LANG['login_error_0'] = 'Login successful';
-$LANG['login_error_1'] = 'Username or password missing';
-$LANG['login_error_1_text'] = 'Please provide a valid username and password.';
+$LANG['login_error_1'] = 'Username, password or authenticator code missing';
+$LANG['login_error_1_text'] = 'Please provide a valid username and password and if necessary a valid authenticator code.';
 $LANG['login_error_2'] = 'Username unknown';
 $LANG['login_error_2_text'] = 'The username you entered is unknown. Please try again.';
+$LANG['login_error_2fa'] = 'Incorrect authentication code';
+$LANG['login_error_2fa_text'] = 'A two factor authentication has been set up for your account. The authentication code you entered does not match.';
 $LANG['login_error_3'] = 'Account disabled';
 $LANG['login_error_3_text'] = 'This account is locked or not approved. Please contact your administrator.';
 $LANG['login_error_4'] = 'Password incorrect';
@@ -1070,6 +1084,10 @@ $LANG['profile_tab_groups'] = 'Groups';
 $LANG['profile_tab_notifications'] = 'Notifications';
 $LANG['profile_tab_password'] = 'Password';
 $LANG['profile_tab_personal'] = 'Personal';
+$LANG['profile_tab_tfa'] = '2FA';
+
+$LANG['profile_2fa_optional'] = 'TeamCal Neo allows you to set up a second factor authentication, e.g. using Google or Microsoft Authenticator on your mobil device.<br> 
+Click the button below to start the onboarding process. (This can only be done by the user himself.)';
 
 $LANG['profile_alert_archive_user'] = 'The user were archived.';
 $LANG['profile_alert_archive_user_failed'] = 'The user already exist in the archive. This could be the same user or one with the same username.<br>Please delete the archived user first.';
@@ -1155,6 +1173,9 @@ $LANG['profile_position'] = 'Position';
 $LANG['profile_position_comment'] = '';
 $LANG['profile_region'] = 'Region';
 $LANG['profile_region_comment'] = 'Select the region of this user here.';
+$LANG['profile_remove2fa'] = 'Remove 2FA';
+$LANG['profile_remove2fa_comment'] = 'You have already registered a second factor authenticator app. For security reasons, the onboarding information is not available anymore.  
+If you need to remove this setup, e.g. when you replace your mobile device and need to do a new onboarding again, check this box and update your profile. The onboarding link will then be displayed here.';
 $LANG['profile_role'] = 'Role';
 $LANG['profile_role_comment'] = 'Select the role of this user here. The role defines the permissions of this user.';
 $LANG['profile_skype'] = 'Skype';
@@ -1235,6 +1256,21 @@ $LANG['roles_description'] = 'Description';
 $LANG['roles_name'] = 'Name';
 
 //
+// Setup 2FA
+//
+$LANG['setup2fa_title'] = 'Setup Two Factor Authentication for:';
+$LANG['setup2fa_alert_input'] = 'Please enter a six digit numeric value in the authenticator code field.';
+$LANG['setup2fa_alert_input_help'] = 'Please note that any previously generated barcode and secret code is not valid anymore for security reasons. 
+Should you have created an entry in your authenticator app with it, you need to remove it and add a new one with the new information on this page.';
+$LANG['setup2fa_alert_mismatch'] = 'The code you provided is incorrect.';
+$LANG['setup2fa_alert_success'] = 'Your two factor authentication was successfully set up. Please proceed to the login page to log in again.';
+$LANG['setup2fa_comment'] = 'In your authenticator app, add a new entry by scanning the above barcode (if one is shown) or entering the secret key manually. 
+After adding the new entry, enter the next code generated by your app into the field below and click verify.';
+$LANG['setup2fa_required_comment'] = 'The administrator has set up TeamCal Neo so that a two factor authentication is required to log in. Here you can do the onboarding process.
+You will need a mobile device and an authenticator app like Google Authenticator or Microsoft Authenticator.';
+$LANG['setup2fa_totp'] = 'Your authenticator code<br><i>(six digits, numeric)</i>';
+
+//
 // Status Bar
 //
 $LANG['status_logged_in'] = 'You are logged in as ';
@@ -1271,18 +1307,21 @@ $LANG['users_title'] = 'Users';
 $LANG['users_alert_archive_selected_users'] = 'The selected users were archived.';
 $LANG['users_alert_archive_selected_users_failed'] = 'One or more of the selected users already exist in the archive. This could be the same user or one with the same username.<br>Please delete these archived users first.';
 $LANG['users_alert_delete_selected_users'] = 'The selected users were deleted.';
-$LANG['users_alert_reset_password_selected'] = 'The passwords of selected users were reset and a corresponding e-mail was sent to them.';
+$LANG['users_alert_remove_secret_selected'] = 'The 2FA secrets of the selected users were removed.';
+$LANG['users_alert_reset_password_selected'] = 'The passwords of the selected users were reset and a corresponding e-mail was sent to them.';
 $LANG['users_alert_restore_selected_users'] = 'The selected users were restored.';
 $LANG['users_alert_restore_selected_users_failed'] = 'One or more of the selected users already exist as active users. This could be the same user or one with the same username.<br>Please delete these active users first.';
 $LANG['users_attributes'] = 'Attributes';
 $LANG['users_attribute_locked'] = 'Account locked';
 $LANG['users_attribute_hidden'] = 'Account hidden';
 $LANG['users_attribute_onhold'] = 'Account on hold';
+$LANG['users_attribute_secret'] = '2FA set up';
 $LANG['users_attribute_verify'] = 'Account to be verified';
 $LANG['users_confirm_archive'] = 'Are you sure you want to archive the selected users?';
 $LANG['users_confirm_delete'] = 'Are you sure you want to delete the selected users?';
 $LANG['users_confirm_password'] = 'Are you sure you want to reset the passwords of the selected users?';
 $LANG['users_confirm_restore'] = 'Are you sure you want to restore the selected users?';
+$LANG['users_confirm_secret'] = 'Are you sure you want to remove the 2FA secrets of the selected users? The users must/may then repeat the onboarding process.';
 $LANG['users_created'] = 'Created';
 $LANG['users_last_login'] = 'Last Login';
 $LANG['users_tab_active'] = 'Active Users';

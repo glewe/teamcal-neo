@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * About View
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -65,6 +65,7 @@ view.about
                         <?php if (SELECT2) { ?><li>Kevin Brown &amp; Igor Vaynberg <?= $LANG['about_for'] ?> <a href="https://select2.github.io/" target="_blank">Select2 <?= SELECT2_VER ?></a></li><?php } ?>
                         <?php if (SYNTAXHIGHLIGHTER) { ?><li>Alex Gorbatchev <?= $LANG['about_for'] ?> <a href="https://select2.github.io/" target="_blank">Syntaxhighlighter <?= SYNTAXHIGHLIGHTER_VER ?></a></li><?php } ?>
                         <?php if (XEDITABLE) { ?><li>Vitaliy Potapov <?= $LANG['about_for'] ?> <a href="https://vitalets.github.io/x-editable/" target="_blank">X-Editable <?= XEDITABLE_VER ?></a></li><?php } ?>
+                        <li>RobThree <?= $LANG['about_for'] ?> <a href="https://github.com/RobThree/TwoFactorAuth" target="_blank">TwoFactorAuth</a></li>
                         <li><?= $LANG['about_misc'] ?></li>
                     </ul>
                 </div>

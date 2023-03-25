@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * Users View
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -112,6 +112,7 @@ view.users
                                                 <?= (($user['onhold']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_onhold'] . '"><i class="far fa-clock fa-sm text-warning"></i></i>' : '') ?>
                                                 <?= (($user['verify']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_verify'] . '"><i class="fas fa-exclamation-circle fa-sm text-success"></i></i>' : '') ?>
                                                 <?= (($user['hidden']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_hidden'] . '"><i class="far fa-eye-slash fa-sm text-info"></i></i>' : '') ?>
+                                                <?= (($UO->read($user['username'], 'secret')) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_secret'] . '"><i class="fa fa-shield fa-sm text-secondary"></i></i>' : '') ?>
                                             </div>
                                             <div class="col-lg-2"><?= $user['created'] ?></div>
                                             <div class="col-lg-2"><?= (($user['last_login'] != DEFAULT_TIMESTAMP) ? $user['last_login'] : "") ?></div>
@@ -128,6 +129,7 @@ view.users
                                         </div>
                                         <div class="col-lg-10 text-end">
 
+                                            <button type="button" class="btn btn-info" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalRemoveSecret"><?= $LANG['btn_remove_secret_selected'] ?></button>
                                             <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalResetPassword"><?= $LANG['btn_reset_password_selected'] ?></button>
                                             <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalArchiveSelected"><?= $LANG['btn_archive_selected'] ?></button>
                                             <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteSelected"><?= $LANG['btn_delete_selected'] ?></button>
@@ -152,6 +154,11 @@ view.users
                                             <?= createModalTop('modalResetPassword', $LANG['modal_confirm']) ?>
                                             <?= $LANG['users_confirm_password'] ?>
                                             <?= createModalBottom('btn_userResetPassword', 'primary', $LANG['btn_reset_password_selected']) ?>
+
+                                            <!-- Model: Remove secret -->
+                                            <?= createModalTop('modalRemoveSecret', $LANG['modal_confirm']) ?>
+                                            <?= $LANG['users_confirm_secret'] ?>
+                                            <?= createModalBottom('btn_userRemoveSecret', 'primary', $LANG['btn_remove_secret_selected']) ?>
 
                                         </div>
                                     </div>

@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * Config Controller
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -156,6 +156,8 @@ if (!empty($_POST)) {
             $C->save("badLogins", intval($_POST['txt_badLogins']));
             $C->save("gracePeriod", intval($_POST['txt_gracePeriod']));
             $C->save("cookieLifetime", intval($_POST['txt_cookieLifetime']));
+            if (isset($_POST['chk_forceTfa']) && $_POST['chk_forceTfa']) $C->save("forceTfa", "1");
+            else $C->save("forceTfa", "0");
 
             //
             // Registration
@@ -427,6 +429,7 @@ $viewData['login'] = array(
     array('prefix' => 'config', 'name' => 'badLogins', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("badLogins"), 'maxlength' => '2'),
     array('prefix' => 'config', 'name' => 'gracePeriod', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("gracePeriod"), 'maxlength' => '3'),
     array('prefix' => 'config', 'name' => 'cookieLifetime', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("cookieLifetime"), 'maxlength' => '6'),
+    array('prefix' => 'config', 'name' => 'forceTfa', 'type' => 'check', 'values' => '', 'value' => $C->read("forceTfa")),
 );
 
 $viewData['registration'] = array(

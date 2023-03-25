@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * Login Controller
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -12,7 +12,13 @@ if (!defined('VALID_ROOT')) exit('');
  * @since 3.0.0
  */
 
-// echo '<script type="text/javascript">alert("Debug: ");</script>';
+use RobThree\Auth\TwoFactorAuth;
+
+//=============================================================================
+//
+// LOAD CONTROLLER RESOURCES
+//
+$tfa = new TwoFactorAuth('TeamCal Neo');
 
 //=============================================================================
 //
@@ -52,21 +58,87 @@ if (!empty($_POST)) {
             switch ($L->login($uname, $pword)) {
                 case 0:
                     //
-                    // Successful login
+                    // Successful login based on username and password
+                    // If there is 2FA set up we need to check the second factor as well.
                     //
-                    $LOG->log("logLogin", $uname, "log_login_success");
-
-                    //
-                    // Check whether we have to force the announcement page to show.
-                    // This is the case if the user has popup announcements.
-                    //
-                    $popups = $UMSG->getAllPopupByUser($uname);
-                    if (count($popups)) {
-                        header("Location: index.php?action=messages");
+                    if ($UO->read($uname, 'secret')) {
+                        //
+                        // Remove the login cookie from above for now
+                        //
+                        $L->logout();
+                        $userSecret = openssl_decrypt($UO->read($uname, 'secret'), "AES-128-ECB", APP_LIC_KEY);
+                        if (isset($_POST['totp'])) {
+                            $totp = $_POST['totp'];
+                            $result = $tfa->verifyCode($userSecret, $totp);
+                            if ($result) {
+                                //
+                                // Code matches. Reset the login cookie
+                                //
+                                $L->login($uname, $pword);
+                                $LOG->log("logLogin", $uname, "log_login_success");
+                                //
+                                // Check whether we have to force the announcement page to show.
+                                // This is the case if the user has popup announcements.
+                                //
+                                $popups = $UMSG->getAllPopupByUser($uname);
+                                if (count($popups)) {
+                                    header("Location: index.php?action=messages");
+                                } else {
+                                    header("Location: index.php?action=" . $C->read("homepage"));
+                                }
+                                break;
+                            } else {
+                                //
+                                // Code mismatch
+                                //
+                                $showAlert = TRUE;
+                                $alertData['type'] = 'warning';
+                                $alertData['title'] = $LANG['alert_warning_title'];
+                                $alertData['subject'] = $LANG['login_error_2fa'];
+                                $alertData['text'] = $LANG['login_error_2fa_text'];
+                                $alertData['help'] = '';
+                                $LOG->log("logLogin", $uname, "log_login_2fa");
+                                break;
+                            }
+                        } else {
+                            //
+                            // Authenticator code missing
+                            //
+                            $showAlert = TRUE;
+                            $alertData['type'] = 'warning';
+                            $alertData['title'] = $LANG['alert_warning_title'];
+                            $alertData['subject'] = $LANG['login_error_1'];
+                            $alertData['text'] = $LANG['login_error_1_text'];
+                            $alertData['help'] = '';
+                            $LOG->log("logLogin", $uname, "log_login_missing");
+                            break;
+                        }
                     } else {
-                        header("Location: index.php?action=" . $C->read("homepage"));
+                        if ($C->read('forceTfa')) {
+                            //
+                            // TFA required but no secret for this user yet.
+                            // First, log out. Then proceed to the 2FA setup page.
+                            //
+                            header("Location: index.php?action=setup2fa&profile=" . $uname);
+                            break;
+                        } else {
+                            //
+                            // Ok to login without TFA
+                            //
+                            $LOG->log("logLogin", $uname, "log_login_success");
+                            //
+                            // Check whether we have to force the announcement page to show.
+                            // This is the case if the user has popup announcements.
+                            //
+                            $popups = $UMSG->getAllPopupByUser($uname);
+                            if (count($popups)) {
+                                header("Location: index.php?action=messages");
+                            } else {
+                                header("Location: index.php?action=" . $C->read("homepage"));
+                            }
+                            break;
+                        }
                     }
-                    break;
 
                 case 1:
                     //

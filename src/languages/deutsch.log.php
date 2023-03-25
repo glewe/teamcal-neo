@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * German Log Strings
  * 
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -52,6 +52,7 @@ $LANG['log_hol_deleted'] = 'Feiertag gel&ouml;scht: ';
 $LANG['log_imp_success'] = 'CSV Import: ';
 $LANG['log_log_updated'] = 'Logbucheinstellungen aktualisiert';
 $LANG['log_log_cleared'] = 'Logbuch geleert';
+$LANG['log_login_2fa'] = 'Falscher Authentication Code';
 $LANG['log_login_success'] = 'Login erfolgreich';
 $LANG['log_login_missing'] = 'Benutzername oder Passwort nicht angegeben';
 $LANG['log_login_unknown'] = 'Benutzername unbekannt';
@@ -98,6 +99,7 @@ $LANG['log_tcpimp_roles'] = 'TeamCal Pro Rollen importiert';
 $LANG['log_tcpimp_ugr'] = 'TeamCal Pro Gruppenmitgliedschaften importiert';
 $LANG['log_tcpimp_users'] = 'TeamCal Pro Benutzerkonten importiert';
 $LANG['log_tcpimp_utpl'] = 'TeamCal Pro Nutzerkalender importiert';
+$LANG['log_user_2fa_removed'] = '2FA Secret entfernt f&uuml;r: ';
 $LANG['log_user_added'] = 'Benutzer anegelegt: ';
 $LANG['log_user_updated'] = 'Benutzerprofil aktualisiert: ';
 $LANG['log_user_deleted'] = 'Benutzer gel&ouml;scht: ';

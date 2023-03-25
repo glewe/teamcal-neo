@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * User Edit Controller
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -315,6 +315,11 @@ if (!empty($_POST)) {
             if (isset($_POST['txt_custom3'])) $UO->save($profile, 'custom3', $_POST['txt_custom3']);
             if (isset($_POST['txt_custom4'])) $UO->save($profile, 'custom4', $_POST['txt_custom4']);
             if (isset($_POST['txt_custom5'])) $UO->save($profile, 'custom5', $_POST['txt_custom5']);
+
+            //
+            // 2FA
+            //
+            if (isset($_POST['chk_remove2fa']) and $_POST['chk_remove2fa']) $UO->deleteUserOption($profile, 'secret');
 
             $UP->update($profile);
 

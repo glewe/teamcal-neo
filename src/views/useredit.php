@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * User Edit View
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -89,6 +89,7 @@ view.useredit
                         <?php if (isAllowed("useroptions")) { ?>
                             <li class="nav-item"><a class="nav-link" id="options-tab" href="#options" data-bs-toggle="tab" role="tab" aria-controls="options" aria-selected="false"><?= $LANG['options'] ?></a></li>
                         <?php } ?>
+                        <li class="nav-item"><a class="nav-link" id="tfa-tab" href="#tfa" data-bs-toggle="tab" role="tab" aria-controls="tfa" aria-selected="false"><?= $LANG['profile_tab_tfa'] ?></a></li>
                     </ul>
 
                     <div id="myTabContent" class="tab-content">
@@ -142,7 +143,8 @@ view.useredit
                                             <div class="col-lg-<?= $colsright ?>">
                                                 <img src="<?= APP_AVATAR_DIR . $viewData['avatar'] ?>" alt="" style="width: 80px; height: 80px;"><br>
                                                 <br>
-                                                <?php if (substr($viewData['avatar'], 0, 9) != 'default_') { ?><button type="submit" class="btn btn-primary btn-sm" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button><?php } ?>
+                                                <?php if (substr($viewData['avatar'], 0, 9) != 'default_') { ?>
+                                                    <button type="submit" class="btn btn-primary btn-sm" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button><?php } ?>
                                             </div>
                                         </div>
                                         <div class="divider">
@@ -316,6 +318,32 @@ view.useredit
                                 </div>
                             </div>
                         <?php } ?>
+
+                        <!-- 2FA tab -->
+                        <div class="tab-pane fade" id="tfa" role="tabpanel" aria-labelledby="tfa-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <?php if ($UO->read($UP->username, 'secret')) { ?>
+                                        <div class="form-group row" id="form-group-activateMessages">
+                                            <label for="activateMessages" class="col-lg-8 control-label"><?= $LANG['profile_remove2fa'] ?><br>
+                                                <span class="text-normal"><?= $LANG['profile_remove2fa_comment'] ?></span>
+                                            </label>
+                                            <div class="col-lg-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="remove2fa" name="chk_remove2fa" value="chk_remove2fa" tabindex="<?= $tabindex++ ?>">
+                                                    <label class="form-check-label"><?= $LANG['profile_remove2fa'] ?></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } else { ?>
+                                        <div class="alert alert-info">
+                                            <?= $LANG['profile_2fa_optional'] ?>
+                                            <div><a href="index.php?action=setup2fa&profile=<?= $UP->username ?>" class="btn btn-secondary mt-2" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_setup2fa'] ?></a></div>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 

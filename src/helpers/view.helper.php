@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * View Helper Functions
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -83,7 +83,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
 
     $error = '';
     if (isset($data["error"]) and strlen($data["error"])) {
-        $error = '<br><div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button>' . $data['error'] . '</div>';
+        $error = '<br><div class="alert alert-dismissible alert-danger fade show"><button type="button" class="btn-close" data-bs-dismiss="alert"></button>' . $data['error'] . '</div>';
     }
 
     switch ($data['type']) {
@@ -339,7 +339,7 @@ function createModalTop($id, $title)
                 <h5 class="modal-title">' . $title . '</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">';
+            <div class="modal-body text-start">';
 
     return $modaltop;
 }

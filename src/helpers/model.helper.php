@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * Model Helper Functions
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -251,21 +251,25 @@ function importUsersFromCSV($file, $lock = true, $hide = true)
 /**
  * Checks whether a user is authorized in the active permission scheme
  *
- * @param string $scheme Permission scheme to check
  * @param string $permission Permission to check
- * @param string $targetuser Some features reference data of other users. This is the target
- * 
+ *
  * @return boolean True if allowed, false if not.
  */
 function isAllowed($permission = '')
 {
-    global $C, $L, $P, $UL;
+    global $C, $L, $P, $UL, $UO;
 
     $pscheme = $C->read("permissionScheme");
 
     if (L_USER) {
         /**
          * Someone is logged in.
+         * First, check if 2FA required and user hasn't done it yet.
+         */
+        if (L_USER != 'admin' && $C->read('forceTfa') && !$UO->read(L_USER, 'secret')) {
+            return false;
+        }
+        /**
          * Check permission by role.
          */
         $UL->findByName(L_USER);

@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * Login View
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -36,8 +36,8 @@ view.login
                 <div class="card-body">
                     <div class="col-lg-12">
                         <?php $tabindex = 1;
-                        $colsleft = 4;
-                        $colsright = 8;
+                        $colsleft = 5;
+                        $colsright = 7;
                         $paddingBottom = "12px"; ?>
                         <form id="login" action="index.php?action=<?= $controller ?>" method="post" target="_self" name="loginform" accept-charset="utf-8">
                             <fieldset>
@@ -53,6 +53,15 @@ view.login
                                         <input class="form-control" name="pword" tabindex="2" type="password" autocomplete="off">
                                     </div>
                                 </div>
+                                <hr>
+                                <?= $LANG['login_authcode_comment'] ?>
+                                <div class="form-group row" style="padding-bottom: <?= $paddingBottom ?>;">
+                                    <label class="col-lg-<?= $colsleft ?> control-label"><?= $LANG['login_authcode'] ?></label>
+                                    <div class="col-lg-<?= $colsright ?>">
+                                        <input id="totp" class="form-control" name="totp" type="text" minlength="6" maxlength="6" pattern="^[0-9]{1,6}$">
+                                    </div>
+                                </div>
+                                <hr>
                                 <div class="form-group row">
                                     <label class="col-lg-<?= $colsleft ?> control-label"></label>
                                     <div class="col-lg-<?= $colsright ?>">

@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * Error View
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -27,7 +27,7 @@ Copyright:   (c) 2014-2020
     <title>TeamCal Neo Error</title>
     <meta http-equiv="Content-type" content="text/html;charset=utf8">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="themes/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="themes/bootstrap/bootstrap.min.css">
 </head>
 
 <body>
@@ -35,13 +35,12 @@ Copyright:   (c) 2014-2020
       view.error 
       -->
     <div class="container content" style="padding-left: 4px; padding-right: 4px;">
-        <p></p>
-        <div class="alert alert-dismissable alert-danger">
-            <button type="button" class="close" data-bs-dismiss="alert" title="'.$LANG['close_this_message'].'"><i class="far fa-times-circle"></i></button>
+        <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
             <h5><strong><?= $errorData['title'] ?>!</strong></h5>
             <hr>
             <p><strong><?= $errorData['subject'] ?></strong></p>
             <p><?= $errorData['text'] ?></p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" title="<?= $LANG['close_this_message'] ?>"></button>
         </div>
     </div>
 </body>

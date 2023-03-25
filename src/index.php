@@ -4,7 +4,7 @@
  * Index
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -23,15 +23,42 @@ define('WEBSITE_ROOT', __DIR__);
 
 //=============================================================================
 //
-// CLASS AUTOLOADER
-// The autoloader function makes sure that whenever a class is instantiated that 
-// the appropriate class is included if not already.
+// COMPOSER AUTOLOADER
 //
-function my_autoloader($class)
-{
-    include 'classes/' . $class . '.class.php';
-}
-spl_autoload_register('my_autoloader');
+require_once(__DIR__ . "/vendor/autoload.php");
+
+//=============================================================================
+//
+// LOAD CLASSES
+//
+require_once(WEBSITE_ROOT . '/classes/AbsenceGroup.class.php');
+require_once(WEBSITE_ROOT . '/classes/Absences.class.php');
+require_once(WEBSITE_ROOT . '/classes/Allowances.class.php');
+require_once(WEBSITE_ROOT . '/classes/Attachment.class.php');
+require_once(WEBSITE_ROOT . '/classes/Avatar.class.php');
+require_once(WEBSITE_ROOT . '/classes/Config.class.php');
+require_once(WEBSITE_ROOT . '/classes/Controller.class.php');
+require_once(WEBSITE_ROOT . '/classes/Daynotes.class.php');
+require_once(WEBSITE_ROOT . '/classes/DB.class.php');
+require_once(WEBSITE_ROOT . '/classes/Groups.class.php');
+require_once(WEBSITE_ROOT . '/classes/Holidays.class.php');
+require_once(WEBSITE_ROOT . '/classes/License.class.php');
+require_once(WEBSITE_ROOT . '/classes/Log.class.php');
+require_once(WEBSITE_ROOT . '/classes/Login.class.php');
+require_once(WEBSITE_ROOT . '/classes/Messages.class.php');
+require_once(WEBSITE_ROOT . '/classes/Months.class.php');
+require_once(WEBSITE_ROOT . '/classes/Permissions.class.php');
+require_once(WEBSITE_ROOT . '/classes/Regions.class.php');
+require_once(WEBSITE_ROOT . '/classes/Roles.class.php');
+require_once(WEBSITE_ROOT . '/classes/Templates.class.php');
+require_once(WEBSITE_ROOT . '/classes/DB.class.php');
+require_once(WEBSITE_ROOT . '/classes/Upload.class.php');
+require_once(WEBSITE_ROOT . '/classes/UserAttachment.class.php');
+require_once(WEBSITE_ROOT . '/classes/UserGroup.class.php');
+require_once(WEBSITE_ROOT . '/classes/UserMessage.class.php');
+require_once(WEBSITE_ROOT . '/classes/UserOption.class.php');
+require_once(WEBSITE_ROOT . '/classes/Users.class.php');
+require_once(WEBSITE_ROOT . '/classes/XML.class.php');
 
 //=============================================================================
 //
@@ -105,35 +132,35 @@ if (file_exists('installation.php')) {
 
 // Instantiate primary classes (used by other classes)
 //
-$DB  = new DB($CONF['db_server'], $CONF['db_name'], $CONF['db_user'], $CONF['db_pass']);
-$C   = new Config($CONF, $DB);
+$DB = new DB($CONF['db_server'], $CONF['db_name'], $CONF['db_user'], $CONF['db_pass']);
+$C = new Config($CONF, $DB);
 
 //
 // Instantiate secondary classes
 //
-$G    = new Groups($CONF, $DB);
-$L    = new Login();
-$LOG  = new Log();
-$MSG  = new Messages();
-$P    = new Permissions();
-$RO   = new Roles();
-$U    = new Users();
-$UG   = new UserGroup();
-$UL   = new Users(); // For the currently logged in user
+$G = new Groups($CONF, $DB);
+$L = new Login();
+$LOG = new Log();
+$MSG = new Messages();
+$P = new Permissions();
+$RO = new Roles();
+$U = new Users();
+$UG = new UserGroup();
+$UL = new Users(); // For the currently logged in user
 $UMSG = new UserMessage();
-$UO   = new UserOption();
+$UO = new UserOption();
 
 //
 // Custom classes
 //
-$A    = new Absences();
-$AG   = new AbsenceGroup();
-$AL   = new Allowances();
-$D    = new Daynotes();
-$H    = new Holidays();
-$M    = new Months();
-$R    = new Regions();
-$T    = new Templates();
+$A = new Absences();
+$AG = new AbsenceGroup();
+$AL = new Allowances();
+$D = new Daynotes();
+$H = new Holidays();
+$M = new Months();
+$R = new Regions();
+$T = new Templates();
 
 //=============================================================================
 //
@@ -227,7 +254,8 @@ if (L_USER and (!isset($_GET['action']) or isset($_GET['action']) and $_GET['act
 // COMPARE LANGUAGES
 // Set condition to true for debug
 //
-if (false) {
+$checkLanguages = false;
+if ($checkLanguages) {
     $lang1 = "english";
     $lang2 = "deutsch";
 
@@ -270,7 +298,7 @@ if (!strlen($language)) $language = 'english';
 require_once(WEBSITE_ROOT . '/languages/' . $language . '.php');     // Framework
 require_once(WEBSITE_ROOT . '/languages/' . $language . '.app.php'); // Application
 
-$AV   = new Avatar($LANG);
+$AV = new Avatar($LANG);
 
 //=============================================================================
 //

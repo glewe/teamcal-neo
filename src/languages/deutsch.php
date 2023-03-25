@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * German Framework   Strings
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -238,6 +238,10 @@ $LANG['alert_reg_mismatch'] = 'Der Verfizierungscode stimmt nicht mit dem &uuml;
 $LANG['alert_reg_no_user'] = 'Der Benutzername konnte nicht gefunden werden. Wurde er registriert?';
 $LANG['alert_reg_no_vcode'] = 'Ein Verfizierungscode konnte nicht gefunden werden. Wurde bereits verifiziert? Kontaktiere den Administrator.';
 
+$LANG['alert_secret_exists_subject'] = 'Zwei Faktor Authentifizierung Existiert';
+$LANG['alert_secret_exists_text'] = 'Eine zwei Faktor Authentifizierung existiert bereits f&uuml;r dein Konto.';
+$LANG['alert_secret_exists_help'] = 'Aus Sicherheitsgr&uuml;nden kann nur ein Administrator diese entfernen, damit du ein neues "Onboarding" vornehmen kannst. Bitte kontaktiere deinen Administrator.';
+
 $LANG['alert_upl_csv_subject'] = 'CSV Datei Hochladen';
 $LANG['alert_upl_doc_subject'] = 'Dokumente Hochladen';
 $LANG['alert_upl_img_subject'] = 'Bilder Hochladen';
@@ -324,6 +328,8 @@ $LANG['btn_refresh'] = 'Aktualisieren';
 $LANG['btn_role_list'] = 'Rollenliste';
 $LANG['btn_register'] = 'Registrieren';
 $LANG['btn_remove'] = 'Entfernen';
+$LANG['btn_remove_secret'] = 'Secret Entfernen';
+$LANG['btn_remove_secret_selected'] = 'Auswahl 2FA entfernen';
 $LANG['btn_repair'] = 'Reparieren';
 $LANG['btn_reset'] = 'Zur&uuml;cksetzen';
 $LANG['btn_reset_database'] = 'Datenbank zur&uuml;cksetzen';
@@ -336,6 +342,7 @@ $LANG['btn_save'] = 'Speichern';
 $LANG['btn_search'] = 'Suchen';
 $LANG['btn_select'] = 'Ausw&auml;hlen';
 $LANG['btn_send'] = 'Senden';
+$LANG['btn_setup2fa'] = '2FA Einrichten';
 $LANG['btn_shares'] = 'Teilen...';
 $LANG['btn_show_hide'] = 'Anzeigen/Verbergen';
 $LANG['btn_submit'] = 'Abschicken';
@@ -345,6 +352,7 @@ $LANG['btn_transfer'] = '&Uuml;bertragen';
 $LANG['btn_update'] = 'Aktualisieren';
 $LANG['btn_user_list'] = 'Benutzerliste';
 $LANG['btn_upload'] = 'Hochladen';
+$LANG['btn_verify'] = 'Verifizieren';
 $LANG['btn_view'] = 'Anzeigen';
 
 //
@@ -428,6 +436,9 @@ $LANG['config_footerSocialLinks_comment'] = 'Gebe alle URLs zu sozialen Netzwerk
       TeamCal Neo wird die Netzwerke identifizieren und die entsprechende Icons in der Fu&szlig;zeile anzeigen.';
 $LANG['config_footerViewport'] = 'Viewport-Gr&ouml;&szlig;e anzeigen';
 $LANG['config_footerViewport_comment'] = 'Mit dieser Option wird im Footer die Viewport-Gr&ouml;&szlig; angezeigt.';
+$LANG['config_forceTfa'] = 'Zwei Faktor Authentifizierung Pflicht';
+$LANG['config_forceTfa_comment'] = 'Verlangt, dass alle Nutzer eine Zwei Faktor Authentifizierung einrichten, z.B. mit Google oder Microsoft Authenticator. Wenn ein Nutzer noch keine 2FA eingerichtet hat,
+wird er nach dem regul&auml;ren Login auf die entsprechende Seite umgeleitet.';
 
 $LANG['config_gdprController'] = 'Verantwortlicher';
 $LANG['config_gdprController_comment'] = 'Verantwortlicher im Sinne der Datenschutz-Grundverordnung, sonstiger in den Mitgliedstaaten der Europäischen Union geltenden Datenschutzgesetze und anderer Bestimmungen mit datenschutzrechtlichem Charakter.';
@@ -829,11 +840,15 @@ $LANG['log_sort_desc'] = 'Absteigend sortieren...';
 $LANG['login_login'] = $appTitle . ' Login';
 $LANG['login_username'] = 'Benutzername:';
 $LANG['login_password'] = 'Passwort:';
+$LANG['login_authcode'] = 'Authenticator Code:';
+$LANG['login_authcode_comment'] = 'Wenn du einen zweiten Faktor f&uuml;r die Authentifizierung eingerichtet hast, gib den Authenticator Code hier ein.';
 $LANG['login_error_0'] = 'Login erfolgreich';
-$LANG['login_error_1'] = 'Benutzername oder Passwort nicht angegeben';
-$LANG['login_error_1_text'] = 'Bitte gebe einen g&uuml;tigen Benutzernamen und Passwort an.';
+$LANG['login_error_1'] = 'Benutzername, Passwort oder Authenticator Code nicht angegeben';
+$LANG['login_error_1_text'] = 'Bitte gebe einen g&uuml;tigen Benutzernamen und Passwort an, ggfls auch einen g&uuml;tigen Authenticator Code.';
 $LANG['login_error_2'] = 'Benutzername unbekannt';
 $LANG['login_error_2_text'] = 'Der eingegebene Benutzername ist unbekannt. Bitte versuche es erneut.';
+$LANG['login_error_2fa'] = 'Falscher Authentication Code';
+$LANG['login_error_2fa_text'] = 'Der Authentication Code stimmt nicht &uuml;berein.';
 $LANG['login_error_3'] = 'Konto deaktiviert';
 $LANG['login_error_3_text'] = 'Dieses Konto ist gesperrt bzw. noch nicht best&aum;tigt. Bitte kontaktiere den Administrator.';
 $LANG['login_error_4'] = 'Passwort falsch';
@@ -1076,6 +1091,10 @@ $LANG['profile_tab_groups'] = 'Gruppen';
 $LANG['profile_tab_notifications'] = 'Benachrichtigungen';
 $LANG['profile_tab_password'] = 'Passwort';
 $LANG['profile_tab_personal'] = 'Person';
+$LANG['profile_tab_tfa'] = '2FA';
+
+$LANG['profile_2fa_optional'] = 'TeamCal Neo erlaubt das Einrichten eines zweiten Faktors f&uuml;r die Authentifizierung, z.B. mit dem Google oder Microsoft Authenticator auf deinem mobilen Ger&auml;t.<br> 
+Klicke den Button unten um den Onboarding Prozess zu starten. (Dies kann nur vom Benutzer selbst ausgef&uuml;hrt werden.)';
 
 $LANG['profile_alert_archive_user'] = 'Der Nutzer wurde archiviert.';
 $LANG['profile_alert_archive_user_failed'] = 'Der Benutzer existiert bereits im Archiv. Das kann der gleiche Benutzer oder einer mit selbem Benutzernamen sein.<br>Bitte l&ouml;sche den archivierten Benutzer zuerst.';
@@ -1158,6 +1177,9 @@ $LANG['profile_position'] = 'Position';
 $LANG['profile_position_comment'] = '';
 $LANG['profile_region'] = 'Region';
 $LANG['profile_region_comment'] = 'Hier kann die Region gew&auml;hlt werden, zu der dieser Benutzer geh&ouml;hrt.';
+$LANG['profile_remove2fa'] = '2FA entfernen';
+$LANG['profile_remove2fa_comment'] = 'Du hast bereits eine Authenticator App als zweiten Faktor registriert. Aus Sicherheitsgr&uuml;nden sind die Onboarding Details nicht mehr verf&uuml;gbar. 
+Wenn dieser zweite Faktor entfernt werden soll, z.B. wenn du ein neues mobiles Ger&auml;t einrichtest, ticke diese Box und aktualisiere dein Profil. Der Onboarding Link wird danach hier angezeigt.';
 $LANG['profile_role'] = 'Rolle';
 $LANG['profile_role_comment'] = 'Hier kann die Rolle gew&auml;hlt werden, die dieser Benutzer einnehmen soll. Damit sind bestimmte Berechtigungen verkn&uuml;pft.';
 $LANG['profile_skype'] = 'Skype';
@@ -1238,6 +1260,21 @@ $LANG['roles_description'] = 'Beschreibung';
 $LANG['roles_name'] = 'Name';
 
 //
+// Setup 2FA
+//
+$LANG['setup2fa_title'] = 'Zwei Faktor Authentifizierung einrichten f&uuml;r:';
+$LANG['setup2fa_alert_input'] = 'Bitte gib einen sechstelligen numerischen Wert in das Code Feld ein.';
+$LANG['setup2fa_alert_input_help'] = 'Aus Sicherheitsgr&uuml;nden ist der vorherige generierte Barcode und Sicherheitscode nicht mehr g&uuml;ltig. 
+Solltest du einen Eintrag damit in deiner Authenticator App angelegt haben, kannst diesen l&ouml;schen und mit den neuen Informationen auf dieser Seite einen neuen Eintrag anlegen.';
+$LANG['setup2fa_alert_mismatch'] = 'Der eingegebene Code ist nicht korrekt.';
+$LANG['setup2fa_alert_success'] = 'Deine Zwei Faktor Authentifizierung wurde erfolgreich eingerichtet. Du kannst dich nun erneut mit 2FA einloggen.';
+$LANG['setup2fa_comment'] = 'F&uuml;ge einen neuen Eintrag in deiner Authenticator App hinzu, indem du den Barcode einscannst (falls einer angezeigt wird) oder durch manuelle Eingabe des angezeigten Sicherheitscodes. 
+Nach Hinzuf&uuml;gen des Eintrages gib den n&auml;chsten generierten Code deiner App in das Feld unten ein und klicke auf Verifizieren.';
+$LANG['setup2fa_required_comment'] = 'Der Administrator hat konfiguriert, dass eine Zwei Faktor Authentifizierung zum Login erforderlich ist. Hier kannst du den Onboarding Prozess durchf&uuml;hren.
+Dazu ben&ouml;tigst du ein mobiles Ger&auml;t und eine Authenticator App wie Google Authenticator oder Microsoft Authenticator.';
+$LANG['setup2fa_totp'] = 'Dein Authenticator Code<br><i>(sechsstellig, numerisch)</i>';
+
+//
 // Status Bar
 //
 $LANG['status_logged_in'] = 'Du bist eingeloggt als ';
@@ -1274,6 +1311,7 @@ $LANG['users_title'] = 'Benutzerkonten';
 $LANG['users_alert_archive_selected_users'] = 'Die ausgew&auml;hlten Nutzer wurden archiviert.';
 $LANG['users_alert_archive_selected_users_failed'] = 'Ein oder mehr Benutzer existieren bereits im Archive. Das kann der gleiche Benutzer oder einer mit selbem Benutzernamen sein.<br>Bitte l&ouml;sche diese archivierten Benutzer zuerst.';
 $LANG['users_alert_delete_selected_users'] = 'Die ausgew&auml;hlten Nutzer wurden gel&ouml;scht.';
+$LANG['users_alert_remove_secret_selected'] = 'Die 2FA Secrets der ausgew&auml;hlten Nutzer wurden entfernt.';
 $LANG['users_alert_reset_password_selected'] = 'Die Passw&ouml;rter der ausgew&auml;hlten Nutzer wurden zur&uuml;ckgesetzt und eine entsprechende e-Mail an sie versendet.';
 $LANG['users_alert_restore_selected_users'] = 'Die ausgew&auml;hlten Nutzer wurden wiederhergestellt.';
 $LANG['users_alert_restore_selected_users_failed'] = 'Ein oder mehr Benutzer existieren bereits als aktive Benutzer. Das kann der gleiche Benutzer oder einer mit selbem Benutzernamen sein.<br>Bitte l&ouml;sche diese aktiven Benutzer zuerst.';
@@ -1281,11 +1319,13 @@ $LANG['users_attributes'] = 'Attribute';
 $LANG['users_attribute_locked'] = 'Konto gesperrt';
 $LANG['users_attribute_hidden'] = 'Konto verborgen';
 $LANG['users_attribute_onhold'] = 'Konto tempor&auml;r gesperrt';
+$LANG['users_attribute_secret'] = '2FA eingerichtet';
 $LANG['users_attribute_verify'] = 'Konto zu verifizieren';
 $LANG['users_confirm_archive'] = 'Bist du sicher, dass du die ausgew&auml;hlten Nutzer archivieren m&ouml;chtest?';
 $LANG['users_confirm_delete'] = 'Bist du sicher, dass du die ausgew&auml;hlten Nutzer l&ouml;schen m&ouml;chtest?';
 $LANG['users_confirm_password'] = 'Bist du sicher, dass du die Passw&ouml;rter der ausgew&auml;hlten Nutzer zur&uuml;cksetzen m&ouml;chtest?';
 $LANG['users_confirm_restore'] = 'Bist du sicher, dass du die ausgew&auml;hlten Nutzer wieder aktivieren m&ouml;chtest?';
+$LANG['users_confirm_secret'] = 'Bist du sicher, dass du die 2FA Secrets der ausgew&auml;hlten Nutzer entfernen m&ouml;chtest? Die Nutzer k&ouml;nnen/m&uuml;ssen den Onboarding Prozess dann wiederholen.';
 $LANG['users_created'] = 'Erstellt';
 $LANG['users_last_login'] = 'Letztes Login';
 $LANG['users_tab_active'] = 'Aktive Nutzer';

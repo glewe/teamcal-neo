@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * Users Controller
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -254,6 +254,32 @@ if (!empty($_POST)) {
             $alertData['title'] = $LANG['alert_success_title'];
             $alertData['subject'] = $LANG['btn_reset_password_selected'];
             $alertData['text'] = $LANG['users_alert_reset_password_selected'];
+            $alertData['help'] = '';
+        }
+        // ,------------,
+        // | Remove 2FA |
+        // '------------'
+        else if (isset($_POST['btn_userRemoveSecret']) and isset($_POST['chk_userActive'])) {
+            $selected_users = $_POST['chk_userActive'];
+            foreach ($selected_users as $su => $value) {
+                //
+                // Find user and reset password
+                //
+                $U->findByName($value);
+                $UO->deleteUserOption($U->username, 'secret');
+                //
+                // Log this event
+                //
+                $LOG->log("logUser", L_USER, "log_user_2fa_removed", $U->username);
+            }
+            //
+            // Success
+            //
+            $showAlert = TRUE;
+            $alertData['type'] = 'success';
+            $alertData['title'] = $LANG['alert_success_title'];
+            $alertData['subject'] = $LANG['btn_remove_secret_selected'];
+            $alertData['text'] = $LANG['users_alert_remove_secret_selected'];
             $alertData['help'] = '';
         }
     } else {
