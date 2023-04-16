@@ -3,6 +3,7 @@ TEAMCAL NEO UPGRADE INFO
 ==============================================================================
 
 [3.6.0] -> [3.7.0]
+0. Recommended PHP version: 8.1
 
 1. Backup your current files and database!
 
