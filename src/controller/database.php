@@ -35,7 +35,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 $alertData = array();
 $showAlert = false;
 $licExpiryWarning = $C->read('licExpiryWarning');
-$LIC  = new License();
+$LIC = new License();
 $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 
 //=============================================================================
@@ -112,11 +112,13 @@ if (!empty($_POST)) {
             }
 
             if (isset($_POST['chk_cleanMonths'])) {
-                $result = $M->deleteBefore(substr($_POST['txt_cleanBefore'], 0, 4), substr($_POST['txt_cleanBefore'], 4, 2));
+                $param1 = substr($_POST['txt_cleanBefore'], 0, 4);
+                $param2 = substr($_POST['txt_cleanBefore'], 5, 2);
+                $result = $M->deleteBefore($param1, $param2);
             }
 
             if (isset($_POST['chk_cleanTemplates'])) {
-                $result = $T->deleteBefore(substr($_POST['txt_cleanBefore'], 0, 4), substr($_POST['txt_cleanBefore'], 4, 2));
+                $result = $T->deleteBefore(substr($_POST['txt_cleanBefore'], 0, 4), substr($_POST['txt_cleanBefore'], 5, 2));
             }
 
             //
@@ -292,7 +294,6 @@ if (!empty($_POST)) {
         // '----------'
         else if (isset($_POST['btn_reset']) and $_POST['txt_dbResetString'] == "YesIAmSure") {
             $query = file_get_contents("sql/sample.sql");
-
             //
             // Replace prefix in sample file
             //
@@ -306,13 +307,11 @@ if (!empty($_POST)) {
             //
             $result = $DB->db->exec($query);
 
-
             if ($result) {
                 //
                 // Log this event
                 //
                 $LOG->log("logDatabase", L_USER, "log_db_reset");
-
                 //
                 // Success
                 //

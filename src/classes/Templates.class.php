@@ -362,10 +362,8 @@ class Templates
      */
     public function deleteBefore($year = '', $month = '')
     {
-        $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year < :val1 OR (year = :val1 AND month <= :val2)');
-        $query->bindParam('val1', $year);
         $month = sprintf("%02d", $month);
-        $query->bindParam('val2', $month);
+        $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year < ' . $year . ' OR (year = ' . $year . ' AND month <= ' . $month . ')');
         $result = $query->execute();
         return $result;
     }

@@ -1,10 +1,11 @@
 <?php
 if (!defined('VALID_ROOT')) exit('');
+
 /**
  * Months
  *
  * This class provides methods and properties for months.
- * 
+ *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
@@ -119,6 +120,7 @@ class Months
     private $table = '';
 
     // ---------------------------------------------------------------------
+
     /**
      * Constructor
      */
@@ -130,6 +132,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Deletes all templates before (and including) a given year/month
      *
@@ -158,6 +161,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Creates a template from local variables
      *
@@ -201,6 +205,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Deletes all records
      *
@@ -221,6 +226,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Deletes all templates before (and including) a given year/month
      *
@@ -230,15 +236,14 @@ class Months
      */
     public function deleteBefore($year, $month)
     {
-        $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year < :val1 OR (year = :val1 AND month <= :val2)');
-        $query->bindParam('val1', $year);
         $month = sprintf("%02d", $month);
-        $query->bindParam('val2', $month);
+        $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year < ' . $year . ' OR (year = ' . $year . ' AND month <= ' . $month . ')');
         $result = $query->execute();
         return $result;
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Deletes all templates for a given year/month combo
      *
@@ -257,6 +262,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Deletes all templates for a region
      *
@@ -272,6 +278,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Deletes a template by region, year and month
      *
@@ -292,6 +299,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Gets the holiday ID of a given region, year, month and day
      *
@@ -318,6 +326,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Gest a template by region, year and month
      *
@@ -354,6 +363,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Gest all templates for a given region ID
      *
@@ -375,6 +385,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Gets the weeknumber of a given region, year, month and day
      *
@@ -400,6 +411,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Gets the weekday of a given region, year, month and day
      *
@@ -425,6 +437,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Sets a holiday for a given year, month, day and region
      *
@@ -448,6 +461,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Sets a weekday for a given year, month, day and region
      *
@@ -471,6 +485,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Sets a week number for a given year, month, day and region
      *
@@ -494,6 +509,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Updates a template for a given region, year and month
      *
@@ -529,6 +545,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Replaces a holiday ID in all templates.
      *
@@ -560,6 +577,7 @@ class Months
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Optimize table
      *
