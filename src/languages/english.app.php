@@ -369,6 +369,8 @@ $LANG['calopt_showUserRegion_comment'] = 'If this option is on, the calendar wil
       Check it out and pick your choice.';
 $LANG['calopt_showWeekNumbers'] = 'Show Week Numbers';
 $LANG['calopt_showWeekNumbers_comment'] = 'Checking this option will add a line to the calendar display showing the week of the year number.';
+$LANG['calopt_sortByOrderKey'] = 'User Order Key';
+$LANG['calopt_sortByOrderKey_comment'] = 'With this option on, the users in the calendar will be sorted by their order key instead of their lastname. The order key is an optional field in the user profile.';
 $LANG['calopt_statsDefaultColorAbsences'] = 'Default Color Absence Statistics';
 $LANG['calopt_statsDefaultColorAbsences_comment'] = 'Select the default color for this stattistics page.';
 $LANG['calopt_statsDefaultColorAbsencetype'] = 'Default Color Absence Type Statistics';

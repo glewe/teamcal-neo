@@ -369,6 +369,8 @@ $LANG['calopt_showUserRegion_comment'] = 'Mit dieser Option zeigt der Kalender i
       werden, je nach Anzahl Nutzer und Regionen. Probier es aus.';
 $LANG['calopt_showWeekNumbers'] = 'Wochennummern anzeigen';
 $LANG['calopt_showWeekNumbers_comment'] = 'Mit dieser Option wird im Kalender eine Zeile mit den Nummern der Kalenderwochen hinzugef&uuml;gt.';
+$LANG['calopt_sortByOrderKey'] = 'Sortierschl&uuml;ssel benutzen';
+$LANG['calopt_sortByOrderKey_comment'] = 'Mit dieser Option werden die Benutzer im Kalender nicht nach Nachname sondern nach deren Sortierschl&uuml;ssel sortiert. Der Sortierschl&uuml;ssel ist ein optionales Feld im Benutzerprofil.';
 $LANG['calopt_statsDefaultColorAbsences'] = 'Standardfarbe der Abwesenheitsstatistik';
 $LANG['calopt_statsDefaultColorAbsences_comment'] = 'W&auml;hle die Standardfarbe f&uuml;r diese Statistik aus.';
 $LANG['calopt_statsDefaultColorAbsencetype'] = 'Standardfarbe der Abwesenheitstypstatistik';

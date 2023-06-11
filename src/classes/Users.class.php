@@ -20,6 +20,7 @@ class Users
     public $firstname = '';
     public $lastname = '';
     public $email = '';
+    public $order_key = '';
     public $role = 2;
     public $locked = 0;
     public $hidden = 0;
@@ -47,6 +48,7 @@ class Users
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Needed for PDO:errorCode()
         $this->table = $CONF['db_table_users'];
         $this->archive_table = $CONF['db_table_archive_users'];
+        $this->config_table = $CONF['db_table_config'];
     }
 
     // ---------------------------------------------------------------------
@@ -150,7 +152,7 @@ class Users
         //          )';
         //       print $q;
 
-        $stmt = 'INSERT INTO ' . $this->table . ' (username, password, firstname, lastname, email, role, locked, hidden, onhold, verify, bad_logins, grace_start, last_pw_change, last_login, created) ';
+        $stmt = 'INSERT INTO ' . $this->table . ' (username, password, firstname, lastname, email, order_key, role, locked, hidden, onhold, verify, bad_logins, grace_start, last_pw_change, last_login, created) ';
         $stmt .= 'VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12, :val13, :val14, :val15)';
 
         $query = $this->db->prepare($stmt);
@@ -160,16 +162,17 @@ class Users
         $query->bindParam('val3', $this->firstname);
         $query->bindParam('val4', $this->lastname);
         $query->bindParam('val5', $this->email);
-        $query->bindParam('val6', $this->role);
-        $query->bindParam('val7', $this->locked);
-        $query->bindParam('val8', $this->hidden);
-        $query->bindParam('val9', $this->onhold);
-        $query->bindParam('val10', $this->verify);
-        $query->bindParam('val11', $this->bad_logins);
-        $query->bindParam('val12', $this->grace_start);
-        $query->bindParam('val13', $this->last_pw_change);
-        $query->bindParam('val14', $this->last_login);
-        $query->bindParam('val15', $this->created);
+        $query->bindParam('val6', $this->order_key);
+        $query->bindParam('val7', $this->role);
+        $query->bindParam('val8', $this->locked);
+        $query->bindParam('val9', $this->hidden);
+        $query->bindParam('val10', $this->onhold);
+        $query->bindParam('val11', $this->verify);
+        $query->bindParam('val12', $this->bad_logins);
+        $query->bindParam('val13', $this->grace_start);
+        $query->bindParam('val14', $this->last_pw_change);
+        $query->bindParam('val15', $this->last_login);
+        $query->bindParam('val16', $this->created);
 
         $result = $query->execute();
         return $result;
@@ -260,6 +263,7 @@ class Users
             $this->firstname = $row['firstname'];
             $this->lastname = $row['lastname'];
             $this->email = $row['email'];
+            $this->order_key = $row['order_key'];
             $this->role = $row['role'];
             $this->locked = $row['locked'];
             $this->hidden = $row['hidden'];
@@ -294,6 +298,7 @@ class Users
             $this->firstname = $row['firstname'];
             $this->lastname = $row['lastname'];
             $this->email = $row['email'];
+            $this->order_key = $row['order_key'];
             $this->role = $row['role'];
             $this->locked = $row['locked'];
             $this->hidden = $row['hidden'];
@@ -322,6 +327,11 @@ class Users
      */
     public function getAll($order1 = 'lastname', $order2 = 'firstname', $sort = 'ASC', $archive = false, $includeAdmin = false)
     {
+        if ($this->_use_order_key()) {
+            $order1 = 'order_key';
+            $order2 = 'lastname';
+        }
+
         $records = array();
 
         if ($archive) {
@@ -386,6 +396,11 @@ class Users
      */
     public function getAllButHidden($order1 = 'lastname', $order2 = 'firstname', $sort = 'ASC', $archive = false, $includeAdmin = false)
     {
+        if ($this->_use_order_key()) {
+            $order1 = 'order_key';
+            $order2 = 'lastname';
+        }
+
         $records = array();
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -733,16 +748,17 @@ class Users
         `firstname` = :val3,
         `lastname` = :val4,
         `email` = :val5,
-        `role` = :val6,
-        `locked` = :val7,
-        `hidden` = :val8,
-        `onhold` = :val9,
-        `verify` = :val10,
-        `bad_logins` = :val11,
-        `grace_start` = :val12,
-        `last_pw_change` = :val13,
-        `last_login` = :val14,
-        `created` = :val15 WHERE `username` = :val16");
+        `order_key` = :val6,
+        `role` = :val7,
+        `locked` = :val8,
+        `hidden` = :val9,
+        `onhold` = :val10,
+        `verify` = :val11,
+        `bad_logins` = :val12,
+        `grace_start` = :val13,
+        `last_pw_change` = :val14,
+        `last_login` = :val15,
+        `created` = :val16 WHERE `username` = :val17");
 
         if (!$query) {
             echo "\n<pre><b>MySQL Statment Error:</b></pre>\n";
@@ -754,17 +770,18 @@ class Users
         $query->bindParam('val3', $this->firstname);
         $query->bindParam('val4', $this->lastname);
         $query->bindParam('val5', $this->email);
-        $query->bindParam('val6', $this->role);
-        $query->bindParam('val7', $this->locked);
-        $query->bindParam('val8', $this->hidden);
-        $query->bindParam('val9', $this->onhold);
-        $query->bindParam('val10', $this->verify);
-        $query->bindParam('val11', $this->bad_logins);
-        $query->bindParam('val12', $this->grace_start);
-        $query->bindParam('val13', $this->last_pw_change);
-        $query->bindParam('val14', $this->last_login);
-        $query->bindParam('val15', $this->created);
-        $query->bindParam('val16', $username);
+        $query->bindParam('val6', $this->order_key);
+        $query->bindParam('val7', $this->role);
+        $query->bindParam('val8', $this->locked);
+        $query->bindParam('val9', $this->hidden);
+        $query->bindParam('val10', $this->onhold);
+        $query->bindParam('val11', $this->verify);
+        $query->bindParam('val12', $this->bad_logins);
+        $query->bindParam('val13', $this->grace_start);
+        $query->bindParam('val14', $this->last_pw_change);
+        $query->bindParam('val15', $this->last_login);
+        $query->bindParam('val16', $this->created);
+        $query->bindParam('val17', $username);
 
         // $query = "UPDATE ".$this->table." SET 
         // `username` = '".$this->username."',
@@ -810,5 +827,22 @@ class Users
         $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->archive_table);
         $result = $query->execute();
         return $result;
+    }
+
+    // ---------------------------------------------------------------------
+    /**
+     * Optimize table
+     *
+     * @return boolean Query result
+     */
+    private function _use_order_key()
+    {
+        $query = $this->db->prepare("SELECT value FROM " . $this->config_table . " WHERE `name` = 'sortByOrderKey'");
+        $result = $query->execute();
+        if ($result and $row = $query->fetch()) {
+            return $row['value'];
+        } else {
+            return false;
+        }
     }
 }

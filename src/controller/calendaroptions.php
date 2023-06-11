@@ -91,6 +91,8 @@ if (isset($_POST['btn_caloptApply'])) {
     if (isset($_POST['chk_regionalHolidays']) && $_POST['chk_regionalHolidays']) $C->save("regionalHolidays", "1");
     else $C->save("regionalHolidays", "0");
     $C->save("regionalHolidaysColor", sanitize($_POST['txt_regionalHolidaysColor']));
+    if (isset($_POST['chk_sortByOrderKey']) && $_POST['chk_sortByOrderKey']) $C->save("sortByOrderKey", "1");
+    else $C->save("sortByOrderKey", "0");
 
     //
     // Filter
@@ -197,6 +199,7 @@ $caloptData['display'] = array(
     array('prefix' => 'calopt', 'name' => 'showMonths', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("showMonths"), 'maxlength' => '2'),
     array('prefix' => 'calopt', 'name' => 'regionalHolidays', 'type' => 'check', 'values' => '', 'value' => $C->read("regionalHolidays")),
     array('prefix' => 'calopt', 'name' => 'regionalHolidaysColor', 'type' => 'color', 'value' => $C->read("regionalHolidaysColor"), 'maxlength' => '6'),
+    array('prefix' => 'calopt', 'name' => 'sortByOrderKey', 'type' => 'check', 'values' => '', 'value' => $C->read("sortByOrderKey")),
 );
 
 //

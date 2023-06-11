@@ -97,6 +97,7 @@ if (!empty($_POST)) {
         if (!formInputValid('txt_title', 'alpha_numeric_dash_blank_dot')) $inputError = true;
         if (!formInputValid('txt_position', 'alpha_numeric_dash_blank')) $inputError = true;
         if (!formInputValid('txt_email', 'required|email')) $inputError = true;
+        if (!formInputValid('txt_orderkey', 'alpha_numeric_dash_blank_dot')) $inputError = true;
         if ((isset($_POST['txt_password']) and strlen($_POST['txt_password'])) or (isset($_POST['txt_password2']) and strlen($_POST['txt_password2']))) {
             if (!formInputValid('txt_password', 'pwd' . $C->read('pwdStrength'))) $inputError = true;
             if (!formInputValid('txt_password2', 'required|pwd' . $C->read('pwdStrength'))) $inputError = true;
@@ -131,6 +132,7 @@ if (!empty($_POST)) {
             //
             $UP->lastname = $_POST['txt_lastname'];
             $UP->firstname = $_POST['txt_firstname'];
+            $UP->order_key = $_POST['txt_orderkey'];
             $UO->save($profile, 'title', $_POST['txt_title']);
             $UO->save($profile, 'position', $_POST['txt_position']);
             $UO->save($profile, 'id', $_POST['txt_id']);
@@ -521,6 +523,7 @@ $viewData['personal'] = array(
     array('prefix' => 'profile', 'name' => 'position', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'position'), 'maxlength' => '80', 'error' => (isset($inputAlert['position']) ? $inputAlert['position'] : '')),
     array('prefix' => 'profile', 'name' => 'id', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'id'), 'maxlength' => '80', 'error' => (isset($inputAlert['id']) ? $inputAlert['id'] : '')),
     array('prefix' => 'profile', 'name' => 'gender', 'type' => 'radio', 'values' => array('male', 'female'), 'value' => $UO->read($profile, 'gender')),
+    array('prefix' => 'profile', 'name' => 'orderkey', 'type' => 'text', 'placeholder' => '', 'value' => $UP->order_key, 'maxlength' => '80', 'error' => (isset($inputAlert['orderkey']) ? $inputAlert['orderkey'] : '')),
 );
 
 //

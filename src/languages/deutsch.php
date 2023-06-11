@@ -43,6 +43,7 @@ $LANG['declined'] = 'Abgelehnt';
 $LANG['description'] = 'Beschreibung';
 $LANG['diagram'] = 'Diagramm';
 $LANG['display'] = 'Anzeige';
+$LANG['enter_password'] = 'Passwort eingeben';
 $LANG['event'] = 'Ereignis';
 $LANG['from'] = 'Von';
 $LANG['general'] = 'Allgemein';
@@ -1166,6 +1167,8 @@ $LANG['profile_notifyUserEvents'] = 'Benutzerkonten-Ereignisse';
 $LANG['profile_onhold'] = '<i class="far fa-clock text-warning" style="padding-right: 8px;"></i>Tempor&auml;r gesperrt';
 $LANG['profile_onhold_comment'] = 'Dieser Zustand tritt ein, wenn der Benutzer zu h&auml;ufig ein falsches Passwort eingegeben hat. Dann wirkt die Schonfrist, 
       in der das Konto gesperrt ist. Die L&auml;nge der Schonfrist kann in der Konfiguration eingestellt werden. Hier kann die Schonfrist manuell wieder aufgehoben werden.';
+$LANG['profile_orderkey'] = 'Sortierschl&uuml;ssel';
+$LANG['profile_orderkey_comment'] = 'Du kannst dieses Textfeld benutzen um f&uuml;r diesen Benutzer einen anderen Sortierschl&uuml;ssel als den Nachnamen zu nutzen. Allerdings wird dies nur in der Kalenderansicht angewendet, wenn der Administrator diese Option eingeschaltet hat.';
 $LANG['profile_password'] = 'Passwort';
 $LANG['profile_password_comment'] = 'Hier kann ein neues Passwort eingegeben werden. Wenn das Feld leer bleibt, wird das aktuelle Passwort nicht ver&auml;ndert.<br>
       Erlaubt sind Gro&szlig;- und Kleinbuchstaben, Zahlen und die Sonderzeichen: !@#$%^&amp;*().';

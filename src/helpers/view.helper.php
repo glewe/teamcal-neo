@@ -87,7 +87,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
     }
 
     switch ($data['type']) {
-            /**
+        /**
          * Checkbox
          */
         case 'check':
@@ -107,9 +107,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
             <div class="divider"><hr></div>';
             break;
 
-            /**
-             * Color selection text field
-             */
+        /**
+         * Color selection text field
+         */
         case 'color':
             $formGroup = '
             <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -125,9 +125,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
             <div class="divider"><hr></div>';
             break;
 
-            /**
-             * Date selection text field
-             */
+        /**
+         * Date selection text field
+         */
         case 'date':
             $formGroup = '
             <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -143,9 +143,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
             <div class="divider"><hr></div>';
             break;
 
-            /**
-             * Single select list
-             */
+        /**
+         * Single select list
+         */
         case 'list':
             $style = '';
             $formGroup = '
@@ -168,9 +168,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
             <div class="divider"><hr></div>';
             break;
 
-            /**
-             * Multi select list
-             */
+        /**
+         * Multi select list
+         */
         case 'listmulti':
             $formGroup = '
             <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -189,9 +189,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
             <div class="divider"><hr></div>';
             break;
 
-            /**
-             * Password text field
-             */
+        /**
+         * Password text field
+         */
         case 'password':
             $formGroup = '
             <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -200,15 +200,15 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
                 <span class="text-normal">' . $LANG[$langIdx2] . '</span>
                 </label>
                 <div class="col-lg-' . $colsright . '">
-                <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="password" maxlength="' . $data['maxlength'] . '" value="' . $data['value'] . '" autocomplete="off"' . $disabled . '>
+                <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="password" maxlength="' . $data['maxlength'] . '" value="' . $data['value'] . '" placeholder="' . $LANG['enter_password'] . '" autocomplete="new-password"' . $disabled . '>
                 ' . $button . $error . '</div>
             </div>
             <div class="divider"><hr></div>';
             break;
 
-            /**
-             * Radio box
-             */
+        /**
+         * Radio box
+         */
         case 'radio':
             $formGroup = '
             <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -228,9 +228,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
             <div class="divider"><hr></div>';
             break;
 
-            /**
-             * Securimage
-             */
+        /**
+         * Securimage
+         */
         case 'securimage':
             $langIdx3 = $data['prefix'] . '_' . $data['name'] . '_new';
             $formGroup = '
@@ -248,9 +248,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
             <div class="divider"><hr></div>';
             break;
 
-            /**
-             * Text field
-             */
+        /**
+         * Text field
+         */
         case 'text':
             $formGroup = '
             <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -265,10 +265,10 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
             <div class="divider"><hr></div>';
             break;
 
-            /**
-             * Text Long
-             * Textbox will appear underneath the label in full width.
-             */
+        /**
+         * Text Long
+         * Textbox will appear underneath the label in full width.
+         */
         case 'textlong':
             $formGroup = '
             <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -283,9 +283,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
             <div class="divider"><hr></div>';
             break;
 
-            /**
-             * Textarea
-             */
+        /**
+         * Textarea
+         */
         case 'textarea':
             $formGroup = '
             <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -300,9 +300,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
             <div class="divider"><hr></div>';
             break;
 
-            /**
-             * Textarea CKEditor
-             */
+        /**
+         * Textarea CKEditor
+         */
         case 'ckeditor':
             $formGroup = '
             <div class="form-group" id="form-group-' . $data['name'] . '">
@@ -382,7 +382,7 @@ function createModalBottom($buttonID = '', $buttonColor, $buttonText)
  */
 function iconTooltip($text = 'Tooltip text', $title = '', $position = 'top', $type = 'info', $icon = 'question-circle')
 {
-    if (strlen($title)) $ttText  = "<div class='text-bold' style='padding-top: 4px; padding-bottom: 4px'>" . $title . "</div>";
+    if (strlen($title)) $ttText = "<div class='text-bold' style='padding-top: 4px; padding-bottom: 4px'>" . $title . "</div>";
     $ttText .= "<div class='text-normal'>" . $text . "</div>";
     $html = '<span data-placement="' . $position . '" data-type="' . $type . ' fas fa-' . $icon . ' text-' . $type . '" data-bs-toggle="tooltip" title="' . $ttText . '"></span>';
     return $html;

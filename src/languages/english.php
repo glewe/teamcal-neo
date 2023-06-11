@@ -43,6 +43,7 @@ $LANG['declined'] = 'Declined';
 $LANG['description'] = 'Description';
 $LANG['diagram'] = 'Diagram';
 $LANG['display'] = 'Display';
+$LANG['enter_password'] = 'Enter password';
 $LANG['event'] = 'Event';
 $LANG['from'] = 'From';
 $LANG['general'] = 'General';
@@ -1162,6 +1163,8 @@ $LANG['profile_notifyUserEvents'] = 'User Account Events';
 $LANG['profile_onhold'] = '<i class="far fa-clock text-warning" style="padding-right: 8px;"></i>On hold';
 $LANG['profile_onhold_comment'] = 'This status is applied after a user has entered a wrong password too many times. This causes a grace period in which no login is possible. 
       The grace period can be configured on the configuration page. You can manually release the status here as well.';
+$LANG['profile_orderkey'] = 'Order Key';
+$LANG['profile_orderkey_comment'] = 'You can use this text field to assign a sort value for this user other than the lastname (default). The order key is used to sort users in the calendar view if the administrator has switched that option on.';
 $LANG['profile_password'] = 'Password';
 $LANG['profile_password_comment'] = 'You can enter a new password here. If the field stays empty, the current password will not be changed.<br>
       Allowed are small and capital letters, numbers and the following special characters: !@#$%^&amp;*().';
