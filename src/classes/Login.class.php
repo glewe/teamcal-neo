@@ -17,7 +17,9 @@ class Login
 {
     private $user = '';
     private $bad_logins = 0;
+    private $cookie_name = '';
     private $grace_period = 0;
+    private $hostName = '';
     private $min_pw_length = 0;
     private $pw_strength = 0;
     private $php_self = '';

@@ -31,10 +31,12 @@ class Users
     public $last_pw_change = DEFAULT_TIMESTAMP;
     public $last_login = DEFAULT_TIMESTAMP;
     public $created = DEFAULT_TIMESTAMP;
+    public $bad_logins_start = '';
 
     private $db = '';
     private $table = '';
     private $archive_table = '';
+    private $config_table = '';
 
     // ---------------------------------------------------------------------
     /**
@@ -741,77 +743,75 @@ class Users
      */
     public function update($username)
     {
+        // $query = $this->db->prepare("UPDATE " . $this->table . " SET 
+        // `username` = :val1,
+        // `password` = :val2,
+        // `firstname` = :val3,
+        // `lastname` = :val4,
+        // `email` = :val5,
+        // `order_key` = :val6,
+        // `role` = :val7,
+        // `locked` = :val8,
+        // `hidden` = :val9,
+        // `onhold` = :val10,
+        // `verify` = :val11,
+        // `bad_logins` = :val12,
+        // `grace_start` = :val13,
+        // `last_pw_change` = :val14,
+        // `last_login` = :val15,
+        // `created` = :val16 
+        // WHERE `username` = :val17");
 
-        $query = $this->db->prepare("UPDATE " . $this->table . " SET 
-        `username` = :val1,
-        `password` = :val2,
-        `firstname` = :val3,
-        `lastname` = :val4,
-        `email` = :val5,
-        `order_key` = :val6,
-        `role` = :val7,
-        `locked` = :val8,
-        `hidden` = :val9,
-        `onhold` = :val10,
-        `verify` = :val11,
-        `bad_logins` = :val12,
-        `grace_start` = :val13,
-        `last_pw_change` = :val14,
-        `last_login` = :val15,
-        `created` = :val16 WHERE `username` = :val17");
+        // if (!$query) {
+        //     echo "\n<pre><b>MySQL Statment Error:</b></pre>\n";
+        //     dnd($this->db->errorInfo());
+        // }
 
-        if (!$query) {
-            echo "\n<pre><b>MySQL Statment Error:</b></pre>\n";
-            dnd($this->db->errorInfo());
-        }
+        // $query->bindParam('val1', $this->username);
+        // $query->bindParam('val2', $this->password);
+        // $query->bindParam('val3', $this->firstname);
+        // $query->bindParam('val4', $this->lastname);
+        // $query->bindParam('val5', $this->email);
+        // $query->bindParam('val6', $this->order_key);
+        // $query->bindParam('val7', $this->role);
+        // $query->bindParam('val8', $this->locked);
+        // $query->bindParam('val9', $this->hidden);
+        // $query->bindParam('val10', $this->onhold);
+        // $query->bindParam('val11', $this->verify);
+        // $query->bindParam('val12', $this->bad_logins);
+        // $query->bindParam('val13', $this->grace_start);
+        // $query->bindParam('val14', $this->last_pw_change);
+        // $query->bindParam('val15', $this->last_login);
+        // $query->bindParam('val16', $this->created);
+        // $query->bindParam('val17', $username);
 
-        $query->bindParam('val1', $this->username);
-        $query->bindParam('val2', $this->password);
-        $query->bindParam('val3', $this->firstname);
-        $query->bindParam('val4', $this->lastname);
-        $query->bindParam('val5', $this->email);
-        $query->bindParam('val6', $this->order_key);
-        $query->bindParam('val7', $this->role);
-        $query->bindParam('val8', $this->locked);
-        $query->bindParam('val9', $this->hidden);
-        $query->bindParam('val10', $this->onhold);
-        $query->bindParam('val11', $this->verify);
-        $query->bindParam('val12', $this->bad_logins);
-        $query->bindParam('val13', $this->grace_start);
-        $query->bindParam('val14', $this->last_pw_change);
-        $query->bindParam('val15', $this->last_login);
-        $query->bindParam('val16', $this->created);
-        $query->bindParam('val17', $username);
+        // try {
+        //     $result = $query->execute();
+        //     // dnd($this->db->errorInfo());
+        //     return $result;
+        // } catch (PDOException $e) {
+        //     dnd($e->getMessage());
+        // }
 
-        // $query = "UPDATE ".$this->table." SET 
-        // `username` = '".$this->username."',
-        // `password` = '".$this->password."',
-        // `firstname` = '".$this->firstname."',
-        // `lastname` = '".$this->lastname."',
-        // `email` = '".$this->email."',
-        // `role` = '".$this->role."',
-        // `locked` = '".$this->locked."',
-        // `hidden` = '".$this->hidden."',
-        // `onhold` = '".$this->onhold."',
-        // `verify` = '".$this->verify."',
-        // `bad_logins` = '".$this->bad_logins."',
-        // `grace_start` = '".$this->grace_start."',
-        // `last_pw_change` = '".$this->last_pw_change."',
-        // `last_login` = '".$this->last_login."',
-        // `created` = '".$this->created."' WHERE `username` = '".$username."';";
-        // dnd($query);
+        $result = $this->db->exec("UPDATE " . $this->table . " SET 
+        `username` = '" . $this->username . "',
+        `password` = '" . $this->password . "',
+        `firstname` = '" . $this->firstname . "',
+        `lastname` = '" . $this->lastname . "',
+        `email` = '" . $this->email . "',
+        `role` = '" . $this->role . "',
+        `locked` = '" . $this->locked . "',
+        `hidden` = '" . $this->hidden . "',
+        `onhold` = '" . $this->onhold . "',
+        `verify` = '" . $this->verify . "',
+        `bad_logins` = '" . $this->bad_logins . "',
+        `grace_start` = '" . $this->grace_start . "',
+        `last_pw_change` = '" . $this->last_pw_change . "',
+        `last_login` = '" . $this->last_login . "',
+        `created` = '" . $this->created . "' WHERE `username` = '" . $username . "';");
 
-        // $result = $query->execute();
-
-        try {
-
-            $result = $query->execute();
-            // dnd($this->db->errorInfo());
-            return $result;
-        } catch (PDOException $e) {
-
-            dnd($e->getMessage());
-        }
+        // dnd($result);
+        return $result;
     }
 
     // ---------------------------------------------------------------------
@@ -831,7 +831,7 @@ class Users
 
     // ---------------------------------------------------------------------
     /**
-     * Optimize table
+     * User order key
      *
      * @return boolean Query result
      */
