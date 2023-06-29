@@ -547,18 +547,13 @@ class Templates
 
         if ($result) {
             while ($row = $query->fetch()) {
-                $stmt = "UPDATE " . $this->table . " SET ";
                 for ($i = 1; $i <= 31; $i++) {
                     if ($row['abs' . $i] == $absidold) {
-                        $prop = 'abs' . $i;
-                        $row[$prop] = $absidnew;
-                        $stmt .= $prop . " = '" . $absidnew . "', ";
+                        $stmt = "UPDATE " . $this->table . " SET `abs" . $i ."` = '" . $absidnew . "' WHERE id = '" . $row['id'] . "';";
+                        $query2 = $this->db->prepare($stmt);
+                        $result2 = $query2->execute();
                     }
                 }
-                $stmt = substr($stmt, 0, -2);
-                $stmt .= " WHERE id = '" . $row['id'] . "';";
-                $query2 = $this->db->prepare($stmt);
-                $result2 = $query2->execute();
             }
         }
         return $result;
