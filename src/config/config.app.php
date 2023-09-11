@@ -170,3 +170,4 @@ define('APP_POWERED', "Powered by " . APP_NAME . " " . APP_VER . " &copy; " . AP
 define('APP_LIC_KEY', "5e091d9b9cbf36.90197318");
 define('APP_LIC_SRV', "https://lic.lewe.com");
 define('APP_LIC_ITM', "TeamCal Neo Pro");
+
