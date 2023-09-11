@@ -35,6 +35,7 @@ TEAMCAL NEO UPGRADE INFO
 
 3. Change in your database:
    ALTER TABLE `tcneo_users` ADD `order_key` VARCHAR(80) NOT NULL DEFAULT '0' AFTER `email`;
+   ALTER TABLE `tcneo_archive_users` ADD `order_key` VARCHAR(80) NOT NULL DEFAULT '0' AFTER `email`;
 
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
@@ -82,7 +83,7 @@ TEAMCAL NEO UPGRADE INFO
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory.
 
 
@@ -91,12 +92,12 @@ TEAMCAL NEO UPGRADE INFO
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
- 
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory
 
 
@@ -105,12 +106,12 @@ TEAMCAL NEO UPGRADE INFO
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
- 
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory
 
 
@@ -119,12 +120,12 @@ TEAMCAL NEO UPGRADE INFO
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
- 
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory
 
 
@@ -133,12 +134,12 @@ TEAMCAL NEO UPGRADE INFO
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
- 
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory
 
 
@@ -151,12 +152,12 @@ TEAMCAL NEO UPGRADE INFO
    - themes/bootstrap
 
 3. Download the new release and overwrite all files.
- 
+
 4. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 5. Edit config/config.db.php and update your database settings from your backup.
-   
+
 6. Delete file installation.php in the root directory
 
 
@@ -165,12 +166,12 @@ TEAMCAL NEO UPGRADE INFO
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
- 
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory
 
 
@@ -179,12 +180,12 @@ TEAMCAL NEO UPGRADE INFO
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
- 
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory
 
 
@@ -194,12 +195,12 @@ TEAMCAL NEO UPGRADE INFO
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
- 
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory
 
 
@@ -209,12 +210,12 @@ TEAMCAL NEO UPGRADE INFO
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
- 
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory
 
 
@@ -224,12 +225,12 @@ TEAMCAL NEO UPGRADE INFO
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
- 
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory
 
 
@@ -239,12 +240,12 @@ TEAMCAL NEO UPGRADE INFO
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
- 
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory
 
 
@@ -254,12 +255,12 @@ TEAMCAL NEO UPGRADE INFO
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
- 
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory
 
 
@@ -269,12 +270,12 @@ TEAMCAL NEO UPGRADE INFO
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
- 
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory
 
 
@@ -284,12 +285,12 @@ TEAMCAL NEO UPGRADE INFO
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
- 
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory
 
 
@@ -299,16 +300,16 @@ TEAMCAL NEO UPGRADE INFO
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
- 
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory
 
 6. Database Changes:
-ALTER TABLE `tcneo_groups` ADD `minpresentwe` SMALLINT(6) NOT NULL DEFAULT '0' AFTER `maxabsent`, ADD `maxabsentwe` SMALLINT(6) NOT NULL DEFAULT '9999' AFTER `minpresentwe`; 
+ALTER TABLE `tcneo_groups` ADD `minpresentwe` SMALLINT(6) NOT NULL DEFAULT '0' AFTER `maxabsent`, ADD `maxabsentwe` SMALLINT(6) NOT NULL DEFAULT '9999' AFTER `minpresentwe`;
 
 ------------------------------------------------------------------------------
 [3.0.1] -> [3.1.0]
@@ -316,12 +317,12 @@ ALTER TABLE `tcneo_groups` ADD `minpresentwe` SMALLINT(6) NOT NULL DEFAULT '0' A
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
- 
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory
 
 
@@ -331,12 +332,12 @@ ALTER TABLE `tcneo_groups` ADD `minpresentwe` SMALLINT(6) NOT NULL DEFAULT '0' A
 1. Backup your current files and database!
 
 2. Download the new release and overwrite all files.
- 
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 4. Edit config/config.db.php and update your database settings from your backup.
-   
+
 5. Delete file installation.php in the root directory
 
 
@@ -368,12 +369,12 @@ https://lewe.gitbook.io/teamcal-neo/readme/teamcal-neo-license
 2. Backup your current files and database!
 
 3. Download the new release and overwrite all files.
- 
+
 4. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
 5. Edit config/config.db.php and update your database settings from your backup.
-   
+
 6. Delete file installation.php in the root directory
 
 7. Go to Administration -> Framework Configuration -> License tab

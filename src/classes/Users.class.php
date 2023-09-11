@@ -1,10 +1,11 @@
 <?php
 if (!defined('VALID_ROOT')) exit('');
+
 /**
  * Users
  *
  * This class provides methods and properties for users.
- * 
+ *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
@@ -39,6 +40,7 @@ class Users
     private $config_table = '';
 
     // ---------------------------------------------------------------------
+
     /**
      * Constructor
      */
@@ -54,6 +56,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Archives a user record
      *
@@ -69,6 +72,7 @@ class Users
     }
 
     // ----------------------------------------------------------------------
+
     /**
      * Counts the records
      *
@@ -76,15 +80,16 @@ class Users
      */
     public function count()
     {
-        $result = 0;
         $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
         $result = $query->execute();
         if ($result and $row = $query->fetch()) {
             return $row[0];
         }
+        return 0;
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Reads all user records
      *
@@ -112,6 +117,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Creates a new user record from local variables
      *
@@ -119,41 +125,6 @@ class Users
      */
     public function create()
     {
-        //       $q = 'INSERT INTO ' . $this->table . ' (
-        //             username,
-        //             password,
-        //             firstname,
-        //             lastname,
-        //             email,
-        //             role,
-        //             locked,
-        //             hidden,
-        //             onhold,
-        //             verify,
-        //             bad_logins,
-        //             grace_start,
-        //             last_pw_change,
-        //             last_login,
-        //             created
-        //          ) VALUES (
-        //             "'.$this->username.'",
-        //             "'.$this->password.'",
-        //             "'.$this->firstname.'",
-        //             "'.$this->lastname.'",
-        //             "'.$this->email.'",
-        //             "'.$this->role.'",
-        //             "'.$this->locked.'",
-        //             "'.$this->hidden.'",
-        //             "'.$this->onhold.'",
-        //             "'.$this->verify.'",
-        //             "'.$this->bad_logins.'",
-        //             "'.$this->grace_start.'",
-        //             "'.$this->last_pw_change.'",
-        //             "'.$this->last_login.'",
-        //             "'.$this->created.'"
-        //          )';
-        //       print $q;
-
         $stmt = 'INSERT INTO ' . $this->table . ' (username, password, firstname, lastname, email, order_key, role, locked, hidden, onhold, verify, bad_logins, grace_start, last_pw_change, last_login, created) ';
         $stmt .= 'VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12, :val13, :val14, :val15, :val16)';
 
@@ -181,6 +152,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Deletes all records
      *
@@ -200,6 +172,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Deletes a user record by username
      *
@@ -219,6 +192,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Checks whether a user record exists
      *
@@ -243,6 +217,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Finds a user record by username and fills values into local variables
      *
@@ -282,6 +257,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Finds a user record by token and fills values into local variables
      *
@@ -317,6 +293,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Gets all records into an array
      *
@@ -362,11 +339,12 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Gets all records for a given email address
      *
      * @param string $email Email to find
-     * @return array Array with records
+     * @return array | boolean Array with records
      */
     public function getAllForEmail($email)
     {
@@ -386,6 +364,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Gets all records into an array except hidden users
      *
@@ -425,6 +404,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Gets all records with likeness in username, lastname or firstname
      *
@@ -453,6 +433,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Gets a record for a given username
      *
@@ -479,6 +460,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Gets the E-mail address of a given username
      *
@@ -498,6 +480,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Gets the fullname of a given username
      *
@@ -524,6 +507,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Gets Lastname, Firstname of a given username
      *
@@ -550,6 +534,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Gets the role of a given username
      *
@@ -569,6 +554,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Gets all usernames
      *
@@ -589,6 +575,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Checks whether a user has a certain role
      *
@@ -610,6 +597,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Checks whether a user is hidden
      *
@@ -633,6 +621,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Restore arcived user records
      *
@@ -648,6 +637,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Sets the role ID for a given user
      *
@@ -667,6 +657,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Unhides a user record
      *
@@ -684,6 +675,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Unholds a user record
      *
@@ -701,6 +693,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Unlocks a user record
      *
@@ -718,6 +711,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Unverifies a user record (Sets verify to 0)
      *
@@ -735,6 +729,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Updates an existing user record from local class variables
      *
@@ -743,62 +738,13 @@ class Users
      */
     public function update($username)
     {
-        // $query = $this->db->prepare("UPDATE " . $this->table . " SET 
-        // `username` = :val1,
-        // `password` = :val2,
-        // `firstname` = :val3,
-        // `lastname` = :val4,
-        // `email` = :val5,
-        // `order_key` = :val6,
-        // `role` = :val7,
-        // `locked` = :val8,
-        // `hidden` = :val9,
-        // `onhold` = :val10,
-        // `verify` = :val11,
-        // `bad_logins` = :val12,
-        // `grace_start` = :val13,
-        // `last_pw_change` = :val14,
-        // `last_login` = :val15,
-        // `created` = :val16 
-        // WHERE `username` = :val17");
-
-        // if (!$query) {
-        //     echo "\n<pre><b>MySQL Statment Error:</b></pre>\n";
-        //     dnd($this->db->errorInfo());
-        // }
-
-        // $query->bindParam('val1', $this->username);
-        // $query->bindParam('val2', $this->password);
-        // $query->bindParam('val3', $this->firstname);
-        // $query->bindParam('val4', $this->lastname);
-        // $query->bindParam('val5', $this->email);
-        // $query->bindParam('val6', $this->order_key);
-        // $query->bindParam('val7', $this->role);
-        // $query->bindParam('val8', $this->locked);
-        // $query->bindParam('val9', $this->hidden);
-        // $query->bindParam('val10', $this->onhold);
-        // $query->bindParam('val11', $this->verify);
-        // $query->bindParam('val12', $this->bad_logins);
-        // $query->bindParam('val13', $this->grace_start);
-        // $query->bindParam('val14', $this->last_pw_change);
-        // $query->bindParam('val15', $this->last_login);
-        // $query->bindParam('val16', $this->created);
-        // $query->bindParam('val17', $username);
-
-        // try {
-        //     $result = $query->execute();
-        //     // dnd($this->db->errorInfo());
-        //     return $result;
-        // } catch (PDOException $e) {
-        //     dnd($e->getMessage());
-        // }
-
         $result = $this->db->exec("UPDATE " . $this->table . " SET 
         `username` = '" . $this->username . "',
         `password` = '" . $this->password . "',
         `firstname` = '" . $this->firstname . "',
         `lastname` = '" . $this->lastname . "',
         `email` = '" . $this->email . "',
+        `order_key` = '" . $this->order_key . "',
         `role` = '" . $this->role . "',
         `locked` = '" . $this->locked . "',
         `hidden` = '" . $this->hidden . "',
@@ -810,11 +756,12 @@ class Users
         `last_login` = '" . $this->last_login . "',
         `created` = '" . $this->created . "' WHERE `username` = '" . $username . "';");
 
-        // dnd($result);
+//        dnd($result);
         return $result;
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * Optimize table
      *
@@ -830,6 +777,7 @@ class Users
     }
 
     // ---------------------------------------------------------------------
+
     /**
      * User order key
      *
