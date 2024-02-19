@@ -121,7 +121,7 @@ if (!defined('VALID_ROOT')) exit('');
     <?php if (MAGNIFICPOPUP) { ?>
         <!-- Magnific Popup -->
         <link rel="stylesheet" href="addons/magnific/magnific-popup.css" type="text/css">
-        <script async src="addons/magnific/jquery.magnific-popup.min.js"></script>
+        <script src="addons/magnific/jquery.magnific-popup.min.js"></script>
     <?php } ?>
 
     <?php if (SELECT2) { ?>

@@ -16,7 +16,7 @@ if (!defined('VALID_ROOT')) exit('');
 //
 // APPLICATION LANGUAGE
 // Keep your application language entries separate from the framework language
-// file and add them here. This makes it easier to update the framework at a 
+// file and add them here. This makes it easier to update the framework at a
 // later point.
 //
 
@@ -125,6 +125,7 @@ $LANG['abs_hide_in_profile_comment'] = 'Checking this box defines that regular u
       purposes only or if the remainders are of no interest to regular users.';
 $LANG['abs_icon'] = 'Icon';
 $LANG['abs_icon_comment'] = 'The absence type icon is used in the calendar display.';
+$LANG['abs_icon_keyword'] = 'Enter a keyword...';
 $LANG['abs_manager_only'] = 'Group Manager Only';
 $LANG['abs_manager_only_comment'] = 'Checking this box defines that only group managers can set this absence type. Only if the logged in user is the group manager of
       the user who\'s calendar is being edited will this absence type be available.';

@@ -16,7 +16,7 @@ if (!defined('VALID_ROOT')) exit('');
 //
 // APPLICATION LANGUAGE
 // Keep your application language entries separate from the framework language
-// file and add them here. This makes it easier to update the framework at a 
+// file and add them here. This makes it easier to update the framework at a
 // later point.
 //
 
@@ -125,6 +125,7 @@ $LANG['abs_hide_in_profile_comment'] = 'Dieser Schalter kann benutzt werden, um 
       nur zum Zwecke von Nachverfolgung nutzt oder die verbleibende Anzahl f&uuml;r den normalen Nutzer uninteressant ist.';
 $LANG['abs_icon'] = 'Icon';
 $LANG['abs_icon_comment'] = 'Das Icon wird im Kalender benutzt.';
+$LANG['abs_icon_keyword'] = 'Gib ein Schl&uuml;sselwort ein...';
 $LANG['abs_manager_only'] = 'Nur Gruppen-Manager';
 $LANG['abs_manager_only_comment'] = 'Mit diesem Schalter aktiviert k&ouml;nnen nur Gruppen-Manager diesen Typen setzen. Nur wenn der eingeloggte Benutzer der Gruppem-Manager des Benutzers
       ist, dessen Kalender er bearbeitet, steht dieser Abwesenheitstyp zur Verf&uuml;gung.';

@@ -90,6 +90,16 @@ if (!empty($_POST)) {
         //
         header("Location: index.php?action=" . $controller . "&id=" . $AA->id);
     }
+    // ,--------,
+    // | Filter |
+    // '--------'
+    else if (isset($_POST['btn_fa_filter'])) {
+      $filterString = $_POST['fa_search'];
+      $allIcons = $faIcons;
+      $faIcons = array_filter($allIcons, function ($element) use ($filterString) {
+        return strpos($element, $filterString) !== false;
+      });
+    }
 }
 
 //=============================================================================
@@ -100,10 +110,12 @@ $viewData['id'] = $AA->id;
 $viewData['name'] = $AA->name;
 $viewData['icon'] = $AA->icon;
 
+//dnd($faIcons);
+
 foreach ($faIcons as $faIcon) {
-    if (strstr($faIcon, "fab ")) $viewData['fabIcons'][] = array('val' => $faIcon, 'name' => proper($faIcon), 'selected' => ($AA->icon == $faIcon) ? true : false);
-    if (strstr($faIcon, "far ")) $viewData['farIcons'][] = array('val' => $faIcon, 'name' => proper($faIcon), 'selected' => ($AA->icon == $faIcon) ? true : false);
-    if (strstr($faIcon, "fas ")) $viewData['fasIcons'][] = array('val' => $faIcon, 'name' => proper($faIcon), 'selected' => ($AA->icon == $faIcon) ? true : false);
+    if (strstr($faIcon, "fa-brands ")) $viewData['fabIcons'][] = array('val' => $faIcon, 'name' => proper($faIcon), 'selected' => ($AA->icon == $faIcon) ? true : false);
+    if (strstr($faIcon, "fa-regular ")) $viewData['farIcons'][] = array('val' => $faIcon, 'name' => proper($faIcon), 'selected' => ($AA->icon == $faIcon) ? true : false);
+    if (strstr($faIcon, "fa-solid ")) $viewData['fasIcons'][] = array('val' => $faIcon, 'name' => proper($faIcon), 'selected' => ($AA->icon == $faIcon) ? true : false);
 }
 
 //=============================================================================

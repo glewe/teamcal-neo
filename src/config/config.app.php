@@ -47,7 +47,7 @@ define('COOKIE_NAME', "tcneopro");
  * MANDATORY MODULES
  */
 define('BOOTSTRAP_VER', "5.2.3");
-define('FONTAWESOME_VER', "6.2.1");
+define('FONTAWESOME_VER', "6.5.1");
 define('JQUERY_VER', "3.6.1");
 define('JQUERY_UI_VER', "1.13.2");
 define('SECUREIMAGE_VER', "3.6.4");

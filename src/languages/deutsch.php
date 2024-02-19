@@ -311,6 +311,7 @@ $LANG['btn_download_view'] = 'Runterladen/Anzeigen';
 $LANG['btn_edit'] = 'Editieren';
 $LANG['btn_edit_profile'] = 'Profil bearbeiten';
 $LANG['btn_enable'] = 'Aktivieren';
+$LANG['btn_filter'] = 'Filtern';
 $LANG['btn_export'] = 'Export';
 $LANG['btn_group_list'] = 'Gruppenliste';
 $LANG['btn_help'] = 'Hilfe';

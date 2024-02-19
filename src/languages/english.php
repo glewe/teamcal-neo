@@ -312,6 +312,7 @@ $LANG['btn_edit'] = 'Edit';
 $LANG['btn_edit_profile'] = 'Edit Profile';
 $LANG['btn_enable'] = 'Enable';
 $LANG['btn_export'] = 'Export';
+$LANG['btn_filter'] = 'Filter';
 $LANG['btn_group_list'] = 'Show Group List';
 $LANG['btn_help'] = 'Help';
 $LANG['btn_icon'] = 'Icon...';
