@@ -86,7 +86,7 @@ function absenceThresholdReached($year, $month, $day, $base, $group = '')
  * @param string $year Year for which the requested absences shall be checked
  * @param string $month Month for which the requested absences shall be checked
  * @param array $requestedAbsences Array of the requested absences
- *       
+ *
  * @return array $approvalResult (
  *     boolean approvalResult // none, partial, all
  *     array declinedAbsences
@@ -152,7 +152,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
 
             //
             // Check whether at least one change is not in the past.
-            // We need that info later for not sending notification mails if all 
+            // We need that info later for not sending notification mails if all
             // is in the past.
             //
             $iDate = intval($year . $month . sprintf("%02d", $i));
@@ -218,7 +218,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                         $approvedAbsences[$i] = $currentAbsences[$i];
                     }
                 } else {
-                    // 
+                    //
                     // DECLINATION RULES
                     // Check whether logged in user role is in scope for declination rules
                     //
@@ -662,7 +662,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
 
                 if ((($taken + 1) > $allow and $requestedAbsences[$i] != $currentAbsences[$i]) or countAbsenceRequestedMonth($requestedAbsences, $requestedAbsences[$i]) > $allow) {
                     //
-                    // Absence allowance per year reached AND 
+                    // Absence allowance per year reached AND
                     // the requested absence is not one of the already taken ones (new request)
                     // OR
                     // the total of the requested absences already exceeds the limit
@@ -890,13 +890,13 @@ function countBusinessDays($cntfrom, $cntto, $region = '1', $cntManDays = false)
         $monthInfo = dateInfo($year, $month, '1');
         $lastday = $monthInfo['daysInMonth'];
         if ($yearmonth == $endyearmonth) {
-            // 
+            //
             // This is the last month. Make sure we just read it up to the specified endday.
             //
             if ($endday < $monthInfo['daysInMonth']) $lastday = $endday;
         }
 
-        // 
+        //
         // Now loop through each day of the month
         //
         for ($i = $firstday; $i <= $lastday; $i++) {
