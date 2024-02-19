@@ -13,7 +13,7 @@ if (!defined('VALID_ROOT')) exit('');
  */
 ?>
 
-<!-- ==================================================================== 
+<!-- ====================================================================
 view.users
 -->
 <div class="container content">
@@ -68,7 +68,7 @@ view.users
                             <div class="col-lg-5 text-end">
                                 <br>
                                 <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_search"><?= $LANG['btn_search'] ?></button>
-                                <button type="submit" class="btn btn-default" tabindex="<?= $tabindex++; ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
+                                <button type="submit" class="btn btn-secondary" tabindex="<?= $tabindex++; ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
                                 <a href="index.php?action=useradd" class="btn btn-success" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_create_user'] ?></a>
                                 <a href="index.php?action=userimport" class="btn btn-info" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_import'] ?></a>
                             </div>

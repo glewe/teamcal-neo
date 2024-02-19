@@ -16,7 +16,7 @@ if (!defined('VALID_ROOT')) exit('');
 //
 // LeAF LANGUAGE
 // The following are the Lewe Appliation Framework language entries. To easier
-// update the framework at a later point, go to the bottom of this file to 
+// update the framework at a later point, go to the bottom of this file to
 // enter your application language strings to keep them separate.
 //
 $LANG['locale'] = 'de_DE';
@@ -755,7 +755,7 @@ if ($C->read('googleAnalytics') and $C->read("googleAnalyticsID")) {
          klicken Sie bitte diesen Link</a>, um die Erfassung durch Google Analytics innerhalb dieser Website zuk&uuml;nftig zu verhindern (das Opt Out funktioniert nur in dem Browser
          und nur f&uuml;r diese Domain). Dabei wird ein Opt-Out-Cookie auf Ihrem Ger&auml;t abgelegt. L&ouml;schen Sie Ihre Cookies in diesem Browser, m&uuml;ssen Sie diesen Link erneut klicken.</p>
       </div>
-      <p><a class="btn btn-default" data-bs-toggle="collapse" data-bs-target="#readmore">Mehr/Weniger Details...</a></p>',
+      <p><a class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#readmore">Mehr/Weniger Details...</a></p>',
     );
 }
 
@@ -1341,10 +1341,10 @@ $LANG['users_user'] = 'Nutzer';
 $LANG['imp_title'] = 'CSV Benutzer Import';
 
 $LANG['imp_file'] = 'CSV Datei';
-$LANG['imp_alert_help'] = 'Die Dokumentation zum CSV Import findest du <a href="https://georgelewe.atlassian.net/wiki/display/TCNEO/User+Import" target="_blank">hier</a>.';
+$LANG['imp_alert_help'] = 'Die Dokumentation zum CSV Import findest du <a href="https://lewe.gitbook.io/teamcal-neo/administration/users/user-import" target="_blank">hier</a>.';
 $LANG['imp_alert_success'] = 'CSV Import erfolgreich';
 $LANG['imp_alert_success_text'] = '%s Benutzer wurden erfolgreich importiert.';
-$LANG['imp_file_comment'] = 'Lade eine CSV Datei hoch. Details zum Format findest du <a href="https://georgelewe.atlassian.net/wiki/display/TCNEO/User+Import" target="_blank">hier</a>. 
+$LANG['imp_file_comment'] = 'Lade eine CSV Datei hoch. Details zum Format findest du <a href="https://lewe.gitbook.io/teamcal-neo/administration/users/user-import" target="_blank">hier</a>. 
       Die Gr&ouml;&szlig;e der Datei darf bis zu %d KBytes betragen und kann folgende Formate haben: "%s".';
 $LANG['imp_group'] = 'Gruppe';
 $LANG['imp_group_comment'] = 'W&auml;hle die Gruppe, der die importierten Benutzer zugeordnet werden sollen.';

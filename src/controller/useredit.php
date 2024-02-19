@@ -132,7 +132,11 @@ if (!empty($_POST)) {
             //
             $UP->lastname = $_POST['txt_lastname'];
             $UP->firstname = $_POST['txt_firstname'];
-            $UP->order_key = $_POST['txt_orderkey'];
+            if (isset($_POST['txt_orderkey']) && strlen($_POST['txt_orderkey'])) {
+                $UP->order_key = $_POST['txt_orderkey'];
+            } else {
+                $UP->order_key = '0';
+            }
             $UO->save($profile, 'title', $_POST['txt_title']);
             $UO->save($profile, 'position', $_POST['txt_position']);
             $UO->save($profile, 'id', $_POST['txt_id']);

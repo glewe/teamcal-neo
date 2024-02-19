@@ -13,7 +13,7 @@ if (!defined('VALID_ROOT')) exit('');
  */
 ?>
 
-<!-- ==================================================================== 
+<!-- ====================================================================
 view.year
 -->
 <div class="content container" style="padding-left: 4px; padding-right: 4px;">
@@ -33,7 +33,7 @@ view.year
 
     <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>&amp;year=<?= $viewData['year'] ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>" method="post" target="_self" accept-charset="utf-8">
 
-        <input name="hidden_user" type="hidden" class="text" value="<?= $viewData['user'] ?>">
+        <input name="hidden_user" type="hidden" class="text" value="<?= $viewData['username'] ?>">
         <input name="hidden_year" type="hidden" class="text" value="<?= $viewData['year'] ?>">
         <input name="hidden_region" type="hidden" class="text" value="<?= $viewData['regionid'] ?>">
 

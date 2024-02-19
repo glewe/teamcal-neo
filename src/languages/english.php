@@ -16,7 +16,7 @@ if (!defined('VALID_ROOT')) exit('');
 //
 // LeAF LANGUAGE
 // The following are the Lewe Appliation Framework language entries. To easier
-// update the framework at a later point, go to the bottom of this file to 
+// update the framework at a later point, go to the bottom of this file to
 // enter your application language strings to keep them separate.
 //
 $LANG['locale'] = 'en_US';
@@ -149,7 +149,7 @@ $LANG['about_majorUpdateAvailable'] = 'Major update available...';
 $LANG['about_minorUpdateAvailable'] = 'Minor or patch update available...';
 $LANG['about_misc'] = 'many users for testing and suggesting...';
 $LANG['about_newestVersion'] = 'You are running the newest version';
-$LANG['about_view_releaseinfo'] = 'Show/Hide Releaseinfo &raquo;';
+$LANG['about_view_releaseinfo'] = 'Show/Hide Release info &raquo;';
 
 //
 // Alerts
@@ -409,7 +409,7 @@ $LANG['config_defaultHomepage_comment'] = 'Select the default homepage. It is sh
 $LANG['config_defaultHomepage_home'] = 'Welcome Page';
 $LANG['config_defaultHomepage_calendarview'] = 'Calendar';
 $LANG['config_defaultLanguage'] = 'Default Language';
-$LANG['config_defaultLanguage_comment'] = $appTitle . ' is distributed in English and German. The adminstrator might have added more languages. 
+$LANG['config_defaultLanguage_comment'] = $appTitle . ' is distributed in English and German. The administrator might have added more languages. 
       Chose the default language of your installation here.';
 $LANG['config_emailConfirmation'] = 'Require e-mail Confirmation';
 $LANG['config_emailConfirmation_comment'] = 'Upon registration the user will receive an e-mail to the address he specified containing a confirmation link. 
@@ -470,7 +470,7 @@ $LANG['config_jQueryCDN_comment'] = 'CDNs (Content Distributed Network) can offe
 $LANG['config_jqtheme'] = 'jQuery UI Theme';
 $LANG['config_jqtheme_comment'] = $appTitle . ' uses jQuery UI, a popular collection of Javascript utilities. jQuery UI offers themes as well used for the display 
       of the tabbed dialogs and other features. The default theme is "smoothness" which is a neutral gray shaded theme. Try more from the list, some of them are 
-      quite colorful. This is a global setting, users cannot choose an indiviual jQuery UI theme.';
+      quite colorful. This is a global setting, users cannot choose an individual jQuery UI theme.';
 $LANG['config_licActivate'] = "Activate License";
 $LANG['config_licActivate_comment'] = "Your license is not active yet. Please activate it.";
 $LANG['config_licExpiryWarning'] = "License Expiry Warning";
@@ -527,7 +527,7 @@ $LANG['config_noIndex_comment'] = 'With this switch on, search engine robots are
 $LANG['config_pageHelp'] = 'Page Help';
 $LANG['config_pageHelp_comment'] = 'With this switch on, a help icon will be displayed in the page title bar, linking to the documentation of this page.';
 $LANG['config_permissionScheme'] = 'Permission Scheme';
-$LANG['config_permissionScheme_comment'] = 'The permission defines who can do what. The permisson schemes can be configured on the permissions page.';
+$LANG['config_permissionScheme_comment'] = 'The permission defines who can do what. The permission schemes can be configured on the permissions page.';
 $LANG['config_pwdStrength'] = 'Password Strength';
 $LANG['config_pwdStrength_comment'] = 'The password strength defines how picky you wanna be with the password check. Allowed are small and capital letters, numbers and the following special characters: !@#$%^&*().<br><br> 
          - <strong>Low:</strong> At least 4 characters long<br>
@@ -715,7 +715,7 @@ $LANG['imprint'] = array(
     array(
         'title' => 'Links',
         'text' => '<p>All links delivered with the ' . $appTitle . ' application are being provided as a convenience 
-      and for informational purposes only; they do not constitute an endorsement or an approval by ' . $appTitle . ' of any of the products, services or opinions 
+      and for informational purposes only; they do not constitute an endorsement or an approval by ' . $appTitle . ' of the products, services or opinions 
       of the corporation or organization or individual. The application provider bears no responsibility for the accuracy, legality or content of the external site or 
       for that of subsequent links. Contact the external site for questions regarding its content.</p>',
     ),
@@ -731,13 +731,13 @@ $LANG['imprint'] = array(
 if ($C->read('googleAnalytics') and $C->read("googleAnalyticsID")) {
     $LANG['imprint'][] = array(
         'title' => 'Google Analytics',
-        'text' => '<p><i class="fab fa-google fa-3x float-left" style="color: #999999;"></i>This website may use Google Analytics, if so configured by the adminstrator, a web analytics service provided by
+        'text' => '<p><i class="fab fa-google fa-3x float-left" style="color: #999999;"></i>This website may use Google Analytics, if so configured by the administrator, a web analytics service provided by
       Google, Inc. ("Google"). Google Analytics uses "cookies", which are text files placed on your computer, to help the website analyze how users use the site.
       The information generated by the cookie about the use of this website will be transmitted to and stored by Google on servers that may reside in the United States.</p>
       <div class="collapse" id="readmore">
-         <p>In case IP-anonymisation is activated on this website, your IP address will be truncated within the area of Member States of the European Union or
-         other parties to the Agreement on the European Economic Area. Only in exceptional cases the whole IP address will be first transfered to a Google server
-         in the USA and truncated there. The IP-anonymisation is active on this website.</p>
+         <p>In case IP-anonymization is activated on this website, your IP address will be truncated within the area of Member States of the European Union or
+         other parties to the Agreement on the European Economic Area. Only in exceptional cases the whole IP address will be first transferred to a Google server
+         in the USA and truncated there. The IP-anonymization is active on this website.</p>
          <p>Google will use this information on behalf of the operator of this website for the purpose of evaluating your use of the website, compiling reports on
          website activity for website operators and providing them other services relating to website activity and internet usage.</p>
          <p>The IP-address, that your Browser conveys within the scope of Google Analytics, will not be associated with any other data held by Google. You may
@@ -748,7 +748,7 @@ if ($C->read('googleAnalytics') and $C->read("googleAnalyticsID")) {
          opt-out from being tracked by Google Analytics within this website in the future (the opt-out applies only for the browser in which you set it and within
          this domain). An opt-out cookie will be stored on your device, which means that you\'ll have to click this link again, if you delete your cookies.</p>
       </div>
-      <p><a class="btn btn-default" data-bs-toggle="collapse" data-bs-target="#readmore">Read more/less...</a></p>',
+      <p><a class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#readmore">Read more/less...</a></p>',
     );
 }
 
@@ -1216,7 +1216,7 @@ $LANG['register_password_comment'] = 'Please enter a password here.<br>
 $LANG['register_password2'] = 'Confirm password';
 $LANG['register_password2_comment'] = 'Repeat the password here.';
 $LANG['register_username'] = 'Loginname';
-$LANG['register_username_comment'] = 'The loginname cannot be changed for existing users.';
+$LANG['register_username_comment'] = 'The login name cannot be changed for existing users.';
 
 //
 // Role
@@ -1300,7 +1300,7 @@ $LANG['upl_error_14'] = 'The upload directory does not exist!';
 $LANG['upl_error_15'] = 'A file with the name "%s" already exists.';
 $LANG['upl_error_16'] = 'The uploaded file was renamed to: %s';
 $LANG['upl_error_17'] = 'The file "%s" does not exist.';
-$LANG['upl_error_18'] = 'An unspecified error occured during upload.';
+$LANG['upl_error_18'] = 'An unspecified error occurred during upload.';
 $LANG['upl_error_19'] = 'The file could not be copied to it\'s destination.';
 
 //
@@ -1337,10 +1337,10 @@ $LANG['users_user'] = 'User';
 $LANG['imp_title'] = 'CSV User Import';
 
 $LANG['imp_file'] = 'CSV File';
-$LANG['imp_alert_help'] = 'Find the documentation of the CSV import <a href="https://georgelewe.atlassian.net/wiki/display/TCNEO/User+Import" target="_blank">here</a>.';
+$LANG['imp_alert_help'] = 'Find the documentation of the CSV import <a href="https://lewe.gitbook.io/teamcal-neo/administration/users/user-import" target="_blank">here</a>.';
 $LANG['imp_alert_success'] = 'CSV import successful';
 $LANG['imp_alert_success_text'] = '%s users were successfully imported.';
-$LANG['imp_file_comment'] = 'Upload your CSV file. See details about the format <a href="https://georgelewe.atlassian.net/wiki/display/TCNEO/User+Import" target="_blank">here</a>. The size of the file is limited to %d KBytes and the allowed formats are "%s".';
+$LANG['imp_file_comment'] = 'Upload your CSV file. See details about the format <a href="https://lewe.gitbook.io/teamcal-neo/administration/users/user-import" target="_blank">here</a>. The size of the file is limited to %d KBytes and the allowed formats are "%s".';
 $LANG['imp_group'] = 'Group';
 $LANG['imp_group_comment'] = 'Select the group that the imported users shall be assigned to.';
 $LANG['imp_role'] = 'Role';

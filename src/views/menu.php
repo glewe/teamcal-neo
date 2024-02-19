@@ -13,7 +13,7 @@ if (!defined('VALID_ROOT')) exit('');
  */
 ?>
 
-<!-- ==================================================================== 
+<!-- ====================================================================
 view.menu
 -->
 <?php if ($C->read("menuBarDark")) $navcolor = "dark";
@@ -247,7 +247,7 @@ else $navcolor = "light"; ?>
                     <div class="input-group">
                         <input class="form-control" id="txt_search" type="text" name="q" size="20" maxlength="255" placeholder="Search">
                         <span class="input-group-btn">
-                            <button id="btn_search" type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            <button id="btn_search" type="submit" class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
                         </span>
                     </div>
                     <input type="hidden" name="sitesearch" value="lewe.com">

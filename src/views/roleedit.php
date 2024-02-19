@@ -13,7 +13,7 @@ if (!defined('VALID_ROOT')) exit('');
  */
 ?>
 
-<!-- ==================================================================== 
+<!-- ====================================================================
 view.roleedit
 -->
 <div class="container content">
@@ -45,7 +45,7 @@ view.roleedit
                     <div class="card">
                         <div class="card-body">
                             <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_roleUpdate"><?= $LANG['btn_update'] ?></button>
-                            <a href="index.php?action=roles" class="btn btn-default float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_role_list'] ?></a>
+                            <a href="index.php?action=roles" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_role_list'] ?></a>
                         </div>
                     </div>
                     <div style="height:20px;"></div>
