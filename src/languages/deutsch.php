@@ -427,7 +427,7 @@ $LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) k&ouml;nnen 
 $LANG['config_font'] = 'Schriftart';
 $LANG['config_font_comment'] = 'W&auml;hle eine Schriftart aus. Optionen sind:<ul>
       <li>Default <i>(l&auml;dt keine extra Schriftart und nutzt die standard sans-serif Schriftart des Browsers)</i></li>
-      <li>... <i>(l&auml;dt die ausgew&auml;hlte Google Schriftart von den TeamCal Neo Installationsdateien)</i></li>
+      <li>... <i>(l&auml;dt die ausgew&auml;hlte Google Schriftart von den TeamCal Neo Installationsdateien (nicht von Google))</i></li>
       </ul>';
 $LANG['config_footerCopyright'] = 'Fu&szlig;zeilen Copyright Name';
 $LANG['config_footerCopyright_comment'] = 'Wird in der Fu&szlig;zeile oben links angezeigt. Gib nur den Namen ein, das (aktuelle) Jahr wird autmatisch angezeigt.';

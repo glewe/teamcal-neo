@@ -72,9 +72,9 @@ $inputAlert = array();
 $absences = $A->getAll();
 if ($UL->hasRole($UL->username, '1')) {
   // Administrator
-  $events = array( 'notifyNone', 'notifyAbsenceEvents', 'notifyCalendarEvents', 'notifyGroupEvents', 'notifyHolidayEvents', 'notifyMonthEvents', 'notifyRoleEvents', 'notifyUserEvents', 'notifyUserCalEvents' );
+  $events = array( 'notifyNone', 'notifyAbsenceEvents', 'notifyCalendarEvents', 'notifyGroupEvents', 'notifyHolidayEvents', 'notifyMonthEvents', 'notifyRoleEvents', 'notifyUserEvents', 'notifyUserCalEvents', 'notifyUserCalEventsOwn' );
 } else {
-  $events = array( 'notifyNone', 'notifyAbsenceEvents', 'notifyCalendarEvents', 'notifyHolidayEvents', 'notifyMonthEvents', 'notifyUserCalEvents' );
+  $events = array( 'notifyNone', 'notifyAbsenceEvents', 'notifyCalendarEvents', 'notifyHolidayEvents', 'notifyMonthEvents', 'notifyUserCalEvents', 'notifyUserCalEventsOwn' );
 }
 
 //=============================================================================

@@ -15,7 +15,7 @@ if (!defined('VALID_ROOT')) exit('');
 //=============================================================================
 //
 // LeAF LANGUAGE
-// The following are the Lewe Appliation Framework language entries. To easier
+// The following are the Lewe Application Framework language entries. To easier
 // update the framework at a later point, go to the bottom of this file to
 // enter your application language strings to keep them separate.
 //
@@ -425,15 +425,15 @@ $LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) can offer a 
       Internet connection of course. Switch this option off if you are running the application in an environment without Internet connectivity.';
 $LANG['config_font'] = 'Font';
 $LANG['config_font_comment'] = 'Select the font to use. Options are:<ul>
-<li>Default <i>(will not load any extra font but use the default sans-serif font of your browser)</i></li>
-<li>... <i>(will load the selected Google font from the TeamCal Neo installation files)</i></li>
-</ul>';
+      <li>Default <i>(will not load any extra font but use the default sans-serif font of your browser)</i></li>
+      <li>... <i>(will load the selected Google font hosted with your TeamCal installation (not from Google))</i></li>
+      </ul>';
 $LANG['config_footerCopyright'] = 'Footer Copyright Name';
 $LANG['config_footerCopyright_comment'] = 'Will be displayed in the upper left footer section. Just enter the name, the (current) year will be displayed automatically.';
 $LANG['config_footerCopyrightUrl'] = 'Footer Copyright URL';
 $LANG['config_footerCopyrightUrl_comment'] = 'Enter the URL to which the footer copyright name shall link to. If none is provided, just the name is displayed.';
 $LANG['config_footerSocialLinks'] = 'Social Links';
-$LANG['config_footerSocialLinks_comment'] = 'Enter all URLs to the social sites you want to link to from TeamCal Neo\'s footer. Separate them by smicolon. TeamCal Neo will identify them and place the proper icons in the footer.';
+$LANG['config_footerSocialLinks_comment'] = 'Enter all URLs to the social sites you want to link to from TeamCal Neo\'s footer. Separate them by semicolon. TeamCal Neo will identify them and place the proper icons in the footer.';
 $LANG['config_footerViewport'] = 'Show Viewport Size';
 $LANG['config_footerViewport_comment'] = 'Checking this option will show the viewport size in the footer.';
 $LANG['config_forceTfa'] = 'Force Two Factor Authentication';
@@ -477,7 +477,7 @@ $LANG['config_licActivate_comment'] = "Your license is not active yet. Please ac
 $LANG['config_licExpiryWarning'] = "License Expiry Warning";
 $LANG['config_licExpiryWarning_comment'] = "Enter the number of days before license expiry at which TeamCal Neo should start showing a corresponding alert. Set to 0 for no alert.";
 $LANG['config_licKey'] = "License Key";
-$LANG['config_licKey_comment'] = "Enter your license key here. It was provided to you when you registered yout TeamCal Neo instance.";
+$LANG['config_licKey_comment'] = "Enter your license key here. It was provided to you when you registered your TeamCal Neo instance.";
 $LANG['config_licRegister'] = "Register Domain";
 $LANG['config_licRegister_comment'] = "This TeamCal Neo domain is not registered for the given license key.<br>If the license key is valid and allows for more than one domain, 
       click the '" . $LANG['btn_register'] . "' button to add this domain. Otherwise, please enter a different valid license key and click '" . $LANG['btn_apply'] . "'.";
@@ -530,7 +530,7 @@ $LANG['config_pageHelp_comment'] = 'With this switch on, a help icon will be dis
 $LANG['config_permissionScheme'] = 'Permission Scheme';
 $LANG['config_permissionScheme_comment'] = 'The permission defines who can do what. The permission schemes can be configured on the permissions page.';
 $LANG['config_pwdStrength'] = 'Password Strength';
-$LANG['config_pwdStrength_comment'] = 'The password strength defines how picky you wanna be with the password check. Allowed are small and capital letters, numbers and the following special characters: !@#$%^&*().<br><br> 
+$LANG['config_pwdStrength_comment'] = 'The password strength defines how picky you want to be with the password check. Allowed are small and capital letters, numbers and the following special characters: !@#$%^&*().<br><br> 
          - <strong>Low:</strong> At least 4 characters long<br>
          - <strong>Medium:</strong> At least 6 characters long, one small letter, one capital letter and one number<br>
          - <strong>High:</strong> At least 8 characters long, one small letter, one capital letter, one number and one special character<br>';
@@ -702,14 +702,14 @@ $LANG['home_title'] = 'Welcome to ' . $appTitle;
 $LANG['imprint'] = array(
     array(
         'title' => 'Author',
-        'text' => '<p>' . $appTitle . ' was created by George Lewe (<a href="http://www.lewe.com/">Lewe.com</a>). 
+        'text' => '<p>' . $appTitle . ' was created by George Lewe (<a href="https://www.lewe.com/">Lewe.com</a>). 
       ' . $appTitle . ' also uses free modules by other great people providing those awesome techonolgies to the public. 
       See detailed credits on the <a href="index.php?action=about">About page</a>.</p>',
     ),
     array(
         'title' => 'Content',
-        'text' => '<p>All content delivered with the ' . $appTitle . ' application was created by George Lewe (<a href="http://www.lewe.com/">Lewe.com</a>).  
-      If you feel that any material is used inappropriately, please contact <a href="http://www.lewe.com/contact/">Lewe.com</a>.</p>
+        'text' => '<p>All content delivered with the ' . $appTitle . ' application was created by George Lewe (<a href="https://www.lewe.com/">Lewe.com</a>).  
+      If you feel that any material is used inappropriately, please contact <a href="https://www.lewe.com/contact/">Lewe.com</a>.</p>
       <p>None of the application content, as a whole or in parts may be reproduced, copied or reused in any form or by any means, electronic or mechanical, 
       for any purpose, without the express written permission of George Lewe.</p>',
     ),
@@ -744,7 +744,7 @@ if ($C->read('googleAnalytics') and $C->read("googleAnalyticsID")) {
          <p>The IP-address, that your Browser conveys within the scope of Google Analytics, will not be associated with any other data held by Google. You may
          refuse the use of cookies by selecting the appropriate settings on your browser, however please note that if you do this you may not be able to use the
          full functionality of this website. You can also opt-out from being tracked by Google Analytics with effect for the future by downloading and installing
-         Google Analytics Opt-out Browser Addon for your current web browser: <a href="http://tools.google.com/dlpage/gaoptout?hl=en">http://tools.google.com/dlpage/gaoptout?hl=en</a>.</p>
+         Google Analytics Opt-out Browser Addon for your current web browser: <a href="https://tools.google.com/dlpage/gaoptout?hl=en">https://tools.google.com/dlpage/gaoptout?hl=en</a>.</p>
          <p>As an alternative to the browser Addon or within browsers on mobile devices, you can <a href="javascript:gaOptout()">click this link</a> in order to
          opt-out from being tracked by Google Analytics within this website in the future (the opt-out applies only for the browser in which you set it and within
          this domain). An opt-out cookie will be stored on your device, which means that you\'ll have to click this link again, if you delete your cookies.</p>
@@ -976,7 +976,7 @@ $LANG['page_last'] = 'Go to last page...';
 //
 // Password request
 //
-$LANG['pwdreq_title'] = 'Passwort Reset';
+$LANG['pwdreq_title'] = 'Password Reset';
 $LANG['pwdreq_alert_failed'] = 'Please provide a valid E-mail address.';
 $LANG['pwdreq_alert_notfound'] = 'User Not Found';
 $LANG['pwdreq_alert_notfound_text'] = 'No user account with this E-mail address could be found.';
@@ -1102,7 +1102,7 @@ $LANG['profile_alert_save_failed'] = 'The new information for this user could no
 $LANG['profile_avatar'] = 'Avatar';
 $LANG['profile_avatar_comment'] = 'If you haven\'t uploaded an own avatar, a default avatar will be used.';
 $LANG['profile_avatar_available'] = 'Available Standard Avatars';
-$LANG['profile_avatar_available_comment'] = 'Choose one of the available avatars, courtesy of <a href="http://www.iconshock.com/icon_sets/vector-user-icons/" target="_blank">IconShock</a>.';
+$LANG['profile_avatar_available_comment'] = 'Choose one of the available avatars, courtesy of <a href="https://www.iconshock.com/icon_sets/vector-user-icons/" target="_blank">IconShock</a>.';
 $LANG['profile_avatar_upload'] = 'Upload avatar';
 $LANG['profile_avatar_upload_comment'] = 'You can upload a custom avatar. The size of the file is limited to %d Bytes, the size of the image should be 
       80x80 pixels (will be displayed in those dimensions anyways) and the allowed formats are "%s".';
@@ -1157,7 +1157,7 @@ $LANG['profile_menuBar_normal'] = 'Normal';
 $LANG['profile_mobilephone'] = 'Mobile';
 $LANG['profile_mobilephone_comment'] = '';
 $LANG['profile_notify'] = 'E-Mail Notifications';
-$LANG['profile_notify_comment'] = 'Select the event types that would like to be notified about via E-Mail. This includes add, change and delete actions. Add/remove entries by using Ctrl + Click.';
+$LANG['profile_notify_comment'] = 'Select the event types that you would like to be notified about via E-Mail. This includes add, change and delete actions. Add/remove entries by using Ctrl + Click.';
 $LANG['profile_notifyGroupEvents'] = 'Group Events';
 $LANG['profile_notifyRoleEvents'] = 'Role Events';
 $LANG['profile_notifyUserEvents'] = 'User Account Events';

@@ -782,6 +782,7 @@ $LANG['profile_notifyHolidayEvents'] = 'Holidays Events';
 $LANG['profile_notifyMonthEvents'] = 'Month Template Events';
 $LANG['profile_notifyNone'] = 'None';
 $LANG['profile_notifyUserCalEvents'] = 'User Calendar Events';
+$LANG['profile_notifyUserCalEventsOwn'] = 'User Calendar Events (only my own)';
 $LANG['profile_notifyUserCalGroups'] = 'User Calendar Event Groups';
 $LANG['profile_notifyUserCalGroups_comment'] = 'If you have selected "' . $LANG['profile_notifyUserCalEvents'] . '" in the event list above, select here for which of your groups you want to receive these notifications.';
 $LANG['profile_showMonths'] = 'Show Multiple Months';
