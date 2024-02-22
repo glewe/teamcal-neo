@@ -12,10 +12,10 @@ if (!defined('VALID_ROOT')) exit('');
  * @since 3.0.0
  */ ?>
 <!DOCTYPE html>
-<html lang="<?= $LANG['html_locale'] ?>">
+<html lang="<?= $LANG[ 'html_locale' ] ?>">
 
 <head>
-    <!--
+  <!--
       ===============================================================================
       Application: <?= APP_NAME . " " . APP_VER . "\n" ?>
       Author:      <?= APP_AUTHOR . "\n" ?>
@@ -24,168 +24,179 @@ if (!defined('VALID_ROOT')) exit('');
                    All rights reserved.
       ===============================================================================
       -->
-    <title><?= $htmlData['title'] ?></title>
+  <title><?= $htmlData[ 'title' ] ?></title>
 
-    <meta http-equiv="Content-type" content="text/html;charset=utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="shortcut icon" href="images/icons/logo-16.png">
+  <meta http-equiv="Content-type" content="text/html;charset=utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="shortcut icon" href="images/icons/logo-16.png">
 
-    <?php if ($C->read('noCaching')) { ?>
-        <!-- No caching -->
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-        <meta http-equiv="Pragma" content="no-cache" />
-        <meta http-equiv="Expires" content="0" />
-    <?php } ?>
+  <?php if ($C->read('noCaching')) { ?>
+    <!-- No caching -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+  <?php } ?>
 
-    <!-- Robots -->
-    <meta name="robots" content="<?= $htmlData['robots'] ?>" />
+  <!-- Robots -->
+  <meta name="robots" content="<?= $htmlData[ 'robots' ] ?>"/>
 
-    <?php if (!$C->read('noIndex')) { ?>
-        <!-- SEO -->
-        <link rel="canonical" href="<?= WEBSITE_URL ?>/" />
-        <meta name="description" content="<?= $htmlData['description'] ?>" />
-        <meta name="keywords" content="<?= $htmlData['keywords'] ?>">
-        <meta property="og:locale" content="<?= $htmlData['locale'] ?>" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="<?= $htmlData['title'] ?>" />
-        <meta property="og:description" content="<?= $htmlData['description'] ?>" />
-        <meta property="og:url" content="<?= WEBSITE_URL ?>/" />
-        <meta property="og:site_name" content="<?= $htmlData['title'] ?>" />
-        <meta property="og:image" content="<?= WEBSITE_URL ?>/images/icons/logo-200.png" />
-        <meta property="og:image:width" content="200" />
-        <meta property="og:image:height" content="200" />
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:description" content="<?= $htmlData['description'] ?>" />
-        <meta name="twitter:title" content="<?= $htmlData['title'] ?>" />
-        <meta name="twitter:image" content="<?= WEBSITE_URL ?>/images/icons/logo-200.png" />
-    <?php } ?>
+  <?php if (!$C->read('noIndex')) { ?>
+    <!-- SEO -->
+    <link rel="canonical" href="<?= WEBSITE_URL ?>/"/>
+    <meta name="description" content="<?= $htmlData[ 'description' ] ?>"/>
+    <meta name="keywords" content="<?= $htmlData[ 'keywords' ] ?>">
+    <meta property="og:locale" content="<?= $htmlData[ 'locale' ] ?>"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="<?= $htmlData[ 'title' ] ?>"/>
+    <meta property="og:description" content="<?= $htmlData[ 'description' ] ?>"/>
+    <meta property="og:url" content="<?= WEBSITE_URL ?>/"/>
+    <meta property="og:site_name" content="<?= $htmlData[ 'title' ] ?>"/>
+    <meta property="og:image" content="<?= WEBSITE_URL ?>/images/icons/logo-200.png"/>
+    <meta property="og:image:width" content="200"/>
+    <meta property="og:image:height" content="200"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:description" content="<?= $htmlData[ 'description' ] ?>"/>
+    <meta name="twitter:title" content="<?= $htmlData[ 'title' ] ?>"/>
+    <meta name="twitter:image" content="<?= WEBSITE_URL ?>/images/icons/logo-200.png"/>
+  <?php } ?>
 
-    <!-- Theme CSS -->
-    <?php if ($htmlData['theme']['name'] == 'bootstrap') { ?>
-        <link rel="stylesheet" href="themes/bootstrap/bootstrap.min.css">
-    <?php } else { ?>
-        <link rel="stylesheet" href="themes/<?= $htmlData['theme']['name'] ?>/bootstrap.min.css" media="screen">
-    <?php } ?>
+  <!-- Theme CSS -->
+  <?php if ($htmlData[ 'theme' ][ 'name' ] == 'bootstrap') { ?>
+    <link rel="stylesheet" href="themes/bootstrap/bootstrap.min.css">
+  <?php } else { ?>
+    <link rel="stylesheet" href="themes/<?= $htmlData[ 'theme' ][ 'name' ] ?>/bootstrap.min.css" media="screen">
+  <?php } ?>
 
-    <?php if ($C->read('font') && $C->read('font') != 'default') { ?>
-        <!-- Fonts -->
-        <link rel="stylesheet" href="css/font-<?= $C->read('font') ?>.css">
-    <?php } ?>
+  <?php if ($C->read('font') && $C->read('font') != 'default') { ?>
+    <!-- Fonts -->
+    <link rel="stylesheet" href="css/font-<?= $C->read('font') ?>.css">
+  <?php } ?>
 
-    <!-- Font Awesome -->
-    <?php if ($htmlData['faCDN']) { ?>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/<?= FONTAWESOME_VER ?>/css/all.min.css">
-    <?php } else { ?>
-        <link rel="stylesheet" href="fonts/font-awesome/<?= FONTAWESOME_VER ?>/css/all.min.css">
-    <?php } ?>
+  <!-- Font Awesome -->
+  <?php if ($htmlData[ 'faCDN' ]) { ?>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/<?= FONTAWESOME_VER ?>/css/all.min.css">
+  <?php } else { ?>
+    <link rel="stylesheet" href="fonts/font-awesome/<?= FONTAWESOME_VER ?>/css/all.min.css">
+  <?php } ?>
 
-    <!-- Popper.js -->
-    <!-- <script src="js/popper.min.js"></script> -->
+  <!-- Popper.js -->
+  <!-- <script src="js/popper.min.js"></script> -->
 
-    <!-- jQuery -->
-    <?php if ($htmlData['jQueryCDN']) { ?>
-        <script src="https://code.jquery.com/jquery-<?= JQUERY_VER ?>.min.js"></script>
-        <script src="https://code.jquery.com/ui/<?= JQUERY_UI_VER ?>/jquery-ui.min.js"></script>
-        <link rel="stylesheet" href="https://code.jquery.com/ui/<?= JQUERY_UI_VER ?>/themes/<?= $htmlData['jQueryTheme'] ?>/jquery-ui.min.css">
-    <?php } else { ?>
-        <script src="js/jquery/jquery-<?= JQUERY_VER ?>.min.js"></script>
-        <script src="js/jquery/ui/<?= JQUERY_UI_VER ?>/jquery-ui.min.js"></script>
-        <link rel="stylesheet" href="js/jquery/ui/<?= JQUERY_UI_VER ?>/themes/<?= $htmlData['jQueryTheme'] ?>/jquery-ui.min.css">
-    <?php } ?>
+  <!-- jQuery -->
+  <?php if ($htmlData[ 'jQueryCDN' ]) { ?>
+    <script src="https://code.jquery.com/jquery-<?= JQUERY_VER ?>.min.js"></script>
+    <script src="https://code.jquery.com/ui/<?= JQUERY_UI_VER ?>/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/<?= JQUERY_UI_VER ?>/themes/<?= $htmlData[ 'jQueryTheme' ] ?>/jquery-ui.min.css">
+  <?php } else { ?>
+    <script src="js/jquery/jquery-<?= JQUERY_VER ?>.min.js"></script>
+    <script src="js/jquery/ui/<?= JQUERY_UI_VER ?>/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="js/jquery/ui/<?= JQUERY_UI_VER ?>/themes/<?= $htmlData[ 'jQueryTheme' ] ?>/jquery-ui.min.css">
+  <?php } ?>
 
-    <!-- Bootstrap Javascript -->
-    <script src="themes/bootstrap/bootstrap.bundle.min.js"></script>
+  <!-- Bootstrap Javascript -->
+  <script src="themes/bootstrap/bootstrap.bundle.min.js"></script>
 
-    <!-- TeamCalNeo CSS -->
-    <link rel="stylesheet" href="css/teamcalneo.css">
+  <!-- TeamCalNeo CSS -->
+  <link rel="stylesheet" href="css/teamcalneo.css">
 
-    <!-- Colorpicker -->
-    <link rel="stylesheet" media="screen" type="text/css" href="js/colorpicker/css/colorpicker.css">
-    <script src="js/colorpicker/js/colorpicker.js"></script>
+  <!-- Colorpicker -->
+  <link rel="stylesheet" media="screen" type="text/css" href="js/colorpicker/css/colorpicker.css">
+  <script src="js/colorpicker/js/colorpicker.js"></script>
 
-    <!-- Google Code Prettify -->
-    <link rel="stylesheet" href="addons/google-code-prettify/prettify.css" type="text/css">
-    <script src="addons/google-code-prettify/prettify.js"></script>
+  <!-- Google Code Prettify -->
+  <link rel="stylesheet" href="addons/google-code-prettify/prettify.css" type="text/css">
+  <script src="addons/google-code-prettify/prettify.js"></script>
 
-    <?php if (CHARTJS) { ?>
-        <!-- Chart.js -->
-        <script src="addons/chart.js/Chart.bundle.min.js"></script>
-        <script src="addons/chart.js/utils.js"></script>
-    <?php } ?>
+  <?php if (CHARTJS) { ?>
+    <!-- Chart.js -->
+    <script src="addons/chart.js/Chart.bundle.min.js"></script>
+    <script src="addons/chart.js/utils.js"></script>
+  <?php } ?>
 
-    <?php if (CKEDITOR) { ?>
-        <!-- CKEditor -->
-        <script src="addons/ckeditor/ckeditor.js"></script>
-    <?php } ?>
+  <?php if (CKEDITOR) { ?>
+    <!-- CKEditor -->
+    <script src="addons/ckeditor/ckeditor.js"></script>
+  <?php } ?>
 
-    <?php if (MAGNIFICPOPUP) { ?>
-        <!-- Magnific Popup -->
-        <link rel="stylesheet" href="addons/magnific/magnific-popup.css" type="text/css">
-        <script src="addons/magnific/jquery.magnific-popup.min.js"></script>
-    <?php } ?>
+  <?php if (MAGNIFICPOPUP) { ?>
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="addons/magnific/magnific-popup.css" type="text/css">
+    <script src="addons/magnific/jquery.magnific-popup.min.js"></script>
+  <?php } ?>
 
-    <?php if (SELECT2) { ?>
-        <!-- select2 -->
-        <link href="addons/select2/css/select2.min.css" rel="stylesheet">
-        <script src="addons/select2/js/select2.min.js"></script>
-    <?php } ?>
+  <?php if (SELECT2) { ?>
+    <!-- select2 -->
+    <link href="addons/select2/css/select2.min.css" rel="stylesheet">
+    <script src="addons/select2/js/select2.min.js"></script>
+  <?php } ?>
 
-    <?php if (SYNTAXHIGHLIGHTER) { ?>
-        <!-- Syntax Highlighter -->
-        <link rel="stylesheet" href="addons/syntaxhighlighter/styles/shCore.css" type="text/css">
-        <link rel="stylesheet" href="addons/syntaxhighlighter/styles/shThemeDefault.css" type="text/css">
-        <script src="addons/syntaxhighlighter/scripts/shCore.js"></script>
-        <script src="addons/syntaxhighlighter/scripts/shAutoloader.js"></script>
-        <script src="addons/syntaxhighlighter/scripts/shBrushCss.js"></script>
-        <script src="addons/syntaxhighlighter/scripts/shBrushJScript.js"></script>
-        <script src="addons/syntaxhighlighter/scripts/shBrushPhp.js"></script>
-        <script src="addons/syntaxhighlighter/scripts/shBrushXml.js"></script>
-    <?php } ?>
+  <?php if (SYNTAXHIGHLIGHTER) { ?>
+    <!-- Syntax Highlighter -->
+    <link rel="stylesheet" href="addons/syntaxhighlighter/styles/shCore.css" type="text/css">
+    <link rel="stylesheet" href="addons/syntaxhighlighter/styles/shThemeDefault.css" type="text/css">
+    <script src="addons/syntaxhighlighter/scripts/shCore.js"></script>
+    <script src="addons/syntaxhighlighter/scripts/shAutoloader.js"></script>
+    <script src="addons/syntaxhighlighter/scripts/shBrushCss.js"></script>
+    <script src="addons/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+    <script src="addons/syntaxhighlighter/scripts/shBrushPhp.js"></script>
+    <script src="addons/syntaxhighlighter/scripts/shBrushXml.js"></script>
+  <?php } ?>
 
-    <?php if (XEDITABLE) { ?>
-        <!-- Bootstrap Editable -->
-        <link href="addons/x-editable/css/bootstrap-editable.css" rel="stylesheet">
-        <script src="addons/x-editable/js/bootstrap-editable.js"></script>
-    <?php } ?>
+  <?php if (XEDITABLE) { ?>
+    <!-- Bootstrap Editable -->
+    <link href="addons/x-editable/css/bootstrap-editable.css" rel="stylesheet">
+    <script src="addons/x-editable/js/bootstrap-editable.js"></script>
+  <?php } ?>
 
-    <?php if ($htmlData['cookieConsent']) { ?>
-        <!-- Cookie Consent -->
-        <?php if ($htmlData['cookieConsentCDN']) { ?>
-            <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.css" />
-            <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.js"></script>
-        <?php } else { ?>
-            <link rel="stylesheet" type="text/css" href="addons/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.css" />
-            <script src="addons/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.js"></script>
-        <?php } ?>
-        <script>
-            window.addEventListener("load", function() {
-                window.cookieconsent.initialise({
-                    "cookie": {
-                        "name": "tcneo_cookieconsent"
-                    },
-                    "palette": {
-                        "popup": {
-                            "background": "#252e39"
-                        },
-                        "button": {
-                            "background": "#14a7d0"
-                        }
-                    },
-                    "theme": "classic",
-                    "content": {
-                        "message": "<?= $LANG['cookie_message'] ?>",
-                        "link": "<?= $LANG['cookie_learnMore'] ?>",
-                        "dismiss": "<?= $LANG['cookie_dismiss'] ?>",
-                        "href": "index.php?action=dataprivacy"
-                    }
-                })
-            });
-        </script>
-    <?php } ?>
+  <?php if ($htmlData[ 'cookieConsent' ]) { ?>
+    <!-- Cookie Consent -->
+    <?php if ($htmlData[ 'cookieConsentCDN' ]) { ?>
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.css"/>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.js"></script>
+  <?php } else { ?>
+  <link rel="stylesheet" type="text/css" href="addons/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.css"/>
+    <script src="addons/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.js"></script>
+  <?php } ?>
+    <script>
+      window.addEventListener("load", function () {
+        window.cookieconsent.initialise({
+          "cookie": {
+            "name": "tcneo_cookieconsent"
+          },
+          "palette": {
+            "popup": {
+              "background": "#252e39"
+            },
+            "button": {
+              "background": "#14a7d0"
+            }
+          },
+          "theme": "classic",
+          "content": {
+            "message": "<?= $LANG[ 'cookie_message' ] ?>",
+            "link": "<?= $LANG[ 'cookie_learnMore' ] ?>",
+            "dismiss": "<?= $LANG[ 'cookie_dismiss' ] ?>",
+            "href": "index.php?action=dataprivacy"
+          }
+        })
+      });
+    </script>
+  <?php } ?>
+
+  <?php if (isset($viewData['calendaronly']) && $viewData['calendaronly']) { ?>
+    <style>
+      body {
+        padding-top: 0;
+      }
+      .content {
+        padding: 5px 0 5px 0;
+      }
+    </style>
+  <?php } ?>
 
 </head>
 
 <body>
 
-    <!-- Back to Top -->
-    <a id="top-link-block"><i class="fas fa-chevron-up fa-3x text-white"></i></a>
+<!-- Back to Top -->
+<a id="top-link-block"><i class="fas fa-chevron-up fa-3x text-white"></i></a>
