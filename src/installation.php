@@ -68,7 +68,7 @@ $LANG['inst_congrats'] = 'Congratulations';
 $LANG['inst_success'] = 'Installation Success';
 $LANG['inst_success_comment'] = 'The installation was successful. Please delete the installation script from the server before you start.<br><br><a class="btn btn-primary" href="index.php">Start</a>';
 $LANG['inst_update'] = 'Do not run for update';
-$LANG['inst_update_comment'] = 'Do not run the installation script for updating TeamCal Neo. Instead, follow the instructions <a href="doc/upgradeinfo.txt">here</a>.<br>
+$LANG['inst_update_comment'] = 'Do not run the installation script for updating TeamCal Neo. Instead, follow the instructions <a href="doc/Upgradeinfo.txt">here</a>.<br>
       If this is a fresh install, you can close this message in the upper right corner and continue below.';
 $LANG['inst_warning'] = 'Installation Warning';
 
@@ -247,7 +247,7 @@ if (!$installationComplete and readDef('APP_INSTALLED', $configAppFile) <> '0') 
 
 <body>
 
-    <!-- ==================================================================== 
+    <!-- ====================================================================
       view.menu
       -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -260,8 +260,8 @@ if (!$installationComplete and readDef('APP_INSTALLED', $configAppFile) <> '0') 
     </nav>
     <div style="height:20px;"></div>
 
-    <!-- ==================================================================== 
-      view.installation 
+    <!-- ====================================================================
+      view.installation
       -->
     <div class="container content">
         <div class="col-lg-12">
@@ -413,8 +413,8 @@ if (!$installationComplete and readDef('APP_INSTALLED', $configAppFile) <> '0') 
         </div>
     </div>
 
-    <!-- ==================================================================== 
-      view.footer 
+    <!-- ====================================================================
+      view.footer
       -->
     <footer class="footer">
         <div class="container">
