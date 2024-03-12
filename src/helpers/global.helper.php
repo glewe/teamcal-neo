@@ -279,6 +279,16 @@ function formInputValid($field, $ruleset, $param = '') {
   }
 
   /**
+   * Only displayable/printable characters?
+   */
+  if (in_array('ctype_graph', $rules)) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !ctype_graph($_POST[ $field ])) {
+      $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_ctype_graph' ];
+      return false;
+    }
+  }
+
+  /**
    * Date-only in ISO 8601 format YYYY-MM-DD?
    */
   if (in_array('date', $rules)) {

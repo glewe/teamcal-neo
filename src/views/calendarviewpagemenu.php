@@ -32,12 +32,12 @@ if ($viewData['month'] == 1) {
 }
 ?>
 
-<!-- ==================================================================== 
+<!-- ====================================================================
 view.calendarviewpagemenu
 -->
 <div class="page-menu">
-    <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageBwdYear . $pageBwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>&amp;abs=<?= $viewData['absid'] ?>" data-placement="top" data-type="warning" data-bs-toggle="tooltip" title="<?= $LANG['cal_tt_backward'] ?>"><span class="fas fa-angle-double-left"></span></a>
-    <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageFwdYear . $pageFwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>&amp;abs=<?= $viewData['absid'] ?>" data-placement="top" data-type="warning" data-bs-toggle="tooltip" title="<?= $LANG['cal_tt_forward'] ?>"><span class="fas fa-angle-double-right"></span></a>
+    <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageBwdYear . $pageBwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>&amp;abs=<?= $viewData['absid'] ?>" data-bs-placement="top" data-bs-custom-class="warning" data-bs-toggle="tooltip" title="<?= $LANG['cal_tt_backward'] ?>"><span class="fas fa-angle-double-left"></span></a>
+    <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageFwdYear . $pageFwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>&amp;abs=<?= $viewData['absid'] ?>" data-bs-placement="top" data-bs-custom-class="warning" data-bs-toggle="tooltip" title="<?= $LANG['cal_tt_forward'] ?>"><span class="fas fa-angle-double-right"></span></a>
     <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $viewData['yearToday'] . $viewData['monthToday'] ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>&amp;abs=<?= $viewData['absid'] ?>"><?= $LANG['today'] ?></a>
     <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectMonth"><?= $LANG['month'] . ': ' . $viewData['year'] . $viewData['month'] ?></button>
     <?php if ($C->read('showRegionButton')) { ?>

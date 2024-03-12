@@ -179,13 +179,14 @@ $LANG['alert_imp_lastname'] = 'Zeile %s: Der Nachname "%s" entspricht nicht dem 
 $LANG['alert_imp_username'] = 'Zeile %s: Der Benutzername "%s" entspricht nicht dem erlaubten Format (alphanumerische Zeichen, Punkt, @).';
 
 $LANG['alert_input'] = 'Eingabevalidierung fehlgeschlagen';
-$LANG['alert_input_alpha'] = 'Diese Feld erlaubt nur eine Eingabe von alphabetischen Zeichen.';
-$LANG['alert_input_alpha_numeric'] = 'Diese Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen.';
-$LANG['alert_input_alpha_numeric_dash'] = 'Diese Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen plus Bindestrich und Unterstrich.';
-$LANG['alert_input_alpha_numeric_dash_blank'] = 'Diese Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen plus Leerzeichen, Bindestrich und Unterstrich.';
-$LANG['alert_input_alpha_numeric_dash_blank_dot'] = 'Diese Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen plus Leerzeichen, Punkt, Bindestrich und Unterstrich.';
-$LANG['alert_input_alpha_numeric_dash_blank_special'] = 'Diese Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen, Leerzeichen, Bindestrich, Unterstrich und die 
+$LANG['alert_input_alpha'] = 'Dieses Feld erlaubt nur eine Eingabe von alphabetischen Zeichen.';
+$LANG['alert_input_alpha_numeric'] = 'Dieses Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen.';
+$LANG['alert_input_alpha_numeric_dash'] = 'Dieses Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen plus Bindestrich und Unterstrich.';
+$LANG['alert_input_alpha_numeric_dash_blank'] = 'Dieses Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen plus Leerzeichen, Bindestrich und Unterstrich.';
+$LANG['alert_input_alpha_numeric_dash_blank_dot'] = 'Dieses Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen plus Leerzeichen, Punkt, Bindestrich und Unterstrich.';
+$LANG['alert_input_alpha_numeric_dash_blank_special'] = 'Dieses Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen, Leerzeichen, Bindestrich, Unterstrich und die 
       Sonderzeichen \'!@#$%^&*().';
+$LANG['alert_input_ctype_graph'] = 'Dieses Feld erlaubt nur eine Eingabe von darstellbaren bzw. druckbaren Zeichen.';
 $LANG['alert_input_date'] = 'Das Datum muss um ISO 8601 Format sein, z.b. 2014-01-01.';
 $LANG['alert_input_email'] = 'Die eingegebene E-Mail Adresse ist ung&uuml;ltig.';
 $LANG['alert_input_equal'] = 'Der Wert in diesem Feld muss gleich dem in Feld "%s" sein.';

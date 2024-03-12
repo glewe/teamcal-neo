@@ -132,7 +132,7 @@ view.calendaruserrow (<?= $viewData[ 'year' ] . $viewData[ 'month' ] ?> - <?= $f
             $taken .= countAbsence($usr[ 'username' ], $T->$abs, $countFrom, $countTo, true, false);
             $taken .= ')';
           }
-          $absstart = '<span data-type="danger" data-placement="top" data-bs-toggle="tooltip" title="' . $A->getName($T->$abs) . $taken . '">';
+          $absstart = '<span data-bs-custom-class="danger" data-bs-placement="top" data-bs-toggle="tooltip" title="' . $A->getName($T->$abs) . $taken . '">';
           $absend = '</span>';
         } else {
           //
@@ -140,7 +140,7 @@ view.calendaruserrow (<?= $viewData[ 'year' ] . $viewData[ 'month' ] ?> - <?= $f
           //
           $style .= 'color: #d5d5d5;background-color: #d5d5d5;';
           $icon = '&nbsp;';
-          $absstart = '<span data-type="danger" data-placement="top" data-bs-toggle="tooltip" title="' . $LANG[ 'cal_tt_absent' ] . '">';
+          $absstart = '<span data-bs-custom-class="danger" data-placement="top" data-bs-toggle="tooltip" title="' . $LANG[ 'cal_tt_absent' ] . '">';
           $absend = '</span>';
         }
       } else {
@@ -149,7 +149,7 @@ view.calendaruserrow (<?= $viewData[ 'year' ] . $viewData[ 'month' ] ?> - <?= $f
         //
         $style .= 'color: #d5d5d5;background-color: #d5d5d5;';
         $icon = '&nbsp;';
-        $absstart = '<span data-type="danger" data-placement="top" data-bs-toggle="tooltip" title="' . $LANG[ 'cal_tt_anotherabsence' ] . '">';
+        $absstart = '<span data-bs-custom-class="danger" data-bs-placement="top" data-bs-toggle="tooltip" title="' . $LANG[ 'cal_tt_anotherabsence' ] . '">';
         $absend = '</span>';
       }
 
@@ -193,7 +193,7 @@ view.calendaruserrow (<?= $viewData[ 'year' ] . $viewData[ 'month' ] ?> - <?= $f
 
       if ($allowed) {
         $note = true;
-        $notestart = '<span data-type="' . $D->color . '" data-placement="bottom" data-bs-toggle="tooltip" title="' . $D->daynote . '">';
+        $notestart = '<span data-bs-custom-class="' . $D->color . '" data-bs-placement="bottom" data-bs-toggle="tooltip" title="' . $D->daynote . '">';
         $noteend = '</span>';
       }
     }
@@ -237,7 +237,7 @@ view.calendaruserrow (<?= $viewData[ 'year' ] . $viewData[ 'month' ] ?> - <?= $f
     <td class="m-day text-center" <?= $style ?><?= $editLink ?>>
       <?php
       if ($editAllowed) {
-        echo '<i data-placement="right" data-type="secondary" data-bs-toggle="tooltip" title="' . $LANG[ 'cal_tt_clicktoedit' ] . '">';
+        echo '<i data-bs-placement="right" data-bs-custom-class="secondary" data-bs-toggle="tooltip" title="' . $LANG[ 'cal_tt_clicktoedit' ] . '">';
       }
       echo $bdaystart . $notestart . $absstart . $icon . $absend . $noteend . $bdayend;
       if ($editAllowed) {

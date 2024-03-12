@@ -87,7 +87,7 @@ if (!empty($_POST)) {
     $inputError = false;
     if (isset($_POST['btn_save'])) {
         if (!formInputValid('txt_name', 'required|alpha_numeric_dash_blank')) $inputError = true;
-        if (!formInputValid('txt_symbol', 'alpha_numeric')) $inputError = true;
+        if (!formInputValid('txt_symbol', 'ctype_graph')) $inputError = true;
         if (!formInputValid('txt_color', 'hexadecimal|exact_length', 6)) $inputError = true;
         if (!formInputValid('txt_bgcolor', 'hexadecimal|exact_length', 6)) $inputError = true;
         if (!formInputValid('txt_factor', 'numeric|max_length', 4)) $inputError = true;

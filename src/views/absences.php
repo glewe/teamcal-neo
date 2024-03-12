@@ -13,7 +13,7 @@ if (!defined('VALID_ROOT')) exit('');
  */
 ?>
 
-<!-- ==================================================================== 
+<!-- ====================================================================
 view.absences
 -->
 <div class="container content">
@@ -85,11 +85,11 @@ view.absences
                                 </div>
                                 <div class="col-lg-4"><?= $absence['name'] ?></div>
                                 <div class="col-lg-5">
-                                    <?= (($absence['approval_required']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['abs_approval_required'] . '"><i class="far fa-edit fa-lg text-danger"></i></i>' : '') ?>
-                                    <?= (($absence['manager_only']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['abs_manager_only'] . '"><i class="fas fa-user-circle fa-lg text-warning"></i></i>' : '') ?>
-                                    <?= (($absence['hide_in_profile']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['abs_hide_in_profile'] . '"><i class="far fa-eye-slash fa-lg text-info"></i></i>' : '') ?>
-                                    <?= (($absence['confidential']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['abs_confidential'] . '"><i class="fas fa-exclamation-circle fa-lg text-success"></i></i>' : '') ?>
-                                    <?= (($absence['allowmonth'] or ($absence['allowweek'])) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['abs_allow_active'] . '"><i class="far fa-hand-paper fa-lg text-warning"></i></i>' : '') ?>
+                                    <?= (($absence['approval_required']) ? '<i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="' . $LANG['abs_approval_required'] . '"><i class="far fa-edit fa-lg text-danger"></i></i>' : '') ?>
+                                    <?= (($absence['manager_only']) ? '<i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="' . $LANG['abs_manager_only'] . '"><i class="fas fa-user-circle fa-lg text-warning"></i></i>' : '') ?>
+                                    <?= (($absence['hide_in_profile']) ? '<i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="' . $LANG['abs_hide_in_profile'] . '"><i class="far fa-eye-slash fa-lg text-info"></i></i>' : '') ?>
+                                    <?= (($absence['confidential']) ? '<i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="' . $LANG['abs_confidential'] . '"><i class="fas fa-exclamation-circle fa-lg text-success"></i></i>' : '') ?>
+                                    <?= (($absence['allowmonth'] or ($absence['allowweek'])) ? '<i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="' . $LANG['abs_allow_active'] . '"><i class="far fa-hand-paper fa-lg text-warning"></i></i>' : '') ?>
                                 </div>
                                 <div class="col-lg-2 text-end">
                                     <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteAbsence_<?= $absence['id'] ?>"><?= $LANG['btn_delete'] ?></button>
