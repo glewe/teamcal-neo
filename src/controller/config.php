@@ -183,7 +183,7 @@ if (!empty($_POST)) {
             if ($_POST['sel_timeZone']) $C->save("timeZone", $_POST['sel_timeZone']);
             else $C->save("timeZone", "UTC");
             if (isset($_POST['chk_googleAnalytics']) && $_POST['chk_googleAnalytics']) {
-                if (preg_match('/\bUA-\d{4,10}-\d{1,4}\b/', $_POST['txt_googleAnalyticsID'])) {
+                if (preg_match('/^G-[A-Z0-9]{10,20}$/', $_POST['txt_googleAnalyticsID'])) {
                     $C->save("googleAnalytics", "1");
                     $C->save("googleAnalyticsID", $_POST['txt_googleAnalyticsID']);
                 }

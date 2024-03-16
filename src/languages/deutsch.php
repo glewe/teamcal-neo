@@ -458,8 +458,8 @@ $LANG['config_gdprPolicyPage_comment'] = 'Mit dieser Option wird eine Seite mit 
 $LANG['config_googleAnalytics'] = 'Google Analytics';
 $LANG['config_googleAnalytics_comment'] = $appTitle . ' unterst&uuml;tzt Google Analytics. Wenn du deine Instanz im Internet betreibst und den Zugriff 
       von Google Analytics tracken lassen willst, ticke die Checkbox hier und trage deine Google Analytics ID ein. Der entsprechende Javascript Code wird dann eingef&uuml;gt.';
-$LANG['config_googleAnalyticsID'] = "Google Analytics ID";
-$LANG['config_googleAnalyticsID_comment'] = "Wenn du die Google Analytics Funktion aktiviert hast, trage hier deine Google Analytics ID im Format UA-999999-99 ein.";
+$LANG['config_googleAnalyticsID'] = "Google Analytics ID (GA4)";
+$LANG['config_googleAnalyticsID_comment'] = "Wenn du die Google Analytics Funktion aktiviert hast, trage hier deine Google Analytics GA4 ID im Format G-... ein.";
 $LANG['config_gracePeriod'] = 'Schonfrist';
 $LANG['config_gracePeriod_comment'] = 'Zeit in Sekunden, die ein User warten muss, bevor er sich nach zu vielen fehlgeschlagenen Versuchen wieder einloggen kann.';
 $LANG['config_homepage'] = 'Benutzer Startseite';

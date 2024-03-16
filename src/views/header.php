@@ -12,7 +12,7 @@ if (!defined('VALID_ROOT')) exit('');
  * @since 3.0.0
  */ ?>
 <!DOCTYPE html>
-<html lang="<?= $LANG[ 'html_locale' ] ?>">
+<html lang="<?= $LANG['html_locale'] ?>">
 
 <head>
   <!--
@@ -24,7 +24,7 @@ if (!defined('VALID_ROOT')) exit('');
                    All rights reserved.
       ===============================================================================
       -->
-  <title><?= $htmlData[ 'title' ] ?></title>
+  <title><?= $htmlData['title'] ?></title>
 
   <meta http-equiv="Content-type" content="text/html;charset=utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -38,33 +38,33 @@ if (!defined('VALID_ROOT')) exit('');
   <?php } ?>
 
   <!-- Robots -->
-  <meta name="robots" content="<?= $htmlData[ 'robots' ] ?>"/>
+  <meta name="robots" content="<?= $htmlData['robots'] ?>"/>
 
   <?php if (!$C->read('noIndex')) { ?>
     <!-- SEO -->
     <link rel="canonical" href="<?= WEBSITE_URL ?>/"/>
-    <meta name="description" content="<?= $htmlData[ 'description' ] ?>"/>
-    <meta name="keywords" content="<?= $htmlData[ 'keywords' ] ?>">
-    <meta property="og:locale" content="<?= $htmlData[ 'locale' ] ?>"/>
+    <meta name="description" content="<?= $htmlData['description'] ?>"/>
+    <meta name="keywords" content="<?= $htmlData['keywords'] ?>">
+    <meta property="og:locale" content="<?= $htmlData['locale'] ?>"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:title" content="<?= $htmlData[ 'title' ] ?>"/>
-    <meta property="og:description" content="<?= $htmlData[ 'description' ] ?>"/>
+    <meta property="og:title" content="<?= $htmlData['title'] ?>"/>
+    <meta property="og:description" content="<?= $htmlData['description'] ?>"/>
     <meta property="og:url" content="<?= WEBSITE_URL ?>/"/>
-    <meta property="og:site_name" content="<?= $htmlData[ 'title' ] ?>"/>
+    <meta property="og:site_name" content="<?= $htmlData['title'] ?>"/>
     <meta property="og:image" content="<?= WEBSITE_URL ?>/images/icons/logo-200.png"/>
     <meta property="og:image:width" content="200"/>
     <meta property="og:image:height" content="200"/>
     <meta name="twitter:card" content="summary"/>
-    <meta name="twitter:description" content="<?= $htmlData[ 'description' ] ?>"/>
-    <meta name="twitter:title" content="<?= $htmlData[ 'title' ] ?>"/>
+    <meta name="twitter:description" content="<?= $htmlData['description'] ?>"/>
+    <meta name="twitter:title" content="<?= $htmlData['title'] ?>"/>
     <meta name="twitter:image" content="<?= WEBSITE_URL ?>/images/icons/logo-200.png"/>
   <?php } ?>
 
   <!-- Theme CSS -->
-  <?php if ($htmlData[ 'theme' ][ 'name' ] == 'bootstrap') { ?>
+  <?php if ($htmlData['theme']['name'] == 'bootstrap') { ?>
     <link rel="stylesheet" href="themes/bootstrap/bootstrap.min.css">
   <?php } else { ?>
-    <link rel="stylesheet" href="themes/<?= $htmlData[ 'theme' ][ 'name' ] ?>/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="themes/<?= $htmlData['theme']['name'] ?>/bootstrap.min.css" media="screen">
   <?php } ?>
 
   <?php if ($C->read('font') && $C->read('font') != 'default') { ?>
@@ -73,7 +73,7 @@ if (!defined('VALID_ROOT')) exit('');
   <?php } ?>
 
   <!-- Font Awesome -->
-  <?php if ($htmlData[ 'faCDN' ]) { ?>
+  <?php if ($htmlData['faCDN']) { ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/<?= FONTAWESOME_VER ?>/css/all.min.css">
   <?php } else { ?>
     <link rel="stylesheet" href="fonts/font-awesome/<?= FONTAWESOME_VER ?>/css/all.min.css">
@@ -83,14 +83,14 @@ if (!defined('VALID_ROOT')) exit('');
   <!-- <script src="js/popper.min.js"></script> -->
 
   <!-- jQuery -->
-  <?php if ($htmlData[ 'jQueryCDN' ]) { ?>
+  <?php if ($htmlData['jQueryCDN']) { ?>
     <script src="https://code.jquery.com/jquery-<?= JQUERY_VER ?>.min.js"></script>
     <script src="https://code.jquery.com/ui/<?= JQUERY_UI_VER ?>/jquery-ui.min.js"></script>
-  <link rel="stylesheet" href="https://code.jquery.com/ui/<?= JQUERY_UI_VER ?>/themes/<?= $htmlData[ 'jQueryTheme' ] ?>/jquery-ui.min.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/<?= JQUERY_UI_VER ?>/themes/<?= $htmlData['jQueryTheme'] ?>/jquery-ui.min.css">
   <?php } else { ?>
     <script src="js/jquery/jquery-<?= JQUERY_VER ?>.min.js"></script>
     <script src="js/jquery/ui/<?= JQUERY_UI_VER ?>/jquery-ui.min.js"></script>
-  <link rel="stylesheet" href="js/jquery/ui/<?= JQUERY_UI_VER ?>/themes/<?= $htmlData[ 'jQueryTheme' ] ?>/jquery-ui.min.css">
+  <link rel="stylesheet" href="js/jquery/ui/<?= JQUERY_UI_VER ?>/themes/<?= $htmlData['jQueryTheme'] ?>/jquery-ui.min.css">
   <?php } ?>
 
   <!-- Bootstrap Javascript -->
@@ -148,9 +148,9 @@ if (!defined('VALID_ROOT')) exit('');
     <script src="addons/x-editable/js/bootstrap-editable.js"></script>
   <?php } ?>
 
-  <?php if ($htmlData[ 'cookieConsent' ]) { ?>
+  <?php if ($htmlData['cookieConsent']) { ?>
     <!-- Cookie Consent -->
-    <?php if ($htmlData[ 'cookieConsentCDN' ]) { ?>
+    <?php if ($htmlData['cookieConsentCDN']) { ?>
   <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.css"/>
     <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.js"></script>
   <?php } else { ?>
@@ -173,9 +173,9 @@ if (!defined('VALID_ROOT')) exit('');
           },
           "theme": "classic",
           "content": {
-            "message": "<?= $LANG[ 'cookie_message' ] ?>",
-            "link": "<?= $LANG[ 'cookie_learnMore' ] ?>",
-            "dismiss": "<?= $LANG[ 'cookie_dismiss' ] ?>",
+            "message": "<?= $LANG['cookie_message'] ?>",
+            "link": "<?= $LANG['cookie_learnMore'] ?>",
+            "dismiss": "<?= $LANG['cookie_dismiss'] ?>",
             "href": "index.php?action=dataprivacy"
           }
         })
@@ -188,10 +188,47 @@ if (!defined('VALID_ROOT')) exit('');
       body {
         padding-top: 0;
       }
+
       .content {
         padding: 5px 0 5px 0;
       }
     </style>
+  <?php } ?>
+
+  <?php if ($C->read("googleAnalytics") and $C->read("googleAnalyticsID")) { ?>
+    <!--Begin: Google Analytics GA4-->
+    <script>
+      // Define dataLayer and the gtag function.
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      // Set default consents to 'denied'
+      // Set analytic consent to 'granted' (see Imprint page for opt-out option)
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'granted'
+      });
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $C->read("googleAnalyticsID") ?>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', '<?= $C->read("googleAnalyticsID") ?>');
+      // Opt out to GA
+      function gaOptout() {
+        gtag('consent', 'update', {
+          'analytics_storage': 'denied'
+        });
+      }
+    </script>
+    <!--End: Google Analytics GA4-->
   <?php } ?>
 
 </head>

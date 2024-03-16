@@ -455,8 +455,8 @@ $LANG['config_gdprPolicyPage_comment'] = 'Check to add a Data Privacy Policy pag
 $LANG['config_googleAnalytics'] = 'Google Analytics';
 $LANG['config_googleAnalytics_comment'] = $appTitle . ' supports Google Analytics. If you run your instance in the Internet and want to use Google Analytics 
       to trace access to it, you can check this box and enter your Google Analytics ID below. The corresponding Javascript code will be added automatically.';
-$LANG['config_googleAnalyticsID'] = "Google Analytics ID";
-$LANG['config_googleAnalyticsID_comment'] = "If you enabled the Google Analytics feature, enter your Google Analytics ID here in the format UA-999999-99.";
+$LANG['config_googleAnalyticsID'] = "Google Analytics ID (GA4)";
+$LANG['config_googleAnalyticsID_comment'] = "If you enabled the Google Analytics feature, enter your Google Analytics GA4 ID here in the format G-... .";
 $LANG['config_gracePeriod'] = 'Grace Period';
 $LANG['config_gracePeriod_comment'] = 'The amount of time in seconds that a user has to wait after too many bad logins before he can try again.';
 $LANG['config_homepage'] = 'User Homepage';
