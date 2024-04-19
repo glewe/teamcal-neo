@@ -732,7 +732,7 @@ function getOptions() {
  */
 function getPhpInfoBootstrap() {
   $output = '';
-  $rowstart = "<div class='col-lg-12' style='border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;'>\n";
+  $rowstart = "<div class='row' style='border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;'>\n";
   $rowend = "</div>\n";
 
   ob_start();
@@ -755,19 +755,17 @@ function getPhpInfoBootstrap() {
 
   if (!empty($phpinfo)) {
     foreach ($phpinfo as $name => $section) {
-      $output .= "<div class='panel panel-default'>\n<div class='panel-heading'>" . ucwords($name) . "</div>\n<div class='panel-body'>\n";
       foreach ($section as $key => $val) {
         $output .= $rowstart;
         if (is_array($val)) {
           $output .= "<div class='col-lg-4 text-bold'>" . $key . "</div>\n<div class='col-lg-4'>" . $val[ 0 ] . "</div>\n<div class='col-lg-4'>" . $val[ 1 ] . "</div>\n";
         } elseif (is_string($key)) {
-          $output .= "<div class='col-lg-6 text-bold'>" . $key . "</div>\n<div class='col-lg-6'>" . $val . "</div>\n";
+          $output .= "<div class='col-lg-4 text-bold'>" . $key . "</div>\n<div class='col-lg-8'>" . $val . "</div>\n";
         } else {
           $output .= "<div class='col-lg-12'>" . $val . "</div>\n";
         }
         $output .= $rowend;
       }
-      $output .= "</div>\n</div>\n";
     }
   } else {
     $output .= '<p>An error occurred executing the phpinfo() function. It may not be accessible or disabled. <a href="http://php.net/manual/en/function.phpinfo.php">See the documentation.</a></p>';
