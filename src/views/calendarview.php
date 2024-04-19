@@ -137,15 +137,17 @@ view.calendarview
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="modalSearchUserLabel"><?= $LANG[ 'cal_search' ] ?></h4>
+              <h5 class="modal-title"><?= $LANG[ 'cal_search' ] ?></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <input id="search" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_search" type="text" value="<?= $viewData[ "search" ] ?>">
               <?php if (isset($inputAlert[ "search" ])) { ?>
                 <br>
-                <div class="alert alert-dismissable alert-danger">
-                  <button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert[ 'search' ] ?></div>
+                <div class="alert alert-dismissable alert-danger fade show" role="alert">
+                  <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+                  <?= $inputAlert[ 'search' ] ?>
+                </div>
               <?php } ?>
             </div>
             <div class="modal-footer">
