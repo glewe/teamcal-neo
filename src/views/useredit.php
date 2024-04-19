@@ -263,7 +263,7 @@ view.useredit
                     <?php foreach ($viewData[ 'abs' ] as $abs) { ?>
                       <div class="form-group row">
                         <div class="col-lg-3">
-                          <div class="text-normal"><i class="<?= $abs[ 'icon' ] ?> fa-lg" style="color: #<?= $abs[ 'color' ] ?>; background-color: #<?= $abs[ 'bgcolor' ] ?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px; margin-right: 8px;"></i><?= $abs[ 'name' ] ?></div>
+                          <div class="text-normal" style=""><i class="<?= $abs[ 'icon' ] ?>" style="color: #<?= $abs[ 'color' ] ?>; background-color: #<?= $abs[ 'bgcolor' ] ?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 4px 4px; margin-right: 8px;"></i><?= $abs[ 'name' ] ?></div>
                         </div>
                         <?php if (isAllowed("userallowance")) { ?>
                           <div class="col-lg-2">
