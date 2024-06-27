@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * Config
  *
  * This class provides methods and properties for application settings.
- * 
+ *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
@@ -15,7 +15,7 @@ if (!defined('VALID_ROOT')) exit('');
  */
 class Config
 {
-    public $id = NULL;
+    public $id = null;
     public $name = '';
     public $value = '';
 

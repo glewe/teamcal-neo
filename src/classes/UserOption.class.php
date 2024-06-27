@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * UserOption
  *
  * This class provides methods and properties for user options.
- * 
+ *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
@@ -15,10 +15,10 @@ if (!defined('VALID_ROOT')) exit('');
  */
 class UserOption
 {
-    public $id = NULL;
-    public $username = NULL;
-    public $option = NULL;
-    public $value = NULL;
+    public $id = null;
+    public $username = null;
+    public $option = null;
+    public $value = null;
 
     private $db = '';
     private $table = '';

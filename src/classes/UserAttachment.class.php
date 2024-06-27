@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * UserAttachment
  *
  * This class provides methods and properties for user attachments.
- * 
+ *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
@@ -15,9 +15,9 @@ if (!defined('VALID_ROOT')) exit('');
  */
 class UserAttachment
 {
-    public $id = NULL;
+    public $id = null;
     public $username = '';
-    public $fileid = NULL;
+    public $fileid = null;
 
     private $db = '';
     private $table = '';

@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * UserGroup
  *
  * This class provides methods and properties for user group assignments.
- * 
+ *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
@@ -15,10 +15,10 @@ if (!defined('VALID_ROOT')) exit('');
  */
 class UserGroup
 {
-    public $id = NULL;
-    public $username = NULL;
-    public $groupid = NULL;
-    public $type = NULL;
+    public $id = null;
+    public $username = null;
+    public $groupid = null;
+    public $type = null;
 
     private $db = '';
     private $table = '';
@@ -799,7 +799,7 @@ class UserGroup
     // ---------------------------------------------------------------------
     /**
      * Updates a user-group record from local class variables
-     * 
+     *
      * @return boolean Query result
      */
     public function update()

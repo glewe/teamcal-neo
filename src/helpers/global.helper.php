@@ -499,7 +499,7 @@ function generatePassword($length = 9) {
  *
  * @return array Array containing the names of the files
  */
-function getFiles($myDir, $myExt = NULL, $myPrefix = NULL) {
+function getFiles($myDir, $myExt = null, $myPrefix = null) {
   $myDir = rtrim($myDir, "/");
   $dir = opendir($myDir);
 
