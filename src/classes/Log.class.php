@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * Log
  *
  * This class provides methods and properties for application log messages.
- * 
+ *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
@@ -15,8 +15,8 @@ if (!defined('VALID_ROOT')) exit('');
  */
 class Log
 {
-    public $id = NULL;
-    public $type = NULL;
+    public $id = null;
+    public $type = null;
     public $timestamp = '';
     public $user = '';
     public $event = '';

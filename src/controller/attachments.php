@@ -238,7 +238,7 @@ if (!empty($_POST)) {
 //
 $viewData['upl_maxsize'] = $CONF['uplMaxsize'];
 $viewData['upl_formats'] = implode(', ', $CONF['uplExtensions']);
-$files = getFiles(APP_UPL_DIR, $CONF['uplExtensions'], NULL);
+$files = getFiles(APP_UPL_DIR, $CONF['uplExtensions'], null);
 foreach ($files as $file) {
     $fid = $AT->getId($file);
     if ($UL->username != 'admin') {

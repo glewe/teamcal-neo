@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * Absences
  *
  * This class provides methods and properties for user roles.
- * 
+ *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
@@ -36,7 +36,7 @@ class Absences
     public $confidential = 0;
     public $takeover = 0;
 
-    private $db = NULL;
+    private $db = null;
     private $table = '';
 
     // ----------------------------------------------------------------------

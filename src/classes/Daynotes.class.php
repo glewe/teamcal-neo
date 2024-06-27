@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * Daynotes
  *
  * This class provides methods and properties for daynotes.
- * 
+ *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
@@ -15,7 +15,7 @@ if (!defined('VALID_ROOT')) exit('');
  */
 class Daynotes
 {
-    public $id = NULL;
+    public $id = null;
     public $yyyymmdd = '';
     public $daynote = '';
     public $daynotes = array();

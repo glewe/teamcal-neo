@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * Messages
  *
  * This class provides methods and properties for user roles.
- * 
+ *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
@@ -15,7 +15,7 @@ if (!defined('VALID_ROOT')) exit('');
  */
 class Messages
 {
-    public $id = NULL;
+    public $id = null;
     public $timestamp = '';
     public $username = '';
     public $text = '';

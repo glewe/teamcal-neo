@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * Holidays
  *
  * This class provides methods and properties for holidays.
- * 
+ *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
@@ -24,7 +24,7 @@ class Holidays
     public $noabsence = 0;
     public $keepweekendcolor = 0;
 
-    private $db = NULL;
+    private $db = null;
     private $table = '';
 
     // ----------------------------------------------------------------------
