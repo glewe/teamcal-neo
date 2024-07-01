@@ -102,7 +102,7 @@ class UserGroup
      * @param boolean $archive Whether to search in archive table
      * @return boolean Query result
      */
-    public function deleteAll($archive = FALSE)
+    public function deleteAll($archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -126,7 +126,7 @@ class UserGroup
      * @param string $groupid Group ID to delete
      * @return boolean Query result
      */
-    public function deleteByGroup($groupid, $archive = FALSE)
+    public function deleteByGroup($groupid, $archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -159,7 +159,7 @@ class UserGroup
      * @param bool $archive Whether to use the archive table
      * @return boolean Query result
      */
-    public function deleteByUser($username = '', $archive = FALSE)
+    public function deleteByUser($username = '', $archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -179,7 +179,7 @@ class UserGroup
      * @param bool $archive Whether to use the archive table
      * @return boolean Query result
      */
-    public function deleteAllGuests($groupid = '', $archive = FALSE)
+    public function deleteAllGuests($groupid = '', $archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -199,7 +199,7 @@ class UserGroup
      * @param bool $archive Whether to use the archive table
      * @return boolean Query result
      */
-    public function deleteAllManagers($groupid = '', $archive = FALSE)
+    public function deleteAllManagers($groupid = '', $archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -219,7 +219,7 @@ class UserGroup
      * @param bool $archive Whether to use the archive table
      * @return boolean Query result
      */
-    public function deleteAllMembers($groupid = '', $archive = FALSE)
+    public function deleteAllMembers($groupid = '', $archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -238,7 +238,7 @@ class UserGroup
      * @param bool $archive Whether to use the archive table
      * @return boolean True if found, false if not
      */
-    public function exists($username = '', $archive = FALSE)
+    public function exists($username = '', $archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;

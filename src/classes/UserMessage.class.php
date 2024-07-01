@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * UserMessage
  *
  * This class provides methods and properties for user group assignments.
- * 
+ *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
@@ -73,7 +73,7 @@ class UserMessage
      * @param boolean $archive Whether to search in archive table
      * @return boolean True if found, false if not
      */
-    public function exists($username = '', $archive = FALSE)
+    public function exists($username = '', $archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -115,7 +115,7 @@ class UserMessage
      * @param boolean $archive Whether to search in archive table
      * @return boolean Query result
      */
-    public function deleteAll($archive = FALSE)
+    public function deleteAll($archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;

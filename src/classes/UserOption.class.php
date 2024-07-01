@@ -74,7 +74,7 @@ class UserOption
      * @param boolean $archive Whether to search in archive table
      * @return boolean True if found, false if not
      */
-    public function exists($username = '', $archive = FALSE)
+    public function exists($username = '', $archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -116,7 +116,7 @@ class UserOption
      * @param boolean $archive Whether to search in archive table
      * @return boolean Query result
      */
-    public function deleteAll($archive = FALSE)
+    public function deleteAll($archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -149,7 +149,7 @@ class UserOption
      * @param string $username Username to delete
      * @return boolean Query result
      */
-    public function deleteByUser($username = '', $archive = FALSE)
+    public function deleteByUser($username = '', $archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -222,9 +222,9 @@ class UserOption
      *
      * @param string $username Username to find
      * @param string $option Option to find
-     * @return string Value of the option (or FALSE if not found)
+     * @return string Value of the option (or false if not found)
      */
-    public function read($username, $option, $archive = FALSE)
+    public function read($username, $option, $archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;

@@ -4,7 +4,7 @@ if (!defined('VALID_ROOT')) exit('');
  * Templates
  *
  * This class provides methods and properties for month templates.
- * 
+ *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2023 by George Lewe
  * @link https://www.lewe.com
@@ -315,7 +315,7 @@ class Templates
      * @param boolean $archive Whether to use archive table
      * @return boolean Query result
      */
-    public function deleteAll($archive = FALSE)
+    public function deleteAll($archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -391,7 +391,7 @@ class Templates
      * @param boolean $archive Whether to use archive table
      * @return boolean Query result
      */
-    public function deleteByUser($username = '', $archive = FALSE)
+    public function deleteByUser($username = '', $archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -410,7 +410,7 @@ class Templates
      * @param boolean $archive Whether to use archive table
      * @return boolean True if found, false if not
      */
-    public function exists($username = '', $archive = FALSE)
+    public function exists($username = '', $archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
