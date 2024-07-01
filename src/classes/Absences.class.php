@@ -73,9 +73,9 @@ class Absences {
   public function create() {
     $query = $this->db->prepare(
       'INSERT INTO ' . $this->table . ' (
-        name, 
-        symbol, 
-        icon, 
+        name,
+        symbol,
+        icon,
         color,
         bgcolor,
         bgtrans,
@@ -676,27 +676,27 @@ class Absences {
     $result = false;
     if (isset($id)) {
       $query = $this->db->prepare('UPDATE ' . $this->table . ' 
-       SET 
-          name = :val1, 
-          symbol = :val2, 
-          icon = :val3, 
-          color = :val4, 
-          bgcolor = :val5, 
-          bgtrans = :val6, 
-          factor = :val7, 
-          allowance = :val8, 
-          allowmonth = :val9, 
-          allowweek = :val10, 
-          counts_as = :val11, 
-          show_in_remainder = :val12, 
-          show_totals = :val13, 
-          approval_required = :val14, 
-          counts_as_present = :val15, 
-          manager_only = :val16, 
-          hide_in_profile = :val17, 
-          confidential = :val18, 
-          takeover = :val19 
-       WHERE 
+       SET
+          name = :val1,
+          symbol = :val2,
+          icon = :val3,
+          color = :val4,
+          bgcolor = :val5,
+          bgtrans = :val6,
+          factor = :val7,
+          allowance = :val8,
+          allowmonth = :val9,
+          allowweek = :val10,
+          counts_as = :val11,
+          show_in_remainder = :val12,
+          show_totals = :val13,
+          approval_required = :val14,
+          counts_as_present = :val15,
+          manager_only = :val16,
+          hide_in_profile = :val17,
+          confidential = :val18,
+          takeover = :val19
+       WHERE
           id = :val20');
 
       $query->bindParam('val1', $this->name);
