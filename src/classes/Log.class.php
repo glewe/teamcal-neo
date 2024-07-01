@@ -101,7 +101,7 @@ class Log {
   public function log($type, $user, $event, $object = '') {
     if (!strlen($this->C->read("logLanguage"))) $loglang = 'english';
     else $loglang = $this->C->read("logLanguage");
-    require_once(WEBSITE_ROOT . "/languages/" . $loglang . ".log.php");
+    require(WEBSITE_ROOT . "/languages/" . $loglang . ".log.php");
     $myEvent = $LANG[$event] . $object;
     if ($this->C->read($type)) {
       $ts = date("YmdHis");
