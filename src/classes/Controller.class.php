@@ -44,7 +44,7 @@ class Controller {
       $errorData['title'] = 'Application Error';
       $errorData['subject'] = 'Controller Instance';
       $errorData['text'] = 'The controller instance could not be initiated due to a missing controller name.';
-      require(WEBSITE_ROOT . "/views/error.php");
+      require_once(WEBSITE_ROOT . "/views/error.php");
       die();
     }
     $this->name = $name;
