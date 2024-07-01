@@ -39,7 +39,7 @@ class DB {
       $errorData['title'] = 'Application Error';
       $errorData['subject'] = 'Database connection error.';
       $errorData['text'] = $e->getMessage();
-      require_once(WEBSITE_ROOT . "/views/error.php");
+      require(WEBSITE_ROOT . "/views/error.php");
       die();
     }
 
@@ -79,6 +79,7 @@ class DB {
         $dbInfo .= $e->getMessage() . "\n";
       }
     }
+    // $dbInfo = rtrim($dbInfo, "\n");
     return $dbInfo;
   }
 
@@ -88,14 +89,17 @@ class DB {
    */
   public function optimizeTables() {
     $tables = array();
+
     $query = $this->db->prepare('SHOW TABLES');
     $result = $query->execute();
-    while ($result && $row = $query->fetch()) {
+
+    while ($result and $row = $query->fetch()) {
       $tables[] = $row[0];
     }
+
     foreach ($tables as $table) {
       $query = $this->db->prepare('OPTIMIZE TABLE ' . $table);
-      $query->execute();
+      $result = $query->execute();
     }
   }
 
@@ -107,6 +111,12 @@ class DB {
    */
   public function runQuery($myQuery) {
     $query = $this->db->prepare($myQuery);
-    return $query->execute();
+    $result = $query->execute();
+
+    if ($result) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

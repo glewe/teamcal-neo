@@ -89,7 +89,7 @@ class Avatar {
       }
     }
 
-    if (file_exists($this->path . $avatar) && $avatar != 'default_male.png' && $avatar != 'default_female.png' && substr($avatar, 0, 3) != 'is_') {
+    if (file_exists($this->path . $avatar) and $avatar != 'default_male.png' and $avatar != 'default_female.png' and substr($avatar, 0, 3) != 'is_') {
       unlink($this->path . $avatar);
     }
   }
@@ -133,6 +133,8 @@ class Avatar {
           }
           $nWidth = floor($width * $ratio);
           $nHeight = floor($height * $ratio);
+
+          // echo "<script type=\"text/javascript\">alert(\"Debug: ".$imgsize[0]." ".$imgsize[1]." ".$nWidth." ".$nHeight."\");</script>";
 
           switch (strtolower($this->fileExtension)) {
             case "gif":
@@ -222,6 +224,7 @@ class Avatar {
     $i = strrpos($str, ".");
     if (!$i) return "";
     $l = strlen($str) - $i;
-    return substr($str, $i + 1, $l);
+    $ext = substr($str, $i + 1, $l);
+    return $ext;
   }
 }
