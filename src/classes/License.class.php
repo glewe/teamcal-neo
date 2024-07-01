@@ -38,7 +38,7 @@ class License {
    *
    * @return JSON
    */
-  function activate() {
+  public function activate() {
     $parms = array(
       'slm_action' => 'slm_activate',
       'secret_key' => APP_LIC_KEY,
@@ -63,7 +63,7 @@ class License {
    * @param array $data URL paramater: array("param" => "value") ==> index.php?param=value
    * @return JSON
    */
-  function callAPI($method, $url, $data = false) {
+  public function callAPI($method, $url, $data = false) {
     if (defined('APP_LIC_LOCAL')) return APP_LIC_LOCAL;
 
     $curl = curl_init();
@@ -106,7 +106,7 @@ class License {
    * @param int $liceExpiryWarning Number of license days left for showing the expiry warning. 0 = no warning.
    * @param bool  &$LANG The language array. Passed by reference
    */
-  function check(&$alertData, &$showAlert, $licExpiryWarning, &$LANG) {
+  public function check(&$alertData, &$showAlert, $licExpiryWarning, &$LANG) {
     $parms = array(
       'slm_action' => 'slm_check',
       'secret_key' => APP_LIC_KEY,
@@ -183,7 +183,7 @@ class License {
    *
    * @return JSON
    */
-  function deactivate() {
+  public function deactivate() {
     $parms = array(
       'slm_action' => 'slm_deactivate',
       'secret_key' => APP_LIC_KEY,
@@ -204,9 +204,8 @@ class License {
    *
    * @return boolean
    */
-  function domainRegistered() {
+  public function domainRegistered() {
     if (!$this->readKey()) return false;
-
     if (count($this->details->registered_domains)) {
       foreach ($this->details->registered_domains as $domain) {
         if ($domain->registered_domain == $_SERVER['SERVER_NAME']) return true;
@@ -223,7 +222,7 @@ class License {
    *
    * @return integer
    */
-  function daysToExpiry() {
+  public function daysToExpiry() {
     if (!isset($this->details->date_expiry)) return 0;
     $todayDate = new DateTime('now');
     $expiryDate = new DateTime($this->details->date_expiry);
@@ -237,7 +236,7 @@ class License {
    *
    * @return JSON
    */
-  function load() {
+  public function load() {
     $parms = array(
       'slm_action' => 'slm_check',
       'secret_key' => APP_LIC_KEY,
@@ -258,9 +257,7 @@ class License {
    */
   public function readKey() {
     $query = $this->db->prepare("SELECT value FROM " . $this->table . " WHERE `name` = 'licKey';");
-    $result = $query->execute();
-
-    if ($result and $row = $query->fetch()) {
+    if ($query->execute() && $row = $query->fetch()) {
       return $row['value'];
     } else {
       return '';
@@ -276,16 +273,13 @@ class License {
    */
   public function saveKey($value) {
     $query = $this->db->prepare("SELECT COUNT(*) FROM " . $this->table . " WHERE `name` = 'licKey'");
-    $result = $query->execute();
-
-    if ($result and $query->fetchColumn()) {
+    if ($query->execute() && $query->fetchColumn()) {
       $query2 = $this->db->prepare("UPDATE " . $this->table . " SET value = :val1 WHERE name = 'licKey'");
     } else {
       $query2 = $this->db->prepare("INSERT INTO " . $this->table . " (`name`, `value`) VALUES ('licKey', :val1)");
     }
     $query2->bindParam('val1', $value);
-    $result2 = $query2->execute();
-    return $result2;
+    return $query2->execute();
   }
 
   // ---------------------------------------------------------------------------
@@ -296,7 +290,7 @@ class License {
    * @param bool $showDetails Show details
    * @return string HTML
    */
-  function show($data, $showDetails = false) {
+  public function show($data, $showDetails = false) {
     global $LANG;
 
     if (isset($data->result) && $data->result == "error") {
@@ -411,7 +405,7 @@ class License {
    *
    * @return string  active/blocked/invalid/expired/pending/unregistered
    */
-  function status() {
+  public function status() {
     if (!isset($this->details) || $this->details->result == 'error') return "invalid";
 
     switch ($this->details->status) {
