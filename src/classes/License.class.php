@@ -18,7 +18,6 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 class License {
   private $db = '';
   private $table = '';
-
   public $details;
 
   // ---------------------------------------------------------------------
@@ -32,7 +31,7 @@ class License {
     $this->load();
   }
 
-  // ---------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Activates a license (and registers the domain the request is coming from)
    *
@@ -46,14 +45,12 @@ class License {
       'registered_domain' => $_SERVER['SERVER_NAME'],
       'item_reference' => urlencode(APP_LIC_ITM),
     );
-
     $response = $this->callAPI('GET', APP_LIC_SRV, $parms);
     $response = json_decode((string)$response);
-
     return $response;
   }
 
-  // ---------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * API Call
    * $query = APPL_LIC_SRV . '?slm_action=' . $parms['slm_action'] . '&amp;secret_key=' . $parms['secret_key'] . '&amp;license_key=' . $parms['license_key'] . '&amp;registered_domain=' . $parms['registered_domain'] . '&amp;item_reference=' . $parms['item_reference'];
@@ -65,9 +62,7 @@ class License {
    */
   function callAPI($method, $url, $data = false) {
     if (defined('APP_LIC_LOCAL')) return APP_LIC_LOCAL;
-
     $curl = curl_init();
-
     switch (strtoupper($method)) {
       case "POST":
         curl_setopt($curl, CURLOPT_POST, 1);
@@ -81,22 +76,14 @@ class License {
         if ($data)
           $url = sprintf("%s?%s", $url, http_build_query($data));
     }
-
-    // Optional Authentication:
-    // curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    // curl_setopt($curl, CURLOPT_USERPWD, "username:password");
-
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
     $result = curl_exec($curl);
-
     curl_close($curl);
-
     return $result;
   }
 
-  // ---------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Checks the license against the license server and fills the alert array in
    * case of a problem. The alert array is used on pages to display messages.
@@ -112,11 +99,9 @@ class License {
       'secret_key' => APP_LIC_KEY,
       'license_key' => $this->readKey(),
     );
-
     $response = $this->callAPI('GET', APP_LIC_SRV, $parms);
     $response = json_decode((string)$response);
     $this->details = $response;
-
     switch ($this->status()) {
       case "blocked":
         $alertData['type'] = 'warning';
@@ -132,6 +117,15 @@ class License {
         $alertData['title'] = $LANG['lic_expired'];
         $alertData['subject'] = $LANG['lic_expired_subject'];
         $alertData['help'] = $LANG['lic_expired_help'];
+        $showAlert = true;
+        break;
+
+      case "invalid":
+        $alertData['type'] = 'danger';
+        $alertData['title'] = $LANG['lic_invalid'];
+        $alertData['subject'] = $LANG['lic_invalid_subject'];
+        $alertData['text'] = $LANG['lic_invalid_text'];
+        $alertData['help'] = $LANG['lic_invalid_help'];
         $showAlert = true;
         break;
 
@@ -153,15 +147,8 @@ class License {
         $showAlert = true;
         break;
 
-      default: // or "invalid"
-        $alertData['type'] = 'danger';
-        $alertData['title'] = $LANG['lic_invalid'];
-        $alertData['subject'] = $LANG['lic_invalid_subject'];
-        $alertData['text'] = $LANG['lic_invalid_text'];
-        $alertData['help'] = $LANG['lic_invalid_help'];
-        $showAlert = true;
+      default:
         break;
-
     }
 
     if ($licExpiryWarning) {
@@ -177,7 +164,7 @@ class License {
     }
   }
 
-  // ---------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Deactivates a license (deregisters the domain the request is coming from)
    *
@@ -191,14 +178,12 @@ class License {
       'registered_domain' => $_SERVER['SERVER_NAME'],
       'item_reference' => urlencode(APP_LIC_ITM),
     );
-
     $response = $this->callAPI('GET', APP_LIC_SRV, $parms);
     $response = json_decode((string)$response);
-
     return $response;
   }
 
-  // ---------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Checks whether the current domain is registered
    *
@@ -206,7 +191,6 @@ class License {
    */
   function domainRegistered() {
     if (!$this->readKey()) return false;
-
     if (count($this->details->registered_domains)) {
       foreach ($this->details->registered_domains as $domain) {
         if ($domain->registered_domain == $_SERVER['SERVER_NAME']) return true;
@@ -217,7 +201,7 @@ class License {
     }
   }
 
-  // ---------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Returns the days until expiry
    *
@@ -231,7 +215,7 @@ class License {
     return intval($daysToExpiry->format('%R%a'));
   }
 
-  // ---------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Loads the license information from license server
    *
@@ -243,13 +227,12 @@ class License {
       'secret_key' => APP_LIC_KEY,
       'license_key' => $this->readKey(),
     );
-
     $response = $this->callAPI('GET', APP_LIC_SRV, $parms);
     $response = json_decode((string)$response);
     $this->details = $response;
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Read licensekey
    *
@@ -258,16 +241,14 @@ class License {
    */
   public function readKey() {
     $query = $this->db->prepare("SELECT value FROM " . $this->table . " WHERE `name` = 'licKey';");
-    $result = $query->execute();
-
-    if ($result and $row = $query->fetch()) {
+    if ($query->execute() && $row = $query->fetch()) {
       return $row['value'];
     } else {
       return '';
     }
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Save licensekey
    *
@@ -276,29 +257,25 @@ class License {
    */
   public function saveKey($value) {
     $query = $this->db->prepare("SELECT COUNT(*) FROM " . $this->table . " WHERE `name` = 'licKey'");
-    $result = $query->execute();
-
-    if ($result and $query->fetchColumn()) {
+    if ($query->execute() && $query->fetchColumn()) {
       $query2 = $this->db->prepare("UPDATE " . $this->table . " SET value = :val1 WHERE name = 'licKey'");
     } else {
       $query2 = $this->db->prepare("INSERT INTO " . $this->table . " (`name`, `value`) VALUES ('licKey', :val1)");
     }
     $query2->bindParam('val1', $value);
-    $result2 = $query2->execute();
-    return $result2;
+    return $query2->execute();
   }
 
-  // ---------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Creates a form-group object based on input parameters
    *
-   * @param object $data License information array
-   * @param bool $showDetails Show details
+   * @param string $type Type of information: notfound, invalid, details
+   * @param objcet $data License information array
    * @return string HTML
    */
   function show($data, $showDetails = false) {
     global $LANG;
-
     if (isset($data->result) && $data->result == "error") {
       $alert['type'] = 'danger';
       $alert['title'] = $LANG['lic_invalid'];
@@ -314,12 +291,10 @@ class License {
         }
         $domains = substr($domains, 0, -2); // Remove last comma and blank
       }
-
       $daysleft = "";
       if ($daysToExpiry = $this->daysToExpiry()) {
         $daysleft = " (" . $daysToExpiry . " " . $LANG['lic_daysleft'] . ")";
       }
-
       $details = "<div style=\"height:20px;\"></div>";
       $details .= "<table class=\"table table-hover\">
                 <tr><th>" . $LANG['lic_product'] . ":</th><td>" . $data->product_ref . "</td></tr>
@@ -381,14 +356,7 @@ class License {
           break;
 
         default:
-          $alert['type'] = 'warning';
-          $title = $LANG['lic_invalid'];
-          $alert['title'] = $title . '<span class="btn btn-' . $alert['type'] . ' btn-sm" style="margin-left:16px;">' . proper($data->status) . '</span>';
-          $alert['subject'] = $LANG['lic_invalid_subject'];
-          $alert['text'] = '';
-          $alert['help'] = $LANG['lic_invalid_help'];
           break;
-
       }
     }
 
@@ -405,7 +373,7 @@ class License {
     return $alertBox;
   }
 
-  // ---------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Get status
    *

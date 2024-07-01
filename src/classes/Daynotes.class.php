@@ -148,7 +148,7 @@ class Daynotes
      * @param boolean $archive Whether to use the archive table
      * @return boolean Query result or false
      */
-    public function deleteAll($archive = FALSE)
+    public function deleteAll($archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -202,7 +202,7 @@ class Daynotes
      * @param string $uname Username to find for deletion
      * @return boolean Query result
      */
-    public function deleteByUser($username = '', $archive = FALSE)
+    public function deleteByUser($username = '', $archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;

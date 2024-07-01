@@ -73,7 +73,7 @@ class UserAttachment
      * @param boolean $archive Whether to use archive table
      * @return boolean True if found, false if not
      */
-    public function exists($username = '', $archive = FALSE)
+    public function exists($username = '', $archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -113,7 +113,7 @@ class UserAttachment
      * @param boolean $archive Whether to use archive table
      * @return boolean Query result
      */
-    public function deleteAll($archive = FALSE)
+    public function deleteAll($archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -131,7 +131,7 @@ class UserAttachment
      * @param boolean $archive Whether to use archive table
      * @return boolean Query result
      */
-    public function deleteUser($username = '', $archive = FALSE)
+    public function deleteUser($username = '', $archive = false)
     {
         if ($archive) $table = $this->archive_table;
         else $table = $this->table;
@@ -163,7 +163,7 @@ class UserAttachment
      *
      * @param string $username Username to find
      * @param string $fileid File ID to find
-     * @return string TRUE if exists, FALSE if not
+     * @return string TRUE if exists, false if not
      */
     public function hasAccess($username, $fileid)
     {
