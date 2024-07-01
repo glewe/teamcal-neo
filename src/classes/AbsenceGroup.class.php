@@ -68,9 +68,12 @@ class AbsenceGroup {
   public function getAssignments($absid) {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE absid = :val1');
     $query->bindParam('val1', $absid);
-    $result = $query->execute();
-    while ($row = $query->fetch()) $records[] = $row['groupid'];
-    return $records;
+    if ($query->execute()) {
+      while ($row = $query->fetch()) $records[] = $row['groupid'];
+      return $records;
+    } else {
+      return [];
+    }
   }
 
   //---------------------------------------------------------------------------
