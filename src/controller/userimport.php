@@ -158,7 +158,7 @@ if (!empty($_POST)) {
                                 continue;
                             }
 
-                            if ($CSVgender != "male" and $CSVgender != "female") {
+                            if ($CSVgender != "male" && $CSVgender != "female") {
                                 //
                                 // Wrong gender
                                 //
@@ -194,7 +194,7 @@ if (!empty($_POST)) {
                             // Assign to default group
                             //
                             if (isset($_POST['sel_group'])) {
-                                if ($G->getById($_POST['sel_group']) and $U->findByName($CSVusername)) $UG->save($CSVusername, $_POST['sel_group'], 'member');
+                                if ($G->getById($_POST['sel_group']) && $U->findByName($CSVusername)) $UG->save($CSVusername, $_POST['sel_group'], 'member');
                             }
 
                             //

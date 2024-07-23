@@ -196,13 +196,13 @@ if (!empty($_POST)) {
         //
         // Set log levels
         //
-        if (isset($_POST['chk_log' . $lt]) and $_POST['chk_log' . $lt]) $C->save("log" . $lt, "1");
+        if (isset($_POST['chk_log' . $lt]) && $_POST['chk_log' . $lt]) $C->save("log" . $lt, "1");
         else $C->save("log" . $lt, "0");
 
         //
         // Set log filters
         //
-        if (isset($_POST['chk_logfilter' . $lt]) and $_POST['chk_logfilter' . $lt]) $C->save("logfilter" . $lt, "1");
+        if (isset($_POST['chk_logfilter' . $lt]) && $_POST['chk_logfilter' . $lt]) $C->save("logfilter" . $lt, "1");
         else $C->save("logfilter" . $lt, "0");
 
         //

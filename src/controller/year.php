@@ -19,7 +19,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 //
 // CHECK URL PARAMETERS
 //
-if (isset($_GET['year']) and isset($_GET['region']) and isset($_GET['user'])) {
+if (isset($_GET['year']) && isset($_GET['region']) && isset($_GET['user'])) {
     $missingData = FALSE;
 
     $yyyy = sanitize($_GET['year']);
@@ -54,7 +54,7 @@ if ($missingData) {
 //
 // Default back to current yearmonth if option is set
 //
-if ($C->read('currentYearOnly') and $yyyy != date('Y')) {
+if ($C->read('currentYearOnly') && $yyyy != date('Y')) {
     header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&year=" . date('Y') . "&region=" . $region . "&user=" . $user);
     die();
 }
@@ -219,7 +219,7 @@ foreach ($users as $usr) {
     } else if (!$U->isHidden($usr['username'])) {
         if (isAllowed("calendarviewall")) {
             $allowed = true;
-        } elseif (isAllowed("calendarviewgroup") and $UG->shareGroups($usr['username'], $UL->username)) {
+        } elseif (isAllowed("calendarviewgroup") && $UG->shareGroups($usr['username'], $UL->username)) {
             $allowed = true;
         }
     }

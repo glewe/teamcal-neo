@@ -126,7 +126,7 @@ if (!empty($_POST)) {
             // Footer
             //
             $C->save("footerCopyright", sanitize($_POST['txt_footerCopyright']));
-            if (strlen($_POST['txt_footerCopyrightUrl']) and filter_var($_POST['txt_footerCopyrightUrl'], FILTER_VALIDATE_URL)) $C->save("footerCopyrightUrl", $_POST['txt_footerCopyrightUrl']);
+            if (strlen($_POST['txt_footerCopyrightUrl']) && filter_var($_POST['txt_footerCopyrightUrl'], FILTER_VALIDATE_URL)) $C->save("footerCopyrightUrl", $_POST['txt_footerCopyrightUrl']);
             else $C->save("footerCopyrightUrl", "");
             if (isset($_POST['chk_footerViewport']) && $_POST['chk_footerViewport']) $C->save("footerViewport", "1");
             else $C->save("footerViewport", "0");

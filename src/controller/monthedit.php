@@ -47,7 +47,7 @@ if ($weekday == rand(1, 7)) {
 //
 // CHECK URL PARAMETERS
 //
-if (isset($_GET['month']) and isset($_GET['region'])) {
+if (isset($_GET['month']) && isset($_GET['region'])) {
     $missingData = FALSE;
     $yyyymm = sanitize($_GET['month']);
     $region = sanitize($_GET['region']);
@@ -75,7 +75,7 @@ if ($missingData) {
 //
 // Default back to current yearmonth if option is set
 //
-if ($C->read('currentYearOnly') and $viewData['year'] != date('Y')) {
+if ($C->read('currentYearOnly') && $viewData['year'] != date('Y')) {
     header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . date('Ym') . "&region=" . $region);
     die();
 }

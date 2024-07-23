@@ -98,7 +98,7 @@ if (!empty($_POST)) {
     if (!formInputValid('txt_position', 'alpha_numeric_dash_blank')) $inputError = true;
     if (!formInputValid('txt_email', 'required|email')) $inputError = true;
     if (!formInputValid('txt_orderkey', 'alpha_numeric_dash_blank_dot')) $inputError = true;
-    if ((isset($_POST[ 'txt_password' ]) and strlen($_POST[ 'txt_password' ])) or (isset($_POST[ 'txt_password2' ]) and strlen($_POST[ 'txt_password2' ]))) {
+    if ((isset($_POST[ 'txt_password' ]) && strlen($_POST[ 'txt_password' ])) or (isset($_POST[ 'txt_password2' ]) && strlen($_POST[ 'txt_password2' ]))) {
       if (!formInputValid('txt_password', 'pwd' . $C->read('pwdStrength'))) $inputError = true;
       if (!formInputValid('txt_password2', 'required|pwd' . $C->read('pwdStrength'))) $inputError = true;
       if (!formInputValid('txt_password2', 'match', 'txt_password')) {
@@ -210,13 +210,13 @@ if (!empty($_POST)) {
       //
       if (isAllowed("useraccount")) {
         if (isset($_POST[ 'sel_role' ])) $UP->role = $_POST[ 'sel_role' ];
-        if (isset($_POST[ 'chk_locked' ]) and $_POST[ 'chk_locked' ]) $UP->locked = '1';
+        if (isset($_POST[ 'chk_locked' ]) && $_POST[ 'chk_locked' ]) $UP->locked = '1';
         else $UP->locked = '0';
-        if (isset($_POST[ 'chk_hidden' ]) and $_POST[ 'chk_hidden' ]) $UP->hidden = '1';
+        if (isset($_POST[ 'chk_hidden' ]) && $_POST[ 'chk_hidden' ]) $UP->hidden = '1';
         else $UP->hidden = '0';
-        if (isset($_POST[ 'chk_onhold' ]) and $_POST[ 'chk_onhold' ]) $UP->onhold = '1';
+        if (isset($_POST[ 'chk_onhold' ]) && $_POST[ 'chk_onhold' ]) $UP->onhold = '1';
         else $UP->onhold = '0';
-        if (isset($_POST[ 'chk_verify' ]) and $_POST[ 'chk_verify' ]) {
+        if (isset($_POST[ 'chk_verify' ]) && $_POST[ 'chk_verify' ]) {
           $UP->verify = '1';
         } else {
           $UP->verify = '0';
@@ -228,8 +228,8 @@ if (!empty($_POST)) {
       // Password
       //
       if (
-        isset($_POST[ 'txt_password' ]) and strlen($_POST[ 'txt_password' ]) and
-        isset($_POST[ 'txt_password2' ]) and strlen($_POST[ 'txt_password2' ]) and
+        isset($_POST[ 'txt_password' ]) && strlen($_POST[ 'txt_password' ]) and
+        isset($_POST[ 'txt_password2' ]) && strlen($_POST[ 'txt_password2' ]) and
         $_POST[ 'txt_password' ] == $_POST[ 'txt_password2' ]
       ) {
         $UP->password = password_hash(trim($_POST[ 'txt_password' ]), PASSWORD_DEFAULT);
@@ -266,9 +266,9 @@ if (!empty($_POST)) {
       //
       if (isset($_POST[ 'opt_avatar' ])) {
         $UO->save($profile, 'avatar', $_POST[ 'opt_avatar' ]);
-      } elseif ((!$UO->read($profile, 'avatar') and ($UO->read($profile, 'gender') == 'male' or $UO->read($profile, 'gender') == 'female')) or
-        ($UO->read($profile, 'avatar') == 'default_male.png' and $UO->read($profile, 'gender') == 'female') or
-        ($UO->read($profile, 'avatar') == 'default_female.png' and $UO->read($profile, 'gender') == 'male')
+      } elseif ((!$UO->read($profile, 'avatar') && ($UO->read($profile, 'gender') == 'male' or $UO->read($profile, 'gender') == 'female')) or
+        ($UO->read($profile, 'avatar') == 'default_male.png' && $UO->read($profile, 'gender') == 'female') or
+        ($UO->read($profile, 'avatar') == 'default_female.png' && $UO->read($profile, 'gender') == 'male')
       ) {
         $UO->save($profile, 'avatar', 'default_' . $UO->read($profile, 'gender') . '.png');
       } else {
@@ -280,7 +280,7 @@ if (!empty($_POST)) {
       //
       if (isAllowed("userabsences") && $profile != 'admin') {
         foreach ($absences as $abs) {
-          if (isset($_POST[ 'txt_' . $abs[ 'id' ] . '_allowance' ]) and isset($_POST[ 'txt_' . $abs[ 'id' ] . '_carryover' ])) {
+          if (isset($_POST[ 'txt_' . $abs[ 'id' ] . '_allowance' ]) && isset($_POST[ 'txt_' . $abs[ 'id' ] . '_carryover' ])) {
             $AL->username = $profile;
             $AL->absid = $abs[ 'id' ];
             $AL->allowance = $_POST[ 'txt_' . $abs[ 'id' ] . '_allowance' ];
@@ -326,7 +326,7 @@ if (!empty($_POST)) {
       //
       // 2FA
       //
-      if (isset($_POST[ 'chk_remove2fa' ]) and $_POST[ 'chk_remove2fa' ]) $UO->deleteUserOption($profile, 'secret');
+      if (isset($_POST[ 'chk_remove2fa' ]) && $_POST[ 'chk_remove2fa' ]) $UO->deleteUserOption($profile, 'secret');
 
       $UP->update($profile);
 

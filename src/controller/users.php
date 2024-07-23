@@ -92,7 +92,7 @@ if (!empty($_POST)) {
         // ,---------,
         // | Archive |
         // '---------'
-        else if (isset($_POST['btn_userArchive']) and isset($_POST['chk_userActive'])) {
+        else if (isset($_POST['btn_userArchive']) && isset($_POST['chk_userActive'])) {
             $selected_users = $_POST['chk_userActive'];
 
             //
@@ -129,7 +129,7 @@ if (!empty($_POST)) {
         // ,---------,
         // | Restore |
         // '---------'
-        else if (isset($_POST['btn_profileRestore']) and isset($_POST['chk_userArchived'])) {
+        else if (isset($_POST['btn_profileRestore']) && isset($_POST['chk_userArchived'])) {
             $selected_users = $_POST['chk_userArchived'];
 
             //
@@ -168,7 +168,7 @@ if (!empty($_POST)) {
         // ,---------------,
         // | Delete Active |
         // '---------------'
-        else if (isset($_POST['btn_profileDelete']) and isset($_POST['chk_userActive'])) {
+        else if (isset($_POST['btn_profileDelete']) && isset($_POST['chk_userActive'])) {
             $selected_users = $_POST['chk_userActive'];
             foreach ($selected_users as $su => $value) {
                 //
@@ -194,7 +194,7 @@ if (!empty($_POST)) {
         // ,-----------------,
         // | Delete Archived |
         // '-----------------'
-        else if (isset($_POST['btn_profileDeleteArchived']) and isset($_POST['chk_userArchived'])) {
+        else if (isset($_POST['btn_profileDeleteArchived']) && isset($_POST['chk_userArchived'])) {
             $selected_users = $_POST['chk_userArchived'];
             foreach ($selected_users as $su => $value) {
                 deleteUser($value, $fromArchive = true);
@@ -212,7 +212,7 @@ if (!empty($_POST)) {
         // ,----------------,
         // | Reset Password |
         // '----------------'
-        else if (isset($_POST['btn_userResetPassword']) and isset($_POST['chk_userActive'])) {
+        else if (isset($_POST['btn_userResetPassword']) && isset($_POST['chk_userActive'])) {
             $selected_users = $_POST['chk_userActive'];
             foreach ($selected_users as $su => $value) {
                 //
@@ -259,7 +259,7 @@ if (!empty($_POST)) {
         // ,------------,
         // | Remove 2FA |
         // '------------'
-        else if (isset($_POST['btn_userRemoveSecret']) and isset($_POST['chk_userActive'])) {
+        else if (isset($_POST['btn_userRemoveSecret']) && isset($_POST['chk_userActive'])) {
             $selected_users = $_POST['chk_userActive'];
             foreach ($selected_users as $su => $value) {
                 //
@@ -313,13 +313,13 @@ $users = $U->getAll('lastname', 'firstname', 'ASC', $archive = false, $includeAd
 if (isset($_POST['btn_search'])) {
     $searchUsers = array();
 
-    if (isset($_POST['txt_searchUser']) and strlen($_POST['txt_searchUser'])) {
+    if (isset($_POST['txt_searchUser']) && strlen($_POST['txt_searchUser'])) {
         $searchUser = sanitize($_POST['txt_searchUser']);
         $viewData['searchUser'] = $searchUser;
         $users = $U->getAllLike($searchUser);
     }
 
-    if (isset($_POST['sel_searchGroup']) and ($_POST['sel_searchGroup'] != "All")) {
+    if (isset($_POST['sel_searchGroup']) && ($_POST['sel_searchGroup'] != "All")) {
         $searchGroup = sanitize($_POST['sel_searchGroup']);
         $viewData['searchGroup'] = $searchGroup;
         foreach ($users as $user) {
@@ -330,7 +330,7 @@ if (isset($_POST['btn_search'])) {
         $users = $searchUsers;
     }
 
-    if (isset($_POST['sel_searchRole']) and ($_POST['sel_searchRole'] != "All")) {
+    if (isset($_POST['sel_searchRole']) && ($_POST['sel_searchRole'] != "All")) {
         $searchRole = sanitize($_POST['sel_searchRole']);
         $viewData['searchRole'] = $searchRole;
         foreach ($users as $user) {

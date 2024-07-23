@@ -18,7 +18,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
 //
 // CHECK URL PARAMETERS
 //
-if (isset($_GET['month']) and isset($_GET['region']) and isset($_GET['user'])) {
+if (isset($_GET['month']) && isset($_GET['region']) && isset($_GET['user'])) {
   $missingData = FALSE;
   $doNotSave = FALSE;
 
@@ -78,7 +78,7 @@ if ($missingData) {
 //
 // Default back to current yearmonth if option is set
 //
-if ($C->read('currentYearOnly') and $viewData['year'] != date('Y')) {
+if ($C->read('currentYearOnly') && $viewData['year'] != date('Y')) {
   if ($C->read("currYearRoles")) {
     //
     // Applies to roles. Check if current user in in one of them.
@@ -104,7 +104,7 @@ if (isAllowed($CONF['controllers'][$controller]->permission)) {
   } else if ($UG->shareGroupMemberships($UL->username, $caluser)) {
     if (isAllowed("calendareditgroup")) {
       $allowed = true;
-    } elseif (isAllowed("calendareditgroupmanaged") and $UG->isGroupManagerOfUser($UL->username, $caluser)) {
+    } elseif (isAllowed("calendareditgroupmanaged") && $UG->isGroupManagerOfUser($UL->username, $caluser)) {
       $allowed = true;
     }
   } else {
@@ -265,7 +265,7 @@ if (!empty($_POST)) {
         $endYear = $endPieces[0];
         $endMonth = $endPieces[1];
 
-        if ($startYear == $viewData['year'] and $endYear == $viewData['year'] and $startMonth == $viewData['month'] and $endMonth == $viewData['month']) {
+        if ($startYear == $viewData['year'] && $endYear == $viewData['year'] && $startMonth == $viewData['month'] && $endMonth == $viewData['month']) {
           $startDate = str_replace("-", "", $_POST['txt_periodStart']);
           $endDate = str_replace("-", "", $_POST['txt_periodEnd']);
 
@@ -328,7 +328,7 @@ if (!empty($_POST)) {
             for ($i = $startDate; $i <= $endDate; $i++) {
               $day = intval(substr($i, 6, 2));
               $loopDayInfo = dateInfo($viewData['year'], $viewData['month'], $day);
-              if ($loopDayInfo['wday'] >= 1 and $loopDayInfo['wday'] <= 5) {
+              if ($loopDayInfo['wday'] >= 1 && $loopDayInfo['wday'] <= 5) {
                 $requestedAbsences[$day] = $_POST['sel_recurringAbsence'];
               }
             }
@@ -339,7 +339,7 @@ if (!empty($_POST)) {
             for ($i = $startDate; $i <= $endDate; $i++) {
               $day = intval(substr($i, 6, 2));
               $loopDayInfo = dateInfo($viewData['year'], $viewData['month'], $day);
-              if ($loopDayInfo['wday'] >= 6 and $loopDayInfo['wday'] <= 7) {
+              if ($loopDayInfo['wday'] >= 6 && $loopDayInfo['wday'] <= 7) {
                 $requestedAbsences[$day] = $_POST['sel_recurringAbsence'];
               }
             }
@@ -405,7 +405,7 @@ if (!empty($_POST)) {
       //
       // Send notification e-mails to the subscribers of user events
       //
-      if ($C->read("emailNotifications") and $sendNotification) {
+      if ($C->read("emailNotifications") && $sendNotification) {
         sendUserCalEventNotifications("changed", $caluser, $viewData['year'], $viewData['month']);
       }
 
@@ -486,12 +486,12 @@ foreach ($allRegions as $reg) {
 $viewData['users'] = array();
 foreach ($users as $usr) {
   $allowed = false;
-  if ($usr['username'] == $UL->username and isAllowed("calendareditown")) {
+  if ($usr['username'] == $UL->username && isAllowed("calendareditown")) {
     $allowed = true;
   } else if (!$U->isHidden($usr['username'])) {
     if (isAllowed("calendareditall")) {
       $allowed = true;
-    } elseif (isAllowed("calendareditgroup") and $UG->shareGroups($usr['username'], $UL->username)) {
+    } elseif (isAllowed("calendareditgroup") && $UG->shareGroups($usr['username'], $UL->username)) {
       $allowed = true;
     }
   }

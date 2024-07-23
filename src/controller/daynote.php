@@ -20,7 +20,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
 //
 if (
     !isAllowed($CONF['controllers'][$controller]->permission) or
-    (isset($_GET['for']) and $_GET['for'] == 'all' and !isAllowed('daynoteglobal'))
+    (isset($_GET['for']) && $_GET['for'] == 'all' && !isAllowed('daynoteglobal'))
 ) {
     $alertData['type'] = 'warning';
     $alertData['title'] = $LANG['alert_alert_title'];
@@ -35,7 +35,7 @@ if (
 //
 // CHECK URL PARAMETERS
 //
-if (isset($_GET['date']) and isset($_GET['for'])) {
+if (isset($_GET['date']) && isset($_GET['for'])) {
     $missingData = FALSE;
     $dnDate = sanitize($_GET['date']);
     $for = sanitize($_GET['for']);

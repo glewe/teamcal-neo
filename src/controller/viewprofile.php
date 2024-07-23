@@ -89,7 +89,7 @@ $viewData['skype'] = $UO->read($U->username, 'skype');
 $viewData['twitter'] = $UO->read($U->username, 'twitter');
 
 $viewData['allowEdit'] = false;
-if (($userData['isLoggedIn'] and $userData['username'] == $viewData['username']) or isAllowed($CONF['controllers']['useredit']->permission)) {
+if (($userData['isLoggedIn'] && $userData['username'] == $viewData['username']) or isAllowed($CONF['controllers']['useredit']->permission)) {
     $viewData['allowEdit'] = true;
 }
 

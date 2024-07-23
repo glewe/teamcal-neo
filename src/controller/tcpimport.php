@@ -398,7 +398,7 @@ if (!empty($_POST)) {
                 //-----------------------------------------------------------------
                 //
                 // Allowances
-                // 
+                //
                 // Required imports from above
                 // - Absences
                 // - Users
@@ -436,7 +436,7 @@ if (!empty($_POST)) {
                             $myQuery = "SELECT name FROM `" . $tcpPrefix . "absences` WHERE id = '" . $rec['absid'] . "' ;";
                             $query = $pdoTCP->prepare($myQuery);
                             $result = $query->execute();
-                            if ($result and $rowTCP = $query->fetch()) {
+                            if ($result && $rowTCP = $query->fetch()) {
                                 //
                                 // Get the absence ID from TCN for that name (the ID may be different)
                                 //
@@ -466,7 +466,7 @@ if (!empty($_POST)) {
                 //-----------------------------------------------------------------
                 //
                 // Daynotes
-                // 
+                //
                 // Required imports from above
                 // - Regions
                 // - Users
@@ -736,7 +736,7 @@ if (!empty($_POST)) {
                                         $tcpHolQuery = "SELECT * FROM `" . $tcpPrefix . "holidays` WHERE cfgsym = " . $tcpHolID . ";";
                                         $query = $pdoTCP->prepare($tcpHolQuery);
                                         $result = $query->execute();
-                                        if ($result and $row = $query->fetch()) {
+                                        if ($result && $row = $query->fetch()) {
                                             $tcpHolName = $row['dspname'];
                                         }
 
@@ -824,7 +824,7 @@ if (!empty($_POST)) {
                                     $tcpAbsQuery = "SELECT * FROM `" . $tcpPrefix . "absences` WHERE id = " . $rec['abs' . $i] . ";";
                                     $query = $pdoTCP->prepare($tcpAbsQuery);
                                     $result = $query->execute();
-                                    if ($result and $row = $query->fetch()) {
+                                    if ($result && $row = $query->fetch()) {
                                         $tcpAbsName = $row['name'];
                                     }
 
@@ -856,7 +856,7 @@ if (!empty($_POST)) {
                 //
                 // Prepare result message
                 //
-                if (!$queryFailed and strlen($importResult)) {
+                if (!$queryFailed && strlen($importResult)) {
                     //
                     // Success
                     //

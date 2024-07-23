@@ -103,8 +103,8 @@ if (!empty($_POST)) {
             // Password
             //
             if (
-                isset($_POST['txt_password']) and strlen($_POST['txt_password']) and
-                isset($_POST['txt_password2']) and strlen($_POST['txt_password2']) and
+                isset($_POST['txt_password']) && strlen($_POST['txt_password']) and
+                isset($_POST['txt_password2']) && strlen($_POST['txt_password2']) and
                 $_POST['txt_password'] == $_POST['txt_password2']
             ) {
                 $UP->password = password_hash(trim($_POST['txt_password']), PASSWORD_DEFAULT);

@@ -44,7 +44,7 @@ if (isset($_GET[ 'month' ])) {
   // Passed by URL always wins
   //
   $monthfilter = sanitize($_GET[ 'month' ]);
-} elseif (L_USER and $monthfilter = $UO->read($UL->username, 'calfilterMonth')) {
+} elseif (L_USER && $monthfilter = $UO->read($UL->username, 'calfilterMonth')) {
   //
   // Nothing in URL but user has a last-used value in his profile. Let's try that one.
   // (The value was loaded via the if statement so nothing needed in this block.)
@@ -83,7 +83,7 @@ if (isset($_GET[ 'region' ])) {
   //
   $regionfilter = sanitize($_GET[ 'region' ]);
   if (L_USER) $UO->save($UL->username, 'calfilterRegion', $regionfilter);
-} elseif (L_USER and $regionfilter = $UO->read($UL->username, 'calfilterRegion')) {
+} elseif (L_USER && $regionfilter = $UO->read($UL->username, 'calfilterRegion')) {
   //
   // Nothing in URL but user has a last-used value in his profile. Let's try that one.
   // (The value was loaded via the if statement so nothing needed in this block.)
@@ -134,7 +134,7 @@ $users = $U->getAllButHidden();
 if (isset($_GET[ 'group' ])) {
   $groupfilter = sanitize($_GET[ 'group' ]);
   if (L_USER) $UO->save($UL->username, 'calfilterGroup', $groupfilter);
-} elseif (L_USER and $groupfilter = $UO->read($UL->username, 'calfilterGroup')) {
+} elseif (L_USER && $groupfilter = $UO->read($UL->username, 'calfilterGroup')) {
   //
   // Nothing in URL but user has a last-used value in his profile.
   // That value was loaded via the if statement so nothing needed in this block.
@@ -168,7 +168,7 @@ if ($groupfilter == "all") {
 if (isset($_GET[ 'abs' ])) {
   $absfilter = sanitize($_GET[ 'abs' ]);
   if (L_USER) $UO->save($UL->username, 'calfilterAbs', $absfilter);
-} elseif (L_USER and $absfilter = $UO->read($UL->username, 'calfilterAbs')) {
+} elseif (L_USER && $absfilter = $UO->read($UL->username, 'calfilterAbs')) {
   //
   // Nothing in URL but user has a last-used value in his profile.
   // (The value was loaded via the if statement so nothing needed in this block.)
@@ -199,7 +199,7 @@ if ($absfilter == "all") {
 // Search filter (optional, defaults to 'all')
 //
 $viewData[ 'search' ] = '';
-if (L_USER and $searchfilter = $UO->read($UL->username, 'calfilterSearch')) {
+if (L_USER && $searchfilter = $UO->read($UL->username, 'calfilterSearch')) {
   //
   // Nothing in URL but user has a last-used value in his profile.
   // (The value was loaded via the if statement so nothing needed in this block.)
@@ -213,7 +213,7 @@ if (L_USER and $searchfilter = $UO->read($UL->username, 'calfilterSearch')) {
 //
 // Search Reset
 //
-if (isset($_GET[ 'search' ]) and $_GET[ 'search' ] == "reset") {
+if (isset($_GET[ 'search' ]) && $_GET[ 'search' ] == "reset") {
   if (L_USER) $UO->deleteUserOption($UL->username, 'calfilterSearch');
   header("Location: " . $_SERVER[ 'PHP_SELF' ] . "?action=" . $controller);
   die();
@@ -223,7 +223,7 @@ if (isset($_GET[ 'search' ]) and $_GET[ 'search' ] == "reset") {
 //
 // Default back to current year/month if option is set and role matches
 //
-if ($C->read('currentYearOnly') and $viewData[ 'year' ] != date('Y')) {
+if ($C->read('currentYearOnly') && $viewData[ 'year' ] != date('Y')) {
   if ($C->read("currYearRoles")) {
     //
     // Applies to roles. Check if current user in in one of them.
@@ -331,14 +331,14 @@ if ($showMonths = $UO->read($UL->username, 'showMonths')) {
 // ,---,
 // | - |
 // '---'
-if (!empty($_POST) and isset($_POST[ 'btn_oneless' ])) {
+if (!empty($_POST) && isset($_POST[ 'btn_oneless' ])) {
   $showMonths = intval($_POST[ 'hidden_showmonths' ]);
   if ($showMonths > 1) $showMonths--;
 }
 // ,---,
 // | + |
 // '---'
-if (!empty($_POST) and isset($_POST[ 'btn_onemore' ])) {
+if (!empty($_POST) && isset($_POST[ 'btn_onemore' ])) {
   $showMonths = intval($_POST[ 'hidden_showmonths' ]);
   if ($showMonths <= 12) $showMonths++;
 }
@@ -351,7 +351,7 @@ if ($showMonths > 1) {
   $prevMonth = intval($viewData[ 'month' ]);
   for ($i = 2; $i <= $showMonths; $i++) {
     if ($prevMonth == 12) {
-      if ($C->read('currentYearOnly') and $C->read("currYearRoles")) {
+      if ($C->read('currentYearOnly') && $C->read("currYearRoles")) {
         //
         // Applies to roles
         //
@@ -569,7 +569,7 @@ foreach ($users as $usr) {
   } else if (!$U->isHidden($usr[ 'username' ])) {
     if (
       isAllowed("calendarviewall") or
-      (isAllowed("calendarviewgroup") and $UG->shareGroups($usr[ 'username' ], $UL->username))
+      (isAllowed("calendarviewgroup") && $UG->shareGroups($usr[ 'username' ], $UL->username))
     ) {
       $allowed = true;
     }

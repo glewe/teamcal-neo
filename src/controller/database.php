@@ -292,7 +292,7 @@ if (!empty($_POST)) {
         // ,----------,
         // | Reset DB |
         // '----------'
-        else if (isset($_POST['btn_reset']) and $_POST['txt_dbResetString'] == "YesIAmSure") {
+        else if (isset($_POST['btn_reset']) && $_POST['txt_dbResetString'] == "YesIAmSure") {
             $query = file_get_contents("sql/sample.sql");
             //
             // Replace prefix in sample file
