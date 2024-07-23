@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Global Variables
  *
@@ -24,8 +26,11 @@ $bsBgColors = array( 'danger', 'dark', 'info', 'light', 'primary', 'secondary', 
 //
 $timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
 $tz = $C->read("timeZone");
-if (!strlen($tz) or $tz == "default") date_default_timezone_set('UTC');
-else date_default_timezone_set($tz);
+if (!strlen($tz) || $tz == "default") {
+  date_default_timezone_set('UTC');
+} else {
+  date_default_timezone_set($tz);
+}
 
 //
 // USER DATA
