@@ -72,8 +72,12 @@ class UserOption {
    * @return boolean True if found, false if not
    */
   public function exists($username = '', $archive = false) {
-    if ($archive) $table = $this->archive_table;
-    else $table = $this->table;
+    if ($archive) {
+      $table = $this->archive_table;
+    }
+    else {
+      $table = $this->table;
+    }
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE `username` = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
@@ -203,8 +207,12 @@ class UserOption {
    * @return string Value of the option (or false if not found)
    */
   public function read($username, $option, $archive = false) {
-    if ($archive) $table = $this->archive_table;
-    else $table = $this->table;
+    if ($archive) {
+      $table = $this->archive_table;
+    }
+    else {
+      $table = $this->table;
+    }
     $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE `username` = :val1 AND `option` = :val2');
     if (is_array($username)) print_r($username);
     $query->bindParam('val1', $username);
