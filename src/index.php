@@ -187,7 +187,7 @@ else define('L_USER', 0);
 //
 // If someone is logged in, overwrite defaults
 //
-if (L_USER and (!isset($_GET['action']) or isset($_GET['action']) and $_GET['action'] != 'logout')) {
+if (L_USER && (!isset($_GET['action']) or isset($_GET['action']) && $_GET['action'] != 'logout')) {
     $userData['isLoggedIn'] = true;
 
     //
@@ -223,7 +223,7 @@ if (L_USER and (!isset($_GET['action']) or isset($_GET['action']) and $_GET['act
     if ($usertheme != "default") $theme = $usertheme;
 
     //
-    // Switch language via menu (only allowed when logged in) 
+    // Switch language via menu (only allowed when logged in)
     //
     if (isset($_GET['applang'])) {
         $appLang = sanitize($_GET['applang']);
@@ -308,7 +308,7 @@ if ($C->read('underMaintenance')) {
     $appStatus['maintenance'] = true;
     $controller = 'maintenance';
     if (isset($_GET['action'])) $controller = sanitize($_GET['action']);
-    if ($userData['roleid'] != 1 and $controller != 'login') $controller = 'maintenance';
+    if ($userData['roleid'] != 1 && $controller != 'login') $controller = 'maintenance';
 } else {
     if ($luser = $L->checkLogin()) {
         if (!$controller = $C->read("homepage")) $controller = 'home';
@@ -344,7 +344,7 @@ else $htmlData['jQueryCDN'] = false;
 if ($C->read("noIndex")) $htmlData['robots'] = 'noindex,nofollow,noopd';
 else $htmlData['robots'] = 'index,follow,noopd';
 
-if ($luser = $L->checkLogin() and (!isset($_GET['action']) or isset($_GET['action']) and $_GET['action'] != 'logout')) {
+if ($luser = $L->checkLogin() && (!isset($_GET['action']) or isset($_GET['action']) && $_GET['action'] != 'logout')) {
     $userData['loginInfo'] = loginInfo();
 } else {
     $userData['loginInfo'] = $LANG['status_logged_out'];

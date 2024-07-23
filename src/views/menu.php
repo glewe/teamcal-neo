@@ -40,7 +40,7 @@ else $navcolor = "light"; ?>
                     </div>
                 </li>
                 <!-- View Menu -->
-                <?php if ((isAllowed($CONF['controllers']['messages']->permission) and $C->read('activateMessages')) or
+                <?php if ((isAllowed($CONF['controllers']['messages']->permission) && $C->read('activateMessages')) or
                     isAllowed($CONF['controllers']['calendarview']->permission) or
                     isAllowed($CONF['controllers']['year']->permission) or
                     isAllowed($CONF['controllers']['remainder']->permission) or

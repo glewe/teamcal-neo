@@ -53,8 +53,8 @@ view.absum
                             <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                                 <div class="col-lg-6"><i class="<?= $abs['icon'] ?>" style="color: #<?= $abs['color'] ?>; background-color: #<?= $abs['bgcolor'] ?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;"></i><?= $abs['name'] ?></div>
                                 <div class="col-lg-2 text-end"><?= $abs['contingent'] ?></div>
-                                <div class="col-lg-2 text-end <?= (is_int($abs['allowance']) and intval($abs['taken']) > intval($abs['allowance'])) ? 'text-warning' : ''; ?>"><?= $abs['taken'] ?></div>
-                                <div class="col-lg-2 text-end <?= (is_int($abs['allowance']) and intval($abs['remainder']) < 0) ? 'text-danger' : 'text-success'; ?>"><?= $abs['remainder'] ?></div>
+                                <div class="col-lg-2 text-end <?= (is_int($abs['allowance']) && intval($abs['taken']) > intval($abs['allowance'])) ? 'text-warning' : ''; ?>"><?= $abs['taken'] ?></div>
+                                <div class="col-lg-2 text-end <?= (is_int($abs['allowance']) && intval($abs['remainder']) < 0) ? 'text-danger' : 'text-success'; ?>"><?= $abs['remainder'] ?></div>
                             </div>
                         <?php }
                         $subabsences = $A->getAllSub($abs['id']);
@@ -68,8 +68,8 @@ view.absum
                                 <div class="col-lg-1 text-end"><i class="fas fa-angle-double-right"></i></div>
                                 <div class="col-lg-5 text-italic"><i class="<?= $subabs['icon'] ?>" style="color: #<?= $subabs['color'] ?>; background-color: #<?= $subabs['bgcolor'] ?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;"></i><?= $subabs['name'] ?></div>
                                 <div class="col-lg-2 text-end text-italic"><?= $subabs['contingent'] ?></div>
-                                <div class="col-lg-2 text-end  text-italic <?= (is_int($subabs['allowance']) and intval($subabs['taken']) > intval($subabs['allowance'])) ? 'text-warning' : ''; ?>"><?= $subabs['taken'] ?></div>
-                                <div class="col-lg-2 text-end  text-italic <?= (is_int($subabs['allowance']) and intval($subabs['remainder']) < 0) ? 'text-danger' : 'text-success'; ?>"><?= $subabs['remainder'] ?></div>
+                                <div class="col-lg-2 text-end  text-italic <?= (is_int($subabs['allowance']) && intval($subabs['taken']) > intval($subabs['allowance'])) ? 'text-warning' : ''; ?>"><?= $subabs['taken'] ?></div>
+                                <div class="col-lg-2 text-end  text-italic <?= (is_int($subabs['allowance']) && intval($subabs['remainder']) < 0) ? 'text-danger' : 'text-success'; ?>"><?= $subabs['remainder'] ?></div>
                             </div>
                 <?php }
                     }

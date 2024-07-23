@@ -21,7 +21,7 @@ view.remainder
 <div class="container content" style="padding-left: 4px; padding-right: 4px;">
 
     <?php
-    if ($showAlert and $C->read("showAlerts") != "none") {
+    if ($showAlert && $C->read("showAlerts") != "none") {
         if (
             $C->read("showAlerts") == "all" or
             $C->read("showAlerts") == "warnings" and ($alertData['type'] == "warning" or $alertData['type'] == "danger")

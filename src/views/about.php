@@ -13,7 +13,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
  */
 ?>
 
-<!-- ==================================================================== 
+<!-- ====================================================================
 view.about
 -->
 <div class="container content">
@@ -21,10 +21,10 @@ view.about
     <div class="col-lg-12">
 
         <?php
-        if ($showAlert and $C->read("showAlerts") != "none") {
+        if ($showAlert && $C->read("showAlerts") != "none") {
             if (
                 $C->read("showAlerts") == "all" or
-                $C->read("showAlerts") == "warnings" and ($alertData['type'] == "warning" or $alertData['type'] == "danger")
+                $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" or $alertData['type'] == "danger")
             ) {
                 echo createAlertBox($alertData);
             }

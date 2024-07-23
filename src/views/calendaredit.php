@@ -13,16 +13,16 @@ if (!defined('VALID_ROOT')) { exit(''); }
  */
 ?>
 
-<!-- ==================================================================== 
+<!-- ====================================================================
 view.editcalendar
 -->
 <div class="container content" style="padding-left: 4px; padding-right: 4px;">
 
     <?php
-    if ($showAlert and $C->read("showAlerts") != "none") {
+    if ($showAlert && $C->read("showAlerts") != "none") {
         if (
             $C->read("showAlerts") == "all" or
-            $C->read("showAlerts") == "warnings" and ($alertData['type'] == "warning" or $alertData['type'] == "danger")
+            $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" or $alertData['type'] == "danger")
         ) {
             echo createAlertBox($alertData);
         }
