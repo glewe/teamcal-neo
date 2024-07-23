@@ -426,7 +426,7 @@ class Login {
       // Account not verified.
       return 8;
     }
-    if ($U->onhold and ($now - $U->grace_start <= $this->grace_period)) {
+    if ($U->onhold && ($now - $U->grace_start <= $this->grace_period)) {
       // Login is locked for this account and grace period is not over yet.
       return 6;
     }

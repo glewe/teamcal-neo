@@ -106,7 +106,7 @@ class UserGroup {
     }
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table);
     $result = $query->execute();
-    if ($result and $query->fetchColumn()) {
+    if ($result && $query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $table);
       $result = $query->execute();
       return $result;
@@ -247,7 +247,7 @@ class UserGroup {
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
-    if ($result and $query->fetchColumn()) {
+    if ($result && $query->fetchColumn()) {
       return true;
     } else {
       return false;
@@ -346,7 +346,7 @@ class UserGroup {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
     $result = $query->execute();
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       $this->id = $row['id'];
       $this->username = $row['username'];
       $this->groupid = $row['groupid'];
@@ -366,7 +366,7 @@ class UserGroup {
     $query = $this->db->prepare("SELECT groupid FROM " . $this->table . " WHERE username = :val1 AND (type = 'manager' OR type = 'member')");
     $query->bindParam('val1', $username);
     $result = $query->execute();
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       return $row['groupid'];
     } else {
       return 'unknown';
@@ -631,7 +631,7 @@ class UserGroup {
   public function save($username, $groupid, $type) {
     $query = $this->db->prepare("SELECT COUNT(*) FROM " . $this->table . " WHERE `username` = '" . $username . "' AND `groupid` = '" . $groupid . "'");
     $result = $query->execute();
-    if ($result and $query->fetchColumn()) {
+    if ($result && $query->fetchColumn()) {
       $query2 = $this->db->prepare('UPDATE ' . $this->table . ' SET type = :val1 WHERE username = :val2 AND groupid = :val3');
       $query2->bindParam('val1', $type);
       $query2->bindParam('val2', $username);

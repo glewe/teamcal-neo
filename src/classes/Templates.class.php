@@ -172,12 +172,12 @@ class Templates {
               //
               // Only check weekdays (0 = Sunday, 6 = Saturday)
               //
-              if ($weekday > 0 and $weekday < 6) {
+              if ($weekday > 0 && $weekday < 6) {
                 $countsAsPresent = false;
                 $query2 = $this->db->prepare('SELECT counts_as_present FROM ' . $this->abs_table . ' WHERE id = :val1');
                 $query2->bindParam('val1', $row['abs' . $i]);
                 $result2 = $query2->execute();
-                if ($result2 and $row2 = $query2->fetch()) {
+                if ($result2 && $row2 = $query2->fetch()) {
                   $countsAsPresent = $row2['counts_as_present'];
                 }
                 if (!$countsAsPresent) {
@@ -197,12 +197,12 @@ class Templates {
               //
               // Only check weekdays (0 = Sunday, 6 = Saturday)
               //
-              if ($weekday > 0 and $weekday < 6) {
+              if ($weekday > 0 && $weekday < 6) {
                 $countsAsPresent = false;
                 $query2 = $this->db->prepare('SELECT counts_as_present FROM ' . $this->abs_table . ' WHERE id = :val1');
                 $query2->bindParam('val1', $row['abs' . $i]);
                 $result2 = $query2->execute();
-                if ($result2 and $row2 = $query2->fetch()) {
+                if ($result2 && $row2 = $query2->fetch()) {
                   $countsAsPresent = $row2['counts_as_present'];
                 }
                 if (!$countsAsPresent) {
@@ -262,7 +262,7 @@ class Templates {
                 $query2 = $this->db->prepare('SELECT counts_as_present FROM ' . $this->abs_table . ' WHERE id = :val1');
                 $query2->bindParam('val1', $row['abs' . $i]);
                 $result2 = $query2->execute();
-                if ($result2 and $row2 = $query2->fetch()) {
+                if ($result2 && $row2 = $query2->fetch()) {
                   $countsAsPresent = $row2['counts_as_present'];
                 }
                 if (!$countsAsPresent) {
@@ -287,7 +287,7 @@ class Templates {
                 $query2 = $this->db->prepare('SELECT counts_as_present FROM ' . $this->abs_table . ' WHERE id = :val1');
                 $query2->bindParam('val1', $row['abs' . $i]);
                 $result2 = $query2->execute();
-                if ($result2 and $row2 = $query2->fetch()) {
+                if ($result2 && $row2 = $query2->fetch()) {
                   $countsAsPresent = $row2['counts_as_present'];
                 }
                 if (!$countsAsPresent) {
@@ -336,7 +336,7 @@ class Templates {
     }
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table);
     $result = $query->execute();
-    if ($result and $query->fetchColumn()) {
+    if ($result && $query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $table);
       $result = $query->execute();
       return $result;
@@ -428,7 +428,7 @@ class Templates {
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
-    if ($result and $query->fetchColumn()) {
+    if ($result && $query->fetchColumn()) {
       return true;
     } else {
       return false;
@@ -452,7 +452,7 @@ class Templates {
     $month = sprintf("%02d", $month);
     $query->bindParam('val3', $month);
     $result = $query->execute();
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       return $row['abs' . $day];
     }
     return $result;
@@ -474,7 +474,7 @@ class Templates {
     $month = sprintf("%02d", $month);
     $query->bindParam('val3', $month);
     $result = $query->execute();
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       $this->username = $row['username'];
       $this->year = $row['year'];
       $this->month = $row['month'];
@@ -499,7 +499,7 @@ class Templates {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
     $result = $query->execute();
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       $this->username = $row['username'];
       $this->year = $row['year'];
       $this->month = $row['month'];
@@ -527,7 +527,7 @@ class Templates {
       $myQuery = "SELECT username FROM " . $this->table . " WHERE username = '" . $username . "' AND year = '" . $year . "' AND month = '" . $month . "' AND abs" . $i . " = '" . $absid . "';";
       $query = $this->db->prepare($myQuery);
       $result = $query->execute();
-      if ($result and $row = $query->fetch()) {
+      if ($result && $row = $query->fetch()) {
         return true;
       }
     }
