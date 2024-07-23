@@ -16,7 +16,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
 //
 // SHOW VIEW
 //
-require(WEBSITE_ROOT . '/views/header.php');
-require(WEBSITE_ROOT . '/views/menu.php');
+require WEBSITE_ROOT . '/views/header.php';
+require WEBSITE_ROOT . '/views/menu.php';
 include(WEBSITE_ROOT . '/views/alert.php');
-require(WEBSITE_ROOT . '/views/footer.php');
+require WEBSITE_ROOT . '/views/footer.php';

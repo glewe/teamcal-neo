@@ -692,7 +692,7 @@ if (isset($_GET[ 'calendaronly' ]) && $_GET[ 'calendaronly' ] === "1") {
 //
 // SHOW VIEW
 //
-require(WEBSITE_ROOT . '/views/header.php');
-if (!$viewData[ 'calendaronly' ]) require(WEBSITE_ROOT . '/views/menu.php');
-include(WEBSITE_ROOT . '/views/' . $controller . '.php');
-if (!$viewData[ 'calendaronly' ]) require(WEBSITE_ROOT . '/views/footer.php');
+require WEBSITE_ROOT . '/views/header.php';
+if (!$viewData[ 'calendaronly' ]) require WEBSITE_ROOT . '/views/menu.php';
+include WEBSITE_ROOT . '/views/' . $controller . '.php';
+if (!$viewData[ 'calendaronly' ]) require WEBSITE_ROOT . '/views/footer.php';
