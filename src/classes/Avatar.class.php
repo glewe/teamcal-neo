@@ -136,8 +136,6 @@ class Avatar {
           $nWidth = floor($width * $ratio);
           $nHeight = floor($height * $ratio);
 
-          // echo "<script type=\"text/javascript\">alert(\"Debug: ".$imgsize[0]." ".$imgsize[1]." ".$nWidth." ".$nHeight."\");</script>";
-
           switch (strtolower($this->fileExtension)) {
             case "gif":
               $origPic = imagecreatefromgif($this->tmpFileName);

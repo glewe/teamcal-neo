@@ -25,7 +25,7 @@ class Config {
   private $db = '';
   private $table = '';
 
-  // ---------------------------------------------------------------------
+   // -------------------------------------------------------------------------
   /**
    * Constructor
    */
@@ -35,7 +35,7 @@ class Config {
     $this->table = $conf['db_table_config'];
   }
 
-  // ---------------------------------------------------------------------
+   // -------------------------------------------------------------------------
   /**
    * Read the value of an option
    *
@@ -46,17 +46,14 @@ class Config {
     $query = $this->db->prepare("SELECT value FROM " . $this->table . " WHERE `name` = :val1");
     $query->bindParam('val1', $name);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
-
       return $row['value'];
     } else {
-
       return false;
     }
   }
 
-  // ---------------------------------------------------------------------
+   // -------------------------------------------------------------------------
   /**
    * Save a value
    *
@@ -70,21 +67,16 @@ class Config {
     $result = $query->execute();
 
     if ($result && $query->fetchColumn()) {
-
       $query2 = $this->db->prepare("UPDATE " . $this->table . " SET value = :val2 WHERE name = :val1");
     } else {
-
       $query2 = $this->db->prepare("INSERT INTO " . $this->table . " (`name`, `value`) VALUES (:val1, :val2)");
     }
-
     $query2->bindParam('val1', $name);
     $query2->bindParam('val2', $value);
-    $result2 = $query2->execute();
-
-    return $result2;
+    return $query2->execute();
   }
 
-  // ---------------------------------------------------------------------
+   // -------------------------------------------------------------------------
   /**
    * Optimize table
    *
@@ -92,7 +84,6 @@ class Config {
    */
   public function optimize() {
     $query = $this->db->prepare("OPTIMIZE TABLE " . $this->table);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 }

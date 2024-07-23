@@ -52,8 +52,7 @@ class Groups {
     $query->bindParam('val4', $this->maxabsent);
     $query->bindParam('val5', $this->minpresentwe);
     $query->bindParam('val6', $this->maxabsentwe);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // ---------------------------------------------------------------------
@@ -66,8 +65,7 @@ class Groups {
   public function delete($id) {
     $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // ---------------------------------------------------------------------
@@ -79,7 +77,6 @@ class Groups {
   public function deleteAll() {
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
     $result = $query->execute();
-
     if ($result && $query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
       $result = $query->execute();
@@ -100,7 +97,6 @@ class Groups {
     $records = array();
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name ' . $sort);
     $result = $query->execute();
-
     if ($result) {
       while ($row = $query->fetch()) {
         $records[] = $row;
@@ -123,7 +119,6 @@ class Groups {
     $val1 = '%' . $like . '%';
     $query->bindParam('val1', $val1);
     $result = $query->execute();
-
     if ($result) {
       while ($row = $query->fetch()) {
         $records[] = $row;
@@ -142,7 +137,6 @@ class Groups {
     $records = array();
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name ASC');
     $result = $query->execute();
-
     if ($result) {
       while ($row = $query->fetch()) {
         $records[] = $row['name'];
@@ -162,7 +156,6 @@ class Groups {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       $this->id = $row['id'];
       $this->name = $row['name'];
@@ -188,7 +181,6 @@ class Groups {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name = :val1');
     $query->bindParam('val1', $name);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       $this->id = $row['id'];
       $this->name = $row['name'];
@@ -214,7 +206,6 @@ class Groups {
     $query = $this->db->prepare('SELECT id FROM ' . $this->table . ' WHERE name = :val1');
     $query->bindParam('val1', $name);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       return $row['id'];
     } else {
@@ -233,7 +224,6 @@ class Groups {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       return $row['maxabsent'];
     } else {
@@ -252,7 +242,6 @@ class Groups {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       return $row['maxabsentwe'];
     } else {
@@ -271,7 +260,6 @@ class Groups {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       return $row['minpresent'];
     } else {
@@ -290,7 +278,6 @@ class Groups {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       return $row['minpresentwe'];
     } else {
@@ -309,7 +296,6 @@ class Groups {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       return $row['name'];
     } else {
@@ -322,14 +308,13 @@ class Groups {
    * Gets a group record for a given ID
    *
    * @param string $id Group ID to find
-   * @return boolean True or false
+   * @return array|boolean True or false
    */
   public function getRowById($id) {
     $records = array();
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       $records[] = $row;
       return $records;
@@ -354,8 +339,7 @@ class Groups {
     $query->bindParam('val5', $this->minpresentwe);
     $query->bindParam('val6', $this->maxabsentwe);
     $query->bindParam('val7', $id);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // ---------------------------------------------------------------------
@@ -366,7 +350,6 @@ class Groups {
    */
   public function optimize() {
     $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 }

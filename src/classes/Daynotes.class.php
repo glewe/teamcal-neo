@@ -48,7 +48,7 @@ class Daynotes {
    * @param string $username Username to archive
    * @return boolean Query result
    */
-  function archive($username) {
+  public function archive($username) {
     $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE username = :val1');
     $query->bindParam('val1', $username);
     return $query->execute();
@@ -82,11 +82,9 @@ class Daynotes {
     else {
       $table = $this->table;
     }
-
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
-
     return $result && $query->fetchColumn();
   }
 
@@ -101,16 +99,13 @@ class Daynotes {
     // Make sure no daynote exists for this day
     //
     $this->delete($this->yyyymmdd, $this->username, $this->region);
-
     $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (yyyymmdd, username, region, daynote, color, confidential) VALUES (:val1, :val2, :val3, :val4, :val5, :val6)');
-
     $query->bindParam('val1', $this->yyyymmdd);
     $query->bindParam('val2', $this->username);
     $query->bindParam('val3', $this->region);
     $query->bindParam('val4', $this->daynote);
     $query->bindParam('val5', $this->color);
     $query->bindParam('val6', $this->confidential);
-
     return $query->execute();
   }
 
@@ -125,11 +120,9 @@ class Daynotes {
    */
   public function delete($yyyymmdd = '', $username = '', $region = 'default') {
     $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE yyyymmdd = :val1 AND username = :val2 AND region = :val3');
-
     $query->bindParam('val1', $yyyymmdd);
     $query->bindParam('val2', $username);
     $query->bindParam('val3', $region);
-
     return $query->execute();
   }
 
@@ -147,10 +140,8 @@ class Daynotes {
     else {
       $table = $this->table;
     }
-
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table);
     $result = $query->execute();
-
     if ($result && $query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $table);
       return $query->execute();
@@ -241,8 +232,7 @@ class Daynotes {
   public function deleteById($id) {
     $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // ---------------------------------------------------------------------
@@ -260,7 +250,6 @@ class Daynotes {
     $query->bindParam('val2', $username);
     $query->bindParam('val3', $region);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       $this->id = $row['id'];
       $this->yyyymmdd = $row['yyyymmdd'];
@@ -295,14 +284,12 @@ class Daynotes {
     $days = sprintf('%02d', $number);
     $startdate = $yyyy . $mm . '01';
     $enddate = $yyyy . $mm . $days;
-
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE yyyymmdd BETWEEN :val1 AND :val2 AND username = :val3 AND region = :val4');
     $query->bindParam('val1', $startdate);
     $query->bindParam('val2', $enddate);
     $query->bindParam('val3', $username);
     $query->bindParam('val4', $region);
     $result = $query->execute();
-
     if ($result) {
       while ($row = $query->fetch()) {
         if ($replaceCRLF) {
@@ -332,14 +319,12 @@ class Daynotes {
     $days = sprintf('%02d', $number);
     $startdate = $yyyy . $mm . '01';
     $enddate = $yyyy . $mm . $days;
-
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE yyyymmdd BETWEEN :val1 AND :val2 AND username IN(:val3) AND region = :val4');
     $query->bindParam('val1', $startdate);
     $query->bindParam('val2', $enddate);
     $query->bindParam('val3', $usernames);
     $query->bindParam('val4', $region);
     $result = $query->execute();
-
     if ($result) {
       while ($row = $query->fetch()) {
         if ($replaceCRLF) {
@@ -363,7 +348,6 @@ class Daynotes {
     $records = array();
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE `region` = NULL OR `region` = 0;');
     $result = $query->execute();
-
     if ($result) {
       while ($row = $query->fetch()) {
         $records[] = $row;
@@ -386,7 +370,6 @@ class Daynotes {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       $this->id = $row['id'];
       $this->yyyymmdd = $row['yyyymmdd'];
@@ -415,7 +398,6 @@ class Daynotes {
       $query = $this->db->prepare('SELECT confidential FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
       $result = $query->execute();
-
       if ($result && $row = $query->fetch()) {
         return $row['confidential'];
       }
