@@ -416,7 +416,7 @@ $viewData['roles'] = $RO->getAll();
 //
 // SHOW VIEW
 //
-require(WEBSITE_ROOT . '/views/header.php');
-require(WEBSITE_ROOT . '/views/menu.php');
-include(WEBSITE_ROOT . '/views/' . $controller . '.php');
-require(WEBSITE_ROOT . '/views/footer.php');
+require WEBSITE_ROOT . '/views/header.php';
+require WEBSITE_ROOT . '/views/menu.php';
+include WEBSITE_ROOT . '/views/' . $controller . '.php';
+require WEBSITE_ROOT . '/views/footer.php';

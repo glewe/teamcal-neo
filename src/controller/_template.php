@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Controller Template
  *
@@ -19,14 +21,13 @@ if (!defined('VALID_ROOT')) { exit(''); }
 // CHECK PERMISSION
 //
 if (!isAllowed($CONF['controllers'][$controller]->permission)) {
-
-    $alertData['type'] = 'warning';
-    $alertData['title'] = $LANG['alert_alert_title'];
-    $alertData['subject'] = $LANG['alert_not_allowed_subject'];
-    $alertData['text'] = $LANG['alert_not_allowed_text'];
-    $alertData['help'] = $LANG['alert_not_allowed_help'];
-    require(WEBSITE_ROOT . '/controller/alert.php');
-    die();
+  $alertData['type'] = 'warning';
+  $alertData['title'] = $LANG['alert_alert_title'];
+  $alertData['subject'] = $LANG['alert_not_allowed_subject'];
+  $alertData['text'] = $LANG['alert_not_allowed_text'];
+  $alertData['help'] = $LANG['alert_not_allowed_help'];
+  require WEBSITE_ROOT . '/controller/alert.php';
+  die();
 }
 
 //=============================================================================
@@ -41,16 +42,16 @@ $missingData = FALSE;
 // TODO
 
 if ($missingData) {
-    //
-    // URL param fail
-    //
-    $alertData['type'] = 'danger';
-    $alertData['title'] = $LANG['alert_danger_title'];
-    $alertData['subject'] = $LANG['alert_no_data_subject'];
-    $alertData['text'] = $LANG['alert_no_data_text'];
-    $alertData['help'] = $LANG['alert_no_data_help'];
-    require(WEBSITE_ROOT . '/controller/alert.php');
-    die();
+  //
+  // URL param fail
+  //
+  $alertData['type'] = 'danger';
+  $alertData['title'] = $LANG['alert_danger_title'];
+  $alertData['subject'] = $LANG['alert_no_data_subject'];
+  $alertData['text'] = $LANG['alert_no_data_text'];
+  $alertData['help'] = $LANG['alert_no_data_help'];
+  require WEBSITE_ROOT . '/controller/alert.php';
+  die();
 }
 
 //=============================================================================
@@ -68,67 +69,67 @@ if ($missingData) {
 // PROCESS FORM
 //
 if (!empty($_POST)) {
-    //
-    // Sanitize input
-    //
-    $_POST = sanitize($_POST);
+  //
+  // Sanitize input
+  //
+  $_POST = sanitize($_POST);
 
-    //
-    // Form validation
-    //
-    $inputError = false;
+  //
+  // Form validation
+  //
+  $inputError = false;
 
-    //
-    // Validate input data. If something is wrong or missing, set $inputError = true
-    //
-    // TODO
+  //
+  // Validate input data. If something is wrong or missing, set $inputError = true
+  //
+  // TODO
 
-    if (!$inputError) {
-        // ,------,
-        // | Save |
-        // '------'
-        if (isset($_POST['btn_save'])) {
-            $reloadPage = false;
+  if (!$inputError) {
+    // ,------,
+    // | Save |
+    // '------'
+    if (isset($_POST['btn_save'])) {
+      $reloadPage = false;
 
-            //
-            // Process form input. If a page reload is necessary to show the changes, set $reloadPage = true
-            //
-            // TODO
+      //
+      // Process form input. If a page reload is necessary to show the changes, set $reloadPage = true
+      //
+      // TODO
 
-            //
-            // Log this event
-            //
-            $LOG->log("logUser", L_USER, "log_user_registered", $UR->username);
+      //
+      // Log this event
+      //
+      $LOG->log("logUser", L_USER, "log_user_registered", $UR->username);
 
-            //
-            // Reload page in case of language change, so it takes effect.
-            //
-            if ($reloadPage) {
-                header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller);
-                die();
-            }
+      //
+      // Reload page in case of language change, so it takes effect.
+      //
+      if ($reloadPage) {
+        header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller);
+        die();
+      }
 
-            //
-            // Success
-            //
-            $showAlert = TRUE;
-            $alertData['type'] = 'success';
-            $alertData['title'] = $LANG['alert_success_title'];
-            $alertData['subject'] = $LANG['register_title'];
-            $alertData['text'] = $LANG['register_alert_success'];
-            $alertData['help'] = '';
-        }
-    } else {
-        //
-        // Input validation failed
-        //
-        $showAlert = TRUE;
-        $alertData['type'] = 'danger';
-        $alertData['title'] = $LANG['alert_danger_title'];
-        $alertData['subject'] = $LANG['alert_input'];
-        $alertData['text'] = $LANG['register_alert_failed'];
-        $alertData['help'] = '';
+      //
+      // Success
+      //
+      $showAlert = TRUE;
+      $alertData['type'] = 'success';
+      $alertData['title'] = $LANG['alert_success_title'];
+      $alertData['subject'] = $LANG['register_title'];
+      $alertData['text'] = $LANG['register_alert_success'];
+      $alertData['help'] = '';
     }
+  } else {
+    //
+    // Input validation failed
+    //
+    $showAlert = TRUE;
+    $alertData['type'] = 'danger';
+    $alertData['title'] = $LANG['alert_danger_title'];
+    $alertData['subject'] = $LANG['alert_input'];
+    $alertData['text'] = $LANG['register_alert_failed'];
+    $alertData['help'] = '';
+  }
 }
 
 //=============================================================================
@@ -141,7 +142,7 @@ $viewData['sample'] = '';
 //
 // SHOW VIEW
 //
-require(WEBSITE_ROOT . '/views/header.php');
-require(WEBSITE_ROOT . '/views/menu.php');
-include(WEBSITE_ROOT . '/views/' . $controller . '.php');
-require(WEBSITE_ROOT . '/views/footer.php');
+require WEBSITE_ROOT . '/views/header.php';
+require WEBSITE_ROOT . '/views/menu.php';
+include WEBSITE_ROOT . '/views/' . $controller . '.php';
+require WEBSITE_ROOT . '/views/footer.php';
