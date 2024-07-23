@@ -80,7 +80,7 @@ class Groups {
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
     $result = $query->execute();
 
-    if ($result and $query->fetchColumn()) {
+    if ($result && $query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
       $result = $query->execute();
       return $result;
@@ -163,7 +163,7 @@ class Groups {
     $query->bindParam('val1', $id);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       $this->id = $row['id'];
       $this->name = $row['name'];
       $this->description = $row['description'];
@@ -189,7 +189,7 @@ class Groups {
     $query->bindParam('val1', $name);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       $this->id = $row['id'];
       $this->name = $row['name'];
       $this->description = $row['description'];
@@ -215,7 +215,7 @@ class Groups {
     $query->bindParam('val1', $name);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       return $row['id'];
     } else {
       return 0;
@@ -234,7 +234,7 @@ class Groups {
     $query->bindParam('val1', $id);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       return $row['maxabsent'];
     } else {
       return 0;
@@ -253,7 +253,7 @@ class Groups {
     $query->bindParam('val1', $id);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       return $row['maxabsentwe'];
     } else {
       return 0;
@@ -272,7 +272,7 @@ class Groups {
     $query->bindParam('val1', $id);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       return $row['minpresent'];
     } else {
       return 0;
@@ -291,7 +291,7 @@ class Groups {
     $query->bindParam('val1', $id);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       return $row['minpresentwe'];
     } else {
       return 0;
@@ -310,7 +310,7 @@ class Groups {
     $query->bindParam('val1', $id);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       return $row['name'];
     } else {
       return false;
@@ -330,7 +330,7 @@ class Groups {
     $query->bindParam('val1', $id);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       $records[] = $row;
       return $records;
     } else {

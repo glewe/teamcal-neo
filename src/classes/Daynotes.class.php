@@ -151,7 +151,7 @@ class Daynotes {
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table);
     $result = $query->execute();
 
-    if ($result and $query->fetchColumn()) {
+    if ($result && $query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $table);
       return $query->execute();
     } else {
@@ -261,7 +261,7 @@ class Daynotes {
     $query->bindParam('val3', $region);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       $this->id = $row['id'];
       $this->yyyymmdd = $row['yyyymmdd'];
       $this->username = $row['username'];
@@ -387,7 +387,7 @@ class Daynotes {
     $query->bindParam('val1', $id);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       $this->id = $row['id'];
       $this->yyyymmdd = $row['yyyymmdd'];
       $this->username = $row['username'];
@@ -416,7 +416,7 @@ class Daynotes {
       $query->bindParam('val1', $id);
       $result = $query->execute();
 
-      if ($result and $row = $query->fetch()) {
+      if ($result && $row = $query->fetch()) {
         return $row['confidential'];
       }
     }

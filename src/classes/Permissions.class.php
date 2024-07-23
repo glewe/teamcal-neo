@@ -60,7 +60,7 @@ class Permissions {
     $query->bindParam('val1', $scheme);
     $result = $query->execute();
 
-    if ($result and $query->fetchColumn()) {
+    if ($result && $query->fetchColumn()) {
       return true;
     } else {
       return false;
@@ -83,7 +83,7 @@ class Permissions {
     $query->bindParam('val3', $role);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       return $row['allowed'];
     } else {
       return false;

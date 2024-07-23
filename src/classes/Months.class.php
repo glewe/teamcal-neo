@@ -207,7 +207,7 @@ class Months {
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
     $result = $query->execute();
 
-    if ($result and $query->fetchColumn()) {
+    if ($result && $query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
       $result = $query->execute();
       return $result;
@@ -295,7 +295,7 @@ class Months {
     $query->bindParam('val3', $month);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       return $row['hol' . $day];
     } else {
       return false;
@@ -319,7 +319,7 @@ class Months {
     $query->bindParam('val3', $month);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       $this->region = $row['region'];
       $this->year = $row['year'];
       $this->month = $row['month'];
@@ -375,7 +375,7 @@ class Months {
     $query->bindParam('val3', $month);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       return $row['week' . $day];
     }
     return $result;
@@ -399,7 +399,7 @@ class Months {
     $query->bindParam('val3', $month);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       return $row['wday' . $day];
     }
     return $result;
