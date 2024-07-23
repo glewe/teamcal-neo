@@ -62,7 +62,7 @@ view.useredit
             <li class="nav-item"><a class="nav-link" id="contact-tab" href="#contact" data-bs-toggle="tab" role="tab" aria-controls="contact" aria-selected="false"><?= $LANG[ 'profile_tab_contact' ] ?></a></li>
             <li class="nav-item"><a class="nav-link" id="setpassword-tab" href="#setpassword" data-bs-toggle="tab" role="tab" aria-controls="setpassword" aria-selected="false"><?= $LANG[ 'profile_tab_password' ] ?></a></li>
 
-            <?php if (isAllowed("userabsences") and $viewData[ 'profile' ] != "admin") { ?>
+            <?php if (isAllowed("userabsences") && $viewData[ 'profile' ] != "admin") { ?>
               <li class="nav-item"><a class="nav-link" id="absences-tab" href="#absences" data-bs-toggle="tab" role="tab" aria-controls="absences" aria-selected="false"><?= $LANG[ 'profile_tab_absences' ] ?></a></li>
             <?php } ?>
 

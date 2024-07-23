@@ -98,7 +98,7 @@ class Messages {
     $records = array();
     $query = $this->db->prepare('SELECT * FROM ' . $this->table);
     $result = $query->execute();
-    while ($result and $row = $query->fetch()) {
+    while ($result && $row = $query->fetch()) {
       $records[] = $row;
     }
     return $records;
