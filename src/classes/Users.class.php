@@ -413,8 +413,12 @@ class Users {
    */
   public function getByUsername($uname, $archive = false) {
     $records = array();
-    if ($archive) $table = $this->archive_table;
-    else $table = $this->table;
+    if ($archive) {
+      $table = $this->archive_table;
+    }
+    else {
+      $table = $this->table;
+    }
     $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username = :val1');
     $query->bindParam('val1', $uname);
     $result = $query->execute();

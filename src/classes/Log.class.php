@@ -110,7 +110,7 @@ class Log {
       $loglang = $this->C->read("logLanguage");
     }
 
-    require(WEBSITE_ROOT . "/languages/" . $loglang . ".log.php");
+    require WEBSITE_ROOT . "/languages/" . $loglang . ".log.php";
 
     $myEvent = $LANG[$event] . $object;
 

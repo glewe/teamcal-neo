@@ -196,7 +196,9 @@ class License {
    * @return boolean
    */
   function domainRegistered() {
-    if (!$this->readKey()) return false;
+    if (!$this->readKey()) {
+      return false;
+    }
     if (count($this->details->registered_domains)) {
       foreach ($this->details->registered_domains as $domain) {
         if ($domain->registered_domain == $_SERVER['SERVER_NAME']) {

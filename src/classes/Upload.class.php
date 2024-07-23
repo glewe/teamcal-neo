@@ -160,7 +160,9 @@ class Upload {
    */
   public function getErrors() {
     $msg_string = '';
-    foreach ($this->message as $value) $msg_string .= $value . "<br>";
+    foreach ($this->message as $value) {
+      $msg_string .= $value . "<br>";
+    }
     return $msg_string;
   }
 
@@ -293,8 +295,12 @@ class Upload {
           $this->file_copy = $new_name;
           if ($this->moveUpload($this->the_temp_file, $this->file_copy)) {
             $this->message[] = $this->error[$this->http_error];
-            if ($this->rename_file) $this->message[] = sprintf($this->error[16], $this->file_copy);
-            else $this->message[] = sprintf($this->error[0], $this->the_file);
+            if ($this->rename_file) {
+              $this->message[] = sprintf($this->error[16], $this->file_copy);
+            }
+            else {
+              $this->message[] = sprintf($this->error[0], $this->the_file);
+            }
             return true;
           }
         } else {
