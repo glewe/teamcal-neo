@@ -13,7 +13,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
  */
 ?>
 
-<!-- ==================================================================== 
+<!-- ====================================================================
 view.daynote
 -->
 <div class="container content">
@@ -21,10 +21,10 @@ view.daynote
 
     <div class="col-lg-12">
         <?php
-        if ($showAlert and $C->read("showAlerts") != "none") {
+        if ($showAlert && $C->read("showAlerts") != "none") {
             if (
                 $C->read("showAlerts") == "all" or
-                $C->read("showAlerts") == "warnings" and ($alertData['type'] == "warning" or $alertData['type'] == "danger")
+                $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" or $alertData['type'] == "danger")
             ) {
                 echo createAlertBox($alertData);
             }
@@ -56,7 +56,7 @@ view.daynote
                                 <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_create"><?= $LANG['btn_create'] ?></button>
                             <?php } ?>
                             <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-primary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_showcalendar'] ?></a>
-                            <?php if ($viewData['user'] == 'all' and isAllowed($CONF['controllers']['monthedit']->permission)) { ?>
+                            <?php if ($viewData['user'] == 'all' && isAllowed($CONF['controllers']['monthedit']->permission)) { ?>
                                 <a href="index.php?action=monthedit&amp;month=<?= $viewData['month'] ?>&amp;region=<?= $viewData['region'] ?>" class="btn btn-info float-end" tabindex="<?= $tabindex++; ?>" style="margin-right: 6px;"><?= $LANG['btn_region_calendar'] ?></a>
                             <?php } else { ?>
                                 <a href="index.php?action=calendaredit&amp;month=<?= substr($viewData['date'], 0, 4) . substr($viewData['date'], 5, 2) ?>&amp;region=<?= $viewData['region'] ?>&amp;user=<?= $viewData['user'] ?>" class="btn btn-info float-end" style="margin-right:6px;"><?= $LANG['btn_user_calendar'] ?></a>

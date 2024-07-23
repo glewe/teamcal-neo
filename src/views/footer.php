@@ -50,7 +50,7 @@ view.footer
       </div>
 
       <div class="col-lg-4 text-end">
-        <?php if ($urls = $C->read("footerSocialLinks") and strlen($urls)) {
+        <?php if ($urls = $C->read("footerSocialLinks") && strlen($urls)) {
           $urlArray = explode(';', $urls);
           foreach ($urlArray as $url) {
             if (strlen($url)) { ?>

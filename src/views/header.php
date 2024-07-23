@@ -195,7 +195,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
     </style>
   <?php } ?>
 
-  <?php if ($C->read("googleAnalytics") and $C->read("googleAnalyticsID")) { ?>
+  <?php if ($C->read("googleAnalytics") && $C->read("googleAnalyticsID")) { ?>
     <!--Begin: Google Analytics GA4-->
     <script>
       // Define dataLayer and the gtag function.

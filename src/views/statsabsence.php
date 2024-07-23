@@ -19,7 +19,7 @@ view.statsabsences
 <div class="container content">
 
     <?php
-    if ($showAlert and $C->read("showAlerts") != "none") {
+    if ($showAlert && $C->read("showAlerts") != "none") {
         if (
             $C->read("showAlerts") == "all" or
             $C->read("showAlerts") == "warnings" and ($alertData['type'] == "warning" or $alertData['type'] == "danger")

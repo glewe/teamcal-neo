@@ -20,10 +20,10 @@ view.absences
 
     <div class="col-lg-12">
         <?php
-        if ($showAlert and $C->read("showAlerts") != "none") {
+        if ($showAlert && $C->read("showAlerts") != "none") {
             if (
                 $C->read("showAlerts") == "all" or
-                $C->read("showAlerts") == "warnings" and ($alertData['type'] == "warning" or $alertData['type'] == "danger")
+                $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" or $alertData['type'] == "danger")
             ) {
                 echo createAlertBox($alertData);
             }
@@ -53,7 +53,7 @@ view.absences
                     <?= createModalTop('modalCreateAbsence', $LANG['btn_create_abs']) ?>
                     <label for="inputName"><?= $LANG['name'] ?></label>
                     <input id="inputName" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_name" maxlength="40" value="<?= $viewData['txt_name'] ?>" type="text">
-                    <?php if (isset($inputAlert["name"]) and strlen($inputAlert["name"])) { ?>
+                    <?php if (isset($inputAlert["name"]) && strlen($inputAlert["name"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert">x</button><?= $inputAlert["name"] ?></div>
                     <?php } ?>
