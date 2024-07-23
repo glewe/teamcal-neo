@@ -218,7 +218,7 @@ class UserOption {
     $query->bindParam('val1', $username);
     $query->bindParam('val2', $option);
     $result = $query->execute();
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       return $row['value'];
     } else {
       return false;

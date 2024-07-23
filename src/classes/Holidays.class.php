@@ -99,7 +99,7 @@ class Holidays {
       $query->bindParam('val1', $id);
       $result = $query->execute();
 
-      if ($result and $row = $query->fetch()) {
+      if ($result && $row = $query->fetch()) {
         $this->id = $row['id'];
         $this->name = $row['name'];
         $this->description = $row['description'];
@@ -127,7 +127,7 @@ class Holidays {
       $query->bindParam('val1', $name);
       $result = $query->execute();
 
-      if ($result and $row = $query->fetch()) {
+      if ($result && $row = $query->fetch()) {
         $this->id = $row['id'];
         $this->name = $row['name'];
         $this->description = $row['description'];
@@ -193,7 +193,7 @@ class Holidays {
       $query->bindParam('val1', $id);
       $result = $query->execute();
 
-      if ($result and $row = $query->fetch()) {
+      if ($result && $row = $query->fetch()) {
         $rc = $row['businessday'];
       }
     }

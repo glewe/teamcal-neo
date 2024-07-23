@@ -70,7 +70,7 @@ class Roles {
   public function deleteAll() {
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
     $result = $query->execute();
-    if ($result and $query->fetchColumn()) {
+    if ($result && $query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
       $result = $query->execute();
       return $result;
@@ -147,7 +147,7 @@ class Roles {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
     $result = $query->execute();
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       $this->id = $row['id'];
       $this->name = $row['name'];
       $this->description = $row['description'];

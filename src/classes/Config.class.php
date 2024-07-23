@@ -47,7 +47,7 @@ class Config {
     $query->bindParam('val1', $name);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
 
       return $row['value'];
     } else {
@@ -69,7 +69,7 @@ class Config {
     $query->bindParam('val1', $name);
     $result = $query->execute();
 
-    if ($result and $query->fetchColumn()) {
+    if ($result && $query->fetchColumn()) {
 
       $query2 = $this->db->prepare("UPDATE " . $this->table . " SET value = :val2 WHERE name = :val1");
     } else {

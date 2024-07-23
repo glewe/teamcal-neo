@@ -257,7 +257,7 @@ else $navcolor = "light"; ?>
     </div>
 <?php } ?>
 
-<?php if ($appStatus['maintenance'] and $userData['roleid'] == '1') { ?>
+<?php if ($appStatus['maintenance'] && $userData['roleid'] == '1') { ?>
     <!-- Under Maintenance -->
     <div class="container content">
         <div class="col-lg-12">

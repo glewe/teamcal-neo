@@ -236,7 +236,7 @@ view.database
                                         </div>
                                         <div class="col-lg-<?= $colsright ?>">
                                             <input class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_deleteConfirm" maxlength="6" value="" type="text">
-                                            <?php if (isset($inputAlert["deleteConfirm"]) and strlen($inputAlert["deleteConfirm"])) { ?>
+                                            <?php if (isset($inputAlert["deleteConfirm"]) && strlen($inputAlert["deleteConfirm"])) { ?>
                                                 <br>
                                                 <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['deleteConfirm'] ?></div>
                                             <?php } ?>
@@ -266,7 +266,7 @@ view.database
                                             <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_saveURL"><?= $LANG['btn_save'] ?></button>
                                         </div>
                                     </div>
-                                    <?php if (strlen($viewData['dbURL']) and $viewData['dbURL'] != "#") { ?>
+                                    <?php if (strlen($viewData['dbURL']) && $viewData['dbURL'] != "#") { ?>
                                         <div class="divider">
                                             <hr>
                                         </div>

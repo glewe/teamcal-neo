@@ -229,7 +229,7 @@ view.editcalendar
                                     (!$abs['manager_only'] or
                                         ($abs['manager_only'] && $UG->isGroupManagerOfUser($UL->username, $viewData['username'])) or
                                         ($abs['manager_only'] && isAllowed('manageronlyabsences')) or
-                                        ($abs['manager_only'] && $C->read("managerOnlyIncludesAdministrator") and $UL->hasRole($UL->username, 1)) // Role 1 = Administrator
+                                        ($abs['manager_only'] && $C->read("managerOnlyIncludesAdministrator") && $UL->hasRole($UL->username, 1)) // Role 1 = Administrator
                                     )
                                 ) {
                             ?>
@@ -253,7 +253,7 @@ view.editcalendar
                                 <?php } ?>
                             </tr>
 
-                            <?php if ($C->read('takeover') and $UL->username != $viewData['username']) { ?>
+                            <?php if ($C->read('takeover') && $UL->username != $viewData['username']) { ?>
                                 <!-- Take over row -->
                                 <tr>
                                     <td class="m-label">Take over</td>
@@ -321,7 +321,7 @@ view.editcalendar
             <div class="col-lg-5">
                 <select class="form-control" name="sel_periodAbsence" tabindex="<?= $tabindex++ ?>">
                     <?php foreach ($viewData['absences'] as $abs) {
-                        if (($abs['manager_only'] and ($UG->isGroupManagerOfUser($UL->username, $viewData['username']) or $UL->username == 'admin')) or !$abs['manager_only']) { ?>
+                        if (($abs['manager_only'] && ($UG->isGroupManagerOfUser($UL->username, $viewData['username']) or $UL->username == 'admin')) or !$abs['manager_only']) { ?>
                             <option value="<?= $abs['id'] ?>"><?= $abs['name'] ?></option>
                     <?php }
                     } ?>
