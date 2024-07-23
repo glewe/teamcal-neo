@@ -1,5 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) exit('');
+if (!defined('VALID_ROOT')) { exit(''); }
 /**
  * Register View
  *
@@ -13,7 +13,7 @@ if (!defined('VALID_ROOT')) exit('');
  */
 ?>
 
-<!-- ==================================================================== 
+<!-- ====================================================================
 view.register
 -->
 <div class="container content">

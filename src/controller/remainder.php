@@ -1,5 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) exit('');
+if (!defined('VALID_ROOT')) { exit(''); }
 /**
  * Remainder Controller
  *
@@ -93,17 +93,17 @@ if (isset($_GET['search']) and $_GET['search'] == "reset") {
 // Paging
 //
 if ($limit = $C->read("usersPerPage")) {
-    // 
+    //
     // How many users do we have?
     //
     $total = count($users);
 
-    // 
+    //
     // How many pages do we need for them?
     //
     $pages = ceil($total / $limit);
 
-    // 
+    //
     // What page are we currently on?
     //
     $page = min($pages, filter_input(
@@ -118,7 +118,7 @@ if ($limit = $C->read("usersPerPage")) {
         )
     ));
 
-    // 
+    //
     // Get the $users records do we need for this page
     //
     $offset = ($page - 1)  * $limit;

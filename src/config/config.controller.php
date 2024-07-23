@@ -1,5 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) exit('');
+if (!defined('VALID_ROOT')) { exit(''); }
 /**
  * Controller Configuration
  *
@@ -15,20 +15,20 @@ if (!defined('VALID_ROOT')) exit('');
 //=============================================================================
 /**
  * CONTROLLER ARRAY
- * 
+ *
  * The controller class expects the following paramter upon instantiation:
- * 
+ *
  * <key> => new Controller (<name>, <faIcon>, <iconColor>, <panelColor>, <permission>, <title>, <help URL>)
- * 
+ *
  * <key>:
- * Used in views/menu.php to access the controller instance for icon and 
+ * Used in views/menu.php to access the controller instance for icon and
  * color information. I recommend to use the same name as the controller.
- * 
+ *
  * <name>:
  * Controller name. Must be the same as the file name in the controllers folder.
- * 
+ *
  * <faIcon>:
- * Name of the Fontawesome icon. Available Fontawesome icons can be checked here 
+ * Name of the Fontawesome icon. Available Fontawesome icons can be checked here
  * http://fortawesome.github.io/Font-Awesome/icons/. Remove prefix "fa_" from the
  * icon name and enter the rest here.
  *
@@ -54,9 +54,9 @@ if (!defined('VALID_ROOT')) exit('');
  * it to roles.
  * For each permission you use here you need two language entries that will be used
  * on the permission page. Example: For the permission "admin" you need:
- * $LANG['perm_admin_title'] = 'Administration'; 
- * $LANG['perm_admin_desc'] = 'Allows access to the administration pages.'; 
- *   
+ * $LANG['perm_admin_title'] = 'Administration';
+ * $LANG['perm_admin_desc'] = 'Allows access to the administration pages.';
+ *
  * <title>:
  * String to be displayed as the browser tab title
  *

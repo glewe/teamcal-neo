@@ -1,5 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) exit('');
+if (!defined('VALID_ROOT')) { exit(''); }
 /**
  * Remainder View
  *
@@ -15,7 +15,7 @@ if (!defined('VALID_ROOT')) exit('');
 $formLink = 'index.php?action=' . $controller . '&amp;group=' . $viewData['groupid'];
 ?>
 
-<!-- ==================================================================== 
+<!-- ====================================================================
 view.remainder
 -->
 <div class="container content" style="padding-left: 4px; padding-right: 4px;">

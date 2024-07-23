@@ -1,5 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) exit('');
+if (!defined('VALID_ROOT')) { exit(''); }
 /**
  * Verify Controller
  *
@@ -72,7 +72,7 @@ if ($fverify = $UO->read($ruser, "verifycode")) {
 
         if ($C->read("adminApproval")) {
             //
-            // Success but admin needs to approve. 
+            // Success but admin needs to approve.
             // Unset verify flag, keep account locked, send mail to admin.
             //
             $U->unverify($U->username);

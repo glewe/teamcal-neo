@@ -1,5 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) exit('');
+if (!defined('VALID_ROOT')) { exit(''); }
 /**
  * Regions Controller
  *
@@ -167,7 +167,7 @@ if (!empty($_POST)) {
                 preg_match("#(?sU)DTEND;.*DATE:([0-9]{8})#", $event, $end);
 
                 //
-                // Create time stamps and substract 24h from the end date cause the 
+                // Create time stamps and substract 24h from the end date cause the
                 // end date of an iCal event is not included
                 //
                 $start = mktime(0, 0, 0, substr($start[1], 4, 2), substr($start[1], 6, 2), substr($start[1], 0, 4));
@@ -184,7 +184,7 @@ if (!empty($_POST)) {
             };
 
             //
-            // Loop through the date string array and save each one in the region template 
+            // Loop through the date string array and save each one in the region template
             //
             foreach ($iCalEvents as $i) {
                 $eventYear = substr($i, 0, 4);
