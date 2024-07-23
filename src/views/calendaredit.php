@@ -353,7 +353,7 @@ view.editcalendar
                     // $confModal.modal({ backdrop : false });
                 </script>
             </div>
-            <?php if (isset($inputAlert["periodStart"]) && strlen($inputAlert["periodStart"])) { ?>
+            <?php if (isset($inputAlert["periodStart"]) and strlen($inputAlert["periodStart"])) { ?>
                 <br>
                 <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['periodStart'] ?></div>
             <?php } ?>
@@ -376,7 +376,7 @@ view.editcalendar
                     });
                 </script>
             </div>
-            <?php if (isset($inputAlert["periodEnd"]) && strlen($inputAlert["periodEnd"])) { ?>
+            <?php if (isset($inputAlert["periodEnd"]) and strlen($inputAlert["periodEnd"])) { ?>
                 <br>
                 <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['periodEnd'] ?></div>
             <?php } ?>
@@ -393,7 +393,7 @@ view.editcalendar
             <div class="col-lg-6">
                 <select class="form-control" name="sel_recurringAbsence" tabindex="<?= $tabindex++ ?>">
                     <?php foreach ($viewData['absences'] as $abs) {
-                        if (($abs['manager_only'] && ($UG->isGroupManagerOfUser($UL->username, $viewData['username']) or $UL->username == 'admin')) or !$abs['manager_only']) { ?>
+                        if (($abs['manager_only'] and ($UG->isGroupManagerOfUser($UL->username, $viewData['username']) or $UL->username == 'admin')) or !$abs['manager_only']) { ?>
                             <option value="<?= $abs['id'] ?>"><?= $abs['name'] ?></option>
                     <?php }
                     } ?>

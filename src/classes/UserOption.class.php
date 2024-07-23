@@ -239,7 +239,7 @@ class UserOption {
     $query->bindParam('val1', $username);
     $query->bindParam('val2', $option);
     $result = $query->execute();
-    if ($result && $query->fetchColumn()) {
+    if ($result and $query->fetchColumn()) {
       $query2 = $this->db->prepare('UPDATE ' . $this->table . ' SET `value` = :val1 WHERE `username` = :val2 AND `option` = :val3');
       $query2->bindParam('val1', $value);
       $query2->bindParam('val2', $username);
@@ -269,7 +269,7 @@ class UserOption {
     $query->bindParam('val1', $username);
     $query->bindParam('val2', $option);
     $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    if ($result and $row = $query->fetch()) {
       if (trim($row['value']) != "" or trim($row['value']) != "no") return true;
     } else {
       return false;

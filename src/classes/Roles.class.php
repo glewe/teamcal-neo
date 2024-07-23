@@ -169,7 +169,7 @@ class Roles {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name = :val1');
     $query->bindParam('val1', $name);
     $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    if ($result and $row = $query->fetch()) {
       $this->id = $row['id'];
       $this->name = $row['name'];
       $this->description = $row['description'];
@@ -191,7 +191,7 @@ class Roles {
     $query = $this->db->prepare('SELECT color FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
     $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    if ($result and $row = $query->fetch()) {
       return $row['color'];
     } else {
       return "default";
@@ -209,7 +209,7 @@ class Roles {
     $query = $this->db->prepare('SELECT color FROM ' . $this->table . ' WHERE name = :val1');
     $query->bindParam('val1', $name);
     $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    if ($result and $row = $query->fetch()) {
       return $row['color'];
     } else {
       return "default";
@@ -227,7 +227,7 @@ class Roles {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
     $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    if ($result and $row = $query->fetch()) {
       return $row['name'];
     } else {
       return false;

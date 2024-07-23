@@ -171,7 +171,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
   // - no takeover was requested
   // retrun as approved
   //
-  if (($UL->username == 'admin' or isAllowed("calendareditall")) && !$takeoverRequested) {
+  if (($UL->username == 'admin' or isAllowed("calendareditall")) and !$takeoverRequested) {
     $approvalResult[ 'approvalResult' ] = 'all';
     return $approvalResult;
   }
@@ -235,13 +235,13 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             //
             $groups = "";
             foreach ($userGroups as $row) {
-              if ($requestedAbsences[ $i ] && !$A->getCountsAsPresent($requestedAbsences[ $i ]) && (presenceMinimumReached($year, $month, $i, $row[ 'groupid' ]) or presenceMinimumWeReached($year, $month, $i, $row[ 'groupid' ]))) {
+              if ($requestedAbsences[ $i ] and !$A->getCountsAsPresent($requestedAbsences[ $i ]) and (presenceMinimumReached($year, $month, $i, $row[ 'groupid' ]) or presenceMinimumWeReached($year, $month, $i, $row[ 'groupid' ]))) {
                 //
                 // Only decline and add the affected group if the requesting user
                 // - is not allowed to edit group calendars OR
                 // - is neither member nor manager of the affected group
                 //
-                if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row[ 'id' ]) && !$UG->isMemberOrManagerOfGroup($UL->username, $row[ 'groupid' ]))) {
+                if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row[ 'id' ]) and !$UG->isMemberOrManagerOfGroup($UL->username, $row[ 'groupid' ]))) {
                   $affectedgroups[] = $row[ 'groupid' ];
 
                   if (presenceMinimumReached($year, $month, $i, $row[ 'groupid' ])) {
@@ -274,13 +274,13 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             //
             $groups = "";
             foreach ($userGroups as $row) {
-              if ($requestedAbsences[ $i ] && !$A->getCountsAsPresent($requestedAbsences[ $i ]) && (absenceMaximumReached($year, $month, $i, $row[ 'groupid' ]) or absenceMaximumWeReached($year, $month, $i, $row[ 'groupid' ]))) {
+              if ($requestedAbsences[ $i ] and !$A->getCountsAsPresent($requestedAbsences[ $i ]) and (absenceMaximumReached($year, $month, $i, $row[ 'groupid' ]) or absenceMaximumWeReached($year, $month, $i, $row[ 'groupid' ]))) {
                 //
                 // Only decline and add the affected group if the requesting user
                 // - is not allowed to edit group calendars OR
                 // - is neither member nor manager of the affected group
                 //
-                if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row[ 'id' ]) && !$UG->isMemberOrManagerOfGroup($UL->username, $row[ 'groupid' ]))) {
+                if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row[ 'id' ]) and !$UG->isMemberOrManagerOfGroup($UL->username, $row[ 'groupid' ]))) {
                   $affectedgroups[] = $row[ 'groupid' ];
 
                   if (absenceMaximumReached($year, $month, $i, $row[ 'groupid' ])) {
@@ -311,7 +311,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             // ABSENCE THRESHOLD
             // Only check this if the requested absence is in fact an absence (not Zero, not counting as present)
             //
-            if ($C->read("declAbsence") && $requestedAbsences[ $i ] != '0' && !$A->getCountsAsPresent($requestedAbsences[ $i ])) {
+            if ($C->read("declAbsence") and $requestedAbsences[ $i ] != '0' and !$A->getCountsAsPresent($requestedAbsences[ $i ])) {
               $today = date('Ymd');
               $declStartdate = str_replace('-', '', $C->read('declAbsenceStartdate'));
               $declEnddate = str_replace('-', '', $C->read('declAbsenceEnddate'));
@@ -338,13 +338,13 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                   //
                   $groups = "";
                   foreach ($userGroups as $row) {
-                    if ($requestedAbsences[ $i ] && absenceThresholdReached($year, $month, $i, "group", $row[ 'groupid' ])) {
+                    if ($requestedAbsences[ $i ] and absenceThresholdReached($year, $month, $i, "group", $row[ 'groupid' ])) {
                       //
                       // Only decline and add the affected group if the requesting user
                       // - is not allowed to edit group calendars OR
                       // - is neither member nor manager of the affected group
                       //
-                      if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row[ 'id' ]) && !$UG->isMemberOrManagerOfGroup($UL->username, $row[ 'groupid' ]))) {
+                      if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row[ 'id' ]) and !$UG->isMemberOrManagerOfGroup($UL->username, $row[ 'groupid' ]))) {
                         $affectedgroups[] = $row[ 'groupid' ];
                         $groups .= $G->getNameById($row[ 'groupid' ]) . ", ";
                       }
@@ -364,7 +364,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                     $thresholdReached = true;
                   }
                 } else {
-                  if ($requestedAbsences[ $i ] && absenceThresholdReached($year, $month, $i, "all")) {
+                  if ($requestedAbsences[ $i ] and absenceThresholdReached($year, $month, $i, "all")) {
                     //
                     // Absence threshold for all is reached.
                     // Absence cannot be set.
@@ -448,7 +448,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                 if ($applyRule) {
                   $startDate = $C->read("declPeriod" . $p . "Start");
                   $endDate = $C->read("declPeriod" . $p . "End");
-                  if ($requestedDate >= $startDate && $requestedDate <= $endDate) {
+                  if ($requestedDate >= $startDate and $requestedDate <= $endDate) {
                     //
                     // Requested absence is inside a declination period.
                     // Absence cannot be set.
@@ -468,14 +468,14 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
           //
           // ABSENCE APPROVAL REQUIRED
           //
-          if ($A->getApprovalRequired($requestedAbsences[ $i ]) && !$thresholdReached) {
+          if ($A->getApprovalRequired($requestedAbsences[ $i ]) and !$thresholdReached) {
             //
             // ThresholdReached overrules absence approval
             // Only decline if the requesting user
             // - is not allowed to edit group calendars OR
             // - is neither member nor manager of the affected group
             //
-            if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row[ 'id' ]) && !$UG->isMemberOrManagerOfGroup($UL->username, $row[ 'groupid' ]))) {
+            if (!isAllowed("calendareditgroup") or (!$UG->isGroupManagerOfGroup($UL->username, $row[ 'id' ]) and !$UG->isMemberOrManagerOfGroup($UL->username, $row[ 'groupid' ]))) {
               //
               // Absence requires approval.
               //
@@ -503,7 +503,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
           // HOLIDAY DOS NOT ALLOW ABSENCE
           //
           $isHoliday = $M->getHoliday($year, $month, $i, $regionId);
-          if ($isHoliday && $H->noAbsenceAllowed($isHoliday)) {
+          if ($isHoliday and $H->noAbsenceAllowed($isHoliday)) {
             //
             // This day is a holiday and the holiday is set to allow no absences
             //
@@ -573,7 +573,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
         // die($countFrom.' | '.$countTo . ' = '.$taken.' of '.$allow);
         // die(var_dump($requestedAbsences));
 
-        if ((($taken + 1) > $allow && $requestedAbsences[ $i ] != $currentAbsences[ $i ]) or countAbsenceRequestedWeek($requestedAbsences, $requestedAbsences[ $i ], intval($fromday)) > $allow) {
+        if ((($taken + 1) > $allow and $requestedAbsences[ $i ] != $currentAbsences[ $i ]) or countAbsenceRequestedWeek($requestedAbsences, $requestedAbsences[ $i ], intval($fromday)) > $allow) {
           //
           // Absence allowance per week reached AND
           // the requested absence is not one of the already taken ones (new request)
@@ -609,7 +609,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
         //
         $taken = countAbsence($username, $requestedAbsences[ $i ], $countFrom, $countTo, true, false);
 
-        if ((($taken + 1) > $allow && $requestedAbsences[ $i ] != $currentAbsences[ $i ]) or countAbsenceRequestedMonth($requestedAbsences, $requestedAbsences[ $i ]) > $allow) {
+        if ((($taken + 1) > $allow and $requestedAbsences[ $i ] != $currentAbsences[ $i ]) or countAbsenceRequestedMonth($requestedAbsences, $requestedAbsences[ $i ]) > $allow) {
           //
           // Absence allowance per month reached AND
           // the requested absence is not one of the already taken ones (new request)
@@ -658,7 +658,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
         $countTo = $T->year . '1231';
         $taken = countAbsence($username, $requestedAbsences[ $i ], $countFrom, $countTo, true, false);
 
-        if ((($taken + 1) > $allow && $requestedAbsences[ $i ] != $currentAbsences[ $i ]) or countAbsenceRequestedMonth($requestedAbsences, $requestedAbsences[ $i ]) > $allow) {
+        if ((($taken + 1) > $allow and $requestedAbsences[ $i ] != $currentAbsences[ $i ]) or countAbsenceRequestedMonth($requestedAbsences, $requestedAbsences[ $i ]) > $allow) {
           //
           // Absence allowance per year reached AND
           // the requested absence is not one of the already taken ones (new request)
@@ -695,12 +695,12 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
         $approved = true;
       }
 
-      if ($approved && !$declined) {
+      if ($approved and !$declined) {
         //
         // All requests are approved
         //
         $approvalResult[ 'approvalResult' ] = 'all';
-      } elseif ($approved && $declined) {
+      } elseif ($approved and $declined) {
         //
         // Some are approved, some declined
         //
@@ -782,7 +782,7 @@ function countAbsence($user = '%', $absid, $from, $to, $useFactor = FALSE, $comb
   // Loop through every month of the requested period
   //
   while ($ymstart <= $ymend) {
-    if ($year == $startyear && $month == $startmonth) {
+    if ($year == $startyear and $month == $startmonth) {
       $lastday = 0;
       if ($startmonth == $endmonth) {
         //
@@ -791,7 +791,7 @@ function countAbsence($user = '%', $absid, $from, $to, $useFactor = FALSE, $comb
         $lastday = $endday;
       }
       $count += $T->countAbsence($user, $year, $month, $absid, $startday, $lastday);
-    } else if ($year == $endyear && $month == $endmonth) {
+    } else if ($year == $endyear and $month == $endmonth) {
       $count += $T->countAbsence($user, $year, $month, $absid, 1, $endday);
     } else {
       $count += $T->countAbsence($user, $year, $month, $absid);
@@ -814,7 +814,7 @@ function countAbsence($user = '%', $absid, $from, $to, $useFactor = FALSE, $comb
   $otherTotal = 0;
   if ($combined) {
     foreach ($absences as $otherAbs) {
-      if ($otherId = $otherAbs[ 'counts_as' ] && $otherId == $absid) {
+      if ($otherId = $otherAbs[ 'counts_as' ] and $otherId == $absid) {
         $otherCount = 0;
         $otherFactor = $otherAbs[ 'factor' ];
         $year = $startyear;
@@ -822,9 +822,9 @@ function countAbsence($user = '%', $absid, $from, $to, $useFactor = FALSE, $comb
         $ymstart = intval($year . sprintf("%02d", $month));
         $ymend = intval($endyear . sprintf("%02d", $endmonth));
         while ($ymstart <= $ymend) {
-          if ($year == $startyear && $month == $startmonth) {
+          if ($year == $startyear and $month == $startmonth) {
             $otherCount += $T->countAbsence($user, $year, $month, $otherAbs[ 'id' ], $startday);
-          } else if ($year == $endyear && $month == $endmonth) {
+          } else if ($year == $endyear and $month == $endmonth) {
             $otherCount += $T->countAbsence($user, $year, $month, $otherAbs[ 'id' ], 1, $endday);
           } else {
             $otherCount += $T->countAbsence($user, $year, $month, $otherAbs[ 'id' ]);
