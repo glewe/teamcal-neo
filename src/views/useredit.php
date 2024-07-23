@@ -66,7 +66,7 @@ view.useredit
               <li class="nav-item"><a class="nav-link" id="absences-tab" href="#absences" data-bs-toggle="tab" role="tab" aria-controls="absences" aria-selected="false"><?= $LANG[ 'profile_tab_absences' ] ?></a></li>
             <?php } ?>
 
-            <?php if (isAllowed("useraccount") and $viewData[ 'profile' ] != "admin") { ?>
+            <?php if (isAllowed("useraccount") && $viewData[ 'profile' ] != "admin") { ?>
               <li class="nav-item"><a class="nav-link" id="account-tab" href="#account" data-bs-toggle="tab" role="tab" aria-controls="account" aria-selected="false"><?= $LANG[ 'profile_tab_account' ] ?></a></li>
             <?php } ?>
 
@@ -191,7 +191,7 @@ view.useredit
               </div>
             <?php } ?>
 
-            <?php if (isAllowed("useraccount") and $viewData[ 'profile' ] != "admin") { ?>
+            <?php if (isAllowed("useraccount") && $viewData[ 'profile' ] != "admin") { ?>
               <!-- Account tab -->
               <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="account-tab">
                 <div class="card">
@@ -228,7 +228,7 @@ view.useredit
               </div>
             </div>
 
-            <?php if (isAllowed("userabsences") and $viewData[ 'profile' ] != "admin") { ?>
+            <?php if (isAllowed("userabsences") && $viewData[ 'profile' ] != "admin") { ?>
               <!-- Absences tab -->
               <div class="tab-pane fade" id="absences" role="tabpanel" aria-labelledby="absences-tab">
                 <div class="card">

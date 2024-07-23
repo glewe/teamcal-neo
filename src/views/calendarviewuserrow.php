@@ -170,7 +170,7 @@ view.calendaruserrow (<?= $viewData[ 'year' ] . $viewData[ 'month' ] ?> - <?= $f
 
       }
     } else {
-      if ($loopDate < $currDate and $bgColor = $C->read('pastDayColor')) $style .= "background-color:#" . $bgColor . ";";
+      if ($loopDate < $currDate && $bgColor = $C->read('pastDayColor')) $style .= "background-color:#" . $bgColor . ";";
       $dayPresCount[ $i ]++;
     }
 
@@ -201,7 +201,7 @@ view.calendaruserrow (<?= $viewData[ 'year' ] . $viewData[ 'month' ] ?> - <?= $f
     //
     // Select the upper right corner indicator if applicable
     //
-    if ($note and $bday) {
+    if ($note && $bday) {
       $style .= 'background-image: url(images/ovl_bdaynote.gif); background-repeat: no-repeat; background-position: top right;';
     } else if ($note) {
       $style .= 'background-image: url(images/ovl_daynote.gif); background-repeat: no-repeat; background-position: top right;';
