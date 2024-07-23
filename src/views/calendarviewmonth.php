@@ -106,7 +106,7 @@ foreach ($mobilecols as $key => $cols) {
                 //
                 // Single group only, we will show the guests as well
                 //
-                if ($repeatHeaderCount and $rowcount > $repeatHeaderCount) {
+                if ($repeatHeaderCount && $rowcount > $repeatHeaderCount) {
                   require("calendarviewmonthheader.php");
                   $rowcount = 1;
                 }

@@ -23,7 +23,7 @@ view.regions
         if ($showAlert && $C->read("showAlerts") != "none") {
             if (
                 $C->read("showAlerts") == "all" or
-                $C->read("showAlerts") == "warnings" and ($alertData['type'] == "warning" or $alertData['type'] == "danger")
+                $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" or $alertData['type'] == "danger")
             ) {
                 echo createAlertBox($alertData);
             }
@@ -54,13 +54,13 @@ view.regions
                     <?= createModalTop('modalCreateRegion', $LANG['btn_create_region']) ?>
                     <label for="inputName"><?= $LANG['name'] ?></label>
                     <input id="inputName" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_name" maxlength="40" value="<?= $viewData['txt_name'] ?>" type="text">
-                    <?php if (isset($inputAlert["name"]) and strlen($inputAlert["name"])) { ?>
+                    <?php if (isset($inputAlert["name"]) && strlen($inputAlert["name"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert">x</button><?= $inputAlert["name"] ?></div>
                     <?php } ?>
                     <label for="inputDescription"><?= $LANG['description'] ?></label>
                     <input id="inputDescription" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_description" maxlength="100" value="<?= $viewData['txt_description'] ?>" type="text">
-                    <?php if (isset($inputAlert["description"]) and strlen($inputAlert["description"])) { ?>
+                    <?php if (isset($inputAlert["description"]) && strlen($inputAlert["description"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert">x</button><?= $inputAlert["description"] ?></div>
                     <?php } ?>

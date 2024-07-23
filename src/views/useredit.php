@@ -23,7 +23,7 @@ view.useredit
     if ($showAlert && $C->read("showAlerts") != "none") {
       if (
         $C->read("showAlerts") == "all" or
-        $C->read("showAlerts") == "warnings" and ($alertData[ 'type' ] == "warning" or $alertData[ 'type' ] == "danger")
+        $C->read("showAlerts") == "warnings" && ($alertData[ 'type' ] == "warning" or $alertData[ 'type' ] == "danger")
       ) {
         echo createAlertBox($alertData);
       }
@@ -46,7 +46,7 @@ view.useredit
           <div class="card">
             <div class="card-body">
               <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_profileUpdate"><?= $LANG[ 'btn_update' ] ?></button>
-              <?php if (isAllowed("useraccount") and $viewData[ 'profile' ] != "admin") { ?>
+              <?php if (isAllowed("useraccount") && $viewData[ 'profile' ] != "admin") { ?>
                 <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalArchiveProfile"><?= $LANG[ 'btn_archive' ] ?></button>
                 <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteProfile"><?= $LANG[ 'btn_delete' ] ?></button>
               <?php } ?>

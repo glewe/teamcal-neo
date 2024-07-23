@@ -67,7 +67,7 @@ else $navcolor = "light"; ?>
                             <?php if (isAllowed($CONF['controllers']['remainder']->permission)) { ?>
                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?= $CONF['controllers']['remainder']->name ?>"><i class="<?= $CONF['controllers']['remainder']->faIcon ?> fa-lg text-<?= $CONF['controllers']['remainder']->iconColor ?> me-3"></i><?= $LANG['mnu_view_remainder'] ?></a>
                             <?php } ?>
-                            <?php if (isAllowed($CONF['controllers']['messages']->permission) and $C->read('activateMessages')) { ?>
+                            <?php if (isAllowed($CONF['controllers']['messages']->permission) && $C->read('activateMessages')) { ?>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?= $CONF['controllers']['messages']->name ?>"><i class="<?= $CONF['controllers']['messages']->faIcon ?> fa-lg text-<?= $CONF['controllers']['messages']->iconColor ?> me-3"></i><?= $LANG['mnu_view_messages'] ?></a>
                             <?php } ?>
@@ -115,7 +115,7 @@ else $navcolor = "light"; ?>
                             <?php if (isAllowed($CONF['controllers']['monthedit']->permission)) { ?>
                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?= $CONF['controllers']['monthedit']->name ?>&amp;month=<?= date('Y') . date('m') ?>&amp;region=1"><i class="<?= $CONF['controllers']['monthedit']->faIcon ?> fa-lg text-<?= $CONF['controllers']['monthedit']->iconColor ?> me-3"></i><?= $LANG['mnu_edit_monthedit'] ?></a>
                             <?php } ?>
-                            <?php if (isAllowed($CONF['controllers']['messageedit']->permission) and $C->read('activateMessages')) { ?>
+                            <?php if (isAllowed($CONF['controllers']['messageedit']->permission) && $C->read('activateMessages')) { ?>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?= $CONF['controllers']['messageedit']->name ?>"><i class="<?= $CONF['controllers']['messageedit']->faIcon ?> fa-lg text-<?= $CONF['controllers']['messageedit']->iconColor ?> me-3"></i><?= $LANG['mnu_edit_messageedit'] ?></a>
                             <?php } ?>

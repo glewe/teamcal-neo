@@ -227,9 +227,9 @@ view.editcalendar
                                     absenceIsValidForUser($abs['id'], $UL->username)
                                     and
                                     (!$abs['manager_only'] or
-                                        ($abs['manager_only'] and $UG->isGroupManagerOfUser($UL->username, $viewData['username'])) or
-                                        ($abs['manager_only'] and isAllowed('manageronlyabsences')) or
-                                        ($abs['manager_only'] and $C->read("managerOnlyIncludesAdministrator") and $UL->hasRole($UL->username, 1)) // Role 1 = Administrator
+                                        ($abs['manager_only'] && $UG->isGroupManagerOfUser($UL->username, $viewData['username'])) or
+                                        ($abs['manager_only'] && isAllowed('manageronlyabsences')) or
+                                        ($abs['manager_only'] && $C->read("managerOnlyIncludesAdministrator") and $UL->hasRole($UL->username, 1)) // Role 1 = Administrator
                                     )
                                 ) {
                             ?>
