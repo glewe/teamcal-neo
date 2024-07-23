@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * AbsenceGroup
@@ -132,7 +134,6 @@ class AbsenceGroup {
     $query->bindParam('val1', $absid);
     $query->bindParam('val2', $groupid);
     $result = $query->execute();
-
     return $result && $query->fetchColumn();
   }
 

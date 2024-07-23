@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * Users
@@ -62,8 +64,7 @@ class Users {
   public function archive($username) {
     $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT u.* FROM ' . $this->table . ' u WHERE username = :val1');
     $query->bindParam('val1', $username);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // ---------------------------------------------------------------------------
@@ -90,18 +91,18 @@ class Users {
    * @return integer Count
    */
   public function countUsers($countAdmin = false, $countHidden = false) {
-    if ($countHidden)
+    if ($countHidden) {
       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
-    else
+    } else {
       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE hidden = 0');
-
+    }
     $result = $query->execute();
-
     if ($result) {
-      if ($countAdmin)
+      if ($countAdmin) {
         return $query->fetchColumn();
-      else
+      } else {
         return $query->fetchColumn() - 1;
+      }
     } else {
       return 0;
     }
@@ -116,9 +117,7 @@ class Users {
   public function create() {
     $stmt = 'INSERT INTO ' . $this->table . ' (username, password, firstname, lastname, email, order_key, role, locked, hidden, onhold, verify, bad_logins, grace_start, last_pw_change, last_login, created) ';
     $stmt .= 'VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12, :val13, :val14, :val15, :val16)';
-
     $query = $this->db->prepare($stmt);
-
     $query->bindParam('val1', $this->username);
     $query->bindParam('val2', $this->password);
     $query->bindParam('val3', $this->firstname);
@@ -135,9 +134,7 @@ class Users {
     $query->bindParam('val14', $this->last_pw_change);
     $query->bindParam('val15', $this->last_login);
     $query->bindParam('val16', $this->created);
-
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // --------------------------------------------------------------------------
@@ -148,14 +145,15 @@ class Users {
    * @return boolean Query result
    */
   public function deleteAll($archive = false) {
-    if ($archive) $table = $this->archive_table;
-    else $table = $this->table;
-
+    if ($archive) {
+      $table = $this->archive_table;
+    } else {
+      $table = $this->table;
+    }
     $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username <> :val1');
     $val1 = 'admin';
     $query->bindParam('val1', $val1);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // --------------------------------------------------------------------------
@@ -167,13 +165,14 @@ class Users {
    * @return boolean Query result
    */
   public function deleteByName($username = '', $archive = false) {
-    if ($archive) $table = $this->archive_table;
-    else $table = $this->table;
-
+    if ($archive) {
+      $table = $this->archive_table;
+    } else {
+      $table = $this->table;
+    }
     $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // --------------------------------------------------------------------------
@@ -185,18 +184,15 @@ class Users {
    * @return boolean True if found, false if not
    */
   public function exists($username = '', $archive = false) {
-    if ($archive) $table = $this->archive_table;
-    else $table = $this->table;
-
+    if ($archive) {
+      $table = $this->archive_table;
+    } else {
+      $table = $this->table;
+    }
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
-
-    if ($result && $query->fetchColumn()) {
-      return true;
-    } else {
-      return false;
-    }
+    return $result && $query->fetchColumn();
   }
 
   // --------------------------------------------------------------------------
@@ -208,13 +204,14 @@ class Users {
    * @return boolean Query result
    */
   public function findByName($username = '', $archive = false) {
-    if ($archive) $table = $this->archive_table;
-    else $table = $this->table;
-
+    if ($archive) {
+      $table = $this->archive_table;
+    } else {
+      $table = $this->table;
+    }
     $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       $this->username = $row['username'];
       $this->password = $row['password'];
@@ -248,7 +245,6 @@ class Users {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE md5(CONCAT("PasswordResetRequestFor",username)) = :val1');
     $query->bindParam('val1', $token);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       $this->username = $row['username'];
       $this->password = $row['password'];
@@ -311,7 +307,6 @@ class Users {
         $records[] = $row;
       }
     }
-
     return $records;
   }
 
@@ -324,11 +319,9 @@ class Users {
    */
   public function getAllForEmail($email) {
     $records = array();
-
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE email = :val1 ORDER BY lastname ASC, firstname ASC');
     $query->bindParam('val1', $email);
     $result = $query->execute();
-
     if ($result) {
       while ($row = $query->fetch()) {
         $records[] = $row;
@@ -356,13 +349,17 @@ class Users {
     }
 
     $records = array();
-    if ($archive) $table = $this->archive_table;
-    else $table = $this->table;
+    if ($archive) {
+      $table = $this->archive_table;
+    } else {
+      $table = $this->table;
+    }
 
-    if ($includeAdmin)
+    if ($includeAdmin) {
       $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE hidden != 1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
-    else
+    } else {
       $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != :val1 AND hidden != 1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
+    }
     $val1 = 'admin';
     $query->bindParam('val1', $val1);
 
@@ -385,19 +382,22 @@ class Users {
    */
   public function getAllLike($like, $archive = false) {
     $records = array();
-    if ($archive) $table = $this->archive_table;
-    else $table = $this->table;
-
+    if ($archive) {
+      $table = $this->archive_table;
+    } else {
+      $table = $this->table;
+    }
     $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE firstname LIKE :val1 OR lastname LIKE :val2 OR username LIKE :val3 ORDER BY lastname ASC, firstname ASC');
     $val = '%' . $like . '%';
     $query->bindParam('val1', $val);
     $query->bindParam('val2', $val);
     $query->bindParam('val3', $val);
     $result = $query->execute();
-
     if ($result) {
       while ($row = $query->fetch()) {
-        if ($row['username'] != 'admin') $records[] = $row;
+        if ($row['username'] != 'admin') {
+          $records[] = $row;
+        }
       }
     }
     return $records;
@@ -415,14 +415,14 @@ class Users {
     $records = array();
     if ($archive) $table = $this->archive_table;
     else $table = $this->table;
-
     $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username = :val1');
     $query->bindParam('val1', $uname);
     $result = $query->execute();
-
     if ($result) {
       while ($row = $query->fetch()) {
-        if ($row['username'] != 'admin') $records[] = $row;
+        if ($row['username'] != 'admin') {
+          $records[] = $row;
+        }
       }
     }
     return $records;
@@ -439,7 +439,6 @@ class Users {
     $query = $this->db->prepare('SELECT email FROM ' . $this->table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       return $row['email'];
     }
@@ -457,14 +456,18 @@ class Users {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       if (strlen($row['firstname'])) {
         $fullname = $row['firstname'];
-        if (strlen($row['lastname'])) $fullname .= ' ' . $row['lastname'];
+        if (strlen($row['lastname'])) {
+          $fullname .= ' ' . $row['lastname'];
+        }
       } else {
-        if (strlen($row['lastname'])) $fullname = $row['lastname'];
-        else  $fullname = 'no name';
+        if (strlen($row['lastname'])) {
+          $fullname = $row['lastname'];
+        } else {
+          $fullname = 'no name';
+        }
       }
       return $fullname;
     }
@@ -482,14 +485,18 @@ class Users {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       if (strlen($row['lastname'])) {
         $lastfirst = $row['lastname'];
-        if (strlen($row['firstname'])) $lastfirst .= ', ' . $row['firstname'];
+        if (strlen($row['firstname'])) {
+          $lastfirst .= ', ' . $row['firstname'];
+        }
       } else {
-        if (strlen($row['firstname'])) $lastfirst = $row['firstname'];
-        else  $lastfirst = 'no name';
+        if (strlen($row['firstname'])) {
+          $lastfirst = $row['firstname'];
+        } else {
+          $lastfirst = 'no name';
+        }
       }
       return $lastfirst;
     }
@@ -507,7 +514,6 @@ class Users {
     $query = $this->db->prepare('SELECT role FROM ' . $this->table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
       return $row['role'];
     }
@@ -524,7 +530,6 @@ class Users {
     $records = array();
     $query = $this->db->prepare('SELECT username FROM ' . $this->table . ' ORDER BY username ASC');
     $result = $query->execute();
-
     if ($result) {
       while ($row = $query->fetch()) {
         $records[] = $row['username'];
@@ -545,10 +550,8 @@ class Users {
     $query = $this->db->prepare('SELECT role FROM ' . $this->table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
-      if ($row['role'] == $role) return true;
-      else return false;
+      return $row['role'] == $role;
     }
     return false;
   }
@@ -564,13 +567,8 @@ class Users {
     $query = $this->db->prepare('SELECT hidden FROM ' . $this->table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
-
     if ($result && $row = $query->fetch()) {
-      if ($row['hidden']) {
-        return true;
-      } else {
-        return false;
-      }
+      return $row['hidden'];
     }
     return true;
   }
@@ -585,8 +583,7 @@ class Users {
   public function restore($username) {
     $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
     $query->bindParam('val1', $username);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // --------------------------------------------------------------------------
@@ -601,10 +598,7 @@ class Users {
     $query = $this->db->prepare('UPDATE ' . $this->table . ' SET role = :val1 WHERE username = :val2');
     $query->bindParam('val1', $role);
     $query->bindParam('val2', $username);
-    $result = $query->execute();
-
-    if ($result) return true;
-    else         return false;
+    return $query->execute();
   }
 
   // --------------------------------------------------------------------------
@@ -619,8 +613,7 @@ class Users {
     $val1 = '0';
     $query->bindParam('val1', $val1);
     $query->bindParam('val2', $username);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // --------------------------------------------------------------------------
@@ -635,8 +628,7 @@ class Users {
     $query->bindParam('val1', $username);
     $val2 = '0';
     $query->bindParam('val2', $val2);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // --------------------------------------------------------------------------
@@ -651,8 +643,7 @@ class Users {
     $query->bindParam('val1', $username);
     $val2 = '0';
     $query->bindParam('val2', $val2);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // --------------------------------------------------------------------------
@@ -667,8 +658,7 @@ class Users {
     $query->bindParam('val1', $username);
     $val2 = '0';
     $query->bindParam('val2', $val2);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // --------------------------------------------------------------------------
@@ -708,10 +698,9 @@ class Users {
    */
   public function optimize() {
     $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
-    $result = $query->execute();
+    $query->execute();
     $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->archive_table);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // --------------------------------------------------------------------------
