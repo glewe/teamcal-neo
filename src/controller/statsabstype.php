@@ -159,7 +159,7 @@ switch ($viewData['period']) {
         break;
 
     case 'custom':
-        // 
+        //
         // Nothing to do. POST variables already read.
         //
         break;
@@ -182,7 +182,7 @@ $data = array();
 //
 $viewData['total'] = 0;
 foreach ($viewData['absences'] as $abs) {
-    if ($A->get($abs['id']) and !$A->counts_as_present) {
+    if ($A->get($abs['id']) && !$A->counts_as_present) {
         $labels[] = '"' . $abs['name'] . '"';
         //$sliceColors[] = '"#'.bin2hex(openssl_random_pseudo_bytes(3)).'"';
         $sliceColors[] = '"#' . $abs['bgcolor'] . '"';

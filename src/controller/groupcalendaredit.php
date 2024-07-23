@@ -18,7 +18,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
 //
 // CHECK URL PARAMETERS
 //
-if (isset($_GET['month']) and isset($_GET['region']) and isset($_GET['group'])) {
+if (isset($_GET['month']) && isset($_GET['region']) && isset($_GET['group'])) {
     $missingData = FALSE;
 
     //
@@ -82,7 +82,7 @@ if ($missingData) {
 //
 // Default back to current yearmonth if option is set
 //
-if ($C->read('currentYearOnly') and $viewData['year'] != date('Y')) {
+if ($C->read('currentYearOnly') && $viewData['year'] != date('Y')) {
     header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . date('Ym') . "&region=" . $region . "&group=" . $calgroup);
     die();
 }
@@ -217,7 +217,7 @@ if (!empty($_POST)) {
                 $endYear = $endPieces[0];
                 $endMonth = $endPieces[1];
 
-                if ($startYear == $viewData['year'] and $endYear == $viewData['year'] and $startMonth == $viewData['month'] and $endMonth == $viewData['month']) {
+                if ($startYear == $viewData['year'] && $endYear == $viewData['year'] && $startMonth == $viewData['month'] && $endMonth == $viewData['month']) {
                     $startDate = str_replace("-", "", $_POST['txt_periodStart']);
                     $endDate = str_replace("-", "", $_POST['txt_periodEnd']);
 
@@ -263,7 +263,7 @@ if (!empty($_POST)) {
                     if ($key == $wday) {
                         //
                         // The checkbox for this weekday was set. Loop through the month and mark all of them.
-                        // 
+                        //
                         for ($i = $startDate; $i <= $endDate; $i++) {
                             $day = intval(substr($i, 6, 2));
                             $loopDayInfo = dateInfo($viewData['year'], $viewData['month'], $day);
@@ -278,7 +278,7 @@ if (!empty($_POST)) {
                         for ($i = $startDate; $i <= $endDate; $i++) {
                             $day = intval(substr($i, 6, 2));
                             $loopDayInfo = dateInfo($viewData['year'], $viewData['month'], $day);
-                            if ($loopDayInfo['wday'] >= 1 and $loopDayInfo['wday'] <= 5) {
+                            if ($loopDayInfo['wday'] >= 1 && $loopDayInfo['wday'] <= 5) {
                                 $requestedAbsences[$day] = $_POST['sel_recurringAbsence'];
                             }
                         }
@@ -289,7 +289,7 @@ if (!empty($_POST)) {
                         for ($i = $startDate; $i <= $endDate; $i++) {
                             $day = intval(substr($i, 6, 2));
                             $loopDayInfo = dateInfo($viewData['year'], $viewData['month'], $day);
-                            if ($loopDayInfo['wday'] >= 6 and $loopDayInfo['wday'] <= 7) {
+                            if ($loopDayInfo['wday'] >= 6 && $loopDayInfo['wday'] <= 7) {
                                 $requestedAbsences[$day] = $_POST['sel_recurringAbsence'];
                             }
                         }
@@ -350,7 +350,7 @@ if (!empty($_POST)) {
             //
             // Send notification e-mails to the subscribers of user events
             //
-            if ($C->read("emailNotifications") and $sendNotification) {
+            if ($C->read("emailNotifications") && $sendNotification) {
                 sendUserCalEventNotifications("changed", $viewData['year'], $viewData['month'], $calgroupuser);
             }
 

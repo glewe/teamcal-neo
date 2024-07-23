@@ -93,7 +93,7 @@ if (!empty($_POST)) {
       if (!formInputValid('opt_beforeoption', 'required')) {
         $inputError = true;
       } else {
-        if (isset($_POST['opt_beforeoption']) and $_POST['opt_beforeoption'] == 'date' && !formInputValid('txt_beforedate', 'required|date')) {
+        if (isset($_POST['opt_beforeoption']) && $_POST['opt_beforeoption'] == 'date' && !formInputValid('txt_beforedate', 'required|date')) {
           $inputError = true;
         }
       }

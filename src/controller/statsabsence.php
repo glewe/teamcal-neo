@@ -163,7 +163,7 @@ switch ($viewData['period']) {
         break;
 
     case 'custom':
-        // 
+        //
         // Nothing to do. POST variables already read.
         //
         break;
@@ -210,7 +210,7 @@ if ($viewData['yaxis'] == 'users') {
         $count = 0;
         if ($viewData['absid'] == 'all') {
             foreach ($viewData['absences'] as $abs) {
-                if ($A->get($abs['id']) and !$A->counts_as_present) {
+                if ($A->get($abs['id']) && !$A->counts_as_present) {
                     $countFrom = str_replace('-', '', $viewData['from']);
                     $countTo = str_replace('-', '', $viewData['to']);
                     $count += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
@@ -237,7 +237,7 @@ if ($viewData['yaxis'] == 'users') {
             foreach ($users as $user) {
                 if ($viewData['absid'] == 'all') {
                     foreach ($viewData['absences'] as $abs) {
-                        if ($A->get($abs['id']) and !$A->counts_as_present) {
+                        if ($A->get($abs['id']) && !$A->counts_as_present) {
                             $countFrom = str_replace('-', '', $viewData['from']);
                             $countTo = str_replace('-', '', $viewData['to']);
                             $count += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
@@ -259,7 +259,7 @@ if ($viewData['yaxis'] == 'users') {
         foreach ($users as $user) {
             if ($viewData['absid'] == 'all') {
                 foreach ($viewData['absences'] as $abs) {
-                    if ($A->get($abs['id']) and !$A->counts_as_present) {
+                    if ($A->get($abs['id']) && !$A->counts_as_present) {
                         $countFrom = str_replace('-', '', $viewData['from']);
                         $countTo = str_replace('-', '', $viewData['to']);
                         $count += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);

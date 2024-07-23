@@ -72,7 +72,7 @@ if ($groupfilter == "all") {
     //
     $calusers = array();
     foreach ($users as $key => $usr) {
-        if (L_USER == 'admin' or ($UG->isMemberOrGuestOfGroup($usr['username'], $groupfilter) and ($UG->isGroupManagerOfUser(L_USER, $usr['username']) or L_USER == $usr['username']))) {
+        if (L_USER == 'admin' or ($UG->isMemberOrGuestOfGroup($usr['username'], $groupfilter) && ($UG->isGroupManagerOfUser(L_USER, $usr['username']) or L_USER == $usr['username']))) {
             $calusers[] = $usr;
         }
     }
@@ -83,7 +83,7 @@ if ($groupfilter == "all") {
 //
 // Search Reset
 //
-if (isset($_GET['search']) and $_GET['search'] == "reset") {
+if (isset($_GET['search']) && $_GET['search'] == "reset") {
     header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller);
     die();
 }

@@ -133,7 +133,7 @@ $dataRemainder = array();
 //
 $viewData['total'] = 0;
 foreach ($viewData['absences'] as $abs) {
-    if ($A->get($abs['id']) and !$A->counts_as_present and intval($A->allowance) > 0) {
+    if ($A->get($abs['id']) && !$A->counts_as_present && intval($A->allowance) > 0) {
         $labels[] = '"' . $abs['name'] . '"';
         $absenceAllowance = intval($A->allowance);
 
