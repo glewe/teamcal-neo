@@ -383,7 +383,7 @@ function sendEmail($to, $subject, $body, $from = '') {
   /**
    * Set From and ReplyTo
    */
-  if ((!strlen($from)) or ($from_regexp and ($fetch[ 1 ] == $C->read("mailReply")))) {
+  if ((!strlen($from)) or ($from_regexp && ($fetch[ 1 ] == $C->read("mailReply")))) {
     $from = $replyto = mb_encode_mimeheader($C->read("mailFrom")) . " <" . $C->read("mailReply") . ">";
     $from_mailonly = $C->read("mailReply");
   } else if ($from_regexp) {

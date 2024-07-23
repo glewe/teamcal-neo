@@ -69,20 +69,20 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
     $langIdx2 = $data['prefix'] . '_' . $data['name'] . '_comment';
 
     $button = '';
-    if (isset($data['action']) and !empty($data['action'])) {
+    if (isset($data['action']) && !empty($data['action'])) {
         $name = 'btn_' . $data['action']['name'];
         $target = $data['action']['target'];
         $button = '<button type="button" class="btn btn-primary btn-sm" style="margin-top: 8px;" tabindex="' . ($tabindex + 1) . '" name="' . $name . '" onclick="window.location=\'' . $target . '\';">' . $LANG[$name] . '</button>';
     }
 
     $disabled = '';
-    if (isset($data['disabled']) and $data['disabled']) $disabled = ' disabled="disabled"';
+    if (isset($data['disabled']) && $data['disabled']) $disabled = ' disabled="disabled"';
 
     $mandatory = '';
-    if (isset($data['mandatory']) and $data['mandatory']) $mandatory = '<i class="text-danger">*</i> ';
+    if (isset($data['mandatory']) && $data['mandatory']) $mandatory = '<i class="text-danger">*</i> ';
 
     $error = '';
-    if (isset($data["error"]) and strlen($data["error"])) {
+    if (isset($data["error"]) && strlen($data["error"])) {
         $error = '<br><div class="alert alert-dismissible alert-danger fade show"><button type="button" class="btn-close" data-bs-dismiss="alert"></button>' . $data['error'] . '</div>';
     }
 
@@ -157,7 +157,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex)
                 <div class="col-lg-' . $colsright . '">
                 <select id="' . $data['name'] . '" class="form-select" name="sel_' . $data['name'] . '" tabindex="' . $tabindex . '"' . $disabled . '>' . "\r\n";
             foreach ($data['values'] as $val) {
-                if (isset($data['imagelist']) and $data['imagelist'] and isset($data['imagedir'])) {
+                if (isset($data['imagelist']) && $data['imagelist'] && isset($data['imagedir'])) {
                     $style = $style = 'style="background-image: url(\'' . $data['imagedir'] . '/' . $val['val'] . '\'); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;"';
                 }
                 $formGroup .= '<option ' . $style . ' value="' . $val['val'] . '"' . (($val['selected']) ? " selected=\"selected\"" : "") . '>' . $val['name'] . '</option>' . "\r\n";

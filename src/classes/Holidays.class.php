@@ -214,7 +214,7 @@ class Holidays {
       $query->bindParam('val1', $id);
       $result = $query->execute();
 
-      if ($result and $row = $query->fetch()) {
+      if ($result && $row = $query->fetch()) {
         $rc = $row['keepweekendcolor'];
       }
     }
@@ -235,7 +235,7 @@ class Holidays {
       $query->bindParam('val1', $id);
       $result = $query->execute();
 
-      if ($result and $row = $query->fetch()) {
+      if ($result && $row = $query->fetch()) {
         $rc = $row['noabsence'];
       }
     }
@@ -256,7 +256,7 @@ class Holidays {
       $query->bindParam('val1', $id);
       $result = $query->execute();
 
-      if ($result and $row = $query->fetch()) {
+      if ($result && $row = $query->fetch()) {
         $rc = $row['name'];
       }
     }
@@ -277,7 +277,7 @@ class Holidays {
       $query->bindParam('val1', $id);
       $result = $query->execute();
 
-      if ($result and $row = $query->fetch()) {
+      if ($result && $row = $query->fetch()) {
         $rc = $row['description'];
       }
     }
@@ -298,7 +298,7 @@ class Holidays {
       $query->bindParam('val1', $id);
       $result = $query->execute();
 
-      if ($result and $row = $query->fetch()) {
+      if ($result && $row = $query->fetch()) {
         $rc = $row['color'];
       }
     }
@@ -319,7 +319,7 @@ class Holidays {
       $query->bindParam('val1', $id);
       $result = $query->execute();
 
-      if ($result and $row = $query->fetch()) {
+      if ($result && $row = $query->fetch()) {
         $rc = $row['bgcolor'];
       }
     }
@@ -336,7 +336,7 @@ class Holidays {
     $query = $this->db->prepare('SHOW TABLE STATUS LIKE ' . $this->table);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       return intval($row['Auto_increment']) - 1;
     }
   }
@@ -351,7 +351,7 @@ class Holidays {
     $query = $this->db->prepare('SHOW TABLE STATUS LIKE ' . $this->table);
     $result = $query->execute();
 
-    if ($result and $row = $query->fetch()) {
+    if ($result && $row = $query->fetch()) {
       return $row['Auto_increment'];
     }
   }
