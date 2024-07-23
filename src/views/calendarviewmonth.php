@@ -120,7 +120,7 @@ foreach ($mobilecols as $key => $cols) {
                 //
                 // Skip if user is group manager and hideManagers is enabled
                 //
-                if ($C->read('hideManagers') && $UG->isGroupManagerOfGroup($usr[ 'username' ], $grp[ 'id' ])) {
+                if ($C->read('hideManagers') and $UG->isGroupManagerOfGroup($usr[ 'username' ], $grp[ 'id' ])) {
                   continue;
                 }
                 ?>
@@ -133,7 +133,7 @@ foreach ($mobilecols as $key => $cols) {
                 // Multiple groups, we will not show the guests
                 //
                 if ($UG->isMemberOrManagerOfGroup($usr[ 'username' ], $grp[ 'id' ])) {
-                  if ($repeatHeaderCount && $rowcount > $repeatHeaderCount) {
+                  if ($repeatHeaderCount and $rowcount > $repeatHeaderCount) {
                     require("calendarviewmonthheader.php");
                     $rowcount = 1;
                   }
@@ -157,7 +157,7 @@ foreach ($mobilecols as $key => $cols) {
           $repeatHeaderCount = $C->read("repeatHeaderCount");
           if ($repeatHeaderCount) $rowcount = 1;
           foreach ($viewData[ 'users' ] as $usr) {
-            if ($repeatHeaderCount && $rowcount > $repeatHeaderCount) {
+            if ($repeatHeaderCount and $rowcount > $repeatHeaderCount) {
               require("calendarviewmonthheader.php");
               $rowcount = 1;
             } ?>

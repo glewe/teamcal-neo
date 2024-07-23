@@ -193,7 +193,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Sanitize?
    */
   if (in_array('sanitize', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ])) {
       $_POST[ $field ] = sanitize($_POST[ $field ]);
     }
   }
@@ -212,7 +212,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Alpha characters?
    */
   if (in_array('alpha', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !preg_match("/^[\pL]+$/u", $_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !preg_match("/^[\pL]+$/u", $_POST[ $field ])) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_alpha' ];
       return false;
     }
@@ -222,7 +222,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Alphanumeric characters?
    */
   if (in_array('alpha_numeric', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !preg_match("/^[\pL\w]+$/u", $_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !preg_match("/^[\pL\w]+$/u", $_POST[ $field ])) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_alpha_numeric' ];
       return false;
     }
@@ -232,7 +232,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Alphanumeric plus dash and underscore?
    */
   if (in_array('alpha_numeric_dash', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !preg_match("/^([\pL\w_-])+$/u", $_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !preg_match("/^([\pL\w_-])+$/u", $_POST[ $field ])) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_alpha_numeric_dash' ];
       return false;
     }
@@ -242,7 +242,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Alphanumeric plus dot and @?
    */
   if (in_array('username', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !preg_match("/^([\pL\w.@_-])+$/u", $_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !preg_match("/^([\pL\w.@_-])+$/u", $_POST[ $field ])) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_username' ];
       return false;
     }
@@ -252,7 +252,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Alphanumeric plus dash, underscore and blank?
    */
   if (in_array('alpha_numeric_dash_blank', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !preg_match("/^[ \pL\w_-]+$/u", $_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !preg_match("/^[ \pL\w_-]+$/u", $_POST[ $field ])) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_alpha_numeric_dash_blank' ];
       return false;
     }
@@ -262,7 +262,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Alphanumeric plus dash, underscore, blank and dot?
    */
   if (in_array('alpha_numeric_dash_blank_dot', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !preg_match("/^[ \pL\w._-]+$/u", $_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !preg_match("/^[ \pL\w._-]+$/u", $_POST[ $field ])) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_alpha_numeric_dash_blank_dot' ];
       return false;
     }
@@ -272,7 +272,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Alphanumeric plus dash, underscore, blank and special?
    */
   if (in_array('alpha_numeric_dash_blank_special', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !preg_match("/^[ \pL\w'!@#$%^&*()._-]+$/u", $_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !preg_match("/^[ \pL\w'!@#$%^&*()._-]+$/u", $_POST[ $field ])) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_alpha_numeric_dash_blank_special' ];
       return false;
     }
@@ -282,7 +282,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Only displayable/printable characters?
    */
   if (in_array('ctype_graph', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !ctype_graph($_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !ctype_graph($_POST[ $field ])) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_ctype_graph' ];
       return false;
     }
@@ -292,7 +292,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Date-only in ISO 8601 format YYYY-MM-DD?
    */
   if (in_array('date', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !preg_match("/^(\d{4})-(\d{2})-(\d{2})$/", trim($_POST[ $field ]))) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !preg_match("/^(\d{4})-(\d{2})-(\d{2})$/", trim($_POST[ $field ]))) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_date' ];
       return false;
     }
@@ -302,7 +302,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Valid email?
    */
   if (in_array('email', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !validEmail($_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !validEmail($_POST[ $field ])) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_email' ];
       return false;
     }
@@ -312,7 +312,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Equals?
    */
   if (in_array('equals', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && is_numeric($_POST[ $field ]) && !$_POST[ $field ] == $param) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and is_numeric($_POST[ $field ]) and !$_POST[ $field ] == $param) {
       $inputAlert[ $label[ 1 ] ] = sprintf($LANG[ 'alert_input_equal' ], $field, $param);
       return false;
     }
@@ -322,7 +322,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Equals string?
    */
   if (in_array('equals_string', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && $_POST[ $field ] != $param) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and $_POST[ $field ] != $param) {
       $inputAlert[ $label[ 1 ] ] = sprintf($LANG[ 'alert_input_equal_string' ], $param);
       return false;
     }
@@ -332,7 +332,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Exact length?
    */
   if (in_array('exact_length', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && mb_strlen($_POST[ $field ]) != $param) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and mb_strlen($_POST[ $field ]) != $param) {
       $inputAlert[ $label[ 1 ] ] = sprintf($LANG[ 'alert_input_exact_length' ], $param);
       return false;
     }
@@ -342,7 +342,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Greater than?
    */
   if (in_array('greater_than', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && is_numeric($_POST[ $field ]) && !$_POST[ $field ] > $param) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and is_numeric($_POST[ $field ]) and !$_POST[ $field ] > $param) {
       $inputAlert[ $label[ 1 ] ] = sprintf($LANG[ 'alert_input_greater_than' ], $param);
       return false;
     }
@@ -352,7 +352,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Hexadecimal
    */
   if (in_array('hexadecimal', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !preg_match("/^([a-f0-9])+$/i", $_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !preg_match("/^([a-f0-9])+$/i", $_POST[ $field ])) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_hexadecimal' ];
       return false;
     }
@@ -362,7 +362,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * IP address?
    */
   if (in_array('ip_address', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !filter_var($_POST[ $field ], FILTER_VALIDATE_IP)) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !filter_var($_POST[ $field ], FILTER_VALIDATE_IP)) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_ip_address' ];
       return false;
     }
@@ -372,7 +372,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Less than?
    */
   if (in_array('less_than', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && is_numeric($_POST[ $field ]) && !$_POST[ $field ] < $param) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and is_numeric($_POST[ $field ]) and !$_POST[ $field ] < $param) {
       $inputAlert[ $label[ 1 ] ] = sprintf($LANG[ 'alert_input_less_than' ], $param);
       return false;
     }
@@ -382,7 +382,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Matches another field?
    */
   if (in_array('match', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && isset($_POST[ $param ]) && strlen($_POST[ $param ]) && $_POST[ $field ] != $_POST[ $param ]) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and isset($_POST[ $param ]) and strlen($_POST[ $param ]) and $_POST[ $field ] != $_POST[ $param ]) {
       $inputAlert[ $label[ 1 ] ] = sprintf($LANG[ 'alert_input_match' ], $field, $param);
       return false;
     }
@@ -392,7 +392,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Maximal length?
    */
   if (in_array('max_length', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && mb_strlen($_POST[ $field ]) > $param) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and mb_strlen($_POST[ $field ]) > $param) {
       $inputAlert[ $label[ 1 ] ] = sprintf($LANG[ 'alert_input_max_length' ], $param);
       return false;
     }
@@ -402,7 +402,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Minimal length?
    */
   if (in_array('min_length', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && mb_strlen($_POST[ $field ]) < $param) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and mb_strlen($_POST[ $field ]) < $param) {
       $inputAlert[ $label[ 1 ] ] = sprintf($LANG[ 'alert_input_min_length' ], $param);
       return false;
     }
@@ -412,7 +412,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Numeric?
    */
   if (in_array('numeric', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !is_numeric($_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !is_numeric($_POST[ $field ])) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_numeric' ];
       return false;
     }
@@ -422,7 +422,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Password low strength?
    */
   if (in_array('pwdlow', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !preg_match("/^.*(?=.{4,})[a-zA-Z0-9!@#$%^&*().]+$/", $_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !preg_match("/^.*(?=.{4,})[a-zA-Z0-9!@#$%^&*().]+$/", $_POST[ $field ])) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_pwdlow' ];
       return false;
     }
@@ -432,7 +432,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Password med strength?
    */
   if (in_array('pwdmedium', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !preg_match("/^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*().]+$/", $_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !preg_match("/^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*().]+$/", $_POST[ $field ])) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_pwdmedium' ];
       return false;
     }
@@ -442,7 +442,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Password med strength?
    */
   if (in_array('pwdhigh', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !preg_match("/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()])[a-zA-Z0-9!@#$%^&*().]+$/", $_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !preg_match("/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()])[a-zA-Z0-9!@#$%^&*().]+$/", $_POST[ $field ])) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_pwdhigh' ];
       return false;
     }
@@ -452,7 +452,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Phone number?
    */
   if (in_array('phone_number', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !preg_match("/^([ +0-9-()])+$/i", $_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !preg_match("/^([ +0-9-()])+$/i", $_POST[ $field ])) {
       $inputAlert[ $label[ 1 ] ] = $LANG[ 'alert_input_phone_number' ];
       return false;
     }
@@ -462,7 +462,7 @@ function formInputValid($field, $ruleset, $param = '') {
    * Validates against a custom regex?
    */
   if (in_array('regex_match', $rules)) {
-    if (isset($_POST[ $field ]) && strlen($_POST[ $field ]) && !preg_match($param, $_POST[ $field ])) {
+    if (isset($_POST[ $field ]) and strlen($_POST[ $field ]) and !preg_match($param, $_POST[ $field ])) {
       $inputAlert[ $label[ 1 ] ] = sprintf($LANG[ 'alert_input_regex_match' ], $param);
       return false;
     }
@@ -521,16 +521,16 @@ function getFiles($myDir, $myExt = null, $myPrefix = null) {
         $thisPref = getFilePrefix(strtolower($file));
         $thisExt = getFileExtension(strtolower($file));
         //$thisExt = explode(".", strtolower($file));
-        if (count($myExt) && !$myPrefix) {
+        if (count($myExt) and !$myPrefix) {
           if (in_array($thisExt, $myExt)) {
             $filearray[] = $file;
           }
-        } elseif (!count($myExt) && $myPrefix) {
+        } elseif (!count($myExt) and $myPrefix) {
           if (startsWith($thisPref, $myPrefix)) {
             $filearray[] = $file;
           }
-        } elseif (count($myExt) && $myPrefix) {
-          if (in_array($thisExt, $myExt) && startsWith($thisPref, $myPrefix)) {
+        } elseif (count($myExt) and $myPrefix) {
+          if (in_array($thisExt, $myExt) and startsWith($thisPref, $myPrefix)) {
             $filearray[] = $file;
           }
         }
@@ -681,7 +681,7 @@ function getOptions() {
    * Get user preferences if someone is logged in
    */
   if ($user) {
-    if ($userlang = $UO->read($user, "language") && $userlang != "default") {
+    if ($userlang = $UO->read($user, "language") and $userlang != "default") {
       $CONF[ 'options' ][ 'lang' ] = $userlang;
     }
   }
@@ -711,7 +711,7 @@ function getOptions() {
   /**
    * Now get $_POST (overwrites $_GET and user preferences)
    */
-  if (isset($_POST[ 'user_lang' ]) && strlen($_POST[ 'user_lang' ]) && in_array($_POST[ 'user_lang' ], getLanguages())) $CONF[ 'options' ][ 'lang' ] = trim($_POST[ 'user_lang' ]);
+  if (isset($_POST[ 'user_lang' ]) && strlen($_POST[ 'user_lang' ]) and in_array($_POST[ 'user_lang' ], getLanguages())) $CONF[ 'options' ][ 'lang' ] = trim($_POST[ 'user_lang' ]);
 
 
   /**
@@ -845,12 +845,12 @@ function getTheme() {
       //
       // User themes are allowed...
       //
-      if ($userTheme = $UO->read($thisuser, "theme") && strlen($userTheme)) {
+      if ($userTheme = $UO->read($thisuser, "theme") and strlen($userTheme)) {
         if ($userTheme == 'default') $theme[ 'name' ] = $defaultTheme;
         else $theme[ 'name' ] = $userTheme;
       }
 
-      if ($menubar = $UO->read($thisuser, 'menuBar') && strlen($menubar)) {
+      if ($menubar = $UO->read($thisuser, 'menuBar') and strlen($menubar)) {
         switch ($menubar) {
           case "default":
             $theme[ 'menuBarInverse' ] = $menuBarInverse;

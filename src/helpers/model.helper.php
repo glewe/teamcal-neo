@@ -21,7 +21,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
  *
  * @param string $absid Absence ID
  * @param string $username Username
- *
+ * 
  * @return boolean True or False indicating success
  */
 function absenceIsValidForUser($absid, $username)
@@ -125,8 +125,8 @@ function deleteOrphanedMessages()
  * Deletes a user and all related records
  *
  * @param string $deluser User to delete
- * @param boolean $fromArchive Flag whether to delete from archive tables
- * @param boolean $sendNotifications Flag whether to send notifications
+ * @param boolean $fromArchive Flag whether to delete from archive tables 
+ * @param boolean $sendNotifications Flag whether to send notifications 
  */
 function deleteUser($username, $fromArchive = FALSE, $sendNotifications = true)
 {
@@ -175,7 +175,7 @@ function deleteUser($username, $fromArchive = FALSE, $sendNotifications = true)
  * @param string $file CSV file
  * @param boolean $lock Flag indicating whether to lock the user accounts or not
  * @param boolean $hide Flag indicating whether to hide the user accounts or not
- *
+ * 
  * @return boolean Success flag
  */
 function importUsersFromCSV($file, $lock = true, $hide = true)
@@ -202,7 +202,7 @@ function importUsersFromCSV($file, $lock = true, $hide = true)
                     fclose($fpointer);
                     return false;
                 } else {
-                    if (!$UI->findByName(trim($arr[0])) && $arr[0] != "admin" && preg_match('/^[a-zA-Z0-9]*$/', $arr[0])) {
+                    if (!$UI->findByName(trim($arr[0])) and $arr[0] != "admin" and preg_match('/^[a-zA-Z0-9]*$/', $arr[0])) {
 
                         $UI->username = trim($arr[0]);
                         $UI->firstname = $arr[1];
@@ -287,7 +287,7 @@ function isAllowed($permission = '')
  * Restores a user and all related records from archive
  *
  * @param string $username Username to restore
- *
+ * 
  * @return boolean True or False indicating success
  */
 function restoreUser($username)

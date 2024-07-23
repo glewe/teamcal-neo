@@ -80,7 +80,7 @@ class Groups {
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
     $result = $query->execute();
 
-    if ($result && $query->fetchColumn()) {
+    if ($result and $query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
       $result = $query->execute();
       return $result;
@@ -163,7 +163,7 @@ class Groups {
     $query->bindParam('val1', $id);
     $result = $query->execute();
 
-    if ($result && $row = $query->fetch()) {
+    if ($result and $row = $query->fetch()) {
       $this->id = $row['id'];
       $this->name = $row['name'];
       $this->description = $row['description'];

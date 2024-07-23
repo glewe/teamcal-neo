@@ -93,7 +93,7 @@ class DB {
     $query = $this->db->prepare('SHOW TABLES');
     $result = $query->execute();
 
-    while ($result && $row = $query->fetch()) {
+    while ($result and $row = $query->fetch()) {
       $tables[] = $row[0];
     }
 
