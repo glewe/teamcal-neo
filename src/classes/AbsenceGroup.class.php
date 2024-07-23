@@ -1,5 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) exit('');
+if (!defined('VALID_ROOT')) { exit(''); }
 
 /**
  * AbsenceGroup
@@ -69,7 +69,9 @@ class AbsenceGroup {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE absid = :val1');
     $query->bindParam('val1', $absid);
     if ($query->execute()) {
-      while ($row = $query->fetch()) $records[] = $row['groupid'];
+      while ($row = $query->fetch()) {
+        $records[] = $row['groupid'];
+      }
       return $records;
     } else {
       return [];

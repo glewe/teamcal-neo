@@ -1,5 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) exit('');
+if (!defined('VALID_ROOT')) { exit(''); }
 /**
  * Logout View
  *
@@ -13,8 +13,8 @@ if (!defined('VALID_ROOT')) exit('');
  */
 ?>
 
-<!-- ==================================================================== 
-view.logout 
+<!-- ====================================================================
+view.logout
 -->
 <script>
     document.cookie = '<?= $viewData['cookie_name'] ?>=; expires=Thu, 01 Jan 1970 00:00:01 UTC; path=/';

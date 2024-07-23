@@ -1,5 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) exit('');
+if (!defined('VALID_ROOT')) { exit(''); }
 /**
  * Login View
  *
@@ -13,8 +13,8 @@ if (!defined('VALID_ROOT')) exit('');
  */
 ?>
 
-<!-- ==================================================================== 
-view.login 
+<!-- ====================================================================
+view.login
 -->
 <div class="container content">
     <div class="row">

@@ -1,5 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) exit('');
+if (!defined('VALID_ROOT')) { exit(''); }
 
 /**
  * Absences
@@ -147,7 +147,6 @@ class Absences {
    * @return boolean Query result
    */
   public function delete($id = '') {
-    $result = 0;
     if (isset($id)) {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -164,8 +163,7 @@ class Absences {
    */
   public function deleteAll() {
     $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // ----------------------------------------------------------------------
@@ -645,8 +643,7 @@ class Absences {
       $query->bindParam('val1', $id);
       $result = $query->execute();
       if ($result && $row = $query->fetch()) {
-        if ($row['takeover']) return true;
-        else return false;
+        return $row['takeover'];
       }
     }
     return false;
@@ -659,7 +656,7 @@ class Absences {
    * @param string $id Absence ID of the primary
    * @return boolean True or False
    */
-  function setAllSubsPrimary($id) {
+  public function setAllSubsPrimary($id) {
     $query = $this->db->prepare('UPDATE ' . $this->table . ' SET counts_as = 0 WHERE counts_as = :val1');
     $query->bindParam('val1', $id);
     return $query->execute();
@@ -675,8 +672,8 @@ class Absences {
   public function update($id = '') {
     $result = false;
     if (isset($id)) {
-      $query = $this->db->prepare('UPDATE ' . $this->table . ' 
-       SET
+      $query = $this->db->prepare('UPDATE ' . $this->table . '
+        SET
           name = :val1,
           symbol = :val2,
           icon = :val3,

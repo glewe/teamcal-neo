@@ -1,5 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) exit('');
+if (!defined('VALID_ROOT')) { exit(''); }
 /**
  * Alert View
  *
@@ -13,8 +13,8 @@ if (!defined('VALID_ROOT')) exit('');
  */
 ?>
 
-<!-- ==================================================================== 
-view.alert 
+<!-- ====================================================================
+view.alert
 -->
 <div class="container content">
 
