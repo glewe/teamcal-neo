@@ -12,7 +12,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
  * @since 3.0.0
  */
 ?>
-<!-- ==================================================================== 
+<!-- ====================================================================
 view.calendarviewmonthheader (<?= $viewData['year'] . $viewData['month'] ?>)
 -->
 
@@ -36,7 +36,7 @@ view.calendarviewmonthheader (<?= $viewData['year'] . $viewData['month'] ?>)
             $notestyle = 'background-image: url(images/ovl_daynote.gif); background-repeat: no-repeat; background-position: top right;';
         }
 
-        if (isset($viewData['dayStyles'][$i]) and strlen($viewData['dayStyles'][$i])) {
+        if (isset($viewData['dayStyles'][$i]) && strlen($viewData['dayStyles'][$i])) {
 
             $dayStyles = ' style="' . $viewData['dayStyles'][$i] . $notestyle . '"';
         } else {
@@ -54,7 +54,7 @@ view.calendarviewmonthheader (<?= $viewData['year'] . $viewData['month'] ?>)
 
     <?php for ($i = $daystart; $i <= $dayend; $i++) {
 
-        if (isset($viewData['dayStyles'][$i]) and strlen($viewData['dayStyles'][$i]))
+        if (isset($viewData['dayStyles'][$i]) && strlen($viewData['dayStyles'][$i]))
 
             $dayStyles = ' style="' . $viewData['dayStyles'][$i] . '"';
 

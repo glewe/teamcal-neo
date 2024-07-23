@@ -106,7 +106,7 @@ view.database
                                         </div>
                                         <div class="col-lg-<?= $colsright ?>">
                                             <input id="cleanBefore" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_cleanBefore" maxlength="10" value="<?= $viewData['cleanBefore'] ?>" type="text">
-                                            <?php if (isset($inputAlert["cleanBefore"]) and strlen($inputAlert["cleanBefore"])) { ?>
+                                            <?php if (isset($inputAlert["cleanBefore"]) && strlen($inputAlert["cleanBefore"])) { ?>
                                                 <br>
                                                 <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['cleanBefore'] ?></div>
                                             <?php } ?>
@@ -132,7 +132,7 @@ view.database
                                         </div>
                                         <div class="col-lg-<?= $colsright ?>">
                                             <input class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_cleanConfirm" maxlength="7" value="" type="text">
-                                            <?php if (isset($inputAlert["cleanConfirm"]) and strlen($inputAlert["cleanConfirm"])) { ?>
+                                            <?php if (isset($inputAlert["cleanConfirm"]) && strlen($inputAlert["cleanConfirm"])) { ?>
                                                 <br>
                                                 <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['cleanConfirm'] ?></div>
                                             <?php } ?>
@@ -175,7 +175,7 @@ view.database
                                         </div>
                                         <div class="col-lg-<?= $colsright ?>">
                                             <input class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_repairConfirm" maxlength="7" value="" type="text">
-                                            <?php if (isset($inputAlert["repairConfirm"]) and strlen($inputAlert["repairConfirm"])) { ?>
+                                            <?php if (isset($inputAlert["repairConfirm"]) && strlen($inputAlert["repairConfirm"])) { ?>
                                                 <br>
                                                 <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['repairConfirm'] ?></div>
                                             <?php } ?>

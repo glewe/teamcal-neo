@@ -37,7 +37,7 @@ if (isAllowed($CONF[ 'controllers' ][ 'calendaredit' ]->permission)) {
   } else if ($UG->shareGroupMemberships($UL->username, $usr[ 'username' ])) {
     if (isAllowed("calendareditgroup")) {
       $editAllowed = true;
-    } elseif (isAllowed("calendareditgroupmanaged") and $UG->isGroupManagerOfUser($UL->username, $usr[ 'username' ])) {
+    } elseif (isAllowed("calendareditgroupmanaged") && $UG->isGroupManagerOfUser($UL->username, $usr[ 'username' ])) {
       $editAllowed = true;
     }
   } else {
@@ -104,7 +104,7 @@ view.calendaruserrow (<?= $viewData[ 'year' ] . $viewData[ 'month' ] ?> - <?= $f
       //
       // This is an absence. Get icon and coloring info.
       //
-      if (!$viewData[ 'absfilter' ] or ($viewData[ 'absfilter' ] and $T->$abs == $viewData[ 'absid' ])) {
+      if (!$viewData[ 'absfilter' ] or ($viewData[ 'absfilter' ] && $T->$abs == $viewData[ 'absid' ])) {
         if ($A->isConfidential($T->$abs)) {
           //
           // This absence type is confidential. Check whether the logged in user may see it.

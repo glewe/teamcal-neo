@@ -132,7 +132,7 @@ view.statspresence
                         });
                     });
                 </script>
-                <?php if (isset($inputAlert["to"]) and strlen($inputAlert["to"])) { ?>
+                <?php if (isset($inputAlert["to"]) && strlen($inputAlert["to"])) { ?>
                     <br>
                     <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['to'] ?></div>
                 <?php } ?>

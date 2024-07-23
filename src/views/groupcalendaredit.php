@@ -22,7 +22,7 @@ view.groupcalendaredit
     if ($showAlert && $C->read("showAlerts") != "none") {
         if (
             $C->read("showAlerts") == "all" or
-            $C->read("showAlerts") == "warnings" and ($alertData['type'] == "warning" or $alertData['type'] == "danger")
+            $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" or $alertData['type'] == "danger")
         ) {
             echo createAlertBox($alertData);
         }
@@ -196,7 +196,7 @@ view.groupcalendaredit
 
                             <!-- Rows ff: Absences -->
                             <?php foreach ($viewData['absences'] as $abs) {
-                                if (($abs['manager_only'] and ($UG->isGroupManagerOfGroup($UL->username, $viewData['groupid']) or $UL->username == 'admin')) or !$abs['manager_only']) { ?>
+                                if (($abs['manager_only'] && ($UG->isGroupManagerOfGroup($UL->username, $viewData['groupid']) or $UL->username == 'admin')) or !$abs['manager_only']) { ?>
                                     <tr>
                                         <td class="m-name"><?= $abs['name'] ?></td>
                                         <?php
