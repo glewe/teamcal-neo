@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * Avatar
@@ -182,7 +184,9 @@ class Avatar {
          * Delete previous avatars if exist
          */
         foreach ($this->allowedTypes as $type) {
-          if ($type != $this->fileExtension && file_exists($this->path . $uname . "." . $type)) unlink($this->path . $uname . "." . $type);
+          if ($type != $this->fileExtension && file_exists($this->path . $uname . "." . $type)) {
+            unlink($this->path . $uname . "." . $type);
+          }
         }
       } else {
         $extList = implode(',', $this->allowedTypes);
@@ -222,9 +226,10 @@ class Avatar {
    */
   private function getFileExtension($str) {
     $i = strrpos($str, ".");
-    if (!$i) return "";
+    if (!$i) {
+      return "";
+    }
     $l = strlen($str) - $i;
-    $ext = substr($str, $i + 1, $l);
-    return $ext;
+    return substr($str, $i + 1, $l);
   }
 }

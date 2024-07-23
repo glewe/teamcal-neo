@@ -1,4 +1,5 @@
 <?php
+if (!defined('VALID_ROOT')) { exit(''); }
 
 /**
  * DB.class.php
@@ -9,7 +10,6 @@
  * @copyright Copyright (c) 2014-2023 by George Lewe
  * @license This program cannot be licensed. Redistribution is not allowed.
  */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 /**
  * Provides properties and methods to deal with the database
@@ -39,7 +39,7 @@ class DB {
       $errorData['title'] = 'Application Error';
       $errorData['subject'] = 'Database connection error.';
       $errorData['text'] = $e->getMessage();
-      require(WEBSITE_ROOT . "/views/error.php");
+      require WEBSITE_ROOT . "/views/error.php";
       die();
     }
 
@@ -111,12 +111,6 @@ class DB {
    */
   public function runQuery($myQuery) {
     $query = $this->db->prepare($myQuery);
-    $result = $query->execute();
-
-    if ($result) {
-      return true;
-    } else {
-      return false;
-    }
+    return $query->execute();
   }
 }

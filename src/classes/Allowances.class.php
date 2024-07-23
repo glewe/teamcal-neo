@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * AbsenceGroup
@@ -97,8 +99,12 @@ class Allowances {
    * @return boolean Query result
    */
   public function deleteAll($archive = false) {
-    if ($archive) $table = $this->archive_table;
-    else $table = $this->table;
+    if ($archive) {
+      $table = $this->archive_table;
+    }
+    else {
+      $table = $this->table;
+    }
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table);
     $result = $query->execute();
     if ($result && $query->fetchColumn()) {
@@ -117,8 +123,12 @@ class Allowances {
    * @return boolean Query result
    */
   public function deleteByUser($username = '', $archive = false) {
-    if ($archive) $table = $this->archive_table;
-    else $table = $this->table;
+    if ($archive) {
+      $table = $this->archive_table;
+    }
+    else {
+      $table = $this->table;
+    }
     $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     return $query->execute();
@@ -133,12 +143,16 @@ class Allowances {
    * @return boolean True if exists
    */
   public function exists($username = '', $archive = false) {
-    if ($archive) $table = $this->archive_table;
-    else $table = $this->table;
+    if ($archive) {
+      $table = $this->archive_table;
+    }
+    else {
+      $table = $this->table;
+    }
     $query = $this->db->prepare('SELECT COUNT(1) FROM ' . $table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
-    return ($result && $query->fetchColumn());
+    return $result && $query->fetchColumn();
   }
 
   // ---------------------------------------------------------------------

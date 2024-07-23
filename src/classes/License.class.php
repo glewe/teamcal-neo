@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * License.class.php
@@ -10,7 +13,6 @@
  * @link http://www.lewe.com
  * @license This program cannot be licensed. Redistribution is not allowed.
  */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 /**
  * Provides properties and methods to interface with the license server
@@ -61,20 +63,24 @@ class License {
    * @return JSON
    */
   function callAPI($method, $url, $data = false) {
-    if (defined('APP_LIC_LOCAL')) return APP_LIC_LOCAL;
+    if (defined('APP_LIC_LOCAL')) {
+      return APP_LIC_LOCAL;
+    }
     $curl = curl_init();
     switch (strtoupper($method)) {
       case "POST":
         curl_setopt($curl, CURLOPT_POST, 1);
-        if ($data)
+        if ($data) {
           curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        }
         break;
       case "PUT":
         curl_setopt($curl, CURLOPT_PUT, 1);
         break;
       default:
-        if ($data)
+        if ($data) {
           $url = sprintf("%s?%s", $url, http_build_query($data));
+        }
     }
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -193,7 +199,9 @@ class License {
     if (!$this->readKey()) return false;
     if (count($this->details->registered_domains)) {
       foreach ($this->details->registered_domains as $domain) {
-        if ($domain->registered_domain == $_SERVER['SERVER_NAME']) return true;
+        if ($domain->registered_domain == $_SERVER['SERVER_NAME']) {
+          return true;
+        }
       }
       return false;
     } else {
@@ -208,7 +216,9 @@ class License {
    * @return integer
    */
   function daysToExpiry() {
-    if (!isset($this->details->date_expiry)) return 0;
+    if (!isset($this->details->date_expiry)) {
+      return 0;
+    }
     $todayDate = new DateTime('now');
     $expiryDate = new DateTime($this->details->date_expiry);
     $daysToExpiry = $todayDate->diff($expiryDate);
@@ -380,11 +390,15 @@ class License {
    * @return string  active/blocked/invalid/expired/pending/unregistered
    */
   function status() {
-    if (!isset($this->details) || $this->details->result == 'error') return "invalid";
+    if (!isset($this->details) || $this->details->result == 'error') {
+      return "invalid";
+    }
 
     switch ($this->details->status) {
       case "active":
-        if (!$this->domainRegistered()) return 'unregistered';
+        if (!$this->domainRegistered()) {
+          return 'unregistered';
+        }
         return 'active';
         break;
 

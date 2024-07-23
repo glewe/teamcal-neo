@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * Absences
@@ -217,7 +219,9 @@ class Absences {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name ASC');
     $result = $query->execute();
     if ($result) {
-      while ($row = $query->fetch()) $records[] = $row;
+      while ($row = $query->fetch()) {
+        $records[] = $row;
+      }
     }
     return $records;
   }
@@ -235,7 +239,9 @@ class Absences {
     $query->bindParam('val1', $id);
     $result = $query->execute();
     if ($result) {
-      while ($row = $query->fetch()) $records[] = $row;
+      while ($row = $query->fetch()) {
+        $records[] = $row;
+      }
       return $records;
     }
     return false;
@@ -603,8 +609,7 @@ class Absences {
       $query->bindParam('val1', $id);
       $result = $query->execute();
       if ($result && $row = $query->fetch()) {
-        if ($row['confidential']) return true;
-        else return false;
+        return $row['confidential'];
       }
     }
     return false;
@@ -623,8 +628,7 @@ class Absences {
       $query->bindParam('val1', $id);
       $result = $query->execute();
       if ($result && $row = $query->fetch()) {
-        if ($row['manager_only']) return true;
-        else return false;
+        return $row['manager_only'];
       }
     }
     return false;
