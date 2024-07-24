@@ -188,7 +188,7 @@ if (!empty($_POST)) {
                             //
                             // Log this event
                             //
-                            $LOG->log("logMessages", L_USER, "log_msg_email", $UL->username . " -> " . $to);
+                            $LOG->logEvent("logMessages", L_USER, "log_msg_email", $UL->username . " -> " . $to);
 
                             //
                             // E-mail success
@@ -297,7 +297,7 @@ if (!empty($_POST)) {
                     //
                     // Log this event
                     //
-                    $LOG->log("logMessage", $UL->username, "log_msg_message", ": " . $UL->username . " -> " . $to);
+                    $LOG->logEvent("logMessage", $UL->username, "log_msg_message", ": " . $UL->username . " -> " . $to);
 
                     //
                     // Success

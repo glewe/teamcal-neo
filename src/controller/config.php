@@ -258,7 +258,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->log("logConfig", $UL->username, "log_config");
+            $LOG->logEvent("logConfig", $UL->username, "log_config");
             header("Location: index.php?action=config");
             die();
         }

@@ -17,7 +17,6 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 class Login {
-  private $user = '';
   private $bad_logins = 0;
   private $cookie_name = '';
   private $grace_period = 0;
@@ -26,7 +25,6 @@ class Login {
   private $pw_strength = 0;
   private $php_self = '';
   private $log = '';
-  private $logtype = '';
 
   // ---------------------------------------------------------------------
   /**
@@ -83,23 +81,19 @@ class Login {
    *
    * @return string
    */
-  function getHost() {
+  public function getHost() {
     if ($host = getenv('HTTP_X_FORWARDED_HOST')) {
       $elements = explode(',', $host);
       $host = trim(end($elements));
     } else {
-      if (!$host = $_SERVER['HTTP_HOST']) {
-        if (!$host = $_SERVER['SERVER_NAME']) {
-          $host = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
-        }
+      if (!$host = $_SERVER['HTTP_HOST'] && !$host = $_SERVER['SERVER_NAME']) {
+        $host = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
       }
     }
-
     //
     // Remove port number from host
     //
     $host = preg_replace('/:\d+$/', '', $host);
-
     return trim($host);
   }
 
@@ -309,8 +303,7 @@ class Login {
     //
     if ($ldapbind) {
       return 0;
-    }
-    else {
+    } else {
       return 92;
     }
   }
@@ -333,7 +326,7 @@ class Login {
   private function localVerify($password) {
     global $CONF, $U;
 
-    if ($verifyResult = password_verify($password, $U->password)) {
+    if (password_verify($password, $U->password)) {
       //
       // Password correct
       //
@@ -400,15 +393,12 @@ class Login {
    * @param string $loginpwd Password
    * @return integer Login return code
    */
-  public function login($loginname = '', $loginpwd = '') {
+  public function loginUser($loginname = '', $loginpwd = '') {
     global $C, $U, $UO;
 
-    $logged_in = 0;
-    $showForm = 0;
     $retcode = 0;
-    $bad_logins_now = 0;
 
-    if (empty($loginname) or empty($loginpwd)) {
+    if (empty($loginname) || empty($loginpwd)) {
       return 1;
     }
 

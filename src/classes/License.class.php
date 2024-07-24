@@ -39,7 +39,7 @@ class License {
    *
    * @return JSON
    */
-  function activate() {
+  public function activate() {
     $parms = array(
       'slm_action' => 'slm_activate',
       'secret_key' => APP_LIC_KEY,
@@ -62,7 +62,7 @@ class License {
    * @param array $data URL paramater: array("param" => "value") ==> index.php?param=value
    * @return JSON
    */
-  function callAPI($method, $url, $data = false) {
+  public function callAPI($method, $url, $data = false) {
     if (defined('APP_LIC_LOCAL')) {
       return APP_LIC_LOCAL;
     }
@@ -99,7 +99,7 @@ class License {
    * @param int $liceExpiryWarning Number of license days left for showing the expiry warning. 0 = no warning.
    * @param bool  &$LANG The language array. Passed by reference
    */
-  function check(&$alertData, &$showAlert, $licExpiryWarning, &$LANG) {
+  public function check(&$alertData, &$showAlert, $licExpiryWarning, &$LANG) {
     $parms = array(
       'slm_action' => 'slm_check',
       'secret_key' => APP_LIC_KEY,
@@ -176,7 +176,7 @@ class License {
    *
    * @return JSON
    */
-  function deactivate() {
+  public function deactivate() {
     $parms = array(
       'slm_action' => 'slm_deactivate',
       'secret_key' => APP_LIC_KEY,
@@ -195,7 +195,7 @@ class License {
    *
    * @return boolean
    */
-  function domainRegistered() {
+  public function domainRegistered() {
     if (!$this->readKey()) {
       return false;
     }
@@ -217,7 +217,7 @@ class License {
    *
    * @return integer
    */
-  function daysToExpiry() {
+  public function daysToExpiry() {
     if (!isset($this->details->date_expiry)) {
       return 0;
     }
@@ -233,7 +233,7 @@ class License {
    *
    * @return JSON
    */
-  function load() {
+  public function load() {
     $parms = array(
       'slm_action' => 'slm_check',
       'secret_key' => APP_LIC_KEY,
@@ -286,7 +286,7 @@ class License {
    * @param objcet $data License information array
    * @return string HTML
    */
-  function show($data, $showDetails = false) {
+  public function show($data, $showDetails = false) {
     global $LANG;
     if (isset($data->result) && $data->result == "error") {
       $alert['type'] = 'danger';
@@ -372,17 +372,15 @@ class License {
       }
     }
 
-    $alertBox = '
-        <div class="alert alert-dismissable alert-' . $alert['type'] . '">
-            <button type="button" class="btn-close float-end" data-bs-dismiss="alert" title="' . $LANG['close_this_message'] . '"></button>
-            <h4><strong>' . $alert['title'] . '</strong></h4>
-            <hr>
-            <p><strong>' . $alert['subject'] . '</strong></p>
-            <p>' . $alert['text'] . '</p>
-            ' . (strlen($alert['help']) ? "<p><i>" . $alert['help'] . "</i></p>" : "") . (($showDetails) ? $details : '') . '
-        </div>';
-
-    return $alertBox;
+    return '
+      <div class="alert alert-dismissable alert-' . $alert['type'] . '">
+          <button type="button" class="btn-close float-end" data-bs-dismiss="alert" title="' . $LANG['close_this_message'] . '"></button>
+          <h4><strong>' . $alert['title'] . '</strong></h4>
+          <hr>
+          <p><strong>' . $alert['subject'] . '</strong></p>
+          <p>' . $alert['text'] . '</p>
+          ' . (strlen($alert['help']) ? "<p><i>" . $alert['help'] . "</i></p>" : "") . (($showDetails) ? $details : '') . '
+      </div>';
   }
 
   //---------------------------------------------------------------------------
@@ -391,7 +389,7 @@ class License {
    *
    * @return string  active/blocked/invalid/expired/pending/unregistered
    */
-  function status() {
+  public function status() {
     if (!isset($this->details) || $this->details->result == 'error') {
       return "invalid";
     }

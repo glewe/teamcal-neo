@@ -132,7 +132,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->log("logRegistration", L_USER, "log_user_registered", $UR->username);
+                $LOG->logEvent("logRegistration", L_USER, "log_user_registered", $UR->username);
 
                 //
                 // Success

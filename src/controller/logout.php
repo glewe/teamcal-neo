@@ -24,7 +24,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
 // PROCESS FORM
 //
 $L->logout();
-$LOG->log("logLogin", L_USER, "log_logout");
+$LOG->logEvent("logLogin", L_USER, "log_logout");
 
 //=============================================================================
 //

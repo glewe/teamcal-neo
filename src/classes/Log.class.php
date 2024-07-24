@@ -102,7 +102,7 @@ class Log {
    * @param string $event Event
    * @return boolean Query result
    */
-  public function log($type, $user, $event, $object = '') {
+  public function logEvent($type, $user, $event, $object = '') {
     if (!strlen($this->C->read("logLanguage"))) {
       $loglang = 'english';
     }
@@ -110,7 +110,7 @@ class Log {
       $loglang = $this->C->read("logLanguage");
     }
 
-    require WEBSITE_ROOT . "/languages/" . $loglang . ".log.php";
+    require_once WEBSITE_ROOT . "/languages/" . $loglang . ".log.php";
 
     $myEvent = $LANG[$event] . $object;
 

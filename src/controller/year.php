@@ -106,7 +106,7 @@ for ($i = 1; $i <= 12; $i++) {
         //
         // Log this event
         //
-        $LOG->log("logMonth", L_USER, "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
+        $LOG->logEvent("logMonth", L_USER, "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
     }
 
     //

@@ -235,7 +235,7 @@ if (!empty($_POST)) {
                     //
                     // Log this event
                     //
-                    $LOG->log("logImport", $UL->username, "log_imp_success", $UPL->the_file . " (" . $importCount . " " . $LANG['user'] . ")");
+                    $LOG->logEvent("logImport", $UL->username, "log_imp_success", $UPL->the_file . " (" . $importCount . " " . $LANG['user'] . ")");
                 }
             } else {
                 //

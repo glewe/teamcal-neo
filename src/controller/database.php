@@ -152,7 +152,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->log("logDatabase", L_USER, "log_db_delete_users");
+                $LOG->logEvent("logDatabase", L_USER, "log_db_delete_users");
             }
 
             if (isset($_POST['chk_delGroups'])) {
@@ -166,7 +166,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->log("logDatabase", L_USER, "log_db_delete_groups");
+                $LOG->logEvent("logDatabase", L_USER, "log_db_delete_groups");
             }
 
             if (isset($_POST['chk_delMessages'])) {
@@ -179,7 +179,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->log("logDatabase", L_USER, "log_db_delete_msg");
+                $LOG->logEvent("logDatabase", L_USER, "log_db_delete_msg");
             }
 
             if (isset($_POST['chk_delOrphMessages'])) {
@@ -191,7 +191,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->log("logMessages", L_USER, "log_db_delete_msg_orph");
+                $LOG->logEvent("logMessages", L_USER, "log_db_delete_msg_orph");
             }
 
             if (isset($_POST['chk_delPermissions'])) {
@@ -200,7 +200,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->log("logDatabase", L_USER, "log_db_delete_perm");
+                $LOG->logEvent("logDatabase", L_USER, "log_db_delete_perm");
             }
 
             if (isset($_POST['chk_delLog'])) {
@@ -209,7 +209,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->log("logDatabase", L_USER, "log_db_delete_log");
+                $LOG->logEvent("logDatabase", L_USER, "log_db_delete_log");
             }
 
             if (isset($_POST['chkDBDeleteArchive'])) {
@@ -224,7 +224,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->log("logDatabase", L_USER, "log_db_delete_archive");
+                $LOG->logEvent("logDatabase", L_USER, "log_db_delete_archive");
             }
             //
             // Success
@@ -248,7 +248,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->log("logDatabase", L_USER, "log_db_optimized");
+            $LOG->logEvent("logDatabase", L_USER, "log_db_optimized");
 
             //
             // Success
@@ -311,7 +311,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->log("logDatabase", L_USER, "log_db_reset");
+                $LOG->logEvent("logDatabase", L_USER, "log_db_reset");
                 //
                 // Success
                 //

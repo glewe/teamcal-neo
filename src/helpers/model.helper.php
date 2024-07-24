@@ -100,7 +100,7 @@ function archiveUser($username)
     /**
      * Log this event
      */
-    $LOG->log("logUser", $L->checkLogin(), "log_user_archived", $fullname . " (" . $username . ")");
+    $LOG->logEvent("logUser", $L->checkLogin(), "log_user_archived", $fullname . " (" . $username . ")");
 
     return true;
 }
@@ -164,8 +164,8 @@ function deleteUser($username, $fromArchive = FALSE, $sendNotifications = true)
     /**
      * Log this event
      */
-    if ($fromArchive) $LOG->log("logUser", $L->checkLogin(), "log_user_archived_deleted", $fullname . " (" . $username . ")");
-    else $LOG->log("logUser", $L->checkLogin(), "log_user_deleted", $fullname . " (" . $username . ")");
+    if ($fromArchive) $LOG->logEvent("logUser", $L->checkLogin(), "log_user_archived_deleted", $fullname . " (" . $username . ")");
+    else $LOG->logEvent("logUser", $L->checkLogin(), "log_user_deleted", $fullname . " (" . $username . ")");
 }
 
 // ---------------------------------------------------------------------
@@ -232,7 +232,7 @@ function importUsersFromCSV($file, $lock = true, $hide = true)
                         $UOI->save($_POST['txt_username'], 'theme', 'default');
 
                         $fullname = $UI->firstname . " " . $UI->lastname;
-                        $LOG->log("logUser", $L->checkLogin(), "log_csv_import", $UI->username . " (" . $fullname . ")");
+                        $LOG->logEvent("logUser", $L->checkLogin(), "log_csv_import", $UI->username . " (" . $fullname . ")");
                         $count_imported++;
                     } else {
                         $count_skipped++;
@@ -336,7 +336,7 @@ function restoreUser($username)
     /**
      * Log this event
      */
-    $LOG->log("logUser", $L->checkLogin(), "log_user_restored", $fullname . " (" . $username . ")");
+    $LOG->logEvent("logUser", $L->checkLogin(), "log_user_restored", $fullname . " (" . $username . ")");
 
     return true;
 }
