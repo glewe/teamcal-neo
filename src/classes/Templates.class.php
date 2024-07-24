@@ -95,11 +95,11 @@ class Templates {
    * @param string $end End day
    * @return integer 0 or absence ID count
    */
-  public function countAbsence($username = '%', $year = '', $month = '', $absid, $start = 1, $end = 0) {
+  public function countAbsence($username = '%', $year = '', $month = '', $absid = 0, $start = 1, $end = 0) {
     $count = 0;
     $mytime = $year . "-" . $month . "-" . $start;
     $myts = strtotime($mytime);
-    if (!$end or $end > 31) {
+    if (!$end || $end > 31) {
       $end = date("t", $myts);
     }
 
@@ -149,7 +149,7 @@ class Templates {
     $mytime = $year . "-" . $month . "-" . $start;
     $myts = strtotime($mytime);
 
-    if (!$end or $end > 31) {
+    if (!$end || $end > 31) {
       $end = date("t", $myts);
     }
 
@@ -233,7 +233,7 @@ class Templates {
     $mytime = $year . "-" . $month . "-" . $start;
     $myts = strtotime($mytime);
 
-    if (!$end or $end > 31) {
+    if (!$end || $end > 31) {
       $end = date("t", $myts);
     }
 
@@ -252,12 +252,10 @@ class Templates {
               $thistime = $year . "-" . $month . "-" . $i;
               $thists = strtotime($thistime);
               $weekday = date("w", $thists);
-              // echo(pretty_dump($weekday));
-
               //
               // Only check weekends (0 = Sunday, 6 = Saturday)
               //
-              if ($weekday == 0 or $weekday == 6) {
+              if ($weekday == 0 || $weekday == 6) {
                 $countsAsPresent = false;
                 $query2 = $this->db->prepare('SELECT counts_as_present FROM ' . $this->abs_table . ' WHERE id = :val1');
                 $query2->bindParam('val1', $row['abs' . $i]);
@@ -282,7 +280,7 @@ class Templates {
               //
               // Only check weekends (0 = Sunday, 6 = Saturday)
               //
-              if ($weekday == 0 or $weekday == 6) {
+              if ($weekday == 0 || $weekday == 6) {
                 $countsAsPresent = false;
                 $query2 = $this->db->prepare('SELECT counts_as_present FROM ' . $this->abs_table . ' WHERE id = :val1');
                 $query2->bindParam('val1', $row['abs' . $i]);
@@ -338,8 +336,7 @@ class Templates {
     $result = $query->execute();
     if ($result && $query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $table);
-      $result = $query->execute();
-      return $result;
+      return $query->execute();
     } else {
       return false;
     }
@@ -428,11 +425,7 @@ class Templates {
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
-    if ($result && $query->fetchColumn()) {
-      return true;
-    } else {
-      return false;
-    }
+    return $result && $query->fetchColumn();
   }
 
   // --------------------------------------------------------------------------
@@ -521,13 +514,13 @@ class Templates {
    * @param string $absid Absence ID to find
    * @return boolean 0 or 1
    */
-  public function hasAbsence($username = '', $year = '', $month = '', $absid) {
+  public function hasAbsence($username = '', $year = '', $month = '', $absid = 0) {
     $month = sprintf("%02d", $month);
     for ($i = 1; $i <= 31; $i++) {
       $myQuery = "SELECT username FROM " . $this->table . " WHERE username = '" . $username . "' AND year = '" . $year . "' AND month = '" . $month . "' AND abs" . $i . " = '" . $absid . "';";
       $query = $this->db->prepare($myQuery);
       $result = $query->execute();
-      if ($result && $row = $query->fetch()) {
+      if ($result && $query->fetch()) {
         return true;
       }
     }

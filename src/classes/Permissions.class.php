@@ -60,11 +60,7 @@ class Permissions {
     $query->bindParam('val1', $scheme);
     $result = $query->execute();
 
-    if ($result && $query->fetchColumn()) {
-      return true;
-    } else {
-      return false;
-    }
+    return $result && $query->fetchColumn();
   }
 
   // --------------------------------------------------------------------------
@@ -108,7 +104,7 @@ class Permissions {
     $result = $query->execute();
 
     if ($result) {
-      if (!$row = $query->fetch()) {
+      if (!$query->fetch()) {
         $query2 = $this->db->prepare('INSERT INTO ' . $this->table . ' (scheme, permission, role, allowed) VALUES (:val1, :val2, :val3, :val4)');
       } else {
         $query2 = $this->db->prepare('UPDATE ' . $this->table . ' SET allowed = :val4 WHERE scheme = :val1 AND permission = :val2 AND role = :val3');
@@ -117,8 +113,7 @@ class Permissions {
       $query2->bindParam('val2', $permission);
       $query2->bindParam('val3', $role);
       $query2->bindParam('val4', $allowed);
-      $result2 = $query2->execute();
-      return $result2;
+      return $query2->execute();
     } else {
       return $result;
     }
