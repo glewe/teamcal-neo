@@ -86,7 +86,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->log("logRegion", L_USER, "log_region_created", $R->name . " " . $R->description);
+            $LOG->logEvent("logRegion", L_USER, "log_region_created", $R->name . " " . $R->description);
 
             //
             // Success
@@ -120,7 +120,7 @@ if (!empty($_POST)) {
         //
         // Log this event
         //
-        $LOG->log("logRegion", L_USER, "log_region_deleted", $_POST['hidden_name']);
+        $LOG->logEvent("logRegion", L_USER, "log_region_deleted", $_POST['hidden_name']);
 
         //
         // Success
@@ -226,7 +226,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->log("logRegion", L_USER, "log_region_ical", $_FILES['file_ical']['name'] . ' => ' . $viewData['icalRegionName']);
+            $LOG->logEvent("logRegion", L_USER, "log_region_ical", $_FILES['file_ical']['name'] . ' => ' . $viewData['icalRegionName']);
 
             //
             // Success
@@ -300,7 +300,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->log("logRegion", L_USER, "log_region_transferred", $R->getNameById($sregion) . " => " . $R->getNameById($tregion));
+            $LOG->logEvent("logRegion", L_USER, "log_region_transferred", $R->getNameById($sregion) . " => " . $R->getNameById($tregion));
 
             //
             // Success

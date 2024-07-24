@@ -124,7 +124,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->log("logUser", L_USER, "log_user_updated", "Allowance bulk edit");
+                $LOG->logEvent("logUser", L_USER, "log_user_updated", "Allowance bulk edit");
             }
             //
             // Success

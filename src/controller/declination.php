@@ -320,7 +320,7 @@ if (!empty($_POST)) {
       //
       // Log this event
       //
-      $LOG->log("logConfig", L_USER, "log_decl_updated");
+      $LOG->logEvent("logConfig", L_USER, "log_decl_updated");
 
       //
       // Success

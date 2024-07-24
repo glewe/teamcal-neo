@@ -55,7 +55,7 @@ if (!empty($_POST)) {
             if (isset($_POST['uname'])) $uname = $_POST['uname'];
             if (isset($_POST['pword'])) $pword = $_POST['pword'];
 
-            switch ($L->login($uname, $pword)) {
+            switch ($L->loginUser($uname, $pword)) {
                 case 0:
                     //
                     // Successful login based on username and password
@@ -74,8 +74,8 @@ if (!empty($_POST)) {
                                 //
                                 // Code matches. Reset the login cookie
                                 //
-                                $L->login($uname, $pword);
-                                $LOG->log("logLogin", $uname, "log_login_success");
+                                $L->loginUser($uname, $pword);
+                                $LOG->logEvent("logLogin", $uname, "log_login_success");
                                 //
                                 // Check whether we have to force the announcement page to show.
                                 // This is the case if the user has popup announcements.
@@ -97,7 +97,7 @@ if (!empty($_POST)) {
                                 $alertData['subject'] = $LANG['login_error_2fa'];
                                 $alertData['text'] = $LANG['login_error_2fa_text'];
                                 $alertData['help'] = '';
-                                $LOG->log("logLogin", $uname, "log_login_2fa");
+                                $LOG->logEvent("logLogin", $uname, "log_login_2fa");
                                 break;
                             }
                         } else {
@@ -110,7 +110,7 @@ if (!empty($_POST)) {
                             $alertData['subject'] = $LANG['login_error_1'];
                             $alertData['text'] = $LANG['login_error_1_text'];
                             $alertData['help'] = '';
-                            $LOG->log("logLogin", $uname, "log_login_missing");
+                            $LOG->logEvent("logLogin", $uname, "log_login_missing");
                             break;
                         }
                     } else {
@@ -125,7 +125,7 @@ if (!empty($_POST)) {
                             //
                             // Ok to login without TFA
                             //
-                            $LOG->log("logLogin", $uname, "log_login_success");
+                            $LOG->logEvent("logLogin", $uname, "log_login_success");
                             //
                             // Check whether we have to force the announcement page to show.
                             // This is the case if the user has popup announcements.
@@ -150,7 +150,7 @@ if (!empty($_POST)) {
                     $alertData['subject'] = $LANG['login_error_1'];
                     $alertData['text'] = $LANG['login_error_1_text'];
                     $alertData['help'] = '';
-                    $LOG->log("logLogin", $uname, "log_login_missing");
+                    $LOG->logEvent("logLogin", $uname, "log_login_missing");
                     break;
 
                 case 2:
@@ -163,7 +163,7 @@ if (!empty($_POST)) {
                     $alertData['subject'] = $LANG['login_error_2'];
                     $alertData['text'] = $LANG['login_error_2_text'];
                     $alertData['help'] = '';
-                    $LOG->log("logLogin", $uname, "log_login_unknown");
+                    $LOG->logEvent("logLogin", $uname, "log_login_unknown");
                     break;
 
                 case 3:
@@ -176,7 +176,7 @@ if (!empty($_POST)) {
                     $alertData['subject'] = $LANG['login_error_3'];
                     $alertData['text'] = $LANG['login_error_3_text'];
                     $alertData['help'] = '';
-                    $LOG->log("logLogin", $uname, "log_login_locked");
+                    $LOG->logEvent("logLogin", $uname, "log_login_locked");
                     break;
 
                 case 4:
@@ -194,7 +194,7 @@ if (!empty($_POST)) {
                     $alertData['text'] = str_replace('%2%', $C->read("badLogins"), $alertData['text']);
                     $alertData['text'] = str_replace('%3%', $C->read("gracePeriod"), $alertData['text']);
                     $alertData['help'] = '';
-                    $LOG->log("logLogin", $uname, "log_login_pwd");
+                    $LOG->logEvent("logLogin", $uname, "log_login_pwd");
                     break;
 
                 case 6:
@@ -209,7 +209,7 @@ if (!empty($_POST)) {
                     $alertData['subject'] = $LANG['login_error_3'];
                     $alertData['text'] = str_replace('%1%', $C->read("gracePeriod"), $LANG['login_error_6_text']);
                     $alertData['help'] = '';
-                    $LOG->log("logLogin", $uname, "log_login_attempts");
+                    $LOG->logEvent("logLogin", $uname, "log_login_attempts");
                     break;
 
                 case 7:
@@ -222,7 +222,7 @@ if (!empty($_POST)) {
                     $alertData['subject'] = $LANG['login_error_7'];
                     $alertData['text'] = $LANG['login_error_7_text'];
                     $alertData['help'] = '';
-                    $LOG->log("logLogin", $uname, "log_login_pwd");
+                    $LOG->logEvent("logLogin", $uname, "log_login_pwd");
                     break;
 
                 case 8:
@@ -235,7 +235,7 @@ if (!empty($_POST)) {
                     $alertData['subject'] = $LANG['login_error_3'];
                     $alertData['text'] = $LANG['login_error_8_text'];
                     $alertData['help'] = '';
-                    $LOG->log("logLogin", $uname, "log_login_not_verified");
+                    $LOG->logEvent("logLogin", $uname, "log_login_not_verified");
                     break;
 
                 case 91:
@@ -248,7 +248,7 @@ if (!empty($_POST)) {
                     $alertData['subject'] = $LANG['login_error_91'];
                     $alertData['text'] = $LANG['login_error_1_text'];
                     $alertData['help'] = '';
-                    $LOG->log("logLogin", $uname, "log_login_ldap_pwd_missing");
+                    $LOG->logEvent("logLogin", $uname, "log_login_ldap_pwd_missing");
                     break;
 
                 case 92:
@@ -261,7 +261,7 @@ if (!empty($_POST)) {
                     $alertData['subject'] = $LANG['login_error_92'];
                     $alertData['text'] = $LANG['login_error_92_text'];
                     $alertData['help'] = '';
-                    $LOG->log("logLogin", $uname, "log_login_ldap_bind_failed");
+                    $LOG->logEvent("logLogin", $uname, "log_login_ldap_bind_failed");
                     break;
 
                 case 93:
@@ -274,7 +274,7 @@ if (!empty($_POST)) {
                     $alertData['subject'] = $LANG['login_error_93'];
                     $alertData['text'] = $LANG['login_error_93`_text'];
                     $alertData['help'] = '';
-                    $LOG->log("logLogin", $uname, "log_login_ldap_connect_failed");
+                    $LOG->logEvent("logLogin", $uname, "log_login_ldap_connect_failed");
                     break;
 
                 case 94:
@@ -287,7 +287,7 @@ if (!empty($_POST)) {
                     $alertData['subject'] = $LANG['login_error_94'];
                     $alertData['text'] = $LANG['login_error_94_text'];
                     $alertData['help'] = '';
-                    $LOG->log("logLogin", $uname, "log_login_ldap_tls_failed");
+                    $LOG->logEvent("logLogin", $uname, "log_login_ldap_tls_failed");
                     break;
 
                 case 95:
@@ -300,7 +300,7 @@ if (!empty($_POST)) {
                     $alertData['subject'] = $LANG['login_error_95'];
                     $alertData['text'] = $LANG['login_error_2_text'];
                     $alertData['help'] = '';
-                    $LOG->log("logLogin", $uname, "log_login_ldap_username");
+                    $LOG->logEvent("logLogin", $uname, "log_login_ldap_username");
                     break;
 
                 case 96:
@@ -313,7 +313,7 @@ if (!empty($_POST)) {
                     $alertData['subject'] = $LANG['login_error_96'];
                     $alertData['text'] = $LANG['login_error_96_text'];
                     $alertData['help'] = '';
-                    $LOG->log("logLogin", $uname, "log_login_ldap_search_bind_failed");
+                    $LOG->logEvent("logLogin", $uname, "log_login_ldap_search_bind_failed");
                     break;
             }
         }

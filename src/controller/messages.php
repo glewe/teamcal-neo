@@ -66,7 +66,7 @@ if (!empty($_POST)) {
         if (isset($_POST['btn_confirm'])) {
             $UMSG->setSilent($_POST['msgId']);
 
-            $LOG->log("logMessages", $UL->username, "log_msg_confirmed", $_POST['msgId']);
+            $LOG->logEvent("logMessages", $UL->username, "log_msg_confirmed", $_POST['msgId']);
             header("Location: index.php?action=" . $controller);
         }
         // ,-------------,
@@ -78,7 +78,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->log("logMessages", $UL->username, "log_msg_all_confirmed_by", $UL->username);
+            $LOG->logEvent("logMessages", $UL->username, "log_msg_all_confirmed_by", $UL->username);
             header("Location: index.php?action=" . $controller);
         }
         // ,--------,
@@ -91,7 +91,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->log("logMessages", $UL->username, "log_msg_deleted", $_POST['msgId']);
+            $LOG->logEvent("logMessages", $UL->username, "log_msg_deleted", $_POST['msgId']);
             header("Location: index.php?action=" . $controller);
         }
         // ,------------,
@@ -104,7 +104,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->log("logMessages", $UL->username, "log_msg_all_deleted", $UL->username);
+            $LOG->logEvent("logMessages", $UL->username, "log_msg_all_deleted", $UL->username);
             header("Location: index.php?action=" . $controller);
         }
     } else {

@@ -219,7 +219,7 @@ if (!empty($_POST)) {
       //
       // Log this event
       //
-      $LOG->log("logAbsence", L_USER, "log_abs_updated", $AA->name);
+      $LOG->logEvent("logAbsence", L_USER, "log_abs_updated", $AA->name);
 
       //
       // Success

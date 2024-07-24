@@ -131,7 +131,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->log("logHoliday", L_USER, "log_hol_updated", $HH->name);
+            $LOG->logEvent("logHoliday", L_USER, "log_hol_updated", $HH->name);
 
             //
             // Success
