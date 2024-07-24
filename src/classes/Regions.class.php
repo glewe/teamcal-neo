@@ -91,8 +91,7 @@ class Regions {
     $result = $query->execute();
     if ($result && $query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
-      $result = $query->execute();
-      return $result;
+      return $query->execute();
     } else {
       return false;
     }

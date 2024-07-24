@@ -164,20 +164,20 @@ class Months {
    */
   public function create() {
     $stmt = '
-         INSERT INTO ' . $this->table . ' 
-         (
-            region, year, month, 
-            hol1,  hol2,  hol3,  hol4,  hol5,  hol6,  hol7,  hol8,  hol9,  hol10,  hol11,  hol12,  hol13,  hol14,  hol15,  hol16,  hol17,  hol18,  hol19,  hol20,  hol21,  hol22,  hol23,  hol24,  hol25,  hol26,  hol27,  hol28,  hol29,  hol30,  hol31,
-            wday1, wday2, wday3, wday4, wday5, wday6, wday7, wday8, wday9, wday10, wday11, wday12, wday13, wday14, wday15, wday16, wday17, wday18, wday19, wday20, wday21, wday22, wday23, wday24, wday25, wday26, wday27, wday28, wday29, wday30, wday31,
-            week1, week2, week3, week4, week5, week6, week7, week8, week9, week10, week11, week12, week13, week14, week15, week16, week17, week18, week19, week20, week21, week22, week23, week24, week25, week26, week27, week28, week29, week30, week31
-         ) 
-         VALUES 
-         (
-            :val1,  :val2,  :val3, 
-            :val4,  :val5,  :val6,  :val7,  :val8,  :val9,  :val10, :val11, :val12, :val13, :val14, :val15, :val16, :val17, :val18, :val19, :val20, :val21, :val22, :val23, :val24, :val25, :val26, :val27, :val28, :val29, :val30, :val31, :val32, :val33, :val34,
-            :val35, :val36, :val37, :val38, :val39, :val40, :val41, :val42, :val43, :val44, :val45, :val46, :val47, :val48, :val49, :val50, :val51, :val52, :val53, :val54, :val55, :val56, :val57, :val58, :val59, :val60, :val61, :val62, :val63, :val64, :val65,
-            :val66, :val67, :val68, :val69, :val70, :val71, :val72, :val73, :val74, :val75, :val76, :val77, :val78, :val79, :val80, :val81, :val82, :val83, :val84, :val85, :val86, :val87, :val88, :val89, :val90, :val91, :val92, :val93, :val94, :val95, :val96
-         )';
+       INSERT INTO ' . $this->table . '
+       (
+          region, year, month,
+          hol1,  hol2,  hol3,  hol4,  hol5,  hol6,  hol7,  hol8,  hol9,  hol10,  hol11,  hol12,  hol13,  hol14,  hol15,  hol16,  hol17,  hol18,  hol19,  hol20,  hol21,  hol22,  hol23,  hol24,  hol25,  hol26,  hol27,  hol28,  hol29,  hol30,  hol31,
+          wday1, wday2, wday3, wday4, wday5, wday6, wday7, wday8, wday9, wday10, wday11, wday12, wday13, wday14, wday15, wday16, wday17, wday18, wday19, wday20, wday21, wday22, wday23, wday24, wday25, wday26, wday27, wday28, wday29, wday30, wday31,
+          week1, week2, week3, week4, week5, week6, week7, week8, week9, week10, week11, week12, week13, week14, week15, week16, week17, week18, week19, week20, week21, week22, week23, week24, week25, week26, week27, week28, week29, week30, week31
+       ) 
+       VALUES 
+       (
+          :val1,  :val2,  :val3,
+          :val4,  :val5,  :val6,  :val7,  :val8,  :val9,  :val10, :val11, :val12, :val13, :val14, :val15, :val16, :val17, :val18, :val19, :val20, :val21, :val22, :val23, :val24, :val25, :val26, :val27, :val28, :val29, :val30, :val31, :val32, :val33, :val34,
+          :val35, :val36, :val37, :val38, :val39, :val40, :val41, :val42, :val43, :val44, :val45, :val46, :val47, :val48, :val49, :val50, :val51, :val52, :val53, :val54, :val55, :val56, :val57, :val58, :val59, :val60, :val61, :val62, :val63, :val64, :val65,
+          :val66, :val67, :val68, :val69, :val70, :val71, :val72, :val73, :val74, :val75, :val76, :val77, :val78, :val79, :val80, :val81, :val82, :val83, :val84, :val85, :val86, :val87, :val88, :val89, :val90, :val91, :val92, :val93, :val94, :val95, :val96
+       )';
 
 
     $query = $this->db->prepare($stmt);
@@ -209,8 +209,7 @@ class Months {
 
     if ($result && $query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
-      $result = $query->execute();
-      return $result;
+      return $query->execute();
     } else {
       return false;
     }

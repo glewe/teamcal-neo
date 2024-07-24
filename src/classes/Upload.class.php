@@ -118,20 +118,20 @@ class Upload {
    *
    * @param string $file Temp file to delete
    */
-  private function deleteTempFile($file) {
-    @unlink($file);
-    clearstatcache();
-    if (@file_exists($file)) {
-      $filesys = preg_replace("/", "\\", $file);
-      @system("del $filesys");
-      clearstatcache();
-      if (@file_exists($file)) {
-        @chmod($file, 0644);
-        @unlink($file);
-        @system("del $filesys");
-      }
-    }
-  }
+//  private function deleteTempFile($file) {
+//    @unlink($file);
+//    clearstatcache();
+//    if (@file_exists($file)) {
+//      $filesys = preg_replace("/", "\\", $file);
+//      @system("del $filesys");
+//      clearstatcache();
+//      if (@file_exists($file)) {
+//        @chmod($file, 0644);
+//        @unlink($file);
+//        @system("del $filesys");
+//      }
+//    }
+//  }
 
   // --------------------------------------------------------------------------
   /**
@@ -144,11 +144,7 @@ class Upload {
     if ($this->replace == "y") {
       return true;
     } else {
-      if (file_exists($this->upload_dir . $file_name)) {
-        return false;
-      } else {
-        return true;
-      }
+      return file_exists($this->upload_dir . $file_name);
     }
   }
 
@@ -218,11 +214,7 @@ class Upload {
   private function isValidExtension() {
     $extension = $this->getExtension($this->the_file);
     $ext_array = $this->extensions;
-    if (in_array($extension, $ext_array)) {
-      return true;
-    } else {
-      return false;
-    }
+    return in_array($extension, $ext_array);
   }
 
   // --------------------------------------------------------------------------

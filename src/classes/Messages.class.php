@@ -72,8 +72,7 @@ class Messages {
   public function delete($id) {
     $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // ----------------------------------------------------------------------
@@ -84,8 +83,7 @@ class Messages {
    */
   public function deleteAll() {
     $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
-    $result = $query->execute();
-    return $result;
+    return $query->execute();
   }
 
   // ---------------------------------------------------------------------
@@ -115,9 +113,7 @@ class Messages {
   public function getAllByUser($username) {
     $records = array();
     $query = $this->db->prepare(
-      'SELECT * FROM ' . $this->table . ' as a 
-             JOIN ' . $this->umtable . ' as um ON um.msgid = a.id 
-             WHERE um.username = :val1 ORDER BY timestamp DESC'
+      'SELECT * FROM ' . $this->table . ' as a JOIN ' . $this->umtable . ' as um ON um.msgid = a.id WHERE um.username = :val1 ORDER BY timestamp DESC'
     );
     $query->bindParam('val1', $username);
     $result = $query->execute();
