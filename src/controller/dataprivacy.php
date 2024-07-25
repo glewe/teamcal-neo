@@ -26,7 +26,7 @@ if (!$C->read('gdprPolicyPage')) {
 //
 // Load policy
 //
-require("languages/" . $language . ".gdpr.php");
+require_once "languages/" . $language . ".gdpr.php";
 
 $viewData['gdpr_text'] = str_replace("%ENTITY%", $C->read('gdprOrganization'), $LANG['gdpr_start']);
 $viewData['gdpr_text'] = str_replace("%CONTROLLER%", nl2br($C->read('gdprController')), $viewData['gdpr_text']);
