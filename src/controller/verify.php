@@ -21,9 +21,9 @@ if (!defined('VALID_ROOT')) { exit(''); }
 $missingData = false;
 
 if (
-    !isset($_GET['verify']) or
-    !isset($_GET['username']) or
-    strlen($_GET['verify']) <> 32 or
+    !isset($_GET['verify']) ||
+    !isset($_GET['username']) ||
+    strlen($_GET['verify']) <> 32 ||
     !in_array($_GET['username'], $U->getUsernames())
 ) {
     $missingData = true;

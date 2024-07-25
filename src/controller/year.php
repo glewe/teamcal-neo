@@ -23,7 +23,7 @@ if (isset($_GET['year']) && isset($_GET['region']) && isset($_GET['user'])) {
     $missingData = FALSE;
 
     $yyyy = sanitize($_GET['year']);
-    if (!is_numeric($yyyy) or strlen($yyyy) != 4 or !checkdate(1, 1, intval($yyyy))) $missingData = TRUE;
+    if (!is_numeric($yyyy) || strlen($yyyy) != 4 || !checkdate(1, 1, intval($yyyy))) $missingData = TRUE;
 
     $region = sanitize($_GET['region']);
     if (!$R->getById($region)) $missingData = TRUE;
@@ -137,7 +137,7 @@ for ($i = 1; $i <= 12; $i++) {
         //
         // Get weekend style
         //
-        if ($viewData['month'][$i][$d]['wday'] == 6 or $viewData['month'][$i][$d]['wday'] == 7) {
+        if ($viewData['month'][$i][$d]['wday'] == 6 || $viewData['month'][$i][$d]['wday'] == 7) {
             $color = 'color: #' . $H->getColor($viewData['month'][$i][$d]['wday'] - 4) . ';';
             $bgcolor = 'background-color: #' . $H->getBgColor($viewData['month'][$i][$d]['wday'] - 4) . ';';
         }
@@ -161,7 +161,7 @@ for ($i = 1; $i <= 12; $i++) {
         //
         // Build styles
         //
-        if (strlen($color) or strlen($bgcolor) or strlen($border)) {
+        if (strlen($color) || strlen($bgcolor) || strlen($border)) {
             $viewData['month'][$i][$d]['style'] = ' style="' . $color . $bgcolor . $border . '"';
         }
 

@@ -19,7 +19,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 //
 // CHECK PERMISSION
 //
-if (!isAllowed($CONF['controllers'][$controller]->permission) or !$C->read("activateMessages")) {
+if (!isAllowed($CONF['controllers'][$controller]->permission) || !$C->read("activateMessages")) {
     $alertData['type'] = 'warning';
     $alertData['title'] = $LANG['alert_alert_title'];
     $alertData['subject'] = $LANG['alert_not_allowed_subject'];
@@ -103,7 +103,7 @@ if (!empty($_POST)) {
                 $alertData['subject'] = $LANG['alert_captcha_wrong'];
                 $alertData['text'] = $LANG['alert_captcha_wrong_text'];
                 $alertData['help'] = $LANG['alert_captcha_wrong_help'];
-            } else if (!strlen($_POST['txt_subject']) or !strlen($_POST['txt_text'])) {
+            } else if (!strlen($_POST['txt_subject']) || !strlen($_POST['txt_text'])) {
                 //
                 // No subject and/or text
                 //
@@ -212,7 +212,7 @@ if (!empty($_POST)) {
                     $alertData['text'] = $LANG['msg_email_off_text'];
                     $alertData['help'] = '';
                 }
-            } elseif ($_POST['opt_msgtype'] == "silent" or $_POST['opt_msgtype'] == "popup") {
+            } elseif ($_POST['opt_msgtype'] == "silent" || $_POST['opt_msgtype'] == "popup") {
                 $msgsent = false;
                 //
                 // Send as Pop-Up

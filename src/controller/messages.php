@@ -19,7 +19,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 //
 // CHECK PERMISSION
 //
-if (!isAllowed($CONF['controllers'][$controller]->permission) or !$C->read('activateMessages')) {
+if (!isAllowed($CONF['controllers'][$controller]->permission) || !$C->read('activateMessages')) {
     $alertData['type'] = 'warning';
     $alertData['title'] = $LANG['alert_alert_title'];
     $alertData['subject'] = $LANG['alert_not_allowed_subject'];
