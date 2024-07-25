@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('No direct access allowed!');
+}
 
 /**
  * Attachments page controller
@@ -11,9 +14,6 @@
  * @subpackage Controllers
  * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
-
-// echo '<script type="text/javascript">alert("Debug: ");</script>';
 
 //=============================================================================
 //
@@ -25,7 +25,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
   $alertData['text'] = $LANG['alert_not_allowed_text'];
   $alertData['help'] = $LANG['alert_not_allowed_help'];
-  require(WEBSITE_ROOT . '/controller/alert.php');
+  require_once WEBSITE_ROOT . '/controller/alert.php';
   die();
 }
 
@@ -42,7 +42,6 @@ $UAT = new UserAttachment();
 // VARIABLE DEFAULTS
 //
 $uplDir = WEBSITE_ROOT . '/' . APP_UPL_DIR;
-
 $viewData = array();
 $viewData['shareWith'] = 'all';
 $viewData['shareWithGroup'] = array();
@@ -94,7 +93,9 @@ if (!empty($_POST)) {
 
           case "all":
             $users = $U->getAll();
-            foreach ($users as $user) $UAT->create($user['username'], $fileid);
+            foreach ($users as $user) {
+              $UAT->create($user['username'], $fileid);
+            }
             break;
 
           case "group":
@@ -109,7 +110,7 @@ if (!empty($_POST)) {
               //
               // No group selected
               //
-              $showAlert = TRUE;
+              $showAlert = true;
               $alertData['type'] = 'warning';
               $alertData['title'] = $LANG['alert_warning_title'];
               $alertData['subject'] = $LANG['msg_no_group_subject'];
@@ -130,7 +131,7 @@ if (!empty($_POST)) {
               //
               // No group selected
               //
-              $showAlert = TRUE;
+              $showAlert = true;
               $alertData['type'] = 'warning';
               $alertData['title'] = $LANG['alert_warning_title'];
               $alertData['subject'] = $LANG['msg_no_group_subject'];
@@ -141,12 +142,14 @@ if (!empty($_POST)) {
 
           case "user":
             if (isset($_POST['sel_shareWithUser'])) {
-              foreach ($_POST['sel_shareWithUser'] as $uto) $UAT->create($uto, $fileid);
+              foreach ($_POST['sel_shareWithUser'] as $uto) {
+                $UAT->create($uto, $fileid);
+              }
             } else {
               //
               // No user selected
               //
-              $showAlert = TRUE;
+              $showAlert = true;
               $alertData['type'] = 'warning';
               $alertData['title'] = $LANG['alert_warning_title'];
               $alertData['subject'] = $LANG['msg_no_user_subject'];
@@ -185,7 +188,7 @@ if (!empty($_POST)) {
       if (isset($_POST['chk_file'])) {
         $selected_files = $_POST['chk_file'];
         foreach ($selected_files as $file) {
-          if ($UL->username == 'admin' or $UL->username == $AT->getUploader($file)) {
+          if ($UL->username == 'admin' || $UL->username == $AT->getUploader($file)) {
             $fileid = $AT->getId($file);
             $AT->delete($file);
             $UAT->deleteFile($fileid);
@@ -216,7 +219,7 @@ if (!empty($_POST)) {
         }
         // Make sure the uploader has access
         $UAT->create($AT->getUploaderById($file['id']), $file['id']);
-      } else if (isset($_POST['btn_clearShares' . $file['id']])) {
+      } elseif (isset($_POST['btn_clearShares' . $file['id']])) {
         $UAT->deleteFile($file['id']);
         // Make sure the uploader has access
         $UAT->create($AT->getUploaderById($file['id']), $file['id']);
@@ -226,7 +229,7 @@ if (!empty($_POST)) {
     //
     // Input validation failed
     //
-    $showAlert = TRUE;
+    $showAlert = true;
     $alertData['type'] = 'danger';
     $alertData['title'] = $LANG['alert_danger_title'];
     $alertData['subject'] = $LANG['alert_input'];
@@ -245,7 +248,9 @@ $files = getFiles(APP_UPL_DIR, $CONF['uplExtensions'], null);
 foreach ($files as $file) {
   $fid = $AT->getId($file);
   if ($UL->username != 'admin') {
-    if ($UAT->hasAccess($UL->username, $fid)) $viewData['uplFiles'][] = array( 'fid' => $fid, 'fname' => $file );
+    if ($UAT->hasAccess($UL->username, $fid)) {
+      $viewData['uplFiles'][] = array( 'fid' => $fid, 'fname' => $file );
+    }
   } else {
     $viewData['uplFiles'][] = array( 'fid' => $fid, 'fname' => $file );
   }
@@ -258,7 +263,7 @@ $viewData['users'] = $U->getAll();
 //
 // SHOW VIEW
 //
-require WEBSITE_ROOT . '/views/header.php';
-require WEBSITE_ROOT . '/views/menu.php';
-include WEBSITE_ROOT . '/views/' . $controller . '.php';
-require WEBSITE_ROOT . '/views/footer.php';
+require_once WEBSITE_ROOT . '/views/header.php';
+require_once WEBSITE_ROOT . '/views/menu.php';
+include_once WEBSITE_ROOT . '/views/' . $controller . '.php';
+require_once WEBSITE_ROOT . '/views/footer.php';
