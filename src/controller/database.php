@@ -24,7 +24,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
   $alertData['text'] = $LANG['alert_not_allowed_text'];
   $alertData['help'] = $LANG['alert_not_allowed_help'];
-  require(WEBSITE_ROOT . '/controller/alert.php');
+  require_once WEBSITE_ROOT . '/controller/alert.php';
   die();
 }
 
