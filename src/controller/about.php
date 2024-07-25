@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * About Controller
  *
@@ -19,14 +21,14 @@ if (!defined('VALID_ROOT')) { exit(''); }
 $alertData = array();
 $showAlert = false;
 $licExpiryWarning = $C->read('licExpiryWarning');
-$LIC  = new License();
+$LIC = new License();
 $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 
 //=============================================================================
 //
 // SHOW VIEW
 //
-require WEBSITE_ROOT . '/views/header.php';
-require WEBSITE_ROOT . '/views/menu.php';
-include WEBSITE_ROOT . '/views/' . $controller . '.php';
-require WEBSITE_ROOT . '/views/footer.php';
+require_once WEBSITE_ROOT . '/views/header.php';
+require_once WEBSITE_ROOT . '/views/menu.php';
+include_once WEBSITE_ROOT . '/views/' . $controller . '.php';
+require_once WEBSITE_ROOT . '/views/footer.php';
