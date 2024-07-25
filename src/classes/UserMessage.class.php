@@ -230,7 +230,6 @@ class UserMessage {
    * @return boolean Query result
    */
   public function setSilent($id) {
-    $records = array();
     $query = $this->db->prepare('UPDATE ' . $this->table . ' SET popup = :val2 WHERE id = :val1');
     $query->bindParam('val1', $id);
     $val2 = '0';
@@ -246,7 +245,6 @@ class UserMessage {
    * @return boolean Query result
    */
   public function setSilentByUser($username) {
-    $records = array();
     $query = $this->db->prepare('UPDATE ' . $this->table . ' SET popup = :val2 WHERE username = :val1');
     $query->bindParam('val1', $username);
     $val2 = '0';
