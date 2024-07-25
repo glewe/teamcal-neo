@@ -61,13 +61,13 @@ function archiveUser($username)
     /**
      * Do not archive if username exists in any of the archive table
      */
-    if ($U->exists($username, TRUE)) return  false;
-    if ($UG->exists($username, TRUE)) return  false;
-    if ($UO->exists($username, TRUE)) return  false;
-    if ($T->exists($username, TRUE)) return  false;
-    if ($D->exists($username, TRUE)) return  false;
-    if ($AL->exists($username, TRUE)) return  false;
-    if ($UMSG->exists($username, TRUE)) return  false;
+    if ($U->exists($username, true)) return  false;
+    if ($UG->exists($username, true)) return  false;
+    if ($UO->exists($username, true)) return  false;
+    if ($T->exists($username, true)) return  false;
+    if ($D->exists($username, true)) return  false;
+    if ($AL->exists($username, true)) return  false;
+    if ($UMSG->exists($username, true)) return  false;
 
     /**
      * Get fullname for log

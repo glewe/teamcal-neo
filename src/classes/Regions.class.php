@@ -121,7 +121,7 @@ class Regions {
   /**
    * Reads all region records into an array
    *
-   * @param boolean $excludeHidden If TRUE, exclude hidden regions
+   * @param boolean $excludeHidden If true, exclude hidden regions
    * @return array Array with records
    */
   public function getAll() {

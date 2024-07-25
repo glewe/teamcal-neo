@@ -669,7 +669,7 @@ function getOptions() {
   $CONF[ 'options' ][ 'lang' ] = $C->read("defaultLanguage");
 
   /**
-   * DEBUG: Set to TRUE for debug info
+   * DEBUG: Set to true for debug info
    */
   if ( false) {
     $debug = "After Defaults\\r\\n";
@@ -687,7 +687,7 @@ function getOptions() {
   }
 
   /**
-   * DEBUG: Set to TRUE for debug info
+   * DEBUG: Set to true for debug info
    */
   if ( false) {
     $debug = "After User Preferences\\r\\n";
@@ -700,7 +700,7 @@ function getOptions() {
    */
 
   /**
-   * DEBUG: Set to TRUE for debug info
+   * DEBUG: Set to true for debug info
    */
   if ( false) {
     $debug = "After _GET\\r\\n";
@@ -715,7 +715,7 @@ function getOptions() {
 
 
   /**
-   * DEBUG: Set to TRUE for debug info
+   * DEBUG: Set to true for debug info
    */
   if ( false) {
     $debug = "After _POST\\r\\n";

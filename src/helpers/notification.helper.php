@@ -468,7 +468,7 @@ function sendEmail($to, $subject, $body, $from = '') {
       die();
 //      return  false;
     } else {
-      return TRUE;
+      return true;
     }
   } else {
     /**

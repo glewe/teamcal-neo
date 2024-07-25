@@ -157,7 +157,7 @@ if (!empty($_POST)) {
                 //
                 // Failed, at least partially
                 //
-                $showAlert = TRUE;
+                $showAlert = true;
                 $alertData['type'] = 'danger';
                 $alertData['title'] = $LANG['alert_danger_title'];
                 $alertData['subject'] = $LANG['btn_restore_selected'];
@@ -184,7 +184,7 @@ if (!empty($_POST)) {
             //
             // Success
             //
-            $showAlert = TRUE;
+            $showAlert = true;
             $alertData['type'] = 'success';
             $alertData['title'] = $LANG['alert_success_title'];
             $alertData['subject'] = $LANG['btn_delete_selected'];
@@ -202,7 +202,7 @@ if (!empty($_POST)) {
             //
             // Success
             //
-            $showAlert = TRUE;
+            $showAlert = true;
             $alertData['type'] = 'success';
             $alertData['title'] = $LANG['alert_success_title'];
             $alertData['subject'] = $LANG['btn_delete_selected'];
@@ -249,7 +249,7 @@ if (!empty($_POST)) {
             //
             // Success
             //
-            $showAlert = TRUE;
+            $showAlert = true;
             $alertData['type'] = 'success';
             $alertData['title'] = $LANG['alert_success_title'];
             $alertData['subject'] = $LANG['btn_reset_password_selected'];
@@ -275,7 +275,7 @@ if (!empty($_POST)) {
             //
             // Success
             //
-            $showAlert = TRUE;
+            $showAlert = true;
             $alertData['type'] = 'success';
             $alertData['title'] = $LANG['alert_success_title'];
             $alertData['subject'] = $LANG['btn_remove_secret_selected'];
@@ -286,7 +286,7 @@ if (!empty($_POST)) {
         //
         // Input validation failed
         //
-        $showAlert = TRUE;
+        $showAlert = true;
         $alertData['type'] = 'danger';
         $alertData['title'] = $LANG['alert_danger_title'];
         $alertData['subject'] = $LANG['alert_input'];

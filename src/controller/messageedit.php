@@ -205,7 +205,7 @@ if (!empty($_POST)) {
                     //
                     // E-mail notifications are switched off
                     //
-                    $showAlert = TRUE;
+                    $showAlert = true;
                     $alertData['type'] = 'warning';
                     $alertData['title'] = $LANG['alert_warning_title'];
                     $alertData['subject'] = $LANG['msg_email_off_subject'];
@@ -260,7 +260,7 @@ if (!empty($_POST)) {
                             //
                             // No group selected
                             //
-                            $showAlert = TRUE;
+                            $showAlert = true;
                             $alertData['type'] = 'warning';
                             $alertData['title'] = $LANG['alert_warning_title'];
                             $alertData['subject'] = $LANG['msg_no_group_subject'];
@@ -283,7 +283,7 @@ if (!empty($_POST)) {
                             //
                             // No user selected
                             //
-                            $showAlert = TRUE;
+                            $showAlert = true;
                             $alertData['type'] = 'warning';
                             $alertData['title'] = $LANG['alert_warning_title'];
                             $alertData['subject'] = $LANG['msg_no_user_subject'];
@@ -302,7 +302,7 @@ if (!empty($_POST)) {
                     //
                     // Success
                     //
-                    $showAlert = TRUE;
+                    $showAlert = true;
                     $alertData['type'] = 'success';
                     $alertData['title'] = $LANG['alert_success_title'];
                     $alertData['subject'] = $LANG['msg_msg_sent'];
@@ -315,7 +315,7 @@ if (!empty($_POST)) {
         //
         // Input validation failed
         //
-        $showAlert = TRUE;
+        $showAlert = true;
         $alertData['type'] = 'danger';
         $alertData['title'] = $LANG['alert_danger_title'];
         $alertData['subject'] = $LANG['alert_input'];
@@ -329,7 +329,7 @@ if (!empty($_POST)) {
 //
 // PREPARE VIEW
 //
-$viewData['groups'] = $G->getAllNames($excludeHidden = TRUE);
+$viewData['groups'] = $G->getAllNames($excludeHidden = true);
 $viewData['users'] = $U->getAll();
 
 //=============================================================================
