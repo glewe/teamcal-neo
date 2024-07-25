@@ -150,7 +150,7 @@ if (!empty($_POST)) {
     // ,----------------,
     // | Create, Update |
     // '----------------'
-    if (isset($_POST['btn_create']) or isset($_POST['btn_update'])) {
+    if (isset($_POST['btn_create']) || isset($_POST['btn_update'])) {
       $D->deleteByDateAndUser($dnDate, $viewData['user']);
 
       if (isset($_POST['sel_regions'])) {
