@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Calendar Edit Controller
  *
@@ -12,16 +14,13 @@ if (!defined('VALID_ROOT')) { exit(''); }
  * @since 3.0.0
  */
 
-// echo '<script type="text/javascript">alert("Debug: ");</script>';
-
 //=============================================================================
 //
 // CHECK URL PARAMETERS
 //
 if (isset($_GET['month']) && isset($_GET['region']) && isset($_GET['user'])) {
-  $missingData = FALSE;
-  $doNotSave = FALSE;
-
+  $missingData = false;
+  $doNotSave = false;
   //
   // Check month
   //
@@ -29,16 +28,15 @@ if (isset($_GET['month']) && isset($_GET['region']) && isset($_GET['user'])) {
   $viewData['year'] = substr($yyyymm, 0, 4);
   $viewData['month'] = substr($yyyymm, 4, 2);
   if (!is_numeric($yyyymm) or strlen($yyyymm) != 6 or !checkdate(intval($viewData['month']), 1, intval($viewData['year']))) {
-    $missingData = TRUE;
+    $missingData = true;
     die("month");
   }
-
   //
   // Check region
   //
   $region = sanitize($_GET['region']);
   if (!$R->getById($region)) {
-    $missingData = TRUE;
+    $missingData = true;
   } else {
     if ($R->getAccess($R->id, $UL->getRole($UL->username)) == 'view') {
       //
@@ -50,16 +48,15 @@ if (isset($_GET['month']) && isset($_GET['region']) && isset($_GET['user'])) {
     $viewData['regionid'] = $R->id;
     $viewData['regionname'] = $R->name;
   }
-
   //
   // Check user
   //
   $caluser = sanitize($_GET['user']);
   if (!$U->findByName($caluser)) {
-    $missingData = TRUE;
+    $missingData = true;
   }
 } else {
-  $missingData = TRUE;
+  $missingData = true;
 }
 
 if ($missingData) {
@@ -71,7 +68,7 @@ if ($missingData) {
   $alertData['subject'] = $LANG['alert_no_data_subject'];
   $alertData['text'] = $LANG['alert_no_data_text'];
   $alertData['help'] = $LANG['alert_no_data_help'];
-  require(WEBSITE_ROOT . '/controller/alert.php');
+  require_once WEBSITE_ROOT . '/controller/alert.php';
   die();
 }
 
@@ -100,8 +97,10 @@ if ($C->read('currentYearOnly') && $viewData['year'] != date('Y')) {
 $allowed = false;
 if (isAllowed($CONF['controllers'][$controller]->permission)) {
   if ($UL->username == $caluser) {
-    if (isAllowed("calendareditown")) $allowed = true;
-  } else if ($UG->shareGroupMemberships($UL->username, $caluser)) {
+    if (isAllowed("calendareditown")) {
+      $allowed = true;
+    }
+  } elseif ($UG->shareGroupMemberships($UL->username, $caluser)) {
     if (isAllowed("calendareditgroup")) {
       $allowed = true;
     } elseif (isAllowed("calendareditgroupmanaged") && $UG->isGroupManagerOfUser($UL->username, $caluser)) {
@@ -118,7 +117,7 @@ if (!$allowed) {
   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
   $alertData['text'] = $LANG['alert_not_allowed_text'];
   $alertData['help'] = $LANG['alert_not_allowed_help'];
-  require(WEBSITE_ROOT . '/controller/alert.php');
+  require_once WEBSITE_ROOT . '/controller/alert.php';
   die();
 }
 
@@ -150,27 +149,23 @@ $users = $U->getAll();
 $inputAlert = array();
 $currDate = date('Y-m-d');
 $viewData['dateInfo'] = dateInfo($viewData['year'], $viewData['month']);
-
 //
 // See if a region template exists. If not, create one.
 //
 if (!$M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid'])) {
   createMonth($viewData['year'], $viewData['month'], 'region', $viewData['regionid']);
   $M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']);
-
   //
   // Log this event
   //
   $LOG->logEvent("logMonth", L_USER, "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
 }
-
 //
 // See if a user template exists. If not, create one.
 //
 if (!$T->getTemplate($caluser, $viewData['year'], $viewData['month'])) {
   createMonth($viewData['year'], $viewData['month'], 'user', $caluser);
   $T->getTemplate($caluser, $viewData['year'], $viewData['month']);
-
   //
   // Log this event
   //
@@ -182,7 +177,7 @@ if (!$T->getTemplate($caluser, $viewData['year'], $viewData['month'])) {
 // PROCESS FORM
 //
 if (!empty($_POST)) {
-  if (isset($_POST['btn_save']) or isset($_POST['btn_clearall']) or isset($_POST['btn_saveperiod']) or isset($_POST['btn_saverecurring'])) {
+  if (isset($_POST['btn_save']) || isset($_POST['btn_clearall']) || isset($_POST['btn_saveperiod']) || isset($_POST['btn_saverecurring'])) {
     //
     // All changes to the calendar are handled in this block since it finishes with the Approval routine.
     // First, get the current absences of the user into an array $currentAbsences
@@ -196,7 +191,6 @@ if (!empty($_POST)) {
       $approvedAbsences[$i] = '0';
       $declinedAbsences[$i] = '0';
     }
-
     // ,------,
     // | Save |
     // '------'
@@ -221,11 +215,11 @@ if (!empty($_POST)) {
     // ,-----------,
     // | Clear All |
     // '-----------'
-    else if (isset($_POST['btn_clearall'])) {
+    elseif (isset($_POST['btn_clearall'])) {
       //
       // Loop thru the radio boxes
       //
-      if (isset($_POST['chk_clearAbsences']) or isset($_POST['chk_clearDaynotes'])) {
+      if (isset($_POST['chk_clearAbsences']) || isset($_POST['chk_clearDaynotes'])) {
         //
         // Clear Absences
         //
@@ -253,22 +247,23 @@ if (!empty($_POST)) {
       // Form validation
       //
       $inputError = false;
-      if (!formInputValid('txt_periodStart', 'required|date')) $inputError = true;
-      if (!formInputValid('txt_periodEnd', 'required|date')) $inputError = true;
+      if (!formInputValid('txt_periodStart', 'required|date')) {
+        $inputError = true;
+      }
+      if (!formInputValid('txt_periodEnd', 'required|date')) {
+        $inputError = true;
+      }
 
       if (!$inputError) {
         $startPieces = explode("-", $_POST['txt_periodStart']);
         $startYear = $startPieces[0];
         $startMonth = $startPieces[1];
-
         $endPieces = explode("-", $_POST['txt_periodEnd']);
         $endYear = $endPieces[0];
         $endMonth = $endPieces[1];
-
         if ($startYear == $viewData['year'] && $endYear == $viewData['year'] && $startMonth == $viewData['month'] && $endMonth == $viewData['month']) {
           $startDate = str_replace("-", "", $_POST['txt_periodStart']);
           $endDate = str_replace("-", "", $_POST['txt_periodEnd']);
-
           for ($i = $startDate; $i <= $endDate; $i++) {
             $year = substr($i, 0, 4);
             $month = substr($i, 4, 2);
@@ -279,8 +274,8 @@ if (!empty($_POST)) {
           //
           // Input out of range
           //
-          $doNotSave = TRUE;
-          $showAlert = TRUE;
+          $doNotSave = true;
+          $showAlert = true;
           $alertData['type'] = 'danger';
           $alertData['title'] = $LANG['alert_danger_title'];
           $alertData['subject'] = $LANG['alert_input'];
@@ -291,8 +286,8 @@ if (!empty($_POST)) {
         //
         // Input validation failed
         //
-        $doNotSave = TRUE;
-        $showAlert = TRUE;
+        $doNotSave = true;
+        $showAlert = true;
         $alertData['type'] = 'danger';
         $alertData['title'] = $LANG['alert_danger_title'];
         $alertData['subject'] = $LANG['alert_input'];
@@ -307,7 +302,6 @@ if (!empty($_POST)) {
       $startDate = $viewData['year'] . $viewData['month'] . '01';
       $endDate = $viewData['year'] . $viewData['month'] . $viewData['dateInfo']['daysInMonth'];
       $wdays = array( 'monday' => 1, 'tuesday' => 2, 'wednesday' => 3, 'thursday' => 4, 'friday' => 5, 'saturday' => 6, 'sunday' => 7 );
-
       foreach ($_POST as $key => $value) {
         foreach ($wdays as $wday => $wdaynr) {
           if ($key == $wday) {
@@ -357,7 +351,6 @@ if (!empty($_POST)) {
       // - $approved['declinedReasons'] (Declined Reasons, coming back from the approval function)
       //
       $approved = approveAbsences($caluser, $viewData['year'], $viewData['month'], $currentAbsences, $requestedAbsences, $viewData['regionid']);
-
       $sendNotification = false;
       $alerttype = 'success';
       $alertHelp = '';
@@ -379,7 +372,9 @@ if (!empty($_POST)) {
           foreach ($approved['approvedAbsences'] as $key => $val) {
             $col = 'abs' . $key;
             $T->$col = $val;
-            if ($val) $logText .= '- ' . $viewData['year'] . $viewData['month'] . sprintf("%02d", $key) . ': ' . $A->getName($val) . '<br>';
+            if ($val) {
+              $logText .= '- ' . $viewData['year'] . $viewData['month'] . sprintf("%02d", $key) . ': ' . $A->getName($val) . '<br>';
+            }
           }
           $T->update($caluser, $viewData['year'], $viewData['month']);
           $sendNotification = true;
@@ -417,7 +412,7 @@ if (!empty($_POST)) {
       //
       // Success
       //
-      $showAlert = TRUE;
+      $showAlert = true;
       $alertData['type'] = $alerttype;
       $alertData['title'] = $LANG['alert_' . $alerttype . '_title'];
       $alertData['subject'] = $LANG['caledit_alert_update'];
@@ -475,7 +470,7 @@ $viewData['groupnames'] .= ")</span>";
 //
 $allRegions = $R->getAll();
 foreach ($allRegions as $reg) {
-  if (!$R->getAccess($reg['id'], $UL->getRole($UL->username)) or $R->getAccess($reg['id'], $UL->getRole($UL->username)) == 'edit') {
+  if (!$R->getAccess($reg['id'], $UL->getRole($UL->username)) || $R->getAccess($reg['id'], $UL->getRole($UL->username)) == 'edit') {
     $viewData['regions'][] = $reg;
   }
 }
@@ -488,10 +483,8 @@ foreach ($users as $usr) {
   $allowed = false;
   if ($usr['username'] == $UL->username && isAllowed("calendareditown")) {
     $allowed = true;
-  } else if (!$U->isHidden($usr['username'])) {
-    if (isAllowed("calendareditall")) {
-      $allowed = true;
-    } elseif (isAllowed("calendareditgroup") && $UG->shareGroups($usr['username'], $UL->username)) {
+  } elseif (!$U->isHidden($usr['username'])) {
+    if (isAllowed("calendareditall") || (isAllowed("calendareditgroup") && $UG->shareGroups($usr['username'], $UL->username))) {
       $allowed = true;
     }
   }
@@ -516,14 +509,13 @@ for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
     //
     $color = 'color:#' . $H->getColor($M->$hprop) . ';';
     $bgcolor = 'background-color:#' . $H->getBgColor($M->$hprop) . ';';
-  } else if ($M->$wprop == 6 or $M->$wprop == 7) {
+  } elseif ($M->$wprop == 6 || $M->$wprop == 7) {
     //
     // This is a Saturday or Sunday. Get the coloring info.
     //
     $color = 'color:#' . $H->getColor($M->$wprop - 4) . ';';
     $bgcolor = 'background-color:#' . $H->getBgColor($M->$wprop - 4) . ';';
   }
-
   //
   // Get today style
   //
@@ -531,11 +523,10 @@ for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
   if ($loopDate == $currDate) {
     $border = 'border-left: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';border-right: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';';
   }
-
   //
   // Build styles
   //
-  if (strlen($color) or strlen($bgcolor) or strlen($border)) {
+  if (strlen($color) || strlen($bgcolor) || strlen($border)) {
     $viewData['dayStyles'][$i] = ' style="' . $color . $bgcolor . $border . '"';
   }
 }
@@ -556,7 +547,7 @@ if (!$viewData['width'] = $UO->read($UL->username, 'width')) {
 //
 // SHOW VIEW
 //
-require WEBSITE_ROOT . '/views/header.php';
-require WEBSITE_ROOT . '/views/menu.php';
-include WEBSITE_ROOT . '/views/' . $controller . '.php';
-require WEBSITE_ROOT . '/views/footer.php';
+require_once WEBSITE_ROOT . '/views/header.php';
+require_once WEBSITE_ROOT . '/views/menu.php';
+include_once WEBSITE_ROOT . '/views/' . $controller . '.php';
+require_once WEBSITE_ROOT . '/views/footer.php';
