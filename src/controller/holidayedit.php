@@ -151,7 +151,7 @@ if (!empty($_POST)) {
       // Send notification e-mails to the subscribers of user events
       //
       if ($C->read("emailNotifications")) {
-        sendHolidayEventNotifications("changed", $HH->name, $HH->description, $HH->description);
+        sendHolidayEventNotifications("changed", $HH->name, $HH->description);
       }
 
       //
