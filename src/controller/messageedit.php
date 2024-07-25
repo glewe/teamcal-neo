@@ -97,7 +97,7 @@ if (!empty($_POST)) {
                 //
                 // Captcha code wrong
                 //
-                $showAlert = TRUE;
+                $showAlert =  true;
                 $alertData['type'] = 'warning';
                 $alertData['title'] = $LANG['alert_warning_title'];
                 $alertData['subject'] = $LANG['alert_captcha_wrong'];
@@ -107,7 +107,7 @@ if (!empty($_POST)) {
                 //
                 // No subject and/or text
                 //
-                $showAlert = TRUE;
+                $showAlert =  true;
                 $alertData['type'] = 'warning';
                 $alertData['title'] = $LANG['alert_warning_title'];
                 $alertData['subject'] = $LANG['msg_no_text_subject'];
@@ -147,7 +147,7 @@ if (!empty($_POST)) {
                                 //
                                 // No group selected
                                 //
-                                $showAlert = TRUE;
+                                $showAlert =  true;
                                 $alertData['type'] = 'warning';
                                 $alertData['title'] = $LANG['alert_warning_title'];
                                 $alertData['subject'] = $LANG['msg_no_group_subject'];
@@ -167,7 +167,7 @@ if (!empty($_POST)) {
                                 //
                                 // No user selected
                                 //
-                                $showAlert = TRUE;
+                                $showAlert =  true;
                                 $alertData['type'] = 'warning';
                                 $alertData['title'] = $LANG['alert_warning_title'];
                                 $alertData['subject'] = $LANG['msg_no_user_subject'];
@@ -193,7 +193,7 @@ if (!empty($_POST)) {
                             //
                             // E-mail success
                             //
-                            $showAlert = TRUE;
+                            $showAlert =  true;
                             $alertData['type'] = 'success';
                             $alertData['title'] = $LANG['alert_success_title'];
                             $alertData['subject'] = $LANG['msg_msg_sent'];

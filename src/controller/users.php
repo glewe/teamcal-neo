@@ -82,7 +82,7 @@ if (!empty($_POST)) {
             //
             // Success
             //
-            $showAlert = TRUE;
+            $showAlert =  true;
             $alertData['type'] = 'success';
             $alertData['title'] = $LANG['alert_success_title'];
             $alertData['subject'] = $LANG['btn_activate_selected'];
@@ -101,14 +101,14 @@ if (!empty($_POST)) {
             //
             $exists =  false;
             foreach ($selected_users as $su => $value) {
-                if (!archiveUser($value)) $exists = TRUE;
+                if (!archiveUser($value)) $exists =  true;
             }
 
             if (!$exists) {
                 //
                 // Success
                 //
-                $showAlert = TRUE;
+                $showAlert =  true;
                 $alertData['type'] = 'success';
                 $alertData['title'] = $LANG['alert_success_title'];
                 $alertData['subject'] = $LANG['btn_archive_selected'];
@@ -118,7 +118,7 @@ if (!empty($_POST)) {
                 //
                 // Failed, at least partially
                 //
-                $showAlert = TRUE;
+                $showAlert =  true;
                 $alertData['type'] = 'danger';
                 $alertData['title'] = $LANG['alert_danger_title'];
                 $alertData['subject'] = $LANG['btn_archive_selected'];
@@ -139,7 +139,7 @@ if (!empty($_POST)) {
             $exists =  false;
             foreach ($selected_users as $su => $value) {
                 if (!restoreUser($value)) {
-                    $exists = TRUE;
+                    $exists =  true;
                 }
             }
 
@@ -147,7 +147,7 @@ if (!empty($_POST)) {
                 //
                 // Success
                 //
-                $showAlert = TRUE;
+                $showAlert =  true;
                 $alertData['type'] = 'success';
                 $alertData['title'] = $LANG['alert_success_title'];
                 $alertData['subject'] = $LANG['btn_restore_selected'];

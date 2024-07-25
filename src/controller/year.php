@@ -23,19 +23,19 @@ if (isset($_GET['year']) && isset($_GET['region']) && isset($_GET['user'])) {
     $missingData =  false;
 
     $yyyy = sanitize($_GET['year']);
-    if (!is_numeric($yyyy) || strlen($yyyy) != 4 || !checkdate(1, 1, intval($yyyy))) $missingData = TRUE;
+    if (!is_numeric($yyyy) || strlen($yyyy) != 4 || !checkdate(1, 1, intval($yyyy))) $missingData =  true;
 
     $region = sanitize($_GET['region']);
-    if (!$R->getById($region)) $missingData = TRUE;
+    if (!$R->getById($region)) $missingData =  true;
 
     if (strlen($_GET['user'])) {
         $user = sanitize($_GET['user']);
-        if (!$U->exists($user)) $missingData = TRUE;
+        if (!$U->exists($user)) $missingData =  true;
     } else {
         $user = '';
     }
 } else {
-    $missingData = TRUE;
+    $missingData =  true;
 }
 
 if ($missingData) {

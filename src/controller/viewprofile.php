@@ -35,9 +35,9 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 if (isset($_GET['profile'])) {
     $missingData =  false;
     $profile = sanitize($_GET['profile']);
-    if (!$U->findByName($profile)) $missingData = TRUE;
+    if (!$U->findByName($profile)) $missingData =  true;
 } else {
-    $missingData = TRUE;
+    $missingData =  true;
 }
 
 if ($missingData) {

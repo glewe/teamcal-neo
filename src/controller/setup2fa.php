@@ -22,9 +22,9 @@ $UP = new Users(); // for the profile to be created or updated
 if (isset($_GET['profile'])) {
     $missingData =  false;
     $profile = sanitize($_GET['profile']);
-    if (!$UP->findByName($profile)) $missingData = TRUE;
+    if (!$UP->findByName($profile)) $missingData =  true;
 } else {
-    $missingData = TRUE;
+    $missingData =  true;
 }
 
 if ($missingData) {
@@ -46,7 +46,7 @@ if ($missingData) {
 //
 $allowed =  false;
 if ($UL->username == $profile) {
-    $allowed = TRUE;
+    $allowed =  true;
 }
 
 if (!$allowed) {
@@ -139,7 +139,7 @@ if (!empty($_POST)) {
                 //
                 // Code mismatch
                 //
-                $showAlert = TRUE;
+                $showAlert =  true;
                 $alertData['type'] = 'warning';
                 $alertData['title'] = $LANG['alert_warning_title'];
                 $alertData['subject'] = $LANG['alert_input'];
@@ -151,7 +151,7 @@ if (!empty($_POST)) {
         //
         // Input validation failed
         //
-        $showAlert = TRUE;
+        $showAlert =  true;
         $alertData['type'] = 'danger';
         $alertData['title'] = $LANG['alert_danger_title'];
         $alertData['subject'] = $LANG['alert_input'];
