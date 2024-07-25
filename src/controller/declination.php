@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Declination Controller
  *
@@ -12,8 +14,6 @@ if (!defined('VALID_ROOT')) { exit(''); }
  * @since 3.0.0
  */
 
-// echo '<script type="text/javascript">alert("Debug: ");</script>';
-
 //=============================================================================
 //
 // CHECK PERMISSION
@@ -24,7 +24,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
   $alertData['text'] = $LANG['alert_not_allowed_text'];
   $alertData['help'] = $LANG['alert_not_allowed_help'];
-  require_once(WEBSITE_ROOT . '/controller/alert.php');
+  require_once WEBSITE_ROOT . '/controller/alert.php';
   die();
 }
 
@@ -70,18 +70,28 @@ if (!empty($_POST)) {
   $inputError = false;
   if (isset($_POST['btn_save'])) {
     if (isset($_POST['chk_absence'])) {
-      if (!formInputValid('txt_threshold', 'max_length|numeric', 2)) $inputError = true;
+      if (!formInputValid('txt_threshold', 'max_length|numeric', 2)) {
+        $inputError = true;
+      }
       if (isset($_POST['opt_absencePeriod'])) {
         switch ($_POST['opt_absencePeriod']) {
           case 'nowEnddate':
-            if (!formInputValid('txt_absenceEnddate', 'required|date')) $inputError = true;
+            if (!formInputValid('txt_absenceEnddate', 'required|date')) {
+              $inputError = true;
+            }
             break;
           case 'startdateForever':
-            if (!formInputValid('txt_absenceStartdate', 'required|date')) $inputError = true;
+            if (!formInputValid('txt_absenceStartdate', 'required|date')) {
+              $inputError = true;
+            }
             break;
           case 'startdateEnddate':
-            if (!formInputValid('txt_absenceStartdate', 'required|date')) $inputError = true;
-            if (!formInputValid('txt_absenceEnddate', 'required|date')) $inputError = true;
+            if (!formInputValid('txt_absenceStartdate', 'required|date')) {
+              $inputError = true;
+            }
+            if (!formInputValid('txt_absenceEnddate', 'required|date')) {
+              $inputError = true;
+            }
             break;
           default:
             break;
@@ -101,14 +111,22 @@ if (!empty($_POST)) {
       if (isset($_POST['opt_beforePeriod'])) {
         switch ($_POST['opt_beforePeriod']) {
           case 'nowEnddate':
-            if (!formInputValid('txt_beforeEnddate', 'required|date')) $inputError = true;
+            if (!formInputValid('txt_beforeEnddate', 'required|date')) {
+              $inputError = true;
+            }
             break;
           case 'startdateForever':
-            if (!formInputValid('txt_beforeStartdate', 'required|date')) $inputError = true;
+            if (!formInputValid('txt_beforeStartdate', 'required|date')) {
+              $inputError = true;
+            }
             break;
           case 'startdateEnddate':
-            if (!formInputValid('txt_beforeStartdate', 'required|date')) $inputError = true;
-            if (!formInputValid('txt_beforeEnddate', 'required|date')) $inputError = true;
+            if (!formInputValid('txt_beforeStartdate', 'required|date')) {
+              $inputError = true;
+            }
+            if (!formInputValid('txt_beforeEnddate', 'required|date')) {
+              $inputError = true;
+            }
             break;
           default:
             break;
@@ -117,21 +135,35 @@ if (!empty($_POST)) {
     }
 
     if (isset($_POST['chk_period1'])) {
-      if (!formInputValid('txt_period1start', 'required|date')) $inputError = true;
-      if (!formInputValid('txt_period1end', 'required|date')) $inputError = true;
-      if (!formInputValid('txt_period1Message', 'alpha_numeric_dash_blank_special')) $inputError = true;
+      if (!formInputValid('txt_period1start', 'required|date')) {
+        $inputError = true;
+      }
+      if (!formInputValid('txt_period1end', 'required|date')) {
+        $inputError = true;
+      }
+      if (!formInputValid('txt_period1Message', 'alpha_numeric_dash_blank_special')) {
+        $inputError = true;
+      }
 
       if (isset($_POST['opt_period1Period'])) {
         switch ($_POST['opt_period1Period']) {
           case 'nowEnddate':
-            if (!formInputValid('txt_period1Enddate', 'required|date')) $inputError = true;
+            if (!formInputValid('txt_period1Enddate', 'required|date')) {
+              $inputError = true;
+            }
             break;
           case 'startdateForever':
-            if (!formInputValid('txt_period1Startdate', 'required|date')) $inputError = true;
+            if (!formInputValid('txt_period1Startdate', 'required|date')) {
+              $inputError = true;
+            }
             break;
           case 'startdateEnddate':
-            if (!formInputValid('txt_period1Startdate', 'required|date')) $inputError = true;
-            if (!formInputValid('txt_period1Enddate', 'required|date')) $inputError = true;
+            if (!formInputValid('txt_period1Startdate', 'required|date')) {
+              $inputError = true;
+            }
+            if (!formInputValid('txt_period1Enddate', 'required|date')) {
+              $inputError = true;
+            }
             break;
           default:
             break;
@@ -149,21 +181,35 @@ if (!empty($_POST)) {
     }
 
     if (isset($_POST['chk_period2'])) {
-      if (!formInputValid('txt_period2start', 'required|date')) $inputError = true;
-      if (!formInputValid('txt_period2end', 'required|date')) $inputError = true;
-      if (!formInputValid('txt_period2Message', 'alpha_numeric_dash_blank_special')) $inputError = true;
+      if (!formInputValid('txt_period2start', 'required|date')) {
+        $inputError = true;
+      }
+      if (!formInputValid('txt_period2end', 'required|date')) {
+        $inputError = true;
+      }
+      if (!formInputValid('txt_period2Message', 'alpha_numeric_dash_blank_special')) {
+        $inputError = true;
+      }
 
       if (isset($_POST['opt_period2Period'])) {
         switch ($_POST['opt_period2Period']) {
           case 'nowEnddate':
-            if (!formInputValid('txt_period2Enddate', 'required|date')) $inputError = true;
+            if (!formInputValid('txt_period2Enddate', 'required|date')) {
+              $inputError = true;
+            }
             break;
           case 'startdateForever':
-            if (!formInputValid('txt_period2Startdate', 'required|date')) $inputError = true;
+            if (!formInputValid('txt_period2Startdate', 'required|date')) {
+              $inputError = true;
+            }
             break;
           case 'startdateEnddate':
-            if (!formInputValid('txt_period2Startdate', 'required|date')) $inputError = true;
-            if (!formInputValid('txt_period2Enddate', 'required|date')) $inputError = true;
+            if (!formInputValid('txt_period2Startdate', 'required|date')) {
+              $inputError = true;
+            }
+            if (!formInputValid('txt_period2Enddate', 'required|date')) {
+              $inputError = true;
+            }
             break;
           default:
             break;
@@ -181,21 +227,35 @@ if (!empty($_POST)) {
     }
 
     if (isset($_POST['chk_period3'])) {
-      if (!formInputValid('txt_period3start', 'required|date')) $inputError = true;
-      if (!formInputValid('txt_period3end', 'required|date')) $inputError = true;
-      if (!formInputValid('txt_period3Message', 'alpha_numeric_dash_blank_special')) $inputError = true;
+      if (!formInputValid('txt_period3start', 'required|date')) {
+        $inputError = true;
+      }
+      if (!formInputValid('txt_period3end', 'required|date')) {
+        $inputError = true;
+      }
+      if (!formInputValid('txt_period3Message', 'alpha_numeric_dash_blank_special')) {
+        $inputError = true;
+      }
 
       if (isset($_POST['opt_period3Period'])) {
         switch ($_POST['opt_period3Period']) {
           case 'nowEnddate':
-            if (!formInputValid('txt_period3Enddate', 'required|date')) $inputError = true;
+            if (!formInputValid('txt_period3Enddate', 'required|date')) {
+              $inputError = true;
+            }
             break;
           case 'startdateForever':
-            if (!formInputValid('txt_period3Startdate', 'required|date')) $inputError = true;
+            if (!formInputValid('txt_period3Startdate', 'required|date')) {
+              $inputError = true;
+            }
             break;
           case 'startdateEnddate':
-            if (!formInputValid('txt_period3Startdate', 'required|date')) $inputError = true;
-            if (!formInputValid('txt_period3Enddate', 'required|date')) $inputError = true;
+            if (!formInputValid('txt_period3Startdate', 'required|date')) {
+              $inputError = true;
+            }
+            if (!formInputValid('txt_period3Enddate', 'required|date')) {
+              $inputError = true;
+            }
             break;
           default:
             break;
@@ -223,14 +283,27 @@ if (!empty($_POST)) {
       //
       if (isset($_POST['chk_absence'])) {
         $C->save("declAbsence", "1");
-        if (strlen($_POST['txt_threshold'])) $C->save("declThreshold", $_POST['txt_threshold']);
-        else $C->save("declThreshold", "0");
-        if (isset($_POST['opt_base'])) $C->save("declBase", $_POST['opt_base']);
-        else $C->save("declBase", "all");
-        if (isset($_POST['opt_absencePeriod'])) $C->save("declAbsencePeriod", $_POST['opt_absencePeriod']);
-        else $C->save("declAbsencePeriod", "nowForever");
-        if (isset($_POST['txt_absenceStartdate'])) $C->save("declAbsenceStartdate", $_POST['txt_absenceStartdate']);
-        if (isset($_POST['txt_absenceEnddate'])) $C->save("declAbsenceEnddate", $_POST['txt_absenceEnddate']);
+        if (strlen($_POST['txt_threshold'])) {
+          $C->save("declThreshold", $_POST['txt_threshold']);
+        } else {
+          $C->save("declThreshold", "0");
+        }
+        if (isset($_POST['opt_base'])) {
+          $C->save("declBase", $_POST['opt_base']);
+        } else {
+          $C->save("declBase", "all");
+        }
+        if (isset($_POST['opt_absencePeriod'])) {
+          $C->save("declAbsencePeriod", $_POST['opt_absencePeriod']);
+        } else {
+          $C->save("declAbsencePeriod", "nowForever");
+        }
+        if (isset($_POST['txt_absenceStartdate'])) {
+          $C->save("declAbsenceStartdate", $_POST['txt_absenceStartdate']);
+        }
+        if (isset($_POST['txt_absenceEnddate'])) {
+          $C->save("declAbsenceEnddate", $_POST['txt_absenceEnddate']);
+        }
       } else {
         $C->save("declAbsence", "0");
       }
@@ -240,11 +313,17 @@ if (!empty($_POST)) {
       //
       if (isset($_POST['chk_before'])) {
         $C->save("declBefore", "1");
-        if (isset($_POST['opt_beforePeriod'])) $C->save("declBeforePeriod", $_POST['opt_beforePeriod']);
-        else $C->save("declBeforePeriod", "nowForever");
-        if (isset($_POST['txt_beforeStartdate'])) $C->save("declBeforeStartdate", $_POST['txt_beforeStartdate']);
-        if (isset($_POST['txt_beforeEnddate'])) $C->save("declBeforeEnddate", $_POST['txt_beforeEnddate']);
-
+        if (isset($_POST['opt_beforePeriod'])) {
+          $C->save("declBeforePeriod", $_POST['opt_beforePeriod']);
+        } else {
+          $C->save("declBeforePeriod", "nowForever");
+        }
+        if (isset($_POST['txt_beforeStartdate'])) {
+          $C->save("declBeforeStartdate", $_POST['txt_beforeStartdate']);
+        }
+        if (isset($_POST['txt_beforeEnddate'])) {
+          $C->save("declBeforeEnddate", $_POST['txt_beforeEnddate']);
+        }
         if (isset($_POST['opt_beforeoption'])) {
           $C->save("declBeforeOption", $_POST['opt_beforeoption']);
           if ($_POST['opt_beforeoption'] == 'today') {
@@ -264,10 +343,17 @@ if (!empty($_POST)) {
         $C->save("declPeriod1", "1");
         $C->save("declPeriod1Start", $_POST['txt_period1start']);
         $C->save("declPeriod1End", $_POST['txt_period1end']);
-        if (isset($_POST['opt_period1Period'])) $C->save("declPeriod1Period", $_POST['opt_period1Period']);
-        else $C->save("declPeriod1Period", "nowForever");
-        if (isset($_POST['txt_period1Startdate'])) $C->save("declPeriod1Startdate", $_POST['txt_period1Startdate']);
-        if (isset($_POST['txt_period1Enddate'])) $C->save("declPeriod1Enddate", $_POST['txt_period1Enddate']);
+        if (isset($_POST['opt_period1Period'])) {
+          $C->save("declPeriod1Period", $_POST['opt_period1Period']);
+        } else {
+          $C->save("declPeriod1Period", "nowForever");
+        }
+        if (isset($_POST['txt_period1Startdate'])) {
+          $C->save("declPeriod1Startdate", $_POST['txt_period1Startdate']);
+        }
+        if (isset($_POST['txt_period1Enddate'])) {
+          $C->save("declPeriod1Enddate", $_POST['txt_period1Enddate']);
+        }
         $C->save("declPeriod1Message", sanitize($_POST['txt_period1Message']));
       } else {
         $C->save("declPeriod1", "0");
@@ -280,10 +366,17 @@ if (!empty($_POST)) {
         $C->save("declPeriod2", "1");
         $C->save("declPeriod2Start", $_POST['txt_period2start']);
         $C->save("declPeriod2End", $_POST['txt_period2end']);
-        if (isset($_POST['opt_period2Period'])) $C->save("declPeriod2Period", $_POST['opt_period2Period']);
-        else $C->save("declPeriod2Period", "nowForever");
-        if (isset($_POST['txt_period2Startdate'])) $C->save("declPeriod2Startdate", $_POST['txt_period2Startdate']);
-        if (isset($_POST['txt_period2Enddate'])) $C->save("declPeriod2Enddate", $_POST['txt_period2Enddate']);
+        if (isset($_POST['opt_period2Period'])) {
+          $C->save("declPeriod2Period", $_POST['opt_period2Period']);
+        } else {
+          $C->save("declPeriod2Period", "nowForever");
+        }
+        if (isset($_POST['txt_period2Startdate'])) {
+          $C->save("declPeriod2Startdate", $_POST['txt_period2Startdate']);
+        }
+        if (isset($_POST['txt_period2Enddate'])) {
+          $C->save("declPeriod2Enddate", $_POST['txt_period2Enddate']);
+        }
         $C->save("declPeriod2Message", sanitize($_POST['txt_period2Message']));
       } else {
         $C->save("declPeriod2", "0");
@@ -296,15 +389,21 @@ if (!empty($_POST)) {
         $C->save("declPeriod3", "1");
         $C->save("declPeriod3Start", $_POST['txt_period3start']);
         $C->save("declPeriod3End", $_POST['txt_period3end']);
-        if (isset($_POST['opt_period3Period'])) $C->save("declPeriod3Period", $_POST['opt_period3Period']);
-        else $C->save("declPeriod3Period", "nowForever");
-        if (isset($_POST['txt_period3Startdate'])) $C->save("declPeriod3Startdate", $_POST['txt_period3Startdate']);
-        if (isset($_POST['txt_period3Enddate'])) $C->save("declPeriod3Enddate", $_POST['txt_period3Enddate']);
+        if (isset($_POST['opt_period3Period'])) {
+          $C->save("declPeriod3Period", $_POST['opt_period3Period']);
+        } else {
+          $C->save("declPeriod3Period", "nowForever");
+        }
+        if (isset($_POST['txt_period3Startdate'])) {
+          $C->save("declPeriod3Startdate", $_POST['txt_period3Startdate']);
+        }
+        if (isset($_POST['txt_period3Enddate'])) {
+          $C->save("declPeriod3Enddate", $_POST['txt_period3Enddate']);
+        }
         $C->save("declPeriod3Message", sanitize($_POST['txt_period3Message']));
       } else {
         $C->save("declPeriod3", "0");
       }
-
       //
       // Scope
       //
@@ -316,12 +415,10 @@ if (!empty($_POST)) {
       }
       $scope = rtrim($scope, ',');
       $C->save("declScope", $scope);
-
       //
       // Log this event
       //
       $LOG->logEvent("logConfig", L_USER, "log_decl_updated");
-
       //
       // Success
       //
@@ -517,7 +614,6 @@ $viewData['declNotifyUser'] = $C->read('declNotifyUser');
 $viewData['declNotifyManager'] = $C->read('declNotifyManager');
 $viewData['declNotifyDirector'] = $C->read('declNotifyDirector');
 $viewData['declNotifyAdmin'] = $C->read('declNotifyAdmin');
-
 $viewData['declApplyToAll'] = $C->read('declApplyToAll');
 
 $viewData['absence'] = array(
@@ -582,7 +678,7 @@ $viewData['scope'] = array(
 //
 // SHOW VIEW
 //
-require_once(WEBSITE_ROOT . '/views/header.php');
-require_once(WEBSITE_ROOT . '/views/menu.php');
-include_once(WEBSITE_ROOT . '/views/' . $controller . '.php');
-require_once(WEBSITE_ROOT . '/views/footer.php');
+require_once WEBSITE_ROOT . '/views/header.php';
+require_once WEBSITE_ROOT . '/views/menu.php';
+include_once WEBSITE_ROOT . '/views/' . $controller . '.php';
+require_once WEBSITE_ROOT . '/views/footer.php';
