@@ -18,12 +18,12 @@ if (!defined('VALID_ROOT')) { exit(''); }
 //
 $UP = new Users(); // for the profile to be updated
 if (isset($_GET['token'])) {
-    $missingData = FALSE;
+    $missingData =  false;
     $token = sanitize($_GET['token']);
     if (!$UP->findByToken($token)) {
         $missingData = TRUE;
     } else {
-        $tokenExpired = FALSE;
+        $tokenExpired =  false;
         $now = date('YmdHis');
         $expiry = $UO->read($UP->username, 'pwdTokenExpiry');
         if ($now > $expiry) $tokenExpired = TRUE;

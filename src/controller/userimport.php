@@ -77,7 +77,7 @@ if (!empty($_POST)) {
                 $viewData['defaultGroup'] = $_POST['sel_group'];
                 $viewData['defaultRole'] = $_POST['sel_role'];
 
-                if (($handle = fopen($uplDir . $UPL->the_file, "r")) !== FALSE) {
+                if (($handle = fopen($uplDir . $UPL->the_file, "r")) !==  false) {
                     //
                     // Loop through all lines
                     //
@@ -86,7 +86,7 @@ if (!empty($_POST)) {
                     $errorText = '';
                     $importCount = 0;
                     $numCols = 5;
-                    while (($arr = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    while (($arr = fgetcsv($handle, 1000, ";")) !==  false) {
                         $line++;
                         if (is_array($arr) && !empty($arr)) {
                             if (count($arr) <> $numCols) {

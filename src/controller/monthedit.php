@@ -48,7 +48,7 @@ if ($weekday == rand(1, 7)) {
 // CHECK URL PARAMETERS
 //
 if (isset($_GET['month']) && isset($_GET['region'])) {
-    $missingData = FALSE;
+    $missingData =  false;
     $yyyymm = sanitize($_GET['month']);
     $region = sanitize($_GET['region']);
     $viewData['year'] = substr($yyyymm, 0, 4);

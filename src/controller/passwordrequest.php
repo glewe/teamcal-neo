@@ -16,7 +16,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
 //
 // VARIABLE DEFAULTS
 //
-$showAlert = FALSE;
+$showAlert =  false;
 $viewData['email'] = '';
 $viewData['multipleUsers'] = false;
 

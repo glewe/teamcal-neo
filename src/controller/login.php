@@ -24,7 +24,7 @@ $tfa = new TwoFactorAuth('TeamCal Neo');
 //
 // VARIABLE DEFAULTS
 //
-$showAlert = FALSE;
+$showAlert =  false;
 $uname = '';
 $pword = '';
 
