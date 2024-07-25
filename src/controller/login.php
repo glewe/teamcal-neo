@@ -91,7 +91,7 @@ if (!empty($_POST)) {
                                 //
                                 // Code mismatch
                                 //
-                                $showAlert = TRUE;
+                                $showAlert =  true;
                                 $alertData['type'] = 'warning';
                                 $alertData['title'] = $LANG['alert_warning_title'];
                                 $alertData['subject'] = $LANG['login_error_2fa'];
@@ -104,7 +104,7 @@ if (!empty($_POST)) {
                             //
                             // Authenticator code missing
                             //
-                            $showAlert = TRUE;
+                            $showAlert =  true;
                             $alertData['type'] = 'warning';
                             $alertData['title'] = $LANG['alert_warning_title'];
                             $alertData['subject'] = $LANG['login_error_1'];
@@ -144,7 +144,7 @@ if (!empty($_POST)) {
                     //
                     // Username or password missing
                     //
-                    $showAlert = TRUE;
+                    $showAlert =  true;
                     $alertData['type'] = 'warning';
                     $alertData['title'] = $LANG['alert_warning_title'];
                     $alertData['subject'] = $LANG['login_error_1'];
@@ -157,7 +157,7 @@ if (!empty($_POST)) {
                     //
                     // Username unknown
                     //
-                    $showAlert = TRUE;
+                    $showAlert =  true;
                     $alertData['type'] = 'warning';
                     $alertData['title'] = $LANG['alert_warning_title'];
                     $alertData['subject'] = $LANG['login_error_2'];
@@ -170,7 +170,7 @@ if (!empty($_POST)) {
                     //
                     // Account is locked
                     //
-                    $showAlert = TRUE;
+                    $showAlert =  true;
                     $alertData['type'] = 'warning';
                     $alertData['title'] = $LANG['alert_warning_title'];
                     $alertData['subject'] = $LANG['login_error_3'];
@@ -186,7 +186,7 @@ if (!empty($_POST)) {
                     // 5: Password incorrect 2nd or higher time
                     //
                     $U->findByName($uname);
-                    $showAlert = TRUE;
+                    $showAlert =  true;
                     $alertData['type'] = 'warning';
                     $alertData['title'] = $LANG['alert_warning_title'];
                     $alertData['subject'] = $LANG['login_error_4'];
@@ -203,7 +203,7 @@ if (!empty($_POST)) {
                     //
                     $now = date("U");
                     $U->findByName($uname);
-                    $showAlert = TRUE;
+                    $showAlert =  true;
                     $alertData['type'] = 'warning';
                     $alertData['title'] = $LANG['alert_warning_title'];
                     $alertData['subject'] = $LANG['login_error_3'];

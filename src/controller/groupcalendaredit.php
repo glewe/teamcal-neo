@@ -28,7 +28,7 @@ if (isset($_GET['month']) && isset($_GET['region']) && isset($_GET['group'])) {
     $viewData['year'] = substr($yyyymm, 0, 4);
     $viewData['month'] = substr($yyyymm, 4, 2);
     if (!is_numeric($yyyymm) || strlen($yyyymm) != 6 || !checkdate(intval($viewData['month']), 1, intval($viewData['year']))) {
-        $missingData = TRUE;
+        $missingData =  true;
     }
 
     //
@@ -36,7 +36,7 @@ if (isset($_GET['month']) && isset($_GET['region']) && isset($_GET['group'])) {
     //
     $region = sanitize($_GET['region']);
     if (!$R->getById($region)) {
-        $missingData = TRUE;
+        $missingData =  true;
     } else {
         if ($R->getAccess($R->id, $UL->getRole($UL->username)) == 'view') {
             //

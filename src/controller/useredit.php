@@ -22,7 +22,7 @@ $UP = new Users(); // for the profile to be created or updated
 if (isset($_GET[ 'profile' ])) {
   $missingData =  false;
   $profile = sanitize($_GET[ 'profile' ]);
-  if (!$UP->findByName($profile)) $missingData = TRUE;
+  if (!$UP->findByName($profile)) $missingData =  true;
 } else {
   $missingData = TRUE;
 }

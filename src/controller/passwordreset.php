@@ -21,15 +21,15 @@ if (isset($_GET['token'])) {
     $missingData =  false;
     $token = sanitize($_GET['token']);
     if (!$UP->findByToken($token)) {
-        $missingData = TRUE;
+        $missingData =  true;
     } else {
         $tokenExpired =  false;
         $now = date('YmdHis');
         $expiry = $UO->read($UP->username, 'pwdTokenExpiry');
-        if ($now > $expiry) $tokenExpired = TRUE;
+        if ($now > $expiry) $tokenExpired =  true;
     }
 } else {
-    $missingData = TRUE;
+    $missingData =  true;
 }
 
 if ($missingData) {
@@ -121,7 +121,7 @@ if (!empty($_POST)) {
                 //
                 // Success
                 //
-                $showAlert = TRUE;
+                $showAlert =  true;
                 $alertData['type'] = 'success';
                 $alertData['title'] = $LANG['alert_success_title'];
                 $alertData['subject'] = $LANG['profile_alert_update'];
@@ -133,7 +133,7 @@ if (!empty($_POST)) {
         //
         // Input validation failed
         //
-        $showAlert = TRUE;
+        $showAlert =  true;
         $alertData['type'] = 'danger';
         $alertData['title'] = $LANG['alert_danger_title'];
         $alertData['subject'] = $LANG['alert_input'];

@@ -36,9 +36,9 @@ $GG = new Groups(); // for the profile to be created or updated
 if (isset($_GET['id'])) {
     $missingData =  false;
     $id = sanitize($_GET['id']);
-    if (!$GG->getById($id)) $missingData = TRUE;
+    if (!$GG->getById($id)) $missingData =  true;
 } else {
-    $missingData = TRUE;
+    $missingData =  true;
 }
 
 if ($missingData) {
@@ -149,7 +149,7 @@ if (!empty($_POST)) {
             //
             // Success
             //
-            $showAlert = TRUE;
+            $showAlert =  true;
             $alertData['type'] = 'success';
             $alertData['title'] = $LANG['alert_success_title'];
             $alertData['subject'] = $LANG['group_alert_edit'];
@@ -170,7 +170,7 @@ if (!empty($_POST)) {
         //
         // Input validation failed
         //
-        $showAlert = TRUE;
+        $showAlert =  true;
         $alertData['type'] = 'danger';
         $alertData['title'] = $LANG['alert_danger_title'];
         $alertData['subject'] = $LANG['alert_input'];

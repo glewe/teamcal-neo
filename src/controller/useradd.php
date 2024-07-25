@@ -135,7 +135,7 @@ if (!empty($_POST)) {
             //
             // Input validation failed
             //
-            $showAlert = TRUE;
+            $showAlert =  true;
             $alertData['type'] = 'success';
             $alertData['title'] = $LANG['alert_success_title'];
             $alertData['subject'] = $LANG['profile_alert_create'];
@@ -152,7 +152,7 @@ if (!empty($_POST)) {
         //
         // Input validation failed
         //
-        $showAlert = TRUE;
+        $showAlert =  true;
         $alertData['type'] = 'danger';
         $alertData['title'] = $LANG['alert_danger_title'];
         $alertData['subject'] = $LANG['alert_input'];

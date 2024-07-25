@@ -37,9 +37,9 @@ $HH = new Holidays(); // for the holiday to be edited
 if (isset($_GET['id'])) {
     $missingData =  false;
     $id = sanitize($_GET['id']);
-    if (!$HH->get($id)) $missingData = TRUE;
+    if (!$HH->get($id)) $missingData =  true;
 } else {
-    $missingData = TRUE;
+    $missingData =  true;
 }
 
 if ($missingData) {
@@ -136,7 +136,7 @@ if (!empty($_POST)) {
             //
             // Success
             //
-            $showAlert = TRUE;
+            $showAlert =  true;
             $alertData['type'] = 'success';
             $alertData['title'] = $LANG['alert_success_title'];
             $alertData['subject'] = $LANG['hol_alert_edit'];
@@ -146,7 +146,7 @@ if (!empty($_POST)) {
             //
             // Input validation failed
             //
-            $showAlert = TRUE;
+            $showAlert =  true;
             $alertData['type'] = 'danger';
             $alertData['title'] = $LANG['alert_danger_title'];
             $alertData['subject'] = $LANG['alert_input'];

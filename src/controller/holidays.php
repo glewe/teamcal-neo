@@ -96,7 +96,7 @@ if (!empty($_POST)) {
             //
             // Success
             //
-            $showAlert = TRUE;
+            $showAlert =  true;
             $alertData['type'] = 'success';
             $alertData['title'] = $LANG['alert_success_title'];
             $alertData['subject'] = $LANG['btn_create_abs'];
@@ -106,7 +106,7 @@ if (!empty($_POST)) {
             //
             // Input validation failed
             //
-            $showAlert = TRUE;
+            $showAlert =  true;
             $alertData['type'] = 'danger';
             $alertData['title'] = $LANG['alert_danger_title'];
             $alertData['subject'] = $LANG['btn_create_abs'];
@@ -135,7 +135,7 @@ if (!empty($_POST)) {
         //
         // Success
         //
-        $showAlert = TRUE;
+        $showAlert =  true;
         $alertData['type'] = 'success';
         $alertData['title'] = $LANG['alert_success_title'];
         $alertData['subject'] = $LANG['btn_delete_holiday'];
