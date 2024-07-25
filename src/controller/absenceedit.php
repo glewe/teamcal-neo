@@ -24,7 +24,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
   $alertData['text'] = $LANG['alert_not_allowed_text'];
   $alertData['help'] = $LANG['alert_not_allowed_help'];
-  require WEBSITE_ROOT . '/controller/alert.php';
+  require_once WEBSITE_ROOT . '/controller/alert.php';
   die();
 }
 
@@ -35,13 +35,13 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 $AA = new Absences(); // for the absence type to be edited
 
 if (isset($_GET['id'])) {
-  $missingData = FALSE;
+  $missingData = false;
   $id = sanitize($_GET['id']);
   if (!$AA->get($id)) {
-    $missingData = TRUE;
+    $missingData = true;
   }
 } else {
-  $missingData = TRUE;
+  $missingData = true;
 }
 
 if ($missingData) {
@@ -53,7 +53,7 @@ if ($missingData) {
   $alertData['subject'] = $LANG['alert_no_data_subject'];
   $alertData['text'] = $LANG['alert_no_data_text'];
   $alertData['help'] = $LANG['alert_no_data_help'];
-  require WEBSITE_ROOT . '/controller/alert.php';
+  require_once WEBSITE_ROOT . '/controller/alert.php';
   die();
 }
 
@@ -224,7 +224,7 @@ if (!empty($_POST)) {
       //
       // Success
       //
-      $showAlert = TRUE;
+      $showAlert = true;
       $alertData['type'] = 'success';
       $alertData['title'] = $LANG['alert_success_title'];
       $alertData['subject'] = $LANG['abs_alert_edit'];
@@ -235,7 +235,7 @@ if (!empty($_POST)) {
     //
     // Input validation failed
     //
-    $showAlert = TRUE;
+    $showAlert = true;
     $alertData['type'] = 'danger';
     $alertData['title'] = $LANG['alert_danger_title'];
     $alertData['subject'] = $LANG['alert_input'];
@@ -316,7 +316,7 @@ $viewData['groups'] = array(
 //
 // SHOW VIEW
 //
-require WEBSITE_ROOT . '/views/header.php';
-require WEBSITE_ROOT . '/views/menu.php';
-include WEBSITE_ROOT . '/views/' . $controller . '.php';
-require WEBSITE_ROOT . '/views/footer.php';
+require_once WEBSITE_ROOT . '/views/header.php';
+require_once WEBSITE_ROOT . '/views/menu.php';
+include_once WEBSITE_ROOT . '/views/' . $controller . '.php';
+require_once WEBSITE_ROOT . '/views/footer.php';
