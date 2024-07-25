@@ -37,7 +37,7 @@ if (!strlen($tz) || $tz == "default") {
 // Used for the currently logged in user
 //
 $userData = array(
-  'isLoggedIn' => FALSE,
+  'isLoggedIn' => false,
   'role' => 'public',
   'gender' => 'male',
   'icon' => 'public.png',
