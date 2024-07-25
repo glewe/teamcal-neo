@@ -398,7 +398,7 @@ class Login {
    * @param string $loginpwd Password
    * @return integer Login return code
    */
-  public function login($loginname = '', $loginpwd = '') {
+  public function loginUser($loginname = '', $loginpwd = '') {
     global $C, $U, $UO;
 
     $retcode = 0;
