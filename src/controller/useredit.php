@@ -441,7 +441,7 @@ if (!empty($_POST)) {
       $fileExtension = getFileExtension($_FILES[ 'file_avatar' ][ 'name' ]);
       $UPL->the_file = $profile . "." . $fileExtension;
 
-      if ($UPL->upload()) {
+      if ($UPL->uploadFile()) {
         $full_path = $UPL->upload_dir . $UPL->file_copy;
         $info = $UPL->getUploadedFileInfo($full_path);
         $UO->save($profile, 'avatar', $UPL->uploaded_file[ 'name' ]);

@@ -82,7 +82,7 @@ if (!empty($_POST)) {
       $UPL->the_file = $_FILES['file_image']['name'];
       $UPL->http_error = $_FILES['file_image']['error'];
 
-      if ($UPL->upload()) {
+      if ($UPL->uploadFile()) {
         $AT->create($UPL->the_file, $UL->username);
         $fileid = $AT->getId($UPL->the_file);
         $UAT->create($UL->username, $fileid);

@@ -73,7 +73,7 @@ if (!empty($_POST)) {
             $UPL->the_file = $_FILES['file_image']['name'];
             $UPL->http_error = $_FILES['file_image']['error'];
 
-            if ($UPL->upload()) {
+            if ($UPL->uploadFile()) {
                 $viewData['defaultGroup'] = $_POST['sel_group'];
                 $viewData['defaultRole'] = $_POST['sel_role'];
 

@@ -258,7 +258,7 @@ class Upload {
    * @param string $to_name New desired file name (optional)
    * @return string|boolean True if upload successful, false if not
    */
-  public function upload($to_name = "") {
+  public function uploadFile($to_name = "") {
     $new_name = $this->setFileName($to_name);
     if ($this->checkFileName($new_name)) {
       if ($this->isValidExtension()) {
