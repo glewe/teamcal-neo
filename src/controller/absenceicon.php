@@ -88,7 +88,7 @@ if (!empty($_POST)) {
     // Go back to absence edit page
     //
     header("Location: index.php?action=" . $controller . "&id=" . $AA->id);
-  } else if (isset($_POST['btn_fa_filter'])) {
+  } elseif (isset($_POST['btn_fa_filter'])) {
     // ,--------,
     // | Filter |
     // '--------'
