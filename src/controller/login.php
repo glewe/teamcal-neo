@@ -55,7 +55,7 @@ if (!empty($_POST)) {
             if (isset($_POST['uname'])) $uname = $_POST['uname'];
             if (isset($_POST['pword'])) $pword = $_POST['pword'];
 
-            switch ($L->login($uname, $pword)) {
+            switch ($L->loginUser($uname, $pword)) {
                 case 0:
                     //
                     // Successful login based on username and password
@@ -74,7 +74,7 @@ if (!empty($_POST)) {
                                 //
                                 // Code matches. Reset the login cookie
                                 //
-                                $L->login($uname, $pword);
+                                $L->loginUser($uname, $pword);
                                 $LOG->logEvent("logLogin", $uname, "log_login_success");
                                 //
                                 // Check whether we have to force the announcement page to show.
