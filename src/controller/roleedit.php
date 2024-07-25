@@ -36,9 +36,9 @@ $RO2 = new Roles(); // for the profile to be created or updated
 if (isset($_GET['id'])) {
     $missingData =  false;
     $roleid = sanitize($_GET['id']);
-    if (!$RO2->getById($roleid)) $missingData = TRUE;
+    if (!$RO2->getById($roleid)) $missingData =  true;
 } else {
-    $missingData = TRUE;
+    $missingData =  true;
 }
 
 if ($missingData) {
@@ -123,7 +123,7 @@ if (!empty($_POST)) {
             //
             // Success
             //
-            $showAlert = TRUE;
+            $showAlert =  true;
             $alertData['type'] = 'success';
             $alertData['title'] = $LANG['alert_success_title'];
             $alertData['subject'] = $LANG['role_alert_edit'];
@@ -141,7 +141,7 @@ if (!empty($_POST)) {
         //
         // Input validation failed
         //
-        $showAlert = TRUE;
+        $showAlert =  true;
         $alertData['type'] = 'danger';
         $alertData['title'] = $LANG['alert_danger_title'];
         $alertData['subject'] = $LANG['alert_input'];

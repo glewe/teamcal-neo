@@ -860,7 +860,7 @@ if (!empty($_POST)) {
                     //
                     // Success
                     //
-                    $showAlert = TRUE;
+                    $showAlert =  true;
                     $alertData['type'] = 'success';
                     $alertData['title'] = $LANG['alert_success_title'];
                     $alertData['subject'] = $LANG['tcpimp_alert_title'];
