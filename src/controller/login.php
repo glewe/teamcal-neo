@@ -322,6 +322,9 @@ if (!empty($_POST)) {
           $alertData['help'] = '';
           $LOG->logEvent("logLogin", $uname, "log_login_ldap_search_bind_failed");
           break;
+
+        default:
+          break;
       }
     }
   } else {
