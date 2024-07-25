@@ -53,10 +53,10 @@ if (isset($_GET['month']) && isset($_GET['region'])) {
     $region = sanitize($_GET['region']);
     $viewData['year'] = substr($yyyymm, 0, 4);
     $viewData['month'] = substr($yyyymm, 4, 2);
-    if (!is_numeric($yyyymm) || strlen($yyyymm) != 6 || !checkdate(intval($viewData['month']), 1, intval($viewData['year']))) $missingData = TRUE;
-    if (!$R->getById($region)) $missingData = TRUE;
+    if (!is_numeric($yyyymm) || strlen($yyyymm) != 6 || !checkdate(intval($viewData['month']), 1, intval($viewData['year']))) $missingData =  true;
+    if (!$R->getById($region)) $missingData =  true;
 } else {
-    $missingData = TRUE;
+    $missingData =  true;
 }
 
 if ($missingData) {
@@ -139,7 +139,7 @@ if (!empty($_POST)) {
         //
         // Success
         //
-        $showAlert = TRUE;
+        $showAlert =  true;
         $alertData['type'] = 'success';
         $alertData['title'] = $LANG['alert_success_title'];
         $alertData['subject'] = $LANG['monthedit_alert_update'];
@@ -167,7 +167,7 @@ if (!empty($_POST)) {
         //
         // Success
         //
-        $showAlert = TRUE;
+        $showAlert =  true;
         $alertData['type'] = 'success';
         $alertData['title'] = $LANG['alert_success_title'];
         $alertData['subject'] = $LANG['monthedit_alert_update'];

@@ -91,7 +91,7 @@ if (!empty($_POST)) {
             //
             // Success
             //
-            $showAlert = TRUE;
+            $showAlert =  true;
             $alertData['type'] = 'success';
             $alertData['title'] = $LANG['alert_success_title'];
             $alertData['subject'] = $LANG['btn_create_region'];
@@ -101,7 +101,7 @@ if (!empty($_POST)) {
             //
             // Fail
             //
-            $showAlert = TRUE;
+            $showAlert =  true;
             $alertData['type'] = 'danger';
             $alertData['title'] = $LANG['alert_danger_title'];
             $alertData['subject'] = $LANG['btn_create_region'];
@@ -125,7 +125,7 @@ if (!empty($_POST)) {
         //
         // Success
         //
-        $showAlert = TRUE;
+        $showAlert =  true;
         $alertData['type'] = 'success';
         $alertData['title'] = $LANG['alert_success_title'];
         $alertData['subject'] = $LANG['btn_delete_region'];
@@ -140,7 +140,7 @@ if (!empty($_POST)) {
             //
             // No filename was submitted
             //
-            $showAlert = TRUE;
+            $showAlert =  true;
             $alertData['type'] = 'danger';
             $alertData['title'] = $LANG['alert_danger_title'];
             $alertData['subject'] = $LANG['alert_input'];
@@ -231,7 +231,7 @@ if (!empty($_POST)) {
             //
             // Success
             //
-            $showAlert = TRUE;
+            $showAlert =  true;
             $alertData['type'] = 'success';
             $alertData['title'] = $LANG['alert_success_title'];
             $alertData['subject'] = $LANG['regions_tab_ical'];
@@ -247,7 +247,7 @@ if (!empty($_POST)) {
             //
             // Same source and target region
             //
-            $showAlert = TRUE;
+            $showAlert =  true;
             $alertData['type'] = 'danger';
             $alertData['title'] = $LANG['alert_danger_title'];
             $alertData['subject'] = $LANG['alert_input'];
@@ -305,7 +305,7 @@ if (!empty($_POST)) {
             //
             // Success
             //
-            $showAlert = TRUE;
+            $showAlert =  true;
             $alertData['type'] = 'success';
             $alertData['title'] = $LANG['alert_success_title'];
             $alertData['subject'] = $LANG['regions_tab_transfer'];

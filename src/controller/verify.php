@@ -86,7 +86,7 @@ if ($fverify = $UO->read($ruser, "verifycode")) {
             //
             // Success but approval needed
             //
-            $showAlert = TRUE;
+            $showAlert =  true;
             $alertData['type'] = 'info';
             $alertData['title'] = $LANG['alert_info_title'];
             $alertData['subject'] = $LANG['alert_reg_subject'];
@@ -107,7 +107,7 @@ if ($fverify = $UO->read($ruser, "verifycode")) {
             //
             // Success
             //
-            $showAlert = TRUE;
+            $showAlert =  true;
             $alertData['type'] = 'success';
             $alertData['title'] = $LANG['alert_success_title'];
             $alertData['subject'] = $LANG['alert_reg_subject'];
@@ -128,7 +128,7 @@ if ($fverify = $UO->read($ruser, "verifycode")) {
         //
         // Verify code mismatch
         //
-        $showAlert = TRUE;
+        $showAlert =  true;
         $alertData['type'] = 'danger';
         $alertData['title'] = $LANG['alert_danger_title'];
         $alertData['subject'] = $LANG['alert_reg_subject'];
@@ -148,7 +148,7 @@ if ($fverify = $UO->read($ruser, "verifycode")) {
         //
         // Failed
         //
-        $showAlert = TRUE;
+        $showAlert =  true;
         $alertData['type'] = 'danger';
         $alertData['title'] = $LANG['alert_danger_title'];
         $alertData['subject'] = $LANG['alert_reg_subject'];
@@ -163,7 +163,7 @@ if ($fverify = $UO->read($ruser, "verifycode")) {
         //
         // Failed
         //
-        $showAlert = TRUE;
+        $showAlert =  true;
         $alertData['type'] = 'danger';
         $alertData['title'] = $LANG['alert_danger_title'];
         $alertData['subject'] = $LANG['alert_reg_subject'];

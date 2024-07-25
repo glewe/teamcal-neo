@@ -80,7 +80,7 @@ if (!empty($_POST)) {
                 //
                 // Captcha code wrong
                 //
-                $showAlert = TRUE;
+                $showAlert =  true;
                 $alertData['type'] = 'warning';
                 $alertData['title'] = $LANG['alert_warning_title'];
                 $alertData['subject'] = $LANG['alert_captcha_wrong'];
@@ -137,7 +137,7 @@ if (!empty($_POST)) {
                 //
                 // Success
                 //
-                $showAlert = TRUE;
+                $showAlert =  true;
                 $alertData['type'] = 'success';
                 $alertData['title'] = $LANG['alert_success_title'];
                 $alertData['subject'] = $LANG['register_title'];
@@ -149,7 +149,7 @@ if (!empty($_POST)) {
         //
         // Input validation failed
         //
-        $showAlert = TRUE;
+        $showAlert =  true;
         $alertData['type'] = 'danger';
         $alertData['title'] = $LANG['alert_danger_title'];
         $alertData['subject'] = $LANG['alert_input'];
