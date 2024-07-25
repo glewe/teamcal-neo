@@ -870,7 +870,7 @@ if (!empty($_POST)) {
                     //
                     // One or more TCP queries failed
                     //
-                    $showAlert = TRUE;
+                    $showAlert = true;
                     $alertData['type'] = 'danger';
                     $alertData['title'] = $LANG['alert_danger_title'];
                     $alertData['subject'] = $LANG['tcpimp_alert_title'];
@@ -883,7 +883,7 @@ if (!empty($_POST)) {
         //
         // Input validation failed
         //
-        $showAlert = TRUE;
+        $showAlert = true;
         $alertData['type'] = 'danger';
         $alertData['title'] = $LANG['alert_danger_title'];
         $alertData['subject'] = $LANG['alert_input'];

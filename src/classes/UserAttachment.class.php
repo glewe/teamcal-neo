@@ -155,7 +155,7 @@ class UserAttachment {
    *
    * @param string $username Username to find
    * @param string $fileid File ID to find
-   * @return string TRUE if exists, false if not
+   * @return string true if exists, false if not
    */
   public function hasAccess($username, $fileid) {
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND fileid = :val2');
