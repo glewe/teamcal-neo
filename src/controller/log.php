@@ -214,7 +214,7 @@ if (!empty($_POST)) {
       //
       // Log this event
       //
-      $LOG->logEvent("logLoglevel", L_USER, "log_log_updated");
+      $LOG->log("logLoglevel", L_USER, "log_log_updated");
       header("Location: index.php?action=" . $controller);
     }
     // ,-------,
@@ -228,7 +228,7 @@ if (!empty($_POST)) {
       //
       // Log this event
       //
-      $LOG->logEvent("logLog", L_USER, "log_log_cleared");
+      $LOG->log("logLog", L_USER, "log_log_cleared");
       header("Location: index.php?action=" . $controller);
     }
     // ,-------,

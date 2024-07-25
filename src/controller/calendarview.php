@@ -415,7 +415,7 @@ foreach ($viewData[ 'months' ] as $vmonth) {
     //
     // Log this event
     //
-    $LOG->logEvent("logMonth", L_USER, "log_month_tpl_created", $vmonth[ 'M' ]->region . ": " . $vmonth[ 'M' ]->year . "-" . $vmonth[ 'M' ]->month);
+    $LOG->log("logMonth", L_USER, "log_month_tpl_created", $vmonth[ 'M' ]->region . ": " . $vmonth[ 'M' ]->year . "-" . $vmonth[ 'M' ]->month);
   }
 }
 

@@ -99,7 +99,7 @@ if (!empty($_POST)) {
       //
       // Log this event
       //
-      $LOG->logEvent("logUser", L_USER, "log_user_registered", $UR->username);
+      $LOG->log("logUser", L_USER, "log_user_registered", $UR->username);
 
       //
       // Reload page in case of language change, so it takes effect.

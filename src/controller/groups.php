@@ -109,7 +109,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->logEvent("logGroup", L_USER, "log_group_created", $G->name . " " . $G->description);
+                $LOG->log("logGroup", L_USER, "log_group_created", $G->name . " " . $G->description);
 
                 //
                 // Success
@@ -150,7 +150,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->logEvent("logGroup", L_USER, "log_group_deleted", $_POST['hidden_name']);
+            $LOG->log("logGroup", L_USER, "log_group_deleted", $_POST['hidden_name']);
 
             //
             // Success

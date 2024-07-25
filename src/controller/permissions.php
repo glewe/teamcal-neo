@@ -135,7 +135,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->logEvent("logPermission", L_USER, "log_perm_activated", $_POST['sel_scheme']);
+            $LOG->log("logPermission", L_USER, "log_perm_activated", $_POST['sel_scheme']);
             header("Location: index.php?action=permissions&scheme=" . $_POST['sel_scheme']);
         }
         // ,--------,
@@ -152,7 +152,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->logEvent("logPermission", L_USER, "log_perm_deleted", $_POST['sel_scheme']);
+                $LOG->log("logPermission", L_USER, "log_perm_deleted", $_POST['sel_scheme']);
                 header("Location: index.php?action=permissions&scheme=Default");
             }
         }
@@ -216,7 +216,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->logEvent("logPermission", L_USER, "log_perm_created", $scheme);
+                $LOG->log("logPermission", L_USER, "log_perm_created", $scheme);
                 header("Location: index.php?action=permissions&scheme=" . $scheme);
             }
         }
@@ -254,7 +254,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->logEvent("logPermission", L_USER, "log_perm_reset", $scheme);
+                $LOG->log("logPermission", L_USER, "log_perm_reset", $scheme);
                 header("Location: index.php?action=permissions&scheme=" . $scheme);
             } else {
                 //
@@ -312,7 +312,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->logEvent("logPermission", L_USER, "log_perm_changed", $scheme);
+            $LOG->log("logPermission", L_USER, "log_perm_changed", $scheme);
             header("Location: index.php?action=permissions&scheme=" . $scheme);
         }
         // ,--------,
