@@ -216,7 +216,7 @@ if (!empty($_POST)) {
                     //
                     // Password incorrect (no bad login count)
                     //
-                    $showAlert = TRUE;
+                    $showAlert = true;
                     $alertData['type'] = 'warning';
                     $alertData['title'] = $LANG['alert_warning_title'];
                     $alertData['subject'] = $LANG['login_error_7'];
@@ -229,7 +229,7 @@ if (!empty($_POST)) {
                     //
                     // Account not verified
                     //
-                    $showAlert = TRUE;
+                    $showAlert = true;
                     $alertData['type'] = 'warning';
                     $alertData['title'] = $LANG['alert_warning_title'];
                     $alertData['subject'] = $LANG['login_error_3'];
@@ -242,7 +242,7 @@ if (!empty($_POST)) {
                     //
                     // LDAP error: password missing
                     //
-                    $showAlert = TRUE;
+                    $showAlert = true;
                     $alertData['type'] = 'warning';
                     $alertData['title'] = $LANG['alert_warning_title'];
                     $alertData['subject'] = $LANG['login_error_91'];
@@ -255,7 +255,7 @@ if (!empty($_POST)) {
                     //
                     // LDAP error: bind failed
                     //
-                    $showAlert = TRUE;
+                    $showAlert = true;
                     $alertData['type'] = 'warning';
                     $alertData['title'] = $LANG['alert_warning_title'];
                     $alertData['subject'] = $LANG['login_error_92'];
@@ -268,7 +268,7 @@ if (!empty($_POST)) {
                     //
                     // LDAP error: Unable to connect
                     //
-                    $showAlert = TRUE;
+                    $showAlert = true;
                     $alertData['type'] = 'warning';
                     $alertData['title'] = $LANG['alert_warning_title'];
                     $alertData['subject'] = $LANG['login_error_93'];
@@ -281,7 +281,7 @@ if (!empty($_POST)) {
                     //
                     // LDAP error: Start of TLS encryption failed
                     //
-                    $showAlert = TRUE;
+                    $showAlert = true;
                     $alertData['type'] = 'warning';
                     $alertData['title'] = $LANG['alert_warning_title'];
                     $alertData['subject'] = $LANG['login_error_94'];
@@ -294,7 +294,7 @@ if (!empty($_POST)) {
                     //
                     // LDAP error: Username not found
                     //
-                    $showAlert = TRUE;
+                    $showAlert = true;
                     $alertData['type'] = 'warning';
                     $alertData['title'] = $LANG['alert_warning_title'];
                     $alertData['subject'] = $LANG['login_error_95'];
@@ -307,7 +307,7 @@ if (!empty($_POST)) {
                     //
                     // LDAP error: LDAP search bind failed
                     //
-                    $showAlert = TRUE;
+                    $showAlert = true;
                     $alertData['type'] = 'warning';
                     $alertData['title'] = $LANG['alert_warning_title'];
                     $alertData['subject'] = $LANG['login_error_96'];
@@ -321,7 +321,7 @@ if (!empty($_POST)) {
         //
         // Input validation failed
         //
-        $showAlert = TRUE;
+        $showAlert = true;
         $alertData['type'] = 'danger';
         $alertData['title'] = $LANG['alert_danger_title'];
         $alertData['subject'] = $LANG['alert_input'];
