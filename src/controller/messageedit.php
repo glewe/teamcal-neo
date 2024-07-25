@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('No direct access allowed!');
+}
 
 /**
  * Message editor controller
@@ -11,7 +14,6 @@
  * @subpackage Controllers
  * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 //=============================================================================
 //
@@ -31,7 +33,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission) || !$C->read("acti
 //
 // LOAD CONTROLLER RESOURCES
 //
-require_once(WEBSITE_ROOT . '/addons/securimage/securimage.php');
+require_once WEBSITE_ROOT . '/addons/securimage/securimage.php';
 
 //=============================================================================
 //
@@ -88,7 +90,7 @@ if (!empty($_POST)) {
       //
       // Get Captcha
       //
-      if ($securimage->check($_POST['txt_code']) == false) {
+      if (!$securimage->check($_POST['txt_code'])) {
         //
         // Captcha code wrong
         //
@@ -122,7 +124,9 @@ if (!empty($_POST)) {
             case "all":
               $users = $U->getAll();
               foreach ($users as $user) {
-                if (strlen($user['email'])) $to .= $user['email'] . ',';
+                if (strlen($user['email'])) {
+                  $to .= $user['email'] . ',';
+                }
               }
               $to = rtrim($to, ','); // remove the last ","
               $sendMail = true;
@@ -133,7 +137,9 @@ if (!empty($_POST)) {
                 foreach ($_POST['sel_sendToGroup'] as $gto) {
                   $groupusers = $UG->getAllForGroup($gto);
                   foreach ($groupusers as $groupuser) {
-                    if (strlen($U->getEmail($groupuser))) $to .= $U->getEmail($groupuser) . ',';
+                    if (strlen($U->getEmail($groupuser))) {
+                      $to .= $U->getEmail($groupuser) . ',';
+                    }
                   }
                   $to = rtrim($to, ','); // remove the last ","
                 }
@@ -154,7 +160,9 @@ if (!empty($_POST)) {
             case "user":
               if (isset($_POST['sel_sendToUser'])) {
                 foreach ($_POST['sel_sendToUser'] as $uto) {
-                  if (strlen($U->getEmail($uto))) $to .= $U->getEmail($uto) . ",";
+                  if (strlen($U->getEmail($uto))) {
+                    $to .= $U->getEmail($uto) . ",";
+                  }
                 }
                 $to = rtrim($to, ','); // remove the last ","
                 $sendMail = true;
@@ -187,7 +195,6 @@ if (!empty($_POST)) {
               // Log this event
               //
               $LOG->logEvent("logMessages", L_USER, "log_msg_email", $UL->username . " -> " . $to);
-
               //
               // E-mail success
               //
@@ -219,7 +226,9 @@ if (!empty($_POST)) {
         $mmsg = str_replace("\r\n", "<br>", $_POST['txt_text']);
 
         if ($userAvatar = $UO->read($UL->username, 'avatar')) {
-          if (!file_exists(APP_AVATAR_DIR . $userAvatar)) $userAvatar = 'default_' . $UO->read($UL->username, 'gender') . '.png';
+          if (!file_exists(APP_AVATAR_DIR . $userAvatar)) {
+            $userAvatar = 'default_' . $UO->read($UL->username, 'gender') . '.png';
+          }
         } else {
           $userAvatar = 'default_' . $UO->read($UL->username, 'gender') . '.png';
         }
@@ -273,7 +282,9 @@ if (!empty($_POST)) {
               $to = " Users (";
               foreach ($_POST['sel_sendToUser'] as $uto) {
                 $to .= $uto . ",";
-                if ($U->findByName($uto)) $UMSG->add($uto, $newsid, $popup);
+                if ($U->findByName($uto)) {
+                  $UMSG->add($uto, $newsid, $popup);
+                }
               }
               $to = rtrim($to, ','); // remove the last ","
               $to .= ')';
