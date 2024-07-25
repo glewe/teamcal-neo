@@ -19,7 +19,7 @@ if (!defined('VALID_ROOT')) {
 // CHECK PERMISSION
 //
 if (
-  !isAllowed($CONF['controllers'][$controller]->permission) or
+  !isAllowed($CONF['controllers'][$controller]->permission) ||
   (isset($_GET['for']) && $_GET['for'] == 'all' && !isAllowed('daynoteglobal'))
 ) {
   $alertData['type'] = 'warning';
