@@ -27,7 +27,7 @@ if (isset($_GET['month']) && isset($_GET['region']) && isset($_GET['group'])) {
     $yyyymm = sanitize($_GET['month']);
     $viewData['year'] = substr($yyyymm, 0, 4);
     $viewData['month'] = substr($yyyymm, 4, 2);
-    if (!is_numeric($yyyymm) or strlen($yyyymm) != 6 or !checkdate(intval($viewData['month']), 1, intval($viewData['year']))) {
+    if (!is_numeric($yyyymm) || strlen($yyyymm) != 6 || !checkdate(intval($viewData['month']), 1, intval($viewData['year']))) {
         $missingData = TRUE;
     }
 
@@ -156,7 +156,7 @@ if (!$T->getTemplate($calgroupuser, $viewData['year'], $viewData['month'])) {
 // PROCESS FORM
 //
 if (!empty($_POST)) {
-    if (isset($_POST['btn_save']) or isset($_POST['btn_clearall']) or isset($_POST['btn_saveperiod']) or isset($_POST['btn_saverecurring'])) {
+    if (isset($_POST['btn_save']) || isset($_POST['btn_clearall']) || isset($_POST['btn_saveperiod']) || isset($_POST['btn_saverecurring'])) {
         //
         // All changes to the calendar are handled in this block.
         // Note: It does NOT finish with the Approval routine. All groups absences will overwrite every affected user's absences.
@@ -407,7 +407,7 @@ $viewData['dayStyles'] = array();
 //
 $allRegions = $R->getAll();
 foreach ($allRegions as $reg) {
-    if (!$R->getAccess($reg['id'], $UL->getRole($UL->username)) or $R->getAccess($reg['id'], $UL->getRole($UL->username)) == 'edit') {
+    if (!$R->getAccess($reg['id'], $UL->getRole($UL->username)) || $R->getAccess($reg['id'], $UL->getRole($UL->username)) == 'edit') {
         $viewData['regions'][] = $reg;
     }
 }
@@ -445,7 +445,7 @@ for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
         //
         $color = 'color:#' . $H->getColor($M->$hprop) . ';';
         $bgcolor = 'background-color:#' . $H->getBgColor($M->$hprop) . ';';
-    } else if ($M->$wprop == 6 or $M->$wprop == 7) {
+    } else if ($M->$wprop == 6 || $M->$wprop == 7) {
         //
         // This is a Saturday or Sunday. Get the coloring info.
         //
@@ -464,7 +464,7 @@ for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
     //
     // Build styles
     //
-    if (strlen($color) or strlen($bgcolor) or strlen($border)) {
+    if (strlen($color) || strlen($bgcolor) || strlen($border)) {
         $viewData['dayStyles'][$i] = ' style="' . $color . $bgcolor . $border . '"';
     }
 }

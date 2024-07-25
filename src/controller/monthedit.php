@@ -53,7 +53,7 @@ if (isset($_GET['month']) && isset($_GET['region'])) {
     $region = sanitize($_GET['region']);
     $viewData['year'] = substr($yyyymm, 0, 4);
     $viewData['month'] = substr($yyyymm, 4, 2);
-    if (!is_numeric($yyyymm) or strlen($yyyymm) != 6 or !checkdate(intval($viewData['month']), 1, intval($viewData['year']))) $missingData = TRUE;
+    if (!is_numeric($yyyymm) || strlen($yyyymm) != 6 || !checkdate(intval($viewData['month']), 1, intval($viewData['year']))) $missingData = TRUE;
     if (!$R->getById($region)) $missingData = TRUE;
 } else {
     $missingData = TRUE;
@@ -205,7 +205,7 @@ for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
         $color = $H->getColor($M->$hprop);
         $bgcolor = $H->getBgColor($M->$hprop);
         $viewData['dayStyles'][$i] = ' style="color: #' . $color . '; background-color: #' . $bgcolor . ';"';
-    } else if ($M->$wprop == 6 or $M->$wprop == 7) {
+    } else if ($M->$wprop == 6 || $M->$wprop == 7) {
         //
         // This is a Saturday or Sunday. Get the coloring info.
         //
