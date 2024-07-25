@@ -21,7 +21,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
  *
  * @param string $absid Absence ID
  * @param string $username Username
- * 
+ *
  * @return boolean True or False indicating success
  */
 function absenceIsValidForUser($absid, $username)
@@ -61,13 +61,13 @@ function archiveUser($username)
     /**
      * Do not archive if username exists in any of the archive table
      */
-    if ($U->exists($username, TRUE)) return FALSE;
-    if ($UG->exists($username, TRUE)) return FALSE;
-    if ($UO->exists($username, TRUE)) return FALSE;
-    if ($T->exists($username, TRUE)) return FALSE;
-    if ($D->exists($username, TRUE)) return FALSE;
-    if ($AL->exists($username, TRUE)) return FALSE;
-    if ($UMSG->exists($username, TRUE)) return FALSE;
+    if ($U->exists($username, TRUE)) return  false;
+    if ($UG->exists($username, TRUE)) return  false;
+    if ($UO->exists($username, TRUE)) return  false;
+    if ($T->exists($username, TRUE)) return  false;
+    if ($D->exists($username, TRUE)) return  false;
+    if ($AL->exists($username, TRUE)) return  false;
+    if ($UMSG->exists($username, TRUE)) return  false;
 
     /**
      * Get fullname for log
@@ -125,10 +125,10 @@ function deleteOrphanedMessages()
  * Deletes a user and all related records
  *
  * @param string $deluser User to delete
- * @param boolean $fromArchive Flag whether to delete from archive tables 
- * @param boolean $sendNotifications Flag whether to send notifications 
+ * @param boolean $fromArchive Flag whether to delete from archive tables
+ * @param boolean $sendNotifications Flag whether to send notifications
  */
-function deleteUser($username, $fromArchive = FALSE, $sendNotifications = true)
+function deleteUser($username, $fromArchive =  false, $sendNotifications = true)
 {
     global $AL, $AV, $CONF, $D, $L, $LOG, $T, $U, $UMSG, $UG, $UO;
 
@@ -175,7 +175,7 @@ function deleteUser($username, $fromArchive = FALSE, $sendNotifications = true)
  * @param string $file CSV file
  * @param boolean $lock Flag indicating whether to lock the user accounts or not
  * @param boolean $hide Flag indicating whether to hide the user accounts or not
- * 
+ *
  * @return boolean Success flag
  */
 function importUsersFromCSV($file, $lock = true, $hide = true)
@@ -287,7 +287,7 @@ function isAllowed($permission = '')
  * Restores a user and all related records from archive
  *
  * @param string $username Username to restore
- * 
+ *
  * @return boolean True or False indicating success
  */
 function restoreUser($username)
@@ -297,13 +297,13 @@ function restoreUser($username)
     /**
      * Do not restore if username exists in any of the active tables
      */
-    if ($U->exists($username)) return FALSE;
-    if ($UG->exists($username)) return FALSE;
-    if ($UO->exists($username)) return FALSE;
-    if ($T->exists($username)) return FALSE;
-    if ($D->exists($username)) return FALSE;
-    if ($AL->exists($username)) return FALSE;
-    if ($UMSG->exists($username)) return FALSE;
+    if ($U->exists($username)) return  false;
+    if ($UG->exists($username)) return  false;
+    if ($UO->exists($username)) return  false;
+    if ($T->exists($username)) return  false;
+    if ($D->exists($username)) return  false;
+    if ($AL->exists($username)) return  false;
+    if ($UMSG->exists($username)) return  false;
 
     /**
      * Get fullname for log

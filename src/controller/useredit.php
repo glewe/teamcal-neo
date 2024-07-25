@@ -20,7 +20,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
 //
 $UP = new Users(); // for the profile to be created or updated
 if (isset($_GET[ 'profile' ])) {
-  $missingData = FALSE;
+  $missingData =  false;
   $profile = sanitize($_GET[ 'profile' ]);
   if (!$UP->findByName($profile)) $missingData = TRUE;
 } else {
@@ -44,7 +44,7 @@ if ($missingData) {
 //
 // CHECK PERMISSION
 //
-$allowed = FALSE;
+$allowed =  false;
 if ($UL->username == $profile || isAllowed($CONF[ 'controllers' ][ $controller ]->permission)) {
   $allowed = TRUE;
 }
@@ -368,7 +368,7 @@ if (!empty($_POST)) {
       // Check if one or more users already exists in any archive table.
       // If so, we will not archive anything.
       //
-      $exists = FALSE;
+      $exists =  false;
       if (!archiveUser($profile)) $exists = TRUE;
 
       if (!$exists) {

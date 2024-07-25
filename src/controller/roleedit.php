@@ -34,7 +34,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //
 $RO2 = new Roles(); // for the profile to be created or updated
 if (isset($_GET['id'])) {
-    $missingData = FALSE;
+    $missingData =  false;
     $roleid = sanitize($_GET['id']);
     if (!$RO2->getById($roleid)) $missingData = TRUE;
 } else {

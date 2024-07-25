@@ -35,7 +35,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 $HH = new Holidays(); // for the holiday to be edited
 
 if (isset($_GET['id'])) {
-    $missingData = FALSE;
+    $missingData =  false;
     $id = sanitize($_GET['id']);
     if (!$HH->get($id)) $missingData = TRUE;
 } else {

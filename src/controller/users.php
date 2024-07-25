@@ -99,7 +99,7 @@ if (!empty($_POST)) {
             // Check if one or more users already exists in any archive table.
             // If so, we will not archive anything.
             //
-            $exists = FALSE;
+            $exists =  false;
             foreach ($selected_users as $su => $value) {
                 if (!archiveUser($value)) $exists = TRUE;
             }
@@ -136,7 +136,7 @@ if (!empty($_POST)) {
             // Check if one or more users already exists in any active table.
             // If so, we will not restore anything.
             //
-            $exists = FALSE;
+            $exists =  false;
             foreach ($selected_users as $su => $value) {
                 if (!restoreUser($value)) {
                     $exists = TRUE;
