@@ -47,7 +47,7 @@ class DB {
      * Database settings
      */
     $query = $this->db->prepare('SET SQL_BIG_SELECTS=1');
-    $result = $query->execute();
+    $query->execute();
   }
 
   // ---------------------------------------------------------------------
