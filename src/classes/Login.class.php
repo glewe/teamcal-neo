@@ -17,7 +17,6 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 class Login {
-  private $user = '';
   private $bad_logins = 0;
   private $cookie_name = '';
   private $grace_period = 0;
@@ -26,7 +25,6 @@ class Login {
   private $pw_strength = 0;
   private $php_self = '';
   private $log = '';
-  private $logtype = '';
 
   // ---------------------------------------------------------------------
   /**
@@ -83,7 +81,7 @@ class Login {
    *
    * @return string
    */
-  function getHost() {
+  public function getHost() {
     if ($host = getenv('HTTP_X_FORWARDED_HOST')) {
       $elements = explode(',', $host);
       $host = trim(end($elements));
@@ -331,9 +329,9 @@ class Login {
    * @return integer authentication return code
    */
   private function localVerify($password) {
-    global $CONF, $U;
+    global $U;
 
-    if ($verifyResult = password_verify($password, $U->password)) {
+    if (password_verify($password, $U->password)) {
       //
       // Password correct
       //
@@ -403,12 +401,9 @@ class Login {
   public function login($loginname = '', $loginpwd = '') {
     global $C, $U, $UO;
 
-    $logged_in = 0;
-    $showForm = 0;
     $retcode = 0;
-    $bad_logins_now = 0;
 
-    if (empty($loginname) or empty($loginpwd)) {
+    if (empty($loginname) || empty($loginpwd)) {
       return 1;
     }
 
