@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Logout Controller
  *
@@ -11,8 +13,6 @@ if (!defined('VALID_ROOT')) { exit(''); }
  * @subpackage Controllers
  * @since 3.0.0
  */
-
-// echo '<script type="text/javascript">alert("Debug: ");</script>';
 
 //=============================================================================
 //
@@ -36,7 +36,7 @@ $viewData['cookie_name'] = COOKIE_NAME;
 //
 // SHOW VIEW
 //
-require WEBSITE_ROOT . '/views/header.php';
-require WEBSITE_ROOT . '/views/menu.php';
-include WEBSITE_ROOT . '/views/' . $controller . '.php';
-require WEBSITE_ROOT . '/views/footer.php';
+require_once WEBSITE_ROOT . '/views/header.php';
+require_once WEBSITE_ROOT . '/views/menu.php';
+include_once WEBSITE_ROOT . '/views/' . $controller . '.php';
+require_once WEBSITE_ROOT . '/views/footer.php';
