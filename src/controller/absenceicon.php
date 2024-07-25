@@ -37,7 +37,9 @@ $AA = new Absences(); // for the absence type to be edited
 if (isset($_GET['id'])) {
   $missingData = false;
   $id = sanitize($_GET['id']);
-  if (!$AA->get($id)) $missingData = true;
+  if (!$AA->get($id)) {
+    $missingData = true;
+  }
 } else {
   $missingData = true;
 }
@@ -48,7 +50,7 @@ if ($missingData) {
   $alertData['subject'] = $LANG['alert_no_data_subject'];
   $alertData['text'] = $LANG['alert_no_data_text'];
   $alertData['help'] = $LANG['alert_no_data_help'];
-  require(WEBSITE_ROOT . '/controller/alert.php');
+  require_once WEBSITE_ROOT . '/controller/alert.php';
   die();
 }
 
