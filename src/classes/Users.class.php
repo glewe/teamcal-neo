@@ -279,7 +279,7 @@ class Users {
    * @return array Array with records
    */
   public function getAll($order1 = 'lastname', $order2 = 'firstname', $sort = 'ASC', $archive = false, $includeAdmin = false) {
-    if ($this->_use_order_key()) {
+    if ($this->useOrderKey()) {
       $order1 = 'order_key';
       $order2 = 'lastname';
     }
@@ -343,7 +343,7 @@ class Users {
    * @return array Array with records
    */
   public function getAllButHidden($order1 = 'lastname', $order2 = 'firstname', $sort = 'ASC', $archive = false, $includeAdmin = false) {
-    if ($this->_use_order_key()) {
+    if ($this->useOrderKey()) {
       $order1 = 'order_key';
       $order2 = 'lastname';
     }
@@ -598,7 +598,7 @@ class Users {
    * @param string $role Role to set
    * @return boolean True or False
    */
-  function setRole($username, $role) {
+  public function setRole($username, $role) {
     $query = $this->db->prepare('UPDATE ' . $this->table . ' SET role = :val1 WHERE username = :val2');
     $query->bindParam('val1', $role);
     $query->bindParam('val2', $username);
@@ -673,25 +673,23 @@ class Users {
    * @return boolean Query result
    */
   public function update($username) {
-    $result = $this->db->exec("UPDATE " . $this->table . " SET 
-        `username` = '" . $this->username . "',
-        `password` = '" . $this->password . "',
-        `firstname` = '" . $this->firstname . "',
-        `lastname` = '" . $this->lastname . "',
-        `email` = '" . $this->email . "',
-        `order_key` = '" . $this->order_key . "',
-        `role` = '" . $this->role . "',
-        `locked` = '" . $this->locked . "',
-        `hidden` = '" . $this->hidden . "',
-        `onhold` = '" . $this->onhold . "',
-        `verify` = '" . $this->verify . "',
-        `bad_logins` = '" . $this->bad_logins . "',
-        `grace_start` = '" . $this->grace_start . "',
-        `last_pw_change` = '" . $this->last_pw_change . "',
-        `last_login` = '" . $this->last_login . "',
-        `created` = '" . $this->created . "' WHERE `username` = '" . $username . "';");
-
-    return $result;
+    return $this->db->exec("UPDATE " . $this->table . " SET
+      `username` = '" . $this->username . "',
+      `password` = '" . $this->password . "',
+      `firstname` = '" . $this->firstname . "',
+      `lastname` = '" . $this->lastname . "',
+      `email` = '" . $this->email . "',
+      `order_key` = '" . $this->order_key . "',
+      `role` = '" . $this->role . "',
+      `locked` = '" . $this->locked . "',
+      `hidden` = '" . $this->hidden . "',
+      `onhold` = '" . $this->onhold . "',
+      `verify` = '" . $this->verify . "',
+      `bad_logins` = '" . $this->bad_logins . "',
+      `grace_start` = '" . $this->grace_start . "',
+      `last_pw_change` = '" . $this->last_pw_change . "',
+      `last_login` = '" . $this->last_login . "',
+      `created` = '" . $this->created . "' WHERE `username` = '" . $username . "';");
   }
 
   // --------------------------------------------------------------------------
@@ -713,7 +711,7 @@ class Users {
    *
    * @return boolean Query result
    */
-  private function _use_order_key() {
+  private function useOrderKey() {
     $query = $this->db->prepare("SELECT value FROM " . $this->config_table . " WHERE `name` = 'sortByOrderKey'");
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {
