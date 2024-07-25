@@ -69,7 +69,7 @@ if (!empty($_POST)) {
     // ,-------------,
     // | Confirm All |
     // '-------------'
-    else if (isset($_POST['btn_confirm_all'])) {
+    elseif (isset($_POST['btn_confirm_all'])) {
       $UMSG->setSilentByUser($UL->username);
       //
       // Log this event
@@ -80,7 +80,7 @@ if (!empty($_POST)) {
     // ,--------,
     // | Delete |
     // '--------'
-    else if (isset($_POST['btn_delete'])) {
+    elseif (isset($_POST['btn_delete'])) {
       $UMSG->delete($_POST['msgId']);
       deleteOrphanedMessages();
       //
@@ -92,7 +92,7 @@ if (!empty($_POST)) {
     // ,------------,
     // | Delete All |
     // '------------'
-    else if (isset($_POST['btn_delete_all'])) {
+    elseif (isset($_POST['btn_delete_all'])) {
       $UMSG->deleteByUser($UL->username);
       deleteOrphanedMessages();
       //
