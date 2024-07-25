@@ -91,9 +91,13 @@ if ($C->read('currentYearOnly') && $viewData['year'] != date('Y')) {
 $allowed = false;
 if (isAllowed($CONF['controllers'][$controller]->permission)) {
   if ($UG->shareGroups($UL->username, $calgroup)) {
-    if (isAllowed("calendareditgroup")) $allowed = true;
+    if (isAllowed("calendareditgroup")) {
+      $allowed = true;
+    }
   } else {
-    if (isAllowed("calendareditall")) $allowed = true;
+    if (isAllowed("calendareditall")) {
+      $allowed = true;
+    }
   }
 }
 
@@ -184,7 +188,7 @@ if (!empty($_POST)) {
     // ,-----------,
     // | Clear All |
     // '-----------'
-    else if (isset($_POST['btn_clearall'])) {
+    elseif (isset($_POST['btn_clearall'])) {
       //
       // Loop thru the radio boxes
       //
@@ -200,8 +204,12 @@ if (!empty($_POST)) {
       // Form validation
       //
       $inputError = false;
-      if (!formInputValid('txt_periodStart', 'required|date')) $inputError = true;
-      if (!formInputValid('txt_periodEnd', 'required|date')) $inputError = true;
+      if (!formInputValid('txt_periodStart', 'required|date')) {
+        $inputError = true;
+      }
+      if (!formInputValid('txt_periodEnd', 'required|date')) {
+        $inputError = true;
+      }
 
       if (!$inputError) {
         $startPieces = explode("-", $_POST['txt_periodStart']);
@@ -325,7 +333,9 @@ if (!empty($_POST)) {
               //
               // User has an absence already. Only overwrite if keepExisting was not checked.
               //
-              if (!isset($_POST['chk_keepExisting'])) $T->$col = $val;
+              if (!isset($_POST['chk_keepExisting'])) {
+                $T->$col = $val;
+              }
             } else {
               //
               // User has no absence yet. Set the new group absence.
@@ -411,9 +421,13 @@ $viewData['groups'] = array();
 foreach ($groups as $group) {
   $allowed = false;
   if ($UG->shareGroups($UL->username, $group['id'])) {
-    if (isAllowed("calendareditgroup")) $allowed = true;
+    if (isAllowed("calendareditgroup")) {
+      $allowed = true;
+    }
   } else {
-    if (isAllowed("calendareditall")) $allowed = true;
+    if (isAllowed("calendareditall")) {
+      $allowed = true;
+    }
   }
   if ($allowed) {
     $viewData['groups'][] = array( 'id' => $group['id'], 'name' => $group['name'] );
