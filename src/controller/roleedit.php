@@ -118,7 +118,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->logEvent("logRole", L_USER, "log_role_updated", $RO2->name . ' (ex: ' . $oldName . ')');
+            $LOG->log("logRole", L_USER, "log_role_updated", $RO2->name . ' (ex: ' . $oldName . ')');
 
             //
             // Success

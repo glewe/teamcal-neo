@@ -163,7 +163,7 @@ if (!empty($_POST)) {
           //
           // Log this event
           //
-          $LOG->logEvent("logUpload", $UL->username, "log_upload_image", $UPL->uploaded_file['name']);
+          $LOG->log("logUpload", $UL->username, "log_upload_image", $UPL->uploaded_file['name']);
           header("Location: index.php?action=" . $controller);
         }
       } else {

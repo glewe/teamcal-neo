@@ -120,7 +120,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event.
                 //
-                $LOG->logEvent("logUser", L_USER, "log_user_updated", $UP->username);
+                $LOG->log("logUser", L_USER, "log_user_updated", $UP->username);
                 //
                 // Log out so a new login with 2FA is needed.
                 //

@@ -116,7 +116,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->logEvent("logRole", L_USER, "log_role_created", $RO->name . " " . $RO->description);
+                $LOG->log("logRole", L_USER, "log_role_created", $RO->name . " " . $RO->description);
 
                 //
                 // Success
@@ -162,7 +162,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->logEvent("logRole", L_USER, "log_role_deleted", $_POST['hidden_name']);
+            $LOG->log("logRole", L_USER, "log_role_deleted", $_POST['hidden_name']);
 
             //
             // Success

@@ -167,7 +167,7 @@ if (isset($_POST['btn_caloptApply'])) {
     //
     // Log this event
     //
-    $LOG->logEvent("logCalendarOptions", $UL->username, "log_calopt");
+    $LOG->log("logCalendarOptions", $UL->username, "log_calopt");
     header("Location: index.php?action=" . $controller);
 }
 

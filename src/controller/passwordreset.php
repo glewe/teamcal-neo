@@ -116,7 +116,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->logEvent("logUser", L_USER, "log_user_pwd_reset", $UP->username);
+                $LOG->log("logUser", L_USER, "log_user_pwd_reset", $UP->username);
 
                 //
                 // Success

@@ -81,7 +81,7 @@ if ($fverify = $UO->read($ruser, "verifycode")) {
             //
             // Log this event
             //
-            $LOG->logEvent("logRegistration", $U->username, "log_user_verify_approval", $U->username . " (" . $fullname . ")");
+            $LOG->log("logRegistration", $U->username, "log_user_verify_approval", $U->username . " (" . $fullname . ")");
 
             //
             // Success but approval needed
@@ -102,7 +102,7 @@ if ($fverify = $UO->read($ruser, "verifycode")) {
             //
             // Log this event
             //
-            $LOG->logEvent("logRegistration", $U->username, "log_user_verify_unlocked", $U->username . " (" . $fullname . ")");
+            $LOG->log("logRegistration", $U->username, "log_user_verify_unlocked", $U->username . " (" . $fullname . ")");
 
             //
             // Success
@@ -123,7 +123,7 @@ if ($fverify = $UO->read($ruser, "verifycode")) {
         //
         // Log this event
         //
-        $LOG->logEvent("logRegistration", $U->username, "log_user_verify_mismatch", $U->username . " (" . $fullname . "): " . $rverify . "<>" . $rverify);
+        $LOG->log("logRegistration", $U->username, "log_user_verify_mismatch", $U->username . " (" . $fullname . "): " . $rverify . "<>" . $rverify);
 
         //
         // Verify code mismatch
@@ -143,7 +143,7 @@ if ($fverify = $UO->read($ruser, "verifycode")) {
         //
         // Log this event
         //
-        $LOG->logEvent("logRegistration", $ruser, "log_user_verify_usr_notexist", $ruser . " : " . $rverify);
+        $LOG->log("logRegistration", $ruser, "log_user_verify_usr_notexist", $ruser . " : " . $rverify);
 
         //
         // Failed
@@ -158,7 +158,7 @@ if ($fverify = $UO->read($ruser, "verifycode")) {
         //
         // Log this event
         //
-        $LOG->logEvent("logRegistration", $ruser, "log_user_verify_code_notexist", $ruser . " : " . $rverify);
+        $LOG->log("logRegistration", $ruser, "log_user_verify_code_notexist", $ruser . " : " . $rverify);
 
         //
         // Failed

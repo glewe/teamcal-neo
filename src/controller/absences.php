@@ -104,7 +104,7 @@ if (!empty($_POST)) {
                 //
                 // Log this event
                 //
-                $LOG->logEvent("logAbsence", L_USER, "log_abs_created", $AA->name);
+                $LOG->log("logAbsence", L_USER, "log_abs_created", $AA->name);
 
                 //
                 // Success
@@ -147,7 +147,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->logEvent("logAbsence", L_USER, "log_abs_deleted", $_POST['hidden_name']);
+            $LOG->log("logAbsence", L_USER, "log_abs_deleted", $_POST['hidden_name']);
 
             //
             // Success
