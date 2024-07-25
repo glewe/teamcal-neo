@@ -88,7 +88,9 @@ if (!empty($_POST)) {
       }
 
       $viewData['txt_name'] = $_POST['txt_name'];
-      if (isset($_POST['txt_description'])) $viewData['txt_description'] = $_POST['txt_description'];
+      if (isset($_POST['txt_description'])) {
+        $viewData['txt_description'] = $_POST['txt_description'];
+      }
 
       if (!$inputError) {
         $G->name = $viewData['txt_name'];
