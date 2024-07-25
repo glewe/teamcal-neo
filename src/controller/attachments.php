@@ -215,7 +215,9 @@ if (!empty($_POST)) {
       if (isset($_POST['btn_updateShares' . $file['id']])) {
         $UAT->deleteFile($file['id']);
         if (isset($_POST['sel_shares' . $file['id']])) {
-          foreach ($_POST['sel_shares' . $file['id']] as $uto) $UAT->create($uto, $file['id']);
+          foreach ($_POST['sel_shares' . $file['id']] as $uto) {
+            $UAT->create($uto, $file['id']);
+          }
         }
         // Make sure the uploader has access
         $UAT->create($AT->getUploaderById($file['id']), $file['id']);
