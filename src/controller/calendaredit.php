@@ -27,7 +27,7 @@ if (isset($_GET['month']) && isset($_GET['region']) && isset($_GET['user'])) {
   $yyyymm = sanitize($_GET['month']);
   $viewData['year'] = substr($yyyymm, 0, 4);
   $viewData['month'] = substr($yyyymm, 4, 2);
-  if (!is_numeric($yyyymm) or strlen($yyyymm) != 6 or !checkdate(intval($viewData['month']), 1, intval($viewData['year']))) {
+  if (!is_numeric($yyyymm) || strlen($yyyymm) != 6 || !checkdate(intval($viewData['month']), 1, intval($viewData['year']))) {
     $missingData = true;
     die("month");
   }
@@ -75,18 +75,16 @@ if ($missingData) {
 //
 // Default back to current yearmonth if option is set
 //
-if ($C->read('currentYearOnly') && $viewData['year'] != date('Y')) {
-  if ($C->read("currYearRoles")) {
-    //
-    // Applies to roles. Check if current user in in one of them.
-    //
-    $arrCurrYearRoles = array();
-    $arrCurrYearRoles = explode(',', $C->read("currYearRoles"));
-    $userRole = $U->getRole(L_USER);
-    if (in_array($userRole, $arrCurrYearRoles)) {
-      header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . date('Ym') . "&region=" . $region . "&user=" . $caluser);
-      die();
-    }
+if ($C->read('currentYearOnly') && $viewData['year'] != date('Y') && $C->read("currYearRoles")) {
+  //
+  // Applies to roles. Check if current user in in one of them.
+  //
+  $arrCurrYearRoles = array();
+  $arrCurrYearRoles = explode(',', $C->read("currYearRoles"));
+  $userRole = $U->getRole(L_USER);
+  if (in_array($userRole, $arrCurrYearRoles)) {
+    header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . date('Ym') . "&region=" . $region . "&user=" . $caluser);
+    die();
   }
 }
 
@@ -101,13 +99,13 @@ if (isAllowed($CONF['controllers'][$controller]->permission)) {
       $allowed = true;
     }
   } elseif ($UG->shareGroupMemberships($UL->username, $caluser)) {
-    if (isAllowed("calendareditgroup")) {
-      $allowed = true;
-    } elseif (isAllowed("calendareditgroupmanaged") && $UG->isGroupManagerOfUser($UL->username, $caluser)) {
+    if (isAllowed("calendareditgroup") || (isAllowed("calendareditgroupmanaged") && $UG->isGroupManagerOfUser($UL->username, $caluser))) {
       $allowed = true;
     }
   } else {
-    if (isAllowed("calendareditall")) $allowed = true;
+    if (isAllowed("calendareditall")) {
+      $allowed = true;
+    }
   }
 }
 
@@ -361,7 +359,9 @@ if (!empty($_POST)) {
           foreach ($requestedAbsences as $key => $val) {
             $col = 'abs' . $key;
             $T->$col = $val;
-            if ($val) $logText .= '- ' . $viewData['year'] . $viewData['month'] . sprintf("%02d", $key) . ': ' . $A->getName($val) . '<br>';
+            if ($val) {
+              $logText .= '- ' . $viewData['year'] . $viewData['month'] . sprintf("%02d", $key) . ': ' . $A->getName($val) . '<br>';
+            }
           }
           $T->update($caluser, $viewData['year'], $viewData['month']);
           $sendNotification = true;
