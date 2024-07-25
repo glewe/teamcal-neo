@@ -45,7 +45,7 @@ if ($missingData) {
 // CHECK PERMISSION
 //
 $allowed = FALSE;
-if ($UL->username == $profile or isAllowed($CONF[ 'controllers' ][ $controller ]->permission)) {
+if ($UL->username == $profile || isAllowed($CONF[ 'controllers' ][ $controller ]->permission)) {
   $allowed = TRUE;
 }
 
@@ -98,7 +98,7 @@ if (!empty($_POST)) {
     if (!formInputValid('txt_position', 'alpha_numeric_dash_blank')) $inputError = true;
     if (!formInputValid('txt_email', 'required|email')) $inputError = true;
     if (!formInputValid('txt_orderkey', 'alpha_numeric_dash_blank_dot')) $inputError = true;
-    if ((isset($_POST[ 'txt_password' ]) && strlen($_POST[ 'txt_password' ])) or (isset($_POST[ 'txt_password2' ]) && strlen($_POST[ 'txt_password2' ]))) {
+    if ((isset($_POST[ 'txt_password' ]) && strlen($_POST[ 'txt_password' ])) || (isset($_POST[ 'txt_password2' ]) && strlen($_POST[ 'txt_password2' ]))) {
       if (!formInputValid('txt_password', 'pwd' . $C->read('pwdStrength'))) $inputError = true;
       if (!formInputValid('txt_password2', 'required|pwd' . $C->read('pwdStrength'))) $inputError = true;
       if (!formInputValid('txt_password2', 'match', 'txt_password')) {
@@ -266,8 +266,8 @@ if (!empty($_POST)) {
       //
       if (isset($_POST[ 'opt_avatar' ])) {
         $UO->save($profile, 'avatar', $_POST[ 'opt_avatar' ]);
-      } elseif ((!$UO->read($profile, 'avatar') && ($UO->read($profile, 'gender') == 'male' or $UO->read($profile, 'gender') == 'female')) or
-        ($UO->read($profile, 'avatar') == 'default_male.png' && $UO->read($profile, 'gender') == 'female') or
+      } elseif ((!$UO->read($profile, 'avatar') && ($UO->read($profile, 'gender') == 'male' || $UO->read($profile, 'gender') == 'female')) ||
+        ($UO->read($profile, 'avatar') == 'default_male.png' && $UO->read($profile, 'gender') == 'female') ||
         ($UO->read($profile, 'avatar') == 'default_female.png' && $UO->read($profile, 'gender') == 'male')
       ) {
         $UO->save($profile, 'avatar', 'default_' . $UO->read($profile, 'gender') . '.png');
@@ -549,7 +549,7 @@ $viewData[ 'contact' ] = array(
 // Options
 //
 $selected = false;
-if (!$UO->read($viewData[ 'profile' ], 'calfilterGroup') or $UO->read($viewData[ 'profile' ], 'calfilterGroup') == 'All') $selected = true;
+if (!$UO->read($viewData[ 'profile' ], 'calfilterGroup') || $UO->read($viewData[ 'profile' ], 'calfilterGroup') == 'All') $selected = true;
 $viewData[ 'calfilterGroups' ][] = array( 'val' => 'all', 'name' => $LANG[ 'all' ], 'selected' => $selected );
 foreach ($groups as $group) {
   if ($UG->isMemberOrManagerOfGroup($viewData[ 'profile' ], $group[ 'id' ])) {

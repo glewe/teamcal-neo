@@ -60,7 +60,7 @@ if ($groupfilter == "all") {
     //
     $calusers = array();
     foreach ($users as $key => $usr) {
-        if (L_USER == $usr['username'] or L_USER == 'admin' or $UG->isGroupManagerOfUser(L_USER, $usr['username'])) {
+        if (L_USER == $usr['username'] || L_USER == 'admin' || $UG->isGroupManagerOfUser(L_USER, $usr['username'])) {
             $calusers[] = $usr;
         }
     }
@@ -72,7 +72,7 @@ if ($groupfilter == "all") {
     //
     $calusers = array();
     foreach ($users as $key => $usr) {
-        if (L_USER == 'admin' or ($UG->isMemberOrGuestOfGroup($usr['username'], $groupfilter) && ($UG->isGroupManagerOfUser(L_USER, $usr['username']) or L_USER == $usr['username']))) {
+        if (L_USER == 'admin' || ($UG->isMemberOrGuestOfGroup($usr['username'], $groupfilter) && ($UG->isGroupManagerOfUser(L_USER, $usr['username']) || L_USER == $usr['username']))) {
             $calusers[] = $usr;
         }
     }

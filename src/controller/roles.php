@@ -85,7 +85,7 @@ if (!empty($_POST)) {
             $inputAlert = array();
             $inputError = false;
             if (
-                !formInputValid('txt_name', 'required|alpha_numeric_dash') or
+                !formInputValid('txt_name', 'required|alpha_numeric_dash') ||
                 !formInputValid('txt_description', 'alpha_numeric_dash_blank')
             ) {
                 $inputError = true;

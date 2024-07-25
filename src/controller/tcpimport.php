@@ -87,7 +87,7 @@ if (!empty($_POST)) {
                 //
                 // Absence Types
                 //
-                if ($_POST['opt_absImport'] == 'replace' or $_POST['opt_absImport'] == 'add') {
+                if ($_POST['opt_absImport'] == 'replace' || $_POST['opt_absImport'] == 'add') {
                     //
                     // Read TeamCal Pro table
                     //
@@ -144,7 +144,7 @@ if (!empty($_POST)) {
                 //
                 // Groups
                 //
-                if ($_POST['opt_groupsImport'] == 'replace' or $_POST['opt_groupsImport'] == 'add') {
+                if ($_POST['opt_groupsImport'] == 'replace' || $_POST['opt_groupsImport'] == 'add') {
                     //
                     // Read TeamCal Pro table
                     //
@@ -189,7 +189,7 @@ if (!empty($_POST)) {
                 //
                 // Holidays
                 //
-                if ($_POST['opt_holsImport'] == 'replace' or $_POST['opt_holsImport'] == 'add') {
+                if ($_POST['opt_holsImport'] == 'replace' || $_POST['opt_holsImport'] == 'add') {
                     //
                     // Read TeamCal Pro table
                     //
@@ -240,7 +240,7 @@ if (!empty($_POST)) {
                 //
                 // Regions
                 //
-                if ($_POST['opt_regsImport'] == 'replace' or $_POST['opt_regsImport'] == 'add') {
+                if ($_POST['opt_regsImport'] == 'replace' || $_POST['opt_regsImport'] == 'add') {
                     //
                     // Read TeamCal Pro table
                     //
@@ -284,7 +284,7 @@ if (!empty($_POST)) {
                 //
                 // Users, User Options
                 //
-                if ($_POST['opt_usersImport'] == 'replace' or $_POST['opt_usersImport'] == 'add') {
+                if ($_POST['opt_usersImport'] == 'replace' || $_POST['opt_usersImport'] == 'add') {
                     //
                     // Read TeamCal Pro table
                     //
@@ -403,9 +403,9 @@ if (!empty($_POST)) {
                 // - Absences
                 // - Users
                 //
-                if (($_POST['opt_alloImport'] == 'replace' or $_POST['opt_alloImport'] == 'add') and
-                    ($_POST['opt_absImport'] == 'replace' or $_POST['opt_absImport'] == 'add') and
-                    ($_POST['opt_usersImport'] == 'replace' or $_POST['opt_usersImport'] == 'add')
+                if (($_POST['opt_alloImport'] == 'replace' || $_POST['opt_alloImport'] == 'add') and
+                    ($_POST['opt_absImport'] == 'replace' || $_POST['opt_absImport'] == 'add') and
+                    ($_POST['opt_usersImport'] == 'replace' || $_POST['opt_usersImport'] == 'add')
                 ) {
                     //
                     // Read TeamCal Pro table
@@ -471,9 +471,9 @@ if (!empty($_POST)) {
                 // - Regions
                 // - Users
                 //
-                if (($_POST['opt_daynImport'] == 'replace' or $_POST['opt_daynImport'] == 'add') and
-                    ($_POST['opt_regsImport'] == 'replace' or $_POST['opt_regsImport'] == 'add') and
-                    ($_POST['opt_usersImport'] == 'replace' or $_POST['opt_usersImport'] == 'add')
+                if (($_POST['opt_daynImport'] == 'replace' || $_POST['opt_daynImport'] == 'add') and
+                    ($_POST['opt_regsImport'] == 'replace' || $_POST['opt_regsImport'] == 'add') and
+                    ($_POST['opt_usersImport'] == 'replace' || $_POST['opt_usersImport'] == 'add')
                 ) {
                     //
                     // Read TeamCal Pro table
@@ -536,7 +536,7 @@ if (!empty($_POST)) {
                     $RO->color = 'success';
                     $RO->create();
 
-                    if ($_POST['opt_usersImport'] == 'replace' or $_POST['opt_usersImport'] == 'add') {
+                    if ($_POST['opt_usersImport'] == 'replace' || $_POST['opt_usersImport'] == 'add') {
                         //
                         // Read TeamCal Pro users table to get their role (usertype). If one is Director or Assistant,
                         // assign them to that role in TCN as well.
@@ -584,9 +584,9 @@ if (!empty($_POST)) {
                 // - Groups
                 // - Users
                 //
-                if (($_POST['opt_ugrImport'] == 'replace' or $_POST['opt_ugrImport'] == 'add') and
-                    ($_POST['opt_groupsImport'] == 'replace' or $_POST['opt_groupsImport'] == 'add') and
-                    ($_POST['opt_usersImport'] == 'replace' or $_POST['opt_usersImport'] == 'add')
+                if (($_POST['opt_ugrImport'] == 'replace' || $_POST['opt_ugrImport'] == 'add') and
+                    ($_POST['opt_groupsImport'] == 'replace' || $_POST['opt_groupsImport'] == 'add') and
+                    ($_POST['opt_usersImport'] == 'replace' || $_POST['opt_usersImport'] == 'add')
                 ) {
                     //
                     // Read TeamCal Pro table
@@ -641,9 +641,9 @@ if (!empty($_POST)) {
                 // - Regions
                 // - Holidays
                 //
-                if (($_POST['opt_mtplImport'] == 'replace' or $_POST['opt_mtplImport'] == 'add') and
-                    ($_POST['opt_holsImport'] == 'replace' or $_POST['opt_holsImport'] == 'add') and
-                    ($_POST['opt_regsImport'] == 'replace' or $_POST['opt_regsImport'] == 'add')
+                if (($_POST['opt_mtplImport'] == 'replace' || $_POST['opt_mtplImport'] == 'add') and
+                    ($_POST['opt_holsImport'] == 'replace' || $_POST['opt_holsImport'] == 'add') and
+                    ($_POST['opt_regsImport'] == 'replace' || $_POST['opt_regsImport'] == 'add')
                 ) {
                     //
                     // Read TeamCal Pro table
@@ -773,9 +773,9 @@ if (!empty($_POST)) {
                 // - Absence Types
                 // - Users
                 //
-                if (($_POST['opt_utplImport'] == 'replace' or $_POST['opt_utplImport'] == 'add') and
-                    ($_POST['opt_absImport'] == 'replace' or $_POST['opt_absImport'] == 'add') and
-                    ($_POST['opt_usersImport'] == 'replace' or $_POST['opt_usersImport'] == 'add')
+                if (($_POST['opt_utplImport'] == 'replace' || $_POST['opt_utplImport'] == 'add') and
+                    ($_POST['opt_absImport'] == 'replace' || $_POST['opt_absImport'] == 'add') and
+                    ($_POST['opt_usersImport'] == 'replace' || $_POST['opt_usersImport'] == 'add')
                 ) {
 
                     //
