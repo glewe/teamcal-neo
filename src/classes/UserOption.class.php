@@ -266,11 +266,7 @@ class UserOption {
     $query->bindParam('val2', $option);
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {
-      if (trim($row['value']) != "" || trim($row['value']) != "no") {
-        return true;
-      } else {
-        return false;
-      }
+      return trim($row['value']) != "" || trim($row['value']) != "no";
     } else {
       return false;
     }
