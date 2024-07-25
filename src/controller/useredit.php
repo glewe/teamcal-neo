@@ -24,7 +24,7 @@ if (isset($_GET[ 'profile' ])) {
   $profile = sanitize($_GET[ 'profile' ]);
   if (!$UP->findByName($profile)) $missingData =  true;
 } else {
-  $missingData = TRUE;
+  $missingData = true;
 }
 
 if ($missingData) {
@@ -46,7 +46,7 @@ if ($missingData) {
 //
 $allowed =  false;
 if ($UL->username == $profile || isAllowed($CONF[ 'controllers' ][ $controller ]->permission)) {
-  $allowed = TRUE;
+  $allowed = true;
 }
 
 if (!$allowed) {
@@ -353,7 +353,7 @@ if (!empty($_POST)) {
       //
       // Success
       //
-      $showAlert = TRUE;
+      $showAlert = true;
       $alertData[ 'type' ] = 'success';
       $alertData[ 'title' ] = $LANG[ 'alert_success_title' ];
       $alertData[ 'subject' ] = $LANG[ 'profile_alert_update' ];
@@ -369,13 +369,13 @@ if (!empty($_POST)) {
       // If so, we will not archive anything.
       //
       $exists =  false;
-      if (!archiveUser($profile)) $exists = TRUE;
+      if (!archiveUser($profile)) $exists = true;
 
       if (!$exists) {
         //
         // Success
         //
-        $showAlert = TRUE;
+        $showAlert = true;
         $alertData[ 'type' ] = 'success';
         $alertData[ 'title' ] = $LANG[ 'alert_success_title' ];
         $alertData[ 'subject' ] = $LANG[ 'btn_archive' ];
@@ -388,7 +388,7 @@ if (!empty($_POST)) {
         //
         // Failed, at least partially
         //
-        $showAlert = TRUE;
+        $showAlert = true;
         $alertData[ 'type' ] = 'danger';
         $alertData[ 'title' ] = $LANG[ 'alert_danger_title' ];
         $alertData[ 'subject' ] = $LANG[ 'btn_archive' ];
@@ -413,7 +413,7 @@ if (!empty($_POST)) {
       //
       // Success
       //
-      $showAlert = TRUE;
+      $showAlert = true;
       $alertData[ 'type' ] = 'success';
       $alertData[ 'title' ] = $LANG[ 'alert_success_title' ];
       $alertData[ 'subject' ] = $LANG[ 'btn_delete_selected' ];
@@ -457,7 +457,7 @@ if (!empty($_POST)) {
         //
         // Upload failed
         //
-        $showAlert = TRUE;
+        $showAlert = true;
         $alertData[ 'type' ] = 'danger';
         $alertData[ 'title' ] = $LANG[ 'alert_danger_title' ];
         $alertData[ 'subject' ] = 'Avatar ' . $LANG[ 'btn_upload' ];
@@ -487,7 +487,7 @@ if (!empty($_POST)) {
     //
     // Input validation failed
     //
-    $showAlert = TRUE;
+    $showAlert = true;
     $alertData[ 'type' ] = 'danger';
     $alertData[ 'title' ] = $LANG[ 'alert_danger_title' ];
     $alertData[ 'subject' ] = $LANG[ 'alert_input' ];
