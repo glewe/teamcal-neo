@@ -114,6 +114,27 @@ class Upload {
 
   // --------------------------------------------------------------------------
   /**
+   * Deletes a temporary file
+   *
+   * @param string $file Temp file to delete
+   */
+//  private function deleteTempFile($file) {
+//    @unlink($file);
+//    clearstatcache();
+//    if (@file_exists($file)) {
+//      $filesys = preg_replace("/", "\\", $file);
+//      @system("del $filesys");
+//      clearstatcache();
+//      if (@file_exists($file)) {
+//        @chmod($file, 0644);
+//        @unlink($file);
+//        @system("del $filesys");
+//      }
+//    }
+//  }
+
+  // --------------------------------------------------------------------------
+  /**
    * Checks whether a given file exists.
    *
    * @param string $file_name Filename to check
