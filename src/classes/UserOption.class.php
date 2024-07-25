@@ -74,8 +74,7 @@ class UserOption {
   public function exists($username = '', $archive = false) {
     if ($archive) {
       $table = $this->archive_table;
-    }
-    else {
+    } else {
       $table = $this->table;
     }
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE `username` = :val1');
@@ -111,8 +110,7 @@ class UserOption {
   public function deleteAll($archive = false) {
     if ($archive) {
       $table = $this->archive_table;
-    }
-    else {
+    } else {
       $table = $this->table;
     }
     $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username <> :val1');
@@ -143,8 +141,7 @@ class UserOption {
   public function deleteByUser($username = '', $archive = false) {
     if ($archive) {
       $table = $this->archive_table;
-    }
-    else {
+    } else {
       $table = $this->table;
     }
     $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE `username` = :val1');
@@ -209,12 +206,13 @@ class UserOption {
   public function read($username, $option, $archive = false) {
     if ($archive) {
       $table = $this->archive_table;
-    }
-    else {
+    } else {
       $table = $this->table;
     }
     $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE `username` = :val1 AND `option` = :val2');
-    if (is_array($username)) print_r($username);
+    if (is_array($username)) {
+      print_r($username);
+    }
     $query->bindParam('val1', $username);
     $query->bindParam('val2', $option);
     $result = $query->execute();
@@ -244,15 +242,13 @@ class UserOption {
       $query2->bindParam('val1', $value);
       $query2->bindParam('val2', $username);
       $query2->bindParam('val3', $option);
-      $result2 = $query2->execute();
-      return $result2;
+      return $query2->execute();
     } else {
       $query2 = $this->db->prepare('INSERT INTO ' . $this->table . ' (`username`, `option`, `value`) VALUES (:val1, :val2, :val3)');
       $query2->bindParam('val1', $username);
       $query2->bindParam('val2', $option);
       $query2->bindParam('val3', $value);
-      $result2 = $query2->execute();
-      return $result2;
+      return $query2->execute();
     }
   }
 
@@ -270,7 +266,7 @@ class UserOption {
     $query->bindParam('val2', $option);
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {
-      if (trim($row['value']) != "" or trim($row['value']) != "no") return true;
+      return trim($row['value']) != "" || trim($row['value']) != "no";
     } else {
       return false;
     }
