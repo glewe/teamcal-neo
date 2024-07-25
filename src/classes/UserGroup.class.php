@@ -108,8 +108,7 @@ class UserGroup {
     $result = $query->execute();
     if ($result && $query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $table);
-      $result = $query->execute();
-      return $result;
+      return $query->execute();
     } else {
       return false;
     }
@@ -247,11 +246,7 @@ class UserGroup {
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
-    if ($result && $query->fetchColumn()) {
-      return true;
-    } else {
-      return false;
-    }
+    return $result && $query->fetchColumn();
   }
 
   // --------------------------------------------------------------------------
