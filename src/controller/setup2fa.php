@@ -20,7 +20,7 @@ use RobThree\Auth\TwoFactorAuth;
 //
 $UP = new Users(); // for the profile to be created or updated
 if (isset($_GET['profile'])) {
-    $missingData = FALSE;
+    $missingData =  false;
     $profile = sanitize($_GET['profile']);
     if (!$UP->findByName($profile)) $missingData = TRUE;
 } else {
@@ -44,7 +44,7 @@ if ($missingData) {
 //
 // CHECK PERMISSION
 //
-$allowed = FALSE;
+$allowed =  false;
 if ($UL->username == $profile) {
     $allowed = TRUE;
 }

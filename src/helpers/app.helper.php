@@ -750,7 +750,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
  * @param boolean $combined Count other absences that count as this one
  * @return  integer            Result of the count
  */
-function countAbsence($user = '%', $absid, $from, $to, $useFactor = FALSE, $combined = FALSE) {
+function countAbsence($user = '%', $absid, $from, $to, $useFactor =  false, $combined =  false) {
   global $A, $CONF, $T;
 
   $absences = $A->getAll();

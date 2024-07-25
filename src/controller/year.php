@@ -20,7 +20,7 @@ if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 // CHECK URL PARAMETERS
 //
 if (isset($_GET['year']) && isset($_GET['region']) && isset($_GET['user'])) {
-    $missingData = FALSE;
+    $missingData =  false;
 
     $yyyy = sanitize($_GET['year']);
     if (!is_numeric($yyyy) || strlen($yyyy) != 4 || !checkdate(1, 1, intval($yyyy))) $missingData = TRUE;
