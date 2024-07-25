@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Database Configuration
  *
@@ -15,7 +17,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
 //=============================================================================
 /**
  * DATABASE
- * 
+ *
  * Enter your database parameter here
  */
 $CONF['db_server'] = "localhost";
@@ -29,27 +31,27 @@ $CONF['db_table_prefix'] = "tcneo_";
  * The ID array is used to create the table names below.
  */
 $tableIDs = array(
-    'absences',
-    'absence_group',
-    'allowances',
-    'attachments',
-    'config',
-    'daynotes',
-    'holidays',
-    'groups',
-    'log',
-    'messages',
-    'months',
-    'permissions',
-    'region_role',
-    'regions',
-    'roles',
-    'templates',
-    'users',
-    'user_attachment',
-    'user_group',
-    'user_message',
-    'user_option',
+  'absences',
+  'absence_group',
+  'allowances',
+  'attachments',
+  'config',
+  'daynotes',
+  'holidays',
+  'groups',
+  'log',
+  'messages',
+  'months',
+  'permissions',
+  'region_role',
+  'regions',
+  'roles',
+  'templates',
+  'users',
+  'user_attachment',
+  'user_group',
+  'user_message',
+  'user_option',
 );
 
 /**
@@ -57,10 +59,10 @@ $tableIDs = array(
  * $CONF['db_table_config'] = "myprefix_config";
  */
 foreach ($tableIDs as $tid) {
-    $confIndex = 'db_table_' . $tid;
-    $confArchiveIndex = 'db_table_archive_' . $tid;
-    $CONF[$confIndex] = $CONF['db_table_prefix'] . $tid;
-    $CONF[$confArchiveIndex] = $CONF['db_table_prefix'] . 'archive_' . $tid;
+  $confIndex = 'db_table_' . $tid;
+  $confArchiveIndex = 'db_table_archive_' . $tid;
+  $CONF[$confIndex] = $CONF['db_table_prefix'] . $tid;
+  $CONF[$confArchiveIndex] = $CONF['db_table_prefix'] . 'archive_' . $tid;
 }
 
 define('DEFAULT_TIMESTAMP', '1900-01-01 00:00:00');
