@@ -161,7 +161,7 @@ if (!$M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']))
   //
   // Log this event
   //
-  $LOG->log("logMonth", L_USER, "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
+  $LOG->logEvent("logMonth", L_USER, "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
 }
 
 //
@@ -174,7 +174,7 @@ if (!$T->getTemplate($caluser, $viewData['year'], $viewData['month'])) {
   //
   // Log this event
   //
-  $LOG->log("logMonth", L_USER, "log_month_tpl_created", $caluser . ": " . $M->year . "-" . $M->month);
+  $LOG->logEvent("logMonth", L_USER, "log_month_tpl_created", $caluser . ": " . $M->year . "-" . $M->month);
 }
 
 //=============================================================================
@@ -412,7 +412,7 @@ if (!empty($_POST)) {
       //
       // Log this event
       //
-      $LOG->log("logCalendar", $UL->username, "log_cal_usr_tpl_chg", $caluser . " " . $viewData['year'] . $viewData['month'] . $logText);
+      $LOG->logEvent("logCalendar", $UL->username, "log_cal_usr_tpl_chg", $caluser . " " . $viewData['year'] . $viewData['month'] . $logText);
 
       //
       // Success

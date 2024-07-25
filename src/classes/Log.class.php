@@ -22,7 +22,6 @@ class Log {
   public $timestamp = '';
   public $user = '';
   public $event = '';
-
   private $db = '';
   private $table = '';
 
@@ -84,7 +83,6 @@ class Log {
     $query->bindParam('val4', $logsearchuser);
     $query->bindParam('val5', $logsearchevent);
     $result = $query->execute();
-
     if ($result) {
       while ($row = $query->fetch()) {
         $records[] = $row;
@@ -102,18 +100,15 @@ class Log {
    * @param string $event Event
    * @return boolean Query result
    */
-  public function log($type, $user, $event, $object = '') {
+  public function logEvent($type, $user, $event, $object = '') {
     if (!strlen($this->C->read("logLanguage"))) {
       $loglang = 'english';
     }
     else {
       $loglang = $this->C->read("logLanguage");
     }
-
     require WEBSITE_ROOT . "/languages/" . $loglang . ".log.php";
-
     $myEvent = $LANG[$event] . $object;
-
     if ($this->C->read($type)) {
       $ts = date("YmdHis");
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (type, timestamp, user, event) VALUES (:val1, :val2, :val3, :val4)');
@@ -123,6 +118,7 @@ class Log {
       $query->bindParam('val4', $myEvent);
       return $query->execute();
     }
+    return false;
   }
 
   // ---------------------------------------------------------------------

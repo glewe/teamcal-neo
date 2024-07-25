@@ -120,7 +120,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->log("logRegion", L_USER, "log_region_updated", $RR->name);
+            $LOG->logEvent("logRegion", L_USER, "log_region_updated", $RR->name);
 
             //
             // Success

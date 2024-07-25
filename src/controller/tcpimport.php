@@ -132,7 +132,7 @@ if (!empty($_POST)) {
                         //
                         // Log this event
                         //
-                        $LOG->log("logImport", L_USER, "log_tcpimp_abs", " (" . $_POST['opt_absImport'] . ")");
+                        $LOG->logEvent("logImport", L_USER, "log_tcpimp_abs", " (" . $_POST['opt_absImport'] . ")");
                         $importResult .= '<li>' . $LANG['tcpimp_abs'] . '</li>';
                     } else {
                         $queryFailed = true;
@@ -177,7 +177,7 @@ if (!empty($_POST)) {
                         //
                         // Log this event
                         //
-                        $LOG->log("logImport", L_USER, "log_tcpimp_groups", " (" . $_POST['opt_groupsImport'] . ")");
+                        $LOG->logEvent("logImport", L_USER, "log_tcpimp_groups", " (" . $_POST['opt_groupsImport'] . ")");
                         $importResult .= '<li>' . $LANG['tcpimp_groups'] . '</li>';
                     } else {
                         $queryFailed = true;
@@ -228,7 +228,7 @@ if (!empty($_POST)) {
                         //
                         // Log this event
                         //
-                        $LOG->log("logImport", L_USER, "log_tcpimp_hols", " (" . $_POST['opt_holsImport'] . ")");
+                        $LOG->logEvent("logImport", L_USER, "log_tcpimp_hols", " (" . $_POST['opt_holsImport'] . ")");
                         $importResult .= '<li>' . $LANG['tcpimp_hols'] . '</li>';
                     } else {
                         $queryFailed = true;
@@ -272,7 +272,7 @@ if (!empty($_POST)) {
                         //
                         // Log this event
                         //
-                        $LOG->log("logImport", L_USER, "log_tcpimp_regs", " (" . $_POST['opt_regsImport'] . ")");
+                        $LOG->logEvent("logImport", L_USER, "log_tcpimp_regs", " (" . $_POST['opt_regsImport'] . ")");
                         $importResult .= '<li>' . $LANG['tcpimp_regs'] . '</li>';
                     } else {
                         $queryFailed = true;
@@ -381,7 +381,7 @@ if (!empty($_POST)) {
                         //
                         // Log this event
                         //
-                        $LOG->log("logImport", L_USER, "log_tcpimp_users", " (" . $_POST['opt_usersImport'] . ")");
+                        $LOG->logEvent("logImport", L_USER, "log_tcpimp_users", " (" . $_POST['opt_usersImport'] . ")");
                         $importResult .= '<li>' . $LANG['tcpimp_users'] . '</li>';
                     } else {
                         $queryFailed = true;
@@ -455,7 +455,7 @@ if (!empty($_POST)) {
                         //
                         // Log this event
                         //
-                        $LOG->log("logImport", L_USER, "log_tcpimp_allo", " (" . $_POST['opt_alloImport'] . ")");
+                        $LOG->logEvent("logImport", L_USER, "log_tcpimp_allo", " (" . $_POST['opt_alloImport'] . ")");
                         $importResult .= '<li>' . $LANG['tcpimp_allo'] . '</li>';
                     } else {
                         $queryFailed = true;
@@ -513,7 +513,7 @@ if (!empty($_POST)) {
                         //
                         // Log this event
                         //
-                        $LOG->log("logImport", L_USER, "log_tcpimp_dayn", " (" . $_POST['opt_daynImport'] . ")");
+                        $LOG->logEvent("logImport", L_USER, "log_tcpimp_dayn", " (" . $_POST['opt_daynImport'] . ")");
                         $importResult .= '<li>' . $LANG['tcpimp_dayn'] . '</li>';
                     } else {
                         $queryFailed = true;
@@ -567,7 +567,7 @@ if (!empty($_POST)) {
                             //
                             // Log this event
                             //
-                            $LOG->log("logImport", L_USER, "log_tcpimp_roles", " (" . $_POST['opt_rolesImport'] . ")");
+                            $LOG->logEvent("logImport", L_USER, "log_tcpimp_roles", " (" . $_POST['opt_rolesImport'] . ")");
                             $importResult .= '<li>' . $LANG['tcpimp_roles'] . '</li>';
                         } else {
                             $queryFailed = true;
@@ -625,7 +625,7 @@ if (!empty($_POST)) {
                         //
                         // Log this event
                         //
-                        $LOG->log("logImport", L_USER, "log_tcpimp_ugr", " (" . $_POST['opt_ugrImport'] . ")");
+                        $LOG->logEvent("logImport", L_USER, "log_tcpimp_ugr", " (" . $_POST['opt_ugrImport'] . ")");
                         $importResult .= '<li>' . $LANG['tcpimp_ugr'] . '</li>';
                     } else {
                         $queryFailed = true;
@@ -757,7 +757,7 @@ if (!empty($_POST)) {
                         //
                         // Log this event
                         //
-                        $LOG->log("logImport", L_USER, "log_tcpimp_mtpl", " (" . $_POST['opt_mtplImport'] . ")");
+                        $LOG->logEvent("logImport", L_USER, "log_tcpimp_mtpl", " (" . $_POST['opt_mtplImport'] . ")");
                         $importResult .= '<li>' . $LANG['tcpimp_mtpl'] . '</li>';
                     } else {
                         $queryFailed = true;
@@ -843,7 +843,7 @@ if (!empty($_POST)) {
                         //
                         // Log this event
                         //
-                        $LOG->log("logImport", L_USER, "log_tcpimp_utpl", " (" . $_POST['opt_utplImport'] . ")");
+                        $LOG->logEvent("logImport", L_USER, "log_tcpimp_utpl", " (" . $_POST['opt_utplImport'] . ")");
                         $importResult .= '<li>' . $LANG['tcpimp_utpl'] . '</li>';
                     } else {
                         $queryFailed = true;
