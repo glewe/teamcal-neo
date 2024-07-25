@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Calendar View Controller
  *
@@ -12,19 +14,17 @@ if (!defined('VALID_ROOT')) { exit(''); }
  * @since 3.0.0
  */
 
-// echo "<script type=\"text/javascript\">alert(\"calendarview.php: \");</script>";
-
 //=============================================================================
 //
 // CHECK PERMISSION
 //
-if (!isAllowed($CONF[ 'controllers' ][ $controller ]->permission)) {
-  $alertData[ 'type' ] = 'warning';
-  $alertData[ 'title' ] = $LANG[ 'alert_alert_title' ];
-  $alertData[ 'subject' ] = $LANG[ 'alert_not_allowed_subject' ];
-  $alertData[ 'text' ] = $LANG[ 'alert_not_allowed_text' ];
-  $alertData[ 'help' ] = $LANG[ 'alert_not_allowed_help' ];
-  require(WEBSITE_ROOT . '/controller/alert.php');
+if (!isAllowed($CONF['controllers'][$controller]->permission)) {
+  $alertData['type'] = 'warning';
+  $alertData['title'] = $LANG['alert_alert_title'];
+  $alertData['subject'] = $LANG['alert_not_allowed_subject'];
+  $alertData['text'] = $LANG['alert_not_allowed_text'];
+  $alertData['help'] = $LANG['alert_not_allowed_help'];
+  require_once WEBSITE_ROOT . '/controller/alert.php';
   die();
 }
 
@@ -33,17 +33,17 @@ if (!isAllowed($CONF[ 'controllers' ][ $controller ]->permission)) {
 // CHECK URL PARAMETERS OR USER DEFAULTS
 //
 
-$missingData = FALSE;
+$missingData = false;
 
 //-----------------------------------------------------------------------------
 //
 // We need a Month
 //
-if (isset($_GET[ 'month' ])) {
+if (isset($_GET['month'])) {
   //
   // Passed by URL always wins
   //
-  $monthfilter = sanitize($_GET[ 'month' ]);
+  $monthfilter = sanitize($_GET['month']);
 } elseif (L_USER && $monthfilter = $UO->read($UL->username, 'calfilterMonth')) {
   //
   // Nothing in URL but user has a last-used value in his profile. Let's try that one.
@@ -60,16 +60,14 @@ if (isset($_GET[ 'month' ])) {
 // If we have a Month, check validity
 //
 if (!$missingData) {
-  $viewData[ 'year' ] = substr($monthfilter, 0, 4);
-  $viewData[ 'month' ] = substr($monthfilter, 4, 2);
-  if (
-    !is_numeric($monthfilter) or
-    strlen($monthfilter) != 6 or
-    !checkdate(intval($viewData[ 'month' ]), 1, intval($viewData[ 'year' ]))
-  ) {
-    $missingData = TRUE;
+  $viewData['year'] = substr($monthfilter, 0, 4);
+  $viewData['month'] = substr($monthfilter, 4, 2);
+  if (!is_numeric($monthfilter) || strlen($monthfilter) != 6 || !checkdate(intval($viewData['month']), 1, intval($viewData['year']))) {
+    $missingData = true;
   } else {
-    if (L_USER) $UO->save($UL->username, 'calfilterMonth', $monthfilter);
+    if (L_USER) {
+      $UO->save($UL->username, 'calfilterMonth', $monthfilter);
+    }
   }
 }
 
@@ -77,12 +75,14 @@ if (!$missingData) {
 //
 // We need a Region
 //
-if (isset($_GET[ 'region' ])) {
+if (isset($_GET['region'])) {
   //
   // Passed by URL always wins
   //
-  $regionfilter = sanitize($_GET[ 'region' ]);
-  if (L_USER) $UO->save($UL->username, 'calfilterRegion', $regionfilter);
+  $regionfilter = sanitize($_GET['region']);
+  if (L_USER) {
+    $UO->save($UL->username, 'calfilterRegion', $regionfilter);
+  }
 } elseif (L_USER && $regionfilter = $UO->read($UL->username, 'calfilterRegion')) {
   //
   // Nothing in URL but user has a last-used value in his profile. Let's try that one.
@@ -100,11 +100,13 @@ if (isset($_GET[ 'region' ])) {
 //
 if (!$missingData) {
   if (!$R->getById($regionfilter)) {
-    $missingData = TRUE;
+    $missingData = true;
   } else {
-    $viewData[ 'regionid' ] = $R->id;
-    $viewData[ 'regionname' ] = $R->name;
-    if (L_USER) $UO->save($UL->username, 'calfilterRegion', $regionfilter);
+    $viewData['regionid'] = $R->id;
+    $viewData['regionname'] = $R->name;
+    if (L_USER) {
+      $UO->save($UL->username, 'calfilterRegion', $regionfilter);
+    }
   }
 }
 
@@ -112,12 +114,12 @@ if ($missingData) {
   //
   // No valid Month or Region
   //
-  $alertData[ 'type' ] = 'danger';
-  $alertData[ 'title' ] = $LANG[ 'alert_danger_title' ];
-  $alertData[ 'subject' ] = $LANG[ 'alert_no_data_subject' ];
-  $alertData[ 'text' ] = $LANG[ 'alert_no_data_text' ];
-  $alertData[ 'help' ] = $LANG[ 'alert_no_data_help' ];
-  require(WEBSITE_ROOT . '/controller/alert.php');
+  $alertData['type'] = 'danger';
+  $alertData['title'] = $LANG['alert_danger_title'];
+  $alertData['subject'] = $LANG['alert_no_data_subject'];
+  $alertData['text'] = $LANG['alert_no_data_text'];
+  $alertData['help'] = $LANG['alert_no_data_help'];
+  require_once WEBSITE_ROOT . '/controller/alert.php';
   die();
 }
 
@@ -131,9 +133,11 @@ if ($missingData) {
 //
 $users = $U->getAllButHidden();
 
-if (isset($_GET[ 'group' ])) {
-  $groupfilter = sanitize($_GET[ 'group' ]);
-  if (L_USER) $UO->save($UL->username, 'calfilterGroup', $groupfilter);
+if (isset($_GET['group'])) {
+  $groupfilter = sanitize($_GET['group']);
+  if (L_USER) {
+    $UO->save($UL->username, 'calfilterGroup', $groupfilter);
+  }
 } elseif (L_USER && $groupfilter = $UO->read($UL->username, 'calfilterGroup')) {
   //
   // Nothing in URL but user has a last-used value in his profile.
@@ -147,14 +151,14 @@ if (isset($_GET[ 'group' ])) {
 // If a group filter has been specified, create a new array and only copy those
 // that belong to the group or are guests in that group.
 //
-$viewData[ 'groupid' ] = $groupfilter;
+$viewData['groupid'] = $groupfilter;
 if ($groupfilter == "all") {
-  $viewData[ 'group' ] = $LANG[ 'all' ];
+  $viewData['group'] = $LANG['all'];
 } else {
-  $viewData[ 'group' ] = $G->getNameById($groupfilter);
+  $viewData['group'] = $G->getNameById($groupfilter);
   $calusers = array();
   foreach ($users as $key => $usr) {
-    if ($UG->isMemberOrGuestOfGroup($usr[ 'username' ], $groupfilter)) {
+    if ($UG->isMemberOrGuestOfGroup($usr['username'], $groupfilter)) {
       $calusers[] = $usr;
     }
   }
@@ -165,9 +169,11 @@ if ($groupfilter == "all") {
 //
 // Absence filter (optional, defaults to 'all')
 //
-if (isset($_GET[ 'abs' ])) {
-  $absfilter = sanitize($_GET[ 'abs' ]);
-  if (L_USER) $UO->save($UL->username, 'calfilterAbs', $absfilter);
+if (isset($_GET['abs'])) {
+  $absfilter = sanitize($_GET['abs']);
+  if (L_USER) {
+    $UO->save($UL->username, 'calfilterAbs', $absfilter);
+  }
 } elseif (L_USER && $absfilter = $UO->read($UL->username, 'calfilterAbs')) {
   //
   // Nothing in URL but user has a last-used value in his profile.
@@ -177,16 +183,16 @@ if (isset($_GET[ 'abs' ])) {
   $absfilter = 'all';
 }
 
-$viewData[ 'absid' ] = $absfilter;
+$viewData['absid'] = $absfilter;
 if ($absfilter == "all") {
-  $viewData[ 'absfilter' ] = false;
-  $viewData[ 'absence' ] = $LANG[ 'all' ];
+  $viewData['absfilter'] = false;
+  $viewData['absence'] = $LANG['all'];
 } else {
-  $viewData[ 'absfilter' ] = true;
-  $viewData[ 'absence' ] = $A->getName($absfilter);
+  $viewData['absfilter'] = true;
+  $viewData['absence'] = $A->getName($absfilter);
   $ausers = array();
   foreach ($users as $usr) {
-    if ($T->hasAbsence($usr[ 'username' ], date('Y'), date('m'), $absfilter)) {
+    if ($T->hasAbsence($usr['username'], date('Y'), date('m'), $absfilter)) {
       array_push($ausers, $usr);
     }
   }
@@ -198,13 +204,13 @@ if ($absfilter == "all") {
 //
 // Search filter (optional, defaults to 'all')
 //
-$viewData[ 'search' ] = '';
+$viewData['search'] = '';
 if (L_USER && $searchfilter = $UO->read($UL->username, 'calfilterSearch')) {
   //
   // Nothing in URL but user has a last-used value in his profile.
   // (The value was loaded via the if statement so nothing needed in this block.)
   //
-  $viewData[ 'search' ] = $searchfilter;
+  $viewData['search'] = $searchfilter;
   unset($users);
   $users = $U->getAllLike($searchfilter);
 }
@@ -213,9 +219,11 @@ if (L_USER && $searchfilter = $UO->read($UL->username, 'calfilterSearch')) {
 //
 // Search Reset
 //
-if (isset($_GET[ 'search' ]) && $_GET[ 'search' ] == "reset") {
-  if (L_USER) $UO->deleteUserOption($UL->username, 'calfilterSearch');
-  header("Location: " . $_SERVER[ 'PHP_SELF' ] . "?action=" . $controller);
+if (isset($_GET['search']) && $_GET['search'] == "reset") {
+  if (L_USER) {
+    $UO->deleteUserOption($UL->username, 'calfilterSearch');
+  }
+  header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller);
   die();
 }
 
@@ -223,7 +231,7 @@ if (isset($_GET[ 'search' ]) && $_GET[ 'search' ] == "reset") {
 //
 // Default back to current year/month if option is set and role matches
 //
-if ($C->read('currentYearOnly') && $viewData[ 'year' ] != date('Y')) {
+if ($C->read('currentYearOnly') && $viewData['year'] != date('Y')) {
   if ($C->read("currYearRoles")) {
     //
     // Applies to roles. Check if current user in in one of them.
@@ -232,14 +240,14 @@ if ($C->read('currentYearOnly') && $viewData[ 'year' ] != date('Y')) {
     $arrCurrYearRoles = explode(',', $C->read("currYearRoles"));
     $userRole = $U->getRole(L_USER);
     if (in_array($userRole, $arrCurrYearRoles)) {
-      header("Location: " . $_SERVER[ 'PHP_SELF' ] . "?action=" . $controller . "&month=" . date('Ym') . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . date('Ym') . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
       die();
     }
   } else {
     //
     // Just in case currYearRoles is not set yet
     //
-    header("Location: " . $_SERVER[ 'PHP_SELF' ] . "?action=" . $controller . "&month=" . date('Ym') . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
+    header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . date('Ym') . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
     die();
   }
 }
@@ -253,12 +261,10 @@ if ($limit = $C->read("usersPerPage")) {
   // How many users do we have?
   //
   $total = count($users);
-
   //
   // How many pages do we need for them?
   //
   $pages = ceil($total / $limit);
-
   //
   // What page are we currently on?
   //
@@ -273,7 +279,6 @@ if ($limit = $C->read("usersPerPage")) {
       ),
     )
   ));
-
   //
   // Get the $users records do we need for this page
   //
@@ -282,7 +287,7 @@ if ($limit = $C->read("usersPerPage")) {
   $end = min(($offset + $limit), $total) - 1;
   $pageusers = array();
   for ($i = $start; $i <= $end; $i++) {
-    array_push($pageusers, $users[ $i ]);
+    array_push($pageusers, $users[$i]);
   }
   unset($users);
   $users = $pageusers;
@@ -299,13 +304,12 @@ if ($limit = $C->read("usersPerPage")) {
 //
 $inputAlert = array();
 $currDate = date('Y-m-d');
-// $viewData['dateInfo'] = dateInfo($viewData['year'], $viewData['month']);
 
-$viewData[ 'months' ] = array(
+$viewData['months'] = array(
   array(
-    'year' => $viewData[ 'year' ],
-    'month' => $viewData[ 'month' ],
-    'dateInfo' => dateInfo($viewData[ 'year' ], $viewData[ 'month' ]),
+    'year' => $viewData['year'],
+    'month' => $viewData['month'],
+    'dateInfo' => dateInfo($viewData['year'], $viewData['month']),
     'M' => new Months(),
     'dayStyles' => array(),
     'businessDays' => 0,
@@ -317,7 +321,7 @@ $viewData[ 'months' ] = array(
 //
 if ($showMonths = $UO->read($UL->username, 'showMonths')) {
   // Nothing to do. We have the profile value now.
-} else if ($showMonths = $C->read('showMonths')) {
+} elseif ($showMonths = $C->read('showMonths')) {
   // Nothing to do. We have the global value now.
 } else {
   // Profile and global value missing. Set to default 1 and save as global.
@@ -331,24 +335,28 @@ if ($showMonths = $UO->read($UL->username, 'showMonths')) {
 // ,---,
 // | - |
 // '---'
-if (!empty($_POST) && isset($_POST[ 'btn_oneless' ])) {
-  $showMonths = intval($_POST[ 'hidden_showmonths' ]);
-  if ($showMonths > 1) $showMonths--;
+if (!empty($_POST) && isset($_POST['btn_oneless'])) {
+  $showMonths = intval($_POST['hidden_showmonths']);
+  if ($showMonths > 1) {
+    $showMonths--;
+  }
 }
 // ,---,
 // | + |
 // '---'
-if (!empty($_POST) && isset($_POST[ 'btn_onemore' ])) {
-  $showMonths = intval($_POST[ 'hidden_showmonths' ]);
-  if ($showMonths <= 12) $showMonths++;
+if (!empty($_POST) && isset($_POST['btn_onemore'])) {
+  $showMonths = intval($_POST['hidden_showmonths']);
+  if ($showMonths <= 12) {
+    $showMonths++;
+  }
 }
 
 //
 // Prepare following months if required
 //
 if ($showMonths > 1) {
-  $prevYear = intval($viewData[ 'year' ]);
-  $prevMonth = intval($viewData[ 'month' ]);
+  $prevYear = intval($viewData['year']);
+  $prevMonth = intval($viewData['month']);
   for ($i = 2; $i <= $showMonths; $i++) {
     if ($prevMonth == 12) {
       if ($C->read('currentYearOnly') && $C->read("currYearRoles")) {
@@ -374,7 +382,7 @@ if ($showMonths > 1) {
       $nextYear = $prevYear;
     }
 
-    $viewData[ 'months' ][] = array(
+    $viewData['months'][] = array(
       'year' => $nextYear,
       'month' => $nextMonth,
       'dateInfo' => dateInfo($nextYear, $nextMonth),
@@ -391,31 +399,29 @@ if ($showMonths > 1) {
 // Get the roles that can view confidential absences and daynotes
 //
 if ($trustedRoles = $C->read("trustedRoles")) {
-  $viewData[ 'trustedRoles' ] = explode(',', $trustedRoles);
+  $viewData['trustedRoles'] = explode(',', $trustedRoles);
 } else {
-  $viewData[ 'trustedRoles' ] = array( '1' );
+  $viewData['trustedRoles'] = array( '1' );
   $C->save("trustedRoles", '1');
 }
 
 //
 // See if a region month template exists for each month to show. If not, create one.
 //
-foreach ($viewData[ 'months' ] as $vmonth) {
-  if (!$vmonth[ 'M' ]->getMonth($vmonth[ 'year' ], $vmonth[ 'month' ], $viewData[ 'regionid' ])) {
-    createMonth($vmonth[ 'year' ], $vmonth[ 'month' ], 'region', $viewData[ 'regionid' ]);
-    $vmonth[ 'M' ]->getMonth($vmonth[ 'year' ], $vmonth[ 'month' ], $viewData[ 'regionid' ]);
-
+foreach ($viewData['months'] as $vmonth) {
+  if (!$vmonth['M']->getMonth($vmonth['year'], $vmonth['month'], $viewData['regionid'])) {
+    createMonth($vmonth['year'], $vmonth['month'], 'region', $viewData['regionid']);
+    $vmonth['M']->getMonth($vmonth['year'], $vmonth['month'], $viewData['regionid']);
     //
     // Send notification e-mails to the subscribers of user events
     //
     if ($C->read("emailNotifications")) {
-      sendMonthEventNotifications("created", $vmonth[ 'year' ], $vmonth[ 'month' ], $viewData[ 'regionname' ]);
+      sendMonthEventNotifications("created", $vmonth['year'], $vmonth['month'], $viewData['regionname']);
     }
-
     //
     // Log this event
     //
-    $LOG->logEvent("logMonth", L_USER, "log_month_tpl_created", $vmonth[ 'M' ]->region . ": " . $vmonth[ 'M' ]->year . "-" . $vmonth[ 'M' ]->month);
+    $LOG->logEvent("logMonth", L_USER, "log_month_tpl_created", $vmonth['M']->region . ": " . $vmonth['M']->year . "-" . $vmonth['M']->month);
   }
 }
 
@@ -433,90 +439,84 @@ if (!empty($_POST)) {
   // Form validation
   //
   $inputError = false;
-  if (isset($_POST[ 'btn_search' ])) {
-    if (!formInputValid('txt_search', 'required|alpha_numeric_dash')) $inputError = true;
+  if (isset($_POST['btn_search']) && !formInputValid('txt_search', 'required|alpha_numeric_dash')) {
+    $inputError = true;
   }
 
   if (!$inputError) {
     // ,--------------,
     // | Select Month |
     // '--------------'
-    if (isset($_POST[ 'btn_month' ])) {
+    if (isset($_POST['btn_month'])) {
       if (L_USER) {
-        $UO->save($UL->username, 'calfilterMonth', $_POST[ 'txt_year' ] . $_POST[ 'sel_month' ]);
+        $UO->save($UL->username, 'calfilterMonth', $_POST['txt_year'] . $_POST['sel_month']);
       }
-
-      header("Location: " . $_SERVER[ 'PHP_SELF' ] . "?action=" . $controller . "&month=" . $_POST[ 'txt_year' ] . $_POST[ 'sel_month' ] . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . $_POST['txt_year'] . $_POST['sel_month'] . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
       die();
     }
     // ,---------------,
     // | Select Region |
     // '---------------'
-    elseif (isset($_POST[ 'btn_region' ])) {
+    elseif (isset($_POST['btn_region'])) {
       if (L_USER) {
-        $UO->save($UL->username, 'calfilterRegion', $_POST[ 'sel_region' ]);
+        $UO->save($UL->username, 'calfilterRegion', $_POST['sel_region']);
       }
-
-      header("Location: " . $_SERVER[ 'PHP_SELF' ] . "?action=" . $controller . "&month=" . $monthfilter . "&region=" . $_POST[ 'sel_region' ] . "&group=" . $groupfilter . "&abs=" . $absfilter);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . $monthfilter . "&region=" . $_POST['sel_region'] . "&group=" . $groupfilter . "&abs=" . $absfilter);
       die();
     }
     // ,---------------,
     // | Select Group  |
     // '---------------'
-    elseif (isset($_POST[ 'btn_group' ])) {
+    elseif (isset($_POST['btn_group'])) {
       if (L_USER) {
-        $UO->save($UL->username, 'calfilterGroup', $_POST[ 'sel_group' ]);
+        $UO->save($UL->username, 'calfilterGroup', $_POST['sel_group']);
       }
-
-      header("Location: " . $_SERVER[ 'PHP_SELF' ] . "?action=" . $controller . "&month=" . $monthfilter . "&region=" . $regionfilter . "&group=" . $_POST[ 'sel_group' ] . "&abs=" . $absfilter);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . $monthfilter . "&region=" . $regionfilter . "&group=" . $_POST['sel_group'] . "&abs=" . $absfilter);
       die();
     }
     // ,----------------,
     // | Select Absence |
     // '----------------'
-    elseif (isset($_POST[ 'btn_abssearch' ])) {
+    elseif (isset($_POST['btn_abssearch'])) {
       if (L_USER) {
-        $UO->save($UL->username, 'calfilterAbs', $_POST[ 'sel_absence' ]);
+        $UO->save($UL->username, 'calfilterAbs', $_POST['sel_absence']);
       }
-
-      header("Location: " . $_SERVER[ 'PHP_SELF' ] . "?action=" . $controller . "&month=" . $monthfilter . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $_POST[ 'sel_absence' ]);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . $monthfilter . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $_POST['sel_absence']);
       die();
     }
     // ,---------------------,
     // | Select Screen Width |
     // '---------------------'
-    elseif (isset($_POST[ 'btn_width' ])) {
-      $UO->save($UL->username, 'width', $_POST[ 'sel_width' ]);
-      header("Location: " . $_SERVER[ 'PHP_SELF' ] . "?action=" . $controller . "&month=" . $viewData[ 'year' ] . $viewData[ 'month' ] . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $_POST[ 'sel_absence' ]);
+    elseif (isset($_POST['btn_width'])) {
+      $UO->save($UL->username, 'width', $_POST['sel_width']);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $_POST['sel_absence']);
       die();
     }
     // ,---------------,
     // | Search User   |
     // '---------------'
-    elseif (isset($_POST[ 'btn_search' ])) {
+    elseif (isset($_POST['btn_search'])) {
       if (L_USER) {
-        $UO->save($UL->username, 'calfilterSearch', $_POST[ 'txt_search' ]);
+        $UO->save($UL->username, 'calfilterSearch', $_POST['txt_search']);
       }
-
-      $viewData[ 'search' ] = $_POST[ 'txt_search' ];
+      $viewData['search'] = $_POST['txt_search'];
       unset($users);
-      $users = $U->getAllLike($_POST[ 'txt_search' ]);
+      $users = $U->getAllLike($_POST['txt_search']);
     }
     // ,-------------------,
     // | Search User Clear |
     // '-------------------'
-    elseif (isset($_POST[ 'btn_search_clear' ])) {
+    elseif (isset($_POST['btn_search_clear'])) {
       if (L_USER) {
         $UO->deleteUserOption($UL->username, 'calfilterSearch');
       }
-
-      header("Location: " . $_SERVER[ 'PHP_SELF' ] . "?action=" . $controller . "&month=" . $monthfilter . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . $monthfilter . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
       die();
     }
     // ,-------,
     // | Reset |
     // '-------'
-    elseif (isset($_POST[ 'btn_reset' ])) {
+    elseif (isset($_POST['btn_reset'])) {
       if (L_USER) {
         $UO->deleteUserOption($UL->username, 'calfilter');
         $UO->deleteUserOption($UL->username, 'calfilterMonth');
@@ -525,20 +525,19 @@ if (!empty($_POST)) {
         $UO->deleteUserOption($UL->username, 'calfilterAbs');
         $UO->deleteUserOption($UL->username, 'calfilterSearch');
       }
-
-      header("Location: " . $_SERVER[ 'PHP_SELF' ] . "?action=" . $controller);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller);
       die();
     }
   } else {
     //
     // Input validation failed
     //
-    $showAlert = TRUE;
-    $alertData[ 'type' ] = 'danger';
-    $alertData[ 'title' ] = $LANG[ 'alert_danger_title' ];
-    $alertData[ 'subject' ] = $LANG[ 'alert_input' ];
-    $alertData[ 'text' ] = $LANG[ 'abs_alert_save_failed' ];
-    $alertData[ 'help' ] = '';
+    $showAlert = true;
+    $alertData['type'] = 'danger';
+    $alertData['title'] = $LANG['alert_danger_title'];
+    $alertData['subject'] = $LANG['alert_input'];
+    $alertData['text'] = $LANG['abs_alert_save_failed'];
+    $alertData['help'] = '';
   }
 }
 
@@ -546,36 +545,32 @@ if (!empty($_POST)) {
 //
 // PREPARE VIEW
 //
-$viewData[ 'absences' ] = $A->getAll();
-$viewData[ 'allGroups' ] = $G->getAll();
-$viewData[ 'holidays' ] = $H->getAllCustom();
+$viewData['absences'] = $A->getAll();
+$viewData['allGroups'] = $G->getAll();
+$viewData['holidays'] = $H->getAllCustom();
 
 if ($groupfilter == 'all') {
-  $viewData[ 'groups' ] = $G->getAll();
+  $viewData['groups'] = $G->getAll();
 } else {
-  $viewData[ 'groups' ] = $G->getRowById($groupfilter);
+  $viewData['groups'] = $G->getRowById($groupfilter);
 }
-
-$viewData[ 'dayStyles' ] = array();
+$viewData['dayStyles'] = array();
 
 //
 // Loop through all users and catch those that will be displayed
 //
-$viewData[ 'users' ] = array();
+$viewData['users'] = array();
 foreach ($users as $usr) {
   $allowed = false;
-  if ($usr[ 'username' ] == $UL->username) {
+  if ($usr['username'] == $UL->username) {
     $allowed = true;
-  } else if (!$U->isHidden($usr[ 'username' ])) {
-    if (
-      isAllowed("calendarviewall") or
-      (isAllowed("calendarviewgroup") && $UG->shareGroups($usr[ 'username' ], $UL->username))
-    ) {
+  } elseif (!$U->isHidden($usr['username'])) {
+    if (isAllowed("calendarviewall") || (isAllowed("calendarviewgroup") && $UG->shareGroups($usr['username'], $UL->username))) {
       $allowed = true;
     }
   }
   if ($allowed) {
-    $viewData[ 'users' ][] = $usr;
+    $viewData['users'][] = $usr;
   }
 }
 
@@ -583,10 +578,10 @@ foreach ($users as $usr) {
 // Loop through all display users
 // See if a month template for each user exists. If not, create one.
 //
-foreach ($viewData[ 'users' ] as $user) {
-  foreach ($viewData[ 'months' ] as $vmonth) {
-    if (!$T->getTemplate($user[ 'username' ], $vmonth[ 'year' ], $vmonth[ 'month' ])) {
-      createMonth($vmonth[ 'year' ], $vmonth[ 'month' ], 'user', $user[ 'username' ]);
+foreach ($viewData['users'] as $user) {
+  foreach ($viewData['months'] as $vmonth) {
+    if (!$T->getTemplate($user['username'], $vmonth['year'], $vmonth['month'])) {
+      createMonth($vmonth['year'], $vmonth['month'], 'user', $user['username']);
     }
   }
 }
@@ -597,16 +592,16 @@ foreach ($viewData[ 'users' ] as $user) {
 // column of a day.
 //
 $j = 0;
-foreach ($viewData[ 'months' ] as $vmonth) {
+foreach ($viewData['months'] as $vmonth) {
   $dayStyles = array();
-  for ($i = 1; $i <= $vmonth[ 'dateInfo' ][ 'daysInMonth' ]; $i++) {
+  for ($i = 1; $i <= $vmonth['dateInfo']['daysInMonth']; $i++) {
     $color = '';
     $bgcolor = '';
     $border = '';
-    $dayStyles[ $i ] = '';
+    $dayStyles[$i] = '';
     $hprop = 'hol' . $i;
     $wprop = 'wday' . $i;
-    if ($vmonth[ 'M' ]->$hprop) {
+    if ($vmonth['M']->$hprop) {
       //
       // This is a holiday. Get the coloring info.
       //
@@ -614,41 +609,39 @@ foreach ($viewData[ 'months' ] as $vmonth) {
         //
         // Weekend color shall be kept. So if this a weekend day color it as such.
         //
-        if ($vmonth[ 'M' ]->$wprop == 6 or $vmonth[ 'M' ]->$wprop == 7) {
-          $color = 'color:#' . $H->getColor($vmonth[ 'M' ]->$wprop - 4) . ';';
-          $bgcolor = 'background-color:#' . $H->getBgColor($vmonth[ 'M' ]->$wprop - 4) . ';';
+        if ($vmonth['M']->$wprop == 6 || $vmonth['M']->$wprop == 7) {
+          $color = 'color:#' . $H->getColor($vmonth['M']->$wprop - 4) . ';';
+          $bgcolor = 'background-color:#' . $H->getBgColor($vmonth['M']->$wprop - 4) . ';';
         } else {
-          $color = 'color:#' . $H->getColor($vmonth[ 'M' ]->$hprop) . ';';
-          $bgcolor = 'background-color:#' . $H->getBgColor($vmonth[ 'M' ]->$hprop) . ';';
+          $color = 'color:#' . $H->getColor($vmonth['M']->$hprop) . ';';
+          $bgcolor = 'background-color:#' . $H->getBgColor($vmonth['M']->$hprop) . ';';
         }
       } else {
-        $color = 'color:#' . $H->getColor($vmonth[ 'M' ]->$hprop) . ';';
-        $bgcolor = 'background-color:#' . $H->getBgColor($vmonth[ 'M' ]->$hprop) . ';';
+        $color = 'color:#' . $H->getColor($vmonth['M']->$hprop) . ';';
+        $bgcolor = 'background-color:#' . $H->getBgColor($vmonth['M']->$hprop) . ';';
       }
-    } else if ($vmonth[ 'M' ]->$wprop == 6 or $vmonth[ 'M' ]->$wprop == 7) {
+    } elseif ($vmonth['M']->$wprop == 6 || $vmonth['M']->$wprop == 7) {
       //
       // This is a Saturday or Sunday. Get the coloring info.
       //
-      $color = 'color:#' . $H->getColor($vmonth[ 'M' ]->$wprop - 4) . ';';
-      $bgcolor = 'background-color:#' . $H->getBgColor($vmonth[ 'M' ]->$wprop - 4) . ';';
+      $color = 'color:#' . $H->getColor($vmonth['M']->$wprop - 4) . ';';
+      $bgcolor = 'background-color:#' . $H->getBgColor($vmonth['M']->$wprop - 4) . ';';
     }
-
     //
     // Get today style
     //
-    $loopDate = date('Y-m-d', mktime(0, 0, 0, $vmonth[ 'month' ], $i, $vmonth[ 'year' ]));
+    $loopDate = date('Y-m-d', mktime(0, 0, 0, $vmonth['month'], $i, $vmonth['year']));
     if ($loopDate == $currDate) {
       $border = 'border-left: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';border-right: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';';
     }
-
     //
     // Build styles
     //
-    if (strlen($color) or strlen($bgcolor) or strlen($border)) {
-      $dayStyles[ $i ] = $color . $bgcolor . $border;
+    if (strlen($color) || strlen($bgcolor) || strlen($border)) {
+      $dayStyles[$i] = $color . $bgcolor . $border;
     }
   }
-  $viewData[ 'months' ][ $j ][ 'dayStyles' ] = $dayStyles;
+  $viewData['months'][$j]['dayStyles'] = $dayStyles;
   $j++;
 }
 
@@ -656,43 +649,44 @@ foreach ($viewData[ 'months' ] as $vmonth) {
 // Get the number of business days
 //
 $j = 0;
-foreach ($viewData[ 'months' ] as $vmonth) {
-  $cntfrom = $vmonth[ 'year' ] . $vmonth[ 'month' ] . '01';
-  $cntto = $vmonth[ 'year' ] . $vmonth[ 'month' ] . $vmonth[ 'dateInfo' ][ 'daysInMonth' ];
-  $viewData[ 'months' ][ $j ][ 'businessDays' ] = countBusinessDays($cntfrom, $cntto, $viewData[ 'regionid' ]);
+foreach ($viewData['months'] as $vmonth) {
+  $cntfrom = $vmonth['year'] . $vmonth['month'] . '01';
+  $cntto = $vmonth['year'] . $vmonth['month'] . $vmonth['dateInfo']['daysInMonth'];
+  $viewData['months'][$j]['businessDays'] = countBusinessDays($cntfrom, $cntto, $viewData['regionid']);
   $j++;
 }
 
 $todayDate = getdate(time());
-$viewData[ 'yearToday' ] = $todayDate[ 'year' ];
-$viewData[ 'monthToday' ] = sprintf("%02d", $todayDate[ 'mon' ]);
-$viewData[ 'regions' ] = $R->getAll();
-$viewData[ 'showWeekNumbers' ] = $C->read('showWeekNumbers');
-$viewData[ 'supportMobile' ] = $C->read('supportMobile');
-$viewData[ 'firstDayOfWeek' ] = $C->read("firstDayOfWeek");
-
-$mobilecols[ 'full' ] = $viewData[ 'months' ][ 0 ][ 'dateInfo' ][ 'daysInMonth' ];
-
-if (!$viewData[ 'width' ] = $UO->read($UL->username, 'width')) {
+$viewData['yearToday'] = $todayDate['year'];
+$viewData['monthToday'] = sprintf("%02d", $todayDate['mon']);
+$viewData['regions'] = $R->getAll();
+$viewData['showWeekNumbers'] = $C->read('showWeekNumbers');
+$viewData['supportMobile'] = $C->read('supportMobile');
+$viewData['firstDayOfWeek'] = $C->read("firstDayOfWeek");
+$mobilecols['full'] = $viewData['months'][0]['dateInfo']['daysInMonth'];
+if (!$viewData['width'] = $UO->read($UL->username, 'width')) {
   $UO->save($UL->username, 'width', 'full');
-  $viewData[ 'width' ] = 'full';
+  $viewData['width'] = 'full';
 }
-
 //
 // Lastly, check whether only the calendar shall be displayed. This may be
 // useful in iFrames.
 //
-if (isset($_GET[ 'calendaronly' ]) && $_GET[ 'calendaronly' ] === "1") {
-  $viewData[ 'calendaronly' ] = TRUE;
+if (isset($_GET['calendaronly']) && $_GET['calendaronly'] === "1") {
+  $viewData['calendaronly'] = true;
 } else {
-  $viewData[ 'calendaronly' ] = FALSE;
+  $viewData['calendaronly'] = false;
 }
 
 //=============================================================================
 //
 // SHOW VIEW
 //
-require WEBSITE_ROOT . '/views/header.php';
-if (!$viewData[ 'calendaronly' ]) require WEBSITE_ROOT . '/views/menu.php';
-include WEBSITE_ROOT . '/views/' . $controller . '.php';
-if (!$viewData[ 'calendaronly' ]) require WEBSITE_ROOT . '/views/footer.php';
+require_once WEBSITE_ROOT . '/views/header.php';
+if (!$viewData['calendaronly']) {
+  require_once WEBSITE_ROOT . '/views/menu.php';
+}
+include_once WEBSITE_ROOT . '/views/' . $controller . '.php';
+if (!$viewData['calendaronly']) {
+  require_once WEBSITE_ROOT . '/views/footer.php';
+}
