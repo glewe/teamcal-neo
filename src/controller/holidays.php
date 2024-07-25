@@ -91,7 +91,7 @@ if (!empty($_POST)) {
             //
             // Log this event
             //
-            $LOG->log("logHoliday", L_USER, "log_abs_created", $HH->name);
+            $LOG->logEvent("logHoliday", L_USER, "log_abs_created", $HH->name);
 
             //
             // Success
@@ -130,7 +130,7 @@ if (!empty($_POST)) {
         //
         // Log this event
         //
-        $LOG->log("logHoliday", L_USER, "log_hol_deleted", $_POST['hidden_name']);
+        $LOG->logEvent("logHoliday", L_USER, "log_hol_deleted", $_POST['hidden_name']);
 
         //
         // Success
