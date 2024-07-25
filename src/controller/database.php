@@ -63,10 +63,8 @@ if (!empty($_POST)) {
   // Form validation
   //
   $inputError = false;
-  if (isset($_POST['btn_delete'])) {
-    if (!formInputValid('txt_deleteConfirm', 'required|alpha|equals_string', 'DELETE')) {
-      $inputError = true;
-    }
+  if (isset($_POST['btn_delete']) && !formInputValid('txt_deleteConfirm', 'required|alpha|equals_string', 'DELETE')) {
+    $inputError = true;
   }
   if (isset($_POST['btn_cleanup'])) {
     if (!formInputValid('txt_cleanBefore', 'required|date')) {
@@ -78,10 +76,8 @@ if (!empty($_POST)) {
     $viewData['cleanBefore'] = $_POST['txt_cleanBefore'];
   }
 
-  if (isset($_POST['btn_repair'])) {
-    if (!formInputValid('txt_repairConfirm', 'required|alpha|equals_string', 'REPAIR')) {
-      $inputError = true;
-    }
+  if (isset($_POST['btn_repair']) && !formInputValid('txt_repairConfirm', 'required|alpha|equals_string', 'REPAIR')) {
+    $inputError = true;
   }
 
   if (!$inputError) {
