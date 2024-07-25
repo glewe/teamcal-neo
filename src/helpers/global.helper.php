@@ -162,7 +162,7 @@ function dnd($var, $dieafter = true) {
  */
 function endsWith($haystack, $needle) {
   // search forward starting from end minus needle length characters
-  return $needle === "" || strpos($haystack, $needle, strlen($haystack) - strlen($needle)) !== FALSE;
+  return $needle === "" || strpos($haystack, $needle, strlen($haystack) - strlen($needle)) !==  false;
 }
 
 //-----------------------------------------------------------------------------
@@ -181,7 +181,7 @@ function endsWith($haystack, $needle) {
  * @param string $ruleset Ruleset to check against
  * @param string $param Second value used by certain rule checks
  *
- * @return bool FALSE or first broken rule
+ * @return bool  false or first broken rule
  */
 function formInputValid($field, $ruleset, $param = '') {
   global $_POST, $inputAlert, $LANG;
@@ -671,7 +671,7 @@ function getOptions() {
   /**
    * DEBUG: Set to TRUE for debug info
    */
-  if (FALSE) {
+  if ( false) {
     $debug = "After Defaults\\r\\n";
     $debug .= "tc_config['options']['lang'] = " . $CONF[ 'options' ][ 'lang' ] . "\\r\\n";
     echo "<script type=\"text/javascript\">alert(\"" . $debug . "\");</script>";
@@ -689,7 +689,7 @@ function getOptions() {
   /**
    * DEBUG: Set to TRUE for debug info
    */
-  if (FALSE) {
+  if ( false) {
     $debug = "After User Preferences\\r\\n";
     $debug .= "tc_config['options']['lang'] = " . $CONF[ 'options' ][ 'lang' ] . "\\r\\n";
     echo "<script type=\"text/javascript\">alert(\"" . $debug . "\");</script>";
@@ -702,7 +702,7 @@ function getOptions() {
   /**
    * DEBUG: Set to TRUE for debug info
    */
-  if (FALSE) {
+  if ( false) {
     $debug = "After _GET\\r\\n";
     $debug .= "tc_config['options']['lang'] = " . $CONF[ 'options' ][ 'lang' ] . "\\r\\n";
     echo "<script type=\"text/javascript\">alert(\"" . $debug . "\");</script>";
@@ -717,7 +717,7 @@ function getOptions() {
   /**
    * DEBUG: Set to TRUE for debug info
    */
-  if (FALSE) {
+  if ( false) {
     $debug = "After _POST\\r\\n";
     $debug .= "tc_config['options']['lang'] = " . $CONF[ 'options' ][ 'lang' ] . "\\r\\n";
     echo "<script type=\"text/javascript\">alert(\"" . $debug . "\");</script>";
@@ -1049,7 +1049,7 @@ function sanitize($input) {
  */
 function startsWith($haystack, $needle) {
   // search backwards starting from haystack length characters from the end
-  return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
+  return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !==  false;
 }
 
 //-----------------------------------------------------------------------------

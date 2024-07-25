@@ -466,7 +466,7 @@ function sendEmail($to, $subject, $body, $from = '') {
       $errorData[ 'text' ] = $mail->getMessage();
       require(WEBSITE_ROOT . '/views/error.php');
       die();
-//      return FALSE;
+//      return  false;
     } else {
       return TRUE;
     }

@@ -19,7 +19,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
 // CHECK URL PARAMETERS
 //
 if (isset($_GET['month']) && isset($_GET['region']) && isset($_GET['group'])) {
-    $missingData = FALSE;
+    $missingData =  false;
 
     //
     // Check month

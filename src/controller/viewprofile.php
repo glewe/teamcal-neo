@@ -33,7 +33,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 // CHECK URL PARAMETER
 //
 if (isset($_GET['profile'])) {
-    $missingData = FALSE;
+    $missingData =  false;
     $profile = sanitize($_GET['profile']);
     if (!$U->findByName($profile)) $missingData = TRUE;
 } else {

@@ -34,7 +34,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //
 $GG = new Groups(); // for the profile to be created or updated
 if (isset($_GET['id'])) {
-    $missingData = FALSE;
+    $missingData =  false;
     $id = sanitize($_GET['id']);
     if (!$GG->getById($id)) $missingData = TRUE;
 } else {
