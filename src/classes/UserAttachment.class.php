@@ -80,11 +80,7 @@ class UserAttachment {
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
-    if ($result && $query->fetchColumn()) {
-      return true;
-    } else {
-      return false;
-    }
+    return $result && $query->fetchColumn();
   }
 
   // --------------------------------------------------------------------------
@@ -166,11 +162,7 @@ class UserAttachment {
     $query->bindParam('val1', $username);
     $query->bindParam('val2', $fileid);
     $result = $query->execute();
-    if ($result && $query->fetchColumn()) {
-      return true;
-    } else {
-      return false;
-    }
+    return $result && $query->fetchColumn();
   }
 
   // --------------------------------------------------------------------------
