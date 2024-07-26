@@ -63,11 +63,7 @@ function absenceThresholdReached($year, $month, $day, $base, $group = '') {
    */
   $absencerate = ((100 * $absences) / $usercount);
   $threshold = intval($C->read("declThreshold"));
-  if ($absencerate >= $threshold) {
-    return true;
-  } else {
-    return false;
-  }
+  return ($absencerate >= $threshold);
 }
 
 // ---------------------------------------------------------------------------
@@ -149,7 +145,9 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
       // Check whether a takeover was requested. Needed for the next IF
       // because even Admins need to know.
       //
-      if ($requestedAbsences[$i] == 'takeover') $takeoverRequested = true;
+      if ($requestedAbsences[$i] == 'takeover') {
+        $takeoverRequested = true;
+      }
     }
   }
   //
@@ -315,6 +313,8 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                     $applyRule = false;
                   }
                   break;
+                default:
+                  break;
               }
 
               if ($applyRule) {
@@ -376,13 +376,21 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
 
               switch ($C->read('declBeforePeriod')) {
                 case 'nowEnddate':
-                  if ($today > $declEnddate) $applyRule = false;
+                  if ($today > $declEnddate) {
+                    $applyRule = false;
+                  }
                   break;
                 case 'startdateForever':
-                  if ($today < $declStartdate) $applyRule = false;
+                  if ($today < $declStartdate) {
+                    $applyRule = false;
+                  }
                   break;
                 case 'startdateEnddate':
-                  if ($today < $declStartdate || $today > $declEnddate) $applyRule = false;
+                  if ($today < $declStartdate || $today > $declEnddate) {
+                    $applyRule = false;
+                  }
+                  break;
+                default:
                   break;
               }
 
@@ -418,13 +426,21 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                 $applyRule = true; // Assume true
                 switch ($C->read('declPeriod1Period')) {
                   case 'nowEnddate':
-                    if ($today > $declEnddate) $applyRule = false;
+                    if ($today > $declEnddate) {
+                      $applyRule = false;
+                    }
                     break;
                   case 'startdateForever':
-                    if ($today < $declStartdate) $applyRule = false;
+                    if ($today < $declStartdate) {
+                      $applyRule = false;
+                    }
                     break;
                   case 'startdateEnddate':
-                    if ($today < $declStartdate || $today > $declEnddate) $applyRule = false;
+                    if ($today < $declStartdate || $today > $declEnddate) {
+                      $applyRule = false;
+                    }
+                    break;
+                  default:
                     break;
                 }
 
@@ -628,7 +644,6 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
         //
         // Count already taken (saved in database)
         //
-        $myts = strtotime($T->year . '-01-01');
         $countFrom = $T->year . '0101';
         $countTo = $T->year . '1231';
         $taken = countAbsence($username, $requestedAbsences[$i], $countFrom, $countTo, true, false);
@@ -690,7 +705,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
 
   // Enable to debug
   if (false) {
-    print("<p></p><p></p><p></p>");
+    print "<p></p><p></p><p></p>";
     print_r($currentAbsences);
     print " :: Current <br>";
     print_r($requestedAbsences);
@@ -724,8 +739,8 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
  * @param boolean $combined Count other absences that count as this one
  * @return  integer            Result of the count
  */
-function countAbsence($user = '%', $absid, $from, $to, $useFactor = false, $combined = false) {
-  global $A, $CONF, $T;
+function countAbsence($user = '%', $absid = '', $from = '', $to = '', $useFactor = false, $combined = false) {
+  global $A, $T;
   $absences = $A->getAll();
   //
   // Figure out starting month and ending month
@@ -777,7 +792,9 @@ function countAbsence($user = '%', $absid, $from, $to, $useFactor = false, $comb
     $ymstart = intval($year . sprintf("%02d", $month));
   }
 
-  if ($useFactor) $count *= $factor;
+  if ($useFactor) {
+    $count *= $factor;
+  }
 
   //
   // If requested, count all those absence types that count as this one
@@ -836,8 +853,6 @@ function countBusinessDays($cntfrom, $cntto, $region = '1', $cntManDays = false)
   $startyear = intval(substr($cntfrom, 0, 4));
   $startmonth = intval(substr($cntfrom, 4, 2));
   $startday = intval(substr($cntfrom, 6, 2));
-  $endyear = intval(substr($cntto, 0, 4));
-  $endmonth = intval(substr($cntto, 4, 2));
   $endday = intval(substr($cntto, 6, 2));
   $startyearmonth = intval(substr($cntfrom, 0, 6));
   $endyearmonth = intval(substr($cntto, 0, 6));
@@ -1053,10 +1068,8 @@ function getAbsenceSummary($username, $absid, $year) {
       //
       if ($countsAsArray = $A->getAllSub($absid)) {
         foreach ($countsAsArray as $countsAs) {
-          if ($A2->get($countsAs['id'])) {
-            if (!$A2->counts_as_present) {
-              $summary['taken'] += countAbsence($username, $A2->id, $countFrom, $countTo, true, false);
-            }
+          if ($A2->get($countsAs['id']) && !$A2->counts_as_present) {
+            $summary['taken'] += countAbsence($username, $A2->id, $countFrom, $countTo, true, false);
           }
         }
       }
@@ -1089,14 +1102,24 @@ function getDeclinationStatus($rule, $period, $startdate, $enddate) {
     $declEnddate = str_replace('-', '', $enddate);
     switch ($period) {
       case 'nowEnddate':
-        if ($today > $declEnddate) $status = 'expired';
+        if ($today > $declEnddate) {
+          $status = 'expired';
+        }
         break;
       case 'startdateForever':
-        if ($today < $declStartdate) $status = 'scheduled';
+        if ($today < $declStartdate) {
+          $status = 'scheduled';
+        }
         break;
       case 'startdateEnddate':
-        if ($today < $declStartdate) $status = 'scheduled';
-        if ($today > $declEnddate) $status = 'expired';
+        if ($today < $declStartdate) {
+          $status = 'scheduled';
+        }
+        if ($today > $declEnddate) {
+          $status = 'expired';
+        }
+        break;
+      default:
         break;
     }
   } else {
@@ -1118,10 +1141,6 @@ function getDeclinationStatus($rule, $period, $startdate, $enddate) {
 function absenceMaximumReached($year, $month, $day, $group = '') {
   global $C, $CONF, $G, $T, $U, $UG;
   //
-  // Count group members
-  //
-  $usercount = $UG->countMembers($group);
-  //
   // Count all group absences for this day
   //
   $absences = 0;
@@ -1138,11 +1157,7 @@ function absenceMaximumReached($year, $month, $day, $group = '') {
    * Check against threshold
    */
   $threshold = $G->getMaxAbsent($group);
-  if ($absences > $threshold) {
-    return true;
-  } else {
-    return false;
-  }
+  return ($absences > $threshold);
 }
 
 // ---------------------------------------------------------------------------
@@ -1174,11 +1189,7 @@ function absenceMaximumWeReached($year, $month, $day, $group = '') {
    * Check against threshold
    */
   $threshold = $G->getMaxAbsentWe($group);
-  if ($absences > $threshold) {
-    return true;
-  } else {
-    return false;
-  }
+  return ($absences > $threshold);
 }
 
 // ---------------------------------------------------------------------------
@@ -1216,11 +1227,7 @@ function presenceMinimumReached($year, $month, $day, $group = '') {
    * Check against threshold
    */
   $threshold = $G->getMinPresent($group);
-  if ($presences < $threshold) {
-    return true;
-  } else {
-    return false;
-  }
+  return ($presences < $threshold);
 }
 
 // ---------------------------------------------------------------------------
@@ -1258,11 +1265,7 @@ function presenceMinimumWeReached($year, $month, $day, $group = '') {
    * Check against threshold
    */
   $threshold = $G->getMinPresentWe($group);
-  if ($presences < $threshold) {
-    return true;
-  } else {
-    return false;
-  }
+  return ($presences < $threshold);
 }
 
 // ---------------------------------------------------------------------------
@@ -1519,23 +1522,24 @@ function sendUserCalEventNotifications($event, $username, $year, $month) {
       // Check whether this user wants to get userCalEvents notifications for groups,
       // but only if he has not selected to get them for himself only.
       //
-      if ($UO->read($profile['username'], 'notifyUserCalEvents') && !$UO->read($profile['username'], 'notifyUserCalEventsOwn')) {
+      if (
+        $UO->read($profile['username'], 'notifyUserCalEvents') && !$UO->read($profile['username'], 'notifyUserCalEventsOwn') &&
+        ($notifyUserCalGroups = $UO->read($profile['username'], 'notifyUserCalGroups'))
+      ) {
         //
         // Get the groups for which he wants them
         //
-        if ($notifyUserCalGroups = $UO->read($profile['username'], 'notifyUserCalGroups')) {
-          //
-          // Go through all groups and if there is a match, send the mail
-          //
-          $ngroups = explode(',', $notifyUserCalGroups);
-          foreach ($ugroups as $ugroup) {
-            if (in_array($ugroup['groupid'], $ngroups)) {
-              $sendmail = true;
-            }
+        //
+        // Go through all groups and if there is a match, send the mail
+        //
+        $ngroups = explode(',', $notifyUserCalGroups);
+        foreach ($ugroups as $ugroup) {
+          if (in_array($ugroup['groupid'], $ngroups)) {
+            $sendmail = true;
           }
-          if ($sendmail) {
-            sendEmail($profile['email'], $subject, $message);
-          }
+        }
+        if ($sendmail) {
+          sendEmail($profile['email'], $subject, $message);
         }
       }
     }
