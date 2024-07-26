@@ -195,8 +195,8 @@ if (!empty($_POST)) {
               //
               // Assign to default group
               //
-              if (isset($_POST['sel_group'])) {
-                if ($G->getById($_POST['sel_group']) && $U->findByName($CSVusername)) $UG->save($CSVusername, $_POST['sel_group'], 'member');
+              if (isset($_POST['sel_group']) && $G->getById($_POST['sel_group']) && $U->findByName($CSVusername)) {
+                $UG->save($CSVusername, $_POST['sel_group'], 'member');
               }
               //
               // Default user options
