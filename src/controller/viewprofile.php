@@ -14,20 +14,18 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 
-// echo '<script type="text/javascript">alert("Debug: ");</script>';
-
 //=============================================================================
 //
 // CHECK PERMISSION
 //
 if (!isAllowed($CONF['controllers'][$controller]->permission)) {
-    $alertData['type'] = 'warning';
-    $alertData['title'] = $LANG['alert_alert_title'];
-    $alertData['subject'] = $LANG['alert_not_allowed_subject'];
-    $alertData['text'] = $LANG['alert_not_allowed_text'];
-    $alertData['help'] = $LANG['alert_not_allowed_help'];
-    require(WEBSITE_ROOT . '/controller/alert.php');
-    die();
+  $alertData['type'] = 'warning';
+  $alertData['title'] = $LANG['alert_alert_title'];
+  $alertData['subject'] = $LANG['alert_not_allowed_subject'];
+  $alertData['text'] = $LANG['alert_not_allowed_text'];
+  $alertData['help'] = $LANG['alert_not_allowed_help'];
+  require_once WEBSITE_ROOT . '/controller/alert.php';
+  die();
 }
 
 //=============================================================================
@@ -35,24 +33,26 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 // CHECK URL PARAMETER
 //
 if (isset($_GET['profile'])) {
-    $missingData =  false;
-    $profile = sanitize($_GET['profile']);
-    if (!$U->findByName($profile)) $missingData =  true;
+  $missingData = false;
+  $profile = sanitize($_GET['profile']);
+  if (!$U->findByName($profile)) {
+    $missingData = true;
+  }
 } else {
-    $missingData =  true;
+  $missingData = true;
 }
 
 if ($missingData) {
-    //
-    // URL param fail
-    //
-    $alertData['type'] = 'danger';
-    $alertData['title'] = $LANG['alert_danger_title'];
-    $alertData['subject'] = $LANG['alert_no_data_subject'];
-    $alertData['text'] = $LANG['alert_no_data_text'];
-    $alertData['help'] = $LANG['alert_no_data_help'];
-    require(WEBSITE_ROOT . '/controller/alert.php');
-    die();
+  //
+  // URL param fail
+  //
+  $alertData['type'] = 'danger';
+  $alertData['title'] = $LANG['alert_danger_title'];
+  $alertData['subject'] = $LANG['alert_no_data_subject'];
+  $alertData['text'] = $LANG['alert_no_data_text'];
+  $alertData['help'] = $LANG['alert_no_data_help'];
+  require_once WEBSITE_ROOT . '/controller/alert.php';
+  die();
 }
 
 //=============================================================================
@@ -92,19 +92,19 @@ $viewData['twitter'] = $UO->read($U->username, 'twitter');
 
 $viewData['allowEdit'] = false;
 if (($userData['isLoggedIn'] && $userData['username'] == $viewData['username']) || isAllowed($CONF['controllers']['useredit']->permission)) {
-    $viewData['allowEdit'] = true;
+  $viewData['allowEdit'] = true;
 }
 
 $viewData['allowAbsum'] = false;
 if (isAllowed($CONF['controllers']['absum']->permission)) {
-    $viewData['allowAbsum'] = true;
+  $viewData['allowAbsum'] = true;
 }
 
 //=============================================================================
 //
 // SHOW VIEW
 //
-require WEBSITE_ROOT . '/views/header.php';
-require WEBSITE_ROOT . '/views/menu.php';
-include WEBSITE_ROOT . '/views/' . $controller . '.php';
-require WEBSITE_ROOT . '/views/footer.php';
+require_once WEBSITE_ROOT . '/views/header.php';
+require_once WEBSITE_ROOT . '/views/menu.php';
+include_once WEBSITE_ROOT . '/views/' . $controller . '.php';
+require_once WEBSITE_ROOT . '/views/footer.php';

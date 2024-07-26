@@ -38,7 +38,7 @@ if ($missingData) {
   $alertData['subject'] = $LANG['alert_no_data_subject'];
   $alertData['text'] = $LANG['alert_no_data_text'];
   $alertData['help'] = $LANG['alert_no_data_help'];
-  require WEBSITE_ROOT . '/controller/alert.php';
+  require_once WEBSITE_ROOT . '/controller/alert.php';
   die();
 }
 
