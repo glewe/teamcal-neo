@@ -162,8 +162,8 @@ if (!empty($_POST)) {
         //
         // Read the event start and end string
         //
-        preg_match("#(?sU)DTSTART;.*DATE:([0-9]{8})#", $event, $start);
-        preg_match("#(?sU)DTEND;.*DATE:([0-9]{8})#", $event, $end);
+        preg_match("#(?sU)DTSTART;.*DATE:(\d{8})#", $event, $start);
+        preg_match("#(?sU)DTEND;.*DATE:(\d{8})#", $event, $end);
         //
         // Create time stamps and substract 24h from the end date cause the
         // end date of an iCal event is not included
@@ -178,7 +178,7 @@ if (!empty($_POST)) {
           $eventDate = date("Ymd", $i);
           $iCalEvents[] = $eventDate;
         }
-      };
+      }
       //
       // Loop through the date string array and save each one in the region template
       //
