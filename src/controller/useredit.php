@@ -189,7 +189,7 @@ if (!empty($_POST)) {
       if (isset($_POST[ 'txt_showMonths' ]) && strlen($_POST[ 'txt_showMonths' ])) {
         $postValue = intval($_POST[ 'txt_showMonths' ]);
         if ($postValue < 1) $postValue = 1;
-        else if ($postValue > 12) $postValue = 12;
+        elseif ($postValue > 12) $postValue = 12;
         $UO->save($profile, "showMonths", $postValue);
       } else {
         $UO->save($profile, "showMonths", 1);
@@ -363,7 +363,7 @@ if (!empty($_POST)) {
     // ,---------,
     // | Archive |
     // '---------'
-    else if (isset($_POST[ 'btn_profileArchive' ])) {
+    elseif (isset($_POST[ 'btn_profileArchive' ])) {
       //
       // Check if one or more users already exists in any archive table.
       // If so, we will not archive anything.
@@ -399,7 +399,7 @@ if (!empty($_POST)) {
     // ,---------,
     // | Delete  |
     // '---------'
-    else if (isset($_POST[ 'btn_profileDelete' ])) {
+    elseif (isset($_POST[ 'btn_profileDelete' ])) {
       //
       // Send notification e-mails to the subscribers of user events. In this case,
       // send before delete while we can still access info from the user.
@@ -426,7 +426,7 @@ if (!empty($_POST)) {
     // ,--------,
     // | Upload |
     // '--------'
-    else if (isset($_POST[ 'btn_uploadAvatar' ])) {
+    elseif (isset($_POST[ 'btn_uploadAvatar' ])) {
       $UPL = new Upload();
       $UPL->upload_dir = APP_AVATAR_DIR;
       $UPL->extensions = $CONF[ 'avatarExtensions' ];
@@ -468,7 +468,7 @@ if (!empty($_POST)) {
     // ,-------,
     // | Reset |
     // '-------'
-    else if (isset($_POST[ 'btn_reset' ])) {
+    elseif (isset($_POST[ 'btn_reset' ])) {
       //
       // Delete existing avatars and set to default.
       //

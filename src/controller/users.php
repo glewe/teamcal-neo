@@ -92,7 +92,7 @@ if (!empty($_POST)) {
         // ,---------,
         // | Archive |
         // '---------'
-        else if (isset($_POST['btn_userArchive']) && isset($_POST['chk_userActive'])) {
+        elseif (isset($_POST['btn_userArchive']) && isset($_POST['chk_userActive'])) {
             $selected_users = $_POST['chk_userActive'];
 
             //
@@ -129,7 +129,7 @@ if (!empty($_POST)) {
         // ,---------,
         // | Restore |
         // '---------'
-        else if (isset($_POST['btn_profileRestore']) && isset($_POST['chk_userArchived'])) {
+        elseif (isset($_POST['btn_profileRestore']) && isset($_POST['chk_userArchived'])) {
             $selected_users = $_POST['chk_userArchived'];
 
             //
@@ -168,7 +168,7 @@ if (!empty($_POST)) {
         // ,---------------,
         // | Delete Active |
         // '---------------'
-        else if (isset($_POST['btn_profileDelete']) && isset($_POST['chk_userActive'])) {
+        elseif (isset($_POST['btn_profileDelete']) && isset($_POST['chk_userActive'])) {
             $selected_users = $_POST['chk_userActive'];
             foreach ($selected_users as $su => $value) {
                 //
@@ -194,7 +194,7 @@ if (!empty($_POST)) {
         // ,-----------------,
         // | Delete Archived |
         // '-----------------'
-        else if (isset($_POST['btn_profileDeleteArchived']) && isset($_POST['chk_userArchived'])) {
+        elseif (isset($_POST['btn_profileDeleteArchived']) && isset($_POST['chk_userArchived'])) {
             $selected_users = $_POST['chk_userArchived'];
             foreach ($selected_users as $su => $value) {
                 deleteUser($value, $fromArchive = true);
@@ -212,7 +212,7 @@ if (!empty($_POST)) {
         // ,----------------,
         // | Reset Password |
         // '----------------'
-        else if (isset($_POST['btn_userResetPassword']) && isset($_POST['chk_userActive'])) {
+        elseif (isset($_POST['btn_userResetPassword']) && isset($_POST['chk_userActive'])) {
             $selected_users = $_POST['chk_userActive'];
             foreach ($selected_users as $su => $value) {
                 //
@@ -259,7 +259,7 @@ if (!empty($_POST)) {
         // ,------------,
         // | Remove 2FA |
         // '------------'
-        else if (isset($_POST['btn_userRemoveSecret']) && isset($_POST['chk_userActive'])) {
+        elseif (isset($_POST['btn_userRemoveSecret']) && isset($_POST['chk_userActive'])) {
             $selected_users = $_POST['chk_userActive'];
             foreach ($selected_users as $su => $value) {
                 //
