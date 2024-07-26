@@ -107,33 +107,32 @@ if (!empty($_POST)) {
     // ,--------,
     // | Update |
     // '--------'
-    if (isset($_POST['btn_update'])) {
+    if (
+      isset($_POST['btn_update']) &&
+      isset($_POST['txt_password']) && strlen($_POST['txt_password']) &&
+      isset($_POST['txt_password2']) && strlen($_POST['txt_password2']) &&
+      $_POST['txt_password'] == $_POST['txt_password2']
+    ) {
       //
       // Password
       //
-      if (
-        isset($_POST['txt_password']) && strlen($_POST['txt_password']) &&
-        isset($_POST['txt_password2']) && strlen($_POST['txt_password2']) &&
-        $_POST['txt_password'] == $_POST['txt_password2']
-      ) {
-        $UP->password = password_hash(trim($_POST['txt_password']), PASSWORD_DEFAULT);
-        $UP->last_pw_change = date('YmdHis');
-        $UP->update($UP->username);
-        $UO->deleteUserOption($UP->username, 'pwdTokenExpiry');
-        //
-        // Log this event
-        //
-        $LOG->logEvent("logUser", L_USER, "log_user_pwd_reset", $UP->username);
-        //
-        // Success
-        //
-        $showAlert = true;
-        $alertData['type'] = 'success';
-        $alertData['title'] = $LANG['alert_success_title'];
-        $alertData['subject'] = $LANG['profile_alert_update'];
-        $alertData['text'] = $LANG['profile_alert_update_success'];
-        $alertData['help'] = '';
-      }
+      $UP->password = password_hash(trim($_POST['txt_password']), PASSWORD_DEFAULT);
+      $UP->last_pw_change = date('YmdHis');
+      $UP->update($UP->username);
+      $UO->deleteUserOption($UP->username, 'pwdTokenExpiry');
+      //
+      // Log this event
+      //
+      $LOG->logEvent("logUser", L_USER, "log_user_pwd_reset", $UP->username);
+      //
+      // Success
+      //
+      $showAlert = true;
+      $alertData['type'] = 'success';
+      $alertData['title'] = $LANG['alert_success_title'];
+      $alertData['subject'] = $LANG['profile_alert_update'];
+      $alertData['text'] = $LANG['profile_alert_update_success'];
+      $alertData['help'] = '';
     }
   } else {
     //
