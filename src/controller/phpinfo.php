@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * PHP Info Controller
  *
@@ -19,13 +21,13 @@ if (!defined('VALID_ROOT')) { exit(''); }
 // CHECK PERMISSION
 //
 if (!isAllowed($CONF['controllers'][$controller]->permission)) {
-    $alertData['type'] = 'warning';
-    $alertData['title'] = $LANG['alert_alert_title'];
-    $alertData['subject'] = $LANG['alert_not_allowed_subject'];
-    $alertData['text'] = $LANG['alert_not_allowed_text'];
-    $alertData['help'] = $LANG['alert_not_allowed_help'];
-    require(WEBSITE_ROOT . '/controller/alert.php');
-    die();
+  $alertData['type'] = 'warning';
+  $alertData['title'] = $LANG['alert_alert_title'];
+  $alertData['subject'] = $LANG['alert_not_allowed_subject'];
+  $alertData['text'] = $LANG['alert_not_allowed_text'];
+  $alertData['help'] = $LANG['alert_not_allowed_help'];
+  require_once WEBSITE_ROOT . '/controller/alert.php';
+  die();
 }
 
 //=============================================================================
@@ -53,7 +55,7 @@ $viewData['phpInfo'] = getPhpInfoBootstrap();
 //
 // SHOW VIEW
 //
-require WEBSITE_ROOT . '/views/header.php';
-require WEBSITE_ROOT . '/views/menu.php';
-include WEBSITE_ROOT . '/views/' . $controller . '.php';
-require WEBSITE_ROOT . '/views/footer.php';
+require_once WEBSITE_ROOT . '/views/header.php';
+require_once WEBSITE_ROOT . '/views/menu.php';
+include_once WEBSITE_ROOT . '/views/' . $controller . '.php';
+require_once WEBSITE_ROOT . '/views/footer.php';
