@@ -99,7 +99,9 @@ if (!empty($_POST)) {
       //
       $exists = false;
       foreach ($selected_users as $su => $value) {
-        if (!archiveUser($value)) $exists = true;
+        if (!archiveUser($value)) {
+          $exists = true;
+        }
       }
       if (!$exists) {
         //
