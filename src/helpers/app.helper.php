@@ -63,7 +63,7 @@ function absenceThresholdReached($year, $month, $day, $base, $group = '') {
    */
   $absencerate = ((100 * $absences) / $usercount);
   $threshold = intval($C->read("declThreshold"));
-  return ($absencerate >= $threshold);
+  return $absencerate >= $threshold;
 }
 
 // ---------------------------------------------------------------------------
@@ -452,7 +452,9 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                     // Requested absence is inside a declination period.
                     // Absence cannot be set.
                     //
-                    if (!strlen($declMessage = $C->read("declPeriod" . $p . "Message"))) $declMessage = $LANG['alert_decl_period'] . $startDate . " - " . $endDate;
+                    if (!strlen($declMessage = $C->read("declPeriod" . $p . "Message"))) {
+                      $declMessage = $LANG['alert_decl_period'] . $startDate . " - " . $endDate;
+                    }
                     $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong>: " . $declMessage;
                     $declinedReasonsLog[$i] = "- " . $T->year . $T->month . sprintf("%02d", ($i)) . ": " . $declMessage;
                     $declinedAbsences[$i] = $requestedAbsences[$i];
@@ -1157,7 +1159,7 @@ function absenceMaximumReached($year, $month, $day, $group = '') {
    * Check against threshold
    */
   $threshold = $G->getMaxAbsent($group);
-  return ($absences > $threshold);
+  return $absences > $threshold;
 }
 
 // ---------------------------------------------------------------------------
@@ -1189,7 +1191,7 @@ function absenceMaximumWeReached($year, $month, $day, $group = '') {
    * Check against threshold
    */
   $threshold = $G->getMaxAbsentWe($group);
-  return ($absences > $threshold);
+  return $absences > $threshold;
 }
 
 // ---------------------------------------------------------------------------
@@ -1227,7 +1229,7 @@ function presenceMinimumReached($year, $month, $day, $group = '') {
    * Check against threshold
    */
   $threshold = $G->getMinPresent($group);
-  return ($presences < $threshold);
+  return $presences < $threshold;
 }
 
 // ---------------------------------------------------------------------------
@@ -1265,7 +1267,7 @@ function presenceMinimumWeReached($year, $month, $day, $group = '') {
    * Check against threshold
    */
   $threshold = $G->getMinPresentWe($group);
-  return ($presences < $threshold);
+  return $presences < $threshold;
 }
 
 // ---------------------------------------------------------------------------
