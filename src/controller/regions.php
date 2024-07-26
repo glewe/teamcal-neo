@@ -14,8 +14,6 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 
-// echo '<script type="text/javascript">alert("Debug: ");</script>';
-
 //=============================================================================
 //
 // CHECK PERMISSION
