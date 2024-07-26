@@ -34,7 +34,7 @@ $editLink = '';
 if (isAllowed($CONF[ 'controllers' ][ 'calendaredit' ]->permission)) {
   if ($UL->username == $usr[ 'username' ]) {
     if (isAllowed("calendareditown")) $editAllowed = true;
-  } else if ($UG->shareGroupMemberships($UL->username, $usr[ 'username' ])) {
+  } elseif ($UG->shareGroupMemberships($UL->username, $usr[ 'username' ])) {
     if (isAllowed("calendareditgroup")) {
       $editAllowed = true;
     } elseif (isAllowed("calendareditgroupmanaged") && $UG->isGroupManagerOfUser($UL->username, $usr[ 'username' ])) {
@@ -203,9 +203,9 @@ view.calendaruserrow (<?= $viewData[ 'year' ] . $viewData[ 'month' ] ?> - <?= $f
     //
     if ($note and $bday) {
       $style .= 'background-image: url(images/ovl_bdaynote.gif); background-repeat: no-repeat; background-position: top right;';
-    } else if ($note) {
+    } elseif ($note) {
       $style .= 'background-image: url(images/ovl_daynote.gif); background-repeat: no-repeat; background-position: top right;';
-    } else if ($bday) {
+    } elseif ($bday) {
       $style .= 'background-image: url(images/ovl_birthday.gif); background-repeat: no-repeat; background-position: top right;';
     }
 

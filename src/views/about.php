@@ -90,7 +90,7 @@ view.about
             // Major version smaller
             //
             document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-sm btn-danger" href="https://www.lewe.com/teamcal-neo/" target="_blank"><?= $LANG['about_majorUpdateAvailable'] ?></a>';
-        } else if (running_version.major == latest_version.major) {
+        } elseif (running_version.major == latest_version.major) {
             //
             // Major version equal
             //
