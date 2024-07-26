@@ -98,10 +98,8 @@ $fperms = array(
 if (!$scheme = $C->read('permissionScheme')) {
   $scheme = "Default";
 }
-if (isset($_GET['scheme'])) {
-  if ($P->schemeExists($_GET['scheme'])) {
-    $scheme = $_GET['scheme'];
-  }
+if (isset($_GET['scheme']) && $P->schemeExists($_GET['scheme'])) {
+  $scheme = $_GET['scheme'];
 }
 
 $modes = array( 'byperm', 'byrole' );
@@ -199,7 +197,9 @@ if (!empty($_POST)) {
           foreach ($roles as $role) {
             if ($role['id'] == 1) {
               $allowed = 1;
-            } else $allowed = 0;
+            } else {
+              $allowed = 0;
+            }
             $P->setPermission($scheme, $perm, $role['id'], $allowed);
           }
         }
@@ -210,7 +210,9 @@ if (!empty($_POST)) {
           foreach ($roles as $role) {
             if ($role['id'] == 1) {
               $allowed = 1;
-            } else $allowed = 0;
+            } else {
+              $allowed = 0;
+            }
             $P->setPermission($scheme, $fperm, $role['id'], $allowed);
           }
         }
