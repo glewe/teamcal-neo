@@ -153,8 +153,8 @@ if (!empty($_POST)) {
   // Form validation
   //
   $inputError = false;
-  if (isset($_POST['btn_search'])) {
-    if (!formInputValid('txt_search', 'required|alpha_numeric_dash')) $inputError = true;
+  if (isset($_POST['btn_search']) && !formInputValid('txt_search', 'required|alpha_numeric_dash')) {
+    $inputError = true;
   }
 
   if (!$inputError) {
