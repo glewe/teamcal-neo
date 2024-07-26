@@ -104,10 +104,8 @@ if (!empty($_POST)) {
   // Form validation
   //
   $inputError = false;
-  if (isset($_POST['btn_verify'])) {
-    if (!formInputValid('txt_totp', 'numeric')) {
-      $inputError = true;
-    }
+  if (isset($_POST['btn_verify']) && !formInputValid('txt_totp', 'numeric')) {
+    $inputError = true;
   }
 
   if (!$inputError) {
