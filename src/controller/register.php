@@ -32,7 +32,7 @@ if (!$C->read('allowRegistration')) {
 //
 // LOAD CONTROLLER RESOURCES
 //
-require_once(WEBSITE_ROOT . '/addons/securimage/securimage.php');
+require_once WEBSITE_ROOT . '/addons/securimage/securimage.php';
 
 //=============================================================================
 //
@@ -89,7 +89,7 @@ if (!empty($_POST)) {
       //
       // Get Captcha
       //
-      if ($securimage->check($_POST['txt_code']) == false) {
+      if (!$securimage->check($_POST['txt_code'])) {
         //
         // Captcha code wrong
         //
