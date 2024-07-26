@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * User Edit Controller
  *
@@ -11,8 +13,6 @@ if (!defined('VALID_ROOT')) { exit(''); }
  * @subpackage Controllers
  * @since 3.0.0
  */
-
-// echo '<script type="text/javascript">alert("Debug: ");</script>';
 
 //=============================================================================
 //

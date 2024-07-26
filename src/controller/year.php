@@ -1,5 +1,7 @@
 <?php
-
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Year calendar page controller
  *
@@ -11,7 +13,6 @@
  * @subpackage Controllers
  * @since 3.0.0
  */
-if (!defined('VALID_ROOT')) exit('No direct access allowed!');
 
 // echo '<script type="text/javascript">alert("Debug: ");</script>';
 

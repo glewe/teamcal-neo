@@ -2,7 +2,6 @@
 if (!defined('VALID_ROOT')) {
   exit('');
 }
-
 /**
  * Login Controller
  *
