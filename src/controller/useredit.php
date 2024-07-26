@@ -138,7 +138,9 @@ if (!empty($_POST)) {
     if (!formInputValid('txt_skype', 'alpha_numeric_dash')) {
       $inputError = true;
     }
-    if (!formInputValid('txt_twitter', 'alpha_numeric_dash')) $inputError = true;
+    if (!formInputValid('txt_twitter', 'alpha_numeric_dash')) {
+      $inputError = true;
+    }
     if (!formInputValid('txt_custom1', 'alpha_numeric_dash_blank_special')) {
       $inputError = true;
     }
@@ -208,11 +210,9 @@ if (!empty($_POST)) {
       if (!$UO->read($profile, 'menuBar')) {
         $UO->save($profile, 'menuBar', 'default');
       }
-      if (isset($_POST['opt_menuBar'])) {
-        if ($_POST['opt_menuBar'] != $UO->read($profile, 'menuBar')) {
-          $UO->save($profile, 'menuBar', $_POST['opt_menuBar']);
-          $reloadPage = true;
-        }
+      if (isset($_POST['opt_menuBar']) && $_POST['opt_menuBar'] != $UO->read($profile, 'menuBar')) {
+        $UO->save($profile, 'menuBar', $_POST['opt_menuBar']);
+        $reloadPage = true;
       }
       if (isset($_POST['sel_language'])) {
         if ($_POST['sel_language'] != $UO->read($profile, 'language')) {
@@ -682,8 +682,7 @@ foreach ($groups as $group) {
 
 if (isAllowed("groupmemberships")) {
   $disabled = false;
-}
-else {
+} else {
   $disabled = true;
 }
 $viewData['groups'] = array(
