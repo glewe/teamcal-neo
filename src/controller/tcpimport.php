@@ -209,8 +209,11 @@ if (!empty($_POST)) {
                 $H->description = '';
                 $H->color = '';
                 $H->bgcolor = $rec['dspcolor'];
-                if ($rec['options'] & 0x01) $H->businessday = '1';
-                else $H->businessday = '0';
+                if ($rec['options'] & 0x01) {
+                  $H->businessday = '1';
+                } else {
+                  $H->businessday = '0';
+                }
                 $H->create();
               }
             }
@@ -392,8 +395,8 @@ if (!empty($_POST)) {
         // - Absences
         // - Users
         //
-        if (($_POST['opt_alloImport'] == 'replace' || $_POST['opt_alloImport'] == 'add') and
-          ($_POST['opt_absImport'] == 'replace' || $_POST['opt_absImport'] == 'add') and
+        if (($_POST['opt_alloImport'] == 'replace' || $_POST['opt_alloImport'] == 'add') &&
+          ($_POST['opt_absImport'] == 'replace' || $_POST['opt_absImport'] == 'add') &&
           ($_POST['opt_usersImport'] == 'replace' || $_POST['opt_usersImport'] == 'add')
         ) {
           //
@@ -456,8 +459,8 @@ if (!empty($_POST)) {
         // - Regions
         // - Users
         //
-        if (($_POST['opt_daynImport'] == 'replace' || $_POST['opt_daynImport'] == 'add') and
-          ($_POST['opt_regsImport'] == 'replace' || $_POST['opt_regsImport'] == 'add') and
+        if (($_POST['opt_daynImport'] == 'replace' || $_POST['opt_daynImport'] == 'add') &&
+          ($_POST['opt_regsImport'] == 'replace' || $_POST['opt_regsImport'] == 'add') &&
           ($_POST['opt_usersImport'] == 'replace' || $_POST['opt_usersImport'] == 'add')
         ) {
           //
@@ -487,8 +490,11 @@ if (!empty($_POST)) {
               $D->yyyymmdd = $rec['yyyymmdd'];
               $D->username = $rec['username'];
               $D->daynote = $rec['daynote'];
-              if ($regId = $R->getId($rec['region'])) $D->region = $regId;
-              else $D->region = '1';
+              if ($regId = $R->getId($rec['region'])) {
+                $D->region = $regId;
+              } else {
+                $D->region = '1';
+              }
               $D->color = 'info';
               $D->create();
             }
@@ -561,8 +567,8 @@ if (!empty($_POST)) {
         // - Groups
         // - Users
         //
-        if (($_POST['opt_ugrImport'] == 'replace' || $_POST['opt_ugrImport'] == 'add') and
-          ($_POST['opt_groupsImport'] == 'replace' || $_POST['opt_groupsImport'] == 'add') and
+        if (($_POST['opt_ugrImport'] == 'replace' || $_POST['opt_ugrImport'] == 'add') &&
+          ($_POST['opt_groupsImport'] == 'replace' || $_POST['opt_groupsImport'] == 'add') &&
           ($_POST['opt_usersImport'] == 'replace' || $_POST['opt_usersImport'] == 'add')
         ) {
           //
@@ -614,8 +620,8 @@ if (!empty($_POST)) {
         // - Regions
         // - Holidays
         //
-        if (($_POST['opt_mtplImport'] == 'replace' || $_POST['opt_mtplImport'] == 'add') and
-          ($_POST['opt_holsImport'] == 'replace' || $_POST['opt_holsImport'] == 'add') and
+        if (($_POST['opt_mtplImport'] == 'replace' || $_POST['opt_mtplImport'] == 'add') &&
+          ($_POST['opt_holsImport'] == 'replace' || $_POST['opt_holsImport'] == 'add') &&
           ($_POST['opt_regsImport'] == 'replace' || $_POST['opt_regsImport'] == 'add')
         ) {
           //
@@ -649,7 +655,9 @@ if (!empty($_POST)) {
               $M->year = $tcpYear;
               $M->month = $tcpMonth;
               $regionID = '1'; // Default
-              if ($R->getByName($tcpRegion)) $regionID = $R->id;
+              if ($R->getByName($tcpRegion)) {
+                $regionID = $R->id;
+              }
               $M->region = $regionID;
               // Weekdays
               //
@@ -709,7 +717,9 @@ if (!empty($_POST)) {
                     //
                     // Get TCN holiday ID from TCP holiday name
                     //
-                    if ($H->getByName($tcpHolName)) $holiday = $H->id;
+                    if ($H->getByName($tcpHolName)) {
+                      $holiday = $H->id;
+                    }
                   } else {
                     $holiday = 0;
                   }
@@ -738,8 +748,8 @@ if (!empty($_POST)) {
         // - Absence Types
         // - Users
         //
-        if (($_POST['opt_utplImport'] == 'replace' || $_POST['opt_utplImport'] == 'add') and
-          ($_POST['opt_absImport'] == 'replace' || $_POST['opt_absImport'] == 'add') and
+        if (($_POST['opt_utplImport'] == 'replace' || $_POST['opt_utplImport'] == 'add') &&
+          ($_POST['opt_absImport'] == 'replace' || $_POST['opt_absImport'] == 'add') &&
           ($_POST['opt_usersImport'] == 'replace' || $_POST['opt_usersImport'] == 'add')
         ) {
           //
@@ -788,7 +798,9 @@ if (!empty($_POST)) {
                   //
                   // Get TCN absence ID from TCP absence name
                   //
-                  if ($A->getByName($tcpAbsName)) $absence = $A->id;
+                  if ($A->getByName($tcpAbsName)) {
+                    $absence = $A->id;
+                  }
                 }
                 $prop = 'abs' . $i;
                 $T->$prop = $absence;
