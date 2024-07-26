@@ -212,9 +212,7 @@ foreach ($users as $usr) {
   if ($usr['username'] == $UL->username) {
     $allowed = true;
   } elseif (!$U->isHidden($usr['username'])) {
-    if (isAllowed("calendarviewall")) {
-      $allowed = true;
-    } elseif (isAllowed("calendarviewgroup") && $UG->shareGroups($usr['username'], $UL->username)) {
+    if (isAllowed("calendarviewall") || isAllowed("calendarviewgroup") && $UG->shareGroups($usr['username'], $UL->username)) {
       $allowed = true;
     }
   }
