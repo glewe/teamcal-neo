@@ -231,13 +231,13 @@ view.declination
             if (this.value == 'nowForever') {
                 $("#absenceStartdate").prop("disabled", true);
                 $("#absenceEnddate").prop("disabled", true);
-            } else if (this.value == 'nowEnddate') {
+            } elseif (this.value == 'nowEnddate') {
                 $("#absenceStartdate").prop("disabled", true);
                 $("#absenceEnddate").prop("disabled", false);
-            } else if (this.value == 'startdateForever') {
+            } elseif (this.value == 'startdateForever') {
                 $("#absenceStartdate").prop("disabled", false);
                 $("#absenceEnddate").prop("disabled", true);
-            } else if (this.value == 'startdateEnddate') {
+            } elseif (this.value == 'startdateEnddate') {
                 $("#absenceStartdate").prop("disabled", false);
                 $("#absenceEnddate").prop("disabled", false);
             }
@@ -247,13 +247,13 @@ view.declination
             if (this.value == 'nowForever') {
                 $("#beforeStartdate").prop("disabled", true);
                 $("#beforeEnddate").prop("disabled", true);
-            } else if (this.value == 'nowEnddate') {
+            } elseif (this.value == 'nowEnddate') {
                 $("#beforeStartdate").prop("disabled", true);
                 $("#beforeEnddate").prop("disabled", false);
-            } else if (this.value == 'startdateForever') {
+            } elseif (this.value == 'startdateForever') {
                 $("#beforeStartdate").prop("disabled", false);
                 $("#beforeEnddate").prop("disabled", true);
-            } else if (this.value == 'startdateEnddate') {
+            } elseif (this.value == 'startdateEnddate') {
                 $("#beforeStartdate").prop("disabled", false);
                 $("#beforeEnddate").prop("disabled", false);
             }
@@ -263,13 +263,13 @@ view.declination
             if (this.value == 'nowForever') {
                 $("#period1Startdate").prop("disabled", true);
                 $("#period1Enddate").prop("disabled", true);
-            } else if (this.value == 'nowEnddate') {
+            } elseif (this.value == 'nowEnddate') {
                 $("#period1Startdate").prop("disabled", true);
                 $("#period1Enddate").prop("disabled", false);
-            } else if (this.value == 'startdateForever') {
+            } elseif (this.value == 'startdateForever') {
                 $("#period1Startdate").prop("disabled", false);
                 $("#period1Enddate").prop("disabled", true);
-            } else if (this.value == 'startdateEnddate') {
+            } elseif (this.value == 'startdateEnddate') {
                 $("#period1Startdate").prop("disabled", false);
                 $("#period1Enddate").prop("disabled", false);
             }
@@ -279,13 +279,13 @@ view.declination
             if (this.value == 'nowForever') {
                 $("#period2Startdate").prop("disabled", true);
                 $("#period2Enddate").prop("disabled", true);
-            } else if (this.value == 'nowEnddate') {
+            } elseif (this.value == 'nowEnddate') {
                 $("#period2Startdate").prop("disabled", true);
                 $("#period2Enddate").prop("disabled", false);
-            } else if (this.value == 'startdateForever') {
+            } elseif (this.value == 'startdateForever') {
                 $("#period2Startdate").prop("disabled", false);
                 $("#period2Enddate").prop("disabled", true);
-            } else if (this.value == 'startdateEnddate') {
+            } elseif (this.value == 'startdateEnddate') {
                 $("#period2Startdate").prop("disabled", false);
                 $("#period2Enddate").prop("disabled", false);
             }
@@ -295,13 +295,13 @@ view.declination
             if (this.value == 'nowForever') {
                 $("#period3Startdate").prop("disabled", true);
                 $("#period3Enddate").prop("disabled", true);
-            } else if (this.value == 'nowEnddate') {
+            } elseif (this.value == 'nowEnddate') {
                 $("#period3Startdate").prop("disabled", true);
                 $("#period3Enddate").prop("disabled", false);
-            } else if (this.value == 'startdateForever') {
+            } elseif (this.value == 'startdateForever') {
                 $("#period3Startdate").prop("disabled", false);
                 $("#period3Enddate").prop("disabled", true);
-            } else if (this.value == 'startdateEnddate') {
+            } elseif (this.value == 'startdateEnddate') {
                 $("#period3Startdate").prop("disabled", false);
                 $("#period3Enddate").prop("disabled", false);
             }

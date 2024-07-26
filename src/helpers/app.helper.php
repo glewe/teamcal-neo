@@ -246,7 +246,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
 
                   if (presenceMinimumReached($year, $month, $i, $row[ 'groupid' ])) {
                     $minimum = $LANG[ 'weekdays' ] . ": " . $G->getMinPresent($row[ 'groupid' ]);
-                  } else if (presenceMinimumWeReached($year, $month, $i, $row[ 'groupid' ])) {
+                  } elseif (presenceMinimumWeReached($year, $month, $i, $row[ 'groupid' ])) {
                     $minimum = $LANG[ 'weekends' ] . ": " . $G->getMinPresentWe($row[ 'groupid' ]);
                   }
 
@@ -285,7 +285,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
 
                   if (absenceMaximumReached($year, $month, $i, $row[ 'groupid' ])) {
                     $maximum = $LANG[ 'weekdays' ] . ": " . $G->getMaxAbsent($row[ 'groupid' ]);
-                  } else if (absenceMaximumWeReached($year, $month, $i, $row[ 'groupid' ])) {
+                  } elseif (absenceMaximumWeReached($year, $month, $i, $row[ 'groupid' ])) {
                     $maximum = $LANG[ 'weekends' ] . ": " . $G->getMaxAbsentWe($row[ 'groupid' ]);
                   }
 
@@ -636,7 +636,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
         //
         $allow = $AL->getAllowance($username, $requestedAbsences[ $i ]);
         $checkAllowance = true;
-      } else if ($A->getAllowance($requestedAbsences[ $i ])) {
+      } elseif ($A->getAllowance($requestedAbsences[ $i ])) {
         //
         // Global allowance per year is positive
         //
@@ -791,7 +791,7 @@ function countAbsence($user = '%', $absid, $from, $to, $useFactor =  false, $com
         $lastday = $endday;
       }
       $count += $T->countAbsence($user, $year, $month, $absid, $startday, $lastday);
-    } else if ($year == $endyear and $month == $endmonth) {
+    } elseif ($year == $endyear and $month == $endmonth) {
       $count += $T->countAbsence($user, $year, $month, $absid, 1, $endday);
     } else {
       $count += $T->countAbsence($user, $year, $month, $absid);
@@ -824,7 +824,7 @@ function countAbsence($user = '%', $absid, $from, $to, $useFactor =  false, $com
         while ($ymstart <= $ymend) {
           if ($year == $startyear and $month == $startmonth) {
             $otherCount += $T->countAbsence($user, $year, $month, $otherAbs[ 'id' ], $startday);
-          } else if ($year == $endyear and $month == $endmonth) {
+          } elseif ($year == $endyear and $month == $endmonth) {
             $otherCount += $T->countAbsence($user, $year, $month, $otherAbs[ 'id' ], 1, $endday);
           } else {
             $otherCount += $T->countAbsence($user, $year, $month, $otherAbs[ 'id' ]);
@@ -1020,7 +1020,7 @@ function createMonth($year, $month, $target, $owner) {
         $weeknumber++;
       }
     }
-  } else if ($target == 'user') {
+  } elseif ($target == 'user') {
     $MT = new Templates();
     $MT->username = $owner;
     for ($i = 1; $i <= $dateInfo[ 'daysInMonth' ]; $i++) {

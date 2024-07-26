@@ -386,7 +386,7 @@ function sendEmail($to, $subject, $body, $from = '') {
   if ((!strlen($from)) or ($from_regexp and ($fetch[ 1 ] == $C->read("mailReply")))) {
     $from = $replyto = mb_encode_mimeheader($C->read("mailFrom")) . " <" . $C->read("mailReply") . ">";
     $from_mailonly = $C->read("mailReply");
-  } else if ($from_regexp) {
+  } elseif ($from_regexp) {
     $from_mailonly = $fetch[ 1 ];
     $replyto = mb_encode_mimeheader($from);
   }
@@ -514,22 +514,22 @@ function validEmail($email) {
     if ($localLen < 1 || $localLen > 64) {
       // local part length exceeded
       $isValid = false;
-    } else if ($domainLen < 1 || $domainLen > 255) {
+    } elseif ($domainLen < 1 || $domainLen > 255) {
       // domain part length exceeded
       $isValid = false;
-    } else if ($local[ 0 ] == '.' || $local[ $localLen - 1 ] == '.') {
+    } elseif ($local[ 0 ] == '.' || $local[ $localLen - 1 ] == '.') {
       // local part starts or ends with '.'
       $isValid = false;
-    } else if (preg_match('/\\.\\./', $local)) {
+    } elseif (preg_match('/\\.\\./', $local)) {
       // local part has two consecutive dots
       $isValid = false;
-    } else if (!preg_match('/^[A-Za-z0-9\\-\\.]+$/', $domain)) {
+    } elseif (!preg_match('/^[A-Za-z0-9\\-\\.]+$/', $domain)) {
       // character not valid in domain part
       $isValid = false;
-    } else if (preg_match('/\\.\\./', $domain)) {
+    } elseif (preg_match('/\\.\\./', $domain)) {
       // domain part has two consecutive dots
       $isValid = false;
-    } else if (!preg_match('/^(\\\\.|[A-Za-z0-9!#%&`_=\\/$\'*+?^{}|~.-])+$/', str_replace("\\\\", "", $local))) {
+    } elseif (!preg_match('/^(\\\\.|[A-Za-z0-9!#%&`_=\\/$\'*+?^{}|~.-])+$/', str_replace("\\\\", "", $local))) {
       // character not valid in local part unless
       // local part is quoted
       if (!preg_match('/^"(\\\\"|[^"])+"$/', str_replace("\\\\", "", $local))) {
