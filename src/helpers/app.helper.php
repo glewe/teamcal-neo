@@ -222,22 +222,22 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             //
             $groups = "";
             foreach ($userGroups as $row) {
-              if ($requestedAbsences[$i] && !$A->getCountsAsPresent($requestedAbsences[$i]) && (presenceMinimumReached($year, $month, $i, $row['groupid']) or presenceMinimumWeReached($year, $month, $i, $row['groupid']))) {
+              if (
+                $requestedAbsences[$i] && !$A->getCountsAsPresent($requestedAbsences[$i]) && (presenceMinimumReached($year, $month, $i, $row['groupid']) || presenceMinimumWeReached($year, $month, $i, $row['groupid'])) &&
+                (!isAllowed("calendareditgroup") || (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) && !$UG->isMemberOrManagerOfGroup($UL->username, $row['groupid'])))
+              ) {
                 //
                 // Only decline and add the affected group if the requesting user
                 // - is not allowed to edit group calendars OR
                 // - is neither member nor manager of the affected group
                 //
-                if (!isAllowed("calendareditgroup") || (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) && !$UG->isMemberOrManagerOfGroup($UL->username, $row['groupid']))) {
-                  $affectedgroups[] = $row['groupid'];
-
-                  if (presenceMinimumReached($year, $month, $i, $row['groupid'])) {
-                    $minimum = $LANG['weekdays'] . ": " . $G->getMinPresent($row['groupid']);
-                  } elseif (presenceMinimumWeReached($year, $month, $i, $row['groupid'])) {
-                    $minimum = $LANG['weekends'] . ": " . $G->getMinPresentWe($row['groupid']);
-                  }
-                  $groups .= $G->getNameById($row['groupid']) . " (" . $minimum . "), ";
+                $affectedgroups[] = $row['groupid'];
+                if (presenceMinimumReached($year, $month, $i, $row['groupid'])) {
+                  $minimum = $LANG['weekdays'] . ": " . $G->getMinPresent($row['groupid']);
+                } elseif (presenceMinimumWeReached($year, $month, $i, $row['groupid'])) {
+                  $minimum = $LANG['weekends'] . ": " . $G->getMinPresentWe($row['groupid']);
                 }
+                $groups .= $G->getNameById($row['groupid']) . " (" . $minimum . "), ";
               }
             }
 
@@ -259,21 +259,22 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
             //
             $groups = "";
             foreach ($userGroups as $row) {
-              if ($requestedAbsences[$i] && !$A->getCountsAsPresent($requestedAbsences[$i]) && (absenceMaximumReached($year, $month, $i, $row['groupid']) || absenceMaximumWeReached($year, $month, $i, $row['groupid']))) {
+              if (
+                $requestedAbsences[$i] && !$A->getCountsAsPresent($requestedAbsences[$i]) && (absenceMaximumReached($year, $month, $i, $row['groupid']) || absenceMaximumWeReached($year, $month, $i, $row['groupid'])) &&
+                (!isAllowed("calendareditgroup") || (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) && !$UG->isMemberOrManagerOfGroup($UL->username, $row['groupid'])))
+              ) {
                 //
                 // Only decline and add the affected group if the requesting user
                 // - is not allowed to edit group calendars OR
                 // - is neither member nor manager of the affected group
                 //
-                if (!isAllowed("calendareditgroup") || (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) && !$UG->isMemberOrManagerOfGroup($UL->username, $row['groupid']))) {
-                  $affectedgroups[] = $row['groupid'];
-                  if (absenceMaximumReached($year, $month, $i, $row['groupid'])) {
-                    $maximum = $LANG['weekdays'] . ": " . $G->getMaxAbsent($row['groupid']);
-                  } elseif (absenceMaximumWeReached($year, $month, $i, $row['groupid'])) {
-                    $maximum = $LANG['weekends'] . ": " . $G->getMaxAbsentWe($row['groupid']);
-                  }
-                  $groups .= $G->getNameById($row['groupid']) . " (" . $maximum . "), ";
+                $affectedgroups[] = $row['groupid'];
+                if (absenceMaximumReached($year, $month, $i, $row['groupid'])) {
+                  $maximum = $LANG['weekdays'] . ": " . $G->getMaxAbsent($row['groupid']);
+                } elseif (absenceMaximumWeReached($year, $month, $i, $row['groupid'])) {
+                  $maximum = $LANG['weekends'] . ": " . $G->getMaxAbsentWe($row['groupid']);
                 }
+                $groups .= $G->getNameById($row['groupid']) . " (" . $maximum . "), ";
               }
             }
 
@@ -306,7 +307,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                   if ($today < $declStartdate) $applyRule = false;
                   break;
                 case 'startdateEnddate':
-                  if ($today < $declStartdate or $today > $declEnddate) $applyRule = false;
+                  if ($today < $declStartdate || $today > $declEnddate) $applyRule = false;
                   break;
               }
 
@@ -319,16 +320,17 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                   //
                   $groups = "";
                   foreach ($userGroups as $row) {
-                    if ($requestedAbsences[$i] && absenceThresholdReached($year, $month, $i, "group", $row['groupid'])) {
+                    if (
+                      $requestedAbsences[$i] && absenceThresholdReached($year, $month, $i, "group", $row['groupid']) &&
+                      (!isAllowed("calendareditgroup") || (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) && !$UG->isMemberOrManagerOfGroup($UL->username, $row['groupid'])))
+                    ) {
                       //
                       // Only decline and add the affected group if the requesting user
                       // - is not allowed to edit group calendars OR
                       // - is neither member nor manager of the affected group
                       //
-                      if (!isAllowed("calendareditgroup") || (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) && !$UG->isMemberOrManagerOfGroup($UL->username, $row['groupid']))) {
-                        $affectedgroups[] = $row['groupid'];
-                        $groups .= $G->getNameById($row['groupid']) . ", ";
-                      }
+                      $affectedgroups[] = $row['groupid'];
+                      $groups .= $G->getNameById($row['groupid']) . ", ";
                     }
                   }
 
@@ -374,7 +376,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                   if ($today < $declStartdate) $applyRule = false;
                   break;
                 case 'startdateEnddate':
-                  if ($today < $declStartdate or $today > $declEnddate) $applyRule = false;
+                  if ($today < $declStartdate || $today > $declEnddate) $applyRule = false;
                   break;
               }
 
@@ -416,7 +418,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
                     if ($today < $declStartdate) $applyRule = false;
                     break;
                   case 'startdateEnddate':
-                    if ($today < $declStartdate or $today > $declEnddate) $applyRule = false;
+                    if ($today < $declStartdate || $today > $declEnddate) $applyRule = false;
                     break;
                 }
 
@@ -443,33 +445,34 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
           //
           // ABSENCE APPROVAL REQUIRED
           //
-          if ($A->getApprovalRequired($requestedAbsences[$i]) && !$thresholdReached) {
+          if (
+            $A->getApprovalRequired($requestedAbsences[$i]) && !$thresholdReached &&
+            (!isAllowed("calendareditgroup") || (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) && !$UG->isMemberOrManagerOfGroup($UL->username, $row['groupid'])))
+          ) {
             //
             // ThresholdReached overrules absence approval
             // Only decline if the requesting user
             // - is not allowed to edit group calendars OR
             // - is neither member nor manager of the affected group
             //
-            if (!isAllowed("calendareditgroup") || (!$UG->isGroupManagerOfGroup($UL->username, $row['id']) && !$UG->isMemberOrManagerOfGroup($UL->username, $row['groupid']))) {
-              //
-              // Absence requires approval.
-              //
-              $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . $LANG['alert_decl_approval_required'];
-              $declinedReasonsLog[$i] = "- " . $T->year . $T->month . sprintf("%02d", ($i)) . ": " . $LANG['approval_required'];
-              $approvalDays[] = $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . " (" . $A->getName($requestedAbsences[$i]) . ")";
-              //
-              // Set absence but add approval daynote.
-              //
-              $declinedAbsences[$i] = $requestedAbsences[$i];
-              $approvedAbsences[$i] = $requestedAbsences[$i];
-              $D->yyyymmdd = $T->year . $T->month . sprintf("%02d", ($i));
-              $D->username = $username;
-              $D->region = $regionId;
-              $D->daynote = $LANG['alert_decl_approval_required_daynote'];
-              $D->color = 'warning';
-              $D->confidential = 0;
-              $D->create();
-            }
+            //
+            // Absence requires approval.
+            //
+            $declinedReasons[$i] = "<strong>" . $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $A->getName($requestedAbsences[$i]) . "): " . $LANG['alert_decl_approval_required'];
+            $declinedReasonsLog[$i] = "- " . $T->year . $T->month . sprintf("%02d", ($i)) . ": " . $LANG['approval_required'];
+            $approvalDays[] = $T->year . "-" . $T->month . "-" . sprintf("%02d", ($i)) . " (" . $A->getName($requestedAbsences[$i]) . ")";
+            //
+            // Set absence but add approval daynote.
+            //
+            $declinedAbsences[$i] = $requestedAbsences[$i];
+            $approvedAbsences[$i] = $requestedAbsences[$i];
+            $D->yyyymmdd = $T->year . $T->month . sprintf("%02d", ($i));
+            $D->username = $username;
+            $D->region = $regionId;
+            $D->daynote = $LANG['alert_decl_approval_required_daynote'];
+            $D->color = 'warning';
+            $D->confidential = 0;
+            $D->create();
           }
           //
           // HOLIDAY DOS NOT ALLOW ABSENCE
@@ -516,9 +519,9 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
         $firstDayOfWeek = $C->read("firstDayOfWeek");
         $date = new DateTime($T->year . '-' . $T->month . '-' . sprintf("%02d", ($i)));
         if ($firstDayOfWeek == 1) {
-          $first = $date->modify('monday this week');
+          $date->modify('monday this week');
         } else {
-          $first = $date->modify('sunday last week');
+          $date->modify('sunday last week');
         }
         $myts = $date->getTimestamp();
         $fromyear = date("Y", $myts);
@@ -530,9 +533,9 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
         //
         $date = new DateTime($T->year . '-' . $T->month . '-' . sprintf("%02d", ($i)));
         if ($firstDayOfWeek == 1) {
-          $last = $date->modify('monday this week +6 days');
+          $date->modify('monday this week +6 days');
         } else {
-          $first = $date->modify('sunday last week +6 days');
+          $date->modify('sunday last week +6 days');
         }
         $myts = $date->getTimestamp();
         $toyear = date("Y", $myts);
@@ -846,13 +849,11 @@ function countBusinessDays($cntfrom, $cntto, $region = '1', $cntManDays = false)
     $Mx->getMonth($year, $month, $region);
     $monthInfo = dateInfo($year, $month, '1');
     $lastday = $monthInfo['daysInMonth'];
-    if ($yearmonth == $endyearmonth) {
+    if ($yearmonth == $endyearmonth && $endday < $monthInfo['daysInMonth']) {
       //
       // This is the last month. Make sure we just read it up to the specified endday.
       //
-      if ($endday < $monthInfo['daysInMonth']) {
-        $lastday = $endday;
-      }
+      $lastday = $endday;
     }
     //
     // Now loop through each day of the month

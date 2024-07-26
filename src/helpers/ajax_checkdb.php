@@ -13,7 +13,7 @@
  */
 header("Cache-Control: no-cache");
 header("Pragma: no-cache");
-if (strlen($_REQUEST['server']) and strlen($_REQUEST['db']) && strlen($_REQUEST['db']) && strlen($_REQUEST['user'])) {
+if (strlen($_REQUEST['server']) && strlen($_REQUEST['db']) && strlen($_REQUEST['user'])) {
   try {
     $pdo = new PDO('mysql:host=' . $_REQUEST['server'] . ';dbname=' . $_REQUEST['db'] . ';charset=utf8', $_REQUEST['user'], $_REQUEST['pass']);
     $query = $pdo->prepare('SELECT * FROM ' . $_REQUEST['prefix'] . 'users;');
