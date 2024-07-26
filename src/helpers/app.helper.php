@@ -301,13 +301,19 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
               $applyRule = true; // Assume true
               switch ($C->read('declAbsencePeriod')) {
                 case 'nowEnddate':
-                  if ($today > $declEnddate) $applyRule = false;
+                  if ($today > $declEnddate) {
+                    $applyRule = false;
+                  }
                   break;
                 case 'startdateForever':
-                  if ($today < $declStartdate) $applyRule = false;
+                  if ($today < $declStartdate) {
+                    $applyRule = false;
+                  }
                   break;
                 case 'startdateEnddate':
-                  if ($today < $declStartdate || $today > $declEnddate) $applyRule = false;
+                  if ($today < $declStartdate || $today > $declEnddate) {
+                    $applyRule = false;
+                  }
                   break;
               }
 
