@@ -2,7 +2,6 @@
 if (!defined('VALID_ROOT')) {
   exit('');
 }
-
 /**
  * Setup 2FA Controller
  *
