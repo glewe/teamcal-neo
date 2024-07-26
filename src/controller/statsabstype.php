@@ -72,11 +72,21 @@ if (!empty($_POST)) {
   //
   $inputError = false;
   if (isset($_POST['btn_apply'])) {
-    if (!formInputValid('txt_from', 'date')) $inputError = true;
-    if (!formInputValid('txt_to', 'date')) $inputError = true;
-    if (!formInputValid('txt_scaleSmart', 'numeric')) $inputError = true;
-    if (!formInputValid('txt_scaleMax', 'numeric')) $inputError = true;
-    if (!formInputValid('txt_colorHex', 'hexadecimal')) $inputError = true;
+    if (!formInputValid('txt_from', 'date')) {
+      $inputError = true;
+    }
+    if (!formInputValid('txt_to', 'date')) {
+      $inputError = true;
+    }
+    if (!formInputValid('txt_scaleSmart', 'numeric')) {
+      $inputError = true;
+    }
+    if (!formInputValid('txt_scaleMax', 'numeric')) {
+      $inputError = true;
+    }
+    if (!formInputValid('txt_colorHex', 'hexadecimal')) {
+      $inputError = true;
+    }
   }
 
   if (!$inputError) {
