@@ -98,7 +98,7 @@ view.year
                                      * Not the first day of the month yet. Gray it out.
                                      */
                                     echo "<td class=\"y-grayday\"></td>\n";
-                                } else if ($i == $viewData['month'][$m][1]['wday']) {
+                                } elseif ($i == $viewData['month'][$m][1]['wday']) {
                                     /**
                                      * Here we go. Do the month days.
                                      */

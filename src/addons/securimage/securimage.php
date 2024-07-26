@@ -993,7 +993,7 @@ class Securimage
                 if ($prop == 'captchaId') {
                     Securimage::$_captchaId = $val;
                     $this->use_database     = true;
-                } else if ($prop == 'use_sqlite_db') {
+                } elseif ($prop == 'use_sqlite_db') {
                     trigger_error("The use_sqlite_db option is deprecated, use 'use_database' instead", E_USER_NOTICE);
                 } else {
                     $this->$prop = $val;
@@ -1599,13 +1599,13 @@ class Securimage
                 header('HTTP/1.1 416 Range Not Satisfiable');
                 echo "<h1>Range Not Satisfiable</h1>";
                 exit;
-            } else if (preg_match('/(\d+)-(\d+)/', $range, $match)) {
+            } elseif (preg_match('/(\d+)-(\d+)/', $range, $match)) {
                 // bytes n - m
                 $range = array(intval($match[1]), intval($match[2]));
-            } else if (preg_match('/(\d+)-$/', $range, $match)) {
+            } elseif (preg_match('/(\d+)-$/', $range, $match)) {
                 // bytes n - last byte of file
                 $range = array(intval($match[1]), null);
-            } else if (preg_match('/-(\d+)/', $range, $match)) {
+            } elseif (preg_match('/-(\d+)/', $range, $match)) {
                 // final n bytes of file
                 $range = array($size - intval($match[1]), $size - 1);
             }
@@ -1716,7 +1716,7 @@ class Securimage
                                        $this->display_value   :
                                        strtolower($this->display_value);
                 $code = $this->code;
-            } else if ($this->openDatabase()) {
+            } elseif ($this->openDatabase()) {
                 // no display_value, check the database for existing captchaId
                 $code = $this->getCodeFromDatabase();
 
@@ -2272,7 +2272,7 @@ class Securimage
             if ($start === false) {
                 // picked start position at end of file
                 continue;
-            } else if ($end === false) {
+            } elseif ($end === false) {
                 $end = $strlen_func($data);
             }
 
@@ -2555,7 +2555,7 @@ class Securimage
                 }
                 fclose($fp);
                 chmod($this->database_file, 0666);
-            } else if (!is_writeable($this->database_file)) {
+            } elseif (!is_writeable($this->database_file)) {
                 trigger_error("Securimage does not have read/write access to database file '{$this->database_file}. Make sure permissions are 0666 and writeable by user '" . get_current_user() . "'", E_USER_WARNING);
                 return false;
             }
@@ -2612,7 +2612,7 @@ class Securimage
             case self::SI_DRIVER_PGSQL:
                 if (empty($this->database_host)) {
                     throw new Exception('Securimage::database_host is not set');
-                } else if (empty($this->database_name)) {
+                } elseif (empty($this->database_name)) {
                     throw new Exception('Securimage::database_name is not set');
                 }
 
@@ -2664,10 +2664,10 @@ class Securimage
             }
 
             throw new Exception("Failed to check tables: {$err[0]} - {$err[1]}: {$err[2]}");
-        } else if ($this->database_driver == self::SI_DRIVER_SQLITE3) {
+        } elseif ($this->database_driver == self::SI_DRIVER_SQLITE3) {
             // successful here regardless of row count for sqlite
             return true;
-        } else if ($result->rowCount() == 0) {
+        } elseif ($result->rowCount() == 0) {
             return false;
         } else {
             return true;
@@ -2859,7 +2859,7 @@ class Securimage
 
         if (!is_numeric($this->expiry_time) || $this->expiry_time < 1) {
             $expired = false;
-        } else if (time() - $creation_time < $this->expiry_time) {
+        } elseif (time() - $creation_time < $this->expiry_time) {
             $expired = false;
         }
 
@@ -3217,10 +3217,10 @@ class Securimage
                 $status = proc_get_status($proc);
                 if ($status['running'] === false) break;
                 usleep(25000);
-            } else if ($written < $size) {
+            } elseif ($written < $size) {
                 // couldn't write all data, small pause and try again
                 usleep(10000);
-            } else if ($len === false) {
+            } elseif ($len === false) {
                 // fwrite failed, should not happen
                 break;
             }
@@ -3240,7 +3240,7 @@ class Securimage
 
         if ($return !== 0) {
             throw new Exception("Failed to convert WAV to MP3.  Shell returned ({$return}): {$err}");
-        } else if ($written < $size) {
+        } elseif ($written < $size) {
             throw new Exception('Failed to convert WAV to MP3.  Failed to write all data to encoder');
         }
 
@@ -3268,7 +3268,7 @@ class Securimage
         if (headers_sent()) {
             // output has been flushed and headers have already been sent
             return false;
-        } else if (strlen((string)ob_get_contents()) > 0) {
+        } elseif (strlen((string)ob_get_contents()) > 0) {
             // headers haven't been sent, but there is data in the buffer that will break image and audio data
             return false;
         }
@@ -3295,13 +3295,13 @@ class Securimage
     {
         if ($color == null) {
             return new Securimage_Color($default);
-        } else if (is_string($color)) {
+        } elseif (is_string($color)) {
             try {
                 return new Securimage_Color($color);
             } catch(Exception $e) {
                 return new Securimage_Color($default);
             }
-        } else if (is_array($color) && sizeof($color) == 3) {
+        } elseif (is_array($color) && sizeof($color) == 3) {
             return new Securimage_Color($color[0], $color[1], $color[2]);
         } else {
             return new Securimage_Color($default);
@@ -3395,7 +3395,7 @@ class Securimage_Color
             $this->r = 255;
             $this->g = 255;
             $this->b = 255;
-        } else if (sizeof($args) == 1) {
+        } elseif (sizeof($args) == 1) {
             // set based on html code
             if (substr($color, 0, 1) == '#') {
                 $color = substr($color, 1);
@@ -3408,7 +3408,7 @@ class Securimage_Color
             }
 
             $this->constructHTML($color);
-        } else if (sizeof($args) == 3) {
+        } elseif (sizeof($args) == 3) {
             $this->constructRGB($args[0], $args[1], $args[2]);
         } else {
             throw new InvalidArgumentException(
