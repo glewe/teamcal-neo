@@ -2,7 +2,6 @@
 if (!defined('VALID_ROOT')) {
   exit('No direct access allowed!');
 }
-
 /**
  * Message editor controller
  *
