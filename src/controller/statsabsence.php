@@ -1,8 +1,7 @@
 <?php
 if (!defined('VALID_ROOT')) {
-  exit('No direct access allowed!');
+  exit('');
 }
-
 /**
  * Absence statistics page controller
  *
