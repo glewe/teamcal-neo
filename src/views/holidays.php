@@ -44,7 +44,7 @@ view.holidays
                 <form class="form-control-horizontal" name="form_create" action="index.php?action=<?= $CONF['controllers'][$controller]->name ?>" method="post" target="_self" accept-charset="utf-8">
                     <div class="card">
                         <div class="card-body">
-                            <button type="button" class="btn btn-success float-end" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalCreateHoliday"><?= $LANG['btn_create_holiday'] ?></button>
+                            <button type="button" class="btn btn-success float-end" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateHoliday"><?= $LANG['btn_create_holiday'] ?></button>
                         </div>
                     </div>
                     <div style="height:20px;"></div>
@@ -52,13 +52,13 @@ view.holidays
                     <!-- Modal: Create Holiday -->
                     <?= createModalTop('modalCreateHoliday', $LANG['btn_create_holiday']) ?>
                     <label for="inputName"><?= $LANG['name'] ?></label>
-                    <input id="inputName" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_name" maxlength="40" value="<?= $viewData['txt_name'] ?>" type="text">
+                    <input id="inputName" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_name" maxlength="40" value="<?= $viewData['txt_name'] ?>" type="text">
                     <?php if (isset($inputAlert["name"]) && strlen($inputAlert["name"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert">x</button><?= $inputAlert["name"] ?></div>
                     <?php } ?>
                     <label for="inputDescription"><?= $LANG['description'] ?></label>
-                    <input id="inputDescription" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_description" maxlength="100" value="<?= $viewData['txt_description'] ?>" type="text">
+                    <input id="inputDescription" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_description" maxlength="100" value="<?= $viewData['txt_description'] ?>" type="text">
                     <?php if (isset($inputAlert["description"]) && strlen($inputAlert["description"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert">x</button><?= $inputAlert["description"] ?></div>
@@ -92,12 +92,12 @@ view.holidays
                             </div>
                             <div class="col-lg-2 text-end">
                                 <?php if ($holiday['id'] > 3) { ?>
-                                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteHoliday_<?= $holiday['id'] ?>"><?= $LANG['btn_delete'] ?></button>
+                                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteHoliday_<?= $holiday['id'] ?>"><?= $LANG['btn_delete'] ?></button>
                                     <input name="hidden_id" type="hidden" value="<?= $holiday['id'] ?>">
                                     <input name="hidden_name" type="hidden" value="<?= $holiday['name'] ?>">
                                     <input name="hidden_description" type="hidden" value="<?= $holiday['description'] ?>">
                                 <?php } ?>
-                                <a href="index.php?action=holidayedit&amp;id=<?= $holiday['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_edit'] ?></a>
+                                <a href="index.php?action=holidayedit&amp;id=<?= $holiday['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
                             </div>
                         </div>
 

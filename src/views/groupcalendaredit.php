@@ -60,14 +60,14 @@ view.groupcalendaredit
             <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageBwdYear . $pageBwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>"><span class="fas fa-angle-double-left"></span></a>
             <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageFwdYear . $pageFwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>"><span class="fas fa-angle-double-right"></span></a>
             <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $viewData['yearToday'] . $viewData['monthToday'] ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>"><?= $LANG['today'] ?></a>
-            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalPeriod"><?= $LANG['caledit_Period'] ?></button>
-            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalRecurring"><?= $LANG['caledit_Recurring'] ?></button>
-            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
-            <button type="button" class="btn btn-success" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectGroup"><?= $LANG['group'] . ': ' . $viewData['groupname'] ?></button>
-            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSave"><?= $LANG['btn_save'] ?></button>
-            <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalClearAll"><?= $LANG['btn_clear_all'] ?></button>
+            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalPeriod"><?= $LANG['caledit_Period'] ?></button>
+            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalRecurring"><?= $LANG['caledit_Recurring'] ?></button>
+            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
+            <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectGroup"><?= $LANG['group'] . ': ' . $viewData['groupname'] ?></button>
+            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSave"><?= $LANG['btn_save'] ?></button>
+            <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalClearAll"><?= $LANG['btn_clear_all'] ?></button>
             <?php if ($viewData['supportMobile']) { ?>
-                <button type="button" class="btn btn-secondary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectWidth"><?= $LANG['screen'] . ': ' . $viewData['width'] ?></button>
+                <button type="button" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectWidth"><?= $LANG['screen'] . ': ' . $viewData['width'] ?></button>
             <?php } ?>
         </div>
 

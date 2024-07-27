@@ -47,8 +47,8 @@ view.absenceicon
 
           <div class="card">
             <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_save"><?= $LANG[ 'btn_save' ] ?></button>
-              <a href="index.php?action=absenceedit&amp;id=<?= $viewData[ 'id' ] ?>" class="btn btn-secondary float-end" style="margin-left:8px;" tabindex="<?= $tabindex++; ?>"><?= $LANG[ 'btn_abs_edit' ] ?></a>
+              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG[ 'btn_save' ] ?></button>
+              <a href="index.php?action=absenceedit&amp;id=<?= $viewData[ 'id' ] ?>" class="btn btn-secondary float-end" style="margin-left:8px;" tabindex="<?= $tabindex++ ?>"><?= $LANG[ 'btn_abs_edit' ] ?></a>
             </div>
           </div>
           <div style="height:20px;"></div>
@@ -58,8 +58,8 @@ view.absenceicon
               <input id="fa-search" class="form-control form-control-sm" tabindex="<?= $tabindex++ ?>" name="fa_search" type="text" value="" placeholder="<?=$LANG['abs_icon_keyword']?>">
             </div>
             <div class="col">
-              <button type="submit" class="btn btn-outline-secondary btn-sm" tabindex="<?= $tabindex++; ?>" name="btn_fa_filter"><?= $LANG[ 'btn_filter' ] ?></button>
-              <a class="btn btn-outline-secondary btn-sm" tabindex="<?= $tabindex++; ?>" href="index.php?action=<?= $controller ?>&amp;id=<?= $viewData[ 'id' ] ?>"><?= $LANG[ 'btn_reset' ] ?></a>
+              <button type="submit" class="btn btn-outline-secondary btn-sm" tabindex="<?= $tabindex++ ?>" name="btn_fa_filter"><?= $LANG[ 'btn_filter' ] ?></button>
+              <a class="btn btn-outline-secondary btn-sm" tabindex="<?= $tabindex++ ?>" href="index.php?action=<?= $controller ?>&amp;id=<?= $viewData[ 'id' ] ?>"><?= $LANG[ 'btn_reset' ] ?></a>
             </div>
           </div>
 
@@ -144,8 +144,8 @@ view.absenceicon
           <div style="height:20px;"></div>
           <div class="card">
             <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_save"><?= $LANG[ 'btn_save' ] ?></button>
-              <a href="index.php?action=absenceedit&amp;id=<?= $viewData[ 'id' ] ?>" class="btn btn-secondary float-end" style="margin-left:8px;" tabindex="<?= $tabindex++; ?>"><?= $LANG[ 'btn_abs_edit' ] ?></a>
+              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG[ 'btn_save' ] ?></button>
+              <a href="index.php?action=absenceedit&amp;id=<?= $viewData[ 'id' ] ?>" class="btn btn-secondary float-end" style="margin-left:8px;" tabindex="<?= $tabindex++ ?>"><?= $LANG[ 'btn_abs_edit' ] ?></a>
             </div>
           </div>
 

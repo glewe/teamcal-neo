@@ -50,14 +50,14 @@ view.daynote
                         <div class="card-body">
                             <?php if ($viewData['exists']) { ?>
                                 <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">
-                                <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" name="btn_update"><?= $LANG['btn_update'] ?></button>
-                                <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteDaynote_<?= $viewData['id'] ?>"><?= $LANG['btn_delete'] ?></button>
+                                <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" name="btn_update"><?= $LANG['btn_update'] ?></button>
+                                <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteDaynote_<?= $viewData['id'] ?>"><?= $LANG['btn_delete'] ?></button>
                             <?php } else { ?>
-                                <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_create"><?= $LANG['btn_create'] ?></button>
+                                <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_create"><?= $LANG['btn_create'] ?></button>
                             <?php } ?>
-                            <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-primary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_showcalendar'] ?></a>
+                            <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-primary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_showcalendar'] ?></a>
                             <?php if ($viewData['user'] == 'all' && isAllowed($CONF['controllers']['monthedit']->permission)) { ?>
-                                <a href="index.php?action=monthedit&amp;month=<?= $viewData['month'] ?>&amp;region=<?= $viewData['region'] ?>" class="btn btn-info float-end" tabindex="<?= $tabindex++; ?>" style="margin-right: 6px;"><?= $LANG['btn_region_calendar'] ?></a>
+                                <a href="index.php?action=monthedit&amp;month=<?= $viewData['month'] ?>&amp;region=<?= $viewData['region'] ?>" class="btn btn-info float-end" tabindex="<?= $tabindex++ ?>" style="margin-right: 6px;"><?= $LANG['btn_region_calendar'] ?></a>
                             <?php } else { ?>
                                 <a href="index.php?action=calendaredit&amp;month=<?= substr($viewData['date'], 0, 4) . substr($viewData['date'], 5, 2) ?>&amp;region=<?= $viewData['region'] ?>&amp;user=<?= $viewData['user'] ?>" class="btn btn-info float-end" style="margin-right:6px;"><?= $LANG['btn_user_calendar'] ?></a>
                             <?php } ?>

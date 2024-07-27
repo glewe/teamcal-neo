@@ -33,10 +33,10 @@ view.statspresence
     <form class="form-control-horizontal noprint" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
 
         <div class="page-menu">
-            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalAbsence"><?= $LANG['absencetype'] ?> <span class="badge badge-light"><?= $viewData['absName'] ?></span></button>
-            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalGroup"><?= $LANG['group'] ?> <span class="badge badge-light"><?= $viewData['groupName'] ?></span></button>
-            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalPeriod"><?= $LANG['period'] ?> <span class="badge badge-light"><?= $viewData['periodName'] ?></span></button>
-            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDiagram"><?= $LANG['diagram'] ?></button>
+            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalAbsence"><?= $LANG['absencetype'] ?> <span class="badge badge-light"><?= $viewData['absName'] ?></span></button>
+            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalGroup"><?= $LANG['group'] ?> <span class="badge badge-light"><?= $viewData['groupName'] ?></span></button>
+            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalPeriod"><?= $LANG['period'] ?> <span class="badge badge-light"><?= $viewData['periodName'] ?></span></button>
+            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDiagram"><?= $LANG['diagram'] ?></button>
             <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>"><?= $LANG['btn_reset'] ?></a>
         </div>
 

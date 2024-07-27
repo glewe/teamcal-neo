@@ -53,7 +53,7 @@ view.register
                     <div style="height:20px;"></div>
                     <div class="card">
                         <div class="card-body">
-                            <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" name="btn_register"><?= $LANG['btn_register'] ?></button>
+                            <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" name="btn_register"><?= $LANG['btn_register'] ?></button>
                         </div>
                     </div>
 

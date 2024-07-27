@@ -67,7 +67,7 @@ view.database
                                     <div class="divider">
                                         <hr>
                                     </div>
-                                    <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++; ?>" name="btn_optimize"><?= $LANG['btn_optimize_tables'] ?></button>
+                                    <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_optimize"><?= $LANG['btn_optimize_tables'] ?></button>
 
                                 </div>
                             </div>
@@ -105,7 +105,7 @@ view.database
                                             <div class="text-normal"><?= $LANG['db_clean_before_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-<?= $colsright ?>">
-                                            <input id="cleanBefore" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_cleanBefore" maxlength="10" value="<?= $viewData['cleanBefore'] ?>" type="text">
+                                            <input id="cleanBefore" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_cleanBefore" maxlength="10" value="<?= $viewData['cleanBefore'] ?>" type="text">
                                             <?php if (isset($inputAlert["cleanBefore"]) && strlen($inputAlert["cleanBefore"])) { ?>
                                                 <br>
                                                 <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['cleanBefore'] ?></div>
@@ -142,7 +142,7 @@ view.database
                                         <hr>
                                     </div>
 
-                                    <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" name="btn_cleanup"><?= $LANG['btn_cleanup'] ?></button>
+                                    <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" name="btn_cleanup"><?= $LANG['btn_cleanup'] ?></button>
 
                                 </div>
                             </div>
@@ -185,7 +185,7 @@ view.database
                                         <hr>
                                     </div>
 
-                                    <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" name="btn_repair"><?= $LANG['btn_repair'] ?></button>
+                                    <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" name="btn_repair"><?= $LANG['btn_repair'] ?></button>
 
                                 </div>
                             </div>
@@ -246,7 +246,7 @@ view.database
                                         <hr>
                                     </div>
 
-                                    <button type="submit" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" name="btn_delete"><?= $LANG['btn_delete_records'] ?></button>
+                                    <button type="submit" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" name="btn_delete"><?= $LANG['btn_delete_records'] ?></button>
 
                                 </div>
                             </div>
@@ -262,15 +262,15 @@ view.database
                                             <div class="text-normal"><?= $LANG['db_dbURL_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-12 control-label">
-                                            <input id="dbURL" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_dbURL" maxlength="160" value="<?= $viewData['dbURL'] ?>" type="text"><br>
-                                            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_saveURL"><?= $LANG['btn_save'] ?></button>
+                                            <input id="dbURL" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_dbURL" maxlength="160" value="<?= $viewData['dbURL'] ?>" type="text"><br>
+                                            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_saveURL"><?= $LANG['btn_save'] ?></button>
                                         </div>
                                     </div>
                                     <?php if (strlen($viewData['dbURL']) && $viewData['dbURL'] != "#") { ?>
                                         <div class="divider">
                                             <hr>
                                         </div>
-                                        <a href="<?= $C->read('dbURL') ?>" class="btn btn-info" tabindex="<?= $tabindex++; ?>" target="_blank"><?= $LANG['db_application'] ?></a>
+                                        <a href="<?= $C->read('dbURL') ?>" class="btn btn-info" tabindex="<?= $tabindex++ ?>" target="_blank"><?= $LANG['db_application'] ?></a>
                                     <?php } ?>
                                 </div>
                             </div>
@@ -287,13 +287,13 @@ view.database
                                             <div class="text-normal"><?= $LANG['db_resetString_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input id="dbResetString" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_dbResetString" maxlength="40" value="" type="text"><br>
+                                            <input id="dbResetString" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_dbResetString" maxlength="40" value="" type="text"><br>
                                         </div>
                                     </div>
                                     <div class="divider">
                                         <hr>
                                     </div>
-                                    <button type="submit" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" name="btn_reset"><?= $LANG['btn_reset_database'] ?></button>
+                                    <button type="submit" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset_database'] ?></button>
                                 </div>
                             </div>
                         </div>
@@ -314,7 +314,7 @@ view.database
                                     <div class="divider">
                                         <hr>
                                     </div>
-                                    <a href="index.php?action=tcpimport" class="btn btn-primary" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_import'] ?></a>
+                                    <a href="index.php?action=tcpimport" class="btn btn-primary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_import'] ?></a>
                                 </div>
                             </div>
                         </div>

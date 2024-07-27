@@ -44,7 +44,7 @@ view.calendaroptions
 
           <div class="card">
             <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_caloptApply"><?= $LANG[ 'btn_apply' ] ?></button>
+              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_caloptApply"><?= $LANG[ 'btn_apply' ] ?></button>
             </div>
           </div>
           <div style="height:20px;"></div>
@@ -119,7 +119,7 @@ view.calendaroptions
           <div style="height:20px;"></div>
           <div class="card">
             <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_caloptApply"><?= $LANG[ 'btn_apply' ] ?></button>
+              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_caloptApply"><?= $LANG[ 'btn_apply' ] ?></button>
             </div>
           </div>
 

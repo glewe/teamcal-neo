@@ -45,7 +45,7 @@ view.regions
 
                     <div class="card">
                         <div class="card-body">
-                            <button type="button" class="btn btn-success float-end" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalCreateRegion"><?= $LANG['btn_create_region'] ?></button>
+                            <button type="button" class="btn btn-success float-end" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateRegion"><?= $LANG['btn_create_region'] ?></button>
                         </div>
                     </div>
                     <div style="height:20px;"></div>
@@ -53,13 +53,13 @@ view.regions
                     <!-- Modal: Create region -->
                     <?= createModalTop('modalCreateRegion', $LANG['btn_create_region']) ?>
                     <label for="inputName"><?= $LANG['name'] ?></label>
-                    <input id="inputName" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_name" maxlength="40" value="<?= $viewData['txt_name'] ?>" type="text">
+                    <input id="inputName" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_name" maxlength="40" value="<?= $viewData['txt_name'] ?>" type="text">
                     <?php if (isset($inputAlert["name"]) && strlen($inputAlert["name"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert">x</button><?= $inputAlert["name"] ?></div>
                     <?php } ?>
                     <label for="inputDescription"><?= $LANG['description'] ?></label>
-                    <input id="inputDescription" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_description" maxlength="100" value="<?= $viewData['txt_description'] ?>" type="text">
+                    <input id="inputDescription" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_description" maxlength="100" value="<?= $viewData['txt_description'] ?>" type="text">
                     <?php if (isset($inputAlert["description"]) && strlen($inputAlert["description"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert">x</button><?= $inputAlert["description"] ?></div>
@@ -90,7 +90,7 @@ view.regions
                                     <div class="col-lg-3">Default</div>
                                     <div class="col-lg-6">Default Region</div>
                                     <div class="col-lg-3 text-end">
-                                        <a href="index.php?action=monthedit&amp;month=<?= date('Y') . date('m') ?>&amp;region=1" class="btn btn-info btn-sm" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_calendar'] ?></a>
+                                        <a href="index.php?action=monthedit&amp;month=<?= date('Y') . date('m') ?>&amp;region=1" class="btn btn-info btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_calendar'] ?></a>
                                     </div>
                                 </div>
 
@@ -101,9 +101,9 @@ view.regions
                                                 <div class="col-lg-3"><?= $region['name'] ?></div>
                                                 <div class="col-lg-6"><?= $region['description'] ?></div>
                                                 <div class="col-lg-3 text-end">
-                                                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRegion_<?= $region['name'] ?>"><?= $LANG['btn_delete'] ?></button>
-                                                    <a href="index.php?action=regionedit&amp;id=<?= $region['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_edit'] ?></a>
-                                                    <a href="index.php?action=monthedit&amp;month=<?= date('Y') . date('m') ?>&amp;region=<?= $region['id'] ?>" class="btn btn-info btn-sm" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_calendar'] ?></a>
+                                                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRegion_<?= $region['name'] ?>"><?= $LANG['btn_delete'] ?></button>
+                                                    <a href="index.php?action=regionedit&amp;id=<?= $region['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
+                                                    <a href="index.php?action=monthedit&amp;month=<?= date('Y') . date('m') ?>&amp;region=<?= $region['id'] ?>" class="btn btn-info btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_calendar'] ?></a>
                                                     <input name="hidden_id" type="hidden" value="<?= $region['id'] ?>">
                                                     <input name="hidden_name" type="hidden" value="<?= $region['name'] ?>">
                                                     <input name="hidden_description" type="hidden" value="<?= $region['description'] ?>">

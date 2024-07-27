@@ -47,7 +47,7 @@ view.log
 
                             <div class="col-lg-3">
                                 <label><?= $LANG['period'] ?></label>
-                                <select name="sel_logPeriod" id="sel_logPeriod" class="form-control" tabindex="<?= $tabindex++; ?>">
+                                <select name="sel_logPeriod" id="sel_logPeriod" class="form-control" tabindex="<?= $tabindex++ ?>">
                                     <option class="option" value="curr_all" <?= (($viewData['logperiod'] == "curr_all") ? 'selected' : '') ?>><?= $LANG['all'] ?></option>
                                     <option class="option" value="curr_month" <?= (($viewData['logperiod'] == "curr_month") ? 'selected' : '') ?>><?= $LANG['period_month'] ?></option>
                                     <option class="option" value="curr_quarter" <?= (($viewData['logperiod'] == "curr_quarter") ? 'selected' : '') ?>><?= $LANG['period_quarter'] ?></option>
@@ -56,21 +56,21 @@ view.log
                                     <option class="option" value="custom" <?= (($viewData['logperiod'] == "custom") ? 'selected' : '') ?>><?= $LANG['period_custom'] ?></option>
                                 </select>
                                 <label><?= $LANG['log_header_type'] ?></label>
-                                <select name="sel_logType" id="sel_logType" class="form-control" tabindex="<?= $tabindex++; ?>">
+                                <select name="sel_logType" id="sel_logType" class="form-control" tabindex="<?= $tabindex++ ?>">
                                     <option class="option" value="%" <?= (($viewData['logtype'] == "%") ? 'selected' : '') ?>><?= $LANG['all'] ?></option>
                                     <?php foreach ($viewData['types'] as $type) { ?>
                                         <option class="option" value="log<?= $type ?>" <?= (($viewData['logtype'] == "log" . $type) ? 'selected' : '') ?>><?= $type ?></option>
                                     <?php } ?>
                                 </select>
                                 <label><?= $LANG['search'] . ' ' . $LANG['user'] ?></label>
-                                <input id="logSearchUser" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_logSearchUser" maxlength="80" value="<?= $viewData['logSearchUser'] ?>" type="text">
+                                <input id="logSearchUser" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_logSearchUser" maxlength="80" value="<?= $viewData['logSearchUser'] ?>" type="text">
                                 <label><?= $LANG['search'] . ' ' . $LANG['event'] ?></label>
-                                <input id="logSearchEvent" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_logSearchEvent" maxlength="80" value="<?= $viewData['logSearchEvent'] ?>" type="text">
+                                <input id="logSearchEvent" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_logSearchEvent" maxlength="80" value="<?= $viewData['logSearchEvent'] ?>" type="text">
                             </div>
 
                             <div class="col-lg-2">
                                 <label><?= $LANG['from'] ?></label>
-                                <input id="logPeriodFrom" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_logPeriodFrom" maxlength="10" value="<?= $viewData['logfrom'] ?>" type="text" <?= ($viewData['logPeriod'] != 'custom') ? 'disabled="disabled"' : '' ?>>
+                                <input id="logPeriodFrom" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_logPeriodFrom" maxlength="10" value="<?= $viewData['logfrom'] ?>" type="text" <?= ($viewData['logPeriod'] != 'custom') ? 'disabled="disabled"' : '' ?>>
                                 <script>
                                     $(function() {
                                         $("#logPeriodFrom").datepicker({
@@ -84,7 +84,7 @@ view.log
 
                             <div class="col-lg-2">
                                 <label><?= $LANG['to'] ?></label>
-                                <input id="logPeriodTo" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_logPeriodTo" maxlength="10" value="<?= $viewData['logto'] ?>" type="text" <?= ($viewData['logPeriod'] != 'custom') ? 'disabled="disabled"' : '' ?>>
+                                <input id="logPeriodTo" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_logPeriodTo" maxlength="10" value="<?= $viewData['logto'] ?>" type="text" <?= ($viewData['logPeriod'] != 'custom') ? 'disabled="disabled"' : '' ?>>
                                 <script>
                                     $(function() {
                                         $("#logPeriodTo").datepicker({
@@ -98,10 +98,10 @@ view.log
 
                             <div class="col-lg-5 text-end">
                                 <br>
-                                <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_refresh"><?= $LANG['btn_refresh'] ?></button>
-                                <button type="submit" class="btn btn-secondary" tabindex="<?= $tabindex++; ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
-                                <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalClear"><?= $LANG['log_clear'] ?></button>
-                                <button type="submit" class="btn btn-info" title="<?= ($viewData['sort'] == 'DESC') ? $LANG['log_sort_asc'] : $LANG['log_sort_desc'] ?>" tabindex="<?= $tabindex++; ?>" name="btn_sort"><?= ($viewData['sort'] == 'DESC') ? '<i class="fas fa-arrow-up fa-lg"></i>' : '<i class="fas fa-arrow-down fa-lg"></i>' ?></button>
+                                <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_refresh"><?= $LANG['btn_refresh'] ?></button>
+                                <button type="submit" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
+                                <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalClear"><?= $LANG['log_clear'] ?></button>
+                                <button type="submit" class="btn btn-info" title="<?= ($viewData['sort'] == 'DESC') ? $LANG['log_sort_asc'] : $LANG['log_sort_desc'] ?>" tabindex="<?= $tabindex++ ?>" name="btn_sort"><?= ($viewData['sort'] == 'DESC') ? '<i class="fas fa-arrow-up fa-lg"></i>' : '<i class="fas fa-arrow-down fa-lg"></i>' ?></button>
 
                                 <!-- Modal: Clear -->
                                 <?= createModalTop('modalClear', $LANG['modal_confirm']) ?>
@@ -199,7 +199,7 @@ view.log
                             <div style="height:20px;"></div>
                             <div class="card">
                                 <div class="card-body">
-                                    <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_logSave"><?= $LANG['btn_save'] ?></button>
+                                    <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_logSave"><?= $LANG['btn_save'] ?></button>
                                 </div>
                             </div>
                             <div style="height:20px;"></div>
@@ -219,12 +219,12 @@ view.log
                                                 <input style="margin-right: 10px;" name="chk_logfilter<?= $type ?>" value="chk_logfilter<?= $type ?>" type="checkbox" <?= ($C->read("logfilter" . $type)) ? ' checked=""' : '' ?>><?= $LANG['log_settings_show'] ?>
                                             </div>
                                             <div class="col-lg-3">
-                                                <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="default" tabindex="<?= $tabindex++; ?>" type="radio" <?= ($C->read("logcolor" . $type) == "default") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-default"></i></label></div>
-                                                <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="primary" tabindex="<?= $tabindex++; ?>" type="radio" <?= ($C->read("logcolor" . $type) == "primary") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-primary"></i></label></div>
-                                                <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="info" tabindex="<?= $tabindex++; ?>" type="radio" <?= ($C->read("logcolor" . $type) == "info") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-info"></i></label></div>
-                                                <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="success" tabindex="<?= $tabindex++; ?>" type="radio" <?= ($C->read("logcolor" . $type) == "success") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-success"></i></label></div>
-                                                <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="warning" tabindex="<?= $tabindex++; ?>" type="radio" <?= ($C->read("logcolor" . $type) == "warning") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-warning"></i></label></div>
-                                                <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="danger" tabindex="<?= $tabindex++; ?>" type="radio" <?= ($C->read("logcolor" . $type) == "danger") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-danger"></i></label></div>
+                                                <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="default" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "default") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-default"></i></label></div>
+                                                <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="primary" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "primary") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-primary"></i></label></div>
+                                                <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="info" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "info") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-info"></i></label></div>
+                                                <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="success" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "success") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-success"></i></label></div>
+                                                <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="warning" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "warning") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-warning"></i></label></div>
+                                                <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="danger" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "danger") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-danger"></i></label></div>
                                             </div>
                                         </div>
                                     <?php } ?>
@@ -234,7 +234,7 @@ view.log
                             <div style="height:20px;"></div>
                             <div class="card">
                                 <div class="card-body">
-                                    <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_logSave"><?= $LANG['btn_save'] ?></button>
+                                    <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_logSave"><?= $LANG['btn_save'] ?></button>
                                 </div>
                             </div>
                         </div>

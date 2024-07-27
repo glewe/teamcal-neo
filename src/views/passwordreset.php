@@ -53,7 +53,7 @@ view.passwordreset
                     <div style="height:20px;"></div>
                     <div class="card">
                         <div class="card-body">
-                            <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++; ?>" name="btn_update"><?= $LANG['btn_update'] ?></button>
+                            <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_update"><?= $LANG['btn_update'] ?></button>
                         </div>
                     </div>
 

@@ -78,7 +78,7 @@ view.tcpimport
                                             <div class="text-normal"><?= $LANG['tcpimp_tcp_dbServer_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input id="txt_tcpDbServer" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_tcpDbServer" type="text" maxlength="160" value="<?= $viewData['tcpDbServer'] ?>">
+                                            <input id="txt_tcpDbServer" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_tcpDbServer" type="text" maxlength="160" value="<?= $viewData['tcpDbServer'] ?>">
                                         </div>
                                     </div>
                                     <div class="divider">
@@ -92,7 +92,7 @@ view.tcpimport
                                             <div class="text-normal"><?= $LANG['tcpimp_tcp_dbName_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input id="txt_tcpDbName" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_tcpDbName" type="text" maxlength="40" value="<?= $viewData['tcpDbName'] ?>">
+                                            <input id="txt_tcpDbName" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_tcpDbName" type="text" maxlength="40" value="<?= $viewData['tcpDbName'] ?>">
                                         </div>
                                     </div>
                                     <div class="divider">
@@ -106,7 +106,7 @@ view.tcpimport
                                             <div class="text-normal"><?= $LANG['tcpimp_tcp_dbUser_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input id="txt_tcpDbUser" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_tcpDbUser" type="text" maxlength="40" value="<?= $viewData['tcpDbUser'] ?>">
+                                            <input id="txt_tcpDbUser" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_tcpDbUser" type="text" maxlength="40" value="<?= $viewData['tcpDbUser'] ?>">
                                         </div>
                                     </div>
                                     <div class="divider">
@@ -120,7 +120,7 @@ view.tcpimport
                                             <div class="text-normal"><?= $LANG['tcpimp_tcp_dbPassword_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input id="txt_tcpDbPassword" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_tcpDbPassword" type="password" maxlength="40" value="">
+                                            <input id="txt_tcpDbPassword" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_tcpDbPassword" type="password" maxlength="40" value="">
                                         </div>
                                     </div>
                                     <div class="divider">
@@ -134,7 +134,7 @@ view.tcpimport
                                             <div class="text-normal"><?= $LANG['tcpimp_tcp_dbPrefix_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <input id="txt_tcpDbPrefix" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_tcpDbPrefix" type="text" maxlength="40" value="<?= $viewData['tcpDbPrefix'] ?>">
+                                            <input id="txt_tcpDbPrefix" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_tcpDbPrefix" type="text" maxlength="40" value="<?= $viewData['tcpDbPrefix'] ?>">
                                         </div>
                                     </div>
                                     <div class="divider">
@@ -144,7 +144,7 @@ view.tcpimport
                                     <!-- Test Database -->
                                     <div class="form-group row">
                                         <div class="col-lg-12">
-                                            <p><a class="btn btn-secondary text-white" tabindex="<?= $tabindex++; ?>" id="btn_testDb" onclick="javascript:checkTcpDB();"><?= $LANG['btn_testdb'] ?></a></p>
+                                            <p><a class="btn btn-secondary text-white" tabindex="<?= $tabindex++ ?>" id="btn_testDb" onclick="javascript:checkTcpDB();"><?= $LANG['btn_testdb'] ?></a></p>
                                             <p><span id="checkTcpDbOutput"></span></p>
                                         </div>
                                     </div>
@@ -164,9 +164,9 @@ view.tcpimport
                                     <!-- Select buttonss -->
                                     <div class="form-group row">
                                         <div class="col-lg-12 text-end">
-                                            <a class="btn btn-secondary text-white" tabindex="<?= $tabindex++; ?>" onclick="javascript:resetAll();"><?= $LANG['btn_reset'] ?></a>
-                                            <a class="btn btn-secondary text-white" tabindex="<?= $tabindex++; ?>" onclick="javascript:replaceAll();"><?= $LANG['tcpimp_btn_replace_all'] ?></a>
-                                            <a class="btn btn-secondary text-white" tabindex="<?= $tabindex++; ?>" onclick="javascript:addAll();"><?= $LANG['tcpimp_btn_add_all'] ?></a>
+                                            <a class="btn btn-secondary text-white" tabindex="<?= $tabindex++ ?>" onclick="javascript:resetAll();"><?= $LANG['btn_reset'] ?></a>
+                                            <a class="btn btn-secondary text-white" tabindex="<?= $tabindex++ ?>" onclick="javascript:replaceAll();"><?= $LANG['tcpimp_btn_replace_all'] ?></a>
+                                            <a class="btn btn-secondary text-white" tabindex="<?= $tabindex++ ?>" onclick="javascript:addAll();"><?= $LANG['tcpimp_btn_add_all'] ?></a>
                                         </div>
                                     </div>
                                     <div class="divider">
@@ -180,9 +180,9 @@ view.tcpimport
                                             <div class="text-normal"><?= $LANG['tcpimp_abs_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <div class="radio"><label><input name="opt_absImport" id="opt_absImport_no" value="no" tabindex="<?= $tabindex++; ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_absImport" id="opt_absImport_replace" value="replace" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_absImport" id="opt_absImport_add" value="add" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_absImport" id="opt_absImport_no" value="no" tabindex="<?= $tabindex++ ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_absImport" id="opt_absImport_replace" value="replace" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_absImport" id="opt_absImport_add" value="add" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
                                         </div>
                                     </div>
                                     <div class="divider">
@@ -196,9 +196,9 @@ view.tcpimport
                                             <div class="text-normal"><?= $LANG['tcpimp_allo_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <div class="radio"><label><input name="opt_alloImport" id="opt_alloImport_no" value="no" tabindex="<?= $tabindex++; ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_alloImport" id="opt_alloImport_replace" value="replace" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_alloImport" id="opt_alloImport_add" value="add" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_alloImport" id="opt_alloImport_no" value="no" tabindex="<?= $tabindex++ ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_alloImport" id="opt_alloImport_replace" value="replace" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_alloImport" id="opt_alloImport_add" value="add" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
                                         </div>
                                     </div>
                                     <div class="divider">
@@ -212,9 +212,9 @@ view.tcpimport
                                             <div class="text-normal"><?= $LANG['tcpimp_dayn_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <div class="radio"><label><input name="opt_daynImport" id="opt_daynImport_no" value="no" tabindex="<?= $tabindex++; ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_daynImport" id="opt_daynImport_replace" value="replace" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_daynImport" id="opt_daynImport_add" value="add" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_daynImport" id="opt_daynImport_no" value="no" tabindex="<?= $tabindex++ ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_daynImport" id="opt_daynImport_replace" value="replace" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_daynImport" id="opt_daynImport_add" value="add" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
                                         </div>
                                     </div>
                                     <div class="divider">
@@ -228,9 +228,9 @@ view.tcpimport
                                             <div class="text-normal"><?= $LANG['tcpimp_groups_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <div class="radio"><label><input name="opt_groupsImport" id="opt_groupsImport_no" value="no" tabindex="<?= $tabindex++; ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_groupsImport" id="opt_groupsImport_replace" value="replace" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_groupsImport" id="opt_groupsImport_add" value="add" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_groupsImport" id="opt_groupsImport_no" value="no" tabindex="<?= $tabindex++ ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_groupsImport" id="opt_groupsImport_replace" value="replace" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_groupsImport" id="opt_groupsImport_add" value="add" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
                                         </div>
                                     </div>
                                     <div class="divider">
@@ -244,9 +244,9 @@ view.tcpimport
                                             <div class="text-normal"><?= $LANG['tcpimp_ugr_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <div class="radio"><label><input name="opt_ugrImport" id="opt_ugrImport_no" value="no" tabindex="<?= $tabindex++; ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_ugrImport" id="opt_ugrImport_replace" value="replace" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_ugrImport" id="opt_ugrImport_add" value="add" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_ugrImport" id="opt_ugrImport_no" value="no" tabindex="<?= $tabindex++ ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_ugrImport" id="opt_ugrImport_replace" value="replace" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_ugrImport" id="opt_ugrImport_add" value="add" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
                                         </div>
                                     </div>
                                     <div class="divider">
@@ -260,9 +260,9 @@ view.tcpimport
                                             <div class="text-normal"><?= $LANG['tcpimp_hols_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <div class="radio"><label><input name="opt_holsImport" id="opt_holsImport_no" value="no" tabindex="<?= $tabindex++; ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_holsImport" id="opt_holsImport_replace" value="replace" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_holsImport" id="opt_holsImport_add" value="add" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_holsImport" id="opt_holsImport_no" value="no" tabindex="<?= $tabindex++ ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_holsImport" id="opt_holsImport_replace" value="replace" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_holsImport" id="opt_holsImport_add" value="add" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
                                         </div>
                                     </div>
                                     <div class="divider">
@@ -276,9 +276,9 @@ view.tcpimport
                                             <div class="text-normal"><?= $LANG['tcpimp_regs_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <div class="radio"><label><input name="opt_regsImport" id="opt_regsImport_no" value="no" tabindex="<?= $tabindex++; ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_regsImport" id="opt_regsImport_replace" value="replace" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_regsImport" id="opt_regsImport_add" value="add" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_regsImport" id="opt_regsImport_no" value="no" tabindex="<?= $tabindex++ ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_regsImport" id="opt_regsImport_replace" value="replace" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_regsImport" id="opt_regsImport_add" value="add" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
                                         </div>
                                     </div>
                                     <div class="divider">
@@ -292,9 +292,9 @@ view.tcpimport
                                             <div class="text-normal"><?= $LANG['tcpimp_mtpl_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <div class="radio"><label><input name="opt_mtplImport" id="opt_mtplImport_no" value="no" tabindex="<?= $tabindex++; ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_mtplImport" id="opt_mtplImport_replace" value="replace" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_mtplImport" id="opt_mtplImport_add" value="add" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_mtplImport" id="opt_mtplImport_no" value="no" tabindex="<?= $tabindex++ ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_mtplImport" id="opt_mtplImport_replace" value="replace" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_mtplImport" id="opt_mtplImport_add" value="add" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
                                         </div>
                                     </div>
                                     <div class="divider">
@@ -308,8 +308,8 @@ view.tcpimport
                                             <div class="text-normal"><?= $LANG['tcpimp_roles_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <div class="radio"><label><input name="opt_rolesImport" id="opt_rolesImport_no" value="no" tabindex="<?= $tabindex++; ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_rolesImport" id="opt_rolesImport_add" value="add" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_rolesImport" id="opt_rolesImport_no" value="no" tabindex="<?= $tabindex++ ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_rolesImport" id="opt_rolesImport_add" value="add" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
                                         </div>
                                     </div>
                                     <div class="divider">
@@ -323,9 +323,9 @@ view.tcpimport
                                             <div class="text-normal"><?= $LANG['tcpimp_users_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <div class="radio"><label><input name="opt_usersImport" id="opt_usersImport_no" value="no" tabindex="<?= $tabindex++; ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_usersImport" id="opt_usersImport_replace" value="replace" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_usersImport" id="opt_usersImport_add" value="add" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_usersImport" id="opt_usersImport_no" value="no" tabindex="<?= $tabindex++ ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_usersImport" id="opt_usersImport_replace" value="replace" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_usersImport" id="opt_usersImport_add" value="add" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
                                         </div>
                                     </div>
                                     <div class="divider">
@@ -339,16 +339,16 @@ view.tcpimport
                                             <div class="text-normal"><?= $LANG['tcpimp_utpl_comment'] ?></div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <div class="radio"><label><input name="opt_utplImport" id="opt_utplImport_no" value="no" tabindex="<?= $tabindex++; ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_utplImport" id="opt_utplImport_replace" value="replace" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
-                                            <div class="radio"><label><input name="opt_utplImport" id="opt_utplImport_add" value="add" tabindex="<?= $tabindex++; ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_utplImport" id="opt_utplImport_no" value="no" tabindex="<?= $tabindex++ ?>" checked type="radio"><?= $LANG['tcpimp_no'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_utplImport" id="opt_utplImport_replace" value="replace" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_replace'] ?></label></div>
+                                            <div class="radio"><label><input name="opt_utplImport" id="opt_utplImport_add" value="add" tabindex="<?= $tabindex++ ?>" type="radio"><?= $LANG['tcpimp_add'] ?></label></div>
                                         </div>
                                     </div>
                                     <div class="divider">
                                         <hr>
                                     </div>
 
-                                    <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalImportTCP"><?= $LANG['btn_import'] ?></button>
+                                    <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalImportTCP"><?= $LANG['btn_import'] ?></button>
 
                                     <!-- Modal: Delete selected -->
                                     <?= createModalTop('modalImportTCP', $LANG['modal_confirm']) ?>

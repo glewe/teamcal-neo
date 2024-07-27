@@ -47,8 +47,8 @@ view.useredit
             <div class="card-body">
               <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_profileUpdate"><?= $LANG[ 'btn_update' ] ?></button>
               <?php if (isAllowed("useraccount") && $viewData[ 'profile' ] != "admin") { ?>
-                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalArchiveProfile"><?= $LANG[ 'btn_archive' ] ?></button>
-                <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteProfile"><?= $LANG[ 'btn_delete' ] ?></button>
+                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalArchiveProfile"><?= $LANG[ 'btn_archive' ] ?></button>
+                <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteProfile"><?= $LANG[ 'btn_delete' ] ?></button>
               <?php } ?>
               <?php if (isAllowed("useraccount")) { ?>
                 <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG[ 'btn_user_list' ] ?></a>

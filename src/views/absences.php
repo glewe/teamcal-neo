@@ -44,7 +44,7 @@ view.absences
                 <form class="form-control-horizontal" name="form_create" action="index.php?action=<?= $CONF['controllers'][$controller]->name ?>" method="post" target="_self" accept-charset="utf-8">
                     <div class="card">
                         <div class="card-body">
-                            <button type="button" class="btn btn-success float-end" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalCreateAbsence"><?= $LANG['btn_create_abs'] ?></button>
+                            <button type="button" class="btn btn-success float-end" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateAbsence"><?= $LANG['btn_create_abs'] ?></button>
                         </div>
                     </div>
                     <div style="height:20px;"></div>
@@ -52,7 +52,7 @@ view.absences
                     <!-- Modal: Creates Absence -->
                     <?= createModalTop('modalCreateAbsence', $LANG['btn_create_abs']) ?>
                     <label for="inputName"><?= $LANG['name'] ?></label>
-                    <input id="inputName" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_name" maxlength="40" value="<?= $viewData['txt_name'] ?>" type="text">
+                    <input id="inputName" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_name" maxlength="40" value="<?= $viewData['txt_name'] ?>" type="text">
                     <?php if (isset($inputAlert["name"]) && strlen($inputAlert["name"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert">x</button><?= $inputAlert["name"] ?></div>
@@ -92,8 +92,8 @@ view.absences
                                     <?= (($absence['allowmonth'] or ($absence['allowweek'])) ? '<i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="' . $LANG['abs_allow_active'] . '"><i class="far fa-hand-paper fa-lg text-warning"></i></i>' : '') ?>
                                 </div>
                                 <div class="col-lg-2 text-end">
-                                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteAbsence_<?= $absence['id'] ?>"><?= $LANG['btn_delete'] ?></button>
-                                    <a href="index.php?action=absenceedit&amp;id=<?= $absence['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_edit'] ?></a>
+                                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteAbsence_<?= $absence['id'] ?>"><?= $LANG['btn_delete'] ?></button>
+                                    <a href="index.php?action=absenceedit&amp;id=<?= $absence['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
                                     <input name="hidden_id" type="hidden" value="<?= $absence['id'] ?>">
                                     <input name="hidden_name" type="hidden" value="<?= $absence['name'] ?>">
                                 </div>
@@ -122,8 +122,8 @@ view.absences
 
                                     </div>
                                     <div class="col-lg-2 text-end">
-                                        <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteSubAbsence_<?= $subabs['id'] ?>"><?= $LANG['btn_delete'] ?></button>
-                                        <a href="index.php?action=absenceedit&amp;id=<?= $subabs['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_edit'] ?></a>
+                                        <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteSubAbsence_<?= $subabs['id'] ?>"><?= $LANG['btn_delete'] ?></button>
+                                        <a href="index.php?action=absenceedit&amp;id=<?= $subabs['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
                                         <input name="hidden_id" type="hidden" value="<?= $subabs['id'] ?>">
                                         <input name="hidden_name" type="hidden" value="<?= $subabs['name'] ?>">
                                     </div>

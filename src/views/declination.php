@@ -44,7 +44,7 @@ view.declination
 
                     <div class="card">
                         <div class="card-body">
-                            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
+                            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
                         </div>
                     </div>
                     <div style="height:20px;"></div>
@@ -212,7 +212,7 @@ view.declination
                     <div style="height:20px;"></div>
                     <div class="card">
                         <div class="card-body">
-                            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
+                            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
                         </div>
                     </div>
 
