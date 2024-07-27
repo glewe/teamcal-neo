@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Notification Helper Functions
  *
@@ -12,8 +14,6 @@ if (!defined('VALID_ROOT')) { exit(''); }
  * @since 3.0.0
  */
 
-// echo '<script type="text/javascript">alert("Debug: ");</script>';
-
 // ---------------------------------------------------------------------------
 /**
  * If a user was activatd by the admin we send him a mail about it
@@ -23,14 +23,13 @@ if (!defined('VALID_ROOT')) { exit(''); }
  * @param string $lastname The user's lastname
  * @param string $firstname The user's firstname
  */
-function sendAccountActivatedMail($email, $username, $lastname, $firstname) {
+function sendAccountActivatedMail($email) {
   global $C, $LANG;
-
   $language = $C->read('defaultLanguage');
   $appTitle = $C->read('appTitle');
   $to = $email;
 
-  $subject = str_replace('%app_name%', $appTitle, $LANG[ 'email_subject_user_account_activated' ]);
+  $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_activated']);
   $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
   $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
   $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_activated.html');
@@ -39,7 +38,6 @@ function sendAccountActivatedMail($email, $username, $lastname, $firstname) {
   $message = str_replace('%intro%', $intro, $message);
   $message = str_replace('%body%', $body, $message);
   $message = str_replace('%outro%', $outro, $message);
-
   $message = str_replace('%app_name%', $appTitle, $message);
   $message = str_replace('%app_url%', WEBSITE_URL, $message);
 
@@ -63,7 +61,7 @@ function sendAccountCreatedMail($email, $username, $password) {
   $appTitle = $C->read('appTitle');
   $to = $email;
 
-  $subject = str_replace('%app_name%', $appTitle, $LANG[ 'email_subject_user_account_created' ]);
+  $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_created']);
   $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
   $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
   $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_created.html');
@@ -72,7 +70,6 @@ function sendAccountCreatedMail($email, $username, $password) {
   $message = str_replace('%intro%', $intro, $message);
   $message = str_replace('%body%', $body, $message);
   $message = str_replace('%outro%', $outro, $message);
-
   $message = str_replace('%app_name%', $appTitle, $message);
   $message = str_replace('%app_url%', WEBSITE_URL, $message);
   $message = str_replace('%username%', $username, $message);
@@ -97,7 +94,7 @@ function sendAccountNeedsApprovalMail($email, $username, $lastname, $firstname) 
   $appTitle = $C->read('appTitle');
   $to = $email;
 
-  $subject = str_replace('%app_name%', $appTitle, $LANG[ 'email_subject_user_account_needs_approval' ]);
+  $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_needs_approval']);
   $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
   $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
   $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_needs_approval.html');
@@ -106,7 +103,6 @@ function sendAccountNeedsApprovalMail($email, $username, $lastname, $firstname) 
   $message = str_replace('%intro%', $intro, $message);
   $message = str_replace('%body%', $body, $message);
   $message = str_replace('%outro%', $outro, $message);
-
   $message = str_replace('%app_name%', $appTitle, $message);
   $message = str_replace('%app_url%', WEBSITE_URL, $message);
   $message = str_replace('%username%', $username, $message);
@@ -133,7 +129,7 @@ function sendAccountRegisteredMail($email, $username, $lastname, $firstname, $ve
   $appTitle = $C->read('appTitle');
   $to = $email;
 
-  $subject = str_replace('%app_name%', $appTitle, $LANG[ 'email_subject_user_account_registered' ]);
+  $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_registered']);
   $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
   $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
   $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_registered.html');
@@ -142,7 +138,6 @@ function sendAccountRegisteredMail($email, $username, $lastname, $firstname, $ve
   $message = str_replace('%intro%', $intro, $message);
   $message = str_replace('%body%', $body, $message);
   $message = str_replace('%outro%', $outro, $message);
-
   $message = str_replace('%app_name%', $appTitle, $message);
   $message = str_replace('%app_url%', WEBSITE_URL, $message);
   $message = str_replace('%verifycode%', $verifycode, $message);
@@ -172,7 +167,7 @@ function sendAccountVerificationMismatchMail($email, $username, $vcode, $vcodeSu
   $appTitle = $C->read('appTitle');
   $to = $email;
 
-  $subject = str_replace('%app_name%', $appTitle, $LANG[ 'email_subject_user_account_mismatch' ]);
+  $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_mismatch']);
   $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
   $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
   $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_verify_mismatch.html');
@@ -181,7 +176,6 @@ function sendAccountVerificationMismatchMail($email, $username, $vcode, $vcodeSu
   $message = str_replace('%intro%', $intro, $message);
   $message = str_replace('%body%', $body, $message);
   $message = str_replace('%outro%', $outro, $message);
-
   $message = str_replace('%app_name%', $appTitle, $message);
   $message = str_replace('%app_url%', WEBSITE_URL, $message);
   $message = str_replace('%username%', $username, $message);
@@ -211,7 +205,7 @@ function sendGroupEventNotifications($event, $groupname, $groupdesc = '') {
   );
 
   if (in_array($event, $events)) {
-    $subject = $LANG[ 'email_subject_group_' . $event ];
+    $subject = $LANG['email_subject_group_' . $event];
     $subject = str_replace('%app_name%', $appTitle, $subject);
 
     $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
@@ -224,13 +218,14 @@ function sendGroupEventNotifications($event, $groupname, $groupdesc = '') {
     $message = str_replace('%outro%', $outro, $message);
     $message = str_replace('%app_name%', $appTitle, $message);
     $message = str_replace('%app_url%', WEBSITE_URL, $message);
-
     $message = str_replace('%groupname%', $groupname, $message);
     $message = str_replace('%groupdesc%', $groupdesc, $message);
 
     $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
     foreach ($users as $profile) {
-      if ($UO->read($profile[ 'username' ], 'notifyGroupEvents')) sendEmail($profile[ 'email' ], $subject, $message);
+      if ($UO->read($profile['username'], 'notifyGroupEvents')) {
+        sendEmail($profile['email'], $subject, $message);
+      }
     }
   }
 }
@@ -252,7 +247,7 @@ function sendPasswordResetMail($email, $username, $lastname, $firstname, $token)
   $appTitle = $C->read('appTitle');
   $to = $email;
 
-  $subject = str_replace('%app_name%', $appTitle, $LANG[ 'email_subject_password_reset' ]);
+  $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_password_reset']);
   $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
   $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
   $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_pwdreq.html');
@@ -261,7 +256,6 @@ function sendPasswordResetMail($email, $username, $lastname, $firstname, $token)
   $message = str_replace('%intro%', $intro, $message);
   $message = str_replace('%body%', $body, $message);
   $message = str_replace('%outro%', $outro, $message);
-
   $message = str_replace('%app_name%', $appTitle, $message);
   $message = str_replace('%app_url%', WEBSITE_URL, $message);
   $message = str_replace('%token%', $token, $message);
@@ -292,7 +286,7 @@ function sendRoleEventNotifications($event, $rolename, $roledesc = '') {
   );
 
   if (in_array($event, $events)) {
-    $subject = $LANG[ 'email_subject_group_' . $event ];
+    $subject = $LANG['email_subject_group_' . $event];
     $subject = str_replace('%app_name%', $appTitle, $subject);
 
     $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
@@ -305,13 +299,14 @@ function sendRoleEventNotifications($event, $rolename, $roledesc = '') {
     $message = str_replace('%outro%', $outro, $message);
     $message = str_replace('%app_name%', $appTitle, $message);
     $message = str_replace('%app_url%', WEBSITE_URL, $message);
-
     $message = str_replace('%rolename%', $rolename, $message);
     $message = str_replace('%roledesc%', $roledesc, $message);
 
     $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
     foreach ($users as $profile) {
-      if ($UO->read($profile[ 'username' ], 'notifyRoleEvents')) sendEmail($profile[ 'email' ], $subject, $message);
+      if ($UO->read($profile['username'], 'notifyRoleEvents')) {
+        sendEmail($profile['email'], $subject, $message);
+      }
     }
   }
 }
@@ -337,7 +332,7 @@ function sendUserEventNotifications($event, $username, $firstname, $lastname) {
   );
 
   if (in_array($event, $events)) {
-    $subject = $LANG[ 'email_subject_user_account_' . $event ];
+    $subject = $LANG['email_subject_user_account_' . $event];
     $subject = str_replace('%app_name%', $appTitle, $subject);
 
     $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
@@ -350,14 +345,15 @@ function sendUserEventNotifications($event, $username, $firstname, $lastname) {
     $message = str_replace('%outro%', $outro, $message);
     $message = str_replace('%app_name%', $appTitle, $message);
     $message = str_replace('%app_url%', WEBSITE_URL, $message);
-
     $message = str_replace('%username%', $username, $message);
     $message = str_replace('%firstname%', $firstname, $message);
     $message = str_replace('%lastname%', $lastname, $message);
 
     $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
     foreach ($users as $profile) {
-      if ($UO->read($profile[ 'username' ], 'notifyUserEvents')) sendEmail($profile[ 'email' ], $subject, $message);
+      if ($UO->read($profile['username'], 'notifyUserEvents')) {
+        sendEmail($profile['email'], $subject, $message);
+      }
     }
   }
 }
@@ -374,7 +370,8 @@ function sendUserEventNotifications($event, $username, $firstname, $lastname) {
  * @return bool Email success
  */
 function sendEmail($to, $subject, $body, $from = '') {
-  global $C, $CONF;
+  global $C;
+  $debug = false;
 
   error_reporting(E_ALL ^ E_STRICT);
 
@@ -383,11 +380,11 @@ function sendEmail($to, $subject, $body, $from = '') {
   /**
    * Set From and ReplyTo
    */
-  if ((!strlen($from)) or ($from_regexp and ($fetch[ 1 ] == $C->read("mailReply")))) {
+  if ((!strlen($from)) || ($from_regexp && ($fetch[1] == $C->read("mailReply")))) {
     $from = $replyto = mb_encode_mimeheader($C->read("mailFrom")) . " <" . $C->read("mailReply") . ">";
     $from_mailonly = $C->read("mailReply");
   } elseif ($from_regexp) {
-    $from_mailonly = $fetch[ 1 ];
+    $from_mailonly = $fetch[1];
     $replyto = mb_encode_mimeheader($from);
   }
 
@@ -401,8 +398,11 @@ function sendEmail($to, $subject, $body, $from = '') {
   $toArray = explode(",", $to);
   $toValid = "";
   foreach ($toArray as $toPiece) {
-    if (!validEmail($toPiece)) $toValid .= $C->read("mailReply") . ",";
-    else $toValid .= $toPiece . ",";
+    if (!validEmail($toPiece)) {
+      $toValid .= $C->read("mailReply") . ",";
+    } else {
+      $toValid .= $toPiece . ",";
+    }
   }
   $toValid = rtrim($to, ','); // remove the last "," if exists (just in case)
 
@@ -410,18 +410,19 @@ function sendEmail($to, $subject, $body, $from = '') {
     /**
      * SMTP Mail
      */
-    include_once('Mail.php');
-
+    include_once 'Mail.php';
     $host = $C->read("mailSMTPHost");
     $port = $C->read("mailSMTPPort");
     $username = $C->read("mailSMTPusername");
     $password = $C->read("mailSMTPPassword");
-    if ($C->read("mailSMTPSSL")) $ssl = "ssl://";
-    else $ssl = "";
-
+    if ($C->read("mailSMTPSSL")) {
+      $ssl = "ssl://";
+    } else {
+      $ssl = "";
+    }
     /*
-   * SMTP requires a valid email address in the From field
-   */
+     * SMTP requires a valid email address in the From field
+     */
     if (!validEmail($from_mailonly)) {
       $from = $replyto = mb_encode_mimeheader($C->read("mailFrom")) . " <" . $C->read("mailReply") . ">";
     }
@@ -457,16 +458,15 @@ function sendEmail($to, $subject, $body, $from = '') {
 
     $mail = @$smtp->send($toValid, $headers, $body);
 
-    if ($error = @PEAR::isError($mail)) {
+    if (@PEAR::isError($mail)) {
       /*
-    * Display SMTP error
-    */
-      $errorData[ 'title' ] = "E-mail Notification Problem";
-      $errorData[ 'subject' ] = "SMTP Error";
-      $errorData[ 'text' ] = $mail->getMessage();
-      require(WEBSITE_ROOT . '/views/error.php');
+       * Display SMTP error
+       */
+      $errorData['title'] = "E-mail Notification Problem";
+      $errorData['subject'] = "SMTP Error";
+      $errorData['text'] = $mail->getMessage();
+      require_once WEBSITE_ROOT . '/views/error.php';
       die();
-//      return  false;
     } else {
       return true;
     }
@@ -480,15 +480,13 @@ function sendEmail($to, $subject, $body, $from = '') {
     $headers .= "Reply-To: " . $replyto;
     $body = '<html><body>' . $body . '</body></html>';
     $result = mail($toValid, $subject, $body, $headers);
-
     //
     // Enable to debug mail content
     //
-    if (false) {
+    if ($debug) {
       print "To: " . $toValid . "<br>" . "From: " . $from . "\r\n" . $body;
-      // die();
+      die();
     }
-
     return $result;
   }
 }
@@ -517,7 +515,7 @@ function validEmail($email) {
     } elseif ($domainLen < 1 || $domainLen > 255) {
       // domain part length exceeded
       $isValid = false;
-    } elseif ($local[ 0 ] == '.' || $local[ $localLen - 1 ] == '.') {
+    } elseif ($local[0] == '.' || $local[$localLen - 1] == '.') {
       // local part starts or ends with '.'
       $isValid = false;
     } elseif (preg_match('/\\.\\./', $local)) {
