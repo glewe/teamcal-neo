@@ -213,7 +213,7 @@ else $navcolor = "light"; ?>
                 </li>
                 <!-- User Menu -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="user" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="user-avatar" aria-haspopup="true" aria-expanded="false">
                         <img src="<?= APP_AVATAR_DIR . $userData['avatar'] ?>" width="40" height="40" alt="" style="margin: -10px 0 -10px 0;"><span class="caret"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="user">
