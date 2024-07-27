@@ -116,7 +116,7 @@ view.config
               <div class="card">
                 <div class="card-body">
                   <?php
-                  //                                    pretty_dump($LIC->details);
+                  //                                    prettyDump($LIC->details);
                   echo $LIC->show($LIC->details, true);
                   ?>
                   <?php foreach ($viewData['license'] as $formObject) {
