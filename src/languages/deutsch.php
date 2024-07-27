@@ -186,8 +186,7 @@ $LANG['alert_input_alpha_numeric'] = 'Dieses Feld erlaubt nur eine Eingabe von a
 $LANG['alert_input_alpha_numeric_dash'] = 'Dieses Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen plus Bindestrich und Unterstrich.';
 $LANG['alert_input_alpha_numeric_dash_blank'] = 'Dieses Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen plus Leerzeichen, Bindestrich und Unterstrich.';
 $LANG['alert_input_alpha_numeric_dash_blank_dot'] = 'Dieses Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen plus Leerzeichen, Punkt, Bindestrich und Unterstrich.';
-$LANG['alert_input_alpha_numeric_dash_blank_special'] = 'Dieses Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen, Leerzeichen, Bindestrich, Unterstrich und die 
-      Sonderzeichen \'!@#$%^&*().';
+$LANG['alert_input_alpha_numeric_dash_blank_special'] = 'Dieses Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen, Leerzeichen, Bindestrich, Unterstrich und dieSonderzeichen \'!@#$%^&*().';
 $LANG['alert_input_ctype_graph'] = 'Dieses Feld erlaubt nur eine Eingabe von darstellbaren bzw. druckbaren Zeichen.';
 $LANG['alert_input_date'] = 'Das Datum muss um ISO 8601 Format sein, z.b. 2014-01-01.';
 $LANG['alert_input_email'] = 'Die eingegebene E-Mail Adresse ist ung&uuml;ltig.';
@@ -204,10 +203,10 @@ $LANG['alert_input_min_length'] = 'Die Eingabe dieses Feldes muss minimal %s Zei
 $LANG['alert_input_numeric'] = 'Die Eingabe dieses Feldes muss numerisch sein.';
 $LANG['alert_input_phone_number'] = 'Die Eingabe dieses Feldes muss eine g&uuml;ltige Telefonnummer sein, z.B. (555) 123 4567 oder +49 172 123 4567.';
 $LANG['alert_input_pwdlow'] = 'Das Passwort muss mindestens 4 Zeichen lang sein. Erlaubt sind Klein- und Gro&szlig;buchstaben, Zahlen und die folgenden Sonderzeichen: !@#$%^&amp;*().';
-$LANG['alert_input_pwdmedium'] = 'Das Passwort muss mindestens 6 Zeichen lang sein, mindestens einen Kleinbuchstaben, einen Gro&szlig;buchstaben und eine Zahl enthalten. 
-      Erlaubt sind Klein- und Gro&szlig;buchstaben, Zahlen und die folgenden Sonderzeichen: !@#$%^&amp;*().';
-$LANG['alert_input_pwdhigh'] = 'Das Passwort muss mindestens 8 Zeichen lang sein, mindestens einen Kleinbuchstaben, einen Gro&szlig;buchstaben, eine Zahl und ein Sonderzeichen enthalten. 
-      Erlaubt sind Klein- und Gro&szlig;buchstaben, Zahlen und die folgenden Sonderzeichen: !@#$%^&amp;*().';
+$LANG['alert_input_pwdmedium'] = 'Das Passwort muss mindestens 6 Zeichen lang sein, mindestens einen Kleinbuchstaben, einen Gro&szlig;buchstaben und eine Zahl enthalten.
+ Erlaubt sind Klein- und Gro&szlig;buchstaben, Zahlen und die folgenden Sonderzeichen: !@#$%^&amp;*().';
+$LANG['alert_input_pwdhigh'] = 'Das Passwort muss mindestens 8 Zeichen lang sein, mindestens einen Kleinbuchstaben, einen Gro&szlig;buchstaben, eine Zahl und ein Sonderzeichen enthalten.
+ Erlaubt sind Klein- und Gro&szlig;buchstaben, Zahlen und die folgenden Sonderzeichen: !@#$%^&amp;*().';
 $LANG['alert_input_regex_match'] = 'Die Eingabe dieses Feldes entsprach nicht dem regul&auml;ren Ausdruck "%s".';
 $LANG['alert_input_required'] = 'Dieses Feld ist eine Pflichteingabe.';
 $LANG['alert_input_username'] = 'Diese Feld erlaubt nur eine Eingabe von alphanumerischen Zeichen, Bindestrich, Unterstrich, Punkt und @.';
@@ -330,7 +329,6 @@ $LANG['btn_ok'] = 'Ok';
 $LANG['btn_optimize_tables'] = 'Tabellen optimieren';
 $LANG['btn_prev'] = 'Vorh';
 $LANG['btn_refresh'] = 'Aktualisieren';
-$LANG['btn_role_list'] = 'Rollenliste';
 $LANG['btn_register'] = 'Registrieren';
 $LANG['btn_remove'] = 'Entfernen';
 $LANG['btn_remove_secret'] = 'Secret Entfernen';
@@ -378,8 +376,8 @@ $LANG['config_tab_user'] = 'Nutzer';
 $LANG['config_tab_gdpr'] = 'DSGVO';
 
 $LANG['config_activateMessages'] = 'Message Center aktivieren';
-$LANG['config_activateMessages_comment'] = 'Mit diesem Schalter kann das Message Center aktiviert werden. Nutzer k&ouml;nnen damit anderen Nutzern und Gruppen 
-      Nachrichten oder E-Mails schicken. Ein Eintrag im Optionen Menu wird hinzugef&uuml;gt.';
+$LANG['config_activateMessages_comment'] = 'Mit diesem Schalter kann das Message Center aktiviert werden. Nutzer k&ouml;nnen damit anderen Nutzern und Gruppen
+ Nachrichten oder E-Mails schicken. Ein Eintrag im Optionen Menu wird hinzugef&uuml;gt.';
 $LANG['config_adminApproval'] = 'Administrator Freischaltung erforderlich';
 $LANG['config_adminApproval_comment'] = 'Der Administrator erh&auml;lt eine E-Mail bei einer Neuregistrierung. Er muss den Account manuell freischalten.';
 $LANG['config_allowRegistration'] = 'User Selbst-Registration erlauben';
@@ -395,16 +393,16 @@ $LANG['config_appTitle_comment'] = 'Hier kann ein Applikations-Title eingetragen
 $LANG['config_appURL'] = 'Applikations-URL';
 $LANG['config_appURL_comment'] = 'Gib die volle Applikations-URL hier ein. Sie wird z.B. in Benachrichtiguns-E-Mails benutzt.';
 $LANG['config_badLogins'] = 'Ung&uuml;ltige Logins';
-$LANG['config_badLogins_comment'] = 'Anzahl der ung&uuml;ltigen Login Versuche bevore der User Status auf \'LOCKED\' gesetzt wird. Der User muss danach solange 
-      warten wie in der Schonfrist angegeben, bevor er sich erneut einloggen kann. Wenn dieser Wert auf 0 gesetzt wird, ist diese Funktion deaktiviert.';
+$LANG['config_badLogins_comment'] = 'Anzahl der ung&uuml;ltigen Login Versuche bevore der User Status auf \'LOCKED\' gesetzt wird. Der User muss danach solange
+ warten wie in der Schonfrist angegeben, bevor er sich erneut einloggen kann. Wenn dieser Wert auf 0 gesetzt wird, ist diese Funktion deaktiviert.';
 $LANG['config_cookieConsent'] = 'Cookie Zustimmung';
-$LANG['config_cookieConsent_comment'] = 'Mit dieser Option wird am unteren Bildschirmrand ein Popup f&uuml;r die Zustimmung zu Cookienutzung angezeigt. 
-      Dies ist legale Pflicht in der EU. Dieses Feature erordert eine Internetverbindung.';
+$LANG['config_cookieConsent_comment'] = 'Mit dieser Option wird am unteren Bildschirmrand ein Popup f&uuml;r die Zustimmung zu Cookienutzung angezeigt.
+ Dies ist legale Pflicht in der EU. Dieses Feature erordert eine Internetverbindung.';
 $LANG['config_cookieConsentCDN'] = 'Cookie Consent CDN';
-$LANG['config_cookieConsentCDN_comment'] = 'CDNs (Content Distributed Network) k&ouml;nnen einen Performance-Vorteil bieten dadurch dass popul&auml;re Web Module von Servern rund 
-      um den Globus geladen werden. Cookie Consent ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul 
-      f&uuml;r den Nutzer schon durch eine andere Anwendung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Schalte 
-      diese Option aus, wenn du ' . $appTitle . ' in einer Umgebung ohne Internetverbindung betreibst.';
+$LANG['config_cookieConsentCDN_comment'] = 'CDNs (Content Distributed Network) k&ouml;nnen einen Performance-Vorteil bieten dadurch dass popul&auml;re Web Module von Servern rund
+ um den Globus geladen werden. Cookie Consent ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul
+ f&uuml;r den Nutzer schon durch eine andere Anwendung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Schalte
+ diese Option aus, wenn du ' . $appTitle . ' in einer Umgebung ohne Internetverbindung betreibst.';
 $LANG['config_cookieLifetime'] = 'Cookie Lebensdauer';
 $LANG['config_cookieLifetime_comment'] = 'Bei erfolgreichem Einloggen wird ein Cookie auf dem lokalen Rechner des Users abgelegt. Dieser Cookie hat eine 
       bestimmte Lebensdauer, nach dem er nicht mehr anerkannt wird. Ein erneutes Login is notwendig. Die Lebensdauer kann hier in Sekunden angegeben werden (0-999999).';
@@ -423,10 +421,10 @@ $LANG['config_emailNotifications'] = 'E-Mail Benachrichtigungen';
 $LANG['config_emailNotifications_comment'] = 'Aktivierung/Deaktivierung von E-Mail Benachrichtigungen. Wenn diese Option ausgeschaltet ist, werden keine automatischen 
       Benachrichtigungen per E-Mails verschickt. Dies trifft aber nicht auf Selbst-Registrierungsmails und auf manuell gesendete Mails im Message Center und im Viewprofile Dialog zu.';
 $LANG['config_faCDN'] = 'Fontawesome CDN';
-$LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) k&ouml;nnen einen Performance-Vorteil bieten dadurch dass popul&auml;re Web Module von Servern rund 
-      um den Globus geladen werden. Fontawesome ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul 
-      f&uuml;r den Nutzer schon durch eine andere Anwednung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Diese Option
-      funktioniert nat&uuml;rlich nur mit Internetverbindung. Schalte diese Option aus, wenn du ' . $appTitle . ' in einer Umgebung ohne Internetverbindung betreibst.';
+$LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) k&ouml;nnen einen Performance-Vorteil bieten dadurch dass popul&auml;re Web Module von Servern rund
+ um den Globus geladen werden. Fontawesome ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul
+ f&uuml;r den Nutzer schon durch eine andere Anwednung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Diese Option
+ funktioniert nat&uuml;rlich nur mit Internetverbindung. Schalte diese Option aus, wenn du ' . $appTitle . ' in einer Umgebung ohne Internetverbindung betreibst.';
 $LANG['config_font'] = 'Schriftart';
 $LANG['config_font_comment'] = 'W&auml;hle eine Schriftart aus. Optionen sind:<ul>
       <li>Default <i>(l&auml;dt keine extra Schriftart und nutzt die standard sans-serif Schriftart des Browsers)</i></li>
@@ -444,7 +442,6 @@ $LANG['config_footerViewport_comment'] = 'Mit dieser Option wird im Footer die V
 $LANG['config_forceTfa'] = 'Zwei Faktor Authentifizierung Pflicht';
 $LANG['config_forceTfa_comment'] = 'Verlangt, dass alle Nutzer eine Zwei Faktor Authentifizierung einrichten, z.B. mit Google oder Microsoft Authenticator. Wenn ein Nutzer noch keine 2FA eingerichtet hat,
 wird er nach dem regul&auml;ren Login auf die entsprechende Seite umgeleitet.';
-
 $LANG['config_gdprController'] = 'Verantwortlicher';
 $LANG['config_gdprController_comment'] = 'Verantwortlicher im Sinne der Datenschutz-Grundverordnung, sonstiger in den Mitgliedstaaten der Europäischen Union geltenden Datenschutzgesetze und anderer Bestimmungen mit datenschutzrechtlichem Charakter.';
 $LANG['config_gdprOfficer'] = 'Datenschutzbeauftragter';
@@ -454,9 +451,9 @@ $LANG['config_gdprOrganization_comment'] = 'Name der Organisation oder Firma, di
 $LANG['config_gdprPlatforms'] = 'Plattformen';
 $LANG['config_gdprPlatforms_comment'] = 'W&auml;hle die Plattformen, die in der Datenschutzerkl&auml;rung enthalten sein sollen.';
 $LANG['config_gdprPolicyPage'] = 'Datenschutzerkl&auml;rung';
-$LANG['config_gdprPolicyPage_comment'] = 'Mit dieser Option wird eine Seite mit der Datenschutzerkl&auml;rung im Hilfe Men&uuml; hinzugef&uuml;gt.<br>Dazu m&uuml;ssen die Felder "Organisation", "Verantwortlicher" und "Datenschutzbeauftragter" 
-      unten ausgef&uuml;llt werden.<br>Weiterhin k&ouml;nnen darunter optional Erkl&auml;rungen zu bestimmten sozialen Plattformen mit eingebunden werden, wenn sie beispielsweise im Fu&szlig;bereich verlinkt sind.';
-
+$LANG['config_gdprPolicyPage_comment'] = 'Mit dieser Option wird eine Seite mit der Datenschutzerkl&auml;rung im Hilfe Men&uuml; hinzugef&uuml;gt.<br>Dazu m&uuml;ssen die Felder
+ "Organisation", "Verantwortlicher" und "Datenschutzbeauftragter" unten ausgef&uuml;llt werden.<br>Weiterhin k&ouml;nnen darunter optional Erkl&auml;rungen zu bestimmten sozialen Plattformen mit
+ eingebunden werden, wenn sie beispielsweise im Fu&szlig;bereich verlinkt sind.';
 $LANG['config_googleAnalytics'] = 'Google Analytics';
 $LANG['config_googleAnalytics_comment'] = $appTitle . ' unterst&uuml;tzt Google Analytics. Wenn du deine Instanz im Internet betreibst und den Zugriff 
       von Google Analytics tracken lassen willst, ticke die Checkbox hier und trage deine Google Analytics ID ein. Der entsprechende Javascript Code wird dann eingef&uuml;gt.';
@@ -470,14 +467,14 @@ $LANG['config_homepage_calendarview'] = 'Kalender';
 $LANG['config_homepage_home'] = 'Willkommen Seite';
 $LANG['config_homepage_messages'] = 'Nachrichten Seite';
 $LANG['config_jQueryCDN'] = 'jQuery CDN';
-$LANG['config_jQueryCDN_comment'] = 'CDNs (Content Distributed Network) k&ouml;nnen einen Performance-Vorteil bieten dadurch dass popul&auml;re Web Module von Servern rund 
-      um den Globus geladen werden. jQuery ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul 
-      f&uuml;r den Nutzer schon durch eine andere Anwendung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Schalte 
-      diese Option aus, wenn du ' . $appTitle . ' in einer Umgebung ohne Internetverbindung betreibst.';
+$LANG['config_jQueryCDN_comment'] = 'CDNs (Content Distributed Network) k&ouml;nnen einen Performance-Vorteil bieten dadurch dass popul&auml;re Web Module von Servern rund
+ um den Globus geladen werden. jQuery ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul
+ f&uuml;r den Nutzer schon durch eine andere Anwendung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Schalte diese Option
+ aus, wenn du ' . $appTitle . ' in einer Umgebung ohne Internetverbindung betreibst.';
 $LANG['config_jqtheme'] = 'jQuery UI Theme';
-$LANG['config_jqtheme_comment'] = $appTitle . ' nutzt jQuery UI, eine popul&auml;re Sammlung von Javascript Tools. jQuery UI bietet auch verschiedene Themes, die die Anzeige 
-      der Reiterdialoge u.a. Objekten bestimmen. Das Standard Theme ist "smoothness", ein neutrales Schema mit Graut&ouml;nen. Versuche andere aus der Liste, manche sind 
-      recht fabenfroh. Diese Einstellung wirkt global. Nutzer k&ouml;nnen kein eigenes jQuery UI Theme w&auml;hlen.';
+$LANG['config_jqtheme_comment'] = $appTitle . ' nutzt jQuery UI, eine popul&auml;re Sammlung von Javascript Tools. jQuery UI bietet auch verschiedene Themes, die die Anzeige
+ der Reiterdialoge u.a. Objekten bestimmen. Das Standard Theme ist "smoothness", ein neutrales Schema mit Graut&ouml;nen. Versuche andere aus der Liste, manche sind
+ recht fabenfroh. Diese Einstellung wirkt global. Nutzer k&ouml;nnen kein eigenes jQuery UI Theme w&auml;hlen.';
 $LANG['config_licActivate'] = "Lizenz Aktivieren";
 $LANG['config_licActivate_comment'] = "Deine Lizenz ist noch nicht aktiv. Bitte aktiviere sie.";
 $LANG['config_licExpiryWarning'] = "Lizenz-Ablaufwarnung";
@@ -485,8 +482,7 @@ $LANG['config_licExpiryWarning_comment'] = "Gib die Anzahl der Tage bis zum Abla
 $LANG['config_licKey'] = "Lizenzschl&uuml;ssel";
 $LANG['config_licKey_comment'] = "Gib hier den Lizenzschl&uuml;ssel ein, den du bei der Registrierung von TeamCal Neo erhalten hast.";
 $LANG['config_licRegister'] = "Domain Registrieren";
-$LANG['config_licRegister_comment'] = "Diese TeamCal Neo Domain is nicht f&uuml;r den angegebenen Lizenzschl&uuml;ssel registriert.<br>Wenn der Lizenzschl&uuml;ssel g&uuml;ltig ist und mehr als eine Domain erlaubt, 
-      klicke '" . $LANG['btn_register'] . "', um diese Domain hinzuzuf&uuml;gen. Andernfalls gib bitte einen neuen g&uuml;tigen Lizenzschl&uuml;ssel ein und klicke '" . $LANG['btn_apply'] . "'.";
+$LANG['config_licRegister_comment'] = "Diese TeamCal Neo Domain is nicht f&uuml;r den angegebenen Lizenzschl&uuml;ssel registriert.<br>Wenn der Lizenzschl&uuml;ssel g&uuml;ltig ist und mehr als eine Domain erlaubt, klicke '" . $LANG['btn_register'] . "', um diese Domain hinzuzuf&uuml;gen. Andernfalls gib bitte einen neuen g&uuml;tigen Lizenzschl&uuml;ssel ein und klicke '" . $LANG['btn_apply'] . "'.";
 $LANG['config_licDeregister'] = "Domain De-Registrieren";
 $LANG['config_licDeregister_comment'] = "Du kannst diese TeamCal Neo Domain von der Lizenz deregistrieren, z.B. wenn du auf eine neuen Domain umziehen willst. Deregistriere diese Domain hier und registriere die neue von dort.";
 $LANG['config_logLanguage'] = "Logbuchsprache";
@@ -494,13 +490,12 @@ $LANG['config_logLanguage_comment'] = "Diese Einstellung bestimmt die Sprache de
 $LANG['config_mailFrom'] = 'Mail Von';
 $LANG['config_mailFrom_comment'] = 'Gibt den Absender Namen von Benachrichtigungs E-Mails an.';
 $LANG['config_mailReply'] = 'Mail Antwort';
-$LANG['config_mailReply_comment'] = 'Gibt die R&uuml;ckantwort Adresse von Benachrichtigungs E-Mails an. Dieses Feld muss eine g&uuml;ltige E-Mail Adresse enthalten. 
-      Wenn das nicht der Fall ist, wird eine Dummy Adresse gespeichert.';
+$LANG['config_mailReply_comment'] = 'Gibt die R&uuml;ckantwort Adresse von Benachrichtigungs E-Mails an. Dieses Feld muss eine g&uuml;ltige E-Mail Adresse enthalten. Wenn das nicht der Fall ist, wird eine Dummy Adresse gespeichert.';
 $LANG['config_mailSMTP'] = 'Externen SMTP Server benutzen';
-$LANG['config_mailSMTP_comment'] = 'Mit diesm Schalter wird ein externer SMTP Server zum Versenden von E-Mails benutzt anstatt der PHP mail() Funktion. 
-      Diese Feature erfordert das PEAR Mail Paket auf dem TcNeo Server. Viele Hoster installieren dieses Paket als Standard. Ausserdem ist es erforderlich, dass sich 
-      der Tcro Server per SMTP oder TLS/SSL protocol mit den gebr&auml;chlichen SMTP port 25, 465 und 587 mit dem SMTP Server verbinden kann. Bei einigen Hostern 
-      ist dies durch Firewalleinstellungen nicht m&ouml;glich. Es erscheint dann eie Fehlermeldung.';
+$LANG['config_mailSMTP_comment'] = 'Mit diesm Schalter wird ein externer SMTP Server zum Versenden von E-Mails benutzt anstatt der PHP mail() Funktion.
+ Diese Feature erfordert das PEAR Mail Paket auf dem TcNeo Server. Viele Hoster installieren dieses Paket als Standard. Ausserdem ist es erforderlich, dass sich
+ der Tcro Server per SMTP oder TLS/SSL protocol mit den gebr&auml;chlichen SMTP port 25, 465 und 587 mit dem SMTP Server verbinden kann. Bei einigen Hostern
+ ist dies durch Firewalleinstellungen nicht m&ouml;glich. Es erscheint dann eie Fehlermeldung.';
 $LANG['config_mailSMTPAnonymous'] = 'Anonyme SMTP Anmeldung';
 $LANG['config_mailSMTPAnonymous_comment'] = 'Verwendung der SMTP Verbindung ohne Authentifizierung.';
 $LANG['config_mailSMTPhost'] = 'SMTP Host';
@@ -536,7 +531,7 @@ $LANG['config_pageHelp_comment'] = 'Mit diesem Schalter wird rechts in der Titel
 $LANG['config_permissionScheme'] = 'Berechtigungsschema';
 $LANG['config_permissionScheme_comment'] = 'Hiermit wird das aktive Berechtigungsschema ausgew&auml;hlt. Das Schema kann auf der Berechtigungsschema Seite bearbeitet werden.';
 $LANG['config_pwdStrength'] = 'Passwort Sicherheit';
-$LANG['config_pwdStrength_comment'] = 'Die Passwort Sicherheit bestimmt, welchen Anforderungen das User Passwort gen&uuml;gen muss. Erlaubt sind immer Gro&szlig;- und Kleinbuchstaben, Zahlen und die Sonderzeichen: !@#$%^&amp;*().<br><br> 
+$LANG['config_pwdStrength_comment'] = 'Die Passwort Sicherheit bestimmt, welchen Anforderungen das User Passwort gen&uuml;gen muss. Erlaubt sind immer Gro&szlig;- und Kleinbuchstaben, Zahlen und die Sonderzeichen: !@#$%^&amp;*().<br><br>
       - <strong>Niedrig:</strong> Mindestens 4 Zeichen<br>
       - <strong>Mittel:</strong> Mindestens 6 Zeichen, mindestens ein Gro&szlig;buchstabe, ein Kleinbuchstabe und eine Zahl<br>
       - <strong>Hoch:</strong> Mindestens 8 Zeichen, mindestens ein Gro&szlig;buchstabe, ein Kleinbuchstabe, eine Zahl und ein Sonderzeichen<br>';
@@ -551,9 +546,9 @@ $LANG['config_showAlerts_none'] = 'Keine';
 $LANG['config_showBanner'] = 'Banner anzeigen';
 $LANG['config_showBanner_comment'] = 'Mit dieser Option wird zwischen Menu und Inhalt ein Banner mit dem Applikationstitel und einer Suchbox angezeigt.';
 $LANG['config_theme'] = 'Theme';
-$LANG['config_theme_comment'] = 'W&auml;hle ein Theme aus, umd das Aussehen der User Interface zu &auml;ndern. Du kannst ein eigenes 
-      Theme erstellen, indem du eine Kopie eines Verzeichnis im \'themes\' Ordner anlegst und das Style Sheet entsprechend anpasst. 
-      Das neue Verzeichnis wir dann automatisch in dieser Liste hier angezeigt. Kopiere aber nicht das \'bootstrap\' Dummy Verzeichnis.';
+$LANG['config_theme_comment'] = 'W&auml;hle ein Theme aus, umd das Aussehen der User Interface zu &auml;ndern. Du kannst ein eigenes
+ Theme erstellen, indem du eine Kopie eines Verzeichnis im \'themes\' Ordner anlegst und das Style Sheet entsprechend anpasst.
+ Das neue Verzeichnis wir dann automatisch in dieser Liste hier angezeigt. Kopiere aber nicht das \'bootstrap\' Dummy Verzeichnis.';
 $LANG['config_timeZone'] = 'Zeitzone';
 $LANG['config_timeZone_comment'] = 'Wenn der Webserver in einer anderen Zeitzone steht als die Nutzer, kann hier die Zeitzone angepasst werden.';
 $LANG['config_underMaintenance'] = 'Website in Wartung';
@@ -1000,18 +995,18 @@ $LANG['pwdreq_selectUser_comment'] = 'Es wurden mehrere Benutzer mit der angegeb
 // Password rules
 //
 $LANG['password_rules_low'] = '<br>Die Passwort Sicherheit ist zurzeit auf "Niedrig" eingestellt. Daraus ergeben sich folgende Regeln:<br>
-     - Mindestens 4 Zeichen<br>';
+- Mindestens 4 Zeichen<br>';
 $LANG['password_rules_medium'] = '<br>Die Passwort Sicherheit ist zurzeit auf "Medium" eingestellt. Daraus ergeben sich folgende Regeln:<br>
-      - Mindestens 6 Zeichen<br>
-      - Mindestens ein Gro&szlig;buchstabe<br>
-      - Mindestens ein Kleinbuchstabe<br>
-      - Mindestens eine Zahl<br>';
+- Mindestens 6 Zeichen<br>
+- Mindestens ein Gro&szlig;buchstabe<br>
+- Mindestens ein Kleinbuchstabe<br>
+- Mindestens eine Zahl<br>';
 $LANG['password_rules_high'] = '<br>Die Passwort Sicherheit ist zurzeit auf "Hoch" eingestellt. Daraus ergeben sich folgende Regeln:<br>
-      - Mindestens 8 Zeichen<br>
-      - Mindestens ein Gro&szlig;buchstabe<br>
-      - Mindestens ein Kleinbuchstabe<br>
-      - Mindestens eine Zahl<br>
-      - Mindestens ein Sonderzeichen<br>';
+- Mindestens 8 Zeichen<br>
+- Mindestens ein Gro&szlig;buchstabe<br>
+- Mindestens ein Kleinbuchstabe<br>
+- Mindestens eine Zahl<br>
+- Mindestens ein Sonderzeichen<br>';
 
 //
 // Permissions
@@ -1024,8 +1019,7 @@ $LANG['perm_active'] = '(Aktiv)';
 $LANG['perm_activate_scheme'] = 'Schema aktivieren';
 $LANG['perm_activate_confirm'] = 'Soll dieses Berechtigungsschema aktiviert werden?';
 $LANG['perm_create_scheme'] = 'Schema anlegen';
-$LANG['perm_create_scheme_desc'] = 'Gib einen Namen f&uuml;r das neue Schema ein. Es wird mit Standardeinstellungen direkt geladen. 
-      Alle nicht gespeicherten &Auml;nderungen des momentanen Schemas gehen verloren.';
+$LANG['perm_create_scheme_desc'] = 'Gib einen Namen f&uuml;r das neue Schema ein. Es wird mit Standardeinstellungen direkt geladen. Alle nicht gespeicherten &Auml;nderungen des momentanen Schemas gehen verloren.';
 $LANG['perm_delete_scheme'] = 'Schema l&ouml;schen';
 $LANG['perm_delete_confirm'] = 'Soll dieses Berechtigungsschema gel&ouml;scht werden? Dadurch wird das Standard Schema geladen und aktiviert.';
 $LANG['perm_inactive'] = '(Inaktiv)';
@@ -1070,8 +1064,7 @@ $LANG['perm_useroptions_desc'] = 'Aktiviert den Optionen Reiter beim Editieren v
 $LANG['perm_usernotifications_title'] = 'Benutzerprofil (Benachrichtigungen Reiter)';
 $LANG['perm_usernotifications_desc'] = 'Aktiviert den Benachrichtigungen Reiter beim Editieren von Nutzerprofilen.';
 $LANG['perm_viewprofile_title'] = 'Benutzerprofil (Anzeigen)';
-$LANG['perm_viewprofile_desc'] = 'Erlaubt den Zugriff auf die Nutzerprofil-Anzeige-Seite mit Basisinformationen wie Name oder Telefonnummer. Das Anzeigen von User Popups ist 
-      ebenfalls abh&auml;ngig von dieser Berechtigung.';
+$LANG['perm_viewprofile_desc'] = 'Erlaubt den Zugriff auf die Nutzerprofil-Anzeige-Seite mit Basisinformationen wie Name oder Telefonnummer. Das Anzeigen von User Popups ist ebenfalls abh&auml;ngig von dieser Berechtigung.';
 
 //
 // Phpinfo
@@ -1098,7 +1091,7 @@ $LANG['profile_tab_password'] = 'Passwort';
 $LANG['profile_tab_personal'] = 'Person';
 $LANG['profile_tab_tfa'] = '2FA';
 
-$LANG['profile_2fa_optional'] = 'TeamCal Neo erlaubt das Einrichten eines zweiten Faktors f&uuml;r die Authentifizierung, z.B. mit dem Google oder Microsoft Authenticator auf deinem mobilen Ger&auml;t.<br> 
+$LANG['profile_2fa_optional'] = 'TeamCal Neo erlaubt das Einrichten eines zweiten Faktors f&uuml;r die Authentifizierung, z.B. mit dem Google oder Microsoft Authenticator auf deinem mobilen Ger&auml;t.<br>
 Klicke den Button unten um den Onboarding Prozess zu starten. (Dies kann nur vom Benutzer selbst ausgef&uuml;hrt werden.)';
 
 $LANG['profile_alert_archive_user'] = 'Der Nutzer wurde archiviert.';
@@ -1114,8 +1107,8 @@ $LANG['profile_avatar_comment'] = 'Wenn kein eigener Avatar hochgeladen wurde, w
 $LANG['profile_avatar_available'] = 'Verf&uuml;gbare Standard Avatare';
 $LANG['profile_avatar_available_comment'] = 'W&auml;hle einen der standard Avatare, erstellt von <a href="http://www.iconshock.com/icon_sets/vector-user-icons/" target="_blank">IconShock</a>.';
 $LANG['profile_avatar_upload'] = 'Avatar hochladen';
-$LANG['profile_avatar_upload_comment'] = 'Es kann ein individueller Avatar hochlgeaden werden. Die Dateigr&ouml;&szlig;e ist limitiert auf %d Bytes, das Bild sollte 
-      80x80 Pixel gro&szlig; sein (wird ohnehin nur in dieser Gr&ouml;&szlig;e dargestellt) und die erlaubten Formate sind "%s".';
+$LANG['profile_avatar_upload_comment'] = 'Es kann ein individueller Avatar hochlgeaden werden. Die Dateigr&ouml;&szlig;e ist limitiert auf %d Bytes, das Bild sollte
+ 80x80 Pixel gro&szlig; sein (wird ohnehin nur in dieser Gr&ouml;&szlig;e dargestellt) und die erlaubten Formate sind "%s".';
 $LANG['profile_confirm_archive'] = 'Bist du sicher, dass du dieses Nutzerkonto archivieren m&ouml;chtest?';
 $LANG['profile_confirm_delete'] = 'Bist du sicher, dass du dieses Nutzerkonto l&ouml;schen m&ouml;chtest?';
 $LANG['profile_custom1'] = $C->read('userCustom1');
@@ -1169,8 +1162,8 @@ $LANG['profile_notifyGroupEvents'] = 'Gruppen-Ereignisse';
 $LANG['profile_notifyRoleEvents'] = 'Rollen-Ereignisse';
 $LANG['profile_notifyUserEvents'] = 'Benutzerkonten-Ereignisse';
 $LANG['profile_onhold'] = '<i class="far fa-clock text-warning" style="padding-right: 8px;"></i>Tempor&auml;r gesperrt';
-$LANG['profile_onhold_comment'] = 'Dieser Zustand tritt ein, wenn der Benutzer zu h&auml;ufig ein falsches Passwort eingegeben hat. Dann wirkt die Schonfrist, 
-      in der das Konto gesperrt ist. Die L&auml;nge der Schonfrist kann in der Konfiguration eingestellt werden. Hier kann die Schonfrist manuell wieder aufgehoben werden.';
+$LANG['profile_onhold_comment'] = 'Dieser Zustand tritt ein, wenn der Benutzer zu h&auml;ufig ein falsches Passwort eingegeben hat. Dann wirkt die Schonfrist,
+ in der das Konto gesperrt ist. Die L&auml;nge der Schonfrist kann in der Konfiguration eingestellt werden. Hier kann die Schonfrist manuell wieder aufgehoben werden.';
 $LANG['profile_orderkey'] = 'Sortierschl&uuml;ssel';
 $LANG['profile_orderkey_comment'] = 'Du kannst dieses Textfeld benutzen um f&uuml;r diesen Benutzer einen anderen Sortierschl&uuml;ssel als den Nachnamen zu nutzen. Allerdings wird dies nur in der Kalenderansicht angewendet, wenn der Administrator diese Option eingeschaltet hat.';
 $LANG['profile_password'] = 'Passwort';
@@ -1185,8 +1178,8 @@ $LANG['profile_position_comment'] = '';
 $LANG['profile_region'] = 'Region';
 $LANG['profile_region_comment'] = 'Hier kann die Region gew&auml;hlt werden, zu der dieser Benutzer geh&ouml;hrt.';
 $LANG['profile_remove2fa'] = '2FA entfernen';
-$LANG['profile_remove2fa_comment'] = 'Du hast bereits eine Authenticator App als zweiten Faktor registriert. Aus Sicherheitsgr&uuml;nden sind die Onboarding Details nicht mehr verf&uuml;gbar. 
-Wenn dieser zweite Faktor entfernt werden soll, z.B. wenn du ein neues mobiles Ger&auml;t einrichtest, ticke diese Box und aktualisiere dein Profil. Der Onboarding Link wird danach hier angezeigt.';
+$LANG['profile_remove2fa_comment'] = 'Du hast bereits eine Authenticator App als zweiten Faktor registriert. Aus Sicherheitsgr&uuml;nden sind die Onboarding Details nicht mehr verf&uuml;gbar.
+ Wenn dieser zweite Faktor entfernt werden soll, z.B. wenn du ein neues mobiles Ger&auml;t einrichtest, ticke diese Box und aktualisiere dein Profil. Der Onboarding Link wird danach hier angezeigt.';
 $LANG['profile_role'] = 'Rolle';
 $LANG['profile_role_comment'] = 'Hier kann die Rolle gew&auml;hlt werden, die dieser Benutzer einnehmen soll. Damit sind bestimmte Berechtigungen verkn&uuml;pft.';
 $LANG['profile_skype'] = 'Skype';
@@ -1201,7 +1194,7 @@ $LANG['profile_username'] = 'Loginname';
 $LANG['profile_username_comment'] = 'Der Loginname kann f&uuml;r existierende Benutzerkonten nicht ge&auml;ndert werden.';
 $LANG['profile_verify'] = '<i class="fas fa-exclamation-circle text-success" style="padding-right: 8px;"></i>Zu verifizieren';
 $LANG['profile_verify_comment'] = 'Wenn der Benutzer sich selbst registriert hat, aber die Best&auml;tigung noch nicht durchgef&uuml;hrt hat, gilt dieser Zustand. Der Account ist angelegt
-      aber gesperrt. Hier kann dieser Zustand manuell aufgehoben werden.';
+ aber gesperrt. Hier kann dieser Zustand manuell aufgehoben werden.';
 
 //
 // Register
@@ -1220,7 +1213,7 @@ $LANG['register_lastname'] = 'Nachname';
 $LANG['register_lastname_comment'] = '';
 $LANG['register_password'] = 'Passwort';
 $LANG['register_password_comment'] = 'Bitte gebe ein Passwort ein.<br>
-      Erlaubt sind Gro&szlig;- und Kleinbuchstaben, Zahlen und die Sonderzeichen: !@#$%^&amp;*().';
+Erlaubt sind Gro&szlig;- und Kleinbuchstaben, Zahlen und die Sonderzeichen: !@#$%^&amp;*().';
 $LANG['register_password2'] = 'Passwort wiederholen';
 $LANG['register_password2_comment'] = 'Wiederhole hier das Passwort.';
 $LANG['register_username'] = 'Loginname';
@@ -1271,14 +1264,14 @@ $LANG['roles_name'] = 'Name';
 //
 $LANG['setup2fa_title'] = 'Zwei Faktor Authentifizierung einrichten f&uuml;r:';
 $LANG['setup2fa_alert_input'] = 'Bitte gib einen sechstelligen numerischen Wert in das Code Feld ein.';
-$LANG['setup2fa_alert_input_help'] = 'Aus Sicherheitsgr&uuml;nden ist der vorherige generierte Barcode und Sicherheitscode nicht mehr g&uuml;ltig. 
-Solltest du einen Eintrag damit in deiner Authenticator App angelegt haben, kannst diesen l&ouml;schen und mit den neuen Informationen auf dieser Seite einen neuen Eintrag anlegen.';
+$LANG['setup2fa_alert_input_help'] = 'Aus Sicherheitsgr&uuml;nden ist der vorherige generierte Barcode und Sicherheitscode nicht mehr g&uuml;ltig.
+ Solltest du einen Eintrag damit in deiner Authenticator App angelegt haben, kannst diesen l&ouml;schen und mit den neuen Informationen auf dieser Seite einen neuen Eintrag anlegen.';
 $LANG['setup2fa_alert_mismatch'] = 'Der eingegebene Code ist nicht korrekt.';
 $LANG['setup2fa_alert_success'] = 'Deine Zwei Faktor Authentifizierung wurde erfolgreich eingerichtet. Du kannst dich nun erneut mit 2FA einloggen.';
-$LANG['setup2fa_comment'] = 'F&uuml;ge einen neuen Eintrag in deiner Authenticator App hinzu, indem du den Barcode einscannst (falls einer angezeigt wird) oder durch manuelle Eingabe des angezeigten Sicherheitscodes. 
-Nach Hinzuf&uuml;gen des Eintrages gib den n&auml;chsten generierten Code deiner App in das Feld unten ein und klicke auf Verifizieren.';
+$LANG['setup2fa_comment'] = 'F&uuml;ge einen neuen Eintrag in deiner Authenticator App hinzu, indem du den Barcode einscannst (falls einer angezeigt wird) oder durch manuelle Eingabe des angezeigten Sicherheitscodes.
+ Nach Hinzuf&uuml;gen des Eintrages gib den n&auml;chsten generierten Code deiner App in das Feld unten ein und klicke auf Verifizieren.';
 $LANG['setup2fa_required_comment'] = 'Der Administrator hat konfiguriert, dass eine Zwei Faktor Authentifizierung zum Login erforderlich ist. Hier kannst du den Onboarding Prozess durchf&uuml;hren.
-Dazu ben&ouml;tigst du ein mobiles Ger&auml;t und eine Authenticator App wie Google Authenticator oder Microsoft Authenticator.';
+ Dazu ben&ouml;tigst du ein mobiles Ger&auml;t und eine Authenticator App wie Google Authenticator oder Microsoft Authenticator.';
 $LANG['setup2fa_totp'] = 'Dein Authenticator Code<br><i>(sechsstellig, numerisch)</i>';
 
 //
@@ -1348,7 +1341,7 @@ $LANG['imp_file'] = 'CSV Datei';
 $LANG['imp_alert_help'] = 'Die Dokumentation zum CSV Import findest du <a href="https://lewe.gitbook.io/teamcal-neo/administration/users/user-import" target="_blank">hier</a>.';
 $LANG['imp_alert_success'] = 'CSV Import erfolgreich';
 $LANG['imp_alert_success_text'] = '%s Benutzer wurden erfolgreich importiert.';
-$LANG['imp_file_comment'] = 'Lade eine CSV Datei hoch. Details zum Format findest du <a href="https://lewe.gitbook.io/teamcal-neo/administration/users/user-import" target="_blank">hier</a>. 
+$LANG['imp_file_comment'] = 'Lade eine CSV Datei hoch. Details zum Format findest du <a href="https://lewe.gitbook.io/teamcal-neo/administration/users/user-import" target="_blank">hier</a>.
       Die Gr&ouml;&szlig;e der Datei darf bis zu %d KBytes betragen und kann folgende Formate haben: "%s".';
 $LANG['imp_group'] = 'Gruppe';
 $LANG['imp_group_comment'] = 'W&auml;hle die Gruppe, der die importierten Benutzer zugeordnet werden sollen.';

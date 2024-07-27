@@ -32,7 +32,6 @@ $LANG['log_db_cleanup_before'] = 'Datenbank L&ouml;schung bevor ';
 $LANG['log_db_delete_archive'] = 'Datenbank L&ouml;schung: Alle archivierten Datens&auml;tze';
 $LANG['log_db_delete_groups'] = 'Datenbank L&ouml;schung: Alle Gruppen';
 $LANG['log_db_delete_log'] = 'Datenbank L&ouml;schung: Logbuch gel&ouml;scht';
-$LANG['log_db_delete_log'] = 'Datenbank L&ouml;schung: Archiv gel&ouml;scht';
 $LANG['log_db_delete_msg'] = 'Datenbank L&ouml;schung: Alle Benachrichtigungen';
 $LANG['log_db_delete_msg_orph'] = 'Datenbank L&ouml;schung: Alle verwaisten Benachrichtigungen';
 $LANG['log_db_delete_perm'] = 'Datenbank L&ouml;schung: Alle individuellen Berechtigungsschemata';
