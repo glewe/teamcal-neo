@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * English Framework Strings
  *
@@ -53,32 +55,32 @@ $LANG['group'] = 'Group';
 $LANG['license'] = 'TeamCal Neo License';
 $LANG['magenta'] = 'Magenta';
 $LANG['monthnames'] = array(
-    1 => "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
+  1 => "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
 );
 $LANG['monthShort'] = array(
-    1 => "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
+  1 => "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec"
 );
 $LANG['name'] = 'Name';
 $LANG['none'] = 'None';
@@ -113,22 +115,22 @@ $LANG['total'] = 'Total';
 $LANG['type'] = 'Type';
 $LANG['user'] = 'User';
 $LANG['weekdayShort'] = array(
-    1 => "Mo",
-    "Tu",
-    "We",
-    "Th",
-    "Fr",
-    "Sa",
-    "Su"
+  1 => "Mo",
+  "Tu",
+  "We",
+  "Th",
+  "Fr",
+  "Sa",
+  "Su"
 );
 $LANG['weekdayLong'] = array(
-    1 => "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday"
+  1 => "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday"
 );
 $LANG['yellow'] = 'Yellow';
 
@@ -701,39 +703,39 @@ $LANG['home_title'] = 'Welcome to ' . $appTitle;
 // You can add more arrays here in order to display them on the Imprint page
 //
 $LANG['imprint'] = array(
-    array(
-        'title' => 'Author',
-        'text' => '<p>' . $appTitle . ' was created by George Lewe (<a href="https://www.lewe.com/">Lewe.com</a>). 
+  array(
+    'title' => 'Author',
+    'text' => '<p>' . $appTitle . ' was created by George Lewe (<a href="https://www.lewe.com/">Lewe.com</a>). 
       ' . $appTitle . ' also uses free modules by other great people providing those awesome techonolgies to the public. 
       See detailed credits on the <a href="index.php?action=about">About page</a>.</p>',
-    ),
-    array(
-        'title' => 'Content',
-        'text' => '<p>All content delivered with the ' . $appTitle . ' application was created by George Lewe (<a href="https://www.lewe.com/">Lewe.com</a>).  
+  ),
+  array(
+    'title' => 'Content',
+    'text' => '<p>All content delivered with the ' . $appTitle . ' application was created by George Lewe (<a href="https://www.lewe.com/">Lewe.com</a>).  
       If you feel that any material is used inappropriately, please contact <a href="https://www.lewe.com/contact/">Lewe.com</a>.</p>
       <p>None of the application content, as a whole or in parts may be reproduced, copied or reused in any form or by any means, electronic or mechanical, 
       for any purpose, without the express written permission of George Lewe.</p>',
-    ),
-    array(
-        'title' => 'Links',
-        'text' => '<p>All links delivered with the ' . $appTitle . ' application are being provided as a convenience 
+  ),
+  array(
+    'title' => 'Links',
+    'text' => '<p>All links delivered with the ' . $appTitle . ' application are being provided as a convenience 
       and for informational purposes only; they do not constitute an endorsement or an approval by ' . $appTitle . ' of the products, services or opinions 
       of the corporation or organization or individual. The application provider bears no responsibility for the accuracy, legality or content of the external site or 
       for that of subsequent links. Contact the external site for questions regarding its content.</p>',
-    ),
-    array(
-        'title' => 'GDPR',
-        'text' => '<p>No personal data is delivered with the ' . $appTitle . ' application. Data privacy protection of any data added by users lies in the
+  ),
+  array(
+    'title' => 'GDPR',
+    'text' => '<p>No personal data is delivered with the ' . $appTitle . ' application. Data privacy protection of any data added by users lies in the
       responsibility of the user.</p><p>' . $appTitle . ' provides a general GDPR generator. If used, users of the application are obliged to review the generated statement
       and to change or add any details that the generator does not properly cover.</p><p>The application provider bears no responsibility for the accuracy, 
       legality or content of the Data Privacy statement used on any installation of the application.</p>',
-    ),
+  ),
 );
 
 if ($C->read('googleAnalytics') and $C->read("googleAnalyticsID")) {
-    $LANG['imprint'][] = array(
-        'title' => 'Google Analytics',
-        'text' => '<p><i class="fab fa-google fa-3x float-start" style="color: #999999;"></i>This website may use Google Analytics, if so configured by the administrator, a web analytics service provided by
+  $LANG['imprint'][] = array(
+    'title' => 'Google Analytics',
+    'text' => '<p><i class="fab fa-google fa-3x float-start" style="color: #999999;"></i>This website may use Google Analytics, if so configured by the administrator, a web analytics service provided by
       Google, Inc. ("Google"). Google Analytics uses "cookies", which are text files placed on your computer, to help the website analyze how users use the site.
       The information generated by the cookie about the use of this website will be transmitted to and stored by Google on servers that may reside in the United States.</p>
       <div class="collapse" id="readmore">
@@ -751,7 +753,7 @@ if ($C->read('googleAnalytics') and $C->read("googleAnalyticsID")) {
          this domain). An opt-out cookie will be stored on your device, which means that you\'ll have to click this link again, if you delete your cookies.</p>
       </div>
       <p><a class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#readmore">Read more/less...</a></p>',
-    );
+  );
 }
 
 //

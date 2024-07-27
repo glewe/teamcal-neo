@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * German Application Strings
  *
@@ -40,29 +42,29 @@ $LANG['weeknumber'] = 'Kalenderwoche';
 $LANG['year'] = 'Jahr';
 
 $LANG['monthnames'] = array(
-    1 => "Januar",
-    2 => "Februar",
-    3 => "M&auml;rz",
-    4 => "April",
-    5 => "Mai",
-    6 => "Juni",
-    7 => "Juli",
-    8 => "August",
-    9 => "September",
-    10 => "Oktober",
-    11 => "November",
-    12 => "Dezember",
+  1 => "Januar",
+  2 => "Februar",
+  3 => "M&auml;rz",
+  4 => "April",
+  5 => "Mai",
+  6 => "Juni",
+  7 => "Juli",
+  8 => "August",
+  9 => "September",
+  10 => "Oktober",
+  11 => "November",
+  12 => "Dezember",
 );
 
 $LANG['widths'] = array(
-    'full' => "Vollbildschirm (Mehr als 1024 Pixel)",
-    '1024' => "1024 Pixel",
-    '800' => "800 Pixel",
-    '640' => "640 Pixel",
-    '480' => "480 Pixel",
-    '400' => "400 Pixel",
-    '320' => "320 Pixel",
-    '240' => "240 Pixel",
+  'full' => "Vollbildschirm (Mehr als 1024 Pixel)",
+  '1024' => "1024 Pixel",
+  '800' => "800 Pixel",
+  '640' => "640 Pixel",
+  '480' => "480 Pixel",
+  '400' => "400 Pixel",
+  '320' => "320 Pixel",
+  '240' => "240 Pixel",
 );
 
 //
@@ -249,7 +251,6 @@ $LANG['sum_absent'] = 'Abwesend';
 $LANG['sum_delta'] = 'Delta';
 $LANG['sum_absence_summary'] = 'Abwesenheiten im einzelnen';
 $LANG['sum_business_day_count'] = 'Arbeitstage';
-$LANG['remainder'] = 'Resttage';
 $LANG['exp_summary'] = 'Zusammenfassung einblenden...';
 $LANG['col_summary'] = 'Zusammenfassung ausblenden...';
 $LANG['exp_remainder'] = 'Resttage einblenden...';
@@ -772,7 +773,7 @@ $LANG['profile_calfilterGroup'] = 'Standard Gruppenfilter';
 $LANG['profile_calfilterGroup_comment'] = 'Die Kalenderansicht kann auf eine Gruppe gefiltert werden. Dies kann hier oder auf der Kalenderseite eingestellt werden.';
 $LANG['profile_guestships'] = 'In anderen Gruppen anzeigen';
 $LANG['profile_guestships_comment'] = 'Zeigt den Kalender dieses Nutzers in den ausgew&auml;hlten Gruppen mit an, auch wenn keine Mitgliedschaft vorliegt (auch "Gastmitgliedschaft" genannt). Dieses Feature ist sinnvoll, wenn der Nutzer ' .
-    'zwar kein Mitglied, seine Abwesenheiten aber trotzdem relevant f&uuml;r die Gruppe sind.<br><i>Gastmitglieder werden im Kalender in schr&auml;ger Schrift dargestellt.</i>';
+  'zwar kein Mitglied, seine Abwesenheiten aber trotzdem relevant f&uuml;r die Gruppe sind.<br><i>Gastmitglieder werden im Kalender in schr&auml;ger Schrift dargestellt.</i>';
 $LANG['profile_hidden'] = '<i class="far fa-eye-slash text-info" style="padding-right: 8px;"></i>Im Kalender verbergen';
 $LANG['profile_hidden_comment'] = 'Mit dieser Option kann der Nutzer aktiv bleiben aber im Kalender verborgen werden. Die Abwesenheiten werden in den Statistiken jedoch weiter gez&auml;hlt. Sollte das
       nicht gew&uuml;nscht sein, wird die Archivierung des Nutzers empfohlen.';
