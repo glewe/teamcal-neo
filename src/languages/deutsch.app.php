@@ -81,16 +81,16 @@ $LANG['abs_alert_save_failed'] = 'Die neuen Informationen f&uuml;r diesen Abwese
 $LANG['abs_allow_active'] = 'Eingeschr&auml;nkte Anzahl';
 $LANG['abs_allowance'] = 'Erlaubte Anzahl pro Jahr';
 $LANG['abs_allowance_comment'] = 'Hier kann die erlaubte Anzahl pro Kalenderjahr f&uuml;r diesen Typen gesetzt werden. Im Nutzerprofil 
-      wird die genommene und noch verbleibende Anzahl angezeigt (Ein negativer Wert in der Anzeige bedeutet, dass der Nutzer die erlaubte Anzahl 
-      &uuml;berschritten hat.). Wenn der Wert auf 0 gesetzt wird, gilt eine unbegrenzte Erlaubnis.';
+ wird die genommene und noch verbleibende Anzahl angezeigt (Ein negativer Wert in der Anzeige bedeutet, dass der Nutzer die erlaubte Anzahl 
+ &uuml;berschritten hat.). Wenn der Wert auf 0 gesetzt wird, gilt eine unbegrenzte Erlaubnis.';
 $LANG['abs_allowmonth'] = 'Erlaubte Anzahl pro Monat';
 $LANG['abs_allowmonth_comment'] = 'Hier kann die erlaubte Anzahl pro Monat f&uuml;r diesen Typen gesetzt werden. Wenn der Wert auf 0 gesetzt wird, gilt eine unbegrenzte Erlaubnis.';
 $LANG['abs_allowweek'] = 'Erlaubte Anzahl pro Woche';
 $LANG['abs_allowweek_comment'] = 'Hier kann die erlaubte Anzahl pro Woche f&uuml;r diesen Typen gesetzt werden. Wenn der Wert auf 0 gesetzt wird, gilt eine unbegrenzte Erlaubnis.';
 $LANG['abs_approval_required'] = 'Genehmigung erforderlich';
-$LANG['abs_approval_required_comment'] = 'Dieser Schalter macht den Typen genehmigungspflichtig durch einen Manager, Direktor oder Administrator. Ein normaler Nutzer wird dann eine 
-      Fehlermeldung erhalten, wenn er diesen Typen eintr&auml;gt. Der Manager der Gruppe erh&auml;lt aber eine E-Mail, dass eine Genehmigung seinerseits erforderlich ist. 
-      Er kann dann den Kalender dieses Nutzers bearbeiten und die entsprechende Abwesenheit eintragen.';
+$LANG['abs_approval_required_comment'] = 'Dieser Schalter macht den Typen genehmigungspflichtig durch einen Manager, Direktor oder Administrator. Ein normaler Nutzer wird dann eine
+ Fehlermeldung erhalten, wenn er diesen Typen eintr&auml;gt. Der Manager der Gruppe erh&auml;lt aber eine E-Mail, dass eine Genehmigung seinerseits erforderlich ist.
+  Er kann dann den Kalender dieses Nutzers bearbeiten und die entsprechende Abwesenheit eintragen.';
 $LANG['abs_bgcolor'] = 'Hintergrundfarbe';
 $LANG['abs_bgcolor_comment'] = 'Die Hintergrundfarbe wird im Kalender benutzt, egal ob Symbol oder Icon gew&auml;hlt ist. Ein Farbdialog erscheint beim Klicken in das Feld.';
 $LANG['abs_bgtrans'] = 'Hintergrund Transparent';
@@ -98,39 +98,39 @@ $LANG['abs_bgtrans_comment'] = 'Mit dieser Option wird keine individuelle Hinter
 $LANG['abs_color'] = 'Textfarbe';
 $LANG['abs_color_comment'] = 'Wenn das Symbol benutzt wird (kein Icon), wird diese Textfarbe benutzt. Ein Farbdialog erscheint beim Klicken in das Feld.';
 $LANG['abs_confidential'] = 'Vertraulich';
-$LANG['abs_confidential_comment'] = 'Dieser Schalter macht den Typen "vertraulich". Normale Nutzer k&ouml;nnen diese Abwesenheit nicht im Kalender 
-      sehen, ausser es ist ihre eigene Abwesenheit. Dies kann f&uuml;r sensitive Abwesenheiten wie "Krankheit" n&uuml;tzlich sein. Es ist m&ouml;glich, in den Kalenderoptionen
-      vertrauensw&uuml;rdige Rollen zu definieren, die diese Abwesenheiten auch sehen k&ouml;nnen.';
+$LANG['abs_confidential_comment'] = 'Dieser Schalter macht den Typen "vertraulich". Normale Nutzer k&ouml;nnen diese Abwesenheit nicht im Kalender
+ sehen, ausser es ist ihre eigene Abwesenheit. Dies kann f&uuml;r sensitive Abwesenheiten wie "Krankheit" n&uuml;tzlich sein. Es ist m&ouml;glich, in den Kalenderoptionen
+ vertrauensw&uuml;rdige Rollen zu definieren, die diese Abwesenheiten auch sehen k&ouml;nnen.';
 $LANG['abs_confirm_delete'] = 'Bist du sicher, dass du den Abwesenheitstyp "%s" l&ouml;schen willst?<br>Alle bestehenden Eintr&auml;ge werden mit "Anwesend" ersetzt.';
 $LANG['abs_counts_as'] = 'Z&auml;hlt als';
-$LANG['abs_counts_as_comment'] = 'Hier kann ausgew&auml;hlt werden, ob die genommenen Tage diese Abwesenheitstyps gegen die Erlaubnis eines anderen Typs z&auml;hlen. 
-      Wenn ein anderer Typ gew&auml;hlt wird, wird die Erlaubnis diese Typs hier nicht in Betracht gezogen, nur die des anderen Typs.<br>
-      Beispiel: "Urlaub Halbtag" mit Faktor z&auml;hlt gegen die Erlaubnis des Typs "Urlaub".';
+$LANG['abs_counts_as_comment'] = 'Hier kann ausgew&auml;hlt werden, ob die genommenen Tage diese Abwesenheitstyps gegen die Erlaubnis eines anderen Typs z&auml;hlen.
+ Wenn ein anderer Typ gew&auml;hlt wird, wird die Erlaubnis diese Typs hier nicht in Betracht gezogen, nur die des anderen Typs.<br>
+ Beispiel: "Urlaub Halbtag" mit Faktor z&auml;hlt gegen die Erlaubnis des Typs "Urlaub".';
 $LANG['abs_counts_as_present'] = 'Z&auml;hlt als anwesend';
-$LANG['abs_counts_as_present_comment'] = 'Dieser Schalter definiert einen Typen als "anwesend". Dies bietet sich z.B. beim Abwesenheitstyp 
-      "Heimarbeit" an. Weil die Person arbeitet, m&ouml;chte man dies nicht als "abwesend" z&auml;hlen. Mit diesem Schalter aktiviert wird dann der Typ 
-      in den Summen als anwesend gewertet. Somit w&uuml;rde "Heimarbeit" dann auch nicht in den Abwesenheiten angezeigt.';
+$LANG['abs_counts_as_present_comment'] = 'Dieser Schalter definiert einen Typen als "anwesend". Dies bietet sich z.B. beim Abwesenheitstyp "Heimarbeit" an.
+ Weil die Person arbeitet, m&ouml;chte man dies nicht als "abwesend" z&auml;hlen. Mit diesem Schalter aktiviert wird dann der Typ
+ in den Summen als anwesend gewertet. Somit w&uuml;rde "Heimarbeit" dann auch nicht in den Abwesenheiten angezeigt.';
 $LANG['abs_display'] = 'Anzeige';
 $LANG['abs_display_comment'] = '';
 $LANG['abs_factor'] = 'Faktor';
-$LANG['abs_factor_comment'] = 'TeamCal kann die genommen Tage dieses Abwesenheitstypen summieren. Das Ergebnis kann im "Abwesenheiten" Reiter des 
-      Nutzerprofils eingesehen werden. Der "Faktor" hier bietet einen Multiplikator f&uuml;r diesen Abwesenheitstypen f&uuml;r diese Berechnung. Der Standard ist 1.<br>
-      Beispiel: Du kannst einen Abwesenheitstypen "Halbtagstraining" anlegen. Du w&uuml;rdest den Faktor dabei logischerweise auf 0.5 setzen, um die korrekte Summe 
-      genommener Trainingstage zu erhalten. Ein Nutzer, der 10 Halbtagstrainings genommen hat, k&auml;me so auf eine Summe von 5 (10// 0.5 = 5) ganzen Trainingstagen.<br>
-      Wenn der Faktor auf 0 gesetzt wird, wird er von der Berechnung ausgeschlossen.';
+$LANG['abs_factor_comment'] = 'TeamCal kann die genommen Tage dieses Abwesenheitstypen summieren. Das Ergebnis kann im "Abwesenheiten" Reiter des
+ Nutzerprofils eingesehen werden. Der "Faktor" hier bietet einen Multiplikator f&uuml;r diesen Abwesenheitstypen f&uuml;r diese Berechnung. Der Standard ist 1.<br>
+ Beispiel: Du kannst einen Abwesenheitstypen "Halbtagstraining" anlegen. Du w&uuml;rdest den Faktor dabei logischerweise auf 0.5 setzen, um die korrekte Summe
+  genommener Trainingstage zu erhalten. Ein Nutzer, der 10 Halbtagstrainings genommen hat, k&auml;me so auf eine Summe von 5 (10// 0.5 = 5) ganzen Trainingstagen.<br>
+  Wenn der Faktor auf 0 gesetzt wird, wird er von der Berechnung ausgeschlossen.';
 $LANG['abs_groups'] = 'Gruppenzuordnung';
-$LANG['abs_groups_comment'] = 'W&auml;hle die Gruppen aus, f&uuml;r die dieser Abwesenheitstyp g&uuml;ltig sein soll. Wenn eine Gruppe nicht 
-      ausgew&auml;hlt ist, k&ouml;nnen Mitglieder dieser Gruppe den Abwesenheitstyp nicht nutzen.';
+$LANG['abs_groups_comment'] = 'W&auml;hle die Gruppen aus, f&uuml;r die dieser Abwesenheitstyp g&uuml;ltig sein soll. Wenn eine Gruppe nicht
+ ausgew&auml;hlt ist, k&ouml;nnen Mitglieder dieser Gruppe den Abwesenheitstyp nicht nutzen.';
 $LANG['abs_hide_in_profile'] = 'Im Profil verbergen';
-$LANG['abs_hide_in_profile_comment'] = 'Dieser Schalter kann benutzt werden, um diesen Typen f&uuml;r normale Nutzer nicht im "Abwesenheiten" Reiter der 
-      Nutzerprofile anzuzeigen. Nur Manager, Direktoren und Administratoren k&ouml;nnen ihn dort sehen. Diese Funktion macht Sinn, wenn Manager einen Typen 
-      nur zum Zwecke von Nachverfolgung nutzt oder die verbleibende Anzahl f&uuml;r den normalen Nutzer uninteressant ist.';
+$LANG['abs_hide_in_profile_comment'] = 'Dieser Schalter kann benutzt werden, um diesen Typen f&uuml;r normale Nutzer nicht im "Abwesenheiten" Reiter der
+ Nutzerprofile anzuzeigen. Nur Manager, Direktoren und Administratoren k&ouml;nnen ihn dort sehen. Diese Funktion macht Sinn, wenn Manager einen Typen
+ nur zum Zwecke von Nachverfolgung nutzt oder die verbleibende Anzahl f&uuml;r den normalen Nutzer uninteressant ist.';
 $LANG['abs_icon'] = 'Icon';
 $LANG['abs_icon_comment'] = 'Das Icon wird im Kalender benutzt.';
 $LANG['abs_icon_keyword'] = 'Gib ein Schl&uuml;sselwort ein...';
 $LANG['abs_manager_only'] = 'Nur Gruppen-Manager';
 $LANG['abs_manager_only_comment'] = 'Mit diesem Schalter aktiviert k&ouml;nnen nur Gruppen-Manager diesen Typen setzen. Nur wenn der eingeloggte Benutzer der Gruppem-Manager des Benutzers
-      ist, dessen Kalender er bearbeitet, steht dieser Abwesenheitstyp zur Verf&uuml;gung.';
+ ist, dessen Kalender er bearbeitet, steht dieser Abwesenheitstyp zur Verf&uuml;gung.';
 $LANG['abs_name'] = 'Name';
 $LANG['abs_name_comment'] = 'Der Name wird in Listen und Beschreibungen benutzt. Er sollte aussagekr&auml;ftig sein, z.B. "Dienstreise". Maximal 80 Zeichen.';
 $LANG['abs_sample'] = 'Beispielanzeige';
@@ -139,9 +139,9 @@ $LANG['abs_sample_comment'] = 'So w&uuml;rde der Abswesenheitstyp im Kalender an
 $LANG['abs_show_in_remainder'] = 'Verbleibend anzeigen';
 $LANG['abs_show_in_remainder_comment'] = 'Mit dieser Option wird der Abwesenheitstyp auf der Verbeleibend-Seite angezeigt.';
 $LANG['abs_symbol'] = 'Zeichen ID';
-$LANG['abs_symbol_comment'] = 'Die Zeichen ID wird in E-Mails benutzt, da die Font Icons dort nicht unterst&uuml;tzt werden. 
-      Die Zeichen ID ist ein alphanumerisches Zeichen lang und muss angegeben werden. Allerdings kann das gleiche Zeichen f&uuml;r mehrere 
-      Abwesenheitstypen benutzt werden. Als Standard wird der Anfangsbuchstabe des Namens eingesetzt, wenn der Abwesenheitstyp angelegt wird.';
+$LANG['abs_symbol_comment'] = 'Die Zeichen ID wird in E-Mails benutzt, da die Font Icons dort nicht unterst&uuml;tzt werden.
+ Die Zeichen ID ist ein alphanumerisches Zeichen lang und muss angegeben werden. Allerdings kann das gleiche Zeichen f&uuml;r mehrere
+  Abwesenheitstypen benutzt werden. Als Standard wird der Anfangsbuchstabe des Namens eingesetzt, wenn der Abwesenheitstyp angelegt wird.';
 $LANG['abs_tab_groups'] = 'Gruppenzuordnung';
 $LANG['abs_takeover'] = '&Uuml;bernahme aktivieren';
 $LANG['abs_takeover_comment'] = 'Erm&ouml;glicht, dass dieser Abwesenheitstyp &uuml;bernommen werden kann. Dazu muss die Abwesenheits&uuml;bernahme in TeamCal Neo generell eingeschaltet sein.';
@@ -267,10 +267,10 @@ $LANG['caledit_alert_save_failed'] = 'Die Abwesenheitsinformationen konnten nich
 $LANG['caledit_alert_update'] = 'Monat aktualisieren';
 $LANG['caledit_alert_update_all'] = 'Alle Abwesenheiten wurden akzeptiert und der Monat entsprechend aktualisert.';
 $LANG['caledit_alert_update_group'] = 'Die Gruppenabwesenheiten wurden bei allen Benutzern der Gruppe eingetragen.';
-$LANG['caledit_alert_update_partial'] = 'Einige Abwesenheiten konnten nicht akzeptiert werden, weil sie vom Management konfigurierte Regeln verletzen. 
-      Die folgenden Abwesenheiten wurden abgelehnt:';
-$LANG['caledit_alert_update_none'] = 'Keine der Abwesenheiten wurde akzeptiert und der Monat nicht aktualisert. 
-      Die abgelehnten Abwesenheiten wurden an einen Manager zur Best&auml;tigung geschickt.';
+$LANG['caledit_alert_update_partial'] = 'Einige Abwesenheiten konnten nicht akzeptiert werden, weil sie vom Management konfigurierte Regeln verletzen.
+ Die folgenden Abwesenheiten wurden abgelehnt:';
+$LANG['caledit_alert_update_none'] = 'Keine der Abwesenheiten wurde akzeptiert und der Monat nicht aktualisert.
+ Die abgelehnten Abwesenheiten wurden an einen Manager zur Best&auml;tigung geschickt.';
 $LANG['caledit_clearAbsence'] = 'L&ouml;schen';
 $LANG['caledit_clearAbsences'] = 'Abwesenheiten l&ouml;schen';
 $LANG['caledit_clearDaynotes'] = 'Tagesnotizen l&ouml;schen';
@@ -383,11 +383,11 @@ $LANG['calopt_statsDefaultColorRemainder'] = 'Standardfarbe der Resttagestatisti
 $LANG['calopt_statsDefaultColorRemainder_comment'] = 'W&auml;hle die Standardfarbe f&uuml;r diese Statistik aus.';
 $LANG['calopt_sunBusi'] = 'Sonntag ist ein Arbeitstag';
 $LANG['calopt_sunBusi_comment'] = 'Normalerweise sind Samstage und Sonntage Wochenendtage und werden entsprechend im Kalender als solche angezeigt.
-      Hier kann Sonntag als Arbeitstag definiert werden.';
+ Hier kann Sonntag als Arbeitstag definiert werden.';
 $LANG['calopt_supportMobile'] = 'Unterst&uuml;tzung von Mobilen Ger&auml;ten';
-$LANG['calopt_supportMobile_comment'] = 'Mit dieser Einstellung werden die Kalendertabellen (Ansicht und Bearbeitung) f&uuml;r eine bestimmte Bildschirmbreite erstellt, so dass kein horizontales Scrollen notwendig ist. 
-      Der Benutzer kann seine Bildschirmgr&ouml;&szlig;en w&auml;hlen.<br>Schalte diese Option aus, wenn der Kalender nur auf gro&szlig;en Bildschirmen genutzt wird (gr&ouml;&szlig;er 1024 Pixel breit). Der Kalender wird dann immer noch auf kleineren Bildschirmen
-      angezeigt, aber horizontales Scrollen ist dann notwendig.';
+$LANG['calopt_supportMobile_comment'] = 'Mit dieser Einstellung werden die Kalendertabellen (Ansicht und Bearbeitung) f&uuml;r eine bestimmte Bildschirmbreite erstellt, so dass kein horizontales Scrollen notwendig ist.
+ Der Benutzer kann seine Bildschirmgr&ouml;&szlig;en w&auml;hlen.<br>Schalte diese Option aus, wenn der Kalender nur auf gro&szlig;en Bildschirmen genutzt wird (gr&ouml;&szlig;er 1024 Pixel breit). Der Kalender wird dann immer noch auf kleineren Bildschirmen
+ angezeigt, aber horizontales Scrollen ist dann notwendig.';
 $LANG['calopt_symbolAsIcon'] = 'Abwesenheitszeichen ID als Icon';
 $LANG['calopt_symbolAsIcon_comment'] = 'Mit dieser Option wird die Abwesenheitszeichen ID in der Kalenderanzeige benutzt anstatt des Icons.';
 $LANG['calopt_takeover'] = 'Abwesenheits&uuml;bernahme aktivieren';
@@ -411,8 +411,8 @@ $LANG['calopt_usersPerPage_comment'] = 'Wenn du eine gro&szlig;e Anzahl an Usern
 $LANG['db_tab_repair'] = 'Reparieren';
 $LANG['db_tab_tcpimp'] = 'TeamCal Pro Import';
 $LANG['db_clean_what'] = 'Was soll aufger&auml;umt werden';
-$LANG['db_clean_what_comment'] = 'W&auml;hle hier, was aufger&auml;umt werden soll. Alle Datens&auml;tze, die gleich alt oder &auml;lter sind als das "Bevor-Datum" werden gel&ouml;scht. 
-      Regions- und Benutzerkalender werden nach Monat gel&ouml;scht, unabh&auml;ngig vom Tag. Neuere Datens&auml;tze bleiben erhalten.';
+$LANG['db_clean_what_comment'] = 'W&auml;hle hier, was aufger&auml;umt werden soll. Alle Datens&auml;tze, die gleich alt oder &auml;lter sind als das "Bevor-Datum" werden gel&ouml;scht.
+ Regions- und Benutzerkalender werden nach Monat gel&ouml;scht, unabh&auml;ngig vom Tag. Neuere Datens&auml;tze bleiben erhalten.';
 $LANG['db_clean_daynotes'] = 'Tagesnotizen aufr&auml;umen...';
 $LANG['db_clean_holidays'] = 'Feiertage aufr&auml;umen...';
 $LANG['db_clean_months'] = 'Regionskalender aufr&auml;umen...';
@@ -468,8 +468,8 @@ $LANG['dn_regions_comment'] = 'W&auml;hle die Regionen, in denen diese Tagesnoti
 $LANG['decl_Enddate'] = 'Aktivierungs-Endedatum';
 $LANG['decl_Enddate_comment'] = 'W&auml;hle das Datum, an dem diese Ablehnungsregel autmatisch enden soll. Die Regel ist dann bis einschlie&szlig;lich diesen Tages aktiv.';
 $LANG['decl_Message'] = 'Ablehnungsnachricht';
-$LANG['decl_Message_comment'] = 'Hier kann eine individuelle Nachricht eingegeben werden, die dem Nutzer bei Ablehnung einer Abwesenheit durch diese Regel angezeigt wird. 
-      Die konfigurierte Zeitperiode wird direkt dahinter angezeigt.';
+$LANG['decl_Message_comment'] = 'Hier kann eine individuelle Nachricht eingegeben werden, die dem Nutzer bei Ablehnung einer Abwesenheit durch diese Regel angezeigt wird.
+ Die konfigurierte Zeitperiode wird direkt dahinter angezeigt.';
 $LANG['decl_Period'] = 'Anwendungszeitraum';
 $LANG['decl_Period_comment'] = 'W&auml;hle hier, von wann bis wann diese Regel aktiv sein soll. Wenn eine Option mit Start- oder Endedatum gew&auml;hlt wird, m&uuml;ssen diese unten ein getragen werden.<br>
       <i>Die Regel muss grunds&auml;tzlich aktiviert sein, bevor diese Einstellung greift.</i>';
@@ -479,7 +479,6 @@ $LANG['decl_Period_startdateForever'] = 'Von Startdatum bis Deaktivierung';
 $LANG['decl_Period_startdateEnddate'] = 'Von Startdatum bis Endedatum';
 $LANG['decl_Startdate'] = 'Aktivierungs-Startdatum';
 $LANG['decl_Startdate_comment'] = 'W&auml;hle das Datum, an dem diese Ablehnungsregel autmatisch beginnen soll. Die Regel wird an diesem Tag aktiv.';
-
 $LANG['decl_title'] = 'Ablehnungsmanagement';
 $LANG['decl_absence'] = 'Aktivieren';
 $LANG['decl_absence_comment'] = 'Aktiviere diesen Schalter, wenn bei Erreichen einer Abwesenheitsgrenze abgelehnt werden soll.';
@@ -512,7 +511,7 @@ $LANG['decl_beforedate'] = 'Grenzdatum';
 $LANG['decl_beforedate_comment'] = 'Hier kann ein individuelles Grenzdatum eingegeben werden. Dies ist nur wirksam, wenn oben die Option "vor Datum" gew&auml;hlt wurde.';
 $LANG['decl_beforeoption'] = 'Grenzdatumoption';
 $LANG['decl_beforeoption_comment'] = 'Bei Auswahl von "vor Heute werden Abwesenheitsanfragen in der Vergangenheit abgelehnt. Wenn ein bestimmtes Datum die Grenze
-      sein soll, w&auml;hle hier "vor Datum" und gebe das Datum unten ein.';
+ sein soll, w&auml;hle hier "vor Datum" und gebe das Datum unten ein.';
 $LANG['decl_beforeoption_today'] = 'vor Heute (nicht eingeschlossen)';
 $LANG['decl_beforeoption_date'] = 'vor Datum (nicht eingeschlossen)';
 $LANG['decl_beforeEnddate'] = $LANG['decl_Enddate'];
@@ -722,8 +721,8 @@ $LANG['perm_calendareditown_desc'] = 'Erlaubt die Bearbeitung des eigenen Kalend
 $LANG['perm_calendaroptions_title'] = 'Kalender (Optionen)';
 $LANG['perm_calendaroptions_desc'] = 'Erlaubt das Bearbeiten der Kalenderoptionen.';
 $LANG['perm_calendarview_title'] = 'Kalender (Anzeigen)';
-$LANG['perm_calendarview_desc'] = 'Erlaubt die generelle Anzeige des Kalenders (Monat und Jahr). Ohne diese Berechtigung kann kein Kalender angezeigt werden. Mit dieser Berechtigung kann 
-      nicht angemeldeten Besuchern die Anzeige des Kalenders erlaubt werden.';
+$LANG['perm_calendarview_desc'] = 'Erlaubt die generelle Anzeige des Kalenders (Monat und Jahr). Ohne diese Berechtigung kann kein Kalender angezeigt werden. Mit dieser Berechtigung kann
+ nicht angemeldeten Besuchern die Anzeige des Kalenders erlaubt werden.';
 $LANG['perm_calendarviewall_title'] = 'Kalender (Alle Anzeigen)';
 $LANG['perm_calendarviewall_desc'] = 'Erlaubt das Anzeigen der Kalender aller Benutzer.';
 $LANG['perm_calendarviewgroup_title'] = 'Kalender (Gruppen Anzeigen)';
