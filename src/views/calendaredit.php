@@ -60,18 +60,18 @@ view.editcalendar
             <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageBwdYear . $pageBwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>"><span class="fas fa-angle-double-left"></span></a>
             <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageFwdYear . $pageFwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>"><span class="fas fa-angle-double-right"></span></a>
             <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $viewData['yearToday'] . $viewData['monthToday'] ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>"><?= $LANG['today'] ?></a>
-            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalPeriod"><?= $LANG['caledit_Period'] ?></button>
-            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalRecurring"><?= $LANG['caledit_Recurring'] ?></button>
+            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalPeriod"><?= $LANG['caledit_Period'] ?></button>
+            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalRecurring"><?= $LANG['caledit_Recurring'] ?></button>
             <?php if ($C->read("showRegionButton")) { ?>
-                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
+                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
             <?php } ?>
-            <button type="button" class="btn btn-success" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectUser"><?= $LANG['user'] . ': ' . $viewData['fullname'] ?></button>
-            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
-            <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalClearAll"><?= $LANG['btn_clear_all'] ?></button>
+            <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectUser"><?= $LANG['user'] . ': ' . $viewData['fullname'] ?></button>
+            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
+            <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalClearAll"><?= $LANG['btn_clear_all'] ?></button>
             <?php if ($viewData['supportMobile']) { ?>
-                <button type="button" class="btn btn-secondary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectWidth"><?= $LANG['screen'] . ': ' . $viewData['width'] ?></button>
+                <button type="button" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectWidth"><?= $LANG['screen'] . ': ' . $viewData['width'] ?></button>
             <?php } ?>
-            <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_showcalendar'] ?></a>
+            <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_showcalendar'] ?></a>
         </div>
 
         <div class="card">

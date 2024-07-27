@@ -46,16 +46,16 @@ view.roles
                         <div class="card-body row">
                             <div class="col-lg-4">
                                 <label for="inputSearch"><?= $LANG['search'] ?></label>
-                                <input id="inputSearch" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_searchRole" maxlength="40" value="<?= $viewData['searchRole'] ?>" type="text">
+                                <input id="inputSearch" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_searchRole" maxlength="40" value="<?= $viewData['searchRole'] ?>" type="text">
                             </div>
                             <div class="col-lg-3">
                                 <br>
-                                <button type="submit" class="btn btn-secondary" tabindex="<?= $tabindex++; ?>" name="btn_search"><?= $LANG['btn_search'] ?></button>
-                                <a href="index.php?action=roles" class="btn btn-secondary" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_reset'] ?></a>
+                                <button type="submit" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>" name="btn_search"><?= $LANG['btn_search'] ?></button>
+                                <a href="index.php?action=roles" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_reset'] ?></a>
                             </div>
                             <div class="col-lg-5 text-end">
                                 <br>
-                                <button type="button" class="btn btn-success" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalCreateRole"><?= $LANG['btn_create_role'] ?></button>
+                                <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateRole"><?= $LANG['btn_create_role'] ?></button>
                             </div>
                         </div>
                     </div>
@@ -64,13 +64,13 @@ view.roles
                     <!-- Modal: Create role -->
                     <?= createModalTop('modalCreateRole', $LANG['btn_create_role']) ?>
                     <label for="inputName"><?= $LANG['name'] ?></label>
-                    <input id="inputName" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_name" maxlength="40" value="<?= $viewData['txt_name'] ?>" type="text">
+                    <input id="inputName" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_name" maxlength="40" value="<?= $viewData['txt_name'] ?>" type="text">
                     <?php if (isset($inputAlert["name"]) && strlen($inputAlert["name"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert">x</button><?= $inputAlert["name"] ?></div>
                     <?php } ?>
                     <label for="inputDescription"><?= $LANG['description'] ?></label>
-                    <input id="inputDescription" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_description" maxlength="100" value="<?= $viewData['txt_description'] ?>" type="text">
+                    <input id="inputDescription" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_description" maxlength="100" value="<?= $viewData['txt_description'] ?>" type="text">
                     <?php if (isset($inputAlert["description"]) && strlen($inputAlert["description"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger"><button type="button" class="close" data-bs-dismiss="alert">x</button><?= $inputAlert["description"] ?></div>
@@ -94,12 +94,12 @@ view.roles
                                 <?php
                                 $protectedRoles = array(1, 2, 3);
                                 if (!in_array($role['id'], $protectedRoles)) { ?>
-                                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRole_<?= $role['id'] ?>"><?= $LANG['btn_delete'] ?></button>
+                                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRole_<?= $role['id'] ?>"><?= $LANG['btn_delete'] ?></button>
                                     <input name="hidden_id" type="hidden" value="<?= $role['id'] ?>">
                                     <input name="hidden_name" type="hidden" value="<?= $role['name'] ?>">
                                     <input name="hidden_description" type="hidden" value="<?= $role['description'] ?>">
                                 <?php } ?>
-                                <a href="index.php?action=roleedit&amp;id=<?= $role['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_edit'] ?></a>
+                                <a href="index.php?action=roleedit&amp;id=<?= $role['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
                             </div>
                         </div>
 

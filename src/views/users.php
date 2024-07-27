@@ -45,7 +45,7 @@ view.users
                         <div class="card-body row">
                             <div class="col-lg-3">
                                 <label for="inputSearch"><?= $LANG['search'] ?></label>
-                                <input id="inputSearch" class="form-control" tabindex="<?= $tabindex++; ?>" name="txt_searchUser" maxlength="40" value="<?= $viewData['searchUser'] ?>" type="text">
+                                <input id="inputSearch" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_searchUser" maxlength="40" value="<?= $viewData['searchUser'] ?>" type="text">
                             </div>
                             <div class="col-lg-2">
                                 <label for="sel_searchGroup"><?= $LANG['group'] ?></label>
@@ -67,10 +67,10 @@ view.users
                             </div>
                             <div class="col-lg-5 text-end">
                                 <br>
-                                <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_search"><?= $LANG['btn_search'] ?></button>
-                                <button type="submit" class="btn btn-secondary" tabindex="<?= $tabindex++; ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
-                                <a href="index.php?action=useradd" class="btn btn-success" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_create_user'] ?></a>
-                                <a href="index.php?action=userimport" class="btn btn-info" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_import'] ?></a>
+                                <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_search"><?= $LANG['btn_search'] ?></button>
+                                <button type="submit" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
+                                <a href="index.php?action=useradd" class="btn btn-success" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_create_user'] ?></a>
+                                <a href="index.php?action=userimport" class="btn btn-info" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_import'] ?></a>
                             </div>
                         </div>
                     </div>
@@ -117,8 +117,8 @@ view.users
                                             <div class="col-lg-2"><?= $user['created'] ?></div>
                                             <div class="col-lg-2"><?= (($user['last_login'] != DEFAULT_TIMESTAMP) ? $user['last_login'] : "") ?></div>
                                             <div class="col-lg-2 text-end">
-                                                <a href="index.php?action=viewprofile&amp;profile=<?= $user['username'] ?>" class="btn btn-secondary btn-sm" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_view'] ?></a>
-                                                <a href="index.php?action=useredit&amp;profile=<?= $user['username'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_edit'] ?></a>
+                                                <a href="index.php?action=viewprofile&amp;profile=<?= $user['username'] ?>" class="btn btn-secondary btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_view'] ?></a>
+                                                <a href="index.php?action=useredit&amp;profile=<?= $user['username'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
                                             </div>
                                         </div>
                                     <?php } ?>
@@ -129,11 +129,11 @@ view.users
                                         </div>
                                         <div class="col-lg-10 text-end">
 
-                                            <button type="button" class="btn btn-info" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalRemoveSecret"><?= $LANG['btn_remove_secret_selected'] ?></button>
-                                            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalResetPassword"><?= $LANG['btn_reset_password_selected'] ?></button>
-                                            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalArchiveSelected"><?= $LANG['btn_archive_selected'] ?></button>
-                                            <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteSelected"><?= $LANG['btn_delete_selected'] ?></button>
-                                            <button type="button" class="btn btn-success" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalActivateSelected"><?= $LANG['btn_activate_selected'] ?></button>
+                                            <button type="button" class="btn btn-info" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalRemoveSecret"><?= $LANG['btn_remove_secret_selected'] ?></button>
+                                            <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalResetPassword"><?= $LANG['btn_reset_password_selected'] ?></button>
+                                            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalArchiveSelected"><?= $LANG['btn_archive_selected'] ?></button>
+                                            <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteSelected"><?= $LANG['btn_delete_selected'] ?></button>
+                                            <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalActivateSelected"><?= $LANG['btn_activate_selected'] ?></button>
 
                                             <!-- Modal: Activate selected -->
                                             <?= createModalTop('modalActivateSelected', $LANG['modal_confirm']) ?>
@@ -204,8 +204,8 @@ view.users
                                         </div>
                                         <div class="col-lg-10 text-end">
 
-                                            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalRestoreArchived"><?= $LANG['btn_restore_selected'] ?></button>
-                                            <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteArchived"><?= $LANG['btn_delete_selected'] ?></button>
+                                            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalRestoreArchived"><?= $LANG['btn_restore_selected'] ?></button>
+                                            <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteArchived"><?= $LANG['btn_delete_selected'] ?></button>
 
                                             <!-- Modal: Delete archived -->
                                             <?= createModalTop('modalDeleteArchived', $LANG['modal_confirm']) ?>

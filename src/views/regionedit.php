@@ -45,8 +45,8 @@ view.regionedit
                     <div class="card">
                         <div class="card-body">
                             <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">
-                            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_regionUpdate"><?= $LANG['btn_save'] ?></button>
-                            <a href="index.php?action=regions" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_region_list'] ?></a>
+                            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_regionUpdate"><?= $LANG['btn_save'] ?></button>
+                            <a href="index.php?action=regions" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_region_list'] ?></a>
                         </div>
                     </div>
                     <div style="height:20px;"></div>
@@ -63,8 +63,8 @@ view.regionedit
                     <div class="card">
                         <div class="card-body">
                             <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">
-                            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_regionUpdate"><?= $LANG['btn_save'] ?></button>
-                            <a href="index.php?action=regions" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_region_list'] ?></a>
+                            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_regionUpdate"><?= $LANG['btn_save'] ?></button>
+                            <a href="index.php?action=regions" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_region_list'] ?></a>
                         </div>
                     </div>
 

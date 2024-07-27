@@ -47,8 +47,8 @@ view.absenceedit
 
           <div class="card">
             <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_save"><?= $LANG[ 'btn_save' ] ?></button>
-              <a href="index.php?action=absences" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG[ 'btn_abs_list' ] ?></a>
+              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG[ 'btn_save' ] ?></button>
+              <a href="index.php?action=absences" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG[ 'btn_abs_list' ] ?></a>
             </div>
           </div>
           <div style="height:20px;"></div>
@@ -94,7 +94,7 @@ view.absenceedit
                     </label>
                     <div class="col-lg-<?= $colsright ?>">
                       <span class="<?= $viewData[ 'icon' ] ?> text-<?= $viewData[ 'color' ] ?>" style="font-size: 150%; padding-right: 8px; vertical-align: middle;"></span>
-                      <a href="index.php?action=absenceicon&amp;id=<?= $viewData[ 'id' ] ?>" class="btn btn-primary btn-sm" tabindex="<?= $tabindex++; ?>"><?= $LANG[ 'btn_abs_icon' ] ?></a>
+                      <a href="index.php?action=absenceicon&amp;id=<?= $viewData[ 'id' ] ?>" class="btn btn-primary btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG[ 'btn_abs_icon' ] ?></a>
                     </div>
                   </div>
                   <div class="divider">
@@ -134,8 +134,8 @@ view.absenceedit
           <div style="height:20px;"></div>
           <div class="card">
             <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_save"><?= $LANG[ 'btn_save' ] ?></button>
-              <a href="index.php?action=absences" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG[ 'btn_abs_list' ] ?></a>
+              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG[ 'btn_save' ] ?></button>
+              <a href="index.php?action=absences" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG[ 'btn_abs_list' ] ?></a>
             </div>
           </div>
 

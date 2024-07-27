@@ -44,9 +44,9 @@ view.year
                 <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;year=<?= date('Y') ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>"><?= $LANG['today'] ?></a>
             <?php } ?>
             <?php if ($C->read('showRegionButton')) { ?>
-                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
+                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
             <?php } ?>
-            <button type="button" class="btn btn-success" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectUser"><?= $LANG['user'] . ': ' . $viewData['fullname'] ?></button>
+            <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectUser"><?= $LANG['user'] . ': ' . $viewData['fullname'] ?></button>
         </div>
 
         <div class="card">

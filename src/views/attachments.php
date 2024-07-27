@@ -98,13 +98,13 @@ view.attachments
                                                 </div>
                                             </div>
                                             <div class="col-lg-2 text-end">
-                                                <a href="<?= APP_UPL_DIR . $file['fname'] ?>" class="btn btn-info btn-sm" tabindex="<?= $tabindex++; ?>" title="<?= $file['fname'] ?>"><?= $LANG['btn_download_view'] ?></a>
+                                                <a href="<?= APP_UPL_DIR . $file['fname'] ?>" class="btn btn-info btn-sm" tabindex="<?= $tabindex++ ?>" title="<?= $file['fname'] ?>"><?= $LANG['btn_download_view'] ?></a>
                                             </div>
                                         </div>
                                     <?php } ?>
 
                                     <div style="clear: both; padding: 16px 0 0 16px;">
-                                        <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteFiles"><?= $LANG['btn_delete_selected'] ?></button>
+                                        <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteFiles"><?= $LANG['btn_delete_selected'] ?></button>
                                     </div>
 
                                 </div>

@@ -44,8 +44,8 @@ view.holidayedit
 
                     <div class="card">
                         <div class="card-body">
-                            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_holidayUpdate"><?= $LANG['btn_save'] ?></button>
-                            <a href="index.php?action=holidays" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_holiday_list'] ?></a>
+                            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_holidayUpdate"><?= $LANG['btn_save'] ?></button>
+                            <a href="index.php?action=holidays" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_holiday_list'] ?></a>
                         </div>
                     </div>
                     <div style="height:20px;"></div>
@@ -62,8 +62,8 @@ view.holidayedit
                     <div style="height:20px;"></div>
                     <div class="card">
                         <div class="card-body">
-                            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_holidayUpdate"><?= $LANG['btn_save'] ?></button>
-                            <a href="index.php?action=holidays" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_holiday_list'] ?></a>
+                            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_holidayUpdate"><?= $LANG['btn_save'] ?></button>
+                            <a href="index.php?action=holidays" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_holiday_list'] ?></a>
                         </div>
                     </div>
 

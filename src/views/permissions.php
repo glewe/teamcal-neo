@@ -45,20 +45,20 @@ view.permissions
                     <div class="card">
                         <div class="card-body">
 
-                            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_permSave"><?= $LANG['perm_save_scheme'] ?></button>
-                            <button type="button" class="btn btn-info" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectScheme"><?= $LANG['perm_select_scheme'] ?></button>
-                            <button type="button" class="btn btn-success" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalCreateScheme"><?= $LANG['perm_create_scheme'] ?></button>
-                            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalResetScheme"><?= $LANG['perm_reset_scheme'] ?></button>
+                            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_permSave"><?= $LANG['perm_save_scheme'] ?></button>
+                            <button type="button" class="btn btn-info" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectScheme"><?= $LANG['perm_select_scheme'] ?></button>
+                            <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateScheme"><?= $LANG['perm_create_scheme'] ?></button>
+                            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalResetScheme"><?= $LANG['perm_reset_scheme'] ?></button>
                             <?php if ($viewData['scheme'] != $viewData['currentScheme']) { ?>
-                                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalActivateScheme"><?= $LANG['perm_activate_scheme'] ?></button>
+                                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalActivateScheme"><?= $LANG['perm_activate_scheme'] ?></button>
                                 <?php if ($viewData['scheme'] != "Default") { ?>
-                                    <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteScheme"><?= $LANG['perm_delete_scheme'] ?></button>
+                                    <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteScheme"><?= $LANG['perm_delete_scheme'] ?></button>
                             <?php }
                             } ?>
                             <?php if ($viewData['mode'] == 'byrole') { ?>
-                                <a href="index.php?action=permissions&amp;scheme=<?= $viewData['scheme'] ?>&amp;mode=byperm" class="btn btn-secondary float-end" style="margin-right: 4px;" tabindex="<?= $tabindex++; ?>"><?= $LANG['perm_view_by_perm'] ?></a>
+                                <a href="index.php?action=permissions&amp;scheme=<?= $viewData['scheme'] ?>&amp;mode=byperm" class="btn btn-secondary float-end" style="margin-right: 4px;" tabindex="<?= $tabindex++ ?>"><?= $LANG['perm_view_by_perm'] ?></a>
                             <?php } else { ?>
-                                <a href="index.php?action=permissions&amp;scheme=<?= $viewData['scheme'] ?>&amp;mode=byrole" class="btn btn-secondary float-end" style="margin-right: 4px;" tabindex="<?= $tabindex++; ?>"><?= $LANG['perm_view_by_role'] ?></a>
+                                <a href="index.php?action=permissions&amp;scheme=<?= $viewData['scheme'] ?>&amp;mode=byrole" class="btn btn-secondary float-end" style="margin-right: 4px;" tabindex="<?= $tabindex++ ?>"><?= $LANG['perm_view_by_role'] ?></a>
                             <?php } ?>
 
                             <!-- Modal: Select scheme -->

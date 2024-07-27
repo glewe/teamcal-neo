@@ -44,7 +44,7 @@ view.config
 
           <div class="card">
             <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_confApply"><?= $LANG['btn_apply'] ?></button>
+              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_confApply"><?= $LANG['btn_apply'] ?></button>
             </div>
           </div>
           <div style="height:20px;"></div>
@@ -134,7 +134,7 @@ view.config
                           <span class="text-normal"><?= $LANG['config_licActivate_comment'] ?></span>
                         </label>
                         <div class="col-lg-4">
-                          <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++; ?>" name="btn_licActivate"><?= $LANG['btn_activate'] ?></button>
+                          <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_licActivate"><?= $LANG['btn_activate'] ?></button>
                         </div>
                         <div class="divider">
                           <hr>
@@ -149,7 +149,7 @@ view.config
                           <div class="text-normal alert alert-warning"><?= $LANG['config_licRegister_comment'] ?></div>
                         </label>
                         <div class="col-lg-4">
-                          <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++; ?>" name="btn_licRegister"><?= $LANG['btn_register'] ?></button>
+                          <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_licRegister"><?= $LANG['btn_register'] ?></button>
                         </div>
                         <div class="divider">
                           <hr>
@@ -164,7 +164,7 @@ view.config
                           <span class="text-normal"><?= $LANG['config_licDeregister_comment'] ?></span>
                         </label>
                         <div class="col-lg-4">
-                          <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" name="btn_licDeregister"><?= $LANG['btn_deregister'] ?></button>
+                          <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" name="btn_licDeregister"><?= $LANG['btn_deregister'] ?></button>
                         </div>
                         <div class="divider">
                           <hr>
@@ -246,17 +246,17 @@ view.config
                     </label>
                     <div class="col-lg-4">
                       <div class="checkbox">
-                        <label><input type="checkbox" id="gdprFacebook" name="chk_gdprFacebook" value="chk_gdprFacebook" tabindex="<?= $tabindex++; ?>" <?= ($C->read('gdprFacebook') ? " checked" : "") ?>><i class="fab fa-facebook"></i>&nbsp;Facebook</label><br>
-                        <label><input type="checkbox" id="gdprGoogleAnalytics" name="chk_gdprGoogleAnalytics" value="chk_gdprGoogleAnalytics" tabindex="<?= $tabindex++; ?>" <?= ($C->read('gdprGoogleAnalytics') ? " checked" : "") ?>><i class="fab fa-google"></i>&nbsp;Google Analytics</label><br>
-                        <label><input type="checkbox" id="gdprInstagram" name="chk_gdprInstagram" value="chk_gdprInstagram" tabindex="<?= $tabindex++; ?>" <?= ($C->read('gdprInstagram') ? " checked" : "") ?>><i class="fab fa-instagram"></i>&nbsp;Instagram</label><br>
-                        <label><input type="checkbox" id="gdprLinkedin" name="chk_gdprLinkedin" value="chk_gdprLinkedin" tabindex="<?= $tabindex++; ?>" <?= ($C->read('gdprLinkedin') ? " checked" : "") ?>><i class="fab fa-linkedin"></i>&nbsp;LinkedIn</label><br>
-                        <label><input type="checkbox" id="gdprPaypal" name="chk_gdprPaypal" value="chk_gdprPaypal" tabindex="<?= $tabindex++; ?>" <?= ($C->read('gdprPaypal') ? " checked" : "") ?>><i class="fab fa-paypal"></i>&nbsp;Paypal</label><br>
-                        <label><input type="checkbox" id="gdprPinterest" name="chk_gdprPinterest" value="chk_gdprPinterest" tabindex="<?= $tabindex++; ?>" <?= ($C->read('gdprPinterest') ? " checked" : "") ?>><i class="fab fa-pinterest"></i>&nbsp;Pinterest</label><br>
-                        <label><input type="checkbox" id="gdprSlideshare" name="chk_gdprSlideshare" value="chk_gdprSlideshare" tabindex="<?= $tabindex++; ?>" <?= ($C->read('gdprSlideshare') ? " checked" : "") ?>><i class="fab fa-slideshare"></i>&nbsp;Slideshare</label><br>
-                        <label><input type="checkbox" id="gdprTumblr" name="chk_gdprTumblr" value="chk_gdprTumblr" tabindex="<?= $tabindex++; ?>" <?= ($C->read('gdprTumblr') ? " checked" : "") ?>><i class="fab fa-tumblr"></i>&nbsp;Tumblr</label><br>
-                        <label><input type="checkbox" id="gdprTwitter" name="chk_gdprTwitter" value="chk_gdprTwitter" tabindex="<?= $tabindex++; ?>" <?= ($C->read('gdprTwitter') ? " checked" : "") ?>><i class="fab fa-twitter"></i>&nbsp;Twitter</label><br>
-                        <label><input type="checkbox" id="gdprXing" name="chk_gdprXing" value="chk_gdprXing" tabindex="<?= $tabindex++; ?>" <?= ($C->read('gdprXing') ? " checked" : "") ?>><i class="fab fa-xing"></i>&nbsp;Xing</label><br>
-                        <label><input type="checkbox" id="gdprYoutube" name="chk_gdprYoutube" value="chk_gdprYoutube" tabindex="<?= $tabindex++; ?>" <?= ($C->read('gdprYoutube') ? " checked" : "") ?>><i class="fab fa-youtube"></i>&nbsp;Youtube</label>
+                        <label><input type="checkbox" id="gdprFacebook" name="chk_gdprFacebook" value="chk_gdprFacebook" tabindex="<?= $tabindex++ ?>" <?= ($C->read('gdprFacebook') ? " checked" : "") ?>><i class="fab fa-facebook"></i>&nbsp;Facebook</label><br>
+                        <label><input type="checkbox" id="gdprGoogleAnalytics" name="chk_gdprGoogleAnalytics" value="chk_gdprGoogleAnalytics" tabindex="<?= $tabindex++ ?>" <?= ($C->read('gdprGoogleAnalytics') ? " checked" : "") ?>><i class="fab fa-google"></i>&nbsp;Google Analytics</label><br>
+                        <label><input type="checkbox" id="gdprInstagram" name="chk_gdprInstagram" value="chk_gdprInstagram" tabindex="<?= $tabindex++ ?>" <?= ($C->read('gdprInstagram') ? " checked" : "") ?>><i class="fab fa-instagram"></i>&nbsp;Instagram</label><br>
+                        <label><input type="checkbox" id="gdprLinkedin" name="chk_gdprLinkedin" value="chk_gdprLinkedin" tabindex="<?= $tabindex++ ?>" <?= ($C->read('gdprLinkedin') ? " checked" : "") ?>><i class="fab fa-linkedin"></i>&nbsp;LinkedIn</label><br>
+                        <label><input type="checkbox" id="gdprPaypal" name="chk_gdprPaypal" value="chk_gdprPaypal" tabindex="<?= $tabindex++ ?>" <?= ($C->read('gdprPaypal') ? " checked" : "") ?>><i class="fab fa-paypal"></i>&nbsp;Paypal</label><br>
+                        <label><input type="checkbox" id="gdprPinterest" name="chk_gdprPinterest" value="chk_gdprPinterest" tabindex="<?= $tabindex++ ?>" <?= ($C->read('gdprPinterest') ? " checked" : "") ?>><i class="fab fa-pinterest"></i>&nbsp;Pinterest</label><br>
+                        <label><input type="checkbox" id="gdprSlideshare" name="chk_gdprSlideshare" value="chk_gdprSlideshare" tabindex="<?= $tabindex++ ?>" <?= ($C->read('gdprSlideshare') ? " checked" : "") ?>><i class="fab fa-slideshare"></i>&nbsp;Slideshare</label><br>
+                        <label><input type="checkbox" id="gdprTumblr" name="chk_gdprTumblr" value="chk_gdprTumblr" tabindex="<?= $tabindex++ ?>" <?= ($C->read('gdprTumblr') ? " checked" : "") ?>><i class="fab fa-tumblr"></i>&nbsp;Tumblr</label><br>
+                        <label><input type="checkbox" id="gdprTwitter" name="chk_gdprTwitter" value="chk_gdprTwitter" tabindex="<?= $tabindex++ ?>" <?= ($C->read('gdprTwitter') ? " checked" : "") ?>><i class="fab fa-twitter"></i>&nbsp;Twitter</label><br>
+                        <label><input type="checkbox" id="gdprXing" name="chk_gdprXing" value="chk_gdprXing" tabindex="<?= $tabindex++ ?>" <?= ($C->read('gdprXing') ? " checked" : "") ?>><i class="fab fa-xing"></i>&nbsp;Xing</label><br>
+                        <label><input type="checkbox" id="gdprYoutube" name="chk_gdprYoutube" value="chk_gdprYoutube" tabindex="<?= $tabindex++ ?>" <?= ($C->read('gdprYoutube') ? " checked" : "") ?>><i class="fab fa-youtube"></i>&nbsp;Youtube</label>
                       </div>
                     </div>
                     <div class="divider">
@@ -272,7 +272,7 @@ view.config
           <div style="height:20px;"></div>
           <div class="card">
             <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" name="btn_confApply"><?= $LANG['btn_apply'] ?></button>
+              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_confApply"><?= $LANG['btn_apply'] ?></button>
             </div>
           </div>
 

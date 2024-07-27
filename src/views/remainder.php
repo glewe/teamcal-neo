@@ -37,13 +37,13 @@ view.remainder
     <form class="form-control-horizontal" enctype="multipart/form-data" action="<?= $formLink ?>" method="post" target="_self" accept-charset="utf-8">
 
         <div class="page-menu">
-            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSelectGroup"><?= $LANG['group'] . ': ' . $viewData['group'] ?></button>
-            <button type="button" class="btn btn-info" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalSearchUser"><?= $LANG['search'] . ': ' . $viewData['search'] ?></button>
+            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectGroup"><?= $LANG['group'] . ': ' . $viewData['group'] ?></button>
+            <button type="button" class="btn btn-info" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSearchUser"><?= $LANG['search'] . ': ' . $viewData['search'] ?></button>
             <?php if (!$C->read('currentYearOnly')) { ?>
-                <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++; ?>" data-bs-toggle="modal" data-bs-target="#modalYear"><?= $LANG['year'] ?> <span class="badge badge-light"><?= $viewData['year'] ?></span></button>
+                <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalYear"><?= $LANG['year'] ?> <span class="badge badge-light"><?= $viewData['year'] ?></span></button>
             <?php } ?>
-            <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++; ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
-            <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-secondary float-end" tabindex="<?= $tabindex++; ?>"><?= $LANG['btn_showcalendar'] ?></a>
+            <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
+            <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_showcalendar'] ?></a>
         </div>
 
         <div class="card">
@@ -85,7 +85,7 @@ view.remainder
                     <tbody>
                         <?php foreach ($viewData['users'] as $user) { ?>
                             <tr>
-                                <td class="m-name"><a href="index.php?action=useredit&amp;profile=<?= $user['username'] ?>" tabindex="<?= $tabindex++; ?>"><?= $user['dispname'] ?></a></td>
+                                <td class="m-name"><a href="index.php?action=useredit&amp;profile=<?= $user['username'] ?>" tabindex="<?= $tabindex++ ?>"><?= $user['dispname'] ?></a></td>
                                 <?php foreach ($viewData['absences'] as $abs) {
                                     if ($abs['show_in_remainder']) {
                                         echo '<td class="m-day text-center">';
