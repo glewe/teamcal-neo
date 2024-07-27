@@ -462,10 +462,10 @@ $LANG['config_homepage_calendarview'] = 'Calendar';
 $LANG['config_homepage_home'] = 'Welcome Page';
 $LANG['config_homepage_messages'] = 'Message Page';
 $LANG['config_jQueryCDN'] = 'jQuery CDN';
-$LANG['config_jQueryCDN_comment'] = 'CDNs (Content Distributed Network) can offer a performance benefit by hosting popular web modules on servers spread 
-      across the globe. jQuery is such a module. Pulling it from a CDN location also offers an advantage that if the visitor 
-      to your webpage has already downloaded a copy of jQuery from the same CDN, it won\'t have to be re-downloaded.<br>Switch this option off if you are 
-      running the application in an environment with no Internet connectivity.';
+$LANG['config_jQueryCDN_comment'] = 'CDNs (Content Distributed Network) can offer a performance benefit by hosting popular web modules on servers spread
+ across the globe. jQuery is such a module. Pulling it from a CDN location also offers an advantage that if the visitor
+ to your webpage has already downloaded a copy of jQuery from the same CDN, it won\'t have to be re-downloaded.<br>Switch this option off if you are
+ running the application in an environment with no Internet connectivity.';
 $LANG['config_jqtheme'] = 'jQuery UI Theme';
 $LANG['config_jqtheme_comment'] = $appTitle . ' uses jQuery UI, a popular collection of Javascript utilities. jQuery UI offers themes as well used for the display
  of the tabbed dialogs and other features. The default theme is "smoothness" which is a neutral gray shaded theme. Try more from the list, some of them are
@@ -486,8 +486,7 @@ $LANG['config_logLanguage_comment'] = "This setting sets the language for the sy
 $LANG['config_mailFrom'] = 'Mail From';
 $LANG['config_mailFrom_comment'] = 'Specify a name to be shown as sender of notification e-mails.';
 $LANG['config_mailReply'] = 'Mail Reply-To';
-$LANG['config_mailReply_comment'] = 'Specify an e-mail address to reply to for notification e-mails. This field must contain a valid e-mail address. 
-      If that is not the case a dummy e-mail address will be saved.';
+$LANG['config_mailReply_comment'] = 'Specify an e-mail address to reply to for notification e-mails. This field must contain a valid e-mail address. If that is not the case a dummy e-mail address will be saved.';
 $LANG['config_mailSMTP'] = 'Use external SMTP server';
 $LANG['config_mailSMTP_comment'] = 'Use an external SMTP server instead of the PHP mail() function to send out eMails. This feature requires the PEAR
  Mail package to be installed on your server. Many hosters install this package by default. It is also necessary for SMTP to work, that your TcNeo
@@ -700,8 +699,8 @@ $LANG['home_title'] = 'Welcome to ' . $appTitle;
 $LANG['imprint'] = array(
   array(
     'title' => 'Author',
-    'text' => '<p>' . $appTitle . ' was created by George Lewe (<a href="https://www.lewe.com/">Lewe.com</a>). 
-      ' . $appTitle . ' also uses free modules by other great people providing those awesome techonolgies to the public. 
+    'text' => '<p>' . $appTitle . ' was created by George Lewe (<a href="https://www.lewe.com/">Lewe.com</a>).
+      ' . $appTitle . ' also uses free modules by other great people providing those awesome techonolgies to the public.
       See detailed credits on the <a href="index.php?action=about">About page</a>.</p>',
   ),
   array(
