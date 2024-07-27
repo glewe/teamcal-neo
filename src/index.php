@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Index
  *
@@ -12,8 +11,6 @@
  * @since 3.0.0
  */
 
-// echo '<script type="text/javascript">alert("Debug: ");</script>';
-
 //=============================================================================
 //
 // DEFINES
@@ -25,116 +22,107 @@ define('WEBSITE_ROOT', __DIR__);
 //
 // COMPOSER AUTOLOADER
 //
-require_once(__DIR__ . "/vendor/autoload.php");
+require_once __DIR__ . "/vendor/autoload.php";
 
 //=============================================================================
 //
 // LOAD CLASSES
 //
-require_once(WEBSITE_ROOT . '/classes/AbsenceGroup.class.php');
-require_once(WEBSITE_ROOT . '/classes/Absences.class.php');
-require_once(WEBSITE_ROOT . '/classes/Allowances.class.php');
-require_once(WEBSITE_ROOT . '/classes/Attachment.class.php');
-require_once(WEBSITE_ROOT . '/classes/Avatar.class.php');
-require_once(WEBSITE_ROOT . '/classes/Config.class.php');
-require_once(WEBSITE_ROOT . '/classes/Controller.class.php');
-require_once(WEBSITE_ROOT . '/classes/Daynotes.class.php');
-require_once(WEBSITE_ROOT . '/classes/DB.class.php');
-require_once(WEBSITE_ROOT . '/classes/Groups.class.php');
-require_once(WEBSITE_ROOT . '/classes/Holidays.class.php');
-require_once(WEBSITE_ROOT . '/classes/License.class.php');
-require_once(WEBSITE_ROOT . '/classes/Log.class.php');
-require_once(WEBSITE_ROOT . '/classes/Login.class.php');
-require_once(WEBSITE_ROOT . '/classes/Messages.class.php');
-require_once(WEBSITE_ROOT . '/classes/Months.class.php');
-require_once(WEBSITE_ROOT . '/classes/Permissions.class.php');
-require_once(WEBSITE_ROOT . '/classes/Regions.class.php');
-require_once(WEBSITE_ROOT . '/classes/Roles.class.php');
-require_once(WEBSITE_ROOT . '/classes/Templates.class.php');
-require_once(WEBSITE_ROOT . '/classes/DB.class.php');
-require_once(WEBSITE_ROOT . '/classes/Upload.class.php');
-require_once(WEBSITE_ROOT . '/classes/UserAttachment.class.php');
-require_once(WEBSITE_ROOT . '/classes/UserGroup.class.php');
-require_once(WEBSITE_ROOT . '/classes/UserMessage.class.php');
-require_once(WEBSITE_ROOT . '/classes/UserOption.class.php');
-require_once(WEBSITE_ROOT . '/classes/Users.class.php');
-require_once(WEBSITE_ROOT . '/classes/XML.class.php');
+require_once WEBSITE_ROOT . '/classes/AbsenceGroup.class.php';
+require_once WEBSITE_ROOT . '/classes/Absences.class.php';
+require_once WEBSITE_ROOT . '/classes/Allowances.class.php';
+require_once WEBSITE_ROOT . '/classes/Attachment.class.php';
+require_once WEBSITE_ROOT . '/classes/Avatar.class.php';
+require_once WEBSITE_ROOT . '/classes/Config.class.php';
+require_once WEBSITE_ROOT . '/classes/Controller.class.php';
+require_once WEBSITE_ROOT . '/classes/Daynotes.class.php';
+require_once WEBSITE_ROOT . '/classes/DB.class.php';
+require_once WEBSITE_ROOT . '/classes/Groups.class.php';
+require_once WEBSITE_ROOT . '/classes/Holidays.class.php';
+require_once WEBSITE_ROOT . '/classes/License.class.php';
+require_once WEBSITE_ROOT . '/classes/Log.class.php';
+require_once WEBSITE_ROOT . '/classes/Login.class.php';
+require_once WEBSITE_ROOT . '/classes/Messages.class.php';
+require_once WEBSITE_ROOT . '/classes/Months.class.php';
+require_once WEBSITE_ROOT . '/classes/Permissions.class.php';
+require_once WEBSITE_ROOT . '/classes/Regions.class.php';
+require_once WEBSITE_ROOT . '/classes/Roles.class.php';
+require_once WEBSITE_ROOT . '/classes/Templates.class.php';
+require_once WEBSITE_ROOT . '/classes/DB.class.php';
+require_once WEBSITE_ROOT . '/classes/Upload.class.php';
+require_once WEBSITE_ROOT . '/classes/UserAttachment.class.php';
+require_once WEBSITE_ROOT . '/classes/UserGroup.class.php';
+require_once WEBSITE_ROOT . '/classes/UserMessage.class.php';
+require_once WEBSITE_ROOT . '/classes/UserOption.class.php';
+require_once WEBSITE_ROOT . '/classes/Users.class.php';
+require_once WEBSITE_ROOT . '/classes/XML.class.php';
 
 //=============================================================================
 //
 // LOAD CONFIG
 //
-require_once(WEBSITE_ROOT . '/config/config.db.php');
-require_once(WEBSITE_ROOT . '/config/config.controller.php');
-require_once(WEBSITE_ROOT . '/config/config.app.php');
+require_once WEBSITE_ROOT . '/config/config.db.php';
+require_once WEBSITE_ROOT . '/config/config.controller.php';
+require_once WEBSITE_ROOT . '/config/config.app.php';
 
 //=============================================================================
 //
 // HELPERS
 //
-//
-// LeAF Helpers
-//
-require_once(WEBSITE_ROOT . '/helpers/global.helper.php');
-require_once(WEBSITE_ROOT . '/helpers/model.helper.php');
-require_once(WEBSITE_ROOT . '/helpers/notification.helper.php');
-require_once(WEBSITE_ROOT . '/helpers/view.helper.php');
-
-//
-// Custom helpers
-//
-require_once(WEBSITE_ROOT . '/helpers/app.helper.php');
+require_once WEBSITE_ROOT . '/helpers/global.helper.php';
+require_once WEBSITE_ROOT . '/helpers/model.helper.php';
+require_once WEBSITE_ROOT . '/helpers/notification.helper.php';
+require_once WEBSITE_ROOT . '/helpers/view.helper.php';
+require_once WEBSITE_ROOT . '/helpers/app.helper.php';
 
 //=============================================================================
 //
 // CHECK INSTALLATION SCRIPT
 //
 if (file_exists('installation.php')) {
-    if (!readDef('APP_INSTALLED', "config/config.app.php")) {
-        header("Location: installation.php");
-    } else {
-        //
-        // Installation.php found after installation
-        //
-        $errorData['title'] = 'Application Error';
-        $errorData['subject'] = 'Installation Script Exists';
-        $errorData['text'] = '<p>The installation script "installation.php" still exists in the root directory while "config/config.app.php" indicates that an installation has been performed.</p>
-        <p>The application will not start until either one has been resolved:</p>
-        <ol>
-            <li>Delete or rename "installation.php"</li>
-            <li>Set define[\'APP_INSTALLED\'] to 0 in "config/config.app.php"</li>
-        </ol>';
-        require('views/error.php');
-        die();
-    }
+  if (!readDef('APP_INSTALLED', "config/config.app.php")) {
+    header("Location: installation.php");
+  } else {
+    //
+    // Installation.php found after installation
+    //
+    $errorData['title'] = 'Application Error';
+    $errorData['subject'] = 'Installation Script Exists';
+    $errorData['text'] = '<p>The installation script "installation.php" still exists in the root directory while "config/config.app.php" indicates that an installation has been performed.</p>
+      <p>The application will not start until either one has been resolved:</p>
+      <ol>
+        <li>Delete or rename "installation.php"</li>
+        <li>Set define[\'APP_INSTALLED\'] to 0 in "config/config.app.php"</li>
+      </ol>';
+    require_once 'views/error.php';
+    die();
+  }
 } else {
-    if (!readDef('APP_INSTALLED', "config/config.app.php")) {
-        //
-        // App not installed but Installation.php not found
-        //
-        $errorData['title'] = 'Application Error';
-        $errorData['subject'] = 'Installation Script Not Found';
-        $errorData['text'] = '<p>The installation script "installation.php" does not exist in the root directory while "config/config.app.php" indicates that no installation has been performed yet.</p>
-        <p>The application will not start until either one has been resolved:</p>
-        <ol>
-            <li>Recover "installation.php"</li>
-            <li>Set define[\'APP_INSTALLED\'] to 0 in "config/config.app.php"</li>
-        </ol>';
-        require('views/error.php');
-        die();
-    }
+  if (!readDef('APP_INSTALLED', "config/config.app.php")) {
+    //
+    // App not installed but Installation.php not found
+    //
+    $errorData['title'] = 'Application Error';
+    $errorData['subject'] = 'Installation Script Not Found';
+    $errorData['text'] = '<p>The installation script "installation.php" does not exist in the root directory while "config/config.app.php" indicates that no installation has been performed yet.</p>
+      <p>The application will not start until either one has been resolved:</p>
+      <ol>
+        <li>Recover "installation.php"</li>
+        <li>Set define[\'APP_INSTALLED\'] to 0 in "config/config.app.php"</li>
+      </ol>';
+    require_once 'views/error.php';
+    die();
+  }
 }
 
 //=============================================================================
 //
 // CLASS INSTANCES
 //
-
 // Instantiate primary classes (used by other classes)
 //
 $DB = new DB($CONF['db_server'], $CONF['db_name'], $CONF['db_user'], $CONF['db_pass']);
 $C = new Config($CONF, $DB);
-
 //
 // Instantiate secondary classes
 //
@@ -149,7 +137,6 @@ $UG = new UserGroup();
 $UL = new Users(); // For the currently logged in user
 $UMSG = new UserMessage();
 $UO = new UserOption();
-
 //
 // Custom classes
 //
@@ -166,7 +153,7 @@ $T = new Templates();
 //
 // VARIABLE DEFAULTS
 //
-require_once(WEBSITE_ROOT . '/config/config.vars.php');
+require_once WEBSITE_ROOT . '/config/config.vars.php';
 $showAlert = false;
 $appTitle = $C->read('appTitle');
 $language = $C->read("defaultLanguage");
@@ -177,76 +164,75 @@ $userData['username'] = 'Public';
 $userData['roleid'] = '3'; // 3 = Public
 $userData['color'] = 'default';
 $userData['avatar'] = 'default_male.png';
-
 //
 // Check login and make logged in username global
 //
-if ($luser = $L->checkLogin()) define('L_USER', $luser);
-else define('L_USER', 0);
-
+if ($luser = $L->checkLogin()) {
+  define('L_USER', $luser);
+}
+else {
+  define('L_USER', 0);
+}
 //
 // If someone is logged in, overwrite defaults
 //
-if (L_USER && (!isset($_GET['action']) or isset($_GET['action']) && $_GET['action'] != 'logout')) {
-    $userData['isLoggedIn'] = true;
+if (L_USER && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['action'] != 'logout')) {
+  $userData['isLoggedIn'] = true;
+  //
+  // Get the user
+  //
+  $UL->findByName($luser);
+  //
+  // Fill the user array
+  //
+  $userData['username'] = $UL->username;
+  $userData['roleid'] = $UL->role;
+  $userData['fullname'] = $UL->getFullname($UL->username);
+  $userData['color'] = getRoleColor($UL->role);
 
-    //
-    // Get the user
-    //
-    $UL->findByName($luser);
+  $userData['avatar'] = $UO->read($UL->username, 'avatar');
+  if ($userData['avatar'] && !file_exists(APP_AVATAR_DIR . $userData['avatar'])) {
+    $userData['avatar'] = 'default_' . $UO->read($UL->username, 'gender') . '.png';
+  }
 
-    //
-    // Fill the user array
-    //
-    $userData['username'] = $UL->username;
-    $userData['roleid'] = $UL->role;
-    $userData['fullname'] = $UL->getFullname($UL->username);
+  $userlang = $UO->read($UL->username, 'language');
+  if ($userlang != "default") {
+    $language = $userlang;
+  }
+  if (!strlen($language)) {
+    $language = 'english';
+  }
+  require_once WEBSITE_ROOT . '/languages/' . $language . '.php';     // Framework language
+  require_once WEBSITE_ROOT . '/languages/' . $language . '.app.php'; // Application language
 
-    $userData['color'] = getRoleColor($UL->role);
-
-    if ($userData['avatar'] = $UO->read($UL->username, 'avatar')) {
-        if (!file_exists(APP_AVATAR_DIR . $userData['avatar'])) $userData['avatar'] = 'default_' . $UO->read($UL->username, 'gender') . '.png';
-    } else {
-        $userData['avatar'] = 'default_' . $UO->read($UL->username, 'gender') . '.png';
+  $userData['loginInfo'] = loginInfo();
+  $usertheme = $UO->read($UL->username, 'theme');
+  if ($usertheme != "default") {
+    $theme = $usertheme;
+  }
+  //
+  // Switch language via menu (only allowed when logged in)
+  //
+  if (isset($_GET['applang'])) {
+    $appLang = sanitize($_GET['applang']);
+    if (in_array($appLang, $appLanguages)) {
+      $UO->save($luser, "language", $appLang);
+      $pieces = explode('&', $_SERVER['QUERY_STRING']);
+      array_pop($pieces); // remove the "applang=" piece, otherwise we will always get here and redirect
+      $query = implode('&', $pieces);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?" . $query);
     }
-
-    $userlang = $UO->read($UL->username, 'language');
-    if ($userlang != "default") $language = $userlang;
-
-    if (!strlen($language)) $language = 'english';
-    require_once(WEBSITE_ROOT . '/languages/' . $language . '.php');     // Framework
-    require_once(WEBSITE_ROOT . '/languages/' . $language . '.app.php'); // Application
-
-    $userData['loginInfo'] = loginInfo();
-
-    $usertheme = $UO->read($UL->username, 'theme');
-    if ($usertheme != "default") $theme = $usertheme;
-
-    //
-    // Switch language via menu (only allowed when logged in)
-    //
-    if (isset($_GET['applang'])) {
-        $appLang = sanitize($_GET['applang']);
-        if (in_array($appLang, $appLanguages)) {
-            $UO->save($luser, "language", $appLang);
-
-            $pieces = explode('&', $_SERVER['QUERY_STRING']);
-            array_pop($pieces); // remove the "applang=" piece, otherwise we will always get here and redirect
-            $query = implode('&', $pieces);
-            header("Location: " . $_SERVER['PHP_SELF'] . "?" . $query);
-        }
+  }
+  //
+  // Check for unconfirmed popup messages. If one or more, set controller to message view.
+  //
+  $messages = $MSG->getAllByUser($UL->username);
+  foreach ($messages as $msg) {
+    if ($msg['popup']) {
+      $controller = 'messages';
+      break;
     }
-
-    //
-    // Check for unconfirmed popup messages. If one or more, set controller to message view.
-    //
-    $messages = $MSG->getAllByUser($UL->username);
-    foreach ($messages as $msg) {
-        if ($msg['popup']) {
-            $controller = 'messages';
-            break;
-        }
-    }
+  }
 }
 
 //=============================================================================
@@ -256,48 +242,49 @@ if (L_USER && (!isset($_GET['action']) or isset($_GET['action']) && $_GET['actio
 //
 $checkLanguages = false;
 if ($checkLanguages) {
-    $lang1 = "english";
-    $lang2 = "deutsch";
+  $lang1 = "english";
+  $lang2 = "deutsch";
 
-    require(WEBSITE_ROOT . '/languages/' . $lang1 . '.php');     // Framework
-    require(WEBSITE_ROOT . '/languages/' . $lang1 . '.log.php'); // Log
-    require(WEBSITE_ROOT . '/languages/' . $lang1 . '.app.php'); // Application
-    $lang1Array = $LANG;
+  require_once WEBSITE_ROOT . '/languages/' . $lang1 . '.php';     // Framework
+  require_once WEBSITE_ROOT . '/languages/' . $lang1 . '.log.php'; // Log
+  require_once WEBSITE_ROOT . '/languages/' . $lang1 . '.app.php'; // Application
+  $lang1Array = $LANG;
 
-    unset($LANG);
+  unset($LANG);
 
-    require(WEBSITE_ROOT . '/languages/' . $lang2 . '.php');     // Framework
-    require(WEBSITE_ROOT . '/languages/' . $lang1 . '.log.php'); // Log
-    require(WEBSITE_ROOT . '/languages/' . $lang2 . '.app.php'); // Application
-    $lang2Array = $LANG;
+  require_once WEBSITE_ROOT . '/languages/' . $lang2 . '.php';     // Framework
+  require_once WEBSITE_ROOT . '/languages/' . $lang1 . '.log.php'; // Log
+  require_once WEBSITE_ROOT . '/languages/' . $lang2 . '.app.php'; // Application
+  $lang2Array = $LANG;
 
-    $errorData['title'] = 'Debug Info';
-    $errorData['subject'] = '<h4>Language File Comparison</h4>';
-    $errorData['text'] = '<p><strong>The following language keys exist in "' . $lang1 . '" but not in "' . $lang2 . ':</strong></p>';
-    foreach ($lang1Array as $key => $val) {
-        if (!array_key_exists($key, $lang2Array)) {
-            $errorData['text'] .= '<p>[' . $key . ']</p>';
-        }
+  $errorData['title'] = 'Debug Info';
+  $errorData['subject'] = '<h4>Language File Comparison</h4>';
+  $errorData['text'] = '<p><strong>The following language keys exist in "' . $lang1 . '" but not in "' . $lang2 . ':</strong></p>';
+  foreach ($lang1Array as $key => $val) {
+    if (!array_key_exists($key, $lang2Array)) {
+      $errorData['text'] .= '<p>[' . $key . ']</p>';
     }
+  }
 
-    $errorData['text'] .= '<p><strong>The following language keys exist in "' . $lang2 . '" but not in "' . $lang1 . ':</strong></p>';
-    foreach ($lang2Array as $key => $val) {
-        if (!array_key_exists($key, $lang1Array)) {
-            $errorData['text'] .= '<p>[' . $key . ']</p>';
-        }
+  $errorData['text'] .= '<p><strong>The following language keys exist in "' . $lang2 . '" but not in "' . $lang1 . ':</strong></p>';
+  foreach ($lang2Array as $key => $val) {
+    if (!array_key_exists($key, $lang1Array)) {
+      $errorData['text'] .= '<p>[' . $key . ']</p>';
     }
-    require(WEBSITE_ROOT . '/views/error.php');
-    die();
+  }
+  require_once WEBSITE_ROOT . '/views/error.php';
+  die();
 }
 
 //=============================================================================
 //
 // LOAD LANGUAGE
 //
-if (!strlen($language)) $language = 'english';
-require_once(WEBSITE_ROOT . '/languages/' . $language . '.php');     // Framework
-require_once(WEBSITE_ROOT . '/languages/' . $language . '.app.php'); // Application
-
+if (!strlen($language)) {
+  $language = 'english';
+}
+require_once WEBSITE_ROOT . '/languages/' . $language . '.php';     // Framework
+require_once WEBSITE_ROOT . '/languages/' . $language . '.app.php'; // Application
 $AV = new Avatar($LANG);
 
 //=============================================================================
@@ -305,17 +292,27 @@ $AV = new Avatar($LANG);
 // DETERMINE CONTROLLER
 //
 if ($C->read('underMaintenance')) {
-    $appStatus['maintenance'] = true;
+  $appStatus['maintenance'] = true;
+  $controller = 'maintenance';
+  if (isset($_GET['action'])) {
+    $controller = sanitize($_GET['action']);
+  }
+  if ($userData['roleid'] != 1 && $controller != 'login') {
     $controller = 'maintenance';
-    if (isset($_GET['action'])) $controller = sanitize($_GET['action']);
-    if ($userData['roleid'] != 1 && $controller != 'login') $controller = 'maintenance';
+  }
 } else {
-    if ($luser = $L->checkLogin()) {
-        if (!$controller = $C->read("homepage")) $controller = 'home';
-    } else {
-        if (!$controller = $C->read("defaultHomepage")) $controller = 'home';
+  if ($luser = $L->checkLogin()) {
+    if (!$controller = $C->read("homepage")) {
+      $controller = 'home';
     }
-    if (isset($_GET['action'])) $controller = sanitize($_GET['action']);
+  } else {
+    if (!$controller = $C->read("defaultHomepage")) {
+      $controller = 'home';
+    }
+  }
+  if (isset($_GET['action'])) {
+    $controller = sanitize($_GET['action']);
+  }
 }
 
 //=============================================================================
@@ -323,7 +320,9 @@ if ($C->read('underMaintenance')) {
 // PREPARE VIEW
 //
 $htmlData['title'] = $C->read("appTitle");
-if (isset($CONF['controllers'][$controller])) $htmlData['title'] = $C->read("appTitle") . ' - ' . $CONF['controllers'][$controller]->title;
+if (isset($CONF['controllers'][$controller])) {
+  $htmlData['title'] = $C->read("appTitle") . ' - ' . $CONF['controllers'][$controller]->title;
+}
 $htmlData['description'] = $C->read("appDescription");
 $htmlData['keywords'] = $C->read("appKeywords");
 $htmlData['version'] = APP_VER;
@@ -333,21 +332,40 @@ $htmlData['license'] = APP_LICENSE;
 $htmlData['locale'] = $LANG['locale'];
 $htmlData['theme'] = getTheme();
 $htmlData['jQueryTheme'] = $C->read("jqtheme");
-if ($C->read("cookieConsent")) $htmlData['cookieConsent'] = true;
-else $htmlData['cookieConsent'] = false;
-if ($C->read("cookieConsentCDN")) $htmlData['cookieConsentCDN'] = true;
-else $htmlData['cookieConsentCDN'] = false;
-if ($C->read("faCDN")) $htmlData['faCDN'] = true;
-else $htmlData['faCDN'] = false;
-if ($C->read("jQueryCDN")) $htmlData['jQueryCDN'] = true;
-else $htmlData['jQueryCDN'] = false;
-if ($C->read("noIndex")) $htmlData['robots'] = 'noindex,nofollow,noopd';
-else $htmlData['robots'] = 'index,follow,noopd';
-
-if ($luser = $L->checkLogin() && (!isset($_GET['action']) or isset($_GET['action']) && $_GET['action'] != 'logout')) {
-    $userData['loginInfo'] = loginInfo();
+if ($C->read("cookieConsent")) {
+  $htmlData['cookieConsent'] = true;
+}
+else {
+  $htmlData['cookieConsent'] = false;
+}
+if ($C->read("cookieConsentCDN")) {
+  $htmlData['cookieConsentCDN'] = true;
+}
+else {
+  $htmlData['cookieConsentCDN'] = false;
+}
+if ($C->read("faCDN")) {
+  $htmlData['faCDN'] = true;
+}
+else {
+  $htmlData['faCDN'] = false;
+}
+if ($C->read("jQueryCDN")) {
+  $htmlData['jQueryCDN'] = true;
+}
+else {
+  $htmlData['jQueryCDN'] = false;
+}
+if ($C->read("noIndex")) {
+  $htmlData['robots'] = 'noindex,nofollow,noopd';
+}
+else {
+  $htmlData['robots'] = 'index,follow,noopd';
+}
+if ($luser = $L->checkLogin() && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['action'] != 'logout')) {
+  $userData['loginInfo'] = loginInfo();
 } else {
-    $userData['loginInfo'] = $LANG['status_logged_out'];
+  $userData['loginInfo'] = $LANG['status_logged_out'];
 }
 
 //=============================================================================
@@ -355,15 +373,15 @@ if ($luser = $L->checkLogin() && (!isset($_GET['action']) or isset($_GET['action
 // LOAD CONTROLLER
 //
 if (file_exists(WEBSITE_ROOT . '/controller/' . $controller . '.php')) {
-    include(WEBSITE_ROOT . '/controller/' . $controller . '.php');
+  include_once WEBSITE_ROOT . '/controller/' . $controller . '.php';
 } else {
-    //
-    // Controller not found
-    //
-    $alertData['type'] = 'danger';
-    $alertData['title'] = $LANG['alert_danger_title'];
-    $alertData['subject'] = $LANG['alert_controller_not_found_subject'];
-    $alertData['text'] = str_replace('%1%', $controller, $LANG['alert_controller_not_found_text']);
-    $alertData['help'] = $LANG['alert_controller_not_found_help'];
-    require(WEBSITE_ROOT . '/controller/alert.php');
+  //
+  // Controller not found
+  //
+  $alertData['type'] = 'danger';
+  $alertData['title'] = $LANG['alert_danger_title'];
+  $alertData['subject'] = $LANG['alert_controller_not_found_subject'];
+  $alertData['text'] = str_replace('%1%', $controller, $LANG['alert_controller_not_found_text']);
+  $alertData['help'] = $LANG['alert_controller_not_found_help'];
+  require_once WEBSITE_ROOT . '/controller/alert.php';
 }
