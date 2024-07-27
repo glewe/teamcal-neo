@@ -404,22 +404,22 @@ $LANG['config_cookieConsentCDN_comment'] = 'CDNs (Content Distributed Network) k
  f&uuml;r den Nutzer schon durch eine andere Anwendung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Schalte
  diese Option aus, wenn du ' . $appTitle . ' in einer Umgebung ohne Internetverbindung betreibst.';
 $LANG['config_cookieLifetime'] = 'Cookie Lebensdauer';
-$LANG['config_cookieLifetime_comment'] = 'Bei erfolgreichem Einloggen wird ein Cookie auf dem lokalen Rechner des Users abgelegt. Dieser Cookie hat eine 
-      bestimmte Lebensdauer, nach dem er nicht mehr anerkannt wird. Ein erneutes Login is notwendig. Die Lebensdauer kann hier in Sekunden angegeben werden (0-999999).';
+$LANG['config_cookieLifetime_comment'] = 'Bei erfolgreichem Einloggen wird ein Cookie auf dem lokalen Rechner des Users abgelegt. Dieser Cookie hat eine
+ bestimmte Lebensdauer, nach dem er nicht mehr anerkannt wird. Ein erneutes Login is notwendig. Die Lebensdauer kann hier in Sekunden angegeben werden (0-999999).';
 $LANG['config_defaultHomepage'] = 'Standard Startseite';
 $LANG['config_defaultHomepage_comment'] = 'Diese Option bestimmt die standard Startseite. Sie wird anonymen Benutzern angezeigt und wenn das Applikationsicon oben links
-      angeklickt wird. Achtung, wenn hier "Kalender" gew&auml;hlt wird, sollte "Public" auch View-Rechte f&uuml;r den Kalender haben.';
+ angeklickt wird. Achtung, wenn hier "Kalender" gew&auml;hlt wird, sollte "Public" auch View-Rechte f&uuml;r den Kalender haben.';
 $LANG['config_defaultHomepage_home'] = 'Willkommen Seite';
 $LANG['config_defaultHomepage_calendarview'] = 'Kalender';
 $LANG['config_defaultLanguage'] = 'Standard Sprache';
-$LANG['config_defaultLanguage_comment'] = $appTitle . ' enth&auml;lt die Sprachen Englisch und Deutsch. Der Administrator hat eventuell weitere Sprachen installiert. 
-      Hier kann die Standard Sprache eingestellt werden.';
+$LANG['config_defaultLanguage_comment'] = $appTitle . ' enth&auml;lt die Sprachen Englisch und Deutsch. Der Administrator hat eventuell weitere Sprachen installiert.
+ Hier kann die Standard Sprache eingestellt werden.';
 $LANG['config_emailConfirmation'] = 'E-Mail Best&auml;tigung erforderlich';
-$LANG['config_emailConfirmation_comment'] = 'Durch die Registrierung erh&auml;lt der User eine E-Mail an die von ihm angegebene Adresse. Sie enth&auml;lt einen 
-      Aktivierungslink, dem er folgen muss, um seine Angaben zu bets&auml;tigen.';
+$LANG['config_emailConfirmation_comment'] = 'Durch die Registrierung erh&auml;lt der User eine E-Mail an die von ihm angegebene Adresse. Sie enth&auml;lt einen
+ Aktivierungslink, dem er folgen muss, um seine Angaben zu bets&auml;tigen.';
 $LANG['config_emailNotifications'] = 'E-Mail Benachrichtigungen';
-$LANG['config_emailNotifications_comment'] = 'Aktivierung/Deaktivierung von E-Mail Benachrichtigungen. Wenn diese Option ausgeschaltet ist, werden keine automatischen 
-      Benachrichtigungen per E-Mails verschickt. Dies trifft aber nicht auf Selbst-Registrierungsmails und auf manuell gesendete Mails im Message Center und im Viewprofile Dialog zu.';
+$LANG['config_emailNotifications_comment'] = 'Aktivierung/Deaktivierung von E-Mail Benachrichtigungen. Wenn diese Option ausgeschaltet ist, werden keine automatischen
+ Benachrichtigungen per E-Mails verschickt. Dies trifft aber nicht auf Selbst-Registrierungsmails und auf manuell gesendete Mails im Message Center und im Viewprofile Dialog zu.';
 $LANG['config_faCDN'] = 'Fontawesome CDN';
 $LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) k&ouml;nnen einen Performance-Vorteil bieten dadurch dass popul&auml;re Web Module von Servern rund
  um den Globus geladen werden. Fontawesome ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul
@@ -436,12 +436,12 @@ $LANG['config_footerCopyrightUrl'] = 'Fu&szlig;zeilen Copyright URL';
 $LANG['config_footerCopyrightUrl_comment'] = 'Gib die URL ein, zu der der Copyright Name verlinken soll. Wenn keine URL angegeben wird, wird nur der Name angezeigt.';
 $LANG['config_footerSocialLinks'] = 'Links zu Sozialen Netzwerken';
 $LANG['config_footerSocialLinks_comment'] = 'Gebe alle URLs zu sozialen Netzwerken ein, zu denen du von TeamCal Neo\'s Fu&szlig;zeile verlinken m&ouml;chtest. Die URLs m&uuml;ssen durch ein Semikolon getrennt sein.
-      TeamCal Neo wird die Netzwerke identifizieren und die entsprechende Icons in der Fu&szlig;zeile anzeigen.';
+ TeamCal Neo wird die Netzwerke identifizieren und die entsprechende Icons in der Fu&szlig;zeile anzeigen.';
 $LANG['config_footerViewport'] = 'Viewport-Gr&ouml;&szlig;e anzeigen';
 $LANG['config_footerViewport_comment'] = 'Mit dieser Option wird im Footer die Viewport-Gr&ouml;&szlig; angezeigt.';
 $LANG['config_forceTfa'] = 'Zwei Faktor Authentifizierung Pflicht';
 $LANG['config_forceTfa_comment'] = 'Verlangt, dass alle Nutzer eine Zwei Faktor Authentifizierung einrichten, z.B. mit Google oder Microsoft Authenticator. Wenn ein Nutzer noch keine 2FA eingerichtet hat,
-wird er nach dem regul&auml;ren Login auf die entsprechende Seite umgeleitet.';
+ wird er nach dem regul&auml;ren Login auf die entsprechende Seite umgeleitet.';
 $LANG['config_gdprController'] = 'Verantwortlicher';
 $LANG['config_gdprController_comment'] = 'Verantwortlicher im Sinne der Datenschutz-Grundverordnung, sonstiger in den Mitgliedstaaten der Europäischen Union geltenden Datenschutzgesetze und anderer Bestimmungen mit datenschutzrechtlichem Charakter.';
 $LANG['config_gdprOfficer'] = 'Datenschutzbeauftragter';
@@ -455,8 +455,8 @@ $LANG['config_gdprPolicyPage_comment'] = 'Mit dieser Option wird eine Seite mit 
  "Organisation", "Verantwortlicher" und "Datenschutzbeauftragter" unten ausgef&uuml;llt werden.<br>Weiterhin k&ouml;nnen darunter optional Erkl&auml;rungen zu bestimmten sozialen Plattformen mit
  eingebunden werden, wenn sie beispielsweise im Fu&szlig;bereich verlinkt sind.';
 $LANG['config_googleAnalytics'] = 'Google Analytics';
-$LANG['config_googleAnalytics_comment'] = $appTitle . ' unterst&uuml;tzt Google Analytics. Wenn du deine Instanz im Internet betreibst und den Zugriff 
-      von Google Analytics tracken lassen willst, ticke die Checkbox hier und trage deine Google Analytics ID ein. Der entsprechende Javascript Code wird dann eingef&uuml;gt.';
+$LANG['config_googleAnalytics_comment'] = $appTitle . ' unterst&uuml;tzt Google Analytics. Wenn du deine Instanz im Internet betreibst und den Zugriff
+ von Google Analytics tracken lassen willst, ticke die Checkbox hier und trage deine Google Analytics ID ein. Der entsprechende Javascript Code wird dann eingef&uuml;gt.';
 $LANG['config_googleAnalyticsID'] = "Google Analytics ID (GA4)";
 $LANG['config_googleAnalyticsID_comment'] = "Wenn du die Google Analytics Funktion aktiviert hast, trage hier deine Google Analytics GA4 ID im Format G-... ein.";
 $LANG['config_gracePeriod'] = 'Schonfrist';
@@ -703,21 +703,21 @@ $LANG['home_title'] = 'Willkommen bei ' . $appTitle;
 $LANG['imprint'] = array(
   array(
     'title' => 'Author',
-    'text' => '<p>' . $appTitle . ' wurde von George Lewe erstellt (<a href="http://www.lewe.com/">Lewe.com</a>).  
-      ' . $appTitle . ' nutzt au&szlig;erdem kostenlose Module von anderen gro&szlig;artigen Entwicklern, die dankenswerter Weise
+    'text' => '<p>' . $appTitle . ' wurde von George Lewe erstellt (<a href="http://www.lewe.com/">Lewe.com</a>).
+       ' . $appTitle . ' nutzt au&szlig;erdem kostenlose Module von anderen gro&szlig;artigen Entwicklern, die dankenswerter Weise
       ihre Arbeit &ouml;ffentlich verf&uuml;gbar machen. Details dazu befinden sich auf der <a href="index.php?action=about">About Seite</a>.',
   ),
   array(
     'title' => 'Inhalt',
     'text' => '<p>Die Inhalte, die mit der ' . $appTitle . ' Applikation ausgeliefert werden, wurden sorgf&auml;tig vorbereitet und
-      erstellt. Wo andere Quellen benutzt wurde, wird entsprechend darauf hingewiesen. Sollte dies nicht der Fall sein, bitte informiere George Lewe mittels dieses 
-      <a href="http://www.lewe.com/contact">Formulars</a>.</p> 
-      <p>Keine Inhalt der ausgelieferten Applikation, ganz oder in Teilen darf vervielf&auml;tigt, reproduziert, kopiert oder wiederwendet werden, in keiner Form, 
+      erstellt. Wo andere Quellen benutzt wurde, wird entsprechend darauf hingewiesen. Sollte dies nicht der Fall sein, bitte informiere George Lewe mittels dieses
+      <a href="http://www.lewe.com/contact">Formulars</a>.</p>
+      <p>Keine Inhalt der ausgelieferten Applikation, ganz oder in Teilen darf vervielf&auml;tigt, reproduziert, kopiert oder wiederwendet werden, in keiner Form,
       elektronisch oder mechanisch, egal f&uuml;r welchen Zweck ohne ausdr&uuml;ckliche Erlaubnis von George Lewe.</p>',
   ),
   array(
     'title' => 'Links',
-    'text' => '<p>Alle Links, die mit der ' . $appTitle . ' Applikation ausgeliefert werden, dienen der Annehmlichkeit und zu Informationszwecken. 
+    'text' => '<p>Alle Links, die mit der ' . $appTitle . ' Applikation ausgeliefert werden, dienen der Annehmlichkeit und zu Informationszwecken.
       Sie stellen keine Bef&uuml;rwortung oder Akzeptanz der verlinkten Inhalte dar, weder in Bezug auf Produkte, Services oder Meinungen der verlinkten
       Anbieter. Der Hersteller der Applikation ist nicht verantwortlich f&uuml;r die Richtigkeit oder Rechtm&auml;&szlig;keit der verlinkten Inhalte. Bei Fragen
       oder Bedenken zu den verlinkten Inhalten kontakiere bitte den Anbieter dort.</p>',
@@ -732,12 +732,12 @@ $LANG['imprint'] = array(
   ),
 );
 
-if ($C->read('googleAnalytics') and $C->read("googleAnalyticsID")) {
+if ($C->read('googleAnalytics') && $C->read("googleAnalyticsID")) {
   $LANG['imprint'][] = array(
     'title' => 'Google Analytics',
     'text' => '<p><i class="fab fa-google fa-3x me-3 float-start" style="color: #999999;"></i>Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc.
       ("Google"). Google Analytics verwendet sog. "Cookies", Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website
-      durch Sie erm&ouml;glichen. Die durch den Cookie erzeugten Informationen &uuml;ber die Nutzung dieser Website werden an Server von Google &uuml;bertragen und 
+      durch Sie erm&ouml;glichen. Die durch den Cookie erzeugten Informationen &uuml;ber die Nutzung dieser Website werden an Server von Google &uuml;bertragen und
       dort gespeichert. Diese Server k&ouml;nnen sich den USA befinden.</p>
       <div class="collapse" id="readmore">
          <p>Im Falle der Aktivierung der IP-Anonymisierung auf dieser Webseite, wird Ihre IP-Adresse von Google jedoch innerhalb von Mitgliedstaaten der Europ&auml;ischen
