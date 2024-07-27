@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * English Application Strings
  *
@@ -40,29 +42,29 @@ $LANG['weeknumber'] = 'Calendar week';
 $LANG['year'] = 'Year';
 
 $LANG['monthnames'] = array(
-    1 => "January",
-    2 => "February",
-    3 => "March",
-    4 => "April",
-    5 => "May",
-    6 => "June",
-    7 => "July",
-    8 => "August",
-    9 => "September",
-    10 => "October",
-    11 => "November",
-    12 => "December",
+  1 => "January",
+  2 => "February",
+  3 => "March",
+  4 => "April",
+  5 => "May",
+  6 => "June",
+  7 => "July",
+  8 => "August",
+  9 => "September",
+  10 => "October",
+  11 => "November",
+  12 => "December",
 );
 
 $LANG['widths'] = array(
-    'full' => "Full screen (More than 1024 pixels)",
-    '1024' => "1024 pixels",
-    '800' => "800 pixels",
-    '640' => "640 pixels",
-    '480' => "480 pixels",
-    '400' => "400 pixels",
-    '320' => "320 pixels",
-    '240' => "240 pixels",
+  'full' => "Full screen (More than 1024 pixels)",
+  '1024' => "1024 pixels",
+  '800' => "800 pixels",
+  '640' => "640 pixels",
+  '480' => "480 pixels",
+  '400' => "400 pixels",
+  '320' => "320 pixels",
+  '240' => "240 pixels",
 );
 
 //
@@ -249,7 +251,6 @@ $LANG['sum_absent'] = 'Absent';
 $LANG['sum_delta'] = 'Delta';
 $LANG['sum_absence_summary'] = 'Absence Summary';
 $LANG['sum_business_day_count'] = 'business days';
-$LANG['remainder'] = 'Remainder';
 $LANG['exp_summary'] = 'Expand Summary section...';
 $LANG['col_summary'] = 'Collapse Summary section...';
 $LANG['exp_remainder'] = 'Expand Remainder section...';
@@ -772,7 +773,7 @@ $LANG['profile_calfilterGroup'] = 'Default Group Filter';
 $LANG['profile_calfilterGroup_comment'] = 'The calendar view can be filtered to a single group. This can be set here or on the calendar page itself.';
 $LANG['profile_guestships'] = 'Show in other groups';
 $LANG['profile_guestships_comment'] = 'Show the calendar of this user in the selected groups, even if not a member (called a "guest membership"). Use this feature if the user is ' .
-    'not a member but the absences are still important to see along with those of the selected groups.<br><i>Guest users will be shown in italic font in the calendar</i>.';
+  'not a member but the absences are still important to see along with those of the selected groups.<br><i>Guest users will be shown in italic font in the calendar</i>.';
 $LANG['profile_hidden'] = '<i class="far fa-eye-slash text-info" style="padding-right: 8px;"></i>Hide in calendar';
 $LANG['profile_hidden_comment'] = 'With this option you can keep the user active but hide him in the calendar. The absences will still be counted in the statistics though. If that is
       not wanted, consider archiving this user.';
