@@ -139,9 +139,9 @@ $LANG['abs_sample_comment'] = 'This is how your absence type will look in your c
 $LANG['abs_show_in_remainder'] = 'Show in Remainder';
 $LANG['abs_show_in_remainder_comment'] = 'Checking this option will include this absence on the Remainder page.';
 $LANG['abs_symbol'] = 'Character ID';
-$LANG['abs_symbol_comment'] = 'The absence type character ID is used in notification e-mails since font icons are not supported there. Chose a single character. 
-      A character ID is mandatory for each absence type, however, you can use the same character for mutliple absence types. The default is  
-      is the first letter of the absence type name when it is created.';
+$LANG['abs_symbol_comment'] = 'The absence type character ID is used in notification e-mails since font icons are not supported there. Chose a single character.
+ A character ID is mandatory for each absence type, however, you can use the same character for mutliple absence types. The default is
+ the first letter of the absence type name when it is created.';
 $LANG['abs_tab_groups'] = 'Group Assignments';
 $LANG['abs_takeover'] = 'Enable for Take-over';
 $LANG['abs_takeover_comment'] = 'Enables this absence type for taken over. Note, that the take-over feature must be enabled in TeamCal Neo for this to have an effect.';
@@ -267,10 +267,8 @@ $LANG['caledit_alert_save_failed'] = 'The absence information could not be saved
 $LANG['caledit_alert_update'] = 'Update month';
 $LANG['caledit_alert_update_all'] = 'All absences were accepted and the calendar was updated accordingly.';
 $LANG['caledit_alert_update_group'] = 'The group absences were set for all users of the group.';
-$LANG['caledit_alert_update_partial'] = 'Some absences were not accepted because they violate restrictions set by the management. 
-      The following requests were declined:';
-$LANG['caledit_alert_update_none'] = 'The absences were not accepted because the requested absences violate restrictions set up by the management. 
-      The calendar was not updated.';
+$LANG['caledit_alert_update_partial'] = 'Some absences were not accepted because they violate restrictions set by the management. The following requests were declined:';
+$LANG['caledit_alert_update_none'] = 'The absences were not accepted because the requested absences violate restrictions set up by the management. The calendar was not updated.';
 $LANG['caledit_clearAbsence'] = 'Clear';
 $LANG['caledit_clearAbsences'] = 'Clear Absences';
 $LANG['caledit_clearDaynotes'] = 'Clear Daynotes';
@@ -323,12 +321,12 @@ $LANG['calopt_firstDayOfWeek_comment'] = 'Set this to Monday or Sunday. This set
 $LANG['calopt_firstDayOfWeek_1'] = 'Monday';
 $LANG['calopt_firstDayOfWeek_7'] = 'Sunday';
 $LANG['calopt_hideDaynotes'] = 'Hide Personal Daynotes';
-$LANG['calopt_hideDaynotes_comment'] = 'Switching this on will hide personal daynotes from regular users. Only Managers, Directors and Administrators can edit and see them. 
+$LANG['calopt_hideDaynotes_comment'] = 'Switching this on will hide personal daynotes from regular users. Only Managers, Directors and Administrators can edit and see them.
       That way the can be used for managing purposes only. This switch does not affect birthday notes.';
 $LANG['calopt_hideManagers'] = 'Hide Managers in All-by-Group and Group Display';
 $LANG['calopt_hideManagers_comment'] = 'Checking this option will hide all managers in the All-by-Group and Group display except in those groups where they are just members.';
 $LANG['calopt_hideManagerOnlyAbsences'] = 'Hide Management Only Absences';
-$LANG['calopt_hideManagerOnlyAbsences_comment'] = 'Absence types can be marked as "manager-only", making them only editable to managers. 
+$LANG['calopt_hideManagerOnlyAbsences_comment'] = 'Absence types can be marked as "manager-only", making them only editable to managers.
       These absences are shown to the regular users but they cannot edit them. You can hide these absences to regular users here.';
 $LANG['calopt_includeSummary'] = 'Include Summary';
 $LANG['calopt_includeSummary_comment'] = 'Checking this option will add an expandable summary section at the bottom of each month, showing the sums of all absences.';
@@ -349,8 +347,7 @@ $LANG['calopt_regionalHolidaysColor_comment'] = 'Sets the border color for marki
 $LANG['calopt_repeatHeaderCount'] = 'Repeat Header Count';
 $LANG['calopt_repeatHeaderCount_comment'] = 'Specifies the amount of user lines in the calender before the month header is repeated for better readability. If set to 0, the month header will not be repeated.';
 $LANG['calopt_satBusi'] = 'Saturday is a Business Day';
-$LANG['calopt_satBusi_comment'] = 'By default, Saturday and Sunday are weekend days and displayed accordingly in the calendar. 
-      Check this option if you want to make Saturday a business day.';
+$LANG['calopt_satBusi_comment'] = 'By default, Saturday and Sunday are weekend days and displayed accordingly in the calendar. Check this option if you want to make Saturday a business day.';
 $LANG['calopt_showAvatars'] = 'Show Avatars';
 $LANG['calopt_showAvatars_comment'] = 'Checking this option will show a user avatar pop-up when moving the mouse over the user avatar icon.';
 $LANG['calopt_showMonths'] = 'Show Multiple Months';
@@ -365,10 +362,9 @@ $LANG['calopt_showSummary_comment'] = 'Checking this option will show/expand the
 $LANG['calopt_showTooltipCount'] = 'Tooltip Counter';
 $LANG['calopt_showTooltipCount_comment'] = 'Checking this option will show the amount taken for the current absence type and current month in the absence type tooltip.';
 $LANG['calopt_showUserRegion'] = 'Show regional holidays per user';
-$LANG['calopt_showUserRegion_comment'] = 'If this option is on, the calendar will show the regional holidays in each user row based on the default region 
-      set for the user. These holidays might then differ from the global regional holidays shown in the month header. This offers a better view on regional 
-      holiday differences if you manage users from different regions. Note, that this might might be a bit confusing depending on the amount of users and regions. 
-      Check it out and pick your choice.';
+$LANG['calopt_showUserRegion_comment'] = 'If this option is on, the calendar will show the regional holidays in each user row based on the default region
+ set for the user. These holidays might then differ from the global regional holidays shown in the month header. This offers a better view on regional
+ holiday differences if you manage users from different regions. Note, that this might might be a bit confusing depending on the amount of users and regions. Check it out and pick your choice.';
 $LANG['calopt_showWeekNumbers'] = 'Show Week Numbers';
 $LANG['calopt_showWeekNumbers_comment'] = 'Checking this option will add a line to the calendar display showing the week of the year number.';
 $LANG['calopt_sortByOrderKey'] = 'User Order Key';
@@ -411,8 +407,8 @@ $LANG['calopt_usersPerPage_comment'] = 'If you maintain a large amount of users 
 $LANG['db_tab_repair'] = 'Repair';
 $LANG['db_tab_tcpimp'] = 'TeamCal Pro Import';
 $LANG['db_clean_what'] = 'What to clean up';
-$LANG['db_clean_what_comment'] = 'Select here what you want to clean up. All records selected here that are equal or older then the "Before Date" will be deleted. 
-      Region and user calendars are deleted by month, independently from the day you enter. Newer records will stay in place.';
+$LANG['db_clean_what_comment'] = 'Select here what you want to clean up. All records selected here that are equal or older then the "Before Date"
+ will be deleted. Region and user calendars are deleted by month, independently from the day you enter. Newer records will stay in place.';
 $LANG['db_clean_daynotes'] = 'Clean up daynotes before...';
 $LANG['db_clean_holidays'] = 'Clean up holidays before...';
 $LANG['db_clean_months'] = 'Clean up region calendars before...';
@@ -823,8 +819,7 @@ $LANG['regions_ical_holiday'] = 'iCal Holiday';
 $LANG['regions_ical_holiday_comment'] = 'Select the holiday to be used for the events in your iCal file.';
 $LANG['regions_ical_imported'] = 'The iCal file "%s" was imported into region "%s".';
 $LANG['regions_ical_overwrite'] = 'Overwrite';
-$LANG['regions_ical_overwrite_comment'] = 'Select here whether existing holidays in the target region shall be overwritten. If not selected, existing entries in 
-      the target region will remain.';
+$LANG['regions_ical_overwrite_comment'] = 'Select here whether existing holidays in the target region shall be overwritten. If not selected, existing entries in the target region will remain.';
 $LANG['regions_ical_region'] = 'iCal Region';
 $LANG['regions_ical_region_comment'] = 'Select the region into which the events of your iCal file shall be inserted.';
 $LANG['regions_transferred'] = 'The region "%s" was transferred into region "%s".';
@@ -834,8 +829,7 @@ $LANG['regions_region_a_comment'] = 'Select the region that shall be transfered 
 $LANG['regions_region_b'] = 'Target Region';
 $LANG['regions_region_b_comment'] = 'Select the region into which the source region shall be transfered.';
 $LANG['regions_region_overwrite'] = 'Overwrite';
-$LANG['regions_region_overwrite_comment'] = 'Select here whether the source region entries shall overwrite the target region entries. If not selected, existing entries in 
-      the target region will remain.';
+$LANG['regions_region_overwrite_comment'] = 'Select here whether the source region entries shall overwrite the target region entries. If not selected, existing entries in the target region will remain.';
 
 //
 // Remainder
