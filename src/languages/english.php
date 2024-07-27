@@ -204,7 +204,7 @@ $LANG['alert_input_min_length'] = 'The input of this field must have a minimum o
 $LANG['alert_input_numeric'] = 'The input of this field must be numeric.';
 $LANG['alert_input_phone_number'] = 'The input in this field must be a valid phone number, e.g. (555) 123 4567 oder +49 172 123 4567.';
 $LANG['alert_input_pwdlow'] = 'The password must be at least 4 characters long and can contain small and capital letters, numbers and the following special characters: !@#$%^&*().';
-$LANG['alert_input_pwdmedium'] = 'The password must be at least 6 characters long, must contain at least one small letter, at least one capital letter and at least one number. 
+$LANG['alert_input_pwdmedium'] = 'The password must be at least 6 characters long, must contain at least one small letter, at least one capital letter and at least one number.
       Allowed are small and capital letters, numbers and the following special characters: !@#$%^&*().';
 $LANG['alert_input_pwdhigh'] = 'The password must be at least 8 characters long, must contain at least one small letter, at least one capital letter, at least one number and
       at least one special character. Allowed are small and capital letters, numbers and the following special characters: !@#$%^&*().';
@@ -394,38 +394,34 @@ $LANG['config_appTitle_comment'] = 'Enter an application title here. It is used 
 $LANG['config_appURL'] = 'Application URL';
 $LANG['config_appURL_comment'] = 'Enter the full application URL here. It will be used in notification emails.';
 $LANG['config_badLogins'] = 'Bad Logins';
-$LANG['config_badLogins_comment'] = 'Number of bad login attempts that will cause the user status to be set to \'LOCKED\'. The user has to wait as long 
-      as the grace period specifies before he can login again. If you set this value to 0 the bad login feature is disabled.';
+$LANG['config_badLogins_comment'] = 'Number of bad login attempts that will cause the user status to be set to \'LOCKED\'. The user has to wait as long
+ as the grace period specifies before he can login again. If you set this value to 0 the bad login feature is disabled.';
 $LANG['config_cookieConsent'] = 'Cookie Consent';
-$LANG['config_cookieConsent_comment'] = 'With this option, a cookie consent confirmation will pop up at the bottom of the screen. 
-      This is legally required in the EU. This feature requires Internet connectivity.';
+$LANG['config_cookieConsent_comment'] = 'With this option, a cookie consent confirmation will pop up at the bottom of the screen. This is legally required in the EU. This feature requires Internet connectivity.';
 $LANG['config_cookieConsentCDN'] = 'Cookie Consent CDN';
-$LANG['config_cookieConsentCDN_comment'] = 'CDNs (Content Distributed Network) can offer a performance benefit by hosting popular web modules on servers spread 
-      across the globe. Cookie Consent is such a module. Pulling it from a CDN location also offers an advantage that if the visitor 
-      to your webpage has already downloaded a copy of it from the same CDN, it won\'t have to be re-downloaded.<br>Switch this option off if you are 
-      running the application in an environment with no Internet connectivity.';
+$LANG['config_cookieConsentCDN_comment'] = 'CDNs (Content Distributed Network) can offer a performance benefit by hosting popular web modules on servers spread
+ across the globe. Cookie Consent is such a module. Pulling it from a CDN location also offers an advantage that if the visitor to your webpage has already
+ downloaded a copy of it from the same CDN, it won\'t have to be re-downloaded.<br>Switch this option off if you are running the application in an environment with no Internet connectivity.';
 $LANG['config_cookieLifetime'] = 'Cookie Lifetime';
-$LANG['config_cookieLifetime_comment'] = 'Upon successful login a cookie is stored on the local hard drive of the user. This cookie has a certain 
-      lifetime after which it becomes invalid. A new login is necessary. This lifetime can be specified here in seconds (0-999999).';
+$LANG['config_cookieLifetime_comment'] = 'Upon successful login a cookie is stored on the local hard drive of the user. This cookie has a certain
+ lifetime after which it becomes invalid. A new login is necessary. This lifetime can be specified here in seconds (0-999999).';
 $LANG['config_defaultHomepage'] = 'Default Homepage';
 $LANG['config_defaultHomepage_comment'] = 'Select the default homepage. It is shown to anonymous users and when clicking the application icon
       in the top left. Caution, if you select "Calendar" here, "Public" should have sufficient permissions to view it.';
 $LANG['config_defaultHomepage_home'] = 'Welcome Page';
 $LANG['config_defaultHomepage_calendarview'] = 'Calendar';
 $LANG['config_defaultLanguage'] = 'Default Language';
-$LANG['config_defaultLanguage_comment'] = $appTitle . ' is distributed in English and German. The administrator might have added more languages. 
-      Chose the default language of your installation here.';
+$LANG['config_defaultLanguage_comment'] = $appTitle . ' is distributed in English and German. The administrator might have added more languages. Chose the default language of your installation here.';
 $LANG['config_emailConfirmation'] = 'Require e-mail Confirmation';
-$LANG['config_emailConfirmation_comment'] = 'Upon registration the user will receive an e-mail to the address he specified containing a confirmation link. 
-      He needs to follow that link to validate his information.';
+$LANG['config_emailConfirmation_comment'] = 'Upon registration the user will receive an e-mail to the address he specified containing a confirmation link. He needs to follow that link to validate his information.';
 $LANG['config_emailNotifications'] = 'E-Mail Notifications';
-$LANG['config_emailNotifications_comment'] = 'Enable/Disable E-Mail notifications. If you uncheck this option no automated notifications E-Mails are sent. 
-      However, this does not apply to self-registration mails and to manually sent mails via the Message Center and the Viewprofile dialog.';
+$LANG['config_emailNotifications_comment'] = 'Enable/Disable E-Mail notifications. If you uncheck this option no automated notifications E-Mails are sent.
+ However, this does not apply to self-registration mails and to manually sent mails via the Message Center and the Viewprofile dialog.';
 $LANG['config_faCDN'] = 'Fontawesome CDN';
-$LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) can offer a performance benefit by hosting popular web modules on servers spread 
-      across the globe. Fontawesome is such a module. Pulling it from a CDN location also offers an advantage that if the visitor 
-      to your webpage has already downloaded a copy of it from the same CDN, it won\'t have to be re-downloaded.<br>This option only works with an
-      Internet connection of course. Switch this option off if you are running the application in an environment without Internet connectivity.';
+$LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) can offer a performance benefit by hosting popular web modules on servers spread
+ across the globe. Fontawesome is such a module. Pulling it from a CDN location also offers an advantage that if the visitor
+ to your webpage has already downloaded a copy of it from the same CDN, it won\'t have to be re-downloaded.<br>This option only works with an
+ Internet connection of course. Switch this option off if you are running the application in an environment without Internet connectivity.';
 $LANG['config_font'] = 'Font';
 $LANG['config_font_comment'] = 'Select the font to use. Options are:<ul>
       <li>Default <i>(will not load any extra font but use the default sans-serif font of your browser)</i></li>
@@ -453,10 +449,9 @@ $LANG['config_gdprPlatforms_comment'] = 'Check the platforms that you want to ha
 $LANG['config_gdprPolicyPage'] = 'Data Privacy Policy';
 $LANG['config_gdprPolicyPage_comment'] = 'Check to add a Data Privacy Policy page to the Help menu.<br>If selected, the fields "Organization", "Controller" and "Data Protection Officer" below must be filled in.<br>
       Below that, you can optionally include policies for certain social networks in case you have linked them in your footer.';
-
 $LANG['config_googleAnalytics'] = 'Google Analytics';
-$LANG['config_googleAnalytics_comment'] = $appTitle . ' supports Google Analytics. If you run your instance in the Internet and want to use Google Analytics 
-      to trace access to it, you can check this box and enter your Google Analytics ID below. The corresponding Javascript code will be added automatically.';
+$LANG['config_googleAnalytics_comment'] = $appTitle . ' supports Google Analytics. If you run your instance in the Internet and want to use Google Analytics
+ to trace access to it, you can check this box and enter your Google Analytics ID below. The corresponding Javascript code will be added automatically.';
 $LANG['config_googleAnalyticsID'] = "Google Analytics ID (GA4)";
 $LANG['config_googleAnalyticsID_comment'] = "If you enabled the Google Analytics feature, enter your Google Analytics GA4 ID here in the format G-... .";
 $LANG['config_gracePeriod'] = 'Grace Period';
@@ -472,9 +467,9 @@ $LANG['config_jQueryCDN_comment'] = 'CDNs (Content Distributed Network) can offe
       to your webpage has already downloaded a copy of jQuery from the same CDN, it won\'t have to be re-downloaded.<br>Switch this option off if you are 
       running the application in an environment with no Internet connectivity.';
 $LANG['config_jqtheme'] = 'jQuery UI Theme';
-$LANG['config_jqtheme_comment'] = $appTitle . ' uses jQuery UI, a popular collection of Javascript utilities. jQuery UI offers themes as well used for the display 
-      of the tabbed dialogs and other features. The default theme is "smoothness" which is a neutral gray shaded theme. Try more from the list, some of them are 
-      quite colorful. This is a global setting, users cannot choose an individual jQuery UI theme.';
+$LANG['config_jqtheme_comment'] = $appTitle . ' uses jQuery UI, a popular collection of Javascript utilities. jQuery UI offers themes as well used for the display
+ of the tabbed dialogs and other features. The default theme is "smoothness" which is a neutral gray shaded theme. Try more from the list, some of them are
+ quite colorful. This is a global setting, users cannot choose an individual jQuery UI theme.';
 $LANG['config_licActivate'] = "Activate License";
 $LANG['config_licActivate_comment'] = "Your license is not active yet. Please activate it.";
 $LANG['config_licExpiryWarning'] = "License Expiry Warning";
@@ -482,8 +477,8 @@ $LANG['config_licExpiryWarning_comment'] = "Enter the number of days before lice
 $LANG['config_licKey'] = "License Key";
 $LANG['config_licKey_comment'] = "Enter your license key here. It was provided to you when you registered your TeamCal Neo instance.";
 $LANG['config_licRegister'] = "Register Domain";
-$LANG['config_licRegister_comment'] = "This TeamCal Neo domain is not registered for the given license key.<br>If the license key is valid and allows for more than one domain, 
-      click the '" . $LANG['btn_register'] . "' button to add this domain. Otherwise, please enter a different valid license key and click '" . $LANG['btn_apply'] . "'.";
+$LANG['config_licRegister_comment'] = "This TeamCal Neo domain is not registered for the given license key.<br>If the license key is valid and allows for more than one domain,
+ click the '" . $LANG['btn_register'] . "' button to add this domain. Otherwise, please enter a different valid license key and click '" . $LANG['btn_apply'] . "'.";
 $LANG['config_licDeregister'] = "De-Register Domain";
 $LANG['config_licDeregister_comment'] = "You can deregister this TeamCal Neo domain from your license, e.g. to move your instance to a different domain. Deregister it here and then register it from the new domain.";
 $LANG['config_logLanguage'] = "Log Language";
@@ -494,10 +489,10 @@ $LANG['config_mailReply'] = 'Mail Reply-To';
 $LANG['config_mailReply_comment'] = 'Specify an e-mail address to reply to for notification e-mails. This field must contain a valid e-mail address. 
       If that is not the case a dummy e-mail address will be saved.';
 $LANG['config_mailSMTP'] = 'Use external SMTP server';
-$LANG['config_mailSMTP_comment'] = 'Use an external SMTP server instead of the PHP mail() function to send out eMails. This feature requires the PEAR 
-      Mail package to be installed on your server. Many hosters install this package by default. It is also necessary for SMTP to work, that your TcNeo 
-      server can connect to the selected SMTP server via the usual SMTP ports 25, 465 or 587, using plain SMTP or TLS/SSL protocol, depending on your settings. 
-      Some hosters have this communication closed down by firewall rules. You will get a connection error then.';
+$LANG['config_mailSMTP_comment'] = 'Use an external SMTP server instead of the PHP mail() function to send out eMails. This feature requires the PEAR
+ Mail package to be installed on your server. Many hosters install this package by default. It is also necessary for SMTP to work, that your TcNeo
+ server can connect to the selected SMTP server via the usual SMTP ports 25, 465 or 587, using plain SMTP or TLS/SSL protocol, depending on your settings.
+ Some hosters have this communication closed down by firewall rules. You will get a connection error then.';
 $LANG['config_mailSMTPAnonymous'] = 'Anonymous SMTP';
 $LANG['config_mailSMTPAnonymous_comment'] = 'Use SMTP connection without authentication.';
 $LANG['config_mailSMTPhost'] = 'SMTP Host';
@@ -533,7 +528,7 @@ $LANG['config_pageHelp_comment'] = 'With this switch on, a help icon will be dis
 $LANG['config_permissionScheme'] = 'Permission Scheme';
 $LANG['config_permissionScheme_comment'] = 'The permission defines who can do what. The permission schemes can be configured on the permissions page.';
 $LANG['config_pwdStrength'] = 'Password Strength';
-$LANG['config_pwdStrength_comment'] = 'The password strength defines how picky you want to be with the password check. Allowed are small and capital letters, numbers and the following special characters: !@#$%^&*().<br><br> 
+$LANG['config_pwdStrength_comment'] = 'The password strength defines how picky you want to be with the password check. Allowed are small and capital letters, numbers and the following special characters: !@#$%^&*().<br><br>
          - <strong>Low:</strong> At least 4 characters long<br>
          - <strong>Medium:</strong> At least 6 characters long, one small letter, one capital letter and one number<br>
          - <strong>High:</strong> At least 8 characters long, one small letter, one capital letter, one number and one special character<br>';
@@ -570,8 +565,8 @@ $LANG['config_userManual'] = 'User Manual';
 $LANG['config_userManual_comment'] = $appTitle . '\'s user manual is maintained in English and is available at the <a href="https://lewe.gitbook.io/teamcal-neo/" target="_blank">Lewe Gitbook site</a>.
       If you have written your own manual, enter the link here. It will be displayed in the Help menu as long as the field is not empty.';
 $LANG['config_versionCompare'] = 'Version Compare';
-$LANG['config_versionCompare_comment'] = 'With this option enabled, TeamCal Neo\'s About page will compare the running version with the newest version available. In order to do so, 
-      Internet access is necessary. If you are running TeamCal Neo in an environment where no Internet access is available, switch this option off. Available updates will be shown next to the version number.';
+$LANG['config_versionCompare_comment'] = 'With this option enabled, TeamCal Neo\'s About page will compare the running version with the newest version available. In order to do so,
+ Internet access is necessary. If you are running TeamCal Neo in an environment where no Internet access is available, switch this option off. Available updates will be shown next to the version number.';
 $LANG['config_welcomeText'] = 'Welcome Page Text';
 $LANG['config_welcomeText_comment'] = 'Enter a text for the welcome message on the Home Page.';
 
@@ -711,28 +706,28 @@ $LANG['imprint'] = array(
   ),
   array(
     'title' => 'Content',
-    'text' => '<p>All content delivered with the ' . $appTitle . ' application was created by George Lewe (<a href="https://www.lewe.com/">Lewe.com</a>).  
+    'text' => '<p>All content delivered with the ' . $appTitle . ' application was created by George Lewe (<a href="https://www.lewe.com/">Lewe.com</a>).
       If you feel that any material is used inappropriately, please contact <a href="https://www.lewe.com/contact/">Lewe.com</a>.</p>
-      <p>None of the application content, as a whole or in parts may be reproduced, copied or reused in any form or by any means, electronic or mechanical, 
+      <p>None of the application content, as a whole or in parts may be reproduced, copied or reused in any form or by any means, electronic or mechanical,
       for any purpose, without the express written permission of George Lewe.</p>',
   ),
   array(
     'title' => 'Links',
-    'text' => '<p>All links delivered with the ' . $appTitle . ' application are being provided as a convenience 
-      and for informational purposes only; they do not constitute an endorsement or an approval by ' . $appTitle . ' of the products, services or opinions 
-      of the corporation or organization or individual. The application provider bears no responsibility for the accuracy, legality or content of the external site or 
+    'text' => '<p>All links delivered with the ' . $appTitle . ' application are being provided as a convenience
+      and for informational purposes only; they do not constitute an endorsement or an approval by ' . $appTitle . ' of the products, services or opinions
+      of the corporation or organization or individual. The application provider bears no responsibility for the accuracy, legality or content of the external site or
       for that of subsequent links. Contact the external site for questions regarding its content.</p>',
   ),
   array(
     'title' => 'GDPR',
     'text' => '<p>No personal data is delivered with the ' . $appTitle . ' application. Data privacy protection of any data added by users lies in the
       responsibility of the user.</p><p>' . $appTitle . ' provides a general GDPR generator. If used, users of the application are obliged to review the generated statement
-      and to change or add any details that the generator does not properly cover.</p><p>The application provider bears no responsibility for the accuracy, 
+      and to change or add any details that the generator does not properly cover.</p><p>The application provider bears no responsibility for the accuracy,
       legality or content of the Data Privacy statement used on any installation of the application.</p>',
   ),
 );
 
-if ($C->read('googleAnalytics') and $C->read("googleAnalyticsID")) {
+if ($C->read('googleAnalytics') && $C->read("googleAnalyticsID")) {
   $LANG['imprint'][] = array(
     'title' => 'Google Analytics',
     'text' => '<p><i class="fab fa-google fa-3x float-start" style="color: #999999;"></i>This website may use Google Analytics, if so configured by the administrator, a web analytics service provided by
@@ -808,7 +803,7 @@ $LANG['log_title'] = 'System Log';
 $LANG['log_title_events'] = 'Events';
 
 $LANG['log_clear'] = 'Delete period';
-$LANG['log_clear_confirm'] = 'Are you sure you want to delete all events of the currently selected period?<br> 
+$LANG['log_clear_confirm'] = 'Are you sure you want to delete all events of the currently selected period?<br>
       Note, that all events of all event types in the selected period will be deleted, even though you might have hidden them in the Log Settings.';
 $LANG['log_filterNews'] = 'News';
 $LANG['log_filterCalopt'] = 'Calender Options';
@@ -1017,8 +1012,8 @@ $LANG['perm_active'] = '(Active)';
 $LANG['perm_activate_scheme'] = 'Activate scheme';
 $LANG['perm_activate_confirm'] = 'Are you sure you want to activate this permission scheme?';
 $LANG['perm_create_scheme'] = 'Create scheme';
-$LANG['perm_create_scheme_desc'] = 'Type in a name for the new scheme. It will be created and loaded with default settings right away. 
-      All changes to the current scheme that have not been applied will be lost.';
+$LANG['perm_create_scheme_desc'] = 'Type in a name for the new scheme. It will be created and loaded with default settings right away.
+ All changes to the current scheme that have not been applied will be lost.';
 $LANG['perm_delete_scheme'] = 'Delete scheme';
 $LANG['perm_delete_confirm'] = 'Are you sure you want to delete this permission scheme? The Default scheme will be loaded and activated.';
 $LANG['perm_inactive'] = '(Inactive)';
@@ -1063,8 +1058,7 @@ $LANG['perm_usernotifications_desc'] = 'Enables the Notifications tab when editi
 $LANG['perm_useroptions_title'] = 'Users (Options Tab)';
 $LANG['perm_useroptions_desc'] = 'Enables the Options tab when editing a user profile.';
 $LANG['perm_viewprofile_title'] = 'Users (View)';
-$LANG['perm_viewprofile_desc'] = 'Allows to access the view profile page showing basic info like name, phone number etc. Viewing user popups is also 
-      dependent on this permission.';
+$LANG['perm_viewprofile_desc'] = 'Allows to access the view profile page showing basic info like name, phone number etc. Viewing user popups is also dependent on this permission.';
 
 //
 // Phpinfo
@@ -1091,7 +1085,7 @@ $LANG['profile_tab_password'] = 'Password';
 $LANG['profile_tab_personal'] = 'Personal';
 $LANG['profile_tab_tfa'] = '2FA';
 
-$LANG['profile_2fa_optional'] = 'TeamCal Neo allows you to set up a second factor authentication, e.g. using Google or Microsoft Authenticator on your mobil device.<br> 
+$LANG['profile_2fa_optional'] = 'TeamCal Neo allows you to set up a second factor authentication, e.g. using Google or Microsoft Authenticator on your mobil device.<br>
 Click the button below to start the onboarding process. (This can only be done by the user himself.)';
 
 $LANG['profile_alert_archive_user'] = 'The user were archived.';
@@ -1107,8 +1101,8 @@ $LANG['profile_avatar_comment'] = 'If you haven\'t uploaded an own avatar, a def
 $LANG['profile_avatar_available'] = 'Available Standard Avatars';
 $LANG['profile_avatar_available_comment'] = 'Choose one of the available avatars, courtesy of <a href="https://www.iconshock.com/icon_sets/vector-user-icons/" target="_blank">IconShock</a>.';
 $LANG['profile_avatar_upload'] = 'Upload avatar';
-$LANG['profile_avatar_upload_comment'] = 'You can upload a custom avatar. The size of the file is limited to %d Bytes, the size of the image should be 
-      80x80 pixels (will be displayed in those dimensions anyways) and the allowed formats are "%s".';
+$LANG['profile_avatar_upload_comment'] = 'You can upload a custom avatar. The size of the file is limited to %d Bytes, the size of the image should be
+ 80x80 pixels (will be displayed in those dimensions anyways) and the allowed formats are "%s".';
 $LANG['profile_confirm_archive'] = 'Are you sure you want to archive this user?';
 $LANG['profile_confirm_delete'] = 'Are you sure you want to delete this user?';
 $LANG['profile_custom1'] = $C->read('userCustom1');
@@ -1144,14 +1138,12 @@ $LANG['profile_linkedin_comment'] = '';
 $LANG['profile_locked'] = '<i class="fas fa-lock text-danger" style="padding-right: 8px;"></i>Locked';
 $LANG['profile_locked_comment'] = 'The account is locked. No login is possible.';
 $LANG['profile_managerships'] = 'Manager of';
-$LANG['profile_managerships_comment'] = 'Select the groups that this user is manager of. Should the same group be selected here and in the member list, 
-      then the manager position is saved.<br>
+$LANG['profile_managerships_comment'] = 'Select the groups that this user is manager of. Should the same group be selected here and in the member list, then the manager position is saved.<br>
       The group manager will get group related notifications, e.g. absence approval requests.<br>
       Group managers do not have more permissions than members. Permissions are managed with roles.<br>
       <a href="https://georgelewe.atlassian.net/wiki/spaces/TCNEO/pages/623738881/Group+Manager+Permission" target="_blank">Read more...</a>';
 $LANG['profile_memberships'] = 'Member of';
-$LANG['profile_memberships_comment'] = 'Select the groups that this user is member of. Should the same group be selected here and in the manager list, 
-      then the manager position is saved.';
+$LANG['profile_memberships_comment'] = 'Select the groups that this user is member of. Should the same group be selected here and in the manager list, then the manager position is saved.';
 $LANG['profile_menuBar'] = 'Menu Bar Display';
 $LANG['profile_menuBar_comment'] = 'With this switch you can inverse the color set of the menu bar. For some themes this is the better choice.';
 $LANG['profile_menuBar_default'] = 'Default';
@@ -1165,8 +1157,8 @@ $LANG['profile_notifyGroupEvents'] = 'Group Events';
 $LANG['profile_notifyRoleEvents'] = 'Role Events';
 $LANG['profile_notifyUserEvents'] = 'User Account Events';
 $LANG['profile_onhold'] = '<i class="far fa-clock text-warning" style="padding-right: 8px;"></i>On hold';
-$LANG['profile_onhold_comment'] = 'This status is applied after a user has entered a wrong password too many times. This causes a grace period in which no login is possible. 
-      The grace period can be configured on the configuration page. You can manually release the status here as well.';
+$LANG['profile_onhold_comment'] = 'This status is applied after a user has entered a wrong password too many times. This causes a grace period in which no login is possible.
+ The grace period can be configured on the configuration page. You can manually release the status here as well.';
 $LANG['profile_orderkey'] = 'Order Key';
 $LANG['profile_orderkey_comment'] = 'You can use this text field to assign a sort value for this user other than the lastname (default). The order key is used to sort users in the calendar view if the administrator has switched that option on.';
 $LANG['profile_password'] = 'Password';
@@ -1181,8 +1173,8 @@ $LANG['profile_position_comment'] = '';
 $LANG['profile_region'] = 'Region';
 $LANG['profile_region_comment'] = 'Select the region of this user here.';
 $LANG['profile_remove2fa'] = 'Remove 2FA';
-$LANG['profile_remove2fa_comment'] = 'You have already registered a second factor authenticator app. For security reasons, the onboarding information is not available anymore.  
-If you need to remove this setup, e.g. when you replace your mobile device and need to do a new onboarding again, check this box and update your profile. The onboarding link will then be displayed here.';
+$LANG['profile_remove2fa_comment'] = 'You have already registered a second factor authenticator app. For security reasons, the onboarding information is not available anymore.
+ If you need to remove this setup, e.g. when you replace your mobile device and need to do a new onboarding again, check this box and update your profile. The onboarding link will then be displayed here.';
 $LANG['profile_role'] = 'Role';
 $LANG['profile_role_comment'] = 'Select the role of this user here. The role defines the permissions of this user.';
 $LANG['profile_skype'] = 'Skype';
@@ -1267,14 +1259,14 @@ $LANG['roles_name'] = 'Name';
 //
 $LANG['setup2fa_title'] = 'Setup Two Factor Authentication for:';
 $LANG['setup2fa_alert_input'] = 'Please enter a six digit numeric value in the authenticator code field.';
-$LANG['setup2fa_alert_input_help'] = 'Please note that any previously generated barcode and secret code is not valid anymore for security reasons. 
-Should you have created an entry in your authenticator app with it, you need to remove it and add a new one with the new information on this page.';
+$LANG['setup2fa_alert_input_help'] = 'Please note that any previously generated barcode and secret code is not valid anymore for security reasons.
+ Should you have created an entry in your authenticator app with it, you need to remove it and add a new one with the new information on this page.';
 $LANG['setup2fa_alert_mismatch'] = 'The code you provided is incorrect.';
 $LANG['setup2fa_alert_success'] = 'Your two factor authentication was successfully set up. Please proceed to the login page to log in again.';
-$LANG['setup2fa_comment'] = 'In your authenticator app, add a new entry by scanning the above barcode (if one is shown) or entering the secret key manually. 
-After adding the new entry, enter the next code generated by your app into the field below and click verify.';
+$LANG['setup2fa_comment'] = 'In your authenticator app, add a new entry by scanning the above barcode (if one is shown) or entering the secret key manually.
+ After adding the new entry, enter the next code generated by your app into the field below and click verify.';
 $LANG['setup2fa_required_comment'] = 'The administrator has set up TeamCal Neo so that a two factor authentication is required to log in. Here you can do the onboarding process.
-You will need a mobile device and an authenticator app like Google Authenticator or Microsoft Authenticator.';
+ You will need a mobile device and an authenticator app like Google Authenticator or Microsoft Authenticator.';
 $LANG['setup2fa_totp'] = 'Your authenticator code<br><i>(six digits, numeric)</i>';
 
 //

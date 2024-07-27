@@ -37,7 +37,6 @@ $LANG['log_db_delete_msg_orph'] = 'Database delete: All Orphaned Messages';
 $LANG['log_db_delete_perm'] = 'Database delete: All custom permission schemes';
 $LANG['log_db_delete_users'] = 'Database delete: All Users';
 $LANG['log_db_export'] = 'Database export: ';
-$LANG['log_db_export'] = 'Database export: ';
 $LANG['log_db_optimized'] = 'Database optimized';
 $LANG['log_db_reset'] = 'Database reset';
 $LANG['log_decl_updated'] = 'Declination settings updated';
