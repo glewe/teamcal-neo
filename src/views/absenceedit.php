@@ -27,10 +27,11 @@ view.absenceedit
       ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
-    } ?>
-    <?php $tabindex = 1;
+    }
+    $tabindex = 1;
     $colsleft = 8;
-    $colsright = 4; ?>
+    $colsright = 4;
+    ?>
 
     <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>&amp;id=<?= $viewData['id'] ?>" method="post" target="_self" accept-charset="utf-8">
 

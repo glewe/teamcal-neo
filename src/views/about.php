@@ -28,7 +28,8 @@ view.about
       ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
-    } ?>
+    }
+    ?>
 
     <div class="card text-<?= $CONF['controllers'][$controller]->panelColor ?>">
       <?php
