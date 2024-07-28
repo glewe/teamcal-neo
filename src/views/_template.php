@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * View Template
  *
@@ -13,14 +15,13 @@ if (!defined('VALID_ROOT')) { exit(''); }
  */
 ?>
 
-<!-- ==================================================================== 
-        view.<view>
-        -->
+<!-- ====================================================================
+view.<view>
+-->
 <div class="container content">
 
-    <div class="col-lg-12">
+  <div class="col-lg-12">
 
-
-    </div>
+  </div>
 
 </div>
