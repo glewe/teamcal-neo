@@ -59,9 +59,7 @@ view.menu
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="view" aria-haspopup="true" aria-expanded="false"><?= $LANG['mnu_view'] ?><span class="caret"></span></a>
             <div class="dropdown-menu" aria-labelledby="view">
               <?php if (isAllowed($CONF['controllers']['calendarview']->permission)) {
-                if ($controller == 'logout') {
-                  $urlparams = "";
-                } elseif (!$urlparams = $UO->read($UL->username, 'calfilter')) {
+                if ($controller == 'logout' || (!$urlparams = $UO->read($UL->username, 'calfilter'))) {
                   $urlparams = "";
                 }
                 ?>

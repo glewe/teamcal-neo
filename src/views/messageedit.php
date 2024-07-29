@@ -99,8 +99,11 @@ view.messageedit
               <div class="radio"><label><input name="opt_sendto" value="user" tabindex="<?= $tabindex++ ?>" <?= ($viewData['sendto'] == 'user') ? "checked" : ""; ?> type="radio"><?= $LANG['msg_sendto_user'] ?></label></div>
               <select class="form-control" name="sel_sendToUser[]" multiple="multiple" size="5" tabindex="<?= $tabindex++ ?>">
                 <?php foreach ($viewData['users'] as $user) {
-                  if ($user['firstname'] != "") $showname = $user['lastname'] . ", " . $user['firstname'];
-                  else $showname = $user['lastname']; ?>
+                  if ($user['firstname'] != "") {
+                    $showname = $user['lastname'] . ", " . $user['firstname'];
+                  } else {
+                    $showname = $user['lastname'];
+                  } ?>
                   <option class="option" value="<?= $user['username'] ?>" <?= (in_array($user['username'], $viewData['sendToUser'])) ? "selected" : ""; ?>><?= $showname ?></option>
                 <?php } ?>
               </select>

@@ -44,7 +44,7 @@ view.viewprofile
 
       <div class="card-body">
 
-        <?php if ($viewData['allowEdit'] or $viewData['allowAbsum']) { ?>
+        <?php if ($viewData['allowEdit'] || $viewData['allowAbsum']) { ?>
           <div class="card">
             <div class="card-body">
               <?php if ($viewData['allowEdit']) { ?>

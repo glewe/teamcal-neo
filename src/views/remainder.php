@@ -69,8 +69,12 @@ view.remainder
               if ($abs['show_in_remainder']) {
                 ?>
                 <th class="text-center">
-                  <?php if ($abs['bgtrans']) $bgstyle = "";
-                  else $bgstyle = "background-color: #" . $abs['bgcolor'] . ";"; ?>
+                  <?php
+                  if ($abs['bgtrans']) {
+                    $bgstyle = "";
+                  } else {
+                    $bgstyle = "background-color: #" . $abs['bgcolor'] . ";";
+                  } ?>
                   <div style="color:#<?= $abs['color'] ?>;<?= $bgstyle ?>border:1px solid #333333; width:26px; height:26px;">
                     <?php if ($abs['icon'] != "No") { ?>
                       <a href="#" style="color:inherit;" data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="<?= $abs['name'] ?>"><span class="<?= $abs['icon'] ?>"></span></a>
@@ -159,7 +163,8 @@ view.remainder
           <div class="modal-footer">
             <button type="submit" class="btn btn-info" tabindex="<?= $tabindex++ ?>" name="btn_search" style="margin-top: 4px;"><?= $LANG['btn_search'] ?></button>
             <?php if (strlen($viewData["search"])) { ?>
-              <button type="submit" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" name="btn_search_clear"><?= $LANG['btn_clear'] ?></button><?php } ?>
+              <button type="submit" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" name="btn_search_clear"><?= $LANG['btn_clear'] ?></button>
+            <?php } ?>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= $LANG['btn_cancel'] ?></button>
           </div>
         </div>
