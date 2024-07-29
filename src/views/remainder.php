@@ -75,13 +75,13 @@ view.remainder
                   } else {
                     $bgstyle = "background-color: #" . $abs['bgcolor'] . ";";
                   } ?>
-                  <div style="color:#<?= $abs['color'] ?>;<?= $bgstyle ?>border:1px solid #333333; width:26px; height:26px;">
+                  <span style="color:#<?= $abs['color'] ?>;<?= $bgstyle ?>border:1px solid #333333; width:26px; height:26px;padding:4px;">
                     <?php if ($abs['icon'] != "No") { ?>
                       <a href="#" style="color:inherit;" data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="<?= $abs['name'] ?>"><span class="<?= $abs['icon'] ?>"></span></a>
                     <?php } else { ?>
                       <?= $abs['symbol'] ?>
                     <?php } ?>
-                  </div>
+                  </span>
                 </th>
               <?php }
             } ?>
@@ -95,7 +95,6 @@ view.remainder
               <?php foreach ($viewData['absences'] as $abs) {
                 if ($abs['show_in_remainder']) {
                   echo '<td class="m-day text-center">';
-
                   if ($AL->find($user['username'], $abs['id'])) {
                     $carryover = $AL->carryover;
                     if (!$AL->allowance) {
@@ -116,9 +115,9 @@ view.remainder
                     $taken = countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
                   }
                   $remainder = $allowance + $carryover - ($taken * $abs['factor']);
-                  $dispTaken = '<span class="badge btn-info">' . $taken . '</span>';
-                  $dispAllowance = '<span class="badge btn-primary">' . $totalAllowance . '</span>';
-                  $dispRemainder = '<span class="badge btn-' . (($remainder < 0) ? "danger" : "success") . '">' . $remainder . '</span>';
+                  $dispTaken = '<span class="badge bg-info">' . $taken . '</span>';
+                  $dispAllowance = '<span class="badge bg-primary">' . $totalAllowance . '</span>';
+                  $dispRemainder = '<span class="badge bg-' . (($remainder < 0) ? "danger" : "success") . '">' . $remainder . '</span>';
                   $separator = "-";
                   echo $dispTaken . $separator . $dispAllowance . $separator . $dispRemainder;
                   echo '</td>';
@@ -129,7 +128,7 @@ view.remainder
           </tbody>
         </table>
 
-        <p><span class="badge btn-info"><?= $LANG['rem_legend_taken'] ?></span>-<span class="badge btn-primary"><?= $LANG['rem_legend_allowance'] ?></span>-<span class="badge btn-success"><?= $LANG['rem_legend_remainder'] ?></span></p>
+        <p><span class="badge bg-info"><?= $LANG['rem_legend_taken'] ?></span>-<span class="badge bg-primary"><?= $LANG['rem_legend_allowance'] ?></span>-<span class="badge bg-success"><?= $LANG['rem_legend_remainder'] ?></span></p>
 
       </div>
     </div>
