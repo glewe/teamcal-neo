@@ -20,24 +20,25 @@ view.config
 
   <div class="col-lg-12">
     <?php
-    if ($showAlert && $C->read("showAlerts") != "none") {
-      if (
-        $C->read("showAlerts") == "all" or
-        $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" or $alertData['type'] == "danger")
-      ) {
-        echo createAlertBox($alertData);
-      }
-    } ?>
-    <?php $tabindex = 1;
+    if (
+      ($showAlert && $C->read("showAlerts") != "none") &&
+      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+    ) {
+      echo createAlertBox($alertData);
+    }
+    $tabindex = 1;
     $colsleft = 8;
-    $colsright = 4; ?>
+    $colsright = 4;
+    ?>
 
     <form class="form-control-horizontal" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
 
       <div class="card">
         <?php
         $pageHelp = '';
-        if ($C->read('pageHelp')) $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+        if ($C->read('pageHelp')) {
+          $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+        }
         ?>
         <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['config_title'] ?><?= $pageHelp ?></div>
         <div class="card-body">
@@ -116,7 +117,6 @@ view.config
               <div class="card">
                 <div class="card-body">
                   <?php
-                  //                                    prettyDump($LIC->details);
                   echo $LIC->show($LIC->details, true);
                   ?>
                   <?php foreach ($viewData['license'] as $formObject) {
@@ -171,6 +171,9 @@ view.config
                         </div>
                       </div>
                       <?php break;
+
+                    default:
+                      break;
                   } ?>
 
                 </div>
