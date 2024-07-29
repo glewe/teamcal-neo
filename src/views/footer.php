@@ -1,6 +1,8 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
-/**
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
+/*
  * Footer View
  *
  * @author George Lewe <george@lewe.com>
@@ -66,7 +68,9 @@ view.footer
   <div class="container" style="margin-top: 40px">
     <div class="col-lg-12 text-end text-italic xsmall">
       <?= APP_POWERED ?><br>
-      <?php if ($C->read("footerViewport")) { ?><i id="size" class="text-italic xsmall"></i><?php } ?>
+      <?php if ($C->read("footerViewport")) { ?>
+        <i id="size" class="text-italic xsmall"></i>
+      <?php } ?>
     </div>
   </div>
 
