@@ -45,13 +45,13 @@ view.login
                 <div class="form-group row" style="padding-bottom: <?= $paddingBottom ?>;">
                   <label for="inputUsername" class="col-lg-<?= $colsleft ?> control-label"><?= $LANG['login_username'] ?></label>
                   <div class="col-lg-<?= $colsright ?>">
-                    <input id="inputUsername" class="form-control" autofocus="autofocus" tabindex="1" name="uname" type="text" value="<?= (isset($uname)) ? $uname : ""; ?>">
+                    <input id="inputUsername" class="form-control" autofocus="autofocus" name="uname" type="text" value="<?= (isset($uname)) ? $uname : ""; ?>">
                   </div>
                 </div>
                 <div class="form-group row" style="padding-bottom: <?= $paddingBottom ?>;">
                   <label for="pword" class="col-lg-<?= $colsleft ?> control-label"><?= $LANG['login_password'] ?></label>
                   <div class="col-lg-<?= $colsright ?>">
-                    <input class="form-control" id="pword" name="pword" tabindex="2" type="password" autocomplete="off">
+                    <input class="form-control" id="pword" name="pword" type="password" autocomplete="off">
                   </div>
                 </div>
                 <hr>
@@ -67,8 +67,8 @@ view.login
                   <label for="inputSubmit" class="col-lg-<?= $colsleft ?> control-label"></label>
                   <div class="col-lg-<?= $colsright ?>">
                     <input id="inputSubmit" name="btn_login" type="text" value="true" style="visibility: hidden; display: none">
-                    <button type="submit" class="btn btn-primary" tabindex="3" name="submit"><?= $LANG['btn_login'] ?></button>
-                    <a href="index.php?action=passwordrequest" class="btn btn-secondary float-end" tabindex="4"><?= $LANG['btn_reset_password'] ?></a>
+                    <button type="submit" class="btn btn-primary" name="submit"><?= $LANG['btn_login'] ?></button>
+                    <a href="index.php?action=passwordrequest" class="btn btn-secondary float-end"><?= $LANG['btn_reset_password'] ?></a>
                   </div>
                 </div>
               </fieldset>

@@ -118,7 +118,10 @@ view.permissions
                       <?php foreach ($viewData['permgroups'] as $permgroup => $permnames) {
                         $checked = 'checked="checked"';
                         foreach ($permnames as $permname) {
-                          if (!$P->isAllowed($viewData['scheme'], $permname, $role['id'])) $checked = ''; ?>
+                          if (!$P->isAllowed($viewData['scheme'], $permname, $role['id'])) {
+                            $checked = '';
+                          }
+                          ?>
                         <?php } ?>
                         <div class="checkbox">
                           <label><input type="checkbox" name="chk_<?= $permgroup ?>_<?= $role['id'] ?>" value="chk_<?= $permgroup ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= $checked ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><strong><?= $LANG['perm_' . $permgroup . '_title'] ?></strong><br><?= $LANG['perm_' . $permgroup . '_desc'] ?></label>

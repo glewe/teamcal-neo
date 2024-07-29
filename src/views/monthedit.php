@@ -79,7 +79,10 @@ view.monthedit
     </div>
     <div style="height:20px;"></div>
 
-    <?php if (!$viewData['supportMobile']) $mobilecols = array( 'full' => $viewData['dateInfo']['daysInMonth'] );
+    <?php
+    if (!$viewData['supportMobile']) {
+      $mobilecols = array( 'full' => $viewData['dateInfo']['daysInMonth'] );
+    }
     foreach ($mobilecols as $key => $cols) {
       $days = $viewData['dateInfo']['daysInMonth'];
       $tables = ceil($days / $cols);

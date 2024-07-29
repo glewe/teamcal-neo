@@ -194,7 +194,7 @@ view.useredit
               </div>
             <?php } ?>
 
-            <?php if (isAllowed("useraccount") and $viewData['profile'] != "admin") { ?>
+            <?php if (isAllowed("useraccount") && $viewData['profile'] != "admin") { ?>
               <!-- Account tab -->
               <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="account-tab">
                 <div class="card">
@@ -231,7 +231,7 @@ view.useredit
               </div>
             </div>
 
-            <?php if (isAllowed("userabsences") and $viewData['profile'] != "admin") { ?>
+            <?php if (isAllowed("userabsences") && $viewData['profile'] != "admin") { ?>
               <!-- Absences tab -->
               <div class="tab-pane fade" id="absences" role="tabpanel" aria-labelledby="absences-tab">
                 <div class="card">
