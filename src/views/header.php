@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Header View
  *
@@ -13,17 +15,16 @@ if (!defined('VALID_ROOT')) { exit(''); }
  */ ?>
 <!DOCTYPE html>
 <html lang="<?= $LANG['html_locale'] ?>">
-
 <head>
   <!--
-      ===============================================================================
-      Application: <?= APP_NAME . " " . APP_VER . "\n" ?>
-      Author:      <?= APP_AUTHOR . "\n" ?>
-      License:     <?= APP_LICENSE . "\n" ?>
-      Copyright:   <?= APP_COPYRIGHT . "\n" ?>
-                   All rights reserved.
-      ===============================================================================
-      -->
+  ===============================================================================
+  Application: <?= APP_NAME . " " . APP_VER . "\n" ?>
+  Author:      <?= APP_AUTHOR . "\n" ?>
+  License:     <?= APP_LICENSE . "\n" ?>
+  Copyright:   <?= APP_COPYRIGHT . "\n" ?>
+               All rights reserved.
+  ===============================================================================
+  -->
   <title><?= $htmlData['title'] ?></title>
 
   <meta http-equiv="Content-type" content="text/html;charset=utf-8">
@@ -78,9 +79,6 @@ if (!defined('VALID_ROOT')) { exit(''); }
   <?php } else { ?>
     <link rel="stylesheet" href="fonts/font-awesome/<?= FONTAWESOME_VER ?>/css/all.min.css">
   <?php } ?>
-
-  <!-- Popper.js -->
-  <!-- <script src="js/popper.min.js"></script> -->
 
   <!-- jQuery -->
   <?php if ($htmlData['jQueryCDN']) { ?>
@@ -188,7 +186,6 @@ if (!defined('VALID_ROOT')) { exit(''); }
       body {
         padding-top: 0;
       }
-
       .content {
         padding: 5px 0 5px 0;
       }
