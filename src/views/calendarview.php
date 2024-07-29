@@ -20,8 +20,7 @@ view.calendarview
 -->
 <div class="container content" style="padding-left: 4px; padding-right: 4px;<?= ($fontSize = $C->read('calendarFontSize')) ? " font-size:" . $fontSize . "%;" : ""; ?>">
 
-  <?php
-  if ($viewData[ 'calendaronly' ]) {
+  <?php if ($viewData[ 'calendaronly' ]) {
     $formLink = $formLink . '&amp;calendaronly=1';
     foreach ($viewData[ 'months' ] as $vmonth) {
       $M = $vmonth[ 'M' ];
@@ -30,18 +29,20 @@ view.calendarview
       $viewData[ 'dateInfo' ] = $vmonth[ 'dateInfo' ];
       $viewData[ 'dayStyles' ] = $vmonth[ 'dayStyles' ];
       $viewData[ 'businessDays' ] = $vmonth[ 'businessDays' ];
-      require_once "calendarviewmonth.php";
+      require("calendarviewmonth.php");
     }
     ?>
 
   <?php } else { ?>
 
     <?php
-    if (
-      ($showAlert && $C->read("showAlerts") != "none") &&
-      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
-    ) {
-      echo createAlertBox($alertData);
+    if ($showAlert && $C->read("showAlerts") != "none") {
+      if (
+        $C->read("showAlerts") == "all" or
+        $C->read("showAlerts") == "warnings" && ($alertData[ 'type' ] == "warning" or $alertData[ 'type' ] == "danger")
+      ) {
+        echo createAlertBox($alertData);
+      }
     }
     $tabindex = 1;
     $colsleft = 1;
@@ -54,7 +55,7 @@ view.calendarview
       <input name="hidden_region" type="hidden" class="text" value="<?= $viewData[ 'regionid' ] ?>">
       <input name="hidden_showmonths" type="hidden" class="text" value="<?= $showMonths ?>">
       <?php
-      require_once "calendarviewpagemenu.php";
+      require("calendarviewpagemenu.php");
       foreach ($viewData[ 'months' ] as $vmonth) {
         $M = $vmonth[ 'M' ];
         $viewData[ 'month' ] = $vmonth[ 'month' ];
@@ -62,7 +63,7 @@ view.calendarview
         $viewData[ 'dateInfo' ] = $vmonth[ 'dateInfo' ];
         $viewData[ 'dayStyles' ] = $vmonth[ 'dayStyles' ];
         $viewData[ 'businessDays' ] = $vmonth[ 'businessDays' ];
-        require_once "calendarviewmonth.php";
+        require("calendarviewmonth.php");
       }
       ?>
       <?php if ($showMonths < 12) { ?>
@@ -103,7 +104,7 @@ view.calendarview
       <select id="group" class="form-control" name="sel_group" tabindex="<?= $tabindex++ ?>">
         <option value="all" <?= (($viewData[ 'groupid' ] == 'all') ? ' selected="selected"' : '') ?>><?= $LANG[ 'all' ] ?></option>
         <?php foreach ($viewData[ 'allGroups' ] as $grp) {
-          if (isAllowed("calendarviewall") || ($UG->isMemberOrManagerOfGroup($UL->username, $grp[ 'id' ]))) { ?>
+          if (isAllowed("calendarviewall") or ($UG->isMemberOrManagerOfGroup($UL->username, $grp[ 'id' ]))) { ?>
             <option value="<?= $grp[ 'id' ] ?>" <?= (($viewData[ 'groupid' ] == $grp[ 'id' ]) ? ' selected="selected"' : '') ?>><?= $grp[ 'name' ] ?></option>
           <?php }
         } ?>
@@ -152,8 +153,7 @@ view.calendarview
             <div class="modal-footer">
               <button type="submit" class="btn btn-info" tabindex="<?= $tabindex++ ?>" name="btn_search" style="margin-top: 4px;"><?= $LANG[ 'btn_search' ] ?></button>
               <?php if (strlen($viewData[ "search" ])) { ?>
-                <button type="submit" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" name="btn_search_clear"><?= $LANG[ 'btn_clear' ] ?></button>
-              <?php } ?>
+                <button type="submit" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" name="btn_search_clear"><?= $LANG[ 'btn_clear' ] ?></button><?php } ?>
             </div>
           </div>
         </div>
