@@ -179,6 +179,12 @@ div.checkbox input {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#ffe8e8e8', GradientType=0);
 }
 
+.menu-icon {
+  width: 40px !important;
+  text-align: center;
+  float: left;
+}
+
 .panel-heading {
   font-weight: bold;
   font-size: 110%;
