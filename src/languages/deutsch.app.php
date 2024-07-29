@@ -611,11 +611,11 @@ $LANG['decl_value'] = 'Wert';
 //
 // E-Mail
 //
-$LANG['email_subject_absence_approval'] = '%app_name% Abwesenheitsbest�tigung Erforderlich';
+$LANG['email_subject_absence_approval'] = '%app_name% Abwesenheitsbest&auml;tigung Erforderlich';
 $LANG['email_subject_month_created'] = '%app_name% Monat angelegt';
-$LANG['email_subject_month_changed'] = '%app_name% Monat ge�ndert';
-$LANG['email_subject_month_deleted'] = '%app_name% Monat gel�scht';
-$LANG['email_subject_usercal_changed'] = '%app_name% Benutzerkalender ge�ndert';
+$LANG['email_subject_month_changed'] = '%app_name% Monat ge&auml;ndert';
+$LANG['email_subject_month_deleted'] = '%app_name% Monat gel&ouml;scht';
+$LANG['email_subject_usercal_changed'] = '%app_name% Benutzerkalender ge&auml;ndert';
 
 //
 // Group
