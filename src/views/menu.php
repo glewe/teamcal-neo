@@ -162,10 +162,19 @@ view.menu
               <?php } ?>
               <?php if (isAllowed($CONF['controllers']['users']->permission)) { ?>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" tabindex="-1" href="index.php?action=<?= $CONF['controllers']['users']->name ?>"><i class="<?= $CONF['controllers']['users']->faIcon ?> fa-lg text-<?= $CONF['controllers']['users']->iconColor ?> me-3"></i><?= $LANG['mnu_admin_users'] ?></a>
+                <a class="dropdown-item" tabindex="-1" href="index.php?action=<?= $CONF['controllers']['users']->name ?>">
+                  <div class="menu-icon">
+                    <i class="<?= $CONF['controllers']['users']->faIcon ?> fa-lg text-<?= $CONF['controllers']['users']->iconColor ?> me-3"></i>
+                  </div>
+                  <?= $LANG['mnu_admin_users'] ?>
+                </a>
               <?php } ?>
               <?php if (isAllowed($CONF['controllers']['groups']->permission)) { ?>
-                <a class="dropdown-item" tabindex="-1" href="index.php?action=<?= $CONF['controllers']['groups']->name ?>"><i class="<?= $CONF['controllers']['groups']->faIcon ?> fa-lg text-<?= $CONF['controllers']['groups']->iconColor ?> me-3"></i><?= $LANG['mnu_admin_groups'] ?></a>
+                <a class="dropdown-item" tabindex="-1" href="index.php?action=<?= $CONF['controllers']['groups']->name ?>">
+                  <div class="menu-icon">
+                    <i class="<?= $CONF['controllers']['groups']->faIcon ?> fa-lg text-<?= $CONF['controllers']['groups']->iconColor ?> me-3"></i>
+                  </div>
+                  <?= $LANG['mnu_admin_groups'] ?></a>
               <?php } ?>
               <?php if (isAllowed($CONF['controllers']['roles']->permission)) { ?>
                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?= $CONF['controllers']['roles']->name ?>"><i class="<?= $CONF['controllers']['roles']->faIcon ?> fa-lg text-<?= $CONF['controllers']['roles']->iconColor ?> me-3"></i><?= $LANG['mnu_admin_roles'] ?></a>
