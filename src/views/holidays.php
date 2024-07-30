@@ -84,7 +84,7 @@ view.holidays
           <form class="rorm-control-horizontal" name="form_<?= $holiday['id'] ?>" action="index.php?action=<?= $CONF['controllers'][$controller]->name ?>" method="post" target="_self" accept-charset="utf-8">
             <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
               <div class="col-lg-1">
-                <div style="color: #<?= $holiday['color'] ?>; background-color: #<?= $holiday['bgcolor'] ?>; border: 1px solid; width: 26px; height: 26px; text-align: center;">23</div>
+                <div style="color: #<?= $holiday['color'] ?>; background-color: #<?= $holiday['bgcolor'] ?>; border: 1px solid; width: 30px; height: 30px; text-align: center;">23</div>
               </div>
               <div class="col-lg-2"><?= $holiday['name'] ?></div>
               <div class="col-lg-4"><?= $holiday['description'] ?></div>
