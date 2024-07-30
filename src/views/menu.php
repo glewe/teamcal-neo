@@ -348,7 +348,7 @@ view.menu
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="help" aria-haspopup="true" aria-expanded="false"><?= $LANG['mnu_help'] ?><span class="caret"></span></a>
           <div class="dropdown-menu" aria-labelledby="help">
             <?php if ($docLink = $C->read("userManual")) { ?>
-              <a class="dropdown-item" tabindex="-1" href="<?= urldecode($docLink) ?>" target="_blank">
+              <a class="dropdown-item" tabindex="-1" href="<?= urldecode($docLink) ?>" target="_blank" rel="noopener">
                 <span class="menu-icon">
                   <i class="fas fa-book fa-lg text-<?= $CONF['menuIconColor'] ?>"></i>
                 </span>
