@@ -160,39 +160,39 @@ view.log
                     ?>
                     <!-- First Page Link -->
                     <?php if ($page == 1) { ?>
-                      <li class="mr-1"><span aria-hidden="true"><i class="fas fa-angle-double-left fa-border text-light"></i></span></li>
+                      <li class="me-1"><span aria-hidden="true"><i class="fas fa-angle-double-left fa-border text-light p-2"></i></span></li>
                     <?php } else { ?>
-                      <li class="mr-1"><a href="<?= $formLink ?>&amp;page=1" title="<?= $LANG['page_first'] ?>"><span><i class="fas fa-angle-double-left fa-border"></i></span></a></li>
+                      <li class="me-1"><a href="<?= $formLink ?>&amp;page=1" title="<?= $LANG['page_first'] ?>"><span><i class="fas fa-angle-double-left fa-border p-2"></i></span></a></li>
                     <?php } ?>
 
                     <!-- Previous Page Link -->
                     <?php if ($page == 1) { ?>
-                      <li><span><span aria-hidden="true"><i class="fas fa-angle-left fa-border text-light"></i></span></span></li>
+                      <li class="me-1"><span><span aria-hidden="true"><i class="fas fa-angle-left fa-border text-light p-2"></i></span></span></li>
                     <?php } else { ?>
-                      <li><a href="<?= $formLink ?>&amp;page=<?= $page - 1 ?>" title="<?= $LANG['page_prev'] ?>"><span><i class="fas fa-angle-left fa-border"></i></span></a></li>
+                      <li class="me-1"><a href="<?= $formLink ?>&amp;page=<?= $page - 1 ?>" title="<?= $LANG['page_prev'] ?>"><span><i class="fas fa-angle-left fa-border p-2"></i></span></a></li>
                     <?php } ?>
 
                     <!-- Page Link -->
                     <?php for ($p = 1; $p <= $pages; $p++) {
                       if ($p == $page) { ?>
-                        <li class="active pl-3 pr-3"><span><?= $p ?><span class="sr-only">(current)</span></span></li>
+                        <li class="active px-3 py-1"><span><?= $p ?><span class="sr-only">(current)</span></span></li>
                       <?php } else { ?>
-                        <li class="pl-3 pr-3"><a href="<?= $formLink ?>&amp;page=<?= $p ?>" title="<?= sprintf($LANG['page_page'], $p) ?>"><span><?= $p ?></span></a></li>
+                        <li class="px-3 py-1"><a href="<?= $formLink ?>&amp;page=<?= $p ?>" title="<?= sprintf($LANG['page_page'], $p) ?>"><span><?= $p ?></span></a></li>
                       <?php }
                     } ?>
 
                     <!-- Next Page Link -->
                     <?php if ($page == $pages) { ?>
-                      <li class="mr-1"><span><span aria-hidden="true"><i class="fas fa-angle-right fa-border text-light"></i></span></span></li>
+                      <li class="me-1"><span><span aria-hidden="true"><i class="fas fa-angle-right fa-border text-light p-2"></i></span></span></li>
                     <?php } else { ?>
-                      <li class="mr-1"><a href="<?= $formLink ?>&amp;page=<?= $page + 1 ?>" title="<?= $LANG['page_next'] ?>"><span><i class="fas fa-angle-right fa-border"></i></span></a></li>
+                      <li class="me-1"><a href="<?= $formLink ?>&amp;page=<?= $page + 1 ?>" title="<?= $LANG['page_next'] ?>"><span><i class="fas fa-angle-right fa-border p-2"></i></span></a></li>
                     <?php } ?>
 
                     <!-- Last Page Link -->
                     <?php if ($page == $pages) { ?>
-                      <li><span><span aria-hidden="true"><i class="fas fa-angle-double-right fa-border text-light"></i></span></span></li>
+                      <li><span><span aria-hidden="true"><i class="fas fa-angle-double-right fa-border text-light p-2"></i></span></span></li>
                     <?php } else { ?>
-                      <li><a href="<?= $formLink ?>&amp;page=<?= $pages ?>" title="<?= $LANG['page_last'] ?>"><span><i class="fas fa-angle-double-right fa-border"></i></span></a></li>
+                      <li><a href="<?= $formLink ?>&amp;page=<?= $pages ?>" title="<?= $LANG['page_last'] ?>"><span><i class="fas fa-angle-double-right fa-border p-2"></i></span></a></li>
                     <?php } ?>
                   </ul>
 

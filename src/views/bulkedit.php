@@ -67,7 +67,7 @@ view.bulkedit
               <div class="col-lg-2">
                 <label>&nbsp;</label><br>
                 <button type="submit" class="btn btn-info" tabindex="<?= $tabindex++ ?>" name="btn_load"><?= $LANG['btn_load'] ?></button>
-                <button type="submit" class="btn btn-dark" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
+                <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
               </div>
               <div class="col-lg-2 text-end">
                 <label>&nbsp;</label><br>
