@@ -84,7 +84,7 @@ view.absences
                     $bgstyle = "background-color: #" . $absence['bgcolor'] . ";";
                   }
                   ?>
-                  <div style="color: #<?= $absence['color'] ?>;<?= $bgstyle ?>border: 1px solid #333333; width: 26px; height: 26px; text-align: center; padding-top: 2px;">
+                  <div style="color: #<?= $absence['color'] ?>;<?= $bgstyle ?>border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px;">
                     <?php if ($absence['icon'] != "No") { ?>
                       <span class="<?= $absence['icon'] ?>"></span>
                     <?php } else { ?>
@@ -122,7 +122,7 @@ view.absences
                 <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                   <div class="col-lg-1 text-end"><i class="fas fa-angle-double-right"></i></div>
                   <div class="col-lg-1">
-                    <div style="color: #<?= $subabs['color'] ?>; background-color: #<?= $subabs['bgcolor'] ?>; border: 1px solid #333333; width: 26px; height: 26px; text-align: center; padding-top: 2px;">
+                    <div style="color: #<?= $subabs['color'] ?>; background-color: #<?= $subabs['bgcolor'] ?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px;">
                       <span class="<?= $subabs['icon'] ?>"></span>
                     </div>
                   </div>
