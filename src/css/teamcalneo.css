@@ -180,9 +180,8 @@ div.checkbox input {
 }
 
 .menu-icon {
-  width: 40px !important;
-  text-align: center;
-  float: left;
+  display: inline-block;
+  width: 30px !important;
 }
 
 .panel-heading {
