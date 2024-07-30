@@ -2019,7 +2019,8 @@ class Securimage
                 if ($x >= 0 && $x < $width2 && $y >= 0 && $y < $height2) {
                     $c = imagecolorat($this->tmpimg, $x, $y);
                 }
-                if ($c != $bgCol) { // only copy pixels of letters to preserve any background image
+                if ($c != $bgCol) {
+                    // only copy pixels of letters to preserve any background image
                     imagesetpixel($this->im, $ix, $iy, $c);
                 }
             }
@@ -2199,7 +2200,7 @@ class Securimage
             $length = strlen($code['display']);
 
             for($i = 0; $i < $length; ++$i) {
-                $letter    = $code['display']{$i};
+                $letter    = $code['display'][$i];
                 $letters[] = $letter;
             }
         }
