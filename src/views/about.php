@@ -46,29 +46,30 @@ view.about
           <h4><?= APP_NAME ?></h4>
           <p>
             <strong><?= $LANG['about_version'] ?>:</strong>&nbsp;&nbsp;<?= APP_VER ?><span id="versioncompare"></span><br>
-            <strong><?= $LANG['about_copyright'] ?>:</strong>&nbsp;&nbsp;&copy;&nbsp;<?= APP_YEAR ?> by <a class="about" href="http://www.lewe.com/" target="_blank"><?= APP_AUTHOR ?></a><br>
+            <strong><?= $LANG['about_copyright'] ?>:</strong>&nbsp;&nbsp;&copy;&nbsp;<?= APP_YEAR ?> by <a class="about" href="https://www.lewe.com/" target="_blank"><?= APP_AUTHOR ?></a><br>
             <strong><?= $LANG['about_license'] ?>:</strong>&nbsp;&nbsp;<a class="about" href="https://lewe.gitbook.io/teamcal-neo/readme/teamcal-neo-license" target="_blank"><?= $LANG['license'] ?></a><br>
             <strong><?= $LANG['about_support'] ?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/servicedesk/customer/portal/5" target="_blank">Lewe Service Desk</a><br>
             <strong><?= $LANG['about_documentation'] ?>:</strong>&nbsp;&nbsp;<a class="about" href="https://lewe.gitbook.io/teamcal-neo/" target="_blank">TeamCal Neo User Manual</a><br>
           </p>
           <h4><?= $LANG['about_credits'] ?>:</h4>
           <ul>
-            <li>Bootstrap Team <?= $LANG['about_for'] ?> <a href="http://getbootstrap.com/" target="_blank">Bootstrap Framework <?= BOOTSTRAP_VER ?></a></li>
-            <li>Thomas Park <?= $LANG['about_for'] ?> <a href="http://bootswatch.com/" target="_blank">Bootswatch Themes</a></li>
+            <li>Bootstrap Team <?= $LANG['about_for'] ?> <a href="https://getbootstrap.com/" target="_blank">Bootstrap Framework <?= BOOTSTRAP_VER ?></a></li>
+            <li>Thomas Park <?= $LANG['about_for'] ?> <a href="https://bootswatch.com/" target="_blank">Bootswatch Themes</a></li>
             <?php if (CHARTJS) { ?>
-              <li>Nick Downie <?= $LANG['about_for'] ?> <a href="http://www.chartjs.org/" target="_blank" rel="noopener">Chart.js <?= CHARTJS_VER ?></a></li>
+              <li>Nick Downie <?= $LANG['about_for'] ?> <a href="https://www.chartjs.org/" target="_blank" rel="noopener">Chart.js <?= CHARTJS_VER ?></a></li>
             <?php } ?>
             <?php if (CKEDITOR) { ?>
-              <li>CKSource <?= $LANG['about_for'] ?> <a href="http://ckeditor.com/" target="_blank" rel="noopener">CKEditor <?= CKEDITOR_VER ?></a></li>
+              <li>CKSource <?= $LANG['about_for'] ?> <a href="https://ckeditor.com/" target="_blank" rel="noopener">CKEditor <?= CKEDITOR_VER ?></a></li>
             <?php } ?>
-            <li>Dave Gandy <?= $LANG['about_for'] ?> <a href="http://fontawesome.com/" target="_blank">Font Awesome <?= FONTAWESOME_VER ?></a></li>
+            <li>SpryMedia Ltd. <?= $LANG['about_for'] ?> <a href="https://datatables.net/" target="_blank">DataTables <?= DATATABLES_VER ?></a></li>
+            <li>Dave Gandy <?= $LANG['about_for'] ?> <a href="https://fontawesome.com/" target="_blank">Font Awesome <?= FONTAWESOME_VER ?></a></li>
             <li>Google Team <?= $LANG['about_for'] ?> <a href="https://www.google.com/fonts/" target="_blank">Google Fonts</a></li>
-            <li>jQuery Team <?= $LANG['about_for'] ?> <a href="http://www.jquery.com/" target="_blank">jQuery <?= JQUERY_VER ?></a> <?= $LANG['about_and'] ?> <a href="http://www.jqueryui.com/" target="_blank">jQuery UI <?= JQUERY_UI_VER ?></a></li>
-            <li>Stefan Petre <?= $LANG['about_for'] ?> <a href="http://www.eyecon.ro/colorpicker/" target="_blank">jQuery Color Picker</a></li>
-            <li>Dimitri Semenov <?= $LANG['about_for'] ?> <a href="http://dimsemenov.com/plugins/magnific-popup/" target="_blank">Magnific Popup <?= MAGNIFICPOPUP_VER ?></a></li>
+            <li>jQuery Team <?= $LANG['about_for'] ?> <a href="https://www.jquery.com/" target="_blank">jQuery <?= JQUERY_VER ?></a> <?= $LANG['about_and'] ?> <a href="http://www.jqueryui.com/" target="_blank">jQuery UI <?= JQUERY_UI_VER ?></a></li>
+            <li>Stefan Petre <?= $LANG['about_for'] ?> <a href="https://www.eyecon.ro/colorpicker/" target="_blank">jQuery Color Picker</a></li>
+            <li>Dimitri Semenov <?= $LANG['about_for'] ?> <a href="https://dimsemenov.com/plugins/magnific-popup/" target="_blank">Magnific Popup <?= MAGNIFICPOPUP_VER ?></a></li>
             <li>Drew Phillips <?= $LANG['about_for'] ?> <a href="https://www.phpcaptcha.org/" target="_blank">SecureImage <?= SECUREIMAGE_VER ?></a></li>
             <li>Ahkâm <?= $LANG['about_for'] ?> the beautiful <a href="https://www.freeiconspng.com/img/4109" target="_blank">Calendar Icon</a></li>
-            <li>Iconshock Team <?= $LANG['about_for'] ?> <a href="http://www.iconshock.com/icon_sets/vector-user-icons/" target="_blank">User Icons</a></li>
+            <li>Iconshock Team <?= $LANG['about_for'] ?> <a href="https://www.iconshock.com/icon_sets/vector-user-icons/" target="_blank">User Icons</a></li>
             <?php if (SELECT2) { ?>
               <li>Kevin Brown &amp; Igor Vaynberg <?= $LANG['about_for'] ?> <a href="https://select2.github.io/" target="_blank" rel="noopener">Select2 <?= SELECT2_VER ?></a></li>
             <?php } ?>
