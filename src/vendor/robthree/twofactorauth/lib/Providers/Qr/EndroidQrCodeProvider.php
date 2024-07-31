@@ -26,9 +26,12 @@ class EndroidQrCodeProvider implements IQRCodeProvider
 
     protected $endroid4 = false;
 
+    protected $endroid5 = false;
+
     public function __construct($bgcolor = 'ffffff', $color = '000000', $margin = 0, $errorcorrectionlevel = 'H')
     {
         $this->endroid4 = method_exists(QrCode::class, 'create');
+        $this->endroid5 = enum_exists(ErrorCorrectionLevel::class);
 
         $this->bgcolor = $this->handleColor($bgcolor);
         $this->color = $this->handleColor($color);
@@ -41,19 +44,19 @@ class EndroidQrCodeProvider implements IQRCodeProvider
         return 'image/png';
     }
 
-    public function getQRCodeImage(string $qrtext, int $size): string
+    public function getQRCodeImage(string $qrText, int $size): string
     {
         if (!$this->endroid4) {
-            return $this->qrCodeInstance($qrtext, $size)->writeString();
+            return $this->qrCodeInstance($qrText, $size)->writeString();
         }
 
         $writer = new PngWriter();
-        return $writer->write($this->qrCodeInstance($qrtext, $size))->getString();
+        return $writer->write($this->qrCodeInstance($qrText, $size))->getString();
     }
 
-    protected function qrCodeInstance(string $qrtext, int $size): QrCode
+    protected function qrCodeInstance(string $qrText, int $size): QrCode
     {
-        $qrCode = new QrCode($qrtext);
+        $qrCode = new QrCode($qrText);
         $qrCode->setSize($size);
 
         $qrCode->setErrorCorrectionLevel($this->errorcorrectionlevel);
@@ -64,7 +67,7 @@ class EndroidQrCodeProvider implements IQRCodeProvider
         return $qrCode;
     }
 
-    private function handleColor(string $color): Color
+    private function handleColor(string $color): Color|array
     {
         $split = str_split($color, 2);
         $r = hexdec($split[0]);
@@ -74,18 +77,34 @@ class EndroidQrCodeProvider implements IQRCodeProvider
         return $this->endroid4 ? new Color($r, $g, $b, 0) : array('r' => $r, 'g' => $g, 'b' => $b, 'a' => 0);
     }
 
-    private function handleErrorCorrectionLevel(string $level): ErrorCorrectionLevelInterface
+    private function handleErrorCorrectionLevel(string $level): ErrorCorrectionLevelInterface|ErrorCorrectionLevel
     {
-        switch ($level) {
-            case 'L':
-                return $this->endroid4 ? new ErrorCorrectionLevelLow() : ErrorCorrectionLevel::LOW();
-            case 'M':
-                return $this->endroid4 ? new ErrorCorrectionLevelMedium() : ErrorCorrectionLevel::MEDIUM();
-            case 'Q':
-                return $this->endroid4 ? new ErrorCorrectionLevelQuartile() : ErrorCorrectionLevel::QUARTILE();
-            case 'H':
-            default:
-                return $this->endroid4 ? new ErrorCorrectionLevelHigh() : ErrorCorrectionLevel::HIGH();
+        // First check for version 5 (using enums)
+        if ($this->endroid5) {
+            return match ($level) {
+                'L' => ErrorCorrectionLevel::Low,
+                'M' => ErrorCorrectionLevel::Medium,
+                'Q' => ErrorCorrectionLevel::Quartile,
+                default => ErrorCorrectionLevel::High,
+            };
         }
+
+        // If not check for version 4 (using classes)
+        if ($this->endroid4) {
+            return match ($level) {
+                'L' => new ErrorCorrectionLevelLow(),
+                'M' => new ErrorCorrectionLevelMedium(),
+                'Q' => new ErrorCorrectionLevelQuartile(),
+                default => new ErrorCorrectionLevelHigh(),
+            };
+        }
+
+        // Any other version will be using strings
+        return match ($level) {
+            'L' => ErrorCorrectionLevel::LOW(),
+            'M' => ErrorCorrectionLevel::MEDIUM(),
+            'Q' => ErrorCorrectionLevel::QUARTILE(),
+            default => ErrorCorrectionLevel::HIGH(),
+        };
     }
 }

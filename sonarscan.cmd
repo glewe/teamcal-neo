@@ -2,7 +2,7 @@
 ::  SonarQube Scan
 ::  ---------------------------------------------------------------------------
 ::  Requires a local SonarQube and Sonar Scanner installation.
-::  This script expects a sonar.properties file in the same directory.
+::  This script expects a sonar-project.properties file in the same directory.
 :: ============================================================================
 ::
 @echo off
