@@ -5,7 +5,7 @@
 [![PHP](https://img.shields.io/badge/Language-PHP-8892BF.svg)](https://www.php.net/)
 ![Support](https://img.shields.io/badge/Support-Yes-green.svg)
 ![SonarQube](https://img.shields.io/badge/SonarQube-passed-darkgreen.svg)
-![DependencyTrack](https://img.shields.io/badge/DependencyTrack-nov_uln-blue.svg)
+![DependencyTrack](https://img.shields.io/badge/DependencyTrack-no_vuln-blue.svg)
 
 TeamCal Neo is a web application of a day-based calendar. It's generic purpose is the absence and event management of employees, project teams, music bands and other groups needing a scheduler.
 
