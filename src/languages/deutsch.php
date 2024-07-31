@@ -17,7 +17,7 @@ if (!defined('VALID_ROOT')) {
 //=============================================================================
 //
 // LeAF LANGUAGE
-// The following are the Lewe Appliation Framework language entries. To easier
+// The following are the Lewe Application Framework language entries. To easier
 // update the framework at a later point, go to the bottom of this file to
 // enter your application language strings to keep them separate.
 //

@@ -91,40 +91,62 @@ view.users
               <div class="card">
                 <div class="card-body">
 
-                  <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight: bold;">
-                    <div class="col-lg-4"><?= $LANG['users_user'] ?></div>
-                    <div class="col-lg-2"><?= $LANG['users_attributes'] ?></div>
-                    <div class="col-lg-2"><?= $LANG['users_created'] ?></div>
-                    <div class="col-lg-2"><?= $LANG['users_last_login'] ?></div>
-                    <div class="col-lg-2 text-end"><?= $LANG['action'] ?></div>
-                  </div>
-
-                  <?php foreach ($viewData['users'] as $user) { ?>
-                    <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-                      <div class="col-lg-4">
-                        <?php if ($user['username'] != "admin") { ?>
-                          <input type="checkbox" name="chk_userActive[]" value="<?= $user['username'] ?>">&nbsp;&nbsp;
-                        <?php } else { ?>
-                          <span style="padding-left: 16px;">&nbsp;</span>
-                        <?php } ?>
-                        <i data-placement="top" data-type="info" data-bs-toggle="tooltip" data-title="<img src='<?= APP_AVATAR_DIR . $UO->read($user['username'], 'avatar') ?>' style='width: 80px; height: 80px;'>"><img src="<?= APP_AVATAR_DIR ?>/<?= $UO->read($user['username'], 'avatar') ?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?= $user['dispname'] ?>
-                      </div>
-                      <div class="col-lg-2">
-                        <a href="#" data-placement="top" data-type="info" data-bs-toggle="tooltip" title="<?= $LANG['role'] ?>: <?= $user['role'] ?>"><i class="fas fa-user-circle fa-sm text-<?= $user['color'] ?>"></i></a>
-                        <?= (($user['locked']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_locked'] . '"><i class="fas fa-lock fa-sm text-danger"></i></i>' : '') ?>
-                        <?= (($user['onhold']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_onhold'] . '"><i class="far fa-clock fa-sm text-warning"></i></i>' : '') ?>
-                        <?= (($user['verify']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_verify'] . '"><i class="fas fa-exclamation-circle fa-sm text-success"></i></i>' : '') ?>
-                        <?= (($user['hidden']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_hidden'] . '"><i class="far fa-eye-slash fa-sm text-info"></i></i>' : '') ?>
-                        <?= (($UO->read($user['username'], 'secret')) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_secret'] . '"><i class="fa fa-shield fa-sm text-secondary"></i></i>' : '') ?>
-                      </div>
-                      <div class="col-lg-2"><?= $user['created'] ?></div>
-                      <div class="col-lg-2"><?= (($user['last_login'] != DEFAULT_TIMESTAMP) ? $user['last_login'] : "") ?></div>
-                      <div class="col-lg-2 text-end">
-                        <a href="index.php?action=viewprofile&amp;profile=<?= $user['username'] ?>" class="btn btn-secondary btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_view'] ?></a>
-                        <a href="index.php?action=useredit&amp;profile=<?= $user['username'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
-                      </div>
-                    </div>
-                  <?php } ?>
+                  <table id="dataTableUsers" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+                    <thead>
+                    <tr>
+                      <th class="text-center"><i class="fas fa-check"></i></th>
+                      <th><?= $LANG['users_user'] ?></th>
+                      <th><?= $LANG['users_attributes'] ?></th>
+                      <th><?= $LANG['users_created'] ?></th>
+                      <th><?= $LANG['users_last_login'] ?></th>
+                      <th class="text-center"><?= $LANG['action'] ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($viewData['users'] as $user) : ?>
+                      <tr>
+                        <td class="align-top text-center">
+                          <?php if ($user['username'] != "admin") { ?>
+                            <input type="checkbox" name="chk_userActive[]" value="<?= $user['username'] ?>">&nbsp;&nbsp;
+                          <?php } ?>
+                        </td>
+                        <td class="align-top">
+                          <i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" data-bs-title="<img src='<?= APP_AVATAR_DIR . $UO->read($user['username'], 'avatar') ?>' style='width: 80px; height: 80px;'>"><img src="<?= APP_AVATAR_DIR ?>/<?= $UO->read($user['username'], 'avatar') ?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?= $user['dispname'] ?>
+                        </td>
+                        <td class="align-top">
+                          <a href="#" data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="<?= $LANG['role'] ?>: <?= $user['role'] ?>"><i class="fas fa-user-circle fa-sm text-<?= $user['color'] ?>"></i></a>
+                          <?= (($user['locked']) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_locked'] . '"><i class="fas fa-lock fa-sm text-danger"></i></i>' : '') ?>
+                          <?= (($user['onhold']) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_onhold'] . '"><i class="far fa-clock fa-sm text-warning"></i></i>' : '') ?>
+                          <?= (($user['verify']) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_verify'] . '"><i class="fas fa-exclamation-circle fa-sm text-success"></i></i>' : '') ?>
+                          <?= (($user['hidden']) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_hidden'] . '"><i class="far fa-eye-slash fa-sm text-info"></i></i>' : '') ?>
+                          <?= (($UO->read($user['username'], 'secret')) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_secret'] . '"><i class="fa fa-shield fa-sm text-secondary"></i></i>' : '') ?>
+                        </td>
+                        <td class="align-top"><?= $user['created'] ?></td>
+                        <td class="align-top"><?= (($user['last_login'] != DEFAULT_TIMESTAMP) ? $user['last_login'] : "") ?></td>
+                        <td class="align-top text-center">
+                          <a href="index.php?action=viewprofile&amp;profile=<?= $user['username'] ?>" class="btn btn-secondary btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_view'] ?></a>
+                          <a href="index.php?action=useredit&amp;profile=<?= $user['username'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                  </table>
+                  <script>
+                    $(document).ready(function () {
+                      $('#dataTableUsers').DataTable({
+                        paging: true,
+                        ordering: true,
+                        info: true,
+                        pageLength: 50,
+                        language: {
+                          url: 'addons/datatables/datatables.<?= $LANG['locale'] ?>.json'
+                        },
+                        columnDefs: [
+                          {targets: [0, 2, 5], orderable: false, searchable: false}
+                        ]
+                      });
+                    });
+                  </script>
 
                   <div class="row" style="margin-top: 10px; padding-bottom: 0px;">
                     <div class="col-lg-2">
@@ -165,7 +187,6 @@ view.users
 
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -175,63 +196,86 @@ view.users
               <div class="card">
                 <div class="card-body">
 
-                  <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight: bold;">
-                    <div class="col-lg-4"><?= $LANG['users_user'] ?></div>
-                    <div class="col-lg-2"><?= $LANG['users_attributes'] ?></div>
-                    <div class="col-lg-2"><?= $LANG['users_created'] ?></div>
-                    <div class="col-lg-2"><?= $LANG['users_last_login'] ?></div>
-                    <div class="col-lg-2 text-end"><?= $LANG['action'] ?></div>
-                  </div>
-
-                  <?php foreach ($viewData['users1'] as $user1) { ?>
-                    <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-                      <div class="col-lg-4">
-                        <?php if ($user1['username'] != "admin") { ?><input type="checkbox" name="chk_userArchived[]" value="<?= $user1['username'] ?>">&nbsp;&nbsp;<?php } ?>
-                        <i data-placement="top" data-type="info" data-bs-toggle="tooltip" data-title="<img src='<?= APP_AVATAR_DIR . $UO->read($user1['username'], 'avatar', true) ?>' style='width: 80px; height: 80px;'>"><img src="<?= APP_AVATAR_DIR ?>/<?= $UO->read($user1['username'], 'avatar', true) ?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?= $user1['dispname'] ?>
-                      </div>
-                      <div class="col-lg-2">
-                        <i data-placement="top" data-type="info" data-bs-toggle="tooltip" data-title="<?= $LANG['role'] ?>: <?= $user1['role'] ?>"><i class="fas fa-user-circle fa-sm text-<?= $user1['color'] ?>"></i></i>
-                        <?= (($user1['locked']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" data-title="' . $LANG['users_attribute_locked'] . '"><i class="fas fa-lock fa-sm text-danger"></i></i>' : '') ?>
-                        <?= (($user1['onhold']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" data-title="' . $LANG['users_attribute_onhold'] . '"><i class="far fa-clock fa-sm text-warning"></i></i>' : '') ?>
-                        <?= (($user1['verify']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" data-title="' . $LANG['users_attribute_verify'] . '"><i class="fas fa-exclamation-circle fa-sm text-success"></i></i>' : '') ?>
-                        <?= (($user1['hidden']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" data-title="' . $LANG['users_attribute_hidden'] . '"><i class="far fa-eye-slash fa-sm text-info"></i></i>' : '') ?>
-                      </div>
-                      <div class="col-lg-2"><?= $user1['created'] ?></div>
-                      <div class="col-lg-2"><?= $user1['last_login'] ?></div>
-                    </div>
-                  <?php } ?>
+                  <table id="dataTableUsersArchived" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+                    <thead>
+                    <tr>
+                      <th class="text-center"><i class="fas fa-check"></i></th>
+                      <th><?= $LANG['users_user'] ?></th>
+                      <th><?= $LANG['users_attributes'] ?></th>
+                      <th><?= $LANG['users_created'] ?></th>
+                      <th><?= $LANG['users_last_login'] ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($viewData['users1'] as $user1) : ?>
+                      <tr>
+                        <td class="align-top text-center">
+                          <?php if ($user1['username'] != "admin") { ?>
+                            <input type="checkbox" name="chk_userArchived[]" value="<?= $user1['username'] ?>">&nbsp;&nbsp;
+                          <?php } ?>
+                        </td>
+                        <td class="align-top">
+                          <i class="me-2" data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" data-bs-title="<img src='<?= APP_AVATAR_DIR . $UO->read($user1['username'], 'avatar', true) ?>' style='width: 80px; height: 80px;'>">
+                            <img src="<?= APP_AVATAR_DIR ?>/<?= $UO->read($user1['username'], 'avatar', true) ?>" alt="" style="width: 16px; height: 16px;">
+                          </i><?= $user1['dispname'] ?>
+                        </td>
+                        <td class="align-top">
+                          <a href="#" data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="<?= $LANG['role'] ?>: <?= $user1['role'] ?>"><i class="fas fa-user-circle fa-sm text-<?= $user1['color'] ?>"></i></a>
+                          <?= (($user1['locked']) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_locked'] . '"><i class="fas fa-lock fa-sm text-danger"></i></i>' : '') ?>
+                          <?= (($user1['onhold']) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_onhold'] . '"><i class="far fa-clock fa-sm text-warning"></i></i>' : '') ?>
+                          <?= (($user1['verify']) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_verify'] . '"><i class="fas fa-exclamation-circle fa-sm text-success"></i></i>' : '') ?>
+                          <?= (($user1['hidden']) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_hidden'] . '"><i class="far fa-eye-slash fa-sm text-info"></i></i>' : '') ?>
+                          <?= (($UO->read($user1['username'], 'secret')) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_secret'] . '"><i class="fa fa-shield fa-sm text-secondary"></i></i>' : '') ?>
+                        </td>
+                        <td class="align-top"><?= $user1['created'] ?></td>
+                        <td class="align-top"><?= $user1['last_login'] ?></td>
+                      </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                  </table>
+                  <script>
+                    //
+                    // DataTables init
+                    //
+                    $(document).ready(function () {
+                      $('#dataTableUsersArchived').DataTable({
+                        paging: true,
+                        ordering: true,
+                        info: true,
+                        pageLength: 50,
+                        language: {
+                          url: 'addons/datatables/datatables.en-GB.json'
+                        },
+                        columnDefs: [
+                          {targets: [0, 2], orderable: false, searchable: false}
+                        ]
+                      });
+                    });
+                  </script>
 
                   <div class="row" style="margin-top: 10px; padding-bottom: 0px;">
                     <div class="col-lg-2">
                       <div class="checkbox"><label><input type="checkbox" name="chk_selectAllArchived" id="chk_selectAllArchived"><?= $LANG['select_all'] ?></label></div>
                     </div>
                     <div class="col-lg-10 text-end">
-
                       <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalRestoreArchived"><?= $LANG['btn_restore_selected'] ?></button>
                       <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteArchived"><?= $LANG['btn_delete_selected'] ?></button>
-
                       <!-- Modal: Delete archived -->
                       <?= createModalTop('modalDeleteArchived', $LANG['modal_confirm']) ?>
                       <?= $LANG['users_confirm_delete'] ?>
                       <?= createModalBottom('btn_profileDeleteArchived', 'danger', $LANG['btn_delete_selected']) ?>
-
                       <!-- Modal: Restore archived -->
                       <?= createModalTop('modalRestoreArchived', $LANG['modal_confirm']) ?>
                       <?= $LANG['users_confirm_restore'] ?>
                       <?= createModalBottom('btn_profileRestore', 'warning', $LANG['btn_restore_selected']) ?>
-
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
-
           </div>
-
         </div>
       </div>
-
     </form>
   </div>
 </div>
