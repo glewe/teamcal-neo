@@ -131,14 +131,14 @@ view.log
 
                   <?php if (count($viewData['events'])) :
                     $i = 1; ?>
-                    <table id="dataList" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+                    <table id="dataTableLog" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
                       <thead>
                       <tr>
                         <th class="text-end" data-ordering="false">#</th>
-                        <th class="text-start"><i class="far fa-clock fa-lg me-3" title="<?= $LANG['log_header_when'] ?>"></i>Time</th>
-                        <th data-ordering="true"><i class="far fa-folder fa-lg me-3" title="<?= $LANG['log_header_type'] ?>"></i>Type</th>
-                        <th data-ordering="true"><i class="far fa-user fa-lg me-3" title="<?= $LANG['log_header_user'] ?>"></i>User</th>
-                        <th data-ordering="true"><i class="far fa-edit fa-lg me-3" title="<?= $LANG['log_header_event'] ?>"></i>Event</th>
+                        <th class="text-start"><i class="far fa-clock fa-lg me-3"></i><?= $LANG['log_header_when'] ?></th>
+                        <th data-ordering="true"><i class="far fa-folder fa-lg me-3"></i><?= $LANG['log_header_type'] ?></th>
+                        <th data-ordering="true"><i class="far fa-user fa-lg me-3"></i><?= $LANG['log_header_user'] ?></th>
+                        <th data-ordering="true"><i class="far fa-edit fa-lg me-3"></i><?= $LANG['log_header_event'] ?></th>
                       </tr>
                       </thead>
                       <tbody>
@@ -160,7 +160,7 @@ view.log
                       // DataTables init
                       //
                       $(document).ready(function () {
-                        $('#dataList').DataTable({
+                        $('#dataTableLog').DataTable({
                           paging: true,
                           ordering: true,
                           info: true,
