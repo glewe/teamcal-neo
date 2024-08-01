@@ -31,7 +31,6 @@ class Log {
    */
   public function __construct() {
     global $C, $CONF, $DB;
-    $this->C = $C;
     $this->db = $DB->db;
     $this->table = $CONF['db_table_log'];
   }
@@ -101,15 +100,15 @@ class Log {
    * @return boolean Query result
    */
   public function logEvent($type, $user, $event, $object = '') {
-    if (!strlen($this->C->read("logLanguage"))) {
+    if (!strlen($C->read("logLanguage"))) {
       $loglang = 'english';
     }
     else {
-      $loglang = $this->C->read("logLanguage");
+      $loglang = $C->read("logLanguage");
     }
     require_once WEBSITE_ROOT . "/languages/" . $loglang . ".log.php";
     $myEvent = $LANG[$event] . $object;
-    if ($this->C->read($type)) {
+    if ($C->read($type)) {
       $ts = date("YmdHis");
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (type, timestamp, user, event) VALUES (:val1, :val2, :val3, :val4)');
       $query->bindParam('val1', $type);
