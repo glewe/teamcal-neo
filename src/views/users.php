@@ -79,17 +79,21 @@ view.users
           </div>
           <div style="height:20px;"></div>
 
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item"><a class="nav-link active" id="tabActive-tab" href="#tabActive" data-bs-toggle="tab" role="tab" aria-controls="tabActive" aria-selected="true"><?= $LANG['users_tab_active'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tabArchived-tab" href="#tabArchived" data-bs-toggle="tab" role="tab" aria-controls="tabArchived" aria-selected="false"><?= $LANG['users_tab_archived'] ?></a></li>
-          </ul>
 
-          <div id="myTabContent" class="tab-content">
+          <div class="card">
 
-            <!-- Active tab -->
-            <div class="tab-pane fade show active" id="tabActive" role="tabpanel" aria-labelledby="tabActive-tab">
-              <div class="card">
-                <div class="card-body">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation"><a class="nav-link active" id="tabActive-tab" href="#tabActive" data-bs-toggle="tab" role="tab" aria-controls="tabActive" aria-selected="true"><?= $LANG['users_tab_active'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tabArchived-tab" href="#tabArchived" data-bs-toggle="tab" role="tab" aria-controls="tabArchived" aria-selected="false"><?= $LANG['users_tab_archived'] ?></a></li>
+              </ul>
+            </div>
+
+            <div class="card-body">
+              <div class="tab-content" id="myTabContent">
+
+                <!-- Active tab -->
+                <div class="tab-pane fade show active" id="tabActive" role="tabpanel" aria-labelledby="tabActive-tab">
 
                   <table id="dataTableUsers" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
                     <thead>
@@ -188,13 +192,9 @@ view.users
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <!-- Archived tab -->
-            <div class="tab-pane fade" id="tabArchived" role="tabpanel" aria-labelledby="tabArchived-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Archived tab -->
+                <div class="tab-pane fade" id="tabArchived" role="tabpanel" aria-labelledby="tabArchived-tab">
 
                   <table id="dataTableUsersArchived" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
                     <thead>
@@ -271,6 +271,7 @@ view.users
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
