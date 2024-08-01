@@ -13,7 +13,8 @@
 
 // Comment out the following line if you want to show PHP errors in your browser during runtime.
 // You should disable this line in a test or development environment only.
-error_reporting(0);
+error_reporting(E_ALL);
+//error_reporting(0);
 
 //=============================================================================
 //
@@ -78,6 +79,7 @@ require_once WEBSITE_ROOT . '/helpers/model.helper.php';
 require_once WEBSITE_ROOT . '/helpers/notification.helper.php';
 require_once WEBSITE_ROOT . '/helpers/view.helper.php';
 require_once WEBSITE_ROOT . '/helpers/app.helper.php';
+
 
 //=============================================================================
 //
@@ -152,6 +154,18 @@ $H = new Holidays();
 $M = new Months();
 $R = new Regions();
 $T = new Templates();
+
+//=============================================================================
+//
+// HTML 5 DIRECTIVES
+//
+if ($C->read('noCaching')) {
+// Ensure no caching
+  header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+  header("Cache-Control: post-check=0, pre-check=0", false);
+  header("Pragma: no-cache");
+  header("Expires: 0");
+}
 
 //=============================================================================
 //
