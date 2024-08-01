@@ -53,23 +53,23 @@ view.about
           </p>
           <h4><?= $LANG['about_credits'] ?>:</h4>
           <ul>
-            <li>Bootstrap Team <?= $LANG['about_for'] ?> <a href="https://getbootstrap.com/" target="_blank">Bootstrap Framework <?= BOOTSTRAP_VER ?></a></li>
-            <li>Thomas Park <?= $LANG['about_for'] ?> <a href="https://bootswatch.com/" target="_blank">Bootswatch Themes</a></li>
+            <li>Bootstrap Team <?= $LANG['about_for'] ?> <a href="https://getbootstrap.com/" target="_blank" rel="noopener">Bootstrap Framework <?= BOOTSTRAP_VER ?></a></li>
+            <li>Thomas Park <?= $LANG['about_for'] ?> <a href="https://bootswatch.com/" target="_blank" rel="noopener">Bootswatch Themes</a></li>
             <?php if (CHARTJS) { ?>
               <li>Nick Downie <?= $LANG['about_for'] ?> <a href="https://www.chartjs.org/" target="_blank" rel="noopener">Chart.js <?= CHARTJS_VER ?></a></li>
             <?php } ?>
             <?php if (CKEDITOR) { ?>
               <li>CKSource <?= $LANG['about_for'] ?> <a href="https://ckeditor.com/" target="_blank" rel="noopener">CKEditor <?= CKEDITOR_VER ?></a></li>
             <?php } ?>
-            <li>SpryMedia Ltd. <?= $LANG['about_for'] ?> <a href="https://datatables.net/" target="_blank">DataTables <?= DATATABLES_VER ?></a></li>
-            <li>Dave Gandy <?= $LANG['about_for'] ?> <a href="https://fontawesome.com/" target="_blank">Font Awesome <?= FONTAWESOME_VER ?></a></li>
-            <li>Google Team <?= $LANG['about_for'] ?> <a href="https://www.google.com/fonts/" target="_blank">Google Fonts</a></li>
-            <li>jQuery Team <?= $LANG['about_for'] ?> <a href="https://www.jquery.com/" target="_blank">jQuery <?= JQUERY_VER ?></a> <?= $LANG['about_and'] ?> <a href="http://www.jqueryui.com/" target="_blank">jQuery UI <?= JQUERY_UI_VER ?></a></li>
-            <li>Stefan Petre <?= $LANG['about_for'] ?> <a href="https://www.eyecon.ro/colorpicker/" target="_blank">jQuery Color Picker</a></li>
-            <li>Dimitri Semenov <?= $LANG['about_for'] ?> <a href="https://dimsemenov.com/plugins/magnific-popup/" target="_blank">Magnific Popup <?= MAGNIFICPOPUP_VER ?></a></li>
-            <li>Drew Phillips <?= $LANG['about_for'] ?> <a href="https://www.phpcaptcha.org/" target="_blank">SecureImage <?= SECUREIMAGE_VER ?></a></li>
-            <li>Ahkâm <?= $LANG['about_for'] ?> the beautiful <a href="https://www.freeiconspng.com/img/4109" target="_blank">Calendar Icon</a></li>
-            <li>Iconshock Team <?= $LANG['about_for'] ?> <a href="https://www.iconshock.com/icon_sets/vector-user-icons/" target="_blank">User Icons</a></li>
+            <li>SpryMedia Ltd. <?= $LANG['about_for'] ?> <a href="https://datatables.net/" target="_blank" rel="noopener">DataTables <?= DATATABLES_VER ?></a></li>
+            <li>Dave Gandy <?= $LANG['about_for'] ?> <a href="https://fontawesome.com/" target="_blank" rel="noopener">Font Awesome <?= FONTAWESOME_VER ?></a></li>
+            <li>Google Team <?= $LANG['about_for'] ?> <a href="https://www.google.com/fonts/" target="_blank" rel="noopener">Google Fonts</a></li>
+            <li>jQuery Team <?= $LANG['about_for'] ?> <a href="https://www.jquery.com/" target="_blank" rel="noopener">jQuery <?= JQUERY_VER ?></a> <?= $LANG['about_and'] ?> <a href="http://www.jqueryui.com/" target="_blank" rel="noopener">jQuery UI <?= JQUERY_UI_VER ?></a></li>
+            <li>Stefan Petre <?= $LANG['about_for'] ?> <a href="https://www.eyecon.ro/colorpicker/" target="_blank" rel="noopener">jQuery Color Picker</a></li>
+            <li>Dimitri Semenov <?= $LANG['about_for'] ?> <a href="https://dimsemenov.com/plugins/magnific-popup/" target="_blank" rel="noopener">Magnific Popup <?= MAGNIFICPOPUP_VER ?></a></li>
+            <li>Drew Phillips <?= $LANG['about_for'] ?> <a href="https://www.phpcaptcha.org/" target="_blank" rel="noopener">SecureImage <?= SECUREIMAGE_VER ?></a></li>
+            <li>Ahkâm <?= $LANG['about_for'] ?> the beautiful <a href="https://www.freeiconspng.com/img/4109" target="_blank" rel="noopener">Calendar Icon</a></li>
+            <li>Iconshock Team <?= $LANG['about_for'] ?> <a href="https://www.iconshock.com/icon_sets/vector-user-icons/" target="_blank" rel="noopener">User Icons</a></li>
             <?php if (SELECT2) { ?>
               <li>Kevin Brown &amp; Igor Vaynberg <?= $LANG['about_for'] ?> <a href="https://select2.github.io/" target="_blank" rel="noopener">Select2 <?= SELECT2_VER ?></a></li>
             <?php } ?>
@@ -79,7 +79,7 @@ view.about
             <?php if (XEDITABLE) { ?>
               <li>Vitaliy Potapov <?= $LANG['about_for'] ?> <a href="https://vitalets.github.io/x-editable/" target="_blank" rel="noopener">X-Editable <?= XEDITABLE_VER ?></a></li>
             <?php } ?>
-            <li>RobThree <?= $LANG['about_for'] ?> <a href="https://github.com/RobThree/TwoFactorAuth" target="_blank">TwoFactorAuth</a></li>
+            <li>RobThree <?= $LANG['about_for'] ?> <a href="https://github.com/RobThree/TwoFactorAuth" target="_blank" rel="noopener">TwoFactorAuth</a></li>
             <li><?= $LANG['about_misc'] ?></li>
           </ul>
         </div>
