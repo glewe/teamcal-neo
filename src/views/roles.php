@@ -84,37 +84,60 @@ view.roles
 
         </form>
 
-        <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight:bold;">
-          <div class="col-lg-3"><?= $LANG['roles_name'] ?></div>
-          <div class="col-lg-7"><?= $LANG['roles_description'] ?></div>
-          <div class="col-lg-2 text-end"><?= $LANG['action'] ?></div>
-        </div>
-
-        <?php foreach ($viewData['roles'] as $role) { ?>
-          <form class="form-control-horizontal" name="form_<?= $role['name'] ?>" action="index.php?action=roles" method="post" target="_self" accept-charset="utf-8">
-            <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-              <div class="col-lg-3"><span class="fas fa-user-circle fa-lg text-<?= $role['color'] ?>" style="margin-right: 8px;"></span><?= $role['name'] ?></div>
-              <div class="col-lg-7"><?= $role['description'] ?></div>
-              <div class="col-lg-2 text-end">
-                <?php
-                $protectedRoles = array( 1, 2, 3 );
-                if (!in_array($role['id'], $protectedRoles)) { ?>
-                  <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRole_<?= $role['id'] ?>"><?= $LANG['btn_delete'] ?></button>
-                  <input name="hidden_id" type="hidden" value="<?= $role['id'] ?>">
-                  <input name="hidden_name" type="hidden" value="<?= $role['name'] ?>">
-                  <input name="hidden_description" type="hidden" value="<?= $role['description'] ?>">
-                <?php } ?>
-                <a href="index.php?action=roleedit&amp;id=<?= $role['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
-              </div>
-            </div>
-
-            <!-- Modal: Delete role -->
-            <?= createModalTop('modalDeleteRole_' . $role['id'], $LANG['modal_confirm']) ?>
-            <?= $LANG['roles_confirm_delete'] . $role['name'] ?> ?
-            <?= createModalBottom('btn_roleDelete', 'danger', $LANG['btn_delete_role']) ?>
-
-          </form>
-        <?php } ?>
+        <table id="dataTableRoles" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+          <thead>
+          <tr>
+            <th class="text-end">#</th>
+            <th><?= $LANG['roles_name'] ?></th>
+            <th><?= $LANG['roles_description'] ?></th>
+            <th class="text-center"><?= $LANG['action'] ?></th>
+          </tr>
+          </thead>
+          <tbody>
+          <?php
+          $i = 1;
+          foreach ($viewData['roles'] as $role) : ?>
+            <tr>
+              <td class="text-end"><?= $i++ ?></td>
+              <td><i class="fas fa-user-circle fa-lg text-<?= $role['color'] ?> me-2"></i><?= $role['name'] ?></td>
+              <td><?= $role['description'] ?></td>
+              <td class="align-top text-center">
+                <form class="form-control-horizontal" name="form_<?= $role['name'] ?>" action="index.php?action=roles" method="post" target="_self" accept-charset="utf-8">
+                  <?php
+                  $protectedRoles = array( 1, 2, 3 );
+                  if (!in_array($role['id'], $protectedRoles)) { ?>
+                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRole_<?= $role['id'] ?>"><?= $LANG['btn_delete'] ?></button>
+                    <input name="hidden_id" type="hidden" value="<?= $role['id'] ?>">
+                    <input name="hidden_name" type="hidden" value="<?= $role['name'] ?>">
+                    <input name="hidden_description" type="hidden" value="<?= $role['description'] ?>">
+                  <?php } ?>
+                  <a href="index.php?action=roleedit&amp;id=<?= $role['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
+                  <!-- Modal: Delete role -->
+                  <?= createModalTop('modalDeleteRole_' . $role['id'], $LANG['modal_confirm']) ?>
+                  <?= $LANG['roles_confirm_delete'] . $role['name'] ?> ?
+                  <?= createModalBottom('btn_roleDelete', 'danger', $LANG['btn_delete_role']) ?>
+                </form>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+          </tbody>
+        </table>
+        <script>
+          $(document).ready(function () {
+            $('#dataTableRoles').DataTable({
+              paging: true,
+              ordering: true,
+              info: true,
+              pageLength: 50,
+              language: {
+                url: 'addons/datatables/datatables.<?= $LANG['locale'] ?>.json'
+              },
+              columnDefs: [
+                {targets: [0, 3], orderable: false, searchable: false}
+              ]
+            });
+          });
+        </script>
 
       </div>
     </div>
