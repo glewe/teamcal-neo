@@ -45,17 +45,21 @@ view.attachments
         <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['att_title'] ?><?= $pageHelp ?></div>
         <div class="card-body">
 
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item"><a class="nav-link active" id="tab_files-tab" href="#tab_files" data-bs-toggle="tab" role="tab" aria-controls="tab_files" aria-selected="true"><?= $LANG['att_tab_files'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tab_upload-tab" href="#tab_upload" data-bs-toggle="tab" role="tab" aria-controls="tab_upload" aria-selected="false"><?= $LANG['att_tab_upload'] ?></a></li>
-          </ul>
 
-          <div id="myTabContent" class="tab-content">
+          <div class="card">
 
-            <!-- Files -->
-            <div class="tab-pane fade show active" id="tab_files" role="tabpanel" aria-labelledby="tab_files-tab">
-              <div class="card">
-                <div class="card-body">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation"><a class="nav-link active" id="tab_files-tab" href="#tab_files" data-bs-toggle="tab" role="tab" aria-controls="tab_files" aria-selected="true"><?= $LANG['att_tab_files'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_upload-tab" href="#tab_upload" data-bs-toggle="tab" role="tab" aria-controls="tab_upload" aria-selected="false"><?= $LANG['att_tab_upload'] ?></a></li>
+              </ul>
+            </div>
+
+            <div class="card-body">
+              <div class="tab-content" id="myTabContent">
+
+                <!-- Files -->
+                <div class="tab-pane fade show active" id="tab_files" role="tabpanel" aria-labelledby="tab_files-tab">
 
                   <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight: bold;">
                     <div class="col-lg-5"><?= $LANG['att_col_file'] ?></div>
@@ -73,11 +77,9 @@ view.attachments
                     ?>
                     <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                       <div class="col-lg-5">
-                        <input name="chk_file[]" value="<?= $file['fname'] ?>" tabindex="<?= $tabindex++ ?>" type="checkbox" <?= (!$isOwner) ? "disabled" : ""; ?>>
+                        <input name="chk_file[]" value="<?= $file['fname'] ?>" tabindex="<?= $tabindex++ ?>" type="checkbox" <?= (!$isOwner) ? "disabled" : ""; ?> class="me-2">
                         <?php if (in_array(getFileExtension($file['fname']), $CONF['imgExtensions'])) { ?>
-                          <a class="image-popup" href="<?= APP_UPL_DIR . $file['fname'] ?>" title="<?= $file['fname'] ?>">
-                            <img src="<?= APP_UPL_DIR . $file['fname'] ?>" alt="" style="width: 24px; height: 24px;">
-                          </a>
+                          <a class="image-popup" href="<?= APP_UPL_DIR . $file['fname'] ?>" title="<?= $file['fname'] ?>"><img src="<?= APP_UPL_DIR . $file['fname'] ?>" alt="" style="width: 24px; height: 24px;"></a>
                         <?php } else { ?>
                           <a href="<?= APP_UPL_DIR . $file['fname'] ?>"><img src="images/icons/mimetypes/<?= getFileExtension($file['fname']) ?>.png" alt="" style="width: 24px; height: 24px;"></a>
                         <?php } ?>
@@ -94,8 +96,7 @@ view.attachments
                             foreach ($viewData['users'] as $user) {
                               if ($user['firstname'] != "") {
                                 $showname = $user['lastname'] . ", " . $user['firstname'];
-                              }
-                              else {
+                              } else {
                                 $showname = $user['lastname'];
                               }
                               ?>
@@ -120,13 +121,9 @@ view.attachments
                   </div>
 
                 </div>
-              </div>
-            </div>
 
-            <!-- Upload File -->
-            <div class="tab-pane fade" id="tab_upload" role="tabpanel" aria-labelledby="tab_upload-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Upload File -->
+                <div class="tab-pane fade" id="tab_upload" role="tabpanel" aria-labelledby="tab_upload-tab">
                   <div class="form-group row">
                     <label class="col-lg-<?= $colsleft ?> control-label">
                       <?= $LANG['att_file'] ?><br>
@@ -169,8 +166,7 @@ view.attachments
                         foreach ($viewData['users'] as $user) {
                           if ($user['firstname'] != "") {
                             $showname = $user['lastname'] . ", " . $user['firstname'];
-                          }
-                          else {
+                          } else {
                             $showname = $user['lastname'];
                           }
                           ?>
@@ -190,8 +186,6 @@ view.attachments
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
       </div>
