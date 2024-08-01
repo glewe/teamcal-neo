@@ -117,17 +117,20 @@ view.log
           </div>
           <div style="height:20px;"></div>
 
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item"><a class="nav-link active" id="tabLog-tab" href="#tabLog" data-bs-toggle="tab" role="tab" aria-controls="tabLog" aria-selected="true"><?= $LANG['log_title'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tabSettings-tab" href="#tabSettings" data-bs-toggle="tab" role="tab" aria-controls="tabSettings" aria-selected="true"><?= $LANG['log_settings'] ?></a></li>
-          </ul>
+          <div class="card">
 
-          <div id="myTabContent" class="tab-content">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation"><a class="nav-link active" id="tabLog-tab" href="#tabLog" data-bs-toggle="tab" role="tab" aria-controls="tabLog" aria-selected="true"><?= $LANG['log_title'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tabSettings-tab" href="#tabSettings" data-bs-toggle="tab" role="tab" aria-controls="tabSettings" aria-selected="true"><?= $LANG['log_settings'] ?></a></li>
+              </ul>
+            </div>
 
-            <!-- Log tab -->
-            <div class="tab-pane fade show active" id="tabLog" role="tabpanel" aria-labelledby="tabLog-tab">
-              <div class="card">
-                <div class="card-body">
+            <div class="card-body">
+              <div class="tab-content" id="myTabContent">
+
+                <!-- Log tab -->
+                <div class="tab-pane fade show active" id="tabLog" role="tabpanel" aria-labelledby="tabLog-tab">
 
                   <?php if (count($viewData['events'])) :
                     $i = 1; ?>
@@ -186,22 +189,14 @@ view.log
                   <?php endif ?>
 
                 </div>
-              </div>
-            </div>
 
-            <!-- Log settings -->
-            <div class="tab-pane fade" id="tabSettings" role="tabpanel" aria-labelledby="tabSettings-tab">
+                <!-- Log settings -->
+                <div class="tab-pane fade" id="tabSettings" role="tabpanel" aria-labelledby="tabSettings-tab">
 
-              <div style="height:20px;"></div>
-              <div class="card">
-                <div class="card-body">
+                  <div style="height:20px;"></div>
                   <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_logSave"><?= $LANG['btn_save'] ?></button>
-                </div>
-              </div>
-              <div style="height:20px;"></div>
+                  <div style="height:20px; border-bottom: 1px dotted;"></div>
 
-              <div class="card">
-                <div class="card-body">
                   <?php
                   foreach ($viewData['types'] as $type) {
                     $color = "text-" . $C->read("logcolor" . $type);
@@ -224,26 +219,19 @@ view.log
                       </div>
                     </div>
                   <?php } ?>
-                </div>
-              </div>
 
-              <div style="height:20px;"></div>
-              <div class="card">
-                <div class="card-body">
+                  <div style="height:20px;"></div>
                   <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_logSave"><?= $LANG['btn_save'] ?></button>
                 </div>
+
               </div>
             </div>
-
           </div>
-
         </div>
       </div>
-
     </form>
   </div>
 </div>
-
 <script>
   $('#sel_logPeriod').change(function () {
     if (this.value == "custom") {
