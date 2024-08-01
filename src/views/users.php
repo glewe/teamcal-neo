@@ -132,9 +132,6 @@ view.users
                     </tbody>
                   </table>
                   <script>
-                    //
-                    // DataTables init
-                    //
                     $(document).ready(function () {
                       $('#dataTableUsers').DataTable({
                         paging: true,
@@ -142,7 +139,7 @@ view.users
                         info: true,
                         pageLength: 50,
                         language: {
-                          url: 'addons/datatables/datatables.en-GB.json'
+                          url: 'addons/datatables/datatables.<?= $LANG['locale'] ?>.json'
                         },
                         columnDefs: [
                           {targets: [0, 2, 5], orderable: false, searchable: false}
