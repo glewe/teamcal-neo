@@ -84,42 +84,65 @@ view.groups
 
         </form>
 
-        <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight:bold;">
-          <div class="col-lg-2"><?= $LANG['groups_name'] ?></div>
-          <div class="col-lg-3"><?= $LANG['groups_description'] ?></div>
-          <div class="col-lg-1"><?= $LANG['groups_minpresent'] ?></div>
-          <div class="col-lg-1"><?= $LANG['groups_maxabsent'] ?></div>
-          <div class="col-lg-1"><?= $LANG['groups_minpresentwe'] ?></div>
-          <div class="col-lg-1"><?= $LANG['groups_maxabsentwe'] ?></div>
-          <div class="col-lg-3 text-end"><?= $LANG['action'] ?></div>
-        </div>
-
-        <?php foreach ($viewData['groups'] as $group) { ?>
-          <form class="form-control-horizontal" name="form_<?= $group['id'] ?>" action="index.php?action=groups" method="post" target="_self" accept-charset="utf-8">
-            <div class="row">
-              <div class="col-lg-2"><?= $group['name'] ?></div>
-              <div class="col-lg-3"><?= $group['description'] ?></div>
-              <div class="col-lg-1"><?= $group['minpresent'] ?></div>
-              <div class="col-lg-1"><?= $group['maxabsent'] ?></div>
-              <div class="col-lg-1"><?= $group['minpresentwe'] ?></div>
-              <div class="col-lg-1"><?= $group['maxabsentwe'] ?></div>
-              <div class="col-lg-3 text-end">
-                <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteGroup_<?= $group['id'] ?>"><?= $LANG['btn_delete'] ?></button>
-                <a href="index.php?action=groupedit&amp;id=<?= $group['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
-                <a href="index.php?action=groupcalendaredit&amp;month=<?= date('Y') . date('m') ?>&amp;region=1&amp;group=<?= $group['id'] ?>" class="btn btn-info btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_calendar'] ?></a>
-                <input name="hidden_id" type="hidden" value="<?= $group['id'] ?>">
-                <input name="hidden_name" type="hidden" value="<?= $group['name'] ?>">
-                <input name="hidden_description" type="hidden" value="<?= $group['description'] ?>">
-              </div>
-            </div>
-
-            <!-- Modal: Delete group -->
-            <?= createModalTop('modalDeleteGroup_' . $group['id'], $LANG['modal_confirm']) ?>
-            <?= $LANG['groups_confirm_delete'] . $group['name'] ?> ?
-            <?= createModalBottom('btn_groupDelete', 'danger', $LANG['btn_delete_group']) ?>
-
-          </form>
-        <?php } ?>
+        <table id="dataTableGroups" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+          <thead>
+          <tr>
+            <th class="text-end">#</th>
+            <th><?= $LANG['groups_name'] ?></th>
+            <th><?= $LANG['groups_description'] ?></th>
+            <th><?= $LANG['groups_minpresent'] ?></th>
+            <th><?= $LANG['groups_maxabsent'] ?></th>
+            <th><?= $LANG['groups_minpresentwe'] ?></th>
+            <th><?= $LANG['groups_maxabsentwe'] ?></th>
+            <th class="text-center"><?= $LANG['action'] ?></th>
+          </tr>
+          </thead>
+          <tbody>
+          <?php
+          $i = 1;
+          foreach ($viewData['groups'] as $group) : ?>
+            <tr>
+              <td class="text-end"><?= $i++ ?></td>
+              <td><?= $group['name'] ?></td>
+              <td><?= $group['description'] ?></td>
+              <td><?= $group['minpresent'] ?></td>
+              <td><?= $group['maxabsent'] ?></td>
+              <td><?= $group['minpresentwe'] ?></td>
+              <td><?= $group['maxabsentwe'] ?></td>
+              <td class="align-top text-center">
+                <form class="form-control-horizontal" name="form_<?= $group['id'] ?>" action="index.php?action=groups" method="post" target="_self" accept-charset="utf-8">
+                  <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteGroup_<?= $group['id'] ?>"><?= $LANG['btn_delete'] ?></button>
+                  <a href="index.php?action=groupedit&amp;id=<?= $group['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
+                  <a href="index.php?action=groupcalendaredit&amp;month=<?= date('Y') . date('m') ?>&amp;region=1&amp;group=<?= $group['id'] ?>" class="btn btn-info btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_calendar'] ?></a>
+                  <input name="hidden_id" type="hidden" value="<?= $group['id'] ?>">
+                  <input name="hidden_name" type="hidden" value="<?= $group['name'] ?>">
+                  <input name="hidden_description" type="hidden" value="<?= $group['description'] ?>">
+                  <!-- Modal: Delete group -->
+                  <?= createModalTop('modalDeleteGroup_' . $group['id'], $LANG['modal_confirm']) ?>
+                  <?= $LANG['groups_confirm_delete'] . $group['name'] ?> ?
+                  <?= createModalBottom('btn_groupDelete', 'danger', $LANG['btn_delete_group']) ?>
+                </form>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+          </tbody>
+        </table>
+        <script>
+          $(document).ready(function () {
+            $('#dataTableGroups').DataTable({
+              paging: true,
+              ordering: true,
+              info: true,
+              pageLength: 50,
+              language: {
+                url: 'addons/datatables/datatables.<?= $LANG['locale'] ?>.json'
+              },
+              columnDefs: [
+                {targets: [0, 7], orderable: false, searchable: false}
+              ]
+            });
+          });
+        </script>
 
       </div>
     </div>
