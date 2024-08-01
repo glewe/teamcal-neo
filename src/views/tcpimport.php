@@ -46,18 +46,22 @@ view.tcpimport
 
         <div class="card-body">
 
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item"><a class="nav-link active" id="tab_info-tab" href="#tab_info" data-bs-toggle="tab" role="tab" aria-controls="tab_info" aria-selected="true"><?= $LANG['tcpimp_tab_info'] ?></a></a></li>
-            <li class="nav-item"><a class="nav-link" id="tab_tcpdb-tab" href="#tab_tcpdb" data-bs-toggle="tab" role="tab" aria-controls="tab_tcpdb" aria-selected="false"><?= $LANG['tcpimp_tab_tcpdb'] ?></a></a></li>
-            <li class="nav-item"><a class="nav-link" id="tab_import-tab" href="#tab_import" data-bs-toggle="tab" role="tab" aria-controls="tab_import" aria-selected="false"><?= $LANG['tcpimp_tab_import'] ?></a></a></li>
-          </ul>
 
-          <div id="myTabContent" class="tab-content">
+          <div class="card">
 
-            <!-- Information tab -->
-            <div class="tab-pane fade show active" id="tab_info" role="tabpanel" aria-labelledby="tab_info-tab">
-              <div class="card">
-                <div class="card-body">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation"><a class="nav-link active" id="tab_info-tab" href="#tab_info" data-bs-toggle="tab" role="tab" aria-controls="tab_info" aria-selected="true"><?= $LANG['tcpimp_tab_info'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_tcpdb-tab" href="#tab_tcpdb" data-bs-toggle="tab" role="tab" aria-controls="tab_tcpdb" aria-selected="false"><?= $LANG['tcpimp_tab_tcpdb'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_import-tab" href="#tab_import" data-bs-toggle="tab" role="tab" aria-controls="tab_import" aria-selected="false"><?= $LANG['tcpimp_tab_import'] ?></a></li>
+              </ul>
+            </div>
+
+            <div class="card-body">
+              <div class="tab-content" id="myTabContent">
+
+                <!-- Information tab -->
+                <div class="tab-pane fade show active" id="tab_info" role="tabpanel" aria-labelledby="tab_info-tab">
                   <div class="alert alert-danger" role="alert">
                     <span class="fas fa-exclamation-circle" aria-hidden="true"></span>
                     <span class="sr-only">Error:</span>
@@ -66,13 +70,9 @@ view.tcpimport
                   <div class="text-bold"><?= $LANG['tcpimp_title'] ?></div>
                   <div class="text-normal"><?= $LANG['tcpimp_info'] ?></div>
                 </div>
-              </div>
-            </div>
 
-            <!-- TeamCal Pro database tab -->
-            <div class="tab-pane fade" id="tab_tcpdb" role="tabpanel" aria-labelledby="tab_tcpdb-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- TeamCal Pro database tab -->
+                <div class="tab-pane fade" id="tab_tcpdb" role="tabpanel" aria-labelledby="tab_tcpdb-tab">
 
                   <!-- DB Server -->
                   <div class="form-group row">
@@ -156,13 +156,9 @@ view.tcpimport
                   </div>
 
                 </div>
-              </div>
-            </div>
 
-            <!-- Import tab -->
-            <div class="tab-pane fade" id="tab_import" role="tabpanel" aria-labelledby="tab_import-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Import tab -->
+                <div class="tab-pane fade" id="tab_import" role="tabpanel" aria-labelledby="tab_import-tab">
 
                   <!-- Select buttonss -->
                   <div class="form-group row">
@@ -359,9 +355,9 @@ view.tcpimport
                   <?= createModalBottom('btn_import', 'danger', $LANG['btn_import']) ?>
 
                 </div>
+
               </div>
             </div>
-
           </div>
 
         </div>
