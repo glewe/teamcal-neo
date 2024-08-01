@@ -45,22 +45,26 @@ view.database
         <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['db_title'] ?><?= $pageHelp ?></div>
         <div class="card-body">
 
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item"><a class="nav-link active" id="tab_optimize-tab" href="#tab_optimize" data-bs-toggle="tab" role="tab" aria-controls="tab_optimize" aria-selected="true"><?= $LANG['db_tab_optimize'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tab_cleanup-tab" href="#tab_cleanup" data-bs-toggle="tab" role="tab" aria-controls="tab_cleanup" aria-selected="false"><?= $LANG['db_tab_cleanup'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tab_repair-tab" href="#tab_repair" data-bs-toggle="tab" role="tab" aria-controls="tab_repair" aria-selected="false"><?= $LANG['db_tab_repair'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tab_delete-tab" href="#tab_delete" data-bs-toggle="tab" role="tab" aria-controls="tab_delete" aria-selected="false"><?= $LANG['db_tab_delete'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tab_admin-tab" href="#tab_admin" data-bs-toggle="tab" role="tab" aria-controls="tab_admin" aria-selected="false"><?= $LANG['db_tab_admin'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tab_reset-tab" href="#tab_reset" data-bs-toggle="tab" role="tab" aria-controls="tab_reset" aria-selected="false"><?= $LANG['db_tab_reset'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tab_tcpimp-tab" href="#tab_tcpimp" data-bs-toggle="tab" role="tab" aria-controls="tab_tcpimp" aria-selected="false"><?= $LANG['db_tab_tcpimp'] ?></a></li>
-          </ul>
+          <div class="card">
 
-          <div id="myTabContent" class="tab-content">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation"><a class="nav-link active" id="tab_optimize-tab" href="#tab_optimize" data-bs-toggle="tab" role="tab" aria-controls="tab_optimize" aria-selected="true"><?= $LANG['db_tab_optimize'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_cleanup-tab" href="#tab_cleanup" data-bs-toggle="tab" role="tab" aria-controls="tab_cleanup" aria-selected="false"><?= $LANG['db_tab_cleanup'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_repair-tab" href="#tab_repair" data-bs-toggle="tab" role="tab" aria-controls="tab_repair" aria-selected="false"><?= $LANG['db_tab_repair'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_delete-tab" href="#tab_delete" data-bs-toggle="tab" role="tab" aria-controls="tab_delete" aria-selected="false"><?= $LANG['db_tab_delete'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_admin-tab" href="#tab_admin" data-bs-toggle="tab" role="tab" aria-controls="tab_admin" aria-selected="false"><?= $LANG['db_tab_admin'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_reset-tab" href="#tab_reset" data-bs-toggle="tab" role="tab" aria-controls="tab_reset" aria-selected="false"><?= $LANG['db_tab_reset'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_tcpimp-tab" href="#tab_tcpimp" data-bs-toggle="tab" role="tab" aria-controls="tab_tcpimp" aria-selected="false"><?= $LANG['db_tab_tcpimp'] ?></a></li>
+              </ul>
+            </div>
 
-            <!-- Optimize Tables tab -->
-            <div class="tab-pane fade show active" id="tab_optimize" role="tabpanel" aria-labelledby="tab_optimize-tab">
-              <div class="card">
-                <div class="card-body">
+            <div class="card-body">
+              <div class="tab-content" id="myTabContent">
+
+
+                <!-- Optimize Tables tab -->
+                <div class="tab-pane fade show active" id="tab_optimize" role="tabpanel" aria-labelledby="tab_optimize-tab">
                   <div class="form-group row">
                     <div class="col-lg-12">
                       <strong><?= $LANG['db_optimize'] ?></strong>
@@ -72,14 +76,9 @@ view.database
                   </div>
                   <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_optimize"><?= $LANG['btn_optimize_tables'] ?></button>
                 </div>
-              </div>
-            </div>
 
-            <!-- Cleanup tab -->
-            <div class="tab-pane fade" id="tab_cleanup" role="tabpanel" aria-labelledby="tab_cleanup-tab">
-              <div class="card">
-                <div class="card-body">
-
+                <!-- Cleanup tab -->
+                <div class="tab-pane fade" id="tab_cleanup" role="tabpanel" aria-labelledby="tab_cleanup-tab">
                   <div class="form-group row">
                     <div class="col-lg-<?= $colsleft ?>">
                       <div class="text-bold"><?= $LANG['db_clean_what'] ?></div>
@@ -100,7 +99,6 @@ view.database
                   <div class="divider">
                     <hr>
                   </div>
-
                   <div class="form-group row">
                     <div class="col-lg-<?= $colsleft ?>">
                       <div class="text-bold"><?= $LANG['db_clean_before'] ?></div>
@@ -127,7 +125,6 @@ view.database
                   <div class="divider">
                     <hr>
                   </div>
-
                   <div class="form-group row">
                     <div class="col-lg-<?= $colsleft ?>">
                       <div class="text-bold"><?= $LANG['db_clean_confirm'] ?></div>
@@ -145,18 +142,11 @@ view.database
                   <div class="divider">
                     <hr>
                   </div>
-
                   <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" name="btn_cleanup"><?= $LANG['btn_cleanup'] ?></button>
-
                 </div>
-              </div>
-            </div>
 
-            <!-- Repair tab -->
-            <div class="tab-pane fade" id="tab_repair" role="tabpanel" aria-labelledby="tab_repair-tab">
-              <div class="card">
-                <div class="card-body">
-
+                <!-- Repair tab -->
+                <div class="tab-pane fade" id="tab_repair" role="tabpanel" aria-labelledby="tab_repair-tab">
                   <div class="form-group row">
                     <div class="col-lg-<?= $colsleft ?>">
                       <div class="text-bold"><?= $LANG['db_repair_daynoteRegions'] ?></div>
@@ -171,7 +161,6 @@ view.database
                   <div class="divider">
                     <hr>
                   </div>
-
                   <div class="form-group row">
                     <div class="col-lg-<?= $colsleft ?>">
                       <div class="text-bold"><?= $LANG['db_repair_confirm'] ?></div>
@@ -189,18 +178,11 @@ view.database
                   <div class="divider">
                     <hr>
                   </div>
-
                   <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" name="btn_repair"><?= $LANG['btn_repair'] ?></button>
-
                 </div>
-              </div>
-            </div>
 
-            <!-- Delete tab -->
-            <div class="tab-pane fade" id="tab_delete" role="tabpanel" aria-labelledby="tab_delete-tab">
-              <div class="card">
-                <div class="card-body">
-
+                <!-- Delete tab -->
+                <div class="tab-pane fade" id="tab_delete" role="tabpanel" aria-labelledby="tab_delete-tab">
                   <div class="form-group row">
                     <div class="col-lg-<?= $colsleft ?>">
                       <div class="text-bold"><?= $LANG['db_del_what'] ?></div>
@@ -233,7 +215,6 @@ view.database
                   <div class="divider">
                     <hr>
                   </div>
-
                   <div class="form-group row">
                     <div class="col-lg-<?= $colsleft ?>">
                       <div class="text-bold"><?= $LANG['db_confirm'] ?></div>
@@ -251,17 +232,11 @@ view.database
                   <div class="divider">
                     <hr>
                   </div>
-
                   <button type="submit" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" name="btn_delete"><?= $LANG['btn_delete_records'] ?></button>
-
                 </div>
-              </div>
-            </div>
 
-            <!-- Administration tab -->
-            <div class="tab-pane fade" id="tab_admin" role="tabpanel" aria-labelledby="tab_admin-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Administration tab -->
+                <div class="tab-pane fade" id="tab_admin" role="tabpanel" aria-labelledby="tab_admin-tab">
                   <div class="form-group row">
                     <div class="col-lg-12">
                       <strong><?= $LANG['db_dbURL'] ?></strong>
@@ -279,13 +254,9 @@ view.database
                     <a href="<?= $C->read('dbURL') ?>" class="btn btn-info" tabindex="<?= $tabindex++ ?>" target="_blank"><?= $LANG['db_application'] ?></a>
                   <?php } ?>
                 </div>
-              </div>
-            </div>
 
-            <!-- Reset tab -->
-            <div class="tab-pane fade" id="tab_reset" role="tabpanel" aria-labelledby="tab_reset-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Reset tab -->
+                <div class="tab-pane fade" id="tab_reset" role="tabpanel" aria-labelledby="tab_reset-tab">
                   <div class="alert alert-danger"><?= $LANG['db_reset_danger'] ?></div>
                   <div class="form-group row">
                     <div class="col-lg-8">
@@ -301,13 +272,9 @@ view.database
                   </div>
                   <button type="submit" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset_database'] ?></button>
                 </div>
-              </div>
-            </div>
 
-            <!-- TeamCal Pro Import tab -->
-            <div class="tab-pane fade" id="tab_tcpimp" role="tabpanel" aria-labelledby="tab_tcpimp-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- TeamCal Pro Import tab -->
+                <div class="tab-pane fade" id="tab_tcpimp" role="tabpanel" aria-labelledby="tab_tcpimp-tab">
                   <div class="form-group row">
                     <div class="col-lg-12">
                       <strong><?= $LANG['db_tcpimp'] ?></strong>
@@ -322,9 +289,9 @@ view.database
                   </div>
                   <a href="index.php?action=tcpimport" class="btn btn-primary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_import'] ?></a>
                 </div>
+
               </div>
             </div>
-
           </div>
         </div>
       </div>
