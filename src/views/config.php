@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Framework Configuration View
  *
@@ -52,70 +54,58 @@ view.config
 
           <?php $attention = '<i class="fas fa-exclamation-triangle" style="color:#ffb000;margin-left: 8px;"></i>'; ?>
 
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item"><a class="nav-link active" id="general-tab" href="#general" data-bs-toggle="tab" role="tab" aria-controls="general" aria-selected="true"><?= $LANG['general'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="email-tab" href="#email" data-bs-toggle="tab" role="tab" aria-controls="email" aria-selected="false"><?= $LANG['config_tab_email'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="footer-tab" href="#footer" data-bs-toggle="tab" role="tab" aria-controls="footer" aria-selected="false"><?= $LANG['config_tab_footer'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="homepage-tab" href="#homepage" data-bs-toggle="tab" role="tab" aria-controls="homepage" aria-selected="false"><?= $LANG['config_tab_homepage'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="license-tab" href="#license" data-bs-toggle="tab" role="tab" aria-controls="license" aria-selected="false"><?= $LANG['config_tab_license'] ?><?= ($LIC->status() != "active" || !$LIC->domainRegistered()) ? $attention : ''; ?></i></a></li>
-            <li class="nav-item"><a class="nav-link" id="login-tab" href="#login" data-bs-toggle="tab" role="tab" aria-controls="login" aria-selected="false"><?= $LANG['config_tab_login'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="registration-tab" href="#registration" data-bs-toggle="tab" role="tab" aria-controls="registration" aria-selected="false"><?= $LANG['config_tab_registration'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="system-tab" href="#system" data-bs-toggle="tab" role="tab" aria-controls="system" aria-selected="false"><?= $LANG['config_tab_system'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tabtheme-tab" href="#tabtheme" data-bs-toggle="tab" role="tab" aria-controls="tabtheme" aria-selected="false"><?= $LANG['config_tab_theme'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="usericons-tab" href="#usericons" data-bs-toggle="tab" role="tab" aria-controls="usericons" aria-selected="false"><?= $LANG['config_tab_user'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="gdpr-tab" href="#gdpr" data-bs-toggle="tab" role="tab" aria-controls="gdpr" aria-selected="false"><?= $LANG['config_tab_gdpr'] ?></a></li>
-          </ul>
+          <div class="card">
 
-          <div id="myTabContent" class="tab-content">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs" id="myTabList" role="tablist">
+                <li class="nav-item" role="presentation"><a class="nav-link active" id="general-tab" href="#general" data-bs-toggle="tab" role="tab" aria-controls="general" aria-selected="true"><?= $LANG['general'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="email-tab" href="#email" data-bs-toggle="tab" role="tab" aria-controls="email" aria-selected="false"><?= $LANG['config_tab_email'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="footer-tab" href="#footer" data-bs-toggle="tab" role="tab" aria-controls="footer" aria-selected="false"><?= $LANG['config_tab_footer'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="homepage-tab" href="#homepage" data-bs-toggle="tab" role="tab" aria-controls="homepage" aria-selected="false"><?= $LANG['config_tab_homepage'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="license-tab" href="#license" data-bs-toggle="tab" role="tab" aria-controls="license" aria-selected="false"><?= $LANG['config_tab_license'] ?><?= ($LIC->status() != "active" || !$LIC->domainRegistered()) ? $attention : ''; ?></i></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="login-tab" href="#login" data-bs-toggle="tab" role="tab" aria-controls="login" aria-selected="false"><?= $LANG['config_tab_login'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="registration-tab" href="#registration" data-bs-toggle="tab" role="tab" aria-controls="registration" aria-selected="false"><?= $LANG['config_tab_registration'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="system-tab" href="#system" data-bs-toggle="tab" role="tab" aria-controls="system" aria-selected="false"><?= $LANG['config_tab_system'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tabtheme-tab" href="#tabtheme" data-bs-toggle="tab" role="tab" aria-controls="tabtheme" aria-selected="false"><?= $LANG['config_tab_theme'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="usericons-tab" href="#usericons" data-bs-toggle="tab" role="tab" aria-controls="usericons" aria-selected="false"><?= $LANG['config_tab_user'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="gdpr-tab" href="#gdpr" data-bs-toggle="tab" role="tab" aria-controls="gdpr" aria-selected="false"><?= $LANG['config_tab_gdpr'] ?></a></li>
+              </ul>
+            </div>
 
-            <!-- General tab -->
-            <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
-              <div class="card">
-                <div class="card-body">
+            <div class="card-body">
+              <div class="tab-content" id="myTabContent">
+
+
+                <!-- General tab -->
+                <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
                   <?php foreach ($viewData['general'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
-              </div>
-            </div>
 
-            <!-- E-mail tab -->
-            <div class="tab-pane fade" id="email" role="tabpanel" aria-labelledby="email-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- E-mail tab -->
+                <div class="tab-pane fade" id="email" role="tabpanel" aria-labelledby="email-tab">
                   <?php foreach ($viewData['email'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
-              </div>
-            </div>
 
-            <!-- Footer tab -->
-            <div class="tab-pane fade" id="footer" role="tabpanel" aria-labelledby="footer-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Footer tab -->
+                <div class="tab-pane fade" id="footer" role="tabpanel" aria-labelledby="footer-tab">
                   <?php foreach ($viewData['footer'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
-              </div>
-            </div>
 
-            <!-- Homepage tab -->
-            <div class="tab-pane fade" id="homepage" role="tabpanel" aria-labelledby="homepage-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Homepage tab -->
+                <div class="tab-pane fade" id="homepage" role="tabpanel" aria-labelledby="homepage-tab">
                   <?php foreach ($viewData['homepage'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
-              </div>
-            </div>
 
-            <!-- License tab -->
-            <div class="tab-pane fade" id="license" role="tabpanel" aria-labelledby="license-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- License tab -->
+                <div class="tab-pane fade" id="license" role="tabpanel" aria-labelledby="license-tab">
                   <?php
                   echo $LIC->show($LIC->details, true);
                   ?>
@@ -177,68 +167,44 @@ view.config
                   } ?>
 
                 </div>
-              </div>
-            </div>
 
-            <!-- Login tab -->
-            <div class="tab-pane fade" id="login" role="tabpanel" aria-labelledby="login-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Login tab -->
+                <div class="tab-pane fade" id="login" role="tabpanel" aria-labelledby="login-tab">
                   <?php foreach ($viewData['login'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
-              </div>
-            </div>
 
-            <!-- Registration tab -->
-            <div class="tab-pane fade" id="registration" role="tabpanel" aria-labelledby="registration-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Registration tab -->
+                <div class="tab-pane fade" id="registration" role="tabpanel" aria-labelledby="registration-tab">
                   <?php foreach ($viewData['registration'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
-              </div>
-            </div>
 
-            <!-- System tab -->
-            <div class="tab-pane fade" id="system" role="tabpanel" aria-labelledby="system-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- System tab -->
+                <div class="tab-pane fade" id="system" role="tabpanel" aria-labelledby="system-tab">
                   <?php foreach ($viewData['system'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
-              </div>
-            </div>
 
-            <!-- Theme tab -->
-            <div class="tab-pane fade" id="tabtheme" role="tabpanel" aria-labelledby="tabtheme-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Theme tab -->
+                <div class="tab-pane fade" id="tabtheme" role="tabpanel" aria-labelledby="tabtheme-tab">
                   <?php foreach ($viewData['theme'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
-              </div>
-            </div>
 
-            <!-- Usericons tab -->
-            <div class="tab-pane fade" id="usericons" role="tabpanel" aria-labelledby="usericons-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Usericons tab -->
+                <div class="tab-pane fade" id="usericons" role="tabpanel" aria-labelledby="usericons-tab">
                   <?php foreach ($viewData['user'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
-              </div>
-            </div>
 
-            <!-- GDPR tab -->
-            <div class="tab-pane fade" id="gdpr" role="tabpanel" aria-labelledby="gdpr-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- GDPR tab -->
+                <div class="tab-pane fade" id="gdpr" role="tabpanel" aria-labelledby="gdpr-tab">
                   <?php foreach ($viewData['gdpr'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
@@ -267,9 +233,9 @@ view.config
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
-
           </div>
 
           <div style="height:20px;"></div>
