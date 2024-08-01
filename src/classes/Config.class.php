@@ -9,7 +9,7 @@ if (!defined('VALID_ROOT')) {
  * This class provides methods and properties for application settings.
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2023 by George Lewe
+ * @copyright Copyright (c) 2014-2024 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -25,7 +25,7 @@ class Config {
   private $db = '';
   private $table = '';
 
-   // -------------------------------------------------------------------------
+   //---------------------------------------------------------------------------
   /**
    * Constructor
    */
@@ -35,7 +35,7 @@ class Config {
     $this->table = $conf['db_table_config'];
   }
 
-   // -------------------------------------------------------------------------
+   //---------------------------------------------------------------------------
   /**
    * Read the value of an option
    *
@@ -53,7 +53,7 @@ class Config {
     }
   }
 
-   // -------------------------------------------------------------------------
+   //---------------------------------------------------------------------------
   /**
    * Save a value
    *
@@ -76,7 +76,7 @@ class Config {
     return $query2->execute();
   }
 
-   // -------------------------------------------------------------------------
+   //---------------------------------------------------------------------------
   /**
    * Optimize table
    *

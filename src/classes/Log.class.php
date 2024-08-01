@@ -9,7 +9,7 @@ if (!defined('VALID_ROOT')) {
  * This class provides methods and properties for application log messages.
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2023 by George Lewe
+ * @copyright Copyright (c) 2014-2024 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -26,7 +26,7 @@ class Log {
   private $table = '';
   private $C = '';
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Constructor
    */
@@ -37,7 +37,7 @@ class Log {
     $this->table = $CONF['db_table_log'];
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Deletes log records by date range
    *
@@ -52,7 +52,7 @@ class Log {
     return $query->execute();
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Deletes all records
    *
@@ -63,7 +63,7 @@ class Log {
     return $query->execute();
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Reads records by date range
    *
@@ -92,7 +92,7 @@ class Log {
     return $records;
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Creates a log record
    *
@@ -102,10 +102,10 @@ class Log {
    * @return boolean Query result
    */
   public function logEvent($type, $user, $event, $object = '') {
+    global $LANG;
     if (!strlen($this->C->read("logLanguage"))) {
       $loglang = 'english';
-    }
-    else {
+    } else {
       $loglang = $this->C->read("logLanguage");
     }
     require_once WEBSITE_ROOT . "/languages/" . $loglang . ".log.php";
@@ -122,7 +122,7 @@ class Log {
     return false;
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Optimize table
    *

@@ -9,7 +9,7 @@ if (!defined('VALID_ROOT')) {
  * This class provides methods and properties for absence allowances.
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2023 by George Lewe
+ * @copyright Copyright (c) 2014-2024 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -27,7 +27,7 @@ class Allowances {
   private $table = '';
   private $archive_table = '';
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Constructor
    */
@@ -38,7 +38,7 @@ class Allowances {
     $this->archive_table = $CONF['db_table_archive_allowances'];
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Archives all records for a given user
    *
@@ -51,7 +51,7 @@ class Allowances {
     return $query->execute();
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Creates an allowance record
    *
@@ -66,7 +66,7 @@ class Allowances {
     return $query->execute();
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Deletes an allowance record
    *
@@ -78,7 +78,7 @@ class Allowances {
     return $query->execute();
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Deletes all allowance records for a given absence type
    *
@@ -91,7 +91,7 @@ class Allowances {
     return $query->execute();
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Deletes all records
    *
@@ -115,7 +115,7 @@ class Allowances {
     }
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Deletes all allowance records for a given username
    *
@@ -134,7 +134,7 @@ class Allowances {
     return $query->execute();
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Checks whether a record exists
    *
@@ -155,7 +155,7 @@ class Allowances {
     return $result && $query->fetchColumn();
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Finds the allowance record for a given username and absence type and
    * fills the local variables with the values found in database
@@ -181,7 +181,7 @@ class Allowances {
     }
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Gets the allowance value of a user/absenceype
    *
@@ -201,7 +201,7 @@ class Allowances {
     }
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Gets the carryover value of a user/absenceype
    *
@@ -221,7 +221,7 @@ class Allowances {
     }
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Restores all records for a given user
    *
@@ -234,7 +234,7 @@ class Allowances {
     return $query->execute();
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Saves an allowance record (either creates or updates it)
    *
@@ -259,7 +259,7 @@ class Allowances {
     return $query->execute();
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Updates an allowance record from the local variables
    *
@@ -275,7 +275,7 @@ class Allowances {
     return $query->execute();
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Optimize table
    *

@@ -9,7 +9,7 @@ if (!defined('VALID_ROOT')) {
  * This class provides methods and properties for user logins.
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2023 by George Lewe
+ * @copyright Copyright (c) 2014-2024 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -26,7 +26,7 @@ class Login {
   private $php_self = '';
   private $log = '';
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Constructor
    */
@@ -43,7 +43,7 @@ class Login {
     $this->hostName = $this->getHost();
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Checks the login cookie and if it exists and is valid and if the user
    * is logged in we get the user info from the database.
@@ -75,7 +75,7 @@ class Login {
     }
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Determines the current host name
    *
@@ -101,7 +101,7 @@ class Login {
     return trim($host);
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Based on the global config parameter 'pw_strength' Passwords must be:
    * -min_pw_length long
@@ -202,7 +202,7 @@ class Login {
     return $result;
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * LDAP authentication
    * (Thanks to Aleksandr Babenko for the original code.)
@@ -313,7 +313,7 @@ class Login {
     }
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Local Authentication
    * Refactored local-database authentication method
@@ -372,7 +372,7 @@ class Login {
     }
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Login.
    * Checks the login credentials and sets cookie if accepted
@@ -471,7 +471,7 @@ class Login {
     return 0;
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Clears the login cookie
    */

@@ -9,7 +9,7 @@ if (!defined('VALID_ROOT')) {
  * This class provides methods and properties for XML handling.
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2023 by George Lewe
+ * @copyright Copyright (c) 2014-2024 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -22,7 +22,7 @@ class XML {
   public $endTag;
   public $body;
 
-  // --------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Constructor. Creates the start and end tag.
    *
@@ -33,7 +33,7 @@ class XML {
     $this->endTag = "</Table>\n";
   }
 
-  // --------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Adds an element to the XML ouput based on a given MySQL query result handle
    *
@@ -54,7 +54,7 @@ class XML {
     $this->body = $this->body . $out;
   }
 
-  // --------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Returns the XML text
    *

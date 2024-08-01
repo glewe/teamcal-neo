@@ -9,7 +9,7 @@ if (!defined('VALID_ROOT')) {
  * This class provides methods and properties for user attachments.
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2023 by George Lewe
+ * @copyright Copyright (c) 2014-2024 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -25,7 +25,7 @@ class UserAttachment {
   private $table = '';
   private $archive_table = '';
 
-  // --------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Constructor
    */
@@ -36,7 +36,7 @@ class UserAttachment {
     $this->archive_table = $CONF['db_table_archive_user_attachment'];
   }
 
-  // --------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Archives all records for a given user
    *
@@ -49,7 +49,7 @@ class UserAttachment {
     return $query->execute();
   }
 
-  // --------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Restores all records for a given user
    *
@@ -62,7 +62,7 @@ class UserAttachment {
     return $query->execute();
   }
 
-  // --------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Checks whether a record exists
    *
@@ -83,7 +83,7 @@ class UserAttachment {
     return $result && $query->fetchColumn();
   }
 
-  // --------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Creates a new record
    *
@@ -98,7 +98,7 @@ class UserAttachment {
     return $query->execute();
   }
 
-  // --------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Deletes all records
    *
@@ -116,7 +116,7 @@ class UserAttachment {
     return $query->execute();
   }
 
-  // --------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Deletes all records for a given username
    *
@@ -136,7 +136,7 @@ class UserAttachment {
     return $query->execute();
   }
 
-  // --------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Delete all records for a given file ID
    *
@@ -149,7 +149,7 @@ class UserAttachment {
     return $query->execute();
   }
 
-  // --------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Checks whether a user has access to a file
    *
@@ -165,7 +165,7 @@ class UserAttachment {
     return $result && $query->fetchColumn();
   }
 
-  // --------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Optimize table
    *
