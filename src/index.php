@@ -3,7 +3,7 @@
  * Index
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2023 by George Lewe
+ * @copyright Copyright (c) 2014-2024 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -33,6 +33,7 @@ require_once __DIR__ . "/vendor/autoload.php";
 //
 // LOAD CLASSES
 //
+require_once WEBSITE_ROOT . '/classes/DB.class.php';
 require_once WEBSITE_ROOT . '/classes/AbsenceGroup.class.php';
 require_once WEBSITE_ROOT . '/classes/Absences.class.php';
 require_once WEBSITE_ROOT . '/classes/Allowances.class.php';
@@ -41,7 +42,6 @@ require_once WEBSITE_ROOT . '/classes/Avatar.class.php';
 require_once WEBSITE_ROOT . '/classes/Config.class.php';
 require_once WEBSITE_ROOT . '/classes/Controller.class.php';
 require_once WEBSITE_ROOT . '/classes/Daynotes.class.php';
-require_once WEBSITE_ROOT . '/classes/DB.class.php';
 require_once WEBSITE_ROOT . '/classes/Groups.class.php';
 require_once WEBSITE_ROOT . '/classes/Holidays.class.php';
 require_once WEBSITE_ROOT . '/classes/License.class.php';
@@ -53,7 +53,6 @@ require_once WEBSITE_ROOT . '/classes/Permissions.class.php';
 require_once WEBSITE_ROOT . '/classes/Regions.class.php';
 require_once WEBSITE_ROOT . '/classes/Roles.class.php';
 require_once WEBSITE_ROOT . '/classes/Templates.class.php';
-require_once WEBSITE_ROOT . '/classes/DB.class.php';
 require_once WEBSITE_ROOT . '/classes/Upload.class.php';
 require_once WEBSITE_ROOT . '/classes/UserAttachment.class.php';
 require_once WEBSITE_ROOT . '/classes/UserGroup.class.php';
@@ -69,6 +68,7 @@ require_once WEBSITE_ROOT . '/classes/XML.class.php';
 require_once WEBSITE_ROOT . '/config/config.db.php';
 require_once WEBSITE_ROOT . '/config/config.controller.php';
 require_once WEBSITE_ROOT . '/config/config.app.php';
+global $CONF;
 
 //=============================================================================
 //
@@ -154,18 +154,6 @@ $H = new Holidays();
 $M = new Months();
 $R = new Regions();
 $T = new Templates();
-
-//=============================================================================
-//
-// HTML 5 DIRECTIVES
-//
-if ($C->read('noCaching')) {
-  // Ensure no caching
-  header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-  header("Cache-Control: post-check=0, pre-check=0", false);
-  header("Pragma: no-cache");
-  header("Expires: 0");
-}
 
 //=============================================================================
 //
@@ -257,21 +245,21 @@ if (L_USER && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['actio
 // COMPARE LANGUAGES
 // Set condition to true for debug
 //
-$checkLanguages = false;
+$checkLanguages = true;
 if ($checkLanguages) {
   $lang1 = "english";
   $lang2 = "deutsch";
 
-  require_once WEBSITE_ROOT . '/languages/' . $lang1 . '.php';     // Framework
-  require_once WEBSITE_ROOT . '/languages/' . $lang1 . '.log.php'; // Log
-  require_once WEBSITE_ROOT . '/languages/' . $lang1 . '.app.php'; // Application
+  require WEBSITE_ROOT . '/languages/' . $lang1 . '.php';     // Framework
+  require WEBSITE_ROOT . '/languages/' . $lang1 . '.log.php'; // Log
+  require WEBSITE_ROOT . '/languages/' . $lang1 . '.app.php'; // Application
   $lang1Array = $LANG;
 
   unset($LANG);
 
-  require_once WEBSITE_ROOT . '/languages/' . $lang2 . '.php';     // Framework
-  require_once WEBSITE_ROOT . '/languages/' . $lang1 . '.log.php'; // Log
-  require_once WEBSITE_ROOT . '/languages/' . $lang2 . '.app.php'; // Application
+  require WEBSITE_ROOT . '/languages/' . $lang2 . '.php';     // Framework
+  require WEBSITE_ROOT . '/languages/' . $lang2 . '.log.php'; // Log
+  require WEBSITE_ROOT . '/languages/' . $lang2 . '.app.php'; // Application
   $lang2Array = $LANG;
 
   $errorData['title'] = 'Debug Info';
@@ -302,6 +290,7 @@ if (!strlen($language)) {
 }
 require_once WEBSITE_ROOT . '/languages/' . $language . '.php';     // Framework
 require_once WEBSITE_ROOT . '/languages/' . $language . '.app.php'; // Application
+global $LANG;
 $AV = new Avatar($LANG);
 
 //=============================================================================
@@ -384,6 +373,13 @@ if ($luser = $L->checkLogin() && (!isset($_GET['action']) || isset($_GET['action
 //
 // LOAD CONTROLLER
 //
+if ($C->read('noCaching')) {
+  // Ensure no caching
+  header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+  header("Cache-Control: post-check=0, pre-check=0", false);
+  header("Pragma: no-cache");
+  header("Expires: 0");
+}
 if (file_exists(WEBSITE_ROOT . '/controller/' . $controller . '.php')) {
   include_once WEBSITE_ROOT . '/controller/' . $controller . '.php';
 } else {

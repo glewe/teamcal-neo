@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * DB.class.php
@@ -7,7 +9,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
  * @category TeamCal Neo Basic
  * @version 3.0.0
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2023 by George Lewe
+ * @copyright Copyright (c) 2014-2024 by George Lewe
  * @license This program cannot be licensed. Redistribution is not allowed.
  */
 
@@ -17,7 +19,7 @@ if (!defined('VALID_ROOT')) { exit(''); }
 class DB {
   public $db;
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Class constructor
    *
@@ -50,7 +52,7 @@ class DB {
     $query->execute();
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Get database info
    *
@@ -82,7 +84,7 @@ class DB {
     return $dbInfo;
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Optimize tables
    */
@@ -99,7 +101,7 @@ class DB {
     }
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Run query
    *

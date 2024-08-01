@@ -6,7 +6,7 @@ if (!defined('VALID_ROOT')) {
  * English Log Strings
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2023 by George Lewe
+ * @copyright Copyright (c) 2014-2024 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -39,6 +39,7 @@ $LANG['log_db_delete_users'] = 'Database delete: All Users';
 $LANG['log_db_export'] = 'Database export: ';
 $LANG['log_db_optimized'] = 'Database optimized';
 $LANG['log_db_reset'] = 'Database reset';
+$LANG['log_db_restore'] = 'Database restored from ';
 $LANG['log_decl_updated'] = 'Declination settings updated';
 $LANG['log_dn_updated'] = 'Daynote updated: ';
 $LANG['log_dn_created'] = 'Daynote created: ';

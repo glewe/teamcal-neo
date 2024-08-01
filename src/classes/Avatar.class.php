@@ -9,7 +9,7 @@ if (!defined('VALID_ROOT')) {
  * This class provides methods and properties for user avatars.
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2023 by George Lewe
+ * @copyright Copyright (c) 2014-2024 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -28,7 +28,7 @@ class Avatar {
   public $message = '';
   public $path = '';
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Constructor
    */
@@ -59,7 +59,7 @@ class Avatar {
     $this->error[19] = $LANG['upl_error_19'];
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Find avatar for a given user (username=avatar file name)
    *
@@ -77,7 +77,7 @@ class Avatar {
     return false;
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Deletes avatar for a given user (username=avatar file name)
    *
@@ -96,7 +96,7 @@ class Avatar {
     }
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Saves avatar for a given user (username=avatar file name)
    *
@@ -215,7 +215,7 @@ class Avatar {
     }
   }
 
-  // ---------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Extract file extension of a given file name
    *
