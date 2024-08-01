@@ -27,38 +27,31 @@ if (!defined('VALID_ROOT')) {
   -->
   <title><?= $htmlData['title'] ?></title>
 
-  <meta http-equiv="Content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="shortcut icon" href="images/icons/logo-16.png">
 
-  <?php if ($C->read('noCaching')) { ?>
-    <!-- No caching -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
-    <meta http-equiv="Pragma" content="no-cache"/>
-    <meta http-equiv="Expires" content="0"/>
-  <?php } ?>
-
   <!-- Robots -->
-  <meta name="robots" content="<?= $htmlData['robots'] ?>"/>
+  <meta name="robots" content="<?= $htmlData['robots'] ?>">
 
   <?php if (!$C->read('noIndex')) { ?>
     <!-- SEO -->
-    <link rel="canonical" href="<?= WEBSITE_URL ?>/"/>
-    <meta name="description" content="<?= $htmlData['description'] ?>"/>
+    <link rel="canonical" href="<?= WEBSITE_URL ?>/">
+    <meta name="description" content="<?= $htmlData['description'] ?>">
     <meta name="keywords" content="<?= $htmlData['keywords'] ?>">
-    <meta property="og:locale" content="<?= $htmlData['locale'] ?>"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" content="<?= $htmlData['title'] ?>"/>
-    <meta property="og:description" content="<?= $htmlData['description'] ?>"/>
-    <meta property="og:url" content="<?= WEBSITE_URL ?>/"/>
-    <meta property="og:site_name" content="<?= $htmlData['title'] ?>"/>
-    <meta property="og:image" content="<?= WEBSITE_URL ?>/images/icons/logo-200.png"/>
-    <meta property="og:image:width" content="200"/>
-    <meta property="og:image:height" content="200"/>
-    <meta name="twitter:card" content="summary"/>
-    <meta name="twitter:description" content="<?= $htmlData['description'] ?>"/>
-    <meta name="twitter:title" content="<?= $htmlData['title'] ?>"/>
-    <meta name="twitter:image" content="<?= WEBSITE_URL ?>/images/icons/logo-200.png"/>
+    <meta property="og:locale" content="<?= $htmlData['locale'] ?>">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<?= $htmlData['title'] ?>">
+    <meta property="og:description" content="<?= $htmlData['description'] ?>">
+    <meta property="og:url" content="<?= WEBSITE_URL ?>/">
+    <meta property="og:site_name" content="<?= $htmlData['title'] ?>">
+    <meta property="og:image" content="<?= WEBSITE_URL ?>/images/icons/logo-200.png">
+    <meta property="og:image:width" content="200">
+    <meta property="og:image:height" content="200">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:description" content="<?= $htmlData['description'] ?>">
+    <meta name="twitter:title" content="<?= $htmlData['title'] ?>">
+    <meta name="twitter:image" content="<?= WEBSITE_URL ?>/images/icons/logo-200.png">
   <?php } ?>
 
   <!-- Theme CSS -->
@@ -105,6 +98,10 @@ if (!defined('VALID_ROOT')) {
   <link rel="stylesheet" href="addons/google-code-prettify/prettify.css" type="text/css">
   <script src="addons/google-code-prettify/prettify.js"></script>
 
+  <!--Datatables CSS-->
+<!--  <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.2/b-3.1.0/b-html5-3.1.0/r-3.0.2/datatables.min.css" rel="stylesheet">-->
+  <link href="addons/datatables/datatables.min.css" rel="stylesheet">
+
   <?php if (CHARTJS) { ?>
     <!-- Chart.js -->
     <script src="addons/chart.js/Chart.bundle.min.js"></script>
@@ -149,10 +146,10 @@ if (!defined('VALID_ROOT')) {
   <?php if ($htmlData['cookieConsent']) { ?>
     <!-- Cookie Consent -->
     <?php if ($htmlData['cookieConsentCDN']) { ?>
-  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.css"/>
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.js"></script>
   <?php } else { ?>
-  <link rel="stylesheet" type="text/css" href="addons/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.css"/>
+  <link rel="stylesheet" type="text/css" href="addons/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.css">
     <script src="addons/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.js"></script>
   <?php } ?>
     <script>

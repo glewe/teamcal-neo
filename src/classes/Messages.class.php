@@ -26,6 +26,7 @@ class Messages {
 
   private $table = '';
   private $db = '';
+  private $umtable = '';
 
   // ---------------------------------------------------------------------
   /**

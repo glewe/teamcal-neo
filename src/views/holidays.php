@@ -72,47 +72,66 @@ view.holidays
 
         </form>
 
-        <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight: bold;">
-          <div class="col-lg-1"><?= $LANG['display'] ?></div>
-          <div class="col-lg-2"><?= $LANG['name'] ?></div>
-          <div class="col-lg-4"><?= $LANG['description'] ?></div>
-          <div class="col-lg-3"><?= $LANG['options'] ?></div>
-          <div class="col-lg-2 text-end"><?= $LANG['action'] ?></div>
-        </div>
-
-        <?php foreach ($viewData['holidays'] as $holiday) { ?>
-          <form class="rorm-control-horizontal" name="form_<?= $holiday['id'] ?>" action="index.php?action=<?= $CONF['controllers'][$controller]->name ?>" method="post" target="_self" accept-charset="utf-8">
-            <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-              <div class="col-lg-1">
-                <div style="color: #<?= $holiday['color'] ?>; background-color: #<?= $holiday['bgcolor'] ?>; border: 1px solid; width: 30px; height: 30px; text-align: center;">23</div>
-              </div>
-              <div class="col-lg-2"><?= $holiday['name'] ?></div>
-              <div class="col-lg-4"><?= $holiday['description'] ?></div>
-              <div class="col-lg-3">
+        <table id="dataTableHolidays" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+          <thead>
+          <tr>
+            <th class="text-end">#</th>
+            <th class="text-center"><?= $LANG['display'] ?></th>
+            <th><?= $LANG['name'] ?></th>
+            <th><?= $LANG['description'] ?></th>
+            <th><?= $LANG['options'] ?></th>
+            <th class="text-center"><?= $LANG['action'] ?></th>
+          </tr>
+          </thead>
+          <tbody>
+          <?php
+          $i = 1;
+          foreach ($viewData['holidays'] as $holiday) : ?>
+            <tr>
+              <td class="text-end"><?= $i++ ?></td>
+              <td class="text-center"><span style="color: #<?= $holiday['color'] ?>; background-color: #<?= $holiday['bgcolor'] ?>; border: 1px solid; width: 30px; height: 30px; padding: 4px;">23</span></td>
+              <td><?= $holiday['name'] ?></td>
+              <td><?= $holiday['description'] ?></td>
+              <td>
                 <?= (($holiday['businessday']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['hol_businessday'] . '"><i class="fas fa-wrench fa-lg text-default"></i></i>&nbsp;' : '') ?>
                 <?= (($holiday['keepweekendcolor']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['hol_keepweekendcolor'] . '"><i class="fas fa-paint-brush fa-lg text-success"></i></i>&nbsp;' : '') ?>
                 <?= (($holiday['noabsence']) ? '<i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="' . $LANG['hol_noabsence'] . '"><i class="fas fa-minus-circle fa-lg text-danger"></i></i>' : '') ?>
-              </div>
-              <div class="col-lg-2 text-end">
-                <?php if ($holiday['id'] > 3) { ?>
-                  <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteHoliday_<?= $holiday['id'] ?>"><?= $LANG['btn_delete'] ?></button>
-                  <input name="hidden_id" type="hidden" value="<?= $holiday['id'] ?>">
-                  <input name="hidden_name" type="hidden" value="<?= $holiday['name'] ?>">
-                  <input name="hidden_description" type="hidden" value="<?= $holiday['description'] ?>">
-                <?php } ?>
-                <a href="index.php?action=holidayedit&amp;id=<?= $holiday['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
-              </div>
-            </div>
-
-            <?php if ($holiday['id'] > 3) { ?>
-              <!-- Modal: Delete Holiday -->
-              <?= createModalTop('modalDeleteHoliday_' . $holiday['id'], $LANG['btn_delete_holiday']) ?>
-              <?= sprintf($LANG['hol_confirm_delete'], $holiday['name']) ?>
-              <?= createModalBottom('btn_holDelete', 'danger', $LANG['btn_delete_holiday']) ?>
-            <?php } ?>
-
-          </form>
-        <?php } ?>
+              </td>
+              <td class="align-top text-center">
+                <form class="rorm-control-horizontal" name="form_<?= $holiday['id'] ?>" action="index.php?action=<?= $CONF['controllers'][$controller]->name ?>" method="post" target="_self" accept-charset="utf-8">
+                  <?php if ($holiday['id'] > 3) { ?>
+                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteHoliday_<?= $holiday['id'] ?>"><?= $LANG['btn_delete'] ?></button>
+                    <input name="hidden_id" type="hidden" value="<?= $holiday['id'] ?>">
+                    <input name="hidden_name" type="hidden" value="<?= $holiday['name'] ?>">
+                    <input name="hidden_description" type="hidden" value="<?= $holiday['description'] ?>">
+                    <!-- Modal: Delete Holiday -->
+                    <?= createModalTop('modalDeleteHoliday_' . $holiday['id'], $LANG['btn_delete_holiday']) ?>
+                    <?= sprintf($LANG['hol_confirm_delete'], $holiday['name']) ?>
+                    <?= createModalBottom('btn_holDelete', 'danger', $LANG['btn_delete_holiday']) ?>
+                  <?php } ?>
+                  <a href="index.php?action=holidayedit&amp;id=<?= $holiday['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
+                </form>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+          </tbody>
+        </table>
+        <script>
+          $(document).ready(function () {
+            $('#dataTableHolidays').DataTable({
+              paging: true,
+              ordering: true,
+              info: true,
+              pageLength: 50,
+              language: {
+                url: 'addons/datatables/datatables.<?= $LANG['locale'] ?>.json'
+              },
+              columnDefs: [
+                {targets: [0, 5], orderable: false, searchable: false}
+              ]
+            });
+          });
+        </script>
 
       </div>
     </div>

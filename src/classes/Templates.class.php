@@ -54,7 +54,10 @@ class Templates {
 
   private $db = '';
   private $table = '';
+  private $abs_table = '';
   private $archive_table = '';
+  private $utable = '';
+  private $archive_utable = '';
 
   // --------------------------------------------------------------------------
   /**
