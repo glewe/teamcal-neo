@@ -152,46 +152,38 @@ view.regions
 
               <!-- iCal tab -->
               <div class="tab-pane fade" id="ical-tab-pane" role="tabpanel" aria-labelledby="ical-tab">
-                <div class="card">
-                  <div class="card-body">
-                    <form class="form-control-horizontal" name="form_ical" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8" enctype="multipart/form-data">
-                      <?php foreach ($viewData['ical'] as $formObject) {
-                        echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-                      } ?>
-                      <div class="form-group row">
-                        <label class="col-lg-<?= $colsleft ?> control-label">
-                          <?= $LANG['regions_ical_file'] ?><br>
-                          <span class="text-normal"><?= $LANG['regions_ical_file_comment'] ?></span>
-                        </label>
-                        <div class="col-lg-<?= $colsright ?>">
-                          <input class="form-control" tabindex="<?= $tabindex++ ?>" accept="text/calendar" name="file_ical" type="file">
-                        </div>
-                      </div>
-                      <div class="divider">
-                        <hr>
-                      </div>
-                      <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-sm float-end" tabindex="32" name="btn_uploadIcal"><?= $LANG['btn_upload'] ?></button>
-                      </div>
-                    </form>
+                <form class="form-control-horizontal" name="form_ical" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8" enctype="multipart/form-data">
+                  <?php foreach ($viewData['ical'] as $formObject) {
+                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                  } ?>
+                  <div class="form-group row">
+                    <label class="col-lg-<?= $colsleft ?> control-label">
+                      <?= $LANG['regions_ical_file'] ?><br>
+                      <span class="text-normal"><?= $LANG['regions_ical_file_comment'] ?></span>
+                    </label>
+                    <div class="col-lg-<?= $colsright ?>">
+                      <input class="form-control" tabindex="<?= $tabindex++ ?>" accept="text/calendar" name="file_ical" type="file">
+                    </div>
                   </div>
-                </div>
+                  <div class="divider">
+                    <hr>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm float-end" tabindex="32" name="btn_uploadIcal"><?= $LANG['btn_upload'] ?></button>
+                  </div>
+                </form>
               </div>
 
               <!-- Copy tab -->
               <div class="tab-pane fade" id="copy-tab-pane" role="tabpanel" aria-labelledby="copy-tab">
-                <div class="card">
-                  <div class="card-body">
-                    <form class="bs-example form-control-horizontal" name="form_merge" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
-                      <?php foreach ($viewData['merge'] as $formObject) {
-                        echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-                      } ?>
-                      <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-sm float-end" tabindex="32" name="btn_regionTransfer"><?= $LANG['btn_transfer'] ?></button>
-                      </div>
-                    </form>
+                <form class="bs-example form-control-horizontal" name="form_merge" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
+                  <?php foreach ($viewData['merge'] as $formObject) {
+                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                  } ?>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm float-end" tabindex="32" name="btn_regionTransfer"><?= $LANG['btn_transfer'] ?></button>
                   </div>
-                </div>
+                </form>
               </div>
 
             </div>
