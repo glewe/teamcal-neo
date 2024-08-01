@@ -117,102 +117,86 @@ view.log
           </div>
           <div style="height:20px;"></div>
 
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item"><a class="nav-link active" id="tabLog-tab" href="#tabLog" data-bs-toggle="tab" role="tab" aria-controls="tabLog" aria-selected="true"><?= $LANG['log_title'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tabSettings-tab" href="#tabSettings" data-bs-toggle="tab" role="tab" aria-controls="tabSettings" aria-selected="true"><?= $LANG['log_settings'] ?></a></li>
-          </ul>
+          <div class="card">
 
-          <div id="myTabContent" class="tab-content">
-
-            <!-- Log tab -->
-            <div class="tab-pane fade show active" id="tabLog" role="tabpanel" aria-labelledby="tabLog-tab">
-              <div class="card">
-                <div class="card-body">
-                  <?php
-                  if (count($viewData['events'])) {
-                    $color = 'text-default';
-                    $startEvent = ($viewData['currentPage'] * $viewData['eventsPerPage']) - $viewData['eventsPerPage'];
-                    $endEvent = $startEvent + $viewData['eventsPerPage'];
-                    for ($i = $startEvent; $i < $endEvent; $i++) {
-                      if (isset($viewData['events'][$i])) {
-                        $event = $viewData['events'][$i];
-                      }
-                      else {
-                        break;
-                      }
-                      $color = "text-" . $C->read("logcolor" . substr($event['type'], 3));
-                      ?>
-                      <div class="row <?= $color ?>" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-                        <div class="col-lg-1 small"><?= $i + 1 ?></div>
-                        <div class="col-lg-3 small"><i class="far fa-clock fa-lg me-3" title="<?= $LANG['log_header_when'] ?>"></i><?= $event['timestamp'] ?></div>
-                        <div class="col-lg-2 small"><i class="far fa-edit fa-lg me-3" title="<?= $LANG['log_header_type'] ?>"></i><?= substr($event['type'], 3) ?></div>
-                        <div class="col-lg-2 small"><i class="far fa-user fa-lg me-3" title="<?= $LANG['log_header_user'] ?>"></i><a href="index.php?action=viewprofile&amp;profile=<?= $event['user'] ?>" target="_blank"><?= $event['user'] ?></a></div>
-                        <div class="col-lg-4 small"><i class="far fa-hand-point-right fa-lg me-3" title="<?= $LANG['log_header_event'] ?>"></i><?= $event['event'] ?></div>
-                      </div>
-                    <?php }
-                  } ?>
-
-                  <ul class="pagination">
-                    <?php
-                    $formLink = 'index.php?action=log';
-                    $page = $viewData['currentPage'];
-                    $pages = $viewData['numPages'];
-                    ?>
-                    <!-- First Page Link -->
-                    <?php if ($page == 1) { ?>
-                      <li class="me-1"><span aria-hidden="true"><i class="fas fa-angle-double-left fa-border text-light p-2"></i></span></li>
-                    <?php } else { ?>
-                      <li class="me-1"><a href="<?= $formLink ?>&amp;page=1" title="<?= $LANG['page_first'] ?>"><span><i class="fas fa-angle-double-left fa-border p-2"></i></span></a></li>
-                    <?php } ?>
-
-                    <!-- Previous Page Link -->
-                    <?php if ($page == 1) { ?>
-                      <li class="me-1"><span><span aria-hidden="true"><i class="fas fa-angle-left fa-border text-light p-2"></i></span></span></li>
-                    <?php } else { ?>
-                      <li class="me-1"><a href="<?= $formLink ?>&amp;page=<?= $page - 1 ?>" title="<?= $LANG['page_prev'] ?>"><span><i class="fas fa-angle-left fa-border p-2"></i></span></a></li>
-                    <?php } ?>
-
-                    <!-- Page Link -->
-                    <?php for ($p = 1; $p <= $pages; $p++) {
-                      if ($p == $page) { ?>
-                        <li class="active px-3 py-1"><span><?= $p ?><span class="sr-only">(current)</span></span></li>
-                      <?php } else { ?>
-                        <li class="px-3 py-1"><a href="<?= $formLink ?>&amp;page=<?= $p ?>" title="<?= sprintf($LANG['page_page'], $p) ?>"><span><?= $p ?></span></a></li>
-                      <?php }
-                    } ?>
-
-                    <!-- Next Page Link -->
-                    <?php if ($page == $pages) { ?>
-                      <li class="me-1"><span><span aria-hidden="true"><i class="fas fa-angle-right fa-border text-light p-2"></i></span></span></li>
-                    <?php } else { ?>
-                      <li class="me-1"><a href="<?= $formLink ?>&amp;page=<?= $page + 1 ?>" title="<?= $LANG['page_next'] ?>"><span><i class="fas fa-angle-right fa-border p-2"></i></span></a></li>
-                    <?php } ?>
-
-                    <!-- Last Page Link -->
-                    <?php if ($page == $pages) { ?>
-                      <li><span><span aria-hidden="true"><i class="fas fa-angle-double-right fa-border text-light p-2"></i></span></span></li>
-                    <?php } else { ?>
-                      <li><a href="<?= $formLink ?>&amp;page=<?= $pages ?>" title="<?= $LANG['page_last'] ?>"><span><i class="fas fa-angle-double-right fa-border p-2"></i></span></a></li>
-                    <?php } ?>
-                  </ul>
-
-                </div>
-              </div>
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation"><a class="nav-link active" id="tabLog-tab" href="#tabLog" data-bs-toggle="tab" role="tab" aria-controls="tabLog" aria-selected="true"><?= $LANG['log_title'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tabSettings-tab" href="#tabSettings" data-bs-toggle="tab" role="tab" aria-controls="tabSettings" aria-selected="true"><?= $LANG['log_settings'] ?></a></li>
+              </ul>
             </div>
 
-            <!-- Log settings -->
-            <div class="tab-pane fade" id="tabSettings" role="tabpanel" aria-labelledby="tabSettings-tab">
+            <div class="card-body">
+              <div class="tab-content" id="myTabContent">
 
-              <div style="height:20px;"></div>
-              <div class="card">
-                <div class="card-body">
-                  <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_logSave"><?= $LANG['btn_save'] ?></button>
+                <!-- Log tab -->
+                <div class="tab-pane fade show active" id="tabLog" role="tabpanel" aria-labelledby="tabLog-tab">
+
+                  <?php if (count($viewData['events'])) :
+                    $i = 1; ?>
+                    <table id="dataTableLog" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+                      <thead>
+                      <tr>
+                        <th class="text-end" data-ordering="false">#</th>
+                        <th class="text-start"><i class="far fa-clock fa-lg me-3"></i><?= $LANG['log_header_when'] ?></th>
+                        <th data-ordering="true"><i class="far fa-folder fa-lg me-3"></i><?= $LANG['log_header_type'] ?></th>
+                        <th data-ordering="true"><i class="far fa-user fa-lg me-3"></i><?= $LANG['log_header_user'] ?></th>
+                        <th data-ordering="true"><i class="far fa-edit fa-lg me-3"></i><?= $LANG['log_header_event'] ?></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <?php foreach ($viewData['events'] as $event) :
+                        $color = $C->read("logcolor" . substr($event['type'], 3));
+                        ?>
+                        <tr>
+                          <td class="align-top text-end text-<?= $color ?>"><?= $i++ ?></td>
+                          <td class="align-top text-start text-<?= $color ?>"><?= $event['timestamp'] ?></td>
+                          <td class="align-top text-<?= $color ?>"><?= substr($event['type'], 3) ?></td>
+                          <td class="align-top text-<?= $color ?>"><a style="color: inherit;" href="index.php?action=viewprofile&amp;profile=<?= $event['user'] ?>" target="_blank"><?= $event['user'] ?></a></td>
+                          <td class="align-top text-<?= $color ?>"><?= $event['event'] ?></td>
+                        </tr>
+                      <?php endforeach; ?>
+                      </tbody>
+                    </table>
+                    <script>
+                      $(document).ready(function () {
+                        $('#dataTableLog').DataTable({
+                          paging: true,
+                          ordering: true,
+                          info: true,
+                          pageLength: 50,
+                          language: {
+                            url: 'addons/datatables/datatables.<?= $LANG['locale'] ?>.json'
+                          },
+                          columnDefs: [
+                            {targets: [0], orderable: true, searchable: true}
+                          ]
+                        });
+                      });
+                    </script>
+
+                  <?php else : ?>
+                    <div class="mt-2">
+                      <?php
+                      $alertData['type'] = 'warning';
+                      $alertData['title'] = 'Oops';
+                      $alertData['subject'] = 'No log entries found';
+                      $alertData['text'] = '';
+                      $alertData['help'] = '';
+                      echo createAlertBox($alertData);
+                      ?>
+                    </div>
+                  <?php endif ?>
+
                 </div>
-              </div>
-              <div style="height:20px;"></div>
 
-              <div class="card">
-                <div class="card-body">
+                <!-- Log settings -->
+                <div class="tab-pane fade" id="tabSettings" role="tabpanel" aria-labelledby="tabSettings-tab">
+
+                  <div style="height:20px;"></div>
+                  <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_logSave"><?= $LANG['btn_save'] ?></button>
+                  <div style="height:20px; border-bottom: 1px dotted;"></div>
+
                   <?php
                   foreach ($viewData['types'] as $type) {
                     $color = "text-" . $C->read("logcolor" . $type);
@@ -235,26 +219,19 @@ view.log
                       </div>
                     </div>
                   <?php } ?>
-                </div>
-              </div>
 
-              <div style="height:20px;"></div>
-              <div class="card">
-                <div class="card-body">
+                  <div style="height:20px;"></div>
                   <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_logSave"><?= $LANG['btn_save'] ?></button>
                 </div>
+
               </div>
             </div>
-
           </div>
-
         </div>
       </div>
-
     </form>
   </div>
 </div>
-
 <script>
   $('#sel_logPeriod').change(function () {
     if (this.value == "custom") {

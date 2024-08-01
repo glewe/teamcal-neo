@@ -156,19 +156,10 @@ view.messageedit
           <div class="divider">
             <hr>
           </div>
-
-        </div>
-      </div>
-
-      <div style="height:20px;"></div>
-      <div class="card">
-        <div class="card-body">
           <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_send"><?= $LANG['btn_send'] ?></button>
+
         </div>
       </div>
-
     </form>
-
   </div>
-
 </div>

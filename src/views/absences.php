@@ -65,18 +65,24 @@ view.absences
 
         </form>
 
-        <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight: bold;">
-          <div class="col-lg-1"><?= $LANG['abs_display'] ?></div>
-          <div class="col-lg-4"><?= $LANG['abs_name'] ?></div>
-          <div class="col-lg-5"><?= $LANG['options'] ?></div>
-          <div class="col-lg-2 text-end"><?= $LANG['action'] ?></div>
-        </div>
-
-        <?php foreach ($viewData['absences'] as $absence) {
-          if (!$absence['counts_as']) { ?>
-            <form class="form-control-horizontal" name="form_<?= $absence['id'] ?>" action="index.php?action=<?= $CONF['controllers'][$controller]->name ?>" method="post" target="_self" accept-charset="utf-8">
-              <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-                <div class="col-lg-1">
+        <table id="dataTableAbsences" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+          <thead>
+          <tr>
+            <th class="text-end">#</th>
+            <th class="text-center"><?= $LANG['display'] ?></th>
+            <th><?= $LANG['name'] ?></th>
+            <th><?= $LANG['options'] ?></th>
+            <th class="text-center"><?= $LANG['action'] ?></th>
+          </tr>
+          </thead>
+          <tbody>
+          <?php
+          $i = 1;
+          foreach ($viewData['absences'] as $absence) :
+            if (!$absence['counts_as']) : ?>
+              <tr>
+                <td class="text-end"><?= $i++ ?></td>
+                <td>
                   <?php
                   if ($absence['bgtrans']) {
                     $bgstyle = "";
@@ -84,73 +90,96 @@ view.absences
                     $bgstyle = "background-color: #" . $absence['bgcolor'] . ";";
                   }
                   ?>
-                  <div style="color: #<?= $absence['color'] ?>;<?= $bgstyle ?>border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px;">
+                  <span style="display: inline-block; color: #<?= $absence['color'] ?>;<?= $bgstyle ?>border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px;">
                     <?php if ($absence['icon'] != "No") { ?>
                       <span class="<?= $absence['icon'] ?>"></span>
                     <?php } else { ?>
                       <?= $absence['symbol'] ?>
                     <?php } ?>
-                  </div>
-                </div>
-                <div class="col-lg-4"><?= $absence['name'] ?></div>
-                <div class="col-lg-5">
+                  </span>
+                </td>
+                <td><?= $absence['name'] ?></td>
+                <td>
                   <?= (($absence['approval_required']) ? '<i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="' . $LANG['abs_approval_required'] . '"><i class="far fa-edit fa-lg text-danger"></i></i>' : '') ?>
                   <?= (($absence['manager_only']) ? '<i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="' . $LANG['abs_manager_only'] . '"><i class="fas fa-user-circle fa-lg text-warning"></i></i>' : '') ?>
                   <?= (($absence['hide_in_profile']) ? '<i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="' . $LANG['abs_hide_in_profile'] . '"><i class="far fa-eye-slash fa-lg text-info"></i></i>' : '') ?>
                   <?= (($absence['confidential']) ? '<i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="' . $LANG['abs_confidential'] . '"><i class="fas fa-exclamation-circle fa-lg text-success"></i></i>' : '') ?>
                   <?= (($absence['allowmonth'] || ($absence['allowweek'])) ? '<i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="' . $LANG['abs_allow_active'] . '"><i class="far fa-hand-paper fa-lg text-warning"></i></i>' : '') ?>
-                </div>
-                <div class="col-lg-2 text-end">
-                  <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteAbsence_<?= $absence['id'] ?>"><?= $LANG['btn_delete'] ?></button>
-                  <a href="index.php?action=absenceedit&amp;id=<?= $absence['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
-                  <input name="hidden_id" type="hidden" value="<?= $absence['id'] ?>">
-                  <input name="hidden_name" type="hidden" value="<?= $absence['name'] ?>">
-                </div>
-              </div>
-
-              <!-- Modal: Delete Absence -->
-              <?= createModalTop('modalDeleteAbsence_' . $absence['id'], $LANG['modal_confirm']) ?>
-              <?= sprintf($LANG['abs_confirm_delete'], $absence['name']) ?>
-              <?= createModalBottom('btn_absDelete', 'success', $LANG['btn_delete_abs']) ?>
-
-            </form>
-
-            <?php
-            $subabsences = $A->getAllSub($absence['id']);
-            foreach ($subabsences as $subabs) { ?>
-              <form class="form-control-horizontal" name="form_<?= $subabs['id'] ?>" action="index.php?action=absences" method="post" target="_self" accept-charset="utf-8">
-                <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-                  <div class="col-lg-1 text-end"><i class="fas fa-angle-double-right"></i></div>
-                  <div class="col-lg-1">
-                    <div style="color: #<?= $subabs['color'] ?>; background-color: #<?= $subabs['bgcolor'] ?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px;">
-                      <span class="<?= $subabs['icon'] ?>"></span>
-                    </div>
-                  </div>
-                  <div class="col-lg-3"><?= $subabs['name'] ?></div>
-                  <div class="col-lg-5">
-
-                  </div>
-                  <div class="col-lg-2 text-end">
-                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteSubAbsence_<?= $subabs['id'] ?>"><?= $LANG['btn_delete'] ?></button>
-                    <a href="index.php?action=absenceedit&amp;id=<?= $subabs['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
-                    <input name="hidden_id" type="hidden" value="<?= $subabs['id'] ?>">
-                    <input name="hidden_name" type="hidden" value="<?= $subabs['name'] ?>">
-                  </div>
-                </div>
-
-                <!-- Modal: Delete SubAbsence -->
-                <?= createModalTop('modalDeleteSubAbsence_' . $subabs['id'], $LANG['modal_confirm']) ?>
-                <?= sprintf($LANG['abs_confirm_delete'], $subabs['name']) ?>
-                <?= createModalBottom('btn_absDelete', 'success', $LANG['btn_delete_abs']) ?>
-
-              </form>
-            <?php } ?>
-
-          <?php }
-        } ?>
+                </td>
+                <td class="align-top text-center">
+                  <form class="form-control-horizontal" name="form_<?= $absence['id'] ?>" action="index.php?action=<?= $CONF['controllers'][$controller]->name ?>" method="post" target="_self" accept-charset="utf-8">
+                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteAbsence_<?= $absence['id'] ?>"><?= $LANG['btn_delete'] ?></button>
+                    <a href="index.php?action=absenceedit&amp;id=<?= $absence['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
+                    <input name="hidden_id" type="hidden" value="<?= $absence['id'] ?>">
+                    <input name="hidden_name" type="hidden" value="<?= $absence['name'] ?>">
+                    <!-- Modal: Delete Absence -->
+                    <?= createModalTop('modalDeleteAbsence_' . $absence['id'], $LANG['modal_confirm']) ?>
+                    <?= sprintf($LANG['abs_confirm_delete'], $absence['name']) ?>
+                    <?= createModalBottom('btn_absDelete', 'danger', $LANG['btn_delete_abs']) ?>
+                  </form>
+                </td>
+              </tr>
+              <?php
+              $subabsences = $A->getAllSub($absence['id']);
+              foreach ($subabsences as $subabs) : ?>
+                <tr>
+                  <td class="text-end"><?= $i++ ?></td>
+                  <td>
+                    <?php
+                    if ($subabs['bgtrans']) {
+                      $bgstyle = "";
+                    } else {
+                      $bgstyle = "background-color: #" . $subabs['bgcolor'] . ";";
+                    }
+                    ?>
+                    <i class="fas fa-angle-double-right me-3"></i>
+                    <span style="display: inline-block; color: #<?= $subabs['color'] ?>;<?= $bgstyle ?>border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px;">
+                      <?php if ($subabs['icon'] != "No") { ?>
+                        <i class="<?= $subabs['icon'] ?>"></i>
+                      <?php } else { ?>
+                        <?= $subabs['symbol'] ?>
+                      <?php } ?>
+                    </span>
+                  </td>
+                  <td><?= $subabs['name'] ?> <i>(<?= $LANG['abs_counts_as'] ?>: <?= $absence['name'] ?>)</i></td>
+                  <td></td>
+                  <td class="align-top text-center">
+                    <form class="form-control-horizontal" name="form_<?= $subabs['id'] ?>" action="index.php?action=absences" method="post" target="_self" accept-charset="utf-8">
+                      <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteSubAbsence_<?= $subabs['id'] ?>"><?= $LANG['btn_delete'] ?></button>
+                      <a href="index.php?action=absenceedit&amp;id=<?= $subabs['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
+                      <input name="hidden_id" type="hidden" value="<?= $subabs['id'] ?>">
+                      <input name="hidden_name" type="hidden" value="<?= $subabs['name'] ?>">
+                      <!-- Modal: Delete SubAbsence -->
+                      <?= createModalTop('modalDeleteSubAbsence_' . $subabs['id'], $LANG['modal_confirm']) ?>
+                      <?= sprintf($LANG['abs_confirm_delete'], $subabs['name']) ?>
+                      <?= createModalBottom('btn_absDelete', 'danger', $LANG['btn_delete_abs']) ?>
+                    </form>
+                  </td>
+                </tr>
+              <?php endforeach; // subabs ?>
+            <?php endif; // (!$absence['counts_as'])
+          endforeach; // absence
+          ?>
+          </tbody>
+        </table>
+        <script>
+          $(document).ready(function () {
+            $('#dataTableAbsences').DataTable({
+              paging: true,
+              ordering: true,
+              info: true,
+              pageLength: 50,
+              language: {
+                url: 'addons/datatables/datatables.<?= $LANG['locale'] ?>.json'
+              },
+              columnDefs: [
+                {targets: [0, 3, 4], orderable: false, searchable: false}
+              ]
+            });
+          });
+        </script>
 
       </div>
     </div>
-
   </div>
 </div>

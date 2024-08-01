@@ -77,16 +77,20 @@ view.bulkedit
           </div>
           <div style="height:20px;"></div>
 
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item"><a class="nav-link active" id="absences-tab" href="#absences" data-bs-toggle="tab" role="tab" aria-controls="absences" aria-selected="false"><?= $LANG['profile_tab_absences'] ?></a></li>
-          </ul>
 
-          <div id="myTabContent" class="tab-content">
+          <div class="card">
 
-            <!-- Absences tab -->
-            <div class="tab-pane fade show active" id="absences" role="tabpanel" aria-labelledby="absences-tab">
-              <div class="card">
-                <div class="card-body">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation"><a class="nav-link active" id="absences-tab" href="#absences" data-bs-toggle="tab" role="tab" aria-controls="absences" aria-selected="false"><?= $LANG['profile_tab_absences'] ?></a></li>
+              </ul>
+            </div>
+
+            <div class="card-body">
+              <div class="tab-content" id="myTabContent">
+
+                <!-- Absences tab -->
+                <div class="tab-pane fade show active" id="absences" role="tabpanel" aria-labelledby="absences-tab">
                   <div class="row">
                     <div class="col-lg-1"><strong><?= $LANG['select'] ?></strong><br>
                       <div class="checkbox"><label><input type="checkbox" name="chk_selectAll" id="chk_selectAll"><?= $LANG['all'] ?></label></div>
@@ -95,7 +99,7 @@ view.bulkedit
                     <div class="col-lg-3"><strong><?= $LANG['absence'] ?></strong></div>
                     <div class="col-lg-2 text-center"><strong><?= $LANG['profile_abs_allowance'] ?></strong><br>
                       <div class="text-center">
-                        <label class="text-italic"><?= $LANG['bulkedit_for_selected'] ?></label>
+                        <label for="txt_selected_<?= $viewData['absid'] ?>_allowance" class="text-italic"><?= $LANG['bulkedit_for_selected'] ?></label>
                         <input id="txt_selected_<?= $viewData['absid'] ?>_allowance" class="form-control text-center border-primary" tabindex="<?= $tabindex++ ?>" name="txt_selected_<?= $viewData['absid'] ?>_allowance" maxlength="3" value="">
                       </div>
                     </div>
@@ -136,17 +140,20 @@ view.bulkedit
                     </div>
                   <?php } ?>
                 </div>
+
               </div>
             </div>
-            <div style="height:20px;"></div>
-            <div class="card">
-              <div class="card-body row">
-                <div class="col-lg-12 text-end">
-                  <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_bulkUpdate"><?= $LANG['btn_update'] ?></button>
-                </div>
+
+          </div>
+          <div style="height:20px;"></div>
+          <div class="card">
+            <div class="card-body row">
+              <div class="col-lg-12 text-end">
+                <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_bulkUpdate"><?= $LANG['btn_update'] ?></button>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </form>

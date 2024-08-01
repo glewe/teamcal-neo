@@ -24,6 +24,7 @@ class Log {
   public $event = '';
   private $db = '';
   private $table = '';
+  private $C = '';
 
   // ---------------------------------------------------------------------
   /**

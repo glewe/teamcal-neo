@@ -13,7 +13,8 @@
 
 // Comment out the following line if you want to show PHP errors in your browser during runtime.
 // You should disable this line in a test or development environment only.
-error_reporting(0);
+error_reporting(E_ALL);
+//error_reporting(0);
 
 //=============================================================================
 //
@@ -78,6 +79,7 @@ require_once WEBSITE_ROOT . '/helpers/model.helper.php';
 require_once WEBSITE_ROOT . '/helpers/notification.helper.php';
 require_once WEBSITE_ROOT . '/helpers/view.helper.php';
 require_once WEBSITE_ROOT . '/helpers/app.helper.php';
+
 
 //=============================================================================
 //
@@ -155,6 +157,18 @@ $T = new Templates();
 
 //=============================================================================
 //
+// HTML 5 DIRECTIVES
+//
+if ($C->read('noCaching')) {
+  // Ensure no caching
+  header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+  header("Cache-Control: post-check=0, pre-check=0", false);
+  header("Pragma: no-cache");
+  header("Expires: 0");
+}
+
+//=============================================================================
+//
 // VARIABLE DEFAULTS
 //
 require_once WEBSITE_ROOT . '/config/config.vars.php';
@@ -173,8 +187,7 @@ $userData['avatar'] = 'default_male.png';
 //
 if ($luser = $L->checkLogin()) {
   define('L_USER', $luser);
-}
-else {
+} else {
   define('L_USER', 0);
 }
 //
@@ -338,32 +351,27 @@ $htmlData['theme'] = getTheme();
 $htmlData['jQueryTheme'] = $C->read("jqtheme");
 if ($C->read("cookieConsent")) {
   $htmlData['cookieConsent'] = true;
-}
-else {
+} else {
   $htmlData['cookieConsent'] = false;
 }
 if ($C->read("cookieConsentCDN")) {
   $htmlData['cookieConsentCDN'] = true;
-}
-else {
+} else {
   $htmlData['cookieConsentCDN'] = false;
 }
 if ($C->read("faCDN")) {
   $htmlData['faCDN'] = true;
-}
-else {
+} else {
   $htmlData['faCDN'] = false;
 }
 if ($C->read("jQueryCDN")) {
   $htmlData['jQueryCDN'] = true;
-}
-else {
+} else {
   $htmlData['jQueryCDN'] = false;
 }
 if ($C->read("noIndex")) {
   $htmlData['robots'] = 'noindex,nofollow,noopd';
-}
-else {
+} else {
   $htmlData['robots'] = 'index,follow,noopd';
 }
 if ($luser = $L->checkLogin() && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['action'] != 'logout')) {
