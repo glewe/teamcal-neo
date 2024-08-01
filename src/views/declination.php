@@ -52,22 +52,26 @@ view.declination
           </div>
           <div style="height:20px;"></div>
 
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item"><a class="nav-link active" id="tab_overview-tab" href="#tab_overview" data-bs-toggle="tab" role="tab" aria-controls="tab_overview" aria-selected="true"><?= $LANG['decl_tab_overview'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tab_absence-tab" href="#tab_absence" data-bs-toggle="tab" role="tab" aria-controls="tab_absence" aria-selected="false"><?= $LANG['decl_tab_absence'] ?><?= (($viewData['declAbsence']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tab_before-tab" href="#tab_before" data-bs-toggle="tab" role="tab" aria-controls="tab_before" aria-selected="false"><?= $LANG['decl_tab_before'] ?><?= (($viewData['declBefore']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tab_period1-tab" href="#tab_period1" data-bs-toggle="tab" role="tab" aria-controls="tab_period1" aria-selected="false"><?= $LANG['decl_tab_period1'] ?><?= (($viewData['declPeriod1']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tab_period2-tab" href="#tab_period2" data-bs-toggle="tab" role="tab" aria-controls="tab_period2" aria-selected="false"><?= $LANG['decl_tab_period2'] ?><?= (($viewData['declPeriod2']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tab_period3-tab" href="#tab_period3" data-bs-toggle="tab" role="tab" aria-controls="tab_period3" aria-selected="false"><?= $LANG['decl_tab_period3'] ?><?= (($viewData['declPeriod3']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tab_scope-tab" href="#tab_scope" data-bs-toggle="tab" role="tab" aria-controls="tab_scope" aria-selected="false"><?= $LANG['decl_tab_scope'] ?></a></li>
-          </ul>
 
-          <div id="myTabContent" class="tab-content">
+          <div class="card">
 
-            <!-- Overview tab -->
-            <div class="tab-pane fade show active" id="tab_overview" role="tabpanel" aria-labelledby="tab_overview-tab">
-              <div class="card">
-                <div class="card-body">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation"><a class="nav-link active" id="tab_overview-tab" href="#tab_overview" data-bs-toggle="tab" role="tab" aria-controls="tab_overview" aria-selected="true"><?= $LANG['decl_tab_overview'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_absence-tab" href="#tab_absence" data-bs-toggle="tab" role="tab" aria-controls="tab_absence" aria-selected="false"><?= $LANG['decl_tab_absence'] ?><?= (($viewData['declAbsence']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_before-tab" href="#tab_before" data-bs-toggle="tab" role="tab" aria-controls="tab_before" aria-selected="false"><?= $LANG['decl_tab_before'] ?><?= (($viewData['declBefore']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_period1-tab" href="#tab_period1" data-bs-toggle="tab" role="tab" aria-controls="tab_period1" aria-selected="false"><?= $LANG['decl_tab_period1'] ?><?= (($viewData['declPeriod1']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_period2-tab" href="#tab_period2" data-bs-toggle="tab" role="tab" aria-controls="tab_period2" aria-selected="false"><?= $LANG['decl_tab_period2'] ?><?= (($viewData['declPeriod2']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_period3-tab" href="#tab_period3" data-bs-toggle="tab" role="tab" aria-controls="tab_period3" aria-selected="false"><?= $LANG['decl_tab_period3'] ?><?= (($viewData['declPeriod3']) ? ' <i class="fas fa-check text-danger"></i>' : '') ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_scope-tab" href="#tab_scope" data-bs-toggle="tab" role="tab" aria-controls="tab_scope" aria-selected="false"><?= $LANG['decl_tab_scope'] ?></a></li>
+              </ul>
+            </div>
+
+            <div class="card-body">
+              <div class="tab-content" id="myTabContent">
+
+                <!-- Overview tab -->
+                <div class="tab-pane fade show active" id="tab_overview" role="tabpanel" aria-labelledby="tab_overview-tab">
 
                   <?php $overviews = array( 'Absence', 'Before', 'Period1', 'Period2', 'Period3' );
                   foreach ($overviews as $overview) {
@@ -145,75 +149,51 @@ view.declination
                   <?php } ?>
 
                 </div>
-              </div>
-            </div>
 
-            <!-- Absence tab -->
-            <div class="tab-pane fade" id="tab_absence" role="tabpanel" aria-labelledby="tab_absence-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Absence tab -->
+                <div class="tab-pane fade" id="tab_absence" role="tabpanel" aria-labelledby="tab_absence-tab">
                   <?php foreach ($viewData['absence'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
-              </div>
-            </div>
 
-            <!-- Before tab -->
-            <div class="tab-pane fade" id="tab_before" role="tabpanel" aria-labelledby="tab_before-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Before tab -->
+                <div class="tab-pane fade" id="tab_before" role="tabpanel" aria-labelledby="tab_before-tab">
                   <?php foreach ($viewData['before'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
-              </div>
-            </div>
 
-            <!-- Period 1 tab -->
-            <div class="tab-pane fade" id="tab_period1" role="tabpanel" aria-labelledby="tab_period1-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Period 1 tab -->
+                <div class="tab-pane fade" id="tab_period1" role="tabpanel" aria-labelledby="tab_period1-tab">
                   <?php foreach ($viewData['period1'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
-              </div>
-            </div>
 
-            <!-- Period 2 tab -->
-            <div class="tab-pane fade" id="tab_period2" role="tabpanel" aria-labelledby="tab_period2-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Period 2 tab -->
+                <div class="tab-pane fade" id="tab_period2" role="tabpanel" aria-labelledby="tab_period2-tab">
                   <?php foreach ($viewData['period2'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
-              </div>
-            </div>
 
-            <!-- Period 3 tab -->
-            <div class="tab-pane fade" id="tab_period3" role="tabpanel" aria-labelledby="tab_period3-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Period 3 tab -->
+                <div class="tab-pane fade" id="tab_period3" role="tabpanel" aria-labelledby="tab_period3-tab">
                   <?php foreach ($viewData['period3'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
-              </div>
-            </div>
 
-            <!-- Scope tab -->
-            <div class="tab-pane fade" id="tab_scope" role="tabpanel" aria-labelledby="tab_scope-tab">
-              <div class="card">
-                <div class="card-body">
+                <!-- Scope tab -->
+                <div class="tab-pane fade" id="tab_scope" role="tabpanel" aria-labelledby="tab_scope-tab">
                   <?php foreach ($viewData['scope'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
+
               </div>
             </div>
-
           </div>
 
           <div style="height:20px;"></div>
