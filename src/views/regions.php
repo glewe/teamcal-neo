@@ -73,108 +73,131 @@ view.regions
 
         </form>
 
-        <ul class="nav nav-tabs" role="tablist">
-          <li class="nav-item"><a class="nav-link active" id="list-tab" href="#list" data-bs-toggle="tab" role="tab" aria-controls="list" aria-selected="true"><?= $LANG['regions_tab_list'] ?></a></li>
-          <li class="nav-item"><a class="nav-link" id="ical-tab" href="#ical" data-bs-toggle="tab" role="tab" aria-controls="ical" aria-selected="true"><?= $LANG['regions_tab_ical'] ?></a></li>
-          <li class="nav-item"><a class="nav-link" id="transfer-tab" href="#transfer" data-bs-toggle="tab" role="tab" aria-controls="transfer" aria-selected="true"><?= $LANG['regions_tab_transfer'] ?></a></li>
-        </ul>
+        <div class="card">
 
-        <div id="myTabContent" class="tab-content">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="list-tab" data-bs-toggle="tab" data-bs-target="#list-tab-pane" type="button" role="tab" aria-controls="list-tab-pane" aria-selected="true"><?= $LANG['regions_tab_list'] ?></button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="ical-tab" data-bs-toggle="tab" data-bs-target="#ical-tab-pane" type="button" role="tab" aria-controls="ical-tab-pane" aria-selected="true"><?= $LANG['regions_tab_ical'] ?></button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="copy-tab" data-bs-toggle="tab" data-bs-target="#copy-tab-pane" type="button" role="tab" aria-controls="copy-tab-pane" aria-selected="true"><?= $LANG['regions_tab_transfer'] ?></button>
+              </li>
+            </ul>
+          </div>
 
-          <!-- List tab -->
-          <div class="tab-pane fade show active" id="list" role="tabpanel" aria-labelledby="list-tab">
-            <div class="card">
-              <div class="card-body">
-                <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight: bold;">
-                  <div class="col-lg-3"><?= $LANG['regions_name'] ?></div>
-                  <div class="col-lg-6"><?= $LANG['regions_description'] ?></div>
-                  <div class="col-lg-3 text-end"><?= $LANG['action'] ?></div>
-                </div>
+          <div class="card-body">
+            <div class="tab-content" id="myTabContent">
 
-                <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-                  <div class="col-lg-3">Default</div>
-                  <div class="col-lg-6">Default Region</div>
-                  <div class="col-lg-3 text-end">
-                    <a href="index.php?action=monthedit&amp;month=<?= date('Y') . date('m') ?>&amp;region=1" class="btn btn-info btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_calendar'] ?></a>
-                  </div>
-                </div>
+              <!-- List tab -->
+              <div class="tab-pane fade show active" id="list-tab-pane" role="tabpanel" aria-labelledby="list-tab">
+                <table id="dataTableRegions" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+                  <thead>
+                  <tr>
+                    <th class="text-end">#</th>
+                    <th><?= $LANG['name'] ?></th>
+                    <th><?= $LANG['description'] ?></th>
+                    <th class="text-center"><?= $LANG['action'] ?></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <?php
+                  $i = 1;
+                  foreach ($viewData['regions'] as $region) : ?>
+                    <tr>
+                      <td class="text-end"><?= $i++ ?></td>
+                      <td><?= $region['name'] ?></td>
+                      <td><?= $region['description'] ?></td>
+                      <td class="align-top text-center">
+                        <?php if ($region['id'] != '1') : ?>
+                          <form class="form-control-horizontal" name="form_<?= $region['name'] ?>" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
+                            <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRegion_<?= $region['name'] ?>"><?= $LANG['btn_delete'] ?></button>
+                            <a href="index.php?action=regionedit&amp;id=<?= $region['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
+                            <a href="index.php?action=monthedit&amp;month=<?= date('Y') . date('m') ?>&amp;region=<?= $region['id'] ?>" class="btn btn-info btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_calendar'] ?></a>
+                            <input name="hidden_id" type="hidden" value="<?= $region['id'] ?>">
+                            <input name="hidden_name" type="hidden" value="<?= $region['name'] ?>">
+                            <input name="hidden_description" type="hidden" value="<?= $region['description'] ?>">
+                            <!-- Modal: Delete region -->
+                            <?= createModalTop('modalDeleteRegion_' . $region['name'], $LANG['modal_confirm']) ?>
+                            <?= $LANG['regions_confirm_delete'] . ": " . $region['name'] ?>
+                            <?= createModalBottom('btn_regionDelete', 'danger', $LANG['btn_delete']) ?>
+                          </form>
+                        <?php endif; ?>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+                  </tbody>
+                </table>
+                <script>
+                  $(document).ready(function () {
+                    $('#dataTableRegions').DataTable({
+                      paging: true,
+                      ordering: true,
+                      info: true,
+                      pageLength: 50,
+                      language: {
+                        url: 'addons/datatables/datatables.<?= $LANG['locale'] ?>.json'
+                      },
+                      columnDefs: [
+                        {targets: [0, 3], orderable: false, searchable: false}
+                      ]
+                    });
+                  });
+                </script>
 
-                <?php foreach ($viewData['regions'] as $region) {
-                  if ($region['id'] != '1') { ?>
-                    <form class="form-control-horizontal" name="form_<?= $region['name'] ?>" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
-                      <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-                        <div class="col-lg-3"><?= $region['name'] ?></div>
-                        <div class="col-lg-6"><?= $region['description'] ?></div>
-                        <div class="col-lg-3 text-end">
-                          <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRegion_<?= $region['name'] ?>"><?= $LANG['btn_delete'] ?></button>
-                          <a href="index.php?action=regionedit&amp;id=<?= $region['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
-                          <a href="index.php?action=monthedit&amp;month=<?= date('Y') . date('m') ?>&amp;region=<?= $region['id'] ?>" class="btn btn-info btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_calendar'] ?></a>
-                          <input name="hidden_id" type="hidden" value="<?= $region['id'] ?>">
-                          <input name="hidden_name" type="hidden" value="<?= $region['name'] ?>">
-                          <input name="hidden_description" type="hidden" value="<?= $region['description'] ?>">
+              </div>
+
+              <!-- iCal tab -->
+              <div class="tab-pane fade" id="ical-tab-pane" role="tabpanel" aria-labelledby="ical-tab">
+                <div class="card">
+                  <div class="card-body">
+                    <form class="form-control-horizontal" name="form_ical" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8" enctype="multipart/form-data">
+                      <?php foreach ($viewData['ical'] as $formObject) {
+                        echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                      } ?>
+                      <div class="form-group row">
+                        <label class="col-lg-<?= $colsleft ?> control-label">
+                          <?= $LANG['regions_ical_file'] ?><br>
+                          <span class="text-normal"><?= $LANG['regions_ical_file_comment'] ?></span>
+                        </label>
+                        <div class="col-lg-<?= $colsright ?>">
+                          <input class="form-control" tabindex="<?= $tabindex++ ?>" accept="text/calendar" name="file_ical" type="file">
                         </div>
                       </div>
-
-                      <!-- Modal: Delete region -->
-                      <?= createModalTop('modalDeleteRegion_' . $region['name'], $LANG['modal_confirm']) ?>
-                      <?= $LANG['regions_confirm_delete'] . ": " . $region['name'] ?>
-                      <?= createModalBottom('btn_regionDelete', 'danger', $LANG['btn_delete']) ?>
-
+                      <div class="divider">
+                        <hr>
+                      </div>
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-sm float-end" tabindex="32" name="btn_uploadIcal"><?= $LANG['btn_upload'] ?></button>
+                      </div>
                     </form>
-                  <?php }
-                } ?>
+                  </div>
+                </div>
               </div>
+
+              <!-- Copy tab -->
+              <div class="tab-pane fade" id="copy-tab-pane" role="tabpanel" aria-labelledby="copy-tab">
+                <div class="card">
+                  <div class="card-body">
+                    <form class="bs-example form-control-horizontal" name="form_merge" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
+                      <?php foreach ($viewData['merge'] as $formObject) {
+                        echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                      } ?>
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-sm float-end" tabindex="32" name="btn_regionTransfer"><?= $LANG['btn_transfer'] ?></button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
-
-          <!-- iCal tab -->
-          <div class="tab-pane fade" id="ical" role="tabpanel" aria-labelledby="ical-tab">
-            <div class="card">
-              <div class="card-body">
-                <form class="form-control-horizontal" name="form_ical" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8" enctype="multipart/form-data">
-                  <?php foreach ($viewData['ical'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-                  } ?>
-                  <div class="form-group row">
-                    <label class="col-lg-<?= $colsleft ?> control-label">
-                      <?= $LANG['regions_ical_file'] ?><br>
-                      <span class="text-normal"><?= $LANG['regions_ical_file_comment'] ?></span>
-                    </label>
-                    <div class="col-lg-<?= $colsright ?>">
-                      <input class="form-control" tabindex="<?= $tabindex++ ?>" accept="text/calendar" name="file_ical" type="file">
-                    </div>
-                  </div>
-                  <div class="divider">
-                    <hr>
-                  </div>
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-sm float-end" tabindex="32" name="btn_uploadIcal"><?= $LANG['btn_upload'] ?></button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <!-- Transfer tab -->
-          <div class="tab-pane fade" id="transfer" role="tabpanel" aria-labelledby="transfer-tab">
-            <div class="card">
-              <div class="card-body">
-                <form class="bs-example form-control-horizontal" name="form_merge" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
-                  <?php foreach ($viewData['merge'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-                  } ?>
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-sm float-end" tabindex="32" name="btn_regionTransfer"><?= $LANG['btn_transfer'] ?></button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
         </div>
-
       </div>
     </div>
-
   </div>
 </div>
