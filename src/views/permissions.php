@@ -101,112 +101,127 @@ view.permissions
 
           <?php if ($viewData['mode'] == 'byrole') { ?>
 
-            <!-- View: By role -->
-            <ul class="nav nav-tabs" role="tablist">
-              <?php foreach ($viewData['roles'] as $role) { ?>
-                <li class="nav-item"><a class="nav-link <?= (($role['id'] == 1) ? "active\"" : "") ?> id=" tab<?= $role['id'] ?>-tab" href="#tab<?= $role['id'] ?>" data-bs-toggle="tab" role="tab" aria-controls="tab<?= $role['id'] ?>" aria-selected="<?= (($role['id'] == 1) ? "true" : "false") ?>"><?= $role['name'] ?></a></li>
-              <?php } ?>
-            </ul>
+            <div class="card">
 
-            <div id="myTabContent" class="tab-content">
-              <?php foreach ($viewData['roles'] as $role) { ?>
-                <!-- Role <?= $role['name'] ?> tab -->
-                <div class="tab-pane fade show<?= (($role['id'] == 1) ? " active" : "") ?>" id="tab<?= $role['id'] ?>" role="tabpanel" aria-labelledby="tab<?= $role['id'] ?>-tab">
-                  <div class="card">
-                    <div class="card-body">
+              <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                  <?php foreach ($viewData['roles'] as $role) { ?>
+                    <li class="nav-item" role="presentation"><a class="nav-link <?= (($role['id'] == 1) ? "active\"" : "") ?> id="tab<?= $role['id'] ?>-tab" href="#tab<?= $role['id'] ?>" data-bs-toggle="tab" role="tab" aria-controls="tab<?= $role['id'] ?>" aria-selected="<?= (($role['id'] == 1) ? "true" : "false") ?>"><?= $role['name'] ?></a></li>
+                  <?php } ?>
+                </ul>
+              </div>
 
-                      <?php foreach ($viewData['permgroups'] as $permgroup => $permnames) {
-                        $checked = 'checked="checked"';
-                        foreach ($permnames as $permname) {
-                          if (!$P->isAllowed($viewData['scheme'], $permname, $role['id'])) {
-                            $checked = '';
-                          }
-                          ?>
-                        <?php } ?>
-                        <div class="checkbox">
-                          <label><input type="checkbox" name="chk_<?= $permgroup ?>_<?= $role['id'] ?>" value="chk_<?= $permgroup ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= $checked ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><strong><?= $LANG['perm_' . $permgroup . '_title'] ?></strong><br><?= $LANG['perm_' . $permgroup . '_desc'] ?></label>
+              <div class="card-body">
+                <div class="tab-content" id="myTabContent">
+
+                  <?php foreach ($viewData['roles'] as $role) { ?>
+                    <!-- Role <?= $role['name'] ?> tab -->
+                    <div class="tab-pane fade show<?= (($role['id'] == 1) ? " active" : "") ?>" id="tab<?= $role['id'] ?>" role="tabpanel" aria-labelledby="tab<?= $role['id'] ?>-tab">
+                      <div class="card">
+                        <div class="card-body">
+
+                          <?php foreach ($viewData['permgroups'] as $permgroup => $permnames) {
+                            $checked = 'checked="checked"';
+                            foreach ($permnames as $permname) {
+                              if (!$P->isAllowed($viewData['scheme'], $permname, $role['id'])) {
+                                $checked = '';
+                              }
+                              ?>
+                            <?php } ?>
+                            <div class="checkbox">
+                              <label><input type="checkbox" name="chk_<?= $permgroup ?>_<?= $role['id'] ?>" value="chk_<?= $permgroup ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= $checked ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><strong><?= $LANG['perm_' . $permgroup . '_title'] ?></strong><br><?= $LANG['perm_' . $permgroup . '_desc'] ?></label>
+                            </div>
+                            <hr>
+                          <?php } ?>
+
+                          <?php foreach ($viewData['fperms'] as $fperm) { ?>
+                            <div class="checkbox">
+                              <label><input type="checkbox" name="chk_<?= $fperm ?>_<?= $role['id'] ?>" value="chk_<?= $fperm ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= (($P->isAllowed($viewData['scheme'], $fperm, $role['id'])) ? " checked" : "") ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><strong><?= $LANG['perm_' . $fperm . '_title'] ?></strong><br><?= $LANG['perm_' . $fperm . '_desc'] ?></label>
+                            </div>
+                            <hr>
+                          <?php } ?>
+
                         </div>
-                        <hr>
-                      <?php } ?>
-
-                      <?php foreach ($viewData['fperms'] as $fperm) { ?>
-                        <div class="checkbox">
-                          <label><input type="checkbox" name="chk_<?= $fperm ?>_<?= $role['id'] ?>" value="chk_<?= $fperm ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= (($P->isAllowed($viewData['scheme'], $fperm, $role['id'])) ? " checked" : "") ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><strong><?= $LANG['perm_' . $fperm . '_title'] ?></strong><br><?= $LANG['perm_' . $fperm . '_desc'] ?></label>
-                        </div>
-                        <hr>
-                      <?php } ?>
-
+                      </div>
                     </div>
-                  </div>
+                  <?php } ?>
                 </div>
-              <?php } ?>
+              </div>
+
             </div>
 
           <?php } else { ?>
 
-            <!-- View: By permission -->
-            <ul class="nav nav-tabs" role="tablist">
-              <li class="nav-item"><a class="nav-link active" id="tabGeneral-tab" href="#tabGeneral" data-bs-toggle="tab" role="tab" aria-controls="tabGeneral" aria-selected="true"><?= $LANG['perm_tab_general'] ?></a></li>
-              <li class="nav-item"><a class="nav-link" id="tabFeatures-tab" href="#tabFeatures" data-bs-toggle="tab" role="tab" aria-controls="tabFeatures" aria-selected="true"><?= $LANG['perm_tab_features'] ?></a></li>
-            </ul>
+            <div class="card">
 
-            <div id="myTabContent" class="tab-content">
-
-              <!-- Tab: General -->
-              <div class="tab-pane fade show active" id="tabGeneral" role="tabpanel" aria-labelledby="tabGeneral-tab">
-                <div class="card">
-                  <div class="card-body">
-                    <?php foreach ($viewData['permgroups'] as $key => $pages) { ?>
-                      <div class="form-group row">
-                        <label class="col-lg-<?= $colsleft ?> control-label">
-                          <?= $LANG['perm_' . $key . '_title'] ?><br>
-                          <span class="text-normal"><?= $LANG['perm_' . $key . '_desc'] ?></span>
-                        </label>
-                        <div class="col-lg-<?= $colsright ?>">
-                          <?php foreach ($viewData['roles'] as $role) {
-                            $checked = 'checked="checked"';
-                            foreach ($pages as $page) {
-                              if (!$P->isAllowed($viewData['scheme'], $page, $role['id'])) {
-                                $checked = '';
-                              }
-                            } ?>
-                            <div class="checkbox">
-                              <label><input type="checkbox" name="chk_<?= $key ?>_<?= $role['id'] ?>" value="chk_<?= $key ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= $checked ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><?= $role['name'] ?></label>
-                            </div>
-                          <?php } ?>
-                        </div>
-                      </div>
-                      <div class="divider">
-                        <hr>
-                      </div>
-                    <?php } ?>
-                  </div>
-                </div>
+              <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                  <li class="nav-item" role="presentation"><a class="nav-link active" id="tabGeneral-tab" href="#tabGeneral" data-bs-toggle="tab" role="tab" aria-controls="tabGeneral" aria-selected="true"><?= $LANG['perm_tab_general'] ?></a></li>
+                  <li class="nav-item" role="presentation"><a class="nav-link" id="tabFeatures-tab" href="#tabFeatures" data-bs-toggle="tab" role="tab" aria-controls="tabFeatures" aria-selected="true"><?= $LANG['perm_tab_features'] ?></a></li>
+                </ul>
               </div>
 
-              <!-- Tab: Features -->
-              <div class="tab-pane fade show" id="tabFeatures" role="tabpanel" aria-labelledby="tabFeatures-tab">
-                <div class="card">
-                  <div class="card-body">
-                    <?php foreach ($viewData['fperms'] as $fperm) { ?>
-                      <div class="form-group row">
-                        <label class="col-lg-<?= $colsleft ?> control-label">
-                          <?= $LANG['perm_' . $fperm . '_title'] ?><br>
-                          <span class="text-normal"><?= $LANG['perm_' . $fperm . '_desc'] ?></span>
-                        </label>
-                        <div class="col-lg-<?= $colsright ?>">
-                          <?php foreach ($viewData['roles'] as $role) { ?>
-                            <div class="checkbox">
-                              <label><input type="checkbox" name="chk_<?= $fperm ?>_<?= $role['id'] ?>" value="chk_<?= $fperm ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= (($P->isAllowed($viewData['scheme'], $fperm, $role['id'])) ? " checked" : "") ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><?= $role['name'] ?></label>
+              <div class="card-body">
+                <div class="tab-content" id="myTabContent">
+
+                  <!-- Tab: General -->
+                  <div class="tab-pane fade show active" id="tabGeneral" role="tabpanel" aria-labelledby="tabGeneral-tab">
+                    <div class="card">
+                      <div class="card-body">
+                        <?php foreach ($viewData['permgroups'] as $key => $pages) { ?>
+                          <div class="form-group row">
+                            <label class="col-lg-<?= $colsleft ?> control-label">
+                              <?= $LANG['perm_' . $key . '_title'] ?><br>
+                              <span class="text-normal"><?= $LANG['perm_' . $key . '_desc'] ?></span>
+                            </label>
+                            <div class="col-lg-<?= $colsright ?>">
+                              <?php foreach ($viewData['roles'] as $role) {
+                                $checked = 'checked="checked"';
+                                foreach ($pages as $page) {
+                                  if (!$P->isAllowed($viewData['scheme'], $page, $role['id'])) {
+                                    $checked = '';
+                                  }
+                                } ?>
+                                <div class="checkbox">
+                                  <label><input type="checkbox" name="chk_<?= $key ?>_<?= $role['id'] ?>" value="chk_<?= $key ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= $checked ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><?= $role['name'] ?></label>
+                                </div>
+                              <?php } ?>
                             </div>
-                          <?php } ?>
-                        </div>
+                          </div>
+                          <div class="divider">
+                            <hr>
+                          </div>
+                        <?php } ?>
                       </div>
-                      <div class="divider">
-                        <hr>
-                      </div>
-                    <?php } ?>
+                    </div>
                   </div>
+
+                  <!-- Tab: Features -->
+                  <div class="tab-pane fade show" id="tabFeatures" role="tabpanel" aria-labelledby="tabFeatures-tab">
+                    <div class="card">
+                      <div class="card-body">
+                        <?php foreach ($viewData['fperms'] as $fperm) { ?>
+                          <div class="form-group row">
+                            <label class="col-lg-<?= $colsleft ?> control-label">
+                              <?= $LANG['perm_' . $fperm . '_title'] ?><br>
+                              <span class="text-normal"><?= $LANG['perm_' . $fperm . '_desc'] ?></span>
+                            </label>
+                            <div class="col-lg-<?= $colsright ?>">
+                              <?php foreach ($viewData['roles'] as $role) { ?>
+                                <div class="checkbox">
+                                  <label><input type="checkbox" name="chk_<?= $fperm ?>_<?= $role['id'] ?>" value="chk_<?= $fperm ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= (($P->isAllowed($viewData['scheme'], $fperm, $role['id'])) ? " checked" : "") ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><?= $role['name'] ?></label>
+                                </div>
+                              <?php } ?>
+                            </div>
+                          </div>
+                          <div class="divider">
+                            <hr>
+                          </div>
+                        <?php } ?>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
 
