@@ -49,6 +49,9 @@ view.menu
                     <img src="languages/<?= $appLang ?>.png" style="margin-right: 4px;" alt="<?= proper($appLang) ?>">
                   </span>
                   <?= proper($appLang) ?>
+                  <?php if ($appLang === $language) { ?>
+                    <i class="fa fa-check ms-2 text-success"></i>
+                  <?php } ?>
                 </a>
               <?php } ?>
             <?php } ?>
