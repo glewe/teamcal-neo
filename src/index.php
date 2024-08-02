@@ -245,7 +245,7 @@ if (L_USER && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['actio
 // COMPARE LANGUAGES
 // Set condition to true for debug
 //
-$checkLanguages = true;
+$checkLanguages = false;
 if ($checkLanguages) {
   $lang1 = "english";
   $lang2 = "deutsch";

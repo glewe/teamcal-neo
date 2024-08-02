@@ -14,7 +14,12 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */ ?>
 <!DOCTYPE html>
+<!-- Theme CSS -->
+<?php if ($htmlData['theme']['name'] == 'bootstrap-dark') { ?>
+<html lang="<?= $LANG['html_locale'] ?>" data-bs-theme="dark">
+<?php } else { ?>
 <html lang="<?= $LANG['html_locale'] ?>">
+<?php } ?>
 <head>
   <!--
   ===============================================================================
@@ -55,10 +60,10 @@ if (!defined('VALID_ROOT')) {
   <?php } ?>
 
   <!-- Theme CSS -->
-  <?php if ($htmlData['theme']['name'] == 'bootstrap') { ?>
+  <?php if ($htmlData['theme']['name'] == 'bootstrap' || $htmlData['theme']['name'] == 'bootstrap-dark') { ?>
     <link rel="stylesheet" href="themes/bootstrap/bootstrap.min.css">
   <?php } else { ?>
-    <link rel="stylesheet" href="themes/<?= $htmlData['theme']['name'] ?>/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="themes/<?= $htmlData['theme']['name'] ?>/bootstrap.min.css">
   <?php } ?>
 
   <?php if ($C->read('font') && $C->read('font') != 'default') { ?>
@@ -99,7 +104,7 @@ if (!defined('VALID_ROOT')) {
   <script src="addons/google-code-prettify/prettify.js"></script>
 
   <!--Datatables CSS-->
-<!--  <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.2/b-3.1.0/b-html5-3.1.0/r-3.0.2/datatables.min.css" rel="stylesheet">-->
+  <!--  <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.2/b-3.1.0/b-html5-3.1.0/r-3.0.2/datatables.min.css" rel="stylesheet">-->
   <link href="addons/datatables/datatables.min.css" rel="stylesheet">
 
   <?php if (CHARTJS) { ?>
@@ -183,6 +188,7 @@ if (!defined('VALID_ROOT')) {
       body {
         padding-top: 0;
       }
+
       .content {
         padding: 5px 0 5px 0;
       }
@@ -194,9 +200,11 @@ if (!defined('VALID_ROOT')) {
     <script>
       // Define dataLayer and the gtag function.
       window.dataLayer = window.dataLayer || [];
+
       function gtag() {
         dataLayer.push(arguments);
       }
+
       // Set default consents to 'denied'
       // Set analytic consent to 'granted' (see Imprint page for opt-out option)
       gtag('consent', 'default', {
@@ -210,11 +218,14 @@ if (!defined('VALID_ROOT')) {
     <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $C->read("googleAnalyticsID") ?>"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
+
       function gtag() {
         dataLayer.push(arguments);
       }
+
       gtag('js', new Date());
       gtag('config', '<?= $C->read("googleAnalyticsID") ?>');
+
       // Opt out to GA
       function gaOptout() {
         gtag('consent', 'update', {
