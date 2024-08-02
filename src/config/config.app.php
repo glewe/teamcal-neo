@@ -62,8 +62,7 @@ define('SECUREIMAGE_VER', "3.6.4");
 // Simple yet flexible JavaScript charting for designers & developers
 // http://www.chartjs.org/
 //
-define('CHARTJS', true);
-define('CHARTJS_VER', "2.4.0");
+define('CHARTJS_VER', "4.4.3");
 
 //
 // CKEditor

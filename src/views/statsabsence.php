@@ -148,17 +148,17 @@ view.statsabsences
     <?= createModalTop('modalDiagram', $LANG['stats_modalDiagramTitle']) ?>
     <div>
       <span class="text-bold"><?= $LANG['stats_color'] ?></span><br>
-      <span class="text-normal"><?= $LANG['stats_color_comment'] ?></span>
+      <label for="sel_color" class="text-normal"><?= $LANG['stats_color_comment'] ?></label>
       <select id="sel_color" class="form-control" name="sel_color" tabindex="<?= $tabindex++ ?>">
-        <option value="blue" <?= (($viewData['color'] == 'blue') ? "selected" : "") ?>><?= $LANG['blue'] ?></option>
-        <option value="cyan" <?= (($viewData['color'] == 'cyan') ? "selected" : "") ?>><?= $LANG['cyan'] ?></option>
-        <option value="green" <?= (($viewData['color'] == 'green') ? "selected" : "") ?>><?= $LANG['green'] ?></option>
-        <option value="grey" <?= (($viewData['color'] == 'grey') ? "selected" : "") ?>><?= $LANG['grey'] ?></option>
-        <option value="magenta" <?= (($viewData['color'] == 'magenta') ? "selected" : "") ?>><?= $LANG['magenta'] ?></option>
-        <option value="orange" <?= (($viewData['color'] == 'orange') ? "selected" : "") ?>><?= $LANG['orange'] ?></option>
-        <option value="purple" <?= (($viewData['color'] == 'purple') ? "selected" : "") ?>><?= $LANG['purple'] ?></option>
-        <option value="red" <?= (($viewData['color'] == 'red') ? "selected" : "") ?>><?= $LANG['red'] ?></option>
-        <option value="yellow" <?= (($viewData['color'] == 'yellow') ? "selected" : "") ?>><?= $LANG['yellow'] ?></option>
+        <option value="#0000ff" <?= (($viewData['color'] == 'blue') ? "selected" : "") ?>><?= $LANG['blue'] ?></option>
+        <option value="#00ffff" <?= (($viewData['color'] == 'cyan') ? "selected" : "") ?>><?= $LANG['cyan'] ?></option>
+        <option value="#008000" <?= (($viewData['color'] == 'green') ? "selected" : "") ?>><?= $LANG['green'] ?></option>
+        <option value="#808080" <?= (($viewData['color'] == 'grey') ? "selected" : "") ?>><?= $LANG['grey'] ?></option>
+        <option value="#ff00ff" <?= (($viewData['color'] == 'magenta') ? "selected" : "") ?>><?= $LANG['magenta'] ?></option>
+        <option value="#ffa500" <?= (($viewData['color'] == 'orange') ? "selected" : "") ?>><?= $LANG['orange'] ?></option>
+        <option value="#800080" <?= (($viewData['color'] == 'purple') ? "selected" : "") ?>><?= $LANG['purple'] ?></option>
+        <option value="#ff0000" <?= (($viewData['color'] == 'red') ? "selected" : "") ?>><?= $LANG['red'] ?></option>
+        <option value="#ffff00" <?= (($viewData['color'] == 'yellow') ? "selected" : "") ?>><?= $LANG['yellow'] ?></option>
       </select><br>
       <br>
     </div>
@@ -178,30 +178,27 @@ view.statsabsences
     </div>
     <div class="card-body">
       <p><?= $LANG['stats_absences_desc'] ?></p>
+
       <canvas id="myChart" height="<?= $viewData['height'] ?>"></canvas>
 
+      <script src="addons/chart.js.4.4.3/chart.js"></script>
       <script>
-        //
-        // Chart.js Bar Chart
-        //
-        var color = Chart.helpers.color;
-        var data = {
-          labels: [<?= $viewData['labels'] ?>],
-          datasets: [{
-            label: '<?= $LANG['absences'] ?>',
-            backgroundColor: color(window.chartColors.<?= $viewData['color'] ?>).alpha(0.5).rgbString(),
-            borderColor: window.chartColors.<?= $viewData['color'] ?>,
-            borderWidth: 1,
-            data: [<?= $viewData['data'] ?>]
-          }]
-        };
-
         window.onload = function () {
-          var ctx = document.getElementById("myChart").getContext("2d");
-          window.myHorizontalBar = new Chart(ctx, {
-            type: 'horizontalBar',
-            data: data,
+          const ctx = document.getElementById('myChart');
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: [<?= $viewData['labels'] ?>],
+              datasets: [{
+                label: '<?= $LANG['absences'] ?>',
+                data: [<?= $viewData['data'] ?>],
+                backgroundColor: '<?= $viewData['color'] ?>80', // 80 is adding transparency of 0.5
+                borderColor: '<?= $viewData['color'] ?>',
+                borderWidth: 1
+              }]
+            },
             options: {
+              indexAxis: 'y',
               elements: {
                 rectangle: {
                   borderWidth: 2,
