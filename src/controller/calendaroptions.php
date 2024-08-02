@@ -339,11 +339,21 @@ $caloptData['options'] = array(
 // Statistics
 //
 $statsPages = array( 'Absences', 'Presences', 'Absencetype', 'Remainder' );
-$colors = array( 'blue', 'cyan', 'green', 'grey', 'magenta', 'orange', 'purple', 'red', 'yellow' );
+$colors = array(
+  'blue' => '#0000ff',
+  'cyan' => '#00ffff',
+  'green' => '#00d000',
+  'grey' => '#808080',
+  'magenta' => '#ff00ff',
+  'orange' => '#ffa500',
+  'purple' => '#800080',
+  'red' => '#ff0000',
+  'yellow' => '#ffff00',
+);
 foreach ($statsPages as $statsPage) {
   $statsColorArray[$statsPage] = array();
-  foreach ($colors as $color) {
-    $statsColorArray[$statsPage][] = array( 'val' => $color, 'name' => $LANG[$color], 'selected' => ($C->read("statsDefaultColor" . $statsPage) == $color) ? true : false );
+  foreach ($colors as $color => $hex) {
+    $statsColorArray[$statsPage][] = array( 'val' => $hex, 'name' => $LANG[$color], 'selected' => ($C->read("statsDefaultColor" . $statsPage) == $hex) ? true : false );
   }
 }
 $caloptData['stats'] = array(
