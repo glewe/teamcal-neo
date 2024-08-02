@@ -55,9 +55,7 @@ view.about
           <ul>
             <li>Bootstrap Team <?= $LANG['about_for'] ?> <a href="https://getbootstrap.com/" target="_blank" rel="noopener">Bootstrap Framework <?= BOOTSTRAP_VER ?></a></li>
             <li>Thomas Park <?= $LANG['about_for'] ?> <a href="https://bootswatch.com/" target="_blank" rel="noopener">Bootswatch Themes</a></li>
-            <?php if (CHARTJS) { ?>
-              <li>Nick Downie <?= $LANG['about_for'] ?> <a href="https://www.chartjs.org/" target="_blank" rel="noopener">Chart.js <?= CHARTJS_VER ?></a></li>
-            <?php } ?>
+            <li>Nick Downie <?= $LANG['about_for'] ?> <a href="https://www.chartjs.org/" target="_blank" rel="noopener">Chart.js <?= CHARTJS_VER ?></a></li>
             <?php if (CKEDITOR) { ?>
               <li>CKSource <?= $LANG['about_for'] ?> <a href="https://ckeditor.com/" target="_blank" rel="noopener">CKEditor <?= CKEDITOR_VER ?></a></li>
             <?php } ?>
@@ -103,10 +101,8 @@ view.about
       //
       // Major version smaller
       //
-      document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-sm btn-danger" href="https://www.lewe.com/teamcal-neo/" target="_blank"><?= $LANG['about_majorUpdateAvailable'] ?></a>';
-    }
-    elseif(running_version.major == latest_version.major)
-    {
+      document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-sm btn-danger" href="https://github.com/glewe/teamcal-neo/releases" target="_blank"><?= $LANG['about_majorUpdateAvailable'] ?></a>';
+    } else if (running_version.major == latest_version.major) {
       //
       // Major version equal
       //
@@ -114,12 +110,12 @@ view.about
         //
         // Minor version smaller OR (minor version equal AND patch version smaller)
         //
-        document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-sm btn-warning" href="https://www.lewe.com/teamcal-neo/" target="_blank"><?= $LANG['about_minorUpdateAvailable'] ?></a>';
+        document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-sm btn-warning" href="https://github.com/glewe/teamcal-neo/releases" target="_blank"><?= $LANG['about_minorUpdateAvailable'] ?></a>';
       } else {
         //
         // Same versions
         //
-        //document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-sm btn-success" href="https://www.lewe.com/teamcal-neo/" target="_blank"><?= $LANG['about_newestVersion'] ?></a>';
+        //document.getElementById("versioncompare").innerHTML = '&nbsp;&nbsp;<a class="btn btn-sm btn-success" href="https://github.com/glewe/teamcal-neo/releases" target="_blank"><?= $LANG['about_newestVersion'] ?></a>';
       }
     }
   </script>
