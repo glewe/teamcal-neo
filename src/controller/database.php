@@ -10,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
- * @subpackage Controllers
  * @since 3.0.0
  */
 
@@ -94,7 +93,6 @@ if (!empty($_POST)) {
           $D->setRegion($daynote['id'], '1');
         }
       }
-
       //
       // Success
       //
@@ -122,7 +120,6 @@ if (!empty($_POST)) {
       if (isset($_POST['chk_cleanTemplates'])) {
         $result = $T->deleteBefore(substr($_POST['txt_cleanBefore'], 0, 4), substr($_POST['txt_cleanBefore'], 5, 2));
       }
-
       //
       // Success
       //
@@ -343,6 +340,8 @@ if (!empty($_POST)) {
 // PREPARE VIEW
 //
 $viewData['dbURL'] = $C->read('dbURL');
+$viewData['dbInfo'] = $DB->getDatabaseInfo();
+//dnd($viewData['dbInfo']);
 
 //=============================================================================
 //

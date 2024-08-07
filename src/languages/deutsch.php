@@ -583,6 +583,7 @@ $LANG['configapp_title'] = 'Applikations-Konfiguration';
 //
 $LANG['db_title'] = 'Datenbank Verwaltung';
 $LANG['db_tab_cleanup'] = 'Aufr&auml;umen';
+$LANG['db_tab_dbinfo'] = 'Datenbank Information';
 $LANG['db_tab_delete'] = 'Datens&auml;tze l&ouml;schen';
 $LANG['db_tab_admin'] = 'Verwaltung';
 $LANG['db_tab_optimize'] = 'Tabellen optimieren';
