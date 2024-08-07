@@ -14,7 +14,7 @@ header("Pragma: no-cache");
 if (strlen($_REQUEST['server']) && strlen($_REQUEST['db']) && strlen($_REQUEST['user'])) {
   if (isset($_REQUEST['prefix']) && strlen($_REQUEST['prefix'])) {
     $prefix = $_REQUEST['prefix'];
-    $pattern = '/^[a-zA-Z_][a-zA-Z0-9_]{0,63}$/';
+    $pattern = '/^[a-zA-Z_]\w{0,63}$/';
     if (!preg_match($pattern, $prefix)) {
       die("Invalid table name prefix.");
     }
