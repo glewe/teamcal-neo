@@ -251,16 +251,6 @@ if (!empty($_POST)) {
       $C->save("logsearchevent", "%");
       header("Location: index.php?action=" . $controller);
     }
-    // ,------,
-    // | Sort |
-    // '------'
-    elseif (isset($_POST['btn_sort'])) {
-      if ($sort == 'DESC') {
-        header("Location: index.php?action=" . $controller . "&sort=ASC");
-      } else {
-        header("Location: index.php?action=" . $controller);
-      }
-    }
   } else {
     //
     // Input validation failed

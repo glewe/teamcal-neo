@@ -48,7 +48,7 @@ view.log
             <div class="card-body row">
 
               <div class="col-lg-3">
-                <label><?= $LANG['period'] ?></label>
+                <label for="sel_logPeriod"><?= $LANG['period'] ?></label>
                 <select name="sel_logPeriod" id="sel_logPeriod" class="form-control" tabindex="<?= $tabindex++ ?>">
                   <option class="option" value="curr_all" <?= (($viewData['logperiod'] == "curr_all") ? 'selected' : '') ?>><?= $LANG['all'] ?></option>
                   <option class="option" value="curr_month" <?= (($viewData['logperiod'] == "curr_month") ? 'selected' : '') ?>><?= $LANG['period_month'] ?></option>
@@ -57,21 +57,21 @@ view.log
                   <option class="option" value="curr_year" <?= (($viewData['logperiod'] == "curr_year") ? 'selected' : '') ?>><?= $LANG['period_year'] ?></option>
                   <option class="option" value="custom" <?= (($viewData['logperiod'] == "custom") ? 'selected' : '') ?>><?= $LANG['period_custom'] ?></option>
                 </select>
-                <label><?= $LANG['log_header_type'] ?></label>
+                <label for="sel_logType"><?= $LANG['log_header_type'] ?></label>
                 <select name="sel_logType" id="sel_logType" class="form-control" tabindex="<?= $tabindex++ ?>">
                   <option class="option" value="%" <?= (($viewData['logtype'] == "%") ? 'selected' : '') ?>><?= $LANG['all'] ?></option>
                   <?php foreach ($viewData['types'] as $type) { ?>
                     <option class="option" value="log<?= $type ?>" <?= (($viewData['logtype'] == "log" . $type) ? 'selected' : '') ?>><?= $type ?></option>
                   <?php } ?>
                 </select>
-                <label><?= $LANG['search'] . ' ' . $LANG['user'] ?></label>
+                <label for="logSearchUser"><?= $LANG['search'] . ' ' . $LANG['user'] ?></label>
                 <input id="logSearchUser" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_logSearchUser" maxlength="80" value="<?= $viewData['logSearchUser'] ?>" type="text">
-                <label><?= $LANG['search'] . ' ' . $LANG['event'] ?></label>
+                <label for="logSearchEvent"><?= $LANG['search'] . ' ' . $LANG['event'] ?></label>
                 <input id="logSearchEvent" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_logSearchEvent" maxlength="80" value="<?= $viewData['logSearchEvent'] ?>" type="text">
               </div>
 
               <div class="col-lg-2">
-                <label><?= $LANG['from'] ?></label>
+                <label for="logPeriodFrom"><?= $LANG['from'] ?></label>
                 <input id="logPeriodFrom" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_logPeriodFrom" maxlength="10" value="<?= $viewData['logfrom'] ?>" type="text" <?= ($viewData['logPeriod'] != 'custom') ? 'disabled="disabled"' : '' ?>>
                 <script>
                   $(function () {
@@ -85,7 +85,7 @@ view.log
               </div>
 
               <div class="col-lg-2">
-                <label><?= $LANG['to'] ?></label>
+                <label for="logPeriodTo"><?= $LANG['to'] ?></label>
                 <input id="logPeriodTo" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_logPeriodTo" maxlength="10" value="<?= $viewData['logto'] ?>" type="text" <?= ($viewData['logPeriod'] != 'custom') ? 'disabled="disabled"' : '' ?>>
                 <script>
                   $(function () {
@@ -103,7 +103,6 @@ view.log
                 <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_refresh"><?= $LANG['btn_refresh'] ?></button>
                 <button type="submit" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
                 <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalClear"><?= $LANG['log_clear'] ?></button>
-                <button type="submit" class="btn btn-info" title="<?= ($viewData['sort'] == 'DESC') ? $LANG['log_sort_asc'] : $LANG['log_sort_desc'] ?>" tabindex="<?= $tabindex++ ?>" name="btn_sort"><?= ($viewData['sort'] == 'DESC') ? '<i class="fas fa-arrow-up fa-lg"></i>' : '<i class="fas fa-arrow-down fa-lg"></i>' ?></button>
 
                 <!-- Modal: Clear -->
                 <?= createModalTop('modalClear', $LANG['modal_confirm']) ?>
