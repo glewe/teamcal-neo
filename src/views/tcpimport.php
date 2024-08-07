@@ -42,10 +42,7 @@ view.tcpimport
         }
         ?>
         <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['tcpimp_title'] . $pageHelp ?></div>
-
         <div class="card-body">
-
-
           <div class="card">
 
             <div class="card-header">
@@ -367,7 +364,7 @@ view.tcpimport
   </div>
 </div>
 
-<script src="js/ajax.js"></script>
+<script src="js/teamcalneo.min.js"></script>
 <script>
   function checkTcpDB() {
     var myDbServer = document.getElementById('txt_tcpDbServer');

@@ -68,7 +68,7 @@ if (!defined('VALID_ROOT')) {
 
   <?php if ($C->read('font') && $C->read('font') != 'default') { ?>
     <!-- Fonts -->
-    <link rel="stylesheet" href="css/font-<?= $C->read('font') ?>.css">
+    <link rel="stylesheet" href="css/font-<?= $C->read('font') ?>.min.css">
   <?php } ?>
 
   <!-- Font Awesome -->
@@ -93,7 +93,7 @@ if (!defined('VALID_ROOT')) {
   <script src="themes/bootstrap/bootstrap.bundle.min.js"></script>
 
   <!-- TeamCalNeo CSS -->
-  <link rel="stylesheet" href="css/teamcalneo.css">
+  <link rel="stylesheet" href="css/teamcalneo.min.css">
 
   <!-- Colorpicker -->
   <link rel="stylesheet" media="screen" type="text/css" href="js/colorpicker/css/colorpicker.css">
@@ -194,11 +194,9 @@ if (!defined('VALID_ROOT')) {
     <script>
       // Define dataLayer and the gtag function.
       window.dataLayer = window.dataLayer || [];
-
       function gtag() {
         dataLayer.push(arguments);
       }
-
       // Set default consents to 'denied'
       // Set analytic consent to 'granted' (see Imprint page for opt-out option)
       gtag('consent', 'default', {
@@ -212,14 +210,11 @@ if (!defined('VALID_ROOT')) {
     <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $C->read("googleAnalyticsID") ?>"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-
       function gtag() {
         dataLayer.push(arguments);
       }
-
       gtag('js', new Date());
       gtag('config', '<?= $C->read("googleAnalyticsID") ?>');
-
       // Opt out to GA
       function gaOptout() {
         gtag('consent', 'update', {
