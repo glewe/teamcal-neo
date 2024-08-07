@@ -283,44 +283,20 @@ if (!empty($_POST)) {
     // '----------'
     elseif (isset($_POST['btn_reset']) && $_POST['txt_dbResetString'] == "YesIAmSure") {
       $query = file_get_contents("sql/sample.sql");
+      $DB->db->exec($query);
       //
-      // Replace prefix in sample file
+      // Log this event
       //
-      if (strlen($CONF['db_table_prefix'])) {
-        $query = str_replace("leaf_", $CONF['db_table_prefix'], $query);
-      } else {
-        $query = str_replace("leaf_", "", $query);
-      }
+      $LOG->logEvent("logDatabase", L_USER, "log_db_reset");
       //
-      // Run query
+      // Success
       //
-      $result = $DB->db->exec($query);
-      if ($result) {
-        //
-        // Log this event
-        //
-        $LOG->logEvent("logDatabase", L_USER, "log_db_reset");
-        //
-        // Success
-        //
-        $showAlert = true;
-        $alertData['type'] = 'success';
-        $alertData['title'] = $LANG['alert_success_title'];
-        $alertData['subject'] = $LANG['db_alert_reset'];
-        $alertData['text'] = $LANG['db_alert_reset_success'];
-        $alertData['help'] = '';
-      } else {
-        //
-        // Fail
-        //
-        $showAlert = true;
-        $alertData['type'] = 'warning';
-        $alertData['title'] = $LANG['alert_warning_title'];
-        $alertData['subject'] = $LANG['db_alert_reset'];
-        $alertData['text'] = $LANG['db_alert_reset_fail'];
-        $alertData['help'] = '';
-        $C->save("dbURL", "#");
-      }
+      $showAlert = true;
+      $alertData['type'] = 'success';
+      $alertData['title'] = $LANG['alert_success_title'];
+      $alertData['subject'] = $LANG['db_alert_reset'];
+      $alertData['text'] = $LANG['db_alert_reset_success'];
+      $alertData['help'] = '';
     }
   } else {
     //
