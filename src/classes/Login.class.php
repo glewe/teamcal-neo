@@ -459,9 +459,9 @@ class Login {
     $secret = password_hash($loginname, PASSWORD_DEFAULT);
     $value = $loginname . ":" . $secret;
     // Clear current cookie
-    setcookie($this->cookie_name, '');
+    setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, false, true);
     // Set new cookie
-    setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '', $this->hostName, false, true);
+    setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '', $this->hostName, true, true);
     $U->bad_logins = 0;
     $U->grace_start = DEFAULT_TIMESTAMP;
     $U->last_login = date("YmdHis");
@@ -475,6 +475,6 @@ class Login {
    * Clears the login cookie
    */
   public function logout() {
-    setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, false, true);
+    setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, true, true);
   }
 }

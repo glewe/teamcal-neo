@@ -70,7 +70,7 @@ class Upload {
   public function checkDir($directory) {
     if (!is_dir($directory)) {
       if ($this->create_directory) {
-        umask(0);
+        umask(0027);
         mkdir($directory, 0777);
         return true;
       } else {
@@ -208,8 +208,8 @@ class Upload {
       $newfile = $this->upload_dir . $new_file;
       if ($this->checkDir($this->upload_dir)) {
         if (move_uploaded_file($tmp_file, $newfile)) {
-          umask(0);
-          chmod($newfile, 0644);
+          umask(0027);
+          chmod($newfile, 0750);
           return true;
         } else {
           $this->message[] = $this->error[19];

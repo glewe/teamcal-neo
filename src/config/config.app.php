@@ -163,7 +163,7 @@ define('APP_VER', "3.9.1");
 define('APP_DATE', "2024-08-02");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
-define('APP_URL', "http://www.lewe.com");
+define('APP_URL', "https://www.lewe.com");
 define('APP_EMAIL', "george@lewe.com");
 define('APP_LICENSE', "https://lewe.gitbook.io/teamcal-neo/readme/teamcal-neo-license/");
 define('APP_COPYRIGHT', "(c) " . APP_YEAR . " by " . APP_AUTHOR . " (" . APP_URL . ")");
