@@ -4,13 +4,16 @@ if (!defined('VALID_ROOT')) {
 }
 
 /**
- * DB.class.php
+ * Database
  *
- * @category TeamCal Neo Basic
- * @version 3.0.0
+ * This class provides methods and properties for the database.
+ *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2024 by George Lewe
- * @license This program cannot be licensed. Redistribution is not allowed.
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo
+ * @since 3.0.0
  */
 
 /**

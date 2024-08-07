@@ -13,7 +13,6 @@ if (!defined('VALID_ROOT')) {
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
- * @subpackage Application Framework
  * @since 3.0.0
  */
 class Log {

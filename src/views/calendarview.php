@@ -10,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
- * @subpackage Views
  * @since 3.0.0
  */
 $formLink = 'index.php?action=' . $controller . '&amp;month=' . $viewData['year'] . $viewData['month'] . '&amp;region=' . $viewData['regionid'] . '&amp;group=' . $viewData['groupid'] . '&amp;abs=' . $viewData['absid'];

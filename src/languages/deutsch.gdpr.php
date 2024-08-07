@@ -3,14 +3,13 @@ if (!defined('VALID_ROOT')) {
   exit('');
 }
 /**
- * German GDPR Strings
+ * GDPR Strings: German
  *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2024 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
- * @subpackage Languages
  * @since 3.0.0
  */
 $LANG['gdpr_start'] = '<h4>1. Einleitung</h4>

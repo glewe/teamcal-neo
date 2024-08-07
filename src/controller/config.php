@@ -10,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
- * @subpackage Controllers
  * @since 3.0.0
  */
 

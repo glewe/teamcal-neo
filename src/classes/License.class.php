@@ -4,14 +4,16 @@ if (!defined('VALID_ROOT')) {
 }
 
 /**
- * License.class.php
+ * License
  *
- * @category TeamCal Neo
- * @version 2.2.3
+ * This class provides methods and properties for license management.
+ *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2019 by George Lewe
- * @link http://www.lewe.com
- * @license This program cannot be licensed. Redistribution is not allowed.
+ * @copyright Copyright (c) 2014-2024 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo
+ * @since 2.2.3
  */
 
 /**

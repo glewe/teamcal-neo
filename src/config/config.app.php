@@ -1,5 +1,7 @@
 <?php
-if (!defined('VALID_ROOT')) { exit(''); }
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Application Configuration
  *
@@ -8,7 +10,6 @@ if (!defined('VALID_ROOT')) { exit(''); }
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
- * @subpackage Application Configuration
  * @since 1.0.0
  */
 
@@ -35,7 +36,7 @@ define('APP_IMP_DIR', "upload/import/");
 // Set this to 0 if you want to run the installation.php script again.
 // If not, you need to delete or rename the installation.php file.
 //
-define('APP_INSTALLED', "0");
+define('APP_INSTALLED', "1");
 
 //
 // The cookie prefix to be used on the browser client's device
@@ -118,11 +119,11 @@ define('XEDITABLE_VER', "1.5.1");
 // Defines the allowed file types for upload
 // Defines the allowed max file sizes for upload
 //
-$CONF['avatarExtensions'] = array('gif', 'jpg', 'png');
+$CONF['avatarExtensions'] = array( 'gif', 'jpg', 'png' );
 $CONF['avatarMaxsize'] = 1024 * 100; // 100 KB
-$CONF['imgExtensions'] = array('gif', 'jpg', 'png');
-$CONF['impExtensions'] = array('csv');
-$CONF['uplExtensions'] = array('gif', 'jpg', 'png', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'zip');
+$CONF['imgExtensions'] = array( 'gif', 'jpg', 'png' );
+$CONF['impExtensions'] = array( 'csv' );
+$CONF['uplExtensions'] = array( 'gif', 'jpg', 'png', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'zip' );
 $CONF['uplMaxsize'] = 2048 * 1024; // 2 MB
 
 //=============================================================================
@@ -142,14 +143,14 @@ $CONF['uplMaxsize'] = 2048 * 1024; // 2 MB
  * support. DIR is the LDAP base install directory. To enable SASL support,
  * be sure --with-ldap-sasl[=DIR] is used, and that sasl.h exists on the system.
  */
-define('LDAP_YES', 0); // Use LDAP authentication
-define('LDAP_ADS', 0); // Set to 1 when authenticating against an Active Directory
-define('LDAP_HOST', "ldap.mydomain.com"); // LDAP host name
-define('LDAP_PORT', "389"); // LDAP port
-define('LDAP_PASS', "XXXXXXXX"); // SA associated password
+define('LDAP_YES', 0);                                                                           // Use LDAP authentication
+define('LDAP_ADS', 0);                                                                           // Set to 1 when authenticating against an Active Directory
+define('LDAP_HOST', "ldap.mydomain.com");                                                        // LDAP host name
+define('LDAP_PORT', "389");                                                                      // LDAP port
+define('LDAP_PASS', "XXXXXXXX");                                                                 // SA associated password
 define('LDAP_DIT', "cn=<service account>,ou=fantastic_four,ou=superheroes,dc=marvel,dc=comics"); // Directory Information Tree (Relative Distinguished Name)
-define('LDAP_SBASE', "ou=superheroes,ou=characters,dc=marvel,dc=comics"); // Search base, location in the LDAP dirctory to search
-define('LDAP_TLS', 0); // To avoid "Undefined index: LDAP_TLS" error message for LDAP bind to Active Directory
+define('LDAP_SBASE', "ou=superheroes,ou=characters,dc=marvel,dc=comics");                        // Search base, location in the LDAP dirctory to search
+define('LDAP_TLS', 0);                                                                           // To avoid "Undefined index: LDAP_TLS" error message for LDAP bind to Active Directory
 
 //=============================================================================
 /**

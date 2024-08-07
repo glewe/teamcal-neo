@@ -13,7 +13,6 @@ if (!defined('VALID_ROOT')) {
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
- * @subpackage Calendar Management
  * @since 3.0.0
  */
 class AbsenceGroup {
@@ -62,7 +61,7 @@ class AbsenceGroup {
 
   //---------------------------------------------------------------------------
   /**
-   * Gets all group IDs that the given absence ID is assigend to
+   * Gets all group IDs that the given absence ID is assigned to
    *
    * @param string $absid Absence ID
    * @return array Array of group IDs
@@ -82,7 +81,7 @@ class AbsenceGroup {
 
   //---------------------------------------------------------------------------
   /**
-   * Deletes a record matching absence and group
+   * Deletes a record matching absence and group (unassigns absence from group)
    *
    * @param string $absid Absence ID
    * @param string $groupid Group short name
@@ -153,7 +152,7 @@ class AbsenceGroup {
 
   //---------------------------------------------------------------------------
   /**
-   * Updates the absence type of an existing record
+   * Updates the absence type ID of an existing record
    *
    * @param string $absold Absence ID to change
    * @param string $absnew New absence ID
@@ -168,7 +167,7 @@ class AbsenceGroup {
 
   //---------------------------------------------------------------------------
   /**
-   * Updates the group name of an existing record
+   * Updates the group ID of an existing record
    *
    * @param string $groupold Old group name
    * @param string $groupnew New group name

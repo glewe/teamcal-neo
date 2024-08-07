@@ -13,7 +13,6 @@ if (!defined('VALID_ROOT')) {
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
- * @subpackage User Management
  * @since 3.0.0
  */
 class UserOption {

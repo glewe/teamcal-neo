@@ -10,9 +10,9 @@ if (!defined('VALID_ROOT')) {
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
- * @subpackage Views
  * @since 3.0.0
- */ ?>
+ */
+?>
 <!DOCTYPE html>
 <!-- Theme CSS -->
 <?php if ($htmlData['theme']['name'] == 'bootstrap-dark') { ?>
