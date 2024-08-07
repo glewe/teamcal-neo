@@ -10,13 +10,12 @@ if (!defined('VALID_ROOT')) {
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
- * @subpackage Helpers
  * @since 3.0.0
  */
 
 // ---------------------------------------------------------------------------
 /**
- * Checks wether the maximum absences threshold is reached
+ * Checks whether the maximum absences threshold is reached
  *
  * @param string $year Year of the day to count for
  * @param string $month Month of the day to count for

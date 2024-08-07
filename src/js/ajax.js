@@ -2,16 +2,15 @@
  * Ajax Functions
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2022 by George Lewe
+ * @copyright Copyright (c) 2014-2024 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
- * @subpackage Javascript
  * @since 3.0.0
  */
 
 /**
- * Initializes Ajax and creates xmlHttp object 
+ * Initializes Ajax and creates xmlHttp object
  *
  * @param string where = DOM object ID where the output goes
  * @return string Ajax output
@@ -40,13 +39,13 @@ function getXMLHttpRequest(where) {
             return false;
          }
       }
-   }   
+   }
    xmlHttp.output=where;
    return xmlHttp;
 }
 
 /**
- * Callback function for xmlHttp object 
+ * Callback function for xmlHttp object
  *
  * @param string obj = xmlHttp object
  */
@@ -59,7 +58,7 @@ function stateChanged(obj) {
 }
 
 /**
- * Calls a PHP script to check whether a path exists 
+ * Calls a PHP script to check whether a path exists
  *
  * @param string reldir = relativ dir to server root
  * @param string url    = URL
@@ -80,7 +79,7 @@ function ajaxCheckPath(reldir, url, where) {
 }
 
 /**
- * Calls a PHP script to check database settings 
+ * Calls a PHP script to check database settings
  *
  * @param string server  = mySQL server name
  * @param string user    = mySQL user name

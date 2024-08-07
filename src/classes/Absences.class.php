@@ -13,7 +13,6 @@ if (!defined('VALID_ROOT')) {
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
- * @subpackage Calendar Management
  * @since 3.0.0
  */
 class Absences {
@@ -58,11 +57,12 @@ class Absences {
    * @return integer
    */
   public function count() {
-    $result = 0;
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {
       return $row[0];
+    } else {
+      return 0;
     }
   }
 
@@ -153,8 +153,9 @@ class Absences {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
       return $query->execute();
+    } else {
+      return false;
     }
-    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -181,7 +182,6 @@ class Absences {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
       $result = $query->execute();
-
       if ($result && $row = $query->fetch()) {
         $this->id = $row['id'];
         $this->name = $row['name'];

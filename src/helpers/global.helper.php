@@ -10,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
- * @subpackage Helpers
  * @since 3.0.0
  */
 
@@ -935,7 +934,7 @@ function proper($string) {
 /**
  * Sanitizes and returns a given string
  *
- * @param string $input String to sanitize
+ * @param string|array $input String to sanitize
  *
  * @return string Sanitized string
  */
