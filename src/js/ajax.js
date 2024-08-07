@@ -16,32 +16,29 @@
  * @return string Ajax output
  */
 function getXMLHttpRequest(where) {
-   var xmlHttp;
-   try {
-      //
-      // Good browsers
-      //
-      xmlHttp=new XMLHttpRequest();
-   }
-   catch (e) {
-      //
-      // Bad browser: IE
-      //
+  var xmlHttp;
+  try {
+    //
+    // Good browsers
+    //
+    xmlHttp = new XMLHttpRequest();
+  } catch (e) {
+    //
+    // Bad browser: IE
+    //
+    try {
+      xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+    } catch (e) {
       try {
-         xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+      } catch (e) {
+        alert("Your browser does not support AJAX!");
+        return false;
       }
-      catch (e) {
-         try {
-            xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
-         }
-         catch (e) {
-            alert("Your browser does not support AJAX!");
-            return false;
-         }
-      }
-   }
-   xmlHttp.output=where;
-   return xmlHttp;
+    }
+  }
+  xmlHttp.output = where;
+  return xmlHttp;
 }
 
 /**
@@ -50,11 +47,11 @@ function getXMLHttpRequest(where) {
  * @param string obj = xmlHttp object
  */
 function stateChanged(obj) {
-   document.getElementById(obj.output).innerHTML="<img src=\"img/ajax-loader.gif\" alt=\"\" title=\"Processing...\">";
-   if (obj.readyState == 4) {
-      document.getElementById(obj.output).innerHTML=xmlHttp.responseText;
-      delete obj;
-   }
+  document.getElementById(obj.output).innerHTML = "<img src=\"images/ajax-loader.gif\" alt=\"\" title=\"Processing...\">";
+  if (obj.readyState == 4) {
+    document.getElementById(obj.output).innerHTML = xmlHttp.responseText;
+    delete obj;
+  }
 }
 
 /**
@@ -65,17 +62,21 @@ function stateChanged(obj) {
  * @param string where  = DOM object ID where the output goes
  */
 function ajaxCheckPath(reldir, url, where) {
-   var url="helpers/ajax_checkpath.php?reldir="+reldir+"&url="+url;
-   xmlHttp=getXMLHttpRequest(where);
-   if (xmlHttp==false) {
-      alert("No Ajax possible!");
-      return;
-   }
-   if (xmlHttp.overrideMimeType) { xmlHttp.overrideMimeType('text/xml'); }
-   xmlHttp.callback = function () { stateChanged(xmlHttp); };
-   xmlHttp.onreadystatechange = xmlHttp.callback;
-   xmlHttp.open("POST", url, true);
-   xmlHttp.send(null);
+  var url = "helpers/ajax_checkpath.php?reldir=" + reldir + "&url=" + url;
+  xmlHttp = getXMLHttpRequest(where);
+  if (xmlHttp == false) {
+    alert("No Ajax possible!");
+    return;
+  }
+  if (xmlHttp.overrideMimeType) {
+    xmlHttp.overrideMimeType('text/xml');
+  }
+  xmlHttp.callback = function () {
+    stateChanged(xmlHttp);
+  };
+  xmlHttp.onreadystatechange = xmlHttp.callback;
+  xmlHttp.open("POST", url, true);
+  xmlHttp.send(null);
 }
 
 /**
@@ -89,15 +90,19 @@ function ajaxCheckPath(reldir, url, where) {
  * @param string where   = DOM object ID where the output goes
  */
 function ajaxCheckDB(server, user, pass, db, prefix, where) {
-   var url="helpers/ajax_checkdb.php?server="+server+"&user="+user+"&pass="+pass+"&db="+db+"&prefix="+prefix;
-   xmlHttp=getXMLHttpRequest(where);
-   if (xmlHttp==false) {
-      alert("No Ajax possible!");
-      return;
-   }
-   if (xmlHttp.overrideMimeType) { xmlHttp.overrideMimeType('text/xml'); }
-   xmlHttp.callback = function () { stateChanged(xmlHttp); };
-   xmlHttp.onreadystatechange = xmlHttp.callback;
-   xmlHttp.open("POST", url, true);
-   xmlHttp.send(null);
+  var url = "helpers/ajax_checkdb.php?server=" + server + "&user=" + user + "&pass=" + pass + "&db=" + db + "&prefix=" + prefix;
+  xmlHttp = getXMLHttpRequest(where);
+  if (xmlHttp === false) {
+    alert("No Ajax possible!");
+    return;
+  }
+  if (xmlHttp.overrideMimeType) {
+    xmlHttp.overrideMimeType('text/xml');
+  }
+  xmlHttp.callback = function () {
+    stateChanged(xmlHttp);
+  };
+  xmlHttp.onreadystatechange = xmlHttp.callback;
+  xmlHttp.open("POST", url, true);
+  xmlHttp.send(null);
 }
