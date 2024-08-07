@@ -61,15 +61,17 @@ class DB {
    * @return string PDO database information
    */
   public function getDatabaseInfo() {
+    global $LANG;
+
     $dbInfo = "<table class='table'>
-<thead>
-<tr>
-<th>Attribute</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-\n";
+      <thead>
+        <tr>
+          <th>" . $LANG['attribute'] . "</th>
+          <th>" . $LANG['value'] . "</th>
+        </tr>
+      </thead>
+      <tbody>
+      \n";
 
     $attributes = array(
       "AUTOCOMMIT",
