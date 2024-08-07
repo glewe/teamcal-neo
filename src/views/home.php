@@ -40,7 +40,6 @@ view.home
       <div class="card-header"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['home_title'] . $pageHelp ?></div>
       <div class="card-body">
         <?php echo $C->read("welcomeText"); ?>
-        <a href="https://cdn.jsdelivr.net/npm/chart.js" target="_blank">Chart.js</a>
       </div>
     </div>
   </div>
