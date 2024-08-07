@@ -31,6 +31,7 @@ $LANG['action'] = 'Aktion';
 $LANG['all'] = 'Alle';
 $LANG['approved'] = 'Best&auml;tigt';
 $LANG['attention'] = 'Achtung';
+$LANG['attribute'] = 'Attribut';
 $LANG['auto'] = 'Automatisch';
 $LANG['avatar'] = 'Avatar';
 $LANG['back_to_top'] = 'Zur&uuml;ck zum Anfang';
@@ -114,6 +115,7 @@ $LANG['today'] = 'Heute';
 $LANG['total'] = 'Gesamt';
 $LANG['type'] = 'Typ';
 $LANG['user'] = 'Nutzer';
+$LANG['value'] = 'Wert';
 $LANG['weekdayShort'] = array(
   1 => "Mo",
   "Di",

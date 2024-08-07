@@ -341,7 +341,6 @@ if (!empty($_POST)) {
 //
 $viewData['dbURL'] = $C->read('dbURL');
 $viewData['dbInfo'] = $DB->getDatabaseInfo();
-//dnd($viewData['dbInfo']);
 
 //=============================================================================
 //
