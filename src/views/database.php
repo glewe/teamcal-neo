@@ -56,12 +56,12 @@ view.database
                 <li class="nav-item" role="presentation"><a class="nav-link" id="tab_admin-tab" href="#tab_admin" data-bs-toggle="tab" role="tab" aria-controls="tab_admin" aria-selected="false"><?= $LANG['db_tab_admin'] ?></a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link" id="tab_reset-tab" href="#tab_reset" data-bs-toggle="tab" role="tab" aria-controls="tab_reset" aria-selected="false"><?= $LANG['db_tab_reset'] ?></a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link" id="tab_tcpimp-tab" href="#tab_tcpimp" data-bs-toggle="tab" role="tab" aria-controls="tab_tcpimp" aria-selected="false"><?= $LANG['db_tab_tcpimp'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_dbinfo-tab" href="#tab_dbinfo" data-bs-toggle="tab" role="tab" aria-controls="tab_dbinfo" aria-selected="false"><?= $LANG['db_tab_dbinfo'] ?></a></li>
               </ul>
             </div>
 
             <div class="card-body">
               <div class="tab-content" id="myTabContent">
-
 
                 <!-- Optimize Tables tab -->
                 <div class="tab-pane fade show active" id="tab_optimize" role="tabpanel" aria-labelledby="tab_optimize-tab">
@@ -288,6 +288,15 @@ view.database
                     <hr>
                   </div>
                   <a href="index.php?action=tcpimport" class="btn btn-primary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_import'] ?></a>
+                </div>
+
+                <!-- Database Information tab -->
+                <div class="tab-pane fade show" id="tab_dbinfo" role="tabpanel" aria-labelledby="tab_dbinfo-tab">
+                  <div class="form-group row">
+                    <div class="col-lg-12">
+                      <?=$viewData['dbInfo'] ?>
+                    </div>
+                  </div>
                 </div>
 
               </div>

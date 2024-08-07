@@ -579,6 +579,7 @@ $LANG['configapp_title'] = 'Application Configuration';
 //
 $LANG['db_title'] = 'Database Maintenance';
 $LANG['db_tab_cleanup'] = 'Clean up';
+$LANG['db_tab_dbinfo'] = 'Database Information';
 $LANG['db_tab_delete'] = 'Delete records';
 $LANG['db_tab_admin'] = 'Administration';
 $LANG['db_tab_optimize'] = 'Optimize tables';

@@ -34,6 +34,8 @@ class DB {
      */
     try {
       $this->db = new PDO('mysql:host=' . $server . ';dbname=' . $database . ';charset=utf8', $user, $password);
+      $this->db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);         // Needed for PDO::errorInfo()
+      $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Needed for PDO:errorCode()
     } catch (PDOException $e) {
       /**
        * Database connection error
@@ -56,17 +58,26 @@ class DB {
   /**
    * Get database info
    *
-   * @return string    $dbInfo    PDO database information
+   * @return string PDO database information
    */
   public function getDatabaseInfo() {
-    $dbInfo = "\n";
+    $dbInfo = "<table class='table'>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+\n";
 
     $attributes = array(
       "AUTOCOMMIT",
-      "ERRMODE",
       "CASE",
       "CLIENT_VERSION",
       "CONNECTION_STATUS",
+      "DRIVER_NAME",
+      "ERRMODE",
       "ORACLE_NULLS",
       "PERSISTENT",
       "SERVER_INFO",
@@ -74,13 +85,14 @@ class DB {
     );
 
     foreach ($attributes as $val) {
-      $dbInfo .= "PDO::ATTR_$val: ";
+      $dbInfo .= "<tr><td>$val</td>";
       try {
-        $dbInfo .= $this->db->getAttribute(constant("PDO::ATTR_$val")) . "\n";
+        $dbInfo .= "<td>" . $this->db->getAttribute(constant("PDO::ATTR_$val")) . "</td></tr>\n";
       } catch (PDOException $e) {
         $dbInfo .= $e->getMessage() . "\n";
       }
     }
+    $dbInfo .= "</tbody>\n</table>\n";
     return $dbInfo;
   }
 
@@ -103,9 +115,12 @@ class DB {
 
   //---------------------------------------------------------------------------
   /**
-   * Run query
+   * Run a MySQL query.
    *
-   * @param string $myQyery MySQL query
+   * This method prepares and executes a given MySQL query.
+   *
+   * @param string $myQuery The MySQL query to be executed.
+   * @return boolean Query result indicating success or failure of the execution.
    */
   public function runQuery($myQuery) {
     $query = $this->db->prepare($myQuery);
