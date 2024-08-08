@@ -58,7 +58,7 @@ view.absences
           <?php if (isset($inputAlert["name"]) && strlen($inputAlert["name"])) { ?>
             <br>
             <div class="alert alert-dismissable alert-danger">
-              <button type="button" class="close" data-bs-dismiss="alert">x</button><?= $inputAlert["name"] ?></div>
+              <button type="button" class="btn-close float-end" data-bs-dismiss="alert">x</button><?= $inputAlert["name"] ?></div>
           <?php } ?>
           <?= createModalBottom('btn_absCreate', 'success', $LANG['btn_create_abs']) ?>
 

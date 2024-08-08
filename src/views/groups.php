@@ -70,14 +70,14 @@ view.groups
           <?php if (isset($inputAlert["name"]) && strlen($inputAlert["name"])) { ?>
             <br>
             <div class="alert alert-dismissable alert-danger">
-              <button type="button" class="close" data-bs-dismiss="alert">x</button><?= $inputAlert["name"] ?></div>
+              <button type="button" class="btn-close float-end" data-bs-dismiss="alert">x</button><?= $inputAlert["name"] ?></div>
           <?php } ?>
           <label for="inputDescription"><?= $LANG['description'] ?></label>
           <input id="inputDescription" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_description" maxlength="100" value="<?= $viewData['txt_description'] ?>" type="text">
           <?php if (isset($inputAlert["description"]) && strlen($inputAlert["description"])) { ?>
             <br>
             <div class="alert alert-dismissable alert-danger">
-              <button type="button" class="close" data-bs-dismiss="alert">x</button><?= $inputAlert["description"] ?></div>
+              <button type="button" class="btn-close float-end" data-bs-dismiss="alert">x</button><?= $inputAlert["description"] ?></div>
           <?php } ?>
           <?= createModalBottom('btn_groupCreate', 'success', $LANG['btn_create_group']) ?>
 

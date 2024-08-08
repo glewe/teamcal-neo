@@ -72,6 +72,9 @@ if (!empty($_POST)) {
     if (!formInputValid('txt_cleanConfirm', 'required|alpha|equals_string', 'CLEANUP')) {
       $inputError = true;
     }
+    if (!isValidDate($_POST['txt_cleanBefore'])) {
+      $inputError = true;
+    }
     $viewData['cleanBefore'] = $_POST['txt_cleanBefore'];
   }
 

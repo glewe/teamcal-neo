@@ -41,7 +41,7 @@ view.error
     <hr>
     <p><strong><?= $errorData['subject'] ?></strong></p>
     <p><?= $errorData['text'] ?></p>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" title="<?= $LANG['close_this_message'] ?>"></button>
+    <button type="button" class="btn-close float-end" data-bs-dismiss="alert" title="<?= $LANG['close_this_message'] ?>"></button>
   </div>
 </div>
 </body>
