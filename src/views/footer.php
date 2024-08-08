@@ -42,7 +42,7 @@ view.footer
         <ul class="list-unstyled">
           <li><a href="index.php"><?= $LANG['footer_home'] ?></a></li>
           <?php if ($docLink = $C->read("userManual")) { ?>
-            <li><a href="<?= urldecode($docLink) ?>" target="_blank"><?= $LANG['footer_help'] ?></a></li>
+            <li><a href="<?= urldecode($docLink) ?>" target="_blank" rel="noopener"><?= $LANG['footer_help'] ?></a></li>
           <?php } ?>
           <li><a href="index.php?action=about"><?= $LANG['footer_about'] ?></a></li>
           <li><a href="index.php?action=imprint"><?= $LANG['footer_imprint'] ?></a></li>
@@ -55,7 +55,7 @@ view.footer
           $urlArray = explode(';', $urls);
           foreach ($urlArray as $url) {
             if (strlen($url)) { ?>
-              <span class="social-icon"><a href="<?= $url ?>" target="_blank"><i class="fab fa-lg"></i></a></span>
+              <span class="social-icon"><a href="<?= $url ?>" target="_blank" rel="noopener"><i class="fab fa-lg"></i></a></span>
             <?php }
           }
         } ?>
