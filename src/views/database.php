@@ -108,7 +108,7 @@ view.database
                       <?php if (isset($inputAlert["cleanBefore"]) && strlen($inputAlert["cleanBefore"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger">
-                          <button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['cleanBefore'] ?></div>
+                          <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button><?= $inputAlert['cleanBefore'] ?></div>
                       <?php } ?>
                       <script>
                         $(function () {
@@ -134,7 +134,7 @@ view.database
                       <?php if (isset($inputAlert["cleanConfirm"]) && strlen($inputAlert["cleanConfirm"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger">
-                          <button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['cleanConfirm'] ?></div>
+                          <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button><?= $inputAlert['cleanConfirm'] ?></div>
                       <?php } ?>
                     </div>
                   </div>
@@ -170,7 +170,7 @@ view.database
                       <?php if (isset($inputAlert["repairConfirm"]) && strlen($inputAlert["repairConfirm"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger">
-                          <button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['repairConfirm'] ?></div>
+                          <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button><?= $inputAlert['repairConfirm'] ?></div>
                       <?php } ?>
                     </div>
                   </div>
@@ -224,7 +224,7 @@ view.database
                       <?php if (isset($inputAlert["deleteConfirm"]) && strlen($inputAlert["deleteConfirm"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger">
-                          <button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['deleteConfirm'] ?></div>
+                          <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button><?= $inputAlert['deleteConfirm'] ?></div>
                       <?php } ?>
                     </div>
                   </div>

@@ -85,10 +85,8 @@ class Login {
       $elements = explode(',', $host);
       $host = trim(end($elements));
     } else {
-      if (!$host = $_SERVER['HTTP_HOST']) {
-        if (!$host = $_SERVER['SERVER_NAME']) {
-          $host = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
-        }
+      if (!$host = $_SERVER['HTTP_HOST'] && !$host = $_SERVER['SERVER_NAME']) {
+        $host = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
       }
     }
 
@@ -306,8 +304,7 @@ class Login {
     //
     if ($ldapbind) {
       return 0;
-    }
-    else {
+    } else {
       return 92;
     }
   }
