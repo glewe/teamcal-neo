@@ -186,13 +186,11 @@ if (!empty($_POST)) {
       if (isset($_POST['chk_file'])) {
         $selected_files = $_POST['chk_file'];
         foreach ($selected_files as $file) {
-          if (isValidFileName($file)) {
-            if ($UL->username == 'admin' || $UL->username == $AT->getUploader($file)) {
-              $fileid = $AT->getId($file);
-              $AT->delete($file);
-              $UAT->deleteFile($fileid);
-              unlink($uplDir . $file);
-            }
+          if (isValidFileName($file) && ($UL->username == 'admin' || $UL->username == $AT->getUploader($file))) {
+            $fileid = $AT->getId($file);
+            $AT->delete($file);
+            $UAT->deleteFile($fileid);
+            unlink($uplDir . $file);
           }
         }
       } else {
