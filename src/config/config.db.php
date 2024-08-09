@@ -20,10 +20,13 @@ if (!defined('VALID_ROOT')) {
  * Enter your database parameter here
  */
 $CONF['db_server'] = "localhost";
+$CONF['db_port'] = "3306";
 $CONF['db_name'] = "tcneo";
 $CONF['db_user'] = "root";
 $CONF['db_pass'] = "";
 $CONF['db_table_prefix'] = "tcneo_";
+$CONF['db_driver'] = "mysql";
+$CONF['db_charset'] = "utf8";
 
 //
 /**
