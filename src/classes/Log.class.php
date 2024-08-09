@@ -1,7 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
+require_once 'PDODb.php';
 
 /**
  * Log
@@ -16,11 +14,6 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 class Log {
-  public $id = null;
-  public $type = null;
-  public $timestamp = '';
-  public $user = '';
-  public $event = '';
   private $db = '';
   private $table = '';
   private $C = '';
@@ -30,9 +23,17 @@ class Log {
    * Constructor
    */
   public function __construct() {
-    global $C, $CONF, $DB;
+    global $C, $CONF;
     $this->C = $C;
-    $this->db = $DB->db;
+    $this->db = new PDODb([
+      'driver' => $CONF['db_driver'],
+      'host' => $CONF['db_server'],
+      'port' => $CONF['db_port'],
+      'dbname'=> $CONF['db_name'],
+      'username' => $CONF['db_user'],
+      'password' => $CONF['db_password'],
+      'charset' => $CONF['db_charset'],
+    ]);
     $this->table = $CONF['db_table_log'];
   }
 
@@ -42,24 +43,23 @@ class Log {
    *
    * @param string $from ISO formatted start date
    * @param string $to ISO formatted end date
-   * @return boolean Query result
+   * @return void
    */
   public function delete($from = '', $to = '') {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE (timestamp >= :val1 AND timestamp <= :val2)');
-    $query->bindParam('val1', $from);
-    $query->bindParam('val2', $to);
-    return $query->execute();
+    $this->db->delete($this->table)
+      ->where('timestamp', '>=', $from)
+      ->where('timestamp', '<=', $to )
+      ->run();
   }
 
   //---------------------------------------------------------------------------
   /**
    * Deletes all records
    *
-   * @return boolean Query result
+   * @return void
    */
   public function deleteAll() {
-    $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
-    return $query->execute();
+    $this->db->delete($this->table);
   }
 
   //---------------------------------------------------------------------------
@@ -75,20 +75,14 @@ class Log {
    * @return array Array of records
    */
   public function read($sort = 'DESC', $from = '', $to = '', $logtype = '%', $logsearchuser = '%', $logsearchevent = '%') {
-    $records = array();
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE (timestamp >= :val1 AND timestamp <= :val2 AND type LIKE :val3 AND user LIKE :val4 AND event LIKE :val5) ORDER BY timestamp ' . $sort);
-    $query->bindParam('val1', $from);
-    $query->bindParam('val2', $to);
-    $query->bindParam('val3', $logtype);
-    $query->bindParam('val4', $logsearchuser);
-    $query->bindParam('val5', $logsearchevent);
-    $result = $query->execute();
-    if ($result) {
-      while ($row = $query->fetch()) {
-        $records[] = $row;
-      }
-    }
-    return $records;
+    return $this->db->select($this->table)
+      ->where('timestamp', '>=', $from)
+      ->where('timestamp', '<=', $to)
+      ->where('type', 'LIKE', $logtype)
+      ->where('user', 'LIKE', $logsearchuser)
+      ->where('event', 'LIKE', $logsearchevent)
+      ->orderBy('timestamp', $sort)
+      ->run();
   }
 
   //---------------------------------------------------------------------------
@@ -111,24 +105,15 @@ class Log {
     $myEvent = $LANG[$event] . $object;
     if ($this->C->read($type)) {
       $ts = date("YmdHis");
-      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (type, timestamp, user, event) VALUES (:val1, :val2, :val3, :val4)');
-      $query->bindParam('val1', $type);
-      $query->bindParam('val2', $ts);
-      $query->bindParam('val3', $user);
-      $query->bindParam('val4', $myEvent);
-      return $query->execute();
+      $data = [
+        'id' => '',
+        'type' => $type,
+        'timestamp' => $ts,
+        'user' => $user,
+        'event' => $myEvent,
+      ];
+      return $this->db->insert($this->table, $data)->run();
     }
     return false;
-  }
-
-  //---------------------------------------------------------------------------
-  /**
-   * Optimize table
-   *
-   * @return boolean Query result
-   */
-  public function optimize() {
-    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
-    return $query->execute();
   }
 }
