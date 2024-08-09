@@ -250,6 +250,9 @@ if (!empty($_POST)) {
       if (!formInputValid('txt_periodEnd', 'required|date')) {
         $inputError = true;
       }
+      if (!is_numeric($_POST['sel_periodAbsence'])) {
+        $inputError = true;
+      }
 
       if (!$inputError) {
         $startPieces = explode("-", $_POST['txt_periodStart']);
