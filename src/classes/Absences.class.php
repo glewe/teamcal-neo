@@ -46,17 +46,7 @@ class Absences {
    */
   public function __construct() {
     global $CONF, $DB;
-//    $this->db = $DB->db;
-    $this->db = new PDODb([
-      'driver' => $CONF['db_driver'],
-      'host' => $CONF['db_server'],
-      'port' => $CONF['db_port'],
-      'dbname'=> $CONF['db_name'],
-      'username' => $CONF['db_user'],
-      'password' => $CONF['db_password'],
-      'charset' => $CONF['db_charset'],
-    ]);
-
+    $this->db = $DB->db;
     $this->table = $CONF['db_table_absences'];
   }
 
@@ -67,16 +57,13 @@ class Absences {
    * @return integer
    */
   public function count() {
-//    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
-//    $result = $query->execute();
-//    if ($result && $row = $query->fetch()) {
-//      return $row[0];
-//    } else {
-//      return 0;
-//    }
-
-    $this->db->select($this->table)->run();
-    return $this->db->rowCount();
+    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
+    $result = $query->execute();
+    if ($result && $row = $query->fetch()) {
+      return $row[0];
+    } else {
+      return 0;
+    }
   }
 
   //---------------------------------------------------------------------------
@@ -151,30 +138,7 @@ class Absences {
     $query->bindParam('val18', $this->confidential);
     $query->bindParam('val19', $this->takeover);
 
-//    return $query->execute();
-
-    $data = [
-      'name' => $this->name,
-      'symbol' => $this->symbol,
-      'icon' => $this->icon,
-      'color' => $this->color,
-      'bgcolor' => $this->bgcolor,
-      'bgtrans' => $this->bgtrans,
-      'factor' => $this->factor,
-      'allowance' => $this->allowance,
-      'allowmonth' => $this->allowmonth,
-      'allowweek' => $this->allowweek,
-      'counts_as' => $this->counts_as,
-      'show_in_reminder' => $this->show_in_remainder,
-      'show_totals' => $this->show_totals,
-      'approval_required' => $this->approval_required,
-      'counts_as_present' => $this->counts_as_present,
-      'manager_only' => $this->manager_only,
-      'hide_in_profile' => $this->hide_in_profile,
-      'confidential' => $this->confidential,
-      'takeover', $this->takeover
-    ];
-    return $this->db->insert($this->table, $data)->run();
+    return $query->execute();
   }
 
   //---------------------------------------------------------------------------
