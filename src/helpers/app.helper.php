@@ -705,7 +705,8 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
   }
 
   // Enable to debug
-  if (false) {
+  $debug = false;
+  if ($debug) {
     print "<p></p><p></p><p></p>";
     print_r($currentAbsences);
     print " :: Current <br>";
