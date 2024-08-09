@@ -82,7 +82,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
 
   $error = '';
   if (isset($data["error"]) && strlen($data["error"])) {
-    $error = '<br><div class="alert alert-dismissible alert-danger fade show"><button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>' . $data['error'] . '</div>';
+    $error = '<br><div class="alert alert-dismissible alert-danger fade show"><button type="button" class="btn-close" data-bs-dismiss="alert"></button>' . $data['error'] . '</div>';
   }
 
   switch ($data['type']) {

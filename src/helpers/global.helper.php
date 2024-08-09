@@ -664,7 +664,7 @@ function getPhpInfoBootstrap() {
   phpinfo(11);
   $phpinfo = array( 'phpinfo' => array() );
 
-  if (preg_match_all('#(?:<h2>(?:<a>)?(.*?)(?:</a>)?</h2>)|(?:<tr(?: class=".*?")?><t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>)?)?</tr>)#s', ob_get_clean(), $matches, PREG_SET_ORDER)) {
+  if (preg_match_all('#(?:<h2>(?:<a name=".*?">)?(.*?)(?:</a>)?</h2>)|(?:<tr(?: class=".*?")?><t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>)?)?</tr>)#s', ob_get_clean(), $matches, PREG_SET_ORDER)) {
     foreach ($matches as $match) {
       if (strlen($match[1])) {
         $phpinfo[$match[1]] = array();
@@ -693,7 +693,7 @@ function getPhpInfoBootstrap() {
       }
     }
   } else {
-    $output .= '<p>An error occurred executing the phpinfo() function. It may not be accessible or disabled. <a href="https://php.net/manual/en/function.phpinfo.php">See the documentation.</a></p>';
+    $output .= '<p>An error occurred executing the phpinfo() function. It may not be accessible or disabled. <a href="http://php.net/manual/en/function.phpinfo.php">See the documentation.</a></p>';
   }
   //
   // Some HTML fixes
@@ -813,37 +813,6 @@ function hex2rgb($color) {
     $rgb[$x] = hexdec(substr($color, (2 * $x), 2));
   }
   return $rgb;
-}
-
-//-----------------------------------------------------------------------------
-/**
- * Validates if a given date string is in the format YYYY-MM-DD and checks if it is a valid date.
- *
- * @param string $date The date string to validate.
- * @return bool Returns true if the date is valid and in the format YYYY-MM-DD, false otherwise.
- */
-function isValidDate($date) {
-  // Regular expression to check if the date is in the format YYYY-MM-DD
-  $regex = '/^\d{4}-\d{2}-\d{2}$/';
-  if (preg_match($regex, $date)) {
-    // Check if the date is valid
-    $parts = explode('-', $date);
-    return checkdate($parts[1], $parts[2], $parts[0]);
-  }
-  return false;
-}
-
-//-----------------------------------------------------------------------------
-/**
- * Validates if a given file name is valid.
- *
- * @param string $file The file name to validate.
- * @return bool Returns true if the file name is valid, false otherwise.
- */
-function isValidFileName($file) {
-  // Regular expression to check if the file name contains only valid characters
-  $regex = '/^[a-zA-Z0-9_\-]+\.[a-zA-Z0-9]+$/';
-  return preg_match($regex, $file);
 }
 
 //-----------------------------------------------------------------------------

@@ -308,7 +308,7 @@ view.groupcalendaredit
       <?php if (isset($inputAlert["periodStart"]) && strlen($inputAlert["periodStart"])) { ?>
         <br>
         <div class="alert alert-dismissable alert-danger">
-          <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button><?= $inputAlert['periodStart'] ?></div>
+          <button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['periodStart'] ?></div>
       <?php } ?>
     </div>
     <div>&nbsp;</div>
@@ -332,7 +332,7 @@ view.groupcalendaredit
       <?php if (isset($inputAlert["periodEnd"]) && strlen($inputAlert["periodEnd"])) { ?>
         <br>
         <div class="alert alert-dismissable alert-danger">
-          <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button><?= $inputAlert['periodEnd'] ?></div>
+          <button type="button" class="close" data-bs-dismiss="alert"><i class="far fa-times-circle"></i></button><?= $inputAlert['periodEnd'] ?></div>
       <?php } ?>
     </div>
     <?= createModalBottom('btn_saveperiod', 'success', $LANG['btn_save']) ?>

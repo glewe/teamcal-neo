@@ -298,7 +298,7 @@ if (!empty($_POST)) {
     // ,----------------,
     // | Save Recurring |
     // '----------------'
-    elseif (isset($_POST['btn_saverecurring']) && isset($_POST['sel_recurringAbsence']) && is_numeric($_POST['sel_recurringAbsence'])) {
+    elseif (isset($_POST['btn_saverecurring'])) {
       $startDate = $viewData['year'] . $viewData['month'] . '01';
       $endDate = $viewData['year'] . $viewData['month'] . $viewData['dateInfo']['daysInMonth'];
       $wdays = array( 'monday' => 1, 'tuesday' => 2, 'wednesday' => 3, 'thursday' => 4, 'friday' => 5, 'saturday' => 6, 'sunday' => 7 );

@@ -144,7 +144,7 @@ if (!empty($_POST)) {
       $alertData['type'] = 'danger';
       $alertData['title'] = $LANG['alert_danger_title'];
       $alertData['subject'] = $LANG['alert_input'];
-      $alertData['text'] = $LANG['regions_alert_no_file'];
+      $alertData['text'] = $LANG['regions_alert_no_file'] . print_r($_FILES['file_ical']);
       $alertData['help'] = '';
     } else {
       $viewData['icalRegionID'] = $_POST['sel_ical_region'];
