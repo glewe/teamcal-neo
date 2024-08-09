@@ -492,6 +492,7 @@ class PDODb {
     } else {
       $this->query = 'insert into `' . $table . '` values (' . $strAlias . ')';
     }
+//    dnd($this->query);
     return $this;
   }
 
@@ -932,6 +933,7 @@ class PDODb {
     $this->table = $table;
     $this->action = 'update';
     $this->query = 'update `' . $table . '` set ' . $keys;
+//    dnd($this->query);
     return $this;
   }
 
