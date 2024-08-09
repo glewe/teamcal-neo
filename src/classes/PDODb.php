@@ -155,7 +155,6 @@ class PDODb {
    * @param string $charset The database charset.
    */
   public function __construct($type = null, $host = null, $username = null, $password = null, $dbname = null, $port = null, $charset = null) {
-
     set_exception_handler(function ($exception) {
       $errorData = [
         'title' => 'DATABASE ERROR',
@@ -164,7 +163,6 @@ class PDODb {
       ];
       include_once WEBSITE_ROOT . '/views/error.php';
     });
-
     if (is_array($type)) {
       $this->connectionParams = $type;
     } else if (is_object($type)) {
@@ -209,26 +207,38 @@ class PDODb {
       throw new \Exception('SQLite database backup is not allowed. Download "' . $this->connectionParams['url'] . '" file directly.');
     }
     if (empty($fileName)) {
-      $fileName = 'PDODb-Backup-' . date("dmYHis") . '.sql';
+      $fileName = 'PDODb-Backup-' . date("YmdHis") . '.sql';
     } else {
       $fileName .= '.sql';
-    } // define file name
+    }
     if (empty($action)) {
       $action = 'save';
-    } // default action
-    if ($action == 'save') { // if selected the Save method
-      header('Content-disposition: attachment; filename=' . $fileName);
-      header('Content-type: application/force-download'); // header for download
     }
-    $show = $this->pdo()->query('show tables')->fetchAll(); // list all tables
+    if ($action == 'save') {
+      header('Content-disposition: attachment; filename=' . $fileName);
+      header('Content-type: application/force-download');
+    }
+    //
+    // List all tables
+    //
+    $show = $this->pdo()->query('show tables')->fetchAll();
     $tables = [];
     foreach ($show as $rows) {
       $content = [];
       $table = reset($rows);
       if (!in_array($table, $excludeTables)) {
-        $create = $this->pdo()->query("show create table `$table`")->fetchAll(); // list table structures
-        $content[] = $create[0]['Create Table'] . ";\n";                         // select Create Table structure
-        $query = $this->pdo()->prepare("select * from `$table`");                // list all values in selected table
+        //
+        // List table structure
+        //
+        $create = $this->pdo()->query("show create table `$table`")->fetchAll();
+        //
+        // Select create table structure
+        //
+        $content[] = $create[0]['Create Table'] . ";\n";
+        //
+        // List all values in table
+        //
+        $query = $this->pdo()->prepare("select * from `$table`");
         $query->execute(array());
         $select = $query->fetchAll();
         if ($query->rowCount() > 0) {
@@ -236,8 +246,8 @@ class PDODb {
             if (count($row) < 1) {
               continue;
             }
-            $header = "INSERT INTO `$table` VALUES ('";  // add Insert query
-            $body = implode("', '", array_values($row)); // add listed values
+            $header = "INSERT INTO `$table` VALUES ('";
+            $body = implode("', '", array_values($row));
             $footer = "');";
             $content[] = $header . $body . $footer;
           }
@@ -249,9 +259,15 @@ class PDODb {
       }
     }
     if ($action == 'save') {
+      //
+      // Save file message
+      //
       echo "# PDODb Database Backup File\n# Backup Date: " . date("Y-m-d H:i:s") . "\n# Backup File: " . $fileName . "\n\n\n";
       echo implode("\n\n", array_values($tables));
-    } else { // if selected the Show method
+    } else {
+      //
+      // Show file content on screen
+      //
       echo nl2br(implode('<br><br>', array_values($tables)));
     }
   }
@@ -473,7 +489,7 @@ class PDODb {
       $this->checkTable($table);
     }
     if (!is_array($data) || count($data) <= 0) {
-      throw new \Exception('Insert clause must contain an array data.');
+      throw new \Exception('Insert clause must contain an array with data.');
     }
     foreach ($data as $key => $value) {
       $keys[] = '`' . $key . '`';
@@ -492,7 +508,6 @@ class PDODb {
     } else {
       $this->query = 'insert into `' . $table . '` values (' . $strAlias . ')';
     }
-//    dnd($this->query);
     return $this;
   }
 
@@ -567,10 +582,10 @@ class PDODb {
     if (count($tables) > 0) {
       $tables = implode(', ', $tables);
       try {
-        $analyze = $this->pdo()->query("analyze table $tables");   // analyze tables
-        $check = $this->pdo()->query("check table $tables");       // check tables
-        $optimize = $this->pdo()->query("optimize table $tables"); // optimize tables
-        $repair = $this->pdo()->query("repair table $tables");     // repair tables
+        $analyze = $this->pdo()->query("analyze table $tables");
+        $check = $this->pdo()->query("check table $tables");
+        $optimize = $this->pdo()->query("optimize table $tables");
+        $repair = $this->pdo()->query("repair table $tables");
       } catch (Exception $e) {
         throw new \Exception($e->getMessage());
       }
@@ -640,7 +655,7 @@ class PDODb {
    */
   private function pdo() {
     if (!$this->pdo) {
-      $this->connect(); // call connection method
+      $this->connect();
     }
     if (!($this->pdo instanceof \PDO)) {
       throw new \Exception('This object is not an instance of PDO.');
@@ -690,7 +705,7 @@ class PDODb {
 
   //---------------------------------------------------------------------------
   /**
-   * Resets the internal state of the Database class.
+   * Resets all properties of the PDODb class.
    *
    * This method clears all the internal variables used for building and executing SQL queries.
    * It is typically called before starting a new query to ensure no residual data from previous queries affects the current one.
@@ -738,7 +753,7 @@ class PDODb {
    *               - Raw query: Returns the result of the raw query execution.
    * @throws \Exception If the action is not allowed or if there is an error during query execution.
    */
-  public function run() {
+  public function run($debug = false) {
     if (is_array($this->where) && count($this->where) > 0) { // add Where condition
       $count = 0;
       $clnWhere = array();
@@ -752,21 +767,39 @@ class PDODb {
       }
       $this->query .= ' where ' . implode('', $clnWhere) . '';
     }
-    if (!empty($this->groupBy)) { // add Group By condition
+    if (!empty($this->groupBy)) {
+      //
+      // Add Group By condition
+      //
       $this->query .= ' group by ' . $this->groupBy;
     }
-    if (!empty($this->groupBy) && !empty($this->having)) { // add Having condition
+    if (!empty($this->groupBy) && !empty($this->having)) {
+      //
+      // Add Having condition
+      //
       $this->query .= ' having ' . $this->having;
     }
-    if (is_array($this->orderBy) && count($this->orderBy) > 0) { // add Order By condition
+    if (is_array($this->orderBy) && count($this->orderBy) > 0) {
+      //
+      // Add Order By condition
+      //
       $this->query .= ' order by ' . implode(',', $this->orderBy);
     }
-    if (!empty($this->limit)) { // add Limit condition
+    if (!empty($this->limit)) {
+      //
+      // Add Limit condition
+      //
       $this->query .= ' limit ' . $this->limit;
     }
     switch ($this->action) {
-      case 'select': // run Select query and return the result (array|object)
+      case 'select':
+        //
+        // Run Select query and return the result (array|object)
+        //
         $query = $this->pdo()->prepare($this->query);
+        if ($debug) {
+          dnd($query); // Display query and die
+        }
         $result = $query->execute($this->whereValues);
         $this->queryResult = $query->fetchAll();
         $this->rowCount = $query->rowCount(); // selected row count
@@ -783,8 +816,14 @@ class PDODb {
           return $this->queryResult; // return all records
         }
         break;
-      case 'insert': // run Insert query and return the result (bool)
+      case 'insert':
+        //
+        // Run Insert query and return the result (bool)
+        //
         $query = $this->pdo()->prepare($this->query);
+        if ($debug) {
+          dnd($query); // Display query and die
+        }
         $result = $query->execute($this->values);
         $this->rowCount = $query->rowCount();               // inserted row count
         $this->lastInsertId = $this->pdo()->lastInsertId(); // auto increment value
@@ -792,24 +831,42 @@ class PDODb {
         unset($query);
         return $result;
         break;
-      case 'update': // run Update query and return the result (bool)
+      case 'update':
+        //
+        // Run Update query and return the result (bool)
+        //
         $query = $this->pdo()->prepare($this->query);
+        if ($debug) {
+          dnd($query); // Display query and die
+        }
         $result = $query->execute(array_merge($this->values, $this->whereValues));
         $this->rowCount = $query->rowCount(); // updated row count
         $query->closeCursor();
         unset($query);
         return $result;
         break;
-      case 'delete': // run Delete query and return the result (bool)
+      case 'delete':
+        //
+        // Run Delete query and return the result (bool)
+        //
         $query = $this->pdo()->prepare($this->query);
+        if ($debug) {
+          dnd($query); // Display query and die
+        }
         $result = $query->execute($this->whereValues);
         $this->rowCount = $query->rowCount(); // deleted row count
         $query->closeCursor();
         unset($query);
         return $result;
         break;
-      case 'query': // run Raw query and return the result (bool)
+      case 'query':
+        //
+        // Run Raw query and return the result (bool)
+        //
         $query = $this->pdo()->prepare($this->query);
+        if ($debug) {
+          dnd($query); // Display query and die
+        }
         $result = $query->execute($this->values);
         $this->rowCount = $query->rowCount(); // affected row count
         $exp = explode(' ', $this->query);    // for determine the action
@@ -841,7 +898,7 @@ class PDODb {
    * @param string|array $columns The columns to select. Can be a string of column names or an array of column names. Defaults to '*'.
    * @return $this Returns the current instance for method chaining.
    */
-  public function select($table = null, $columns = '*') {
+  public function select($table = null, $columns = '*', $debug = false) {
     $this->reset();
     if ($this->connectionParams['driver'] != 'sqlite' && $this->checkTable) {
       $this->checkTable($table);
@@ -920,7 +977,7 @@ class PDODb {
       $this->checkTable($table);
     }
     if (!is_array($data) || count($data) <= 0) {
-      throw new \Exception('Update clause must contain an array data.');
+      throw new \Exception('Update clause must contain an array with data.');
     }
     foreach ($data as $key => $value) {
       $keys[] = '`' . $key . '`=?';
@@ -933,7 +990,6 @@ class PDODb {
     $this->table = $table;
     $this->action = 'update';
     $this->query = 'update `' . $table . '` set ' . $keys;
-//    dnd($this->query);
     return $this;
   }
 

@@ -1,7 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
+require_once 'PDODb.php';
 
 /**
  * AbsenceGroup
@@ -31,8 +29,16 @@ class Allowances {
    * Constructor
    */
   public function __construct() {
-    global $CONF, $DB;
-    $this->db = $DB->db;
+    global $CONF;
+    $this->db = new PDODb([
+      'driver' => $CONF['db_driver'],
+      'host' => $CONF['db_server'],
+      'port' => $CONF['db_port'],
+      'dbname' => $CONF['db_name'],
+      'username' => $CONF['db_user'],
+      'password' => $CONF['db_password'],
+      'charset' => $CONF['db_charset'],
+    ]);
     $this->table = $CONF['db_table_allowances'];
     $this->archive_table = $CONF['db_table_archive_allowances'];
   }
@@ -45,9 +51,8 @@ class Allowances {
    * @return boolean Query result
    */
   public function archive($username) {
-    $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE username = :val1');
-    $query->bindParam('val1', $username);
-    return $query->execute();
+    $query = 'INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE username = ' . $username;
+    return $this->db->rawQuery($query)->run();
   }
 
   //---------------------------------------------------------------------------
@@ -57,12 +62,14 @@ class Allowances {
    * @return boolean Query result
    */
   public function create() {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, absid, carryover, allowance) VALUES (:val1, :val2, :val3, :val4)');
-    $query->bindParam('val1', $this->username);
-    $query->bindParam('val2', $this->absid);
-    $query->bindParam('val3', $this->carryover);
-    $query->bindParam('val4', $this->allowance);
-    return $query->execute();
+    $data = [
+      'id' => null,
+      'username' => $this->username,
+      'absid' => $this->absid,
+      'carryover' => $this->carryover,
+      'allowance' => $this->allowance
+    ];
+    return $this->db->insert($this->table, $data)->run();
   }
 
   //---------------------------------------------------------------------------
@@ -72,9 +79,9 @@ class Allowances {
    * @return boolean Query result
    */
   public function delete() {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
-    $query->bindParam('val1', $this->id);
-    return $query->execute();
+    return $this->db->delete($this->table)
+      ->where('id', '=', $this->id)
+      ->run();
   }
 
   //---------------------------------------------------------------------------
@@ -85,9 +92,9 @@ class Allowances {
    * @return boolean Query result
    */
   public function deleteAbs($absid = '') {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE absid = :val1');
-    $query->bindParam('val1', $absid);
-    return $query->execute();
+    return $this->db->delete($this->table)
+      ->where('absid', '=', $absid)
+      ->run();
   }
 
   //---------------------------------------------------------------------------
@@ -104,14 +111,7 @@ class Allowances {
     else {
       $table = $this->table;
     }
-    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table);
-    $result = $query->execute();
-    if ($result && $query->fetchColumn()) {
-      $query = $this->db->prepare('TRUNCATE TABLE ' . $table);
-      return $query->execute();
-    } else {
-      return false;
-    }
+    return $this->db->delete($table)->run();
   }
 
   //---------------------------------------------------------------------------
@@ -128,9 +128,9 @@ class Allowances {
     else {
       $table = $this->table;
     }
-    $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username = :val1');
-    $query->bindParam('val1', $username);
-    return $query->execute();
+    return $this->db->delete($table)
+      ->where('username', '=', $username)
+      ->run();
   }
 
   //---------------------------------------------------------------------------
@@ -148,10 +148,10 @@ class Allowances {
     else {
       $table = $this->table;
     }
-    $query = $this->db->prepare('SELECT COUNT(1) FROM ' . $table . ' WHERE username = :val1');
-    $query->bindParam('val1', $username);
-    $result = $query->execute();
-    return $result && $query->fetchColumn();
+    $this->db->select($table)
+      ->where('username', '=', $username)
+      ->run();
+    return $this->db->rowCount();
   }
 
   //---------------------------------------------------------------------------
@@ -164,11 +164,12 @@ class Allowances {
    * @return boolean True if allowance exists, false if not
    */
   public function find($username, $absid) {
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1 AND absid = :val2');
-    $query->bindParam('val1', $username);
-    $query->bindParam('val2', $absid);
-    $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    $row = $this->db->select($this->table)
+      ->where('username', '=', $username)
+      ->where('absid', '=', $absid)
+      ->first()
+      ->run();
+    if ($row) {
       $this->id = $row['id'];
       $this->username = $row['username'];
       $this->absid = $row['absid'];
@@ -182,18 +183,19 @@ class Allowances {
 
   //---------------------------------------------------------------------------
   /**
-   * Gets the allowance value of a user/absenceype
+   * Gets the allowance value of a user/absencetype
    *
    * @param string $username Username to find
    * @param string $absid Absence ID to find
    * @return string Allowance value or 0
    */
   public function getAllowance($username, $absid) {
-    $query = $this->db->prepare('SELECT allowance FROM ' . $this->table . ' WHERE username = :val1 AND absid = :val2');
-    $query->bindParam('val1', $username);
-    $query->bindParam('val2', $absid);
-    $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    $row = $this->db->select($this->table, [ 'allowance' ])
+      ->where('username', '=', $username)
+      ->where('absid', '=', $absid)
+      ->first()
+      ->run();
+    if ($row) {
       return $row['allowance'];
     } else {
       return 0;
@@ -209,14 +211,15 @@ class Allowances {
    * @return string Carryover value or 0
    */
   public function getCarryover($username, $absid) {
-    $query = $this->db->prepare('SELECT carryover FROM ' . $this->table . ' WHERE username = :val1 AND absid = :val2');
-    $query->bindParam('val1', $username);
-    $query->bindParam('val2', $absid);
-    $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    $row = $this->db->select($this->table, [ 'carryover' ])
+      ->where('username', '=', $username)
+      ->where('absid', '=', $absid)
+      ->first()
+      ->run();
+    if ($row) {
       return $row['carryover'];
     } else {
-      return '0';
+      return 0;
     }
   }
 
@@ -228,9 +231,8 @@ class Allowances {
    * @return boolean Query result
    */
   public function restore($username) {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
-    $query->bindParam('val1', $username);
-    return $query->execute();
+    $query = 'INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = '. $username;
+    return $this->db->rawQuery($query)->run();
   }
 
   //---------------------------------------------------------------------------
@@ -240,22 +242,29 @@ class Allowances {
    * @return boolean Query result
    */
   public function save() {
-    $query = $this->db->prepare('SELECT COUNT(1) FROM ' . $this->table . ' WHERE username = :val1 AND absid = :val2');
-    $query->bindParam('val1', $this->username);
-    $query->bindParam('val2', $this->absid);
-    $result = $query->execute();
-
-    if ($result && $query->fetchColumn()) {
-      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET carryover = :val3, allowance = :val4 WHERE username = :val1 AND absid = :val2');
+    $row = $this->db->select($this->table)
+      ->where('username', '=', $this->username)
+      ->where('absid', '=', $this->absid)
+      ->first()
+      ->run();
+    if ($row) {
+      $data = [
+        'username' => $this->username,
+        'absid' => $this->absid,
+        'carryover' => $this->carryover,
+        'allowance' => $this->allowance
+      ];
+      return $this->db->update($this->table, $data)->where('id', '=', $row['id'])->run();
     } else {
-      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, absid, carryover, allowance) VALUES (:val1, :val2, :val3, :val4)');
+      $data = [
+        'id' => null,
+        'username' => $this->username,
+        'absid' => $this->absid,
+        'carryover' => $this->carryover,
+        'allowance' => $this->allowance
+      ];
+      return $this->db->insert($this->table, $data)->run();
     }
-
-    $query->bindParam('val1', $this->username);
-    $query->bindParam('val2', $this->absid);
-    $query->bindParam('val3', $this->carryover);
-    $query->bindParam('val4', $this->allowance);
-    return $query->execute();
   }
 
   //---------------------------------------------------------------------------
@@ -265,25 +274,12 @@ class Allowances {
    * @return boolean Query result
    */
   public function update() {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET username = :val1, absid = :val2, carryover = :val3, allowance = :val4 WHERE id = :val5');
-    $query->bindParam('val1', $this->username);
-    $query->bindParam('val2', $this->absid);
-    $query->bindParam('val3', $this->carryover);
-    $query->bindParam('val4', $this->allowance);
-    $query->bindParam('val5', $this->id);
-    return $query->execute();
-  }
-
-  //---------------------------------------------------------------------------
-  /**
-   * Optimize table
-   *
-   * @return boolean Query result
-   */
-  public function optimize() {
-    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
-    $query->execute();
-    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->archive_table);
-    return $query->execute();
+    $data = [
+      'username' => $this->username,
+      'absid' => $this->absid,
+      'carryover' => $this->carryover,
+      'allowance' => $this->allowance
+    ];
+    return $this->db->update($this->table, $data)->where('id', '=', $this->id)->run();
   }
 }
