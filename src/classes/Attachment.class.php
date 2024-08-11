@@ -1,7 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
+require_once 'PDODb.php';
 
 /**
  * AbsenceGroup
@@ -22,10 +20,21 @@ class Attachment {
   //---------------------------------------------------------------------------
   /**
    * Constructor
+   *
+   * Initializes the Attachment class by setting up the database connection
+   * and defining the table name for attachments.
    */
   public function __construct() {
-    global $CONF, $DB;
-    $this->db = $DB->db;
+    global $CONF;
+    $this->db = new PDODb([
+      'driver' => $CONF['db_driver'],
+      'host' => $CONF['db_server'],
+      'port' => $CONF['db_port'],
+      'dbname' => $CONF['db_name'],
+      'username' => $CONF['db_user'],
+      'password' => $CONF['db_password'],
+      'charset' => $CONF['db_charset'],
+    ]);
     $this->table = $CONF['db_table_attachments'];
   }
 
@@ -33,15 +42,21 @@ class Attachment {
   /**
    * Creates a record
    *
+   * This method inserts a new record into the attachments table with the given filename and uploader.
+   * If the insertion is successful, it returns the ID of the newly inserted record.
+   * Otherwise, it returns the result of the insertion attempt.
+   *
    * @param string $filename File name
    * @param string $uploader Uploader username
-   * @return boolean Query result
+   * @return mixed Returns the ID of the newly inserted record on success, or the result of the insertion attempt on failure.
    */
   public function create($filename, $uploader) {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (`filename`, `uploader`) VALUES (:val1, :val2)');
-    $query->bindParam('val1', $filename);
-    $query->bindParam('val2', $uploader);
-    $result = $query->execute();
+    $data = [
+      'id' => null,
+      'filename' => $filename,
+      'uploader' => $uploader
+    ];
+    $result = $this->db->insert($this->table, $data)->run();
     if ($result) {
       return $this->db->lastInsertId();
     } else {
@@ -53,14 +68,29 @@ class Attachment {
   /**
    * Deletes all records
    *
+   * This method deletes all records from the attachments table.
+   *
    * @return boolean Query result
    */
   public function deleteAll() {
-    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
-    $result = $query->execute();
-    if ($result && $query->fetchColumn()) {
-      $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
-      return $query->execute();
+    return $this->db->delete($this->table)->run();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Deletes a record by filename
+   *
+   * This method deletes a record from the attachments table based on the provided filename.
+   * If the filename is not provided, it returns false.
+   *
+   * @param string $filename File name to delete
+   * @return boolean Query result
+   */
+  public function delete($filename) {
+    if (isset($filename)) {
+      return $this->db->delete($this->table)
+        ->where('filename', '=', $filename)
+        ->run();
     } else {
       return false;
     }
@@ -68,57 +98,51 @@ class Attachment {
 
   //---------------------------------------------------------------------------
   /**
-   * Deletes a record by filetype/filename
-   *
-   * @param string $filename File name to delete
-   * @return boolean Query result
-   */
-  public function delete($filename) {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE filename = :val1');
-    $query->bindParam('val1', $filename);
-    return $query->execute();
-  }
-
-  //---------------------------------------------------------------------------
-  /**
    * Deletes a record by ID
    *
+   * This method deletes a record from the attachments table based on the provided ID.
+   * If the ID is not provided, it returns false.
+   *
+   * @param string $id Record ID to delete
    * @return boolean Query result
    */
   public function deleteById($id) {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
-    $query->bindParam('val1', $id);
-    return $query->execute();
+    if (isset($filename)) {
+      return $this->db->delete($this->table)
+        ->where('id', '=', $id)
+        ->run();
+    } else {
+      return false;
+    }
   }
 
   //---------------------------------------------------------------------------
   /**
-   * Reads all records into an array
+   * Retrieves all records
    *
-   * @return array Array with records
+   * This method retrieves all records from the attachments table,
+   * ordered by the filename in ascending order.
+   *
+   * @return array List of all records
    */
   public function getAll() {
-    $records = array();
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY filename ASC');
-    if ($query->execute()) {
-      while ($row = $query->fetch()) {
-        $records[] = $row;
-      }
-    }
-    return $records;
+    return $this->db->select($this->table)->orderBy('filename', 'asc')->run();
   }
 
   //---------------------------------------------------------------------------
   /**
-   * Gets the record ID of a given file
+   * Retrieves the ID of a record by filename
+   *
+   * This method retrieves the ID of a record from the attachments table based on the provided filename.
+   * If the filename is found, it returns the ID of the record.
+   * Otherwise, it returns false.
    *
    * @param string $filename File name to find
-   * @return string Record ID
+   * @return mixed Returns the ID of the record on success, or false if the filename is not found.
    */
   public function getId($filename) {
-    $query = $this->db->prepare('SELECT id FROM ' . $this->table . ' WHERE filename = :val1');
-    $query->bindParam('val1', $filename);
-    if ($query->execute() && $row = $query->fetch()) {
+    $row = $this->db->select($this->table, [ 'id' ])->where('filename', '=', $filename)->first()->run();
+    if ($row) {
       return $row['id'];
     } else {
       return false;
@@ -127,15 +151,18 @@ class Attachment {
 
   //---------------------------------------------------------------------------
   /**
-   * Gets the uploader of a given file
+   * Retrieves the uploader of a record by filename
+   *
+   * This method retrieves the uploader of a record from the attachments table based on the provided filename.
+   * If the filename is found, it returns the uploader of the record.
+   * Otherwise, it returns false.
    *
    * @param string $filename File name to find
-   * @return string Uploader
+   * @return mixed Returns the uploader of the record on success, or false if the filename is not found.
    */
   public function getUploader($filename) {
-    $query = $this->db->prepare('SELECT uploader FROM ' . $this->table . ' WHERE filename = :val1');
-    $query->bindParam('val1', $filename);
-    if ($query->execute() && $row = $query->fetch()) {
+    $row = $this->db->select($this->table, [ 'uploader' ])->where('filename', '=', $filename)->first()->run();
+    if ($row) {
       return $row['uploader'];
     } else {
       return false;
@@ -144,29 +171,21 @@ class Attachment {
 
   //---------------------------------------------------------------------------
   /**
-   * Gets the uploader of a given file
+   * Retrieves the uploader of a record by ID
    *
-   * @param string $filename File name to find
-   * @return string Uploader
+   * This method retrieves the uploader of a record from the attachments table based on the provided ID.
+   * If the ID is found, it returns the uploader of the record.
+   * Otherwise, it returns false.
+   *
+   * @param string $id Record ID to find
+   * @return mixed Returns the uploader of the record on success, or false if the ID is not found.
    */
-  public function getUploaderById($fileid) {
-    $query = $this->db->prepare('SELECT uploader FROM ' . $this->table . ' WHERE id = :val1');
-    $query->bindParam('val1', $fileid);
-    if ($query->execute() && $row = $query->fetch()) {
+  public function getUploaderById($id) {
+    $row = $this->db->select($this->table, [ 'uploader' ])->where('id', '=', $id)->first()->run();
+    if ($row) {
       return $row['uploader'];
     } else {
       return false;
     }
-  }
-
-  //---------------------------------------------------------------------------
-  /**
-   * Optimize table
-   *
-   * @return boolean Query result
-   */
-  public function optimize() {
-    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
-    return $query->execute();
   }
 }

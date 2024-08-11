@@ -817,6 +817,20 @@ function hex2rgb($color) {
 
 //-----------------------------------------------------------------------------
 /**
+ * Checks if a given filename is valid.
+ *
+ * A valid filename contains only alphanumeric characters, underscores, hyphens, and dots.
+ *
+ * @param string $file The filename to check
+ * @return bool True if the filename is valid, false otherwise
+ */
+function isValidFileName($file) {
+  // Check if the filename is not empty and matches the valid pattern
+  return !empty($file) && preg_match('/^[a-zA-Z0-9._-]+$/', $file);
+}
+
+//-----------------------------------------------------------------------------
+/**
  * Restores a user and all related records from archive
  *
  * @return string Login information

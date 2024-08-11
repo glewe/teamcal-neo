@@ -39,9 +39,9 @@ define('APP_IMP_DIR', "upload/import/");
 define('APP_INSTALLED', "1");
 
 //
-// The cookie prefix to be used on the browser client's device
+// Name of the TeamCal Neo session cookie
 //
-define('COOKIE_NAME', "tcneopro");
+define('COOKIE_NAME', "tcneo_session");
 
 //=============================================================================
 /**
