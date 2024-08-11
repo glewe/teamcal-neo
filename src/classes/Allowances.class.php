@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 
 /**
  * AbsenceGroup
@@ -271,19 +268,6 @@ class Allowances {
     $query->bindParam('val3', $this->carryover);
     $query->bindParam('val4', $this->allowance);
     $query->bindParam('val5', $this->id);
-    return $query->execute();
-  }
-
-  //---------------------------------------------------------------------------
-  /**
-   * Optimize table
-   *
-   * @return boolean Query result
-   */
-  public function optimize() {
-    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
-    $query->execute();
-    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->archive_table);
     return $query->execute();
   }
 }

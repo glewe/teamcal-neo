@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 
 /**
  * Config
@@ -73,16 +70,5 @@ class Config {
     $query2->bindParam('val1', $name);
     $query2->bindParam('val2', $value);
     return $query2->execute();
-  }
-
-   //---------------------------------------------------------------------------
-  /**
-   * Optimize table
-   *
-   * @return boolean $result Query result
-   */
-  public function optimize() {
-    $query = $this->db->prepare("OPTIMIZE TABLE " . $this->table);
-    return $query->execute();
   }
 }

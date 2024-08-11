@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 
 /**
  * UserOption
@@ -285,19 +282,6 @@ class UserOption {
     $val2 = 'defregion';
     $query->bindParam('val2', $val2);
     $query->bindParam('val3', $regionold);
-    return $query->execute();
-  }
-
-  //---------------------------------------------------------------------------
-  /**
-   * Optimize table
-   *
-   * @return boolean Query result
-   */
-  public function optimize() {
-    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
-    $query->execute();
-    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->archive_table);
     return $query->execute();
   }
 }
