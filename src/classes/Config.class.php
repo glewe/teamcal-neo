@@ -1,7 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
+require_once 'PDODb.php';
 
 /**
  * Config
@@ -20,7 +18,6 @@ class Config {
   public $name = '';
   public $value = '';
 
-  private $conf = '';
   private $db = '';
   private $table = '';
 
@@ -29,8 +26,16 @@ class Config {
    * Constructor
    */
   public function __construct($conf, $db) {
-    $this->conf = $conf;
-    $this->db = $db->db;
+    global $CONF;
+    $this->db = new PDODb([
+      'driver' => $CONF['db_driver'],
+      'host' => $CONF['db_server'],
+      'port' => $CONF['db_port'],
+      'dbname' => $CONF['db_name'],
+      'username' => $CONF['db_user'],
+      'password' => $CONF['db_password'],
+      'charset' => $CONF['db_charset'],
+    ]);
     $this->table = $conf['db_table_config'];
   }
 
@@ -42,13 +47,11 @@ class Config {
    * @return string Value of the option or false if not found
    */
   public function read($name) {
-    $query = $this->db->prepare("SELECT value FROM " . $this->table . " WHERE `name` = :val1");
-    $query->bindParam('val1', $name);
-    $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    $row = $this->db->select($this->table, [ 'value' ])->where('name', '=', $name)->first()->run();
+    if ($row) {
       return $row['value'];
     } else {
-      return false;
+      return '0';
     }
   }
 
@@ -61,28 +64,29 @@ class Config {
    * @return boolean $result Query result or false
    */
   public function save($name, $value) {
-    $query = $this->db->prepare("SELECT COUNT(*) FROM " . $this->table . " WHERE `name` = :val1");
-    $query->bindParam('val1', $name);
-    $result = $query->execute();
-
-    if ($result && $query->fetchColumn()) {
-      $query2 = $this->db->prepare("UPDATE " . $this->table . " SET value = :val2 WHERE name = :val1");
+    //
+    // Try to find the record
+    //
+    $row = $this->db->select($this->table)->where('name', '=', $name)->first()->run();
+    if ($row) {
+      //
+      // Record exists, update it
+      //
+      $data = [
+        'name' => $name,
+        'value' => $value
+      ];
+      return $this->db->update($this->table, $data)->where('id', '=', $row['id'])->run();
     } else {
-      $query2 = $this->db->prepare("INSERT INTO " . $this->table . " (`name`, `value`) VALUES (:val1, :val2)");
+      //
+      // Record does not exist, insert it
+      //
+      $data = [
+        'id' => null,
+        'name' => $name,
+        'value' => $value
+      ];
+      return $this->db->insert($this->table, $data)->run();
     }
-    $query2->bindParam('val1', $name);
-    $query2->bindParam('val2', $value);
-    return $query2->execute();
-  }
-
-   //---------------------------------------------------------------------------
-  /**
-   * Optimize table
-   *
-   * @return boolean $result Query result
-   */
-  public function optimize() {
-    $query = $this->db->prepare("OPTIMIZE TABLE " . $this->table);
-    return $query->execute();
   }
 }
