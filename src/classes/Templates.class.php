@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * Templates
@@ -610,6 +613,19 @@ class Templates {
     $query->bindParam('val5', $year);
     $month = sprintf("%02d", $month);
     $query->bindParam('val6', $month);
+    return $query->execute();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Optimize table
+   *
+   * @return boolean Query result
+   */
+  public function optimize() {
+    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
+    $query->execute();
+    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->archive_table);
     return $query->execute();
   }
 }

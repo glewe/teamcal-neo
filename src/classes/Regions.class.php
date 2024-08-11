@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * Regions
@@ -275,6 +278,17 @@ class Regions {
     $query->bindParam('val1', $this->name);
     $query->bindParam('val2', $this->description);
     $query->bindParam('val3', $id);
+    return $query->execute();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Optimize table
+   *
+   * @return boolean Query result
+   */
+  public function optimize() {
+    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
     return $query->execute();
   }
 }

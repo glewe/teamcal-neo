@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * UserMessage
@@ -245,6 +248,19 @@ class UserMessage {
     $query->bindParam('val1', $username);
     $val2 = '0';
     $query->bindParam('val2', $val2);
+    return $query->execute();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Optimize table
+   *
+   * @return boolean Query result
+   */
+  public function optimize() {
+    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
+    $query->execute();
+    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->archive_table);
     return $query->execute();
   }
 }

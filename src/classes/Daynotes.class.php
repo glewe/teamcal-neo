@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * Daynotes
@@ -429,6 +432,19 @@ class Daynotes {
     $query->bindParam('val5', $this->color);
     $query->bindParam('val6', $this->confidential);
     $query->bindParam('val7', $this->id);
+    return $query->execute();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Optimize table
+   *
+   * @return boolean Query result
+   */
+  public function optimize() {
+    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
+    $query->execute();
+    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->archive_table);
     return $query->execute();
   }
 }

@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * AbsenceGroup
@@ -174,6 +177,17 @@ class AbsenceGroup {
     $query = $this->db->prepare('UPDATE ' . $this->table . ' SET groupid = :val1 WHERE groupid = :val2');
     $query->bindParam('val1', $groupnew);
     $query->bindParam('val2', $groupold);
+    return $query->execute();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Optimize table
+   *
+   * @return boolean Query result
+   */
+  public function optimize() {
+    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
     return $query->execute();
   }
 }

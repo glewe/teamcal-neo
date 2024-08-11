@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * Login
@@ -19,6 +22,8 @@ class Login {
   private $hostName = '';
   private $min_pw_length = 0;
   private $pw_strength = 0;
+  private $php_self = '';
+  private $log = '';
 
   //---------------------------------------------------------------------------
   /**
@@ -26,11 +31,14 @@ class Login {
    */
   public function __construct() {
     global $CONF, $C, $_POST, $_SERVER;
+
     $this->cookie_name = COOKIE_NAME;
     $this->bad_logins = intval($C->read("badLogins"));
     $this->grace_period = intval($C->read("gracePeriod"));
     $this->min_pw_length = intval($C->read("pwdLength"));
     $this->pw_strength = intval($C->read("pwdStrength"));
+    $this->php_self = $_SERVER['PHP_SELF'];
+    $this->log = $CONF['db_table_log'];
     $this->hostName = $this->getHost();
   }
 
@@ -43,6 +51,7 @@ class Login {
    */
   public function checkLogin() {
     global $U;
+
     //
     // If the cookie is set, look up the username in the database
     //
@@ -80,10 +89,12 @@ class Login {
         $host = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
       }
     }
+
     //
     // Remove port number from host
     //
     $host = preg_replace('/:\d+$/', '', $host);
+
     return trim($host);
   }
 
