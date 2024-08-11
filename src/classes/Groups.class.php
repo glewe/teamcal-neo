@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * Groups
@@ -334,6 +337,17 @@ class Groups {
     $query->bindParam('val5', $this->minpresentwe);
     $query->bindParam('val6', $this->maxabsentwe);
     $query->bindParam('val7', $id);
+    return $query->execute();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Optimize table
+   *
+   * @return boolean Query result
+   */
+  public function optimize() {
+    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
     return $query->execute();
   }
 }

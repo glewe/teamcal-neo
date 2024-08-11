@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * Controller
@@ -35,6 +38,9 @@ class Controller {
    */
   public function __construct($name, $faIcon, $iconColor, $panelColor, $permission, $title, $docurl) {
     if (!strlen($name)) {
+      /**
+       * No name passed
+       */
       $errorData['title'] = 'Application Error';
       $errorData['subject'] = 'Controller Instance';
       $errorData['text'] = 'The controller instance could not be initiated due to a missing controller name.';

@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * Users
@@ -699,5 +702,21 @@ class Users {
     $query->execute();
     $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->archive_table);
     return $query->execute();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * User order key
+   *
+   * @return boolean Query result
+   */
+  private function useOrderKey() {
+    $query = $this->db->prepare("SELECT value FROM " . $this->config_table . " WHERE `name` = 'sortByOrderKey'");
+    $result = $query->execute();
+    if ($result && $row = $query->fetch()) {
+      return $row['value'];
+    } else {
+      return false;
+    }
   }
 }

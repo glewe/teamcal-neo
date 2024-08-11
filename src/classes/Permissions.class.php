@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * Permissions
@@ -149,6 +152,17 @@ class Permissions {
    */
   public function deleteAll() {
     $query = $this->db->prepare("DELETE FROM " . $this->table . " WHERE scheme <> 'Default'");
+    return $query->execute();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Optimize table
+   *
+   * @return boolean Query result
+   */
+  public function optimize() {
+    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
     return $query->execute();
   }
 }
