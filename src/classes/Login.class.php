@@ -1,7 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
+require_once 'PDODb.php';
 
 /**
  * Login
@@ -22,23 +20,19 @@ class Login {
   private $hostName = '';
   private $min_pw_length = 0;
   private $pw_strength = 0;
-  private $php_self = '';
-  private $log = '';
 
   //---------------------------------------------------------------------------
   /**
    * Constructor
    */
   public function __construct() {
-    global $CONF, $C, $_POST, $_SERVER;
+    global $C, $_POST, $_SERVER;
 
     $this->cookie_name = COOKIE_NAME;
     $this->bad_logins = intval($C->read("badLogins"));
     $this->grace_period = intval($C->read("gracePeriod"));
     $this->min_pw_length = intval($C->read("pwdLength"));
     $this->pw_strength = intval($C->read("pwdStrength"));
-    $this->php_self = $_SERVER['PHP_SELF'];
-    $this->log = $CONF['db_table_log'];
     $this->hostName = $this->getHost();
   }
 
@@ -51,7 +45,6 @@ class Login {
    */
   public function checkLogin() {
     global $U;
-
     //
     // If the cookie is set, look up the username in the database
     //
@@ -85,16 +78,14 @@ class Login {
       $elements = explode(',', $host);
       $host = trim(end($elements));
     } else {
-      if ($host !== $_SERVER['HTTP_HOST'] && $host !== $_SERVER['SERVER_NAME']) {
+      if ((!$host = $_SERVER['HTTP_HOST']) && (!$host = $_SERVER['SERVER_NAME'])) {
         $host = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
       }
     }
-
     //
     // Remove port number from host
     //
     $host = preg_replace('/:\d+$/', '', $host);
-
     return trim($host);
   }
 
@@ -396,15 +387,10 @@ class Login {
    */
   public function loginUser($loginname = '', $loginpwd = '') {
     global $C, $U, $UO;
-
-    $retcode = 0;
-
     if (empty($loginname) || empty($loginpwd)) {
       return 1;
     }
-
     $now = date("U");
-
     if (!$U->findByName($loginname)) {
       // User not found. If found U->username is now set.
       return 2;
@@ -421,13 +407,11 @@ class Login {
       // Login is locked for this account and grace period is not over yet.
       return 6;
     }
-
     //
     // At this point we know that the user is not ONHOLD or the grace period is over.
     // We can safely unset it.
     //
     $U->onhold = 0;
-
     //
     // Now check the password
     //
@@ -448,10 +432,9 @@ class Login {
     if ($retcode != 0) {
       return $retcode;
     }
-
     //
     // Successful login!
-    // Set up the tc cookie and save the uname so TeamCal can get it.
+    // Set the session cookie incl. the hashed loginname.
     //
     $secret = password_hash($loginname, PASSWORD_DEFAULT);
     $value = $loginname . ":" . $secret;
@@ -463,7 +446,6 @@ class Login {
     $U->grace_start = DEFAULT_TIMESTAMP;
     $U->last_login = date("YmdHis");
     $U->update($U->username);
-
     return 0;
   }
 
@@ -472,6 +454,6 @@ class Login {
    * Clears the login cookie
    */
   public function logout() {
-    setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, true, true);
+    setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, false, true);
   }
 }
