@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 
 /**
  * Holidays
@@ -377,16 +374,5 @@ class Holidays {
       $result = $query->execute();
     }
     return $result;
-  }
-
-  //---------------------------------------------------------------------------
-  /**
-   * Optimize table
-   *
-   * @return boolean Query result
-   */
-  public function optimize() {
-    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
-    return $query->execute();
   }
 }

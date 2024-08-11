@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 
 /**
  * Users
@@ -689,19 +686,6 @@ class Users {
       `last_pw_change` = '" . $this->last_pw_change . "',
       `last_login` = '" . $this->last_login . "',
       `created` = '" . $this->created . "' WHERE `username` = '" . $username . "';");
-  }
-
-  //---------------------------------------------------------------------------
-  /**
-   * Optimize table
-   *
-   * @return boolean Query result
-   */
-  public function optimize() {
-    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
-    $query->execute();
-    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->archive_table);
-    return $query->execute();
   }
 
   //---------------------------------------------------------------------------

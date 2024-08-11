@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 
 /**
  * UserAttachment
@@ -162,18 +159,5 @@ class UserAttachment {
     $query->bindParam('val2', $fileid);
     $result = $query->execute();
     return $result && $query->fetchColumn();
-  }
-
-  //---------------------------------------------------------------------------
-  /**
-   * Optimize table
-   *
-   * @return boolean $result Query result
-   */
-  public function optimize() {
-    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->table);
-    $query->execute();
-    $query = $this->db->prepare('OPTIMIZE TABLE ' . $this->archive_table);
-    return $query->execute();
   }
 }
