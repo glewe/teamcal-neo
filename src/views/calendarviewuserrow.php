@@ -125,7 +125,7 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
           if ($C->read('symbolAsIcon')) {
             $icon = $A->getSymbol($T->$abs);
           } else {
-            $icon = '<span class="' . $A->getIcon($T->$abs) . '"></span>';
+            $icon = '<span class="' . $A->getIcon($T->$abs) . ' align-bottom"></span>';
           }
           $countFrom = $viewData['year'] . $viewData['month'] . '01';
           $countTo = $viewData['year'] . $viewData['month'] . $dayend;
