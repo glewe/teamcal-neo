@@ -931,6 +931,7 @@ class PDODb {
         echo '<p><b>[PDODb] Query:</b> ' . $this->query . '</p>';
       } else {
         $queryArray = explode('?', $this->query);
+        $result = '';
         for ($i = 0; $i < count($queryArray) - 1; $i++) {
           $result .= $queryArray[$i] . "'" . $this->whereValues[$i] . "'";
         }
