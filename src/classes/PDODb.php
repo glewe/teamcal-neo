@@ -340,17 +340,22 @@ class PDODb {
       $connectionString = rtrim($connectionString, ';');
       $this->pdo = new \PDO($connectionString, $this->connectionParams['username'], $this->connectionParams['password']);
     }
-    $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+//    $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+//    $this->pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
+//    $this->pdo->setAttribute(\PDO::ATTR_CURSOR, \PDO::CURSOR_SCROLL);
+//    $this->pdo->setAttribute(\PDO::ATTR_ORACLE_NULLS, \PDO::NULL_EMPTY_STRING);
+//    $this->pdo->setAttribute(\PDO::ATTR_PERSISTENT, true);
+//    if ($this->connectionParams['driver'] == 'mysql') {
+//      $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, true);
+//      $this->pdo->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+//      $this->pdo->setAttribute(\PDO::MYSQL_ATTR_FOUND_ROWS, true);
+//      $this->pdo->setAttribute(\PDO::MYSQL_ATTR_INIT_COMMAND, 'SET CHARACTER SET utf8, NAMES utf8');
+//    }
+
+    $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);         // Needed for PDO::errorInfo()
+    $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Needed for PDO:errorCode()
     $this->pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
-    $this->pdo->setAttribute(\PDO::ATTR_CURSOR, \PDO::CURSOR_SCROLL);
-    $this->pdo->setAttribute(\PDO::ATTR_ORACLE_NULLS, \PDO::NULL_EMPTY_STRING);
-    $this->pdo->setAttribute(\PDO::ATTR_PERSISTENT, true);
-    if ($this->connectionParams['driver'] == 'mysql') {
-      $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, true);
-      $this->pdo->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-      $this->pdo->setAttribute(\PDO::MYSQL_ATTR_FOUND_ROWS, true);
-      $this->pdo->setAttribute(\PDO::MYSQL_ATTR_INIT_COMMAND, 'SET CHARACTER SET utf8, NAMES utf8');
-    }
+
     if (!($this->pdo instanceof \PDO)) {
       throw new \Exception('This object is not an instance of PDO.');
     }

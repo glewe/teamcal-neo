@@ -39,6 +39,16 @@ class DB {
       $this->db = new PDO('mysql:host=' . $server . ';dbname=' . $database . ';charset=utf8', $user, $password);
       $this->db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);         // Needed for PDO::errorInfo()
       $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Needed for PDO:errorCode()
+
+      $this->db->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
+//      $this->db->setAttribute(\PDO::ATTR_CURSOR, \PDO::CURSOR_SCROLL);
+//      $this->db->setAttribute(\PDO::ATTR_ORACLE_NULLS, \PDO::NULL_EMPTY_STRING);
+//      $this->db->setAttribute(\PDO::ATTR_PERSISTENT, true);
+//      $this->db->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+//      $this->db->setAttribute(\PDO::MYSQL_ATTR_FOUND_ROWS, true);
+//      $this->db->setAttribute(\PDO::MYSQL_ATTR_INIT_COMMAND, 'SET CHARACTER SET utf8, NAMES utf8');
+
+
     } catch (PDOException $e) {
       /**
        * Database connection error
@@ -81,10 +91,12 @@ class DB {
       "CASE",
       "CLIENT_VERSION",
       "CONNECTION_STATUS",
+      "DEFAULT_FETCH_MODE",
       "DRIVER_NAME",
+      "EMULATE_PREPARES",
       "ERRMODE",
       "ORACLE_NULLS",
-      "PERSISTENT",
+//      "PERSISTENT",
       "SERVER_INFO",
       "SERVER_VERSION",
     );
