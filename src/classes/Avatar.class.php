@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 
 /**
  * Avatar
@@ -32,7 +29,7 @@ class Avatar {
    * Constructor
    */
   public function __construct($LANG) {
-    global $C, $CONF;
+    global $CONF;
 
     $this->maxHeight = 80;
     $this->maxWidth = 80;
@@ -89,7 +86,6 @@ class Avatar {
         unlink($this->path . $uname . "." . $extension);
       }
     }
-
     if (file_exists($this->path . $avatar) && $avatar != 'default_male.png' && $avatar != 'default_female.png' && substr($avatar, 0, 3) != 'is_') {
       unlink($this->path . $avatar);
     }
@@ -113,7 +109,6 @@ class Avatar {
 
       if (is_numeric(array_search(strtolower($this->fileExtension), $this->allowedTypes))) {
         $newfile = $this->path . $uname . "." . $this->fileExtension;
-
         //
         // Check size and resize if necessary
         //
@@ -165,21 +160,20 @@ class Avatar {
               break;
           }
         } else {
-          /**
-           * The file is within the size restrictions.
-           * Just copy it to its destination.
-           */
+          //
+          // The file is within the size restrictions. Just copy it to its destination.
+          //
           if (!copy($this->tmpFileName, $newfile)) {
             $this->message = $this->error[19];
           }
         }
-        /**
-         * Delete the temporary uploaded file
-         */
+        //
+        // Delete the temporary uploaded file
+        //
         unlink($this->tmpFileName);
-        /**
-         * Delete previous avatars if exist
-         */
+        //
+        // Delete previous avatars if exist
+        //
         foreach ($this->allowedTypes as $type) {
           if ($type != $this->fileExtension && file_exists($this->path . $uname . "." . $type)) {
             unlink($this->path . $uname . "." . $type);
