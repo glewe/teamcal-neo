@@ -217,7 +217,6 @@ view.menu
           isAllowed($CONF['controllers']['groups']->permission) ||
           isAllowed($CONF['controllers']['roles']->permission) ||
           isAllowed($CONF['controllers']['database']->permission) ||
-          isAllowed($CONF['controllers']['database']->permission) ||
           isAllowed($CONF['controllers']['phpinfo']->permission) ||
           isAllowed($CONF['controllers']['absences']->permission) ||
           isAllowed($CONF['controllers']['holidays']->permission) ||

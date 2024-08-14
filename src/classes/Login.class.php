@@ -82,7 +82,7 @@ class Login {
       $elements = explode(',', $host);
       $host = trim(end($elements));
     } else {
-      if (!$host = $_SERVER['HTTP_HOST'] && !$host = $_SERVER['SERVER_NAME']) {
+      if ((!$host = $_SERVER['HTTP_HOST']) && (!$host = $_SERVER['SERVER_NAME'])) {
         $host = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
       }
     }
