@@ -21,6 +21,7 @@ class UserGroup {
   private $db = '';
   private $table = '';
   private $archive_table = '';
+  private $groups_table = '';
 
   //---------------------------------------------------------------------------
   /**
@@ -31,6 +32,7 @@ class UserGroup {
     $this->db = $DB->db;
     $this->table = $CONF['db_table_user_group'];
     $this->archive_table = $CONF['db_table_archive_user_group'];
+    $this->groups_table = $CONF['db_table_groups'];
   }
 
   //---------------------------------------------------------------------------
@@ -256,6 +258,29 @@ class UserGroup {
     $records = array();
     $query = $this->db->prepare("SELECT * FROM " . $this->table . " WHERE groupid = :val1 AND (type = 'manager' OR type ='member') ORDER BY username " . $sort);
     $query->bindParam('val1', $groupid);
+    $result = $query->execute();
+    if ($result) {
+      while ($row = $query->fetch()) {
+        $records[] = $row;
+      }
+    }
+    return $records;
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Gets all usernames of a given group (managers and members)
+   *
+   * @param string $groupid Group ID to search by
+   * @return array Array with all group records
+   */
+  public function getAllManagedGroupsForUser($username) {
+    $records = array();
+//    $query = $this->db->prepare("SELECT * FROM " . $this->table . " WHERE username = :val1 AND type = 'manager'");
+    $query = $this->db->prepare(
+      'SELECT g.* FROM ' . $this->groups_table . ' g JOIN ' . $this->table . ' ug ON g.id = ug.groupid WHERE ug.username = :val1'
+    );
+    $query->bindParam('val1', $username);
     $result = $query->execute();
     if ($result) {
       while ($row = $query->fetch()) {

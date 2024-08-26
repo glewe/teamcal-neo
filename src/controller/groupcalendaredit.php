@@ -88,12 +88,30 @@ if ($C->read('currentYearOnly') && $viewData['year'] != date('Y')) {
 // CHECK PERMISSION
 //
 $allowed = false;
+if ($UG->isGroupManagerOfGroup($UL->username, $calgroup)) {
+  //
+  // Group manager can always edit the group calendar
+  //
+  $allowed = true;
+}
+
 if (isAllowed($CONF['controllers'][$controller]->permission)) {
+  //
+  // The current user role has the permission "Group Calendar (Edit)"
+  //
   if ($UG->shareGroups($UL->username, $calgroup)) {
+    //
+    // The current user is a member of the group. But to continue,
+    // the user must have the feature permission "Calendar (Edit Group as Member or Manager)"
+    //
     if (isAllowed("calendareditgroup")) {
       $allowed = true;
     }
   } else {
+    //
+    // The current user is not a member of the group. To continue,
+    // the user must have the feature permission "Calendar (Edit All)"
+    //
     if (isAllowed("calendareditall")) {
       $allowed = true;
     }

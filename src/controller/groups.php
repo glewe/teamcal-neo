@@ -17,7 +17,7 @@ if (!defined('VALID_ROOT')) {
 //
 // CHECK PERMISSION
 //
-if (!isAllowed($CONF['controllers'][$controller]->permission)) {
+if (!isAllowed($CONF['controllers'][$controller]->permission) && !$UG->isGroupManager($UL->username)) {
   $alertData['type'] = 'warning';
   $alertData['title'] = $LANG['alert_alert_title'];
   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
@@ -186,6 +186,14 @@ if (!empty($_POST)) {
 //
 $viewData['groups'] = $G->getAll();
 $viewData['searchGroup'] = '';
+
+if (!isAllowed($CONF['controllers'][$controller]->permission) && $UG->isGroupManager($UL->username)) {
+  //
+  // This user does not have global permission to manage groups, but is a manager of some groups.
+  // Let's show only the groups this user is managing.
+  //
+  $viewData['groups'] = $UG->getAllManagedGroupsForUser($UL->username);
+}
 
 // ,--------,
 // | Search |

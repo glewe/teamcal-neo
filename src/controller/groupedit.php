@@ -15,20 +15,6 @@ if (!defined('VALID_ROOT')) {
 
 //=============================================================================
 //
-// CHECK PERMISSION
-//
-if (!isAllowed($CONF['controllers'][$controller]->permission)) {
-  $alertData['type'] = 'warning';
-  $alertData['title'] = $LANG['alert_alert_title'];
-  $alertData['subject'] = $LANG['alert_not_allowed_subject'];
-  $alertData['text'] = $LANG['alert_not_allowed_text'];
-  $alertData['help'] = $LANG['alert_not_allowed_help'];
-  require_once WEBSITE_ROOT . '/controller/alert.php';
-  die();
-}
-
-//=============================================================================
-//
 // CHECK URL PARAMETERS
 //
 $GG = new Groups(); // for the profile to be created or updated
@@ -51,6 +37,20 @@ if ($missingData) {
   $alertData['subject'] = $LANG['alert_no_data_subject'];
   $alertData['text'] = $LANG['alert_no_data_text'];
   $alertData['help'] = $LANG['alert_no_data_help'];
+  require_once WEBSITE_ROOT . '/controller/alert.php';
+  die();
+}
+
+//=============================================================================
+//
+// CHECK PERMISSION
+//
+if (!isAllowed($CONF['controllers'][$controller]->permission) && !$UG->isGroupManagerOfGroup($UL->username, $GG->id)) {
+  $alertData['type'] = 'warning';
+  $alertData['title'] = $LANG['alert_alert_title'];
+  $alertData['subject'] = $LANG['alert_not_allowed_subject'];
+  $alertData['text'] = $LANG['alert_not_allowed_text'];
+  $alertData['help'] = $LANG['alert_not_allowed_help'];
   require_once WEBSITE_ROOT . '/controller/alert.php';
   die();
 }
@@ -130,9 +130,9 @@ if (!empty($_POST)) {
       $GG->update($_POST['hidden_id']);
 
       //
-      // Memberships, Managersihps
+      // Memberships, Managerships
       //
-      if (isAllowed("groupmemberships")) {
+      if (isAllowed("groupmemberships") || $UG->isGroupManagerOfGroup($UL->username, $viewData['id'])) {
         if (isset($_POST['sel_members'])) {
           $UG->deleteAllMembers($_POST['hidden_id']);
           foreach ($_POST['sel_members'] as $uname) {
@@ -197,7 +197,7 @@ if (!empty($_POST)) {
 // PREPARE VIEW
 //
 $viewData['group'] = array(
-  array( 'prefix' => 'group', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' => (isset($inputAlert['name']) ? $inputAlert['name'] : '') ),
+  array( 'prefix' => 'group', 'name' => 'name', 'type' => isAllowed($CONF['controllers'][$controller]->permission)? 'text' : 'info', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' => (isset($inputAlert['name']) ? $inputAlert['name'] : '') ),
   array( 'prefix' => 'group', 'name' => 'description', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['description'], 'maxlength' => '100', 'error' => (isset($inputAlert['description']) ? $inputAlert['description'] : '') ),
   array( 'prefix' => 'group', 'name' => 'minpresent', 'type' => 'text', 'placeholder' => '0', 'value' => $viewData['minpresent'], 'maxlength' => '4', 'error' => (isset($inputAlert['minpresent']) ? $inputAlert['minpresent'] : '') ),
   array( 'prefix' => 'group', 'name' => 'maxabsent', 'type' => 'text', 'placeholder' => '9999', 'value' => $viewData['maxabsent'], 'maxlength' => '4', 'error' => (isset($inputAlert['maxabsent']) ? $inputAlert['maxabsent'] : '') ),
@@ -205,7 +205,7 @@ $viewData['group'] = array(
   array( 'prefix' => 'group', 'name' => 'maxabsentwe', 'type' => 'text', 'placeholder' => '9999', 'value' => $viewData['maxabsentwe'], 'maxlength' => '4', 'error' => (isset($inputAlert['maxabsentwe']) ? $inputAlert['maxabsentwe'] : '') ),
 );
 
-if (isAllowed("groupmemberships")) {
+if (isAllowed("groupmemberships") || $UG->isGroupManagerOfGroup($UL->username, $viewData['id'])) {
   $disabled = false;
 } else {
   $disabled = true;
