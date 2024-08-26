@@ -143,6 +143,23 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
       break;
 
     /**
+     * Info field
+     */
+    case 'info':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">
+            <div id="' . $data['name'] . '">' . $data['value'] . '</div>
+          </div>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    /**
      * Single select list
      */
     case 'list':

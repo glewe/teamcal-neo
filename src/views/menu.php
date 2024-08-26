@@ -214,7 +214,7 @@ view.menu
           isAllowed($CONF['controllers']['calendaroptions']->permission) ||
           isAllowed($CONF['controllers']['permissions']->permission) ||
           isAllowed($CONF['controllers']['users']->permission) ||
-          isAllowed($CONF['controllers']['groups']->permission) ||
+          isAllowed($CONF['controllers']['groups']->permission) || $UG->isGroupManager($UL->username) ||
           isAllowed($CONF['controllers']['roles']->permission) ||
           isAllowed($CONF['controllers']['database']->permission) ||
           isAllowed($CONF['controllers']['phpinfo']->permission) ||
@@ -260,7 +260,7 @@ view.menu
                   <?= $LANG['mnu_admin_users'] ?>
                 </a>
               <?php } ?>
-              <?php if (isAllowed($CONF['controllers']['groups']->permission)) { ?>
+              <?php if (isAllowed($CONF['controllers']['groups']->permission) || $UG->isGroupManager($UL->username) ) { ?>
                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?= $CONF['controllers']['groups']->name ?>">
                   <span class="menu-icon">
                     <i class="<?= $CONF['controllers']['groups']->faIcon ?> fa-lg text-<?= $CONF['controllers']['groups']->iconColor ?>"></i>

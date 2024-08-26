@@ -730,7 +730,8 @@ $LANG['perm_daynoteglobal_desc'] = 'Allows to edit global daynotes for region ca
 $LANG['perm_declination_title'] = 'Declination Management';
 $LANG['perm_declination_desc'] = 'Allows to access the declination management page.';
 $LANG['perm_groupcalendaredit_title'] = 'Group Calendar (Edit)';
-$LANG['perm_groupcalendaredit_desc'] = 'Allows to edit group calendars.';
+$LANG['perm_groupcalendaredit_desc'] = 'Allows to edit group calendars if also the permission feature "Calendar (Edit Group as Member or Manager)" or "Calendar (Edit All)" is granted to the role.<br>
+  <i>Note: Group managers can always edit the group calendar of the groups they manage without this permission.</i>';
 $LANG['perm_holidays_title'] = 'Holidays (Edit)';
 $LANG['perm_holidays_desc'] = 'Allows to list and edit holidays.';
 $LANG['perm_manageronlyabsences_title'] = 'Group Manager Absence Types (Edit)';

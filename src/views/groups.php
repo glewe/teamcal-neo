@@ -57,7 +57,9 @@ view.groups
               </div>
               <div class="col-lg-5 text-end">
                 <br>
-                <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateGroup"><?= $LANG['btn_create_group'] ?></button>
+                <?php if (isAllowed($CONF['controllers'][$controller]->permission)) { ?>
+                  <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateGroup"><?= $LANG['btn_create_group'] ?></button>
+                <?php } ?>
               </div>
             </div>
           </div>
@@ -110,7 +112,9 @@ view.groups
               <td><?= $group['maxabsentwe'] ?></td>
               <td class="align-top text-center">
                 <form class="form-control-horizontal" name="form_<?= $group['id'] ?>" action="index.php?action=groups" method="post" target="_self" accept-charset="utf-8">
-                  <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteGroup_<?= $group['id'] ?>"><?= $LANG['btn_delete'] ?></button>
+                  <?php if (isAllowed($CONF['controllers'][$controller]->permission)) { ?>
+                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteGroup_<?= $group['id'] ?>"><?= $LANG['btn_delete'] ?></button>
+                  <?php } ?>
                   <a href="index.php?action=groupedit&amp;id=<?= $group['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
                   <a href="index.php?action=groupcalendaredit&amp;month=<?= date('Y') . date('m') ?>&amp;region=1&amp;group=<?= $group['id'] ?>" class="btn btn-info btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_calendar'] ?></a>
                   <input name="hidden_id" type="hidden" value="<?= $group['id'] ?>">

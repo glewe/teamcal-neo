@@ -733,7 +733,8 @@ $LANG['perm_daynoteglobal_desc'] = 'Erlaubt das Bearbeiten globaler Tagesnotizen
 $LANG['perm_declination_title'] = 'Ablehnungsregeln (Bearbeiten)';
 $LANG['perm_declination_desc'] = 'Erlaubt das Bearbeiten der Ablehnungsregeln.';
 $LANG['perm_groupcalendaredit_title'] = 'Gruppen-Kalender (Bearbeiten)';
-$LANG['perm_groupcalendaredit_desc'] = 'Erlaubt die Bearbeitung von Gruppenkalendern.';
+$LANG['perm_groupcalendaredit_desc'] = 'Erlaubt die Bearbeitung von Gruppenkalendern wenn die Rolle au&szlig;erdem die Funktionsberechtigung "Kalender (Gruppen als Mitglied oder Manager Bearbeiten)" oder "Kalender (Alle Bearbeiten)" hat.<br>
+  <i>Hinweis: Gruppenmanager k&ouml;nnen die Gruppenkalender ihrer Gruppen auch ohne diese Berechtigung bearbeiten.</i>';
 $LANG['perm_holidays_title'] = 'Feiertage (Bearbeiten)';
 $LANG['perm_holidays_desc'] = 'Erlaubt as Listen und Bearbeiten von Feiertagen.';
 $LANG['perm_manageronlyabsences_title'] = 'Gruppen-Manager Abwesenheitstypen (Bearbeiten)';
