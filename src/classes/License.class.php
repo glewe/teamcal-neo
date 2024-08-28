@@ -59,7 +59,7 @@ class License {
    * @param string $method POST, PUT, GET, ...
    * @param string $url API host URL
    * @param array $data URL paramater: array("param" => "value") ==> index.php?param=value
-   * @return JSON
+   * @return bool|string
    */
   public function callAPI($method, $url, $data = false) {
     if (defined('APP_LIC_LOCAL')) {
@@ -67,25 +67,32 @@ class License {
     }
     $curl = curl_init();
     switch (strtoupper($method)) {
+
       case "POST":
         curl_setopt($curl, CURLOPT_POST, 1);
         if ($data) {
           curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         }
         break;
+
       case "PUT":
         curl_setopt($curl, CURLOPT_PUT, 1);
         break;
-      default:
+
+      default: // Means also 'GET'
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
         if ($data) {
           $url = sprintf("%s?%s", $url, http_build_query($data));
         }
     }
+
     curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    $result = curl_exec($curl);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:43.0) Gecko/20100101 Firefox/43.0');
+    $response = curl_exec($curl);
+
     curl_close($curl);
-    return $result;
+    return $response;
   }
 
   //---------------------------------------------------------------------------
@@ -106,66 +113,76 @@ class License {
     );
     $response = $this->callAPI('GET', APP_LIC_SRV, $parms);
     $response = json_decode((string)$response);
-    $this->details = $response;
-    switch ($this->status()) {
-      case "blocked":
-        $alertData['type'] = 'warning';
-        $alertData['title'] = $LANG['lic_blocked'];
-        $alertData['subject'] = $LANG['lic_blocked_subject'];
-        $alertData['text'] = '';
-        $alertData['help'] = $LANG['lic_blocked_help'];
-        $showAlert = true;
-        break;
 
-      case "expired":
-        $alertData['type'] = 'warning';
-        $alertData['title'] = $LANG['lic_expired'];
-        $alertData['subject'] = $LANG['lic_expired_subject'];
-        $alertData['help'] = $LANG['lic_expired_help'];
-        $showAlert = true;
-        break;
+    if ($response) {
+      $this->details = $response;
+      switch ($this->status()) {
+        case "blocked":
+          $alertData['type'] = 'warning';
+          $alertData['title'] = $LANG['lic_blocked'];
+          $alertData['subject'] = $LANG['lic_blocked_subject'];
+          $alertData['text'] = '';
+          $alertData['help'] = $LANG['lic_blocked_help'];
+          $showAlert = true;
+          break;
 
-      case "invalid":
-        $alertData['type'] = 'danger';
-        $alertData['title'] = $LANG['lic_invalid'];
-        $alertData['subject'] = $LANG['lic_invalid_subject'];
-        $alertData['text'] = $LANG['lic_invalid_text'];
-        $alertData['help'] = $LANG['lic_invalid_help'];
-        $showAlert = true;
-        break;
+        case "expired":
+          $alertData['type'] = 'warning';
+          $alertData['title'] = $LANG['lic_expired'];
+          $alertData['subject'] = $LANG['lic_expired_subject'];
+          $alertData['help'] = $LANG['lic_expired_help'];
+          $showAlert = true;
+          break;
 
-      case "pending":
-        $alertData['type'] = 'warning';
-        $alertData['title'] = $LANG['lic_pending'];
-        $alertData['subject'] = $LANG['lic_pending_subject'];
-        $alertData['text'] = '';
-        $alertData['help'] = $LANG['lic_pending_help'];
-        $showAlert = true;
-        break;
+        case "invalid":
+          $alertData['type'] = 'danger';
+          $alertData['title'] = $LANG['lic_invalid'];
+          $alertData['subject'] = $LANG['lic_invalid_subject'];
+          $alertData['text'] = $LANG['lic_invalid_text'];
+          $alertData['help'] = $LANG['lic_invalid_help'];
+          $showAlert = true;
+          break;
 
-      case "unregistered":
-        $alertData['type'] = 'warning';
-        $alertData['title'] = $LANG['lic_unregistered'];
-        $alertData['subject'] = $LANG['lic_unregistered_subject'];
-        $alertData['text'] = '';
-        $alertData['help'] = $LANG['lic_unregistered_help'];
-        $showAlert = true;
-        break;
+        case "pending":
+          $alertData['type'] = 'warning';
+          $alertData['title'] = $LANG['lic_pending'];
+          $alertData['subject'] = $LANG['lic_pending_subject'];
+          $alertData['text'] = '';
+          $alertData['help'] = $LANG['lic_pending_help'];
+          $showAlert = true;
+          break;
 
-      default:
-        break;
-    }
+        case "unregistered":
+          $alertData['type'] = 'warning';
+          $alertData['title'] = $LANG['lic_unregistered'];
+          $alertData['subject'] = $LANG['lic_unregistered_subject'];
+          $alertData['text'] = '';
+          $alertData['help'] = $LANG['lic_unregistered_help'];
+          $showAlert = true;
+          break;
 
-    if ($licExpiryWarning) {
-      $daysToExpiry = $this->daysToExpiry();
-      if ($daysToExpiry <= $licExpiryWarning) {
-        $alertData['type'] = 'warning';
-        $alertData['title'] = $LANG['lic_expiringsoon'];
-        $alertData['subject'] = sprintf($LANG['lic_expiringsoon_subject'], $daysToExpiry);
-        $alertData['text'] = '';
-        $alertData['help'] = $LANG['lic_expiringsoon_help'];
-        $showAlert = true;
+        default:
+          break;
       }
+
+      if ($licExpiryWarning && !$showAlert) {
+        $daysToExpiry = $this->daysToExpiry();
+        if ($daysToExpiry <= $licExpiryWarning) {
+          $alertData['type'] = 'warning';
+          $alertData['title'] = $LANG['lic_expiringsoon'];
+          $alertData['subject'] = sprintf($LANG['lic_expiringsoon_subject'], $daysToExpiry);
+          $alertData['text'] = '';
+          $alertData['help'] = $LANG['lic_expiringsoon_help'];
+          $showAlert = true;
+        }
+      }
+    } else {
+      $alertData['type'] = 'warning';
+      $alertData['title'] = $LANG['lic_unavailable'];
+      $alertData['subject'] = $LANG['lic_unavailable_subject'];
+      $alertData['text'] = $LANG['lic_unavailable_text'];
+      $alertData['help'] = $LANG['lic_unavailable_help'];
+      $showAlert = true;
     }
   }
 
@@ -173,7 +190,7 @@ class License {
   /**
    * Deactivates a license (deregisters the domain the request is coming from)
    *
-   * @return JSON
+   * @return string
    */
   public function deactivate() {
     $parms = array(
@@ -229,8 +246,6 @@ class License {
   //---------------------------------------------------------------------------
   /**
    * Loads the license information from license server
-   *
-   * @return JSON
    */
   public function load() {
     $parms = array(
@@ -281,20 +296,33 @@ class License {
   /**
    * Creates a form-group object based on input parameters
    *
-   * @param string $type Type of information: notfound, invalid, details
-   * @param objcet $data License information array
+   * @param object $data License information array
+   * @param bool $showDetails Show details
    * @return string HTML
    */
   public function show($data, $showDetails = false) {
     global $LANG;
-    if (isset($data->result) && $data->result == "error") {
+
+    if (!isset($data)) {
+
+      $alert['type'] = 'warning';
+      $alert['title'] = $LANG['lic_unavailable'];
+      $alert['subject'] = $LANG['lic_unavailable_subject'];
+      $alert['text'] = $LANG['lic_unavailable_text'];
+      $alert['help'] = $LANG['lic_unavailable_help'];
+      $details = "";
+
+    } elseif (isset($data->result) && $data->result == "error") {
+
       $alert['type'] = 'danger';
       $alert['title'] = $LANG['lic_invalid'];
       $alert['subject'] = $LANG['lic_invalid_subject'];
       $alert['text'] = $LANG['lic_invalid_text'];
       $alert['help'] = $LANG['lic_invalid_help'];
       $details = "";
+
     } else {
+
       $domains = "";
       if (count($data->registered_domains)) {
         foreach ($data->registered_domains as $domain) {
@@ -307,17 +335,19 @@ class License {
         $daysleft = " (" . $daysToExpiry . " " . $LANG['lic_daysleft'] . ")";
       }
       $details = "<div style=\"height:20px;\"></div>";
-      $details .= "<table class=\"table table-hover\">
-                <tr><th>" . $LANG['lic_product'] . ":</th><td>" . $data->product_ref . "</td></tr>
-                <tr><th>" . $LANG['lic_key'] . ":</th><td>" . $data->license_key . "</td></tr>
-                <tr><th>" . $LANG['lic_name'] . ":</th><td>" . $data->first_name . " " . $data->last_name . "</td></tr>
-                <tr><th>" . $LANG['lic_email'] . ":</th><td>" . $data->email . "</td></tr>
-                <tr><th>" . $LANG['lic_company'] . ":</th><td>" . $data->company_name . "</td></tr>
-                <tr><th>" . $LANG['lic_date_created'] . ":</th><td>" . $data->date_created . "</td></tr>
-                <tr><th>" . $LANG['lic_date_renewed'] . ":</th><td>" . $data->date_renewed . "</td></tr>
-                <tr><th>" . $LANG['lic_date_expiry'] . ":</th><td>" . $data->date_expiry . $daysleft . "</td></tr>
-                <tr><th>" . $LANG['lic_registered_domains'] . ":</th><td>" . $domains . "</td></tr>
-            </table>";
+      $details .= "
+        <table class=\"table table-hover\">
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_product'] . ":</th><td style=\"background-color: inherit;\">" . $data->product_ref . "</td></tr>
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_key'] . ":</th><td style=\"background-color: inherit;\">" . $data->license_key . "</td></tr>
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_name'] . ":</th><td style=\"background-color: inherit;\">" . $data->first_name . " " . $data->last_name . "</td></tr>
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_email'] . ":</th><td style=\"background-color: inherit;\">" . $data->email . "</td></tr>
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_company'] . ":</th><td style=\"background-color: inherit;\">" . $data->company_name . "</td></tr>
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_date_created'] . ":</th><td style=\"background-color: inherit;\">" . $data->date_created . "</td></tr>
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_date_renewed'] . ":</th><td style=\"background-color: inherit;\">" . $data->date_renewed . "</td></tr>
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_date_expiry'] . ":</th><td style=\"background-color: inherit;\">" . $data->date_expiry . $daysleft . "</td></tr>
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_registered_domains'] . ":</th><td style=\"background-color: inherit;\">" . $domains . "</td></tr>
+        </table>";
+
 
       switch ($this->status()) {
 
