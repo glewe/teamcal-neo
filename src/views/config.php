@@ -107,10 +107,10 @@ view.config
                 <div class="tab-pane fade" id="license" role="tabpanel" aria-labelledby="license-tab">
                   <?php
                   echo $LIC->show($LIC->details, true);
-                  ?>
-                  <?php foreach ($viewData['license'] as $formObject) {
+                  foreach ($viewData['license'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-                  } ?>
+                  }
+                  ?>
 
                   <?php
                   $licStatus = $LIC->status();
