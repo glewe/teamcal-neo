@@ -758,7 +758,8 @@ function getTheme() {
     'menuBarInverse' => $menuBarInverse
   );
 
-  if ($thisuser = $L->checkLogin() && $C->read("allowUserTheme")) {
+  $thisuser = $L->checkLogin();
+  if ($thisuser && $C->read("allowUserTheme")) {
     //
     // Someone is logged in and User themes are allowed...
     //

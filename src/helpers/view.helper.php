@@ -28,7 +28,7 @@ function createAlertBox($data) {
       <hr>
       <p><strong>' . $data['subject'] . '</strong></p>
       <p>' . $data['text'] . '</p>
-      ' . (strlen($data['help']) ? "<p><i>" . $data['help'] . "</i></p>" : "") . '
+      ' . (isset($data['help']) ? "<p><i>" . $data['help'] . "</i></p>" : "") . '
     </div>';
 }
 

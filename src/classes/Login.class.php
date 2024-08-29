@@ -44,11 +44,10 @@ class Login {
    * Checks the login cookie and if it exists and is valid and if the user
    * is logged in we get the user info from the database.
    *
-   * @return string Username of the user logged in, or false
+   * @return string|bool Username of the user logged in, or false
    */
   public function checkLogin() {
     global $U;
-
     //
     // If the cookie is set, look up the username in the database
     //
