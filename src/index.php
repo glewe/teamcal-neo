@@ -107,22 +107,20 @@ if (file_exists('installation.php')) {
     require_once 'views/error.php';
     die();
   }
-} else {
-  if (!readDef('APP_INSTALLED', "config/config.app.php")) {
-    //
-    // App not installed but Installation.php not found
-    //
-    $errorData['title'] = 'Application Error';
-    $errorData['subject'] = 'Installation Script Not Found';
-    $errorData['text'] = '<p>The installation script "installation.php" does not exist in the root directory while "config/config.app.php" indicates that no installation has been performed yet.</p>
-      <p>The application will not start until either one has been resolved:</p>
-      <ol>
-        <li>Recover "installation.php"</li>
-        <li>Set define[\'APP_INSTALLED\'] to 0 in "config/config.app.php"</li>
-      </ol>';
-    require_once 'views/error.php';
-    die();
-  }
+} elseif (!readDef('APP_INSTALLED', "config/config.app.php")) {
+  //
+  // App not installed but Installation.php not found
+  //
+  $errorData['title'] = 'Application Error';
+  $errorData['subject'] = 'Installation Script Not Found';
+  $errorData['text'] = '<p>The installation script "installation.php" does not exist in the root directory while "config/config.app.php" indicates that no installation has been performed yet.</p>
+    <p>The application will not start until either one has been resolved:</p>
+    <ol>
+      <li>Recover "installation.php"</li>
+      <li>Set define[\'APP_INSTALLED\'] to 0 in "config/config.app.php"</li>
+    </ol>';
+  require_once 'views/error.php';
+  die();
 }
 
 //=============================================================================
@@ -333,6 +331,7 @@ $htmlData['title'] = $C->read("appTitle");
 if (isset($CONF['controllers'][$controller])) {
   $htmlData['title'] = $C->read("appTitle") . ' - ' . $CONF['controllers'][$controller]->title;
 }
+
 $htmlData['description'] = $C->read("appDescription");
 $htmlData['keywords'] = $C->read("appKeywords");
 $htmlData['version'] = APP_VER;
@@ -342,6 +341,7 @@ $htmlData['license'] = APP_LICENSE;
 $htmlData['locale'] = $LANG['locale'];
 $htmlData['theme'] = getTheme();
 $htmlData['jQueryTheme'] = $C->read("jqtheme");
+
 if ($C->read("cookieConsent")) {
   $htmlData['cookieConsent'] = true;
 } else {
