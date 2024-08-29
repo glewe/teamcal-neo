@@ -44,12 +44,12 @@ view.absences
       <div class="card-body">
 
         <form class="form-control-horizontal" name="form_create" action="index.php?action=<?= $CONF['controllers'][$controller]->name ?>" method="post" target="_self" accept-charset="utf-8">
-          <div class="card">
-            <div class="card-body">
-              <button type="button" class="btn btn-success float-end" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateAbsence"><?= $LANG['btn_create_abs'] ?></button>
-            </div>
-          </div>
-          <div style="height:20px;"></div>
+          <?php
+          $actionButtons = '
+            <button type="button" class="btn btn-success float-end" tabindex="'. $tabindex++ .'" data-bs-toggle="modal" data-bs-target="#modalCreateAbsence">'. $LANG['btn_create_abs'] .'</button>';
+          echo $actionButtons;
+          ?>
+          <div style="height:50px;"></div>
 
           <!-- Modal: Creates Absence -->
           <?= createModalTop('modalCreateAbsence', $LANG['btn_create_abs']) ?>

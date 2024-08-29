@@ -44,11 +44,11 @@ view.calendaroptions
         <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['calopt_title'] ?><?= $pageHelp ?></div>
         <div class="card-body">
 
-          <div class="card">
-            <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_caloptApply"><?= $LANG['btn_apply'] ?></button>
-            </div>
-          </div>
+          <?php
+          $actionButtons = '
+          <button type="submit" class="btn btn-primary" tabindex="' . $tabindex++ . '" name="btn_caloptApply">' . $LANG['btn_apply'] . '</button>';
+          echo $actionButtons;
+          ?>
           <div style="height:20px;"></div>
 
           <div class="card">
@@ -106,11 +106,9 @@ view.calendaroptions
           </div>
 
           <div style="height:20px;"></div>
-          <div class="card">
-            <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_caloptApply"><?= $LANG['btn_apply'] ?></button>
-            </div>
-          </div>
+          <?php
+          echo $actionButtons;
+          ?>
 
         </div>
       </div>

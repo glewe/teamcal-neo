@@ -47,12 +47,12 @@ view.absenceicon
         <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['absico_title'] . $viewData['name'] ?><?= $pageHelp ?></div>
         <div class="card-body">
 
-          <div class="card">
-            <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
-              <a href="index.php?action=absenceedit&amp;id=<?= $viewData['id'] ?>" class="btn btn-secondary float-end" style="margin-left:8px;" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_abs_edit'] ?></a>
-            </div>
-          </div>
+          <?php
+          $actionButtons = '
+            <button type="submit" class="btn btn-primary" tabindex="' . $tabindex++ . '" name="btn_save">' . $LANG['btn_save'] . '</button>
+            <a href="index.php?action=absenceedit&amp;id=' . $viewData['id'] . '" class="btn btn-secondary float-end" style="margin-left:8px;" tabindex="' . $tabindex++ . '">' . $LANG['btn_abs_edit'] . '</a>';
+          echo $actionButtons;
+          ?>
           <div style="height:20px;"></div>
 
           <div class="row mb-2">
@@ -65,115 +65,120 @@ view.absenceicon
             </div>
           </div>
 
-          <ul class="nav nav-tabs" role="tablist">
-            <?php
-            if (array_key_exists('fasIcons', $viewData)) {
-              $fasIconCount = count($viewData['fasIcons']);
-            } else {
-              $fasIconCount = 0;
-            }
-            if (array_key_exists('farIcons', $viewData)) {
-              $farIconCount = count($viewData['farIcons']);
-            } else {
-              $farIconCount = 0;
-            }
-            if (array_key_exists('fabIcons', $viewData)) {
-              $fabIconCount = count($viewData['fabIcons']);
-            } else {
-              $fabIconCount = 0;
-            }
-            ?>
-            <li class="nav-item"><a class="nav-link active" id="solid-tab" href="#solid" data-bs-toggle="tab" role="tab" aria-controls="solid" aria-selected="true"><?= $LANG['absico_tab_solid'] . " (" . $fasIconCount . ")" ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="regular-tab" href="#regular" data-bs-toggle="tab" role="tab" aria-controls="regular" aria-selected="false"><?= $LANG['absico_tab_regular'] . " (" . $farIconCount . ")" ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="brand-tab" href="#brand" data-bs-toggle="tab" role="tab" aria-controls="brand" aria-selected="false"><?= $LANG['absico_tab_brand'] . " (" . $fabIconCount . ")" ?></a></li>
-          </ul>
+          <div class="card">
 
-          <div id="myTabContent" class="tab-content">
-
-            <!-- Solid Icons -->
-            <div class="tab-pane fade show active" id="solid" role="tabpanel" aria-labelledby="solid-tab">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <?php
-                    if (array_key_exists('fasIcons', $viewData)) {
-                      $count = 0;
-                      foreach ($viewData['fasIcons'] as $fai) {
-                        if ($count % 12 == 0) {
-                          echo '</div><div class="row">';
-                        }
-                        $iconTooltip = '<span class=\'' . $fai['val'] . ' fa-5x text-info\' title=\'' . $fai['val'] . '\'></span>';
-                        echo '<div class="col-lg-1" style="border: ' . (($fai['val'] == $viewData['icon']) ? "1" : "0") . 'px solid #CC0000;"><div class="radio">';
-                        echo '<label><input name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . $tabindex++ . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
-                        echo '</div></div>';
-                        $count++;
-                      }
-                    }
-                    ?>
-                  </div>
-                </div>
-              </div>
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <?php
+                if (array_key_exists('fasIcons', $viewData)) {
+                  $fasIconCount = count($viewData['fasIcons']);
+                } else {
+                  $fasIconCount = 0;
+                }
+                if (array_key_exists('farIcons', $viewData)) {
+                  $farIconCount = count($viewData['farIcons']);
+                } else {
+                  $farIconCount = 0;
+                }
+                if (array_key_exists('fabIcons', $viewData)) {
+                  $fabIconCount = count($viewData['fabIcons']);
+                } else {
+                  $fabIconCount = 0;
+                }
+                ?>
+                <li class="nav-item" role="presentation"><a class="nav-link active" id="solid-tab" href="#solid" data-bs-toggle="tab" role="tab" aria-controls="solid" aria-selected="true"><?= $LANG['absico_tab_solid'] . " (" . $fasIconCount . ")" ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="regular-tab" href="#regular" data-bs-toggle="tab" role="tab" aria-controls="regular" aria-selected="false"><?= $LANG['absico_tab_regular'] . " (" . $farIconCount . ")" ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="brand-tab" href="#brand" data-bs-toggle="tab" role="tab" aria-controls="brand" aria-selected="false"><?= $LANG['absico_tab_brand'] . " (" . $fabIconCount . ")" ?></a></li>
+              </ul>
             </div>
 
-            <!-- Regular Icons -->
-            <div class="tab-pane fade" id="regular" role="tabpanel" aria-labelledby="regular-tab">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <?php
-                    if (array_key_exists('farIcons', $viewData)) {
-                      $count = 0;
-                      foreach ($viewData['farIcons'] as $fai) {
-                        if ($count % 12 == 0) {
-                          echo '</div><div class="row">';
-                        }
-                        $iconTooltip = '<span class=\'' . $fai['val'] . ' fa-5x text-info\' title=\'' . $fai['val'] . '\'></span>';
-                        echo '<div class="col-lg-1" style="border: ' . (($fai['val'] == $viewData['icon']) ? "1" : "0") . 'px solid #CC0000;"><div class="radio">';
-                        echo '<label><input name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . $tabindex++ . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
-                        echo '</div></div>';
-                        $count++;
-                      }
-                    }
-                    ?>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div class="card-body">
+              <div id="myTabContent" class="tab-content">
 
-            <!-- Brand Icons -->
-            <div class="tab-pane fade" id="brand" role="tabpanel" aria-labelledby="brand-tab">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row">
-                    <?php
-                    if (array_key_exists('fabIcons', $viewData)) {
-                      $count = 0;
-                      foreach ($viewData['fabIcons'] as $fai) {
-                        if ($count % 12 == 0) {
-                          echo '</div><div class="row">';
+                <!-- Solid Icons -->
+                <div class="tab-pane fade show active" id="solid" role="tabpanel" aria-labelledby="solid-tab">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <?php
+                        if (array_key_exists('fasIcons', $viewData)) {
+                          $count = 0;
+                          foreach ($viewData['fasIcons'] as $fai) {
+                            if ($count % 12 == 0) {
+                              echo '</div><div class="row">';
+                            }
+                            $iconTooltip = '<span class=\'' . $fai['val'] . ' fa-5x text-info\' title=\'' . $fai['val'] . '\'></span>';
+                            echo '<div class="col-lg-1" style="border: ' . (($fai['val'] == $viewData['icon']) ? "1" : "0") . 'px solid #CC0000;"><div class="radio">';
+                            echo '<label><input name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . $tabindex++ . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
+                            echo '</div></div>';
+                            $count++;
+                          }
                         }
-                        $iconTooltip = '<span class=\'' . $fai['val'] . ' fa-5x text-info\' title=\'' . $fai['val'] . '\'></span>';
-                        echo '<div class="col-lg-1" style="border: ' . (($fai['val'] == $viewData['icon']) ? "1" : "0") . 'px solid #CC0000;"><div class="radio">';
-                        echo '<label><input name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . $tabindex++ . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
-                        echo '</div></div>';
-                        $count++;
-                      }
-                    }
-                    ?>
+                        ?>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
+                <!-- Regular Icons -->
+                <div class="tab-pane fade" id="regular" role="tabpanel" aria-labelledby="regular-tab">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <?php
+                        if (array_key_exists('farIcons', $viewData)) {
+                          $count = 0;
+                          foreach ($viewData['farIcons'] as $fai) {
+                            if ($count % 12 == 0) {
+                              echo '</div><div class="row">';
+                            }
+                            $iconTooltip = '<span class=\'' . $fai['val'] . ' fa-5x text-info\' title=\'' . $fai['val'] . '\'></span>';
+                            echo '<div class="col-lg-1" style="border: ' . (($fai['val'] == $viewData['icon']) ? "1" : "0") . 'px solid #CC0000;"><div class="radio">';
+                            echo '<label><input name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . $tabindex++ . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
+                            echo '</div></div>';
+                            $count++;
+                          }
+                        }
+                        ?>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Brand Icons -->
+                <div class="tab-pane fade" id="brand" role="tabpanel" aria-labelledby="brand-tab">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <?php
+                        if (array_key_exists('fabIcons', $viewData)) {
+                          $count = 0;
+                          foreach ($viewData['fabIcons'] as $fai) {
+                            if ($count % 12 == 0) {
+                              echo '</div><div class="row">';
+                            }
+                            $iconTooltip = '<span class=\'' . $fai['val'] . ' fa-5x text-info\' title=\'' . $fai['val'] . '\'></span>';
+                            echo '<div class="col-lg-1" style="border: ' . (($fai['val'] == $viewData['icon']) ? "1" : "0") . 'px solid #CC0000;"><div class="radio">';
+                            echo '<label><input name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . $tabindex++ . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
+                            echo '</div></div>';
+                            $count++;
+                          }
+                        }
+                        ?>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
 
           </div>
 
           <div style="height:20px;"></div>
-          <div class="card">
-            <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
-              <a href="index.php?action=absenceedit&amp;id=<?= $viewData['id'] ?>" class="btn btn-secondary float-end" style="margin-left:8px;" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_abs_edit'] ?></a>
-            </div>
-          </div>
+          <?php
+          echo $actionButtons;
+          ?>
 
         </div>
       </div>

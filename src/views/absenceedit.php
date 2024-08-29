@@ -47,21 +47,26 @@ view.absenceedit
 
         <div class="card-body">
 
-          <div class="card">
-            <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
-              <a href="index.php?action=absences" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_abs_list'] ?></a>
-            </div>
-          </div>
+          <?php
+          $actionButtons = '
+            <button type="submit" class="btn btn-primary" tabindex="' . $tabindex++ . '" name="btn_save">' . $LANG['btn_save'] . '</button>
+            <a href="index.php?action=absences" class="btn btn-secondary float-end" tabindex="' . $tabindex++ . '">' . $LANG['btn_abs_list'] . '</a>';
+          echo $actionButtons;
+          ?>
           <div style="height:20px;"></div>
 
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item"><a class="nav-link active" id="general-tab" href="#general" data-bs-toggle="tab" role="tab" aria-controls="general" aria-selected="true"><?= $LANG['general'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="options-tab" href="#options" data-bs-toggle="tab" role="tab" aria-controls="options" aria-selected="false"><?= $LANG['options'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="groupassignments-tab" href="#groupassignments" data-bs-toggle="tab" role="tab" aria-controls="groupassignments" aria-selected="false"><?= $LANG['abs_tab_groups'] ?></a></li>
-          </ul>
+          <div class="card">
 
-          <div id="myTabContent" class="tab-content">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation"><a class="nav-link active" id="general-tab" href="#general" data-bs-toggle="tab" role="tab" aria-controls="general" aria-selected="true"><?= $LANG['general'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="options-tab" href="#options" data-bs-toggle="tab" role="tab" aria-controls="options" aria-selected="false"><?= $LANG['options'] ?></a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" id="groupassignments-tab" href="#groupassignments" data-bs-toggle="tab" role="tab" aria-controls="groupassignments" aria-selected="false"><?= $LANG['abs_tab_groups'] ?></a></li>
+              </ul>
+            </div>
+
+            <div class="card-body">
+              <div id="myTabContent" class="tab-content">
 
             <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
               <div class="card">
@@ -135,14 +140,14 @@ view.absenceedit
             </div>
 
           </div>
+            </div>
+
+          </div>
 
           <div style="height:20px;"></div>
-          <div class="card">
-            <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
-              <a href="index.php?action=absences" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_abs_list'] ?></a>
-            </div>
-          </div>
+          <?php
+          echo $actionButtons;
+          ?>
 
         </div>
       </div>
