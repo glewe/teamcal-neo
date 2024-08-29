@@ -36,7 +36,7 @@ define('APP_IMP_DIR', "upload/import/");
 // Set this to 0 if you want to run the installation.php script again.
 // If not, you need to delete or rename the installation.php file.
 //
-define('APP_INSTALLED', "0");
+define('APP_INSTALLED', "1");
 
 //
 // The cookie prefix to be used on the browser client's device
@@ -142,15 +142,27 @@ $CONF['uplMaxsize'] = 2048 * 1024; // 2 MB
  * --with-ldap[=DIR] configuration option when compiling PHP to enable LDAP
  * support. DIR is the LDAP base install directory. To enable SASL support,
  * be sure --with-ldap-sasl[=DIR] is used, and that sasl.h exists on the system.
+ *
+ * The following settings are utilizing the free online LDAP server provided by
+ * forumsys.com. You can use this server for testing purposes. The server provides
+ * a few test users as documented here:
+ * https://www.forumsys.com/2022/05/10/online-ldap-test-server/
+ *
+ * First, you need to login to TeamCal Neo as admin and create one of the sample
+ * users, e.g. gauss. Then set LDAP_YES to 1. You can then login with
+ * gauss/password.
+ *
+ * Note, that all users except admin will be authenticated against the LDAP server.
+ *
  */
-define('LDAP_YES', 0);                                                                           // Use LDAP authentication
-define('LDAP_ADS', 0);                                                                           // Set to 1 when authenticating against an Active Directory
-define('LDAP_HOST', "ldap.mydomain.com");                                                        // LDAP host name
-define('LDAP_PORT', "389");                                                                      // LDAP port
-define('LDAP_PASS', "XXXXXXXX");                                                                 // SA associated password
-define('LDAP_DIT', "cn=<service account>,ou=fantastic_four,ou=superheroes,dc=marvel,dc=comics"); // Directory Information Tree (Relative Distinguished Name)
-define('LDAP_SBASE', "ou=superheroes,ou=characters,dc=marvel,dc=comics");                        // Search base, location in the LDAP dirctory to search
-define('LDAP_TLS', 0);                                                                           // To avoid "Undefined index: LDAP_TLS" error message for LDAP bind to Active Directory
+define('LDAP_YES', 0);                                       // Use LDAP authentication
+define('LDAP_ADS', 0);                                       // Set to 1 when authenticating against an Active Directory
+define('LDAP_HOST', "ldap.forumsys.com");                    // LDAP host name
+define('LDAP_PORT', "389");                                  // LDAP port
+define('LDAP_PASS', "password");                             // SA associated password
+define('LDAP_DIT', "cn=read-only-admin,dc=example,dc=com");  // Directory Information Tree (Relative Distinguished Name)
+define('LDAP_SBASE', "dc=example,dc=com");                   // Search base, location in the LDAP directory to search
+define('LDAP_TLS', 0);                                       // To avoid "Undefined index: LDAP_TLS" error message for LDAP bind to Active Directory
 
 //=============================================================================
 /**
