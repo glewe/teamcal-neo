@@ -14,7 +14,7 @@
 // Comment out the following line if you want to show PHP errors in your browser during runtime.
 // You should disable this line in a test or development environment only.
 //error_reporting(E_ALL);
-error_reporting(0);
+error_reporting(E_ALL);
 
 //=============================================================================
 //
@@ -33,33 +33,37 @@ require_once __DIR__ . "/vendor/autoload.php";
 //
 // LOAD CLASSES
 //
-require_once WEBSITE_ROOT . '/classes/DB.class.php';
-require_once WEBSITE_ROOT . '/classes/AbsenceGroup.class.php';
-require_once WEBSITE_ROOT . '/classes/Absences.class.php';
-require_once WEBSITE_ROOT . '/classes/Allowances.class.php';
-require_once WEBSITE_ROOT . '/classes/Attachment.class.php';
-require_once WEBSITE_ROOT . '/classes/Avatar.class.php';
-require_once WEBSITE_ROOT . '/classes/Config.class.php';
-require_once WEBSITE_ROOT . '/classes/Controller.class.php';
-require_once WEBSITE_ROOT . '/classes/Daynotes.class.php';
-require_once WEBSITE_ROOT . '/classes/Groups.class.php';
-require_once WEBSITE_ROOT . '/classes/Holidays.class.php';
-require_once WEBSITE_ROOT . '/classes/License.class.php';
-require_once WEBSITE_ROOT . '/classes/Log.class.php';
-require_once WEBSITE_ROOT . '/classes/Login.class.php';
-require_once WEBSITE_ROOT . '/classes/Messages.class.php';
-require_once WEBSITE_ROOT . '/classes/Months.class.php';
-require_once WEBSITE_ROOT . '/classes/Permissions.class.php';
-require_once WEBSITE_ROOT . '/classes/Regions.class.php';
-require_once WEBSITE_ROOT . '/classes/Roles.class.php';
-require_once WEBSITE_ROOT . '/classes/Templates.class.php';
-require_once WEBSITE_ROOT . '/classes/Upload.class.php';
-require_once WEBSITE_ROOT . '/classes/UserAttachment.class.php';
-require_once WEBSITE_ROOT . '/classes/UserGroup.class.php';
-require_once WEBSITE_ROOT . '/classes/UserMessage.class.php';
-require_once WEBSITE_ROOT . '/classes/UserOption.class.php';
-require_once WEBSITE_ROOT . '/classes/Users.class.php';
-require_once WEBSITE_ROOT . '/classes/XML.class.php';
+spl_autoload_register(function ($class_name) {
+  require_once 'classes/' . $class_name . '.class.php';
+});
+
+//require_once WEBSITE_ROOT . '/classes/DB.class.php';
+//require_once WEBSITE_ROOT . '/classes/AbsenceGroup.class.php';
+//require_once WEBSITE_ROOT . '/classes/Absences.class.php';
+//require_once WEBSITE_ROOT . '/classes/Allowances.class.php';
+//require_once WEBSITE_ROOT . '/classes/Attachment.class.php';
+//require_once WEBSITE_ROOT . '/classes/Avatar.class.php';
+//require_once WEBSITE_ROOT . '/classes/Config.class.php';
+//require_once WEBSITE_ROOT . '/classes/Controller.class.php';
+//require_once WEBSITE_ROOT . '/classes/Daynotes.class.php';
+//require_once WEBSITE_ROOT . '/classes/Groups.class.php';
+//require_once WEBSITE_ROOT . '/classes/Holidays.class.php';
+//require_once WEBSITE_ROOT . '/classes/License.class.php';
+//require_once WEBSITE_ROOT . '/classes/Log.class.php';
+//require_once WEBSITE_ROOT . '/classes/Login.class.php';
+//require_once WEBSITE_ROOT . '/classes/Messages.class.php';
+//require_once WEBSITE_ROOT . '/classes/Months.class.php';
+//require_once WEBSITE_ROOT . '/classes/Permissions.class.php';
+//require_once WEBSITE_ROOT . '/classes/Regions.class.php';
+//require_once WEBSITE_ROOT . '/classes/Roles.class.php';
+//require_once WEBSITE_ROOT . '/classes/Templates.class.php';
+//require_once WEBSITE_ROOT . '/classes/Upload.class.php';
+//require_once WEBSITE_ROOT . '/classes/UserAttachment.class.php';
+//require_once WEBSITE_ROOT . '/classes/UserGroup.class.php';
+//require_once WEBSITE_ROOT . '/classes/UserMessage.class.php';
+//require_once WEBSITE_ROOT . '/classes/UserOption.class.php';
+//require_once WEBSITE_ROOT . '/classes/Users.class.php';
+//require_once WEBSITE_ROOT . '/classes/XML.class.php';
 
 //=============================================================================
 //
