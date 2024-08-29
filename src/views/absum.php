@@ -32,7 +32,6 @@ view.absum
       <?php if (!$C->read('currentYearOnly')) { ?>
         <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalYear"><?= $LANG['year'] ?> <span class="badge text-bg-light"><?= $viewData['year'] ?></span></button>
       <?php } ?>
-      <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="left" title="Tooltip on left">Tooltip on left</button>
     </div>
     <div style="height:20px;"></div>
 

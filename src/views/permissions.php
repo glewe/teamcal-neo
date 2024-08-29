@@ -44,58 +44,53 @@ view.permissions
         <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['perm_title'] . ': ' . $viewData['scheme'] . ' ' . (($viewData['scheme'] == $viewData['currentScheme']) ? $LANG['perm_active'] : $LANG['perm_inactive']) . $pageHelp ?></div>
         <div class="card-body">
 
-          <div class="card">
-            <div class="card-body">
+          <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_permSave"><?= $LANG['perm_save_scheme'] ?></button>
+          <button type="button" class="btn btn-info" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectScheme"><?= $LANG['perm_select_scheme'] ?></button>
+          <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateScheme"><?= $LANG['perm_create_scheme'] ?></button>
+          <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalResetScheme"><?= $LANG['perm_reset_scheme'] ?></button>
+          <?php if ($viewData['scheme'] != $viewData['currentScheme']) { ?>
+            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalActivateScheme"><?= $LANG['perm_activate_scheme'] ?></button>
+            <?php if ($viewData['scheme'] != "Default") { ?>
+              <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteScheme"><?= $LANG['perm_delete_scheme'] ?></button>
+            <?php }
+          } ?>
+          <?php if ($viewData['mode'] == 'byrole') { ?>
+            <a href="index.php?action=permissions&amp;scheme=<?= $viewData['scheme'] ?>&amp;mode=byperm" class="btn btn-secondary float-end" style="margin-right: 4px;" tabindex="<?= $tabindex++ ?>"><?= $LANG['perm_view_by_perm'] ?></a>
+          <?php } else { ?>
+            <a href="index.php?action=permissions&amp;scheme=<?= $viewData['scheme'] ?>&amp;mode=byrole" class="btn btn-secondary float-end" style="margin-right: 4px;" tabindex="<?= $tabindex++ ?>"><?= $LANG['perm_view_by_role'] ?></a>
+          <?php } ?>
 
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_permSave"><?= $LANG['perm_save_scheme'] ?></button>
-              <button type="button" class="btn btn-info" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectScheme"><?= $LANG['perm_select_scheme'] ?></button>
-              <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateScheme"><?= $LANG['perm_create_scheme'] ?></button>
-              <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalResetScheme"><?= $LANG['perm_reset_scheme'] ?></button>
-              <?php if ($viewData['scheme'] != $viewData['currentScheme']) { ?>
-                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalActivateScheme"><?= $LANG['perm_activate_scheme'] ?></button>
-                <?php if ($viewData['scheme'] != "Default") { ?>
-                  <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteScheme"><?= $LANG['perm_delete_scheme'] ?></button>
-                <?php }
-              } ?>
-              <?php if ($viewData['mode'] == 'byrole') { ?>
-                <a href="index.php?action=permissions&amp;scheme=<?= $viewData['scheme'] ?>&amp;mode=byperm" class="btn btn-secondary float-end" style="margin-right: 4px;" tabindex="<?= $tabindex++ ?>"><?= $LANG['perm_view_by_perm'] ?></a>
-              <?php } else { ?>
-                <a href="index.php?action=permissions&amp;scheme=<?= $viewData['scheme'] ?>&amp;mode=byrole" class="btn btn-secondary float-end" style="margin-right: 4px;" tabindex="<?= $tabindex++ ?>"><?= $LANG['perm_view_by_role'] ?></a>
-              <?php } ?>
+          <!-- Modal: Select scheme -->
+          <?= createModalTop('modalSelectScheme', $LANG['perm_select_scheme']) ?>
+          <select id="sel_scheme" class="form-control" name="sel_scheme">
+            <?php foreach ($viewData['schemes'] as $schm) { ?>
+              <option value="<?= $schm ?>" <?= (($schm == $viewData['scheme']) ? " selected" : "") ?>><?= $schm ?></option>
+            <?php } ?>
+          </select>
+          <?= $LANG['perm_select_confirm'] ?>
+          <?= createModalBottom('btn_permSelect', 'info', $LANG['btn_select']) ?>
 
-              <!-- Modal: Select scheme -->
-              <?= createModalTop('modalSelectScheme', $LANG['perm_select_scheme']) ?>
-              <select id="sel_scheme" class="form-control" name="sel_scheme">
-                <?php foreach ($viewData['schemes'] as $schm) { ?>
-                  <option value="<?= $schm ?>" <?= (($schm == $viewData['scheme']) ? " selected" : "") ?>><?= $schm ?></option>
-                <?php } ?>
-              </select>
-              <?= $LANG['perm_select_confirm'] ?>
-              <?= createModalBottom('btn_permSelect', 'info', $LANG['btn_select']) ?>
+          <!-- Modal: Create scheme -->
+          <?= createModalTop('modalCreateScheme', $LANG['perm_create_scheme']) ?>
+          <input class="form-control" name="txt_newScheme" maxlength="80" type="text" value="">
+          <?= $LANG['perm_create_scheme_desc'] ?>
+          <?= createModalBottom('btn_permCreate', 'success', $LANG['btn_create']) ?>
 
-              <!-- Modal: Create scheme -->
-              <?= createModalTop('modalCreateScheme', $LANG['perm_create_scheme']) ?>
-              <input class="form-control" name="txt_newScheme" maxlength="80" type="text" value="">
-              <?= $LANG['perm_create_scheme_desc'] ?>
-              <?= createModalBottom('btn_permCreate', 'success', $LANG['btn_create']) ?>
+          <!-- Modal: Reset scheme -->
+          <?= createModalTop('modalResetScheme', $LANG['perm_reset_scheme']) ?>
+          <?= $LANG['perm_reset_confirm'] ?>
+          <?= createModalBottom('btn_permReset', 'warning', $LANG['btn_reset']) ?>
 
-              <!-- Modal: Reset scheme -->
-              <?= createModalTop('modalResetScheme', $LANG['perm_reset_scheme']) ?>
-              <?= $LANG['perm_reset_confirm'] ?>
-              <?= createModalBottom('btn_permReset', 'warning', $LANG['btn_reset']) ?>
+          <!-- Modal: Activate scheme -->
+          <?= createModalTop('modalActivateScheme', $LANG['modal_confirm']) ?>
+          <?= $LANG['perm_activate_confirm'] ?>
+          <?= createModalBottom('btn_permActivate', 'warning', $LANG['btn_activate']) ?>
 
-              <!-- Modal: Activate scheme -->
-              <?= createModalTop('modalActivateScheme', $LANG['modal_confirm']) ?>
-              <?= $LANG['perm_activate_confirm'] ?>
-              <?= createModalBottom('btn_permActivate', 'warning', $LANG['btn_activate']) ?>
+          <!-- Modal: Delete scheme -->
+          <?= createModalTop('modalDeleteScheme', $LANG['modal_confirm']) ?>
+          <?= $viewData['scheme'] ?>":<br><?= $LANG['perm_delete_confirm'] ?>
+          <?= createModalBottom('btn_permDelete', 'danger', $LANG['btn_delete']) ?>
 
-              <!-- Modal: Delete scheme -->
-              <?= createModalTop('modalDeleteScheme', $LANG['modal_confirm']) ?>
-              <?= $viewData['scheme'] ?>":<br><?= $LANG['perm_delete_confirm'] ?>
-              <?= createModalBottom('btn_permDelete', 'danger', $LANG['btn_delete']) ?>
-
-            </div>
-          </div>
           <div style="height:20px;"></div>
 
           <?php if ($viewData['mode'] == 'byrole') { ?>

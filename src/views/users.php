@@ -43,37 +43,36 @@ view.users
         ?>
         <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['users_title'] . $pageHelp ?></div>
         <div class="card-body">
-          <div class="card">
-            <div class="card-body row">
-              <div class="col-lg-3">
-                <label for="inputSearch"><?= $LANG['search'] ?></label>
-                <input id="inputSearch" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_searchUser" maxlength="40" value="<?= $viewData['searchUser'] ?>" type="text">
-              </div>
-              <div class="col-lg-2">
-                <label for="sel_searchGroup"><?= $LANG['group'] ?></label>
-                <select class="form-control" name="sel_searchGroup" id="sel_searchGroup" tabindex="<?= $tabindex++ ?>">
-                  <option value="All" <?= ('All' == $viewData['searchGroup']) ? ' selected=""' : ''; ?>><?= $LANG['all'] ?></option>
-                  <?php foreach ($viewData['groups'] as $group) { ?>
-                    <option value="<?= $group['id'] ?>" <?= ($group['id'] == $viewData['searchGroup']) ? ' selected=""' : ''; ?>><?= $group['name'] ?></option>
-                  <?php } ?>
-                </select>
-              </div>
-              <div class="col-lg-2">
-                <label for="sel_searchRole"><?= $LANG['role'] ?></label>
-                <select class="form-control" name="sel_searchRole" id="sel_searchRole" tabindex="<?= $tabindex++ ?>">
-                  <option value="All" <?= ('All' == $viewData['searchRole']) ? ' selected=""' : ''; ?>><?= $LANG['all'] ?></option>
-                  <?php foreach ($viewData['roles'] as $role) { ?>
-                    <option value="<?= $role['id'] ?>" <?= ($role['id'] == $viewData['searchRole']) ? ' selected=""' : ''; ?>><?= $role['name'] ?></option>
-                  <?php } ?>
-                </select>
-              </div>
-              <div class="col-lg-5 text-end">
-                <br>
-                <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_search"><?= $LANG['btn_search'] ?></button>
-                <button type="submit" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
-                <a href="index.php?action=useradd" class="btn btn-success" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_create_user'] ?></a>
-                <a href="index.php?action=userimport" class="btn btn-info" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_import'] ?></a>
-              </div>
+
+          <div class="row">
+            <div class="col-lg-3">
+              <label for="inputSearch"><?= $LANG['search'] ?></label>
+              <input id="inputSearch" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_searchUser" maxlength="40" value="<?= $viewData['searchUser'] ?>" type="text">
+            </div>
+            <div class="col-lg-2">
+              <label for="sel_searchGroup"><?= $LANG['group'] ?></label>
+              <select class="form-control" name="sel_searchGroup" id="sel_searchGroup" tabindex="<?= $tabindex++ ?>">
+                <option value="All" <?= ('All' == $viewData['searchGroup']) ? ' selected=""' : ''; ?>><?= $LANG['all'] ?></option>
+                <?php foreach ($viewData['groups'] as $group) { ?>
+                  <option value="<?= $group['id'] ?>" <?= ($group['id'] == $viewData['searchGroup']) ? ' selected=""' : ''; ?>><?= $group['name'] ?></option>
+                <?php } ?>
+              </select>
+            </div>
+            <div class="col-lg-2">
+              <label for="sel_searchRole"><?= $LANG['role'] ?></label>
+              <select class="form-control" name="sel_searchRole" id="sel_searchRole" tabindex="<?= $tabindex++ ?>">
+                <option value="All" <?= ('All' == $viewData['searchRole']) ? ' selected=""' : ''; ?>><?= $LANG['all'] ?></option>
+                <?php foreach ($viewData['roles'] as $role) { ?>
+                  <option value="<?= $role['id'] ?>" <?= ($role['id'] == $viewData['searchRole']) ? ' selected=""' : ''; ?>><?= $role['name'] ?></option>
+                <?php } ?>
+              </select>
+            </div>
+            <div class="col-lg-5 text-end">
+              <br>
+              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_search"><?= $LANG['btn_search'] ?></button>
+              <button type="submit" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
+              <a href="index.php?action=useradd" class="btn btn-success" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_create_user'] ?></a>
+              <a href="index.php?action=userimport" class="btn btn-info" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_import'] ?></a>
             </div>
           </div>
           <div style="height:20px;"></div>
