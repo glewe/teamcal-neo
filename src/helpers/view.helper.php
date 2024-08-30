@@ -13,7 +13,7 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Creates a form-group object based on input parameters
  *
@@ -32,7 +32,7 @@ function createAlertBox($data) {
     </div>';
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Creates a form-group object based on input parameters
  *
@@ -53,7 +53,7 @@ function createFaIconListbox($tabIndex = "-1", $selected = "") {
   return $listbox;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Creates a form-group object based on input parameters
  *
@@ -352,7 +352,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
   return $formGroup;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Creates the top part of a modal dialog
  *
@@ -371,7 +371,7 @@ function createModalTop($id, $title) {
         <div class="modal-body text-start">';
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Creates the bottom part of a modal dialog
  *
@@ -394,7 +394,27 @@ function createModalBottom($buttonID = '', $buttonColor = '', $buttonText = '') 
   return $modalbottom;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+/**
+ * Creates the tabs for the top of dialog pages
+ *
+ * @param array $tabs Array of tab details
+ */
+function createPageTabs($tabs) {
+  global $LANG;
+  $tabsHtml = '<ul class="nav nav-tabs card-header-tabs" id="dialogTabs" role="tablist">';
+  foreach ($tabs as $tab) {
+    if ($tab['active']) {
+      $tabsHtml .= '<li class="nav-item" role="presentation"><a class="nav-link active" id="solid-tab" href="' . $tab['href'] . '" data-bs-toggle="tab" role="tab" aria-controls="solid" aria-selected="true">' . $tab['label'] . '</a></li>';
+    } else {
+      $tabsHtml .= '<li class="nav-item" role="presentation"><a class="nav-link" id="solid-tab" href="' . $tab['href'] . '" data-bs-toggle="tab" role="tab" aria-controls="solid" aria-selected="false">' . $tab['label'] . '</a></li>';
+    }
+  }
+  $tabsHtml .= '</ul>';
+  return $tabsHtml;
+}
+
+//-----------------------------------------------------------------------------
 /**
  * Returns a tooltip span element with a Font Aweseom icon
  *

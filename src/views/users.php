@@ -81,17 +81,20 @@ view.users
           <div class="card">
 
             <div class="card-header">
-              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation"><a class="nav-link active" id="tabActive-tab" href="#tabActive" data-bs-toggle="tab" role="tab" aria-controls="tabActive" aria-selected="true"><?= $LANG['users_tab_active'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="tabArchived-tab" href="#tabArchived" data-bs-toggle="tab" role="tab" aria-controls="tabArchived" aria-selected="false"><?= $LANG['users_tab_archived'] ?></a></li>
-              </ul>
+              <?php
+              $pageTabs = [
+                ['id' => 'tab-active', 'href' => '#panel-active', 'label' => $LANG['users_tab_active'], 'active' => true],
+                ['id' => 'tab-archived', 'href' => '#panel-archived', 'label' => $LANG['users_tab_archived'], 'active' => false],
+              ];
+              echo createPageTabs($pageTabs);
+              ?>
             </div>
 
             <div class="card-body">
               <div class="tab-content" id="myTabContent">
 
                 <!-- Active tab -->
-                <div class="tab-pane fade show active" id="tabActive" role="tabpanel" aria-labelledby="tabActive-tab">
+                <div class="tab-pane fade show active" id="panel-active" role="tabpanel" aria-labelledby="tab-active">
 
                   <table id="dataTableUsers" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
                     <thead>
@@ -192,7 +195,7 @@ view.users
                 </div>
 
                 <!-- Archived tab -->
-                <div class="tab-pane fade" id="tabArchived" role="tabpanel" aria-labelledby="tabArchived-tab">
+                <div class="tab-pane fade" id="panel-archived" role="tabpanel" aria-labelledby="tab-archived">
 
                   <table id="dataTableUsersArchived" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
                     <thead>

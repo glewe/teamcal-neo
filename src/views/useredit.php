@@ -61,54 +61,50 @@ view.useredit
           <div class="card">
 
             <div class="card-header">
-              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation"><a class="nav-link active" id="personal-tab" href="#personal" data-bs-toggle="tab" role="tab" aria-controls="personal" aria-selected="true"><?= $LANG['profile_tab_personal'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="contact-tab" href="#contact" data-bs-toggle="tab" role="tab" aria-controls="contact" aria-selected="false"><?= $LANG['profile_tab_contact'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="setpassword-tab" href="#setpassword" data-bs-toggle="tab" role="tab" aria-controls="setpassword" aria-selected="false"><?= $LANG['profile_tab_password'] ?></a></li>
-
-                <?php if (isAllowed("userabsences") && $viewData['profile'] != "admin") { ?>
-                  <li class="nav-item" role="presentation"><a class="nav-link" id="absences-tab" href="#absences" data-bs-toggle="tab" role="tab" aria-controls="absences" aria-selected="false"><?= $LANG['profile_tab_absences'] ?></a></li>
-                <?php } ?>
-
-                <?php if (isAllowed("useraccount") && $viewData['profile'] != "admin") { ?>
-                  <li class="nav-item" role="presentation"><a class="nav-link" id="account-tab" href="#account" data-bs-toggle="tab" role="tab" aria-controls="account" aria-selected="false"><?= $LANG['profile_tab_account'] ?></a></li>
-                <?php } ?>
-
-                <?php if (isAllowed("useravatar")) { ?>
-                  <li class="nav-item" role="presentation"><a class="nav-link" id="avatar-tab" href="#avatar" data-bs-toggle="tab" role="tab" aria-controls="avatar" aria-selected="false"><?= $LANG['profile_tab_avatar'] ?></a></li>
-                <?php } ?>
-
-                <?php if (isAllowed("usercustom")) { ?>
-                  <li class="nav-item" role="presentation"><a class="nav-link" id="custom-tab" href="#custom" data-bs-toggle="tab" role="tab" aria-controls="custom" aria-selected="false"><?= $LANG['profile_tab_custom'] ?></a></li>
-                <?php } ?>
-
-                <?php if (isAllowed("usergroups")) { ?>
-                  <li class="nav-item" role="presentation"><a class="nav-link" id="groups-tab" href="#groups" data-bs-toggle="tab" role="tab" aria-controls="groups" aria-selected="false"><?= $LANG['profile_tab_groups'] ?></a></li>
-                <?php } ?>
-
-                <?php if (isAllowed("usernotifications")) { ?>
-                  <li class="nav-item" role="presentation"><a class="nav-link" id="notifications-tab" href="#notifications" data-bs-toggle="tab" role="tab" aria-controls="notifications" aria-selected="false"><?= $LANG['profile_tab_notifications'] ?></a></li>
-                <?php } ?>
-
-                <?php if (isAllowed("useroptions")) { ?>
-                  <li class="nav-item" role="presentation"><a class="nav-link" id="options-tab" href="#options" data-bs-toggle="tab" role="tab" aria-controls="options" aria-selected="false"><?= $LANG['options'] ?></a></li>
-                <?php } ?>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="tfa-tab" href="#tfa" data-bs-toggle="tab" role="tab" aria-controls="tfa" aria-selected="false"><?= $LANG['profile_tab_tfa'] ?></a></li>
-              </ul>
+              <?php
+              $pageTabs = [
+                ['id' => 'tab-personal', 'href' => '#panel-personal', 'label' => $LANG['profile_tab_personal'], 'active' => true],
+                ['id' => 'tab-contact', 'href' => '#panel-contact', 'label' => $LANG['profile_tab_contact'], 'active' => false],
+                ['id' => 'tab-passwowrd', 'href' => '#panel-password', 'label' => $LANG['profile_tab_password'], 'active' => false]
+              ];
+              if (isAllowed("userabsences") && $viewData['profile'] != "admin") {
+                $pageTabs[] = ['id' => 'tab-absences', 'href' => '#panel-absences', 'label' => $LANG['profile_tab_absences'], 'active' => false];
+              }
+              if (isAllowed("useraccount") && $viewData['profile'] != "admin") {
+                $pageTabs[] = ['id' => 'tab-account', 'href' => '#panel-account', 'label' => $LANG['profile_tab_account'], 'active' => false];
+              }
+              if (isAllowed("useravatar")) {
+                $pageTabs[] = ['id' => 'tab-avatar', 'href' => '#panel-avatar', 'label' => $LANG['profile_tab_avatar'], 'active' => false];
+              }
+              if (isAllowed("usercustom") && $viewData['profile'] != "admin") {
+                $pageTabs[] = ['id' => 'tab-custom', 'href' => '#panel-custom', 'label' => $LANG['profile_tab_custom'], 'active' => false];
+              }
+              if (isAllowed("usergroups") && $viewData['profile'] != "admin") {
+                $pageTabs[] = ['id' => 'tab-groups', 'href' => '#panel-groups', 'label' => $LANG['profile_tab_groups'], 'active' => false];
+              }
+              if (isAllowed("usernotifications")) {
+                $pageTabs[] = ['id' => 'tab-notifications', 'href' => '#panel-notifications', 'label' => $LANG['profile_tab_notifications'], 'active' => false];
+              }
+              if (isAllowed("useroptions")) {
+                $pageTabs[] = ['id' => 'tab-options', 'href' => '#panel-options', 'label' => $LANG['options'], 'active' => false];
+              }
+              $pageTabs[] = ['id' => 'tab-tfa', 'href' => '#panel-tfa', 'label' => $LANG['profile_tab_tfa'], 'active' => false];
+              echo createPageTabs($pageTabs);
+              ?>
             </div>
 
             <div class="card-body">
               <div class="tab-content" id="myTabContent">
 
                 <!-- Personal tab -->
-                <div class="tab-pane fade show active" id="personal" role="tabpanel" aria-labelledby="personal-tab">
+                <div class="tab-pane fade show active" id="panel-personal" role="tabpanel" aria-labelledby="tab-personal">
                   <?php foreach ($viewData['personal'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
 
                 <!-- Contact tab -->
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="tab-pane fade" id="panel-contact" role="tabpanel" aria-labelledby="tab-contact">
                   <?php foreach ($viewData['contact'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
@@ -116,7 +112,7 @@ view.useredit
 
                 <?php if (isAllowed("useroptions")) { ?>
                   <!-- Options tab -->
-                  <div class="tab-pane fade" id="options" role="tabpanel" aria-labelledby="options-tab">
+                  <div class="tab-pane fade" id="panel-options" role="tabpanel" aria-labelledby="tab-options">
                     <?php foreach ($viewData['options'] as $formObject) {
                       echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                     } ?>
@@ -125,7 +121,7 @@ view.useredit
 
                 <?php if (isAllowed("useravatar")) { ?>
                   <!-- Avatar tab -->
-                  <div class="tab-pane fade" id="avatar" role="tabpanel" aria-labelledby="avatar-tab">
+                  <div class="tab-pane fade" id="panel-avatar" role="tabpanel" aria-labelledby="tab-avatar">
 
                     <div class="form-group row">
                       <label class="col-lg-<?= $colsleft ?> control-label">
@@ -184,7 +180,7 @@ view.useredit
 
                 <?php if (isAllowed("useraccount") && $viewData['profile'] != "admin") { ?>
                   <!-- Account tab -->
-                  <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="account-tab">
+                  <div class="tab-pane fade" id="panel-account" role="tabpanel" aria-labelledby="tab-account">
                     <?php foreach ($viewData['account'] as $formObject) {
                       echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                     } ?>
@@ -193,7 +189,7 @@ view.useredit
 
                 <?php if (isAllowed("usergroups")) { ?>
                   <!-- Groups tab -->
-                  <div class="tab-pane fade" id="groups" role="tabpanel" aria-labelledby="groups-tab">
+                  <div class="tab-pane fade" id="panel-groups" role="tabpanel" aria-labelledby="tab-groups">
                     <?php foreach ($viewData['groups'] as $formObject) {
                       echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                     } ?>
@@ -201,7 +197,7 @@ view.useredit
                 <?php } ?>
 
                 <!-- Password tab -->
-                <div class="tab-pane fade" id="setpassword" role="tabpanel" aria-labelledby="setpassword-tab">
+                <div class="tab-pane fade" id="panel-password" role="tabpanel" aria-labelledby="tab-password">
                   <?php foreach ($viewData['password'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
@@ -209,7 +205,7 @@ view.useredit
 
                 <?php if (isAllowed("userabsences") && $viewData['profile'] != "admin") { ?>
                   <!-- Absences tab -->
-                  <div class="tab-pane fade" id="absences" role="tabpanel" aria-labelledby="absences-tab">
+                  <div class="tab-pane fade" id="panel-absences" role="tabpanel" aria-labelledby="tab-absences">
                     <div class="form-group row">
                       <div class="col-lg-3"><strong><?= $LANG['profile_abs_name'] ?></strong></div>
                       <div class="col-lg-2">
@@ -273,7 +269,7 @@ view.useredit
 
                 <?php if (isAllowed("usernotifications")) { ?>
                   <!-- Notifications tab -->
-                  <div class="tab-pane fade" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+                  <div class="tab-pane fade" id="panel-notifications" role="tabpanel" aria-labelledby="tab-notifications">
                     <?php foreach ($viewData['notifications'] as $formObject) {
                       echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                     } ?>
@@ -282,7 +278,7 @@ view.useredit
 
                 <?php if (isAllowed("usercustom")) { ?>
                   <!-- Custom tab -->
-                  <div class="tab-pane fade" id="custom" role="tabpanel" aria-labelledby="custom-tab">
+                  <div class="tab-pane fade" id="panel-custom" role="tabpanel" aria-labelledby="tab-custom">
                     <?php foreach ($viewData['custom'] as $formObject) {
                       echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                     } ?>
@@ -290,7 +286,7 @@ view.useredit
                 <?php } ?>
 
                 <!-- 2FA tab -->
-                <div class="tab-pane fade" id="tfa" role="tabpanel" aria-labelledby="tfa-tab">
+                <div class="tab-pane fade" id="panel-tfa" role="tabpanel" aria-labelledby="tab-tfa">
                   <?php if ($UO->read($UP->username, 'secret')) { ?>
                     <div class="form-group row" id="form-group-activateMessages">
                       <label for="activateMessages" class="col-lg-8 control-label"><?= $LANG['profile_remove2fa'] ?><br>

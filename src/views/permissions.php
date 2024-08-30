@@ -98,11 +98,12 @@ view.permissions
             <div class="card">
 
               <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                  <?php foreach ($viewData['roles'] as $role) { ?>
-                    <li class="nav-item" role="presentation"><a class="nav-link <?= (($role['id'] == 1) ? "active\"" : "") ?> id=" tab<?= $role['id'] ?>-tab" href="#tab<?= $role['id'] ?>" data-bs-toggle="tab" role="tab" aria-controls="tab<?= $role['id'] ?>" aria-selected="<?= (($role['id'] == 1) ? "true" : "false") ?>"><?= $role['name'] ?></a></li>
-                  <?php } ?>
-                </ul>
+                <?php
+                foreach ($viewData['roles'] as $role) {
+                  $pageTabs[] = [ 'id' => 'tab-' . $role['id'], 'href' => '#panel-' . $role['id'], 'label' => $role['name'], 'active' => (($role['id'] == 1) ? true : false) ];
+                }
+                echo createPageTabs($pageTabs);
+                ?>
               </div>
 
               <div class="card-body">
@@ -110,7 +111,7 @@ view.permissions
 
                   <?php foreach ($viewData['roles'] as $role) { ?>
                     <!-- Role <?= $role['name'] ?> tab -->
-                    <div class="tab-pane fade show<?= (($role['id'] == 1) ? " active" : "") ?>" id="tab<?= $role['id'] ?>" role="tabpanel" aria-labelledby="tab<?= $role['id'] ?>-tab">
+                    <div class="tab-pane fade show<?= (($role['id'] == 1) ? " active" : "") ?>" id="panel-<?= $role['id'] ?>" role="tabpanel" aria-labelledby="tab-<?= $role['id'] ?>">
 
                       <?php foreach ($viewData['permgroups'] as $permgroup => $permnames) {
                         $checked = 'checked="checked"';
@@ -145,17 +146,20 @@ view.permissions
             <div class="card">
 
               <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                  <li class="nav-item" role="presentation"><a class="nav-link active" id="tabGeneral-tab" href="#tabGeneral" data-bs-toggle="tab" role="tab" aria-controls="tabGeneral" aria-selected="true"><?= $LANG['perm_tab_general'] ?></a></li>
-                  <li class="nav-item" role="presentation"><a class="nav-link" id="tabFeatures-tab" href="#tabFeatures" data-bs-toggle="tab" role="tab" aria-controls="tabFeatures" aria-selected="true"><?= $LANG['perm_tab_features'] ?></a></li>
-                </ul>
+                <?php
+                $pageTabs = [
+                  ['id' => 'tab-general', 'href' => '#panel-general', 'label' => $LANG['perm_tab_general'], 'active' => true],
+                  ['id' => 'tab-features', 'href' => '#panel-features', 'label' => $LANG['perm_tab_features'], 'active' => false],
+                ];
+                echo createPageTabs($pageTabs);
+                ?>
               </div>
 
               <div class="card-body">
                 <div class="tab-content" id="myTabContent">
 
                   <!-- Tab: General -->
-                  <div class="tab-pane fade show active" id="tabGeneral" role="tabpanel" aria-labelledby="tabGeneral-tab">
+                  <div class="tab-pane fade show active" id="panel-general" role="tabpanel" aria-labelledby="tab-general">
                     <?php foreach ($viewData['permgroups'] as $key => $pages) { ?>
                       <div class="form-group row">
                         <label class="col-lg-<?= $colsleft ?> control-label">
@@ -183,7 +187,7 @@ view.permissions
                   </div>
 
                   <!-- Tab: Features -->
-                  <div class="tab-pane fade show" id="tabFeatures" role="tabpanel" aria-labelledby="tabFeatures-tab">
+                  <div class="tab-pane fade show" id="panel-features" role="tabpanel" aria-labelledby="tab-features">
                     <?php foreach ($viewData['fperms'] as $fperm) { ?>
                       <div class="form-group row">
                         <label class="col-lg-<?= $colsleft ?> control-label">

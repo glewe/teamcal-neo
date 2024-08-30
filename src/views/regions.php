@@ -75,24 +75,21 @@ view.regions
         <div class="card">
 
           <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-              <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="list-tab" data-bs-toggle="tab" data-bs-target="#list-tab-pane" type="button" role="tab" aria-controls="list-tab-pane" aria-selected="true"><?= $LANG['regions_tab_list'] ?></button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button class="nav-link" id="ical-tab" data-bs-toggle="tab" data-bs-target="#ical-tab-pane" type="button" role="tab" aria-controls="ical-tab-pane" aria-selected="true"><?= $LANG['regions_tab_ical'] ?></button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button class="nav-link" id="copy-tab" data-bs-toggle="tab" data-bs-target="#copy-tab-pane" type="button" role="tab" aria-controls="copy-tab-pane" aria-selected="true"><?= $LANG['regions_tab_transfer'] ?></button>
-              </li>
-            </ul>
+            <?php
+            $pageTabs = [
+              ['id' => 'tab-list', 'href' => '#panel-list', 'label' => $LANG['regions_tab_list'], 'active' => true],
+              ['id' => 'tab-ical', 'href' => '#panel-ical', 'label' => $LANG['regions_tab_ical'], 'active' => false],
+              ['id' => 'tab-copy', 'href' => '#panel-copy', 'label' => $LANG['regions_tab_transfer'], 'active' => false]
+            ];
+            echo createPageTabs($pageTabs);
+            ?>
           </div>
 
           <div class="card-body">
             <div class="tab-content" id="myTabContent">
 
               <!-- List tab -->
-              <div class="tab-pane fade show active" id="list-tab-pane" role="tabpanel" aria-labelledby="list-tab">
+              <div class="tab-pane fade show active" id="panel-list" role="tabpanel" aria-labelledby="tab-list">
                 <table id="dataTableRegions" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
                   <thead>
                   <tr>
@@ -150,7 +147,7 @@ view.regions
               </div>
 
               <!-- iCal tab -->
-              <div class="tab-pane fade" id="ical-tab-pane" role="tabpanel" aria-labelledby="ical-tab">
+              <div class="tab-pane fade" id="panel-ical" role="tabpanel" aria-labelledby="tab-ical">
                 <form class="form-control-horizontal" name="form_ical" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8" enctype="multipart/form-data">
                   <?php foreach ($viewData['ical'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
@@ -174,7 +171,7 @@ view.regions
               </div>
 
               <!-- Copy tab -->
-              <div class="tab-pane fade" id="copy-tab-pane" role="tabpanel" aria-labelledby="copy-tab">
+              <div class="tab-pane fade" id="panel-copy" role="tabpanel" aria-labelledby="tab-copy">
                 <form class="bs-example form-control-horizontal" name="form_merge" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
                   <?php foreach ($viewData['merge'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);

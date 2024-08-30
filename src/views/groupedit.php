@@ -53,38 +53,48 @@ view.groupedit
           </div>
           <div style="height:20px;"></div>
 
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item"><a class="nav-link active" id="tab_settings-tab" href="#tab_settings" data-bs-toggle="tab" role="tab" aria-controls="tab_settings" aria-selected="true"><?= $LANG['group_tab_settings'] ?></a></li>
-            <li class="nav-item"><a class="nav-link" id="tab_members-tab" href="#tab_members" data-bs-toggle="tab" role="tab" aria-controls="tab_members" aria-selected="false"><?= $LANG['group_tab_members'] ?></a></li>
-          </ul>
+          <div class="card">
 
-          <div id="myTabContent" class="tab-content">
-
-            <!-- Group Settings -->
-            <div class="tab-pane fade show active" id="tab_settings" role="tabpanel" aria-labelledby="tab_settings-tab">
-              <div class="card">
-                <div class="card-body">
-                  <?php foreach ($viewData['group'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-                  } ?>
-                </div>
-              </div>
+            <div class="card-header">
+              <?php
+              $pageTabs = [
+                [ 'id' => 'tab-settings', 'href' => '#panel-settings', 'label' => $LANG['group_tab_settings'], 'active' => true ],
+                [ 'id' => 'tab-members', 'href' => '#panel-members', 'label' => $LANG['group_tab_members'], 'active' => false ],
+              ];
+              echo createPageTabs($pageTabs);
+              ?>
             </div>
 
-            <!-- Group Members -->
-            <div class="tab-pane fade" id="tab_members" role="tabpanel" aria-labelledby="tab_members-tab">
-              <div class="card">
-                <div class="card-body">
-                  <?php foreach ($viewData['members'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-                  } ?>
-                  <?php foreach ($viewData['managers'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-                  } ?>
+            <div class="card-body">
+              <div id="myTabContent" class="tab-content">
+
+                <!-- Group Settings -->
+                <div class="tab-pane fade show active" id="panel-settings" role="tabpanel" aria-labelledby="tab-settings">
+                  <div class="card">
+                    <div class="card-body">
+                      <?php foreach ($viewData['group'] as $formObject) {
+                        echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                      } ?>
+                    </div>
+                  </div>
                 </div>
+
+                <!-- Group Members -->
+                <div class="tab-pane fade" id="panel-members" role="tabpanel" aria-labelledby="tab-members">
+                  <div class="card">
+                    <div class="card-body">
+                      <?php foreach ($viewData['members'] as $formObject) {
+                        echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                      } ?>
+                      <?php foreach ($viewData['managers'] as $formObject) {
+                        echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                      } ?>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
-
           </div>
 
           <div style="height:20px;"></div>

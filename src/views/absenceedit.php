@@ -58,17 +58,20 @@ view.absenceedit
           <div class="card">
 
             <div class="card-header">
-              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation"><a class="nav-link active" id="general-tab" href="#general" data-bs-toggle="tab" role="tab" aria-controls="general" aria-selected="true"><?= $LANG['general'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="options-tab" href="#options" data-bs-toggle="tab" role="tab" aria-controls="options" aria-selected="false"><?= $LANG['options'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="groupassignments-tab" href="#groupassignments" data-bs-toggle="tab" role="tab" aria-controls="groupassignments" aria-selected="false"><?= $LANG['abs_tab_groups'] ?></a></li>
-              </ul>
+              <?php
+              $pageTabs = [
+                ['id' => 'tab-general', 'href' => '#panel-general', 'label' => $LANG['general'], 'active' => true],
+                ['id' => 'tab-options', 'href' => '#panel-options', 'label' => $LANG['options'], 'active' => false],
+                ['id' => 'tab-groupassignments', 'href' => '#panel-groupassignments', 'label' => $LANG['abs_tab_groups'], 'active' => false]
+              ];
+              echo createPageTabs($pageTabs);
+              ?>
             </div>
 
             <div class="card-body">
               <div id="myTabContent" class="tab-content">
 
-            <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+            <div class="tab-pane fade show active" id="panel-general" role="tabpanel" aria-labelledby="tab-general">
               <div class="card">
                 <div class="card-body">
 
@@ -119,7 +122,7 @@ view.absenceedit
               </div>
             </div>
 
-            <div class="tab-pane fade" id="options" role="tabpanel" aria-labelledby="options-tab">
+            <div class="tab-pane fade" id="panel-options" role="tabpanel" aria-labelledby="tab-options">
               <div class="card">
                 <div class="card-body">
                   <?php foreach ($viewData['options'] as $formObject) {
@@ -129,7 +132,7 @@ view.absenceedit
               </div>
             </div>
 
-            <div class="tab-pane fade" id="groupassignments" role="tabpanel" aria-labelledby="groupassignments-tab">
+            <div class="tab-pane fade" id="panel-groupassignments" role="tabpanel" aria-labelledby="tab-groupassignments">
               <div class="card">
                 <div class="card-body">
                   <?php foreach ($viewData['groups'] as $formObject) {
