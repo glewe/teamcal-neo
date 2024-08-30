@@ -46,14 +46,6 @@ view.holidayedit
 
           <div class="card">
             <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_holidayUpdate"><?= $LANG['btn_save'] ?></button>
-              <a href="index.php?action=holidays" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_holiday_list'] ?></a>
-            </div>
-          </div>
-          <div style="height:20px;"></div>
-
-          <div class="card">
-            <div class="card-body">
               <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">
               <?php foreach ($viewData['holiday'] as $formObject) {
                 echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
@@ -61,12 +53,9 @@ view.holidayedit
             </div>
           </div>
 
-          <div style="height:20px;"></div>
-          <div class="card">
-            <div class="card-body">
+          <div class="mt-4 text-end">
               <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_holidayUpdate"><?= $LANG['btn_save'] ?></button>
-              <a href="index.php?action=holidays" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_holiday_list'] ?></a>
-            </div>
+              <a href="index.php?action=holidays" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_holiday_list'] ?></a>
           </div>
 
         </div>

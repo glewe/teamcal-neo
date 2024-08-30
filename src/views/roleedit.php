@@ -46,25 +46,15 @@ view.roleedit
 
           <div class="card">
             <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_roleUpdate"><?= $LANG['btn_update'] ?></button>
-              <a href="index.php?action=roles" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_role_list'] ?></a>
-            </div>
-          </div>
-          <div style="height:20px;"></div>
-
-          <div class="card">
-            <div class="card-body">
               <?php foreach ($viewData['role'] as $formObject) {
                 echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
               } ?>
             </div>
           </div>
 
-          <div style="height:20px;"></div>
-          <div class="card">
-            <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_roleUpdate"><?= $LANG['btn_update'] ?></button>
-            </div>
+          <div class="mt-4 text-end">
+            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_roleUpdate"><?= $LANG['btn_update'] ?></button>
+            <a href="index.php?action=roles" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_role_list'] ?></a>
           </div>
 
         </div>

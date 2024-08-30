@@ -43,13 +43,11 @@ view.absences
 
       <div class="card-body">
 
-        <form class="form-control-horizontal" name="form_create" action="index.php?action=<?= $CONF['controllers'][$controller]->name ?>" method="post" target="_self" accept-charset="utf-8">
-          <?php
-          $actionButtons = '
-            <button type="button" class="btn btn-success float-end" tabindex="'. $tabindex++ .'" data-bs-toggle="modal" data-bs-target="#modalCreateAbsence">'. $LANG['btn_create_abs'] .'</button>';
-          echo $actionButtons;
-          ?>
-          <div style="height:50px;"></div>
+        <form class="row form-control-horizontal" name="form_create" action="index.php?action=<?= $CONF['controllers'][$controller]->name ?>" method="post" target="_self" accept-charset="utf-8">
+
+          <div class="mb-4">
+            <button type="button" class="btn btn-success float-end" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateAbsence"><?= $LANG['btn_create_abs'] ?></button>
+          </div>
 
           <!-- Modal: Creates Absence -->
           <?= createModalTop('modalCreateAbsence', $LANG['btn_create_abs']) ?>

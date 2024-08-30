@@ -153,7 +153,7 @@ view.users
                     });
                   </script>
 
-                  <div class="row" style="margin-top: 10px; padding-bottom: 0px;">
+                  <div class="row mt-3 pb-0">
                     <div class="col-lg-2">
                       <div class="checkbox"><label><input type="checkbox" name="chk_selectAllActive" id="chk_selectAllActive"><?= $LANG['select_all'] ?></label></div>
                     </div>

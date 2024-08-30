@@ -788,8 +788,8 @@ $LANG['profile_showMonths_comment'] = 'Enter the number of months to show on the
 //
 // Region
 //
-$LANG['region_edit_title'] = 'Edit Group: ';
-$LANG['region_alert_edit'] = 'Update group';
+$LANG['region_edit_title'] = 'Edit Region: ';
+$LANG['region_alert_edit'] = 'Update region';
 $LANG['region_alert_edit_success'] = 'The information for this region was updated.';
 $LANG['region_alert_save_failed'] = 'The new information for this region could not be saved. There was invalid input. Please check for error messages.';
 $LANG['region_name'] = 'Name';

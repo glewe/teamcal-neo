@@ -44,24 +44,21 @@ view.roles
       <div class="card-body">
 
         <form class="form-control-horizontal" name="form_create" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
-          <div class="card">
-            <div class="card-body row">
-              <div class="col-lg-4">
-                <label for="inputSearch"><?= $LANG['search'] ?></label>
-                <input id="inputSearch" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_searchRole" maxlength="40" value="<?= $viewData['searchRole'] ?>" type="text">
-              </div>
-              <div class="col-lg-3">
-                <br>
-                <button type="submit" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>" name="btn_search"><?= $LANG['btn_search'] ?></button>
-                <a href="index.php?action=roles" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_reset'] ?></a>
-              </div>
-              <div class="col-lg-5 text-end">
-                <br>
-                <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateRole"><?= $LANG['btn_create_role'] ?></button>
-              </div>
+          <div class="row mb-4">
+            <div class="col-lg-4">
+              <label for="inputSearch"><?= $LANG['search'] ?></label>
+              <input id="inputSearch" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_searchRole" maxlength="40" value="<?= $viewData['searchRole'] ?>" type="text">
+            </div>
+            <div class="col-lg-3">
+              <br>
+              <button type="submit" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>" name="btn_search"><?= $LANG['btn_search'] ?></button>
+              <a href="index.php?action=roles" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_reset'] ?></a>
+            </div>
+            <div class="col-lg-5 text-end">
+              <br>
+              <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateRole"><?= $LANG['btn_create_role'] ?></button>
             </div>
           </div>
-          <div style="height:20px;"></div>
 
           <!-- Modal: Create role -->
           <?= createModalTop('modalCreateRole', $LANG['btn_create_role']) ?>

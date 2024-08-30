@@ -791,10 +791,10 @@ $LANG['profile_showMonths_comment'] = 'Gebe hier an, wieviele Monate auf der Kal
 //
 // Region
 //
-$LANG['region_edit_title'] = 'Gruppe editieren: ';
-$LANG['region_alert_edit'] = 'Gruppe aktualisieren';
-$LANG['region_alert_edit_success'] = 'Die Informationen f&uuml;r diese Gruppe wurden aktualisiert.';
-$LANG['region_alert_save_failed'] = 'Die neuen Informationen f&uuml;r diese Gruppe konnten nicht gespeichert werden. Es gab fehlerhafte Eingaben. Bitte pr&uuml;fe die Fehlermeldungen.';
+$LANG['region_edit_title'] = 'Region editieren: ';
+$LANG['region_alert_edit'] = 'Region aktualisieren';
+$LANG['region_alert_edit_success'] = 'Die Informationen f&uuml;r diese Region wurden aktualisiert.';
+$LANG['region_alert_save_failed'] = 'Die neuen Informationen f&uuml;r diese Region konnten nicht gespeichert werden. Es gab fehlerhafte Eingaben. Bitte pr&uuml;fe die Fehlermeldungen.';
 $LANG['region_name'] = 'Name';
 $LANG['region_name_comment'] = '';
 $LANG['region_description'] = 'Beschreibung';

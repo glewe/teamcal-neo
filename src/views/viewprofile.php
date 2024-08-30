@@ -44,17 +44,14 @@ view.viewprofile
       <div class="card-body">
 
         <?php if ($viewData['allowEdit'] || $viewData['allowAbsum']) { ?>
-          <div class="card">
-            <div class="card-body">
-              <?php if ($viewData['allowEdit']) { ?>
-                <a class="btn btn-primary" tabindex="<?= $tabindex++ ?>" href="index.php?action=<?= $CONF['controllers']['useredit']->name ?>&amp;profile=<?= $viewData['username'] ?>"><?= $LANG['btn_edit'] ?></a>
-              <?php } ?>
-              <?php if ($viewData['allowAbsum']) { ?>
-                <a class="btn btn-info" tabindex="<?= $tabindex++ ?>" href="index.php?action=<?= $CONF['controllers']['absum']->name ?>&amp;user=<?= $viewData['username'] ?>"><?= $LANG['btn_absum'] ?></a>
-              <?php } ?>
-            </div>
+          <div class="mb-4 text-end">
+            <?php if ($viewData['allowEdit']) { ?>
+              <a class="btn btn-primary" tabindex="<?= $tabindex++ ?>" href="index.php?action=<?= $CONF['controllers']['useredit']->name ?>&amp;profile=<?= $viewData['username'] ?>"><?= $LANG['btn_edit'] ?></a>
+            <?php } ?>
+            <?php if ($viewData['allowAbsum']) { ?>
+              <a class="btn btn-info" tabindex="<?= $tabindex++ ?>" href="index.php?action=<?= $CONF['controllers']['absum']->name ?>&amp;user=<?= $viewData['username'] ?>"><?= $LANG['btn_absum'] ?></a>
+            <?php } ?>
           </div>
-          <div style="height:20px;"></div>
         <?php } ?>
 
         <div class="table-responsive">
