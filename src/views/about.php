@@ -52,7 +52,7 @@ view.about
           </p>
           <h4><?= $LANG['about_credits'] ?>:</h4>
           <ul>
-            <li>Bootstrap Team <?= $LANG['about_for'] ?> <a href="https://getbootstrap.com/" target="_blank" rel="noopener">Bootstrap Framework <?= BOOTSTRAP_VER ?></a></li>
+            <li>Bootstrap Team <?= $LANG['about_for'] ?> <a href="https://getbootstrap.com/" target="_blank" rel="noopener">Bootstrap Framework <?= BOOTSTRAP_VER ?></a> and <a href="https://icons.getbootstrap.com/" target="_blank" rel="noopener">Bootstrap Icons <?= BOOTSTRAP_ICONS_VER ?></a></li>
             <li>Thomas Park <?= $LANG['about_for'] ?> <a href="https://bootswatch.com/" target="_blank" rel="noopener">Bootswatch Themes</a></li>
             <li>Nick Downie <?= $LANG['about_for'] ?> <a href="https://www.chartjs.org/" target="_blank" rel="noopener">Chart.js <?= CHARTJS_VER ?></a></li>
             <?php if (CKEDITOR) { ?>
