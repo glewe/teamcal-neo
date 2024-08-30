@@ -22,7 +22,7 @@ view.menu
 } else {
   $navcolor = "light";
 } ?>
-<nav class="navbar navbar-expand-lg navbar-<?= $navcolor ?> bg-<?= $C->read("menuBarBg") ?> fixed-top">
+<nav class="navbar navbar-expand-lg navbar-<?= $navcolor ?> bg-<?= $C->read("menuBarBg") ?> fixed-top" id="navbar">
   <div class="container">
     <a href="<?= WEBSITE_URL ?>" class="navbar-brand" style="padding: 2px 8px 0 8px;"><img src="images/logo.png" width="48" height="48" alt=""></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,6 +54,7 @@ view.menu
                 </a>
               <?php } ?>
             <?php } ?>
+            <div class="dropdown-divider"></div>
           </div>
         </li>
         <!-- View Menu -->
@@ -207,7 +208,29 @@ view.menu
           </li>
         <?php } ?>
       </ul>
+
       <ul class="navbar-nav ms-auto">
+        <!-- Theme Menu -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="theme" aria-haspopup="true" data-bs-target="#darkmode" aria-expanded="false" aria-controls="darkmode">
+            <i class="bi bi-moon-stars-fill theme-icon-active"></i><span class="caret"></span>
+          </a>
+          <div id="darkmode" class="dropdown-menu" aria-labelledby="theme" data-bs-parent="#navbar">
+            <a class="dropdown-item" href="#" data-bs-theme-value="light">
+              <span class="menu-icon"><i class="bi bi-sun-fill me-3 text-<?=$CONF['menuIconColor']?>"></i></span>
+              Light Mode
+            </a>
+            <a class="dropdown-item" href="#" data-bs-theme-value="dark">
+              <span class="menu-icon"><i class="bi bi-moon-stars-fill me-3 text-<?=$CONF['menuIconColor']?>"></i></span>
+              Dark Mode
+            </a>
+            <a class="dropdown-item" href="#" data-bs-theme-value="auto">
+              <span class="menu-icon"><i class="bi bi-circle-half me-3 text-<?=$CONF['menuIconColor']?>"></i></span>
+              Auto Mode
+            </a>
+          </div>
+        </li>
+
         <!-- Admin Menu -->
         <?php if (
           isAllowed($CONF['controllers']['config']->permission) ||
@@ -260,7 +283,7 @@ view.menu
                   <?= $LANG['mnu_admin_users'] ?>
                 </a>
               <?php } ?>
-              <?php if (isAllowed($CONF['controllers']['groups']->permission) || $UG->isGroupManager($UL->username) ) { ?>
+              <?php if (isAllowed($CONF['controllers']['groups']->permission) || $UG->isGroupManager($UL->username)) { ?>
                 <a class="dropdown-item" tabindex="-1" href="index.php?action=<?= $CONF['controllers']['groups']->name ?>">
                   <span class="menu-icon">
                     <i class="<?= $CONF['controllers']['groups']->faIcon ?> fa-lg text-<?= $CONF['controllers']['groups']->iconColor ?>"></i>
@@ -344,6 +367,7 @@ view.menu
             </div>
           </li>
         <?php } ?>
+
         <!-- Help Menu -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="help" aria-haspopup="true" aria-expanded="false"><?= $LANG['mnu_help'] ?><span class="caret"></span></a>
@@ -380,6 +404,7 @@ view.menu
             </a>
           </div>
         </li>
+
         <!-- User Menu -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="user" aria-haspopup="true" aria-expanded="false">
@@ -419,6 +444,7 @@ view.menu
             <?php } ?>
           </div>
         </li>
+
       </ul>
     </div>
   </div>
