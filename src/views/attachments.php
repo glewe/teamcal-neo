@@ -48,17 +48,20 @@ view.attachments
           <div class="card">
 
             <div class="card-header">
-              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation"><a class="nav-link active" id="tab_files-tab" href="#tab_files" data-bs-toggle="tab" role="tab" aria-controls="tab_files" aria-selected="true"><?= $LANG['att_tab_files'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_upload-tab" href="#tab_upload" data-bs-toggle="tab" role="tab" aria-controls="tab_upload" aria-selected="false"><?= $LANG['att_tab_upload'] ?></a></li>
-              </ul>
+              <?php
+              $pageTabs = [
+                ['id' => 'tab-files', 'href' => '#tab_files', 'label' => $LANG['att_tab_files'], 'active' => true],
+                ['id' => 'tab-upload', 'href' => '#tab_upload', 'label' => $LANG['att_tab_upload'], 'active' => false],
+              ];
+              echo createPageTabs($pageTabs);
+              ?>
             </div>
 
             <div class="card-body">
               <div class="tab-content" id="myTabContent">
 
                 <!-- Files -->
-                <div class="tab-pane fade show active" id="tab_files" role="tabpanel" aria-labelledby="tab_files-tab">
+                <div class="tab-pane fade show active" id="tab_files" role="tabpanel" aria-labelledby="tab-files">
 
                   <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight: bold;">
                     <div class="col-lg-5"><?= $LANG['att_col_file'] ?></div>
@@ -122,7 +125,7 @@ view.attachments
                 </div>
 
                 <!-- Upload File -->
-                <div class="tab-pane fade" id="tab_upload" role="tabpanel" aria-labelledby="tab_upload-tab">
+                <div class="tab-pane fade" id="tab_upload" role="tabpanel" aria-labelledby="tab-upload">
                   <div class="form-group row">
                     <label class="col-lg-<?= $colsleft ?> control-label">
                       <?= $LANG['att_file'] ?><br>

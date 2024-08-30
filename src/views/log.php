@@ -118,17 +118,20 @@ view.log
           <div class="card">
 
             <div class="card-header">
-              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation"><a class="nav-link active" id="tabLog-tab" href="#tabLog" data-bs-toggle="tab" role="tab" aria-controls="tabLog" aria-selected="true"><?= $LANG['log_title'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="tabSettings-tab" href="#tabSettings" data-bs-toggle="tab" role="tab" aria-controls="tabSettings" aria-selected="true"><?= $LANG['log_settings'] ?></a></li>
-              </ul>
+              <?php
+              $pageTabs = [
+                ['id' => 'tab-log', 'href' => '#panel-log', 'label' => $LANG['log_title'], 'active' => true],
+                ['id' => 'tab-settings', 'href' => '#panel-settings', 'label' => $LANG['log_settings'], 'active' => false],
+              ];
+              echo createPageTabs($pageTabs);
+              ?>
             </div>
 
             <div class="card-body">
               <div class="tab-content" id="myTabContent">
 
                 <!-- Log tab -->
-                <div class="tab-pane fade show active" id="tabLog" role="tabpanel" aria-labelledby="tabLog-tab">
+                <div class="tab-pane fade show active" id="panel-log" role="tabpanel" aria-labelledby="tab-log">
 
                   <?php if (count($viewData['events'])) :
                     $i = 1; ?>
@@ -189,7 +192,7 @@ view.log
                 </div>
 
                 <!-- Log settings -->
-                <div class="tab-pane fade" id="tabSettings" role="tabpanel" aria-labelledby="tabSettings-tab">
+                <div class="tab-pane fade" id="panel-settings" role="tabpanel" aria-labelledby="tab-settings">
 
                   <div style="height:20px;"></div>
                   <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_logSave"><?= $LANG['btn_save'] ?></button>

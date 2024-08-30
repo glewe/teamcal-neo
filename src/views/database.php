@@ -47,23 +47,26 @@ view.database
           <div class="card">
 
             <div class="card-header">
-              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation"><a class="nav-link active" id="tab_optimize-tab" href="#tab_optimize" data-bs-toggle="tab" role="tab" aria-controls="tab_optimize" aria-selected="true"><?= $LANG['db_tab_optimize'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_cleanup-tab" href="#tab_cleanup" data-bs-toggle="tab" role="tab" aria-controls="tab_cleanup" aria-selected="false"><?= $LANG['db_tab_cleanup'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_repair-tab" href="#tab_repair" data-bs-toggle="tab" role="tab" aria-controls="tab_repair" aria-selected="false"><?= $LANG['db_tab_repair'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_delete-tab" href="#tab_delete" data-bs-toggle="tab" role="tab" aria-controls="tab_delete" aria-selected="false"><?= $LANG['db_tab_delete'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_admin-tab" href="#tab_admin" data-bs-toggle="tab" role="tab" aria-controls="tab_admin" aria-selected="false"><?= $LANG['db_tab_admin'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_reset-tab" href="#tab_reset" data-bs-toggle="tab" role="tab" aria-controls="tab_reset" aria-selected="false"><?= $LANG['db_tab_reset'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_tcpimp-tab" href="#tab_tcpimp" data-bs-toggle="tab" role="tab" aria-controls="tab_tcpimp" aria-selected="false"><?= $LANG['db_tab_tcpimp'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="tab_dbinfo-tab" href="#tab_dbinfo" data-bs-toggle="tab" role="tab" aria-controls="tab_dbinfo" aria-selected="false"><?= $LANG['db_tab_dbinfo'] ?></a></li>
-              </ul>
+              <?php
+              $pageTabs = [
+                ['id' => 'tab-optimize', 'href' => '#panel-optimize', 'label' => $LANG['db_tab_optimize'], 'active' => true],
+                ['id' => 'tab-cleanup', 'href' => '#panel-cleanup', 'label' => $LANG['db_tab_cleanup'], 'active' => false],
+                ['id' => 'tab-repair', 'href' => '#panel-repair', 'label' => $LANG['db_tab_repair'], 'active' => false],
+                ['id' => 'tab-delete', 'href' => '#panel-delete', 'label' => $LANG['db_tab_delete'], 'active' => false],
+                ['id' => 'tab-admin', 'href' => '#panel-admin', 'label' => $LANG['db_tab_admin'], 'active' => false],
+                ['id' => 'tab-reset', 'href' => '#panel-reset', 'label' => $LANG['db_tab_reset'], 'active' => false],
+                ['id' => 'tab-tcpimp', 'href' => '#panel-tcpimp', 'label' => $LANG['db_tab_tcpimp'], 'active' => false],
+                ['id' => 'tab-dbinfo', 'href' => '#panel-dbinfo', 'label' => $LANG['db_tab_dbinfo'], 'active' => false],
+              ];
+              echo createPageTabs($pageTabs);
+              ?>
             </div>
 
             <div class="card-body">
               <div class="tab-content" id="myTabContent">
 
                 <!-- Optimize Tables tab -->
-                <div class="tab-pane fade show active" id="tab_optimize" role="tabpanel" aria-labelledby="tab_optimize-tab">
+                <div class="tab-pane fade show active" id="panel-optimize" role="tabpanel" aria-labelledby="tab-optimize">
                   <div class="form-group row">
                     <div class="col-lg-12">
                       <strong><?= $LANG['db_optimize'] ?></strong>
@@ -77,7 +80,7 @@ view.database
                 </div>
 
                 <!-- Cleanup tab -->
-                <div class="tab-pane fade" id="tab_cleanup" role="tabpanel" aria-labelledby="tab_cleanup-tab">
+                <div class="tab-pane fade" id="panel-cleanup" role="tabpanel" aria-labelledby="tab-cleanup">
                   <div class="form-group row">
                     <div class="col-lg-<?= $colsleft ?>">
                       <div class="text-bold"><?= $LANG['db_clean_what'] ?></div>
@@ -145,7 +148,7 @@ view.database
                 </div>
 
                 <!-- Repair tab -->
-                <div class="tab-pane fade" id="tab_repair" role="tabpanel" aria-labelledby="tab_repair-tab">
+                <div class="tab-pane fade" id="panel-repair" role="tabpanel" aria-labelledby="tab-repair">
                   <div class="form-group row">
                     <div class="col-lg-<?= $colsleft ?>">
                       <div class="text-bold"><?= $LANG['db_repair_daynoteRegions'] ?></div>
@@ -181,7 +184,7 @@ view.database
                 </div>
 
                 <!-- Delete tab -->
-                <div class="tab-pane fade" id="tab_delete" role="tabpanel" aria-labelledby="tab_delete-tab">
+                <div class="tab-pane fade" id="panel-delete" role="tabpanel" aria-labelledby="tab-delete">
                   <div class="form-group row">
                     <div class="col-lg-<?= $colsleft ?>">
                       <div class="text-bold"><?= $LANG['db_del_what'] ?></div>
@@ -235,7 +238,7 @@ view.database
                 </div>
 
                 <!-- Administration tab -->
-                <div class="tab-pane fade" id="tab_admin" role="tabpanel" aria-labelledby="tab_admin-tab">
+                <div class="tab-pane fade" id="panel-admin" role="tabpanel" aria-labelledby="tab-admin">
                   <div class="form-group row">
                     <div class="col-lg-12">
                       <strong><?= $LANG['db_dbURL'] ?></strong>
@@ -255,7 +258,7 @@ view.database
                 </div>
 
                 <!-- Reset tab -->
-                <div class="tab-pane fade" id="tab_reset" role="tabpanel" aria-labelledby="tab_reset-tab">
+                <div class="tab-pane fade" id="panel-reset" role="tabpanel" aria-labelledby="tab-reset">
                   <div class="alert alert-danger"><?= $LANG['db_reset_danger'] ?></div>
                   <div class="form-group row">
                     <div class="col-lg-8">
@@ -273,7 +276,7 @@ view.database
                 </div>
 
                 <!-- TeamCal Pro Import tab -->
-                <div class="tab-pane fade" id="tab_tcpimp" role="tabpanel" aria-labelledby="tab_tcpimp-tab">
+                <div class="tab-pane fade" id="panel-tcpimp" role="tabpanel" aria-labelledby="tab-tcpimp">
                   <div class="form-group row">
                     <div class="col-lg-12">
                       <strong><?= $LANG['db_tcpimp'] ?></strong>
@@ -290,7 +293,7 @@ view.database
                 </div>
 
                 <!-- Database Information tab -->
-                <div class="tab-pane fade show" id="tab_dbinfo" role="tabpanel" aria-labelledby="tab_dbinfo-tab">
+                <div class="tab-pane fade show" id="panel-dbinfo" role="tabpanel" aria-labelledby="tab-dbinfo">
                   <div class="form-group row">
                     <div class="col-lg-12">
                       <?=$viewData['dbInfo'] ?>

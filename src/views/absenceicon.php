@@ -68,28 +68,31 @@ view.absenceicon
           <div class="card">
 
             <div class="card-header">
-              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                <?php
-                if (array_key_exists('fasIcons', $viewData)) {
-                  $fasIconCount = count($viewData['fasIcons']);
-                } else {
-                  $fasIconCount = 0;
-                }
-                if (array_key_exists('farIcons', $viewData)) {
-                  $farIconCount = count($viewData['farIcons']);
-                } else {
-                  $farIconCount = 0;
-                }
-                if (array_key_exists('fabIcons', $viewData)) {
-                  $fabIconCount = count($viewData['fabIcons']);
-                } else {
-                  $fabIconCount = 0;
-                }
-                ?>
-                <li class="nav-item" role="presentation"><a class="nav-link active" id="solid-tab" href="#solid" data-bs-toggle="tab" role="tab" aria-controls="solid" aria-selected="true"><?= $LANG['absico_tab_solid'] . " (" . $fasIconCount . ")" ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="regular-tab" href="#regular" data-bs-toggle="tab" role="tab" aria-controls="regular" aria-selected="false"><?= $LANG['absico_tab_regular'] . " (" . $farIconCount . ")" ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="brand-tab" href="#brand" data-bs-toggle="tab" role="tab" aria-controls="brand" aria-selected="false"><?= $LANG['absico_tab_brand'] . " (" . $fabIconCount . ")" ?></a></li>
-              </ul>
+
+              <?php
+              if (array_key_exists('fasIcons', $viewData)) {
+                $fasIconCount = count($viewData['fasIcons']);
+              } else {
+                $fasIconCount = 0;
+              }
+              if (array_key_exists('farIcons', $viewData)) {
+                $farIconCount = count($viewData['farIcons']);
+              } else {
+                $farIconCount = 0;
+              }
+              if (array_key_exists('fabIcons', $viewData)) {
+                $fabIconCount = count($viewData['fabIcons']);
+              } else {
+                $fabIconCount = 0;
+              }
+              $pageTabs = [
+                ['id' => 'solid-tab', 'href' => '#solid', 'label' => $LANG['absico_tab_solid'] . " (" . $fasIconCount . ")", 'active' => true],
+                ['id' => 'regular-tab', 'href' => '#regular', 'label' => $LANG['absico_tab_regular'] . " (" . $farIconCount . ")", 'active' => false],
+                ['id' => 'brand-tab', 'href' => '#brand', 'label' => $LANG['absico_tab_brand'] . " (" . $fabIconCount . ")", 'active' => false]
+              ];
+              echo createPageTabs($pageTabs);
+              ?>
+
             </div>
 
             <div class="card-body">

@@ -54,49 +54,52 @@ view.calendaroptions
           <div class="card">
 
             <div class="card-header">
-              <ul class="nav nav-tabs card-header-tabs" id="myTabs" role="tablist">
-                <li class="nav-item" role="presentation"><a class="nav-link active" id="display-tab" href="#display" data-bs-toggle="tab" role="tab" aria-controls="display" aria-selected="true"><?= $LANG['calopt_tab_display'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="filter-tab" href="#filter" data-bs-toggle="tab" role="tab" aria-controls="filter" aria-selected="false"><?= $LANG['calopt_tab_filter'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="options-tab" href="#options" data-bs-toggle="tab" role="tab" aria-controls="options" aria-selected="false"><?= $LANG['calopt_tab_options'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="stats-tab" href="#stats" data-bs-toggle="tab" role="tab" aria-controls="stats" aria-selected="false"><?= $LANG['calopt_tab_stats'] ?></a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" id="summary-tab" href="#summary" data-bs-toggle="tab" role="tab" aria-controls="summary" aria-selected="false"><?= $LANG['calopt_tab_summary'] ?></a></li>
-              </ul>
+              <?php
+              $pageTabs = [
+                ['id' => 'tab-display', 'href' => '#panel-display', 'label' => $LANG['calopt_tab_display'], 'active' => true],
+                ['id' => 'tab-filter', 'href' => '#panel-filter', 'label' => $LANG['calopt_tab_filter'], 'active' => false],
+                ['id' => 'tab-options', 'href' => '#panel-options', 'label' => $LANG['calopt_tab_options'], 'active' => false],
+                ['id' => 'tab-stats', 'href' => '#panel-stats', 'label' => $LANG['calopt_tab_stats'], 'active' => false],
+                ['id' => 'tab-summary', 'href' => '#panel-summary', 'label' => $LANG['calopt_tab_summary'], 'active' => false]
+              ];
+              echo createPageTabs($pageTabs);
+              ?>
             </div>
 
             <div class="card-body">
               <div class="tab-content" id="myTabContent">
 
                 <!-- Tab: General -->
-                <div class="tab-pane fade show active" id="display" role="tabpanel" aria-labelledby="display-tab">
+                <div class="tab-pane fade show active" id="panel-display" role="tabpanel" aria-labelledby="tab-display">
                   <?php foreach ($caloptData['display'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
 
                 <!-- Tab: Filter -->
-                <div class="tab-pane fade" id="filter" role="tabpanel" aria-labelledby="filter-tab">
+                <div class="tab-pane fade" id="panel-filter" role="tabpanel" aria-labelledby="tab-filter">
                   <?php foreach ($caloptData['filter'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
 
                 <!-- Tab: Options -->
-                <div class="tab-pane fade" id="options" role="tabpanel" aria-labelledby="options-tab">
+                <div class="tab-pane fade" id="panel-options" role="tabpanel" aria-labelledby="tab-options">
                   <?php foreach ($caloptData['options'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
 
-                <!-- Tab: Summary -->
-                <div class="tab-pane fade" id="summary" role="tabpanel" aria-labelledby="summary-tab">
-                  <?php foreach ($caloptData['summary'] as $formObject) {
+                <!-- Statistics tab -->
+                <div class="tab-pane fade" id="panel-stats" role="tabpanel" aria-labelledby="tab-stats">
+                  <?php foreach ($caloptData['stats'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
 
-                <!-- Statistics tab -->
-                <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">
-                  <?php foreach ($caloptData['stats'] as $formObject) {
+                <!-- Tab: Summary -->
+                <div class="tab-pane fade" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary">
+                  <?php foreach ($caloptData['summary'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>

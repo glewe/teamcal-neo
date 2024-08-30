@@ -42,8 +42,12 @@ view.bulkedit
           $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
         }
         ?>
-        <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['bulkedit_title'] . ': ' . $viewData['abs']->name . $pageHelp ?></div>
+        <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>">
+          <i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['bulkedit_title'] . ': ' . $viewData['abs']->name . $pageHelp ?>
+        </div>
+
         <div class="card-body">
+
           <div class="card">
             <div class="card-body row">
               <div class="col-lg-4">
@@ -80,16 +84,19 @@ view.bulkedit
           <div class="card">
 
             <div class="card-header">
-              <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation"><a class="nav-link active" id="absences-tab" href="#absences" data-bs-toggle="tab" role="tab" aria-controls="absences" aria-selected="false"><?= $LANG['profile_tab_absences'] ?></a></li>
-              </ul>
+              <?php
+              $pageTabs = [
+                ['id' => 'tab-absences', 'href' => '#panel-absences', 'label' => $LANG['profile_tab_absences'], 'active' => true],
+              ];
+              echo createPageTabs($pageTabs);
+              ?>
             </div>
 
             <div class="card-body">
               <div class="tab-content" id="myTabContent">
 
                 <!-- Absences tab -->
-                <div class="tab-pane fade show active" id="absences" role="tabpanel" aria-labelledby="absences-tab">
+                <div class="tab-pane fade show active" id="panel-absences" role="tabpanel" aria-labelledby="tab-absences">
                   <div class="row">
                     <div class="col-lg-1"><strong><?= $LANG['select'] ?></strong><br>
                       <div class="checkbox"><label><input type="checkbox" name="chk_selectAll" id="chk_selectAll"><?= $LANG['all'] ?></label></div>
