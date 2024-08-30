@@ -18,7 +18,7 @@ if (!defined('VALID_ROOT')) {
 <?php if ($htmlData['theme']['name'] == 'bootstrap-dark') { ?>
 <html lang="<?= $LANG['html_locale'] ?>" data-bs-theme="dark">
 <?php } else { ?>
-<html lang="<?= $LANG['html_locale'] ?>">
+<html lang="<?= $LANG['html_locale'] ?>" data-bs-theme="auto">
 <?php } ?>
 <head>
   <!--
@@ -88,6 +88,9 @@ if (!defined('VALID_ROOT')) {
     <script src="js/jquery/ui/<?= JQUERY_UI_VER ?>/jquery-ui.min.js"></script>
   <link rel="stylesheet" href="js/jquery/ui/<?= JQUERY_UI_VER ?>/themes/<?= $htmlData['jQueryTheme'] ?>/jquery-ui.min.css">
   <?php } ?>
+
+  <!-- Bootstrap Color Mode Switcher -->
+  <script src="js/color-modes.min.js"></script>
 
   <!-- Bootstrap Javascript -->
   <script src="themes/bootstrap/bootstrap.bundle.min.js"></script>
