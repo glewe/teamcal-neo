@@ -71,6 +71,9 @@ if (!defined('VALID_ROOT')) {
     <link rel="stylesheet" href="css/font-<?= $C->read('font') ?>.min.css">
   <?php } ?>
 
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="addons/bootstrap-icons-<?= BOOTSTRAP_ICONS_VER ?>/font/bootstrap-icons.min.css">
+
   <!-- Font Awesome -->
   <?php if ($htmlData['faCDN']) { ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/<?= FONTAWESOME_VER ?>/css/all.min.css">
