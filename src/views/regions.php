@@ -43,14 +43,11 @@ view.regions
 
       <div class="card-body">
 
-        <form class="form-control-horizontal" name="form_create" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
+        <form class="row form-control-horizontal" name="form_create" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
 
-          <div class="card">
-            <div class="card-body">
-              <button type="button" class="btn btn-success float-end" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateRegion"><?= $LANG['btn_create_region'] ?></button>
-            </div>
+          <div class="mb-4">
+            <button type="button" class="btn btn-success float-end" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateRegion"><?= $LANG['btn_create_region'] ?></button>
           </div>
-          <div style="height:20px;"></div>
 
           <!-- Modal: Create region -->
           <?= createModalTop('modalCreateRegion', $LANG['btn_create_region']) ?>
@@ -77,9 +74,9 @@ view.regions
           <div class="card-header">
             <?php
             $pageTabs = [
-              ['id' => 'tab-list', 'href' => '#panel-list', 'label' => $LANG['regions_tab_list'], 'active' => true],
-              ['id' => 'tab-ical', 'href' => '#panel-ical', 'label' => $LANG['regions_tab_ical'], 'active' => false],
-              ['id' => 'tab-copy', 'href' => '#panel-copy', 'label' => $LANG['regions_tab_transfer'], 'active' => false]
+              [ 'id' => 'tab-list', 'href' => '#panel-list', 'label' => $LANG['regions_tab_list'], 'active' => true ],
+              [ 'id' => 'tab-ical', 'href' => '#panel-ical', 'label' => $LANG['regions_tab_ical'], 'active' => false ],
+              [ 'id' => 'tab-copy', 'href' => '#panel-copy', 'label' => $LANG['regions_tab_transfer'], 'active' => false ]
             ];
             echo createPageTabs($pageTabs);
             ?>

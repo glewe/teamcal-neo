@@ -45,14 +45,6 @@ view.declination
         <div class="card-body">
 
           <div class="card">
-            <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
-            </div>
-          </div>
-          <div style="height:20px;"></div>
-
-
-          <div class="card">
 
             <div class="card-header">
               <?php
@@ -198,11 +190,8 @@ view.declination
             </div>
           </div>
 
-          <div style="height:20px;"></div>
-          <div class="card">
-            <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
-            </div>
+          <div class="mt-4 float-end">
+            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
           </div>
 
         </div>

@@ -44,19 +44,11 @@ view.config
         <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['config_title'] ?><?= $pageHelp ?></div>
         <div class="card-body">
 
-          <?php
-          $actionButtons = '
-          <button type="submit" class="btn btn-primary" tabindex="' . $tabindex++ . '" name="btn_confApply">' . $LANG['btn_apply'] . '</button>';
-          echo $actionButtons;
-          ?>
-          <div style="height:20px;"></div>
-
-          <?php $attention = '<i class="fas fa-exclamation-triangle" style="color:#ffb000;margin-left: 8px;"></i>'; ?>
-
           <div class="card">
 
             <div class="card-header">
               <?php
+              $attention = '<i class="fas fa-exclamation-triangle" style="color:#ffb000;margin-left: 8px;"></i>';
               $pageTabs = [
                 [ 'id' => 'tab-general', 'href' => '#panel-general', 'label' => $LANG['general'], 'active' => true ],
                 [ 'id' => 'tab-email', 'href' => '#panel-email', 'label' => $LANG['config_tab_email'], 'active' => false ],
@@ -75,7 +67,6 @@ view.config
 
             <div class="card-body">
               <div class="tab-content" id="myTabContent">
-
 
                 <!-- General tab -->
                 <div class="tab-pane fade show active" id="panel-general" role="tabpanel" aria-labelledby="tab-general">
@@ -239,10 +230,9 @@ view.config
             </div>
           </div>
 
-          <div style="height:20px;"></div>
-          <?php
-          echo $actionButtons;
-          ?>
+          <div class="mt-4 float-end">
+            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_confApply"><?= $LANG['btn_apply'] ?></button>
+          </div>
 
         </div>
       </div>

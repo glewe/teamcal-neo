@@ -50,8 +50,8 @@ view.attachments
             <div class="card-header">
               <?php
               $pageTabs = [
-                ['id' => 'tab-files', 'href' => '#tab_files', 'label' => $LANG['att_tab_files'], 'active' => true],
-                ['id' => 'tab-upload', 'href' => '#tab_upload', 'label' => $LANG['att_tab_upload'], 'active' => false],
+                [ 'id' => 'tab-files', 'href' => '#tab_files', 'label' => $LANG['att_tab_files'], 'active' => true ],
+                [ 'id' => 'tab-upload', 'href' => '#tab_upload', 'label' => $LANG['att_tab_upload'], 'active' => false ],
               ];
               echo createPageTabs($pageTabs);
               ?>
@@ -118,7 +118,7 @@ view.attachments
                     </div>
                   <?php } ?>
 
-                  <div style="clear: both; padding: 16px 0 0 16px;">
+                  <div class="mt-4">
                     <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteFiles"><?= $LANG['btn_delete_selected'] ?></button>
                   </div>
 

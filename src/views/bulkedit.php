@@ -48,45 +48,37 @@ view.bulkedit
 
         <div class="card-body">
 
-          <div class="card">
-            <div class="card-body row">
-              <div class="col-lg-4">
-                <label for="sel_absence"><?= $LANG['absencetype'] ?></label>
-                <select class="form-control" name="sel_absence" id="sel_absence" tabindex="<?= $tabindex++ ?>">
-                  <?php foreach ($viewData['absences'] as $absence) { ?>
-                    <option value="<?= $absence['id'] ?>" <?= ($absence['id'] == $viewData['absid']) ? ' selected=""' : ''; ?>><?= $absence['name'] ?></option>
-                  <?php } ?>
-                </select>
-              </div>
-              <div class="col-lg-4">
-                <label for="sel_group"><?= $LANG['group'] ?></label>
-                <select class="form-control" name="sel_group" id="sel_group" tabindex="<?= $tabindex++ ?>">
-                  <option value="All" <?= ('All' == $viewData['groupid']) ? ' selected=""' : ''; ?>><?= $LANG['all'] ?></option>
-                  <?php foreach ($viewData['groups'] as $group) { ?>
-                    <option value="<?= $group['id'] ?>" <?= ($group['id'] == $viewData['groupid']) ? ' selected=""' : ''; ?>><?= $group['name'] ?></option>
-                  <?php } ?>
-                </select>
-              </div>
-              <div class="col-lg-2">
-                <label>&nbsp;</label><br>
-                <button type="submit" class="btn btn-info" tabindex="<?= $tabindex++ ?>" name="btn_load"><?= $LANG['btn_load'] ?></button>
-                <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
-              </div>
-              <div class="col-lg-2 text-end">
-                <label>&nbsp;</label><br>
-                <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_bulkUpdate"><?= $LANG['btn_update'] ?></button>
-              </div>
+          <div class="row mb-4">
+            <div class="col-lg-4">
+              <label for="sel_absence"><?= $LANG['absencetype'] ?></label>
+              <select class="form-control" name="sel_absence" id="sel_absence" tabindex="<?= $tabindex++ ?>">
+                <?php foreach ($viewData['absences'] as $absence) { ?>
+                  <option value="<?= $absence['id'] ?>" <?= ($absence['id'] == $viewData['absid']) ? ' selected=""' : ''; ?>><?= $absence['name'] ?></option>
+                <?php } ?>
+              </select>
+            </div>
+            <div class="col-lg-4">
+              <label for="sel_group"><?= $LANG['group'] ?></label>
+              <select class="form-control" name="sel_group" id="sel_group" tabindex="<?= $tabindex++ ?>">
+                <option value="All" <?= ('All' == $viewData['groupid']) ? ' selected=""' : ''; ?>><?= $LANG['all'] ?></option>
+                <?php foreach ($viewData['groups'] as $group) { ?>
+                  <option value="<?= $group['id'] ?>" <?= ($group['id'] == $viewData['groupid']) ? ' selected=""' : ''; ?>><?= $group['name'] ?></option>
+                <?php } ?>
+              </select>
+            </div>
+            <div class="col-lg-4">
+              <label>&nbsp;</label><br>
+              <button type="submit" class="btn btn-info" tabindex="<?= $tabindex++ ?>" name="btn_load"><?= $LANG['btn_load'] ?></button>
+              <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
             </div>
           </div>
-          <div style="height:20px;"></div>
-
 
           <div class="card">
 
             <div class="card-header">
               <?php
               $pageTabs = [
-                ['id' => 'tab-absences', 'href' => '#panel-absences', 'label' => $LANG['profile_tab_absences'], 'active' => true],
+                [ 'id' => 'tab-absences', 'href' => '#panel-absences', 'label' => $LANG['profile_tab_absences'], 'active' => true ],
               ];
               echo createPageTabs($pageTabs);
               ?>
@@ -151,13 +143,9 @@ view.bulkedit
             </div>
 
           </div>
-          <div style="height:20px;"></div>
-          <div class="card">
-            <div class="card-body row">
-              <div class="col-lg-12 text-end">
-                <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_bulkUpdate"><?= $LANG['btn_update'] ?></button>
-              </div>
-            </div>
+
+          <div class="mt-4 float-end">
+            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_bulkUpdate"><?= $LANG['btn_update'] ?></button>
           </div>
 
         </div>

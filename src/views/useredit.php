@@ -45,50 +45,36 @@ view.useredit
         <div class="card-body">
 
           <div class="card">
-            <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_profileUpdate"><?= $LANG['btn_update'] ?></button>
-              <?php if (isAllowed("useraccount") && $viewData['profile'] != "admin") { ?>
-                <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalArchiveProfile"><?= $LANG['btn_archive'] ?></button>
-                <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteProfile"><?= $LANG['btn_delete'] ?></button>
-              <?php } ?>
-              <?php if (isAllowed("useraccount")) { ?>
-                <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
-              <?php } ?>
-            </div>
-          </div>
-          <div style="height:20px;"></div>
-
-          <div class="card">
 
             <div class="card-header">
               <?php
               $pageTabs = [
-                ['id' => 'tab-personal', 'href' => '#panel-personal', 'label' => $LANG['profile_tab_personal'], 'active' => true],
-                ['id' => 'tab-contact', 'href' => '#panel-contact', 'label' => $LANG['profile_tab_contact'], 'active' => false],
-                ['id' => 'tab-passwowrd', 'href' => '#panel-password', 'label' => $LANG['profile_tab_password'], 'active' => false]
+                [ 'id' => 'tab-personal', 'href' => '#panel-personal', 'label' => $LANG['profile_tab_personal'], 'active' => true ],
+                [ 'id' => 'tab-contact', 'href' => '#panel-contact', 'label' => $LANG['profile_tab_contact'], 'active' => false ],
+                [ 'id' => 'tab-passwowrd', 'href' => '#panel-password', 'label' => $LANG['profile_tab_password'], 'active' => false ]
               ];
               if (isAllowed("userabsences") && $viewData['profile'] != "admin") {
-                $pageTabs[] = ['id' => 'tab-absences', 'href' => '#panel-absences', 'label' => $LANG['profile_tab_absences'], 'active' => false];
+                $pageTabs[] = [ 'id' => 'tab-absences', 'href' => '#panel-absences', 'label' => $LANG['profile_tab_absences'], 'active' => false ];
               }
               if (isAllowed("useraccount") && $viewData['profile'] != "admin") {
-                $pageTabs[] = ['id' => 'tab-account', 'href' => '#panel-account', 'label' => $LANG['profile_tab_account'], 'active' => false];
+                $pageTabs[] = [ 'id' => 'tab-account', 'href' => '#panel-account', 'label' => $LANG['profile_tab_account'], 'active' => false ];
               }
               if (isAllowed("useravatar")) {
-                $pageTabs[] = ['id' => 'tab-avatar', 'href' => '#panel-avatar', 'label' => $LANG['profile_tab_avatar'], 'active' => false];
+                $pageTabs[] = [ 'id' => 'tab-avatar', 'href' => '#panel-avatar', 'label' => $LANG['profile_tab_avatar'], 'active' => false ];
               }
               if (isAllowed("usercustom") && $viewData['profile'] != "admin") {
-                $pageTabs[] = ['id' => 'tab-custom', 'href' => '#panel-custom', 'label' => $LANG['profile_tab_custom'], 'active' => false];
+                $pageTabs[] = [ 'id' => 'tab-custom', 'href' => '#panel-custom', 'label' => $LANG['profile_tab_custom'], 'active' => false ];
               }
               if (isAllowed("usergroups") && $viewData['profile'] != "admin") {
-                $pageTabs[] = ['id' => 'tab-groups', 'href' => '#panel-groups', 'label' => $LANG['profile_tab_groups'], 'active' => false];
+                $pageTabs[] = [ 'id' => 'tab-groups', 'href' => '#panel-groups', 'label' => $LANG['profile_tab_groups'], 'active' => false ];
               }
               if (isAllowed("usernotifications")) {
-                $pageTabs[] = ['id' => 'tab-notifications', 'href' => '#panel-notifications', 'label' => $LANG['profile_tab_notifications'], 'active' => false];
+                $pageTabs[] = [ 'id' => 'tab-notifications', 'href' => '#panel-notifications', 'label' => $LANG['profile_tab_notifications'], 'active' => false ];
               }
               if (isAllowed("useroptions")) {
-                $pageTabs[] = ['id' => 'tab-options', 'href' => '#panel-options', 'label' => $LANG['options'], 'active' => false];
+                $pageTabs[] = [ 'id' => 'tab-options', 'href' => '#panel-options', 'label' => $LANG['options'], 'active' => false ];
               }
-              $pageTabs[] = ['id' => 'tab-tfa', 'href' => '#panel-tfa', 'label' => $LANG['profile_tab_tfa'], 'active' => false];
+              $pageTabs[] = [ 'id' => 'tab-tfa', 'href' => '#panel-tfa', 'label' => $LANG['profile_tab_tfa'], 'active' => false ];
               echo createPageTabs($pageTabs);
               ?>
             </div>
@@ -311,14 +297,15 @@ view.useredit
             </div>
           </div>
 
-          <div style="height:20px;"></div>
-          <div class="card">
-            <div class="card-body">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_profileUpdate"><?= $LANG['btn_update'] ?></button>
-              <?php if (isAllowed("manageUsers")) { ?>
-                <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
-              <?php } ?>
-            </div>
+          <div class="mt-4 text-end">
+            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_profileUpdate"><?= $LANG['btn_update'] ?></button>
+            <?php if (isAllowed("useraccount") && $viewData['profile'] != "admin") { ?>
+              <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalArchiveProfile"><?= $LANG['btn_archive'] ?></button>
+              <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteProfile"><?= $LANG['btn_delete'] ?></button>
+            <?php } ?>
+            <?php if (isAllowed("useraccount")) { ?>
+              <a href="index.php?action=users" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
+            <?php } ?>
           </div>
 
           <!-- Modal: Archive profile -->

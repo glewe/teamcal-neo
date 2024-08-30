@@ -45,15 +45,6 @@ view.groupedit
         <div class="card-body">
 
           <div class="card">
-            <div class="card-body">
-              <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_groupUpdate"><?= $LANG['btn_update'] ?></button>
-              <a href="index.php?action=groups" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_group_list'] ?></a>
-            </div>
-          </div>
-          <div style="height:20px;"></div>
-
-          <div class="card">
 
             <div class="card-header">
               <?php
@@ -97,13 +88,10 @@ view.groupedit
             </div>
           </div>
 
-          <div style="height:20px;"></div>
-          <div class="card">
-            <div class="card-body">
-              <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_groupUpdate"><?= $LANG['btn_update'] ?></button>
-              <a href="index.php?action=groups" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_group_list'] ?></a>
-            </div>
+          <div class="mt-4 float-end">
+            <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">
+            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_groupUpdate"><?= $LANG['btn_update'] ?></button>
+            <a href="index.php?action=groups" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_group_list'] ?></a>
           </div>
 
         </div>
