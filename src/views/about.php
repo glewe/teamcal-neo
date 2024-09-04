@@ -76,11 +76,26 @@ view.about
         </div>
       </div>
     </div>
+    <div style="height:20px;"></div>
 
-    <div style="height:20px;"></div>
-    <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#releaseinfo"><?= $LANG['about_view_releaseinfo'] ?></button>
-    <div style="height:20px;"></div>
-    <div class="collapse" id="releaseinfo"><?php include_once 'doc/releasenotes.html'; ?></div>
+    <!--begin::Release Information-->
+    <div class="card my-3">
+      <div class="card-header cursor-pointer">
+        <div data-bs-toggle="collapse" href="#releaseInformation" role="button" aria-expanded="false" aria-controls="releaseInformation">
+          <div class="row">
+            <div class="col-lg-12">
+              <i class="bi-exclamation-circle-fill me-3"></i><?= $LANG['about_view_releaseinfo'] ?>...
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="collapse" id="releaseInformation">
+        <div class="card-body">
+          <?php require_once 'doc/releaseinfo.php'; ?>
+        </div>
+      </div>
+    </div>
+    <!--end::Release Information-->
 
   </div>
 
