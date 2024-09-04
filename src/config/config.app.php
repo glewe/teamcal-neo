@@ -62,14 +62,14 @@ define('SECUREIMAGE_VER', "3.6.4");
 //
 // Chart.js
 // Simple yet flexible JavaScript charting for designers & developers
-// http://www.chartjs.org/
+// https://www.chartjs.org/
 //
 define('CHARTJS_VER', "4.4.3");
 
 //
 // CKEditor
 // The best web text editor for everyone
-// http://ckeditor.com/
+// https://ckeditor.com/
 //
 define('CKEDITOR', true);
 define('CKEDITOR_VER', "4.20.0");
@@ -83,34 +83,18 @@ define('COOKIECONSENT_VER', "3.1.1");
 //
 // Magnific Popup
 // Magnific Popup is a responsive lightbox & dialog script
-// http://dimsemenov.com/plugins/magnific-popup/
+// https://dimsemenov.com/plugins/magnific-popup/
 //
 define('MAGNIFICPOPUP', true);
 define('MAGNIFICPOPUP_VER', "1.1.0");
 
 //
-// Select2
-// The jQuery replacement for select boxes
-// https://select2.github.io/
-//
-define('SELECT2', false);
-define('SELECT2_VER', "4.0.3");
-
-//
 // Syntaxhighlighter
 // SyntaxHighlighter is a fully functional self-contained code syntax highlighter developed in JavaScript.
-// http://alexgorbatchev.com/SyntaxHighlighter/
+// https://github.com/syntaxhighlighter
 //
 define('SYNTAXHIGHLIGHTER', false);
 define('SYNTAXHIGHLIGHTER_VER', "3.0.83");
-
-//
-// X-Editable
-// In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery
-// https://vitalets.github.io/x-editable/
-//
-define('XEDITABLE', false);
-define('XEDITABLE_VER', "1.5.1");
 
 //=============================================================================
 /**
@@ -172,15 +156,15 @@ define('LDAP_TLS', 0);                                       // To avoid "Undefi
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "3.9.3");
-define('APP_DATE', "2024-08-28");
+define('APP_VER', "4.0.0-dev");
+define('APP_DATE', "2024-09-xx");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "https://www.lewe.com");
 define('APP_EMAIL', "george@lewe.com");
 define('APP_LICENSE', "https://lewe.gitbook.io/teamcal-neo/readme/teamcal-neo-license/");
 define('APP_COPYRIGHT', "(c) " . APP_YEAR . " by " . APP_AUTHOR . " (" . APP_URL . ")");
-define('APP_POWERED', "Powered by " . APP_NAME . " " . APP_VER . " &copy; " . APP_YEAR . " by <a href=\"http://www.lewe.com\" class=\"copyright\" target=\"_blank\">" . APP_AUTHOR . "</a>");
+define('APP_POWERED', "Powered by " . APP_NAME . " " . APP_VER . " &copy; " . APP_YEAR . " by <a href=\"https://www.lewe.com\" class=\"copyright\" target=\"_blank\">" . APP_AUTHOR . "</a>");
 define('APP_LIC_KEY', "5e091d9b9cbf36.90197318");
 define('APP_LIC_SRV', "https://lic.lewe.com");
 define('APP_LIC_ITM', "TeamCal Neo Pro");
