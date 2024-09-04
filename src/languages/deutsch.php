@@ -152,7 +152,11 @@ $LANG['about_majorUpdateAvailable'] = 'Major Update verf&uuml;gbar...';
 $LANG['about_minorUpdateAvailable'] = 'Minor oder Patch Update verf&uuml;gbar...';
 $LANG['about_misc'] = 'viele Nutzer f&uuml;r Tests und Vorschl&auml;ge...';
 $LANG['about_newestVersion'] = 'Du hast die aktuellste Version';
-$LANG['about_view_releaseinfo'] = 'Releaseinfo &raquo;';
+$LANG['about_view_releaseinfo'] = 'Releaseinformation';
+$LANG['about_bugfixes'] = 'Fehlerbehebungen';
+$LANG['about_features_new'] = 'Neue Funktionen';
+$LANG['about_features_retired'] = 'Entfernte Funktionen';
+$LANG['about_improvements'] = 'Verbesserungen';
 
 //
 // Alerts
