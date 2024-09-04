@@ -1,0 +1,7 @@
+**/*.html
+**/*.md
+**/*.min.css
+**/_dist/
+**/_files/
+**/plugins/
+**/vendor/

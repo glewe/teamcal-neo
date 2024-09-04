@@ -20,7 +20,7 @@
     "source": "https://github.com/codeigniter4/CodeIgniter4"
   },
   "require": {
-    "php": "^7.4 || ^8.0",
+    "php": "^8.1 || ^8.2",
     "ext-ctype": "*",
     "ext-curl": "*",
     "ext-intl": "*",
@@ -63,7 +63,7 @@
   "scripts": {
     "test": "phpunit",
     "lint:css": [
-      "stylelint \"src/css/teamcalneo.css\""
+      "stylelint --quiet-deprecation-warnings --fix \"src/css/teamcalneo.css\""
     ],
     "build": [
       "composer run lint:css",

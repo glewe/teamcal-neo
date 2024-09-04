@@ -30,7 +30,7 @@ view.maintenance
       <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['mtce_title'] . $pageHelp ?></div>
       <div class="card-body">
         <div class="row">
-          <div class="col-lg-3"><img src="images/maintenance.gif" alt="" class="img_floatleft">
+          <div class="col-lg-3"><img src="images/maintenance.gif" alt="" class="img-floatleft">
           </div>
           <div class="col-lg-9">
             <h4><?= $LANG['mtce_title'] ?></h4>

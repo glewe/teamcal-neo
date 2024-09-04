@@ -126,7 +126,7 @@ foreach ($mobilecols as $key => $cols) {
                 // Multiple groups, we will not show the guests
                 //
                 if ($UG->isMemberOrManagerOfGroup($usr['username'], $grp['id'])) {
-                  if ($repeatHeaderCount || $rowcount > $repeatHeaderCount) {
+                  if ($repeatHeaderCount || (isset($rowcount) && $rowcount > $repeatHeaderCount)) {
                     require "calendarviewmonthheader.php";
                     $rowcount = 1;
                   }

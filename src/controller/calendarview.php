@@ -318,12 +318,11 @@ $viewData['months'] = array(
 //
 // Figure out how many months to display
 //
-if ($showMonths = $UO->read($UL->username, 'showMonths')) {
-  // Nothing to do. We have the profile value now.
-} elseif ($showMonths = $C->read('showMonths')) {
-  // Nothing to do. We have the global value now.
+if ($UO->read($UL->username, 'showMonths')) {
+  $showMonths = $UO->read($UL->username, 'showMonths');
+} elseif ($C->read('showMonths')) {
+  $showMonths = $C->read('showMonths');
 } else {
-  // Profile and global value missing. Set to default 1 and save as global.
   $showMonths = 1;
   $C->save('showMonths', 1);
 }

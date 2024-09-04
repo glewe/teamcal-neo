@@ -12,14 +12,21 @@
 /**
  * Bootstrap overwrites and additions
  */
+:root {
+  --dark-dark: #0d1620;
+  --dark-medium-dark: #141c23;
+  --dark-medium-light: #414950;
+  --dark-light: #5d666f;
+}
+
 body {
-  font-family: "Lato", "Montserrat", "Open Sans", "Roboto", Helvetica, Arial, sans-serif;
   padding-top: 50px;
+  font-family: Lato, Montserrat, "Open Sans", Roboto, Helvetica, Arial, sans-serif;
 }
 
 div.divider {
+  padding: 2px 0 0 0;
   clear: both;
-  padding: 2px 0px 0px 0px;
 }
 
 div.page-menu {
@@ -51,54 +58,42 @@ div.checkbox input {
   font-weight: bold;
 }
 
-.pull-left {
-  float: left !important;
-}
-
-.pull-right {
-  float: right !important;
-}
-
 #top-link-block {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  z-index: 1000;
   display: inline-block;
-  background-color: #FFb000;
   width: 50px;
   height: 50px;
   text-align: center;
-  border-radius: 4px;
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  transition: background-color .3s, opacity .5s, visibility .5s;
-  opacity: 0;
   visibility: hidden;
-  z-index: 1000;
+  background-color: #ffb000;
+  border-radius: 4px;
+  opacity: 0;
+  transition: background-color .3s, opacity .5s, visibility .5s;
 }
 
 #top-link-block:hover {
   cursor: pointer;
-  background-color: #333;
+  background-color: #333333;
 }
 
 #top-link-block:active {
-  background-color: #555;
+  background-color: #555555;
 }
 
 #top-link-block.show {
-  opacity: 1;
   visibility: visible;
+  opacity: 1;
 }
 
 .boxshadow-1 {
-  -webkit-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.5);
-  box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .5);
 }
 
 .boxshadow-2 {
-  -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
-  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, .5);
 }
 
 .btn {
@@ -106,19 +101,19 @@ div.checkbox input {
 }
 
 .content {
-  padding: 50px 0px 0px 0px;
+  padding: 50px 0 0 0;
 }
 
 .jumbotron {
   padding-top: 12px;
   padding-bottom: 16px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .banner {
-  font-size: 200%;
-  font-weight: 400;
   padding: 10px 0 0 0;
+  font-size: 200%;
+  font-weight: normal;
 }
 
 .caret {
@@ -126,39 +121,37 @@ div.checkbox input {
 }
 
 .footer {
-  color: #999999;
-  background-color: #212121;
   padding: 20px 15px 900px 15px;
   margin-top: 60px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
+  color: #999999;
+  background-color: #212529;
 }
 
 .footer a {
   color: #999999;
 }
 
-.img_floatleft {
+.img-floatleft {
   float: left;
   margin: 0 24px 5px 0;
 }
 
-.img_floatright {
+.img-floatright {
   float: right;
   margin: 0 0 5px 10px;
 }
 
 .img-border {
-  -moz-box-shadow: 0 0 5px #ccc;
-  -webkit-box-shadow: 0 0 5px #ccc;
-  box-shadow: 0 0 5px #ccc;
-  border: solid #fff 5px;
   left: -5px;
-  background: #fff;
+  background: #ffffff;
+  border: solid #ffffff 5px;
+  box-shadow: 0 0 5px #cccccc;
 }
 
 .badge-header-right {
-  margin-left: 8px;
   margin-top: 2px;
+  margin-left: 8px;
 }
 
 .modal-header {
@@ -167,15 +160,12 @@ div.checkbox input {
   padding-right: 15px;
   padding-bottom: 15px;
   padding-left: 15px;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
+  background-color: var(--bs-secondary-bg);
   border-bottom-color: #e5e5e5;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
-  background-image: linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#ffe8e8e8', GradientType=0);
 }
 
 .menu-icon {
@@ -184,8 +174,8 @@ div.checkbox input {
 }
 
 .panel-heading {
-  font-weight: bold;
   font-size: 110%;
+  font-weight: bold;
 }
 
 .small {
@@ -271,9 +261,7 @@ div.checkbox input {
  * Month table
  */
 table.month {
-  -webkit-box-shadow: 3px 3px 4px 0px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 3px 3px 4px 0px rgba(0, 0, 0, 0.15);
-  box-shadow: 3px 3px 4px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, .15);
 }
 
 table.month th,
@@ -290,8 +278,6 @@ table.month td.m-name-guest {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  background-color: #ffffff;
-  color: #333333;
 }
 
 table.month td.m-name-guest {
@@ -300,7 +286,7 @@ table.month td.m-name-guest {
 
 table.month td.m-name a,
 table.month td.m-name-guest a {
-  color: #333333;
+  color: var(--bs-body-color);
 }
 
 table.month th.m-label,
@@ -309,10 +295,10 @@ table.month td.m-label {
 }
 
 table.month th.m-monthname {
-  background-color: #ffb300;
-  color: #fefefe;
   font-weight: bold;
+  color: #000000;
   white-space: nowrap;
+  background-color: var(--bs-warning);
 }
 
 table.month th.m-daynumber {
@@ -320,24 +306,19 @@ table.month th.m-daynumber {
   background-color: #a5a5a5;
 }
 
-table.month th.m-groupname {
-  color: #333333;
-  background-color: #f2f2f2;
-  text-align: left;
-}
-
-table.month th.m-weekday {
-  color: #333333;
-  background-color: #f2f2f2;
-}
-
+table.month th.m-groupname,
+table.month th.m-weekday,
 table.month th.m-weeknumber {
   color: #333333;
   background-color: #f2f2f2;
 }
 
+table.month th.m-groupname {
+  text-align: left;
+}
+
 table.month th.first {
-  border-right: 0px;
+  border-right: 0;
 }
 
 table.month th.inner {
@@ -357,20 +338,54 @@ table.month th.m-weekday,
 table.month th.m-weeknumber {
   min-width: 20px;
   max-width: 28px !important;
-  padding-left: 4px;
   padding-right: 4px;
+  padding-left: 4px;
   text-align: center;
 }
 
 table.month td.m-day {
+  padding: 0 !important;
   font-size: 120%;
-  padding: 0px !important;
   background-color: #ffffff;
 }
 
 table.month td.m-summary {
   font-size: 80%;
   vertical-align: middle;
+}
+
+/*
+ * Dark theme calendar colors
+ */
+:root[data-bs-theme="dark"] {
+  .footer,
+  .navbar-dark,
+  .navbar-dark .dropdown-menu {
+    background-color: var(--dark-medium-dark) !important;
+  }
+
+  table.month th.m-daynumber {
+    color: var(--bs-body-color);
+    background-color: var(--dark-medium-light);
+  }
+
+  table.month th.m-groupname,
+  table.month th.m-weekday,
+  table.month th.m-weeknumber {
+    color: var(--bs-body-color);
+    background-color: var(--bs-secondary);
+  }
+
+  table.month td.m-label,
+  table.month th.m-label,
+  table.month td.m-weekday {
+    background-color: var(--dark-medium-light);
+  }
+
+  table.month td.m-name,
+  table.month td.m-name-guest {
+    background-color: var(--dark-medium-light);
+  }
 }
 
 @media (min-width: 1400px) {
@@ -387,6 +402,7 @@ table.month td.m-summary {
   #fullscreen {
     display: block;
   }
+
   #mobile {
     display: none;
   }
@@ -400,9 +416,11 @@ table.month td.m-summary {
   table.month td.m-name {
     max-width: 130px;
   }
+
   #fullscreen {
     display: none;
   }
+
   #mobile {
     display: block;
   }
@@ -422,9 +440,7 @@ table.month td.m-summary {
  * Year table
  */
 table.year {
-  -webkit-box-shadow: 3px 3px 4px 0px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 3px 3px 4px 0px rgba(0, 0, 0, 0.15);
-  box-shadow: 3px 3px 4px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, .15);
 }
 
 table.year th.y-year,
@@ -437,10 +453,10 @@ table.year td.y-name {
 }
 
 table.year th.y-year {
-  background-color: #ffb300;
-  color: #fefefe;
   font-weight: bold;
+  color: #fefefe;
   white-space: nowrap;
+  background-color: #ffb300;
 }
 
 table.year td.y-grayday {
@@ -465,23 +481,23 @@ table.year th.y-weekday {
 }
 
 table.year div.daynumber {
-  color: #303030;
-  font-size: 75%;
   margin-top: -8px;
+  font-size: 75%;
+  color: #303030;
 }
 
 table.year div.absence {
-  margin-left: -8px;
   margin-right: -8px;
+  margin-left: -8px;
 }
 
 table.year div.weeknumber {
-  color: #aeaeae;
+  margin-bottom: -8px;
+  margin-left: -4px;
   font-size: 75%;
   font-style: italic;
   font-weight: normal;
-  margin-left: -4px;
-  margin-bottom: -8px;
+  color: #aeaeae;
   text-align: left;
 }
 
@@ -495,257 +511,257 @@ table.year div.weeknumber {
  * Social icons in footer
  */
 .social-icon a {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin-right: 0;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  line-height: 40px;
+  color: #ffffff;
+  text-align: center;
   background-color: #404040;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
-  color: #ffffff;
-  display: inline-block;
-  height: 40px;
-  line-height: 40px;
-  margin-left: 5px;
-  margin-right: 0px;
-  margin-bottom: 5px;
-  text-align: center;
-  transition-property: background-color;
-  transition-duration: 0.5s;
-  transition-timing-function: ease;
   transition-delay: 0s;
-  width: 40px;
+  transition-timing-function: ease;
+  transition-duration: .5s;
+  transition-property: background-color;
 }
 
 .social-icon a[href*="/feed"]:hover {
   background-color: #f39c12 !important;
 }
 
-.social-icon a[href*="/feed"] .fab:before {
-  content: "\f09e"
+.social-icon a[href*="/feed"] .fab::before {
+  content: "\f09e";
 }
 
 .social-icon a[href*=".rss"]:hover {
   background-color: #f39c12 !important;
 }
 
-.social-icon a[href*=".rss"] .fab:before {
-  content: "\f09e"
+.social-icon a[href*=".rss"] .fab::before {
+  content: "\f09e";
 }
 
 .social-icon a[href*="amazon."]:hover {
   background-color: #ff9900 !important;
 }
 
-.social-icon a[href*="amazon."] .fab:before {
-  content: "\f270"
+.social-icon a[href*="amazon."] .fab::before {
+  content: "\f270";
 }
 
 .social-icon a[href*="behance.net"]:hover {
   background-color: #1769ff !important;
 }
 
-.social-icon a[href*="behance.net"] .fab:before {
-  content: "\f1b4"
+.social-icon a[href*="behance.net"] .fab::before {
+  content: "\f1b4";
 }
 
 .social-icon a[href*="bitbucket.org"]:hover {
   background-color: #205081 !important;
 }
 
-.social-icon a[href*="bitbucket.org"] .fab:before {
-  content: "\f171"
+.social-icon a[href*="bitbucket.org"] .fab::before {
+  content: "\f171";
 }
 
 .social-icon a[href*="deviantart.com"]:hover {
   background-color: #05cc47 !important;
 }
 
-.social-icon a[href*="deviantart.com"] .fab:before {
-  content: "\f1bd"
+.social-icon a[href*="deviantart.com"] .fab::before {
+  content: "\f1bd";
 }
 
 .social-icon a[href*="dribbble.com"]:hover {
   background-color: #ea4c89 !important;
 }
 
-.social-icon a[href*="dribbble.com"] .fab:before {
-  content: "\f17d"
+.social-icon a[href*="dribbble.com"] .fab::before {
+  content: "\f17d";
 }
 
 .social-icon a[href*="dropbox."]:hover {
   background-color: #007ee5 !important;
 }
 
-.social-icon a[href*="dropbox."] .fab:before {
-  content: "\f16b"
+.social-icon a[href*="dropbox."] .fab::before {
+  content: "\f16b";
 }
 
 .social-icon a[href*="facebook.com"]:hover {
   background-color: #4265b9 !important;
 }
 
-.social-icon a[href*="facebook.com"] .fab:before {
-  content: "\f09a"
+.social-icon a[href*="facebook.com"] .fab::before {
+  content: "\f09a";
 }
 
 .social-icon a[href*="flickr.com"]:hover {
   background-color: #ff0084 !important;
 }
 
-.social-icon a[href*="flickr.com"] .fab:before {
-  content: "\f16e"
+.social-icon a[href*="flickr.com"] .fab::before {
+  content: "\f16e";
 }
 
 .social-icon a[href*="foursquare.com"]:hover {
-  background-color: #2398C9 !important;
+  background-color: #2398c9 !important;
 }
 
-.social-icon a[href*="foursquare.com"] .fab:before {
-  content: "\f180"
+.social-icon a[href*="foursquare.com"] .fab::before {
+  content: "\f180";
 }
 
 .social-icon a[href*="github.com"]:hover {
-  background-color: #4183C4 !important;
+  background-color: #4183c4 !important;
 }
 
-.social-icon a[href*="github.com"] .fab:before {
-  content: "\f09b"
+.social-icon a[href*="github.com"] .fab::before {
+  content: "\f09b";
 }
 
 .social-icon a[href*="instagram.com"]:hover {
-  background-color: #F95B60 !important;
+  background-color: #f95b60 !important;
 }
 
-.social-icon a[href*="instagram.com"] .fa:before {
-  content: "\f16d"
+.social-icon a[href*="instagram.com"] .fa::before {
+  content: "\f16d";
 }
 
 .social-icon a[href*="linkedin.com"]:hover {
   background-color: #005987 !important;
 }
 
-.social-icon a[href*="linkedin.com"] .fab:before {
-  content: "\f0e1"
+.social-icon a[href*="linkedin.com"] .fab::before {
+  content: "\f0e1";
 }
 
 .social-icon a[href*="mailto"]:hover {
-  background-color: #DA4453 !important;
+  background-color: #da4453 !important;
 }
 
-.social-icon a[href*="mailto"] .fab:before {
-  content: "\f003"
+.social-icon a[href*="mailto"] .fab::before {
+  content: "\f003";
 }
 
 .social-icon a[href*="paypal."]:hover {
   background-color: #003087 !important;
 }
 
-.social-icon a[href*="paypal."] .fab:before {
-  content: "\f1ed"
+.social-icon a[href*="paypal."] .fab::before {
+  content: "\f1ed";
 }
 
 .social-icon a[href*="pinterest.com"]:hover {
   background-color: #c31e26 !important;
 }
 
-.social-icon a[href*="pinterest.com"] .fab:before {
-  content: "\f0d2"
+.social-icon a[href*="pinterest.com"] .fab::before {
+  content: "\f0d2";
 }
 
 .social-icon a[href*="plus.google.com"]:hover {
   background-color: #dd4b39 !important;
 }
 
-.social-icon a[href*="plus.google.com"] .fab:before {
-  content: "\f0d5"
+.social-icon a[href*="plus.google.com"] .fab::before {
+  content: "\f0d5";
 }
 
 .social-icon a[href*="skype.com"]:hover {
   background-color: #0bbff2 !important;
 }
 
-.social-icon a[href*="skype.com"] .fab:before {
-  content: "\f17e"
+.social-icon a[href*="skype.com"] .fab::before {
+  content: "\f17e";
 }
 
 .social-icon a[href*="soundcloud.com"]:hover {
-  background-color: #F50 !important;
+  background-color: #ff5500 !important;
 }
 
-.social-icon a[href*="soundcloud.com"] .fab:before {
-  content: "\f1be"
+.social-icon a[href*="soundcloud.com"] .fab::before {
+  content: "\f1be";
 }
 
 .social-icon a[href*="spotify.com"]:hover {
   background-color: #81b71a !important;
 }
 
-.social-icon a[href*="spotify.com"] .fab:before {
-  content: "\f1bc"
+.social-icon a[href*="spotify.com"] .fab::before {
+  content: "\f1bc";
 }
 
 .social-icon a[href*="tumblr.com"]:hover {
   background-color: #35506b !important;
 }
 
-.social-icon a[href*="tumblr.com"] .fab:before {
-  content: "\f173"
+.social-icon a[href*="tumblr.com"] .fab::before {
+  content: "\f173";
 }
 
 .social-icon a[href*="twitter.com"]:hover {
-  background-color: #55ACEE !important;
+  background-color: #55acee !important;
 }
 
-.social-icon a[href*="twitter.com"] .fab:before {
-  content: "\f099"
+.social-icon a[href*="twitter.com"] .fab::before {
+  content: "\f099";
 }
 
 .social-icon a[href*="vimeo.com"]:hover {
   background-color: #1bb6ec !important;
 }
 
-.social-icon a[href*="vimeo.com"] .fab:before {
-  content: "\f194"
+.social-icon a[href*="vimeo.com"] .fab::before {
+  content: "\f194";
 }
 
 .social-icon a[href*="xing.com"]:hover {
   background-color: #026466 !important;
 }
 
-.social-icon a[href*="xing.com"] .fab:before {
-  content: "\f168"
+.social-icon a[href*="xing.com"] .fab::before {
+  content: "\f168";
 }
 
 .social-icon a[href*="youtube.com"]:hover {
   background-color: #df3333 !important;
 }
 
-.social-icon a[href*="youtube.com"] .fab:before {
-  content: "\f167"
+.social-icon a[href*="youtube.com"] .fab::before {
+  content: "\f167";
 }
 
-.divTable {
+.div-table {
   display: table;
   width: 275px;
 }
 
-.divTableRow {
+.div-table-row {
   display: table-row;
 }
 
-.divTableHeading {
+.div-table-heading {
   display: table-header-group;
 }
 
-.divTableBody {
+.div-table-body {
   display: table-row-group;
 }
 
-.divTableFoot {
+.div-table-foot {
   display: table-footer-group;
 }
 
-.divTableCell,
-.divTableHead {
+.div-table-cell,
+.div-table-head {
   display: table-cell;
 }
 
