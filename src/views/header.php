@@ -15,11 +15,7 @@ if (!defined('VALID_ROOT')) {
 ?>
 <!DOCTYPE html>
 <!-- Theme CSS -->
-<?php if ($htmlData['theme']['name'] == 'bootstrap-dark') { ?>
-<html lang="<?= $LANG['html_locale'] ?>" data-bs-theme="dark">
-<?php } else { ?>
 <html lang="<?= $LANG['html_locale'] ?>" data-bs-theme="auto">
-<?php } ?>
 <head>
   <!--
   ===============================================================================
@@ -60,11 +56,7 @@ if (!defined('VALID_ROOT')) {
   <?php } ?>
 
   <!-- Theme CSS -->
-  <?php if ($htmlData['theme']['name'] == 'bootstrap' || $htmlData['theme']['name'] == 'bootstrap-dark') { ?>
-    <link rel="stylesheet" href="themes/bootstrap/bootstrap.min.css">
-  <?php } else { ?>
-    <link rel="stylesheet" href="themes/<?= $htmlData['theme']['name'] ?>/bootstrap.min.css">
-  <?php } ?>
+  <link rel="stylesheet" href="themes/bootstrap/bootstrap.min.css">
 
   <?php if ($C->read('font') && $C->read('font') != 'default') { ?>
     <!-- Fonts -->

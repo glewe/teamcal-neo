@@ -384,8 +384,6 @@ $LANG['config_adminApproval'] = 'Require Admin Approval';
 $LANG['config_adminApproval_comment'] = 'The administrator will receive an e-mail about each user self-registration. He manually needs to confirm the account.';
 $LANG['config_allowRegistration'] = 'Allow User Self-Registration';
 $LANG['config_allowRegistration_comment'] = 'Allow users to self-register their account. A menu entry will be available in the ' . $appTitle . ' menu.';
-$LANG['config_allowUserTheme'] = 'Allow User Theme';
-$LANG['config_allowUserTheme_comment'] = 'Check whether you want each user to be able to select his individual theme.';
 $LANG['config_appDescription'] = 'HTML Description';
 $LANG['config_appDescription_comment'] = 'Enter an application description here. It will be used in the HTML header for search engines.';
 $LANG['config_appKeywords'] = 'HTML Keywords';
@@ -471,6 +469,8 @@ $LANG['config_jqtheme'] = 'jQuery UI Theme';
 $LANG['config_jqtheme_comment'] = $appTitle . ' uses jQuery UI, a popular collection of Javascript utilities. jQuery UI offers themes as well used for the display
  of the tabbed dialogs and other features. The default theme is "smoothness" which is a neutral gray shaded theme. Try more from the list, some of them are
  quite colorful. This is a global setting, users cannot choose an individual jQuery UI theme.';
+$LANG['config_jqthemeSample'] = 'jQuery UI Theme Sample';
+$LANG['config_jqthemeSample_comment'] = 'Try this date picker to see the currently selected jQiery theme. The date you pick here is not saved.';
 $LANG['config_licActivate'] = "Activate License";
 $LANG['config_licActivate_comment'] = "Your license is not active yet. Please activate it.";
 $LANG['config_licExpiryWarning'] = "License Expiry Warning";
@@ -505,20 +505,6 @@ $LANG['config_mailSMTPpassword'] = 'SMTP Password';
 $LANG['config_mailSMTPpassword_comment'] = 'Specify the SMTP password.';
 $LANG['config_mailSMTPSSL'] = 'SMTP TLS/SSL protocol';
 $LANG['config_mailSMTPSSL_comment'] = 'Use the TLS/SSL protocol for the SMTP connection';
-$LANG['config_menuBarBg'] = 'Menu Bar Background';
-$LANG['config_menuBarBg_comment'] = 'Select one of the Bootstrap colors as the background color for the menubar.';
-$LANG['config_menuBarBg_danger'] = '<i class="fas fa-square text-danger"></i>';
-$LANG['config_menuBarBg_dark'] = '<i class="fas fa-square text-dark"></i>';
-$LANG['config_menuBarBg_info'] = '<i class="fas fa-square text-info"></i>';
-$LANG['config_menuBarBg_light'] = '<i class="fas fa-square text-light"></i>';
-$LANG['config_menuBarBg_primary'] = '<i class="fas fa-square text-primary"></i>';
-$LANG['config_menuBarBg_secondary'] = '<i class="fas fa-square text-secondary"></i>';
-$LANG['config_menuBarBg_success'] = '<i class="fas fa-square text-success"></i>';
-$LANG['config_menuBarBg_transparent'] = '<i class="fas fa-square text-transparent"></i>';
-$LANG['config_menuBarBg_warning'] = '<i class="fas fa-square text-warning"></i>';
-$LANG['config_menuBarBg_white'] = '<i class="fas fa-square text-white"></i>';
-$LANG['config_menuBarDark'] = 'Menu Bar Dark';
-$LANG['config_menuBarDark_comment'] = 'With this switch you can set a light font color for the menu bar. This is more readable for darker backgrounds.';
 $LANG['config_noCaching'] = 'No Caching';
 $LANG['config_noCaching_comment'] = 'In some server-client environments you might experience unwanted caching effects. With this option activated, TeamCal Neo sends No-caching instructions to the web server that might help.';
 $LANG['config_noIndex'] = 'No Search Engine Indexing';
@@ -540,10 +526,11 @@ $LANG['config_showAlerts_comment'] = 'Select what type of alerts will be shown.'
 $LANG['config_showAlerts_all'] = 'All (including Success messages)';
 $LANG['config_showAlerts_warnings'] = 'Warnings and Errors only';
 $LANG['config_showAlerts_none'] = 'None';
-$LANG['config_theme'] = 'Default Theme';
-$LANG['config_theme_comment'] = 'Select a theme to change the looks of the application. You can create your own skin by making a renamed
-      copy of any of the other theme folders in the \'themes\' directory and adjust the styles to your liking. Your new directory will
-      automatically be listed here. Make sure you do not copy the \'bootstrap\' folder. It is just a dummy folder for the core theme.';
+$LANG['config_theme'] = 'Theme';
+$LANG['config_theme_comment'] = 'Since version 4.0.0, TeamCal Neo does not support different themes anymore. Even though some of them had a nice kick to them,
+ their maintenance and updates was too much of a hassle compared to their benefit. Instead, TeamCal Neo now uses the newest Bootstrap theming framework,
+ that offers a light and a dark mode. You can switch between them via the top menu theme selector.<br>
+ However, you can still chose the jQuery theme and the global font below.';
 $LANG['config_timeZone'] = 'Time Zone';
 $LANG['config_timeZone_comment'] = 'If your web server resides in a different time zone than your users you can adjust the user time zone here.';
 $LANG['config_underMaintenance'] = 'Under Maintenance';

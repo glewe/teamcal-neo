@@ -40,13 +40,7 @@ view.footer
 
       <div class="col-lg-4">
         <ul class="list-unstyled">
-          <li><a href="index.php"><?= $LANG['footer_home'] ?></a></li>
-          <?php if ($docLink = $C->read("userManual")) { ?>
-            <li><a href="<?= urldecode($docLink) ?>" target="_blank" rel="noopener"><?= $LANG['footer_help'] ?></a></li>
-          <?php } ?>
-          <li><a href="index.php?action=about"><?= $LANG['footer_about'] ?></a></li>
-          <li><a href="index.php?action=imprint"><?= $LANG['footer_imprint'] ?></a></li>
-          <li><a href="index.php?action=dataprivacy"><?= $LANG['footer_dataprivacy'] ?></a></li>
+          <li><a href="index.php?action=imprint"><?= $LANG['footer_imprint'] ?></a> | <a href="index.php?action=dataprivacy"><?= $LANG['footer_dataprivacy'] ?></a></li>
         </ul>
       </div>
 

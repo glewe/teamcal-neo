@@ -17,12 +17,7 @@ if (!defined('VALID_ROOT')) {
 <!-- ====================================================================
 view.menu
 -->
-<?php if ($C->read("menuBarDark")) {
-  $navcolor = "dark";
-} else {
-  $navcolor = "light";
-} ?>
-<nav class="navbar navbar-expand-lg navbar-<?= $navcolor ?> bg-<?= $C->read("menuBarBg") ?> fixed-top" id="navbar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="navbar">
   <div class="container">
     <a href="<?= WEBSITE_URL ?>" class="navbar-brand" style="padding: 2px 8px 0 8px;"><img src="images/logo.png" width="48" height="48" alt=""></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">

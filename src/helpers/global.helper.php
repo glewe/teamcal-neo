@@ -735,69 +735,6 @@ function getRoleColor($role) {
 
 //-----------------------------------------------------------------------------
 /**
- * Gets the theme to use
- *
- * @return array $theme The theme to apply
- */
-function getTheme() {
-  global $C, $L, $UO;
-  //
-  // Set the defaults
-  //
-  if (!$defaultTheme = $C->read("theme")) {
-    $defaultTheme = 'bootstrap';
-  }
-  if (!$menuBarInverse = $C->read("menuBarInverse")) {
-    $menuBarInverse = '0';
-  }
-  //
-  // Fill the array with the defaults
-  //
-  $theme = array(
-    'name' => $defaultTheme,
-    'menuBarInverse' => $menuBarInverse
-  );
-
-  $thisuser = $L->checkLogin();
-  if ($thisuser && $C->read("allowUserTheme")) {
-    //
-    // Someone is logged in and User themes are allowed...
-    //
-    if (($userTheme = $UO->read($thisuser, "theme")) && strlen($userTheme)) {
-      if ($userTheme == 'default') {
-        $theme['name'] = $defaultTheme;
-      } else {
-        $theme['name'] = $userTheme;
-      }
-    }
-
-    if (($menubar = $UO->read($thisuser, 'menuBar')) && strlen($menubar)) {
-      switch ($menubar) {
-        case "default":
-          $theme['menuBarInverse'] = $menuBarInverse;
-          break;
-        case "normal":
-          $theme['menuBarInverse'] = '0';
-          break;
-        case "inverse":
-          $theme['menuBarInverse'] = '1';
-          break;
-        default:
-          $theme['menuBarInverse'] = $menuBarInverse;
-          break;
-      }
-    } else {
-      //
-      // User menubar setting cannot be found. Set it to default.
-      //
-      $UO->save($thisuser, 'menuBar', 'default');
-    }
-  }
-  return $theme;
-}
-
-//-----------------------------------------------------------------------------
-/**
  * Returns a hex color value as an array of decimal RGB values
  *
  * @param string $color Hex color string to convert
