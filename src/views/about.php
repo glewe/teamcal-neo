@@ -39,7 +39,7 @@ view.about
       ?>
       <div class="card-header"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['mnu_help_about'] ?><?= $pageHelp ?></div>
       <div class="card-body row">
-        <div class="col-lg-3"><img src="images/icons/logo-128.png" width="128" height="128" alt="" class="img_floatleft">
+        <div class="col-lg-3"><img src="images/icons/logo-128.png" width="128" height="128" alt="" class="img-floatleft">
         </div>
         <div class="col-lg-9">
           <h4><?= APP_NAME ?></h4>
