@@ -383,8 +383,6 @@ $LANG['config_adminApproval'] = 'Administrator Freischaltung erforderlich';
 $LANG['config_adminApproval_comment'] = 'Der Administrator erh&auml;lt eine E-Mail bei einer Neuregistrierung. Er muss den Account manuell freischalten.';
 $LANG['config_allowRegistration'] = 'User Selbst-Registration erlauben';
 $LANG['config_allowRegistration_comment'] = 'Erlaubt die Registrierung durch den User. Ein zus&auml;tzlicher Menueintrag erscheint im Menu.';
-$LANG['config_allowUserTheme'] = 'User Theme';
-$LANG['config_allowUserTheme_comment'] = 'W&auml;hle aus, ob jeder User sein eigenes Theme w&auml;hlen kann.';
 $LANG['config_appDescription'] = 'HTML Beschreibung';
 $LANG['config_appDescription_comment'] = 'Hier kann eine Applikations-Beschreibung eingetragen werden. Sie wird im HTML Header benutzt und von Suchmaschinen gelesen.';
 $LANG['config_appKeywords'] = 'HTML Schl&uuml;sselw&ouml;rter';
@@ -476,6 +474,8 @@ $LANG['config_jqtheme'] = 'jQuery UI Theme';
 $LANG['config_jqtheme_comment'] = $appTitle . ' nutzt jQuery UI, eine popul&auml;re Sammlung von Javascript Tools. jQuery UI bietet auch verschiedene Themes, die die Anzeige
  der Reiterdialoge u.a. Objekten bestimmen. Das Standard Theme ist "smoothness", ein neutrales Schema mit Graut&ouml;nen. Versuche andere aus der Liste, manche sind
  recht fabenfroh. Diese Einstellung wirkt global. Nutzer k&ouml;nnen kein eigenes jQuery UI Theme w&auml;hlen.';
+$LANG['config_jqthemeSample'] = 'jQuery UI Theme Beispiel';
+$LANG['config_jqthemeSample_comment'] = 'Probier den Datumspicker hier aus um das aktuelle jQuery Theme zu sehen. Das Datum wird nicht gespeichert.';
 $LANG['config_licActivate'] = "Lizenz Aktivieren";
 $LANG['config_licActivate_comment'] = "Deine Lizenz ist noch nicht aktiv. Bitte aktiviere sie.";
 $LANG['config_licExpiryWarning'] = "Lizenz-Ablaufwarnung";
@@ -509,20 +509,6 @@ $LANG['config_mailSMTPpassword'] = 'SMTP Passwort';
 $LANG['config_mailSMTPpassword_comment'] = 'Gib das SMTP Passwort an.';
 $LANG['config_mailSMTPSSL'] = 'SMTP TLS/SSL Protokoll';
 $LANG['config_mailSMTPSSL_comment'] = 'TLS/SSL Protokoll f&uuml;r die SMTP Verbindung benutzen.';
-$LANG['config_menuBarBg'] = 'Men&uuml;zeile Hintergrund';
-$LANG['config_menuBarBg_comment'] = 'Hier kann eine Bootstrap Farbe als Hintergrund f&uuml;r die Men&uuml;zeile eingestellt werden.';
-$LANG['config_menuBarBg_danger'] = '<i class="fas fa-square text-danger"></i>';
-$LANG['config_menuBarBg_dark'] = '<i class="fas fa-square text-dark"></i>';
-$LANG['config_menuBarBg_info'] = '<i class="fas fa-square text-info"></i>';
-$LANG['config_menuBarBg_light'] = '<i class="fas fa-square text-light"></i>';
-$LANG['config_menuBarBg_primary'] = '<i class="fas fa-square text-primary"></i>';
-$LANG['config_menuBarBg_secondary'] = '<i class="fas fa-square text-secondary"></i>';
-$LANG['config_menuBarBg_success'] = '<i class="fas fa-square text-success"></i>';
-$LANG['config_menuBarBg_transparent'] = '<i class="fas fa-square text-transparent"></i>';
-$LANG['config_menuBarBg_warning'] = '<i class="fas fa-square text-warning"></i>';
-$LANG['config_menuBarBg_white'] = '<i class="fas fa-square text-white"></i>';
-$LANG['config_menuBarDark'] = 'Men&uuml;zeile Dunkel';
-$LANG['config_menuBarDark_comment'] = 'Mit diesem Schalter kann eine helle Scrhift f&uuml;r die Men&uuml;zeile eingestellt werden. Diese eignet sich besser f&uuml;r dunkle Hintergrundfarben.';
 $LANG['config_noCaching'] = 'Kein Caching';
 $LANG['config_noCaching_comment'] = 'In manchen Server-Client Umgebungen kann es zu unerwuenschten Caching Effekten kommen. Mit diesem Schalter schickt TeamCal Neo im HTML header No-caching Anweisungen zum Web Server, die hier eventuell Abhilfe schaffen.';
 $LANG['config_noIndex'] = 'Keine Suchmaschinen-Indizierung';
@@ -545,9 +531,10 @@ $LANG['config_showAlerts_all'] = 'Alle (inkl. Erfolgsnachrichten)';
 $LANG['config_showAlerts_warnings'] = 'Nur Warnungen und Fehler';
 $LANG['config_showAlerts_none'] = 'Keine';
 $LANG['config_theme'] = 'Theme';
-$LANG['config_theme_comment'] = 'W&auml;hle ein Theme aus, umd das Aussehen der User Interface zu &auml;ndern. Du kannst ein eigenes
- Theme erstellen, indem du eine Kopie eines Verzeichnis im \'themes\' Ordner anlegst und das Style Sheet entsprechend anpasst.
- Das neue Verzeichnis wir dann automatisch in dieser Liste hier angezeigt. Kopiere aber nicht das \'bootstrap\' Dummy Verzeichnis.';
+$LANG['config_theme_comment'] = 'Seit Version 4.0.0 unterst&uuml;tzt TeamCal Neo keine unterschiedlichen Themes mehr. Auch wenn einige von ihnen einen sch&ouml;nen Kick hatten,
+  war ihre Wartung und Aktualisierung zu viel Aufwand im Vergleich zu ihrem Nutzen. Stattdessen nutzt TeamCal Neo jetzt das neueste Bootstrap Theming Framework,
+  das einen hellen und einen dunklen Modus bietet. Du kannst zwischen ihnen &uuml;ber den Theme-Selektor im oberen Men&uuml; wechseln.<br>
+  Du kannst jedoch immer noch das jQuery-Theme und die globale Schriftart unten w&auml;hlen.';
 $LANG['config_timeZone'] = 'Zeitzone';
 $LANG['config_timeZone_comment'] = 'Wenn der Webserver in einer anderen Zeitzone steht als die Nutzer, kann hier die Zeitzone angepasst werden.';
 $LANG['config_underMaintenance'] = 'Website in Wartung';

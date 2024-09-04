@@ -2,6 +2,28 @@
 TEAMCAL NEO UPGRADE INFO
 ==============================================================================
 
+[3.9.3] -> [4.0.0]
+1. Backup your current files and database!
+
+2. Download the new release and overwrite all files.
+
+3. Change in your database:
+   DELETE FROM `tcneo_config` WHERE `name` = "showBanner";
+   DELETE FROM `tcneo_config` WHERE `name` = "theme";
+   DELETE FROM `tcneo_config` WHERE `name` = "menuBarBg";
+   DELETE FROM `tcneo_config` WHERE `name` = "menuBarDark";
+   DELETE FROM `tcneo_config` WHERE `name` = "allowUserTheme";
+   DELETE FROM `tcneo_user_option` WHERE `option` = "theme";
+   DELETE FROM `tcneo_user_option` WHERE `option` = "menuBar";
+
+3. Edit config/config.app.php and change line 39 to:
+   define('APP_INSTALLED',"1");
+
+4. Edit config/config.db.php and update your database settings from your backup.
+
+5. Delete file installation.php in the root directory.
+
+
 [3.9.2] -> [3.9.3]
 1. Backup your current files and database!
 

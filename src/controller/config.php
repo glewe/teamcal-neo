@@ -289,24 +289,6 @@ if (!empty($_POST)) {
       //
       // Theme
       //
-      if ($_POST['sel_theme']) {
-        $C->save("theme", $_POST['sel_theme']);
-      } else {
-        $C->save("theme", "bootstrap");
-      }
-      if ($_POST['opt_menuBarBg']) {
-        $C->save("menuBarBg", $_POST['opt_menuBarBg']);
-      }
-      if (isset($_POST['chk_menuBarDark']) && $_POST['chk_menuBarDark']) {
-        $C->save("menuBarDark", "1");
-      } else {
-        $C->save("menuBarDark", "0");
-      }
-      if (isset($_POST['chk_allowUserTheme']) && $_POST['chk_allowUserTheme']) {
-        $C->save("allowUserTheme", "1");
-      } else {
-        $C->save("allowUserTheme", "0");
-      }
       if ($_POST['sel_jqtheme']) {
         $C->save("jqtheme", $_POST['sel_jqtheme']);
       } else {
@@ -575,9 +557,6 @@ $viewData['registration'] = array(
   array( 'prefix' => 'config', 'name' => 'adminApproval', 'type' => 'check', 'values' => '', 'value' => $C->read("adminApproval") ),
 );
 
-foreach ($appJqueryUIThemes as $jqueryUITheme) {
-  $viewData['jqueryUIThemeList'][] = array( 'val' => $jqueryUITheme, 'name' => proper($jqueryUITheme), 'selected' => ($C->read("jqtheme") == $jqueryUITheme) ? true : false );
-}
 foreach ($timezones as $tz) {
   $viewData['timezoneList'][] = array( 'val' => $tz, 'name' => $tz, 'selected' => ($C->read("timeZone") == $tz) ? true : false );
 }
@@ -595,10 +574,9 @@ $viewData['system'] = array(
   array( 'prefix' => 'config', 'name' => 'underMaintenance', 'type' => 'check', 'values' => '', 'value' => $C->read("underMaintenance") ),
 );
 
-foreach ($appThemes as $appTheme) {
-  $viewData['themeList'][] = array( 'val' => $appTheme, 'name' => proper($appTheme), 'selected' => ($C->read("theme") == $appTheme) ? true : false );
+foreach ($appJqueryUIThemes as $jqueryUITheme) {
+  $viewData['jqueryUIThemeList'][] = array( 'val' => $jqueryUITheme, 'name' => proper($jqueryUITheme), 'selected' => ($C->read("jqtheme") == $jqueryUITheme) ? true : false );
 }
-
 $viewData['fonts'][] = array( 'val' => 'default', 'name' => 'Default', 'selected' => ($C->read("font") == 'default') ? true : false );
 $viewData['fonts'][] = array( 'val' => 'lato', 'name' => 'Lato', 'selected' => ($C->read("font") == 'lato') ? true : false );
 $viewData['fonts'][] = array( 'val' => 'montserrat', 'name' => 'Montserrat', 'selected' => ($C->read("font") == 'montserrat') ? true : false );
@@ -606,11 +584,9 @@ $viewData['fonts'][] = array( 'val' => 'opensans', 'name' => 'Open Sans', 'selec
 $viewData['fonts'][] = array( 'val' => 'roboto', 'name' => 'Roboto', 'selected' => ($C->read("font") == 'roboto') ? true : false );
 
 $viewData['theme'] = array(
-  array( 'prefix' => 'config', 'name' => 'theme', 'type' => 'list', 'values' => $viewData['themeList'] ),
-  array( 'prefix' => 'config', 'name' => 'menuBarBg', 'type' => 'radio', 'values' => $bsBgColors, 'value' => $C->read("menuBarBg") ),
-  array( 'prefix' => 'config', 'name' => 'menuBarDark', 'type' => 'check', 'values' => '', 'value' => $C->read("menuBarDark") ),
-  array( 'prefix' => 'config', 'name' => 'allowUserTheme', 'type' => 'check', 'values' => '', 'value' => $C->read("allowUserTheme") ),
+  array( 'prefix' => 'config', 'name' => 'theme', 'type' => 'infoWide', 'value' => '' ),
   array( 'prefix' => 'config', 'name' => 'jqtheme', 'type' => 'list', 'values' => $viewData['jqueryUIThemeList'] ),
+  array( 'prefix' => 'config', 'name' => 'jqthemeSample', 'type' => 'date', 'value' => '' ),
   array( 'prefix' => 'config', 'name' => 'font', 'type' => 'list', 'values' => $viewData['fonts'] ),
 );
 

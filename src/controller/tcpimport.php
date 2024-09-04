@@ -347,7 +347,6 @@ if (!empty($_POST)) {
               $UO->create($rec['username'], 'id', $rec['idnumber']);
               $UO->create($rec['username'], 'gender', $myGender);
               $UO->create($rec['username'], 'avatar', $myAvatar);
-              $UO->create($rec['username'], 'theme', 'default');
               $UO->create($rec['username'], 'language', 'default');
               $UO->create($rec['username'], 'custom1', $rec['custom1']);
               $UO->create($rec['username'], 'custom2', $rec['custom2']);

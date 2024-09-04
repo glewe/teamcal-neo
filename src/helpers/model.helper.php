@@ -221,7 +221,6 @@ function importUsersFromCSV($file, $lock = true, $hide = true) {
             $UOI->save($_POST['txt_username'], 'gender', 'male');
             $UOI->save($_POST['txt_username'], 'avatar', 'default_male.png');
             $UOI->save($_POST['txt_username'], 'language', 'default');
-            $UOI->save($_POST['txt_username'], 'theme', 'default');
             $fullname = $UI->firstname . " " . $UI->lastname;
             $LOG->logEvent("logUser", $L->checkLogin(), "log_csv_import", $UI->username . " (" . $fullname . ")");
           }

@@ -37,34 +37,6 @@ spl_autoload_register(function ($class_name) {
   require_once 'classes/' . $class_name . '.class.php';
 });
 
-//require_once WEBSITE_ROOT . '/classes/DB.class.php';
-//require_once WEBSITE_ROOT . '/classes/AbsenceGroup.class.php';
-//require_once WEBSITE_ROOT . '/classes/Absences.class.php';
-//require_once WEBSITE_ROOT . '/classes/Allowances.class.php';
-//require_once WEBSITE_ROOT . '/classes/Attachment.class.php';
-//require_once WEBSITE_ROOT . '/classes/Avatar.class.php';
-//require_once WEBSITE_ROOT . '/classes/Config.class.php';
-//require_once WEBSITE_ROOT . '/classes/Controller.class.php';
-//require_once WEBSITE_ROOT . '/classes/Daynotes.class.php';
-//require_once WEBSITE_ROOT . '/classes/Groups.class.php';
-//require_once WEBSITE_ROOT . '/classes/Holidays.class.php';
-//require_once WEBSITE_ROOT . '/classes/License.class.php';
-//require_once WEBSITE_ROOT . '/classes/Log.class.php';
-//require_once WEBSITE_ROOT . '/classes/Login.class.php';
-//require_once WEBSITE_ROOT . '/classes/Messages.class.php';
-//require_once WEBSITE_ROOT . '/classes/Months.class.php';
-//require_once WEBSITE_ROOT . '/classes/Permissions.class.php';
-//require_once WEBSITE_ROOT . '/classes/Regions.class.php';
-//require_once WEBSITE_ROOT . '/classes/Roles.class.php';
-//require_once WEBSITE_ROOT . '/classes/Templates.class.php';
-//require_once WEBSITE_ROOT . '/classes/Upload.class.php';
-//require_once WEBSITE_ROOT . '/classes/UserAttachment.class.php';
-//require_once WEBSITE_ROOT . '/classes/UserGroup.class.php';
-//require_once WEBSITE_ROOT . '/classes/UserMessage.class.php';
-//require_once WEBSITE_ROOT . '/classes/UserOption.class.php';
-//require_once WEBSITE_ROOT . '/classes/Users.class.php';
-//require_once WEBSITE_ROOT . '/classes/XML.class.php';
-
 //=============================================================================
 //
 // LOAD CONFIG
@@ -213,10 +185,6 @@ if (L_USER && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['actio
   require_once WEBSITE_ROOT . '/languages/' . $language . '.app.php'; // Application language
 
   $userData['loginInfo'] = loginInfo();
-  $usertheme = $UO->read($UL->username, 'theme');
-  if ($usertheme != "default") {
-    $theme = $usertheme;
-  }
   //
   // Switch language via menu (only allowed when logged in)
   //
@@ -339,7 +307,6 @@ $htmlData['author'] = APP_AUTHOR;
 $htmlData['copyright'] = APP_COPYRIGHT;
 $htmlData['license'] = APP_LICENSE;
 $htmlData['locale'] = $LANG['locale'];
-$htmlData['theme'] = getTheme();
 $htmlData['jQueryTheme'] = $C->read("jqtheme");
 
 if ($C->read("cookieConsent")) {

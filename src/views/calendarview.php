@@ -64,12 +64,14 @@ view.calendarview
         require "calendarviewmonth.php";
       }
       ?>
-      <?php if ($showMonths < 12) { ?>
-        <button type="submit" name="btn_onemore" class="btn btn-secondary float-end" data-bs-placement="top" data-bs-custom-class="secondary" data-bs-toggle="tooltip" title="<?= $LANG['cal_tt_onemore'] ?>"><span class="fas fa-plus"></span></button>
-      <?php } ?>
-      <?php if ($showMonths > 1) { ?>
-        <button type="submit" name="btn_oneless" class="btn btn-secondary float-end" style="margin-right:4px;" data-bs-placement="tooltip-top" data-bs-custom-class="secondary" data-bs-toggle="tooltip" title="<?= $LANG['cal_tt_oneless'] ?>"><span class="fas fa-minus"></span></button>
-      <?php } ?>
+      <div style="text-align: right;">
+        <?php if ($showMonths < 12) { ?>
+          <button type="submit" name="btn_onemore" class="btn btn-secondary" data-bs-placement="top" data-bs-custom-class="secondary" data-bs-toggle="tooltip" title="<?= $LANG['cal_tt_onemore'] ?>"><span class="fas fa-plus"></span></button>
+        <?php } ?>
+        <?php if ($showMonths > 1) { ?>
+          <button type="submit" name="btn_oneless" class="btn btn-secondary" style="margin-right:4px;" data-bs-placement="tooltip-top" data-bs-custom-class="secondary" data-bs-toggle="tooltip" title="<?= $LANG['cal_tt_oneless'] ?>"><span class="fas fa-minus"></span></button>
+        <?php } ?>
+      </div>
 
       <!-- Modal: Select Month -->
       <?= createModalTop('modalSelectMonth', $LANG['cal_selMonth']) ?>

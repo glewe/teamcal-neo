@@ -198,14 +198,6 @@ if (!empty($_POST)) {
       //
       // Options
       //
-      if (isset($_POST['sel_theme'])) {
-        if ($_POST['sel_theme'] != $UO->read($profile, 'theme')) {
-          $reloadPage = true; // New theme needs a page reload later
-        }
-        $UO->save($profile, "theme", $_POST['sel_theme']);
-      } else {
-        $UO->save($profile, 'theme', 'default');
-      }
       if (!$UO->read($profile, 'menuBar')) {
         $UO->save($profile, 'menuBar', 'default');
       }
@@ -627,15 +619,6 @@ foreach ($regions as $region) {
 }
 
 $viewData['options'] = array();
-if ($C->read('allowUserTheme')) {
-  $viewData['themeList'][] = array( 'val' => 'default', 'name' => 'Default', 'selected' => ($UO->read($profile, 'theme') == 'default') ? true : false );
-  $viewData['menuBarOptions'] = array( 'default', 'inverse' );
-  foreach ($appThemes as $appTheme) {
-    $viewData['themeList'][] = array( 'val' => $appTheme, 'name' => proper($appTheme), 'selected' => ($UO->read($profile, 'theme') == $appTheme) ? true : false );
-  }
-  $viewData['options'][] = array( 'prefix' => 'profile', 'name' => 'theme', 'type' => 'list', 'values' => $viewData['themeList'] );
-  $viewData['options'][] = array( 'prefix' => 'profile', 'name' => 'menuBar', 'type' => 'radio', 'values' => $viewData['menuBarOptions'], 'value' => $UO->read($profile, 'menuBar') );
-}
 $viewData['options'][] = array( 'prefix' => 'profile', 'name' => 'language', 'type' => 'list', 'values' => $viewData['languageList'] );
 $viewData['options'][] = array( 'prefix' => 'profile', 'name' => 'showMonths', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'showMonths'), 'maxlength' => '2', 'error' => (isset($inputAlert['showMonths']) ? $inputAlert['showMonths'] : '') );
 $viewData['options'][] = array( 'prefix' => 'profile', 'name' => 'calfilterGroup', 'type' => 'list', 'values' => $viewData['calfilterGroups'] );

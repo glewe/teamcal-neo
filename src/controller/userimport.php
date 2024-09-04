@@ -203,7 +203,6 @@ if (!empty($_POST)) {
               $UO->save($CSVusername, 'gender', $CSVgender);
               $UO->save($CSVusername, 'avatar', 'default_' . $CSVgender . '.png');
               $UO->save($CSVusername, 'language', 'default');
-              $UO->save($CSVusername, 'theme', 'default');
               $importCount++;
             }
           }
