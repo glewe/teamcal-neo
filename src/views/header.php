@@ -116,12 +116,6 @@ if (!defined('VALID_ROOT')) {
     <script src="addons/magnific/jquery.magnific-popup.min.js"></script>
   <?php } ?>
 
-  <?php if (SELECT2) { ?>
-    <!-- select2 -->
-    <link href="addons/select2/css/select2.min.css" rel="stylesheet">
-    <script src="addons/select2/js/select2.min.js"></script>
-  <?php } ?>
-
   <?php if (SYNTAXHIGHLIGHTER) { ?>
     <!-- Syntax Highlighter -->
     <link rel="stylesheet" href="addons/syntaxhighlighter/styles/shCore.css" type="text/css">
@@ -132,12 +126,6 @@ if (!defined('VALID_ROOT')) {
     <script src="addons/syntaxhighlighter/scripts/shBrushJScript.js"></script>
     <script src="addons/syntaxhighlighter/scripts/shBrushPhp.js"></script>
     <script src="addons/syntaxhighlighter/scripts/shBrushXml.js"></script>
-  <?php } ?>
-
-  <?php if (XEDITABLE) { ?>
-    <!-- Bootstrap Editable -->
-    <link href="addons/x-editable/css/bootstrap-editable.css" rel="stylesheet">
-    <script src="addons/x-editable/js/bootstrap-editable.js"></script>
   <?php } ?>
 
   <?php if ($htmlData['cookieConsent']) { ?>

@@ -67,14 +67,8 @@ view.about
             <li>Drew Phillips <?= $LANG['about_for'] ?> <a href="https://www.phpcaptcha.org/" target="_blank" rel="noopener">SecureImage <?= SECUREIMAGE_VER ?></a></li>
             <li>Ahkâm <?= $LANG['about_for'] ?> the beautiful <a href="https://www.freeiconspng.com/img/4109" target="_blank" rel="noopener">Calendar Icon</a></li>
             <li>Iconshock Team <?= $LANG['about_for'] ?> <a href="https://www.iconshock.com/icon_sets/vector-user-icons/" target="_blank" rel="noopener">User Icons</a></li>
-            <?php if (SELECT2) { ?>
-              <li>Kevin Brown &amp; Igor Vaynberg <?= $LANG['about_for'] ?> <a href="https://select2.github.io/" target="_blank" rel="noopener">Select2 <?= SELECT2_VER ?></a></li>
-            <?php } ?>
             <?php if (SYNTAXHIGHLIGHTER) { ?>
               <li>Alex Gorbatchev <?= $LANG['about_for'] ?> <a href="https://select2.github.io/" target="_blank" rel="noopener">Syntaxhighlighter <?= SYNTAXHIGHLIGHTER_VER ?></a></li>
-            <?php } ?>
-            <?php if (XEDITABLE) { ?>
-              <li>Vitaliy Potapov <?= $LANG['about_for'] ?> <a href="https://vitalets.github.io/x-editable/" target="_blank" rel="noopener">X-Editable <?= XEDITABLE_VER ?></a></li>
             <?php } ?>
             <li>RobThree <?= $LANG['about_for'] ?> <a href="https://github.com/RobThree/TwoFactorAuth" target="_blank" rel="noopener">TwoFactorAuth</a></li>
             <li><?= $LANG['about_misc'] ?></li>

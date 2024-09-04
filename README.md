@@ -67,7 +67,6 @@ https://lewe.gitbook.io/teamcal-neo/readme/teamcal-neo-license/
 A lot of work goes into TeamCal Neo but it would not be possible without the bits and pieces of other great developers that offer their work to the community for free. I am very thankful for that and would like pass my thanks to these people:
 
 1. Bootstrap team for [Bootstrap](https://getbootstrap.com/)
-2. Thomas Park for the [Bootswatch Theme](https://bootswatch.com/)
 3. Nick Downie for [Chart.js](https://www.chartjs.org/)
 4. CKSource Sp. for [CKEditor](https://ckeditor.com/)
 5. Dave Gandy and team for [Font Awesome](https://fontawesome.com/)
@@ -78,3 +77,4 @@ A lot of work goes into TeamCal Neo but it would not be possible without the bit
 10. Drew Phillips for [SecureImage](https://www.phpcaptcha.org)
 11. Ahkâm for the beautiful [Calendar Icon](https://www.freeiconspng.com/img/4109)
 12. Iconshock for their free [User Icons](https://www.iconshock.com/icon_sets/vector-user-icons/)
+13. and more...
