@@ -544,8 +544,6 @@ $LANG['config_showAlerts_comment'] = 'Mit dieser Option kann ausgew&auml;hlt wer
 $LANG['config_showAlerts_all'] = 'Alle (inkl. Erfolgsnachrichten)';
 $LANG['config_showAlerts_warnings'] = 'Nur Warnungen und Fehler';
 $LANG['config_showAlerts_none'] = 'Keine';
-$LANG['config_showBanner'] = 'Banner anzeigen';
-$LANG['config_showBanner_comment'] = 'Mit dieser Option wird zwischen Menu und Inhalt ein Banner mit dem Applikationstitel und einer Suchbox angezeigt.';
 $LANG['config_theme'] = 'Theme';
 $LANG['config_theme_comment'] = 'W&auml;hle ein Theme aus, umd das Aussehen der User Interface zu &auml;ndern. Du kannst ein eigenes
  Theme erstellen, indem du eine Kopie eines Verzeichnis im \'themes\' Ordner anlegst und das Style Sheet entsprechend anpasst.

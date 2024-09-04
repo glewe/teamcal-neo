@@ -450,28 +450,6 @@ view.menu
   </div>
 </nav>
 
-<?php if ($C->read('showBanner')) { ?>
-  <!-- Banner -->
-  <div class="jumbotron">
-    <div class="container">
-      <div class="col-lg-9 banner">
-        <?= $C->read('appTitle') ?>
-      </div>
-      <div class="col-lg-3" style="padding-top: 20px;">
-        <form name="search" method="get" action="https://www.google.com/search">
-          <div class="input-group">
-            <input class="form-control" id="txt_search" type="text" name="q" size="20" maxlength="255" placeholder="Search">
-            <span class="input-group-btn">
-              <button id="btn_search" type="submit" class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
-            </span>
-          </div>
-          <input type="hidden" name="sitesearch" value="lewe.com">
-        </form>
-      </div>
-    </div>
-  </div>
-<?php } ?>
-
 <?php if ($appStatus['maintenance'] && $userData['roleid'] == '1') { ?>
   <!-- Under Maintenance -->
   <div class="container content">
