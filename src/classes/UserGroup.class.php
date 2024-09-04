@@ -276,7 +276,6 @@ class UserGroup {
    */
   public function getAllManagedGroupsForUser($username) {
     $records = array();
-//    $query = $this->db->prepare("SELECT * FROM " . $this->table . " WHERE username = :val1 AND type = 'manager'");
     $query = $this->db->prepare(
       'SELECT g.* FROM ' . $this->groups_table . ' g JOIN ' . $this->table . ' ug ON g.id = ug.groupid WHERE ug.username = :val1'
     );
