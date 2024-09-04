@@ -540,8 +540,6 @@ $LANG['config_showAlerts_comment'] = 'Select what type of alerts will be shown.'
 $LANG['config_showAlerts_all'] = 'All (including Success messages)';
 $LANG['config_showAlerts_warnings'] = 'Warnings and Errors only';
 $LANG['config_showAlerts_none'] = 'None';
-$LANG['config_showBanner'] = 'Show Banner';
-$LANG['config_showBanner_comment'] = 'Checking this option will show a banner between the navbar and the content section displaying the application title and a search box.';
 $LANG['config_theme'] = 'Default Theme';
 $LANG['config_theme_comment'] = 'Select a theme to change the looks of the application. You can create your own skin by making a renamed
       copy of any of the other theme folders in the \'themes\' directory and adjust the styles to your liking. Your new directory will

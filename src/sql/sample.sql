@@ -644,7 +644,6 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (135, 'logcolorCalendarOptions', 'danger'),
 (136, 'appURL', '#'),
 (137, 'appDescription', 'Lewe TeamCal Neo. The Online Team Calendar!'),
-(138, 'showBanner', '0'),
 (139, 'showRoleIcons', '1'),
 (140, 'logImport', '1'),
 (141, 'logcolorImport', 'warning'),
