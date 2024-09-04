@@ -97,10 +97,6 @@ if (!defined('VALID_ROOT')) {
   <link rel="stylesheet" media="screen" type="text/css" href="js/colorpicker/css/colorpicker.css">
   <script src="js/colorpicker/js/colorpicker.js"></script>
 
-  <!-- Google Code Prettify -->
-  <link rel="stylesheet" href="addons/google-code-prettify/prettify.css" type="text/css">
-  <script src="addons/google-code-prettify/prettify.js"></script>
-
   <!--Datatables CSS-->
 <!--    <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.2/b-3.1.0/b-html5-3.1.0/r-3.0.2/datatables.min.css" rel="stylesheet">-->
   <link href="addons/datatables/datatables.min.css" rel="stylesheet">
