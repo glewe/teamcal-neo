@@ -108,11 +108,13 @@ class Log {
     $myEvent = $LANG[$event] . $object;
     if ($this->C->read($type)) {
       $ts = date("YmdHis");
-      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (type, timestamp, user, event) VALUES (:val1, :val2, :val3, :val4)');
+      $ip = getClientIp();
+      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (type, timestamp, ip, user, event) VALUES (:val1, :val2, :val3, :val4, :val5)');
       $query->bindParam('val1', $type);
       $query->bindParam('val2', $ts);
-      $query->bindParam('val3', $user);
-      $query->bindParam('val4', $myEvent);
+      $query->bindParam('val3', $ip);
+      $query->bindParam('val4', $user);
+      $query->bindParam('val5', $myEvent);
       return $query->execute();
     }
     return false;
