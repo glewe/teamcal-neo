@@ -16,6 +16,7 @@ $releases = [
     'improvements' => [
       [ 'summary' => 'Cleaner form button layout', 'issue' => '' ],
       [ 'summary' => 'Reduced footer links to Imprint and Data Privacy Policy', 'issue' => '' ],
+      [ 'summary' => 'Added table indexes for faster database operations', 'issue' => '' ],
     ],
     'removals' => [
       [ 'summary' => 'Removed Banner option (outdated feature)', 'issue' => '' ],

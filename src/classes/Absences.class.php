@@ -213,7 +213,7 @@ class Absences {
    */
   public function getAll() {
     $records = array();
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name ASC');
+    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name');
     $result = $query->execute();
     if ($result) {
       while ($row = $query->fetch()) {
@@ -232,7 +232,7 @@ class Absences {
    */
   public function getAllSub($id) {
     $records = array();
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE counts_as = :val1 ORDER BY name ASC');
+    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE counts_as = :val1 ORDER BY name');
     $query->bindParam('val1', $id);
     $result = $query->execute();
     if ($result) {
@@ -253,7 +253,7 @@ class Absences {
    */
   public function getAllPrimaryBut($id) {
     $records = array();
-    $query = $this->db->prepare("SELECT * FROM " . $this->table . " WHERE id != :val1 AND counts_as = '0' ORDER BY name ASC");
+    $query = $this->db->prepare("SELECT * FROM " . $this->table . " WHERE id != :val1 AND counts_as = '0' ORDER BY name");
     $query->bindParam('val1', $id);
     if ($query->execute()) {
       while ($row = $query->fetch()) {

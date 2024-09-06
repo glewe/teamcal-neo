@@ -103,16 +103,16 @@ class DB {
    * Optimize tables
    */
   public function optimizeTables() {
-    $tables = array();
     $query = $this->db->prepare('SHOW TABLES');
     $result = $query->execute();
+    $tableList = '';
     while ($result && $row = $query->fetch()) {
-      $tables[] = $row[0];
+      $tableList .= '`' . $row[0] . '`, ';
     }
-    foreach ($tables as $table) {
-      $query = $this->db->prepare('OPTIMIZE TABLE ' . $table);
-      $query->execute();
-    }
+    $tableList = rtrim($tableList, ', ');
+    $stmt = 'OPTIMIZE TABLE ' . $tableList . ';';
+    $query = $this->db->prepare($stmt);
+    $query->execute();
   }
 
   //---------------------------------------------------------------------------
