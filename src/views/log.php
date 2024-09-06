@@ -135,10 +135,11 @@ view.log
                       <thead>
                       <tr>
                         <th class="text-end" data-ordering="false">#</th>
-                        <th class="text-start"><i class="far fa-clock fa-lg me-3"></i><?= $LANG['log_header_when'] ?></th>
-                        <th data-ordering="true"><i class="far fa-folder fa-lg me-3"></i><?= $LANG['log_header_type'] ?></th>
-                        <th data-ordering="true"><i class="far fa-user fa-lg me-3"></i><?= $LANG['log_header_user'] ?></th>
-                        <th data-ordering="true"><i class="far fa-edit fa-lg me-3"></i><?= $LANG['log_header_event'] ?></th>
+                        <th class="text-start"><i class="bi-clock fa-lg me-3"></i><?= $LANG['log_header_when'] ?></th>
+                        <th data-ordering="true"><i class="bi-folder fa-lg me-3"></i><?= $LANG['log_header_type'] ?></th>
+                        <th data-ordering="true"><i class="bi-person fa-lg me-3"></i><?= $LANG['log_header_user'] ?></th>
+                        <th data-ordering="true"><i class="bi-display fa-lg me-3"></i><?= $LANG['log_header_ip'] ?></th>
+                        <th data-ordering="true"><i class="bi-pencil-square fa-lg me-3"></i><?= $LANG['log_header_event'] ?></th>
                       </tr>
                       </thead>
                       <tbody>
@@ -150,6 +151,7 @@ view.log
                           <td class="align-top text-start text-<?= $color ?>"><?= $event['timestamp'] ?></td>
                           <td class="align-top text-<?= $color ?>"><?= substr($event['type'], 3) ?></td>
                           <td class="align-top text-<?= $color ?>"><a style="color: inherit;" href="index.php?action=viewprofile&amp;profile=<?= $event['user'] ?>" target="_blank"><?= $event['user'] ?></a></td>
+                          <td class="align-top text-start text-<?= $color ?>"><?= $event['ip'] ?></td>
                           <td class="align-top text-<?= $color ?>"><?= $event['event'] ?></td>
                         </tr>
                       <?php endforeach; ?>

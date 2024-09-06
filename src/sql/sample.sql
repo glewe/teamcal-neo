@@ -344,7 +344,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_archive_users` (
 --
 
 INSERT INTO `tcneo_archive_users` (`username`, `password`, `firstname`, `lastname`, `email`, `order_key`, `role`, `locked`, `hidden`, `onhold`, `verify`, `bad_logins`, `grace_start`, `last_pw_change`, `last_login`, `created`) VALUES
-('mimouse', '$2y$10$IkWQeduBbmLn4m5rybEf6OCQRRFui0PEJ', 'Minnie', 'Mouse', 'mimouse@yourserver.com', '0', 2, 1, 1, 1, 1, 0, '1000-01-01 00:00:00', '1000-01-01 00:00:00', '1000-01-01 00:00:00', '2022-01-01 00:00:00');
+('mimouse', '$2y$10$IkWQeduBbmLn4m5rybEf6OCQRRFui0PEJ', 'Minnie', 'Mouse', 'mimouse@yourserver.com', '0', 2, 1, 1, 1, 1, 0, '1900-01-01 00:00:00', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '2022-01-01 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -819,7 +819,8 @@ DROP TABLE IF EXISTS `tcneo_log`;
 CREATE TABLE IF NOT EXISTS `tcneo_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `timestamp` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
+  `timestamp` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
+  `ip` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `user` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `event` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -834,7 +835,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_log` (
 DROP TABLE IF EXISTS `tcneo_messages`;
 CREATE TABLE IF NOT EXISTS `tcneo_messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `timestamp` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
+  `timestamp` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
   `text` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `type` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`),
@@ -1253,10 +1254,10 @@ CREATE TABLE IF NOT EXISTS `tcneo_users` (
   `onhold` tinyint(4) DEFAULT 0,
   `verify` tinyint(4) DEFAULT 0,
   `bad_logins` tinyint(4) DEFAULT 0,
-  `grace_start` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
-  `last_pw_change` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
-  `last_login` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
-  `created` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
+  `grace_start` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
+  `last_pw_change` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
+  `last_login` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
+  `created` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
   PRIMARY KEY (`username`),
   KEY `user_firstname` (`firstname`),
   KEY `user_lastname` (`lastname`)

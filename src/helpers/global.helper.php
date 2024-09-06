@@ -423,6 +423,27 @@ function generatePassword($length = 9) {
 
 //-----------------------------------------------------------------------------
 /**
+ * Retrieves the client's IP address from the server variables.
+ *
+ * This function checks various server variables to determine the client's IP address.
+ * It first checks `HTTP_CLIENT_IP`, then `HTTP_X_FORWARDED_FOR`, and finally `REMOTE_ADDR`.
+ *
+ * @return string The client's IP address, or an empty string if none of the server variables are set.
+ */
+function getClientIp() {
+  $ipAddress = '';
+  if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+    $ipAddress = $_SERVER['HTTP_CLIENT_IP'];
+  } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    $ipAddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+  } elseif (isset($_SERVER['REMOTE_ADDR'])) {
+    $ipAddress = $_SERVER['REMOTE_ADDR'];
+  }
+  return $ipAddress;
+}
+
+//-----------------------------------------------------------------------------
+/**
  * Scans a given directory for files.
  * Optionally you can specify an array of extension to look for.
  *
