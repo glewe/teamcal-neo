@@ -168,5 +168,4 @@ view.footer
 </script>
 
 </body>
-
 </html>

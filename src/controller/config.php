@@ -101,6 +101,22 @@ if (!empty($_POST)) {
       if ($_POST['opt_showAlerts']) {
         $C->save("showAlerts", $_POST['opt_showAlerts']);
       }
+      if (isset($_POST['chk_alertAutocloseDanger']) && $_POST['chk_alertAutocloseDanger']) {
+        $C->save("alertAutocloseDanger", "1");
+      } else {
+        $C->save("alertAutocloseDanger", "0");
+      }
+      if (isset($_POST['chk_alertAutocloseSuccess']) && $_POST['chk_alertAutocloseSuccess']) {
+        $C->save("alertAutocloseSuccess", "1");
+      } else {
+        $C->save("alertAutocloseSuccess", "0");
+      }
+      if (isset($_POST['chk_alertAutocloseWarning']) && $_POST['chk_alertAutocloseWarning']) {
+        $C->save("alertAutocloseWarning", "1");
+      } else {
+        $C->save("alertAutocloseWarning", "0");
+      }
+      $C->save("alertAutocloseDelay", sanitize($_POST['txt_alertAutocloseDelay']));
       if (isset($_POST['chk_activateMessages']) && $_POST['chk_activateMessages']) {
         $C->save("activateMessages", "1");
       } else {
@@ -379,8 +395,17 @@ if (!empty($_POST)) {
       // Log this event
       //
       $LOG->logEvent("logConfig", $UL->username, "log_config");
-      header("Location: index.php?action=config");
-      die();
+      //
+      // Success message
+      //
+      $showAlert = true;
+      $alertData['type'] = 'success';
+      $alertData['title'] = $LANG['alert_success_title'];
+      $alertData['subject'] = $LANG['alert_license_subject'];
+      $alertData['text'] = $LANG['config_alert_edit_success'];
+      $alertData['help'] = '';
+//      header("Location: index.php?action=config");
+//      die();
     }
     // ,--------------------,
     // | License Activation |
@@ -505,6 +530,10 @@ $viewData['general'] = array(
   array( 'prefix' => 'config', 'name' => 'defaultLanguage', 'type' => 'list', 'values' => $viewData['languageList'] ),
   array( 'prefix' => 'config', 'name' => 'logLanguage', 'type' => 'list', 'values' => $viewData['logLanguageList'] ),
   array( 'prefix' => 'config', 'name' => 'showAlerts', 'type' => 'radio', 'values' => array( 'all', 'warnings', 'none' ), 'value' => $C->read("showAlerts") ),
+  array( 'prefix' => 'config', 'name' => 'alertAutocloseSuccess', 'type' => 'check', 'values' => '', 'value' => $C->read("alertAutocloseSuccess") ),
+  array( 'prefix' => 'config', 'name' => 'alertAutocloseWarning', 'type' => 'check', 'values' => '', 'value' => $C->read("alertAutocloseWarning") ),
+  array( 'prefix' => 'config', 'name' => 'alertAutocloseDanger', 'type' => 'check', 'values' => '', 'value' => $C->read("alertAutocloseDanger") ),
+  array( 'prefix' => 'config', 'name' => 'alertAutocloseDelay', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("alertAutocloseDelay"), 'maxlength' => '5' ),
   array( 'prefix' => 'config', 'name' => 'activateMessages', 'type' => 'check', 'values' => '', 'value' => $C->read("activateMessages") ),
   array( 'prefix' => 'config', 'name' => 'permissionScheme', 'type' => 'list', 'values' => $viewData['schemeList'] ),
   array( 'prefix' => 'config', 'name' => 'userManual', 'type' => 'text', 'placeholder' => '', 'value' => urldecode($C->read("userManual")), 'maxlength' => '160' ),

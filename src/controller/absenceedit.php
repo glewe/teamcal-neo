@@ -129,11 +129,6 @@ if (!empty($_POST)) {
       } else {
         $AA->symbol = strtoupper(substr($_POST['txt_name'], 0, 1));
       }
-      if (isset($_POST['opt_iconcolor'])) {
-        $AA->iconcolor = $_POST['opt_iconcolor'];
-      } else {
-        $AA->iconcolor = 'default';
-      }
       $AA->color = $_POST['txt_color'];
       $AA->bgcolor = $_POST['txt_bgcolor'];
       if (isset($_POST['chk_bgtrans'])) {
@@ -310,6 +305,11 @@ foreach ($groups as $group) {
 $viewData['groups'] = array(
   array( 'prefix' => 'abs', 'name' => 'groups', 'type' => 'listmulti', 'values' => $viewData['groupsAssigned'] ),
 );
+
+//
+// For future use of toast messages
+//
+$showToast = false;
 
 //=============================================================================
 //
