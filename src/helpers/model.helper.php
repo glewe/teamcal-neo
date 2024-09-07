@@ -280,13 +280,13 @@ function restoreUser($username) {
    * Do not restore if username exists in any of the active tables
    */
   if (
-    $U->exists($username, true) ||
-    $UG->exists($username, true) ||
-    $UO->exists($username, true) ||
-    $T->exists($username, true) ||
-    $D->exists($username, true) ||
-    $AL->exists($username, true) ||
-    $UMSG->exists($username, true)
+    $U->exists($username) ||
+    $UG->exists($username) ||
+    $UO->exists($username) ||
+    $T->exists($username) ||
+    $D->exists($username) ||
+    $AL->exists($username) ||
+    $UMSG->exists($username)
   ) {
     return false;
   }
