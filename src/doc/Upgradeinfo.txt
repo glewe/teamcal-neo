@@ -59,6 +59,11 @@ TEAMCAL NEO UPGRADE INFO
 
    ALTER TABLE `tcneo_log` ADD `ip` VARCHAR(40) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `timestamp`;
 
+   INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES (NULL, 'alertAutocloseDelay', '3000');
+   INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES (NULL, 'alertAutocloseDanger', '0');
+   INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES (NULL, 'alertAutocloseSuccess', '1');
+   INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES (NULL, 'alertAutocloseWarning', '0');
+
 3. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 

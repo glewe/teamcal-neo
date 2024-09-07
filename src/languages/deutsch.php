@@ -385,6 +385,15 @@ $LANG['config_activateMessages_comment'] = 'Mit diesem Schalter kann das Message
  Nachrichten oder E-Mails schicken. Ein Eintrag im Optionen Menu wird hinzugef&uuml;gt.';
 $LANG['config_adminApproval'] = 'Administrator Freischaltung erforderlich';
 $LANG['config_adminApproval_comment'] = 'Der Administrator erh&auml;lt eine E-Mail bei einer Neuregistrierung. Er muss den Account manuell freischalten.';
+$LANG['config_alert_edit_success'] = 'Die Konfiguration wurde gespeichert. Damit alle &Auml;nderungen wirksam werden, muss die Seite eventuell neu geladen werden.';
+$LANG['config_alertAutocloseDanger'] = 'Fehlernmeldungen automatisch schließen';
+$LANG['config_alertAutocloseDanger_comment'] = 'Hier kann eingestellt werden das Fehlermeldungen nach der unten eingegebenen Anzahl von Millisekunden automatisch geschlossen werden.';
+$LANG['config_alertAutocloseDelay'] = 'Zeit für automatisches Schließen';
+$LANG['config_alertAutocloseDelay_comment'] = 'Die Zeit in Millisekunden nach der die oben ausgewählten Meldungen automatich geschlossen werden (z.B. 4000 = 4 Sekunden).';
+$LANG['config_alertAutocloseSuccess'] = 'Erfolgsmeldungen automatisch schließen';
+$LANG['config_alertAutocloseSuccess_comment'] = 'Hier kann eingestellt werden das Erfolgsmeldungen nach der unten eingegebenen Anzahl von Millisekunden automatisch geschlossen werden.';
+$LANG['config_alertAutocloseWarning'] = 'Warnmeldungen automatisch schließen';
+$LANG['config_alertAutocloseWarning_comment'] = 'Hier kann eingestellt werden das Warnmeldungen nach der unten eingegebenen Anzahl von Millisekunden automatisch geschlossen werden.';
 $LANG['config_allowRegistration'] = 'User Selbst-Registration erlauben';
 $LANG['config_allowRegistration_comment'] = 'Erlaubt die Registrierung durch den User. Ein zus&auml;tzlicher Menueintrag erscheint im Menu.';
 $LANG['config_appDescription'] = 'HTML Beschreibung';

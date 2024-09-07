@@ -32,6 +32,30 @@ view.absenceedit
     $colsright = 4;
     ?>
 
+    <?php
+    //
+    // This is a sample toast message. You can use this as a template for your own toast messages.
+    // Try it out by setting $showToast = true; and reload the page.
+    //
+    if ($showToast) { ?>
+      <div id="toast-container" class="toast-container position-fixed top-0 end-0 p-3">
+        <?php
+        $toast = [
+          'id' => 'toast-absence-edit',
+          'color' => 'success',
+          'icon' => 'bi-person text-light',
+          'title' => 'TeamCal Neo',
+          'message' => 'Absence updated successfully.'
+        ];
+        echo createToast($toast);
+        ?>
+      </div>
+      <script>
+        var toastAbsenceEdit = new bootstrap.Toast(document.getElementById('toast-absence-edit'));
+        toastAbsenceEdit.show();
+      </script>
+    <?php } ?>
+
     <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>&amp;id=<?= $viewData['id'] ?>" method="post" target="_self" accept-charset="utf-8">
 
       <input name="hidden_id" type="hidden" class="text" value="<?= $viewData['id'] ?>">

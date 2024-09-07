@@ -15,14 +15,25 @@ if (!defined('VALID_ROOT')) {
 
 //-----------------------------------------------------------------------------
 /**
- * Creates a form-group object based on input parameters
+ * Creates an alert box with the specified data and optionally includes a script to auto-close the alert.
  *
- * @param array $data Array with the alert data
+ * @param array $data An associative array containing the alert data:
+ *  - 'type': The type of alert (e.g., 'danger', 'success', 'warning').
+ *  - 'title': The title of the alert.
+ *  - 'subject': The subject of the alert.
+ *  - 'text': The main text of the alert.
+ *  - 'help' (optional): Additional help text to display in the alert.
+ *
+ * @return string The HTML string for the alert box, including a script for auto-closing if applicable.
+ * @global array $LANG Language array for localization.
+ *
+ * @global object $C Configuration object to read settings.
  */
 function createAlertBox($data) {
-  global $LANG;
-  return '
-    <div class="alert alert-dismissable alert-' . $data['type'] . ' fade show" role="alert">
+  global $C, $LANG;
+
+  $html = '
+    <div class="alert alert-dismissible alert-' . $data['type'] . ' fade show" role="alert">
       <button type="button" class="btn-close float-end" data-bs-dismiss="alert" title="' . $LANG['close_this_message'] . '"></button>
       <h5>' . $data['title'] . '</h5>
       <hr>
@@ -30,13 +41,37 @@ function createAlertBox($data) {
       <p>' . $data['text'] . '</p>
       ' . (isset($data['help']) ? "<p><i>" . $data['help'] . "</i></p>" : "") . '
     </div>';
+
+  if (
+    $data['type'] === 'danger' && $C->read('alertAutocloseDanger') ||
+    $data['type'] === 'success' && $C->read('alertAutocloseSuccess') ||
+    $data['type'] === 'warning' && $C->read('alertAutocloseWarning')
+  ) {
+    $delay = (int)$C->read('alertAutocloseDelay');
+    $html .= '
+      <script>
+        setTimeout(function() {
+          $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function(){
+            $(".alert-dismissible").alert("close");
+          });
+        }, ' . $delay . ');
+      </script>';
+  }
+  return $html;
 }
 
 //-----------------------------------------------------------------------------
 /**
- * Creates a form-group object based on input parameters
+ * Creates a Font Awesome icon listbox.
  *
- * @param array $data Array with the alert data
+ * This function generates an HTML select element populated with Font Awesome icons.
+ *
+ * @param string $tabIndex The tabindex attribute for the select element. Default is "-1".
+ * @param string $selected The icon that should be selected by default. Default is an empty string.
+ *
+ * @return string The HTML string for the Font Awesome icon listbox.
+ * @global array $faIcons An array of available Font Awesome icons.
+ *
  */
 function createFaIconListbox($tabIndex = "-1", $selected = "") {
   global $faIcons;
@@ -55,9 +90,33 @@ function createFaIconListbox($tabIndex = "-1", $selected = "") {
 
 //-----------------------------------------------------------------------------
 /**
- * Creates a form-group object based on input parameters
+ * Creates a form group with various input types based on the provided data.
  *
- * @param array $data Array of parameters defining the form-group type and content
+ * @param array $data An associative array containing the form group data:
+ *  - 'prefix': The prefix for the form group.
+ *  - 'name': The name of the form group.
+ *  - 'type': The type of the form group (e.g., 'check', 'color', 'date', 'info', 'list', 'password', 'radio', 'text', 'textarea', 'ckeditor').
+ *  - 'value': The value of the form group.
+ *  - 'maxlength' (optional): The maximum length for text inputs.
+ *  - 'placeholder' (optional): The placeholder text for text inputs.
+ *  - 'rows' (optional): The number of rows for textarea inputs.
+ *  - 'action' (optional): An associative array containing action button data:
+ *    - 'name': The name of the action button.
+ *    - 'target': The target URL for the action button.
+ *  - 'disabled' (optional): A boolean indicating if the form group should be disabled.
+ *  - 'mandatory' (optional): A boolean indicating if the form group is mandatory.
+ *  - 'error' (optional): An error message to display.
+ *  - 'values' (optional): An array of values for select and radio inputs.
+ *  - 'imagelist' (optional): A boolean indicating if the select list should display images.
+ *  - 'imagedir' (optional): The directory for images in the select list.
+ *
+ * @param int $colsleft The number of columns for the left part of the form group.
+ * @param int $colsright The number of columns for the right part of the form group.
+ * @param int $tabindex The tabindex attribute for the form group inputs.
+ *
+ * @return string The HTML string for the form group.
+ * @global array $LANG Language array for localization.
+ *
  */
 function createFormGroup($data, $colsleft, $colsright, $tabindex) {
   global $LANG;
@@ -430,7 +489,34 @@ function createPageTabs($tabs) {
 
 //-----------------------------------------------------------------------------
 /**
- * Returns a tooltip span element with a Font Aweseom icon
+ * Creates the Bootstrap toast
+ *
+ * @param array $data Array of toast details
+ */
+function createToast($data) {
+  global $LANG;
+  $classColor = '';
+  if (strlen($data['color'])) {
+    $classColor = 'text-bg-' . $data['color'];
+  }
+
+  return '
+  <div id="' . $data['id'] . '" class="toast ' . $classColor . '" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="6000">
+    <div class="toast-header">
+      <i class="' . $data['icon'] . ' me-2"></i>
+      <strong class="me-auto">' . $data['title'] . '</strong>
+      <small>' . date("Y-m-d H:m", time()) . '</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      ' . $data['message'] . '
+    </div>
+  </div>';
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Returns a tooltip span element with a Font Awesome icon
  *
  * @param string $type BS color code (info,success,warning,danger) (Default: info)
  * @param string $icon Font Awesome icon to use (Default: question-circle)
@@ -441,8 +527,8 @@ function createPageTabs($tabs) {
  */
 function iconTooltip($text = 'Tooltip text', $title = '', $position = 'top', $type = 'info', $icon = 'question-circle') {
   if (strlen($title)) {
-    $ttText = "<div class='text-bold' style='padding-top: 4px; padding-bottom: 4px'>" . $title . "</div>";
+    $ttText = " < div class='text-bold' style = 'padding-top: 4px; padding-bottom: 4px' > " . $title . "</div > ";
   }
-  $ttText .= "<div class='text-normal'>" . $text . "</div>";
-  return '<span data-placement="' . $position . '" data-type="' . $type . ' fas fa-' . $icon . ' text-' . $type . '" data-bs-toggle="tooltip" title="' . $ttText . '"></span>';
+  $ttText .= "<div class='text-normal' > " . $text . "</div > ";
+  return '<span data-placement="' . $position . '" data-type="' . $type . ' fas fa - ' . $icon . ' text - ' . $type . '" data-bs-toggle="tooltip" title="' . $ttText . '"></span>';
 }

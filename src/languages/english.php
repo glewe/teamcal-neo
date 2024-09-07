@@ -386,6 +386,15 @@ $LANG['config_activateMessages_comment'] = 'This option will activate the Messag
       users or groups. An entry in the Tools menu will be added.';
 $LANG['config_adminApproval'] = 'Require Admin Approval';
 $LANG['config_adminApproval_comment'] = 'The administrator will receive an e-mail about each user self-registration. He manually needs to confirm the account.';
+$LANG['config_alert_edit_success'] = 'The configuration was updated. For some changes to take effect, you may need to refresh the page.';
+$LANG['config_alertAutocloseDanger'] = 'Close Error Alerts automatically';
+$LANG['config_alertAutocloseDanger_comment'] = 'Select whether Error alerts shall be automatically closed after the amount of milliseconds specified below.';
+$LANG['config_alertAutocloseDelay'] = 'Alert Autoclose Delay';
+$LANG['config_alertAutocloseDelay_comment'] = 'Enter the amount of milliseconds after which alerts the selected alert types above shall be automatically closed (e.g. 4000 = 4 seconds).';
+$LANG['config_alertAutocloseSuccess'] = 'Close Success Alerts automatically';
+$LANG['config_alertAutocloseSuccess_comment'] = 'Select whether Success alerts shall be automatically closed after the amount of milliseconds specified below.';
+$LANG['config_alertAutocloseWarning'] = 'Close Warning Alerts automatically';
+$LANG['config_alertAutocloseWarning_comment'] = 'Select whether Warning alerts shall be automatically closed after the amount of milliseconds specified below.';
 $LANG['config_allowRegistration'] = 'Allow User Self-Registration';
 $LANG['config_allowRegistration_comment'] = 'Allow users to self-register their account. A menu entry will be available in the ' . $appTitle . ' menu.';
 $LANG['config_appDescription'] = 'HTML Description';

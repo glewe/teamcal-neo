@@ -721,7 +721,11 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (202, 'logfilterMonth', '0'),
 (203, 'logcolorMonth', 'default'),
 (204, 'font', 'default'),
-(205, 'sortByOrderKey', '1');
+(205, 'sortByOrderKey', '1'),
+(205, 'alertAutocloseDelay', '3000'),
+(205, 'alertAutocloseDanger', '0'),
+(205, 'alertAutocloseSuccess', '1'),
+(205, 'alertAutocloseWarning', '0');
 
 -- --------------------------------------------------------
 
