@@ -133,11 +133,12 @@ $CONF['uplMaxsize'] = 2048 * 1024; // 2 MB
  * a few test users as documented here:
  * https://www.forumsys.com/2022/05/10/online-ldap-test-server/
  *
- * First, you need to login to TeamCal Neo as admin and create one of the sample
- * users, e.g. gauss. Then set LDAP_YES to 1. You can then login with
- * gauss/password.
+ * The sample database that comes with TeamCal Neo contains a user with username
+ * 'einstein'. In the TeamCal Neo database this user has the password 'Qwer!1234'.
+ * This user also exists in the forumsys LDAP server with password 'password'.
+ * Set LDAP_YES to 1 here. You can then login with einstein/password.
  *
- * Note, that all users except admin will be authenticated against the LDAP server.
+ * Note, that the 'admin' user will always authenticate against the TeamCal Neo database.
  *
  */
 define('LDAP_YES', 0);                                       // Use LDAP authentication
