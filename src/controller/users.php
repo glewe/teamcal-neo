@@ -215,25 +215,10 @@ if (!empty($_POST)) {
         // Find user and reset password
         //
         $U->findByName($value);
-        $newpwd = generatePassword();
-        $U->password = password_hash($newpwd, PASSWORD_DEFAULT);
-        $U->last_pw_change = date("Y-m-d H:I:s");
-        $U->update($U->username);
-        //
-        // Send notification e-mail
-        //
-        $message = $LANG['notification_greeting'];
-        $message .= $LANG['notification_usr_pwd_reset'];
-        $message .= $LANG['notification_usr_pwd_reset_user'];
-        $message .= $value;
-        $message .= "\r\n\r\n";
-        $message .= $LANG['notification_usr_pwd_reset_pwd'];
-        $message .= $newpwd;
-        $message .= "\r\n\r\n";
-        $message .= $LANG['notification_sign'];
-        $to = $U->email;
-        $subject = stripslashes($LANG['notification_usr_pwd_subject']);
-        sendEmail($to, $subject, $message);
+        $token = hash('md5', 'PasswordResetRequestFor' . $U->username);
+        $expiryDateTime = date('YmdHis', strtotime(date('YmdHis') . ' +1 day'));
+        $UO->save($U->username, 'pwdTokenExpiry', $expiryDateTime);
+        sendPasswordResetMail($U->email, $U->username, $U->lastname, $U->firstname, $token);
         //
         // Log this event
         //

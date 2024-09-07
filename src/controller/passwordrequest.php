@@ -48,7 +48,7 @@ if (!empty($_POST)) {
     // '-------'
     if (isset($_POST['btn_request_password'])) {
       if ($pwdUsers = $U->getAllForEmail($email)) {
-        if (count($pwdUsers) == 1) {
+        if (count($pwdUsers) === 1) {
           //
           // One user found with the given email address. Create a token.
           //
