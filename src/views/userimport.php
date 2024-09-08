@@ -44,20 +44,6 @@ view.userimport
         <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['imp_title'] . $pageHelp ?></div>
         <div class="card-body">
 
-          <div class="card">
-            <div class="card-body row">
-              <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_import"><?= $LANG['btn_import'] ?></button>
-              </div>
-              <div class="col-lg-6 text-end">
-                <?php if (isAllowed("useraccount")) { ?>
-                  <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
-                <?php } ?>
-              </div>
-            </div>
-          </div>
-          <div style="height:20px;"></div>
-
           <div class="form-group row">
             <label class="col-lg-<?= $colsleft ?> control-label">
               <?= $LANG['imp_file'] ?><br>
@@ -76,18 +62,11 @@ view.userimport
             echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
           } ?>
 
-          <div style="height:20px;"></div>
-          <div class="card">
-            <div class="card-body row">
-              <div class="col-lg-6">
-                <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_import"><?= $LANG['btn_import'] ?></button>
-              </div>
-              <div class="col-lg-6 text-end">
-                <?php if (isAllowed("useraccount")) { ?>
-                  <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
-                <?php } ?>
-              </div>
-            </div>
+          <div class="mt-4 text-end">
+            <button type="submit" class="btn btn-primary me-2" tabindex="<?= $tabindex++ ?>" name="btn_import"><?= $LANG['btn_import'] ?></button>
+            <?php if (isAllowed("useraccount")) { ?>
+              <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
+            <?php } ?>
           </div>
 
         </div>

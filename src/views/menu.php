@@ -405,7 +405,7 @@ view.menu
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="user" aria-haspopup="true" aria-expanded="false">
             <img src="<?= APP_AVATAR_DIR . $userData['avatar'] ?>" width="40" height="40" alt="" style="margin: -10px 0 -10px 0;"><span class="caret"></span>
           </a>
-          <div class="dropdown-menu" aria-labelledby="user">
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="user">
             <a class="dropdown-item" tabindex="-1" href="#"><?= $userData['loginInfo'] ?></a>
             <div class="dropdown-divider"></div>
             <?php if ($userData['isLoggedIn']) { ?>
