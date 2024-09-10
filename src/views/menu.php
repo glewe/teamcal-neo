@@ -25,6 +25,7 @@ view.menu
     </button>
     <div class="collapse navbar-collapse" id="navbarTop">
       <ul class="navbar-nav">
+
         <!-- App Menu -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="app" aria-haspopup="true" aria-expanded="false"><?= $C->read("appTitle") ?></a>
@@ -49,9 +50,9 @@ view.menu
                 </a>
               <?php } ?>
             <?php } ?>
-            <div class="dropdown-divider"></div>
           </div>
         </li>
+
         <!-- View Menu -->
         <?php if ((isAllowed($CONF['controllers']['messages']->permission) && $C->read('activateMessages')) ||
           isAllowed($CONF['controllers']['calendarview']->permission) ||
@@ -156,6 +157,7 @@ view.menu
             </div>
           </li>
         <?php } ?>
+
         <!-- Edit Menu -->
         <?php if (
           isAllowed($CONF['controllers']['calendaredit']->permission) ||
@@ -205,6 +207,7 @@ view.menu
       </ul>
 
       <ul class="navbar-nav ms-auto">
+
         <!-- Theme Menu -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="theme" aria-haspopup="true" data-bs-target="#darkmode" aria-expanded="false" aria-controls="darkmode">
