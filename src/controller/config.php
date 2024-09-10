@@ -404,8 +404,6 @@ if (!empty($_POST)) {
       $alertData['subject'] = $LANG['alert_license_subject'];
       $alertData['text'] = $LANG['config_alert_edit_success'];
       $alertData['help'] = '';
-//      header("Location: index.php?action=config");
-//      die();
     }
     // ,--------------------,
     // | License Activation |

@@ -61,27 +61,19 @@ view.groupedit
 
                 <!-- Group Settings -->
                 <div class="tab-pane fade show active" id="panel-settings" role="tabpanel" aria-labelledby="tab-settings">
-                  <div class="card">
-                    <div class="card-body">
-                      <?php foreach ($viewData['group'] as $formObject) {
-                        echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-                      } ?>
-                    </div>
-                  </div>
+                  <?php foreach ($viewData['group'] as $formObject) {
+                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                  } ?>
                 </div>
 
                 <!-- Group Members -->
                 <div class="tab-pane fade" id="panel-members" role="tabpanel" aria-labelledby="tab-members">
-                  <div class="card">
-                    <div class="card-body">
-                      <?php foreach ($viewData['members'] as $formObject) {
-                        echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-                      } ?>
-                      <?php foreach ($viewData['managers'] as $formObject) {
-                        echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-                      } ?>
-                    </div>
-                  </div>
+                  <?php foreach ($viewData['members'] as $formObject) {
+                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                  } ?>
+                  <?php foreach ($viewData['managers'] as $formObject) {
+                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                  } ?>
                 </div>
 
               </div>

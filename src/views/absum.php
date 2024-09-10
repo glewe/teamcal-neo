@@ -45,39 +45,63 @@ view.absum
       <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= sprintf($LANG['absum_title'], $viewData['year'], $viewData['fullname']) ?><?= $pageHelp ?></div>
       <div class="card-body">
 
-        <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-          <div class="col-lg-6 text-bold"><?= $LANG['absum_absencetype'] ?></div>
-          <div class="col-lg-2 text-end text-bold"><?= $LANG['absum_contingent'] ?>&nbsp;<?= iconTooltip($LANG['absum_contingent_tt'], $LANG['absum_contingent'], 'bottom') ?></div>
-          <div class="col-lg-2 text-end text-bold"><?= $LANG['absum_taken'] ?></div>
-          <div class="col-lg-2 text-end text-bold"><?= $LANG['absum_remainder'] ?></div>
-        </div>
-        <?php if (count($viewData['absences'])) {
-          foreach ($viewData['absences'] as $abs) {
-            if (!$abs['counts_as']) { ?>
-              <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-                <div class="col-lg-6"><i class="<?= $abs['icon'] ?>" style="color: #<?= $abs['color'] ?>; background-color: #<?= $abs['bgcolor'] ?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;"></i><?= $abs['name'] ?></div>
-                <div class="col-lg-2 text-end"><?= $abs['contingent'] ?></div>
-                <div class="col-lg-2 text-end <?= (is_int($abs['allowance']) && intval($abs['taken']) > intval($abs['allowance'])) ? 'text-warning' : ''; ?>"><?= $abs['taken'] ?></div>
-                <div class="col-lg-2 text-end <?= (is_int($abs['allowance']) && intval($abs['remainder']) < 0) ? 'text-danger' : 'text-success'; ?>"><?= $abs['remainder'] ?></div>
-              </div>
-            <?php }
-            $subabsences = $A->getAllSub($abs['id']);
-            foreach ($subabsences as $subabs) {
-              $summary = getAbsenceSummary($caluser, $subabs['id'], $viewData['year']);
-              $subabs['contingent'] = $summary['totalallowance'];
-              $subabs['taken'] = $summary['taken'];
-              $subabs['remainder'] = $summary['remainder'];
-              ?>
-              <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
-                <div class="col-lg-1 text-end"><i class="fas fa-angle-double-right"></i></div>
-                <div class="col-lg-5 text-italic"><i class="<?= $subabs['icon'] ?>" style="color: #<?= $subabs['color'] ?>; background-color: #<?= $subabs['bgcolor'] ?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;"></i><?= $subabs['name'] ?></div>
-                <div class="col-lg-2 text-end text-italic"><?= $subabs['contingent'] ?></div>
-                <div class="col-lg-2 text-end  text-italic <?= (is_int($subabs['allowance']) && intval($subabs['taken']) > intval($subabs['allowance'])) ? 'text-warning' : ''; ?>"><?= $subabs['taken'] ?></div>
-                <div class="col-lg-2 text-end  text-italic <?= (is_int($subabs['allowance']) && intval($subabs['remainder']) < 0) ? 'text-danger' : 'text-success'; ?>"><?= $subabs['remainder'] ?></div>
-              </div>
-            <?php }
-          }
-        } ?>
+        <table id="dataTableAbsenceSummary" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+          <thead>
+          <tr>
+            <th><?= $LANG['absum_absencetype'] ?></th>
+            <th class="text-end"><?= $LANG['absum_contingent'] ?>&nbsp;<?= iconTooltip($LANG['absum_contingent_tt'], $LANG['absum_contingent'], 'bottom') ?></th>
+            <th class="text-end"><?= $LANG['absum_taken'] ?></th>
+            <th class="text-end"><?= $LANG['absum_remainder'] ?></th>
+          </tr>
+          </thead>
+          <tbody>
+          <?php if (count($viewData['absences'])) {
+            foreach ($viewData['absences'] as $abs) {
+              if (!$abs['counts_as']) { ?>
+                <tr>
+                  <td><i class="<?= $abs['icon'] ?>" style="color: #<?= $abs['color'] ?>; background-color: #<?= $abs['bgcolor'] ?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;"></i><?= $abs['name'] ?></td>
+                  <td class="text-end"><?= $abs['contingent'] ?></td>
+                  <td class="text-end <?= (is_int($abs['allowance']) && intval($abs['taken']) > intval($abs['allowance'])) ? 'text-warning' : ''; ?>"><?= $abs['taken'] ?></td>
+                  <td class="text-end <?= (is_int($abs['allowance']) && intval($abs['remainder']) < 0) ? 'text-danger' : 'text-success'; ?>"><?= $abs['remainder'] ?></td>
+                </tr>
+              <?php }
+              $subabsences = $A->getAllSub($abs['id']);
+              foreach ($subabsences as $subabs) {
+                $summary = getAbsenceSummary($caluser, $subabs['id'], $viewData['year']);
+                $subabs['contingent'] = $summary['totalallowance'];
+                $subabs['taken'] = $summary['taken'];
+                $subabs['remainder'] = $summary['remainder'];
+                ?>
+                <tr>
+                  <td>
+                    <i class="<?= $abs['icon'] ?>" style="color: #<?= $abs['color'] ?>; background-color: #<?= $abs['bgcolor'] ?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;"></i>
+                    <?= $abs['name'] ?>
+                    <i class="fas fa-angle-double-right mx-2"></i>
+                    <i class="<?= $subabs['icon'] ?>" style="color: #<?= $subabs['color'] ?>; background-color: #<?= $subabs['bgcolor'] ?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;"></i>
+                    <?= $subabs['name'] ?>
+                  </td>
+                  <td class="text-end text-italic"><?= $subabs['contingent'] ?></td>
+                  <td class="text-end text-italic <?= (is_int($subabs['allowance']) && intval($subabs['taken']) > intval($subabs['allowance'])) ? 'text-warning' : ''; ?>"><?= $subabs['taken'] ?></td>
+                  <td class="text-end text-italic <?= (is_int($subabs['allowance']) && intval($subabs['remainder']) < 0) ? 'text-danger' : 'text-success'; ?>"><?= $subabs['remainder'] ?></td>
+                </tr>
+              <?php }
+            }
+          } ?>
+          </tbody>
+        </table>
+        <script>
+          $(document).ready(function () {
+            $('#dataTableAbsenceSummary').DataTable({
+              paging: true,
+              ordering: true,
+              info: true,
+              pageLength: 50,
+              language: {
+                url: 'addons/datatables/datatables.<?= $LANG['locale'] ?>.json'
+              },
+            });
+          });
+        </script>
 
       </div>
     </div>

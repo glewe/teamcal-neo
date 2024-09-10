@@ -88,74 +88,62 @@ view.absenceedit
               <div id="myTabContent" class="tab-content">
 
                 <div class="tab-pane fade show active" id="panel-general" role="tabpanel" aria-labelledby="tab-general">
-                  <div class="card">
-                    <div class="card-body">
 
-                      <!-- Sample display -->
-                      <div class="form-group row">
-                        <label class="col-lg-<?= $colsleft ?> control-label">
-                          <?= $LANG['abs_sample'] ?><br>
-                          <span class="text-normal"><?= $LANG['abs_sample_comment'] ?></span>
-                        </label>
-                        <div class="col-lg-<?= $colsright ?>">
-                          <?php if ($viewData['bgtrans']) {
-                            $bgStyle = "";
-                          } else {
-                            $bgStyle = "background-color: #" . $viewData['bgcolor'];
-                          } ?>
-                          <div id="sample" style="color: #<?= $viewData['color'] ?>; <?= $bgStyle ?>; border: 1px solid #333333; width: 32px; height: 32px; text-align: center; padding-top: 4px;" class="mb-1">
-                            <span class="<?= $viewData['icon'] ?>"></span>
-                          </div>
-                          <div id="sample" style="color: #<?= $viewData['color'] ?>; <?= $bgStyle ?>; border: 1px solid #333333; width: 32px; height: 32px; text-align: center; padding-top: 4px;">
-                            <?php echo $viewData['symbol']; ?>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="divider">
-                        <hr>
-                      </div>
-
-                      <!-- Icon -->
-                      <div class="form-group row">
-                        <label class="col-lg-<?= $colsleft ?> control-label">
-                          <?= $LANG['abs_icon'] ?><br>
-                          <span class="text-normal"><?= $LANG['abs_icon_comment'] ?></span>
-                        </label>
-                        <div class="col-lg-<?= $colsright ?>">
-                          <span class="<?= $viewData['icon'] ?> text-<?= $viewData['color'] ?>" style="font-size: 150%; padding-right: 8px; vertical-align: middle;"></span>
-                          <a href="index.php?action=absenceicon&amp;id=<?= $viewData['id'] ?>" class="btn btn-primary btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_abs_icon'] ?></a>
-                        </div>
-                      </div>
-                      <div class="divider">
-                        <hr>
-                      </div>
-
-                      <?php foreach ($viewData['general'] as $formObject) {
-                        echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                  <!-- Sample display -->
+                  <div class="form-group row">
+                    <label class="col-lg-<?= $colsleft ?> control-label">
+                      <?= $LANG['abs_sample'] ?><br>
+                      <span class="text-normal"><?= $LANG['abs_sample_comment'] ?></span>
+                    </label>
+                    <div class="col-lg-<?= $colsright ?>">
+                      <?php if ($viewData['bgtrans']) {
+                        $bgStyle = "";
+                      } else {
+                        $bgStyle = "background-color: #" . $viewData['bgcolor'];
                       } ?>
-
+                      <div id="sample" style="color: #<?= $viewData['color'] ?>; <?= $bgStyle ?>; border: 1px solid #333333; width: 32px; height: 32px; text-align: center; padding-top: 4px;" class="mb-1">
+                        <span class="<?= $viewData['icon'] ?>"></span>
+                      </div>
+                      <div id="sample" style="color: #<?= $viewData['color'] ?>; <?= $bgStyle ?>; border: 1px solid #333333; width: 32px; height: 32px; text-align: center; padding-top: 4px;">
+                        <?php echo $viewData['symbol']; ?>
+                      </div>
                     </div>
                   </div>
+                  <div class="divider">
+                    <hr>
+                  </div>
+
+                  <!-- Icon -->
+                  <div class="form-group row">
+                    <label class="col-lg-<?= $colsleft ?> control-label">
+                      <?= $LANG['abs_icon'] ?><br>
+                      <span class="text-normal"><?= $LANG['abs_icon_comment'] ?></span>
+                    </label>
+                    <div class="col-lg-<?= $colsright ?>">
+                      <span class="<?= $viewData['icon'] ?> text-<?= $viewData['color'] ?>" style="font-size: 150%; padding-right: 8px; vertical-align: middle;"></span>
+                      <a href="index.php?action=absenceicon&amp;id=<?= $viewData['id'] ?>" class="btn btn-primary btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_abs_icon'] ?></a>
+                    </div>
+                  </div>
+                  <div class="divider">
+                    <hr>
+                  </div>
+
+                  <?php foreach ($viewData['general'] as $formObject) {
+                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                  } ?>
+
                 </div>
 
                 <div class="tab-pane fade" id="panel-options" role="tabpanel" aria-labelledby="tab-options">
-                  <div class="card">
-                    <div class="card-body">
-                      <?php foreach ($viewData['options'] as $formObject) {
-                        echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-                      } ?>
-                    </div>
-                  </div>
+                  <?php foreach ($viewData['options'] as $formObject) {
+                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                  } ?>
                 </div>
 
                 <div class="tab-pane fade" id="panel-groupassignments" role="tabpanel" aria-labelledby="tab-groupassignments">
-                  <div class="card">
-                    <div class="card-body">
-                      <?php foreach ($viewData['groups'] as $formObject) {
-                        echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-                      } ?>
-                    </div>
-                  </div>
+                  <?php foreach ($viewData['groups'] as $formObject) {
+                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                  } ?>
                 </div>
 
               </div>
@@ -164,7 +152,7 @@ view.absenceedit
           </div>
 
           <div class="mt-4 text-end">
-            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
+            <button type="submit" class="btn btn-primary me-2" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
             <a href="index.php?action=absences" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_abs_list'] ?></a>
           </div>
 

@@ -44,13 +44,9 @@ view.roleedit
         <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['role_edit_title'] . $viewData['name'] . $pageHelp ?></div>
         <div class="card-body">
 
-          <div class="card">
-            <div class="card-body">
-              <?php foreach ($viewData['role'] as $formObject) {
-                echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-              } ?>
-            </div>
-          </div>
+          <?php foreach ($viewData['role'] as $formObject) {
+            echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+          } ?>
 
           <div class="mt-4 text-end">
             <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_roleUpdate"><?= $LANG['btn_update'] ?></button>
