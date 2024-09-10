@@ -44,13 +44,9 @@ view.regionedit
         <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['region_edit_title'] . $viewData['name'] . $pageHelp ?></div>
         <div class="card-body">
 
-          <div class="card">
-            <div class="card-body">
-              <?php foreach ($viewData['region'] as $formObject) {
-                echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-              } ?>
-            </div>
-          </div>
+          <?php foreach ($viewData['region'] as $formObject) {
+            echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+          } ?>
 
           <div class="mt-4 text-end">
             <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">

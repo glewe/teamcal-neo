@@ -214,7 +214,7 @@ if ($viewData['yaxis'] == 'users') {
   //
   $viewData['total'] = 0;
   if ($viewData['groupid'] == "all") {
-    $users = $U->getAll('lastname', 'firstname', 'DESC', $archive = false, $includeAdmin = false);
+    $users = $U->getAll('lastname', 'firstname', 'ASC', $archive = false, $includeAdmin = false);
   } else {
     $users = $UG->getAllforGroup($viewData['groupid']);
   }

@@ -116,6 +116,7 @@ if (!empty($_POST)) {
   // '--------'
   elseif (isset($_POST['btn_regionDelete'])) {
     $R->delete($_POST['hidden_id']);
+    $R->deleteAccess($_POST['hidden_id']);
     $M->deleteRegion($_POST['hidden_id']);
     $UO->deleteOptionByValue('calfilterRegion', $_POST['hidden_id']);
     //

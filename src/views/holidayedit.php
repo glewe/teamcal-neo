@@ -44,18 +44,14 @@ view.holidayedit
         <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['hol_edit_title'] . $viewData['name'] . $pageHelp ?></div>
         <div class="card-body">
 
-          <div class="card">
-            <div class="card-body">
-              <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">
-              <?php foreach ($viewData['holiday'] as $formObject) {
-                echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
-              } ?>
-            </div>
-          </div>
+          <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">
+          <?php foreach ($viewData['holiday'] as $formObject) {
+            echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+          } ?>
 
           <div class="mt-4 text-end">
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_holidayUpdate"><?= $LANG['btn_save'] ?></button>
-              <a href="index.php?action=holidays" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_holiday_list'] ?></a>
+            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_holidayUpdate"><?= $LANG['btn_save'] ?></button>
+            <a href="index.php?action=holidays" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_holiday_list'] ?></a>
           </div>
 
         </div>

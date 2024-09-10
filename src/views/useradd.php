@@ -44,18 +44,6 @@ view.useradd
         <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['profile_create_title'] . $pageHelp ?></div>
         <div class="card-body">
 
-          <div class="card">
-            <div class="card-body row">
-              <div class="col-lg-6">
-                <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_profileCreate"><?= $LANG['btn_create_user'] ?></button>
-              </div>
-              <div class="col-lg-6 text-end">
-                <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
-              </div>
-            </div>
-          </div>
-          <div style="height:20px;"></div>
-
           <!-- Personal tab -->
           <div class="card">
             <div class="card-body">
@@ -65,16 +53,9 @@ view.useradd
             </div>
           </div>
 
-          <div style="height:20px;"></div>
-          <div class="card">
-            <div class="card-body row">
-              <div class="col-lg-6">
-                <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_profileCreate"><?= $LANG['btn_create_user'] ?></button>
-              </div>
-              <div class="col-lg-6 text-end">
-                <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
-              </div>
-            </div>
+          <div class="mt-4 text-end">
+            <button type="submit" class="btn btn-success me-2" tabindex="<?= $tabindex++ ?>" name="btn_profileCreate"><?= $LANG['btn_create_user'] ?></button>
+            <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
           </div>
 
         </div>
