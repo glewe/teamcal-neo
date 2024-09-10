@@ -6,7 +6,6 @@ use MatthiasMullie\Minify\JS;
 
 $cssDir = 'src/css';
 $cssFiles = [
-  'bs5-submenu.css',
   'font-lato.css',
   'font-montserrat.css',
   'font-opensans.css',
