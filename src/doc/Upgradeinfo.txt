@@ -5,71 +5,24 @@ TEAMCAL NEO UPGRADE INFO
 [3.9.3] -> [4.0.0]
 1. Backup your current files and database!
 
-2. Download the new release and overwrite all files.
+2. Delete the following folders:
+   - /addons/google-code-prettify
+   - /addons/select2
+   - /addons/x-editable
+   - /themes/(all folders but 'bootstrap')
 
-3. Change in your database:
-   DELETE FROM `tcneo_config` WHERE `name` = "showBanner";
-   DELETE FROM `tcneo_config` WHERE `name` = "theme";
-   DELETE FROM `tcneo_config` WHERE `name` = "menuBarBg";
-   DELETE FROM `tcneo_config` WHERE `name` = "menuBarDark";
-   DELETE FROM `tcneo_config` WHERE `name` = "allowUserTheme";
-   DELETE FROM `tcneo_user_option` WHERE `option` = "theme";
-   DELETE FROM `tcneo_user_option` WHERE `option` = "menuBar";
+3. Download the new release and overwrite all files.
 
-   ALTER TABLE `tcneo_absence_group` ADD INDEX `absence_group_absid` (`absid`);
-   ALTER TABLE `tcneo_absence_group` ADD INDEX `absence_group_groupid` (`groupid`);
-   ALTER TABLE `tcneo_allowances` ADD INDEX `allowance_username` (`username`);
-   ALTER TABLE `tcneo_archive_allowances` ADD INDEX `allowance_username` (`username`);
-   ALTER TABLE `tcneo_archive_daynotes` DROP INDEX `yyyymmdd`, ADD UNIQUE `daynote_daynote` (`yyyymmdd`,`username`,`region`);
-   ALTER TABLE `tcneo_archive_daynotes` ADD INDEX `daynote_username` (`username`);
-   ALTER TABLE `tcneo_archive_templates` ADD INDEX `template_username` (`username`);
-   ALTER TABLE `tcneo_archive_users` ADD INDEX `user_firstname` (`firstname`);
-   ALTER TABLE `tcneo_archive_users` ADD INDEX `user_lastname` (`lastname`);
-   ALTER TABLE `tcneo_archive_user_attachment` DROP INDEX `userAttachment`, ADD UNIQUE `user_attachment` (`username`,`fileid`);
-   ALTER TABLE `tcneo_archive_user_attachment` ADD INDEX `user_attachment_username` (`username`);
-   ALTER TABLE `tcneo_archive_user_group` ADD INDEX `user_group_username` (`username`);
-   ALTER TABLE `tcneo_archive_user_group` ADD INDEX `user_group_groupid` (`groupid`);
-   ALTER TABLE `tcneo_archive_user_message` ADD INDEX `user_message_username` (`username`);
-   ALTER TABLE `tcneo_archive_user_message` ADD INDEX `user_message_msgid` (`msgid`);
-   ALTER TABLE `tcneo_archive_user_option` ADD INDEX `user_option_username` (`username`);
-   ALTER TABLE `tcneo_archive_user_option` ADD INDEX `user_option_option` (`option`);
-   ALTER TABLE `tcneo_attachments` ADD INDEX `attachment_filename` (`filename`);
-   ALTER TABLE `tcneo_daynotes` DROP INDEX `yyyymmdd`, ADD UNIQUE `daynote_daynote` (`yyyymmdd`,`username`,`region`);
-   ALTER TABLE `tcneo_daynotes` ADD INDEX `daynote_username` (`username`);
-   ALTER TABLE `tcneo_groups` ADD INDEX `group_name` (`name`);
-   ALTER TABLE `tcneo_holidays` ADD INDEX `holiday_name` (`name`);
-   ALTER TABLE `tcneo_messages` ADD INDEX `message_type` (`type`);
-   ALTER TABLE `tcneo_months` DROP INDEX `month`, ADD UNIQUE `month_month` (`year`,`month`, `region`);
-   ALTER TABLE `tcneo_permissions` DROP INDEX `permission`, ADD UNIQUE `permission_permission` (`scheme`,`permission`, `role`);
-   ALTER TABLE `tcneo_permissions` ADD INDEX `permission_scheme` (`scheme`);
-   ALTER TABLE `tcneo_permissions` ADD INDEX `permission_name` (`permission`);
-   ALTER TABLE `tcneo_regions` ADD INDEX `region_name` (`name`);
-   ALTER TABLE `tcneo_roles` DROP INDEX `name`, ADD UNIQUE `role_name` (`name`);
-   ALTER TABLE `tcneo_templates` ADD INDEX `template_username` (`username`);
-   ALTER TABLE `tcneo_users` ADD INDEX `user_firstname` (`firstname`);
-   ALTER TABLE `tcneo_users` ADD INDEX `user_lastname` (`lastname`);
-   ALTER TABLE `tcneo_user_attachment` DROP INDEX `userAttachment`, ADD UNIQUE `user_attachment` (`username`,`fileid`);
-   ALTER TABLE `tcneo_user_attachment` ADD INDEX `user_attachment_username` (`username`);
-   ALTER TABLE `tcneo_user_group` ADD INDEX `user_group_username` (`username`);
-   ALTER TABLE `tcneo_user_group` ADD INDEX `user_group_groupid` (`groupid`);
-   ALTER TABLE `tcneo_user_message` ADD INDEX `user_message_username` (`username`);
-   ALTER TABLE `tcneo_user_message` ADD INDEX `user_message_msgid` (`msgid`);
-   ALTER TABLE `tcneo_user_option` ADD INDEX `user_option_username` (`username`);
-   ALTER TABLE `tcneo_user_option` ADD INDEX `user_option_option` (`option`);
+4. Change in your database:
+   Run the SQL statements from the file:
+   - /sql/upgrade_3.9.3_to_4.0.0.sql
 
-   ALTER TABLE `tcneo_log` ADD `ip` VARCHAR(40) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `timestamp`;
-
-   INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES (NULL, 'alertAutocloseDelay', '3000');
-   INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES (NULL, 'alertAutocloseDanger', '0');
-   INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES (NULL, 'alertAutocloseSuccess', '1');
-   INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES (NULL, 'alertAutocloseWarning', '0');
-
-3. Edit config/config.app.php and change line 39 to:
+5. Edit config/config.app.php and change line 39 to:
    define('APP_INSTALLED',"1");
 
-4. Edit config/config.db.php and update your database settings from your backup.
+6. Edit config/config.db.php and update your database settings from your backup.
 
-5. Delete file installation.php in the root directory.
+7. Delete file installation.php in the root directory.
 
 
 [3.9.2] -> [3.9.3]
