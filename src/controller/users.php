@@ -215,7 +215,7 @@ if (!empty($_POST)) {
         // Find user and reset password
         //
         $U->findByName($value);
-        $token = hash('md5', 'PasswordResetRequestFor' . $U->username);
+        $token = hash('sha512', 'PasswordResetRequestFor' . $U->username);
         $expiryDateTime = date('YmdHis', strtotime(date('YmdHis') . ' +1 day'));
         $UO->save($U->username, 'pwdTokenExpiry', $expiryDateTime);
         sendPasswordResetMail($U->email, $U->username, $U->lastname, $U->firstname, $token);
