@@ -424,9 +424,6 @@ $LANG['db_repair_confirm'] = 'Best&auml;tigung';
 $LANG['db_repair_confirm_comment'] = 'Bitte gebe hier "REPAIR" ein, um die Aktion zu best&auml;tigen.';
 $LANG['db_repair_daynoteRegions'] = 'Tagesnotiz-Regionen';
 $LANG['db_repair_daynoteRegions_comment'] = 'Diese Option prueft, ob es Tagesnotizen ohne Regionszurodnung gibt. Wenn dies der Fall ist, wird die Default Region eingetragen.';
-$LANG['db_tcpimp'] = 'TeamCal Pro Import';
-$LANG['db_tcpimp_comment'] = 'Wenn du bisher TeamCal Pro benutzt hast, kannst du Daten davon importieren. Klicke dazu den Import Button.';
-$LANG['db_tcpimp2'] = 'Aber...';
 
 //
 // Daynote
@@ -885,109 +882,6 @@ $LANG['stats_year'] = 'Jahr';
 $LANG['stats_year_comment'] = 'W&auml;hle, das Jahr f&uml;r die Statistik.';
 $LANG['stats_startDate'] = 'Eigenes Start Datum';
 $LANG['stats_startDate_comment'] = 'W&auml;hle ein eigenes Startdatum f&uuml;r die Statistik.<br>Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "' . $LANG['custom'] . '" ausgew&auml;hlt sein.';
-
-//
-// TeamCal Pro Import
-//
-$LANG['tcpimp_title'] = 'TeamCal Pro Import';
-$LANG['tcpimp_tab_info'] = 'Information';
-$LANG['tcpimp_tab_tcpdb'] = 'TeamCal Pro Datenbank';
-$LANG['tcpimp_tab_import'] = 'Import';
-
-$LANG['tcpimp_add'] = 'TeamCal Neo Daten erg&auml;nzen';
-$LANG['tcpimp_btn_add_all'] = 'Alle hinzuf&uuml;gen';
-$LANG['tcpimp_btn_replace_all'] = 'Alle ersetzen';
-$LANG['tcpimp_from'] = 'TeamCal Pro 3.6.019 (oder h&ouml;her)';
-$LANG['tcpimp_no'] = 'Nicht importieren';
-$LANG['tcpimp_replace'] = 'TeamCal Neo Daten ersetzen';
-$LANG['tcpimp_to'] = 'TeamCal Neo 1.0.000';
-
-$LANG['tcpimp_confirm_import'] = 'Soll der Import gestartet werden? Dabei werden &Auml;nderungen and der aktuellen Datenbank vorgenommen. Es ist empfehlenswert, vorher eine Sicherung zu machen.';
-
-$LANG['tcpimp_alert_title'] = 'TeamCal Pro Import';
-$LANG['tcpimp_alert_fail'] = 'Eine oder mehrere TeamCal Pro Abfragen sind fehlgeschlagen oder es wurden keine bzw. falsche Tabellen ausgew&auml;hlt. &Uuml;berpr&uuml;fe die Daten und f&uuml;hre die notwendigen Anpassungen durch. Im Datenbank Management kann ein Reset auf Beispieldaten gemacht werden.';
-$LANG['tcpimp_alert_success'] = 'Der TeamCal Pro Import war erfolgreich. &Uuml;berpr&uuml;fe die Daten und f&uuml;hre die notwendigen Anpassungen durch.';
-$LANG['tcpimp_alert_success_help'] = 'Die folgenden Tabellen wurden importiert:';
-
-$LANG['tcpimp_info'] = '<p>TeamCal Neo wurde komplett neu programmiert. Speziell die Datenbankstrukturen haben sich ge&auml;ndert. Es ist nicht mehr kompatibel mit TeamCal Pro.
-      Es k&ouml;nnen nur Stammdaten von TeamCal Pro importiert werden. Manuelle Einstellungen in TeamCal Neo sind danach immer noch n&ouml;tig.</p>
-      <p>Es ist wichtig, dass die TeamCal Pro Instanz, von der gelesen wird, das Release ' . $LANG['tcpimp_from'] . ' hat!</p>
-      <p>Die TeamCal Pro Datenbank wird nicht ver&auml;ndert, nur gelesen.</p>';
-
-$LANG['tcpimp_tcp_dbName'] = 'Datenbankname';
-$LANG['tcpimp_tcp_dbName_comment'] = 'Gib den Namen der existierenden TeamCal Pro Datenbank ein.';
-$LANG['tcpimp_tcp_dbUser'] = 'Benutzername';
-$LANG['tcpimp_tcp_dbUser_comment'] = 'Gib den Benutzernamen f&uuml;r die TeamCal Pro Datenbank ein.';
-$LANG['tcpimp_tcp_dbPassword'] = 'Passwort';
-$LANG['tcpimp_tcp_dbPassword_comment'] = 'Gib das Passwort f&uuml;r die TeamCal Pro Datenbank ein.';
-$LANG['tcpimp_tcp_dbPrefix'] = 'Tabellenprefix';
-$LANG['tcpimp_tcp_dbPrefix_comment'] = 'Wenn ein Tabellenprefix benutzt wird, muss er hier angegeben werden, z.B. "tcpro_".';
-$LANG['tcpimp_tcp_dbServer'] = 'Datenbankserver';
-$LANG['tcpimp_tcp_dbServer_comment'] = 'Gib die URL des Datenbankservers ein.';
-
-$LANG['tcpimp_abs'] = 'Abwesenheitstypen';
-$LANG['tcpimp_abs_comment'] = '<p>Die "z&auml;hlt als" Relationen zwischen Abwesenheitstypen k&ouml;nnen nicht importiert werden. Diese m&uuml;ssen nach dem Import manuell gesetzt werden.<br>
-      Dieser Import ist notwendig f&uuml;r diese anderen Importe:</p>
-      <ul>
-         <li>Erlaubte Abwesenheiten</li>
-      </ul>';
-$LANG['tcpimp_allo'] = 'Erlaubte Abwesenheiten';
-$LANG['tcpimp_allo_comment'] = '<p>Um die erlaubten Abwesenheiten zu importieren, m&uuml;ssen auch die folgenden Tabellen importiert werden:</p>
-      <ul>
-         <li>Abwesenheitstypen</li>
-         <li>Benutzerkonten</li>
-      </ul>';
-$LANG['tcpimp_dayn'] = 'Tagesnotizen';
-$LANG['tcpimp_dayn_comment'] = '<p>Um die Tagesnotizen zu importieren, m&uuml;ssen auch die folgenden Tabellen importiert werden:</p>
-      <ul>
-         <li>Regionen</li>
-         <li>Benutzerkonten</li>
-      </ul>';
-$LANG['tcpimp_groups'] = 'Gruppen';
-$LANG['tcpimp_groups_comment'] = '<p>Alle Gruppen werden importiert<br>
-      Dieser Import ist notwendig f&uuml;r diese anderen Importe:</p>
-      <ul>
-         <li>Gruppenmitgliedschaften</li>
-      </ul>';
-$LANG['tcpimp_hols'] = 'Feiertage';
-$LANG['tcpimp_hols_comment'] = '<p>Alle Feiertage werden importiert<br>
-      Dieser Import ist notwendig f&uuml;r diese anderen Importe:</p>
-      <ul>
-         <li>Regionenkalender</li>
-      </ul>';
-$LANG['tcpimp_mtpl'] = 'Regionenkalender';
-$LANG['tcpimp_mtpl_comment'] = '<p>Um die Regionenkalender zu importieren, m&uuml;ssen auch die folgenden Tabellen importiert werden:</p>
-      <ul>
-         <li>Feiertage</li>
-         <li>Regionen</li>
-      </ul>';
-$LANG['tcpimp_regs'] = 'Regionen';
-$LANG['tcpimp_regs_comment'] = '<p>Alle Regionen werden importiert<br>
-      Dieser Import ist notwendig f&uuml;r diese anderen Importe:</p>
-      <ul>
-         <li>Regionenkalender</li>
-      </ul>';
-$LANG['tcpimp_roles'] = 'Rollen';
-$LANG['tcpimp_roles_comment'] = 'Die Rollen "Direktor" and "Assistent" werden hinzugef&uuml;gt. Es werden keine Rollen ersetzt. Sollten auch die Benutzerkonten importiert werden, werden diese beiden Rollen entsprechend zugewiesen.';
-$LANG['tcpimp_ugr'] = 'Gruppenmitgliedschaften';
-$LANG['tcpimp_ugr_comment'] = '<p>Um die Gruppenmitgliedschaften zu importieren, m&uuml;ssen auch die folgenden Tabellen importiert werden:</p>
-      <ul>
-         <li>Gruppen</li>
-         <li>Benutzerkonten</li>
-      </ul>';
-$LANG['tcpimp_users'] = 'Benutzerkonten';
-$LANG['tcpimp_users_comment'] = '<p>Benutzerkonten und Basisoptionen werden importiert. Avatars werden nicht importiert. Wenn die TeamCal Pro Rollen nicht importiert werden, werden die Rollen auf "Administrator" oder "User" gemapped.<br>
-      Dieser Import ist notwendig f&uuml;r diese anderen Importe:</p>
-      <ul>
-         <li>Erlaubte Abwesenheiten</li>
-         <li>Gruppenmitgliedschaften</li>
-      </ul>';
-$LANG['tcpimp_utpl'] = 'Nutzerkalender';
-$LANG['tcpimp_utpl_comment'] = '<p>Um die Nutzerkalender zu importieren, m&uuml;ssen auch die folgenden Tabellen importiert werden:</p>
-      <ul>
-         <li>Abwesenheitstypen</li>
-         <li>Benutzerkonten</li>
-      </ul>';
 
 //
 // Users

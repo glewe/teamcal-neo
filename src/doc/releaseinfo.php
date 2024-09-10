@@ -20,6 +20,7 @@ $releases = [
       [ 'summary' => 'Added table indexes for faster database operations', 'issue' => '' ],
       [ 'summary' => 'Added client IP address to log entries', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/4' ],
       [ 'summary' => 'Added autoclose option to alert messages', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/1' ],
+      [ 'summary' => 'Database optimizations', 'issue' => '' ],
     ],
     'removals' => [
       [ 'summary' => 'Removed Banner option (outdated feature)', 'issue' => '' ],
@@ -27,6 +28,7 @@ $releases = [
       [ 'summary' => 'Removed X-editable addon (unused)', 'issue' => '' ],
       [ 'summary' => 'Removed Select2 addon (unused)', 'issue' => '' ],
       [ 'summary' => 'Removed google-code-prettify addon (unused)', 'issue' => '' ],
+      [ 'summary' => 'Removed TeamCal Pro import feature (use 3.9.3 first if you still need it)', 'issue' => '' ],
     ],
   ],
   //---------------------------------------------------------------------------

@@ -55,7 +55,6 @@ view.database
                 ['id' => 'tab-delete', 'href' => '#panel-delete', 'label' => $LANG['db_tab_delete'], 'active' => false],
                 ['id' => 'tab-admin', 'href' => '#panel-admin', 'label' => $LANG['db_tab_admin'], 'active' => false],
                 ['id' => 'tab-reset', 'href' => '#panel-reset', 'label' => $LANG['db_tab_reset'], 'active' => false],
-                ['id' => 'tab-tcpimp', 'href' => '#panel-tcpimp', 'label' => $LANG['db_tab_tcpimp'], 'active' => false],
                 ['id' => 'tab-dbinfo', 'href' => '#panel-dbinfo', 'label' => $LANG['db_tab_dbinfo'], 'active' => false],
               ];
               echo createPageTabs($pageTabs);
@@ -273,23 +272,6 @@ view.database
                     <hr>
                   </div>
                   <button type="submit" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset_database'] ?></button>
-                </div>
-
-                <!-- TeamCal Pro Import tab -->
-                <div class="tab-pane fade" id="panel-tcpimp" role="tabpanel" aria-labelledby="tab-tcpimp">
-                  <div class="form-group row">
-                    <div class="col-lg-12">
-                      <strong><?= $LANG['db_tcpimp'] ?></strong>
-                      <div class="text-normal"><?= $LANG['db_tcpimp_comment'] ?></div>
-                      <div class="text-normal">&nbsp;</div>
-                      <strong><?= $LANG['db_tcpimp2'] ?></strong>
-                      <div class="text-normal"><?= $LANG['tcpimp_info'] ?></div>
-                    </div>
-                  </div>
-                  <div class="divider">
-                    <hr>
-                  </div>
-                  <a href="index.php?action=tcpimport" class="btn btn-primary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_import'] ?></a>
                 </div>
 
                 <!-- Database Information tab -->

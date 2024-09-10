@@ -420,9 +420,6 @@ $LANG['db_repair_confirm'] = 'Confirmation';
 $LANG['db_repair_confirm_comment'] = 'Please type in "REPAIR" to confirm this action.';
 $LANG['db_repair_daynoteRegions'] = 'Daynote Regions';
 $LANG['db_repair_daynoteRegions_comment'] = 'This option checks whether there are daynotes without a region set. If so, the region will be set to Default.';
-$LANG['db_tcpimp'] = 'TeamCal Pro Import';
-$LANG['db_tcpimp_comment'] = 'If you have used TeamCal Pro before and want to import data from it, you can do so by clicking the Import button below.';
-$LANG['db_tcpimp2'] = 'However...';
 
 //
 // Daynote
@@ -811,7 +808,7 @@ $LANG['regions_alert_no_file'] = 'No iCal file was selected.';
 $LANG['regions_alert_region_created'] = 'The region was created.';
 $LANG['regions_alert_region_created_fail'] = 'The region was not created. Please check the "Create region" dialog for input errors.';
 $LANG['regions_alert_region_deleted'] = 'The region was deleted.';
-$LANG['regions_confirm_delete'] = 'Are you sure you want to delete this region: ';
+$LANG['regions_confirm_delete'] = 'Are you sure you want to delete this region';
 $LANG['regions_description'] = 'Description';
 $LANG['regions_ical_file'] = 'iCal File';
 $LANG['regions_ical_file_comment'] = 'Select an iCal file with whole day events (e.g. school holidays) from a local drive.';
@@ -880,109 +877,6 @@ $LANG['stats_year'] = 'Year';
 $LANG['stats_year_comment'] = 'Select the year for this statistics.';
 $LANG['stats_startDate'] = 'Start Date';
 $LANG['stats_startDate_comment'] = 'Select a custom start date for the statistic.<br>This date only applies if "' . $LANG['custom'] . '" was selected in the Period list.';
-
-//
-// TeamCal Pro Import
-//
-$LANG['tcpimp_title'] = 'TeamCal Pro Import';
-$LANG['tcpimp_tab_info'] = 'Information';
-$LANG['tcpimp_tab_tcpdb'] = 'TeamCal Pro Database';
-$LANG['tcpimp_tab_import'] = 'Import';
-
-$LANG['tcpimp_add'] = 'Add to TeamCal Neo records';
-$LANG['tcpimp_btn_add_all'] = 'Add all';
-$LANG['tcpimp_btn_replace_all'] = 'Replace all';
-$LANG['tcpimp_from'] = 'TeamCal Pro 3.6.019 (or higher)';
-$LANG['tcpimp_no'] = 'Do not import';
-$LANG['tcpimp_replace'] = 'Replace TeamCal Neo records';
-$LANG['tcpimp_to'] = 'TeamCal Neo 1.0.000';
-
-$LANG['tcpimp_confirm_import'] = 'Are you sure you want to start the import? This will apply changes to your current database. It is highly recommended to make a backup first.';
-
-$LANG['tcpimp_alert_title'] = 'TeamCal Pro Import';
-$LANG['tcpimp_alert_fail'] = 'One or more database queries failed or no or incorrect tables were selected. Please check your data and apply the necessary manual adjustments. You may also reset to the sample data in Database Management.';
-$LANG['tcpimp_alert_success'] = 'Your TeamCal Pro import was successfull. Please check your data and apply the necessary manual adjustments.';
-$LANG['tcpimp_alert_success_help'] = 'The following tables were imported:';
-
-$LANG['tcpimp_info'] = '<p>TeamCal Neo has been completely rewritten. Specifically the database has seen many structural changes. It is not compatible anymore to TeamCal Pro.
-      You can only import core data from TeamCal Pro. You have to still adjust TeamCal Neo settings after.</p>
-      <p>It is important that you have upgraded your TeamCal Pro instance to the latest release ' . $LANG['tcpimp_from'] . ' before you attempt these imports.</p>
-      <p>Your TeamCal Pro database will not be changed, just read.</p>';
-
-$LANG['tcpimp_tcp_dbName'] = 'TeamCal Pro Database Name';
-$LANG['tcpimp_tcp_dbName_comment'] = 'Specify the name of the TeamCal Pro database. This needs to be an existing database.';
-$LANG['tcpimp_tcp_dbUser'] = 'TeamCal Pro Database User';
-$LANG['tcpimp_tcp_dbUser_comment'] = 'Specify the username to log in to your TeamCal Pro database.';
-$LANG['tcpimp_tcp_dbPassword'] = 'TeamCal Pro Database Password';
-$LANG['tcpimp_tcp_dbPassword_comment'] = 'Specify the password to log in to your TeamCal Pro database.';
-$LANG['tcpimp_tcp_dbPrefix'] = 'TeamCal Pro Database Table Prefix';
-$LANG['tcpimp_tcp_dbPrefix_comment'] = 'Specify a prefix for your TeamCal Pro database tables or leave empty for none. E.g. "tcpro_".';
-$LANG['tcpimp_tcp_dbServer'] = 'TeamCal Pro Database Server';
-$LANG['tcpimp_tcp_dbServer_comment'] = 'Specify the URL of the TeamCal Pro database server.';
-
-$LANG['tcpimp_abs'] = 'Absence Types';
-$LANG['tcpimp_abs_comment'] = '<p>The "counts_as" relations between absence types cannot be imported. You need to set them up manually after import.<br>
-      This import is needed if you also want to import the following tables:</p>
-      <ul>
-         <li>Allowances</li>
-      </ul>';
-$LANG['tcpimp_allo'] = 'Allowances';
-$LANG['tcpimp_allo_comment'] = '<p>To import the allowances you also need to import the following tables:</p>
-      <ul>
-         <li>Absence Types</li>
-         <li>User Accounts</li>
-      </ul>';
-$LANG['tcpimp_dayn'] = 'Daynotes';
-$LANG['tcpimp_dayn_comment'] = '<p>To import the daynotes you also need to import the following tables:</p>
-      <ul>
-         <li>Regions</li>
-         <li>User Accounts</li>
-      </ul>';
-$LANG['tcpimp_groups'] = 'Groups';
-$LANG['tcpimp_groups_comment'] = '<p>All groups will be imported<br>
-      This import is needed if you also want to import the following tables:</p>
-      <ul>
-         <li>Group Memberships</li>
-      </ul>';
-$LANG['tcpimp_hols'] = 'Holidays';
-$LANG['tcpimp_hols_comment'] = '<p>All holidays will be imported.<br>
-      This import is needed if you also want to import the following tables:</p>
-      <ul>
-         <li>Month Templates</li>
-      </ul>';
-$LANG['tcpimp_mtpl'] = 'Region Calendars';
-$LANG['tcpimp_mtpl_comment'] = '<p>To import the region calendars you also need to import the following tables:</p>
-      <ul>
-         <li>Holidays</li>
-         <li>Regions</li>
-      </ul>';
-$LANG['tcpimp_regs'] = 'Regions';
-$LANG['tcpimp_regs_comment'] = '<p>All regions will be imported<br>
-      This import is needed if you also want to import the following tables:</p>
-      <ul>
-         <li>Month Templates</li>
-      </ul>';
-$LANG['tcpimp_roles'] = 'Roles';
-$LANG['tcpimp_roles_comment'] = 'The roles "Director" and "Assistant" will be added. Roles will not be replaced. If you chose to import the user accounts as well, these two roles will be assigned accordingly.';
-$LANG['tcpimp_ugr'] = 'Group Memberships';
-$LANG['tcpimp_ugr_comment'] = '<p>To import the user group assignments you also need to import the following tables:</p>
-      <ul>
-         <li>Groups</li>
-         <li>User Accounts</li>
-      </ul>';
-$LANG['tcpimp_users'] = 'User Accounts';
-$LANG['tcpimp_users_comment'] = '<p>User accounts and basic user options will be imported. Avatars will not be imported. If you don\'t import the TeamCal Pro roles, roles will be mapped to "Administrator" or "User".<br>
-      This import is needed if you also want to import the following tables:</p>
-      <ul>
-         <li>Allowances</li>
-         <li>Group Memberships</li>
-      </ul>';
-$LANG['tcpimp_utpl'] = 'User Calendars';
-$LANG['tcpimp_utpl_comment'] = '<p>To import the user calendars you also need to import the following tables:</p>
-      <ul>
-         <li>Absence Types</li>
-         <li>User Accounts</li>
-      </ul>';
 
 //
 // Users
