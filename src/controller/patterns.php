@@ -3,7 +3,7 @@ if (!defined('VALID_ROOT')) {
   exit('');
 }
 /**
- * Roles Controller
+ * Patterns Controller
  *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2024 by George Lewe
@@ -41,6 +41,7 @@ $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 //
 // LOAD CONTROLLER RESOURCES
 //
+$PTN = new Patterns();
 
 //=============================================================================
 //
@@ -92,33 +93,28 @@ if (!empty($_POST)) {
         $viewData['txt_description'] = $_POST['txt_description'];
       }
 
-      if ($RO->getByName($_POST['txt_name'])) {
-        $inputError = true;
-        $alertData['text'] = $LANG['roles_alert_created_fail_duplicate'];
-      }
-
       if (!$inputError) {
-        $RO->name = $viewData['txt_name'];
-        $RO->description = $viewData['txt_description'];
-        $RO->color = 'default';
-        $RO->create();
-        //
-        // Send notification e-mails to the subscribers of role events
-        //
-        if ($C->read("emailNotifications")) {
-          sendRoleEventNotifications("created", $RO->name, $RO->description);
-        }
+        $PTN->name = $viewData['txt_name'];
+        $PTN->description = $viewData['txt_description'];
+        $PTN->abs1 = $_POST['sel_abs1'];
+        $PTN->abs2 = $_POST['sel_abs2'];
+        $PTN->abs3 = $_POST['sel_abs3'];
+        $PTN->abs4 = $_POST['sel_abs4'];
+        $PTN->abs5 = $_POST['sel_abs5'];
+        $PTN->abs6 = $_POST['sel_abs6'];
+        $PTN->abs7 = $_POST['sel_abs7'];
+        $PTN->create();
         //
         // Log this event
         //
-        $LOG->logEvent("logRole", L_USER, "log_role_created", $RO->name . " " . $RO->description);
+        $LOG->logEvent("logPattern", L_USER, "log_pattern_created", $PTN->name . " " . $PTN->description);
         //
         // Success
         //
         $showAlert = true;
         $alertData['type'] = 'success';
         $alertData['title'] = $LANG['alert_success_title'];
-        $alertData['subject'] = $LANG['btn_create_role'];
+        $alertData['subject'] = $LANG['btn_create_pattern'];
         $alertData['text'] = $LANG['roles_alert_created'];
         $alertData['help'] = '';
       } else {
@@ -128,40 +124,30 @@ if (!empty($_POST)) {
         $showAlert = true;
         $alertData['type'] = 'danger';
         $alertData['title'] = $LANG['alert_danger_title'];
-        $alertData['subject'] = $LANG['btn_create_role'];
+        $alertData['subject'] = $LANG['btn_create_pattern'];
         $alertData['help'] = '';
       }
     }
     // ,--------,
     // | Delete |
     // '--------'
-    elseif (isset($_POST['btn_roleDelete'])) {
+    elseif (isset($_POST['btn_patternDelete'])) {
       //
-      // Delete Role
+      // Delete Pattern
       //
-      $RO->delete($_POST['hidden_id']);
-      //
-      // Delete Role in all permission schemes
-      //
-      $P->deleteRole($_POST['hidden_id']);
-      //
-      // Send notification e-mails to the subscribers of role events
-      //
-      if ($C->read("emailNotifications")) {
-        sendRoleEventNotifications("deleted", $_POST['hidden_name'], $_POST['hidden_description']);
-      }
+      $PTN->delete($_POST['hidden_id']);
       //
       // Log this event
       //
-      $LOG->logEvent("logRole", L_USER, "log_role_deleted", $_POST['hidden_name']);
+      $LOG->logEvent("logRole", L_USER, "log_pattern_deleted", $_POST['hidden_name']);
       //
       // Success
       //
       $showAlert = true;
       $alertData['type'] = 'success';
       $alertData['title'] = $LANG['alert_success_title'];
-      $alertData['subject'] = $LANG['btn_delete_role'];
-      $alertData['text'] = $LANG['roles_alert_deleted'];
+      $alertData['subject'] = $LANG['btn_delete_pattern'];
+      $alertData['text'] = $LANG['ptn_alert_deleted'];
       $alertData['help'] = '';
     }
   } else {
@@ -172,7 +158,7 @@ if (!empty($_POST)) {
     $alertData['type'] = 'danger';
     $alertData['title'] = $LANG['alert_danger_title'];
     $alertData['subject'] = $LANG['alert_input'];
-    $alertData['text'] = $LANG['roles_alert_created_fail_input'];
+    $alertData['text'] = $LANG['ptn_alert_created_failed'];
     $alertData['help'] = '';
   }
 }
@@ -183,22 +169,10 @@ if (!empty($_POST)) {
 //
 
 //
-// Default: Get all roles
+// Default: Get all patterns
 //
-$viewData['roles'] = $RO->getAll();
-$viewData['searchRole'] = '';
-
-// ,--------,
-// | Search |
-// '--------'
-if (isset($_POST['btn_search'])) {
-  $searchUsers = array();
-  if (isset($_POST['txt_searchRole'])) {
-    $searchRole = sanitize($_POST['txt_searchRole']);
-    $viewData['searchRole'] = $searchRole;
-    $viewData['roles'] = $RO->getAllLike($searchRole);
-  }
-}
+$viewData['patterns'] = $PTN->getAll();
+$viewData['searchPattern'] = '';
 
 //=============================================================================
 //

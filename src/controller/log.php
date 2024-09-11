@@ -74,6 +74,7 @@ $logtypes = array(
   'Log',
   'Message',
   'Month',
+  'Pattern',
   'Permission',
   'Region',
   'Registration',

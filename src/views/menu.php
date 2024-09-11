@@ -241,6 +241,7 @@ view.menu
           isAllowed($CONF['controllers']['phpinfo']->permission) ||
           isAllowed($CONF['controllers']['absences']->permission) ||
           isAllowed($CONF['controllers']['holidays']->permission) ||
+          isAllowed($CONF['controllers']['patterns']->permission) ||
           isAllowed($CONF['controllers']['regions']->permission) ||
           isAllowed($CONF['controllers']['declination']->permission) ||
           isAllowed($CONF['controllers']['bulkedit']->permission)
@@ -303,6 +304,14 @@ view.menu
                     <i class="<?= $CONF['controllers']['absences']->faIcon ?> fa-lg text-<?= $CONF['controllers']['absences']->iconColor ?>"></i>
                   </span>
                   <?= $LANG['mnu_admin_absences'] ?>
+                </a>
+              <?php } ?>
+              <?php if (isAllowed($CONF['controllers']['patterns']->permission)) { ?>
+                <a class="dropdown-item" tabindex="-1" href="index.php?action=<?= $CONF['controllers']['patterns']->name ?>">
+                  <span class="menu-icon">
+                    <i class="<?= $CONF['controllers']['patterns']->faIcon ?> fa-lg text-<?= $CONF['controllers']['patterns']->iconColor ?>"></i>
+                  </span>
+                  <?= $LANG['mnu_admin_patterns'] ?>
                 </a>
               <?php } ?>
               <?php if (isAllowed($CONF['controllers']['holidays']->permission)) { ?>

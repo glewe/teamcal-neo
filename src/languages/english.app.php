@@ -206,11 +206,14 @@ $LANG['btn_cal_edit'] = 'Edit Calendar';
 $LANG['btn_cleanup'] = 'Cleanup';
 $LANG['btn_create_abs'] = 'Create Absence Type';
 $LANG['btn_create_holiday'] = 'Create Holiday';
+$LANG['btn_create_pattern'] = 'Create Pattern';
 $LANG['btn_create_region'] = 'Create Region';
 $LANG['btn_delete_abs'] = 'Delete Absence Type';
 $LANG['btn_delete_holiday'] = 'Delete Holiday';
+$LANG['btn_delete_pattern'] = 'Delete Pattern';
 $LANG['btn_delete_region'] = 'Delete Region';
 $LANG['btn_holiday_list'] = 'Holiday List';
+$LANG['btn_pattern_list'] = 'Pattern List';
 $LANG['btn_region_calendar'] = 'Region Calendar';
 $LANG['btn_region_list'] = 'Region List';
 $LANG['btn_showcalendar'] = 'Show Calendar';
@@ -471,7 +474,6 @@ $LANG['decl_Period_startdateForever'] = 'From start date to deactivation';
 $LANG['decl_Period_startdateEnddate'] = 'From start date to end date';
 $LANG['decl_Startdate'] = 'Automatic Start Date';
 $LANG['decl_Startdate_comment'] = 'Select the date here at which this declination rule shall get active. The rule will start being active on this day.';
-
 $LANG['decl_title'] = 'Declination Management';
 $LANG['decl_absence'] = 'Activate';
 $LANG['decl_absence_comment'] = 'You can setup an absence threshold declination rule below. Activate this rule here.';
@@ -661,6 +663,7 @@ $LANG['hol_noabsence_comment'] = 'No absences are allowed for this holiday. This
 // Log
 //
 $LANG['log_filterCalopt'] = 'Calender Options';
+$LANG['log_filterPatterns'] = 'Absence Patterns';
 
 //
 // Menu
@@ -681,6 +684,7 @@ $LANG['mnu_admin_bulkedit'] = 'Allowance Bulk Edit';
 $LANG['mnu_admin_calendaroptions'] = 'Calendar Options';
 $LANG['mnu_admin_declination'] = 'Declination Management';
 $LANG['mnu_admin_holidays'] = 'Holidays';
+$LANG['mnu_admin_patterns'] = 'Absence Patterns';
 $LANG['mnu_admin_regions'] = 'Regions';
 
 //
@@ -693,6 +697,41 @@ $LANG['monthedit_clearHoliday'] = 'Clear';
 $LANG['monthedit_confirm_clearall'] = 'Are you sure you want to clear all holidays in this month?<br><br><strong>Year:</strong> %s<br><strong>Month:</strong> %s<br><strong>Region:</strong> %s';
 $LANG['monthedit_selRegion'] = 'Select Region';
 $LANG['monthedit_selUser'] = 'Select User';
+
+//
+// Patterns
+//
+$LANG['ptn_list_title'] = 'Absence Patterns';
+$LANG['ptn_edit_title'] = 'Edit Absence Pattern: ';
+$LANG['ptn_alert_edit'] = 'Update Absence Pattern';
+$LANG['ptn_alert_edit_success'] = 'The information for this absence pattern was updated.';
+$LANG['ptn_alert_created'] = 'The absence pattern was created.';
+$LANG['ptn_alert_created_failed'] = 'The absence pattern could not be created. Please check the "Create absence pattern" dialog for input errors.';
+$LANG['ptn_alert_deleted'] = 'The absence pattern was deleted.';
+$LANG['ptn_alert_save_failed'] = 'The new information for this absence pattern could not be saved. There was invalid input. Please check for error messages.';
+$LANG['ptn_confirm_delete'] = 'Are you sure you want to delete this absence pattern:<br> ';
+$LANG['ptn_currentPattern'] = 'Current Pattern';
+$LANG['ptn_currentPattern_comment'] = 'This is the current pattern.';
+$LANG['ptn_abs1'] = 'Monday Absence Type';
+$LANG['ptn_abs1_comment'] = 'Select the absence type for Mondays in this pattern.';
+$LANG['ptn_abs2'] = 'Tuesday Absence Type';
+$LANG['ptn_abs2_comment'] = 'Select the absence type for Tuesdays in this pattern.';
+$LANG['ptn_abs3'] = 'Wednesday Absence Type';
+$LANG['ptn_abs3_comment'] = 'Select the absence type for Wednesdays in this pattern.';
+$LANG['ptn_abs4'] = 'Thursday Absence Type';
+$LANG['ptn_abs4_comment'] = 'Select the absence type for Thursdays in this pattern.';
+$LANG['ptn_abs5'] = 'Friday Absence Type';
+$LANG['ptn_abs5_comment'] = 'Select the absence type for Fridays in this pattern.';
+$LANG['ptn_abs6'] = 'Saturday Absence Type';
+$LANG['ptn_abs6_comment'] = 'Select the absence type for Saturdays in this pattern.';
+$LANG['ptn_abs7'] = 'Sunday Absence Type';
+$LANG['ptn_abs7_comment'] = 'Select the absence type for Sundays in this pattern.';
+$LANG['ptn_description'] = 'Description';
+$LANG['ptn_description_comment'] = 'Enter a description for the absence pattern here.';
+$LANG['ptn_name'] = 'Name';
+$LANG['ptn_name_comment'] = 'Enter a name for the absence pattern here.';
+$LANG['ptn_pattern'] = 'Pattern';
+
 
 //
 // Permissions
@@ -733,6 +772,8 @@ $LANG['perm_holidays_title'] = 'Holidays (Edit)';
 $LANG['perm_holidays_desc'] = 'Allows to list and edit holidays.';
 $LANG['perm_manageronlyabsences_title'] = 'Group Manager Absence Types (Edit)';
 $LANG['perm_manageronlyabsences_desc'] = 'Allows to edit Group Manager Only absence types.';
+$LANG['perm_patternedit_title'] = 'Absence Patterns (Edit)';
+$LANG['perm_patternedit_desc'] = 'Allows to manage absence patterns.';
 $LANG['perm_regions_title'] = 'Regions (Edit)';
 $LANG['perm_regions_desc'] = 'Allows to list and edit regions and their holidays.';
 $LANG['perm_remainder_title'] = 'Remainder';

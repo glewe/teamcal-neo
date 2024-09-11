@@ -67,6 +67,7 @@ foreach ($CONF['controllers'] as $contr) {
     $permgroups[$contr->permission][] = $contr->permission;
   }
 }
+asort($perms);
 
 //
 // Feature based permission entries
@@ -292,7 +293,6 @@ if (!empty($_POST)) {
             } else {
               $P->setPermission($scheme, $permname, $role['id'], 0);
             }
-
             //
             // Make sure Administrator role is permitted
             //

@@ -41,6 +41,7 @@ $tableIDs = array(
   'log',
   'messages',
   'months',
+  'patterns',
   'permissions',
   'region_role',
   'regions',
