@@ -206,11 +206,14 @@ $LANG['btn_cal_edit'] = 'Kalender Bearbeiten';
 $LANG['btn_cleanup'] = 'Aufr&auml;umen';
 $LANG['btn_create_abs'] = 'Abwesenheitstyp anlegen';
 $LANG['btn_create_holiday'] = 'Feiertag anlegen';
+$LANG['btn_create_pattern'] = 'Abwesenheitsmuster anlegen';
 $LANG['btn_create_region'] = 'Region anlegen';
 $LANG['btn_delete_abs'] = 'Abwesenheitstyp l&ouml;schen';
 $LANG['btn_delete_holiday'] = 'Feiertag l&ouml;schen';
+$LANG['btn_delete_pattern'] = 'Abwesenheitsmuster l&ouml;schen';
 $LANG['btn_delete_region'] = 'Region l&ouml;schen';
 $LANG['btn_holiday_list'] = 'Feiertagsliste';
+$LANG['btn_pattern_list'] = 'Abwesenheitsmusterliste';
 $LANG['btn_region_calendar'] = 'Regionskalender';
 $LANG['btn_region_list'] = 'Regionenliste';
 $LANG['btn_showcalendar'] = 'Kalender anzeigen';
@@ -266,10 +269,8 @@ $LANG['caledit_alert_save_failed'] = 'Die Abwesenheitsinformationen konnten nich
 $LANG['caledit_alert_update'] = 'Monat aktualisieren';
 $LANG['caledit_alert_update_all'] = 'Alle Abwesenheiten wurden akzeptiert und der Monat entsprechend aktualisert.';
 $LANG['caledit_alert_update_group'] = 'Die Gruppenabwesenheiten wurden bei allen Benutzern der Gruppe eingetragen.';
-$LANG['caledit_alert_update_partial'] = 'Einige Abwesenheiten konnten nicht akzeptiert werden, weil sie vom Management konfigurierte Regeln verletzen.
- Die folgenden Abwesenheiten wurden abgelehnt:';
-$LANG['caledit_alert_update_none'] = 'Keine der Abwesenheiten wurde akzeptiert und der Monat nicht aktualisert.
- Die abgelehnten Abwesenheiten wurden an einen Manager zur Best&auml;tigung geschickt.';
+$LANG['caledit_alert_update_partial'] = 'Einige Abwesenheiten konnten nicht akzeptiert werden, weil sie vom Management konfigurierte Regeln verletzen. Die folgenden Abwesenheiten wurden abgelehnt:';
+$LANG['caledit_alert_update_none'] = 'Keine der Abwesenheiten wurde akzeptiert und der Monat nicht aktualisert. Die abgelehnten Abwesenheiten wurden an einen Manager zur Best&auml;tigung geschickt.';
 $LANG['caledit_clearAbsence'] = 'L&ouml;schen';
 $LANG['caledit_clearAbsences'] = 'Abwesenheiten l&ouml;schen';
 $LANG['caledit_clearDaynotes'] = 'Tagesnotizen l&ouml;schen';
@@ -348,8 +349,7 @@ $LANG['calopt_regionalHolidaysColor_comment'] = 'Setzt die Rahmenfarbe f&uum;r r
 $LANG['calopt_repeatHeaderCount'] = 'Kopfzeilen Wiederholungs Z&auml;hler';
 $LANG['calopt_repeatHeaderCount_comment'] = 'Gibt die Anzahl von Zeilen an, nach der die Monatskopfzeile f&uuml;r bessere Lesbarkeit wiederholt wird. Wenn der Wert auf 0 gesetzt ist, wird die Kopfzeile nicht wiederholt.';
 $LANG['calopt_satBusi'] = 'Samstag ist ein Arbeitstag';
-$LANG['calopt_satBusi_comment'] = 'Normalerweise sind Samstage und Sonntage Wochenendtage und werden entsprechend im Kalender als solche angezeigt.
-      Hier kann Samstag als Arbeitstag definiert werden.';
+$LANG['calopt_satBusi_comment'] = 'Normalerweise sind Samstage und Sonntage Wochenendtage und werden entsprechend im Kalender als solche angezeigt. Hier kann Samstag als Arbeitstag definiert werden.';
 $LANG['calopt_showAvatars'] = 'Avatars anzeigen';
 $LANG['calopt_showAvatars_comment'] = 'Mit dieser Option wird ein User Avatar in einem Pop-Up angezeigt, wenn die Maus &uuml;ber das User Icon gef&uuml;hrt wird.';
 $LANG['calopt_showMonths'] = 'Mehrere Monate anzeigen';
@@ -366,8 +366,7 @@ $LANG['calopt_showTooltipCount_comment'] = 'Mit dieser Option wird im Abwesenhei
 $LANG['calopt_showUserRegion'] = 'Regionale Feiertage pro User anzeigen';
 $LANG['calopt_showUserRegion_comment'] = 'Mit dieser Option zeigt der Kalender in jeder Nutzerzeile die regionalen Feiertage der Region an, die in den Optionen des
       Nutzers eingestellt ist. Diese Feiertage k&ouml;nnen sich von den globalen regionalen Feiertagen unterscheiden, die im Kopf des Kalenders angezeigt werden.
-      Diese Option bietet eine bessere Sicht auf die unterschiedlichen regionalen Feiertage unterschiedlicher Nutzer. Die Anzeige mag dabei aber auch un&uuml;bersichtlicher
-      werden, je nach Anzahl Nutzer und Regionen. Probier es aus.';
+      Diese Option bietet eine bessere Sicht auf die unterschiedlichen regionalen Feiertage unterschiedlicher Nutzer. Die Anzeige mag dabei aber auch un&uuml;bersichtlicher werden, je nach Anzahl Nutzer und Regionen. Probier es aus.';
 $LANG['calopt_showWeekNumbers'] = 'Wochennummern anzeigen';
 $LANG['calopt_showWeekNumbers_comment'] = 'Mit dieser Option wird im Kalender eine Zeile mit den Nummern der Kalenderwochen hinzugef&uuml;gt.';
 $LANG['calopt_sortByOrderKey'] = 'Sortierschl&uuml;ssel benutzen';
@@ -664,6 +663,7 @@ $LANG['hol_noabsence_comment'] = 'Abwesenheiten f&uuml;r diesen Feiertagstyp sin
 // Log
 //
 $LANG['log_filterCalopt'] = 'Kalenderoptionen';
+$LANG['log_filterPatterns'] = 'Abwesenheitsmuster';
 
 //
 // Menu
@@ -684,6 +684,7 @@ $LANG['mnu_admin_bulkedit'] = 'Kontingente Bearbeitung';
 $LANG['mnu_admin_calendaroptions'] = 'Kalenderoptionen';
 $LANG['mnu_admin_declination'] = 'Ablehnungsregeln';
 $LANG['mnu_admin_holidays'] = 'Feiertage';
+$LANG['mnu_admin_patterns'] = 'Abwesenheitsmuster';
 $LANG['mnu_admin_regions'] = 'Regionen';
 
 //
@@ -696,6 +697,40 @@ $LANG['monthedit_confirm_clearall'] = 'Bist du sicher, dass du alle Feiertage f&
 $LANG['monthedit_clearHoliday'] = 'L&ouml;schen';
 $LANG['monthedit_selRegion'] = 'Region ausw&auml;hlen';
 $LANG['monthedit_selUser'] = 'Nutzer ausw&auml;hlen';
+
+//
+// Patterns
+//
+$LANG['ptn_list_title'] = 'Abwesenheitsmuster';
+$LANG['ptn_edit_title'] = 'Abwesenheitsmuster bearbeiten: ';
+$LANG['ptn_alert_edit'] = 'Abwesenheitsmuster aktualisieren';
+$LANG['ptn_alert_edit_success'] = 'Die Informationen f&uuml;r dieses Abwesenheitsmuster wurden aktualisiert.';
+$LANG['ptn_alert_created'] = 'Das Abwesenheitsmuster wurde angelegt.';
+$LANG['ptn_alert_created_fail'] = 'Das Abwesenheitsmuster wurde nicht angelegt. Bitte &uuml;berpr&uuml;fe den "Abwesenheitsmuster anlegen" Dialog nach Eingabefehlern.';
+$LANG['ptn_alert_deleted'] = 'Das Abwesenheitsmuster wurde gel&ouml;scht.';
+$LANG['ptn_alert_save_failed'] = 'Die neuen Informationen f&uuml;r dieses Abwesenheitsmuster konnten nicht gespeichert. Es gab fehlerhafte Eingaben. Bitte pr&uuml;fe die Fehlermeldungen.';
+$LANG['ptn_confirm_delete'] = 'Bist du sicher, dass du dieses Abwesenheitsmuster l&ouml;schen willst:<br>';
+$LANG['ptn_currentPattern'] = 'Aktuelles Muster';
+$LANG['ptn_currentPattern_comment'] = 'Dies ist das aktuelle Muster.';
+$LANG['ptn_abs1'] = 'Montag Abwesenheitstyp';
+$LANG['ptn_abs1_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Montage in diesem Muster.';
+$LANG['ptn_abs2'] = 'Dienstag Abwesenheitstyp';
+$LANG['ptn_abs2_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Dienstage in diesem Muster.';
+$LANG['ptn_abs3'] = 'Mittwoch Abwesenheitstyp';
+$LANG['ptn_abs3_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Mittwoche in diesem Muster.';
+$LANG['ptn_abs4'] = 'Donnerstag Abwesenheitstyp';
+$LANG['ptn_abs4_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Donnerstage in diesem Muster.';
+$LANG['ptn_abs5'] = 'Freitag Abwesenheitstyp';
+$LANG['ptn_abs5_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Freitage in diesem Muster.';
+$LANG['ptn_abs6'] = 'Samstag Abwesenheitstyp';
+$LANG['ptn_abs6_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Samstage in diesem Muster.';
+$LANG['ptn_abs7'] = 'Sonntag Abwesenheitstyp';
+$LANG['ptn_abs7_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Sonntage in diesem Muster.';
+$LANG['ptn_description'] = 'Beschreibung';
+$LANG['ptn_description_comment'] = 'Gebe hier eine Beschreibung f&uuml;r das Abwesenheitsmuster ein.';
+$LANG['ptn_name'] = 'Name';
+$LANG['ptn_name_comment'] = 'Gebe hier einen Namen f&uuml;r das Abwesenheitsmuster ein.';
+$LANG['ptn_pattern'] = 'Muster';
 
 //
 // Permissions
@@ -736,6 +771,8 @@ $LANG['perm_holidays_title'] = 'Feiertage (Bearbeiten)';
 $LANG['perm_holidays_desc'] = 'Erlaubt as Listen und Bearbeiten von Feiertagen.';
 $LANG['perm_manageronlyabsences_title'] = 'Gruppen-Manager Abwesenheitstypen (Bearbeiten)';
 $LANG['perm_manageronlyabsences_desc'] = 'Erlaubt das Bearbeiten von Gruppen-Manager Abwesenheitstypen.';
+$LANG['perm_patternedit_title'] = 'Abwesenheitsmuster (Edit)';
+$LANG['perm_patternedit_desc'] = 'Erlaubt verwalten von Abwesenheitsmustern.';
 $LANG['perm_regions_title'] = 'Regionen (Bearbeiten)';
 $LANG['perm_regions_desc'] = 'Erlaubt as Listen und Bearbeiten von Regionen und deren Feiertagen.';
 $LANG['perm_remainder_title'] = 'Resttage';

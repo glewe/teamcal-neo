@@ -122,7 +122,7 @@ class Regions {
    */
   public function getAll() {
     $records = array();
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name ASC');
+    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name');
     $result = $query->execute();
     if ($result) {
       while ($row = $query->fetch()) {
@@ -141,7 +141,7 @@ class Regions {
    */
   public function getAllLike($like) {
     $records = array();
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name LIKE :val1 OR description LIKE :val1 ORDER BY name ASC');
+    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name LIKE :val1 OR description LIKE :val1 ORDER BY name');
     $val1 = '%' . $like . '%';
     $query->bindParam('val1', $val1);
     $result = $query->execute();
@@ -161,7 +161,7 @@ class Regions {
    */
   public function getAllNames() {
     $records = array();
-    $query = $this->db->prepare('SELECT name FROM ' . $this->table . ' ORDER BY name ASC');
+    $query = $this->db->prepare('SELECT name FROM ' . $this->table . ' ORDER BY name');
     $result = $query->execute();
     if ($result) {
       while ($row = $query->fetch()) {

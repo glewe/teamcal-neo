@@ -219,7 +219,7 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
       break;
 
     /**
-     * Info field
+     * Info field (wide)
      */
     case 'infoWide':
       $formGroup = '
@@ -485,6 +485,58 @@ function createPageTabs($tabs) {
   }
   $tabsHtml .= '</ul>';
   return $tabsHtml;
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Creates a pattern table (showing weekdays and absences)
+ *
+ * @param int $patternId ID of the pattern record
+ */
+function createPatternTable($patternId) {
+  global $A, $C, $LANG;
+  $PTN = new Patterns();
+  $PTN->get($patternId);
+  $html = '
+  <table class="table table-bordered month mb-0">
+    <tr>
+      <th class="m-weekday text-center" scope="col">' . $LANG['weekdayShort'][1] . '</th>
+      <th class="m-weekday text-center" scope="col">' . $LANG['weekdayShort'][2] . '</th>
+      <th class="m-weekday text-center" scope="col">' . $LANG['weekdayShort'][3] . '</th>
+      <th class="m-weekday text-center" scope="col">' . $LANG['weekdayShort'][4] . '</th>
+      <th class="m-weekday text-center" scope="col">' . $LANG['weekdayShort'][5] . '</th>
+      <th class="m-weekday text-center" scope="col" style="color:#000000;background-color:#fcfc9a;">' . $LANG['weekdayShort'][6] . '</th>
+      <th class="m-weekday text-center" scope="col" style="color:#000000;background-color:#fcfc9a;">' . $LANG['weekdayShort'][7] . '</th>
+    </tr>
+    <tr>
+  ';
+
+  for ($i = 1; $i <= 7; $i++) {
+    $prop = 'abs' . $i;
+    $absId = $PTN->$prop;
+    if ($A->getBgTrans($absId)) {
+      $bgStyle = "";
+    } else {
+      $bgStyle = "background-color: #" . ($A->getBgColor($absId) ? $A->getBgColor($absId) : 'ffffff') . ";";
+    }
+    $style = 'color: #' . $A->getColor($absId) . ';' . $bgStyle;
+    if ($C->read('symbolAsIcon')) {
+      $icon = $A->getSymbol($absId);
+    } else {
+      $icon = '<span class="' . $A->getIcon($absId) . '"></span>';
+    }
+
+    $html .= '
+    <td class="text-center" style="' . $style . '">
+      <span data-bs-custom-class="dark" data-bs-placement="top" data-bs-toggle="tooltip" title="' . $A->getName($absId) . '">' . $icon . '
+    </td>';
+  }
+
+  $html .= '
+    </tr>
+  </table>';
+
+  return $html;
 }
 
 //-----------------------------------------------------------------------------
