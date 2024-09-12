@@ -763,6 +763,7 @@ $faIcons = array(
   'fa-solid fa-align-justify',
   'fa-solid fa-align-left',
   'fa-solid fa-align-right',
+  'fa-solid fa-ambulance',
   'fa-solid fa-anchor-circle-check',
   'fa-solid fa-anchor-circle-exclamation',
   'fa-solid fa-anchor-circle-xmark',
