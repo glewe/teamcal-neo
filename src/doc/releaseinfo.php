@@ -10,6 +10,7 @@ $releases = [
       [ 'summary' => 'Fixed reset password on users page', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/5' ],
     ],
     'features' => [
+      [ 'summary' => 'Absence patterns', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/6' ],
       [ 'summary' => 'Added LDAP test config', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/3' ],
       [ 'summary' => 'Added Bootstrap Dark and Light mode', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/2' ],
       [ 'summary' => 'Added Bootstrap Icons', 'issue' => '' ],
