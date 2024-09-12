@@ -2,7 +2,7 @@
 name: New feature request
 about: Suggest a new feature for this project
 title: 'NEW FEATURE | '
-labels: OPEN
+labels: "➤ OPEN"
 assignees: glewe
 
 ---
