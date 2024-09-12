@@ -262,6 +262,10 @@ $LANG['col_remainder'] = 'Resttage ausblenden...';
 // Calendar Edit
 //
 $LANG['caledit_title'] = 'Bearbeitung von Monat %s-%s f&uuml;r %s';
+$LANG['caledit_absencePattern'] = 'Abwesenheitsmuster';
+$LANG['caledit_absencePattern_comment'] = 'W&auml;hle das Abwesenheitsmuster aus, das f&uuml;r diesen Monat angewendet werden soll.';
+$LANG['caledit_absencePatternSkipHolidays'] = 'Feiertage &uuml;berspringen';
+$LANG['caledit_absencePatternSkipHolidays_comment'] = 'Beim setzen der Abwesenheiten &uuml;berspringe Feiertage, die nicht als Werktag z&auml;hlen.';
 $LANG['caledit_absenceType'] = 'Abwesenheitstyp';
 $LANG['caledit_absenceType_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r diese Eingabe aus.';
 $LANG['caledit_alert_out_of_range'] = 'Die Datumsangaben war zumindest teilweise ausserhalb des angezeigten Monats. Es wurden keine &Auml;nderungen gespeichert.';
@@ -282,6 +286,8 @@ $LANG['caledit_currentAbsence'] = 'Aktuell';
 $LANG['caledit_endDate'] = 'Ende Datum';
 $LANG['caledit_endDate_comment'] = 'W&auml;hle das Enddatum aus (muss in diesem Monat sein).';
 $LANG['caledit_keepExisting'] = 'Indivduelle Abwesenheiten beibehalten';
+$LANG['caledit_Pattern'] = 'Muster';
+$LANG['caledit_PatternTitle'] = 'Abwesenheitsmuster ausw&auml;hlen';
 $LANG['caledit_Period'] = 'Zeitraum';
 $LANG['caledit_PeriodTitle'] = 'Abwesenheitszeitraum ausw&auml;hlen';
 $LANG['caledit_Recurring'] = 'Wiederholung';
@@ -708,6 +714,7 @@ $LANG['ptn_alert_edit_success'] = 'Die Informationen f&uuml;r dieses Abwesenheit
 $LANG['ptn_alert_created'] = 'Das Abwesenheitsmuster wurde angelegt.';
 $LANG['ptn_alert_created_fail'] = 'Das Abwesenheitsmuster wurde nicht angelegt. Bitte &uuml;berpr&uuml;fe den "Abwesenheitsmuster anlegen" Dialog nach Eingabefehlern.';
 $LANG['ptn_alert_deleted'] = 'Das Abwesenheitsmuster wurde gel&ouml;scht.';
+$LANG['ptn_alert_exists'] = 'Ein Muster mit dieser Kombination existiert bereits als "%s".';
 $LANG['ptn_alert_save_failed'] = 'Die neuen Informationen f&uuml;r dieses Abwesenheitsmuster konnten nicht gespeichert. Es gab fehlerhafte Eingaben. Bitte pr&uuml;fe die Fehlermeldungen.';
 $LANG['ptn_confirm_delete'] = 'Bist du sicher, dass du dieses Abwesenheitsmuster l&ouml;schen willst:<br>';
 $LANG['ptn_currentPattern'] = 'Aktuelles Muster';

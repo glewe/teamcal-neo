@@ -55,7 +55,6 @@ view.patterns
         <table id="dataTablePatterns" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
           <thead>
           <tr>
-            <th class="text-end">#</th>
             <th><?= $LANG['ptn_name'] ?></th>
             <th><?= $LANG['ptn_description'] ?></th>
             <th><?= $LANG['ptn_pattern'] ?></th>
@@ -64,10 +63,8 @@ view.patterns
           </thead>
           <tbody>
           <?php
-          $i = 1;
           foreach ($viewData['patterns'] as $pattern) : ?>
             <tr>
-              <td class="text-end"><?= $i++ ?></td>
               <td><?= $pattern['name'] ?></td>
               <td><?= $pattern['description'] ?></td>
               <td><?= createPatternTable($pattern['id']) ?></td>
@@ -101,7 +98,7 @@ view.patterns
                 url: 'addons/datatables/datatables.<?= $LANG['locale'] ?>.json'
               },
               columnDefs: [
-                {targets: [0, 3, 4], orderable: false, searchable: false}
+                {targets: [2, 3], orderable: false, searchable: false}
               ]
             });
           });

@@ -109,46 +109,77 @@ if (!empty($_POST)) {
     // | Update |
     // '--------'
     if (isset($_POST['btn_update'])) {
-      $PTN->name = $_POST['txt_name'];
-      $PTN->description = $_POST['txt_description'];
-      $PTN->abs1 = $_POST['sel_abs1'];
-      $PTN->abs2 = $_POST['sel_abs2'];
-      $PTN->abs3 = $_POST['sel_abs3'];
-      $PTN->abs4 = $_POST['sel_abs4'];
-      $PTN->abs5 = $_POST['sel_abs5'];
-      $PTN->abs6 = $_POST['sel_abs6'];
-      $PTN->abs7 = $_POST['sel_abs7'];
-      //
-      // Update pattern record
-      //
-      $PTN->update($PTN->id);
-      //
-      // Log this event
-      //
-      $LOG->logEvent("logPattern", L_USER, "log_pattern_updated", $PTN->name);
-      //
-      // Success
-      //
-      $showAlert = true;
-      $alertData['type'] = 'success';
-      $alertData['title'] = $LANG['alert_success_title'];
-      $alertData['subject'] = $LANG['ptn_alert_edit'];
-      $alertData['text'] = $LANG['ptn_alert_edit_success'];
-      $alertData['help'] = '';
-      //
-      // Load new info for the view
-      //
-      $PTN->get($PTN->id);
-      $viewData['PTN'] = $PTN;
-      $viewData['name'] = $PTN->name;
-      $viewData['description'] = $PTN->description;
-      $viewData['abs1'] = $PTN->abs1;
-      $viewData['abs2'] = $PTN->abs2;
-      $viewData['abs3'] = $PTN->abs3;
-      $viewData['abs4'] = $PTN->abs4;
-      $viewData['abs5'] = $PTN->abs5;
-      $viewData['abs6'] = $PTN->abs6;
-      $viewData['abs7'] = $PTN->abs7;
+
+      if ($PTN->abs1 != $_POST['sel_abs1'] ||
+        $PTN->abs2 != $_POST['sel_abs2'] ||
+        $PTN->abs3 != $_POST['sel_abs3'] ||
+        $PTN->abs4 != $_POST['sel_abs4'] ||
+        $PTN->abs5 != $_POST['sel_abs5'] ||
+        $PTN->abs6 != $_POST['sel_abs6'] ||
+        $PTN->abs7 != $_POST['sel_abs7']
+      ) {
+        //
+        // The pattern has changed. Check whether the new combination already exists
+        //
+        $checkPattern = [ 0, $_POST['sel_abs1'], $_POST['sel_abs2'], $_POST['sel_abs3'], $_POST['sel_abs4'], $_POST['sel_abs5'], $_POST['sel_abs6'], $_POST['sel_abs7'] ];
+        if ($name = $PTN->patternExists($checkPattern)) {
+          //
+          // New pattern already exists
+          //
+          $showAlert = true;
+          $alertData['type'] = 'warning';
+          $alertData['title'] = $LANG['alert_warning_title'];
+          $alertData['subject'] = $LANG['btn_create_pattern'];
+          $alertData['text'] = sprintf($LANG['ptn_alert_exists'], $name);
+          $alertData['help'] = '';
+        }
+      }
+
+      if (!$showAlert) {
+        //
+        // Pattern has not changed or the new pattern does not exist yet. Update.
+        //
+        $PTN->name = $_POST['txt_name'];
+        $PTN->description = $_POST['txt_description'];
+        $PTN->abs1 = $_POST['sel_abs1'];
+        $PTN->abs2 = $_POST['sel_abs2'];
+        $PTN->abs3 = $_POST['sel_abs3'];
+        $PTN->abs4 = $_POST['sel_abs4'];
+        $PTN->abs5 = $_POST['sel_abs5'];
+        $PTN->abs6 = $_POST['sel_abs6'];
+        $PTN->abs7 = $_POST['sel_abs7'];
+        //
+        // Update pattern record
+        //
+        $PTN->update($PTN->id);
+        //
+        // Log this event
+        //
+        $LOG->logEvent("logPattern", L_USER, "log_pattern_updated", $PTN->name);
+        //
+        // Success
+        //
+        $showAlert = true;
+        $alertData['type'] = 'success';
+        $alertData['title'] = $LANG['alert_success_title'];
+        $alertData['subject'] = $LANG['ptn_alert_edit'];
+        $alertData['text'] = $LANG['ptn_alert_edit_success'];
+        $alertData['help'] = '';
+        //
+        // Load new info for the view
+        //
+        $PTN->get($PTN->id);
+        $viewData['PTN'] = $PTN;
+        $viewData['name'] = $PTN->name;
+        $viewData['description'] = $PTN->description;
+        $viewData['abs1'] = $PTN->abs1;
+        $viewData['abs2'] = $PTN->abs2;
+        $viewData['abs3'] = $PTN->abs3;
+        $viewData['abs4'] = $PTN->abs4;
+        $viewData['abs5'] = $PTN->abs5;
+        $viewData['abs6'] = $PTN->abs6;
+        $viewData['abs7'] = $PTN->abs7;
+      }
     }
   } else {
     //

@@ -3,7 +3,7 @@ if (!defined('VALID_ROOT')) {
   exit('');
 }
 /**
- * Caolendar View Month View
+ * Calendar View Month View
  *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2024 by George Lewe

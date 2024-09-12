@@ -188,7 +188,6 @@ class Holidays {
       $query = $this->db->prepare('SELECT businessday FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
       $result = $query->execute();
-
       if ($result && $row = $query->fetch()) {
         $rc = $row['businessday'];
       }
