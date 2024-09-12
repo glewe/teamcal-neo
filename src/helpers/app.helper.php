@@ -1234,7 +1234,7 @@ function presenceMinimumReached($year, $month, $day, $group = '') {
 
 // ---------------------------------------------------------------------------
 /**
- * Checks wether the minimum presence threshold is reached
+ * Checks whether the minimum presence threshold is reached
  *
  * @param string $year Year of the day to count for
  * @param string $month Month of the day to count for

@@ -133,6 +133,8 @@ $LANG['weekdayLong'] = array(
   "Samstag",
   "Sonntag"
 );
+$LANG['sat_sun'] = 'Sa-So';
+$LANG['mon_fri'] = 'Mo-Fr';
 $LANG['yellow'] = 'Gelb';
 
 //

@@ -146,14 +146,23 @@ class Patterns {
   /**
    * Checks whether a given absence pattern exists
    *
+   * @param array $absPattern Array of absences
    * @return boolean
    */
-  public function patternExists() {
-    $myQuery = "SELECT name FROM " . $this->table . " WHERE abs1 = '" . $this->abs1 . "' AND abs2 = '" . $this->abs2 . "' AND abs3 = '" . $this->abs3 . "' AND abs4 = '" . $this->abs4 . "' AND abs5 = '" . $this->abs5 . "' AND abs6 = '" . $this->abs6 . "' AND abs7 = '" . $this->abs7 . "' ;";
+  public function patternExists($absPattern) {
+    $myQuery = "
+      SELECT name FROM " . $this->table . "
+       WHERE abs1 = '" . $absPattern[1] . "'
+       AND abs2 = '" . $absPattern[2] . "'
+       AND abs3 = '" . $absPattern[3] . "'
+       AND abs4 = '" . $absPattern[4] . "'
+       AND abs5 = '" . $absPattern[5] . "'
+       AND abs6 = '" . $absPattern[6] . "'
+       AND abs7 = '" . $absPattern[7] . "' ;";
     $query = $this->db->prepare($myQuery);
     $result = $query->execute();
-    if ($result && $query->fetch()) {
-      return true;
+    if ($result && $row = $query->fetch()) {
+      return $row['name'];
     }
     return false;
   }

@@ -85,10 +85,10 @@ CREATE TABLE IF NOT EXISTS `tcneo_absence_group`
   `groupid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `absgroup` (`absid`, `groupid`),
-  KEY `absence_group_absid` (`absid`),
-  KEY `absence_group_groupid` (`groupid`)
+  KEY `k_absid` (`absid`),
+  KEY `k_groupid` (`groupid`)
 ) ENGINE = MyISAM
-  AUTO_INCREMENT = 116
+  AUTO_INCREMENT = 48
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
 
@@ -102,11 +102,11 @@ VALUES (1, 3, 4),
        (3, 3, 8),
        (4, 13, 8),
        (5, 3, 3),
-       (115, 4, 4),
+       (6, 4, 4),
        (7, 13, 3),
-       (59, 5, 4),
-       (58, 5, 2),
-       (57, 5, 3),
+       (8, 5, 4),
+       (9, 5, 2),
+       (10, 5, 3),
        (11, 6, 4),
        (12, 6, 2),
        (13, 2, 1),
@@ -129,10 +129,10 @@ VALUES (1, 3, 4),
        (30, 2, 4),
        (31, 13, 2),
        (32, 13, 4),
-       (114, 4, 2),
-       (113, 4, 3),
-       (112, 4, 1),
-       (56, 5, 1),
+       (33, 4, 2),
+       (34, 4, 3),
+       (35, 4, 1),
+       (36, 5, 1),
        (37, 6, 8),
        (38, 6, 3),
        (39, 6, 1),
@@ -160,8 +160,8 @@ CREATE TABLE IF NOT EXISTS `tcneo_allowances`
   `carryover` smallint(6) DEFAULT 0,
   `allowance` smallint(6) DEFAULT 0,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `allowance` (`username`, `absid`),
-  KEY `allowance_username` (`username`)
+  UNIQUE KEY `uk_username_absid` (`username`, `absid`),
+  KEY `k_username` (`username`)
 ) ENGINE = MyISAM
   AUTO_INCREMENT = 92
   DEFAULT CHARSET = utf8
@@ -278,8 +278,8 @@ CREATE TABLE IF NOT EXISTS `tcneo_archive_allowances`
   `carryover` smallint(6) DEFAULT 0,
   `allowance` smallint(6) DEFAULT 0,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `allowance` (`username`, `absid`),
-  KEY `allowance_username` (`username`)
+  UNIQUE KEY `uk_username_absid` (`username`, `absid`),
+  KEY `k_username` (`username`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
@@ -301,8 +301,8 @@ CREATE TABLE IF NOT EXISTS `tcneo_archive_daynotes`
   `color`        varchar(16)                                            NOT NULL DEFAULT 'default',
   `confidential` tinyint(1)                                             NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `daynote_daynote` (`yyyymmdd`, `username`, `region`),
-  KEY `daynote_username` (`username`)
+  UNIQUE KEY `uk_yyyymmdd_username_region` (`yyyymmdd`, `username`, `region`),
+  KEY `k_username` (`username`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
@@ -352,8 +352,8 @@ CREATE TABLE IF NOT EXISTS `tcneo_archive_templates`
   `abs30`    int(11)                                                DEFAULT NULL,
   `abs31`    int(11)                                                DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `template` (`username`, `year`, `month`),
-  KEY `template_username` (`username`)
+  UNIQUE KEY `uk_username_year_month` (`username`, `year`, `month`),
+  KEY `k_username` (`username`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
@@ -384,8 +384,8 @@ CREATE TABLE IF NOT EXISTS `tcneo_archive_users`
   `last_login`     datetime                                                        DEFAULT NULL,
   `created`        datetime                                                        DEFAULT NULL,
   PRIMARY KEY (`username`),
-  KEY `user_firstname` (`firstname`),
-  KEY `user_lastname` (`lastname`)
+  KEY `k_firstname` (`firstname`),
+  KEY `k_lastname` (`lastname`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
@@ -403,8 +403,8 @@ CREATE TABLE IF NOT EXISTS `tcneo_archive_user_attachment`
   `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `fileid`   int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `user_attachment` (`username`, `fileid`),
-  KEY `user_attachment_username` (`username`)
+  UNIQUE KEY `uk_username_fileid` (`username`, `fileid`),
+  KEY `k_username` (`username`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
@@ -423,11 +423,10 @@ CREATE TABLE IF NOT EXISTS `tcneo_archive_user_group`
   `groupid`  int(11)                                                DEFAULT NULL,
   `type`     tinytext CHARACTER SET utf8 COLLATE utf8_general_ci    DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `usergroup` (`username`, `groupid`),
-  KEY `user_group_username` (`username`),
-  KEY `user_group_groupid` (`groupid`)
+  UNIQUE KEY `uk_username_groupid` (`username`, `groupid`),
+  KEY `k_username` (`username`),
+  KEY `k_groupid` (`groupid`)
 ) ENGINE = MyISAM
-  AUTO_INCREMENT = 2
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
 
@@ -445,10 +444,9 @@ CREATE TABLE IF NOT EXISTS `tcneo_archive_user_message`
   `msgid`    int(11)                                                DEFAULT NULL,
   `popup`    tinyint(4) NOT NULL                                    DEFAULT 0,
   PRIMARY KEY (`id`),
-  KEY `user_message_username` (`username`),
-  KEY `user_message_msgid` (`msgid`)
+  KEY `k_username` (`username`),
+  KEY `k_msgid` (`msgid`)
 ) ENGINE = MyISAM
-  AUTO_INCREMENT = 2
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
 
@@ -466,9 +464,9 @@ CREATE TABLE IF NOT EXISTS `tcneo_archive_user_option`
   `option`   varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `value`    text CHARACTER SET utf8 COLLATE utf8_general_ci        DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `useroption` (`username`, `option`),
-  KEY `user_option_username` (`username`),
-  KEY `user_option_option` (`option`)
+  UNIQUE KEY `uk_username_option` (`username`, `option`),
+  KEY `k_username` (`username`),
+  KEY `k_option` (`option`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
@@ -486,8 +484,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_attachments`
   `filename` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `uploader` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci  DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `attachment` (`filename`),
-  KEY `attachment_filename` (`filename`)
+  UNIQUE KEY `uk_filename` (`filename`)
 ) ENGINE = MyISAM
   AUTO_INCREMENT = 13
   DEFAULT CHARSET = utf8
@@ -524,9 +521,9 @@ CREATE TABLE IF NOT EXISTS `tcneo_config`
   `name`  varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `value` text CHARACTER SET utf8 COLLATE utf8_general_ci        NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `config` (`name`)
+  UNIQUE KEY `uk_name` (`name`)
 ) ENGINE = MyISAM
-  AUTO_INCREMENT = 211
+  AUTO_INCREMENT = 210
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
 
@@ -762,8 +759,8 @@ CREATE TABLE IF NOT EXISTS `tcneo_daynotes`
   `color`        varchar(16)                                            NOT NULL DEFAULT 'default',
   `confidential` tinyint(1)                                             NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `daynote_daynote` (`yyyymmdd`, `username`, `region`),
-  KEY `daynote_username` (`username`)
+  UNIQUE KEY `uk_yyyymmdd_username_region` (`yyyymmdd`, `username`, `region`),
+  KEY `k_username` (`username`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
@@ -785,7 +782,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_groups`
   `minpresentwe` smallint(6)                                             NOT NULL DEFAULT 0,
   `maxabsentwe`  smallint(6)                                             NOT NULL DEFAULT 9999,
   PRIMARY KEY (`id`),
-  KEY `group_name` (`name`)
+  KEY `k_name` (`name`)
 ) ENGINE = MyISAM
   AUTO_INCREMENT = 5
   DEFAULT CHARSET = utf8
@@ -819,7 +816,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_holidays`
   `noabsence`        tinyint(1)                                              NOT NULL DEFAULT 0,
   `keepweekendcolor` tinyint(1)                                              NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  KEY `holiday_name` (`name`)
+  KEY `k_name` (`name`)
 ) ENGINE = MyISAM
   AUTO_INCREMENT = 6
   DEFAULT CHARSET = utf8
@@ -917,7 +914,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_messages`
   `text`      text CHARACTER SET utf8 COLLATE utf8_general_ci       NOT NULL,
   `type`      varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `message_type` (`type`)
+  KEY `k_type` (`type`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
@@ -1029,9 +1026,9 @@ CREATE TABLE IF NOT EXISTS `tcneo_months`
   `hol30`  int(11)                                               DEFAULT NULL,
   `hol31`  int(11)                                               DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `month_month` (`year`, `month`, `region`)
+  UNIQUE KEY `uk_year_month_region` (`year`, `month`, `region`)
 ) ENGINE = MyISAM
-  AUTO_INCREMENT = 30
+  AUTO_INCREMENT = 4
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
 
@@ -1042,9 +1039,43 @@ CREATE TABLE IF NOT EXISTS `tcneo_months`
 INSERT INTO `tcneo_months` (`id`, `year`, `month`, `region`, `wday1`, `wday2`, `wday3`, `wday4`, `wday5`, `wday6`, `wday7`, `wday8`, `wday9`, `wday10`, `wday11`, `wday12`, `wday13`, `wday14`, `wday15`, `wday16`, `wday17`, `wday18`, `wday19`, `wday20`, `wday21`, `wday22`, `wday23`, `wday24`, `wday25`, `wday26`, `wday27`, `wday28`, `wday29`, `wday30`, `wday31`, `week1`, `week2`, `week3`, `week4`, `week5`, `week6`, `week7`, `week8`, `week9`, `week10`, `week11`, `week12`,
                             `week13`, `week14`, `week15`, `week16`, `week17`, `week18`, `week19`, `week20`, `week21`, `week22`, `week23`, `week24`, `week25`, `week26`, `week27`, `week28`, `week29`, `week30`, `week31`, `hol1`, `hol2`, `hol3`, `hol4`, `hol5`, `hol6`, `hol7`, `hol8`, `hol9`, `hol10`, `hol11`, `hol12`, `hol13`, `hol14`, `hol15`, `hol16`, `hol17`, `hol18`, `hol19`, `hol20`, `hol21`, `hol22`, `hol23`, `hol24`, `hol25`, `hol26`, `hol27`, `hol28`, `hol29`, `hol30`,
                             `hol31`)
-VALUES (24, '2024', '10', 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 40, 40, 40, 40, 40, 40, 41, 41, 41, 41, 41, 41, 41, 42, 42, 42, 42, 42, 42, 42, 43, 43, 43, 43, 43, 43, 43, 44, 44, 44, 44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-       (25, '2024', '11', 1, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 0, 44, 44, 44, 45, 45, 45, 45, 45, 45, 45, 46, 46, 46, 46, 46, 46, 46, 47, 47, 47, 47, 47, 47, 47, 48, 48, 48, 48, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-       (26, '2024', '12', 1, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 48, 49, 49, 49, 49, 49, 49, 49, 50, 50, 50, 50, 50, 50, 50, 51, 51, 51, 51, 51, 51, 51, 52, 52, 52, 52, 52, 52, 52, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+VALUES (1, '2024', '10', 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 40, 40, 40, 40, 40, 40, 41, 41, 41, 41, 41, 41, 41, 42, 42, 42, 42, 42, 42, 42, 43, 43, 43, 43, 43, 43, 43, 44, 44, 44, 44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+       (2, '2024', '11', 1, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 0, 44, 44, 44, 45, 45, 45, 45, 45, 45, 45, 46, 46, 46, 46, 46, 46, 46, 47, 47, 47, 47, 47, 47, 47, 48, 48, 48, 48, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+       (3, '2024', '12', 1, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 48, 49, 49, 49, 49, 49, 49, 49, 50, 50, 50, 50, 50, 50, 50, 51, 51, 51, 51, 51, 51, 51, 52, 52, 52, 52, 52, 52, 52, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tcneo_permissions`
+--
+
+DROP TABLE IF EXISTS `tcneo_patterns`;
+CREATE TABLE `tcneo_patterns`
+(
+  `id`          int(11)                                                 NOT NULL AUTO_INCREMENT,
+  `name`        varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci           DEFAULT NULL,
+  `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `abs1`        int(11)                                                          DEFAULT NULL,
+  `abs2`        int(11)                                                          DEFAULT NULL,
+  `abs3`        int(11)                                                          DEFAULT NULL,
+  `abs4`        int(11)                                                          DEFAULT NULL,
+  `abs5`        int(11)                                                          DEFAULT NULL,
+  `abs6`        int(11)                                                          DEFAULT NULL,
+  `abs7`        int(11)                                                          DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = MyISAM
+  DEFAULT CHARSET = utf8
+  COLLATE = utf8_bin;
+
+--
+-- Dumping data for table `tcneo_patterns`
+--
+
+INSERT INTO `tcneo_patterns` (`id`, `name`, `description`, `abs1`, `abs2`, `abs3`, `abs4`, `abs5`, `abs6`, `abs7`)
+VALUES (NULL, 'Home Office A', 'The official home office schedule for group A', 5, 0, 5, 0, 5, 0, 0),
+       (NULL, 'Home Office B', 'The official home office schedule for group B', 0, 5, 0, 5, 0, 0, 0),
+       (NULL, 'Training Week', '4 days of training - 1 day off', 7, 7, 7, 7, 3, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1061,11 +1092,11 @@ CREATE TABLE IF NOT EXISTS `tcneo_permissions`
   `role`       int(11)                                                NOT NULL DEFAULT 1,
   `allowed`    tinyint(1)                                             NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `permission_permission` (`scheme`, `permission`, `role`),
-  KEY `permission_scheme` (`scheme`),
-  KEY `permission_name` (`permission`)
+  UNIQUE KEY `uk_scheme_permission_role` (`scheme`, `permission`, `role`),
+  KEY `k_scheme` (`scheme`),
+  KEY `k_permission` (`permission`)
 ) ENGINE = MyISAM
-  AUTO_INCREMENT = 119
+  AUTO_INCREMENT = 124
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
 
@@ -1187,7 +1218,12 @@ VALUES (1, 'Default', 'calendareditall', 1, 1),
        (115, 'Default', 'useredit', 3, 0),
        (116, 'Default', 'useredit', 2, 0),
        (117, 'Default', 'useroptions', 1, 1),
-       (118, 'Default', 'useroptions', 3, 0);
+       (118, 'Default', 'useroptions', 3, 0),
+       (119, 'Default', 'patternedit', 1, 1),
+       (120, 'Default', 'patternedit', 2, 0),
+       (121, 'Default', 'patternedit', 3, 0),
+       (122, 'Default', 'patternedit', 4, 0),
+       (123, 'Default', 'patternedit', 5, 0);
 
 -- --------------------------------------------------------
 
@@ -1202,7 +1238,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_regions`
   `name`        varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci  NOT NULL DEFAULT '',
   `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
-  KEY `region_name` (`name`)
+  KEY `k_name` (`name`)
 ) ENGINE = MyISAM
   AUTO_INCREMENT = 4
   DEFAULT CHARSET = utf8
@@ -1251,7 +1287,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_roles`
   `created`     timestamp                                               NOT NULL DEFAULT current_timestamp(),
   `updated`     timestamp                                               NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
-  UNIQUE KEY `role_name` (`name`)
+  UNIQUE KEY `uk_name` (`name`)
 ) ENGINE = MyISAM
   AUTO_INCREMENT = 6
   DEFAULT CHARSET = utf8
@@ -1313,8 +1349,8 @@ CREATE TABLE IF NOT EXISTS `tcneo_templates`
   `abs30`    int(11)                                                DEFAULT NULL,
   `abs31`    int(11)                                                DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `template` (`username`, `year`, `month`),
-  KEY `template_username` (`username`)
+  UNIQUE KEY `uk_username_year_month` (`username`, `year`, `month`),
+  KEY `k_username` (`username`)
 ) ENGINE = MyISAM
   AUTO_INCREMENT = 14
   DEFAULT CHARSET = utf8
@@ -1365,8 +1401,8 @@ CREATE TABLE IF NOT EXISTS `tcneo_users`
   `last_login`     datetime    NOT NULL DEFAULT '1900-01-01 00:00:00',
   `created`        datetime    NOT NULL DEFAULT '1900-01-01 00:00:00',
   PRIMARY KEY (`username`),
-  KEY `user_firstname` (`firstname`),
-  KEY `user_lastname` (`lastname`)
+  KEY `k_firstname` (`firstname`),
+  KEY `k_lastname` (`lastname`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
@@ -1400,8 +1436,8 @@ CREATE TABLE IF NOT EXISTS `tcneo_user_attachment`
   `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `fileid`   int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `user_attachment` (`username`, `fileid`),
-  KEY `user_attachment_username` (`username`)
+  UNIQUE KEY `uk_username_fileid` (`username`, `fileid`),
+  KEY `k_username` (`username`)
 ) ENGINE = MyISAM
   AUTO_INCREMENT = 28
   DEFAULT CHARSET = utf8
@@ -1454,8 +1490,8 @@ CREATE TABLE IF NOT EXISTS `tcneo_user_group`
   `groupid`  int(11)                                                DEFAULT NULL,
   `type`     tinytext CHARACTER SET utf8 COLLATE utf8_general_ci    DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_group_username` (`username`),
-  KEY `user_group_groupid` (`groupid`)
+  KEY `k_username` (`username`),
+  KEY `k_groupid` (`groupid`)
 ) ENGINE = MyISAM
   AUTO_INCREMENT = 9
   DEFAULT CHARSET = utf8
@@ -1489,8 +1525,8 @@ CREATE TABLE IF NOT EXISTS `tcneo_user_message`
   `msgid`    int(11)                                                DEFAULT NULL,
   `popup`    tinyint(4) NOT NULL                                    DEFAULT 0,
   PRIMARY KEY (`id`),
-  KEY `user_message_username` (`username`),
-  KEY `user_message_msgid` (`msgid`)
+  KEY `k_username` (`username`),
+  KEY `k_msgid` (`msgid`)
 ) ENGINE = MyISAM
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin;
@@ -1509,9 +1545,9 @@ CREATE TABLE IF NOT EXISTS `tcneo_user_option`
   `option`   varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `value`    text CHARACTER SET utf8 COLLATE utf8_general_ci        DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `useroption` (`username`, `option`),
-  KEY `user_option_username` (`username`),
-  KEY `user_option_option` (`option`)
+  UNIQUE KEY `uk_username_option` (`username`, `option`),
+  KEY `k_username` (`username`),
+  KEY `k_option` (`option`)
 ) ENGINE = MyISAM
   AUTO_INCREMENT = 360
   DEFAULT CHARSET = utf8
@@ -1881,166 +1917,6 @@ VALUES (1, 'admin', 'title', ''),
        (358, 'mimouse', 'title', ''),
        (359, 'mimouse', 'twitter', '');
 COMMIT;
-
-
---
--- Foreign keys
---
-
-ALTER TABLE `tcneo_absence_group`
-  ADD CONSTRAINT `fk_absence` FOREIGN KEY (`absid`) REFERENCES `tcneo_absences` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_group` FOREIGN KEY (`groupid`) REFERENCES `tcneo_groups` (`id`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_allowances`
-  ADD CONSTRAINT `fk_absence` FOREIGN KEY (`absid`) REFERENCES `tcneo_absences` (`id`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_archive_allowances`
-  ADD CONSTRAINT `fk_absence` FOREIGN KEY (`absid`) REFERENCES `tcneo_absences` (`id`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_daynotes`
-  ADD CONSTRAINT `fk_user` FOREIGN KEY (`username`) REFERENCES `tcneo_users` (`username`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_archive_daynotes`
-  ADD CONSTRAINT `fk_user` FOREIGN KEY (`username`) REFERENCES `tcneo_users` (`username`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_months`
-  ADD CONSTRAINT `fk_holiday1` FOREIGN KEY (`hol1`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday2` FOREIGN KEY (`hol2`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday3` FOREIGN KEY (`hol3`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday4` FOREIGN KEY (`hol4`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday5` FOREIGN KEY (`hol5`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday6` FOREIGN KEY (`hol6`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday7` FOREIGN KEY (`hol7`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday8` FOREIGN KEY (`hol8`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday9` FOREIGN KEY (`hol9`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday10` FOREIGN KEY (`hol10`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday11` FOREIGN KEY (`hol11`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday12` FOREIGN KEY (`hol12`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday13` FOREIGN KEY (`hol13`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday14` FOREIGN KEY (`hol14`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday15` FOREIGN KEY (`hol15`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday16` FOREIGN KEY (`hol16`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday17` FOREIGN KEY (`hol17`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday18` FOREIGN KEY (`hol18`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday19` FOREIGN KEY (`hol19`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday20` FOREIGN KEY (`hol20`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday21` FOREIGN KEY (`hol21`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday22` FOREIGN KEY (`hol22`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday23` FOREIGN KEY (`hol23`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday24` FOREIGN KEY (`hol24`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday25` FOREIGN KEY (`hol25`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday26` FOREIGN KEY (`hol26`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday27` FOREIGN KEY (`hol27`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday28` FOREIGN KEY (`hol28`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday29` FOREIGN KEY (`hol29`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday30` FOREIGN KEY (`hol30`) REFERENCES `tcneo_holidays` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_holiday31` FOREIGN KEY (`hol31`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_region` FOREIGN KEY (`region`) REFERENCES `tcneo_regions` (`id`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_permissions`
-  ADD CONSTRAINT `fk_role` FOREIGN KEY (`role`) REFERENCES `tcneo_roles` (`id`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_region_role`
-  ADD CONSTRAINT `fk_region` FOREIGN KEY (`regionid`) REFERENCES `tcneo_regions` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_role` FOREIGN KEY (`roleid`) REFERENCES `tcneo_roles` (`id`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_templates`
-  ADD CONSTRAINT `fk_absence1` FOREIGN KEY (`abs1`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence2` FOREIGN KEY (`abs2`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence3` FOREIGN KEY (`abs3`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence4` FOREIGN KEY (`abs4`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence5` FOREIGN KEY (`abs5`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence6` FOREIGN KEY (`abs6`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence7` FOREIGN KEY (`abs7`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence8` FOREIGN KEY (`abs8`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence9` FOREIGN KEY (`abs9`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence10` FOREIGN KEY (`abs10`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence11` FOREIGN KEY (`abs11`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence12` FOREIGN KEY (`abs12`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence13` FOREIGN KEY (`abs13`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence14` FOREIGN KEY (`abs14`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence15` FOREIGN KEY (`abs15`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence16` FOREIGN KEY (`abs16`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence17` FOREIGN KEY (`abs17`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence18` FOREIGN KEY (`abs18`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence19` FOREIGN KEY (`abs19`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence20` FOREIGN KEY (`abs20`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence21` FOREIGN KEY (`abs21`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence22` FOREIGN KEY (`abs22`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence23` FOREIGN KEY (`abs23`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence24` FOREIGN KEY (`abs24`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence25` FOREIGN KEY (`abs25`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence26` FOREIGN KEY (`abs26`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence27` FOREIGN KEY (`abs27`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence28` FOREIGN KEY (`abs28`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence29` FOREIGN KEY (`abs29`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence30` FOREIGN KEY (`abs30`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence31` FOREIGN KEY (`abs31`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_username` FOREIGN KEY (`username`) REFERENCES `tcneo_users` (`username`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_archive_templates`
-  ADD CONSTRAINT `fk_absence1` FOREIGN KEY (`abs1`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence2` FOREIGN KEY (`abs2`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence3` FOREIGN KEY (`abs3`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence4` FOREIGN KEY (`abs4`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence5` FOREIGN KEY (`abs5`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence6` FOREIGN KEY (`abs6`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence7` FOREIGN KEY (`abs7`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence8` FOREIGN KEY (`abs8`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence9` FOREIGN KEY (`abs9`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence10` FOREIGN KEY (`abs10`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence11` FOREIGN KEY (`abs11`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence12` FOREIGN KEY (`abs12`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence13` FOREIGN KEY (`abs13`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence14` FOREIGN KEY (`abs14`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence15` FOREIGN KEY (`abs15`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence16` FOREIGN KEY (`abs16`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence17` FOREIGN KEY (`abs17`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence18` FOREIGN KEY (`abs18`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence19` FOREIGN KEY (`abs19`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence20` FOREIGN KEY (`abs20`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence21` FOREIGN KEY (`abs21`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence22` FOREIGN KEY (`abs22`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence23` FOREIGN KEY (`abs23`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence24` FOREIGN KEY (`abs24`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence25` FOREIGN KEY (`abs25`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence26` FOREIGN KEY (`abs26`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence27` FOREIGN KEY (`abs27`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence28` FOREIGN KEY (`abs28`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence29` FOREIGN KEY (`abs29`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence30` FOREIGN KEY (`abs30`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_absence31` FOREIGN KEY (`abs31`) REFERENCES `tcneo_absences` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `fk_username` FOREIGN KEY (`username`) REFERENCES `tcneo_users` (`username`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_user_attachment`
-  ADD CONSTRAINT `fk_user` FOREIGN KEY (`username`) REFERENCES `tcneo_users` (`username`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_attachment` FOREIGN KEY (`fileid`) REFERENCES `tcneo_attachments` (`id`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_archive_user_attachment`
-  ADD CONSTRAINT `fk_user` FOREIGN KEY (`username`) REFERENCES `tcneo_users` (`username`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_attachment` FOREIGN KEY (`fileid`) REFERENCES `tcneo_attachments` (`id`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_user_group`
-  ADD CONSTRAINT `fk_user` FOREIGN KEY (`username`) REFERENCES `tcneo_users` (`username`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_group` FOREIGN KEY (`groupid`) REFERENCES `tcneo_groups` (`id`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_archive_user_group`
-  ADD CONSTRAINT `fk_user` FOREIGN KEY (`username`) REFERENCES `tcneo_users` (`username`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_group` FOREIGN KEY (`groupid`) REFERENCES `tcneo_groups` (`id`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_user_message`
-  ADD CONSTRAINT `fk_user` FOREIGN KEY (`username`) REFERENCES `tcneo_users` (`username`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_message` FOREIGN KEY (`msgid`) REFERENCES `tcneo_messages` (`id`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_archive_user_message`
-  ADD CONSTRAINT `fk_user` FOREIGN KEY (`username`) REFERENCES `tcneo_users` (`username`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_message` FOREIGN KEY (`msgid`) REFERENCES `tcneo_messages` (`id`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_user_option`
-  ADD CONSTRAINT `fk_user` FOREIGN KEY (`username`) REFERENCES `tcneo_users` (`username`) ON DELETE CASCADE;
-
-ALTER TABLE `tcneo_archive_user_option`
-  ADD CONSTRAINT `fk_user` FOREIGN KEY (`username`) REFERENCES `tcneo_users` (`username`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS = @OLD_CHARACTER_SET_RESULTS */;

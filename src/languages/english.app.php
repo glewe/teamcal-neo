@@ -262,6 +262,10 @@ $LANG['col_remainder'] = 'Collapse Remainder section...';
 // Calendar Edit
 //
 $LANG['caledit_title'] = 'Edit month %s-%s for %s';
+$LANG['caledit_absencePattern'] = 'Absence Pattern';
+$LANG['caledit_absencePattern_comment'] = 'Select the absence pattern to be applied to this month.';
+$LANG['caledit_absencePatternSkipHolidays'] = 'Skip Holidays';
+$LANG['caledit_absencePatternSkipHolidays_comment'] = 'When setting the pattern absences, skip Holidays that do not count as business days.';
 $LANG['caledit_absenceType'] = 'Absence Type';
 $LANG['caledit_absenceType_comment'] = 'Select the absence type for this input.';
 $LANG['caledit_alert_out_of_range'] = 'The dates entered were at least partially out of the currently displayed month. No changes were saved.';
@@ -282,6 +286,8 @@ $LANG['caledit_currentAbsence'] = 'Current absence';
 $LANG['caledit_endDate'] = 'End Date';
 $LANG['caledit_endDate_comment'] = 'Select the end date (must be in this month).';
 $LANG['caledit_keepExisting'] = 'Keep existing user absences';
+$LANG['caledit_Pattern'] = 'Pattern';
+$LANG['caledit_PatternTitle'] = 'Select Absence Pattern';
 $LANG['caledit_Period'] = 'Period';
 $LANG['caledit_PeriodTitle'] = 'Select Absence Period';
 $LANG['caledit_Recurring'] = 'Recurring';
@@ -708,6 +714,7 @@ $LANG['ptn_alert_edit_success'] = 'The information for this absence pattern was 
 $LANG['ptn_alert_created'] = 'The absence pattern was created.';
 $LANG['ptn_alert_created_failed'] = 'The absence pattern could not be created. Please check the "Create absence pattern" dialog for input errors.';
 $LANG['ptn_alert_deleted'] = 'The absence pattern was deleted.';
+$LANG['ptn_alert_exists'] = 'A pattern with that combination already exists as "%s".';
 $LANG['ptn_alert_save_failed'] = 'The new information for this absence pattern could not be saved. There was invalid input. Please check for error messages.';
 $LANG['ptn_confirm_delete'] = 'Are you sure you want to delete this absence pattern:<br> ';
 $LANG['ptn_currentPattern'] = 'Current Pattern';

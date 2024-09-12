@@ -28,7 +28,6 @@ if (isset($_GET['month']) && isset($_GET['region']) && isset($_GET['user'])) {
   $viewData['month'] = substr($yyyymm, 4, 2);
   if (!is_numeric($yyyymm) || strlen($yyyymm) != 6 || !checkdate(intval($viewData['month']), 1, intval($viewData['year']))) {
     $missingData = true;
-    die("month");
   }
   //
   // Check region
@@ -142,6 +141,8 @@ if ($weekday == rand(1, 7)) {
 //
 // VARIABLE DEFAULTS
 //
+$PTN = new Patterns();
+$patterns = $PTN->getAll();
 $users = $U->getAll();
 $inputAlert = array();
 $currDate = date('Y-m-d');
@@ -174,7 +175,7 @@ if (!$T->getTemplate($caluser, $viewData['year'], $viewData['month'])) {
 // PROCESS FORM
 //
 if (!empty($_POST)) {
-  if (isset($_POST['btn_save']) || isset($_POST['btn_clearall']) || isset($_POST['btn_saveperiod']) || isset($_POST['btn_saverecurring'])) {
+  if (isset($_POST['btn_save']) || isset($_POST['btn_clearall']) || isset($_POST['btn_saveperiod']) || isset($_POST['btn_saverecurring']) || isset($_POST['btn_savepattern'])) {
     //
     // All changes to the calendar are handled in this block since it finishes with the Approval routine.
     // First, get the current absences of the user into an array $currentAbsences
@@ -236,10 +237,49 @@ if (!empty($_POST)) {
         }
       }
     }
+    // ,--------------,
+    // | Save Pattern |
+    // '--------------'
+    elseif (isset($_POST['btn_savepattern'])) {
+      //
+      // Form validation
+      //
+      $PTN->get($_POST['sel_absencePattern']);
+      //
+      // Now we go through each day of the month and add the pattern absences to the requestedAbsences array
+      //
+      for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
+        $weekday = dateInfo($viewData['year'], $viewData['month'], $i)['wday'];
+        $prop = 'abs' . $weekday;
+        if (isset($_POST['chk_absencePatternSkipHolidays'])) {
+          //
+          // Skip holidays was requested
+          //
+          $hprop = 'hol' . $i;
+          if ($M->$hprop && !$H->isBusinessDay($M->$hprop)) {
+            //
+            // This is a true holiday (does not count as a business day). Do not apply the pattern.
+            //
+            $requestedAbsences[$i] = $currentAbsences[$i];
+          } else {
+            //
+            // Not a Holiday or a Holiday that counts as business day. Apply the pattern.
+            //
+            $requestedAbsences[$i] = $PTN->$prop;
+          }
+        } else {
+          //
+          // Apply the pattern.
+          //
+          $requestedAbsences[$i] = $PTN->$prop;
+        }
+      }
+    }
     // ,-------------,
     // | Save Period |
     // '-------------'
-    elseif (isset($_POST['btn_saveperiod'])) {
+    elseif
+    (isset($_POST['btn_saveperiod'])) {
       //
       // Form validation
       //
@@ -298,7 +338,8 @@ if (!empty($_POST)) {
     // ,----------------,
     // | Save Recurring |
     // '----------------'
-    elseif (isset($_POST['btn_saverecurring']) && isset($_POST['sel_recurringAbsence']) && is_numeric($_POST['sel_recurringAbsence'])) {
+    elseif
+    (isset($_POST['btn_saverecurring']) && isset($_POST['sel_recurringAbsence']) && is_numeric($_POST['sel_recurringAbsence'])) {
       $startDate = $viewData['year'] . $viewData['month'] . '01';
       $endDate = $viewData['year'] . $viewData['month'] . $viewData['dateInfo']['daysInMonth'];
       $wdays = array( 'monday' => 1, 'tuesday' => 2, 'wednesday' => 3, 'thursday' => 4, 'friday' => 5, 'saturday' => 6, 'sunday' => 7 );
@@ -455,6 +496,7 @@ $viewData['fullname'] = $U->getFullname($caluser);
 $viewData['absences'] = $A->getAll();
 $viewData['holidays'] = $H->getAllCustom();
 $viewData['dayStyles'] = array();
+$viewData['patterns'] = $patterns;
 
 //
 // Prepare a comma seperated group name list for the caluser

@@ -73,37 +73,51 @@ if (!empty($_POST)) {
     // | Create |
     // '--------'
     if (isset($_POST['btn_create'])) {
-      $PTN->name = $_POST['txt_name'];
-      $PTN->description = $_POST['txt_description'];
-      $PTN->abs1 = $_POST['sel_abs1'];
-      $PTN->abs2 = $_POST['sel_abs2'];
-      $PTN->abs3 = $_POST['sel_abs3'];
-      $PTN->abs4 = $_POST['sel_abs4'];
-      $PTN->abs5 = $_POST['sel_abs5'];
-      $PTN->abs6 = $_POST['sel_abs6'];
-      $PTN->abs7 = $_POST['sel_abs7'];
-      //
-      // Create pattern record
-      //
-      $PTN->create();
-      //
-      // Log this event
-      //
-      $LOG->logEvent("logPattern", L_USER, "log_pattern_created", $PTN->name);
-      //
-      // Success
-      //
-      $showAlert = true;
-      $alertData['type'] = 'success';
-      $alertData['title'] = $LANG['alert_success_title'];
-      $alertData['subject'] = $LANG['btn_create_pattern'];
-      $alertData['text'] = $LANG['ptn_alert_created'];
-      $alertData['help'] = '';
-      //
-      // Load new info for the view
-      //
-      $viewData['name'] = $PTN->name;
-      $viewData['description'] = $PTN->description;
+
+      $checkPattern = [ 0, $_POST['sel_abs1'], $_POST['sel_abs2'], $_POST['sel_abs3'], $_POST['sel_abs4'], $_POST['sel_abs5'], $_POST['sel_abs6'], $_POST['sel_abs7'] ];
+      if ($name = $PTN->patternExists($checkPattern)) {
+        //
+        // Pattern already exists
+        //
+        $showAlert = true;
+        $alertData['type'] = 'warning';
+        $alertData['title'] = $LANG['alert_warning_title'];
+        $alertData['subject'] = $LANG['btn_create_pattern'];
+        $alertData['text'] = sprintf($LANG['ptn_alert_exists'], $name);
+        $alertData['help'] = '';
+      } else {
+        $PTN->name = $_POST['txt_name'];
+        $PTN->description = $_POST['txt_description'];
+        $PTN->abs1 = $_POST['sel_abs1'];
+        $PTN->abs2 = $_POST['sel_abs2'];
+        $PTN->abs3 = $_POST['sel_abs3'];
+        $PTN->abs4 = $_POST['sel_abs4'];
+        $PTN->abs5 = $_POST['sel_abs5'];
+        $PTN->abs6 = $_POST['sel_abs6'];
+        $PTN->abs7 = $_POST['sel_abs7'];
+        //
+        // Create pattern record
+        //
+        $PTN->create();
+        //
+        // Log this event
+        //
+        $LOG->logEvent("logPattern", L_USER, "log_pattern_created", $PTN->name);
+        //
+        // Success
+        //
+        $showAlert = true;
+        $alertData['type'] = 'success';
+        $alertData['title'] = $LANG['alert_success_title'];
+        $alertData['subject'] = $LANG['btn_create_pattern'];
+        $alertData['text'] = $LANG['ptn_alert_created'];
+        $alertData['help'] = '';
+        //
+        // Load new info for the view
+        //
+        $viewData['name'] = $PTN->name;
+        $viewData['description'] = $PTN->description;
+      }
     }
   } else {
     //

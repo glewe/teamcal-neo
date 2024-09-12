@@ -21,6 +21,7 @@ view.calendarview
 <div class="container content" style="padding-left: 4px; padding-right: 4px;<?= ($fontSize = $C->read('calendarFontSize')) ? " font-size:" . $fontSize . "%;" : ""; ?>">
 
   <?php if ($viewData['calendaronly']) {
+
     $formLink = $formLink . '&amp;calendaronly=1';
     foreach ($viewData['months'] as $vmonth) {
       $M = $vmonth['M'];

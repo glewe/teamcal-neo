@@ -106,19 +106,19 @@ view.regions
                       <td><?= $region['description'] ?></td>
                       <td class="align-top text-center">
                         <?php if ($region['id'] != '1') : ?>
-                          <form class="form-control-horizontal" name="form_<?= $region['name'] ?>" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
-                            <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRegion_<?= $region['name'] ?>"><?= $LANG['btn_delete'] ?></button>
-                            <a href="index.php?action=regionedit&amp;id=<?= $region['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
-                            <a href="index.php?action=monthedit&amp;month=<?= date('Y') . date('m') ?>&amp;region=<?= $region['id'] ?>" class="btn btn-info btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_calendar'] ?></a>
-                            <input name="hidden_id" type="hidden" value="<?= $region['id'] ?>">
-                            <input name="hidden_name" type="hidden" value="<?= $region['name'] ?>">
-                            <input name="hidden_description" type="hidden" value="<?= $region['description'] ?>">
-                            <!-- Modal: Delete region -->
-                            <?= createModalTop('modalDeleteRegion_' . $region['name'], $LANG['modal_confirm']) ?>
-                            <?= $LANG['regions_confirm_delete'] . ": " . $region['name'] ?>
-                            <?= createModalBottom('btn_regionDelete', 'danger', $LANG['btn_delete']) ?>
-                          </form>
-                        <?php endif; ?>
+                        <form class="form-control-horizontal" name="form_<?= $region['name'] ?>" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
+                          <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRegion_<?= $region['name'] ?>"><?= $LANG['btn_delete'] ?></button>
+                          <a href="index.php?action=regionedit&amp;id=<?= $region['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
+                          <input name="hidden_id" type="hidden" value="<?= $region['id'] ?>">
+                          <input name="hidden_name" type="hidden" value="<?= $region['name'] ?>">
+                          <input name="hidden_description" type="hidden" value="<?= $region['description'] ?>">
+                          <!-- Modal: Delete region -->
+                          <?= createModalTop('modalDeleteRegion_' . $region['name'], $LANG['modal_confirm']) ?>
+                          <?= $LANG['regions_confirm_delete'] . ": " . $region['name'] ?>
+                          <?= createModalBottom('btn_regionDelete', 'danger', $LANG['btn_delete']) ?>
+                          <?php endif; ?>
+                          <a href="index.php?action=monthedit&amp;month=<?= date('Y') . date('m') ?>&amp;region=<?= $region['id'] ?>" class="btn btn-info btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_calendar'] ?></a>
+                        </form>
                       </td>
                     </tr>
                   <?php endforeach; ?>

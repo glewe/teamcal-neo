@@ -432,10 +432,23 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
  * @param string $id ID of the modal dialog
  * @param string $title Title of the modal dialog
  */
-function createModalTop($id, $title) {
+function createModalTop($id, $title, $size = '') {
+  switch ($size) {
+    case 'sm':
+      $size = 'modal-sm';
+      break;
+    case 'lg':
+      $size = 'modal-lg';
+      break;
+    case 'xl':
+      $size = 'modal-xl';
+      break;
+    default:
+      $size = '';
+  }
   return '
     <div class="modal fade" id="' . $id . '" tabindex="-1" role="dialog" aria-labelledby="' . $id . 'Label" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog ' . $size . '" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">' . $title . '</h5>
