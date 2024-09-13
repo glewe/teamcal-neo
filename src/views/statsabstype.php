@@ -166,7 +166,7 @@ view.statsabstype
     }
     ?>
     <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>">
-      <i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['stats_title_abstype'] ?>&nbsp;(<?= $viewData['periodName'] ?>)<span class="badge bg-secondary float-end badge-header-right"><i data-bs-placement="bottom" data-type="info" data-bs-toggle="tooltip" title="<?= $LANG['stats_total'] ?>"><?= $viewData['total'] ?></i></span><?= $pageHelp ?>
+      <i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['stats_title_abstype'] ?>&nbsp;(<?= $viewData['periodName'] ?>)<span class="badge text-bg-secondary float-end badge-header-right"><i data-bs-placement="bottom" data-type="info" data-bs-toggle="tooltip" title="<?= $LANG['stats_total'] ?>"><?= $viewData['total'] ?></i></span><?= $pageHelp ?>
     </div>
     <div class="card-body">
       <p><?= $LANG['stats_abstype_desc'] ?></p>
