@@ -150,16 +150,15 @@ class Patterns {
    * @return boolean
    */
   public function patternExists($absPattern) {
-    $myQuery = "
-      SELECT name FROM " . $this->table . "
-       WHERE abs1 = '" . $absPattern[1] . "'
-       AND abs2 = '" . $absPattern[2] . "'
-       AND abs3 = '" . $absPattern[3] . "'
-       AND abs4 = '" . $absPattern[4] . "'
-       AND abs5 = '" . $absPattern[5] . "'
-       AND abs6 = '" . $absPattern[6] . "'
-       AND abs7 = '" . $absPattern[7] . "' ;";
-    $query = $this->db->prepare($myQuery);
+    $stmt = 'SELECT name FROM ' . $this->table . ' WHERE abs1 = :val1 AND abs2 = :val2 AND abs3 = :val3 AND abs4 = :val4 AND abs5 = :val5 AND abs6 = :val6 AND abs7 = :val7';
+    $query = $this->db->prepare($stmt);
+    $query->bindParam('val1', $absPattern[1]);
+    $query->bindParam('val2', $absPattern[2]);
+    $query->bindParam('val3', $absPattern[3]);
+    $query->bindParam('val4', $absPattern[4]);
+    $query->bindParam('val5', $absPattern[5]);
+    $query->bindParam('val6', $absPattern[6]);
+    $query->bindParam('val7', $absPattern[7]);
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {
       return $row['name'];
