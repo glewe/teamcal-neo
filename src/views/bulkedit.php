@@ -51,7 +51,7 @@ view.bulkedit
           <div class="row mb-4">
             <div class="col-lg-4">
               <label for="sel_absence"><?= $LANG['absencetype'] ?></label>
-              <select class="form-control" name="sel_absence" id="sel_absence" tabindex="<?= $tabindex++ ?>">
+              <select class="form-select" name="sel_absence" id="sel_absence" tabindex="<?= $tabindex++ ?>">
                 <?php foreach ($viewData['absences'] as $absence) { ?>
                   <option value="<?= $absence['id'] ?>" <?= ($absence['id'] == $viewData['absid']) ? ' selected=""' : ''; ?>><?= $absence['name'] ?></option>
                 <?php } ?>
@@ -59,7 +59,7 @@ view.bulkedit
             </div>
             <div class="col-lg-4">
               <label for="sel_group"><?= $LANG['group'] ?></label>
-              <select class="form-control" name="sel_group" id="sel_group" tabindex="<?= $tabindex++ ?>">
+              <select class="form-select" name="sel_group" id="sel_group" tabindex="<?= $tabindex++ ?>">
                 <option value="All" <?= ('All' == $viewData['groupid']) ? ' selected=""' : ''; ?>><?= $LANG['all'] ?></option>
                 <?php foreach ($viewData['groups'] as $group) { ?>
                   <option value="<?= $group['id'] ?>" <?= ($group['id'] == $viewData['groupid']) ? ' selected=""' : ''; ?>><?= $group['name'] ?></option>

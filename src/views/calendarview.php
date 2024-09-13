@@ -82,7 +82,7 @@ view.calendarview
       </div>
       <div style="width:45%;float:right;">
         <?= $LANG['month'] ?><br>
-        <select id="month" class="form-control" name="sel_month" tabindex="<?= $tabindex++ ?>">
+        <select id="month" class="form-select" name="sel_month" tabindex="<?= $tabindex++ ?>">
           <?php foreach ($LANG['monthnames'] as $key => $value) { ?>
             <option value="<?= sprintf('%02d', $key) ?>" <?= ($key == $viewData['month']) ? 'selected="selected"' : ''; ?>><?= $value ?></option>
           <?php } ?>
@@ -93,7 +93,7 @@ view.calendarview
 
       <!-- Modal: Select Region -->
       <?= createModalTop('modalSelectRegion', $LANG['cal_selRegion']) ?>
-      <select id="region" class="form-control" name="sel_region" tabindex="<?= $tabindex++ ?>">
+      <select id="region" class="form-select" name="sel_region" tabindex="<?= $tabindex++ ?>">
         <?php foreach ($viewData['regions'] as $reg) { ?>
           <option value="<?= $reg['id'] ?>" <?= (($viewData['regionid'] == $reg['id']) ? ' selected="selected"' : '') ?>><?= $reg['name'] ?></option>
         <?php } ?>
@@ -102,7 +102,7 @@ view.calendarview
 
       <!-- Modal: Select Group -->
       <?= createModalTop('modalSelectGroup', $LANG['cal_selGroup']) ?>
-      <select id="group" class="form-control" name="sel_group" tabindex="<?= $tabindex++ ?>">
+      <select id="group" class="form-select" name="sel_group" tabindex="<?= $tabindex++ ?>">
         <option value="all" <?= (($viewData['groupid'] == 'all') ? ' selected="selected"' : '') ?>><?= $LANG['all'] ?></option>
         <?php foreach ($viewData['allGroups'] as $grp) {
           if (isAllowed("calendarviewall") || ($UG->isMemberOrManagerOfGroup($UL->username, $grp['id']))) { ?>
@@ -115,7 +115,7 @@ view.calendarview
       <!-- Modal: Select Absence -->
       <?= createModalTop('modalSelectAbsence', $LANG['cal_selAbsence']) ?>
       <p><?= $LANG['cal_selAbsence_comment'] ?></p>
-      <select id="absence" class="form-control" name="sel_absence" tabindex="<?= $tabindex++ ?>">
+      <select id="absence" class="form-select" name="sel_absence" tabindex="<?= $tabindex++ ?>">
         <option value="all" <?= (($viewData['absid'] == 'all') ? 'selected="selected"' : '') ?>><?= $LANG['all'] ?></option>
         <?php foreach ($viewData['absences'] as $abs) { ?>
           <option value="<?= $abs['id'] ?>" <?= (($viewData['absid'] == $abs['id']) ? ' selected="selected"' : '') ?>><?= $abs['name'] ?></option>
@@ -126,7 +126,7 @@ view.calendarview
       <!-- Modal: Screen Width -->
       <?= createModalTop('modalSelectWidth', $LANG['cal_selWidth']) ?>
       <p><?= $LANG['cal_selWidth_comment'] ?></p>
-      <select id="width" class="form-control" name="sel_width" tabindex="<?= $tabindex++ ?>">
+      <select id="width" class="form-select" name="sel_width" tabindex="<?= $tabindex++ ?>">
         <?php foreach ($LANG['widths'] as $key => $value) { ?>
           <option value="<?= $key ?>" <?= (($viewData['width'] == $key) ? ' selected="selected"' : '') ?>><?= $value ?></option>
         <?php } ?>

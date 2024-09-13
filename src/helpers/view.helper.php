@@ -75,7 +75,7 @@ function createAlertBox($data) {
  */
 function createFaIconListbox($tabIndex = "-1", $selected = "") {
   global $faIcons;
-  $listbox = '<select id="faIcon" class="form-control" name="sel_faIcon" tabindex="' . $tabIndex . '">';
+  $listbox = '<select id="faIcon" class="form-select" name="sel_faIcon" tabindex="' . $tabIndex . '">';
   foreach ($faIcons as $faIcon) {
     if ($faIcon == $selected) {
       $sel = ' selected="selected"';

@@ -45,7 +45,7 @@ view.statsabsences
     <div>
       <span class="text-bold"><?= $LANG['stats_absenceType'] ?></span><br>
       <span class="text-normal"><?= $LANG['stats_absenceType_comment'] ?></span>
-      <select id="absence" class="form-control" name="sel_absence" tabindex="<?= $tabindex++ ?>">
+      <select id="absence" class="form-select" name="sel_absence" tabindex="<?= $tabindex++ ?>">
         <option value="all" <?= (($viewData['absid'] == 'all') ? "selected" : "") ?>><?= $LANG['all'] ?></option>
         <?php foreach ($viewData['absences'] as $abs) { ?>
           <option value="<?= $abs['id'] ?>" <?= (($viewData['absid'] == $abs['id']) ? "selected" : "") ?>><?= $abs['name'] ?></option>
@@ -58,7 +58,7 @@ view.statsabsences
     <?= createModalTop('modalGroup', $LANG['stats_modalGroupTitle']) ?>
     <span class="text-bold"><?= $LANG['stats_group'] ?></span><br>
     <span class="text-normal"><?= $LANG['stats_group_comment'] ?></span>
-    <select id="group" class="form-control" name="sel_group" tabindex="<?= $tabindex++ ?>">
+    <select id="group" class="form-select" name="sel_group" tabindex="<?= $tabindex++ ?>">
       <option value="all" <?= (($viewData['groupid'] == 'all') ? ' selected="selected"' : '') ?>><?= $LANG['all'] ?></option>
       <?php foreach ($viewData['groups'] as $grp) { ?>
         <option value="<?= $grp['id'] ?>" <?= (($viewData['groupid'] == $grp['id']) ? 'selected="selected"' : '') ?>><?= $grp['name'] ?></option>
@@ -75,7 +75,7 @@ view.statsabsences
     <div>
       <span class="text-bold"><?= $LANG['stats_period'] ?></span><br>
       <span class="text-normal"><?= $LANG['stats_period_comment'] ?></span>
-      <select id="sel_period" class="form-control" name="sel_period" tabindex="<?= $tabindex++ ?>">
+      <select id="sel_period" class="form-select" name="sel_period" tabindex="<?= $tabindex++ ?>">
         <option value="year" <?= (($viewData['period'] == 'year') ? "selected" : "") ?>><?= $LANG['period_year'] ?></option>
         <option value="half" <?= (($viewData['period'] == 'half') ? "selected" : "") ?>><?= $LANG['period_half'] ?></option>
         <option value="quarter" <?= (($viewData['period'] == 'quarter') ? "selected" : "") ?>><?= $LANG['period_quarter'] ?></option>
@@ -148,7 +148,7 @@ view.statsabsences
     <div>
       <span class="text-bold"><?= $LANG['stats_color'] ?></span><br>
       <label for="sel_color" class="text-normal"><?= $LANG['stats_color_comment'] ?></label>
-      <select id="sel_color" class="form-control" name="sel_color" tabindex="<?= $tabindex++ ?>">
+      <select id="sel_color" class="form-select" name="sel_color" tabindex="<?= $tabindex++ ?>">
         <option value="#0000ff" <?= (($viewData['color'] == 'blue') ? "selected" : "") ?>><?= $LANG['blue'] ?></option>
         <option value="#00ffff" <?= (($viewData['color'] == 'cyan') ? "selected" : "") ?>><?= $LANG['cyan'] ?></option>
         <option value="#008000" <?= (($viewData['color'] == 'green') ? "selected" : "") ?>><?= $LANG['green'] ?></option>
