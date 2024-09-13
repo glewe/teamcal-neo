@@ -59,6 +59,7 @@ view.groupcalendaredit
       <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageBwdYear . $pageBwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>"><span class="fas fa-angle-double-left"></span></a>
       <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageFwdYear . $pageFwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>"><span class="fas fa-angle-double-right"></span></a>
       <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $viewData['yearToday'] . $viewData['monthToday'] ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>"><?= $LANG['today'] ?></a>
+      <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalPattern"><?= $LANG['caledit_Pattern'] ?></button>
       <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalPeriod"><?= $LANG['caledit_Period'] ?></button>
       <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalRecurring"><?= $LANG['caledit_Recurring'] ?></button>
       <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
@@ -267,6 +268,61 @@ view.groupcalendaredit
       <?php } ?>
     </select>
     <?= createModalBottom('btn_group', 'success', $LANG['btn_select']) ?>
+
+    <!-- Modal: Pattern -->
+    <?= createModalTop('modalPattern', $LANG['caledit_PatternTitle'], 'lg') ?>
+    <div class="row">
+      <div class="col-lg-7">
+        <label for="absencePattern" class="text-bold"><?= $LANG['caledit_absencePattern'] ?></label><br>
+        <span class="text-normal"><?= $LANG['caledit_absencePattern_comment'] ?></span>
+      </div>
+      <div class="col-lg-5">
+        <select class="form-select" id="absencePattern" name="sel_absencePattern" tabindex="<?= $tabindex++ ?>" onchange="showPattern(this.value)">
+          <?php foreach ($viewData['patterns'] as $ptn) { ?>
+            <option value="<?= $ptn['id'] ?>"><?= $ptn['name'] ?></option>
+          <?php } ?>
+        </select>
+      </div>
+    </div>
+    <div class="mt-4">
+      <?php foreach ($viewData['patterns'] as $ptn) { ?>
+        <div id="pattern-<?= $ptn['id'] ?>" class="col">
+          <?= createPatternTable($ptn['id']) ?>
+        </div>
+      <?php } ?>
+      <script>
+        function hideAllPatterns() {
+          <?php foreach ($viewData['patterns'] as $ptn) { ?>
+          document.getElementById('pattern-<?= $ptn['id'] ?>').style.display = "none";
+          <?php } ?>
+        }
+
+        function showPattern(id) {
+          hideAllPatterns();
+          document.getElementById('pattern-' + id).style.display = "block";
+        }
+
+        //
+        // Show first pattern on load
+        //
+        showPattern(<?= $viewData['patterns'][0]['id'] ?>);
+      </script>
+    </div>
+    <div class="row mt-4">
+      <div class="col-lg-7">
+        <label for="absencePatternSkipHolidays" class="text-bold"><?= $LANG['caledit_absencePatternSkipHolidays'] ?></label><br>
+        <span class="text-normal"><?= $LANG['caledit_absencePatternSkipHolidays_comment'] ?></span>
+      </div>
+      <div class="col-lg-5">
+        <div class="form-check">
+          <input id="absencePatternSkipHolidays" name="chk_absencePatternSkipHolidays" value="1" tabindex="<?= $tabindex++ ?>" type="checkbox" class="form-check-input">
+          <label class="form-check-label" for="flexCheckDefault">
+            <?= $LANG['caledit_absencePatternSkipHolidays'] ?>
+          </label>
+        </div>
+      </div>
+    </div>
+    <?= createModalBottom('btn_savepattern', 'success', $LANG['btn_save']) ?>
 
     <!-- Modal: Period -->
     <?= createModalTop('modalPeriod', $LANG['caledit_PeriodTitle']) ?>
