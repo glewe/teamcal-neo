@@ -120,16 +120,16 @@ view.declination
                       <div class="col-lg-4">
                         <?php switch ($viewData['decl' . $overview . 'Status']) {
                           case 'active': ?>
-                            <span class="badge badge-danger"><?= $LANG['decl_label_active'] ?></span>
+                            <span class="badge text-bg-danger"><?= $LANG['decl_label_active'] ?></span>
                             <?php break;
                           case 'expired': ?>
-                            <span class="badge badge-success"><?= $LANG['decl_label_expired'] ?></span>
+                            <span class="badge text-bg-success"><?= $LANG['decl_label_expired'] ?></span>
                             <?php break;
                           case 'inactive': ?>
-                            <span class="badge badge-dark"><?= $LANG['decl_label_inactive'] ?></span>
+                            <span class="badge text-bg-dark"><?= $LANG['decl_label_inactive'] ?></span>
                             <?php break;
                           case 'scheduled': ?>
-                            <span class="badge badge-warning"><?= $LANG['decl_label_scheduled'] ?></span>
+                            <span class="badge text-bg-warning"><?= $LANG['decl_label_scheduled'] ?></span>
                             <?php break;
                           default:
                             break;
