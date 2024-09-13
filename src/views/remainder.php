@@ -39,7 +39,7 @@ view.remainder
       <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectGroup"><?= $LANG['group'] . ': ' . $viewData['group'] ?></button>
       <button type="button" class="btn btn-info" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSearchUser"><?= $LANG['search'] . ': ' . $viewData['search'] ?></button>
       <?php if (!$C->read('currentYearOnly')) { ?>
-        <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalYear"><?= $LANG['year'] ?> <span class="badge badge-light"><?= $viewData['year'] ?></span></button>
+        <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalYear"><?= $LANG['year'] ?> <span class="badge text-bg-light"><?= $viewData['year'] ?></span></button>
       <?php } ?>
       <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
       <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_showcalendar'] ?></a>
@@ -114,9 +114,9 @@ view.remainder
                     $taken = countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
                   }
                   $remainder = $allowance + $carryover - ($taken * $abs['factor']);
-                  $dispTaken = '<span class="badge bg-info">' . $taken . '</span>';
-                  $dispAllowance = '<span class="badge bg-primary">' . $totalAllowance . '</span>';
-                  $dispRemainder = '<span class="badge bg-' . (($remainder < 0) ? "danger" : "success") . '">' . $remainder . '</span>';
+                  $dispTaken = '<span class="badge text-bg-info">' . $taken . '</span>';
+                  $dispAllowance = '<span class="badge text-bg-primary">' . $totalAllowance . '</span>';
+                  $dispRemainder = '<span class="badge text-bg-' . (($remainder < 0) ? "danger" : "success") . '">' . $remainder . '</span>';
                   $separator = "-";
                   echo $dispTaken . $separator . $dispAllowance . $separator . $dispRemainder;
                   echo '</td>';
@@ -127,7 +127,7 @@ view.remainder
           </tbody>
         </table>
 
-        <p><span class="badge bg-info"><?= $LANG['rem_legend_taken'] ?></span>-<span class="badge bg-primary"><?= $LANG['rem_legend_allowance'] ?></span>-<span class="badge bg-success"><?= $LANG['rem_legend_remainder'] ?></span></p>
+        <p><span class="badge text-bg-info"><?= $LANG['rem_legend_taken'] ?></span>-<span class="badge bg-primary"><?= $LANG['rem_legend_allowance'] ?></span>-<span class="badge bg-success"><?= $LANG['rem_legend_remainder'] ?></span></p>
 
       </div>
     </div>
