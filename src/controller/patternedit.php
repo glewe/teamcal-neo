@@ -95,13 +95,17 @@ if (!empty($_POST)) {
   // Form validation
   //
   $inputError = false;
-  if (isset($_POST['btn_patternUpdate'])) {
-    if (!formInputValid('txt_name', 'required|alpha_numeric_dash')) {
-      $inputError = true;
-    }
-    if (!formInputValid('txt_description', 'alpha_numeric_dash_blank')) {
-      $inputError = true;
-    }
+  if (!formInputValid('txt_name', 'required|alpha_numeric_dash_blank') ||
+    !formInputValid('txt_description', 'alpha_numeric_dash_blank_special') ||
+    !formInputValid('sel_abs1', 'numeric') ||
+    !formInputValid('sel_abs2', 'numeric') ||
+    !formInputValid('sel_abs3', 'numeric') ||
+    !formInputValid('sel_abs4', 'numeric') ||
+    !formInputValid('sel_abs5', 'numeric') ||
+    !formInputValid('sel_abs6', 'numeric') ||
+    !formInputValid('sel_abs7', 'numeric')
+  ) {
+    $inputError = true;
   }
 
   if (!$inputError) {
@@ -121,7 +125,14 @@ if (!empty($_POST)) {
         //
         // The pattern has changed. Check whether the new combination already exists
         //
-        $checkPattern = [ 0, $_POST['sel_abs1'], $_POST['sel_abs2'], $_POST['sel_abs3'], $_POST['sel_abs4'], $_POST['sel_abs5'], $_POST['sel_abs6'], $_POST['sel_abs7'] ];
+        $abs1 = $_POST['sel_abs1'];
+        $abs2 = $_POST['sel_abs2'];
+        $abs3 = $_POST['sel_abs3'];
+        $abs4 = $_POST['sel_abs4'];
+        $abs5 = $_POST['sel_abs5'];
+        $abs6 = $_POST['sel_abs6'];
+        $abs7 = $_POST['sel_abs7'];
+        $checkPattern = [ 0, $abs1, $abs2, $abs3, $abs4, $abs5, $abs6, $abs7 ];
         if ($name = $PTN->patternExists($checkPattern)) {
           //
           // New pattern already exists
