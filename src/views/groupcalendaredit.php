@@ -207,7 +207,7 @@ view.groupcalendaredit
                   for ($i = $daystart; $i <= $dayend; $i++) {
                     $prop = 'abs' . $i;
                     ?>
-                    <td class="m-day text-center" <?= $viewData['dayStyles'][$i] ?>><input name="opt_abs_<?= $i ?>" type="radio" value="<?= $abs['id'] ?>" <?= (($T->$prop == $abs['id']) ? ' checked' : '') ?>></td>
+                    <td class="m-day text-center" <?= $viewData['dayStyles'][$i] ?>><input class="form-check-input" name="opt_abs_<?= $i ?>" type="radio" value="<?= $abs['id'] ?>" <?= (($T->$prop == $abs['id']) ? ' checked' : '') ?>></td>
                   <?php } ?>
                 </tr>
               <?php }
@@ -217,7 +217,7 @@ view.groupcalendaredit
             <tr>
               <td class="m-label"><?= $LANG['caledit_clearAbsence'] ?></td>
               <?php for ($i = $daystart; $i <= $dayend; $i++) { ?>
-                <td class="m-label text-center"><input name="opt_abs_<?= $i ?>" type="radio" value="0"></td>
+                <td class="m-label text-center"><input class="form-check-input" name="opt_abs_<?= $i ?>" type="radio" value="0"></td>
               <?php } ?>
             </tr>
             </tbody>
@@ -230,8 +230,8 @@ view.groupcalendaredit
     <!-- Modal: Save -->
     <?= createModalTop('modalSave', $LANG['modal_confirm']) ?>
     <?= sprintf($LANG['caledit_confirm_savegroup'], $viewData['year'], $viewData['month'], $viewData['groupname']) ?>
-    <div class="checkbox">
-      <label><input type="checkbox" name="chk_keepExisting" tabindex="<?= $tabindex++ ?>" checked><?= $LANG['caledit_keepExisting'] ?></label>
+    <div class="form-check">
+      <label><input class="form-check-input" type="checkbox" name="chk_keepExisting" tabindex="<?= $tabindex++ ?>" checked><?= $LANG['caledit_keepExisting'] ?></label>
     </div>
     <?= createModalBottom('btn_save', 'primary', $LANG['btn_save']) ?>
 
@@ -276,7 +276,7 @@ view.groupcalendaredit
         <span class="text-normal"><?= $LANG['caledit_absenceType_comment'] ?></span>
       </div>
       <div class="col-lg-5" style="margin-bottom: 20px;">
-        <select id="user" class="form-control" name="sel_periodAbsence" tabindex="<?= $tabindex++ ?>">
+        <select id="user" class="form-select" name="sel_periodAbsence" tabindex="<?= $tabindex++ ?>">
           <?php foreach ($viewData['absences'] as $abs) { ?>
             <option value="<?= $abs['id'] ?>"><?= $abs['name'] ?></option>
           <?php } ?>
@@ -360,17 +360,17 @@ view.groupcalendaredit
     <div>&nbsp;</div>
     <div class="row">
       <div class="col-lg-5">
-        <div class="checkbox"><input id="monday" name="monday" value="monday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][1] ?></div>
-        <div class="checkbox"><input id="tuesday" name="tuesday" value="tuesday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][2] ?></div>
-        <div class="checkbox"><input id="wedensday" name="wednesday" value="wednesday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][3] ?></div>
-        <div class="checkbox"><input id="thursday" name="thursday" value="thursday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][4] ?></div>
-        <div class="checkbox"><input id="friday" name="friday" value="friday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][5] ?></div>
+        <div class="form-check"><input class="form-check-input" id="monday" name="monday" value="monday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][1] ?></div>
+        <div class="form-check"><input class="form-check-input" id="tuesday" name="tuesday" value="tuesday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][2] ?></div>
+        <div class="form-check"><input class="form-check-input" id="wedensday" name="wednesday" value="wednesday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][3] ?></div>
+        <div class="form-check"><input class="form-check-input" id="thursday" name="thursday" value="thursday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][4] ?></div>
+        <div class="form-check"><input class="form-check-input" id="friday" name="friday" value="friday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][5] ?></div>
       </div>
       <div class="col-lg-5">
-        <div class="checkbox"><input id="saturday" name="saturday" value="saturday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][6] ?></div>
-        <div class="checkbox"><input id="sunday" name="sunday" value="sunday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][7] ?></div>
-        <div class="checkbox"><input id="workdays" name="workdays" value="workdays" tabindex="<?= $tabindex++ ?>" type="checkbox">Mon-Fri</div>
-        <div class="checkbox"><input id="weekends" name="weekends" value="weekends" tabindex="<?= $tabindex++ ?>" type="checkbox">Sat-Sun</div>
+        <div class="form-check"><input class="form-check-input" id="saturday" name="saturday" value="saturday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][6] ?></div>
+        <div class="form-check"><input class="form-check-input" id="sunday" name="sunday" value="sunday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][7] ?></div>
+        <div class="form-check"><input class="form-check-input" id="workdays" name="workdays" value="workdays" tabindex="<?= $tabindex++ ?>" type="checkbox">Mon-Fri</div>
+        <div class="form-check"><input class="form-check-input" id="weekends" name="weekends" value="weekends" tabindex="<?= $tabindex++ ?>" type="checkbox">Sat-Sun</div>
       </div>
     </div>
     <div>&nbsp;</div>

@@ -91,7 +91,7 @@ view.bulkedit
                 <div class="tab-pane fade show active" id="panel-absences" role="tabpanel" aria-labelledby="tab-absences">
                   <div class="row">
                     <div class="col-lg-1"><strong><?= $LANG['select'] ?></strong><br>
-                      <div class="checkbox"><label><input type="checkbox" name="chk_selectAll" id="chk_selectAll"><?= $LANG['all'] ?></label></div>
+                      <div class="form-check mt-2"><label><input class="form-check-input" type="checkbox" name="chk_selectAll" id="chk_selectAll"><?= $LANG['all'] ?></label></div>
                     </div>
                     <div class="col-lg-4"><strong><?= $LANG['user'] ?></strong></div>
                     <div class="col-lg-3"><strong><?= $LANG['absence'] ?></strong></div>
@@ -115,7 +115,7 @@ view.bulkedit
                     <div class="row">
                       <div class="col-lg-1">
                         <?php if ($user['username'] != "admin") { ?>
-                          <input type="checkbox" name="chk_userSelected[]" value="<?= $user['username'] ?>">&nbsp;&nbsp;
+                          <input class="form-check-input ms-2" type="checkbox" name="chk_userSelected[]" value="<?= $user['username'] ?>">&nbsp;&nbsp;
                         <?php } else { ?>
                           <span style="padding-left: 16px;">&nbsp;</span>
                         <?php } ?>

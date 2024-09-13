@@ -83,8 +83,8 @@ view.users
             <div class="card-header">
               <?php
               $pageTabs = [
-                ['id' => 'tab-active', 'href' => '#panel-active', 'label' => $LANG['users_tab_active'], 'active' => true],
-                ['id' => 'tab-archived', 'href' => '#panel-archived', 'label' => $LANG['users_tab_archived'], 'active' => false],
+                [ 'id' => 'tab-active', 'href' => '#panel-active', 'label' => $LANG['users_tab_active'], 'active' => true ],
+                [ 'id' => 'tab-archived', 'href' => '#panel-archived', 'label' => $LANG['users_tab_archived'], 'active' => false ],
               ];
               echo createPageTabs($pageTabs);
               ?>
@@ -112,7 +112,7 @@ view.users
                       <tr>
                         <td class="align-top text-center">
                           <?php if ($user['username'] != "admin") { ?>
-                            <input type="checkbox" name="chk_userActive[]" value="<?= $user['username'] ?>">&nbsp;&nbsp;
+                            <input class="form-check-input" type="checkbox" name="chk_userActive[]" value="<?= $user['username'] ?>">&nbsp;&nbsp;
                           <?php } ?>
                         </td>
                         <td class="align-top">
@@ -155,7 +155,7 @@ view.users
 
                   <div class="row mt-3 pb-0">
                     <div class="col-lg-2">
-                      <div class="checkbox"><label><input type="checkbox" name="chk_selectAllActive" id="chk_selectAllActive"><?= $LANG['select_all'] ?></label></div>
+                      <div class="form-check"><label><input class="form-check-input" type="checkbox" name="chk_selectAllActive" id="chk_selectAllActive"><?= $LANG['select_all'] ?></label></div>
                     </div>
                     <div class="col-lg-10 text-end">
 
@@ -212,7 +212,7 @@ view.users
                       <tr>
                         <td class="align-top text-center">
                           <?php if ($user1['username'] != "admin") { ?>
-                            <input type="checkbox" name="chk_userArchived[]" value="<?= $user1['username'] ?>">&nbsp;&nbsp;
+                            <input class="form-check-input" type="checkbox" name="chk_userArchived[]" value="<?= $user1['username'] ?>">&nbsp;&nbsp;
                           <?php } ?>
                         </td>
                         <td class="align-top">
@@ -256,7 +256,7 @@ view.users
 
                   <div class="row" style="margin-top: 10px; padding-bottom: 0px;">
                     <div class="col-lg-2">
-                      <div class="checkbox"><label><input type="checkbox" name="chk_selectAllArchived" id="chk_selectAllArchived"><?= $LANG['select_all'] ?></label></div>
+                      <div class="form-check"><label><input class="form-check-input" type="checkbox" name="chk_selectAllArchived" id="chk_selectAllArchived"><?= $LANG['select_all'] ?></label></div>
                     </div>
                     <div class="col-lg-10 text-end">
                       <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalRestoreArchived"><?= $LANG['btn_restore_selected'] ?></button>

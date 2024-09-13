@@ -79,7 +79,7 @@ view.attachments
                     ?>
                     <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
                       <div class="col-lg-5">
-                        <input name="chk_file[]" value="<?= $file['fname'] ?>" tabindex="<?= $tabindex++ ?>" type="checkbox" <?= (!$isOwner) ? "disabled" : ""; ?> class="me-2">
+                        <input class="form-check-input me-1 mt-2" name="chk_file[]" value="<?= $file['fname'] ?>" tabindex="<?= $tabindex++ ?>" type="checkbox" <?= (!$isOwner) ? "disabled" : ""; ?> class="me-2">
                         <?php if (in_array(getFileExtension($file['fname']), $CONF['imgExtensions'])) { ?>
                           <a class="image-popup" href="<?= APP_UPL_DIR . $file['fname'] ?>" title="<?= $file['fname'] ?>"><img src="<?= APP_UPL_DIR . $file['fname'] ?>" alt="" style="width: 24px; height: 24px;"></a>
                         <?php } else { ?>
@@ -147,22 +147,22 @@ view.attachments
                       <span class="text-normal"><?= $LANG['att_shareWith_comment'] ?></span>
                     </label>
                     <div class="col-lg-<?= $colsright ?>">
-                      <div class="radio"><label><input name="opt_shareWith" value="all" tabindex="<?= $tabindex++ ?>" <?= ($viewData['shareWith'] == 'all') ? "checked" : ""; ?> type="radio"><?= $LANG['att_shareWith_all'] ?></label></div>
-                      <div class="radio mt-2"><label><input name="opt_shareWith" value="group" tabindex="<?= $tabindex++ ?>" <?= ($viewData['shareWith'] == 'group') ? "checked" : ""; ?> type="radio"><?= $LANG['att_shareWith_group'] ?></label></div>
+                      <div class="form-check"><label><input class="form-check-input" name="opt_shareWith" value="all" tabindex="<?= $tabindex++ ?>" <?= ($viewData['shareWith'] == 'all') ? "checked" : ""; ?> type="radio"><?= $LANG['att_shareWith_all'] ?></label></div>
+                      <div class="form-check mt-2"><label><input class="form-check-input" name="opt_shareWith" value="group" tabindex="<?= $tabindex++ ?>" <?= ($viewData['shareWith'] == 'group') ? "checked" : ""; ?> type="radio"><?= $LANG['att_shareWith_group'] ?></label></div>
                       <select class="form-select" name="sel_shareWithGroup[]" multiple="multiple" size="5" tabindex="<?= $tabindex++ ?>">
                         <?php foreach ($viewData['groups'] as $group) { ?>
                           <option value="<?= $group['id'] ?>" <?= (in_array($group, $viewData['shareWithGroup'])) ? "selected" : ""; ?>><?= $group['name'] ?></option>
                         <?php } ?>
                       </select>
 
-                      <div class="radio mt-2"><label><input name="opt_shareWith" value="role" tabindex="<?= $tabindex++ ?>" <?= ($viewData['shareWith'] == 'role') ? "checked" : ""; ?> type="radio"><?= $LANG['att_shareWith_role'] ?></label></div>
+                      <div class="form-check mt-2"><label><input class="form-check-input" name="opt_shareWith" value="role" tabindex="<?= $tabindex++ ?>" <?= ($viewData['shareWith'] == 'role') ? "checked" : ""; ?> type="radio"><?= $LANG['att_shareWith_role'] ?></label></div>
                       <select class="form-select" name="sel_shareWithRole[]" multiple="multiple" size="5" tabindex="<?= $tabindex++ ?>">
                         <?php foreach ($viewData['roles'] as $role) { ?>
                           <option value="<?= $role['id'] ?>" <?= (in_array($group, $viewData['shareWithRole'])) ? "selected" : ""; ?>><?= $role['name'] ?></option>
                         <?php } ?>
                       </select>
 
-                      <div class="radio mt-2"><label><input name="opt_shareWith" value="user" tabindex="<?= $tabindex++ ?>" <?= ($viewData['shareWith'] == 'user') ? "checked" : ""; ?> type="radio"><?= $LANG['att_shareWith_user'] ?></label></div>
+                      <div class="form-check mt-2"><label><input class="form-check-input" name="opt_shareWith" value="user" tabindex="<?= $tabindex++ ?>" <?= ($viewData['shareWith'] == 'user') ? "checked" : ""; ?> type="radio"><?= $LANG['att_shareWith_user'] ?></label></div>
                       <select class="form-select" name="sel_shareWithUser[]" multiple="multiple" size="5" tabindex="<?= $tabindex++ ?>">
                         <?php
                         foreach ($viewData['users'] as $user) {

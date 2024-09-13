@@ -66,8 +66,8 @@ view.statsabsences
     </select><br>
     <span class="text-bold"><?= $LANG['stats_yaxis'] ?></span><br>
     <span class="text-normal"><?= $LANG['stats_yaxis_comment'] ?></span>
-    <div class="radio"><label><input type="radio" name="opt_yaxis" value="groups" <?= (($viewData['yaxis'] == 'groups') ? "checked" : "") ?>><?= $LANG['stats_yaxis_groups'] ?></label></div>
-    <div class="radio"><label><input type="radio" name="opt_yaxis" value="users" <?= (($viewData['yaxis'] == 'users') ? "checked" : "") ?>><?= $LANG['stats_yaxis_users'] ?></label></div>
+    <div class="form-check"><label><input class="form-check-input" type="radio" name="opt_yaxis" value="groups" <?= (($viewData['yaxis'] == 'groups') ? "checked" : "") ?>><?= $LANG['stats_yaxis_groups'] ?></label></div>
+    <div class="form-check"><label><input class="form-check-input" type="radio" name="opt_yaxis" value="users" <?= (($viewData['yaxis'] == 'users') ? "checked" : "") ?>><?= $LANG['stats_yaxis_users'] ?></label></div>
     <?= createModalBottom('btn_apply', 'success', $LANG['btn_apply']) ?>
 
     <!-- Modal: Period -->
