@@ -199,18 +199,18 @@ view.log
                     <div class="row" style="border-bottom: 1px dotted; padding-top: 10px; padding-bottom: 10px;">
                       <div class="col-lg-3 <?= $color ?>"><label><i class="fas fa-tag fa-lg me-3"></i><?= $type ?></label></div>
                       <div class="col-lg-3">
-                        <input style="margin-right: 10px;" name="chk_log<?= $type ?>" value="chk_log<?= $type ?>" type="checkbox" <?= ($C->read("log" . $type)) ? ' checked=""' : '' ?>><?= $LANG['log_settings_log'] ?>
+                        <input class="form-check-input" style="margin-right: 10px;" name="chk_log<?= $type ?>" value="chk_log<?= $type ?>" type="checkbox" <?= ($C->read("log" . $type)) ? ' checked=""' : '' ?>><?= $LANG['log_settings_log'] ?>
                       </div>
                       <div class="col-lg-3">
-                        <input style="margin-right: 10px;" name="chk_logfilter<?= $type ?>" value="chk_logfilter<?= $type ?>" type="checkbox" <?= ($C->read("logfilter" . $type)) ? ' checked=""' : '' ?>><?= $LANG['log_settings_show'] ?>
+                        <input class="form-check-input" style="margin-right: 10px;" name="chk_logfilter<?= $type ?>" value="chk_logfilter<?= $type ?>" type="checkbox" <?= ($C->read("logfilter" . $type)) ? ' checked=""' : '' ?>><?= $LANG['log_settings_show'] ?>
                       </div>
                       <div class="col-lg-3">
-                        <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="default" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "default") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-default"></i></label></div>
-                        <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="primary" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "primary") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-primary"></i></label></div>
-                        <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="info" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "info") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-info"></i></label></div>
-                        <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="success" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "success") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-success"></i></label></div>
-                        <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="warning" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "warning") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-warning"></i></label></div>
-                        <div class="radio"><label><input name="opt_logcolor<?= $type ?>" value="danger" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "danger") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-danger"></i></label></div>
+                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="default" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "default") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-default"></i></label></div>
+                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="primary" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "primary") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-primary"></i></label></div>
+                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="info" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "info") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-info"></i></label></div>
+                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="success" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "success") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-success"></i></label></div>
+                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="warning" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "warning") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-warning"></i></label></div>
+                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="danger" tabindex="<?= $tabindex++ ?>" type="radio" <?= ($C->read("logcolor" . $type) == "danger") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-danger"></i></label></div>
                       </div>
                     </div>
                   <?php } ?>

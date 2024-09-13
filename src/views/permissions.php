@@ -62,7 +62,7 @@ view.permissions
 
           <!-- Modal: Select scheme -->
           <?= createModalTop('modalSelectScheme', $LANG['perm_select_scheme']) ?>
-          <select id="sel_scheme" class="form-control" name="sel_scheme">
+          <select id="sel_scheme" class="form-select" name="sel_scheme">
             <?php foreach ($viewData['schemes'] as $schm) { ?>
               <option value="<?= $schm ?>" <?= (($schm == $viewData['scheme']) ? " selected" : "") ?>><?= $schm ?></option>
             <?php } ?>
@@ -121,15 +121,15 @@ view.permissions
                           }
                           ?>
                         <?php } ?>
-                        <div class="checkbox">
-                          <label><input type="checkbox" name="chk_<?= $permgroup ?>_<?= $role['id'] ?>" value="chk_<?= $permgroup ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= $checked ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><strong><?= $LANG['perm_' . $permgroup . '_title'] ?></strong><br><?= $LANG['perm_' . $permgroup . '_desc'] ?></label>
+                        <div class="form-check">
+                          <label><input class="form-check-input" type="checkbox" name="chk_<?= $permgroup ?>_<?= $role['id'] ?>" value="chk_<?= $permgroup ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= $checked ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><strong><?= $LANG['perm_' . $permgroup . '_title'] ?></strong><br><?= $LANG['perm_' . $permgroup . '_desc'] ?></label>
                         </div>
                         <hr>
                       <?php } ?>
 
                       <?php foreach ($viewData['fperms'] as $fperm) { ?>
-                        <div class="checkbox">
-                          <label><input type="checkbox" name="chk_<?= $fperm ?>_<?= $role['id'] ?>" value="chk_<?= $fperm ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= (($P->isAllowed($viewData['scheme'], $fperm, $role['id'])) ? " checked" : "") ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><strong><?= $LANG['perm_' . $fperm . '_title'] ?></strong><br><?= $LANG['perm_' . $fperm . '_desc'] ?></label>
+                        <div class="form-check">
+                          <label><input class="form-check-input" type="checkbox" name="chk_<?= $fperm ?>_<?= $role['id'] ?>" value="chk_<?= $fperm ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= (($P->isAllowed($viewData['scheme'], $fperm, $role['id'])) ? " checked" : "") ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><strong><?= $LANG['perm_' . $fperm . '_title'] ?></strong><br><?= $LANG['perm_' . $fperm . '_desc'] ?></label>
                         </div>
                         <hr>
                       <?php } ?>
@@ -174,8 +174,8 @@ view.permissions
                                 $checked = '';
                               }
                             } ?>
-                            <div class="checkbox">
-                              <label><input type="checkbox" name="chk_<?= $key ?>_<?= $role['id'] ?>" value="chk_<?= $key ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= $checked ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><?= $role['name'] ?></label>
+                            <div class="form-check">
+                              <label><input class="form-check-input" type="checkbox" name="chk_<?= $key ?>_<?= $role['id'] ?>" value="chk_<?= $key ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= $checked ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><?= $role['name'] ?></label>
                             </div>
                           <?php } ?>
                         </div>
@@ -196,8 +196,8 @@ view.permissions
                         </label>
                         <div class="col-lg-<?= $colsright ?>">
                           <?php foreach ($viewData['roles'] as $role) { ?>
-                            <div class="checkbox">
-                              <label><input type="checkbox" name="chk_<?= $fperm ?>_<?= $role['id'] ?>" value="chk_<?= $fperm ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= (($P->isAllowed($viewData['scheme'], $fperm, $role['id'])) ? " checked" : "") ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><?= $role['name'] ?></label>
+                            <div class="form-check">
+                              <label><input class="form-check-input" type="checkbox" name="chk_<?= $fperm ?>_<?= $role['id'] ?>" value="chk_<?= $fperm ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= (($P->isAllowed($viewData['scheme'], $fperm, $role['id'])) ? " checked" : "") ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><?= $role['name'] ?></label>
                             </div>
                           <?php } ?>
                         </div>

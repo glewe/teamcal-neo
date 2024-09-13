@@ -155,7 +155,7 @@ view.monthedit
                 <td class="m-name"><?= $hol['name'] ?></td>
                 <?php for ($i = $daystart; $i <= $dayend; $i++) {
                   $prop = 'hol' . $i; ?>
-                  <td class="m-day text-center" <?= $viewData['dayStyles'][$i] ?>><input name="opt_hol_<?= $i ?>" type="radio" value="<?= $hol['id'] ?>" <?= (($M->$prop == $hol['id']) ? ' checked' : '') ?>></td>
+                  <td class="m-day text-center" <?= $viewData['dayStyles'][$i] ?>><input class="form-check-input" name="opt_hol_<?= $i ?>" type="radio" value="<?= $hol['id'] ?>" <?= (($M->$prop == $hol['id']) ? ' checked' : '') ?>></td>
                 <?php } ?>
               </tr>
             <?php } ?>
@@ -164,7 +164,7 @@ view.monthedit
             <tr>
               <td class="m-label"><?= $LANG['monthedit_clearHoliday'] ?></td>
               <?php for ($i = $daystart; $i <= $dayend; $i++) { ?>
-                <td class="m-label text-center"><input name="opt_hol_<?= $i ?>" type="radio" value="0"></td>
+                <td class="m-label text-center"><input class="form-check-input" name="opt_hol_<?= $i ?>" type="radio" value="0"></td>
               <?php } ?>
             </tr>
             </tbody>

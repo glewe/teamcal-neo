@@ -43,7 +43,7 @@ view.statsabstype
     <?= createModalTop('modalGroup', $LANG['stats_modalGroupTitle']) ?>
     <span class="text-bold"><?= $LANG['stats_group'] ?></span><br>
     <span class="text-normal"><?= $LANG['stats_group_comment'] ?></span>
-    <select id="group" class="form-control" name="sel_group" tabindex="<?= $tabindex++ ?>">
+    <select id="group" class="form-select" name="sel_group" tabindex="<?= $tabindex++ ?>">
       <option value="all" <?= (($viewData['groupid'] == 'all') ? ' selected="selected"' : '') ?>><?= $LANG['all'] ?></option>
       <?php foreach ($viewData['groups'] as $grp) { ?>
         <option value="<?= $grp['id'] ?>" <?= (($viewData['groupid'] == $grp['id']) ? 'selected="selected"' : '') ?>><?= $grp['name'] ?></option>
@@ -56,7 +56,7 @@ view.statsabstype
     <div>
       <span class="text-bold"><?= $LANG['stats_period'] ?></span><br>
       <span class="text-normal"><?= $LANG['stats_period_comment'] ?></span>
-      <select id="sel_period" class="form-control" name="sel_period" tabindex="<?= $tabindex++ ?>">
+      <select id="sel_period" class="form-select" name="sel_period" tabindex="<?= $tabindex++ ?>">
         <option value="year" <?= (($viewData['period'] == 'year') ? "selected" : "") ?>><?= $LANG['period_year'] ?></option>
         <option value="half" <?= (($viewData['period'] == 'half') ? "selected" : "") ?>><?= $LANG['period_half'] ?></option>
         <option value="quarter" <?= (($viewData['period'] == 'quarter') ? "selected" : "") ?>><?= $LANG['period_quarter'] ?></option>
@@ -128,7 +128,7 @@ view.statsabstype
     <div>
       <span class="text-bold"><?= $LANG['stats_color'] ?></span><br>
       <label for="sel_color" class="text-normal"><?= $LANG['stats_color_comment'] ?></label>
-      <select id="sel_color" class="form-control" name="sel_color" tabindex="<?= $tabindex++ ?>" <?= (($viewData['showAsPieChart']) ? "disabled" : ""); ?>>
+      <select id="sel_color" class="form-select" name="sel_color" tabindex="<?= $tabindex++ ?>" <?= (($viewData['showAsPieChart']) ? "disabled" : ""); ?>>
         <option value="#0000ff" <?= (($viewData['color'] == 'blue') ? "selected" : "") ?>><?= $LANG['blue'] ?></option>
         <option value="#00ffff" <?= (($viewData['color'] == 'cyan') ? "selected" : "") ?>><?= $LANG['cyan'] ?></option>
         <option value="#008000" <?= (($viewData['color'] == 'green') ? "selected" : "") ?>><?= $LANG['green'] ?></option>
@@ -141,8 +141,8 @@ view.statsabstype
       </select><br>
     </div>
     <div>
-      <div class="checkbox">
-        <label><input id="chk_showAsPieChart" name="chk_showAsPieChart" value="chk_showAsPieChart" type="checkbox" <?= (($viewData['showAsPieChart']) ? "checked" : ""); ?>><?= $LANG['stats_showAsPieChart'] ?></label>
+      <div class="form-check">
+        <label><input class="form-check-input" id="chk_showAsPieChart" name="chk_showAsPieChart" value="chk_showAsPieChart" type="checkbox" <?= (($viewData['showAsPieChart']) ? "checked" : ""); ?>><?= $LANG['stats_showAsPieChart'] ?></label>
       </div>
     </div>
     <script>
