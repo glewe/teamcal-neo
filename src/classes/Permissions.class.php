@@ -28,6 +28,68 @@ class Permissions {
 
   //---------------------------------------------------------------------------
   /**
+   * Delete all records (except default)
+   *
+   * @return boolean Query result
+   */
+  public function deleteAll() {
+    $query = $this->db->prepare("DELETE FROM " . $this->table . " WHERE scheme <> 'Default'");
+    return $query->execute();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Delete a role from all permission schemes
+   *
+   * @param integer $role Role ID
+   * @return boolean Query result
+   */
+  public function deleteRole($role) {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE role = :val1');
+    $query->bindParam('val1', $role);
+    return $query->execute();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Delete a permission scheme
+   *
+   * @param string $scheme Name of the permission scheme
+   * @return boolean Query result
+   */
+  public function deleteScheme($scheme) {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE scheme = :val1');
+    $query->bindParam('val1', $scheme);
+    return $query->execute();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Retrieves all permissions for a given scheme.
+   *
+   * @param string $scheme The name of the permission scheme.
+   * @return array An array of permissions associated with the given scheme.
+   */
+  public function getPermissions($scheme) {
+    $records = array();
+    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE scheme = :val1 AND allowed = :val2');
+    $one = 1;
+    $query->bindParam('val1', $scheme);
+    $query->bindParam('val2', $one);
+    $result = $query->execute();
+    if ($result) {
+      while ($row = $query->fetch()) {
+        $records[] = [
+          'permission' => $row['permission'],
+          'role' => $row['role']
+        ];
+      }
+    }
+    return $records;
+  }
+
+  //---------------------------------------------------------------------------
+  /**
    * Read all unique scheme names
    *
    * @return array Array of scheme names
@@ -42,21 +104,6 @@ class Permissions {
       }
     }
     return $records;
-  }
-
-  //---------------------------------------------------------------------------
-  /**
-   * Checks whether a scheme exists
-   *
-   * @param string $scheme Scheme name to look for
-   * @return boolean True or false
-   */
-  public function schemeExists($scheme) {
-    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE scheme = :val1');
-    $query->bindParam('val1', $scheme);
-    $result = $query->execute();
-
-    return $result && $query->fetchColumn();
   }
 
   //---------------------------------------------------------------------------
@@ -80,6 +127,21 @@ class Permissions {
     } else {
       return false;
     }
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Checks whether a scheme exists
+   *
+   * @param string $scheme Scheme name to look for
+   * @return boolean True or false
+   */
+  public function schemeExists($scheme) {
+    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE scheme = :val1');
+    $query->bindParam('val1', $scheme);
+    $result = $query->execute();
+
+    return $result && $query->fetchColumn();
   }
 
   //---------------------------------------------------------------------------
@@ -113,42 +175,5 @@ class Permissions {
     } else {
       return $result;
     }
-  }
-
-  //---------------------------------------------------------------------------
-  /**
-   * Delete a role from all permission schemes
-   *
-   * @param integer $role Role ID
-   * @return boolean Query result
-   */
-  public function deleteRole($role) {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE role = :val1');
-    $query->bindParam('val1', $role);
-    return $query->execute();
-  }
-
-  //---------------------------------------------------------------------------
-  /**
-   * Delete a permission scheme
-   *
-   * @param string $scheme Name of the permission scheme
-   * @return boolean Query result
-   */
-  public function deleteScheme($scheme) {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE scheme = :val1');
-    $query->bindParam('val1', $scheme);
-    return $query->execute();
-  }
-
-  //---------------------------------------------------------------------------
-  /**
-   * Delete all records (except default)
-   *
-   * @return boolean Query result
-   */
-  public function deleteAll() {
-    $query = $this->db->prepare("DELETE FROM " . $this->table . " WHERE scheme <> 'Default'");
-    return $query->execute();
   }
 }

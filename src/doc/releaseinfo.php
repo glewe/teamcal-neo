@@ -16,6 +16,7 @@ $releases = [
       [ 'summary' => 'Added Bootstrap Icons', 'issue' => '' ],
     ],
     'improvements' => [
+      [ 'summary' => 'Faster permission check', 'issue' => '' ],
       [ 'summary' => 'Cleaner form button layout', 'issue' => '' ],
       [ 'summary' => 'Reduced footer links to Imprint and Data Privacy Policy', 'issue' => '' ],
       [ 'summary' => 'Added table indexes for faster database operations', 'issue' => '' ],

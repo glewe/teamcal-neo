@@ -158,8 +158,7 @@ function deleteUser($username, $fromArchive = false, $sendNotifications = true) 
    */
   if ($fromArchive) {
     $LOG->logEvent("logUser", $L->checkLogin(), "log_user_archived_deleted", $fullname . " (" . $username . ")");
-  }
-  else {
+  } else {
     $LOG->logEvent("logUser", $L->checkLogin(), "log_user_deleted", $fullname . " (" . $username . ")");
   }
 }
@@ -236,15 +235,19 @@ function importUsersFromCSV($file, $lock = true, $hide = true) {
 
 // ---------------------------------------------------------------------------
 /**
- * Checks whether a user is authorized in the active permission scheme
+ * Checks whether a user is authorized in the active permission scheme.
  *
- * @param string $permission Permission to check
+ * @param string $permission The permission to check.
  *
- * @return boolean True if allowed, false if not.
+ * @return boolean True if the user is allowed, false otherwise.
+ * @global object $UL User login object.
+ * @global object $UO User options object.
+ * @global array $permissions Array of permissions.
+ *
+ * @global object $C Configuration object.
  */
 function isAllowed($permission = '') {
-  global $C, $P, $UL, $UO;
-  $pscheme = $C->read("permissionScheme");
+  global $C, $UL, $UO, $permissions;
   if (L_USER) {
     /**
      * Someone is logged in.
@@ -257,12 +260,12 @@ function isAllowed($permission = '') {
      * Check permission by role.
      */
     $UL->findByName(L_USER);
-    return $P->isAllowed($pscheme, $permission, $UL->role);
+    return in_array([ 'permission' => $permission, 'role' => $UL->role ], $permissions);
   } else {
     /**
-     * It's a public user
+     * It's a public user.
      */
-    return $P->isAllowed($pscheme, $permission, 3);
+    return in_array([ 'permission' => $permission, 'role' => 3 ], $permissions);
   }
 }
 
