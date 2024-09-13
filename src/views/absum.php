@@ -108,7 +108,7 @@ view.absum
 
     <!-- Modal: Select User -->
     <?= createModalTop('modalSelectUser', $LANG['caledit_selUser']) ?>
-    <select class="form-control" name="sel_user" tabindex="<?= $tabindex++ ?>">
+    <select class="form-select" name="sel_user" tabindex="<?= $tabindex++ ?>">
       <?php foreach ($viewData['users'] as $usr) { ?>
         <option value="<?= $usr['username'] ?>" <?= (($viewData['username'] == $usr['username']) ? ' selected="selected"' : '') ?>><?= $usr['lastfirst'] ?></option>
       <?php } ?>
@@ -120,7 +120,7 @@ view.absum
     <div>
       <span class="text-bold"><?= $LANG['absum_year'] ?></span><br>
       <span class="text-normal"><?= $LANG['absum_year_comment'] ?></span>
-      <select id="sel_year" class="form-control" name="sel_year" tabindex="<?= $tabindex++ ?>">
+      <select class="form-select" id="sel_year" name="sel_year" tabindex="<?= $tabindex++ ?>">
         <option value="<?= date("Y") - 1 ?>" <?= (($viewData['year'] == date("Y") - 1) ? "selected" : "") ?>><?= date("Y") - 1 ?></option>
         <option value="<?= date("Y") ?>" <?= (($viewData['year'] == date("Y")) ? "selected" : "") ?>><?= date("Y") ?></option>
         <option value="<?= date("Y") + 1 ?>" <?= (($viewData['year'] == date("Y") + 1) ? "selected" : "") ?>><?= date("Y") + 1 ?></option>

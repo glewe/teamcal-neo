@@ -200,7 +200,7 @@ view.monthedit
 
     <!-- Modal: Select Region -->
     <?= createModalTop('modalSelectRegion', $LANG['monthedit_selRegion']) ?>
-    <select id="region" class="form-control" name="sel_region" tabindex="<?= $tabindex++ ?>">
+    <select id="region" class="form-select" name="sel_region" tabindex="<?= $tabindex++ ?>">
       <?php foreach ($viewData['regions'] as $reg) { ?>
         <option value="<?= $reg['id'] ?>" <?= (($viewData['regionid'] == $reg['id']) ? ' selected="selected"' : '') ?>><?= $reg['name'] ?></option>
       <?php } ?>

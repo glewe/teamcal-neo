@@ -51,7 +51,7 @@ view.users
             </div>
             <div class="col-lg-2">
               <label for="sel_searchGroup"><?= $LANG['group'] ?></label>
-              <select class="form-control" name="sel_searchGroup" id="sel_searchGroup" tabindex="<?= $tabindex++ ?>">
+              <select class="form-select" name="sel_searchGroup" id="sel_searchGroup" tabindex="<?= $tabindex++ ?>">
                 <option value="All" <?= ('All' == $viewData['searchGroup']) ? ' selected=""' : ''; ?>><?= $LANG['all'] ?></option>
                 <?php foreach ($viewData['groups'] as $group) { ?>
                   <option value="<?= $group['id'] ?>" <?= ($group['id'] == $viewData['searchGroup']) ? ' selected=""' : ''; ?>><?= $group['name'] ?></option>
@@ -60,7 +60,7 @@ view.users
             </div>
             <div class="col-lg-2">
               <label for="sel_searchRole"><?= $LANG['role'] ?></label>
-              <select class="form-control" name="sel_searchRole" id="sel_searchRole" tabindex="<?= $tabindex++ ?>">
+              <select class="form-select" name="sel_searchRole" id="sel_searchRole" tabindex="<?= $tabindex++ ?>">
                 <option value="All" <?= ('All' == $viewData['searchRole']) ? ' selected=""' : ''; ?>><?= $LANG['all'] ?></option>
                 <?php foreach ($viewData['roles'] as $role) { ?>
                   <option value="<?= $role['id'] ?>" <?= ($role['id'] == $viewData['searchRole']) ? ' selected=""' : ''; ?>><?= $role['name'] ?></option>
