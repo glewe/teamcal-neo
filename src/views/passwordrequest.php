@@ -72,7 +72,7 @@ view.passwordrequest
                     </div>
                     <div class="col-lg-12">
                       <?php foreach ($viewData['pwdUsers'] as $usr) { ?>
-                        <div class="radio"><label><input name="opt_user" value="<?= $usr['username'] ?>" tabindex="<?= $tabindex++ ?>" type="radio"><?= $usr['username'] ?></label></div>
+                        <div class="form-check"><label><input class="form-check-input" name="opt_user" value="<?= $usr['username'] ?>" tabindex="<?= $tabindex++ ?>" type="radio"><?= $usr['username'] ?></label></div>
                       <?php } ?>
                     </div>
                   </div>

@@ -52,9 +52,9 @@ view.messageedit
               <span class="text-normal"><?= $LANG['msg_type_desc'] ?></span>
             </label>
             <div class="col-lg-<?= $colsright ?>">
-              <div class="radio"><label><input name="opt_msgtype" value="email" tabindex="<?= $tabindex++ ?>" <?= ($viewData['msgtype'] == 'email') ? "checked" : ""; ?> type="radio"><?= $LANG['msg_type_email'] ?></label></div>
-              <div class="radio"><label><input name="opt_msgtype" value="silent" tabindex="<?= $tabindex++ ?>" <?= ($viewData['msgtype'] == 'silent') ? "checked" : ""; ?> type="radio"><?= $LANG['msg_type_silent'] ?></label></div>
-              <div class="radio"><label><input name="opt_msgtype" value="popup" tabindex="<?= $tabindex++ ?>" <?= ($viewData['msgtype'] == 'popup') ? "checked" : ""; ?> type="radio"><?= $LANG['msg_type_popup'] ?></label></div>
+              <div class="form-check"><label><input class="form-check-input" name="opt_msgtype" value="email" tabindex="<?= $tabindex++ ?>" <?= ($viewData['msgtype'] == 'email') ? "checked" : ""; ?> type="radio"><?= $LANG['msg_type_email'] ?></label></div>
+              <div class="form-check"><label><input class="form-check-input" name="opt_msgtype" value="silent" tabindex="<?= $tabindex++ ?>" <?= ($viewData['msgtype'] == 'silent') ? "checked" : ""; ?> type="radio"><?= $LANG['msg_type_silent'] ?></label></div>
+              <div class="form-check"><label><input class="form-check-input" name="opt_msgtype" value="popup" tabindex="<?= $tabindex++ ?>" <?= ($viewData['msgtype'] == 'popup') ? "checked" : ""; ?> type="radio"><?= $LANG['msg_type_popup'] ?></label></div>
             </div>
           </div>
           <div class="divider">
@@ -68,11 +68,11 @@ view.messageedit
               <span class="text-normal"><?= $LANG['msg_content_type_desc'] ?></span>
             </label>
             <div class="col-lg-<?= $colsright ?>">
-              <div class="radio"><label><input name="opt_contenttype" value="primary" tabindex="<?= $tabindex++ ?>" <?= ($viewData['contenttype'] == 'primary') ? "checked" : ""; ?> type="radio"><span class="badge badge-primary"><?= $LANG['msg_content_type_primary'] ?></span></label></div>
-              <div class="radio"><label><input name="opt_contenttype" value="info" tabindex="<?= $tabindex++ ?>" <?= ($viewData['contenttype'] == 'info') ? "checked" : ""; ?> type="radio"><span class="badge badge-info"><?= $LANG['msg_content_type_info'] ?></span></label></div>
-              <div class="radio"><label><input name="opt_contenttype" value="success" tabindex="<?= $tabindex++ ?>" <?= ($viewData['contenttype'] == 'success') ? "checked" : ""; ?> type="radio"><span class="badge badge-success"><?= $LANG['msg_content_type_success'] ?></span></label></div>
-              <div class="radio"><label><input name="opt_contenttype" value="warning" tabindex="<?= $tabindex++ ?>" <?= ($viewData['contenttype'] == 'warning') ? "checked" : ""; ?> type="radio"><span class="badge badge-warning"><?= $LANG['msg_content_type_warning'] ?></span></label></div>
-              <div class="radio"><label><input name="opt_contenttype" value="danger" tabindex="<?= $tabindex++ ?>" <?= ($viewData['contenttype'] == 'danger') ? "checked" : ""; ?> type="radio"><span class="badge badge-danger"><?= $LANG['msg_content_type_danger'] ?></span></label></div>
+              <div class="form-check"><label><input class="form-check-input" name="opt_contenttype" value="primary" tabindex="<?= $tabindex++ ?>" <?= ($viewData['contenttype'] == 'primary') ? "checked" : ""; ?> type="radio"><span class="badge badge-primary"><?= $LANG['msg_content_type_primary'] ?></span></label></div>
+              <div class="form-check"><label><input class="form-check-input" name="opt_contenttype" value="info" tabindex="<?= $tabindex++ ?>" <?= ($viewData['contenttype'] == 'info') ? "checked" : ""; ?> type="radio"><span class="badge badge-info"><?= $LANG['msg_content_type_info'] ?></span></label></div>
+              <div class="form-check"><label><input class="form-check-input" name="opt_contenttype" value="success" tabindex="<?= $tabindex++ ?>" <?= ($viewData['contenttype'] == 'success') ? "checked" : ""; ?> type="radio"><span class="badge badge-success"><?= $LANG['msg_content_type_success'] ?></span></label></div>
+              <div class="form-check"><label><input class="form-check-input" name="opt_contenttype" value="warning" tabindex="<?= $tabindex++ ?>" <?= ($viewData['contenttype'] == 'warning') ? "checked" : ""; ?> type="radio"><span class="badge badge-warning"><?= $LANG['msg_content_type_warning'] ?></span></label></div>
+              <div class="form-check"><label><input class="form-check-input" name="opt_contenttype" value="danger" tabindex="<?= $tabindex++ ?>" <?= ($viewData['contenttype'] == 'danger') ? "checked" : ""; ?> type="radio"><span class="badge badge-danger"><?= $LANG['msg_content_type_danger'] ?></span></label></div>
             </div>
           </div>
           <div class="divider">
@@ -86,16 +86,16 @@ view.messageedit
               <span class="text-normal"><?= $LANG['msg_sendto_desc'] ?></span>
             </label>
             <div class="col-lg-<?= $colsright ?>">
-              <div class="radio"><label><input name="opt_sendto" value="all" tabindex="<?= $tabindex++ ?>" <?= ($viewData['sendto'] == 'all') ? "checked" : ""; ?> type="radio"><?= $LANG['msg_sendto_all'] ?></label></div>
+              <div class="form-check"><label><input class="form-check-input" name="opt_sendto" value="all" tabindex="<?= $tabindex++ ?>" <?= ($viewData['sendto'] == 'all') ? "checked" : ""; ?> type="radio"><?= $LANG['msg_sendto_all'] ?></label></div>
 
-              <div class="radio"><label><input name="opt_sendto" value="group" tabindex="<?= $tabindex++ ?>" <?= ($viewData['sendto'] == 'group') ? "checked" : ""; ?> type="radio"><?= $LANG['msg_sendto_group'] ?></label></div>
+              <div class="form-check"><label><input class="form-check-input" name="opt_sendto" value="group" tabindex="<?= $tabindex++ ?>" <?= ($viewData['sendto'] == 'group') ? "checked" : ""; ?> type="radio"><?= $LANG['msg_sendto_group'] ?></label></div>
               <select class="form-select" name="sel_sendToGroup[]" multiple="multiple" size="5" tabindex="<?= $tabindex++ ?>">
                 <?php foreach ($viewData['groups'] as $group) { ?>
                   <option value="<?= $group ?>" <?= (in_array($group, $viewData['sendToGroup'])) ? "selected" : ""; ?>><?= $group ?></option>
                 <?php } ?>
               </select>
 
-              <div class="radio"><label><input name="opt_sendto" value="user" tabindex="<?= $tabindex++ ?>" <?= ($viewData['sendto'] == 'user') ? "checked" : ""; ?> type="radio"><?= $LANG['msg_sendto_user'] ?></label></div>
+              <div class="form-check"><label><input class="form-check-input" name="opt_sendto" value="user" tabindex="<?= $tabindex++ ?>" <?= ($viewData['sendto'] == 'user') ? "checked" : ""; ?> type="radio"><?= $LANG['msg_sendto_user'] ?></label></div>
               <select class="form-select" name="sel_sendToUser[]" multiple="multiple" size="5" tabindex="<?= $tabindex++ ?>">
                 <?php foreach ($viewData['users'] as $user) {
                   if ($user['firstname'] != "") {

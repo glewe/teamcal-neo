@@ -86,14 +86,14 @@ view.database
                       <div class="text-normal"><?= $LANG['db_clean_what_comment'] ?></div>
                     </div>
                     <div class="col-lg-<?= $colsright ?>">
-                      <div class="checkbox">
-                        <label><input name="chk_cleanDaynotes" value="chk_cleanDaynotes" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_clean_daynotes'] ?></label>
+                      <div class="form-check">
+                        <label><input class="form-check-input" name="chk_cleanDaynotes" value="chk_cleanDaynotes" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_clean_daynotes'] ?></label>
                       </div>
-                      <div class="checkbox">
-                        <label><input name="chk_cleanMonths" value="chk_cleanMonths" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_clean_months'] ?></label>
+                      <div class="form-check">
+                        <label><input class="form-check-input" name="chk_cleanMonths" value="chk_cleanMonths" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_clean_months'] ?></label>
                       </div>
-                      <div class="checkbox">
-                        <label><input name="chk_cleanTemplates" value="chk_cleanTemplates" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_clean_templates'] ?></label>
+                      <div class="form-check">
+                        <label><input class="form-check-input" name="chk_cleanTemplates" value="chk_cleanTemplates" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_clean_templates'] ?></label>
                       </div>
                     </div>
                   </div>
@@ -154,8 +154,8 @@ view.database
                       <div class="text-normal"><?= $LANG['db_repair_daynoteRegions_comment'] ?></div>
                     </div>
                     <div class="col-lg-<?= $colsright ?>">
-                      <div class="checkbox">
-                        <label><input name="chk_daynoteRegions" value="chk_daynoteRegions" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_repair_daynoteRegions'] ?></label>
+                      <div class="form-check">
+                        <label><input class="form-check-input" name="chk_daynoteRegions" value="chk_daynoteRegions" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_repair_daynoteRegions'] ?></label>
                       </div>
                     </div>
                   </div>
@@ -190,26 +190,26 @@ view.database
                       <div class="text-normal"><?= $LANG['db_del_what_comment'] ?></div>
                     </div>
                     <div class="col-lg-<?= $colsright ?>">
-                      <div class="checkbox">
-                        <label><input name="chk_delUsers" value="chk_delUsers" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_users'] ?></label>
+                      <div class="form-check">
+                        <label><input class="form-check-input" name="chk_delUsers" value="chk_delUsers" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_users'] ?></label>
                       </div>
-                      <div class="checkbox">
-                        <label><input name="chk_delGroups" value="chk_delGroups" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_groups'] ?></label>
+                      <div class="form-check">
+                        <label><input class="form-check-input" name="chk_delGroups" value="chk_delGroups" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_groups'] ?></label>
                       </div>
-                      <div class="checkbox">
-                        <label><input name="chk_delMessages" value="chk_delMessages" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_messages'] ?></label>
+                      <div class="form-check">
+                        <label><input class="form-check-input" name="chk_delMessages" value="chk_delMessages" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_messages'] ?></label>
                       </div>
-                      <div class="checkbox">
-                        <label><input name="chk_delOrphMessages" value="chk_delOrphMessages" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_orphMessages'] ?></label>
+                      <div class="form-check">
+                        <label><input class="form-check-input" name="chk_delOrphMessages" value="chk_delOrphMessages" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_orphMessages'] ?></label>
                       </div>
-                      <div class="checkbox">
-                        <label><input name="chk_delPermissions" value="chk_delPermissions" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_permissions'] ?></label>
+                      <div class="form-check">
+                        <label><input class="form-check-input" name="chk_delPermissions" value="chk_delPermissions" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_permissions'] ?></label>
                       </div>
-                      <div class="checkbox">
-                        <label><input name="chk_delLog" value="chk_delLog" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_log'] ?></label>
+                      <div class="form-check">
+                        <label><input class="form-check-input" name="chk_delLog" value="chk_delLog" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_log'] ?></label>
                       </div>
-                      <div class="checkbox">
-                        <label><input name="chk_delArchive" value="chk_delArchive" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_archive'] ?></label>
+                      <div class="form-check">
+                        <label><input class="form-check-input" name="chk_delArchive" value="chk_delArchive" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_archive'] ?></label>
                       </div>
                     </div>
                   </div>

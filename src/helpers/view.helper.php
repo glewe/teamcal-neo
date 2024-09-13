@@ -308,8 +308,8 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
           <div class="col-lg-' . $colsright . '">';
       foreach ($data['values'] as $val) {
         $langIdx3 = $data['prefix'] . '_' . $data['name'] . '_' . $val;
-        $formGroup .= '<div class="radio">';
-        $formGroup .= '<label><input name="opt_' . $data['name'] . '" value="' . $val . '" tabindex="' . $tabindex . '" type="radio"' . (($val == $data['value']) ? " checked" : "") . $disabled . '>' . $LANG[$langIdx3] . '</label>';
+        $formGroup .= '<div class="form-check">';
+        $formGroup .= '<label><input class="form-check-input" name="opt_' . $data['name'] . '" value="' . $val . '" tabindex="' . $tabindex . '" type="radio"' . (($val == $data['value']) ? " checked" : "") . $disabled . '>' . $LANG[$langIdx3] . '</label>';
         $formGroup .= '</div>';
       }
       $formGroup .= $button . $error . '</div>

@@ -151,7 +151,7 @@ view.useredit
                       <div class="col-lg-12">
                         <?php foreach ($viewData['avatars'] as $avatar) { ?>
                           <div class="float-start" style="border: 1px solid #eeeeee; padding: 4px;">
-                            <input name="opt_avatar" value="<?= $avatar ?>" tabindex="<?= $tabindex++ ?>" <?= ($viewData['avatar'] == $avatar) ? ' checked="checked" ' : '' ?>type="radio">
+                            <input class="form-check-input" name="opt_avatar" value="<?= $avatar ?>" tabindex="<?= $tabindex++ ?>" <?= ($viewData['avatar'] == $avatar) ? ' checked="checked" ' : '' ?>type="radio">
                             <img src="<?= APP_AVATAR_DIR . $avatar ?>" alt="" style="width: 80px; height: 80px;">
                           </div>
                         <?php } ?>

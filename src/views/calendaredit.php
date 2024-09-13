@@ -245,7 +245,7 @@ view.editcalendar
                   for ($i = $daystart; $i <= $dayend; $i++) {
                     $prop = 'abs' . $i;
                     ?>
-                    <td class="m-day text-center" <?= $viewData['dayStyles'][$i] ?>><input name="opt_abs_<?= $i ?>" type="radio" value="<?= $abs['id'] ?>" <?= (($T->$prop == $abs['id']) ? ' checked' : '') ?>></td>
+                    <td class="m-day text-center" <?= $viewData['dayStyles'][$i] ?>><input class="form-check-input" name="opt_abs_<?= $i ?>" type="radio" value="<?= $abs['id'] ?>" <?= (($T->$prop == $abs['id']) ? ' checked' : '') ?>></td>
                   <?php } ?>
                 </tr>
               <?php }
@@ -255,7 +255,7 @@ view.editcalendar
             <tr>
               <td class="m-label"><?= $LANG['caledit_clearAbsence'] ?></td>
               <?php for ($i = $daystart; $i <= $dayend; $i++) { ?>
-                <td class="m-label text-center"><input name="opt_abs_<?= $i ?>" type="radio" value="0"></td>
+                <td class="m-label text-center"><input class="form-check-input" name="opt_abs_<?= $i ?>" type="radio" value="0"></td>
               <?php } ?>
             </tr>
 
@@ -264,7 +264,7 @@ view.editcalendar
               <tr>
                 <td class="m-label">Take over</td>
                 <?php for ($i = $daystart; $i <= $dayend; $i++) { ?>
-                  <td class="m-label text-center"><input name="opt_abs_<?= $i ?>" type="radio" value="takeover"></td>
+                  <td class="m-label text-center"><input class="form-check-input" name="opt_abs_<?= $i ?>" type="radio" value="takeover"></td>
                 <?php } ?>
               </tr>
             <?php } ?>
