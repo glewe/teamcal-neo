@@ -6,6 +6,7 @@ $releases = [
     'date' => '2024-09-xx',
     'info' => 'This is a new major release of TeamCal Neo. It comes with several interface changes and retires the custom themes that needed too much effort to maintain compared to their benefit.',
     'bugfixes' => [
+      [ 'summary' => 'Fixed Bootstrap 5 class bugs', 'issue' => '' ],
       [ 'summary' => 'Fixed missing user in sample SQL', 'issue' => '' ],
       [ 'summary' => 'Fixed reset password on users page', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/5' ],
     ],
