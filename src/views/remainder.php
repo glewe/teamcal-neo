@@ -134,7 +134,7 @@ view.remainder
 
     <!-- Modal: Select Group -->
     <?= createModalTop('modalSelectGroup', $LANG['cal_selGroup']) ?>
-    <select id="group" class="form-control" name="sel_group" tabindex="<?= $tabindex++ ?>">
+    <select id="group" class="form-select" name="sel_group" tabindex="<?= $tabindex++ ?>">
       <option value="all" <?= (($viewData['groupid'] == 'all') ? ' selected="selected"' : '') ?>><?= $LANG['all'] ?></option>
       <?php foreach ($viewData['allGroups'] as $grp) { ?>
         <option value="<?= $grp['id'] ?>" <?= (($viewData['groupid'] == $grp['id']) ? ' selected="selected"' : '') ?>><?= $grp['name'] ?></option>
@@ -174,7 +174,7 @@ view.remainder
     <div>
       <span class="text-bold"><?= $LANG['year'] ?></span><br>
       <span class="text-normal"><?= $LANG['rem_year_comment'] ?></span>
-      <select id="sel_year" class="form-control" name="sel_year" tabindex="<?= $tabindex++ ?>">
+      <select id="sel_year" class="form-select" name="sel_year" tabindex="<?= $tabindex++ ?>">
         <option value="<?= date("Y") - 2 ?>" <?= (($viewData['year'] == date("Y") - 2) ? "selected" : "") ?>><?= date("Y") - 2 ?></option>
         <option value="<?= date("Y") - 1 ?>" <?= (($viewData['year'] == date("Y") - 1) ? "selected" : "") ?>><?= date("Y") - 1 ?></option>
         <option value="<?= date("Y") ?>" <?= (($viewData['year'] == date("Y")) ? "selected" : "") ?>><?= date("Y") ?></option>

@@ -48,7 +48,7 @@ view.log
 
             <div class="col-lg-3">
               <label for="sel_logPeriod"><?= $LANG['period'] ?></label>
-              <select name="sel_logPeriod" id="sel_logPeriod" class="form-control" tabindex="<?= $tabindex++ ?>">
+              <select name="sel_logPeriod" id="sel_logPeriod" class="form-select" tabindex="<?= $tabindex++ ?>">
                 <option class="option" value="curr_all" <?= (($viewData['logperiod'] == "curr_all") ? 'selected' : '') ?>><?= $LANG['all'] ?></option>
                 <option class="option" value="curr_month" <?= (($viewData['logperiod'] == "curr_month") ? 'selected' : '') ?>><?= $LANG['period_month'] ?></option>
                 <option class="option" value="curr_quarter" <?= (($viewData['logperiod'] == "curr_quarter") ? 'selected' : '') ?>><?= $LANG['period_quarter'] ?></option>
@@ -57,7 +57,7 @@ view.log
                 <option class="option" value="custom" <?= (($viewData['logperiod'] == "custom") ? 'selected' : '') ?>><?= $LANG['period_custom'] ?></option>
               </select>
               <label for="sel_logType"><?= $LANG['log_header_type'] ?></label>
-              <select name="sel_logType" id="sel_logType" class="form-control" tabindex="<?= $tabindex++ ?>">
+              <select name="sel_logType" id="sel_logType" class="form-select" tabindex="<?= $tabindex++ ?>">
                 <option class="option" value="%" <?= (($viewData['logtype'] == "%") ? 'selected' : '') ?>><?= $LANG['all'] ?></option>
                 <?php foreach ($viewData['types'] as $type) { ?>
                   <option class="option" value="log<?= $type ?>" <?= (($viewData['logtype'] == "log" . $type) ? 'selected' : '') ?>><?= $type ?></option>

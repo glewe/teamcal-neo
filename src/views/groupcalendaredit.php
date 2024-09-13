@@ -242,7 +242,7 @@ view.groupcalendaredit
 
     <!-- Modal: Select Region -->
     <?= createModalTop('modalSelectRegion', $LANG['cal_selRegion']) ?>
-    <select id="region" class="form-control" name="sel_region" tabindex="<?= $tabindex++ ?>">
+    <select id="region" class="form-select" name="sel_region" tabindex="<?= $tabindex++ ?>">
       <?php foreach ($viewData['regions'] as $reg) { ?>
         <option value="<?= $reg['id'] ?>" <?= (($viewData['regionid'] == $reg['id']) ? 'selected="selected"' : '') ?>><?= $reg['name'] ?></option>
       <?php } ?>
@@ -252,7 +252,7 @@ view.groupcalendaredit
     <!-- Modal: Screen Width -->
     <?= createModalTop('modalSelectWidth', $LANG['cal_selWidth']) ?>
     <p><?= $LANG['cal_selWidth_comment'] ?></p>
-    <select id="width" class="form-control" name="sel_width" tabindex="<?= $tabindex++ ?>">
+    <select id="width" class="form-select" name="sel_width" tabindex="<?= $tabindex++ ?>">
       <?php foreach ($LANG['widths'] as $key => $value) { ?>
         <option value="<?= $key ?>" <?= (($viewData['width'] == $key) ? ' selected="selected"' : '') ?>><?= $value ?></option>
       <?php } ?>
@@ -261,7 +261,7 @@ view.groupcalendaredit
 
     <!-- Modal: Select Group -->
     <?= createModalTop('modalSelectGroup', $LANG['caledit_selGroup']) ?>
-    <select id="group" class="form-control" name="sel_group" tabindex="<?= $tabindex++ ?>">
+    <select id="group" class="form-select" name="sel_group" tabindex="<?= $tabindex++ ?>">
       <?php foreach ($viewData['groups'] as $group) { ?>
         <option value="<?= $group['id'] ?>" <?= (($viewData['groupid'] == $group['id']) ? ' selected="selected"' : '') ?>><?= $group['name'] ?></option>
       <?php } ?>
@@ -345,7 +345,7 @@ view.groupcalendaredit
         <span class="text-normal"><?= $LANG['caledit_absenceType_comment'] ?></span>
       </div>
       <div class="col-lg-5" style="margin-bottom: 20px;">
-        <select id="user" class="form-control" name="sel_recurringAbsence" tabindex="<?= $tabindex++ ?>">
+        <select id="user" class="form-select" name="sel_recurringAbsence" tabindex="<?= $tabindex++ ?>">
           <?php foreach ($viewData['absences'] as $abs) { ?>
             <option value="<?= $abs['id'] ?>"><?= $abs['name'] ?></option>
           <?php } ?>

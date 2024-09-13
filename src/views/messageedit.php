@@ -89,14 +89,14 @@ view.messageedit
               <div class="radio"><label><input name="opt_sendto" value="all" tabindex="<?= $tabindex++ ?>" <?= ($viewData['sendto'] == 'all') ? "checked" : ""; ?> type="radio"><?= $LANG['msg_sendto_all'] ?></label></div>
 
               <div class="radio"><label><input name="opt_sendto" value="group" tabindex="<?= $tabindex++ ?>" <?= ($viewData['sendto'] == 'group') ? "checked" : ""; ?> type="radio"><?= $LANG['msg_sendto_group'] ?></label></div>
-              <select class="form-control" name="sel_sendToGroup[]" multiple="multiple" size="5" tabindex="<?= $tabindex++ ?>">
+              <select class="form-select" name="sel_sendToGroup[]" multiple="multiple" size="5" tabindex="<?= $tabindex++ ?>">
                 <?php foreach ($viewData['groups'] as $group) { ?>
                   <option value="<?= $group ?>" <?= (in_array($group, $viewData['sendToGroup'])) ? "selected" : ""; ?>><?= $group ?></option>
                 <?php } ?>
               </select>
 
               <div class="radio"><label><input name="opt_sendto" value="user" tabindex="<?= $tabindex++ ?>" <?= ($viewData['sendto'] == 'user') ? "checked" : ""; ?> type="radio"><?= $LANG['msg_sendto_user'] ?></label></div>
-              <select class="form-control" name="sel_sendToUser[]" multiple="multiple" size="5" tabindex="<?= $tabindex++ ?>">
+              <select class="form-select" name="sel_sendToUser[]" multiple="multiple" size="5" tabindex="<?= $tabindex++ ?>">
                 <?php foreach ($viewData['users'] as $user) {
                   if ($user['firstname'] != "") {
                     $showname = $user['lastname'] . ", " . $user['firstname'];

@@ -147,7 +147,7 @@ view.year
 
       <!-- Modal: Select Region -->
       <?= createModalTop('modalSelectRegion', $LANG['year_selRegion']) ?>
-      <select class="form-control" name="sel_region" tabindex="<?= $tabindex++ ?>">
+      <select class="form-select" name="sel_region" tabindex="<?= $tabindex++ ?>">
         <?php foreach ($viewData['regions'] as $reg) { ?>
           <option value="<?= $reg['id'] ?>" <?= (($viewData['regionid'] == $reg['id']) ? ' selected="selected"' : '') ?>><?= $reg['name'] ?></option>
         <?php } ?>
@@ -156,7 +156,7 @@ view.year
 
       <!-- Modal: Select User -->
       <?= createModalTop('modalSelectUser', $LANG['year_selUser']) ?>
-      <select class="form-control" name="sel_user" tabindex="<?= $tabindex++ ?>">
+      <select class="form-select" name="sel_user" tabindex="<?= $tabindex++ ?>">
         <?php foreach ($viewData['users'] as $usr) { ?>
           <option value="<?= $usr['username'] ?>" <?= (($viewData['username'] == $usr['username']) ? ' selected="selected"' : '') ?>><?= $usr['lastfirst'] ?></option>
         <?php } ?>
