@@ -148,7 +148,6 @@ $userData['avatar'] = 'default_male.png';
 // Load all permissions into an array so there is no need to query the database for each permission
 //
 $permissions = $P->getPermissions($C->read('permissionScheme'));
-//dnd($permissions);
 //
 // Check login and make logged in username global
 //

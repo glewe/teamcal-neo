@@ -554,6 +554,26 @@ function createPatternTable($patternId) {
 
 //-----------------------------------------------------------------------------
 /**
+ * Creates a Sidebar menu item
+ *
+ * @param array $data Array of item details
+ */
+function createSidebarItem($data) {
+  global $LANG;
+  if (isset($data['suffix'])) {
+    $suffix = $data['suffix'];
+  } else {
+    $suffix = '';
+  }
+  return '
+    <li class="sidebar-item">
+      <a href="' . $data['url'] . '" class="sidebar-link sidebar-sublink"><i class="' . $data['icon'] . '"></i>' . $data['label'] . $suffix . '</a>
+    </li>';
+}
+
+
+//-----------------------------------------------------------------------------
+/**
  * Creates the Bootstrap toast
  *
  * @param array $data Array of toast details
@@ -567,13 +587,13 @@ function createToast($data) {
 
   return '
   <div id="' . $data['id'] . '" class="toast ' . $classColor . '" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="6000">
-    <div class="toast-header">
-      <i class="' . $data['icon'] . ' me-2"></i>
-      <strong class="me-auto">' . $data['title'] . '</strong>
-      <small>' . date("Y-m-d H:m", time()) . '</small>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    <div class="toast - header">
+      <i class="' . $data['icon'] . ' me - 2"></i>
+      <strong class="me - auto">' . $data['title'] . '</strong>
+      <small>' . date("Y - m - d H:m", time()) . '</small>
+      <button type="button" class="btn - close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
-    <div class="toast-body">
+    <div class="toast - body">
       ' . $data['message'] . '
     </div>
   </div>';

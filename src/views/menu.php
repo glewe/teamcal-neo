@@ -19,7 +19,7 @@ view.menu
 -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="navbar">
   <div class="container">
-    <a href="<?= WEBSITE_URL ?>" class="navbar-brand" style="padding: 2px 8px 0 8px;"><img src="images/logo.png" width="48" height="48" alt=""></a>
+    <a href="<?= WEBSITE_URL ?>" class="navbar-brand" style="padding: 2px 8px 0 8px;"><i class="bi-calendar-week fa-2x logo-gradient"></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -238,6 +238,7 @@ view.menu
           isAllowed($CONF['controllers']['groups']->permission) || $UG->isGroupManager($UL->username) ||
           isAllowed($CONF['controllers']['roles']->permission) ||
           isAllowed($CONF['controllers']['database']->permission) ||
+          isAllowed($CONF['controllers']['log']->permission) ||
           isAllowed($CONF['controllers']['phpinfo']->permission) ||
           isAllowed($CONF['controllers']['absences']->permission) ||
           isAllowed($CONF['controllers']['holidays']->permission) ||
