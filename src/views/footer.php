@@ -17,11 +17,11 @@ if (!defined('VALID_ROOT')) {
 <!-- ====================================================================
 view.footer
 -->
-<footer class="footer">
-  <div class="container">
+<footer class="footer fs-small">
+  <div class="container-fluid">
     <div class="row">
 
-      <div class="col-lg-4">
+      <div class="col-lg-4 col-md-4 col-sm-4 text-start w-33">
         <ul class="list-unstyled">
           <?php
           $footerCopyright = "";
@@ -34,17 +34,19 @@ view.footer
             }
           }
           ?>
-          <li><?= $footerCopyright ?></li>
+          <li class="text-muted fs-small"><?= $footerCopyright ?></li>
         </ul>
       </div>
 
-      <div class="col-lg-4">
+      <div class="col-lg-4 col-md-4 col-sm-4 text-center w-33">
         <ul class="list-unstyled">
-          <li><a href="index.php?action=imprint"><?= $LANG['footer_imprint'] ?></a> | <a href="index.php?action=dataprivacy"><?= $LANG['footer_dataprivacy'] ?></a></li>
+          <li class="text-muted size"><a href="index.php?action=about"><?= $LANG['footer_about'] ?></a> | <a href="index.php?action=imprint"><?= $LANG['footer_imprint'] ?></a> | <a href="index.php?action=dataprivacy"><?= $LANG['footer_dataprivacy'] ?></a></li>
+          <!-- As per the license agreement, you are not allowed to change or remove the following line! -->
+          <li class="text-muted fst-italic fs-small mt-1"><?= APP_POWERED ?></li>
         </ul>
       </div>
 
-      <div class="col-lg-4 text-end">
+      <div class="col-lg-4 col-md-4 col-sm-4 text-end w-33">
         <?php if (($urls = $C->read("footerSocialLinks")) && strlen($urls)) {
           $urlArray = explode(';', $urls);
           foreach ($urlArray as $url) {
@@ -60,14 +62,14 @@ view.footer
   <!-- As per the license agreement, you are not allowed to change or remove the following block! -->
   <div class="container" style="margin-top: 40px">
     <div class="col-lg-12 text-end text-italic xsmall">
-      <?= APP_POWERED ?><br>
-      <?php if ($C->read("footerViewport")) { ?>
+      <?php if (!$C->read("footerViewport")) { ?>
         <i id="size" class="text-italic xsmall"></i>
       <?php } ?>
     </div>
   </div>
 
 </footer>
+</main>
 
 <!-- DataTables -->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>-->
@@ -77,6 +79,18 @@ view.footer
 
 <script>
   $(document).ready(function () {
+    <?php
+    $fullWidth = true;
+    if ($fullWidth) { ?>
+    // Select all div elements with the class "container"
+    const containers = document.querySelectorAll('div.container');
+    // Loop through each element and replace the class
+    containers.forEach(container => {
+      container.classList.remove('container');
+      container.classList.add('container-fluid');
+    });
+    <?php } ?>
+
     <?php if (MAGNIFICPOPUP) { ?>
     //
     // Magnific Popup
@@ -123,10 +137,10 @@ view.footer
       };
       if ($(this)[0].hasAttribute('data-type')) {
         options['template'] =
-          '<div class="tooltip ' + $(this).attr('data-type') + '" role="tooltip">' +
-          '  <div class="tooltip-arrow"></div>' +
-          '  <div class="tooltip-inner"></div>' +
-          '</div>';
+            '<div class="tooltip ' + $(this).attr('data-type') + '" role="tooltip">' +
+            '  <div class="tooltip-arrow"></div>' +
+            '  <div class="tooltip-inner"></div>' +
+            '</div>';
       }
       $(this).tooltip(options);
     });

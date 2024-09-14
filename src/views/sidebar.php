@@ -5,7 +5,7 @@
       <i class="bi-calendar-week navbar-logo logo-gradient"></i>
     </button>
     <div class="sidebar-logo">
-      <a href="<?= base_url() ?>home">TeamCal Neo</a>
+      <a href="<?= base_url() . 'index.php?action=' . $CONF['controllers']['home']->name ?>"><?= APP_NAME ?></a>
     </div>
   </div>
   <ul class="sidebar-nav">
@@ -29,7 +29,7 @@
           foreach ($appLanguages as $appLang) {
             $item = [
               'url' => base_url() . 'index.php?' . str_replace('&', '&amp;', $_SERVER['QUERY_STRING']) . '&amp;applang=' . $appLang,
-              'icon' => 'bi-flag',
+              'icon' => 'bi-translate',
               'label' => proper($appLang),
             ];
             if ($appLang === $language) {

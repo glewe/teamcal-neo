@@ -44,6 +44,20 @@ body {
   font-family: Lato, Montserrat, "Open Sans", Roboto, Helvetica, Arial, sans-serif;
 }
 
+/** ---------------------------------------------------------------------------
+ * Main
+ */
+#main {
+  min-height: 100vh;
+  margin-left: 260px;
+  overflow: hidden;
+  transition: all .35s ease-in-out;
+}
+
+#main:not(.expand) {
+  margin-left: 70px;
+}
+
 div.divider {
   padding: 2px 0 0 0;
   clear: both;
@@ -121,7 +135,7 @@ div.checkbox input {
 }
 
 .content {
-  padding: 50px 0 0 0;
+  padding: 0 0 0 0;
 }
 
 .jumbotron {
@@ -141,15 +155,14 @@ div.checkbox input {
 }
 
 .footer {
-  padding: 20px 15px 900px 15px;
-  margin-top: 60px;
-  margin-bottom: 0;
-  color: #999999;
-  background-color: #212529;
+  padding: 40px 15px 0 15px;
+  margin-top: 80px;
+  color: var(--bs-secondary-bg-subtle);
+  border-top: 1px solid var(--bs-secondary-bg);
 }
 
-.footer a {
-  color: #999999;
+.fs-small {
+  font-size: .9rem;
 }
 
 .img-floatleft {
@@ -283,6 +296,7 @@ div.checkbox input {
   }
 }
 
+/** ---------------------------------------------------------------------------
 /**
  * Month table
  */
@@ -380,11 +394,11 @@ table.month td.m-summary {
   vertical-align: middle;
 }
 
+/** ---------------------------------------------------------------------------
 /*
  * Dark theme calendar colors
  */
 :root[data-bs-theme="dark"] {
-  .footer,
   .navbar-dark,
   .navbar-dark .dropdown-menu {
     background-color: var(--bs-dark-bg-subtle) !important;
@@ -462,6 +476,7 @@ table.month td.m-summary {
   }
 }
 
+/** ---------------------------------------------------------------------------
 /**
  * Year table
  */
@@ -533,6 +548,7 @@ table.year div.weeknumber {
   }
 }
 
+/** ---------------------------------------------------------------------------
 /**
  * Social icons in footer
  */
@@ -799,6 +815,9 @@ table.year div.weeknumber {
   margin-top: 16px;
 }
 
+/** ---------------------------------------------------------------------------
+ *  Tooltip
+ */
 .tooltip.danger .tooltip-inner {
   background-color: #dc3545;
 }
@@ -919,6 +938,7 @@ table.year div.weeknumber {
   border-left-color: #ffc107;
 }
 
+/** ---------------------------------------------------------------------------
 /**
  * Release Info Timeline
  */
@@ -983,6 +1003,10 @@ ul.timeline h6 {
 
 #sidebar a {
   text-decoration: none;
+}
+
+#sidebar i {
+  color: rgba(255, 255, 255, .75);
 }
 
 #sidebar.expand {
@@ -1088,7 +1112,7 @@ a.sidebar-link {
 
 a.sidebar-link:hover {
   background-color: rgba(255, 255, 255, .075);
-  border-left: 3px solid #3b7ddd;
+  border-left: 3px solid var(--lewe-primary-light);
 }
 
 .sidebar-logo {
