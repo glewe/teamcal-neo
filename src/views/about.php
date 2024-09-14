@@ -39,9 +39,9 @@ view.about
       ?>
       <div class="card-header"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['mnu_help_about'] ?><?= $pageHelp ?></div>
       <div class="card-body row">
-        <div class="col-lg-3"><img src="images/icons/logo-128.png" width="128" height="128" alt="" class="img-floatleft">
+        <div class="col-lg-2 text-center pt-0 mt-0"><i class="bi-calendar-week fa-8x logo-gradient"></i>
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg-10 mt-4">
           <h4><?= APP_NAME ?></h4>
           <p>
             <strong><?= $LANG['about_version'] ?>:</strong>&nbsp;&nbsp;<?= APP_VER ?><span id="versioncompare"></span><br>

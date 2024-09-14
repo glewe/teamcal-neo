@@ -187,8 +187,8 @@ $LANG['alert_decl_total_threshold'] = "Total absence threshold reached.";
 //
 // Bulk Edit
 //
-$LANG['bulkedit_title'] = 'Allowance Bulk Edit';
-$LANG['bulkedit_alert_update'] = 'Allowance Bulk Update';
+$LANG['bulkedit_title'] = 'Allowances';
+$LANG['bulkedit_alert_update'] = 'Allowances Update';
 $LANG['bulkedit_alert_update_failed'] = 'The update failed. Make sure that at least one user is selected, that all values are numeric and that each user has a value in both fields.';
 $LANG['bulkedit_alert_update_success'] = 'Allowance and carryover values were updated for the selected users.';
 $LANG['bulkedit_for_selected'] = 'For all selected';
@@ -686,7 +686,7 @@ $LANG['mnu_view_stats_remainder'] = 'Remainder Statistics';
 $LANG['mnu_edit_calendaredit'] = 'Personal Calendar';
 $LANG['mnu_edit_monthedit'] = 'Region Calendar';
 $LANG['mnu_admin_absences'] = 'Absence Types';
-$LANG['mnu_admin_bulkedit'] = 'Allowance Bulk Edit';
+$LANG['mnu_admin_bulkedit'] = 'Allowances';
 $LANG['mnu_admin_calendaroptions'] = 'Calendar Options';
 $LANG['mnu_admin_declination'] = 'Declination Management';
 $LANG['mnu_admin_holidays'] = 'Holidays';
