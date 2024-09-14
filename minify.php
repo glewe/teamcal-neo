@@ -16,6 +16,7 @@ $cssFiles = [
 $jsDir = 'src/js';
 $jsFiles = [
   'color-modes.js',
+  'width-modes.js',
   'teamcalneo.js'
 ];
 

@@ -90,6 +90,9 @@ if (!defined('VALID_ROOT')) {
   <!-- Bootstrap Javascript -->
   <script src="themes/bootstrap/bootstrap.bundle.min.js"></script>
 
+  <!-- TeamCal Neo Width Mode Switcher -->
+  <script src="js/width-modes.min.js"></script>
+
   <!-- TeamCalNeo CSS -->
   <link rel="stylesheet" href="css/teamcalneo.min.css">
 
@@ -213,3 +216,5 @@ if (!defined('VALID_ROOT')) {
 
 <!-- Back to Top -->
 <a id="top-link-block"><i class="fas fa-chevron-up fa-3x text-white"></i></a>
+
+
