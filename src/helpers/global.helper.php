@@ -15,6 +15,30 @@ if (!defined('VALID_ROOT')) {
 
 //-----------------------------------------------------------------------------
 /**
+ * Returns the base URL of the application.
+ *
+ * @param string $path Optional path to append to the base URL.
+ * @return string The base URL with the optional path appended.
+ */
+function base_url($path = '') {
+  // Get the protocol (http or https)
+  $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+  // Get the host (e.g., www.example.com)
+  $host = $_SERVER['HTTP_HOST'];
+
+  // Get the base directory (e.g., /myapp/)
+  $baseDir = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+
+  // Construct the base URL
+  $baseUrl = $protocol . $host . $baseDir;
+
+  // Append the optional path
+  return $baseUrl . ltrim($path, '/');
+}
+
+//-----------------------------------------------------------------------------
+/**
  * Cleans and returns a given string.
  * Not called directly, but used by function sanitize()
  *

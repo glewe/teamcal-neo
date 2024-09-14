@@ -12,7 +12,7 @@ $releases = [
     ],
     'features' => [
       [ 'summary' => 'Absence patterns', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/6' ],
-      [ 'summary' => 'Added LDAP test config', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/3' ],
+      [ 'summary' => 'Added LDAP test configuration', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/3' ],
       [ 'summary' => 'Added Bootstrap Dark and Light mode', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/2' ],
       [ 'summary' => 'Added Bootstrap Icons', 'issue' => '' ],
     ],
@@ -30,7 +30,7 @@ $releases = [
       [ 'summary' => 'Removed Bootswatch user themes (unnecessary maintenance)', 'issue' => '' ],
       [ 'summary' => 'Removed X-editable addon (unused)', 'issue' => '' ],
       [ 'summary' => 'Removed Select2 addon (unused)', 'issue' => '' ],
-      [ 'summary' => 'Removed google-code-prettify addon (unused)', 'issue' => '' ],
+      [ 'summary' => ' ', 'issue' => '' ],
       [ 'summary' => 'Removed TeamCal Pro import feature (use 3.9.3 first if you still need it)', 'issue' => '' ],
     ],
   ],
