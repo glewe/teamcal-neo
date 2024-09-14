@@ -401,7 +401,7 @@ if (!empty($_POST)) {
       $showAlert = true;
       $alertData['type'] = 'success';
       $alertData['title'] = $LANG['alert_success_title'];
-      $alertData['subject'] = $LANG['alert_license_subject'];
+      $alertData['subject'] = $LANG['config_title'];
       $alertData['text'] = $LANG['config_alert_edit_success'];
       $alertData['help'] = '';
     }

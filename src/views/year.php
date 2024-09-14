@@ -17,7 +17,7 @@ if (!defined('VALID_ROOT')) {
 <!-- ====================================================================
 view.year
 -->
-<div class="content container" style="padding-left: 4px; padding-right: 4px;">
+<div class="content container">
 
   <?php
   if (
