@@ -428,6 +428,12 @@ $LANG['config_defaultHomepage_calendarview'] = 'Kalender';
 $LANG['config_defaultLanguage'] = 'Standard Sprache';
 $LANG['config_defaultLanguage_comment'] = $appTitle . ' enth&auml;lt die Sprachen Englisch und Deutsch. Der Administrator hat eventuell weitere Sprachen installiert.
  Hier kann die Standard Sprache eingestellt werden.';
+$LANG['config_defaultMenu'] = 'Men&uuml; Position';
+$LANG['config_defaultMenu_comment'] = 'Das TeamCal Neo Men&uuml; kann entweder als horizontales Men&uuml; oben oder als vertikales Men&uuml; links angezeigt werden.
+ Das vertikale Men&uuml; links eignet sich nur f&uuml;r breite Bidschirme, das horizontale Men&uuml; passt sich auch an schmale Bildschirme an (responsive). Nutzer k&ouml;nnen
+ diese Einstellung in ihrem Profile auch individuell einstellen.';
+$LANG['config_defaultMenu_navbar'] = 'Horizontal Oben';
+$LANG['config_defaultMenu_sidebar'] = 'Vertikal Links';
 $LANG['config_emailConfirmation'] = 'E-Mail Best&auml;tigung erforderlich';
 $LANG['config_emailConfirmation_comment'] = 'Durch die Registrierung erh&auml;lt der User eine E-Mail an die von ihm angegebene Adresse. Sie enth&auml;lt einen
  Aktivierungslink, dem er folgen muss, um seine Angaben zu bets&auml;tigen.';
@@ -924,9 +930,9 @@ $LANG['mnu_user_login'] = 'Login';
 $LANG['mnu_user_register'] = 'Registrieren';
 $LANG['mnu_user_logout'] = 'Logout';
 $LANG['mnu_user_profile'] = 'User Profil';
-$LANG['mnu_width'] = 'Breite';
-$LANG['mnu_width_narrow'] = 'Enger Modus';
-$LANG['mnu_width_wide'] = 'Weiter Modus';
+$LANG['mnu_width'] = 'Anzeige';
+$LANG['mnu_width_narrow'] = 'Normaler Modus';
+$LANG['mnu_width_wide'] = 'Breiter Modus';
 
 //
 // Messages
@@ -1135,6 +1141,11 @@ $LANG['profile_custom4'] = $C->read('userCustom4');
 $LANG['profile_custom4_comment'] = 'Gib einen Text von maximal 80 Zeichen ein.';
 $LANG['profile_custom5'] = $C->read('userCustom5');
 $LANG['profile_custom5_comment'] = 'Gib einen Text von maximal 80 Zeichen ein.';
+$LANG['config_defaultMenu'] = 'Men&uuml; Position';
+$LANG['config_defaultMenu_comment'] = 'Das TeamCal Neo Men&uuml; kann entweder als horizontales Men&uuml; oben oder als vertikales Men&uuml; links angezeigt werden.
+ Das vertikale Men&uuml; links eignet sich nur f&uuml;r breite Bidschirme, das horizontale Men&uuml; passt sich auch an schmale Bildschirme an (responsive).';
+$LANG['config_defaultMenu_navbar'] = 'Horizontal Oben';
+$LANG['config_defaultMenu_sidebar'] = 'Vertikal Links';
 $LANG['profile_email'] = 'E-Mail';
 $LANG['profile_email_comment'] = '';
 $LANG['profile_facebook'] = 'Facebook';

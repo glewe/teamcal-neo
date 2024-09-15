@@ -198,13 +198,6 @@ if (!empty($_POST)) {
       //
       // Options
       //
-      if (!$UO->read($profile, 'menuBar')) {
-        $UO->save($profile, 'menuBar', 'default');
-      }
-      if (isset($_POST['opt_menuBar']) && $_POST['opt_menuBar'] != $UO->read($profile, 'menuBar')) {
-        $UO->save($profile, 'menuBar', $_POST['opt_menuBar']);
-        $reloadPage = true;
-      }
       if (isset($_POST['sel_language'])) {
         if ($_POST['sel_language'] != $UO->read($profile, 'language')) {
           $reloadPage = true; // New language needs a page reload later
@@ -236,6 +229,11 @@ if (!empty($_POST)) {
         $UO->save($profile, "region", $_POST['sel_region']);
       } else {
         $UO->save($profile, 'region', '1'); // Region "Default"
+      }
+      if (isset($_POST['opt_gender'])) {
+        $UO->save($profile, 'defaultMenu', $_POST['opt_defaultMenu']);
+      } else {
+        $UO->save($profile, 'defaultMenu', 'navbar');
       }
       //
       // Account
@@ -623,6 +621,7 @@ $viewData['options'][] = array( 'prefix' => 'profile', 'name' => 'language', 'ty
 $viewData['options'][] = array( 'prefix' => 'profile', 'name' => 'showMonths', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'showMonths'), 'maxlength' => '2', 'error' => (isset($inputAlert['showMonths']) ? $inputAlert['showMonths'] : '') );
 $viewData['options'][] = array( 'prefix' => 'profile', 'name' => 'calfilterGroup', 'type' => 'list', 'values' => $viewData['calfilterGroups'] );
 $viewData['options'][] = array( 'prefix' => 'profile', 'name' => 'region', 'type' => 'list', 'values' => $viewData['regionList'] );
+$viewData['options'][] = array( 'prefix' => 'profile', 'name' => 'defaultMenu', 'type' => 'radio', 'values' => array( 'navbar', 'sidebar' ), 'value' => $UO->read($profile, 'defaultMenu') );
 
 //
 // Avatar
