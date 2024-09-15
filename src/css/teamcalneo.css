@@ -17,6 +17,7 @@
   --dark-medium-dark: #141c23;
   --dark-medium-light: #414950;
   --dark-light: #5d666f;
+  --dark-light-light: #9fa9b3;
 
   --lewe-primary: #0060b0;
   --lewe-primary-dark: #003a6b;
@@ -425,6 +426,31 @@ table.month td.m-summary {
   table.month td.m-name,
   table.month td.m-name-guest {
     background-color: var(--dark-medium-light);
+  }
+
+  table.month td.m-day {
+    background-color: var(--dark-light-light);
+  }
+
+  table.year td.y-grayday {
+    color: #fefefe;
+    background-color: var(--dark-light);
+  }
+
+  table.year td.y-day {
+    color: #000000;
+    background-color: var(--dark-light-light);
+  }
+
+  table.year td.y-label,
+  table.year th.y-label,
+  table.year th.y-weekday {
+    color: #fefefe;
+    background-color: var(--bs-secondary);
+  }
+
+  table.year div.weeknumber {
+    color: #fefefe !important;
   }
 }
 
