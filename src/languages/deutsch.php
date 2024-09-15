@@ -145,6 +145,7 @@ $LANG['about_copyright'] = 'Copyright';
 $LANG['about_license'] = 'Lizenz';
 $LANG['about_forum'] = 'Forum';
 $LANG['about_support'] = 'Support';
+$LANG['about_issues'] = 'Issues';
 $LANG['about_tracker'] = 'Issue Tracker';
 $LANG['about_documentation'] = 'Dokumentation';
 $LANG['about_credits'] = 'Dank an';
