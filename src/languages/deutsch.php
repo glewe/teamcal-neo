@@ -916,10 +916,17 @@ $LANG['mnu_help_dataprivacy'] = 'Datenschutzerkl&auml;rung';
 $LANG['mnu_help_help'] = 'Nutzerhandbuch';
 $LANG['mnu_help_imprint'] = 'Impressum';
 $LANG['mnu_help_legend'] = 'Legende';
+$LANG['mnu_theme'] = 'Thema';
+$LANG['mnu_theme_auto'] = 'Auto';
+$LANG['mnu_theme_dark'] = 'Dunkler Modus';
+$LANG['mnu_theme_light'] = 'Heller Modus';
 $LANG['mnu_user_login'] = 'Login';
 $LANG['mnu_user_register'] = 'Registrieren';
 $LANG['mnu_user_logout'] = 'Logout';
 $LANG['mnu_user_profile'] = 'User Profil';
+$LANG['mnu_width'] = 'Breite';
+$LANG['mnu_width_narrow'] = 'Enger Modus';
+$LANG['mnu_width_wide'] = 'Weiter Modus';
 
 //
 // Messages

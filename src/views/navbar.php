@@ -214,13 +214,13 @@ view.menu
             <i class="bi-fullscreen-exit width-icon-active"></i><span class="caret"></span>
           </a>
           <div id="widthmode" class="dropdown-menu" aria-labelledby="width" data-bs-parent="#navbar">
-            <a class="dropdown-item" href="#" data-width-value="wide">
-              <span class="menu-icon"><i class="bi-fullscreen me-3 text-<?= $CONF['menuIconColor'] ?>"></i></span>
-              Wide Mode
-            </a>
             <a class="dropdown-item" href="#" data-width-value="narrow">
               <span class="menu-icon"><i class="bi-fullscreen-exit me-3 text-<?= $CONF['menuIconColor'] ?>"></i></span>
-              Narrow Mode
+              <?= $LANG['mnu_width_narrow'] ?>
+            </a>
+            <a class="dropdown-item" href="#" data-width-value="wide">
+              <span class="menu-icon"><i class="bi-fullscreen me-3 text-<?= $CONF['menuIconColor'] ?>"></i></span>
+              <?= $LANG['mnu_width_wide'] ?>
             </a>
           </div>
         </li>
@@ -233,15 +233,15 @@ view.menu
           <div id="darkmode" class="dropdown-menu" aria-labelledby="theme" data-bs-parent="#navbar">
             <a class="dropdown-item" href="#" data-bs-theme-value="light">
               <span class="menu-icon"><i class="bi bi-sun-fill me-3 text-<?= $CONF['menuIconColor'] ?>"></i></span>
-              Light Mode
+              <?= $LANG['mnu_theme_light'] ?>
             </a>
             <a class="dropdown-item" href="#" data-bs-theme-value="dark">
               <span class="menu-icon"><i class="bi bi-moon-stars-fill me-3 text-<?= $CONF['menuIconColor'] ?>"></i></span>
-              Dark Mode
+              <?= $LANG['mnu_theme_dark'] ?>
             </a>
             <a class="dropdown-item" href="#" data-bs-theme-value="auto">
               <span class="menu-icon"><i class="bi bi-circle-half me-3 text-<?= $CONF['menuIconColor'] ?>"></i></span>
-              Auto Mode
+              <?= $LANG['mnu_theme_auto'] ?>
             </a>
           </div>
         </li>

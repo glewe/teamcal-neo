@@ -77,20 +77,11 @@ view.footer
 <!--<script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.2/b-3.1.0/b-html5-3.1.0/r-3.0.2/datatables.min.js"></script>-->
 <script src="addons/datatables/datatables.min.js"></script>
 
+<!-- TeamCal Neo Width Mode Switcher -->
+<script src="js/width-modes.min.js"></script>
+
 <script>
   $(document).ready(function () {
-    <?php
-    $fullWidth = true;
-    if ($fullWidth) { ?>
-    // Select all div elements with the class "container"
-    const containers = document.querySelectorAll('div.container');
-    // Loop through each element and replace the class
-    containers.forEach(container => {
-      container.classList.remove('container');
-      container.classList.add('container-fluid');
-    });
-    <?php } ?>
-
     <?php if (MAGNIFICPOPUP) { ?>
     //
     // Magnific Popup
