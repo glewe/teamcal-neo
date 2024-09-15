@@ -426,6 +426,11 @@ $LANG['config_defaultHomepage_home'] = 'Welcome Page';
 $LANG['config_defaultHomepage_calendarview'] = 'Calendar';
 $LANG['config_defaultLanguage'] = 'Default Language';
 $LANG['config_defaultLanguage_comment'] = $appTitle . ' is distributed in English and German. The administrator might have added more languages. Chose the default language of your installation here.';
+$LANG['config_defaultMenu'] = 'Menu Position';
+$LANG['config_defaultMenu_comment'] = 'The TeamCal Neo menu can either be shown horizontally at the top or vertically on the left. The vertical menu is only suited for wide screens while the horizontal menu
+ also adjusts to narrow screens (responsive). The user can change this setting individually in his profile.';
+$LANG['config_defaultMenu_navbar'] = 'Horizontal Top';
+$LANG['config_defaultMenu_sidebar'] = 'Vertical Left';
 $LANG['config_emailConfirmation'] = 'Require e-mail Confirmation';
 $LANG['config_emailConfirmation_comment'] = 'Upon registration the user will receive an e-mail to the address he specified containing a confirmation link. He needs to follow that link to validate his information.';
 $LANG['config_emailNotifications'] = 'E-Mail Notifications';
@@ -916,8 +921,8 @@ $LANG['mnu_user_login'] = 'Login';
 $LANG['mnu_user_register'] = 'Register';
 $LANG['mnu_user_logout'] = 'Logout';
 $LANG['mnu_user_profile'] = 'Edit Profile';
-$LANG['mnu_width'] = 'Width';
-$LANG['mnu_width_narrow'] = 'Narrow Mode';
+$LANG['mnu_width'] = 'Screen';
+$LANG['mnu_width_narrow'] = 'Normal Mode';
 $LANG['mnu_width_wide'] = 'Wide Mode';
 
 //
@@ -1128,6 +1133,11 @@ $LANG['profile_custom4'] = $C->read('userCustom4');
 $LANG['profile_custom4_comment'] = 'Enter a text value of maximal 80 characters.';
 $LANG['profile_custom5'] = $C->read('userCustom5');
 $LANG['profile_custom5_comment'] = 'Enter a text value of maximal 80 characters.';
+$LANG['profile_defaultMenu'] = 'Menu Position';
+$LANG['profile_defaultMenu_comment'] = 'The TeamCal Neo menu can either be shown horizontally at the top or vertically on the left. The vertical menu is only suited for wide screens while the horizontal menu
+ also adjusts to narrow screens (responsive).';
+$LANG['profile_defaultMenu_navbar'] = 'Horizontal Top';
+$LANG['profile_defaultMenu_sidebar'] = 'Vertical Left';
 $LANG['profile_email'] = 'E-mail';
 $LANG['profile_email_comment'] = '';
 $LANG['profile_facebook'] = 'Facebook';

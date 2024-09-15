@@ -403,29 +403,51 @@
       </ul>
     </li>
 
+    <!-- Width Menu -->
+    <li class="sidebar-item">
+      <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#widthmode" aria-expanded="false" aria-controls="widthmode">
+        <i class="bi-fullscreen-exit width-icon-active"></i>
+        <span><?= $LANG['mnu_width'] ?></span>
+      </a>
+      <ul id="widthmode" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+        <li class="sidebar-item">
+          <a class="sidebar-link sidebar-sublink d-flex align-items-center" href="#" data-width-value="narrow">
+            <i class="bi-fullscreen-exit me-3 text-<?= $CONF['menuIconColor'] ?>"></i>
+            <?= $LANG['mnu_width_narrow'] ?>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link sidebar-sublink d-flex align-items-center" href="#" data-width-value="wide">
+            <i class="bi-fullscreen me-3 text-<?= $CONF['menuIconColor'] ?>"></i>
+            <?= $LANG['mnu_width_wide'] ?>
+          </a>
+        </li>
+      </ul>
+    </li>
+
     <!--Theme-->
     <li class="sidebar-item">
       <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#darkmode" aria-expanded="false" aria-controls="darkmode">
         <i class="bi-moon-stars-fill theme-icon-active"></i>
-        <span>Theme</span>
+        <span><?= $LANG['mnu_theme'] ?></span>
       </a>
       <ul id="darkmode" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
         <li class="sidebar-item">
           <a class="sidebar-link sidebar-sublink d-flex align-items-center" href="#" data-bs-theme-value="light">
             <i class="bi-sun-fill me-3 text-<?= $CONF['menuIconColor'] ?>"></i>
-            Light Mode
+            <?= $LANG['mnu_theme_light'] ?>
           </a>
         </li>
         <li class="sidebar-item">
           <a class="sidebar-link sidebar-sublink d-flex align-items-center" href="#" data-bs-theme-value="dark">
             <i class="bi-moon-stars-fill me-3 text-<?= $CONF['menuIconColor'] ?>"></i>
-            Dark Mode
+            <?= $LANG['mnu_theme_dark'] ?>
           </a>
         </li>
         <li class="sidebar-item">
           <a class="sidebar-link sidebar-sublink d-flex align-items-center" href="#" data-bs-theme-value="auto">
             <i class="bi-circle-half me-3 text-<?= $CONF['menuIconColor'] ?>"></i>
-            Auto Mode
+            <?= $LANG['mnu_theme_auto'] ?>
           </a>
         </li>
       </ul>
