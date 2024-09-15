@@ -9,7 +9,7 @@
   /**
    * Retrieves the stored width from localStorage.
    *
-   * @returns {string|null} The stored kwidth, or null if not set.
+   * @returns {string|null} The stored width, or null if not set.
    */
   const getStoredWidth = () => localStorage.getItem('width');
 
@@ -27,11 +27,10 @@
    */
   const getPreferredWidth = () => {
     const storedWidth = getStoredWidth();
-    console.log(`>>>[width-modes] - getPreferredWidth() - storedWidth: ${storedWidth}`);
     if (storedWidth) {
       return storedWidth;
     }
-    return window.matchMedia('(prefers-width-scheme: narrow)').matches ? 'narrow' : 'wide';
+    return document.documentElement.getAttribute('data-width');
   };
 
   /**
@@ -40,27 +39,32 @@
    * @param {string} width - The width to set ('wide', or 'narrow').
    */
   const setWidth = width => {
+    let newWidth = '';
     if (width === 'wide') {
-      console.log(`>>>[width-modes] - setWidth(wide) - width: ${width}`);
+      newWidth = 'wide';
+    } else if (width === 'narrow') {
+      newWidth = 'narrow';
+    } else {
+      newWidth = document.documentElement.getAttribute('data-width');
+    }
+    if (newWidth === 'wide') {
       // Select all div elements with the class "container"
       const containers = document.querySelectorAll('div.container');
       // Loop through each element and replace the class
       containers.forEach(container => {
-        container.classList.add('container-fluid');
         container.classList.remove('container');
+        container.classList.add('container-fluid');
       });
     } else {
-      console.log(`>>>[width-modes] - setWidth(else) - width: ${width}`);
       // Select all div elements with the class "container"
-      const containers = document.querySelectorAll('div.container');
-      console.log(`>>>[width-modes] - setWidth(else) - containers: ${containers}`);
+      const containers = document.querySelectorAll('div.container-fluid');
       // Loop through each element and replace the class
       containers.forEach(container => {
-        container.classList.add('container');
         container.classList.remove('container-fluid');
-        console.log(`>>>[width-modes] - setWidth() - container: ${container.classList}`);
+        container.classList.add('container');
       });
     }
+    document.documentElement.setAttribute('data-width', newWidth);
   };
 
   // Set the initial width based on the preferred width

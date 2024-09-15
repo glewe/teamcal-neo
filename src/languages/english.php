@@ -908,10 +908,17 @@ $LANG['mnu_help_help'] = 'User Manual';
 $LANG['mnu_help_imprint'] = 'Imprint';
 $LANG['mnu_help_legend'] = 'Legend';
 $LANG['mnu_help_about'] = 'About ' . $appTitle;
+$LANG['mnu_theme'] = 'Theme';
+$LANG['mnu_theme_auto'] = 'Auto';
+$LANG['mnu_theme_dark'] = 'Dark Mode';
+$LANG['mnu_theme_light'] = 'Light Mode';
 $LANG['mnu_user_login'] = 'Login';
 $LANG['mnu_user_register'] = 'Register';
 $LANG['mnu_user_logout'] = 'Logout';
 $LANG['mnu_user_profile'] = 'Edit Profile';
+$LANG['mnu_width'] = 'Width';
+$LANG['mnu_width_narrow'] = 'Narrow Mode';
+$LANG['mnu_width_wide'] = 'Wide Mode';
 
 //
 // Messages
