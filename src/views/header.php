@@ -30,7 +30,7 @@ if (!defined('VALID_ROOT')) {
 
   <meta http-equiv="content-type" content="text/html;charset=utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="shortcut icon" href="images/icons/logo-16.png">
+  <link rel="shortcut icon" href="images/icons/tcn-icon-16.png">
 
   <!-- Robots -->
   <meta name="robots" content="<?= $htmlData['robots'] ?>">
@@ -46,13 +46,13 @@ if (!defined('VALID_ROOT')) {
     <meta property="og:description" content="<?= $htmlData['description'] ?>">
     <meta property="og:url" content="<?= WEBSITE_URL ?>/">
     <meta property="og:site_name" content="<?= $htmlData['title'] ?>">
-    <meta property="og:image" content="<?= WEBSITE_URL ?>/images/icons/logo-200.png">
+    <meta property="og:image" content="<?= WEBSITE_URL ?>/images/icons/tcn-icon-200.png">
     <meta property="og:image:width" content="200">
     <meta property="og:image:height" content="200">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:description" content="<?= $htmlData['description'] ?>">
     <meta name="twitter:title" content="<?= $htmlData['title'] ?>">
-    <meta name="twitter:image" content="<?= WEBSITE_URL ?>/images/icons/logo-200.png">
+    <meta name="twitter:image" content="<?= WEBSITE_URL ?>/images/icons/tcn-icon-200.png">
   <?php } ?>
 
   <!-- Theme CSS -->
