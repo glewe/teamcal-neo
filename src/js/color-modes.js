@@ -66,13 +66,13 @@
     myActiveThemeIcon.className = '';
     switch (theme) {
       case 'light':
-        myActiveThemeIcon.classList.add('theme-icon-active', 'bi', 'bi-sun-fill');
+        myActiveThemeIcon.classList.add('theme-icon-active', 'bi-sun-fill');
         break;
       case 'dark':
-        myActiveThemeIcon.classList.add('theme-icon-active', 'bi', 'bi-moon-stars-fill');
+        myActiveThemeIcon.classList.add('theme-icon-active', 'bi-moon-stars-fill');
         break;
       default:
-        myActiveThemeIcon.classList.add('theme-icon-active', 'bi', 'bi-circle-half');
+        myActiveThemeIcon.classList.add('theme-icon-active', 'bi-circle-half');
         break;
     }
     // End custom code
