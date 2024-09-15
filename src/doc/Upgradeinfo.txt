@@ -10,6 +10,7 @@ TEAMCAL NEO UPGRADE INFO
    - /addons/select2
    - /addons/x-editable
    - /themes/(all folders but 'bootstrap')
+   - /images/icons/logo-*.png
 
 3. Download the new release and overwrite all files.
 
