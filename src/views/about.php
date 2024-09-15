@@ -48,12 +48,12 @@ view.about
             <strong><?= $LANG['about_copyright'] ?>:</strong>&nbsp;&nbsp;&copy;&nbsp;<?= APP_YEAR ?> by <a class="about" href="https://www.lewe.com/" target="_blank" rel="noopener"><?= APP_AUTHOR ?></a><br>
             <strong><?= $LANG['about_license'] ?>:</strong>&nbsp;&nbsp;<a class="about" href="https://lewe.gitbook.io/teamcal-neo/readme/teamcal-neo-license" target="_blank" rel="noopener"><?= $LANG['license'] ?></a><br>
             <strong><?= $LANG['about_support'] ?>:</strong>&nbsp;&nbsp;<a class="about" href="https://georgelewe.atlassian.net/servicedesk/customer/portal/5" target="_blank" rel="noopener">Lewe Service Desk</a><br>
+            <strong><?= $LANG['about_issues'] ?>:</strong>&nbsp;&nbsp;<a class="about" href="https://github.com/glewe/teamcal-neo/issues" target="_blank" rel="noopener">GitHub Issues</a><br>
             <strong><?= $LANG['about_documentation'] ?>:</strong>&nbsp;&nbsp;<a class="about" href="https://lewe.gitbook.io/teamcal-neo/" target="_blank" rel="noopener">TeamCal Neo User Manual</a><br>
           </p>
           <h4><?= $LANG['about_credits'] ?>:</h4>
           <ul>
             <li>Bootstrap Team <?= $LANG['about_for'] ?> <a href="https://getbootstrap.com/" target="_blank" rel="noopener">Bootstrap Framework <?= BOOTSTRAP_VER ?></a> and <a href="https://icons.getbootstrap.com/" target="_blank" rel="noopener">Bootstrap Icons <?= BOOTSTRAP_ICONS_VER ?></a></li>
-            <li>Thomas Park <?= $LANG['about_for'] ?> <a href="https://bootswatch.com/" target="_blank" rel="noopener">Bootswatch Themes</a></li>
             <li>Nick Downie <?= $LANG['about_for'] ?> <a href="https://www.chartjs.org/" target="_blank" rel="noopener">Chart.js <?= CHARTJS_VER ?></a></li>
             <?php if (CKEDITOR) { ?>
               <li>CKSource <?= $LANG['about_for'] ?> <a href="https://ckeditor.com/" target="_blank" rel="noopener">CKEditor <?= CKEDITOR_VER ?></a></li>
@@ -65,7 +65,6 @@ view.about
             <li>Stefan Petre <?= $LANG['about_for'] ?> <a href="https://www.eyecon.ro/colorpicker/" target="_blank" rel="noopener">jQuery Color Picker</a></li>
             <li>Dimitri Semenov <?= $LANG['about_for'] ?> <a href="https://dimsemenov.com/plugins/magnific-popup/" target="_blank" rel="noopener">Magnific Popup <?= MAGNIFICPOPUP_VER ?></a></li>
             <li>Drew Phillips <?= $LANG['about_for'] ?> <a href="https://www.phpcaptcha.org/" target="_blank" rel="noopener">SecureImage <?= SECUREIMAGE_VER ?></a></li>
-            <li>Ahkâm <?= $LANG['about_for'] ?> the beautiful <a href="https://www.freeiconspng.com/img/4109" target="_blank" rel="noopener">Calendar Icon</a></li>
             <li>Iconshock Team <?= $LANG['about_for'] ?> <a href="https://www.iconshock.com/icon_sets/vector-user-icons/" target="_blank" rel="noopener">User Icons</a></li>
             <?php if (SYNTAXHIGHLIGHTER) { ?>
               <li>Alex Gorbatchev <?= $LANG['about_for'] ?> <a href="https://select2.github.io/" target="_blank" rel="noopener">Syntaxhighlighter <?= SYNTAXHIGHLIGHTER_VER ?></a></li>
@@ -84,7 +83,7 @@ view.about
         <div data-bs-toggle="collapse" href="#releaseInformation" role="button" aria-expanded="false" aria-controls="releaseInformation">
           <div class="row">
             <div class="col-lg-12">
-              <i class="bi-exclamation-circle-fill me-3"></i><?= $LANG['about_view_releaseinfo'] ?>...
+              <i class="bi-git me-3"></i><?= $LANG['about_view_releaseinfo'] ?>...
             </div>
           </div>
         </div>
