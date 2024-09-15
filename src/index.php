@@ -144,6 +144,7 @@ $userData['username'] = 'Public';
 $userData['roleid'] = '3'; // 3 = Public
 $userData['color'] = 'default';
 $userData['avatar'] = 'default_male.png';
+$userData['defaultMenu'] = $C->read('defaultMenu');
 //
 // Load all permissions into an array so there is no need to query the database for each permission
 //
@@ -176,6 +177,11 @@ if (L_USER && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['actio
   $userData['avatar'] = $UO->read($UL->username, 'avatar');
   if ($userData['avatar'] && !file_exists(APP_AVATAR_DIR . $userData['avatar'])) {
     $userData['avatar'] = 'default_' . $UO->read($UL->username, 'gender') . '.png';
+  }
+
+  $defaultMenu = $UO->read($UL->username, 'defaultMenu');
+  if ($defaultMenu) {
+    $userData['defaultMenu'] = $defaultMenu;
   }
 
   $userlang = $UO->read($UL->username, 'language');

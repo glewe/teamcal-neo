@@ -12,11 +12,10 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
-$useSidebar = false;
 ?>
 
 <?php
-if ($useSidebar) { ?>
+if ($userData['defaultMenu'] === 'sidebar') { ?>
   <script>
     document.body.style.paddingTop = '0';
   </script>

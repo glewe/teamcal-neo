@@ -305,6 +305,9 @@ if (!empty($_POST)) {
       //
       // Theme
       //
+      if ($_POST['opt_defaultMenu']) {
+        $C->save("defaultMenu", $_POST['opt_defaultMenu']);
+      }
       if ($_POST['sel_jqtheme']) {
         $C->save("jqtheme", $_POST['sel_jqtheme']);
       } else {
@@ -612,6 +615,7 @@ $viewData['fonts'][] = array( 'val' => 'roboto', 'name' => 'Roboto', 'selected' 
 
 $viewData['theme'] = array(
   array( 'prefix' => 'config', 'name' => 'theme', 'type' => 'infoWide', 'value' => '' ),
+  array( 'prefix' => 'config', 'name' => 'defaultMenu', 'type' => 'radio', 'values' => array( 'navbar', 'sidebar' ), 'value' => $C->read("defaultMenu") ),
   array( 'prefix' => 'config', 'name' => 'jqtheme', 'type' => 'list', 'values' => $viewData['jqueryUIThemeList'] ),
   array( 'prefix' => 'config', 'name' => 'jqthemeSample', 'type' => 'date', 'value' => '' ),
   array( 'prefix' => 'config', 'name' => 'font', 'type' => 'list', 'values' => $viewData['fonts'] ),
