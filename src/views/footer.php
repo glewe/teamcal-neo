@@ -21,7 +21,7 @@ view.footer
   <div class="container-fluid">
     <div class="row">
 
-      <div class="col-lg-4 col-md-4 col-sm-4 text-start w-33">
+      <div class="col-lg-3 col-md-3 col-sm-3 text-start">
         <ul class="list-unstyled">
           <?php
           $footerCopyright = "";
@@ -38,7 +38,7 @@ view.footer
         </ul>
       </div>
 
-      <div class="col-lg-4 col-md-4 col-sm-4 text-center w-33">
+      <div class="col-lg-6 col-md-6 col-sm-6 text-center">
         <ul class="list-unstyled">
           <li class="text-muted size"><a href="index.php?action=about"><?= $LANG['footer_about'] ?></a> | <a href="index.php?action=imprint"><?= $LANG['footer_imprint'] ?></a> | <a href="index.php?action=dataprivacy"><?= $LANG['footer_dataprivacy'] ?></a></li>
           <!-- As per the license agreement, you are not allowed to change or remove the following line! -->
@@ -46,7 +46,7 @@ view.footer
         </ul>
       </div>
 
-      <div class="col-lg-4 col-md-4 col-sm-4 text-end w-33">
+      <div class="col-lg-3 col-md-3 col-sm-3 text-end">
         <?php if (($urls = $C->read("footerSocialLinks")) && strlen($urls)) {
           $urlArray = explode(';', $urls);
           foreach ($urlArray as $url) {
