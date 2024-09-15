@@ -36,6 +36,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES (NULL, 'alertAutoclose
 INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES (NULL, 'alertAutocloseDanger', '0');
 INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES (NULL, 'alertAutocloseSuccess', '1');
 INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES (NULL, 'alertAutocloseWarning', '0');
+INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES (NULL, 'defaultMenu', 'navbar');
 
 INSERT INTO `tcneo_permissions` (`id`, `scheme`, `permission`, `role`, `allowed`) VALUES (NULL, 'default', 'patternedit', 1, 1);
 
