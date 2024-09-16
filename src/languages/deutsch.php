@@ -503,7 +503,8 @@ $LANG['config_licActivate_comment'] = "Deine Lizenz ist noch nicht aktiv. Bitte 
 $LANG['config_licExpiryWarning'] = "Lizenz-Ablaufwarnung";
 $LANG['config_licExpiryWarning_comment'] = "Gib die Anzahl der Tage bis zum Ablaufen der Lizenz ein, ab dem TeamCal Neo eine entsprechende Warnung anzeigen soll. Setze den Wert auf 0 f&uuml;r keine Warnung.";
 $LANG['config_licKey'] = "Lizenzschl&uuml;ssel";
-$LANG['config_licKey_comment'] = "Gib hier den Lizenzschl&uuml;ssel ein, den du bei der Registrierung von TeamCal Neo erhalten hast.";
+$LANG['config_licKey_comment'] = "Gib hier den Lizenzschl&uuml;ssel ein, den du bei der Registrierung von TeamCal Neo erhalten hast.<br><i class='bi-exclamation-triangle text-warning me-2'></i>
+<i>Ein neuer Lizenzschl&uuml;ssel muss zun&auml;chst mit [Speichern] gespeichert werden bevor eine Aktivierung, Registrierung oder De-Registrierung angestossen werden kann.</i>";
 $LANG['config_licRegister'] = "Domain Registrieren";
 $LANG['config_licRegister_comment'] = "Diese TeamCal Neo Domain is nicht f&uuml;r den angegebenen Lizenzschl&uuml;ssel registriert.<br>Wenn der Lizenzschl&uuml;ssel g&uuml;ltig ist und mehr als eine Domain erlaubt, klicke '" . $LANG['btn_register'] . "', um diese Domain hinzuzuf&uuml;gen. Andernfalls gib bitte einen neuen g&uuml;tigen Lizenzschl&uuml;ssel ein und klicke '" . $LANG['btn_apply'] . "'.";
 $LANG['config_licDeregister'] = "Domain De-Registrieren";

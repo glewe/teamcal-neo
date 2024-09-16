@@ -497,7 +497,8 @@ $LANG['config_licActivate_comment'] = "Your license is not active yet. Please ac
 $LANG['config_licExpiryWarning'] = "License Expiry Warning";
 $LANG['config_licExpiryWarning_comment'] = "Enter the number of days before license expiry at which TeamCal Neo should start showing a corresponding alert. Set to 0 for no alert.";
 $LANG['config_licKey'] = "License Key";
-$LANG['config_licKey_comment'] = "Enter your license key here. It was provided to you when you registered your TeamCal Neo instance.";
+$LANG['config_licKey_comment'] = "Enter your license key here. It was provided to you when you registered your TeamCal Neo instance.<br><i class='bi-exclamation-triangle text-warning me-2'></i>
+<i>A new license key must first be saved with the [Save] button before an Activation, Registration or De-Registration can be done.</i>";
 $LANG['config_licRegister'] = "Register Domain";
 $LANG['config_licRegister_comment'] = "This TeamCal Neo domain is not registered for the given license key.<br>If the license key is valid and allows for more than one domain,
  click the '" . $LANG['btn_register'] . "' button to add this domain. Otherwise, please enter a different valid license key and click '" . $LANG['btn_apply'] . "'.";
