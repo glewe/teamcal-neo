@@ -149,7 +149,7 @@ if (!empty($_POST)) {
       }
       $C->save("mailFrom", sanitize($_POST['txt_mailFrom']));
       if (validEmail($_POST['txt_mailReply'])) {
-        $C->save("mailReply", $_POST['txt_mailReply']);
+        $C->save("mailReply", sanitize($_POST['txt_mailReply']));
       } else {
         $C->save("mailReply", "noreply@teamcalneo.com");
       }
@@ -178,7 +178,7 @@ if (!empty($_POST)) {
       //
       $C->save("footerCopyright", sanitize($_POST['txt_footerCopyright']));
       if (strlen($_POST['txt_footerCopyrightUrl']) && filter_var($_POST['txt_footerCopyrightUrl'], FILTER_VALIDATE_URL)) {
-        $C->save("footerCopyrightUrl", $_POST['txt_footerCopyrightUrl']);
+        $C->save("footerCopyrightUrl", sanitize($_POST['txt_footerCopyrightUrl']));
       } else {
         $C->save("footerCopyrightUrl", "");
       }
@@ -203,9 +203,9 @@ if (!empty($_POST)) {
       //
       // License
       //
-      $LIC->saveKey(trim($_POST['txt_licKey']));
+      $LIC->saveKey(trim(sanitize($_POST['txt_licKey'])));
       if (strlen($_POST['txt_licExpiryWarning'])) {
-        $C->save("licExpiryWarning", intval($_POST['txt_licExpiryWarning']));
+        $C->save("licExpiryWarning", intval(sanitize($_POST['txt_licExpiryWarning'])));
       } else {
         $C->save("licExpiryWarning", 0);
       }
@@ -216,9 +216,9 @@ if (!empty($_POST)) {
       if ($_POST['opt_pwdStrength']) {
         $C->save("pwdStrength", $_POST['opt_pwdStrength']);
       }
-      $C->save("badLogins", intval($_POST['txt_badLogins']));
-      $C->save("gracePeriod", intval($_POST['txt_gracePeriod']));
-      $C->save("cookieLifetime", intval($_POST['txt_cookieLifetime']));
+      $C->save("badLogins", intval(sanitize($_POST['txt_badLogins'])));
+      $C->save("gracePeriod", intval(sanitize($_POST['txt_gracePeriod'])));
+      $C->save("cookieLifetime", intval(sanitize($_POST['txt_cookieLifetime'])));
       if (isset($_POST['chk_forceTfa']) && $_POST['chk_forceTfa']) {
         $C->save("forceTfa", "1");
       } else {
@@ -472,7 +472,7 @@ if (!empty($_POST)) {
 
       if ($response->result == "success") {
         //
-        // Domain deregistration success
+        // Domain de-registration success
         //
         $showAlert = true;
         $alertData['type'] = 'success';
@@ -482,7 +482,7 @@ if (!empty($_POST)) {
         $alertData['help'] = '';
       } else {
         //
-        // Domain deregistration failed
+        // Domain de-registration failed
         //
         $showAlert = true;
         $alertData['type'] = 'danger';

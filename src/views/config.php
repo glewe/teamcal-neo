@@ -231,7 +231,7 @@ view.config
           </div>
 
           <div class="mt-4 float-end">
-            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_confApply"><?= $LANG['btn_apply'] ?></button>
+            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_confApply"><?= $LANG['btn_save'] ?></button>
           </div>
 
         </div>
