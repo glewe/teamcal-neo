@@ -10,6 +10,7 @@ $cssFiles = [
   'font-montserrat.css',
   'font-opensans.css',
   'font-roboto.css',
+  'font-robotomono.css',
   'teamcalneo.css'
 ];
 
