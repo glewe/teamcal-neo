@@ -1,8 +1,8 @@
 ---
 name: New feature request
 about: Suggest a new feature for this project
-title: 'NEW FEATURE | '
-labels: "➤ OPEN"
+title: ''
+labels: "★ New Feature, ➤ OPEN"
 assignees: glewe
 
 ---
