@@ -62,6 +62,7 @@ if (!defined('VALID_ROOT')) {
     <!-- Fonts -->
     <link rel="stylesheet" href="css/font-<?= $C->read('font') ?>.min.css">
   <?php } ?>
+  <link rel="stylesheet" href="css/font-robotomono.min.css">
 
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="addons/bootstrap-icons-<?= BOOTSTRAP_ICONS_VER ?>/font/bootstrap-icons.min.css">
@@ -103,7 +104,7 @@ if (!defined('VALID_ROOT')) {
 
   <?php if (CKEDITOR) { ?>
     <!-- CKEditor -->
-    <script src="addons/ckeditor/ckeditor.js"></script>
+    <script src="<?= base_url() ?>addons/ckeditor/ckeditor.js"></script>
   <?php } ?>
 
   <?php if (MAGNIFICPOPUP) { ?>

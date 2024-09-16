@@ -25,7 +25,7 @@
         "keyframes-name-pattern": null,
         "property-disallowed-list": [
         ],
-        "selector-class-pattern": "^[a-z0-9\\-]+$",
+        "selector-class-pattern": "^[a-z0-9\\-_]+$",
         "selector-max-class": null,
         "selector-max-combinators": null,
         "selector-max-compound-selectors": null,
