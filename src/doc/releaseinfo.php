@@ -19,6 +19,7 @@ $releases = [
       [ 'summary' => 'Added Bootstrap Icons', 'issue' => '' ],
     ],
     'improvements' => [
+      [ 'summary' => 'Added RobotoMono font for monospaced texts', 'issue' => '' ],
       [ 'summary' => 'New TeamCal Neo icon', 'issue' => '' ],
       [ 'summary' => 'Faster permission check', 'issue' => '' ],
       [ 'summary' => 'Cleaner form button layout', 'issue' => '' ],
