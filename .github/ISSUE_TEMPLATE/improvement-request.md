@@ -1,8 +1,8 @@
 ---
 name: Improvement request
 about: Suggest and improvement to an existing feature
-title: 'IMPROVEMENT | '
-labels: ''
+title: ''
+labels: "☗ Improvement, ➤ OPEN"
 assignees: glewe
 
 ---
