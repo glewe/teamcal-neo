@@ -230,7 +230,7 @@ if (!empty($_POST)) {
       } else {
         $UO->save($profile, 'region', '1'); // Region "Default"
       }
-      if (isset($_POST['opt_gender'])) {
+      if (isset($_POST['opt_defaultMenu'])) {
         $UO->save($profile, 'defaultMenu', $_POST['opt_defaultMenu']);
       } else {
         $UO->save($profile, 'defaultMenu', 'navbar');

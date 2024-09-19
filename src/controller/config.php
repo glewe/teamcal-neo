@@ -305,8 +305,10 @@ if (!empty($_POST)) {
       //
       // Theme
       //
-      if ($_POST['opt_defaultMenu']) {
+      if (isset($_POST['opt_defaultMenu'])) {
         $C->save("defaultMenu", $_POST['opt_defaultMenu']);
+      } else {
+        $C->save("defaultMenu", 'navbar');
       }
       if ($_POST['sel_jqtheme']) {
         $C->save("jqtheme", $_POST['sel_jqtheme']);
