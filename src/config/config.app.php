@@ -67,14 +67,6 @@ define('SECUREIMAGE_VER', "3.6.4");
 define('CHARTJS_VER', "4.4.3");
 
 //
-// CKEditor
-// The best web text editor for everyone
-// https://ckeditor.com/
-//
-define('CKEDITOR', true);
-define('CKEDITOR_VER', "4.20.0");
-
-//
 // Cookie Consent by Silktide
 // https://silktide.com/cookieconsent
 //
