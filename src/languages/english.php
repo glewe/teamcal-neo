@@ -575,7 +575,8 @@ $LANG['config_versionCompare'] = 'Version Compare';
 $LANG['config_versionCompare_comment'] = 'With this option enabled, TeamCal Neo\'s About page will compare the running version with the newest version available. In order to do so,
  Internet access is necessary. If you are running TeamCal Neo in an environment where no Internet access is available, switch this option off. Available updates will be shown next to the version number.';
 $LANG['config_welcomeText'] = 'Welcome Page Text';
-$LANG['config_welcomeText_comment'] = 'Enter a text for the welcome message on the Home Page.';
+$LANG['config_welcomeText_comment'] = 'Enter a text for the welcome message on the Home Page. The following HTML tags are allowed:<br>
+&lt;a&gt;, &lt;b&gt;, &lt;br&gt;, &lt;em&gt;, &lt;h1&gt; to &lt;h4&gt;, &lt;hr&gt;, &lt;i&gt;, &lt;img&gt;, &lt;li&gt;, &lt;ol&gt;, &lt;p&gt;, &lt;strong&gt;, &lt;ul&gt;.';
 
 //
 // Config App
