@@ -198,7 +198,7 @@ if (!empty($_POST)) {
       if ($_POST['opt_defaultHomepage']) {
         $C->save("defaultHomepage", $_POST['opt_defaultHomepage']);
       }
-      $C->save("welcomeText", $_POST['txt_welcomeText']);
+      $C->save("welcomeText", sanitizeWithAllowedTags($_POST['txt_welcomeText']));
 
       //
       // License
@@ -566,7 +566,7 @@ $viewData['footer'] = array(
 $viewData['homepage'] = array(
   array( 'prefix' => 'config', 'name' => 'defaultHomepage', 'type' => 'radio', 'values' => array( 'home', 'calendarview' ), 'value' => $C->read("defaultHomepage") ),
   array( 'prefix' => 'config', 'name' => 'homepage', 'type' => 'radio', 'values' => array( 'home', 'calendarview', 'messages' ), 'value' => $C->read("homepage") ),
-  array( 'prefix' => 'config', 'name' => 'welcomeText', 'type' => 'ckeditor', 'value' => $C->read("welcomeText"), 'rows' => '10' ),
+  array( 'prefix' => 'config', 'name' => 'welcomeText', 'type' => 'textarea-wide', 'value' => $C->read("welcomeText"), 'rows' => '10', 'placeholder' => '' ),
 );
 
 $LIC->load();

@@ -968,6 +968,40 @@ function sanitize($input) {
 
 //-----------------------------------------------------------------------------
 /**
+ * Sanitizes input while allowing certain HTML tags.
+ *
+ * @param string $input The input string to sanitize.
+ * @param array $allowedTags Array of allowed HTML tags.
+ *
+ * @return string Sanitized string.
+ */
+function sanitizeWithAllowedTags($input) {
+  $allowedTags = [
+    '<a>',
+    '<b>',
+    '<br>',
+    '<em>',
+    '<h1>',
+    '<h2>',
+    '<h3>',
+    '<h4>',
+    '<hr>',
+    '<i>',
+    '<img>',
+    '<li>',
+    '<ol>',
+    '<p>',
+    '<strong>',
+    '<ul>',
+  ];
+  // Convert the array of allowed tags to a string
+  $allowedTagsString = implode('', $allowedTags);
+  // Strip tags except the allowed ones
+  return strip_tags($input, $allowedTagsString);
+}
+
+//-----------------------------------------------------------------------------
+/**
  * Checks whether a string starts with a given prefix
  *
  * @param string $haystack String to check

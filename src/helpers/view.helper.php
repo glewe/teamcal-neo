@@ -390,19 +390,19 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
       break;
 
     /**
-     * Textarea CKEditor
+     * Textarea wide
      */
-    case 'ckeditor':
+    case 'textarea-wide':
       $formGroup = '
-        <div class="form-group" id="form-group-' . $data['name'] . '">
-          <label for="' . $data['name'] . '" class="col-lg-12 control-label">
-          ' . $mandatory . $LANG[$langIdx1] . '<br>
-          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="control-label mb-2">
+            ' . $mandatory . $LANG[$langIdx1] . '<br>
+            <span class="text-normal">' . $LANG[$langIdx2] . '</span>
           </label>
-          <div class="col-lg-12">
-          <textarea id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" rows="' . $data['rows'] . '"' . $disabled . '>' . $data['value'] . '</textarea>
-          <script>CKEDITOR.replace( "' . $data['name'] . '" );</script>
-          ' . $button . $error . '</div>
+          <div>
+            <textarea style="font-family: RobotoMono, monospace;" id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" rows="' . $data['rows'] . '" placeholder="' . $data['placeholder'] . '" ' . $disabled . '>' . $data['value'] . '</textarea>
+            ' . $button . $error . '
+          </div>
         </div>
         <div class="divider"><hr></div>';
       break;
