@@ -77,7 +77,7 @@ define('COOKIECONSENT_VER', "3.1.1");
 // Magnific Popup is a responsive lightbox & dialog script
 // https://dimsemenov.com/plugins/magnific-popup/
 //
-define('MAGNIFICPOPUP', true);
+define('MAGNIFICPOPUP', false);
 define('MAGNIFICPOPUP_VER', "1.1.0");
 
 //
@@ -149,8 +149,8 @@ define('LDAP_TLS', 0);                                       // To avoid "Undefi
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "4.0.0-beta");
-define('APP_DATE', "2024-09-15");
+define('APP_VER', "4.0.0");
+define('APP_DATE', "2024-09-20");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "https://www.lewe.com");

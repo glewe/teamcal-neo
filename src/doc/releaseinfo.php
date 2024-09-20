@@ -29,6 +29,7 @@ $releases = [
       [ 'summary' => 'Database optimizations', 'issue' => '' ],
     ],
     'removals' => [
+      [ 'summary' => 'Removed CKEditor (outdated, faulty)', 'issue' => '' ],
       [ 'summary' => 'Removed Banner option (outdated feature)', 'issue' => '' ],
       [ 'summary' => 'Removed Bootswatch user themes (unnecessary maintenance)', 'issue' => '' ],
       [ 'summary' => 'Removed X-editable addon (unused)', 'issue' => '' ],
