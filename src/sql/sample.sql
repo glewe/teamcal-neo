@@ -672,7 +672,7 @@ INSERT INTO `tcneo_config` (`id`, `name`, `value`) VALUES
 (193, 'gdprTwitter', '0'),
 (194, 'gdprXing', '1'),
 (195, 'gdprYoutube', '0'),
-(196, 'licKey', 'TCN-66e832f6e49bd'),
+(196, 'licKey', ''),
 (197, 'licExpiryWarning', '30'),
 (198, 'cookieConsentCDN', '0'),
 (199, 'logCalendar', '1'),

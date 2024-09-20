@@ -3,7 +3,7 @@ $releases = [
   //---------------------------------------------------------------------------
   [
     'version' => '4.0.0',
-    'date' => '2024-09-xx',
+    'date' => '2024-09-20',
     'info' => 'This is a new major release of TeamCal Neo. It comes with several interface changes and retires the custom themes that needed too much effort to maintain compared to their benefit.',
     'bugfixes' => [
       [ 'summary' => 'Fixed Bootstrap 5 class bugs', 'issue' => '' ],
