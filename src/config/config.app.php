@@ -36,7 +36,7 @@ define('APP_IMP_DIR', "upload/import/");
 // Set this to 0 if you want to run the installation.php script again.
 // If not, you need to delete or rename the installation.php file.
 //
-define('APP_INSTALLED', "1");
+define('APP_INSTALLED', "0");
 
 //
 // The cookie prefix to be used on the browser client's device
