@@ -20,7 +20,7 @@ TeamCal Neo is a day-based online calendar that allows to easily manage your tea
 
 TeamCal Neo 4 is the new major installment fo the popular calendar. It was completely overworked with optimizations, new features but also removals of obsolete components.
 
-Read details on the release page here in GitHub.
+Read details on the release page here on GitHub.
 
 
 ## Demo
