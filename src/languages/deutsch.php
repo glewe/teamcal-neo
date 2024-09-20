@@ -1144,11 +1144,11 @@ $LANG['profile_custom4'] = $C->read('userCustom4');
 $LANG['profile_custom4_comment'] = 'Gib einen Text von maximal 80 Zeichen ein.';
 $LANG['profile_custom5'] = $C->read('userCustom5');
 $LANG['profile_custom5_comment'] = 'Gib einen Text von maximal 80 Zeichen ein.';
-$LANG['config_defaultMenu'] = 'Men&uuml; Position';
-$LANG['config_defaultMenu_comment'] = 'Das TeamCal Neo Men&uuml; kann entweder als horizontales Men&uuml; oben oder als vertikales Men&uuml; links angezeigt werden.
+$LANG['profile_defaultMenu'] = 'Men&uuml; Position';
+$LANG['profile_defaultMenu_comment'] = 'Das TeamCal Neo Men&uuml; kann entweder als horizontales Men&uuml; oben oder als vertikales Men&uuml; links angezeigt werden.
  Das vertikale Men&uuml; links eignet sich nur f&uuml;r breite Bidschirme, das horizontale Men&uuml; passt sich auch an schmale Bildschirme an (responsive).';
-$LANG['config_defaultMenu_navbar'] = 'Horizontal Oben';
-$LANG['config_defaultMenu_sidebar'] = 'Vertikal Links';
+$LANG['profile_defaultMenu_navbar'] = 'Horizontal Oben';
+$LANG['profile_defaultMenu_sidebar'] = 'Vertikal Links';
 $LANG['profile_email'] = 'E-Mail';
 $LANG['profile_email_comment'] = '';
 $LANG['profile_facebook'] = 'Facebook';

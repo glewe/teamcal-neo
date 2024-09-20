@@ -31,11 +31,15 @@ if (!isAllowed($CONF['controllers'][$controller]->permission) && !$UG->isGroupMa
 //
 // CHECK LICENSE
 //
-$alertData = array();
-$showAlert = false;
-$licExpiryWarning = $C->read('licExpiryWarning');
-$LIC = new License();
-$LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
+$date = new DateTime();
+$weekday = $date->format('N');
+if ($weekday == rand(1, 7)) {
+  $alertData = array();
+  $showAlert = false;
+  $licExpiryWarning = $C->read('licExpiryWarning');
+  $LIC = new License();
+  $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
+}
 
 //=============================================================================
 //
