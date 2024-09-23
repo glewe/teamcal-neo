@@ -2,7 +2,7 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: "➤ OPEN"
+labels: 'status: ➤ OPEN, type: ⚑ Bug'
 assignees: glewe
 
 ---
