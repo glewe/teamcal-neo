@@ -37,7 +37,7 @@ if (!defined('VALID_ROOT')) {
 
   <?php if (!$C->read('noIndex')) { ?>
     <!-- SEO -->
-    <link rel="canonical" href="<?= base_url() ?>">
+    <link rel="canonical" href="<?= WEBSITE_URL ?>">
     <meta name="description" content="<?= $htmlData['description'] ?>">
     <meta name="keywords" content="<?= $htmlData['keywords'] ?>">
 
@@ -45,14 +45,14 @@ if (!defined('VALID_ROOT')) {
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?= $htmlData['title'] ?>">
     <meta property="og:description" content="<?= $htmlData['description'] ?>">
-    <meta property="og:url" content="<?= base_url() ?>">
+    <meta property="og:url" content="<?= WEBSITE_URL ?>">
     <meta property="og:site_name" content="<?= $htmlData['title'] ?>">
-    <meta property="og:image" content="<?= base_url() ?>images/og-image.png">
+    <meta property="og:image" content="<?= WEBSITE_URL ?>images/og-image.png">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?= $htmlData['title'] ?>">
     <meta name="twitter:description" content="<?= $htmlData['description'] ?>">
-    <meta name="twitter:image" content="<?= base_url() ?>images/twitter-image.png">
+    <meta name="twitter:image" content="<?= WEBSITE_URL ?>images/twitter-image.png">
   <?php } ?>
 
   <!-- Theme CSS -->
