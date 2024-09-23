@@ -5,7 +5,7 @@
       <i class="bi-calendar-week navbar-logo logo-gradient"></i>
     </button>
     <div class="sidebar-logo">
-      <a href="<?= base_url() . 'index.php?action=' . $CONF['controllers']['home']->name ?>"><?= APP_NAME ?></a>
+      <a href="<?= WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['home']->name ?>"><?= APP_NAME ?></a>
     </div>
   </div>
   <ul class="sidebar-nav">
@@ -19,7 +19,7 @@
       <ul id="home" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
         <?php
         $item = [
-          'url' => base_url() . 'index.php?action=' . $CONF['controllers']['home']->name,
+          'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['home']->name,
           'icon' => $CONF['controllers']['home']->faIcon,
           'label' => $LANG['mnu_app_homepage']
         ];
@@ -28,7 +28,7 @@
         <?php if ($userData['isLoggedIn']) {
           foreach ($appLanguages as $appLang) {
             $item = [
-              'url' => base_url() . 'index.php?' . str_replace('&', '&amp;', $_SERVER['QUERY_STRING']) . '&amp;applang=' . $appLang,
+              'url' => WEBSITE_URL . '/index.php?' . str_replace('&', '&amp;', $_SERVER['QUERY_STRING']) . '&amp;applang=' . $appLang,
               'icon' => 'bi-translate',
               'label' => proper($appLang),
             ];
@@ -65,7 +65,7 @@
               $urlparams = "";
             }
             $item = [
-              'url' => base_url() . 'index.php?action=' . $CONF['controllers']['calendarview']->name . $urlparams,
+              'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['calendarview']->name . $urlparams,
               'icon' => $CONF['controllers']['calendarview']->faIcon,
               'label' => $LANG['mnu_view_calendar']
             ];
@@ -73,7 +73,7 @@
           }
           if (isAllowed($CONF['controllers']['year']->permission)) {
             $item = [
-              'url' => base_url() . 'index.php?action=' . $CONF['controllers']['year']->name . '&amp;year=' . date('Y') . '&amp;region=1&amp;user=' . $UL->username,
+              'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['year']->name . '&amp;year=' . date('Y') . '&amp;region=1&amp;user=' . $UL->username,
               'icon' => $CONF['controllers']['year']->faIcon,
               'label' => $LANG['mnu_view_year']
             ];
@@ -81,7 +81,7 @@
           }
           if (isAllowed($CONF['controllers']['remainder']->permission)) {
             $item = [
-              'url' => base_url() . 'index.php?action=' . $CONF['controllers']['remainder']->name,
+              'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['remainder']->name,
               'icon' => $CONF['controllers']['remainder']->faIcon,
               'label' => $LANG['mnu_view_remainder']
             ];
@@ -89,7 +89,7 @@
           }
           if (isAllowed($CONF['controllers']['messages']->permission)) {
             $item = [
-              'url' => base_url() . 'index.php?action=' . $CONF['controllers']['messages']->name,
+              'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['messages']->name,
               'icon' => $CONF['controllers']['messages']->faIcon,
               'label' => $LANG['mnu_view_messages']
             ];
@@ -97,7 +97,7 @@
           }
           if (isAllowed($CONF['controllers']['statsabsence']->permission)) {
             $item = [
-              'url' => base_url() . 'index.php?action=' . $CONF['controllers']['statsabsence']->name,
+              'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['statsabsence']->name,
               'icon' => $CONF['controllers']['statsabsence']->faIcon,
               'label' => $LANG['mnu_view_stats_absences']
             ];
@@ -105,7 +105,7 @@
           }
           if (isAllowed($CONF['controllers']['statspresence']->permission)) {
             $item = [
-              'url' => base_url() . 'index.php?action=' . $CONF['controllers']['statspresence']->name,
+              'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['statspresence']->name,
               'icon' => $CONF['controllers']['statspresence']->faIcon,
               'label' => $LANG['mnu_view_stats_presences']
             ];
@@ -113,7 +113,7 @@
           }
           if (isAllowed($CONF['controllers']['statsabstype']->permission)) {
             $item = [
-              'url' => base_url() . 'index.php?action=' . $CONF['controllers']['statsabstype']->name,
+              'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['statsabstype']->name,
               'icon' => $CONF['controllers']['statsabstype']->faIcon,
               'label' => $LANG['mnu_view_stats_abstype']
             ];
@@ -121,7 +121,7 @@
           }
           if (isAllowed($CONF['controllers']['statsremainder']->permission)) {
             $item = [
-              'url' => base_url() . 'index.php?action=' . $CONF['controllers']['statsremainder']->name,
+              'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['statsremainder']->name,
               'icon' => $CONF['controllers']['statsremainder']->faIcon,
               'label' => $LANG['mnu_view_stats_remainder']
             ];
@@ -129,7 +129,7 @@
           }
           if (isAllowed($CONF['controllers']['absum']->permission)) {
             $item = [
-              'url' => base_url() . 'index.php?action=' . $CONF['controllers']['absum']->name . '&amp;user=' . $userData['username'],
+              'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['absum']->name . '&amp;user=' . $userData['username'],
               'icon' => $CONF['controllers']['absum']->faIcon,
               'label' => $LANG['mnu_view_stats_absum']
             ];
@@ -155,25 +155,25 @@
         <ul id="edit" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
           <?php
           if (isAllowed($CONF['controllers']['calendaredit']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['calendaredit']->name . '&amp;month=' . date('Y') . date('m') . '&amp;region=1&amp;user=' . $userData['username'],
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['calendaredit']->name . '&amp;month=' . date('Y') . date('m') . '&amp;region=1&amp;user=' . $userData['username'],
               'icon' => $CONF['controllers']['calendaredit']->faIcon,
               'label' => $LANG['mnu_edit_calendaredit'] ];
             echo createSidebarItem($item);
           }
           if (isAllowed($CONF['controllers']['monthedit']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['monthedit']->name . '&amp;month=' . date('Y') . date('m') . '&amp;region=1',
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['monthedit']->name . '&amp;month=' . date('Y') . date('m') . '&amp;region=1',
               'icon' => $CONF['controllers']['monthedit']->faIcon,
               'label' => $LANG['mnu_edit_monthedit'] ];
             echo createSidebarItem($item);
           }
           if (isAllowed($CONF['controllers']['messageedit']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['messageedit']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['messageedit']->name,
               'icon' => $CONF['controllers']['messageedit']->faIcon,
               'label' => $LANG['mnu_edit_messageedit'] ];
             echo createSidebarItem($item);
           }
           if (isAllowed($CONF['controllers']['attachments']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['attachments']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['attachments']->name,
               'icon' => $CONF['controllers']['attachments']->faIcon,
               'label' => $LANG['mnu_edit_attachments'] ];
             echo createSidebarItem($item);
@@ -201,43 +201,43 @@
         <ul id="caladmin" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
           <?php
           if (isAllowed($CONF['controllers']['absences']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['absences']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['absences']->name,
               'icon' => $CONF['controllers']['absences']->faIcon,
               'label' => $LANG['mnu_admin_absences'] ];
             echo createSidebarItem($item);
           }
           if (isAllowed($CONF['controllers']['holidays']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['holidays']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['holidays']->name,
               'icon' => $CONF['controllers']['holidays']->faIcon,
               'label' => $LANG['mnu_admin_holidays'] ];
             echo createSidebarItem($item);
           }
           if (isAllowed($CONF['controllers']['regions']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['regions']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['regions']->name,
               'icon' => $CONF['controllers']['regions']->faIcon,
               'label' => $LANG['mnu_admin_regions'] ];
             echo createSidebarItem($item);
           }
           if (isAllowed($CONF['controllers']['patterns']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['patterns']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['patterns']->name,
               'icon' => $CONF['controllers']['patterns']->faIcon,
               'label' => $LANG['mnu_admin_patterns'] ];
             echo createSidebarItem($item);
           }
           if (isAllowed($CONF['controllers']['bulkedit']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['bulkedit']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['bulkedit']->name,
               'icon' => $CONF['controllers']['bulkedit']->faIcon,
               'label' => $LANG['mnu_admin_bulkedit'] ];
             echo createSidebarItem($item);
           }
           if (isAllowed($CONF['controllers']['declination']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['declination']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['declination']->name,
               'icon' => $CONF['controllers']['declination']->faIcon,
               'label' => $LANG['mnu_admin_declination'] ];
             echo createSidebarItem($item);
           }
           if (isAllowed($CONF['controllers']['calendaroptions']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['calendaroptions']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['calendaroptions']->name,
               'icon' => $CONF['controllers']['calendaroptions']->faIcon,
               'label' => $LANG['mnu_admin_calendaroptions'] ];
             echo createSidebarItem($item);
@@ -266,49 +266,49 @@
         <ul id="admin" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
           <?php
           if (isAllowed($CONF['controllers']['config']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['config']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['config']->name,
               'icon' => $CONF['controllers']['config']->faIcon,
               'label' => $LANG['mnu_admin_config'] ];
             echo createSidebarItem($item);
           }
           if (isAllowed($CONF['controllers']['permissions']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['permissions']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['permissions']->name,
               'icon' => $CONF['controllers']['permissions']->faIcon,
               'label' => $LANG['mnu_admin_perm'] ];
             echo createSidebarItem($item);
           }
           if (isAllowed($CONF['controllers']['users']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['users']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['users']->name,
               'icon' => $CONF['controllers']['users']->faIcon,
               'label' => $LANG['mnu_admin_users'] ];
             echo createSidebarItem($item);
           }
           if (isAllowed($CONF['controllers']['groups']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['groups']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['groups']->name,
               'icon' => $CONF['controllers']['groups']->faIcon,
               'label' => $LANG['mnu_admin_groups'] ];
             echo createSidebarItem($item);
           }
           if (isAllowed($CONF['controllers']['roles']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['roles']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['roles']->name,
               'icon' => $CONF['controllers']['roles']->faIcon,
               'label' => $LANG['mnu_admin_roles'] ];
             echo createSidebarItem($item);
           }
           if (isAllowed($CONF['controllers']['database']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['database']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['database']->name,
               'icon' => $CONF['controllers']['database']->faIcon,
               'label' => $LANG['mnu_admin_database'] ];
             echo createSidebarItem($item);
           }
           if (isAllowed($CONF['controllers']['log']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['log']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['log']->name,
               'icon' => $CONF['controllers']['log']->faIcon,
               'label' => $LANG['mnu_admin_systemlog'] ];
             echo createSidebarItem($item);
           }
           if (isAllowed($CONF['controllers']['phpinfo']->permission)) {
-            $item = [ 'url' => base_url() . 'index.php?action=' . $CONF['controllers']['phpinfo']->name,
+            $item = [ 'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['phpinfo']->name,
               'icon' => $CONF['controllers']['phpinfo']->faIcon,
               'label' => $LANG['mnu_admin_phpinfo'] ];
             echo createSidebarItem($item);
@@ -336,20 +336,20 @@
         }
         if ($C->read("gdprPolicyPage")) {
           $item = [
-            'url' => base_url() . 'index.php?action=dataprivacy',
+            'url' => WEBSITE_URL . '/index.php?action=dataprivacy',
             'icon' => 'bi-shield-shaded',
             'label' => $LANG['mnu_help_dataprivacy']
           ];
           echo createSidebarItem($item);
         }
         $item = [
-          'url' => base_url() . 'index.php?action=imprint',
+          'url' => WEBSITE_URL . '/index.php?action=imprint',
           'icon' => 'bi-vector-pen',
           'label' => $LANG['mnu_help_imprint']
         ];
         echo createSidebarItem($item);
         $item = [
-          'url' => base_url() . 'index.php?action=about',
+          'url' => WEBSITE_URL . '/index.php?action=about',
           'icon' => 'bi-calendar-week logo-gradient',
           'label' => $LANG['mnu_help_about']
         ];
@@ -372,14 +372,14 @@
         <?php
         if (!$userData['isLoggedIn']) {
           $item = [
-            'url' => base_url() . 'index.php?action=' . $CONF['controllers']['login']->name,
+            'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['login']->name,
             'icon' => 'bi-box-arrow-in-right',
             'label' => $LANG['mnu_user_login']
           ];
           echo createSidebarItem($item);
           if (!empty($settings) && $settings['allowRegistration']) {
             $item = [
-              'url' => base_url() . 'index.php?action=' . $CONF['controllers']['register']->name,
+              'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['register']->name,
               'icon' => 'bi-person-fill-add',
               'label' => $LANG['mnu_user_register']
             ];
@@ -387,13 +387,13 @@
           }
         } else {
           $item = [
-            'url' => base_url() . 'index.php?action=' . $CONF['controllers']['useredit']->name . '&amp;profile=' . $userData['username'],
+            'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['useredit']->name . '&amp;profile=' . $userData['username'],
             'icon' => 'bi-person-square',
             'label' => $LANG['mnu_user_profile']
           ];
           echo createSidebarItem($item);
           $item = [
-            'url' => base_url() . 'index.php?action=' . $CONF['controllers']['logout']->name,
+            'url' => WEBSITE_URL . '/index.php?action=' . $CONF['controllers']['logout']->name,
             'icon' => 'bi-box-arrow-left',
             'label' => $LANG['mnu_user_logout']
           ];
