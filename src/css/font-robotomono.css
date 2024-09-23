@@ -17,7 +17,3 @@
   src: local(''),
   url('../fonts/RobotoMono-Italic-VariableFont_wght.ttf') format('ttf');
 }
-
-body {
-  font-family: "RobotoMono", sans-serif !important;
-}
