@@ -26,6 +26,25 @@ if (!defined('VALID_ROOT')) {
                All rights reserved.
   ===============================================================================
   -->
+
+  <?php
+  if ($C->read("googleAnalytics") && $C->read("googleAnalyticsID")) {
+    $gatag = $C->read("googleAnalyticsID");
+    ?>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $gatag ?>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag('js', new Date());
+      gtag('config', '<?= $gatag ?>');
+    </script>
+  <?php } ?>
+
   <title><?= $htmlData['title'] ?></title>
 
   <meta http-equiv="content-type" content="text/html;charset=utf-8">
@@ -99,7 +118,7 @@ if (!defined('VALID_ROOT')) {
   <script src="js/colorpicker/js/colorpicker.js"></script>
 
   <!--Datatables CSS-->
-<!--    <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.2/b-3.1.0/b-html5-3.1.0/r-3.0.2/datatables.min.css" rel="stylesheet">-->
+  <!--    <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.2/b-3.1.0/b-html5-3.1.0/r-3.0.2/datatables.min.css" rel="stylesheet">-->
   <link href="addons/datatables/datatables.min.css" rel="stylesheet">
 
   <?php if (MAGNIFICPOPUP) { ?>
@@ -165,42 +184,6 @@ if (!defined('VALID_ROOT')) {
         padding: 5px 0 5px 0;
       }
     </style>
-  <?php } ?>
-
-  <?php if ($C->read("googleAnalytics") && $C->read("googleAnalyticsID")) { ?>
-    <!--Begin: Google Analytics GA4-->
-    <script>
-      // Define dataLayer and the gtag function.
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      // Set default consents to 'denied'
-      // Set analytic consent to 'granted' (see Imprint page for opt-out option)
-      gtag('consent', 'default', {
-        'ad_storage': 'denied',
-        'ad_user_data': 'denied',
-        'ad_personalization': 'denied',
-        'analytics_storage': 'granted'
-      });
-    </script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $C->read("googleAnalyticsID") ?>"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', '<?= $C->read("googleAnalyticsID") ?>');
-      // Opt out to GA
-      function gaOptout() {
-        gtag('consent', 'update', {
-          'analytics_storage': 'denied'
-        });
-      }
-    </script>
-    <!--End: Google Analytics GA4-->
   <?php } ?>
 
 </head>
