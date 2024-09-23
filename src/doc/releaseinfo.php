@@ -487,7 +487,7 @@ $releases = [
   <?php foreach ($releases as $release) { ?>
     <li>
       <div class="card mb-3">
-        <div class="card-header"><i class="bi-box me-3"></i>Release <?= $release['version'] ?><span class="float-end"><i class="bi-calendar me-3"></i><?= $release['date'] ?></span></div>
+        <div class="card-header"><i class="bi bi-box bi-lg me-3"></i>Release <?= $release['version'] ?><span class="float-end"><i class="bi bi-calendar bi-lg me-3"></i><?= $release['date'] ?></span></div>
         <div class="card-body">
 
           <?php if (strlen($release['info'])) { ?>
@@ -498,7 +498,7 @@ $releases = [
             <h6><?= $LANG['about_bugfixes'] ?></h6>
             <ul>
               <?php foreach ($release['bugfixes'] as $bugfix) { ?>
-                <li><?= $bugfix['summary'] ?><?= (strlen($bugfix['issue']) ? ' ( <a href="' . $bugfix['issue'] . '" target="_blank"><i class="bi-box-arrow-up-right me-1"></i>Issue</a> )' : '') ?></li>
+                <li><?= $bugfix['summary'] ?><?= (strlen($bugfix['issue']) ? ' ( <a href="' . $bugfix['issue'] . '" target="_blank"><i class="bi bi-box-arrow-up-right me-1"></i>Issue</a> )' : '') ?></li>
               <?php } ?>
             </ul>
           <?php } ?>

@@ -94,7 +94,7 @@ view.statsabstype
     <?php
     $pageHelp = '';
     if ($C->read('pageHelp')) {
-      $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+      $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
     }
     ?>
     <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>">
