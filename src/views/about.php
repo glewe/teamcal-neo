@@ -34,12 +34,12 @@ view.about
       <?php
       $pageHelp = '';
       if ($C->read('pageHelp')) {
-        $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="fas fa-question-circle fa-lg"></i></a>';
+        $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
       }
       ?>
-      <div class="card-header"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['mnu_help_about'] ?><?= $pageHelp ?></div>
+      <div class="card-header"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> bi-lg me-3"></i><?= $LANG['mnu_help_about'] ?><?= $pageHelp ?></div>
       <div class="card-body row">
-        <div class="col-lg-2 text-center pt-0 mt-0"><i class="bi-calendar-week fa-8x logo-gradient"></i>
+        <div class="col-lg-2 text-center pt-0 mt-0"><i class="bi-calendar-week bi-8x logo-gradient"></i>
         </div>
         <div class="col-lg-10 mt-4">
           <h4><?= APP_NAME ?></h4>
@@ -80,7 +80,7 @@ view.about
         <div data-bs-toggle="collapse" href="#releaseInformation" role="button" aria-expanded="false" aria-controls="releaseInformation">
           <div class="row">
             <div class="col-lg-12">
-              <i class="bi-git me-3"></i><?= $LANG['about_view_releaseinfo'] ?>...
+              <i class="bi bi-git bi-lg me-3"></i><?= $LANG['about_view_releaseinfo'] ?>...
             </div>
           </div>
         </div>
