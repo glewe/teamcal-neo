@@ -14,7 +14,6 @@ if (!defined('VALID_ROOT')) {
  */
 ?>
 <!DOCTYPE html>
-<!-- Theme CSS -->
 <html lang="<?= $LANG['html_locale'] ?>" data-bs-theme="auto" data-width="narrow">
 <head>
   <!--
