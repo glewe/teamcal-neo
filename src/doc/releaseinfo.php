@@ -2,6 +2,22 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '4.0.1',
+    'date' => '2024-09-xx',
+    'info' => '',
+    'bugfixes' => [
+      [ 'summary' => 'Fixed global font option not working', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/9' ],
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Updated Google Analytics script', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '4.0.0',
     'date' => '2024-09-20',
     'info' => 'This is a new major release of TeamCal Neo. It comes with several interface changes and retires the custom themes that needed too much effort to maintain compared to their benefit.',
