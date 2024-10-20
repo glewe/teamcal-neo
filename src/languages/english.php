@@ -390,6 +390,7 @@ $LANG['config_activateMessages_comment'] = 'This option will activate the Messag
 $LANG['config_adminApproval'] = 'Require Admin Approval';
 $LANG['config_adminApproval_comment'] = 'The administrator will receive an e-mail about each user self-registration. He manually needs to confirm the account.';
 $LANG['config_alert_edit_success'] = 'The configuration was updated. For some changes to take effect, you may need to refresh the page.';
+$LANG['config_alert_failed'] = 'The configuration could not be updated. Please check your input.';
 $LANG['config_alertAutocloseDanger'] = 'Close Error Alerts automatically';
 $LANG['config_alertAutocloseDanger_comment'] = 'Select whether Error alerts shall be automatically closed after the amount of milliseconds specified below.';
 $LANG['config_alertAutocloseDelay'] = 'Alert Autoclose Delay';

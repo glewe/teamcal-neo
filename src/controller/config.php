@@ -502,7 +502,7 @@ if (!empty($_POST)) {
     $alertData['type'] = 'danger';
     $alertData['title'] = $LANG['alert_danger_title'];
     $alertData['subject'] = $LANG['alert_input'];
-    $alertData['text'] = $LANG['register_alert_failed'];
+    $alertData['text'] = $LANG['config_alert_failed'];
     $alertData['help'] = '';
   }
 }
