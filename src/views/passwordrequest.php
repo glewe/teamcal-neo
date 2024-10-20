@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Password Request View
  *
@@ -13,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 ?>
-
 <!-- ====================================================================
 view.passwordrequest
 -->
@@ -48,6 +44,7 @@ view.passwordrequest
         <div class="card-body">
           <div class="col-lg-12">
             <form id="login" action="index.php?action=<?= $controller ?>" method="post" target="_self" name="loginform" accept-charset="utf-8">
+              <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
               <fieldset>
                 <div class="form-group row" style="padding-bottom: <?= $paddingBottom ?>;">
                   <label class="col-lg-<?= $colsleft ?> control-label"><?= $LANG['pwdreq_email'] ?></label>

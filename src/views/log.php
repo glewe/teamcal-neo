@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Log View
  *
@@ -33,6 +30,7 @@ view.log
     ?>
 
     <form class="form-control-horizontal" action="index.php?action=log&amp;sort=<?= $viewData['sort'] ?>" method="post" target="_self" accept-charset="utf-8">
+      <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
 
       <div class="card">
         <?php

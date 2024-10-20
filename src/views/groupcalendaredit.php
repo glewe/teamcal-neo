@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Group Calendar Edit View
  *
@@ -13,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 ?>
-
 <!-- ====================================================================
 view.groupcalendaredit
 -->
@@ -32,7 +28,7 @@ view.groupcalendaredit
   ?>
 
   <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>&amp;month=<?= $viewData['year'] . $viewData['month'] ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>" method="post" target="_self" accept-charset="utf-8">
-
+    <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
     <input name="hidden_month" type="hidden" class="text" value="<?= $viewData['month'] ?>">
     <input name="hidden_region" type="hidden" class="text" value="<?= $viewData['regionid'] ?>">
 

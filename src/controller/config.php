@@ -1,4 +1,16 @@
 <?php
+global $appJqueryUIThemes;
+global $appLanguages;
+global $C;
+global $CONF;
+global $controller;
+global $LANG;
+global $LOG;
+global $logLanguages;
+global $P;
+global $timezones;
+global $UL;
+
 if (!defined('VALID_ROOT')) {
   exit('');
 }
@@ -13,8 +25,7 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
 if (!isAllowed($CONF['controllers'][$controller]->permission)) {
@@ -27,8 +38,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
   die();
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK LICENSE
 //
 $alertData = array();
@@ -37,25 +47,41 @@ $licExpiryWarning = $C->read('licExpiryWarning');
 $LIC = new License();
 $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // PROCESS FORM
 //
-if (!empty($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+
+  //
+  // CSRF token check
+  //
+  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+    $alertData['type'] = 'warning';
+    $alertData['title'] = $LANG['alert_alert_title'];
+    $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
+    $alertData['text'] = $LANG['alert_csrf_invalid_text'];
+    $alertData['help'] = $LANG['alert_csrf_invalid_help'];
+    require_once WEBSITE_ROOT . '/controller/alert.php';
+    die();
+  }
+
   //
   // Sanitize input
   //
-  //$_POST = sanitize($_POST); // Will cripple CKEditor input
+  foreach ($_POST as $key => $value) {
+    $_POST[$key] = trim($value);
+    if (str_starts_with($key, 'txt_') && $key !== 'txt_welcomeText') {
+      $_POST[$key] = sanitize($value);
+    }
+  }
 
   //
   // Form validation
@@ -472,7 +498,7 @@ if (!empty($_POST)) {
     elseif (isset($_POST['btn_licDeregister'])) {
       $response = $LIC->deactivate();
 
-      if ($response->result == "success") {
+      if ($response->result === "success") {
         //
         // Domain de-registration success
         //
@@ -507,7 +533,7 @@ if (!empty($_POST)) {
   }
 }
 
-//=============================================================================
+//-----------------------------------------------------------------------------
 //
 // PREPARE VIEW
 //
@@ -638,7 +664,7 @@ $viewData['gdpr'] = array(
   array( 'prefix' => 'config', 'name' => 'gdprOfficer', 'type' => 'textarea', 'value' => $C->read("gdprOfficer"), 'rows' => 5, 'placeholder' => "John Doe\nPhone\nEmail" ),
 );
 
-//=============================================================================
+//-----------------------------------------------------------------------------
 //
 // SHOW VIEW
 //

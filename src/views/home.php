@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Home View
  *
@@ -13,12 +10,10 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 ?>
-
 <!-- ====================================================================
 view.home
 -->
 <div class="container content">
-
   <div class="col-lg-12">
 
     <?php
@@ -42,6 +37,6 @@ view.home
         <?php echo $C->read("welcomeText"); ?>
       </div>
     </div>
-  </div>
 
+  </div>
 </div>

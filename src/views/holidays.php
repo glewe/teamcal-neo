@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Holidays View
  *
@@ -13,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 ?>
-
 <!-- ====================================================================
 view.holidays
 -->
@@ -44,6 +40,7 @@ view.holidays
       <div class="card-body">
 
         <form class="row form-control-horizontal" name="form_create" action="index.php?action=<?= $CONF['controllers'][$controller]->name ?>" method="post" target="_self" accept-charset="utf-8">
+          <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
           <div class="mb-4">
             <button type="button" class="btn btn-success float-end" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateHoliday"><?= $LANG['btn_create_holiday'] ?></button>
           </div>
@@ -95,6 +92,7 @@ view.holidays
               </td>
               <td class="align-top text-center">
                 <form class="rorm-control-horizontal" name="form_<?= $holiday['id'] ?>" action="index.php?action=<?= $CONF['controllers'][$controller]->name ?>" method="post" target="_self" accept-charset="utf-8">
+                  <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
                   <?php if ($holiday['id'] > 3) { ?>
                     <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteHoliday_<?= $holiday['id'] ?>"><?= $LANG['btn_delete'] ?></button>
                     <input name="hidden_id" type="hidden" value="<?= $holiday['id'] ?>">
@@ -131,6 +129,5 @@ view.holidays
 
       </div>
     </div>
-
   </div>
 </div>

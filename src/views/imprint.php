@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Imprint View
  *
@@ -13,13 +10,12 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 ?>
-
 <!-- ====================================================================
 view.imprint
 -->
 <div class="container content">
-
   <div class="col-lg-12">
+
     <div class="card">
       <?php
       $pageHelp = '';
@@ -37,6 +33,6 @@ view.imprint
         </div>
       </div>
     </div>
-  </div>
 
+  </div>
 </div>

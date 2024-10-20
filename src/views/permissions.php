@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Permissions View
  *
@@ -13,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 ?>
-
 <!-- ====================================================================
 view.permissions
 -->
@@ -33,6 +29,7 @@ view.permissions
     ?>
 
     <form class="form-control-horizontal" action="index.php?action=<?= $controller ?>&amp;scheme=<?= $viewData['scheme'] ?>" method="post" target="_self" accept-charset="utf-8">
+      <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
 
       <div class="card">
         <?php
@@ -217,7 +214,6 @@ view.permissions
 
         </div>
       </div>
-
     </form>
   </div>
 </div>

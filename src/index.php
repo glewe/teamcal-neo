@@ -16,29 +16,32 @@
 //error_reporting(0);
 error_reporting(E_ALL);
 
-//=============================================================================
-//
+// Check if a session already exists
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}// Generate a CSRF token
+if (empty($_SESSION['csrf_token'])) {
+  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+//-----------------------------------------------------------------------------
 // DEFINES
 //
 define('VALID_ROOT', 1);
 define('WEBSITE_ROOT', __DIR__);
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // COMPOSER AUTOLOADER
 //
 require_once __DIR__ . "/vendor/autoload.php";
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // LOAD CLASSES
 //
 spl_autoload_register(function ($class_name) {
   require_once 'classes/' . $class_name . '.class.php';
 });
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // LOAD CONFIG
 //
 require_once WEBSITE_ROOT . '/config/config.db.php';
@@ -46,8 +49,7 @@ require_once WEBSITE_ROOT . '/config/config.controller.php';
 require_once WEBSITE_ROOT . '/config/config.app.php';
 global $CONF;
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // HELPERS
 //
 require_once WEBSITE_ROOT . '/helpers/global.helper.php';
@@ -57,8 +59,7 @@ require_once WEBSITE_ROOT . '/helpers/view.helper.php';
 require_once WEBSITE_ROOT . '/helpers/app.helper.php';
 
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK INSTALLATION SCRIPT
 //
 if (file_exists('installation.php')) {
@@ -95,8 +96,7 @@ if (file_exists('installation.php')) {
   die();
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CLASS INSTANCES
 //
 // Instantiate primary classes (used by other classes)
@@ -129,8 +129,7 @@ $M = new Months();
 $R = new Regions();
 $T = new Templates();
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
 require_once WEBSITE_ROOT . '/config/config.vars.php';
@@ -220,8 +219,7 @@ if (L_USER && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['actio
   }
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // COMPARE LANGUAGES
 // Set condition to true for debug
 //
@@ -261,8 +259,7 @@ if ($checkLanguages) {
   die();
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // LOAD LANGUAGE
 //
 if (!strlen($language)) {
@@ -273,8 +270,7 @@ require_once WEBSITE_ROOT . '/languages/' . $language . '.app.php'; // Applicati
 global $LANG;
 $AV = new Avatar($LANG);
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // DETERMINE CONTROLLER
 //
 if ($C->read('underMaintenance')) {
@@ -301,8 +297,7 @@ if ($C->read('underMaintenance')) {
   }
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
 $htmlData['title'] = $C->read("appTitle");
@@ -350,8 +345,7 @@ if ($luser = $L->checkLogin() && (!isset($_GET['action']) || isset($_GET['action
   $userData['loginInfo'] = $LANG['status_logged_out'];
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // LOAD CONTROLLER
 //
 if ($C->read('noCaching')) {

@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Absence Icon View
  *
@@ -13,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 ?>
-
 <!-- ====================================================================
 view.absenceicon
 -->
@@ -33,7 +29,7 @@ view.absenceicon
     ?>
 
     <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>&amp;id=<?= $viewData['id'] ?>" method="post" target="_self" accept-charset="utf-8">
-
+      <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
       <input name="hidden_id" type="hidden" class="text" value="<?= $viewData['id'] ?>">
       <input name="hidden_name" type="hidden" class="text" value="<?= $viewData['name'] ?>">
 

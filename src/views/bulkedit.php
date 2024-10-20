@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Bulk Edit View
  *
@@ -13,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @since 3.5.0
  */
 ?>
-
 <!-- ====================================================================
 view.bulkedit
 -->
@@ -31,6 +27,7 @@ view.bulkedit
     ?>
 
     <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
+      <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
 
       <input name="hidden_absid" type="hidden" class="text" value="<?= $viewData['absid'] ?>">
       <input name="hidden_groupid" type="hidden" class="text" value="<?= $viewData['groupid'] ?>">

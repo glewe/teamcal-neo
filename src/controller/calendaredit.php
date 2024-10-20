@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Calendar Edit Controller
  *
@@ -12,9 +9,26 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $C;
+global $CONF;
+global $controller;
+global $LANG;
+global $LOG;
+global $U;
+global $UG;
+global $A;
+global $AL;
+global $G;
+global $H;
+global $M;
+global $T;
+global $PTN;
+global $UL;
+global $UO;
+global $R;
+global $D;
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK URL PARAMETERS
 //
 if (isset($_GET['month']) && isset($_GET['region']) && isset($_GET['user'])) {
@@ -86,8 +100,7 @@ if ($C->read('currentYearOnly') && $viewData['year'] != date('Y') && $C->read("c
   }
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
 $allowed = false;
@@ -117,13 +130,11 @@ if (!$allowed) {
   die();
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK LICENSE
 // Checks when the current weekday matches a random number between 1 and 7
 //
@@ -137,8 +148,7 @@ if ($weekday == rand(1, 7)) {
   $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
 $PTN = new Patterns();
@@ -170,11 +180,24 @@ if (!$T->getTemplate($caluser, $viewData['year'], $viewData['month'])) {
   $LOG->logEvent("logMonth", L_USER, "log_month_tpl_created", $caluser . ": " . $M->year . "-" . $M->month);
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // PROCESS FORM
 //
-if (!empty($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+
+  //
+  // CSRF token check
+  //
+  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+    $alertData['type'] = 'warning';
+    $alertData['title'] = $LANG['alert_alert_title'];
+    $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
+    $alertData['text'] = $LANG['alert_csrf_invalid_text'];
+    $alertData['help'] = $LANG['alert_csrf_invalid_help'];
+    require_once WEBSITE_ROOT . '/controller/alert.php';
+    die();
+  }
+
   if (isset($_POST['btn_save']) || isset($_POST['btn_clearall']) || isset($_POST['btn_saveperiod']) || isset($_POST['btn_saverecurring']) || isset($_POST['btn_savepattern'])) {
     //
     // All changes to the calendar are handled in this block since it finishes with the Approval routine.
@@ -485,8 +508,7 @@ if (!empty($_POST)) {
   }
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
 $viewData['username'] = $caluser;
@@ -585,8 +607,7 @@ if (!$viewData['width'] = $UO->read($UL->username, 'width')) {
   $viewData['width'] = 'full';
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // SHOW VIEW
 //
 require_once WEBSITE_ROOT . '/views/header.php';

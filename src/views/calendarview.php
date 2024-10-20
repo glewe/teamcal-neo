@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Calendar View View
  *
@@ -14,7 +11,6 @@ if (!defined('VALID_ROOT')) {
  */
 $formLink = 'index.php?action=' . $controller . '&amp;month=' . $viewData['year'] . $viewData['month'] . '&amp;region=' . $viewData['regionid'] . '&amp;group=' . $viewData['groupid'] . '&amp;abs=' . $viewData['absid'];
 ?>
-
 <!-- ====================================================================
 view.calendarview
 -->
@@ -49,7 +45,7 @@ view.calendarview
     ?>
 
     <form class="form-control-horizontal" enctype="multipart/form-data" action="<?= $formLink ?>" method="post" target="_self" accept-charset="utf-8">
-
+      <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
       <input name="hidden_month" type="hidden" class="text" value="<?= $viewData['month'] ?>">
       <input name="hidden_region" type="hidden" class="text" value="<?= $viewData['regionid'] ?>">
       <input name="hidden_showmonths" type="hidden" class="text" value="<?= $showMonths ?>">

@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Home Controller
  *
@@ -13,8 +10,7 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // SHOW VIEW
 //
 require_once WEBSITE_ROOT . '/views/header.php';

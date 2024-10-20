@@ -32,6 +32,7 @@ view.year
   ?>
 
   <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>&amp;year=<?= $viewData['year'] ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>" method="post" target="_self" accept-charset="utf-8">
+    <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
 
     <input name="hidden_user" type="hidden" class="text" value="<?= $viewData['username'] ?>">
     <input name="hidden_year" type="hidden" class="text" value="<?= $viewData['year'] ?>">
@@ -164,7 +165,5 @@ view.year
       <?= createModalBottom('btn_user', 'warning', $LANG['btn_select']) ?>
 
     </div>
-
   </form>
-
 </div>

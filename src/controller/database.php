@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Database Controller
  *
@@ -12,9 +9,26 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $C;
+global $CONF;
+global $controller;
+global $LANG;
+global $LOG;
+global $LIC;
+global $DB;
+global $U;
+global $UO;
+global $G;
+global $UG;
+global $MSG;
+global $UMSG;
+global $D;
+global $M;
+global $T;
+global $AL;
+global $P;
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
 if (!isAllowed($CONF['controllers'][$controller]->permission)) {
@@ -27,8 +41,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
   die();
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK LICENSE
 //
 $alertData = array();
@@ -37,23 +50,34 @@ $licExpiryWarning = $C->read('licExpiryWarning');
 $LIC = new License();
 $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
 $inputAlert = array();
 $viewData['cleanBefore'] = '';
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // PROCESS FORM
 //
-if (!empty($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+
+  //
+  // CSRF token check
+  //
+  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+    $alertData['type'] = 'warning';
+    $alertData['title'] = $LANG['alert_alert_title'];
+    $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
+    $alertData['text'] = $LANG['alert_csrf_invalid_text'];
+    $alertData['help'] = $LANG['alert_csrf_invalid_help'];
+    require_once WEBSITE_ROOT . '/controller/alert.php';
+    die();
+  }
+
   //
   // Sanitize input
   //
@@ -314,15 +338,13 @@ if (!empty($_POST)) {
   }
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
 $viewData['dbURL'] = $C->read('dbURL');
 $viewData['dbInfo'] = $DB->getDatabaseInfo();
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // SHOW VIEW
 //
 require_once WEBSITE_ROOT . '/views/header.php';
