@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Maintenance Mode Controller
  *
@@ -12,9 +9,9 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $controller;
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // SHOW VIEW
 //
 require_once WEBSITE_ROOT . '/views/header.php';

@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Password Reset Controller
  *
@@ -12,9 +9,15 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $C;
+global $CONF;
+global $controller;
+global $LANG;
+global $LOG;
+global $U;
+global $UO;
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK URL PARAMETERS
 //
 $UP = new Users(); // for the profile to be updated
@@ -61,27 +64,38 @@ if ($tokenExpired) {
   die();
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
 $inputAlert = array();
 
-//=============================================================================
+//-----------------------------------------------------------------------------
 //
 // PROCESS FORM
 //
-if (!empty($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+
+  //
+  // CSRF token check
+  //
+  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+    $alertData['type'] = 'warning';
+    $alertData['title'] = $LANG['alert_alert_title'];
+    $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
+    $alertData['text'] = $LANG['alert_csrf_invalid_text'];
+    $alertData['help'] = $LANG['alert_csrf_invalid_help'];
+    require_once WEBSITE_ROOT . '/controller/alert.php';
+    die();
+  }
+
   //
   // Sanitize input
   //
@@ -146,8 +160,7 @@ if (!empty($_POST)) {
   }
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
 $LANG['profile_password_comment'] .= $LANG['password_rules_' . $C->read('pwdStrength')];
@@ -159,8 +172,7 @@ $viewData['personal'] = array(
   array( 'prefix' => 'profile', 'name' => 'password2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'mandatory' => true, 'error' => (isset($inputAlert['password2']) ? $inputAlert['password2'] : '') ),
 );
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // SHOW VIEW
 //
 require_once WEBSITE_ROOT . '/views/header.php';

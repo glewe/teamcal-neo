@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Calendar View Page Menu View
  *
@@ -12,7 +9,6 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
-
 if ($viewData['month'] == 1) {
   $pageBwdYear = $viewData['year'] - 1;
   $pageBwdMonth = '12';
@@ -30,7 +26,6 @@ if ($viewData['month'] == 1) {
   $pageFwdMonth = sprintf('%02d', $viewData['month'] + 1);
 }
 ?>
-
 <!-- ====================================================================
 view.calendarviewpagemenu
 -->

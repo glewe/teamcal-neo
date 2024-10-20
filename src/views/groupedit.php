@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Group Edit View
  *
@@ -13,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 ?>
-
 <!-- ====================================================================
 view.groupedit
 -->
@@ -33,6 +29,7 @@ view.groupedit
     ?>
 
     <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>&amp;id=<?= $viewData['id'] ?>" method="post" target="_self" accept-charset="utf-8">
+      <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
 
       <div class="card">
         <?php
@@ -88,9 +85,6 @@ view.groupedit
 
         </div>
       </div>
-
     </form>
-
   </div>
-
 </div>

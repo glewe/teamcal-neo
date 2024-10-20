@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Data Privacy Controller
  *
@@ -12,9 +9,13 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $C;
+global $CONF;
+global $controller;
+global $language;
+global $LANG;
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK ENABLED
 //
 if (!$C->read('gdprPolicyPage')) {
@@ -68,7 +69,7 @@ if ($C->read('gdprYoutube')) {
 
 $viewData['gdpr_text'] .= sprintf($LANG['gdpr_end'], $sectionNbr++, $sectionNbr++, $sectionNbr++, $sectionNbr++, $sectionNbr++);
 
-//=============================================================================
+//-----------------------------------------------------------------------------
 //
 // SHOW VIEW
 //

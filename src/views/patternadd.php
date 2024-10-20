@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Pattern Add View
  *
@@ -13,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @since 4.0.0
  */
 ?>
-
 <!-- ====================================================================
 view.patternadd
 -->
@@ -33,6 +29,7 @@ view.patternadd
     ?>
 
     <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
+      <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
 
       <div class="card">
         <?php
@@ -57,7 +54,5 @@ view.patternadd
       </div>
 
     </form>
-
   </div>
-
 </div>

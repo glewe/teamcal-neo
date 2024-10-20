@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Groups View
  *
@@ -13,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 ?>
-
 <!-- ====================================================================
 view.groups
 -->
@@ -44,6 +40,7 @@ view.groups
       <div class="card-body">
 
         <form class="form-control-horizontal" name="form_create" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
+          <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
           <div class="row mb-4">
             <div class="col-lg-4">
               <label for="inputSearch"><?= $LANG['search'] ?></label>
@@ -109,6 +106,7 @@ view.groups
               <td><?= $group['maxabsentwe'] ?></td>
               <td class="align-top text-center">
                 <form class="form-control-horizontal" name="form_<?= $group['id'] ?>" action="index.php?action=groups" method="post" target="_self" accept-charset="utf-8">
+                  <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
                   <?php if (isAllowed($CONF['controllers'][$controller]->permission)) { ?>
                     <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteGroup_<?= $group['id'] ?>"><?= $LANG['btn_delete'] ?></button>
                   <?php } ?>
@@ -146,6 +144,5 @@ view.groups
 
       </div>
     </div>
-
   </div>
 </div>

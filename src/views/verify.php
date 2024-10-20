@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Verify View
  *
@@ -13,12 +10,10 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 ?>
-
 <!-- ====================================================================
 view.verify
 -->
 <div class="container content">
-
   <div class="col-lg-12">
     <?php
     if (
@@ -29,5 +24,4 @@ view.verify
     }
     ?>
   </div>
-
 </div>

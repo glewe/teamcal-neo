@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Remainder Controller
  *
@@ -12,9 +9,21 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $C;
+global $CONF;
+global $controller;
+global $LANG;
+global $LOG;
+global $UO;
+global $UG;
+global $UL;
+global $U;
+global $RO;
+global $A;
+global $G;
+global $H;
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
 if (!isAllowed($CONF['controllers'][$controller]->permission)) {
@@ -27,12 +36,10 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
   die();
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK URL PARAMETERS OR USER DEFAULTS
 //
 
-//-----------------------------------------------------------------------------
 //
 // Build array of users to show
 //
@@ -77,7 +84,6 @@ if ($groupfilter == "all") {
   $users = $calusers;
 }
 
-//-----------------------------------------------------------------------------
 //
 // Search Reset
 //
@@ -86,7 +92,6 @@ if (isset($_GET['search']) && $_GET['search'] == "reset") {
   die();
 }
 
-//-----------------------------------------------------------------------------
 //
 // Paging
 //
@@ -127,23 +132,34 @@ if ($limit = $C->read("usersPerPage")) {
   $users = $pageusers;
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
 $viewData['search'] = '';
 $viewData['year'] = date("Y");
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // PROCESS FORM
 //
-if (!empty($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+
+  //
+  // CSRF token check
+  //
+  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+    $alertData['type'] = 'warning';
+    $alertData['title'] = $LANG['alert_alert_title'];
+    $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
+    $alertData['text'] = $LANG['alert_csrf_invalid_text'];
+    $alertData['help'] = $LANG['alert_csrf_invalid_help'];
+    require_once WEBSITE_ROOT . '/controller/alert.php';
+    die();
+  }
+
   //
   // Sanitize input
   //
@@ -209,8 +225,7 @@ if (!empty($_POST)) {
   }
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
 $viewData['absences'] = $A->getAll();
@@ -260,8 +275,7 @@ foreach ($users as $user) {
   $i++;
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // SHOW VIEW
 //
 require_once WEBSITE_ROOT . '/views/header.php';

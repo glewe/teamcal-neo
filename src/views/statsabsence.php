@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Absences Statistics View
  *
@@ -13,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 ?>
-
 <!-- ====================================================================
 view.statsabsences
 -->
@@ -30,6 +26,7 @@ view.statsabsences
   ?>
 
   <form class="form-control-horizontal noprint" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
+    <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
 
     <div class="page-menu">
       <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalAbsence"><?= $LANG['absencetype'] ?> <span class="badge text-bg-light"><?= $viewData['absName'] ?></span></button>
@@ -217,5 +214,4 @@ view.statsabsences
 
     </div>
   </div>
-
 </div>

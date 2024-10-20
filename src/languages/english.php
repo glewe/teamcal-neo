@@ -178,6 +178,10 @@ $LANG['alert_controller_not_found_subject'] = 'Controller not found';
 $LANG['alert_controller_not_found_text'] = 'The controller "%1%" could not be found.';
 $LANG['alert_controller_not_found_help'] = 'Please check your installation. The file does not exist or you may not have permission to read it.';
 
+$LANG['alert_csrf_invalid_subject'] = 'Security Token Invalid';
+$LANG['alert_csrf_invalid_text'] = 'The request submitted to the application had a missing or invalid security token.';
+$LANG['alert_csrf_invalid_help'] = 'Please reload the page and try again. If the problem persists, please contact your administrator.';
+
 $LANG['alert_imp_subject'] = 'CSV import errors encountered';
 $LANG['alert_imp_admin'] = 'Line %s: The username "admin" is not allowed to be imported.';
 $LANG['alert_imp_columns'] = 'Line %s: There are less or more than %s columns.';

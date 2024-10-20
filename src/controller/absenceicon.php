@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Absence Icon Controller
  *
@@ -12,9 +9,11 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $LANG, $faIcons;
+global $CONF;
+global $controller;
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
 if (!isAllowed($CONF['controllers'][$controller]->permission)) {
@@ -27,8 +26,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
   die();
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK URL PARAMETERS
 //
 $AA = new Absences(); // for the absence type to be edited
@@ -53,22 +51,33 @@ if ($missingData) {
   die();
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
 $inputAlert = array();
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // PROCESS FORM
 //
-if (!empty($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+
+  //
+  // CSRF token check
+  //
+  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+    $alertData['type'] = 'warning';
+    $alertData['title'] = $LANG['alert_alert_title'];
+    $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
+    $alertData['text'] = $LANG['alert_csrf_invalid_text'];
+    $alertData['help'] = $LANG['alert_csrf_invalid_help'];
+    require_once WEBSITE_ROOT . '/controller/alert.php';
+    die();
+  }
+
   // ,------,
   // | Save |
   // '------'
@@ -88,7 +97,7 @@ if (!empty($_POST)) {
     //
     // Go back to absence edit page
     //
-    header("Location: index.php?action=" . $controller . "&id=" . $AA->id);
+    header("Location: index.php?action=absenceedit&id=" . $AA->id);
   } elseif (isset($_POST['btn_fa_filter'])) {
     // ,--------,
     // | Filter |
@@ -101,8 +110,7 @@ if (!empty($_POST)) {
   }
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
 $viewData['id'] = $AA->id;
@@ -121,8 +129,7 @@ foreach ($faIcons as $faIcon) {
   }
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // SHOW VIEW
 //
 require_once WEBSITE_ROOT . '/views/header.php';

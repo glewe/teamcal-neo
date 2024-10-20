@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Roles View
  *
@@ -13,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 ?>
-
 <!-- ====================================================================
 view.roles
 -->
@@ -44,6 +40,7 @@ view.roles
       <div class="card-body">
 
         <form class="form-control-horizontal" name="form_create" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
+          <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
           <div class="row mb-4">
             <div class="col-lg-4">
               <label for="inputSearch"><?= $LANG['search'] ?></label>
@@ -99,6 +96,7 @@ view.roles
               <td><?= $role['description'] ?></td>
               <td class="align-top text-center">
                 <form class="form-control-horizontal" name="form_<?= $role['name'] ?>" action="index.php?action=roles" method="post" target="_self" accept-charset="utf-8">
+                  <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
                   <?php
                   $protectedRoles = array( 1, 2, 3 );
                   if (!in_array($role['id'], $protectedRoles)) { ?>
@@ -137,6 +135,5 @@ view.roles
 
       </div>
     </div>
-
   </div>
 </div>

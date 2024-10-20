@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Calendar View Controller
  *
@@ -12,9 +9,23 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $C;
+global $CONF;
+global $controller;
+global $LANG;
+global $LOG;
+global $UO;
+global $UL;
+global $U;
+global $R;
+global $G;
+global $UG;
+global $A;
+global $T;
+global $H;
+global $M;
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
 if (!isAllowed($CONF['controllers'][$controller]->permission)) {
@@ -27,14 +38,12 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
   die();
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK URL PARAMETERS OR USER DEFAULTS
 //
 
 $missingData = false;
 
-//-----------------------------------------------------------------------------
 //
 // We need a Month
 //
@@ -70,7 +79,6 @@ if (!$missingData) {
   }
 }
 
-//-----------------------------------------------------------------------------
 //
 // We need a Region
 //
@@ -122,12 +130,8 @@ if ($missingData) {
   die();
 }
 
-//-----------------------------------------------------------------------------
 //
 // Get users for this calendar page
-//
-
-//
 // Get all users first
 //
 $users = $U->getAllButHidden();
@@ -164,7 +168,6 @@ if ($groupfilter == "all") {
   $users = $calusers;
 }
 
-//-----------------------------------------------------------------------------
 //
 // Absence filter (optional, defaults to 'all')
 //
@@ -199,7 +202,6 @@ if ($absfilter == "all") {
   $users = $ausers;
 }
 
-//-----------------------------------------------------------------------------
 //
 // Search filter (optional, defaults to 'all')
 //
@@ -214,7 +216,6 @@ if (L_USER && $searchfilter = $UO->read($UL->username, 'calfilterSearch')) {
   $users = $U->getAllLike($searchfilter);
 }
 
-//-----------------------------------------------------------------------------
 //
 // Search Reset
 //
@@ -226,7 +227,6 @@ if (isset($_GET['search']) && $_GET['search'] == "reset") {
   die();
 }
 
-//-----------------------------------------------------------------------------
 //
 // Default back to current year/month if option is set and role matches
 //
@@ -251,7 +251,6 @@ if ($C->read('currentYearOnly') && $viewData['year'] != date('Y')) {
   }
 }
 
-//-----------------------------------------------------------------------------
 //
 // Paging
 //
@@ -292,13 +291,11 @@ if ($limit = $C->read("usersPerPage")) {
   $users = $pageusers;
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
 $inputAlert = array();
@@ -423,11 +420,24 @@ foreach ($viewData['months'] as $vmonth) {
   }
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // PROCESS FORM
 //
-if (!empty($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+
+  //
+  // CSRF token check
+  //
+  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+    $alertData['type'] = 'warning';
+    $alertData['title'] = $LANG['alert_alert_title'];
+    $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
+    $alertData['text'] = $LANG['alert_csrf_invalid_text'];
+    $alertData['help'] = $LANG['alert_csrf_invalid_help'];
+    require_once WEBSITE_ROOT . '/controller/alert.php';
+    die();
+  }
+
   //
   // Sanitize input
   //
@@ -539,8 +549,7 @@ if (!empty($_POST)) {
   }
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
 $viewData['absences'] = $A->getAll();
@@ -676,8 +685,7 @@ if (isset($_GET['calendaronly']) && $_GET['calendaronly'] === "1") {
   $viewData['calendaronly'] = false;
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // SHOW VIEW
 //
 require_once WEBSITE_ROOT . '/views/header.php';

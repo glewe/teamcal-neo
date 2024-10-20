@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * User Edit Controller
  *
@@ -12,9 +9,22 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $C;
+global $CONF;
+global $controller;
+global $LANG;
+global $LOG;
+global $UP;
+global $UO;
+global $UG;
+global $AL;
+global $AV;
+global $A;
+global $G;
+global $R;
+global $UL;
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK URL PARAMETERS
 //
 $UP = new Users(); // for the profile to be created or updated
@@ -41,8 +51,7 @@ if ($missingData) {
   die();
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
 $allowed = false;
@@ -60,13 +69,11 @@ if (!$allowed) {
   die();
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
 $inputAlert = array();
@@ -78,11 +85,25 @@ if ($UL->hasRole($UL->username, '1')) {
   $events = array( 'notifyNone', 'notifyAbsenceEvents', 'notifyCalendarEvents', 'notifyHolidayEvents', 'notifyMonthEvents', 'notifyUserCalEvents', 'notifyUserCalEventsOwn' );
 }
 
-//=============================================================================
+//-----------------------------------------------------------------------------
 //
 // PROCESS FORM
 //
-if (!empty($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+
+  //
+  // CSRF token check
+  //
+  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+    $alertData['type'] = 'warning';
+    $alertData['title'] = $LANG['alert_alert_title'];
+    $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
+    $alertData['text'] = $LANG['alert_csrf_invalid_text'];
+    $alertData['help'] = $LANG['alert_csrf_invalid_help'];
+    require_once WEBSITE_ROOT . '/controller/alert.php';
+    die();
+  }
+
   //
   // Sanitize input
   //
@@ -534,8 +555,7 @@ if (!empty($_POST)) {
   }
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
 $viewData['profile'] = $profile;
@@ -777,8 +797,7 @@ $viewData['custom'] = array(
   array( 'prefix' => 'profile', 'name' => 'custom5', 'type' => 'text', 'placeholder' => '', 'value' => $UO->read($profile, 'custom5'), 'maxlength' => '80', 'error' => (isset($inputAlert['custom5']) ? $inputAlert['custom5'] : '') ),
 );
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // SHOW VIEW
 //
 require_once WEBSITE_ROOT . '/views/header.php';
