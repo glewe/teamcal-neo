@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Setup 2FA Controller
  *
@@ -12,11 +9,18 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.7.0
  */
+global $C;
+global $CONF;
+global $controller;
+global $LANG;
+global $LOG;
+global $UO;
+global $UL;
+global $UP;
 
 use RobThree\Auth\TwoFactorAuth;
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK URL PARAMETERS
 //
 $UP = new Users(); // for the profile to be created or updated
@@ -43,8 +47,7 @@ if ($missingData) {
   die();
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
 $allowed = false;
@@ -62,8 +65,7 @@ if (!$allowed) {
   die();
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK EXISTING SECRET
 //
 if ($UO->read($profile, 'secret')) {
@@ -76,24 +78,36 @@ if ($UO->read($profile, 'secret')) {
   die();
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
 $tfa = new TwoFactorAuth('TeamCal Neo');
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
 $secret = $tfa->createSecret();
 $bcode = $tfa->getQRCodeImageAsDataUri($UL->username, $secret);
 
-//=============================================================================
+//-----------------------------------------------------------------------------
 //
 // PROCESS FORM
 //
-if (!empty($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+
+  //
+  // CSRF token check
+  //
+  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+    $alertData['type'] = 'warning';
+    $alertData['title'] = $LANG['alert_alert_title'];
+    $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
+    $alertData['text'] = $LANG['alert_csrf_invalid_text'];
+    $alertData['help'] = $LANG['alert_csrf_invalid_help'];
+    require_once WEBSITE_ROOT . '/controller/alert.php';
+    die();
+  }
+
   //
   // Sanitize input
   //
@@ -161,8 +175,7 @@ if (!empty($_POST)) {
   }
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
 $viewData['profile'] = $profile;
@@ -170,8 +183,7 @@ $viewData['fullname'] = $UP->firstname . ' ' . $UP->lastname . ' (' . $UP->usern
 $viewData['secret'] = $secret;
 $viewData['bcode'] = $bcode;
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // SHOW VIEW
 //
 require_once WEBSITE_ROOT . '/views/header.php';

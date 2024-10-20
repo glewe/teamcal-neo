@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Remainder View
  *
@@ -15,7 +12,6 @@ if (!defined('VALID_ROOT')) {
 
 $formLink = 'index.php?action=' . $controller . '&amp;group=' . $viewData['groupid'];
 ?>
-
 <!-- ====================================================================
 view.remainder
 -->
@@ -34,6 +30,7 @@ view.remainder
   ?>
 
   <form class="form-control-horizontal" enctype="multipart/form-data" action="<?= $formLink ?>" method="post" target="_self" accept-charset="utf-8">
+    <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
 
     <div class="page-menu">
       <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectGroup"><?= $LANG['group'] . ': ' . $viewData['group'] ?></button>

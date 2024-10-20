@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Daynote View
  *
@@ -13,12 +10,10 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 ?>
-
 <!-- ====================================================================
 view.daynote
 -->
 <div class="container content">
-
 
   <div class="col-lg-12">
     <?php
@@ -34,6 +29,7 @@ view.daynote
     ?>
 
     <form class="form-control-horizontal" action="index.php?action=<?= $controller ?>&amp;date=<?= str_replace('-', '', $viewData['date']) ?>&amp;for=<?= $viewData['user'] ?>&amp;region=<?= $viewData['region'] ?>" method="post" target="_self" accept-charset="utf-8">
+      <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
 
       <div class="card">
         <?php

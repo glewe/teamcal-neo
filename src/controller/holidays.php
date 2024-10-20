@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Holidays Controller
  *
@@ -12,9 +9,15 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $C;
+global $CONF;
+global $controller;
+global $LANG;
+global $LOG;
+global $H;
+global $LIC;
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
 if (!isAllowed($CONF['controllers'][$controller]->permission)) {
@@ -27,8 +30,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
   die();
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // CHECK LICENSE
 //
 $date = new DateTime();
@@ -41,23 +43,35 @@ if ($weekday == rand(1, 7)) {
   $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 }
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
 
-//=============================================================================
-//
+//-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
 $viewData['txt_name'] = '';
 $viewData['txt_description'] = '';
 
-//=============================================================================
+//-----------------------------------------------------------------------------
 //
 // PROCESS FORM
 //
-if (!empty($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+
+  //
+  // CSRF token check
+  //
+  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+    $alertData['type'] = 'warning';
+    $alertData['title'] = $LANG['alert_alert_title'];
+    $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
+    $alertData['text'] = $LANG['alert_csrf_invalid_text'];
+    $alertData['help'] = $LANG['alert_csrf_invalid_help'];
+    require_once WEBSITE_ROOT . '/controller/alert.php';
+    die();
+  }
+
   // ,--------,
   // | Create |
   // '--------'
@@ -147,14 +161,14 @@ if (!empty($_POST)) {
   }
 }
 
-//=============================================================================
+//-----------------------------------------------------------------------------
 //
 // PREPARE VIEW
 //
 $viewData['holidays'] = $H->getAll();
 asort($viewData['holidays']);
 
-//=============================================================================
+//-----------------------------------------------------------------------------
 //
 // SHOW VIEW
 //

@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Setup 2FA View
  *
@@ -13,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @since 3.7.0
  */
 ?>
-
 <!-- ====================================================================
 view.setup2fa
 -->
@@ -30,6 +26,7 @@ view.setup2fa
     ?>
 
     <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=setup2fa&amp;profile=<?= $viewData['profile'] ?>" method="post" target="_self" accept-charset="utf-8">
+      <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
       <input name="hidden_s" type="hidden" value="<?= $viewData['secret'] ?>">
 
       <div class="card">
@@ -63,9 +60,6 @@ view.setup2fa
 
         </div>
       </div>
-
     </form>
-
   </div>
-
 </div>

@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Calendar View User Row View
  *
@@ -12,7 +9,6 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
-
 //
 // Check whether the current user may view users profiles.
 // If so, we link the name to the viewprofile page
@@ -48,7 +44,6 @@ if ($editAllowed) {
   $editLink = ' onclick="window.location.href = \'index.php?action=calendaredit&amp;month=' . $viewData['year'] . $viewData['month'] . '&amp;region=' . $viewData['regionid'] . '&user=' . $usr['username'] . '\';"';
 }
 ?>
-
 <!-- ====================================================================
 view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullName ?>)
 -->

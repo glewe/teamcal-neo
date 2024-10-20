@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Maintenance View
  *
@@ -13,13 +10,12 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 ?>
-
 <!-- ====================================================================
 view.maintenance
 -->
 <div class="container content">
-
   <div class="col-lg-12">
+
     <div class="card">
       <?php
       $pageHelp = '';
@@ -39,6 +35,6 @@ view.maintenance
         </div>
       </div>
     </div>
-  </div>
 
+  </div>
 </div>

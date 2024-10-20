@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Menu View
  *
@@ -13,9 +10,8 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 ?>
-
 <!-- ====================================================================
-view.menu
+view.navbar
 -->
 <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">

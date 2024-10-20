@@ -1,7 +1,4 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
 /**
  * Regions View
  *
@@ -13,7 +10,6 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 ?>
-
 <!-- ====================================================================
 view.regions
 -->
@@ -44,6 +40,7 @@ view.regions
       <div class="card-body">
 
         <form class="row form-control-horizontal" name="form_create" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
+          <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
 
           <div class="mb-4">
             <button type="button" class="btn btn-success float-end" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateRegion"><?= $LANG['btn_create_region'] ?></button>
@@ -107,6 +104,7 @@ view.regions
                       <td class="align-top text-center">
                         <?php if ($region['id'] != '1') : ?>
                         <form class="form-control-horizontal" name="form_<?= $region['name'] ?>" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
+                          <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
                           <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRegion_<?= $region['name'] ?>"><?= $LANG['btn_delete'] ?></button>
                           <a href="index.php?action=regionedit&amp;id=<?= $region['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
                           <input name="hidden_id" type="hidden" value="<?= $region['id'] ?>">
