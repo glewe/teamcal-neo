@@ -2,6 +2,22 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '4.1.0',
+    'date' => '2024-09-xx',
+    'info' => '',
+    'bugfixes' => [
+      [ 'summary' => 'Fixed horizontal scroll on mobile devices', 'issue' => '' ],
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Added form security with CSRF tokens', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '4.0.1',
     'date' => '2024-09-xx',
     'info' => '',
