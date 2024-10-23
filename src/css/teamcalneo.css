@@ -10,7 +10,9 @@
  */
 
 /**
+ * ----------------------------------------------------------------------------
  * Bootstrap overwrites and additions
+ * ----------------------------------------------------------------------------
  */
 :root {
   --dark-dark: #0d1620;
@@ -45,8 +47,91 @@ body {
   font-family: Lato, Montserrat, "Open Sans", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/** ---------------------------------------------------------------------------
+/**
+ * ----------------------------------------------------------------------------
+ * Bootstrap Icons overwrites and additions
+ * ----------------------------------------------------------------------------
+ */
+.bi-1x {
+  font-size: 1em;
+}
+
+.bi-2x {
+  font-size: 2em;
+}
+
+.bi-3x {
+  font-size: 3em;
+}
+
+.bi-4x {
+  font-size: 4em;
+}
+
+.bi-5x {
+  font-size: 5em;
+}
+
+.bi-6x {
+  font-size: 6em;
+}
+
+.bi-7x {
+  font-size: 7em;
+}
+
+.bi-8x {
+  font-size: 8em;
+}
+
+.bi-9x {
+  font-size: 9em;
+}
+
+.bi-10x {
+  font-size: 10em;
+}
+
+.bi-2xs {
+  font-size: .625em;
+  line-height: .1em;
+  vertical-align: .225em;
+}
+
+.bi-xs {
+  font-size: .75em;
+  line-height: .08333em;
+  vertical-align: .125em;
+}
+
+.bi-sm {
+  font-size: .875em;
+  line-height: .07143em;
+  vertical-align: .05357em;
+}
+
+.bi-lg {
+  font-size: 1.25em;
+  line-height: .05em;
+  vertical-align: -.075em;
+}
+
+.bi-xl {
+  font-size: 1.5em;
+  line-height: .04167em;
+  vertical-align: -.125em;
+}
+
+.bi-2xl {
+  font-size: 2em;
+  line-height: .03125em;
+  vertical-align: -.1875em;
+}
+
+/**
+ * ----------------------------------------------------------------------------
  * Main
+ * ----------------------------------------------------------------------------
  */
 #main {
   min-height: 100vh;
@@ -160,6 +245,32 @@ textarea.cke_source {
   margin-left: 6px;
 }
 
+.div-table {
+  display: table;
+  width: 275px;
+}
+
+.div-table-row {
+  display: table-row;
+}
+
+.div-table-heading {
+  display: table-header-group;
+}
+
+.div-table-body {
+  display: table-row-group;
+}
+
+.div-table-foot {
+  display: table-footer-group;
+}
+
+.div-table-cell,
+.div-table-head {
+  display: table-cell;
+}
+
 .footer {
   padding: 40px 15px 0 15px;
   margin-top: 80px;
@@ -169,6 +280,14 @@ textarea.cke_source {
 
 .fs-small {
   font-size: .9rem;
+}
+
+.gdpr h4 {
+  margin-top: 24px;
+}
+
+.gdpr h5 {
+  margin-top: 16px;
 }
 
 .img-floatleft {
@@ -283,28 +402,10 @@ textarea.cke_source {
   font-size: 75%;
 }
 
-@media (max-width: 340px) {
-  img {
-    max-width: 300px;
-  }
-}
-
-@media (max-width: 820px) {
-  #slideshow {
-    display: none;
-  }
-}
-
-@media (max-width: 1024px) {
-  #slideshow {
-    width: 700px;
-    padding-top: 20px;
-  }
-}
-
-/** ---------------------------------------------------------------------------
 /**
- * Month table
+ * ----------------------------------------------------------------------------
+ * Month Table
+ * ----------------------------------------------------------------------------
  */
 table.month {
   box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, .15);
@@ -400,9 +501,10 @@ table.month td.m-summary {
   vertical-align: middle;
 }
 
-/** ---------------------------------------------------------------------------
-/*
- * Dark theme calendar colors
+/**
+ * ----------------------------------------------------------------------------
+ * Dark Theme calendar colors
+ * ----------------------------------------------------------------------------
  */
 :root[data-bs-theme="dark"] {
   .navbar-dark,
@@ -459,57 +561,10 @@ table.month td.m-summary {
   }
 }
 
-@media (min-width: 1400px) {
-  table.month th.m-monthname,
-  table.month th.m-label,
-  table.month td.m-monthname,
-  table.month td.m-label,
-  table.month td.m-name {
-    max-width: 160px;
-  }
-}
-
-@media (min-width: 1281px) {
-  #fullscreen {
-    display: block;
-  }
-
-  #mobile {
-    display: none;
-  }
-}
-
-@media (max-width: 1280px) {
-  table.month th.m-monthname,
-  table.month th.m-label,
-  table.month td.m-monthname,
-  table.month td.m-label,
-  table.month td.m-name {
-    max-width: 130px;
-  }
-
-  #fullscreen {
-    display: none;
-  }
-
-  #mobile {
-    display: block;
-  }
-}
-
-@media (max-width: 300px) {
-  table.month th.m-monthname,
-  table.month th.m-label,
-  table.month td.m-monthname,
-  table.month td.m-label,
-  table.month td.m-name {
-    max-width: 100px;
-  }
-}
-
-/** ---------------------------------------------------------------------------
 /**
- * Year table
+ * ----------------------------------------------------------------------------
+ * Year Table
+ * ----------------------------------------------------------------------------
  */
 table.year {
   box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, .15);
@@ -573,15 +628,10 @@ table.year div.weeknumber {
   text-align: left;
 }
 
-@media print {
-  .noprint {
-    display: none;
-  }
-}
-
-/** ---------------------------------------------------------------------------
 /**
- * Social icons in footer
+ * ----------------------------------------------------------------------------
+ * Social Icons
+ * ----------------------------------------------------------------------------
  */
 .social-icon a {
   display: inline-block;
@@ -812,42 +862,10 @@ table.year div.weeknumber {
   content: "\f167";
 }
 
-.div-table {
-  display: table;
-  width: 275px;
-}
-
-.div-table-row {
-  display: table-row;
-}
-
-.div-table-heading {
-  display: table-header-group;
-}
-
-.div-table-body {
-  display: table-row-group;
-}
-
-.div-table-foot {
-  display: table-footer-group;
-}
-
-.div-table-cell,
-.div-table-head {
-  display: table-cell;
-}
-
-.gdpr h4 {
-  margin-top: 24px;
-}
-
-.gdpr h5 {
-  margin-top: 16px;
-}
-
-/** ---------------------------------------------------------------------------
- *  Tooltip
+/**
+ * ----------------------------------------------------------------------------
+ * Tooltip
+ * ----------------------------------------------------------------------------
  */
 .tooltip.danger .tooltip-inner {
   background-color: #dc3545;
@@ -969,9 +987,10 @@ table.year div.weeknumber {
   border-left-color: #ffc107;
 }
 
-/** ---------------------------------------------------------------------------
 /**
+ * ----------------------------------------------------------------------------
  * Release Info Timeline
+ * ----------------------------------------------------------------------------
  */
 ul.timeline {
   position: relative;
@@ -1017,8 +1036,10 @@ ul.timeline h6 {
   margin-top: 10px;
 }
 
-/** ---------------------------------------------------------------------------
+/**
+ * ----------------------------------------------------------------------------
  * Sidebar
+ * ----------------------------------------------------------------------------
  */
 #sidebar {
   position: fixed;
@@ -1189,82 +1210,152 @@ a.sidebar-link:hover {
   }
 }
 
-/** ---------------------------------------------------------------------------
 /**
- * Bootstrap Icons Style additions
+ * ----------------------------------------------------------------------------
+ * Media Queries
+ * ----------------------------------------------------------------------------
  */
-.bi-1x {
-  font-size: 1em;
+@media (min-width: 1400px) {
+  table.month th.m-monthname,
+  table.month th.m-label,
+  table.month td.m-monthname,
+  table.month td.m-label,
+  table.month td.m-name {
+    max-width: 160px;
+  }
 }
 
-.bi-2x {
-  font-size: 2em;
+@media (min-width: 1281px) {
+  #fullscreen {
+    display: block;
+  }
+
+  #mobile {
+    display: none;
+  }
 }
 
-.bi-3x {
-  font-size: 3em;
+@media (max-width: 1280px) {
+  table.month th.m-monthname,
+  table.month th.m-label,
+  table.month td.m-monthname,
+  table.month td.m-label,
+  table.month td.m-name {
+    max-width: 130px;
+  }
+
+  #fullscreen {
+    display: none;
+  }
+
+  #mobile {
+    display: block;
+  }
 }
 
-.bi-4x {
-  font-size: 4em;
+@media (max-width: 1024px) {
+  body {
+    min-width: 1040px;
+  }
+  #navbar {
+    max-width: 1024px;
+  }
+  .container {
+    margin-left: 0;
+  }
 }
 
-.bi-5x {
-  font-size: 5em;
+@media (max-width: 915px) {
+  #navbar {
+    max-width: 915px;
+  }
 }
 
-.bi-6x {
-  font-size: 6em;
+@media (max-width: 896px) {
+  #navbar {
+    max-width: 896px;
+  }
 }
 
-.bi-7x {
-  font-size: 7em;
+@media (max-width: 800px) {
+  #navbar {
+    max-width: 800px;
+  }
 }
 
-.bi-8x {
-  font-size: 8em;
+@media (max-width: 768px) {
+  #navbar {
+    max-width: 768px;
+  }
 }
 
-.bi-9x {
-  font-size: 9em;
+@media (max-width: 480px) {
+  #navbar {
+    max-width: 480px;
+  }
 }
 
-.bi-10x {
-  font-size: 10em;
+@media (max-width: 428px) {
+  #navbar {
+    max-width: 428px;
+  }
 }
 
-.bi-2xs {
-  font-size: .625em;
-  line-height: .1em;
-  vertical-align: .225em;
+@media (max-width: 414px) {
+  #navbar {
+    max-width: 414px;
+  }
 }
 
-.bi-xs {
-  font-size: .75em;
-  line-height: .08333em;
-  vertical-align: .125em;
+@media (max-width: 412px) {
+  #navbar {
+    max-width: 412px;
+  }
 }
 
-.bi-sm {
-  font-size: .875em;
-  line-height: .07143em;
-  vertical-align: .05357em;
+@media (max-width: 390px) {
+  #navbar {
+    max-width: 390px;
+  }
 }
 
-.bi-lg {
-  font-size: 1.25em;
-  line-height: .05em;
-  vertical-align: -.075em;
+@media (max-width: 384px) {
+  #navbar {
+    max-width: 384px;
+  }
 }
 
-.bi-xl {
-  font-size: 1.5em;
-  line-height: .04167em;
-  vertical-align: -.125em;
+@media (max-width: 375px) {
+  #navbar {
+    max-width: 375px;
+  }
 }
 
-.bi-2xl {
-  font-size: 2em;
-  line-height: .03125em;
-  vertical-align: -.1875em;
+@media (max-width: 360px) {
+  #navbar {
+    max-width: 360px;
+  }
 }
+
+@media (max-width: 320px) {
+  img {
+    max-width: 310px;
+  }
+  #navbar {
+    max-width: 320px;
+  }
+  table.month th.m-monthname,
+  table.month th.m-label,
+  table.month td.m-monthname,
+  table.month td.m-label,
+  table.month td.m-name {
+    max-width: 100px;
+  }
+}
+
+@media print {
+  .noprint {
+    display: none;
+  }
+}
+

@@ -14,7 +14,7 @@ $formLink = 'index.php?action=' . $controller . '&amp;month=' . $viewData['year'
 <!-- ====================================================================
 view.calendarview
 -->
-<div class="container content" style="<?= ($fontSize = $C->read('calendarFontSize')) ? " font-size:" . $fontSize . "%;" : ""; ?>">
+<div class="container content" style="<?= ($fontSize = $C->read('calendarFontSize')) ? "font-size:" . $fontSize . "%;" : ""; ?>">
 
   <?php if ($viewData['calendaronly']) {
 
