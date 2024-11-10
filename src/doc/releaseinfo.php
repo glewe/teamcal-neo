@@ -3,7 +3,7 @@ $releases = [
   //---------------------------------------------------------------------------
   [
     'version' => '4.1.0',
-    'date' => '2024-09-xx',
+    'date' => '2024-11-10',
     'info' => '',
     'bugfixes' => [
       [ 'summary' => 'Fixed horizontal scroll on mobile devices', 'issue' => '' ],
