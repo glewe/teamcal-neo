@@ -385,6 +385,10 @@ $LANG['calopt_statsDefaultColorPresences'] = 'Default Color Presence Statistics'
 $LANG['calopt_statsDefaultColorPresences_comment'] = 'Select the default color for this stattistics page.';
 $LANG['calopt_statsDefaultColorRemainder'] = 'Default Color Remainder Statistics';
 $LANG['calopt_statsDefaultColorRemainder_comment'] = 'Select the default color for this stattistics page.';
+$LANG['calopt_summaryAbsenceTextColor'] = 'Absence Text Color';
+$LANG['calopt_summaryAbsenceTextColor_comment'] = 'Here you can set the color for the absence counts in the summary section. Leave the field empty for the default color.';
+$LANG['calopt_summaryPresenceTextColor'] = 'Presence Text Color';
+$LANG['calopt_summaryPresenceTextColor_comment'] = 'Here you can set the color for the presence counts in the summary section. Leave the field empty for the default color.';
 $LANG['calopt_sunBusi'] = 'Sunday is a Business Day';
 $LANG['calopt_sunBusi_comment'] = 'By default, Saturday and Sunday are weekend days and displayed accordingly in the calendar.
       Check this option if you want to make Sunday a business day.';
