@@ -385,6 +385,10 @@ $LANG['calopt_statsDefaultColorPresences'] = 'Standardfarbe der Anwesenheitsstat
 $LANG['calopt_statsDefaultColorPresences_comment'] = 'W&auml;hle die Standardfarbe f&uuml;r diese Statistik aus.';
 $LANG['calopt_statsDefaultColorRemainder'] = 'Standardfarbe der Resttagestatistik';
 $LANG['calopt_statsDefaultColorRemainder_comment'] = 'W&auml;hle die Standardfarbe f&uuml;r diese Statistik aus.';
+$LANG['calopt_summaryAbsenceTextColor'] = 'Textfarbe der Abwesenheitszahlen';
+$LANG['calopt_summaryAbsenceTextColor_comment'] = 'Hier kannst du eine feste Textfarbe f&uum;r die Abwesenheitszahlen in der Summenzeile auswählen. Lass das Feld leer, um die Standardfarbe zu benutzen.';
+$LANG['calopt_summaryPresenceTextColor'] = 'Textfarbe der Anwesenheitszahlen';
+$LANG['calopt_summaryPresenceTextColor_comment'] = 'Hier kannst du eine feste Textfarbe f&uuml;r die Anwesenheitszahlen in der Summenzeile auswählen. Lass das Feld leer, um die Standardfarbe zu benutzen.';
 $LANG['calopt_sunBusi'] = 'Sonntag ist ein Arbeitstag';
 $LANG['calopt_sunBusi_comment'] = 'Normalerweise sind Samstage und Sonntage Wochenendtage und werden entsprechend im Kalender als solche angezeigt.
  Hier kann Sonntag als Arbeitstag definiert werden.';

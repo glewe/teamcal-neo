@@ -278,6 +278,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   } else {
     $C->save("showSummary", "0");
   }
+  $C->save("summaryAbsenceTextColor", sanitize($_POST['txt_summaryAbsenceTextColor']));
+  $C->save("summaryPresenceTextColor", sanitize($_POST['txt_summaryPresenceTextColor']));
 
   //
   // Log this event
@@ -392,6 +394,8 @@ $caloptData['stats'] = array(
 $caloptData['summary'] = array(
   array( 'prefix' => 'calopt', 'name' => 'includeSummary', 'type' => 'check', 'values' => '', 'value' => $C->read("includeSummary") ),
   array( 'prefix' => 'calopt', 'name' => 'showSummary', 'type' => 'check', 'values' => '', 'value' => $C->read("showSummary") ),
+  array( 'prefix' => 'calopt', 'name' => 'summaryAbsenceTextColor', 'type' => 'color', 'value' => $C->read("summaryAbsenceTextColor"), 'maxlength' => '6' ),
+  array( 'prefix' => 'calopt', 'name' => 'summaryPresenceTextColor', 'type' => 'color', 'value' => $C->read("summaryPresenceTextColor"), 'maxlength' => '6' ),
 );
 
 /**

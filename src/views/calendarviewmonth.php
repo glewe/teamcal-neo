@@ -177,7 +177,7 @@ foreach ($mobilecols as $key => $cols) {
                 $style = ' style="' . $style . '"';
               }
               ?>
-              <td class="m-day m-summary text-center text-danger" <?= $style ?>><?= $dayAbsCount[$i] ?></td>
+              <td class="m-day m-summary text-center td-summary-absence" <?= $style ?>><?= $dayAbsCount[$i] ?></td>
             <?php } ?>
           </tr>
           <!-- Row: Summary Presences -->
@@ -189,12 +189,29 @@ foreach ($mobilecols as $key => $cols) {
                 $style = ' style="' . $style . '"';
               }
               ?>
-              <td class="m-day m-summary text-center text-success" <?= $style ?>><?= $dayPresCount[$i] ?></td>
+              <td class="m-day m-summary text-center td-summary-presence" <?= $style ?>><?= $dayPresCount[$i] ?></td>
             <?php } ?>
           </tr>
         <?php } ?>
       </table>
     </div>
+    <?php if ($C->read('summaryAbsenceTextColor') || $C->read('summaryPresenceTextColor')) { ?>
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          var absenceTextColor = "#<?= $C->read('summaryAbsenceTextColor') ?>";
+          var elements = document.getElementsByClassName("td-summary-absence");
+          for (var i = 0; i < elements.length; i++) {
+            elements[i].style.color = absenceTextColor;
+          }
+          var presenceTextColor = "#<?= $C->read('summaryPresenceTextColor') ?>";
+          elements = document.getElementsByClassName("td-summary-presence");
+          for (var i = 0; i < elements.length; i++) {
+            elements[i].style.color = presenceTextColor;
+          }
+        });
+      </script>
+    <?php } ?>
+
 
   <?php } ?>
 <?php } ?>
