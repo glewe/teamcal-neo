@@ -21,6 +21,19 @@ global $UP;
 use RobThree\Auth\TwoFactorAuth;
 
 //-----------------------------------------------------------------------------
+// CHECK 2FA DISABLED
+//
+if ($C->read('disableTfa')) {
+  $alertData['type'] = 'info';
+  $alertData['title'] = $LANG['alert_info_title'];
+  $alertData['subject'] = $LANG['alert_not_enabled_subject'];
+  $alertData['text'] = $LANG['alert_not_enabled_text'];
+  $alertData['help'] = '';
+  require_once WEBSITE_ROOT . '/controller/alert.php';
+  die();
+}
+
+//-----------------------------------------------------------------------------
 // CHECK URL PARAMETERS
 //
 $UP = new Users(); // for the profile to be created or updated

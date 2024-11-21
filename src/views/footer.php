@@ -114,6 +114,7 @@ view.footer
         verticalFit: false
       }
     });
+
     <?php } ?>
 
     //

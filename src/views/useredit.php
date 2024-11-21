@@ -2,12 +2,12 @@
 /**
  * User Edit View
  *
- * @author George Lewe <george@lewe.com>
+ * @author    George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2024 by George Lewe
- * @link https://www.lewe.com
+ * @link      https://www.lewe.com
  *
- * @package TeamCal Neo
- * @since 3.0.0
+ * @package   TeamCal Neo
+ * @since     3.0.0
  */
 ?>
 <!-- ====================================================================
@@ -71,7 +71,9 @@ view.useredit
               if (isAllowed("useroptions")) {
                 $pageTabs[] = [ 'id' => 'tab-options', 'href' => '#panel-options', 'label' => $LANG['options'], 'active' => false ];
               }
-              $pageTabs[] = [ 'id' => 'tab-tfa', 'href' => '#panel-tfa', 'label' => $LANG['profile_tab_tfa'], 'active' => false ];
+              if (!$C->read('disableTfa')) {
+                $pageTabs[] = [ 'id' => 'tab-tfa', 'href' => '#panel-tfa', 'label' => $LANG['profile_tab_tfa'], 'active' => false ];
+              }
               echo createPageTabs($pageTabs);
               ?>
             </div>
@@ -268,27 +270,29 @@ view.useredit
                   </div>
                 <?php } ?>
 
-                <!-- 2FA tab -->
-                <div class="tab-pane fade" id="panel-tfa" role="tabpanel" aria-labelledby="tab-tfa">
-                  <?php if ($UO->read($UP->username, 'secret')) { ?>
-                    <div class="form-group row" id="form-group-activateMessages">
-                      <label for="activateMessages" class="col-lg-8 control-label"><?= $LANG['profile_remove2fa'] ?><br>
-                        <span class="text-normal"><?= $LANG['profile_remove2fa_comment'] ?></span>
-                      </label>
-                      <div class="col-lg-4">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="remove2fa" name="chk_remove2fa" value="chk_remove2fa" tabindex="<?= $tabindex++ ?>">
-                          <label class="form-check-label"><?= $LANG['profile_remove2fa'] ?></label>
+                <?php if (!$C->read('disableTfa')) { ?>
+                  <!-- 2FA tab -->
+                  <div class="tab-pane fade" id="panel-tfa" role="tabpanel" aria-labelledby="tab-tfa">
+                    <?php if ($UO->read($UP->username, 'secret')) { ?>
+                      <div class="form-group row" id="form-group-activateMessages">
+                        <label for="activateMessages" class="col-lg-8 control-label"><?= $LANG['profile_remove2fa'] ?><br>
+                          <span class="text-normal"><?= $LANG['profile_remove2fa_comment'] ?></span>
+                        </label>
+                        <div class="col-lg-4">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="remove2fa" name="chk_remove2fa" value="chk_remove2fa" tabindex="<?= $tabindex++ ?>">
+                            <label class="form-check-label"><?= $LANG['profile_remove2fa'] ?></label>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  <?php } else { ?>
-                    <div class="alert alert-info">
-                      <?= $LANG['profile_2fa_optional'] ?>
-                      <div><a href="index.php?action=setup2fa&profile=<?= $UP->username ?>" class="btn btn-secondary mt-2" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_setup2fa'] ?></a></div>
-                    </div>
-                  <?php } ?>
-                </div>
+                    <?php } else { ?>
+                      <div class="alert alert-info">
+                        <?= $LANG['profile_2fa_optional'] ?>
+                        <div><a href="index.php?action=setup2fa&profile=<?= $UP->username ?>" class="btn btn-secondary mt-2" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_setup2fa'] ?></a></div>
+                      </div>
+                    <?php } ?>
+                  </div>
+                <?php } ?>
 
               </div>
             </div>

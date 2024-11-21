@@ -2,6 +2,22 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '4.1.1',
+    'date' => '2024-11-22',
+    'info' => '',
+    'bugfixes' => [
+    ],
+    'features' => [
+      [ 'summary' => 'Added switch form control', 'issue' => '' ],
+    ],
+    'improvements' => [
+      [ 'summary' => 'Added option to disable 2FA all together', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/10' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '4.1.0',
     'date' => '2024-11-10',
     'info' => '',

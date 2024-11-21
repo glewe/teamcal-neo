@@ -10,6 +10,7 @@ global $logLanguages;
 global $P;
 global $timezones;
 global $UL;
+global $UO;
 
 if (!defined('VALID_ROOT')) {
   exit('');
@@ -245,10 +246,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $C->save("badLogins", intval(sanitize($_POST['txt_badLogins'])));
       $C->save("gracePeriod", intval(sanitize($_POST['txt_gracePeriod'])));
       $C->save("cookieLifetime", intval(sanitize($_POST['txt_cookieLifetime'])));
-      if (isset($_POST['chk_forceTfa']) && $_POST['chk_forceTfa']) {
-        $C->save("forceTfa", "1");
+      if (isset($_POST['swi_disableTfa']) && $_POST['swi_disableTfa']) {
+        $C->save("disableTfa", "1");
+        $C->save("forceTfa", "0"); // With disabled 2FA, forceTfa does not make sense
+        $UO->deleteOption("secret"); // Delete 2FA secrets from the user options
       } else {
-        $C->save("forceTfa", "0");
+        $C->save("disableTfa", "0");
+        if (isset($_POST['swi_forceTfa']) && $_POST['swi_forceTfa']) {
+          $C->save("forceTfa", "1");
+        } else {
+          $C->save("forceTfa", "0");
+        }
       }
 
       //
@@ -606,7 +614,8 @@ $viewData['login'] = array(
   array( 'prefix' => 'config', 'name' => 'badLogins', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("badLogins"), 'maxlength' => '2' ),
   array( 'prefix' => 'config', 'name' => 'gracePeriod', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("gracePeriod"), 'maxlength' => '3' ),
   array( 'prefix' => 'config', 'name' => 'cookieLifetime', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("cookieLifetime"), 'maxlength' => '6' ),
-  array( 'prefix' => 'config', 'name' => 'forceTfa', 'type' => 'check', 'values' => '', 'value' => $C->read("forceTfa") ),
+  array( 'prefix' => 'config', 'name' => 'disableTfa', 'type' => 'switch', 'values' => '', 'value' => $C->read("disableTfa") ),
+  array( 'prefix' => 'config', 'name' => 'forceTfa', 'type' => 'switch', 'values' => '', 'value' => $C->read("forceTfa") ),
 );
 
 $viewData['registration'] = array(

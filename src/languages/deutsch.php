@@ -238,6 +238,9 @@ $LANG['alert_not_allowed_subject'] = 'Zugriff nicht erlaubt';
 $LANG['alert_not_allowed_text'] = 'Du hast nicht die n&ouml;tige Berechtigung auf diese Seite oder Funktion zuzugreifen.';
 $LANG['alert_not_allowed_help'] = 'Wenn du nicht eingeloggt bist, dann ist &ouml;ffentlicher Zugriff auf diese Seite nicht erlaubt. Wenn du eingeloggt bist, fehlt deiner Rolle die n&ouml;tige Berechtigung f&uuml;r den Zugriff.';
 
+$LANG['alert_not_enabled_subject'] = 'Funktion nicht aktiviert';
+$LANG['alert_not_enabled_text'] = 'Diese Funktion ist zurzeit nicht aktiviert.';
+
 $LANG['alert_perm_invalid'] = 'Das neue Berechtigungsschema "%1%" ist ung&uuml;ltig. Im Namen sind nur Buchstaben und Zahlen erlaubt.';
 $LANG['alert_perm_default'] = 'Das "Default" Schema kann nicht auf sich selbst zur&uuml;ckgesetzt werden.';
 $LANG['alert_perm_exists'] = 'Das Berechtigungsschema "%1%" existiert bereits. Bitte w&auml;hle einen anderen Name oder l&ouml;sche das existierende zuerst.';
@@ -440,6 +443,8 @@ $LANG['config_defaultMenu_comment'] = 'Das TeamCal Neo Men&uuml; kann entweder a
  diese Einstellung in ihrem Profile auch individuell einstellen.';
 $LANG['config_defaultMenu_navbar'] = 'Horizontal Oben';
 $LANG['config_defaultMenu_sidebar'] = 'Vertikal Links';
+$LANG['config_disableTfa'] = 'Zwei Faktor Authentifizierung Deaktivieren';
+$LANG['config_disableTfa_comment'] = 'Deaktiviert die Zwei Faktor Authentifizierung und dessen Einrichtung durch Benutzer. Es werden alle bereits eingerichteten Benutzer 2FA Secrets gel&ouml;scht.';
 $LANG['config_emailConfirmation'] = 'E-Mail Best&auml;tigung erforderlich';
 $LANG['config_emailConfirmation_comment'] = 'Durch die Registrierung erh&auml;lt der User eine E-Mail an die von ihm angegebene Adresse. Sie enth&auml;lt einen
  Aktivierungslink, dem er folgen muss, um seine Angaben zu bets&auml;tigen.';
