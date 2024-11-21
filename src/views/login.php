@@ -2,12 +2,12 @@
 /**
  * Login View
  *
- * @author George Lewe <george@lewe.com>
+ * @author    George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2024 by George Lewe
- * @link https://www.lewe.com
+ * @link      https://www.lewe.com
  *
- * @package TeamCal Neo
- * @since 3.0.0
+ * @package   TeamCal Neo
+ * @since     3.0.0
  */
 ?>
 <!-- ====================================================================
@@ -38,7 +38,7 @@ view.login
             <form id="login" action="index.php?action=<?= $controller ?>" method="post" target="_self" name="loginform" accept-charset="utf-8">
               <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
               <fieldset>
-                <div class="form-group row" style="padding-bottom: <?= $paddingBottom ?>;">
+                <div class="form-group row mb-3" style="padding-bottom: <?= $paddingBottom ?>;">
                   <label for="inputUsername" class="col-lg-<?= $colsleft ?> control-label"><?= $LANG['login_username'] ?></label>
                   <div class="col-lg-<?= $colsright ?>">
                     <input id="inputUsername" class="form-control" autofocus="autofocus" name="uname" type="text" value="<?= (isset($uname)) ? $uname : ""; ?>">
@@ -51,14 +51,18 @@ view.login
                   </div>
                 </div>
                 <hr>
-                <?= $LANG['login_authcode_comment'] ?>
-                <div class="form-group row" style="padding-bottom: <?= $paddingBottom ?>;">
-                  <label for="totp" class="col-lg-<?= $colsleft ?> control-label"><?= $LANG['login_authcode'] ?></label>
-                  <div class="col-lg-<?= $colsright ?>">
-                    <input id="totp" class="form-control" name="totp" type="text" minlength="6" maxlength="6" pattern="^[0-9]{1,6}$">
+
+                <?php if (!$C->read("disableTfa")) { ?>
+                  <?= $LANG['login_authcode_comment'] ?>
+                  <div class="form-group row" style="padding-bottom: <?= $paddingBottom ?>;">
+                    <label for="totp" class="col-lg-<?= $colsleft ?> control-label"><?= $LANG['login_authcode'] ?></label>
+                    <div class="col-lg-<?= $colsright ?>">
+                      <input id="totp" class="form-control" name="totp" type="text" minlength="6" maxlength="6" pattern="^[0-9]{1,6}$">
+                    </div>
                   </div>
-                </div>
-                <hr>
+                  <hr>
+                <?php } ?>
+
                 <div class="form-group row">
                   <label for="inputSubmit" class="col-lg-<?= $colsleft ?> control-label"></label>
                   <div class="col-lg-<?= $colsright ?>">

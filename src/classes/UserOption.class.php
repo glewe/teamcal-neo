@@ -147,6 +147,20 @@ class UserOption {
 
   //---------------------------------------------------------------------------
   /**
+   * Delete all records for a given option
+   *
+   * @param string $option Option to delete
+   *
+   * @return boolean Query result
+   */
+  public function deleteOption($option) {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE `option` = :val1');
+    $query->bindParam('val1', $option);
+    return $query->execute();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
    * Delete all option records for a given value
    *
    * @param string $option Option to delete

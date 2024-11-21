@@ -338,6 +338,26 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
       break;
 
     /**
+     * Switch
+     */
+    case 'switch':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">
+          <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="' . $data['name'] . '" name="swi_' . $data['name'] . '" value="swi_' . $data['name'] . '"' . ((intval($data['value'])) ? " checked" : "") . ' tabindex="' . $tabindex . '"' . $disabled . '>
+              <label class="form-check-label">' . $LANG[$langIdx1] . '</label>
+          </div>
+          ' . $button . $error . '</div>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    /**
      * Text field
      */
     case 'text':

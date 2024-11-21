@@ -239,6 +239,9 @@ $LANG['alert_not_allowed_subject'] = 'Access not allowed';
 $LANG['alert_not_allowed_text'] = 'You do not have permission to access this page or feature.';
 $LANG['alert_not_allowed_help'] = 'If you are not logged in, then public access to this page is not allowed. If you are logged in, your account role is not permitted to view this page.';
 
+$LANG['alert_not_enabled_subject'] = 'Feature not enabled';
+$LANG['alert_not_enabled_text'] = 'This feature is currently not enabled.';
+
 $LANG['alert_perm_invalid'] = 'The new permission scheme name "%1%" is invalid. Choose upper or lower case characters or numbers from 0 to 9. Don\'t use blanks.';
 $LANG['alert_perm_exists'] = 'The permission scheme "%1%" already exists. Use a different name or delete the old one first.';
 $LANG['alert_perm_default'] = 'The "Default" permission scheme cannot be reset to itself.';
@@ -437,6 +440,8 @@ $LANG['config_defaultMenu_comment'] = 'The TeamCal Neo menu can either be shown 
  also adjusts to narrow screens (responsive). The user can change this setting individually in his profile.';
 $LANG['config_defaultMenu_navbar'] = 'Horizontal Top';
 $LANG['config_defaultMenu_sidebar'] = 'Vertical Left';
+$LANG['config_disableTfa'] = 'Disable Two Factor Authentication';
+$LANG['config_disableTfa_comment'] = 'Disable the Two Factor Authentication feature for all users. This will remove the 2FA setup page from the user profile and also delete all existing user 2FA secrets.';
 $LANG['config_emailConfirmation'] = 'Require e-mail Confirmation';
 $LANG['config_emailConfirmation_comment'] = 'Upon registration the user will receive an e-mail to the address he specified containing a confirmation link. He needs to follow that link to validate his information.';
 $LANG['config_emailNotifications'] = 'E-Mail Notifications';

@@ -2,12 +2,12 @@
 /**
  * Login Controller
  *
- * @author George Lewe <george@lewe.com>
+ * @author    George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2024 by George Lewe
- * @link https://www.lewe.com
+ * @link      https://www.lewe.com
  *
- * @package TeamCal Neo
- * @since 3.0.0
+ * @package   TeamCal Neo
+ * @since     3.0.0
  */
 global $C;
 global $CONF;
@@ -134,31 +134,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
               $LOG->logEvent("logLogin", $uname, "log_login_missing");
               break;
             }
+          } elseif ($C->read('forceTfa')) {
+            //
+            // TFA required but no secret for this user yet.
+            // First, log out. Then proceed to the 2FA setup page.
+            //
+            header("Location: index.php?action=setup2fa&profile=" . $uname);
+            break;
           } else {
-            if ($C->read('forceTfa')) {
-              //
-              // TFA required but no secret for this user yet.
-              // First, log out. Then proceed to the 2FA setup page.
-              //
-              header("Location: index.php?action=setup2fa&profile=" . $uname);
-              break;
+            //
+            // Ok to login without TFA
+            //
+            $LOG->logEvent("logLogin", $uname, "log_login_success");
+            //
+            // Check whether we have to force the announcement page to show.
+            // This is the case if the user has popup announcements.
+            //
+            $popups = $UMSG->getAllPopupByUser($uname);
+            if (count($popups)) {
+              header("Location: index.php?action=messages");
             } else {
-              //
-              // Ok to login without TFA
-              //
-              $LOG->logEvent("logLogin", $uname, "log_login_success");
-              //
-              // Check whether we have to force the announcement page to show.
-              // This is the case if the user has popup announcements.
-              //
-              $popups = $UMSG->getAllPopupByUser($uname);
-              if (count($popups)) {
-                header("Location: index.php?action=messages");
-              } else {
-                header("Location: index.php?action=" . $C->read("homepage"));
-              }
-              break;
+              header("Location: index.php?action=" . $C->read("homepage"));
             }
+            break;
           }
 
         case 1:
