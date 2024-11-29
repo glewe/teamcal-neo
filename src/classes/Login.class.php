@@ -454,7 +454,8 @@ class Login {
     // Clear current cookie
     setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, false, true);
     // Set new cookie
-    setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '', $this->hostName, true, true);
+//    setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '', $this->hostName, true, true); // Allow cookie only on HTTPS
+    setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '', $this->hostName, false, true);
     $U->bad_logins = 0;
     $U->grace_start = DEFAULT_TIMESTAMP;
     $U->last_login = date("YmdHis");
