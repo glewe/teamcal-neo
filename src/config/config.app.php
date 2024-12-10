@@ -149,8 +149,8 @@ define('LDAP_TLS', 0);                                       // To avoid "Undefi
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "4.1.2");
-define('APP_DATE', "2024-11-29");
+define('APP_VER', "4.1.3");
+define('APP_DATE', "2024-12-10");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "https://www.lewe.com");
