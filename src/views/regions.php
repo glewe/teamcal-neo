@@ -144,6 +144,7 @@ view.regions
               <!-- iCal tab -->
               <div class="tab-pane fade" id="panel-ical" role="tabpanel" aria-labelledby="tab-ical">
                 <form class="form-control-horizontal" name="form_ical" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8" enctype="multipart/form-data">
+                  <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
                   <?php foreach ($viewData['ical'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
