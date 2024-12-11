@@ -287,7 +287,7 @@ if (!$installationComplete && readDef('APP_INSTALLED', $configAppFile) <> '0') {
     </div>
 
     <?php if (!$installationExecuted && !$installationComplete) { ?>
-      <form class="form-control-horizontal" action="installation.org.php" method="post" target="_self" accept-charset="utf-8">
+      <form class="form-control-horizontal" action="installation.php" method="post" target="_self" accept-charset="utf-8">
 
         <div class="card">
           <div class="card-header"><i class="fas fa-cog fa-lg"></i>&nbsp;<?= readConfig('app_name', $configAppFile) ?> <?= readConfig('app_version', $configAppFile) ?> Installation<a href="https://lewe.gitbook.io/teamcal-neo/installation" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a></div>
