@@ -13,9 +13,10 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 
-//=============================================================================
 /**
+ * ----------------------------------------------------------------------------
  * DATABASE
+ * ----------------------------------------------------------------------------
  *
  * Enter your database parameter here
  */
@@ -25,7 +26,6 @@ $CONF['db_user'] = "root";
 $CONF['db_pass'] = "";
 $CONF['db_table_prefix'] = "tcneo_";
 
-//
 /**
  * The ID array is used to create the table names below.
  */
