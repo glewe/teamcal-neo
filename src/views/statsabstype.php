@@ -170,7 +170,7 @@ view.statsabstype
 
       <canvas id="myChart" height="<?= $viewData['height'] ?>"></canvas>
 
-      <script src="addons/chart.js.4.4.3/chart.js"></script>
+      <script src="addons/chart.js/<?= CHARTJS_VER ?>/chart.umd.js"></script>
       <script>
         <?php if (!$viewData['showAsPieChart']) { ?>
 

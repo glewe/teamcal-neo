@@ -64,7 +64,7 @@ define('SECUREIMAGE_VER', "3.6.4");
 // Simple yet flexible JavaScript charting for designers & developers
 // https://www.chartjs.org/
 //
-define('CHARTJS_VER', "4.4.3");
+define('CHARTJS_VER', "4.4.7");
 
 //
 // Cookie Consent by Silktide
