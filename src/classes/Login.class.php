@@ -19,8 +19,6 @@ class Login {
   private $hostName = '';
   private $min_pw_length = 0;
   private $pw_strength = 0;
-  private $php_self = '';
-  private $log = '';
 
   //---------------------------------------------------------------------------
   /**
@@ -222,6 +220,7 @@ class Login {
     $host = LDAP_HOST;
     $port = LDAP_PORT;
     $searchbase = LDAP_SBASE;
+    $checkAnonymousBind = LDAP_CHECK_ANONYMOUS_BIND;
 
     //
     // Attributes to return
@@ -252,7 +251,7 @@ class Login {
     // Test anonymous bind. If that fails: Unable to connect to LDAP server
     // (patch by Franz Gregor)
     //
-    if (!@ldap_bind($ds)) {
+    if ($checkAnonymousBind && !@ldap_bind($ds)) {
       return 93;
     }
 

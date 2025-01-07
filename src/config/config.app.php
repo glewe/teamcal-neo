@@ -36,7 +36,7 @@ define('APP_IMP_DIR', "upload/import/");
 // Set this to 0 if you want to run the installation.php script again.
 // If not, you need to delete or rename the installation.php file.
 //
-define('APP_INSTALLED', "0");
+define('APP_INSTALLED', "1");
 
 //
 // The cookie prefix to be used on the browser client's device
@@ -141,6 +141,7 @@ define('LDAP_PASS', "password");                             // SA associated pa
 define('LDAP_DIT', "cn=read-only-admin,dc=example,dc=com");  // Directory Information Tree (Relative Distinguished Name)
 define('LDAP_SBASE', "dc=example,dc=com");                   // Search base, location in the LDAP directory to search
 define('LDAP_TLS', 0);                                       // To avoid "Undefined index: LDAP_TLS" error message for LDAP bind to Active Directory
+define('LDAP_CHECK_ANONYMOUS_BIND', 0);                      // Set to 1 to check the LDAP server's 'anonymous bind' setting. Connection will be refused if not allowed.
 
 //=============================================================================
 /**
