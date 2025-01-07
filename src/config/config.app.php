@@ -13,9 +13,10 @@ if (!defined('VALID_ROOT')) {
  * @since 1.0.0
  */
 
-//=============================================================================
 /**
+ * ----------------------------------------------------------------------------
  * ROUTING
+ * ----------------------------------------------------------------------------
  */
 $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
 $fullURL = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -25,9 +26,10 @@ define('APP_AVATAR_DIR', "upload/avatars/");
 define('APP_UPL_DIR', "upload/files/");
 define('APP_IMP_DIR', "upload/import/");
 
-//=============================================================================
 /**
+ * ----------------------------------------------------------------------------
  * TEAMCAL NEO
+ * ----------------------------------------------------------------------------
  */
 //
 // A flag indicating whether the installation script has been executed.
@@ -43,9 +45,10 @@ define('APP_INSTALLED', "1");
 //
 define('COOKIE_NAME', "tcneopro");
 
-//=============================================================================
 /**
+ * ----------------------------------------------------------------------------
  * MANDATORY MODULES
+ * ----------------------------------------------------------------------------
  */
 define('BOOTSTRAP_VER', "5.3.3");
 define('BOOTSTRAP_ICONS_VER', "1.11.3");
@@ -55,9 +58,10 @@ define('JQUERY_VER', "3.7.1");
 define('JQUERY_UI_VER', "1.14.1");
 define('SECUREIMAGE_VER', "3.6.4");
 
-//=============================================================================
 /**
+ * ----------------------------------------------------------------------------
  * OPTIONAL MODULES
+ * ----------------------------------------------------------------------------
  */
 //
 // Chart.js
@@ -88,9 +92,10 @@ define('MAGNIFICPOPUP_VER', "1.2.0");
 define('SYNTAXHIGHLIGHTER', false);
 define('SYNTAXHIGHLIGHTER_VER', "3.0.83");
 
-//=============================================================================
 /**
+ * ----------------------------------------------------------------------------
  * FILE UPLOAD
+ * ----------------------------------------------------------------------------
  */
 //
 // Defines the allowed file types for upload
@@ -103,9 +108,10 @@ $CONF['impExtensions'] = array( 'csv' );
 $CONF['uplExtensions'] = array( 'gif', 'jpg', 'png', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'zip' );
 $CONF['uplMaxsize'] = 2048 * 1024; // 2 MB
 
-//=============================================================================
 /**
+ * ----------------------------------------------------------------------------
  * LDAP
+ * ----------------------------------------------------------------------------
  *
  * You can enable LDAP user authentication in this section. Please read the
  * requirements below.
@@ -143,15 +149,16 @@ define('LDAP_SBASE', "dc=example,dc=com");                   // Search base, loc
 define('LDAP_TLS', 0);                                       // To avoid "Undefined index: LDAP_TLS" error message for LDAP bind to Active Directory
 define('LDAP_CHECK_ANONYMOUS_BIND', 0);                      // Set to 1 to check the LDAP server's 'anonymous bind' setting. Connection will be refused if not allowed.
 
-//=============================================================================
 /**
+ * ----------------------------------------------------------------------------
  * APPLICATION
+ * ----------------------------------------------------------------------------
  *
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "4.1.4");
-define('APP_DATE', "2024-12-10");
+define('APP_VER', "4.1.5");
+define('APP_DATE', "2025-01-07");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "https://www.lewe.com");

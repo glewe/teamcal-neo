@@ -5,24 +5,27 @@ if (!defined('VALID_ROOT')) {
 /**
  * Global Variables
  *
- * @author George Lewe <george@lewe.com>
+ * @author    George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2024 by George Lewe
- * @link https://www.lewe.com
+ * @link      https://www.lewe.com
  *
- * @package TeamCal Neo
- * @since 3.0.0
+ * @package   TeamCal Neo
+ * @since     3.0.0
  */
 
-//
-// BOOTSTRAP COLORS
-//
-// $bsColors = array ( 'danger', 'default', 'info', 'primary', 'success', 'warning' );
+/**
+ * ----------------------------------------------------------------------------
+ * BOOTSTRAP COLORS
+ * ----------------------------------------------------------------------------
+ */
 $bsColors = array( 'black-50', 'body', 'danger', 'dark', 'info', 'light', 'muted', 'primary', 'secondary', 'success', 'warning', 'white', 'white-50' );
 $bsBgColors = array( 'danger', 'dark', 'info', 'light', 'primary', 'secondary', 'success', 'transparent', 'warning', 'white' );
 
-//
-// DEFAULT TIME ZONE
-//
+/**
+ * ----------------------------------------------------------------------------
+ * DEFAULT TIME ZONE
+ * ----------------------------------------------------------------------------
+ */
 $timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
 $tz = $C->read("timeZone");
 if (!strlen($tz) || $tz == "default") {
@@ -31,10 +34,13 @@ if (!strlen($tz) || $tz == "default") {
   date_default_timezone_set($tz);
 }
 
-//
-// USER DATA
-// Used for the currently logged in user
-//
+/**
+ * ----------------------------------------------------------------------------
+ * USER DATA
+ * ----------------------------------------------------------------------------
+ *
+ * Used for the currently logged in user
+ */
 $userData = array(
   'isLoggedIn' => false,
   'role' => 'public',
@@ -43,10 +49,13 @@ $userData = array(
   'tooltip' => ''
 );
 
-//
-// ALERT DATA
-// Used for the alert view
-//
+/**
+ * ----------------------------------------------------------------------------
+ * ALERT DATA
+ * ----------------------------------------------------------------------------
+ *
+ * Used for alert view
+ */
 $alertData = array(
   'type' => 'info',
   'title' => 'Information',
@@ -55,47 +64,58 @@ $alertData = array(
   'help' => ''
 );
 
-//
-// LANGUAGES
-//
+/**
+ * ----------------------------------------------------------------------------
+ * LANGUAGES
+ * ----------------------------------------------------------------------------
+ */
 $appLanguages = getLanguages();
 asort($appLanguages);
 $logLanguages = getLanguages('log');
 asort($logLanguages);
 
-//
-// THEMES
-//
+/**
+ * ----------------------------------------------------------------------------
+ * THEMES
+ * ----------------------------------------------------------------------------
+ */
 $appThemes = getFolders("themes");
 asort($appThemes);
 
-//
-// JQUERY UI THEMES
-//
+/**
+ * ----------------------------------------------------------------------------
+ * JQUERY UI THEMES
+ * ----------------------------------------------------------------------------
+ */
 $appJqueryUIThemes = getFolders('js/jquery/ui/' . JQUERY_UI_VER . '/themes/');
 asort($appJqueryUIThemes);
 
-//
-// MOBILE COLUMNS
-// Number of day columns in the month display for mobile devices.
-// The controller will overwrite the value for 'full' which needs to be the
-// exact amount of days of the month displayed.
-//
-// $mobilecols = array (
-//    '240' => 3,
-//    '320' => 5,
-//    '360' => 6,
-//    '400' => 7,
-//    '480' => 9,
-//    '640' => 14,
-//    '800' => 17,
-//    '1024' => 25,
-//    'full' => 31
-// );
+/**
+ * ----------------------------------------------------------------------------
+ * MOBILE COLUMNS
+ * ----------------------------------------------------------------------------
+ *
+ * Number of day columns in the month display for mobile devices.
+ * The controller will overwrite the value for 'full' which needs to be the
+ * exact amount of days of the month displayed.
+ */
+//$mobilecols = array(
+//  '240' => 3,
+//  '320' => 5,
+//  '360' => 6,
+//  '400' => 7,
+//  '480' => 9,
+//  '640' => 14,
+//  '800' => 17,
+//  '1024' => 25,
+//  'full' => 31
+//);
 
-//
-// FONT AWESOME ICON NAMES 6.7.2
-//
+/**
+ * ----------------------------------------------------------------------------
+ * FONT AWESOME ICON NAMES 6.7.2
+ * ----------------------------------------------------------------------------
+ */
 $faIcons = array(
   'fa-brands fa-42-group',
   'fa-brands fa-500px',
