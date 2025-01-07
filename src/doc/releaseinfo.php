@@ -2,6 +2,23 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '4.1.5',
+    'date' => '2025-01-xx',
+    'info' => '',
+    'bugfixes' => [
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Added parameter to disable LDAP anonymous bind check', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/12' ],
+      [ 'summary' => 'Update Chart.js 4.4.3 => 4.4.7', 'issue' => '' ],
+      [ 'summary' => 'Update Datatables 2.1.2 => 2.2.0', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '4.1.4',
     'date' => '2024-12-10',
     'info' => '',

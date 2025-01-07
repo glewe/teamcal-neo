@@ -72,7 +72,7 @@ view.footer
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>-->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>-->
 <!--<script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.2/b-3.1.0/b-html5-3.1.0/r-3.0.2/datatables.min.js"></script>-->
-<script src="addons/datatables/datatables.min.js"></script>
+<script src="addons/datatables/<?= DATATABLES_VER ?>/datatables.min.js"></script>
 
 <!-- TeamCal Neo Width Mode Switcher -->
 <script src="js/width-modes.min.js"></script>
