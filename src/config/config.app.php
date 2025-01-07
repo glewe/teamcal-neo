@@ -78,7 +78,7 @@ define('COOKIECONSENT_VER', "3.1.1");
 // https://dimsemenov.com/plugins/magnific-popup/
 //
 define('MAGNIFICPOPUP', false);
-define('MAGNIFICPOPUP_VER', "1.1.0");
+define('MAGNIFICPOPUP_VER', "1.2.0");
 
 //
 // Syntaxhighlighter

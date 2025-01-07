@@ -2,12 +2,12 @@
 /**
  * Header View
  *
- * @author George Lewe <george@lewe.com>
+ * @author    George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2024 by George Lewe
- * @link https://www.lewe.com
+ * @link      https://www.lewe.com
  *
- * @package TeamCal Neo
- * @since 3.0.0
+ * @package   TeamCal Neo
+ * @since     3.0.0
  */
 ?>
 <!DOCTYPE html>
@@ -119,8 +119,8 @@
 
   <?php if (MAGNIFICPOPUP) { ?>
     <!-- Magnific Popup -->
-    <link rel="stylesheet" href="addons/magnific/magnific-popup.css" type="text/css">
-    <script src="addons/magnific/jquery.magnific-popup.min.js"></script>
+    <link rel="stylesheet" href="addons/magnific/<?= MAGNIFICPOPUP_VER ?>/magnific-popup.css" type="text/css">
+    <script src="addons/magnific/<?= MAGNIFICPOPUP_VER ?>/jquery.magnific-popup.min.js"></script>
   <?php } ?>
 
   <?php if (SYNTAXHIGHLIGHTER) { ?>
@@ -138,12 +138,12 @@
   <?php if ($htmlData['cookieConsent']) { ?>
     <!-- Cookie Consent -->
     <?php if ($htmlData['cookieConsentCDN']) { ?>
-  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.js"></script>
-  <?php } else { ?>
-  <link rel="stylesheet" type="text/css" href="addons/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.css">
-    <script src="addons/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.js"></script>
-  <?php } ?>
+      <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.css">
+      <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.js"></script>
+    <?php } else { ?>
+      <link rel="stylesheet" type="text/css" href="addons/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.css">
+      <script src="addons/cookieconsent2/<?= COOKIECONSENT_VER ?>/cookieconsent.min.js"></script>
+    <?php } ?>
     <script>
       window.addEventListener("load", function () {
         window.cookieconsent.initialise({
