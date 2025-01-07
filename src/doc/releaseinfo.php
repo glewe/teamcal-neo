@@ -13,6 +13,7 @@ $releases = [
       [ 'summary' => 'Added parameter to disable LDAP anonymous bind check', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/12' ],
       [ 'summary' => 'Update Chart.js 4.4.3 => 4.4.7', 'issue' => '' ],
       [ 'summary' => 'Update Datatables 2.1.2 => 2.2.0', 'issue' => '' ],
+      [ 'summary' => 'Update FontAwesome 6.5.1 => 6.7.2', 'issue' => '' ],
     ],
     'removals' => [
     ],
