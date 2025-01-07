@@ -14,6 +14,8 @@ $releases = [
       [ 'summary' => 'Update Chart.js 4.4.3 => 4.4.7', 'issue' => '' ],
       [ 'summary' => 'Update Datatables 2.1.2 => 2.2.0', 'issue' => '' ],
       [ 'summary' => 'Update FontAwesome 6.5.1 => 6.7.2', 'issue' => '' ],
+      [ 'summary' => 'Update jQuery 3.6.1 => 3.7.1', 'issue' => '' ],
+      [ 'summary' => 'Update jQuery UI 1.13.2 => 1.14.1', 'issue' => '' ],
     ],
     'removals' => [
     ],
