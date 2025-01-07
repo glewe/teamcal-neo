@@ -49,7 +49,7 @@ define('COOKIE_NAME', "tcneopro");
  */
 define('BOOTSTRAP_VER', "5.3.3");
 define('BOOTSTRAP_ICONS_VER', "1.11.3");
-define('DATATABLES_VER', "2.1.2");
+define('DATATABLES_VER', "2.2.0");
 define('FONTAWESOME_VER', "6.5.1");
 define('JQUERY_VER', "3.6.1");
 define('JQUERY_UI_VER', "1.13.2");
