@@ -2016,8 +2016,8 @@ class Securimage {
     // loop over $img pixels, take pixels from $tmpimg with distortion field
     for ($ix = 0; $ix < $this->image_width; ++$ix) {
       for ($iy = 0; $iy < $this->image_height; ++$iy) {
-        $x = $ix;
-        $y = (int) $iy;
+        $x = intval($ix);
+        $y = intval($iy);
         for ($i = 0; $i < $numpoles; ++$i) {
           $dx = $ix - $px[$i];
           $dy = $iy - $py[$i];
@@ -2036,7 +2036,7 @@ class Securimage {
         $x *= $this->iscale;
         $y *= $this->iscale;
         if ($x >= 0 && $x < $width2 && $y >= 0 && $y < $height2) {
-          $c = imagecolorat($this->tmpimg, $x, $y);
+          $c = imagecolorat($this->tmpimg, intval($x), intval($y));
         }
         if ($c != $bgCol) {
           // only copy pixels of letters to preserve any background image
@@ -2056,8 +2056,9 @@ class Securimage {
       $y = mt_rand($this->image_height * 0.1, $this->image_height * 0.9);
 
       $theta = ($this->frand() - 0.5) * M_PI * 0.7;
-      $w = $this->image_width;
-      $len = mt_rand($w * 0.4, $w * 0.7);
+      $w = intval($this->image_width);
+//      $len = mt_rand($w * 0.4, $w * 0.7);
+      $len = mt_rand(intval($w * 0.4), intval($w * 0.7));
       $lwid = mt_rand(0, 2);
 
       $k = $this->frand() * 0.6 + 0.2;
@@ -2075,8 +2076,10 @@ class Securimage {
       $ldy = round($dx * $lwid);
 
       for ($i = 0; $i < $n; ++$i) {
-        $x = $x0 + $i * $dx + $amp * $dy * sin($k * $i * $step + $phi);
-        $y = $y0 + $i * $dy - $amp * $dx * sin($k * $i * $step + $phi);
+//        $x = $x0 + $i * $dx + $amp * $dy * sin($k * $i * $step + $phi);
+//        $y = $y0 + $i * $dy - $amp * $dx * sin($k * $i * $step + $phi);
+        $x = intval($x0 + $i * $dx + $amp * $dy * sin($k * $i * $step + $phi));
+        $y = intval($y0 + $i * $dy - $amp * $dx * sin($k * $i * $step + $phi));
         imagefilledrectangle($this->im, $x, $y, $x + $lwid, $y + $lwid, $this->gdlinecolor);
       }
     }
