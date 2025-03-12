@@ -5,12 +5,12 @@
  *
  * This class provides methods and properties for user logins.
  *
- * @author George Lewe <george@lewe.com>
+ * @author    George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2024 by George Lewe
- * @link https://www.lewe.com
+ * @link      https://www.lewe.com
  *
- * @package TeamCal Neo
- * @since 3.0.0
+ * @package   TeamCal Neo
+ * @since     3.0.0
  */
 class Login {
   private $bad_logins = 0;
@@ -19,6 +19,9 @@ class Login {
   private $hostName = '';
   private $min_pw_length = 0;
   private $pw_strength = 0;
+
+  public $log = '';
+  public $php_self = '';
 
   //---------------------------------------------------------------------------
   /**
@@ -101,10 +104,11 @@ class Login {
    * -have 1 number
    * -have 1 punctuation char
    *
-   * @param string $uname Username trying to log in
-   * @param string $pw Current password
+   * @param string $uname  Username trying to log in
+   * @param string $pw     Current password
    * @param string $pwnew1 New password
    * @param string $pwnew2 Repeated new password
+   *
    * @return integer
    *         10 - Username missing
    *         11 - Password missing
@@ -209,6 +213,7 @@ class Login {
    * retcode = 96 : LDAP search bind failed
    *
    * @param string $uidpass LDAP password
+   *
    * @return integer Authentication return code
    */
   private function ldapVerify($uidpass) {
@@ -317,6 +322,7 @@ class Login {
    * retcode = 7 : bad password
    *
    * @param string password
+   *
    * @return integer authentication return code
    */
   private function localVerify($password) {
@@ -386,7 +392,8 @@ class Login {
    * retcode = 96 : LDAP error: Search bind failed
    *
    * @param string $loginname Username
-   * @param string $loginpwd Password
+   * @param string $loginpwd  Password
+   *
    * @return integer Login return code
    */
   public function loginUser($loginname = '', $loginpwd = '') {
