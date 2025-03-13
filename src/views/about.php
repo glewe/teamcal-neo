@@ -57,7 +57,7 @@ view.about
             <li>jQuery Team <?= $LANG['about_for'] ?> <a href="https://www.jquery.com/" target="_blank" rel="noopener">jQuery <?= JQUERY_VER ?></a> <?= $LANG['about_and'] ?> <a href="http://www.jqueryui.com/" target="_blank" rel="noopener">jQuery UI <?= JQUERY_UI_VER ?></a></li>
             <li>Stefan Petre <?= $LANG['about_for'] ?> <a href="https://www.eyecon.ro/colorpicker/" target="_blank" rel="noopener">jQuery Color Picker</a></li>
             <li>Dimitri Semenov <?= $LANG['about_for'] ?> <a href="https://dimsemenov.com/plugins/magnific-popup/" target="_blank" rel="noopener">Magnific Popup <?= MAGNIFICPOPUP_VER ?></a></li>
-            <li>Drew Phillips <?= $LANG['about_for'] ?> <a href="https://www.phpcaptcha.org/" target="_blank" rel="noopener">SecureImage <?= SECUREIMAGE_VER ?></a></li>
+            <li>Drew Phillips <?= $LANG['about_for'] ?> <a href="https://github.com/dapphp/securimage" target="_blank" rel="noopener">SecureImage <?= SECUREIMAGE_VER ?></a></li>
             <li>Iconshock Team <?= $LANG['about_for'] ?> <a href="https://www.iconshock.com/icon_sets/vector-user-icons/" target="_blank" rel="noopener">User Icons</a></li>
             <?php if (SYNTAXHIGHLIGHTER) { ?>
               <li>Alex Gorbatchev <?= $LANG['about_for'] ?> <a href="https://select2.github.io/" target="_blank" rel="noopener">Syntaxhighlighter <?= SYNTAXHIGHLIGHTER_VER ?></a></li>
