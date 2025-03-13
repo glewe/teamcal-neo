@@ -2,8 +2,24 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '4.2.0',
+    'date' => '2025-03-13',
+    'info' => '',
+    'bugfixes' => [
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Update Securimage 3.6.4 => 3.6.8 (including PHP 8.4 patches)', 'issue' => '' ],
+      [ 'summary' => 'Production mode flag in index.php for easier debugging', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '4.1.5',
-    'date' => '2025-01-xx',
+    'date' => '2025-01-07',
     'info' => '',
     'bugfixes' => [
     ],
