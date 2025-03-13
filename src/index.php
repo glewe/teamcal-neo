@@ -2,27 +2,41 @@
 /**
  * Index
  *
- * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2024 by George Lewe
- * @link https://www.lewe.com
+ * @author     George Lewe <george@lewe.com>
+ * @copyright  Copyright (c) 2014-2024 by George Lewe
+ * @link       https://www.lewe.com
  *
- * @package TeamCal Neo
+ * @package    TeamCal Neo
  * @subpackage Views
- * @since 3.0.0
+ * @since      3.0.0
  */
 
-// Comment out the following line if you want to show PHP errors in your browser during runtime.
-// You should disable this line in a test or development environment only.
-//error_reporting(0);
-error_reporting(E_ALL);
+//-----------------------------------------------------------------------------
+// Set PRODUCTION_MODE to true to suppress PHP errors and warnings.
+//
+define('PRODUCTION_MODE', false);
+if (PRODUCTION_MODE) {
+  error_reporting(0);
+  ini_set('display_errors', 0);
+} else {
+  error_reporting(E_ALL);
+  ini_set('display_errors', 1);
+}
 
+//-----------------------------------------------------------------------------
 // Check if a session already exists
+//
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
-}// Generate a CSRF token
+}
+
+//-----------------------------------------------------------------------------
+// Generate a CSRF token
+//
 if (empty($_SESSION['csrf_token'])) {
   $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
+
 //-----------------------------------------------------------------------------
 // DEFINES
 //
