@@ -27,9 +27,9 @@
  * @link http://www.phpcaptcha.org Securimage PHP CAPTCHA
  * @link http://www.phpcaptcha.org/latest.zip Download Latest Version
  * @link http://www.phpcaptcha.org/Securimage_Docs/ Online Documentation
- * @copyright 2012 Drew Phillips
+ * @copyright 2018 Drew Phillips
  * @author Drew Phillips <drew@drew-phillips.com>
- * @version 3.5.2 (Feb 15, 2014)
+ * @version 3.6.8 (May 2020)
  * @package Securimage
  *
  */
