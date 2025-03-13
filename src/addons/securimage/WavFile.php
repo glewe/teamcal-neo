@@ -1087,7 +1087,7 @@ class WavFile
 
         if ($this->getIgnoreChunkSizes()) {
             $RIFF['ChunkSize'] = $actualSize - 8;
-        } elseif ($actualSize - 8 < $RIFF['ChunkSize']) {
+        } else if ($actualSize - 8 < $RIFF['ChunkSize']) {
             trigger_error('"RIFF" chunk size does not match actual file size. Found ' . $RIFF['ChunkSize'] . ', expected ' . ($actualSize - 8) . '.', E_USER_NOTICE);
             $RIFF['ChunkSize'] = $actualSize - 8;
         }
@@ -1566,7 +1566,7 @@ class WavFile
         } else {
             // replace
             for ($i = 0; $i < $sampleBytes; ++$i) {
-                $this->_samples{$offset + $i} = $sampleBinary{$i};
+                $this->_samples[$offset + $i] = $sampleBinary[$i];
             }
         }
 
@@ -1628,7 +1628,7 @@ class WavFile
                 throw new WavFileException("WavFile to mix is missing or invalid.");
             } elseif ($mix_wav->getSampleRate() != $this->getSampleRate()) {
                 throw new WavFileException("Sample rate of WavFile to mix does not match.");
-            } elseif ($mix_wav->getNumChannels() != $this->getNumChannels()) {
+            } else if ($mix_wav->getNumChannels() != $this->getNumChannels()) {
                 throw new WavFileException("Number of channels of WavFile to mix does not match.");
             }
 
@@ -1728,9 +1728,9 @@ class WavFile
         // basic checks
         if ($wav->getSampleRate() != $this->getSampleRate()) {
             throw new WavFileException("Sample rate for wav files do not match.");
-        } elseif ($wav->getBitsPerSample() != $this->getBitsPerSample()) {
+        } else if ($wav->getBitsPerSample() != $this->getBitsPerSample()) {
             throw new WavFileException("Bits per sample for wav files do not match.");
-        } elseif ($wav->getNumChannels() != $this->getNumChannels()) {
+        } else if ($wav->getNumChannels() != $this->getNumChannels()) {
             throw new WavFileException("Number of channels for wav files do not match.");
         }
 
