@@ -13,8 +13,8 @@
 
 // Comment out the following line if you want to show PHP errors in your browser during runtime.
 // You should disable this line in a test or development environment only.
-error_reporting(0);
-//error_reporting(E_ALL);
+//error_reporting(0);
+error_reporting(E_ALL);
 
 // Check if a session already exists
 if (session_status() === PHP_SESSION_NONE) {
