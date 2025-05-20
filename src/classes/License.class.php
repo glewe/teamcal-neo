@@ -19,6 +19,8 @@
 class License {
   private $db = '';
   private $table = '';
+  private $debugCurl = false;
+  private $disableSSL = false;
   public $details;
 
   //---------------------------------------------------------------------------
@@ -36,7 +38,7 @@ class License {
   /**
    * Activates a license (and registers the domain the request is coming from)
    *
-   * @return JSON
+   * @return string
    */
   public function activate() {
     $parms = array(
@@ -89,7 +91,26 @@ class License {
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:43.0) Gecko/20100101 Firefox/43.0');
+
+    if ($this->disableSSL) {
+      curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+      curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    }
+
     $response = curl_exec($curl);
+
+    if ($this->debugCurl) {
+      // Debugging: Check for errors
+      if (curl_errno($curl)) {
+        echo 'cURL Error: ' . curl_error($curl);
+      }
+      // Debugging: Log response and request info
+      echo '<pre>';
+      echo "URL: " . $url . "\n";
+      echo "Response: " . var_export($response, true) . "\n";
+      echo "cURL Info: " . var_export(curl_getinfo($curl), true) . "\n";
+      echo '</pre>';
+    }
 
     curl_close($curl);
     return $response;
