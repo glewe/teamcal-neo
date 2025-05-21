@@ -1254,9 +1254,9 @@ a.sidebar-link:hover {
 }
 
 @media (max-width: 1024px) {
-  body {
-    min-width: 1280px;
-  }
+  /*body {*/
+  /*  min-width: 1280px;*/
+  /*}*/
   #navbar {
     max-width: 1024px;
   }
