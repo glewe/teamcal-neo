@@ -723,33 +723,37 @@ $LANG['home_title'] = 'Willkommen bei ' . $appTitle;
 //
 $LANG['imprint'] = array(
   array(
-    'title' => 'Author',
-    'text' => '<p>' . $appTitle . ' wurde von George Lewe erstellt (<a href="http://www.lewe.com/">Lewe.com</a>).
-       ' . $appTitle . ' nutzt au&szlig;erdem kostenlose Module von anderen gro&szlig;artigen Entwicklern, die dankenswerter Weise
-      ihre Arbeit &ouml;ffentlich verf&uuml;gbar machen. Details dazu befinden sich auf der <a href="index.php?action=about">About Seite</a>.',
+    'title' => '',
+    'text' => '<p>Angaben nach § 5 Digitale-Dienste-Gesetz (DDG) und Dienstleistungs-Informationspflichten-Verordnung (DL-InfoV)</p>',
+  ),
+  array(
+    'title' => 'Autor',
+    'text' => '<p>' . $appTitle . ' wurde von George Lewe erstellt (<a href="https://www.lewe.com/">Lewe.com</a>).
+       ' . $appTitle . ' nutzt au&szlig;erdem kostenlose Module von anderen gro&szlig;artigen Entwicklern, die dankenswerterweise
+      ihre Arbeit &ouml;ffentlich verf&uuml;gbar machen. Details dazu befinden sich auf der <a href="index.php?action=about">Über TeamCal Neo</a> Seite.',
   ),
   array(
     'title' => 'Inhalt',
-    'text' => '<p>Die Inhalte, die mit der ' . $appTitle . ' Applikation ausgeliefert werden, wurden sorgf&auml;tig vorbereitet und
+    'text' => '<p>Die Inhalte, die mit der ' . $appTitle . ' Applikation ausgeliefert werden, wurden sorgf&auml;ltig vorbereitet und
       erstellt. Wo andere Quellen benutzt wurde, wird entsprechend darauf hingewiesen. Sollte dies nicht der Fall sein, bitte informiere George Lewe mittels dieses
-      <a href="http://www.lewe.com/contact">Formulars</a>.</p>
-      <p>Keine Inhalt der ausgelieferten Applikation, ganz oder in Teilen darf vervielf&auml;tigt, reproduziert, kopiert oder wiederwendet werden, in keiner Form,
+      <a href="https://www.lewe.com/contact">Formulars</a>.</p>
+      <p>Keine Inhalte der ausgelieferten Applikation, ganz oder in Teilen darf vervielf&auml;ltigt, reproduziert, kopiert oder wiederverwendet werden, in keiner Form,
       elektronisch oder mechanisch, egal f&uuml;r welchen Zweck ohne ausdr&uuml;ckliche Erlaubnis von George Lewe.</p>',
   ),
   array(
     'title' => 'Links',
     'text' => '<p>Alle Links, die mit der ' . $appTitle . ' Applikation ausgeliefert werden, dienen der Annehmlichkeit und zu Informationszwecken.
-      Sie stellen keine Bef&uuml;rwortung oder Akzeptanz der verlinkten Inhalte dar, weder in Bezug auf Produkte, Services oder Meinungen der verlinkten
-      Anbieter. Der Hersteller der Applikation ist nicht verantwortlich f&uuml;r die Richtigkeit oder Rechtm&auml;&szlig;keit der verlinkten Inhalte. Bei Fragen
-      oder Bedenken zu den verlinkten Inhalten kontakiere bitte den Anbieter dort.</p>',
+      Sie stellen keine Bef&uuml;rwortung oder Akzeptanz der verlinkten Inhalte dar, weder in Bezug auf Produkte, Services noch Meinungen der verlinkten
+      Anbieter. Der Hersteller der Applikation ist nicht verantwortlich f&uuml;r die Richtigkeit oder Rechtm&auml;&szlig;igkeit der verlinkten Inhalte. Bei Fragen
+      oder Bedenken zu den verlinkten Inhalten kontaktiere bitte den Anbieter dort.</p>',
   ),
   array(
     'title' => 'DSGVO',
     'text' => '<p>Die ausgelieferte Applikation ' . $appTitle . ' enth&auml;lt keine pers&ouml;nlichen Daten. Der Schutz von pers&ouml;nlichen Daten, die
-      der Nutzer hinzuf&uumll;gt, obliegt alleinig dem Nutzer der Applikation.</p>
-      <p>' . $appTitle . ' bietet einen generellen DSGVO Generator. Falls dieser benutzt wird, ist es die Pflicht des Nutzers der Applikation, die generierte
-      DSVGO-Erkl&auml;rung auf Vollst&auml;ndigkeit und Korrektheit zu &uuml;berpr&uuml;fen und gegebenenfalls entpsrechend zu &auml;nder oder zu erweitern.</p>
-      <p>Der Hersteller der Applikation ist nicht verantwortlich f&uuml;r die Richtigkeit oder Rechtm&auml;&szlig;keit der DSGVO Erkl&auml;rung.</p>',
+      der Nutzer hinzuf&uuml;gt, obliegt alleinig dem Nutzer der Applikation.</p>
+      <p>' . $appTitle . ' bietet einen generellen DSGVO-Generator. Falls dieser benutzt wird, ist es die Pflicht des Nutzers der Applikation, die generierte
+      DSGVO-Erkl&auml;rung auf Vollst&auml;ndigkeit und Korrektheit zu &uuml;berpr&uuml;fen und gegebenenfalls entsprechend zu &auml;ndern oder zu erweitern.</p>
+      <p>Der Hersteller der Applikation ist nicht verantwortlich f&uuml;r die Richtigkeit oder Rechtm&auml;&szlig;igkeit der DSGVO Erkl&auml;rung.</p>',
   ),
 );
 
@@ -770,7 +774,7 @@ if ($C->read('googleAnalytics') && $C->read("googleAnalyticsID")) {
          der Cookies durch eine entsprechende Einstellung Ihrer Browser-Software verhindern; wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall gegebenenfalls nicht
          s&auml;mtliche Funktionen dieser Website vollumf&auml;nglich werden nutzen k&ouml;nnen. Sie k&ouml;nnen dar&uuml;ber hinaus die Erfassung der durch das Cookie erzeugten und auf Ihre Nutzung
          der Website bezogenen Daten (inkl. Ihrer IP-Adresse) an Google sowie die Verarbeitung dieser Daten durch Google verhindern, indem sie das unter dem folgenden Link
-         verf&uuml;gbare Browser-Plugin herunterladen und installieren: <a href="http://tools.google.com/dlpage/gaoptout?hl=de">http://tools.google.com/dlpage/gaoptout?hl=de</a>.</p>
+         verf&uuml;gbare Browser-Plugin herunterladen und installieren: <a href="https://tools.google.com/dlpage/gaoptout?hl=de">https://tools.google.com/dlpage/gaoptout?hl=de</a>.</p>
          <p>Alternativ zum Browser-Add-On oder innerhalb von Browsern auf mobilen Ger&auml;ten, <a id="GAOptOut" title="Google Analytics Opt-Out-Cookie setzen" href="javascript:gaOptout()">
          klicken Sie bitte diesen Link</a>, um die Erfassung durch Google Analytics innerhalb dieser Website zuk&uuml;nftig zu verhindern (das Opt Out funktioniert nur in dem Browser
          und nur f&uuml;r diese Domain). Dabei wird ein Opt-Out-Cookie auf Ihrem Ger&auml;t abgelegt. L&ouml;schen Sie Ihre Cookies in diesem Browser, m&uuml;ssen Sie diesen Link erneut klicken.</p>
@@ -1138,7 +1142,7 @@ $LANG['profile_alert_save_failed'] = 'Die neuen Informationen f&uuml;r diesen Be
 $LANG['profile_avatar'] = 'Avatar';
 $LANG['profile_avatar_comment'] = 'Wenn kein eigener Avatar hochgeladen wurde, wird ein Standard-Avatar angezeigt.';
 $LANG['profile_avatar_available'] = 'Verf&uuml;gbare Standard Avatare';
-$LANG['profile_avatar_available_comment'] = 'W&auml;hle einen der standard Avatare, erstellt von <a href="http://www.iconshock.com/icon_sets/vector-user-icons/" target="_blank">IconShock</a>.';
+$LANG['profile_avatar_available_comment'] = 'W&auml;hle einen der standard Avatare, erstellt von <a href="https://www.iconshock.com/icon_sets/vector-user-icons/" target="_blank">IconShock</a>.';
 $LANG['profile_avatar_upload'] = 'Avatar hochladen';
 $LANG['profile_avatar_upload_comment'] = 'Es kann ein individueller Avatar hochlgeaden werden. Die Dateigr&ouml;&szlig;e ist limitiert auf %d Bytes, das Bild sollte
  80x80 Pixel gro&szlig; sein (wird ohnehin nur in dieser Gr&ouml;&szlig;e dargestellt) und die erlaubten Formate sind "%s".';
