@@ -9,6 +9,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $A;
 global $AG;
 global $C;
 global $CONF;
@@ -87,11 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Create |
     // '--------'
     if (isset($_POST['btn_absCreate'])) {
-      //
-      // Sanitize input
-      //
-      $_POST = sanitize($_POST);
-
       //
       // Form validation
       //
