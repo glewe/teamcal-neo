@@ -542,6 +542,13 @@ $LANG['config_mailSMTPpassword'] = 'SMTP Passwort';
 $LANG['config_mailSMTPpassword_comment'] = 'Gib das SMTP Passwort an.';
 $LANG['config_mailSMTPSSL'] = 'SMTP TLS/SSL Protokoll';
 $LANG['config_mailSMTPSSL_comment'] = 'TLS/SSL Protokoll f&uuml;r die SMTP Verbindung benutzen.';
+$LANG['config_matomoAnalytics'] = 'Matomo Analytics';
+$LANG['config_matomoAnalytics_comment'] = $appTitle . ' unterst&uuml;tzt Matomo Analytics. Wenn du die Zugriffe auf deine Instanz
+ von Matomo Analytics tracken lassen willst, ticke die Checkbox hier und trage deine Matomo URL und Matomo SiteId ein. Der entsprechende Javascript Code wird dann eingef&uuml;gt.';
+$LANG['config_matomoUrl'] = "Matomo URL";
+$LANG['config_matomoUrl_comment'] = "Wenn du Matomo Analytics aktiviert hast, trage hier die URL zu deinem Matomo Server ein, e.g. 'mysite.com/matomo'.";
+$LANG['config_matomoSiteId'] = "Matomo SiteId";
+$LANG['config_matomoSiteId_comment'] = "Trage hier die Matomo SiteId ein, unter der du diese " . $appTitle . " Instanz im Matomo Server eingerichtet hast.";
 $LANG['config_noCaching'] = 'Kein Caching';
 $LANG['config_noCaching_comment'] = 'In manchen Server-Client Umgebungen kann es zu unerwuenschten Caching Effekten kommen. Mit diesem Schalter schickt TeamCal Neo im HTML header No-caching Anweisungen zum Web Server, die hier eventuell Abhilfe schaffen.';
 $LANG['config_noIndex'] = 'Keine Suchmaschinen-Indizierung';

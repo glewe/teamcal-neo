@@ -315,6 +315,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         $C->save("googleAnalytics", "0");
         $C->save("googleAnalyticsID", "");
       }
+      if (isset($_POST['chk_matomoAnalytics']) && $_POST['chk_matomoAnalytics']) {
+        $C->save("matomoAnalytics", "1");
+        $C->save("matomoUrl", $_POST['txt_matomoUrl']);
+        $C->save("matomoSiteId", $_POST['txt_matomoSiteId']);
+      } else {
+        $C->save("matomoAnalytics", "0");
+      }
       if (isset($_POST['chk_noIndex']) && $_POST['chk_noIndex']) {
         $C->save("noIndex", "1");
       } else {
@@ -635,6 +642,9 @@ $viewData['system'] = array(
   array( 'prefix' => 'config', 'name' => 'timeZone', 'type' => 'list', 'values' => $viewData['timezoneList'] ),
   array( 'prefix' => 'config', 'name' => 'googleAnalytics', 'type' => 'check', 'values' => '', 'value' => $C->read("googleAnalytics") ),
   array( 'prefix' => 'config', 'name' => 'googleAnalyticsID', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("googleAnalyticsID"), 'maxlength' => '16' ),
+  array( 'prefix' => 'config', 'name' => 'matomoAnalytics', 'type' => 'check', 'values' => '', 'value' => $C->read("matomoAnalytics") ),
+  array( 'prefix' => 'config', 'name' => 'matomoUrl', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("matomoUrl"), 'maxlength' => '160' ),
+  array( 'prefix' => 'config', 'name' => 'matomoSiteId', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("matomoSiteId"), 'maxlength' => '160' ),
   array( 'prefix' => 'config', 'name' => 'noIndex', 'type' => 'check', 'values' => '', 'value' => $C->read("noIndex") ),
   array( 'prefix' => 'config', 'name' => 'noCaching', 'type' => 'check', 'values' => '', 'value' => $C->read("noCaching") ),
   array( 'prefix' => 'config', 'name' => 'versionCompare', 'type' => 'check', 'values' => '', 'value' => $C->read("versionCompare") ),
