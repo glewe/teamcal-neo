@@ -23,24 +23,6 @@
   ===============================================================================
   -->
 
-  <?php
-  if ($C->read("googleAnalytics") && $C->read("googleAnalyticsID")) {
-    $gatag = $C->read("googleAnalyticsID");
-    ?>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $gatag ?>"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-
-      gtag('js', new Date());
-      gtag('config', '<?= $gatag ?>');
-    </script>
-  <?php } ?>
-
   <title><?= $htmlData['title'] ?></title>
 
   <meta http-equiv="content-type" content="text/html;charset=utf-8">
@@ -180,6 +162,45 @@
         padding: 5px 0 5px 0;
       }
     </style>
+  <?php } ?>
+
+  <?php
+  if ($C->read("googleAnalytics") && $C->read("googleAnalyticsID")) {
+    $gatag = $C->read("googleAnalyticsID");
+    ?>
+    <!-- Google Analytics (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $gatag ?>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', '<?= $gatag ?>');
+    </script>
+    <!-- End Google Analytics (gtag.js) -->
+  <?php } ?>
+
+  <?php
+  if ($C->read("matomoAnalytics") && $C->read("matomoUrl") && $C->read("matomoSiteId")) {
+    $matomoUrl = $C->read("matomoUrl");
+    $matomoSiteId = $C->read("matomoSiteId");
+    ?>
+    <!-- Matomo Analytics -->
+    <script>
+      var _paq = window._paq = window._paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="//<?= $matomoUrl ?>/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '<?= $matomoSiteId ?>']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <!-- End Matomo Analytics -->
   <?php } ?>
 
 </head>
