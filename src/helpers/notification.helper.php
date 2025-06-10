@@ -372,7 +372,7 @@ function sendEmail($to, $subject, $body, $from = '') {
   global $C;
   $debug = false;
 
-  error_reporting(E_ALL ^ E_STRICT);
+  error_reporting(E_ALL);
 
   $from_regexp = preg_match('/<(.*?)>/', $from, $fetch);
 
