@@ -143,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   // Form validation
   //
   $inputError = false;
-  if (isset($_POST['btn_create'])) {
+  if (isset($_POST['btn_create']) || isset($_POST['btn_update'])) {
     if (!formInputValid('txt_date', 'required|date')) {
       $inputError = true;
     }
@@ -167,7 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $D->deleteByDateAndUser($dnDate, $viewData['user']);
 
       if (isset($_POST['sel_regions'])) {
-        foreach ($_POST['sel_regions'] as $reg) {
+        foreach ((array)$_POST['sel_regions'] as $reg) {
           $D->yyyymmdd = $dnDate;
           $D->username = $viewData['user'];
           $D->region = $reg;
@@ -184,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         if ($enddate > $D->yyyymmdd) {
           for ($i = $D->yyyymmdd + 1; $i <= $enddate; $i++) {
             $D->deleteByDateAndUser($i, $viewData['user']);
-            foreach ($_POST['sel_regions'] as $reg) {
+            foreach ((array)$_POST['sel_regions'] as $reg) {
               $D->yyyymmdd = $i;
               $D->username = $viewData['user'];
               $D->region = $reg;
