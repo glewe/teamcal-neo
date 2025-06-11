@@ -13,7 +13,7 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Checks whether an absence type is valid for a given user based on his
  * group memberships
@@ -23,38 +23,52 @@ if (!defined('VALID_ROOT')) {
  *
  * @return boolean True or False indicating success
  */
-function absenceIsValidForUser($absid, $username) {
+function absenceIsValidForUser(string $absid, string $username): bool {
   global $AG, $UG;
-  $isValid = false;
-  if (!strlen($username) && isAllowed('calendaredit')) {
+
+  try {
     //
-    // Public
+    // Input validation
     //
-    return true;
-  }
-  /**
-   * Get all groups for the given user
-   */
-  $userGroups = $UG->getAllForUser($username);
-  foreach ($userGroups as $group) {
-    if ($AG->isAssigned($absid, $group['groupid'])) {
-      $isValid = true;
+    if (empty($absid)) {
+      return false;
     }
+
+    //
+    // Public access check
+    //
+    if (empty($username) && isAllowed('calendaredit')) {
+      return true;
+    }
+
+    //
+    // Get all groups for the given user and check if absence is assigned to any
+    //
+    $userGroups = $UG->getAllForUser($username);
+
+    foreach ($userGroups as $group) {
+      if ($AG->isAssigned($absid, $group['groupid'])) {
+        return true;
+      }
+    }
+
+    return false;
+  } catch (Exception $e) {
+    return false;
   }
-  return $isValid;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Archives a user and all related records
  *
  * @param string $username Username to archive
  */
-function archiveUser($username) {
+function archiveUser(string $username): bool {
   global $AL, $D, $L, $LOG, $T, $U, $UMSG, $UG, $UO;
-  /**
-   * Do not archive if username exists in any of the archive table
-   */
+  //
+  // Do not archive if username exists in any of the archive table
+  //
   if (
     $U->exists($username, true) ||
     $UG->exists($username, true) ||
@@ -66,20 +80,20 @@ function archiveUser($username) {
   ) {
     return false;
   }
-  /**
-   * Get fullname for log
-   */
+  //
+  // Get fullname for log
+  //
   $U->findByName($username);
   $fullname = trim($U->firstname . " " . $U->lastname);
-  /**
-   * Archive user
-   * Archive memberships
-   * Archive options
-   * Archive templates
-   * Archive daynotes
-   * Archive allowances
-   * Archive messages
-   */
+  //
+  // Archive user
+  // Archive memberships
+  // Archive options
+  // Archive templates
+  // Archive daynotes
+  // Archive allowances
+  // Archive messages
+  //
   $U->archive($username);
   $UG->archive($username);
   $UO->archive($username);
@@ -87,23 +101,23 @@ function archiveUser($username) {
   $D->archive($username);
   $AL->archive($username);
   $UMSG->archive($username);
-  /**
-   * Delete user from active tables
-   */
+  //
+  // Delete user from active tables
+  //
   deleteUser($username, false, false);
-  /**
-   * Log this event
-   */
+  //
+  // Log this event
+  //
   $LOG->logEvent("logUser", $L->checkLogin(), "log_user_archived", $fullname . " (" . $username . ")");
   return true;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Deletes all orphaned announcements, meaning those announcements that are
  * not assigned to any user.
  */
-function deleteOrphanedMessages() {
+function deleteOrphanedMessages(): void {
   global $MSG, $UMSG;
   $messages = $MSG->getAll();
   foreach ($messages as $msg) {
@@ -113,7 +127,7 @@ function deleteOrphanedMessages() {
   }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Deletes a user and all related records
  *
@@ -121,22 +135,22 @@ function deleteOrphanedMessages() {
  * @param boolean $fromArchive Flag whether to delete from archive tables
  * @param boolean $sendNotifications Flag whether to send notifications
  */
-function deleteUser($username, $fromArchive = false, $sendNotifications = true) {
+function deleteUser(string $username, bool $fromArchive = false, bool $sendNotifications = true): void {
   global $AL, $AV, $D, $L, $LOG, $T, $U, $UMSG, $UG, $UO;
-  /**
-   * Get fullname for log
-   */
+  //
+  // Get fullname for log
+  //
   $U->findByName($username);
   $fullname = trim($U->firstname . " " . $U->lastname);
-  /**
-   * Delete user
-   * Delete memberships
-   * Delete options
-   * Delete messages
-   * Delete avatars
-   * Delete month templates
-   * Delete allowances records
-   */
+  //
+  // Delete user
+  // Delete memberships
+  // Delete options
+  // Delete messages
+  // Delete avatars
+  // Delete month templates
+  // Delete allowances records
+  //
   $U->deleteByName($username, $fromArchive);
   $UG->deleteByUser($username, $fromArchive);
   $UO->deleteByUser($username, $fromArchive);
@@ -147,15 +161,15 @@ function deleteUser($username, $fromArchive = false, $sendNotifications = true) 
   $T->deleteByUser($username, $fromArchive);
   $D->deleteByUser($username, $fromArchive);
   $AL->deleteByUser($username, $fromArchive);
-  /**
-   * Send notification e-mails
-   */
+  //
+  // Send notification e-mails
+  //
   if ($sendNotifications) {
     sendUserEventNotifications("deleted", $username, $U->firstname, $U->lastname);
   }
-  /**
-   * Log this event
-   */
+  //
+  // Log this event
+  //
   if ($fromArchive) {
     $LOG->logEvent("logUser", $L->checkLogin(), "log_user_archived_deleted", $fullname . " (" . $username . ")");
   } else {
@@ -163,7 +177,7 @@ function deleteUser($username, $fromArchive = false, $sendNotifications = true) 
   }
 }
 
-// ---------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Imports users from a CSV file into the database
  *
@@ -173,12 +187,12 @@ function deleteUser($username, $fromArchive = false, $sendNotifications = true) 
  *
  * @return boolean Success flag
  */
-function importUsersFromCSV($file, $lock = true, $hide = true) {
-  /**
-   * The expected columns are:
-   * 0        1         2        3
-   * username|firstname|lastname|email
-   */
+function importUsersFromCSV(string $file, bool $lock = true, bool $hide = true): bool {
+  //
+  // The expected columns are:
+  // 0        1         2        3
+  // username|firstname|lastname|email
+  //
   global $LANG, $L, $LOG;
   $UI = new Users;
   $UOI = new UserOption;
@@ -233,7 +247,7 @@ function importUsersFromCSV($file, $lock = true, $hide = true) {
   return false;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Checks whether a user is authorized in the active permission scheme.
  *
@@ -244,32 +258,32 @@ function importUsersFromCSV($file, $lock = true, $hide = true) {
  * @global object $UO User options object.
  * @global array $permissions Array of permissions.
  *
- * @global object $C Configuration object.
+ * @global bool True if allowed, false if not
  */
-function isAllowed($permission = '') {
+function isAllowed(string $permission = ''): bool {
   global $C, $UL, $UO, $permissions;
   if (L_USER) {
-    /**
-     * Someone is logged in.
-     * First, check if 2FA required and user hasn't done it yet.
-     */
+    //
+    // Someone is logged in.
+    // First, check if 2FA required and user hasn't done it yet.
+    //
     if (L_USER != 'admin' && $C->read('forceTfa') && !$UO->read(L_USER, 'secret')) {
       return false;
     }
-    /**
-     * Check permission by role.
-     */
+    //
+    // Check permission by role.
+    //
     $UL->findByName(L_USER);
-    return in_array([ 'permission' => $permission, 'role' => $UL->role ], $permissions);
+    return in_array(['permission' => $permission, 'role' => $UL->role], $permissions);
   } else {
-    /**
-     * It's a public user.
-     */
-    return in_array([ 'permission' => $permission, 'role' => 3 ], $permissions);
+    //
+    // It's a public user.
+    //
+    return in_array(['permission' => $permission, 'role' => 3], $permissions);
   }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Restores a user and all related records from archive
  *
@@ -277,11 +291,11 @@ function isAllowed($permission = '') {
  *
  * @return boolean True or False indicating success
  */
-function restoreUser($username) {
+function restoreUser(string $username): bool {
   global $AL, $D, $L, $LOG, $T, $U, $UMSG, $UG, $UO;
-  /**
-   * Do not restore if username exists in any of the active tables
-   */
+  //
+  // Do not restore if username exists in any of the active tables
+  //
   if (
     $U->exists($username) ||
     $UG->exists($username) ||
@@ -293,20 +307,20 @@ function restoreUser($username) {
   ) {
     return false;
   }
-  /**
-   * Get fullname for log
-   */
+  //
+  // Get fullname for log
+  //
   $U->findByName($username);
   $fullname = trim($U->firstname . " " . $U->lastname);
-  /**
-   * Restore user
-   * Restore memberships
-   * Restore options
-   * Restore templates
-   * Restore daynotes
-   * Restore allowances
-   * Restore announcements
-   */
+  //
+  // Restore user
+  // Restore memberships
+  // Restore options
+  // Restore templates
+  // Restore daynotes
+  // Restore allowances
+  // Restore announcements
+  //
   $U->restore($username);
   $UG->restore($username);
   $UO->restore($username);
@@ -314,13 +328,13 @@ function restoreUser($username) {
   $D->restore($username);
   $AL->restore($username);
   $UMSG->restore($username);
-  /**
-   * Delete user from archive tables
-   */
+  //
+  // Delete user from archive tables
+  //
   deleteUser($username, true, false);
-  /**
-   * Log this event
-   */
+  //
+  // Log this event
+  //
   $LOG->logEvent("logUser", $L->checkLogin(), "log_user_restored", $fullname . " (" . $username . ")");
   return true;
 }

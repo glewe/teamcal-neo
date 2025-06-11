@@ -25,11 +25,8 @@ if (!defined('VALID_ROOT')) {
  *  - 'help' (optional): Additional help text to display in the alert.
  *
  * @return string The HTML string for the alert box, including a script for auto-closing if applicable.
- * @global array $LANG Language array for localization.
- *
- * @global object $C Configuration object to read settings.
  */
-function createAlertBox($data) {
+function createAlertBox(array $data): string {
   global $C, $LANG;
 
   $html = '
@@ -70,10 +67,8 @@ function createAlertBox($data) {
  * @param string $selected The icon that should be selected by default. Default is an empty string.
  *
  * @return string The HTML string for the Font Awesome icon listbox.
- * @global array $faIcons An array of available Font Awesome icons.
- *
  */
-function createFaIconListbox($tabIndex = "-1", $selected = "") {
+function createFaIconListbox(string $tabIndex = "-1", string $selected = ""): string {
   global $faIcons;
   $listbox = '<select id="faIcon" class="form-select" name="sel_faIcon" tabindex="' . $tabIndex . '">';
   foreach ($faIcons as $faIcon) {
@@ -115,10 +110,8 @@ function createFaIconListbox($tabIndex = "-1", $selected = "") {
  * @param int $tabindex The tabindex attribute for the form group inputs.
  *
  * @return string The HTML string for the form group.
- * @global array $LANG Language array for localization.
- *
  */
-function createFormGroup($data, $colsleft, $colsright, $tabindex) {
+function createFormGroup(array $data, int $colsleft, int $colsright, int $tabindex): string {
   global $LANG;
   $langIdx1 = $data['prefix'] . '_' . $data['name'];
   $langIdx2 = $data['prefix'] . '_' . $data['name'] . '_comment';
@@ -145,9 +138,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
   }
 
   switch ($data['type']) {
-    /**
-     * Checkbox
-     */
+    //
+    // Checkbox
+    //
     case 'check':
       $formGroup = '
         <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -165,9 +158,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
         <div class="divider"><hr></div>';
       break;
 
-    /**
-     * Color selection text field
-     */
+    //
+    // Color selection text field
+    //
     case 'color':
       $formGroup = '
         <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -183,9 +176,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
         <div class="divider"><hr></div>';
       break;
 
-    /**
-     * Date selection text field
-     */
+    //
+    // Date selection text field
+    //
     case 'date':
       $formGroup = '
         <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -201,9 +194,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
         <div class="divider"><hr></div>';
       break;
 
-    /**
-     * Info field
-     */
+    //
+    // Info field
+    //
     case 'info':
       $formGroup = '
         <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -218,9 +211,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
         <div class="divider"><hr></div>';
       break;
 
-    /**
-     * Info field (wide)
-     */
+    //
+    // Info field (wide)
+    //
     case 'infoWide':
       $formGroup = '
         <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -232,9 +225,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
         <div class="divider"><hr></div>';
       break;
 
-    /**
-     * Single select list
-     */
+    //
+    // Single select list
+    //
     case 'list':
       $style = '';
       $formGroup = '
@@ -257,9 +250,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
         <div class="divider"><hr></div>';
       break;
 
-    /**
-     * Multi select list
-     */
+    //
+    // Multi select list
+    //
     case 'listmulti':
       $formGroup = '
         <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -278,9 +271,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
         <div class="divider"><hr></div>';
       break;
 
-    /**
-     * Password text field
-     */
+    //
+    // Password text field
+    //
     case 'password':
       $formGroup = '
         <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -295,9 +288,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
         <div class="divider"><hr></div>';
       break;
 
-    /**
-     * Radio box
-     */
+    //
+    // Radio box
+    //
     case 'radio':
       $formGroup = '
         <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -317,9 +310,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
         <div class="divider"><hr></div>';
       break;
 
-    /**
-     * Securimage
-     */
+    //
+    // Securimage
+    //
     case 'securimage':
       $langIdx3 = $data['prefix'] . '_' . $data['name'] . '_new';
       $formGroup = '
@@ -337,9 +330,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
         <div class="divider"><hr></div>';
       break;
 
-    /**
-     * Switch
-     */
+    //
+    // Switch
+    //
     case 'switch':
       $formGroup = '
         <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -357,9 +350,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
         <div class="divider"><hr></div>';
       break;
 
-    /**
-     * Text field
-     */
+    //
+    // Text field
+    //
     case 'text':
       $formGroup = '
         <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -374,10 +367,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
         <div class="divider"><hr></div>';
       break;
 
-    /**
-     * Text Long
-     * Textbox will appear underneath the label in full width.
-     */
+    //
+    // Text Long. Textbox will appear underneath the label in full width.
+    //
     case 'textlong':
       $formGroup = '
         <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -392,9 +384,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
         <div class="divider"><hr></div>';
       break;
 
-    /**
-     * Textarea
-     */
+    //
+    // Textarea
+    //
     case 'textarea':
       $formGroup = '
         <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -409,9 +401,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
         <div class="divider"><hr></div>';
       break;
 
-    /**
-     * Textarea wide
-     */
+    //
+    // Textarea wide
+    //
     case 'textarea-wide':
       $formGroup = '
         <div class="form-group row" id="form-group-' . $data['name'] . '">
@@ -427,9 +419,9 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
         <div class="divider"><hr></div>';
       break;
 
-    /**
-     * Default
-     */
+    //
+    // Default
+    //
     default:
       $formGroup = '
         <div class="form-group row" id="form-group-unknown">
@@ -451,8 +443,10 @@ function createFormGroup($data, $colsleft, $colsright, $tabindex) {
  *
  * @param string $id ID of the modal dialog
  * @param string $title Title of the modal dialog
+ * 
+ * @return string Html
  */
-function createModalTop($id, $title, $size = '') {
+function createModalTop(string $id, string $title, string $size = ''): string {
   switch ($size) {
     case 'sm':
       $size = 'modal-sm';
@@ -482,8 +476,10 @@ function createModalTop($id, $title, $size = '') {
  * Creates the bottom part of a modal dialog
  *
  * @param array $data Array of parameters defining the form-group type and content
+ * 
+ * @return string Html
  */
-function createModalBottom($buttonID = '', $buttonColor = '', $buttonText = '') {
+function createModalBottom(string $buttonID = '', string $buttonColor = '', string $buttonText = ''): string {
   global $LANG;
   $modalbottom = '
     </div>
@@ -505,8 +501,10 @@ function createModalBottom($buttonID = '', $buttonColor = '', $buttonText = '') 
  * Creates the tabs for the top of dialog pages
  *
  * @param array $tabs Array of tab details
+ * 
+ * @return string Html
  */
-function createPageTabs($tabs) {
+function createPageTabs(array $tabs): string {
   global $LANG;
   $tabsHtml = '<ul class="nav nav-tabs card-header-tabs" id="dialogTabs" role="tablist">';
   foreach ($tabs as $tab) {
@@ -525,8 +523,10 @@ function createPageTabs($tabs) {
  * Creates a pattern table (showing weekdays and absences)
  *
  * @param int $patternId ID of the pattern record
+ * 
+ * @return string Html
  */
-function createPatternTable($patternId) {
+function createPatternTable(string $patternId): string {
   global $A, $C, $LANG;
   $PTN = new Patterns();
   $PTN->get($patternId);
@@ -577,8 +577,10 @@ function createPatternTable($patternId) {
  * Creates a Sidebar menu item
  *
  * @param array $data Array of item details
+ * 
+ * @return string Html
  */
-function createSidebarItem($data) {
+function createSidebarItem(array $data): string {
   global $LANG;
   if (isset($data['suffix'])) {
     $suffix = $data['suffix'];
@@ -597,8 +599,10 @@ function createSidebarItem($data) {
  * Creates the Bootstrap toast
  *
  * @param array $data Array of toast details
+ * 
+ * @return string Html
  */
-function createToast($data) {
+function createToast(array $data): string {
   global $LANG;
   $classColor = '';
   if (strlen($data['color'])) {
@@ -628,9 +632,9 @@ function createToast($data) {
  * @param string $position Tooltip position (top,right,bottom,left) (Default: top)
  * @param string $text Tooltip text (HTML allowed)
  *
- * @return string
+ * @return string Hrml
  */
-function iconTooltip($text = 'Tooltip text', $title = '', $position = 'top', $type = 'info', $icon = 'question-circle') {
+function iconTooltip(string $text = 'Tooltip text', string $title = '', string $position = 'top', string $type = 'info', string $icon = 'question-circle') {
   if (strlen($title)) {
     $ttText = " < div class='text-bold' style = 'padding-top: 4px; padding-bottom: 4px' > " . $title . "</div > ";
   }

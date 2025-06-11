@@ -18,9 +18,10 @@ if (!defined('VALID_ROOT')) {
  * Returns the base URL of the application.
  *
  * @param string $path Optional path to append to the base URL.
+ * 
  * @return string The base URL with the optional path appended.
  */
-function base_url($path = '') {
+function base_url(string $path = ''): string {
   // Get the protocol (http or https)
   $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 
@@ -44,7 +45,7 @@ function base_url($path = '') {
  *
  * @param string $input String to clean
  */
-function cleanInput($input) {
+function cleanInput(string $input): string {
   /**
    * Strip out javascript
    * Strip out HTML tags
@@ -70,7 +71,7 @@ function cleanInput($input) {
  *
  * @return array $dateInfo Full dates are returned in ISO 8601 format, e.g. 2014-03-03
  */
-function dateInfo($year, $month, $day = '1') {
+function dateInfo(string $year, string $month, string $day = '1'): array {
   global $LANG;
   $dateInfo = array();
   $myts = strtotime($year . '-' . $month . '-' . $day);
@@ -159,7 +160,7 @@ function dateInfo($year, $month, $day = '1') {
  * @param mixed $var The variable that you want to dump.
  * @param bool $dieafter Optional. If set to true, the script will stop executing after the variable is dumped. Default is true.
  */
-function dnd($var, $dieafter = true) {
+function dnd($var, bool $dieafter = true): void {
   echo "<pre>";
   var_dump($var);
   echo "</pre>";
@@ -177,7 +178,7 @@ function dnd($var, $dieafter = true) {
  *
  * @return boolean True or False
  */
-function endsWith($haystack, $needle) {
+function endsWith(string $haystack, string $needle): bool {
   // search forward starting from end minus needle length characters
   return $needle === "" || strpos($haystack, $needle, strlen($haystack) - strlen($needle)) !== false;
 }
@@ -200,7 +201,7 @@ function endsWith($haystack, $needle) {
  *
  * @return bool  false or first broken rule
  */
-function formInputValid($field, $ruleset, $param = '') {
+function formInputValid(string $field, string $ruleset, string $param = ''): bool {
   global $_POST, $inputAlert, $LANG;
   $rules = explode('|', $ruleset);
   $label = explode('_', $field);
@@ -434,9 +435,10 @@ function formInputValid($field, $ruleset, $param = '') {
  * Generates a password
  *
  * @param integer $length Desired password length
+ * 
  * @return string Password
  */
-function generatePassword($length = 9) {
+function generatePassword(int $length = 9): string {
   $characters = 'abcdefghjklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ123456789@#$%';
   $password = '';
   for ($i = 0; $i < $length; $i++) {
@@ -454,7 +456,7 @@ function generatePassword($length = 9) {
  *
  * @return string The client's IP address, or an empty string if none of the server variables are set.
  */
-function getClientIp() {
+function getClientIp(): string {
   $ipAddress = '';
   if (isset($_SERVER['HTTP_CLIENT_IP'])) {
     $ipAddress = $_SERVER['HTTP_CLIENT_IP'];
@@ -477,7 +479,7 @@ function getClientIp() {
  *
  * @return array Array containing the names of the files
  */
-function getFiles($myDir, $myExt = null, $myPrefix = null) {
+function getFiles(string $myDir, array $myExt = [], string $myPrefix = ''): array {
   $myDir = rtrim($myDir, "/");
   $dir = opendir($myDir);
   while (false !== ($filename = readdir($dir))) {
@@ -523,7 +525,7 @@ function getFiles($myDir, $myExt = null, $myPrefix = null) {
  *
  * @return string File extension of the string passed
  */
-function getFileExtension($str) {
+function getFileExtension(string $str): string {
   $i = strrpos($str, ".");
   if (!$i) {
     return '';
@@ -540,7 +542,7 @@ function getFileExtension($str) {
  *
  * @return string File extension of the string passed
  */
-function getFilePrefix($str) {
+function getFilePrefix(string $str): string {
   $i = strpos($str, ".");
   if (!$i) {
     return '';
@@ -556,7 +558,7 @@ function getFilePrefix($str) {
  *
  * @return array Array containing the folder names
  */
-function getFolders($myDir) {
+function getFolders(string $myDir): array {
   $myDir = rtrim($myDir, '/') . '/'; // Ensure trailing slash
   $handle = opendir($myDir);
   while (false !== ($dir = readdir($handle))) {
@@ -574,7 +576,7 @@ function getFolders($myDir) {
  *
  * @return string ISO 8601 format, e.g. 2014-03-03
  */
-function getISOToday() {
+function getISOToday(): string {
   $mydate = getdate();
   $year = $mydate['year'];                  // Numeric representation of todays' year, 4 digits
   $month = sprintf("%02d", $mydate['mon']); // Numeric representation of todays' month, 2 digits
@@ -590,7 +592,7 @@ function getISOToday() {
  *
  * @return array Array containing the names
  */
-function getLanguages($type = 'app') {
+function getLanguages(string $type = 'app'): array {
   $mydir = "languages/";
   $handle = opendir($mydir); // open directory
   $fileidx = 0;
@@ -624,7 +626,7 @@ function getLanguages($type = 'app') {
 /**
  * Gets all $_GET and $_POST parameters and fills the $CONF['options'][] array
  */
-function getOptions() {
+function getOptions(): void {
   global $C, $CONF, $L, $UO;
   $showDebug = false;
   $user = $L->checkLogin();
@@ -701,13 +703,13 @@ function getOptions() {
  *
  * @return string $output Bootstrap formatted phpinfo() output
  */
-function getPhpInfoBootstrap() {
+function getPhpInfoBootstrap(): string {
   $output = '';
   $rowstart = "<div class='row' style='border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;'>\n";
   $rowend = "</div>\n";
   ob_start();
   phpinfo(11);
-  $phpinfo = array( 'phpinfo' => array() );
+  $phpinfo = array('phpinfo' => array());
 
   if (preg_match_all('#(?:<h2>(?:<a>)?(.*?)(?:</a>)?</h2>)|(?:<tr(?: class=".*?")?><t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>)?)?</tr>)#s', ob_get_clean(), $matches, PREG_SET_ORDER)) {
     foreach ($matches as $match) {
@@ -715,7 +717,7 @@ function getPhpInfoBootstrap() {
         $phpinfo[$match[1]] = array();
       } elseif (isset($match[3])) {
         $keys1 = array_keys($phpinfo);
-        $phpinfo[end($keys1)][$match[2]] = isset($match[4]) ? array( $match[3], $match[4] ) : $match[3];
+        $phpinfo[end($keys1)][$match[2]] = isset($match[4]) ? array($match[3], $match[4]) : $match[3];
       } else {
         $keys1 = array_keys($phpinfo);
         $phpinfo[end($keys1)][] = $match[2];
@@ -753,11 +755,11 @@ function getPhpInfoBootstrap() {
 /**
  * Determines the role bootstrap color
  *
- * @param mixed $role Role name
+ * @param string $role Role name
  *
  * @return string Bootstrap color name
  */
-function getRoleColor($role) {
+function getRoleColor(string $role): string {
   switch ($role) {
     case 'assistant':
       $color = 'primary';
@@ -786,10 +788,10 @@ function getRoleColor($role) {
  *
  * @return array RGB values in an array
  */
-function hex2rgb($color) {
+function hex2rgb(string $color): array {
   $color = str_replace('#', '', $color);
   if (strlen($color) != 6) {
-    return array( 0, 0, 0 );
+    return array(0, 0, 0);
   }
   $rgb = array();
   for ($x = 0; $x < 3; $x++) {
@@ -803,9 +805,10 @@ function hex2rgb($color) {
  * Validates if a given date string is in the format YYYY-MM-DD and checks if it is a valid date.
  *
  * @param string $date The date string to validate.
+ * 
  * @return bool Returns true if the date is valid and in the format YYYY-MM-DD, false otherwise.
  */
-function isValidDate($date) {
+function isValidDate(string $date): bool {
   // Regular expression to check if the date is in the format YYYY-MM-DD
   $regex = '/^\d{4}-\d{2}-\d{2}$/';
   if (preg_match($regex, $date)) {
@@ -821,9 +824,10 @@ function isValidDate($date) {
  * Validates if a given file name is valid.
  *
  * @param string $file The file name to validate.
+ * 
  * @return bool Returns true if the file name is valid, false otherwise.
  */
-function isValidFileName($file) {
+function isValidFileName(string $file): bool {
   // Regular expression to check if the file name contains only valid characters
   $regex = '/^[a-zA-Z0-9_\-]+\.[a-zA-Z0-9]+$/';
   return preg_match($regex, $file);
@@ -835,7 +839,7 @@ function isValidFileName($file) {
  *
  * @return string Login information
  */
-function loginInfo() {
+function loginInfo(): string {
   global $L, $LANG, $RO, $UL;
   $loginInfo = $LANG['status_logged_out'];
   if ($luser = $L->checkLogin()) {
@@ -854,9 +858,10 @@ function loginInfo() {
  * Pretty prints an array dump
  *
  * @param array $a Array to print out pretty
+ * 
  * @return string
  */
-function prettyDump($a) {
+function prettyDump(array $a): string {
   return highlight_string("<?php\n\$data =\n" . var_export($a, true) . ";\n?>");
 }
 
@@ -866,9 +871,10 @@ function prettyDump($a) {
  *
  * @param string $var Array index to read
  * @param string $file File to scan
+ * 
  * @return string The value of the read variable
  */
-function readConfig($var = '', $file = '') {
+function readConfig(string $var = '', string $file = ''): string {
   $value = "";
   $handle = fopen($file, "r");
   if ($handle) {
@@ -891,9 +897,10 @@ function readConfig($var = '', $file = '') {
  *
  * @param string $var Array index to read
  * @param string $file File to scan
+ * 
  * @return string The value of the read variable
  */
-function readDef($var = '', $file = '') {
+function readDef(string $var = '', string $file = ''): string {
   $value = "";
   $handle = fopen($file, "r");
   if ($handle) {
@@ -915,10 +922,11 @@ function readDef($var = '', $file = '') {
  * Returns a comma separated string of RGB decimal values as a hex color value
  *
  * @param string $color Comma separated string of RGB decimal values
+ * @param bool $hashPrefix If true, a hash prefix is added to the hex value
  *
  * @return string Hex color value
  */
-function rgb2hex($color, $hashPrefix = true) {
+function rgb2hex(string $color, bool $hashPrefix = true): string {
   $rgbArray = explode(',', $color);
   if ($hashPrefix) {
     $hex = '#';
@@ -939,7 +947,7 @@ function rgb2hex($color, $hashPrefix = true) {
  *
  * @return string Properly capitalized string
  */
-function proper($string) {
+function proper(string $string): string {
   $string = strtolower($string);
   return substr_replace($string, strtoupper(substr($string, 0, 1)), 0, 1);
 }
@@ -950,9 +958,9 @@ function proper($string) {
  *
  * @param string|array $input String to sanitize
  *
- * @return string Sanitized string
+ * @return string|array Sanitized string
  */
-function sanitize($input) {
+function sanitize(string|array $input): string|array {
   if (is_array($input)) {
     foreach ($input as $var => $val) {
       $output[$var] = sanitize($val);
@@ -971,11 +979,10 @@ function sanitize($input) {
  * Sanitizes input while allowing certain HTML tags.
  *
  * @param string $input The input string to sanitize.
- * @param array $allowedTags Array of allowed HTML tags.
  *
  * @return string Sanitized string.
  */
-function sanitizeWithAllowedTags($input) {
+function sanitizeWithAllowedTags(string $input): string {
   $allowedTags = [
     '<a>',
     '<b>',
@@ -1009,7 +1016,7 @@ function sanitizeWithAllowedTags($input) {
  *
  * @return boolean True or False
  */
-function startsWith($haystack, $needle) {
+function startsWith(string $haystack, string $needle): bool {
   // search backwards starting from haystack length characters from the end
   return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== false;
 }
@@ -1022,7 +1029,7 @@ function startsWith($haystack, $needle) {
  * @param string $value Value to assign to variable
  * @param string $file File in which to do so
  */
-function writeConfig($var = '', $value = '', $file = '') {
+function writeConfig(string $var = '', string $value = '', string $file = ''): void {
   $newbuffer = "";
   $handle = fopen($file, "r");
   if ($handle) {
@@ -1051,7 +1058,7 @@ function writeConfig($var = '', $value = '', $file = '') {
  * @param string $value Value to assign to variable
  * @param string $file File in which to do so
  */
-function writeDef($var = '', $value = '', $file = '') {
+function writeDef(string $var = '', string $value = '', string $file = ''): void {
   $newbuffer = "";
   $handle = fopen($file, "r");
   if ($handle) {
