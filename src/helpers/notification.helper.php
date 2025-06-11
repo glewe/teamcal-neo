@@ -13,37 +13,77 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * If a user was activatd by the admin we send him a mail about it
  *
  * @param string $email Recipient's email address
- * @param string $username The username created
- * @param string $lastname The user's lastname
- * @param string $firstname The user's firstname
+ *
+ * @return bool True if email was sent successfully, false otherwise
  */
-function sendAccountActivatedMail($email) {
-  global $C, $LANG;
-  $language = $C->read('defaultLanguage');
-  $appTitle = $C->read('appTitle');
-  $to = $email;
-
-  $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_activated']);
-  $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
-  $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
-  $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_activated.html');
-  $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
-
-  $message = str_replace('%intro%', $intro, $message);
-  $message = str_replace('%body%', $body, $message);
-  $message = str_replace('%outro%', $outro, $message);
-  $message = str_replace('%app_name%', $appTitle, $message);
-  $message = str_replace('%app_url%', WEBSITE_URL, $message);
-
-  sendEmail($to, $subject, $message);
+function sendAccountActivatedMail(string $email): bool {
+  global $C, $LANG, $LOG;
+  
+  //
+  // Input validation
+  //
+  if (!validEmail($email)) {
+    return false;
+  }
+  
+  try {
+    $language = $C->read('defaultLanguage');
+    $appTitle = $C->read('appTitle');
+    
+    //
+    // Load all templates at once to reduce file operations
+    //
+    $templates = [
+      'message' => WEBSITE_ROOT . '/templates/email_html.html',
+      'intro' => WEBSITE_ROOT . '/templates/' . $language . '/intro.html',
+      'body' => WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_activated.html',
+      'outro' => WEBSITE_ROOT . '/templates/' . $language . '/outro.html'
+    ];
+    
+    //
+    // Load and validate all templates exist
+    //
+    foreach ($templates as $key => $path) {
+      if (!file_exists($path)) {
+        throw new Exception("Missing template file: $path");
+      }
+      $templates[$key] = file_get_contents($path);
+    }
+    
+    $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_activated']);
+    
+    //
+    // Build message with all replacements
+    //
+    $message = $templates['message'];
+    $replacements = [
+      '%intro%' => $templates['intro'],
+      '%body%' => $templates['body'],
+      '%outro%' => $templates['outro'],
+      '%app_name%' => $appTitle,
+      '%app_url%' => WEBSITE_URL
+    ];
+    
+    $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+    
+    return sendEmail($email, $subject, $message);
+  } catch (Exception $e) {
+    //
+    // Log error using the Log class
+    //
+    if (isset($LOG)) {
+      $LOG->logEvent("logRegistration", "System", "Failed to send account activation email: ", $e->getMessage());
+    }
+    return false;
+  }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * If a user was added or updated we send him an info to let him know.
  * Esepcially when he was added he needs to know what URL to navigate to and
@@ -52,32 +92,74 @@ function sendAccountActivatedMail($email) {
  * @param string $email Recipient's email address
  * @param string $username The username created
  * @param string $password The password created
+ *
+ * @return bool True if email was sent successfully, false otherwise
  */
-function sendAccountCreatedMail($email, $username, $password) {
-  global $C, $LANG;
-
-  $language = $C->read('defaultLanguage');
-  $appTitle = $C->read('appTitle');
-  $to = $email;
-
-  $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_created']);
-  $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
-  $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
-  $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_created.html');
-  $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
-
-  $message = str_replace('%intro%', $intro, $message);
-  $message = str_replace('%body%', $body, $message);
-  $message = str_replace('%outro%', $outro, $message);
-  $message = str_replace('%app_name%', $appTitle, $message);
-  $message = str_replace('%app_url%', WEBSITE_URL, $message);
-  $message = str_replace('%username%', $username, $message);
-  $message = str_replace('%password%', $password, $message);
-
-  sendEmail($to, $subject, $message);
+function sendAccountCreatedMail(string $email, string $username, string $password): bool {
+  global $C, $LANG, $LOG;
+  
+  //
+  // Input validation
+  //
+  if (!validEmail($email)) {
+    return false;
+  }
+  
+  try {
+    $language = $C->read('defaultLanguage');
+    $appTitle = $C->read('appTitle');
+    
+    //
+    // Load all templates at once to reduce file operations
+    //
+    $templates = [
+      'message' => WEBSITE_ROOT . '/templates/email_html.html',
+      'intro' => WEBSITE_ROOT . '/templates/' . $language . '/intro.html',
+      'body' => WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_created.html',
+      'outro' => WEBSITE_ROOT . '/templates/' . $language . '/outro.html'
+    ];
+    
+    //
+    // Load and validate all templates exist
+    //
+    foreach ($templates as $key => $path) {
+      if (!file_exists($path)) {
+        throw new Exception("Missing template file: $path");
+      }
+      $templates[$key] = file_get_contents($path);
+    }
+    
+    $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_created']);
+    
+    //
+    // Build message with all replacements
+    //
+    $message = $templates['message'];
+    $replacements = [
+      '%intro%' => $templates['intro'],
+      '%body%' => $templates['body'],
+      '%outro%' => $templates['outro'],
+      '%app_name%' => $appTitle,
+      '%app_url%' => WEBSITE_URL,
+      '%username%' => $username,
+      '%password%' => $password
+    ];
+    
+    $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+    
+    return sendEmail($email, $subject, $message);
+  } catch (Exception $e) {
+    //
+    // Log error using the Log class
+    //
+    if (isset($LOG)) {
+      $LOG->logEvent("logRegistration", "System", "Failed to send account creation email: ", $e->getMessage());
+    }
+    return false;
+  }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * If a user has registered and admin approval is needed, we send a mail to admin.
  *
@@ -85,33 +167,75 @@ function sendAccountCreatedMail($email, $username, $password) {
  * @param string $username The username created
  * @param string $lastname The user's lastname
  * @param string $firstname The user's firstname
+ *
+ * @return bool True if email was sent successfully, false otherwise
  */
-function sendAccountNeedsApprovalMail($email, $username, $lastname, $firstname) {
-  global $C, $LANG;
-
-  $language = $C->read('defaultLanguage');
-  $appTitle = $C->read('appTitle');
-  $to = $email;
-
-  $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_needs_approval']);
-  $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
-  $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
-  $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_needs_approval.html');
-  $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
-
-  $message = str_replace('%intro%', $intro, $message);
-  $message = str_replace('%body%', $body, $message);
-  $message = str_replace('%outro%', $outro, $message);
-  $message = str_replace('%app_name%', $appTitle, $message);
-  $message = str_replace('%app_url%', WEBSITE_URL, $message);
-  $message = str_replace('%username%', $username, $message);
-  $message = str_replace('%lastname%', $lastname, $message);
-  $message = str_replace('%firstname%', $firstname, $message);
-
-  sendEmail($to, $subject, $message);
+function sendAccountNeedsApprovalMail(string $email, string $username, string $lastname, string $firstname): bool {
+  global $C, $LANG, $LOG;
+  
+  //
+  // Input validation
+  //
+  if (!validEmail($email)) {
+    return false;
+  }
+  
+  try {
+    $language = $C->read('defaultLanguage');
+    $appTitle = $C->read('appTitle');
+    
+    //
+    // Load all templates at once to reduce file operations
+    //
+    $templates = [
+      'message' => WEBSITE_ROOT . '/templates/email_html.html',
+      'intro' => WEBSITE_ROOT . '/templates/' . $language . '/intro.html',
+      'body' => WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_needs_approval.html',
+      'outro' => WEBSITE_ROOT . '/templates/' . $language . '/outro.html'
+    ];
+    
+    //
+    // Load and validate all templates exist
+    //
+    foreach ($templates as $key => $path) {
+      if (!file_exists($path)) {
+        throw new Exception("Missing template file: $path");
+      }
+      $templates[$key] = file_get_contents($path);
+    }
+    
+    $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_needs_approval']);
+    
+    //
+    // Build message with all replacements
+    //
+    $message = $templates['message'];
+    $replacements = [
+      '%intro%' => $templates['intro'],
+      '%body%' => $templates['body'],
+      '%outro%' => $templates['outro'],
+      '%app_name%' => $appTitle,
+      '%app_url%' => WEBSITE_URL,
+      '%username%' => $username,
+      '%lastname%' => $lastname,
+      '%firstname%' => $firstname
+    ];
+    
+    $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+    
+    return sendEmail($email, $subject, $message);
+  } catch (Exception $e) {
+    //
+    // Log error using the Log class
+    //
+    if (isset($LOG)) {
+      $LOG->logEvent("logRegistration", "System", "Failed to send account approval request email: ", $e->getMessage());
+    }
+    return false;
+  }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * If a user has registered we send him a mail with the verification link.
  *
@@ -120,116 +244,243 @@ function sendAccountNeedsApprovalMail($email, $username, $lastname, $firstname) 
  * @param string $lastname The user's lastname
  * @param string $firstname The user's firstname
  * @param string $verifycode The verification code for the user
+ *
+ * @return bool True if email was sent successfully, false otherwise
  */
-function sendAccountRegisteredMail($email, $username, $lastname, $firstname, $verifycode) {
-  global $C, $LANG;
-
-  $language = $C->read('defaultLanguage');
-  $appTitle = $C->read('appTitle');
-  $to = $email;
-
-  $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_registered']);
-  $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
-  $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
-  $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_registered.html');
-  $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
-
-  $message = str_replace('%intro%', $intro, $message);
-  $message = str_replace('%body%', $body, $message);
-  $message = str_replace('%outro%', $outro, $message);
-  $message = str_replace('%app_name%', $appTitle, $message);
-  $message = str_replace('%app_url%', WEBSITE_URL, $message);
-  $message = str_replace('%verifycode%', $verifycode, $message);
-  $message = str_replace('%username%', $username, $message);
-  $message = str_replace('%lastname%', $lastname, $message);
-  $message = str_replace('%firstname%', $firstname, $message);
-
-  sendEmail($to, $subject, $message);
+function sendAccountRegisteredMail(string $email, string $username, string $lastname, string $firstname, string $verifycode): bool {
+  global $C, $LANG, $LOG;
+  
+  //
+  // Input validation
+  //
+  if (!validEmail($email)) {
+    return false;
+  }
+  
+  try {
+    $language = $C->read('defaultLanguage');
+    $appTitle = $C->read('appTitle');
+    
+    //
+    // Load all templates at once to reduce file operations
+    //
+    $templates = [
+      'message' => WEBSITE_ROOT . '/templates/email_html.html',
+      'intro' => WEBSITE_ROOT . '/templates/' . $language . '/intro.html',
+      'body' => WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_registered.html',
+      'outro' => WEBSITE_ROOT . '/templates/' . $language . '/outro.html'
+    ];
+    
+    //
+    // Load and validate all templates exist
+    //
+    foreach ($templates as $key => $path) {
+      if (!file_exists($path)) {
+        throw new Exception("Missing template file: $path");
+      }
+      $templates[$key] = file_get_contents($path);
+    }
+    
+    $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_registered']);
+    
+    //
+    // Build message with all replacements
+    //
+    $message = $templates['message'];
+    $replacements = [
+      '%intro%' => $templates['intro'],
+      '%body%' => $templates['body'],
+      '%outro%' => $templates['outro'],
+      '%app_name%' => $appTitle,
+      '%app_url%' => WEBSITE_URL,
+      '%verifycode%' => $verifycode,
+      '%username%' => $username,
+      '%lastname%' => $lastname,
+      '%firstname%' => $firstname
+    ];
+    
+    $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+    
+    return sendEmail($email, $subject, $message);
+  } catch (Exception $e) {
+    //
+    // Log error using the Log class
+    //
+    if (isset($LOG)) {
+      $LOG->logEvent("logRegistration", "System", "Failed to send account registration email: ", $e->getMessage());
+    }
+    return false;
+  }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * If a user has tried to verify his account with an incorrect verify code
  * we send a mail to admin about it.
  *
  * @param string $email Recipient's email address
  * @param string $username The username created
- * @param string $lastname The user's lastname
- * @param string $firstname The user's firstname
  * @param string $vcode The verification code for the user
  * @param string $vcodeSubmitted The verification submitted by the user
+ *
+ * @return bool True if email was sent successfully, false otherwise
  */
-function sendAccountVerificationMismatchMail($email, $username, $vcode, $vcodeSubmitted) {
-  global $C, $LANG;
-
-  $language = $C->read('defaultLanguage');
-  $appTitle = $C->read('appTitle');
-  $to = $email;
-
-  $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_mismatch']);
-  $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
-  $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
-  $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_verify_mismatch.html');
-  $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
-
-  $message = str_replace('%intro%', $intro, $message);
-  $message = str_replace('%body%', $body, $message);
-  $message = str_replace('%outro%', $outro, $message);
-  $message = str_replace('%app_name%', $appTitle, $message);
-  $message = str_replace('%app_url%', WEBSITE_URL, $message);
-  $message = str_replace('%username%', $username, $message);
-  $message = str_replace('%vcode%', $vcode, $message);
-  $message = str_replace('%vcode_submitted%', $vcodeSubmitted, $message);
-
-  sendEmail($to, $subject, $message);
+function sendAccountVerificationMismatchMail(string $email, string $username, string $vcode, string $vcodeSubmitted): bool {
+  global $C, $LANG, $LOG;
+  
+  //
+  // Input validation
+  //
+  if (!validEmail($email)) {
+    return false;
+  }
+  
+  try {
+    $language = $C->read('defaultLanguage');
+    $appTitle = $C->read('appTitle');
+    
+    //
+    // Load all templates at once to reduce file operations
+    //
+    $templates = [
+      'message' => WEBSITE_ROOT . '/templates/email_html.html',
+      'intro' => WEBSITE_ROOT . '/templates/' . $language . '/intro.html',
+      'body' => WEBSITE_ROOT . '/templates/' . $language . '/body_user_account_verify_mismatch.html',
+      'outro' => WEBSITE_ROOT . '/templates/' . $language . '/outro.html'
+    ];
+    
+    //
+    // Load and validate all templates exist
+    //
+    foreach ($templates as $key => $path) {
+      if (!file_exists($path)) {
+        throw new Exception("Missing template file: $path");
+      }
+      $templates[$key] = file_get_contents($path);
+    }
+    
+    $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_mismatch']);
+    
+    //
+    // Build message with all replacements
+    //
+    $message = $templates['message'];
+    $replacements = [
+      '%intro%' => $templates['intro'],
+      '%body%' => $templates['body'],
+      '%outro%' => $templates['outro'],
+      '%app_name%' => $appTitle,
+      '%app_url%' => WEBSITE_URL,
+      '%username%' => $username,
+      '%vcode%' => $vcode,
+      '%vcode_submitted%' => $vcodeSubmitted
+    ];
+    
+    $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+    
+    return sendEmail($email, $subject, $message);
+  } catch (Exception $e) {
+    //
+    // Log error using the Log class
+    //
+    if (isset($LOG)) {
+      $LOG->logEvent("logRegistration", "System", "Failed to send verification mismatch email: ", $e->getMessage());
+    }
+    return false;
+  }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Sends an email to all users that subscribed to a group change event
  *
  * @param string $event The event type: added, changed, deleted
  * @param string $groupname The groupname
  * @param string $groupdesc The group description
+ *
+ * @return bool True if all emails were sent successfully, false if any failed
  */
-function sendGroupEventNotifications($event, $groupname, $groupdesc = '') {
-  global $C, $LANG, $U, $UO;
-
-  $language = $C->read('defaultLanguage');
-  $appTitle = $C->read('appTitle');
-  $events = array(
-    'changed',
-    'created',
-    'deleted'
-  );
-
-  if (in_array($event, $events)) {
-    $subject = $LANG['email_subject_group_' . $event];
-    $subject = str_replace('%app_name%', $appTitle, $subject);
-
-    $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
-    $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
-    $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_group_' . $event . '.html');
-    $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
-
-    $message = str_replace('%intro%', $intro, $message);
-    $message = str_replace('%body%', $body, $message);
-    $message = str_replace('%outro%', $outro, $message);
-    $message = str_replace('%app_name%', $appTitle, $message);
-    $message = str_replace('%app_url%', WEBSITE_URL, $message);
-    $message = str_replace('%groupname%', $groupname, $message);
-    $message = str_replace('%groupdesc%', $groupdesc, $message);
-
+function sendGroupEventNotifications(string $event, string $groupname, string $groupdesc = ''): bool {
+  global $C, $LANG, $U, $UO, $LOG;
+  
+  $events = ['changed', 'created', 'deleted'];
+  
+  if (!in_array($event, $events)) {
+    return false;
+  }
+  
+  try {
+    $language = $C->read('defaultLanguage');
+    $appTitle = $C->read('appTitle');
+    
+    //
+    // Load all templates at once to reduce file operations
+    //
+    $templates = [
+      'message' => WEBSITE_ROOT . '/templates/email_html.html',
+      'intro' => WEBSITE_ROOT . '/templates/' . $language . '/intro.html',
+      'body' => WEBSITE_ROOT . '/templates/' . $language . '/body_group_' . $event . '.html',
+      'outro' => WEBSITE_ROOT . '/templates/' . $language . '/outro.html'
+    ];
+    
+    //
+    // Load and validate all templates exist
+    //
+    foreach ($templates as $key => $path) {
+      if (!file_exists($path)) {
+        throw new Exception("Missing template file: $path");
+      }
+      $templates[$key] = file_get_contents($path);
+    }
+    
+    $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_group_' . $event]);
+    
+    //
+    // Build message with all replacements
+    //
+    $message = $templates['message'];
+    $replacements = [
+      '%intro%' => $templates['intro'],
+      '%body%' => $templates['body'],
+      '%outro%' => $templates['outro'],
+      '%app_name%' => $appTitle,
+      '%app_url%' => WEBSITE_URL,
+      '%groupname%' => $groupname,
+      '%groupdesc%' => $groupdesc
+    ];
+    
+    $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+    
+    //
+    // Get all users and send notifications
+    //
     $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
+    $allSuccessful = true;
+    
     foreach ($users as $profile) {
       if ($UO->read($profile['username'], 'notifyGroupEvents')) {
-        sendEmail($profile['email'], $subject, $message);
+        if (!sendEmail($profile['email'], $subject, $message)) {
+          $allSuccessful = false;
+          if (isset($LOG)) {
+            $LOG->logEvent("logGroup", "System", "Failed to send group event notification to {$profile['email']}: ", "Email send failed");
+          }
+        }
       }
     }
+    
+    return $allSuccessful;
+  } catch (Exception $e) {
+    //
+    // Log error using the Log class
+    //
+    if (isset($LOG)) {
+      $LOG->logEvent("logGroup", "System", "Failed to send group event notifications: ", $e->getMessage());
+    }
+    return false;
   }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Sends a password reset token mail
  *
@@ -238,79 +489,166 @@ function sendGroupEventNotifications($event, $groupname, $groupdesc = '') {
  * @param string $lastname The user's lastname
  * @param string $firstname The user's firstname
  * @param string $token The password reset token
+ *
+ * @return bool True if email was sent successfully, false otherwise
  */
-function sendPasswordResetMail($email, $username, $lastname, $firstname, $token) {
-  global $C, $LANG;
-
-  $language = $C->read('defaultLanguage');
-  $appTitle = $C->read('appTitle');
-  $to = $email;
-
-  $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_password_reset']);
-  $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
-  $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
-  $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_pwdreq.html');
-  $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
-
-  $message = str_replace('%intro%', $intro, $message);
-  $message = str_replace('%body%', $body, $message);
-  $message = str_replace('%outro%', $outro, $message);
-  $message = str_replace('%app_name%', $appTitle, $message);
-  $message = str_replace('%app_url%', WEBSITE_URL, $message);
-  $message = str_replace('%token%', $token, $message);
-  $message = str_replace('%username%', $username, $message);
-  $message = str_replace('%lastname%', $lastname, $message);
-  $message = str_replace('%firstname%', $firstname, $message);
-
-  sendEmail($to, $subject, $message);
+function sendPasswordResetMail(string $email, string $username, string $lastname, string $firstname, string $token): bool {
+  global $C, $LANG, $LOG;
+  
+  //
+  // Input validation
+  //
+  if (!validEmail($email)) {
+    return false;
+  }
+  
+  try {
+    $language = $C->read('defaultLanguage');
+    $appTitle = $C->read('appTitle');
+    
+    //
+    // Load all templates at once to reduce file operations
+    //
+    $templates = [
+      'message' => WEBSITE_ROOT . '/templates/email_html.html',
+      'intro' => WEBSITE_ROOT . '/templates/' . $language . '/intro.html',
+      'body' => WEBSITE_ROOT . '/templates/' . $language . '/body_user_pwdreq.html',
+      'outro' => WEBSITE_ROOT . '/templates/' . $language . '/outro.html'
+    ];
+    
+    //
+    // Load and validate all templates exist
+    //
+    foreach ($templates as $key => $path) {
+      if (!file_exists($path)) {
+        throw new Exception("Missing template file: $path");
+      }
+      $templates[$key] = file_get_contents($path);
+    }
+    
+    $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_password_reset']);
+    
+    //
+    // Build message with all replacements
+    //
+    $message = $templates['message'];
+    $replacements = [
+      '%intro%' => $templates['intro'],
+      '%body%' => $templates['body'],
+      '%outro%' => $templates['outro'],
+      '%app_name%' => $appTitle,
+      '%app_url%' => WEBSITE_URL,
+      '%token%' => $token,
+      '%username%' => $username,
+      '%lastname%' => $lastname,
+      '%firstname%' => $firstname
+    ];
+    
+    $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+    
+    return sendEmail($email, $subject, $message);
+  } catch (Exception $e) {
+    //
+    // Log error using the Log class
+    //
+    if (isset($LOG)) {
+      $LOG->logEvent("logUser", "System", "Failed to send password reset email: ", $e->getMessage());
+    }
+    return false;
+  }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Sends an email to all users that subscribed to a role change event
  *
  * @param string $event The event type: added, changed, deleted
  * @param string $rolename The role name
  * @param string $roledesc The role description
+ *
+ * @return bool True if all emails were sent successfully, false if any failed
  */
-function sendRoleEventNotifications($event, $rolename, $roledesc = '') {
-  global $C, $LANG, $U, $UO;
-
-  $language = $C->read('defaultLanguage');
-  $appTitle = $C->read('appTitle');
-  $events = array(
-    'changed',
-    'created',
-    'deleted'
-  );
-
-  if (in_array($event, $events)) {
-    $subject = $LANG['email_subject_group_' . $event];
-    $subject = str_replace('%app_name%', $appTitle, $subject);
-
-    $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
-    $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
-    $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_role_' . $event . '.html');
-    $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
-
-    $message = str_replace('%intro%', $intro, $message);
-    $message = str_replace('%body%', $body, $message);
-    $message = str_replace('%outro%', $outro, $message);
-    $message = str_replace('%app_name%', $appTitle, $message);
-    $message = str_replace('%app_url%', WEBSITE_URL, $message);
-    $message = str_replace('%rolename%', $rolename, $message);
-    $message = str_replace('%roledesc%', $roledesc, $message);
-
+function sendRoleEventNotifications(string $event, string $rolename, string $roledesc = ''): bool {
+  global $C, $LANG, $U, $UO, $LOG;
+  
+  $events = ['changed', 'created', 'deleted'];
+  
+  if (!in_array($event, $events)) {
+    return false;
+  }
+  
+  try {
+    $language = $C->read('defaultLanguage');
+    $appTitle = $C->read('appTitle');
+    
+    //
+    // Load all templates at once to reduce file operations
+    //
+    $templates = [
+      'message' => WEBSITE_ROOT . '/templates/email_html.html',
+      'intro' => WEBSITE_ROOT . '/templates/' . $language . '/intro.html',
+      'body' => WEBSITE_ROOT . '/templates/' . $language . '/body_role_' . $event . '.html',
+      'outro' => WEBSITE_ROOT . '/templates/' . $language . '/outro.html'
+    ];
+    
+    //
+    // Load and validate all templates exist
+    //
+    foreach ($templates as $key => $path) {
+      if (!file_exists($path)) {
+        throw new Exception("Missing template file: $path");
+      }
+      $templates[$key] = file_get_contents($path);
+    }
+    
+    $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_group_' . $event]);
+    
+    //
+    // Build message with all replacements
+    //
+    $message = $templates['message'];
+    $replacements = [
+      '%intro%' => $templates['intro'],
+      '%body%' => $templates['body'],
+      '%outro%' => $templates['outro'],
+      '%app_name%' => $appTitle,
+      '%app_url%' => WEBSITE_URL,
+      '%rolename%' => $rolename,
+      '%roledesc%' => $roledesc
+    ];
+    
+    $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+    
+    //
+    // Get all users and send notifications
+    //
     $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
+    $allSuccessful = true;
+    
     foreach ($users as $profile) {
       if ($UO->read($profile['username'], 'notifyRoleEvents')) {
-        sendEmail($profile['email'], $subject, $message);
+        if (!sendEmail($profile['email'], $subject, $message)) {
+          $allSuccessful = false;
+          if (isset($LOG)) {
+            $LOG->logEvent("logRole", "System", "Failed to send role event notification to {$profile['email']}: ", "Email send failed");
+          }
+        }
       }
     }
+    
+    return $allSuccessful;
+  } catch (Exception $e) {
+    //
+    // Log error using the Log class
+    //
+    if (isset($LOG)) {
+      $LOG->logEvent("logRole", "System", "Failed to send role event notifications: ", $e->getMessage());
+    }
+    return false;
   }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Sends an email to all users that subscribed to a user change event
  *
@@ -318,46 +656,91 @@ function sendRoleEventNotifications($event, $rolename, $roledesc = '') {
  * @param string $username The username
  * @param string $firstname The firstname
  * @param string $lastname The lastname
+ *
+ * @return bool True if all emails were sent successfully, false if any failed
  */
-function sendUserEventNotifications($event, $username, $firstname, $lastname) {
-  global $C, $LANG, $U, $UO;
-
-  $language = $C->read('defaultLanguage');
-  $appTitle = $C->read('appTitle');
-  $events = array(
-    'created',
-    'changed',
-    'deleted'
-  );
-
-  if (in_array($event, $events)) {
-    $subject = $LANG['email_subject_user_account_' . $event];
-    $subject = str_replace('%app_name%', $appTitle, $subject);
-
-    $message = file_get_contents(WEBSITE_ROOT . '/templates/email_html.html');
-    $intro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/intro.html');
-    $body = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/body_user_' . $event . '.html');
-    $outro = file_get_contents(WEBSITE_ROOT . '/templates/' . $language . '/outro.html');
-
-    $message = str_replace('%intro%', $intro, $message);
-    $message = str_replace('%body%', $body, $message);
-    $message = str_replace('%outro%', $outro, $message);
-    $message = str_replace('%app_name%', $appTitle, $message);
-    $message = str_replace('%app_url%', WEBSITE_URL, $message);
-    $message = str_replace('%username%', $username, $message);
-    $message = str_replace('%firstname%', $firstname, $message);
-    $message = str_replace('%lastname%', $lastname, $message);
-
+function sendUserEventNotifications(string $event, string $username, string $firstname, string $lastname): bool {
+  global $C, $LANG, $U, $UO, $LOG;
+  
+  $events = ['created', 'changed', 'deleted'];
+  
+  if (!in_array($event, $events)) {
+    return false;
+  }
+  
+  try {
+    $language = $C->read('defaultLanguage');
+    $appTitle = $C->read('appTitle');
+    
+    //
+    // Load all templates at once to reduce file operations
+    //
+    $templates = [
+      'message' => WEBSITE_ROOT . '/templates/email_html.html',
+      'intro' => WEBSITE_ROOT . '/templates/' . $language . '/intro.html',
+      'body' => WEBSITE_ROOT . '/templates/' . $language . '/body_user_' . $event . '.html',
+      'outro' => WEBSITE_ROOT . '/templates/' . $language . '/outro.html'
+    ];
+    
+    //
+    // Load and validate all templates exist
+    //
+    foreach ($templates as $key => $path) {
+      if (!file_exists($path)) {
+        throw new Exception("Missing template file: $path");
+      }
+      $templates[$key] = file_get_contents($path);
+    }
+    
+    $subject = str_replace('%app_name%', $appTitle, $LANG['email_subject_user_account_' . $event]);
+    
+    //
+    // Build message with all replacements
+    //
+    $message = $templates['message'];
+    $replacements = [
+      '%intro%' => $templates['intro'],
+      '%body%' => $templates['body'],
+      '%outro%' => $templates['outro'],
+      '%app_name%' => $appTitle,
+      '%app_url%' => WEBSITE_URL,
+      '%username%' => $username,
+      '%firstname%' => $firstname,
+      '%lastname%' => $lastname
+    ];
+    
+    $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+    
+    //
+    // Get all users and send notifications
+    //
     $users = $U->getAll('lastname', 'firstname', 'ASC', false, true);
+    $allSuccessful = true;
+    
     foreach ($users as $profile) {
       if ($UO->read($profile['username'], 'notifyUserEvents')) {
-        sendEmail($profile['email'], $subject, $message);
+        if (!sendEmail($profile['email'], $subject, $message)) {
+          $allSuccessful = false;
+          if (isset($LOG)) {
+            $LOG->logEvent("logUser", "System", "Failed to send user event notification to {$profile['email']}: ", "Email send failed");
+          }
+        }
       }
     }
+    
+    return $allSuccessful;
+  } catch (Exception $e) {
+    //
+    // Log error using the Log class
+    //
+    if (isset($LOG)) {
+      $LOG->logEvent("logUser", "System", "Failed to send user event notifications: ", $e->getMessage());
+    }
+    return false;
   }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Sends an HTML eMail, either via SMTP or regular PHP mail
  * Requires the PEAR Mail package installed on the server that TcNeo is running on
@@ -365,10 +748,11 @@ function sendUserEventNotifications($event, $username, $firstname, $lastname) {
  * @param string $to eMail to address
  * @param string $subject eMail subject
  * @param string $body eMail body
+ * @param string $from eMail from address (optional)
  *
  * @return bool Email success
  */
-function sendEmail($to, $subject, $body, $from = '') {
+function sendEmail(string $to, string $subject, string $body, string $from = ''): bool {
   global $C;
   $debug = false;
 
@@ -376,9 +760,9 @@ function sendEmail($to, $subject, $body, $from = '') {
 
   $from_regexp = preg_match('/<(.*?)>/', $from, $fetch);
 
-  /**
-   * Set From and ReplyTo
-   */
+  //
+  // Set From and ReplyTo
+  //
   if ((!strlen($from)) || ($from_regexp && ($fetch[1] == $C->read("mailReply")))) {
     $from = $replyto = mb_encode_mimeheader($C->read("mailFrom")) . " <" . $C->read("mailReply") . ">";
     $from_mailonly = $C->read("mailReply");
@@ -387,11 +771,10 @@ function sendEmail($to, $subject, $body, $from = '') {
     $replyto = mb_encode_mimeheader($from);
   }
 
-  /**
-   * "To" has to be a valid email or comma separated list of valid emails.
-   *
-   * It might be empty if a user to be notified has not setup his email address
-   */
+  //
+  // "To" has to be a valid email or comma separated list of valid emails.
+  // It might be empty if a user to be notified has not setup his email address
+  //
   $to = rtrim($to, ', '); // remove the last ", " if exists
   $to = rtrim($to, ',');  // remove the last "," if exists
   $toArray = explode(",", $to);
@@ -406,9 +789,9 @@ function sendEmail($to, $subject, $body, $from = '') {
   $toValid = rtrim($to, ','); // remove the last "," if exists (just in case)
 
   if ($C->read("mailSMTP")) {
-    /**
-     * SMTP Mail
-     */
+    //
+    // SMTP Mail
+    //
     include_once 'Mail.php';
     $host = $C->read("mailSMTPHost");
     $port = $C->read("mailSMTPPort");
@@ -419,9 +802,10 @@ function sendEmail($to, $subject, $body, $from = '') {
     } else {
       $ssl = "";
     }
-    /*
-     * SMTP requires a valid email address in the From field
-     */
+
+    //
+    // SMTP requires a valid email address in the From field
+    //
     if (!validEmail($from_mailonly)) {
       $from = $replyto = mb_encode_mimeheader($C->read("mailFrom")) . " <" . $C->read("mailReply") . ">";
     }
@@ -434,9 +818,9 @@ function sendEmail($to, $subject, $body, $from = '') {
       'Content-type' => "text/html; charset=iso-8859-1"
     );
 
-    /*
-     * Put an HTML envelope around the body
-     */
+    //
+    // Put an HTML envelope around the body
+    //
     $body = '<html><body>' . $body . '</body></html>';
 
     if ($C->read("mailSMTPAnonymous")) {
@@ -458,9 +842,9 @@ function sendEmail($to, $subject, $body, $from = '') {
     $mail = @$smtp->send($toValid, $headers, $body);
 
     if (@PEAR::isError($mail)) {
-      /*
-       * Display SMTP error
-       */
+      //
+      // Display SMTP error
+      //
       $errorData['title'] = "E-mail Notification Problem";
       $errorData['subject'] = "SMTP Error";
       $errorData['text'] = $mail->getMessage();
@@ -470,15 +854,16 @@ function sendEmail($to, $subject, $body, $from = '') {
       return true;
     }
   } else {
-    /**
-     * Regular PHP Mail
-     */
+    //
+    // Regular PHP Mail
+    //
     $headers = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
     $headers .= "From: " . $from . "\r\n";
     $headers .= "Reply-To: " . $replyto;
     $body = '<html><body>' . $body . '</body></html>';
     $result = mail($toValid, $subject, $body, $headers);
+
     //
     // Enable to debug mail content
     //
@@ -490,7 +875,7 @@ function sendEmail($to, $subject, $body, $from = '') {
   }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Validate an email address.
  *
@@ -498,7 +883,7 @@ function sendEmail($to, $subject, $body, $from = '') {
  *
  * @return boolean True or False indicating validity
  */
-function validEmail($email) {
+function validEmail(string $email): bool {
   $isValid = true;
   $atIndex = strrpos($email, "@");
   if (is_bool($atIndex) && !$atIndex) {
@@ -509,26 +894,40 @@ function validEmail($email) {
     $localLen = strlen($local);
     $domainLen = strlen($domain);
     if ($localLen < 1 || $localLen > 64) {
+      //
       // local part length exceeded
+      //
       $isValid = false;
     } elseif ($domainLen < 1 || $domainLen > 255) {
+      //
       // domain part length exceeded
+      //
       $isValid = false;
     } elseif ($local[0] == '.' || $local[$localLen - 1] == '.') {
+      //
       // local part starts or ends with '.'
+      //
       $isValid = false;
     } elseif (preg_match('/\\.\\./', $local)) {
+      //
       // local part has two consecutive dots
+      //
       $isValid = false;
     } elseif (!preg_match('/^[A-Za-z0-9\\-\\.]+$/', $domain)) {
+      //
       // character not valid in domain part
+      //
       $isValid = false;
     } elseif (preg_match('/\\.\\./', $domain)) {
+      //
       // domain part has two consecutive dots
+      //
       $isValid = false;
     } elseif (!preg_match('/^(\\\\.|[A-Za-z0-9!#%&`_=\\/$\'*+?^{}|~.-])+$/', str_replace("\\\\", "", $local))) {
+      //
       // character not valid in local part unless
       // local part is quoted
+      //
       if (!preg_match('/^"(\\\\"|[^"])+"$/', str_replace("\\\\", "", $local))) {
         $isValid = false;
       }

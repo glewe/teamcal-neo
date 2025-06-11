@@ -13,21 +13,27 @@ header("Cache-Control: no-cache");
 header("Pragma: no-cache");
 if (strlen($_REQUEST['server']) && strlen($_REQUEST['db']) && strlen($_REQUEST['user'])) {
 
+  // 
   // Validate server hostname
+  //
   $server = $_REQUEST['server'];
   $pattern = '/^([a-zA-Z0-9.-]+)$/';
   if (!preg_match($pattern, $server)) {
     die("Invalid server hostname.");
   }
 
+  // 
   // Validate database name
+  //
   $database = $_REQUEST['db'];
   $pattern = '/^[a-zA-Z0-9_]+$/';
   if (!preg_match($pattern, $database)) {
     die("Invalid database name.");
   }
 
+  // 
   // Validate prefix
+  //
   if (isset($_REQUEST['prefix']) && strlen($_REQUEST['prefix'])) {
     $prefix = $_REQUEST['prefix'];
     $pattern = '/^[a-zA-Z_]\w{0,63}$/';
@@ -39,10 +45,14 @@ if (strlen($_REQUEST['server']) && strlen($_REQUEST['db']) && strlen($_REQUEST['
   }
 
   try {
+    //
     // Connect to the database
+    //
     $pdo = new PDO('mysql:host=' . $server . ';dbname=' . $database . ';charset=utf8', $_REQUEST['user'], $_REQUEST['pass']);
 
+    //
     // Query to check for tables in the database
+    //
     $query = $pdo->prepare("SELECT COUNT(*) as table_count FROM information_schema.tables WHERE table_schema = :db");
     $query->execute([ 'db' => $database]);
     $result = $query->fetch(PDO::FETCH_ASSOC);

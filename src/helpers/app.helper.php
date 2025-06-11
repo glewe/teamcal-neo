@@ -13,7 +13,7 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Checks whether the maximum absences threshold is reached
  *
@@ -22,50 +22,72 @@ if (!defined('VALID_ROOT')) {
  * @param string $day Day to count for
  * @param string $base Threshold base: user or group
  * @param string $group Group to refer to in case of base=group
+ * 
  * @return boolean True if reached, false if not
  */
-function absenceThresholdReached($year, $month, $day, $base, $group = '') {
+function absenceThresholdReached(string $year, string $month, string $day, string $base, string $group = ''): bool {
   global $C, $CONF, $G, $T, $U, $UG;
 
-  if ($base == "group") {
-    /**
-     * Count group members
-     */
-    $members = $UG->getAllForGroup($group);
-    $usercount = $UG->countMembers($group);
-    /**
-     * Count all group absences for this day
-     */
-    $absences = 0;
-    foreach ($members as $member) {
-      $abss = $T->countAllAbsences($member['username'], $year, $month, $day, $day);
-      $absences += $abss;
+  try {
+    //
+    // Input validation
+    //
+    if (!is_numeric($year) || !is_numeric($month) || !is_numeric($day)) {
+      return false;
     }
-  } else {
-    /**
-     * Count all members
-     */
-    $usercount = $U->countUsers();
-    /**
-     * Count all absences for this day
-     */
-    $absences = 0;
-    $absences += $T->countAllAbsences('%', $year, $month, $day);
+
+    if ($base === "group") {
+      //
+      // Count group members and absences
+      //
+      $members = $UG->getAllForGroup($group);
+      $usercount = $UG->countMembers($group);
+
+      if ($usercount === 0) {
+        return false;
+      }
+
+      $absences = 0;
+      foreach ($members as $member) {
+        $absences += $T->countAllAbsences($member['username'], $year, $month, $day, $day);
+      }
+    } else {
+      //
+      // Count all members and absences
+      //
+      $usercount = $U->countUsers();
+
+      if ($usercount === 0) {
+        return false;
+      }
+
+      $absences = $T->countAllAbsences('%', $year, $month, $day);
+    }
+
+    //
+    // Add one to absences to account for the new absence being checked
+    //
+    $absences++;
+
+    //
+    // Calculate absence rate and check against threshold
+    //
+    $absencerate = (100 * $absences) / $usercount;
+    $threshold = (int)$C->read("declThreshold");
+
+    return $absencerate >= $threshold;
+  } catch (Exception $e) {
+    //
+    // Log error if logging is available
+    //
+    // if (isset($LOG)) {
+    //   $LOG->logEvent("logSystem", "System", "Error in absenceThresholdReached: ", $e->getMessage());
+    // }
+    return false;
   }
-  /**
-   * Now we know how many absences we have already. Add one to those because this check is done
-   * to check for a threshold breach with another absence on top of that.
-   */
-  $absences++;
-  /**
-   * Check absences against threshold
-   */
-  $absencerate = ((100 * $absences) / $usercount);
-  $threshold = intval($C->read("declThreshold"));
-  return $absencerate >= $threshold;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Checks an array of requested absences against the declination rules and
  * other possible restrictions.
@@ -82,7 +104,7 @@ function absenceThresholdReached($year, $month, $day, $base, $group = '') {
  *     boolean allChangesInPast
  * )
  */
-function approveAbsences($username, $year, $month, $currentAbsences, $requestedAbsences, $regionId) {
+function approveAbsences(string $username, string $year, string $month, array $currentAbsences, array $requestedAbsences, string $regionId): array {
   global $A, $AL, $C, $D, $G, $H, $LANG, $M, $T, $UG, $UL;
   $approvalResult = array(
     'approvalResult' => 'all',
@@ -728,7 +750,7 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
   return $approvalResult;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Counts all occurences of a given absence type for a given user in a given
  * time period
@@ -739,9 +761,10 @@ function approveAbsences($username, $year, $month, $currentAbsences, $requestedA
  * @param string $to Date to count to (including)
  * @param boolean $useFactor Multiply count by factor
  * @param boolean $combined Count other absences that count as this one
- * @return  integer            Result of the count
+ * 
+ * @return integer Result of the count
  */
-function countAbsence($user = '%', $absid = '', $from = '', $to = '', $useFactor = false, $combined = false) {
+function countAbsence(string $user = '%', string $absid = '', string $from = '', string $to = '', bool $useFactor = false, bool $combined = false): int {
   global $A, $T;
   $absences = $A->getAll();
   //
@@ -838,7 +861,7 @@ function countAbsence($user = '%', $absid = '', $from = '', $to = '', $useFactor
   return $count;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Counts all business days or man days in a given time period
  *
@@ -846,9 +869,10 @@ function countAbsence($user = '%', $absid = '', $from = '', $to = '', $useFactor
  * @param string $cntto Date to count to (including)
  * @param string $region Region to count for
  * @param boolean $cntManDays Switch whether to multiply the business days by the amount of users and return that value instead
+ * 
  * @return integer Result of the count
  */
-function countBusinessDays($cntfrom, $cntto, $region = '1', $cntManDays = false) {
+function countBusinessDays(string $cntfrom, string $cntto, string $region = '1', bool $cntManDays = false): int {
   global $CONF, $H, $U;
   $Mx = new Months();
 
@@ -942,15 +966,16 @@ function countBusinessDays($cntfrom, $cntto, $region = '1', $cntManDays = false)
   }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Counts all requested absences for a month
  *
  * @param array $requestedAbsences Array of requested absences
  * @param string $absence Absence ID to count in array
+ * 
  * @return integer Result of the count
  */
-function countAbsenceRequestedMonth($requestedAbsences, $absence) {
+function countAbsenceRequestedMonth(array $requestedAbsences, string $absence): int {
   $count = 0;
   foreach ($requestedAbsences as $abs) {
     if ($abs == $absence) {
@@ -960,16 +985,17 @@ function countAbsenceRequestedMonth($requestedAbsences, $absence) {
   return $count;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Counts all requested absences for a week (7 sequential values in the array)
  *
  * @param array $requestedAbsences Array of requested absences
  * @param string $absence Absence ID to count in array
  * @param integer Index in absence array to start at
+ * 
  * @return integer Result of the count
  */
-function countAbsenceRequestedWeek($requestedAbsences, $absence, $startAt) {
+function countAbsenceRequestedWeek(array $requestedAbsences, string $absence, int $startAt): int {
   $count = 0;
   for ($i = $startAt; $i <= $startAt + 6; $i++) {
     if ($requestedAbsences[$i] == $absence) {
@@ -979,7 +1005,7 @@ function countAbsenceRequestedWeek($requestedAbsences, $absence, $startAt) {
   return $count;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Creates an empty month template marking Saturdays and Sundays as weekend
  *
@@ -990,7 +1016,7 @@ function countAbsenceRequestedWeek($requestedAbsences, $absence, $startAt) {
  *
  * @return bool Success code
  */
-function createMonth($year, $month, $target, $owner) {
+function createMonth(string $year, string $month, string $target, string $owner): bool {
   $dateInfo = dateInfo($year, $month, '1');
   $dayofweek = $dateInfo['wday'];
   $weeknumber = $dateInfo['week'];
@@ -1027,7 +1053,7 @@ function createMonth($year, $month, $target, $owner) {
   return true;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Gets absence summary for a given user, absence type and month
  *
@@ -1037,7 +1063,7 @@ function createMonth($year, $month, $target, $owner) {
  *
  * @return array Summary (allowance, taken, remainder)
  */
-function getAbsenceSummary($username, $absid, $year) {
+function getAbsenceSummary(string $username, string $absid, string $year): array {
   global $LANG;
   $A = new Absences();
   $A2 = new Absences(); // for counts-as absences
@@ -1085,7 +1111,7 @@ function getAbsenceSummary($username, $absid, $year) {
   return $summary;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Checks the status of a declination rule based on the curren date
  *
@@ -1096,7 +1122,7 @@ function getAbsenceSummary($username, $absid, $year) {
  *
  * @return string Status code (active,expired,inactive,scheduled)
  */
-function getDeclinationStatus($rule, $period, $startdate, $enddate) {
+function getDeclinationStatus(bool $rule, string $period, string $startdate, string $enddate): string {
   if ($rule) {
     $status = 'active';
     $today = date('Ymd');
@@ -1130,7 +1156,7 @@ function getDeclinationStatus($rule, $period, $startdate, $enddate) {
   return $status;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Checks wether the maximum absence threshold is reached for weekdays
  *
@@ -1138,9 +1164,10 @@ function getDeclinationStatus($rule, $period, $startdate, $enddate) {
  * @param string $month Month of the day to count for
  * @param string $day Day to count for
  * @param string $group Group to refer to in case of base=group
+ * 
  * @return boolean True if reached, false if not
  */
-function absenceMaximumReached($year, $month, $day, $group = '') {
+function absenceMaximumReached(string $year, string $month, string $day, string $group = ''): bool {
   global $C, $CONF, $G, $T, $U, $UG;
   //
   // Count all group absences for this day
@@ -1162,7 +1189,7 @@ function absenceMaximumReached($year, $month, $day, $group = '') {
   return $absences > $threshold;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Checks wether the maximum absence threshold is reached for weekends
  *
@@ -1170,9 +1197,10 @@ function absenceMaximumReached($year, $month, $day, $group = '') {
  * @param string $month Month of the day to count for
  * @param string $day Day to count for
  * @param string $group Group to refer to in case of base=group
+ * 
  * @return boolean True if reached, false if not
  */
-function absenceMaximumWeReached($year, $month, $day, $group = '') {
+function absenceMaximumWeReached(string $year, string $month, string $day, string $group = ''): bool {
   global $G, $T, $UG;
   //
   // Count all group absences for this day
@@ -1194,7 +1222,7 @@ function absenceMaximumWeReached($year, $month, $day, $group = '') {
   return $absences > $threshold;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Checks wether the minimum presence threshold is reached
  *
@@ -1202,9 +1230,10 @@ function absenceMaximumWeReached($year, $month, $day, $group = '') {
  * @param string $month Month of the day to count for
  * @param string $day Day to count for
  * @param string $group Group to refer to in case of base=group
+ * 
  * @return boolean True if reached, false if not
  */
-function presenceMinimumReached($year, $month, $day, $group = '') {
+function presenceMinimumReached(string $year, string $month, string $day, string $group = ''): bool {
   global $G, $T, $UG;
   //
   // Count group members
@@ -1232,7 +1261,7 @@ function presenceMinimumReached($year, $month, $day, $group = '') {
   return $presences < $threshold;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Checks whether the minimum presence threshold is reached
  *
@@ -1240,9 +1269,10 @@ function presenceMinimumReached($year, $month, $day, $group = '') {
  * @param string $month Month of the day to count for
  * @param string $day Day to count for
  * @param string $group Group to refer to in case of base=group
+ * 
  * @return boolean True if reached, false if not
  */
-function presenceMinimumWeReached($year, $month, $day, $group = '') {
+function presenceMinimumWeReached(string $year, string $month, string $day, string $group = ''): bool {
   global $G, $T, $UG;
   //
   // Count group members
@@ -1270,7 +1300,7 @@ function presenceMinimumWeReached($year, $month, $day, $group = '') {
   return $presences < $threshold;
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Sends an email to all users that subscribed to a user calendar change event
  *
@@ -1281,7 +1311,7 @@ function presenceMinimumWeReached($year, $month, $day, $group = '') {
  * @param string $day Numeric representation of the day
  * @param string $absence Absence ID
  */
-function sendAbsenceApprovalNotifications($username, $absences) {
+function sendAbsenceApprovalNotifications(string $username, array $absences): void {
   global $C, $LANG, $U, $UG;
   $language = $C->read('defaultLanguage');
   $appTitle = $C->read('appTitle');
@@ -1315,14 +1345,14 @@ function sendAbsenceApprovalNotifications($username, $absences) {
   }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Sends an email to all users that subscribed to an absence change event
  *
  * @param string $event The event type: added, changed, deleted
  * @param string $absname The absence name
  */
-function sendAbsenceEventNotifications($event, $absname) {
+function sendAbsenceEventNotifications(string $event, string $absname): void {
   global $C, $LANG, $U, $UO;
   $language = $C->read('defaultLanguage');
   $appTitle = $C->read('appTitle');
@@ -1358,7 +1388,7 @@ function sendAbsenceEventNotifications($event, $absname) {
   }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Sends an email to all users that subscribed to a holiday change event
  *
@@ -1366,7 +1396,7 @@ function sendAbsenceEventNotifications($event, $absname) {
  * @param string $holname The holiday name
  * @param string $holdesc The holiday description
  */
-function sendHolidayEventNotifications($event, $holname, $holdesc = '') {
+function sendHolidayEventNotifications(string $event, string $holname, string $holdesc = ''): void {
   global $C, $LANG, $U, $UO;
 
   $language = $C->read('defaultLanguage');
@@ -1404,7 +1434,7 @@ function sendHolidayEventNotifications($event, $holname, $holdesc = '') {
   }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Sends an email to all users that subscribed to a month change event
  *
@@ -1413,7 +1443,7 @@ function sendHolidayEventNotifications($event, $holname, $holdesc = '') {
  * @param string $month The month
  * @param string $region The region
  */
-function sendMonthEventNotifications($event, $year, $month, $region) {
+function sendMonthEventNotifications(string $event, string $year, string $month, string $region): void {
   global $C, $LANG, $U, $UO;
 
   $language = $C->read('defaultLanguage');
@@ -1452,7 +1482,7 @@ function sendMonthEventNotifications($event, $year, $month, $region) {
   }
 }
 
-// ---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /**
  * Sends an email to all users that subscribed to a user calendar change event
  *
@@ -1461,7 +1491,7 @@ function sendMonthEventNotifications($event, $year, $month, $region) {
  * @param string $year Numeric representation of the year
  * @param string $month Numeric representation of the month
  */
-function sendUserCalEventNotifications($event, $username, $year, $month) {
+function sendUserCalEventNotifications(string $event, string $username, string $year, string $month): void {
   global $A, $C, $LANG, $T, $U, $UG, $UO;
 
   $language = $C->read('defaultLanguage');
