@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AbsenceGroup
+ * Attachment
  *
  * This class provides methods and properties for attachments.
  *
@@ -13,7 +13,7 @@
  * @since 3.0.0
  */
 class Attachment {
-  private $db = '';
+  private $db = null;
   private $table = '';
 
   //---------------------------------------------------------------------------
@@ -34,10 +34,19 @@ class Attachment {
    * @param string $uploader Uploader username
    * @return boolean Query result
    */
-  public function create($filename, $uploader) {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (`filename`, `uploader`) VALUES (:val1, :val2)');
-    $query->bindParam('val1', $filename);
-    $query->bindParam('val2', $uploader);
+  public function create(string $filename, string $uploader): string|bool {
+    // Check if the file already exists to avoid duplicate entry error
+    $query = $this->db->prepare('SELECT id FROM ' . $this->table . ' WHERE filename = :filename');
+    $query->bindParam(':filename', $filename);
+    $query->execute();
+    if ($row = $query->fetch()) {
+      // File already exists, return its ID
+      return $row['id'];
+    }
+    // Insert new record
+    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (`filename`, `uploader`) VALUES (:filename, :uploader)');
+    $query->bindParam(':filename', $filename);
+    $query->bindParam(':uploader', $uploader);
     $result = $query->execute();
     if ($result) {
       return $this->db->lastInsertId();
@@ -52,7 +61,7 @@ class Attachment {
    *
    * @return boolean Query result
    */
-  public function deleteAll() {
+  public function deleteAll(): bool {
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
     $result = $query->execute();
     if ($result && $query->fetchColumn()) {
@@ -70,9 +79,9 @@ class Attachment {
    * @param string $filename File name to delete
    * @return boolean Query result
    */
-  public function delete($filename) {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE filename = :val1');
-    $query->bindParam('val1', $filename);
+  public function delete(string $filename): bool {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE filename = :filename');
+    $query->bindParam(':filename', $filename);
     return $query->execute();
   }
 
@@ -82,9 +91,9 @@ class Attachment {
    *
    * @return boolean Query result
    */
-  public function deleteById($id) {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
-    $query->bindParam('val1', $id);
+  public function deleteById(string $id): bool {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :id');
+    $query->bindParam(':id', $id);
     return $query->execute();
   }
 
@@ -94,7 +103,7 @@ class Attachment {
    *
    * @return array Array with records
    */
-  public function getAll() {
+  public function getAll(): array {
     $records = array();
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY filename ASC');
     if ($query->execute()) {
@@ -112,9 +121,9 @@ class Attachment {
    * @param string $filename File name to find
    * @return string Record ID
    */
-  public function getId($filename) {
-    $query = $this->db->prepare('SELECT id FROM ' . $this->table . ' WHERE filename = :val1');
-    $query->bindParam('val1', $filename);
+  public function getId(string $filename): string|bool {
+    $query = $this->db->prepare('SELECT id FROM ' . $this->table . ' WHERE filename = :filename');
+    $query->bindParam(':filename', $filename);
     if ($query->execute() && $row = $query->fetch()) {
       return $row['id'];
     } else {
@@ -129,9 +138,9 @@ class Attachment {
    * @param string $filename File name to find
    * @return string Uploader
    */
-  public function getUploader($filename) {
-    $query = $this->db->prepare('SELECT uploader FROM ' . $this->table . ' WHERE filename = :val1');
-    $query->bindParam('val1', $filename);
+  public function getUploader(string $filename): string|bool {
+    $query = $this->db->prepare('SELECT uploader FROM ' . $this->table . ' WHERE filename = :filename');
+    $query->bindParam(':filename', $filename);
     if ($query->execute() && $row = $query->fetch()) {
       return $row['uploader'];
     } else {
@@ -146,9 +155,9 @@ class Attachment {
    * @param string $filename File name to find
    * @return string Uploader
    */
-  public function getUploaderById($fileid) {
-    $query = $this->db->prepare('SELECT uploader FROM ' . $this->table . ' WHERE id = :val1');
-    $query->bindParam('val1', $fileid);
+  public function getUploaderById(string $fileid): string|bool {
+    $query = $this->db->prepare('SELECT uploader FROM ' . $this->table . ' WHERE id = :id');
+    $query->bindParam(':id', $fileid);
     if ($query->execute() && $row = $query->fetch()) {
       return $row['uploader'];
     } else {

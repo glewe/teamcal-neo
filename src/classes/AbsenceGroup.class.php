@@ -17,7 +17,7 @@ class AbsenceGroup {
   public $absid = null;
   public $groupid = null;
 
-  private $db = '';
+  private $db = null;
   private $table = '';
 
   //---------------------------------------------------------------------------
@@ -38,10 +38,10 @@ class AbsenceGroup {
    * @param string $groupid Group short name
    * @return boolean Query result
    */
-  public function assign($absid, $groupid) {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (absid, groupid) VALUES (:val1, :val2)');
-    $query->bindParam('val1', $absid);
-    $query->bindParam('val2', $groupid);
+  public function assign(string $absid, string $groupid): bool {
+    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (absid, groupid) VALUES (:absid, :groupid)');
+    $query->bindParam(':absid', $absid);
+    $query->bindParam(':groupid', $groupid);
     return $query->execute();
   }
 
@@ -51,7 +51,7 @@ class AbsenceGroup {
    *
    * @return boolean Query result
    */
-  public function deleteAll() {
+  public function deleteAll(): bool {
     $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
     return $query->execute();
   }
@@ -63,17 +63,17 @@ class AbsenceGroup {
    * @param string $absid Absence ID
    * @return array Array of group IDs
    */
-  public function getAssignments($absid) {
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE absid = :val1');
-    $query->bindParam('val1', $absid);
-    if ($query->execute()) {
-      while ($row = $query->fetch()) {
-        $records[] = $row['groupid'];
-      }
-      return $records;
-    } else {
-      return [];
-    }
+  /**
+   * Gets all group IDs that the given absence ID is assigned to
+   *
+   * @param string $absid Absence ID
+   * @return array Array of group IDs
+   */
+  public function getAssignments(string $absid): array {
+    $query = $this->db->prepare('SELECT groupid FROM ' . $this->table . ' WHERE absid = :absid');
+    $query->bindParam(':absid', $absid);
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_COLUMN, 0);
   }
 
   //---------------------------------------------------------------------------
@@ -84,10 +84,10 @@ class AbsenceGroup {
    * @param string $groupid Group short name
    * @return boolean Query result
    */
-  public function unassign($absid = '', $groupid = '') {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE absid = :val1 AND groupid = :val2');
-    $query->bindParam('val1', $absid);
-    $query->bindParam('val2', $groupid);
+  public function unassign(string $absid = '', string $groupid = ''): bool {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE absid = :absid AND groupid = :groupid');
+    $query->bindParam(':absid', $absid);
+    $query->bindParam(':groupid', $groupid);
     return $query->execute();
   }
 
@@ -98,9 +98,9 @@ class AbsenceGroup {
    * @param string $absid Absence ID
    * @return boolean Query result
    */
-  public function unassignAbs($absid = '') {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE absid = :val1');
-    $query->bindParam('val1', $absid);
+  public function unassignAbs(string $absid = ''): bool {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE absid = :absid');
+    $query->bindParam(':absid', $absid);
     return $query->execute();
   }
 
@@ -111,9 +111,9 @@ class AbsenceGroup {
    * @param string $group Group short name
    * @return boolean Query result
    */
-  public function unassignGroup($groupid = '') {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE groupid = :val1');
-    $query->bindParam('val1', $groupid);
+  public function unassignGroup(string $groupid = ''): bool {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE groupid = :groupid');
+    $query->bindParam(':groupid', $groupid);
     return $query->execute();
   }
 
@@ -125,12 +125,12 @@ class AbsenceGroup {
    * @param string $groupid Group ID
    * @return boolean Query result
    */
-  public function isAssigned($absid, $groupid) {
-    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE absid = :val1 AND groupid = :val2');
-    $query->bindParam('val1', $absid);
-    $query->bindParam('val2', $groupid);
-    $result = $query->execute();
-    return $result && $query->fetchColumn();
+  public function isAssigned(string $absid, string $groupid): bool {
+    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE absid = :absid AND groupid = :groupid');
+    $query->bindParam(':absid', $absid);
+    $query->bindParam(':groupid', $groupid);
+    $query->execute();
+    return (bool)$query->fetchColumn();
   }
 
   //---------------------------------------------------------------------------
@@ -139,11 +139,11 @@ class AbsenceGroup {
    *
    * @return boolean Query result
    */
-  public function update() {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET absid = :val1, groupid = :val2 WHERE id = :val3');
-    $query->bindParam('val1', $this->absid);
-    $query->bindParam('val2', $this->groupid);
-    $query->bindParam('val3', $this->id);
+  public function update(): bool {
+    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET absid = :absid, groupid = :groupid WHERE id = :id');
+    $query->bindParam('absid', $this->absid);
+    $query->bindParam('groupid', $this->groupid);
+    $query->bindParam('id', $this->id);
     return $query->execute();
   }
 
@@ -155,10 +155,10 @@ class AbsenceGroup {
    * @param string $absnew New absence ID
    * @return boolean Query result
    */
-  public function updateAbsence($absold, $absnew) {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET absid = :val1 WHERE absid = :val2');
-    $query->bindParam('val1', $absnew);
-    $query->bindParam('val2', $absold);
+  public function updateAbsence(string $absold, string $absnew): bool {
+    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET absid = :absnew WHERE absid = :absold');
+    $query->bindParam('absnew', $absnew);
+    $query->bindParam('absold', $absold);
     return $query->execute();
   }
 
@@ -170,10 +170,10 @@ class AbsenceGroup {
    * @param string $groupnew New group name
    * @return boolean Query result
    */
-  public function updateGroupname($groupold, $groupnew) {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET groupid = :val1 WHERE groupid = :val2');
-    $query->bindParam('val1', $groupnew);
-    $query->bindParam('val2', $groupold);
+  public function updateGroupname(string $groupold, string $groupnew): bool {
+    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET groupid = :groupnew WHERE groupid = :groupold');
+    $query->bindParam('groupnew', $groupnew);
+    $query->bindParam('groupold', $groupold);
     return $query->execute();
   }
 }

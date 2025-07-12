@@ -47,7 +47,7 @@ class Login {
    *
    * @return string|bool Username of the user logged in, or false
    */
-  public function checkLogin() {
+  public function checkLogin(): string|bool {
     global $U;
     //
     // If the cookie is set, look up the username in the database
@@ -77,7 +77,7 @@ class Login {
    *
    * @return string
    */
-  public function getHost() {
+  public function getHost(): string {
     if ($host = getenv('HTTP_X_FORWARDED_HOST')) {
       $elements = explode(',', $host);
       $host = trim(end($elements));
@@ -122,7 +122,7 @@ class Login {
    *         51 - Password contains no upper case character
    *         52 - Password contains no special characters
    */
-  public function isPasswordValid($uname = '', $pw = '', $pwnew1 = '', $pwnew2 = '') {
+  public function isPasswordValid(string $uname = '', string $pw = '', string $pwnew1 = '', string $pwnew2 = ''): int {
     if (!isset($this->pw_strength)) {
       $this->pw_strength = 0;
     }
@@ -216,7 +216,7 @@ class Login {
    *
    * @return integer Authentication return code
    */
-  private function ldapVerify($uidpass) {
+  private function ldapVerify(string $uidpass): int {
     global $U;
 
     $ldaprdn = LDAP_DIT;
@@ -325,7 +325,7 @@ class Login {
    *
    * @return integer authentication return code
    */
-  private function localVerify($password) {
+  private function localVerify(string $password): int {
     global $U;
 
     if (password_verify($password, $U->password)) {
@@ -396,7 +396,7 @@ class Login {
    *
    * @return integer Login return code
    */
-  public function loginUser($loginname = '', $loginpwd = '') {
+  public function loginUser(string $loginname = '', string $loginpwd = ''): int {
     global $C, $U, $UO;
 
     $retcode = 0;
@@ -460,7 +460,7 @@ class Login {
     // Clear current cookie
     setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, false, true);
     // Set new cookie
-//    setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '', $this->hostName, true, true); // Allow cookie only on HTTPS
+    //    setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '', $this->hostName, true, true); // Allow cookie only on HTTPS
     setcookie($this->cookie_name, $value, time() + intval($C->read("cookieLifetime")), '', $this->hostName, false, true);
     $U->bad_logins = 0;
     $U->grace_start = DEFAULT_TIMESTAMP;
@@ -474,7 +474,7 @@ class Login {
   /**
    * Clears the login cookie
    */
-  public function logout() {
-    setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, true, true);
+  public function logout(): void {
+    setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, false, true);
   }
 }

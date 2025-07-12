@@ -180,7 +180,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
           //
           // Log this event
           //
-          $LOG->logEvent("logUpload", $UL->username, "log_upload_image", $UPL->uploaded_file['name']);
+          $uploadedFileName = isset($UPL->uploaded_file['name']) ? $UPL->uploaded_file['name'] : $UPL->the_file;
+          $LOG->logEvent("logUpload", $UL->username, "log_upload_image", $uploadedFileName);
           header("Location: index.php?action=" . $controller);
         }
       } else {
@@ -259,7 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //
 $viewData['upl_maxsize'] = $CONF['uplMaxsize'];
 $viewData['upl_formats'] = implode(', ', $CONF['uplExtensions']);
-$files = getFiles(APP_UPL_DIR, $CONF['uplExtensions'], null);
+$files = getFiles(APP_UPL_DIR, $CONF['uplExtensions'], '');
 foreach ($files as $file) {
   $fid = $AT->getId($file);
   if ($UL->username != 'admin') {

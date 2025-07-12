@@ -13,12 +13,12 @@
  * @since 3.0.0
  */
 class Roles {
-  public $id = '';
-  public $name = '';
-  public $description = '';
-  public $color = '';
-  private $db = '';
-  private $table = '';
+  public string $id = '';
+  public string $name = '';
+  public string $description = '';
+  public string $color = '';
+  private $db = null;
+  private string $table = '';
 
   //---------------------------------------------------------------------------
   /**
@@ -36,11 +36,11 @@ class Roles {
    *
    * @return boolean Query result
    */
-  public function create() {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, color) VALUES (:val1, :val2, :val3)');
-    $query->bindParam('val1', $this->name);
-    $query->bindParam('val2', $this->description);
-    $query->bindParam('val3', $this->color);
+  public function create(): bool {
+    $query = $this->db->prepare("INSERT INTO {$this->table} (name, description, color) VALUES (:name, :description, :color)");
+    $query->bindParam('name', $this->name, \PDO::PARAM_STR);
+    $query->bindParam('description', $this->description, \PDO::PARAM_STR);
+    $query->bindParam('color', $this->color, \PDO::PARAM_STR);
     return $query->execute();
   }
 
@@ -51,9 +51,9 @@ class Roles {
    * @param string $id ID to delete
    * @return boolean Query result
    */
-  public function delete($id) {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
-    $query->bindParam('val1', $id);
+  public function delete(string $id): bool {
+    $query = $this->db->prepare("DELETE FROM {$this->table} WHERE id = :id");
+    $query->bindParam('id', $id, \PDO::PARAM_STR);
     return $query->execute();
   }
 
@@ -63,15 +63,14 @@ class Roles {
    *
    * @return boolean Query result
    */
-  public function deleteAll() {
-    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
+  public function deleteAll(): bool {
+    $query = $this->db->prepare("SELECT COUNT(*) FROM {$this->table}");
     $result = $query->execute();
     if ($result && $query->fetchColumn()) {
-      $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
+      $query = $this->db->prepare("TRUNCATE TABLE {$this->table}");
       return $query->execute();
-    } else {
-      return false;
     }
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -80,9 +79,9 @@ class Roles {
    *
    * @return array Array with all role records
    */
-  public function getAll() {
-    $records = array();
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name ASC');
+  public function getAll(): array {
+    $records = [];
+    $query = $this->db->prepare("SELECT * FROM {$this->table} ORDER BY name ASC");
     $result = $query->execute();
     if ($result) {
       while ($row = $query->fetch()) {
@@ -99,11 +98,11 @@ class Roles {
    * @param string $like Likeness to search for
    * @return array Array with all records
    */
-  public function getAllLike($like) {
-    $records = array();
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name LIKE :val1 OR description LIKE :val1 ORDER BY name ASC');
-    $val1 = '%' . $like . '%';
-    $query->bindParam('val1', $val1);
+  public function getAllLike(string $like): array {
+    $records = [];
+    $query = $this->db->prepare("SELECT * FROM {$this->table} WHERE name LIKE :like OR description LIKE :like ORDER BY name ASC");
+    $likeParam = "%{$like}%";
+    $query->bindParam('like', $likeParam, \PDO::PARAM_STR);
     $result = $query->execute();
     if ($result) {
       while ($row = $query->fetch()) {
@@ -119,9 +118,9 @@ class Roles {
    *
    * @return array Array with all role names
    */
-  public function getAllNames() {
-    $records = array();
-    $query = $this->db->prepare('SELECT name FROM ' . $this->table . ' ORDER BY name ASC');
+  public function getAllNames(): array {
+    $records = [];
+    $query = $this->db->prepare("SELECT name FROM {$this->table} ORDER BY name ASC");
     $result = $query->execute();
     if ($result) {
       while ($row = $query->fetch()) {
@@ -138,19 +137,18 @@ class Roles {
    * @param string $id Role ID to find
    * @return boolean Query result
    */
-  public function getById($id) {
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
-    $query->bindParam('val1', $id);
+  public function getById(string $id): bool {
+    $query = $this->db->prepare("SELECT * FROM {$this->table} WHERE id = :id");
+    $query->bindParam('id', $id, \PDO::PARAM_STR);
     $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    if ($result && ($row = $query->fetch())) {
       $this->id = $row['id'];
       $this->name = $row['name'];
       $this->description = $row['description'];
       $this->color = $row['color'];
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -160,19 +158,18 @@ class Roles {
    * @param string $name Role name to find
    * @return boolean Query result
    */
-  public function getByName($name) {
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name = :val1');
-    $query->bindParam('val1', $name);
+  public function getByName(string $name): bool {
+    $query = $this->db->prepare("SELECT * FROM {$this->table} WHERE name = :name");
+    $query->bindParam('name', $name, \PDO::PARAM_STR);
     $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    if ($result && ($row = $query->fetch())) {
       $this->id = $row['id'];
       $this->name = $row['name'];
       $this->description = $row['description'];
       $this->color = $row['color'];
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -182,15 +179,14 @@ class Roles {
    * @param string $id Role ID to find
    * @return string Color
    */
-  public function getColorById($id) {
-    $query = $this->db->prepare('SELECT color FROM ' . $this->table . ' WHERE id = :val1');
-    $query->bindParam('val1', $id);
+  public function getColorById(string $id): string {
+    $query = $this->db->prepare("SELECT color FROM {$this->table} WHERE id = :id");
+    $query->bindParam('id', $id, \PDO::PARAM_STR);
     $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    if ($result && ($row = $query->fetch())) {
       return $row['color'];
-    } else {
-      return "default";
     }
+    return "default";
   }
 
   //---------------------------------------------------------------------------
@@ -200,15 +196,14 @@ class Roles {
    * @param string $name Role name to find
    * @return string Role color
    */
-  public function getColorByName($name) {
-    $query = $this->db->prepare('SELECT color FROM ' . $this->table . ' WHERE name = :val1');
-    $query->bindParam('val1', $name);
+  public function getColorByName(string $name): string {
+    $query = $this->db->prepare("SELECT color FROM {$this->table} WHERE name = :name");
+    $query->bindParam('name', $name, \PDO::PARAM_STR);
     $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    if ($result && ($row = $query->fetch())) {
       return $row['color'];
-    } else {
-      return "default";
     }
+    return "default";
   }
 
   //---------------------------------------------------------------------------
@@ -218,15 +213,14 @@ class Roles {
    * @param string $id Role ID to find
    * @return string Role name
    */
-  public function getNameById($id) {
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
-    $query->bindParam('val1', $id);
+  public function getNameById(string $id): string|false {
+    $query = $this->db->prepare("SELECT name FROM {$this->table} WHERE id = :id");
+    $query->bindParam('id', $id, \PDO::PARAM_STR);
     $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    if ($result && ($row = $query->fetch())) {
       return $row['name'];
-    } else {
-      return false;
     }
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -236,12 +230,12 @@ class Roles {
    * @param string $name Role ID to update
    * @return boolean Query result
    */
-  public function update($id) {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET name = :val1, description = :val2, color = :val3 WHERE id = :val4');
-    $query->bindParam('val1', $this->name);
-    $query->bindParam('val2', $this->description);
-    $query->bindParam('val3', $this->color);
-    $query->bindParam('val4', $id);
+  public function update(string $id): bool {
+    $query = $this->db->prepare("UPDATE {$this->table} SET name = :name, description = :description, color = :color WHERE id = :id");
+    $query->bindParam('name', $this->name, \PDO::PARAM_STR);
+    $query->bindParam('description', $this->description, \PDO::PARAM_STR);
+    $query->bindParam('color', $this->color, \PDO::PARAM_STR);
+    $query->bindParam('id', $id, \PDO::PARAM_STR);
     return $query->execute();
   }
 }

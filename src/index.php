@@ -11,11 +11,14 @@
  * @since      3.0.0
  */
 
+global $appLanguages;
+global $LANG;
+
 //-----------------------------------------------------------------------------
 // Set PRODUCTION_MODE to true to suppress PHP errors and warnings.
 // Set to false for development and debugging.
 //
-define('PRODUCTION_MODE', true);
+define('PRODUCTION_MODE', false);
 if (PRODUCTION_MODE) {
   error_reporting(0);
   ini_set('display_errors', 0);
@@ -282,7 +285,6 @@ if (!strlen($language)) {
 }
 require_once WEBSITE_ROOT . '/languages/' . $language . '.php';     // Framework
 require_once WEBSITE_ROOT . '/languages/' . $language . '.app.php'; // Application
-global $LANG;
 $AV = new Avatar($LANG);
 
 //-----------------------------------------------------------------------------
@@ -298,7 +300,7 @@ if ($C->read('underMaintenance')) {
     $controller = 'maintenance';
   }
 } else {
-  if ($luser = $L->checkLogin()) {
+  if (L_USER) {
     if (!$controller = $C->read("homepage")) {
       $controller = 'home';
     }
@@ -328,33 +330,17 @@ $htmlData['copyright'] = APP_COPYRIGHT;
 $htmlData['license'] = APP_LICENSE;
 $htmlData['locale'] = $LANG['locale'];
 $htmlData['jQueryTheme'] = $C->read("jqtheme");
+$htmlData['cookieConsent'] = (bool)$C->read("cookieConsent");
+$htmlData['cookieConsentCDN'] = (bool)$C->read("cookieConsentCDN");
+$htmlData['faCDN'] = (bool)$C->read("faCDN");
+$htmlData['jQueryCDN'] = (bool)$C->read("jQueryCDN");
 
-if ($C->read("cookieConsent")) {
-  $htmlData['cookieConsent'] = true;
-} else {
-  $htmlData['cookieConsent'] = false;
-}
-if ($C->read("cookieConsentCDN")) {
-  $htmlData['cookieConsentCDN'] = true;
-} else {
-  $htmlData['cookieConsentCDN'] = false;
-}
-if ($C->read("faCDN")) {
-  $htmlData['faCDN'] = true;
-} else {
-  $htmlData['faCDN'] = false;
-}
-if ($C->read("jQueryCDN")) {
-  $htmlData['jQueryCDN'] = true;
-} else {
-  $htmlData['jQueryCDN'] = false;
-}
 if ($C->read("noIndex")) {
   $htmlData['robots'] = 'noindex,nofollow,noopd';
 } else {
   $htmlData['robots'] = 'index,follow,noopd';
 }
-if ($luser = $L->checkLogin() && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['action'] != 'logout')) {
+if (L_USER && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['action'] != 'logout')) {
   $userData['loginInfo'] = loginInfo();
 } else {
   $userData['loginInfo'] = $LANG['status_logged_out'];
@@ -371,7 +357,7 @@ if ($C->read('noCaching')) {
   header("Expires: 0");
 }
 if (file_exists(WEBSITE_ROOT . '/controller/' . $controller . '.php')) {
-  include_once WEBSITE_ROOT . '/controller/' . $controller . '.php';
+  require_once WEBSITE_ROOT . '/controller/' . $controller . '.php';
 } else {
   //
   // Controller not found

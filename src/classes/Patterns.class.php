@@ -24,7 +24,7 @@ class Patterns {
   public $abs6 = 0;
   public $abs7 = 0;
 
-  private $db = '';
+  private $db = null;
   private $table = '';
 
   //---------------------------------------------------------------------------
@@ -43,13 +43,13 @@ class Patterns {
    *
    * @return boolean Query result
    */
-  public function create() {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, abs1, abs2, abs3, abs4, abs5, abs6, abs7) VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9)');
-    $query->bindParam('val1', $this->name);
-    $query->bindParam('val2', $this->description);
+  public function create(): bool {
+    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, abs1, abs2, abs3, abs4, abs5, abs6, abs7) VALUES (:name, :description, :abs1, :abs2, :abs3, :abs4, :abs5, :abs6, :abs7)');
+    $query->bindParam(':name', $this->name);
+    $query->bindParam(':description', $this->description);
     for ($i = 1; $i <= 7; $i++) {
       $prop = 'abs' . $i;
-      $query->bindParam('val' . ($i + 2), $this->$prop);
+      $query->bindParam(':abs' . $i, $this->$prop);
     }
     return $query->execute();
   }
@@ -60,7 +60,7 @@ class Patterns {
    *
    * @return boolean Query result
    */
-  public function deleteAll() {
+  public function deleteAll(): bool {
     $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
     return $query->execute();
   }
@@ -72,9 +72,9 @@ class Patterns {
    * @param string $id Record ID
    * @return boolean Query result
    */
-  public function delete($id) {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
-    $query->bindParam('val1', $id);
+  public function delete(string $id): bool {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :id');
+    $query->bindParam(':id', $id);
     return $query->execute();
   }
 
@@ -85,11 +85,12 @@ class Patterns {
    * @param string $id Record ID
    * @return boolean Query result
    */
-  public function get($id) {
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
-    $query->bindParam('val1', $id);
-    $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+  public function get(string $id): bool {
+    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :id');
+    $query->bindParam(':id', $id);
+    $query->execute();
+    $row = $query->fetch();
+    if ($row) {
       $this->id = $row['id'];
       $this->name = $row['name'];
       $this->description = $row['description'];
@@ -98,9 +99,8 @@ class Patterns {
         $this->$prop = $row[$prop];
       }
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -109,14 +109,12 @@ class Patterns {
    *
    * @return array Array with records
    */
-  public function getAll() {
+  public function getAll(): array {
     $records = array();
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name');
-    $result = $query->execute();
-    if ($result) {
-      while ($row = $query->fetch()) {
-        $records[] = $row;
-      }
+    $query->execute();
+    while ($row = $query->fetch()) {
+      $records[] = $row;
     }
     return $records;
   }
@@ -128,16 +126,14 @@ class Patterns {
    * @param string $like Likeness to search for
    * @return array Array with records
    */
-  public function getAllLike($like) {
+  public function getAllLike(string $like): array {
     $records = array();
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name LIKE :val1 OR description LIKE :val1 ORDER BY name');
-    $val1 = '%' . $like . '%';
-    $query->bindParam('val1', $val1);
-    $result = $query->execute();
-    if ($result) {
-      while ($row = $query->fetch()) {
-        $records[] = $row;
-      }
+    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name LIKE :like OR description LIKE :like ORDER BY name');
+    $val = '%' . $like . '%';
+    $query->bindParam(':like', $val);
+    $query->execute();
+    while ($row = $query->fetch()) {
+      $records[] = $row;
     }
     return $records;
   }
@@ -149,18 +145,15 @@ class Patterns {
    * @param array $absPattern Array of absences
    * @return boolean
    */
-  public function patternExists($absPattern) {
-    $stmt = 'SELECT name FROM ' . $this->table . ' WHERE abs1 = :val1 AND abs2 = :val2 AND abs3 = :val3 AND abs4 = :val4 AND abs5 = :val5 AND abs6 = :val6 AND abs7 = :val7';
+  public function patternExists(array $absPattern): string|false {
+    $stmt = 'SELECT name FROM ' . $this->table . ' WHERE abs1 = :abs1 AND abs2 = :abs2 AND abs3 = :abs3 AND abs4 = :abs4 AND abs5 = :abs5 AND abs6 = :abs6 AND abs7 = :abs7';
     $query = $this->db->prepare($stmt);
-    $query->bindParam('val1', $absPattern[1]);
-    $query->bindParam('val2', $absPattern[2]);
-    $query->bindParam('val3', $absPattern[3]);
-    $query->bindParam('val4', $absPattern[4]);
-    $query->bindParam('val5', $absPattern[5]);
-    $query->bindParam('val6', $absPattern[6]);
-    $query->bindParam('val7', $absPattern[7]);
-    $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    for ($i = 1; $i <= 7; $i++) {
+      $query->bindParam(':abs' . $i, $absPattern[$i]);
+    }
+    $query->execute();
+    $row = $query->fetch();
+    if ($row) {
       return $row['name'];
     }
     return false;
@@ -173,19 +166,16 @@ class Patterns {
    * @param string $id Record ID to update
    * @return boolean Query result
    */
-  public function update($id) {
-    $stmt = 'UPDATE ' . $this->table . ' SET name = :val1, description = :val2, abs1 = :val3, abs2 = :val4, abs3 = :val5, abs4 = :val6, abs5 = :val7, abs6 = :val8, abs7 = :val9 WHERE id = :val10';
+  public function update(string $id): bool {
+    $stmt = 'UPDATE ' . $this->table . ' SET name = :name, description = :description, abs1 = :abs1, abs2 = :abs2, abs3 = :abs3, abs4 = :abs4, abs5 = :abs5, abs6 = :abs6, abs7 = :abs7 WHERE id = :id';
     $query = $this->db->prepare($stmt);
-    $query->bindParam('val1', $this->name);
-    $query->bindParam('val2', $this->description);
-    $query->bindParam('val3', $this->abs1);
-    $query->bindParam('val4', $this->abs2);
-    $query->bindParam('val5', $this->abs3);
-    $query->bindParam('val6', $this->abs4);
-    $query->bindParam('val7', $this->abs5);
-    $query->bindParam('val8', $this->abs6);
-    $query->bindParam('val9', $this->abs7);
-    $query->bindParam('val10', $id);
+    $query->bindParam(':name', $this->name);
+    $query->bindParam(':description', $this->description);
+    for ($i = 1; $i <= 7; $i++) {
+      $prop = 'abs' . $i;
+      $query->bindParam(':abs' . $i, $this->$prop);
+    }
+    $query->bindParam(':id', $id);
     return $query->execute();
   }
 }

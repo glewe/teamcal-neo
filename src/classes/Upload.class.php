@@ -13,22 +13,22 @@
  * @since 3.0.0
  */
 class Upload {
-  public $create_directory = true;
+  public bool $create_directory = true;
   public $do_filename_check;
-  public $error = array();
-  public $ext_string;
-  public $extensions = array();
+  public array $error = [];
+  public string $ext_string = '';
+  public array $extensions = [];
   public $file_copy; // the new name
   public $http_error;
-  public $max_length_filename = 100;
-  public $message = array();
-  public $rename_file; // if this private is true the file copy get a new name
+  public int $max_length_filename = 100;
+  public array $message = [];
+  public bool $rename_file = false; // if this private is true the file copy get a new name
   public $replace;
   public $the_file;
   public $the_temp_file;
   public $the_new_file;
   public $upload_dir;
-  public $uploaded_file = array();
+  public array $uploaded_file = [];
 
   //---------------------------------------------------------------------------
   /**
@@ -64,18 +64,16 @@ class Upload {
    * @param string $directory Directory to check
    * @return boolean True if exists or created, false if not or creation failed.
    */
-  public function checkDir($directory) {
+  public function checkDir(string $directory): bool {
     if (!is_dir($directory)) {
       if ($this->create_directory) {
         umask(0027);
         mkdir($directory, 0777);
         return true;
-      } else {
-        return false;
       }
-    } else {
-      return true;
+      return false;
     }
+    return true;
   }
 
   //---------------------------------------------------------------------------
@@ -85,7 +83,7 @@ class Upload {
    * @param string $the_name Filename to check
    * @return boolean True if correct, false if not.
    */
-  public function checkFileName($the_name) {
+  public function checkFileName(string $the_name): bool {
     if ($the_name != "") {
       if (strlen($the_name) > $this->max_length_filename) {
         $this->message[] = sprintf($this->error[13], $this->max_length_filename);
@@ -115,12 +113,11 @@ class Upload {
    * @param string $file_name Filename to check
    * @return boolean True if exists, false if not
    */
-  public function fileExists($file_name) {
+  public function fileExists(string $file_name): bool {
     if ($this->replace == "y") {
       return true;
-    } else {
-      return file_exists($this->upload_dir . $file_name);
     }
+    return file_exists($this->upload_dir . $file_name);
   }
 
   //---------------------------------------------------------------------------
@@ -129,12 +126,8 @@ class Upload {
    *
    * @return string HTML error messages
    */
-  public function getErrors() {
-    $msg_string = '';
-    foreach ($this->message as $value) {
-      $msg_string .= $value . "<br>";
-    }
-    return $msg_string;
+  public function getErrors(): string {
+    return implode("<br>", $this->message);
   }
 
   //---------------------------------------------------------------------------
@@ -144,10 +137,9 @@ class Upload {
    * @param string $from_file Filename to check
    * @return string Filename extension
    */
-  private function getExtension($from_file) {
+  private function getExtension(string $from_file): string {
     $ext = strtolower(strrchr($from_file, "."));
-    $ext = ltrim($ext, ".");
-    return $ext;
+    return ltrim($ext, ".");
   }
 
   //---------------------------------------------------------------------------
@@ -156,7 +148,7 @@ class Upload {
    *
    * @return void
    */
-  private function getExtensions() {
+  private function getExtensions(): void {
     $this->ext_string = implode(", ", $this->extensions);
   }
 
@@ -167,7 +159,7 @@ class Upload {
    * @param string $name Filename to check
    * @return void
    */
-  public function getUploadedFileInfo($name) {
+  public function getUploadedFileInfo(string $name): void {
     $this->uploaded_file['name'] = basename($name);
     $this->uploaded_file['size'] = filesize($name);
     if (function_exists("mime_content_type")) {
@@ -186,10 +178,9 @@ class Upload {
    *
    * @return boolean True if valid, false if not
    */
-  private function isValidExtension() {
+  private function isValidExtension(): bool {
     $extension = $this->getExtension($this->the_file);
-    $ext_array = $this->extensions;
-    return in_array($extension, $ext_array);
+    return in_array($extension, $this->extensions);
   }
 
   //---------------------------------------------------------------------------
@@ -200,7 +191,7 @@ class Upload {
    * @param string $new_file New filename
    * @return boolean True if successful, false if not.
    */
-  private function moveUpload($tmp_file, $new_file) {
+  private function moveUpload(string $tmp_file, string $new_file): bool {
     if ($this->fileExists($new_file)) {
       $newfile = $this->upload_dir . $new_file;
       if ($this->checkDir($this->upload_dir)) {
@@ -208,18 +199,15 @@ class Upload {
           umask(0027);
           chmod($newfile, 0750);
           return true;
-        } else {
-          $this->message[] = $this->error[19];
-          return false;
         }
-      } else {
-        $this->message[] = $this->error[14];
+        $this->message[] = $this->error[19];
         return false;
       }
-    } else {
-      $this->message[] = sprintf($this->error[15], $this->the_file);
+      $this->message[] = $this->error[14];
       return false;
     }
+    $this->message[] = sprintf($this->error[15], $this->the_file);
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -229,7 +217,7 @@ class Upload {
    * @param string $new_name New desired file name (optional)
    * @return string $name New filename
    */
-  private function setFileName($new_name = "") {
+  private function setFileName(string $new_name = ""): string {
     if ($this->rename_file) {
       if ($this->the_file == "") {
         return '';
@@ -238,10 +226,7 @@ class Upload {
       sleep(3);
       $name = "f" . $name . $this->getExtension($this->the_file);
     } else {
-      /**
-       * Spaces will result in problems on linux systems.
-       * So let's replace them.
-       */
+      // Spaces will result in problems on linux systems. So let's replace them.
       $name = str_replace(" ", "_", $this->the_file);
     }
     return $name;
@@ -254,7 +239,7 @@ class Upload {
    * @param string $to_name New desired file name (optional)
    * @return string|boolean True if upload successful, false if not
    */
-  public function uploadFile($to_name = "") {
+  public function uploadFile(string $to_name = ""): bool {
     $new_name = $this->setFileName($to_name);
     if ($this->checkFileName($new_name)) {
       if ($this->isValidExtension()) {
@@ -264,8 +249,7 @@ class Upload {
             $this->message[] = $this->error[$this->http_error];
             if ($this->rename_file) {
               $this->message[] = sprintf($this->error[16], $this->file_copy);
-            }
-            else {
+            } else {
               $this->message[] = sprintf($this->error[0], $this->the_file);
             }
             return true;
@@ -279,8 +263,6 @@ class Upload {
         $this->message[] = sprintf($this->error[11], $this->ext_string);
         return false;
       }
-    } else {
-      return false;
     }
     return false;
   }

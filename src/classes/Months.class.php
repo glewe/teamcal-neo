@@ -113,7 +113,7 @@ class Months {
   public $hol30 = 0;
   public $hol31 = 0;
 
-  private $db = '';
+  private $db = null;
   private $table = '';
 
   //---------------------------------------------------------------------------
@@ -135,20 +135,19 @@ class Months {
    * @param string $region Region of the template
    * @return boolean Query result
    */
-  public function clearHolidays($year, $month, $region) {
+  public function clearHolidays(string $year, string $month, string $region): bool {
     $stmt = 'UPDATE ' . $this->table . ' SET ';
     for ($i = 1; $i <= 31; $i++) {
       $prop = 'hol' . $i;
       $stmt .= $prop . ' = 0, ';
     }
     $stmt = substr($stmt, 0, -2);
-    $stmt .= ' WHERE year = :val1 AND month = :val2 AND region = :val3;';
-
+    $stmt .= ' WHERE year = :year AND month = :month AND region = :region;';
     $query = $this->db->prepare($stmt);
-    $query->bindParam('val1', $year);
+    $query->bindParam(':year', $year);
     $month = sprintf("%02d", $month);
-    $query->bindParam('val2', $month);
-    $query->bindParam('val3', $region);
+    $query->bindParam(':month', $month);
+    $query->bindParam(':region', $region);
     return $query->execute();
   }
 
@@ -158,7 +157,7 @@ class Months {
    *
    * @return boolean Query result
    */
-  public function create() {
+  public function create(): bool {
     $stmt = '
        INSERT INTO ' . $this->table . '
        (
@@ -198,16 +197,14 @@ class Months {
    *
    * @return boolean Query result
    */
-  public function deleteAll() {
+  public function deleteAll(): bool {
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
-    $result = $query->execute();
-
-    if ($result && $query->fetchColumn()) {
+    $query->execute();
+    if ($query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
       return $query->execute();
-    } else {
-      return false;
     }
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -218,9 +215,11 @@ class Months {
    * @param string $month Month of the template (MM)
    * @return boolean Query result
    */
-  public function deleteBefore($year, $month) {
+  public function deleteBefore(string $year, string $month): bool {
     $month = sprintf("%02d", $month);
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year < ' . $year . ' OR (year = ' . $year . ' AND month <= ' . $month . ')');
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year < :year OR (year = :year AND month <= :month)');
+    $query->bindParam(':year', $year);
+    $query->bindParam(':month', $month);
     return $query->execute();
   }
 
@@ -232,11 +231,11 @@ class Months {
    * @param string $month Month of the template (MM)
    * @return boolean Query result
    */
-  public function deleteMonth($year, $month) {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year = :val1 AND month = :val2');
-    $query->bindParam('val1', $year);
+  public function deleteMonth(string $year, string $month): bool {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year = :year AND month = :month');
+    $query->bindParam(':year', $year);
     $month = sprintf("%02d", $month);
-    $query->bindParam('val2', $month);
+    $query->bindParam(':month', $month);
     return $query->execute();
   }
 
@@ -247,9 +246,9 @@ class Months {
    * @param string $region Region ID
    * @return boolean Query result
    */
-  public function deleteRegion($region) {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE region = :val1');
-    $query->bindParam('val1', $region);
+  public function deleteRegion(string $region): bool {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE region = :region');
+    $query->bindParam(':region', $region);
     return $query->execute();
   }
 
@@ -262,12 +261,12 @@ class Months {
    * @param string $region Region ID
    * @return boolean Query result
    */
-  public function deleteRegionMonth($year, $month, $region) {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE region = :val1 AND year = :val2 AND month = :val3');
-    $query->bindParam('val1', $region);
-    $query->bindParam('val2', $year);
+  public function deleteRegionMonth(string $year, string $month, string $region): bool {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE region = :region AND year = :year AND month = :month');
+    $query->bindParam(':region', $region);
+    $query->bindParam(':year', $year);
     $month = sprintf("%02d", $month);
-    $query->bindParam('val3', $month);
+    $query->bindParam(':month', $month);
     return $query->execute();
   }
 
@@ -281,19 +280,18 @@ class Months {
    * @param string $region Region ID
    * @return boolean 0 or Holiday ID
    */
-  public function getHoliday($year, $month, $day, $region) {
-    $query = $this->db->prepare('SELECT hol' . $day . ' FROM ' . $this->table . ' WHERE region = :val1 AND year = :val2 AND month = :val3');
-    $query->bindParam('val1', $region);
-    $query->bindParam('val2', $year);
+  public function getHoliday(string $year, string $month, string $day, string $region): int|false {
+    $query = $this->db->prepare('SELECT hol' . $day . ' FROM ' . $this->table . ' WHERE region = :region AND year = :year AND month = :month');
+    $query->bindParam(':region', $region);
+    $query->bindParam(':year', $year);
     $month = sprintf("%02d", $month);
-    $query->bindParam('val3', $month);
-    $result = $query->execute();
-
-    if ($result && $row = $query->fetch()) {
-      return $row['hol' . $day];
-    } else {
-      return false;
+    $query->bindParam(':month', $month);
+    $query->execute();
+    $row = $query->fetch();
+    if ($row) {
+      return (int)$row['hol' . $day];
     }
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -305,7 +303,7 @@ class Months {
    * @param string $region Region ID
    * @return boolean Query result
    */
-  public function getMonth($year, $month, $region) {
+  public function getMonth(string $year, string $month, string $region): bool {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE region = :val1 AND year = :val2 AND month = :val3');
     $query->bindParam('val1', $region);
     $query->bindParam('val2', $year);
@@ -338,15 +336,13 @@ class Months {
    * @param string $region Region ID
    * @return array Month templates of the given region
    */
-  public function getRegion($region) {
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE region = :val1');
-    $query->bindParam('val1', $region);
-    $result = $query->execute();
-
-    if ($result) {
-      while ($row = $query->fetch()) {
-        $records[] = $row;
-      }
+  public function getRegion(string $region): array {
+    $records = array();
+    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE region = :region');
+    $query->bindParam(':region', $region);
+    $query->execute();
+    while ($row = $query->fetch()) {
+      $records[] = $row;
     }
     return $records;
   }
@@ -361,18 +357,18 @@ class Months {
    * @param string $region Region ID
    * @return boolean 0 or absence ID
    */
-  public function getWeek($year, $month, $day, $region) {
-    $query = $this->db->prepare('SELECT week' . $day . ' FROM ' . $this->table . ' WHERE region = :val1 AND year = :val2 AND month = :val3');
-    $query->bindParam('val1', $region);
-    $query->bindParam('val2', $year);
+  public function getWeek(string $year, string $month, string $day, string $region): int|false {
+    $query = $this->db->prepare('SELECT week' . $day . ' FROM ' . $this->table . ' WHERE region = :region AND year = :year AND month = :month');
+    $query->bindParam(':region', $region);
+    $query->bindParam(':year', $year);
     $month = sprintf("%02d", $month);
-    $query->bindParam('val3', $month);
-    $result = $query->execute();
-
-    if ($result && $row = $query->fetch()) {
-      return $row['week' . $day];
+    $query->bindParam(':month', $month);
+    $query->execute();
+    $row = $query->fetch();
+    if ($row) {
+      return (int)$row['week' . $day];
     }
-    return $result;
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -385,18 +381,18 @@ class Months {
    * @param string $region Region ID
    * @return boolean 0 or absence ID
    */
-  public function getWeekday($year, $month, $day, $region) {
-    $query = $this->db->prepare('SELECT wday' . $day . ' FROM ' . $this->table . ' WHERE region = :val1 AND year = :val2 AND month = :val3');
-    $query->bindParam('val1', $region);
-    $query->bindParam('val2', $year);
+  public function getWeekday(string $year, string $month, string $day, string $region): int|false {
+    $query = $this->db->prepare('SELECT wday' . $day . ' FROM ' . $this->table . ' WHERE region = :region AND year = :year AND month = :month');
+    $query->bindParam(':region', $region);
+    $query->bindParam(':year', $year);
     $month = sprintf("%02d", $month);
-    $query->bindParam('val3', $month);
-    $result = $query->execute();
-
-    if ($result && $row = $query->fetch()) {
-      return $row['wday' . $day];
+    $query->bindParam(':month', $month);
+    $query->execute();
+    $row = $query->fetch();
+    if ($row) {
+      return (int)$row['wday' . $day];
     }
-    return $result;
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -410,13 +406,13 @@ class Months {
    * @param string $hol Absence to set
    * @return boolean Query result
    */
-  public function setHoliday($year, $month, $day, $region, $hol) {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET hol' . $day . ' = :val1 WHERE region = :val2 AND year = :val3 AND month = :val4');
-    $query->bindParam('val1', $hol);
-    $query->bindParam('val2', $region);
-    $query->bindParam('val3', $year);
+  public function setHoliday(string $year, string $month, string $day, string $region, string $hol): bool {
+    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET hol' . $day . ' = :hol WHERE region = :region AND year = :year AND month = :month');
+    $query->bindParam(':hol', $hol);
+    $query->bindParam(':region', $region);
+    $query->bindParam(':year', $year);
     $month = sprintf("%02d", $month);
-    $query->bindParam('val4', $month);
+    $query->bindParam(':month', $month);
     return $query->execute();
   }
 
@@ -431,13 +427,13 @@ class Months {
    * @param string $wday Weekday number
    * @return boolean Query result
    */
-  public function setWeekday($year, $month, $day, $region, $wday) {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET wday' . $day . ' = :val1 WHERE region = :val2 AND year = :val3 AND month = :val4');
-    $query->bindParam('val1', $wday);
-    $query->bindParam('val2', $region);
-    $query->bindParam('val3', $year);
+  public function setWeekday(string $year, string $month, string $day, string $region, string $wday): bool {
+    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET wday' . $day . ' = :wday WHERE region = :region AND year = :year AND month = :month');
+    $query->bindParam(':wday', $wday);
+    $query->bindParam(':region', $region);
+    $query->bindParam(':year', $year);
     $month = sprintf("%02d", $month);
-    $query->bindParam('val4', $month);
+    $query->bindParam(':month', $month);
     return $query->execute();
   }
 
@@ -452,13 +448,13 @@ class Months {
    * @param string $week Week number
    * @return boolean Query result
    */
-  public function setWeek($year, $month, $day, $region, $week) {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET week' . $day . ' = :val1 WHERE region = :val2 AND year = :val3 AND month = :val4');
-    $query->bindParam('val1', $week);
-    $query->bindParam('val2', $region);
-    $query->bindParam('val3', $year);
+  public function setWeek(string $year, string $month, string $day, string $region, string $week): bool {
+    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET week' . $day . ' = :week WHERE region = :region AND year = :year AND month = :month');
+    $query->bindParam(':week', $week);
+    $query->bindParam(':region', $region);
+    $query->bindParam(':year', $year);
     $month = sprintf("%02d", $month);
-    $query->bindParam('val4', $month);
+    $query->bindParam(':month', $month);
     return $query->execute();
   }
 
@@ -471,7 +467,7 @@ class Months {
    * @param string $region Region ID
    * @return boolean Query result
    */
-  public function update($year, $month, $region) {
+  public function update(string $year, string $month, string $region): bool {
     $stmt = 'UPDATE ' . $this->table . ' SET region = :val1, year = :val2, month = :val3, ';
     for ($i = 1; $i <= 31; $i++) {
       $prop = 'hol' . $i;

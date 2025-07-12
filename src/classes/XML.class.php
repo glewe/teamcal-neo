@@ -13,10 +13,10 @@
  * @since 3.0.0
  */
 class XML {
-  public $header;
-  public $startTag;
-  public $endTag;
-  public $body;
+  public string $header = '';
+  public string $startTag = '';
+  public string $endTag = '';
+  public string $body = '';
 
   //---------------------------------------------------------------------------
   /**
@@ -24,30 +24,32 @@ class XML {
    *
    * @param string $tablename Name of MySQL table to parse
    */
-  public function __construct($tablename) {
-    $this->startTag = "<Table Name=\"" . $tablename . "\">";
+  public function __construct(string $tablename) {
+    $this->startTag = "<Table Name=\"" . htmlspecialchars($tablename) . "\">";
     $this->endTag = "</Table>\n";
   }
 
   //---------------------------------------------------------------------------
   /**
-   * Adds an element to the XML ouput based on a given MySQL query result handle
+   * Adds an element to the XML output based on a given row and field metadata
    *
-   * @param array $row Single MySQL query result row
-   * @param integer MySQL query result handle
+   * @param array $row Associative array representing a single row
+   * @param array $fields Array of field metadata (each item: ['name' => ..., 'type' => ...])
    */
-  public function addElement($row, $rows) {
+  public function addElement(array $row, array $fields): void {
     $out = "\t<DataRow>\n";
-    for ($i = 0; $i < mysql_num_fields($rows); $i++) {
-      $meta = mysql_fetch_field($rows, $i);
-      if ($meta->name == "password") {
-        $out = $out . "\t\t<DataField Name=\"" . $meta->name . "\" Type=\"" . $meta->type . "\">********</DataField>\n";
+    foreach ($fields as $field) {
+      $name = $field['name'];
+      $type = $field['type'] ?? '';
+      $value = isset($row[$name]) ? $row[$name] : '';
+      if ($name === 'password') {
+        $out .= "\t\t<DataField Name=\"$name\" Type=\"$type\">********</DataField>\n";
       } else {
-        $out = $out . "\t\t<DataField Name=\"" . $meta->name . "\" Type=\"" . $meta->type . "\">" . htmlspecialchars($row[$i]) . "</DataField>\n";
+        $out .= "\t\t<DataField Name=\"$name\" Type=\"$type\">" . htmlspecialchars((string)$value) . "</DataField>\n";
       }
     }
-    $out = $out . "\t</DataRow>\n";
-    $this->body = $this->body . $out;
+    $out .= "\t</DataRow>\n";
+    $this->body .= $out;
   }
 
   //---------------------------------------------------------------------------
@@ -56,7 +58,7 @@ class XML {
    *
    * @return string XML text
    */
-  public function getXMLDocument() {
+  public function getXMLDocument(): string {
     return $this->header . $this->startTag . "\n" . $this->body . $this->endTag;
   }
 }

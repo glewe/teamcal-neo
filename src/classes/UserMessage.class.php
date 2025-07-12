@@ -13,9 +13,9 @@
  * @since 3.0.0
  */
 class UserMessage {
-  private $db = '';
-  private $table = '';
-  private $archive_table = '';
+  private $db;
+  private string $table = '';
+  private string $archive_table = '';
 
   //---------------------------------------------------------------------------
   /**
@@ -35,9 +35,9 @@ class UserMessage {
    * @param string $username Username to archive
    * @return boolean Query result
    */
-  public function archive($username) {
-    $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE username = :val1');
-    $query->bindParam('val1', $username);
+  public function archive(string $username): bool {
+    $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE username = :username');
+    $query->bindParam('username', $username);
     return $query->execute();
   }
 
@@ -50,12 +50,20 @@ class UserMessage {
    * @param string $popup Popup type
    * @return boolean Query result
    */
-  public function add($username, $msgid, $popup) {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, msgid, popup) VALUES (:val1, :val2, :val3)');
-    $query->bindParam('val1', $username);
-    $query->bindParam('val2', $msgid);
-    $query->bindParam('val3', $popup);
-    return $query->execute();
+  public function add(string $username, string $msgid, string $popup): bool {
+    // Prevent duplicate entry
+    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :username AND msgid = :msgid');
+    $query->bindParam('username', $username);
+    $query->bindParam('msgid', $msgid);
+    $query->execute();
+    if ($query->fetchColumn() > 0) {
+      return false;
+    }
+    $query2 = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, msgid, popup) VALUES (:username, :msgid, :popup)');
+    $query2->bindParam('username', $username);
+    $query2->bindParam('msgid', $msgid);
+    $query2->bindParam('popup', $popup);
+    return $query2->execute();
   }
 
   //---------------------------------------------------------------------------
@@ -66,17 +74,12 @@ class UserMessage {
    * @param boolean $archive Whether to search in archive table
    * @return boolean True if found, false if not
    */
-  public function exists($username = '', $archive = false) {
-    if ($archive) {
-      $table = $this->archive_table;
-    }
-    else {
-      $table = $this->table;
-    }
-    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :val1');
-    $query->bindParam('val1', $username);
+  public function exists(string $username = '', bool $archive = false): bool {
+    $table = $archive ? $this->archive_table : $this->table;
+    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :username');
+    $query->bindParam('username', $username);
     $result = $query->execute();
-    return $result && $query->fetchColumn();
+    return $result && $query->fetchColumn() > 0;
   }
 
   //---------------------------------------------------------------------------
@@ -87,15 +90,10 @@ class UserMessage {
    * @param boolean $archive Whether to search in archive table
    * @return boolean Query result
    */
-  public function delete($id, $archive = false) {
-    if ($archive) {
-      $table = $this->archive_table;
-    }
-    else {
-      $table = $this->table;
-    }
-    $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE id = :val1');
-    $query->bindParam('val1', $id);
+  public function delete(int $id, bool $archive = false): bool {
+    $table = $archive ? $this->archive_table : $this->table;
+    $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE id = :id');
+    $query->bindParam('id', $id);
     return $query->execute();
   }
 
@@ -106,21 +104,15 @@ class UserMessage {
    * @param boolean $archive Whether to search in archive table
    * @return boolean Query result
    */
-  public function deleteAll($archive = false) {
-    if ($archive) {
-      $table = $this->archive_table;
-    }
-    else {
-      $table = $this->table;
-    }
+  public function deleteAll(bool $archive = false): bool {
+    $table = $archive ? $this->archive_table : $this->table;
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table);
     $result = $query->execute();
     if ($result && $query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $table);
       return $query->execute();
-    } else {
-      return false;
     }
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -131,15 +123,10 @@ class UserMessage {
    * @param boolean $archive Whether to search in archive table
    * @return boolean Query result
    */
-  public function deleteByUser($username, $archive = false) {
-    if ($archive) {
-      $table = $this->archive_table;
-    }
-    else {
-      $table = $this->table;
-    }
-    $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username = :val1');
-    $query->bindParam('val1', $username);
+  public function deleteByUser(string $username, bool $archive = false): bool {
+    $table = $archive ? $this->archive_table : $this->table;
+    $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username = :username');
+    $query->bindParam('username', $username);
     return $query->execute();
   }
 
@@ -150,10 +137,10 @@ class UserMessage {
    * @param string $username Username
    * @return array Array with records
    */
-  public function getAllByUser($username) {
-    $records = array();
-    $query = $this->db->prepare('SELECT msgid FROM ' . $this->table . ' WHERE username = :val1');
-    $query->bindParam('val1', $username);
+  public function getAllByUser(string $username): array {
+    $records = [];
+    $query = $this->db->prepare('SELECT msgid FROM ' . $this->table . ' WHERE username = :username');
+    $query->bindParam('username', $username);
     $result = $query->execute();
     if ($result) {
       while ($row = $query->fetch()) {
@@ -170,10 +157,10 @@ class UserMessage {
    * @param string $msgid Message ID
    * @return array Array with records
    */
-  public function getAllByMsgId($msgid) {
-    $records = array();
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE msgid = :val1');
-    $query->bindParam('val1', $msgid);
+  public function getAllByMsgId(string $msgid): array {
+    $records = [];
+    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE msgid = :msgid');
+    $query->bindParam('msgid', $msgid);
     $result = $query->execute();
     if ($result) {
       while ($row = $query->fetch()) {
@@ -190,12 +177,12 @@ class UserMessage {
    * @param string $username Username
    * @return array Array with records
    */
-  public function getAllPopupByUser($username) {
-    $records = array();
-    $query = $this->db->prepare('SELECT msgid FROM ' . $this->table . ' WHERE username = :val1 AND popup = :val2');
-    $query->bindParam('val1', $username);
-    $val2 = '1';
-    $query->bindParam('val2', $val2);
+  public function getAllPopupByUser(string $username): array {
+    $records = [];
+    $popup = '1';
+    $query = $this->db->prepare('SELECT msgid FROM ' . $this->table . ' WHERE username = :username AND popup = :popup');
+    $query->bindParam('username', $username);
+    $query->bindParam('popup', $popup);
     $result = $query->execute();
     if ($result) {
       while ($row = $query->fetch()) {
@@ -212,9 +199,9 @@ class UserMessage {
    * @param string $username Username to restore
    * @return boolean Query result
    */
-  public function restore($username) {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
-    $query->bindParam('val1', $username);
+  public function restore(string $username): bool {
+    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :username');
+    $query->bindParam('username', $username);
     return $query->execute();
   }
 
@@ -225,11 +212,11 @@ class UserMessage {
    * @param string $id Record ID
    * @return boolean Query result
    */
-  public function setSilent($id) {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET popup = :val2 WHERE id = :val1');
-    $query->bindParam('val1', $id);
-    $val2 = '0';
-    $query->bindParam('val2', $val2);
+  public function setSilent(int $id): bool {
+    $popup = '0';
+    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET popup = :popup WHERE id = :id');
+    $query->bindParam('id', $id);
+    $query->bindParam('popup', $popup);
     return $query->execute();
   }
 
@@ -240,11 +227,11 @@ class UserMessage {
    * @param string $username Username
    * @return boolean Query result
    */
-  public function setSilentByUser($username) {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET popup = :val2 WHERE username = :val1');
-    $query->bindParam('val1', $username);
-    $val2 = '0';
-    $query->bindParam('val2', $val2);
+  public function setSilentByUser(string $username): bool {
+    $popup = '0';
+    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET popup = :popup WHERE username = :username');
+    $query->bindParam('username', $username);
+    $query->bindParam('popup', $popup);
     return $query->execute();
   }
 }

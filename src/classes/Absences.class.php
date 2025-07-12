@@ -53,14 +53,10 @@ class Absences {
    *
    * @return integer
    */
-  public function count() {
+  public function count(): int {
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
-    $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
-      return $row[0];
-    } else {
-      return 0;
-    }
+    $query->execute();
+    return (int)$query->fetchColumn();
   }
 
   //---------------------------------------------------------------------------
@@ -69,7 +65,7 @@ class Absences {
    *
    * @return boolean Query result
    */
-  public function create() {
+  public function create(): bool {
     $query = $this->db->prepare(
       'INSERT INTO ' . $this->table . ' (
         name,
@@ -92,7 +88,7 @@ class Absences {
         confidential,
         takeover
       )' .
-      ' VALUES (
+        ' VALUES (
           :val1,
           :val2,
           :val3,
@@ -145,14 +141,13 @@ class Absences {
    * @param string $id Record ID
    * @return boolean Query result
    */
-  public function delete($id = '') {
-    if (isset($id)) {
+  public function delete(string $id = ''): bool {
+    if ($id !== '') {
       $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
       return $query->execute();
-    } else {
-      return false;
     }
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -161,7 +156,7 @@ class Absences {
    *
    * @return boolean Query result
    */
-  public function deleteAll() {
+  public function deleteAll(): bool {
     $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
     return $query->execute();
   }
@@ -173,9 +168,9 @@ class Absences {
    * @param string $id Record ID
    * @return boolean Query result
    */
-  public function get($id = '') {
-    $result = 0;
-    if (isset($id)) {
+  public function get(string $id = ''): bool {
+    $result = false;
+    if ($id !== '') {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
       $result = $query->execute();
@@ -211,16 +206,10 @@ class Absences {
    *
    * @return array $records Array with records
    */
-  public function getAll() {
-    $records = array();
+  public function getAll(): array {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name');
-    $result = $query->execute();
-    if ($result) {
-      while ($row = $query->fetch()) {
-        $records[] = $row;
-      }
-    }
-    return $records;
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_ASSOC);
   }
 
   //---------------------------------------------------------------------------
@@ -230,7 +219,7 @@ class Absences {
    * @param string $id ID to search for
    * @return array|boolean $records Array with records
    */
-  public function getAllSub($id) {
+  public function getAllSub(string $id): array|bool {
     $records = array();
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE counts_as = :val1 ORDER BY name');
     $query->bindParam('val1', $id);
@@ -251,7 +240,7 @@ class Absences {
    * @param string $id ID to skip
    * @return array|boolean $records Array with records
    */
-  public function getAllPrimaryBut($id) {
+  public function getAllPrimaryBut(string $id): array|bool {
     $records = array();
     $query = $this->db->prepare("SELECT * FROM " . $this->table . " WHERE id != :val1 AND counts_as = '0' ORDER BY name");
     $query->bindParam('val1', $id);
@@ -272,7 +261,7 @@ class Absences {
    * @param string $id Record ID
    * @return string Absence type allowance
    */
-  public function getAllowance($id = '') {
+  public function getAllowance(string $id = ''): string {
     $rc = '0';
     if (isset($id)) {
       $query = $this->db->prepare('SELECT allowance FROM ' . $this->table . ' WHERE id = :val1');
@@ -292,7 +281,7 @@ class Absences {
    * @param string $id Record ID
    * @return string Absence type allowance
    */
-  public function getAllowMonth($id = '') {
+  public function getAllowMonth(string $id = ''): string {
     $rc = '0';
     if (isset($id)) {
       $query = $this->db->prepare('SELECT allowmonth FROM ' . $this->table . ' WHERE id = :val1');
@@ -312,7 +301,7 @@ class Absences {
    * @param string $id Record ID
    * @return string Absence type allowance
    */
-  public function getAllowWeek($id = '') {
+  public function getAllowWeek(string $id = ''): string {
     $rc = '0';
     if (isset($id)) {
       $query = $this->db->prepare('SELECT allowweek FROM ' . $this->table . ' WHERE id = :val1');
@@ -332,7 +321,7 @@ class Absences {
    * @param string $id Record ID
    * @return boolean Approval required
    */
-  public function getApprovalRequired($id = '') {
+  public function getApprovalRequired(string $id = ''): bool|string {
     $rc = false;
     if (isset($id)) {
       $query = $this->db->prepare('SELECT approval_required FROM ' . $this->table . ' WHERE id = :val1');
@@ -352,7 +341,7 @@ class Absences {
    * @param string $id Record ID
    * @return string Absence type bgcolor
    */
-  public function getBgColor($id = '') {
+  public function getBgColor(string $id = ''): string {
     $rc = '';
     if (isset($id)) {
       $query = $this->db->prepare('SELECT bgcolor FROM ' . $this->table . ' WHERE id = :val1');
@@ -372,7 +361,7 @@ class Absences {
    * @param string $id Record ID
    * @return string Absence type bgtrans
    */
-  public function getBgTrans($id = '') {
+  public function getBgTrans(string $id = ''): string {
     $rc = '';
     if (isset($id)) {
       $query = $this->db->prepare('SELECT bgtrans FROM ' . $this->table . ' WHERE id = :val1');
@@ -392,7 +381,7 @@ class Absences {
    * @param string $name Absence type name
    * @return boolean Query result
    */
-  public function getByName($name = '') {
+  public function getByName(string $name = ''): bool|int {
     $result = 0;
     if (isset($name)) {
       $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name = :val1');
@@ -430,7 +419,7 @@ class Absences {
    * @param string $id Record ID
    * @return string Absence type color
    */
-  public function getColor($id = '') {
+  public function getColor(string $id = ''): string {
     $rc = '';
     if (isset($id)) {
       $query = $this->db->prepare('SELECT color FROM ' . $this->table . ' WHERE id = :val1');
@@ -450,7 +439,7 @@ class Absences {
    * @param string $id Record ID
    * @return string Absence counts as
    */
-  public function getCountsAs($id = '') {
+  public function getCountsAs(string $id = ''): bool|string {
     $rc = false;
     if (isset($id)) {
       $query = $this->db->prepare('SELECT counts_as FROM ' . $this->table . ' WHERE id = :val1');
@@ -470,7 +459,7 @@ class Absences {
    * @param string $id Record ID
    * @return string Absence counts as
    */
-  public function getCountsAsPresent($id = '') {
+  public function getCountsAsPresent(string $id = ''): bool|string {
     $rc = false;
     if (isset($id)) {
       $query = $this->db->prepare('SELECT counts_as_present FROM ' . $this->table . ' WHERE id = :val1');
@@ -490,7 +479,7 @@ class Absences {
    * @param string $id Record ID
    * @return string Absence type factor
    */
-  public function getFactor($id = '') {
+  public function getFactor(string $id = ''): int|string {
     $rc = 1; // Default factor is 1
     if (isset($id)) {
       $query = $this->db->prepare('SELECT factor FROM ' . $this->table . ' WHERE id = :val1');
@@ -510,7 +499,7 @@ class Absences {
    * @param string $id Record ID
    * @return string Absence type icon
    */
-  public function getIcon($id = '') {
+  public function getIcon(string $id = ''): string {
     $rc = '.';
     if (isset($id)) {
       $query = $this->db->prepare('SELECT icon FROM ' . $this->table . ' WHERE id = :val1');
@@ -529,7 +518,7 @@ class Absences {
    *
    * @return string|boolean Last auto-increment ID
    */
-  public function getLastId() {
+  public function getLastId(): int|bool {
     $query = $this->db->prepare('SHOW TABLE STATUS LIKE ' . $this->table);
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {
@@ -546,7 +535,7 @@ class Absences {
    * @param string $id Record ID
    * @return string Absence type name
    */
-  public function getName($id = '') {
+  public function getName(string $id = ''): string {
     $rc = '';
     if (isset($id)) {
       $query = $this->db->prepare('SELECT name FROM ' . $this->table . ' WHERE id = :val1');
@@ -565,12 +554,13 @@ class Absences {
    *
    * @return string Next auto-increment ID
    */
-  public function getNextId() {
+  public function getNextId(): string|null {
     $query = $this->db->prepare('SHOW TABLE STATUS LIKE ' . $this->table);
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {
       return $row['Auto_increment'];
     }
+    return null;
   }
 
   //---------------------------------------------------------------------------
@@ -580,7 +570,7 @@ class Absences {
    * @param string $id Record ID
    * @return string Absence type symbol
    */
-  public function getSymbol($id = '') {
+  public function getSymbol(string $id = ''): string {
     $rc = '.';
     if (isset($id)) {
       $query = $this->db->prepare('SELECT symbol FROM ' . $this->table . ' WHERE id = :val1');
@@ -600,7 +590,7 @@ class Absences {
    * @param string $id Record ID
    * @return boolean
    */
-  public function isConfidential($id = '') {
+  public function isConfidential(string $id = ''): bool|string {
     if (isset($id)) {
       $query = $this->db->prepare('SELECT confidential FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -619,7 +609,7 @@ class Absences {
    * @param string $id Record ID
    * @return boolean
    */
-  public function isManagerOnly($id = '') {
+  public function isManagerOnly(string $id = ''): bool|string {
     if (isset($id)) {
       $query = $this->db->prepare('SELECT manager_only FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -638,7 +628,7 @@ class Absences {
    * @param string $id Record ID
    * @return boolean
    */
-  public function isTakeover($id = '') {
+  public function isTakeover(string $id = ''): bool|string {
     if (isset($id)) {
       $query = $this->db->prepare('SELECT takeover FROM ' . $this->table . ' WHERE id = :val1');
       $query->bindParam('val1', $id);
@@ -657,7 +647,7 @@ class Absences {
    * @param string $id Absence ID of the primary
    * @return boolean True or False
    */
-  public function setAllSubsPrimary($id) {
+  public function setAllSubsPrimary(string $id): bool {
     $query = $this->db->prepare('UPDATE ' . $this->table . ' SET counts_as = 0 WHERE counts_as = :val1');
     $query->bindParam('val1', $id);
     return $query->execute();
@@ -670,7 +660,7 @@ class Absences {
    * @param string $id Record ID
    * @return boolean Query result
    */
-  public function update($id = '') {
+  public function update(string $id = ''): bool {
     $result = false;
     if (isset($id)) {
       $query = $this->db->prepare('UPDATE ' . $this->table . '

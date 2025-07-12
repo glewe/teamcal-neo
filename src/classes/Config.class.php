@@ -17,39 +17,36 @@ class Config {
   public $name = '';
   public $value = '';
 
-  private $conf = '';
-  private $db = '';
+  private $conf = [];
+  private $db = null;
   private $table = '';
 
-   //---------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Constructor
    */
-  public function __construct($conf, $db) {
+  public function __construct(array $conf, object $db) {
     $this->conf = $conf;
     $this->db = $db->db;
     $this->table = $conf['db_table_config'];
   }
 
-   //---------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Read the value of an option
    *
    * @param string $name Name of the option
    * @return string Value of the option or false if not found
    */
-  public function read($name) {
-    $query = $this->db->prepare("SELECT value FROM " . $this->table . " WHERE `name` = :val1");
-    $query->bindParam('val1', $name);
-    $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
-      return $row['value'];
-    } else {
-      return false;
-    }
+  public function read(string $name): string|false {
+    $query = $this->db->prepare("SELECT value FROM " . $this->table . " WHERE `name` = :name");
+    $query->bindParam(':name', $name);
+    $query->execute();
+    $value = $query->fetchColumn();
+    return $value !== false ? $value : false;
   }
 
-   //---------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   /**
    * Save a value
    *
@@ -57,18 +54,18 @@ class Config {
    * @param string $value Value to save
    * @return boolean $result Query result or false
    */
-  public function save($name, $value) {
-    $query = $this->db->prepare("SELECT COUNT(*) FROM " . $this->table . " WHERE `name` = :val1");
-    $query->bindParam('val1', $name);
-    $result = $query->execute();
+  public function save(string $name, string $value): bool {
+    $query = $this->db->prepare("SELECT COUNT(*) FROM " . $this->table . " WHERE `name` = :name");
+    $query->bindParam(':name', $name);
+    $query->execute();
 
-    if ($result && $query->fetchColumn()) {
-      $query2 = $this->db->prepare("UPDATE " . $this->table . " SET value = :val2 WHERE name = :val1");
+    if ($query->fetchColumn()) {
+      $query2 = $this->db->prepare("UPDATE " . $this->table . " SET value = :value WHERE name = :name");
     } else {
-      $query2 = $this->db->prepare("INSERT INTO " . $this->table . " (`name`, `value`) VALUES (:val1, :val2)");
+      $query2 = $this->db->prepare("INSERT INTO " . $this->table . " (`name`, `value`) VALUES (:name, :value)");
     }
-    $query2->bindParam('val1', $name);
-    $query2->bindParam('val2', $value);
+    $query2->bindParam(':name', $name);
+    $query2->bindParam(':value', $value);
     return $query2->execute();
   }
 }

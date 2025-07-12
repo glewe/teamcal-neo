@@ -13,47 +13,47 @@
  * @since 3.0.0
  */
 class Templates {
-  public $username = '';
-  public $year = '';
-  public $month = '';
-  public $abs1 = 0;
-  public $abs2 = 0;
-  public $abs3 = 0;
-  public $abs4 = 0;
-  public $abs5 = 0;
-  public $abs6 = 0;
-  public $abs7 = 0;
-  public $abs8 = 0;
-  public $abs9 = 0;
-  public $abs10 = 0;
-  public $abs11 = 0;
-  public $abs12 = 0;
-  public $abs13 = 0;
-  public $abs14 = 0;
-  public $abs15 = 0;
-  public $abs16 = 0;
-  public $abs17 = 0;
-  public $abs18 = 0;
-  public $abs19 = 0;
-  public $abs20 = 0;
-  public $abs21 = 0;
-  public $abs22 = 0;
-  public $abs23 = 0;
-  public $abs24 = 0;
-  public $abs25 = 0;
-  public $abs26 = 0;
-  public $abs27 = 0;
-  public $abs28 = 0;
-  public $abs29 = 0;
-  public $abs30 = 0;
-  public $abs31 = 0;
+  public string $username = '';
+  public string $year = '';
+  public string $month = '';
+  public int $abs1 = 0;
+  public int $abs2 = 0;
+  public int $abs3 = 0;
+  public int $abs4 = 0;
+  public int $abs5 = 0;
+  public int $abs6 = 0;
+  public int $abs7 = 0;
+  public int $abs8 = 0;
+  public int $abs9 = 0;
+  public int $abs10 = 0;
+  public int $abs11 = 0;
+  public int $abs12 = 0;
+  public int $abs13 = 0;
+  public int $abs14 = 0;
+  public int $abs15 = 0;
+  public int $abs16 = 0;
+  public int $abs17 = 0;
+  public int $abs18 = 0;
+  public int $abs19 = 0;
+  public int $abs20 = 0;
+  public int $abs21 = 0;
+  public int $abs22 = 0;
+  public int $abs23 = 0;
+  public int $abs24 = 0;
+  public int $abs25 = 0;
+  public int $abs26 = 0;
+  public int $abs27 = 0;
+  public int $abs28 = 0;
+  public int $abs29 = 0;
+  public int $abs30 = 0;
+  public int $abs31 = 0;
 
-  private $db = '';
-  private $table = '';
-  private $abs_table = '';
-  private $archive_table = '';
-  private $utable = '';
-  private $archive_utable = '';
+  private $db = null;
+  private string $table = '';
+  private string $abs_table = '';
+  private string $archive_table = '';
+  private string $utable = '';
+  private string $archive_utable = '';
 
   //---------------------------------------------------------------------------
   /**
@@ -77,9 +77,9 @@ class Templates {
    * @param string $username Username to archive
    * @return boolean Query result
    */
-  public function archive($username) {
-    $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE username = :val1');
-    $query->bindParam('val1', $username);
+  public function archive(string $username): bool {
+    $query = $this->db->prepare("INSERT INTO {$this->archive_table} SELECT t.* FROM {$this->table} t WHERE username = :username");
+    $query->bindParam('username', $username, \PDO::PARAM_STR);
     return $query->execute();
   }
 
@@ -94,7 +94,7 @@ class Templates {
    * @param string $end End day
    * @return integer 0 or absence ID count
    */
-  public function countAbsence($username = '%', $year = '', $month = '', $absid = 0, $start = 1, $end = 0) {
+  public function countAbsence(string $username = '%', string $year = '', string $month = '', int $absid = 0, int $start = 1, int $end = 0): int {
     $count = 0;
     $mytime = $year . "-" . $month . "-" . $start;
     $myts = strtotime($mytime);
@@ -102,12 +102,11 @@ class Templates {
       $end = date("t", $myts);
     }
 
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username LIKE :val1 AND year = :val2 AND month = :val3');
+    $query = $this->db->prepare("SELECT * FROM {$this->table} WHERE username LIKE :username AND year = :year AND month = :month");
     $month = sprintf("%02d", $month);
-    $query->bindParam('val1', $username);
-    $query->bindParam('val2', $year);
-    $month = sprintf("%02d", $month);
-    $query->bindParam('val3', $month);
+    $query->bindParam('username', $username, \PDO::PARAM_STR);
+    $query->bindParam('year', $year, \PDO::PARAM_STR);
+    $query->bindParam('month', $month, \PDO::PARAM_STR);
     $result = $query->execute();
 
     if ($result) {
@@ -143,7 +142,7 @@ class Templates {
    * @param string $end End day
    * @return integer 0 or absence ID count
    */
-  public function countAllAbsences($username = '%', $year = '', $month = '', $start = 1, $end = 0) {
+  public function countAllAbsences(string $username = '%', string $year = '', string $month = '', int $start = 1, int $end = 0): int {
     $count = 0;
     $mytime = $year . "-" . $month . "-" . $start;
     $myts = strtotime($mytime);
@@ -152,12 +151,11 @@ class Templates {
       $end = date("t", $myts);
     }
 
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username LIKE :val1 AND year = :val2 AND month = :val3');
+    $query = $this->db->prepare("SELECT * FROM {$this->table} WHERE username LIKE :username AND year = :year AND month = :month");
     $month = sprintf("%02d", $month);
-    $query->bindParam('val1', $username);
-    $query->bindParam('val2', $year);
-    $month = sprintf("%02d", $month);
-    $query->bindParam('val3', $month);
+    $query->bindParam('username', $username, \PDO::PARAM_STR);
+    $query->bindParam('year', $year, \PDO::PARAM_STR);
+    $query->bindParam('month', $month, \PDO::PARAM_STR);
     $result = $query->execute();
 
     if ($result) {
@@ -227,7 +225,7 @@ class Templates {
    * @param string $end End day
    * @return integer 0 or absence ID count
    */
-  public function countAllAbsencesWe($username = '%', $year = '', $month = '', $start = 1, $end = 0) {
+  public function countAllAbsencesWe(string $username = '%', string $year = '', string $month = '', int $start = 1, int $end = 0): int {
     $count = 0;
     $mytime = $year . "-" . $month . "-" . $start;
     $myts = strtotime($mytime);
@@ -236,11 +234,11 @@ class Templates {
       $end = date("t", $myts);
     }
 
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username LIKE :val1 AND year = :val2 AND month = :val3');
+    $query = $this->db->prepare("SELECT * FROM {$this->table} WHERE username LIKE :username AND year = :year AND month = :month");
     $month = sprintf("%02d", $month);
-    $query->bindParam('val1', $username);
-    $query->bindParam('val2', $year);
-    $query->bindParam('val3', $month);
+    $query->bindParam('username', $username, \PDO::PARAM_STR);
+    $query->bindParam('year', $year, \PDO::PARAM_STR);
+    $query->bindParam('month', $month, \PDO::PARAM_STR);
     $result = $query->execute();
 
     if ($result) {
@@ -305,14 +303,18 @@ class Templates {
    *
    * @return boolean Query result
    */
-  public function create() {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, year, month, abs1, abs2, abs3, abs4, abs5, abs6, abs7, abs8, abs9, abs10, abs11, abs12, abs13, abs14, abs15, abs16, abs17, abs18, abs19, abs20, abs21, abs22, abs23, abs24, abs25, abs26, abs27, abs28, abs29, abs30, abs31) VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12, :val13, :val14, :val15, :val16, :val17, :val18, :val19, :val20, :val21, :val22, :val23, :val24, :val25, :val26, :val27, :val28, :val29, :val30, :val31, :val32, :val33, :val34)');
-    $query->bindParam('val1', $this->username);
-    $query->bindParam('val2', $this->year);
-    $query->bindParam('val3', $this->month);
+  public function create(): bool {
+    $stmt = "INSERT INTO {$this->table} (username, year, month, " .
+      implode(", ", array_map(fn($i) => "abs{$i}", range(1, 31))) .
+      ") VALUES (:username, :year, :month, " .
+      implode(", ", array_map(fn($i) => ":abs{$i}", range(1, 31))) . ")";
+    $query = $this->db->prepare($stmt);
+    $query->bindParam('username', $this->username, \PDO::PARAM_STR);
+    $query->bindParam('year', $this->year, \PDO::PARAM_STR);
+    $query->bindParam('month', $this->month, \PDO::PARAM_STR);
     for ($i = 1; $i <= 31; $i++) {
       $prop = 'abs' . $i;
-      $query->bindParam('val' . ($i + 3), $this->$prop);
+      $query->bindParam('abs' . $i, $this->$prop, \PDO::PARAM_INT);
     }
     return $query->execute();
   }
@@ -324,21 +326,15 @@ class Templates {
    * @param boolean $archive Whether to use archive table
    * @return boolean Query result
    */
-  public function deleteAll($archive = false) {
-    if ($archive) {
-      $table = $this->archive_table;
-    }
-    else {
-      $table = $this->table;
-    }
-    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table);
+  public function deleteAll(bool $archive = false): bool {
+    $table = $archive ? $this->archive_table : $this->table;
+    $query = $this->db->prepare("SELECT COUNT(*) FROM {$table}");
     $result = $query->execute();
     if ($result && $query->fetchColumn()) {
-      $query = $this->db->prepare('TRUNCATE TABLE ' . $table);
+      $query = $this->db->prepare("TRUNCATE TABLE {$table}");
       return $query->execute();
-    } else {
-      return false;
     }
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -350,12 +346,12 @@ class Templates {
    * @param string $month Month of the template (MM)
    * @return boolean Query result
    */
-  public function deleteTemplate($username = '', $year = '', $month = '') {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE username = :val1 AND year = :val2 AND month = :val3');
-    $query->bindParam('val1', $username);
-    $query->bindParam('val2', $year);
+  public function deleteTemplate(string $username = '', string $year = '', string $month = ''): bool {
+    $query = $this->db->prepare("DELETE FROM {$this->table} WHERE username = :username AND year = :year AND month = :month");
+    $query->bindParam('username', $username, \PDO::PARAM_STR);
+    $query->bindParam('year', $year, \PDO::PARAM_STR);
     $month = sprintf("%02d", $month);
-    $query->bindParam('val3', $month);
+    $query->bindParam('month', $month, \PDO::PARAM_STR);
     return $query->execute();
   }
 
@@ -367,9 +363,11 @@ class Templates {
    * @param string $month Month (MM)
    * @return boolean Query result
    */
-  public function deleteBefore($year = '', $month = '') {
+  public function deleteBefore(string $year = '', string $month = ''): bool {
     $month = sprintf("%02d", $month);
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year < ' . $year . ' OR (year = ' . $year . ' AND month <= ' . $month . ')');
+    $query = $this->db->prepare("DELETE FROM {$this->table} WHERE year < :year OR (year = :year AND month <= :month)");
+    $query->bindParam('year', $year, \PDO::PARAM_STR);
+    $query->bindParam('month', $month, \PDO::PARAM_STR);
     return $query->execute();
   }
 
@@ -380,9 +378,9 @@ class Templates {
    * @param integer $id ID of record to delete
    * @return boolean Query result
    */
-  public function deleteById($id = '') {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
-    $query->bindParam('val1', $id);
+  public function deleteById(string $id = ''): bool {
+    $query = $this->db->prepare("DELETE FROM {$this->table} WHERE id = :id");
+    $query->bindParam('id', $id, \PDO::PARAM_STR);
     return $query->execute();
   }
 
@@ -394,15 +392,10 @@ class Templates {
    * @param boolean $archive Whether to use archive table
    * @return boolean Query result
    */
-  public function deleteByUser($username = '', $archive = false) {
-    if ($archive) {
-      $table = $this->archive_table;
-    }
-    else {
-      $table = $this->table;
-    }
-    $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username = :val1');
-    $query->bindParam('val1', $username);
+  public function deleteByUser(string $username = '', bool $archive = false): bool {
+    $table = $archive ? $this->archive_table : $this->table;
+    $query = $this->db->prepare("DELETE FROM {$table} WHERE username = :username");
+    $query->bindParam('username', $username, \PDO::PARAM_STR);
     return $query->execute();
   }
 
@@ -414,17 +407,12 @@ class Templates {
    * @param boolean $archive Whether to use archive table
    * @return boolean True if found, false if not
    */
-  public function exists($username = '', $archive = false) {
-    if ($archive) {
-      $table = $this->archive_table;
-    }
-    else {
-      $table = $this->table;
-    }
-    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :val1');
-    $query->bindParam('val1', $username);
+  public function exists(string $username = '', bool $archive = false): bool {
+    $table = $archive ? $this->archive_table : $this->table;
+    $query = $this->db->prepare("SELECT COUNT(*) FROM {$table} WHERE username = :username");
+    $query->bindParam('username', $username, \PDO::PARAM_STR);
     $result = $query->execute();
-    return $result && $query->fetchColumn();
+    return $result && $query->fetchColumn() > 0;
   }
 
   //---------------------------------------------------------------------------
@@ -437,17 +425,17 @@ class Templates {
    * @param string $day Day of month to find (D)
    * @return boolean 0 or absence ID
    */
-  public function getAbsence($username = '', $year = '', $month = '', $day = '1') {
-    $query = $this->db->prepare('SELECT abs' . $day . ' FROM ' . $this->table . ' WHERE username = :val1 AND year = :val2 AND month = :val3');
-    $query->bindParam('val1', $username);
-    $query->bindParam('val2', $year);
+  public function getAbsence(string $username = '', string $year = '', string $month = '', string $day = '1'): int|false {
+    $query = $this->db->prepare("SELECT abs{$day} FROM {$this->table} WHERE username = :username AND year = :year AND month = :month");
+    $query->bindParam('username', $username, \PDO::PARAM_STR);
+    $query->bindParam('year', $year, \PDO::PARAM_STR);
     $month = sprintf("%02d", $month);
-    $query->bindParam('val3', $month);
+    $query->bindParam('month', $month, \PDO::PARAM_STR);
     $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
-      return $row['abs' . $day];
+    if ($result && ($row = $query->fetch())) {
+      return (int)$row['abs' . $day];
     }
-    return $result;
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -459,14 +447,14 @@ class Templates {
    * @param string $month Month to find (MM)
    * @return boolean Query result
    */
-  public function getTemplate($username = '', $year = '', $month = '') {
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username LIKE :val1 AND year = :val2 AND month = :val3');
-    $query->bindParam('val1', $username);
-    $query->bindParam('val2', $year);
+  public function getTemplate(string $username = '', string $year = '', string $month = ''): bool {
+    $query = $this->db->prepare("SELECT * FROM {$this->table} WHERE username LIKE :username AND year = :year AND month = :month");
+    $query->bindParam('username', $username, \PDO::PARAM_STR);
+    $query->bindParam('year', $year, \PDO::PARAM_STR);
     $month = sprintf("%02d", $month);
-    $query->bindParam('val3', $month);
+    $query->bindParam('month', $month, \PDO::PARAM_STR);
     $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    if ($result && ($row = $query->fetch())) {
       $this->username = $row['username'];
       $this->year = $row['year'];
       $this->month = $row['month'];
@@ -475,9 +463,8 @@ class Templates {
         $this->$prop = $row[$prop];
       }
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -487,11 +474,11 @@ class Templates {
    * @param string $id Record ID to find
    * @return boolean Query result
    */
-  public function getTemplateById($id = '') {
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
-    $query->bindParam('val1', $id);
+  public function getTemplateById(string $id = ''): bool {
+    $query = $this->db->prepare("SELECT * FROM {$this->table} WHERE id = :id");
+    $query->bindParam('id', $id, \PDO::PARAM_STR);
     $result = $query->execute();
-    if ($result && $row = $query->fetch()) {
+    if ($result && ($row = $query->fetch())) {
       $this->username = $row['username'];
       $this->year = $row['year'];
       $this->month = $row['month'];
@@ -499,8 +486,9 @@ class Templates {
         $prop = 'abs' . $i;
         $this->$prop = $row[$prop];
       }
+      return true;
     }
-    return $result;
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -513,11 +501,14 @@ class Templates {
    * @param string $absid Absence ID to find
    * @return boolean 0 or 1
    */
-  public function hasAbsence($username = '', $year = '', $month = '', $absid = 0) {
+  public function hasAbsence(string $username = '', string $year = '', string $month = '', int $absid = 0): bool {
     $month = sprintf("%02d", $month);
     for ($i = 1; $i <= 31; $i++) {
-      $myQuery = "SELECT username FROM " . $this->table . " WHERE username = '" . $username . "' AND year = '" . $year . "' AND month = '" . $month . "' AND abs" . $i . " = '" . $absid . "';";
-      $query = $this->db->prepare($myQuery);
+      $query = $this->db->prepare("SELECT username FROM {$this->table} WHERE username = :username AND year = :year AND month = :month AND abs{$i} = :absid");
+      $query->bindParam('username', $username, \PDO::PARAM_STR);
+      $query->bindParam('year', $year, \PDO::PARAM_STR);
+      $query->bindParam('month', $month, \PDO::PARAM_STR);
+      $query->bindParam('absid', $absid, \PDO::PARAM_INT);
       $result = $query->execute();
       if ($result && $query->fetch()) {
         return true;
@@ -533,21 +524,24 @@ class Templates {
    * @param string $symopld Symbol to be replaced
    * @param string $symnew Symbol to replace with
    */
-  public function replaceAbsId($absidold, $absidnew) {
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table);
+  public function replaceAbsId(int $absidold, int $absidnew): bool {
+    $query = $this->db->prepare("SELECT id, " . implode(", ", array_map(fn($i) => "abs{$i}", range(1, 31))) . " FROM {$this->table}");
     $result = $query->execute();
     if ($result) {
       while ($row = $query->fetch()) {
         for ($i = 1; $i <= 31; $i++) {
           if ($row['abs' . $i] == $absidold) {
-            $stmt = "UPDATE " . $this->table . " SET `abs" . $i . "` = '" . $absidnew . "' WHERE id = '" . $row['id'] . "';";
+            $stmt = "UPDATE {$this->table} SET abs{$i} = :absidnew WHERE id = :id";
             $query2 = $this->db->prepare($stmt);
+            $query2->bindParam('absidnew', $absidnew, \PDO::PARAM_INT);
+            $query2->bindParam('id', $row['id'], \PDO::PARAM_STR);
             $query2->execute();
           }
         }
       }
+      return true;
     }
-    return $result;
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -557,9 +551,9 @@ class Templates {
    * @param string $name Username to restore
    * @return boolean Query result
    */
-  public function restore($username) {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
-    $query->bindParam('val1', $username);
+  public function restore(string $username): bool {
+    $query = $this->db->prepare("INSERT INTO {$this->table} SELECT a.* FROM {$this->archive_table} a WHERE username = :username");
+    $query->bindParam('username', $username, \PDO::PARAM_STR);
     return $query->execute();
   }
 
@@ -574,13 +568,13 @@ class Templates {
    * @param string $abs Absence to set
    * @return boolean Query result
    */
-  public function setAbsence($username, $year, $month, $day, $abs) {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET abs' . $day . ' = :val1 WHERE username = :val2 AND year = :val3 AND month = :val4');
-    $query->bindParam('val1', $abs);
-    $query->bindParam('val2', $username);
-    $query->bindParam('val3', $year);
+  public function setAbsence(string $username, string $year, string $month, string $day, int $abs): bool {
+    $query = $this->db->prepare("UPDATE {$this->table} SET abs{$day} = :abs WHERE username = :username AND year = :year AND month = :month");
+    $query->bindParam('abs', $abs, \PDO::PARAM_INT);
+    $query->bindParam('username', $username, \PDO::PARAM_STR);
+    $query->bindParam('year', $year, \PDO::PARAM_STR);
     $month = sprintf("%02d", $month);
-    $query->bindParam('val4', $month);
+    $query->bindParam('month', $month, \PDO::PARAM_STR);
     return $query->execute();
   }
 
@@ -593,23 +587,27 @@ class Templates {
    * @param string $month Month for update (MM)
    * @return boolean Query result
    */
-  public function update($uname, $year, $month) {
-    $stmt = 'UPDATE ' . $this->table . ' SET username = :val1, year = :val2, month = :val3, ';
+  public function update(string $uname, string $year, string $month): bool {
+    $stmt = "UPDATE {$this->table} SET username = :username, year = :year, month = :month, ";
+    $setParts = [];
     for ($i = 1; $i <= 31; $i++) {
-      $prop = 'abs' . $i;
-      $stmt .= $prop . ' = ' . $this->$prop . ', ';
+      $setParts[] = "abs{$i} = :abs{$i}";
     }
-    $stmt = substr($stmt, 0, -2);
-    $stmt .= ' WHERE username = :val4 AND year = :val5 AND month = :val6';
+    $stmt .= implode(", ", $setParts);
+    $stmt .= " WHERE username = :uname AND year = :yearOld AND month = :monthOld";
 
     $query = $this->db->prepare($stmt);
-    $query->bindParam('val1', $this->username);
-    $query->bindParam('val2', $this->year);
-    $query->bindParam('val3', $this->month);
-    $query->bindParam('val4', $uname);
-    $query->bindParam('val5', $year);
+    $query->bindParam('username', $this->username, \PDO::PARAM_STR);
+    $query->bindParam('year', $this->year, \PDO::PARAM_STR);
+    $query->bindParam('month', $this->month, \PDO::PARAM_STR);
+    $query->bindParam('uname', $uname, \PDO::PARAM_STR);
+    $query->bindParam('yearOld', $year, \PDO::PARAM_STR);
     $month = sprintf("%02d", $month);
-    $query->bindParam('val6', $month);
+    $query->bindParam('monthOld', $month, \PDO::PARAM_STR);
+    for ($i = 1; $i <= 31; $i++) {
+      $prop = 'abs' . $i;
+      $query->bindParam('abs' . $i, $this->$prop, \PDO::PARAM_INT);
+    }
     return $query->execute();
   }
 }

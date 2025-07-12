@@ -41,15 +41,15 @@ class Holidays {
    *
    * @return boolean Query result
    */
-  public function create() {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, color, bgcolor, businessday, noabsence, keepweekendcolor) VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7)');
-    $query->bindParam('val1', $this->name);
-    $query->bindParam('val2', $this->description);
-    $query->bindParam('val3', $this->color);
-    $query->bindParam('val4', $this->bgcolor);
-    $query->bindParam('val5', $this->businessday);
-    $query->bindParam('val6', $this->noabsence);
-    $query->bindParam('val7', $this->keepweekendcolor);
+  public function create(): bool {
+    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, color, bgcolor, businessday, noabsence, keepweekendcolor) VALUES (:name, :description, :color, :bgcolor, :businessday, :noabsence, :keepweekendcolor)');
+    $query->bindParam(':name', $this->name);
+    $query->bindParam(':description', $this->description);
+    $query->bindParam(':color', $this->color);
+    $query->bindParam(':bgcolor', $this->bgcolor);
+    $query->bindParam(':businessday', $this->businessday);
+    $query->bindParam(':noabsence', $this->noabsence);
+    $query->bindParam(':keepweekendcolor', $this->keepweekendcolor);
     return $query->execute();
   }
 
@@ -60,14 +60,13 @@ class Holidays {
    * @param string $id Record ID
    * @return boolean Query result
    */
-  public function delete($id = '') {
-    $result = 0;
-    if (isset($id)) {
-      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
-      $query->bindParam('val1', $id);
-      $result = $query->execute();
+  public function delete(string $id = ''): bool {
+    if ($id !== '') {
+      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :id');
+      $query->bindParam(':id', $id);
+      return $query->execute();
     }
-    return $result;
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -76,7 +75,7 @@ class Holidays {
    *
    * @return boolean Query result
    */
-  public function deleteAll() {
+  public function deleteAll(): bool {
     $query = $this->db->prepare("DELETE FROM " . $this->table . " WHERE id > 3;");
     return $query->execute();
   }
@@ -88,13 +87,11 @@ class Holidays {
    * @param string $id Record ID
    * @return boolean Query result
    */
-  public function get($id = '') {
-    $result = 0;
-    if (isset($id)) {
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
-      $query->bindParam('val1', $id);
+  public function get(string $id = ''): bool {
+    if ($id !== '') {
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :id');
+      $query->bindParam(':id', $id);
       $result = $query->execute();
-
       if ($result && $row = $query->fetch()) {
         $this->id = $row['id'];
         $this->name = $row['name'];
@@ -104,9 +101,10 @@ class Holidays {
         $this->businessday = $row['businessday'];
         $this->noabsence = $row['noabsence'];
         $this->keepweekendcolor = $row['keepweekendcolor'];
+        return true;
       }
     }
-    return $result;
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -116,13 +114,11 @@ class Holidays {
    * @param string $name Holiday name
    * @return boolean Query result
    */
-  public function getByName($name = '') {
-    $result = 0;
-    if (isset($name)) {
-      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name = :val1');
-      $query->bindParam('val1', $name);
+  public function getByName(string $name = ''): bool {
+    if ($name !== '') {
+      $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name = :name');
+      $query->bindParam(':name', $name);
       $result = $query->execute();
-
       if ($result && $row = $query->fetch()) {
         $this->id = $row['id'];
         $this->name = $row['name'];
@@ -131,11 +127,10 @@ class Holidays {
         $this->bgcolor = $row['bgcolor'];
         $this->businessday = $row['businessday'];
         $this->noabsence = $row['noabsence'];
-      } else {
-        return false;
+        return true;
       }
     }
-    return $result;
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -145,7 +140,7 @@ class Holidays {
    * @param string $sort What to sort by
    * @return array Array with records
    */
-  public function getAll($sort = 'name') {
+  public function getAll(string $sort = 'name'): array {
     $records = array();
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY ' . $sort . ' ASC');
     $query->execute();
@@ -162,15 +157,12 @@ class Holidays {
    * @param string $sort What to sort by
    * @return array Array with records
    */
-  public function getAllCustom($sort = 'name') {
+  public function getAllCustom(string $sort = 'name'): array {
     $records = array();
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id > 3 ORDER BY ' . $sort . ' ASC');
-    $result = $query->execute();
-
-    if ($result) {
-      while ($row = $query->fetch()) {
-        $records[] = $row;
-      }
+    $query->execute();
+    while ($row = $query->fetch()) {
+      $records[] = $row;
     }
     return $records;
   }
@@ -182,17 +174,15 @@ class Holidays {
    * @param string $id Record ID
    * @return boolean True or false
    */
-  public function isBusinessDay($id = '') {
-    $rc = 0;
-    if (isset($id)) {
-      $query = $this->db->prepare('SELECT businessday FROM ' . $this->table . ' WHERE id = :val1');
-      $query->bindParam('val1', $id);
-      $result = $query->execute();
-      if ($result && $row = $query->fetch()) {
-        $rc = $row['businessday'];
-      }
+  public function isBusinessDay(string $id = ''): int {
+    if ($id !== '') {
+      $query = $this->db->prepare('SELECT businessday FROM ' . $this->table . ' WHERE id = :id');
+      $query->bindParam(':id', $id);
+      $query->execute();
+      $val = $query->fetchColumn();
+      return $val !== false ? (int)$val : 0;
     }
-    return $rc;
+    return 0;
   }
 
   //---------------------------------------------------------------------------
@@ -202,18 +192,15 @@ class Holidays {
    * @param string $id Record ID
    * @return boolean True or false
    */
-  public function keepWeekendColor($id = '') {
-    $rc = 0;
-    if (isset($id)) {
-      $query = $this->db->prepare('SELECT keepweekendcolor FROM ' . $this->table . ' WHERE id = :val1');
-      $query->bindParam('val1', $id);
-      $result = $query->execute();
-
-      if ($result && $row = $query->fetch()) {
-        $rc = $row['keepweekendcolor'];
-      }
+  public function keepWeekendColor(string $id = ''): int {
+    if ($id !== '') {
+      $query = $this->db->prepare('SELECT keepweekendcolor FROM ' . $this->table . ' WHERE id = :id');
+      $query->bindParam(':id', $id);
+      $query->execute();
+      $val = $query->fetchColumn();
+      return $val !== false ? (int)$val : 0;
     }
-    return $rc;
+    return 0;
   }
 
   //---------------------------------------------------------------------------
@@ -223,18 +210,15 @@ class Holidays {
    * @param string $id Record ID
    * @return boolean True or false
    */
-  public function noAbsenceAllowed($id = '') {
-    $rc = 0;
-    if (isset($id)) {
-      $query = $this->db->prepare('SELECT noabsence FROM ' . $this->table . ' WHERE id = :val1');
-      $query->bindParam('val1', $id);
-      $result = $query->execute();
-
-      if ($result && $row = $query->fetch()) {
-        $rc = $row['noabsence'];
-      }
+  public function noAbsenceAllowed(string $id = ''): int {
+    if ($id !== '') {
+      $query = $this->db->prepare('SELECT noabsence FROM ' . $this->table . ' WHERE id = :id');
+      $query->bindParam(':id', $id);
+      $query->execute();
+      $val = $query->fetchColumn();
+      return $val !== false ? (int)$val : 0;
     }
-    return $rc;
+    return 0;
   }
 
   //---------------------------------------------------------------------------
@@ -244,18 +228,15 @@ class Holidays {
    * @param string $id Record ID
    * @return string Holiday name
    */
-  public function getName($id = '') {
-    $rc = 'unknown';
-    if (isset($id)) {
-      $query = $this->db->prepare('SELECT name FROM ' . $this->table . ' WHERE id = :val1');
-      $query->bindParam('val1', $id);
-      $result = $query->execute();
-
-      if ($result && $row = $query->fetch()) {
-        $rc = $row['name'];
-      }
+  public function getName(string $id = ''): string {
+    if ($id !== '') {
+      $query = $this->db->prepare('SELECT name FROM ' . $this->table . ' WHERE id = :id');
+      $query->bindParam(':id', $id);
+      $query->execute();
+      $val = $query->fetchColumn();
+      return $val !== false ? $val : 'unknown';
     }
-    return $rc;
+    return 'unknown';
   }
 
   //---------------------------------------------------------------------------
@@ -265,18 +246,15 @@ class Holidays {
    * @param string $id Record ID
    * @return string Holiday description
    */
-  public function getDescription($id = '') {
-    $rc = '.';
-    if (isset($id)) {
-      $query = $this->db->prepare('SELECT description FROM ' . $this->table . ' WHERE id = :val1');
-      $query->bindParam('val1', $id);
-      $result = $query->execute();
-
-      if ($result && $row = $query->fetch()) {
-        $rc = $row['description'];
-      }
+  public function getDescription(string $id = ''): string {
+    if ($id !== '') {
+      $query = $this->db->prepare('SELECT description FROM ' . $this->table . ' WHERE id = :id');
+      $query->bindParam(':id', $id);
+      $query->execute();
+      $val = $query->fetchColumn();
+      return $val !== false ? $val : '.';
     }
-    return $rc;
+    return '.';
   }
 
   //---------------------------------------------------------------------------
@@ -286,18 +264,15 @@ class Holidays {
    * @param string $id Record ID
    * @return string Holiday color
    */
-  public function getColor($id = '') {
-    $rc = '000000';
-    if (isset($id)) {
-      $query = $this->db->prepare('SELECT color FROM ' . $this->table . ' WHERE id = :val1');
-      $query->bindParam('val1', $id);
-      $result = $query->execute();
-
-      if ($result && $row = $query->fetch()) {
-        $rc = $row['color'];
-      }
+  public function getColor(string $id = ''): string {
+    if ($id !== '') {
+      $query = $this->db->prepare('SELECT color FROM ' . $this->table . ' WHERE id = :id');
+      $query->bindParam(':id', $id);
+      $query->execute();
+      $val = $query->fetchColumn();
+      return $val !== false ? $val : '000000';
     }
-    return $rc;
+    return '000000';
   }
 
   //---------------------------------------------------------------------------
@@ -307,18 +282,15 @@ class Holidays {
    * @param string $id Record ID
    * @return string Holiday background color
    */
-  public function getBgColor($id = '') {
-    $rc = '000000';
-    if (isset($id)) {
-      $query = $this->db->prepare('SELECT bgcolor FROM ' . $this->table . ' WHERE id = :val1');
-      $query->bindParam('val1', $id);
-      $result = $query->execute();
-
-      if ($result && $row = $query->fetch()) {
-        $rc = $row['bgcolor'];
-      }
+  public function getBgColor(string $id = ''): string {
+    if ($id !== '') {
+      $query = $this->db->prepare('SELECT bgcolor FROM ' . $this->table . ' WHERE id = :id');
+      $query->bindParam(':id', $id);
+      $query->execute();
+      $val = $query->fetchColumn();
+      return $val !== false ? $val : '000000';
     }
-    return $rc;
+    return '000000';
   }
 
   //---------------------------------------------------------------------------
@@ -327,13 +299,14 @@ class Holidays {
    *
    * @return int|void Last auto-increment ID
    */
-  public function getLastId() {
-    $query = $this->db->prepare('SHOW TABLE STATUS LIKE ' . $this->table);
-    $result = $query->execute();
-
-    if ($result && $row = $query->fetch()) {
+  public function getLastId(): int|null {
+    $query = $this->db->prepare('SHOW TABLE STATUS LIKE :table');
+    $query->bindParam(':table', $this->table);
+    $query->execute();
+    if ($row = $query->fetch()) {
       return intval($row['Auto_increment']) - 1;
     }
+    return null;
   }
 
   //---------------------------------------------------------------------------
@@ -342,13 +315,14 @@ class Holidays {
    *
    * @return string|void Next auto-increment ID
    */
-  public function getNextId() {
-    $query = $this->db->prepare('SHOW TABLE STATUS LIKE ' . $this->table);
-    $result = $query->execute();
-
-    if ($result && $row = $query->fetch()) {
+  public function getNextId(): string|null {
+    $query = $this->db->prepare('SHOW TABLE STATUS LIKE :table');
+    $query->bindParam(':table', $this->table);
+    $query->execute();
+    if ($row = $query->fetch()) {
       return $row['Auto_increment'];
     }
+    return null;
   }
 
   //---------------------------------------------------------------------------
@@ -358,20 +332,19 @@ class Holidays {
    * @param string $id Record ID
    * @return boolean Query result
    */
-  public function update($id = '') {
-    $result = 0;
-    if (isset($id)) {
-      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET name = :val1, description = :val2, color = :val3, bgcolor = :val4, businessday = :val5, noabsence = :val6, keepweekendcolor = :val7 WHERE id = :val8');
-      $query->bindParam('val1', $this->name);
-      $query->bindParam('val2', $this->description);
-      $query->bindParam('val3', $this->color);
-      $query->bindParam('val4', $this->bgcolor);
-      $query->bindParam('val5', $this->businessday);
-      $query->bindParam('val6', $this->noabsence);
-      $query->bindParam('val7', $this->keepweekendcolor);
-      $query->bindParam('val8', $id);
-      $result = $query->execute();
+  public function update(string $id = ''): bool {
+    if ($id !== '') {
+      $query = $this->db->prepare('UPDATE ' . $this->table . ' SET name = :name, description = :description, color = :color, bgcolor = :bgcolor, businessday = :businessday, noabsence = :noabsence, keepweekendcolor = :keepweekendcolor WHERE id = :id');
+      $query->bindParam(':name', $this->name);
+      $query->bindParam(':description', $this->description);
+      $query->bindParam(':color', $this->color);
+      $query->bindParam(':bgcolor', $this->bgcolor);
+      $query->bindParam(':businessday', $this->businessday);
+      $query->bindParam(':noabsence', $this->noabsence);
+      $query->bindParam(':keepweekendcolor', $this->keepweekendcolor);
+      $query->bindParam(':id', $id);
+      return $query->execute();
     }
-    return $result;
+    return false;
   }
 }

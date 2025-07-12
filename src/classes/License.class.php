@@ -17,10 +17,10 @@
  * Provides properties and methods to interface with the license server
  */
 class License {
-  private $db = '';
+  private $db = null;
   private $table = '';
-  private $debugCurl = false;
-  private $disableSSL = false;
+  private bool $debugCurl = false;
+  private bool $disableSSL = false;
   public $details;
 
   //---------------------------------------------------------------------------
@@ -40,17 +40,16 @@ class License {
    *
    * @return string
    */
-  public function activate() {
-    $parms = array(
+  public function activate(): mixed {
+    $parms = [
       'slm_action' => 'slm_activate',
       'secret_key' => APP_LIC_KEY,
       'license_key' => $this->readKey(),
       'registered_domain' => $_SERVER['SERVER_NAME'],
       'item_reference' => urlencode(APP_LIC_ITM),
-    );
+    ];
     $response = $this->callAPI('GET', APP_LIC_SRV, $parms);
-    $response = json_decode((string)$response);
-    return $response;
+    return json_decode((string)$response);
   }
 
   //---------------------------------------------------------------------------
@@ -63,7 +62,7 @@ class License {
    * @param array $data URL paramater: array("param" => "value") ==> index.php?param=value
    * @return bool|string
    */
-  public function callAPI($method, $url, $data = false) {
+  public function callAPI(string $method, string $url, $data = false): bool|string {
     if (defined('APP_LIC_LOCAL')) {
       return APP_LIC_LOCAL;
     }
@@ -126,12 +125,12 @@ class License {
    * @param int $liceExpiryWarning Number of license days left for showing the expiry warning. 0 = no warning.
    * @param bool  &$LANG The language array. Passed by reference
    */
-  public function check(&$alertData, &$showAlert, $licExpiryWarning, &$LANG) {
-    $parms = array(
+  public function check(array &$alertData, bool &$showAlert, int $licExpiryWarning, array &$LANG): void {
+    $parms = [
       'slm_action' => 'slm_check',
       'secret_key' => APP_LIC_KEY,
       'license_key' => $this->readKey(),
-    );
+    ];
     $response = $this->callAPI('GET', APP_LIC_SRV, $parms);
     $response = json_decode((string)$response);
 
@@ -213,17 +212,16 @@ class License {
    *
    * @return string
    */
-  public function deactivate() {
-    $parms = array(
+  public function deactivate(): mixed {
+    $parms = [
       'slm_action' => 'slm_deactivate',
       'secret_key' => APP_LIC_KEY,
       'license_key' => $this->readKey(),
       'registered_domain' => $_SERVER['SERVER_NAME'],
       'item_reference' => urlencode(APP_LIC_ITM),
-    );
+    ];
     $response = $this->callAPI('GET', APP_LIC_SRV, $parms);
-    $response = json_decode((string)$response);
-    return $response;
+    return json_decode((string)$response);
   }
 
   //---------------------------------------------------------------------------
@@ -232,11 +230,11 @@ class License {
    *
    * @return boolean
    */
-  public function domainRegistered() {
+  public function domainRegistered(): bool {
     if (!$this->readKey()) {
       return false;
     }
-    if (count($this->details->registered_domains)) {
+    if (!empty($this->details->registered_domains)) {
       foreach ($this->details->registered_domains as $domain) {
         if ($domain->registered_domain == $_SERVER['SERVER_NAME']) {
           return true;
@@ -254,7 +252,7 @@ class License {
    *
    * @return integer
    */
-  public function daysToExpiry() {
+  public function daysToExpiry(): int {
     if (!isset($this->details->date_expiry)) {
       return 0;
     }
@@ -268,15 +266,14 @@ class License {
   /**
    * Loads the license information from license server
    */
-  public function load() {
-    $parms = array(
+  public function load(): void {
+    $parms = [
       'slm_action' => 'slm_check',
       'secret_key' => APP_LIC_KEY,
       'license_key' => $this->readKey(),
-    );
+    ];
     $response = $this->callAPI('GET', APP_LIC_SRV, $parms);
-    $response = json_decode((string)$response);
-    $this->details = $response;
+    $this->details = json_decode((string)$response);
   }
 
   //---------------------------------------------------------------------------
@@ -286,13 +283,12 @@ class License {
    * @param string $name Name of the option
    * @return string Value of the option or false if not found
    */
-  public function readKey() {
+  public function readKey(): string {
     $query = $this->db->prepare("SELECT value FROM " . $this->table . " WHERE `name` = 'licKey';");
     if ($query->execute() && $row = $query->fetch()) {
       return $row['value'];
-    } else {
-      return '';
     }
+    return '';
   }
 
   //---------------------------------------------------------------------------
@@ -302,14 +298,14 @@ class License {
    * @param string $value Licenskey
    * @return boolean
    */
-  public function saveKey($value) {
+  public function saveKey(string $value): bool {
     $query = $this->db->prepare("SELECT COUNT(*) FROM " . $this->table . " WHERE `name` = 'licKey'");
     if ($query->execute() && $query->fetchColumn()) {
-      $query2 = $this->db->prepare("UPDATE " . $this->table . " SET value = :val1 WHERE name = 'licKey'");
+      $query2 = $this->db->prepare("UPDATE " . $this->table . " SET value = :value WHERE name = 'licKey'");
     } else {
-      $query2 = $this->db->prepare("INSERT INTO " . $this->table . " (`name`, `value`) VALUES ('licKey', :val1)");
+      $query2 = $this->db->prepare("INSERT INTO " . $this->table . " (`name`, `value`) VALUES ('licKey', :value)");
     }
-    $query2->bindParam('val1', $value);
+    $query2->bindParam(':value', $value);
     return $query2->execute();
   }
 
@@ -321,7 +317,7 @@ class License {
    * @param bool $showDetails Show details
    * @return string HTML
    */
-  public function show($data, $showDetails = false) {
+  public function show(?object $data = null, bool $showDetails = false): string {
     global $LANG;
 
     if (!isset($data)) {
@@ -332,7 +328,6 @@ class License {
       $alert['text'] = $LANG['lic_unavailable_text'];
       $alert['help'] = $LANG['lic_unavailable_help'];
       $details = "";
-
     } elseif (isset($data->result) && $data->result == "error") {
 
       $alert['type'] = 'danger';
@@ -341,7 +336,6 @@ class License {
       $alert['text'] = $LANG['lic_invalid_text'];
       $alert['help'] = $LANG['lic_invalid_help'];
       $details = "";
-
     } else {
 
       $domains = "";
@@ -439,7 +433,7 @@ class License {
    *
    * @return string  active/blocked/invalid/expired/pending/unregistered
    */
-  public function status() {
+  public function status(): string {
     if (!isset($this->details) || $this->details->result == 'error') {
       return "invalid";
     }
