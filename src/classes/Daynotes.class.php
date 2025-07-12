@@ -22,7 +22,7 @@ class Daynotes {
   public $color = '';
   public $confidential = '';
 
-  private $db = '';
+  private $db = null;
   private $table = '';
   private $archive_table = '';
 
@@ -44,9 +44,9 @@ class Daynotes {
    * @param string $username Username to archive
    * @return boolean Query result
    */
-  public function archive($username) {
-    $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE username = :val1');
-    $query->bindParam('val1', $username);
+  public function archive(string $username): bool {
+    $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE username = :username');
+    $query->bindParam(':username', $username);
     return $query->execute();
   }
 
@@ -57,9 +57,9 @@ class Daynotes {
    * @param string $name Username to restore
    * @return boolean Query result
    */
-  public function restore($username) {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
-    $query->bindParam('val1', $username);
+  public function restore(string $username): bool {
+    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :username');
+    $query->bindParam(':username', $username);
     return $query->execute();
   }
 
@@ -71,17 +71,12 @@ class Daynotes {
    * @param boolean $archive Whether to use the archive table
    * @return boolean True if found, false if not
    */
-  public function exists($username, $archive = false) {
-    if ($archive) {
-      $table = $this->archive_table;
-    }
-    else {
-      $table = $this->table;
-    }
-    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :val1');
-    $query->bindParam('val1', $username);
-    $result = $query->execute();
-    return $result && $query->fetchColumn();
+  public function exists(string $username, bool $archive = false): bool {
+    $table = $archive ? $this->archive_table : $this->table;
+    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :username');
+    $query->bindParam(':username', $username);
+    $query->execute();
+    return (bool)$query->fetchColumn();
   }
 
   //---------------------------------------------------------------------------
@@ -90,18 +85,18 @@ class Daynotes {
    *
    * @return boolean Query result or false
    */
-  public function create() {
+  public function create(): bool {
     //
     // Make sure no daynote exists for this day
     //
     $this->delete($this->yyyymmdd, $this->username, $this->region);
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (yyyymmdd, username, region, daynote, color, confidential) VALUES (:val1, :val2, :val3, :val4, :val5, :val6)');
-    $query->bindParam('val1', $this->yyyymmdd);
-    $query->bindParam('val2', $this->username);
-    $query->bindParam('val3', $this->region);
-    $query->bindParam('val4', $this->daynote);
-    $query->bindParam('val5', $this->color);
-    $query->bindParam('val6', $this->confidential);
+    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (yyyymmdd, username, region, daynote, color, confidential) VALUES (:yyyymmdd, :username, :region, :daynote, :color, :confidential)');
+    $query->bindParam(':yyyymmdd', $this->yyyymmdd);
+    $query->bindParam(':username', $this->username);
+    $query->bindParam(':region', $this->region);
+    $query->bindParam(':daynote', $this->daynote);
+    $query->bindParam(':color', $this->color);
+    $query->bindParam(':confidential', $this->confidential);
     return $query->execute();
   }
 
@@ -114,11 +109,11 @@ class Daynotes {
    * @param string $region Region to find for deletion
    * @return boolean Query result
    */
-  public function delete($yyyymmdd = '', $username = '', $region = 'default') {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE yyyymmdd = :val1 AND username = :val2 AND region = :val3');
-    $query->bindParam('val1', $yyyymmdd);
-    $query->bindParam('val2', $username);
-    $query->bindParam('val3', $region);
+  public function delete(string $yyyymmdd = '', string $username = '', string $region = 'default'): bool {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE yyyymmdd = :yyyymmdd AND username = :username AND region = :region');
+    $query->bindParam(':yyyymmdd', $yyyymmdd);
+    $query->bindParam(':username', $username);
+    $query->bindParam(':region', $region);
     return $query->execute();
   }
 
@@ -129,21 +124,19 @@ class Daynotes {
    * @param boolean $archive Whether to use the archive table
    * @return boolean Query result or false
    */
-  public function deleteAll($archive = false) {
+  public function deleteAll(bool $archive = false): bool {
     if ($archive) {
       $table = $this->archive_table;
-    }
-    else {
+    } else {
       $table = $this->table;
     }
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table);
-    $result = $query->execute();
-    if ($result && $query->fetchColumn()) {
+    $query->execute();
+    if ($query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $table);
       return $query->execute();
-    } else {
-      return false;
     }
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -153,9 +146,9 @@ class Daynotes {
    * @param string $yyyymmdd 8 character date (YYYYMMDD) to find for deletion
    * @return boolean Query result
    */
-  public function deleteAllBefore($yyyymmdd = '') {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE yyyymmdd <= :val1');
-    $query->bindParam('val1', $yyyymmdd);
+  public function deleteAllBefore(string $yyyymmdd = ''): bool {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE yyyymmdd <= :yyyymmdd');
+    $query->bindParam(':yyyymmdd', $yyyymmdd);
     return $query->execute();
   }
 
@@ -166,9 +159,9 @@ class Daynotes {
    * @param string $region Region to find for deletion
    * @return boolean Query result
    */
-  public function deleteAllForRegion($region = 'default') {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE region = :val1');
-    $query->bindParam('val1', $region);
+  public function deleteAllForRegion(string $region = 'default'): bool {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE region = :region');
+    $query->bindParam(':region', $region);
     return $query->execute();
   }
 
@@ -179,16 +172,10 @@ class Daynotes {
    * @param string $uname Username to find for deletion
    * @return boolean Query result
    */
-  public function deleteByUser($username = '', $archive = false) {
-    if ($archive) {
-      $table = $this->archive_table;
-    }
-    else {
-      $table = $this->table;
-    }
-
-    $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username = :val1');
-    $query->bindParam('val1', $username);
+  public function deleteByUser(string $username = '', bool $archive = false): bool {
+    $table = $archive ? $this->archive_table : $this->table;
+    $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username = :username');
+    $query->bindParam(':username', $username);
     return $query->execute();
   }
 
@@ -198,7 +185,7 @@ class Daynotes {
    *
    * @return boolean Query result or false
    */
-  public function deleteAllGlobal() {
+  public function deleteAllGlobal(): bool {
     $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE username = "all"');
     return $query->execute();
   }
@@ -211,10 +198,10 @@ class Daynotes {
    * @param string $username Username to find for deletion
    * @return boolean Query result
    */
-  public function deleteByDateAndUser($date, $username) {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE yyyymmdd = :val1 AND username = :val2');
-    $query->bindParam('val1', $date);
-    $query->bindParam('val2', $username);
+  public function deleteByDateAndUser(string $date, string $username): bool {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE yyyymmdd = :yyyymmdd AND username = :username');
+    $query->bindParam(':yyyymmdd', $date);
+    $query->bindParam(':username', $username);
     return $query->execute();
   }
 
@@ -225,9 +212,9 @@ class Daynotes {
    * @param string $id ID to find for deletion
    * @return boolean Query result
    */
-  public function deleteById($id) {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
-    $query->bindParam('val1', $id);
+  public function deleteById(string $id): bool {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :id');
+    $query->bindParam(':id', $id);
     return $query->execute();
   }
 
@@ -240,7 +227,7 @@ class Daynotes {
    * @param string $region Userame to find
    * @return boolean Query result
    */
-  public function get($yyyymmdd = '', $username = '', $region = 'default', $replaceCRLF = false) {
+  public function get(string $yyyymmdd = '', string $username = '', string $region = 'default', bool $replaceCRLF = false): bool {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE yyyymmdd = :val1 AND username = :val2 AND region = :val3');
     $query->bindParam('val1', $yyyymmdd);
     $query->bindParam('val2', $username);
@@ -253,8 +240,7 @@ class Daynotes {
       $this->region = $row['region'];
       if ($replaceCRLF) {
         $this->daynote = str_replace("\r\n", "<br>", $row['daynote']);
-      }
-      else {
+      } else {
         $this->daynote = $row['daynote'];
       }
       $this->color = $row['color'];
@@ -275,7 +261,7 @@ class Daynotes {
    * @param boolean $replaceCLRF Flag to replace CRLF with <br>
    * @return boolean Query result
    */
-  public function getForMonthUser($yyyy, $mm, $username, $region = 'default', $replaceCRLF = false) {
+  public function getForMonthUser(string $yyyy, string $mm, string $username, string $region = 'default', bool $replaceCRLF = false): bool {
     $number = cal_days_in_month(CAL_GREGORIAN, intval($mm), intval($yyyy));
     $days = sprintf('%02d', $number);
     $startdate = $yyyy . $mm . '01';
@@ -290,8 +276,7 @@ class Daynotes {
       while ($row = $query->fetch()) {
         if ($replaceCRLF) {
           $this->daynotes[$row['username']][$row['yyyymmdd']] = str_replace("\r\n", "<br>", $row['daynote']);
-        }
-        else {
+        } else {
           $this->daynotes[$row['username']][$row['yyyymmdd']] = $row['daynote'];
         }
       }
@@ -310,7 +295,7 @@ class Daynotes {
    * @param boolean $replaceCLRF Flag to replace CRLF with <br>
    * @return boolean Query result
    */
-  public function getforMonth($yyyy, $mm, $usernames, $region = 'default', $replaceCRLF = false) {
+  public function getforMonth(string $yyyy, string $mm, string $usernames, string $region = 'default', bool $replaceCRLF = false): bool {
     $number = cal_days_in_month(CAL_GREGORIAN, intval($mm), intval($yyyy));
     $days = sprintf('%02d', $number);
     $startdate = $yyyy . $mm . '01';
@@ -325,8 +310,7 @@ class Daynotes {
       while ($row = $query->fetch()) {
         if ($replaceCRLF) {
           $this->daynotes[$row['username']][$row['yyyymmdd']] = str_replace("\r\n", "<br>", $row['daynote']);
-        }
-        else {
+        } else {
           $this->daynotes[$row['username']][$row['yyyymmdd']] = $row['daynote'];
         }
       }
@@ -340,18 +324,17 @@ class Daynotes {
    *
    * @return array | boolean Query result
    */
-  public function getAllRegionless() {
+  public function getAllRegionless(): array|bool {
     $records = array();
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE `region` = NULL OR `region` = 0;');
+    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE `region` IS NULL OR `region` = 0;');
     $result = $query->execute();
     if ($result) {
       while ($row = $query->fetch()) {
         $records[] = $row;
       }
       return $records;
-    } else {
-      return false;
     }
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -362,7 +345,7 @@ class Daynotes {
    * @param boolean $replaceCLRF Flag to replace CRLF with <br>
    * @return boolean Query result
    */
-  public function getById($id, $replaceCRLF = false) {
+  public function getById(string $id, bool $replaceCRLF = false): bool {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :val1');
     $query->bindParam('val1', $id);
     $result = $query->execute();
@@ -373,8 +356,7 @@ class Daynotes {
       $this->region = $row['region'];
       if ($replaceCRLF) {
         $this->daynote = str_replace("\r\n", "<br>", $row['daynote']);
-      }
-      else {
+      } else {
         $this->daynote = $row['daynote'];
       }
       $this->color = $row['color'];
@@ -389,13 +371,14 @@ class Daynotes {
    * @param string $id Record ID
    * @return boolean
    */
-  public function isConfidential($id = '') {
-    if (isset($id)) {
-      $query = $this->db->prepare('SELECT confidential FROM ' . $this->table . ' WHERE id = :val1');
-      $query->bindParam('val1', $id);
-      $result = $query->execute();
-      if ($result && $row = $query->fetch()) {
-        return $row['confidential'];
+  public function isConfidential(string $id = ''): bool|string {
+    if ($id !== '') {
+      $query = $this->db->prepare('SELECT confidential FROM ' . $this->table . ' WHERE id = :id');
+      $query->bindParam(':id', $id);
+      $query->execute();
+      $result = $query->fetchColumn();
+      if ($result !== false) {
+        return $result;
       }
     }
     return false;
@@ -407,10 +390,10 @@ class Daynotes {
    *
    * @return boolean Query result
    */
-  public function setRegion($daynoteId, $regionId) {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `region` = :val1 WHERE id = :val2;');
-    $query->bindParam('val1', $regionId);
-    $query->bindParam('val2', $daynoteId);
+  public function setRegion(string $daynoteId, string $regionId): bool {
+    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `region` = :region WHERE id = :id;');
+    $query->bindParam(':region', $regionId);
+    $query->bindParam(':id', $daynoteId);
     return $query->execute();
   }
 
@@ -420,15 +403,15 @@ class Daynotes {
    *
    * @return boolean Query result
    */
-  public function update() {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET yyyymmdd = :val1, daynote = :val2, username = :val3, region = :val4, color = :val5, confidential = :val6 WHERE id = :val7');
-    $query->bindParam('val1', $this->yyyymmdd);
-    $query->bindParam('val2', $this->daynote);
-    $query->bindParam('val3', $this->username);
-    $query->bindParam('val4', $this->region);
-    $query->bindParam('val5', $this->color);
-    $query->bindParam('val6', $this->confidential);
-    $query->bindParam('val7', $this->id);
+  public function update(): bool {
+    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET yyyymmdd = :yyyymmdd, daynote = :daynote, username = :username, region = :region, color = :color, confidential = :confidential WHERE id = :id');
+    $query->bindParam(':yyyymmdd', $this->yyyymmdd);
+    $query->bindParam(':daynote', $this->daynote);
+    $query->bindParam(':username', $this->username);
+    $query->bindParam(':region', $this->region);
+    $query->bindParam(':color', $this->color);
+    $query->bindParam(':confidential', $this->confidential);
+    $query->bindParam(':id', $this->id);
     return $query->execute();
   }
 }

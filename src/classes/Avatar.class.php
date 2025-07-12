@@ -13,7 +13,11 @@
  * @since 3.0.0
  */
 class Avatar {
-  public $allowedTypes = '';
+  private const DEFAULT_MALE = 'default_male.png';
+  private const DEFAULT_FEMALE = 'default_female.png';
+  private const IS_PREFIX = 'is_';
+
+  public $allowedTypes = [];
   public $error = array();
   public $fileExtension = '';
   public $fileName = '';
@@ -28,8 +32,8 @@ class Avatar {
   /**
    * Constructor
    */
-  public function __construct($LANG) {
-    global $C, $CONF;
+  public function __construct(array $LANG) {
+    global $CONF;
 
     $this->maxHeight = 80;
     $this->maxWidth = 80;
@@ -62,7 +66,7 @@ class Avatar {
    * @param string $uname Username (file name) to find
    * @return boolean True if found, false if not
    */
-  public function find($uname) {
+  public function find(string $uname): bool {
     foreach ($this->allowedTypes as $extension) {
       if (file_exists($this->path . $uname . "." . $extension)) {
         $this->fileName = $uname;
@@ -80,15 +84,23 @@ class Avatar {
    * @param string $uname Username (for avatars named like the username)
    * @param string $avatar Current user avatar (file name with extension)
    */
-  public function delete($uname, $avatar) {
+  public function delete(string $uname, string $avatar): void {
     foreach ($this->allowedTypes as $extension) {
-      if (file_exists($this->path . $uname . "." . $extension)) {
-        unlink($this->path . $uname . "." . $extension);
+      $filePath = $this->path . $uname . "." . $extension;
+      if (file_exists($filePath)) {
+        unlink($filePath);
+        break; // Only one avatar per user should exist
       }
     }
 
-    if (file_exists($this->path . $avatar) && $avatar != 'default_male.png' && $avatar != 'default_female.png' && substr($avatar, 0, 3) != 'is_') {
-      unlink($this->path . $avatar);
+    $avatarPath = $this->path . $avatar;
+    if (
+      file_exists($avatarPath) &&
+      $avatar !== self::DEFAULT_MALE &&
+      $avatar !== self::DEFAULT_FEMALE &&
+      substr($avatar, 0, 3) !== self::IS_PREFIX
+    ) {
+      unlink($avatarPath);
     }
   }
 
@@ -98,22 +110,19 @@ class Avatar {
    *
    * @param string $uname Username (file name) to save
    */
-  public function save($uname) {
+  public function save(string $uname): void {
     global $_FILES;
     $this->message = '';
 
     if (is_uploaded_file($_FILES['imgfile']['tmp_name'])) {
       $this->fileName = $_FILES['imgfile']['name'];
       $this->tmpFileName = $_FILES['imgfile']['tmp_name'];
-      $this->fileExtension = $this->getFileExtension($this->fileName);
-      $this->fileExtension = strtolower($this->fileExtension);
+      $this->fileExtension = strtolower($this->getFileExtension($this->fileName));
 
-      if (is_numeric(array_search(strtolower($this->fileExtension), $this->allowedTypes))) {
+      if (in_array($this->fileExtension, $this->allowedTypes, true)) {
         $newfile = $this->path . $uname . "." . $this->fileExtension;
 
-        //
         // Check size and resize if necessary
-        //
         $imgsize = GetImageSize($this->tmpFileName);
         $width = $imgsize[0];
         $height = $imgsize[1];
@@ -162,23 +171,16 @@ class Avatar {
               break;
           }
         } else {
-          /**
-           * The file is within the size restrictions.
-           * Just copy it to its destination.
-           */
+          // The file is within the size restrictions. Just copy it to its destination.
           if (!copy($this->tmpFileName, $newfile)) {
             $this->message = $this->error[19];
           }
         }
-        /**
-         * Delete the temporary uploaded file
-         */
+        // Delete the temporary uploaded file
         unlink($this->tmpFileName);
-        /**
-         * Delete previous avatars if exist
-         */
+        // Delete previous avatars if exist
         foreach ($this->allowedTypes as $type) {
-          if ($type != $this->fileExtension && file_exists($this->path . $uname . "." . $type)) {
+          if ($type !== $this->fileExtension && file_exists($this->path . $uname . "." . $type)) {
             unlink($this->path . $uname . "." . $type);
           }
         }
@@ -191,19 +193,15 @@ class Avatar {
         case 1: // UPLOAD_ERR_INI_SIZE
           $this->message = $this->error[1];
           break;
-
         case 2: // UPLOAD_ERR_FORM_SIZE
           $this->message = $this->error[2];
           break;
-
         case 3: // UPLOAD_ERR_PARTIAL
           $this->message = $this->error[3];
           break;
-
         case 4: // UPLOAD_ERR_NO_FILE
           $this->message = $this->error[4];
           break;
-
         default:
           $this->message = $this->error[18];
           break;
@@ -218,9 +216,9 @@ class Avatar {
    * @param string $str File name to scan
    * @return string File extension if exists
    */
-  private function getFileExtension($str) {
+  private function getFileExtension(string $str): string {
     $i = strrpos($str, ".");
-    if (!$i) {
+    if ($i === false) {
       return "";
     }
     $l = strlen($str) - $i;

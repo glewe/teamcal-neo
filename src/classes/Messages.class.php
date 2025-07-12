@@ -21,7 +21,7 @@ class Messages {
   public $type = 'info';
 
   private $table = '';
-  private $db = '';
+  private $db = null;
   private $umtable = '';
 
   //---------------------------------------------------------------------------
@@ -45,18 +45,16 @@ class Messages {
    * @param string $type Type of the message
    * @return integer Last inserted record ID
    */
-  public function create($timestamp, $text, $type = 'info') {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (timestamp, text, type) VALUES (:val1, :val2, :val3)');
-    $query->bindParam('val1', $timestamp);
-    $query->bindParam('val2', $text);
-    $query->bindParam('val3', $type);
+  public function create(string $timestamp, string $text, string $type = 'info'): int|false {
+    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (timestamp, text, type) VALUES (:timestamp, :text, :type)');
+    $query->bindParam(':timestamp', $timestamp);
+    $query->bindParam(':text', $text);
+    $query->bindParam(':type', $type);
     $result = $query->execute();
-
     if ($result) {
-      return $this->db->lastInsertId();
-    } else {
-      return false;
+      return (int)$this->db->lastInsertId();
     }
+    return false;
   }
 
   //---------------------------------------------------------------------------
@@ -66,9 +64,9 @@ class Messages {
    * @param string $id Record ID to delete
    * @return boolean Query result
    */
-  public function delete($id) {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :val1');
-    $query->bindParam('val1', $id);
+  public function delete(string $id): bool {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :id');
+    $query->bindParam(':id', $id);
     return $query->execute();
   }
 
@@ -78,7 +76,7 @@ class Messages {
    *
    * @return boolean Query result
    */
-  public function deleteAll() {
+  public function deleteAll(): bool {
     $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
     return $query->execute();
   }
@@ -89,11 +87,11 @@ class Messages {
    *
    * @return array $records Array with all records
    */
-  public function getAll() {
+  public function getAll(): array {
     $records = array();
     $query = $this->db->prepare('SELECT * FROM ' . $this->table);
-    $result = $query->execute();
-    while ($result && $row = $query->fetch()) {
+    $query->execute();
+    while ($row = $query->fetch()) {
       $records[] = $row;
     }
     return $records;
@@ -107,18 +105,15 @@ class Messages {
    * @param string $username Username to search for
    * @return array Array with all records
    */
-  public function getAllByUser($username) {
+  public function getAllByUser(string $username): array {
     $records = array();
     $query = $this->db->prepare(
-      'SELECT * FROM ' . $this->table . ' as a JOIN ' . $this->umtable . ' as um ON um.msgid = a.id WHERE um.username = :val1 ORDER BY timestamp DESC'
+      'SELECT * FROM ' . $this->table . ' as a JOIN ' . $this->umtable . ' as um ON um.msgid = a.id WHERE um.username = :username ORDER BY timestamp DESC'
     );
-    $query->bindParam('val1', $username);
-    $result = $query->execute();
-
-    if ($result) {
-      while ($row = $query->fetch()) {
-        $records[] = $row;
-      }
+    $query->bindParam(':username', $username);
+    $query->execute();
+    while ($row = $query->fetch()) {
+      $records[] = $row;
     }
     return $records;
   }

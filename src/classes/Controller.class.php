@@ -33,13 +33,23 @@ class Controller {
    * @param string $docurl URL to the documentation of this controller
    *
    */
-  public function __construct($name, $faIcon, $iconColor, $panelColor, $permission, $title, $docurl) {
-    if (!strlen($name)) {
-      $errorData['title'] = 'Application Error';
-      $errorData['subject'] = 'Controller Instance';
-      $errorData['text'] = 'The controller instance could not be initiated due to a missing controller name.';
+  public function __construct(
+    string $name,
+    string $faIcon,
+    string $iconColor,
+    string $panelColor,
+    string $permission,
+    string $title,
+    string $docurl
+  ) {
+    if (trim($name) === '') {
+      $errorData = [
+        'title' => 'Application Error',
+        'subject' => 'Controller Instance',
+        'text' => 'The controller instance could not be initiated due to a missing controller name.'
+      ];
       require_once WEBSITE_ROOT . "/views/error.php";
-      die();
+      exit;
     }
     $this->name = $name;
     $this->faIcon = $faIcon;

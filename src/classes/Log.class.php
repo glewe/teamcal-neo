@@ -18,9 +18,9 @@ class Log {
   public $timestamp = '';
   public $user = '';
   public $event = '';
-  private $db = '';
+  private $db = null;
   private $table = '';
-  private $C = '';
+  private $C = null;
 
   //---------------------------------------------------------------------------
   /**
@@ -41,10 +41,10 @@ class Log {
    * @param string $to ISO formatted end date
    * @return boolean Query result
    */
-  public function delete($from = '', $to = '') {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE (timestamp >= :val1 AND timestamp <= :val2)');
-    $query->bindParam('val1', $from);
-    $query->bindParam('val2', $to);
+  public function delete(string $from = '', string $to = ''): bool {
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE (timestamp >= :from AND timestamp <= :to)');
+    $query->bindParam(':from', $from);
+    $query->bindParam(':to', $to);
     return $query->execute();
   }
 
@@ -54,7 +54,7 @@ class Log {
    *
    * @return boolean Query result
    */
-  public function deleteAll() {
+  public function deleteAll(): bool {
     $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
     return $query->execute();
   }
@@ -71,19 +71,17 @@ class Log {
    * @param string $logsearchevent Event to search for
    * @return array Array of records
    */
-  public function read($sort = 'DESC', $from = '', $to = '', $logtype = '%', $logsearchuser = '%', $logsearchevent = '%') {
+  public function read(string $sort = 'DESC', string $from = '', string $to = '', string $logtype = '%', string $logsearchuser = '%', string $logsearchevent = '%'): array {
     $records = array();
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE (timestamp >= :val1 AND timestamp <= :val2 AND type LIKE :val3 AND user LIKE :val4 AND event LIKE :val5) ORDER BY timestamp ' . $sort);
-    $query->bindParam('val1', $from);
-    $query->bindParam('val2', $to);
-    $query->bindParam('val3', $logtype);
-    $query->bindParam('val4', $logsearchuser);
-    $query->bindParam('val5', $logsearchevent);
-    $result = $query->execute();
-    if ($result) {
-      while ($row = $query->fetch()) {
-        $records[] = $row;
-      }
+    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE (timestamp >= :from AND timestamp <= :to AND type LIKE :type AND user LIKE :user AND event LIKE :event) ORDER BY timestamp ' . $sort);
+    $query->bindParam(':from', $from);
+    $query->bindParam(':to', $to);
+    $query->bindParam(':type', $logtype);
+    $query->bindParam(':user', $logsearchuser);
+    $query->bindParam(':event', $logsearchevent);
+    $query->execute();
+    while ($row = $query->fetch()) {
+      $records[] = $row;
     }
     return $records;
   }
@@ -97,24 +95,23 @@ class Log {
    * @param string $event Event
    * @return boolean Query result
    */
-  public function logEvent($type, $user, $event, $object = '') {
+  public function logEvent(string $type, string $user, string $event, string $object = ''): bool {
     global $LANG;
-    if (!strlen($this->C->read("logLanguage"))) {
+    $loglang = $this->C->read("logLanguage");
+    if (!strlen($loglang)) {
       $loglang = 'english';
-    } else {
-      $loglang = $this->C->read("logLanguage");
     }
     require_once WEBSITE_ROOT . "/languages/" . $loglang . ".log.php";
     $myEvent = $LANG[$event] . $object;
     if ($this->C->read($type)) {
       $ts = date("YmdHis");
       $ip = getClientIp();
-      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (type, timestamp, ip, user, event) VALUES (:val1, :val2, :val3, :val4, :val5)');
-      $query->bindParam('val1', $type);
-      $query->bindParam('val2', $ts);
-      $query->bindParam('val3', $ip);
-      $query->bindParam('val4', $user);
-      $query->bindParam('val5', $myEvent);
+      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (type, timestamp, ip, user, event) VALUES (:type, :timestamp, :ip, :user, :event)');
+      $query->bindParam(':type', $type);
+      $query->bindParam(':timestamp', $ts);
+      $query->bindParam(':ip', $ip);
+      $query->bindParam(':user', $user);
+      $query->bindParam(':event', $myEvent);
       return $query->execute();
     }
     return false;

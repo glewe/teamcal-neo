@@ -13,28 +13,28 @@
  * @since 3.0.0
  */
 class Users {
-  public $username = '';
-  public $password = '';
-  public $firstname = '';
-  public $lastname = '';
-  public $email = '';
-  public $order_key = '';
-  public $role = 2;
-  public $locked = 0;
-  public $hidden = 0;
-  public $onhold = 0;
-  public $verify = 0;
-  public $bad_logins = 0;
-  public $grace_start = DEFAULT_TIMESTAMP;
-  public $last_pw_change = DEFAULT_TIMESTAMP;
-  public $last_login = DEFAULT_TIMESTAMP;
-  public $created = DEFAULT_TIMESTAMP;
-  public $bad_logins_start = '';
+  public string $username = '';
+  public string $password = '';
+  public string $firstname = '';
+  public string $lastname = '';
+  public string $email = '';
+  public string $order_key = '';
+  public int $role = 2;
+  public int $locked = 0;
+  public int $hidden = 0;
+  public int $onhold = 0;
+  public int $verify = 0;
+  public int $bad_logins = 0;
+  public string $grace_start = DEFAULT_TIMESTAMP;
+  public string $last_pw_change = DEFAULT_TIMESTAMP;
+  public string $last_login = DEFAULT_TIMESTAMP;
+  public string $created = DEFAULT_TIMESTAMP;
+  public string $bad_logins_start = '';
 
-  private $db = '';
-  private $table = '';
-  private $archive_table = '';
-  private $config_table = '';
+  private $db = null;
+  private string $table = '';
+  private string $archive_table = '';
+  private string $config_table = '';
 
   //---------------------------------------------------------------------------
   /**
@@ -57,7 +57,7 @@ class Users {
    * @param string $username Username to archive
    * @return boolean Query result
    */
-  public function archive($username) {
+  public function archive(string $username): bool {
     $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT u.* FROM ' . $this->table . ' u WHERE username = :val1');
     $query->bindParam('val1', $username);
     return $query->execute();
@@ -69,7 +69,7 @@ class Users {
    *
    * @return integer
    */
-  public function count() {
+  public function count(): int {
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {
@@ -86,7 +86,7 @@ class Users {
    * @param boolean $countHidden Flag to include/exclude hidden accounts
    * @return integer Count
    */
-  public function countUsers($countAdmin = false, $countHidden = false) {
+  public function countUsers(bool $countAdmin = false, bool $countHidden = false): int {
     if ($countHidden) {
       $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
     } else {
@@ -110,7 +110,7 @@ class Users {
    *
    * @return boolean Query result
    */
-  public function create() {
+  public function create(): bool {
     $stmt = 'INSERT INTO ' . $this->table . ' (username, password, firstname, lastname, email, order_key, role, locked, hidden, onhold, verify, bad_logins, grace_start, last_pw_change, last_login, created) ';
     $stmt .= 'VALUES (:val1, :val2, :val3, :val4, :val5, :val6, :val7, :val8, :val9, :val10, :val11, :val12, :val13, :val14, :val15, :val16)';
     $query = $this->db->prepare($stmt);
@@ -140,7 +140,7 @@ class Users {
    * @param boolean $archive Whether to search in archive table
    * @return boolean Query result
    */
-  public function deleteAll($archive = false) {
+  public function deleteAll(bool $archive = false): bool {
     if ($archive) {
       $table = $this->archive_table;
     } else {
@@ -160,7 +160,7 @@ class Users {
    * @param boolean $archive Whether to search in archive table
    * @return boolean Query result
    */
-  public function deleteByName($username = '', $archive = false) {
+  public function deleteByName(string $username = '', bool $archive = false): bool {
     if ($archive) {
       $table = $this->archive_table;
     } else {
@@ -179,7 +179,7 @@ class Users {
    * @param boolean $archive Whether to search in archive table
    * @return boolean True if found, false if not
    */
-  public function exists($username = '', $archive = false) {
+  public function exists(string $username = '', bool $archive = false): bool {
     if ($archive) {
       $table = $this->archive_table;
     } else {
@@ -199,7 +199,7 @@ class Users {
    * @param boolean $archive Whether to search in archive table
    * @return boolean Query result
    */
-  public function findByName($username = '', $archive = false) {
+  public function findByName(string $username = '', bool $archive = false): bool {
     if ($archive) {
       $table = $this->archive_table;
     } else {
@@ -237,7 +237,7 @@ class Users {
    * @param string $token Token to find
    * @return boolean Query result
    */
-  public function findByToken($token) {
+  public function findByToken(string $token): bool {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE md5(CONCAT("PasswordResetRequestFor",username)) = :val1');
     $query->bindParam('val1', $token);
     $result = $query->execute();
@@ -274,7 +274,7 @@ class Users {
    * @param boolean $includeAdmin Whether to include admin account or not
    * @return array Array with records
    */
-  public function getAll($order1 = 'lastname', $order2 = 'firstname', $sort = 'ASC', $archive = false, $includeAdmin = false) {
+  public function getAll(string $order1 = 'lastname', string $order2 = 'firstname', string $sort = 'ASC', bool $archive = false, bool $includeAdmin = false): array {
     if ($this->useOrderKey()) {
       $order1 = 'order_key';
       $order2 = 'lastname';
@@ -313,10 +313,31 @@ class Users {
    * @param string $email Email to find
    * @return array | boolean Array with records
    */
-  public function getAllForEmail($email) {
+  public function getAllForEmail(string $email): array|false {
     $records = array();
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE email = :val1 ORDER BY lastname ASC, firstname ASC');
     $query->bindParam('val1', $email);
+    $result = $query->execute();
+    if ($result) {
+      while ($row = $query->fetch()) {
+        $records[] = $row;
+      }
+      return $records;
+    }
+    return false;
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Get all users for a given role
+   *
+   * @param string $role
+   * @return array
+   */
+  public function getAllForRole(string $role): array|false {
+    $records = array();
+    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE role = :role ORDER BY lastname ASC, firstname ASC');
+    $query->bindParam('role', $role);
     $result = $query->execute();
     if ($result) {
       while ($row = $query->fetch()) {
@@ -338,7 +359,7 @@ class Users {
    * @param boolean $includeAdmin Whether to include admin account or not
    * @return array Array with records
    */
-  public function getAllButHidden($order1 = 'lastname', $order2 = 'firstname', $sort = 'ASC', $archive = false, $includeAdmin = false) {
+  public function getAllButHidden(string $order1 = 'lastname', string $order2 = 'firstname', string $sort = 'ASC', bool $archive = false, bool $includeAdmin = false): array {
     if ($this->useOrderKey()) {
       $order1 = 'order_key';
       $order2 = 'lastname';
@@ -376,7 +397,7 @@ class Users {
    * @param string $like Likeness to search for
    * @return array Array with records
    */
-  public function getAllLike($like, $archive = false) {
+  public function getAllLike(string $like, bool $archive = false): array {
     $records = array();
     if ($archive) {
       $table = $this->archive_table;
@@ -407,12 +428,11 @@ class Users {
    * @param boolean $archive Whether to use archive table
    * @return array Array with records
    */
-  public function getByUsername($uname, $archive = false) {
+  public function getByUsername(string $uname, bool $archive = false): array {
     $records = array();
     if ($archive) {
       $table = $this->archive_table;
-    }
-    else {
+    } else {
       $table = $this->table;
     }
     $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username = :val1');
@@ -435,7 +455,7 @@ class Users {
    * @param string $username Username to find
    * @return string Email address or empty
    */
-  public function getEmail($username) {
+  public function getEmail(string $username): string {
     $query = $this->db->prepare('SELECT email FROM ' . $this->table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
@@ -452,7 +472,7 @@ class Users {
    * @param string $username Username to find
    * @return string Fullname or empty
    */
-  public function getFullname($username) {
+  public function getFullname(string $username): string {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
@@ -481,7 +501,7 @@ class Users {
    * @param string $username Username to find
    * @return string Lastname, Firtsname or empty
    */
-  public function getLastFirst($username) {
+  public function getLastFirst(string $username): string {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
@@ -510,7 +530,7 @@ class Users {
    * @param string $username Username to find
    * @return string Role or empty
    */
-  public function getRole($username) {
+  public function getRole(string $username): string {
     $query = $this->db->prepare('SELECT role FROM ' . $this->table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
@@ -526,7 +546,7 @@ class Users {
    *
    * @return array Array with usernames
    */
-  public function getUsernames() {
+  public function getUsernames(): array {
     $records = array();
     $query = $this->db->prepare('SELECT username FROM ' . $this->table . ' ORDER BY username ASC');
     $result = $query->execute();
@@ -546,7 +566,7 @@ class Users {
    * @param string $role Role to check
    * @return boolean True or False
    */
-  public function hasRole($username, $role) {
+  public function hasRole(string $username, string $role): bool {
     $query = $this->db->prepare('SELECT role FROM ' . $this->table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
@@ -563,7 +583,7 @@ class Users {
    * @param string $username Username to find
    * @return boolean True or False
    */
-  public function isHidden($username) {
+  public function isHidden(string $username): bool|int {
     $query = $this->db->prepare('SELECT hidden FROM ' . $this->table . ' WHERE username = :val1');
     $query->bindParam('val1', $username);
     $result = $query->execute();
@@ -580,7 +600,7 @@ class Users {
    * @param string $username Username to restore
    * @return boolean Query result
    */
-  public function restore($username) {
+  public function restore(string $username): bool {
     $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
     $query->bindParam('val1', $username);
     return $query->execute();
@@ -594,7 +614,7 @@ class Users {
    * @param string $role Role to set
    * @return boolean True or False
    */
-  public function setRole($username, $role) {
+  public function setRole(string $username, string $role): bool {
     $query = $this->db->prepare('UPDATE ' . $this->table . ' SET role = :val1 WHERE username = :val2');
     $query->bindParam('val1', $role);
     $query->bindParam('val2', $username);
@@ -608,7 +628,7 @@ class Users {
    * @param string $username Username of record to update
    * @return boolean Query result
    */
-  public function unhide($username) {
+  public function unhide(string $username): bool {
     $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `hidden` = :val1 WHERE `username` = :val2');
     $val1 = '0';
     $query->bindParam('val1', $val1);
@@ -623,7 +643,7 @@ class Users {
    * @param string $username Username of record to update
    * @return boolean Query result
    */
-  public function unhold($username) {
+  public function unhold(string $username): bool {
     $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `onhold` = :val2 WHERE `username` = :val1');
     $query->bindParam('val1', $username);
     $val2 = '0';
@@ -638,7 +658,7 @@ class Users {
    * @param string $username Username of record to update
    * @return boolean Query result
    */
-  public function unlock($username) {
+  public function unlock(string $username): bool {
     $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `locked` = :val2 WHERE `username` = :val1');
     $query->bindParam('val1', $username);
     $val2 = '0';
@@ -653,7 +673,7 @@ class Users {
    * @param string $username Username of record to update
    * @return boolean Query result
    */
-  public function unverify($username) {
+  public function unverify(string $username): bool {
     $query = $this->db->prepare('UPDATE ' . $this->table . ' SET `verify` = :val2 WHERE `username` = :val1');
     $query->bindParam('val1', $username);
     $val2 = '0';
@@ -668,24 +688,44 @@ class Users {
    * @param string $username Username of record to update
    * @return boolean Query result
    */
-  public function update($username) {
-    return $this->db->exec("UPDATE " . $this->table . " SET
-      `username` = '" . $this->username . "',
-      `password` = '" . $this->password . "',
-      `firstname` = '" . $this->firstname . "',
-      `lastname` = '" . $this->lastname . "',
-      `email` = '" . $this->email . "',
-      `order_key` = '" . $this->order_key . "',
-      `role` = '" . $this->role . "',
-      `locked` = '" . $this->locked . "',
-      `hidden` = '" . $this->hidden . "',
-      `onhold` = '" . $this->onhold . "',
-      `verify` = '" . $this->verify . "',
-      `bad_logins` = '" . $this->bad_logins . "',
-      `grace_start` = '" . $this->grace_start . "',
-      `last_pw_change` = '" . $this->last_pw_change . "',
-      `last_login` = '" . $this->last_login . "',
-      `created` = '" . $this->created . "' WHERE `username` = '" . $username . "';");
+  public function update(string $username): bool {
+    $stmt = "UPDATE {$this->table} SET
+      username = :username,
+      password = :password,
+      firstname = :firstname,
+      lastname = :lastname,
+      email = :email,
+      order_key = :order_key,
+      role = :role,
+      locked = :locked,
+      hidden = :hidden,
+      onhold = :onhold,
+      verify = :verify,
+      bad_logins = :bad_logins,
+      grace_start = :grace_start,
+      last_pw_change = :last_pw_change,
+      last_login = :last_login,
+      created = :created
+      WHERE username = :where_username";
+    $query = $this->db->prepare($stmt);
+    $query->bindParam(':username', $this->username);
+    $query->bindParam(':password', $this->password);
+    $query->bindParam(':firstname', $this->firstname);
+    $query->bindParam(':lastname', $this->lastname);
+    $query->bindParam(':email', $this->email);
+    $query->bindParam(':order_key', $this->order_key);
+    $query->bindParam(':role', $this->role);
+    $query->bindParam(':locked', $this->locked);
+    $query->bindParam(':hidden', $this->hidden);
+    $query->bindParam(':onhold', $this->onhold);
+    $query->bindParam(':verify', $this->verify);
+    $query->bindParam(':bad_logins', $this->bad_logins);
+    $query->bindParam(':grace_start', $this->grace_start);
+    $query->bindParam(':last_pw_change', $this->last_pw_change);
+    $query->bindParam(':last_login', $this->last_login);
+    $query->bindParam(':created', $this->created);
+    $query->bindParam(':where_username', $username);
+    return $query->execute();
   }
 
   //---------------------------------------------------------------------------
@@ -694,13 +734,12 @@ class Users {
    *
    * @return boolean Query result
    */
-  private function useOrderKey() {
-    $query = $this->db->prepare("SELECT value FROM " . $this->config_table . " WHERE `name` = 'sortByOrderKey'");
+  private function useOrderKey(): bool|int|string {
+    $query = $this->db->prepare("SELECT value FROM {$this->config_table} WHERE name = 'sortByOrderKey'");
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {
       return $row['value'];
-    } else {
-      return false;
     }
+    return false;
   }
 }

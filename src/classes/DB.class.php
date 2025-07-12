@@ -28,7 +28,7 @@ class DB {
    * @param string $user Database username
    * @param string $password Password
    */
-  public function __construct($server, $database, $user, $password) {
+  public function __construct(string $server, string $database, string $user, string $password) {
     /**
      * Connect to database
      */
@@ -37,14 +37,13 @@ class DB {
       $this->db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);         // Needed for PDO::errorInfo()
       $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Needed for PDO:errorCode()
     } catch (PDOException $e) {
-      /**
-       * Database connection error
-       */
-      $errorData['title'] = 'Application Error';
-      $errorData['subject'] = 'Database connection error.';
-      $errorData['text'] = $e->getMessage();
+      $errorData = [
+        'title' => 'Application Error',
+        'subject' => 'Database connection error.',
+        'text' => $e->getMessage()
+      ];
       require_once WEBSITE_ROOT . "/views/error.php";
-      die();
+      exit(1);
     }
 
     /**
@@ -60,7 +59,7 @@ class DB {
    *
    * @return string PDO database information
    */
-  public function getDatabaseInfo() {
+  public function getDatabaseInfo(): string {
     global $LANG;
 
     $dbInfo = "<table class='table'>
@@ -73,7 +72,7 @@ class DB {
       <tbody>
       \n";
 
-    $attributes = array(
+    $attributes = [
       "AUTOCOMMIT",
       "CASE",
       "CLIENT_VERSION",
@@ -84,7 +83,7 @@ class DB {
       "PERSISTENT",
       "SERVER_INFO",
       "SERVER_VERSION",
-    );
+    ];
 
     foreach ($attributes as $val) {
       $dbInfo .= "<tr><td>$val</td>";
@@ -102,17 +101,19 @@ class DB {
   /**
    * Optimize tables
    */
-  public function optimizeTables() {
+  public function optimizeTables(): void {
     $query = $this->db->prepare('SHOW TABLES');
-    $result = $query->execute();
+    $query->execute();
     $tableList = '';
-    while ($result && $row = $query->fetch()) {
+    while ($row = $query->fetch()) {
       $tableList .= '`' . $row[0] . '`, ';
     }
     $tableList = rtrim($tableList, ', ');
-    $stmt = 'OPTIMIZE TABLE ' . $tableList . ';';
-    $query = $this->db->prepare($stmt);
-    $query->execute();
+    if ($tableList) {
+      $stmt = 'OPTIMIZE TABLE ' . $tableList . ';';
+      $query = $this->db->prepare($stmt);
+      $query->execute();
+    }
   }
 
   //---------------------------------------------------------------------------
@@ -124,7 +125,7 @@ class DB {
    * @param string $myQuery The MySQL query to be executed.
    * @return boolean Query result indicating success or failure of the execution.
    */
-  public function runQuery($myQuery) {
+  public function runQuery(string $myQuery): bool {
     $query = $this->db->prepare($myQuery);
     return $query->execute();
   }

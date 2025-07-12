@@ -13,13 +13,13 @@
  * @since 3.0.0
  */
 class UserAttachment {
-  public $id = null;
-  public $username = '';
-  public $fileid = null;
+  public ?int $id = null;
+  public string $username = '';
+  public ?int $fileid = null;
 
-  private $db = '';
-  private $table = '';
-  private $archive_table = '';
+  private $db = null;
+  private string $table = '';
+  private string $archive_table = '';
 
   //---------------------------------------------------------------------------
   /**
@@ -39,7 +39,7 @@ class UserAttachment {
    * @param string $username Username to archive
    * @return boolean Query result
    */
-  public function archive($username) {
+  public function archive(string $username): bool {
     $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE username = :val1');
     $query->bindParam('val1', $username);
     return $query->execute();
@@ -52,7 +52,7 @@ class UserAttachment {
    * @param string $name Username to restore
    * @return boolean Query result
    */
-  public function restore($username) {
+  public function restore(string $username): bool {
     $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE username = :val1');
     $query->bindParam('val1', $username);
     return $query->execute();
@@ -66,11 +66,10 @@ class UserAttachment {
    * @param boolean $archive Whether to use archive table
    * @return boolean True if found, false if not
    */
-  public function exists($username = '', $archive = false) {
+  public function exists(string $username = '', bool $archive = false): bool {
     if ($archive) {
       $table = $this->archive_table;
-    }
-    else {
+    } else {
       $table = $this->table;
     }
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE username = :val1');
@@ -87,10 +86,18 @@ class UserAttachment {
    * @param string $fileid File ID
    * @return boolean Query result
    */
-  public function create($username, $fileid) {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, fileid) VALUES (:val1, :val2)');
-    $query->bindParam('val1', $username);
-    $query->bindParam('val2', $fileid);
+  public function create(string $username, string $fileid): bool {
+    // Prevent duplicate user-file entries
+    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :username AND fileid = :fileid');
+    $query->bindParam(':username', $username);
+    $query->bindParam(':fileid', $fileid);
+    $query->execute();
+    if ($query->fetchColumn() > 0) {
+      return true;
+    }
+    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, fileid) VALUES (:username, :fileid)');
+    $query->bindParam(':username', $username);
+    $query->bindParam(':fileid', $fileid);
     return $query->execute();
   }
 
@@ -101,11 +108,10 @@ class UserAttachment {
    * @param boolean $archive Whether to use archive table
    * @return boolean Query result
    */
-  public function deleteAll($archive = false) {
+  public function deleteAll(bool $archive = false): bool {
     if ($archive) {
       $table = $this->archive_table;
-    }
-    else {
+    } else {
       $table = $this->table;
     }
     $query = $this->db->prepare("DELETE FROM " . $table . " WHERE username <> 'admin'");
@@ -120,11 +126,10 @@ class UserAttachment {
    * @param boolean $archive Whether to use archive table
    * @return boolean Query result
    */
-  public function deleteUser($username = '', $archive = false) {
+  public function deleteUser(string $username = '', bool $archive = false): bool {
     if ($archive) {
       $table = $this->archive_table;
-    }
-    else {
+    } else {
       $table = $this->table;
     }
     $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username = :val1');
@@ -139,7 +144,7 @@ class UserAttachment {
    * @param string $fileid File ID
    * @return boolean Query result
    */
-  public function deleteFile($fileid) {
+  public function deleteFile(string $fileid): bool {
     $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE fileid = :val1');
     $query->bindParam('val1', $fileid);
     return $query->execute();
@@ -153,10 +158,10 @@ class UserAttachment {
    * @param string $fileid File ID to find
    * @return string true if exists, false if not
    */
-  public function hasAccess($username, $fileid) {
-    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :val1 AND fileid = :val2');
-    $query->bindParam('val1', $username);
-    $query->bindParam('val2', $fileid);
+  public function hasAccess(string $username, string $fileid): bool|int {
+    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :username AND fileid = :fileid');
+    $query->bindParam(':username', $username);
+    $query->bindParam(':fileid', $fileid);
     $result = $query->execute();
     return $result && $query->fetchColumn();
   }
