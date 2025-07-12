@@ -64,7 +64,7 @@ class License {
    */
   public function callAPI(string $method, string $url, $data = false): bool|string {
     if (defined('APP_LIC_LOCAL')) {
-      return APP_LIC_LOCAL;
+      return constant('APP_LIC_LOCAL');
     }
     $curl = curl_init();
     switch (strtoupper($method)) {
