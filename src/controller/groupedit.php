@@ -25,7 +25,7 @@ $GG = new Groups(); // for the profile to be created or updated
 if (isset($_GET['id'])) {
   $missingData = false;
   $id = sanitize($_GET['id']);
-  if (!$GG->getById($id)) {
+  if ($GG->getById($id) === false) {
     $missingData = true;
   }
 } else {
@@ -48,7 +48,7 @@ if ($missingData) {
 //-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
-if (!isAllowed($CONF['controllers'][$controller]->permission) && !$UG->isGroupManagerOfGroup($UL->username, $GG->id)) {
+if (isAllowed($CONF['controllers'][$controller]->permission) === false && $UG->isGroupManagerOfGroup($UL->username, $GG->id) === false) {
   $alertData['type'] = 'warning';
   $alertData['title'] = $LANG['alert_alert_title'];
   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
@@ -109,27 +109,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   //
   $inputError = false;
   if (isset($_POST['btn_groupUpdate'])) {
-    if (!formInputValid('txt_name', 'required|alpha_numeric_dash')) {
+    if (formInputValid('txt_name', 'required|alpha_numeric_dash') !== true) {
       $inputError = true;
     }
-    if (!formInputValid('txt_description', 'alpha_numeric_dash_blank')) {
+    if (formInputValid('txt_description', 'alpha_numeric_dash_blank') !== true) {
       $inputError = true;
     }
-    if (!formInputValid('txt_minpresent', 'numeric')) {
+    if (formInputValid('txt_minpresent', 'numeric') !== true) {
       $inputError = true;
     }
-    if (!formInputValid('txt_maxabsent', 'numeric')) {
+    if (formInputValid('txt_maxabsent', 'numeric') !== true) {
       $inputError = true;
     }
-    if (!formInputValid('txt_minpresentwe', 'numeric')) {
+    if (formInputValid('txt_minpresentwe', 'numeric') !== true) {
       $inputError = true;
     }
-    if (!formInputValid('txt_maxabsentwe', 'numeric')) {
+    if (formInputValid('txt_maxabsentwe', 'numeric') !== true) {
       $inputError = true;
     }
   }
 
-  if (!$inputError) {
+  if ($inputError === false) {
     // ,--------,
     // | Update |
     // '--------'
@@ -183,6 +183,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $alertData['text'] = $LANG['group_alert_edit_success'];
       $alertData['help'] = '';
 
+      // Renew CSRF token after successful POST to prevent replay
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+
       //
       // Load new info for the view
       //
@@ -210,26 +213,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 // PREPARE VIEW
 //
 $viewData['group'] = array(
-  array( 'prefix' => 'group', 'name' => 'name', 'type' => isAllowed($CONF['controllers'][$controller]->permission)? 'text' : 'info', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' => (isset($inputAlert['name']) ? $inputAlert['name'] : '') ),
-  array( 'prefix' => 'group', 'name' => 'description', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['description'], 'maxlength' => '100', 'error' => (isset($inputAlert['description']) ? $inputAlert['description'] : '') ),
-  array( 'prefix' => 'group', 'name' => 'minpresent', 'type' => 'text', 'placeholder' => '0', 'value' => $viewData['minpresent'], 'maxlength' => '4', 'error' => (isset($inputAlert['minpresent']) ? $inputAlert['minpresent'] : '') ),
-  array( 'prefix' => 'group', 'name' => 'maxabsent', 'type' => 'text', 'placeholder' => '9999', 'value' => $viewData['maxabsent'], 'maxlength' => '4', 'error' => (isset($inputAlert['maxabsent']) ? $inputAlert['maxabsent'] : '') ),
-  array( 'prefix' => 'group', 'name' => 'minpresentwe', 'type' => 'text', 'placeholder' => '0', 'value' => $viewData['minpresentwe'], 'maxlength' => '4', 'error' => (isset($inputAlert['minpresentwe']) ? $inputAlert['minpresentwe'] : '') ),
-  array( 'prefix' => 'group', 'name' => 'maxabsentwe', 'type' => 'text', 'placeholder' => '9999', 'value' => $viewData['maxabsentwe'], 'maxlength' => '4', 'error' => (isset($inputAlert['maxabsentwe']) ? $inputAlert['maxabsentwe'] : '') ),
+  array( 'prefix' => 'group', 'name' => 'name', 'type' => isAllowed($CONF['controllers'][$controller]->permission)? 'text' : 'info', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' => ($inputAlert['name'] ?? '') ),
+  array( 'prefix' => 'group', 'name' => 'description', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['description'], 'maxlength' => '100', 'error' => ($inputAlert['description'] ?? '') ),
+  array( 'prefix' => 'group', 'name' => 'minpresent', 'type' => 'text', 'placeholder' => '0', 'value' => $viewData['minpresent'], 'maxlength' => '4', 'error' => ($inputAlert['minpresent'] ?? '') ),
+  array( 'prefix' => 'group', 'name' => 'maxabsent', 'type' => 'text', 'placeholder' => '9999', 'value' => $viewData['maxabsent'], 'maxlength' => '4', 'error' => ($inputAlert['maxabsent'] ?? '') ),
+  array( 'prefix' => 'group', 'name' => 'minpresentwe', 'type' => 'text', 'placeholder' => '0', 'value' => $viewData['minpresentwe'], 'maxlength' => '4', 'error' => ($inputAlert['minpresentwe'] ?? '') ),
+  array( 'prefix' => 'group', 'name' => 'maxabsentwe', 'type' => 'text', 'placeholder' => '9999', 'value' => $viewData['maxabsentwe'], 'maxlength' => '4', 'error' => ($inputAlert['maxabsentwe'] ?? '') ),
 );
 
-if (isAllowed("groupmemberships") || $UG->isGroupManagerOfGroup($UL->username, $viewData['id'])) {
-  $disabled = false;
-} else {
-  $disabled = true;
+$disabled = !(isAllowed("groupmemberships") || $UG->isGroupManagerOfGroup($UL->username, $viewData['id']));
+
+$allUsers = $U->getAll();
+$groupId = $viewData['id'];
+$groupMembers = $UG->getAllMemberUsernames($groupId);    // array of usernames
+$groupManagers = $UG->getAllManagerUsernames($groupId);  // array of usernames
+$viewData['memberlist'] = [];
+$viewData['managerlist'] = [];
+foreach ($allUsers as $user) {
+  $fullname = $user['lastname'] . ', ' . $user['firstname'];
+  $username = $user['username'];
+  $viewData['memberlist'][] = array(
+    'val' => $username,
+    'name' => $fullname,
+    'selected' => in_array($username, $groupMembers)
+  );
+  $viewData['managerlist'][] = array(
+    'val' => $username,
+    'name' => $fullname,
+    'selected' => in_array($username, $groupManagers)
+  );
 }
-$members = $U->getAll();
-foreach ($members as $member) {
-  $fullname = $member['lastname'] . ', ' . $member['firstname'];
-  $username = $member['username'];
-  $viewData['memberlist'][] = array( 'val' => $username, 'name' => $fullname, 'selected' => ($UG->isMemberOfGroup($username, $viewData['id'])) ? true : false );
-  $viewData['managerlist'][] = array( 'val' => $username, 'name' => $fullname, 'selected' => ($UG->isGroupManagerOfGroup($username, $viewData['id'])) ? true : false );
-}
+
 $viewData['members'] = array(
   array( 'prefix' => 'group', 'name' => 'members', 'type' => 'listmulti', 'values' => $viewData['memberlist'], 'disabled' => $disabled ),
 );
