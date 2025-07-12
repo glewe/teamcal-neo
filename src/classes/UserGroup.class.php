@@ -216,7 +216,7 @@ class UserGroup {
 
   //---------------------------------------------------------------------------
   /**
-   * Gets all usernames of a given group (managers and members)
+   * Gets all records of a given group (managers and members)
    *
    * @param string $groupid Group ID to search by
    * @return array Array with all group records
@@ -230,6 +230,46 @@ class UserGroup {
     if ($result) {
       while ($row = $query->fetch()) {
         $records[] = $row;
+      }
+    }
+    return $records;
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Gets all manager usernames of a given group ID
+   *
+   * @param string $groupid Group ID to search by
+   * @return array Array with all group records
+   */
+  public function getAllManagerUsernames(string $groupid): array {
+    $records = [];
+    $query = $this->db->prepare("SELECT username FROM {$this->table} WHERE groupid = :groupid AND type ='manager' ORDER BY username ASC");
+    $query->bindParam('groupid', $groupid);
+    $result = $query->execute();
+    if ($result) {
+      while ($row = $query->fetch()) {
+        $records[] = $row['username'];
+      }
+    }
+    return $records;
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Gets all member usernames of a given group ID
+   *
+   * @param string $groupid Group ID to search by
+   * @return array Array with all group records
+   */
+  public function getAllMemberUsernames(string $groupid): array {
+    $records = [];
+    $query = $this->db->prepare("SELECT username FROM {$this->table} WHERE groupid = :groupid AND type ='member' ORDER BY username ASC");
+    $query->bindParam('groupid', $groupid);
+    $result = $query->execute();
+    if ($result) {
+      while ($row = $query->fetch()) {
+        $records[] = $row['username'];
       }
     }
     return $records;
