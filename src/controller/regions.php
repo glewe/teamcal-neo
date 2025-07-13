@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Regions Controller
  *
@@ -36,7 +37,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //
 $date = new DateTime();
 $weekday = $date->format('N');
-if ($weekday == rand(1, 7)) {
+if ($weekday === rand(1, 7)) {
   $alertData = array();
   $showAlert = false;
   $licExpiryWarning = $C->read('licExpiryWarning');
@@ -61,11 +62,38 @@ $viewData['txt_description'] = '';
 // PROCESS FORM
 //
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+  //
+  // Sanitize all POST data at the start of POST processing
+  //
+  $_POST = sanitize($_POST);
+
+  //
+  // Sanitize all FILES data at the start of POST processing
+  //
+  if (isset($_FILES) && is_array($_FILES)) {
+    foreach ($_FILES as $key => $file) {
+      if (isset($file['name'])) {
+        $_FILES[$key]['name'] = htmlspecialchars($file['name'], ENT_QUOTES, 'UTF-8');
+      }
+      if (isset($file['type'])) {
+        $_FILES[$key]['type'] = htmlspecialchars($file['type'], ENT_QUOTES, 'UTF-8');
+      }
+      if (isset($file['tmp_name'])) {
+        $_FILES[$key]['tmp_name'] = htmlspecialchars($file['tmp_name'], ENT_QUOTES, 'UTF-8');
+      }
+      if (isset($file['error'])) {
+        $_FILES[$key]['error'] = htmlspecialchars((string)$file['error'], ENT_QUOTES, 'UTF-8');
+      }
+      if (isset($file['size'])) {
+        $_FILES[$key]['size'] = htmlspecialchars((string)$file['size'], ENT_QUOTES, 'UTF-8');
+      }
+    }
+  }
 
   //
   // CSRF token check
   //
-  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+  if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== ($_SESSION['csrf_token'] ?? '')) {
     $alertData['type'] = 'warning';
     $alertData['title'] = $LANG['alert_alert_title'];
     $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
@@ -95,10 +123,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $inputError = true;
     }
 
-    $viewData['txt_name'] = $_POST['txt_name'];
-    if (isset($_POST['txt_description'])) {
-      $viewData['txt_description'] = $_POST['txt_description'];
-    }
+
+    $viewData['txt_name'] = $_POST['txt_name'] ?? '';
+    $viewData['txt_description'] = $_POST['txt_description'] ?? '';
 
     if (!$inputError) {
       $R->name = $viewData['txt_name'];
@@ -117,6 +144,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $alertData['subject'] = $LANG['btn_create_region'];
       $alertData['text'] = $LANG['regions_alert_region_created'];
       $alertData['help'] = '';
+      //
+      // Renew CSRF token after successful POST
+      //
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     } else {
       //
       // Fail
@@ -133,14 +164,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   // | Delete |
   // '--------'
   elseif (isset($_POST['btn_regionDelete'])) {
-    $R->delete($_POST['hidden_id']);
-    $R->deleteAccess($_POST['hidden_id']);
-    $M->deleteRegion($_POST['hidden_id']);
-    $UO->deleteOptionByValue('calfilterRegion', $_POST['hidden_id']);
-    //
-    // Log this event
-    //
-    $LOG->logEvent("logRegion", L_USER, "log_region_deleted", $_POST['hidden_name']);
+    $hiddenId = $_POST['hidden_id'] ?? null;
+    $hiddenName = $_POST['hidden_name'] ?? '';
+    if ($hiddenId !== null) {
+      $R->delete($hiddenId);
+      $R->deleteAccess($hiddenId);
+      $M->deleteRegion($hiddenId);
+      $UO->deleteOptionByValue('calfilterRegion', $hiddenId);
+      //
+      // Log this event
+      //
+      $LOG->logEvent("logRegion", L_USER, "log_region_deleted", $hiddenName);
+    }
     //
     // Success
     //
@@ -150,12 +185,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     $alertData['subject'] = $LANG['btn_delete_region'];
     $alertData['text'] = $LANG['regions_alert_region_deleted'];
     $alertData['help'] = '';
+    //
+    // Renew CSRF token after successful POST
+    //
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
   }
   // ,-------------,
   // | iCal Import |
   // '-------------'
   elseif (isset($_POST['btn_uploadIcal'])) {
-    if (trim($_FILES['file_ical']['tmp_name']) == '') {
+    $fileIcal = $_FILES['file_ical']['tmp_name'] ?? '';
+    if (trim($fileIcal) === '') {
       //
       // No filename was submitted
       //
@@ -165,14 +205,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $alertData['subject'] = $LANG['alert_input'];
       $alertData['text'] = $LANG['regions_alert_no_file'];
       $alertData['help'] = '';
+      // Renew CSRF token after successful POST
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     } else {
-      $viewData['icalRegionID'] = $_POST['sel_ical_region'];
+      $viewData['icalRegionID'] = $_POST['sel_ical_region'] ?? '';
       $viewData['icalRegionName'] = $R->getNameById($viewData['icalRegionID']);
       //
       // Parse the iCal file events
       //
       $iCalEvents = array();
-      preg_match_all("#(?sU)BEGIN:VEVENT.*END:VEVENT#", file_get_contents($_FILES['file_ical']['tmp_name']), $events);
+      preg_match_all("#(?sU)BEGIN:VEVENT.*END:VEVENT#", file_get_contents($fileIcal), $events);
       //
       // Now go through all events
       //
@@ -180,8 +222,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         //
         // Read the event start and end string
         //
-        preg_match("#(?sU)DTSTART;.*DATE:(\d{8})#", $event, $start);
-        preg_match("#(?sU)DTEND;.*DATE:(\d{8})#", $event, $end);
+        preg_match("#(?sU)DTSTART;.*DATE:(\\d{8})#", $event, $start);
+        preg_match("#(?sU)DTEND;.*DATE:(\\d{8})#", $event, $end);
+        if (!isset($start[1], $end[1])) {
+          continue;
+        }
         //
         // Create time stamps and substract 24h from the end date cause the
         // end date of an iCal event is not included
@@ -224,24 +269,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
           $M->update($M->year, $M->month, $viewData['icalRegionID']);
         }
 
-        if ($M->getHoliday($eventYear, $eventMonth, $eventDay, $viewData['icalRegionID']) == 0) {
+        $holidayId = $_POST['sel_ical_holiday'] ?? null;
+        if ($holidayId === null) {
+          continue;
+        }
+        if ($M->getHoliday($eventYear, $eventMonth, $eventDay, $viewData['icalRegionID']) === 0) {
           //
           // No Holiday set yet for this day. Good to overwrite.
           //
-          $M->setHoliday($eventYear, $eventMonth, $eventDay, $viewData['icalRegionID'], $_POST['sel_ical_holiday']);
+          $M->setHoliday($eventYear, $eventMonth, $eventDay, $viewData['icalRegionID'], $holidayId);
         } else {
           //
           // This is an existing holiday. Check the overwrite flag.
           //
           if (isset($_POST['chk_ical_overwrite'])) {
-            $M->setHoliday($eventYear, $eventMonth, $eventDay, $viewData['icalRegionID'], $_POST['sel_ical_holiday']);
+            $M->setHoliday($eventYear, $eventMonth, $eventDay, $viewData['icalRegionID'], $holidayId);
           }
         }
       }
       //
       // Log this event
       //
-      $LOG->logEvent("logRegion", L_USER, "log_region_ical", $_FILES['file_ical']['name'] . ' => ' . $viewData['icalRegionName']);
+      $fileName = $_FILES['file_ical']['name'] ?? '';
+      $LOG->logEvent("logRegion", L_USER, "log_region_ical", $fileName . ' => ' . $viewData['icalRegionName']);
       //
       // Success
       //
@@ -249,15 +299,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $alertData['type'] = 'success';
       $alertData['title'] = $LANG['alert_success_title'];
       $alertData['subject'] = $LANG['regions_tab_ical'];
-      $alertData['text'] = sprintf($LANG['regions_ical_imported'], $_FILES['file_ical']['name'], $viewData['icalRegionName']);
+      $alertData['text'] = sprintf($LANG['regions_ical_imported'], $fileName, $viewData['icalRegionName']);
       $alertData['help'] = '';
+      //
+      // Renew CSRF token after successful POST
+      //
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
   }
   // ,----------,
   // | Transfer |
   // '----------'
   elseif (isset($_POST['btn_regionTransfer'])) {
-    if ($_POST['sel_region_a'] == $_POST['sel_region_b']) {
+    $sregion = $_POST['sel_region_a'] ?? '';
+    $tregion = $_POST['sel_region_b'] ?? '';
+    if ($sregion === $tregion) {
       //
       // Same source and target region
       //
@@ -271,8 +327,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       //
       // Loop through every month of the source region
       //
-      $sregion = $_POST['sel_region_a'];
-      $tregion = $_POST['sel_region_b'];
       $stemplates = $M->getRegion($sregion);
 
       foreach ($stemplates as $stpl) {
@@ -287,11 +341,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         $M->getMonth($stpl['year'], $stpl['month'], $tregion);
         for ($i = 1; $i <= 31; $i++) {
           $prop = 'hol' . $i;
-          if ($stpl[$prop] > 3) {
+          if (($stpl[$prop] ?? 0) > 3) {
             //
             // Source holds a custom holiday here (1 = Business day, 2 = Saturday, 3 = Sunday)
             //
-            if ($M->$prop <= 3) {
+            if (($M->$prop ?? 0) <= 3) {
               //
               // Target holds no custom holiday here. Save to overwrite.
               //
@@ -333,23 +387,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //
 $viewData['regions'] = $R->getAll();
 foreach ($viewData['regions'] as $region) {
-  $viewData['regionList'][] = array( 'val' => $region['id'], 'name' => $region['name'], 'selected' => false );
+  $viewData['regionList'][] = array('val' => $region['id'], 'name' => $region['name'], 'selected' => false);
 }
 
 $holidays = $H->getAll();
 foreach ($holidays as $holiday) {
-  $viewData['holidayList'][] = array( 'val' => $holiday['id'], 'name' => $holiday['name'], 'selected' => false );
+  $viewData['holidayList'][] = array('val' => $holiday['id'], 'name' => $holiday['name'], 'selected' => false);
 }
 $viewData['ical'] = array(
-  array( 'prefix' => 'regions', 'name' => 'ical_region', 'type' => 'list', 'values' => $viewData['regionList'] ),
-  array( 'prefix' => 'regions', 'name' => 'ical_holiday', 'type' => 'list', 'values' => $viewData['holidayList'] ),
-  array( 'prefix' => 'regions', 'name' => 'ical_overwrite', 'type' => 'check', 'value' => false ),
+  array('prefix' => 'regions', 'name' => 'ical_region', 'type' => 'list', 'values' => $viewData['regionList']),
+  array('prefix' => 'regions', 'name' => 'ical_holiday', 'type' => 'list', 'values' => $viewData['holidayList']),
+  array('prefix' => 'regions', 'name' => 'ical_overwrite', 'type' => 'check', 'value' => false),
 );
 
 $viewData['merge'] = array(
-  array( 'prefix' => 'regions', 'name' => 'region_a', 'type' => 'list', 'values' => $viewData['regionList'] ),
-  array( 'prefix' => 'regions', 'name' => 'region_b', 'type' => 'list', 'values' => $viewData['regionList'] ),
-  array( 'prefix' => 'regions', 'name' => 'region_overwrite', 'type' => 'check', 'value' => false ),
+  array('prefix' => 'regions', 'name' => 'region_a', 'type' => 'list', 'values' => $viewData['regionList']),
+  array('prefix' => 'regions', 'name' => 'region_b', 'type' => 'list', 'values' => $viewData['regionList']),
+  array('prefix' => 'regions', 'name' => 'region_overwrite', 'type' => 'check', 'value' => false),
 );
 
 //-----------------------------------------------------------------------------
