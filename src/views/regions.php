@@ -23,7 +23,7 @@ view.regions
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 8;
     $colsright = 4;
     ?>
@@ -43,20 +43,20 @@ view.regions
           <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
 
           <div class="mb-4">
-            <button type="button" class="btn btn-success float-end" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateRegion"><?= $LANG['btn_create_region'] ?></button>
+            <button type="button" class="btn btn-success float-end" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalCreateRegion"><?= $LANG['btn_create_region'] ?></button>
           </div>
 
           <!-- Modal: Create region -->
           <?= createModalTop('modalCreateRegion', $LANG['btn_create_region']) ?>
           <label for="inputName"><?= $LANG['name'] ?></label>
-          <input id="inputName" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_name" maxlength="40" value="<?= $viewData['txt_name'] ?>" type="text">
+          <input id="inputName" class="form-control" tabindex="<?= ++$tabindex ?>" name="txt_name" maxlength="40" value="<?= $viewData['txt_name'] ?>" type="text">
           <?php if (isset($inputAlert["name"]) && strlen($inputAlert["name"])) { ?>
             <br>
             <div class="alert alert-dismissable alert-danger">
               <button type="button" class="btn-close float-end" data-bs-dismiss="alert">x</button><?= $inputAlert["name"] ?></div>
           <?php } ?>
           <label for="inputDescription"><?= $LANG['description'] ?></label>
-          <input id="inputDescription" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_description" maxlength="100" value="<?= $viewData['txt_description'] ?>" type="text">
+          <input id="inputDescription" class="form-control" tabindex="<?= ++$tabindex ?>" name="txt_description" maxlength="100" value="<?= $viewData['txt_description'] ?>" type="text">
           <?php if (isset($inputAlert["description"]) && strlen($inputAlert["description"])) { ?>
             <br>
             <div class="alert alert-dismissable alert-danger">
@@ -105,8 +105,8 @@ view.regions
                         <?php if ($region['id'] != '1') : ?>
                         <form class="form-control-horizontal" name="form_<?= $region['name'] ?>" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
                           <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
-                          <button type="button" class="btn btn-danger btn-sm" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRegion_<?= $region['name'] ?>"><?= $LANG['btn_delete'] ?></button>
-                          <a href="index.php?action=regionedit&amp;id=<?= $region['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_edit'] ?></a>
+                          <button type="button" class="btn btn-danger btn-sm" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRegion_<?= $region['name'] ?>"><?= $LANG['btn_delete'] ?></button>
+                          <a href="index.php?action=regionedit&amp;id=<?= $region['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_edit'] ?></a>
                           <input name="hidden_id" type="hidden" value="<?= $region['id'] ?>">
                           <input name="hidden_name" type="hidden" value="<?= $region['name'] ?>">
                           <input name="hidden_description" type="hidden" value="<?= $region['description'] ?>">
@@ -115,7 +115,7 @@ view.regions
                           <?= $LANG['regions_confirm_delete'] . ": " . $region['name'] ?>
                           <?= createModalBottom('btn_regionDelete', 'danger', $LANG['btn_delete']) ?>
                           <?php endif; ?>
-                          <a href="index.php?action=monthedit&amp;month=<?= date('Y') . date('m') ?>&amp;region=<?= $region['id'] ?>" class="btn btn-info btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_calendar'] ?></a>
+                          <a href="index.php?action=monthedit&amp;month=<?= date('Y') . date('m') ?>&amp;region=<?= $region['id'] ?>" class="btn btn-info btn-sm" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_calendar'] ?></a>
                         </form>
                       </td>
                     </tr>
@@ -154,7 +154,7 @@ view.regions
                       <span class="text-normal"><?= $LANG['regions_ical_file_comment'] ?></span>
                     </label>
                     <div class="col-lg-<?= $colsright ?>">
-                      <input class="form-control" tabindex="<?= $tabindex++ ?>" accept="text/calendar" name="file_ical" type="file">
+                      <input class="form-control" tabindex="<?= ++$tabindex ?>" accept="text/calendar" name="file_ical" type="file">
                     </div>
                   </div>
                   <div class="divider">
@@ -169,6 +169,7 @@ view.regions
               <!-- Copy tab -->
               <div class="tab-pane fade" id="panel-copy" role="tabpanel" aria-labelledby="tab-copy">
                 <form class="bs-example form-control-horizontal" name="form_merge" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
+                  <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
                   <?php foreach ($viewData['merge'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
