@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Users Controller
  *
@@ -23,7 +24,18 @@ global $G;
 //-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
-if (!isAllowed($CONF['controllers'][$controller]->permission)) {
+if (isset($controller) && $controller !== '' && isset($CONF['controllers'][$controller]) && isset($CONF['controllers'][$controller]->permission)) {
+  if (!isAllowed($CONF['controllers'][$controller]->permission)) {
+    $alertData['type'] = 'warning';
+    $alertData['title'] = $LANG['alert_alert_title'];
+    $alertData['subject'] = $LANG['alert_not_allowed_subject'];
+    $alertData['text'] = $LANG['alert_not_allowed_text'];
+    $alertData['help'] = $LANG['alert_not_allowed_help'];
+    require_once WEBSITE_ROOT . '/controller/alert.php';
+    die();
+  }
+} else {
+  // Controller or permission not set, deny access
   $alertData['type'] = 'warning';
   $alertData['title'] = $LANG['alert_alert_title'];
   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
@@ -38,7 +50,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //
 $date = new DateTime();
 $weekday = $date->format('N');
-if ($weekday == rand(1, 7)) {
+if ($weekday === rand(1, 7)) {
   $alertData = array();
   $showAlert = false;
   $licExpiryWarning = $C->read('licExpiryWarning');
@@ -66,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   //
   // CSRF token check
   //
-  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+  if (!isset($_POST['csrf_token']) || ($_POST['csrf_token'] ?? '') !== ($_SESSION['csrf_token'] ?? '')) {
     $alertData['type'] = 'warning';
     $alertData['title'] = $LANG['alert_alert_title'];
     $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
@@ -85,12 +97,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   //
   $inputError = false;
 
-  if (!$inputError) {
+  if ($inputError === false) {
     // ,----------,
     // | Activate |
     // '----------'
     if (isset($_POST['btn_userActivate'])) {
-      $selected_users = $_POST['chk_userActive'];
+      $selected_users = [];
+      if (isset($_POST['chk_userActive']) && is_array($_POST['chk_userActive'])) {
+        $selected_users = $_POST['chk_userActive'];
+      }
       foreach ($selected_users as $su => $value) {
         $U->unhide($value);
         $U->unhold($value);
@@ -111,7 +126,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Archive |
     // '---------'
     elseif (isset($_POST['btn_userArchive']) && isset($_POST['chk_userActive'])) {
-      $selected_users = $_POST['chk_userActive'];
+      $selected_users = [];
+      if (isset($_POST['chk_userActive']) && is_array($_POST['chk_userActive'])) {
+        $selected_users = $_POST['chk_userActive'];
+      }
       //
       // Check if one or more users already exists in any archive table.
       // If so, we will not archive anything.
@@ -148,7 +166,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Restore |
     // '---------'
     elseif (isset($_POST['btn_profileRestore']) && isset($_POST['chk_userArchived'])) {
-      $selected_users = $_POST['chk_userArchived'];
+      $selected_users = [];
+      if (isset($_POST['chk_userArchived']) && is_array($_POST['chk_userArchived'])) {
+        $selected_users = $_POST['chk_userArchived'];
+      }
       //
       // Check if one or more users already exists in any active table.
       // If so, we will not restore anything.
@@ -185,7 +206,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Delete Active |
     // '---------------'
     elseif (isset($_POST['btn_profileDelete']) && isset($_POST['chk_userActive'])) {
-      $selected_users = $_POST['chk_userActive'];
+      $selected_users = [];
+      if (isset($_POST['chk_userActive']) && is_array($_POST['chk_userActive'])) {
+        $selected_users = $_POST['chk_userActive'];
+      }
       foreach ($selected_users as $su => $value) {
         //
         // Send notification e-mails to the subscribers of user events. In this case,
@@ -211,7 +235,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Delete Archived |
     // '-----------------'
     elseif (isset($_POST['btn_profileDeleteArchived']) && isset($_POST['chk_userArchived'])) {
-      $selected_users = $_POST['chk_userArchived'];
+      $selected_users = [];
+      if (isset($_POST['chk_userArchived']) && is_array($_POST['chk_userArchived'])) {
+        $selected_users = $_POST['chk_userArchived'];
+      }
       foreach ($selected_users as $su => $value) {
         deleteUser($value, $fromArchive = true);
       }
@@ -229,7 +256,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Reset Password |
     // '----------------'
     elseif (isset($_POST['btn_userResetPassword']) && isset($_POST['chk_userActive'])) {
-      $selected_users = $_POST['chk_userActive'];
+      $selected_users = [];
+      if (isset($_POST['chk_userActive']) && is_array($_POST['chk_userActive'])) {
+        $selected_users = $_POST['chk_userActive'];
+      }
       foreach ($selected_users as $su => $value) {
         //
         // Find user and reset password
@@ -258,7 +288,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Remove 2FA |
     // '------------'
     elseif (isset($_POST['btn_userRemoveSecret']) && isset($_POST['chk_userActive'])) {
-      $selected_users = $_POST['chk_userActive'];
+      $selected_users = [];
+      if (isset($_POST['chk_userActive']) && is_array($_POST['chk_userActive'])) {
+        $selected_users = $_POST['chk_userActive'];
+      }
       foreach ($selected_users as $su => $value) {
         //
         // Find user and reset password
@@ -291,6 +324,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     $alertData['text'] = $LANG['register_alert_failed'];
     $alertData['help'] = '';
   }
+  //
+  // Regenerate CSRF token after successful POST to prevent replay attacks
+  //
+  if (function_exists('random_bytes')) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+  } else {
+    $_SESSION['csrf_token'] = bin2hex(openssl_random_pseudo_bytes(32));
+  }
 }
 
 //-----------------------------------------------------------------------------
@@ -310,14 +351,14 @@ $users = $U->getAll('lastname', 'firstname', 'ASC', $archive = false, $includeAd
 if (isset($_POST['btn_search'])) {
   $searchUsers = array();
 
-  if (isset($_POST['txt_searchUser']) && strlen($_POST['txt_searchUser'])) {
-    $searchUser = sanitize($_POST['txt_searchUser']);
+  if (isset($_POST['txt_searchUser']) && strlen($_POST['txt_searchUser'] ?? '') !== 0) {
+    $searchUser = sanitize($_POST['txt_searchUser'] ?? '');
     $viewData['searchUser'] = $searchUser;
     $users = $U->getAllLike($searchUser);
   }
 
-  if (isset($_POST['sel_searchGroup']) && ($_POST['sel_searchGroup'] != "All")) {
-    $searchGroup = sanitize($_POST['sel_searchGroup']);
+  if (isset($_POST['sel_searchGroup']) && (($_POST['sel_searchGroup'] ?? '') !== "All")) {
+    $searchGroup = sanitize($_POST['sel_searchGroup'] ?? '');
     $viewData['searchGroup'] = $searchGroup;
     foreach ($users as $user) {
       if ($UG->isMemberOrManagerOfGroup($user['username'], $searchGroup)) {
@@ -327,8 +368,8 @@ if (isset($_POST['btn_search'])) {
     $users = $searchUsers;
   }
 
-  if (isset($_POST['sel_searchRole']) && ($_POST['sel_searchRole'] != "All")) {
-    $searchRole = sanitize($_POST['sel_searchRole']);
+  if (isset($_POST['sel_searchRole']) && (($_POST['sel_searchRole'] ?? '') !== "All")) {
+    $searchRole = sanitize($_POST['sel_searchRole'] ?? '');
     $viewData['searchRole'] = $searchRole;
     foreach ($users as $user) {
       if ($user['role'] == $searchRole) {
