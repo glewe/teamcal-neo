@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // ,--------,
     // | Create |
     // '--------'
-    if (isset($_POST['btn_roleCreate'])) {
+    if (isset($_POST['btn_roleCreate']) && $_POST['btn_roleCreate'] === '1') {
       //
       // Sanitize input
       //
@@ -99,10 +99,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         $inputError = true;
         $alertData['text'] = $LANG['roles_alert_created_fail_input'];
       }
-      $viewData['txt_name'] = $_POST['txt_name'];
+      $viewData['txt_name'] = htmlspecialchars($_POST['txt_name'] ?? '', ENT_QUOTES, 'UTF-8');
 
       if (isset($_POST['txt_description'])) {
-        $viewData['txt_description'] = $_POST['txt_description'];
+        $viewData['txt_description'] = htmlspecialchars($_POST['txt_description'], ENT_QUOTES, 'UTF-8');
       }
 
       if (!$inputError) {
@@ -129,6 +129,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         $alertData['subject'] = $LANG['btn_create_pattern'];
         $alertData['text'] = $LANG['roles_alert_created'];
         $alertData['help'] = '';
+        // Renew CSRF token after successful create
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
       } else {
         //
         // Fail
@@ -143,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // ,--------,
     // | Delete |
     // '--------'
-    elseif (isset($_POST['btn_patternDelete'])) {
+    elseif (isset($_POST['btn_patternDelete']) && $_POST['btn_patternDelete'] === '1') {
       //
       // Delete Pattern
       //
@@ -161,6 +163,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $alertData['subject'] = $LANG['btn_delete_pattern'];
       $alertData['text'] = $LANG['ptn_alert_deleted'];
       $alertData['help'] = '';
+      // Renew CSRF token after successful delete
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
   } else {
     //
