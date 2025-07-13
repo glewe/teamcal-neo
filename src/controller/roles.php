@@ -82,15 +82,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   //
   // Validate input data. If something is wrong or missing, set $inputError = true
   //
-  if (!$inputError) {
+if ($inputError === false) {
     // ,--------,
     // | Create |
     // '--------'
     if (isset($_POST['btn_roleCreate'])) {
-      //
-      // Sanitize input
-      //
-      $_POST = sanitize($_POST);
       //
       // Form validation
       //
@@ -104,17 +100,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         $alertData['text'] = $LANG['roles_alert_created_fail_input'];
       }
       $viewData['txt_name'] = $_POST['txt_name'];
-
-      if (isset($_POST['txt_description'])) {
-        $viewData['txt_description'] = $_POST['txt_description'];
-      }
+      $viewData['txt_description'] = $_POST['txt_description'] ?? '';
 
       if ($RO->getByName($_POST['txt_name'])) {
         $inputError = true;
         $alertData['text'] = $LANG['roles_alert_created_fail_duplicate'];
       }
 
-      if (!$inputError) {
+      if ($inputError === false) {
         $RO->name = $viewData['txt_name'];
         $RO->description = $viewData['txt_description'];
         $RO->color = 'default';
@@ -153,33 +146,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Delete |
     // '--------'
     elseif (isset($_POST['btn_roleDelete'])) {
-      //
-      // Delete Role
-      //
-      $RO->delete($_POST['hidden_id']);
-      //
-      // Delete Role in all permission schemes
-      //
-      $P->deleteRole($_POST['hidden_id']);
-      //
-      // Send notification e-mails to the subscribers of role events
-      //
-      if ($C->read("emailNotifications")) {
-        sendRoleEventNotifications("deleted", $_POST['hidden_name'], $_POST['hidden_description']);
+      // Defensive: check required POST fields
+      if (isset($_POST['hidden_id'], $_POST['hidden_name'], $_POST['hidden_description'])) {
+        // Delete Role
+        $RO->delete($_POST['hidden_id']);
+        // Delete Role in all permission schemes
+        $P->deleteRole($_POST['hidden_id']);
+        // Send notification e-mails to the subscribers of role events
+        if ($C->read("emailNotifications")) {
+          sendRoleEventNotifications("deleted", $_POST['hidden_name'], $_POST['hidden_description']);
+        }
+        // Log this event
+        $LOG->logEvent("logRole", L_USER, "log_role_deleted", $_POST['hidden_name']);
+        // Success
+        $showAlert = true;
+        $alertData['type'] = 'success';
+        $alertData['title'] = $LANG['alert_success_title'];
+        $alertData['subject'] = $LANG['btn_delete_role'];
+        $alertData['text'] = $LANG['roles_alert_deleted'];
+        $alertData['help'] = '';
+      } else {
+        // Fail: missing POST data
+        $showAlert = true;
+        $alertData['type'] = 'danger';
+        $alertData['title'] = $LANG['alert_danger_title'];
+        $alertData['subject'] = $LANG['btn_delete_role'];
+        $alertData['text'] = $LANG['roles_alert_deleted_fail'];
+        $alertData['help'] = '';
       }
-      //
-      // Log this event
-      //
-      $LOG->logEvent("logRole", L_USER, "log_role_deleted", $_POST['hidden_name']);
-      //
-      // Success
-      //
-      $showAlert = true;
-      $alertData['type'] = 'success';
-      $alertData['title'] = $LANG['alert_success_title'];
-      $alertData['subject'] = $LANG['btn_delete_role'];
-      $alertData['text'] = $LANG['roles_alert_deleted'];
-      $alertData['help'] = '';
     }
   } else {
     //
@@ -208,7 +202,6 @@ $viewData['searchRole'] = '';
 // | Search |
 // '--------'
 if (isset($_POST['btn_search'])) {
-  $searchUsers = array();
   if (isset($_POST['txt_searchRole'])) {
     $searchRole = sanitize($_POST['txt_searchRole']);
     $viewData['searchRole'] = $searchRole;
