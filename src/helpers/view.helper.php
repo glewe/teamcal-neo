@@ -486,9 +486,9 @@ function createModalBottom(string $buttonID = '', string $buttonColor = '', stri
     <div class="modal-footer">';
 
   if (strlen($buttonID)) {
-    $modalbottom .= '        <button type="submit" class="btn btn-' . $buttonColor . '" name="' . $buttonID . '" style="margin-top: 4px;">' . $buttonText . '</button>';
+    $modalbottom .= '        <button type="submit" class="btn btn-' . $buttonColor . '" name="' . $buttonID . '" style="margin-top: 4px;" aria-label="' . $buttonText . '">' . $buttonText . '</button>';
   }
-  $modalbottom .= '        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">' . $LANG['btn_cancel'] . '</button>
+  $modalbottom .= '        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="' . $LANG['btn_cancel'] . '">' . $LANG['btn_cancel'] . '</button>
         </div>
       </div>
       </div>
