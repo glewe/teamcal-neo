@@ -47,6 +47,39 @@ class Allowances {
     return $query->execute();
   }
 
+  //--------------------------------------------------------------------------
+  /**
+   * Batch saves allowance records (insert or update if exists)
+   *
+   * @param array $records Array of associative arrays with keys: username, absid, allowance, carryover
+   * @return bool True on success, false on failure
+   */
+  public function batchSave(array $records): bool {
+    if (empty($records)) return true;
+    try {
+      $this->db->beginTransaction();
+      $sql = 'INSERT INTO ' . $this->table . ' (username, absid, allowance, carryover) VALUES ';
+      $placeholders = [];
+      $params = [];
+      foreach ($records as $i => $rec) {
+        $placeholders[] = '(?, ?, ?, ?)';
+        $params[] = $rec['username'];
+        $params[] = $rec['absid'];
+        $params[] = $rec['allowance'];
+        $params[] = $rec['carryover'];
+      }
+      $sql .= implode(',', $placeholders);
+      $sql .= ' ON DUPLICATE KEY UPDATE allowance=VALUES(allowance), carryover=VALUES(carryover)';
+      $stmt = $this->db->prepare($sql);
+      $result = $stmt->execute($params);
+      $this->db->commit();
+      return $result;
+    } catch (Exception $e) {
+      $this->db->rollBack();
+      return false;
+    }
+  }
+
   //---------------------------------------------------------------------------
   /**
    * Creates an allowance record

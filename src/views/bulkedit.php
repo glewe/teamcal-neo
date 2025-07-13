@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bulk Edit View
  *
@@ -23,7 +24,6 @@ view.bulkedit
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
     ?>
 
     <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
@@ -48,7 +48,7 @@ view.bulkedit
           <div class="row mb-4">
             <div class="col-lg-4">
               <label for="sel_absence"><?= $LANG['absencetype'] ?></label>
-              <select class="form-select" name="sel_absence" id="sel_absence" tabindex="<?= $tabindex++ ?>">
+              <select class="form-select" name="sel_absence" id="sel_absence" tabindex="<?= nextTabindex() ?>">
                 <?php foreach ($viewData['absences'] as $absence) { ?>
                   <option value="<?= $absence['id'] ?>" <?= ($absence['id'] == $viewData['absid']) ? ' selected=""' : ''; ?>><?= $absence['name'] ?></option>
                 <?php } ?>
@@ -56,7 +56,7 @@ view.bulkedit
             </div>
             <div class="col-lg-4">
               <label for="sel_group"><?= $LANG['group'] ?></label>
-              <select class="form-select" name="sel_group" id="sel_group" tabindex="<?= $tabindex++ ?>">
+              <select class="form-select" name="sel_group" id="sel_group" tabindex="<?= nextTabindex() ?>">
                 <option value="All" <?= ('All' == $viewData['groupid']) ? ' selected=""' : ''; ?>><?= $LANG['all'] ?></option>
                 <?php foreach ($viewData['groups'] as $group) { ?>
                   <option value="<?= $group['id'] ?>" <?= ($group['id'] == $viewData['groupid']) ? ' selected=""' : ''; ?>><?= $group['name'] ?></option>
@@ -65,8 +65,8 @@ view.bulkedit
             </div>
             <div class="col-lg-4">
               <label>&nbsp;</label><br>
-              <button type="submit" class="btn btn-info" tabindex="<?= $tabindex++ ?>" name="btn_load"><?= $LANG['btn_load'] ?></button>
-              <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
+              <button type="submit" class="btn btn-info" tabindex="<?= nextTabindex() ?>" name="btn_load" aria-label="<?= $LANG['btn_load'] ?>"><?= $LANG['btn_load'] ?></button>
+              <button type="submit" class="btn btn-success" tabindex="<?= nextTabindex() ?>" name="btn_reset" aria-label="<?= $LANG['btn_reset'] ?>"><?= $LANG['btn_reset'] ?></button>
             </div>
           </div>
 
@@ -75,7 +75,7 @@ view.bulkedit
             <div class="card-header">
               <?php
               $pageTabs = [
-                [ 'id' => 'tab-absences', 'href' => '#panel-absences', 'label' => $LANG['profile_tab_absences'], 'active' => true ],
+                ['id' => 'tab-absences', 'href' => '#panel-absences', 'label' => $LANG['profile_tab_absences'], 'active' => true],
               ];
               echo createPageTabs($pageTabs);
               ?>
@@ -95,12 +95,12 @@ view.bulkedit
                     <div class="col-lg-2 text-center"><strong><?= $LANG['profile_abs_allowance'] ?></strong><br>
                       <div class="text-center">
                         <label for="txt_selected_<?= $viewData['absid'] ?>_allowance" class="text-italic"><?= $LANG['bulkedit_for_selected'] ?></label>
-                        <input id="txt_selected_<?= $viewData['absid'] ?>_allowance" class="form-control text-center border-primary" tabindex="<?= $tabindex++ ?>" name="txt_selected_<?= $viewData['absid'] ?>_allowance" maxlength="3" value="">
+                        <input id="txt_selected_<?= $viewData['absid'] ?>_allowance" class="form-control text-center border-primary" tabindex="<?= nextTabindex() ?>" name="txt_selected_<?= $viewData['absid'] ?>_allowance" maxlength="3" value="">
                       </div>
                     </div>
                     <div class="col-lg-2 text-center"><strong><?= $LANG['profile_abs_carryover'] ?></strong><br>
                       <label class="text-italic"><?= $LANG['bulkedit_for_selected'] ?></label>
-                      <div class="text-center"><input id="txt_selected_<?= $viewData['absid'] ?>_carryover" class="form-control text-center border-primary" tabindex="<?= $tabindex++ ?>" name="txt_selected_<?= $viewData['absid'] ?>_carryover" maxlength="3" value=""></div>
+                      <div class="text-center"><input id="txt_selected_<?= $viewData['absid'] ?>_carryover" class="form-control text-center border-primary" tabindex="<?= nextTabindex() ?>" name="txt_selected_<?= $viewData['absid'] ?>_carryover" maxlength="3" value=""></div>
                     </div>
                   </div>
                   <div class="divider">
@@ -108,32 +108,9 @@ view.bulkedit
                   </div>
                   <?php
                   foreach ($viewData['bulkusers'] as $user) {
-                    ?>
-                    <div class="row">
-                      <div class="col-lg-1">
-                        <?php if ($user['username'] != "admin") { ?>
-                          <input class="form-check-input ms-2" type="checkbox" name="chk_userSelected[]" value="<?= $user['username'] ?>">&nbsp;&nbsp;
-                        <?php } else { ?>
-                          <span style="padding-left: 16px;">&nbsp;</span>
-                        <?php } ?>
-                      </div>
-                      <div class="col-lg-4">
-                        <div class="text-normal"><?= $user['dispname'] ?></div>
-                      </div>
-                      <div class="col-lg-3">
-                        <div class="text-normal"><?= $viewData['abs']->name ?></div>
-                      </div>
-                      <div class="col-lg-2">
-                        <div class="text-center"><input id="txt_<?= $user['username'] ?>_<?= $viewData['absid'] ?>_allowance" class="form-control text-center" tabindex="<?= $tabindex++ ?>" name="txt_<?= $user['username'] ?>_<?= $viewData['absid'] ?>_allowance" maxlength="3" value="<?= $user['allowance'] ?>"></div>
-                      </div>
-                      <div class="col-lg-2">
-                        <div class="text-center"><input id="txt_<?= $user['username'] ?>_<?= $viewData['absid'] ?>_carryover" class="form-control text-center" tabindex="<?= $tabindex++ ?>" name="txt_<?= $user['username'] ?>_<?= $viewData['absid'] ?>_carryover" maxlength="3" value="<?= $user['carryover'] ?>"></div>
-                      </div>
-                    </div>
-                    <div class="divider">
-                      <hr>
-                    </div>
-                  <?php } ?>
+                    echo renderUserRow($user, $viewData['abs'], $viewData['absid']);
+                  }
+                  ?>
                 </div>
 
               </div>
@@ -142,7 +119,7 @@ view.bulkedit
           </div>
 
           <div class="mt-4 float-end">
-            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_bulkUpdate"><?= $LANG['btn_update'] ?></button>
+            <button type="submit" class="btn btn-primary" tabindex="<?= nextTabindex() ?>" name="btn_bulkUpdate" aria-label="<?= $LANG['btn_update'] ?>"><?= $LANG['btn_update'] ?></button>
           </div>
 
         </div>
@@ -152,15 +129,56 @@ view.bulkedit
 </div>
 
 <script>
-  $('#chk_selectAll').click(function (event) {
+  $('#chk_selectAll').click(function(event) {
     if (this.checked) {
-      $(":checkbox[name='chk_userSelected[]']").each(function () {
+      $(":checkbox[name='chk_userSelected[]']").each(function() {
         this.checked = true;
       });
     } else {
-      $(":checkbox[name='chk_userSelected[]']").each(function () {
+      $(":checkbox[name='chk_userSelected[]']").each(function() {
         this.checked = false;
       });
     }
   });
 </script>
+
+<?php
+/**
+ * Renders a user row for the bulk edit form.
+ *
+ * @param array $user   The user data array (must contain 'username', 'dispname', 'allowance', 'carryover')
+ * @param object $abs   The absence type object (must contain 'name')
+ * @param string|int $absid The absence type ID
+ * @return string       The HTML for the user row
+ */
+function renderUserRow($user, $abs, $absid): string {
+  ob_start();
+?>
+  <div class="row">
+    <div class="col-lg-1">
+      <?php if ($user['username'] != "admin") { ?>
+        <input class="form-check-input ms-2" type="checkbox" name="chk_userSelected[]" value="<?= $user['username'] ?>">&nbsp;&nbsp;
+      <?php } else { ?>
+        <span style="padding-left: 16px;">&nbsp;</span>
+      <?php } ?>
+    </div>
+    <div class="col-lg-4">
+      <div class="text-normal"><?= $user['dispname'] ?></div>
+    </div>
+    <div class="col-lg-3">
+      <div class="text-normal"><?= $abs->name ?></div>
+    </div>
+    <div class="col-lg-2">
+      <div class="text-center"><input id="txt_<?= $user['username'] ?>_<?= $absid ?>_allowance" class="form-control text-center" tabindex="<?= nextTabindex() ?>" name="txt_<?= $user['username'] ?>_<?= $absid ?>_allowance" maxlength="3" value="<?= $user['allowance'] ?>"></div>
+    </div>
+    <div class="col-lg-2">
+      <div class="text-center"><input id="txt_<?= $user['username'] ?>_<?= $absid ?>_carryover" class="form-control text-center" tabindex="<?= nextTabindex() ?>" name="txt_<?= $user['username'] ?>_<?= $absid ?>_carryover" maxlength="3" value="<?= $user['carryover'] ?>"></div>
+    </div>
+  </div>
+  <div class="divider">
+    <hr>
+  </div>
+<?php
+  return ob_get_clean();
+}
+?>

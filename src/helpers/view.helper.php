@@ -641,3 +641,24 @@ function iconTooltip(string $text = 'Tooltip text', string $title = '', string $
   $ttText .= "<div class='text-normal' > " . $text . "</div > ";
   return '<span data-placement="' . $position . '" data-type="' . $type . ' fas fa - ' . $icon . ' text - ' . $type . '" data-bs-toggle="tooltip" title="' . $ttText . '"></span>';
 }
+
+//-----------------------------------------------------------------------------
+/**
+ * Returns the next tabindex value for form elements.
+ *
+ * @return int The next tabindex value
+ */
+function nextTabindex(): int {
+  static $tabindex = 0;
+  return ++$tabindex;
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Resets the tabindex value for form elements.
+ *
+ */
+function resetTabindex() {
+  static $tabindex = 0;
+  $tabindex = 0;
+}
