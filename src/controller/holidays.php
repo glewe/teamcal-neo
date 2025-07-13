@@ -60,6 +60,11 @@ $viewData['txt_description'] = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 
   //
+  // Sanitize input
+  //
+  $_POST = sanitize($_POST);
+
+  //
   // CSRF token check
   //
   if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
@@ -77,11 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   // '--------'
   if (isset($_POST['btn_holCreate'])) {
     //
-    // Sanitize input
-    //
-    $_POST = sanitize($_POST);
-
-    //
     // Form validation
     //
     $inputAlert = array();
@@ -93,10 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $inputError = true;
     }
 
-    $viewData['txt_name'] = $_POST['txt_name'];
-    if (isset($_POST['txt_description'])) {
-      $viewData['txt_description'] = $_POST['txt_description'];
-    }
+    $viewData['txt_name'] = $_POST['txt_name'] ?? '';
+    $viewData['txt_description'] = $_POST['txt_description'] ?? '';
 
     if (!$inputError) {
       $HH = new Holidays();
@@ -122,6 +120,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $alertData['subject'] = $LANG['btn_create_abs'];
       $alertData['text'] = $LANG['hol_alert_created'];
       $alertData['help'] = '';
+      //
+      // Renew CSRF token after successful create
+      //
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     } else {
       //
       // Input validation failed
@@ -138,17 +140,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   // | Delete |
   // '--------'
   elseif (isset($_POST['btn_holDelete'])) {
-    $H->delete($_POST['hidden_id']);
+    $H->delete($_POST['hidden_id'] ?? '');
     //
     // Send notification e-mails to the subscribers of group events
     //
     if ($C->read("emailNotifications")) {
-      sendHolidayEventNotifications("deleted", $_POST['hidden_name'], $_POST['hidden_description']);
+      sendHolidayEventNotifications("deleted", $_POST['hidden_name'] ?? '', $_POST['hidden_description'] ?? '');
     }
     //
     // Log this event
     //
-    $LOG->logEvent("logHoliday", L_USER, "log_hol_deleted", $_POST['hidden_name']);
+    $LOG->logEvent("logHoliday", L_USER, "log_hol_deleted", $_POST['hidden_name'] ?? '');
     //
     // Success
     //
@@ -158,6 +160,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     $alertData['subject'] = $LANG['btn_delete_holiday'];
     $alertData['text'] = $LANG['hol_alert_deleted'];
     $alertData['help'] = '';
+    //
+    // Renew CSRF token after successful delete
+    //
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
   }
 }
 
