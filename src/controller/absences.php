@@ -54,12 +54,12 @@ $viewData['txt_name'] = '';
 //-----------------------------------------------------------------------------
 // PROCESS FORM
 //
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && !empty($_POST)) {
 
   //
   // CSRF token check
   //
-  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+  if (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) || ($_POST['csrf_token'] ?? '') !== ($_SESSION['csrf_token'] ?? '')) {
     $alertData['type'] = 'warning';
     $alertData['title'] = $LANG['alert_alert_title'];
     $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
@@ -97,8 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         $inputError = true;
       }
 
-      if (isset($_POST['txt_name'])) {
-        $viewData['txt_name'] = $_POST['txt_name'];
+      if (isset($_POST['txt_name']) && is_string($_POST['txt_name'])) {
+        $viewData['txt_name'] = htmlspecialchars($_POST['txt_name'], ENT_QUOTES, 'UTF-8');
       }
 
       if (!$inputError) {
@@ -119,6 +119,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         // Log this event
         //
         $LOG->logEvent("logAbsence", L_USER, "log_abs_created", $AA->name);
+
+        //
+        // Renew CSRF token after successful form processing
+        //
+        if (isset($_SESSION)) {
+          $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
 
         //
         // Success
@@ -145,27 +152,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Delete |
     // '--------'
     elseif (isset($_POST['btn_absDelete'])) {
-      $T->replaceAbsId($_POST['hidden_id'], '0');
-      $AG->unassignAbs($_POST['hidden_id']);
-      $UO->deleteOptionByValue('calfilterAbs', $_POST['hidden_id']);
-      $A->setAllSubsPrimary($_POST['hidden_id']);
-      $A->delete($_POST['hidden_id']);
+      $hidden_id = (isset($_POST['hidden_id']) && is_string($_POST['hidden_id'])) ? $_POST['hidden_id'] : '';
+      $hidden_name = (isset($_POST['hidden_name']) && is_string($_POST['hidden_name'])) ? $_POST['hidden_name'] : '';
+      if ($hidden_id !== '') {
+        $T->replaceAbsId($hidden_id, '0');
+        $AG->unassignAbs($hidden_id);
+        $UO->deleteOptionByValue('calfilterAbs', $hidden_id);
+        $A->setAllSubsPrimary($hidden_id);
+        $A->delete($hidden_id);
+      }
 
       //
       // Send notification e-mails to the subscribers of group events
       //
-      if ($C->read("emailNotifications")) {
-        sendAbsenceEventNotifications("deleted", $_POST['hidden_name']);
+      if ($C->read("emailNotifications") && $hidden_name !== '') {
+        sendAbsenceEventNotifications("deleted", $hidden_name);
       }
 
       //
       // Log this event
       //
-      $LOG->logEvent("logAbsence", L_USER, "log_abs_deleted", $_POST['hidden_name']);
+      if ($hidden_name !== '') {
+        $LOG->logEvent("logAbsence", L_USER, "log_abs_deleted", $hidden_name);
+      }
 
       //
       // Success
       //
+      //
+      // Renew CSRF token after successful form processing
+      //
+      if (isset($_SESSION)) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+      }
       $showAlert = true;
       $alertData['type'] = 'success';
       $alertData['title'] = $LANG['alert_success_title'];
