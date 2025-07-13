@@ -83,69 +83,84 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // ,-------------,
     // | Bulk Update |
     // '-------------'
-    $absid = $_POST['hidden_absid'];
-    $groupid = $_POST['hidden_groupid'];
 
     //
     // Sanitize input
     //
     $_POST = sanitize($_POST);
 
+    $absid = $_POST['hidden_absid'];
+    $groupid = $_POST['hidden_groupid'];
+
     //
     // Form validation
     //
     $inputError = false;
-    if (isset($_POST['txt_selected_' . $absid . '_allowance']) && strlen($_POST['txt_selected_' . $absid . '_allowance']) && !formInputValid('txt_selected_' . $absid . '_allowance', 'numeric')) {
+    if (!empty($_POST['txt_selected_' . $absid . '_allowance']) && !formInputValid('txt_selected_' . $absid . '_allowance', 'numeric')) {
       $inputError = true;
     }
-    if (isset($_POST['txt_selected_' . $absid . '_carryover']) && strlen($_POST['txt_selected_' . $absid . '_carryover']) && !formInputValid('txt_selected_' . $absid . '_carryover', 'numeric')) {
+    if (!empty($_POST['txt_selected_' . $absid . '_carryover']) && !formInputValid('txt_selected_' . $absid . '_carryover', 'numeric')) {
       $inputError = true;
     }
     foreach ($users as $user) {
-      if (isset($_POST['txt_' . $user['username'] . '_' . $absid . '_allowance']) && strlen($_POST['txt_' . $user['username'] . '_' . $absid . '_allowance']) && !formInputValid('txt_' . $user['username'] . '_' . $absid . '_allowance', 'numeric')) {
+      if (!empty($_POST['txt_' . $user['username'] . '_' . $absid . '_allowance']) && !formInputValid('txt_' . $user['username'] . '_' . $absid . '_allowance', 'numeric')) {
         $inputError = true;
       }
-      if (isset($_POST['txt_' . $user['username'] . '_' . $absid . '_carryover']) && strlen($_POST['txt_' . $user['username'] . '_' . $absid . '_carryover']) && !formInputValid('txt_' . $user['username'] . '_' . $absid . '_carryover', 'numeric')) {
+      if (!empty($_POST['txt_' . $user['username'] . '_' . $absid . '_carryover']) && !formInputValid('txt_' . $user['username'] . '_' . $absid . '_carryover', 'numeric')) {
         $inputError = true;
       }
     }
 
     if (!$inputError && isset($_POST['chk_userSelected'])) {
       //
-      // Loop over all selected users
+      // Loop over all selected users and collect updates
       //
       $selected_users = $_POST['chk_userSelected'];
+      $updates = array();
       foreach ($selected_users as $su => $value) {
         //
         // Allowance
         //
         $userAllowance = 0;
-        if (isset($_POST['txt_selected_' . $absid . '_allowance']) && strlen($_POST['txt_selected_' . $absid . '_allowance'])) {
+        if (!empty($_POST['txt_selected_' . $absid . '_allowance'])) {
           $userAllowance = $_POST['txt_selected_' . $absid . '_allowance'];
-        } elseif (isset($_POST['txt_' . $value . '_' . $absid . '_allowance']) && strlen($_POST['txt_' . $value . '_' . $absid . '_allowance'])) {
+        } elseif (!empty($_POST['txt_' . $value . '_' . $absid . '_allowance'])) {
           $userAllowance = $_POST['txt_' . $value . '_' . $absid . '_allowance'];
         }
         //
         // Carryover
         //
         $userCarryover = 0;
-        if (isset($_POST['txt_selected_' . $absid . '_carryover']) && strlen($_POST['txt_selected_' . $absid . '_carryover'])) {
+        if (!empty($_POST['txt_selected_' . $absid . '_carryover'])) {
           $userCarryover = $_POST['txt_selected_' . $absid . '_carryover'];
-        } elseif (isset($_POST['txt_' . $value . '_' . $absid . '_carryover']) && strlen($_POST['txt_' . $value . '_' . $absid . '_carryover'])) {
+        } elseif (!empty($_POST['txt_' . $value . '_' . $absid . '_carryover'])) {
           $userCarryover = $_POST['txt_' . $value . '_' . $absid . '_carryover'];
         }
+        // 
+        // Collect update for this user
         //
-        // Save allowance record for this user
-        //
-        $AL->username = $value;
-        $AL->absid = $absid;
-        $AL->allowance = $userAllowance;
-        $AL->carryover = $userCarryover;
-        $AL->save();
-        //
-        // Log this event
-        //
-        $LOG->logEvent("logUser", L_USER, "log_user_updated", "Allowance bulk edit");
+        $updates[] = array(
+          'username' => $value,
+          'absid' => $absid,
+          'allowance' => $userAllowance,
+          'carryover' => $userCarryover
+        );
+      }
+      // 
+      // Batch save all updates
+      //
+      $AL->batchSave($updates);
+      //
+      // Log each event
+      //
+      foreach ($updates as $update) {
+        $LOG->logEvent("logUser", L_USER, "log_user_updated", "Allowance bulk edit for user: " . $update['username']);
+      }
+      //
+      // Renew CSRF token after successful form processing
+      //
+      if (isset($_SESSION)) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
       }
       //
       // Success
@@ -181,13 +196,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     //
     if ($_POST['sel_group'] != "All") {
       $groupid = $_POST['sel_group'];
-      $searchUsers = array();
-      foreach ($users as $user) {
-        if ($UG->isMemberOrManagerOfGroup($user['username'], $groupid)) {
-          $searchUsers[] = $user;
-        }
-      }
-      $users = $searchUsers;
+      $users = filterUsersByGroup($users, $groupid, $UG);
+    }
+    //
+    // Renew CSRF token after successful form processing
+    //
+    if (isset($_SESSION)) {
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
   }
 }
@@ -204,13 +219,7 @@ $viewData['groups'] = $groups;
 
 if ($groupid != "All") {
   $users = $U->getAll('lastname', 'firstname', 'ASC', $archive = false, $includeAdmin = true);
-  $searchUsers = array();
-  foreach ($users as $user) {
-    if ($UG->isMemberOrManagerOfGroup($user['username'], $groupid)) {
-      $searchUsers[] = $user;
-    }
-  }
-  $users = $searchUsers;
+  $users = filterUsersByGroup($users, $groupid, $UG);
 }
 
 foreach ($users as $user) {
@@ -224,26 +233,7 @@ foreach ($users as $user) {
   }
   $thisuser['dispname'] .= ' (' . $user['username'] . ')';
 
-  if ($AL->find($user['username'], $absid)) {
-    $allowance = $AL->allowance;
-    $carryover = $AL->carryover;
-  } else {
-    //
-    // No allowance record yet. Let's create one.
-    //
-    if (!$allowance = $A->getAllowance($absid)) {
-      //
-      // There is zero global allowance (unlimited). Save 365 in personal for the year.
-      //
-      $allowance = 365;
-    }
-    $carryover = 0;
-    $AL->username = $user['username'];
-    $AL->absid = $absid;
-    $AL->allowance = $allowance;
-    $AL->carryover = $carryover;
-    $AL->save();
-  }
+  list($allowance, $carryover) = getOrCreateAllowance($user, $absid, $A, $AL);
   $thisuser['allowance'] = $allowance;
   $thisuser['carryover'] = $carryover;
   $viewData['bulkusers'][] = $thisuser;
@@ -256,3 +246,51 @@ require_once WEBSITE_ROOT . '/views/header.php';
 require_once WEBSITE_ROOT . '/views/menu.php';
 include_once WEBSITE_ROOT . '/views/' . $controller . '.php';
 require_once WEBSITE_ROOT . '/views/footer.php';
+
+//-----------------------------------------------------------------------------
+/**
+ * Filter users by group membership or management.
+ *
+ * @param array $users   List of user arrays to filter
+ * @param string $groupid  Group ID to filter by ("All" for no filtering)
+ * @param object $UG     UserGroup object with isMemberOrManagerOfGroup method
+ * @return array         Filtered list of users
+ */
+function filterUsersByGroup($users, $groupid, $UG): array {
+  if ($groupid == "All") return $users;
+  $filtered = array();
+  foreach ($users as $user) {
+    if ($UG->isMemberOrManagerOfGroup($user['username'], $groupid)) {
+      $filtered[] = $user;
+    }
+  }
+  return $filtered;
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Get or create allowance and carryover for a user and absence type.
+ *
+ * @param array $user    User array (must contain 'username')
+ * @param string|int $absid Absence type ID
+ * @param object $A      Absences object with getAllowance method
+ * @param object $AL     Allowances object with find/save and allowance/carryover properties
+ * @return array         [allowance, carryover] for the user and absence type
+ */
+function getOrCreateAllowance($user, $absid, $A, $AL): array {
+  if ($AL->find($user['username'], $absid)) {
+    return [$AL->allowance, $AL->carryover];
+  } else {
+    $allowance = $A->getAllowance($absid);
+    if (!$allowance) {
+      $allowance = 0;
+    }
+    $carryover = 0;
+    $AL->username = $user['username'];
+    $AL->absid = $absid;
+    $AL->allowance = $allowance;
+    $AL->carryover = $carryover;
+    $AL->save();
+    return [$allowance, $carryover];
+  }
+}
