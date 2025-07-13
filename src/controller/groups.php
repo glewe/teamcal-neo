@@ -84,33 +84,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   //
   // Validate input data. If something is wrong or missing, set $inputError = true
   //
-  if (!$inputError) {
+  if ($inputError === false) {
     // ,--------,
     // | Create |
     // '--------'
     if (isset($_POST['btn_groupCreate'])) {
       //
-      // Sanitize input
-      //
-      $_POST = sanitize($_POST);
-      //
       // Form validation
       //
       $inputAlert = array();
       $inputError = false;
-      if (!formInputValid('txt_name', 'required|alpha_numeric_dash')) {
+      if (formInputValid('txt_name', 'required|alpha_numeric_dash') !== true) {
         $inputError = true;
       }
-      if (!formInputValid('txt_description', 'alpha_numeric_dash_blank')) {
+      if (formInputValid('txt_description', 'alpha_numeric_dash_blank') !== true) {
         $inputError = true;
       }
 
       $viewData['txt_name'] = $_POST['txt_name'];
-      if (isset($_POST['txt_description'])) {
-        $viewData['txt_description'] = $_POST['txt_description'];
-      }
+      $viewData['txt_description'] = $_POST['txt_description'] ?? '';
 
-      if (!$inputError) {
+      if ($inputError === false) {
         $G->name = $viewData['txt_name'];
         $G->description = $viewData['txt_description'];
         $G->minpresent = 0;
@@ -219,7 +213,6 @@ if (!isAllowed($CONF['controllers'][$controller]->permission) && $UG->isGroupMan
 // Adjust users by requested search
 //
 if (isset($_POST['btn_search'])) {
-  $searchUsers = array();
   if (isset($_POST['txt_searchGroup'])) {
     $searchGroup = sanitize($_POST['txt_searchGroup']);
     $viewData['searchGroup'] = $searchGroup;
