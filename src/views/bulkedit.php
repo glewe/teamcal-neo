@@ -24,6 +24,7 @@ view.bulkedit
     ) {
       echo createAlertBox($alertData);
     }
+    resetTabindex();
     ?>
 
     <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">

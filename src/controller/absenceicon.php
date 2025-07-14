@@ -117,17 +117,9 @@ $viewData['id'] = $AA->id;
 $viewData['name'] = $AA->name;
 $viewData['icon'] = $AA->icon;
 
-foreach ($faIcons as $faIcon) {
-  if (strstr($faIcon, "fa-brands ")) {
-    $viewData['fabIcons'][] = array( 'val' => $faIcon, 'name' => proper($faIcon), 'selected' => ($AA->icon == $faIcon) ? true : false );
-  }
-  if (strstr($faIcon, "fa-regular ")) {
-    $viewData['farIcons'][] = array( 'val' => $faIcon, 'name' => proper($faIcon), 'selected' => ($AA->icon == $faIcon) ? true : false );
-  }
-  if (strstr($faIcon, "fa-solid ")) {
-    $viewData['fasIcons'][] = array( 'val' => $faIcon, 'name' => proper($faIcon), 'selected' => ($AA->icon == $faIcon) ? true : false );
-  }
-}
+require_once WEBSITE_ROOT . '/helpers/view.helper.php';
+$iconSets = splitFaIcons($AA->icon);
+$viewData = array_merge($viewData, $iconSets);
 
 //-----------------------------------------------------------------------------
 // SHOW VIEW
