@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Attachments page controller
  *
@@ -92,7 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $UPL->do_filename_check = "y";
       $UPL->replace = "y";
       $UPL->the_temp_file = $_FILES['file_image']['tmp_name'];
-      $UPL->the_file = $_FILES['file_image']['name'];
+      // Replace blanks with underscores in the file name
+      $safeFileName = str_replace(' ', '_', $_FILES['file_image']['name']);
+      $UPL->the_file = $safeFileName;
       $UPL->http_error = $_FILES['file_image']['error'];
 
       if ($UPL->uploadFile()) {
@@ -176,6 +179,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
             break;
         }
 
+        //
+        // Renew CSRF token after successful form processing
+        //
+        if (isset($_SESSION)) {
+          $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+
         if (!$showAlert) {
           //
           // Log this event
@@ -193,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         $alertData['title'] = $LANG['alert_danger_title'];
         $alertData['subject'] = $LANG['alert_upl_img_subject'];
         $alertData['text'] = $UPL->getErrors();
-        $alertData['help'] = '';
+        $alertData['help'] = sprintf($LANG['att_file_comment'], $CONF['uplMaxsize'] / 1024, implode(', ', $CONF['uplExtensions']), APP_UPL_DIR);
       }
     }
     // ,-------------,
@@ -261,14 +271,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 $viewData['upl_maxsize'] = $CONF['uplMaxsize'];
 $viewData['upl_formats'] = implode(', ', $CONF['uplExtensions']);
 $files = getFiles(APP_UPL_DIR, $CONF['uplExtensions'], '');
+$allUsers = $U->getAll();
 foreach ($files as $file) {
   $fid = $AT->getId($file);
+  $owner = $AT->getUploader($file);
+  $isOwner = ($UL->username == 'admin' || $UL->username == $owner);
+  $access = array();
+  foreach ($allUsers as $user) {
+    $access[$user['username']] = $UAT->hasAccess($user['username'], $fid) ? true : false;
+  }
+  $ext = getFileExtension($file);
   if ($UL->username != 'admin') {
     if ($UAT->hasAccess($UL->username, $fid)) {
-      $viewData['uplFiles'][] = array( 'fid' => $fid, 'fname' => $file );
+      $viewData['uplFiles'][] = array(
+        'fid' => $fid,
+        'fname' => $file,
+        'owner' => $owner,
+        'isOwner' => $isOwner,
+        'access' => $access,
+        'ext' => $ext
+      );
     }
   } else {
-    $viewData['uplFiles'][] = array( 'fid' => $fid, 'fname' => $file );
+    $viewData['uplFiles'][] = array(
+      'fid' => $fid,
+      'fname' => $file,
+      'owner' => $owner,
+      'isOwner' => $isOwner,
+      'access' => $access,
+      'ext' => $ext
+    );
   }
 }
 $viewData['groups'] = $G->getAll();
