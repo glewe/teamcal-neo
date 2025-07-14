@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Absence Edit View
  *
@@ -23,7 +24,7 @@ view.absenceedit
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 8;
     $colsright = 4;
     ?>
@@ -72,9 +73,9 @@ view.absenceedit
             <div class="card-header">
               <?php
               $pageTabs = [
-                [ 'id' => 'tab-general', 'href' => '#panel-general', 'label' => $LANG['general'], 'active' => true ],
-                [ 'id' => 'tab-options', 'href' => '#panel-options', 'label' => $LANG['options'], 'active' => false ],
-                [ 'id' => 'tab-groupassignments', 'href' => '#panel-groupassignments', 'label' => $LANG['abs_tab_groups'], 'active' => false ]
+                ['id' => 'tab-general', 'href' => '#panel-general', 'label' => $LANG['general'], 'active' => true],
+                ['id' => 'tab-options', 'href' => '#panel-options', 'label' => $LANG['options'], 'active' => false],
+                ['id' => 'tab-groupassignments', 'href' => '#panel-groupassignments', 'label' => $LANG['abs_tab_groups'], 'active' => false]
               ];
               echo createPageTabs($pageTabs);
               ?>
@@ -117,27 +118,27 @@ view.absenceedit
                     </label>
                     <div class="col-lg-<?= $colsright ?>">
                       <span class="<?= $viewData['icon'] ?> text-<?= $viewData['color'] ?>" style="font-size: 150%; padding-right: 8px; vertical-align: middle;"></span>
-                      <a href="index.php?action=absenceicon&amp;id=<?= $viewData['id'] ?>" class="btn btn-primary btn-sm" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_abs_icon'] ?></a>
+                      <a href="index.php?action=absenceicon&amp;id=<?= $viewData['id'] ?>" class="btn btn-primary btn-sm" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_abs_icon'] ?></a>
                     </div>
                   </div>
                   <div class="divider">
                     <hr>
                   </div>
 
-                  <?php foreach ($viewData['general'] as $formObject) {
+                  <?php foreach ($viewData['formObjects']['general'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
 
                 </div>
 
                 <div class="tab-pane fade" id="panel-options" role="tabpanel" aria-labelledby="tab-options">
-                  <?php foreach ($viewData['options'] as $formObject) {
+                  <?php foreach ($viewData['formObjects']['options'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
 
                 <div class="tab-pane fade" id="panel-groupassignments" role="tabpanel" aria-labelledby="tab-groupassignments">
-                  <?php foreach ($viewData['groups'] as $formObject) {
+                  <?php foreach ($viewData['formObjects']['groups'] as $formObject) {
                     echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
                   } ?>
                 </div>
@@ -148,8 +149,8 @@ view.absenceedit
           </div>
 
           <div class="mt-4 text-end">
-            <button type="submit" class="btn btn-primary me-2" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
-            <a href="index.php?action=absences" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_abs_list'] ?></a>
+            <button type="submit" class="btn btn-primary me-2" tabindex="<?= ++$tabindex ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
+            <a href="index.php?action=absences" class="btn btn-secondary" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_abs_list'] ?></a>
           </div>
 
         </div>
