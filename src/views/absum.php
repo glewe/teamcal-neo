@@ -16,18 +16,16 @@ view.absum
 <div class="container content">
 
   <?php
-  $tabindex = 1;
-  $colsleft = 1;
-  $colsright = 4;
+  $tabindex = 0;
   ?>
 
   <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>&amp;user=<?= $viewData['username'] ?>" method="post" target="_self" accept-charset="utf-8">
     <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
 
     <div class="page-menu">
-      <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectUser"><?= $LANG['user'] ?> <span class="badge text-bg-light"><?= $viewData['fullname'] ?></span></button>
+      <button type="button" class="btn btn-success" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectUser"><?= $LANG['user'] ?> <span class="badge text-bg-light"><?= $viewData['fullname'] ?></span></button>
       <?php if (!$C->read('currentYearOnly')) { ?>
-        <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalYear"><?= $LANG['year'] ?> <span class="badge text-bg-light"><?= $viewData['year'] ?></span></button>
+        <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalYear"><?= $LANG['year'] ?> <span class="badge text-bg-light"><?= $viewData['year'] ?></span></button>
       <?php } ?>
     </div>
     <div style="height:20px;"></div>
@@ -62,26 +60,22 @@ view.absum
                   <td class="text-end <?= (is_int($abs['allowance']) && intval($abs['remainder']) < 0) ? 'text-danger' : 'text-success'; ?>"><?= $abs['remainder'] ?></td>
                 </tr>
               <?php }
-              $subabsences = $A->getAllSub($abs['id']);
-              foreach ($subabsences as $subabs) {
-                $summary = getAbsenceSummary($caluser, $subabs['id'], $viewData['year']);
-                $subabs['contingent'] = $summary['totalallowance'];
-                $subabs['taken'] = $summary['taken'];
-                $subabs['remainder'] = $summary['remainder'];
-                ?>
-                <tr>
-                  <td>
-                    <i class="<?= $abs['icon'] ?>" style="color: #<?= $abs['color'] ?>; background-color: #<?= $abs['bgcolor'] ?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;"></i>
-                    <?= $abs['name'] ?>
-                    <i class="fas fa-angle-double-right mx-2"></i>
-                    <i class="<?= $subabs['icon'] ?>" style="color: #<?= $subabs['color'] ?>; background-color: #<?= $subabs['bgcolor'] ?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;"></i>
-                    <?= $subabs['name'] ?>
-                  </td>
-                  <td class="text-end text-italic"><?= $subabs['contingent'] ?></td>
-                  <td class="text-end text-italic <?= (is_int($subabs['allowance']) && intval($subabs['taken']) > intval($subabs['allowance'])) ? 'text-warning' : ''; ?>"><?= $subabs['taken'] ?></td>
-                  <td class="text-end text-italic <?= (is_int($subabs['allowance']) && intval($subabs['remainder']) < 0) ? 'text-danger' : 'text-success'; ?>"><?= $subabs['remainder'] ?></td>
-                </tr>
-              <?php }
+              if (!empty($abs['subabsences'])) {
+                foreach ($abs['subabsences'] as $subabs) { ?>
+                  <tr>
+                    <td>
+                      <i class="<?= $abs['icon'] ?>" style="color: #<?= $abs['color'] ?>; background-color: #<?= $abs['bgcolor'] ?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;"></i>
+                      <?= $abs['name'] ?>
+                      <i class="fas fa-angle-double-right mx-2"></i>
+                      <i class="<?= $subabs['icon'] ?>" style="color: #<?= $subabs['color'] ?>; background-color: #<?= $subabs['bgcolor'] ?>; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;"></i>
+                      <?= $subabs['name'] ?>
+                    </td>
+                    <td class="text-end text-italic"><?= $subabs['contingent'] ?></td>
+                    <td class="text-end text-italic <?= (is_int($subabs['allowance']) && intval($subabs['taken']) > intval($subabs['allowance'])) ? 'text-warning' : ''; ?>"><?= $subabs['taken'] ?></td>
+                    <td class="text-end text-italic <?= (is_int($subabs['allowance']) && intval($subabs['remainder']) < 0) ? 'text-danger' : 'text-success'; ?>"><?= $subabs['remainder'] ?></td>
+                  </tr>
+                <?php }
+              }
             }
           } ?>
           </tbody>
@@ -105,7 +99,7 @@ view.absum
 
     <!-- Modal: Select User -->
     <?= createModalTop('modalSelectUser', $LANG['caledit_selUser']) ?>
-    <select class="form-select" name="sel_user" tabindex="<?= $tabindex++ ?>">
+    <select class="form-select" name="sel_user" tabindex="<?= ++$tabindex ?>">
       <?php foreach ($viewData['users'] as $usr) { ?>
         <option value="<?= $usr['username'] ?>" <?= (($viewData['username'] == $usr['username']) ? ' selected="selected"' : '') ?>><?= $usr['lastfirst'] ?></option>
       <?php } ?>
@@ -117,7 +111,7 @@ view.absum
     <div>
       <span class="text-bold"><?= $LANG['absum_year'] ?></span><br>
       <span class="text-normal"><?= $LANG['absum_year_comment'] ?></span>
-      <select class="form-select" id="sel_year" name="sel_year" tabindex="<?= $tabindex++ ?>">
+      <select class="form-select" id="sel_year" name="sel_year" tabindex="<?= ++$tabindex ?>">
         <option value="<?= date("Y") - 1 ?>" <?= (($viewData['year'] == date("Y") - 1) ? "selected" : "") ?>><?= date("Y") - 1 ?></option>
         <option value="<?= date("Y") ?>" <?= (($viewData['year'] == date("Y")) ? "selected" : "") ?>><?= date("Y") ?></option>
         <option value="<?= date("Y") + 1 ?>" <?= (($viewData['year'] == date("Y") + 1) ? "selected" : "") ?>><?= date("Y") + 1 ?></option>

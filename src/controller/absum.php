@@ -71,6 +71,11 @@ $viewData['year'] = date("Y");
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 
   //
+  // Sanitize input
+  //
+  $_POST = sanitize($_POST);
+
+  //
   // CSRF token check
   //
   if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
@@ -82,11 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     require_once WEBSITE_ROOT . '/controller/alert.php';
     die();
   }
-
-  //
-  // Sanitize input
-  //
-  $_POST = sanitize($_POST);
 
   //
   // Form validation
@@ -106,6 +106,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // '-------------'
     elseif (isset($_POST['btn_year'])) {
       $viewData['year'] = $_POST['sel_year'];
+    }
+    //
+    // Renew CSRF token after successful form processing
+    //
+    if (isset($_SESSION)) {
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
   } else {
     //
@@ -135,6 +141,17 @@ $viewData['absences'] = array();
 $absences = $A->getAll();
 foreach ($absences as $abs) {
   $summary = getAbsenceSummary($caluser, $abs['id'], $viewData['year']);
+  $subabsences = array();
+  $subs = $A->getAllSub($abs['id']);
+  if ($subs && is_array($subs)) {
+    foreach ($subs as $subabs) {
+      $subsummary = getAbsenceSummary($caluser, $subabs['id'], $viewData['year']);
+      $subabs['contingent'] = $subsummary['totalallowance'];
+      $subabs['taken'] = $subsummary['taken'];
+      $subabs['remainder'] = $subsummary['remainder'];
+      $subabsences[] = $subabs;
+    }
+  }
   $viewData['absences'][] = array(
     'id' => $abs['id'],
     'icon' => $abs['icon'],
@@ -146,6 +163,7 @@ foreach ($absences as $abs) {
     'contingent' => $summary['totalallowance'],
     'taken' => $summary['taken'],
     'remainder' => $summary['remainder'],
+    'subabsences' => $subabsences
   );
 }
 
