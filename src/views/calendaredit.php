@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Calendar Edit View
  *
@@ -22,7 +23,7 @@ view.editcalendar
   ) {
     echo createAlertBox($alertData);
   }
-  $tabindex = 1;
+  $tabindex = 0;
   $colsleft = 1;
   $colsright = 4;
   ?>
@@ -55,19 +56,19 @@ view.editcalendar
       <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageBwdYear . $pageBwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>"><span class="fas fa-angle-double-left"></span></a>
       <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageFwdYear . $pageFwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>"><span class="fas fa-angle-double-right"></span></a>
       <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $viewData['yearToday'] . $viewData['monthToday'] ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>"><?= $LANG['today'] ?></a>
-      <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalPattern"><?= $LANG['caledit_Pattern'] ?></button>
-      <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalPeriod"><?= $LANG['caledit_Period'] ?></button>
-      <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalRecurring"><?= $LANG['caledit_Recurring'] ?></button>
+      <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalPattern"><?= $LANG['caledit_Pattern'] ?></button>
+      <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalPeriod"><?= $LANG['caledit_Period'] ?></button>
+      <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalRecurring"><?= $LANG['caledit_Recurring'] ?></button>
       <?php if ($C->read("showRegionButton")) { ?>
-        <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
+        <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
       <?php } ?>
-      <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectUser"><?= $LANG['user'] . ': ' . $viewData['fullname'] ?></button>
-      <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
-      <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalClearAll"><?= $LANG['btn_clear_all'] ?></button>
+      <button type="button" class="btn btn-success" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectUser"><?= $LANG['user'] . ': ' . $viewData['fullname'] ?></button>
+      <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
+      <button type="button" class="btn btn-danger" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalClearAll"><?= $LANG['btn_clear_all'] ?></button>
       <?php if ($viewData['supportMobile']) { ?>
-        <button type="button" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectWidth"><?= $LANG['screen'] . ': ' . $viewData['width'] ?></button>
+        <button type="button" class="btn btn-secondary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectWidth"><?= $LANG['screen'] . ': ' . $viewData['width'] ?></button>
       <?php } ?>
-      <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_showcalendar'] ?></a>
+      <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-secondary float-end" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_showcalendar'] ?></a>
     </div>
 
     <div class="card">
@@ -82,43 +83,43 @@ view.editcalendar
     <div style="height:20px;"></div>
 
     <?php if (!$viewData['supportMobile']) {
-      $mobilecols = array( 'full' => $viewData['dateInfo']['daysInMonth'] );
+      $mobilecols = array('full' => $viewData['dateInfo']['daysInMonth']);
     } else {
       switch ($viewData['width']) {
         case '1024plus':
-          $mobilecols = array( 'full' => $viewData['dateInfo']['daysInMonth'] );
+          $mobilecols = array('full' => $viewData['dateInfo']['daysInMonth']);
           break;
 
         case '1024':
-          $mobilecols = array( '1024' => 25 );
+          $mobilecols = array('1024' => 25);
           break;
 
         case '800':
-          $mobilecols = array( '800' => 17 );
+          $mobilecols = array('800' => 17);
           break;
 
         case '640':
-          $mobilecols = array( '640' => 14 );
+          $mobilecols = array('640' => 14);
           break;
 
         case '480':
-          $mobilecols = array( '480' => 9 );
+          $mobilecols = array('480' => 9);
           break;
 
         case '400':
-          $mobilecols = array( '400' => 7 );
+          $mobilecols = array('400' => 7);
           break;
 
         case '320':
-          $mobilecols = array( '320' => 5 );
+          $mobilecols = array('320' => 5);
           break;
 
         case '240':
-          $mobilecols = array( '240' => 3 );
+          $mobilecols = array('240' => 3);
           break;
 
         default:
-          $mobilecols = array( 'full' => $viewData['dateInfo']['daysInMonth'] );
+          $mobilecols = array('full' => $viewData['dateInfo']['daysInMonth']);
           break;
       }
     }
@@ -134,136 +135,92 @@ view.editcalendar
         } else {
           $dayend = $days;
         }
-        ?>
+    ?>
         <div class="table<?= ($viewData['supportMobile']) ? $key : ''; ?>">
           <table class="table table-bordered month">
             <thead>
-            <!-- Row: Month name and day numbers -->
-            <tr>
-              <th class="m-monthname"><?= $viewData['dateInfo']['monthname'] ?> <?= $viewData['dateInfo']['year'] ?></th>
-              <?php for ($i = $daystart; $i <= $dayend; $i++) { ?>
-                <th class="m-daynumber text-center" <?= $viewData['dayStyles'][$i] ?>><?= $i ?></th>
-              <?php } ?>
-            </tr>
 
-            <!-- Row: Weekdays -->
-            <tr>
-              <th class="m-label">&nbsp;</th>
-              <?php for ($i = $daystart; $i <= $dayend; $i++) {
-                $prop = 'wday' . $i; ?>
-                <th class="m-weekday text-center" <?= $viewData['dayStyles'][$i] ?>><?= $LANG['weekdayShort'][$M->$prop] ?></th>
-              <?php } ?>
-            </tr>
-
-            <?php if ($viewData['showWeekNumbers']) { ?>
-              <!-- Row: Week numbers -->
+              <!-- Row: Month name and day numbers -->
               <tr>
-                <th class="m-label"><?= $LANG['weeknumber'] ?></th>
-                <?php for ($i = $daystart; $i <= $dayend; $i++) {
-                  $prop = 'week' . $i;
-                  $wprop = 'wday' . $i; ?>
-                  <th class="m-weeknumber text-center<?= (($M->$wprop == $viewData['firstDayOfWeek']) ? ' first' : ' inner') ?>"><?= (($M->$wprop == $viewData['firstDayOfWeek']) ? $M->$prop : '') ?></th>
+                <th class="m-monthname"><?= $viewData['dateInfo']['monthname'] ?> <?= $viewData['dateInfo']['year'] ?></th>
+                <?php for ($i = $daystart; $i <= $dayend; $i++) { ?>
+                  <th class="m-daynumber text-center" <?= $viewData['calendarDays'][$i]['style'] ?>><?= $i ?></th>
                 <?php } ?>
               </tr>
-            <?php } ?>
 
-            <!-- Row: Daynotes -->
-            <tr>
-              <th class="m-label"><?= $LANG['dn_title'] ?></th>
-              <?php for ($i = $daystart; $i <= $dayend; $i++) {
-                $prop = 'wday' . $i;
-                if ($D->get($viewData['year'] . $viewData['month'] . sprintf("%02d", $i), $viewData['username'], $viewData['regionid'], true)) {
-                  $icon = 'fas fa-sticky-note';
-                  $tooltip = ' data-placement="top" data-type="' . $D->color . '" data-bs-toggle="tooltip" title="' . $D->daynote . '"';
-                } else {
-                  $icon = 'far fa-sticky-note';
-                  $tooltip = '';
-                }
-                ?>
-                <th class="m-weekday text-center" <?= $viewData['dayStyles'][$i] ?>>
-                  <a href="index.php?action=daynote&amp;date=<?= $viewData['year'] . $viewData['month'] . sprintf("%02d", $i) ?>&amp;for=<?= $viewData['username'] ?>&amp;region=<?= $viewData['regionid'] ?>">
-                    <i class="<?= $icon ?> text-info" <?= $tooltip ?>></i>
-                  </a>
-                </th>
+              <!-- Row: Weekdays -->
+              <tr>
+                <th class="m-label">&nbsp;</th>
+                <?php for ($i = $daystart; $i <= $dayend; $i++) { ?>
+                  <th class="m-weekday text-center" <?= $viewData['calendarDays'][$i]['style'] ?>><?= $LANG['weekdayShort'][$viewData['calendarDays'][$i]['weekday']] ?></th>
+                <?php } ?>
+              </tr>
+
+              <?php if ($viewData['showWeekNumbers']) { ?>
+                <!-- Row: Week numbers -->
+                <tr>
+                  <th class="m-label"><?= $LANG['weeknumber'] ?></th>
+                  <?php for ($i = $daystart; $i <= $dayend; $i++) { ?>
+                    <th class="m-weeknumber text-center<?= ($viewData['calendarDays'][$i]['isFirstDayOfWeek'] ? ' first' : ' inner') ?>"><?= ($viewData['calendarDays'][$i]['isFirstDayOfWeek'] ? $viewData['calendarDays'][$i]['weeknum'] : '') ?></th>
+                  <?php } ?>
+                </tr>
               <?php } ?>
-            </tr>
+
+              <!-- Row: Daynotes -->
+              <tr>
+                <th class="m-label"><?= $LANG['dn_title'] ?></th>
+                <?php for ($i = $daystart; $i <= $dayend; $i++) { ?>
+                  <th class="m-weekday text-center" <?= $viewData['calendarDays'][$i]['style'] ?>>
+                    <a href="index.php?action=daynote&amp;date=<?= $viewData['calendarDays'][$i]['date'] ?>&amp;for=<?= $viewData['username'] ?>&amp;region=<?= $viewData['regionid'] ?>">
+                      <i class="<?= $viewData['calendarDays'][$i]['daynoteIcon'] ?> text-info" <?= $viewData['calendarDays'][$i]['daynoteTooltip'] ?>></i>
+                    </a>
+                  </th>
+                <?php } ?>
+              </tr>
 
             </thead>
             <tbody>
 
-            <!-- Rows: Current absence -->
-            <tr>
-              <td class="m-label"><?= $LANG['caledit_currentAbsence'] ?></td>
-              <?php
-              for ($i = $daystart; $i <= $dayend; $i++) {
-                $style = $viewData['dayStyles'][$i];
-                $icon = '';
-                if ($abs = $T->getAbsence($viewData['username'], $viewData['year'], $viewData['month'], $i)) {
-                  /**
-                   * This is an absence. Get the coloring info.
-                   */
-                  $style = ' style="color: #' . $A->getColor($abs) . '; background-color: #' . $A->getBgColor($abs) . ';';
-                  if ($C->read('symbolAsIcon')) {
-                    $icon = $A->getSymbol($abs);
-                  } else {
-                    $icon = '<span class="' . $A->getIcon($abs) . '"></span>';
-                  }
-                  $loopDate = date('Y-m-d', mktime(0, 0, 0, $viewData['month'], $i, $viewData['year']));
-                  if ($loopDate == $currDate) {
-                    $style .= 'border-left: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';border-right: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';';
-                  }
-                  $style .= '"';
-                }
-                ?>
-                <td class="m-day text-center align-middle" <?= $style ?>><?= $icon ?></td>
-              <?php } ?>
-            </tr>
-
-            <!-- Rows ff: Absences -->
-            <?php
-            foreach ($viewData['absences'] as $abs) {
-              if (
-                $UL->username == 'admin'
-                ||
-                absenceIsValidForUser($abs['id'], $UL->username)
-                &&
-                (
-                  !$abs['manager_only'] ||
-                  ($abs['manager_only'] && $UG->isGroupManagerOfUser($UL->username, $viewData['username'])) ||
-                  ($abs['manager_only'] && isAllowed('manageronlyabsences')) ||
-                  ($abs['manager_only'] && $C->read("managerOnlyIncludesAdministrator") && $UL->hasRole($UL->username, 1)) // Role 1 = Administrator
-                )
-              ) {
-                ?>
-                <tr>
-                  <td class="m-name"><?= $abs['name'] ?></td>
-                  <?php
-                  for ($i = $daystart; $i <= $dayend; $i++) {
-                    $prop = 'abs' . $i;
-                    ?>
-                    <td class="m-day text-center" <?= $viewData['dayStyles'][$i] ?>><input class="form-check-input" name="opt_abs_<?= $i ?>" type="radio" value="<?= $abs['id'] ?>" <?= (($T->$prop == $abs['id']) ? ' checked' : '') ?>></td>
-                  <?php } ?>
-                </tr>
-              <?php }
-            } ?>
-
-            <!-- Last Row: Clear radio button -->
-            <tr>
-              <td class="m-label"><?= $LANG['caledit_clearAbsence'] ?></td>
-              <?php for ($i = $daystart; $i <= $dayend; $i++) { ?>
-                <td class="m-label text-center"><input class="form-check-input" name="opt_abs_<?= $i ?>" type="radio" value="0"></td>
-              <?php } ?>
-            </tr>
-
-            <?php if ($C->read('takeover') && $UL->username != $viewData['username']) { ?>
-              <!-- Take over row -->
+              <!-- Rows: Current absence -->
               <tr>
-                <td class="m-label">Take over</td>
+                <td class="m-label"><?= $LANG['caledit_currentAbsence'] ?></td>
                 <?php for ($i = $daystart; $i <= $dayend; $i++) { ?>
-                  <td class="m-label text-center"><input class="form-check-input" name="opt_abs_<?= $i ?>" type="radio" value="takeover"></td>
+                  <?php $day = $viewData['calendarDays'][$i]; ?>
+                  <?php $style = $day['absenceStyle']; ?>
+                  <?php $icon = $day['absenceIcon']; ?>
+                  <td class="m-day text-center align-middle" <?= $style ?>><?= $icon ?></td>
                 <?php } ?>
               </tr>
-            <?php } ?>
+
+              <!-- Rows ff: Absences -->
+              <?php foreach ($viewData['absenceRows'] as $row) { ?>
+                <tr>
+                  <td class="m-name"><?= $row['name'] ?></td>
+                  <?php foreach ($row['days'] as $day) { ?>
+                    <td class="m-day text-center" <?= $day['style'] ?>>
+                      <input class="form-check-input" name="opt_abs_<?= $day['num'] ?>" type="radio" value="<?= $row['id'] ?>" <?= $day['checked'] ? 'checked' : '' ?>>
+                    </td>
+                  <?php } ?>
+                </tr>
+              <?php } ?>
+
+              <!-- Last Row: Clear radio button -->
+              <tr>
+                <td class="m-label"><?= $LANG['caledit_clearAbsence'] ?></td>
+                <?php for ($i = $daystart; $i <= $dayend; $i++) { ?>
+                  <td class="m-label text-center"><input class="form-check-input" name="opt_abs_<?= $i ?>" type="radio" value="0"></td>
+                <?php } ?>
+              </tr>
+
+              <?php if ($C->read('takeover') && $UL->username != $viewData['username']) { ?>
+                <!-- Take over row -->
+                <tr>
+                  <td class="m-label">Take over</td>
+                  <?php for ($i = $daystart; $i <= $dayend; $i++) { ?>
+                    <td class="m-label text-center"><input class="form-check-input" name="opt_abs_<?= $i ?>" type="radio" value="takeover"></td>
+                  <?php } ?>
+                </tr>
+              <?php } ?>
 
             </tbody>
           </table>
@@ -276,12 +233,12 @@ view.editcalendar
     <?= createModalTop('modalClearAll', $LANG['modal_confirm']) ?>
     <?= sprintf($LANG['caledit_confirm_clearall'], $viewData['year'], $viewData['month'], $viewData['fullname']) ?>
     <div class="form-check mt-3">
-      <input id="clearAbsences" type="checkbox" class="form-check-input" name="chk_clearAbsences" tabindex="<?= $tabindex++ ?>">
+      <input id="clearAbsences" type="checkbox" class="form-check-input" name="chk_clearAbsences" tabindex="<?= ++$tabindex ?>">
       <label for="clearAbsences" class="fw-bold"><?= $LANG['caledit_clearAbsences'] ?></label>
     </div>
     <?php if (isAllowed($CONF['controllers']['daynote']->permission) || isAllowed('daynoteglobal')) { ?>
       <div class="form-check">
-        <input id="clearDaynotes" type="checkbox" class="form-check-input" name="chk_clearDaynotes" tabindex="<?= $tabindex++ ?>">
+        <input id="clearDaynotes" type="checkbox" class="form-check-input" name="chk_clearDaynotes" tabindex="<?= ++$tabindex ?>">
         <label for="clearDaynotes" class="fw-bold"><?= $LANG['caledit_clearDaynotes'] ?></label>
       </div>
     <?php } ?>
@@ -289,7 +246,7 @@ view.editcalendar
 
     <!-- Modal: Select Region -->
     <?= createModalTop('modalSelectRegion', $LANG['cal_selRegion']) ?>
-    <select class="form-select" name="sel_region" tabindex="<?= $tabindex++ ?>">
+    <select class="form-select" name="sel_region" tabindex="<?= ++$tabindex ?>">
       <?php foreach ($viewData['regions'] as $reg) { ?>
         <option value="<?= $reg['id'] ?>" <?= (($viewData['regionid'] == $reg['id']) ? 'selected="selected"' : '') ?>><?= $reg['name'] ?></option>
       <?php } ?>
@@ -299,7 +256,7 @@ view.editcalendar
     <!-- Modal: Screen Width -->
     <?= createModalTop('modalSelectWidth', $LANG['cal_selWidth']) ?>
     <p><?= $LANG['cal_selWidth_comment'] ?></p>
-    <select class="form-select" name="sel_width" tabindex="<?= $tabindex++ ?>">
+    <select class="form-select" name="sel_width" tabindex="<?= ++$tabindex ?>">
       <?php foreach ($LANG['widths'] as $key => $value) { ?>
         <option value="<?= $key ?>" <?= (($viewData['width'] == $key) ? ' selected="selected"' : '') ?>><?= $value ?></option>
       <?php } ?>
@@ -308,7 +265,7 @@ view.editcalendar
 
     <!-- Modal: Select User -->
     <?= createModalTop('modalSelectUser', $LANG['caledit_selUser']) ?>
-    <select class="form-select" name="sel_user" tabindex="<?= $tabindex++ ?>">
+    <select class="form-select" name="sel_user" tabindex="<?= ++$tabindex ?>">
       <?php foreach ($viewData['users'] as $usr) { ?>
         <option value="<?= $usr['username'] ?>" <?= (($viewData['username'] == $usr['username']) ? ' selected="selected"' : '') ?>><?= $usr['lastfirst'] ?></option>
       <?php } ?>
@@ -323,7 +280,7 @@ view.editcalendar
         <span class="text-normal"><?= $LANG['caledit_absencePattern_comment'] ?></span>
       </div>
       <div class="col-lg-5">
-        <select class="form-select" id="absencePattern" name="sel_absencePattern" tabindex="<?= $tabindex++ ?>" onchange="showPattern(this.value)">
+        <select class="form-select" id="absencePattern" name="sel_absencePattern" tabindex="<?= ++$tabindex ?>" onchange="showPattern(this.value)">
           <?php foreach ($viewData['patterns'] as $ptn) { ?>
             <option value="<?= $ptn['id'] ?>"><?= $ptn['name'] ?></option>
           <?php } ?>
@@ -339,7 +296,7 @@ view.editcalendar
       <script>
         function hideAllPatterns() {
           <?php foreach ($viewData['patterns'] as $ptn) { ?>
-          document.getElementById('pattern-<?= $ptn['id'] ?>').style.display = "none";
+            document.getElementById('pattern-<?= $ptn['id'] ?>').style.display = "none";
           <?php } ?>
         }
 
@@ -361,7 +318,7 @@ view.editcalendar
       </div>
       <div class="col-lg-5">
         <div class="form-check">
-          <input id="absencePatternSkipHolidays" name="chk_absencePatternSkipHolidays" value="1" tabindex="<?= $tabindex++ ?>" type="checkbox" class="form-check-input">
+          <input id="absencePatternSkipHolidays" name="chk_absencePatternSkipHolidays" value="1" tabindex="<?= ++$tabindex ?>" type="checkbox" class="form-check-input">
           <label class="form-check-label" for="flexCheckDefault">
             <?= $LANG['caledit_absencePatternSkipHolidays'] ?>
           </label>
@@ -378,11 +335,11 @@ view.editcalendar
         <span class="text-normal"><?= $LANG['caledit_absenceType_comment'] ?></span>
       </div>
       <div class="col-lg-5">
-        <select class="form-select" id="periodAbsence" name="sel_periodAbsence" tabindex="<?= $tabindex++ ?>">
+        <select class="form-select" id="periodAbsence" name="sel_periodAbsence" tabindex="<?= ++$tabindex ?>">
           <?php foreach ($viewData['absences'] as $abs) {
             if (($abs['manager_only'] && ($UG->isGroupManagerOfUser($UL->username, $viewData['username']) || $UL->username == 'admin')) || !$abs['manager_only']) { ?>
               <option value="<?= $abs['id'] ?>"><?= $abs['name'] ?></option>
-            <?php }
+          <?php }
           } ?>
         </select>
       </div>
@@ -394,9 +351,9 @@ view.editcalendar
         <span class="text-normal"><?= $LANG['caledit_startDate_comment'] ?></span>
       </div>
       <div class="col-lg-5">
-        <input id="periodStart" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_periodStart" type="text" maxlength="10" value="">
+        <input id="periodStart" class="form-control" tabindex="<?= ++$tabindex ?>" name="txt_periodStart" type="text" maxlength="10" value="">
         <script>
-          $(function () {
+          $(function() {
             $("#periodStart").datepicker({
               changeMonth: false,
               changeYear: false,
@@ -416,7 +373,8 @@ view.editcalendar
       <?php if (isset($inputAlert["periodStart"]) && strlen($inputAlert["periodStart"])) { ?>
         <br>
         <div class="alert alert-dismissable alert-danger">
-          <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button><?= $inputAlert['periodStart'] ?></div>
+          <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button><?= $inputAlert['periodStart'] ?>
+        </div>
       <?php } ?>
     </div>
     <div>&nbsp;</div>
@@ -426,9 +384,9 @@ view.editcalendar
         <span class="text-normal"><?= $LANG['caledit_endDate_comment'] ?></span>
       </div>
       <div class="col-lg-5">
-        <input id="periodEnd" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_periodEnd" type="text" maxlength="10" value="">
+        <input id="periodEnd" class="form-control" tabindex="<?= ++$tabindex ?>" name="txt_periodEnd" type="text" maxlength="10" value="">
         <script>
-          $(function () {
+          $(function() {
             $("#periodEnd").datepicker({
               changeMonth: false,
               changeYear: false,
@@ -440,7 +398,8 @@ view.editcalendar
       <?php if (isset($inputAlert["periodEnd"]) && strlen($inputAlert["periodEnd"])) { ?>
         <br>
         <div class="alert alert-dismissable alert-danger">
-          <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button><?= $inputAlert['periodEnd'] ?></div>
+          <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button><?= $inputAlert['periodEnd'] ?>
+        </div>
       <?php } ?>
     </div>
     <?= createModalBottom('btn_saveperiod', 'success', $LANG['btn_save']) ?>
@@ -453,11 +412,11 @@ view.editcalendar
         <?= $LANG['caledit_absenceType_comment'] ?>
       </div>
       <div class="col-lg-6">
-        <select id="recurringAbsence" class="form-select" name="sel_recurringAbsence" tabindex="<?= $tabindex++ ?>">
+        <select id="recurringAbsence" class="form-select" name="sel_recurringAbsence" tabindex="<?= ++$tabindex ?>">
           <?php foreach ($viewData['absences'] as $abs) {
             if (($abs['manager_only'] && ($UG->isGroupManagerOfUser($UL->username, $viewData['username']) || $UL->username == 'admin')) || !$abs['manager_only']) { ?>
               <option value="<?= $abs['id'] ?>"><?= $abs['name'] ?></option>
-            <?php }
+          <?php }
           } ?>
         </select>
       </div>
@@ -469,31 +428,31 @@ view.editcalendar
     <div class="row">
       <div class="col-lg-6" style="padding-left:20px;">
         <div class="form-check">
-          <input id="monday" name="monday" value="monday" tabindex="<?= $tabindex++ ?>" type="checkbox" class="form-check-input">
+          <input id="monday" name="monday" value="monday" tabindex="<?= ++$tabindex ?>" type="checkbox" class="form-check-input">
           <label class="form-check-label" for="monday">
             <?= $LANG['weekdayLong'][1] ?>
           </label>
         </div>
         <div class="form-check">
-          <input id="tuesday" name="tuesday" value="tuesday" tabindex="<?= $tabindex++ ?>" type="checkbox" class="form-check-input">
+          <input id="tuesday" name="tuesday" value="tuesday" tabindex="<?= ++$tabindex ?>" type="checkbox" class="form-check-input">
           <label class="form-check-label" for="tuesday">
             <?= $LANG['weekdayLong'][2] ?>
           </label>
         </div>
         <div class="form-check">
-          <input id="wedensday" name="wednesday" value="wednesday" tabindex="<?= $tabindex++ ?>" type="checkbox" class="form-check-input">
+          <input id="wedensday" name="wednesday" value="wednesday" tabindex="<?= ++$tabindex ?>" type="checkbox" class="form-check-input">
           <label class="form-check-label" for="wedensday">
             <?= $LANG['weekdayLong'][3] ?>
           </label>
         </div>
         <div class="form-check">
-          <input id="thursday" name="thursday" value="thursday" tabindex="<?= $tabindex++ ?>" type="checkbox" class="form-check-input">
+          <input id="thursday" name="thursday" value="thursday" tabindex="<?= ++$tabindex ?>" type="checkbox" class="form-check-input">
           <label class="form-check-label" for="thursday">
             <?= $LANG['weekdayLong'][4] ?>
           </label>
         </div>
         <div class="form-check">
-          <input id="friday" name="friday" value="friday" tabindex="<?= $tabindex++ ?>" type="checkbox" class="form-check-input">
+          <input id="friday" name="friday" value="friday" tabindex="<?= ++$tabindex ?>" type="checkbox" class="form-check-input">
           <label class="form-check-label" for="friday">
             <?= $LANG['weekdayLong'][5] ?>
           </label>
@@ -501,13 +460,13 @@ view.editcalendar
       </div>
       <div class="col-lg-6" style="padding-left:20px;">
         <div class="form-check">
-          <input id="saturday" name="saturday" value="saturday" tabindex="<?= $tabindex++ ?>" type="checkbox" class="form-check-input">
+          <input id="saturday" name="saturday" value="saturday" tabindex="<?= ++$tabindex ?>" type="checkbox" class="form-check-input">
           <label class="form-check-label" for="saturday">
             <?= $LANG['weekdayLong'][6] ?>
           </label>
         </div>
         <div class="form-check">
-          <input id="sunday" name="sunday" value="sunday" tabindex="<?= $tabindex++ ?>" type="checkbox" class="form-check-input">
+          <input id="sunday" name="sunday" value="sunday" tabindex="<?= ++$tabindex ?>" type="checkbox" class="form-check-input">
           <label class="form-check-label" for="sunday">
             <?= $LANG['weekdayLong'][7] ?>
           </label>
@@ -516,13 +475,13 @@ view.editcalendar
           <hr>
         </div>
         <div class="form-check">
-          <input id="workdays" name="workdays" value="workdays" tabindex="<?= $tabindex++ ?>" type="checkbox" class="form-check-input">
+          <input id="workdays" name="workdays" value="workdays" tabindex="<?= ++$tabindex ?>" type="checkbox" class="form-check-input">
           <label class="form-check-label" for="workdays">
             <?= $LANG['mon_fri'] ?>
           </label>
         </div>
         <div class="form-check">
-          <input id="weekends" name="weekends" value="weekends" tabindex="<?= $tabindex++ ?>" type="checkbox" class="form-check-input">
+          <input id="weekends" name="weekends" value="weekends" tabindex="<?= ++$tabindex ?>" type="checkbox" class="form-check-input">
           <label class="form-check-label" for="weekends">
             <?= $LANG['sat_sun'] ?>
           </label>
