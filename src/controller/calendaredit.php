@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Calendar Edit Controller
  *
@@ -186,6 +187,11 @@ if (!$T->getTemplate($caluser, $viewData['year'], $viewData['month'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 
   //
+  // Sanitize input
+  //
+  $_POST = sanitize($_POST);
+
+  //
   // CSRF token check
   //
   if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
@@ -363,7 +369,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     elseif (isset($_POST['btn_saverecurring']) && isset($_POST['sel_recurringAbsence']) && is_numeric($_POST['sel_recurringAbsence'])) {
       $startDate = $viewData['year'] . $viewData['month'] . '01';
       $endDate = $viewData['year'] . $viewData['month'] . $viewData['dateInfo']['daysInMonth'];
-      $wdays = array( 'monday' => 1, 'tuesday' => 2, 'wednesday' => 3, 'thursday' => 4, 'friday' => 5, 'saturday' => 6, 'sunday' => 7 );
+      $wdays = array('monday' => 1, 'tuesday' => 2, 'wednesday' => 3, 'thursday' => 4, 'friday' => 5, 'saturday' => 6, 'sunday' => 7);
       foreach ($_POST as $key => $value) {
         foreach ($wdays as $wday => $wdaynr) {
           if ($key == $wday) {
@@ -474,6 +480,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $LOG->logEvent("logCalendar", $UL->username, "log_cal_usr_tpl_chg", $caluser . " " . $viewData['year'] . $viewData['month'] . $logText);
 
       //
+      // Renew CSRF token after successful form processing
+      //
+      if (isset($_SESSION)) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+      }
+
+      //
       // Success
       //
       $showAlert = true;
@@ -553,7 +566,7 @@ foreach ($users as $usr) {
     }
   }
   if ($allowed) {
-    $viewData['users'][] = array( 'username' => $usr['username'], 'lastfirst' => $U->getLastFirst($usr['username']) );
+    $viewData['users'][] = array('username' => $usr['username'], 'lastfirst' => $U->getLastFirst($usr['username']));
   }
 }
 
@@ -605,6 +618,94 @@ $viewData['firstDayOfWeek'] = $C->read("firstDayOfWeek");
 if (!$viewData['width'] = $UO->read($UL->username, 'width')) {
   $UO->save($UL->username, 'width', 'full');
   $viewData['width'] = 'full';
+}
+
+//
+// Precompute calendar table data for the view
+//
+$viewData['calendarDays'] = array();
+$currDate = date('Y-m-d');
+for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
+  $day = array();
+  $day['num'] = $i;
+  $day['style'] = $viewData['dayStyles'][$i];
+  $day['weekday'] = $M->{'wday' . $i};
+  $day['weeknum'] = $M->{'week' . $i};
+  $day['isFirstDayOfWeek'] = ($M->{'wday' . $i} == $viewData['firstDayOfWeek']);
+  $day['date'] = $viewData['year'] . $viewData['month'] . sprintf('%02d', $i);
+  $day['loopDate'] = date('Y-m-d', mktime(0, 0, 0, $viewData['month'], $i, $viewData['year']));
+  $day['isToday'] = ($day['loopDate'] == date('Y-m-d'));
+  //
+  // Current absence for this day
+  //
+  $day['currentAbsence'] = $T->getAbsence($viewData['username'], $viewData['year'], $viewData['month'], $i);
+  if ($day['currentAbsence']) {
+    $color = 'color:#' . $A->getColor($day['currentAbsence']) . ';';
+    $bgcolor = 'background-color:#' . $A->getBgColor($day['currentAbsence']) . ';';
+    $border = '';
+    if ($day['isToday']) {
+      $border = 'border-left: ' . $C->read('todayBorderSize') . 'px solid #' . $C->read('todayBorderColor') . ';border-right: ' . $C->read('todayBorderSize') . 'px solid #' . $C->read('todayBorderColor') . ';';
+    }
+    $day['absenceStyle'] = ' style="' . $color . $bgcolor . $border . '"';
+    $day['absenceIcon'] = $C->read('symbolAsIcon') ? $A->getSymbol($day['currentAbsence']) : '<span class="' . $A->getIcon($day['currentAbsence']) . '"></span>';
+  } else {
+    $day['absenceStyle'] = $day['style'];
+    $day['absenceIcon'] = '';
+  }
+  //
+  // Daynote info
+  //
+  if ($D->get($day['date'], $viewData['username'], $viewData['regionid'], true)) {
+    $day['daynoteIcon'] = 'fas fa-sticky-note';
+    $day['daynoteTooltip'] = ' data-placement="top" data-type="' . $D->color . '" data-bs-toggle="tooltip" title="' . $D->daynote . '"';
+  } else {
+    $day['daynoteIcon'] = 'far fa-sticky-note';
+    $day['daynoteTooltip'] = '';
+  }
+  $viewData['calendarDays'][$i] = $day;
+}
+//
+// Precompute absence validity for the user
+//
+$viewData['absencesForUser'] = array();
+foreach ($viewData['absences'] as $abs) {
+  $valid = (
+    $UL->username == 'admin'
+    ||
+    absenceIsValidForUser($abs['id'], $UL->username)
+    &&
+    (
+      !$abs['manager_only'] ||
+      ($abs['manager_only'] && $UG->isGroupManagerOfUser($UL->username, $viewData['username'])) ||
+      ($abs['manager_only'] && isAllowed('manageronlyabsences')) ||
+      ($abs['manager_only'] && $C->read('managerOnlyIncludesAdministrator') && $UL->hasRole($UL->username, 1))
+    )
+  );
+  $abs['validForUser'] = $valid;
+  $viewData['absencesForUser'][] = $abs;
+}
+
+//
+// Precompute absence rows for the view (flattened for simple looping in the view)
+//
+$viewData['absenceRows'] = array();
+foreach ($viewData['absencesForUser'] as $abs) {
+  if ($abs['validForUser']) {
+    $row = [
+      'id' => $abs['id'],
+      'name' => $abs['name'],
+      'days' => []
+    ];
+    for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
+      $prop = 'abs' . $i;
+      $row['days'][$i] = [
+        'checked' => ($T->$prop == $abs['id']),
+        'style' => $viewData['calendarDays'][$i]['style'],
+        'num' => $i
+      ];
+    }
+    $viewData['absenceRows'][] = $row;
+  }
 }
 
 //-----------------------------------------------------------------------------
