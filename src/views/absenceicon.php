@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Absence Icon View
  *
@@ -23,9 +24,7 @@ view.absenceicon
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
-    $colsleft = 8;
-    $colsright = 4;
+    $tabindex = 0;
     ?>
 
     <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>&amp;id=<?= $viewData['id'] ?>" method="post" target="_self" accept-charset="utf-8">
@@ -43,21 +42,18 @@ view.absenceicon
         <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['absico_title'] . $viewData['name'] ?><?= $pageHelp ?></div>
         <div class="card-body">
 
-          <?php
-          $actionButtons = '
-            <button type="submit" class="btn btn-primary" tabindex="' . $tabindex++ . '" name="btn_save">' . $LANG['btn_save'] . '</button>
-            <a href="index.php?action=absenceedit&amp;id=' . $viewData['id'] . '" class="btn btn-secondary float-end" style="margin-left:8px;" tabindex="' . $tabindex++ . '">' . $LANG['btn_abs_edit'] . '</a>';
-          echo $actionButtons;
-          ?>
+          <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
+          <a href="index.php?action=absenceedit&amp;id=<?= $viewData['id'] ?>" class="btn btn-secondary float-end" style="margin-left:8px;" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_abs_edit'] ?></a>
+
           <div style="height:20px;"></div>
 
           <div class="row mb-2">
             <div class="col">
-              <input id="fa-search" class="form-control form-control-sm" tabindex="<?= $tabindex++ ?>" name="fa_search" type="text" value="" placeholder="<?= $LANG['abs_icon_keyword'] ?>">
+              <input id="fa-search" class="form-control form-control-sm" tabindex="<?= ++$tabindex ?>" name="fa_search" type="text" value="" placeholder="<?= $LANG['abs_icon_keyword'] ?>">
             </div>
             <div class="col">
-              <button type="submit" class="btn btn-outline-secondary btn-sm" tabindex="<?= $tabindex++ ?>" name="btn_fa_filter"><?= $LANG['btn_filter'] ?></button>
-              <a class="btn btn-outline-secondary btn-sm" tabindex="<?= $tabindex++ ?>" href="index.php?action=<?= $controller ?>&amp;id=<?= $viewData['id'] ?>"><?= $LANG['btn_reset'] ?></a>
+              <button type="submit" class="btn btn-outline-secondary btn-sm" tabindex="<?= ++$tabindex ?>" name="btn_fa_filter"><?= $LANG['btn_filter'] ?></button>
+              <a class="btn btn-outline-secondary btn-sm" tabindex="<?= ++$tabindex ?>" href="index.php?action=<?= $controller ?>&amp;id=<?= $viewData['id'] ?>"><?= $LANG['btn_reset'] ?></a>
             </div>
           </div>
 
@@ -112,7 +108,7 @@ view.absenceicon
                             } else {
                               echo '<div class="col-lg-1 p-1"><div class="form-check">';
                             }
-                            echo '<label><input class="form-check-input" name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . $tabindex++ . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><i data-bs-placement="top" data-bs-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
+                            echo '<label><input class="form-check-input" name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . ++$tabindex . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><i data-bs-placement="top" data-bs-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
                             echo '</div></div>';
                             $count++;
                           }
@@ -137,7 +133,7 @@ view.absenceicon
                             }
                             $iconTooltip = '<span class=\'' . $fai['val'] . ' fa-5x text-info\' title=\'' . $fai['val'] . '\'></span>';
                             echo '<div class="col-lg-1" style="border: ' . (($fai['val'] == $viewData['icon']) ? "1" : "0") . 'px solid #CC0000;"><div class="form-check">';
-                            echo '<label><input class="form-check-input" name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . $tabindex++ . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
+                            echo '<label><input class="form-check-input" name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . ++$tabindex . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
                             echo '</div></div>';
                             $count++;
                           }
@@ -162,7 +158,7 @@ view.absenceicon
                             }
                             $iconTooltip = '<span class=\'' . $fai['val'] . ' fa-5x text-info\' title=\'' . $fai['val'] . '\'></span>';
                             echo '<div class="col-lg-1" style="border: ' . (($fai['val'] == $viewData['icon']) ? "1" : "0") . 'px solid #CC0000;"><div class="form-check">';
-                            echo '<label><input class="form-check-input" name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . $tabindex++ . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
+                            echo '<label><input class="form-check-input" name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . ++$tabindex . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
                             echo '</div></div>';
                             $count++;
                           }
@@ -179,9 +175,9 @@ view.absenceicon
           </div>
 
           <div style="height:20px;"></div>
-          <?php
-          echo $actionButtons;
-          ?>
+
+          <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
+          <a href="index.php?action=absenceedit&amp;id=<?= $viewData['id'] ?>" class="btn btn-secondary float-end" style="margin-left:8px;" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_abs_edit'] ?></a>
 
         </div>
       </div>

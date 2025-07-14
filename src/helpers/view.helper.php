@@ -644,6 +644,39 @@ function iconTooltip(string $text = 'Tooltip text', string $title = '', string $
 
 //-----------------------------------------------------------------------------
 /**
+ * Splits the global $faIcons array into categorized arrays for brands, regular, and solid icons.
+ *
+ * @param string $selectedIcon The icon that should be marked as selected (optional).
+ * @return array Associative array with keys 'fabIcons', 'farIcons', 'fasIcons'.
+ */
+function splitFaIcons(string $selectedIcon = ''): array {
+  global $faIcons;
+  $result = [
+    'fabIcons' => [],
+    'farIcons' => [],
+    'fasIcons' => []
+  ];
+  foreach ($faIcons as $faIcon) {
+    $entry = [
+      'val' => $faIcon,
+      'name' => proper($faIcon),
+      'selected' => ($selectedIcon === $faIcon)
+    ];
+    if (strstr($faIcon, 'fa-brands ')) {
+      $result['fabIcons'][] = $entry;
+    }
+    if (strstr($faIcon, 'fa-regular ')) {
+      $result['farIcons'][] = $entry;
+    }
+    if (strstr($faIcon, 'fa-solid ')) {
+      $result['fasIcons'][] = $entry;
+    }
+  }
+  return $result;
+}
+
+//-----------------------------------------------------------------------------
+/**
  * Returns the next tabindex value for form elements.
  *
  * @return int The next tabindex value
