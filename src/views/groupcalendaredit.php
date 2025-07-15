@@ -22,7 +22,7 @@ view.groupcalendaredit
   ) {
     echo createAlertBox($alertData);
   }
-  $tabindex = 1;
+  $tabindex = 0;
   $colsleft = 1;
   $colsright = 4;
   ?>
@@ -55,15 +55,15 @@ view.groupcalendaredit
       <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageBwdYear . $pageBwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>"><span class="fas fa-angle-double-left"></span></a>
       <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageFwdYear . $pageFwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>"><span class="fas fa-angle-double-right"></span></a>
       <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $viewData['yearToday'] . $viewData['monthToday'] ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>"><?= $LANG['today'] ?></a>
-      <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalPattern"><?= $LANG['caledit_Pattern'] ?></button>
-      <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalPeriod"><?= $LANG['caledit_Period'] ?></button>
-      <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalRecurring"><?= $LANG['caledit_Recurring'] ?></button>
-      <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
-      <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectGroup"><?= $LANG['group'] . ': ' . $viewData['groupname'] ?></button>
-      <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSave"><?= $LANG['btn_save'] ?></button>
-      <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalClearAll"><?= $LANG['btn_clear_all'] ?></button>
+      <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex  ?>" data-bs-toggle="modal" data-bs-target="#modalPattern"><?= $LANG['caledit_Pattern'] ?></button>
+      <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex  ?>" data-bs-toggle="modal" data-bs-target="#modalPeriod"><?= $LANG['caledit_Period'] ?></button>
+      <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex  ?>" data-bs-toggle="modal" data-bs-target="#modalRecurring"><?= $LANG['caledit_Recurring'] ?></button>
+      <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex  ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
+      <button type="button" class="btn btn-success" tabindex="<?= ++$tabindex  ?>" data-bs-toggle="modal" data-bs-target="#modalSelectGroup"><?= $LANG['group'] . ': ' . $viewData['groupname'] ?></button>
+      <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex  ?>" data-bs-toggle="modal" data-bs-target="#modalSave"><?= $LANG['btn_save'] ?></button>
+      <button type="button" class="btn btn-danger" tabindex="<?= ++$tabindex  ?>" data-bs-toggle="modal" data-bs-target="#modalClearAll"><?= $LANG['btn_clear_all'] ?></button>
       <?php if ($viewData['supportMobile']) { ?>
-        <button type="button" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectWidth"><?= $LANG['screen'] . ': ' . $viewData['width'] ?></button>
+        <button type="button" class="btn btn-secondary" tabindex="<?= ++$tabindex  ?>" data-bs-toggle="modal" data-bs-target="#modalSelectWidth"><?= $LANG['screen'] . ': ' . $viewData['width'] ?></button>
       <?php } ?>
     </div>
 
@@ -228,7 +228,7 @@ view.groupcalendaredit
     <?= createModalTop('modalSave', $LANG['modal_confirm']) ?>
     <?= sprintf($LANG['caledit_confirm_savegroup'], $viewData['year'], $viewData['month'], $viewData['groupname']) ?>
     <div class="form-check">
-      <label><input class="form-check-input" type="checkbox" name="chk_keepExisting" tabindex="<?= $tabindex++ ?>" checked><?= $LANG['caledit_keepExisting'] ?></label>
+      <label><input class="form-check-input" type="checkbox" name="chk_keepExisting" tabindex="<?= ++$tabindex  ?>" checked><?= $LANG['caledit_keepExisting'] ?></label>
     </div>
     <?= createModalBottom('btn_save', 'primary', $LANG['btn_save']) ?>
 
@@ -239,7 +239,7 @@ view.groupcalendaredit
 
     <!-- Modal: Select Region -->
     <?= createModalTop('modalSelectRegion', $LANG['cal_selRegion']) ?>
-    <select id="region" class="form-select" name="sel_region" tabindex="<?= $tabindex++ ?>">
+    <select id="region" class="form-select" name="sel_region" tabindex="<?= ++$tabindex  ?>">
       <?php foreach ($viewData['regions'] as $reg) { ?>
         <option value="<?= $reg['id'] ?>" <?= (($viewData['regionid'] == $reg['id']) ? 'selected="selected"' : '') ?>><?= $reg['name'] ?></option>
       <?php } ?>
@@ -249,7 +249,7 @@ view.groupcalendaredit
     <!-- Modal: Screen Width -->
     <?= createModalTop('modalSelectWidth', $LANG['cal_selWidth']) ?>
     <p><?= $LANG['cal_selWidth_comment'] ?></p>
-    <select id="width" class="form-select" name="sel_width" tabindex="<?= $tabindex++ ?>">
+    <select id="width" class="form-select" name="sel_width" tabindex="<?= ++$tabindex  ?>">
       <?php foreach ($LANG['widths'] as $key => $value) { ?>
         <option value="<?= $key ?>" <?= (($viewData['width'] == $key) ? ' selected="selected"' : '') ?>><?= $value ?></option>
       <?php } ?>
@@ -258,7 +258,7 @@ view.groupcalendaredit
 
     <!-- Modal: Select Group -->
     <?= createModalTop('modalSelectGroup', $LANG['caledit_selGroup']) ?>
-    <select id="group" class="form-select" name="sel_group" tabindex="<?= $tabindex++ ?>">
+    <select id="group" class="form-select" name="sel_group" tabindex="<?= ++$tabindex  ?>">
       <?php foreach ($viewData['groups'] as $group) { ?>
         <option value="<?= $group['id'] ?>" <?= (($viewData['groupid'] == $group['id']) ? ' selected="selected"' : '') ?>><?= $group['name'] ?></option>
       <?php } ?>
@@ -273,7 +273,7 @@ view.groupcalendaredit
         <span class="text-normal"><?= $LANG['caledit_absencePattern_comment'] ?></span>
       </div>
       <div class="col-lg-5">
-        <select class="form-select" id="absencePattern" name="sel_absencePattern" tabindex="<?= $tabindex++ ?>" onchange="showPattern(this.value)">
+        <select class="form-select" id="absencePattern" name="sel_absencePattern" tabindex="<?= ++$tabindex  ?>" onchange="showPattern(this.value)">
           <?php foreach ($viewData['patterns'] as $ptn) { ?>
             <option value="<?= $ptn['id'] ?>"><?= $ptn['name'] ?></option>
           <?php } ?>
@@ -311,7 +311,7 @@ view.groupcalendaredit
       </div>
       <div class="col-lg-5">
         <div class="form-check">
-          <input id="absencePatternSkipHolidays" name="chk_absencePatternSkipHolidays" value="1" tabindex="<?= $tabindex++ ?>" type="checkbox" class="form-check-input">
+          <input id="absencePatternSkipHolidays" name="chk_absencePatternSkipHolidays" value="1" tabindex="<?= ++$tabindex  ?>" type="checkbox" class="form-check-input">
           <label class="form-check-label" for="flexCheckDefault">
             <?= $LANG['caledit_absencePatternSkipHolidays'] ?>
           </label>
@@ -328,7 +328,7 @@ view.groupcalendaredit
         <span class="text-normal"><?= $LANG['caledit_absenceType_comment'] ?></span>
       </div>
       <div class="col-lg-5" style="margin-bottom: 20px;">
-        <select id="user" class="form-select" name="sel_periodAbsence" tabindex="<?= $tabindex++ ?>">
+        <select id="user" class="form-select" name="sel_periodAbsence" tabindex="<?= ++$tabindex  ?>">
           <?php foreach ($viewData['absences'] as $abs) { ?>
             <option value="<?= $abs['id'] ?>"><?= $abs['name'] ?></option>
           <?php } ?>
@@ -342,7 +342,7 @@ view.groupcalendaredit
         <span class="text-normal"><?= $LANG['caledit_startDate_comment'] ?></span>
       </div>
       <div class="col-lg-5" style="margin-bottom: 20px;">
-        <input id="periodStart" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_periodStart" type="text" maxlength="10" value="">
+        <input id="periodStart" class="form-control" tabindex="<?= ++$tabindex  ?>" name="txt_periodStart" type="text" maxlength="10" value="">
         <script>
           $(function () {
             $("#periodStart").datepicker({
@@ -370,7 +370,7 @@ view.groupcalendaredit
         <span class="text-normal"><?= $LANG['caledit_endDate_comment'] ?></span>
       </div>
       <div class="col-lg-5" style="margin-bottom: 20px;">
-        <input id="periodEnd" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_periodEnd" type="text" maxlength="10" value="">
+        <input id="periodEnd" class="form-control" tabindex="<?= ++$tabindex  ?>" name="txt_periodEnd" type="text" maxlength="10" value="">
         <script>
           $(function () {
             $("#periodEnd").datepicker({
@@ -397,7 +397,7 @@ view.groupcalendaredit
         <span class="text-normal"><?= $LANG['caledit_absenceType_comment'] ?></span>
       </div>
       <div class="col-lg-5" style="margin-bottom: 20px;">
-        <select id="user" class="form-select" name="sel_recurringAbsence" tabindex="<?= $tabindex++ ?>">
+        <select id="user" class="form-select" name="sel_recurringAbsence" tabindex="<?= ++$tabindex  ?>">
           <?php foreach ($viewData['absences'] as $abs) { ?>
             <option value="<?= $abs['id'] ?>"><?= $abs['name'] ?></option>
           <?php } ?>
@@ -412,17 +412,17 @@ view.groupcalendaredit
     <div>&nbsp;</div>
     <div class="row">
       <div class="col-lg-5">
-        <div class="form-check"><input class="form-check-input" id="monday" name="monday" value="monday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][1] ?></div>
-        <div class="form-check"><input class="form-check-input" id="tuesday" name="tuesday" value="tuesday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][2] ?></div>
-        <div class="form-check"><input class="form-check-input" id="wedensday" name="wednesday" value="wednesday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][3] ?></div>
-        <div class="form-check"><input class="form-check-input" id="thursday" name="thursday" value="thursday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][4] ?></div>
-        <div class="form-check"><input class="form-check-input" id="friday" name="friday" value="friday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][5] ?></div>
+        <div class="form-check"><input class="form-check-input" id="monday" name="monday" value="monday" tabindex="<?= ++$tabindex  ?>" type="checkbox"><?= $LANG['weekdayLong'][1] ?></div>
+        <div class="form-check"><input class="form-check-input" id="tuesday" name="tuesday" value="tuesday" tabindex="<?= ++$tabindex  ?>" type="checkbox"><?= $LANG['weekdayLong'][2] ?></div>
+        <div class="form-check"><input class="form-check-input" id="wedensday" name="wednesday" value="wednesday" tabindex="<?= ++$tabindex  ?>" type="checkbox"><?= $LANG['weekdayLong'][3] ?></div>
+        <div class="form-check"><input class="form-check-input" id="thursday" name="thursday" value="thursday" tabindex="<?= ++$tabindex  ?>" type="checkbox"><?= $LANG['weekdayLong'][4] ?></div>
+        <div class="form-check"><input class="form-check-input" id="friday" name="friday" value="friday" tabindex="<?= ++$tabindex  ?>" type="checkbox"><?= $LANG['weekdayLong'][5] ?></div>
       </div>
       <div class="col-lg-5">
-        <div class="form-check"><input class="form-check-input" id="saturday" name="saturday" value="saturday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][6] ?></div>
-        <div class="form-check"><input class="form-check-input" id="sunday" name="sunday" value="sunday" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['weekdayLong'][7] ?></div>
-        <div class="form-check"><input class="form-check-input" id="workdays" name="workdays" value="workdays" tabindex="<?= $tabindex++ ?>" type="checkbox">Mon-Fri</div>
-        <div class="form-check"><input class="form-check-input" id="weekends" name="weekends" value="weekends" tabindex="<?= $tabindex++ ?>" type="checkbox">Sat-Sun</div>
+        <div class="form-check"><input class="form-check-input" id="saturday" name="saturday" value="saturday" tabindex="<?= ++$tabindex  ?>" type="checkbox"><?= $LANG['weekdayLong'][6] ?></div>
+        <div class="form-check"><input class="form-check-input" id="sunday" name="sunday" value="sunday" tabindex="<?= ++$tabindex  ?>" type="checkbox"><?= $LANG['weekdayLong'][7] ?></div>
+        <div class="form-check"><input class="form-check-input" id="workdays" name="workdays" value="workdays" tabindex="<?= ++$tabindex  ?>" type="checkbox">Mon-Fri</div>
+        <div class="form-check"><input class="form-check-input" id="weekends" name="weekends" value="weekends" tabindex="<?= ++$tabindex  ?>" type="checkbox">Sat-Sun</div>
       </div>
     </div>
     <div>&nbsp;</div>
