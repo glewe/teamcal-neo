@@ -23,7 +23,7 @@ view.daynote
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 7;
     $colsright = 5;
     ?>
@@ -48,16 +48,44 @@ view.daynote
 
           <div class="card">
             <div class="card-body">
-              <?php if ($viewData['exists']) { ?>
-                <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">
-                <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" name="btn_update"><?= $LANG['btn_update'] ?></button>
-                <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteDaynote_<?= $viewData['id'] ?>"><?= $LANG['btn_delete'] ?></button>
-              <?php } else { ?>
-                <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_create"><?= $LANG['btn_create'] ?></button>
-              <?php } ?>
-              <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-primary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_showcalendar'] ?></a>
+              <?php
+              $buttons = [];
+              if ($viewData['exists']) {
+                $buttons[] = [
+                  'type' => 'submit',
+                  'class' => 'btn btn-warning',
+                  'name' => 'btn_update',
+                  'label' => $LANG['btn_update'],
+                  'modal' => false
+                ];
+                $buttons[] = [
+                  'type' => 'button',
+                  'class' => 'btn btn-danger',
+                  'name' => '',
+                  'label' => $LANG['btn_delete'],
+                  'modal' => true,
+                  'modal_target' => '#modalDeleteDaynote_' . $viewData['id']
+                ];
+              } else {
+                $buttons[] = [
+                  'type' => 'submit',
+                  'class' => 'btn btn-primary',
+                  'name' => 'btn_create',
+                  'label' => $LANG['btn_create'],
+                  'modal' => false
+                ];
+              }
+              foreach ($buttons as $btn) {
+                if ($btn['modal']) {
+                  echo '<button type="button" class="' . $btn['class'] . '" tabindex="' . ++$tabindex . '" data-bs-toggle="modal" data-bs-target="' . $btn['modal_target'] . '">' . $btn['label'] . '</button>';
+                } else {
+                  echo '<button type="' . $btn['type'] . '" class="' . $btn['class'] . ' me-2" tabindex="' . ++$tabindex . '" name="' . $btn['name'] . '">' . $btn['label'] . '</button>';
+                }
+              }
+              ?>
+              <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-primary float-end" tabindex="<?= ++$tabindex  ?>"><?= $LANG['btn_showcalendar'] ?></a>
               <?php if ($viewData['user'] == 'all' && isAllowed($CONF['controllers']['monthedit']->permission)) { ?>
-                <a href="index.php?action=monthedit&amp;month=<?= $viewData['month'] ?>&amp;region=<?= $viewData['region'] ?>" class="btn btn-info float-end" tabindex="<?= $tabindex++ ?>" style="margin-right: 6px;"><?= $LANG['btn_region_calendar'] ?></a>
+                <a href="index.php?action=monthedit&amp;month=<?= $viewData['month'] ?>&amp;region=<?= $viewData['region'] ?>" class="btn btn-info float-end" tabindex="<?= ++$tabindex  ?>" style="margin-right: 6px;"><?= $LANG['btn_region_calendar'] ?></a>
               <?php } else { ?>
                 <a href="index.php?action=calendaredit&amp;month=<?= substr($viewData['date'], 0, 4) . substr($viewData['date'], 5, 2) ?>&amp;region=<?= $viewData['region'] ?>&amp;user=<?= $viewData['user'] ?>" class="btn btn-info float-end" style="margin-right:6px;"><?= $LANG['btn_user_calendar'] ?></a>
               <?php } ?>
@@ -68,7 +96,7 @@ view.daynote
           <div class="card">
             <div class="card-body">
               <?php foreach ($viewData['daynote'] as $formObject) {
-                echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
               } ?>
             </div>
           </div>
