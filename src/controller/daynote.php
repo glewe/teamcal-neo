@@ -164,38 +164,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Create, Update |
     // '----------------'
     if (isset($_POST['btn_create']) || isset($_POST['btn_update'])) {
-      $D->deleteByDateAndUser($dnDate, $viewData['user']);
-
-      if (isset($_POST['sel_regions'])) {
-        foreach ((array)$_POST['sel_regions'] as $reg) {
-          $D->yyyymmdd = $dnDate;
-          $D->username = $viewData['user'];
-          $D->region = $reg;
-          $D->daynote = $viewData['daynote'];
-          $D->color = $viewData['color'];
-          $D->confidential = $viewData['confidential'];
-          $D->create();
-        }
-      }
-
-      if (isset($_POST['txt_enddate'])) {
+      // Single day or range
+      $startDate = $dnDate;
+      $endDate = $dnDate;
+      if (isset($_POST['txt_enddate']) && strlen($_POST['txt_enddate'])) {
         $viewData['enddate'] = $_POST['txt_enddate'];
-        $enddate = str_replace('-', '', $viewData['enddate']);
-        if ($enddate > $D->yyyymmdd) {
-          for ($i = $D->yyyymmdd + 1; $i <= $enddate; $i++) {
-            $D->deleteByDateAndUser($i, $viewData['user']);
-            foreach ((array)$_POST['sel_regions'] as $reg) {
-              $D->yyyymmdd = $i;
-              $D->username = $viewData['user'];
-              $D->region = $reg;
-              $D->daynote = $viewData['daynote'];
-              $D->color = $viewData['color'];
-              $D->confidential = $viewData['confidential'];
-              $D->create();
-            }
-          }
-        }
+        $endDate = str_replace('-', '', $viewData['enddate']);
       }
+      createDaynotesForRange(
+        $startDate,
+        $endDate,
+        $viewData['user'],
+        $_POST['sel_regions'],
+        $viewData['daynote'],
+        $viewData['color'],
+        $viewData['confidential'],
+        $D
+      );
 
       //
       // Log this event
@@ -258,6 +243,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       header("Location: index.php?action=" . $controller . "&date=" . str_replace('-', '', $viewData['date']) . '&for=' . $viewData['user'] . '&region=' . $viewData['region']);
       die();
     }
+    //
+    // Renew CSRF token after successful form processing
+    //
+    if (isset($_SESSION)) {
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
   } else {
     //
     // Input validation failed
@@ -307,3 +298,36 @@ require_once WEBSITE_ROOT . '/views/header.php';
 require_once WEBSITE_ROOT . '/views/menu.php';
 include_once WEBSITE_ROOT . '/views/' . $controller . '.php';
 require_once WEBSITE_ROOT . '/views/footer.php';
+
+//-----------------------------------------------------------------------------
+/**
+ * Creates daynotes for a range of dates and regions for a specific user.
+ *
+ * For each date in the range [$start, $end], deletes any existing daynote for the user,
+ * then creates a new daynote for each specified region with the given properties.
+ *
+ * @param int    $start        Start date in YYYYMMDD format (inclusive)
+ * @param int    $end          End date in YYYYMMDD format (inclusive)
+ * @param string $user         Username for whom the daynotes are created
+ * @param array  $regions      Array of region IDs
+ * @param string $daynote      The daynote text/content
+ * @param string $color        The color identifier for the daynote
+ * @param string $confidential Confidential flag ('0' or '1')
+ * @param object $D            Daynote model/object with create and deleteByDateAndUser methods
+ *
+ * @return void
+ */
+function createDaynotesForRange($start, $end, $user, $regions, $daynote, $color, $confidential, $D) {
+  for ($i = $start; $i <= $end; $i++) {
+    $D->deleteByDateAndUser($i, $user);
+    foreach ((array)$regions as $reg) {
+      $D->yyyymmdd = $i;
+      $D->username = $user;
+      $D->region = $reg;
+      $D->daynote = $daynote;
+      $D->color = $color;
+      $D->confidential = $confidential;
+      $D->create();
+    }
+  }
+}
