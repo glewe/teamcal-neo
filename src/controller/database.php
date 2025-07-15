@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Database Controller
  *
@@ -66,6 +67,11 @@ $viewData['cleanBefore'] = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 
   //
+  // Sanitize input
+  //
+  $_POST = sanitize($_POST);
+
+  //
   // CSRF token check
   //
   if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
@@ -78,10 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     die();
   }
 
-  //
-  // Sanitize input
-  //
-  $_POST = sanitize($_POST);
   //
   // Form validation
   //
@@ -161,89 +163,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Delete |
     // '--------'
     elseif (isset($_POST['btn_delete'])) {
-      if (isset($_POST['chk_delUsers'])) {
-        //
-        // Delete Users (all but admin)
-        // Delete User options (all but admin)
-        // Delete Daynotes
-        // Delete Templates
-        // Delete Allowances
-        //
-        $result = $U->deleteAll();
-        $result = $UO->deleteAll();
-        $result = $D->deleteAll();
-        $result = $T->deleteAll();
-        $result = $AL->deleteAll();
-        //
-        // Log this event
-        //
-        $LOG->logEvent("logDatabase", L_USER, "log_db_delete_users");
-      }
-
-      if (isset($_POST['chk_delGroups'])) {
-        //
-        // Delete Groups
-        // Delete User-Group assignments
-        //
-        $result = $G->deleteAll();
-        $result = $UG->deleteAll();
-        //
-        // Log this event
-        //
-        $LOG->logEvent("logDatabase", L_USER, "log_db_delete_groups");
-      }
-
-      if (isset($_POST['chk_delMessages'])) {
-        //
-        // Delete Messages and all User-Message assignments
-        //
-        $result = $MSG->deleteAll();
-        $result = $UMSG->deleteAll();
-        //
-        // Log this event
-        //
-        $LOG->logEvent("logDatabase", L_USER, "log_db_delete_msg");
-      }
-
-      if (isset($_POST['chk_delOrphMessages'])) {
-        //
-        // Delete orphaned announcements
-        //
-        deleteOrphanedMessages();
-        //
-        // Log this event
-        //
-        $LOG->logEvent("logMessages", L_USER, "log_db_delete_msg_orph");
-      }
-
-      if (isset($_POST['chk_delPermissions'])) {
-        $P->deleteAll();
-        //
-        // Log this event
-        //
-        $LOG->logEvent("logDatabase", L_USER, "log_db_delete_perm");
-      }
-
-      if (isset($_POST['chk_delLog'])) {
-        $LOG->deleteAll();
-        //
-        // Log this event
-        //
-        $LOG->logEvent("logDatabase", L_USER, "log_db_delete_log");
-      }
-
-      if (isset($_POST['chkDBDeleteArchive'])) {
-        //
-        // Delete archive records
-        //
-        $U->deleteAll(true);
-        $UG->deleteAll(true);
-        $UO->deleteAll(true);
-        $UMSG->deleteAll(true);
-        //
-        // Log this event
-        //
-        $LOG->logEvent("logDatabase", L_USER, "log_db_delete_archive");
+      $deleteActions = [
+        'chk_delUsers' => function() use ($U, $UO, $D, $T, $AL, $LOG) {
+          $U->deleteAll();
+          $UO->deleteAll();
+          $D->deleteAll();
+          $T->deleteAll();
+          $AL->deleteAll();
+          $LOG->logEvent("logDatabase", L_USER, "log_db_delete_users");
+        },
+        'chk_delGroups' => function() use ($G, $UG, $LOG) {
+          $G->deleteAll();
+          $UG->deleteAll();
+          $LOG->logEvent("logDatabase", L_USER, "log_db_delete_groups");
+        },
+        'chk_delMessages' => function() use ($MSG, $UMSG, $LOG) {
+          $MSG->deleteAll();
+          $UMSG->deleteAll();
+          $LOG->logEvent("logDatabase", L_USER, "log_db_delete_msg");
+        },
+        'chk_delOrphMessages' => function() use ($LOG) {
+          deleteOrphanedMessages();
+          $LOG->logEvent("logMessages", L_USER, "log_db_delete_msg_orph");
+        },
+        'chk_delPermissions' => function() use ($P, $LOG) {
+          $P->deleteAll();
+          $LOG->logEvent("logDatabase", L_USER, "log_db_delete_perm");
+        },
+        'chk_delLog' => function() use ($LOG) {
+          $LOG->deleteAll();
+          $LOG->logEvent("logDatabase", L_USER, "log_db_delete_log");
+        },
+        'chkDBDeleteArchive' => function() use ($U, $UG, $UO, $UMSG, $LOG) {
+          $U->deleteAll(true);
+          $UG->deleteAll(true);
+          $UO->deleteAll(true);
+          $UMSG->deleteAll(true);
+          $LOG->logEvent("logDatabase", L_USER, "log_db_delete_archive");
+        },
+      ];
+      foreach ($deleteActions as $postKey => $action) {
+        if (isset($_POST[$postKey])) {
+          $action();
+        }
       }
       //
       // Success
@@ -324,6 +286,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $alertData['subject'] = $LANG['db_alert_reset'];
       $alertData['text'] = $LANG['db_alert_reset_success'];
       $alertData['help'] = '';
+    }
+    //
+    // Renew CSRF token after successful form processing
+    //
+    if (isset($_SESSION)) {
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
   } else {
     //

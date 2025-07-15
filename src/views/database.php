@@ -23,7 +23,7 @@ view.database
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 6;
     $colsright = 6;
     ?>
@@ -72,7 +72,7 @@ view.database
                   <div class="divider">
                     <hr>
                   </div>
-                  <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_optimize"><?= $LANG['btn_optimize_tables'] ?></button>
+                  <button type="submit" class="btn btn-success" tabindex="<?= ++$tabindex  ?>" name="btn_optimize"><?= $LANG['btn_optimize_tables'] ?></button>
                 </div>
 
                 <!-- Cleanup tab -->
@@ -84,13 +84,13 @@ view.database
                     </div>
                     <div class="col-lg-<?= $colsright ?>">
                       <div class="form-check">
-                        <label><input class="form-check-input" name="chk_cleanDaynotes" value="chk_cleanDaynotes" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_clean_daynotes'] ?></label>
+                        <label><input class="form-check-input" name="chk_cleanDaynotes" value="chk_cleanDaynotes" tabindex="<?= ++$tabindex  ?>" type="checkbox"><?= $LANG['db_clean_daynotes'] ?></label>
                       </div>
                       <div class="form-check">
-                        <label><input class="form-check-input" name="chk_cleanMonths" value="chk_cleanMonths" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_clean_months'] ?></label>
+                        <label><input class="form-check-input" name="chk_cleanMonths" value="chk_cleanMonths" tabindex="<?= ++$tabindex  ?>" type="checkbox"><?= $LANG['db_clean_months'] ?></label>
                       </div>
                       <div class="form-check">
-                        <label><input class="form-check-input" name="chk_cleanTemplates" value="chk_cleanTemplates" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_clean_templates'] ?></label>
+                        <label><input class="form-check-input" name="chk_cleanTemplates" value="chk_cleanTemplates" tabindex="<?= ++$tabindex  ?>" type="checkbox"><?= $LANG['db_clean_templates'] ?></label>
                       </div>
                     </div>
                   </div>
@@ -103,7 +103,7 @@ view.database
                       <div class="text-normal"><?= $LANG['db_clean_before_comment'] ?></div>
                     </div>
                     <div class="col-lg-<?= $colsright ?>">
-                      <input id="cleanBefore" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_cleanBefore" maxlength="10" value="<?= $viewData['cleanBefore'] ?>" type="text">
+                      <input id="cleanBefore" class="form-control" tabindex="<?= ++$tabindex  ?>" name="txt_cleanBefore" maxlength="10" value="<?= $viewData['cleanBefore'] ?>" type="text">
                       <?php if (isset($inputAlert["cleanBefore"]) && strlen($inputAlert["cleanBefore"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger">
@@ -129,7 +129,7 @@ view.database
                       <div class="text-normal"><?= $LANG['db_clean_confirm_comment'] ?></div>
                     </div>
                     <div class="col-lg-<?= $colsright ?>">
-                      <input class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_cleanConfirm" maxlength="7" value="" type="text">
+                      <input class="form-control" tabindex="<?= ++$tabindex  ?>" name="txt_cleanConfirm" maxlength="7" value="" type="text">
                       <?php if (isset($inputAlert["cleanConfirm"]) && strlen($inputAlert["cleanConfirm"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger">
@@ -140,7 +140,7 @@ view.database
                   <div class="divider">
                     <hr>
                   </div>
-                  <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" name="btn_cleanup"><?= $LANG['btn_cleanup'] ?></button>
+                  <button type="submit" class="btn btn-warning" tabindex="<?= ++$tabindex  ?>" name="btn_cleanup"><?= $LANG['btn_cleanup'] ?></button>
                 </div>
 
                 <!-- Repair tab -->
@@ -152,7 +152,7 @@ view.database
                     </div>
                     <div class="col-lg-<?= $colsright ?>">
                       <div class="form-check">
-                        <label><input class="form-check-input" name="chk_daynoteRegions" value="chk_daynoteRegions" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_repair_daynoteRegions'] ?></label>
+                        <label><input class="form-check-input" name="chk_daynoteRegions" value="chk_daynoteRegions" tabindex="<?= ++$tabindex  ?>" type="checkbox"><?= $LANG['db_repair_daynoteRegions'] ?></label>
                       </div>
                     </div>
                   </div>
@@ -165,7 +165,7 @@ view.database
                       <div class="text-normal"><?= $LANG['db_repair_confirm_comment'] ?></div>
                     </div>
                     <div class="col-lg-<?= $colsright ?>">
-                      <input class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_repairConfirm" maxlength="7" value="" type="text">
+                      <input class="form-control" tabindex="<?= ++$tabindex  ?>" name="txt_repairConfirm" maxlength="7" value="" type="text">
                       <?php if (isset($inputAlert["repairConfirm"]) && strlen($inputAlert["repairConfirm"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger">
@@ -176,7 +176,7 @@ view.database
                   <div class="divider">
                     <hr>
                   </div>
-                  <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" name="btn_repair"><?= $LANG['btn_repair'] ?></button>
+                  <button type="submit" class="btn btn-warning" tabindex="<?= ++$tabindex  ?>" name="btn_repair"><?= $LANG['btn_repair'] ?></button>
                 </div>
 
                 <!-- Delete tab -->
@@ -187,27 +187,22 @@ view.database
                       <div class="text-normal"><?= $LANG['db_del_what_comment'] ?></div>
                     </div>
                     <div class="col-lg-<?= $colsright ?>">
-                      <div class="form-check">
-                        <label><input class="form-check-input" name="chk_delUsers" value="chk_delUsers" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_users'] ?></label>
-                      </div>
-                      <div class="form-check">
-                        <label><input class="form-check-input" name="chk_delGroups" value="chk_delGroups" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_groups'] ?></label>
-                      </div>
-                      <div class="form-check">
-                        <label><input class="form-check-input" name="chk_delMessages" value="chk_delMessages" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_messages'] ?></label>
-                      </div>
-                      <div class="form-check">
-                        <label><input class="form-check-input" name="chk_delOrphMessages" value="chk_delOrphMessages" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_orphMessages'] ?></label>
-                      </div>
-                      <div class="form-check">
-                        <label><input class="form-check-input" name="chk_delPermissions" value="chk_delPermissions" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_permissions'] ?></label>
-                      </div>
-                      <div class="form-check">
-                        <label><input class="form-check-input" name="chk_delLog" value="chk_delLog" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_log'] ?></label>
-                      </div>
-                      <div class="form-check">
-                        <label><input class="form-check-input" name="chk_delArchive" value="chk_delArchive" tabindex="<?= $tabindex++ ?>" type="checkbox"><?= $LANG['db_del_archive'] ?></label>
-                      </div>
+                      <?php
+                      $deleteOptions = [
+                        ['name' => 'chk_delUsers', 'label' => $LANG['db_del_users']],
+                        ['name' => 'chk_delGroups', 'label' => $LANG['db_del_groups']],
+                        ['name' => 'chk_delMessages', 'label' => $LANG['db_del_messages']],
+                        ['name' => 'chk_delOrphMessages', 'label' => $LANG['db_del_orphMessages']],
+                        ['name' => 'chk_delPermissions', 'label' => $LANG['db_del_permissions']],
+                        ['name' => 'chk_delLog', 'label' => $LANG['db_del_log']],
+                        ['name' => 'chkDBDeleteArchive', 'label' => $LANG['db_del_archive']],
+                      ];
+                      foreach ($deleteOptions as $option) {
+                        echo '<div class="form-check">'
+                          . '<label><input class="form-check-input" name="' . $option['name'] . '" value="' . $option['name'] . '" tabindex="' . ++$tabindex  . '" type="checkbox">' . $option['label'] . '</label>'
+                          . '</div>';
+                      }
+                      ?>
                     </div>
                   </div>
                   <div class="divider">
@@ -219,7 +214,7 @@ view.database
                       <div class="text-normal"><?= $LANG['db_del_confirm_comment'] ?></div>
                     </div>
                     <div class="col-lg-<?= $colsright ?>">
-                      <input class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_deleteConfirm" maxlength="6" value="" type="text">
+                      <input class="form-control" tabindex="<?= ++$tabindex  ?>" name="txt_deleteConfirm" maxlength="6" value="" type="text">
                       <?php if (isset($inputAlert["deleteConfirm"]) && strlen($inputAlert["deleteConfirm"])) { ?>
                         <br>
                         <div class="alert alert-dismissable alert-danger">
@@ -230,7 +225,7 @@ view.database
                   <div class="divider">
                     <hr>
                   </div>
-                  <button type="submit" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" name="btn_delete"><?= $LANG['btn_delete_records'] ?></button>
+                  <button type="submit" class="btn btn-danger" tabindex="<?= ++$tabindex  ?>" name="btn_delete"><?= $LANG['btn_delete_records'] ?></button>
                 </div>
 
                 <!-- Administration tab -->
@@ -241,15 +236,15 @@ view.database
                       <div class="text-normal"><?= $LANG['db_dbURL_comment'] ?></div>
                     </div>
                     <div class="col-lg-12 control-label">
-                      <input id="dbURL" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_dbURL" maxlength="160" value="<?= $viewData['dbURL'] ?>" type="text"><br>
-                      <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_saveURL"><?= $LANG['btn_save'] ?></button>
+                      <input id="dbURL" class="form-control" tabindex="<?= ++$tabindex  ?>" name="txt_dbURL" maxlength="160" value="<?= $viewData['dbURL'] ?>" type="text"><br>
+                      <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex  ?>" name="btn_saveURL"><?= $LANG['btn_save'] ?></button>
                     </div>
                   </div>
                   <?php if (strlen($viewData['dbURL']) && $viewData['dbURL'] != "#") { ?>
                     <div class="divider">
                       <hr>
                     </div>
-                    <a href="<?= $C->read('dbURL') ?>" class="btn btn-info" tabindex="<?= $tabindex++ ?>" target="_blank"><?= $LANG['db_application'] ?></a>
+                    <a href="<?= $C->read('dbURL') ?>" class="btn btn-info" tabindex="<?= ++$tabindex  ?>" target="_blank"><?= $LANG['db_application'] ?></a>
                   <?php } ?>
                 </div>
 
@@ -262,13 +257,13 @@ view.database
                       <div class="text-normal"><?= $LANG['db_resetString_comment'] ?></div>
                     </div>
                     <div class="col-lg-4">
-                      <input id="dbResetString" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_dbResetString" maxlength="40" value="" type="text"><br>
+                      <input id="dbResetString" class="form-control" tabindex="<?= ++$tabindex  ?>" name="txt_dbResetString" maxlength="40" value="" type="text"><br>
                     </div>
                   </div>
                   <div class="divider">
                     <hr>
                   </div>
-                  <button type="submit" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset_database'] ?></button>
+                  <button type="submit" class="btn btn-danger" tabindex="<?= ++$tabindex  ?>" name="btn_reset"><?= $LANG['btn_reset_database'] ?></button>
                 </div>
 
                 <!-- Database Information tab -->

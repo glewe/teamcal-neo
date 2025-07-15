@@ -27,7 +27,7 @@ view.config
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 8;
     $colsright = 4;
     ?>
@@ -72,28 +72,28 @@ view.config
                 <!-- General tab -->
                 <div class="tab-pane fade show active" id="panel-general" role="tabpanel" aria-labelledby="tab-general">
                   <?php foreach ($viewData['general'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   } ?>
                 </div>
 
                 <!-- E-mail tab -->
                 <div class="tab-pane fade" id="panel-email" role="tabpanel" aria-labelledby="tab-email">
                   <?php foreach ($viewData['email'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   } ?>
                 </div>
 
                 <!-- Footer tab -->
                 <div class="tab-pane fade" id="panel-footer" role="tabpanel" aria-labelledby="tab-footer">
                   <?php foreach ($viewData['footer'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   } ?>
                 </div>
 
                 <!-- Homepage tab -->
                 <div class="tab-pane fade" id="panel-homepage" role="tabpanel" aria-labelledby="tab-homepage">
                   <?php foreach ($viewData['homepage'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   } ?>
                 </div>
 
@@ -102,7 +102,7 @@ view.config
                   <?php
                   echo $LIC->show($LIC->details, true);
                   foreach ($viewData['license'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   }
                   ?>
 
@@ -117,7 +117,7 @@ view.config
                           <span class="text-normal"><?= $LANG['config_licActivate_comment'] ?></span>
                         </label>
                         <div class="col-lg-4">
-                          <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_licActivate"><?= $LANG['btn_activate'] ?></button>
+                          <button type="submit" class="btn btn-success" tabindex="<?= ++$tabindex ?>" name="btn_licActivate"><?= $LANG['btn_activate'] ?></button>
                         </div>
                         <div class="divider">
                           <hr>
@@ -132,7 +132,7 @@ view.config
                           <div class="text-normal alert alert-warning"><?= $LANG['config_licRegister_comment'] ?></div>
                         </label>
                         <div class="col-lg-4">
-                          <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_licRegister"><?= $LANG['btn_register'] ?></button>
+                          <button type="submit" class="btn btn-success" tabindex="<?= ++$tabindex ?>" name="btn_licRegister"><?= $LANG['btn_register'] ?></button>
                         </div>
                         <div class="divider">
                           <hr>
@@ -147,7 +147,7 @@ view.config
                           <span class="text-normal"><?= $LANG['config_licDeregister_comment'] ?></span>
                         </label>
                         <div class="col-lg-4">
-                          <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" name="btn_licDeregister"><?= $LANG['btn_deregister'] ?></button>
+                          <button type="submit" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" name="btn_licDeregister"><?= $LANG['btn_deregister'] ?></button>
                         </div>
                         <div class="divider">
                           <hr>
@@ -164,42 +164,42 @@ view.config
                 <!-- Login tab -->
                 <div class="tab-pane fade" id="panel-login" role="tabpanel" aria-labelledby="tab-login">
                   <?php foreach ($viewData['login'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   } ?>
                 </div>
 
                 <!-- Registration tab -->
                 <div class="tab-pane fade" id="panel-registration" role="tabpanel" aria-labelledby="tab-registration">
                   <?php foreach ($viewData['registration'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   } ?>
                 </div>
 
                 <!-- System tab -->
                 <div class="tab-pane fade" id="panel-system" role="tabpanel" aria-labelledby="tab-system">
                   <?php foreach ($viewData['system'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   } ?>
                 </div>
 
                 <!-- Theme tab -->
                 <div class="tab-pane fade" id="panel-theme" role="tabpanel" aria-labelledby="tab-theme">
                   <?php foreach ($viewData['theme'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   } ?>
                 </div>
 
                 <!-- Usericons tab -->
                 <div class="tab-pane fade" id="panel-usercustom" role="tabpanel" aria-labelledby="tab-usercustom">
                   <?php foreach ($viewData['user'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   } ?>
                 </div>
 
                 <!-- GDPR tab -->
                 <div class="tab-pane fade" id="panel-gdpr" role="tabpanel" aria-labelledby="tab-gdpr">
                   <?php foreach ($viewData['gdpr'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   } ?>
                   <div class="form-group" id="form-group-gdprPlatforms">
                     <label for="gdprFacebook" class="col-lg-8 control-label">
@@ -224,7 +224,7 @@ view.config
                         ];
                         foreach ($gdprPlatforms as $platform) {
                             $key = $platform['key'];
-                            echo '<label><input class="form-check-input" type="checkbox" id="gdpr'.$key.'" name="chk_gdpr'.$key.'" value="chk_gdpr'.$key.'" tabindex="'.$tabindex++.'" '.($C->read('gdpr'.$key) ? " checked" : "").'><i class="'.$platform['icon'].'"></i>&nbsp;'.$platform['label'].'</label><br>';
+                            echo '<label><input class="form-check-input" type="checkbox" id="gdpr'.$key.'" name="chk_gdpr'.$key.'" value="chk_gdpr'.$key.'" tabindex="'.++$tabindex .'" '.($C->read('gdpr'.$key) ? " checked" : "").'><i class="'.$platform['icon'].'"></i>&nbsp;'.$platform['label'].'</label><br>';
                         }
                         ?>
                       </div>
@@ -240,7 +240,7 @@ view.config
           </div>
 
           <div class="mt-4 float-end">
-            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_confApply"><?= $LANG['btn_save'] ?></button>
+            <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" name="btn_confApply"><?= $LANG['btn_save'] ?></button>
           </div>
 
         </div>
