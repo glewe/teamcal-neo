@@ -23,7 +23,7 @@ view.declination
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 8;
     $colsright = 4;
     ?>
@@ -144,42 +144,42 @@ view.declination
                 <!-- Absence tab -->
                 <div class="tab-pane fade" id="panel-absence" role="tabpanel" aria-labelledby="tab-absence">
                   <?php foreach ($viewData['absence'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   } ?>
                 </div>
 
                 <!-- Before tab -->
                 <div class="tab-pane fade" id="panel-before" role="tabpanel" aria-labelledby="tab-before">
                   <?php foreach ($viewData['before'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   } ?>
                 </div>
 
                 <!-- Period 1 tab -->
                 <div class="tab-pane fade" id="panel-period1" role="tabpanel" aria-labelledby="panel-period1">
                   <?php foreach ($viewData['period1'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   } ?>
                 </div>
 
                 <!-- Period 2 tab -->
                 <div class="tab-pane fade" id="panel-period2" role="tabpanel" aria-labelledby="tab-period2">
                   <?php foreach ($viewData['period2'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   } ?>
                 </div>
 
                 <!-- Period 3 tab -->
                 <div class="tab-pane fade" id="panel-period3" role="tabpanel" aria-labelledby="tab-period3">
                   <?php foreach ($viewData['period3'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   } ?>
                 </div>
 
                 <!-- Scope tab -->
                 <div class="tab-pane fade" id="panel-scope" role="tabpanel" aria-labelledby="tab-scope">
                   <?php foreach ($viewData['scope'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex );
                   } ?>
                 </div>
 
@@ -188,7 +188,7 @@ view.declination
           </div>
 
           <div class="mt-4 float-end">
-            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
+            <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex  ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
           </div>
 
         </div>

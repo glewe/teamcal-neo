@@ -57,6 +57,11 @@ $inputAlert = array();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 
   //
+  // Sanitize input
+  //
+  $_POST = sanitize($_POST);
+
+  //
   // CSRF token check
   //
   if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
@@ -70,11 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   }
 
   //
-  // Sanitize input
-  //
-  $_POST = sanitize($_POST);
-
-  //
   // Load sanitized form info for the view
   //
   $viewData['threshold'] = $_POST['txt_threshold'];
@@ -84,205 +84,143 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   //
   $inputError = false;
   if (isset($_POST['btn_save'])) {
-    if (isset($_POST['chk_absence'])) {
-      if (!formInputValid('txt_threshold', 'max_length|numeric', 2)) {
-        $inputError = true;
-      }
-      if (isset($_POST['opt_absencePeriod'])) {
-        switch ($_POST['opt_absencePeriod']) {
-          case 'nowEnddate':
-            if (!formInputValid('txt_absenceEnddate', 'required|date')) {
+    // Batch validation for sections with similar patterns
+    $sections = [
+      'absence' => [
+        'checkbox' => 'chk_absence',
+        'fields' => [
+          ['name' => 'txt_threshold', 'rules' => 'max_length|numeric', 'args' => 2],
+        ],
+        'periodOption' => 'opt_absencePeriod',
+        'periodFields' => [
+          'nowEnddate' => [['name' => 'txt_absenceEnddate', 'rules' => 'required|date']],
+          'startdateForever' => [['name' => 'txt_absenceStartdate', 'rules' => 'required|date']],
+          'startdateEnddate' => [
+            ['name' => 'txt_absenceStartdate', 'rules' => 'required|date'],
+            ['name' => 'txt_absenceEnddate', 'rules' => 'required|date']
+          ],
+        ],
+      ],
+      'before' => [
+        'checkbox' => 'chk_before',
+        'fields' => [
+          ['name' => 'opt_beforeoption', 'rules' => 'required'],
+        ],
+        'extra' => function(&$inputError) {
+          if (isset($_POST['opt_beforeoption']) && $_POST['opt_beforeoption'] == 'date' && !formInputValid('txt_beforedate', 'required|date')) {
+            $inputError = true;
+          }
+        },
+        'periodOption' => 'opt_beforePeriod',
+        'periodFields' => [
+          'nowEnddate' => [['name' => 'txt_beforeEnddate', 'rules' => 'required|date']],
+          'startdateForever' => [['name' => 'txt_beforeStartdate', 'rules' => 'required|date']],
+          'startdateEnddate' => [
+            ['name' => 'txt_beforeStartdate', 'rules' => 'required|date'],
+            ['name' => 'txt_beforeEnddate', 'rules' => 'required|date']
+          ],
+        ],
+      ],
+      'period1' => [
+        'checkbox' => 'chk_period1',
+        'fields' => [
+          ['name' => 'txt_period1start', 'rules' => 'required|date'],
+          ['name' => 'txt_period1end', 'rules' => 'required|date'],
+          ['name' => 'txt_period1Message', 'rules' => 'alpha_numeric_dash_blank_special'],
+        ],
+        'periodOption' => 'opt_period1Period',
+        'periodFields' => [
+          'nowEnddate' => [['name' => 'txt_period1Enddate', 'rules' => 'required|date']],
+          'startdateForever' => [['name' => 'txt_period1Startdate', 'rules' => 'required|date']],
+          'startdateEnddate' => [
+            ['name' => 'txt_period1Startdate', 'rules' => 'required|date'],
+            ['name' => 'txt_period1Enddate', 'rules' => 'required|date']
+          ],
+        ],
+        'extra' => function(&$inputError) use ($LANG) {
+          if (!$inputError) {
+            $periodstart = str_replace("-", "", $_POST['txt_period1start']);
+            $periodend = str_replace("-", "", $_POST['txt_period1end']);
+            if ($periodend <= $periodstart) {
+              global $inputAlert;
+              $inputAlert['period1end'] = sprintf($LANG['alert_input_greater_than'], $LANG['decl_period1start']);
               $inputError = true;
             }
-            break;
-          case 'startdateForever':
-            if (!formInputValid('txt_absenceStartdate', 'required|date')) {
+          }
+        },
+      ],
+      'period2' => [
+        'checkbox' => 'chk_period2',
+        'fields' => [
+          ['name' => 'txt_period2start', 'rules' => 'required|date'],
+          ['name' => 'txt_period2end', 'rules' => 'required|date'],
+          ['name' => 'txt_period2Message', 'rules' => 'alpha_numeric_dash_blank_special'],
+        ],
+        'periodOption' => 'opt_period2Period',
+        'periodFields' => [
+          'nowEnddate' => [['name' => 'txt_period2Enddate', 'rules' => 'required|date']],
+          'startdateForever' => [['name' => 'txt_period2Startdate', 'rules' => 'required|date']],
+          'startdateEnddate' => [
+            ['name' => 'txt_period2Startdate', 'rules' => 'required|date'],
+            ['name' => 'txt_period2Enddate', 'rules' => 'required|date']
+          ],
+        ],
+        'extra' => function(&$inputError) use ($LANG) {
+          if (!$inputError) {
+            $periodstart = str_replace("-", "", $_POST['txt_period2start']);
+            $periodend = str_replace("-", "", $_POST['txt_period2end']);
+            if ($periodend <= $periodstart) {
+              global $inputAlert;
+              $inputAlert['period2end'] = sprintf($LANG['alert_input_greater_than'], $LANG['decl_period2start']);
               $inputError = true;
             }
-            break;
-          case 'startdateEnddate':
-            if (!formInputValid('txt_absenceStartdate', 'required|date')) {
+          }
+        },
+      ],
+      'period3' => [
+        'checkbox' => 'chk_period3',
+        'fields' => [
+          ['name' => 'txt_period3start', 'rules' => 'required|date'],
+          ['name' => 'txt_period3end', 'rules' => 'required|date'],
+          ['name' => 'txt_period3Message', 'rules' => 'alpha_numeric_dash_blank_special'],
+        ],
+        'periodOption' => 'opt_period3Period',
+        'periodFields' => [
+          'nowEnddate' => [['name' => 'txt_period3Enddate', 'rules' => 'required|date']],
+          'startdateForever' => [['name' => 'txt_period3Startdate', 'rules' => 'required|date']],
+          'startdateEnddate' => [
+            ['name' => 'txt_period3Startdate', 'rules' => 'required|date'],
+            ['name' => 'txt_period3Enddate', 'rules' => 'required|date']
+          ],
+        ],
+        'extra' => function(&$inputError) use ($LANG) {
+          if (!$inputError) {
+            $periodstart = str_replace("-", "", $_POST['txt_period3start']);
+            $periodend = str_replace("-", "", $_POST['txt_period3end']);
+            if ($periodend <= $periodstart) {
+              global $inputAlert;
+              $inputAlert['period3end'] = sprintf($LANG['alert_input_greater_than'], $LANG['decl_period3start']);
               $inputError = true;
             }
-            if (!formInputValid('txt_absenceEnddate', 'required|date')) {
-              $inputError = true;
-            }
-            break;
-          default:
-            break;
-        }
-      }
-    }
-
-    if (isset($_POST['chk_before'])) {
-      if (!formInputValid('opt_beforeoption', 'required')) {
-        $inputError = true;
-      } else {
-        if (isset($_POST['opt_beforeoption']) && $_POST['opt_beforeoption'] == 'date' && !formInputValid('txt_beforedate', 'required|date')) {
+          }
+        },
+      ],
+    ];
+    foreach ($sections as $section) {
+      if (isset($_POST[$section['checkbox']])) {
+        if (validateSectionFields($section['fields'])) {
           $inputError = true;
         }
-      }
-
-      if (isset($_POST['opt_beforePeriod'])) {
-        switch ($_POST['opt_beforePeriod']) {
-          case 'nowEnddate':
-            if (!formInputValid('txt_beforeEnddate', 'required|date')) {
-              $inputError = true;
-            }
-            break;
-          case 'startdateForever':
-            if (!formInputValid('txt_beforeStartdate', 'required|date')) {
-              $inputError = true;
-            }
-            break;
-          case 'startdateEnddate':
-            if (!formInputValid('txt_beforeStartdate', 'required|date')) {
-              $inputError = true;
-            }
-            if (!formInputValid('txt_beforeEnddate', 'required|date')) {
-              $inputError = true;
-            }
-            break;
-          default:
-            break;
+        if (isset($section['extra']) && is_callable($section['extra'])) {
+          $section['extra']($inputError);
         }
-      }
-    }
-
-    if (isset($_POST['chk_period1'])) {
-      if (!formInputValid('txt_period1start', 'required|date')) {
-        $inputError = true;
-      }
-      if (!formInputValid('txt_period1end', 'required|date')) {
-        $inputError = true;
-      }
-      if (!formInputValid('txt_period1Message', 'alpha_numeric_dash_blank_special')) {
-        $inputError = true;
-      }
-
-      if (isset($_POST['opt_period1Period'])) {
-        switch ($_POST['opt_period1Period']) {
-          case 'nowEnddate':
-            if (!formInputValid('txt_period1Enddate', 'required|date')) {
+        if (isset($_POST[$section['periodOption']])) {
+          $periodKey = $_POST[$section['periodOption']];
+          if (isset($section['periodFields'][$periodKey])) {
+            if (validatePeriodFields($section['periodFields'][$periodKey])) {
               $inputError = true;
             }
-            break;
-          case 'startdateForever':
-            if (!formInputValid('txt_period1Startdate', 'required|date')) {
-              $inputError = true;
-            }
-            break;
-          case 'startdateEnddate':
-            if (!formInputValid('txt_period1Startdate', 'required|date')) {
-              $inputError = true;
-            }
-            if (!formInputValid('txt_period1Enddate', 'required|date')) {
-              $inputError = true;
-            }
-            break;
-          default:
-            break;
-        }
-      }
-
-      if (!$inputError) {
-        $periodstart = str_replace("-", "", $_POST['txt_period1start']);
-        $periodend = str_replace("-", "", $_POST['txt_period1end']);
-        if ($periodend <= $periodstart) {
-          $inputAlert['period1end'] = sprintf($LANG['alert_input_greater_than'], $LANG['decl_period1start']);
-          $inputError = true;
-        }
-      }
-    }
-
-    if (isset($_POST['chk_period2'])) {
-      if (!formInputValid('txt_period2start', 'required|date')) {
-        $inputError = true;
-      }
-      if (!formInputValid('txt_period2end', 'required|date')) {
-        $inputError = true;
-      }
-      if (!formInputValid('txt_period2Message', 'alpha_numeric_dash_blank_special')) {
-        $inputError = true;
-      }
-
-      if (isset($_POST['opt_period2Period'])) {
-        switch ($_POST['opt_period2Period']) {
-          case 'nowEnddate':
-            if (!formInputValid('txt_period2Enddate', 'required|date')) {
-              $inputError = true;
-            }
-            break;
-          case 'startdateForever':
-            if (!formInputValid('txt_period2Startdate', 'required|date')) {
-              $inputError = true;
-            }
-            break;
-          case 'startdateEnddate':
-            if (!formInputValid('txt_period2Startdate', 'required|date')) {
-              $inputError = true;
-            }
-            if (!formInputValid('txt_period2Enddate', 'required|date')) {
-              $inputError = true;
-            }
-            break;
-          default:
-            break;
-        }
-      }
-
-      if (!$inputError) {
-        $periodstart = str_replace("-", "", $_POST['txt_period2start']);
-        $periodend = str_replace("-", "", $_POST['txt_period2end']);
-        if ($periodend <= $periodstart) {
-          $inputAlert['period2end'] = sprintf($LANG['alert_input_greater_than'], $LANG['decl_period2start']);
-          $inputError = true;
-        }
-      }
-    }
-
-    if (isset($_POST['chk_period3'])) {
-      if (!formInputValid('txt_period3start', 'required|date')) {
-        $inputError = true;
-      }
-      if (!formInputValid('txt_period3end', 'required|date')) {
-        $inputError = true;
-      }
-      if (!formInputValid('txt_period3Message', 'alpha_numeric_dash_blank_special')) {
-        $inputError = true;
-      }
-
-      if (isset($_POST['opt_period3Period'])) {
-        switch ($_POST['opt_period3Period']) {
-          case 'nowEnddate':
-            if (!formInputValid('txt_period3Enddate', 'required|date')) {
-              $inputError = true;
-            }
-            break;
-          case 'startdateForever':
-            if (!formInputValid('txt_period3Startdate', 'required|date')) {
-              $inputError = true;
-            }
-            break;
-          case 'startdateEnddate':
-            if (!formInputValid('txt_period3Startdate', 'required|date')) {
-              $inputError = true;
-            }
-            if (!formInputValid('txt_period3Enddate', 'required|date')) {
-              $inputError = true;
-            }
-            break;
-          default:
-            break;
-        }
-      }
-
-      if (!$inputError) {
-        $periodstart = str_replace("-", "", $_POST['txt_period3start']);
-        $periodend = str_replace("-", "", $_POST['txt_period3end']);
-        if ($periodend <= $periodstart) {
-          $inputAlert['period3end'] = sprintf($LANG['alert_input_greater_than'], $LANG['decl_period3start']);
-          $inputError = true;
+          }
         }
       }
     }
@@ -695,3 +633,42 @@ require_once WEBSITE_ROOT . '/views/header.php';
 require_once WEBSITE_ROOT . '/views/menu.php';
 include_once WEBSITE_ROOT . '/views/' . $controller . '.php';
 require_once WEBSITE_ROOT . '/views/footer.php';
+
+//-----------------------------------------------------------------------------
+// Helper functions for validation
+//-----------------------------------------------------------------------------
+/**
+ * Validate a set of fields for a section.
+ * @param array $fields Array of field definitions: ['name' => ..., 'rules' => ..., 'args' => ...]
+ * @return bool True if any field fails validation, false otherwise
+ */
+function validateSectionFields($fields) {
+  $inputError = false;
+  foreach ($fields as $field) {
+    if (isset($field['args'])) {
+      if (!formInputValid($field['name'], $field['rules'], $field['args'])) {
+        $inputError = true;
+      }
+    } else {
+      if (!formInputValid($field['name'], $field['rules'])) {
+        $inputError = true;
+      }
+    }
+  }
+  return $inputError;
+}
+
+/**
+ * Validate a set of period fields for a section.
+ * @param array $periodFields Array of field definitions for a period
+ * @return bool True if any field fails validation, false otherwise
+ */
+function validatePeriodFields($periodFields) {
+  $inputError = false;
+  foreach ($periodFields as $periodField) {
+    if (!formInputValid($periodField['name'], $periodField['rules'])) {
+      $inputError = true;
+    }
+  }
+  return $inputError;
+}
