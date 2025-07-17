@@ -23,7 +23,7 @@ view.holidayedit
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 8;
     $colsright = 4;
     ?>
@@ -43,12 +43,12 @@ view.holidayedit
 
           <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">
           <?php foreach ($viewData['holiday'] as $formObject) {
-            echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+            echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
           } ?>
 
           <div class="mt-4 text-end">
-            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_holidayUpdate"><?= $LANG['btn_save'] ?></button>
-            <a href="index.php?action=holidays" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_holiday_list'] ?></a>
+            <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" name="btn_holidayUpdate"><?= $LANG['btn_save'] ?></button>
+            <a href="index.php?action=holidays" class="btn btn-secondary" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_holiday_list'] ?></a>
           </div>
 
         </div>
