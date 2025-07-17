@@ -64,7 +64,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   //
   // Sanitize input
   //
-  $_POST = sanitize($_POST);
+  foreach ($_POST as $key => $value) {
+    $_POST[$key] = trim($value);
+    if (str_starts_with($key, 'txt_') && $key !== 'txt_welcomeText') {
+      $_POST[$key] = sanitize($value);
+    }
+  }
 
   //
   // CSRF token check
@@ -77,16 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     $alertData['help'] = $LANG['alert_csrf_invalid_help'];
     require_once WEBSITE_ROOT . '/controller/alert.php';
     die();
-  }
-
-  //
-  // Sanitize input
-  //
-  foreach ($_POST as $key => $value) {
-    $_POST[$key] = trim($value);
-    if (str_starts_with($key, 'txt_') && $key !== 'txt_welcomeText') {
-      $_POST[$key] = sanitize($value);
-    }
   }
 
   //
