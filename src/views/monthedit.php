@@ -22,7 +22,7 @@ view.monthedit
   ) {
     echo createAlertBox($alertData);
   }
-  $tabindex = 1;
+  $tabindex = 0;
   $colsleft = 1;
   $colsright = 4;
   ?>
@@ -55,11 +55,11 @@ view.monthedit
       <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageBwdYear . $pageBwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>"><span class="fas fa-angle-double-left"></span></a>
       <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageFwdYear . $pageFwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>"><span class="fas fa-angle-double-right"></span></a>
       <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $viewData['yearToday'] . $viewData['monthToday'] ?>&amp;region=<?= $viewData['regionid'] ?>"><?= $LANG['today'] ?></a>
-      <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
+      <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
 
       <div class="float-end">
-        <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
-        <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalClearAll"><?= $LANG['btn_clear_all'] ?></button>
+        <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" name="btn_save"><?= $LANG['btn_save'] ?></button>
+        <button type="button" class="btn btn-danger" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalClearAll"><?= $LANG['btn_clear_all'] ?></button>
       </div>
     </div>
 
@@ -196,7 +196,7 @@ view.monthedit
 
     <!-- Modal: Select Region -->
     <?= createModalTop('modalSelectRegion', $LANG['monthedit_selRegion']) ?>
-    <select id="region" class="form-select" name="sel_region" tabindex="<?= $tabindex++ ?>">
+    <select id="region" class="form-select" name="sel_region" tabindex="<?= ++$tabindex ?>">
       <?php foreach ($viewData['regions'] as $reg) { ?>
         <option value="<?= $reg['id'] ?>" <?= (($viewData['regionid'] == $reg['id']) ? ' selected="selected"' : '') ?>><?= $reg['name'] ?></option>
       <?php } ?>
