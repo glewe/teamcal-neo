@@ -80,6 +80,11 @@ $inputAlert = array();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 
   //
+  // Sanitize input
+  //
+  $_POST = sanitize($_POST);
+
+  //
   // CSRF token check
   //
   if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
@@ -93,11 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   }
 
   //
-  // Sanitize input
-  //
-  $_POST = sanitize($_POST);
-
-  //
   // Load sanitized form info for the view
   //
   $viewData['id'] = $_POST['hidden_id'];
@@ -109,23 +109,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   //
   $inputError = false;
   if (isset($_POST['btn_groupUpdate'])) {
-    if (formInputValid('txt_name', 'required|alpha_numeric_dash') !== true) {
-      $inputError = true;
-    }
-    if (formInputValid('txt_description', 'alpha_numeric_dash_blank') !== true) {
-      $inputError = true;
-    }
-    if (formInputValid('txt_minpresent', 'numeric') !== true) {
-      $inputError = true;
-    }
-    if (formInputValid('txt_maxabsent', 'numeric') !== true) {
-      $inputError = true;
-    }
-    if (formInputValid('txt_minpresentwe', 'numeric') !== true) {
-      $inputError = true;
-    }
-    if (formInputValid('txt_maxabsentwe', 'numeric') !== true) {
-      $inputError = true;
+    $fieldsToValidate = [
+      ['name' => 'txt_name', 'rules' => 'required|alpha_numeric_dash'],
+      ['name' => 'txt_description', 'rules' => 'alpha_numeric_dash_blank'],
+      ['name' => 'txt_minpresent', 'rules' => 'numeric'],
+      ['name' => 'txt_maxabsent', 'rules' => 'numeric'],
+      ['name' => 'txt_minpresentwe', 'rules' => 'numeric'],
+      ['name' => 'txt_maxabsentwe', 'rules' => 'numeric'],
+    ];
+    foreach ($fieldsToValidate as $field) {
+      if (formInputValid($field['name'], $field['rules']) !== true) {
+        $inputError = true;
+      }
     }
   }
 

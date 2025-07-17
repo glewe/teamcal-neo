@@ -23,7 +23,7 @@ view.groupedit
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 8;
     $colsright = 4;
     ?>
@@ -59,17 +59,17 @@ view.groupedit
                 <!-- Group Settings -->
                 <div class="tab-pane fade show active" id="panel-settings" role="tabpanel" aria-labelledby="tab-settings">
                   <?php foreach ($viewData['group'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
                   } ?>
                 </div>
 
                 <!-- Group Members -->
                 <div class="tab-pane fade" id="panel-members" role="tabpanel" aria-labelledby="tab-members">
                   <?php foreach ($viewData['members'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
                   } ?>
                   <?php foreach ($viewData['managers'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
                   } ?>
                 </div>
 
@@ -79,8 +79,8 @@ view.groupedit
 
           <div class="mt-4 float-end">
             <input name="hidden_id" type="hidden" value="<?= $viewData['id'] ?>">
-            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_groupUpdate"><?= $LANG['btn_update'] ?></button>
-            <a href="index.php?action=groups" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_group_list'] ?></a>
+            <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" name="btn_groupUpdate"><?= $LANG['btn_update'] ?></button>
+            <a href="index.php?action=groups" class="btn btn-secondary" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_group_list'] ?></a>
           </div>
 
         </div>
