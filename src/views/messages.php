@@ -17,7 +17,7 @@ view.messages
 
   <div class="col-lg-12">
 
-    <?php $tabindex = 1; ?>
+    <?php $tabindex = 0; ?>
 
     <div class="card">
       <?php
@@ -34,8 +34,8 @@ view.messages
             <div class="card-body">
               <form class="form-control-horizontal" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
                 <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
-                <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalConfirmAll"><?= $LANG['btn_confirm_all'] ?></button>
-                <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteAll"><?= $LANG['btn_delete_all'] ?></button>
+                <button type="button" class="btn btn-success" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalConfirmAll"><?= $LANG['btn_confirm_all'] ?></button>
+                <button type="button" class="btn btn-danger" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteAll"><?= $LANG['btn_delete_all'] ?></button>
 
                 <!-- Modal: Confirm all -->
                 <?= createModalTop('modalConfirmAll', $LANG['modal_confirm']) ?>
@@ -58,9 +58,9 @@ view.messages
             <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
             <div class="alert alert-<?= $msg['type'] ?>">
               <input name="msgId" type="hidden" class="text" value="<?= $msg['id'] ?>">
-              <button type="button" class="btn btn-danger btn-sm float-end" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDelete-<?= $msg['id'] ?>"><?= $LANG['btn_delete'] ?></button>
+              <button type="button" class="btn btn-danger btn-sm float-end" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDelete-<?= $msg['id'] ?>"><?= $LANG['btn_delete'] ?></button>
               <?php if ($msg['popup']) { ?>
-                <button type="button" class="btn btn-success btn-sm float-end" style="margin-right: 4px;" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalConfirm-<?= $msg['id'] ?>"><?= $LANG['btn_confirm'] ?></button>
+                <button type="button" class="btn btn-success btn-sm float-end" style="margin-right: 4px;" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalConfirm-<?= $msg['id'] ?>"><?= $LANG['btn_confirm'] ?></button>
               <?php } ?>
               <h5><?= $msg['timestamp'] ?></h5>
               <hr>
