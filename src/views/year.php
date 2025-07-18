@@ -26,7 +26,7 @@ view.year
   ) {
     echo createAlertBox($alertData);
   }
-  $tabindex = 1;
+  $tabindex = 0;
   $colsleft = 1;
   $colsright = 4;
   ?>
@@ -45,9 +45,9 @@ view.year
         <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;year=<?= date('Y') ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>"><?= $LANG['today'] ?></a>
       <?php } ?>
       <?php if ($C->read('showRegionButton')) { ?>
-        <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
+        <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
       <?php } ?>
-      <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectUser"><?= $LANG['user'] . ': ' . $viewData['fullname'] ?></button>
+      <button type="button" class="btn btn-success" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectUser"><?= $LANG['user'] . ': ' . $viewData['fullname'] ?></button>
     </div>
 
     <div class="card">
@@ -148,7 +148,7 @@ view.year
 
       <!-- Modal: Select Region -->
       <?= createModalTop('modalSelectRegion', $LANG['year_selRegion']) ?>
-      <select class="form-select" name="sel_region" tabindex="<?= $tabindex++ ?>">
+      <select class="form-select" name="sel_region" tabindex="<?= ++$tabindex ?>">
         <?php foreach ($viewData['regions'] as $reg) { ?>
           <option value="<?= $reg['id'] ?>" <?= (($viewData['regionid'] == $reg['id']) ? ' selected="selected"' : '') ?>><?= $reg['name'] ?></option>
         <?php } ?>
@@ -157,7 +157,7 @@ view.year
 
       <!-- Modal: Select User -->
       <?= createModalTop('modalSelectUser', $LANG['year_selUser']) ?>
-      <select class="form-select" name="sel_user" tabindex="<?= $tabindex++ ?>">
+      <select class="form-select" name="sel_user" tabindex="<?= ++$tabindex ?>">
         <?php foreach ($viewData['users'] as $usr) { ?>
           <option value="<?= $usr['username'] ?>" <?= (($viewData['username'] == $usr['username']) ? ' selected="selected"' : '') ?>><?= $usr['lastfirst'] ?></option>
         <?php } ?>

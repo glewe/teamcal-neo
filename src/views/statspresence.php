@@ -22,17 +22,17 @@ view.statspresence
   ) {
     echo createAlertBox($alertData);
   }
-  $tabindex = 1;
+  $tabindex = 0;
   ?>
 
   <form class="form-control-horizontal noprint" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
     <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
 
     <div class="page-menu">
-      <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalAbsence"><?= $LANG['absencetype'] ?> <span class="badge text-bg-light"><?= $viewData['absName'] ?></span></button>
-      <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalGroup"><?= $LANG['group'] ?> <span class="badge text-bg-light"><?= $viewData['groupName'] ?></span></button>
-      <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalPeriod"><?= $LANG['period'] ?> <span class="badge text-bg-light"><?= $viewData['periodName'] ?></span></button>
-      <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDiagram"><?= $LANG['diagram'] ?></button>
+      <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalAbsence"><?= $LANG['absencetype'] ?> <span class="badge text-bg-light"><?= $viewData['absName'] ?></span></button>
+      <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalGroup"><?= $LANG['group'] ?> <span class="badge text-bg-light"><?= $viewData['groupName'] ?></span></button>
+      <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalPeriod"><?= $LANG['period'] ?> <span class="badge text-bg-light"><?= $viewData['periodName'] ?></span></button>
+      <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDiagram"><?= $LANG['diagram'] ?></button>
       <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>"><?= $LANG['btn_reset'] ?></a>
     </div>
 
@@ -41,7 +41,7 @@ view.statspresence
     <div>
       <span class="text-bold"><?= $LANG['stats_absenceType'] ?></span><br>
       <span class="text-normal"><?= $LANG['stats_absenceType_comment'] ?></span>
-      <select id="absence" class="form-select" name="sel_absence" tabindex="<?= $tabindex++ ?>">
+      <select id="absence" class="form-select" name="sel_absence" tabindex="<?= ++$tabindex ?>">
         <option value="all" <?= (($viewData['absid'] == 'all') ? "selected" : "") ?>><?= $LANG['all'] ?></option>
         <?php foreach ($viewData['absences'] as $abs) { ?>
           <option value="<?= $abs['id'] ?>" <?= (($viewData['absid'] == $abs['id']) ? "selected" : "") ?>><?= $abs['name'] ?></option>
@@ -54,7 +54,7 @@ view.statspresence
     <?= createModalTop('modalGroup', $LANG['stats_modalGroupTitle']) ?>
     <span class="text-bold"><?= $LANG['stats_group'] ?></span><br>
     <span class="text-normal"><?= $LANG['stats_group_comment'] ?></span>
-    <select id="group" class="form-select" name="sel_group" tabindex="<?= $tabindex++ ?>">
+    <select id="group" class="form-select" name="sel_group" tabindex="<?= ++$tabindex ?>">
       <option value="all" <?= (($viewData['groupid'] == 'all') ? ' selected="selected"' : '') ?>><?= $LANG['all'] ?></option>
       <?php foreach ($viewData['groups'] as $grp) { ?>
         <option value="<?= $grp['id'] ?>" <?= (($viewData['groupid'] == $grp['id']) ? 'selected="selected"' : '') ?>><?= $grp['name'] ?></option>
@@ -71,7 +71,7 @@ view.statspresence
     <div>
       <span class="text-bold"><?= $LANG['stats_period'] ?></span><br>
       <span class="text-normal"><?= $LANG['stats_period_comment'] ?></span>
-      <select id="sel_period" class="form-select" name="sel_period" tabindex="<?= $tabindex++ ?>">
+      <select id="sel_period" class="form-select" name="sel_period" tabindex="<?= ++$tabindex ?>">
         <option value="year" <?= (($viewData['period'] == 'year') ? "selected" : "") ?>><?= $LANG['period_year'] ?></option>
         <option value="half" <?= (($viewData['period'] == 'half') ? "selected" : "") ?>><?= $LANG['period_half'] ?></option>
         <option value="quarter" <?= (($viewData['period'] == 'quarter') ? "selected" : "") ?>><?= $LANG['period_quarter'] ?></option>
@@ -98,7 +98,7 @@ view.statspresence
       <div>
         <span class="text-bold"><?= $LANG['stats_startDate'] ?></span><br>
         <span class="text-normal"><?= $LANG['stats_startDate_comment'] ?></span>
-        <input id="from" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_from" type="text" maxlength="10" value="<?= $viewData['from'] ?>" <?= (($viewData['period'] == 'custom') ? "" : "disabled") ?>>
+        <input id="from" class="form-control" tabindex="<?= ++$tabindex ?>" name="txt_from" type="text" maxlength="10" value="<?= $viewData['from'] ?>" <?= (($viewData['period'] == 'custom') ? "" : "disabled") ?>>
         <script>
           $(function () {
             $("#from").datepicker({
@@ -119,7 +119,7 @@ view.statspresence
       <div>
         <span class="text-bold"><?= $LANG['stats_endDate'] ?></span><br>
         <span class="text-normal"><?= $LANG['stats_endDate_comment'] ?></span>
-        <input id="to" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_to" type="text" maxlength="10" value="<?= $viewData['to'] ?>" <?= (($viewData['period'] == 'custom') ? "" : "disabled") ?>>
+        <input id="to" class="form-control" tabindex="<?= ++$tabindex ?>" name="txt_to" type="text" maxlength="10" value="<?= $viewData['to'] ?>" <?= (($viewData['period'] == 'custom') ? "" : "disabled") ?>>
         <script>
           $(function () {
             $("#to").datepicker({
@@ -143,7 +143,7 @@ view.statspresence
     <div>
       <span class="text-bold"><?= $LANG['stats_color'] ?></span><br>
       <label for="sel_color" class="text-normal"><?= $LANG['stats_color_comment'] ?></label>
-      <select id="sel_color" class="form-select" name="sel_color" tabindex="<?= $tabindex++ ?>">
+      <select id="sel_color" class="form-select" name="sel_color" tabindex="<?= ++$tabindex ?>">
         <option value="#0000ff" <?= (($viewData['color'] == 'blue') ? "selected" : "") ?>><?= $LANG['blue'] ?></option>
         <option value="#00ffff" <?= (($viewData['color'] == 'cyan') ? "selected" : "") ?>><?= $LANG['cyan'] ?></option>
         <option value="#008000" <?= (($viewData['color'] == 'green') ? "selected" : "") ?>><?= $LANG['green'] ?></option>

@@ -23,7 +23,7 @@ view.passwordreset
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 8;
     $colsright = 4;
     ?>
@@ -44,7 +44,7 @@ view.passwordreset
           <div class="card">
             <div class="card-body">
               <?php foreach ($viewData['personal'] as $formObject) {
-                echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
               } ?>
             </div>
           </div>
@@ -52,7 +52,7 @@ view.passwordreset
           <div style="height:20px;"></div>
           <div class="card">
             <div class="card-body">
-              <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_update"><?= $LANG['btn_update'] ?></button>
+              <button type="submit" class="btn btn-success" tabindex="<?= ++$tabindex ?>" name="btn_update"><?= $LANG['btn_update'] ?></button>
             </div>
           </div>
 

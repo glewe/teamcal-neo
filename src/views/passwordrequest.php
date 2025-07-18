@@ -27,7 +27,7 @@ view.passwordrequest
       ) {
         echo createAlertBox($alertData);
       }
-      $tabindex = 1;
+      $tabindex = 0;
       $colsleft = 4;
       $colsright = 8;
       $paddingBottom = "36px";
@@ -49,7 +49,7 @@ view.passwordrequest
                 <div class="form-group row" style="padding-bottom: <?= $paddingBottom ?>;">
                   <label class="col-lg-<?= $colsleft ?> control-label"><?= $LANG['pwdreq_email'] ?></label>
                   <div class="col-lg-<?= $colsright ?>">
-                    <input id="inputUsername" class="form-control" autofocus="autofocus" tabindex="<?= $tabindex++ ?>" name="txt_email" type="text" value="<?= $viewData['email'] ?>">
+                    <input id="inputUsername" class="form-control" autofocus="autofocus" tabindex="<?= ++$tabindex ?>" name="txt_email" type="text" value="<?= $viewData['email'] ?>">
                   </div>
                 </div>
                 <div class="form-group row">
@@ -69,7 +69,7 @@ view.passwordrequest
                     </div>
                     <div class="col-lg-12">
                       <?php foreach ($viewData['pwdUsers'] as $usr) { ?>
-                        <div class="form-check"><label><input class="form-check-input" name="opt_user" value="<?= $usr['username'] ?>" tabindex="<?= $tabindex++ ?>" type="radio"><?= $usr['username'] ?></label></div>
+                        <div class="form-check"><label><input class="form-check-input" name="opt_user" value="<?= $usr['username'] ?>" tabindex="<?= ++$tabindex ?>" type="radio"><?= $usr['username'] ?></label></div>
                       <?php } ?>
                     </div>
                   </div>
@@ -77,7 +77,7 @@ view.passwordrequest
 
                 <div class="form-group row">
                   <div class="col-lg-12">
-                    <button type="submit" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>" name="btn_request_password"><?= $LANG['btn_reset_password'] ?></button>
+                    <button type="submit" class="btn btn-secondary" tabindex="<?= ++$tabindex ?>" name="btn_request_password"><?= $LANG['btn_reset_password'] ?></button>
                   </div>
                 </div>
               </fieldset>

@@ -23,7 +23,7 @@ view.patternadd
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 6;
     $colsright = 6;
     ?>
@@ -42,12 +42,12 @@ view.patternadd
         <div class="card-body">
 
           <?php foreach ($viewData['pattern'] as $formObject) {
-            echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+            echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
           } ?>
 
           <div class="mt-4 text-end">
-            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_create"><?= $LANG['btn_create'] ?></button>
-            <a href="index.php?action=patterns" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_pattern_list'] ?></a>
+            <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" name="btn_create"><?= $LANG['btn_create'] ?></button>
+            <a href="index.php?action=patterns" class="btn btn-secondary" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_pattern_list'] ?></a>
           </div>
 
         </div>

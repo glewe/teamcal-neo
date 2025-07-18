@@ -23,7 +23,7 @@ view.useradd
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 8;
     $colsright = 4;
     ?>
@@ -45,14 +45,14 @@ view.useradd
           <div class="card">
             <div class="card-body">
               <?php foreach ($viewData['personal'] as $formObject) {
-                echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
               } ?>
             </div>
           </div>
 
           <div class="mt-4 text-end">
-            <button type="submit" class="btn btn-success me-2" tabindex="<?= $tabindex++ ?>" name="btn_profileCreate"><?= $LANG['btn_create_user'] ?></button>
-            <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
+            <button type="submit" class="btn btn-success me-2" tabindex="<?= ++$tabindex ?>" name="btn_profileCreate"><?= $LANG['btn_create_user'] ?></button>
+            <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_user_list'] ?></a>
           </div>
 
         </div>

@@ -22,18 +22,18 @@ view.statsabstype
   ) {
     echo createAlertBox($alertData);
   }
-  $tabindex = 1;
+  $tabindex = 0;
   ?>
 
   <form class="form-control-horizontal noprint" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
     <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
 
     <div class="page-menu">
-      <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalGroup"><?= $LANG['group'] ?> <span class="badge text-bg-light"><?= $viewData['groupName'] ?></span></button>
+      <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalGroup"><?= $LANG['group'] ?> <span class="badge text-bg-light"><?= $viewData['groupName'] ?></span></button>
       <?php if (!$C->read('currentYearOnly')) { ?>
-        <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalYear"><?= $LANG['year'] ?> <span class="badge text-bg-light"><?= $viewData['year'] ?></span></button>
+        <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalYear"><?= $LANG['year'] ?> <span class="badge text-bg-light"><?= $viewData['year'] ?></span></button>
       <?php } ?>
-      <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDiagram"><?= $LANG['diagram'] ?></button>
+      <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDiagram"><?= $LANG['diagram'] ?></button>
       <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>"><?= $LANG['btn_reset'] ?></a>
     </div>
     <div style="height:20px;"></div>
@@ -42,7 +42,7 @@ view.statsabstype
     <?= createModalTop('modalGroup', $LANG['stats_modalGroupTitle']) ?>
     <span class="text-bold"><?= $LANG['stats_group'] ?></span><br>
     <span class="text-normal"><?= $LANG['stats_group_comment'] ?></span>
-    <select id="group" class="form-select" name="sel_group" tabindex="<?= $tabindex++ ?>">
+    <select id="group" class="form-select" name="sel_group" tabindex="<?= ++$tabindex ?>">
       <option value="all" <?= (($viewData['groupid'] == 'all') ? ' selected="selected"' : '') ?>><?= $LANG['all'] ?></option>
       <?php foreach ($viewData['groups'] as $grp) { ?>
         <option value="<?= $grp['id'] ?>" <?= (($viewData['groupid'] == $grp['id']) ? 'selected="selected"' : '') ?>><?= $grp['name'] ?></option>
@@ -56,7 +56,7 @@ view.statsabstype
       <div>
         <span class="text-bold"><?= $LANG['stats_year'] ?></span><br>
         <span class="text-normal"><?= $LANG['stats_year_comment'] ?></span>
-        <select id="sel_year" class="form-select" name="sel_year" tabindex="<?= $tabindex++ ?>">
+        <select id="sel_year" class="form-select" name="sel_year" tabindex="<?= ++$tabindex ?>">
           <option value="<?= date("Y") - 1 ?>" <?= (($viewData['year'] == date("Y") - 1) ? "selected" : "") ?>><?= date("Y") - 1 ?></option>
           <option value="<?= date("Y") ?>" <?= (($viewData['year'] == date("Y")) ? "selected" : "") ?>><?= date("Y") ?></option>
           <option value="<?= date("Y") + 1 ?>" <?= (($viewData['year'] == date("Y") + 1) ? "selected" : "") ?>><?= date("Y") + 1 ?></option>
@@ -70,7 +70,7 @@ view.statsabstype
     <div>
       <span class="text-bold"><?= $LANG['stats_color'] ?></span><br>
       <label for="sel_color" class="text-normal"><?= $LANG['stats_color_comment'] ?></label>
-      <select id="sel_color" class="form-select" name="sel_color" tabindex="<?= $tabindex++ ?>">
+      <select id="sel_color" class="form-select" name="sel_color" tabindex="<?= ++$tabindex ?>">
         <option value="#0000ff" <?= (($viewData['color'] == 'blue') ? "selected" : "") ?>><?= $LANG['blue'] ?></option>
         <option value="#00ffff" <?= (($viewData['color'] == 'cyan') ? "selected" : "") ?>><?= $LANG['cyan'] ?></option>
         <option value="#00d000" <?= (($viewData['color'] == 'green') ? "selected" : "") ?>><?= $LANG['green'] ?></option>

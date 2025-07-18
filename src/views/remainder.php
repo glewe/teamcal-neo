@@ -24,7 +24,7 @@ view.remainder
   ) {
     echo createAlertBox($alertData);
   }
-  $tabindex = 1;
+  $tabindex = 0;
   $colsleft = 1;
   $colsright = 4;
   ?>
@@ -33,13 +33,13 @@ view.remainder
     <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
 
     <div class="page-menu">
-      <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectGroup"><?= $LANG['group'] . ': ' . $viewData['group'] ?></button>
-      <button type="button" class="btn btn-info" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSearchUser"><?= $LANG['search'] . ': ' . $viewData['search'] ?></button>
+      <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectGroup"><?= $LANG['group'] . ': ' . $viewData['group'] ?></button>
+      <button type="button" class="btn btn-info" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSearchUser"><?= $LANG['search'] . ': ' . $viewData['search'] ?></button>
       <?php if (!$C->read('currentYearOnly')) { ?>
-        <button type="button" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalYear"><?= $LANG['year'] ?> <span class="badge text-bg-light"><?= $viewData['year'] ?></span></button>
+        <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalYear"><?= $LANG['year'] ?> <span class="badge text-bg-light"><?= $viewData['year'] ?></span></button>
       <?php } ?>
-      <button type="submit" class="btn btn-success" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
-      <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_showcalendar'] ?></a>
+      <button type="submit" class="btn btn-success" tabindex="<?= ++$tabindex ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
+      <a href="index.php?action=calendarview&rand=<?= rand(100, 9999) ?>" class="btn btn-secondary float-end" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_showcalendar'] ?></a>
     </div>
 
     <div class="card">
@@ -87,7 +87,7 @@ view.remainder
           <tbody>
           <?php foreach ($viewData['users'] as $user) { ?>
             <tr>
-              <td class="m-name"><a href="index.php?action=useredit&amp;profile=<?= $user['username'] ?>" tabindex="<?= $tabindex++ ?>"><?= $user['dispname'] ?></a></td>
+              <td class="m-name"><a href="index.php?action=useredit&amp;profile=<?= $user['username'] ?>" tabindex="<?= ++$tabindex ?>"><?= $user['dispname'] ?></a></td>
               <?php foreach ($viewData['absences'] as $abs) {
                 if ($abs['show_in_remainder']) {
                   echo '<td class="m-day text-center">';
@@ -131,7 +131,7 @@ view.remainder
 
     <!-- Modal: Select Group -->
     <?= createModalTop('modalSelectGroup', $LANG['cal_selGroup']) ?>
-    <select id="group" class="form-select" name="sel_group" tabindex="<?= $tabindex++ ?>">
+    <select id="group" class="form-select" name="sel_group" tabindex="<?= ++$tabindex ?>">
       <option value="all" <?= (($viewData['groupid'] == 'all') ? ' selected="selected"' : '') ?>><?= $LANG['all'] ?></option>
       <?php foreach ($viewData['allGroups'] as $grp) { ?>
         <option value="<?= $grp['id'] ?>" <?= (($viewData['groupid'] == $grp['id']) ? ' selected="selected"' : '') ?>><?= $grp['name'] ?></option>
@@ -148,7 +148,7 @@ view.remainder
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           </div>
           <div class="modal-body">
-            <input id="search" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_search" type="text" value="<?= $viewData["search"] ?>">
+            <input id="search" class="form-control" tabindex="<?= ++$tabindex ?>" name="txt_search" type="text" value="<?= $viewData["search"] ?>">
             <?php if (isset($inputAlert["search"])) { ?>
               <br>
               <div class="alert alert-dismissable alert-danger">
@@ -156,9 +156,9 @@ view.remainder
             <?php } ?>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-info" tabindex="<?= $tabindex++ ?>" name="btn_search" style="margin-top: 4px;"><?= $LANG['btn_search'] ?></button>
+            <button type="submit" class="btn btn-info" tabindex="<?= ++$tabindex ?>" name="btn_search" style="margin-top: 4px;"><?= $LANG['btn_search'] ?></button>
             <?php if (strlen($viewData["search"])) { ?>
-              <button type="submit" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" name="btn_search_clear"><?= $LANG['btn_clear'] ?></button>
+              <button type="submit" class="btn btn-danger" tabindex="<?= ++$tabindex ?>" name="btn_search_clear"><?= $LANG['btn_clear'] ?></button>
             <?php } ?>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= $LANG['btn_cancel'] ?></button>
           </div>
@@ -171,7 +171,7 @@ view.remainder
     <div>
       <span class="text-bold"><?= $LANG['year'] ?></span><br>
       <span class="text-normal"><?= $LANG['rem_year_comment'] ?></span>
-      <select id="sel_year" class="form-select" name="sel_year" tabindex="<?= $tabindex++ ?>">
+      <select id="sel_year" class="form-select" name="sel_year" tabindex="<?= ++$tabindex ?>">
         <option value="<?= date("Y") - 2 ?>" <?= (($viewData['year'] == date("Y") - 2) ? "selected" : "") ?>><?= date("Y") - 2 ?></option>
         <option value="<?= date("Y") - 1 ?>" <?= (($viewData['year'] == date("Y") - 1) ? "selected" : "") ?>><?= date("Y") - 1 ?></option>
         <option value="<?= date("Y") ?>" <?= (($viewData['year'] == date("Y")) ? "selected" : "") ?>><?= date("Y") ?></option>

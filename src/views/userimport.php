@@ -27,7 +27,7 @@ view.userimport
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 6;
     $colsright = 6;
     ?>
@@ -52,7 +52,7 @@ view.userimport
             </label>
             <div class="col-lg-<?= $colsright ?>">
               <input type="hidden" name="MAX_FILE_SIZE" value="<?= $viewData['upl_maxsize'] ?>"><br>
-              <input class="form-control" tabindex="<?= $tabindex++ ?>" name="file_image" type="file"><br>
+              <input class="form-control" tabindex="<?= ++$tabindex ?>" name="file_image" type="file"><br>
             </div>
           </div>
           <div class="divider">
@@ -60,13 +60,13 @@ view.userimport
           </div>
 
           <?php foreach ($viewData['import'] as $formObject) {
-            echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+            echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
           } ?>
 
           <div class="mt-4 text-end">
-            <button type="submit" class="btn btn-primary me-2" tabindex="<?= $tabindex++ ?>" name="btn_import"><?= $LANG['btn_import'] ?></button>
+            <button type="submit" class="btn btn-primary me-2" tabindex="<?= ++$tabindex ?>" name="btn_import"><?= $LANG['btn_import'] ?></button>
             <?php if (isAllowed("useraccount")) { ?>
-              <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
+              <a href="index.php?action=users" class="btn btn-secondary float-end" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_user_list'] ?></a>
             <?php } ?>
           </div>
 

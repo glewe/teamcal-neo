@@ -23,7 +23,7 @@ view.patternedit
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 8;
     $colsright = 4;
     ?>
@@ -55,12 +55,12 @@ view.patternedit
           </div>
 
           <?php foreach ($viewData['pattern'] as $formObject) {
-            echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+            echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
           } ?>
 
           <div class="mt-4 text-end">
-            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_update"><?= $LANG['btn_update'] ?></button>
-            <a href="index.php?action=patterns" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_pattern_list'] ?></a>
+            <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" name="btn_update"><?= $LANG['btn_update'] ?></button>
+            <a href="index.php?action=patterns" class="btn btn-secondary" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_pattern_list'] ?></a>
           </div>
 
         </div>
