@@ -1,23 +1,21 @@
 <?php
 /**
- * Login View
+ * Login 2FA View
  *
  * @author    George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2024 by George Lewe
  * @link      https://www.lewe.com
  *
  * @package   TeamCal Neo
- * @since     3.0.0
+ * @since     4.3.0
  */
 ?>
 <!-- ====================================================================
-view.login
+view.login2fa
 -->
 <div class="container content">
   <div class="row">
-
     <div class="col-lg-3"></div>
-
     <div class="col-lg-6">
       <?php
       if (
@@ -26,40 +24,29 @@ view.login
       ) {
         echo createAlertBox($alertData);
       }
-      $tabindex = 1;
+      $tabindex = 0;
       $colsleft = 5;
       $colsright = 7;
       $paddingBottom = "12px";
       ?>
       <div class="card">
-        <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['login_login'] ?></div>
+        <div class="card-header bg-primary"><i class="fas fa-user-lock fa-lg me-3"></i><?= $LANG['login_authcode'] ?></div>
         <div class="card-body">
           <div class="col-lg-12">
-            <form id="login" action="index.php?action=<?= $controller ?>" method="post" target="_self" name="loginform" accept-charset="utf-8">
+            <form id="login2fa" action="index.php?action=login2fa" method="post" target="_self" name="login2faform" accept-charset="utf-8">
               <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
               <fieldset>
                 <div class="form-group row mb-3" style="padding-bottom: <?= $paddingBottom ?>;">
-                  <label for="inputUsername" class="col-lg-<?= $colsleft ?> control-label"><?= $LANG['login_username'] ?></label>
+                  <label for="totp" class="col-lg-<?= $colsleft ?> control-label"><?= $LANG['login_authcode'] ?></label>
                   <div class="col-lg-<?= $colsright ?>">
-                    <input id="inputUsername" class="form-control" tabindex="<?= ++$tabindex ?>" autofocus="autofocus" name="uname" type="text" value="<?= (isset($uname)) ? $uname : ""; ?>">
+                    <input id="totp" class="form-control" tabindex="<?= ++$tabindex ?>" name="totp" type="text" minlength="6" maxlength="6" pattern="^[0-9]{6}$" required autofocus autocomplete="one-time-code">
                   </div>
                 </div>
-                <div class="form-group row" style="padding-bottom: <?= $paddingBottom ?>;">
-                  <label for="pword" class="col-lg-<?= $colsleft ?> control-label"><?= $LANG['login_password'] ?></label>
-                  <div class="col-lg-<?= $colsright ?>">
-                    <input class="form-control" id="pword" tabindex="<?= ++$tabindex ?>" name="pword" type="password" autocomplete="off">
-                  </div>
-                </div>
-                <hr>
-
-                <!-- 2FA code input removed for new 2-step flow -->
-
                 <div class="form-group row">
                   <label for="inputSubmit" class="col-lg-<?= $colsleft ?> control-label"></label>
                   <div class="col-lg-<?= $colsright ?>">
-                    <input id="inputSubmit" name="btn_login" tabindex="<?= ++$tabindex ?>" type="text" value="true" style="visibility: hidden; display: none">
                     <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" name="submit"><?= $LANG['btn_login'] ?></button>
-                    <a href="index.php?action=passwordrequest" class="btn btn-secondary float-end" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_reset_password'] ?></a>
+                    <a href="index.php?action=login" class="btn btn-secondary float-end" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_back'] ?? 'Back' ?></a>
                   </div>
                 </div>
               </fieldset>
@@ -68,8 +55,6 @@ view.login
         </div>
       </div>
     </div>
-
     <div class="col-lg-3"></div>
-
   </div>
-</div>
+</div> 
