@@ -184,6 +184,10 @@ for ($i = 1; $i <= 12; $i++) {
 // PROCESS FORM
 //
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+  //
+  // Sanitize input
+  //
+  $_POST = sanitize($_POST);
 
   //
   // CSRF token check
