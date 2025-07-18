@@ -83,57 +83,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
           // If there is 2FA set up we need to check the second factor as well.
           //
           if ($UO->read($uname, 'secret')) {
-            //
-            // Remove the login cookie from above for now
-            //
+            // 2FA is enabled for this user. Store username in session and redirect to 2FA page.
+            $_SESSION['2fa_user'] = $uname;
+            $_SESSION['2fa_pword'] = $pword; // Optional: can be removed if not needed
+            // Remove any existing login session just in case
             $L->logout();
-            $userSecret = openssl_decrypt($UO->read($uname, 'secret'), "AES-128-ECB", APP_LIC_KEY);
-            if (isset($_POST['totp'])) {
-              $totp = $_POST['totp'];
-              $result = $tfa->verifyCode($userSecret, $totp);
-              if ($result) {
-                //
-                // Code matches. Reset the login cookie
-                //
-                $L->loginUser($uname, $pword);
-                $LOG->logEvent("logLogin", $uname, "log_login_success");
-                //
-                // Check whether we have to force the announcement page to show.
-                // This is the case if the user has popup announcements.
-                //
-                $popups = $UMSG->getAllPopupByUser($uname);
-                if (count($popups)) {
-                  header("Location: index.php?action=messages");
-                } else {
-                  header("Location: index.php?action=" . $C->read("homepage"));
-                }
-                break;
-              } else {
-                //
-                // Code mismatch
-                //
-                $showAlert = true;
-                $alertData['type'] = 'warning';
-                $alertData['title'] = $LANG['alert_warning_title'];
-                $alertData['subject'] = $LANG['login_error_2fa'];
-                $alertData['text'] = $LANG['login_error_2fa_text'];
-                $alertData['help'] = '';
-                $LOG->logEvent("logLogin", $uname, "log_login_2fa");
-                break;
-              }
-            } else {
-              //
-              // Authenticator code missing
-              //
-              $showAlert = true;
-              $alertData['type'] = 'warning';
-              $alertData['title'] = $LANG['alert_warning_title'];
-              $alertData['subject'] = $LANG['login_error_1'];
-              $alertData['text'] = $LANG['login_error_1_text'];
-              $alertData['help'] = '';
-              $LOG->logEvent("logLogin", $uname, "log_login_missing");
-              break;
-            }
+            header("Location: index.php?action=login2fa");
+            exit;
           } elseif ($C->read('forceTfa')) {
             //
             // TFA required but no secret for this user yet.

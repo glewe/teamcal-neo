@@ -119,7 +119,7 @@ view.users
                           <?= (($user['onhold'] ?? false) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . htmlspecialchars($LANG['users_attribute_onhold'], ENT_QUOTES, 'UTF-8') . '"><i class="far fa-clock fa-sm text-warning"></i></i>' : '') ?>
                           <?= (($user['verify'] ?? false) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . htmlspecialchars($LANG['users_attribute_verify'], ENT_QUOTES, 'UTF-8') . '"><i class="fas fa-exclamation-circle fa-sm text-success"></i></i>' : '') ?>
                           <?= (($user['hidden'] ?? false) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . htmlspecialchars($LANG['users_attribute_hidden'], ENT_QUOTES, 'UTF-8') . '"><i class="far fa-eye-slash fa-sm text-info"></i></i>' : '') ?>
-                          <?= (($UO->read($user['username'] ?? '', 'secret')) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . htmlspecialchars($LANG['users_attribute_secret'], ENT_QUOTES, 'UTF-8') . '"><i class="fa fa-shield fa-sm text-secondary"></i></i>' : '') ?>
+                          <?= (($UO->read($user['username'] ?? '', 'secret')) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . htmlspecialchars($LANG['users_attribute_secret'], ENT_QUOTES, 'UTF-8') . '"><i class="fa fa-shield fa-sm text-warning"></i></i>' : '') ?>
                         </td>
                         <td class="align-top"><?= $user['created'] ?></td>
                         <td class="align-top"><?= (($user['last_login'] != DEFAULT_TIMESTAMP) ? $user['last_login'] : "") ?></td>
