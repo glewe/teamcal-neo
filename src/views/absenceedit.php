@@ -126,20 +126,20 @@ view.absenceedit
                   </div>
 
                   <?php foreach ($viewData['formObjects']['general'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
                   } ?>
 
                 </div>
 
                 <div class="tab-pane fade" id="panel-options" role="tabpanel" aria-labelledby="tab-options">
                   <?php foreach ($viewData['formObjects']['options'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
                   } ?>
                 </div>
 
                 <div class="tab-pane fade" id="panel-groupassignments" role="tabpanel" aria-labelledby="tab-groupassignments">
                   <?php foreach ($viewData['formObjects']['groups'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
                   } ?>
                 </div>
 

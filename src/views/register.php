@@ -23,7 +23,7 @@ view.register
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 8;
     $colsright = 4;
     ?>
@@ -44,7 +44,7 @@ view.register
           <div class="card">
             <div class="card-body">
               <?php foreach ($viewData['personal'] as $formObject) {
-                echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
               } ?>
             </div>
           </div>
@@ -52,7 +52,7 @@ view.register
           <div style="height:20px;"></div>
           <div class="card">
             <div class="card-body">
-              <button type="submit" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" name="btn_register"><?= $LANG['btn_register'] ?></button>
+              <button type="submit" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" name="btn_register"><?= $LANG['btn_register'] ?></button>
             </div>
           </div>
 

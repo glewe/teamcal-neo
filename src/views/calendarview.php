@@ -39,7 +39,7 @@ view.calendarview
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 1;
     $colsright = 4;
     ?>
@@ -74,11 +74,11 @@ view.calendarview
       <?= createModalTop('modalSelectMonth', $LANG['cal_selMonth']) ?>
       <div style="width:48%;float:left;">
         <?= $LANG['year'] ?><br>
-        <input id="year" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_year" type="number" min="2000" max="2100" value="<?= $viewData['year'] ?>">
+        <input id="year" class="form-control" tabindex="<?= ++$tabindex ?>" name="txt_year" type="number" min="2000" max="2100" value="<?= $viewData['year'] ?>">
       </div>
       <div style="width:45%;float:right;">
         <?= $LANG['month'] ?><br>
-        <select id="month" class="form-select" name="sel_month" tabindex="<?= $tabindex++ ?>">
+        <select id="month" class="form-select" name="sel_month" tabindex="<?= ++$tabindex ?>">
           <?php foreach ($LANG['monthnames'] as $key => $value) { ?>
             <option value="<?= sprintf('%02d', $key) ?>" <?= ($key == $viewData['month']) ? 'selected="selected"' : ''; ?>><?= $value ?></option>
           <?php } ?>
@@ -89,7 +89,7 @@ view.calendarview
 
       <!-- Modal: Select Region -->
       <?= createModalTop('modalSelectRegion', $LANG['cal_selRegion']) ?>
-      <select id="region" class="form-select" name="sel_region" tabindex="<?= $tabindex++ ?>">
+      <select id="region" class="form-select" name="sel_region" tabindex="<?= ++$tabindex ?>">
         <?php foreach ($viewData['regions'] as $reg) { ?>
           <option value="<?= $reg['id'] ?>" <?= (($viewData['regionid'] == $reg['id']) ? ' selected="selected"' : '') ?>><?= $reg['name'] ?></option>
         <?php } ?>
@@ -98,7 +98,7 @@ view.calendarview
 
       <!-- Modal: Select Group -->
       <?= createModalTop('modalSelectGroup', $LANG['cal_selGroup']) ?>
-      <select id="group" class="form-select" name="sel_group" tabindex="<?= $tabindex++ ?>">
+      <select id="group" class="form-select" name="sel_group" tabindex="<?= ++$tabindex ?>">
         <option value="all" <?= (($viewData['groupid'] == 'all') ? ' selected="selected"' : '') ?>><?= $LANG['all'] ?></option>
         <?php foreach ($viewData['allGroups'] as $grp) {
           if (isAllowed("calendarviewall") || ($UG->isMemberOrManagerOfGroup($UL->username, $grp['id']))) { ?>
@@ -111,7 +111,7 @@ view.calendarview
       <!-- Modal: Select Absence -->
       <?= createModalTop('modalSelectAbsence', $LANG['cal_selAbsence']) ?>
       <p><?= $LANG['cal_selAbsence_comment'] ?></p>
-      <select id="absence" class="form-select" name="sel_absence" tabindex="<?= $tabindex++ ?>">
+      <select id="absence" class="form-select" name="sel_absence" tabindex="<?= ++$tabindex ?>">
         <option value="all" <?= (($viewData['absid'] == 'all') ? 'selected="selected"' : '') ?>><?= $LANG['all'] ?></option>
         <?php foreach ($viewData['absences'] as $abs) { ?>
           <option value="<?= $abs['id'] ?>" <?= (($viewData['absid'] == $abs['id']) ? ' selected="selected"' : '') ?>><?= $abs['name'] ?></option>
@@ -122,7 +122,7 @@ view.calendarview
       <!-- Modal: Screen Width -->
       <?= createModalTop('modalSelectWidth', $LANG['cal_selWidth']) ?>
       <p><?= $LANG['cal_selWidth_comment'] ?></p>
-      <select id="width" class="form-select" name="sel_width" tabindex="<?= $tabindex++ ?>">
+      <select id="width" class="form-select" name="sel_width" tabindex="<?= ++$tabindex ?>">
         <?php foreach ($LANG['widths'] as $key => $value) { ?>
           <option value="<?= $key ?>" <?= (($viewData['width'] == $key) ? ' selected="selected"' : '') ?>><?= $value ?></option>
         <?php } ?>
@@ -138,7 +138,7 @@ view.calendarview
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <input id="search" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_search" type="text" value="<?= $viewData["search"] ?>">
+              <input id="search" class="form-control" tabindex="<?= ++$tabindex ?>" name="txt_search" type="text" value="<?= $viewData["search"] ?>">
               <?php if (isset($inputAlert["search"])) { ?>
                 <br>
                 <div class="alert alert-dismissable alert-danger fade show" role="alert">
@@ -148,9 +148,9 @@ view.calendarview
               <?php } ?>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-info" tabindex="<?= $tabindex++ ?>" name="btn_search" style="margin-top: 4px;"><?= $LANG['btn_search'] ?></button>
+              <button type="submit" class="btn btn-info" tabindex="<?= ++$tabindex ?>" name="btn_search" style="margin-top: 4px;"><?= $LANG['btn_search'] ?></button>
               <?php if (strlen($viewData["search"])) { ?>
-                <button type="submit" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" name="btn_search_clear"><?= $LANG['btn_clear'] ?></button>
+                <button type="submit" class="btn btn-danger" tabindex="<?= ++$tabindex ?>" name="btn_search_clear"><?= $LANG['btn_clear'] ?></button>
               <?php } ?>
             </div>
           </div>

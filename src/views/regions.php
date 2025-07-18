@@ -146,7 +146,7 @@ view.regions
                 <form class="form-control-horizontal" name="form_ical" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8" enctype="multipart/form-data">
                   <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
                   <?php foreach ($viewData['ical'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
                   } ?>
                   <div class="form-group row">
                     <label class="col-lg-<?= $colsleft ?> control-label">
@@ -171,7 +171,7 @@ view.regions
                 <form class="bs-example form-control-horizontal" name="form_merge" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
                   <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
                   <?php foreach ($viewData['merge'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
                   } ?>
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-sm float-end" tabindex="32" name="btn_regionTransfer"><?= $LANG['btn_transfer'] ?></button>

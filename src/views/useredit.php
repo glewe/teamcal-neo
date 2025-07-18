@@ -23,7 +23,7 @@ view.useredit
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 8;
     $colsright = 4;
     ?>
@@ -84,14 +84,14 @@ view.useredit
                 <!-- Personal tab -->
                 <div class="tab-pane fade show active" id="panel-personal" role="tabpanel" aria-labelledby="tab-personal">
                   <?php foreach ($viewData['personal'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
                   } ?>
                 </div>
 
                 <!-- Contact tab -->
                 <div class="tab-pane fade" id="panel-contact" role="tabpanel" aria-labelledby="tab-contact">
                   <?php foreach ($viewData['contact'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
                   } ?>
                 </div>
 
@@ -99,7 +99,7 @@ view.useredit
                   <!-- Options tab -->
                   <div class="tab-pane fade" id="panel-options" role="tabpanel" aria-labelledby="tab-options">
                     <?php foreach ($viewData['options'] as $formObject) {
-                      echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                      echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
                     } ?>
                   </div>
                 <?php } ?>
@@ -117,7 +117,7 @@ view.useredit
                         <img src="<?= APP_AVATAR_DIR . $viewData['avatar'] ?>" alt="" style="width: 80px; height: 80px;"><br>
                         <br>
                         <?php if (substr($viewData['avatar'], 0, 9) != 'default_') { ?>
-                          <button type="submit" class="btn btn-primary btn-sm" tabindex="<?= $tabindex++ ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
+                          <button type="submit" class="btn btn-primary btn-sm" tabindex="<?= ++$tabindex ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
                         <?php } ?>
                       </div>
                     </div>
@@ -133,8 +133,8 @@ view.useredit
                       </label>
                       <div class="col-lg-<?= $colsright ?>">
                         <input type="hidden" name="MAX_FILE_SIZE" value="<?= $viewData['avatar_maxsize'] ?>"><br>
-                        <input class="form-control" tabindex="<?= $tabindex++ ?>" name="file_avatar" type="file"><br>
-                        <button type="submit" class="btn btn-primary btn-sm" tabindex="<?= $tabindex++ ?>" name="btn_uploadAvatar"><?= $LANG['btn_upload'] ?></button>
+                        <input class="form-control" tabindex="<?= ++$tabindex ?>" name="file_avatar" type="file"><br>
+                        <button type="submit" class="btn btn-primary btn-sm" tabindex="<?= ++$tabindex ?>" name="btn_uploadAvatar"><?= $LANG['btn_upload'] ?></button>
                       </div>
                     </div>
                     <div class="divider">
@@ -150,7 +150,7 @@ view.useredit
                       <div class="col-lg-12">
                         <?php foreach ($viewData['avatars'] as $avatar) { ?>
                           <div class="float-start" style="border: 1px solid #eeeeee; padding: 4px;">
-                            <input class="form-check-input" name="opt_avatar" value="<?= $avatar ?>" tabindex="<?= $tabindex++ ?>" <?= ($viewData['avatar'] == $avatar) ? ' checked="checked" ' : '' ?>type="radio">
+                            <input class="form-check-input" name="opt_avatar" value="<?= $avatar ?>" tabindex="<?= ++$tabindex ?>" <?= ($viewData['avatar'] == $avatar) ? ' checked="checked" ' : '' ?>type="radio">
                             <img src="<?= APP_AVATAR_DIR . $avatar ?>" alt="" style="width: 80px; height: 80px;">
                           </div>
                         <?php } ?>
@@ -167,7 +167,7 @@ view.useredit
                   <!-- Account tab -->
                   <div class="tab-pane fade" id="panel-account" role="tabpanel" aria-labelledby="tab-account">
                     <?php foreach ($viewData['account'] as $formObject) {
-                      echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                      echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
                     } ?>
                   </div>
                 <?php } ?>
@@ -176,7 +176,7 @@ view.useredit
                   <!-- Groups tab -->
                   <div class="tab-pane fade" id="panel-groups" role="tabpanel" aria-labelledby="tab-groups">
                     <?php foreach ($viewData['groups'] as $formObject) {
-                      echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                      echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
                     } ?>
                   </div>
                 <?php } ?>
@@ -184,7 +184,7 @@ view.useredit
                 <!-- Password tab -->
                 <div class="tab-pane fade" id="panel-password" role="tabpanel" aria-labelledby="tab-password">
                   <?php foreach ($viewData['password'] as $formObject) {
-                    echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
                   } ?>
                 </div>
 
@@ -225,7 +225,7 @@ view.useredit
                         </div>
                         <?php if (isAllowed("userallowance")) { ?>
                           <div class="col-lg-2">
-                            <div class="text-center"><input style="width:66%;float:left;" id="txt_<?= $abs['id'] ?>_allowance" class="form-control text-center" tabindex="<?= $tabindex++ ?>" name="txt_<?= $abs['id'] ?>_allowance" maxlength="3" value="<?= $abs['allowance'] ?>"> <span class="small">(<?= $abs['gallowance'] ?>)</span></div>
+                            <div class="text-center"><input style="width:66%;float:left;" id="txt_<?= $abs['id'] ?>_allowance" class="form-control text-center" tabindex="<?= ++$tabindex ?>" name="txt_<?= $abs['id'] ?>_allowance" maxlength="3" value="<?= $abs['allowance'] ?>"> <span class="small">(<?= $abs['gallowance'] ?>)</span></div>
                           </div>
                         <?php } else { ?>
                           <div class="col-lg-2">
@@ -233,7 +233,7 @@ view.useredit
                           </div>
                         <?php } ?>
                         <div class="col-lg-2">
-                          <div class="text-center"><input id="txt_<?= $abs['id'] ?>_carryover" class="form-control text-center" tabindex="<?= $tabindex++ ?>" name="txt_<?= $abs['id'] ?>_carryover" maxlength="3" value="<?= $abs['carryover'] ?>"></div>
+                          <div class="text-center"><input id="txt_<?= $abs['id'] ?>_carryover" class="form-control text-center" tabindex="<?= ++$tabindex ?>" name="txt_<?= $abs['id'] ?>_carryover" maxlength="3" value="<?= $abs['carryover'] ?>"></div>
                         </div>
                         <div class="col-lg-2">
                           <div class="text-center"><?= $abs['taken'] ?></div>
@@ -256,7 +256,7 @@ view.useredit
                   <!-- Notifications tab -->
                   <div class="tab-pane fade" id="panel-notifications" role="tabpanel" aria-labelledby="tab-notifications">
                     <?php foreach ($viewData['notifications'] as $formObject) {
-                      echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                      echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
                     } ?>
                   </div>
                 <?php } ?>
@@ -265,7 +265,7 @@ view.useredit
                   <!-- Custom tab -->
                   <div class="tab-pane fade" id="panel-custom" role="tabpanel" aria-labelledby="tab-custom">
                     <?php foreach ($viewData['custom'] as $formObject) {
-                      echo createFormGroup($formObject, $colsleft, $colsright, $tabindex++);
+                      echo createFormGroup($formObject, $colsleft, $colsright, ++$tabindex);
                     } ?>
                   </div>
                 <?php } ?>
@@ -280,7 +280,7 @@ view.useredit
                         </label>
                         <div class="col-lg-4">
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="remove2fa" name="chk_remove2fa" value="chk_remove2fa" tabindex="<?= $tabindex++ ?>">
+                            <input class="form-check-input" type="checkbox" id="remove2fa" name="chk_remove2fa" value="chk_remove2fa" tabindex="<?= ++$tabindex ?>">
                             <label class="form-check-label"><?= $LANG['profile_remove2fa'] ?></label>
                           </div>
                         </div>
@@ -288,7 +288,7 @@ view.useredit
                     <?php } else { ?>
                       <div class="alert alert-info">
                         <?= $LANG['profile_2fa_optional'] ?>
-                        <div><a href="index.php?action=setup2fa&profile=<?= $UP->username ?>" class="btn btn-secondary mt-2" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_setup2fa'] ?></a></div>
+                        <div><a href="index.php?action=setup2fa&profile=<?= $UP->username ?>" class="btn btn-secondary mt-2" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_setup2fa'] ?></a></div>
                       </div>
                     <?php } ?>
                   </div>
@@ -299,13 +299,13 @@ view.useredit
           </div>
 
           <div class="mt-4 text-end">
-            <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_profileUpdate"><?= $LANG['btn_update'] ?></button>
+            <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" name="btn_profileUpdate"><?= $LANG['btn_update'] ?></button>
             <?php if (isAllowed("useraccount") && $viewData['profile'] != "admin") { ?>
-              <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalArchiveProfile"><?= $LANG['btn_archive'] ?></button>
-              <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteProfile"><?= $LANG['btn_delete'] ?></button>
+              <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalArchiveProfile"><?= $LANG['btn_archive'] ?></button>
+              <button type="button" class="btn btn-danger" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteProfile"><?= $LANG['btn_delete'] ?></button>
             <?php } ?>
             <?php if (isAllowed("useraccount")) { ?>
-              <a href="index.php?action=users" class="btn btn-secondary" tabindex="<?= $tabindex++ ?>"><?= $LANG['btn_user_list'] ?></a>
+              <a href="index.php?action=users" class="btn btn-secondary" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_user_list'] ?></a>
             <?php } ?>
           </div>
 

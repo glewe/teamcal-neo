@@ -23,7 +23,7 @@ view.permissions
     ) {
       echo createAlertBox($alertData);
     }
-    $tabindex = 1;
+    $tabindex = 0;
     $colsleft = 8;
     $colsright = 4;
     ?>
@@ -41,20 +41,20 @@ view.permissions
         <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['perm_title'] . ': ' . $viewData['scheme'] . ' ' . (($viewData['scheme'] == $viewData['currentScheme']) ? $LANG['perm_active'] : $LANG['perm_inactive']) . $pageHelp ?></div>
         <div class="card-body">
 
-          <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_permSave"><?= $LANG['perm_save_scheme'] ?></button>
-          <button type="button" class="btn btn-info" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalSelectScheme"><?= $LANG['perm_select_scheme'] ?></button>
-          <button type="button" class="btn btn-success" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalCreateScheme"><?= $LANG['perm_create_scheme'] ?></button>
-          <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalResetScheme"><?= $LANG['perm_reset_scheme'] ?></button>
+          <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" name="btn_permSave"><?= $LANG['perm_save_scheme'] ?></button>
+          <button type="button" class="btn btn-info" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectScheme"><?= $LANG['perm_select_scheme'] ?></button>
+          <button type="button" class="btn btn-success" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalCreateScheme"><?= $LANG['perm_create_scheme'] ?></button>
+          <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalResetScheme"><?= $LANG['perm_reset_scheme'] ?></button>
           <?php if ($viewData['scheme'] != $viewData['currentScheme']) { ?>
-            <button type="button" class="btn btn-warning" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalActivateScheme"><?= $LANG['perm_activate_scheme'] ?></button>
+            <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalActivateScheme"><?= $LANG['perm_activate_scheme'] ?></button>
             <?php if ($viewData['scheme'] != "Default") { ?>
-              <button type="button" class="btn btn-danger" tabindex="<?= $tabindex++ ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteScheme"><?= $LANG['perm_delete_scheme'] ?></button>
+              <button type="button" class="btn btn-danger" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteScheme"><?= $LANG['perm_delete_scheme'] ?></button>
             <?php }
           } ?>
           <?php if ($viewData['mode'] == 'byrole') { ?>
-            <a href="index.php?action=permissions&amp;scheme=<?= $viewData['scheme'] ?>&amp;mode=byperm" class="btn btn-secondary float-end" style="margin-right: 4px;" tabindex="<?= $tabindex++ ?>"><?= $LANG['perm_view_by_perm'] ?></a>
+            <a href="index.php?action=permissions&amp;scheme=<?= $viewData['scheme'] ?>&amp;mode=byperm" class="btn btn-secondary float-end" style="margin-right: 4px;" tabindex="<?= ++$tabindex ?>"><?= $LANG['perm_view_by_perm'] ?></a>
           <?php } else { ?>
-            <a href="index.php?action=permissions&amp;scheme=<?= $viewData['scheme'] ?>&amp;mode=byrole" class="btn btn-secondary float-end" style="margin-right: 4px;" tabindex="<?= $tabindex++ ?>"><?= $LANG['perm_view_by_role'] ?></a>
+            <a href="index.php?action=permissions&amp;scheme=<?= $viewData['scheme'] ?>&amp;mode=byrole" class="btn btn-secondary float-end" style="margin-right: 4px;" tabindex="<?= ++$tabindex ?>"><?= $LANG['perm_view_by_role'] ?></a>
           <?php } ?>
 
           <!-- Modal: Select scheme -->
@@ -119,14 +119,14 @@ view.permissions
                           ?>
                         <?php } ?>
                         <div class="form-check">
-                          <label><input class="form-check-input" type="checkbox" name="chk_<?= $permgroup ?>_<?= $role['id'] ?>" value="chk_<?= $permgroup ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= $checked ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><strong><?= $LANG['perm_' . $permgroup . '_title'] ?></strong><br><?= $LANG['perm_' . $permgroup . '_desc'] ?></label>
+                          <label><input class="form-check-input" type="checkbox" name="chk_<?= $permgroup ?>_<?= $role['id'] ?>" value="chk_<?= $permgroup ?>_<?= $role['id'] ?>" tabindex="<?= ++$tabindex ?>" <?= $checked ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><strong><?= $LANG['perm_' . $permgroup . '_title'] ?></strong><br><?= $LANG['perm_' . $permgroup . '_desc'] ?></label>
                         </div>
                         <hr>
                       <?php } ?>
 
                       <?php foreach ($viewData['fperms'] as $fperm) { ?>
                         <div class="form-check">
-                          <label><input class="form-check-input" type="checkbox" name="chk_<?= $fperm ?>_<?= $role['id'] ?>" value="chk_<?= $fperm ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= (($P->isAllowed($viewData['scheme'], $fperm, $role['id'])) ? " checked" : "") ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><strong><?= $LANG['perm_' . $fperm . '_title'] ?></strong><br><?= $LANG['perm_' . $fperm . '_desc'] ?></label>
+                          <label><input class="form-check-input" type="checkbox" name="chk_<?= $fperm ?>_<?= $role['id'] ?>" value="chk_<?= $fperm ?>_<?= $role['id'] ?>" tabindex="<?= ++$tabindex ?>" <?= (($P->isAllowed($viewData['scheme'], $fperm, $role['id'])) ? " checked" : "") ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><strong><?= $LANG['perm_' . $fperm . '_title'] ?></strong><br><?= $LANG['perm_' . $fperm . '_desc'] ?></label>
                         </div>
                         <hr>
                       <?php } ?>
@@ -172,7 +172,7 @@ view.permissions
                               }
                             } ?>
                             <div class="form-check">
-                              <label><input class="form-check-input" type="checkbox" name="chk_<?= $key ?>_<?= $role['id'] ?>" value="chk_<?= $key ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= $checked ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><?= $role['name'] ?></label>
+                              <label><input class="form-check-input" type="checkbox" name="chk_<?= $key ?>_<?= $role['id'] ?>" value="chk_<?= $key ?>_<?= $role['id'] ?>" tabindex="<?= ++$tabindex ?>" <?= $checked ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><?= $role['name'] ?></label>
                             </div>
                           <?php } ?>
                         </div>
@@ -194,7 +194,7 @@ view.permissions
                         <div class="col-lg-<?= $colsright ?>">
                           <?php foreach ($viewData['roles'] as $role) { ?>
                             <div class="form-check">
-                              <label><input class="form-check-input" type="checkbox" name="chk_<?= $fperm ?>_<?= $role['id'] ?>" value="chk_<?= $fperm ?>_<?= $role['id'] ?>" tabindex="<?= $tabindex++ ?>" <?= (($P->isAllowed($viewData['scheme'], $fperm, $role['id'])) ? " checked" : "") ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><?= $role['name'] ?></label>
+                              <label><input class="form-check-input" type="checkbox" name="chk_<?= $fperm ?>_<?= $role['id'] ?>" value="chk_<?= $fperm ?>_<?= $role['id'] ?>" tabindex="<?= ++$tabindex ?>" <?= (($P->isAllowed($viewData['scheme'], $fperm, $role['id'])) ? " checked" : "") ?> <?= (($role['id'] == '1') ? 'disabled="disabled"' : '') ?>><?= $role['name'] ?></label>
                             </div>
                           <?php } ?>
                         </div>

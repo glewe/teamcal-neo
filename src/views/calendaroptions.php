@@ -62,35 +62,35 @@ view.calendaroptions
                 <!-- Tab: General -->
                 <div class="tab-pane fade show active" id="panel-display" role="tabpanel" aria-labelledby="tab-display">
                   <?php foreach ($viewData['formFields']['display'] as $field) {
-                    echo createFormGroup($field, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($field, $colsleft, $colsright, ++$tabindex);
                   } ?>
                 </div>
 
                 <!-- Tab: Filter -->
                 <div class="tab-pane fade" id="panel-filter" role="tabpanel" aria-labelledby="tab-filter">
                   <?php foreach ($viewData['formFields']['filter'] as $field) {
-                    echo createFormGroup($field, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($field, $colsleft, $colsright, ++$tabindex);
                   } ?>
                 </div>
 
                 <!-- Tab: Options -->
                 <div class="tab-pane fade" id="panel-options" role="tabpanel" aria-labelledby="tab-options">
                   <?php foreach ($viewData['formFields']['options'] as $field) {
-                    echo createFormGroup($field, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($field, $colsleft, $colsright, ++$tabindex);
                   } ?>
                 </div>
 
                 <!-- Statistics tab -->
                 <div class="tab-pane fade" id="panel-stats" role="tabpanel" aria-labelledby="tab-stats">
                   <?php foreach ($viewData['formFields']['stats'] as $field) {
-                    echo createFormGroup($field, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($field, $colsleft, $colsright, ++$tabindex);
                   } ?>
                 </div>
 
                 <!-- Tab: Summary -->
                 <div class="tab-pane fade" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary">
                   <?php foreach ($viewData['formFields']['summary'] as $field) {
-                    echo createFormGroup($field, $colsleft, $colsright, $tabindex++);
+                    echo createFormGroup($field, $colsleft, $colsright, ++$tabindex);
                   } ?>
                 </div>
 
