@@ -59,6 +59,11 @@ $viewData['txt_description'] = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 
   //
+  // Sanitize input
+  //
+  $_POST = sanitize($_POST);
+
+  //
   // CSRF token check
   //
   if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
@@ -72,17 +77,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   }
 
   //
-  // Sanitize input
-  //
-  $_POST = sanitize($_POST);
-  //
   // Form validation
   //
   $inputError = false;
   //
   // Validate input data. If something is wrong or missing, set $inputError = true
   //
-if ($inputError === false) {
+  if ($inputError === false) {
     // ,--------,
     // | Create |
     // '--------'
@@ -174,6 +175,12 @@ if ($inputError === false) {
         $alertData['text'] = $LANG['roles_alert_deleted_fail'];
         $alertData['help'] = '';
       }
+    }
+    //
+    // Renew CSRF token after successful form processing
+    //
+    if (isset($_SESSION)) {
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
   } else {
     //

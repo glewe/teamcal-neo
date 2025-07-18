@@ -90,6 +90,10 @@ if ($UL->hasRole($UL->username, '1')) {
 // PROCESS FORM
 //
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+  //
+  // Sanitize input
+  //
+  $_POST = sanitize($_POST);
 
   //
   // CSRF token check
@@ -104,10 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     die();
   }
 
-  //
-  // Sanitize input
-  //
-  $_POST = sanitize($_POST);
   //
   // Form validation
   //
@@ -541,6 +541,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $LOG->logEvent("logUser", L_USER, "log_user_updated", $UP->username);
       header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&profile=" . $profile);
       die();
+    }
+    //
+    // Renew CSRF token after successful form processing
+    //
+    if (isset($_SESSION)) {
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
   } else {
     //

@@ -121,6 +121,11 @@ if (isset($_GET['mode'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 
   //
+  // Sanitize input
+  //
+  $_POST = sanitize($_POST);
+
+  //
   // CSRF token check
   //
   if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
@@ -133,10 +138,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     die();
   }
 
-  //
-  // Sanitize input
-  //
-  $_POST = sanitize($_POST);
   //
   // Form validation
   //
@@ -344,6 +345,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // '--------'
     elseif (isset($_POST['btn_permSelect'])) {
       header("Location: index.php?action=permissions&scheme=" . $_POST['sel_scheme']);
+    }
+    //
+    // Renew CSRF token after successful form processing
+    //
+    if (isset($_SESSION)) {
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
   } else {
     //
