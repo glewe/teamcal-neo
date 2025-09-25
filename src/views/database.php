@@ -270,7 +270,28 @@ view.database
                 <div class="tab-pane fade show" id="panel-dbinfo" role="tabpanel" aria-labelledby="tab-dbinfo">
                   <div class="form-group row">
                     <div class="col-lg-12">
-                      <?=$viewData['dbInfo'] ?>
+                      <table class='table'>
+                        <thead>
+                          <tr>
+                            <th><?= $LANG['attribute'] ?></th>
+                            <th><?= $LANG['value'] ?></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                          // Expect $viewData['dbInfo'] to be an associative array: attribute => value
+                          if (!empty($viewData['dbInfo']) && is_array($viewData['dbInfo'])) {
+                            foreach ($viewData['dbInfo'] as $attr => $val) {
+                              echo '<tr><td>' . htmlspecialchars((string)$attr, ENT_QUOTES, 'UTF-8') . '</td>'
+                                . '<td>' . htmlspecialchars((string)$val, ENT_QUOTES, 'UTF-8') . '</td></tr>';
+                            }
+                          } else {
+                            // No info available
+                            echo '<tr><td colspan="2">' . htmlspecialchars($LANG['db_no_info'] ?? 'No information available', ENT_QUOTES, 'UTF-8') . '</td></tr>';
+                          }
+                          ?>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>

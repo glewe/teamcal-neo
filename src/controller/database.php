@@ -310,7 +310,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 // PREPARE VIEW
 //
 $viewData['dbURL'] = $C->read('dbURL');
-$viewData['dbInfo'] = $DB->getDatabaseInfo();
+$viewData['dbInfo'] = $DB->getAttributes();
+// $viewData['dbInfo'] = $DB->getAttributesExtended();
 
 //-----------------------------------------------------------------------------
 // SHOW VIEW
