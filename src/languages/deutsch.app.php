@@ -28,7 +28,7 @@ $LANG['absence'] = 'Abwesenheit';
 $LANG['absences'] = 'Abwesenheiten';
 $LANG['absencetype'] = 'Abwesenheitstyp';
 $LANG['allowance'] = 'Erlaubt';
-$LANG['approval_required'] = 'Best&auml;tigung erforderlich';
+$LANG['approval_required'] = 'Bestätigung erforderlich';
 $LANG['month'] = 'Monat';
 $LANG['presences'] = 'Anwesenheiten';
 $LANG['region'] = 'Region';
@@ -43,7 +43,7 @@ $LANG['year'] = 'Jahr';
 $LANG['monthnames'] = array(
   1 => "Januar",
   2 => "Februar",
-  3 => "M&auml;rz",
+  3 => "März",
   4 => "April",
   5 => "Mai",
   6 => "Juni",
@@ -72,78 +72,78 @@ $LANG['widths'] = array(
 $LANG['abs_list_title'] = 'Abwesenheitstypen';
 $LANG['abs_edit_title'] = 'Abwesenheitstyp bearbeiten: ';
 $LANG['abs_alert_edit'] = 'Abwesenheitstyp aktualisieren';
-$LANG['abs_alert_edit_success'] = 'Die Informationen f&uuml;r diesen Abwesenheitstyp wurden aktualisiert.';
+$LANG['abs_alert_edit_success'] = 'Die Informationen für diesen Abwesenheitstyp wurden aktualisiert.';
 $LANG['abs_alert_created'] = 'Der Abwesenheitstyp wurde angelegt.';
-$LANG['abs_alert_created_fail'] = 'Der Abwesenheitstyp wurde nicht angelegt. Bitte &uuml;berpr&uuml;fe den "Abwesenheitstyp anlegen" Dialog nach Eingabefehlern.';
-$LANG['abs_alert_deleted'] = 'Der Abwesenheitstyp wurde gel&ouml;scht.';
-$LANG['abs_alert_save_failed'] = 'Die neuen Informationen f&uuml;r diesen Abwesenheitstyp konnten nicht gespeichert. Es gab fehlerhafte Eingaben. Bitte pr&uuml;fe die Fehlermeldungen.';
-$LANG['abs_allow_active'] = 'Eingeschr&auml;nkte Anzahl';
+$LANG['abs_alert_created_fail'] = 'Der Abwesenheitstyp wurde nicht angelegt. Bitte überprüfe den "Abwesenheitstyp anlegen" Dialog nach Eingabefehlern.';
+$LANG['abs_alert_deleted'] = 'Der Abwesenheitstyp wurde gelöscht.';
+$LANG['abs_alert_save_failed'] = 'Die neuen Informationen für diesen Abwesenheitstyp konnten nicht gespeichert. Es gab fehlerhafte Eingaben. Bitte prüfe die Fehlermeldungen.';
+$LANG['abs_allow_active'] = 'Eingeschränkte Anzahl';
 $LANG['abs_allowance'] = 'Erlaubte Anzahl pro Jahr';
-$LANG['abs_allowance_comment'] = 'Hier kann die erlaubte Anzahl pro Kalenderjahr f&uuml;r diesen Typen gesetzt werden. Im Nutzerprofil
+$LANG['abs_allowance_comment'] = 'Hier kann die erlaubte Anzahl pro Kalenderjahr für diesen Typen gesetzt werden. Im Nutzerprofil
  wird die genommene und noch verbleibende Anzahl angezeigt (Ein negativer Wert in der Anzeige bedeutet, dass der Nutzer die erlaubte Anzahl
- &uuml;berschritten hat.). Wenn der Wert auf 0 gesetzt wird, gilt eine unbegrenzte Erlaubnis.';
+ überschritten hat.). Wenn der Wert auf 0 gesetzt wird, gilt eine unbegrenzte Erlaubnis.';
 $LANG['abs_allowmonth'] = 'Erlaubte Anzahl pro Monat';
-$LANG['abs_allowmonth_comment'] = 'Hier kann die erlaubte Anzahl pro Monat f&uuml;r diesen Typen gesetzt werden. Wenn der Wert auf 0 gesetzt wird, gilt eine unbegrenzte Erlaubnis.';
+$LANG['abs_allowmonth_comment'] = 'Hier kann die erlaubte Anzahl pro Monat für diesen Typen gesetzt werden. Wenn der Wert auf 0 gesetzt wird, gilt eine unbegrenzte Erlaubnis.';
 $LANG['abs_allowweek'] = 'Erlaubte Anzahl pro Woche';
-$LANG['abs_allowweek_comment'] = 'Hier kann die erlaubte Anzahl pro Woche f&uuml;r diesen Typen gesetzt werden. Wenn der Wert auf 0 gesetzt wird, gilt eine unbegrenzte Erlaubnis.';
+$LANG['abs_allowweek_comment'] = 'Hier kann die erlaubte Anzahl pro Woche für diesen Typen gesetzt werden. Wenn der Wert auf 0 gesetzt wird, gilt eine unbegrenzte Erlaubnis.';
 $LANG['abs_approval_required'] = 'Genehmigung erforderlich';
 $LANG['abs_approval_required_comment'] = 'Dieser Schalter macht den Typen genehmigungspflichtig durch einen Manager, Direktor oder Administrator. Ein normaler Nutzer wird dann eine
- Fehlermeldung erhalten, wenn er diesen Typen eintr&auml;gt. Der Manager der Gruppe erh&auml;lt aber eine E-Mail, dass eine Genehmigung seinerseits erforderlich ist.
+ Fehlermeldung erhalten, wenn er diesen Typen einträgt. Der Manager der Gruppe erhält aber eine E-Mail, dass eine Genehmigung seinerseits erforderlich ist.
   Er kann dann den Kalender dieses Nutzers bearbeiten und die entsprechende Abwesenheit eintragen.';
 $LANG['abs_bgcolor'] = 'Hintergrundfarbe';
-$LANG['abs_bgcolor_comment'] = 'Die Hintergrundfarbe wird im Kalender benutzt, egal ob Symbol oder Icon gew&auml;hlt ist. Ein Farbdialog erscheint beim Klicken in das Feld.';
+$LANG['abs_bgcolor_comment'] = 'Die Hintergrundfarbe wird im Kalender benutzt, egal ob Symbol oder Icon gewählt ist. Ein Farbdialog erscheint beim Klicken in das Feld.';
 $LANG['abs_bgtrans'] = 'Hintergrund Transparent';
 $LANG['abs_bgtrans_comment'] = 'Mit dieser Option wird keine individuelle Hintergrundfarbe gesetzt, sondern die des darunter liegenden Objektes benutzt.';
 $LANG['abs_color'] = 'Textfarbe';
 $LANG['abs_color_comment'] = 'Wenn das Symbol benutzt wird (kein Icon), wird diese Textfarbe benutzt. Ein Farbdialog erscheint beim Klicken in das Feld.';
 $LANG['abs_confidential'] = 'Vertraulich';
-$LANG['abs_confidential_comment'] = 'Dieser Schalter macht den Typen "vertraulich". Normale Nutzer k&ouml;nnen diese Abwesenheit nicht im Kalender
- sehen, ausser es ist ihre eigene Abwesenheit. Dies kann f&uuml;r sensitive Abwesenheiten wie "Krankheit" n&uuml;tzlich sein. Es ist m&ouml;glich, in den Kalenderoptionen
- vertrauensw&uuml;rdige Rollen zu definieren, die diese Abwesenheiten auch sehen k&ouml;nnen.';
-$LANG['abs_confirm_delete'] = 'Bist du sicher, dass du den Abwesenheitstyp "%s" l&ouml;schen willst?<br>Alle bestehenden Eintr&auml;ge werden mit "Anwesend" ersetzt.';
-$LANG['abs_counts_as'] = 'Z&auml;hlt als';
-$LANG['abs_counts_as_comment'] = 'Hier kann ausgew&auml;hlt werden, ob die genommenen Tage diese Abwesenheitstyps gegen die Erlaubnis eines anderen Typs z&auml;hlen.
- Wenn ein anderer Typ gew&auml;hlt wird, wird die Erlaubnis diese Typs hier nicht in Betracht gezogen, nur die des anderen Typs.<br>
- Beispiel: "Urlaub Halbtag" mit Faktor z&auml;hlt gegen die Erlaubnis des Typs "Urlaub".';
-$LANG['abs_counts_as_present'] = 'Z&auml;hlt als anwesend';
+$LANG['abs_confidential_comment'] = 'Dieser Schalter macht den Typen "vertraulich". Normale Nutzer können diese Abwesenheit nicht im Kalender
+ sehen, außer es ist ihre eigene Abwesenheit. Dies kann für sensitive Abwesenheiten wie "Krankheit" nützlich sein. Es ist möglich, in den Kalenderoptionen
+ vertrauenswürdige Rollen zu definieren, die diese Abwesenheiten auch sehen können.';
+$LANG['abs_confirm_delete'] = 'Bist du sicher, dass du den Abwesenheitstyp "%s" löschen willst?<br>Alle bestehenden Einträge werden mit "Anwesend" ersetzt.';
+$LANG['abs_counts_as'] = 'Zählt als';
+$LANG['abs_counts_as_comment'] = 'Hier kann ausgewählt werden, ob die genommenen Tage diese Abwesenheitstyps gegen die Erlaubnis eines anderen Typs zählen.
+ Wenn ein anderer Typ gewählt wird, wird die Erlaubnis diese Typs hier nicht in Betracht gezogen, nur die des anderen Typs.<br>
+ Beispiel: "Urlaub Halbtag" mit Faktor zählt gegen die Erlaubnis des Typs "Urlaub".';
+$LANG['abs_counts_as_present'] = 'Zählt als anwesend';
 $LANG['abs_counts_as_present_comment'] = 'Dieser Schalter definiert einen Typen als "anwesend". Dies bietet sich z.B. beim Abwesenheitstyp "Heimarbeit" an.
- Weil die Person arbeitet, m&ouml;chte man dies nicht als "abwesend" z&auml;hlen. Mit diesem Schalter aktiviert wird dann der Typ
- in den Summen als anwesend gewertet. Somit w&uuml;rde "Heimarbeit" dann auch nicht in den Abwesenheiten angezeigt.';
+ Weil die Person arbeitet, möchte man dies nicht als "abwesend" zählen. Mit diesem Schalter aktiviert wird dann der Typ
+ in den Summen als anwesend gewertet. Somit würde "Heimarbeit" dann auch nicht in den Abwesenheiten angezeigt.';
 $LANG['abs_display'] = 'Anzeige';
 $LANG['abs_display_comment'] = '';
 $LANG['abs_factor'] = 'Faktor';
 $LANG['abs_factor_comment'] = 'TeamCal kann die genommen Tage dieses Abwesenheitstypen summieren. Das Ergebnis kann im "Abwesenheiten" Reiter des
- Nutzerprofils eingesehen werden. Der "Faktor" hier bietet einen Multiplikator f&uuml;r diesen Abwesenheitstypen f&uuml;r diese Berechnung. Der Standard ist 1.<br>
- Beispiel: Du kannst einen Abwesenheitstypen "Halbtagstraining" anlegen. Du w&uuml;rdest den Faktor dabei logischerweise auf 0.5 setzen, um die korrekte Summe
-  genommener Trainingstage zu erhalten. Ein Nutzer, der 10 Halbtagstrainings genommen hat, k&auml;me so auf eine Summe von 5 (10// 0.5 = 5) ganzen Trainingstagen.<br>
+ Nutzerprofils eingesehen werden. Der "Faktor" hier bietet einen Multiplikator für diesen Abwesenheitstypen für diese Berechnung. Der Standard ist 1.<br>
+ Beispiel: Du kannst einen Abwesenheitstypen "Halbtagstraining" anlegen. Du würdest den Faktor dabei logischerweise auf 0.5 setzen, um die korrekte Summe
+  genommener Trainingstage zu erhalten. Ein Nutzer, der 10 Halbtagstrainings genommen hat, käme so auf eine Summe von 5 (10// 0.5 = 5) ganzen Trainingstagen.<br>
   Wenn der Faktor auf 0 gesetzt wird, wird er von der Berechnung ausgeschlossen.';
 $LANG['abs_groups'] = 'Gruppenzuordnung';
-$LANG['abs_groups_comment'] = 'W&auml;hle die Gruppen aus, f&uuml;r die dieser Abwesenheitstyp g&uuml;ltig sein soll. Wenn eine Gruppe nicht
- ausgew&auml;hlt ist, k&ouml;nnen Mitglieder dieser Gruppe den Abwesenheitstyp nicht nutzen.';
+$LANG['abs_groups_comment'] = 'Wähle die Gruppen aus, für die dieser Abwesenheitstyp gültig sein soll. Wenn eine Gruppe nicht
+ ausgewählt ist, können Mitglieder dieser Gruppe den Abwesenheitstyp nicht nutzen.';
 $LANG['abs_hide_in_profile'] = 'Im Profil verbergen';
-$LANG['abs_hide_in_profile_comment'] = 'Dieser Schalter kann benutzt werden, um diesen Typen f&uuml;r normale Nutzer nicht im "Abwesenheiten" Reiter der
- Nutzerprofile anzuzeigen. Nur Manager, Direktoren und Administratoren k&ouml;nnen ihn dort sehen. Diese Funktion macht Sinn, wenn Manager einen Typen
- nur zum Zwecke von Nachverfolgung nutzt oder die verbleibende Anzahl f&uuml;r den normalen Nutzer uninteressant ist.';
+$LANG['abs_hide_in_profile_comment'] = 'Dieser Schalter kann benutzt werden, um diesen Typen für normale Nutzer nicht im "Abwesenheiten" Reiter der
+ Nutzerprofile anzuzeigen. Nur Manager, Direktoren und Administratoren können ihn dort sehen. Diese Funktion macht Sinn, wenn Manager einen Typen
+ nur zum Zwecke von Nachverfolgung nutzt oder die verbleibende Anzahl für den normalen Nutzer uninteressant ist.';
 $LANG['abs_icon'] = 'Icon';
 $LANG['abs_icon_comment'] = 'Das Icon wird im Kalender benutzt.';
-$LANG['abs_icon_keyword'] = 'Gib ein Schl&uuml;sselwort ein...';
+$LANG['abs_icon_keyword'] = 'Gib ein Schlüsselwort ein...';
 $LANG['abs_manager_only'] = 'Nur Gruppen-Manager';
-$LANG['abs_manager_only_comment'] = 'Mit diesem Schalter aktiviert k&ouml;nnen nur Gruppen-Manager diesen Typen setzen. Nur wenn der eingeloggte Benutzer der Gruppem-Manager des Benutzers
- ist, dessen Kalender er bearbeitet, steht dieser Abwesenheitstyp zur Verf&uuml;gung.';
+$LANG['abs_manager_only_comment'] = 'Mit diesem Schalter aktiviert können nur Gruppen-Manager diesen Typen setzen. Nur wenn der eingeloggte Benutzer der Gruppem-Manager des Benutzers
+ ist, dessen Kalender er bearbeitet, steht dieser Abwesenheitstyp zur Verfügung.';
 $LANG['abs_name'] = 'Name';
-$LANG['abs_name_comment'] = 'Der Name wird in Listen und Beschreibungen benutzt. Er sollte aussagekr&auml;ftig sein, z.B. "Dienstreise". Maximal 80 Zeichen.';
+$LANG['abs_name_comment'] = 'Der Name wird in Listen und Beschreibungen benutzt. Er sollte aussagekräftig sein, z.B. "Dienstreise". Maximal 80 Zeichen.';
 $LANG['abs_sample'] = 'Beispielanzeige';
-$LANG['abs_sample_comment'] = 'So w&uuml;rde der Abswesenheitstyp im Kalender angezeigt werden basierend auf den aktuellen Einstellungen.<br>
-      Hinweis: In den Kalenderoptionen kann eingestellt werden, ob das Icon oder die Zeichen ID f&uuml;r die Anzeige benutzt werden soll.';
+$LANG['abs_sample_comment'] = 'So würde der Abswesenheitstyp im Kalender angezeigt werden basierend auf den aktuellen Einstellungen.<br>
+      Hinweis: In den Kalenderoptionen kann eingestellt werden, ob das Icon oder die Zeichen ID für die Anzeige benutzt werden soll.';
 $LANG['abs_show_in_remainder'] = 'Verbleibend anzeigen';
 $LANG['abs_show_in_remainder_comment'] = 'Mit dieser Option wird der Abwesenheitstyp auf der Verbeleibend-Seite angezeigt.';
 $LANG['abs_symbol'] = 'Zeichen ID';
-$LANG['abs_symbol_comment'] = 'Die Zeichen ID wird in E-Mails benutzt, da die Font Icons dort nicht unterst&uuml;tzt werden.
- Die Zeichen ID ist ein alphanumerisches Zeichen lang und muss angegeben werden. Allerdings kann das gleiche Zeichen f&uuml;r mehrere
+$LANG['abs_symbol_comment'] = 'Die Zeichen ID wird in E-Mails benutzt, da die Font Icons dort nicht unterstützt werden.
+ Die Zeichen ID ist ein alphanumerisches Zeichen lang und muss angegeben werden. Allerdings kann das gleiche Zeichen für mehrere
   Abwesenheitstypen benutzt werden. Als Standard wird der Anfangsbuchstabe des Namens eingesetzt, wenn der Abwesenheitstyp angelegt wird.';
 $LANG['abs_tab_groups'] = 'Gruppenzuordnung';
-$LANG['abs_takeover'] = '&Uuml;bernahme aktivieren';
-$LANG['abs_takeover_comment'] = 'Erm&ouml;glicht, dass dieser Abwesenheitstyp &uuml;bernommen werden kann. Dazu muss die Abwesenheits&uuml;bernahme in TeamCal Neo generell eingeschaltet sein.';
+$LANG['abs_takeover'] = 'Übernahme aktivieren';
+$LANG['abs_takeover_comment'] = 'Ermöglicht, dass dieser Abwesenheitstyp übernommen werden kann. Dazu muss die Abwesenheitsübernahme in TeamCal Neo generell eingeschaltet sein.';
 
 //
 // Absence Icon
@@ -156,32 +156,32 @@ $LANG['absico_tab_solid'] = 'Solid Icons';
 //
 // Absences Summary
 //
-$LANG['absum_title'] = 'Abwesenheits&uuml;bersicht %s: %s';
-$LANG['absum_modalYearTitle'] = 'W&auml;hle, das Jahr f&uml;r die &Uuml;bersicht.';
+$LANG['absum_title'] = 'Abwesenheitsübersicht %s: %s';
+$LANG['absum_modalYearTitle'] = 'Wähle das Jahr für die Übersicht.';
 $LANG['absum_unlimited'] = 'Unbegrenzt';
 $LANG['absum_year'] = 'Jahr';
-$LANG['absum_year_comment'] = 'W&auml;hle, das Jahr f&uml;r die &Uuml;bersicht.';
+$LANG['absum_year_comment'] = 'Wähle das Jahr für die Übersicht.';
 $LANG['absum_absencetype'] = 'Abwesenheitstyp';
 $LANG['absum_contingent'] = 'Kontingent';
-$LANG['absum_contingent_tt'] = 'Das Kontingent errechnet sich aus der erlaubten Anzahl des aktuellen Jahres plus dem &Uuml;bertrag vom letzen Jahr. Der &Uuml;bertrag kann auch negativ sein.';
+$LANG['absum_contingent_tt'] = 'Das Kontingent errechnet sich aus der erlaubten Anzahl des aktuellen Jahres plus dem Übertrag vom letzten Jahr. Der Übertrag kann auch negativ sein.';
 $LANG['absum_taken'] = 'Genommen';
 $LANG['absum_remainder'] = 'Verbleib';
 
 //
 // Alerts
 //
-$LANG['alert_decl_allowmonth_reached'] = "Die maximale Anzahl von %1% pro Monat f&uuml;r diesen Abwesenheitstyp wurde erreicht.";
-$LANG['alert_decl_allowweek_reached'] = "Die maximale Anzahl von %1% pro Woche f&uuml;r diesen Abwesenheitstyp wurde erreicht.";
-$LANG['alert_decl_allowyear_reached'] = "Die maximale Anzahl von %1% pro Jahr f&uuml;r diesen Abwesenheitstyp wurde erreicht.";
-$LANG['alert_decl_approval_required'] = "Dieser Abwesenheitstyp ben&ouml;tigt Managerbest&auml;tigung. Die Abwesenheit wurde in den Kalender eingetragen aber auch eine Tagesnotiz &uuml;ber die ausstehende Best&auml;tigung. Dein Manager wurde per Email informiert.";
-$LANG['alert_decl_approval_required_daynote'] = "Diese Abwesenheit wurde angefragt, ist aber noch nicht best&auml;tigt.";
-$LANG['alert_decl_before_date'] = "Abwesenheits&auml;nderungen vor dem folgendem Datum sind nicht erlaubt: ";
-$LANG['alert_decl_group_minpresent'] = "Die minimale Anzahl von anwesenden Mitgliedern wurde f&uuml;r folgende Gruppe/n unterschritten: ";
-$LANG['alert_decl_group_maxabsent'] = "Die maximale Anzahl von abwesenden Mitgliedern wurde f&uuml;r folgende Gruppe/n &uuml;berschritten: ";
-$LANG['alert_decl_group_threshold'] = "Die Abwesenheitsgrenze wurde erreicht f&uuml;r die Gruppe(n): ";
+$LANG['alert_decl_allowmonth_reached'] = "Die maximale Anzahl von %1% pro Monat für diesen Abwesenheitstyp wurde erreicht.";
+$LANG['alert_decl_allowweek_reached'] = "Die maximale Anzahl von %1% pro Woche für diesen Abwesenheitstyp wurde erreicht.";
+$LANG['alert_decl_allowyear_reached'] = "Die maximale Anzahl von %1% pro Jahr für diesen Abwesenheitstyp wurde erreicht.";
+$LANG['alert_decl_approval_required'] = "Dieser Abwesenheitstyp benötigt Managerbestätigung. Die Abwesenheit wurde in den Kalender eingetragen aber auch eine Tagesnotiz über die ausstehende Bestätigung. Dein Manager wurde per E-Mail informiert.";
+$LANG['alert_decl_approval_required_daynote'] = "Diese Abwesenheit wurde angefragt, ist aber noch nicht bestätigt.";
+$LANG['alert_decl_before_date'] = "Abwesenheitsänderungen vor dem folgenden Datum sind nicht erlaubt: ";
+$LANG['alert_decl_group_minpresent'] = "Die minimale Anzahl von anwesenden Mitgliedern wurde für folgende Gruppe/n unterschritten: ";
+$LANG['alert_decl_group_maxabsent'] = "Die maximale Anzahl von abwesenden Mitgliedern wurde für folgende Gruppe/n überschritten: ";
+$LANG['alert_decl_group_threshold'] = "Die Abwesenheitsgrenze wurde erreicht für die Gruppe(n): ";
 $LANG['alert_decl_holiday_noabsence'] = "Dieser Tag ist ein Feiertag, der keine Abwesenheiten erlaubt.";
-$LANG['alert_decl_period'] = "Abwesenheits&auml;nderungen in folgendem Zeitraum sind nicht erlaubt: ";
-$LANG['alert_decl_takeover'] = "Abwesenheitstyp '%s' nicht f&uuml;r &Uuml;bernahme zugelassen.";
+$LANG['alert_decl_period'] = "Abwesenheitsänderungen in folgendem Zeitraum sind nicht erlaubt: ";
+$LANG['alert_decl_takeover'] = "Abwesenheitstyp '%s' nicht für Übernahme zugelassen.";
 $LANG['alert_decl_total_threshold'] = "Die generelle Abwesenheitsgrenze wurde erreicht.";
 
 //
@@ -189,29 +189,29 @@ $LANG['alert_decl_total_threshold'] = "Die generelle Abwesenheitsgrenze wurde er
 //
 $LANG['bulkedit_title'] = 'Kontingente';
 $LANG['bulkedit_alert_update'] = 'Kontingent Aktualisierung';
-$LANG['bulkedit_alert_update_failed'] = 'Aktualisierung fehlgeschlagen. Stelle sicher, dass mindestens ein Benutzer ausgew&auml;hlt ist, dass alle Werte numerisch sind und in beiden Feldern ein Wert steht.';
-$LANG['bulkedit_alert_update_success'] = 'Erlaubt und &Uuml;bertrag Werte wurden f&uuml;r die ausgew&auml;hlten Nutzer aktualisiert.';
-$LANG['bulkedit_for_selected'] = 'F&uuml;r alle ausgew&auml;hlten';
+$LANG['bulkedit_alert_update_failed'] = 'Aktualisierung fehlgeschlagen. Stelle sicher, dass mindestens ein Benutzer ausgewählt ist, dass alle Werte numerisch sind und in beiden Feldern ein Wert steht.';
+$LANG['bulkedit_alert_update_success'] = 'Erlaubt und übertrag Werte wurden für die ausgewählten Nutzer aktualisiert.';
+$LANG['bulkedit_for_selected'] = 'Für alle ausgewählten';
 
 //
 // Buttons
 //
 $LANG['btn_abs_edit'] = 'Bearbeiten';
-$LANG['btn_abs_icon'] = 'Icon Ausw&auml;hlen';
+$LANG['btn_abs_icon'] = 'Icon Auswählen';
 $LANG['btn_abs_list'] = 'Abwesenheitstypliste';
-$LANG['btn_absum'] = 'Abwesenheits&uuml;bersicht';
+$LANG['btn_absum'] = 'Abwesenheitsübersicht';
 $LANG['btn_activate_selected'] = 'Auswahl aktivieren';
 $LANG['btn_calendar'] = 'Kalender';
 $LANG['btn_cal_edit'] = 'Kalender Bearbeiten';
-$LANG['btn_cleanup'] = 'Aufr&auml;umen';
+$LANG['btn_cleanup'] = 'Aufräumen';
 $LANG['btn_create_abs'] = 'Abwesenheitstyp anlegen';
 $LANG['btn_create_holiday'] = 'Feiertag anlegen';
 $LANG['btn_create_pattern'] = 'Abwesenheitsmuster anlegen';
 $LANG['btn_create_region'] = 'Region anlegen';
-$LANG['btn_delete_abs'] = 'Abwesenheitstyp l&ouml;schen';
-$LANG['btn_delete_holiday'] = 'Feiertag l&ouml;schen';
-$LANG['btn_delete_pattern'] = 'Abwesenheitsmuster l&ouml;schen';
-$LANG['btn_delete_region'] = 'Region l&ouml;schen';
+$LANG['btn_delete_abs'] = 'Abwesenheitstyp löschen';
+$LANG['btn_delete_holiday'] = 'Feiertag löschen';
+$LANG['btn_delete_pattern'] = 'Abwesenheitsmuster löschen';
+$LANG['btn_delete_region'] = 'Region löschen';
 $LANG['btn_holiday_list'] = 'Feiertagsliste';
 $LANG['btn_pattern_list'] = 'Abwesenheitsmusterliste';
 $LANG['btn_region_calendar'] = 'Regionskalender';
@@ -225,27 +225,27 @@ $LANG['btn_user_calendar'] = 'Benutzerkalender';
 $LANG['cal_title'] = 'Kalender %s-%s (Region: %s)';
 $LANG['cal_tt_absent'] = 'Abwesend';
 $LANG['cal_tt_anotherabsence'] = 'Eine andere Abwesenheit';
-$LANG['cal_tt_backward'] = 'Einen Monat zur&uuml;ck...';
+$LANG['cal_tt_backward'] = 'Einen Monat zurück...';
 $LANG['cal_tt_clicktoedit'] = 'Klicke zum Bearbeiten...';
-$LANG['cal_tt_forward'] = 'Einen Monat vorw&auml;rts...';
+$LANG['cal_tt_forward'] = 'Einen Monat vorwärts...';
 $LANG['cal_tt_onemore'] = 'Einen Monat mehr anzeigen...';
 $LANG['cal_tt_oneless'] = 'Einen Monat weniger anzeigen...';
 $LANG['cal_search'] = 'Nutzer suchen';
-$LANG['cal_selAbsence'] = 'Abwesenheit ausw&auml;hlen';
-$LANG['cal_selAbsence_comment'] = 'Zeigt alle Eintr&auml;ge an, die am heutigen Tage diese Abwesenheit eingetragen haben.';
-$LANG['cal_selGroup'] = 'Gruppe ausw&auml;hlen';
-$LANG['cal_selMonth'] = 'Monat ausw&auml;hlen';
-$LANG['cal_selRegion'] = 'Region ausw&auml;hlen';
-$LANG['cal_selWidth'] = 'Bildschirmbreite ausw&auml;hlen';
-$LANG['cal_selWidth_comment'] = 'W&auml;hle deine Bildrschirmbreite in Pixel so dass die Kalendertablle sich daran anpasst. Sollte deine Breite nicht in der Liste sein, w&auml;hle die n&auml;chst h&ouml;here.
-      <br>Im Moment scheinst du eine Breite von <span id="currentwidth"></span> Pixeln zu benutzen. Lade die Seite neu und &ouml;ffne diesen Dialog erneut, um sicher zu gehen.';
+$LANG['cal_selAbsence'] = 'Abwesenheit auswählen';
+$LANG['cal_selAbsence_comment'] = 'Zeigt alle Einträge an, die am heutigen Tage diese Abwesenheit eingetragen haben.';
+$LANG['cal_selGroup'] = 'Gruppe auswählen';
+$LANG['cal_selMonth'] = 'Monat auswählen';
+$LANG['cal_selRegion'] = 'Region auswählen';
+$LANG['cal_selWidth'] = 'Bildschirmbreite auswählen';
+$LANG['cal_selWidth_comment'] = 'Wähle deine Bildschirmbreite in Pixel so dass die Kalendertabelle sich daran anpasst. Sollte deine Breite nicht in der Liste sein, wähle die nächst höhere.
+      <br>Im Moment scheinst du eine Breite von <span id="currentwidth"></span> Pixeln zu benutzen. Lade die Seite neu und öffne diesen Dialog erneut, um sicher zu gehen.';
 $LANG['cal_summary'] = 'Summen';
 $LANG['cal_businessDays'] = 'Arbeitstage';
 
 $LANG['cal_caption_weeknumber'] = 'Kalenderwoche';
 $LANG['cal_caption_name'] = 'Name';
-$LANG['cal_img_alt_edit_month'] = 'Feiertage f&uuml;r diesen Monat editieren...';
-$LANG['cal_img_alt_edit_cal'] = 'Kalendar f&uuml;r diese Person editieren...';
+$LANG['cal_img_alt_edit_month'] = 'Feiertage für diesen Monat editieren...';
+$LANG['cal_img_alt_edit_cal'] = 'Kalendar für diese Person editieren...';
 $LANG['cal_birthday'] = 'Geburtstag';
 $LANG['cal_age'] = 'Alter';
 $LANG['sum_present'] = 'Anwesend';
@@ -261,44 +261,44 @@ $LANG['col_remainder'] = 'Resttage ausblenden...';
 //
 // Calendar Edit
 //
-$LANG['caledit_title'] = 'Bearbeitung von Monat %s-%s f&uuml;r %s';
+$LANG['caledit_title'] = 'Bearbeitung von Monat %s-%s für %s';
 $LANG['caledit_absencePattern'] = 'Abwesenheitsmuster';
-$LANG['caledit_absencePattern_comment'] = 'W&auml;hle das Abwesenheitsmuster aus, das f&uuml;r diesen Monat angewendet werden soll.';
-$LANG['caledit_absencePatternSkipHolidays'] = 'Feiertage &uuml;berspringen';
-$LANG['caledit_absencePatternSkipHolidays_comment'] = 'Beim setzen der Abwesenheiten &uuml;berspringe Feiertage, die nicht als Werktag z&auml;hlen.';
+$LANG['caledit_absencePattern_comment'] = 'Wähle das Abwesenheitsmuster aus, das für diesen Monat angewendet werden soll.';
+$LANG['caledit_absencePatternSkipHolidays'] = 'Feiertage überspringen';
+$LANG['caledit_absencePatternSkipHolidays_comment'] = 'Beim setzen der Abwesenheiten überspringe Feiertage, die nicht als Werktag zählen.';
 $LANG['caledit_absenceType'] = 'Abwesenheitstyp';
-$LANG['caledit_absenceType_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r diese Eingabe aus.';
-$LANG['caledit_alert_out_of_range'] = 'Die Datumsangaben war zumindest teilweise ausserhalb des angezeigten Monats. Es wurden keine &Auml;nderungen gespeichert.';
-$LANG['caledit_alert_save_failed'] = 'Die Abwesenheitsinformationen konnten nicht gespeichert werden. Es gab fehlerhafte Eingaben. Bitte pr&uuml;fe die letzte Eingabe.';
+$LANG['caledit_absenceType_comment'] = 'Wähle den Abwesenheitstyp für diese Eingabe aus.';
+$LANG['caledit_alert_out_of_range'] = 'Die Datumsangaben war zumindest teilweise außerhalb des angezeigten Monats. Es wurden keine Änderungen gespeichert.';
+$LANG['caledit_alert_save_failed'] = 'Die Abwesenheitsinformationen konnten nicht gespeichert werden. Es gab fehlerhafte Eingaben. Bitte prüfe die letzte Eingabe.';
 $LANG['caledit_alert_update'] = 'Monat aktualisieren';
-$LANG['caledit_alert_update_all'] = 'Alle Abwesenheiten wurden akzeptiert und der Monat entsprechend aktualisert.';
+$LANG['caledit_alert_update_all'] = 'Alle Abwesenheiten wurden akzeptiert und der Monat entsprechend aktualisiert.';
 $LANG['caledit_alert_update_group'] = 'Die Gruppenabwesenheiten wurden bei allen Benutzern der Gruppe eingetragen.';
 $LANG['caledit_alert_update_partial'] = 'Einige Abwesenheiten konnten nicht akzeptiert werden, weil sie vom Management konfigurierte Regeln verletzen. Die folgenden Abwesenheiten wurden abgelehnt:';
-$LANG['caledit_alert_update_none'] = 'Keine der Abwesenheiten wurde akzeptiert und der Monat nicht aktualisert. Die abgelehnten Abwesenheiten wurden an einen Manager zur Best&auml;tigung geschickt.';
-$LANG['caledit_clearAbsence'] = 'L&ouml;schen';
-$LANG['caledit_clearAbsences'] = 'Abwesenheiten l&ouml;schen';
-$LANG['caledit_clearDaynotes'] = 'Tagesnotizen l&ouml;schen';
-$LANG['caledit_confirm_clearall'] = 'Bist du sicher, dass du alle Abwesenheiten f&uuml;r diesen Monat l&ouml;schen willst?<br><br><strong>Jahr:</strong> %s<br><strong>Monat:</strong> %s<br><strong>Nutzer:</strong> %s';
-$LANG['caledit_confirm_savegroup'] = '<p><strong class="text-danger">Achtung!</strong><br>Das Speichern von Gruppenabwesenheiten erfolgt ohne Ablehnungspr&uuml;fung.<br>
-      Die Abwesenheiten werden f&uuml;r alle Benutzer der ausgew&auml;hlten Gruppe eingetragen. Du kannst aber unten ausw&auml;hlen, ob bereits existierende individuelle Abwesenheiten erhalten bleiben sollen.</p>
+$LANG['caledit_alert_update_none'] = 'Keine der Abwesenheiten wurde akzeptiert und der Monat nicht aktualisiert. Die abgelehnten Abwesenheiten wurden an einen Manager zur Bestätigung geschickt.';
+$LANG['caledit_clearAbsence'] = 'Löschen';
+$LANG['caledit_clearAbsences'] = 'Abwesenheiten löschen';
+$LANG['caledit_clearDaynotes'] = 'Tagesnotizen löschen';
+$LANG['caledit_confirm_clearall'] = 'Bist du sicher, dass du alle Abwesenheiten für diesen Monat löschen willst?<br><br><strong>Jahr:</strong> %s<br><strong>Monat:</strong> %s<br><strong>Nutzer:</strong> %s';
+$LANG['caledit_confirm_savegroup'] = '<p><strong class="text-danger">Achtung!</strong><br>Das Speichern von Gruppenabwesenheiten erfolgt ohne Ablehnungsprüfung.<br>
+      Die Abwesenheiten werden für alle Benutzer der ausgewählten Gruppe eingetragen. Du kannst aber unten auswählen, ob bereits existierende individuelle Abwesenheiten erhalten bleiben sollen.</p>
       <p><strong>Jahr:</strong> %s<br><strong>Monat:</strong> %s<br><strong>Gruppe:</strong> %s</p>';
 $LANG['caledit_currentAbsence'] = 'Aktuell';
 $LANG['caledit_endDate'] = 'Ende Datum';
-$LANG['caledit_endDate_comment'] = 'W&auml;hle das Enddatum aus (muss in diesem Monat sein).';
-$LANG['caledit_keepExisting'] = 'Indivduelle Abwesenheiten beibehalten';
+$LANG['caledit_endDate_comment'] = 'Wähle das Enddatum aus (muss in diesem Monat sein).';
+$LANG['caledit_keepExisting'] = 'Individuelle Abwesenheiten beibehalten';
 $LANG['caledit_Pattern'] = 'Muster';
-$LANG['caledit_PatternTitle'] = 'Abwesenheitsmuster ausw&auml;hlen';
+$LANG['caledit_PatternTitle'] = 'Abwesenheitsmuster auswählen';
 $LANG['caledit_Period'] = 'Zeitraum';
-$LANG['caledit_PeriodTitle'] = 'Abwesenheitszeitraum ausw&auml;hlen';
+$LANG['caledit_PeriodTitle'] = 'Abwesenheitszeitraum auswählen';
 $LANG['caledit_Recurring'] = 'Wiederholung';
-$LANG['caledit_RecurringTitle'] = 'Abwesenheitswiederholung ausw&auml;hlen';
+$LANG['caledit_RecurringTitle'] = 'Abwesenheitswiederholung auswählen';
 $LANG['caledit_recurrence'] = 'Wiederholung';
-$LANG['caledit_recurrence_comment'] = 'W&auml;hle die Wiederholung aus';
-$LANG['caledit_selGroup'] = 'Gruppe ausw&auml;hlen';
-$LANG['caledit_selRegion'] = 'Region ausw&auml;hlen';
-$LANG['caledit_selUser'] = 'Benutzer ausw&auml;hlen';
+$LANG['caledit_recurrence_comment'] = 'Wähle die Wiederholung aus';
+$LANG['caledit_selGroup'] = 'Gruppe auswählen';
+$LANG['caledit_selRegion'] = 'Region auswählen';
+$LANG['caledit_selUser'] = 'Benutzer auswählen';
 $LANG['caledit_startDate'] = 'Start Datum';
-$LANG['caledit_startDate_comment'] = 'W&auml;hle das Startdatum aus (muss in diesem Monat sein).';
+$LANG['caledit_startDate_comment'] = 'Wähle das Startdatum aus (muss in diesem Monat sein).';
 
 //
 // Calendar Options
@@ -313,126 +313,126 @@ $LANG['calopt_tab_stats'] = 'Statistik';
 $LANG['calopt_tab_summary'] = 'Summen';
 
 $LANG['calopt_alert_edit_success'] = 'Die Kalenderoptionen wurden gespeichert.';
-$LANG['calopt_alert_failed'] = 'Die Kalenderoptionen konnten nicht gespeichert werden. Bitte &uuml;berpr&uuml;fe die Eingaben.';
-$LANG['calopt_calendarFontSize'] = 'Kalender Schriftgr&ouml;&szlig;e';
-$LANG['calopt_calendarFontSize_comment'] = 'Hier kann die Schriftgr&ouml;&szlig;e des Monatskalenders mit einem Prozentwert vergr&ouml;&szlig;ert oder verkleinert werden, z.B. 80 oder 120.';
+$LANG['calopt_alert_failed'] = 'Die Kalenderoptionen konnten nicht gespeichert werden. Bitte überprüfe die Eingaben.';
+$LANG['calopt_calendarFontSize'] = 'Kalender Schriftgrö&szlig;e';
+$LANG['calopt_calendarFontSize_comment'] = 'Hier kann die Schriftgrö&szlig;e des Monatskalenders mit einem Prozentwert vergrö&szlig;ert oder verkleinert werden, z.B. 80 oder 120.';
 $LANG['calopt_currentYearOnly'] = 'Nur aktuelles Jahr';
-$LANG['calopt_currentYearOnly_comment'] = 'Mit diesem Schalter wird der Kalender auf das aktuelle Jahr beschr&auml;nkt. Andere Jahre k&ouml;nnen nicht angezeigt oder bearbeitet werden.';
+$LANG['calopt_currentYearOnly_comment'] = 'Mit diesem Schalter wird der Kalender auf das aktuelle Jahr beschränkt. Andere Jahre können nicht angezeigt oder bearbeitet werden.';
 $LANG['calopt_currentYearRoles'] = 'Nur aktuelles Jahr Rollen';
-$LANG['calopt_currentYearRoles_comment'] = 'Wenn "Nur aktuelles Jahr" ausgew&auml;hlt ist, kann diese Einschr&auml;nkung hier bestimmten Rollen zugeordnet werden.';
+$LANG['calopt_currentYearRoles_comment'] = 'Wenn "Nur aktuelles Jahr" ausgewählt ist, kann diese Einschränkung hier bestimmten Rollen zugeordnet werden.';
 $LANG['calopt_defgroupfilter'] = 'Default Gruppenfilter';
-$LANG['calopt_defgroupfilter_comment'] = 'Auswahl des Default Gruppenfilters f&uuml;r die Kalenderanzeige. Jeder User kann diese Einstellung individuell in seinem Profil &auml;ndern.';
+$LANG['calopt_defgroupfilter_comment'] = 'Auswahl des Default Gruppenfilters für die Kalenderanzeige. Jeder User kann diese Einstellung individuell in seinem Profil ändern.';
 $LANG['calopt_defgroupfilter_all'] = 'Alle';
 $LANG['calopt_defgroupfilter_allbygroup'] = 'Alle (nach Gruppen)';
-$LANG['calopt_defregion'] = 'Default Region f&uuml;r Basiskalendar';
-$LANG['calopt_defregion_comment'] = 'Auswahl der Default Region f&uuml;r den Basiskalender. Jeder User kann diese Einstellung individuell in seinem Profil &auml;ndern.';
+$LANG['calopt_defregion'] = 'Default Region für Basiskalendar';
+$LANG['calopt_defregion_comment'] = 'Auswahl der Default Region für den Basiskalender. Jeder User kann diese Einstellung individuell in seinem Profil ändern.';
 $LANG['calopt_firstDayOfWeek'] = 'Erster Wochentag';
 $LANG['calopt_firstDayOfWeek_comment'] = 'Dieser kann auf Montag oder Sonntag gesetzt werden. Die Auswahl wirkt sich auf die Anzeige der Wochennummern aus.';
 $LANG['calopt_firstDayOfWeek_1'] = 'Montag';
 $LANG['calopt_firstDayOfWeek_7'] = 'Sonntag';
-$LANG['calopt_hideDaynotes'] = 'Pers&ouml;nliche Tagesnotizen verbergen';
-$LANG['calopt_hideDaynotes_comment'] = 'Mt diesem Schalter k&ouml;nnen die pers&ouml;nlichen Tagesnotizen vor normalen Nutzern verborgen werden. Nur Manager, Direktoren
-      und Administratoren k&ouml;nnen sie editieren und sehen. So k&ouml;nnen sie f&uuml;r Managementzwecke genutzt werden. Dieser Schalter beeinflusst nicht die Geburtstagsnotizen.';
+$LANG['calopt_hideDaynotes'] = 'Persönliche Tagesnotizen verbergen';
+$LANG['calopt_hideDaynotes_comment'] = 'Mit diesem Schalter können die persönlichen Tagesnotizen vor normalen Nutzern verborgen werden. Nur Manager, Direktoren
+      und Administratoren können sie editieren und sehen. So können sie für Managementzwecke genutzt werden. Dieser Schalter beeinflusst nicht die Geburtstagsnotizen.';
 $LANG['calopt_hideManagers'] = 'Manager in Alle-nach-Gruppen und Gruppen Anzeige verbergen';
 $LANG['calopt_hideManagers_comment'] = 'Mit dieser Option werden alle Manager in der Alle-nach-Gruppen und Gruppen Anzeige verborgen mit Ausnahme der Gruppen, in der sie nur Mitglied sind.';
 $LANG['calopt_hideManagerOnlyAbsences'] = 'Management Abwesenheiten verbergen';
-$LANG['calopt_hideManagerOnlyAbsences_comment'] = 'Abwesenheitstypen k&ouml;nnen als "Nur Management" markiert werden, so dass nur Manager und Direktoren sie editieren k&ouml;nnen.
-      Diese Abwesenheiten werden normalen Benutzern angezeigt, sie k&ouml;nnen sie aber nicht editieren. Mit diesem Schalter k&ouml;nnen sie die Anzeige f&uuml;r normale Benutzer verbergen.';
+$LANG['calopt_hideManagerOnlyAbsences_comment'] = 'Abwesenheitstypen können als "Nur Management" markiert werden, so dass nur Manager und Direktoren sie editieren können.
+      Diese Abwesenheiten werden normalen Benutzern angezeigt, sie können sie aber nicht editieren. Mit diesem Schalter können sie die Anzeige für normale Benutzer verbergen.';
 $LANG['calopt_includeSummary'] = 'Summen Abschnitt';
-$LANG['calopt_includeSummary_comment'] = 'Mit dieser Option wird eine aufklappbare Zusammenfassung unter jedem Monat angezeigt, die die Summen der Abwesenheiten auff&uuml;hrt.';
-$LANG['calopt_managerOnlyIncludesAdministrator'] = 'Nur-Manager f&uuml;r Administrator';
-$LANG['calopt_managerOnlyIncludesAdministrator_comment'] = 'Nur-Manager Abwesenheitstypen k&ouml;nnen nur von den Gruppenmanagern gesetzt werden. Mit diesem Schalter k&ouml;nnen das auch Nutzer mit der Rolle "Administrator" tun.';
+$LANG['calopt_includeSummary_comment'] = 'Mit dieser Option wird eine aufklappbare Zusammenfassung unter jedem Monat angezeigt, die die Summen der Abwesenheiten aufführt.';
+$LANG['calopt_managerOnlyIncludesAdministrator'] = 'Nur-Manager für Administrator';
+$LANG['calopt_managerOnlyIncludesAdministrator_comment'] = 'Nur-Manager Abwesenheitstypen können nur von den Gruppenmanagern gesetzt werden. Mit diesem Schalter können das auch Nutzer mit der Rolle "Administrator" tun.';
 $LANG['calopt_monitorAbsence'] = 'Monitor Abwesenheit';
-$LANG['calopt_monitorAbsence_comment'] = 'Wenn hier ein Abwesenheitstyp gew&auml;hlt wird, wird der Verbleibend/Erlaubt Z&auml;hler im Namensfeld des Nutzers angezeigt.';
-$LANG['calopt_notificationsAllGroups'] = 'Benachrichtigungen f&uuml;r alle Gruppen';
-$LANG['calopt_notificationsAllGroups_comment'] = 'Standardm&auml;&szlig;ig k&ouml;nnen Nutzer E-mail Benachrichtigungne von Kalenderereignissen nur von eigenen Gruppen abbonieren. Mit dieser Option k&ouml;nnen sie auch andere Gruppen w&auml;hlen.<br>
-      <i>Hinweis: Wenn diese Option ausgeschaltet wird und Benutzer w&auml;hrend ihrer Aktivierung andere Gruppen f&uuml;r Benachrichtigungen ausgew&auml;hlt hatten, werden diese erst entfernt, wenn deren Profil erneut gespeichert wird.</i>';
+$LANG['calopt_monitorAbsence_comment'] = 'Wenn hier ein Abwesenheitstyp gewählt wird, wird der Verbleibend/Erlaubt Zähler im Namensfeld des Nutzers angezeigt.';
+$LANG['calopt_notificationsAllGroups'] = 'Benachrichtigungen für alle Gruppen';
+$LANG['calopt_notificationsAllGroups_comment'] = 'Standardmä&szlig;ig können Nutzer E-mail Benachrichtigungne von Kalenderereignissen nur von eigenen Gruppen abbonieren. Mit dieser Option können sie auch andere Gruppen wählen.<br>
+      <i>Hinweis: Wenn diese Option ausgeschaltet wird und Benutzer während ihrer Aktivierung andere Gruppen für Benachrichtigungen ausgewählt hatten, werden diese erst entfernt, wenn deren Profil erneut gespeichert wird.</i>';
 $LANG['calopt_pastDayColor'] = 'Vergangenheitsfarbe';
-$LANG['calopt_pastDayColor_comment'] = 'Setzt im Monatskalender diese Hintergrundfarbe f&uuml;r die Tage, die in der Vergangenheit liegen.
-      Lasse dieses Feld leer, wenn keine Hintergrundfarbe f&uuml;r vergangene Tage benutzt werden soll.';
+$LANG['calopt_pastDayColor_comment'] = 'Setzt im Monatskalender diese Hintergrundfarbe für die Tage, die in der Vergangenheit liegen.
+      Lasse dieses Feld leer, wenn keine Hintergrundfarbe für vergangene Tage benutzt werden soll.';
 $LANG['calopt_regionalHolidays'] = 'Regionale Feiertage markieren';
-$LANG['calopt_regionalHolidays_comment'] = 'Mir dieser Option werden Feiertage in anderen Regionen als die aktuell angezeigte mit einem farbigen Rahmen gekennzeichent.';
+$LANG['calopt_regionalHolidays_comment'] = 'Mit dieser Option werden Feiertage in anderen Regionen als die aktuell angezeigte mit einem farbigen Rahmen gekennzeichnet.';
 $LANG['calopt_regionalHolidaysColor'] = 'Rahmenfarbe Regionaler Feiertage';
 $LANG['calopt_regionalHolidaysColor_comment'] = 'Setzt die Rahmenfarbe f&uum;r regionale Feiertage.';
-$LANG['calopt_repeatHeaderCount'] = 'Kopfzeilen Wiederholungs Z&auml;hler';
-$LANG['calopt_repeatHeaderCount_comment'] = 'Gibt die Anzahl von Zeilen an, nach der die Monatskopfzeile f&uuml;r bessere Lesbarkeit wiederholt wird. Wenn der Wert auf 0 gesetzt ist, wird die Kopfzeile nicht wiederholt.';
+$LANG['calopt_repeatHeaderCount'] = 'Kopfzeilen Wiederholungs Zähler';
+$LANG['calopt_repeatHeaderCount_comment'] = 'Gibt die Anzahl von Zeilen an, nach der die Monatskopfzeile für bessere Lesbarkeit wiederholt wird. Wenn der Wert auf 0 gesetzt ist, wird die Kopfzeile nicht wiederholt.';
 $LANG['calopt_satBusi'] = 'Samstag ist ein Arbeitstag';
 $LANG['calopt_satBusi_comment'] = 'Normalerweise sind Samstage und Sonntage Wochenendtage und werden entsprechend im Kalender als solche angezeigt. Hier kann Samstag als Arbeitstag definiert werden.';
 $LANG['calopt_showAvatars'] = 'Avatars anzeigen';
-$LANG['calopt_showAvatars_comment'] = 'Mit dieser Option wird ein User Avatar in einem Pop-Up angezeigt, wenn die Maus &uuml;ber das User Icon gef&uuml;hrt wird.';
+$LANG['calopt_showAvatars_comment'] = 'Mit dieser Option wird ein User Avatar in einem Pop-Up angezeigt, wenn die Maus über das User Icon geführt wird.';
 $LANG['calopt_showMonths'] = 'Mehrere Monate anzeigen';
 $LANG['calopt_showMonths_comment'] = 'Gebe hier an, wieviele Monate auf der Kalenderseite angezeigt werden sollen, maximal 12.';
 $LANG['calopt_showRegionButton'] = 'Regionsfilter anzeigen';
-$LANG['calopt_showRegionButton_comment'] = 'Mit dieser Option wird oberhalb des Kalenders ein Button angezeigt, mit dem eine andere Region gew&auml;hlt werden kann.
+$LANG['calopt_showRegionButton_comment'] = 'Mit dieser Option wird oberhalb des Kalenders ein Button angezeigt, mit dem eine andere Region gewählt werden kann.
       Wenn nur die Standard Region benutzt wird, kann es Sinn machen, diesen auszublenden.';
 $LANG['calopt_showRoleIcons'] = 'Rollen Icons anzeigen';
-$LANG['calopt_showRoleIcons_comment'] = 'Mir dieser Option wird neben dem Benutzernamen ein Icon angezeigt, das die User Rolle anzeigt.';
+$LANG['calopt_showRoleIcons_comment'] = 'Mit dieser Option wird neben dem Benutzernamen ein Icon angezeigt, das die User Rolle anzeigt.';
 $LANG['calopt_showSummary'] = 'Summen Abschnitt anzeigen';
-$LANG['calopt_showSummary_comment'] = 'Mit dieser Option wird der Summen Abschnitt standardm&auml;&szlig;ig aufgeklappt.';
-$LANG['calopt_showTooltipCount'] = 'Tooltip Z&auml;hler';
+$LANG['calopt_showSummary_comment'] = 'Mit dieser Option wird der Summen Abschnitt standardmä&szlig;ig aufgeklappt.';
+$LANG['calopt_showTooltipCount'] = 'Tooltip Zähler';
 $LANG['calopt_showTooltipCount_comment'] = 'Mit dieser Option wird im Abwesenheits-Tooltip die Anzahl der im aktuellen Monat genommenen angezeigt.';
 $LANG['calopt_showUserRegion'] = 'Regionale Feiertage pro User anzeigen';
 $LANG['calopt_showUserRegion_comment'] = 'Mit dieser Option zeigt der Kalender in jeder Nutzerzeile die regionalen Feiertage der Region an, die in den Optionen des
-      Nutzers eingestellt ist. Diese Feiertage k&ouml;nnen sich von den globalen regionalen Feiertagen unterscheiden, die im Kopf des Kalenders angezeigt werden.
-      Diese Option bietet eine bessere Sicht auf die unterschiedlichen regionalen Feiertage unterschiedlicher Nutzer. Die Anzeige mag dabei aber auch un&uuml;bersichtlicher werden, je nach Anzahl Nutzer und Regionen. Probier es aus.';
+      Nutzers eingestellt ist. Diese Feiertage können sich von den globalen regionalen Feiertagen unterscheiden, die im Kopf des Kalenders angezeigt werden.
+      Diese Option bietet eine bessere Sicht auf die unterschiedlichen regionalen Feiertage unterschiedlicher Nutzer. Die Anzeige mag dabei aber auch unübersichtlicher werden, je nach Anzahl Nutzer und Regionen. Probier es aus.';
 $LANG['calopt_showWeekNumbers'] = 'Wochennummern anzeigen';
-$LANG['calopt_showWeekNumbers_comment'] = 'Mit dieser Option wird im Kalender eine Zeile mit den Nummern der Kalenderwochen hinzugef&uuml;gt.';
-$LANG['calopt_sortByOrderKey'] = 'Sortierschl&uuml;ssel benutzen';
-$LANG['calopt_sortByOrderKey_comment'] = 'Mit dieser Option werden die Benutzer im Kalender nicht nach Nachname sondern nach deren Sortierschl&uuml;ssel sortiert. Der Sortierschl&uuml;ssel ist ein optionales Feld im Benutzerprofil.';
+$LANG['calopt_showWeekNumbers_comment'] = 'Mit dieser Option wird im Kalender eine Zeile mit den Nummern der Kalenderwochen hinzugefügt.';
+$LANG['calopt_sortByOrderKey'] = 'Sortierschlüssel benutzen';
+$LANG['calopt_sortByOrderKey_comment'] = 'Mit dieser Option werden die Benutzer im Kalender nicht nach Nachname sondern nach deren Sortierschlüssel sortiert. Der Sortierschlüssel ist ein optionales Feld im Benutzerprofil.';
 $LANG['calopt_statsDefaultColorAbsences'] = 'Standardfarbe der Abwesenheitsstatistik';
-$LANG['calopt_statsDefaultColorAbsences_comment'] = 'W&auml;hle die Standardfarbe f&uuml;r diese Statistik aus.';
+$LANG['calopt_statsDefaultColorAbsences_comment'] = 'Wähle die Standardfarbe für diese Statistik aus.';
 $LANG['calopt_statsDefaultColorAbsencetype'] = 'Standardfarbe der Abwesenheitstypstatistik';
-$LANG['calopt_statsDefaultColorAbsencetype_comment'] = 'W&auml;hle die Standardfarbe f&uuml;r diese Statistik aus.';
+$LANG['calopt_statsDefaultColorAbsencetype_comment'] = 'Wähle die Standardfarbe für diese Statistik aus.';
 $LANG['calopt_statsDefaultColorPresences'] = 'Standardfarbe der Anwesenheitsstatistik';
-$LANG['calopt_statsDefaultColorPresences_comment'] = 'W&auml;hle die Standardfarbe f&uuml;r diese Statistik aus.';
+$LANG['calopt_statsDefaultColorPresences_comment'] = 'Wähle die Standardfarbe für diese Statistik aus.';
 $LANG['calopt_statsDefaultColorRemainder'] = 'Standardfarbe der Resttagestatistik';
-$LANG['calopt_statsDefaultColorRemainder_comment'] = 'W&auml;hle die Standardfarbe f&uuml;r diese Statistik aus.';
+$LANG['calopt_statsDefaultColorRemainder_comment'] = 'Wähle die Standardfarbe für diese Statistik aus.';
 $LANG['calopt_summaryAbsenceTextColor'] = 'Textfarbe der Abwesenheitszahlen';
 $LANG['calopt_summaryAbsenceTextColor_comment'] = 'Hier kannst du eine feste Textfarbe f&uum;r die Abwesenheitszahlen in der Summenzeile auswählen. Lass das Feld leer, um die Standardfarbe zu benutzen.';
 $LANG['calopt_summaryPresenceTextColor'] = 'Textfarbe der Anwesenheitszahlen';
-$LANG['calopt_summaryPresenceTextColor_comment'] = 'Hier kannst du eine feste Textfarbe f&uuml;r die Anwesenheitszahlen in der Summenzeile auswählen. Lass das Feld leer, um die Standardfarbe zu benutzen.';
+$LANG['calopt_summaryPresenceTextColor_comment'] = 'Hier kannst du eine feste Textfarbe für die Anwesenheitszahlen in der Summenzeile auswählen. Lass das Feld leer, um die Standardfarbe zu benutzen.';
 $LANG['calopt_sunBusi'] = 'Sonntag ist ein Arbeitstag';
 $LANG['calopt_sunBusi_comment'] = 'Normalerweise sind Samstage und Sonntage Wochenendtage und werden entsprechend im Kalender als solche angezeigt.
  Hier kann Sonntag als Arbeitstag definiert werden.';
-$LANG['calopt_supportMobile'] = 'Unterst&uuml;tzung von Mobilen Ger&auml;ten';
-$LANG['calopt_supportMobile_comment'] = 'Mit dieser Einstellung werden die Kalendertabellen (Ansicht und Bearbeitung) f&uuml;r eine bestimmte Bildschirmbreite erstellt, so dass kein horizontales Scrollen notwendig ist.
- Der Benutzer kann seine Bildschirmgr&ouml;&szlig;en w&auml;hlen.<br>Schalte diese Option aus, wenn der Kalender nur auf gro&szlig;en Bildschirmen genutzt wird (gr&ouml;&szlig;er 1024 Pixel breit). Der Kalender wird dann immer noch auf kleineren Bildschirmen
+$LANG['calopt_supportMobile'] = 'Unterstützung von Mobilen Geräten';
+$LANG['calopt_supportMobile_comment'] = 'Mit dieser Einstellung werden die Kalendertabellen (Ansicht und Bearbeitung) für eine bestimmte Bildschirmbreite erstellt, so dass kein horizontales Scrollen notwendig ist.
+ Der Benutzer kann seine Bildschirmgrö&szlig;en wählen.<br>Schalte diese Option aus, wenn der Kalender nur auf gro&szlig;en Bildschirmen genutzt wird (grö&szlig;er 1024 Pixel breit). Der Kalender wird dann immer noch auf kleineren Bildschirmen
  angezeigt, aber horizontales Scrollen ist dann notwendig.';
 $LANG['calopt_symbolAsIcon'] = 'Abwesenheitszeichen ID als Icon';
 $LANG['calopt_symbolAsIcon_comment'] = 'Mit dieser Option wird die Abwesenheitszeichen ID in der Kalenderanzeige benutzt anstatt des Icons.';
-$LANG['calopt_takeover'] = 'Abwesenheits&uuml;bernahme aktivieren';
-$LANG['calopt_takeover_comment'] = 'Mit dieser Option kann der eingeloggte Nutzer Abwesenheiten von anderen Nutzern &uuml;bernehmen, wenn er den entsprechenden Kalender edtitieren kann. Abwesenheits&uuml;bernahmen unterliegen KEINER
-      Regelpr&uuml;fung. Sie werden vom anderen Nutzer entfernt und beim eingeloggten Nutzer eingetragen.';
+$LANG['calopt_takeover'] = 'Abwesenheitsübernahme aktivieren';
+$LANG['calopt_takeover_comment'] = 'Mit dieser Option kann der eingeloggte Nutzer Abwesenheiten von anderen Nutzern übernehmen, wenn er den entsprechenden Kalender edtitieren kann. Abwesenheitsübernahmen unterliegen KEINER
+      Regelprüfung. Sie werden vom anderen Nutzer entfernt und beim eingeloggten Nutzer eingetragen.';
 $LANG['calopt_todayBorderColor'] = 'Heute Randfarbe';
 $LANG['calopt_todayBorderColor_comment'] = 'Gibt die Farbe in Hexadezimal an, in der der rechte und linke Rand der Heute Spalte erscheint.';
-$LANG['calopt_todayBorderSize'] = 'Heute Randst&auml;rke';
+$LANG['calopt_todayBorderSize'] = 'Heute Randstärke';
 $LANG['calopt_todayBorderSize_comment'] = 'Gibt die Dicke in Pixel an, in der der rechte und linke Rand der Heute Spalte erscheint.';
-$LANG['calopt_trustedRoles'] = 'Vertrauensw&uuml;rdige Rollen';
-$LANG['calopt_trustedRoles_comment'] = 'W&auml;hle die Rollen, die als "vertraulich" gekennzeichnete Abwesenheiten und Tagesnotizen sehen d&uuml;rfen.<br>
+$LANG['calopt_trustedRoles'] = 'Vertrauenswürdige Rollen';
+$LANG['calopt_trustedRoles_comment'] = 'Wähle die Rollen, die als "vertraulich" gekennzeichnete Abwesenheiten und Tagesnotizen sehen dürfen.<br>
       <i>Hinweis: Die Rolle "Administrator" kann hier zwar ausgeschlossen werden, der Benutzer "admin" jedoch gilt als Superuser und kann immer alle Daten sehen.</i>';
 $LANG['calopt_usersPerPage'] = 'Anzahl User pro Seite';
 $LANG['calopt_usersPerPage_comment'] = 'Wenn du eine gro&szlig;e Anzahl an Usern in TeamCal Neo pflegst, bietet es sich an, die Kalenderanzeige in Seiten aufzuteilen.
-      Gebe hier an, wieviel User pro Seite angezeigt werden sollen. Ein Wert von 0 zeigt alle User auf einer Seite an. Wenn du eine Seitenaufteilung w&auml;hlst,
-      werden am Ende der Seite Schaltfl&auml;chen fuer das Bl&auml;ttern angezeigt.';
+      Gebe hier an, wieviel User pro Seite angezeigt werden sollen. Ein Wert von 0 zeigt alle User auf einer Seite an. Wenn du eine Seitenaufteilung wählst,
+      werden am Ende der Seite Schaltflächen fuer das Blättern angezeigt.';
 
 //
 // Database
 //
 $LANG['db_tab_repair'] = 'Reparieren';
 $LANG['db_tab_tcpimp'] = 'TeamCal Pro Import';
-$LANG['db_clean_what'] = 'Was soll aufger&auml;umt werden';
-$LANG['db_clean_what_comment'] = 'W&auml;hle hier, was aufger&auml;umt werden soll. Alle Datens&auml;tze, die gleich alt oder &auml;lter sind als das "Bevor-Datum" werden gel&ouml;scht.
- Regions- und Benutzerkalender werden nach Monat gel&ouml;scht, unabh&auml;ngig vom Tag. Neuere Datens&auml;tze bleiben erhalten.';
-$LANG['db_clean_daynotes'] = 'Tagesnotizen aufr&auml;umen...';
-$LANG['db_clean_holidays'] = 'Feiertage aufr&auml;umen...';
-$LANG['db_clean_months'] = 'Regionskalender aufr&auml;umen...';
-$LANG['db_clean_templates'] = 'Benutzerkalender aufr&auml;umen...';
+$LANG['db_clean_what'] = 'Was soll aufgeräumt werden';
+$LANG['db_clean_what_comment'] = 'Wähle hier, was aufgeräumt werden soll. Alle Datensätze, die gleich alt oder älter sind als das "Bevor-Datum" werden gelöscht.
+ Regions- und Benutzerkalender werden nach Monat gelöscht, unabhängig vom Tag. Neuere Datensätze bleiben erhalten.';
+$LANG['db_clean_daynotes'] = 'Tagesnotizen aufräumen...';
+$LANG['db_clean_holidays'] = 'Feiertage aufräumen...';
+$LANG['db_clean_months'] = 'Regionskalender aufräumen...';
+$LANG['db_clean_templates'] = 'Benutzerkalender aufräumen...';
 $LANG['db_clean_before'] = 'Bevor-Datum';
-$LANG['db_clean_before_comment'] = 'Die oben gew&auml;hlten Datens&auml;tze, die gleich alt oder &auml;ter sind als das Datum hier, werden gle&ouml;scht.';
-$LANG['db_clean_confirm'] = 'Best&auml;tigung';
-$LANG['db_clean_confirm_comment'] = 'Bitte gebe hier "CLEANUP" ein, um die Aktion zu best&auml;tigen.';
-$LANG['db_repair_confirm'] = 'Best&auml;tigung';
-$LANG['db_repair_confirm_comment'] = 'Bitte gebe hier "REPAIR" ein, um die Aktion zu best&auml;tigen.';
+$LANG['db_clean_before_comment'] = 'Die oben gewählten Datensätze, die gleich alt oder äter sind als das Datum hier, werden gleöscht.';
+$LANG['db_clean_confirm'] = 'Bestätigung';
+$LANG['db_clean_confirm_comment'] = 'Bitte gebe hier "CLEANUP" ein, um die Aktion zu bestätigen.';
+$LANG['db_repair_confirm'] = 'Bestätigung';
+$LANG['db_repair_confirm_comment'] = 'Bitte gebe hier "REPAIR" ein, um die Aktion zu bestätigen.';
 $LANG['db_repair_daynoteRegions'] = 'Tagesnotiz-Regionen';
 $LANG['db_repair_daynoteRegions_comment'] = 'Diese Option prueft, ob es Tagesnotizen ohne Regionszurodnung gibt. Wenn dies der Fall ist, wird die Default Region eingetragen.';
 
@@ -440,14 +440,14 @@ $LANG['db_repair_daynoteRegions_comment'] = 'Diese Option prueft, ob es Tagesnot
 // Daynote
 //
 $LANG['dn_title'] = 'Tagesnotiz';
-$LANG['dn_title_for'] = 'f&uuml;r';
+$LANG['dn_title_for'] = 'für';
 $LANG['dn_alert_create'] = 'Tagesnotiz anlegen';
 $LANG['dn_alert_create_success'] = 'Die Tagesnotiz wurde erfolgreich angelegt.';
-$LANG['dn_alert_failed'] = 'Die Tagesnotiz wurde nicht gespeichert. Bitte &uuml;berpr&uuml;fe deine Eingaben.';
+$LANG['dn_alert_failed'] = 'Die Tagesnotiz wurde nicht gespeichert. Bitte überprüfe deine Eingaben.';
 $LANG['dn_alert_update'] = 'Tagesnotiz aktualisieren';
 $LANG['dn_alert_update_success'] = 'Die Tagesnotiz wurde erfolgreich aktualisiert.';
 $LANG['dn_color'] = 'Tagesnotiz Farbe';
-$LANG['dn_color_comment'] = 'W&auml;hle eine Farbe f&uuml;r die Tagesnotiz. Sie wird als Hintergrundfarbe f&uuml;r ihr Popup benutzt.';
+$LANG['dn_color_comment'] = 'Wähle eine Farbe für die Tagesnotiz. Sie wird als Hintergrundfarbe für ihr Popup benutzt.';
 $LANG['dn_color_danger'] = '<i class="fas fa-square text-danger"></i>';
 $LANG['dn_color_default'] = '<i class="fas fa-square text-default"></i>';
 $LANG['dn_color_info'] = '<i class="fas fa-square text-info"></i>';
@@ -455,37 +455,37 @@ $LANG['dn_color_primary'] = '<i class="fas fa-square text-primary"></i>';
 $LANG['dn_color_success'] = '<i class="fas fa-square text-success"></i>';
 $LANG['dn_color_warning'] = '<i class="fas fa-square text-warning"></i>';
 $LANG['dn_confidential'] = 'Vertraulich';
-$LANG['dn_confidential_comment'] = 'Dieser Schalter macht die Tagesnotiz "vertraulich". Normale Nutzer k&ouml;nnen sie nicht im Kalender
-      sehen, nur Admins, Manager und der Benutzer selbst. Dies kann f&uuml;r sensitive Tagesnotizen n&uuml;tzlich sein. Es kann Sinn machen, dies mit
+$LANG['dn_confidential_comment'] = 'Dieser Schalter macht die Tagesnotiz "vertraulich". Normale Nutzer können sie nicht im Kalender
+      sehen, nur Admins, Manager und der Benutzer selbst. Dies kann für sensitive Tagesnotizen nützlich sein. Es kann Sinn machen, dies mit
       einer vertraulichen Abwesenheit am gleichen Tag zu verbinden.';
-$LANG['dn_confirm_delete'] = 'Bist du sicher, dass du die Tagesnotiz l&ouml;schen willst?';
+$LANG['dn_confirm_delete'] = 'Bist du sicher, dass du die Tagesnotiz löschen willst?';
 $LANG['dn_date'] = 'Tagesnotiz Datum';
-$LANG['dn_date_comment'] = 'W&auml;hle ein Datum f&uuml;r die Tagesnotiz.';
+$LANG['dn_date_comment'] = 'Wähle ein Datum für die Tagesnotiz.';
 $LANG['dn_daynote'] = 'Tagesnotiz Text';
 $LANG['dn_daynote_comment'] = 'Gib den Text der Tagesnotiz ein.';
 $LANG['dn_daynote_placeholder'] = 'Hier ist der Tagesnotiztext...';
 $LANG['dn_enddate'] = 'Tagesnotiz End-Datum';
-$LANG['dn_enddate_comment'] = 'Wenn hier ein Datum eingetragen ist, wird die Tagesnotiz f&uuml;r alle Tage vom Tagesnotiz Datum an kopiert bzw. gel&ouml;scht. Dieses Datum muss gr&ouml;&szlig;er sein als das Tagesnotiz Datum.';
+$LANG['dn_enddate_comment'] = 'Wenn hier ein Datum eingetragen ist, wird die Tagesnotiz für alle Tage vom Tagesnotiz Datum an kopiert bzw. gelöscht. Dieses Datum muss größer sein als das Tagesnotiz Datum.';
 $LANG['dn_regions'] = 'Tagesnotiz Regionen';
-$LANG['dn_regions_comment'] = 'W&auml;hle die Regionen, in denen diese Tagesnotiz angezeigt werden soll.';
+$LANG['dn_regions_comment'] = 'Wähle die Regionen, in denen diese Tagesnotiz angezeigt werden soll.';
 
 //
 // Declination
 //
 $LANG['decl_Enddate'] = 'Aktivierungs-Endedatum';
-$LANG['decl_Enddate_comment'] = 'W&auml;hle das Datum, an dem diese Ablehnungsregel autmatisch enden soll. Die Regel ist dann bis einschlie&szlig;lich diesen Tages aktiv.';
+$LANG['decl_Enddate_comment'] = 'Wähle das Datum, an dem diese Ablehnungsregel automatisch enden soll. Die Regel ist dann bis einschließlich diesen Tages aktiv.';
 $LANG['decl_Message'] = 'Ablehnungsnachricht';
 $LANG['decl_Message_comment'] = 'Hier kann eine individuelle Nachricht eingegeben werden, die dem Nutzer bei Ablehnung einer Abwesenheit durch diese Regel angezeigt wird.
  Die konfigurierte Zeitperiode wird direkt dahinter angezeigt.';
 $LANG['decl_Period'] = 'Anwendungszeitraum';
-$LANG['decl_Period_comment'] = 'W&auml;hle hier, von wann bis wann diese Regel aktiv sein soll. Wenn eine Option mit Start- oder Endedatum gew&auml;hlt wird, m&uuml;ssen diese unten ein getragen werden.<br>
-      <i>Die Regel muss grunds&auml;tzlich aktiviert sein, bevor diese Einstellung greift.</i>';
+$LANG['decl_Period_comment'] = 'Wähle hier, von wann bis wann diese Regel aktiv sein soll. Wenn eine Option mit Start- oder Endedatum gewählt wird, müssen diese unten eingetragen werden.<br>
+      <i>Die Regel muss grundsätzlich aktiviert sein, bevor diese Einstellung greift.</i>';
 $LANG['decl_Period_nowForever'] = 'Solange Regel aktiv';
 $LANG['decl_Period_nowEnddate'] = 'Von Aktivierung bis Endedatum';
 $LANG['decl_Period_startdateForever'] = 'Von Startdatum bis Deaktivierung';
 $LANG['decl_Period_startdateEnddate'] = 'Von Startdatum bis Endedatum';
 $LANG['decl_Startdate'] = 'Aktivierungs-Startdatum';
-$LANG['decl_Startdate_comment'] = 'W&auml;hle das Datum, an dem diese Ablehnungsregel autmatisch beginnen soll. Die Regel wird an diesem Tag aktiv.';
+$LANG['decl_Startdate_comment'] = 'Wähle das Datum, an dem diese Ablehnungsregel automatisch beginnen soll. Die Regel wird an diesem Tag aktiv.';
 $LANG['decl_title'] = 'Ablehnungsmanagement';
 $LANG['decl_absence'] = 'Aktivieren';
 $LANG['decl_absence_comment'] = 'Aktiviere diesen Schalter, wenn bei Erreichen einer Abwesenheitsgrenze abgelehnt werden soll.';
@@ -500,25 +500,25 @@ $LANG['decl_absencePeriod_startdateEnddate'] = $LANG['decl_Period_startdateEndda
 $LANG['decl_absenceStartdate'] = $LANG['decl_Startdate'];
 $LANG['decl_absenceStartdate_comment'] = $LANG['decl_Startdate_comment'];
 $LANG['decl_alert_period_wrong'] = 'Bei Angabe einer Periode muss das Startdatum vor dem Endedatum liegen.';
-$LANG['decl_alert_period_missing'] = 'Bei Angabe einer Periode m&uuml;ssen beide Datumsfelder ausgef&uuml;llt werden.';
+$LANG['decl_alert_period_missing'] = 'Bei Angabe einer Periode müssen beide Datumsfelder ausgefüllt werden.';
 $LANG['decl_alert_save'] = 'Ablehnungseinstellungen speichern';
 $LANG['decl_alert_save_success'] = 'Die neuen Ablehnungseinstellungen wurden gespeichert.';
-$LANG['decl_alert_save_failed'] = 'Die Einstellungen konnten nicht gespeichert werden. Es gab fehlerhafte Eingaben. Bitte pr&uuml;fe die Fehlermeldungen.';
+$LANG['decl_alert_save_failed'] = 'Die Einstellungen konnten nicht gespeichert werden. Es gab fehlerhafte Eingaben. Bitte prüfe die Fehlermeldungen.';
 $LANG['decl_applyto'] = 'Ablehnung anwenden bei';
-$LANG['decl_applyto_comment'] = 'Hier kann eingestellt werden, ob Ablehnung nur bei normalen Nutzern gepr&uuml;ft wird oder auch bei Managern und Direktoren. Bei Administratoren wird Ablehnung nicht gepr&uuml;t.';
+$LANG['decl_applyto_comment'] = 'Hier kann eingestellt werden, ob Ablehnung nur bei normalen Nutzern geprüft wird oder auch bei Managern und Direktoren. Bei Administratoren wird Ablehnung nicht geprüt.';
 $LANG['decl_applyto_regular'] = 'Nur bei normalen Nutzern';
 $LANG['decl_applyto_all'] = 'Bei allen Nutzern (au&szlig;er Administratoren)';
 $LANG['decl_base'] = 'Basis der Abwesenheitsrate';
-$LANG['decl_base_comment'] = 'W&auml;hle hier, worauf sich die Abwesenheitsrate beziehen soll.';
+$LANG['decl_base_comment'] = 'Wähle hier, worauf sich die Abwesenheitsrate beziehen soll.';
 $LANG['decl_base_all'] = 'Alle';
 $LANG['decl_base_group'] = 'Gruppe';
 $LANG['decl_before'] = 'Aktivieren';
-$LANG['decl_before_comment'] = 'Abwesenheitsanfragen k&ouml;nnen abgelehnt werden, wenn sie vor einem bestimmten Datum liegen. Hier kann diese Option aktiviert werden.';
+$LANG['decl_before_comment'] = 'Abwesenheitsanfragen können abgelehnt werden, wenn sie vor einem bestimmten Datum liegen. Hier kann diese Option aktiviert werden.';
 $LANG['decl_beforedate'] = 'Grenzdatum';
-$LANG['decl_beforedate_comment'] = 'Hier kann ein individuelles Grenzdatum eingegeben werden. Dies ist nur wirksam, wenn oben die Option "vor Datum" gew&auml;hlt wurde.';
+$LANG['decl_beforedate_comment'] = 'Hier kann ein individuelles Grenzdatum eingegeben werden. Dies ist nur wirksam, wenn oben die Option "vor Datum" gewählt wurde.';
 $LANG['decl_beforeoption'] = 'Grenzdatumoption';
 $LANG['decl_beforeoption_comment'] = 'Bei Auswahl von "vor Heute werden Abwesenheitsanfragen in der Vergangenheit abgelehnt. Wenn ein bestimmtes Datum die Grenze
- sein soll, w&auml;hle hier "vor Datum" und gebe das Datum unten ein.';
+ sein soll, wähle hier "vor Datum" und gebe das Datum unten ein.';
 $LANG['decl_beforeoption_today'] = 'vor Heute (nicht eingeschlossen)';
 $LANG['decl_beforeoption_date'] = 'vor Datum (nicht eingeschlossen)';
 $LANG['decl_beforeEnddate'] = $LANG['decl_Enddate'];
@@ -593,7 +593,7 @@ $LANG['decl_period3Period_startdateEnddate'] = $LANG['decl_Period_startdateEndda
 $LANG['decl_period3Startdate'] = $LANG['decl_Startdate'];
 $LANG['decl_period3Startdate_comment'] = $LANG['decl_Startdate_comment'];
 $LANG['decl_roles'] = 'Anwenden bei Rollen';
-$LANG['decl_roles_comment'] = 'W&auml;hle hier die Rollen aus, bei denen die Ablehnungsregeln angewendet werden sollen. Dies wirkt auch auf die "minimal anwesend" und "maximal abwesend" Einstellungen der einzelnen Gruppen.';
+$LANG['decl_roles_comment'] = 'Wähle hier die Rollen aus, bei denen die Ablehnungsregeln angewendet werden sollen. Dies wirkt auch auf die "minimal anwesend" und "maximal abwesend" Einstellungen der einzelnen Gruppen.';
 $LANG['decl_schedule'] = 'Zeitplan';
 $LANG['decl_schedule_nowForever'] = 'Solange aktiviert';
 $LANG['decl_schedule_nowEnddate'] = 'Von Aktivierung bis %s';
@@ -606,7 +606,7 @@ $LANG['decl_summary_period2'] = 'Ablehnung von Abwesenheitsanfragen in einer bes
 $LANG['decl_summary_period3'] = 'Ablehnung von Abwesenheitsanfragen in einer bestimmten Periode.';
 $LANG['decl_tab_absence'] = 'Abwesenheitsgrenze';
 $LANG['decl_tab_before'] = 'Datumsgrenze';
-$LANG['decl_tab_overview'] = '&Uuml;bersicht';
+$LANG['decl_tab_overview'] = 'übersicht';
 $LANG['decl_tab_period1'] = 'Zeitraum 1';
 $LANG['decl_tab_period2'] = 'Zeitraum 2';
 $LANG['decl_tab_period3'] = 'Zeitraum 3';
@@ -618,23 +618,23 @@ $LANG['decl_value'] = 'Wert';
 //
 // E-Mail
 //
-$LANG['email_subject_absence_approval'] = '%app_name% Abwesenheitsbest&auml;tigung Erforderlich';
+$LANG['email_subject_absence_approval'] = '%app_name% Abwesenheitsbestätigung Erforderlich';
 $LANG['email_subject_month_created'] = '%app_name% Monat angelegt';
-$LANG['email_subject_month_changed'] = '%app_name% Monat ge&auml;ndert';
-$LANG['email_subject_month_deleted'] = '%app_name% Monat gel&ouml;scht';
-$LANG['email_subject_usercal_changed'] = '%app_name% Benutzerkalender ge&auml;ndert';
+$LANG['email_subject_month_changed'] = '%app_name% Monat geändert';
+$LANG['email_subject_month_deleted'] = '%app_name% Monat gelöscht';
+$LANG['email_subject_usercal_changed'] = '%app_name% Benutzerkalender geändert';
 
 //
 // Group
 //
 $LANG['group_minpresent'] = 'Mindestens Anwesende Mitglieder (Wochentags)';
-$LANG['group_minpresent_comment'] = 'Gib die Anzahl der mindestens anwesenden Mitglieder dieser Gruppe an Wochentagen ein (Montag-Freitag). Dieser Wert wird bei Abwesenheitsanfragen &uuml;berpr&uuml;ft.<br>Gib 0 ein, um eine komplette Abwesenheit der Gruppe zu erlauben.';
+$LANG['group_minpresent_comment'] = 'Gib die Anzahl der mindestens anwesenden Mitglieder dieser Gruppe an Wochentagen ein (Montag-Freitag). Dieser Wert wird bei Abwesenheitsanfragen überprüft.<br>Gib 0 ein, um eine komplette Abwesenheit der Gruppe zu erlauben.';
 $LANG['group_maxabsent'] = 'Maximal Abwesende Mitglieder (Wochentags)';
-$LANG['group_maxabsent_comment'] = 'Gib die Anzahl der maximal abwesenden Mitglieder dieser Gruppe an Wochentagen ein (Montag-Freitag). Dieser Wert wird bei Abwesenheitsanfragen &uuml;berpr&uuml;ft.<br>Gib einen hohen Wert ein, der die Anzahl der Gruppenmitglieder &uuml;bersteigt (z.B. 9999), um eine komplette Abwesenheit der Gruppe zu erlauben.';
+$LANG['group_maxabsent_comment'] = 'Gib die Anzahl der maximal abwesenden Mitglieder dieser Gruppe an Wochentagen ein (Montag-Freitag). Dieser Wert wird bei Abwesenheitsanfragen überprüft.<br>Gib einen hohen Wert ein, der die Anzahl der Gruppenmitglieder übersteigt (z.B. 9999), um eine komplette Abwesenheit der Gruppe zu erlauben.';
 $LANG['group_minpresentwe'] = 'Mindestens Anwesende Mitglieder (Wochenenden)';
-$LANG['group_minpresentwe_comment'] = 'Gib die Anzahl der mindestens anwesenden Mitglieder dieser Gruppe an Wochenenden ein (Samstag und Sonntag). Dieser Wert wird bei Abwesenheitsanfragen &uuml;berpr&uuml;ft.<br>Gib 0 ein, um eine komplette Abwesenheit der Gruppe an Wochenenden zu erlauben.';
+$LANG['group_minpresentwe_comment'] = 'Gib die Anzahl der mindestens anwesenden Mitglieder dieser Gruppe an Wochenenden ein (Samstag und Sonntag). Dieser Wert wird bei Abwesenheitsanfragen überprüft.<br>Gib 0 ein, um eine komplette Abwesenheit der Gruppe an Wochenenden zu erlauben.';
 $LANG['group_maxabsentwe'] = 'Maximal Abwesende Mitglieder (Wochenenden)';
-$LANG['group_maxabsentwe_comment'] = 'Gib die Anzahl der maximal abwesenden Mitglieder dieser Gruppe an Wochenenden ein (Samstag und Sonntag). Dieser Wert wird bei Abwesenheitsanfragen &uuml;berpr&uuml;ft.<br>Gib einen hohen Wert ein, der die Anzahl der Gruppenmitglieder &uuml;bersteigt (z.B. 9999), um eine komplette Abwesenheit der Gruppe an Wochenenden zu erlauben.';
+$LANG['group_maxabsentwe_comment'] = 'Gib die Anzahl der maximal abwesenden Mitglieder dieser Gruppe an Wochenenden ein (Samstag und Sonntag). Dieser Wert wird bei Abwesenheitsanfragen überprüft.<br>Gib einen hohen Wert ein, der die Anzahl der Gruppenmitglieder übersteigt (z.B. 9999), um eine komplette Abwesenheit der Gruppe an Wochenenden zu erlauben.';
 
 //
 // Groups
@@ -650,26 +650,26 @@ $LANG['groups_maxabsentwe'] = 'Max Abwesend WE';
 $LANG['hol_edit_title'] = 'Feiertag bearbeiten: ';
 $LANG['hol_list_title'] = 'Feiertage';
 $LANG['hol_alert_created'] = 'Der Feiertag wurde angelegt.';
-$LANG['hol_alert_created_fail'] = 'Der Feiertag wurde nicht angelegt. Bitte &uuml;berpr&uuml;fe den "Feiertag anlegen" Dialog nach Eingabefehlern.';
-$LANG['hol_alert_deleted'] = 'Der Feiertag wurde gel&ouml;scht.';
+$LANG['hol_alert_created_fail'] = 'Der Feiertag wurde nicht angelegt. Bitte überprüfe den "Feiertag anlegen" Dialog nach Eingabefehlern.';
+$LANG['hol_alert_deleted'] = 'Der Feiertag wurde gelöscht.';
 $LANG['hol_alert_edit'] = 'Feiertag bearbeiten';
-$LANG['hol_alert_edit_success'] = 'Die Informationen f&uuml;r diesen Feiertag wurden aktualisiert.';
-$LANG['hol_alert_save_failed'] = 'Die neuen Informationen f&uuml;r diesen Feiertag konnten nicht gespeichert werden. Es gab fehlerhafte Eingaben. Bitte pr&uuml;fe die Fehlermeldungen im "Feiertag anlegen" Dialog.';
-$LANG['hol_bgcolor'] = 'Hintergundfarbe';
-$LANG['hol_bgcolor_comment'] = 'Die Hintergundfarbe wird im Kalender benutzt, egal ob Symbol oder Icon gew&auml;hlt ist. Ein Farbdialog erscheint beim Klicken in das Feld.';
-$LANG['hol_businessday'] = 'Z&auml;hlt als Arbeitstag';
-$LANG['hol_businessday_comment'] = 'W&auml;hle hier ob dieser Feiertag als Arbeitstag z&auml;hlen soll. Wenn diese Option eingeschaltet ist, wird dieser Tag mit den Abwesenheiten verrechnet.';
+$LANG['hol_alert_edit_success'] = 'Die Informationen für diesen Feiertag wurden aktualisiert.';
+$LANG['hol_alert_save_failed'] = 'Die neuen Informationen für diesen Feiertag konnten nicht gespeichert werden. Es gab fehlerhafte Eingaben. Bitte prüfe die Fehlermeldungen im "Feiertag anlegen" Dialog.';
+$LANG['hol_bgcolor'] = 'Hintergrundfarbe';
+$LANG['hol_bgcolor_comment'] = 'Die Hintergrundfarbe wird im Kalender benutzt, egal ob Symbol oder Icon gewählt ist. Ein Farbdialog erscheint beim Klicken in das Feld.';
+$LANG['hol_businessday'] = 'Zählt als Arbeitstag';
+$LANG['hol_businessday_comment'] = 'Wähle hier ob dieser Feiertag als Arbeitstag zählen soll. Wenn diese Option eingeschaltet ist, wird dieser Tag mit den Abwesenheiten verrechnet.';
 $LANG['hol_color'] = 'Textfarbe';
-$LANG['hol_color_comment'] = 'W&auml;hle hier die Textfarbe. Ein Farbdialog erscheint beim Klicken in das Feld.';
-$LANG['hol_confirm_delete'] = 'Bist du sicher, dass du diesen Feiertag l&ouml;schen willst: ';
+$LANG['hol_color_comment'] = 'Wähle hier die Textfarbe. Ein Farbdialog erscheint beim Klicken in das Feld.';
+$LANG['hol_confirm_delete'] = 'Bist du sicher, dass du diesen Feiertag löschen willst: ';
 $LANG['hol_description'] = 'Beschreibung';
-$LANG['hol_description_comment'] = 'Gebe hier eine Beschreibung f&uuml;r den Feiertag ein.';
+$LANG['hol_description_comment'] = 'Gib hier eine Beschreibung für den Feiertag ein.';
 $LANG['hol_keepweekendcolor'] = 'Wochenendfarbe beibehalten';
-$LANG['hol_keepweekendcolor_comment'] = 'Die Wochenendfarbe bleibt erhalten, wenn dieser Feiertag auf einen Samstag oder Sonntag f&auml;llt.';
+$LANG['hol_keepweekendcolor_comment'] = 'Die Wochenendfarbe bleibt erhalten, wenn dieser Feiertag auf einen Samstag oder Sonntag fällt.';
 $LANG['hol_name'] = 'Name';
-$LANG['hol_name_comment'] = 'Gebe hier einen Namen f&uuml;r den Feiertag ein.';
+$LANG['hol_name_comment'] = 'Gib hier einen Namen für den Feiertag ein.';
 $LANG['hol_noabsence'] = 'Keine Abwesenheiten erlaubt';
-$LANG['hol_noabsence_comment'] = 'Abwesenheiten f&uuml;r diesen Feiertagstyp sind nicht erlaubt und werden unabh&auml;ngig von allen anderen Regeln abgelehnt.';
+$LANG['hol_noabsence_comment'] = 'Abwesenheiten für diesen Feiertagstyp sind nicht erlaubt und werden unabhängig von allen anderen Regeln abgelehnt.';
 
 //
 // Log
@@ -686,7 +686,7 @@ $LANG['mnu_view_year'] = 'Kalender (Jahr)';
 $LANG['mnu_view_stats'] = 'Statistiken';
 $LANG['mnu_view_stats_absences'] = 'Abwesenheits-Statistik';
 $LANG['mnu_view_stats_abstype'] = 'Abwesenheitstyp-Statistik';
-$LANG['mnu_view_stats_absum'] = 'Abwesenheits-&Uuml;bersicht';
+$LANG['mnu_view_stats_absum'] = 'Abwesenheits-Übersicht';
 $LANG['mnu_view_stats_presences'] = 'Anwesenheits-Statistik';
 $LANG['mnu_view_stats_remainder'] = 'Resttage-Statistik';
 $LANG['mnu_edit_calendaredit'] = 'Personenkalender';
@@ -702,13 +702,13 @@ $LANG['mnu_admin_regions'] = 'Regionen';
 //
 // Month Edit
 //
-$LANG['monthedit_title'] = 'Bearbeitung von Monat %s-%s f&uuml;r die Region "%s"';
+$LANG['monthedit_title'] = 'Bearbeitung von Monat %s-%s für die Region "%s"';
 $LANG['monthedit_alert_update'] = 'Monat aktualisieren';
 $LANG['monthedit_alert_update_success'] = 'Der Monat wurden aktualisert.';
-$LANG['monthedit_confirm_clearall'] = 'Bist du sicher, dass du alle Feiertage f&uuml;r diesen Monat l&ouml;schen willst?<br><br><strong>Jahr:</strong> %s<br><strong>Monat:</strong> %s<br><strong>Region:</strong> %s';
-$LANG['monthedit_clearHoliday'] = 'L&ouml;schen';
-$LANG['monthedit_selRegion'] = 'Region ausw&auml;hlen';
-$LANG['monthedit_selUser'] = 'Nutzer ausw&auml;hlen';
+$LANG['monthedit_confirm_clearall'] = 'Bist du sicher, dass du alle Feiertage für diesen Monat löschen willst?<br><br><strong>Jahr:</strong> %s<br><strong>Monat:</strong> %s<br><strong>Region:</strong> %s';
+$LANG['monthedit_clearHoliday'] = 'Löschen';
+$LANG['monthedit_selRegion'] = 'Region auswählen';
+$LANG['monthedit_selUser'] = 'Nutzer auswählen';
 
 //
 // Patterns
@@ -716,33 +716,33 @@ $LANG['monthedit_selUser'] = 'Nutzer ausw&auml;hlen';
 $LANG['ptn_list_title'] = 'Abwesenheitsmuster';
 $LANG['ptn_edit_title'] = 'Abwesenheitsmuster bearbeiten: ';
 $LANG['ptn_alert_edit'] = 'Abwesenheitsmuster aktualisieren';
-$LANG['ptn_alert_edit_success'] = 'Die Informationen f&uuml;r dieses Abwesenheitsmuster wurden aktualisiert.';
+$LANG['ptn_alert_edit_success'] = 'Die Informationen für dieses Abwesenheitsmuster wurden aktualisiert.';
 $LANG['ptn_alert_created'] = 'Das Abwesenheitsmuster wurde angelegt.';
-$LANG['ptn_alert_created_failed'] = 'Das Abwesenheitsmuster wurde nicht angelegt. Bitte &uuml;berpr&uuml;fe den "Abwesenheitsmuster anlegen" Dialog nach Eingabefehlern.';
-$LANG['ptn_alert_deleted'] = 'Das Abwesenheitsmuster wurde gel&ouml;scht.';
+$LANG['ptn_alert_created_failed'] = 'Das Abwesenheitsmuster wurde nicht angelegt. Bitte überprüfe den "Abwesenheitsmuster anlegen" Dialog nach Eingabefehlern.';
+$LANG['ptn_alert_deleted'] = 'Das Abwesenheitsmuster wurde gelöscht.';
 $LANG['ptn_alert_exists'] = 'Ein Muster mit dieser Kombination existiert bereits als "%s".';
-$LANG['ptn_alert_save_failed'] = 'Die neuen Informationen f&uuml;r dieses Abwesenheitsmuster konnten nicht gespeichert. Es gab fehlerhafte Eingaben. Bitte pr&uuml;fe die Fehlermeldungen.';
-$LANG['ptn_confirm_delete'] = 'Bist du sicher, dass du dieses Abwesenheitsmuster l&ouml;schen willst:<br>';
+$LANG['ptn_alert_save_failed'] = 'Die neuen Informationen für dieses Abwesenheitsmuster konnten nicht gespeichert. Es gab fehlerhafte Eingaben. Bitte prüfe die Fehlermeldungen.';
+$LANG['ptn_confirm_delete'] = 'Bist du sicher, dass du dieses Abwesenheitsmuster löschen willst:<br>';
 $LANG['ptn_currentPattern'] = 'Aktuelles Muster';
 $LANG['ptn_currentPattern_comment'] = 'Dies ist das aktuelle Muster.';
 $LANG['ptn_abs1'] = 'Montag Abwesenheitstyp';
-$LANG['ptn_abs1_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Montage in diesem Muster.';
+$LANG['ptn_abs1_comment'] = 'Wähle den Abwesenheitstyp für die Montage in diesem Muster.';
 $LANG['ptn_abs2'] = 'Dienstag Abwesenheitstyp';
-$LANG['ptn_abs2_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Dienstage in diesem Muster.';
+$LANG['ptn_abs2_comment'] = 'Wähle den Abwesenheitstyp für die Dienstage in diesem Muster.';
 $LANG['ptn_abs3'] = 'Mittwoch Abwesenheitstyp';
-$LANG['ptn_abs3_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Mittwoche in diesem Muster.';
+$LANG['ptn_abs3_comment'] = 'Wähle den Abwesenheitstyp für die Mittwoche in diesem Muster.';
 $LANG['ptn_abs4'] = 'Donnerstag Abwesenheitstyp';
-$LANG['ptn_abs4_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Donnerstage in diesem Muster.';
+$LANG['ptn_abs4_comment'] = 'Wähle den Abwesenheitstyp für die Donnerstage in diesem Muster.';
 $LANG['ptn_abs5'] = 'Freitag Abwesenheitstyp';
-$LANG['ptn_abs5_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Freitage in diesem Muster.';
+$LANG['ptn_abs5_comment'] = 'Wähle den Abwesenheitstyp für die Freitage in diesem Muster.';
 $LANG['ptn_abs6'] = 'Samstag Abwesenheitstyp';
-$LANG['ptn_abs6_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Samstage in diesem Muster.';
+$LANG['ptn_abs6_comment'] = 'Wähle den Abwesenheitstyp für die Samstage in diesem Muster.';
 $LANG['ptn_abs7'] = 'Sonntag Abwesenheitstyp';
-$LANG['ptn_abs7_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Sonntage in diesem Muster.';
+$LANG['ptn_abs7_comment'] = 'Wähle den Abwesenheitstyp für die Sonntage in diesem Muster.';
 $LANG['ptn_description'] = 'Beschreibung';
-$LANG['ptn_description_comment'] = 'Gebe hier eine Beschreibung f&uuml;r das Abwesenheitsmuster ein.';
+$LANG['ptn_description_comment'] = 'Gebe hier eine Beschreibung für das Abwesenheitsmuster ein.';
 $LANG['ptn_name'] = 'Name';
-$LANG['ptn_name_comment'] = 'Gebe hier einen Namen f&uuml;r das Abwesenheitsmuster ein.';
+$LANG['ptn_name_comment'] = 'Gebe hier einen Namen für das Abwesenheitsmuster ein.';
 $LANG['ptn_pattern'] = 'Muster';
 
 //
@@ -750,18 +750,18 @@ $LANG['ptn_pattern'] = 'Muster';
 //
 $LANG['perm_absenceedit_title'] = 'Abwesenheitstypen (Bearbeiten)';
 $LANG['perm_absenceedit_desc'] = 'Erlaubt das Listen und Bearbeiten von Abwesenheitstypen.';
-$LANG['perm_absum_title'] = 'Abwesenheits&uuml;bersicht (Anzeigen)';
-$LANG['perm_absum_desc'] = 'Erlaubt das Anzeigen der Abwesenheits&uuml;bersicht von Nutzern.';
+$LANG['perm_absum_title'] = 'Abwesenheitsübersicht (Anzeigen)';
+$LANG['perm_absum_desc'] = 'Erlaubt das Anzeigen der Abwesenheitsübersicht von Nutzern.';
 $LANG['perm_calendaredit_title'] = 'Kalender (Bearbeiten)';
 $LANG['perm_calendaredit_desc'] = 'Erlaubt die Benutzung des Kalendereditors. Diese Berechtigung ist mindestens erforderlich, um Kalender zu Bearbeiten.';
 $LANG['perm_calendareditall_title'] = 'Kalender (Alle Bearbeiten)';
-$LANG['perm_calendareditall_desc'] = 'Erlaubt die Bearbeitung aller Benutzerkalender. Nutzer mit dieser Berechtigung k&ouml;nnen jede Abwesenheit f&uuml;r jeden Nutzer ohne Validierung setzen.';
+$LANG['perm_calendareditall_desc'] = 'Erlaubt die Bearbeitung aller Benutzerkalender. Nutzer mit dieser Berechtigung können jede Abwesenheit für jeden Nutzer ohne Validierung setzen.';
 $LANG['perm_calendareditgroup_title'] = 'Kalender (Gruppen als Mitglied oder Manager Bearbeiten)';
 $LANG['perm_calendareditgroup_desc'] = 'Erlaubt die Bearbeitung aller Benutzerkalender der Gruppen, in der der Rolleninhaber Mitglied oder Manager ist.';
 $LANG['perm_calendareditgroupmanaged_title'] = 'Kalender (Gruppen als Manager Bearbeiten)';
 $LANG['perm_calendareditgroupmanaged_desc'] = 'Erlaubt die Bearbeitung aller Benutzerkalender der Gruppen, in der der Rolleninhaber Manager ist.';
 $LANG['perm_calendareditown_title'] = 'Kalender (Eigenen Bearbeiten)';
-$LANG['perm_calendareditown_desc'] = 'Erlaubt die Bearbeitung des eigenen Kalenders. Wenn nur eine zentrale Bearbeitung erw&uuml;nscht ist, kann man hiermit die Berechtigung den Nutzern entziehen.';
+$LANG['perm_calendareditown_desc'] = 'Erlaubt die Bearbeitung des eigenen Kalenders. Wenn nur eine zentrale Bearbeitung erwünscht ist, kann man hiermit die Berechtigung den Nutzern entziehen.';
 $LANG['perm_calendaroptions_title'] = 'Kalender (Optionen)';
 $LANG['perm_calendaroptions_desc'] = 'Erlaubt das Bearbeiten der Kalenderoptionen.';
 $LANG['perm_calendarview_title'] = 'Kalender (Anzeigen)';
@@ -772,14 +772,14 @@ $LANG['perm_calendarviewall_desc'] = 'Erlaubt das Anzeigen der Kalender aller Be
 $LANG['perm_calendarviewgroup_title'] = 'Kalender (Gruppen Anzeigen)';
 $LANG['perm_calendarviewgroup_desc'] = 'Erlaubt das Anzeigen der Kalender von Benutzern in eigenen Gruppen.';
 $LANG['perm_daynote_title'] = 'Tagesnotizen (Bearbeiten)';
-$LANG['perm_daynote_desc'] = 'Erlaubt das Bearbeiten pers&ouml;nlicher Tagesnotizen.';
+$LANG['perm_daynote_desc'] = 'Erlaubt das Bearbeiten persönlicher Tagesnotizen.';
 $LANG['perm_daynoteglobal_title'] = 'Tagesnotizen (Global)';
 $LANG['perm_daynoteglobal_desc'] = 'Erlaubt das Bearbeiten globaler Tagesnotizen.';
 $LANG['perm_declination_title'] = 'Ablehnungsregeln (Bearbeiten)';
 $LANG['perm_declination_desc'] = 'Erlaubt das Bearbeiten der Ablehnungsregeln.';
 $LANG['perm_groupcalendaredit_title'] = 'Gruppen-Kalender (Bearbeiten)';
 $LANG['perm_groupcalendaredit_desc'] = 'Erlaubt die Bearbeitung von Gruppenkalendern wenn die Rolle au&szlig;erdem die Funktionsberechtigung "Kalender (Gruppen als Mitglied oder Manager Bearbeiten)" oder "Kalender (Alle Bearbeiten)" hat.<br>
-  <i>Hinweis: Gruppenmanager k&ouml;nnen die Gruppenkalender ihrer Gruppen auch ohne diese Berechtigung bearbeiten.</i>';
+  <i>Hinweis: Gruppenmanager können die Gruppenkalender ihrer Gruppen auch ohne diese Berechtigung bearbeiten.</i>';
 $LANG['perm_holidays_title'] = 'Feiertage (Bearbeiten)';
 $LANG['perm_holidays_desc'] = 'Erlaubt as Listen und Bearbeiten von Feiertagen.';
 $LANG['perm_manageronlyabsences_title'] = 'Gruppen-Manager Abwesenheitstypen (Bearbeiten)';
@@ -803,26 +803,26 @@ $LANG['perm_userallowance_desc'] = 'Erlaubt das Editieren von individuellen Erla
 $LANG['profile_tab_absences'] = 'Abwesenheiten';
 $LANG['profile_abs_name'] = 'Abwesenheitstyp';
 $LANG['profile_abs_allowance'] = 'Erlaubt';
-$LANG['profile_abs_allowance_tt'] = 'Pers&ouml;nliche Erlaubnis. 0 &uuml;bernimmt den globalen Wert (in Klammern).';
-$LANG['profile_abs_allowance_tt2'] = 'Pers&ouml;nliche Erlaubnis. Globaler Wert in Klammern.';
-$LANG['profile_abs_carryover'] = '&Uuml;bertrag';
-$LANG['profile_abs_carryover_tt'] = 'Das &Uuml;bertragsfeld akzeptiert auch negative Werte. So kann der Verleib f&uuml;r diesen Benutzer f&uuml;r dieses Jahr reduziert werden.';
+$LANG['profile_abs_allowance_tt'] = 'Persönliche Erlaubnis. 0 übernimmt den globalen Wert (in Klammern).';
+$LANG['profile_abs_allowance_tt2'] = 'Persönliche Erlaubnis. Globaler Wert in Klammern.';
+$LANG['profile_abs_carryover'] = 'übertrag';
+$LANG['profile_abs_carryover_tt'] = 'Das übertragsfeld akzeptiert auch negative Werte. So kann der Verleib für diesen Benutzer für dieses Jahr reduziert werden.';
 $LANG['profile_abs_taken'] = 'Genommen';
 $LANG['profile_abs_factor'] = 'Faktor';
 $LANG['profile_abs_remainder'] = 'Verbleib';
 $LANG['profile_calendarMonths'] = 'Kalendermonate';
-$LANG['profile_calendarMonths_comment'] = 'W&auml;hle die Anzahl der Kalendermonate, die auf der Kalenderseite angezeigt werden sollen.';
+$LANG['profile_calendarMonths_comment'] = 'Wähle die Anzahl der Kalendermonate, die auf der Kalenderseite angezeigt werden sollen.';
 $LANG['profile_calendarMonths_default'] = 'Default';
 $LANG['profile_calendarMonths_one'] = 'Ein';
 $LANG['profile_calendarMonths_two'] = 'Zwei';
 $LANG['profile_calfilterGroup'] = 'Standard Gruppenfilter';
 $LANG['profile_calfilterGroup_comment'] = 'Die Kalenderansicht kann auf eine Gruppe gefiltert werden. Dies kann hier oder auf der Kalenderseite eingestellt werden.';
 $LANG['profile_guestships'] = 'In anderen Gruppen anzeigen';
-$LANG['profile_guestships_comment'] = 'Zeigt den Kalender dieses Nutzers in den ausgew&auml;hlten Gruppen mit an, auch wenn keine Mitgliedschaft vorliegt (auch "Gastmitgliedschaft" genannt). Dieses Feature ist sinnvoll, wenn der Nutzer ' .
-  'zwar kein Mitglied, seine Abwesenheiten aber trotzdem relevant f&uuml;r die Gruppe sind.<br><i>Gastmitglieder werden im Kalender in schr&auml;ger Schrift dargestellt.</i>';
+$LANG['profile_guestships_comment'] = 'Zeigt den Kalender dieses Nutzers in den ausgewählten Gruppen mit an, auch wenn keine Mitgliedschaft vorliegt (auch "Gastmitgliedschaft" genannt). Dieses Feature ist sinnvoll, wenn der Nutzer ' .
+  'zwar kein Mitglied, seine Abwesenheiten aber trotzdem relevant für die Gruppe sind.<br><i>Gastmitglieder werden im Kalender in schräger Schrift dargestellt.</i>';
 $LANG['profile_hidden'] = '<i class="far fa-eye-slash text-info" style="padding-right: 8px;"></i>Im Kalender verbergen';
-$LANG['profile_hidden_comment'] = 'Mit dieser Option kann der Nutzer aktiv bleiben aber im Kalender verborgen werden. Die Abwesenheiten werden in den Statistiken jedoch weiter gez&auml;hlt. Sollte das
-      nicht gew&uuml;nscht sein, wird die Archivierung des Nutzers empfohlen.';
+$LANG['profile_hidden_comment'] = 'Mit dieser Option kann der Nutzer aktiv bleiben aber im Kalender verborgen werden. Die Abwesenheiten werden in den Statistiken jedoch weiter gezählt. Sollte das
+      nicht gewünscht sein, wird die Archivierung des Nutzers empfohlen.';
 $LANG['profile_notifyAbsenceEvents'] = 'Abwesenheitstyp-Ereignisse';
 $LANG['profile_notifyCalendarEvents'] = 'Kalender-Ereignisse';
 $LANG['profile_notifyHolidayEvents'] = 'Feiertag-Ereignisse';
@@ -831,7 +831,7 @@ $LANG['profile_notifyNone'] = 'Keine/r';
 $LANG['profile_notifyUserCalEvents'] = 'Benutzerkalender-Ereignisse';
 $LANG['profile_notifyUserCalEventsOwn'] = 'Benutzerkalender-Ereignisse (nur meine eigenen)';
 $LANG['profile_notifyUserCalGroups'] = 'Benutzerkalender-Ereignis-Gruppen';
-$LANG['profile_notifyUserCalGroups_comment'] = 'Wenn oben das Ereignis "' . $LANG['profile_notifyUserCalEvents'] . '" ausgew&auml;hlt wurde, w&auml;hle hier, f&uuml;r welche deiner Gruppen du diese Benachrichtigungen bekommen m&ouml;chtest.';
+$LANG['profile_notifyUserCalGroups_comment'] = 'Wenn oben das Ereignis "' . $LANG['profile_notifyUserCalEvents'] . '" ausgewählt wurde, wähle hier, für welche deiner Gruppen du diese Benachrichtigungen bekommen möchtest.';
 $LANG['profile_showMonths'] = 'Mehrere Monate anzeigen';
 $LANG['profile_showMonths_comment'] = 'Gebe hier an, wieviele Monate auf der Kalenderseite angezeigt werden sollen, maximal 12.';
 
@@ -840,14 +840,14 @@ $LANG['profile_showMonths_comment'] = 'Gebe hier an, wieviele Monate auf der Kal
 //
 $LANG['region_edit_title'] = 'Region editieren: ';
 $LANG['region_alert_edit'] = 'Region aktualisieren';
-$LANG['region_alert_edit_success'] = 'Die Informationen f&uuml;r diese Region wurden aktualisiert.';
-$LANG['region_alert_save_failed'] = 'Die neuen Informationen f&uuml;r diese Region konnten nicht gespeichert werden. Es gab fehlerhafte Eingaben. Bitte pr&uuml;fe die Fehlermeldungen.';
+$LANG['region_alert_edit_success'] = 'Die Informationen für diese Region wurden aktualisiert.';
+$LANG['region_alert_save_failed'] = 'Die neuen Informationen für diese Region konnten nicht gespeichert werden. Es gab fehlerhafte Eingaben. Bitte prüfe die Fehlermeldungen.';
 $LANG['region_name'] = 'Name';
 $LANG['region_name_comment'] = '';
 $LANG['region_description'] = 'Beschreibung';
 $LANG['region_description_comment'] = '';
 $LANG['region_viewOnlyRoles'] = 'Nur Lesen Rollen';
-$LANG['region_viewOnlyRoles_comment'] = 'Die hier ausgew&auml;hlten Rollen k&ouml;nnen diese Region nur in der Kalenderansicht sehen. Sie k&ouml;nnen keine Abwesenheiten f&uuml;r diese Region eintragen.';
+$LANG['region_viewOnlyRoles_comment'] = 'Die hier ausgewählten Rollen können diese Region nur in der Kalenderansicht sehen. Sie können keine Abwesenheiten für diese Region eintragen.';
 
 //
 // Regions
@@ -855,33 +855,33 @@ $LANG['region_viewOnlyRoles_comment'] = 'Die hier ausgew&auml;hlten Rollen k&oum
 $LANG['regions_title'] = 'Regionen';
 $LANG['regions_tab_list'] = 'Liste';
 $LANG['regions_tab_ical'] = 'iCal Import';
-$LANG['regions_tab_transfer'] = 'Region &uuml;bertragen';
-$LANG['regions_alert_transfer_same'] = 'Die Quell- und Zielregion bei einer &Uuml;bertragung muss unterschiedlich sein.';
-$LANG['regions_alert_no_file'] = 'Es wurde keine iCal Datei ausgew&auml;hlt.';
+$LANG['regions_tab_transfer'] = 'Region übertragen';
+$LANG['regions_alert_transfer_same'] = 'Die Quell- und Zielregion bei einer übertragung muss unterschiedlich sein.';
+$LANG['regions_alert_no_file'] = 'Es wurde keine iCal Datei ausgewählt.';
 $LANG['regions_alert_region_created'] = 'Die Region wurde angelegt.';
-$LANG['regions_alert_region_created_fail'] = 'Die Region wurde nicht angelegt. Bitte &uuml;berpr&uuml;fe den "Region anlegen" Dialog nach Eingabefehlern.';
-$LANG['regions_alert_region_deleted'] = 'Die Region wurde gel&ouml;scht.';
-$LANG['regions_confirm_delete'] = 'Bist du sicher, dass du diese Region l&ouml;schen willst?';
+$LANG['regions_alert_region_created_fail'] = 'Die Region wurde nicht angelegt. Bitte überprüfe den "Region anlegen" Dialog nach Eingabefehlern.';
+$LANG['regions_alert_region_deleted'] = 'Die Region wurde gelöscht.';
+$LANG['regions_confirm_delete'] = 'Bist du sicher, dass du diese Region löschen willst?';
 $LANG['regions_description'] = 'Beschreibung';
 $LANG['regions_ical_file'] = 'iCal Datei';
-$LANG['regions_ical_file_comment'] = 'W&auml;hle eine iCal Datei von einem lokalen Laufwerk. Die Datei sollte nur Ganztagsereignisse enthalten.';
+$LANG['regions_ical_file_comment'] = 'Wähle eine iCal Datei von einem lokalen Laufwerk. Die Datei sollte nur Ganztagsereignisse enthalten.';
 $LANG['regions_ical_holiday'] = 'iCal Feiertag';
-$LANG['regions_ical_holiday_comment'] = 'W&auml;hle den Feiertag aus, der f&uuml;r die iCal Ereignisse im Kalender eingetragen werden soll.';
+$LANG['regions_ical_holiday_comment'] = 'Wähle den Feiertag aus, der für die iCal Ereignisse im Kalender eingetragen werden soll.';
 $LANG['regions_ical_imported'] = 'Die iCal Datei "%s" wurde in die Region "%s" importiert.';
-$LANG['regions_ical_overwrite'] = '&Uuml;berschreiben';
-$LANG['regions_ical_overwrite_comment'] = 'W&auml;hle hier, ob bestehende Feiertage in der Zielregion &uuml;berschrieben werden sollen. Wenn diese Option nicht eingeschaltet ist,
-      bleiben die bestehenden Eintr&auml;ge in der Zielregion erhalten.';
+$LANG['regions_ical_overwrite'] = 'überschreiben';
+$LANG['regions_ical_overwrite_comment'] = 'Wähle hier, ob bestehende Feiertage in der Zielregion überschrieben werden sollen. Wenn diese Option nicht eingeschaltet ist,
+      bleiben die bestehenden Einträge in der Zielregion erhalten.';
 $LANG['regions_ical_region'] = 'iCal Region';
-$LANG['regions_ical_region_comment'] = 'W&auml;hle die Region aus, in die die iCal Ereignisse eingetragen werden soll.';
-$LANG['regions_transferred'] = 'Die Region "%s" wurde in die Region "%s" &uuml;bertragen.';
+$LANG['regions_ical_region_comment'] = 'Wähle die Region aus, in die die iCal Ereignisse eingetragen werden soll.';
+$LANG['regions_transferred'] = 'Die Region "%s" wurde in die Region "%s" übertragen.';
 $LANG['regions_name'] = 'Name';
 $LANG['regions_region_a'] = 'Quellregion';
-$LANG['regions_region_a_comment'] = 'W&auml;hle hier die Quellregion, die in die Zielregion &uuml;bertragen werden soll.';
+$LANG['regions_region_a_comment'] = 'Wähle hier die Quellregion, die in die Zielregion übertragen werden soll.';
 $LANG['regions_region_b'] = 'Zielregion';
-$LANG['regions_region_b_comment'] = 'W&auml;hle hier die Zielregion, in die die Quellregion &uuml;bertragen werden soll.';
-$LANG['regions_region_overwrite'] = '&Uuml;berschreiben';
-$LANG['regions_region_overwrite_comment'] = 'W&auml;hle hier, ob die Eintr&auml;ge in der Zielregion &uuml;berschrieben werden sollen. Wenn diese Option nicht eingeschaltet ist,
-      bleiben die bestehenden Eintr&auml;ge in der Zielregion erhalten.';
+$LANG['regions_region_b_comment'] = 'Wähle hier die Zielregion, in die die Quellregion übertragen werden soll.';
+$LANG['regions_region_overwrite'] = 'überschreiben';
+$LANG['regions_region_overwrite_comment'] = 'Wähle hier, ob die Einträge in der Zielregion überschrieben werden sollen. Wenn diese Option nicht eingeschaltet ist,
+      bleiben die bestehenden Einträge in der Zielregion erhalten.';
 
 //
 // Remainder
@@ -890,7 +890,7 @@ $LANG['rem_title'] = 'Resttage';
 $LANG['rem_legend_taken'] = 'Genommen';
 $LANG['rem_legend_allowance'] = 'Erlaubt';
 $LANG['rem_legend_remainder'] = 'Verbleibend';
-$LANG['rem_year_comment'] = 'W&auml;hle, das Jahr f&uml;r die &Uuml;bersicht.';
+$LANG['rem_year_comment'] = 'Wähle, das Jahr f&uml;r die übersicht.';
 
 //
 // Statistics
@@ -900,24 +900,24 @@ $LANG['stats_title_abstype'] = 'Abwesenheitstyp-Statistik';
 $LANG['stats_title_presences'] = 'Anwesenheits-Statistik';
 $LANG['stats_title_remainder'] = 'Resttage Statistics';
 $LANG['stats_absenceType'] = 'Abwesenheitstyp';
-$LANG['stats_absenceType_comment'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Statistik.';
+$LANG['stats_absenceType_comment'] = 'Wähle den Abwesenheitstyp für die Statistik.';
 $LANG['stats_bygroups'] = '(Pro Gruppe)';
 $LANG['stats_byusers'] = '(Pro Nutzer)';
 $LANG['stats_color'] = 'Farbe';
-$LANG['stats_color_comment'] = 'W&auml;hle die Farbe f&uuml;r das Diagramm.';
+$LANG['stats_color_comment'] = 'Wähle die Farbe für das Diagramm.';
 $LANG['stats_customColor'] = 'Individuelle Frabe';
-$LANG['stats_customColor_comment'] = 'W&auml;hle eine individuelle Farbe f&uuml;r das Diagramm.<br>Damit die Farbe angewendet wird, muss in der Farbe Liste "' . $LANG['custom'] . '" ausgew&auml;hlt sein.';
+$LANG['stats_customColor_comment'] = 'Wähle eine individuelle Farbe für das Diagramm.<br>Damit die Farbe angewendet wird, muss in der Farbe Liste "' . $LANG['custom'] . '" ausgewählt sein.';
 $LANG['stats_endDate'] = 'Eigenes Ende Datum';
-$LANG['stats_endDate_comment'] = 'W&auml;hle ein eigenes Enddatum f&uuml;r die Statistik. Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "' . $LANG['custom'] . '" ausgew&auml;hlt sein.';
+$LANG['stats_endDate_comment'] = 'Wähle ein eigenes Enddatum für die Statistik. Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "' . $LANG['custom'] . '" ausgewählt sein.';
 $LANG['stats_group'] = 'Gruppe';
-$LANG['stats_group_comment'] = 'W&auml;hle die Gruppe f&uuml;r die Statistik.';
-$LANG['stats_modalAbsenceTitle'] = 'W&auml;hle den Abwesenheitstyp f&uuml;r die Statistik.';
-$LANG['stats_modalDiagramTitle'] = 'W&auml;hle die Skala f&uuml;r die Statistik.';
-$LANG['stats_modalGroupTitle'] = 'W&auml;hle die Gruppe f&uuml;r die Statistik.';
-$LANG['stats_modalPeriodTitle'] = 'W&auml;hle das Jahr f&uuml;r die Statistik.';
+$LANG['stats_group_comment'] = 'Wähle die Gruppe für die Statistik.';
+$LANG['stats_modalAbsenceTitle'] = 'Wähle den Abwesenheitstyp für die Statistik.';
+$LANG['stats_modalDiagramTitle'] = 'Wähle die Skala für die Statistik.';
+$LANG['stats_modalGroupTitle'] = 'Wähle die Gruppe für die Statistik.';
+$LANG['stats_modalPeriodTitle'] = 'Wähle das Jahr für die Statistik.';
 $LANG['stats_modalYearTitle'] = 'Enter the Year for the Statistic';
 $LANG['stats_period'] = 'Zeitraum';
-$LANG['stats_period_comment'] = 'W&auml;hle den Zeitraum f&uuml;r die Statistik.';
+$LANG['stats_period_comment'] = 'Wähle den Zeitraum für die Statistik.';
 $LANG['stats_absences_desc'] = 'Diese Statistik zeigt alle eingetragenen Abwesenheiten.';
 $LANG['stats_abstype_desc'] = 'Diese Statistik zeigt alle eingetragenen Abwesenheiten nach Typ.';
 $LANG['stats_presences_desc'] = 'Diese Statistik zeigt alle Anwesenheiten.';
@@ -925,25 +925,25 @@ $LANG['stats_remainder_desc'] = 'Diese Statistik zeigt die verbleibenden Resttag
 $LANG['stats_showAsPieChart'] = 'Als Kuchendiagramm anzeigen';
 $LANG['stats_total'] = 'Gesamtsumme';
 $LANG['stats_yaxis'] = 'Diagramm Y-Achse';
-$LANG['stats_yaxis_comment'] = 'W&auml;hle, was auf der Y-Achse gezeigt werden soll.';
+$LANG['stats_yaxis_comment'] = 'Wähle, was auf der Y-Achse gezeigt werden soll.';
 $LANG['stats_yaxis_groups'] = 'Gruppen';
 $LANG['stats_yaxis_users'] = 'Nutzer';
 $LANG['stats_year'] = 'Jahr';
-$LANG['stats_year_comment'] = 'W&auml;hle, das Jahr f&uml;r die Statistik.';
+$LANG['stats_year_comment'] = 'Wähle, das Jahr f&uml;r die Statistik.';
 $LANG['stats_startDate'] = 'Eigenes Start Datum';
-$LANG['stats_startDate_comment'] = 'W&auml;hle ein eigenes Startdatum f&uuml;r die Statistik.<br>Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "' . $LANG['custom'] . '" ausgew&auml;hlt sein.';
+$LANG['stats_startDate_comment'] = 'Wähle ein eigenes Startdatum für die Statistik.<br>Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "' . $LANG['custom'] . '" ausgewählt sein.';
 
 //
 // Users
 //
-$LANG['users_alert_activate_selected_users'] = 'The augew&auml;hlten Benutzer wurden aktiviert.';
-$LANG['users_confirm_activate'] = 'Bist du sicher, dass du die ausgew&auml;hlten Benutzer aktivieren willst?<br>Dies entsperrt und verifiziert die User und zeigt sie im Kalender.';
+$LANG['users_alert_activate_selected_users'] = 'The augewählten Benutzer wurden aktiviert.';
+$LANG['users_confirm_activate'] = 'Bist du sicher, dass du die ausgewählten Benutzer aktivieren willst?<br>Dies entsperrt und verifiziert die User und zeigt sie im Kalender.';
 
 //
 // Year
 //
-$LANG['year_title'] = 'Jahreskalender %s f&uuml;r %s (Region: %s)';
-$LANG['year_selRegion'] = 'Region ausw&auml;hlen';
-$LANG['year_selUser'] = 'Nutzer ausw&auml;hlen';
-$LANG['year_showyearmobile'] = 'Der Jahreskalender dient der &Uuml;bersicht "auf den ersten Blick". Auf mobilen Ger&auml;ten mit geringer Bildschirmbreite kann dies
+$LANG['year_title'] = 'Jahreskalender %s für %s (Region: %s)';
+$LANG['year_selRegion'] = 'Region auswählen';
+$LANG['year_selUser'] = 'Nutzer auswählen';
+$LANG['year_showyearmobile'] = 'Der Jahreskalender dient der übersicht "auf den ersten Blick". Auf mobilen Geräten mit geringer Bildschirmbreite kann dies
       ohne horizontales Scrollen nicht erreicht werden.</p><p>Mit dem "Kalender anzeigen" Knopf kann die Anzeige aktiviert und horizontales Scrollen akzeptiert werden.</p>';
