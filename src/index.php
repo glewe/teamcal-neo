@@ -243,36 +243,72 @@ if (L_USER && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['actio
 //
 $checkLanguages = false;
 if ($checkLanguages) {
-  $lang1 = "english";
-  $lang2 = "deutsch";
-
-  require WEBSITE_ROOT . '/languages/' . $lang1 . '.php';     // Framework
-  require WEBSITE_ROOT . '/languages/' . $lang1 . '.log.php'; // Log
-  require WEBSITE_ROOT . '/languages/' . $lang1 . '.app.php'; // Application
-  $lang1Array = $LANG;
-
-  unset($LANG);
-
-  require WEBSITE_ROOT . '/languages/' . $lang2 . '.php';     // Framework
-  require WEBSITE_ROOT . '/languages/' . $lang2 . '.log.php'; // Log
-  require WEBSITE_ROOT . '/languages/' . $lang2 . '.app.php'; // Application
-  $lang2Array = $LANG;
-
+  // Configure languages to compare
+  $lang1 = "english";  // Reference language
+  $lang2 = "deutsch";  // Language to compare
+  
+  $comparison = compareLanguageFiles($lang1, $lang2);
+  
+  // Generate output
   $errorData['title'] = 'Debug Info';
   $errorData['subject'] = '<h4>Language File Comparison</h4>';
-  $errorData['text'] = '<p><strong>The following language keys exist in "' . $lang1 . '" but not in "' . $lang2 . ':</strong></p>';
-  foreach ($lang1Array as $key => $val) {
-    if (!array_key_exists($key, $lang2Array)) {
-      $errorData['text'] .= '<p>[' . $key . ']</p>';
+  
+  // Statistics
+  $errorData['text'] = '<div class="panel panel-info">
+    <div class="panel-heading"><strong>Statistics</strong></div>
+    <div class="panel-body">
+      <p><strong>' . $comparison['lang1'] . ':</strong> ' . $comparison['lang1_total'] . ' keys</p>
+      <p><strong>' . $comparison['lang2'] . ':</strong> ' . $comparison['lang2_total'] . ' keys</p>
+      <p><strong>Missing in ' . $comparison['lang2'] . ':</strong> ' . count($comparison['lang1_missing']) . ' keys</p>
+      <p><strong>Missing in ' . $comparison['lang1'] . ':</strong> ' . count($comparison['lang2_missing']) . ' keys</p>
+    </div>
+  </div>';
+  
+  // Errors
+  if (!empty($comparison['errors'])) {
+    $errorData['text'] .= '<div class="panel panel-danger">
+      <div class="panel-heading"><strong>Errors</strong></div>
+      <div class="panel-body">';
+    foreach ($comparison['errors'] as $error) {
+      $errorData['text'] .= '<p class="text-danger">' . htmlspecialchars($error) . '</p>';
     }
+    $errorData['text'] .= '</div></div>';
   }
-
-  $errorData['text'] .= '<p><strong>The following language keys exist in "' . $lang2 . '" but not in "' . $lang1 . ':</strong></p>';
-  foreach ($lang2Array as $key => $val) {
-    if (!array_key_exists($key, $lang1Array)) {
-      $errorData['text'] .= '<p>[' . $key . ']</p>';
+  
+  // Missing in lang2
+  if (!empty($comparison['lang1_missing'])) {
+    $errorData['text'] .= '<div class="panel panel-warning">
+      <div class="panel-heading"><strong>Keys missing in "' . $comparison['lang2'] . '"</strong></div>
+      <div class="panel-body">
+        <div style="max-height: 300px; overflow-y: auto;">';
+    foreach ($comparison['lang1_missing'] as $key) {
+      $errorData['text'] .= '<code>' . htmlspecialchars($key) . '</code><br>';
     }
+    $errorData['text'] .= '</div></div></div>';
   }
+  
+  // Missing in lang1
+  if (!empty($comparison['lang2_missing'])) {
+    $errorData['text'] .= '<div class="panel panel-warning">
+      <div class="panel-heading"><strong>Keys missing in "' . $comparison['lang1'] . '"</strong></div>
+      <div class="panel-body">
+        <div style="max-height: 300px; overflow-y: auto;">';
+    foreach ($comparison['lang2_missing'] as $key) {
+      $errorData['text'] .= '<code>' . htmlspecialchars($key) . '</code><br>';
+    }
+    $errorData['text'] .= '</div></div></div>';
+  }
+  
+  // Success message if no issues
+  if (empty($comparison['lang1_missing']) && empty($comparison['lang2_missing']) && empty($comparison['errors'])) {
+    $errorData['text'] .= '<div class="panel panel-success">
+      <div class="panel-heading"><strong>Perfect Match!</strong></div>
+      <div class="panel-body">
+        <p>Both language files have exactly the same keys. No missing translations found.</p>
+      </div>
+    </div>';
+  }
+  
   require_once WEBSITE_ROOT . '/views/error.php';
   die();
 }

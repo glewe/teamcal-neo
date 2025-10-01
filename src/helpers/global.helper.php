@@ -63,6 +63,121 @@ function cleanInput(string $input): string {
 
 //-----------------------------------------------------------------------------
 /**
+ * Compare two language files for missing keys
+ * 
+ * @param string $lang1 Primary language (reference)
+ * @param string $lang2 Secondary language (to compare)
+ * @return array Comparison results
+ */
+function compareLanguageFiles(string $lang1, string $lang2): array {
+  global $C, $appTitle, $LANG;
+  
+  $result = [
+    'lang1' => $lang1,
+    'lang2' => $lang2,
+    'lang1_missing' => [],
+    'lang2_missing' => [],
+    'lang1_total' => 0,
+    'lang2_total' => 0,
+    'errors' => []
+  ];
+  
+  $languageFiles = ['.php', '.log.php', '.app.php'];
+  
+  // Provide safe defaults for variables that language files might reference
+  if (!isset($appTitle)) {
+    $appTitle = $C ? $C->read('appTitle') : 'TeamCal Neo';
+  }
+  
+  // Load first language
+  $lang1Array = [];
+  foreach ($languageFiles as $suffix) {
+    $file = WEBSITE_ROOT . '/languages/' . $lang1 . $suffix;
+    if (file_exists($file)) {
+      // Backup current $LANG if it exists
+      $backupLang = isset($LANG) ? $LANG : null;
+      unset($LANG);
+      
+      // Use output buffering to catch any unexpected output
+      ob_start();
+      try {
+        require $file;
+        if (isset($LANG) && is_array($LANG)) {
+          $lang1Array = array_merge($lang1Array, $LANG);
+        }
+      } catch (Exception $e) {
+        $result['errors'][] = "Error loading $file: " . $e->getMessage();
+      } catch (Error $e) {
+        $result['errors'][] = "Fatal error loading $file: " . $e->getMessage();
+      }
+      ob_end_clean();
+      
+      // Restore $LANG if it existed
+      if ($backupLang !== null) {
+        $LANG = $backupLang;
+      }
+    } else {
+      $result['errors'][] = "File not found: $file";
+    }
+  }
+  
+  // Load second language
+  $lang2Array = [];
+  foreach ($languageFiles as $suffix) {
+    $file = WEBSITE_ROOT . '/languages/' . $lang2 . $suffix;
+    if (file_exists($file)) {
+      // Backup current $LANG if it exists
+      $backupLang = isset($LANG) ? $LANG : null;
+      unset($LANG);
+      
+      // Use output buffering to catch any unexpected output
+      ob_start();
+      try {
+        require $file;
+        if (isset($LANG) && is_array($LANG)) {
+          $lang2Array = array_merge($lang2Array, $LANG);
+        }
+      } catch (Exception $e) {
+        $result['errors'][] = "Error loading $file: " . $e->getMessage();
+      } catch (Error $e) {
+        $result['errors'][] = "Fatal error loading $file: " . $e->getMessage();
+      }
+      ob_end_clean();
+      
+      // Restore $LANG if it existed
+      if ($backupLang !== null) {
+        $LANG = $backupLang;
+      }
+    } else {
+      $result['errors'][] = "File not found: $file";
+    }
+  }
+  
+  $result['lang1_total'] = count($lang1Array);
+  $result['lang2_total'] = count($lang2Array);
+  
+  // Find missing keys
+  foreach ($lang1Array as $key => $val) {
+    if (!array_key_exists($key, $lang2Array)) {
+      $result['lang1_missing'][] = $key;
+    }
+  }
+  
+  foreach ($lang2Array as $key => $val) {
+    if (!array_key_exists($key, $lang1Array)) {
+      $result['lang2_missing'][] = $key;
+    }
+  }
+  
+  // Sort for easier reading
+  sort($result['lang1_missing']);
+  sort($result['lang2_missing']);
+  
+  return $result;
+}
+
+//-----------------------------------------------------------------------------
+/**
  * Computes several date related information for a given date
  *
  * @param string $year 4 digit number of the year (example: 2014)
