@@ -237,7 +237,7 @@ $LANG['cal_selGroup'] = 'Select Group';
 $LANG['cal_selMonth'] = 'Select Month';
 $LANG['cal_selRegion'] = 'Select Region';
 $LANG['cal_selWidth'] = 'Select Screen Width';
-$LANG['cal_selWidth_comment'] = 'Select the width of your screen in pixel so the calendar table can adjust to it. If your width is not in the list, select the next higher one.
+$LANG['cal_selWidth_comment'] = 'Select the width of your screen in pixels so the calendar table can adjust to it. If your width is not in the list, select the next higher one.
       <br>It looks like you are currently using a screen with a width of <span id="currentwidth"></span> pixels. Reload the page to check this dialog again to confirm.';
 $LANG['cal_summary'] = 'Summary';
 $LANG['cal_businessDays'] = 'Business Days';
@@ -245,7 +245,7 @@ $LANG['cal_businessDays'] = 'Business Days';
 $LANG['cal_caption_weeknumber'] = 'Week';
 $LANG['cal_caption_name'] = 'Name';
 $LANG['cal_img_alt_edit_month'] = 'Edit holidays for this month...';
-$LANG['cal_img_alt_edit_cal'] = 'Edit calender for this person...';
+$LANG['cal_img_alt_edit_cal'] = 'Edit calendar for this person...';
 $LANG['cal_birthday'] = 'Birthday';
 $LANG['cal_age'] = 'Age';
 $LANG['sum_present'] = 'Present';
@@ -332,7 +332,7 @@ $LANG['calopt_firstDayOfWeek_1'] = 'Monday';
 $LANG['calopt_firstDayOfWeek_7'] = 'Sunday';
 $LANG['calopt_hideDaynotes'] = 'Hide Personal Daynotes';
 $LANG['calopt_hideDaynotes_comment'] = 'Switching this on will hide personal daynotes from regular users. Only Managers, Directors and Administrators can edit and see them.
-      That way the can be used for managing purposes only. This switch does not affect birthday notes.';
+      That way they can be used for managing purposes only. This switch does not affect birthday notes.';
 $LANG['calopt_hideManagers'] = 'Hide Managers in All-by-Group and Group Display';
 $LANG['calopt_hideManagers_comment'] = 'Checking this option will hide all managers in the All-by-Group and Group display except in those groups where they are just members.';
 $LANG['calopt_hideManagerOnlyAbsences'] = 'Hide Management Only Absences';
@@ -355,7 +355,7 @@ $LANG['calopt_regionalHolidays_comment'] = 'With this option on, holidays in reg
 $LANG['calopt_regionalHolidaysColor'] = 'Regional Holiday Border Color';
 $LANG['calopt_regionalHolidaysColor_comment'] = 'Sets the border color for marking regional holidays.';
 $LANG['calopt_repeatHeaderCount'] = 'Repeat Header Count';
-$LANG['calopt_repeatHeaderCount_comment'] = 'Specifies the amount of user lines in the calender before the month header is repeated for better readability. If set to 0, the month header will not be repeated.';
+$LANG['calopt_repeatHeaderCount_comment'] = 'Specifies the amount of user lines in the calendar before the month header is repeated for better readability. If set to 0, the month header will not be repeated.';
 $LANG['calopt_satBusi'] = 'Saturday is a Business Day';
 $LANG['calopt_satBusi_comment'] = 'By default, Saturday and Sunday are weekend days and displayed accordingly in the calendar. Check this option if you want to make Saturday a business day.';
 $LANG['calopt_showAvatars'] = 'Show Avatars';
@@ -374,7 +374,7 @@ $LANG['calopt_showTooltipCount_comment'] = 'Checking this option will show the a
 $LANG['calopt_showUserRegion'] = 'Show regional holidays per user';
 $LANG['calopt_showUserRegion_comment'] = 'If this option is on, the calendar will show the regional holidays in each user row based on the default region
  set for the user. These holidays might then differ from the global regional holidays shown in the month header. This offers a better view on regional
- holiday differences if you manage users from different regions. Note, that this might might be a bit confusing depending on the amount of users and regions. Check it out and pick your choice.';
+ holiday differences if you manage users from different regions. Note, that this might be a bit confusing depending on the amount of users and regions. Check it out and pick your choice.';
 $LANG['calopt_showWeekNumbers'] = 'Show Week Numbers';
 $LANG['calopt_showWeekNumbers_comment'] = 'Checking this option will add a line to the calendar display showing the week of the year number.';
 $LANG['calopt_sortByOrderKey'] = 'User Order Key';
@@ -397,7 +397,7 @@ $LANG['calopt_sunBusi_comment'] = 'By default, Saturday and Sunday are weekend d
 $LANG['calopt_supportMobile'] = 'Support Mobile Devices';
 $LANG['calopt_supportMobile_comment'] = 'With this switch on, TeamCal Neo will prepare the calendar tables (View and Edit) for a specific screen width so that no horizontal scrolling is necessary.
       The user can select his screen width.<br>
-      Switch this off if the calendar is only viewed on full size computer screens (greater then 1024 pixels in width). The calendar will still be displayed then but horizontal scrolling will be necessary.';
+      Switch this off if the calendar is only viewed on full size computer screens (greater than 1024 pixels in width). The calendar will still be displayed then but horizontal scrolling will be necessary.';
 $LANG['calopt_symbolAsIcon'] = 'Absence Type Character ID as Icon';
 $LANG['calopt_symbolAsIcon_comment'] = 'With this option the character ID will be used in the calendar display instead of it\'s icon.';
 $LANG['calopt_takeover'] = 'Enable Absence Take-over';
@@ -406,7 +406,7 @@ $LANG['calopt_takeover_comment'] = 'With this option enabled, the logged in user
 $LANG['calopt_todayBorderColor'] = 'Today Border Color';
 $LANG['calopt_todayBorderColor_comment'] = 'Specifies the color in hexadecimal of the left and right border of the today column.';
 $LANG['calopt_todayBorderSize'] = 'Today Border Size';
-$LANG['calopt_todayBorderSize_comment'] = 'Specifies the size (thickness) in pixel of the left an right border of the today column.';
+$LANG['calopt_todayBorderSize_comment'] = 'Specifies the size (thickness) in pixels of the left and right border of the today column.';
 $LANG['calopt_trustedRoles'] = 'Trusted Roles';
 $LANG['calopt_trustedRoles_comment'] = 'Select the roles that can view confidential absences and daynotes.<br>
       <i>Note: You can exclude the role "Administrator" here but the user "admin" functions as a superuser and can always see all data.</i>';
@@ -674,7 +674,7 @@ $LANG['hol_noabsence_comment'] = 'No absences are allowed for this holiday. This
 //
 // Log
 //
-$LANG['log_filterCalopt'] = 'Calender Options';
+$LANG['log_filterCalopt'] = 'Calendar Options';
 $LANG['log_filterPatterns'] = 'Absence Patterns';
 
 //

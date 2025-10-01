@@ -836,7 +836,7 @@ $LANG['log_clear'] = 'Delete period';
 $LANG['log_clear_confirm'] = 'Are you sure you want to delete all events of the currently selected period?<br>
       Note, that all events of all event types in the selected period will be deleted, even though you might have hidden them in the Log Settings.';
 $LANG['log_filterNews'] = 'News';
-$LANG['log_filterCalopt'] = 'Calender Options';
+$LANG['log_filterCalopt'] = 'Calendar Options';
 $LANG['log_filterConfig'] = 'Config';
 $LANG['log_filterDatabase'] = 'Database';
 $LANG['log_filterGroup'] = 'Groups';
