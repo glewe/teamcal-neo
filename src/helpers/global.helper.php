@@ -1561,16 +1561,143 @@ function isValidDate(string $date): bool {
 
 //-----------------------------------------------------------------------------
 /**
- * Validates if a given file name is valid.
+ * Validates if a given filename has a valid format and structure with enhanced performance and flexibility.
  *
- * @param string $file The file name to validate.
+ * Checks filename format, character validity, length constraints, and basic structure
+ * without security-based extension filtering. Uses caching for better performance
+ * on repeated validations.
+ *
+ * @param string $file The filename to validate (must include extension)
+ * @param array $options Optional configuration:
+ *                      - 'max_length' => int (default: 255) - Maximum filename length
+ *                      - 'allow_spaces' => bool (default: false) - Allow spaces in filename
+ *                      - 'allow_dots' => bool (default: true) - Allow dots in filename part
+ *                      - 'require_extension' => bool (default: true) - Require file extension
  * 
- * @return bool Returns true if the file name is valid, false otherwise.
+ * @return bool Returns true if the filename format is valid, false otherwise
+ * 
+ * @example isValidFileName('document.pdf') returns true
+ * @example isValidFileName('my-file_v2.txt') returns true
+ * @example isValidFileName('script.php') returns true (no extension filtering)
+ * @example isValidFileName('file with spaces.doc', ['allow_spaces' => true]) returns true
+ * @example isValidFileName('file.name.with.dots.txt', ['allow_dots' => true]) returns true
+ * @example isValidFileName('') returns false (empty filename)
+ * @example isValidFileName('file') returns false (no extension by default)
+ * @example isValidFileName('file', ['require_extension' => false]) returns true
  */
-function isValidFileName(string $file): bool {
-  // Regular expression to check if the file name contains only valid characters
-  $regex = '/^[a-zA-Z0-9_\-]+\.[a-zA-Z0-9]+$/';
-  return preg_match($regex, $file);
+function isValidFileName(string $file, array $options = []): bool {
+  // Static cache for performance on repeated calls
+  static $cache = [];
+  
+  // Early return for empty input
+  if (empty($file)) {
+    return false;
+  }
+  
+  // Default options
+  $defaultOptions = [
+    'max_length' => 255,
+    'allow_spaces' => false,
+    'allow_dots' => true,
+    'require_extension' => true
+  ];
+  $options = array_merge($defaultOptions, $options);
+  
+  // Create cache key
+  $cacheKey = $file . '|' . serialize($options);
+  
+  // Return cached result if available
+  if (isset($cache[$cacheKey])) {
+    return $cache[$cacheKey];
+  }
+  
+  // Trim whitespace
+  $trimmedFile = trim($file);
+  
+  // Basic length validation
+  if (strlen($trimmedFile) > $options['max_length']) {
+    $cache[$cacheKey] = false;
+    return false;
+  }
+  
+  // Check for extension requirement
+  $hasExtension = strpos($trimmedFile, '.') !== false;
+  if ($options['require_extension'] && !$hasExtension) {
+    $cache[$cacheKey] = false;
+    return false;
+  }
+  
+  // If extension is required and present, validate structure
+  if ($hasExtension) {
+    $pathInfo = pathinfo($trimmedFile);
+    $filename = $pathInfo['filename'] ?? '';
+    $extension = $pathInfo['extension'] ?? '';
+    
+    // Validate filename part is not empty
+    if (empty($filename)) {
+      $cache[$cacheKey] = false;
+      return false;
+    }
+    
+    // Validate extension is not empty when dot is present
+    if (empty($extension) && $options['require_extension']) {
+      $cache[$cacheKey] = false;
+      return false;
+    }
+  }
+  
+  // Build regex pattern based on options
+  $allowedChars = 'a-zA-Z0-9_\-';
+  if ($options['allow_spaces']) {
+    $allowedChars .= ' ';
+  }
+  if ($options['allow_dots']) {
+    $allowedChars .= '\.';
+  }
+  
+  // Create appropriate pattern based on extension requirement
+  if ($options['require_extension']) {
+    $pattern = '/^[' . preg_quote($allowedChars, '/') . ']+\.[a-zA-Z0-9]+$/';
+  } else {
+    $pattern = '/^[' . preg_quote($allowedChars, '/') . ']+(?:\.[a-zA-Z0-9]+)?$/';
+  }
+  
+  // Validate character set
+  if (!preg_match($pattern, $trimmedFile)) {
+    $cache[$cacheKey] = false;
+    return false;
+  }
+  
+  // Additional format checks
+  // Check for control characters, null bytes
+  if (preg_match('/[\x00-\x1F\x7F]/', $trimmedFile)) {
+    $cache[$cacheKey] = false;
+    return false;
+  }
+  
+  // Check for problematic patterns
+  $problematicPatterns = [
+    '/^\./,',        // Hidden files (starting with dot)
+    '/\.\./,',       // Directory traversal patterns
+    '/\.$/',         // Ending with dot
+  ];
+  
+  // Only check trailing whitespace if spaces are not allowed
+  if (!$options['allow_spaces']) {
+    $problematicPatterns[] = '/\s+$/'; // Trailing whitespace
+    $problematicPatterns[] = '/^\s+/'; // Leading whitespace
+  }
+  
+  foreach ($problematicPatterns as $pattern) {
+    if (preg_match($pattern, $trimmedFile)) {
+      $cache[$cacheKey] = false;
+      return false;
+    }
+  }
+  
+  // All validations passed
+  $cache[$cacheKey] = true;
+  return true;
 }
 
 //-----------------------------------------------------------------------------
