@@ -1094,55 +1094,277 @@ function getLanguages(string $type = 'app'): array {
 
 //-----------------------------------------------------------------------------
 /**
- * Reads phpinfo() and parses it into a Bootstrap panel display.
+ * Reads phpinfo() and parses it into a Bootstrap panel display with enhanced performance, security, and theme support.
  *
- * @return string $output Bootstrap formatted phpinfo() output
+ * @param bool $useCache Whether to cache the phpinfo output (default: true for performance)
+ * @param string $theme Theme preference: 'auto', 'light', 'dark' (default: 'auto')
+ * 
+ * @return string Bootstrap formatted phpinfo() output with theme support
  */
-function getPhpInfoBootstrap(): string {
-  $output = '';
-  $rowstart = "<div class='row' style='border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;'>\n";
-  $rowend = "</div>\n";
+function getPhpInfoBootstrap(bool $useCache = true, string $theme = 'auto'): string {
+  // Static cache for performance - separate cache for each theme
+  static $cachedOutputs = [];
+  $cacheKey = $theme;
+  
+  if ($useCache && isset($cachedOutputs[$cacheKey])) {
+    return $cachedOutputs[$cacheKey];
+  }
+  
+  // Validate theme parameter
+  if (!in_array($theme, ['auto', 'light', 'dark'], true)) {
+    $theme = 'auto';
+  }
+  
+  // Early check if phpinfo is available
+  if (!function_exists('phpinfo')) {
+    $errorMsg = '<div class="alert alert-warning"><p>The phpinfo() function is not available or has been disabled. <a href="https://php.net/manual/en/function.phpinfo.php" target="_blank">See the documentation</a>.</p></div>';
+    if ($useCache) {
+      $cachedOutputs[$cacheKey] = $errorMsg;
+    }
+    return $errorMsg;
+  }
+  
+  // Define theme-aware color schemes using CSS custom properties and fallbacks
+  $themeStyles = [
+    'auto' => [
+      'even_bg' => 'var(--bs-gray-50, #f8f9fa)',
+      'odd_bg' => 'var(--bs-body-bg, #ffffff)',
+      'border_color' => 'var(--bs-border-color, #dee2e6)',
+      'text_color' => 'var(--bs-body-color, #212529)'
+    ],
+    'light' => [
+      'even_bg' => '#f8f9fa',
+      'odd_bg' => '#ffffff', 
+      'border_color' => '#dee2e6',
+      'text_color' => '#212529'
+    ],
+    'dark' => [
+      'even_bg' => '#1a1d20',
+      'odd_bg' => '#212529',
+      'border_color' => '#495057',
+      'text_color' => '#f8f9fa'
+    ]
+  ];
+  
+  $colors = $themeStyles[$theme];
+  
+  // Define table theme classes based on theme
+  $tableClasses = [
+    'auto' => 'table table-bordered table-striped table-hover',
+    'light' => 'table table-bordered table-striped table-hover table-light',
+    'dark' => 'table table-bordered table-striped table-hover table-dark'
+  ];
+  
+  $tableClass = $tableClasses[$theme];
+  
+  // Capture phpinfo output with error handling
   ob_start();
-  phpinfo(11);
-  $phpinfo = array('phpinfo' => array());
-
-  if (preg_match_all('#(?:<h2>(?:<a>)?(.*?)(?:</a>)?</h2>)|(?:<tr(?: class=".*?")?><t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>(?:<t[hd](?: class=".*?")?>(.*?)\s*</t[hd]>)?)?</tr>)#s', ob_get_clean(), $matches, PREG_SET_ORDER)) {
+  try {
+    phpinfo(INFO_GENERAL | INFO_CONFIGURATION | INFO_MODULES | INFO_ENVIRONMENT);
+    $phpinfoHtml = ob_get_clean();
+  } catch (Exception $e) {
+    ob_end_clean();
+    $errorMsg = '<div class="alert alert-danger"><p>Error executing phpinfo(): ' . htmlspecialchars($e->getMessage()) . '</p></div>';
+    if ($useCache) {
+      $cachedOutputs[$cacheKey] = $errorMsg;
+    }
+    return $errorMsg;
+  }
+  
+  if (empty($phpinfoHtml)) {
+    $errorMsg = '<div class="alert alert-warning"><p>phpinfo() returned no output. It may be disabled or restricted.</p></div>';
+    if ($useCache) {
+      $cachedOutputs[$cacheKey] = $errorMsg;
+    }
+    return $errorMsg;
+  }
+  
+  // More efficient regex pattern - compiled once, used once
+  $pattern = '#(?:<h2>(?:<a[^>]*>)?(.*?)(?:</a>)?</h2>)|(?:<tr(?:[^>]*)><t[hd](?:[^>]*)>(.*?)\s*</t[hd]>(?:<t[hd](?:[^>]*)>(.*?)\s*</t[hd]>(?:<t[hd](?:[^>]*)>(.*?)\s*</t[hd]>)?)?</tr>)#s';
+  
+  // Parse phpinfo HTML into structured data
+  $phpinfo = ['phpinfo' => []];
+  $currentSection = 'phpinfo';
+  
+  if (preg_match_all($pattern, $phpinfoHtml, $matches, PREG_SET_ORDER)) {
     foreach ($matches as $match) {
-      if (strlen($match[1])) {
-        $phpinfo[$match[1]] = array();
-      } elseif (isset($match[3])) {
-        $keys1 = array_keys($phpinfo);
-        $phpinfo[end($keys1)][$match[2]] = isset($match[4]) ? array($match[3], $match[4]) : $match[3];
-      } else {
-        $keys1 = array_keys($phpinfo);
-        $phpinfo[end($keys1)][] = $match[2];
+      // Section header found
+      if (!empty($match[1])) {
+        $currentSection = trim(strip_tags($match[1]));
+        $phpinfo[$currentSection] = [];
       }
-    }
-  }
-
-  if (!empty($phpinfo)) {
-    foreach ($phpinfo as $name => $section) {
-      foreach ($section as $key => $val) {
-        $output .= $rowstart;
-        if (is_array($val)) {
-          $output .= "<div class='col-lg-4 text-bold'>" . $key . "</div>\n<div class='col-lg-4'>" . $val[0] . "</div>\n<div class='col-lg-4'>" . $val[1] . "</div>\n";
-        } elseif (is_string($key)) {
-          $output .= "<div class='col-lg-4 text-bold'>" . $key . "</div>\n<div class='col-lg-8'>" . $val . "</div>\n";
+      // Data row found
+      elseif (isset($match[2]) && !empty(trim($match[2]))) {
+        $key = trim(strip_tags($match[2]));
+        
+        if (isset($match[3]) && !empty(trim($match[3]))) {
+          // Key-value pair(s)
+          $value1 = trim(strip_tags($match[3]));
+          $value2 = isset($match[4]) && !empty(trim($match[4])) ? trim(strip_tags($match[4])) : null;
+          
+          $phpinfo[$currentSection][$key] = $value2 !== null ? [$value1, $value2] : $value1;
         } else {
-          $output .= "<div class='col-lg-12'>" . $val . "</div>\n";
+          // Single value row
+          $phpinfo[$currentSection][] = $key;
         }
-        $output .= $rowend;
       }
     }
-  } else {
-    $output .= '<p>An error occurred executing the phpinfo() function. It may not be accessible or disabled. <a href="https://php.net/manual/en/function.phpinfo.php">See the documentation.</a></p>';
   }
-  //
-  // Some HTML fixes
-  //
-  $output = str_replace('border="0"', 'style="border: 0px;"', $output);
-  $output = str_replace("<font ", "<span ", $output);
-  $output = str_replace("</font>", "</span>", $output);
+  
+  // Build output efficiently using proper HTML table with Bootstrap classes
+  $tableSections = [];
+  
+  if (!empty($phpinfo)) {
+    foreach ($phpinfo as $sectionName => $section) {
+      if (empty($section)) continue;
+      
+      // Start new section with table
+      $sectionHtml = '';
+      
+      // Add section header (except for the main phpinfo section)
+      if ($sectionName !== 'phpinfo') {
+        $sectionHeaderStyle = sprintf(
+          "background-color: %s; color: %s; border-bottom: 2px solid %s;",
+          $theme === 'dark' ? '#495057' : 'var(--bs-primary, #0d6efd)',
+          $theme === 'dark' ? '#f8f9fa' : '#ffffff',
+          $colors['border_color']
+        );
+        
+        $sectionHtml .= sprintf(
+          "<h5 class='mt-4 mb-3 p-2 rounded' style='%s'>%s</h5>\n",
+          $sectionHeaderStyle,
+          htmlspecialchars($sectionName)
+        );
+      }
+      
+      // Start table for this section
+      $sectionHtml .= sprintf(
+        "<table class='%s' data-theme='%s'>\n<tbody>\n",
+        $tableClass,
+        $theme
+      );
+      
+      foreach ($section as $key => $val) {
+        if (is_array($val)) {
+          // Three-column row for arrays
+          $sectionHtml .= sprintf(
+            "<tr>\n<td class='fw-bold text-truncate' title='%s'>%s</td>\n<td class='text-break' title='%s'>%s</td>\n<td class='text-break' title='%s'>%s</td>\n</tr>\n",
+            htmlspecialchars($key),
+            htmlspecialchars($key),
+            htmlspecialchars($val[0]),
+            htmlspecialchars($val[0]),
+            htmlspecialchars($val[1]),
+            htmlspecialchars($val[1])
+          );
+        } elseif (is_string($key)) {
+          // Two-column row for key-value pairs
+          $sectionHtml .= sprintf(
+            "<tr>\n<td class='fw-bold text-truncate' title='%s'>%s</td>\n<td class='text-break' title='%s' colspan='2'>%s</td>\n</tr>\n",
+            htmlspecialchars($key),
+            htmlspecialchars($key),
+            htmlspecialchars($val),
+            htmlspecialchars($val)
+          );
+        } else {
+          // Single column row spanning full width
+          $sectionHtml .= sprintf(
+            "<tr>\n<td class='text-break' title='%s' colspan='3'>%s</td>\n</tr>\n",
+            htmlspecialchars($val),
+            htmlspecialchars($val)
+          );
+        }
+      }
+      
+      // Close table
+      $sectionHtml .= "</tbody>\n</table>\n";
+      $tableSections[] = $sectionHtml;
+    }
+  }
+  
+  // Wrap output in theme-aware container
+  $containerStyle = sprintf(
+    "background-color: %s; color: %s; border: 1px solid %s;",
+    $colors['odd_bg'],
+    $colors['text_color'], 
+    $colors['border_color']
+  );
+  
+  $output = empty($tableSections) 
+    ? '<div class="alert alert-info"><p>No phpinfo data could be parsed.</p></div>'
+    : sprintf(
+        "<div class='phpinfo-container' style='%s border-radius: 0.375rem; padding: 1rem;' data-theme='%s'>\n%s</div>",
+        $containerStyle,
+        $theme,
+        implode('', $tableSections)
+      );
+  
+  // Apply HTML fixes in one pass for better performance
+  $htmlFixes = [
+    'border="0"' => 'style="border: 0px;"',
+    '<font ' => '<span ',
+    '</font>' => '</span>'
+  ];
+  
+  $output = str_replace(array_keys($htmlFixes), array_values($htmlFixes), $output);
+  
+  // Add CSS for better theme integration and table styling
+  $css = sprintf('
+    <style>
+      .phpinfo-container[data-theme="%s"] {
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+      }
+      .phpinfo-container[data-theme="%s"] .table {
+        margin-bottom: 1.5rem;
+        font-size: 0.875rem;
+      }
+      .phpinfo-container[data-theme="%s"] .table td {
+        vertical-align: middle;
+        padding: 0.5rem;
+        word-wrap: break-word;
+        max-width: 300px;
+      }
+      .phpinfo-container[data-theme="%s"] .table .fw-bold {
+        font-weight: 600;
+        background-color: rgba(var(--bs-primary-rgb, 13, 110, 253), 0.1);
+      }
+      .phpinfo-container[data-theme="%s"] h5 {
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 2rem !important;
+      }
+      .phpinfo-container[data-theme="%s"] h5:first-child {
+        margin-top: 0 !important;
+      }
+      @media (prefers-color-scheme: dark) {
+        .phpinfo-container[data-theme="auto"] .table {
+          --bs-table-bg: #212529;
+          --bs-table-color: #f8f9fa;
+          --bs-table-border-color: #495057;
+        }
+        .phpinfo-container[data-theme="auto"] .table .fw-bold {
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+      }
+      @media (max-width: 768px) {
+        .phpinfo-container .table {
+          font-size: 0.75rem;
+        }
+        .phpinfo-container .table td {
+          padding: 0.25rem;
+          max-width: 150px;
+        }
+      }
+    </style>
+  ', $theme, $theme, $theme, $theme, $theme, $theme);
+  
+  $output = $css . $output;
+  
+  // Cache the result if caching is enabled
+  if ($useCache) {
+    $cachedOutputs[$cacheKey] = $output;
+  }
+  
   return $output;
 }
 
