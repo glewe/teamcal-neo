@@ -64,7 +64,7 @@ $arrCurrYearRoles = array();
 // | Apply |
 // '-------'
 //
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST) && isset($_POST['btn_apply'])) {
 
   //
   // Sanitize input
@@ -92,6 +92,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   //
   // Validate input data. If something is wrong or missing, set $inputError = true
   //
+  if (!formInputValid('txt_pastDayColor', 'hex_color')) {
+    $inputError = true;
+  }
+  if (!formInputValid('txt_regionalHolidaysColor', 'hex_color')) {
+    $inputError = true;
+  }
+  if (!formInputValid('txt_todayBorderColor', 'hex_color')) {
+    $inputError = true;
+  }
+  if (!formInputValid('txt_summaryAbsenceTextColor', 'hex_color')) {
+    $inputError = true;
+  }
+  if (!formInputValid('txt_summaryPresenceTextColor', 'hex_color')) {
+    $inputError = true;
+  }
 
   if (!$inputError) {
 
@@ -298,13 +313,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     $C->save("summaryPresenceTextColor", sanitize($_POST['txt_summaryPresenceTextColor']));
 
     //
-    // Renew CSRF token after successful form processing
-    //
-    if (isset($_SESSION)) {
-      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-    }
-
-    //
     // Log this event
     //
     $LOG->logEvent("logCalendarOptions", $UL->username, "log_calopt");
@@ -319,12 +327,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     $alertData['text'] = $LANG['calopt_alert_edit_success'];
     $alertData['help'] = '';
   } else {
-    //
-    // Renew CSRF token after successful form processing
-    //
-    if (isset($_SESSION)) {
-      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-    }
 
     //
     // Error message
@@ -335,6 +337,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     $alertData['subject'] = $LANG['calopt_title'];
     $alertData['text'] = $LANG['calopt_alert_failed'];
     $alertData['help'] = '';
+  }
+  //
+  // Renew CSRF token after form processing
+  //
+  if (isset($_SESSION)) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
   }
 }
 
@@ -350,9 +358,9 @@ foreach ($absences as $abs) {
   $caloptData['absenceList'][] = array('val' => $abs['id'], 'name' => $abs['name'], 'selected' => ($C->read("monitorAbsence") == $abs['id']) ? true : false);
 }
 $caloptData['display'] = array(
-  array('label' => $LANG['calopt_todayBorderColor'], 'prefix' => 'calopt', 'name' => 'todayBorderColor', 'type' => 'color', 'value' => $C->read("todayBorderColor"), 'maxlength' => '6'),
+  array('label' => $LANG['calopt_todayBorderColor'], 'prefix' => 'calopt', 'name' => 'todayBorderColor', 'type' => 'color', 'value' => $C->read("todayBorderColor"), 'maxlength' => '6', 'error' => (isset($inputAlert['todayBorderColor']) ? $inputAlert['todayBorderColor'] : '')),
   array('label' => $LANG['calopt_todayBorderSize'], 'prefix' => 'calopt', 'name' => 'todayBorderSize', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("todayBorderSize"), 'maxlength' => '2'),
-  array('label' => $LANG['calopt_pastDayColor'], 'prefix' => 'calopt', 'name' => 'pastDayColor', 'type' => 'color', 'value' => $C->read("pastDayColor"), 'maxlength' => '6'),
+  array('label' => $LANG['calopt_pastDayColor'], 'prefix' => 'calopt', 'name' => 'pastDayColor', 'type' => 'color', 'value' => $C->read("pastDayColor"), 'maxlength' => '6', 'error' => (isset($inputAlert['pastDayColor']) ? $inputAlert['pastDayColor'] : '')),
   array('label' => $LANG['calopt_showWeekNumbers'], 'prefix' => 'calopt', 'name' => 'showWeekNumbers', 'type' => 'check', 'values' => '', 'value' => $C->read("showWeekNumbers")),
   array('label' => $LANG['calopt_repeatHeaderCount'], 'prefix' => 'calopt', 'name' => 'repeatHeaderCount', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("repeatHeaderCount"), 'maxlength' => '4'),
   array('label' => $LANG['calopt_usersPerPage'], 'prefix' => 'calopt', 'name' => 'usersPerPage', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("usersPerPage"), 'maxlength' => '4'),
@@ -365,7 +373,7 @@ $caloptData['display'] = array(
   array('label' => $LANG['calopt_calendarFontSize'], 'prefix' => 'calopt', 'name' => 'calendarFontSize', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("calendarFontSize"), 'maxlength' => '3'),
   array('label' => $LANG['calopt_showMonths'], 'prefix' => 'calopt', 'name' => 'showMonths', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("showMonths"), 'maxlength' => '2'),
   array('label' => $LANG['calopt_regionalHolidays'], 'prefix' => 'calopt', 'name' => 'regionalHolidays', 'type' => 'check', 'values' => '', 'value' => $C->read("regionalHolidays")),
-  array('label' => $LANG['calopt_regionalHolidaysColor'], 'prefix' => 'calopt', 'name' => 'regionalHolidaysColor', 'type' => 'color', 'value' => $C->read("regionalHolidaysColor"), 'maxlength' => '6'),
+  array('label' => $LANG['calopt_regionalHolidaysColor'], 'prefix' => 'calopt', 'name' => 'regionalHolidaysColor', 'type' => 'color', 'value' => $C->read("regionalHolidaysColor"), 'maxlength' => '6', 'error' => (isset($inputAlert['regionalHolidaysColor']) ? $inputAlert['regionalHolidaysColor'] : '')),
   array('label' => $LANG['calopt_sortByOrderKey'], 'prefix' => 'calopt', 'name' => 'sortByOrderKey', 'type' => 'check', 'values' => '', 'value' => $C->read("sortByOrderKey")),
 );
 
@@ -468,7 +476,8 @@ foreach ($sections as $section) {
         'options' => isset($field['options']) ? $field['options'] : [],
         'values' => (isset($field['values']) && is_array($field['values'])) ? $field['values'] : [],
         'help' => isset($field['help']) ? $field['help'] : '',
-        'required' => isset($field['required']) ? $field['required'] : false
+        'required' => isset($field['required']) ? $field['required'] : false,
+        'error' => isset($field['error']) ? $field['error'] : '',
       );
     }
   }

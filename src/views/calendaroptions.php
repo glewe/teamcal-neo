@@ -99,7 +99,7 @@ view.calendaroptions
           </div>
 
           <div class="mt-4 float-end">
-            <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" name="btn_caloptApply"><?= $LANG['btn_apply'] ?></button>
+            <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" name="btn_apply"><?= $LANG['btn_apply'] ?></button>
           </div>
 
         </div>
