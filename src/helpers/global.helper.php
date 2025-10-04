@@ -624,23 +624,195 @@ function generatePassword(int $length = 9, array $options = []): string {
 
 //-----------------------------------------------------------------------------
 /**
- * Retrieves the client's IP address from the server variables.
+ * Retrieves the client's real IP address with comprehensive proxy support and validation.
  *
- * This function checks various server variables to determine the client's IP address.
- * It first checks `HTTP_CLIENT_IP`, then `HTTP_X_FORWARDED_FOR`, and finally `REMOTE_ADDR`.
+ * This function checks multiple server variables in order of trustworthiness to determine 
+ * the client's real IP address, handling various proxy configurations and load balancers.
+ * It validates all IP addresses and provides caching for better performance.
  *
- * @return string The client's IP address, or an empty string if none of the server variables are set.
+ * @param bool $validate Whether to validate IP addresses (default: true)
+ * @param array $trustedProxies Optional array of trusted proxy IP addresses/ranges
+ * 
+ * @return string The client's IP address, or fallback IP if none found/valid
  */
-function getClientIp(): string {
-  $ipAddress = '';
-  if (isset($_SERVER['HTTP_CLIENT_IP'])) {
-    $ipAddress = $_SERVER['HTTP_CLIENT_IP'];
-  } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-    $ipAddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-  } elseif (isset($_SERVER['REMOTE_ADDR'])) {
-    $ipAddress = $_SERVER['REMOTE_ADDR'];
+function getClientIp(bool $validate = true, array $trustedProxies = []): string {
+  // Static cache for performance (IP shouldn't change during request)
+  static $cachedIp = null;
+  static $cacheKey = null;
+  
+  // Create cache key based on parameters
+  $currentCacheKey = md5(serialize([$validate, $trustedProxies]));
+  
+  if ($cachedIp !== null && $cacheKey === $currentCacheKey) {
+    return $cachedIp;
   }
-  return $ipAddress;
+  
+  // Headers to check in order of preference (most trusted first)
+  $headers = [
+    'HTTP_CF_CONNECTING_IP',     // Cloudflare
+    'HTTP_TRUE_CLIENT_IP',       // Cloudflare/Fastly
+    'HTTP_X_REAL_IP',           // Nginx proxy
+    'HTTP_X_FORWARDED_FOR',     // Standard proxy header
+    'HTTP_X_FORWARDED',         // Alternative proxy header
+    'HTTP_X_CLUSTER_CLIENT_IP', // Cluster/load balancer
+    'HTTP_FORWARDED_FOR',       // RFC 7239 (older)
+    'HTTP_FORWARDED',           // RFC 7239 (newer)
+    'HTTP_CLIENT_IP',           // Some proxies
+    'REMOTE_ADDR'               // Direct connection (always available)
+  ];
+  
+  $fallbackIp = '127.0.0.1'; // Safe fallback
+  $foundIp = '';
+  
+  foreach ($headers as $header) {
+    if (!isset($_SERVER[$header]) || empty($_SERVER[$header])) {
+      continue;
+    }
+    
+    $headerValue = trim($_SERVER[$header]);
+    
+    // Handle comma-separated lists (X-Forwarded-For can contain multiple IPs)
+    if (strpos($headerValue, ',') !== false) {
+      $ips = array_map('trim', explode(',', $headerValue));
+      
+      // Take the first valid IP (leftmost is usually the original client)
+      foreach ($ips as $ip) {
+        if ($validate) {
+          $cleanIp = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
+          if ($cleanIp !== false) {
+            $foundIp = $cleanIp;
+            break 2; // Break out of both loops
+          }
+        } else {
+          // Basic format validation without filtering private ranges
+          if (filter_var($ip, FILTER_VALIDATE_IP) !== false) {
+            $foundIp = $ip;
+            break 2;
+          }
+        }
+      }
+    } else {
+      // Single IP address
+      if ($validate) {
+        $cleanIp = filter_var($headerValue, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
+        if ($cleanIp !== false) {
+          $foundIp = $cleanIp;
+          break;
+        }
+      } else {
+        // Basic format validation without filtering private ranges
+        if (filter_var($headerValue, FILTER_VALIDATE_IP) !== false) {
+          $foundIp = $headerValue;
+          break;
+        }
+      }
+    }
+  }
+  
+  // If no valid public IP found and validation is enabled, try again without strict filtering
+  if (empty($foundIp) && $validate) {
+    foreach ($headers as $header) {
+      if (!isset($_SERVER[$header]) || empty($_SERVER[$header])) {
+        continue;
+      }
+      
+      $headerValue = trim($_SERVER[$header]);
+      
+      if (strpos($headerValue, ',') !== false) {
+        $ips = array_map('trim', explode(',', $headerValue));
+        foreach ($ips as $ip) {
+          if (filter_var($ip, FILTER_VALIDATE_IP) !== false) {
+            $foundIp = $ip;
+            break 2;
+          }
+        }
+      } else {
+        if (filter_var($headerValue, FILTER_VALIDATE_IP) !== false) {
+          $foundIp = $headerValue;
+          break;
+        }
+      }
+    }
+  }
+  
+  // Final fallback
+  if (empty($foundIp)) {
+    $foundIp = $fallbackIp;
+  }
+  
+  // Optional: Validate against trusted proxies (if specified)
+  if (!empty($trustedProxies) && !empty($foundIp)) {
+    $isTrustedProxy = false;
+    foreach ($trustedProxies as $trustedProxy) {
+      if (strpos($trustedProxy, '/') !== false) {
+        // CIDR notation support
+        if (ipInRange($foundIp, $trustedProxy)) {
+          $isTrustedProxy = true;
+          break;
+        }
+      } else {
+        // Single IP comparison
+        if ($foundIp === $trustedProxy) {
+          $isTrustedProxy = true;
+          break;
+        }
+      }
+    }
+    
+    // If IP is from trusted proxy, look for the next IP in chain
+    if ($isTrustedProxy && isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+      $forwardedIps = array_map('trim', explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']));
+      foreach ($forwardedIps as $ip) {
+        if (filter_var($ip, FILTER_VALIDATE_IP) !== false && $ip !== $foundIp) {
+          $foundIp = $ip;
+          break;
+        }
+      }
+    }
+  }
+  
+  // Cache the result
+  $cachedIp = $foundIp;
+  $cacheKey = $currentCacheKey;
+  
+  return $foundIp;
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Helper function to check if an IP address is within a CIDR range
+ *
+ * @param string $ip IP address to check
+ * @param string $cidr CIDR notation (e.g., "192.168.1.0/24")
+ * 
+ * @return bool True if IP is in range, false otherwise
+ */
+function ipInRange(string $ip, string $cidr): bool {
+  if (!filter_var($ip, FILTER_VALIDATE_IP)) {
+    return false;
+  }
+  
+  list($subnet, $mask) = explode('/', $cidr);
+  
+  if (!filter_var($subnet, FILTER_VALIDATE_IP)) {
+    return false;
+  }
+  
+  $mask = (int)$mask;
+  
+  // Convert IP addresses to long integers
+  $ipLong = ip2long($ip);
+  $subnetLong = ip2long($subnet);
+  
+  if ($ipLong === false || $subnetLong === false) {
+    return false;
+  }
+  
+  // Create subnet mask
+  $subnetMask = -1 << (32 - $mask);
+  
+  // Apply mask to both IPs and compare
+  return ($ipLong & $subnetMask) === ($subnetLong & $subnetMask);
 }
 
 //-----------------------------------------------------------------------------
