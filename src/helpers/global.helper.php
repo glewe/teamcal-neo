@@ -527,18 +527,98 @@ function formInputValid(string $field, string $ruleset, string $param = ''): boo
 
 //-----------------------------------------------------------------------------
 /**
- * Generates a password
+ * Generates a cryptographically secure password
  *
- * @param integer $length Desired password length
+ * @param int $length Desired password length (minimum 4, maximum 128)
+ * @param array $options Optional configuration for password generation
+ *                      - 'exclude_ambiguous' => bool (default: true) - exclude similar looking characters
+ *                      - 'require_mixed' => bool (default: true) - ensure at least one from each character type
+ *                      - 'custom_chars' => string - use custom character set (overrides other options)
  * 
- * @return string Password
+ * @return string Cryptographically secure password
+ * @throws InvalidArgumentException If length is invalid or secure random bytes cannot be generated
  */
-function generatePassword(int $length = 9): string {
-  $characters = 'abcdefghjklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ123456789@#$%';
-  $password = '';
-  for ($i = 0; $i < $length; $i++) {
-    $password .= $characters[(rand() % strlen($characters))];
+function generatePassword(int $length = 9, array $options = []): string {
+  // Input validation
+  if ($length < 4 || $length > 128) {
+    throw new InvalidArgumentException('Password length must be between 4 and 128 characters');
   }
+  
+  // Default options
+  $defaultOptions = [
+    'exclude_ambiguous' => true,
+    'require_mixed' => true,
+    'custom_chars' => null
+  ];
+  $options = array_merge($defaultOptions, $options);
+  
+  // Define character sets
+  if ($options['custom_chars'] !== null) {
+    $characters = $options['custom_chars'];
+    $charSets = [$characters]; // Single set for custom characters
+  } else {
+    if ($options['exclude_ambiguous']) {
+      // Exclude ambiguous characters (0, O, l, 1, I)
+      $lowercase = 'abcdefghjkmnpqrstuvwxyz';
+      $uppercase = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+      $numbers = '23456789';
+      $symbols = '@#$%&*+=?';
+    } else {
+      $lowercase = 'abcdefghijklmnopqrstuvwxyz';
+      $uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $numbers = '0123456789';
+      $symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+    }
+    
+    $characters = $lowercase . $uppercase . $numbers . $symbols;
+    $charSets = $options['require_mixed'] ? [$lowercase, $uppercase, $numbers, $symbols] : [$characters];
+  }
+  
+  $charactersLength = strlen($characters);
+  
+  // Generate cryptographically secure random bytes
+  try {
+    $randomBytes = random_bytes($length * 2); // Extra bytes for better distribution
+  } catch (Exception $e) {
+    throw new InvalidArgumentException('Unable to generate secure random bytes: ' . $e->getMessage());
+  }
+  
+  $password = '';
+  $usedSets = [];
+  
+  // Generate password with cryptographically secure randomness
+  for ($i = 0; $i < $length; $i++) {
+    // Convert random bytes to index using modulo with better distribution
+    $randomIndex = unpack('n', substr($randomBytes, $i * 2, 2))[1] % $charactersLength;
+    $char = $characters[$randomIndex];
+    $password .= $char;
+    
+    // Track which character sets we've used (for mixed requirement)
+    if ($options['require_mixed'] && $options['custom_chars'] === null) {
+      foreach ($charSets as $setIndex => $set) {
+        if (strpos($set, $char) !== false) {
+          $usedSets[$setIndex] = true;
+          break;
+        }
+      }
+    }
+  }
+  
+  // Ensure we have at least one character from each required set
+  if ($options['require_mixed'] && $options['custom_chars'] === null && count($usedSets) < count($charSets)) {
+    // Replace random positions with missing character types
+    $missingSetIndices = array_diff(array_keys($charSets), array_keys($usedSets));
+    
+    foreach ($missingSetIndices as $setIndex) {
+      if ($length <= count($missingSetIndices)) break; // Not enough space for all sets
+      
+      // Generate secure random position and character
+      $randomPos = unpack('n', random_bytes(2))[1] % $length;
+      $randomCharIndex = unpack('n', random_bytes(2))[1] % strlen($charSets[$setIndex]);
+      $password[$randomPos] = $charSets[$setIndex][$randomCharIndex];
+    }
+  }
+  
   return $password;
 }
 
