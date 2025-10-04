@@ -1370,51 +1370,132 @@ function getPhpInfoBootstrap(bool $useCache = true, string $theme = 'auto'): str
 
 //-----------------------------------------------------------------------------
 /**
- * Determines the role bootstrap color
+ * Determines the Bootstrap color class for a given user role with enhanced performance and validation.
  *
- * @param string $role Role name
+ * This function maps user roles to appropriate Bootstrap color classes for consistent UI theming.
+ * Uses efficient array lookup with caching for better performance on repeated calls.
  *
- * @return string Bootstrap color name
+ * @param string $role Role name (case-insensitive). Supported roles: assistant, manager, director, admin
+ * 
+ * @return string Bootstrap color class name (primary, warning, secondary, danger, success)
+ * 
+ * @example getRoleColor('admin') returns 'danger'
+ * @example getRoleColor('MANAGER') returns 'warning' 
+ * @example getRoleColor('unknown') returns 'success' (default)
  */
 function getRoleColor(string $role): string {
-  switch ($role) {
-    case 'assistant':
-      $color = 'primary';
-      break;
-    case 'manager':
-      $color = 'warning';
-      break;
-    case 'director':
-      $color = 'default';
-      break;
-    case 'admin':
-      $color = 'danger';
-      break;
-    default:
-      $color = 'success';
-      break;
+  // Static cache for performance on repeated calls
+  static $cache = [];
+  
+  // Early return for empty role
+  if (empty($role)) {
+    return 'success';
   }
+  
+  // Normalize role for case-insensitive comparison and cache key
+  $normalizedRole = strtolower(trim($role));
+  
+  // Return cached result if available
+  if (isset($cache[$normalizedRole])) {
+    return $cache[$normalizedRole];
+  }
+  
+  // Role to Bootstrap color mapping (optimized array lookup)
+  static $roleColorMap = [
+    'assistant' => 'primary',
+    'manager'   => 'warning', 
+    'director'  => 'secondary', // Updated from deprecated 'default' to 'secondary'
+    'admin'     => 'danger',
+    // Default fallback handled below
+  ];
+  
+  // Get color with fallback to default
+  $color = $roleColorMap[$normalizedRole] ?? 'success';
+  
+  // Cache the result for future calls
+  $cache[$normalizedRole] = $color;
+  
   return $color;
 }
 
 //-----------------------------------------------------------------------------
 /**
- * Returns a hex color value as an array of decimal RGB values
+ * Converts a hexadecimal color value to RGB decimal values with enhanced validation and performance.
  *
- * @param string $color Hex color string to convert
+ * Supports multiple hex color formats including 3-character and 6-character hex codes,
+ * with or without hash prefix. Uses efficient parsing and caching for better performance.
  *
- * @return array RGB values in an array
+ * @param string $color Hex color string to convert. Supported formats:
+ *                     - #RRGGBB (e.g., "#FF5733")
+ *                     - RRGGBB (e.g., "FF5733")
+ *                     - #RGB (e.g., "#F53") - expands to #FF5533
+ *                     - RGB (e.g., "F53") - expands to FF5533
+ *
+ * @return array Associative array with 'r', 'g', 'b' keys containing RGB decimal values (0-255).
+ *              Returns [0, 0, 0] for invalid input.
+ * 
+ * @example hex2rgb('#FF5733') returns ['r' => 255, 'g' => 87, 'b' => 51]
+ * @example hex2rgb('F53') returns ['r' => 255, 'g' => 85, 'b' => 51]
+ * @example hex2rgb('invalid') returns ['r' => 0, 'g' => 0, 'b' => 0]
  */
 function hex2rgb(string $color): array {
-  $color = str_replace('#', '', $color);
-  if (strlen($color) != 6) {
-    return array(0, 0, 0);
+  // Static cache for performance on repeated calls
+  static $cache = [];
+  
+  // Early return for empty input
+  if (empty($color)) {
+    return ['r' => 0, 'g' => 0, 'b' => 0];
   }
-  $rgb = array();
-  for ($x = 0; $x < 3; $x++) {
-    $rgb[$x] = hexdec(substr($color, (2 * $x), 2));
+  
+  // Create cache key from original input
+  $cacheKey = $color;
+  
+  // Return cached result if available
+  if (isset($cache[$cacheKey])) {
+    return $cache[$cacheKey];
   }
-  return $rgb;
+  
+  // Normalize input: remove hash prefix and convert to uppercase
+  $normalizedColor = strtoupper(ltrim(trim($color), '#'));
+  
+  // Validate that string contains only valid hex characters
+  if (!preg_match('/^[0-9A-F]+$/', $normalizedColor)) {
+    $result = ['r' => 0, 'g' => 0, 'b' => 0];
+    $cache[$cacheKey] = $result;
+    return $result;
+  }
+  
+  $colorLength = strlen($normalizedColor);
+  
+  // Handle different hex color formats
+  if ($colorLength === 3) {
+    // Short format: RGB -> RRGGBB (e.g., "F53" -> "FF5533")
+    $r = hexdec($normalizedColor[0] . $normalizedColor[0]);
+    $g = hexdec($normalizedColor[1] . $normalizedColor[1]);
+    $b = hexdec($normalizedColor[2] . $normalizedColor[2]);
+  } elseif ($colorLength === 6) {
+    // Standard format: RRGGBB
+    $r = hexdec(substr($normalizedColor, 0, 2));
+    $g = hexdec(substr($normalizedColor, 2, 2));
+    $b = hexdec(substr($normalizedColor, 4, 2));
+  } else {
+    // Invalid length - return black as fallback
+    $result = ['r' => 0, 'g' => 0, 'b' => 0];
+    $cache[$cacheKey] = $result;
+    return $result;
+  }
+  
+  // Ensure values are within valid range (0-255)
+  $result = [
+    'r' => max(0, min(255, $r)),
+    'g' => max(0, min(255, $g)),
+    'b' => max(0, min(255, $b))
+  ];
+  
+  // Cache the result for future calls
+  $cache[$cacheKey] = $result;
+  
+  return $result;
 }
 
 //-----------------------------------------------------------------------------
