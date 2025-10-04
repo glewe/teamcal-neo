@@ -652,7 +652,7 @@ $viewData['options'][] = array( 'prefix' => 'profile', 'name' => 'defaultMenu', 
 //
 // Avatar
 //
-$viewData['avatars'] = getFiles(APP_AVATAR_DIR, $CONF['imgExtensions'], 'is_');
+$viewData['avatars'] = getFiles(APP_AVATAR_DIR, $CONF['avatarExtensions'], 'is_');
 
 //
 // Account

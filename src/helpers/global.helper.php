@@ -827,41 +827,59 @@ function ipInRange(string $ip, string $cidr): bool {
  * @return array Array containing the names of the files
  */
 function getFiles(string $myDir, array $myExt = [], string $myPrefix = ''): array {
-  $myDir = rtrim($myDir, "/");
-  $dir = opendir($myDir);
-  while (false !== ($filename = readdir($dir))) {
-    $files[] = $filename;
+  // Normalize directory path - support both forward and backward slashes
+  $myDir = rtrim($myDir, "/\\");
+  
+  // Early validation - return empty array if directory doesn't exist or isn't readable
+  if (!is_dir($myDir) || !is_readable($myDir)) {
+    return [];
   }
-  foreach ($files as $pos => $file) {
-    if (is_dir($file)) {
-      unset($files[$pos]);
+  
+  // Use scandir for better performance and error handling
+  $entries = scandir($myDir);
+  if ($entries === false) {
+    return [];
+  }
+  
+  // Filter out directories and special entries in one pass
+  $files = [];
+  foreach ($entries as $entry) {
+    if ($entry !== '.' && $entry !== '..' && !is_dir($myDir . DIRECTORY_SEPARATOR . $entry)) {
+      $files[] = $entry;
     }
   }
-  if (count($myExt) || $myPrefix) {
-    $filearray = array();
-    if (count($files)) {
-      foreach ($files as $pos => $file) {
-        $thisPref = getFilePrefix(strtolower($file));
-        $thisExt = getFileExtension(strtolower($file));
-        if (count($myExt) && !$myPrefix) {
-          if (in_array($thisExt, $myExt)) {
-            $filearray[] = $file;
-          }
-        } elseif (!count($myExt) && $myPrefix) {
-          if (startsWith($thisPref, $myPrefix)) {
-            $filearray[] = $file;
-          }
-        } elseif (count($myExt) && $myPrefix) {
-          if (in_array($thisExt, $myExt) && startsWith($thisPref, $myPrefix)) {
-            $filearray[] = $file;
-          }
-        }
-      }
-    }
-    return $filearray;
-  } else {
+  
+  // Early return if no filtering needed
+  if (empty($myExt) && empty($myPrefix)) {
     return $files;
   }
+  
+  // Apply filters efficiently
+  $filteredFiles = [];
+  $hasExtFilter = !empty($myExt);
+  $hasPrefixFilter = !empty($myPrefix);
+  
+  // Pre-normalize extensions for case-insensitive comparison
+  $normalizedExts = $hasExtFilter ? array_map('strtolower', $myExt) : [];
+  $normalizedPrefix = $hasPrefixFilter ? strtolower($myPrefix) : '';
+  
+  foreach ($files as $file) {
+    $lowerFile = strtolower($file);
+    
+    // Extract extension and prefix once
+    $extension = getFileExtension($lowerFile);
+    $prefix = $hasPrefixFilter ? getFilePrefix($lowerFile) : '';
+    
+    // Apply filters based on what's provided
+    $matchesExt = !$hasExtFilter || in_array($extension, $normalizedExts, true);
+    $matchesPrefix = !$hasPrefixFilter || startsWith($prefix, $normalizedPrefix);
+    
+    if ($matchesExt && $matchesPrefix) {
+      $filteredFiles[] = $file;
+    }
+  }
+  
+  return $filteredFiles;
 }
 
 //-----------------------------------------------------------------------------
@@ -873,28 +891,52 @@ function getFiles(string $myDir, array $myExt = [], string $myPrefix = ''): arra
  * @return string File extension of the string passed
  */
 function getFileExtension(string $str): string {
-  $i = strrpos($str, ".");
-  if (!$i) {
+  // Early return for empty strings
+  if (empty($str)) {
     return '';
   }
-  $l = strlen($str) - $i;
-  return substr($str, $i + 1, $l);
+  
+  // Find the last dot position
+  $dotPos = strrpos($str, '.');
+  
+  // No dot found, or dot is at the very beginning (hidden files like .htaccess)
+  if ($dotPos === false || $dotPos === 0) {
+    return '';
+  }
+  
+  // Return the extension (everything after the last dot)
+  return substr($str, $dotPos + 1);
 }
 
 //-----------------------------------------------------------------------------
 /**
- * Extracts the file extension from a given file name
+ * Extracts the file prefix (name without extension) from a given file name
  *
  * @param string $str String containing the path or filename
  *
- * @return string File extension of the string passed
+ * @return string File prefix (name without extension) of the string passed
  */
 function getFilePrefix(string $str): string {
-  $i = strpos($str, ".");
-  if (!$i) {
+  // Early return for empty strings
+  if (empty($str)) {
     return '';
   }
-  return substr($str, 0, $i);
+  
+  // Find the first dot position (for file extension)
+  $dotPos = strpos($str, '.');
+  
+  // No dot found - return the entire string (file has no extension)
+  if ($dotPos === false) {
+    return $str;
+  }
+  
+  // If dot is at the very beginning (hidden files like .htaccess), return empty string
+  if ($dotPos === 0) {
+    return '';
+  }
+  
+  // Return everything before the first dot
+  return substr($str, 0, $dotPos);
 }
 
 //-----------------------------------------------------------------------------
@@ -906,15 +948,30 @@ function getFilePrefix(string $str): string {
  * @return array Array containing the folder names
  */
 function getFolders(string $myDir): array {
-  $myDir = rtrim($myDir, '/') . '/'; // Ensure trailing slash
-  $handle = opendir($myDir);
-  while (false !== ($dir = readdir($handle))) {
-    if (is_dir($myDir . "/$dir") && $dir != "." && $dir != "..") {
-      $dirarray[] = $dir;
+  // Normalize directory path - support both forward and backward slashes
+  $myDir = rtrim($myDir, "/\\");
+  
+  // Early validation - return empty array if directory doesn't exist or isn't readable
+  if (!is_dir($myDir) || !is_readable($myDir)) {
+    return [];
+  }
+  
+  // Use scandir for better performance and error handling
+  $entries = scandir($myDir);
+  if ($entries === false) {
+    return [];
+  }
+  
+  // Filter directories efficiently
+  $directories = [];
+  foreach ($entries as $entry) {
+    // Skip special directories and check if it's actually a directory
+    if ($entry !== '.' && $entry !== '..' && is_dir($myDir . DIRECTORY_SEPARATOR . $entry)) {
+      $directories[] = $entry;
     }
   }
-  closedir($handle);
-  return $dirarray;
+  
+  return $directories;
 }
 
 //-----------------------------------------------------------------------------
