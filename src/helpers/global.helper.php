@@ -254,83 +254,81 @@ function compareLanguageFiles(string $lang1, string $lang2): array {
  */
 function dateInfo(string $year, string $month, string $day = '1'): array {
   global $LANG;
-  $dateInfo = array();
-  $myts = strtotime($year . '-' . $month . '-' . $day);
-  $mydate = getdate($myts);
-  $dateInfo['dd'] = sprintf("%02d", $mydate['mday']);   // Numeric representation of todays' day of the month, 2 digits
-  $dateInfo['mm'] = sprintf("%02d", $mydate['mon']);    // Numeric representation of todays' month, 2 digits
-  $dateInfo['year'] = $mydate['year'];                  // Numeric representation of todays' year, 4 digits
-  $dateInfo['month'] = $mydate['month'];                // Numeric representation of todays' month, 2 digits
-  $dateInfo['daysInMonth'] = date("t", $myts);          // Number of days in current month
-  /**
-   * Current day
-   * ISO 8601 formatted date of today, e.g.
-   * 2014-03-03
-   */
-  $dateInfo['ISO'] = $dateInfo['year'] . '-' . $dateInfo['mm'] . '-' . $dateInfo['dd'];
-  /**
-   * Weekday
-   * 1 = Monday, 2 = Tuesday, ..., 7 = Sunday
-   */
-  $dateInfo['wday'] = date("N", $myts);
-  $dateInfo['weekdayShort'] = $LANG['weekdayShort'][$dateInfo['wday']];
-  $dateInfo['weekdayLong'] = $LANG['weekdayLong'][$dateInfo['wday']];
-  /**
-   * Week number
-   */
-  $dateInfo['week'] = date('W', $myts);
-  /**
-   * Current month
-   * - ISO 8601 formatted date of the first day of the current month, e.g. 2014-03-01
-   * - ISO 8601 formatted date of the last day of the current month, e.g. 2014-03-31
-   */
-  $dateInfo['monthname'] = $LANG['monthnames'][$mydate['mon']];
-  $dateInfo['firstOfMonth'] = $dateInfo['year'] . '-' . $dateInfo['mm'] . '-01';
-  $dateInfo['lastOfMonth'] = $dateInfo['year'] . '-' . $dateInfo['mm'] . '-' . $dateInfo['daysInMonth'];
-  /**
-   * Current year
-   */
-  $dateInfo['firstOfYear'] = $dateInfo['year'] . "-01-01";
-  $dateInfo['lastOfYear'] = $dateInfo['year'] . "-12-31";
-  /**
-   * Current quarter and half year
-   */
-  switch ($dateInfo['mm']) {
-    case 1:
-    case 2:
-    case 3:
-      $dateInfo['firstOfQuarter'] = $dateInfo['year'] . "-01-01";
-      $dateInfo['lastOfQuarter'] = $dateInfo['year'] . "-03-31";
-      $dateInfo['firstOfHalf'] = $dateInfo['year'] . "-01-01";
-      $dateInfo['lastOfHalf'] = $dateInfo['year'] . "-06-30";
-      break;
-    case 4:
-    case 5:
-    case 6:
-      $dateInfo['firstOfQuarter'] = $dateInfo['year'] . "-04-01";
-      $dateInfo['lastOfQuarter'] = $dateInfo['year'] . "-06-30";
-      $dateInfo['firstOfHalf'] = $dateInfo['year'] . "-01-01";
-      $dateInfo['lastOfHalf'] = $dateInfo['year'] . "-06-30";
-      break;
-    case 7:
-    case 8:
-    case 9:
-      $dateInfo['firstOfQuarter'] = $dateInfo['year'] . "-07-01";
-      $dateInfo['lastOfQuarter'] = $dateInfo['year'] . "-09-30";
-      $dateInfo['firstOfHalf'] = $dateInfo['year'] . "-07-01";
-      $dateInfo['lastOfHalf'] = $dateInfo['year'] . "-12-31";
-      break;
-    case 10:
-    case 11:
-    case 12:
-      $dateInfo['firstOfQuarter'] = $dateInfo['year'] . "-10-01";
-      $dateInfo['lastOfQuarter'] = $dateInfo['year'] . "-12-31";
-      $dateInfo['firstOfHalf'] = $dateInfo['year'] . "-07-01";
-      $dateInfo['lastOfHalf'] = $dateInfo['year'] . "-12-31";
-      break;
-    default:
-      break;
+  
+  // Input validation
+  if (!is_numeric($year) || !is_numeric($month) || !is_numeric($day)) {
+    throw new InvalidArgumentException('Year, month, and day must be numeric');
   }
+  
+  $year = (int)$year;
+  $month = (int)$month;
+  $day = (int)$day;
+  
+  // Validate ranges
+  if ($year < 1000 || $year > 9999 || $month < 1 || $month > 12 || $day < 1 || $day > 31) {
+    throw new InvalidArgumentException('Invalid date values provided');
+  }
+  
+  try {
+    // Use DateTime for better performance and reliability
+    $dateTime = new DateTime(sprintf('%04d-%02d-%02d', $year, $month, $day));
+  } catch (Exception $e) {
+    throw new InvalidArgumentException('Invalid date: ' . $e->getMessage());
+  }
+  
+  // Get formatted values once
+  $yearStr = $dateTime->format('Y');
+  $monthStr = $dateTime->format('m');
+  $dayStr = $dateTime->format('d');
+  $monthNum = (int)$monthStr;
+  
+  // Build basic date info
+  $dateInfo = [
+    'dd' => $dayStr,
+    'mm' => $monthStr,
+    'year' => (int)$yearStr,
+    'month' => $monthNum,
+    'daysInMonth' => (int)$dateTime->format('t'),
+    'ISO' => $dateTime->format('Y-m-d'),
+    'wday' => (int)$dateTime->format('N'),
+    'week' => (int)$dateTime->format('W')
+  ];
+  
+  // Add language-dependent fields safely
+  if (isset($LANG['weekdayShort'][$dateInfo['wday']])) {
+    $dateInfo['weekdayShort'] = $LANG['weekdayShort'][$dateInfo['wday']];
+  }
+  if (isset($LANG['weekdayLong'][$dateInfo['wday']])) {
+    $dateInfo['weekdayLong'] = $LANG['weekdayLong'][$dateInfo['wday']];
+  }
+  if (isset($LANG['monthnames'][$monthNum])) {
+    $dateInfo['monthname'] = $LANG['monthnames'][$monthNum];
+  }
+  
+  // Calculate month boundaries
+  $dateInfo['firstOfMonth'] = $yearStr . '-' . $monthStr . '-01';
+  $dateInfo['lastOfMonth'] = $yearStr . '-' . $monthStr . '-' . str_pad($dateInfo['daysInMonth'], 2, '0', STR_PAD_LEFT);
+  
+  // Calculate year boundaries
+  $dateInfo['firstOfYear'] = $yearStr . '-01-01';
+  $dateInfo['lastOfYear'] = $yearStr . '-12-31';
+  
+  // Calculate quarter and half-year boundaries more efficiently
+  $quarterMap = [
+    1 => ['start' => '01-01', 'end' => '03-31', 'half_end' => '06-30'],
+    2 => ['start' => '04-01', 'end' => '06-30', 'half_end' => '06-30'], 
+    3 => ['start' => '07-01', 'end' => '09-30', 'half_end' => '12-31'],
+    4 => ['start' => '10-01', 'end' => '12-31', 'half_end' => '12-31']
+  ];
+  
+  $quarter = (int)ceil($monthNum / 3);
+  $quarterInfo = $quarterMap[$quarter];
+  
+  $dateInfo['firstOfQuarter'] = $yearStr . '-' . $quarterInfo['start'];
+  $dateInfo['lastOfQuarter'] = $yearStr . '-' . $quarterInfo['end'];
+  $dateInfo['firstOfHalf'] = $yearStr . '-' . ($quarter <= 2 ? '01-01' : '07-01');
+  $dateInfo['lastOfHalf'] = $yearStr . '-' . $quarterInfo['half_end'];
+  
   return $dateInfo;
 }
 
