@@ -22,20 +22,49 @@ if (!defined('VALID_ROOT')) {
  * @return string The base URL with the optional path appended.
  */
 function base_url(string $path = ''): string {
-  // Get the protocol (http or https)
-  $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+  static $baseUrl = null;
+  
+  // Cache the base URL to avoid recalculating on multiple calls
+  if ($baseUrl === null) {
+    // Determine protocol (more robust HTTPS detection)
+    $isHttps = (
+      (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+      (!empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) ||
+      (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ||
+      (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] === 'on')
+    );
+    $protocol = $isHttps ? 'https://' : 'http://';
 
-  // Get the host (e.g., www.example.com)
-  $host = $_SERVER['HTTP_HOST'];
+    // Get and validate the host (security: prevent Host header injection)
+    $host = $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? 'localhost';
+    
+    // Basic validation for host header
+    if (!preg_match('/^[a-zA-Z0-9.-]+(?::[0-9]+)?$/', $host)) {
+      $host = $_SERVER['SERVER_NAME'] ?? 'localhost';
+    }
 
-  // Get the base directory (e.g., /myapp/)
-  $baseDir = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
+    // Get the base directory more reliably
+    $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+    $baseDir = $scriptName ? dirname($scriptName) : '';
+    
+    // Normalize the base directory
+    $baseDir = str_replace('\\', '/', $baseDir); // Windows compatibility
+    $baseDir = rtrim($baseDir, '/') . '/';
+    if ($baseDir === './') {
+      $baseDir = '/';
+    }
 
-  // Construct the base URL
-  $baseUrl = $protocol . $host . $baseDir;
+    // Construct and cache the base URL
+    $baseUrl = $protocol . $host . $baseDir;
+  }
 
   // Append the optional path
-  return $baseUrl . ltrim($path, '/');
+  if ($path) {
+    $path = ltrim($path, '/');
+    return $baseUrl . $path;
+  }
+  
+  return $baseUrl;
 }
 
 //-----------------------------------------------------------------------------
