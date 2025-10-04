@@ -73,21 +73,58 @@ function base_url(string $path = ''): string {
  * Not called directly, but used by function sanitize()
  *
  * @param string $input String to clean
+ * @return string Cleaned string with potentially dangerous content removed
  */
 function cleanInput(string $input): string {
-  /**
-   * Strip out javascript
-   * Strip out HTML tags
-   * Strip style tags properly
-   * Strip multi-line comments
-   */
-  $search = array(
-    '@<script[^>]*?>.*?</script>@si',
-    '@<[\/\!]*?[^<>]*?>@si',
-    '@<style[^>]*?>.*?</style>@siU',
-    '@<![\s\S]*?--[ \t\n\r]*>@'
-  );
-  return preg_replace($search, '', $input);
+  // Early return for empty input
+  if (empty($input)) {
+    return $input;
+  }
+  
+  // Static cache for compiled regex patterns (performance optimization)
+  static $searchPatterns = null;
+  
+  if ($searchPatterns === null) {
+    $searchPatterns = [
+      // Remove script tags and their content (case-insensitive, multiline)
+      '@<script[^>]*?>.*?</script>@si',
+      
+      // Remove style tags and their content
+      '@<style[^>]*?>.*?</style>@si',
+      
+      // Remove all HTML/XML tags (improved pattern)
+      '@<[\/\!]*?[^<>]*?>@si',
+      
+      // Remove HTML comments (including conditional comments)
+      '@<!--.*?-->@s',
+      
+      // Remove potential JavaScript event handlers
+      '@\s*on\w+\s*=\s*["\'][^"\']*["\']@i',
+      
+      // Remove javascript: protocols
+      '@javascript\s*:@i',
+      
+      // Remove vbscript: protocols
+      '@vbscript\s*:@i',
+      
+      // Remove data: URLs that could contain scripts (basic protection)
+      '@data\s*:\s*[^,]*,.*?@i',
+      
+      // Remove expression() CSS (IE vulnerability)
+      '@expression\s*\([^)]*\)@i'
+    ];
+  }
+  
+  // Apply all cleaning patterns in one pass
+  $cleaned = preg_replace($searchPatterns, '', $input);
+  
+  // Additional security: remove null bytes and control characters (except normal whitespace)
+  $cleaned = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $cleaned);
+  
+  // Normalize whitespace (optional - preserves readability)
+  $cleaned = preg_replace('/\s+/', ' ', trim($cleaned));
+  
+  return $cleaned;
 }
 
 //-----------------------------------------------------------------------------
