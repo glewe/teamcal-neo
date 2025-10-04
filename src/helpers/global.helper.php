@@ -976,54 +976,120 @@ function getFolders(string $myDir): array {
 
 //-----------------------------------------------------------------------------
 /**
- * Returns todays date in ISO 8601 format
+ * Returns today's date in ISO 8601 format with optional caching for performance
  *
- * @return string ISO 8601 format, e.g. 2014-03-03
+ * @param bool $useCache Whether to cache the result for the current day (default: true)
+ * 
+ * @return string ISO 8601 format, e.g. 2024-03-15
  */
-function getISOToday(): string {
-  $mydate = getdate();
-  $year = $mydate['year'];                  // Numeric representation of todays' year, 4 digits
-  $month = sprintf("%02d", $mydate['mon']); // Numeric representation of todays' month, 2 digits
-  $day = sprintf("%02d", $mydate['mday']);  // Numeric representation of todays' day of the month, 2 digits
-  return $year . '-' . $month . '-' . $day;
+function getISOToday(bool $useCache = true): string {
+  // Static cache for performance - date only changes once per day
+  static $cachedDate = null;
+  static $cachedDay = null;
+  
+  if ($useCache) {
+    $currentDay = (int)date('j'); // Current day of month for cache validation
+    
+    // Return cached result if it's still the same day
+    if ($cachedDate !== null && $cachedDay === $currentDay) {
+      return $cachedDate;
+    }
+    
+    // Generate and cache new date
+    $cachedDate = date('Y-m-d');
+    $cachedDay = $currentDay;
+    
+    return $cachedDate;
+  }
+  
+  // Direct call without caching
+  return date('Y-m-d');
 }
 
 //-----------------------------------------------------------------------------
 /**
- * Gets all language directory names from the language directory
+ * Gets all language directory names from the language directory with enhanced performance and error handling
  *
- * @param string $type Look for application or log languages
+ * @param string $type Look for application ('app') or log ('log') languages
  *
- * @return array Array containing the names
+ * @return array Array containing the language names (not filenames)
  */
 function getLanguages(string $type = 'app'): array {
-  $mydir = "languages/";
-  $handle = opendir($mydir); // open directory
-  $fileidx = 0;
-  while (false !== ($file = readdir($handle))) {
-    if (!is_dir($mydir . "/$file") && $file != "." && $file != "..") {
-      $filearray[$fileidx]["name"] = $file;
-      $fileidx++;
-    }
+  // Static cache for performance - language files don't change often during execution
+  static $cache = [];
+  $cacheKey = $type;
+  
+  if (isset($cache[$cacheKey])) {
+    return $cache[$cacheKey];
   }
-  closedir($handle);
-  // If there are language files
-  if ($fileidx > 0) {
-    // Extract the language name
-    for ($i = 0; $i < $fileidx; $i++) {
-      $langName = explode(".", $filearray[$i]["name"]);
-      if ($type == 'log') {
-        if ($langName[1] == 'log') {
-          $langarray[$i] = $langName[0];
-        }
-      } else {
-        if ($langName[1] == 'php') {
-          $langarray[$i] = $langName[0];
-        }
+  
+  // Input validation - ensure type is one of the expected values
+  if (!in_array($type, ['app', 'log'], true)) {
+    $type = 'app'; // Default fallback
+  }
+  
+  // Determine language directory - more robust path handling
+  $languageDir = defined('WEBSITE_ROOT') ? WEBSITE_ROOT . '/languages/' : 'languages/';
+  
+  // Early validation - return empty array if directory doesn't exist or isn't readable
+  if (!is_dir($languageDir) || !is_readable($languageDir)) {
+    $cache[$cacheKey] = [];
+    return [];
+  }
+  
+  // Use scandir for better performance and error handling
+  $files = scandir($languageDir);
+  if ($files === false) {
+    $cache[$cacheKey] = [];
+    return [];
+  }
+  
+  // Determine target file extension based on type
+  $targetExtension = ($type === 'log') ? 'log' : 'php';
+  
+  // Process files efficiently - filter and extract language names in one pass
+  $languages = [];
+  foreach ($files as $file) {
+    // Skip directories and special entries
+    if ($file === '.' || $file === '..' || is_dir($languageDir . $file)) {
+      continue;
+    }
+    
+    // Parse filename efficiently
+    $parts = explode('.', $file);
+    
+    // Skip files that don't have the expected structure (at minimum: name.extension)
+    if (count($parts) < 2) {
+      continue;
+    }
+    
+    // For log type: look for files like "en.log.php" (parts[1] === 'log')
+    // For app type: look for files like "en.php" (parts[1] === 'php') but not "en.log.php"
+    if ($type === 'log') {
+      // Log files have format: language.log.php
+      if (count($parts) >= 3 && $parts[1] === 'log' && $parts[2] === 'php') {
+        $languages[] = $parts[0];
+      }
+    } else {
+      // App files have format: language.php (but not language.log.php)
+      if (count($parts) === 2 && $parts[1] === 'php') {
+        $languages[] = $parts[0];
+      }
+      // Also handle language.app.php format if it exists
+      elseif (count($parts) === 3 && $parts[1] === 'app' && $parts[2] === 'php') {
+        $languages[] = $parts[0];
       }
     }
   }
-  return $langarray;
+  
+  // Remove duplicates and sort for consistent output
+  $languages = array_unique($languages);
+  sort($languages);
+  
+  // Cache the result
+  $cache[$cacheKey] = $languages;
+  
+  return $languages;
 }
 
 //-----------------------------------------------------------------------------
