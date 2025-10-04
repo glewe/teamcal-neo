@@ -1734,27 +1734,123 @@ function prettyDump(array $a): string {
 
 //-----------------------------------------------------------------------------
 /**
- * Reads a value out of a config file
+ * Reads a configuration value from a PHP config file with enhanced performance and error handling.
  *
- * @param string $var Array index to read
- * @param string $file File to scan
+ * Parses PHP config files to extract variable values with caching for better performance,
+ * robust error handling, and improved security. Supports various config file formats.
+ *
+ * @param string $var The variable name to read from the config file
+ * @param string $file The absolute path to the config file to scan
  * 
- * @return string The value of the read variable
+ * @return string The value of the configuration variable, or empty string if not found/error
+ * 
+ * @example readConfig('app_name', '/path/to/config.php') returns 'TeamCal Neo'
+ * @example readConfig('db_host', '/path/to/database.php') returns 'localhost'
+ * @example readConfig('nonexistent', '/path/to/config.php') returns ''
+ * 
+ * @deprecated This function is legacy and only used in archived installation files.
+ *            Consider using modern config management instead.
  */
 function readConfig(string $var = '', string $file = ''): string {
-  $value = "";
-  $handle = fopen($file, "r");
-  if ($handle) {
-    while (!feof($handle)) {
-      $buffer = fgets($handle, 4096);
-      if (strpos($buffer, "'" . $var . "'") == 6) {
-        $pos1 = strpos($buffer, '"');
-        $pos2 = strrpos($buffer, '"');
-        $value = trim(substr($buffer, $pos1 + 1, $pos2 - ($pos1 + 1)));
+  // Static cache for performance on repeated reads
+  static $cache = [];
+  static $fileCache = [];
+  
+  // Early validation
+  if (empty($var) || empty($file)) {
+    return '';
+  }
+  
+  // Create cache key
+  $cacheKey = $file . '|' . $var;
+  
+  // Return cached result if available
+  if (isset($cache[$cacheKey])) {
+    return $cache[$cacheKey];
+  }
+  
+  // Validate file exists and is readable
+  if (!file_exists($file) || !is_readable($file)) {
+    $cache[$cacheKey] = '';
+    return '';
+  }
+  
+  // Check if we've already read this file
+  $fileModTime = filemtime($file);
+  $fileCacheKey = $file . '|' . $fileModTime;
+  
+  if (!isset($fileCache[$fileCacheKey])) {
+    // Read entire file content for parsing
+    $content = file_get_contents($file);
+    if ($content === false) {
+      $cache[$cacheKey] = '';
+      return '';
+    }
+    
+    // Cache the file content with modification time
+    $fileCache[$fileCacheKey] = $content;
+    
+    // Clean up old file cache entries to prevent memory bloat
+    if (count($fileCache) > 10) {
+      $fileCache = array_slice($fileCache, -5, null, true);
+    }
+  } else {
+    $content = $fileCache[$fileCacheKey];
+  }
+  
+  // Enhanced parsing with multiple patterns for different config formats
+  $patterns = [
+    // Standard array format: $CONF['var'] = "value";
+    '/\$CONF\[\s*[\'"]' . preg_quote($var, '/') . '[\'"]\s*\]\s*=\s*[\'"]([^\'"]*)[\'"]\s*;/m',
+    
+    // Alternative format: $var = "value";
+    '/\$' . preg_quote($var, '/') . '\s*=\s*[\'"]([^\'"]*)[\'"]\s*;/m',
+    
+    // Define format: define('var', 'value');
+    '/define\s*\(\s*[\'"]' . preg_quote($var, '/') . '[\'"]\s*,\s*[\'"]([^\'"]*)[\'"]\s*\)/m',
+    
+    // Legacy format used in original function
+    '/\[\s*[\'"]' . preg_quote($var, '/') . '[\'"]\s*\]\s*=\s*[\'"]([^\'"]*)[\'"]/m'
+  ];
+  
+  $value = '';
+  
+  // Try each pattern until we find a match
+  foreach ($patterns as $pattern) {
+    if (preg_match($pattern, $content, $matches)) {
+      $value = isset($matches[1]) ? trim($matches[1]) : '';
+      break;
+    }
+  }
+  
+  // Additional fallback for the specific format from original function
+  // Looking for lines where the variable appears at position 6
+  if (empty($value)) {
+    $lines = explode("\n", $content);
+    foreach ($lines as $line) {
+      $trimmedLine = trim($line);
+      if (strpos($trimmedLine, "'" . $var . "'") === 6) {
+        $pos1 = strpos($trimmedLine, '"');
+        $pos2 = strrpos($trimmedLine, '"');
+        if ($pos1 !== false && $pos2 !== false && $pos2 > $pos1) {
+          $value = trim(substr($trimmedLine, $pos1 + 1, $pos2 - ($pos1 + 1)));
+          break;
+        }
       }
     }
-    fclose($handle);
   }
+  
+  // Sanitize the extracted value
+  $value = htmlspecialchars_decode($value, ENT_QUOTES);
+  
+  // Cache the result
+  $cache[$cacheKey] = $value;
+  
+  // Clean up cache if it gets too large
+  if (count($cache) > 100) {
+    $cache = array_slice($cache, -50, null, true);
+  }
+  
   return $value;
 }
 
