@@ -1500,21 +1500,63 @@ function hex2rgb(string $color): array {
 
 //-----------------------------------------------------------------------------
 /**
- * Validates if a given date string is in the format YYYY-MM-DD and checks if it is a valid date.
+ * Validates if a given date string is in the format YYYY-MM-DD and represents a valid date.
  *
- * @param string $date The date string to validate.
+ * Performs both format validation (YYYY-MM-DD pattern) and logical date validation
+ * (leap years, month boundaries, etc.) with performance optimizations.
+ *
+ * @param string $date The date string to validate in YYYY-MM-DD format
  * 
- * @return bool Returns true if the date is valid and in the format YYYY-MM-DD, false otherwise.
+ * @return bool Returns true if the date is valid and in YYYY-MM-DD format, false otherwise
+ * 
+ * @example isValidDate('2024-03-15') returns true
+ * @example isValidDate('2024-02-29') returns true (leap year)
+ * @example isValidDate('2023-02-29') returns false (not a leap year)
+ * @example isValidDate('2024-13-01') returns false (invalid month)
+ * @example isValidDate('24-03-15') returns false (wrong format)
+ * @example isValidDate('invalid-date') returns false
  */
 function isValidDate(string $date): bool {
-  // Regular expression to check if the date is in the format YYYY-MM-DD
-  $regex = '/^\d{4}-\d{2}-\d{2}$/';
-  if (preg_match($regex, $date)) {
-    // Check if the date is valid
-    $parts = explode('-', $date);
-    return checkdate($parts[1], $parts[2], $parts[0]);
+  // Static cache for performance on repeated calls
+  static $cache = [];
+  static $regex = '/^(\d{4})-(\d{2})-(\d{2})$/';
+  
+  // Early return for empty input
+  if (empty($date)) {
+    return false;
   }
-  return false;
+  
+  // Return cached result if available
+  if (isset($cache[$date])) {
+    return $cache[$date];
+  }
+  
+  // Trim whitespace and validate YYYY-MM-DD format
+  $trimmedDate = trim($date);
+  
+  if (!preg_match($regex, $trimmedDate, $matches)) {
+    $cache[$date] = false;
+    return false;
+  }
+  
+  // Extract year, month, and day
+  $year = (int)$matches[1];
+  $month = (int)$matches[2];
+  $day = (int)$matches[3];
+  
+  // Additional validation for reasonable date ranges
+  if ($year < 1000 || $year > 9999 || $month < 1 || $month > 12 || $day < 1 || $day > 31) {
+    $cache[$date] = false;
+    return false;
+  }
+  
+  // Use PHP's built-in checkdate for comprehensive validation
+  // This handles leap years, month boundaries, etc.
+  $isValid = checkdate($month, $day, $year);
+  
+  // Cache and return the result
+  $cache[$date] = $isValid;
+  return $isValid;
 }
 
 //-----------------------------------------------------------------------------
