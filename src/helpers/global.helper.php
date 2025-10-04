@@ -382,230 +382,146 @@ function endsWith(string $haystack, string $needle): bool {
  */
 function formInputValid(string $field, string $ruleset, string $param = ''): bool {
   global $_POST, $inputAlert, $LANG;
+  
+  // Cache repeated calculations for performance
   $rules = explode('|', $ruleset);
+  $rulesLookup = array_flip($rules); // O(1) lookups instead of O(n) in_array calls
   $label = explode('_', $field);
-  /**
-   * Sanitize?
-   */
-  if (in_array('sanitize', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]))) {
-    $_POST[$field] = sanitize($_POST[$field]);
+  $fieldExists = isset($_POST[$field]);
+  $fieldValue = $fieldExists ? $_POST[$field] : '';
+  $hasValue = $fieldExists && strlen($fieldValue);
+  
+  // Static cache for compiled regex patterns (performance optimization)
+  static $regexPatterns = null;
+  if ($regexPatterns === null) {
+    $regexPatterns = [
+      'alpha' => '/^[\pL]+$/u',
+      'alpha_numeric' => '/^[\pL\w]+$/u',
+      'alpha_numeric_dash' => '/^[\pL\w_-]+$/u',
+      'username' => '/^[\pL\w.@_-]+$/u',
+      'alpha_numeric_dash_blank' => '/^[ \pL\w_-]+$/u',
+      'alpha_numeric_dash_blank_dot' => '/^[ \pL\w._-]+$/u',
+      'alpha_numeric_dash_blank_special' => '/^[ \pL\w\'!@#$%^&*()._-]+$/u',
+      'date' => '/^(\d{4})-(\d{2})-(\d{2})$/',
+      'hexadecimal' => '/^[a-f0-9]+$/i',
+      'hex_color' => '/^#?[a-f0-9]{6}$/i',
+      'phone_number' => '/^[ +0-9-()]+$/i',
+      'pwdlow' => '/^.*(?=.{4,})[a-zA-Z0-9!@#$%^&*().]+$/',
+      'pwdmedium' => '/^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*().]+$/',
+      'pwdhigh' => '/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()])[a-zA-Z0-9!@#$%^&*().]+$/'
+    ];
+  }
+  
+  // Helper function to set error and return false
+  $setError = function(string $messageKey, ...$args) use (&$inputAlert, $label, $LANG, $field) {
+    $inputAlert[$label[1]] = empty($args) ? $LANG[$messageKey] : sprintf($LANG[$messageKey], ...$args);
+    return false;
+  };
+
+  // Sanitize first if requested
+  if (isset($rulesLookup['sanitize']) && $hasValue) {
+    $_POST[$field] = sanitize($fieldValue);
+    $fieldValue = $_POST[$field]; // Update cached value
   }
 
-  /**
-   * Required field submitted?
-   */
-  if (in_array('required', $rules) && (!isset($_POST[$field]) || !strlen($_POST[$field]))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_required'];
-    return false;
+  // Required field check - early return for missing required fields
+  if (isset($rulesLookup['required']) && !$hasValue) {
+    return $setError('alert_input_required');
+  }
+  
+  // Early return if field is empty and not required (no need to validate empty optional fields)
+  if (!$hasValue) {
+    return true;
+  }
+  
+  // Cache multibyte string length for length-based validations
+  $mbLength = null;
+  $getMbLength = function() use (&$mbLength, $fieldValue) {
+    if ($mbLength === null) {
+      $mbLength = mb_strlen($fieldValue);
+    }
+    return $mbLength;
+  };
+  
+  // Cache numeric check for numeric validations
+  $isNumeric = null;
+  $getIsNumeric = function() use (&$isNumeric, $fieldValue) {
+    if ($isNumeric === null) {
+      $isNumeric = is_numeric($fieldValue);
+    }
+    return $isNumeric;
+  };
+
+  // Pattern-based validations using cached regex patterns
+  foreach (['alpha', 'alpha_numeric', 'alpha_numeric_dash', 'username', 'alpha_numeric_dash_blank', 
+           'alpha_numeric_dash_blank_dot', 'alpha_numeric_dash_blank_special', 'hexadecimal', 
+           'hex_color', 'phone_number', 'pwdlow', 'pwdmedium', 'pwdhigh'] as $rule) {
+    if (isset($rulesLookup[$rule]) && !preg_match($regexPatterns[$rule], $fieldValue)) {
+      return $setError('alert_input_' . $rule);
+    }
   }
 
-  /**
-   * Alpha characters?
-   */
-  if (in_array('alpha', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !preg_match("/^[\pL]+$/u", $_POST[$field]))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_alpha'];
-    return false;
+  // Special validations
+  if (isset($rulesLookup['ctype_graph']) && !ctype_graph($fieldValue)) {
+    return $setError('alert_input_ctype_graph');
   }
 
-  /**
-   * Alphanumeric characters?
-   */
-  if (in_array('alpha_numeric', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !preg_match("/^[\pL\w]+$/u", $_POST[$field]))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_alpha_numeric'];
-    return false;
+  if (isset($rulesLookup['date']) && !preg_match($regexPatterns['date'], trim($fieldValue))) {
+    return $setError('alert_input_date');
   }
 
-  /**
-   * Alphanumeric plus dash and underscore?
-   */
-  if (in_array('alpha_numeric_dash', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !preg_match("/^([\pL\w_-])+$/u", $_POST[$field]))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_alpha_numeric_dash'];
-    return false;
+  if (isset($rulesLookup['email']) && !validEmail($fieldValue)) {
+    return $setError('alert_input_email');
   }
 
-  /**
-   * Alphanumeric plus dot and @?
-   */
-  if (in_array('username', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !preg_match("/^([\pL\w.@_-])+$/u", $_POST[$field]))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_username'];
-    return false;
+  // Numeric validations
+  if (isset($rulesLookup['numeric']) && !$getIsNumeric()) {
+    return $setError('alert_input_numeric');
   }
 
-  /**
-   * Alphanumeric plus dash, underscore and blank?
-   */
-  if (in_array('alpha_numeric_dash_blank', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !preg_match("/^[ \pL\w_-]+$/u", $_POST[$field]))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_alpha_numeric_dash_blank'];
-    return false;
+  if (isset($rulesLookup['equals']) && ($getIsNumeric() && $fieldValue != $param)) {
+    return $setError('alert_input_equal', $field, $param);
   }
 
-  /**
-   * Alphanumeric plus dash, underscore, blank and dot?
-   */
-  if (in_array('alpha_numeric_dash_blank_dot', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !preg_match("/^[ \pL\w._-]+$/u", $_POST[$field]))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_alpha_numeric_dash_blank_dot'];
-    return false;
+  if (isset($rulesLookup['greater_than']) && ($getIsNumeric() && $fieldValue <= $param)) {
+    return $setError('alert_input_greater_than', $param);
   }
 
-  /**
-   * Alphanumeric plus dash, underscore, blank and special?
-   */
-  if (in_array('alpha_numeric_dash_blank_special', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !preg_match("/^[ \pL\w'!@#$%^&*()._-]+$/u", $_POST[$field]))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_alpha_numeric_dash_blank_special'];
-    return false;
+  if (isset($rulesLookup['less_than']) && ($getIsNumeric() && $fieldValue >= $param)) {
+    return $setError('alert_input_less_than', $param);
   }
 
-  /**
-   * Only displayable/printable characters?
-   */
-  if (in_array('ctype_graph', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !ctype_graph($_POST[$field]))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_ctype_graph'];
-    return false;
+  // String comparisons
+  if (isset($rulesLookup['equals_string']) && $fieldValue != $param) {
+    return $setError('alert_input_equal_string', $param);
   }
 
-  /**
-   * Date-only in ISO 8601 format YYYY-MM-DD?
-   */
-  if (in_array('date', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !preg_match("/^(\d{4})-(\d{2})-(\d{2})$/", trim($_POST[$field])))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_date'];
-    return false;
+  // Length validations
+  if (isset($rulesLookup['exact_length']) && $getMbLength() != $param) {
+    return $setError('alert_input_exact_length', $param);
   }
 
-  /**
-   * Valid email?
-   */
-  if (in_array('email', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !validEmail($_POST[$field]))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_email'];
-    return false;
+  if (isset($rulesLookup['max_length']) && $getMbLength() > $param) {
+    return $setError('alert_input_max_length', $param);
   }
 
-  /**
-   * Equals?
-   */
-  if (in_array('equals', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && is_numeric($_POST[$field]) && !$_POST[$field] == $param)) {
-    $inputAlert[$label[1]] = sprintf($LANG['alert_input_equal'], $field, $param);
-    return false;
+  if (isset($rulesLookup['min_length']) && $getMbLength() < $param) {
+    return $setError('alert_input_min_length', $param);
   }
 
-  /**
-   * Equals string?
-   */
-  if (in_array('equals_string', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && $_POST[$field] != $param)) {
-    $inputAlert[$label[1]] = sprintf($LANG['alert_input_equal_string'], $param);
-    return false;
+  // Advanced validations
+  if (isset($rulesLookup['ip_address']) && !filter_var($fieldValue, FILTER_VALIDATE_IP)) {
+    return $setError('alert_input_ip_address');
   }
 
-  /**
-   * Exact length?
-   */
-  if (in_array('exact_length', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && mb_strlen($_POST[$field]) != $param)) {
-    $inputAlert[$label[1]] = sprintf($LANG['alert_input_exact_length'], $param);
-    return false;
+  if (isset($rulesLookup['match']) && isset($_POST[$param]) && strlen($_POST[$param]) && $fieldValue != $_POST[$param]) {
+    return $setError('alert_input_match', $field, $param);
   }
 
-  /**
-   * Greater than?
-   */
-  if (in_array('greater_than', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && is_numeric($_POST[$field]) && !$_POST[$field] > $param)) {
-    $inputAlert[$label[1]] = sprintf($LANG['alert_input_greater_than'], $param);
-    return false;
+  if (isset($rulesLookup['regex_match']) && !preg_match($param, $fieldValue)) {
+    return $setError('alert_input_regex_match', $param);
   }
 
-  /**
-   * Hexadecimal
-   */
-  if (in_array('hexadecimal', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !preg_match("/^([a-f0-9])+$/i", $_POST[$field]))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_hexadecimal'];
-    return false;
-  }
-
-  /**
-   * IP address?
-   */
-  if (in_array('ip_address', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !filter_var($_POST[$field], FILTER_VALIDATE_IP))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_ip_address'];
-    return false;
-  }
-
-  /**
-   * Less than?
-   */
-  if (in_array('less_than', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && is_numeric($_POST[$field]) && !$_POST[$field] < $param)) {
-    $inputAlert[$label[1]] = sprintf($LANG['alert_input_less_than'], $param);
-    return false;
-  }
-
-  /**
-   * Matches another field?
-   */
-  if (in_array('match', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && isset($_POST[$param]) && strlen($_POST[$param]) && $_POST[$field] != $_POST[$param])) {
-    $inputAlert[$label[1]] = sprintf($LANG['alert_input_match'], $field, $param);
-    return false;
-  }
-
-  /**
-   * Maximal length?
-   */
-  if (in_array('max_length', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && mb_strlen($_POST[$field]) > $param)) {
-    $inputAlert[$label[1]] = sprintf($LANG['alert_input_max_length'], $param);
-    return false;
-  }
-
-  /**
-   * Minimal length?
-   */
-  if (in_array('min_length', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && mb_strlen($_POST[$field]) < $param)) {
-    $inputAlert[$label[1]] = sprintf($LANG['alert_input_min_length'], $param);
-    return false;
-  }
-
-  /**
-   * Numeric?
-   */
-  if (in_array('numeric', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !is_numeric($_POST[$field]))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_numeric'];
-    return false;
-  }
-
-  /**
-   * Password low strength?
-   */
-  if (in_array('pwdlow', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !preg_match("/^.*(?=.{4,})[a-zA-Z0-9!@#$%^&*().]+$/", $_POST[$field]))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_pwdlow'];
-    return false;
-  }
-
-  /**
-   * Password med strength?
-   */
-  if (in_array('pwdmedium', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !preg_match("/^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*().]+$/", $_POST[$field]))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_pwdmedium'];
-    return false;
-  }
-
-  /**
-   * Password med strength?
-   */
-  if (in_array('pwdhigh', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !preg_match("/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()])[a-zA-Z0-9!@#$%^&*().]+$/", $_POST[$field]))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_pwdhigh'];
-    return false;
-  }
-
-  /**
-   * Phone number?
-   */
-  if (in_array('phone_number', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !preg_match("/^([ +0-9-()])+$/i", $_POST[$field]))) {
-    $inputAlert[$label[1]] = $LANG['alert_input_phone_number'];
-    return false;
-  }
-
-  /**
-   * Validates against a custom regex?
-   */
-  if (in_array('regex_match', $rules) && (isset($_POST[$field]) && strlen($_POST[$field]) && !preg_match($param, $_POST[$field]))) {
-    $inputAlert[$label[1]] = sprintf($LANG['alert_input_regex_match'], $param);
-    return false;
-  }
   return true;
 }
 

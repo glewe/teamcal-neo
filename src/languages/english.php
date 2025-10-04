@@ -207,6 +207,7 @@ $LANG['alert_input_equal'] = 'The value of this field must be the same as in the
 $LANG['alert_input_equal_string'] = 'The string in this field must be "%s".';
 $LANG['alert_input_exact_length'] = 'The input of this field must be exactly "%s" characters.';
 $LANG['alert_input_greater_than'] = 'The value of this field must be greater than the field "%s".';
+$LANG['alert_input_hex_color'] = 'This field allows only a six character long hexadecimal color code, e.g. FF5733.';
 $LANG['alert_input_hexadecimal'] = 'This field allows hexadecimal characters only.';
 $LANG['alert_input_ip_address'] = 'The input of this field is not a valid IP address.';
 $LANG['alert_input_less_than'] = 'The value of this field must be less than the field "%s".';
