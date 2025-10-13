@@ -827,7 +827,7 @@ function countAbsence(string $user = '%', string $absid = '', string $from = '',
   $otherTotal = 0;
   if ($combined) {
     foreach ($absences as $otherAbs) {
-      if ($otherId = $otherAbs['counts_as'] && $otherId == $absid) {
+      if (($otherId = $otherAbs['counts_as']) && $otherId == $absid) {
         $otherCount = 0;
         $otherFactor = $otherAbs['factor'];
         $year = $startyear;
