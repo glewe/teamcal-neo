@@ -206,11 +206,27 @@ function importUsersFromCSV(string $file, bool $lock = true, bool $hide = true):
           fclose($fpointer);
           return false;
         } else {
-          if (!$UI->findByName(trim($arr[0])) && $arr[0] != "admin" && preg_match('/^[a-zA-Z0-9]*$/', $arr[0])) {
-            $UI->username = trim($arr[0]);
-            $UI->firstname = $arr[1];
-            $UI->lastname = $arr[2];
-            $UI->email = $arr[3];
+          $trimmedUsername = trim($arr[0]);
+          $trimmedFirstname = trim($arr[1]);
+          $trimmedLastname = trim($arr[2]);
+          $trimmedEmail = trim($arr[3]);
+
+          // Validate all fields with length and security checks
+          if (
+            !$UI->findByName($trimmedUsername) &&
+            $trimmedUsername != "admin" &&
+            preg_match('/^[a-zA-Z0-9]*$/', $trimmedUsername) &&
+            strlen($trimmedUsername) >= 2 && strlen($trimmedUsername) <= 40 &&
+            !empty($trimmedFirstname) && strlen($trimmedFirstname) <= 80 &&
+            !empty($trimmedLastname) && strlen($trimmedLastname) <= 80 &&
+            filter_var($trimmedEmail, FILTER_VALIDATE_EMAIL) && strlen($trimmedEmail) <= 100
+          ) {
+            $UI->username = $trimmedUsername;
+            $UI->firstname = $trimmedFirstname;
+            $UI->lastname = $trimmedLastname;
+            $UI->email = $trimmedEmail;
+            // Set default password - users should change this on first login
+            // Consider generating random passwords for better security
             $UI->password = password_hash("password", PASSWORD_DEFAULT);
             $UI->role = '2'; // Default role "User"
             $UI->locked = '0';
@@ -231,9 +247,9 @@ function importUsersFromCSV(string $file, bool $lock = true, bool $hide = true):
             //
             // Default user options
             //
-            $UOI->save($_POST['txt_username'], 'gender', 'male');
-            $UOI->save($_POST['txt_username'], 'avatar', 'default_male.png');
-            $UOI->save($_POST['txt_username'], 'language', 'default');
+            $UOI->save($UI->username, 'gender', 'male');
+            $UOI->save($UI->username, 'avatar', 'default_male.png');
+            $UOI->save($UI->username, 'language', 'default');
             $fullname = $UI->firstname . " " . $UI->lastname;
             $LOG->logEvent("logUser", $L->checkLogin(), "log_csv_import", $UI->username . " (" . $fullname . ")");
           }

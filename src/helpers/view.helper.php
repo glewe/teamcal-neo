@@ -150,8 +150,8 @@ function createFormGroup(array $data, int $colsleft, int $colsright, int $tabind
           </label>
           <div class="col-lg-' . $colsright . '">
           <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="' . $data['name'] . '" name="chk_' . $data['name'] . '" value="chk_' . $data['name'] . '"' . ((intval($data['value'])) ? " checked" : "") . ' tabindex="' . $tabindex . '"' . $disabled . '>
-              <label class="form-check-label">' . $LANG[$langIdx1] . '</label>
+            <input class="form-check-input" type="checkbox" id="' . $data['name'] . '" name="chk_' . $data['name'] . '" value="chk_' . $data['name'] . '"' . ((intval($data['value'])) ? " checked" : "") . ' tabindex="' . $tabindex . '"' . $disabled . '>
+            <label class="form-check-label">' . $LANG[$langIdx1] . '</label>
           </div>
           ' . $button . $error . '</div>
         </div>
