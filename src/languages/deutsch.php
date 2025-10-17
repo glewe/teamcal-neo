@@ -426,7 +426,7 @@ $LANG['config_cookieConsentCDN'] = 'Cookie Consent CDN';
 $LANG['config_cookieConsentCDN_comment'] = 'CDNs (Content Distributed Network) können einen Performance-Vorteil bieten dadurch dass populäre Web Module von Servern rund
  um den Globus geladen werden. Cookie Consent ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul
  für den Nutzer schon durch eine andere Anwendung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Schalte
- diese Option aus, wenn du ' . $appTitle . ' in einer Umgebung ohne Internetverbindung betreibst.';
+ diese Option aus, wenn du TeamCal Neo in einer Umgebung ohne Internetverbindung betreibst.';
 $LANG['config_cookieLifetime'] = 'Cookie Lebensdauer';
 $LANG['config_cookieLifetime_comment'] = 'Bei erfolgreichem Einloggen wird ein Cookie auf dem lokalen Rechner des Users abgelegt. Dieser Cookie hat eine
  bestimmte Lebensdauer, nach dem er nicht mehr anerkannt wird. Ein erneutes Login ist notwendig. Die Lebensdauer kann hier in Sekunden angegeben werden (0-999999).';
@@ -436,7 +436,7 @@ $LANG['config_defaultHomepage_comment'] = 'Diese Option bestimmt die standard St
 $LANG['config_defaultHomepage_home'] = 'Willkommen Seite';
 $LANG['config_defaultHomepage_calendarview'] = 'Kalender';
 $LANG['config_defaultLanguage'] = 'Standard Sprache';
-$LANG['config_defaultLanguage_comment'] = $appTitle . ' enthält die Sprachen Englisch und Deutsch. Der Administrator hat eventuell weitere Sprachen installiert.
+$LANG['config_defaultLanguage_comment'] = 'TeamCal Neo enthält die Sprachen Englisch und Deutsch. Der Administrator hat eventuell weitere Sprachen installiert.
  Hier kann die Standard Sprache eingestellt werden.';
 $LANG['config_defaultMenu'] = 'Menü Position';
 $LANG['config_defaultMenu_comment'] = 'Das TeamCal Neo Menü kann entweder als horizontales Menü oben oder als vertikales Menü links angezeigt werden.
@@ -456,7 +456,7 @@ $LANG['config_faCDN'] = 'Fontawesome CDN';
 $LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) können einen Performance-Vorteil bieten dadurch dass populäre Web Module von Servern rund
  um den Globus geladen werden. Fontawesome ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul
  für den Nutzer schon durch eine andere Anwendung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Diese Option
- funktioniert natürlich nur mit Internetverbindung. Schalte diese Option aus, wenn du ' . $appTitle . ' in einer Umgebung ohne Internetverbindung betreibst.';
+ funktioniert natürlich nur mit Internetverbindung. Schalte diese Option aus, wenn du TeamCal Neo in einer Umgebung ohne Internetverbindung betreibst.';
 $LANG['config_font'] = 'Schriftart';
 $LANG['config_font_comment'] = 'Wähle eine Schriftart aus. Optionen sind:<ul>
       <li>Default <i>(lädt keine extra Schriftart und nutzt die standard sans-serif Schriftart des Browsers)</i></li>
@@ -487,7 +487,7 @@ $LANG['config_gdprPolicyPage_comment'] = 'Mit dieser Option wird eine Seite mit 
  "Organisation", "Verantwortlicher" und "Datenschutzbeauftragter" unten ausgefüllt werden.<br>Weiterhin können darunter optional Erklärungen zu bestimmten sozialen Plattformen mit
  eingebunden werden, wenn sie beispielsweise im Fußbereich verlinkt sind.';
 $LANG['config_googleAnalytics'] = 'Google Analytics';
-$LANG['config_googleAnalytics_comment'] = $appTitle . ' unterstützt Google Analytics. Wenn du deine Instanz im Internet betreibst und den Zugriff
+$LANG['config_googleAnalytics_comment'] = 'TeamCal Neo unterstützt Google Analytics. Wenn du deine Instanz im Internet betreibst und den Zugriff
  von Google Analytics tracken lassen willst, ticke die Checkbox hier und trage deine Google Analytics ID ein. Der entsprechende Javascript Code wird dann eingefügt.';
 $LANG['config_googleAnalyticsID'] = "Google Analytics ID (GA4)";
 $LANG['config_googleAnalyticsID_comment'] = "Wenn du die Google Analytics Funktion aktiviert hast, trage hier deine Google Analytics GA4 ID im Format G-... ein.";
@@ -502,9 +502,9 @@ $LANG['config_jQueryCDN'] = 'jQuery CDN';
 $LANG['config_jQueryCDN_comment'] = 'CDNs (Content Distributed Network) können einen Performance-Vorteil bieten dadurch dass populäre Web Module von Servern rund
  um den Globus geladen werden. jQuery ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul
  für den Nutzer schon durch eine andere Anwendung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Schalte diese Option
- aus, wenn du ' . $appTitle . ' in einer Umgebung ohne Internetverbindung betreibst.';
+ aus, wenn du TeamCal Neo in einer Umgebung ohne Internetverbindung betreibst.';
 $LANG['config_jqtheme'] = 'jQuery UI Theme';
-$LANG['config_jqtheme_comment'] = $appTitle . ' nutzt jQuery UI, eine populäre Sammlung von Javascript Tools. jQuery UI bietet auch verschiedene Themes, die die Anzeige
+$LANG['config_jqtheme_comment'] = 'TeamCal Neo nutzt jQuery UI, eine populäre Sammlung von Javascript Tools. jQuery UI bietet auch verschiedene Themes, die die Anzeige
  der Reiterdialoge u.a. Objekten bestimmen. Das Standard Theme ist "smoothness", ein neutrales Schema mit Grautönen. Versuche andere aus der Liste, manche sind
  recht fabenfroh. Diese Einstellung wirkt global. Nutzer können kein eigenes jQuery UI Theme wählen.';
 $LANG['config_jqthemeSample'] = 'jQuery UI Theme Beispiel';
@@ -544,12 +544,12 @@ $LANG['config_mailSMTPpassword_comment'] = 'Gib das SMTP Passwort an.';
 $LANG['config_mailSMTPSSL'] = 'SMTP TLS/SSL Protokoll';
 $LANG['config_mailSMTPSSL_comment'] = 'TLS/SSL Protokoll für die SMTP Verbindung benutzen.';
 $LANG['config_matomoAnalytics'] = 'Matomo Analytics';
-$LANG['config_matomoAnalytics_comment'] = $appTitle . ' unterstützt Matomo Analytics. Wenn du die Zugriffe auf deine Instanz
+$LANG['config_matomoAnalytics_comment'] = 'TeamCal Neo unterstützt Matomo Analytics. Wenn du die Zugriffe auf deine Instanz
  von Matomo Analytics tracken lassen willst, ticke die Checkbox hier und trage deine Matomo URL und Matomo SiteId ein. Der entsprechende Javascript Code wird dann eingefügt.';
 $LANG['config_matomoUrl'] = "Matomo URL";
 $LANG['config_matomoUrl_comment'] = "Wenn du Matomo Analytics aktiviert hast, trage hier die URL zu deinem Matomo Server ein, e.g. 'mysite.com/matomo'.";
 $LANG['config_matomoSiteId'] = "Matomo SiteId";
-$LANG['config_matomoSiteId_comment'] = "Trage hier die Matomo SiteId ein, unter der du diese " . $appTitle . " Instanz im Matomo Server eingerichtet hast.";
+$LANG['config_matomoSiteId_comment'] = "Trage hier die Matomo SiteId ein, unter der du diese TeamCal Neo Instanz im Matomo Server eingerichtet hast.";
 $LANG['config_noCaching'] = 'Kein Caching';
 $LANG['config_noCaching_comment'] = 'In manchen Server-Client Umgebungen kann es zu unerwuenschten Caching Effekten kommen. Mit diesem Schalter schickt TeamCal Neo im HTML header No-caching Anweisungen zum Web Server, die hier eventuell Abhilfe schaffen.';
 $LANG['config_noIndex'] = 'Keine Suchmaschinen-Indizierung';
@@ -592,7 +592,7 @@ $LANG['config_userCustom4_comment'] = 'Gibt den Titel dieses Feldes an, der im B
 $LANG['config_userCustom5'] = 'Profilfeld 5 Titel';
 $LANG['config_userCustom5_comment'] = 'Gibt den Titel dieses Feldes an, der im Benutzerprofil Dialog angezeigt wird.';
 $LANG['config_userManual'] = 'Nutzerhandbuch';
-$LANG['config_userManual_comment'] = $appTitle . '\'s Nutzerhandbuch ist in Englisch verfügbar auf der <a href="https://lewe.gitbook.io/teamcal-neo/" target="_blank">Lewe Gitbook site</a>.
+$LANG['config_userManual_comment'] = 'TeamCal Neo\'s Nutzerhandbuch ist in Englisch verfügbar auf der <a href="https://lewe.gitbook.io/teamcal-neo/" target="_blank">Lewe Gitbook site</a>.
       Solltest du ein eigenes Handbuch geschrieben haben, kannst du den Link hier angeben. Der Link wird im Hilfe Menu angezeigt. Wenn dieses Feld leer ist, wird kein Eintrag im Hilfe Menu angezeigt.';
 $LANG['config_versionCompare'] = 'Versionsvergleich';
 $LANG['config_versionCompare_comment'] = 'Mit dieser Option überprüft TeamCal Neo auf der "Über TeamCal Neo" Seite die laufende Version und vergleicht sie mit der neusten verfügbaren. Dazu benötigt
@@ -723,7 +723,7 @@ $LANG['groups_name'] = 'Name';
 //
 // Home Page
 //
-$LANG['home_title'] = 'Willkommen bei ' . $appTitle;
+$LANG['home_title'] = 'Willkommen bei TeamCal Neo';
 
 //
 // Imprint
@@ -736,13 +736,13 @@ $LANG['imprint'] = array(
   ),
   array(
     'title' => 'Autor',
-    'text' => '<p>' . $appTitle . ' wurde von George Lewe erstellt (<a href="https://www.lewe.com/">Lewe.com</a>).
-       ' . $appTitle . ' nutzt außerdem kostenlose Module von anderen großartigen Entwicklern, die dankenswerterweise
+    'text' => '<p>TeamCal Neo wurde von George Lewe erstellt (<a href="https://www.lewe.com/">Lewe.com</a>).
+       TeamCal Neo nutzt außerdem kostenlose Module von anderen großartigen Entwicklern, die dankenswerterweise
       ihre Arbeit öffentlich verfügbar machen. Details dazu befinden sich auf der <a href="index.php?action=about">Über TeamCal Neo</a> Seite.',
   ),
   array(
     'title' => 'Inhalt',
-    'text' => '<p>Die Inhalte, die mit der ' . $appTitle . ' Applikation ausgeliefert werden, wurden sorgfältig vorbereitet und
+    'text' => '<p>Die Inhalte, die mit der TeamCal Neo Applikation ausgeliefert werden, wurden sorgfältig vorbereitet und
       erstellt. Wo andere Quellen benutzt wurde, wird entsprechend darauf hingewiesen. Sollte dies nicht der Fall sein, bitte informiere George Lewe mittels dieses
       <a href="https://www.lewe.com/contact">Formulars</a>.</p>
       <p>Keine Inhalte der ausgelieferten Applikation, ganz oder in Teilen darf vervielfältigt, reproduziert, kopiert oder wiederverwendet werden, in keiner Form,
@@ -750,23 +750,20 @@ $LANG['imprint'] = array(
   ),
   array(
     'title' => 'Links',
-    'text' => '<p>Alle Links, die mit der ' . $appTitle . ' Applikation ausgeliefert werden, dienen der Annehmlichkeit und zu Informationszwecken.
+    'text' => '<p>Alle Links, die mit der TeamCal Neo Applikation ausgeliefert werden, dienen der Annehmlichkeit und zu Informationszwecken.
       Sie stellen keine Befürwortung oder Akzeptanz der verlinkten Inhalte dar, weder in Bezug auf Produkte, Services noch Meinungen der verlinkten
       Anbieter. Der Hersteller der Applikation ist nicht verantwortlich für die Richtigkeit oder Rechtmäßigkeit der verlinkten Inhalte. Bei Fragen
       oder Bedenken zu den verlinkten Inhalten kontaktiere bitte den Anbieter dort.</p>',
   ),
   array(
     'title' => 'DSGVO',
-    'text' => '<p>Die ausgelieferte Applikation ' . $appTitle . ' enthält keine persönlichen Daten. Der Schutz von persönlichen Daten, die
+    'text' => '<p>Die ausgelieferte Applikation TeamCal Neo enthält keine persönlichen Daten. Der Schutz von persönlichen Daten, die
       der Nutzer hinzufügt, obliegt alleinig dem Nutzer der Applikation.</p>
-      <p>' . $appTitle . ' bietet einen generellen DSGVO-Generator. Falls dieser benutzt wird, ist es die Pflicht des Nutzers der Applikation, die generierte
+      <p>TeamCal Neo bietet einen generellen DSGVO-Generator. Falls dieser benutzt wird, ist es die Pflicht des Nutzers der Applikation, die generierte
       DSGVO-Erklärung auf Vollständigkeit und Korrektheit zu überprüfen und gegebenenfalls entsprechend zu ändern oder zu erweitern.</p>
       <p>Der Hersteller der Applikation ist nicht verantwortlich für die Richtigkeit oder Rechtmäßigkeit der DSGVO Erklärung.</p>',
   ),
-);
-
-if ($C->read('googleAnalytics') && $C->read("googleAnalyticsID")) {
-  $LANG['imprint'][] = array(
+  array(
     'title' => 'Google Analytics',
     'text' => '<p><i class="fab fa-google fa-3x me-3 float-start" style="color: #999999;"></i>Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc.
       ("Google"). Google Analytics verwendet sog. "Cookies", Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website
@@ -788,8 +785,8 @@ if ($C->read('googleAnalytics') && $C->read("googleAnalyticsID")) {
          und nur für diese Domain). Dabei wird ein Opt-Out-Cookie auf Ihrem Gerät abgelegt. Löschen Sie Ihre Cookies in diesem Browser, müssen Sie diesen Link erneut klicken.</p>
       </div>
       <p><a class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#readmore">Mehr/Weniger Details...</a></p>',
-  );
-}
+  ),
+);
 
 //
 // License
@@ -875,7 +872,7 @@ $LANG['log_sort_desc'] = 'Absteigend sortieren...';
 //
 // Login
 //
-$LANG['login_login'] = $appTitle . ' Login';
+$LANG['login_login'] = 'Login';
 $LANG['login_username'] = 'Benutzername:';
 $LANG['login_password'] = 'Passwort:';
 $LANG['login_authcode'] = 'Authenticator Code:';
@@ -922,7 +919,7 @@ $LANG['mtce_text'] = 'Wir führen gerade Wartungsarbeiten an der Site durch. Wir
 //
 // Menu
 //
-$LANG['mnu_app'] = $appTitle;
+$LANG['mnu_app'] = 'TeamCal Neo';
 $LANG['mnu_app_homepage'] = 'Startseite';
 $LANG['mnu_app_language'] = 'Sprache';
 $LANG['mnu_view'] = 'Anzeige';
@@ -942,7 +939,7 @@ $LANG['mnu_admin_roles'] = 'Rollen';
 $LANG['mnu_admin_systemlog'] = 'System Log';
 $LANG['mnu_admin_users'] = 'Nutzer';
 $LANG['mnu_help'] = 'Hilfe';
-$LANG['mnu_help_about'] = 'Über ' . $appTitle;
+$LANG['mnu_help_about'] = 'Über TeamCal Neo';
 $LANG['mnu_help_dataprivacy'] = 'Datenschutzerklärung';
 $LANG['mnu_help_help'] = 'Nutzerhandbuch';
 $LANG['mnu_help_imprint'] = 'Impressum';
@@ -1156,15 +1153,15 @@ $LANG['profile_avatar_upload_comment'] = 'Es kann ein individueller Avatar hochl
  80x80 Pixel groß sein (wird ohnehin nur in dieser Größe dargestellt) und die erlaubten Formate sind "%s".';
 $LANG['profile_confirm_archive'] = 'Bist du sicher, dass du dieses Nutzerkonto archivieren möchtest?';
 $LANG['profile_confirm_delete'] = 'Bist du sicher, dass du dieses Nutzerkonto löschen möchtest?';
-$LANG['profile_custom1'] = $C->read('userCustom1');
+$LANG['profile_custom1'] = 'Benutzerdefiniert 1';
 $LANG['profile_custom1_comment'] = 'Gib einen Text von maximal 80 Zeichen ein.';
-$LANG['profile_custom2'] = $C->read('userCustom2');
+$LANG['profile_custom2'] = 'Benutzerdefiniert 2';
 $LANG['profile_custom2_comment'] = 'Gib einen Text von maximal 80 Zeichen ein.';
-$LANG['profile_custom3'] = $C->read('userCustom3');
+$LANG['profile_custom3'] = 'Benutzerdefiniert 3';
 $LANG['profile_custom3_comment'] = 'Gib einen Text von maximal 80 Zeichen ein.';
-$LANG['profile_custom4'] = $C->read('userCustom4');
+$LANG['profile_custom4'] = 'Benutzerdefiniert 4';
 $LANG['profile_custom4_comment'] = 'Gib einen Text von maximal 80 Zeichen ein.';
-$LANG['profile_custom5'] = $C->read('userCustom5');
+$LANG['profile_custom5'] = 'Benutzerdefiniert 5';
 $LANG['profile_custom5_comment'] = 'Gib einen Text von maximal 80 Zeichen ein.';
 $LANG['profile_defaultMenu'] = 'Menü Position';
 $LANG['profile_defaultMenu_comment'] = 'Das TeamCal Neo Menü kann entweder als horizontales Menü oben oder als vertikales Menü links angezeigt werden.

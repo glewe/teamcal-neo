@@ -408,7 +408,7 @@ $LANG['config_alertAutocloseSuccess_comment'] = 'Select whether Success alerts s
 $LANG['config_alertAutocloseWarning'] = 'Close Warning Alerts automatically';
 $LANG['config_alertAutocloseWarning_comment'] = 'Select whether Warning alerts shall be automatically closed after the amount of milliseconds specified below.';
 $LANG['config_allowRegistration'] = 'Allow User Self-Registration';
-$LANG['config_allowRegistration_comment'] = 'Allow users to self-register their account. A menu entry will be available in the ' . $appTitle . ' menu.';
+$LANG['config_allowRegistration_comment'] = 'Allow users to self-register their account. A menu entry will be available in the TeamCal Neo menu.';
 $LANG['config_appDescription'] = 'HTML Description';
 $LANG['config_appDescription_comment'] = 'Enter an application description here. It will be used in the HTML header for search engines.';
 $LANG['config_appKeywords'] = 'HTML Keywords';
@@ -435,7 +435,7 @@ $LANG['config_defaultHomepage_comment'] = 'Select the default homepage. It is sh
 $LANG['config_defaultHomepage_home'] = 'Welcome Page';
 $LANG['config_defaultHomepage_calendarview'] = 'Calendar';
 $LANG['config_defaultLanguage'] = 'Default Language';
-$LANG['config_defaultLanguage_comment'] = $appTitle . ' is distributed in English and German. The administrator might have added more languages. Chose the default language of your installation here.';
+$LANG['config_defaultLanguage_comment'] = 'TeamCal Neo is distributed in English and German. The administrator might have added more languages. Chose the default language of your installation here.';
 $LANG['config_defaultMenu'] = 'Menu Position';
 $LANG['config_defaultMenu_comment'] = 'The TeamCal Neo menu can either be shown horizontally at the top or vertically on the left. The vertical menu is only suited for wide screens while the horizontal menu
  also adjusts to narrow screens (responsive). The user can change this setting individually in his profile.';
@@ -481,7 +481,7 @@ $LANG['config_gdprPolicyPage'] = 'Data Privacy Policy';
 $LANG['config_gdprPolicyPage_comment'] = 'Check to add a Data Privacy Policy page to the Help menu.<br>If selected, the fields "Organization", "Controller" and "Data Protection Officer" below must be filled in.<br>
       Below that, you can optionally include policies for certain social networks in case you have linked them in your footer.';
 $LANG['config_googleAnalytics'] = 'Google Analytics';
-$LANG['config_googleAnalytics_comment'] = $appTitle . ' supports Google Analytics. If you run your instance in the Internet and want to use Google Analytics
+$LANG['config_googleAnalytics_comment'] = 'TeamCal Neo supports Google Analytics. If you run your instance in the Internet and want to use Google Analytics
  to trace access to it, you can check this box and enter your Google Analytics ID below. The corresponding Javascript code will be added automatically.';
 $LANG['config_googleAnalyticsID'] = "Google Analytics ID (GA4)";
 $LANG['config_googleAnalyticsID_comment'] = "If you enabled the Google Analytics feature, enter your Google Analytics GA4 ID here in the format G-... .";
@@ -498,7 +498,7 @@ $LANG['config_jQueryCDN_comment'] = 'CDNs (Content Distributed Network) can offe
  to your webpage has already downloaded a copy of jQuery from the same CDN, it won\'t have to be re-downloaded.<br>Switch this option off if you are
  running the application in an environment with no Internet connectivity.';
 $LANG['config_jqtheme'] = 'jQuery UI Theme';
-$LANG['config_jqtheme_comment'] = $appTitle . ' uses jQuery UI, a popular collection of Javascript utilities. jQuery UI offers themes as well used for the display
+$LANG['config_jqtheme_comment'] = 'TeamCal Neo uses jQuery UI, a popular collection of Javascript utilities. jQuery UI offers themes as well used for the display
  of the tabbed dialogs and other features. The default theme is "smoothness" which is a neutral gray shaded theme. Try more from the list, some of them are
  quite colorful. This is a global setting, users cannot choose an individual jQuery UI theme.';
 $LANG['config_jqthemeSample'] = 'jQuery UI Theme Sample';
@@ -539,12 +539,12 @@ $LANG['config_mailSMTPpassword_comment'] = 'Specify the SMTP password.';
 $LANG['config_mailSMTPSSL'] = 'SMTP TLS/SSL protocol';
 $LANG['config_mailSMTPSSL_comment'] = 'Use the TLS/SSL protocol for the SMTP connection';
 $LANG['config_matomoAnalytics'] = 'Matomo Analytics';
-$LANG['config_matomoAnalytics_comment'] = $appTitle . ' supports Matomo Analytics. If you want to track access to your ' . $appTitle . ' application,
+$LANG['config_matomoAnalytics_comment'] = 'TeamCal Neo supports Matomo Analytics. If you want to track access to your TeamCal Neo application,
  you can check this box and enter your Matomo URL and SiteId below. The corresponding Javascript code will be added automatically.';
 $LANG['config_matomoUrl'] = "Matomo URL";
 $LANG['config_matomoUrl_comment'] = "If you enabled the Matomo Analytics feature, enter the URL where your Matomo server is hosted, e.g. 'mysite.com/matomo'.";
 $LANG['config_matomoSiteId'] = "Matomo SiteId";
-$LANG['config_matomoSiteId_comment'] = "Enter the Matomo SiteId under which you have configured this " . $appTitle . " application at your Matomo server.";
+$LANG['config_matomoSiteId_comment'] = "Enter the Matomo SiteId under which you have configured this TeamCal Neo application at your Matomo server.";
 $LANG['config_noCaching'] = 'No Caching';
 $LANG['config_noCaching_comment'] = 'In some server-client environments you might experience unwanted caching effects. With this option activated, TeamCal Neo sends No-caching instructions to the web server that might help.';
 $LANG['config_noIndex'] = 'No Search Engine Indexing';
@@ -587,7 +587,7 @@ $LANG['config_userCustom4_comment'] = 'Enter the caption of this custom user fie
 $LANG['config_userCustom5'] = 'User Custom Field 5 Caption';
 $LANG['config_userCustom5_comment'] = 'Enter the caption of this custom user field. The caption will be shown in the profile dialog.';
 $LANG['config_userManual'] = 'User Manual';
-$LANG['config_userManual_comment'] = $appTitle . '\'s user manual is maintained in English and is available at the <a href="https://lewe.gitbook.io/teamcal-neo/" target="_blank">Lewe Gitbook site</a>.
+$LANG['config_userManual_comment'] = 'TeamCal Neo\'s user manual is maintained in English and is available at the <a href="https://lewe.gitbook.io/teamcal-neo/" target="_blank">Lewe Gitbook site</a>.
       If you have written your own manual, enter the link here. It will be displayed in the Help menu as long as the field is not empty.';
 $LANG['config_versionCompare'] = 'Version Compare';
 $LANG['config_versionCompare_comment'] = 'With this option enabled, TeamCal Neo\'s About page will compare the running version with the newest version available. In order to do so,
@@ -718,7 +718,7 @@ $LANG['groups_name'] = 'Name';
 //
 // Home Page
 //
-$LANG['home_title'] = 'Welcome to ' . $appTitle;
+$LANG['home_title'] = 'Welcome to TeamCal Neo';
 
 //
 // Imprint
@@ -727,35 +727,32 @@ $LANG['home_title'] = 'Welcome to ' . $appTitle;
 $LANG['imprint'] = array(
   array(
     'title' => 'Author',
-    'text' => '<p>' . $appTitle . ' was created by George Lewe (<a href="https://www.lewe.com/">Lewe.com</a>).
-      ' . $appTitle . ' also uses free modules by other great people providing those awesome techonolgies to the public.
+    'text' => '<p>TeamCal Neo was created by George Lewe (<a href="https://www.lewe.com/">Lewe.com</a>).
+      TeamCal Neo also uses free modules by other great people providing those awesome techonolgies to the public.
       See detailed credits on the <a href="index.php?action=about">About page</a>.</p>',
   ),
   array(
     'title' => 'Content',
-    'text' => '<p>All content delivered with the ' . $appTitle . ' application was created by George Lewe (<a href="https://www.lewe.com/">Lewe.com</a>).
+    'text' => '<p>All content delivered with the TeamCal Neo application was created by George Lewe (<a href="https://www.lewe.com/">Lewe.com</a>).
       If you feel that any material is used inappropriately, please contact <a href="https://www.lewe.com/contact/">Lewe.com</a>.</p>
       <p>None of the application content, as a whole or in parts may be reproduced, copied or reused in any form or by any means, electronic or mechanical,
       for any purpose, without the express written permission of George Lewe.</p>',
   ),
   array(
     'title' => 'Links',
-    'text' => '<p>All links delivered with the ' . $appTitle . ' application are being provided as a convenience
-      and for informational purposes only; they do not constitute an endorsement or an approval by ' . $appTitle . ' of the products, services or opinions
+    'text' => '<p>All links delivered with the TeamCal Neo application are being provided as a convenience
+      and for informational purposes only; they do not constitute an endorsement or an approval by TeamCal Neo of the products, services or opinions
       of the corporation or organization or individual. The application provider bears no responsibility for the accuracy, legality or content of the external site or
       for that of subsequent links. Contact the external site for questions regarding its content.</p>',
   ),
   array(
     'title' => 'GDPR',
-    'text' => '<p>No personal data is delivered with the ' . $appTitle . ' application. Data privacy protection of any data added by users lies in the
-      responsibility of the user.</p><p>' . $appTitle . ' provides a general GDPR generator. If used, users of the application are obliged to review the generated statement
+    'text' => '<p>No personal data is delivered with the TeamCal Neo application. Data privacy protection of any data added by users lies in the
+      responsibility of the user.</p><p>TeamCal Neo provides a general GDPR generator. If used, users of the application are obliged to review the generated statement
       and to change or add any details that the generator does not properly cover.</p><p>The application provider bears no responsibility for the accuracy,
       legality or content of the Data Privacy statement used on any installation of the application.</p>',
   ),
-);
-
-if ($C->read('googleAnalytics') && $C->read("googleAnalyticsID")) {
-  $LANG['imprint'][] = array(
+  array(
     'title' => 'Google Analytics',
     'text' => '<p><i class="fab fa-google fa-3x float-start" style="color: #999999;"></i>This website may use Google Analytics, if so configured by the administrator, a web analytics service provided by
       Google, Inc. ("Google"). Google Analytics uses "cookies", which are text files placed on your computer, to help the website analyze how users use the site.
@@ -775,8 +772,8 @@ if ($C->read('googleAnalytics') && $C->read("googleAnalyticsID")) {
          this domain). An opt-out cookie will be stored on your device, which means that you\'ll have to click this link again, if you delete your cookies.</p>
       </div>
       <p><a class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#readmore">Read more/less...</a></p>',
-  );
-}
+  ),
+);
 
 //
 // License
@@ -909,7 +906,7 @@ $LANG['mtce_text'] = 'The site is currently under maintenance. We apologize for 
 //
 // Menu
 //
-$LANG['mnu_app'] = $appTitle;
+$LANG['mnu_app'] = 'TeamCal Neo';
 $LANG['mnu_app_homepage'] = 'Home page';
 $LANG['mnu_app_language'] = 'Language';
 $LANG['mnu_view'] = 'View';
@@ -929,11 +926,11 @@ $LANG['mnu_admin_roles'] = 'Roles';
 $LANG['mnu_admin_systemlog'] = 'System Log';
 $LANG['mnu_admin_users'] = 'Users';
 $LANG['mnu_help'] = 'Help';
+$LANG['mnu_help_about'] = 'About TeamCal Neo';
 $LANG['mnu_help_dataprivacy'] = 'Data Privacy Policy';
 $LANG['mnu_help_help'] = 'User Manual';
 $LANG['mnu_help_imprint'] = 'Imprint';
 $LANG['mnu_help_legend'] = 'Legend';
-$LANG['mnu_help_about'] = 'About ' . $appTitle;
 $LANG['mnu_theme'] = 'Theme';
 $LANG['mnu_theme_auto'] = 'Auto';
 $LANG['mnu_theme_dark'] = 'Dark Mode';
@@ -1144,15 +1141,15 @@ $LANG['profile_avatar_upload_comment'] = 'You can upload a custom avatar. The si
  80x80 pixels (will be displayed in those dimensions anyways) and the allowed formats are "%s".';
 $LANG['profile_confirm_archive'] = 'Are you sure you want to archive this user?';
 $LANG['profile_confirm_delete'] = 'Are you sure you want to delete this user?';
-$LANG['profile_custom1'] = $C->read('userCustom1');
+$LANG['profile_custom1'] = 'User custom field 1';
 $LANG['profile_custom1_comment'] = 'Enter a text value of maximal 80 characters.';
-$LANG['profile_custom2'] = $C->read('userCustom2');
+$LANG['profile_custom2'] = 'User custom field 2';
 $LANG['profile_custom2_comment'] = 'Enter a text value of maximal 80 characters.';
-$LANG['profile_custom3'] = $C->read('userCustom3');
+$LANG['profile_custom3'] = 'User custom field 3';
 $LANG['profile_custom3_comment'] = 'Enter a text value of maximal 80 characters.';
-$LANG['profile_custom4'] = $C->read('userCustom4');
+$LANG['profile_custom4'] = 'User custom field 4';
 $LANG['profile_custom4_comment'] = 'Enter a text value of maximal 80 characters.';
-$LANG['profile_custom5'] = $C->read('userCustom5');
+$LANG['profile_custom5'] = 'User custom field 5';
 $LANG['profile_custom5_comment'] = 'Enter a text value of maximal 80 characters.';
 $LANG['profile_defaultMenu'] = 'Menu Position';
 $LANG['profile_defaultMenu_comment'] = 'The TeamCal Neo menu can either be shown horizontally at the top or vertically on the left. The vertical menu is only suited for wide screens while the horizontal menu
