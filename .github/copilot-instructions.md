@@ -1,5 +1,3 @@
-<!-- Copilot instructions for TeamCal Neo -->
-
 # TeamCal Neo — Quick AI contributor guide
 
 This repository is a PHP-based single-repository web application (not a framework app). The goal of these pages is to give an AI coding agent the specific, actionable context needed to make safe, useful changes.
@@ -39,5 +37,28 @@ Examples to reference
 - Helpers and validators: `src/helpers/global.helper.php` (form validation, sanitize, date helpers)
 - App config & feature toggles: `src/config/config.app.php`
 - Composer scripts and build: `composer.json`
+
+Coding conventions
+- refer to .editorconfig for indentation, spacing, and other style rules.
+- PHPDoc comments for all classes
+- PHPDoc comments for all methods as follows:
+
+```
+  /**
+   * --------------------------------------------------------------------------
+   * Title of the Method
+   * --------------------------------------------------------------------------
+   *
+   * Short description of what the method does.
+   *
+   * @param string $param1     Description of the first parameter.
+   * @param int    $parameter2 Description of the second parameter.
+   *
+   * @return type Description of the return value.
+   */
+  function exampleMethod($param1, $param2) {
+    // method implementation
+  }
+```
 
 If anything above is unclear or you need extra examples (e.g., sample controller that reads/saves users), ask for specific files to inspect and I will extract minimal, safe change examples.
