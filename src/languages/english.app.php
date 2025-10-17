@@ -170,19 +170,19 @@ $LANG['absum_remainder'] = 'Remainder';
 //
 // Alerts
 //
-$LANG['alert_decl_allowmonth_reached'] = "The maximum amount of %1% per month for this absence type is exceeded.";
-$LANG['alert_decl_allowweek_reached'] = "The maximum amount of %1% per week for this absence type is exceeded.";
-$LANG['alert_decl_allowyear_reached'] = "The maximum amount of %1% per year for this absence type is exceeded.";
-$LANG['alert_decl_approval_required'] = "This absence type requires approval. It has been entered in your calendar but a daynote was added to indicate that it is not approved yet. Your manager was informed by mail.";
-$LANG['alert_decl_approval_required_daynote'] = "This absence was requested but is not approved yet.";
-$LANG['alert_decl_before_date'] = "Absence changes before the following date are not allowed: ";
-$LANG['alert_decl_group_minpresent'] = "Group minimum presence threshold reached for group(s): ";
-$LANG['alert_decl_group_maxabsent'] = "Group maximum absence threshold reached for group(s): ";
-$LANG['alert_decl_group_threshold'] = "Group absence threshold reached for your group(s): ";
-$LANG['alert_decl_holiday_noabsence'] = "This day is a holiday that does not allow absences.";
-$LANG['alert_decl_period'] = "Absence changes in the following period are not allowed: ";
-$LANG['alert_decl_takeover'] = "Absence type '%s' not enabled for take-over.";
-$LANG['alert_decl_total_threshold'] = "Total absence threshold reached.";
+$LANG['alert_decl_allowmonth_reached'] = 'The maximum amount of %1% per month for this absence type is exceeded.';
+$LANG['alert_decl_allowweek_reached'] = 'The maximum amount of %1% per week for this absence type is exceeded.';
+$LANG['alert_decl_allowyear_reached'] = 'The maximum amount of %1% per year for this absence type is exceeded.';
+$LANG['alert_decl_approval_required'] = 'This absence type requires approval. It has been entered in your calendar but a daynote was added to indicate that it is not approved yet. Your manager was informed by mail.';
+$LANG['alert_decl_approval_required_daynote'] = 'This absence was requested but is not approved yet.';
+$LANG['alert_decl_before_date'] = 'Absence changes before the following date are not allowed: ';
+$LANG['alert_decl_group_minpresent'] = 'Group minimum presence threshold reached for group(s): ';
+$LANG['alert_decl_group_maxabsent'] = 'Group maximum absence threshold reached for group(s): ';
+$LANG['alert_decl_group_threshold'] = 'Group absence threshold reached for your group(s): ';
+$LANG['alert_decl_holiday_noabsence'] = 'This day is a holiday that does not allow absences.';
+$LANG['alert_decl_period'] = 'Absence changes in the following period are not allowed: ';
+$LANG['alert_decl_takeover'] = 'Absence type \'%s\' not enabled for take-over.';
+$LANG['alert_decl_total_threshold'] = 'Total absence threshold reached.';
 
 //
 // Bulk Edit
