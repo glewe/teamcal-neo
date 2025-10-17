@@ -314,7 +314,7 @@ $LANG['btn_create_holiday'] = 'Feiertag anlegen';
 $LANG['btn_create_region'] = 'Region anlegen';
 $LANG['btn_create_role'] = 'Rolle anlegen';
 $LANG['btn_create_user'] = 'Benutzer anlegen';
-$LANG['btn_deactivate'] = "Deaktivieren";
+$LANG['btn_deactivate'] = 'Deaktivieren';
 $LANG['btn_delete'] = 'Löschen';
 $LANG['btn_delete_abs'] = 'Abwesenheitstyp löschen';
 $LANG['btn_delete_all'] = 'Alle löschen';
@@ -489,8 +489,8 @@ $LANG['config_gdprPolicyPage_comment'] = 'Mit dieser Option wird eine Seite mit 
 $LANG['config_googleAnalytics'] = 'Google Analytics';
 $LANG['config_googleAnalytics_comment'] = 'TeamCal Neo unterstützt Google Analytics. Wenn du deine Instanz im Internet betreibst und den Zugriff
  von Google Analytics tracken lassen willst, ticke die Checkbox hier und trage deine Google Analytics ID ein. Der entsprechende Javascript Code wird dann eingefügt.';
-$LANG['config_googleAnalyticsID'] = "Google Analytics ID (GA4)";
-$LANG['config_googleAnalyticsID_comment'] = "Wenn du die Google Analytics Funktion aktiviert hast, trage hier deine Google Analytics GA4 ID im Format G-... ein.";
+$LANG['config_googleAnalyticsID'] = 'Google Analytics ID (GA4)';
+$LANG['config_googleAnalyticsID_comment'] = 'Wenn du die Google Analytics Funktion aktiviert hast, trage hier deine Google Analytics GA4 ID im Format G-... ein.';
 $LANG['config_gracePeriod'] = 'Schonfrist';
 $LANG['config_gracePeriod_comment'] = 'Zeit in Sekunden, die ein User warten muss, bevor er sich nach zu vielen fehlgeschlagenen Versuchen wieder einloggen kann.';
 $LANG['config_homepage'] = 'Benutzer Startseite';
@@ -509,19 +509,19 @@ $LANG['config_jqtheme_comment'] = 'TeamCal Neo nutzt jQuery UI, eine populäre S
  recht fabenfroh. Diese Einstellung wirkt global. Nutzer können kein eigenes jQuery UI Theme wählen.';
 $LANG['config_jqthemeSample'] = 'jQuery UI Theme Beispiel';
 $LANG['config_jqthemeSample_comment'] = 'Probier den Datumspicker hier aus um das aktuelle jQuery Theme zu sehen. Das Datum wird nicht gespeichert.';
-$LANG['config_licActivate'] = "Lizenz Aktivieren";
-$LANG['config_licActivate_comment'] = "Deine Lizenz ist noch nicht aktiv. Bitte aktiviere sie.";
-$LANG['config_licExpiryWarning'] = "Lizenz-Ablaufwarnung";
-$LANG['config_licExpiryWarning_comment'] = "Gib die Anzahl der Tage bis zum Ablaufen der Lizenz ein, ab dem TeamCal Neo eine entsprechende Warnung anzeigen soll. Setze den Wert auf 0 für keine Warnung.";
-$LANG['config_licKey'] = "Lizenzschlüssel";
-$LANG['config_licKey_comment'] = "Gib hier den Lizenzschlüssel ein, den du bei der Registrierung von TeamCal Neo erhalten hast.<br><i class='bi-exclamation-triangle text-warning me-2'></i>
-<i>Ein neuer Lizenzschlüssel muss zunächst mit [Speichern] gespeichert werden bevor eine Aktivierung, Registrierung oder De-Registrierung angestoßen werden kann.</i>";
-$LANG['config_licRegister'] = "Domain Registrieren";
-$LANG['config_licRegister_comment'] = "Diese TeamCal Neo Domain ist nicht für den angegebenen Lizenzschlüssel registriert.<br>Wenn der Lizenzschlüssel gültig ist und mehr als eine Domain erlaubt, klicke '" . $LANG['btn_register'] . "', um diese Domain hinzuzufügen. Andernfalls gib bitte einen neuen gültigen Lizenzschlüssel ein und klicke '" . $LANG['btn_apply'] . "'.";
-$LANG['config_licDeregister'] = "Domain De-Registrieren";
-$LANG['config_licDeregister_comment'] = "Du kannst diese TeamCal Neo Domain von der Lizenz deregistrieren, z.B. wenn du auf eine neuen Domain umziehen willst. Deregistriere diese Domain hier und registriere die neue von dort.";
-$LANG['config_logLanguage'] = "Logbuchsprache";
-$LANG['config_logLanguage_comment'] = "Diese Einstellung bestimmt die Sprache der Logbucheinträge.";
+$LANG['config_licActivate'] = 'Lizenz Aktivieren';
+$LANG['config_licActivate_comment'] = 'Deine Lizenz ist noch nicht aktiv. Bitte aktiviere sie.';
+$LANG['config_licExpiryWarning'] = 'Lizenz-Ablaufwarnung';
+$LANG['config_licExpiryWarning_comment'] = 'Gib die Anzahl der Tage bis zum Ablaufen der Lizenz ein, ab dem TeamCal Neo eine entsprechende Warnung anzeigen soll. Setze den Wert auf 0 für keine Warnung.';
+$LANG['config_licKey'] = 'Lizenzschlüssel';
+$LANG['config_licKey_comment'] = 'Gib hier den Lizenzschlüssel ein, den du bei der Registrierung von TeamCal Neo erhalten hast.<br><i class=\'bi-exclamation-triangle text-warning me-2\'></i>
+<i>Ein neuer Lizenzschlüssel muss zunächst mit [Speichern] gespeichert werden bevor eine Aktivierung, Registrierung oder De-Registrierung angestoßen werden kann.</i>';
+$LANG['config_licRegister'] = 'Domain Registrieren';
+$LANG['config_licRegister_comment'] = 'Diese TeamCal Neo Domain ist nicht für den angegebenen Lizenzschlüssel registriert.<br>Wenn der Lizenzschlüssel gültig ist und mehr als eine Domain erlaubt, klicke \'' . $LANG['btn_register'] . '\', um diese Domain hinzuzufügen. Andernfalls gib bitte einen neuen gültigen Lizenzschlüssel ein und klicke \'' . $LANG['btn_apply'] . '\'.';
+$LANG['config_licDeregister'] = 'Domain De-Registrieren';
+$LANG['config_licDeregister_comment'] = 'Du kannst diese TeamCal Neo Domain von der Lizenz deregistrieren, z.B. wenn du auf eine neuen Domain umziehen willst. Deregistriere diese Domain hier und registriere die neue von dort.';
+$LANG['config_logLanguage'] = 'Logbuchsprache';
+$LANG['config_logLanguage_comment'] = 'Diese Einstellung bestimmt die Sprache der Logbucheinträge.';
 $LANG['config_mailFrom'] = 'Mail Von';
 $LANG['config_mailFrom_comment'] = 'Gibt den Absender Namen von Benachrichtigungs E-Mails an.';
 $LANG['config_mailReply'] = 'Mail Antwort';
@@ -546,10 +546,10 @@ $LANG['config_mailSMTPSSL_comment'] = 'TLS/SSL Protokoll für die SMTP Verbindun
 $LANG['config_matomoAnalytics'] = 'Matomo Analytics';
 $LANG['config_matomoAnalytics_comment'] = 'TeamCal Neo unterstützt Matomo Analytics. Wenn du die Zugriffe auf deine Instanz
  von Matomo Analytics tracken lassen willst, ticke die Checkbox hier und trage deine Matomo URL und Matomo SiteId ein. Der entsprechende Javascript Code wird dann eingefügt.';
-$LANG['config_matomoUrl'] = "Matomo URL";
-$LANG['config_matomoUrl_comment'] = "Wenn du Matomo Analytics aktiviert hast, trage hier die URL zu deinem Matomo Server ein, e.g. 'mysite.com/matomo'.";
-$LANG['config_matomoSiteId'] = "Matomo SiteId";
-$LANG['config_matomoSiteId_comment'] = "Trage hier die Matomo SiteId ein, unter der du diese TeamCal Neo Instanz im Matomo Server eingerichtet hast.";
+$LANG['config_matomoUrl'] = 'Matomo URL';
+$LANG['config_matomoUrl_comment'] = 'Wenn du Matomo Analytics aktiviert hast, trage hier die URL zu deinem Matomo Server ein, e.g. \'mysite.com/matomo\'.';
+$LANG['config_matomoSiteId'] = 'Matomo SiteId';
+$LANG['config_matomoSiteId_comment'] = 'Trage hier die Matomo SiteId ein, unter der du diese TeamCal Neo Instanz im Matomo Server eingerichtet hast.';
 $LANG['config_noCaching'] = 'Kein Caching';
 $LANG['config_noCaching_comment'] = 'In manchen Server-Client Umgebungen kann es zu unerwuenschten Caching Effekten kommen. Mit diesem Schalter schickt TeamCal Neo im HTML header No-caching Anweisungen zum Web Server, die hier eventuell Abhilfe schaffen.';
 $LANG['config_noIndex'] = 'Keine Suchmaschinen-Indizierung';
@@ -933,7 +933,7 @@ $LANG['mnu_admin_configapp'] = 'Applikations-Konfiguration';
 $LANG['mnu_admin_database'] = 'Datenbankverwaltung';
 $LANG['mnu_admin_env'] = 'Umgebung';
 $LANG['mnu_admin_groups'] = 'Gruppen';
-$LANG['mnu_admin_perm'] = "Berechtigungen";
+$LANG['mnu_admin_perm'] = 'Berechtigungen';
 $LANG['mnu_admin_phpinfo'] = 'PHP Info';
 $LANG['mnu_admin_roles'] = 'Rollen';
 $LANG['mnu_admin_systemlog'] = 'System Log';

@@ -31,150 +31,21 @@ Modernize the current language system with controller-specific language files th
 ## New Approach: Controller-Specific Language Files
 
 ### Core Concept
-**Maintain the familiar file-based approach** but organize files by controller/functionality instead of arbitrary splits. Load only the language files needed for each specific page/controller.
+**Maintain the familiar file-based approach** but using splitted language files organized controller/functionality located in a folder per language. The splitted files for "english" do exist.
 
 ### Proposed File Structure
-**One language file per controller** (based on existing controller folder structure):
+**One language file per controller** (based on existing feature structure):
 ```
 languages/
-├── deutsch/                  // German language directory
-│   ├── core.php             // Global strings used across all controllers
-│   ├── about.php            // about.php controller strings
-│   ├── absenceedit.php      // absenceedit.php controller strings
-│   ├── absenceicon.php      // absenceicon.php controller strings
-│   ├── absences.php         // absences.php controller strings
-│   ├── absum.php            // absum.php controller strings
-│   ├── alert.php            // alert.php controller strings
-│   ├── attachments.php      // attachments.php controller strings
-│   ├── bulkedit.php         // bulkedit.php controller strings
-│   ├── calendaredit.php     // calendaredit.php controller strings
-│   ├── calendaroptions.php  // calendaroptions.php controller strings
-│   ├── calendarview.php     // calendarview.php controller strings
-│   ├── config.php           // config.php controller strings
-│   ├── database.php         // database.php controller strings
-│   ├── dataprivacy.php      // dataprivacy.php controller strings
-│   ├── daynote.php          // daynote.php controller strings
-│   ├── declination.php      // declination.php controller strings
-│   ├── groupcalendaredit.php// groupcalendaredit.php controller strings
-│   ├── groupedit.php        // groupedit.php controller strings
-│   ├── groups.php           // groups.php controller strings
-│   ├── holidayedit.php      // holidayedit.php controller strings
-│   ├── holidays.php         // holidays.php controller strings
-│   ├── home.php             // home.php controller strings
-│   ├── imprint.php          // imprint.php controller strings
-│   ├── log.php              // log.php controller strings
-│   ├── login.php            // login.php controller strings
-│   ├── login2fa.php         // login2fa.php controller strings
-│   ├── logout.php           // logout.php controller strings
-│   ├── maintenance.php      // maintenance.php controller strings
-│   ├── messageedit.php      // messageedit.php controller strings
-│   ├── messages.php         // messages.php controller strings
-│   ├── monthedit.php        // monthedit.php controller strings
-│   ├── passwordrequest.php  // passwordrequest.php controller strings
-│   ├── passwordreset.php    // passwordreset.php controller strings
-│   ├── patternadd.php       // patternadd.php controller strings
-│   ├── patternedit.php      // patternedit.php controller strings
-│   ├── patterns.php         // patterns.php controller strings
-│   ├── permissions.php      // permissions.php controller strings
-│   ├── phpinfo.php          // phpinfo.php controller strings
-│   ├── regionedit.php       // regionedit.php controller strings
-│   ├── regions.php          // regions.php controller strings
-│   ├── register.php         // register.php controller strings
-│   ├── remainder.php        // remainder.php controller strings
-│   ├── roleedit.php         // roleedit.php controller strings
-│   ├── roles.php            // roles.php controller strings
-│   ├── setup2fa.php         // setup2fa.php controller strings
-│   ├── statsabsence.php     // statsabsence.php controller strings
-│   ├── statsabstype.php     // statsabstype.php controller strings
-│   ├── statspresence.php    // statspresence.php controller strings
-│   ├── statsremainder.php   // statsremainder.php controller strings
-│   ├── useradd.php          // useradd.php controller strings
-│   ├── useredit.php         // useredit.php controller strings
-│   ├── userimport.php       // userimport.php controller strings
-│   ├── users.php            // users.php controller strings
-│   ├── verify.php           // verify.php controller strings
-│   ├── viewprofile.php      // viewprofile.php controller strings
-│   └── year.php             // year.php controller strings
+├── deutsch/                 // German language directory
+│   ├── core.php             // Global strings
+│   ├── ...                  // Spliited files German
 └── english/                 // English language directory  
-    ├── core.php             // Global strings used across all controllers
-    ├── about.php            // about.php controller strings
-    ├── absenceedit.php      // absenceedit.php controller strings
-    ├── absenceicon.php      // absenceicon.php controller strings
-    ├── absences.php         // absences.php controller strings
-    ├── absum.php            // absum.php controller strings
-    ├── alert.php            // alert.php controller strings
-    ├── attachments.php      // attachments.php controller strings
-    ├── bulkedit.php         // bulkedit.php controller strings
-    ├── calendaredit.php     // calendaredit.php controller strings
-    ├── calendaroptions.php  // calendaroptions.php controller strings
-    ├── calendarview.php     // calendarview.php controller strings
-    ├── config.php           // config.php controller strings
-    ├── database.php         // database.php controller strings
-    ├── dataprivacy.php      // dataprivacy.php controller strings
-    ├── daynote.php          // daynote.php controller strings
-    ├── declination.php      // declination.php controller strings
-    ├── groupcalendaredit.php// groupcalendaredit.php controller strings
-    ├── groupedit.php        // groupedit.php controller strings
-    ├── groups.php           // groups.php controller strings
-    ├── holidayedit.php      // holidayedit.php controller strings
-    ├── holidays.php         // holidays.php controller strings
-    ├── home.php             // home.php controller strings
-    ├── imprint.php          // imprint.php controller strings
-    ├── log.php              // log.php controller strings
-    ├── login.php            // login.php controller strings
-    ├── login2fa.php         // login2fa.php controller strings
-    ├── logout.php           // logout.php controller strings
-    ├── maintenance.php      // maintenance.php controller strings
-    ├── messageedit.php      // messageedit.php controller strings
-    ├── messages.php         // messages.php controller strings
-    ├── monthedit.php        // monthedit.php controller strings
-    ├── passwordrequest.php  // passwordrequest.php controller strings
-    ├── passwordreset.php    // passwordreset.php controller strings
-    ├── patternadd.php       // patternadd.php controller strings
-    ├── patternedit.php      // patternedit.php controller strings
-    ├── patterns.php         // patterns.php controller strings
-    ├── permissions.php      // permissions.php controller strings
-    ├── phpinfo.php          // phpinfo.php controller strings
-    ├── regionedit.php       // regionedit.php controller strings
-    ├── regions.php          // regions.php controller strings
-    ├── register.php         // register.php controller strings
-    ├── remainder.php        // remainder.php controller strings
-    ├── roleedit.php         // roleedit.php controller strings
-    ├── roles.php            // roles.php controller strings
-    ├── setup2fa.php         // setup2fa.php controller strings
-    ├── statsabsence.php     // statsabsence.php controller strings
-    ├── statsabstype.php     // statsabstype.php controller strings
-    ├── statspresence.php    // statspresence.php controller strings
-    ├── statsremainder.php   // statsremainder.php controller strings
-    ├── useradd.php          // useradd.php controller strings
-    ├── useredit.php         // useredit.php controller strings
-    ├── userimport.php       // userimport.php controller strings
-    ├── users.php            // users.php controller strings
-    ├── verify.php           // verify.php controller strings
-    ├── viewprofile.php      // viewprofile.php controller strings
-    └── year.php             // year.php controller strings
+    ├── core.php             // Global strings
+    ├── ...                  // Splitted files English (35 already created)
 ```
-**Total**: ~49 controller-specific files + 1 core file = 50 files per language
-
-### File Content Format
-Each file maintains the familiar PHP array structure:
-```php
-<?php
-// languages/english/users.php
-if (!defined('VALID_ROOT')) die('Access denied');
-
-$LANG = array_merge(isset($LANG) ? $LANG : [], [
-  'usr_title' => 'Users',
-  'usr_edit_title' => 'Edit User',
-  'usr_create_title' => 'Create User',
-  'usr_username' => 'Username',
-  'usr_firstname' => 'First Name',
-  'usr_lastname' => 'Last Name',
-  'usr_email' => 'Email Address',
-  // ... only user-related strings
-]);
-?>
-```
+**Total**: 34 controller-specific files + 1 core file = 35 files per language
+The 35 english files are already created.
 
 ## Goals and Requirements
 
@@ -200,51 +71,19 @@ $LANG = array_merge(isset($LANG) ? $LANG : [], [
 ## Implementation Plan
 
 ### Phase 1: Analysis and File Structure Design
-**Goal**: Analyze actual language key usage in controllers and views to create accurate mapping
+**Goal**: Analyze how the new english files are splitted and create the german files accordingly
 
 **Steps**:
-1. **Scan controller files** (`src/controller/*.php`) to find `$LANG['key']` usage patterns
-2. **Scan corresponding view files** (`src/views/*.php`) to find `$LANG['key']` usage patterns
-3. **Cross-reference with existing language files** to ensure all keys are found
-4. **Categorize keys**:
-   - **Core keys**: Used across multiple controllers (goes to `core.php`)
-   - **Controller-specific keys**: Used only in specific controller+view pairs
-5. **Generate mapping report** showing which keys belong to which controller
-6. **Validate coverage** to ensure no keys are orphaned
-
-**Analysis Method**:
-```bash
-# Scan all controllers for language key usage
-grep -rn "\$LANG\[" controller/ > controller_lang_usage.txt
-
-# Scan all views for language key usage  
-grep -rn "\$LANG\[" views/ > view_lang_usage.txt
-
-# Example analysis for 'users' controller specifically:
-grep -n "\$LANG\[" controller/users.php    # Keys used in users controller
-grep -n "\$LANG\[" views/users.php         # Keys used in users view
-grep -n "\$LANG\[" views/useredit.php      # Keys used in related views
-
-# Find cross-controller usage (these go to core.php):
-# Keys that appear in 3+ different controllers should be core keys
-```
-
-**Key Classification Logic**:
-- **Core Keys**: Used in 3+ different controllers (common UI, dates, actions)
-- **Controller Keys**: Used only in specific controller and its related views
-- **Shared Keys**: Used in 2 controllers (analyze case-by-case)
-
-**Expected Core Key Categories**:
-- Navigation, buttons, common actions (`btn_save`, `btn_cancel`, `action`)
-- Date/time elements (`monthnames`, `weekdays`, `locale`)
-- Common UI elements (`alert_*`, `status_*`, `legend_*`)
-- Framework messages (`error_*`, `success_*`)
+1. **Scan new english files** (`src/languages/english/*.php`) to find out what keys of the `$LANG[]` array are in which file
+2. **Create new german files** Create the same splitted files in the deutsch folder and copy the corresponding keys from the original files to the new ones.
+3. **Split and copy original german keys** From the original deutsch files copy the keys to their corresponding split file. Do not change any content!
+6. **Validate split** to ensure the same files exist in the deutsch folder as in the english folder, having the same keys as the english ones
 
 **Deliverables**: 
-- Controller+View language usage analysis
-- Core vs controller-specific key categorization
-- Complete key-to-controller mapping
-- Coverage validation report
+- Key list for each split file
+- Amount of keys per split file
+- Validation the each german split file contains the same keys as the english split file
+- Validation that no content was changed during the creation/copy process
 
 **Validation**: Every existing language key assigned to either `core.php` or specific controller file
 
@@ -266,23 +105,6 @@ grep -n "\$LANG\[" views/useredit.php      # Keys used in related views
 **Validation**: System can selectively load language files based on controller
 
 ### Phase 3: File Splitting and Creation
-**Goal**: Split existing large files into controller-specific files
-
-**Steps**:
-1. **Extract and categorize keys** from existing files
-2. **Create core language file** with common strings used across controllers
-3. **Generate controller-specific files** with appropriate key subsets
-4. **Maintain bilingual parity** (English + German for each controller)
-5. **Validate key coverage** to ensure no keys are lost
-
-**Deliverables**: 
-- Core language files (`core.english.php`, `core.deutsch.php`)
-- Controller-specific language files for each major controller
-- Key coverage validation report
-
-**Validation**: All 1,872+ keys accessible through new file structure
-
-### Phase 4: Integration and Testing
 **Goal**: Integrate new system with existing codebase
 
 **Steps**:
@@ -290,13 +112,13 @@ grep -n "\$LANG\[" views/useredit.php      # Keys used in related views
 2. **Test controller-specific loading** for all major controllers
 3. **Validate memory usage improvements** and performance gains
 4. **Test language switching** (English ↔ German) functionality
-5. **Create language comparison tools** for ongoing validation
+5. **Create language comparison function** for ongoing validation
 6. **Test with custom user language files** to ensure compatibility
 
 **Deliverables**: 
 - Updated index.php with smart loading
 - Performance benchmarks
-- Language comparison tools
+- Language comparison tool compares all existing languages and shows missing keys if exist
 - User migration guide
 
 **Validation**: System provides same functionality with improved performance
@@ -323,7 +145,7 @@ grep -n "\$LANG\[" views/useredit.php      # Keys used in related views
 ## Technical Specifications
 
 ### Controller-to-File Mapping
-**Simple one-to-one mapping**: Each controller loads `core.php` + its own language file
+**Simple one-to-one mapping**: Each controller loads `core.php` + those spli files it needs
 ```php
 // In language loading helper
 private static function getLanguageFiles(string $controller): array {
@@ -349,33 +171,6 @@ private static function getLanguageFiles(string $controller): array {
 - **Simple**: No complex mapping logic needed
 - **Maintainable**: Adding new controller automatically works
 - **Efficient**: Only loads exactly what each controller needs
-
-### File Structure Standards
-```php
-<?php
-/**
- * TeamCal Neo Language File: Users (English)
- * Contains all language strings for user management functionality
- */
-if (!defined('VALID_ROOT')) die('Access denied');
-
-// Merge with existing $LANG array to support incremental loading
-$LANG = array_merge(isset($LANG) ? $LANG : [], [
-    // User management strings
-    'usr_title' => 'Users',
-    'usr_subtitle' => 'Manage system users and their properties',
-    'usr_edit_title' => 'Edit User',
-    
-    // User properties
-    'usr_username' => 'Username',
-    'usr_firstname' => 'First Name', 
-    'usr_lastname' => 'Last Name',
-    'usr_email' => 'Email Address',
-    
-    // ... additional user-related strings only
-]);
-?>
-```
 
 ### Loading System Implementation
 ```php
@@ -463,7 +258,7 @@ class LanguageLoader {
 ## Success Criteria
 
 ### Functional Requirements
-- [ ] All 1,872+ existing keys accessible through new controller-specific files
+- [ ] All 1,858 existing keys accessible through new controller-specific files
 - [ ] Both English and German translations preserved with perfect parity
 - [ ] Automatic fallback to legacy files if controller files don't exist  
 - [ ] No changes required to existing templates/views (`$LANG` interface unchanged)

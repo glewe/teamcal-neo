@@ -170,19 +170,19 @@ $LANG['absum_remainder'] = 'Verbleib';
 //
 // Alerts
 //
-$LANG['alert_decl_allowmonth_reached'] = "Die maximale Anzahl von %1% pro Monat für diesen Abwesenheitstyp wurde erreicht.";
-$LANG['alert_decl_allowweek_reached'] = "Die maximale Anzahl von %1% pro Woche für diesen Abwesenheitstyp wurde erreicht.";
-$LANG['alert_decl_allowyear_reached'] = "Die maximale Anzahl von %1% pro Jahr für diesen Abwesenheitstyp wurde erreicht.";
-$LANG['alert_decl_approval_required'] = "Dieser Abwesenheitstyp benötigt Managerbestätigung. Die Abwesenheit wurde in den Kalender eingetragen aber auch eine Tagesnotiz über die ausstehende Bestätigung. Dein Manager wurde per E-Mail informiert.";
-$LANG['alert_decl_approval_required_daynote'] = "Diese Abwesenheit wurde angefragt, ist aber noch nicht bestätigt.";
-$LANG['alert_decl_before_date'] = "Abwesenheitsänderungen vor dem folgenden Datum sind nicht erlaubt: ";
-$LANG['alert_decl_group_minpresent'] = "Die minimale Anzahl von anwesenden Mitgliedern wurde für folgende Gruppe/n unterschritten: ";
-$LANG['alert_decl_group_maxabsent'] = "Die maximale Anzahl von abwesenden Mitgliedern wurde für folgende Gruppe/n überschritten: ";
-$LANG['alert_decl_group_threshold'] = "Die Abwesenheitsgrenze wurde erreicht für die Gruppe(n): ";
-$LANG['alert_decl_holiday_noabsence'] = "Dieser Tag ist ein Feiertag, der keine Abwesenheiten erlaubt.";
-$LANG['alert_decl_period'] = "Abwesenheitsänderungen in folgendem Zeitraum sind nicht erlaubt: ";
-$LANG['alert_decl_takeover'] = "Abwesenheitstyp '%s' nicht für Übernahme zugelassen.";
-$LANG['alert_decl_total_threshold'] = "Die generelle Abwesenheitsgrenze wurde erreicht.";
+$LANG['alert_decl_allowmonth_reached'] = 'Die maximale Anzahl von %1% pro Monat für diesen Abwesenheitstyp wurde erreicht.';
+$LANG['alert_decl_allowweek_reached'] = 'Die maximale Anzahl von %1% pro Woche für diesen Abwesenheitstyp wurde erreicht.';
+$LANG['alert_decl_allowyear_reached'] = 'Die maximale Anzahl von %1% pro Jahr für diesen Abwesenheitstyp wurde erreicht.';
+$LANG['alert_decl_approval_required'] = 'Dieser Abwesenheitstyp benötigt Managerbestätigung. Die Abwesenheit wurde in den Kalender eingetragen aber auch eine Tagesnotiz über die ausstehende Bestätigung. Dein Manager wurde per E-Mail informiert.';
+$LANG['alert_decl_approval_required_daynote'] = 'Diese Abwesenheit wurde angefragt, ist aber noch nicht bestätigt.';
+$LANG['alert_decl_before_date'] = 'Abwesenheitsänderungen vor dem folgenden Datum sind nicht erlaubt: ';
+$LANG['alert_decl_group_minpresent'] = 'Die minimale Anzahl von anwesenden Mitgliedern wurde für folgende Gruppe/n unterschritten: ';
+$LANG['alert_decl_group_maxabsent'] = 'Die maximale Anzahl von abwesenden Mitgliedern wurde für folgende Gruppe/n überschritten: ';
+$LANG['alert_decl_group_threshold'] = 'Die Abwesenheitsgrenze wurde erreicht für die Gruppe(n): ';
+$LANG['alert_decl_holiday_noabsence'] = 'Dieser Tag ist ein Feiertag, der keine Abwesenheiten erlaubt.';
+$LANG['alert_decl_period'] = 'Abwesenheitsänderungen in folgendem Zeitraum sind nicht erlaubt: ';
+$LANG['alert_decl_takeover'] = 'Abwesenheitstyp \'%s\' nicht für Übernahme zugelassen.';
+$LANG['alert_decl_total_threshold'] = 'Die generelle Abwesenheitsgrenze wurde erreicht.';
 
 //
 // Bulk Edit
