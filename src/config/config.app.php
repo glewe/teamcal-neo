@@ -30,20 +30,38 @@ define('APP_IMP_DIR', "upload/import/");
  * ----------------------------------------------------------------------------
  * TEAMCAL NEO
  * ----------------------------------------------------------------------------
+ * 
+ * A flag indicating whether the installation script has been executed.
+ * 0 = Not run yet
+ * 1 = Was run
+ * Set this to 0 if you want to run the installation.php script again.
+ * If not, you need to delete or rename the installation.php file.
  */
-//
-// A flag indicating whether the installation script has been executed.
-// 0 = Not run yet
-// 1 = Was run
-// Set this to 0 if you want to run the installation.php script again.
-// If not, you need to delete or rename the installation.php file.
-//
 define('APP_INSTALLED', "1");
 
-//
-// The cookie prefix to be used on the browser client's device
-//
+/**
+ * ----------------------------------------------------------------------------
+ * COOKIE
+ * ----------------------------------------------------------------------------
+ * 
+ * The cookie name to be used on the browser client's device
+ */
 define('COOKIE_NAME', "tcneopro");
+
+/**
+ * ----------------------------------------------------------------------------
+ * LANGUAGE METHOD
+ * 
+ * Set DEBUG_LANGUAGE to true to run a language comparison.
+ * 
+ * Set USE_SPLIT_LANGUAGE_FILES to true to use the new split language files.
+ * This is a new feature in TeamCal Neo 4.3 that loads only those language
+ * strings that are needed for the current view, reducing memory consumption
+ * and increasing performance.
+ * ----------------------------------------------------------------------------
+ */
+define('DEBUG_LANGUAGE', false);
+define('USE_SPLIT_LANGUAGE_FILES', true);
 
 /**
  * ----------------------------------------------------------------------------

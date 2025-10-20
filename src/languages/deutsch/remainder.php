@@ -12,8 +12,8 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 4.3.0
  */
+$LANG['rem_title'] = 'Resttage';
+$LANG['rem_legend_taken'] = 'Genommen';
 $LANG['rem_legend_allowance'] = 'Erlaubt';
 $LANG['rem_legend_remainder'] = 'Verbleibend';
-$LANG['rem_legend_taken'] = 'Genommen';
-$LANG['rem_title'] = 'Resttage';
-$LANG['rem_year_comment'] = 'Wähle, das Jahr f&uml;
+$LANG['rem_year_comment'] = 'Wähle, das Jahr f&uml;r die übersicht.';

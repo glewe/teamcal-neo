@@ -38,23 +38,6 @@ $LANG['taken'] = 'Taken';
 $LANG['weekdays'] = 'Weekdays';
 $LANG['weekends'] = 'Weekends';
 $LANG['weeknumber'] = 'Calendar week';
-$LANG['year'] = 'Year';
-
-$LANG['monthnames'] = array(
-  1 => "January",
-  2 => "February",
-  3 => "March",
-  4 => "April",
-  5 => "May",
-  6 => "June",
-  7 => "July",
-  8 => "August",
-  9 => "September",
-  10 => "October",
-  11 => "November",
-  12 => "December",
-);
-
 $LANG['widths'] = array(
   'full' => "Full screen (More than 1024 pixels)",
   '1024' => "1024 pixels",
@@ -65,6 +48,7 @@ $LANG['widths'] = array(
   '320' => "320 pixels",
   '240' => "240 pixels",
 );
+$LANG['year'] = 'Year';
 
 //
 // Absences
@@ -905,9 +889,9 @@ $LANG['stats_byusers'] = '(Per User)';
 $LANG['stats_color'] = 'Color';
 $LANG['stats_color_comment'] = 'Select the color for the diagram.';
 $LANG['stats_customColor'] = 'Custom Color';
-$LANG['stats_customColor_comment'] = 'Select a custom color for the diagram.<br>This value only applies if "' . $LANG['custom'] . '" was selected in the Color list.';
+$LANG['stats_customColor_comment'] = 'Select a custom color for the diagram.<br>This value only applies if "Custom" was selected in the Color list.';
 $LANG['stats_endDate'] = 'End Date';
-$LANG['stats_endDate_comment'] = 'Select a custom end date for the statistic. This date only applies if "' . $LANG['custom'] . '" was selected in the Period list.';
+$LANG['stats_endDate_comment'] = 'Select a custom end date for the statistic. This date only applies if "Custom" was selected in the Period list.';
 $LANG['stats_group'] = 'Group';
 $LANG['stats_group_comment'] = 'Select the group for the statistics.';
 $LANG['stats_modalAbsenceTitle'] = 'Select Absence Type for the Statistics';
@@ -930,7 +914,7 @@ $LANG['stats_yaxis_users'] = 'Users';
 $LANG['stats_year'] = 'Year';
 $LANG['stats_year_comment'] = 'Select the year for this statistics.';
 $LANG['stats_startDate'] = 'Start Date';
-$LANG['stats_startDate_comment'] = 'Select a custom start date for the statistic.<br>This date only applies if "' . $LANG['custom'] . '" was selected in the Period list.';
+$LANG['stats_startDate_comment'] = 'Select a custom start date for the statistic.<br>This date only applies if "Custom" was selected in the Period list.';
 
 //
 // Users

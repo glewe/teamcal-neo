@@ -38,23 +38,6 @@ $LANG['taken'] = 'Genommen';
 $LANG['weekdays'] = 'Wochentags';
 $LANG['weekends'] = 'Wochenenden';
 $LANG['weeknumber'] = 'Kalenderwoche';
-$LANG['year'] = 'Jahr';
-
-$LANG['monthnames'] = array(
-  1 => "Januar",
-  2 => "Februar",
-  3 => "März",
-  4 => "April",
-  5 => "Mai",
-  6 => "Juni",
-  7 => "Juli",
-  8 => "August",
-  9 => "September",
-  10 => "Oktober",
-  11 => "November",
-  12 => "Dezember",
-);
-
 $LANG['widths'] = array(
   'full' => "Vollbildschirm (Mehr als 1024 Pixel)",
   '1024' => "1024 Pixel",
@@ -65,6 +48,7 @@ $LANG['widths'] = array(
   '320' => "320 Pixel",
   '240' => "240 Pixel",
 );
+$LANG['year'] = 'Jahr';
 
 //
 // Absences
@@ -906,9 +890,9 @@ $LANG['stats_byusers'] = '(Pro Nutzer)';
 $LANG['stats_color'] = 'Farbe';
 $LANG['stats_color_comment'] = 'Wähle die Farbe für das Diagramm.';
 $LANG['stats_customColor'] = 'Individuelle Frabe';
-$LANG['stats_customColor_comment'] = 'Wähle eine individuelle Farbe für das Diagramm.<br>Damit die Farbe angewendet wird, muss in der Farbe Liste "' . $LANG['custom'] . '" ausgewählt sein.';
+$LANG['stats_customColor_comment'] = 'Wähle eine individuelle Farbe für das Diagramm.<br>Damit die Farbe angewendet wird, muss in der Farbe Liste "Benutzerdefiniert" ausgewählt sein.';
 $LANG['stats_endDate'] = 'Eigenes Ende Datum';
-$LANG['stats_endDate_comment'] = 'Wähle ein eigenes Enddatum für die Statistik. Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "' . $LANG['custom'] . '" ausgewählt sein.';
+$LANG['stats_endDate_comment'] = 'Wähle ein eigenes Enddatum für die Statistik. Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "Benutzerdefiniert" ausgewählt sein.';
 $LANG['stats_group'] = 'Gruppe';
 $LANG['stats_group_comment'] = 'Wähle die Gruppe für die Statistik.';
 $LANG['stats_modalAbsenceTitle'] = 'Wähle den Abwesenheitstyp für die Statistik.';
@@ -931,7 +915,7 @@ $LANG['stats_yaxis_users'] = 'Nutzer';
 $LANG['stats_year'] = 'Jahr';
 $LANG['stats_year_comment'] = 'Wähle, das Jahr f&uml;r die Statistik.';
 $LANG['stats_startDate'] = 'Eigenes Start Datum';
-$LANG['stats_startDate_comment'] = 'Wähle ein eigenes Startdatum für die Statistik.<br>Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "' . $LANG['custom'] . '" ausgewählt sein.';
+$LANG['stats_startDate_comment'] = 'Wähle ein eigenes Startdatum für die Statistik.<br>Damit dieses Datum angewendet wird, muss in der Zeitraum Liste "Benutzerdefiniert" ausgewählt sein.';
 
 //
 // Users
