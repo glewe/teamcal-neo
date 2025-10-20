@@ -51,15 +51,23 @@ define('COOKIE_NAME', "tcneopro");
 /**
  * ----------------------------------------------------------------------------
  * LANGUAGE METHOD
- * 
- * Set DEBUG_LANGUAGE to true to run a language comparison.
- * 
- * Set USE_SPLIT_LANGUAGE_FILES to true to use the new split language files.
- * This is a new feature in TeamCal Neo 4.3 that loads only those language
- * strings that are needed for the current view, reducing memory consumption
- * and increasing performance.
  * ----------------------------------------------------------------------------
+ * 
+ * COMPARE_LANGUAGES - set to true to compare all language files
+ * 
+ * DEBUG_LANGUAGE - set to true to write language statistics to the error log
+ * 
+ * USE_SPLIT_LANGUAGE_FILES - set to true to use the new split language files.
+ *   This is a new feature in TeamCal Neo 4.3 that loads only those language
+ *   strings that are needed for the current view, reducing memory consumption
+ *   and increasing performance.
+ *   If you made custom changes to the language files before upgrading to 4.3,
+ *   or you added your own language files, you may set this to false to keep
+ *   the old behavior. However, you will need to split your custom language
+ *   files to the new structure in order to use the new feature. It saves
+ *   memory and increases performance.
  */
+define('COMPARE_LANGUAGES', false);
 define('DEBUG_LANGUAGE', false);
 define('USE_SPLIT_LANGUAGE_FILES', true);
 

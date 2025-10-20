@@ -702,7 +702,7 @@ class LanguageLoader {
   private static function getRequiredFiles($controller) {
     // Special case: core_only for initial loading
     if ($controller === 'core_only') {
-      return []; // Core and alert are already loaded in loadModernStructure
+      return []; // Core, alert, and upload are already loaded in loadModernStructure
     }
 
     // Controller-specific file mapping
@@ -710,38 +710,65 @@ class LanguageLoader {
       'home' => [],
       'about' => ['about'],
       'absenceedit' => ['absence', 'calendar'],
-      'absence' => ['absence', 'calendar'],
+      'absenceicon' => ['absence'],
+      'absences' => ['absence'],
+      'absum' => ['absence', 'statistics', 'calendar'],
+      'alert' => [],
       'attachments' => ['attachment'],
-      'bulkedit' => ['bulkedit', 'calendar'],
-      'calendarview' => ['calendar', 'calendaroptions'],
+      'bulkedit' => ['bulkedit', 'calendar', 'profile'],
       'calendaredit' => ['calendar', 'calendaroptions'],
+      'calendaroptions' => ['calendaroptions'],
+      'calendarview' => ['calendar', 'calendaroptions'],
       'config' => ['config'],
       'database' => ['database'],
+      'dataprivacy' => ['gdpr'],
       'daynote' => ['daynote'],
       'declination' => ['declination'],
       'gdpr' => ['gdpr'],
+      'groupcalendaredit' => ['calendar'],
+      'groupedit' => ['group'],
       'groups' => ['group'],
+      'holidayedit' => ['holiday'],
       'holidays' => ['holiday'],
       'imprint' => ['imprint'],
       'import' => ['import'],
+      'log' => ['log'],
       'login' => ['login'],
+      'login2fa' => ['login'],
       'logout' => ['login'],
       'logs' => ['log'],
       'maintenance' => ['maintenance'],
+      'messageedit' => ['message'],
       'messages' => ['message'],
       'month' => ['month', 'calendar'],
+      'monthedit' => ['month'],
+      'passwordrequest' => ['password'],
       'passwordreset' => ['password', 'login'],
+      'patternadd' => ['pattern'],
+      'patternedit' => ['pattern'],
       'patterns' => ['pattern'],
       'permissions' => ['permission'],
+      'phpinfo' => [],
       'profile' => ['profile'],
-      'register' => ['register'],
-      'remainder' => ['remainder'],
+      'register' => ['register', 'password'],
+      'regionedit' => ['region'],
       'regions' => ['region'],
+      'remainder' => ['remainder', 'calendar', 'absence'],
+      'roleedit' => ['role'],
       'roles' => ['role'],
+      'setup2fa' => ['login'],
       'statistics' => ['statistics'],
+      'statsabsence' => ['statistics', 'absence'],
+      'statsabstype' => ['statistics', 'absence'],
+      'statspresence' => ['statistics'],
+      'statsremainder' => ['statistics', 'remainder'],
       'upload' => ['upload'],
+      'useradd' => ['user', 'profile', 'password'],
+      'useredit' => ['user', 'profile', 'password'],
+      'userimport' => ['user', 'import'],
       'users' => ['user'],
-      'useredit' => ['user', 'profile'],
+      'verify' => ['login'],
+      'viewprofile' => ['profile'],
       'year' => ['year', 'calendar']
     ];
 
@@ -857,7 +884,7 @@ class LanguageLoader {
 
     if (file_exists($filePath)) {
       $keysBeforeLoad = count($LANG);
-      require_once $filePath;
+      require $filePath;
 
       self::$loadedFiles[] = $file;
       self::$loadingStats['filesLoaded']++;
@@ -906,9 +933,10 @@ class LanguageLoader {
   private static function loadModernStructure($controller) {
     global $LANG;
 
-    // Always load core and alert files (used throughout the application)
+    // Always load core files used throughout the application
     self::loadLanguageFile('core');
     self::loadLanguageFile('alert');
+    self::loadLanguageFile('upload'); // Avatar class needs upload error messages
 
     // Map controller to required files
     $requiredFiles = self::getRequiredFiles($controller);

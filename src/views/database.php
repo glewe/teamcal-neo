@@ -38,7 +38,7 @@ view.database
           $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
         }
         ?>
-        <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['db_title'] ?><?= $pageHelp ?></div>
+        <div class="card-header text-bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['db_title'] ?><?= $pageHelp ?></div>
         <div class="card-body">
 
           <div class="card">
@@ -235,7 +235,7 @@ view.database
                       <strong><?= $LANG['db_dbURL'] ?></strong>
                       <div class="text-normal"><?= $LANG['db_dbURL_comment'] ?></div>
                     </div>
-                    <div class="col-lg-12 control-label">
+                    <div class="col-lg-12 control-label mt-2">
                       <input id="dbURL" class="form-control" tabindex="<?= ++$tabindex  ?>" name="txt_dbURL" maxlength="160" value="<?= $viewData['dbURL'] ?>" type="text"><br>
                       <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex  ?>" name="btn_saveURL"><?= $LANG['btn_save'] ?></button>
                     </div>

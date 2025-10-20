@@ -33,7 +33,7 @@ view.setup2fa
         <?php
         $pageHelp = '<a href="https://lewe.gitbook.io/teamcal-neo/user-guide/two-factor-authentication" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
         ?>
-        <div class="card-header text-white bg-danger"><i class="fas fa-user-lock fa-lg me-3"></i><?= $LANG['setup2fa_title'] . ' ' . $viewData['fullname'] . $pageHelp ?></div>
+        <div class="card-header text-bg-danger"><i class="fas fa-user-lock fa-lg me-3"></i><?= $LANG['setup2fa_title'] . ' ' . $viewData['fullname'] . $pageHelp ?></div>
         <div class="card-body">
           <div class="row">
             <div class="col text-center">

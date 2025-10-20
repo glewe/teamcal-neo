@@ -78,7 +78,7 @@ view.editcalendar
         $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
       }
       ?>
-      <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= sprintf($LANG['caledit_title'], $viewData['year'], $viewData['month'], $viewData['fullname']) . $viewData['groupnames'] ?><?= $pageHelp ?></div>
+      <div class="card-header text-bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= sprintf($LANG['caledit_title'], $viewData['year'], $viewData['month'], $viewData['fullname']) . $viewData['groupnames'] ?><?= $pageHelp ?></div>
     </div>
     <div style="height:20px;"></div>
 

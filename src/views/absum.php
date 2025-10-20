@@ -37,7 +37,7 @@ view.absum
         $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
       }
       ?>
-      <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= sprintf($LANG['absum_title'], $viewData['year'], $viewData['fullname']) ?><?= $pageHelp ?></div>
+      <div class="card-header text-bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= sprintf($LANG['absum_title'], $viewData['year'], $viewData['fullname']) ?><?= $pageHelp ?></div>
       <div class="card-body">
 
         <table id="dataTableAbsenceSummary" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
