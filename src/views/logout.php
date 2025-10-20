@@ -23,7 +23,7 @@ view.logout
 
     <div class="col-lg-6">
       <div class="card">
-        <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['logout_title'] ?></div>
+        <div class="card-header text-bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['logout_title'] ?></div>
         <div class="card-body">
           <div class="col-lg-12">
             <p><?= $LANG['logout_comment'] ?></p>

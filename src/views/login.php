@@ -32,7 +32,7 @@ view.login
       $paddingBottom = "12px";
       ?>
       <div class="card">
-        <div class="card-header bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['login_login'] ?></div>
+        <div class="card-header text-bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['login_login'] ?></div>
         <div class="card-body">
           <div class="col-lg-12">
             <form id="login" action="index.php?action=<?= $controller ?>" method="post" target="_self" name="loginform" accept-charset="utf-8">

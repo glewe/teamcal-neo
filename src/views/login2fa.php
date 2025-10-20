@@ -30,7 +30,7 @@ view.login2fa
       $paddingBottom = "12px";
       ?>
       <div class="card">
-        <div class="card-header bg-primary"><i class="fas fa-user-lock fa-lg me-3"></i><?= $LANG['login_authcode'] ?></div>
+        <div class="card-header text-bg-primary"><i class="fas fa-user-lock fa-lg me-3"></i><?= $LANG['login_authcode'] ?></div>
         <div class="card-body">
           <div class="col-lg-12">
             <form id="login2fa" action="index.php?action=login2fa" method="post" target="_self" name="login2faform" accept-charset="utf-8">

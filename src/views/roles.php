@@ -34,7 +34,7 @@ view.roles
         $pageHelp = '<a href="' . $docurl . '" target="_blank" class="float-end" style="color:inherit;" aria-label="Help"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
       }
       ?>
-      <div class="card-header text-white bg-<?= htmlspecialchars($CONF['controllers'][$controller]->panelColor ?? '', ENT_QUOTES, 'UTF-8') ?>"><i class="<?= htmlspecialchars($CONF['controllers'][$controller]->faIcon ?? '', ENT_QUOTES, 'UTF-8') ?> fa-lg me-3"></i><?= htmlspecialchars($LANG['roles_title'] ?? '', ENT_QUOTES, 'UTF-8') . $pageHelp ?></div>
+      <div class="card-header text-bg-<?= htmlspecialchars($CONF['controllers'][$controller]->panelColor ?? '', ENT_QUOTES, 'UTF-8') ?>"><i class="<?= htmlspecialchars($CONF['controllers'][$controller]->faIcon ?? '', ENT_QUOTES, 'UTF-8') ?> fa-lg me-3"></i><?= htmlspecialchars($LANG['roles_title'] ?? '', ENT_QUOTES, 'UTF-8') . $pageHelp ?></div>
 
       <div class="card-body">
 

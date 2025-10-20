@@ -206,22 +206,29 @@ if (L_USER && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['actio
   if ($userlang != "default") {
     $language = $userlang;
   }
-  if (!strlen($language)) {
-    $language = 'english';
-  }
-  
-  // Initialize the smart language loader
-  LanguageLoader::initialize($language);
-  
-  // Phase 1: Load basic core language for early functionality
-  LanguageLoader::loadForController('core_only');
-  
-  // Legacy fallback: load full language files if split files don't exist
-  if (!file_exists(WEBSITE_ROOT . '/languages/' . $language . '/core.php')) {
-    require_once WEBSITE_ROOT . '/languages/' . $language . '.php';     // Framework language
-    require_once WEBSITE_ROOT . '/languages/' . $language . '.app.php'; // Application language
-  }
+}
 
+// Ensure language is set
+if (!strlen($language)) {
+  $language = 'english';
+}
+
+// Initialize language system (works for both logged-in and public users)
+LanguageLoader::initialize($language);
+
+// Load language files based on configuration
+if (defined('USE_SPLIT_LANGUAGE_FILES') && USE_SPLIT_LANGUAGE_FILES && 
+    file_exists(WEBSITE_ROOT . '/languages/' . $language . '/core.php')) {
+  // Use new split file system - language loading happens per controller
+  LanguageLoader::loadForController('core_only');
+} else {
+  // Fallback to legacy language files
+  require_once WEBSITE_ROOT . '/languages/' . $language . '.php';     // Framework
+  require_once WEBSITE_ROOT . '/languages/' . $language . '.app.php'; // Application
+}
+
+// Now that language is loaded, get login info
+if (L_USER && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['action'] != 'logout')) {
   $userData['loginInfo'] = loginInfo();
   //
   // Switch language via menu (only allowed when logged in)
@@ -252,7 +259,7 @@ if (L_USER && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['actio
 // COMPARE LANGUAGES
 // Set condition to true for debug
 //
-if (defined('DEBUG_LANGUAGE') && DEBUG_LANGUAGE) {
+if (defined('COMPARE_LANGUAGES') && COMPARE_LANGUAGES) {
   // Automatically compare all available languages against English
   $errorData = LanguageLoader::compareAllLanguages();
   
@@ -266,8 +273,7 @@ if (defined('DEBUG_LANGUAGE') && DEBUG_LANGUAGE) {
 if (!strlen($language)) {
   $language = 'english';
 }
-require_once WEBSITE_ROOT . '/languages/' . $language . '.php';     // Framework
-require_once WEBSITE_ROOT . '/languages/' . $language . '.app.php'; // Application
+
 $AV = new Avatar($LANG);
 
 //-----------------------------------------------------------------------------

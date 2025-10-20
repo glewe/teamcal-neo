@@ -39,14 +39,14 @@ view.log
           $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
         }
         ?>
-        <div class="card-header text-white bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['mnu_admin_systemlog'] . ' ( ' . count($viewData['events']) . ' ' . $LANG['log_title_events'] . ' )' . $pageHelp ?></div>
+        <div class="card-header text-bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers'][$controller]->faIcon ?> fa-lg me-3"></i><?= $LANG['mnu_admin_systemlog'] . ' ( ' . count($viewData['events']) . ' ' . $LANG['log_title_events'] . ' )' . $pageHelp ?></div>
         <div class="card-body">
 
           <div class="row mb-4">
 
             <div class="col-lg-3">
               <label for="sel_logPeriod"><?= $LANG['period'] ?></label>
-              <select name="sel_logPeriod" id="sel_logPeriod" class="form-select" tabindex="<?= ++$tabindex ?>">
+              <select name="sel_logPeriod" id="sel_logPeriod" class="form-select mb-2" tabindex="<?= ++$tabindex ?>">
                 <option class="option" value="curr_all" <?= (($viewData['logperiod'] == "curr_all") ? 'selected' : '') ?>><?= $LANG['all'] ?></option>
                 <option class="option" value="curr_month" <?= (($viewData['logperiod'] == "curr_month") ? 'selected' : '') ?>><?= $LANG['period_month'] ?></option>
                 <option class="option" value="curr_quarter" <?= (($viewData['logperiod'] == "curr_quarter") ? 'selected' : '') ?>><?= $LANG['period_quarter'] ?></option>
@@ -55,16 +55,16 @@ view.log
                 <option class="option" value="custom" <?= (($viewData['logperiod'] == "custom") ? 'selected' : '') ?>><?= $LANG['period_custom'] ?></option>
               </select>
               <label for="sel_logType"><?= $LANG['log_header_type'] ?></label>
-              <select name="sel_logType" id="sel_logType" class="form-select" tabindex="<?= ++$tabindex ?>">
+              <select name="sel_logType" id="sel_logType" class="form-select mb-2" tabindex="<?= ++$tabindex ?>">
                 <option class="option" value="%" <?= (($viewData['logtype'] == "%") ? 'selected' : '') ?>><?= $LANG['all'] ?></option>
                 <?php foreach ($viewData['types'] as $type) { ?>
                   <option class="option" value="log<?= $type ?>" <?= (($viewData['logtype'] == "log" . $type) ? 'selected' : '') ?>><?= $type ?></option>
                 <?php } ?>
               </select>
               <label for="logSearchUser"><?= $LANG['search'] . ' ' . $LANG['user'] ?></label>
-              <input id="logSearchUser" class="form-control" tabindex="<?= ++$tabindex ?>" name="txt_logSearchUser" maxlength="80" value="<?= $viewData['logSearchUser'] ?>" type="text">
+              <input id="logSearchUser" class="form-control mb-2" tabindex="<?= ++$tabindex ?>" name="txt_logSearchUser" maxlength="80" value="<?= $viewData['logSearchUser'] ?>" type="text">
               <label for="logSearchEvent"><?= $LANG['search'] . ' ' . $LANG['event'] ?></label>
-              <input id="logSearchEvent" class="form-control" tabindex="<?= ++$tabindex ?>" name="txt_logSearchEvent" maxlength="80" value="<?= $viewData['logSearchEvent'] ?>" type="text">
+              <input id="logSearchEvent" class="form-control mb-2" tabindex="<?= ++$tabindex ?>" name="txt_logSearchEvent" maxlength="80" value="<?= $viewData['logSearchEvent'] ?>" type="text">
             </div>
 
             <div class="col-lg-2">
