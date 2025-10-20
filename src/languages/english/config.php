@@ -146,7 +146,7 @@ $LANG['config_licKey_comment'] = 'Enter your license key here. It was provided t
 <i>A new license key must first be saved with the [Save] button before an Activation, Registration or De-Registration can be done.</i>';
 $LANG['config_licRegister'] = 'Register Domain';
 $LANG['config_licRegister_comment'] = 'This TeamCal Neo domain is not registered for the given license key.<br>If the license key is valid and allows for more than one domain,
- click the \'' . $LANG['btn_register'] . '\' button to add this domain. Otherwise, please enter a different valid license key and click \'' . $LANG['btn_apply'] . '\'.';
+ click the "Register" button to add this domain. Otherwise, please enter a different valid license key and click "Apply".';
 $LANG['config_licDeregister'] = 'De-Register Domain';
 $LANG['config_licDeregister_comment'] = 'You can deregister this TeamCal Neo domain from your license, e.g. to move your instance to a different domain. Deregister it here and then register it from the new domain.';
 $LANG['config_logLanguage'] = 'Log Language';

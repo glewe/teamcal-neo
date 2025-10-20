@@ -144,7 +144,7 @@ $LANG['config_licKey'] = 'Lizenzschlüssel';
 $LANG['config_licKey_comment'] = 'Gib hier den Lizenzschlüssel ein, den du bei der Registrierung von TeamCal Neo erhalten hast.<br><i class=\'bi-exclamation-triangle text-warning me-2\'></i>
 <i>Ein neuer Lizenzschlüssel muss zunächst mit [Speichern] gespeichert werden bevor eine Aktivierung, Registrierung oder De-Registrierung angestoßen werden kann.</i>';
 $LANG['config_licRegister'] = 'Domain Registrieren';
-$LANG['config_licRegister_comment'] = 'Diese TeamCal Neo Domain ist nicht für den angegebenen Lizenzschlüssel registriert.<br>Wenn der Lizenzschlüssel gültig ist und mehr als eine Domain erlaubt, klicke \'' . $LANG['btn_register'] . '\', um diese Domain hinzuzufügen. Andernfalls gib bitte einen neuen gültigen Lizenzschlüssel ein und klicke \'' . $LANG['btn_apply'] . '\'.';
+$LANG['config_licRegister_comment'] = 'Diese TeamCal Neo Domain ist nicht für den angegebenen Lizenzschlüssel registriert.<br>Wenn der Lizenzschlüssel gültig ist und mehr als eine Domain erlaubt, klicke "Registrieren", um diese Domain hinzuzufügen. Andernfalls gib bitte einen neuen gültigen Lizenzschlüssel ein und klicke "Anwenden".';
 $LANG['config_logLanguage'] = 'Logbuchsprache';
 $LANG['config_logLanguage_comment'] = 'Diese Einstellung bestimmt die Sprache der Logbucheinträge.';
 $LANG['config_mailFrom'] = 'Mail Von';

@@ -16,6 +16,9 @@ if (!defined('VALID_ROOT')) {
 //
 // Login
 //
+$LANG['login_login'] = 'Login';
+$LANG['login_username'] = 'Benutzername:';
+$LANG['login_password'] = 'Passwort:';
 $LANG['login_authcode'] = 'Authenticator Code:';
 $LANG['login_authcode_comment'] = 'Wenn du einen zweiten Faktor für die Authentifizierung eingerichtet hast, gib den Authenticator Code hier ein.';
 $LANG['login_error_0'] = 'Login erfolgreich';
@@ -26,7 +29,7 @@ $LANG['login_error_2_text'] = 'Der eingegebene Benutzername ist unbekannt. Bitte
 $LANG['login_error_2fa'] = 'Falscher Authentication Code';
 $LANG['login_error_2fa_text'] = 'Der Authentication Code stimmt nicht überein.';
 $LANG['login_error_3'] = 'Konto deaktiviert';
-$LANG['login_error_3_text'] = 'Dieses Konto ist gesperrt bzw. noch nicht best&aum;
+$LANG['login_error_3_text'] = 'Dieses Konto ist gesperrt bzw. noch nicht best&aum;tigt. Bitte kontaktiere den Administrator.';
 $LANG['login_error_4'] = 'Passwort falsch';
 $LANG['login_error_4_text'] = 'Das Passwort ist falsch. Dies war Fehlversuch Nummer %1%. Nach %2% Fehlversuchen wird der Account gesperrt für %3% Sekunden.';
 $LANG['login_error_6_text'] = 'Dieser Account ist wegen zu vieler falscher Loginversuche vorübergehend gesperrt. Die Grace Periode endet in %1% Sekunden.';
@@ -44,12 +47,9 @@ $LANG['login_error_94_text'] = 'Der Start von TLS ist fehlgeschlagen. Bitte vers
 $LANG['login_error_95'] = 'LDAP Fehler: Benutzername nicht gefunden';
 $LANG['login_error_96'] = 'LDAP Fehler: "Search bind" fehlgeschlagen';
 $LANG['login_error_96_text'] = 'Der LDAP "Search bind" ist fehlgeschlagen. Bitte versuche es erneut.';
-$LANG['login_login'] = 'Login';
-$LANG['login_password'] = 'Passwort:';
-$LANG['login_username'] = 'Benutzername:';
 
 //
 // Logout
 //
-$LANG['logout_comment'] = 'Du bist nun ausgeloggt.';
 $LANG['logout_title'] = 'Logout';
+$LANG['logout_comment'] = 'Du bist nun ausgeloggt.';

@@ -65,6 +65,7 @@ spl_autoload_register(function ($class_name) {
 require_once WEBSITE_ROOT . '/config/config.db.php';
 require_once WEBSITE_ROOT . '/config/config.controller.php';
 require_once WEBSITE_ROOT . '/config/config.app.php';
+require_once WEBSITE_ROOT . '/helpers/language.helper.php';
 global $CONF;
 
 //-----------------------------------------------------------------------------
@@ -208,8 +209,18 @@ if (L_USER && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['actio
   if (!strlen($language)) {
     $language = 'english';
   }
-  require_once WEBSITE_ROOT . '/languages/' . $language . '.php';     // Framework language
-  require_once WEBSITE_ROOT . '/languages/' . $language . '.app.php'; // Application language
+  
+  // Initialize the smart language loader
+  LanguageLoader::initialize($language);
+  
+  // Phase 1: Load basic core language for early functionality
+  LanguageLoader::loadForController('core_only');
+  
+  // Legacy fallback: load full language files if split files don't exist
+  if (!file_exists(WEBSITE_ROOT . '/languages/' . $language . '/core.php')) {
+    require_once WEBSITE_ROOT . '/languages/' . $language . '.php';     // Framework language
+    require_once WEBSITE_ROOT . '/languages/' . $language . '.app.php'; // Application language
+  }
 
   $userData['loginInfo'] = loginInfo();
   //
@@ -241,73 +252,9 @@ if (L_USER && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['actio
 // COMPARE LANGUAGES
 // Set condition to true for debug
 //
-$checkLanguages = false;
-if ($checkLanguages) {
-  // Configure languages to compare
-  $lang1 = "english";  // Reference language
-  $lang2 = "deutsch";  // Language to compare
-  
-  $comparison = compareLanguageFiles($lang1, $lang2);
-  
-  // Generate output
-  $errorData['title'] = 'Debug Info';
-  $errorData['subject'] = '<h4>Language File Comparison</h4>';
-  
-  // Statistics
-  $errorData['text'] = '<div class="panel panel-info">
-    <div class="panel-heading"><strong>Statistics</strong></div>
-    <div class="panel-body">
-      <p><strong>' . $comparison['lang1'] . ':</strong> ' . $comparison['lang1_total'] . ' keys</p>
-      <p><strong>' . $comparison['lang2'] . ':</strong> ' . $comparison['lang2_total'] . ' keys</p>
-      <p><strong>Missing in ' . $comparison['lang2'] . ':</strong> ' . count($comparison['lang1_missing']) . ' keys</p>
-      <p><strong>Missing in ' . $comparison['lang1'] . ':</strong> ' . count($comparison['lang2_missing']) . ' keys</p>
-    </div>
-  </div>';
-  
-  // Errors
-  if (!empty($comparison['errors'])) {
-    $errorData['text'] .= '<div class="panel panel-danger">
-      <div class="panel-heading"><strong>Errors</strong></div>
-      <div class="panel-body">';
-    foreach ($comparison['errors'] as $error) {
-      $errorData['text'] .= '<p class="text-danger">' . htmlspecialchars($error) . '</p>';
-    }
-    $errorData['text'] .= '</div></div>';
-  }
-  
-  // Missing in lang2
-  if (!empty($comparison['lang1_missing'])) {
-    $errorData['text'] .= '<div class="panel panel-warning">
-      <div class="panel-heading"><strong>Keys missing in "' . $comparison['lang2'] . '"</strong></div>
-      <div class="panel-body">
-        <div style="max-height: 300px; overflow-y: auto;">';
-    foreach ($comparison['lang1_missing'] as $key) {
-      $errorData['text'] .= '<code>' . htmlspecialchars($key) . '</code><br>';
-    }
-    $errorData['text'] .= '</div></div></div>';
-  }
-  
-  // Missing in lang1
-  if (!empty($comparison['lang2_missing'])) {
-    $errorData['text'] .= '<div class="panel panel-warning">
-      <div class="panel-heading"><strong>Keys missing in "' . $comparison['lang1'] . '"</strong></div>
-      <div class="panel-body">
-        <div style="max-height: 300px; overflow-y: auto;">';
-    foreach ($comparison['lang2_missing'] as $key) {
-      $errorData['text'] .= '<code>' . htmlspecialchars($key) . '</code><br>';
-    }
-    $errorData['text'] .= '</div></div></div>';
-  }
-  
-  // Success message if no issues
-  if (empty($comparison['lang1_missing']) && empty($comparison['lang2_missing']) && empty($comparison['errors'])) {
-    $errorData['text'] .= '<div class="panel panel-success">
-      <div class="panel-heading"><strong>Perfect Match!</strong></div>
-      <div class="panel-body">
-        <p>Both language files have exactly the same keys. No missing translations found.</p>
-      </div>
-    </div>';
-  }
+if (defined('DEBUG_LANGUAGE') && DEBUG_LANGUAGE) {
+  // Automatically compare all available languages against English
+  $errorData = LanguageLoader::compareAllLanguages();
   
   require_once WEBSITE_ROOT . '/views/error.php';
   die();
@@ -347,6 +294,22 @@ if ($C->read('underMaintenance')) {
   }
   if (isset($_GET['action'])) {
     $controller = sanitize($_GET['action']);
+  }
+}
+
+//-----------------------------------------------------------------------------
+// LOAD CONTROLLER-SPECIFIC LANGUAGE
+//
+// Phase 2: Load controller-specific language files for optimal performance
+if (file_exists(WEBSITE_ROOT . '/languages/' . $language . '/core.php')) {
+  $langStats = LanguageLoader::loadForController($controller);
+  
+  // Optional: Log performance statistics for debugging
+  if (defined('DEBUG_LANGUAGE') && DEBUG_LANGUAGE) {
+    error_log("Language loading stats for controller '$controller': " . 
+              "Files: {$langStats['filesLoaded']}, " .
+              "Keys: {$langStats['keysLoaded']}, " .
+              "Memory reduction: {$langStats['memoryReduction']}%");
   }
 }
 

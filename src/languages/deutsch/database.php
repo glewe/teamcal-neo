@@ -66,5 +66,6 @@ $LANG['db_tab_dbinfo'] = 'Datenbank Information';
 $LANG['db_tab_delete'] = 'Datensätze löschen';
 $LANG['db_tab_optimize'] = 'Tabellen optimieren';
 $LANG['db_tab_repair'] = 'Reparieren';
+$LANG['db_tab_reset'] = 'Datenbank zurücksetzen';
 $LANG['db_tab_tcpimp'] = 'TeamCal Pro Import';
 $LANG['db_title'] = 'Datenbank Verwaltung';

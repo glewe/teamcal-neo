@@ -45,12 +45,6 @@ $LANG['cal_tt_onemore'] = 'Einen Monat mehr anzeigen...';
 //
 // Caledit
 //
-$LANG['caledit_Pattern'] = 'Muster';
-$LANG['caledit_PatternTitle'] = 'Abwesenheitsmuster auswählen';
-$LANG['caledit_Period'] = 'Zeitraum';
-$LANG['caledit_PeriodTitle'] = 'Abwesenheitszeitraum auswählen';
-$LANG['caledit_Recurring'] = 'Wiederholung';
-$LANG['caledit_RecurringTitle'] = 'Abwesenheitswiederholung auswählen';
 $LANG['caledit_absencePattern'] = 'Abwesenheitsmuster';
 $LANG['caledit_absencePatternSkipHolidays'] = 'Feiertage überspringen';
 $LANG['caledit_absencePatternSkipHolidays_comment'] = 'Beim setzen der Abwesenheiten überspringe Feiertage, die nicht als Werktag zählen.';
@@ -75,8 +69,14 @@ $LANG['caledit_currentAbsence'] = 'Aktuell';
 $LANG['caledit_endDate'] = 'Ende Datum';
 $LANG['caledit_endDate_comment'] = 'Wähle das Enddatum aus (muss in diesem Monat sein).';
 $LANG['caledit_keepExisting'] = 'Individuelle Abwesenheiten beibehalten';
+$LANG['caledit_Pattern'] = 'Muster';
+$LANG['caledit_PatternTitle'] = 'Abwesenheitsmuster auswählen';
+$LANG['caledit_Period'] = 'Zeitraum';
+$LANG['caledit_PeriodTitle'] = 'Abwesenheitszeitraum auswählen';
 $LANG['caledit_recurrence'] = 'Wiederholung';
 $LANG['caledit_recurrence_comment'] = 'Wähle die Wiederholung aus';
+$LANG['caledit_Recurring'] = 'Wiederholung';
+$LANG['caledit_RecurringTitle'] = 'Abwesenheitswiederholung auswählen';
 $LANG['caledit_selGroup'] = 'Gruppe auswählen';
 $LANG['caledit_selRegion'] = 'Region auswählen';
 $LANG['caledit_selUser'] = 'Benutzer auswählen';
