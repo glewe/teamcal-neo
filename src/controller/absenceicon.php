@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Absence Icon Controller
  *
@@ -9,7 +12,8 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
-global $LANG, $faIcons;
+global $faIcons;
+global $LANG;
 global $CONF;
 global $controller;
 
@@ -58,7 +62,7 @@ if ($missingData) {
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
-$inputAlert = array();
+// $inputAlert = array();
 
 //-----------------------------------------------------------------------------
 // PROCESS FORM
@@ -66,9 +70,14 @@ $inputAlert = array();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 
   //
+  // Sanitize input
+  //
+  $_POST = sanitize($_POST);
+
+  //
   // CSRF token check
   //
-  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+  if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
     $alertData['type'] = 'warning';
     $alertData['title'] = $LANG['alert_alert_title'];
     $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
@@ -82,9 +91,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   // | Save |
   // '------'
   if (isset($_POST['btn_save'])) {
-    $AA->id = $_POST['hidden_id'];
+    $AA->id = $_POST['hidden_id'] ?? '';
     if (isset($_POST['opt_absIcon'])) {
-      $AA->icon = $_POST['opt_absIcon'];
+      $AA->icon = $_POST['opt_absIcon'] ?? '';
     } else {
       $AA->icon = 'times';
     }
@@ -95,6 +104,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     $AA->update($AA->id);
 
     //
+    // Renew CSRF token after successful form processing
+    //
+    if (session_status() === PHP_SESSION_ACTIVE) {
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    //
     // Go back to absence edit page
     //
     header("Location: index.php?action=absenceedit&id=" . $AA->id);
@@ -102,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // ,--------,
     // | Filter |
     // '--------'
-    $filterString = $_POST['fa_search'];
+    $filterString = $_POST['fa_search'] ?? '';
     $allIcons = $faIcons;
     $faIcons = array_filter($allIcons, function ($element) use ($filterString) {
       return strpos($element, $filterString) !== false;
