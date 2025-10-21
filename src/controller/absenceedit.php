@@ -1,13 +1,4 @@
 <?php
-global $AG;
-global $C;
-global $CONF;
-global $controller;
-global $G;
-global $LANG;
-global $LOG;
-global $logLanguages;
-
 if (!defined('VALID_ROOT')) {
   exit('');
 }
@@ -21,6 +12,15 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+
+global $AG;
+global $C;
+global $CONF;
+global $controller;
+global $G;
+global $LANG;
+global $LOG;
+global $logLanguages;
 
 //-----------------------------------------------------------------------------
 // CHECK PERMISSION
@@ -70,7 +70,7 @@ if ($missingData) {
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
-$inputAlert = array();
+// $inputAlert = array();
 
 //-----------------------------------------------------------------------------
 // PROCESS FORM
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   //
   // CSRF token check
   //
-  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+  if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
     $alertData['type'] = 'warning';
     $alertData['title'] = $LANG['alert_alert_title'];
     $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
@@ -154,11 +154,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       //
       // Options
       //
-      $AA->factor = $_POST['txt_factor'];
-      $AA->allowance = $_POST['txt_allowance'];
-      $AA->allowmonth = $_POST['txt_allowmonth'];
-      $AA->allowweek = $_POST['txt_allowweek'];
-      $AA->counts_as = $_POST['sel_counts_as'];
+      $AA->factor = $_POST['txt_factor'] ?? '1';
+      $AA->allowance = $_POST['txt_allowance'] ?? '';
+      $AA->allowmonth = $_POST['txt_allowmonth'] ?? '';
+      $AA->allowweek = $_POST['txt_allowweek'] ?? '';
+      $AA->counts_as = $_POST['sel_counts_as'] ?? '';
 
       $checkboxes = [
         'chk_counts_as_present' => 'counts_as_present',
@@ -204,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       //
       // Renew CSRF token after successful form processing
       //
-      if (isset($_SESSION)) {
+      if (session_status() === PHP_SESSION_ACTIVE) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
       }
 
@@ -246,8 +246,10 @@ $viewData['factor'] = $AA->factor;
 $viewData['allowance'] = $AA->allowance;
 $viewData['allowmonth'] = $AA->allowmonth;
 $viewData['allowweek'] = $AA->allowweek;
+
 $otherAbs = $AA->getAllPrimaryBut($AA->id);
-$viewData['otherAbs'][] = array('val' => '0', 'name' => "None", 'selected' => ($AA->counts_as == '0') ? true : false);
+$viewData['otherAbs'] = [];
+$viewData['otherAbs'][] = array('val' => '0', 'name' => 'None', 'selected' => ($AA->counts_as == '0') ? true : false);
 foreach ($otherAbs as $abs) {
   $viewData['otherAbs'][] = array('val' => $abs['id'], 'name' => $abs['name'], 'selected' => ($AA->counts_as == $abs['id']) ? true : false);
 }
@@ -255,7 +257,7 @@ $viewData['counts_as']['val'] = $AA->counts_as;
 if ($viewData['counts_as']['val']) {
   $viewData['counts_as']['name'] = $AA->getName($AA->counts_as);
 } else {
-  $viewData['counts_as']['name'] = "None";
+  $viewData['counts_as']['name'] = 'None';
 }
 $viewData['counts_as_present'] = $AA->counts_as_present;
 $viewData['approval_required'] = $AA->approval_required;
@@ -266,6 +268,7 @@ $viewData['takeover'] = $AA->takeover;
 $viewData['show_in_remainder'] = $AA->show_in_remainder;
 
 $groups = $G->getAll();
+$viewData['groupsAssigned'] = [];
 foreach ($groups as $group) {
   $selected = $AG->isAssigned($viewData['id'], $group['id']);
   $viewData['groupsAssigned'][] = array('val' => $group['id'], 'name' => $group['name'], 'selected' => $selected);
@@ -273,17 +276,17 @@ foreach ($groups as $group) {
 
 $viewData['formObjects'] = [
   'general' => [
-    ['prefix' => 'abs', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '80', 'mandatory' => true, 'error' => (isset($inputAlert['name']) ? $inputAlert['name'] : '')],
-    ['prefix' => 'abs', 'name' => 'symbol', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['symbol'], 'maxlength' => '1', 'mandatory' => true, 'error' => (isset($inputAlert['symbol']) ? $inputAlert['symbol'] : '')],
-    ['prefix' => 'abs', 'name' => 'color', 'type' => 'color', 'value' => $viewData['color'], 'maxlength' => '6', 'error' => (isset($inputAlert['color']) ? $inputAlert['color'] : '')],
-    ['prefix' => 'abs', 'name' => 'bgcolor', 'type' => 'color', 'value' => $viewData['bgcolor'], 'maxlength' => '6', 'error' => (isset($inputAlert['bgcolor']) ? $inputAlert['bgcolor'] : '')],
+    ['prefix' => 'abs', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '80', 'mandatory' => true, 'error' => $inputAlert['name'] ?? ''],
+    ['prefix' => 'abs', 'name' => 'symbol', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['symbol'], 'maxlength' => '1', 'mandatory' => true, 'error' => $inputAlert['symbol'] ?? ''],
+    ['prefix' => 'abs', 'name' => 'color', 'type' => 'color', 'value' => $viewData['color'], 'maxlength' => '6', 'error' => $inputAlert['color'] ?? ''],
+    ['prefix' => 'abs', 'name' => 'bgcolor', 'type' => 'color', 'value' => $viewData['bgcolor'], 'maxlength' => '6', 'error' => $inputAlert['bgcolor'] ?? ''],
     ['prefix' => 'abs', 'name' => 'bgtrans', 'type' => 'check', 'value' => $viewData['bgtrans']],
   ],
   'options' => [
-    ['prefix' => 'abs', 'name' => 'factor', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['factor'], 'maxlength' => '4', 'error' => (isset($inputAlert['factor']) ? $inputAlert['factor'] : '')],
-    ['prefix' => 'abs', 'name' => 'allowance', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['allowance'], 'maxlength' => '3', 'error' => (isset($inputAlert['allowance']) ? $inputAlert['allowance'] : '')],
-    ['prefix' => 'abs', 'name' => 'allowmonth', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['allowmonth'], 'maxlength' => '2', 'error' => (isset($inputAlert['allowmonth']) ? $inputAlert['allowmonth'] : '')],
-    ['prefix' => 'abs', 'name' => 'allowweek', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['allowweek'], 'maxlength' => '2', 'error' => (isset($inputAlert['allowweek']) ? $inputAlert['allowweek'] : '')],
+    ['prefix' => 'abs', 'name' => 'factor', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['factor'], 'maxlength' => '4', 'error' => $inputAlert['factor'] ?? ''],
+    ['prefix' => 'abs', 'name' => 'allowance', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['allowance'], 'maxlength' => '3', 'error' => $inputAlert['allowance'] ?? ''],
+    ['prefix' => 'abs', 'name' => 'allowmonth', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['allowmonth'], 'maxlength' => '2', 'error' => $inputAlert['allowmonth'] ?? ''],
+    ['prefix' => 'abs', 'name' => 'allowweek', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['allowweek'], 'maxlength' => '2', 'error' => $inputAlert['allowweek'] ?? ''],
     ['prefix' => 'abs', 'name' => 'counts_as', 'type' => 'list', 'values' => $viewData['otherAbs'], 'topvalue' => ['val' => '0', 'name' => 'None']],
     ['prefix' => 'abs', 'name' => 'counts_as_present', 'type' => 'check', 'value' => $viewData['counts_as_present']],
     ['prefix' => 'abs', 'name' => 'approval_required', 'type' => 'check', 'value' => $viewData['approval_required']],
