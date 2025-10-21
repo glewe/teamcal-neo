@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Absences Controller
  *
@@ -59,7 +62,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && !empty($_POST)) {
   //
   // CSRF token check
   //
-  if (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) || ($_POST['csrf_token'] ?? '') !== ($_SESSION['csrf_token'] ?? '')) {
+  if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
     $alertData['type'] = 'warning';
     $alertData['title'] = $LANG['alert_alert_title'];
     $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
@@ -111,19 +114,19 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && !empty($_POST)) {
         //
         // Send notification e-mails to the subscribers of group events
         //
-        if ($C->read("emailNotifications")) {
-          sendAbsenceEventNotifications("created", $AA->name);
+        if ($C->read('emailNotifications')) {
+          sendAbsenceEventNotifications('created', $AA->name);
         }
 
         //
         // Log this event
         //
-        $LOG->logEvent("logAbsence", L_USER, "log_abs_created", $AA->name);
+        $LOG->logEvent('logAbsence', L_USER, 'log_abs_created', $AA->name);
 
         //
         // Renew CSRF token after successful form processing
         //
-        if (isset($_SESSION)) {
+        if (session_status() === PHP_SESSION_ACTIVE) {
           $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
 
@@ -165,26 +168,27 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && !empty($_POST)) {
       //
       // Send notification e-mails to the subscribers of group events
       //
-      if ($C->read("emailNotifications") && $hidden_name !== '') {
-        sendAbsenceEventNotifications("deleted", $hidden_name);
+      if ($C->read('emailNotifications') && $hidden_name !== '') {
+        sendAbsenceEventNotifications('deleted', $hidden_name);
       }
 
       //
       // Log this event
       //
       if ($hidden_name !== '') {
-        $LOG->logEvent("logAbsence", L_USER, "log_abs_deleted", $hidden_name);
+        $LOG->logEvent('logAbsence', L_USER, 'log_abs_deleted', $hidden_name);
+      }
+
+      //
+      // Renew CSRF token after successful form processing
+      //
+      if (session_status() === PHP_SESSION_ACTIVE) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
       }
 
       //
       // Success
       //
-      //
-      // Renew CSRF token after successful form processing
-      //
-      if (isset($_SESSION)) {
-        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-      }
       $showAlert = true;
       $alertData['type'] = 'success';
       $alertData['title'] = $LANG['alert_success_title'];
