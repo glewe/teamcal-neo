@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Absence Summary Controller
  *
@@ -78,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   //
   // CSRF token check
   //
-  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+  if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
     $alertData['type'] = 'warning';
     $alertData['title'] = $LANG['alert_alert_title'];
     $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
@@ -98,19 +101,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Select User |
     // '-------------'
     if (isset($_POST['btn_user'])) {
-      header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&user=" . $_POST['sel_user']);
+      header('Location: ' . $_SERVER['PHP_SELF'] . '?action=' . $controller . '&user=' . ($_POST['sel_user'] ?? ''));
       die();
     }
     // ,-------------,
     // | Select Year |
     // '-------------'
     elseif (isset($_POST['btn_year'])) {
-      $viewData['year'] = $_POST['sel_year'];
+      $viewData['year'] = $_POST['sel_year'] ?? date('Y');
     }
     //
     // Renew CSRF token after successful form processing
     //
-    if (isset($_SESSION)) {
+    if (session_status() === PHP_SESSION_ACTIVE) {
       $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
   } else {
