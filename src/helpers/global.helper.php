@@ -1666,14 +1666,14 @@ function isValidFileName(string $file, array $options = []): bool {
     $allowedChars .= ' ';
   }
   if ($options['allow_dots']) {
-    $allowedChars .= '\.';
+    $allowedChars .= '.';
   }
 
   // Create appropriate pattern based on extension requirement
   if ($options['require_extension']) {
-    $pattern = '/^[' . preg_quote($allowedChars, '/') . ']+\.[a-zA-Z0-9]+$/';
+    $pattern = '/^[' . $allowedChars . ']+\.[a-zA-Z0-9]+$/';
   } else {
-    $pattern = '/^[' . preg_quote($allowedChars, '/') . ']+(?:\.[a-zA-Z0-9]+)?$/';
+    $pattern = '/^[' . $allowedChars . ']+(?:\.[a-zA-Z0-9]+)?$/';
   }
 
   // Validate character set
@@ -1691,8 +1691,8 @@ function isValidFileName(string $file, array $options = []): bool {
 
   // Check for problematic patterns
   $problematicPatterns = [
-    '/^\./,',        // Hidden files (starting with dot)
-    '/\.\./,',       // Directory traversal patterns
+    '/^\./',        // Hidden files (starting with dot)
+    '/\.\./',       // Directory traversal patterns
     '/\.$/',         // Ending with dot
   ];
 
