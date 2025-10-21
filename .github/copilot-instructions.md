@@ -60,5 +60,18 @@ Coding conventions
     // method implementation
   }
 ```
+- Regular comments can be single line using `//` or block comments using an empty `//` line before and after the comment. For example:
+
+```
+  //
+  // This is a block comment that explains the following code section.
+  // It can span multiple lines and is separated by an empty comment
+  // line before and after.
+  //
+
+  // This is a single-line comment explaining the next line of code.
+  $variable = 'value'; // Inline comment explaining this assignment.
+```
+
 
 If anything above is unclear or you need extra examples (e.g., sample controller that reads/saves users), ask for specific files to inspect and I will extract minimal, safe change examples.
