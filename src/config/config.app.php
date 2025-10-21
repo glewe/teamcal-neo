@@ -66,6 +66,7 @@ define('COOKIE_NAME', "tcneopro");
  *   the old behavior. However, you will need to split your custom language
  *   files to the new structure in order to use the new feature. It saves
  *   memory and increases performance.
+ *   Read more: https://lewe.gitbook.io/teamcal-neo/administration/language-new
  */
 define('COMPARE_LANGUAGES', false);
 define('DEBUG_LANGUAGE', false);
