@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 
 /**
  * Attachments page controller
@@ -59,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   //
   // CSRF token check
   //
-  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+  if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
     $alertData['type'] = 'warning';
     $alertData['title'] = $LANG['alert_alert_title'];
     $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
@@ -92,11 +95,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $UPL->extensions = $CONF['uplExtensions'];
       $UPL->do_filename_check = "y";
       $UPL->replace = "y";
-      $UPL->the_temp_file = $_FILES['file_image']['tmp_name'];
+      $UPL->the_temp_file = $_FILES['file_image']['tmp_name'] ?? '';
       // Replace blanks with underscores in the file name
-      $safeFileName = str_replace(' ', '_', $_FILES['file_image']['name']);
+      $safeFileName = str_replace(' ', '_', $_FILES['file_image']['name'] ?? '');
       $UPL->the_file = $safeFileName;
-      $UPL->http_error = $_FILES['file_image']['error'];
+      $UPL->http_error = $_FILES['file_image']['error'] ?? 0;
 
       if ($UPL->uploadFile()) {
         $AT->create($UPL->the_file, $UL->username);
@@ -182,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         //
         // Renew CSRF token after successful form processing
         //
-        if (isset($_SESSION)) {
+        if (session_status() === PHP_SESSION_ACTIVE) {
           $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
 
