@@ -2396,7 +2396,10 @@ function sanitizeWithAllowedTags(string $input, ?array $customTags = null, bool 
     $cleaned = sanitizeHtmlAttributes($cleaned);
   } elseif (!$allowAttributes) {
     // Remove all attributes if not allowed
-    $cleaned = preg_replace('/<([a-zA-Z0-9]+)\s[^>]*>/', '<$1>', $cleaned);
+    // Handle both regular tags and self-closing tags
+    $cleaned = preg_replace('/<([a-zA-Z0-9]+)(\s[^>]*)?>/', '<$1>', $cleaned);
+    // Restore self-closing behavior for void elements (br, hr, img, etc.)
+    $cleaned = preg_replace('/<(br|hr|img|input|meta|link|area|base|col|embed|param|source|track|wbr)>/', '<$1 />', $cleaned);
   }
 
   // Cache and return result

@@ -66,7 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   //
   foreach ($_POST as $key => $value) {
     $_POST[$key] = trim($value);
-    if (str_starts_with($key, 'txt_') && $key !== 'txt_welcomeText') {
+    $sanitizeLater = ['txt_welcomeText', 'txt_gdprController', 'txt_gdprOfficer'];
+    if (str_starts_with($key, 'txt_') && !in_array($key, $sanitizeLater)) {
       $_POST[$key] = sanitize($value);
     }
   }
@@ -375,8 +376,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         $C->save("gdprPolicyPage", "0");
       }
       $C->save("gdprOrganization", sanitize($_POST['txt_gdprOrganization']));
-      $C->save("gdprController", sanitize($_POST['txt_gdprController']));
-      $C->save("gdprOfficer", sanitize($_POST['txt_gdprOfficer']));
+      $C->save("gdprController", sanitizeWithAllowedTags($_POST['txt_gdprController']));
+      $C->save("gdprOfficer", sanitizeWithAllowedTags($_POST['txt_gdprOfficer']));
       if (isset($_POST['chk_gdprFacebook']) && $_POST['chk_gdprFacebook']) {
         $C->save("gdprFacebook", "1");
       } else {
