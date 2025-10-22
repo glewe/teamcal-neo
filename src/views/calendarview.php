@@ -9,7 +9,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
-$formLink = 'index.php?action=' . $controller . '&amp;month=' . $viewData['year'] . $viewData['month'] . '&amp;region=' . $viewData['regionid'] . '&amp;group=' . $viewData['groupid'] . '&amp;abs=' . $viewData['absid'];
+$formLink = 'index.php?action=' . $controller . '&amp;month=' . $viewData['year'] . $viewData['month'] . '&amp;region=' . $viewData['regionid'] . '&amp;group=' . $viewData['groupid'] . '&amp;abs=' . $viewData['absid'] . '&amp;viewmode=' . $viewData['viewmode'];
 ?>
 <!-- ====================================================================
 view.calendarview
@@ -26,6 +26,10 @@ view.calendarview
       $viewData['dateInfo'] = $vmonth['dateInfo'];
       $viewData['dayStyles'] = $vmonth['dayStyles'];
       $viewData['businessDays'] = $vmonth['businessDays'];
+      $viewData['isSplitMonth'] = isset($vmonth['isSplitMonth']) ? $vmonth['isSplitMonth'] : false;
+      $viewData['dayStart'] = isset($vmonth['dayStart']) ? $vmonth['dayStart'] : 1;
+      $viewData['dayEnd'] = isset($vmonth['dayEnd']) ? $vmonth['dayEnd'] : $vmonth['dateInfo']['daysInMonth'];
+      $viewData['nextMonthInfo'] = isset($vmonth['nextMonthInfo']) ? $vmonth['nextMonthInfo'] : null;
       require "calendarviewmonth.php";
     }
     ?>
@@ -58,6 +62,10 @@ view.calendarview
         $viewData['dateInfo'] = $vmonth['dateInfo'];
         $viewData['dayStyles'] = $vmonth['dayStyles'];
         $viewData['businessDays'] = $vmonth['businessDays'];
+        $viewData['isSplitMonth'] = isset($vmonth['isSplitMonth']) ? $vmonth['isSplitMonth'] : false;
+        $viewData['dayStart'] = isset($vmonth['dayStart']) ? $vmonth['dayStart'] : 1;
+        $viewData['dayEnd'] = isset($vmonth['dayEnd']) ? $vmonth['dayEnd'] : $vmonth['dateInfo']['daysInMonth'];
+        $viewData['nextMonthInfo'] = isset($vmonth['nextMonthInfo']) ? $vmonth['nextMonthInfo'] : null;
         require "calendarviewmonth.php";
       }
       ?>

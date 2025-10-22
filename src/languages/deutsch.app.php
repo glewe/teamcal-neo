@@ -223,6 +223,8 @@ $LANG['cal_selRegion'] = 'Region auswählen';
 $LANG['cal_selWidth'] = 'Bildschirmbreite auswählen';
 $LANG['cal_selWidth_comment'] = 'Wähle deine Bildschirmbreite in Pixel so dass die Kalendertabelle sich daran anpasst. Sollte deine Breite nicht in der Liste sein, wähle die nächst höhere.
       <br>Im Moment scheinst du eine Breite von <span id="currentwidth"></span> Pixeln zu benutzen. Lade die Seite neu und öffne diesen Dialog erneut, um sicher zu gehen.';
+$LANG['cal_switchFullmonthView'] = "Wechsel zu Vollmonatsansicht";
+$LANG['cal_switchSplitmonthView'] = 'Wechsel zu Split-Monatsansicht';
 $LANG['cal_summary'] = 'Summen';
 $LANG['cal_businessDays'] = 'Arbeitstage';
 
@@ -345,7 +347,7 @@ $LANG['calopt_satBusi_comment'] = 'Normalerweise sind Samstage und Sonntage Woch
 $LANG['calopt_showAvatars'] = 'Avatars anzeigen';
 $LANG['calopt_showAvatars_comment'] = 'Mit dieser Option wird ein User Avatar in einem Pop-Up angezeigt, wenn die Maus über das User Icon geführt wird.';
 $LANG['calopt_showMonths'] = 'Mehrere Monate anzeigen';
-$LANG['calopt_showMonths_comment'] = 'Gebe hier an, wieviele Monate auf der Kalenderseite angezeigt werden sollen, maximal 12.';
+$LANG['calopt_showMonths_comment'] = 'Gebe hier an, wieviele Monate auf der Kalenderseite angezeigt werden sollen, maximal 12.<br><i>Hinweis: Ein User kann diesen Wert in seinen Einstellungen auch ändern, der gegenüber dem Standardwert Priorität hat.</i>';
 $LANG['calopt_showRegionButton'] = 'Regionsfilter anzeigen';
 $LANG['calopt_showRegionButton_comment'] = 'Mit dieser Option wird oberhalb des Kalenders ein Button angezeigt, mit dem eine andere Region gewählt werden kann.
       Wenn nur die Standard Region benutzt wird, kann es Sinn machen, diesen auszublenden.';

@@ -13,7 +13,13 @@
 <!-- ====================================================================
 view.calendarviewmonth (<?= $viewData['year'] . $viewData['month'] ?>)
 -->
-<?php if (!$viewData['supportMobile']) {
+<?php
+//
+// Check if this month entry is a split month view
+//
+$isSplitMonth = isset($viewData['isSplitMonth']) && $viewData['isSplitMonth'];
+
+if (!$viewData['supportMobile']) {
   $mobilecols = array( 'full' => $viewData['dateInfo']['daysInMonth'] );
 } else {
   switch ($viewData['width']) {
@@ -48,16 +54,35 @@ view.calendarviewmonth (<?= $viewData['year'] . $viewData['month'] ?>)
 }
 
 foreach ($mobilecols as $key => $cols) {
-  $days = $viewData['dateInfo']['daysInMonth'];
-  $tables = ceil($days / $cols);
+  //
+  // Check if this is a split month view with custom day range
+  //
+  $dayRangeStart = isset($viewData['dayStart']) ? $viewData['dayStart'] : 1;
+  $dayRangeEnd = isset($viewData['dayEnd']) ? $viewData['dayEnd'] : $viewData['dateInfo']['daysInMonth'];
+  
+  //
+  // For split month view, we need to handle the combined display differently
+  //
+  if ($isSplitMonth) {
+    $days = 30;  // 15 days from current month + 15 days from next month
+    $daystart = $dayRangeStart;
+    $dayend = $dayRangeEnd;
+    $tables = 1;  // Only one table for split month
+  } else {
+    $days = ($dayRangeEnd - $dayRangeStart) + 1;
+    $tables = ceil($days / $cols);
+  }
+  
   $script = '';
   for ($t = 0; $t < $tables; $t++) {
-    $daystart = ($t * $cols) + 1;
-    $daysleft = $days - ($cols * $t);
-    if ($daysleft >= $cols) {
-      $dayend = $daystart + ($cols - 1);
-    } else {
-      $dayend = $days;
+    if (!$isSplitMonth) {
+      $daystart = ($t * $cols) + $dayRangeStart;
+      $daysleft = $days - ($cols * $t);
+      if ($daysleft >= $cols) {
+        $dayend = $daystart + ($cols - 1);
+      } else {
+        $dayend = $dayRangeEnd;
+      }
     }
     ?>
     <div class="table<?= ($viewData['supportMobile']) ? $key : ''; ?>">

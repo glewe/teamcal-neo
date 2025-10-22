@@ -75,6 +75,22 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
   <?php
   $T->getTemplate($usr['username'], $viewData['year'], $viewData['month']);
   $currDate = date('Y-m-d');
+  
+  //
+  // For split month view, also load the next month's template
+  //
+  $nextMonthTemplate = null;
+  if (isset($viewData['isSplitMonth']) && $viewData['isSplitMonth']) {
+    $nextMonthNum = intval($viewData['month']) + 1;
+    $nextMonthYear = $viewData['year'];
+    if ($nextMonthNum > 12) {
+      $nextMonthNum = 1;
+      $nextMonthYear++;
+    }
+    $nextMonthTemplate = new Templates();
+    $nextMonthTemplate->getTemplate($usr['username'], $nextMonthYear, sprintf('%02d', $nextMonthNum));
+  }
+  
   //
   // Loop through all days of this month
   //
@@ -82,6 +98,13 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
     $loopDate = date('Y-m-d', mktime(0, 0, 0, $viewData['month'], $i, $viewData['year']));
     $abs = 'abs' . $i;
     $style = $viewData['dayStyles'][$i];
+    
+    //
+    // In split month view, add a right border to the last day of the first month
+    //
+    if (isset($viewData['isSplitMonth']) && $viewData['isSplitMonth'] && $i == $dayend) {
+      $style .= 'border-right: 2px solid #000;';
+    }
     $icon = '&nbsp;';
     $absstart = '';
     $absend = '';
@@ -245,5 +268,104 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
       ?>
     </td>
 
-  <?php } ?>
+  <?php }
+  
+  //
+  // For split month view, also loop through the first 15 days of next month
+  //
+  if (isset($viewData['isSplitMonth']) && $viewData['isSplitMonth']) {
+    $nextMonthNum = intval($viewData['month']) + 1;
+    $nextMonthYear = $viewData['year'];
+    if ($nextMonthNum > 12) {
+      $nextMonthNum = 1;
+      $nextMonthYear++;
+    }
+    
+    //
+    // Build edit link for next month
+    //
+    $nextMonthEditLink = '';
+    if ($editAllowed) {
+      $nextMonthEditLink = ' onclick="window.location.href = \'index.php?action=calendaredit&amp;month=' . $nextMonthYear . sprintf('%02d', $nextMonthNum) . '&amp;region=' . $viewData['regionid'] . '&user=' . $usr['username'] . '\';"';
+    }
+    
+    for ($i = 1; $i <= 15; $i++) {
+      $loopDate = date('Y-m-d', mktime(0, 0, 0, $nextMonthNum, $i, $nextMonthYear));
+      $abs = 'abs' . $i;
+      $style = $viewData['dayStyles']['next_' . $i];  // Apply day styles for next month days
+      $icon = '&nbsp;';
+      $absstart = '';
+      $absend = '';
+      $note = false;
+      $notestart = '';
+      $noteend = '';
+      $bday = false;
+      $bdaystart = '';
+      $bdayend = '';
+      $allowed = true;
+
+      if ($nextMonthTemplate && $nextMonthTemplate->$abs) {
+        //
+        // This is an absence. Get icon and coloring info.
+        //
+        if (!$viewData['absfilter'] || ($viewData['absfilter'] && $nextMonthTemplate->$abs == $viewData['absid'])) {
+          if ($A->isConfidential($nextMonthTemplate->$abs)) {
+            $allowed = false;
+            if (in_array($UL->getRole($UL->username), $viewData['trustedRoles']) || $UL->username == 'admin' || $UL->username == $usr['username']) {
+              $allowed = true;
+            }
+          }
+
+          if ($allowed) {
+            if ($A->getBgTrans($nextMonthTemplate->$abs)) {
+              $bgStyle = "";
+            } else {
+              $bgStyle = "background-color: #" . $A->getBgColor($nextMonthTemplate->$abs) . ";";
+            }
+            $style .= 'color: #' . $A->getColor($nextMonthTemplate->$abs) . ';' . $bgStyle;
+            if ($C->read('symbolAsIcon')) {
+              $icon = $A->getSymbol($nextMonthTemplate->$abs);
+            } else {
+              $icon = '<span class="' . $A->getIcon($nextMonthTemplate->$abs) . ' align-bottom"></span>';
+            }
+            $absstart = '<span data-bs-custom-class="danger" data-bs-placement="top" data-bs-toggle="tooltip" title="' . $A->getName($nextMonthTemplate->$abs) . '">';
+            $absend = '</span>';
+          } else {
+            $style .= 'color: #d5d5d5;background-color: #d5d5d5;';
+            $icon = '&nbsp;';
+            $absstart = '<span data-bs-custom-class="danger" data-placement="top" data-bs-toggle="tooltip" title="' . $LANG['cal_tt_absent'] . '">';
+            $absend = '</span>';
+          }
+        } else {
+          $style .= 'color: #d5d5d5;background-color: #d5d5d5;';
+          $icon = '&nbsp;';
+          $absstart = '<span data-bs-custom-class="danger" data-bs-placement="top" data-bs-toggle="tooltip" title="' . $LANG['cal_tt_anotherabsence'] . '">';
+          $absend = '</span>';
+        }
+      } else {
+        if ($loopDate < $currDate && $bgColor = $C->read('pastDayColor')) {
+          $style .= "background-color:#" . $bgColor . ";";
+        }
+      }
+
+      if (strlen($style)) {
+        $style = ' style="' . $style . '"';
+      }
+      ?>
+
+      <td class="m-day text-center" <?= $style ?><?= $nextMonthEditLink ?>>
+        <?php
+        if ($editAllowed) {
+          echo '<i data-bs-placement="right" data-bs-custom-class="secondary" data-bs-toggle="tooltip" title="' . $LANG['cal_tt_clicktoedit'] . '">';
+        }
+        echo $bdaystart . $notestart . $absstart . $icon . $absend . $noteend . $bdayend;
+        if ($editAllowed) {
+          echo '</i>';
+        }
+        ?>
+      </td>
+
+    <?php }
+  }
+  ?>
 </tr>

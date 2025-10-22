@@ -300,25 +300,18 @@ if ($limit = $C->read("usersPerPage")) {
 //
 $inputAlert = array();
 $currDate = date('Y-m-d');
+$viewmode = 'fullmonth';  // Initialize viewmode, will be set properly after form processing
 
-$viewData['months'] = array(
-  array(
-    'year' => $viewData['year'],
-    'month' => $viewData['month'],
-    'dateInfo' => dateInfo($viewData['year'], $viewData['month']),
-    'M' => new Months(),
-    'dayStyles' => array(),
-    'businessDays' => 0,
-  ),
-);
+// Initialize months array to prevent undefined array key warning
+$viewData['months'] = array();
 
 //
 // Figure out how many months to display
 //
 if ($UO->read($UL->username, 'showMonths')) {
-  $showMonths = $UO->read($UL->username, 'showMonths');
+  $showMonths = intval($UO->read($UL->username, 'showMonths'));
 } elseif ($C->read('showMonths')) {
-  $showMonths = $C->read('showMonths');
+  $showMonths = intval($C->read('showMonths'));
 } else {
   $showMonths = 1;
   $C->save('showMonths', 1);
@@ -343,50 +336,6 @@ if (!empty($_POST) && isset($_POST['btn_onemore'])) {
   $showMonths = intval($_POST['hidden_showmonths']);
   if ($showMonths <= 12) {
     $showMonths++;
-  }
-}
-
-//
-// Prepare following months if required
-//
-if ($showMonths > 1) {
-  $prevYear = intval($viewData['year']);
-  $prevMonth = intval($viewData['month']);
-  for ($i = 2; $i <= $showMonths; $i++) {
-    if ($prevMonth == 12) {
-      if ($C->read('currentYearOnly') && $C->read("currYearRoles")) {
-        //
-        // Applies to roles
-        //
-        $arrCurrYearRoles = array();
-        $arrCurrYearRoles = explode(',', $C->read("currYearRoles"));
-        $userRole = $U->getRole(L_USER);
-        if (in_array($userRole, $arrCurrYearRoles)) {
-          $i = $showMonths + 1;
-          continue;
-        } else {
-          $nextMonth = "01";
-          $nextYear = $prevYear + 1;
-        }
-      } else {
-        $nextMonth = "01";
-        $nextYear = $prevYear + 1;
-      }
-    } else {
-      $nextMonth = sprintf('%02d', $prevMonth + 1);
-      $nextYear = $prevYear;
-    }
-
-    $viewData['months'][] = array(
-      'year' => $nextYear,
-      'month' => $nextMonth,
-      'dateInfo' => dateInfo($nextYear, $nextMonth),
-      'M' => new Months(),
-      'dayStyles' => array(),
-      'businessDays' => 0,
-    );
-    $prevYear = intval($nextYear);
-    $prevMonth = intval($nextMonth);
   }
 }
 
@@ -497,7 +446,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // '---------------------'
     elseif (isset($_POST['btn_width'])) {
       $UO->save($UL->username, 'width', $_POST['sel_width']);
-      header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $_POST['sel_absence']);
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $_POST['sel_absence'] . "&viewmode=" . $viewmode);
+      die();
+    }
+    // ,---------------------,
+    // | Select View Mode    |
+    // '---------------------'
+    elseif (isset($_POST['btn_viewmode'])) {
+      if (L_USER) {
+        $UO->save($UL->username, 'calViewMode', $_POST['sel_viewmode']);
+      }
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . $monthfilter . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter . "&viewmode=" . $_POST['sel_viewmode']);
       die();
     }
     // ,---------------,
@@ -546,6 +505,176 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     $alertData['subject'] = $LANG['alert_input'];
     $alertData['text'] = $LANG['abs_alert_save_failed'];
     $alertData['help'] = '';
+  }
+}
+
+//
+// Check for view mode (fullmonth or splitmonth)
+// This is done AFTER form processing so that the toggle button works correctly
+//
+if (isset($_GET['viewmode'])) {
+  $viewmode = sanitize($_GET['viewmode']);
+  if (L_USER) {
+    $UO->save($UL->username, 'calViewMode', $viewmode);
+  }
+} elseif (L_USER && $viewmode = $UO->read($UL->username, 'calViewMode')) {
+  //
+  // Nothing in URL but user has a last-used value in his profile.
+  //
+} else {
+  $viewmode = 'fullmonth';
+}
+
+//
+// Validate view mode
+//
+if ($viewmode !== 'splitmonth') {
+  $viewmode = 'fullmonth';
+}
+
+$viewData['viewmode'] = $viewmode;
+
+//
+// Build months array based on view mode
+// This is done AFTER view mode is determined
+//
+if ($viewmode === 'splitmonth') {
+  //
+  // Split month view: last 15 days of current month + first 15 days of next month
+  // This is displayed as a single combined table
+  // Note: In split mode, each entry shows 2 months, so we need to account for this
+  //
+  $viewData['months'] = array();
+  $currYear = intval($viewData['year']);
+  $currMonth = intval($viewData['month']);
+  
+  for ($splitIdx = 0; $splitIdx < $showMonths; $splitIdx++) {
+    $nextMonth = $currMonth + 1;
+    $nextYear = $currYear;
+    if ($nextMonth > 12) {
+      $nextMonth = 1;
+      $nextYear++;
+    }
+    
+    $currMonthInfo = dateInfo($currYear, sprintf('%02d', $currMonth));
+    $nextMonthInfo = dateInfo($nextYear, sprintf('%02d', $nextMonth));
+    
+    //
+    // Create a combined month entry that spans both months
+    //
+    $M = new Months();
+    if (!$M->getMonth($currYear, sprintf('%02d', $currMonth), $viewData['regionid'])) {
+      createMonth($currYear, sprintf('%02d', $currMonth), 'region', $viewData['regionid']);
+      $M->getMonth($currYear, sprintf('%02d', $currMonth), $viewData['regionid']);
+    }
+    
+    //
+    // Load the next month's Months object for split month display
+    // Create it if it doesn't exist
+    //
+    $nextM = new Months();
+    if (!$nextM->getMonth($nextYear, sprintf('%02d', $nextMonth), $viewData['regionid'])) {
+      createMonth($nextYear, sprintf('%02d', $nextMonth), 'region', $viewData['regionid']);
+      $nextM->getMonth($nextYear, sprintf('%02d', $nextMonth), $viewData['regionid']);
+      //
+      // Send notification e-mails to the subscribers of user events
+      //
+      if ($C->read("emailNotifications")) {
+        sendMonthEventNotifications("created", $nextYear, sprintf('%02d', $nextMonth), $viewData['regionname']);
+      }
+      //
+      // Log this event
+      //
+      $LOG->logEvent("logMonth", L_USER, "log_month_tpl_created", $nextM->region . ": " . $nextM->year . "-" . $nextM->month);
+    }
+    
+    $viewData['months'][] = array(
+      'year' => $currYear,
+      'month' => sprintf('%02d', $currMonth),
+      'dateInfo' => $currMonthInfo,
+      'dayStart' => $currMonthInfo['daysInMonth'] - 14,  // Last 15 days of current month
+      'dayEnd' => $currMonthInfo['daysInMonth'],
+      'nextMonthInfo' => $nextMonthInfo,  // Include next month info for combined display
+      'nextMonthDays' => 15,  // First 15 days of next month
+      'isSplitMonth' => true,  // Flag to indicate this is a split month view
+      'M' => $M,
+      'nextM' => $nextM,  // Store the next month's Months object
+      'dayStyles' => array(),
+      'businessDays' => 0,
+    );
+    
+    //
+    // Move to next month for next iteration
+    //
+    $currMonth = $nextMonth;
+    $currYear = $nextYear;
+  }
+} else {
+  //
+  // Standard fullmonth view
+  //
+  $M = new Months();
+  $M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']);
+  $viewData['months'] = array(
+    array(
+      'year' => $viewData['year'],
+      'month' => $viewData['month'],
+      'dateInfo' => dateInfo($viewData['year'], $viewData['month']),
+      'M' => $M,
+      'dayStyles' => array(),
+      'businessDays' => 0,
+    ),
+  );
+}
+
+//
+// Prepare following months if required (only for fullmonth mode)
+// In split month mode, all months are already prepared above
+//
+if ($showMonths > 1 && $viewmode === 'fullmonth') {
+  $prevYear = intval($viewData['year']);
+  $prevMonth = intval($viewData['month']);
+  for ($i = 2; $i <= $showMonths; $i++) {
+    if ($prevMonth == 12) {
+      if ($C->read('currentYearOnly') && $C->read("currYearRoles")) {
+        //
+        // Applies to roles
+        //
+        $arrCurrYearRoles = array();
+        $arrCurrYearRoles = explode(',', $C->read("currYearRoles"));
+        $userRole = $U->getRole(L_USER);
+        if (in_array($userRole, $arrCurrYearRoles)) {
+          $i = $showMonths + 1;
+          continue;
+        } else {
+          $nextMonth = "01";
+          $nextYear = $prevYear + 1;
+        }
+      } else {
+        $nextMonth = "01";
+        $nextYear = $prevYear + 1;
+      }
+    } else {
+      $nextMonth = sprintf('%02d', $prevMonth + 1);
+      $nextYear = $prevYear;
+    }
+
+    $M = new Months();
+    $M->getMonth($nextYear, $nextMonth, $viewData['regionid']);
+    
+    //
+    // Standard fullmonth view
+    //
+    $viewData['months'][] = array(
+      'year' => $nextYear,
+      'month' => $nextMonth,
+      'dateInfo' => dateInfo($nextYear, $nextMonth),
+      'M' => $M,
+      'dayStyles' => array(),
+      'businessDays' => 0,
+    );
+    $prevYear = intval($nextYear);
+    $prevMonth = intval($nextMonth);
   }
 }
 
@@ -648,6 +777,69 @@ foreach ($viewData['months'] as $vmonth) {
       $dayStyles[$i] = $color . $bgcolor . $border;
     }
   }
+  
+  //
+  // For split month view, also add dayStyles for the next month's first 15 days
+  //
+  if (isset($vmonth['isSplitMonth']) && $vmonth['isSplitMonth']) {
+    $nextMonthNum = intval($vmonth['month']) + 1;
+    $nextMonthYear = intval($vmonth['year']);
+    if ($nextMonthNum > 12) {
+      $nextMonthNum = 1;
+      $nextMonthYear++;
+    }
+    $nextM = new Months();
+    $nextM->getMonth($nextMonthYear, sprintf('%02d', $nextMonthNum), $viewData['regionid']);
+    
+    for ($i = 1; $i <= 15; $i++) {
+      $color = '';
+      $bgcolor = '';
+      $border = '';
+      $dayStyles['next_' . $i] = '';
+      $hprop = 'hol' . $i;
+      $wprop = 'wday' . $i;
+      if ($nextM->$hprop) {
+        //
+        // This is a holiday. Get the coloring info.
+        //
+        if ($H->keepWeekendColor($nextM->$hprop)) {
+          //
+          // Weekend color shall be kept. So if this a weekend day color it as such.
+          //
+          if ($nextM->$wprop == 6 || $nextM->$wprop == 7) {
+            $color = 'color:#' . $H->getColor($nextM->$wprop - 4) . ';';
+            $bgcolor = 'background-color:#' . $H->getBgColor($nextM->$wprop - 4) . ';';
+          } else {
+            $color = 'color:#' . $H->getColor($nextM->$hprop) . ';';
+            $bgcolor = 'background-color:#' . $H->getBgColor($nextM->$hprop) . ';';
+          }
+        } else {
+          $color = 'color:#' . $H->getColor($nextM->$hprop) . ';';
+          $bgcolor = 'background-color:#' . $H->getBgColor($nextM->$hprop) . ';';
+        }
+      } elseif ($nextM->$wprop == 6 || $nextM->$wprop == 7) {
+        //
+        // This is a Saturday or Sunday. Get the coloring info.
+        //
+        $color = 'color:#' . $H->getColor($nextM->$wprop - 4) . ';';
+        $bgcolor = 'background-color:#' . $H->getBgColor($nextM->$wprop - 4) . ';';
+      }
+      //
+      // Get today style
+      //
+      $loopDate = date('Y-m-d', mktime(0, 0, 0, $nextMonthNum, $i, $nextMonthYear));
+      if ($loopDate == $currDate) {
+        $border = 'border-left: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';border-right: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';';
+      }
+      //
+      // Build styles
+      //
+      if (strlen($color) || strlen($bgcolor) || strlen($border)) {
+        $dayStyles['next_' . $i] = $color . $bgcolor . $border;
+      }
+    }
+  }
+  
   $viewData['months'][$j]['dayStyles'] = $dayStyles;
   $j++;
 }
