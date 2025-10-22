@@ -304,6 +304,9 @@ function dateInfo(string $year, string $month, string $day = '1'): array {
   if (isset($LANG['monthnames'][$monthNum])) {
     $dateInfo['monthname'] = $LANG['monthnames'][$monthNum];
   }
+  if (isset($LANG['monthShort'][$monthNum])) {
+    $dateInfo['monthshort'] = $LANG['monthShort'][$monthNum];
+  }
 
   // Calculate month boundaries
   $dateInfo['firstOfMonth'] = $yearStr . '-' . $monthStr . '-01';

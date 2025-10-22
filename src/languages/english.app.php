@@ -223,6 +223,8 @@ $LANG['cal_selRegion'] = 'Select Region';
 $LANG['cal_selWidth'] = 'Select Screen Width';
 $LANG['cal_selWidth_comment'] = 'Select the width of your screen in pixels so the calendar table can adjust to it. If your width is not in the list, select the next higher one.
       <br>It looks like you are currently using a screen with a width of <span id="currentwidth"></span> pixels. Reload the page to check this dialog again to confirm.';
+$LANG['cal_switchFullmonthView'] = 'Switch to full month view';
+$LANG['cal_switchSplitmonthView'] = 'Switch to split month view';
 $LANG['cal_summary'] = 'Summary';
 $LANG['cal_businessDays'] = 'Business Days';
 
@@ -345,7 +347,7 @@ $LANG['calopt_satBusi_comment'] = 'By default, Saturday and Sunday are weekend d
 $LANG['calopt_showAvatars'] = 'Show Avatars';
 $LANG['calopt_showAvatars_comment'] = 'Checking this option will show a user avatar pop-up when moving the mouse over the user avatar icon.';
 $LANG['calopt_showMonths'] = 'Show Multiple Months';
-$LANG['calopt_showMonths_comment'] = 'Enter the number of months to show on the calendar page, maximum 12.';
+$LANG['calopt_showMonths_comment'] = 'Enter the number of months to show on the calendar page, maximum 12.<br><i>Note: A user can override this value in his settings, which has priority over the default value.</i>';
 $LANG['calopt_showRegionButton'] = 'Show Region Filter Button';
 $LANG['calopt_showRegionButton_comment'] = 'Checking this option will show the region filter button on top of the calendar for easy switching between different regions.
       If you only use the standard region it might make sense to hide the button by unchecking this option.';

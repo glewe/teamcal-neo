@@ -70,7 +70,7 @@ $LANG['calopt_satBusi_comment'] = 'By default, Saturday and Sunday are weekend d
 $LANG['calopt_showAvatars'] = 'Show Avatars';
 $LANG['calopt_showAvatars_comment'] = 'Checking this option will show a user avatar pop-up when moving the mouse over the user avatar icon.';
 $LANG['calopt_showMonths'] = 'Show Multiple Months';
-$LANG['calopt_showMonths_comment'] = 'Enter the number of months to show on the calendar page, maximum 12.';
+$LANG['calopt_showMonths_comment'] = 'Enter the number of months to show on the calendar page, maximum 12.<br><i>Note: A user can override this value in his settings, which has priority over the default value.</i>';
 $LANG['calopt_showRegionButton'] = 'Show Region Filter Button';
 $LANG['calopt_showRegionButton_comment'] = 'Checking this option will show the region filter button on top of the calendar for easy switching between different regions.
       If you only use the standard region it might make sense to hide the button by unchecking this option.';

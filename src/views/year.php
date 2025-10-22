@@ -57,7 +57,7 @@ view.year
         $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
       }
       ?>
-      <div class="card-header text-bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="fas <?= $CONF['controllers']['year']->faIcon ?> fa-lg me-3"></i><?= sprintf($LANG['year_title'], $viewData['year'], $viewData['fullname'], $viewData['regionname']) ?><?= $pageHelp ?></div>
+      <div class="card-header text-bg-<?= $CONF['controllers'][$controller]->panelColor ?>"><i class="<?= $CONF['controllers']['year']->faIcon ?> fa-lg me-3"></i><?= sprintf($LANG['year_title'], $viewData['year'], $viewData['fullname'], $viewData['regionname']) ?><?= $pageHelp ?></div>
       <div class="card-body" id="mobile">
         <p>
           <button type="button" class="btn btn-primary" name="btn_showmobile" onclick="javascript: $('#mobile').hide(); $('#fullscreen').show();"><?= $LANG['btn_showcalendar'] ?></button>
