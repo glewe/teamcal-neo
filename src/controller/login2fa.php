@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Login 2FA Controller
  * Handles the second step of login for users with 2FA enabled.

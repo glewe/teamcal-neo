@@ -2,7 +2,6 @@
 if (!defined('VALID_ROOT')) {
   exit('');
 }
-
 /**
  * Attachments page controller
  *
