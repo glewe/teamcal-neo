@@ -371,6 +371,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
+
+// Load all config values in one query for maximum performance
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+
 $viewData['currentScheme'] = $C->read("permissionScheme");
 $viewData['mode'] = $mode;
 $viewData['perms'] = $perms;
