@@ -584,8 +584,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 
 // Load all config values in one query for maximum performance
 $allConfig = $C->readAll();
-$jqtheme = $C->read("jqtheme");
-$font = $C->read("font");
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 
 foreach ($appLanguages as $appLang) {
   $viewData['languageList'][] = array('val' => $appLang, 'name' => ucwords($appLang), 'selected' => ($allConfig['defaultLanguage'] == $appLang) ? true : false);
