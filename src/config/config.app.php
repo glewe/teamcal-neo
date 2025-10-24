@@ -77,10 +77,10 @@ define('USE_SPLIT_LANGUAGE_FILES', true);
  * MANDATORY MODULES
  * ----------------------------------------------------------------------------
  */
-define('BOOTSTRAP_VER', "5.3.6");
+define('BOOTSTRAP_VER', "5.3.8");
 define('BOOTSTRAP_ICONS_VER', "1.11.3");
 define('DATATABLES_VER', "2.2.0");
-define('FONTAWESOME_VER', "6.7.2");
+define('FONTAWESOME_VER', "7.1.0");
 define('JQUERY_VER', "3.7.1");
 define('JQUERY_UI_VER', "1.14.1");
 define('SECUREIMAGE_VER', "3.6.8");
@@ -184,8 +184,8 @@ define('LDAP_CHECK_ANONYMOUS_BIND', 0);                      // Set to 1 to chec
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "4.2.0");
-define('APP_DATE', "2025-03-13");
+define('APP_VER', "4.3.0-dev");
+define('APP_DATE', "2025-10-24");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "https://www.lewe.com");

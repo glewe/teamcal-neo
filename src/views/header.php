@@ -53,7 +53,7 @@
   <?php } ?>
 
   <!-- Theme CSS -->
-  <link rel="stylesheet" href="themes/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="themes/bootstrap/<?= BOOTSTRAP_VER ?>/css/bootstrap.min.css">
 
   <?php if ($C->read('font') && $C->read('font') != 'default') { ?>
     <!-- Fonts -->
@@ -86,7 +86,7 @@
   <script src="js/color-modes.min.js"></script>
 
   <!-- Bootstrap Javascript -->
-  <script src="themes/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="themes/bootstrap/<?= BOOTSTRAP_VER ?>/js/bootstrap.bundle.min.js"></script>
 
   <!-- TeamCalNeo CSS -->
   <link rel="stylesheet" href="css/teamcalneo.min.css">
