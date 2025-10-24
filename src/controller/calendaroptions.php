@@ -1,5 +1,7 @@
 <?php
-
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Calendar Options Controller
  *
@@ -309,8 +311,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST) && isset($_POST['btn
     } else {
       $C->save("showSummary", "0");
     }
-    $C->save("summaryAbsenceTextColor", sanitize($_POST['txt_summaryAbsenceTextColor']));
-    $C->save("summaryPresenceTextColor", sanitize($_POST['txt_summaryPresenceTextColor']));
+    $C->save("summaryAbsenceTextColor", ltrim(sanitize($_POST['txt_summaryAbsenceTextColor']), '#'));
+    $C->save("summaryPresenceTextColor", ltrim(sanitize($_POST['txt_summaryPresenceTextColor']), '#'));
 
     //
     // Log this event
@@ -349,47 +351,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST) && isset($_POST['btn
 // ========================================================================
 // Prepare data for the view
 //
+
+// Load all config values in one query for maximum performance
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+
 //
 // Display
 //
 $absences = $A->getAll();
-$caloptData['absenceList'][] = array('val' => 0, 'name' => $LANG['none'], 'selected' => (!$C->read("monitorAbsence")) ? true : false);
+$caloptData['absenceList'][] = array('val' => 0, 'name' => $LANG['none'], 'selected' => (!$allConfig['monitorAbsence']) ? true : false);
 foreach ($absences as $abs) {
-  $caloptData['absenceList'][] = array('val' => $abs['id'], 'name' => $abs['name'], 'selected' => ($C->read("monitorAbsence") == $abs['id']) ? true : false);
+  $caloptData['absenceList'][] = array('val' => $abs['id'], 'name' => $abs['name'], 'selected' => ($allConfig['monitorAbsence'] == $abs['id']) ? true : false);
 }
 $caloptData['display'] = array(
-  array('label' => $LANG['calopt_todayBorderColor'], 'prefix' => 'calopt', 'name' => 'todayBorderColor', 'type' => 'color', 'value' => $C->read("todayBorderColor"), 'maxlength' => '6', 'error' => (isset($inputAlert['todayBorderColor']) ? $inputAlert['todayBorderColor'] : '')),
-  array('label' => $LANG['calopt_todayBorderSize'], 'prefix' => 'calopt', 'name' => 'todayBorderSize', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("todayBorderSize"), 'maxlength' => '2'),
-  array('label' => $LANG['calopt_pastDayColor'], 'prefix' => 'calopt', 'name' => 'pastDayColor', 'type' => 'color', 'value' => $C->read("pastDayColor"), 'maxlength' => '6', 'error' => (isset($inputAlert['pastDayColor']) ? $inputAlert['pastDayColor'] : '')),
-  array('label' => $LANG['calopt_showWeekNumbers'], 'prefix' => 'calopt', 'name' => 'showWeekNumbers', 'type' => 'check', 'values' => '', 'value' => $C->read("showWeekNumbers")),
-  array('label' => $LANG['calopt_repeatHeaderCount'], 'prefix' => 'calopt', 'name' => 'repeatHeaderCount', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("repeatHeaderCount"), 'maxlength' => '4'),
-  array('label' => $LANG['calopt_usersPerPage'], 'prefix' => 'calopt', 'name' => 'usersPerPage', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("usersPerPage"), 'maxlength' => '4'),
-  array('label' => $LANG['calopt_showAvatars'], 'prefix' => 'calopt', 'name' => 'showAvatars', 'type' => 'check', 'values' => '', 'value' => $C->read("showAvatars")),
-  array('label' => $LANG['calopt_showRoleIcons'], 'prefix' => 'calopt', 'name' => 'showRoleIcons', 'type' => 'check', 'values' => '', 'value' => $C->read("showRoleIcons")),
-  array('label' => $LANG['calopt_showTooltipCount'], 'prefix' => 'calopt', 'name' => 'showTooltipCount', 'type' => 'check', 'values' => '', 'value' => $C->read("showTooltipCount")),
-  array('label' => $LANG['calopt_supportMobile'], 'prefix' => 'calopt', 'name' => 'supportMobile', 'type' => 'check', 'values' => '', 'value' => $C->read("supportMobile")),
-  array('label' => $LANG['calopt_symbolAsIcon'], 'prefix' => 'calopt', 'name' => 'symbolAsIcon', 'type' => 'check', 'values' => '', 'value' => $C->read("symbolAsIcon")),
+  array('label' => $LANG['calopt_todayBorderColor'], 'prefix' => 'calopt', 'name' => 'todayBorderColor', 'type' => 'color', 'value' => $allConfig['todayBorderColor'], 'maxlength' => '6', 'error' => (isset($inputAlert['todayBorderColor']) ? $inputAlert['todayBorderColor'] : '')),
+  array('label' => $LANG['calopt_todayBorderSize'], 'prefix' => 'calopt', 'name' => 'todayBorderSize', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['todayBorderSize'], 'maxlength' => '2'),
+  array('label' => $LANG['calopt_pastDayColor'], 'prefix' => 'calopt', 'name' => 'pastDayColor', 'type' => 'color', 'value' => $allConfig['pastDayColor'], 'maxlength' => '6', 'error' => (isset($inputAlert['pastDayColor']) ? $inputAlert['pastDayColor'] : '')),
+  array('label' => $LANG['calopt_showWeekNumbers'], 'prefix' => 'calopt', 'name' => 'showWeekNumbers', 'type' => 'check', 'values' => '', 'value' => $allConfig['showWeekNumbers']),
+  array('label' => $LANG['calopt_repeatHeaderCount'], 'prefix' => 'calopt', 'name' => 'repeatHeaderCount', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['repeatHeaderCount'], 'maxlength' => '4'),
+  array('label' => $LANG['calopt_usersPerPage'], 'prefix' => 'calopt', 'name' => 'usersPerPage', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['usersPerPage'], 'maxlength' => '4'),
+  array('label' => $LANG['calopt_showAvatars'], 'prefix' => 'calopt', 'name' => 'showAvatars', 'type' => 'check', 'values' => '', 'value' => $allConfig['showAvatars']),
+  array('label' => $LANG['calopt_showRoleIcons'], 'prefix' => 'calopt', 'name' => 'showRoleIcons', 'type' => 'check', 'values' => '', 'value' => $allConfig['showRoleIcons']),
+  array('label' => $LANG['calopt_showTooltipCount'], 'prefix' => 'calopt', 'name' => 'showTooltipCount', 'type' => 'check', 'values' => '', 'value' => $allConfig['showTooltipCount']),
+  array('label' => $LANG['calopt_supportMobile'], 'prefix' => 'calopt', 'name' => 'supportMobile', 'type' => 'check', 'values' => '', 'value' => $allConfig['supportMobile']),
+  array('label' => $LANG['calopt_symbolAsIcon'], 'prefix' => 'calopt', 'name' => 'symbolAsIcon', 'type' => 'check', 'values' => '', 'value' => $allConfig['symbolAsIcon']),
   array('label' => $LANG['calopt_monitorAbsence'], 'prefix' => 'calopt', 'name' => 'monitorAbsence', 'type' => 'list', 'values' => $caloptData['absenceList']),
-  array('label' => $LANG['calopt_calendarFontSize'], 'prefix' => 'calopt', 'name' => 'calendarFontSize', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("calendarFontSize"), 'maxlength' => '3'),
-  array('label' => $LANG['calopt_showMonths'], 'prefix' => 'calopt', 'name' => 'showMonths', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("showMonths"), 'maxlength' => '2'),
-  array('label' => $LANG['calopt_regionalHolidays'], 'prefix' => 'calopt', 'name' => 'regionalHolidays', 'type' => 'check', 'values' => '', 'value' => $C->read("regionalHolidays")),
-  array('label' => $LANG['calopt_regionalHolidaysColor'], 'prefix' => 'calopt', 'name' => 'regionalHolidaysColor', 'type' => 'color', 'value' => $C->read("regionalHolidaysColor"), 'maxlength' => '6', 'error' => (isset($inputAlert['regionalHolidaysColor']) ? $inputAlert['regionalHolidaysColor'] : '')),
-  array('label' => $LANG['calopt_sortByOrderKey'], 'prefix' => 'calopt', 'name' => 'sortByOrderKey', 'type' => 'check', 'values' => '', 'value' => $C->read("sortByOrderKey")),
+  array('label' => $LANG['calopt_calendarFontSize'], 'prefix' => 'calopt', 'name' => 'calendarFontSize', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['calendarFontSize'], 'maxlength' => '3'),
+  array('label' => $LANG['calopt_showMonths'], 'prefix' => 'calopt', 'name' => 'showMonths', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['showMonths'], 'maxlength' => '2'),
+  array('label' => $LANG['calopt_regionalHolidays'], 'prefix' => 'calopt', 'name' => 'regionalHolidays', 'type' => 'check', 'values' => '', 'value' => $allConfig['regionalHolidays']),
+  array('label' => $LANG['calopt_regionalHolidaysColor'], 'prefix' => 'calopt', 'name' => 'regionalHolidaysColor', 'type' => 'color', 'value' => $allConfig['regionalHolidaysColor'], 'maxlength' => '6', 'error' => (isset($inputAlert['regionalHolidaysColor']) ? $inputAlert['regionalHolidaysColor'] : '')),
+  array('label' => $LANG['calopt_sortByOrderKey'], 'prefix' => 'calopt', 'name' => 'sortByOrderKey', 'type' => 'check', 'values' => '', 'value' => $allConfig['sortByOrderKey']),
 );
 
 //
 // Filter
 //
 $roles = $RO->getAll();
-$arrTrustedRoles = explode(',', $C->read("trustedRoles"));
+$arrTrustedRoles = explode(',', $allConfig['trustedRoles']);
 foreach ($roles as $role) {
   $caloptData['roleList'][] = array('val' => $role['id'], 'name' => $role['name'], 'selected' => (in_array($role['id'], $arrTrustedRoles)) ? true : false);
 }
 $caloptData['filter'] = array(
-  array('label' => $LANG['calopt_hideManagers'], 'prefix' => 'calopt', 'name' => 'hideManagers', 'type' => 'check', 'values' => '', 'value' => $C->read("hideManagers")),
-  array('label' => $LANG['calopt_hideDaynotes'], 'prefix' => 'calopt', 'name' => 'hideDaynotes', 'type' => 'check', 'values' => '', 'value' => $C->read("hideDaynotes")),
-  array('label' => $LANG['calopt_hideManagerOnlyAbsences'], 'prefix' => 'calopt', 'name' => 'hideManagerOnlyAbsences', 'type' => 'check', 'values' => '', 'value' => $C->read("hideManagerOnlyAbsences")),
-  array('label' => $LANG['calopt_showUserRegion'], 'prefix' => 'calopt', 'name' => 'showUserRegion', 'type' => 'check', 'values' => '', 'value' => $C->read("showUserRegion")),
+  array('label' => $LANG['calopt_hideManagers'], 'prefix' => 'calopt', 'name' => 'hideManagers', 'type' => 'check', 'values' => '', 'value' => $allConfig['hideManagers']),
+  array('label' => $LANG['calopt_hideDaynotes'], 'prefix' => 'calopt', 'name' => 'hideDaynotes', 'type' => 'check', 'values' => '', 'value' => $allConfig['hideDaynotes']),
+  array('label' => $LANG['calopt_hideManagerOnlyAbsences'], 'prefix' => 'calopt', 'name' => 'hideManagerOnlyAbsences', 'type' => 'check', 'values' => '', 'value' => $allConfig['hideManagerOnlyAbsences']),
+  array('label' => $LANG['calopt_showUserRegion'], 'prefix' => 'calopt', 'name' => 'showUserRegion', 'type' => 'check', 'values' => '', 'value' => $allConfig['showUserRegion']),
   array('label' => $LANG['calopt_trustedRoles'], 'prefix' => 'calopt', 'name' => 'trustedRoles', 'type' => 'listmulti', 'values' => $caloptData['roleList']),
 );
 
@@ -398,24 +406,24 @@ $caloptData['filter'] = array(
 //
 $regions = $R->getAllNames();
 foreach ($regions as $region) {
-  $caloptData['regionList'][] = array('val' => $region, 'name' => $region, 'selected' => ($C->read("defregion") == $region) ? true : false);
+  $caloptData['regionList'][] = array('val' => $region, 'name' => $region, 'selected' => ($allConfig['defregion'] == $region) ? true : false);
 }
-$arrCurrYearRoles = explode(',', $C->read("currYearRoles"));
+$arrCurrYearRoles = explode(',', $allConfig['currYearRoles']);
 foreach ($roles as $role) {
   $caloptData['roleList2'][] = array('val' => $role['id'], 'name' => $role['name'], 'selected' => (in_array($role['id'], $arrCurrYearRoles)) ? true : false);
 }
 $caloptData['options'] = array(
-  array('label' => $LANG['calopt_firstDayOfWeek'], 'prefix' => 'calopt', 'name' => 'firstDayOfWeek', 'type' => 'radio', 'values' => array('1', '7'), 'value' => $C->read("firstDayOfWeek")),
-  array('label' => $LANG['calopt_satBusi'], 'prefix' => 'calopt', 'name' => 'satBusi', 'type' => 'check', 'values' => '', 'value' => $C->read("satBusi")),
-  array('label' => $LANG['calopt_sunBusi'], 'prefix' => 'calopt', 'name' => 'sunBusi', 'type' => 'check', 'values' => '', 'value' => $C->read("sunBusi")),
+  array('label' => $LANG['calopt_firstDayOfWeek'], 'prefix' => 'calopt', 'name' => 'firstDayOfWeek', 'type' => 'radio', 'values' => array('1', '7'), 'value' => $allConfig['firstDayOfWeek']),
+  array('label' => $LANG['calopt_satBusi'], 'prefix' => 'calopt', 'name' => 'satBusi', 'type' => 'check', 'values' => '', 'value' => $allConfig['satBusi']),
+  array('label' => $LANG['calopt_sunBusi'], 'prefix' => 'calopt', 'name' => 'sunBusi', 'type' => 'check', 'values' => '', 'value' => $allConfig['sunBusi']),
   array('label' => $LANG['calopt_defregion'], 'prefix' => 'calopt', 'name' => 'defregion', 'type' => 'list', 'values' => $caloptData['regionList']),
-  array('label' => $LANG['calopt_showRegionButton'], 'prefix' => 'calopt', 'name' => 'showRegionButton', 'type' => 'check', 'values' => '', 'value' => $C->read("showRegionButton")),
-  array('label' => $LANG['calopt_defgroupfilter'], 'prefix' => 'calopt', 'name' => 'defgroupfilter', 'type' => 'radio', 'values' => array('all', 'allbygroup'), 'value' => $C->read("defgroupfilter")),
-  array('label' => $LANG['calopt_currentYearOnly'], 'prefix' => 'calopt', 'name' => 'currentYearOnly', 'type' => 'check', 'values' => '', 'value' => $C->read("currentYearOnly")),
+  array('label' => $LANG['calopt_showRegionButton'], 'prefix' => 'calopt', 'name' => 'showRegionButton', 'type' => 'check', 'values' => '', 'value' => $allConfig['showRegionButton']),
+  array('label' => $LANG['calopt_defgroupfilter'], 'prefix' => 'calopt', 'name' => 'defgroupfilter', 'type' => 'radio', 'values' => array('all', 'allbygroup'), 'value' => $allConfig['defgroupfilter']),
+  array('label' => $LANG['calopt_currentYearOnly'], 'prefix' => 'calopt', 'name' => 'currentYearOnly', 'type' => 'check', 'values' => '', 'value' => $allConfig['currentYearOnly']),
   array('label' => $LANG['calopt_currentYearRoles'], 'prefix' => 'calopt', 'name' => 'currentYearRoles', 'type' => 'listmulti', 'values' => $caloptData['roleList2']),
-  array('label' => $LANG['calopt_takeover'], 'prefix' => 'calopt', 'name' => 'takeover', 'type' => 'check', 'values' => '', 'value' => $C->read("takeover")),
-  array('label' => $LANG['calopt_notificationsAllGroups'], 'prefix' => 'calopt', 'name' => 'notificationsAllGroups', 'type' => 'check', 'values' => '', 'value' => $C->read("notificationsAllGroups")),
-  array('label' => $LANG['calopt_managerOnlyIncludesAdministrator'], 'prefix' => 'calopt', 'name' => 'managerOnlyIncludesAdministrator', 'type' => 'check', 'values' => '', 'value' => $C->read("managerOnlyIncludesAdministrator")),
+  array('label' => $LANG['calopt_takeover'], 'prefix' => 'calopt', 'name' => 'takeover', 'type' => 'check', 'values' => '', 'value' => $allConfig['takeover']),
+  array('label' => $LANG['calopt_notificationsAllGroups'], 'prefix' => 'calopt', 'name' => 'notificationsAllGroups', 'type' => 'check', 'values' => '', 'value' => $allConfig['notificationsAllGroups']),
+  array('label' => $LANG['calopt_managerOnlyIncludesAdministrator'], 'prefix' => 'calopt', 'name' => 'managerOnlyIncludesAdministrator', 'type' => 'check', 'values' => '', 'value' => $allConfig['managerOnlyIncludesAdministrator']),
 );
 
 //
@@ -436,7 +444,7 @@ $colors = array(
 foreach ($statsPages as $statsPage) {
   $statsColorArray[$statsPage] = array();
   foreach ($colors as $color => $hex) {
-    $statsColorArray[$statsPage][] = array('val' => $hex, 'name' => $LANG[$color], 'selected' => ($C->read("statsDefaultColor" . $statsPage) == $hex) ? true : false);
+    $statsColorArray[$statsPage][] = array('val' => $hex, 'name' => $LANG[$color], 'selected' => ($allConfig['statsDefaultColor' . $statsPage] == $hex) ? true : false);
   }
 }
 $caloptData['stats'] = array(
@@ -450,10 +458,10 @@ $caloptData['stats'] = array(
 // Summary
 //
 $caloptData['summary'] = array(
-  array('label' => $LANG['calopt_includeSummary'], 'prefix' => 'calopt', 'name' => 'includeSummary', 'type' => 'check', 'values' => '', 'value' => $C->read("includeSummary")),
-  array('label' => $LANG['calopt_showSummary'], 'prefix' => 'calopt', 'name' => 'showSummary', 'type' => 'check', 'values' => '', 'value' => $C->read("showSummary")),
-  array('label' => $LANG['calopt_summaryAbsenceTextColor'], 'prefix' => 'calopt', 'name' => 'summaryAbsenceTextColor', 'type' => 'color', 'value' => $C->read("summaryAbsenceTextColor"), 'maxlength' => '6'),
-  array('label' => $LANG['calopt_summaryPresenceTextColor'], 'prefix' => 'calopt', 'name' => 'summaryPresenceTextColor', 'type' => 'color', 'value' => $C->read("summaryPresenceTextColor"), 'maxlength' => '6'),
+  array('label' => $LANG['calopt_includeSummary'], 'prefix' => 'calopt', 'name' => 'includeSummary', 'type' => 'check', 'values' => '', 'value' => $allConfig['includeSummary']),
+  array('label' => $LANG['calopt_showSummary'], 'prefix' => 'calopt', 'name' => 'showSummary', 'type' => 'check', 'values' => '', 'value' => $allConfig['showSummary']),
+  array('label' => $LANG['calopt_summaryAbsenceTextColor'], 'prefix' => 'calopt', 'name' => 'summaryAbsenceTextColor', 'type' => 'coloris', 'value' => '#' . $allConfig['summaryAbsenceTextColor'], 'maxlength' => '7'),
+  array('label' => $LANG['calopt_summaryPresenceTextColor'], 'prefix' => 'calopt', 'name' => 'summaryPresenceTextColor', 'type' => 'coloris', 'value' => '#' . $allConfig['summaryPresenceTextColor'], 'maxlength' => '7'),
 );
 
 //
