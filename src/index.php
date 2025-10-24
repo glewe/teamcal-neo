@@ -82,7 +82,7 @@ require_once WEBSITE_ROOT . '/helpers/app.helper.php';
 // CHECK INSTALLATION SCRIPT
 //
 if (file_exists('installation.php')) {
-  if (!readDef('APP_INSTALLED', "config/config.app.php")) {
+  if (!APP_INSTALLED) {
     header("Location: installation.php");
   } else {
     //
@@ -99,7 +99,7 @@ if (file_exists('installation.php')) {
     require_once 'views/error.php';
     die();
   }
-} elseif (!readDef('APP_INSTALLED', "config/config.app.php")) {
+} elseif (!APP_INSTALLED) {
   //
   // App not installed but Installation.php not found
   //

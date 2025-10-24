@@ -77,7 +77,7 @@ function createFaIconListbox(string $tabIndex = "-1", string $selected = ""): st
     } else {
       $sel = "";
     }
-    $listbox .= '<option value="' . $faIcon . '"' . $sel . '>' . proper($faIcon) . '</option>';
+    $listbox .= '<option value="' . $faIcon . '"' . $sel . '>' . ucwords($faIcon) . '</option>';
   }
   $listbox .= '</select>';
   return $listbox;
@@ -659,7 +659,7 @@ function splitFaIcons(string $selectedIcon = ''): array {
   foreach ($faIcons as $faIcon) {
     $entry = [
       'val' => $faIcon,
-      'name' => proper($faIcon),
+      'name' => ucwords($faIcon),
       'selected' => ($selectedIcon === $faIcon)
     ];
     if (strstr($faIcon, 'fa-brands ')) {
