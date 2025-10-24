@@ -629,7 +629,7 @@ foreach ($groups as $group) {
 
 $viewData['languageList'][] = array( 'val' => "default", 'name' => "Default", 'selected' => ($UO->read($profile, 'language') == "default") ? true : false );
 foreach ($appLanguages as $appLang) {
-  $viewData['languageList'][] = array( 'val' => $appLang, 'name' => proper($appLang), 'selected' => ($UO->read($profile, 'language') == $appLang) ? true : false );
+  $viewData['languageList'][] = array( 'val' => $appLang, 'name' => ucwords($appLang), 'selected' => ($UO->read($profile, 'language') == $appLang) ? true : false );
 }
 $regions = $R->getAll();
 if (!$UO->read($profile, 'region')) {

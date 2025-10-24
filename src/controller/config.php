@@ -578,11 +578,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 // PREPARE VIEW
 //
 foreach ($appLanguages as $appLang) {
-  $viewData['languageList'][] = array('val' => $appLang, 'name' => proper($appLang), 'selected' => ($C->read("defaultLanguage") == $appLang) ? true : false);
+  $viewData['languageList'][] = array('val' => $appLang, 'name' => ucwords($appLang), 'selected' => ($C->read("defaultLanguage") == $appLang) ? true : false);
 }
 
 foreach ($logLanguages as $logLang) {
-  $viewData['logLanguageList'][] = array('val' => $logLang, 'name' => proper($logLang), 'selected' => ($C->read("logLanguage") == $logLang) ? true : false);
+  $viewData['logLanguageList'][] = array('val' => $logLang, 'name' => ucwords($logLang), 'selected' => ($C->read("logLanguage") == $logLang) ? true : false);
 }
 
 $schemes = $P->getSchemes();
@@ -677,7 +677,7 @@ $viewData['system'] = array(
 );
 
 foreach ($appJqueryUIThemes as $jqueryUITheme) {
-  $viewData['jqueryUIThemeList'][] = array('val' => $jqueryUITheme, 'name' => proper($jqueryUITheme), 'selected' => ($C->read("jqtheme") == $jqueryUITheme) ? true : false);
+  $viewData['jqueryUIThemeList'][] = array('val' => $jqueryUITheme, 'name' => ucwords($jqueryUITheme), 'selected' => ($C->read("jqtheme") == $jqueryUITheme) ? true : false);
 }
 $viewData['fonts'][] = array('val' => 'default', 'name' => 'Default', 'selected' => ($C->read("font") == 'default') ? true : false);
 $viewData['fonts'][] = array('val' => 'lato', 'name' => 'Lato', 'selected' => ($C->read("font") == 'lato') ? true : false);
