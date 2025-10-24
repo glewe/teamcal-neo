@@ -111,10 +111,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     if (!formInputValid('txt_symbol', 'ctype_graph')) {
       $inputError = true;
     }
-    if (!formInputValid('txt_color', 'hexadecimal|exact_length', 6)) {
+    if (!formInputValid('txt_color', 'hex_color')) {
       $inputError = true;
     }
-    if (!formInputValid('txt_bgcolor', 'hexadecimal|exact_length', 6)) {
+    if (!formInputValid('txt_bgcolor', 'hex_color')) {
       $inputError = true;
     }
     if (!formInputValid('txt_factor', 'numeric|max_length', 4)) {
@@ -147,8 +147,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       } else {
         $AA->symbol = strtoupper(substr($_POST['txt_name'], 0, 1));
       }
-      $AA->color = $_POST['txt_color'];
-      $AA->bgcolor = $_POST['txt_bgcolor'];
+      $AA->color = ltrim(sanitize($_POST['txt_color']), '#');
+      $AA->bgcolor = ltrim(sanitize($_POST['txt_bgcolor']), '#');
       $AA->bgtrans = isset($_POST['chk_bgtrans']) ? '1' : '0';
 
       //
@@ -278,8 +278,8 @@ $viewData['formObjects'] = [
   'general' => [
     ['prefix' => 'abs', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '80', 'mandatory' => true, 'error' => $inputAlert['name'] ?? ''],
     ['prefix' => 'abs', 'name' => 'symbol', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['symbol'], 'maxlength' => '1', 'mandatory' => true, 'error' => $inputAlert['symbol'] ?? ''],
-    ['prefix' => 'abs', 'name' => 'color', 'type' => 'color', 'value' => $viewData['color'], 'maxlength' => '6', 'error' => $inputAlert['color'] ?? ''],
-    ['prefix' => 'abs', 'name' => 'bgcolor', 'type' => 'color', 'value' => $viewData['bgcolor'], 'maxlength' => '6', 'error' => $inputAlert['bgcolor'] ?? ''],
+    ['prefix' => 'abs', 'name' => 'color', 'type' => 'coloris', 'value' => (!empty($viewData['color']) ? '#' . $viewData['color'] : ''), 'maxlength' => '6', 'error' => $inputAlert['color'] ?? ''],
+    ['prefix' => 'abs', 'name' => 'bgcolor', 'type' => 'coloris', 'value' => (!empty($viewData['bgcolor']) ? '#' . $viewData['bgcolor'] : ''), 'maxlength' => '6', 'error' => $inputAlert['bgcolor'] ?? ''],
     ['prefix' => 'abs', 'name' => 'bgtrans', 'type' => 'check', 'value' => $viewData['bgtrans']],
   ],
   'options' => [

@@ -115,9 +115,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST) && isset($_POST['btn
     //
     // Display
     //
-    $C->save("todayBorderColor", sanitize($_POST['txt_todayBorderColor']));
+    $C->save("todayBorderColor", ltrim(sanitize($_POST['txt_todayBorderColor']), '#'));
     $C->save("todayBorderSize", intval($_POST['txt_todayBorderSize']));
-    $C->save("pastDayColor", sanitize($_POST['txt_pastDayColor']));
+    $C->save("pastDayColor", ltrim(sanitize($_POST['txt_pastDayColor']), '#'));
     if (isset($_POST['chk_showWeekNumbers']) && $_POST['chk_showWeekNumbers']) {
       $C->save("showWeekNumbers", "1");
     } else {
@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST) && isset($_POST['btn
     } else {
       $C->save("regionalHolidays", "0");
     }
-    $C->save("regionalHolidaysColor", sanitize($_POST['txt_regionalHolidaysColor']));
+    $C->save("regionalHolidaysColor", ltrim(sanitize($_POST['txt_regionalHolidaysColor']), '#'));
     if (isset($_POST['chk_sortByOrderKey']) && $_POST['chk_sortByOrderKey']) {
       $C->save("sortByOrderKey", "1");
     } else {
@@ -366,9 +366,9 @@ foreach ($absences as $abs) {
   $caloptData['absenceList'][] = array('val' => $abs['id'], 'name' => $abs['name'], 'selected' => ($allConfig['monitorAbsence'] == $abs['id']) ? true : false);
 }
 $caloptData['display'] = array(
-  array('label' => $LANG['calopt_todayBorderColor'], 'prefix' => 'calopt', 'name' => 'todayBorderColor', 'type' => 'color', 'value' => $allConfig['todayBorderColor'], 'maxlength' => '6', 'error' => (isset($inputAlert['todayBorderColor']) ? $inputAlert['todayBorderColor'] : '')),
+  array('label' => $LANG['calopt_todayBorderColor'], 'prefix' => 'calopt', 'name' => 'todayBorderColor', 'type' => 'coloris', 'value' => (!empty($allConfig['todayBorderColor']) ? '#' . $allConfig['todayBorderColor'] : ''), 'maxlength' => '6', 'error' => (isset($inputAlert['todayBorderColor']) ? $inputAlert['todayBorderColor'] : '')),
   array('label' => $LANG['calopt_todayBorderSize'], 'prefix' => 'calopt', 'name' => 'todayBorderSize', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['todayBorderSize'], 'maxlength' => '2'),
-  array('label' => $LANG['calopt_pastDayColor'], 'prefix' => 'calopt', 'name' => 'pastDayColor', 'type' => 'color', 'value' => $allConfig['pastDayColor'], 'maxlength' => '6', 'error' => (isset($inputAlert['pastDayColor']) ? $inputAlert['pastDayColor'] : '')),
+  array('label' => $LANG['calopt_pastDayColor'], 'prefix' => 'calopt', 'name' => 'pastDayColor', 'type' => 'coloris', 'value' => (!empty($allConfig['pastDayColor']) ? '#' . $allConfig['pastDayColor'] : ''), 'maxlength' => '6', 'error' => (isset($inputAlert['pastDayColor']) ? $inputAlert['pastDayColor'] : '')),
   array('label' => $LANG['calopt_showWeekNumbers'], 'prefix' => 'calopt', 'name' => 'showWeekNumbers', 'type' => 'check', 'values' => '', 'value' => $allConfig['showWeekNumbers']),
   array('label' => $LANG['calopt_repeatHeaderCount'], 'prefix' => 'calopt', 'name' => 'repeatHeaderCount', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['repeatHeaderCount'], 'maxlength' => '4'),
   array('label' => $LANG['calopt_usersPerPage'], 'prefix' => 'calopt', 'name' => 'usersPerPage', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['usersPerPage'], 'maxlength' => '4'),
@@ -381,7 +381,7 @@ $caloptData['display'] = array(
   array('label' => $LANG['calopt_calendarFontSize'], 'prefix' => 'calopt', 'name' => 'calendarFontSize', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['calendarFontSize'], 'maxlength' => '3'),
   array('label' => $LANG['calopt_showMonths'], 'prefix' => 'calopt', 'name' => 'showMonths', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['showMonths'], 'maxlength' => '2'),
   array('label' => $LANG['calopt_regionalHolidays'], 'prefix' => 'calopt', 'name' => 'regionalHolidays', 'type' => 'check', 'values' => '', 'value' => $allConfig['regionalHolidays']),
-  array('label' => $LANG['calopt_regionalHolidaysColor'], 'prefix' => 'calopt', 'name' => 'regionalHolidaysColor', 'type' => 'color', 'value' => $allConfig['regionalHolidaysColor'], 'maxlength' => '6', 'error' => (isset($inputAlert['regionalHolidaysColor']) ? $inputAlert['regionalHolidaysColor'] : '')),
+  array('label' => $LANG['calopt_regionalHolidaysColor'], 'prefix' => 'calopt', 'name' => 'regionalHolidaysColor', 'type' => 'coloris', 'value' => (!empty($allConfig['regionalHolidaysColor']) ? '#' . $allConfig['regionalHolidaysColor'] : ''), 'maxlength' => '6', 'error' => (isset($inputAlert['regionalHolidaysColor']) ? $inputAlert['regionalHolidaysColor'] : '')),
   array('label' => $LANG['calopt_sortByOrderKey'], 'prefix' => 'calopt', 'name' => 'sortByOrderKey', 'type' => 'check', 'values' => '', 'value' => $allConfig['sortByOrderKey']),
 );
 
@@ -460,8 +460,8 @@ $caloptData['stats'] = array(
 $caloptData['summary'] = array(
   array('label' => $LANG['calopt_includeSummary'], 'prefix' => 'calopt', 'name' => 'includeSummary', 'type' => 'check', 'values' => '', 'value' => $allConfig['includeSummary']),
   array('label' => $LANG['calopt_showSummary'], 'prefix' => 'calopt', 'name' => 'showSummary', 'type' => 'check', 'values' => '', 'value' => $allConfig['showSummary']),
-  array('label' => $LANG['calopt_summaryAbsenceTextColor'], 'prefix' => 'calopt', 'name' => 'summaryAbsenceTextColor', 'type' => 'coloris', 'value' => '#' . $allConfig['summaryAbsenceTextColor'], 'maxlength' => '7'),
-  array('label' => $LANG['calopt_summaryPresenceTextColor'], 'prefix' => 'calopt', 'name' => 'summaryPresenceTextColor', 'type' => 'coloris', 'value' => '#' . $allConfig['summaryPresenceTextColor'], 'maxlength' => '7'),
+  array('label' => $LANG['calopt_summaryAbsenceTextColor'], 'prefix' => 'calopt', 'name' => 'summaryAbsenceTextColor', 'type' => 'coloris', 'value' => (!empty($allConfig['summaryAbsenceTextColor']) ? '#' . $allConfig['summaryAbsenceTextColor'] : ''), 'maxlength' => '7'),
+  array('label' => $LANG['calopt_summaryPresenceTextColor'], 'prefix' => 'calopt', 'name' => 'summaryPresenceTextColor', 'type' => 'coloris', 'value' => (!empty($allConfig['summaryPresenceTextColor']) ? '#' . $allConfig['summaryPresenceTextColor'] : ''), 'maxlength' => '7'),
 );
 
 //
