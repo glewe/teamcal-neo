@@ -165,15 +165,52 @@ function createFormGroup(array $data, int $colsleft, int $colsright, int $tabind
       $formGroup = '
         <div class="form-group row" id="form-group-' . $data['name'] . '">
           <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
-          ' . $mandatory . $LANG[$langIdx1] . '<br>
-          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+            ' . $mandatory . $LANG[$langIdx1] . '<br>
+            <span class="text-normal">' . $LANG[$langIdx2] . '</span>
           </label>
           <div class="col-lg-' . $colsright . '">
-          <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="text" maxlength="6" value="' . $data['value'] . '"' . $disabled . '>
-          ' . $button . $error . '</div>
-          <script>$(function() { $( "#' . $data['name'] . '" ).ColorPicker({ onSubmit: function(hsb, hex, rgb, el) { $(el).val(hex.toUpperCase()); $(el).ColorPickerHide(); }, onBeforeShow: function () { $(this).ColorPickerSetColor(this.value); } }) .bind(\'keyup\', function(){ $(this).ColorPickerSetColor(this.value); }); });</script>
+            <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="text" maxlength="6" value="' . $data['value'] . '"' . $disabled . '>
+            ' . $button . $error . '</div>
+            <script>$(function() { $( "#' . $data['name'] . '" ).ColorPicker({ onSubmit: function(hsb, hex, rgb, el) { $(el).val(hex.toUpperCase()); $(el).ColorPickerHide(); }, onBeforeShow: function () { $(this).ColorPickerSetColor(this.value); } }) .bind(\'keyup\', function(){ $(this).ColorPickerSetColor(this.value); }); });</script>
+          </div>
+          <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Color selection text field based on Coloris
+    //
+    case 'coloris':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">' . $mandatory . $LANG[$langIdx1] . '<br>
+            <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">
+            <div class="input-group">
+              <span class="input-group-text"><i id="sample-' . $data['name'] . '" class="bi-square-fill" style="color: ' . $data['value'] . '"></i></span>
+              <input id="' . $data['name'] . '" type="text" class="form-control" name="txt_' . $data['name'] . '" value="' . $data['value'] . '" maxlength="6"' . $disabled . '>
+              ' . $button . $error . '
+            </div>
+            <script>
+              Coloris({
+                el: "#' . $data['name'] . '",
+                wrap: false,
+                theme: "polaroid",
+                themeMode: "dark",
+                alpha: true,
+                format: "hex",
+                onChange: function (color, input) {
+                  var sample = input.previousElementSibling; // This is the span.input-group-text
+                  if (sample && sample.firstElementChild) {
+                    sample.firstElementChild.style.color = color;
+                  }
+                }
+              });
+            </script>
+          </div>
+          <div class="divider"><hr></div>
         </div>
-        <div class="divider"><hr></div>';
+        ';
       break;
 
     //

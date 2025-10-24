@@ -82,6 +82,10 @@
   <link rel="stylesheet" href="js/jquery/ui/<?= JQUERY_UI_VER ?>/themes/<?= $htmlData['jQueryTheme'] ?>/jquery-ui.min.css">
   <?php } ?>
 
+  <!-- Coloris picker -->
+  <link rel="stylesheet" href="addons/coloris/<?= COLORIS_VER ?>/dist/coloris.min.css" />
+  <script src="addons/coloris/<?= COLORIS_VER ?>/dist/coloris.min.js"></script>
+
   <!-- Bootstrap Color Mode Switcher -->
   <script src="js/color-modes.min.js"></script>
 
