@@ -1,17 +1,4 @@
 <?php
-global $appJqueryUIThemes;
-global $appLanguages;
-global $C;
-global $CONF;
-global $controller;
-global $LANG;
-global $LOG;
-global $logLanguages;
-global $P;
-global $timezones;
-global $UL;
-global $UO;
-
 if (!defined('VALID_ROOT')) {
   exit('');
 }
@@ -25,6 +12,18 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $appJqueryUIThemes;
+global $appLanguages;
+global $C;
+global $CONF;
+global $controller;
+global $LANG;
+global $LOG;
+global $logLanguages;
+global $P;
+global $timezones;
+global $UL;
+global $UO;
 
 //-----------------------------------------------------------------------------
 // CHECK PERMISSION
@@ -46,7 +45,12 @@ $alertData = array();
 $showAlert = false;
 $licExpiryWarning = $C->read('licExpiryWarning');
 $LIC = new License();
-$LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
+
+// Only check license if not already checked in this session to avoid redundant API calls
+if (!isset($_SESSION['license_checked']) || (time() - $_SESSION['license_checked']) > 300) { // 5 minute cache
+  $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
+  $_SESSION['license_checked'] = time();
+}
 
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
@@ -577,135 +581,141 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //
 // PREPARE VIEW
 //
+
+// Load all config values in one query for maximum performance
+$allConfig = $C->readAll();
+$jqtheme = $C->read("jqtheme");
+$font = $C->read("font");
+
 foreach ($appLanguages as $appLang) {
-  $viewData['languageList'][] = array('val' => $appLang, 'name' => ucwords($appLang), 'selected' => ($C->read("defaultLanguage") == $appLang) ? true : false);
+  $viewData['languageList'][] = array('val' => $appLang, 'name' => ucwords($appLang), 'selected' => ($allConfig['defaultLanguage'] == $appLang) ? true : false);
 }
 
 foreach ($logLanguages as $logLang) {
-  $viewData['logLanguageList'][] = array('val' => $logLang, 'name' => ucwords($logLang), 'selected' => ($C->read("logLanguage") == $logLang) ? true : false);
+  $viewData['logLanguageList'][] = array('val' => $logLang, 'name' => ucwords($logLang), 'selected' => ($allConfig['logLanguage'] == $logLang) ? true : false);
 }
 
 $schemes = $P->getSchemes();
 
 foreach ($schemes as $scheme) {
-  $viewData['schemeList'][] = array('val' => $scheme, 'name' => $scheme, 'selected' => ($C->read("permissionScheme") == $scheme) ? true : false);
+  $viewData['schemeList'][] = array('val' => $scheme, 'name' => $scheme, 'selected' => ($allConfig['permissionScheme'] == $scheme) ? true : false);
 }
 
 $viewData['general'] = array(
-  array('prefix' => 'config', 'name' => 'appURL', 'type' => 'text', 'placeholder' => '', 'value' => strip_tags($C->read("appURL")), 'maxlength' => '160'),
-  array('prefix' => 'config', 'name' => 'appTitle', 'type' => 'text', 'placeholder' => '', 'value' => strip_tags($C->read("appTitle")), 'maxlength' => '160'),
-  array('prefix' => 'config', 'name' => 'appDescription', 'type' => 'text', 'placeholder' => '', 'value' => strip_tags($C->read("appDescription")), 'maxlength' => '160'),
-  array('prefix' => 'config', 'name' => 'appKeywords', 'type' => 'text', 'placeholder' => '', 'value' => strip_tags($C->read("appKeywords")), 'maxlength' => '160'),
+  array('prefix' => 'config', 'name' => 'appURL', 'type' => 'text', 'placeholder' => '', 'value' => strip_tags($allConfig["appURL"]), 'maxlength' => '160'),
+  array('prefix' => 'config', 'name' => 'appTitle', 'type' => 'text', 'placeholder' => '', 'value' => strip_tags($allConfig["appTitle"]), 'maxlength' => '160'),
+  array('prefix' => 'config', 'name' => 'appDescription', 'type' => 'text', 'placeholder' => '', 'value' => strip_tags($allConfig["appDescription"]), 'maxlength' => '160'),
+  array('prefix' => 'config', 'name' => 'appKeywords', 'type' => 'text', 'placeholder' => '', 'value' => strip_tags($allConfig["appKeywords"]), 'maxlength' => '160'),
   array('prefix' => 'config', 'name' => 'defaultLanguage', 'type' => 'list', 'values' => $viewData['languageList']),
   array('prefix' => 'config', 'name' => 'logLanguage', 'type' => 'list', 'values' => $viewData['logLanguageList']),
-  array('prefix' => 'config', 'name' => 'showAlerts', 'type' => 'radio', 'values' => array('all', 'warnings', 'none'), 'value' => $C->read("showAlerts")),
-  array('prefix' => 'config', 'name' => 'alertAutocloseSuccess', 'type' => 'check', 'values' => '', 'value' => $C->read("alertAutocloseSuccess")),
-  array('prefix' => 'config', 'name' => 'alertAutocloseWarning', 'type' => 'check', 'values' => '', 'value' => $C->read("alertAutocloseWarning")),
-  array('prefix' => 'config', 'name' => 'alertAutocloseDanger', 'type' => 'check', 'values' => '', 'value' => $C->read("alertAutocloseDanger")),
-  array('prefix' => 'config', 'name' => 'alertAutocloseDelay', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("alertAutocloseDelay"), 'maxlength' => '5'),
-  array('prefix' => 'config', 'name' => 'activateMessages', 'type' => 'check', 'values' => '', 'value' => $C->read("activateMessages")),
+  array('prefix' => 'config', 'name' => 'showAlerts', 'type' => 'radio', 'values' => array('all', 'warnings', 'none'), 'value' => $allConfig["showAlerts"]),
+  array('prefix' => 'config', 'name' => 'alertAutocloseSuccess', 'type' => 'check', 'values' => '', 'value' => $allConfig["alertAutocloseSuccess"]),
+  array('prefix' => 'config', 'name' => 'alertAutocloseWarning', 'type' => 'check', 'values' => '', 'value' => $allConfig["alertAutocloseWarning"]),
+  array('prefix' => 'config', 'name' => 'alertAutocloseDanger', 'type' => 'check', 'values' => '', 'value' => $allConfig["alertAutocloseDanger"]),
+  array('prefix' => 'config', 'name' => 'alertAutocloseDelay', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["alertAutocloseDelay"], 'maxlength' => '5'),
+  array('prefix' => 'config', 'name' => 'activateMessages', 'type' => 'check', 'values' => '', 'value' => $allConfig["activateMessages"]),
   array('prefix' => 'config', 'name' => 'permissionScheme', 'type' => 'list', 'values' => $viewData['schemeList']),
-  array('prefix' => 'config', 'name' => 'userManual', 'type' => 'text', 'placeholder' => '', 'value' => urldecode($C->read("userManual")), 'maxlength' => '160'),
-  array('prefix' => 'config', 'name' => 'pageHelp', 'type' => 'check', 'values' => '', 'value' => $C->read("pageHelp")),
+  array('prefix' => 'config', 'name' => 'userManual', 'type' => 'text', 'placeholder' => '', 'value' => urldecode($allConfig["userManual"]), 'maxlength' => '160'),
+  array('prefix' => 'config', 'name' => 'pageHelp', 'type' => 'check', 'values' => '', 'value' => $allConfig["pageHelp"]),
 );
 
 $viewData['email'] = array(
-  array('prefix' => 'config', 'name' => 'emailNotifications', 'type' => 'check', 'values' => '', 'value' => $C->read("emailNotifications")),
-  array('prefix' => 'config', 'name' => 'mailFrom', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailFrom"), 'maxlength' => '150'),
-  array('prefix' => 'config', 'name' => 'mailReply', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailReply"), 'maxlength' => '150'),
-  array('prefix' => 'config', 'name' => 'mailSMTP', 'type' => 'check', 'values' => '', 'value' => $C->read("mailSMTP")),
-  array('prefix' => 'config', 'name' => 'mailSMTPhost', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailSMTPhost"), 'maxlength' => '80'),
-  array('prefix' => 'config', 'name' => 'mailSMTPport', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailSMTPport"), 'maxlength' => '8'),
-  array('prefix' => 'config', 'name' => 'mailSMTPusername', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("mailSMTPusername"), 'maxlength' => '50'),
-  array('prefix' => 'config', 'name' => 'mailSMTPpassword', 'type' => 'password', 'value' => $C->read("mailSMTPpassword"), 'maxlength' => '50'),
-  array('prefix' => 'config', 'name' => 'mailSMTPSSL', 'type' => 'check', 'values' => '', 'value' => $C->read("mailSMTPSSL")),
-  array('prefix' => 'config', 'name' => 'mailSMTPAnonymous', 'type' => 'check', 'values' => '', 'value' => $C->read("mailSMTPAnonymous")),
+  array('prefix' => 'config', 'name' => 'emailNotifications', 'type' => 'check', 'values' => '', 'value' => $allConfig["emailNotifications"]),
+  array('prefix' => 'config', 'name' => 'mailFrom', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["mailFrom"], 'maxlength' => '150'),
+  array('prefix' => 'config', 'name' => 'mailReply', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["mailReply"], 'maxlength' => '150'),
+  array('prefix' => 'config', 'name' => 'mailSMTP', 'type' => 'check', 'values' => '', 'value' => $allConfig["mailSMTP"]),
+  array('prefix' => 'config', 'name' => 'mailSMTPhost', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["mailSMTPhost"], 'maxlength' => '80'),
+  array('prefix' => 'config', 'name' => 'mailSMTPport', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["mailSMTPport"], 'maxlength' => '8'),
+  array('prefix' => 'config', 'name' => 'mailSMTPusername', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["mailSMTPusername"], 'maxlength' => '50'),
+  array('prefix' => 'config', 'name' => 'mailSMTPpassword', 'type' => 'password', 'value' => $allConfig["mailSMTPpassword"], 'maxlength' => '50'),
+  array('prefix' => 'config', 'name' => 'mailSMTPSSL', 'type' => 'check', 'values' => '', 'value' => $allConfig["mailSMTPSSL"]),
+  array('prefix' => 'config', 'name' => 'mailSMTPAnonymous', 'type' => 'check', 'values' => '', 'value' => $allConfig["mailSMTPAnonymous"]),
 );
 
 $viewData['footer'] = array(
-  array('prefix' => 'config', 'name' => 'footerCopyright', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("footerCopyright"), 'maxlength' => '160'),
-  array('prefix' => 'config', 'name' => 'footerCopyrightUrl', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("footerCopyrightUrl"), 'maxlength' => '160'),
-  array('prefix' => 'config', 'name' => 'footerSocialLinks', 'type' => 'textarea', 'value' => $C->read("footerSocialLinks"), 'rows' => 5, 'placeholder' => ""),
-  array('prefix' => 'config', 'name' => 'footerViewport', 'type' => 'check', 'values' => '', 'value' => $C->read("footerViewport")),
+  array('prefix' => 'config', 'name' => 'footerCopyright', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["footerCopyright"], 'maxlength' => '160'),
+  array('prefix' => 'config', 'name' => 'footerCopyrightUrl', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["footerCopyrightUrl"], 'maxlength' => '160'),
+  array('prefix' => 'config', 'name' => 'footerSocialLinks', 'type' => 'textarea', 'value' => $allConfig["footerSocialLinks"], 'rows' => 5, 'placeholder' => ""),
+  array('prefix' => 'config', 'name' => 'footerViewport', 'type' => 'check', 'values' => '', 'value' => $allConfig["footerViewport"]),
 );
 
 $viewData['homepage'] = array(
-  array('prefix' => 'config', 'name' => 'defaultHomepage', 'type' => 'radio', 'values' => array('home', 'calendarview'), 'value' => $C->read("defaultHomepage")),
-  array('prefix' => 'config', 'name' => 'homepage', 'type' => 'radio', 'values' => array('home', 'calendarview', 'messages'), 'value' => $C->read("homepage")),
-  array('prefix' => 'config', 'name' => 'welcomeText', 'type' => 'textarea-wide', 'value' => $C->read("welcomeText"), 'rows' => '10', 'placeholder' => ''),
+  array('prefix' => 'config', 'name' => 'defaultHomepage', 'type' => 'radio', 'values' => array('home', 'calendarview'), 'value' => $allConfig["defaultHomepage"]),
+  array('prefix' => 'config', 'name' => 'homepage', 'type' => 'radio', 'values' => array('home', 'calendarview', 'messages'), 'value' => $allConfig["homepage"]),
+  array('prefix' => 'config', 'name' => 'welcomeText', 'type' => 'textarea-wide', 'value' => $allConfig["welcomeText"], 'rows' => '10', 'placeholder' => ''),
 );
 
 $LIC->load();
 $viewData['license'] = array(
   array('prefix' => 'config', 'name' => 'licKey', 'type' => 'text', 'placeholder' => '', 'value' => $LIC->readKey(), 'maxlength' => '32'),
-  array('prefix' => 'config', 'name' => 'licExpiryWarning', 'type' => 'text', 'placeholder' => '', 'value' => $C->read('licExpiryWarning'), 'maxlength' => '3'),
+  array('prefix' => 'config', 'name' => 'licExpiryWarning', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['licExpiryWarning'], 'maxlength' => '3'),
 );
 
 $viewData['login'] = array(
-  array('prefix' => 'config', 'name' => 'pwdStrength', 'type' => 'radio', 'values' => array('low', 'medium', 'high'), 'value' => $C->read("pwdStrength")),
-  array('prefix' => 'config', 'name' => 'badLogins', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("badLogins"), 'maxlength' => '2'),
-  array('prefix' => 'config', 'name' => 'gracePeriod', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("gracePeriod"), 'maxlength' => '3'),
-  array('prefix' => 'config', 'name' => 'cookieLifetime', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("cookieLifetime"), 'maxlength' => '6'),
-  array('prefix' => 'config', 'name' => 'disableTfa', 'type' => 'switch', 'values' => '', 'value' => $C->read("disableTfa")),
-  array('prefix' => 'config', 'name' => 'forceTfa', 'type' => 'switch', 'values' => '', 'value' => $C->read("forceTfa")),
+  array('prefix' => 'config', 'name' => 'pwdStrength', 'type' => 'radio', 'values' => array('low', 'medium', 'high'), 'value' => $allConfig["pwdStrength"]),
+  array('prefix' => 'config', 'name' => 'badLogins', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["badLogins"], 'maxlength' => '2'),
+  array('prefix' => 'config', 'name' => 'gracePeriod', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["gracePeriod"], 'maxlength' => '3'),
+  array('prefix' => 'config', 'name' => 'cookieLifetime', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["cookieLifetime"], 'maxlength' => '6'),
+  array('prefix' => 'config', 'name' => 'disableTfa', 'type' => 'switch', 'values' => '', 'value' => $allConfig["disableTfa"]),
+  array('prefix' => 'config', 'name' => 'forceTfa', 'type' => 'switch', 'values' => '', 'value' => $allConfig["forceTfa"]),
 );
 
 $viewData['registration'] = array(
-  array('prefix' => 'config', 'name' => 'allowRegistration', 'type' => 'check', 'values' => '', 'value' => $C->read("allowRegistration")),
-  array('prefix' => 'config', 'name' => 'emailConfirmation', 'type' => 'check', 'values' => '', 'value' => $C->read("emailConfirmation")),
-  array('prefix' => 'config', 'name' => 'adminApproval', 'type' => 'check', 'values' => '', 'value' => $C->read("adminApproval")),
+  array('prefix' => 'config', 'name' => 'allowRegistration', 'type' => 'check', 'values' => '', 'value' => $allConfig["allowRegistration"]),
+  array('prefix' => 'config', 'name' => 'emailConfirmation', 'type' => 'check', 'values' => '', 'value' => $allConfig["emailConfirmation"]),
+  array('prefix' => 'config', 'name' => 'adminApproval', 'type' => 'check', 'values' => '', 'value' => $allConfig["adminApproval"]),
 );
 
 foreach ($timezones as $tz) {
-  $viewData['timezoneList'][] = array('val' => $tz, 'name' => $tz, 'selected' => ($C->read("timeZone") == $tz) ? true : false);
+  $viewData['timezoneList'][] = array('val' => $tz, 'name' => $tz, 'selected' => ($allConfig['timeZone'] == $tz) ? true : false);
 }
 $viewData['system'] = array(
-  array('prefix' => 'config', 'name' => 'cookieConsent', 'type' => 'check', 'values' => '', 'value' => $C->read("cookieConsent")),
-  array('prefix' => 'config', 'name' => 'cookieConsentCDN', 'type' => 'check', 'values' => '', 'value' => $C->read("cookieConsentCDN")),
-  array('prefix' => 'config', 'name' => 'faCDN', 'type' => 'check', 'values' => '', 'value' => $C->read("faCDN")),
-  array('prefix' => 'config', 'name' => 'jQueryCDN', 'type' => 'check', 'values' => '', 'value' => $C->read("jQueryCDN")),
+  array('prefix' => 'config', 'name' => 'cookieConsent', 'type' => 'check', 'values' => '', 'value' => $allConfig["cookieConsent"]),
+  array('prefix' => 'config', 'name' => 'cookieConsentCDN', 'type' => 'check', 'values' => '', 'value' => $allConfig["cookieConsentCDN"]),
+  array('prefix' => 'config', 'name' => 'faCDN', 'type' => 'check', 'values' => '', 'value' => $allConfig["faCDN"]),
+  array('prefix' => 'config', 'name' => 'jQueryCDN', 'type' => 'check', 'values' => '', 'value' => $allConfig["jQueryCDN"]),
   array('prefix' => 'config', 'name' => 'timeZone', 'type' => 'list', 'values' => $viewData['timezoneList']),
-  array('prefix' => 'config', 'name' => 'googleAnalytics', 'type' => 'check', 'values' => '', 'value' => $C->read("googleAnalytics")),
-  array('prefix' => 'config', 'name' => 'googleAnalyticsID', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("googleAnalyticsID"), 'maxlength' => '16'),
-  array('prefix' => 'config', 'name' => 'matomoAnalytics', 'type' => 'check', 'values' => '', 'value' => $C->read("matomoAnalytics")),
-  array('prefix' => 'config', 'name' => 'matomoUrl', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("matomoUrl"), 'maxlength' => '160'),
-  array('prefix' => 'config', 'name' => 'matomoSiteId', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("matomoSiteId"), 'maxlength' => '160'),
-  array('prefix' => 'config', 'name' => 'noIndex', 'type' => 'check', 'values' => '', 'value' => $C->read("noIndex")),
-  array('prefix' => 'config', 'name' => 'noCaching', 'type' => 'check', 'values' => '', 'value' => $C->read("noCaching")),
-  array('prefix' => 'config', 'name' => 'versionCompare', 'type' => 'check', 'values' => '', 'value' => $C->read("versionCompare")),
-  array('prefix' => 'config', 'name' => 'underMaintenance', 'type' => 'check', 'values' => '', 'value' => $C->read("underMaintenance")),
+  array('prefix' => 'config', 'name' => 'googleAnalytics', 'type' => 'check', 'values' => '', 'value' => $allConfig["googleAnalytics"]),
+  array('prefix' => 'config', 'name' => 'googleAnalyticsID', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["googleAnalyticsID"], 'maxlength' => '16'),
+  array('prefix' => 'config', 'name' => 'matomoAnalytics', 'type' => 'check', 'values' => '', 'value' => $allConfig["matomoAnalytics"]),
+  array('prefix' => 'config', 'name' => 'matomoUrl', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["matomoUrl"], 'maxlength' => '160'),
+  array('prefix' => 'config', 'name' => 'matomoSiteId', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["matomoSiteId"], 'maxlength' => '160'),
+  array('prefix' => 'config', 'name' => 'noIndex', 'type' => 'check', 'values' => '', 'value' => $allConfig["noIndex"]),
+  array('prefix' => 'config', 'name' => 'noCaching', 'type' => 'check', 'values' => '', 'value' => $allConfig["noCaching"]),
+  array('prefix' => 'config', 'name' => 'versionCompare', 'type' => 'check', 'values' => '', 'value' => $allConfig["versionCompare"]),
+  array('prefix' => 'config', 'name' => 'underMaintenance', 'type' => 'check', 'values' => '', 'value' => $allConfig["underMaintenance"]),
 );
 
 foreach ($appJqueryUIThemes as $jqueryUITheme) {
-  $viewData['jqueryUIThemeList'][] = array('val' => $jqueryUITheme, 'name' => ucwords($jqueryUITheme), 'selected' => ($C->read("jqtheme") == $jqueryUITheme) ? true : false);
+  $viewData['jqueryUIThemeList'][] = array('val' => $jqueryUITheme, 'name' => ucwords($jqueryUITheme), 'selected' => ($allConfig['jqtheme'] == $jqueryUITheme) ? true : false);
 }
-$viewData['fonts'][] = array('val' => 'default', 'name' => 'Default', 'selected' => ($C->read("font") == 'default') ? true : false);
-$viewData['fonts'][] = array('val' => 'lato', 'name' => 'Lato', 'selected' => ($C->read("font") == 'lato') ? true : false);
-$viewData['fonts'][] = array('val' => 'montserrat', 'name' => 'Montserrat', 'selected' => ($C->read("font") == 'montserrat') ? true : false);
-$viewData['fonts'][] = array('val' => 'opensans', 'name' => 'Open Sans', 'selected' => ($C->read("font") == 'opensans') ? true : false);
-$viewData['fonts'][] = array('val' => 'roboto', 'name' => 'Roboto', 'selected' => ($C->read("font") == 'roboto') ? true : false);
+$viewData['fonts'][] = array('val' => 'default', 'name' => 'Default', 'selected' => ($allConfig['font'] == 'default') ? true : false);
+$viewData['fonts'][] = array('val' => 'lato', 'name' => 'Lato', 'selected' => ($allConfig['font'] == 'lato') ? true : false);
+$viewData['fonts'][] = array('val' => 'montserrat', 'name' => 'Montserrat', 'selected' => ($allConfig['font'] == 'montserrat') ? true : false);
+$viewData['fonts'][] = array('val' => 'opensans', 'name' => 'Open Sans', 'selected' => ($allConfig['font'] == 'opensans') ? true : false);
+$viewData['fonts'][] = array('val' => 'roboto', 'name' => 'Roboto', 'selected' => ($allConfig['font'] == 'roboto') ? true : false);
 
 $viewData['theme'] = array(
   array('prefix' => 'config', 'name' => 'theme', 'type' => 'infoWide', 'value' => ''),
-  array('prefix' => 'config', 'name' => 'defaultMenu', 'type' => 'radio', 'values' => array('navbar', 'sidebar'), 'value' => $C->read("defaultMenu")),
+  array('prefix' => 'config', 'name' => 'defaultMenu', 'type' => 'radio', 'values' => array('navbar', 'sidebar'), 'value' => $allConfig["defaultMenu"]),
   array('prefix' => 'config', 'name' => 'jqtheme', 'type' => 'list', 'values' => $viewData['jqueryUIThemeList']),
   array('prefix' => 'config', 'name' => 'jqthemeSample', 'type' => 'date', 'value' => ''),
   array('prefix' => 'config', 'name' => 'font', 'type' => 'list', 'values' => $viewData['fonts']),
 );
 
 $viewData['user'] = array(
-  array('prefix' => 'config', 'name' => 'userCustom1', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("userCustom1"), 'maxlength' => '50'),
-  array('prefix' => 'config', 'name' => 'userCustom2', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("userCustom2"), 'maxlength' => '50'),
-  array('prefix' => 'config', 'name' => 'userCustom3', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("userCustom3"), 'maxlength' => '50'),
-  array('prefix' => 'config', 'name' => 'userCustom4', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("userCustom4"), 'maxlength' => '50'),
-  array('prefix' => 'config', 'name' => 'userCustom5', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("userCustom5"), 'maxlength' => '50'),
+  array('prefix' => 'config', 'name' => 'userCustom1', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["userCustom1"], 'maxlength' => '50'),
+  array('prefix' => 'config', 'name' => 'userCustom2', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["userCustom2"], 'maxlength' => '50'),
+  array('prefix' => 'config', 'name' => 'userCustom3', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["userCustom3"], 'maxlength' => '50'),
+  array('prefix' => 'config', 'name' => 'userCustom4', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["userCustom4"], 'maxlength' => '50'),
+  array('prefix' => 'config', 'name' => 'userCustom5', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["userCustom5"], 'maxlength' => '50'),
 );
 
 $viewData['gdpr'] = array(
-  array('prefix' => 'config', 'name' => 'gdprPolicyPage', 'type' => 'check', 'values' => '', 'value' => $C->read("gdprPolicyPage")),
-  array('prefix' => 'config', 'name' => 'gdprOrganization', 'type' => 'text', 'placeholder' => 'ACME Inc.', 'value' => strip_tags($C->read("gdprOrganization")), 'maxlength' => '160'),
-  array('prefix' => 'config', 'name' => 'gdprController', 'type' => 'textarea', 'value' => $C->read("gdprController"), 'rows' => 5, 'placeholder' => "ACME Inc.\nStreet\nTown\nCountry\nEmail"),
-  array('prefix' => 'config', 'name' => 'gdprOfficer', 'type' => 'textarea', 'value' => $C->read("gdprOfficer"), 'rows' => 5, 'placeholder' => "John Doe\nPhone\nEmail"),
+  array('prefix' => 'config', 'name' => 'gdprPolicyPage', 'type' => 'check', 'values' => '', 'value' => $allConfig["gdprPolicyPage"]),
+  array('prefix' => 'config', 'name' => 'gdprOrganization', 'type' => 'text', 'placeholder' => 'ACME Inc.', 'value' => strip_tags($allConfig["gdprOrganization"]), 'maxlength' => '160'),
+  array('prefix' => 'config', 'name' => 'gdprController', 'type' => 'textarea', 'value' => $allConfig["gdprController"], 'rows' => 5, 'placeholder' => "ACME Inc.\nStreet\nTown\nCountry\nEmail"),
+  array('prefix' => 'config', 'name' => 'gdprOfficer', 'type' => 'textarea', 'value' => $allConfig["gdprOfficer"], 'rows' => 5, 'placeholder' => "John Doe\nPhone\nEmail"),
 );
 
 //-----------------------------------------------------------------------------
