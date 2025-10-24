@@ -79,6 +79,7 @@ define('USE_SPLIT_LANGUAGE_FILES', true);
  */
 define('BOOTSTRAP_VER', "5.3.8");
 define('BOOTSTRAP_ICONS_VER', "1.11.3");
+define('COLORIS_VER', "0.25.0");
 define('DATATABLES_VER', "2.2.0");
 define('FONTAWESOME_VER', "7.1.0");
 define('JQUERY_VER', "3.7.1");

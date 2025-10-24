@@ -51,6 +51,7 @@ view.about
           <ul>
             <li>Bootstrap Team <?= $LANG['about_for'] ?> <a href="https://getbootstrap.com/" target="_blank" rel="noopener">Bootstrap Framework <?= BOOTSTRAP_VER ?></a> and <a href="https://icons.getbootstrap.com/" target="_blank" rel="noopener">Bootstrap Icons <?= BOOTSTRAP_ICONS_VER ?></a></li>
             <li>Nick Downie <?= $LANG['about_for'] ?> <a href="https://www.chartjs.org/" target="_blank" rel="noopener">Chart.js <?= CHARTJS_VER ?></a></li>
+            <li>Momo Bassit <?= $LANG['about_for'] ?> <a href="https://coloris.js.org/" target="_blank" rel="noopener">Coloris <?= COLORIS_VER ?></a></li>
             <li>SpryMedia Ltd. <?= $LANG['about_for'] ?> <a href="https://datatables.net/" target="_blank" rel="noopener">DataTables <?= DATATABLES_VER ?></a></li>
             <li>Dave Gandy <?= $LANG['about_for'] ?> <a href="https://fontawesome.com/" target="_blank" rel="noopener">Font Awesome <?= FONTAWESOME_VER ?></a></li>
             <li>Google Team <?= $LANG['about_for'] ?> <a href="https://www.google.com/fonts/" target="_blank" rel="noopener">Google Fonts</a></li>
