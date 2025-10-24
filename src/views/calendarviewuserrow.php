@@ -348,6 +348,31 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
         }
       }
 
+      if ($D->get($nextMonthYear . sprintf('%02d', $nextMonthNum) . sprintf("%02d", $i), $usr['username'], $viewData['regionid'], true)) {
+        //
+        // This is a user's daynote for the next month
+        //
+        $allowed = true;
+        if ($D->isConfidential($D->id)) {
+          //
+          // This daynote is confidential. Check whether the logged in user may see it.
+          // Rules:
+          // - Logged in user must be in a trusted role or
+          // - Daynote belongs to the logged in user
+          // - Logged in user is admin
+          //
+          $allowed = false;
+          if (in_array($UL->getRole($UL->username), $viewData['trustedRoles']) || $UL->username == $D->username || $UL->username == 'admin') {
+            $allowed = true;
+          }
+        }
+        if ($allowed) {
+          $note = true;
+          $notestart = '<span data-bs-custom-class="' . $D->color . '" data-bs-placement="bottom" data-bs-toggle="tooltip" title="' . $D->daynote . '">';
+          $noteend = '</span>';
+        }
+      }
+
       if (strlen($style)) {
         $style = ' style="' . $style . '"';
       }

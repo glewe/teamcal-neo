@@ -2,6 +2,24 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '4.3.0-dev',
+    'date' => '2025-10-24',
+    'info' => 'Ongoing development version for the next minor release...',
+    'bugfixes' => [
+    ],
+    'features' => [
+      [ 'summary' => 'Split month view mode. Allows to show the last and first half of two consecutive months in one table', 'issue' => '' ],
+    ],
+    'improvements' => [
+      [ 'summary' => 'New language architecture based on controller specific language files', 'issue' => '' ],
+      [ 'summary' => 'Update to Bootstrap 5.3.8', 'issue' => '' ],
+      [ 'summary' => 'Update to Font Awesome 7.1.0', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '4.2.0',
     'date' => '2025-03-13',
     'info' => '',
