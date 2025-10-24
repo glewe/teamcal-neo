@@ -48,6 +48,18 @@ class Config {
 
   //---------------------------------------------------------------------------
   /**
+   * Read all config values into an associative array
+   *
+   * @return array $config Associative array of all config name=>value pairs
+   */
+  public function readAll(): array {
+    $query = $this->db->prepare("SELECT name, value FROM " . $this->table);
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_KEY_PAIR);
+  }
+
+  //---------------------------------------------------------------------------
+  /**
    * Save a value
    *
    * @param string $name Name of the option

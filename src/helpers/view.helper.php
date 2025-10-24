@@ -505,7 +505,6 @@ function createModalBottom(string $buttonID = '', string $buttonColor = '', stri
  * @return string Html
  */
 function createPageTabs(array $tabs): string {
-  global $LANG;
   $tabsHtml = '<ul class="nav nav-tabs card-header-tabs" id="dialogTabs" role="tablist">';
   foreach ($tabs as $tab) {
     if ($tab['active']) {
