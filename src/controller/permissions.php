@@ -211,32 +211,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         // First, delete the existing scheme entries
         //
         $P->deleteScheme($scheme);
+        
         //
-        // Then create new entries for controller permissions
+        // Prepare batch permissions data
+        //
+        $batchData = [];
+        
+        //
+        // Add controller permissions
         //
         foreach ($perms as $perm) {
           foreach ($roles as $role) {
-            if ($role['id'] == 1) {
-              $allowed = 1;
-            } else {
-              $allowed = 0;
-            }
-            $P->setPermission($scheme, $perm, $role['id'], $allowed);
+            $allowed = ($role['id'] == 1) ? 1 : 0;
+            $batchData[] = [
+              'scheme' => $scheme,
+              'permission' => $perm,
+              'role' => $role['id'],
+              'allowed' => $allowed
+            ];
           }
         }
+        
         //
-        // Then create new entries for feature permissions
+        // Add feature permissions
         //
         foreach ($fperms as $fperm) {
           foreach ($roles as $role) {
-            if ($role['id'] == 1) {
-              $allowed = 1;
-            } else {
-              $allowed = 0;
-            }
-            $P->setPermission($scheme, $fperm, $role['id'], $allowed);
+            $allowed = ($role['id'] == 1) ? 1 : 0;
+            $batchData[] = [
+              'scheme' => $scheme,
+              'permission' => $fperm,
+              'role' => $role['id'],
+              'allowed' => $allowed
+            ];
           }
         }
+        
+        //
+        // Batch insert permissions
+        //
+        $P->setPermissionsBatch($batchData);
         //
         // Log this event
         //
@@ -252,37 +266,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     elseif (isset($_POST['btn_permReset'])) {
       if ($scheme != "Default") {
         //
-        // Set entries for controller permissions based on Default
+        // Prefetch default permissions
         //
+        $defaultPermissions = [];
         foreach ($perms as $perm) {
           foreach ($roles as $role) {
-            if ($P->isAllowed("Default", $perm, $role['id'])) {
-              $allowed = 1;
-            } else {
-              $allowed = 0;
-            }
-            if ($role['id'] == 1) {
-              $allowed = 1;
-            }
-            $P->setPermission($scheme, $perm, $role['id'], $allowed);
+            $defaultPermissions[$perm][$role['id']] = $P->isAllowed("Default", $perm, $role['id']);
           }
         }
-        //
-        // Set entries for feature permissions based on Default
-        //
         foreach ($fperms as $fperm) {
           foreach ($roles as $role) {
-            if ($P->isAllowed("Default", $fperm, $role['id'])) {
-              $allowed = 1;
-            } else {
-              $allowed = 0;
-            }
-            if ($role['id'] == 1) {
-              $allowed = 1;
-            }
-            $P->setPermission($scheme, $fperm, $role['id'], $allowed);
+            $defaultPermissions[$fperm][$role['id']] = $P->isAllowed("Default", $fperm, $role['id']);
           }
         }
+        
+        //
+        // Prepare batch update data
+        //
+        $batchData = [];
+        
+        foreach ($perms as $perm) {
+          foreach ($roles as $role) {
+            $allowed = ($role['id'] == 1) ? 1 : (int)$defaultPermissions[$perm][$role['id']];
+            $batchData[] = [
+              'scheme' => $scheme,
+              'permission' => $perm,
+              'role' => $role['id'],
+              'allowed' => $allowed
+            ];
+          }
+        }
+        
+        foreach ($fperms as $fperm) {
+          foreach ($roles as $role) {
+            $allowed = ($role['id'] == 1) ? 1 : (int)$defaultPermissions[$fperm][$role['id']];
+            $batchData[] = [
+              'scheme' => $scheme,
+              'permission' => $fperm,
+              'role' => $role['id'],
+              'allowed' => $allowed
+            ];
+          }
+        }
+        
+        //
+        // Batch update permissions
+        //
+        $P->setPermissionsBatch($batchData);
         //
         // Log this event
         //
@@ -304,39 +334,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // '------'
     elseif (isset($_POST['btn_permSave'])) {
       //
-      // Controller permission groups
+      // Prepare batch permissions data
+      //
+      $batchData = [];
+      
+      //
+      // Process controller permission groups
       //
       foreach ($permgroups as $permgroup => $permnames) {
         foreach ($permnames as $permname) {
           foreach ($roles as $role) {
-            if (isset($_POST['chk_' . $permgroup . '_' . $role['id']]) && $_POST['chk_' . $permgroup . '_' . $role['id']]) {
-              $P->setPermission($scheme, $permname, $role['id'], 1);
-            } else {
-              $P->setPermission($scheme, $permname, $role['id'], 0);
-            }
-            //
-            // Make sure Administrator role is permitted
-            //
-            $P->setPermission($scheme, $permname, 1, 1);
+            $allowed = (isset($_POST['chk_' . $permgroup . '_' . $role['id']]) && $_POST['chk_' . $permgroup . '_' . $role['id']]) ? 1 : 0;
+            // Force admin role to always be allowed
+            if ($role['id'] == 1) $allowed = 1;
+            
+            $batchData[] = [
+              'scheme' => $scheme,
+              'permission' => $permname,
+              'role' => $role['id'],
+              'allowed' => $allowed
+            ];
           }
         }
       }
+      
       //
-      // Feature permissions
+      // Process feature permissions
       //
       foreach ($fperms as $fperm) {
         foreach ($roles as $role) {
-          if (isset($_POST['chk_' . $fperm . '_' . $role['id']]) && $_POST['chk_' . $fperm . '_' . $role['id']]) {
-            $P->setPermission($scheme, $fperm, $role['id'], 1);
-          } else {
-            $P->setPermission($scheme, $fperm, $role['id'], 0);
-          }
-          //
-          // Make sure Administrator role is permitted
-          //
-          $P->setPermission($scheme, $fperm, 1, 1);
+          $allowed = (isset($_POST['chk_' . $fperm . '_' . $role['id']]) && $_POST['chk_' . $fperm . '_' . $role['id']]) ? 1 : 0;
+          // Force admin role to always be allowed
+          if ($role['id'] == 1) $allowed = 1;
+          
+          $batchData[] = [
+            'scheme' => $scheme,
+            'permission' => $fperm,
+            'role' => $role['id'],
+            'allowed' => $allowed
+          ];
         }
       }
+      
+      //
+      // Batch update permissions
+      //
+      $P->setPermissionsBatch($batchData);
       //
       // Log this event
       //
