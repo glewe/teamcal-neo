@@ -196,10 +196,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 // PREPARE VIEW
 //
 
+// Load all config values in one query for maximum performance
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+
 //
 // Default: Get all groups
 //
-$viewData['groups'] = $G->getAll();
+$viewData['groups'] = $G->getAllCached();
 $viewData['searchGroup'] = '';
 
 if (!isAllowed($CONF['controllers'][$controller]->permission) && $UG->isGroupManager($UL->username)) {
@@ -219,7 +224,11 @@ if (isset($_POST['btn_search'])) {
   if (isset($_POST['txt_searchGroup'])) {
     $searchGroup = sanitize($_POST['txt_searchGroup']);
     $viewData['searchGroup'] = $searchGroup;
-    $viewData['groups'] = $G->getAllLike($searchGroup);
+    $viewData['groups'] = $G->getAllCached(); // Filter in PHP for search, or implement cached search
+    $searchGroup = strtolower($searchGroup);
+    $viewData['groups'] = array_filter($viewData['groups'], function($group) use ($searchGroup) {
+        return stripos($group['name'], $searchGroup) !== false || stripos($group['description'], $searchGroup) !== false;
+    });
   }
 }
 
