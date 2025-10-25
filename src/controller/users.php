@@ -67,6 +67,7 @@ if ($weekday === rand(1, 7)) {
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
+global $DB;
 $U1 = new Users(); // used for sending out notifications
 $viewData['searchUser'] = '';
 $viewData['searchGroup'] = 'All';
@@ -349,6 +350,16 @@ $allConfig = $C->readAll();
 $viewData['pageHelp'] = $allConfig['pageHelp'];
 $viewData['showAlerts'] = $allConfig['showAlerts'];
 
+// Preload all roles into a map for O(1) lookups
+$allRoles = $RO->getAll();
+$roleMap = [];
+foreach ($allRoles as $role) {
+    $roleMap[$role['id']] = [
+        'name' => $role['name'],
+        'color' => $role['color']
+    ];
+}
+
 //
 // Default: Get all active users
 //
@@ -368,11 +379,18 @@ if (isset($_POST['btn_search'])) {
     $users = $U->getAllLike($searchUser);
   }
 
+  // Preload group memberships to avoid N+1 queries in filter
+  $allUserGroups = [];
   if (isset($_POST['sel_searchGroup']) && (($_POST['sel_searchGroup'] ?? '') !== "All")) {
     $searchGroup = sanitize($_POST['sel_searchGroup'] ?? '');
     $viewData['searchGroup'] = $searchGroup;
-    $users = array_filter($users, function($user) use ($UG, $searchGroup) {
-      return $UG->isMemberOrManagerOfGroup($user['username'], $searchGroup);
+
+    // Use existing method to get members/managers of the group
+    $groupMembers = $UG->getAllforGroup($searchGroup);
+    $groupUsernames = array_column($groupMembers, 'username');
+
+    $users = array_filter($users, function($user) use ($groupUsernames) {
+      return in_array($user['username'], $groupUsernames);
     });
   }
 
@@ -391,37 +409,31 @@ if (isset($_POST['btn_search'])) {
 $viewData['users'] = array();
 $i = 0;
 foreach ($users as $user) {
-  $U->findByName($user['username']);
+  // Use data directly from $user array to avoid redundant DB query
   $viewData['users'][$i]['username'] = $user['username'];
-  if ($U->firstname != "") {
-    $viewData['users'][$i]['dispname'] = $U->lastname . ", " . $U->firstname;
+  $firstname = trim($user['firstname'] ?? '');
+  $lastname = trim($user['lastname'] ?? '');
+  if ($firstname !== "") {
+    $viewData['users'][$i]['dispname'] = $lastname . ", " . $firstname;
   } else {
-    $viewData['users'][$i]['dispname'] = $U->lastname;
+    $viewData['users'][$i]['dispname'] = $lastname ?: $user['username'];
   }
-  $viewData['users'][$i]['dispname'] .= ' (' . $U->username . ')';
-  $viewData['users'][$i]['role'] = $RO->getNameById($U->role);
-  $viewData['users'][$i]['color'] = $RO->getColorById($U->role);
+  $viewData['users'][$i]['dispname'] .= ' (' . $user['username'] . ')';
+
+  // Use preloaded role map
+  $roleData = $roleMap[$user['role']] ?? ['name' => '', 'color' => 'default'];
+  $viewData['users'][$i]['role'] = $roleData['name'];
+  $viewData['users'][$i]['color'] = $roleData['color'];
+
   //
-  // Determine attributes
+  // Determine attributes from $user array
   //
-  $viewData['users'][$i]['locked'] = false;
-  $viewData['users'][$i]['hidden'] = false;
-  $viewData['users'][$i]['onhold'] = false;
-  $viewData['users'][$i]['verify'] = false;
-  if ($U->locked) {
-    $viewData['users'][$i]['locked'] = true;
-  }
-  if ($U->hidden) {
-    $viewData['users'][$i]['hidden'] = true;
-  }
-  if ($U->onhold) {
-    $viewData['users'][$i]['onhold'] = true;
-  }
-  if ($U->verify) {
-    $viewData['users'][$i]['verify'] = true;
-  }
-  $viewData['users'][$i]['created'] = $U->created;
-  $viewData['users'][$i]['last_login'] = $U->last_login;
+  $viewData['users'][$i]['locked'] = (bool)($user['locked'] ?? false);
+  $viewData['users'][$i]['hidden'] = (bool)($user['hidden'] ?? false);
+  $viewData['users'][$i]['onhold'] = (bool)($user['onhold'] ?? false);
+  $viewData['users'][$i]['verify'] = (bool)($user['verify'] ?? false);
+  $viewData['users'][$i]['created'] = $user['created'] ?? DEFAULT_TIMESTAMP;
+  $viewData['users'][$i]['last_login'] = $user['last_login'] ?? DEFAULT_TIMESTAMP;
   $i++;
 }
 
@@ -432,42 +444,82 @@ $viewData['users1'] = array();
 $i = 0;
 $users1 = $U->getAll('lastname', 'firstname', 'ASC', $archive = true);
 foreach ($users1 as $user1) {
-  $U->findByName($user1['username'], $archive = true);
+  // Use data directly from $user1 array to avoid redundant DB query
   $viewData['users1'][$i]['username'] = $user1['username'];
-  if ($U->firstname != "") {
-    $viewData['users1'][$i]['dispname'] = $U->lastname . ", " . $U->firstname;
+  $firstname = trim($user1['firstname'] ?? '');
+  $lastname = trim($user1['lastname'] ?? '');
+  if ($firstname !== "") {
+    $viewData['users1'][$i]['dispname'] = $lastname . ", " . $firstname;
   } else {
-    $viewData['users1'][$i]['dispname'] = $U->lastname;
+    $viewData['users1'][$i]['dispname'] = $lastname ?: $user1['username'];
   }
-  $viewData['users1'][$i]['dispname'] .= ' (' . $U->username . ')';
-  $viewData['users1'][$i]['role'] = $RO->getNameById($U->role);
-  $viewData['users1'][$i]['color'] = $RO->getColorById($U->role);
+  $viewData['users1'][$i]['dispname'] .= ' (' . $user1['username'] . ')';
+
+  // Use preloaded role map
+  $roleData = $roleMap[$user1['role']] ?? ['name' => '', 'color' => 'default'];
+  $viewData['users1'][$i]['role'] = $roleData['name'];
+  $viewData['users1'][$i]['color'] = $roleData['color'];
+
   //
-  // Determine attributes
+  // Determine attributes from $user1 array
   //
-  $viewData['users1'][$i]['locked'] = false;
-  $viewData['users1'][$i]['hidden'] = false;
-  $viewData['users1'][$i]['onhold'] = false;
-  $viewData['users1'][$i]['verify'] = false;
-  if ($U->locked) {
-    $viewData['users1'][$i]['locked'] = true;
-  }
-  if ($U->hidden) {
-    $viewData['users1'][$i]['hidden'] = true;
-  }
-  if ($U->onhold) {
-    $viewData['users1'][$i]['onhold'] = true;
-  }
-  if ($U->verify) {
-    $viewData['users1'][$i]['verify'] = true;
-  }
-  $viewData['users1'][$i]['created'] = $U->created;
-  $viewData['users1'][$i]['last_login'] = $U->last_login;
+  $viewData['users1'][$i]['locked'] = (bool)($user1['locked'] ?? false);
+  $viewData['users1'][$i]['hidden'] = (bool)($user1['hidden'] ?? false);
+  $viewData['users1'][$i]['onhold'] = (bool)($user1['onhold'] ?? false);
+  $viewData['users1'][$i]['verify'] = (bool)($user1['verify'] ?? false);
+  $viewData['users1'][$i]['created'] = $user1['created'] ?? DEFAULT_TIMESTAMP;
+  $viewData['users1'][$i]['last_login'] = $user1['last_login'] ?? DEFAULT_TIMESTAMP;
   $i++;
 }
 
+// Preload avatars and secrets for active users to avoid N+1 in view
+$activeUsernames = array_column($users, 'username');
+$avatars = ['default' => 'default_male.png']; // fallback
+$secrets = [];
+if (!empty($activeUsernames)) {
+  $placeholders = str_repeat('?,', count($activeUsernames) - 1) . '?';
+  $query = $DB->db->prepare("
+    SELECT username, `option`, value
+    FROM {$CONF['db_table_user_option']}
+    WHERE `option` IN ('avatar', 'secret') AND username IN ($placeholders)
+  ");
+  $query->execute($activeUsernames);
+  while ($row = $query->fetch()) {
+    if ($row['option'] === 'avatar') {
+      $avatars[$row['username']] = $row['value'] ?: 'default_male.png';
+    } elseif ($row['option'] === 'secret') {
+      $secrets[$row['username']] = !empty($row['value']);
+    }
+  }
+}
+$viewData['avatars'] = $avatars;
+$viewData['secrets'] = $secrets;
+
+// Same for archived users
+$archivedUsernames = array_column($users1, 'username');
+$archivedAvatars = ['default' => 'default_male.png'];
+$archivedSecrets = [];
+if (!empty($archivedUsernames)) {
+  $placeholders = str_repeat('?,', count($archivedUsernames) - 1) . '?';
+  $query = $DB->db->prepare("
+    SELECT username, `option`, value
+    FROM {$CONF['db_table_archive_user_option']}
+    WHERE `option` IN ('avatar', 'secret') AND username IN ($placeholders)
+  ");
+  $query->execute($archivedUsernames);
+  while ($row = $query->fetch()) {
+    if ($row['option'] === 'avatar') {
+      $archivedAvatars[$row['username']] = $row['value'] ?: 'default_male.png';
+    } elseif ($row['option'] === 'secret') {
+      $archivedSecrets[$row['username']] = !empty($row['value']);
+    }
+  }
+}
+$viewData['archived_avatars'] = $archivedAvatars;
+$viewData['archived_secrets'] = $archivedSecrets;
+
 $viewData['groups'] = $G->getAll();
-$viewData['roles'] = $RO->getAll();
+$viewData['roles'] = $allRoles; // Already preloaded
 
 //-----------------------------------------------------------------------------
 // SHOW VIEW
