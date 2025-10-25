@@ -110,10 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         $selected_users = $_POST['chk_userActive'];
       }
       foreach ($selected_users as $su => $value) {
-        $U->unhide($value);
-        $U->unhold($value);
-        $U->unlock($value);
-        $U->unverify($value);
+        $U->activate($value);
       }
       //
       // Success
@@ -347,6 +344,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 // PREPARE VIEW
 //
 
+// Load all config values in one query for maximum performance
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+
 //
 // Default: Get all active users
 //
@@ -369,23 +371,17 @@ if (isset($_POST['btn_search'])) {
   if (isset($_POST['sel_searchGroup']) && (($_POST['sel_searchGroup'] ?? '') !== "All")) {
     $searchGroup = sanitize($_POST['sel_searchGroup'] ?? '');
     $viewData['searchGroup'] = $searchGroup;
-    foreach ($users as $user) {
-      if ($UG->isMemberOrManagerOfGroup($user['username'], $searchGroup)) {
-        $searchUsers[] = $user;
-      }
-    }
-    $users = $searchUsers;
+    $users = array_filter($users, function($user) use ($UG, $searchGroup) {
+      return $UG->isMemberOrManagerOfGroup($user['username'], $searchGroup);
+    });
   }
 
   if (isset($_POST['sel_searchRole']) && (($_POST['sel_searchRole'] ?? '') !== "All")) {
     $searchRole = sanitize($_POST['sel_searchRole'] ?? '');
     $viewData['searchRole'] = $searchRole;
-    foreach ($users as $user) {
-      if ($user['role'] == $searchRole) {
-        $searchUsers[] = $user;
-      }
-    }
-    $users = $searchUsers;
+    $users = array_filter($users, function($user) use ($searchRole) {
+      return $user['role'] == $searchRole;
+    });
   }
 }
 
