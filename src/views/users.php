@@ -111,7 +111,8 @@ view.users
                           <?php } ?>
                         </td>
                         <td class="align-top">
-                          <i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" data-bs-title="<img src='<?= htmlspecialchars(APP_AVATAR_DIR . $UO->read($user['username'] ?? '', 'avatar'), ENT_QUOTES, 'UTF-8') ?>' style='width: 80px; height: 80px;'>"><img src="<?= htmlspecialchars(APP_AVATAR_DIR . '/' . $UO->read($user['username'] ?? '', 'avatar'), ENT_QUOTES, 'UTF-8') ?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?= htmlspecialchars($user['dispname'] ?? '', ENT_QUOTES, 'UTF-8') ?>
+                          <?php $avatar = $viewData['avatars'][$user['username']] ?? $viewData['avatars']['default']; ?>
+                          <i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" data-bs-title="<img src='<?= htmlspecialchars(APP_AVATAR_DIR . $avatar, ENT_QUOTES, 'UTF-8') ?>' style='width: 80px; height: 80px;'>"><img src="<?= htmlspecialchars(APP_AVATAR_DIR . '/' . $avatar, ENT_QUOTES, 'UTF-8') ?>" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;<?= htmlspecialchars($user['dispname'] ?? '', ENT_QUOTES, 'UTF-8') ?>
                         </td>
                         <td class="align-top">
                           <a href="#" data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="<?= $LANG['role'] ?>: <?= htmlspecialchars($user['role'] ?? '', ENT_QUOTES, 'UTF-8') ?>"><i class="fas fa-user-circle fa-sm text-<?= htmlspecialchars($user['color'] ?? '', ENT_QUOTES, 'UTF-8') ?>"></i></a>
@@ -119,7 +120,7 @@ view.users
                           <?= (($user['onhold'] ?? false) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . htmlspecialchars($LANG['users_attribute_onhold'], ENT_QUOTES, 'UTF-8') . '"><i class="far fa-clock fa-sm text-warning"></i></i>' : '') ?>
                           <?= (($user['verify'] ?? false) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . htmlspecialchars($LANG['users_attribute_verify'], ENT_QUOTES, 'UTF-8') . '"><i class="fas fa-exclamation-circle fa-sm text-success"></i></i>' : '') ?>
                           <?= (($user['hidden'] ?? false) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . htmlspecialchars($LANG['users_attribute_hidden'], ENT_QUOTES, 'UTF-8') . '"><i class="far fa-eye-slash fa-sm text-info"></i></i>' : '') ?>
-                          <?= (($UO->read($user['username'] ?? '', 'secret')) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . htmlspecialchars($LANG['users_attribute_secret'], ENT_QUOTES, 'UTF-8') . '"><i class="fa fa-shield fa-sm text-warning"></i></i>' : '') ?>
+                          <?= (($viewData['secrets'][$user['username']] ?? false) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . htmlspecialchars($LANG['users_attribute_secret'], ENT_QUOTES, 'UTF-8') . '"><i class="fa fa-shield fa-sm text-warning"></i></i>' : '') ?>
                         </td>
                         <td class="align-top"><?= $user['created'] ?></td>
                         <td class="align-top"><?= (($user['last_login'] != DEFAULT_TIMESTAMP) ? $user['last_login'] : "") ?></td>
@@ -211,8 +212,9 @@ view.users
                           <?php } ?>
                         </td>
                         <td class="align-top">
-                          <i class="me-2" data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" data-bs-title="<img src='<?= APP_AVATAR_DIR . $UO->read($user1['username'], 'avatar', true) ?>' style='width: 80px; height: 80px;'>">
-                            <img src="<?= APP_AVATAR_DIR ?>/<?= $UO->read($user1['username'], 'avatar', true) ?>" alt="" style="width: 16px; height: 16px;">
+                          <?php $avatar = $viewData['archived_avatars'][$user1['username']] ?? $viewData['archived_avatars']['default']; ?>
+                          <i class="me-2" data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" data-bs-title="<img src='<?= APP_AVATAR_DIR . $avatar ?>' style='width: 80px; height: 80px;'>">
+                            <img src="<?= APP_AVATAR_DIR ?>/<?= $avatar ?>" alt="" style="width: 16px; height: 16px;">
                           </i><?= $user1['dispname'] ?>
                         </td>
                         <td class="align-top">
@@ -221,7 +223,7 @@ view.users
                           <?= (($user1['onhold']) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_onhold'] . '"><i class="far fa-clock fa-sm text-warning"></i></i>' : '') ?>
                           <?= (($user1['verify']) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_verify'] . '"><i class="fas fa-exclamation-circle fa-sm text-success"></i></i>' : '') ?>
                           <?= (($user1['hidden']) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_hidden'] . '"><i class="far fa-eye-slash fa-sm text-info"></i></i>' : '') ?>
-                          <?= (($UO->read($user1['username'], 'secret')) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_secret'] . '"><i class="fa fa-shield fa-sm text-secondary"></i></i>' : '') ?>
+                          <?= (($viewData['archived_secrets'][$user1['username']] ?? false) ? '<i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="' . $LANG['users_attribute_secret'] . '"><i class="fa fa-shield fa-sm text-secondary"></i></i>' : '') ?>
                         </td>
                         <td class="align-top"><?= $user1['created'] ?></td>
                         <td class="align-top"><?= $user1['last_login'] ?></td>
