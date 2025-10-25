@@ -65,6 +65,36 @@ class Permissions {
 
   //---------------------------------------------------------------------------
   /**
+   * Set multiple permissions in a single batch operation
+   *
+   * @param array $batchData Array of permission records to set
+   * @return bool Query result
+   */
+  public function setPermissionsBatch(array $batchData): bool {
+     if (empty($batchData)) return false;
+
+     $placeholders = [];
+     $values = [];
+
+     foreach ($batchData as $record) {
+        $placeholders[] = '(?, ?, ?, ?)';
+        $values[] = $record['scheme'];
+        $values[] = $record['permission'];
+        $values[] = $record['role'];
+        $values[] = $record['allowed'];
+     }
+
+     $sql = "INSERT INTO {$this->table}
+             (scheme, permission, role, allowed)
+             VALUES " . implode(', ', $placeholders) . "
+             ON DUPLICATE KEY UPDATE allowed = VALUES(allowed)";
+
+     $query = $this->db->prepare($sql);
+     return $query->execute($values);
+  }
+
+  //---------------------------------------------------------------------------
+  /**
    * Retrieves all permissions for a given scheme.
    *
    * @param string $scheme The name of the permission scheme.
