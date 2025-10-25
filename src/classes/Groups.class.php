@@ -21,6 +21,8 @@ class Groups {
   public $minpresentwe = '';
   public $maxabsentwe = '';
 
+  private static $cache = [];
+
   private $db = null;
   private $table = '';
 
@@ -41,14 +43,18 @@ class Groups {
    * @return boolean $result Query result
    */
   public function create(): bool {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, minpresent, maxabsent, minpresentwe, maxabsentwe) VALUES (:name, :description, :minpresent, :maxabsent, :minpresentwe, :maxabsentwe)');
+    $result = $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, minpresent, maxabsent, minpresentwe, maxabsentwe) VALUES (:name, :description, :minpresent, :maxabsent, :minpresentwe, :maxabsentwe)');
     $query->bindParam(':name', $this->name);
     $query->bindParam(':description', $this->description);
     $query->bindParam(':minpresent', $this->minpresent);
     $query->bindParam(':maxabsent', $this->maxabsent);
     $query->bindParam(':minpresentwe', $this->minpresentwe);
     $query->bindParam(':maxabsentwe', $this->maxabsentwe);
-    return $query->execute();
+    $success = $query->execute();
+    if ($success) {
+      $this->invalidateCache();
+    }
+    return $success;
   }
 
   //---------------------------------------------------------------------------
@@ -59,9 +65,13 @@ class Groups {
    * @return boolean $result Query result
    */
   public function delete(string $id): bool {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :id');
+    $success = $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :id');
     $query->bindParam(':id', $id);
-    return $query->execute();
+    $success = $query->execute();
+    if ($success) {
+      $this->invalidateCache();
+    }
+    return $success;
   }
 
   //---------------------------------------------------------------------------
@@ -75,7 +85,11 @@ class Groups {
     $query->execute();
     if ($query->fetchColumn()) {
       $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
-      return $query->execute();
+      $success = $query->execute();
+      if ($success) {
+        $this->invalidateCache();
+      }
+      return $success;
     }
     return false;
   }
@@ -89,12 +103,30 @@ class Groups {
    */
   public function getAll(string $sort = 'ASC'): array {
     $records = array();
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name ' . $sort);
+    $query = $this->db->prepare('SELECT id, name, description, minpresent, maxabsent, minpresentwe, maxabsentwe FROM ' . $this->table . ' ORDER BY name ' . $sort);
     $query->execute();
     while ($row = $query->fetch()) {
       $records[] = $row;
     }
     return $records;
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Gets all group records into an array, using cache if available.
+   *
+   * @param string $sort Sort direction (ASC or DESC)
+   * @return array Array with all group records
+   */
+  public function getAllCached(string $sort = 'ASC'): array {
+    $this->loadCache();
+    // Re-sort if needed, but assume ASC for cache
+    if ($sort === 'DESC') {
+      usort(self::$cache, function($a, $b) {
+        return strnatcasecmp($b['name'], $a['name']);
+      });
+    }
+    return self::$cache;
   }
 
   //---------------------------------------------------------------------------
@@ -141,7 +173,21 @@ class Groups {
    * @return boolean True or false
    */
   public function getById(string $id): bool {
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :id');
+    $this->loadCache();
+    foreach (self::$cache as $row) {
+      if ($row['id'] === $id) {
+        $this->id = $row['id'];
+        $this->name = $row['name'];
+        $this->description = $row['description'];
+        $this->minpresent = $row['minpresent'];
+        $this->maxabsent = $row['maxabsent'];
+        $this->minpresentwe = $row['minpresentwe'];
+        $this->maxabsentwe = $row['maxabsentwe'];
+        return true;
+      }
+    }
+    // Fallback to DB if not in cache (e.g., after invalidation race)
+    $query = $this->db->prepare('SELECT id, name, description, minpresent, maxabsent, minpresentwe, maxabsentwe FROM ' . $this->table . ' WHERE id = :id');
     $query->bindParam(':id', $id);
     $query->execute();
     if ($row = $query->fetch()) {
@@ -152,6 +198,8 @@ class Groups {
       $this->maxabsent = $row['maxabsent'];
       $this->minpresentwe = $row['minpresentwe'];
       $this->maxabsentwe = $row['maxabsentwe'];
+      // Add to cache
+      self::$cache[] = $row;
       return true;
     }
     return false;
@@ -183,12 +231,19 @@ class Groups {
 
   //---------------------------------------------------------------------------
   /**
-   * Gets the maximum absent value for group
+   * Gets the group ID for a given name, using cache.
    *
-   * @param string $groupname Group name
-   * @return string Group ID
+   * @param string       $name Group name
+   * @return string|int        Group ID or 0
    */
   public function getId(string $name): string|int {
+    $this->loadCache();
+    foreach (self::$cache as $row) {
+      if ($row['name'] === $name) {
+        return $row['id'];
+      }
+    }
+    // Fallback
     $query = $this->db->prepare('SELECT id FROM ' . $this->table . ' WHERE name = :name');
     $query->bindParam(':name', $name);
     $query->execute();
@@ -198,12 +253,19 @@ class Groups {
 
   //---------------------------------------------------------------------------
   /**
-   * Gets the maximum absent value for group
+   * Gets the maximum absent value for group, using cache.
    *
-   * @param string $id ID to find
-   * @return    string    Maximum absent value
+   * @param string      $id ID to find
+   * @return string|int     Maximum absent value
    */
   public function getMaxAbsent(string $id): string|int {
+    $this->loadCache();
+    foreach (self::$cache as $row) {
+      if ($row['id'] === $id) {
+        return (int)$row['maxabsent'];
+      }
+    }
+    // Fallback
     $query = $this->db->prepare('SELECT maxabsent FROM ' . $this->table . ' WHERE id = :id');
     $query->bindParam(':id', $id);
     $query->execute();
@@ -213,12 +275,19 @@ class Groups {
 
   //---------------------------------------------------------------------------
   /**
-   * Gets the maximum absent value for group for weekends
+   * Gets the maximum absent value for group for weekends, using cache.
    *
-   * @param string $id ID to find
-   * @return    string    Maximum absent value weekends
+   * @param string      $id ID to find
+   * @return string|int     Maximum absent value weekends
    */
   public function getMaxAbsentWe(string $id): string|int {
+    $this->loadCache();
+    foreach (self::$cache as $row) {
+      if ($row['id'] === $id) {
+        return (int)$row['maxabsentwe'];
+      }
+    }
+    // Fallback
     $query = $this->db->prepare('SELECT maxabsentwe FROM ' . $this->table . ' WHERE id = :id');
     $query->bindParam(':id', $id);
     $query->execute();
@@ -228,12 +297,19 @@ class Groups {
 
   //---------------------------------------------------------------------------
   /**
-   * Gets the maximum absent value for group
+   * Gets the minimum present value for group, using cache.
    *
-   * @param string $id ID to find
-   * @return    string    Minimum present value
+   * @param string      $id ID to find
+   * @return string|int     Minimum present value
    */
   public function getMinPresent(string $id): string|int {
+    $this->loadCache();
+    foreach (self::$cache as $row) {
+      if ($row['id'] === $id) {
+        return (int)$row['minpresent'];
+      }
+    }
+    // Fallback
     $query = $this->db->prepare('SELECT minpresent FROM ' . $this->table . ' WHERE id = :id');
     $query->bindParam(':id', $id);
     $query->execute();
@@ -243,12 +319,19 @@ class Groups {
 
   //---------------------------------------------------------------------------
   /**
-   * Gets the maximum absent value for group for weekends
+   * Gets the minimum present value for group for weekends, using cache.
    *
-   * @param string $id ID to find
-   * @return    string    Minimum present value weekends
+   * @param string      $id ID to find
+   * @return string|int     Minimum present value weekends
    */
   public function getMinPresentWe(string $id): string|int {
+    $this->loadCache();
+    foreach (self::$cache as $row) {
+      if ($row['id'] === $id) {
+        return (int)$row['minpresentwe'];
+      }
+    }
+    // Fallback
     $query = $this->db->prepare('SELECT minpresentwe FROM ' . $this->table . ' WHERE id = :id');
     $query->bindParam(':id', $id);
     $query->execute();
@@ -258,12 +341,19 @@ class Groups {
 
   //---------------------------------------------------------------------------
   /**
-   * Gets a group name for a given ID
+   * Gets a group name for a given ID, using cache.
    *
-   * @param string $id ID to find
-   * @return string Group name (or false if not found)
+   * @param string       $id ID to find
+   * @return string|bool     Group name or false
    */
   public function getNameById(string $id): string|bool {
+    $this->loadCache();
+    foreach (self::$cache as $row) {
+      if ($row['id'] === $id) {
+        return $row['name'];
+      }
+    }
+    // Fallback
     $query = $this->db->prepare('SELECT name FROM ' . $this->table . ' WHERE id = :id');
     $query->bindParam(':id', $id);
     $query->execute();
@@ -291,13 +381,34 @@ class Groups {
 
   //---------------------------------------------------------------------------
   /**
+   * Invalidates the cache.
+   */
+  public function invalidateCache(): void {
+    self::$cache = [];
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Loads the cache if not already loaded.
+   *
+   * @return array The cached groups data.
+   */
+  private function loadCache(): array {
+    if (empty(self::$cache)) {
+      self::$cache = $this->getAll('ASC');
+    }
+    return self::$cache;
+  }
+
+  //---------------------------------------------------------------------------
+  /**
    * Updates a record for a given ID
    *
    * @param string $name Record ID
    * @return boolean Query result
    */
   public function update(string $id): bool {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET name = :name, description = :description, minpresent = :minpresent, maxabsent = :maxabsent, minpresentwe = :minpresentwe, maxabsentwe = :maxabsentwe WHERE id = :id');
+    $success = $query = $this->db->prepare('UPDATE ' . $this->table . ' SET name = :name, description = :description, minpresent = :minpresent, maxabsent = :maxabsent, minpresentwe = :minpresentwe, maxabsentwe = :maxabsentwe WHERE id = :id');
     $query->bindParam(':name', $this->name);
     $query->bindParam(':description', $this->description);
     $query->bindParam(':minpresent', $this->minpresent);
@@ -305,6 +416,10 @@ class Groups {
     $query->bindParam(':minpresentwe', $this->minpresentwe);
     $query->bindParam(':maxabsentwe', $this->maxabsentwe);
     $query->bindParam(':id', $id);
-    return $query->execute();
+    $success = $query->execute();
+    if ($success) {
+      $this->invalidateCache();
+    }
+    return $success;
   }
 }

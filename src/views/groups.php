@@ -19,8 +19,8 @@ view.groups
   <div class="col-lg-12">
     <?php
     if (
-      ($showAlert && $C->read("showAlerts") != "none") &&
-      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+      ($showAlert && $viewData['showAlerts'] != "none") &&
+      ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
     }
@@ -30,7 +30,7 @@ view.groups
     <div class="card">
       <?php
       $pageHelp = '';
-      if ($C->read('pageHelp')) {
+      if ($viewData['pageHelp']) {
         $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
       }
       ?>
@@ -106,26 +106,32 @@ view.groups
                 <td><?= $group['minpresentwe'] ?></td>
                 <td><?= $group['maxabsentwe'] ?></td>
                 <td class="align-top text-center">
-                  <form class="form-control-horizontal" name="form_<?= $group['id'] ?>" action="index.php?action=groups" method="post" target="_self" accept-charset="utf-8">
-                    <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
-                    <?php if (isAllowed($CONF['controllers'][$controller]->permission)) { ?>
-                      <button type="button" class="btn btn-danger btn-sm" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteGroup_<?= $group['id'] ?>" aria-label="<?= $LANG['btn_delete'] ?>: <?= htmlspecialchars($group['name']) ?>"><?= $LANG['btn_delete'] ?></button>
-                    <?php } ?>
-                    <a href="index.php?action=groupedit&amp;id=<?= $group['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= ++$tabindex ?>" aria-label="<?= $LANG['btn_edit'] ?>: <?= htmlspecialchars($group['name']) ?>"><?= $LANG['btn_edit'] ?></a>
-                    <a href="index.php?action=groupcalendaredit&amp;month=<?= date('Y') . date('m') ?>&amp;region=1&amp;group=<?= $group['id'] ?>" class="btn btn-info btn-sm" tabindex="<?= ++$tabindex ?>" aria-label="<?= $LANG['btn_calendar'] ?>: <?= htmlspecialchars($group['name']) ?>"><?= $LANG['btn_calendar'] ?></a>
-                    <input name="hidden_id" type="hidden" value="<?= $group['id'] ?>">
-                    <input name="hidden_name" type="hidden" value="<?= htmlspecialchars($group['name']) ?>">
-                    <input name="hidden_description" type="hidden" value="<?= htmlspecialchars($group['description']) ?>">
-                    <!-- Modal: Delete group -->
-                    <?= createModalTop('modalDeleteGroup_' . $group['id'], $LANG['modal_confirm']) ?>
-                    <?= $LANG['groups_confirm_delete'] . htmlspecialchars($group['name']) ?> ?
-                    <?= createModalBottom('btn_groupDelete', 'danger', $LANG['btn_delete_group']) ?>
-                  </form>
+                  <?php if (isAllowed($CONF['controllers'][$controller]->permission)) { ?>
+                    <button type="button" class="btn btn-danger btn-sm delete-btn" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#sharedDeleteModal" data-id="<?= $group['id'] ?>" data-name="<?= htmlspecialchars($group['name']) ?>" data-description="<?= htmlspecialchars($group['description']) ?>" aria-label="<?= $LANG['btn_delete'] ?>: <?= htmlspecialchars($group['name']) ?>"><?= $LANG['btn_delete'] ?></button>
+                  <?php } ?>
+                  <a href="index.php?action=groupedit&id=<?= $group['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= ++$tabindex ?>" aria-label="<?= $LANG['btn_edit'] ?>: <?= htmlspecialchars($group['name']) ?>"><?= $LANG['btn_edit'] ?></a>
+                  <a href="index.php?action=groupcalendaredit&month=<?= date('Y') . date('m') ?>&region=1&group=<?= $group['id'] ?>" class="btn btn-info btn-sm" tabindex="<?= ++$tabindex ?>" aria-label="<?= $LANG['btn_calendar'] ?>: <?= htmlspecialchars($group['name']) ?>"><?= $LANG['btn_calendar'] ?></a>
                 </td>
               </tr>
             <?php endforeach; ?>
           </tbody>
         </table>
+        
+        <!-- Shared Delete Form and Modal -->
+        <form class="form-control-horizontal" id="sharedDeleteForm" action="index.php?action=groups" method="post" target="_self" accept-charset="utf-8" style="display: none;">
+          <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
+          <input type="hidden" name="btn_groupDelete" value="1">
+          <input name="hidden_id" type="hidden" id="hidden_id">
+          <input name="hidden_name" type="hidden" id="hidden_name">
+          <input name="hidden_description" type="hidden" id="hidden_description">
+        </form>
+        
+        <!-- Shared Modal: Delete group -->
+        <?= createModalTop('sharedDeleteModal', $LANG['modal_confirm']) ?>
+        <div class="modal-body" id="sharedModalBody">
+          <?= $LANG['groups_confirm_delete'] ?> <span id="deleteGroupName"></span> ?
+        </div>
+        <?= createModalBottom('btn_groupDelete', 'danger', $LANG['btn_delete_group'], 'sharedDeleteForm') ?>
         <script>
           $(document).ready(function() {
             $('#dataTableGroups').DataTable({
@@ -141,6 +147,72 @@ view.groups
                 orderable: false,
                 searchable: false
               }]
+            });
+
+            // Handle initial delete button click (populate form, show modal)
+            $(document).on('click', '.delete-btn', function(e) {
+              e.preventDefault();
+              const $btn = $(this);
+              const id = $btn.data('id');
+              const name = $btn.data('name');
+              const description = $btn.data('description');
+
+              // Populate form
+              $('#hidden_id').val(id);
+              $('#hidden_name').val(name);
+              $('#hidden_description').val(description);
+              $('#deleteGroupName').text(name);
+
+              // Show modal
+              const modalElement = document.getElementById('sharedDeleteModal');
+              let modal = bootstrap.Modal.getInstance(modalElement);
+              if (!modal) {
+                modal = new bootstrap.Modal(modalElement);
+              }
+              modal.show();
+            });
+
+            // Handle modal delete button click: Submit the shared form
+            $(document).on('click', '#sharedDeleteModal button[name="btn_groupDelete"], #sharedDeleteModal #btn_groupDelete, #sharedDeleteModal .btn-danger', function(e) {
+              e.preventDefault();
+              e.stopPropagation(); // Prevent bubbling
+
+              // Add loading state
+              const $thisBtn = $(this);
+              $thisBtn.prop('disabled', true).text('Deleting...');
+
+              // Submit the form
+              $('#sharedDeleteForm').submit();
+
+              // Hide modal immediately for UX (page will reload on submit)
+              const modalElement = document.getElementById('sharedDeleteModal');
+              const modal = bootstrap.Modal.getInstance(modalElement);
+              if (modal) {
+                modal.hide();
+              }
+            });
+
+            // Handle form submit (for any additional logic, e.g., validation)
+            $('#sharedDeleteForm').on('submit', function(e) {
+              // No preventDefault - let it POST
+            });
+
+            // Backdrop cleanup on modal hide
+            $('#sharedDeleteModal').on('hidden.bs.modal', function (e) {
+              $('.modal-backdrop').remove();
+              $('body').removeClass('modal-open').css({paddingRight: ''});
+              // Reset delete button
+              $('#sharedDeleteModal button[name="btn_groupDelete"], #btn_groupDelete').prop('disabled', false).text('<?= $LANG['btn_delete_group'] ?>');
+            });
+
+            // Global close handlers (X button, backdrop click)
+            $(document).on('click', '#sharedDeleteModal .btn-close, .modal-backdrop', function(e) {
+              e.preventDefault();
+              const modalElement = document.getElementById('sharedDeleteModal');
+              const modal = bootstrap.Modal.getInstance(modalElement);
+              if (modal) {
+                modal.hide();
+              }
             });
           });
         </script>
