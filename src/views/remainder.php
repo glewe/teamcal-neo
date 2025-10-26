@@ -19,8 +19,8 @@ view.remainder
 
   <?php
   if (
-    ($showAlert && $C->read("showAlerts") != "none") &&
-    ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+    ($showAlert && $allConfig['showAlerts'] != "none") &&
+    ($allConfig['showAlerts'] == "all" || $allConfig['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
   ) {
     echo createAlertBox($alertData);
   }
@@ -35,7 +35,7 @@ view.remainder
     <div class="page-menu">
       <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectGroup"><?= $LANG['group'] . ': ' . $viewData['group'] ?></button>
       <button type="button" class="btn btn-info" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSearchUser"><?= $LANG['search'] . ': ' . $viewData['search'] ?></button>
-      <?php if (!$C->read('currentYearOnly')) { ?>
+      <?php if (!$viewData['currentYearOnly']) { ?>
         <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalYear"><?= $LANG['year'] ?> <span class="badge text-bg-light"><?= $viewData['year'] ?></span></button>
       <?php } ?>
       <button type="submit" class="btn btn-success" tabindex="<?= ++$tabindex ?>" name="btn_reset"><?= $LANG['btn_reset'] ?></button>
@@ -45,7 +45,7 @@ view.remainder
     <div class="card">
       <?php
       $pageHelp = '';
-      if ($C->read('pageHelp')) {
+      if ($viewData['pageHelp']) {
         $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
       }
       ?>
@@ -89,35 +89,33 @@ view.remainder
             <tr>
               <td class="m-name"><a href="index.php?action=useredit&amp;profile=<?= $user['username'] ?>" tabindex="<?= ++$tabindex ?>"><?= $user['dispname'] ?></a></td>
               <?php foreach ($viewData['absences'] as $abs) {
-                if ($abs['show_in_remainder']) {
-                  echo '<td class="m-day text-center">';
-                  if ($AL->find($user['username'], $abs['id'])) {
-                    $carryover = $AL->carryover;
-                    if (!$AL->allowance) {
-                      //
-                      // Zero personal allowance will take over global yearly allowance
-                      //
-                      $AL->allowance = $abs['allowance'];
-                      $AL->update();
-                    }
-                    $allowance = $AL->allowance;
-                  } else {
-                    $carryover = 0;
-                    $allowance = $abs['allowance'];
+                echo '<td class="m-day text-center">';
+                if ($AL->find($user['username'], $abs['id'])) {
+                  $carryover = $AL->carryover;
+                  if (!$AL->allowance) {
+                    //
+                    // Zero personal allowance will take over global yearly allowance
+                    //
+                    $AL->allowance = $abs['allowance'];
+                    $AL->update();
                   }
-                  $totalAllowance = $allowance + $carryover;
-                  $taken = 0;
-                  if (!$abs['counts_as_present']) {
-                    $taken = countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
-                  }
-                  $remainder = $allowance + $carryover - ($taken * $abs['factor']);
-                  $dispTaken = '<span class="badge text-bg-info">' . $taken . '</span>';
-                  $dispAllowance = '<span class="badge text-bg-primary">' . $totalAllowance . '</span>';
-                  $dispRemainder = '<span class="badge text-bg-' . (($remainder < 0) ? "danger" : "success") . '">' . $remainder . '</span>';
-                  $separator = "-";
-                  echo $dispTaken . $separator . $dispAllowance . $separator . $dispRemainder;
-                  echo '</td>';
+                  $allowance = $AL->allowance;
+                } else {
+                  $carryover = 0;
+                  $allowance = $abs['allowance'];
                 }
+                $totalAllowance = $allowance + $carryover;
+                $taken = 0;
+                if (!$abs['counts_as_present']) {
+                  $taken = countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
+                }
+                $remainder = $allowance + $carryover - ($taken * $abs['factor']);
+                $dispTaken = '<span class="badge text-bg-info">' . $taken . '</span>';
+                $dispAllowance = '<span class="badge text-bg-primary">' . $totalAllowance . '</span>';
+                $dispRemainder = '<span class="badge text-bg-' . (($remainder < 0) ? "danger" : "success") . '">' . $remainder . '</span>';
+                $separator = "-";
+                echo $dispTaken . $separator . $dispAllowance . $separator . $dispRemainder;
+                echo '</td>';
               } ?>
             </tr>
           <?php } ?>
@@ -181,7 +179,7 @@ view.remainder
 
   </form>
 
-  <?php if ($limit = $C->read("usersPerPage")) { ?>
+  <?php if ($limit = $viewData['usersPerPage']) { ?>
     <nav aria-label="Paging">
       <ul class="pagination">
 

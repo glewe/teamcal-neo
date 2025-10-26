@@ -43,11 +43,13 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 // CHECK URL PARAMETERS OR USER DEFAULTS
 //
 
-//
-// Build array of users to show
-//
+// Load all config values in one query for maximum performance
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 
 //
+// Build array of users to show
 // First, load all users we have that are not hidden
 //
 $users = $U->getAllButHidden();
@@ -98,7 +100,7 @@ if (isset($_GET['search']) && $_GET['search'] == "reset") {
 //
 // Paging
 //
-if ($limit = $C->read("usersPerPage")) {
+if ($limit = $allConfig['usersPerPage']) {
   //
   // How many users do we have?
   //
@@ -231,7 +233,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
-$viewData['absences'] = $A->getAll();
+$viewData['currentYearOnly'] = $allConfig['currentYearOnly'];
+$viewData['usersPerPage'] = $allConfig['usersPerPage'];
+
+$allAbsences = $A->getAll();
+$viewData['absences'] = array_filter($allAbsences, function($abs) {
+  return $abs['show_in_remainder'];
+});
 $viewData['allGroups'] = $G->getAll();
 $viewData['holidays'] = $H->getAllCustom();
 $countFrom = $viewData['year'] . '0101';
@@ -244,37 +252,24 @@ if ($groupfilter == 'all') {
 $viewData['users'] = array();
 $i = 0;
 foreach ($users as $user) {
-  $U->findByName($user['username']);
   $viewData['users'][$i]['username'] = $user['username'];
-  if ($U->firstname != "") {
-    $viewData['users'][$i]['dispname'] = $U->lastname . ", " . $U->firstname;
+  if ($user['firstname'] != "") {
+    $viewData['users'][$i]['dispname'] = $user['lastname'] . ", " . $user['firstname'];
   } else {
-    $viewData['users'][$i]['dispname'] = $U->lastname;
+    $viewData['users'][$i]['dispname'] = $user['lastname'];
   }
-  $viewData['users'][$i]['dispname'] .= ' (' . $U->username . ')';
-  $viewData['users'][$i]['role'] = $RO->getNameById($U->role);
-  $viewData['users'][$i]['color'] = $RO->getColorById($U->role);
+  $viewData['users'][$i]['dispname'] .= ' (' . $user['username'] . ')';
+  $viewData['users'][$i]['role'] = $RO->getNameById($user['role']);
+  $viewData['users'][$i]['color'] = $RO->getColorById($user['role']);
   //
   // Determine attributes
   //
-  $viewData['users'][$i]['locked'] = false;
-  $viewData['users'][$i]['hidden'] = false;
-  $viewData['users'][$i]['onhold'] = false;
-  $viewData['users'][$i]['verify'] = false;
-  if ($U->locked) {
-    $viewData['users'][$i]['locked'] = true;
-  }
-  if ($U->hidden) {
-    $viewData['users'][$i]['hidden'] = true;
-  }
-  if ($U->onhold) {
-    $viewData['users'][$i]['onhold'] = true;
-  }
-  if ($U->verify) {
-    $viewData['users'][$i]['verify'] = true;
-  }
-  $viewData['users'][$i]['created'] = $U->created;
-  $viewData['users'][$i]['last_login'] = $U->last_login;
+  $viewData['users'][$i]['locked'] = (bool)$user['locked'];
+  $viewData['users'][$i]['hidden'] = (bool)$user['hidden'];
+  $viewData['users'][$i]['onhold'] = (bool)$user['onhold'];
+  $viewData['users'][$i]['verify'] = (bool)$user['verify'];
+  $viewData['users'][$i]['created'] = $user['created'];
+  $viewData['users'][$i]['last_login'] = $user['last_login'];
   $i++;
 }
 
