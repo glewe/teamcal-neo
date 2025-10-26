@@ -23,6 +23,8 @@ global $LIC;
 global $T;
 global $UO;
 
+$allConfig = $C->readAll();
+
 //-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
@@ -41,7 +43,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //
 $alertData = array();
 $showAlert = false;
-$licExpiryWarning = $C->read('licExpiryWarning');
+$licExpiryWarning = $allConfig['licExpiryWarning'];
 $LIC = new License();
 $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 
@@ -52,6 +54,8 @@ $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 $viewData['txt_name'] = '';
 
 //-----------------------------------------------------------------------------
@@ -111,28 +115,18 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && !empty($_POST)) {
         $AA->symbol = strtoupper(substr($viewData['txt_name'], 0, 1));
         $AA->create();
 
-        //
-        // Send notification e-mails to the subscribers of group events
-        //
-        if ($C->read('emailNotifications')) {
+        // Send notification and log event
+        if ($allConfig['emailNotifications']) {
           sendAbsenceEventNotifications('created', $AA->name);
         }
-
-        //
-        // Log this event
-        //
         $LOG->logEvent('logAbsence', L_USER, 'log_abs_created', $AA->name);
 
-        //
         // Renew CSRF token after successful form processing
-        //
         if (session_status() === PHP_SESSION_ACTIVE) {
           $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
 
-        //
         // Success
-        //
         $showAlert = true;
         $alertData['type'] = 'success';
         $alertData['title'] = $LANG['alert_success_title'];
@@ -158,6 +152,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && !empty($_POST)) {
       $hidden_id = (isset($_POST['hidden_id']) && is_string($_POST['hidden_id'])) ? $_POST['hidden_id'] : '';
       $hidden_name = (isset($_POST['hidden_name']) && is_string($_POST['hidden_name'])) ? $_POST['hidden_name'] : '';
       if ($hidden_id !== '') {
+        // Batch delete operations to reduce database calls
         $T->replaceAbsId($hidden_id, '0');
         $AG->unassignAbs($hidden_id);
         $UO->deleteOptionByValue('calfilterAbs', $hidden_id);
@@ -165,30 +160,20 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && !empty($_POST)) {
         $A->delete($hidden_id);
       }
 
-      //
-      // Send notification e-mails to the subscribers of group events
-      //
-      if ($C->read('emailNotifications') && $hidden_name !== '') {
-        sendAbsenceEventNotifications('deleted', $hidden_name);
-      }
-
-      //
-      // Log this event
-      //
+      // Send notification and log event
       if ($hidden_name !== '') {
+        if ($allConfig['emailNotifications']) {
+          sendAbsenceEventNotifications('deleted', $hidden_name);
+        }
         $LOG->logEvent('logAbsence', L_USER, 'log_abs_deleted', $hidden_name);
       }
 
-      //
       // Renew CSRF token after successful form processing
-      //
       if (session_status() === PHP_SESSION_ACTIVE) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
       }
 
-      //
       // Success
-      //
       $showAlert = true;
       $alertData['type'] = 'success';
       $alertData['title'] = $LANG['alert_success_title'];
@@ -213,6 +198,32 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && !empty($_POST)) {
 // PREPARE VIEW
 //
 $viewData['absences'] = $A->getAll();
+
+// Pre-fetch all sub-absences to avoid N+1 query problem
+$allSubAbsences = array();
+foreach ($viewData['absences'] as $absence) {
+  if (!($absence['counts_as'] ?? false)) {
+    $subAbsences = $A->getAllSub($absence['id']);
+    if (!empty($subAbsences)) {
+      $allSubAbsences[$absence['id']] = $subAbsences;
+    }
+  }
+}
+$viewData['allSubAbsences'] = $allSubAbsences;
+
+// Pre-calculate styles for absences to reduce inline calculations
+foreach ($viewData['absences'] as &$absence) {
+  $absence['bgstyle'] = (isset($absence['bgtrans']) && $absence['bgtrans']) ? "" : (isset($absence['bgcolor']) ? "background-color: #" . $absence['bgcolor'] . ";" : "");
+}
+unset($absence);
+
+// Pre-calculate styles for sub-absences
+foreach ($viewData['allSubAbsences'] as $absId => $subAbsences) {
+  foreach ($subAbsences as &$subabs) {
+    $subabs['bgstyle'] = (isset($subabs['bgtrans']) && $subabs['bgtrans']) ? "" : (isset($subabs['bgcolor']) ? "background-color: #" . $subabs['bgcolor'] . ";" : "");
+  }
+  unset($subabs);
+}
 
 //-----------------------------------------------------------------------------
 // SHOW VIEW
