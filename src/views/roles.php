@@ -125,7 +125,7 @@ view.roles
                   </a>
                   <!-- Modal: Delete role -->
                   <?= createModalTop('modalDeleteRole_' . $roleId, htmlspecialchars($LANG['modal_confirm'] ?? '', ENT_QUOTES, 'UTF-8')) ?>
-                  <?= htmlspecialchars(($LANG['roles_confirm_delete'] ?? '') . $roleName, ENT_QUOTES, 'UTF-8') ?> ?
+                  <?= $LANG['roles_confirm_delete'] . $roleName ?> ?
                   <?= createModalBottom('btn_roleDelete', 'danger', htmlspecialchars($LANG['btn_delete_role'] ?? '', ENT_QUOTES, 'UTF-8')) ?>
                 </form>
               </td>
