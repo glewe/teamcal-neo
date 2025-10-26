@@ -753,7 +753,7 @@ class LanguageLoader {
       'register' => ['register', 'password'],
       'regionedit' => ['region'],
       'regions' => ['region'],
-      'remainder' => ['remainder', 'calendar', 'absence'],
+      'remainder' => ['remainder', 'calendar', 'absence', 'user'],
       'roleedit' => ['role'],
       'roles' => ['role'],
       'setup2fa' => ['login'],
