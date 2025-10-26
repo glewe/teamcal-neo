@@ -20,6 +20,8 @@ global $LOG;
 global $RO;
 global $P;
 
+$allConfig = $C->readAll();
+
 //-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
@@ -36,12 +38,14 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //-----------------------------------------------------------------------------
 // CHECK LICENSE
 //
+// Performance optimization: Only check license on random days to reduce overhead
+// This check is expensive and doesn't need to run on every page load
 $date = new DateTime();
 $weekday = $date->format('N');
 if ($weekday == rand(1, 7)) {
   $alertData = array();
   $showAlert = false;
-  $licExpiryWarning = $C->read('licExpiryWarning');
+  $licExpiryWarning = $allConfig['licExpiryWarning'];
   $LIC = new License();
   $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 }
@@ -53,6 +57,8 @@ if ($weekday == rand(1, 7)) {
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 $viewData['txt_name'] = '';
 $viewData['txt_description'] = '';
 
@@ -69,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   //
   // CSRF token check
   //
-  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+  if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
     $alertData['type'] = 'warning';
     $alertData['title'] = $LANG['alert_alert_title'];
     $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
@@ -119,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         //
         // Send notification e-mails to the subscribers of role events
         //
-        if ($C->read("emailNotifications")) {
+        if ($allConfig['emailNotifications']) {
           sendRoleEventNotifications("created", $RO->name, $RO->description);
         }
         //
@@ -157,7 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         // Delete Role in all permission schemes
         $P->deleteRole($_POST['hidden_id']);
         // Send notification e-mails to the subscribers of role events
-        if ($C->read("emailNotifications")) {
+        if ($allConfig['emailNotifications']) {
           sendRoleEventNotifications("deleted", $_POST['hidden_name'], $_POST['hidden_description']);
         }
         // Log this event
@@ -205,18 +211,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //
 // Default: Get all roles
 //
-$viewData['roles'] = $RO->getAll();
 $viewData['searchRole'] = '';
 
 // ,--------,
 // | Search |
 // '--------'
-if (isset($_POST['btn_search'])) {
-  if (isset($_POST['txt_searchRole'])) {
-    $searchRole = sanitize($_POST['txt_searchRole']);
-    $viewData['searchRole'] = $searchRole;
-    $viewData['roles'] = $RO->getAllLike($searchRole);
-  }
+// Performance optimization: Only fetch roles if search is performed or on initial load
+if (isset($_POST['btn_search']) && isset($_POST['txt_searchRole'])) {
+  $searchRole = sanitize($_POST['txt_searchRole']);
+  $viewData['searchRole'] = $searchRole;
+  $viewData['roles'] = $RO->getAllLike($searchRole);
+} else {
+  // Only fetch all roles if not searching
+  $viewData['roles'] = $RO->getAll();
 }
 
 //-----------------------------------------------------------------------------
