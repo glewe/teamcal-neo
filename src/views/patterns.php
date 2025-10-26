@@ -18,8 +18,8 @@ view.patterns
   <div class="col-lg-12">
     <?php
     if (
-      ($showAlert && $C->read("showAlerts") != "none") &&
-      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+      ($showAlert && $viewData['showAlerts'] != "none") &&
+      ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
     }
@@ -29,7 +29,7 @@ view.patterns
     <div class="card">
       <?php
       $pageHelp = '';
-      if ($C->read('pageHelp')) {
+      if ($viewData['pageHelp']) {
         $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
       }
       ?>
@@ -58,22 +58,27 @@ view.patterns
           </thead>
           <tbody>
           <?php
-          foreach ($viewData['patterns'] as $pattern) : ?>
+          foreach ($viewData['patterns'] as $pattern) :
+            $patternId = htmlspecialchars($pattern['id'] ?? '', ENT_QUOTES, 'UTF-8');
+            $patternName = htmlspecialchars($pattern['name'] ?? '', ENT_QUOTES, 'UTF-8');
+            $patternDesc = htmlspecialchars($pattern['description'] ?? '', ENT_QUOTES, 'UTF-8');
+            $modalId = 'modalDeletePattern_' . $patternId;
+          ?>
             <tr>
-              <td><?= htmlspecialchars($pattern['name'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-              <td><?= htmlspecialchars($pattern['description'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+              <td><?= $patternName ?></td>
+              <td><?= $patternDesc ?></td>
               <td><?= createPatternTable($pattern['id']) ?></td>
               <td class="align-top text-center">
-                <form class="form-control-horizontal" name="form_<?= htmlspecialchars($pattern['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>" action="index.php?action=patterns" method="post" target="_self" accept-charset="utf-8">
-                  <button type="button" class="btn btn-danger btn-sm" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDeletePattern_<?= htmlspecialchars($pattern['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>"><?= $LANG['btn_delete'] ?></button>
-                  <input name="hidden_id" type="hidden" value="<?= htmlspecialchars($pattern['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-                  <input name="hidden_name" type="hidden" value="<?= htmlspecialchars($pattern['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-                  <input name="hidden_description" type="hidden" value="<?= htmlspecialchars($pattern['description'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-                  <a href="index.php?action=patternedit&amp;id=<?= htmlspecialchars($pattern['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>" class="btn btn-warning btn-sm" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_edit'] ?></a>
+                <form class="form-control-horizontal" name="form_<?= $patternName ?>" action="index.php?action=patterns" method="post" target="_self" accept-charset="utf-8">
+                  <button type="button" class="btn btn-danger btn-sm" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#<?= $modalId ?>"><?= $LANG['btn_delete'] ?></button>
+                  <input name="hidden_id" type="hidden" value="<?= $patternId ?>">
+                  <input name="hidden_name" type="hidden" value="<?= $patternName ?>">
+                  <input name="hidden_description" type="hidden" value="<?= $patternDesc ?>">
+                  <a href="index.php?action=patternedit&amp;id=<?= $patternId ?>" class="btn btn-warning btn-sm" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_edit'] ?></a>
 
                   <!-- Modal: Delete Pattern -->
-                  <?= createModalTop('modalDeletePattern_' . htmlspecialchars($pattern['id'] ?? '', ENT_QUOTES, 'UTF-8'), $LANG['modal_confirm']) ?>
-                  <?= htmlspecialchars($LANG['ptn_confirm_delete'], ENT_QUOTES, 'UTF-8') . htmlspecialchars($pattern['name'] ?? '', ENT_QUOTES, 'UTF-8') ?> ?
+                  <?= createModalTop($modalId, $LANG['modal_confirm']) ?>
+                  <?= htmlspecialchars($LANG['ptn_confirm_delete'], ENT_QUOTES, 'UTF-8') . $patternName ?> ?
                   <?= createModalBottom('btn_patternDelete', 'danger', $LANG['btn_delete']) ?>
 
                 </form>
