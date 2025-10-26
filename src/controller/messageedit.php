@@ -24,10 +24,35 @@ global $UL;
 global $UMSG;
 global $UO;
 
+$allConfig = $C->readAll();
+
+//-----------------------------------------------------------------------------
+// HELPER FUNCTIONS
+//
+/**
+ * Check if a value matches the current selection and return checked/selected attribute
+ * @param mixed $value The value to check
+ * @param mixed $current The current selected value
+ * @return string 'checked' or 'selected' attribute, or empty string
+ */
+function isSelected($value, $current) {
+  return ($value === $current) ? 'checked' : '';
+}
+
+/**
+ * Check if a value is in an array and return selected attribute
+ * @param mixed $value The value to check
+ * @param array $current The current selected values
+ * @return string 'selected' attribute, or empty string
+ */
+function isInArray($value, $current) {
+  return (in_array($value, $current)) ? 'selected' : '';
+}
+
 //-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
-if (!isAllowed($CONF['controllers'][$controller]->permission) || !$C->read("activateMessages")) {
+if (!isAllowed($CONF['controllers'][$controller]->permission) || !$allConfig['activateMessages']) {
   $alertData['type'] = 'warning';
   $alertData['title'] = $LANG['alert_alert_title'];
   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
@@ -40,6 +65,8 @@ if (!isAllowed($CONF['controllers'][$controller]->permission) || !$C->read("acti
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 require_once WEBSITE_ROOT . '/addons/securimage/securimage.php';
 
 //-----------------------------------------------------------------------------
@@ -54,6 +81,22 @@ $viewData['sendToUser'] = array();
 $viewData['subject'] = '';
 $viewData['text'] = '';
 $viewData['luser'] = $UL->username;
+
+// Cache user data to avoid duplicate queries
+$allUsers = $U->getAll();
+$userEmails = array();
+$userDisplayNames = array();
+foreach ($allUsers as $user) {
+  if (strlen($user['email'])) {
+    $userEmails[$user['username']] = $user['email'];
+  }
+  // Pre-process display names to avoid logic in view loop
+  if ($user['firstname'] != "") {
+    $userDisplayNames[$user['username']] = $user['lastname'] . ", " . $user['firstname'];
+  } else {
+    $userDisplayNames[$user['username']] = $user['lastname'];
+  }
+}
 
 //-----------------------------------------------------------------------------
 // PROCESS FORM
@@ -131,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         $alertData['text'] = $LANG['msg_no_text_text'];
         $alertData['help'] = '';
       } elseif ($_POST['opt_msgtype'] == "email") {
-        if ($C->read("emailNotifications")) {
+        if ($allConfig['emailNotifications']) {
           //
           // Send as e-Mail
           //
@@ -139,16 +182,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
           $viewData['subject'] = $_POST['txt_subject'];
           $viewData['text'] = $_POST['txt_text'];
           $sendMail = false;
-          $to = "";
+          $toEmails = array();
           switch ($_POST['opt_sendto']) {
             case "all":
-              $users = $U->getAll();
-              foreach ($users as $user) {
-                if (strlen($user['email'])) {
-                  $to .= $user['email'] . ',';
-                }
-              }
-              $to = rtrim($to, ','); // remove the last ","
+              $toEmails = array_values($userEmails);
               $sendMail = true;
               break;
 
@@ -157,11 +194,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
                 foreach ($_POST['sel_sendToGroup'] as $gto) {
                   $groupusers = $UG->getAllForGroup($gto);
                   foreach ($groupusers as $groupuser) {
-                    if (strlen($U->getEmail($groupuser))) {
-                      $to .= $U->getEmail($groupuser) . ',';
+                    if (isset($userEmails[$groupuser])) {
+                      $toEmails[] = $userEmails[$groupuser];
                     }
                   }
-                  $to = rtrim($to, ','); // remove the last ","
                 }
                 $sendMail = true;
               } else {
@@ -180,11 +216,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
             case "user":
               if (isset($_POST['sel_sendToUser'])) {
                 foreach ($_POST['sel_sendToUser'] as $uto) {
-                  if (strlen($U->getEmail($uto))) {
-                    $to .= $U->getEmail($uto) . ",";
+                  if (isset($userEmails[$uto])) {
+                    $toEmails[] = $userEmails[$uto];
                   }
                 }
-                $to = rtrim($to, ','); // remove the last ","
                 $sendMail = true;
               } else {
                 //
@@ -210,6 +245,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
               $from = '';
             }
 
+            $to = implode(',', $toEmails);
             if (sendEmail($to, stripslashes($_POST['txt_subject']), stripslashes($_POST['txt_text']), $from)) {
               //
               // Log this event
@@ -245,12 +281,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         $tstamp = date("YmdHis");
         $mmsg = str_replace("\r\n", "<br>", $_POST['txt_text']);
 
-        if ($userAvatar = $UO->read($UL->username, 'avatar')) {
-          if (!file_exists(APP_AVATAR_DIR . $userAvatar)) {
-            $userAvatar = 'default_' . $UO->read($UL->username, 'gender') . '.png';
-          }
-        } else {
-          $userAvatar = 'default_' . $UO->read($UL->username, 'gender') . '.png';
+        // Cache avatar lookup to avoid multiple database queries
+        $userAvatar = $UO->read($UL->username, 'avatar');
+        if (!$userAvatar || !file_exists(APP_AVATAR_DIR . $userAvatar)) {
+          $userGender = $UO->read($UL->username, 'gender');
+          $userAvatar = 'default_' . $userGender . '.png';
         }
         $signature = '<img src="' . APP_AVATAR_DIR . $userAvatar . '" width="40" height="40" alt="" style="margin: 0 8px 0 0; text-align:left;"><i>[' . ltrim($UL->firstname . " " . $UL->lastname) . ']</i>';
         $message = "<strong>" . $_POST['txt_subject'] . "</strong><br>" . $mmsg . "<br><br>" . $signature;
@@ -367,7 +402,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 // PREPARE VIEW
 //
 $viewData['groups'] = $G->getAllNames($excludeHidden = true);
-$viewData['users'] = $U->getAll();
+$viewData['users'] = $allUsers;
+$viewData['userDisplayNames'] = $userDisplayNames;
 
 //-----------------------------------------------------------------------------
 // SHOW VIEW
