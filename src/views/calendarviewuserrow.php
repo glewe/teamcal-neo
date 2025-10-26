@@ -94,10 +94,14 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
   //
   // Loop through all days of this month
   //
+  // Initialize day range if not set (fallback to full month)
+  $daystart = $daystart ?? 1;
+  $dayend = $dayend ?? $viewData['dateInfo']['daysInMonth'];
+  
   for ($i = $daystart; $i <= $dayend; $i++) {
     $loopDate = date('Y-m-d', mktime(0, 0, 0, $viewData['month'], $i, $viewData['year']));
     $abs = 'abs' . $i;
-    $style = $viewData['dayStyles'][$i];
+    $style = $viewData['dayStyles'][$i] ?? '';
     
     //
     // In split month view, add a right border to the last day of the first month
@@ -292,7 +296,7 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
     for ($i = 1; $i <= 15; $i++) {
       $loopDate = date('Y-m-d', mktime(0, 0, 0, $nextMonthNum, $i, $nextMonthYear));
       $abs = 'abs' . $i;
-      $style = $viewData['dayStyles']['next_' . $i];  // Apply day styles for next month days
+      $style = $viewData['dayStyles']['next_' . $i] ?? '';  // Apply day styles for next month days with fallback
       $icon = '&nbsp;';
       $absstart = '';
       $absend = '';

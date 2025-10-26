@@ -226,7 +226,7 @@ $LANG['cal_selWidth_comment'] = 'Select the width of your screen in pixels so th
 $LANG['cal_switchFullmonthView'] = 'Switch to full month view';
 $LANG['cal_switchSplitmonthView'] = 'Switch to split month view';
 $LANG['cal_summary'] = 'Summary';
-$LANG['cal_businessDays'] = 'Business Days';
+$LANG['cal_businessDays'] = 'Business Days in Month';
 
 $LANG['cal_caption_weeknumber'] = 'Week';
 $LANG['cal_caption_name'] = 'Name';
