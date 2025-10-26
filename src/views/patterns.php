@@ -70,6 +70,7 @@ view.patterns
               <td><?= createPatternTable($pattern['id']) ?></td>
               <td class="align-top text-center">
                 <form class="form-control-horizontal" name="form_<?= $patternName ?>" action="index.php?action=patterns" method="post" target="_self" accept-charset="utf-8">
+                  <input name="csrf_token" type="hidden" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                   <button type="button" class="btn btn-danger btn-sm" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#<?= $modalId ?>"><?= $LANG['btn_delete'] ?></button>
                   <input name="hidden_id" type="hidden" value="<?= $patternId ?>">
                   <input name="hidden_name" type="hidden" value="<?= $patternName ?>">
@@ -78,7 +79,7 @@ view.patterns
 
                   <!-- Modal: Delete Pattern -->
                   <?= createModalTop($modalId, $LANG['modal_confirm']) ?>
-                  <?= htmlspecialchars($LANG['ptn_confirm_delete'], ENT_QUOTES, 'UTF-8') . $patternName ?> ?
+                  <?= $LANG['ptn_confirm_delete'] . $patternName ?> ?
                   <?= createModalBottom('btn_patternDelete', 'danger', $LANG['btn_delete']) ?>
 
                 </form>
