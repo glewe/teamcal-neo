@@ -18,8 +18,8 @@ view.roles
   <div class="col-lg-12">
     <?php
     if (
-      (!empty($showAlert) && $C->read("showAlerts") !== "none") &&
-      ($C->read("showAlerts") === "all" || ($C->read("showAlerts") === "warnings" && (isset($alertData['type']) && ($alertData['type'] === "warning" || $alertData['type'] === "danger"))))
+      (!empty($showAlert) && $viewData['showAlerts'] !== "none") &&
+      ($viewData['showAlerts'] === "all" || ($viewData['showAlerts'] === "warnings" && (isset($alertData['type']) && ($alertData['type'] === "warning" || $alertData['type'] === "danger"))))
     ) {
       echo createAlertBox($alertData);
     }
@@ -28,13 +28,18 @@ view.roles
 
     <div class="card">
       <?php
+      // Performance optimization: Cache config values to avoid repeated lookups
+      $panelColor = htmlspecialchars($CONF['controllers'][$controller]->panelColor ?? '', ENT_QUOTES, 'UTF-8');
+      $faIcon = htmlspecialchars($CONF['controllers'][$controller]->faIcon ?? '', ENT_QUOTES, 'UTF-8');
+      $rolesTitle = htmlspecialchars($LANG['roles_title'] ?? '', ENT_QUOTES, 'UTF-8');
+      
       $pageHelp = '';
-      if ($C->read('pageHelp')) {
+      if ($viewData['pageHelp']) {
         $docurl = htmlspecialchars($CONF['controllers'][$controller]->docurl ?? '', ENT_QUOTES, 'UTF-8');
         $pageHelp = '<a href="' . $docurl . '" target="_blank" class="float-end" style="color:inherit;" aria-label="Help"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
       }
       ?>
-      <div class="card-header text-bg-<?= htmlspecialchars($CONF['controllers'][$controller]->panelColor ?? '', ENT_QUOTES, 'UTF-8') ?>"><i class="<?= htmlspecialchars($CONF['controllers'][$controller]->faIcon ?? '', ENT_QUOTES, 'UTF-8') ?> fa-lg me-3"></i><?= htmlspecialchars($LANG['roles_title'] ?? '', ENT_QUOTES, 'UTF-8') . $pageHelp ?></div>
+      <div class="card-header text-bg-<?= $panelColor ?>"><i class="<?= $faIcon ?> fa-lg me-3"></i><?= $rolesTitle . $pageHelp ?></div>
 
       <div class="card-body">
 
@@ -89,31 +94,38 @@ view.roles
           </thead>
           <tbody>
           <?php
+          // Performance optimization: Cache protected roles array outside loop
+          $protectedRoles = array(1, 2, 3);
           $i = 1;
-          foreach (($viewData['roles'] ?? []) as $role) : ?>
+          foreach (($viewData['roles'] ?? []) as $role) :
+            $roleId = htmlspecialchars($role['id'] ?? '', ENT_QUOTES, 'UTF-8');
+            $roleName = htmlspecialchars($role['name'] ?? '', ENT_QUOTES, 'UTF-8');
+            $roleDescription = htmlspecialchars($role['description'] ?? '', ENT_QUOTES, 'UTF-8');
+            $roleColor = htmlspecialchars($role['color'] ?? '', ENT_QUOTES, 'UTF-8');
+            $isProtected = in_array($role['id'], $protectedRoles);
+            ?>
             <tr>
               <td class="text-end"><?= $i++ ?></td>
-              <td><i class="fas fa-user-circle fa-lg text-<?= htmlspecialchars($role['color'] ?? '', ENT_QUOTES, 'UTF-8') ?> me-2"></i><?= htmlspecialchars($role['name'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-              <td><?= htmlspecialchars($role['description'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+              <td><i class="fas fa-user-circle fa-lg text-<?= $roleColor ?> me-2"></i><?= $roleName ?></td>
+              <td><?= $roleDescription ?></td>
               <td class="align-top text-center">
-                <form class="form-control-horizontal" name="form_<?= htmlspecialchars($role['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>" action="index.php?action=roles" method="post" target="_self" accept-charset="utf-8">
+                <form class="form-control-horizontal" name="form_<?= $roleName ?>" action="index.php?action=roles" method="post" target="_self" accept-charset="utf-8">
                   <input name="csrf_token" type="hidden" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                   <?php
-                  $protectedRoles = array( 1, 2, 3 );
-                  if (!in_array($role['id'], $protectedRoles)) { ?>
-                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRole_<?= htmlspecialchars($role['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>" aria-label="<?= htmlspecialchars($LANG['btn_delete'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                  if (!$isProtected) { ?>
+                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRole_<?= $roleId ?>" aria-label="<?= htmlspecialchars($LANG['btn_delete'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                       <?= htmlspecialchars($LANG['btn_delete'] ?? '', ENT_QUOTES, 'UTF-8') ?>
                     </button>
-                    <input name="hidden_id" type="hidden" value="<?= htmlspecialchars($role['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-                    <input name="hidden_name" type="hidden" value="<?= htmlspecialchars($role['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-                    <input name="hidden_description" type="hidden" value="<?= htmlspecialchars($role['description'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                    <input name="hidden_id" type="hidden" value="<?= $roleId ?>">
+                    <input name="hidden_name" type="hidden" value="<?= $roleName ?>">
+                    <input name="hidden_description" type="hidden" value="<?= $roleDescription ?>">
                   <?php } ?>
-                  <a href="index.php?action=roleedit&amp;id=<?= htmlspecialchars($role['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>" class="btn btn-warning btn-sm" tabindex="<?= ++$tabindex ?>" aria-label="<?= htmlspecialchars($LANG['btn_edit'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                  <a href="index.php?action=roleedit&amp;id=<?= $roleId ?>" class="btn btn-warning btn-sm" tabindex="<?= ++$tabindex ?>" aria-label="<?= htmlspecialchars($LANG['btn_edit'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                     <?= htmlspecialchars($LANG['btn_edit'] ?? '', ENT_QUOTES, 'UTF-8') ?>
                   </a>
                   <!-- Modal: Delete role -->
-                  <?= createModalTop('modalDeleteRole_' . htmlspecialchars($role['id'] ?? '', ENT_QUOTES, 'UTF-8'), htmlspecialchars($LANG['modal_confirm'] ?? '', ENT_QUOTES, 'UTF-8')) ?>
-                  <?= htmlspecialchars(($LANG['roles_confirm_delete'] ?? '') . ($role['name'] ?? ''), ENT_QUOTES, 'UTF-8') ?> ?
+                  <?= createModalTop('modalDeleteRole_' . $roleId, htmlspecialchars($LANG['modal_confirm'] ?? '', ENT_QUOTES, 'UTF-8')) ?>
+                  <?= htmlspecialchars(($LANG['roles_confirm_delete'] ?? '') . $roleName, ENT_QUOTES, 'UTF-8') ?> ?
                   <?= createModalBottom('btn_roleDelete', 'danger', htmlspecialchars($LANG['btn_delete_role'] ?? '', ENT_QUOTES, 'UTF-8')) ?>
                 </form>
               </td>
