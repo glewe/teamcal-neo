@@ -179,7 +179,7 @@ view.statsabsences
 
       <script src="addons/chart.js/<?= CHARTJS_VER ?>/chart.umd.js"></script>
       <script>
-        window.onload = function () {
+        document.addEventListener('DOMContentLoaded', function () {
           const ctx = document.getElementById('myChart');
           new Chart(ctx, {
             type: 'bar',
@@ -209,7 +209,7 @@ view.statsabsences
               }
             }
           });
-        };
+        });
       </script>
 
     </div>

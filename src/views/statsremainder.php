@@ -17,8 +17,8 @@ view.statsabstype
 
   <?php
   if (
-    ($showAlert && $C->read("showAlerts") != "none") &&
-    ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+    ($showAlert && $viewData['showAlerts'] != "none") &&
+    ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
   ) {
     echo createAlertBox($alertData);
   }
@@ -30,7 +30,7 @@ view.statsabstype
 
     <div class="page-menu">
       <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalGroup"><?= $LANG['group'] ?> <span class="badge text-bg-light"><?= $viewData['groupName'] ?></span></button>
-      <?php if (!$C->read('currentYearOnly')) { ?>
+      <?php if (!$allConfig['currentYearOnly']) { ?>
         <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalYear"><?= $LANG['year'] ?> <span class="badge text-bg-light"><?= $viewData['year'] ?></span></button>
       <?php } ?>
       <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDiagram"><?= $LANG['diagram'] ?></button>
@@ -51,7 +51,7 @@ view.statsabstype
     <?= createModalBottom('btn_apply', 'success', $LANG['btn_apply']) ?>
 
     <!-- Modal: Year -->
-    <?php if (!$C->read('currentYearOnly')) {
+    <?php if (!$allConfig['currentYearOnly']) {
       echo createModalTop('modalYear', $LANG['stats_modalYearTitle']); ?>
       <div>
         <span class="text-bold"><?= $LANG['stats_year'] ?></span><br>
@@ -90,7 +90,7 @@ view.statsabstype
   <div class="card">
     <?php
     $pageHelp = '';
-    if ($C->read('pageHelp')) {
+    if ($allConfig['pageHelp']) {
       $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
     }
     ?>
@@ -104,7 +104,7 @@ view.statsabstype
 
       <script src="addons/chart.js/<?= CHARTJS_VER ?>/chart.umd.js"></script>
       <script>
-        window.onload = function () {
+        document.addEventListener('DOMContentLoaded', function () {
           const ctx = document.getElementById('myChart');
           new Chart(ctx, {
             type: 'bar',
@@ -143,7 +143,7 @@ view.statsabstype
               }
             }
           });
-        };
+        });
       </script>
 
     </div>
