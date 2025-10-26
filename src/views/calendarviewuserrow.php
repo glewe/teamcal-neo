@@ -57,16 +57,16 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
     $nameStyle = "m-name-guest";
   } ?>
   <td class="<?= $nameStyle ?>">
-    <?php if ($C->read('showAvatars')) { ?>
+    <?php if ($viewData['showAvatars']) { ?>
       <i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="<img src='<?= APP_AVATAR_DIR . $UO->read($usr['username'], 'avatar') ?>' style='width: 80px; height: 80px;'>"><img src="<?= APP_AVATAR_DIR ?>/<?= $UO->read($usr['username'], 'avatar') ?>" alt="" style="width: 16px; height: 16px;"></i>
     <?php } ?>
-    <?php if ($C->read('showRoleIcons')) {
+    <?php if ($viewData['showRoleIcons']) {
       $thisRole = $U->getRole($usr['username']);
       ?>
       <i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="<?= $LANG['role'] ?>: <?= $RO->getNameById($thisRole) ?>"><i class="fas fa-user-circle fa-sm text-<?= $RO->getColorById($thisRole) ?>"></i></i>
     <?php } ?>
     <?= $profileName ?>
-    <?php if ($monAbsId = $C->read('monitorAbsence')) {
+    <?php if ($monAbsId = $viewData['monitorAbsence']) {
       $summary = getAbsenceSummary($usr['username'], $monAbsId, $viewData['year']);
       ?>
       <div style="text-align:right;font-style:italic;" title="<?= $A->getName($monAbsId) . ' ' . $viewData['year'] . ': ' . $LANG['remainder'] . ' / ' . $LANG['allowance'] ?>">&nbsp;<span class="text-danger"><?= $summary['remainder'] ?></span> / <?= $summary['totalallowance'] ?></div>
@@ -144,7 +144,7 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
             $bgStyle = "background-color: #" . $A->getBgColor($T->$abs) . ";";
           }
           $style .= 'color: #' . $A->getColor($T->$abs) . ';' . $bgStyle;
-          if ($C->read('symbolAsIcon')) {
+          if ($viewData['symbolAsIcon']) {
             $icon = $A->getSymbol($T->$abs);
           } else {
             $icon = '<span class="' . $A->getIcon($T->$abs) . ' align-bottom"></span>';
@@ -152,7 +152,7 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
           $countFrom = $viewData['year'] . $viewData['month'] . '01';
           $countTo = $viewData['year'] . $viewData['month'] . $dayend;
           $taken = '';
-          if ($C->read("showTooltipCount")) {
+          if ($viewData['showTooltipCount']) {
             $taken .= ' (';
             $taken .= countAbsence($usr['username'], $T->$abs, $countFrom, $countTo, true, false);
             $taken .= ')';
@@ -189,7 +189,7 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
         $absCountUsers[] = $usr['username'] . "::" . $i; // Put username and day into array so we know we have counted him
       }
     } else {
-      if ($loopDate < $currDate && $bgColor = $C->read('pastDayColor')) {
+      if ($loopDate < $currDate && $bgColor = $viewData['pastDayColor']) {
         $style .= "background-color:#" . $bgColor . ";";
       }
       $dayPresCount[$i]++;
@@ -232,7 +232,7 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
     //
     // Regional holiday in another region
     //
-    if ($C->read("regionalHolidays")) {
+    if ($viewData['regionalHolidays']) {
       $userRegion = $UO->read($usr['username'], 'region');
       if (!$userRegion) {
         $userRegion = '1';
@@ -243,8 +243,7 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
           //
           // We have a Holiday in another region than the one displayed
           //
-          $regionalHolidaysColor = $C->read("regionalHolidaysColor");
-          if (!$regionalHolidaysColor) {
+          if (!$viewData['regionalHolidaysColor']) {
             $regionalHolidaysColor = "cc0000";
             $C->save("regionalHolidaysColor", $regionalHolidaysColor);
           }
@@ -327,7 +326,7 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
               $bgStyle = "background-color: #" . $A->getBgColor($nextMonthTemplate->$abs) . ";";
             }
             $style .= 'color: #' . $A->getColor($nextMonthTemplate->$abs) . ';' . $bgStyle;
-            if ($C->read('symbolAsIcon')) {
+            if ($viewData['symbolAsIcon']) {
               $icon = $A->getSymbol($nextMonthTemplate->$abs);
             } else {
               $icon = '<span class="' . $A->getIcon($nextMonthTemplate->$abs) . ' align-bottom"></span>';
@@ -347,7 +346,7 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
           $absend = '</span>';
         }
       } else {
-        if ($loopDate < $currDate && $bgColor = $C->read('pastDayColor')) {
+        if ($loopDate < $currDate && $bgColor = $viewData['pastDayColor']) {
           $style .= "background-color:#" . $bgColor . ";";
         }
       }
