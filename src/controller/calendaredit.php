@@ -87,15 +87,26 @@ if ($missingData) {
   die();
 }
 
+//-----------------------------------------------------------------------------
+// LOAD CONTROLLER RESOURCES
+//
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+$viewData['currentYearOnly'] = $allConfig['currentYearOnly'];
+$viewData['currYearRoles'] = $allConfig['currYearRoles'];
+$viewData['showRegionButton'] = $allConfig['showRegionButton'];
+$viewData['takeover'] = $allConfig['takeover'];
+
 //
 // Default back to current yearmonth if option is set
 //
-if ($C->read('currentYearOnly') && $viewData['year'] != date('Y') && $C->read("currYearRoles")) {
+if ($viewData['currentYearOnly'] && $viewData['year'] != date('Y') && $viewData['currYearRoles']) {
   //
   // Applies to roles. Check if current user in in one of them.
   //
   $arrCurrYearRoles = array();
-  $arrCurrYearRoles = explode(',', $C->read("currYearRoles"));
+  $arrCurrYearRoles = explode(',', $viewData['currYearRoles']);
   $userRole = $U->getRole(L_USER);
   if (in_array($userRole, $arrCurrYearRoles)) {
     header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . date('Ym') . "&region=" . $region . "&user=" . $caluser);
@@ -146,7 +157,7 @@ $weekday = $date->format('N');
 if ($weekday == rand(1, 7)) {
   $alertData = array();
   $showAlert = false;
-  $licExpiryWarning = $C->read('licExpiryWarning');
+  $licExpiryWarning = $allConfig['licExpiryWarning'];
   $LIC = new License();
   $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 }
@@ -472,7 +483,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       //
       // Send notification e-mails to the subscribers of user events
       //
-      if ($C->read("emailNotifications") && $sendNotification) {
+      if ($allConfig['emailNotifications'] && $sendNotification) {
         sendUserCalEventNotifications("changed", $caluser, $viewData['year'], $viewData['month']);
       }
 
@@ -534,6 +545,35 @@ $viewData['dayStyles'] = array();
 $viewData['patterns'] = $patterns;
 
 //
+// Pre-cache absence colors to avoid repeated lookups
+//
+$absenceColorCache = array();
+foreach ($viewData['absences'] as $abs) {
+  $absenceColorCache[$abs['id']] = array(
+    'color' => $A->getColor($abs['id']),
+    'bgcolor' => $A->getBgColor($abs['id'])
+  );
+}
+
+//
+// Pre-cache holiday and weekend colors to avoid repeated lookups
+//
+$holidayColorCache = array();
+foreach ($viewData['holidays'] as $hol) {
+  $holidayColorCache[$hol['id']] = array(
+    'color' => $H->getColor($hol['id']),
+    'bgcolor' => $H->getBgColor($hol['id'])
+  );
+}
+// Also cache weekend colors (indices 2-3 for Saturday/Sunday, calculated as wday - 4)
+for ($i = 2; $i <= 3; $i++) {
+  $holidayColorCache[$i] = array(
+    'color' => $H->getColor($i),
+    'bgcolor' => $H->getBgColor($i)
+  );
+}
+
+//
 // Prepare a comma seperated group name list for the caluser
 //
 $usergroups = $UG->getAllforUser($caluser);
@@ -568,7 +608,7 @@ foreach ($users as $usr) {
     }
   }
   if ($allowed) {
-    $viewData['users'][] = array('username' => $usr['username'], 'lastfirst' => $U->getLastFirst($usr['username']));
+    $viewData['users'][] = array('username' => $usr['username'], 'lastfirst' => $usr['lastname'] . ', ' . $usr['firstname']);
   }
 }
 
@@ -584,23 +624,28 @@ for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
   $wprop = 'wday' . $i;
   if ($M->$hprop) {
     //
-    // This is a holiday. Get the coloring info.
+    // This is a holiday. Get the coloring info from cache.
     //
-    $color = 'color:#' . $H->getColor($M->$hprop) . ';';
-    $bgcolor = 'background-color:#' . $H->getBgColor($M->$hprop) . ';';
+    if (isset($holidayColorCache[$M->$hprop])) {
+      $color = 'color:#' . $holidayColorCache[$M->$hprop]['color'] . ';';
+      $bgcolor = 'background-color:#' . $holidayColorCache[$M->$hprop]['bgcolor'] . ';';
+    }
   } elseif ($M->$wprop == 6 || $M->$wprop == 7) {
     //
-    // This is a Saturday or Sunday. Get the coloring info.
+    // This is a Saturday or Sunday. Get the coloring info from cache.
     //
-    $color = 'color:#' . $H->getColor($M->$wprop - 4) . ';';
-    $bgcolor = 'background-color:#' . $H->getBgColor($M->$wprop - 4) . ';';
+    $weekendIndex = $M->$wprop - 4;
+    if (isset($holidayColorCache[$weekendIndex])) {
+      $color = 'color:#' . $holidayColorCache[$weekendIndex]['color'] . ';';
+      $bgcolor = 'background-color:#' . $holidayColorCache[$weekendIndex]['bgcolor'] . ';';
+    }
   }
   //
   // Get today style
   //
   $loopDate = date('Y-m-d', mktime(0, 0, 0, $viewData['month'], $i, $viewData['year']));
   if ($loopDate == $currDate) {
-    $border = 'border-left: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';border-right: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';';
+    $border = 'border-left: ' . $allConfig['todayBorderSize'] . 'px solid #' . $allConfig['todayBorderColor'] . ';border-right: ' . $allConfig['todayBorderSize'] . 'px solid #' . $allConfig['todayBorderColor'] . ';';
   }
   //
   // Build styles
@@ -613,10 +658,10 @@ for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
 $todayDate = getdate(time());
 $viewData['yearToday'] = $todayDate['year'];
 $viewData['monthToday'] = sprintf("%02d", $todayDate['mon']);
-$viewData['showWeekNumbers'] = $C->read('showWeekNumbers');
+$viewData['showWeekNumbers'] = $allConfig['showWeekNumbers'];
 $mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
-$viewData['supportMobile'] = $C->read('supportMobile');
-$viewData['firstDayOfWeek'] = $C->read("firstDayOfWeek");
+$viewData['supportMobile'] = $allConfig['supportMobile'];
+$viewData['firstDayOfWeek'] = $allConfig['firstDayOfWeek'];
 if (!$viewData['width'] = $UO->read($UL->username, 'width')) {
   $UO->save($UL->username, 'width', 'full');
   $viewData['width'] = 'full';
@@ -642,14 +687,19 @@ for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
   //
   $day['currentAbsence'] = $T->getAbsence($viewData['username'], $viewData['year'], $viewData['month'], $i);
   if ($day['currentAbsence']) {
-    $color = 'color:#' . $A->getColor($day['currentAbsence']) . ';';
-    $bgcolor = 'background-color:#' . $A->getBgColor($day['currentAbsence']) . ';';
+    if (isset($absenceColorCache[$day['currentAbsence']])) {
+      $color = 'color:#' . $absenceColorCache[$day['currentAbsence']]['color'] . ';';
+      $bgcolor = 'background-color:#' . $absenceColorCache[$day['currentAbsence']]['bgcolor'] . ';';
+    } else {
+      $color = '';
+      $bgcolor = '';
+    }
     $border = '';
     if ($day['isToday']) {
-      $border = 'border-left: ' . $C->read('todayBorderSize') . 'px solid #' . $C->read('todayBorderColor') . ';border-right: ' . $C->read('todayBorderSize') . 'px solid #' . $C->read('todayBorderColor') . ';';
+      $border = 'border-left: ' . $allConfig['todayBorderSize'] . 'px solid #' . $allConfig['todayBorderColor'] . ';border-right: ' . $allConfig['todayBorderSize'] . 'px solid #' . $allConfig['todayBorderColor'] . ';';
     }
     $day['absenceStyle'] = ' style="' . $color . $bgcolor . $border . '"';
-    $day['absenceIcon'] = $C->read('symbolAsIcon') ? $A->getSymbol($day['currentAbsence']) : '<span class="' . $A->getIcon($day['currentAbsence']) . '"></span>';
+    $day['absenceIcon'] = $allConfig['symbolAsIcon'] ? $A->getSymbol($day['currentAbsence']) : '<span class="' . $A->getIcon($day['currentAbsence']) . '"></span>';
   } else {
     $day['absenceStyle'] = $day['style'];
     $day['absenceIcon'] = '';
@@ -667,20 +717,28 @@ for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
   $viewData['calendarDays'][$i] = $day;
 }
 //
+// Pre-cache manager check to avoid repeated lookups
+//
+$isGroupManager = $UG->isGroupManagerOfUser($UL->username, $viewData['username']);
+$isAdmin = ($UL->username == 'admin');
+$hasManagerOnlyRole = isAllowed('manageronlyabsences');
+$isAdminRole = ($allConfig['managerOnlyIncludesAdministrator'] && $UL->hasRole($UL->username, 1));
+
+//
 // Precompute absence validity for the user
 //
 $viewData['absencesForUser'] = array();
 foreach ($viewData['absences'] as $abs) {
   $valid = (
-    $UL->username == 'admin'
+    $isAdmin
     ||
     absenceIsValidForUser($abs['id'], $UL->username)
     &&
     (
       !$abs['manager_only'] ||
-      ($abs['manager_only'] && $UG->isGroupManagerOfUser($UL->username, $viewData['username'])) ||
-      ($abs['manager_only'] && isAllowed('manageronlyabsences')) ||
-      ($abs['manager_only'] && $C->read('managerOnlyIncludesAdministrator') && $UL->hasRole($UL->username, 1))
+      ($abs['manager_only'] && $isGroupManager) ||
+      ($abs['manager_only'] && $hasManagerOnlyRole) ||
+      ($abs['manager_only'] && $isAdminRole)
     )
   );
   $abs['validForUser'] = $valid;

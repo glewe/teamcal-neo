@@ -18,8 +18,8 @@ view.editcalendar
 
   <?php
   if (
-    ($showAlert && $C->read("showAlerts") != "none") &&
-    ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+    ($showAlert && $viewData['showAlerts'] != "none") &&
+    ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
   ) {
     echo createAlertBox($alertData);
   }
@@ -59,7 +59,7 @@ view.editcalendar
       <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalPattern"><?= $LANG['caledit_Pattern'] ?></button>
       <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalPeriod"><?= $LANG['caledit_Period'] ?></button>
       <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalRecurring"><?= $LANG['caledit_Recurring'] ?></button>
-      <?php if ($C->read("showRegionButton")) { ?>
+      <?php if ($viewData['showRegionButton']) { ?>
         <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
       <?php } ?>
       <button type="button" class="btn btn-success" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectUser"><?= $LANG['user'] . ': ' . $viewData['fullname'] ?></button>
@@ -74,7 +74,7 @@ view.editcalendar
     <div class="card">
       <?php
       $pageHelp = '';
-      if ($C->read('pageHelp')) {
+      if ($viewData['pageHelp']) {
         $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
       }
       ?>
@@ -212,7 +212,7 @@ view.editcalendar
                 <?php } ?>
               </tr>
 
-              <?php if ($C->read('takeover') && $UL->username != $viewData['username']) { ?>
+              <?php if ($viewData['takeover'] && $UL->username != $viewData['username']) { ?>
                 <!-- Take over row -->
                 <tr>
                   <td class="m-label">Take over</td>
