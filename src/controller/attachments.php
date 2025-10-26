@@ -41,12 +41,15 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 $UPL = new Upload();
 $AT = new Attachment();
 $UAT = new UserAttachment();
+$allConfig = $C->readAll();
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
 $uplDir = WEBSITE_ROOT . '/' . APP_UPL_DIR;
 $viewData = array();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 $viewData['shareWith'] = 'all';
 $viewData['shareWithGroup'] = array();
 $viewData['shareWithRole'] = array();
@@ -237,21 +240,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // ,---------------,
     // | Update Shares |
     // '---------------'
-    $files = $AT->getAll();
-    foreach ($files as $file) {
-      if (isset($_POST['btn_updateShares' . $file['id']])) {
-        $UAT->deleteFile($file['id']);
-        if (isset($_POST['sel_shares' . $file['id']])) {
-          foreach ($_POST['sel_shares' . $file['id']] as $uto) {
-            $UAT->create($uto, $file['id']);
+    // Performance optimization: Only fetch files if share updates are being processed
+    // Check if any share update buttons were submitted
+    $hasShareUpdates = false;
+    foreach ($_POST as $key => $value) {
+      if (strpos($key, 'btn_updateShares') === 0 || strpos($key, 'btn_clearShares') === 0) {
+        $hasShareUpdates = true;
+        break;
+      }
+    }
+    
+    if ($hasShareUpdates) {
+      $files = $AT->getAll();
+      foreach ($files as $file) {
+        if (isset($_POST['btn_updateShares' . $file['id']])) {
+          $UAT->deleteFile($file['id']);
+          if (isset($_POST['sel_shares' . $file['id']])) {
+            foreach ($_POST['sel_shares' . $file['id']] as $uto) {
+              $UAT->create($uto, $file['id']);
+            }
           }
+          // Make sure the uploader has access
+          $UAT->create($AT->getUploaderById($file['id']), $file['id']);
+        } elseif (isset($_POST['btn_clearShares' . $file['id']])) {
+          $UAT->deleteFile($file['id']);
+          // Make sure the uploader has access
+          $UAT->create($AT->getUploaderById($file['id']), $file['id']);
         }
-        // Make sure the uploader has access
-        $UAT->create($AT->getUploaderById($file['id']), $file['id']);
-      } elseif (isset($_POST['btn_clearShares' . $file['id']])) {
-        $UAT->deleteFile($file['id']);
-        // Make sure the uploader has access
-        $UAT->create($AT->getUploaderById($file['id']), $file['id']);
       }
     }
   } else {
@@ -274,27 +289,33 @@ $viewData['upl_maxsize'] = $CONF['uplMaxsize'];
 $viewData['upl_formats'] = implode(', ', $CONF['uplExtensions']);
 $files = getFiles(APP_UPL_DIR, $CONF['uplExtensions'], '');
 $allUsers = $U->getAll();
+
+// Performance optimization: Cache file metadata to avoid repeated queries
+$fileMetadata = array(); // Cache for file IDs and owners
 foreach ($files as $file) {
   $fid = $AT->getId($file);
   $owner = $AT->getUploader($file);
+  $fileMetadata[$file] = array('id' => $fid, 'owner' => $owner);
+}
+
+// Build view data with cached metadata
+foreach ($files as $file) {
+  $fid = $fileMetadata[$file]['id'];
+  $owner = $fileMetadata[$file]['owner'];
   $isOwner = ($UL->username == 'admin' || $UL->username == $owner);
-  $access = array();
-  foreach ($allUsers as $user) {
-    $access[$user['username']] = $UAT->hasAccess($user['username'], $fid) ? true : false;
-  }
-  $ext = getFileExtension($file);
-  if ($UL->username != 'admin') {
-    if ($UAT->hasAccess($UL->username, $fid)) {
-      $viewData['uplFiles'][] = array(
-        'fid' => $fid,
-        'fname' => $file,
-        'owner' => $owner,
-        'isOwner' => $isOwner,
-        'access' => $access,
-        'ext' => $ext
-      );
+  
+  // Check access once per file instead of per user
+  $currentUserHasAccess = ($UL->username == 'admin' || $UAT->hasAccess($UL->username, $fid));
+  
+  // Only process files the current user can access
+  if ($currentUserHasAccess) {
+    // Build access array only for files being displayed
+    $access = array();
+    foreach ($allUsers as $user) {
+      $access[$user['username']] = $UAT->hasAccess($user['username'], $fid) ? true : false;
     }
-  } else {
+    
+    $ext = getFileExtension($file);
     $viewData['uplFiles'][] = array(
       'fid' => $fid,
       'fname' => $file,
@@ -305,9 +326,10 @@ foreach ($files as $file) {
     );
   }
 }
+
 $viewData['groups'] = $G->getAll();
 $viewData['roles'] = $RO->getAll();
-$viewData['users'] = $U->getAll();
+$viewData['users'] = $allUsers;
 
 //-----------------------------------------------------------------------------
 // SHOW VIEW
