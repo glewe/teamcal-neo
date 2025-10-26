@@ -17,8 +17,8 @@ view.statsabsences
 
   <?php
   if (
-    ($showAlert && $C->read("showAlerts") != "none") &&
-    ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+    ($showAlert && $viewData['showAlerts'] != "none") &&
+    ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
   ) {
     echo createAlertBox($alertData);
   }
@@ -77,7 +77,7 @@ view.statsabsences
         <option value="half" <?= (($viewData['period'] == 'half') ? "selected" : "") ?>><?= $LANG['period_half'] ?></option>
         <option value="quarter" <?= (($viewData['period'] == 'quarter') ? "selected" : "") ?>><?= $LANG['period_quarter'] ?></option>
         <option value="month" <?= (($viewData['period'] == 'month') ? "selected" : "") ?>><?= $LANG['period_month'] ?></option>
-        <?php if (!$C->read('currentYearOnly')) { ?>
+        <?php if (!$viewData['currentYearOnly']) { ?>
           <option value="custom" <?= (($viewData['period'] == 'custom') ? "selected" : "") ?>><?= $LANG['custom'] ?></option>
         <?php } ?>
       </select>
@@ -95,7 +95,7 @@ view.statsabsences
     </div>
     <div>&nbsp;</div>
 
-    <?php if (!$C->read('currentYearOnly')) { ?>
+    <?php if (!$viewData['currentYearOnly']) { ?>
       <div>
         <span class="text-bold"><?= $LANG['stats_startDate'] ?></span><br>
         <span class="text-normal"><?= $LANG['stats_startDate_comment'] ?></span>
@@ -165,7 +165,7 @@ view.statsabsences
   <div class="card">
     <?php
     $pageHelp = '';
-    if ($C->read('pageHelp')) {
+    if ($viewData['pageHelp']) {
       $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
     }
     ?>
