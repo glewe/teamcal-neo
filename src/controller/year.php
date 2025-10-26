@@ -67,9 +67,14 @@ if ($missingData) {
 }
 
 //
+// Read all config settings
+//
+$allConfig = $C->readAll();
+
+//
 // Default back to current yearmonth if option is set
 //
-if ($C->read('currentYearOnly') && $yyyy != date('Y')) {
+if ($allConfig['currentYearOnly'] && $yyyy != date('Y')) {
   header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&year=" . date('Y') . "&region=" . $region . "&user=" . $user);
   die();
 }
@@ -110,7 +115,7 @@ for ($i = 1; $i <= 12; $i++) {
     //
     // Send notification e-mails to the subscribers of user events
     //
-    if ($C->read("emailNotifications")) {
+    if ($allConfig['emailNotifications']) {
       sendMonthEventNotifications("created", $yyyy, $i, $R->name);
     }
     //
@@ -158,7 +163,7 @@ for ($i = 1; $i <= 12; $i++) {
     //
     $loopDate = date('Y-m-d', mktime(0, 0, 0, $i, $d, $yyyy));
     if ($loopDate == $currDate) {
-      $border = 'border: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';';
+      $border = 'border: ' . $allConfig['todayBorderSize'] . 'px solid #' . $allConfig['todayBorderColor'] . ';';
     }
     //
     // Build styles
@@ -224,6 +229,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+$viewData['currentYearOnly'] = $allConfig['currentYearOnly'];
+$viewData['showRegionButton'] = $allConfig['showRegionButton'];
+$viewData['symbolAsIcon'] = $allConfig['symbolAsIcon'];
+
 $viewData['username'] = $user;
 $viewData['fullname'] = $U->getFullname($user);
 $viewData['year'] = $yyyy;

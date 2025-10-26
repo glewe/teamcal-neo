@@ -21,8 +21,8 @@ view.year
 
   <?php
   if (
-    ($showAlert && $C->read("showAlerts") != "none") &&
-    ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+    ($showAlert && $viewData['showAlerts'] != "none") &&
+    ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
   ) {
     echo createAlertBox($alertData);
   }
@@ -39,12 +39,12 @@ view.year
     <input name="hidden_region" type="hidden" class="text" value="<?= $viewData['regionid'] ?>">
 
     <div class="page-menu">
-      <?php if (!$C->read('currentYearOnly')) { ?>
+      <?php if (!$viewData['currentYearOnly']) { ?>
         <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;year=<?= ($viewData['year'] - 1) ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>"><span class="fas fa-angle-double-left"></span></a>
         <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;year=<?= ($viewData['year'] + 1) ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>"><span class="fas fa-angle-double-right"></span></a>
         <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;year=<?= date('Y') ?>&amp;region=<?= $viewData['regionid'] ?>&amp;user=<?= $viewData['username'] ?>"><?= $LANG['today'] ?></a>
       <?php } ?>
-      <?php if ($C->read('showRegionButton')) { ?>
+      <?php if ($viewData['showRegionButton']) { ?>
         <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
       <?php } ?>
       <button type="button" class="btn btn-success" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectUser"><?= $LANG['user'] . ': ' . $viewData['fullname'] ?></button>
@@ -53,7 +53,7 @@ view.year
     <div class="card">
       <?php
       $pageHelp = '';
-      if ($C->read('pageHelp')) {
+      if ($viewData['pageHelp']) {
         $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
       }
       ?>
@@ -119,7 +119,7 @@ view.year
                   } else {
                     $wn = '&nbsp;';
                   }
-                  if ($C->read('symbolAsIcon')) {
+                  if ($viewData['symbolAsIcon']) {
                     $icon = $viewData['month'][$m][$d]['symbol'];
                   } else {
                     $icon = '<span class="fas ' . $viewData['month'][$m][$d]['icon'] . '"></span>';
