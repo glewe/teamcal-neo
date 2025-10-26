@@ -60,6 +60,10 @@ if ($missingData) {
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+$viewData['currentYearOnly'] = $allConfig['currentYearOnly'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
