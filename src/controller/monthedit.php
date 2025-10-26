@@ -35,6 +35,8 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
   die();
 }
 
+$allConfig = $C->readAll();
+
 //-----------------------------------------------------------------------------
 // CHECK LICENSE
 // Checks when the current weekday matches a random number between 1 and 7
@@ -44,7 +46,7 @@ $weekday = $date->format('N');
 if ($weekday == rand(1, 7)) {
   $alertData = array();
   $showAlert = false;
-  $licExpiryWarning = $C->read('licExpiryWarning');
+  $licExpiryWarning = $allConfig['licExpiryWarning'];
   $LIC = new License();
   $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 }
@@ -81,17 +83,20 @@ if ($missingData) {
   die();
 }
 
-//
-// Default back to current yearmonth if option is set
-//
-if ($C->read('currentYearOnly') && $viewData['year'] != date('Y')) {
-  header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . date('Ym') . "&region=" . $region);
-  die();
-}
-
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+$viewData['currentYearOnly'] = $allConfig['currentYearOnly'];
+
+//
+// Default back to current yearmonth if option is set
+//
+if ($viewData['currentYearOnly'] && $viewData['year'] != date('Y')) {
+  header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . date('Ym') . "&region=" . $region);
+  die();
+}
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -147,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     //
     // Send notification e-mails to the subscribers of user events
     //
-    if ($C->read("emailNotifications")) {
+    if ($allConfig['emailNotifications']) {
       sendMonthEventNotifications("changed", $viewData['year'], $viewData['month'], $viewData['regionname']);
     }
     //
@@ -173,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     //
     // Send notification e-mails to the subscribers of user events
     //
-    if ($C->read("emailNotifications")) {
+    if ($allConfig['emailNotifications']) {
       sendMonthEventNotifications("changed", $viewData['year'], $viewData['month'], $viewData['regionname']);
     }
     //
@@ -205,6 +210,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 $M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']);
 $viewData['holidays'] = $H->getAllCustom();
 $viewData['dayStyles'] = array();
+
+//
+// Pre-cache holiday and weekend colors to avoid repeated lookups
+//
+$holidayColorCache = array();
+foreach ($viewData['holidays'] as $hol) {
+  $holidayColorCache[$hol['id']] = array(
+    'color' => $H->getColor($hol['id']),
+    'bgcolor' => $H->getBgColor($hol['id'])
+  );
+}
+// Also cache weekend colors (indices 2-3 for Saturday/Sunday, calculated as wday - 4)
+for ($i = 2; $i <= 3; $i++) {
+  $holidayColorCache[$i] = array(
+    'color' => $H->getColor($i),
+    'bgcolor' => $H->getBgColor($i)
+  );
+}
+
 //
 // Get the holiday and weekend colors
 //
@@ -214,18 +238,23 @@ for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
   $wprop = 'wday' . $i;
   if ($M->$hprop) {
     //
-    // This is a holiday. Get the coloring info.
+    // This is a holiday. Get the coloring info from cache.
     //
-    $color = $H->getColor($M->$hprop);
-    $bgcolor = $H->getBgColor($M->$hprop);
-    $viewData['dayStyles'][$i] = ' style="color: #' . $color . '; background-color: #' . $bgcolor . ';"';
+    if (isset($holidayColorCache[$M->$hprop])) {
+      $color = $holidayColorCache[$M->$hprop]['color'];
+      $bgcolor = $holidayColorCache[$M->$hprop]['bgcolor'];
+      $viewData['dayStyles'][$i] = ' style="color: #' . $color . '; background-color: #' . $bgcolor . ';"';
+    }
   } elseif ($M->$wprop == 6 || $M->$wprop == 7) {
     //
-    // This is a Saturday or Sunday. Get the coloring info.
+    // This is a Saturday or Sunday. Get the coloring info from cache.
     //
-    $color = $H->getColor($M->$wprop - 4);
-    $bgcolor = $H->getBgColor($M->$wprop - 4);
-    $viewData['dayStyles'][$i] = ' style="color: #' . $color . '; background-color: #' . $bgcolor . ';"';
+    $weekendIndex = $M->$wprop - 4;
+    if (isset($holidayColorCache[$weekendIndex])) {
+      $color = $holidayColorCache[$weekendIndex]['color'];
+      $bgcolor = $holidayColorCache[$weekendIndex]['bgcolor'];
+      $viewData['dayStyles'][$i] = ' style="color: #' . $color . '; background-color: #' . $bgcolor . ';"';
+    }
   }
 }
 
@@ -233,9 +262,9 @@ $todayDate = getdate(time());
 $viewData['yearToday'] = $todayDate['year'];
 $viewData['monthToday'] = sprintf("%02d", $todayDate['mon']);
 $viewData['regions'] = $R->getAll();
-$viewData['showWeekNumbers'] = $C->read('showWeekNumbers');
+$viewData['showWeekNumbers'] = $allConfig['showWeekNumbers'];
 $mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
-$viewData['supportMobile'] = $C->read('supportMobile');
+$viewData['supportMobile'] = $allConfig['supportMobile'];
 
 //-----------------------------------------------------------------------------
 // SHOW VIEW
