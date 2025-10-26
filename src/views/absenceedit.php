@@ -19,8 +19,8 @@ view.absenceedit
   <div class="col-lg-12">
     <?php
     if (
-      ($showAlert && $C->read("showAlerts") != "none") &&
-      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+      ($showAlert && $viewData['showAlerts'] != "none") &&
+      ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
     }
@@ -53,14 +53,14 @@ view.absenceedit
       </script>
     <?php } ?>
 
-    <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>&amp;id=<?= $viewData['id'] ?>" method="post" target="_self" accept-charset="utf-8">
-      <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
-      <input name="hidden_id" type="hidden" class="text" value="<?= $viewData['id'] ?>">
+    <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>&amp;id=<?= htmlspecialchars($viewData['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>" method="post" target="_self" accept-charset="utf-8">
+      <input name="csrf_token" type="hidden" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+      <input name="hidden_id" type="hidden" class="text" value="<?= htmlspecialchars($viewData['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
 
       <div class="card">
         <?php
         $pageHelp = '';
-        if ($C->read('pageHelp')) {
+        if ($allConfig['pageHelp']) {
           $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
         }
         ?>
@@ -93,16 +93,19 @@ view.absenceedit
                       <span class="text-normal"><?= $LANG['abs_sample_comment'] ?></span>
                     </label>
                     <div class="col-lg-<?= $colsright ?>">
-                      <?php if ($viewData['bgtrans']) {
-                        $bgStyle = "";
-                      } else {
-                        $bgStyle = "background-color: #" . $viewData['bgcolor'];
-                      } ?>
-                      <div id="sample" style="color: #<?= $viewData['color'] ?>; <?= $bgStyle ?>; border: 1px solid #333333; width: 32px; height: 32px; text-align: center; padding-top: 4px;" class="mb-1">
-                        <span class="<?= $viewData['icon'] ?>"></span>
+                      <?php
+                      // Pre-calculate styles once
+                      $sampleColor = htmlspecialchars($viewData['color'] ?? '', ENT_QUOTES, 'UTF-8');
+                      $sampleBgStyle = ($viewData['bgtrans'] ?? false) ? "" : ("background-color: #" . htmlspecialchars($viewData['bgcolor'] ?? '', ENT_QUOTES, 'UTF-8'));
+                      $sampleIcon = htmlspecialchars($viewData['icon'] ?? '', ENT_QUOTES, 'UTF-8');
+                      $sampleSymbol = htmlspecialchars($viewData['symbol'] ?? '', ENT_QUOTES, 'UTF-8');
+                      $sampleStyle = "color: #" . $sampleColor . "; " . $sampleBgStyle . "; border: 1px solid #333333; width: 32px; height: 32px; text-align: center; padding-top: 4px;";
+                      ?>
+                      <div id="sample" style="<?= $sampleStyle ?>" class="mb-1">
+                        <span class="<?= $sampleIcon ?>"></span>
                       </div>
-                      <div id="sample" style="color: #<?= $viewData['color'] ?>; <?= $bgStyle ?>; border: 1px solid #333333; width: 32px; height: 32px; text-align: center; padding-top: 4px;">
-                        <?php echo $viewData['symbol']; ?>
+                      <div id="sample" style="<?= $sampleStyle ?>">
+                        <?= $sampleSymbol ?>
                       </div>
                     </div>
                   </div>
@@ -117,8 +120,8 @@ view.absenceedit
                       <span class="text-normal"><?= $LANG['abs_icon_comment'] ?></span>
                     </label>
                     <div class="col-lg-<?= $colsright ?>">
-                      <span class="<?= $viewData['icon'] ?> text-<?= $viewData['color'] ?>" style="font-size: 150%; padding-right: 8px; vertical-align: middle;"></span>
-                      <a href="index.php?action=absenceicon&amp;id=<?= $viewData['id'] ?>" class="btn btn-primary btn-sm" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_abs_icon'] ?></a>
+                      <span class="<?= $sampleIcon ?> text-<?= $sampleColor ?>" style="font-size: 150%; padding-right: 8px; vertical-align: middle;"></span>
+                      <a href="index.php?action=absenceicon&amp;id=<?= htmlspecialchars($viewData['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>" class="btn btn-primary btn-sm" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_abs_icon'] ?></a>
                     </div>
                   </div>
                   <div class="divider">
