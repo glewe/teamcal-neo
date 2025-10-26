@@ -18,8 +18,8 @@ view.patternadd
   <div class="col-lg-12">
     <?php
     if (
-      ($showAlert && $C->read("showAlerts") != "none") &&
-      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+      ($showAlert && $viewData['showAlerts'] != "none") &&
+      ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
     }
@@ -28,13 +28,13 @@ view.patternadd
     $colsright = 6;
     ?>
 
-    <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
-      <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
+    <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action=<?= htmlspecialchars($controller ?? '', ENT_QUOTES, 'UTF-8') ?>" method="post" target="_self" accept-charset="utf-8">
+      <input name="csrf_token" type="hidden" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
 
       <div class="card">
         <?php
         $pageHelp = '';
-        if ($C->read('pageHelp')) {
+        if ($viewData['pageHelp']) {
           $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
         }
         ?>
