@@ -35,7 +35,7 @@ view.calendarviewpagemenu
   <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $pageFwdYear . $pageFwdMonth ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>&amp;abs=<?= $viewData['absid'] ?>" data-bs-placement="top" data-bs-custom-class="warning" data-bs-toggle="tooltip" title="<?= $LANG['cal_tt_forward'] ?>"><span class="fas fa-angle-double-right"></span></a>
   <a class="btn btn-secondary" href="index.php?action=<?= $controller ?>&amp;month=<?= $viewData['yearToday'] . $viewData['monthToday'] ?>&amp;region=<?= $viewData['regionid'] ?>&amp;group=<?= $viewData['groupid'] ?>&amp;abs=<?= $viewData['absid'] ?>"><?= $LANG['today'] ?></a>
   <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectMonth"><?= $LANG['month'] . ': ' . $viewData['year'] . $viewData['month'] ?></button>
-  <?php if ($C->read('showRegionButton')) { ?>
+  <?php if ($viewData['showRegionButton']) { ?>
     <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectRegion"><?= $LANG['region'] . ': ' . $viewData['regionname'] ?></button>
   <?php } ?>
   <button type="button" class="btn btn-warning" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectGroup"><?= $LANG['group'] . ': ' . $viewData['group'] ?></button>
@@ -54,7 +54,7 @@ view.calendarviewpagemenu
 <div class="card">
   <?php
   $pageHelp = '';
-  if ($C->read('pageHelp')) {
+  if ($viewData['pageHelp']) {
     $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
   }
   ?>
