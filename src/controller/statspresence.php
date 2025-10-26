@@ -38,6 +38,10 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+$viewData['currentYearOnly'] = $allConfig['currentYearOnly'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -53,7 +57,7 @@ $viewData['period'] = 'year';
 $viewData['from'] = date("Y") . '-01-01';
 $viewData['to'] = date("Y") . '-12-31';
 $viewData['yaxis'] = 'users';
-if ($color = $C->read("statsDefaultColorPresences")) {
+if ($color = $allConfig['statsDefaultColorPresences']) {
   $viewData['color'] = $color;
 } else {
   $viewData['color'] = 'green';
@@ -217,7 +221,7 @@ if ($viewData['absid'] == 'all') {
 if ($viewData['groupid'] == "all") {
   $viewData['groupName'] = $LANG['all'];
 } else {
-  $viewData['groupName'] = $G->getNameById($_POST['sel_group']);
+  $viewData['groupName'] = $G->getNameById($viewData['groupid']);
 }
 
 if ($viewData['yaxis'] == "users") {
@@ -230,6 +234,13 @@ $viewData['periodName'] = $viewData['from'] . ' - ' . $viewData['to'];
 
 $labels = array();
 $data = array();
+
+//
+// Pre-filter absences to exclude those with counts_as_present = true
+//
+$filteredAbsences = array_filter($viewData['absences'], function($abs) use ($A) {
+  return $A->get($abs['id']) && !$A->counts_as_present;
+});
 
 //
 // Read data based on yaxis selection
@@ -251,32 +262,24 @@ if ($viewData['yaxis'] == 'users') {
   foreach ($users as $user) {
     $userAbsences = 0;
     $userPresences = 0;
-    $U->findByName($user['username']);
 
-    if ($U->firstname != "") {
-      $labels[] = '"' . $U->lastname . ", " . $U->firstname . '"';
+    if ($user['firstname'] != "") {
+      $labels[] = '"' . $user['lastname'] . ", " . $user['firstname'] . '"';
     } else {
-      $labels[] = '"' . $U->lastname . '"';
+      $labels[] = '"' . $user['lastname'] . '"';
     }
 
-    $count = 0;
     if ($viewData['absid'] == 'all') {
-      foreach ($viewData['absences'] as $abs) {
-        if ($A->get($abs['id']) && !$A->counts_as_present) {
-          $countFrom = str_replace('-', '', $viewData['from']);
-          $countTo = str_replace('-', '', $viewData['to']);
-          $userAbsences += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
-        }
+      foreach ($filteredAbsences as $abs) {
+        $userAbsences += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
       }
     } else {
-      $countFrom = str_replace('-', '', $viewData['from']);
-      $countTo = str_replace('-', '', $viewData['to']);
       $userAbsences += countAbsence($user['username'], $viewData['absid'], $countFrom, $countTo, false, false);
     }
 
     //
-    // $count now contains the number of absences for this user. But we want his presences.
-    // So we subtract the absensces from the amount of business days.
+    // $userAbsences now contains the number of absences for this user. But we want his presences.
+    // So we subtract the absences from the amount of business days.
     //
     $userPresences = $businessDays - $userAbsences;
     $data[] = $userPresences;
@@ -296,21 +299,15 @@ if ($viewData['yaxis'] == 'users') {
       foreach ($users as $user) {
         $userAbsences = 0;
         if ($viewData['absid'] == 'all') {
-          foreach ($viewData['absences'] as $abs) {
-            if ($A->get($abs['id']) && !$A->counts_as_present) {
-              $countFrom = str_replace('-', '', $viewData['from']);
-              $countTo = str_replace('-', '', $viewData['to']);
-              $userAbsences += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
-            }
+          foreach ($filteredAbsences as $abs) {
+            $userAbsences += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
           }
         } else {
-          $countFrom = str_replace('-', '', $viewData['from']);
-          $countTo = str_replace('-', '', $viewData['to']);
           $userAbsences += countAbsence($user['username'], $viewData['absid'], $countFrom, $countTo, false, false);
         }
         //
-        // $userCount now contains the number of absences for this user. But we want the presences.
-        // So we subtract the absensces from the amount of business days.
+        // $userAbsences now contains the number of absences for this user. But we want the presences.
+        // So we subtract the absences from the amount of business days.
         //
         $userPresences = $businessDays - $userAbsences;
         $groupPresences += $userPresences;
@@ -325,21 +322,15 @@ if ($viewData['yaxis'] == 'users') {
     foreach ($users as $user) {
       $userAbsences = 0;
       if ($viewData['absid'] == 'all') {
-        foreach ($viewData['absences'] as $abs) {
-          if ($A->get($abs['id']) && !$A->counts_as_present) {
-            $countFrom = str_replace('-', '', $viewData['from']);
-            $countTo = str_replace('-', '', $viewData['to']);
-            $userAbsences += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
-          }
+        foreach ($filteredAbsences as $abs) {
+          $userAbsences += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
         }
       } else {
-        $countFrom = str_replace('-', '', $viewData['from']);
-        $countTo = str_replace('-', '', $viewData['to']);
-        $userAbscences += countAbsence($user['username'], $viewData['absid'], $countFrom, $countTo, false, false);
+        $userAbsences += countAbsence($user['username'], $viewData['absid'], $countFrom, $countTo, false, false);
       }
       //
-      // $userCount now contains the number of absences for this user. But we want the presences.
-      // So we subtract the absensces from the amount of business days.
+      // $userAbsences now contains the number of absences for this user. But we want the presences.
+      // So we subtract the absences from the amount of business days.
       //
       $userPresences = $businessDays - $userAbsences;
       $groupPresences += $userPresences;
