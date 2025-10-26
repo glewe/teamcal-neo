@@ -438,7 +438,9 @@ table.month td.m-name-guest a {
 
 table.month th.m-label,
 table.month td.m-label {
+  min-height: 40px;
   font-weight: bold;
+  vertical-align: middle;
 }
 
 table.month th.m-monthname {
@@ -499,6 +501,14 @@ table.month td.m-day {
 table.month td.m-summary {
   font-size: 80%;
   vertical-align: middle;
+}
+
+table.month td.m-label[data-bs-toggle="collapse"] i {
+  transition: transform .3s ease;
+}
+
+table.month td.m-label[data-bs-toggle="collapse"][aria-expanded="true"] i {
+  transform: rotate(90deg);
 }
 
 /**

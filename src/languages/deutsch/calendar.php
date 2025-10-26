@@ -18,7 +18,7 @@ if (!defined('VALID_ROOT')) {
 //
 $LANG['cal_age'] = 'Alter';
 $LANG['cal_birthday'] = 'Geburtstag';
-$LANG['cal_businessDays'] = 'Arbeitstage';
+$LANG['cal_businessDays'] = 'Arbeitstage im Monat';
 $LANG['cal_caption_name'] = 'Name';
 $LANG['cal_caption_weeknumber'] = 'Kalenderwoche';
 $LANG['cal_img_alt_edit_cal'] = 'Kalendar für diese Person editieren...';

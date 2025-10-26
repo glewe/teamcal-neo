@@ -42,7 +42,7 @@ view.calendarviewmonthheader (<?= $viewData['year'] . $viewData['month'] ?>)
     } else {
       $dayStyles = ' style="' . $notestyle . '"';
     }
-      
+
     //
     // In split month view, add a right border to the last day of the first month
     //
@@ -53,7 +53,7 @@ view.calendarviewmonthheader (<?= $viewData['year'] . $viewData['month'] ?>)
         $dayStyles = ' style="border-right: 2px solid #000;"';
       }
     }
-      
+
   ?>
     <th class="m-daynumber text-center" scope="col" <?= $dayStyles ?>><?= $notestart . $i . $noteend ?></th>
     <?php }
@@ -101,7 +101,7 @@ view.calendarviewmonthheader (<?= $viewData['year'] . $viewData['month'] ?>)
       } else {
         $dayStyles = '';
       }
-      
+
       //
       // In split month view, add a right border to the last day of the first month
       //
@@ -112,7 +112,7 @@ view.calendarviewmonthheader (<?= $viewData['year'] . $viewData['month'] ?>)
           $dayStyles = ' style="border-right: 2px solid #000;"';
         }
       }
-      
+
       $prop = 'wday' . $i;
   ?>
       <th class="m-weekday text-center" scope="col" <?= $dayStyles ?>><?= $LANG['weekdayShort'][$M->$prop] ?></th>
