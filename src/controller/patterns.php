@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // ,--------,
     // | Delete |
     // '--------'
-    elseif (isset($_POST['btn_patternDelete']) && $_POST['btn_patternDelete'] === '1') {
+    elseif (isset($_POST['btn_patternDelete'])) {
       //
       // Delete Pattern
       //
