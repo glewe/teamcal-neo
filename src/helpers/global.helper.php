@@ -1141,38 +1141,8 @@ function getPhpInfoBootstrap(bool $useCache = true, string $theme = 'auto'): str
     return $errorMsg;
   }
 
-  // Define theme-aware color schemes using CSS custom properties and fallbacks
-  $themeStyles = [
-    'auto' => [
-      'even_bg' => 'var(--bs-gray-50, #f8f9fa)',
-      'odd_bg' => 'var(--bs-body-bg, #ffffff)',
-      'border_color' => 'var(--bs-border-color, #dee2e6)',
-      'text_color' => 'var(--bs-body-color, #212529)'
-    ],
-    'light' => [
-      'even_bg' => '#f8f9fa',
-      'odd_bg' => '#ffffff',
-      'border_color' => '#dee2e6',
-      'text_color' => '#212529'
-    ],
-    'dark' => [
-      'even_bg' => '#1a1d20',
-      'odd_bg' => '#212529',
-      'border_color' => '#495057',
-      'text_color' => '#f8f9fa'
-    ]
-  ];
-
-  $colors = $themeStyles[$theme];
-
-  // Define table theme classes based on theme
-  $tableClasses = [
-    'auto' => 'table table-bordered table-striped table-hover',
-    'light' => 'table table-bordered table-striped table-hover table-light',
-    'dark' => 'table table-bordered table-striped table-hover table-dark'
-  ];
-
-  $tableClass = $tableClasses[$theme];
+  // Use standard Bootstrap table classes - they handle theming automatically
+  $tableClass = 'table table-striped table-bordered table-hover';
 
   // Capture phpinfo output with error handling
   ob_start();
@@ -1240,12 +1210,7 @@ function getPhpInfoBootstrap(bool $useCache = true, string $theme = 'auto'): str
 
       // Add section header (except for the main phpinfo section)
       if ($sectionName !== 'phpinfo') {
-        $sectionHeaderStyle = sprintf(
-          "background-color: %s; color: %s; border-bottom: 2px solid %s;",
-          $theme === 'dark' ? '#495057' : 'var(--bs-primary, #0d6efd)',
-          $theme === 'dark' ? '#f8f9fa' : '#ffffff',
-          $colors['border_color']
-        );
+        $sectionHeaderStyle = "background-color: var(--bs-primary, #0d6efd); color: #ffffff; border-bottom: 2px solid var(--bs-border-color, #dee2e6);";
 
         $sectionHtml .= sprintf(
           "<h5 class='mt-4 mb-3 p-2 rounded' style='%s'>%s</h5>\n",
@@ -1256,9 +1221,8 @@ function getPhpInfoBootstrap(bool $useCache = true, string $theme = 'auto'): str
 
       // Start table for this section
       $sectionHtml .= sprintf(
-        "<table class='%s' data-theme='%s'>\n<tbody>\n",
-        $tableClass,
-        $theme
+        "<table class='%s'>\n<tbody>\n",
+        $tableClass
       );
 
       foreach ($section as $key => $val) {
@@ -1298,20 +1262,11 @@ function getPhpInfoBootstrap(bool $useCache = true, string $theme = 'auto'): str
     }
   }
 
-  // Wrap output in theme-aware container
-  $containerStyle = sprintf(
-    "background-color: %s; color: %s; border: 1px solid %s;",
-    $colors['odd_bg'],
-    $colors['text_color'],
-    $colors['border_color']
-  );
-
+  // Wrap output in container - let Bootstrap handle colors
   $output = empty($tableSections)
     ? '<div class="alert alert-info"><p>No phpinfo data could be parsed.</p></div>'
     : sprintf(
-      "<div class='phpinfo-container' style='%s border-radius: 0.375rem; padding: 1rem;' data-theme='%s'>\n%s</div>",
-      $containerStyle,
-      $theme,
+      "<div class='phpinfo-container' style='border-radius: 0.375rem; padding: 1rem;'>\n%s</div>",
       implode('', $tableSections)
     );
 
@@ -1324,44 +1279,30 @@ function getPhpInfoBootstrap(bool $useCache = true, string $theme = 'auto'): str
 
   $output = str_replace(array_keys($htmlFixes), array_values($htmlFixes), $output);
 
-  // Add CSS for better theme integration and table styling
-  $css = sprintf('
+  // Add minimal CSS for layout only - let Bootstrap handle colors
+  $css = '
     <style>
-      .phpinfo-container[data-theme="%s"] {
-        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-      }
-      .phpinfo-container[data-theme="%s"] .table {
+      .phpinfo-container .table {
         margin-bottom: 1.5rem;
         font-size: 0.875rem;
       }
-      .phpinfo-container[data-theme="%s"] .table td {
+      .phpinfo-container .table td {
         vertical-align: middle;
         padding: 0.5rem;
         word-wrap: break-word;
         max-width: 300px;
       }
-      .phpinfo-container[data-theme="%s"] .table .fw-bold {
+      .phpinfo-container .table .fw-bold {
         font-weight: 600;
-        background-color: rgba(var(--bs-primary-rgb, 13, 110, 253), 0.1);
       }
-      .phpinfo-container[data-theme="%s"] h5 {
+      .phpinfo-container h5 {
         font-size: 1.1rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
         margin-top: 2rem !important;
       }
-      .phpinfo-container[data-theme="%s"] h5:first-child {
+      .phpinfo-container h5:first-child {
         margin-top: 0 !important;
-      }
-      @media (prefers-color-scheme: dark) {
-        .phpinfo-container[data-theme="auto"] .table {
-          --bs-table-bg: #212529;
-          --bs-table-color: #f8f9fa;
-          --bs-table-border-color: #495057;
-        }
-        .phpinfo-container[data-theme="auto"] .table .fw-bold {
-          background-color: rgba(255, 255, 255, 0.1);
-        }
       }
       @media (max-width: 768px) {
         .phpinfo-container .table {
@@ -1373,7 +1314,7 @@ function getPhpInfoBootstrap(bool $useCache = true, string $theme = 'auto'): str
         }
       }
     </style>
-  ', $theme, $theme, $theme, $theme, $theme, $theme);
+  ';
 
   $output = $css . $output;
 
