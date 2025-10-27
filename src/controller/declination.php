@@ -19,6 +19,8 @@ global $LANG;
 global $LOG;
 global $RO;
 
+$allConfig = $C->readAll();
+
 //-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
@@ -40,7 +42,7 @@ $weekday = $date->format('N');
 if ($weekday == rand(1, 7)) {
   $alertData = array();
   $showAlert = false;
-  $licExpiryWarning = $C->read('licExpiryWarning');
+  $licExpiryWarning = $allConfig['licExpiryWarning'];
   $LIC = new License();
   $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 }
@@ -48,6 +50,8 @@ if ($weekday == rand(1, 7)) {
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -405,12 +409,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //
 // Absence Threshold Rule
 //
-$viewData['declAbsence'] = $C->read('declAbsence');
-$viewData['declThreshold'] = $C->read('declThreshold');
-$viewData['declBase'] = $C->read('declBase');
-$viewData['declAbsencePeriod'] = ($C->read('declAbsencePeriod')) ? $C->read('declAbsencePeriod') : 'nowForever';
-$viewData['declAbsenceStartdate'] = $C->read('declAbsenceStartdate');
-$viewData['declAbsenceEnddate'] = $C->read('declAbsenceEnddate');
+$viewData['declAbsence'] = $allConfig['declAbsence'];
+$viewData['declThreshold'] = $allConfig['declThreshold'];
+$viewData['declBase'] = $allConfig['declBase'];
+$viewData['declAbsencePeriod'] = $allConfig['declAbsencePeriod'] ? $allConfig['declAbsencePeriod'] : 'nowForever';
+$viewData['declAbsenceStartdate'] = $allConfig['declAbsenceStartdate'];
+$viewData['declAbsenceEnddate'] = $allConfig['declAbsenceEnddate'];
 $absenceStartdateDisabled = true;
 $absenceEnddateDisabled = true;
 switch ($viewData['declAbsencePeriod']) {
@@ -432,17 +436,17 @@ switch ($viewData['declAbsencePeriod']) {
 //
 // Absence Threshold Rule Status
 //
-$viewData['declAbsenceStatus'] = getDeclinationStatus($C->read('declAbsence'), $viewData['declAbsencePeriod'], $viewData['declAbsenceStartdate'], $viewData['declAbsenceEnddate']);
+$viewData['declAbsenceStatus'] = getDeclinationStatus($allConfig['declAbsence'], $viewData['declAbsencePeriod'], $viewData['declAbsenceStartdate'], $viewData['declAbsenceEnddate']);
 
 //
 // Before Date Rule
 //
-$viewData['declBefore'] = $C->read('declBefore');
-$viewData['declBeforeOption'] = $C->read('declBeforeOption');
-$viewData['declBeforeDate'] = $C->read('declBeforeDate');
-$viewData['declBeforePeriod'] = ($C->read('declBeforePeriod')) ? $C->read('declBeforePeriod') : 'nowForever';
-$viewData['declBeforeStartdate'] = $C->read('declBeforeStartdate');
-$viewData['declBeforeEnddate'] = $C->read('declBeforeEnddate');
+$viewData['declBefore'] = $allConfig['declBefore'];
+$viewData['declBeforeOption'] = $allConfig['declBeforeOption'];
+$viewData['declBeforeDate'] = $allConfig['declBeforeDate'];
+$viewData['declBeforePeriod'] = $allConfig['declBeforePeriod'] ? $allConfig['declBeforePeriod'] : 'nowForever';
+$viewData['declBeforeStartdate'] = $allConfig['declBeforeStartdate'];
+$viewData['declBeforeEnddate'] = $allConfig['declBeforeEnddate'];
 $beforeStartdateDisabled = true;
 $beforeEnddateDisabled = true;
 switch ($viewData['declBeforePeriod']) {
@@ -464,20 +468,20 @@ switch ($viewData['declBeforePeriod']) {
 //
 // Before Date Rule Status
 //
-$viewData['declBeforeStatus'] = getDeclinationStatus($C->read('declBefore'), $viewData['declBeforePeriod'], $viewData['declBeforeStartdate'], $viewData['declBeforeEnddate']);
+$viewData['declBeforeStatus'] = getDeclinationStatus($allConfig['declBefore'], $viewData['declBeforePeriod'], $viewData['declBeforeStartdate'], $viewData['declBeforeEnddate']);
 
 //
 // Period 1 Rule
 //
-$viewData['declPeriod1'] = $C->read('declPeriod1');
-$viewData['declPeriod1Start'] = $C->read('declPeriod1Start');
-$viewData['declPeriod1End'] = $C->read('declPeriod1End');
-$viewData['declPeriod1Period'] = ($C->read('declPeriod1Period')) ? $C->read('declPeriod1Period') : 'nowForever';
-$viewData['declPeriod1Startdate'] = $C->read('declPeriod1Startdate');
-$viewData['declPeriod1Enddate'] = $C->read('declPeriod1Enddate');
+$viewData['declPeriod1'] = $allConfig['declPeriod1'];
+$viewData['declPeriod1Start'] = $allConfig['declPeriod1Start'];
+$viewData['declPeriod1End'] = $allConfig['declPeriod1End'];
+$viewData['declPeriod1Period'] = $allConfig['declPeriod1Period'] ? $allConfig['declPeriod1Period'] : 'nowForever';
+$viewData['declPeriod1Startdate'] = $allConfig['declPeriod1Startdate'];
+$viewData['declPeriod1Enddate'] = $allConfig['declPeriod1Enddate'];
 $period1StartdateDisabled = true;
 $period1EnddateDisabled = true;
-switch ($C->read('declPeriod1Period')) {
+switch ($allConfig['declPeriod1Period']) {
   case 'nowEnddate':
     $period1StartdateDisabled = true;
     $period1EnddateDisabled = false;
@@ -496,20 +500,20 @@ switch ($C->read('declPeriod1Period')) {
 //
 // Period 1 Rule Status
 //
-$viewData['declPeriod1Status'] = getDeclinationStatus($C->read('declPeriod1'), $viewData['declPeriod1Period'], $viewData['declPeriod1Startdate'], $viewData['declPeriod1Enddate']);
+$viewData['declPeriod1Status'] = getDeclinationStatus($allConfig['declPeriod1'], $viewData['declPeriod1Period'], $viewData['declPeriod1Startdate'], $viewData['declPeriod1Enddate']);
 
 //
 // Period 2 Rule
 //
-$viewData['declPeriod2'] = $C->read('declPeriod2');
-$viewData['declPeriod2Start'] = $C->read('declPeriod2Start');
-$viewData['declPeriod2End'] = $C->read('declPeriod2End');
-$viewData['declPeriod2Period'] = ($C->read('declPeriod2Period')) ? $C->read('declPeriod2Period') : 'nowForever';
-$viewData['declPeriod2Startdate'] = $C->read('declPeriod2Startdate');
-$viewData['declPeriod2Enddate'] = $C->read('declPeriod2Enddate');
+$viewData['declPeriod2'] = $allConfig['declPeriod2'];
+$viewData['declPeriod2Start'] = $allConfig['declPeriod2Start'];
+$viewData['declPeriod2End'] = $allConfig['declPeriod2End'];
+$viewData['declPeriod2Period'] = ($allConfig['declPeriod2Period']) ? $allConfig['declPeriod2Period'] : 'nowForever';
+$viewData['declPeriod2Startdate'] = $allConfig['declPeriod2Startdate'];
+$viewData['declPeriod2Enddate'] = $allConfig['declPeriod2Enddate'];
 $period2StartdateDisabled = true;
 $period2EnddateDisabled = true;
-switch ($C->read('declPeriod2Period')) {
+switch ($allConfig['declPeriod2Period']) {
   case 'nowEnddate':
     $period2StartdateDisabled = true;
     $period2EnddateDisabled = false;
@@ -528,20 +532,20 @@ switch ($C->read('declPeriod2Period')) {
 //
 // Period 2 Rule Status
 //
-$viewData['declPeriod2Status'] = getDeclinationStatus($C->read('declPeriod2'), $viewData['declPeriod2Period'], $viewData['declPeriod2Startdate'], $viewData['declPeriod2Enddate']);
+$viewData['declPeriod2Status'] = getDeclinationStatus($allConfig['declPeriod2'], $viewData['declPeriod2Period'], $viewData['declPeriod2Startdate'], $viewData['declPeriod2Enddate']);
 
 //
 // Period 3 Rule
 //
-$viewData['declPeriod3'] = $C->read('declPeriod3');
-$viewData['declPeriod3Start'] = $C->read('declPeriod3Start');
-$viewData['declPeriod3End'] = $C->read('declPeriod3End');
-$viewData['declPeriod3Period'] = ($C->read('declPeriod3Period')) ? $C->read('declPeriod3Period') : 'nowForever';
-$viewData['declPeriod3Startdate'] = $C->read('declPeriod3Startdate');
-$viewData['declPeriod3Enddate'] = $C->read('declPeriod3Enddate');
+$viewData['declPeriod3'] = $allConfig['declPeriod3'];
+$viewData['declPeriod3Start'] = $allConfig['declPeriod3Start'];
+$viewData['declPeriod3End'] = $allConfig['declPeriod3End'];
+$viewData['declPeriod3Period'] = $allConfig['declPeriod3Period'] ? $allConfig['declPeriod3Period'] : 'nowForever';
+$viewData['declPeriod3Startdate'] = $allConfig['declPeriod3Startdate'];
+$viewData['declPeriod3Enddate'] = $allConfig['declPeriod3Enddate'];
 $period3StartdateDisabled = true;
 $period3EnddateDisabled = true;
-switch ($C->read('declPeriod3Period')) {
+switch ($allConfig['declPeriod3Period']) {
   case 'nowEnddate':
     $period3StartdateDisabled = true;
     $period3EnddateDisabled = false;
@@ -560,16 +564,16 @@ switch ($C->read('declPeriod3Period')) {
 //
 // Period 3 Rule Status
 //
-$viewData['declPeriod3Status'] = getDeclinationStatus($C->read('declPeriod3'), $viewData['declPeriod3Period'], $viewData['declPeriod3Startdate'], $viewData['declPeriod3Enddate']);
+$viewData['declPeriod3Status'] = getDeclinationStatus($allConfig['declPeriod3'], $viewData['declPeriod3Period'], $viewData['declPeriod3Startdate'], $viewData['declPeriod3Enddate']);
 
 //
 // Scope
 //
-$viewData['declNotifyUser'] = $C->read('declNotifyUser');
-$viewData['declNotifyManager'] = $C->read('declNotifyManager');
-$viewData['declNotifyDirector'] = $C->read('declNotifyDirector');
-$viewData['declNotifyAdmin'] = $C->read('declNotifyAdmin');
-$viewData['declApplyToAll'] = $C->read('declApplyToAll');
+$viewData['declNotifyUser'] = $allConfig['declNotifyUser'];
+$viewData['declNotifyManager'] = $allConfig['declNotifyManager'];
+$viewData['declNotifyDirector'] = $allConfig['declNotifyDirector'];
+$viewData['declNotifyAdmin'] = $allConfig['declNotifyAdmin'];
+$viewData['declApplyToAll'] = $allConfig['declApplyToAll'];
 
 $viewData['absence'] = array(
   array( 'prefix' => 'decl', 'name' => 'absence', 'type' => 'check', 'value' => $viewData['declAbsence'] ),
@@ -596,7 +600,7 @@ $viewData['period1'] = array(
   array( 'prefix' => 'decl', 'name' => 'period1Period', 'type' => 'radio', 'values' => array( 'nowForever', 'nowEnddate', 'startdateForever', 'startdateEnddate' ), 'value' => $viewData['declPeriod1Period'] ),
   array( 'prefix' => 'decl', 'name' => 'period1Startdate', 'type' => 'date', 'value' => $viewData['declPeriod1Startdate'], 'error' => (isset($inputAlert['period1Startdate']) ? $inputAlert['period1Startdate'] : ''), 'disabled' => $period1StartdateDisabled ),
   array( 'prefix' => 'decl', 'name' => 'period1Enddate', 'type' => 'date', 'value' => $viewData['declPeriod1Enddate'], 'error' => (isset($inputAlert['period1Enddate']) ? $inputAlert['period1Enddate'] : ''), 'disabled' => $period1EnddateDisabled ),
-  array( 'prefix' => 'decl', 'name' => 'period1Message', 'type' => 'textlong', 'value' => strip_tags($C->read("declPeriod1Message")), 'placeholder' => $LANG['alert_decl_period'], 'maxlength' => '240', 'error' => (isset($inputAlert['period1Message']) ? $inputAlert['period1Message'] : '') ),
+  array( 'prefix' => 'decl', 'name' => 'period1Message', 'type' => 'textlong', 'value' => strip_tags($allConfig['declPeriod1Message']), 'placeholder' => $LANG['alert_decl_period'], 'maxlength' => '240', 'error' => (isset($inputAlert['period1Message']) ? $inputAlert['period1Message'] : '') ),
 );
 
 $viewData['period2'] = array(
@@ -606,7 +610,7 @@ $viewData['period2'] = array(
   array( 'prefix' => 'decl', 'name' => 'period2Period', 'type' => 'radio', 'values' => array( 'nowForever', 'nowEnddate', 'startdateForever', 'startdateEnddate' ), 'value' => $viewData['declPeriod2Period'] ),
   array( 'prefix' => 'decl', 'name' => 'period2Startdate', 'type' => 'date', 'value' => $viewData['declPeriod2Startdate'], 'error' => (isset($inputAlert['period2Startdate']) ? $inputAlert['period2Startdate'] : ''), 'disabled' => $period2StartdateDisabled ),
   array( 'prefix' => 'decl', 'name' => 'period2Enddate', 'type' => 'date', 'value' => $viewData['declPeriod2Enddate'], 'error' => (isset($inputAlert['period2Enddate']) ? $inputAlert['period2Enddate'] : ''), 'disabled' => $period2EnddateDisabled ),
-  array( 'prefix' => 'decl', 'name' => 'period2Message', 'type' => 'textlong', 'value' => strip_tags($C->read("declPeriod2Message")), 'placeholder' => $LANG['alert_decl_period'], 'maxlength' => '240', 'error' => (isset($inputAlert['period2Message']) ? $inputAlert['period2Message'] : '') ),
+  array( 'prefix' => 'decl', 'name' => 'period2Message', 'type' => 'textlong', 'value' => strip_tags($allConfig['declPeriod2Message']), 'placeholder' => $LANG['alert_decl_period'], 'maxlength' => '240', 'error' => (isset($inputAlert['period2Message']) ? $inputAlert['period2Message'] : '') ),
 );
 
 $viewData['period3'] = array(
@@ -616,11 +620,11 @@ $viewData['period3'] = array(
   array( 'prefix' => 'decl', 'name' => 'period3Period', 'type' => 'radio', 'values' => array( 'nowForever', 'nowEnddate', 'startdateForever', 'startdateEnddate' ), 'value' => $viewData['declPeriod3Period'] ),
   array( 'prefix' => 'decl', 'name' => 'period3Startdate', 'type' => 'date', 'value' => $viewData['declPeriod3Startdate'], 'error' => (isset($inputAlert['period3Startdate']) ? $inputAlert['period3Startdate'] : ''), 'disabled' => $period3StartdateDisabled ),
   array( 'prefix' => 'decl', 'name' => 'period3Enddate', 'type' => 'date', 'value' => $viewData['declPeriod3Enddate'], 'error' => (isset($inputAlert['period3Enddate']) ? $inputAlert['period3Enddate'] : ''), 'disabled' => $period3EnddateDisabled ),
-  array( 'prefix' => 'decl', 'name' => 'period3Message', 'type' => 'textlong', 'value' => strip_tags($C->read("declPeriod3Message")), 'placeholder' => $LANG['alert_decl_period'], 'maxlength' => '240', 'error' => (isset($inputAlert['period3Message']) ? $inputAlert['period3Message'] : '') ),
+  array( 'prefix' => 'decl', 'name' => 'period3Message', 'type' => 'textlong', 'value' => strip_tags($allConfig['declPeriod3Message']), 'placeholder' => $LANG['alert_decl_period'], 'maxlength' => '240', 'error' => (isset($inputAlert['period3Message']) ? $inputAlert['period3Message'] : '') ),
 );
 
 $roles = $RO->getAll();
-$currentScope = $C->read('declScope');
+$currentScope = $allConfig['declScope'];
 $currentScopeArray = explode(',', $currentScope);
 foreach ($roles as $role) {
   $viewData['roles'][] = array( 'val' => $role['id'], 'name' => $role['name'], 'selected' => (in_array($role['id'], $currentScopeArray)) ? true : false );
