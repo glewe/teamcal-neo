@@ -19,8 +19,8 @@ view.bulkedit
   <div class="col-lg-12">
     <?php
     if (
-      ($showAlert && $C->read("showAlerts") != "none") &&
-      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+      ($showAlert && $viewData['showAlerts'] != "none") &&
+      ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
     }
@@ -36,7 +36,7 @@ view.bulkedit
       <div class="card">
         <?php
         $pageHelp = '';
-        if ($C->read('pageHelp')) {
+        if ($viewData['pageHelp']) {
           $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
         }
         ?>
@@ -131,15 +131,8 @@ view.bulkedit
 
 <script>
   $('#chk_selectAll').click(function(event) {
-    if (this.checked) {
-      $(":checkbox[name='chk_userSelected[]']").each(function() {
-        this.checked = true;
-      });
-    } else {
-      $(":checkbox[name='chk_userSelected[]']").each(function() {
-        this.checked = false;
-      });
-    }
+    const isChecked = this.checked;
+    $(":checkbox[name='chk_userSelected[]']").prop('checked', isChecked);
   });
 </script>
 
