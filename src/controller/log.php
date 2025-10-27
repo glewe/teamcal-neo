@@ -1,7 +1,5 @@
 <?php
-if (!defined('VALID_ROOT')) {
-  exit('');
-}
+
 /**
  * Log Controller
  *
@@ -18,6 +16,8 @@ global $controller;
 global $LANG;
 global $LOG;
 global $LIC;
+
+$allConfig = $C->readAll();
 
 //-----------------------------------------------------------------------------
 // CHECK PERMISSION
@@ -40,14 +40,24 @@ $weekday = $date->format('N');
 if ($weekday == rand(1, 7)) {
   $alertData = array();
   $showAlert = false;
-  $licExpiryWarning = $C->read('licExpiryWarning');
+  $licExpiryWarning = $allConfig['licExpiryWarning'];
   $LIC = new License();
   $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 }
 
 //-----------------------------------------------------------------------------
+// GENERATE TEST LOGS (ONLY FOR DEVELOPMENT PURPOSES)
+//
+$generateTestLogs = false;
+if ($generateTestLogs) {
+  $LOG->generateTestLogs(123);
+}
+
+//-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -251,8 +261,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Clear |
     // '-------'
     elseif (isset($_POST['btn_clear'])) {
-      $periodFrom = $C->read("logfrom");
-      $periodTo = $C->read("logto");
+      $periodFrom = $allConfig['logfrom'];
+      $periodTo = $allConfig['logto'];
       $LOG->delete($periodFrom, $periodTo);
       //
       // Log this event
@@ -294,27 +304,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
-$periodFrom = $C->read("logfrom");
-$periodTo = $C->read("logto");
-$logPeriod = $C->read("logperiod");
-if (!$logType = $C->read("logtype")) {
-  $logType = '%';
+$periodFrom = $allConfig['logfrom'];
+$periodTo = $allConfig['logto'];
+$logPeriod = $allConfig['logperiod'];
+
+$logType = '%';
+if (isset($allConfig['logtype']) && $allConfig['logtype'] != '') {
+  $logType = $allConfig['logtype'];
 }
-if (!$logSearchUser = $C->read("logsearchuser")) {
+
+$logSearchUser = '%';
+if (isset($allConfig['logsearchuser']) && $allConfig['logsearchuser'] != '') {
   $logSearchUser = '%';
 }
-if (!$logSearchEvent = $C->read("logsearchevent")) {
+
+$logSearchEvent = '%';
+if (isset($allConfig['logsearchevent']) && $allConfig['logsearchevent'] != '') {
   $logSearchEvent = '%';
 }
+
 $events = $LOG->read($sort, $periodFrom, $periodTo, $logType, $logSearchUser, $logSearchEvent);
+
 $viewData['events'] = array();
 if (count($events)) {
   foreach ($events as $event) {
-    if ($C->read("logfilter" . substr($event['type'], 3))) {
+    if ($allConfig['logfilter' . substr($event['type'], 3)]) {
       $viewData['events'][] = $event;
     }
   }
 }
+
 $viewData['types'] = $logtypes;
 $viewData['logperiod'] = $logPeriod;
 $viewData['logfrom'] = substr($periodFrom, 0, 10);
