@@ -18,8 +18,8 @@ view.database
   <div class="col-lg-12">
     <?php
     if (
-      ($showAlert && $C->read("showAlerts") != "none") &&
-      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+      ($showAlert && $viewData['showAlerts'] != "none") &&
+      ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
     }
@@ -34,7 +34,7 @@ view.database
       <div class="card">
         <?php
         $pageHelp = '';
-        if ($C->read('pageHelp')) {
+        if ($viewData['pageHelp']) {
           $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
         }
         ?>
@@ -198,9 +198,11 @@ view.database
                         ['name' => 'chkDBDeleteArchive', 'label' => $LANG['db_del_archive']],
                       ];
                       foreach ($deleteOptions as $option) {
-                        echo '<div class="form-check">'
-                          . '<label><input class="form-check-input" name="' . $option['name'] . '" value="' . $option['name'] . '" tabindex="' . ++$tabindex  . '" type="checkbox">' . $option['label'] . '</label>'
-                          . '</div>';
+                      ?>
+                        <div class="form-check">
+                          <label><input class="form-check-input" name="<?= $option['name'] ?>" value="<?= $option['name'] ?>" tabindex="<?= ++$tabindex ?>" type="checkbox"><?= $option['label'] ?></label>
+                        </div>
+                      <?php
                       }
                       ?>
                     </div>
@@ -244,7 +246,7 @@ view.database
                     <div class="divider">
                       <hr>
                     </div>
-                    <a href="<?= $C->read('dbURL') ?>" class="btn btn-info" tabindex="<?= ++$tabindex  ?>" target="_blank"><?= $LANG['db_application'] ?></a>
+                    <a href="<?= $viewData['dbURL'] ?>" class="btn btn-info" tabindex="<?= ++$tabindex  ?>" target="_blank"><?= $LANG['db_application'] ?></a>
                   <?php } ?>
                 </div>
 

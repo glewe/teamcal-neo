@@ -31,6 +31,8 @@ global $T;
 global $AL;
 global $P;
 
+$allConfig = $C->readAll();
+
 //-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
@@ -49,13 +51,15 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //
 $alertData = array();
 $showAlert = false;
-$licExpiryWarning = $C->read('licExpiryWarning');
+$licExpiryWarning = $allConfig['licExpiryWarning'];
 $LIC = new License();
 $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -138,18 +142,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Cleanup |
     // '---------'
     if (isset($_POST['btn_cleanup'])) {
+      // Cache the date string and its parsed components
+      $cleanBeforeDate = $_POST['txt_cleanBefore'];
+      $cleanBeforeDateNoHyphens = str_replace('-', '', $cleanBeforeDate);
+      $cleanBeforeYear = substr($cleanBeforeDate, 0, 4);
+      $cleanBeforeMonth = substr($cleanBeforeDate, 5, 2);
+      
       if (isset($_POST['chk_cleanDaynotes'])) {
-        $result = $D->deleteAllBefore(str_replace('-', '', $_POST['txt_cleanBefore']));
+        $result = $D->deleteAllBefore($cleanBeforeDateNoHyphens);
       }
 
       if (isset($_POST['chk_cleanMonths'])) {
-        $param1 = substr($_POST['txt_cleanBefore'], 0, 4);
-        $param2 = substr($_POST['txt_cleanBefore'], 5, 2);
-        $result = $M->deleteBefore($param1, $param2);
+        $result = $M->deleteBefore($cleanBeforeYear, $cleanBeforeMonth);
       }
 
       if (isset($_POST['chk_cleanTemplates'])) {
-        $result = $T->deleteBefore(substr($_POST['txt_cleanBefore'], 0, 4), substr($_POST['txt_cleanBefore'], 5, 2));
+        $result = $T->deleteBefore($cleanBeforeYear, $cleanBeforeMonth);
       }
       //
       // Success
@@ -311,7 +319,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
-$viewData['dbURL'] = $C->read('dbURL');
+$viewData['dbURL'] = $allConfig['dbURL'];
 $viewData['dbInfo'] = $DB->getAttributes();
 // $viewData['dbInfo'] = $DB->getAttributesExtended();
 
