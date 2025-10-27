@@ -66,7 +66,6 @@ if ($missingData) {
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
-// Load only required config keys
 $allConfig = $C->readAll();
 $viewData['pageHelp'] = $allConfig['pageHelp'];
 $viewData['showAlerts'] = $allConfig['showAlerts'];

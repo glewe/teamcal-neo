@@ -58,6 +58,9 @@ if ($missingData) {
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -118,10 +121,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Filter |
     // '--------'
     $filterString = $_POST['fa_search'] ?? '';
-    $allIcons = $faIcons;
-    $faIcons = array_filter($allIcons, function ($element) use ($filterString) {
-      return strpos($element, $filterString) !== false;
-    });
+    if (!empty($filterString)) {
+      $allIcons = $faIcons;
+      $faIcons = array_filter($allIcons, function ($element) use ($filterString) {
+        return strpos($element, $filterString) !== false;
+      });
+    }
   }
 }
 
