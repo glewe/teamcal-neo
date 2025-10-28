@@ -15,6 +15,7 @@ $releases = [
       [ 'summary' => 'New color picker Coloris 0.25.0', 'issue' => '' ],
       [ 'summary' => 'Update to Bootstrap 5.3.8', 'issue' => '' ],
       [ 'summary' => 'Update to Font Awesome 7.1.0', 'issue' => '' ],
+      [ 'summary' => 'Updated sample character avatars', 'issue' => '' ],
     ],
     'removals' => [
     ],
