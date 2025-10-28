@@ -130,7 +130,7 @@ define('SYNTAXHIGHLIGHTER_VER', "3.0.83");
 // Defines the allowed max file sizes for upload
 //
 $CONF['avatarExtensions'] = array( 'gif', 'jpg', 'png' );
-$CONF['avatarMaxsize'] = 1024 * 100; // 100 KB
+$CONF['avatarMaxsize'] = 2048 * 100; // 100 KB
 $CONF['imgExtensions'] = array( 'gif', 'jpg', 'png' );
 $CONF['impExtensions'] = array( 'csv' );
 $CONF['uplExtensions'] = array( 'gif', 'jpg', 'png', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'zip' );
