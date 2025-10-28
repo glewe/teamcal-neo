@@ -23,6 +23,10 @@ global $UO;
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+
 $showAlert = false;
 $viewData['email'] = '';
 $viewData['multipleUsers'] = false;

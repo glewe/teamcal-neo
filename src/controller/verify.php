@@ -54,6 +54,9 @@ if ($missingData) {
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 $UA = new Users(); // Used for admin user
 $UA->findByName("admin");
 
@@ -72,7 +75,7 @@ if ($fverify = $UO->read($ruser, "verifycode")) {
     $U->findByName($ruser);
     $fullname = $U->firstname . " " . $U->lastname;
 
-    if ($C->read("adminApproval")) {
+    if ($allConfig['adminApproval']) {
       //
       // Success but admin needs to approve.
       // Unset verify flag, keep account locked, send mail to admin.

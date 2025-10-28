@@ -18,8 +18,8 @@ view.setup2fa
   <div class="col-lg-12">
     <?php
     if (
-      ($showAlert && $C->read("showAlerts") != "none") &&
-      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+      ($showAlert && $viewData['showAlerts'] != "none") &&
+      ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
     }
@@ -42,7 +42,7 @@ view.setup2fa
             </div>
           </div>
           <hr>
-          <?= ($C->read('forceTfa') ? '<div class="mb-2">' . $LANG['setup2fa_required_comment'] . '</div>' : '') ?>
+          <?= ($allConfig['forceTfa'] ? '<div class="mb-2">' . $LANG['setup2fa_required_comment'] . '</div>' : '') ?>
           <?= $LANG['setup2fa_comment'] ?>
           <hr>
           <div class="row">

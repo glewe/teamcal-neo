@@ -18,8 +18,8 @@ view.useredit
   <div class="col-lg-12">
     <?php
     if (
-      ($showAlert && $C->read("showAlerts") != "none") &&
-      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+      ($showAlert && $viewData['showAlerts'] != "none") &&
+      ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
     }
@@ -34,7 +34,7 @@ view.useredit
       <div class="card">
         <?php
         $pageHelp = '';
-        if ($C->read('pageHelp')) {
+        if ($viewData['pageHelp']) {
           $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
         }
         ?>
@@ -71,7 +71,7 @@ view.useredit
               if (isAllowed("useroptions")) {
                 $pageTabs[] = [ 'id' => 'tab-options', 'href' => '#panel-options', 'label' => $LANG['options'], 'active' => false ];
               }
-              if (!$C->read('disableTfa')) {
+              if (!$allConfig['disableTfa']) {
                 $pageTabs[] = [ 'id' => 'tab-tfa', 'href' => '#panel-tfa', 'label' => $LANG['profile_tab_tfa'], 'active' => false ];
               }
               echo createPageTabs($pageTabs);
@@ -270,7 +270,7 @@ view.useredit
                   </div>
                 <?php } ?>
 
-                <?php if (!$C->read('disableTfa')) { ?>
+                <?php if (!$allConfig['disableTfa']) { ?>
                   <!-- 2FA tab -->
                   <div class="tab-pane fade" id="panel-tfa" role="tabpanel" aria-labelledby="tab-tfa">
                     <?php if ($UO->read($UP->username, 'secret')) { ?>

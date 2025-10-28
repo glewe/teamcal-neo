@@ -26,6 +26,9 @@ use RobThree\Auth\TwoFactorAuth;
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 $tfa = new TwoFactorAuth('TeamCal Neo');
 
 //-----------------------------------------------------------------------------
@@ -93,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
             $L->logout();
             header("Location: index.php?action=login2fa");
             exit;
-          } elseif ($C->read('forceTfa')) {
+          } elseif ($allConfig['forceTfa']) {
             //
             // TFA required but no secret for this user yet.
             // First, log out. Then proceed to the 2FA setup page.
@@ -113,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
             if (count($popups)) {
               header("Location: index.php?action=messages");
             } else {
-              header("Location: index.php?action=" . $C->read("homepage"));
+              header("Location: index.php?action=" . $allConfig['homepage']);
             }
             break;
           }
@@ -169,8 +172,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
           $alertData['title'] = $LANG['alert_warning_title'];
           $alertData['subject'] = $LANG['login_error_4'];
           $alertData['text'] = str_replace('%1%', strval($U->bad_logins), $LANG['login_error_4_text']);
-          $alertData['text'] = str_replace('%2%', $C->read("badLogins"), $alertData['text']);
-          $alertData['text'] = str_replace('%3%', $C->read("gracePeriod"), $alertData['text']);
+          $alertData['text'] = str_replace('%2%', $allConfig['badLogins'], $alertData['text']);
+          $alertData['text'] = str_replace('%3%', $allConfig['gracePeriod'], $alertData['text']);
           $alertData['help'] = '';
           $LOG->logEvent("logLogin", $uname, "log_login_pwd");
           break;
@@ -185,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
           $alertData['type'] = 'warning';
           $alertData['title'] = $LANG['alert_warning_title'];
           $alertData['subject'] = $LANG['login_error_3'];
-          $alertData['text'] = str_replace('%1%', $C->read("gracePeriod"), $LANG['login_error_6_text']);
+          $alertData['text'] = str_replace('%1%', $allConfig['gracePeriod'], $LANG['login_error_6_text']);
           $alertData['help'] = '';
           $LOG->logEvent("logLogin", $uname, "log_login_attempts");
           break;

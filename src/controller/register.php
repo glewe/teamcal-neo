@@ -20,10 +20,12 @@ global $LOG;
 global $UO;
 global $UR;
 
+$allConfig = $C->readAll();
+
 //-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
-if (!$C->read('allowRegistration')) {
+if (!$allConfig['allowRegistration']) {
   $alertData['type'] = 'warning';
   $alertData['title'] = $LANG['alert_alert_title'];
   $alertData['subject'] = $LANG['alert_not_allowed_subject'];
@@ -41,6 +43,9 @@ require_once WEBSITE_ROOT . '/addons/securimage/securimage.php';
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+
 $securimage = new Securimage();
 $UR = new Users(); // for the profile to be registered
 $inputAlert = array();
@@ -84,10 +89,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   if (!formInputValid('txt_email', 'required|email')) {
     $inputError = true;
   }
-  if (!formInputValid('txt_password', 'required|pwd' . $C->read('pwdStrength'))) {
+  if (!formInputValid('txt_password', 'required|pwd' . $allConfig['pwdStrength'])) {
     $inputError = true;
   }
-  if (!formInputValid('txt_password2', 'required|pwd' . $C->read('pwdStrength'))) {
+  if (!formInputValid('txt_password2', 'required|pwd' . $allConfig['pwdStrength'])) {
     $inputError = true;
   }
   if (!formInputValid('txt_password2', 'match', 'txt_password')) {
@@ -190,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
-$LANG['register_password_comment'] .= $LANG['password_rules_' . $C->read('pwdStrength')];
+$LANG['register_password_comment'] .= $LANG['password_rules_' . $allConfig['pwdStrength']];
 $viewData['personal'] = array(
   array( 'prefix' => 'register', 'name' => 'username', 'type' => 'text', 'placeholder' => '', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' => (isset($inputAlert['username']) ? $inputAlert['username'] : '') ),
   array( 'prefix' => 'register', 'name' => 'lastname', 'type' => 'text', 'placeholder' => '', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' => (isset($inputAlert['lastname']) ? $inputAlert['lastname'] : '') ),

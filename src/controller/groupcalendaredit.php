@@ -29,6 +29,10 @@ global $T;
 global $U;
 global $PTN;
 
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+
 //-----------------------------------------------------------------------------
 // CHECK URL PARAMETERS
 //
@@ -93,7 +97,7 @@ if ($missingData) {
 //
 // Default back to current yearmonth if option is set
 //
-if ($C->read('currentYearOnly') && $viewData['year'] != date('Y')) {
+if ($allConfig['currentYearOnly'] && $viewData['year'] != date('Y')) {
   header("Location: " . $_SERVER['PHP_SELF'] . "?action=" . $controller . "&month=" . date('Ym') . "&region=" . $region . "&group=" . $calgroup);
   die();
 }
@@ -442,7 +446,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       //
       // Send notification e-mails to the subscribers of user events
       //
-      if ($C->read("emailNotifications") && $sendNotification) {
+      if ($allConfig['emailNotifications'] && $sendNotification) {
         sendUserCalEventNotifications("changed", $viewData['year'], $viewData['month'], $calgroupuser);
       }
       //
@@ -551,7 +555,7 @@ for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
   //
   $loopDate = date('Y-m-d', mktime(0, 0, 0, $viewData['month'], $i, $viewData['year']));
   if ($loopDate == $currDate) {
-    $border = 'border-left: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';border-right: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';';
+    $border = 'border-left: ' . $allConfig['todayBorderSize'] . 'px solid #' . $allConfig['todayBorderColor'] . ';border-right: ' . $allConfig['todayBorderSize'] . 'px solid #' . $allConfig['todayBorderColor'] . ';';
   }
 
   //
@@ -565,10 +569,10 @@ for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
 $todayDate = getdate(time());
 $viewData['yearToday'] = $todayDate['year'];
 $viewData['monthToday'] = sprintf("%02d", $todayDate['mon']);
-$viewData['showWeekNumbers'] = $C->read('showWeekNumbers');
+$viewData['showWeekNumbers'] = $allConfig['showWeekNumbers'];
 $mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
-$viewData['supportMobile'] = $C->read('supportMobile');
-$viewData['firstDayOfWeek'] = $C->read("firstDayOfWeek");
+$viewData['supportMobile'] = $allConfig['supportMobile'];
+$viewData['firstDayOfWeek'] = $allConfig['firstDayOfWeek'];
 if (!$viewData['width'] = $UO->read($UL->username, 'width')) {
   $UO->save($UL->username, 'width', 'full');
   $viewData['width'] = 'full';
