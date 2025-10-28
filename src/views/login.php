@@ -21,8 +21,8 @@ view.login
     <div class="col-lg-6">
       <?php
       if (
-        ($showAlert && $C->read("showAlerts") != "none") &&
-        ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+        ($showAlert && $viewData['showAlerts'] != "none") &&
+        ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
       ) {
         echo createAlertBox($alertData);
       }

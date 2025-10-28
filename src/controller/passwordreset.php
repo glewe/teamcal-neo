@@ -74,6 +74,9 @@ if ($tokenExpired) {
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -108,10 +111,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   // Form validation
   //
   $inputError = false;
-  if (!formInputValid('txt_password', 'required|pwd' . $C->read('pwdStrength'))) {
+  if (!formInputValid('txt_password', 'required|pwd' . $allConfig['pwdStrength'])) {
     $inputError = true;
   }
-  if (!formInputValid('txt_password2', 'required|pwd' . $C->read('pwdStrength'))) {
+  if (!formInputValid('txt_password2', 'required|pwd' . $allConfig['pwdStrength'])) {
     $inputError = true;
   }
   if (!formInputValid('txt_password2', 'match', 'txt_password')) {
@@ -172,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
-$LANG['profile_password_comment'] .= $LANG['password_rules_' . $C->read('pwdStrength')];
+$LANG['profile_password_comment'] .= $LANG['password_rules_' . $allConfig['pwdStrength']];
 $viewData['personal'] = array(
   array( 'prefix' => 'profile', 'name' => 'username', 'type' => 'text', 'placeholder' => '', 'value' => $UP->username, 'maxlength' => '80', 'disabled' => true ),
   array( 'prefix' => 'profile', 'name' => 'lastname', 'type' => 'text', 'placeholder' => '', 'value' => $UP->lastname, 'maxlength' => '80', 'disabled' => true ),

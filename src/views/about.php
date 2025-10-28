@@ -19,8 +19,8 @@ view.about
 
     <?php
     if (
-      ($showAlert && $C->read("showAlerts") != "none") &&
-      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+      ($showAlert && $viewData['showAlerts'] != "none") &&
+      ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
     }
@@ -29,7 +29,7 @@ view.about
     <div class="card text-<?= $CONF['controllers'][$controller]->panelColor ?>">
       <?php
       $pageHelp = '';
-      if ($C->read('pageHelp')) {
+      if ($viewData['pageHelp']) {
         $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
       }
       ?>
@@ -94,7 +94,7 @@ view.about
 
 </div>
 
-<?php if ($C->read("versionCompare")) { ?>
+<?php if ($viewData['versionCompare']) { ?>
   <script src="https://support.lewe.com/version/tcneo.js"></script>
   <script>
     var running_version = parseVersionString('<?= APP_VER ?>');

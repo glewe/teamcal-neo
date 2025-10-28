@@ -75,6 +75,9 @@ if (!$allowed) {
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -135,10 +138,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $inputError = true;
     }
     if ((isset($_POST['txt_password']) && strlen($_POST['txt_password'])) || (isset($_POST['txt_password2']) && strlen($_POST['txt_password2']))) {
-      if (!formInputValid('txt_password', 'pwd' . $C->read('pwdStrength'))) {
+      if (!formInputValid('txt_password', 'pwd' . $allConfig['pwdStrength'])) {
         $inputError = true;
       }
-      if (!formInputValid('txt_password2', 'required|pwd' . $C->read('pwdStrength'))) {
+      if (!formInputValid('txt_password2', 'required|pwd' . $allConfig['pwdStrength'])) {
         $inputError = true;
       }
       if (!formInputValid('txt_password2', 'match', 'txt_password')) {
@@ -406,7 +409,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       //
       // Send notification e-mails to the subscribers of user events
       //
-      if ($C->read("emailNotifications")) {
+      if ($allConfig['emailNotifications']) {
         sendUserEventNotifications("changed", $UP->username, $UP->firstname, $UP->lastname);
       }
       //
@@ -474,7 +477,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       // Send notification e-mails to the subscribers of user events. In this case,
       // send before delete while we can still access info from the user.
       //
-      if ($C->read("emailNotifications")) {
+      if ($allConfig['emailNotifications']) {
         $U->findByName($profile);
         sendUserEventNotifications("deleted", $U->username, $U->firstname, $U->lastname);
       }
@@ -704,7 +707,7 @@ $viewData['groups'] = array(
 //
 // Password
 //
-$LANG['profile_password_comment'] .= $LANG['password_rules_' . $C->read('pwdStrength')];
+$LANG['profile_password_comment'] .= $LANG['password_rules_' . $allConfig['pwdStrength']];
 $viewData['password'] = array(
   array( 'prefix' => 'profile', 'name' => 'password', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' => (isset($inputAlert['password']) ? $inputAlert['password'] : '') ),
   array( 'prefix' => 'profile', 'name' => 'password2', 'type' => 'password', 'value' => '', 'maxlength' => '50', 'error' => (isset($inputAlert['password2']) ? $inputAlert['password2'] : '') ),
@@ -778,7 +781,7 @@ if ($notifyUserCalGroups = $UO->read($viewData['profile'], 'notifyUserCalGroups'
 }
 
 $viewData['userCalNotifyGroups'][] = array( 'val' => '0', 'name' => $LANG['none'], 'selected' => $nocalgroup );
-if ($C->read('notificationsAllGroups')) {
+if ($allConfig['notificationsAllGroups']) {
   $ugroups = $G->getAll();
   foreach ($ugroups as $ugroup) {
     $viewData['userCalNotifyGroups'][] = array( 'val' => $ugroup['id'], 'name' => $ugroup['name'], 'selected' => (in_array($ugroup['id'], $ngroups)) ? true : false );

@@ -46,6 +46,9 @@ $UPL = new Upload();
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 $uplDir = WEBSITE_ROOT . '/' . APP_IMP_DIR;
 $viewData = array();
 

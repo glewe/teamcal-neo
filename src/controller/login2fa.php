@@ -25,6 +25,9 @@ global $UO;
 
 use RobThree\Auth\TwoFactorAuth;
 
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 $tfa = new TwoFactorAuth('TeamCal Neo');
 
 $showAlert = false;
@@ -87,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       if (count($popups)) {
         header('Location: index.php?action=messages');
       } else {
-        header('Location: index.php?action=' . $C->read('homepage'));
+        header('Location: index.php?action=' . $allConfig['homepage']);
       }
       exit;
     } else {

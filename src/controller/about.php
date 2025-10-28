@@ -13,13 +13,18 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 
+$allConfig = $C->readAll();
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+$viewData['versionCompare'] = $allConfig['versionCompare'];
+
 //=============================================================================
 //
 // CHECK LICENSE
 //
 $alertData = array();
 $showAlert = false;
-$licExpiryWarning = $C->read('licExpiryWarning');
+$licExpiryWarning = $allConfig['licExpiryWarning'];
 $LIC = new License();
 $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 
