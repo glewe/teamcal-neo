@@ -56,7 +56,10 @@ require_once __DIR__ . "/vendor/autoload.php";
 // LOAD CLASSES
 //
 spl_autoload_register(function ($class_name) {
-  require_once 'classes/' . $class_name . '.class.php';
+  // Skip PHPMailer classes as they are loaded via Composer autoloader
+  if (strpos($class_name, 'PHPMailer') === false) {
+    require_once 'classes/' . $class_name . '.class.php';
+  }
 });
 
 //-----------------------------------------------------------------------------
