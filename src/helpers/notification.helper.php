@@ -760,9 +760,9 @@ function sendEmail(string $to, string $subject, string $body, string $from = '')
 
   // Ensure PHPMailer is loaded
   if (!class_exists('PHPMailer\PHPMailer\PHPMailer')) {
-    require_once WEBSITE_ROOT . '/../vendor/phpmailer/phpmailer/src/PHPMailer.php';
-    require_once WEBSITE_ROOT . '/../vendor/phpmailer/phpmailer/src/SMTP.php';
-    require_once WEBSITE_ROOT . '/../vendor/phpmailer/phpmailer/src/Exception.php';
+    require_once WEBSITE_ROOT . '/vendor/phpmailer/phpmailer/src/PHPMailer.php';
+    require_once WEBSITE_ROOT . '/vendor/phpmailer/phpmailer/src/SMTP.php';
+    require_once WEBSITE_ROOT . '/vendor/phpmailer/phpmailer/src/Exception.php';
   }
 
   $from_regexp = preg_match('/<(.*?)>/', $from, $fetch);
