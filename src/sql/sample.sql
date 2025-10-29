@@ -645,6 +645,7 @@ VALUES
   ('logMessage', '0'),
   ('logMonth', '0'),
   ('logNews', '1'),
+  ('logPattern', '1'),
   ('logPermission', '1'),
   ('logRegion', '1'),
   ('logRegistration', '1'),
