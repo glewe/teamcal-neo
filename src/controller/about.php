@@ -13,7 +13,8 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 
-$allConfig = $C->readAll();
+global $allConfig;
+
 $viewData['pageHelp'] = $allConfig['pageHelp'];
 $viewData['showAlerts'] = $allConfig['showAlerts'];
 $viewData['versionCompare'] = $allConfig['versionCompare'];

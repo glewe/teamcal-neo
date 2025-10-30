@@ -12,6 +12,7 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 4.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -37,7 +38,6 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 // LOAD CONTROLLER RESOURCES
 //
 $PTN = new Patterns();
-$allConfig = $C->readAll();
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS

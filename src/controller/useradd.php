@@ -12,6 +12,7 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -36,7 +37,6 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
-$allConfig = $C->readAll();
 $viewData['pageHelp'] = $allConfig['pageHelp'];
 $viewData['showAlerts'] = $allConfig['showAlerts'];
 

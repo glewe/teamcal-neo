@@ -12,6 +12,7 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -65,11 +66,6 @@ if ($missingData) {
   require_once WEBSITE_ROOT . '/controller/alert.php';
   die();
 }
-
-//
-// Read all config settings
-//
-$allConfig = $C->readAll();
 
 //
 // Default back to current yearmonth if option is set

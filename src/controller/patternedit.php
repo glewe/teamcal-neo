@@ -12,6 +12,7 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 4.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -19,8 +20,6 @@ global $LANG;
 global $LOG;
 global $PTN;
 global $A;
-
-$allConfig = $C->readAll();
 
 //-----------------------------------------------------------------------------
 // CHECK PERMISSION

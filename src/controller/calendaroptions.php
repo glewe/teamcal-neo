@@ -12,6 +12,7 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -351,9 +352,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST) && isset($_POST['btn
 // ========================================================================
 // Prepare data for the view
 //
-
-// Load all config values in one query for maximum performance
-$allConfig = $C->readAll();
 $viewData['pageHelp'] = $allConfig['pageHelp'];
 $viewData['showAlerts'] = $allConfig['showAlerts'];
 

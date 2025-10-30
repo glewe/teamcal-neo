@@ -12,6 +12,7 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $faIcons;
 global $LANG;
 global $CONF;
@@ -58,7 +59,6 @@ if ($missingData) {
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
-$allConfig = $C->readAll();
 $viewData['pageHelp'] = $allConfig['pageHelp'];
 $viewData['showAlerts'] = $allConfig['showAlerts'];
 
