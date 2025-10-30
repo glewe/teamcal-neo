@@ -12,6 +12,7 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -55,7 +56,7 @@ $weekday = $date->format('N');
 if ($weekday === rand(1, 7)) {
   $alertData = array();
   $showAlert = false;
-  $licExpiryWarning = $C->read('licExpiryWarning');
+  $licExpiryWarning = $allConfig['licExpiryWarning'];
   $LIC = new License();
   $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 }
@@ -216,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         // Send notification e-mails to the subscribers of user events. In this case,
         // send before delete while we can still access info from the user.
         //
-        if ($C->read("emailNotifications")) {
+        if ($allConfig['emailNotifications']) {
           $U1->findByName($value);
           sendUserEventNotifications("deleted", $U1->username, $U1->firstname, $U1->lastname);
         }
@@ -346,7 +347,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //
 
 // Load all config values in one query for maximum performance
-$allConfig = $C->readAll();
 $viewData['pageHelp'] = $allConfig['pageHelp'];
 $viewData['showAlerts'] = $allConfig['showAlerts'];
 

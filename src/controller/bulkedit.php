@@ -12,6 +12,7 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.5.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -22,8 +23,6 @@ global $UG;
 global $A;
 global $AL;
 global $G;
-
-$allConfig = $C->readAll();
 
 //-----------------------------------------------------------------------------
 // CHECK URL PARAMETERS

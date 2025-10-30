@@ -12,6 +12,7 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -40,9 +41,6 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
   require_once WEBSITE_ROOT . '/controller/alert.php';
   die();
 }
-
-// Load all config values in one query for maximum performance
-$allConfig = $C->readAll();
 
 //-----------------------------------------------------------------------------
 // CHECK URL PARAMETERS OR USER DEFAULTS

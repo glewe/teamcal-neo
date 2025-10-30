@@ -12,6 +12,7 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.7.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -23,7 +24,6 @@ global $UP;
 
 use RobThree\Auth\TwoFactorAuth;
 
-$allConfig = $C->readAll();
 $viewData['pageHelp'] = $allConfig['pageHelp'];
 $viewData['showAlerts'] = $allConfig['showAlerts'];
 

@@ -12,6 +12,7 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -46,7 +47,6 @@ $UPL = new Upload();
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
-$allConfig = $C->readAll();
 $viewData['pageHelp'] = $allConfig['pageHelp'];
 $viewData['showAlerts'] = $allConfig['showAlerts'];
 $uplDir = WEBSITE_ROOT . '/' . APP_IMP_DIR;

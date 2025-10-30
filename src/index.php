@@ -155,9 +155,14 @@ $T = new Templates();
 // VARIABLE DEFAULTS
 //
 require_once WEBSITE_ROOT . '/config/config.vars.php';
+//
+// Load all config records (global in controllers)
+//
+$allConfig = $C->readAll();
+
 $showAlert = false;
-$appTitle = $C->read('appTitle');
-$language = $C->read("defaultLanguage");
+$appTitle = $allConfig['appTitle'];
+$language = $allConfig["defaultLanguage"];
 $appStatus['maintenance'] = false;
 $controller = 'home';
 $userData['isLoggedIn'] = false;
@@ -165,11 +170,11 @@ $userData['username'] = 'Public';
 $userData['roleid'] = '3'; // 3 = Public
 $userData['color'] = 'default';
 $userData['avatar'] = 'default_male.png';
-$userData['defaultMenu'] = $C->read('defaultMenu');
+$userData['defaultMenu'] = $allConfig['defaultMenu'];
 //
 // Load all permissions into an array so there is no need to query the database for each permission
 //
-$permissions = $P->getPermissions($C->read('permissionScheme'));
+$permissions = $P->getPermissions($allConfig['permissionScheme']);
 //
 // Check login and make logged in username global
 //
@@ -282,7 +287,7 @@ $AV = new Avatar($LANG);
 //-----------------------------------------------------------------------------
 // DETERMINE CONTROLLER
 //
-if ($C->read('underMaintenance')) {
+if ($allConfig['underMaintenance']) {
   $appStatus['maintenance'] = true;
   $controller = 'maintenance';
   if (isset($_GET['action'])) {
@@ -293,11 +298,11 @@ if ($C->read('underMaintenance')) {
   }
 } else {
   if (L_USER) {
-    if (!$controller = $C->read("homepage")) {
+    if (!$controller = $allConfig['homepage']) {
       $controller = 'home';
     }
   } else {
-    if (!$controller = $C->read("defaultHomepage")) {
+    if (!$controller = $allConfig['defaultHomepage']) {
       $controller = 'home';
     }
   }
@@ -325,25 +330,25 @@ if (file_exists(WEBSITE_ROOT . '/languages/' . $language . '/core.php')) {
 //-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
-$htmlData['title'] = $C->read("appTitle");
+$htmlData['title'] = $allConfig['appTitle'];
 if (isset($CONF['controllers'][$controller])) {
-  $htmlData['title'] = $C->read("appTitle") . ' - ' . $CONF['controllers'][$controller]->title;
+  $htmlData['title'] = $allConfig['appTitle'] . ' - ' . $CONF['controllers'][$controller]->title;
 }
 
-$htmlData['description'] = $C->read("appDescription");
-$htmlData['keywords'] = $C->read("appKeywords");
+$htmlData['description'] = $allConfig['appDescription'];
+$htmlData['keywords'] = $allConfig['appKeywords'];
 $htmlData['version'] = APP_VER;
 $htmlData['author'] = APP_AUTHOR;
 $htmlData['copyright'] = APP_COPYRIGHT;
 $htmlData['license'] = APP_LICENSE;
 $htmlData['locale'] = $LANG['locale'];
-$htmlData['jQueryTheme'] = $C->read("jqtheme");
-$htmlData['cookieConsent'] = (bool)$C->read("cookieConsent");
-$htmlData['cookieConsentCDN'] = (bool)$C->read("cookieConsentCDN");
-$htmlData['faCDN'] = (bool)$C->read("faCDN");
-$htmlData['jQueryCDN'] = (bool)$C->read("jQueryCDN");
+$htmlData['jQueryTheme'] = $allConfig['jqtheme'];
+$htmlData['cookieConsent'] = (bool)$allConfig['cookieConsent'];
+$htmlData['cookieConsentCDN'] = (bool)$allConfig['cookieConsentCDN'];
+$htmlData['faCDN'] = (bool)$allConfig['faCDN'];
+$htmlData['jQueryCDN'] = (bool)$allConfig['jQueryCDN'];
 
-if ($C->read("noIndex")) {
+if ($allConfig['noIndex']) {
   $htmlData['robots'] = 'noindex,nofollow,noopd';
 } else {
   $htmlData['robots'] = 'index,follow,noopd';
@@ -357,7 +362,7 @@ if (L_USER && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['actio
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER
 //
-if ($C->read('noCaching')) {
+if ($allConfig['noCaching']) {
   // Ensure no caching
   header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
   header("Cache-Control: post-check=0, pre-check=0", false);

@@ -12,6 +12,7 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -41,7 +42,7 @@ $weekday = $date->format('N');
 if ($weekday == rand(1, 7)) {
   $alertData = array();
   $showAlert = false;
-  $licExpiryWarning = $C->read('licExpiryWarning');
+  $licExpiryWarning = $allConfig['licExpiryWarning'];
   $LIC = new License();
   $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 }
@@ -102,7 +103,7 @@ $fperms = array(
 //
 // Get the active scheme and view mode
 //
-if (!$scheme = $C->read('permissionScheme')) {
+if (!$scheme = $allConfig['permissionScheme']) {
   $scheme = "Default";
 }
 if (isset($_GET['scheme']) && $P->schemeExists($_GET['scheme'])) {
@@ -416,11 +417,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //
 
 // Load all config values in one query for maximum performance
-$allConfig = $C->readAll();
 $viewData['pageHelp'] = $allConfig['pageHelp'];
 $viewData['showAlerts'] = $allConfig['showAlerts'];
 
-$viewData['currentScheme'] = $C->read("permissionScheme");
+$viewData['currentScheme'] = $allConfig['permissionScheme'];
 $viewData['mode'] = $mode;
 $viewData['perms'] = $perms;
 $viewData['permgroups'] = $permgroups;

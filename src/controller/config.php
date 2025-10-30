@@ -12,6 +12,7 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $appJqueryUIThemes;
 global $appLanguages;
 global $C;
@@ -43,7 +44,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //
 $alertData = array();
 $showAlert = false;
-$licExpiryWarning = $C->read('licExpiryWarning');
+$licExpiryWarning = $allConfig['licExpiryWarning'];
 $LIC = new License();
 
 // Only check license if not already checked in this session to avoid redundant API calls
@@ -135,14 +136,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       }
 
       $checkboxes = [
-          'chk_alertAutocloseDanger' => 'alertAutocloseDanger',
-          'chk_alertAutocloseSuccess' => 'alertAutocloseSuccess',
-          'chk_alertAutocloseWarning' => 'alertAutocloseWarning',
+        'chk_alertAutocloseDanger' => 'alertAutocloseDanger',
+        'chk_alertAutocloseSuccess' => 'alertAutocloseSuccess',
+        'chk_alertAutocloseWarning' => 'alertAutocloseWarning',
       ];
       foreach ($checkboxes as $postKey => $settingKey) {
-          $C->save($settingKey, (isset($_POST[$postKey]) && $_POST[$postKey]) ? "1" : "0");
+        $C->save($settingKey, (isset($_POST[$postKey]) && $_POST[$postKey]) ? "1" : "0");
       }
-      
+
       $C->save("alertAutocloseDelay", sanitize($_POST['txt_alertAutocloseDelay']));
       if (isset($_POST['chk_activateMessages']) && $_POST['chk_activateMessages']) {
         $C->save("activateMessages", "1");
@@ -583,7 +584,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //
 
 // Load all config values in one query for maximum performance
-$allConfig = $C->readAll();
 $viewData['pageHelp'] = $allConfig['pageHelp'];
 $viewData['showAlerts'] = $allConfig['showAlerts'];
 
