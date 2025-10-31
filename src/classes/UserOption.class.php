@@ -252,6 +252,33 @@ class UserOption {
 
   //---------------------------------------------------------------------------
   /**
+   * Save multiple user options in a batch
+   *
+   * @param string $username Username to find
+   * @param array $options Associative array of option=>value pairs
+   * @return boolean Query result
+   */
+  public function saveBatch(string $username, array $options): bool {
+    if (empty($options)) {
+      return true;
+    }
+
+    $placeholders = [];
+    $values = [];
+    foreach ($options as $option => $value) {
+      $placeholders[] = "(?, ?, ?)";
+      $values[] = $username;
+      $values[] = $option;
+      $values[] = $value;
+    }
+
+    $sql = "INSERT INTO " . $this->table . " (`username`, `option`, `value`) VALUES " . implode(', ', $placeholders) . " ON DUPLICATE KEY UPDATE `value` = VALUES(`value`)";
+    $query = $this->db->prepare($sql);
+    return $query->execute($values);
+  }
+
+  //---------------------------------------------------------------------------
+  /**
    * Finds the boolean or yes/no value of an option for a given user
    *
    * @param string $username Username to find

@@ -105,34 +105,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Apply |
     // '-------'
     if (isset($_POST['btn_confApply'])) {
+      $newConfig = [];
+
       //
       // General
       //
       if (filter_var($_POST['txt_appURL'], FILTER_VALIDATE_URL)) {
-        $C->save("appURL", $_POST['txt_appURL']);
+        $newConfig["appURL"] = $_POST['txt_appURL'];
       } else {
-        $C->save("appURL", "#");
+        $newConfig["appURL"] = "#";
       }
-      $C->save("appTitle", sanitize($_POST['txt_appTitle']));
-      $C->save("appDescription", sanitize($_POST['txt_appDescription']));
-      $C->save("appKeywords", sanitize($_POST['txt_appKeywords']));
+      $newConfig["appTitle"] = sanitize($_POST['txt_appTitle']);
+      $newConfig["appDescription"] = sanitize($_POST['txt_appDescription']);
+      $newConfig["appKeywords"] = sanitize($_POST['txt_appKeywords']);
       if ($_POST['sel_defaultLanguage']) {
-        $C->save("defaultLanguage", $_POST['sel_defaultLanguage']);
+        $newConfig["defaultLanguage"] = $_POST['sel_defaultLanguage'];
       } else {
-        $C->save("defaultLanguage", "english");
+        $newConfig["defaultLanguage"] = "english";
       }
       if ($_POST['sel_logLanguage']) {
-        $C->save("logLanguage", $_POST['sel_logLanguage']);
+        $newConfig["logLanguage"] = $_POST['sel_logLanguage'];
       } else {
-        $C->save("logLanguage", "english");
+        $newConfig["logLanguage"] = "english";
       }
       if ($_POST['sel_permissionScheme']) {
-        $C->save("permissionScheme", $_POST['sel_permissionScheme']);
+        $newConfig["permissionScheme"] = $_POST['sel_permissionScheme'];
       } else {
-        $C->save("permissionScheme", "Default");
+        $newConfig["permissionScheme"] = "Default";
       }
       if ($_POST['opt_showAlerts']) {
-        $C->save("showAlerts", $_POST['opt_showAlerts']);
+        $newConfig["showAlerts"] = $_POST['opt_showAlerts'];
       }
 
       $checkboxes = [
@@ -141,122 +143,122 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         'chk_alertAutocloseWarning' => 'alertAutocloseWarning',
       ];
       foreach ($checkboxes as $postKey => $settingKey) {
-        $C->save($settingKey, (isset($_POST[$postKey]) && $_POST[$postKey]) ? "1" : "0");
+        $newConfig[$settingKey] = (isset($_POST[$postKey]) && $_POST[$postKey]) ? "1" : "0";
       }
 
-      $C->save("alertAutocloseDelay", sanitize($_POST['txt_alertAutocloseDelay']));
+      $newConfig["alertAutocloseDelay"] = sanitize($_POST['txt_alertAutocloseDelay']);
       if (isset($_POST['chk_activateMessages']) && $_POST['chk_activateMessages']) {
-        $C->save("activateMessages", "1");
+        $newConfig["activateMessages"] = "1";
       } else {
-        $C->save("activateMessages", "0");
+        $newConfig["activateMessages"] = "0";
       }
       if (isset($_POST['chk_pageHelp']) && $_POST['chk_pageHelp']) {
-        $C->save("pageHelp", "1");
+        $newConfig["pageHelp"] = "1";
       } else {
-        $C->save("pageHelp", "0");
+        $newConfig["pageHelp"] = "0";
       }
       if (strlen($_POST['txt_userManual'])) {
         $myUrl = rtrim($_POST['txt_userManual'], '/') . '/'; // Ensure trailing slash
-        $C->save("userManual", urlencode($myUrl));
+        $newConfig["userManual"] = urlencode($myUrl);
       } else {
-        $C->save("userManual", '');
+        $newConfig["userManual"] = '';
       }
 
       //
       // Email
       //
       if (isset($_POST['chk_emailNotifications']) && $_POST['chk_emailNotifications']) {
-        $C->save("emailNotifications", "1");
+        $newConfig["emailNotifications"] = "1";
       } else {
-        $C->save("emailNotifications", "0");
+        $newConfig["emailNotifications"] = "0";
       }
       if (isset($_POST['chk_emailNoPastNotifications']) && $_POST['chk_emailNoPastNotifications']) {
-        $C->save("emailNoPastNotifications", "1");
+        $newConfig["emailNoPastNotifications"] = "1";
       } else {
-        $C->save("emailNoPastNotifications", "0");
+        $newConfig["emailNoPastNotifications"] = "0";
       }
-      $C->save("mailFrom", sanitize($_POST['txt_mailFrom']));
+      $newConfig["mailFrom"] = sanitize($_POST['txt_mailFrom']);
       if (validEmail($_POST['txt_mailReply'])) {
-        $C->save("mailReply", sanitize($_POST['txt_mailReply']));
+        $newConfig["mailReply"] = sanitize($_POST['txt_mailReply']);
       } else {
-        $C->save("mailReply", "noreply@teamcalneo.com");
+        $newConfig["mailReply"] = "noreply@teamcalneo.com";
       }
       if (isset($_POST['chk_mailSMTP']) && $_POST['chk_mailSMTP']) {
-        $C->save("mailSMTP", "1");
+        $newConfig["mailSMTP"] = "1";
       } else {
-        $C->save("mailSMTP", "0");
+        $newConfig["mailSMTP"] = "0";
       }
-      $C->save("mailSMTPhost", sanitize($_POST['txt_mailSMTPhost']));
-      $C->save("mailSMTPport", intval($_POST['txt_mailSMTPport']));
-      $C->save("mailSMTPusername", sanitize($_POST['txt_mailSMTPusername']));
-      $C->save("mailSMTPpassword", sanitize($_POST['txt_mailSMTPpassword']));
+      $newConfig["mailSMTPhost"] = sanitize($_POST['txt_mailSMTPhost']);
+      $newConfig["mailSMTPport"] = intval($_POST['txt_mailSMTPport']);
+      $newConfig["mailSMTPusername"] = sanitize($_POST['txt_mailSMTPusername']);
+      $newConfig["mailSMTPpassword"] = sanitize($_POST['txt_mailSMTPpassword']);
       if (isset($_POST['chk_mailSMTPSSL']) && $_POST['chk_mailSMTPSSL']) {
-        $C->save("mailSMTPSSL", "1");
+        $newConfig["mailSMTPSSL"] = "1";
       } else {
-        $C->save("mailSMTPSSL", "0");
+        $newConfig["mailSMTPSSL"] = "0";
       }
       if (isset($_POST['chk_mailSMTPAnonymous']) && $_POST['chk_mailSMTPAnonymous']) {
-        $C->save("mailSMTPAnonymous", "1");
+        $newConfig["mailSMTPAnonymous"] = "1";
       } else {
-        $C->save("mailSMTPAnonymous", "0");
+        $newConfig["mailSMTPAnonymous"] = "0";
       }
 
       //
       // Footer
       //
-      $C->save("footerCopyright", sanitize($_POST['txt_footerCopyright']));
+      $newConfig["footerCopyright"] = sanitize($_POST['txt_footerCopyright']);
       if (strlen($_POST['txt_footerCopyrightUrl']) && filter_var($_POST['txt_footerCopyrightUrl'], FILTER_VALIDATE_URL)) {
-        $C->save("footerCopyrightUrl", sanitize($_POST['txt_footerCopyrightUrl']));
+        $newConfig["footerCopyrightUrl"] = sanitize($_POST['txt_footerCopyrightUrl']);
       } else {
-        $C->save("footerCopyrightUrl", "");
+        $newConfig["footerCopyrightUrl"] = "";
       }
       if (isset($_POST['chk_footerViewport']) && $_POST['chk_footerViewport']) {
-        $C->save("footerViewport", "1");
+        $newConfig["footerViewport"] = "1";
       } else {
-        $C->save("footerViewport", "0");
+        $newConfig["footerViewport"] = "0";
       }
-      $C->save("footerSocialLinks", sanitize($_POST['txt_footerSocialLinks']));
+      $newConfig["footerSocialLinks"] = sanitize($_POST['txt_footerSocialLinks']);
 
       //
       // Homepage
       //
       if ($_POST['opt_homepage']) {
-        $C->save("homepage", $_POST['opt_homepage']);
+        $newConfig["homepage"] = $_POST['opt_homepage'];
       }
       if ($_POST['opt_defaultHomepage']) {
-        $C->save("defaultHomepage", $_POST['opt_defaultHomepage']);
+        $newConfig["defaultHomepage"] = $_POST['opt_defaultHomepage'];
       }
-      $C->save("welcomeText", sanitizeWithAllowedTags($_POST['txt_welcomeText']));
+      $newConfig["welcomeText"] = sanitizeWithAllowedTags($_POST['txt_welcomeText']);
 
       //
       // License
       //
       $LIC->saveKey(trim(sanitize($_POST['txt_licKey'])));
       if (strlen($_POST['txt_licExpiryWarning'])) {
-        $C->save("licExpiryWarning", intval(sanitize($_POST['txt_licExpiryWarning'])));
+        $newConfig["licExpiryWarning"] = intval(sanitize($_POST['txt_licExpiryWarning']));
       } else {
-        $C->save("licExpiryWarning", 0);
+        $newConfig["licExpiryWarning"] = 0;
       }
 
       //
       // Login
       //
       if ($_POST['opt_pwdStrength']) {
-        $C->save("pwdStrength", $_POST['opt_pwdStrength']);
+        $newConfig["pwdStrength"] = $_POST['opt_pwdStrength'];
       }
-      $C->save("badLogins", intval(sanitize($_POST['txt_badLogins'])));
-      $C->save("gracePeriod", intval(sanitize($_POST['txt_gracePeriod'])));
-      $C->save("cookieLifetime", intval(sanitize($_POST['txt_cookieLifetime'])));
+      $newConfig["badLogins"] = intval(sanitize($_POST['txt_badLogins']));
+      $newConfig["gracePeriod"] = intval(sanitize($_POST['txt_gracePeriod']));
+      $newConfig["cookieLifetime"] = intval(sanitize($_POST['txt_cookieLifetime']));
       if (isset($_POST['swi_disableTfa']) && $_POST['swi_disableTfa']) {
-        $C->save("disableTfa", "1");
-        $C->save("forceTfa", "0"); // With disabled 2FA, forceTfa does not make sense
+        $newConfig["disableTfa"] = "1";
+        $newConfig["forceTfa"] = "0"; // With disabled 2FA, forceTfa does not make sense
         $UO->deleteOption("secret"); // Delete 2FA secrets from the user options
       } else {
-        $C->save("disableTfa", "0");
+        $newConfig["disableTfa"] = "0";
         if (isset($_POST['swi_forceTfa']) && $_POST['swi_forceTfa']) {
-          $C->save("forceTfa", "1");
+          $newConfig["forceTfa"] = "1";
         } else {
-          $C->save("forceTfa", "0");
+          $newConfig["forceTfa"] = "0";
         }
       }
 
@@ -264,180 +266,185 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       // Registration
       //
       if (isset($_POST['chk_allowRegistration']) && $_POST['chk_allowRegistration']) {
-        $C->save("allowRegistration", "1");
+        $newConfig["allowRegistration"] = "1";
       } else {
-        $C->save("allowRegistration", "0");
+        $newConfig["allowRegistration"] = "0";
       }
       if (isset($_POST['chk_emailConfirmation']) && $_POST['chk_emailConfirmation']) {
-        $C->save("emailConfirmation", "1");
+        $newConfig["emailConfirmation"] = "1";
       } else {
-        $C->save("emailConfirmation", "0");
+        $newConfig["emailConfirmation"] = "0";
       }
       if (isset($_POST['chk_adminApproval']) && $_POST['chk_adminApproval']) {
-        $C->save("adminApproval", "1");
+        $newConfig["adminApproval"] = "1";
       } else {
-        $C->save("adminApproval", "0");
+        $newConfig["adminApproval"] = "0";
       }
 
       //
       // System
       //
       if (isset($_POST['chk_cookieConsent']) && $_POST['chk_cookieConsent']) {
-        $C->save("cookieConsent", "1");
+        $newConfig["cookieConsent"] = "1";
       } else {
-        $C->save("cookieConsent", "0");
+        $newConfig["cookieConsent"] = "0";
       }
       if (isset($_POST['chk_cookieConsentCDN']) && $_POST['chk_cookieConsentCDN']) {
-        $C->save("cookieConsentCDN", "1");
+        $newConfig["cookieConsentCDN"] = "1";
       } else {
-        $C->save("cookieConsentCDN", "0");
+        $newConfig["cookieConsentCDN"] = "0";
       }
       if (isset($_POST['chk_faCDN']) && $_POST['chk_faCDN']) {
-        $C->save("faCDN", "1");
+        $newConfig["faCDN"] = "1";
       } else {
-        $C->save("faCDN", "0");
+        $newConfig["faCDN"] = "0";
       }
       if (isset($_POST['chk_jQueryCDN']) && $_POST['chk_jQueryCDN']) {
-        $C->save("jQueryCDN", "1");
+        $newConfig["jQueryCDN"] = "1";
       } else {
-        $C->save("jQueryCDN", "0");
+        $newConfig["jQueryCDN"] = "0";
       }
       if ($_POST['sel_timeZone']) {
-        $C->save("timeZone", $_POST['sel_timeZone']);
+        $newConfig["timeZone"] = $_POST['sel_timeZone'];
       } else {
-        $C->save("timeZone", "UTC");
+        $newConfig["timeZone"] = "UTC";
       }
       if (isset($_POST['chk_googleAnalytics']) && $_POST['chk_googleAnalytics']) {
         if (preg_match('/^G-[A-Z0-9]{10,20}$/', $_POST['txt_googleAnalyticsID'])) {
-          $C->save("googleAnalytics", "1");
-          $C->save("googleAnalyticsID", $_POST['txt_googleAnalyticsID']);
+          $newConfig["googleAnalytics"] = "1";
+          $newConfig["googleAnalyticsID"] = $_POST['txt_googleAnalyticsID'];
         }
       } else {
-        $C->save("googleAnalytics", "0");
-        $C->save("googleAnalyticsID", "");
+        $newConfig["googleAnalytics"] = "0";
+        $newConfig["googleAnalyticsID"] = "";
       }
       if (isset($_POST['chk_matomoAnalytics']) && $_POST['chk_matomoAnalytics']) {
-        $C->save("matomoAnalytics", "1");
-        $C->save("matomoUrl", $_POST['txt_matomoUrl']);
-        $C->save("matomoSiteId", $_POST['txt_matomoSiteId']);
+        $newConfig["matomoAnalytics"] = "1";
+        $newConfig["matomoUrl"] = $_POST['txt_matomoUrl'];
+        $newConfig["matomoSiteId"] = $_POST['txt_matomoSiteId'];
       } else {
-        $C->save("matomoAnalytics", "0");
+        $newConfig["matomoAnalytics"] = "0";
       }
       if (isset($_POST['chk_noIndex']) && $_POST['chk_noIndex']) {
-        $C->save("noIndex", "1");
+        $newConfig["noIndex"] = "1";
       } else {
-        $C->save("noIndex", "0");
+        $newConfig["noIndex"] = "0";
       }
       if (isset($_POST['chk_noCaching']) && $_POST['chk_noCaching']) {
-        $C->save("noCaching", "1");
+        $newConfig["noCaching"] = "1";
       } else {
-        $C->save("noCaching", "0");
+        $newConfig["noCaching"] = "0";
       }
       if (isset($_POST['chk_versionCompare']) && $_POST['chk_versionCompare']) {
-        $C->save("versionCompare", "1");
+        $newConfig["versionCompare"] = "1";
       } else {
-        $C->save("versionCompare", "0");
+        $newConfig["versionCompare"] = "0";
       }
       if (isset($_POST['chk_underMaintenance']) && $_POST['chk_underMaintenance']) {
-        $C->save("underMaintenance", "1");
+        $newConfig["underMaintenance"] = "1";
       } else {
-        $C->save("underMaintenance", "0");
+        $newConfig["underMaintenance"] = "0";
       }
 
       //
       // Theme
       //
       if (isset($_POST['opt_defaultMenu'])) {
-        $C->save("defaultMenu", $_POST['opt_defaultMenu']);
+        $newConfig["defaultMenu"] = $_POST['opt_defaultMenu'];
       } else {
-        $C->save("defaultMenu", 'navbar');
+        $newConfig["defaultMenu"] = 'navbar';
       }
       if ($_POST['sel_jqtheme']) {
-        $C->save("jqtheme", $_POST['sel_jqtheme']);
+        $newConfig["jqtheme"] = $_POST['sel_jqtheme'];
       } else {
-        $C->save("jqtheme", "smoothness");
+        $newConfig["jqtheme"] = "smoothness";
       }
       if ($_POST['sel_font']) {
-        $C->save("font", $_POST['sel_font']);
+        $newConfig["font"] = $_POST['sel_font'];
       } else {
-        $C->save("font", "default");
+        $newConfig["font"] = "default";
       }
 
       //
       // User
       //
-      $C->save("userCustom1", sanitize($_POST['txt_userCustom1']));
-      $C->save("userCustom2", sanitize($_POST['txt_userCustom2']));
-      $C->save("userCustom3", sanitize($_POST['txt_userCustom3']));
-      $C->save("userCustom4", sanitize($_POST['txt_userCustom4']));
-      $C->save("userCustom5", sanitize($_POST['txt_userCustom5']));
+      $newConfig["userCustom1"] = sanitize($_POST['txt_userCustom1']);
+      $newConfig["userCustom2"] = sanitize($_POST['txt_userCustom2']);
+      $newConfig["userCustom3"] = sanitize($_POST['txt_userCustom3']);
+      $newConfig["userCustom4"] = sanitize($_POST['txt_userCustom4']);
+      $newConfig["userCustom5"] = sanitize($_POST['txt_userCustom5']);
 
       //
       // GDPR
       //
       if (isset($_POST['chk_gdprPolicyPage']) && $_POST['chk_gdprPolicyPage']) {
-        $C->save("gdprPolicyPage", "1");
+        $newConfig["gdprPolicyPage"] = "1";
       } else {
-        $C->save("gdprPolicyPage", "0");
+        $newConfig["gdprPolicyPage"] = "0";
       }
-      $C->save("gdprOrganization", sanitize($_POST['txt_gdprOrganization']));
-      $C->save("gdprController", sanitizeWithAllowedTags($_POST['txt_gdprController']));
-      $C->save("gdprOfficer", sanitizeWithAllowedTags($_POST['txt_gdprOfficer']));
+      $newConfig["gdprOrganization"] = sanitize($_POST['txt_gdprOrganization']);
+      $newConfig["gdprController"] = sanitizeWithAllowedTags($_POST['txt_gdprController']);
+      $newConfig["gdprOfficer"] = sanitizeWithAllowedTags($_POST['txt_gdprOfficer']);
       if (isset($_POST['chk_gdprFacebook']) && $_POST['chk_gdprFacebook']) {
-        $C->save("gdprFacebook", "1");
+        $newConfig["gdprFacebook"] = "1";
       } else {
-        $C->save("gdprFacebook", "0");
+        $newConfig["gdprFacebook"] = "0";
       }
       if (isset($_POST['chk_gdprGoogleAnalytics']) && $_POST['chk_gdprGoogleAnalytics']) {
-        $C->save("gdprGoogleAnalytics", "1");
+        $newConfig["gdprGoogleAnalytics"] = "1";
       } else {
-        $C->save("gdprGoogleAnalytics", "0");
+        $newConfig["gdprGoogleAnalytics"] = "0";
       }
       if (isset($_POST['chk_gdprInstagram']) && $_POST['chk_gdprInstagram']) {
-        $C->save("gdprInstagram", "1");
+        $newConfig["gdprInstagram"] = "1";
       } else {
-        $C->save("gdprInstagram", "0");
+        $newConfig["gdprInstagram"] = "0";
       }
       if (isset($_POST['chk_gdprLinkedin']) && $_POST['chk_gdprLinkedin']) {
-        $C->save("gdprLinkedin", "1");
+        $newConfig["gdprLinkedin"] = "1";
       } else {
-        $C->save("gdprLinkedin", "0");
+        $newConfig["gdprLinkedin"] = "0";
       }
       if (isset($_POST['chk_gdprPaypal']) && $_POST['chk_gdprPaypal']) {
-        $C->save("gdprPaypal", "1");
+        $newConfig["gdprPaypal"] = "1";
       } else {
-        $C->save("gdprPaypal", "0");
+        $newConfig["gdprPaypal"] = "0";
       }
       if (isset($_POST['chk_gdprPinterest']) && $_POST['chk_gdprPinterest']) {
-        $C->save("gdprPinterest", "1");
+        $newConfig["gdprPinterest"] = "1";
       } else {
-        $C->save("gdprPinterest", "0");
+        $newConfig["gdprPinterest"] = "0";
       }
       if (isset($_POST['chk_gdprSlideshare']) && $_POST['chk_gdprSlideshare']) {
-        $C->save("gdprSlideshare", "1");
+        $newConfig["gdprSlideshare"] = "1";
       } else {
-        $C->save("gdprSlideshare", "0");
+        $newConfig["gdprSlideshare"] = "0";
       }
       if (isset($_POST['chk_gdprTumblr']) && $_POST['chk_gdprTumblr']) {
-        $C->save("gdprTumblr", "1");
+        $newConfig["gdprTumblr"] = "1";
       } else {
-        $C->save("gdprTumblr", "0");
+        $newConfig["gdprTumblr"] = "0";
       }
       if (isset($_POST['chk_gdprTwitter']) && $_POST['chk_gdprTwitter']) {
-        $C->save("gdprTwitter", "1");
+        $newConfig["gdprTwitter"] = "1";
       } else {
-        $C->save("gdprTwitter", "0");
+        $newConfig["gdprTwitter"] = "0";
       }
       if (isset($_POST['chk_gdprXing']) && $_POST['chk_gdprXing']) {
-        $C->save("gdprXing", "1");
+        $newConfig["gdprXing"] = "1";
       } else {
-        $C->save("gdprXing", "0");
+        $newConfig["gdprXing"] = "0";
       }
       if (isset($_POST['chk_gdprYoutube']) && $_POST['chk_gdprYoutube']) {
-        $C->save("gdprYoutube", "1");
+        $newConfig["gdprYoutube"] = "1";
       } else {
-        $C->save("gdprYoutube", "0");
+        $newConfig["gdprYoutube"] = "0";
       }
+
+      //
+      // Save all config values in batch
+      //
+      $C->saveBatch($newConfig);
 
       //
       // Log this event

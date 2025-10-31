@@ -193,6 +193,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // '--------'
     if (isset($_POST['btn_profileUpdate'])) {
       $reloadPage = false;
+      $newUserOptions = [];
+
       //
       // Personal
       //
@@ -203,25 +205,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       } else {
         $UP->order_key = '0';
       }
-      $UO->save($profile, 'title', $_POST['txt_title']);
-      $UO->save($profile, 'position', $_POST['txt_position']);
-      $UO->save($profile, 'id', $_POST['txt_id']);
+      $newUserOptions['title'] = $_POST['txt_title'];
+      $newUserOptions['position'] = $_POST['txt_position'];
+      $newUserOptions['id'] = $_POST['txt_id'];
       if (isset($_POST['opt_gender'])) {
-        $UO->save($profile, 'gender', $_POST['opt_gender']);
+        $newUserOptions['gender'] = $_POST['opt_gender'];
       } else {
-        $UO->save($profile, 'gender', 'male');
+        $newUserOptions['gender'] = 'male';
       }
       //
       // Contact
       //
       $UP->email = $_POST['txt_email'];
-      $UO->save($profile, 'phone', $_POST['txt_phone']);
-      $UO->save($profile, 'mobile', $_POST['txt_mobilephone']);
-      $UO->save($profile, 'facebook', $_POST['txt_facebook']);
-      $UO->save($profile, 'google', $_POST['txt_google']);
-      $UO->save($profile, 'linkedin', $_POST['txt_linkedin']);
-      $UO->save($profile, 'skype', $_POST['txt_skype']);
-      $UO->save($profile, 'twitter', $_POST['txt_twitter']);
+      $newUserOptions['phone'] = $_POST['txt_phone'];
+      $newUserOptions['mobile'] = $_POST['txt_mobilephone'];
+      $newUserOptions['facebook'] = $_POST['txt_facebook'];
+      $newUserOptions['google'] = $_POST['txt_google'];
+      $newUserOptions['linkedin'] = $_POST['txt_linkedin'];
+      $newUserOptions['skype'] = $_POST['txt_skype'];
+      $newUserOptions['twitter'] = $_POST['txt_twitter'];
       //
       // Options
       //
@@ -229,14 +231,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         if ($_POST['sel_language'] != $UO->read($profile, 'language')) {
           $reloadPage = true; // New language needs a page reload later
         }
-        $UO->save($profile, "language", $_POST['sel_language']);
+        $newUserOptions["language"] = $_POST['sel_language'];
       } else {
-        $UO->save($profile, 'language', 'default');
+        $newUserOptions['language'] = 'default';
       }
       if (isset($_POST['sel_calendarMonths'])) {
-        $UO->save($profile, "calendarMonths", $_POST['sel_calendarMonths']);
+        $newUserOptions["calendarMonths"] = $_POST['sel_calendarMonths'];
       } else {
-        $UO->save($profile, 'calendarMonths', 'default');
+        $newUserOptions['calendarMonths'] = 'default';
       }
       if (isset($_POST['txt_showMonths']) && strlen($_POST['txt_showMonths'])) {
         $postValue = intval($_POST['txt_showMonths']);
@@ -245,22 +247,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         } elseif ($postValue > 12) {
           $postValue = 12;
         }
-        $UO->save($profile, "showMonths", $postValue);
+        $newUserOptions["showMonths"] = $postValue;
       } else {
-        $UO->save($profile, "showMonths", 1);
+        $newUserOptions["showMonths"] = 1;
       }
       if (isset($_POST['sel_calfilterGroup'])) {
-        $UO->save($profile, 'calfilterGroup', $_POST['sel_calfilterGroup']);
+        $newUserOptions['calfilterGroup'] = $_POST['sel_calfilterGroup'];
       }
       if (isset($_POST['sel_region'])) {
-        $UO->save($profile, "region", $_POST['sel_region']);
+        $newUserOptions["region"] = $_POST['sel_region'];
       } else {
-        $UO->save($profile, 'region', '1'); // Region "Default"
+        $newUserOptions['region'] = '1'; // Region "Default"
       }
       if (isset($_POST['opt_defaultMenu'])) {
-        $UO->save($profile, 'defaultMenu', $_POST['opt_defaultMenu']);
+        $newUserOptions['defaultMenu'] = $_POST['opt_defaultMenu'];
       } else {
-        $UO->save($profile, 'defaultMenu', 'navbar');
+        $newUserOptions['defaultMenu'] = 'navbar';
       }
       //
       // Account
@@ -288,7 +290,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
           $UP->verify = '1';
         } else {
           $UP->verify = '0';
-          $UO->save($profile, 'verifycode', '');
+          $newUserOptions['verifycode'] = '';
         }
       }
       //
@@ -334,14 +336,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       // Avatar
       //
       if (isset($_POST['opt_avatar'])) {
-        $UO->save($profile, 'avatar', $_POST['opt_avatar']);
+        $newUserOptions['avatar'] = $_POST['opt_avatar'];
       } elseif ((!$UO->read($profile, 'avatar') && ($UO->read($profile, 'gender') == 'male' || $UO->read($profile, 'gender') == 'female')) ||
         ($UO->read($profile, 'avatar') == 'default_male.png' && $UO->read($profile, 'gender') == 'female') ||
         ($UO->read($profile, 'avatar') == 'default_female.png' && $UO->read($profile, 'gender') == 'male')
       ) {
-        $UO->save($profile, 'avatar', 'default_' . $UO->read($profile, 'gender') . '.png');
+        $newUserOptions['avatar'] = 'default_' . $UO->read($profile, 'gender') . '.png';
       } elseif (!$UO->read($profile, 'avatar')) {
-        $UO->save($profile, 'avatar', 'default_male.png');
+        $newUserOptions['avatar'] = 'default_male.png';
       }
       //
       // Absences
@@ -360,45 +362,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       //
       // Notifications
       //
-      $UO->save($profile, 'notifyNone', '1');
+      $newUserOptions['notifyNone'] = '1';
       foreach ($events as $event) {
         if ($event !== 'notifyNone') {
-          $UO->save($profile, $event, '0');
+          $newUserOptions[$event] = '0';
         }
       }
       if (isset($_POST['sel_notify']) && !in_array('notifyNone', $_POST['sel_notify'])) {
-        $UO->save($profile, 'notifyNone', '0');
+        $newUserOptions['notifyNone'] = '0';
         foreach ($_POST['sel_notify'] as $notify) {
-          $UO->save($profile, $notify, '1');
+          $newUserOptions[$notify] = '1';
         }
       }
-      $UO->save($profile, 'notifyUserCalGroups', '0');
+      $newUserOptions['notifyUserCalGroups'] = '0';
       $notifygroups = '';
       if (isset($_POST['sel_notifyUserCalGroups'])) {
         foreach ($_POST['sel_notifyUserCalGroups'] as $notifyUserCalGroup) {
           $notifygroups .= $notifyUserCalGroup . ',';
         }
         $notifygroups = rtrim($notifygroups, ',');
-        $UO->save($profile, 'notifyUserCalGroups', $notifygroups);
+        $newUserOptions['notifyUserCalGroups'] = $notifygroups;
       }
       //
       // Custom
       //
       if (isset($_POST['txt_custom1'])) {
-        $UO->save($profile, 'custom1', $_POST['txt_custom1']);
+        $newUserOptions['custom1'] = $_POST['txt_custom1'];
       }
       if (isset($_POST['txt_custom2'])) {
-        $UO->save($profile, 'custom2', $_POST['txt_custom2']);
+        $newUserOptions['custom2'] = $_POST['txt_custom2'];
       }
       if (isset($_POST['txt_custom3'])) {
-        $UO->save($profile, 'custom3', $_POST['txt_custom3']);
+        $newUserOptions['custom3'] = $_POST['txt_custom3'];
       }
       if (isset($_POST['txt_custom4'])) {
-        $UO->save($profile, 'custom4', $_POST['txt_custom4']);
+        $newUserOptions['custom4'] = $_POST['txt_custom4'];
       }
       if (isset($_POST['txt_custom5'])) {
-        $UO->save($profile, 'custom5', $_POST['txt_custom5']);
+        $newUserOptions['custom5'] = $_POST['txt_custom5'];
       }
+
+      //
+      // Save all user options in batch
+      //
+      $UO->saveBatch($profile, $newUserOptions);
       //
       // 2FA
       //
