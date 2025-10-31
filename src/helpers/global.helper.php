@@ -304,6 +304,9 @@ function dateInfo(string $year, string $month, string $day = '1'): array {
   if (isset($LANG['monthnames'][$monthNum])) {
     $dateInfo['monthname'] = $LANG['monthnames'][$monthNum];
   }
+  if (isset($LANG['monthShort'][$monthNum])) {
+    $dateInfo['monthshort'] = $LANG['monthShort'][$monthNum];
+  }
 
   // Calculate month boundaries
   $dateInfo['firstOfMonth'] = $yearStr . '-' . $monthStr . '-01';
@@ -1138,38 +1141,8 @@ function getPhpInfoBootstrap(bool $useCache = true, string $theme = 'auto'): str
     return $errorMsg;
   }
 
-  // Define theme-aware color schemes using CSS custom properties and fallbacks
-  $themeStyles = [
-    'auto' => [
-      'even_bg' => 'var(--bs-gray-50, #f8f9fa)',
-      'odd_bg' => 'var(--bs-body-bg, #ffffff)',
-      'border_color' => 'var(--bs-border-color, #dee2e6)',
-      'text_color' => 'var(--bs-body-color, #212529)'
-    ],
-    'light' => [
-      'even_bg' => '#f8f9fa',
-      'odd_bg' => '#ffffff',
-      'border_color' => '#dee2e6',
-      'text_color' => '#212529'
-    ],
-    'dark' => [
-      'even_bg' => '#1a1d20',
-      'odd_bg' => '#212529',
-      'border_color' => '#495057',
-      'text_color' => '#f8f9fa'
-    ]
-  ];
-
-  $colors = $themeStyles[$theme];
-
-  // Define table theme classes based on theme
-  $tableClasses = [
-    'auto' => 'table table-bordered table-striped table-hover',
-    'light' => 'table table-bordered table-striped table-hover table-light',
-    'dark' => 'table table-bordered table-striped table-hover table-dark'
-  ];
-
-  $tableClass = $tableClasses[$theme];
+  // Use standard Bootstrap table classes - they handle theming automatically
+  $tableClass = 'table table-striped table-bordered table-hover';
 
   // Capture phpinfo output with error handling
   ob_start();
@@ -1237,12 +1210,7 @@ function getPhpInfoBootstrap(bool $useCache = true, string $theme = 'auto'): str
 
       // Add section header (except for the main phpinfo section)
       if ($sectionName !== 'phpinfo') {
-        $sectionHeaderStyle = sprintf(
-          "background-color: %s; color: %s; border-bottom: 2px solid %s;",
-          $theme === 'dark' ? '#495057' : 'var(--bs-primary, #0d6efd)',
-          $theme === 'dark' ? '#f8f9fa' : '#ffffff',
-          $colors['border_color']
-        );
+        $sectionHeaderStyle = "background-color: var(--bs-primary, #0d6efd); color: #ffffff; border-bottom: 2px solid var(--bs-border-color, #dee2e6);";
 
         $sectionHtml .= sprintf(
           "<h5 class='mt-4 mb-3 p-2 rounded' style='%s'>%s</h5>\n",
@@ -1253,9 +1221,8 @@ function getPhpInfoBootstrap(bool $useCache = true, string $theme = 'auto'): str
 
       // Start table for this section
       $sectionHtml .= sprintf(
-        "<table class='%s' data-theme='%s'>\n<tbody>\n",
-        $tableClass,
-        $theme
+        "<table class='%s'>\n<tbody>\n",
+        $tableClass
       );
 
       foreach ($section as $key => $val) {
@@ -1295,20 +1262,11 @@ function getPhpInfoBootstrap(bool $useCache = true, string $theme = 'auto'): str
     }
   }
 
-  // Wrap output in theme-aware container
-  $containerStyle = sprintf(
-    "background-color: %s; color: %s; border: 1px solid %s;",
-    $colors['odd_bg'],
-    $colors['text_color'],
-    $colors['border_color']
-  );
-
+  // Wrap output in container - let Bootstrap handle colors
   $output = empty($tableSections)
     ? '<div class="alert alert-info"><p>No phpinfo data could be parsed.</p></div>'
     : sprintf(
-      "<div class='phpinfo-container' style='%s border-radius: 0.375rem; padding: 1rem;' data-theme='%s'>\n%s</div>",
-      $containerStyle,
-      $theme,
+      "<div class='phpinfo-container' style='border-radius: 0.375rem; padding: 1rem;'>\n%s</div>",
       implode('', $tableSections)
     );
 
@@ -1321,44 +1279,30 @@ function getPhpInfoBootstrap(bool $useCache = true, string $theme = 'auto'): str
 
   $output = str_replace(array_keys($htmlFixes), array_values($htmlFixes), $output);
 
-  // Add CSS for better theme integration and table styling
-  $css = sprintf('
+  // Add minimal CSS for layout only - let Bootstrap handle colors
+  $css = '
     <style>
-      .phpinfo-container[data-theme="%s"] {
-        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-      }
-      .phpinfo-container[data-theme="%s"] .table {
+      .phpinfo-container .table {
         margin-bottom: 1.5rem;
         font-size: 0.875rem;
       }
-      .phpinfo-container[data-theme="%s"] .table td {
+      .phpinfo-container .table td {
         vertical-align: middle;
         padding: 0.5rem;
         word-wrap: break-word;
         max-width: 300px;
       }
-      .phpinfo-container[data-theme="%s"] .table .fw-bold {
+      .phpinfo-container .table .fw-bold {
         font-weight: 600;
-        background-color: rgba(var(--bs-primary-rgb, 13, 110, 253), 0.1);
       }
-      .phpinfo-container[data-theme="%s"] h5 {
+      .phpinfo-container h5 {
         font-size: 1.1rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
         margin-top: 2rem !important;
       }
-      .phpinfo-container[data-theme="%s"] h5:first-child {
+      .phpinfo-container h5:first-child {
         margin-top: 0 !important;
-      }
-      @media (prefers-color-scheme: dark) {
-        .phpinfo-container[data-theme="auto"] .table {
-          --bs-table-bg: #212529;
-          --bs-table-color: #f8f9fa;
-          --bs-table-border-color: #495057;
-        }
-        .phpinfo-container[data-theme="auto"] .table .fw-bold {
-          background-color: rgba(255, 255, 255, 0.1);
-        }
       }
       @media (max-width: 768px) {
         .phpinfo-container .table {
@@ -1370,7 +1314,7 @@ function getPhpInfoBootstrap(bool $useCache = true, string $theme = 'auto'): str
         }
       }
     </style>
-  ', $theme, $theme, $theme, $theme, $theme, $theme);
+  ';
 
   $output = $css . $output;
 
@@ -1866,314 +1810,6 @@ function readConfig(string $var = '', string $file = ''): string {
   }
 
   return $value;
-}
-
-//-----------------------------------------------------------------------------
-/**
- * Reads a PHP define() constant value from a config file with enhanced performance and error handling.
- *
- * Parses PHP config files to extract define() constant values with caching for better performance,
- * robust error handling, and improved security. Supports various define() formats and patterns.
- *
- * @param string $var The constant name to read from the config file
- * @param string $file The absolute path to the config file to scan
- * 
- * @return string The value of the defined constant, or empty string if not found/error
- * 
- * @example readDef('APP_VERSION', '/path/to/constants.php') returns '1.0.0'
- * @example readDef('DB_HOST', '/path/to/config.php') returns 'localhost'
- * @example readDef('NONEXISTENT', '/path/to/config.php') returns ''
- * 
- * @deprecated This function is legacy and only used in archived installation files.
- *            Consider using modern configuration management instead.
- */
-function readDef(string $var = '', string $file = ''): string {
-  // Static cache for performance on repeated reads
-  static $cache = [];
-  static $fileCache = [];
-
-  // Early validation
-  if (empty($var) || empty($file)) {
-    return '';
-  }
-
-  // Create cache key
-  $cacheKey = $file . '|' . $var;
-
-  // Return cached result if available
-  if (isset($cache[$cacheKey])) {
-    return $cache[$cacheKey];
-  }
-
-  // Validate file exists and is readable
-  if (!file_exists($file) || !is_readable($file)) {
-    $cache[$cacheKey] = '';
-    return '';
-  }
-
-  // Check if we've already read this file
-  $fileModTime = filemtime($file);
-  $fileCacheKey = $file . '|' . $fileModTime;
-
-  if (!isset($fileCache[$fileCacheKey])) {
-    // Read entire file content for parsing
-    $content = file_get_contents($file);
-    if ($content === false) {
-      $cache[$cacheKey] = '';
-      return '';
-    }
-
-    // Cache the file content with modification time
-    $fileCache[$fileCacheKey] = $content;
-
-    // Clean up old file cache entries to prevent memory bloat
-    if (count($fileCache) > 10) {
-      $fileCache = array_slice($fileCache, -5, null, true);
-    }
-  } else {
-    $content = $fileCache[$fileCacheKey];
-  }
-
-  // Enhanced parsing with multiple patterns for different define() formats
-  $patterns = [
-    // Standard define format: define('CONSTANT', 'value');
-    '/define\s*\(\s*[\'"]' . preg_quote($var, '/') . '[\'"]\s*,\s*[\'"]([^\'"]*)[\'"]\s*\)/m',
-
-    // Alternative with different quotes: define("CONSTANT", "value");
-    '/define\s*\(\s*[\'"]' . preg_quote($var, '/') . '[\'"]\s*,\s*[\'"]([^\'"]*)[\'"]\s*\)/m',
-
-    // With boolean values: define('CONSTANT', true);
-    '/define\s*\(\s*[\'"]' . preg_quote($var, '/') . '[\'"]\s*,\s*(true|false|null)\s*\)/mi',
-
-    // With numeric values: define('CONSTANT', 123);
-    '/define\s*\(\s*[\'"]' . preg_quote($var, '/') . '[\'"]\s*,\s*(\d+(?:\.\d+)?)\s*\)/m',
-
-    // With unquoted string values (less common): define('CONSTANT', value);
-    '/define\s*\(\s*[\'"]' . preg_quote($var, '/') . '[\'"]\s*,\s*([^,\)]+)\s*\)/m'
-  ];
-
-  $value = '';
-
-  // Try each pattern until we find a match
-  foreach ($patterns as $pattern) {
-    if (preg_match($pattern, $content, $matches)) {
-      $rawValue = isset($matches[1]) ? trim($matches[1]) : '';
-
-      // Handle different value types
-      if (strtolower($rawValue) === 'true') {
-        $value = '1';
-      } elseif (strtolower($rawValue) === 'false') {
-        $value = '0';
-      } elseif (strtolower($rawValue) === 'null') {
-        $value = '';
-      } else {
-        $value = $rawValue;
-      }
-      break;
-    }
-  }
-
-  // Additional fallback for the specific format from original function
-  // Looking for lines where the variable appears at position 7 (define format)
-  if (empty($value)) {
-    $lines = explode("\n", $content);
-    foreach ($lines as $line) {
-      $trimmedLine = trim($line);
-      if (strpos($trimmedLine, "'" . $var . "'") === 7) {
-        $pos1 = strpos($trimmedLine, '"');
-        $pos2 = strrpos($trimmedLine, '"');
-        if ($pos1 !== false && $pos2 !== false && $pos2 > $pos1) {
-          $value = trim(substr($trimmedLine, $pos1 + 1, $pos2 - ($pos1 + 1)));
-          break;
-        }
-      }
-    }
-  }
-
-  // Sanitize the extracted value
-  $value = htmlspecialchars_decode($value, ENT_QUOTES);
-
-  // Cache the result
-  $cache[$cacheKey] = $value;
-
-  // Clean up cache if it gets too large
-  if (count($cache) > 100) {
-    $cache = array_slice($cache, -50, null, true);
-  }
-
-  return $value;
-}
-
-//-----------------------------------------------------------------------------
-/**
- * Converts a comma-separated string of RGB decimal values to a hex color value
- * 
- * Features:
- * - Input validation with RGB value range checking (0-255)
- * - Static caching for improved performance (up to 10x faster on repeated calls)
- * - Support for various input formats (spaces, tabs, mixed separators)
- * - Proper error handling with fallback to black color
- * - Memory-efficient hex conversion using sprintf
- * - Comprehensive input sanitization
- * 
- * @param string $color Comma-separated RGB values (e.g., "255,128,0" or "255, 128, 0")
- * @param bool $hashPrefix Whether to include '#' prefix in the result
- * 
- * @return string Hex color value (e.g., "#ff8000" or "ff8000")
- * 
- * @since 1.0.0
- * @deprecated Consider using modern CSS color functions or color libraries for new projects
- * 
- * Examples:
- * - rgb2hex("255,0,0") returns "#ff0000"
- * - rgb2hex("128, 128, 128", false) returns "808080"
- * - rgb2hex("300,50,75") returns "#000000" (invalid input, fallback to black)
- */
-function rgb2hex(string $color, bool $hashPrefix = true): string {
-  // Input validation
-  if (empty($color)) {
-    return $hashPrefix ? '#000000' : '000000';
-  }
-
-  // Create cache key
-  $cacheKey = $color . '|' . ($hashPrefix ? '1' : '0');
-  static $cache = [];
-  static $cacheSize = 0;
-
-  // Return cached result if available
-  if (isset($cache[$cacheKey])) {
-    return $cache[$cacheKey];
-  }
-
-  // Limit cache size to prevent memory issues
-  if ($cacheSize >= 1000) {
-    $cache = array_slice($cache, 500, null, true);
-    $cacheSize = 500;
-  }
-
-  // Normalize input - handle various separators and whitespace
-  $normalizedColor = preg_replace('/[,\s\t]+/', ',', trim($color));
-  $rgbArray = explode(',', $normalizedColor);
-
-  // Validate RGB array length
-  if (count($rgbArray) !== 3) {
-    $result = $hashPrefix ? '#000000' : '000000';
-    $cache[$cacheKey] = $result;
-    $cacheSize++;
-    return $result;
-  }
-
-  // Validate and sanitize RGB values
-  $validRgb = [];
-  foreach ($rgbArray as $value) {
-    $value = trim($value);
-
-    // Check if value is numeric
-    if (!is_numeric($value)) {
-      $result = $hashPrefix ? '#000000' : '000000';
-      $cache[$cacheKey] = $result;
-      $cacheSize++;
-      return $result;
-    }
-
-    // Convert to integer and clamp to valid RGB range (0-255)
-    $intValue = (int)$value;
-    $validRgb[] = max(0, min(255, $intValue));
-  }
-
-  // Convert RGB to hex efficiently
-  $hex = $hashPrefix ? '#' : '';
-  foreach ($validRgb as $dec) {
-    $hex .= sprintf('%02x', $dec);
-  }
-
-  // Cache and return result
-  $cache[$cacheKey] = $hex;
-  $cacheSize++;
-
-  return $hex;
-}
-
-//-----------------------------------------------------------------------------
-/**
- * Capitalizes the first letter of a word and makes the rest lowercase (proper case)
- * 
- * Features:
- * - Static caching for improved performance (up to 10x faster on repeated calls)
- * - Unicode-aware string handling for international characters
- * - Input validation with empty string handling
- * - Memory-efficient processing using built-in PHP functions
- * - Support for multibyte character encoding
- * - Whitespace trimming and normalization
- * 
- * @param string $string String to convert to proper case
- * 
- * @return string String with first letter capitalized and rest lowercase
- * 
- * @since 1.0.0
- * @deprecated Consider using mb_convert_case() with MB_CASE_TITLE for better Unicode support
- * 
- * Examples:
- * - proper("hello") returns "Hello"
- * - proper("WORLD") returns "World"
- * - proper("  test  ") returns "Test"
- * - proper("") returns ""
- */
-function proper(string $string): string {
-  // Handle empty strings
-  if (empty($string)) {
-    return '';
-  }
-
-  // Trim whitespace for consistent caching
-  $trimmedString = trim($string);
-  if (empty($trimmedString)) {
-    return '';
-  }
-
-  // Static cache for performance
-  static $cache = [];
-  static $cacheSize = 0;
-
-  // Return cached result if available
-  if (isset($cache[$trimmedString])) {
-    return $cache[$trimmedString];
-  }
-
-  // Limit cache size to prevent memory issues
-  if ($cacheSize >= 1000) {
-    $cache = array_slice($cache, 500, null, true);
-    $cacheSize = 500;
-  }
-
-  // Check if multibyte string functions are available for better Unicode support
-  if (function_exists('mb_strtolower') && function_exists('mb_strtoupper') && function_exists('mb_substr')) {
-    $encoding = mb_detect_encoding($trimmedString, 'UTF-8, ISO-8859-1', true) ?: 'UTF-8';
-
-    // Convert to lowercase
-    $lower = mb_strtolower($trimmedString, $encoding);
-
-    // Capitalize first character
-    $firstChar = mb_substr($lower, 0, 1, $encoding);
-    $restOfString = mb_substr($lower, 1, null, $encoding);
-    $result = mb_strtoupper($firstChar, $encoding) . $restOfString;
-  } else {
-    // Fallback to standard PHP functions for ASCII strings
-    $lower = strtolower($trimmedString);
-
-    // More efficient than substr_replace for this specific case
-    if (strlen($lower) === 1) {
-      $result = strtoupper($lower);
-    } else {
-      $result = strtoupper($lower[0]) . substr($lower, 1);
-    }
-  }
-
-  // Cache and return result
-  $cache[$trimmedString] = $result;
-  $cacheSize++;
-
-  return $result;
 }
 
 //-----------------------------------------------------------------------------

@@ -52,6 +52,7 @@ $LANG['log_hol_deleted'] = 'Feiertag gelöscht: ';
 $LANG['log_imp_success'] = 'CSV Import: ';
 $LANG['log_log_updated'] = 'Logbucheinstellungen aktualisiert';
 $LANG['log_log_cleared'] = 'Logbuch geleert';
+$LANG['log_log_reset'] = 'Logbucheinstellungen zurückgesetzt';
 $LANG['log_login_2fa'] = 'Falscher Authentifizierungscode';
 $LANG['log_login_success'] = 'Login erfolgreich';
 $LANG['log_login_missing'] = 'Benutzername oder Passwort nicht angegeben';

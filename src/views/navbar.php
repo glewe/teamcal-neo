@@ -39,7 +39,7 @@ view.navbar
                   <span class="menu-icon">
                     <i class="bi-translate"></i>
                   </span>
-                  <?= proper($appLang) ?>
+                  <?= ucwords($appLang) ?>
                   <?php if ($appLang === $language) { ?>
                     <i class="fa fa-check ms-2 text-success"></i>
                   <?php } ?>

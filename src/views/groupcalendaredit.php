@@ -17,8 +17,8 @@ view.groupcalendaredit
 
   <?php
   if (
-    ($showAlert && $C->read("showAlerts") != "none") &&
-    ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+    ($showAlert && $viewData['showAlerts'] != "none") &&
+    ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
   ) {
     echo createAlertBox($alertData);
   }
@@ -70,7 +70,7 @@ view.groupcalendaredit
     <div class="card">
       <?php
       $pageHelp = '';
-      if ($C->read('pageHelp')) {
+      if ($viewData['pageHelp']) {
         $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
       }
       ?>
@@ -179,14 +179,14 @@ view.groupcalendaredit
                    * This is an absence. Get the coloring info.
                    */
                   $style = ' style="color: #' . $A->getColor($abs) . '; background-color: #' . $A->getBgColor($abs) . ';';
-                  if ($C->read('symbolAsIcon')) {
+                  if ($allConfig['symbolAsIcon']) {
                     $icon = $A->getSymbol($abs);
                   } else {
                     $icon = '<span class="' . $A->getIcon($abs) . '"></span>';
                   }
                   $loopDate = date('Y-m-d', mktime(0, 0, 0, $viewData['month'], $i, $viewData['year']));
                   if ($loopDate == $currDate) {
-                    $style .= 'border-left: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';border-right: ' . $C->read("todayBorderSize") . 'px solid #' . $C->read("todayBorderColor") . ';';
+                    $style .= 'border-left: ' . $allConfig['todayBorderSize'] . 'px solid #' . $allConfig['todayBorderColor'] . ';border-right: ' . $allConfig['todayBorderSize'] . 'px solid #' . $allConfig['todayBorderColor'] . ';';
                   }
                   $style .= '"';
                 }

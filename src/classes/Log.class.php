@@ -116,4 +116,53 @@ class Log {
     }
     return false;
   }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Generates test log records with random data
+   *
+   * @param int $count Number of test records to create
+   * @return boolean Query result
+   */
+  public function generateTestLogs(int $count): bool {
+    $logTypes = ['logLogin', 'logUser', 'logCalendar', 'logConfig', 'logDatabase', 'logGroup', 'logImport', 'logLog', 'logMessage', 'logMonth', 'logMessage', 'logPermission', 'logRegion', 'logRegistration', 'logRole', 'logUpload'];
+    $users = ['admin', 'ccarl', 'dduck', 'einstein', 'sgonzales', 'phead', 'blightyear', 'mmouse', 'sman', 'mimouse'];
+    $messages = [
+      'User logged in',
+      'User logged out',
+      'Calendar updated',
+      'Configuration changed',
+      'Database operation',
+      'Group modified',
+      'Import completed',
+      'Log accessed',
+      'Message sent',
+      'Month view accessed',
+      'News posted',
+      'Permission changed',
+      'Region updated',
+      'User registered',
+      'Role assigned',
+      'File uploaded'
+    ];
+
+    for ($i = 0; $i < $count; $i++) {
+      $type = $logTypes[array_rand($logTypes)];
+      $timestamp = date("YmdHis", strtotime('-' . rand(0, 365) . ' days'));
+      $ip = rand(1, 255) . '.' . rand(0, 255) . '.' . rand(0, 255) . '.' . rand(0, 255);
+      $user = $users[array_rand($users)];
+      $event = $messages[array_rand($messages)];
+
+      $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (type, timestamp, ip, user, event) VALUES (:type, :timestamp, :ip, :user, :event)');
+      $query->bindParam(':type', $type);
+      $query->bindParam(':timestamp', $timestamp);
+      $query->bindParam(':ip', $ip);
+      $query->bindParam(':user', $user);
+      $query->bindParam(':event', $event);
+      if (!$query->execute()) {
+        return false;
+      }
+    }
+    return true;
+  }
 }

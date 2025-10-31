@@ -18,8 +18,8 @@ view.attachments
   <div class="col-lg-12">
     <?php
     if (
-      ($showAlert && $C->read("showAlerts") != "none") &&
-      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+      ($showAlert && $viewData['showAlerts'] != "none") &&
+      ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
     }
@@ -34,7 +34,7 @@ view.attachments
       <div class="card">
         <?php
         $pageHelp = '';
-        if ($C->read('pageHelp')) {
+        if ($viewData['pageHelp']) {
           $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
         }
         ?>
@@ -89,11 +89,7 @@ view.attachments
                           <select class="form-select" name="sel_shares<?= $file['fid'] ?>[]" multiple="multiple" size="10" tabindex="<?= ++$tabindex ?>" <?= (!$isOwner) ? "disabled" : ""; ?>>
                             <?php
                             foreach ($viewData['users'] as $user) {
-                              if ($user['firstname'] != "") {
-                                $showname = $user['lastname'] . ", " . $user['firstname'];
-                              } else {
-                                $showname = $user['lastname'];
-                              }
+                              $showname = (!empty($user['firstname'])) ? $user['lastname'] . ", " . $user['firstname'] : $user['lastname'];
                               ?>
                               <option class="option" value="<?= $user['username'] ?>" <?= ($file['access'][$user['username']]) ? "selected" : ""; ?>><?= $showname ?></option>
                             <?php } ?>
@@ -151,7 +147,7 @@ view.attachments
                       <div class="form-check mt-2"><label><input class="form-check-input" name="opt_shareWith" value="role" tabindex="<?= ++$tabindex ?>" <?= ($viewData['shareWith'] == 'role') ? "checked" : ""; ?> type="radio"><?= $LANG['att_shareWith_role'] ?></label></div>
                       <select class="form-select" name="sel_shareWithRole[]" multiple="multiple" size="5" tabindex="<?= ++$tabindex ?>">
                         <?php foreach ($viewData['roles'] as $role) { ?>
-                          <option value="<?= $role['id'] ?>" <?= (in_array($group, $viewData['shareWithRole'])) ? "selected" : ""; ?>><?= $role['name'] ?></option>
+                          <option value="<?= $role['id'] ?>" <?= (in_array($role['id'], $viewData['shareWithRole'])) ? "selected" : ""; ?>><?= $role['name'] ?></option>
                         <?php } ?>
                       </select>
 
@@ -159,11 +155,7 @@ view.attachments
                       <select class="form-select" name="sel_shareWithUser[]" multiple="multiple" size="5" tabindex="<?= ++$tabindex ?>">
                         <?php
                         foreach ($viewData['users'] as $user) {
-                          if ($user['firstname'] != "") {
-                            $showname = $user['lastname'] . ", " . $user['firstname'];
-                          } else {
-                            $showname = $user['lastname'];
-                          }
+                          $showname = (!empty($user['firstname'])) ? $user['lastname'] . ", " . $user['firstname'] : $user['lastname'];
                           ?>
                           <option class="option" value="<?= $user['username'] ?>" <?= (in_array($user['username'], $viewData['shareWithUser'])) ? "selected" : ""; ?>><?= $showname ?></option>
                         <?php } ?>

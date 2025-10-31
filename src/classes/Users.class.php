@@ -398,26 +398,19 @@ class Users {
    * @return array Array with records
    */
   public function getAllLike(string $like, bool $archive = false): array {
-    $records = array();
-    if ($archive) {
-      $table = $this->archive_table;
-    } else {
-      $table = $this->table;
-    }
-    $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE firstname LIKE :val1 OR lastname LIKE :val2 OR username LIKE :val3 ORDER BY lastname ASC, firstname ASC');
-    $val = '%' . $like . '%';
-    $query->bindParam('val1', $val);
-    $query->bindParam('val2', $val);
-    $query->bindParam('val3', $val);
-    $result = $query->execute();
-    if ($result) {
-      while ($row = $query->fetch()) {
-        if ($row['username'] != 'admin') {
-          $records[] = $row;
-        }
-      }
-    }
-    return $records;
+    $table = $archive ? $this->archive_table : $this->table;
+    $searchTerm = '%' . $like . '%';
+    
+    $query = $this->db->prepare(
+      'SELECT * FROM ' . $table . '
+       WHERE (firstname LIKE :search OR lastname LIKE :search OR username LIKE :search)
+       AND username != "admin"
+       ORDER BY lastname ASC, firstname ASC'
+    );
+    $query->bindParam(':search', $searchTerm);
+    $query->execute();
+    
+    return $query->fetchAll(PDO::FETCH_ASSOC);
   }
 
   //---------------------------------------------------------------------------
@@ -623,6 +616,19 @@ class Users {
 
   //---------------------------------------------------------------------------
   /**
+   * Activates a user by setting hidden, onhold, locked, verify to 0
+   *
+   * @param string $username Username of record to update
+   * @return boolean Query result
+   */
+  public function activate(string $username): bool {
+    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET hidden = 0, onhold = 0, locked = 0, verify = 0 WHERE username = :username');
+    $query->bindParam(':username', $username);
+    return $query->execute();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
    * Unhides a user record
    *
    * @param string $username Username of record to update
@@ -668,7 +674,7 @@ class Users {
 
   //---------------------------------------------------------------------------
   /**
-   * Unverifies a user record (Sets verify to 0)
+   * Unverifies a user record
    *
    * @param string $username Username of record to update
    * @return boolean Query result

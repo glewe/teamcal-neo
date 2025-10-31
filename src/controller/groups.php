@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Groups Controller
  *
@@ -9,6 +12,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -40,7 +44,7 @@ $weekday = $date->format('N');
 if ($weekday == rand(1, 7)) {
   $alertData = array();
   $showAlert = false;
-  $licExpiryWarning = $C->read('licExpiryWarning');
+  $licExpiryWarning = $allConfig['licExpiryWarning'];
   $LIC = new License();
   $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 }
@@ -116,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         //
         // Send notification e-mails to the subscribers of group events
         //
-        if ($C->read("emailNotifications")) {
+        if ($allConfig['emailNotifications']) {
           sendGroupEventNotifications("created", $G->name, $G->description);
         }
 
@@ -157,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       //
       // Send notification e-mails to the subscribers of group events
       //
-      if ($C->read("emailNotifications")) {
+      if ($allConfig['emailNotifications']) {
         sendGroupEventNotifications("deleted", $_POST['hidden_name'], $_POST['hidden_description']);
       }
 
@@ -193,10 +197,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 // PREPARE VIEW
 //
 
+// Load all config values in one query for maximum performance
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+
 //
 // Default: Get all groups
 //
-$viewData['groups'] = $G->getAll();
+$viewData['groups'] = $G->getAllCached();
 $viewData['searchGroup'] = '';
 
 if (!isAllowed($CONF['controllers'][$controller]->permission) && $UG->isGroupManager($UL->username)) {
@@ -216,7 +224,11 @@ if (isset($_POST['btn_search'])) {
   if (isset($_POST['txt_searchGroup'])) {
     $searchGroup = sanitize($_POST['txt_searchGroup']);
     $viewData['searchGroup'] = $searchGroup;
-    $viewData['groups'] = $G->getAllLike($searchGroup);
+    $viewData['groups'] = $G->getAllCached(); // Filter in PHP for search, or implement cached search
+    $searchGroup = strtolower($searchGroup);
+    $viewData['groups'] = array_filter($viewData['groups'], function($group) use ($searchGroup) {
+        return stripos($group['name'], $searchGroup) !== false || stripos($group['description'], $searchGroup) !== false;
+    });
   }
 }
 

@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Login 2FA Controller
  * Handles the second step of login for users with 2FA enabled.
@@ -10,6 +13,7 @@
  * @package   TeamCal Neo
  * @since     4.3.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -22,6 +26,8 @@ global $UO;
 
 use RobThree\Auth\TwoFactorAuth;
 
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 $tfa = new TwoFactorAuth('TeamCal Neo');
 
 $showAlert = false;
@@ -84,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       if (count($popups)) {
         header('Location: index.php?action=messages');
       } else {
-        header('Location: index.php?action=' . $C->read('homepage'));
+        header('Location: index.php?action=' . $allConfig['homepage']);
       }
       exit;
     } else {

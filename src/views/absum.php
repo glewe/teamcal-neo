@@ -24,7 +24,7 @@ view.absum
 
     <div class="page-menu">
       <button type="button" class="btn btn-success" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalSelectUser"><?= $LANG['user'] ?> <span class="badge text-bg-light"><?= $viewData['fullname'] ?></span></button>
-      <?php if (!$C->read('currentYearOnly')) { ?>
+      <?php if (!$viewData['currentYearOnly']) { ?>
         <button type="button" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalYear"><?= $LANG['year'] ?> <span class="badge text-bg-light"><?= $viewData['year'] ?></span></button>
       <?php } ?>
     </div>
@@ -33,7 +33,7 @@ view.absum
     <div class="card">
       <?php
       $pageHelp = '';
-      if ($C->read('pageHelp')) {
+      if ($viewData['pageHelp']) {
         $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
       }
       ?>

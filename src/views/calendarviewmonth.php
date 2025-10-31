@@ -13,7 +13,13 @@
 <!-- ====================================================================
 view.calendarviewmonth (<?= $viewData['year'] . $viewData['month'] ?>)
 -->
-<?php if (!$viewData['supportMobile']) {
+<?php
+//
+// Check if this month entry is a split month view
+//
+$isSplitMonth = isset($viewData['isSplitMonth']) && $viewData['isSplitMonth'];
+
+if (!$viewData['supportMobile']) {
   $mobilecols = array( 'full' => $viewData['dateInfo']['daysInMonth'] );
 } else {
   switch ($viewData['width']) {
@@ -48,16 +54,35 @@ view.calendarviewmonth (<?= $viewData['year'] . $viewData['month'] ?>)
 }
 
 foreach ($mobilecols as $key => $cols) {
-  $days = $viewData['dateInfo']['daysInMonth'];
-  $tables = ceil($days / $cols);
+  //
+  // Check if this is a split month view with custom day range
+  //
+  $dayRangeStart = isset($viewData['dayStart']) ? $viewData['dayStart'] : 1;
+  $dayRangeEnd = isset($viewData['dayEnd']) ? $viewData['dayEnd'] : $viewData['dateInfo']['daysInMonth'];
+  
+  //
+  // For split month view, we need to handle the combined display differently
+  //
+  if ($isSplitMonth) {
+    $days = 30;  // 15 days from current month + 15 days from next month
+    $daystart = $dayRangeStart;
+    $dayend = $dayRangeEnd;
+    $tables = 1;  // Only one table for split month
+  } else {
+    $days = ($dayRangeEnd - $dayRangeStart) + 1;
+    $tables = ceil($days / $cols);
+  }
+  
   $script = '';
   for ($t = 0; $t < $tables; $t++) {
-    $daystart = ($t * $cols) + 1;
-    $daysleft = $days - ($cols * $t);
-    if ($daysleft >= $cols) {
-      $dayend = $daystart + ($cols - 1);
-    } else {
-      $dayend = $days;
+    if (!$isSplitMonth) {
+      $daystart = ($t * $cols) + $dayRangeStart;
+      $daysleft = $days - ($cols * $t);
+      if ($daysleft >= $cols) {
+        $dayend = $daystart + ($cols - 1);
+      } else {
+        $dayend = $dayRangeEnd;
+      }
     }
     ?>
     <div class="table<?= ($viewData['supportMobile']) ? $key : ''; ?>">
@@ -65,19 +90,20 @@ foreach ($mobilecols as $key => $cols) {
         <?php require "calendarviewmonthheader.php"; ?>
         <!-- Rows 4ff: Users -->
         <?php
-        $dayAbsCount = array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
-        $dayPresCount = array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
+        // Initialize arrays for all possible days (31 for regular month + 15 for next month in split view = 46 total)
+        $dayAbsCount = array_fill(0, 46, 0);
+        $dayPresCount = array_fill(0, 46, 0);
         //
         // Array to hold the users of which we have counted the absences in calendarviewuserrow.php
         // If a user is in several groups and shown more than once on the calendar page
         // we do not want to count his absences twice.
         //
         $absCountUsers = array();
-        if ($C->read("defgroupfilter") == "allbygroup") {
+        if ($viewData['defgroupfilter'] == "allbygroup") {
           //
           // All-by-Group Display
           //
-          $repeatHeaderCount = $C->read("repeatHeaderCount");
+          $repeatHeaderCount = $allConfig["repeatHeaderCount"];
           if ($repeatHeaderCount) {
             $rowcount = 1;
           }
@@ -108,7 +134,7 @@ foreach ($mobilecols as $key => $cols) {
                 //
                 // Skip if user is group manager and hideManagers is enabled
                 //
-                if ($C->read('hideManagers') && $UG->isGroupManagerOfGroup($usr['username'], $grp['id'])) {
+                if ($viewData['hideManagers'] && $UG->isGroupManagerOfGroup($usr['username'], $grp['id'])) {
                   continue;
                 }
                 ?>
@@ -143,7 +169,7 @@ foreach ($mobilecols as $key => $cols) {
             }
           }
         } else {
-          $repeatHeaderCount = $C->read("repeatHeaderCount");
+          $repeatHeaderCount = $viewData['repeatHeaderCount'];
           if ($repeatHeaderCount) {
             $rowcount = 1;
           }
@@ -160,50 +186,111 @@ foreach ($mobilecols as $key => $cols) {
           }
         } // End if AllByGroup
         ?>
-        <?php if ($C->read('includeSummary')) { ?>
+        <?php if ($viewData['includeSummary']) { ?>
           <!-- Row: Summary Header -->
           <tr>
-            <td class="m-label" colspan="<?= $dayend - $daystart + 2 ?>">
-              <span style="float: left;"><?= $LANG['cal_summary'] ?>&nbsp;<a class="btn btn-secondary btn-sm" data-bs-toggle="collapse" data-bs-target=".summary">...</a></span>
+            <td class="m-label" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target=".summary" aria-expanded="<?= $viewData['showSummary'] ? 'true' : 'false' ?>">
+              <i class="bi-caret-right-fill" style="display: inline-block; width: 1em; transition: transform 0.3s;"></i>&nbsp;<?= $LANG['cal_summary'] ?>
+            </td>
+            <td class="m-label" colspan="<?= $isSplitMonth ? 15 : ($dayend - $daystart + 1) ?>" style="vertical-align: middle; <?= $isSplitMonth ? 'border-right: 2px solid #000;' : '' ?>">
               <span class="float-end text-normal"><?= $viewData['businessDays'] ?>&nbsp;<?= $LANG['cal_businessDays'] ?></span>
             </td>
+            <?php if ($isSplitMonth) { ?>
+            <td class="m-label" colspan="15" style="vertical-align: middle;">
+              <span class="float-end text-normal"><?= isset($viewData['nextMonthBusinessDays']) ? $viewData['nextMonthBusinessDays'] : 0 ?>&nbsp;<?= $LANG['cal_businessDays'] ?></span>
+            </td>
+            <?php } ?>
           </tr>
           <!-- Row: Summary Absences -->
-          <tr class="summary <?= (!$C->read('showSummary')) ? 'collapse' : 'in'; ?>">
+          <tr class="summary collapse <?= ($viewData['showSummary']) ? 'show' : ''; ?>">
             <td class="m-name"><?= $LANG['sum_absent'] ?></td>
-            <?php for ($i = $daystart; $i <= $dayend; $i++) {
-              $style = $viewData['dayStyles'][$i];
-              if (strlen($style)) {
-                $style = ' style="' . $style . '"';
-              }
-              ?>
-              <td class="m-day m-summary text-center td-summary-absence" <?= $style ?>><?= $dayAbsCount[$i] ?></td>
-            <?php } ?>
+            <?php
+            if ($isSplitMonth) {
+              // In split month view, show days 17-31 of current month + days 1-15 of next month
+              for ($i = 17; $i <= 31; $i++) {
+                $style = $viewData['dayStyles'][$i] ?? '';
+                // Add right border to last day of current month (day 31)
+                if ($i == 31) {
+                  $style .= 'border-right: 2px solid #000;';
+                }
+                if (strlen($style)) {
+                  $style = ' style="' . $style . '"';
+                }
+                ?>
+                <td class="m-day m-summary text-center td-summary-absence" <?= $style ?>><?= $dayAbsCount[$i] ?></td>
+              <?php }
+              for ($i = 1; $i <= 15; $i++) {
+                $styleKey = 'next_' . $i;
+                $style = $viewData['dayStyles'][$styleKey] ?? '';
+                if (strlen($style)) {
+                  $style = ' style="' . $style . '"';
+                }
+                ?>
+                <td class="m-day m-summary text-center td-summary-absence" <?= $style ?>><?= $dayAbsCount[$i + 15] ?></td>
+              <?php }
+            } else {
+              // Regular month view
+              for ($i = $daystart; $i <= $dayend; $i++) {
+                $style = $viewData['dayStyles'][$i] ?? '';
+                if (strlen($style)) {
+                  $style = ' style="' . $style . '"';
+                }
+                ?>
+                <td class="m-day m-summary text-center td-summary-absence" <?= $style ?>><?= $dayAbsCount[$i] ?></td>
+              <?php }
+            } ?>
           </tr>
           <!-- Row: Summary Presences -->
-          <tr class="summary <?= (!$C->read('showSummary')) ? 'collapse' : 'in'; ?>">
+          <tr class="summary collapse <?= ($viewData['showSummary']) ? 'show' : ''; ?>">
             <td class="m-name"><?= $LANG['sum_present'] ?></td>
-            <?php for ($i = $daystart; $i <= $dayend; $i++) {
-              $style = $viewData['dayStyles'][$i];
-              if (strlen($style)) {
-                $style = ' style="' . $style . '"';
-              }
-              ?>
-              <td class="m-day m-summary text-center td-summary-presence" <?= $style ?>><?= $dayPresCount[$i] ?></td>
-            <?php } ?>
+            <?php
+            if ($isSplitMonth) {
+              // In split month view, show days 17-31 of current month + days 1-15 of next month
+              for ($i = 17; $i <= 31; $i++) {
+                $style = $viewData['dayStyles'][$i] ?? '';
+                // Add right border to last day of current month (day 31)
+                if ($i == 31) {
+                  $style .= 'border-right: 2px solid #000;';
+                }
+                if (strlen($style)) {
+                  $style = ' style="' . $style . '"';
+                }
+                ?>
+                <td class="m-day m-summary text-center td-summary-presence" <?= $style ?>><?= $dayPresCount[$i] ?></td>
+              <?php }
+              for ($i = 1; $i <= 15; $i++) {
+                $styleKey = 'next_' . $i;
+                $style = $viewData['dayStyles'][$styleKey] ?? '';
+                if (strlen($style)) {
+                  $style = ' style="' . $style . '"';
+                }
+                ?>
+                <td class="m-day m-summary text-center td-summary-presence" <?= $style ?>><?= $dayPresCount[$i + 15] ?></td>
+              <?php }
+            } else {
+              // Regular month view
+              for ($i = $daystart; $i <= $dayend; $i++) {
+                $style = $viewData['dayStyles'][$i] ?? '';
+                if (strlen($style)) {
+                  $style = ' style="' . $style . '"';
+                }
+                ?>
+                <td class="m-day m-summary text-center td-summary-presence" <?= $style ?>><?= $dayPresCount[$i] ?></td>
+              <?php }
+            } ?>
           </tr>
         <?php } ?>
       </table>
     </div>
-    <?php if ($C->read('summaryAbsenceTextColor') || $C->read('summaryPresenceTextColor')) { ?>
+    <?php if ($viewData['summaryAbsenceTextColor'] || $viewData['summaryPresenceTextColor']) { ?>
       <script>
         document.addEventListener("DOMContentLoaded", function() {
-          var absenceTextColor = "#<?= $C->read('summaryAbsenceTextColor') ?>";
+          var absenceTextColor = "#<?= $viewData['summaryAbsenceTextColor'] ?>";
           var elements = document.getElementsByClassName("td-summary-absence");
           for (var i = 0; i < elements.length; i++) {
             elements[i].style.color = absenceTextColor;
           }
-          var presenceTextColor = "#<?= $C->read('summaryPresenceTextColor') ?>";
+          var presenceTextColor = "#<?= $viewData['summaryPresenceTextColor'] ?>";
           elements = document.getElementsByClassName("td-summary-presence");
           for (var i = 0; i < elements.length; i++) {
             elements[i].style.color = presenceTextColor;

@@ -2,6 +2,8 @@
   "require": {
     "robthree/twofactorauth": "^2.0",
     "ext-ctype": "*",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "phpmailer/phpmailer": "^7.0",
+    "matthiasmullie/minify": "^1.3"
   }
 }

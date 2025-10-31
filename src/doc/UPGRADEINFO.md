@@ -1,0 +1,425 @@
+# TeamCal Neo Upgrade Information
+
+## [4.2.0] -> [4.3.1]
+
+1. Backup your current files and database!
+2. From your 4.2.0 installation directory, delete the following folders:
+   - fonts/font-awesome/6.7.2
+   - themes/bootstrap
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   ``define('APP_INSTALLED',"1");``
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+6. Login as admin,
+   - open the Framework Configuration page and click Save (to add new settings to your database)
+   - open the Calendar Options page and click Apply (to add new settings to your database)
+7. A new language architecture is active when you install the new files. If you have
+   created your own language files based on the old architecture, you can switch to
+   the old architecture by editing config/config.app.php and set:
+   `define('USE_SPLIT_LANGUAGE_FILES', false);`
+
+## [4.1.5] -> [4.2.0]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [4.1.4] -> [4.1.5]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [4.1.3] -> [4.1.4]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [4.1.3] -> [4.1.3]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [4.1.1] -> [4.1.2]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [4.1.0] -> [4.1.1]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [4.0.0] -> [4.1.0]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [3.9.3] -> [4.0.0]
+
+1. Backup your current files and database!
+2. Delete the following folders:
+   - /addons/google-code-prettify
+   - /addons/select2
+   - /addons/x-editable
+   - /themes/(all folders but 'bootstrap')
+   - /images/icons/logo-*.png
+3. Download the new release and overwrite all files.
+4. Change in your database:
+   Run the SQL statements from the file:
+   - /sql/upgrade_3.9.3_to_4.0.0.sql
+5. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+6. Edit config/config.db.php and update your database settings from your backup.
+7. Delete file installation.php in the root directory.
+
+## [3.9.2] -> [3.9.3]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [3.9.1] -> [3.9.2]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+##[ 3.9.0] -> [3.9.1]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [3.8.2] -> [3.9.0]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [3.8.1] -> [3.8.2]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [3.8.0] -> [3.8.1]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [3.7.5] -> [3.8.0]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+6. Delete obsolete folders:
+   - /fonts/font-awesome/6.2.1
+
+## [3.7.4] -> [3.7.5]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Change in your database:
+   ALTER TABLE `tcneo_archive_users` ADD `order_key` VARCHAR(80) NOT NULL DEFAULT '0' AFTER `email`;
+4. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+5. Edit config/config.db.php and update your database settings from your backup.
+6. Delete file installation.php in the root directory.
+
+## [3.7.3] -> [3.7.4]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [3.7.2] -> [3.7.3]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [3.7.1] -> [3.7.2]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Change in your database:
+   ALTER TABLE `tcneo_users` ADD `order_key` VARCHAR(80) NOT NULL DEFAULT '0' AFTER `email`;
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [3.7.0] -> [3.7.1]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [3.6.0] -> [3.7.0]
+
+0. Recommended PHP version: 8.1
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [3.5.2] -> [3.6.0]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [3.5.1] -> [3.5.2]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory
+
+## [3.5.0] -> [3.5.1]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory
+
+## [3.4.1] -> [3.5.0]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory
+
+## [3.4.0] -> [3.4.1]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory
+
+## [3.3.0] -> [3.4.0]
+
+1. Backup your current files and database!
+2. From your 3.3.0 installation directory, delete the following folders:
+   - fonts/font-awesome/5.12.0
+   - themes/bootstrap
+3. Download the new release and overwrite all files.
+4. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+5. Edit config/config.db.php and update your database settings from your backup.
+6. Delete file installation.php in the root directory
+
+## [3.2.8] -> [3.3.0]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory
+
+## [3.2.7] -> [3.2.8]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory
+
+# [3.2.6] -> [3.2.7]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory
+
+## [3.2.5] -> [3.2.6]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory
+
+## [3.2.4] -> [3.2.5]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory
+
+## [3.2.3] -> [3.2.4]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory
+
+## [3.2.2] -> [3.2.3]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory
+
+## [3.2.1] -> [3.2.2]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory
+
+## [3.2.0] -> [3.2.1]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory
+
+## [3.1.0] -> [3.2.0]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory
+6. Database Changes:
+```
+ALTER TABLE `tcneo_groups` ADD `minpresentwe` SMALLINT(6) NOT NULL DEFAULT '0' AFTER `maxabsent`, ADD `maxabsentwe` SMALLINT(6) NOT NULL DEFAULT '9999' AFTER `minpresentwe`;
+```
+
+## [3.0.1] -> [3.1.0]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory
+
+## [3.0.0] -> [3.0.1]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory
+
+## [2.2.3] -> [3.0.0]
+
+ATTENTION !
+TeamCal Neo 3 now requires a proper license and is not free anymore.
+However, a separate free version with restricted features, TeamCal Neo Basic,
+is available too. Read all about it here:
+https://www.lewe.com/teamcal-neo
+
+Only update to TeamCal Neo 3 after you obtained a valid license. You can then
+activate and register your license from within your installation.
+This process is documented here:
+https://lewe.gitbook.io/teamcal-neo/readme/teamcal-neo-license
+
+1. Go to Administration -> Framework Configuration -> Theme
+   - Select the 'bootstrap' theme
+   - Uncheck 'Allow User Theme'
+     This is a precautionary measure because the following themes are not
+     available anymore in TeamCal Neo 3+:
+     - paper
+     - readable
+     Make sure that no user has selected this theme before you switch it
+     back on.
+2. Backup your current files and database!
+3. Download the new release and overwrite all files.
+4. Edit config/config.app.php and change line 39 to:
+   `define('APP_INSTALLED',"1");`
+5. Edit config/config.db.php and update your database settings from your backup.
+6. Delete file installation.php in the root directory
+7. Go to Administration -> Framework Configuration -> License tab
+   - Activate and register your license

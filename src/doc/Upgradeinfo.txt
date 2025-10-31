@@ -2,6 +2,28 @@
 TEAMCAL NEO UPGRADE INFO
 ==============================================================================
 
+[4.2.0] -> [4.3.1]
+1. Backup your current files and database!
+
+2. Download the new release and overwrite all files.
+
+3. Edit config/config.app.php and change line 39 to:
+   define('APP_INSTALLED',"1");
+
+4. Edit config/config.db.php and update your database settings from your backup.
+
+5. Delete file installation.php in the root directory.
+
+6. Login as admin,
+   - open the Framework COnfiguration page and click Save (to add new settings to your database)
+   - open the Calendar Options page and click Apply (to add new settings to your database)
+
+7. A new language architecture is active when you install the new files. If you have
+   created your own language files based on the old architecture, you can switch to
+   the old architecture by editing config/config.app.php and set:
+   define('USE_SPLIT_LANGUAGE_FILES', false);
+
+
 [4.1.5] -> [4.2.0]
 1. Backup your current files and database!
 

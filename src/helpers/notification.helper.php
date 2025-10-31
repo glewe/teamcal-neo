@@ -743,7 +743,7 @@ function sendUserEventNotifications(string $event, string $username, string $fir
 //-----------------------------------------------------------------------------
 /**
  * Sends an HTML eMail, either via SMTP or regular PHP mail
- * Requires the PEAR Mail package installed on the server that TcNeo is running on
+ * Uses PHPMailer for SMTP functionality
  *
  * @param string $to eMail to address
  * @param string $subject eMail subject
@@ -757,6 +757,13 @@ function sendEmail(string $to, string $subject, string $body, string $from = '')
   $debug = false;
 
   error_reporting(E_ALL);
+
+  // Ensure PHPMailer is loaded
+  if (!class_exists('PHPMailer\PHPMailer\PHPMailer')) {
+    require_once WEBSITE_ROOT . '/vendor/phpmailer/phpmailer/src/PHPMailer.php';
+    require_once WEBSITE_ROOT . '/vendor/phpmailer/phpmailer/src/SMTP.php';
+    require_once WEBSITE_ROOT . '/vendor/phpmailer/phpmailer/src/Exception.php';
+  }
 
   $from_regexp = preg_match('/<(.*?)>/', $from, $fetch);
 
@@ -790,74 +797,59 @@ function sendEmail(string $to, string $subject, string $body, string $from = '')
 
   if ($C->read("mailSMTP")) {
     //
-    // SMTP Mail - Check if PEAR Mail is available
+    // SMTP Mail using PHPMailer
     //
-    if (!@include_once 'Mail.php' || !class_exists('Mail') || !class_exists('PEAR')) {
-      error_log("PEAR Mail package not found - falling back to PHP mail()");
-      // Fall back to regular PHP mail
-      goto regular_mail;
-    }
-    $host = $C->read("mailSMTPHost");
-    $port = $C->read("mailSMTPPort");
-    $username = $C->read("mailSMTPusername");
-    $password = $C->read("mailSMTPPassword");
-    if ($C->read("mailSMTPSSL")) {
-      $ssl = "ssl://";
-    } else {
-      $ssl = "";
-    }
+    try {
+      $mail = new PHPMailer\PHPMailer\PHPMailer(true);
 
-    //
-    // SMTP requires a valid email address in the From field
-    //
-    if (!validEmail($from_mailonly)) {
-      $from = $replyto = mb_encode_mimeheader($C->read("mailFrom")) . " <" . $C->read("mailReply") . ">";
-    }
+      // Server settings
+      $mail->isSMTP();
+      $mail->Host = $C->read("mailSMTPHost");
+      $mail->Port = intval($C->read("mailSMTPPort"));
 
-    $headers = array(
-      'From' => $from,
-      'Reply-To' => $replyto,
-      'To' => $toValid,
-      'Subject' => $subject,
-      'Content-type' => "text/html; charset=iso-8859-1"
-    );
+      if ($C->read("mailSMTPSSL")) {
+        $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+      } else {
+        $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+      }
 
-    //
-    // Put an HTML envelope around the body
-    //
-    $body = '<html><body>' . $body . '</body></html>';
+      if (!$C->read("mailSMTPAnonymous")) {
+        $mail->SMTPAuth = true;
+        $mail->Username = $C->read("mailSMTPusername");
+        $mail->Password = $C->read("mailSMTPPassword");
+      }
 
-    // Use variable function to avoid lint errors for external PEAR classes
-    $mailClass = 'Mail';
-    
-    if ($C->read("mailSMTPAnonymous")) {
-      $smtp = @call_user_func(array($mailClass, 'factory'), 'smtp', array(
-        'host' => $ssl . $host,
-        'port' => $port,
-        'auth' => false
-      ));
-    } else {
-      $smtp = @call_user_func(array($mailClass, 'factory'), 'smtp', array(
-        'host' => $ssl . $host,
-        'port' => $port,
-        'auth' => true,
-        'username' => $username,
-        'password' => $password
-      ));
-    }
+      // Recipients
+      $mail->setFrom($from_mailonly, $C->read("mailFrom"));
+      $mail->addReplyTo($C->read("mailReply"));
 
-    $mail = @$smtp->send($toValid, $headers, $body);
+      // Add recipients
+      $toRecipients = explode(",", $toValid);
+      foreach ($toRecipients as $recipient) {
+        $mail->addAddress(trim($recipient));
+      }
 
-    // Use variable function to avoid lint errors for external PEAR classes
-    $pearClass = 'PEAR';
-    if (class_exists($pearClass) && @call_user_func(array($pearClass, 'isError'), $mail)) {
-      //
-      // Log SMTP error instead of displaying it directly
-      //
-      error_log("SMTP Error: " . $mail->getMessage());
-      return false;
-    } else {
+      // Content
+      $mail->isHTML(true);
+      $mail->Subject = $subject;
+      $mail->Body = $body;
+      $mail->CharSet = 'iso-8859-1';
+      // dnd($mail);
+
+      $mail->send();
       return true;
+    } catch (PHPMailer\PHPMailer\Exception $e) {
+      //
+      // Log PHPMailer error
+      //
+      error_log("PHPMailer SMTP Error: " . $mail->ErrorInfo);
+      return false;
+    } catch (Exception $e) {
+      //
+      // Log general error
+      //
+      error_log("Email sending error: " . $e->getMessage());
+      return false;
     }
   } else {
     regular_mail:

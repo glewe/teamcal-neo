@@ -61,7 +61,6 @@ class Templates {
    */
   public function __construct() {
     global $CONF, $DB;
-    global $myDb;
     $this->db = $DB->db;
     $this->table = $CONF['db_table_templates'];
     $this->abs_table = $CONF['db_table_absences'];
@@ -363,12 +362,11 @@ class Templates {
    * @param string $month Month (MM)
    * @return boolean Query result
    */
-  public function deleteBefore(string $year = '', string $month = ''): bool {
-    $month = sprintf("%02d", $month);
-    $query = $this->db->prepare("DELETE FROM {$this->table} WHERE year < :year OR (year = :year AND month <= :month)");
-    $query->bindParam('year', $year, \PDO::PARAM_STR);
-    $query->bindParam('month', $month, \PDO::PARAM_STR);
-    return $query->execute();
+  public function deleteBefore($year, $month) {
+    $sql = "DELETE FROM {$this->table} WHERE `year` = :year AND `month` = :month";
+    $param = array(':year' => $year, ':month' => $month);
+    $stmt = $this->db->prepare($sql);
+    return $stmt->execute($param);
   }
 
   //---------------------------------------------------------------------------

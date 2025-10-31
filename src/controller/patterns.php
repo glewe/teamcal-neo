@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Patterns Controller
  *
@@ -9,6 +12,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -34,7 +38,7 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //
 $alertData = array();
 $showAlert = false;
-$licExpiryWarning = $C->read('licExpiryWarning');
+$licExpiryWarning = $allConfig['licExpiryWarning'];
 $LIC = new License();
 $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 
@@ -46,6 +50,9 @@ $PTN = new Patterns();
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+$viewData['currentYearOnly'] = $allConfig['currentYearOnly'];
 $viewData['txt_name'] = '';
 $viewData['txt_description'] = '';
 
@@ -85,13 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // '--------'
     if (isset($_POST['btn_roleCreate']) && $_POST['btn_roleCreate'] === '1') {
       //
-      // Sanitize input
-      //
-      $_POST = sanitize($_POST);
-      //
       // Form validation
       //
-      $inputAlert = array();
       $inputError = false;
       if (
         !formInputValid('txt_name', 'required|alpha_numeric_dash') ||
@@ -130,8 +132,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         $alertData['subject'] = $LANG['btn_create_pattern'];
         $alertData['text'] = $LANG['roles_alert_created'];
         $alertData['help'] = '';
-        // Renew CSRF token after successful create
-        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
       } else {
         //
         // Fail
@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // ,--------,
     // | Delete |
     // '--------'
-    elseif (isset($_POST['btn_patternDelete']) && $_POST['btn_patternDelete'] === '1') {
+    elseif (isset($_POST['btn_patternDelete'])) {
       //
       // Delete Pattern
       //
@@ -164,15 +164,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $alertData['subject'] = $LANG['btn_delete_pattern'];
       $alertData['text'] = $LANG['ptn_alert_deleted'];
       $alertData['help'] = '';
-      // Renew CSRF token after successful delete
-      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
     //
     // Renew CSRF token after successful form processing
     //
-    if (isset($_SESSION)) {
-      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-    }
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
   } else {
     //
     // Input validation failed

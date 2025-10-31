@@ -13,6 +13,7 @@ if (!defined('VALID_ROOT')) {
  * @since 3.0.0
  */
 
+global $allConfig;
 global $AG;
 global $C;
 global $CONF;
@@ -66,6 +67,8 @@ if ($missingData) {
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -111,10 +114,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     if (!formInputValid('txt_symbol', 'ctype_graph')) {
       $inputError = true;
     }
-    if (!formInputValid('txt_color', 'hexadecimal|exact_length', 6)) {
+    if (!formInputValid('txt_color', 'hex_color')) {
       $inputError = true;
     }
-    if (!formInputValid('txt_bgcolor', 'hexadecimal|exact_length', 6)) {
+    if (!formInputValid('txt_bgcolor', 'hex_color')) {
       $inputError = true;
     }
     if (!formInputValid('txt_factor', 'numeric|max_length', 4)) {
@@ -147,8 +150,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       } else {
         $AA->symbol = strtoupper(substr($_POST['txt_name'], 0, 1));
       }
-      $AA->color = $_POST['txt_color'];
-      $AA->bgcolor = $_POST['txt_bgcolor'];
+      $AA->color = ltrim(sanitize($_POST['txt_color']), '#');
+      $AA->bgcolor = ltrim(sanitize($_POST['txt_bgcolor']), '#');
       $AA->bgtrans = isset($_POST['chk_bgtrans']) ? '1' : '0';
 
       //
@@ -184,33 +187,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         }
       }
 
-      //
       // Update the record
-      //
       $AA->update($AA->id);
 
-      //
-      // Send notification e-mails to the subscribers of user events
-      //
-      if ($C->read("emailNotifications")) {
+      // Send notification and log event
+      if ($allConfig['emailNotifications']) {
         sendAbsenceEventNotifications("changed", $AA->name);
       }
-
-      //
-      // Log this event
-      //
       $LOG->logEvent("logAbsence", L_USER, "log_abs_updated", $AA->name);
 
-      //
       // Renew CSRF token after successful form processing
-      //
       if (session_status() === PHP_SESSION_ACTIVE) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
       }
 
-      //
       // Success
-      //
       $showAlert = true;
       $alertData['type'] = 'success';
       $alertData['title'] = $LANG['alert_success_title'];
@@ -247,18 +238,21 @@ $viewData['allowance'] = $AA->allowance;
 $viewData['allowmonth'] = $AA->allowmonth;
 $viewData['allowweek'] = $AA->allowweek;
 
+// Pre-fetch all primary absences and build options array
 $otherAbs = $AA->getAllPrimaryBut($AA->id);
 $viewData['otherAbs'] = [];
 $viewData['otherAbs'][] = array('val' => '0', 'name' => 'None', 'selected' => ($AA->counts_as == '0') ? true : false);
+
+// Build a map of absence IDs to names for efficient lookup
+$absenceNameMap = array('0' => 'None');
 foreach ($otherAbs as $abs) {
+  $absenceNameMap[$abs['id']] = $abs['name'];
   $viewData['otherAbs'][] = array('val' => $abs['id'], 'name' => $abs['name'], 'selected' => ($AA->counts_as == $abs['id']) ? true : false);
 }
+
+// Use pre-built map instead of calling getName()
 $viewData['counts_as']['val'] = $AA->counts_as;
-if ($viewData['counts_as']['val']) {
-  $viewData['counts_as']['name'] = $AA->getName($AA->counts_as);
-} else {
-  $viewData['counts_as']['name'] = 'None';
-}
+$viewData['counts_as']['name'] = $absenceNameMap[$AA->counts_as] ?? 'None';
 $viewData['counts_as_present'] = $AA->counts_as_present;
 $viewData['approval_required'] = $AA->approval_required;
 $viewData['manager_only'] = $AA->manager_only;
@@ -267,6 +261,7 @@ $viewData['confidential'] = $AA->confidential;
 $viewData['takeover'] = $AA->takeover;
 $viewData['show_in_remainder'] = $AA->show_in_remainder;
 
+// Fetch all groups and build assignment array
 $groups = $G->getAll();
 $viewData['groupsAssigned'] = [];
 foreach ($groups as $group) {
@@ -278,8 +273,8 @@ $viewData['formObjects'] = [
   'general' => [
     ['prefix' => 'abs', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '80', 'mandatory' => true, 'error' => $inputAlert['name'] ?? ''],
     ['prefix' => 'abs', 'name' => 'symbol', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['symbol'], 'maxlength' => '1', 'mandatory' => true, 'error' => $inputAlert['symbol'] ?? ''],
-    ['prefix' => 'abs', 'name' => 'color', 'type' => 'color', 'value' => $viewData['color'], 'maxlength' => '6', 'error' => $inputAlert['color'] ?? ''],
-    ['prefix' => 'abs', 'name' => 'bgcolor', 'type' => 'color', 'value' => $viewData['bgcolor'], 'maxlength' => '6', 'error' => $inputAlert['bgcolor'] ?? ''],
+    ['prefix' => 'abs', 'name' => 'color', 'type' => 'coloris', 'value' => (!empty($viewData['color']) ? '#' . $viewData['color'] : ''), 'maxlength' => '6', 'error' => $inputAlert['color'] ?? ''],
+    ['prefix' => 'abs', 'name' => 'bgcolor', 'type' => 'coloris', 'value' => (!empty($viewData['bgcolor']) ? '#' . $viewData['bgcolor'] : ''), 'maxlength' => '6', 'error' => $inputAlert['bgcolor'] ?? ''],
     ['prefix' => 'abs', 'name' => 'bgtrans', 'type' => 'check', 'value' => $viewData['bgtrans']],
   ],
   'options' => [

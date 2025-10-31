@@ -9,12 +9,12 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
-$formLink = 'index.php?action=' . $controller . '&amp;month=' . $viewData['year'] . $viewData['month'] . '&amp;region=' . $viewData['regionid'] . '&amp;group=' . $viewData['groupid'] . '&amp;abs=' . $viewData['absid'];
+$formLink = 'index.php?action=' . $controller . '&amp;month=' . $viewData['year'] . $viewData['month'] . '&amp;region=' . $viewData['regionid'] . '&amp;group=' . $viewData['groupid'] . '&amp;abs=' . $viewData['absid'] . '&amp;viewmode=' . $viewData['viewmode'];
 ?>
 <!-- ====================================================================
 view.calendarview
 -->
-<div class="container content" style="<?= ($fontSize = $C->read('calendarFontSize')) ? "font-size:" . $fontSize . "%;" : ""; ?>">
+<div class="container content" style="<?= ($fontSize = $viewData['calendarFontSize']) ? "font-size:" . $fontSize . "%;" : ""; ?>">
 
   <?php if ($viewData['calendaronly']) {
 
@@ -26,6 +26,11 @@ view.calendarview
       $viewData['dateInfo'] = $vmonth['dateInfo'];
       $viewData['dayStyles'] = $vmonth['dayStyles'];
       $viewData['businessDays'] = $vmonth['businessDays'];
+      $viewData['isSplitMonth'] = isset($vmonth['isSplitMonth']) ? $vmonth['isSplitMonth'] : false;
+      $viewData['dayStart'] = isset($vmonth['dayStart']) ? $vmonth['dayStart'] : 1;
+      $viewData['dayEnd'] = isset($vmonth['dayEnd']) ? $vmonth['dayEnd'] : $vmonth['dateInfo']['daysInMonth'];
+      $viewData['nextMonthInfo'] = isset($vmonth['nextMonthInfo']) ? $vmonth['nextMonthInfo'] : null;
+      $viewData['nextMonthBusinessDays'] = isset($vmonth['nextMonthBusinessDays']) ? $vmonth['nextMonthBusinessDays'] : 0;
       require "calendarviewmonth.php";
     }
     ?>
@@ -34,8 +39,8 @@ view.calendarview
 
     <?php
     if (
-      ($showAlert && $C->read("showAlerts") != "none") &&
-      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+      ($showAlert && $viewData['showAlerts'] != "none") &&
+      ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
     }
@@ -58,6 +63,11 @@ view.calendarview
         $viewData['dateInfo'] = $vmonth['dateInfo'];
         $viewData['dayStyles'] = $vmonth['dayStyles'];
         $viewData['businessDays'] = $vmonth['businessDays'];
+        $viewData['isSplitMonth'] = isset($vmonth['isSplitMonth']) ? $vmonth['isSplitMonth'] : false;
+        $viewData['dayStart'] = isset($vmonth['dayStart']) ? $vmonth['dayStart'] : 1;
+        $viewData['dayEnd'] = isset($vmonth['dayEnd']) ? $vmonth['dayEnd'] : $vmonth['dateInfo']['daysInMonth'];
+        $viewData['nextMonthInfo'] = isset($vmonth['nextMonthInfo']) ? $vmonth['nextMonthInfo'] : null;
+        $viewData['nextMonthBusinessDays'] = isset($vmonth['nextMonthBusinessDays']) ? $vmonth['nextMonthBusinessDays'] : 0;
         require "calendarviewmonth.php";
       }
       ?>
@@ -162,7 +172,7 @@ view.calendarview
   <?php } // end: if calendaronly ?>
 
 
-  <?php if ($limit = $C->read("usersPerPage")) { ?>
+  <?php if ($limit = $viewData['userPerPage']) { ?>
     <nav aria-label="Paging">
       <ul class="pagination">
 

@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Data Privacy Controller
  *
@@ -9,6 +12,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -28,42 +32,42 @@ if (!$C->read('gdprPolicyPage')) {
 //
 require_once "languages/" . $language . ".gdpr.php";
 
-$viewData['gdpr_text'] = str_replace("%ENTITY%", $C->read('gdprOrganization'), $LANG['gdpr_start']);
-$viewData['gdpr_text'] = str_replace("%CONTROLLER%", nl2br($C->read('gdprController')), $viewData['gdpr_text']);
-$viewData['gdpr_text'] = str_replace("%DATAPROTECTIONOFFICER%", nl2br($C->read('gdprOfficer')), $viewData['gdpr_text']);
+$viewData['gdpr_text'] = str_replace("%ENTITY%", $allConfig['gdprOrganization'], $LANG['gdpr_start']);
+$viewData['gdpr_text'] = str_replace("%CONTROLLER%", nl2br($allConfig['gdprController']), $viewData['gdpr_text']);
+$viewData['gdpr_text'] = str_replace("%DATAPROTECTIONOFFICER%", nl2br($allConfig['gdprOfficer']), $viewData['gdpr_text']);
 
 $sectionNbr = 11;
-if ($C->read('gdprFacebook')) {
+if ($allConfig['gdprFacebook']) {
   $viewData['gdpr_text'] .= sprintf($LANG['gdpr_facebook'], $sectionNbr++);
 }
-if ($C->read('gdprGoogleAnalytics')) {
+if ($allConfig['gdprGoogleAnalytics']) {
   $viewData['gdpr_text'] .= sprintf($LANG['gdpr_google_analytics'], $sectionNbr++);
 }
-if ($C->read('gdprInstagram')) {
+if ($allConfig['gdprInstagram']) {
   $viewData['gdpr_text'] .= sprintf($LANG['gdpr_instagram'], $sectionNbr++);
 }
-if ($C->read('gdprLinkedin')) {
+if ($allConfig['gdprLinkedin']) {
   $viewData['gdpr_text'] .= sprintf($LANG['gdpr_linkedin'], $sectionNbr++);
 }
-if ($C->read('gdprPaypal')) {
+if ($allConfig['gdprPaypal']) {
   $viewData['gdpr_text'] .= sprintf($LANG['gdpr_paypal'], $sectionNbr++);
 }
-if ($C->read('gdprPinterest')) {
+if ($allConfig['gdprPinterest']) {
   $viewData['gdpr_text'] .= sprintf($LANG['gdpr_pinterest'], $sectionNbr++);
 }
-if ($C->read('gdprSlideshare')) {
+if ($allConfig['gdprSlideshare']) {
   $viewData['gdpr_text'] .= sprintf($LANG['gdpr_slideshare'], $sectionNbr++);
 }
-if ($C->read('gdprTumblr')) {
+if ($allConfig['gdprTumblr']) {
   $viewData['gdpr_text'] .= sprintf($LANG['gdpr_tumblr'], $sectionNbr++);
 }
-if ($C->read('gdprTwitter')) {
+if ($allConfig['gdprTwitter']) {
   $viewData['gdpr_text'] .= sprintf($LANG['gdpr_twitter'], $sectionNbr++);
 }
-if ($C->read('gdprXing')) {
+if ($allConfig['gdprXing']) {
   $viewData['gdpr_text'] .= sprintf($LANG['gdpr_xing'], $sectionNbr++);
 }
-if ($C->read('gdprYoutube')) {
+if ($allConfig['gdprYoutube']) {
   $viewData['gdpr_text'] .= sprintf($LANG['gdpr_youtube'], $sectionNbr++);
 }
 

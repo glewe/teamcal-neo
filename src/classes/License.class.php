@@ -369,7 +369,7 @@ class License {
         case "active":
           $title = $LANG['lic_active'];
           $alert['type'] = 'success';
-          $alert['title'] = $title . '<span class="btn btn-' . $alert['type'] . ' btn-sm" style="margin-left:16px;">' . proper($data->status) . '</span>';
+          $alert['title'] = $title . '<span class="btn btn-' . $alert['type'] . ' btn-sm" style="margin-left:16px;">' . ucwords($data->status) . '</span>';
           $alert['subject'] = $LANG['lic_active_subject'];
           $alert['text'] = '';
           $alert['help'] = '';
@@ -378,7 +378,7 @@ class License {
         case "expired":
           $title = $LANG['lic_expired'];
           $alert['type'] = 'warning';
-          $alert['title'] = $title . '<span class="btn btn-' . $alert['type'] . ' btn-sm" style="margin-left:16px;">' . proper($data->status) . '</span>';
+          $alert['title'] = $title . '<span class="btn btn-' . $alert['type'] . ' btn-sm" style="margin-left:16px;">' . ucwords($data->status) . '</span>';
           $alert['subject'] = $LANG['lic_expired_subject'];
           $alert['text'] = '';
           $alert['help'] = $LANG['lic_expired_help'];
@@ -387,7 +387,7 @@ class License {
         case "blocked":
           $alert['type'] = 'warning';
           $title = $LANG['lic_blocked'];
-          $alert['title'] = $title . '<span class="btn btn-' . $alert['type'] . ' btn-sm" style="margin-left:16px;">' . proper($data->status) . '</span>';
+          $alert['title'] = $title . '<span class="btn btn-' . $alert['type'] . ' btn-sm" style="margin-left:16px;">' . ucwords($data->status) . '</span>';
           $alert['subject'] = $LANG['lic_blocked_subject'];
           $alert['text'] = '';
           $alert['help'] = $LANG['lic_blocked_help'];
@@ -396,7 +396,7 @@ class License {
         case "pending":
           $alert['type'] = 'warning';
           $title = $LANG['lic_pending'];
-          $alert['title'] = $title . '<span class="btn btn-' . $alert['type'] . ' btn-sm" style="margin-left:16px;">' . proper($data->status) . '</span>';
+          $alert['title'] = $title . '<span class="btn btn-' . $alert['type'] . ' btn-sm" style="margin-left:16px;">' . ucwords($data->status) . '</span>';
           $alert['subject'] = $LANG['lic_pending_subject'];
           $alert['text'] = '';
           $alert['help'] = $LANG['lic_pending_help'];
@@ -405,7 +405,7 @@ class License {
         case "unregistered":
           $title = $LANG['lic_active'];
           $alert['type'] = 'warning';
-          $alert['title'] = $title . '<span class="btn btn-' . $alert['type'] . ' btn-sm" style="margin-left:16px;">' . proper($data->status) . '</span>';
+          $alert['title'] = $title . '<span class="btn btn-' . $alert['type'] . ' btn-sm" style="margin-left:16px;">' . ucwords($data->status) . '</span>';
           $alert['subject'] = $LANG['lic_active_unregistered_subject'];
           $alert['text'] = '';
           $alert['help'] = '';

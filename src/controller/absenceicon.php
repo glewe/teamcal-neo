@@ -12,6 +12,7 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $faIcons;
 global $LANG;
 global $CONF;
@@ -58,6 +59,8 @@ if ($missingData) {
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -118,10 +121,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Filter |
     // '--------'
     $filterString = $_POST['fa_search'] ?? '';
-    $allIcons = $faIcons;
-    $faIcons = array_filter($allIcons, function ($element) use ($filterString) {
-      return strpos($element, $filterString) !== false;
-    });
+    if (!empty($filterString)) {
+      $allIcons = $faIcons;
+      $faIcons = array_filter($allIcons, function ($element) use ($filterString) {
+        return strpos($element, $filterString) !== false;
+      });
+    }
   }
 }
 

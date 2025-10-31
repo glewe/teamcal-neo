@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Pattern Edit Controller
  *
@@ -9,6 +12,7 @@
  * @package TeamCal Neo
  * @since 4.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -64,6 +68,8 @@ if ($missingData) {
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 $viewData['PTN'] = $PTN;
 $viewData['id'] = $PTN->id;
 $viewData['name'] = $PTN->name;
@@ -75,7 +81,6 @@ $viewData['abs4'] = $PTN->abs4;
 $viewData['abs5'] = $PTN->abs5;
 $viewData['abs6'] = $PTN->abs6;
 $viewData['abs7'] = $PTN->abs7;
-$inputAlert = array();
 
 //-----------------------------------------------------------------------------
 // PROCESS FORM
@@ -209,9 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     //
     // Renew CSRF token after successful form processing
     //
-    if (isset($_SESSION)) {
-      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-    }
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
   } else {
     //
     // Input validation failed
@@ -229,22 +232,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //
 // PREPARE VIEW
 //
-$viewData['abs1Absences'][] = array( 'val' => 0, 'name' => $LANG['none'], 'selected' => ($PTN->abs1 === 0) ? true : false );
-$viewData['abs2Absences'][] = array( 'val' => 0, 'name' => $LANG['none'], 'selected' => ($PTN->abs2 === 0) ? true : false );
-$viewData['abs3Absences'][] = array( 'val' => 0, 'name' => $LANG['none'], 'selected' => ($PTN->abs3 === 0) ? true : false );
-$viewData['abs4Absences'][] = array( 'val' => 0, 'name' => $LANG['none'], 'selected' => ($PTN->abs4 === 0) ? true : false );
-$viewData['abs5Absences'][] = array( 'val' => 0, 'name' => $LANG['none'], 'selected' => ($PTN->abs5 === 0) ? true : false );
-$viewData['abs6Absences'][] = array( 'val' => 0, 'name' => $LANG['none'], 'selected' => ($PTN->abs6 === 0) ? true : false );
-$viewData['abs7Absences'][] = array( 'val' => 0, 'name' => $LANG['none'], 'selected' => ($PTN->abs7 === 0) ? true : false );
+//
+// Build absence options for all 7 pattern slots
+//
+$absenceOptions = array( array( 'val' => 0, 'name' => $LANG['none'] ) );
 $absences = $A->getAll();
 foreach ($absences as $absence) {
-  $viewData['abs1Absences'][] = array( 'val' => $absence['id'], 'name' => $absence['name'], 'selected' => ($PTN->abs1 === $absence['id']) ? true : false );
-  $viewData['abs2Absences'][] = array( 'val' => $absence['id'], 'name' => $absence['name'], 'selected' => ($PTN->abs2 === $absence['id']) ? true : false );
-  $viewData['abs3Absences'][] = array( 'val' => $absence['id'], 'name' => $absence['name'], 'selected' => ($PTN->abs3 === $absence['id']) ? true : false );
-  $viewData['abs4Absences'][] = array( 'val' => $absence['id'], 'name' => $absence['name'], 'selected' => ($PTN->abs4 === $absence['id']) ? true : false );
-  $viewData['abs5Absences'][] = array( 'val' => $absence['id'], 'name' => $absence['name'], 'selected' => ($PTN->abs5 === $absence['id']) ? true : false );
-  $viewData['abs6Absences'][] = array( 'val' => $absence['id'], 'name' => $absence['name'], 'selected' => ($PTN->abs6 === $absence['id']) ? true : false );
-  $viewData['abs7Absences'][] = array( 'val' => $absence['id'], 'name' => $absence['name'], 'selected' => ($PTN->abs7 === $absence['id']) ? true : false );
+  $absenceOptions[] = array( 'val' => $absence['id'], 'name' => $absence['name'] );
+}
+
+//
+// Populate absence dropdowns for each pattern slot
+//
+for ($i = 1; $i <= 7; $i++) {
+  $absKey = 'abs' . $i;
+  $viewKey = 'abs' . $i . 'Absences';
+  $viewData[$viewKey] = array();
+  $currentValue = $PTN->$absKey;
+  foreach ($absenceOptions as $option) {
+    $viewData[$viewKey][] = array(
+      'val' => $option['val'],
+      'name' => $option['name'],
+      'selected' => ($currentValue === $option['val']) ? true : false
+    );
+  }
 }
 $viewData['pattern'] = array(
   array( 'prefix' => 'ptn', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' => (isset($inputAlert['name']) ? $inputAlert['name'] : '') ),

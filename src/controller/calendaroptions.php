@@ -1,5 +1,7 @@
 <?php
-
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Calendar Options Controller
  *
@@ -10,6 +12,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -109,54 +112,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST) && isset($_POST['btn
   }
 
   if (!$inputError) {
+    $newConfig = [];
 
     //
     // Display
     //
-    $C->save("todayBorderColor", sanitize($_POST['txt_todayBorderColor']));
-    $C->save("todayBorderSize", intval($_POST['txt_todayBorderSize']));
-    $C->save("pastDayColor", sanitize($_POST['txt_pastDayColor']));
+    $newConfig["todayBorderColor"] = ltrim(sanitize($_POST['txt_todayBorderColor']), '#');
+    $newConfig["todayBorderSize"] = intval($_POST['txt_todayBorderSize']);
+    $newConfig["pastDayColor"] = ltrim(sanitize($_POST['txt_pastDayColor']), '#');
     if (isset($_POST['chk_showWeekNumbers']) && $_POST['chk_showWeekNumbers']) {
-      $C->save("showWeekNumbers", "1");
+      $newConfig["showWeekNumbers"] = "1";
     } else {
-      $C->save("showWeekNumbers", "0");
+      $newConfig["showWeekNumbers"] = "0";
     }
-    $C->save("repeatHeaderCount", intval($_POST['txt_repeatHeaderCount']));
-    $C->save("usersPerPage", intval($_POST['txt_usersPerPage']));
+    $newConfig["repeatHeaderCount"] = intval($_POST['txt_repeatHeaderCount']);
+    $newConfig["usersPerPage"] = intval($_POST['txt_usersPerPage']);
     if (isset($_POST['chk_showAvatars']) && $_POST['chk_showAvatars']) {
-      $C->save("showAvatars", "1");
+      $newConfig["showAvatars"] = "1";
     } else {
-      $C->save("showAvatars", "0");
+      $newConfig["showAvatars"] = "0";
     }
     if (isset($_POST['chk_showRoleIcons']) && $_POST['chk_showRoleIcons']) {
-      $C->save("showRoleIcons", "1");
+      $newConfig["showRoleIcons"] = "1";
     } else {
-      $C->save("showRoleIcons", "0");
+      $newConfig["showRoleIcons"] = "0";
     }
     if (isset($_POST['chk_showTooltipCount']) && $_POST['chk_showTooltipCount']) {
-      $C->save("showTooltipCount", "1");
+      $newConfig["showTooltipCount"] = "1";
     } else {
-      $C->save("showTooltipCount", "0");
+      $newConfig["showTooltipCount"] = "0";
     }
     if (isset($_POST['chk_supportMobile']) && $_POST['chk_supportMobile']) {
-      $C->save("supportMobile", "1");
+      $newConfig["supportMobile"] = "1";
     } else {
-      $C->save("supportMobile", "0");
+      $newConfig["supportMobile"] = "0";
     }
     if (isset($_POST['chk_symbolAsIcon']) && $_POST['chk_symbolAsIcon']) {
-      $C->save("symbolAsIcon", "1");
+      $newConfig["symbolAsIcon"] = "1";
     } else {
-      $C->save("symbolAsIcon", "0");
+      $newConfig["symbolAsIcon"] = "0";
     }
     if ($_POST['sel_monitorAbsence']) {
-      $C->save("monitorAbsence", $_POST['sel_monitorAbsence']);
+      $newConfig["monitorAbsence"] = $_POST['sel_monitorAbsence'];
     } else {
-      $C->save("monitorAbsence", 0);
+      $newConfig["monitorAbsence"] = 0;
     }
     if (strlen($_POST['txt_calendarFontSize'])) {
-      $C->save("calendarFontSize", intval($_POST['txt_calendarFontSize']));
+      $newConfig["calendarFontSize"] = intval($_POST['txt_calendarFontSize']);
     } else {
-      $C->save("calendarFontSize", 100);
+      $newConfig["calendarFontSize"] = 100;
     }
     if (strlen($_POST['txt_showMonths'])) {
       $postValue = intval($_POST['txt_showMonths']);
@@ -165,152 +169,157 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST) && isset($_POST['btn
       } elseif ($postValue > 12) {
         $postValue = 12;
       }
-      $C->save("showMonths", $postValue);
+      $newConfig["showMonths"] = $postValue;
     } else {
-      $C->save("showMonths", 1);
+      $newConfig["showMonths"] = 1;
     }
     if (isset($_POST['chk_regionalHolidays']) && $_POST['chk_regionalHolidays']) {
-      $C->save("regionalHolidays", "1");
+      $newConfig["regionalHolidays"] = "1";
     } else {
-      $C->save("regionalHolidays", "0");
+      $newConfig["regionalHolidays"] = "0";
     }
-    $C->save("regionalHolidaysColor", sanitize($_POST['txt_regionalHolidaysColor']));
+    $newConfig["regionalHolidaysColor"] = ltrim(sanitize($_POST['txt_regionalHolidaysColor']), '#');
     if (isset($_POST['chk_sortByOrderKey']) && $_POST['chk_sortByOrderKey']) {
-      $C->save("sortByOrderKey", "1");
+      $newConfig["sortByOrderKey"] = "1";
     } else {
-      $C->save("sortByOrderKey", "0");
+      $newConfig["sortByOrderKey"] = "0";
     }
 
     //
     // Filter
     //
     if (isset($_POST['chk_hideDaynotes']) && $_POST['chk_hideDaynotes']) {
-      $C->save("hideDaynotes", "1");
+      $newConfig["hideDaynotes"] = "1";
     } else {
-      $C->save("hideDaynotes", "0");
+      $newConfig["hideDaynotes"] = "0";
     }
     if (isset($_POST['chk_hideManagers']) && $_POST['chk_hideManagers']) {
-      $C->save("hideManagers", "1");
+      $newConfig["hideManagers"] = "1";
     } else {
-      $C->save("hideManagers", "0");
+      $newConfig["hideManagers"] = "0";
     }
     if (isset($_POST['chk_hideManagerOnlyAbsences'])) {
-      $C->save("hideManagerOnlyAbsences", "1");
+      $newConfig["hideManagerOnlyAbsences"] = "1";
     } else {
-      $C->save("hideManagerOnlyAbsences", "0");
+      $newConfig["hideManagerOnlyAbsences"] = "0";
     }
     if (isset($_POST['chk_showUserRegion']) && $_POST['chk_showUserRegion']) {
-      $C->save("showUserRegion", "1");
+      $newConfig["showUserRegion"] = "1";
     } else {
-      $C->save("showUserRegion", "0");
+      $newConfig["showUserRegion"] = "0";
     }
     if (isset($_POST['sel_trustedRoles'])) {
       foreach ($_POST['sel_trustedRoles'] as $role) {
         $arrTrustedRoles[] = $role;
       }
       $trustedRoles = implode(',', $arrTrustedRoles);
-      $C->save("trustedRoles", $trustedRoles);
+      $newConfig["trustedRoles"] = $trustedRoles;
     }
 
     //
     // Options
     //
     if ($_POST['opt_firstDayOfWeek']) {
-      $C->save("firstDayOfWeek", $_POST['opt_firstDayOfWeek']);
+      $newConfig["firstDayOfWeek"] = $_POST['opt_firstDayOfWeek'];
     }
     if (isset($_POST['chk_satBusi']) && $_POST['chk_satBusi']) {
-      $C->save("satBusi", "1");
+      $newConfig["satBusi"] = "1";
     } else {
-      $C->save("satBusi", "0");
+      $newConfig["satBusi"] = "0";
     }
     if (isset($_POST['chk_sunBusi']) && $_POST['chk_sunBusi']) {
-      $C->save("sunBusi", "1");
+      $newConfig["sunBusi"] = "1";
     } else {
-      $C->save("sunBusi", "0");
+      $newConfig["sunBusi"] = "0";
     }
     if ($_POST['sel_defregion']) {
-      $C->save("defregion", $_POST['sel_defregion']);
+      $newConfig["defregion"] = $_POST['sel_defregion'];
     } else {
-      $C->save("defregion", "default");
+      $newConfig["defregion"] = "default";
     }
     if (isset($_POST['chk_showRegionButton']) && $_POST['chk_showRegionButton']) {
-      $C->save("showRegionButton", "1");
+      $newConfig["showRegionButton"] = "1";
     } else {
-      $C->save("showRegionButton", "0");
+      $newConfig["showRegionButton"] = "0";
     }
     if ($_POST['opt_defgroupfilter']) {
-      $C->save("defgroupfilter", $_POST['opt_defgroupfilter']);
+      $newConfig["defgroupfilter"] = $_POST['opt_defgroupfilter'];
     } else {
-      $C->save("defgroupfilter", 'All');
+      $newConfig["defgroupfilter"] = 'All';
     }
     if (isset($_POST['chk_currentYearOnly']) && $_POST['chk_currentYearOnly']) {
-      $C->save("currentYearOnly", "1");
+      $newConfig["currentYearOnly"] = "1";
     } else {
-      $C->save("currentYearOnly", "0");
+      $newConfig["currentYearOnly"] = "0";
     }
     if (isset($_POST['sel_currentYearRoles'])) {
       foreach ($_POST['sel_currentYearRoles'] as $role) {
         $arrCurrYearRoles[] = $role;
       }
       $currYearRoles = implode(',', $arrCurrYearRoles);
-      $C->save("currYearRoles", $currYearRoles);
+      $newConfig["currYearRoles"] = $currYearRoles;
     }
 
     if (isset($_POST['chk_takeover']) && $_POST['chk_takeover']) {
-      $C->save("takeover", "1");
+      $newConfig["takeover"] = "1";
     } else {
-      $C->save("takeover", "0");
+      $newConfig["takeover"] = "0";
     }
     if (isset($_POST['chk_notificationsAllGroups']) && $_POST['chk_notificationsAllGroups']) {
-      $C->save("notificationsAllGroups", "1");
+      $newConfig["notificationsAllGroups"] = "1";
     } else {
-      $C->save("notificationsAllGroups", "0");
+      $newConfig["notificationsAllGroups"] = "0";
     }
     if (isset($_POST['chk_managerOnlyIncludesAdministrator']) && $_POST['chk_managerOnlyIncludesAdministrator']) {
-      $C->save("managerOnlyIncludesAdministrator", "1");
+      $newConfig["managerOnlyIncludesAdministrator"] = "1";
     } else {
-      $C->save("managerOnlyIncludesAdministrator", "0");
+      $newConfig["managerOnlyIncludesAdministrator"] = "0";
     }
 
     //
     // Statistics
     //
     if ($_POST['sel_statsDefaultColorAbsences']) {
-      $C->save("statsDefaultColorAbsences", $_POST['sel_statsDefaultColorAbsences']);
+      $newConfig["statsDefaultColorAbsences"] = $_POST['sel_statsDefaultColorAbsences'];
     } else {
-      $C->save("statsDefaultColorAbsences", "red");
+      $newConfig["statsDefaultColorAbsences"] = "red";
     }
     if ($_POST['sel_statsDefaultColorPresences']) {
-      $C->save("statsDefaultColorPresences", $_POST['sel_statsDefaultColorPresences']);
+      $newConfig["statsDefaultColorPresences"] = $_POST['sel_statsDefaultColorPresences'];
     } else {
-      $C->save("statsDefaultColorPresences", "green");
+      $newConfig["statsDefaultColorPresences"] = "green";
     }
     if ($_POST['sel_statsDefaultColorAbsencetype']) {
-      $C->save("statsDefaultColorAbsencetype", $_POST['sel_statsDefaultColorAbsencetype']);
+      $newConfig["statsDefaultColorAbsencetype"] = $_POST['sel_statsDefaultColorAbsencetype'];
     } else {
-      $C->save("statsDefaultColorAbsencetype", "cyan");
+      $newConfig["statsDefaultColorAbsencetype"] = "cyan";
     }
     if ($_POST['sel_statsDefaultColorRemainder']) {
-      $C->save("statsDefaultColorRemainder", $_POST['sel_statsDefaultColorRemainder']);
+      $newConfig["statsDefaultColorRemainder"] = $_POST['sel_statsDefaultColorRemainder'];
     } else {
-      $C->save("statsDefaultColorRemainder", "orange");
+      $newConfig["statsDefaultColorRemainder"] = "orange";
     }
 
     //
     // Summary
     //
     if (isset($_POST['chk_includeSummary']) && $_POST['chk_includeSummary']) {
-      $C->save("includeSummary", "1");
+      $newConfig["includeSummary"] = "1";
     } else {
-      $C->save("includeSummary", "0");
+      $newConfig["includeSummary"] = "0";
     }
     if (isset($_POST['chk_showSummary']) && $_POST['chk_showSummary']) {
-      $C->save("showSummary", "1");
+      $newConfig["showSummary"] = "1";
     } else {
-      $C->save("showSummary", "0");
+      $newConfig["showSummary"] = "0";
     }
-    $C->save("summaryAbsenceTextColor", sanitize($_POST['txt_summaryAbsenceTextColor']));
-    $C->save("summaryPresenceTextColor", sanitize($_POST['txt_summaryPresenceTextColor']));
+    $newConfig["summaryAbsenceTextColor"] = ltrim(sanitize($_POST['txt_summaryAbsenceTextColor']), '#');
+    $newConfig["summaryPresenceTextColor"] = ltrim(sanitize($_POST['txt_summaryPresenceTextColor']), '#');
+
+    //
+    // Save all config values in batch
+    //
+    $C->saveBatch($newConfig);
 
     //
     // Log this event
@@ -349,47 +358,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST) && isset($_POST['btn
 // ========================================================================
 // Prepare data for the view
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+
 //
 // Display
 //
 $absences = $A->getAll();
-$caloptData['absenceList'][] = array('val' => 0, 'name' => $LANG['none'], 'selected' => (!$C->read("monitorAbsence")) ? true : false);
+$caloptData['absenceList'][] = array('val' => 0, 'name' => $LANG['none'], 'selected' => (!$allConfig['monitorAbsence']) ? true : false);
 foreach ($absences as $abs) {
-  $caloptData['absenceList'][] = array('val' => $abs['id'], 'name' => $abs['name'], 'selected' => ($C->read("monitorAbsence") == $abs['id']) ? true : false);
+  $caloptData['absenceList'][] = array('val' => $abs['id'], 'name' => $abs['name'], 'selected' => ($allConfig['monitorAbsence'] == $abs['id']) ? true : false);
 }
 $caloptData['display'] = array(
-  array('label' => $LANG['calopt_todayBorderColor'], 'prefix' => 'calopt', 'name' => 'todayBorderColor', 'type' => 'color', 'value' => $C->read("todayBorderColor"), 'maxlength' => '6', 'error' => (isset($inputAlert['todayBorderColor']) ? $inputAlert['todayBorderColor'] : '')),
-  array('label' => $LANG['calopt_todayBorderSize'], 'prefix' => 'calopt', 'name' => 'todayBorderSize', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("todayBorderSize"), 'maxlength' => '2'),
-  array('label' => $LANG['calopt_pastDayColor'], 'prefix' => 'calopt', 'name' => 'pastDayColor', 'type' => 'color', 'value' => $C->read("pastDayColor"), 'maxlength' => '6', 'error' => (isset($inputAlert['pastDayColor']) ? $inputAlert['pastDayColor'] : '')),
-  array('label' => $LANG['calopt_showWeekNumbers'], 'prefix' => 'calopt', 'name' => 'showWeekNumbers', 'type' => 'check', 'values' => '', 'value' => $C->read("showWeekNumbers")),
-  array('label' => $LANG['calopt_repeatHeaderCount'], 'prefix' => 'calopt', 'name' => 'repeatHeaderCount', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("repeatHeaderCount"), 'maxlength' => '4'),
-  array('label' => $LANG['calopt_usersPerPage'], 'prefix' => 'calopt', 'name' => 'usersPerPage', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("usersPerPage"), 'maxlength' => '4'),
-  array('label' => $LANG['calopt_showAvatars'], 'prefix' => 'calopt', 'name' => 'showAvatars', 'type' => 'check', 'values' => '', 'value' => $C->read("showAvatars")),
-  array('label' => $LANG['calopt_showRoleIcons'], 'prefix' => 'calopt', 'name' => 'showRoleIcons', 'type' => 'check', 'values' => '', 'value' => $C->read("showRoleIcons")),
-  array('label' => $LANG['calopt_showTooltipCount'], 'prefix' => 'calopt', 'name' => 'showTooltipCount', 'type' => 'check', 'values' => '', 'value' => $C->read("showTooltipCount")),
-  array('label' => $LANG['calopt_supportMobile'], 'prefix' => 'calopt', 'name' => 'supportMobile', 'type' => 'check', 'values' => '', 'value' => $C->read("supportMobile")),
-  array('label' => $LANG['calopt_symbolAsIcon'], 'prefix' => 'calopt', 'name' => 'symbolAsIcon', 'type' => 'check', 'values' => '', 'value' => $C->read("symbolAsIcon")),
+  array('label' => $LANG['calopt_todayBorderColor'], 'prefix' => 'calopt', 'name' => 'todayBorderColor', 'type' => 'coloris', 'value' => (!empty($allConfig['todayBorderColor']) ? '#' . $allConfig['todayBorderColor'] : ''), 'maxlength' => '6', 'error' => (isset($inputAlert['todayBorderColor']) ? $inputAlert['todayBorderColor'] : '')),
+  array('label' => $LANG['calopt_todayBorderSize'], 'prefix' => 'calopt', 'name' => 'todayBorderSize', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['todayBorderSize'], 'maxlength' => '2'),
+  array('label' => $LANG['calopt_pastDayColor'], 'prefix' => 'calopt', 'name' => 'pastDayColor', 'type' => 'coloris', 'value' => (!empty($allConfig['pastDayColor']) ? '#' . $allConfig['pastDayColor'] : ''), 'maxlength' => '6', 'error' => (isset($inputAlert['pastDayColor']) ? $inputAlert['pastDayColor'] : '')),
+  array('label' => $LANG['calopt_showWeekNumbers'], 'prefix' => 'calopt', 'name' => 'showWeekNumbers', 'type' => 'check', 'values' => '', 'value' => $allConfig['showWeekNumbers']),
+  array('label' => $LANG['calopt_repeatHeaderCount'], 'prefix' => 'calopt', 'name' => 'repeatHeaderCount', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['repeatHeaderCount'], 'maxlength' => '4'),
+  array('label' => $LANG['calopt_usersPerPage'], 'prefix' => 'calopt', 'name' => 'usersPerPage', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['usersPerPage'], 'maxlength' => '4'),
+  array('label' => $LANG['calopt_showAvatars'], 'prefix' => 'calopt', 'name' => 'showAvatars', 'type' => 'check', 'values' => '', 'value' => $allConfig['showAvatars']),
+  array('label' => $LANG['calopt_showRoleIcons'], 'prefix' => 'calopt', 'name' => 'showRoleIcons', 'type' => 'check', 'values' => '', 'value' => $allConfig['showRoleIcons']),
+  array('label' => $LANG['calopt_showTooltipCount'], 'prefix' => 'calopt', 'name' => 'showTooltipCount', 'type' => 'check', 'values' => '', 'value' => $allConfig['showTooltipCount']),
+  array('label' => $LANG['calopt_supportMobile'], 'prefix' => 'calopt', 'name' => 'supportMobile', 'type' => 'check', 'values' => '', 'value' => $allConfig['supportMobile']),
+  array('label' => $LANG['calopt_symbolAsIcon'], 'prefix' => 'calopt', 'name' => 'symbolAsIcon', 'type' => 'check', 'values' => '', 'value' => $allConfig['symbolAsIcon']),
   array('label' => $LANG['calopt_monitorAbsence'], 'prefix' => 'calopt', 'name' => 'monitorAbsence', 'type' => 'list', 'values' => $caloptData['absenceList']),
-  array('label' => $LANG['calopt_calendarFontSize'], 'prefix' => 'calopt', 'name' => 'calendarFontSize', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("calendarFontSize"), 'maxlength' => '3'),
-  array('label' => $LANG['calopt_showMonths'], 'prefix' => 'calopt', 'name' => 'showMonths', 'type' => 'text', 'placeholder' => '', 'value' => $C->read("showMonths"), 'maxlength' => '2'),
-  array('label' => $LANG['calopt_regionalHolidays'], 'prefix' => 'calopt', 'name' => 'regionalHolidays', 'type' => 'check', 'values' => '', 'value' => $C->read("regionalHolidays")),
-  array('label' => $LANG['calopt_regionalHolidaysColor'], 'prefix' => 'calopt', 'name' => 'regionalHolidaysColor', 'type' => 'color', 'value' => $C->read("regionalHolidaysColor"), 'maxlength' => '6', 'error' => (isset($inputAlert['regionalHolidaysColor']) ? $inputAlert['regionalHolidaysColor'] : '')),
-  array('label' => $LANG['calopt_sortByOrderKey'], 'prefix' => 'calopt', 'name' => 'sortByOrderKey', 'type' => 'check', 'values' => '', 'value' => $C->read("sortByOrderKey")),
+  array('label' => $LANG['calopt_calendarFontSize'], 'prefix' => 'calopt', 'name' => 'calendarFontSize', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['calendarFontSize'], 'maxlength' => '3'),
+  array('label' => $LANG['calopt_showMonths'], 'prefix' => 'calopt', 'name' => 'showMonths', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['showMonths'], 'maxlength' => '2'),
+  array('label' => $LANG['calopt_regionalHolidays'], 'prefix' => 'calopt', 'name' => 'regionalHolidays', 'type' => 'check', 'values' => '', 'value' => $allConfig['regionalHolidays']),
+  array('label' => $LANG['calopt_regionalHolidaysColor'], 'prefix' => 'calopt', 'name' => 'regionalHolidaysColor', 'type' => 'coloris', 'value' => (!empty($allConfig['regionalHolidaysColor']) ? '#' . $allConfig['regionalHolidaysColor'] : ''), 'maxlength' => '6', 'error' => (isset($inputAlert['regionalHolidaysColor']) ? $inputAlert['regionalHolidaysColor'] : '')),
+  array('label' => $LANG['calopt_sortByOrderKey'], 'prefix' => 'calopt', 'name' => 'sortByOrderKey', 'type' => 'check', 'values' => '', 'value' => $allConfig['sortByOrderKey']),
 );
 
 //
 // Filter
 //
 $roles = $RO->getAll();
-$arrTrustedRoles = explode(',', $C->read("trustedRoles"));
+$arrTrustedRoles = explode(',', $allConfig['trustedRoles']);
 foreach ($roles as $role) {
   $caloptData['roleList'][] = array('val' => $role['id'], 'name' => $role['name'], 'selected' => (in_array($role['id'], $arrTrustedRoles)) ? true : false);
 }
 $caloptData['filter'] = array(
-  array('label' => $LANG['calopt_hideManagers'], 'prefix' => 'calopt', 'name' => 'hideManagers', 'type' => 'check', 'values' => '', 'value' => $C->read("hideManagers")),
-  array('label' => $LANG['calopt_hideDaynotes'], 'prefix' => 'calopt', 'name' => 'hideDaynotes', 'type' => 'check', 'values' => '', 'value' => $C->read("hideDaynotes")),
-  array('label' => $LANG['calopt_hideManagerOnlyAbsences'], 'prefix' => 'calopt', 'name' => 'hideManagerOnlyAbsences', 'type' => 'check', 'values' => '', 'value' => $C->read("hideManagerOnlyAbsences")),
-  array('label' => $LANG['calopt_showUserRegion'], 'prefix' => 'calopt', 'name' => 'showUserRegion', 'type' => 'check', 'values' => '', 'value' => $C->read("showUserRegion")),
+  array('label' => $LANG['calopt_hideManagers'], 'prefix' => 'calopt', 'name' => 'hideManagers', 'type' => 'check', 'values' => '', 'value' => $allConfig['hideManagers']),
+  array('label' => $LANG['calopt_hideDaynotes'], 'prefix' => 'calopt', 'name' => 'hideDaynotes', 'type' => 'check', 'values' => '', 'value' => $allConfig['hideDaynotes']),
+  array('label' => $LANG['calopt_hideManagerOnlyAbsences'], 'prefix' => 'calopt', 'name' => 'hideManagerOnlyAbsences', 'type' => 'check', 'values' => '', 'value' => $allConfig['hideManagerOnlyAbsences']),
+  array('label' => $LANG['calopt_showUserRegion'], 'prefix' => 'calopt', 'name' => 'showUserRegion', 'type' => 'check', 'values' => '', 'value' => $allConfig['showUserRegion']),
   array('label' => $LANG['calopt_trustedRoles'], 'prefix' => 'calopt', 'name' => 'trustedRoles', 'type' => 'listmulti', 'values' => $caloptData['roleList']),
 );
 
@@ -398,24 +410,24 @@ $caloptData['filter'] = array(
 //
 $regions = $R->getAllNames();
 foreach ($regions as $region) {
-  $caloptData['regionList'][] = array('val' => $region, 'name' => $region, 'selected' => ($C->read("defregion") == $region) ? true : false);
+  $caloptData['regionList'][] = array('val' => $region, 'name' => $region, 'selected' => ($allConfig['defregion'] == $region) ? true : false);
 }
-$arrCurrYearRoles = explode(',', $C->read("currYearRoles"));
+$arrCurrYearRoles = explode(',', $allConfig['currYearRoles']);
 foreach ($roles as $role) {
   $caloptData['roleList2'][] = array('val' => $role['id'], 'name' => $role['name'], 'selected' => (in_array($role['id'], $arrCurrYearRoles)) ? true : false);
 }
 $caloptData['options'] = array(
-  array('label' => $LANG['calopt_firstDayOfWeek'], 'prefix' => 'calopt', 'name' => 'firstDayOfWeek', 'type' => 'radio', 'values' => array('1', '7'), 'value' => $C->read("firstDayOfWeek")),
-  array('label' => $LANG['calopt_satBusi'], 'prefix' => 'calopt', 'name' => 'satBusi', 'type' => 'check', 'values' => '', 'value' => $C->read("satBusi")),
-  array('label' => $LANG['calopt_sunBusi'], 'prefix' => 'calopt', 'name' => 'sunBusi', 'type' => 'check', 'values' => '', 'value' => $C->read("sunBusi")),
+  array('label' => $LANG['calopt_firstDayOfWeek'], 'prefix' => 'calopt', 'name' => 'firstDayOfWeek', 'type' => 'radio', 'values' => array('1', '7'), 'value' => $allConfig['firstDayOfWeek']),
+  array('label' => $LANG['calopt_satBusi'], 'prefix' => 'calopt', 'name' => 'satBusi', 'type' => 'check', 'values' => '', 'value' => $allConfig['satBusi']),
+  array('label' => $LANG['calopt_sunBusi'], 'prefix' => 'calopt', 'name' => 'sunBusi', 'type' => 'check', 'values' => '', 'value' => $allConfig['sunBusi']),
   array('label' => $LANG['calopt_defregion'], 'prefix' => 'calopt', 'name' => 'defregion', 'type' => 'list', 'values' => $caloptData['regionList']),
-  array('label' => $LANG['calopt_showRegionButton'], 'prefix' => 'calopt', 'name' => 'showRegionButton', 'type' => 'check', 'values' => '', 'value' => $C->read("showRegionButton")),
-  array('label' => $LANG['calopt_defgroupfilter'], 'prefix' => 'calopt', 'name' => 'defgroupfilter', 'type' => 'radio', 'values' => array('all', 'allbygroup'), 'value' => $C->read("defgroupfilter")),
-  array('label' => $LANG['calopt_currentYearOnly'], 'prefix' => 'calopt', 'name' => 'currentYearOnly', 'type' => 'check', 'values' => '', 'value' => $C->read("currentYearOnly")),
+  array('label' => $LANG['calopt_showRegionButton'], 'prefix' => 'calopt', 'name' => 'showRegionButton', 'type' => 'check', 'values' => '', 'value' => $allConfig['showRegionButton']),
+  array('label' => $LANG['calopt_defgroupfilter'], 'prefix' => 'calopt', 'name' => 'defgroupfilter', 'type' => 'radio', 'values' => array('all', 'allbygroup'), 'value' => $allConfig['defgroupfilter']),
+  array('label' => $LANG['calopt_currentYearOnly'], 'prefix' => 'calopt', 'name' => 'currentYearOnly', 'type' => 'check', 'values' => '', 'value' => $allConfig['currentYearOnly']),
   array('label' => $LANG['calopt_currentYearRoles'], 'prefix' => 'calopt', 'name' => 'currentYearRoles', 'type' => 'listmulti', 'values' => $caloptData['roleList2']),
-  array('label' => $LANG['calopt_takeover'], 'prefix' => 'calopt', 'name' => 'takeover', 'type' => 'check', 'values' => '', 'value' => $C->read("takeover")),
-  array('label' => $LANG['calopt_notificationsAllGroups'], 'prefix' => 'calopt', 'name' => 'notificationsAllGroups', 'type' => 'check', 'values' => '', 'value' => $C->read("notificationsAllGroups")),
-  array('label' => $LANG['calopt_managerOnlyIncludesAdministrator'], 'prefix' => 'calopt', 'name' => 'managerOnlyIncludesAdministrator', 'type' => 'check', 'values' => '', 'value' => $C->read("managerOnlyIncludesAdministrator")),
+  array('label' => $LANG['calopt_takeover'], 'prefix' => 'calopt', 'name' => 'takeover', 'type' => 'check', 'values' => '', 'value' => $allConfig['takeover']),
+  array('label' => $LANG['calopt_notificationsAllGroups'], 'prefix' => 'calopt', 'name' => 'notificationsAllGroups', 'type' => 'check', 'values' => '', 'value' => $allConfig['notificationsAllGroups']),
+  array('label' => $LANG['calopt_managerOnlyIncludesAdministrator'], 'prefix' => 'calopt', 'name' => 'managerOnlyIncludesAdministrator', 'type' => 'check', 'values' => '', 'value' => $allConfig['managerOnlyIncludesAdministrator']),
 );
 
 //
@@ -436,7 +448,7 @@ $colors = array(
 foreach ($statsPages as $statsPage) {
   $statsColorArray[$statsPage] = array();
   foreach ($colors as $color => $hex) {
-    $statsColorArray[$statsPage][] = array('val' => $hex, 'name' => $LANG[$color], 'selected' => ($C->read("statsDefaultColor" . $statsPage) == $hex) ? true : false);
+    $statsColorArray[$statsPage][] = array('val' => $hex, 'name' => $LANG[$color], 'selected' => ($allConfig['statsDefaultColor' . $statsPage] == $hex) ? true : false);
   }
 }
 $caloptData['stats'] = array(
@@ -450,10 +462,10 @@ $caloptData['stats'] = array(
 // Summary
 //
 $caloptData['summary'] = array(
-  array('label' => $LANG['calopt_includeSummary'], 'prefix' => 'calopt', 'name' => 'includeSummary', 'type' => 'check', 'values' => '', 'value' => $C->read("includeSummary")),
-  array('label' => $LANG['calopt_showSummary'], 'prefix' => 'calopt', 'name' => 'showSummary', 'type' => 'check', 'values' => '', 'value' => $C->read("showSummary")),
-  array('label' => $LANG['calopt_summaryAbsenceTextColor'], 'prefix' => 'calopt', 'name' => 'summaryAbsenceTextColor', 'type' => 'color', 'value' => $C->read("summaryAbsenceTextColor"), 'maxlength' => '6'),
-  array('label' => $LANG['calopt_summaryPresenceTextColor'], 'prefix' => 'calopt', 'name' => 'summaryPresenceTextColor', 'type' => 'color', 'value' => $C->read("summaryPresenceTextColor"), 'maxlength' => '6'),
+  array('label' => $LANG['calopt_includeSummary'], 'prefix' => 'calopt', 'name' => 'includeSummary', 'type' => 'check', 'values' => '', 'value' => $allConfig['includeSummary']),
+  array('label' => $LANG['calopt_showSummary'], 'prefix' => 'calopt', 'name' => 'showSummary', 'type' => 'check', 'values' => '', 'value' => $allConfig['showSummary']),
+  array('label' => $LANG['calopt_summaryAbsenceTextColor'], 'prefix' => 'calopt', 'name' => 'summaryAbsenceTextColor', 'type' => 'coloris', 'value' => (!empty($allConfig['summaryAbsenceTextColor']) ? '#' . $allConfig['summaryAbsenceTextColor'] : ''), 'maxlength' => '7'),
+  array('label' => $LANG['calopt_summaryPresenceTextColor'], 'prefix' => 'calopt', 'name' => 'summaryPresenceTextColor', 'type' => 'coloris', 'value' => (!empty($allConfig['summaryPresenceTextColor']) ? '#' . $allConfig['summaryPresenceTextColor'] : ''), 'maxlength' => '7'),
 );
 
 //

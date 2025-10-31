@@ -19,8 +19,8 @@ view.log
   <div class="col-lg-12">
     <?php
     if (
-      ($showAlert && $C->read("showAlerts") != "none") &&
-      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+      ($showAlert && $viewData['showAlerts'] != "none") &&
+      ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
     }
@@ -35,7 +35,7 @@ view.log
       <div class="card">
         <?php
         $pageHelp = '';
-        if ($C->read('pageHelp')) {
+        if ($viewData['pageHelp']) {
           $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
         }
         ?>
@@ -142,7 +142,7 @@ view.log
                       </thead>
                       <tbody>
                       <?php foreach ($viewData['events'] as $event) :
-                        $color = $C->read("logcolor" . substr($event['type'], 3));
+                        $color = $allConfig['logcolor' . substr($event['type'], 3)];
                         ?>
                         <tr>
                           <td class="align-top text-end text-<?= $color ?>"><?= $i++ ?></td>
@@ -162,6 +162,8 @@ view.log
                           ordering: true,
                           info: true,
                           pageLength: 50,
+                          deferRender: true,
+                          processing: true,
                           language: {
                             url: 'addons/datatables/datatables.<?= $LANG['locale'] ?>.json'
                           },
@@ -192,23 +194,23 @@ view.log
 
                   <?php
                   foreach ($viewData['types'] as $type) {
-                    $color = "text-" . $C->read("logcolor" . $type);
+                    $color = "text-" . $allConfig['logcolor' . $type];
                     ?>
                     <div class="row" style="border-bottom: 1px dotted; padding-top: 10px; padding-bottom: 10px;">
                       <div class="col-lg-3 <?= $color ?>"><label><i class="fas fa-tag fa-lg me-3"></i><?= $type ?></label></div>
                       <div class="col-lg-3">
-                        <input class="form-check-input" style="margin-right: 10px;" name="chk_log<?= $type ?>" value="chk_log<?= $type ?>" type="checkbox" <?= ($C->read("log" . $type)) ? ' checked=""' : '' ?>><?= $LANG['log_settings_log'] ?>
+                        <input class="form-check-input" style="margin-right: 10px;" name="chk_log<?= $type ?>" value="chk_log<?= $type ?>" type="checkbox" <?= ($allConfig['log' . $type]) ? ' checked=""' : '' ?>><?= $LANG['log_settings_log'] ?>
                       </div>
                       <div class="col-lg-3">
-                        <input class="form-check-input" style="margin-right: 10px;" name="chk_logfilter<?= $type ?>" value="chk_logfilter<?= $type ?>" type="checkbox" <?= ($C->read("logfilter" . $type)) ? ' checked=""' : '' ?>><?= $LANG['log_settings_show'] ?>
+                        <input class="form-check-input" style="margin-right: 10px;" name="chk_logfilter<?= $type ?>" value="chk_logfilter<?= $type ?>" type="checkbox" <?= ($allConfig['logfilter' . $type]) ? ' checked=""' : '' ?>><?= $LANG['log_settings_show'] ?>
                       </div>
                       <div class="col-lg-3">
-                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="default" tabindex="<?= ++$tabindex ?>" type="radio" <?= ($C->read("logcolor" . $type) == "default") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-default"></i></label></div>
-                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="primary" tabindex="<?= ++$tabindex ?>" type="radio" <?= ($C->read("logcolor" . $type) == "primary") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-primary"></i></label></div>
-                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="info" tabindex="<?= ++$tabindex ?>" type="radio" <?= ($C->read("logcolor" . $type) == "info") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-info"></i></label></div>
-                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="success" tabindex="<?= ++$tabindex ?>" type="radio" <?= ($C->read("logcolor" . $type) == "success") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-success"></i></label></div>
-                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="warning" tabindex="<?= ++$tabindex ?>" type="radio" <?= ($C->read("logcolor" . $type) == "warning") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-warning"></i></label></div>
-                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="danger" tabindex="<?= ++$tabindex ?>" type="radio" <?= ($C->read("logcolor" . $type) == "danger") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-danger"></i></label></div>
+                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="default" tabindex="<?= ++$tabindex ?>" type="radio" <?= ($allConfig['logcolor' . $type] == "default") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-default"></i></label></div>
+                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="primary" tabindex="<?= ++$tabindex ?>" type="radio" <?= ($allConfig['logcolor' . $type] == "primary") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-primary"></i></label></div>
+                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="info" tabindex="<?= ++$tabindex ?>" type="radio" <?= ($allConfig['logcolor' . $type] == "info") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-info"></i></label></div>
+                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="success" tabindex="<?= ++$tabindex ?>" type="radio" <?= ($allConfig['logcolor' . $type] == "success") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-success"></i></label></div>
+                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="warning" tabindex="<?= ++$tabindex ?>" type="radio" <?= ($allConfig['logcolor' . $type] == "warning") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-warning"></i></label></div>
+                        <div class="radio"><label><input class="form-check-input" name="opt_logcolor<?= $type ?>" value="danger" tabindex="<?= ++$tabindex ?>" type="radio" <?= ($allConfig['logcolor' . $type] == "danger") ? ' checked=""' : '' ?>><i class="fas fa-square fa-sm text-danger"></i></label></div>
                       </div>
                     </div>
                   <?php } ?>

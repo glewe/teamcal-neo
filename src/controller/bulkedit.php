@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Bulk Edit Controller
  *
@@ -9,6 +12,7 @@
  * @package TeamCal Neo
  * @since 3.5.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -42,13 +46,15 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //
 $alertData = array();
 $showAlert = false;
-$licExpiryWarning = $C->read('licExpiryWarning');
+$licExpiryWarning = $allConfig['licExpiryWarning'];
 $LIC = new License();
 $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -96,17 +102,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // Form validation
     //
     $inputError = false;
-    if (!empty($_POST['txt_selected_' . $absid . '_allowance']) && !formInputValid('txt_selected_' . $absid . '_allowance', 'numeric')) {
+    $selectedAllowanceKey = 'txt_selected_' . $absid . '_allowance';
+    $selectedCarryoverKey = 'txt_selected_' . $absid . '_carryover';
+    
+    if (!empty($_POST[$selectedAllowanceKey]) && !formInputValid($selectedAllowanceKey, 'numeric')) {
       $inputError = true;
     }
-    if (!empty($_POST['txt_selected_' . $absid . '_carryover']) && !formInputValid('txt_selected_' . $absid . '_carryover', 'numeric')) {
+    if (!empty($_POST[$selectedCarryoverKey]) && !formInputValid($selectedCarryoverKey, 'numeric')) {
       $inputError = true;
     }
     foreach ($users as $user) {
-      if (!empty($_POST['txt_' . $user['username'] . '_' . $absid . '_allowance']) && !formInputValid('txt_' . $user['username'] . '_' . $absid . '_allowance', 'numeric')) {
+      $userAllowanceKey = 'txt_' . $user['username'] . '_' . $absid . '_allowance';
+      $userCarryoverKey = 'txt_' . $user['username'] . '_' . $absid . '_carryover';
+      
+      if (!empty($_POST[$userAllowanceKey]) && !formInputValid($userAllowanceKey, 'numeric')) {
         $inputError = true;
       }
-      if (!empty($_POST['txt_' . $user['username'] . '_' . $absid . '_carryover']) && !formInputValid('txt_' . $user['username'] . '_' . $absid . '_carryover', 'numeric')) {
+      if (!empty($_POST[$userCarryoverKey]) && !formInputValid($userCarryoverKey, 'numeric')) {
         $inputError = true;
       }
     }
@@ -121,21 +133,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         //
         // Allowance
         //
-        $userAllowance = 0;
-        if (!empty($_POST['txt_selected_' . $absid . '_allowance'])) {
-          $userAllowance = $_POST['txt_selected_' . $absid . '_allowance'];
-        } elseif (!empty($_POST['txt_' . $value . '_' . $absid . '_allowance'])) {
-          $userAllowance = $_POST['txt_' . $value . '_' . $absid . '_allowance'];
-        }
+        $userAllowance = $_POST[$selectedAllowanceKey] ?? $_POST['txt_' . $value . '_' . $absid . '_allowance'] ?? 0;
         //
         // Carryover
         //
-        $userCarryover = 0;
-        if (!empty($_POST['txt_selected_' . $absid . '_carryover'])) {
-          $userCarryover = $_POST['txt_selected_' . $absid . '_carryover'];
-        } elseif (!empty($_POST['txt_' . $value . '_' . $absid . '_carryover'])) {
-          $userCarryover = $_POST['txt_' . $value . '_' . $absid . '_carryover'];
-        }
+        $userCarryover = $_POST[$selectedCarryoverKey] ?? $_POST['txt_' . $value . '_' . $absid . '_carryover'] ?? 0;
         // 
         // Collect update for this user
         //
@@ -218,20 +220,14 @@ $viewData['groupid'] = $groupid;
 $viewData['groups'] = $groups;
 
 if ($groupid != "All") {
-  $users = $U->getAll('lastname', 'firstname', 'ASC', $archive = false, $includeAdmin = true);
   $users = filterUsersByGroup($users, $groupid, $UG);
 }
 
 foreach ($users as $user) {
   $thisuser = array();
   $thisuser['username'] = $user['username'];
-  if ($user['firstname'] != "") {
-    $thisuser['dispname'] = $user['lastname'] . ", " . $user['firstname'];
-  }
-  else {
-    $thisuser['dispname'] = $user['lastname'];
-  }
-  $thisuser['dispname'] .= ' (' . $user['username'] . ')';
+  $dispname = (!empty($user['firstname'])) ? $user['lastname'] . ", " . $user['firstname'] : $user['lastname'];
+  $thisuser['dispname'] = $dispname . ' (' . $user['username'] . ')';
 
   list($allowance, $carryover) = getOrCreateAllowance($user, $absid, $A, $AL);
   $thisuser['allowance'] = $allowance;
