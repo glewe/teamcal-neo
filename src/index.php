@@ -18,7 +18,7 @@ global $LANG;
 // Set PRODUCTION_MODE to true to suppress PHP errors and warnings.
 // Set to false for development and debugging.
 //
-define('PRODUCTION_MODE', false);
+define('PRODUCTION_MODE', true);
 if (PRODUCTION_MODE) {
   error_reporting(0);
   ini_set('display_errors', 0);
