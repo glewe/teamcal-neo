@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Messages page controller
  *
@@ -9,6 +12,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -21,7 +25,7 @@ global $UL;
 //-----------------------------------------------------------------------------
 // CHECK PERMISSION
 //
-if (!isAllowed($CONF['controllers'][$controller]->permission) || !$C->read('activateMessages')) {
+if (!isAllowed($CONF['controllers'][$controller]->permission) || !$allConfig['activateMessages']) {
   $alertData['type'] = 'warning';
   $alertData['title'] = $LANG['alert_alert_title'];
   $alertData['subject'] = $LANG['alert_not_allowed_subject'];

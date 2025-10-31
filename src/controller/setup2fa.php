@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Setup 2FA Controller
  *
@@ -9,6 +12,7 @@
  * @package TeamCal Neo
  * @since 3.7.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -20,10 +24,13 @@ global $UP;
 
 use RobThree\Auth\TwoFactorAuth;
 
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+
 //-----------------------------------------------------------------------------
 // CHECK 2FA DISABLED
 //
-if ($C->read('disableTfa')) {
+if ($allConfig['disableTfa']) {
   $alertData['type'] = 'info';
   $alertData['title'] = $LANG['alert_info_title'];
   $alertData['subject'] = $LANG['alert_not_enabled_subject'];

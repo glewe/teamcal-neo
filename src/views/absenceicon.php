@@ -19,8 +19,8 @@ view.absenceicon
   <div class="col-lg-12">
     <?php
     if (
-      ($showAlert && $C->read("showAlerts") != "none") &&
-      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+      ($showAlert && $viewData['showAlerts'] != "none") &&
+      ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
     }
@@ -35,7 +35,7 @@ view.absenceicon
       <div class="card">
         <?php
         $pageHelp = '';
-        if ($C->read('pageHelp')) {
+        if ($viewData['pageHelp']) {
           $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
         }
         ?>
@@ -98,17 +98,19 @@ view.absenceicon
                         <?php
                         if (array_key_exists('fasIcons', $viewData)) {
                           $count = 0;
+                          $totalIcons = count($viewData['fasIcons']);
                           foreach ($viewData['fasIcons'] as $fai) {
                             if ($count % 12 == 0) {
                               echo '</div><div class="row">';
                             }
+                            $isSelected = $fai['val'] == $viewData['icon'];
                             $iconTooltip = '<span class=\'' . $fai['val'] . ' fa-5x text-info\' title=\'' . $fai['val'] . '\'></span>';
-                            if ($fai['val'] == $viewData['icon']) {
+                            if ($isSelected) {
                               echo '<div class="col-lg-1 p-1 bg-warning-subtle border-warning" style="border: 1px solid;"><div class="radio">';
                             } else {
                               echo '<div class="col-lg-1 p-1"><div class="form-check">';
                             }
-                            echo '<label><input class="form-check-input" name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . ++$tabindex . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><i data-bs-placement="top" data-bs-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
+                            echo '<label><input class="form-check-input" name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . ++$tabindex . '" type="radio"' . ($isSelected ? " checked" : "") . '><i data-bs-placement="top" data-bs-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
                             echo '</div></div>';
                             $count++;
                           }
@@ -131,9 +133,10 @@ view.absenceicon
                             if ($count % 12 == 0) {
                               echo '</div><div class="row">';
                             }
+                            $isSelected = $fai['val'] == $viewData['icon'];
                             $iconTooltip = '<span class=\'' . $fai['val'] . ' fa-5x text-info\' title=\'' . $fai['val'] . '\'></span>';
-                            echo '<div class="col-lg-1" style="border: ' . (($fai['val'] == $viewData['icon']) ? "1" : "0") . 'px solid #CC0000;"><div class="form-check">';
-                            echo '<label><input class="form-check-input" name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . ++$tabindex . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
+                            echo '<div class="col-lg-1" style="border: ' . ($isSelected ? "1" : "0") . 'px solid #CC0000;"><div class="form-check">';
+                            echo '<label><input class="form-check-input" name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . ++$tabindex . '" type="radio"' . ($isSelected ? " checked" : "") . '><i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
                             echo '</div></div>';
                             $count++;
                           }
@@ -156,9 +159,10 @@ view.absenceicon
                             if ($count % 12 == 0) {
                               echo '</div><div class="row">';
                             }
+                            $isSelected = $fai['val'] == $viewData['icon'];
                             $iconTooltip = '<span class=\'' . $fai['val'] . ' fa-5x text-info\' title=\'' . $fai['val'] . '\'></span>';
-                            echo '<div class="col-lg-1" style="border: ' . (($fai['val'] == $viewData['icon']) ? "1" : "0") . 'px solid #CC0000;"><div class="form-check">';
-                            echo '<label><input class="form-check-input" name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . ++$tabindex . '" type="radio"' . (($fai['val'] == $viewData['icon']) ? " checked" : "") . '><i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
+                            echo '<div class="col-lg-1" style="border: ' . ($isSelected ? "1" : "0") . 'px solid #CC0000;"><div class="form-check">';
+                            echo '<label><input class="form-check-input" name="opt_absIcon" value="' . $fai['val'] . '" tabindex="' . ++$tabindex . '" type="radio"' . ($isSelected ? " checked" : "") . '><i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="' . $iconTooltip . '"><span class="' . $fai['val'] . ' fa-lg text-secondary" title="' . $fai['val'] . '"></span></i></label>';
                             echo '</div></div>';
                             $count++;
                           }

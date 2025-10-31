@@ -24,6 +24,7 @@ class Regions {
   private $db = null;
   private string $accessTable = '';
   private string $table = '';
+  private array $nameCache = [];
 
   //---------------------------------------------------------------------------
   /**
@@ -83,13 +84,8 @@ class Regions {
    * @return boolean Query result or false
    */
   public function deleteAll(): bool {
-    $query = $this->db->prepare("SELECT COUNT(*) FROM {$this->table}");
-    $result = $query->execute();
-    if ($result && $query->fetchColumn()) {
-      $query = $this->db->prepare("TRUNCATE TABLE {$this->table}");
-      return $query->execute();
-    }
-    return false;
+    $query = $this->db->prepare("TRUNCATE TABLE {$this->table}");
+    return $query->execute();
   }
 
   //---------------------------------------------------------------------------
@@ -234,10 +230,20 @@ class Regions {
    * @return boolean Query result
    */
   public function getNameById(string $id): string|false {
+    //
+    // Check cache first
+    //
+    if (isset($this->nameCache[$id])) {
+      return $this->nameCache[$id];
+    }
     $query = $this->db->prepare("SELECT name FROM {$this->table} WHERE id = :id");
     $query->bindParam('id', $id, \PDO::PARAM_STR);
     $result = $query->execute();
     if ($result && ($row = $query->fetch())) {
+      //
+      // Cache the result
+      //
+      $this->nameCache[$id] = $row['name'];
       return $row['name'];
     }
     return false;

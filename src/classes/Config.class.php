@@ -48,6 +48,18 @@ class Config {
 
   //---------------------------------------------------------------------------
   /**
+   * Read all config values into an associative array
+   *
+   * @return array $config Associative array of all config name=>value pairs
+   */
+  public function readAll(): array {
+    $query = $this->db->prepare("SELECT name, value FROM " . $this->table);
+    $query->execute();
+    return $query->fetchAll(PDO::FETCH_KEY_PAIR);
+  }
+
+  //---------------------------------------------------------------------------
+  /**
    * Save a value
    *
    * @param string $name Name of the option
@@ -67,5 +79,30 @@ class Config {
     $query2->bindParam(':name', $name);
     $query2->bindParam(':value', $value);
     return $query2->execute();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Save multiple values in a batch
+   *
+   * @param array $configs Associative array of name=>value pairs
+   * @return boolean $result Query result or false
+   */
+  public function saveBatch(array $configs): bool {
+    if (empty($configs)) {
+      return true;
+    }
+
+    $placeholders = [];
+    $values = [];
+    foreach ($configs as $name => $value) {
+      $placeholders[] = "(?, ?)";
+      $values[] = $name;
+      $values[] = $value;
+    }
+
+    $sql = "INSERT INTO " . $this->table . " (`name`, `value`) VALUES " . implode(', ', $placeholders) . " ON DUPLICATE KEY UPDATE `value` = VALUES(`value`)";
+    $query = $this->db->prepare($sql);
+    return $query->execute($values);
   }
 }

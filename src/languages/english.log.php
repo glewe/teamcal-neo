@@ -52,6 +52,7 @@ $LANG['log_hol_deleted'] = 'Holiday deleted: ';
 $LANG['log_imp_success'] = 'CSV Import: ';
 $LANG['log_log_updated'] = 'Log settings updated';
 $LANG['log_log_cleared'] = 'Log cleared';
+$LANG['log_log_reset'] = 'Log settings reset';
 $LANG['log_login_2fa'] = 'Incorrect authentication code';
 $LANG['log_login_success'] = 'Login successful';
 $LANG['log_login_missing'] = 'Username or password missing';

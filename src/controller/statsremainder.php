@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Remainder statistics page controller
  *
@@ -9,6 +12,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -34,6 +38,9 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+$viewData['currentYearOnly'] = $allConfig['currentYearOnly'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -48,7 +55,7 @@ $viewData['from'] = date("Y") . '-01-01';
 $viewData['to'] = date("Y") . '-12-31';
 $viewData['yaxis'] = 'users';
 $viewData['color'] = 'orange';
-if ($color = $C->read("statsDefaultColorRemainder")) {
+if ($color = $allConfig['statsDefaultColorRemainder']) {
   $viewData['color'] = $color;
 } else {
   $viewData['color'] = 'orange';
@@ -145,7 +152,7 @@ $viewData['to'] = $viewData['year'] . '-12-31';
 if ($viewData['groupid'] == "all") {
   $viewData['groupName'] = $LANG['all'];
 } else {
-  $viewData['groupName'] = $G->getNameById($_POST['sel_group']);
+  $viewData['groupName'] = $G->getNameById($viewData['groupid']);
 }
 
 $viewData['periodName'] = $viewData['from'] . ' - ' . $viewData['to'];
@@ -154,51 +161,58 @@ $dataAllowance = array();
 $dataRemainder = array();
 
 //
+// Pre-filter absences to exclude those with counts_as_present = true or allowance <= 0
+//
+$filteredAbsences = array_filter($viewData['absences'], function($abs) use ($A) {
+  return $A->get($abs['id']) && !$A->counts_as_present && intval($A->allowance) > 0;
+});
+
+//
+// Pre-format date strings to avoid repeated str_replace() calls
+//
+$countFrom = str_replace('-', '', $viewData['from']);
+$countTo = str_replace('-', '', $viewData['to']);
+
+//
 // Loop through all absence types (that count as absent and that have an allowance)
 //
 $viewData['total'] = 0;
-foreach ($viewData['absences'] as $abs) {
-  if ($A->get($abs['id']) && !$A->counts_as_present && intval($A->allowance) > 0) {
-    $labels[] = '"' . $abs['name'] . '"';
-    $absenceAllowance = intval($A->allowance);
+foreach ($filteredAbsences as $abs) {
+  $labels[] = '"' . $abs['name'] . '"';
+  $absenceAllowance = intval($A->allowance);
 
-    if ($viewData['groupid'] == "all") {
-      //
-      // Count for all groups
-      //
-      $totalAbsenceAllowance = 0;
-      $totalGroupRemainder = 0;
-      foreach ($viewData['groups'] as $group) {
-        $users = $UG->getAllforGroup($group['id']);
-        $userCount = count($users);
-        $totalAbsenceAllowance += $absenceAllowance * $userCount;
-        $groupRemainder = $absenceAllowance * $userCount;
-        foreach ($users as $user) {
-          $countFrom = str_replace('-', '', $viewData['from']);
-          $countTo = str_replace('-', '', $viewData['to']);
-          $groupRemainder -= countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
-        }
-        $totalGroupRemainder += $groupRemainder;
-      }
-      $dataAllowance[] = $totalAbsenceAllowance;
-      $dataRemainder[] = $totalGroupRemainder;
-      $viewData['total'] += $totalGroupRemainder;
-    } else {
-      //
-      // Count for a specific group
-      //
-      $users = $UG->getAllforGroup($viewData['groupid']);
+  if ($viewData['groupid'] == "all") {
+    //
+    // Count for all groups
+    //
+    $totalAbsenceAllowance = 0;
+    $totalGroupRemainder = 0;
+    foreach ($viewData['groups'] as $group) {
+      $users = $UG->getAllforGroup($group['id']);
       $userCount = count($users);
+      $totalAbsenceAllowance += $absenceAllowance * $userCount;
       $groupRemainder = $absenceAllowance * $userCount;
-      $dataAllowance[] = $groupRemainder;
       foreach ($users as $user) {
-        $countFrom = str_replace('-', '', $viewData['from']);
-        $countTo = str_replace('-', '', $viewData['to']);
         $groupRemainder -= countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
       }
-      $dataRemainder[] = $groupRemainder;
-      $viewData['total'] += $groupRemainder;
+      $totalGroupRemainder += $groupRemainder;
     }
+    $dataAllowance[] = $totalAbsenceAllowance;
+    $dataRemainder[] = $totalGroupRemainder;
+    $viewData['total'] += $totalGroupRemainder;
+  } else {
+    //
+    // Count for a specific group
+    //
+    $users = $UG->getAllforGroup($viewData['groupid']);
+    $userCount = count($users);
+    $groupRemainder = $absenceAllowance * $userCount;
+    $dataAllowance[] = $groupRemainder;
+    foreach ($users as $user) {
+      $groupRemainder -= countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
+    }
+    $dataRemainder[] = $groupRemainder;
+    $viewData['total'] += $groupRemainder;
   }
 }
 

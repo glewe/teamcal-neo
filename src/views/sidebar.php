@@ -45,7 +45,7 @@ view.sidebar
             $item = [
               'url' => WEBSITE_URL . '/index.php?' . str_replace('&', '&amp;', $_SERVER['QUERY_STRING']) . '&amp;applang=' . $appLang,
               'icon' => 'bi-translate',
-              'label' => proper($appLang),
+              'label' => ucwords($appLang),
             ];
             if ($appLang === $language) {
               $item['suffix'] = '<i class="bi-check-lg ms-2 text-success"></i>';

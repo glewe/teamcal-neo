@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * User Import Controller
  *
@@ -9,6 +12,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -43,6 +47,8 @@ $UPL = new Upload();
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 $uplDir = WEBSITE_ROOT . '/' . APP_IMP_DIR;
 $viewData = array();
 

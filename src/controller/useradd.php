@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * User Edit Controller
  *
@@ -9,6 +12,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -33,6 +37,8 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -79,10 +85,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   if (!formInputValid('txt_email', 'required|email')) {
     $inputError = true;
   }
-  if (!formInputValid('txt_password', 'required|pwd' . $C->read('pwdStrength'))) {
+  if (!formInputValid('txt_password', 'required|pwd' . $allConfig['pwdStrength'])) {
     $inputError = true;
   }
-  if (!formInputValid('txt_password2', 'required|pwd' . $C->read('pwdStrength'))) {
+  if (!formInputValid('txt_password2', 'required|pwd' . $allConfig['pwdStrength'])) {
     $inputError = true;
   }
   if (!formInputValid('txt_password2', 'match', 'txt_password')) {
@@ -140,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       //
       // Send notification e-mails to the subscribers of user events
       //
-      if ($C->read("emailNotifications")) {
+      if ($allConfig['emailNotifications']) {
         sendUserEventNotifications("created", $UP->username, $UP->firstname, $UP->lastname);
       }
       //
@@ -179,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
-$LANG['profile_password_comment'] .= $LANG['password_rules_' . $C->read('pwdStrength')];
+$LANG['profile_password_comment'] .= $LANG['password_rules_' . $allConfig['pwdStrength']];
 $viewData['personal'] = array(
   array( 'prefix' => 'profile', 'name' => 'username', 'type' => 'text', 'placeholder' => '', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' => (isset($inputAlert['username']) ? $inputAlert['username'] : '') ),
   array( 'prefix' => 'profile', 'name' => 'lastname', 'type' => 'text', 'placeholder' => '', 'value' => '', 'maxlength' => '80', 'mandatory' => true, 'error' => (isset($inputAlert['lastname']) ? $inputAlert['lastname'] : '') ),

@@ -12,6 +12,8 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 4.3.0
  */
+$LANG['locale'] = 'de_DE';
+$LANG['html_locale'] = 'de';
 
 //
 // Approval
@@ -143,6 +145,28 @@ $LANG['cookie_learnMore'] = '[Mehr dazu...]';
 $LANG['cookie_message'] = 'Diese Applikation nutzt ein Session Cookie um den aktuell eingeloggten Benutzer zu identifizieren. In diesem Cookie sind keine persönlichen Daten abgelegt.';
 
 //
+// Email
+//
+$LANG['email_subject_absence_approval'] = '%app_name% Abwesenheitsbestätigung Erforderlich';
+$LANG['email_subject_group_changed'] = '%app_name% Gruppe geändert';
+$LANG['email_subject_group_created'] = '%app_name% Gruppe angelegt';
+$LANG['email_subject_group_deleted'] = '%app_name% Gruppe gelöscht';
+$LANG['email_subject_month_changed'] = '%app_name% Monat geändert';
+$LANG['email_subject_month_created'] = '%app_name% Monat angelegt';
+$LANG['email_subject_month_deleted'] = '%app_name% Monat gelöscht';
+$LANG['email_subject_password_reset'] = '%app_name% Passwort zurücksetzen';
+$LANG['email_subject_role_changed'] = '%app_name% Rolle geändert';
+$LANG['email_subject_role_created'] = '%app_name% Rolle angelegt';
+$LANG['email_subject_role_deleted'] = '%app_name% Rolle gelöscht';
+$LANG['email_subject_user_account_changed'] = '%app_name% Benutzerkonto geändert';
+$LANG['email_subject_user_account_created'] = '%app_name% Benutzerkonto angelegt';
+$LANG['email_subject_user_account_deleted'] = '%app_name% Benutzerkonto gelöscht';
+$LANG['email_subject_user_account_mismatch'] = '%app_name% Benutzerkonto Verifizierungsfehler';
+$LANG['email_subject_user_account_needs_approval'] = '%app_name% Benutzerkonto muss aktiviert werden';
+$LANG['email_subject_user_account_registered'] = '%app_name% Benutzerkonto registriert';
+$LANG['email_subject_usercal_changed'] = '%app_name% Benutzerkalender geändert';
+
+//
 // Enter
 //
 $LANG['enter_password'] = 'Passwort eingeben';
@@ -189,7 +213,6 @@ $LANG['green'] = 'Grün';
 $LANG['grey'] = 'Grau';
 $LANG['group'] = 'Gruppe';
 $LANG['license'] = 'TeamCal Neo Lizenz';
-$LANG['locale'] = 'de_DE';
 $LANG['magenta'] = 'Magenta';
 $LANG['month'] = 'Monat';
 $LANG['monthShort'] = array(
@@ -279,14 +302,58 @@ $LANG['year'] = 'Jahr';
 $LANG['yellow'] = 'Gelb';
 
 //
+// Lic
+//
+$LANG['lic_active'] = 'Aktive Lizenz';
+$LANG['lic_active_subject'] = 'Dies ist eine aktive TeamCal Neo Lizenz für diese Domain. Klasse!';
+$LANG['lic_active_unregistered_subject'] = 'Dies ist eine aktive TeamCal Neo Lizenz aber nicht für diese Domain registriert.';
+$LANG['lic_alert_activation_fail'] = 'Der folgende Fehler ist beim Aktivieren der Lizenz aufgetreten:';
+$LANG['lic_alert_activation_success'] = 'Deine Lizenz wurde erfolgreich fuer diese Domain aktiviert.';
+$LANG['lic_alert_deregistration_fail'] = 'Der folgende Fehler ist beim De-registrieren der Domain aufgetreten:';
+$LANG['lic_alert_deregistration_success'] = 'Die Domain wurde erfolgreich von der Lizenz de-registriert.';
+$LANG['lic_alert_registration_fail'] = 'Der folgende Fehler ist beim Registrieren der Domain aufgetreten:';
+$LANG['lic_alert_registration_success'] = 'Die Domain wurde erfolgreich für die Lizenz registriert.';
+$LANG['lic_blocked'] = 'Geblockte Lizenz';
+$LANG['lic_blocked_help'] = 'Bitte kontaktiere den Administrator, um die Lizenz zu entblocken.';
+$LANG['lic_blocked_subject'] = 'Dioese TeamCal Neo license ist geblockt.';
+$LANG['lic_company'] = 'Firma';
+$LANG['lic_date_created'] = 'Erstellungsdatum';
+$LANG['lic_date_expiry'] = 'Ablaufdatum';
+$LANG['lic_date_renewed'] = 'Erneuerungsddatum';
+$LANG['lic_daysleft'] = 'Tage verbleibend';
+$LANG['lic_details'] = 'Lizenzdetails';
+$LANG['lic_email'] = 'E-mail';
+$LANG['lic_expired'] = 'Abgelaufene Lizenz';
+$LANG['lic_expired_help'] = 'Bitte kontaktiere den Administrator, um die Lizenz zu verlängern.';
+$LANG['lic_expired_subject'] = 'Diese TeamCal Neo Lizenz ist abgelaufen.';
+$LANG['lic_expiringsoon'] = 'Lizenz-Ablauf Warnung';
+$LANG['lic_expiringsoon_help'] = 'Bitte kontaktiere den Administrator, um die Lizenz rechtzeitig zu verlängern.';
+$LANG['lic_expiringsoon_subject'] = 'Diese TeamCal Neo Lizenz wird in %d Tagen ablaufen.';
+$LANG['lic_invalid'] = 'Ungültige Lizenz';
+$LANG['lic_invalid_help'] = 'Bitte kontaktiere den Administrator, um die Lizenz zu registrieren oder zu aktivieren.';
+$LANG['lic_invalid_subject'] = 'Es wurde kein Lizenzschlüssel für diese TeamCal Neo Instanz gefunden.';
+$LANG['lic_invalid_text'] = 'Diese TeamCal Neo Instanz ist nicht registriert oder hat keine gültige Lizenz bzw. wurde sie noch nicht aktiviert.';
+$LANG['lic_key'] = 'Lizenzschlüssel';
+$LANG['lic_max_allowed_domains'] = 'Maximal erlaubte Domains';
+$LANG['lic_name'] = 'Lizenznehmer';
+$LANG['lic_pending'] = 'Inaktive Lizenz';
+$LANG['lic_pending_help'] = 'Bitte kontaktiere den Administrator, um die Lizenz zu aktivieren.';
+$LANG['lic_pending_subject'] = 'Diese TeamCal Neo Lizenz ist registriert, wurde aber noch nicht aktiviert.';
+$LANG['lic_product'] = 'Produkt';
+$LANG['lic_registered_domains'] = 'Registrierte Domains';
+$LANG['lic_status'] = 'Status';
+$LANG['lic_unavailable'] = 'Lizenzdaten Nicht Verfügbar';
+$LANG['lic_unavailable_help'] = 'Sollte dieses Problem weiterhin auftreten öffne bitte ein Ticket im Lewe Service Desk (der Link ist auf der Über Seite zu finden).';
+$LANG['lic_unavailable_subject'] = 'Datenabruf Problem';
+$LANG['lic_unavailable_text'] = 'Die Information für diese Lizenz konnten nicht abgerufen werden.';
+$LANG['lic_unregistered'] = 'Unregistrierte Lizenz';
+$LANG['lic_unregistered_help'] = 'Bitte kontaktiere den Administrator, um diese Domain zu registrieren oder einen gültigen Lizenzschlüssel einzugeben.';
+$LANG['lic_unregistered_subject'] = 'Der Lizenzschlüssel für diese TeamCal Neo Instanz ist nicht für diese Domain registriert.';
+
+//
 // Home
 //
 $LANG['home_title'] = 'Willkommen bei TeamCal Neo';
-
-//
-// Html
-//
-$LANG['html_locale'] = 'de';
 
 //
 // Mnu

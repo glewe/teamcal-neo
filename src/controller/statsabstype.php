@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Absence type statistics page controller
  *
@@ -9,6 +12,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -35,6 +39,9 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+$viewData['currentYearOnly'] = $allConfig['currentYearOnly'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -48,7 +55,7 @@ $viewData['period'] = 'year';
 $viewData['from'] = date("Y") . '-01-01';
 $viewData['to'] = date("Y") . '-12-31';
 $viewData['yaxis'] = 'users';
-if ($color = $C->read("statsDefaultColorAbsencetype")) {
+if ($color = $allConfig['statsDefaultColorAbsencetype']) {
   $viewData['color'] = $color;
 } else {
   $viewData['color'] = 'cyan';
@@ -205,48 +212,56 @@ switch ($viewData['period']) {
 if ($viewData['groupid'] == "all") {
   $viewData['groupName'] = $LANG['all'];
 } else {
-  $viewData['groupName'] = $G->getNameById($_POST['sel_group']);
+  $viewData['groupName'] = $G->getNameById($viewData['groupid']);
 }
 $viewData['periodName'] = $viewData['from'] . ' - ' . $viewData['to'];
 $labels = array();
 $sliceColors = array();
 $data = array();
+
+//
+// Pre-filter absences to exclude those with counts_as_present = true
+//
+$filteredAbsences = array_filter($viewData['absences'], function($abs) use ($A) {
+  return $A->get($abs['id']) && !$A->counts_as_present;
+});
+
+//
+// Pre-format date strings to avoid repeated str_replace() calls
+//
+$countFrom = str_replace('-', '', $viewData['from']);
+$countTo = str_replace('-', '', $viewData['to']);
+
 //
 // Loop through all absence types (that count as absent)
 //
 $viewData['total'] = 0;
-foreach ($viewData['absences'] as $abs) {
-  if ($A->get($abs['id']) && !$A->counts_as_present) {
-    $labels[] = '"' . $abs['name'] . '"';
-    $sliceColors[] = '"#' . $abs['bgcolor'] . '"';
-    $count = 0;
-    if ($viewData['groupid'] == "all") {
-      //
-      // Count for all groups
-      //
-      foreach ($viewData['groups'] as $group) {
-        $users = $UG->getAllforGroup($group['id']);
-        foreach ($users as $user) {
-          $countFrom = str_replace('-', '', $viewData['from']);
-          $countTo = str_replace('-', '', $viewData['to']);
-          $count += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
-        }
-      }
-      $data[] = $count;
-      $viewData['total'] += $count;
-    } else {
-      //
-      // Count for a specific groups
-      //
-      $users = $UG->getAllforGroup($viewData['groupid']);
+foreach ($filteredAbsences as $abs) {
+  $labels[] = '"' . $abs['name'] . '"';
+  $sliceColors[] = '"#' . $abs['bgcolor'] . '"';
+  $count = 0;
+  if ($viewData['groupid'] == "all") {
+    //
+    // Count for all groups
+    //
+    foreach ($viewData['groups'] as $group) {
+      $users = $UG->getAllforGroup($group['id']);
       foreach ($users as $user) {
-        $countFrom = str_replace('-', '', $viewData['from']);
-        $countTo = str_replace('-', '', $viewData['to']);
         $count += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
       }
-      $data[] = $count;
-      $viewData['total'] += $count;
     }
+    $data[] = $count;
+    $viewData['total'] += $count;
+  } else {
+    //
+    // Count for a specific group
+    //
+    $users = $UG->getAllforGroup($viewData['groupid']);
+    foreach ($users as $user) {
+      $count += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
+    }
+    $data[] = $count;
+    $viewData['total'] += $count;
   }
 }
 //

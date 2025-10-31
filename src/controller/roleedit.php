@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Role Edit Controller
  *
@@ -9,6 +12,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -65,6 +69,8 @@ if ($missingData) {
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 $viewData['id'] = $RO2->id;
 $viewData['name'] = $RO2->name;
 $viewData['description'] = $RO2->description;
@@ -83,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   //
   // CSRF token check
   //
-  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+  if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
     $alertData['type'] = 'warning';
     $alertData['title'] = $LANG['alert_alert_title'];
     $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
@@ -125,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       //
       // Send notification e-mails to the subscribers of user events
       //
-      if ($C->read("emailNotifications")) {
+      if ($allConfig['emailNotifications']) {
         sendRoleEventNotifications("changed", $RO2->name . ' (ex: ' . $oldName . ')', $RO2->description);
       }
       //
@@ -169,10 +175,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
+// Performance optimization: Cache color lookup to avoid repeated database query
+$roleColor = $RO2->getColorByName($viewData['name']);
+
 $viewData['role'] = array(
   array( 'prefix' => 'role', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' => (isset($inputAlert['name']) ? $inputAlert['name'] : '') ),
   array( 'prefix' => 'role', 'name' => 'description', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['description'], 'maxlength' => '100', 'error' => (isset($inputAlert['description']) ? $inputAlert['description'] : '') ),
-  array( 'prefix' => 'role', 'name' => 'color', 'type' => 'radio', 'values' => $bsColors, 'value' => $RO2->getColorByName($viewData['name']) ),
+  array( 'prefix' => 'role', 'name' => 'color', 'type' => 'radio', 'values' => $bsColors, 'value' => $roleColor ),
 );
 
 //-----------------------------------------------------------------------------

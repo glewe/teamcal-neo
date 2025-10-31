@@ -37,7 +37,7 @@ define('APP_IMP_DIR', "upload/import/");
  * Set this to 0 if you want to run the installation.php script again.
  * If not, you need to delete or rename the installation.php file.
  */
-define('APP_INSTALLED', "1");
+define('APP_INSTALLED', "0");
 
 /**
  * ----------------------------------------------------------------------------
@@ -77,10 +77,11 @@ define('USE_SPLIT_LANGUAGE_FILES', true);
  * MANDATORY MODULES
  * ----------------------------------------------------------------------------
  */
-define('BOOTSTRAP_VER', "5.3.6");
+define('BOOTSTRAP_VER', "5.3.8");
 define('BOOTSTRAP_ICONS_VER', "1.11.3");
+define('COLORIS_VER', "0.25.0");
 define('DATATABLES_VER', "2.2.0");
-define('FONTAWESOME_VER', "6.7.2");
+define('FONTAWESOME_VER', "7.1.0");
 define('JQUERY_VER', "3.7.1");
 define('JQUERY_UI_VER', "1.14.1");
 define('SECUREIMAGE_VER', "3.6.8");
@@ -129,7 +130,7 @@ define('SYNTAXHIGHLIGHTER_VER', "3.0.83");
 // Defines the allowed max file sizes for upload
 //
 $CONF['avatarExtensions'] = array( 'gif', 'jpg', 'png' );
-$CONF['avatarMaxsize'] = 1024 * 100; // 100 KB
+$CONF['avatarMaxsize'] = 2048 * 100; // 100 KB
 $CONF['imgExtensions'] = array( 'gif', 'jpg', 'png' );
 $CONF['impExtensions'] = array( 'csv' );
 $CONF['uplExtensions'] = array( 'gif', 'jpg', 'png', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'zip' );
@@ -184,8 +185,8 @@ define('LDAP_CHECK_ANONYMOUS_BIND', 0);                      // Set to 1 to chec
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "4.2.0");
-define('APP_DATE', "2025-03-13");
+define('APP_VER', "4.3.1");
+define('APP_DATE', "2025-10-31");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "https://www.lewe.com");

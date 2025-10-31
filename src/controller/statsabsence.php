@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Absence statistics page controller
  *
@@ -9,6 +12,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -35,6 +39,9 @@ if (!isAllowed($CONF['controllers'][$controller]->permission)) {
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+$viewData['currentYearOnly'] = $allConfig['currentYearOnly'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -49,7 +56,7 @@ $viewData['period'] = 'year';
 $viewData['from'] = date("Y") . '-01-01';
 $viewData['to'] = date("Y") . '-12-31';
 $viewData['yaxis'] = 'users';
-if ($color = $C->read("statsDefaultColorAbsences")) {
+if ($color = $allConfig['statsDefaultColorAbsences']) {
   $viewData['color'] = $color;
 } else {
   $viewData['color'] = 'red';
@@ -209,7 +216,7 @@ if ($viewData['absid'] == 'all') {
 if ($viewData['groupid'] == "all") {
   $viewData['groupName'] = $LANG['all'];
 } else {
-  $viewData['groupName'] = $G->getNameById($_POST['sel_group']);
+  $viewData['groupName'] = $G->getNameById($viewData['groupid']);
 }
 
 if ($viewData['yaxis'] == "users") {
@@ -222,6 +229,19 @@ $viewData['periodName'] = $viewData['from'] . ' - ' . $viewData['to'];
 
 $labels = array();
 $data = array();
+
+//
+// Pre-filter absences to exclude those with counts_as_present = true
+//
+$filteredAbsences = array_filter($viewData['absences'], function($abs) use ($A) {
+  return $A->get($abs['id']) && !$A->counts_as_present;
+});
+
+//
+// Pre-format date strings to avoid repeated str_replace() calls
+//
+$countFrom = str_replace('-', '', $viewData['from']);
+$countTo = str_replace('-', '', $viewData['to']);
 
 //
 // Read data based on yaxis selection
@@ -237,26 +257,18 @@ if ($viewData['yaxis'] == 'users') {
     $users = $UG->getAllforGroup($viewData['groupid']);
   }
   foreach ($users as $user) {
-    $U->findByName($user['username']);
-
-    if ($U->firstname != "") {
-      $labels[] = '"' . $U->lastname . ", " . $U->firstname . '"';
+    if ($user['firstname'] != "") {
+      $labels[] = '"' . $user['lastname'] . ", " . $user['firstname'] . '"';
     } else {
-      $labels[] = '"' . $U->lastname . '"';
+      $labels[] = '"' . $user['lastname'] . '"';
     }
 
     $count = 0;
     if ($viewData['absid'] == 'all') {
-      foreach ($viewData['absences'] as $abs) {
-        if ($A->get($abs['id']) && !$A->counts_as_present) {
-          $countFrom = str_replace('-', '', $viewData['from']);
-          $countTo = str_replace('-', '', $viewData['to']);
-          $count += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
-        }
+      foreach ($filteredAbsences as $abs) {
+        $count += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
       }
     } else {
-      $countFrom = str_replace('-', '', $viewData['from']);
-      $countTo = str_replace('-', '', $viewData['to']);
       $count += countAbsence($user['username'], $viewData['absid'], $countFrom, $countTo, false, false);
     }
     $data[] = $count;
@@ -274,16 +286,10 @@ if ($viewData['yaxis'] == 'users') {
       $count = 0;
       foreach ($users as $user) {
         if ($viewData['absid'] == 'all') {
-          foreach ($viewData['absences'] as $abs) {
-            if ($A->get($abs['id']) && !$A->counts_as_present) {
-              $countFrom = str_replace('-', '', $viewData['from']);
-              $countTo = str_replace('-', '', $viewData['to']);
-              $count += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
-            }
+          foreach ($filteredAbsences as $abs) {
+            $count += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
           }
         } else {
-          $countFrom = str_replace('-', '', $viewData['from']);
-          $countTo = str_replace('-', '', $viewData['to']);
           $count += countAbsence($user['username'], $viewData['absid'], $countFrom, $countTo, false, false);
         }
       }
@@ -296,16 +302,10 @@ if ($viewData['yaxis'] == 'users') {
     $count = 0;
     foreach ($users as $user) {
       if ($viewData['absid'] == 'all') {
-        foreach ($viewData['absences'] as $abs) {
-          if ($A->get($abs['id']) && !$A->counts_as_present) {
-            $countFrom = str_replace('-', '', $viewData['from']);
-            $countTo = str_replace('-', '', $viewData['to']);
-            $count += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
-          }
+        foreach ($filteredAbsences as $abs) {
+          $count += countAbsence($user['username'], $abs['id'], $countFrom, $countTo, false, false);
         }
       } else {
-        $countFrom = str_replace('-', '', $viewData['from']);
-        $countTo = str_replace('-', '', $viewData['to']);
         $count += countAbsence($user['username'], $viewData['absid'], $countFrom, $countTo, false, false);
       }
     }

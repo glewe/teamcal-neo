@@ -217,10 +217,8 @@ class Months {
    */
   public function deleteBefore(string $year, string $month): bool {
     $month = sprintf("%02d", $month);
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year < :year OR (year = :year AND month <= :month)');
-    $query->bindParam(':year', $year);
-    $query->bindParam(':month', $month);
-    return $query->execute();
+    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE year < ? OR (year = ? AND month <= ?)');
+    return $query->execute([$year, $year, $month]);
   }
 
   //---------------------------------------------------------------------------

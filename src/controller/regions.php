@@ -1,5 +1,7 @@
 <?php
-
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Regions Controller
  *
@@ -10,6 +12,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -40,7 +43,7 @@ $weekday = $date->format('N');
 if ($weekday === rand(1, 7)) {
   $alertData = array();
   $showAlert = false;
-  $licExpiryWarning = $C->read('licExpiryWarning');
+  $licExpiryWarning = $allConfig['licExpiryWarning'];
   $LIC = new License();
   $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 }
@@ -55,6 +58,9 @@ $RT = new Regions(); // Target region for merge
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
+$viewData['currentYearOnly'] = $allConfig['currentYearOnly'];
 $viewData['txt_name'] = '';
 $viewData['txt_description'] = '';
 
@@ -107,10 +113,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   // | Create |
   // '--------'
   if (isset($_POST['btn_regionCreate'])) {
-    //
-    // Sanitize input
-    //
-    $_POST = sanitize($_POST);
     //
     // Form validation
     //
@@ -245,28 +247,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       //
       // Loop through the date string array and save each one in the region template
       //
+      $lastCachedMonth = null;
+      $lastCachedYear = null;
       foreach ($iCalEvents as $i) {
         $eventYear = substr($i, 0, 4);
         $eventMonth = substr($i, 4, 2);
         $eventDay = intval(substr($i, 6, 2));
 
-        if (!$MM->getMonth($eventYear, $eventMonth, $viewData['icalRegionID'])) {
-          //
-          // Seems there is no template for this month yet.
-          // If we have one in cache, write it first.
-          //
-          if ($M->year) {
+        //
+        // Only load month if it's different from the last cached month
+        //
+        if ($lastCachedYear !== $eventYear || $lastCachedMonth !== $eventMonth) {
+          if (!$MM->getMonth($eventYear, $eventMonth, $viewData['icalRegionID'])) {
+            //
+            // Seems there is no template for this month yet.
+            // If we have one in cache, write it first.
+            //
+            if ($M->year) {
+              $M->update($M->year, $M->month, $viewData['icalRegionID']);
+            }
+            //
+            // Create the new blank template
+            //
+            createMonth($eventYear, $eventMonth, 'region', $viewData['icalRegionID']);
+          } else {
+            //
+            // There is a template for this month in memory. Save it first.
+            //
             $M->update($M->year, $M->month, $viewData['icalRegionID']);
           }
-          //
-          // Create the new blank template
-          //
-          createMonth($eventYear, $eventMonth, 'region', $viewData['icalRegionID']);
-        } else {
-          //
-          // There is a template for this month in memory. Save it first.
-          //
-          $M->update($M->year, $M->month, $viewData['icalRegionID']);
+          $lastCachedYear = $eventYear;
+          $lastCachedMonth = $eventMonth;
         }
 
         $holidayId = $_POST['sel_ical_holiday'] ?? null;
@@ -325,6 +336,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $alertData['help'] = '';
     } else {
       //
+      // Cache region names to avoid duplicate queries
+      //
+      $sourceRegionName = $R->getNameById($sregion);
+      $targetRegionName = $R->getNameById($tregion);
+      //
       // Loop through every month of the source region
       //
       $stemplates = $M->getRegion($sregion);
@@ -336,9 +352,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
           // Create an empty template first.
           //
           createMonth($stpl['year'], $stpl['month'], 'region', $tregion);
+        } else {
+          //
+          // Load the target month template into memory
+          //
+          $M->getMonth($stpl['year'], $stpl['month'], $tregion);
         }
-
-        $M->getMonth($stpl['year'], $stpl['month'], $tregion);
         for ($i = 1; $i <= 31; $i++) {
           $prop = 'hol' . $i;
           if (($stpl[$prop] ?? 0) > 3) {
@@ -368,7 +387,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       //
       // Log this event
       //
-      $LOG->logEvent("logRegion", L_USER, "log_region_transferred", $R->getNameById($sregion) . " => " . $R->getNameById($tregion));
+      $LOG->logEvent("logRegion", L_USER, "log_region_transferred", $sourceRegionName . " => " . $targetRegionName);
       //
       // Success
       //
@@ -376,7 +395,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $alertData['type'] = 'success';
       $alertData['title'] = $LANG['alert_success_title'];
       $alertData['subject'] = $LANG['regions_tab_transfer'];
-      $alertData['text'] = sprintf($LANG['regions_transferred'], $R->getNameById($sregion), $R->getNameById($tregion));
+      $alertData['text'] = sprintf($LANG['regions_transferred'], $sourceRegionName, $targetRegionName);
       $alertData['help'] = '';
     }
   }

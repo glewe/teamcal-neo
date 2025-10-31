@@ -18,8 +18,8 @@ view.absences
   <div class="col-lg-12">
     <?php
     if (
-      ($showAlert && $C->read("showAlerts") != "none") &&
-      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+      ($showAlert && $viewData['showAlerts'] != "none") &&
+      ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
     }
@@ -29,7 +29,7 @@ view.absences
     <div class="card">
       <?php
       $pageHelp = '';
-      if ($C->read('pageHelp')) {
+      if ($allConfig['pageHelp']) {
         $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
       }
       ?>
@@ -71,22 +71,26 @@ view.absences
           <?php
           $i = 1;
           foreach ($viewData['absences'] as $absence) :
-            if (!($absence['counts_as'] ?? false)) : ?>
+            if (!($absence['counts_as'] ?? false)) :
+              $absenceId = htmlspecialchars($absence['id'] ?? '', ENT_QUOTES, 'UTF-8');
+              $absenceName = htmlspecialchars($absence['name'] ?? '', ENT_QUOTES, 'UTF-8');
+              $absenceColor = htmlspecialchars($absence['color'] ?? '', ENT_QUOTES, 'UTF-8');
+              $absenceIcon = htmlspecialchars($absence['icon'] ?? '', ENT_QUOTES, 'UTF-8');
+              $absenceSymbol = htmlspecialchars($absence['symbol'] ?? '', ENT_QUOTES, 'UTF-8');
+              $bgstyle = htmlspecialchars($absence['bgstyle'] ?? '', ENT_QUOTES, 'UTF-8');
+              ?>
               <tr>
                 <td class="text-end"><?= $i++ ?></td>
                 <td>
-                  <?php
-                  $bgstyle = (isset($absence['bgtrans']) && $absence['bgtrans']) ? "" : (isset($absence['bgcolor']) ? "background-color: #" . htmlspecialchars($absence['bgcolor'], ENT_QUOTES, 'UTF-8') . ";" : "");
-                  ?>
-                  <span style="display: inline-block; color: #<?= htmlspecialchars($absence['color'] ?? '', ENT_QUOTES, 'UTF-8') ?>;<?= $bgstyle ?>border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px;">
-                    <?php if (($absence['icon'] ?? '') !== "No") { ?>
-                      <span class="<?= htmlspecialchars($absence['icon'] ?? '', ENT_QUOTES, 'UTF-8') ?>"></span>
+                  <span style="display: inline-block; color: #<?= $absenceColor ?>;<?= $bgstyle ?>border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px;">
+                    <?php if ($absenceIcon !== "No") { ?>
+                      <span class="<?= $absenceIcon ?>"></span>
                     <?php } else { ?>
-                      <?= htmlspecialchars($absence['symbol'] ?? '', ENT_QUOTES, 'UTF-8') ?>
+                      <?= $absenceSymbol ?>
                     <?php } ?>
                   </span>
                 </td>
-                <td><?= htmlspecialchars($absence['name'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= $absenceName ?></td>
                 <td>
                   <?= (($absence['approval_required'] ?? false) ? '<i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="' . htmlspecialchars($LANG['abs_approval_required'], ENT_QUOTES, 'UTF-8') . '"><i class="far fa-edit fa-lg text-danger"></i></i>' : '') ?>
                   <?= (($absence['manager_only'] ?? false) ? '<i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="' . htmlspecialchars($LANG['abs_manager_only'], ENT_QUOTES, 'UTF-8') . '"><i class="fas fa-user-circle fa-lg text-warning"></i></i>' : '') ?>
@@ -95,49 +99,54 @@ view.absences
                   <?= ((($absence['allowmonth'] ?? false) || ($absence['allowweek'] ?? false)) ? '<i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="' . htmlspecialchars($LANG['abs_allow_active'], ENT_QUOTES, 'UTF-8') . '"><i class="far fa-hand-paper fa-lg text-warning"></i></i>' : '') ?>
                 </td>
                 <td class="align-top text-center">
-                  <form class="form-control-horizontal" name="form_<?= htmlspecialchars($absence['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>" action="index.php?action=<?= htmlspecialchars($CONF['controllers'][$controller]->name ?? '', ENT_QUOTES, 'UTF-8') ?>" method="post" target="_self" accept-charset="utf-8">
+                  <form class="form-control-horizontal" name="form_<?= $absenceId ?>" action="index.php?action=<?= htmlspecialchars($CONF['controllers'][$controller]->name ?? '', ENT_QUOTES, 'UTF-8') ?>" method="post" target="_self" accept-charset="utf-8">
                     <input name="csrf_token" type="hidden" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteAbsence_<?= htmlspecialchars($absence['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>"><?= $LANG['btn_delete'] ?></button>
-                    <a href="index.php?action=absenceedit&amp;id=<?= htmlspecialchars($absence['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>" class="btn btn-warning btn-sm" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_edit'] ?></a>
-                    <input name="hidden_id" type="hidden" value="<?= htmlspecialchars($absence['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-                    <input name="hidden_name" type="hidden" value="<?= htmlspecialchars($absence['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                    <button type="button" class="btn btn-danger btn-sm" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteAbsence_<?= $absenceId ?>"><?= $LANG['btn_delete'] ?></button>
+                    <a href="index.php?action=absenceedit&amp;id=<?= $absenceId ?>" class="btn btn-warning btn-sm" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_edit'] ?></a>
+                    <input name="hidden_id" type="hidden" value="<?= $absenceId ?>">
+                    <input name="hidden_name" type="hidden" value="<?= $absenceName ?>">
                     <!-- Modal: Delete Absence -->
-                    <?= createModalTop('modalDeleteAbsence_' . htmlspecialchars($absence['id'] ?? '', ENT_QUOTES, 'UTF-8'), $LANG['modal_confirm']) ?>
-                    <?= sprintf($LANG['abs_confirm_delete'], htmlspecialchars($absence['name'] ?? '', ENT_QUOTES, 'UTF-8')) ?>
+                    <?= createModalTop('modalDeleteAbsence_' . $absenceId, $LANG['modal_confirm']) ?>
+                    <?= sprintf($LANG['abs_confirm_delete'], $absenceName) ?>
                     <?= createModalBottom('btn_absDelete', 'danger', $LANG['btn_delete_abs']) ?>
                   </form>
                 </td>
               </tr>
               <?php
-              $subabsences = $A->getAllSub($absence['id']);
-              foreach ($subabsences as $subabs) : ?>
+              // Use pre-fetched sub-absences from controller
+              $subabsences = $viewData['allSubAbsences'][$absence['id']] ?? array();
+              foreach ($subabsences as $subabs) :
+                $subabsId = htmlspecialchars($subabs['id'] ?? '', ENT_QUOTES, 'UTF-8');
+                $subabsName = htmlspecialchars($subabs['name'] ?? '', ENT_QUOTES, 'UTF-8');
+                $subabsColor = htmlspecialchars($subabs['color'] ?? '', ENT_QUOTES, 'UTF-8');
+                $subabsIcon = htmlspecialchars($subabs['icon'] ?? '', ENT_QUOTES, 'UTF-8');
+                $subabsSymbol = htmlspecialchars($subabs['symbol'] ?? '', ENT_QUOTES, 'UTF-8');
+                $subbgstyle = htmlspecialchars($subabs['bgstyle'] ?? '', ENT_QUOTES, 'UTF-8');
+                ?>
                 <tr>
                   <td class="text-end"><?= $i++ ?></td>
                   <td>
-                    <?php
-                    $bgstyle = (isset($subabs['bgtrans']) && $subabs['bgtrans']) ? "" : (isset($subabs['bgcolor']) ? "background-color: #" . htmlspecialchars($subabs['bgcolor'], ENT_QUOTES, 'UTF-8') . ";" : "");
-                    ?>
                     <i class="fas fa-angle-double-right me-3"></i>
-                    <span style="display: inline-block; color: #<?= htmlspecialchars($subabs['color'] ?? '', ENT_QUOTES, 'UTF-8') ?>;<?= $bgstyle ?>border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px;">
-                      <?php if (($subabs['icon'] ?? '') != "No") { ?>
-                        <i class="<?= htmlspecialchars($subabs['icon'] ?? '', ENT_QUOTES, 'UTF-8') ?>"></i>
+                    <span style="display: inline-block; color: #<?= $subabsColor ?>;<?= $subbgstyle ?>border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px;">
+                      <?php if ($subabsIcon != "No") { ?>
+                        <i class="<?= $subabsIcon ?>"></i>
                       <?php } else { ?>
-                        <?= htmlspecialchars($subabs['symbol'] ?? '', ENT_QUOTES, 'UTF-8') ?>
+                        <?= $subabsSymbol ?>
                       <?php } ?>
                     </span>
                   </td>
-                  <td><?= htmlspecialchars($subabs['name'] ?? '', ENT_QUOTES, 'UTF-8') ?> <i>(<?= htmlspecialchars($LANG['abs_counts_as'], ENT_QUOTES, 'UTF-8') ?>: <?= htmlspecialchars($absence['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>)</i></td>
+                  <td><?= $subabsName ?> <i>(<?= htmlspecialchars($LANG['abs_counts_as'], ENT_QUOTES, 'UTF-8') ?>: <?= $absenceName ?>)</i></td>
                   <td></td>
                   <td class="align-top text-center">
-                    <form class="form-control-horizontal" name="form_<?= htmlspecialchars($subabs['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>" action="index.php?action=absences" method="post" target="_self" accept-charset="utf-8">
+                    <form class="form-control-horizontal" name="form_<?= $subabsId ?>" action="index.php?action=absences" method="post" target="_self" accept-charset="utf-8">
                       <input name="csrf_token" type="hidden" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-                      <button type="button" class="btn btn-danger btn-sm" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteSubAbsence_<?= htmlspecialchars($subabs['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>"><?= $LANG['btn_delete'] ?></button>
-                      <a href="index.php?action=absenceedit&amp;id=<?= htmlspecialchars($subabs['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>" class="btn btn-warning btn-sm" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_edit'] ?></a>
-                      <input name="hidden_id" type="hidden" value="<?= htmlspecialchars($subabs['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-                      <input name="hidden_name" type="hidden" value="<?= htmlspecialchars($subabs['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                      <button type="button" class="btn btn-danger btn-sm" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteSubAbsence_<?= $subabsId ?>"><?= $LANG['btn_delete'] ?></button>
+                      <a href="index.php?action=absenceedit&amp;id=<?= $subabsId ?>" class="btn btn-warning btn-sm" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_edit'] ?></a>
+                      <input name="hidden_id" type="hidden" value="<?= $subabsId ?>">
+                      <input name="hidden_name" type="hidden" value="<?= $subabsName ?>">
                       <!-- Modal: Delete SubAbsence -->
-                      <?= createModalTop('modalDeleteSubAbsence_' . htmlspecialchars($subabs['id'] ?? '', ENT_QUOTES, 'UTF-8'), $LANG['modal_confirm']) ?>
-                      <?= sprintf($LANG['abs_confirm_delete'], htmlspecialchars($subabs['name'] ?? '', ENT_QUOTES, 'UTF-8')) ?>
+                      <?= createModalTop('modalDeleteSubAbsence_' . $subabsId, $LANG['modal_confirm']) ?>
+                      <?= sprintf($LANG['abs_confirm_delete'], $subabsName) ?>
                       <?= createModalBottom('btn_absDelete', 'danger', $LANG['btn_delete_abs']) ?>
                     </form>
                   </td>

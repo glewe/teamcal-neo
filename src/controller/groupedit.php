@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Group Edit Controller
  *
@@ -9,6 +12,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -65,6 +69,8 @@ if (isAllowed($CONF['controllers'][$controller]->permission) === false && $UG->i
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 $viewData['id'] = $GG->id;
 $viewData['name'] = $GG->name;
 $viewData['description'] = $GG->description;
@@ -87,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
   //
   // CSRF token check
   //
-  if (!isset($_POST['csrf_token']) || (isset($_POST['csrf_token']) && $_POST['csrf_token'] !== $_SESSION['csrf_token'])) {
+  if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
     $alertData['type'] = 'warning';
     $alertData['title'] = $LANG['alert_alert_title'];
     $alertData['subject'] = $LANG['alert_csrf_invalid_subject'];
@@ -159,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       //
       // Send notification e-mails to the subscribers of user events
       //
-      if ($C->read("emailNotifications")) {
+      if ($allConfig['emailNotifications']) {
         sendGroupEventNotifications("changed", $GG->name, $GG->description);
       }
 
@@ -207,8 +213,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
+// Performance optimization: Cache permission check to avoid repeated function calls
+$isGroupAdmin = isAllowed($CONF['controllers'][$controller]->permission);
+
 $viewData['group'] = array(
-  array( 'prefix' => 'group', 'name' => 'name', 'type' => isAllowed($CONF['controllers'][$controller]->permission)? 'text' : 'info', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' => ($inputAlert['name'] ?? '') ),
+  array( 'prefix' => 'group', 'name' => 'name', 'type' => $isGroupAdmin ? 'text' : 'info', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' => ($inputAlert['name'] ?? '') ),
   array( 'prefix' => 'group', 'name' => 'description', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['description'], 'maxlength' => '100', 'error' => ($inputAlert['description'] ?? '') ),
   array( 'prefix' => 'group', 'name' => 'minpresent', 'type' => 'text', 'placeholder' => '0', 'value' => $viewData['minpresent'], 'maxlength' => '4', 'error' => ($inputAlert['minpresent'] ?? '') ),
   array( 'prefix' => 'group', 'name' => 'maxabsent', 'type' => 'text', 'placeholder' => '9999', 'value' => $viewData['maxabsent'], 'maxlength' => '4', 'error' => ($inputAlert['maxabsent'] ?? '') ),
@@ -216,12 +225,19 @@ $viewData['group'] = array(
   array( 'prefix' => 'group', 'name' => 'maxabsentwe', 'type' => 'text', 'placeholder' => '9999', 'value' => $viewData['maxabsentwe'], 'maxlength' => '4', 'error' => ($inputAlert['maxabsentwe'] ?? '') ),
 );
 
-$disabled = !(isAllowed("groupmemberships") || $UG->isGroupManagerOfGroup($UL->username, $viewData['id']));
+// Performance optimization: Cache permission check and convert arrays to associative for faster lookups
+$isGroupManagerOfGroup = $UG->isGroupManagerOfGroup($UL->username, $viewData['id']);
+$disabled = !($isGroupAdmin || $isGroupManagerOfGroup);
 
 $allUsers = $U->getAll();
 $groupId = $viewData['id'];
 $groupMembers = $UG->getAllMemberUsernames($groupId);    // array of usernames
 $groupManagers = $UG->getAllManagerUsernames($groupId);  // array of usernames
+
+// Performance optimization: Convert arrays to associative for O(1) lookup instead of O(n) in_array
+$groupMembersMap = array_flip($groupMembers);
+$groupManagersMap = array_flip($groupManagers);
+
 $viewData['memberlist'] = [];
 $viewData['managerlist'] = [];
 foreach ($allUsers as $user) {
@@ -230,12 +246,12 @@ foreach ($allUsers as $user) {
   $viewData['memberlist'][] = array(
     'val' => $username,
     'name' => $fullname,
-    'selected' => in_array($username, $groupMembers)
+    'selected' => isset($groupMembersMap[$username])
   );
   $viewData['managerlist'][] = array(
     'val' => $username,
     'name' => $fullname,
-    'selected' => in_array($username, $groupManagers)
+    'selected' => isset($groupManagersMap[$username])
   );
 }
 

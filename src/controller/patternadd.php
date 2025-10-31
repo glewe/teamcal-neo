@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Pattern Create Controller
  *
@@ -9,6 +12,7 @@
  * @package TeamCal Neo
  * @since 4.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -38,9 +42,10 @@ $PTN = new Patterns();
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 $viewData['name'] = '';
 $viewData['description'] = '';
-$inputAlert = array();
 
 //-----------------------------------------------------------------------------
 // PROCESS FORM
@@ -148,9 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     //
     // Renew CSRF token after successful form processing
     //
-    if (isset($_SESSION)) {
-      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-    }
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
   } else {
     //
     // Input validation failed
@@ -167,22 +170,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
-$viewData['abs1Absences'][] = array( 'val' => 0, 'name' => $LANG['none'], 'selected' => true );
-$viewData['abs2Absences'][] = array( 'val' => 0, 'name' => $LANG['none'], 'selected' => true );
-$viewData['abs3Absences'][] = array( 'val' => 0, 'name' => $LANG['none'], 'selected' => true );
-$viewData['abs4Absences'][] = array( 'val' => 0, 'name' => $LANG['none'], 'selected' => true );
-$viewData['abs5Absences'][] = array( 'val' => 0, 'name' => $LANG['none'], 'selected' => true );
-$viewData['abs6Absences'][] = array( 'val' => 0, 'name' => $LANG['none'], 'selected' => true );
-$viewData['abs7Absences'][] = array( 'val' => 0, 'name' => $LANG['none'], 'selected' => true );
+//
+// Build absence options for all 7 pattern slots
+//
+$absenceOptions = array( array( 'val' => 0, 'name' => $LANG['none'] ) );
 $absences = $A->getAll();
 foreach ($absences as $absence) {
-  $viewData['abs1Absences'][] = array( 'val' => $absence['id'], 'name' => $absence['name'], 'selected' => false );
-  $viewData['abs2Absences'][] = array( 'val' => $absence['id'], 'name' => $absence['name'], 'selected' => false );
-  $viewData['abs3Absences'][] = array( 'val' => $absence['id'], 'name' => $absence['name'], 'selected' => false );
-  $viewData['abs4Absences'][] = array( 'val' => $absence['id'], 'name' => $absence['name'], 'selected' => false );
-  $viewData['abs5Absences'][] = array( 'val' => $absence['id'], 'name' => $absence['name'], 'selected' => false );
-  $viewData['abs6Absences'][] = array( 'val' => $absence['id'], 'name' => $absence['name'], 'selected' => false );
-  $viewData['abs7Absences'][] = array( 'val' => $absence['id'], 'name' => $absence['name'], 'selected' => false );
+  $absenceOptions[] = array( 'val' => $absence['id'], 'name' => $absence['name'] );
+}
+
+//
+// Populate absence dropdowns for each pattern slot
+//
+for ($i = 1; $i <= 7; $i++) {
+  $absKey = 'abs' . $i;
+  $viewKey = 'abs' . $i . 'Absences';
+  $viewData[$viewKey] = array();
+  foreach ($absenceOptions as $option) {
+    $viewData[$viewKey][] = array(
+      'val' => $option['val'],
+      'name' => $option['name'],
+      'selected' => ($i === 1) ? true : false
+    );
+  }
 }
 $viewData['pattern'] = array(
   array( 'prefix' => 'ptn', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' => (isset($inputAlert['name']) ? $inputAlert['name'] : '') ),

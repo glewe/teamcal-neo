@@ -886,14 +886,14 @@ class Securimage {
   /**
    * The GD image resource of the captcha image
    *
-   * @var resource
+   * @var resource|GDImage
    */
   protected $im;
 
   /**
    * A temporary GD image resource of the captcha image for distortion
    *
-   * @var resource
+   * @var resource|GDImage
    */
   protected $tmpimg;
 
@@ -1027,11 +1027,32 @@ class Securimage {
   protected $gdlinecolor;
 
   /**
+   * The GD color for the noise color
+   *
+   * @var int
+   */
+  protected $gdnoisecolor;
+
+  /**
    * The GD color for the signature text color
    *
    * @var int
    */
   protected $gdsignaturecolor;
+
+  /**
+   * The code entered by the user
+   *
+   * @var string
+   */
+  protected $code_entered;
+
+  /**
+   * The correct code
+   *
+   * @var string
+   */
+  protected $correct_code;
 
   /**
    * Create a new securimage object, pass options to set in the constructor.
@@ -2248,7 +2269,7 @@ class Securimage {
    * @return number[] A 3-element array representing the width, height and baseline of the text
    */
   protected function getCharacterDimensions($char, $size, $angle, $font) {
-    $box = imagettfbbox($size, $angle, $font, $char);
+    $box = imagettfbbox((float)$size, (float)$angle, $font, $char);
 
     return array( $box[2] - $box[0], max($box[1] - $box[7], $box[5] - $box[3]), $box[1] );
   }

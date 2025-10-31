@@ -1,4 +1,7 @@
 <?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
 /**
  * Holiday Edit Controller
  *
@@ -9,6 +12,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -60,6 +64,8 @@ if ($missingData) {
 //-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -123,10 +129,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     if (!formInputValid('txt_description', 'alpha_numeric_dash_blank_special')) {
       $inputError = true;
     }
-    if (!formInputValid('txt_color', 'required|hexadecimal')) {
+    if (!formInputValid('txt_color', 'required|hex_color')) {
       $inputError = true;
     }
-    if (!formInputValid('txt_bgcolor', 'required|hexadecimal')) {
+    if (!formInputValid('txt_bgcolor', 'required|hex_color')) {
       $inputError = true;
     }
   }
@@ -139,8 +145,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $id = $_POST['hidden_id'];
       $HH->name = $_POST['txt_name'];
       $HH->description = $_POST['txt_description'];
-      $HH->color = $_POST['txt_color'];
-      $HH->bgcolor = $_POST['txt_bgcolor'];
+      $HH->color = ltrim(sanitize($_POST['txt_color']), '#');
+      $HH->bgcolor = ltrim(sanitize($_POST['txt_bgcolor']), '#');
       if (isset($_POST['chk_businessday'])) {
         $HH->businessday = '1';
       } else {
@@ -162,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       //
       // Send notification e-mails to the subscribers of user events
       //
-      if ($C->read("emailNotifications")) {
+      if ($allConfig['emailNotifications']) {
         sendHolidayEventNotifications("changed", $HH->name, $HH->description);
       }
 
@@ -209,8 +215,8 @@ $viewData['keepweekendcolor'] = $HH->keepweekendcolor;
 $viewData['holiday'] = array(
   array( 'prefix' => 'hol', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' => (isset($inputAlert['name']) ? $inputAlert['name'] : '') ),
   array( 'prefix' => 'hol', 'name' => 'description', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['description'], 'maxlength' => '100', 'error' => (isset($inputAlert['description']) ? $inputAlert['description'] : '') ),
-  array( 'prefix' => 'hol', 'name' => 'color', 'type' => 'color', 'value' => $viewData['color'], 'maxlength' => '6', 'mandatory' => true, 'error' => (isset($inputAlert['color']) ? $inputAlert['color'] : '') ),
-  array( 'prefix' => 'hol', 'name' => 'bgcolor', 'type' => 'color', 'value' => $viewData['bgcolor'], 'maxlength' => '6', 'mandatory' => true, 'error' => (isset($inputAlert['bgcolor']) ? $inputAlert['bgcolor'] : '') ),
+  array( 'prefix' => 'hol', 'name' => 'color', 'type' => 'coloris', 'value' => (!empty($viewData['color']) ? '#' . $viewData['color'] : ''), 'maxlength' => '6', 'mandatory' => true, 'error' => (isset($inputAlert['color']) ? $inputAlert['color'] : '') ),
+  array( 'prefix' => 'hol', 'name' => 'bgcolor', 'type' => 'coloris', 'value' => (!empty($viewData['bgcolor']) ? '#' . $viewData['bgcolor'] : ''), 'maxlength' => '6', 'mandatory' => true, 'error' => (isset($inputAlert['bgcolor']) ? $inputAlert['bgcolor'] : '') ),
   array( 'prefix' => 'hol', 'name' => 'keepweekendcolor', 'type' => 'check', 'value' => $viewData['keepweekendcolor'] ),
   array( 'prefix' => 'hol', 'name' => 'businessday', 'type' => 'check', 'value' => $viewData['businessday'] ),
   array( 'prefix' => 'hol', 'name' => 'noabsence', 'type' => 'check', 'value' => $viewData['noabsence'] ),

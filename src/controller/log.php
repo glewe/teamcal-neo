@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Log Controller
  *
@@ -9,6 +10,7 @@
  * @package TeamCal Neo
  * @since 3.0.0
  */
+global $allConfig;
 global $C;
 global $CONF;
 global $controller;
@@ -37,14 +39,24 @@ $weekday = $date->format('N');
 if ($weekday == rand(1, 7)) {
   $alertData = array();
   $showAlert = false;
-  $licExpiryWarning = $C->read('licExpiryWarning');
+  $licExpiryWarning = $allConfig['licExpiryWarning'];
   $LIC = new License();
   $LIC->check($alertData, $showAlert, $licExpiryWarning, $LANG);
 }
 
 //-----------------------------------------------------------------------------
+// GENERATE TEST LOGS (ONLY FOR DEVELOPMENT PURPOSES)
+//
+$generateTestLogs = false;
+if ($generateTestLogs) {
+  $LOG->generateTestLogs(123);
+}
+
+//-----------------------------------------------------------------------------
 // LOAD CONTROLLER RESOURCES
 //
+$viewData['pageHelp'] = $allConfig['pageHelp'];
+$viewData['showAlerts'] = $allConfig['showAlerts'];
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -121,41 +133,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Refresh |
     // '---------'
     if (isset($_POST['btn_refresh'])) {
+      $refreshBatchConfigs = [];
+
       switch ($_POST['sel_logPeriod']) {
         case "curr_month":
-          $C->save("logperiod", "curr_month");
-          $C->save("logfrom", $logToday['firstOfMonth'] . ' 00:00:00.000000');
-          $C->save("logto", $logToday['lastOfMonth'] . ' 23:59:59.999999');
+          $refreshBatchConfigs["logperiod"] = "curr_month";
+          $refreshBatchConfigs["logfrom"] = $logToday['firstOfMonth'] . ' 00:00:00.000000';
+          $refreshBatchConfigs["logto"] = $logToday['lastOfMonth'] . ' 23:59:59.999999';
           break;
 
         case "curr_quarter":
-          $C->save("logperiod", "curr_quarter");
-          $C->save("logfrom", $logToday['firstOfQuarter'] . ' 00:00:00.000000');
-          $C->save("logto", $logToday['lastOfQuarter'] . ' 23:59:59.999999');
+          $refreshBatchConfigs["logperiod"] = "curr_quarter";
+          $refreshBatchConfigs["logfrom"] = $logToday['firstOfQuarter'] . ' 00:00:00.000000';
+          $refreshBatchConfigs["logto"] = $logToday['lastOfQuarter'] . ' 23:59:59.999999';
           break;
 
         case "curr_half":
-          $C->save("logperiod", "curr_half");
-          $C->save("logfrom", $logToday['firstOfHalf'] . ' 00:00:00.000000');
-          $C->save("logto", $logToday['lastOfHalf'] . ' 23:59:59.999999');
+          $refreshBatchConfigs["logperiod"] = "curr_half";
+          $refreshBatchConfigs["logfrom"] = $logToday['firstOfHalf'] . ' 00:00:00.000000';
+          $refreshBatchConfigs["logto"] = $logToday['lastOfHalf'] . ' 23:59:59.999999';
           break;
 
         case "curr_year":
-          $C->save("logperiod", "curr_year");
-          $C->save("logfrom", $logToday['firstOfYear'] . ' 00:00:00.000000');
-          $C->save("logto", $logToday['lastOfYear'] . ' 23:59:59.999999');
+          $refreshBatchConfigs["logperiod"] = "curr_year";
+          $refreshBatchConfigs["logfrom"] = $logToday['firstOfYear'] . ' 00:00:00.000000';
+          $refreshBatchConfigs["logto"] = $logToday['lastOfYear'] . ' 23:59:59.999999';
           break;
 
         case "curr_all":
-          $C->save("logperiod", "curr_all");
-          $C->save("logfrom", '2004-01-01 00:00:00.000000');
-          $C->save("logto", $logToday['ISO'] . ' 23:59:59.999999');
+          $refreshBatchConfigs["logperiod"] = "curr_all";
+          $refreshBatchConfigs["logfrom"] = '2004-01-01 00:00:00.000000';
+          $refreshBatchConfigs["logto"] = $logToday['ISO'] . ' 23:59:59.999999';
           break;
 
         case "custom":
         default:
           $viewData['logPeriod'] = 'custom';
-          $C->save("logperiod", "custom");
+          $refreshBatchConfigs["logperiod"] = "custom";
           if (!isset($_POST['txt_logPeriodFrom']) || !isset($_POST['txt_logPeriodTo']) || !strlen($_POST['txt_logPeriodFrom']) || !strlen($_POST['txt_logPeriodTo'])) {
             //
             // One or both dates missing
@@ -190,66 +204,79 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
             //
             // All good. Save the new custom period
             //
-            $C->save("logfrom", $_POST['txt_logPeriodFrom'] . ' 00:00:00.000000');
-            $C->save("logto", $_POST['txt_logPeriodTo'] . ' 23:59:59.999999');
+            $refreshBatchConfigs["logfrom"] = $_POST['txt_logPeriodFrom'] . ' 00:00:00.000000';
+            $refreshBatchConfigs["logto"] = $_POST['txt_logPeriodTo'] . ' 23:59:59.999999';
           }
           break;
       }
 
-      $C->save("logtype", $_POST['sel_logType']);
+      $refreshBatchConfigs["logtype"] = $_POST['sel_logType'];
 
       if (isset($_POST['txt_logSearchUser']) && strlen($_POST['txt_logSearchUser'])) {
         $viewData['logSearchUser'] = sanitize($_POST['txt_logSearchUser']);
-        $C->save("logsearchuser", '%' . $viewData['logSearchUser'] . '%');
+        $refreshBatchConfigs["logsearchuser"] = '%' . $viewData['logSearchUser'] . '%';
       }
 
       if (isset($_POST['txt_logSearchEvent']) && strlen($_POST['txt_logSearchEvent'])) {
         $viewData['logSearchEvent'] = sanitize($_POST['txt_logSearchEvent']);
-        $C->save("logsearchevent", '%' . $viewData['logSearchEvent'] . '%');
+        $refreshBatchConfigs["logsearchevent"] = '%' . $viewData['logSearchEvent'] . '%';
       }
+
+      //
+      // Save all refresh settings in batch
+      //
+      $C->saveBatch($refreshBatchConfigs);
     }
     // ,------,
     // | Save |
     // '------'
     elseif (isset($_POST['btn_logSave'])) {
+      $newConfig = [];
+
       foreach ($logtypes as $lt) {
         //
         // Set log levels
         //
         if (isset($_POST['chk_log' . $lt]) && $_POST['chk_log' . $lt]) {
-          $C->save("log" . $lt, "1");
+          $newConfig["log" . $lt] = "1";
         } else {
-          $C->save("log" . $lt, "0");
+          $newConfig["log" . $lt] = "0";
         }
         //
         // Set log filters
         //
         if (isset($_POST['chk_logfilter' . $lt]) && $_POST['chk_logfilter' . $lt]) {
-          $C->save("logfilter" . $lt, "1");
+          $newConfig["logfilter" . $lt] = "1";
         } else {
-          $C->save("logfilter" . $lt, "0");
+          $newConfig["logfilter" . $lt] = "0";
         }
         //
         // Set log colors
         //
         if ($_POST['opt_logcolor' . $lt]) {
-          $C->save("logcolor" . $lt, $_POST['opt_logcolor' . $lt]);
+          $newConfig["logcolor" . $lt] = $_POST['opt_logcolor' . $lt];
         } else {
-          $C->save("logcolor" . $lt, "default");
+          $newConfig["logcolor" . $lt] = "default";
         }
       }
+
+      //
+      // Save all log settings in batch
+      //
+      $C->saveBatch($newConfig);
+
       //
       // Log this event
       //
-      $LOG->logEvent("logLoglevel", L_USER, "log_log_updated");
+      $LOG->logEvent("logLog", L_USER, "log_log_updated");
       header("Location: index.php?action=" . $controller);
     }
     // ,-------,
     // | Clear |
     // '-------'
     elseif (isset($_POST['btn_clear'])) {
-      $periodFrom = $C->read("logfrom");
-      $periodTo = $C->read("logto");
+      $periodFrom = $allConfig['logfrom'];
+      $periodTo = $allConfig['logto'];
       $LOG->delete($periodFrom, $periodTo);
       //
       // Log this event
@@ -261,12 +288,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
     // | Reset |
     // '-------'
     elseif (isset($_POST['btn_reset'])) {
-      $C->save("logperiod", "curr_all");
-      $C->save("logfrom", '2004-01-01 00:00:00.000000');
-      $C->save("logto", $logToday['ISO'] . ' 23:59:59.999999');
-      $C->save("logtype", "%");
-      $C->save("logsearchuser", "%");
-      $C->save("logsearchevent", "%");
+      $resetBatchConfigs = [
+        "logperiod" => "curr_all",
+        "logfrom" => '2004-01-01 00:00:00.000000',
+        "logto" => $logToday['ISO'] . ' 23:59:59.999999',
+        "logtype" => "%",
+        "logsearchuser" => "%",
+        "logsearchevent" => "%"
+      ];
+
+      $C->saveBatch($resetBatchConfigs);
+      $LOG->logEvent("logLog", L_USER, "log_log_reset");
       header("Location: index.php?action=" . $controller);
     }
     //
@@ -291,27 +323,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
-$periodFrom = $C->read("logfrom");
-$periodTo = $C->read("logto");
-$logPeriod = $C->read("logperiod");
-if (!$logType = $C->read("logtype")) {
-  $logType = '%';
+$periodFrom = $allConfig['logfrom'];
+$periodTo = $allConfig['logto'];
+$logPeriod = $allConfig['logperiod'];
+
+$logType = '%';
+if (isset($allConfig['logtype']) && $allConfig['logtype'] != '') {
+  $logType = $allConfig['logtype'];
 }
-if (!$logSearchUser = $C->read("logsearchuser")) {
+
+$logSearchUser = '%';
+if (isset($allConfig['logsearchuser']) && $allConfig['logsearchuser'] != '') {
   $logSearchUser = '%';
 }
-if (!$logSearchEvent = $C->read("logsearchevent")) {
+
+$logSearchEvent = '%';
+if (isset($allConfig['logsearchevent']) && $allConfig['logsearchevent'] != '') {
   $logSearchEvent = '%';
 }
+
 $events = $LOG->read($sort, $periodFrom, $periodTo, $logType, $logSearchUser, $logSearchEvent);
+
 $viewData['events'] = array();
 if (count($events)) {
   foreach ($events as $event) {
-    if ($C->read("logfilter" . substr($event['type'], 3))) {
+    if ($allConfig['logfilter' . substr($event['type'], 3)]) {
       $viewData['events'][] = $event;
     }
   }
 }
+
 $viewData['types'] = $logtypes;
 $viewData['logperiod'] = $logPeriod;
 $viewData['logfrom'] = substr($periodFrom, 0, 10);

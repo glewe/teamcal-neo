@@ -53,7 +53,7 @@
   <?php } ?>
 
   <!-- Theme CSS -->
-  <link rel="stylesheet" href="themes/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="themes/bootstrap/<?= BOOTSTRAP_VER ?>/css/bootstrap.min.css">
 
   <?php if ($C->read('font') && $C->read('font') != 'default') { ?>
     <!-- Fonts -->
@@ -82,11 +82,15 @@
   <link rel="stylesheet" href="js/jquery/ui/<?= JQUERY_UI_VER ?>/themes/<?= $htmlData['jQueryTheme'] ?>/jquery-ui.min.css">
   <?php } ?>
 
+  <!-- Coloris picker -->
+  <link rel="stylesheet" href="addons/coloris/<?= COLORIS_VER ?>/dist/coloris.min.css" />
+  <script src="addons/coloris/<?= COLORIS_VER ?>/dist/coloris.min.js"></script>
+
   <!-- Bootstrap Color Mode Switcher -->
   <script src="js/color-modes.min.js"></script>
 
   <!-- Bootstrap Javascript -->
-  <script src="themes/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="themes/bootstrap/<?= BOOTSTRAP_VER ?>/js/bootstrap.bundle.min.js"></script>
 
   <!-- TeamCalNeo CSS -->
   <link rel="stylesheet" href="css/teamcalneo.min.css">

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Regions View
  *
@@ -18,8 +19,8 @@ view.regions
   <div class="col-lg-12">
     <?php
     if (
-      ($showAlert && $C->read("showAlerts") != "none") &&
-      ($C->read("showAlerts") == "all" || $C->read("showAlerts") == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
+      ($showAlert && $viewData['showAlerts'] != "none") &&
+      ($viewData['showAlerts'] == "all" || $viewData['showAlerts'] == "warnings" && ($alertData['type'] == "warning" || $alertData['type'] == "danger"))
     ) {
       echo createAlertBox($alertData);
     }
@@ -31,7 +32,7 @@ view.regions
     <div class="card">
       <?php
       $pageHelp = '';
-      if ($C->read('pageHelp')) {
+      if ($viewData['pageHelp']) {
         $pageHelp = '<a href="' . $CONF['controllers'][$controller]->docurl . '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>';
       }
       ?>
@@ -53,14 +54,16 @@ view.regions
           <?php if (isset($inputAlert["name"]) && strlen($inputAlert["name"])) { ?>
             <br>
             <div class="alert alert-dismissable alert-danger">
-              <button type="button" class="btn-close float-end" data-bs-dismiss="alert">x</button><?= $inputAlert["name"] ?></div>
+              <button type="button" class="btn-close float-end" data-bs-dismiss="alert">x</button><?= $inputAlert["name"] ?>
+            </div>
           <?php } ?>
           <label for="inputDescription"><?= $LANG['description'] ?></label>
           <input id="inputDescription" class="form-control" tabindex="<?= ++$tabindex ?>" name="txt_description" maxlength="100" value="<?= $viewData['txt_description'] ?>" type="text">
           <?php if (isset($inputAlert["description"]) && strlen($inputAlert["description"])) { ?>
             <br>
             <div class="alert alert-dismissable alert-danger">
-              <button type="button" class="btn-close float-end" data-bs-dismiss="alert">x</button><?= $inputAlert["description"] ?></div>
+              <button type="button" class="btn-close float-end" data-bs-dismiss="alert">x</button><?= $inputAlert["description"] ?>
+            </div>
           <?php } ?>
           <?= createModalBottom('btn_regionCreate', 'success', $LANG['btn_create_region']) ?>
 
@@ -71,9 +74,9 @@ view.regions
           <div class="card-header">
             <?php
             $pageTabs = [
-              [ 'id' => 'tab-list', 'href' => '#panel-list', 'label' => $LANG['regions_tab_list'], 'active' => true ],
-              [ 'id' => 'tab-ical', 'href' => '#panel-ical', 'label' => $LANG['regions_tab_ical'], 'active' => false ],
-              [ 'id' => 'tab-copy', 'href' => '#panel-copy', 'label' => $LANG['regions_tab_transfer'], 'active' => false ]
+              ['id' => 'tab-list', 'href' => '#panel-list', 'label' => $LANG['regions_tab_list'], 'active' => true],
+              ['id' => 'tab-ical', 'href' => '#panel-ical', 'label' => $LANG['regions_tab_ical'], 'active' => false],
+              ['id' => 'tab-copy', 'href' => '#panel-copy', 'label' => $LANG['regions_tab_transfer'], 'active' => false]
             ];
             echo createPageTabs($pageTabs);
             ?>
@@ -86,56 +89,101 @@ view.regions
               <div class="tab-pane fade show active" id="panel-list" role="tabpanel" aria-labelledby="tab-list">
                 <table id="dataTableRegions" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
                   <thead>
-                  <tr>
-                    <th class="text-end">#</th>
-                    <th><?= $LANG['name'] ?></th>
-                    <th><?= $LANG['description'] ?></th>
-                    <th class="text-center"><?= $LANG['action'] ?></th>
-                  </tr>
+                    <tr>
+                      <th class="text-end">#</th>
+                      <th><?= $LANG['name'] ?></th>
+                      <th><?= $LANG['description'] ?></th>
+                      <th class="text-center"><?= $LANG['action'] ?></th>
+                    </tr>
                   </thead>
                   <tbody>
-                  <?php
-                  $i = 1;
-                  foreach ($viewData['regions'] as $region) : ?>
-                    <tr>
-                      <td class="text-end"><?= $i++ ?></td>
-                      <td><?= $region['name'] ?></td>
-                      <td><?= $region['description'] ?></td>
-                      <td class="align-top text-center">
-                        <?php if ($region['id'] != '1') : ?>
-                        <form class="form-control-horizontal" name="form_<?= $region['name'] ?>" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
-                          <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
-                          <button type="button" class="btn btn-danger btn-sm" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRegion_<?= $region['name'] ?>"><?= $LANG['btn_delete'] ?></button>
-                          <a href="index.php?action=regionedit&amp;id=<?= $region['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_edit'] ?></a>
-                          <input name="hidden_id" type="hidden" value="<?= $region['id'] ?>">
-                          <input name="hidden_name" type="hidden" value="<?= $region['name'] ?>">
-                          <input name="hidden_description" type="hidden" value="<?= $region['description'] ?>">
-                          <!-- Modal: Delete region -->
-                          <?= createModalTop('modalDeleteRegion_' . $region['name'], $LANG['modal_confirm']) ?>
-                          <?= $LANG['regions_confirm_delete'] . ": " . $region['name'] ?>
-                          <?= createModalBottom('btn_regionDelete', 'danger', $LANG['btn_delete']) ?>
-                          <?php endif; ?>
-                          <a href="index.php?action=monthedit&amp;month=<?= date('Y') . date('m') ?>&amp;region=<?= $region['id'] ?>" class="btn btn-info btn-sm" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_calendar'] ?></a>
-                        </form>
-                      </td>
-                    </tr>
-                  <?php endforeach; ?>
+                    <?php
+                    $i = 1;
+                    foreach ($viewData['regions'] as $region) : ?>
+                      <tr>
+                        <td class="text-end"><?= $i++ ?></td>
+                        <td><?= $region['name'] ?></td>
+                        <td><?= $region['description'] ?></td>
+                        <td class="align-top text-center">
+                          <form class="form-control-horizontal" id="form_<?= $region['id'] ?>" name="form_<?= $region['name'] ?>" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
+                            <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
+                            <?php if ($region['id'] != '1') : ?>
+                              <button type="button" class="btn btn-danger btn-sm" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalDeleteRegion" data-region-id="<?= $region['id'] ?>" data-region-name="<?= $region['name'] ?>" data-form-id="form_<?= $region['id'] ?>"><?= $LANG['btn_delete'] ?></button>
+                              <a href="index.php?action=regionedit&amp;id=<?= $region['id'] ?>" class="btn btn-warning btn-sm" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_edit'] ?></a>
+                            <?php endif; ?>
+                            <a href="index.php?action=monthedit&amp;month=<?= date('Y') . date('m') ?>&amp;region=<?= $region['id'] ?>" class="btn btn-info btn-sm" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_calendar'] ?></a>
+                            <input name="hidden_id" type="hidden" value="<?= $region['id'] ?>">
+                            <input name="hidden_name" type="hidden" value="<?= $region['name'] ?>">
+                            <input name="hidden_description" type="hidden" value="<?= $region['description'] ?>">
+                          </form>
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
                   </tbody>
                 </table>
                 <script>
-                  $(document).ready(function () {
+                  $(document).ready(function() {
                     $('#dataTableRegions').DataTable({
                       paging: true,
                       ordering: true,
                       info: true,
                       pageLength: 50,
+                      deferRender: true,
+                      processing: true,
                       language: {
                         url: 'addons/datatables/datatables.<?= $LANG['locale'] ?>.json'
                       },
-                      columnDefs: [
-                        {targets: [0, 3], orderable: false, searchable: false}
-                      ]
+                      columnDefs: [{
+                        targets: [0, 3],
+                        orderable: false,
+                        searchable: false
+                      }]
                     });
+                  });
+                </script>
+
+                <!-- Reusable Modal: Delete region -->
+                <div class="modal fade" id="modalDeleteRegion" tabindex="-1" role="dialog" aria-labelledby="modalDeleteRegionLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="modalDeleteRegionLabel"><?= $LANG['modal_confirm'] ?></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <span id="deleteRegionMessage"><?= $LANG['regions_confirm_delete'] ?>: </span>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="confirmDeleteBtn"><?= $LANG['btn_delete'] ?></button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= $LANG['btn_cancel'] ?? 'Cancel' ?></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <script>
+                  // Handle dynamic delete modal content and form submission
+                  let currentFormId = null;
+                  document.getElementById('modalDeleteRegion').addEventListener('show.bs.modal', function(event) {
+                    const button = event.relatedTarget;
+                    const regionId = button.getAttribute('data-region-id');
+                    const regionName = button.getAttribute('data-region-name');
+                    currentFormId = button.getAttribute('data-form-id');
+                    document.getElementById('deleteRegionMessage').textContent = '<?= $LANG['regions_confirm_delete'] ?>: ' + regionName;
+                  });
+
+                  document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+                    if (currentFormId) {
+                      const form = document.getElementById(currentFormId);
+                      if (form) {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'btn_regionDelete';
+                        input.value = '1';
+                        form.appendChild(input);
+                        form.submit();
+                      }
+                    }
                   });
                 </script>
 
