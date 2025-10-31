@@ -112,54 +112,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST) && isset($_POST['btn
   }
 
   if (!$inputError) {
+    $newConfig = [];
 
     //
     // Display
     //
-    $C->save("todayBorderColor", ltrim(sanitize($_POST['txt_todayBorderColor']), '#'));
-    $C->save("todayBorderSize", intval($_POST['txt_todayBorderSize']));
-    $C->save("pastDayColor", ltrim(sanitize($_POST['txt_pastDayColor']), '#'));
+    $newConfig["todayBorderColor"] = ltrim(sanitize($_POST['txt_todayBorderColor']), '#');
+    $newConfig["todayBorderSize"] = intval($_POST['txt_todayBorderSize']);
+    $newConfig["pastDayColor"] = ltrim(sanitize($_POST['txt_pastDayColor']), '#');
     if (isset($_POST['chk_showWeekNumbers']) && $_POST['chk_showWeekNumbers']) {
-      $C->save("showWeekNumbers", "1");
+      $newConfig["showWeekNumbers"] = "1";
     } else {
-      $C->save("showWeekNumbers", "0");
+      $newConfig["showWeekNumbers"] = "0";
     }
-    $C->save("repeatHeaderCount", intval($_POST['txt_repeatHeaderCount']));
-    $C->save("usersPerPage", intval($_POST['txt_usersPerPage']));
+    $newConfig["repeatHeaderCount"] = intval($_POST['txt_repeatHeaderCount']);
+    $newConfig["usersPerPage"] = intval($_POST['txt_usersPerPage']);
     if (isset($_POST['chk_showAvatars']) && $_POST['chk_showAvatars']) {
-      $C->save("showAvatars", "1");
+      $newConfig["showAvatars"] = "1";
     } else {
-      $C->save("showAvatars", "0");
+      $newConfig["showAvatars"] = "0";
     }
     if (isset($_POST['chk_showRoleIcons']) && $_POST['chk_showRoleIcons']) {
-      $C->save("showRoleIcons", "1");
+      $newConfig["showRoleIcons"] = "1";
     } else {
-      $C->save("showRoleIcons", "0");
+      $newConfig["showRoleIcons"] = "0";
     }
     if (isset($_POST['chk_showTooltipCount']) && $_POST['chk_showTooltipCount']) {
-      $C->save("showTooltipCount", "1");
+      $newConfig["showTooltipCount"] = "1";
     } else {
-      $C->save("showTooltipCount", "0");
+      $newConfig["showTooltipCount"] = "0";
     }
     if (isset($_POST['chk_supportMobile']) && $_POST['chk_supportMobile']) {
-      $C->save("supportMobile", "1");
+      $newConfig["supportMobile"] = "1";
     } else {
-      $C->save("supportMobile", "0");
+      $newConfig["supportMobile"] = "0";
     }
     if (isset($_POST['chk_symbolAsIcon']) && $_POST['chk_symbolAsIcon']) {
-      $C->save("symbolAsIcon", "1");
+      $newConfig["symbolAsIcon"] = "1";
     } else {
-      $C->save("symbolAsIcon", "0");
+      $newConfig["symbolAsIcon"] = "0";
     }
     if ($_POST['sel_monitorAbsence']) {
-      $C->save("monitorAbsence", $_POST['sel_monitorAbsence']);
+      $newConfig["monitorAbsence"] = $_POST['sel_monitorAbsence'];
     } else {
-      $C->save("monitorAbsence", 0);
+      $newConfig["monitorAbsence"] = 0;
     }
     if (strlen($_POST['txt_calendarFontSize'])) {
-      $C->save("calendarFontSize", intval($_POST['txt_calendarFontSize']));
+      $newConfig["calendarFontSize"] = intval($_POST['txt_calendarFontSize']);
     } else {
-      $C->save("calendarFontSize", 100);
+      $newConfig["calendarFontSize"] = 100;
     }
     if (strlen($_POST['txt_showMonths'])) {
       $postValue = intval($_POST['txt_showMonths']);
@@ -168,152 +169,157 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST) && isset($_POST['btn
       } elseif ($postValue > 12) {
         $postValue = 12;
       }
-      $C->save("showMonths", $postValue);
+      $newConfig["showMonths"] = $postValue;
     } else {
-      $C->save("showMonths", 1);
+      $newConfig["showMonths"] = 1;
     }
     if (isset($_POST['chk_regionalHolidays']) && $_POST['chk_regionalHolidays']) {
-      $C->save("regionalHolidays", "1");
+      $newConfig["regionalHolidays"] = "1";
     } else {
-      $C->save("regionalHolidays", "0");
+      $newConfig["regionalHolidays"] = "0";
     }
-    $C->save("regionalHolidaysColor", ltrim(sanitize($_POST['txt_regionalHolidaysColor']), '#'));
+    $newConfig["regionalHolidaysColor"] = ltrim(sanitize($_POST['txt_regionalHolidaysColor']), '#');
     if (isset($_POST['chk_sortByOrderKey']) && $_POST['chk_sortByOrderKey']) {
-      $C->save("sortByOrderKey", "1");
+      $newConfig["sortByOrderKey"] = "1";
     } else {
-      $C->save("sortByOrderKey", "0");
+      $newConfig["sortByOrderKey"] = "0";
     }
 
     //
     // Filter
     //
     if (isset($_POST['chk_hideDaynotes']) && $_POST['chk_hideDaynotes']) {
-      $C->save("hideDaynotes", "1");
+      $newConfig["hideDaynotes"] = "1";
     } else {
-      $C->save("hideDaynotes", "0");
+      $newConfig["hideDaynotes"] = "0";
     }
     if (isset($_POST['chk_hideManagers']) && $_POST['chk_hideManagers']) {
-      $C->save("hideManagers", "1");
+      $newConfig["hideManagers"] = "1";
     } else {
-      $C->save("hideManagers", "0");
+      $newConfig["hideManagers"] = "0";
     }
     if (isset($_POST['chk_hideManagerOnlyAbsences'])) {
-      $C->save("hideManagerOnlyAbsences", "1");
+      $newConfig["hideManagerOnlyAbsences"] = "1";
     } else {
-      $C->save("hideManagerOnlyAbsences", "0");
+      $newConfig["hideManagerOnlyAbsences"] = "0";
     }
     if (isset($_POST['chk_showUserRegion']) && $_POST['chk_showUserRegion']) {
-      $C->save("showUserRegion", "1");
+      $newConfig["showUserRegion"] = "1";
     } else {
-      $C->save("showUserRegion", "0");
+      $newConfig["showUserRegion"] = "0";
     }
     if (isset($_POST['sel_trustedRoles'])) {
       foreach ($_POST['sel_trustedRoles'] as $role) {
         $arrTrustedRoles[] = $role;
       }
       $trustedRoles = implode(',', $arrTrustedRoles);
-      $C->save("trustedRoles", $trustedRoles);
+      $newConfig["trustedRoles"] = $trustedRoles;
     }
 
     //
     // Options
     //
     if ($_POST['opt_firstDayOfWeek']) {
-      $C->save("firstDayOfWeek", $_POST['opt_firstDayOfWeek']);
+      $newConfig["firstDayOfWeek"] = $_POST['opt_firstDayOfWeek'];
     }
     if (isset($_POST['chk_satBusi']) && $_POST['chk_satBusi']) {
-      $C->save("satBusi", "1");
+      $newConfig["satBusi"] = "1";
     } else {
-      $C->save("satBusi", "0");
+      $newConfig["satBusi"] = "0";
     }
     if (isset($_POST['chk_sunBusi']) && $_POST['chk_sunBusi']) {
-      $C->save("sunBusi", "1");
+      $newConfig["sunBusi"] = "1";
     } else {
-      $C->save("sunBusi", "0");
+      $newConfig["sunBusi"] = "0";
     }
     if ($_POST['sel_defregion']) {
-      $C->save("defregion", $_POST['sel_defregion']);
+      $newConfig["defregion"] = $_POST['sel_defregion'];
     } else {
-      $C->save("defregion", "default");
+      $newConfig["defregion"] = "default";
     }
     if (isset($_POST['chk_showRegionButton']) && $_POST['chk_showRegionButton']) {
-      $C->save("showRegionButton", "1");
+      $newConfig["showRegionButton"] = "1";
     } else {
-      $C->save("showRegionButton", "0");
+      $newConfig["showRegionButton"] = "0";
     }
     if ($_POST['opt_defgroupfilter']) {
-      $C->save("defgroupfilter", $_POST['opt_defgroupfilter']);
+      $newConfig["defgroupfilter"] = $_POST['opt_defgroupfilter'];
     } else {
-      $C->save("defgroupfilter", 'All');
+      $newConfig["defgroupfilter"] = 'All';
     }
     if (isset($_POST['chk_currentYearOnly']) && $_POST['chk_currentYearOnly']) {
-      $C->save("currentYearOnly", "1");
+      $newConfig["currentYearOnly"] = "1";
     } else {
-      $C->save("currentYearOnly", "0");
+      $newConfig["currentYearOnly"] = "0";
     }
     if (isset($_POST['sel_currentYearRoles'])) {
       foreach ($_POST['sel_currentYearRoles'] as $role) {
         $arrCurrYearRoles[] = $role;
       }
       $currYearRoles = implode(',', $arrCurrYearRoles);
-      $C->save("currYearRoles", $currYearRoles);
+      $newConfig["currYearRoles"] = $currYearRoles;
     }
 
     if (isset($_POST['chk_takeover']) && $_POST['chk_takeover']) {
-      $C->save("takeover", "1");
+      $newConfig["takeover"] = "1";
     } else {
-      $C->save("takeover", "0");
+      $newConfig["takeover"] = "0";
     }
     if (isset($_POST['chk_notificationsAllGroups']) && $_POST['chk_notificationsAllGroups']) {
-      $C->save("notificationsAllGroups", "1");
+      $newConfig["notificationsAllGroups"] = "1";
     } else {
-      $C->save("notificationsAllGroups", "0");
+      $newConfig["notificationsAllGroups"] = "0";
     }
     if (isset($_POST['chk_managerOnlyIncludesAdministrator']) && $_POST['chk_managerOnlyIncludesAdministrator']) {
-      $C->save("managerOnlyIncludesAdministrator", "1");
+      $newConfig["managerOnlyIncludesAdministrator"] = "1";
     } else {
-      $C->save("managerOnlyIncludesAdministrator", "0");
+      $newConfig["managerOnlyIncludesAdministrator"] = "0";
     }
 
     //
     // Statistics
     //
     if ($_POST['sel_statsDefaultColorAbsences']) {
-      $C->save("statsDefaultColorAbsences", $_POST['sel_statsDefaultColorAbsences']);
+      $newConfig["statsDefaultColorAbsences"] = $_POST['sel_statsDefaultColorAbsences'];
     } else {
-      $C->save("statsDefaultColorAbsences", "red");
+      $newConfig["statsDefaultColorAbsences"] = "red";
     }
     if ($_POST['sel_statsDefaultColorPresences']) {
-      $C->save("statsDefaultColorPresences", $_POST['sel_statsDefaultColorPresences']);
+      $newConfig["statsDefaultColorPresences"] = $_POST['sel_statsDefaultColorPresences'];
     } else {
-      $C->save("statsDefaultColorPresences", "green");
+      $newConfig["statsDefaultColorPresences"] = "green";
     }
     if ($_POST['sel_statsDefaultColorAbsencetype']) {
-      $C->save("statsDefaultColorAbsencetype", $_POST['sel_statsDefaultColorAbsencetype']);
+      $newConfig["statsDefaultColorAbsencetype"] = $_POST['sel_statsDefaultColorAbsencetype'];
     } else {
-      $C->save("statsDefaultColorAbsencetype", "cyan");
+      $newConfig["statsDefaultColorAbsencetype"] = "cyan";
     }
     if ($_POST['sel_statsDefaultColorRemainder']) {
-      $C->save("statsDefaultColorRemainder", $_POST['sel_statsDefaultColorRemainder']);
+      $newConfig["statsDefaultColorRemainder"] = $_POST['sel_statsDefaultColorRemainder'];
     } else {
-      $C->save("statsDefaultColorRemainder", "orange");
+      $newConfig["statsDefaultColorRemainder"] = "orange";
     }
 
     //
     // Summary
     //
     if (isset($_POST['chk_includeSummary']) && $_POST['chk_includeSummary']) {
-      $C->save("includeSummary", "1");
+      $newConfig["includeSummary"] = "1";
     } else {
-      $C->save("includeSummary", "0");
+      $newConfig["includeSummary"] = "0";
     }
     if (isset($_POST['chk_showSummary']) && $_POST['chk_showSummary']) {
-      $C->save("showSummary", "1");
+      $newConfig["showSummary"] = "1";
     } else {
-      $C->save("showSummary", "0");
+      $newConfig["showSummary"] = "0";
     }
-    $C->save("summaryAbsenceTextColor", ltrim(sanitize($_POST['txt_summaryAbsenceTextColor']), '#'));
-    $C->save("summaryPresenceTextColor", ltrim(sanitize($_POST['txt_summaryPresenceTextColor']), '#'));
+    $newConfig["summaryAbsenceTextColor"] = ltrim(sanitize($_POST['txt_summaryAbsenceTextColor']), '#');
+    $newConfig["summaryPresenceTextColor"] = ltrim(sanitize($_POST['txt_summaryPresenceTextColor']), '#');
+
+    //
+    // Save all config values in batch
+    //
+    $C->saveBatch($newConfig);
 
     //
     // Log this event
