@@ -2,9 +2,9 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
-    'version' => '4.3.0-dev',
+    'version' => '4.3.1',
     'date' => '2025-10-24',
-    'info' => 'Ongoing development version for the next minor release...',
+    'info' => 'Feature and improvement release',
     'bugfixes' => [
     ],
     'features' => [
@@ -16,6 +16,7 @@ $releases = [
       [ 'summary' => 'Update to Bootstrap 5.3.8', 'issue' => '' ],
       [ 'summary' => 'Update to Font Awesome 7.1.0', 'issue' => '' ],
       [ 'summary' => 'Updated sample character avatars', 'issue' => '' ],
+      [ 'summary' => 'Added PHPMailer module to make TeamCal Neo independent of external email services, e.g. PEAR/MAIL', 'issue' => '' ],
     ],
     'removals' => [
     ],

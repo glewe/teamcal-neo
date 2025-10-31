@@ -16,11 +16,21 @@
 
 TeamCal Neo is a day-based online calendar that allows to easily manage your team's events and absences and displays them in an intuitive interface. You can manage absence types, holidays, regional calendars and much more.
 
-## New in Version 4
+## New in Version 4.3.1
 
-TeamCal Neo 4 is the new major installment fo the popular calendar. It was completely overworked with optimizations, new features but also removals of obsolete components.
+### Features
 
-Read details on the release page here on GitHub.
+- Split month view mode. Allows to show the last and first half of two consecutive months in one table
+
+### Improvements
+
+- New language architecture based on controller specific language files
+- New color picker: Coloris 0.25.0
+- Update to Bootstrap 5.3.8
+- Update to Font Awesome 7.1.0
+- Updated sample character avatars to not infringe any copyrights
+- Added PHPMailer module to make TeamCal Neo independent of external email services, e.g. PEAR/MAIL
+- General performance improvements
 
 
 ## Demo
