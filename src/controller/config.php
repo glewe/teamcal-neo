@@ -313,6 +313,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         if (preg_match('/^G-[A-Z0-9]{10,20}$/', $_POST['txt_googleAnalyticsID'])) {
           $newConfig["googleAnalytics"] = "1";
           $newConfig["googleAnalyticsID"] = $_POST['txt_googleAnalyticsID'];
+        } else {
+          $newConfig["googleAnalytics"] = "0";
+          $newConfig["googleAnalyticsID"] = $_POST['txt_googleAnalyticsID'];
         }
       } else {
         $newConfig["googleAnalytics"] = "0";
@@ -324,6 +327,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         $newConfig["matomoSiteId"] = $_POST['txt_matomoSiteId'];
       } else {
         $newConfig["matomoAnalytics"] = "0";
+        $newConfig["matomoUrl"] = $_POST['txt_matomoUrl'];
+        $newConfig["matomoSiteId"] = $_POST['txt_matomoSiteId'];
       }
       if (isset($_POST['chk_noIndex']) && $_POST['chk_noIndex']) {
         $newConfig["noIndex"] = "1";
