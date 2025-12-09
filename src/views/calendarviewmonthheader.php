@@ -49,7 +49,7 @@ view.calendarviewmonthheader (<?= $viewData['year'] . $viewData['month'] ?>)
     if ($i == $dayend) {
       if (isset($viewData['dayStyles'][$i]) && strlen($viewData['dayStyles'][$i])) {
         $dayStyles = ' style="' . $viewData['dayStyles'][$i] . 'border-right: 2px solid #000;"';
-      } else {
+      } else if (isset($viewData['isSplitMonth']) && $viewData['isSplitMonth']) {
         $dayStyles = ' style="border-right: 2px solid #000;"';
       }
     }
