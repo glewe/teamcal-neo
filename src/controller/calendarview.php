@@ -490,8 +490,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //
 if (isset($_GET['viewmode'])) {
   $viewmode = sanitize($_GET['viewmode']);
-  if (L_USER) {
+  if (L_USER && $viewmode == 'fullmonth' || $viewmode == 'splitmonth') {
     $UO->save($UL->username, 'calViewMode', $viewmode);
+  } else {
+    $viewmode = 'fullmonth';
   }
 } elseif (L_USER && $viewmode = $UO->read($UL->username, 'calViewMode')) {
   //
@@ -509,6 +511,7 @@ if ($viewmode !== 'splitmonth') {
 }
 
 $viewData['viewmode'] = $viewmode;
+// dnd($viewData['viewmode']);
 
 //
 // Build months array based on view mode
@@ -590,7 +593,20 @@ if ($viewmode === 'splitmonth') {
   // Standard fullmonth view
   //
   $M = new Months();
-  $M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']);
+  if (!$M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid'])) {
+    createMonth($viewData['year'], $viewData['month'], 'region', $viewData['regionid']);
+    $M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']);
+    //
+    // Send notification e-mails to the subscribers of user events
+    //
+    if ($allConfig['emailNotifications']) {
+      sendMonthEventNotifications("created", $viewData['year'], $viewData['month'], $viewData['regionname']);
+    }
+    //
+    // Log this event
+    //
+    $LOG->logEvent("logMonth", L_USER, "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
+  }
   $viewData['months'] = array(
     array(
       'year' => $viewData['year'],
@@ -636,7 +652,20 @@ if ($showMonths > 1 && $viewmode === 'fullmonth') {
     }
 
     $M = new Months();
-    $M->getMonth($nextYear, $nextMonth, $viewData['regionid']);
+    if (!$M->getMonth($nextYear, $nextMonth, $viewData['regionid'])) {
+      createMonth($nextYear, $nextMonth, 'region', $viewData['regionid']);
+      $M->getMonth($nextYear, $nextMonth, $viewData['regionid']);
+      //
+      // Send notification e-mails to the subscribers of user events
+      //
+      if ($allConfig['emailNotifications']) {
+        sendMonthEventNotifications("created", $nextYear, $nextMonth, $viewData['regionname']);
+      }
+      //
+      // Log this event
+      //
+      $LOG->logEvent("logMonth", L_USER, "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
+    }
     
     //
     // Standard fullmonth view
