@@ -705,6 +705,7 @@ $viewData['fonts'][] = array('val' => 'default', 'name' => 'Default', 'selected'
 $viewData['fonts'][] = array('val' => 'lato', 'name' => 'Lato', 'selected' => ($allConfig['font'] == 'lato') ? true : false);
 $viewData['fonts'][] = array('val' => 'montserrat', 'name' => 'Montserrat', 'selected' => ($allConfig['font'] == 'montserrat') ? true : false);
 $viewData['fonts'][] = array('val' => 'opensans', 'name' => 'Open Sans', 'selected' => ($allConfig['font'] == 'opensans') ? true : false);
+$viewData['fonts'][] = array('val' => 'poppins', 'name' => 'Poppins', 'selected' => ($allConfig['font'] == 'poppins') ? true : false);
 $viewData['fonts'][] = array('val' => 'roboto', 'name' => 'Roboto', 'selected' => ($allConfig['font'] == 'roboto') ? true : false);
 
 $viewData['theme'] = array(
