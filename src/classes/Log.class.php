@@ -102,7 +102,7 @@ class Log {
       $loglang = 'english';
     }
     require_once WEBSITE_ROOT . "/languages/" . $loglang . ".log.php";
-    $myEvent = $LANG[$event] . $object;
+    $myEvent = (isset($LANG[$event]) ? $LANG[$event] : $event) . $object;
     if ($this->C->read($type)) {
       $ts = date("YmdHis");
       $ip = getClientIp();
