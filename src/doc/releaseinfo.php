@@ -2,6 +2,24 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '4.3.2',
+    'date' => '2026-01-10',
+    'info' => 'Feature and improvement release',
+    'bugfixes' => [
+      [ 'summary' => 'Fixed calendarview bug when no month record exists', 'issue' => '' ],
+      [ 'summary' => 'Fixed catching PHP mail() error when no SMTP is set up and PHP mail function not enabled', 'issue' => '' ],
+    ],
+    'features' => [
+      [ 'summary' => 'Added new optional font "Poppins"', 'issue' => '' ],
+    ],
+    'improvements' => [
+      [ 'summary' => 'Updated sample database', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '4.3.1',
     'date' => '2025-10-24',
     'info' => 'Feature and improvement release',

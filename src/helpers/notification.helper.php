@@ -852,7 +852,6 @@ function sendEmail(string $to, string $subject, string $body, string $from = '')
       return false;
     }
   } else {
-    regular_mail:
     //
     // Regular PHP Mail
     //
@@ -861,7 +860,13 @@ function sendEmail(string $to, string $subject, string $body, string $from = '')
     $headers .= "From: " . $from . "\r\n";
     $headers .= "Reply-To: " . $replyto;
     $body = '<html><body>' . $body . '</body></html>';
-    $result = mail($toValid, $subject, $body, $headers);
+    
+    if (function_exists('mail')) {
+        $result = mail($toValid, $subject, $body, $headers);
+    } else {
+        error_log("Error: PHP mail() function is not available.");
+        $result = false;
+    }
 
     //
     // Enable to debug mail content
