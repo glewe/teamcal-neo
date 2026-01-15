@@ -226,6 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       // Save all refresh settings in batch
       //
       $C->saveBatch($refreshBatchConfigs);
+      $allConfig = $C->readAll();
     }
     // ,------,
     // | Save |

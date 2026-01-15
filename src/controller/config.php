@@ -202,6 +202,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       } else {
         $newConfig["mailSMTPAnonymous"] = "0";
       }
+      if (isset($_POST['chk_mailSMTPDebug']) && $_POST['chk_mailSMTPDebug']) {
+        $newConfig["mailSMTPDebug"] = "1";
+      } else {
+        $newConfig["mailSMTPDebug"] = "0";
+      }
 
       //
       // Footer
@@ -450,6 +455,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       // Save all config values in batch
       //
       $C->saveBatch($newConfig);
+      $allConfig = $C->readAll();
 
       //
       // Log this event
@@ -471,6 +477,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       //
       if (isset($_SESSION)) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+      }
+
+      //
+      // Refresh global state
+      //
+      $htmlData['title'] = $allConfig['appTitle'];
+      if (isset($CONF['controllers'][$controller])) {
+        $htmlData['title'] = $allConfig['appTitle'] . ' - ' . $CONF['controllers'][$controller]->title;
+      }
+      $htmlData['description'] = $allConfig['appDescription'];
+      $htmlData['keywords'] = $allConfig['appKeywords'];
+      $htmlData['jQueryTheme'] = $allConfig['jqtheme'];
+      $htmlData['cookieConsent'] = (bool)$allConfig['cookieConsent'];
+      $htmlData['cookieConsentCDN'] = (bool)$allConfig['cookieConsentCDN'];
+      $htmlData['faCDN'] = (bool)$allConfig['faCDN'];
+      $htmlData['jQueryCDN'] = (bool)$allConfig['jQueryCDN'];
+      if ($allConfig['noIndex']) {
+        $htmlData['robots'] = 'noindex,nofollow,noopd';
+      } else {
+        $htmlData['robots'] = 'index,follow,noopd';
       }
     }
     // ,--------------------,
@@ -642,6 +668,7 @@ $viewData['email'] = array(
   array('prefix' => 'config', 'name' => 'mailSMTPpassword', 'type' => 'password', 'value' => $allConfig["mailSMTPpassword"], 'maxlength' => '50'),
   array('prefix' => 'config', 'name' => 'mailSMTPSSL', 'type' => 'check', 'values' => '', 'value' => $allConfig["mailSMTPSSL"]),
   array('prefix' => 'config', 'name' => 'mailSMTPAnonymous', 'type' => 'check', 'values' => '', 'value' => $allConfig["mailSMTPAnonymous"]),
+  array('prefix' => 'config', 'name' => 'mailSMTPDebug', 'type' => 'check', 'values' => '', 'value' => $allConfig["mailSMTPDebug"]),
 );
 
 $viewData['footer'] = array(

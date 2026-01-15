@@ -536,6 +536,8 @@ $LANG['config_mailSMTPpassword'] = 'SMTP Passwort';
 $LANG['config_mailSMTPpassword_comment'] = 'Gib das SMTP Passwort an.';
 $LANG['config_mailSMTPSSL'] = 'SMTP TLS/SSL Protokoll';
 $LANG['config_mailSMTPSSL_comment'] = 'TLS/SSL Protokoll für die SMTP Verbindung benutzen.';
+$LANG['config_mailSMTPDebug'] = 'SMTP Debugging';
+$LANG['config_mailSMTPDebug_comment'] = 'Aktiviert detaillierte SMTP Kommunikationsprotokolle im PHP Error Log. Nützlich zur Fehlersuche.';
 $LANG['config_matomoAnalytics'] = 'Matomo Analytics';
 $LANG['config_matomoAnalytics_comment'] = 'TeamCal Neo unterstützt Matomo Analytics. Wenn du die Zugriffe auf deine Instanz
  von Matomo Analytics tracken lassen willst, ticke die Checkbox hier und trage deine Matomo URL und Matomo SiteId ein. Der entsprechende Javascript Code wird dann eingefügt.';

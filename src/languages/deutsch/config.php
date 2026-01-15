@@ -156,6 +156,8 @@ $LANG['config_mailSMTPAnonymous'] = 'Anonyme SMTP Anmeldung';
 $LANG['config_mailSMTPAnonymous_comment'] = 'Verwendung der SMTP Verbindung ohne Authentifizierung.';
 $LANG['config_mailSMTPSSL'] = 'SMTP TLS/SSL Protokoll';
 $LANG['config_mailSMTPSSL_comment'] = 'TLS/SSL Protokoll für die SMTP Verbindung benutzen.';
+$LANG['config_mailSMTPDebug'] = 'SMTP Debugging';
+$LANG['config_mailSMTPDebug_comment'] = 'Aktiviert detaillierte SMTP Kommunikationsprotokolle im PHP Error Log. Nützlich zur Fehlersuche.';
 $LANG['config_mailSMTP_comment'] = 'Mit diesm Schalter wird ein externer SMTP Server zum Versenden von E-Mails benutzt anstatt der PHP mail() Funktion.
  Diese Feature erfordert das PEAR Mail Paket auf dem TcNeo Server. Viele Hoster installieren dieses Paket als Standard. Ausserdem ist es erforderlich, dass sich
  der Tcro Server per SMTP oder TLS/SSL protocol mit den gebrächlichen SMTP port 25, 465 und 587 mit dem SMTP Server verbinden kann. Bei einigen Hostern

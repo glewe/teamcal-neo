@@ -320,6 +320,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST) && isset($_POST['btn
     // Save all config values in batch
     //
     $C->saveBatch($newConfig);
+    $allConfig = $C->readAll();
 
     //
     // Log this event

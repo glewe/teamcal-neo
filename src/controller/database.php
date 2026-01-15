@@ -275,6 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
         $alertData['help'] = '';
         $C->save("dbURL", "#");
       }
+      $allConfig = $C->readAll();
     }
     // ,----------,
     // | Reset DB |
