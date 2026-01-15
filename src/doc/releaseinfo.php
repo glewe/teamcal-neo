@@ -3,17 +3,20 @@ $releases = [
   //---------------------------------------------------------------------------
   [
     'version' => '4.3.2',
-    'date' => '2026-01-10',
-    'info' => 'Feature and improvement release',
+    'date' => '2026-01-15',
+    'info' => 'Bugfix, feature and improvement release',
     'bugfixes' => [
       [ 'summary' => 'Fixed calendarview bug when no month record exists', 'issue' => '' ],
       [ 'summary' => 'Fixed catching PHP mail() error when no SMTP is set up and PHP mail function not enabled', 'issue' => '' ],
+      [ 'summary' => 'Fixed SMTP mail bug', 'issue' => '' ],
+      [ 'summary' => 'Fixed reloading config values after save', 'issue' => '' ],
     ],
     'features' => [
       [ 'summary' => 'Added new optional font "Poppins"', 'issue' => '' ],
     ],
     'improvements' => [
       [ 'summary' => 'Updated sample database', 'issue' => '' ],
+      [ 'summary' => 'Added SMTP Debug option to Framework configuration', 'issue' => '' ],
     ],
     'removals' => [
     ],
