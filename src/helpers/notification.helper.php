@@ -804,8 +804,8 @@ function sendEmail(string $to, string $subject, string $body, string $from = '')
 
       // Server settings
       $mail->isSMTP();
-      $mail->Host = $C->read("mailSMTPHost");
-      $mail->Port = intval($C->read("mailSMTPPort"));
+      $mail->Host = $C->read("mailSMTPhost");
+      $mail->Port = intval($C->read("mailSMTPport"));
 
       if ($C->read("mailSMTPSSL")) {
         $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
@@ -813,10 +813,19 @@ function sendEmail(string $to, string $subject, string $body, string $from = '')
         $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
       }
 
-      if (!$C->read("mailSMTPAnonymous")) {
+      if ($C->read("mailSMTPAnonymous")) {
+        $mail->SMTPAuth = false;
+      } else {
         $mail->SMTPAuth = true;
         $mail->Username = $C->read("mailSMTPusername");
-        $mail->Password = $C->read("mailSMTPPassword");
+        $mail->Password = $C->read("mailSMTPpassword");
+      }
+
+      if ($C->read("mailSMTPDebug")) {
+        $mail->SMTPDebug = 2;
+        $mail->Debugoutput = function($str, $level) {
+          error_log("PHPMailer SMTP Debug: $str");
+        };
       }
 
       // Recipients
