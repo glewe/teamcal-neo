@@ -226,6 +226,7 @@ class Login {
     $port = LDAP_PORT;
     $searchbase = LDAP_SBASE;
     $checkAnonymousBind = LDAP_CHECK_ANONYMOUS_BIND;
+    $searchBind = LDAP_SEARCH_BIND;
 
     //
     // Attributes to return
@@ -254,7 +255,6 @@ class Login {
 
     //
     // Test anonymous bind. If that fails: Unable to connect to LDAP server
-    // (patch by Franz Gregor)
     //
     if ($checkAnonymousBind && !@ldap_bind($ds)) {
       return 93;
@@ -269,9 +269,8 @@ class Login {
 
     //
     // LDAP Search bind
-    // (patch by Franz Gregor)
     //
-    if (!@ldap_bind($ds, $ldaprdn, $ldappass)) {
+    if ($searchBind && !@ldap_bind($ds, $ldaprdn, $ldappass)) {
       return 96;
     }
 
