@@ -2,6 +2,21 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '4.3.x',
+    'date' => '2026-xx-xx',
+    'info' => 'Bugfix, feature and improvement release',
+    'bugfixes' => [
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Added option to disable search bind for LDAP', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '4.3.2',
     'date' => '2026-01-15',
     'info' => 'Bugfix, feature and improvement release',
