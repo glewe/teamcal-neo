@@ -3,7 +3,7 @@ if (!defined('VALID_ROOT')) {
   exit('');
 }
 /**
- * Framework Configuration View
+ * System Settings View
  *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2024 by George Lewe

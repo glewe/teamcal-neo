@@ -228,7 +228,7 @@ $LANG['alert_license_subject'] = 'Lizenzmanagement';
 
 $LANG['alert_maintenance_subject'] = 'Website in Wartung';
 $LANG['alert_maintenance_text'] = 'Die Website is zurzeit auf "Unter Wartung" gesetzt. Normale Nutzer können keine Funktionen nutzen.';
-$LANG['alert_maintenance_help'] = 'Ein Administrator kann die Website wieder aktiv setzten unter Administration -> Framework-Konfiguration -> System.';
+$LANG['alert_maintenance_help'] = 'Ein Administrator kann die Website wieder aktiv setzten unter Administration -> Systemeinstellungen -> System.';
 
 $LANG['alert_no_data_subject'] = 'Fehlerhafte Daten';
 $LANG['alert_no_data_text'] = 'Es wurden falsche oder unzureichende Daten für diese Operation übermittelt.';
@@ -919,7 +919,7 @@ $LANG['mnu_edit'] = 'Bearbeiten';
 $LANG['mnu_edit_attachments'] = 'Anhänge';
 $LANG['mnu_edit_messageedit'] = 'Benachrichtigung';
 $LANG['mnu_admin'] = 'Administration';
-$LANG['mnu_admin_config'] = 'Framework-Konfiguration';
+$LANG['mnu_admin_config'] = 'Systemeinstellungen';
 $LANG['mnu_admin_configapp'] = 'Applikations-Konfiguration';
 $LANG['mnu_admin_database'] = 'Datenbankverwaltung';
 $LANG['mnu_admin_env'] = 'Umgebung';

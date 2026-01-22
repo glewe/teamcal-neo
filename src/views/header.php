@@ -212,6 +212,6 @@
 <body>
 
 <!-- Back to Top -->
-<a id="top-link-block"><i class="fas fa-chevron-up fa-3x text-white"></i></a>
+<a id="top-link-block"><i class="fas fa-chevron-up fa-2x text-white"></i></a>
 
 
