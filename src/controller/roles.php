@@ -206,24 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 //-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
-
-//
-// Default: Get all roles
-//
-$viewData['searchRole'] = '';
-
-// ,--------,
-// | Search |
-// '--------'
-// Performance optimization: Only fetch roles if search is performed or on initial load
-if (isset($_POST['btn_search']) && isset($_POST['txt_searchRole'])) {
-  $searchRole = sanitize($_POST['txt_searchRole']);
-  $viewData['searchRole'] = $searchRole;
-  $viewData['roles'] = $RO->getAllLike($searchRole);
-} else {
-  // Only fetch all roles if not searching
-  $viewData['roles'] = $RO->getAll();
-}
+$viewData['roles'] = $RO->getAll();
 
 //-----------------------------------------------------------------------------
 // SHOW VIEW

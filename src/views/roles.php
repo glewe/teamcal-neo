@@ -46,16 +46,7 @@ view.roles
         <form class="form-control-horizontal" name="form_create" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
           <input name="csrf_token" type="hidden" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
           <div class="row mb-4">
-            <div class="col-lg-4">
-              <label for="inputSearch"><?= htmlspecialchars($LANG['search'] ?? '', ENT_QUOTES, 'UTF-8') ?></label>
-              <input id="inputSearch" class="form-control" tabindex="<?= ++$tabindex ?>" name="txt_searchRole" maxlength="40" value="<?= htmlspecialchars($viewData['searchRole'] ?? '', ENT_QUOTES, 'UTF-8') ?>" type="text" aria-label="<?= htmlspecialchars($LANG['search'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-            </div>
-            <div class="col-lg-3">
-              <br>
-              <button type="submit" class="btn btn-secondary" tabindex="<?= ++$tabindex ?>" name="btn_search" aria-label="<?= htmlspecialchars($LANG['btn_search'] ?? '', ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($LANG['btn_search'] ?? '', ENT_QUOTES, 'UTF-8') ?></button>
-              <a href="index.php?action=roles" class="btn btn-secondary" tabindex="<?= ++$tabindex ?>" aria-label="<?= htmlspecialchars($LANG['btn_reset'] ?? '', ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($LANG['btn_reset'] ?? '', ENT_QUOTES, 'UTF-8') ?></a>
-            </div>
-            <div class="col-lg-5 text-end">
+            <div class="col-lg-12 text-end">
               <br>
               <button type="button" class="btn btn-success" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalCreateRole" aria-label="<?= htmlspecialchars($LANG['btn_create_role'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                 <?= htmlspecialchars($LANG['btn_create_role'] ?? '', ENT_QUOTES, 'UTF-8') ?>
