@@ -1,5 +1,21 @@
 # TeamCal Neo Upgrade Information
 
+## [4.3.2] -> [4.3.3]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
+## [4.3.1] -> [4.3.2]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
 ## [4.2.0] -> [4.3.1]
 
 1. Backup your current files and database!
@@ -7,8 +23,7 @@
    - fonts/font-awesome/6.7.2
    - themes/bootstrap
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   ``define('APP_INSTALLED',"1");``
+3. Edit config/config.app.php and change line 39 to: ``define('APP_INSTALLED',"1");``
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 6. Login as admin,
@@ -16,15 +31,13 @@
    - open the Calendar Options page and click Apply (to add new settings to your database)
 7. A new language architecture is active when you install the new files. If you have
    created your own language files based on the old architecture, you can switch to
-   the old architecture by editing config/config.app.php and set:
-   `define('USE_SPLIT_LANGUAGE_FILES', false);`
+   the old architecture by editing config/config.app.php and set: `define('USE_SPLIT_LANGUAGE_FILES', false);`
 
 ## [4.1.5] -> [4.2.0]
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -32,8 +45,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -41,8 +53,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -50,8 +61,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -59,8 +69,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -68,8 +77,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -77,8 +85,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -95,8 +102,7 @@
 4. Change in your database:
    Run the SQL statements from the file:
    - /sql/upgrade_3.9.3_to_4.0.0.sql
-5. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+5. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 6. Edit config/config.db.php and update your database settings from your backup.
 7. Delete file installation.php in the root directory.
 
@@ -104,8 +110,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -113,8 +118,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -122,8 +126,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -131,8 +134,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -140,8 +142,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -149,8 +150,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -158,8 +158,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 6. Delete obsolete folders:
@@ -170,9 +169,8 @@
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
 3. Change in your database:
-   ALTER TABLE `tcneo_archive_users` ADD `order_key` VARCHAR(80) NOT NULL DEFAULT '0' AFTER `email`;
-4. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+   ```ALTER TABLE `tcneo_archive_users` ADD `order_key` VARCHAR(80) NOT NULL DEFAULT '0' AFTER `email`;```
+4. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 5. Edit config/config.db.php and update your database settings from your backup.
 6. Delete file installation.php in the root directory.
 
@@ -180,8 +178,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -189,8 +186,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -199,9 +195,8 @@
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
 3. Change in your database:
-   ALTER TABLE `tcneo_users` ADD `order_key` VARCHAR(80) NOT NULL DEFAULT '0' AFTER `email`;
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+   ```ALTER TABLE `tcneo_users` ADD `order_key` VARCHAR(80) NOT NULL DEFAULT '0' AFTER `email`;```
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -209,8 +204,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -219,8 +213,7 @@
 0. Recommended PHP version: 8.1
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -228,8 +221,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory.
 
@@ -237,8 +229,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory
 
@@ -246,8 +237,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory
 
@@ -255,8 +245,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory
 
@@ -264,8 +253,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory
 
@@ -276,8 +264,7 @@
    - fonts/font-awesome/5.12.0
    - themes/bootstrap
 3. Download the new release and overwrite all files.
-4. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+4. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 5. Edit config/config.db.php and update your database settings from your backup.
 6. Delete file installation.php in the root directory
 
@@ -285,8 +272,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory
 
@@ -294,8 +280,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory
 
@@ -303,8 +288,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory
 
@@ -312,8 +296,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory
 
@@ -321,8 +304,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory
 
@@ -330,8 +312,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory
 
@@ -339,8 +320,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory
 
@@ -348,8 +328,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory
 
@@ -357,8 +336,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory
 
@@ -366,8 +344,7 @@
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory
 6. Database Changes:
@@ -379,8 +356,7 @@ ALTER TABLE `tcneo_groups` ADD `minpresentwe` SMALLINT(6) NOT NULL DEFAULT '0' A
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory
 
@@ -388,8 +364,7 @@ ALTER TABLE `tcneo_groups` ADD `minpresentwe` SMALLINT(6) NOT NULL DEFAULT '0' A
 
 1. Backup your current files and database!
 2. Download the new release and overwrite all files.
-3. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 4. Edit config/config.db.php and update your database settings from your backup.
 5. Delete file installation.php in the root directory
 
@@ -417,8 +392,7 @@ https://lewe.gitbook.io/teamcal-neo/readme/teamcal-neo-license
      back on.
 2. Backup your current files and database!
 3. Download the new release and overwrite all files.
-4. Edit config/config.app.php and change line 39 to:
-   `define('APP_INSTALLED',"1");`
+4. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
 5. Edit config/config.db.php and update your database settings from your backup.
 6. Delete file installation.php in the root directory
 7. Go to Administration -> Framework Configuration -> License tab
