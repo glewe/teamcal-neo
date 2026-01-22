@@ -222,6 +222,8 @@ $LANG['config_userCustom4'] = 'User Custom Field 4 Caption';
 $LANG['config_userCustom4_comment'] = 'Enter the caption of this custom user field. The caption will be shown in the profile dialog.';
 $LANG['config_userCustom5'] = 'User Custom Field 5 Caption';
 $LANG['config_userCustom5_comment'] = 'Enter the caption of this custom user field. The caption will be shown in the profile dialog.';
+$LANG['config_useCaptcha'] = 'Use Captcha';
+$LANG['config_useCaptcha_comment'] = 'Select whether to use a Captcha image for the Message Center.';
 $LANG['config_userManual'] = 'User Manual';
 $LANG['config_userManual_comment'] = 'TeamCal Neo\'s user manual is maintained in English and is available at the <a href="https://lewe.gitbook.io/teamcal-neo/" target="_blank">Lewe Gitbook site</a>.
       If you have written your own manual, enter the link here. It will be displayed in the Help menu as long as the field is not empty.';

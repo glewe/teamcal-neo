@@ -152,6 +152,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       } else {
         $newConfig["activateMessages"] = "0";
       }
+      if (isset($_POST['chk_useCaptcha']) && $_POST['chk_useCaptcha']) {
+        $newConfig["useCaptcha"] = "1";
+      } else {
+        $newConfig["useCaptcha"] = "0";
+      }
       if (isset($_POST['chk_pageHelp']) && $_POST['chk_pageHelp']) {
         $newConfig["pageHelp"] = "1";
       } else {
@@ -655,6 +660,7 @@ $viewData['general'] = array(
   array('prefix' => 'config', 'name' => 'permissionScheme', 'type' => 'list', 'values' => $viewData['schemeList']),
   array('prefix' => 'config', 'name' => 'userManual', 'type' => 'text', 'placeholder' => '', 'value' => urldecode($allConfig["userManual"]), 'maxlength' => '160'),
   array('prefix' => 'config', 'name' => 'pageHelp', 'type' => 'check', 'values' => '', 'value' => $allConfig["pageHelp"]),
+  array('prefix' => 'config', 'name' => 'useCaptcha', 'type' => 'check', 'values' => '', 'value' => (isset($allConfig["useCaptcha"]) ? $allConfig["useCaptcha"] : 0)),
 );
 
 $viewData['email'] = array(

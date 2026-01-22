@@ -752,6 +752,7 @@ VALUES
   ('todayBorderSize', '2'),
   ('trustedRoles', '1'),
   ('underMaintenance', '0'),
+  ('useCaptcha', '0'),
   ('userCustom1', 'Custom Field 1'),
   ('userCustom2', 'Custom Field 2'),
   ('userCustom3', 'Custom Field 3'),

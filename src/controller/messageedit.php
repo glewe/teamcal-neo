@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       //
       // Get Captcha
       //
-      if (!$securimage->check($_POST['txt_code'])) {
+      if (!empty($allConfig['useCaptcha']) && !$securimage->check($_POST['txt_code'])) {
         //
         // Captcha code wrong
         //
