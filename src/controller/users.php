@@ -66,11 +66,11 @@ if ($weekday === rand(1, 7)) {
 //
 
 //-----------------------------------------------------------------------------
+//
 // VARIABLE DEFAULTS
 //
 global $DB;
 $U1 = new Users(); // used for sending out notifications
-$viewData['searchUser'] = '';
 $viewData['searchGroup'] = 'All';
 $viewData['searchRole'] = 'All';
 
@@ -370,15 +370,7 @@ $users = $U->getAll('lastname', 'firstname', 'ASC', $archive = false, $includeAd
 // '--------'
 // Adjust users by requested search
 //
-if (isset($_POST['btn_search'])) {
-  $searchUsers = array();
-
-  if (isset($_POST['txt_searchUser']) && strlen($_POST['txt_searchUser'] ?? '') !== 0) {
-    $searchUser = sanitize($_POST['txt_searchUser'] ?? '');
-    $viewData['searchUser'] = $searchUser;
-    $users = $U->getAllLike($searchUser);
-  }
-
+if (isset($_POST['btn_filter'])) {
   // Preload group memberships to avoid N+1 queries in filter
   $allUserGroups = [];
   if (isset($_POST['sel_searchGroup']) && (($_POST['sel_searchGroup'] ?? '') !== "All")) {

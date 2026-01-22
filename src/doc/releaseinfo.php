@@ -6,11 +6,14 @@ $releases = [
     'date' => '2026-xx-xx',
     'info' => 'Bugfix, feature and improvement release',
     'bugfixes' => [
+      [ 'summary' => 'Fixed back-to-top icon', 'issue' => '' ],
     ],
     'features' => [
+      [ 'summary' => 'Made captcha image optional on Message Editor page', 'issue' => '' ],
     ],
     'improvements' => [
       [ 'summary' => 'Added option to disable search bind for LDAP', 'issue' => '' ],
+      [ 'summary' => 'Renamed "Framework Configuration" to "System Settings"', 'issue' => '' ],
     ],
     'removals' => [
     ],

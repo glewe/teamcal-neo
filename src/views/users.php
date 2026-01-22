@@ -41,31 +41,27 @@ view.users
 
           <div class="row">
             <div class="col-lg-3">
-              <label for="inputSearch" id="labelInputSearch"><?= $LANG['search'] ?></label>
-              <input id="inputSearch" class="form-control" tabindex="<?= ++$tabindex ?>" name="txt_searchUser" maxlength="40" value="<?= htmlspecialchars($viewData['searchUser'] ?? '', ENT_QUOTES, 'UTF-8') ?>" type="text" aria-labelledby="labelInputSearch" aria-label="<?= $LANG['search'] ?>">
-            </div>
-            <div class="col-lg-2">
               <label for="sel_searchGroup" id="labelSearchGroup"><?= $LANG['group'] ?></label>
               <select class="form-select" name="sel_searchGroup" id="sel_searchGroup" tabindex="<?= ++$tabindex ?>" aria-labelledby="labelSearchGroup" aria-label="<?= $LANG['group'] ?>">
-                <option value="All" <?= ('All' === ($viewData['searchGroup'] ?? '')) ? ' selected=""' : ''; ?>><?= $LANG['all'] ?></option>
+                <option value="All" <?= ('All' == ($viewData['searchGroup'] ?? '')) ? ' selected=""' : ''; ?>><?= $LANG['all'] ?></option>
                 <?php foreach (($viewData['groups'] ?? []) as $group) { ?>
-                  <option value="<?= htmlspecialchars($group['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>" <?= ((($group['id'] ?? '') === ($viewData['searchGroup'] ?? '')) ? ' selected=""' : '') ?>><?= htmlspecialchars($group['name'] ?? '', ENT_QUOTES, 'UTF-8') ?></option>
+                  <option value="<?= htmlspecialchars($group['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>" <?= ((($group['id'] ?? '') == ($viewData['searchGroup'] ?? '')) ? ' selected=""' : '') ?>><?= htmlspecialchars($group['name'] ?? '', ENT_QUOTES, 'UTF-8') ?></option>
                 <?php } ?>
               </select>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-3">
               <label for="sel_searchRole" id="labelSearchRole"><?= $LANG['role'] ?></label>
               <select class="form-select" name="sel_searchRole" id="sel_searchRole" tabindex="<?= ++$tabindex ?>" aria-labelledby="labelSearchRole" aria-label="<?= $LANG['role'] ?>">
-                <option value="All" <?= ('All' === ($viewData['searchRole'] ?? '')) ? ' selected=""' : ''; ?>><?= $LANG['all'] ?></option>
+                <option value="All" <?= ('All' == ($viewData['searchRole'] ?? '')) ? ' selected=""' : ''; ?>><?= $LANG['all'] ?></option>
                 <?php foreach (($viewData['roles'] ?? []) as $role) { ?>
-                  <option value="<?= htmlspecialchars($role['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>" <?= ((($role['id'] ?? '') === ($viewData['searchRole'] ?? '')) ? ' selected=""' : '') ?>><?= htmlspecialchars($role['name'] ?? '', ENT_QUOTES, 'UTF-8') ?></option>
+                  <option value="<?= htmlspecialchars($role['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>" <?= ((($role['id'] ?? '') == ($viewData['searchRole'] ?? '')) ? ' selected=""' : '') ?>><?= htmlspecialchars($role['name'] ?? '', ENT_QUOTES, 'UTF-8') ?></option>
                 <?php } ?>
               </select>
             </div>
-            <div class="col-lg-5 text-end">
+            <div class="col-lg-6 text-end">
               <br>
-              <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" name="btn_search" aria-label="<?= $LANG['btn_search'] ?>"><?= $LANG['btn_search'] ?></button>
-              <button type="submit" class="btn btn-secondary" tabindex="<?= ++$tabindex ?>" name="btn_reset" aria-label="<?= $LANG['btn_reset'] ?>"><?= $LANG['btn_reset'] ?></button>
+              <button type="submit" class="btn btn-primary float-start me-1" tabindex="<?= ++$tabindex ?>" name="btn_filter" aria-label="<?= $LANG['btn_filter'] ?>"><?= $LANG['btn_filter'] ?></button>
+              <button type="submit" class="btn btn-secondary float-start" tabindex="<?= ++$tabindex ?>" name="btn_reset" aria-label="<?= $LANG['btn_reset'] ?>"><?= $LANG['btn_reset'] ?></button>
               <a href="index.php?action=useradd" class="btn btn-success" tabindex="<?= ++$tabindex ?>" aria-label="<?= $LANG['btn_create_user'] ?>"><?= $LANG['btn_create_user'] ?></a>
               <a href="index.php?action=userimport" class="btn btn-info" tabindex="<?= ++$tabindex ?>" aria-label="<?= $LANG['btn_import'] ?>"><?= $LANG['btn_import'] ?></a>
             </div>
