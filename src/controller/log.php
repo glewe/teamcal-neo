@@ -212,16 +212,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
 
       $refreshBatchConfigs["logtype"] = $_POST['sel_logType'];
 
-      if (isset($_POST['txt_logSearchUser']) && strlen($_POST['txt_logSearchUser'])) {
-        $viewData['logSearchUser'] = sanitize($_POST['txt_logSearchUser']);
-        $refreshBatchConfigs["logsearchuser"] = '%' . $viewData['logSearchUser'] . '%';
-      }
-
-      if (isset($_POST['txt_logSearchEvent']) && strlen($_POST['txt_logSearchEvent'])) {
-        $viewData['logSearchEvent'] = sanitize($_POST['txt_logSearchEvent']);
-        $refreshBatchConfigs["logsearchevent"] = '%' . $viewData['logSearchEvent'] . '%';
-      }
-
       //
       // Save all refresh settings in batch
       //

@@ -61,10 +61,10 @@ view.log
                   <option class="option" value="log<?= $type ?>" <?= (($viewData['logtype'] == "log" . $type) ? 'selected' : '') ?>><?= $type ?></option>
                 <?php } ?>
               </select>
-              <label for="logSearchUser"><?= $LANG['search'] . ' ' . $LANG['user'] ?></label>
+              <!-- <label for="logSearchUser"><?= $LANG['search'] . ' ' . $LANG['user'] ?></label>
               <input id="logSearchUser" class="form-control mb-2" tabindex="<?= ++$tabindex ?>" name="txt_logSearchUser" maxlength="80" value="<?= $viewData['logSearchUser'] ?>" type="text">
               <label for="logSearchEvent"><?= $LANG['search'] . ' ' . $LANG['event'] ?></label>
-              <input id="logSearchEvent" class="form-control mb-2" tabindex="<?= ++$tabindex ?>" name="txt_logSearchEvent" maxlength="80" value="<?= $viewData['logSearchEvent'] ?>" type="text">
+              <input id="logSearchEvent" class="form-control mb-2" tabindex="<?= ++$tabindex ?>" name="txt_logSearchEvent" maxlength="80" value="<?= $viewData['logSearchEvent'] ?>" type="text"> -->
             </div>
 
             <div class="col-lg-2">

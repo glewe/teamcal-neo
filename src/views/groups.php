@@ -41,16 +41,7 @@ view.groups
         <form class="form-control-horizontal" name="form_create" action="index.php?action=<?= $controller ?>" method="post" target="_self" accept-charset="utf-8">
           <input name="csrf_token" type="hidden" value="<?= $_SESSION['csrf_token'] ?>">
           <div class="row mb-4">
-            <div class="col-lg-4">
-              <label for="inputSearch"><?= $LANG['search'] ?></label>
-              <input id="inputSearch" class="form-control" tabindex="<?= ++$tabindex ?>" name="txt_searchGroup" maxlength="40" value="<?= $viewData['searchGroup'] ?? '' ?>" type="text">
-            </div>
-            <div class="col-lg-3">
-              <br>
-              <button type="submit" class="btn btn-secondary" tabindex="<?= ++$tabindex ?>" name="btn_search"><?= $LANG['btn_search'] ?></button>
-              <a href="index.php?action=groups" class="btn btn-secondary" tabindex="<?= ++$tabindex ?>"><?= $LANG['btn_reset'] ?></a>
-            </div>
-            <div class="col-lg-5 text-end">
+            <div class="col-lg-12 text-end">
               <br>
               <?php if (isAllowed($CONF['controllers'][$controller]->permission)) { ?>
                 <button type="button" class="btn btn-success" tabindex="<?= ++$tabindex ?>" data-bs-toggle="modal" data-bs-target="#modalCreateGroup" aria-label="<?= $LANG['btn_create_group'] ?>"><?= $LANG['btn_create_group'] ?></button>
