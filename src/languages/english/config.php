@@ -3,7 +3,7 @@ if (!defined('VALID_ROOT')) {
   exit('');
 }
 /**
- * Language strings English: Framework configuration page
+ * Language strings English: System Settings page
  *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2025 by George Lewe
@@ -12,7 +12,7 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 4.3.0
  */
-$LANG['config_title'] = 'Framework Configuration';
+$LANG['config_title'] = 'System Settings';
 
 $LANG['config_tab_email'] = 'E-mail';
 $LANG['config_tab_footer'] = 'Footer';

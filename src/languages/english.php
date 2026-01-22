@@ -229,7 +229,7 @@ $LANG['alert_license_subject'] = 'License Management';
 
 $LANG['alert_maintenance_subject'] = 'Site Under Maintenance';
 $LANG['alert_maintenance_text'] = 'The site is currently set to "Under Maintenance". Regular users will not be able to use any feature.';
-$LANG['alert_maintenance_help'] = 'As an administrator you can set the site back to active under Administration -> Framework Configuration -> System.';
+$LANG['alert_maintenance_help'] = 'As an administrator you can set the site back to active under Administration -> System Settings -> System.';
 
 $LANG['alert_no_data_subject'] = 'Invalid Data';
 $LANG['alert_no_data_text'] = 'This operation was requested with invalid or insufficient data.';
@@ -371,7 +371,7 @@ $LANG['btn_view'] = 'View';
 //
 // Config
 //
-$LANG['config_title'] = 'Framework Configuration';
+$LANG['config_title'] = 'System Settings';
 
 $LANG['config_tab_email'] = 'E-mail';
 $LANG['config_tab_footer'] = 'Footer';
@@ -906,7 +906,7 @@ $LANG['mnu_edit'] = 'Edit';
 $LANG['mnu_edit_attachments'] = 'Attachments';
 $LANG['mnu_edit_messageedit'] = 'Message Editor';
 $LANG['mnu_admin'] = 'Administration';
-$LANG['mnu_admin_config'] = 'Framework Configuration';
+$LANG['mnu_admin_config'] = 'System Settings';
 $LANG['mnu_admin_configapp'] = 'Application Configuration';
 $LANG['mnu_admin_database'] = 'Database Maintenance';
 $LANG['mnu_admin_env'] = 'Environment';

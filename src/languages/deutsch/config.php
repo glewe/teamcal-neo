@@ -3,7 +3,7 @@ if (!defined('VALID_ROOT')) {
   exit('');
 }
 /**
- * Language strings German: Framework configuration page
+ * Language strings German: System Settings page
  *
  * @author George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2025 by George Lewe
