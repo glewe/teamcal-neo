@@ -132,7 +132,11 @@ view.messageedit
             <hr>
           </div>
 
+
           <!-- Captcha -->
+          <?php 
+          global $allConfig;
+          if (!empty($allConfig['useCaptcha'])) { ?>
           <div class="form-group row">
             <label for="inputCode" class="col-lg-<?= $colsleft ?> control-label">
               <?= $LANG['msg_code'] ?><br>
@@ -147,6 +151,7 @@ view.messageedit
           <div class="divider">
             <hr>
           </div>
+          <?php } ?>
           <button type="submit" class="btn btn-primary" tabindex="<?= ++$tabindex ?>" name="btn_send"><?= $LANG['btn_send'] ?></button>
 
         </div>

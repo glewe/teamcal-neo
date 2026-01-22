@@ -230,6 +230,8 @@ $LANG['config_userCustom4'] = 'Profilfeld 4 Titel';
 $LANG['config_userCustom4_comment'] = 'Gibt den Titel dieses Feldes an, der im Benutzerprofil Dialog angezeigt wird.';
 $LANG['config_userCustom5'] = 'Profilfeld 5 Titel';
 $LANG['config_userCustom5_comment'] = 'Gibt den Titel dieses Feldes an, der im Benutzerprofil Dialog angezeigt wird.';
+$LANG['config_useCaptcha'] = 'Captcha benutzen';
+$LANG['config_useCaptcha_comment'] = 'Wähle, ob ein Captcha Bild für das Message Center benutzt werden soll.';
 $LANG['config_userManual'] = 'Nutzerhandbuch';
 $LANG['config_userManual_comment'] = 'TeamCal Neo\'s Nutzerhandbuch ist in Englisch verfügbar auf der <a href="https://lewe.gitbook.io/teamcal-neo/" target="_blank">Lewe Gitbook site</a>.
       Solltest du ein eigenes Handbuch geschrieben haben, kannst du den Link hier angeben. Der Link wird im Hilfe Menu angezeigt. Wenn dieses Feld leer ist, wird kein Eintrag im Hilfe Menu angezeigt.';
