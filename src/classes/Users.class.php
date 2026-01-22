@@ -403,11 +403,13 @@ class Users {
     
     $query = $this->db->prepare(
       'SELECT * FROM ' . $table . '
-       WHERE (firstname LIKE :search OR lastname LIKE :search OR username LIKE :search)
+       WHERE (firstname LIKE :search1 OR lastname LIKE :search2 OR username LIKE :search3)
        AND username != "admin"
        ORDER BY lastname ASC, firstname ASC'
     );
-    $query->bindParam(':search', $searchTerm);
+    $query->bindParam(':search1', $searchTerm);
+    $query->bindParam(':search2', $searchTerm);
+    $query->bindParam(':search3', $searchTerm);
     $query->execute();
     
     return $query->fetchAll(PDO::FETCH_ASSOC);
