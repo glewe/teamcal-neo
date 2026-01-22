@@ -2,18 +2,21 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
-    'version' => '4.3.x',
-    'date' => '2026-xx-xx',
+    'version' => '4.3.3',
+    'date' => '2026-01-22',
     'info' => 'Bugfix, feature and improvement release',
     'bugfixes' => [
       [ 'summary' => 'Fixed back-to-top icon', 'issue' => '' ],
+      [ 'summary' => 'Fixed calendar search bug', 'issue' => '' ],
+      [ 'summary' => 'Fixed search and filter on users page', 'issue' => '' ],
     ],
     'features' => [
-      [ 'summary' => 'Made captcha image optional on Message Editor page', 'issue' => '' ],
+      [ 'summary' => 'Made captcha image optional on Message Editor page (via System Settings)', 'issue' => '' ],
     ],
     'improvements' => [
       [ 'summary' => 'Added option to disable search bind for LDAP', 'issue' => '' ],
       [ 'summary' => 'Renamed "Framework Configuration" to "System Settings"', 'issue' => '' ],
+      [ 'summary' => 'Removed duplicate search form from groups, roles and log page', 'issue' => '' ],
     ],
     'removals' => [
     ],
