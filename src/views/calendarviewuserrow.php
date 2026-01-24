@@ -223,11 +223,11 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
     // Select the upper right corner indicator if applicable
     //
     if ($note && $bday) {
-      $style .= 'background-image: url(images/ovl_bdaynote.gif); background-repeat: no-repeat; background-position: top right;';
+      $style .= 'background-image: url(images/ovl_bdaynote.gif); background-repeat: no-repeat; background-position: top right; background-size: 10px 10px;';
     } elseif ($note) {
-      $style .= 'background-image: url(images/ovl_daynote.gif); background-repeat: no-repeat; background-position: top right;';
+      $style .= 'background-image: url(images/ovl_daynote.gif); background-repeat: no-repeat; background-position: top right; background-size: 10px 10px;';
     } elseif ($bday) {
-      $style .= 'background-image: url(images/ovl_birthday.gif); background-repeat: no-repeat; background-position: top right;';
+      $style .= 'background-image: url(images/ovl_birthday.gif); background-repeat: no-repeat; background-position: top right; background-size: 10px 10px;';
     }
     //
     // Regional holiday in another region

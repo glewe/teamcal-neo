@@ -2,6 +2,21 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '4.x.x',
+    'date' => '2026-xx-xx',
+    'info' => 'Bugfix, feature and improvement release',
+    'bugfixes' => [
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Increased size of daynote indicator', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '4.3.3',
     'date' => '2026-01-22',
     'info' => 'Bugfix, feature and improvement release',
