@@ -35,7 +35,7 @@ view.calendarviewmonthheader (<?= $viewData['year'] . $viewData['month'] ?>)
     if ($D->get($viewData['year'] . $viewData['month'] . sprintf("%02d", $i), 'all', $viewData['regionid'], true)) {
       $notestart = '<div style="width: 100%; height: 100%;" data-placement="top" data-type="' . $D->color . '" data-bs-toggle="tooltip" title="' . $D->daynote . '">';
       $noteend = '</div>';
-      $notestyle = 'background-image: url(images/ovl_daynote.gif); background-repeat: no-repeat; background-position: top right;';
+      $notestyle = 'background-image: url(images/ovl_daynote.gif); background-repeat: no-repeat; background-position: top right; background-size: 10px 10px;';
     }
     if (isset($viewData['dayStyles'][$i]) && strlen($viewData['dayStyles'][$i])) {
       $dayStyles = ' style="' . $viewData['dayStyles'][$i] . $notestyle . '"';
@@ -75,7 +75,7 @@ view.calendarviewmonthheader (<?= $viewData['year'] . $viewData['month'] ?>)
       if ($D->get($nextMonthYear . sprintf("%02d", $nextMonthNum) . sprintf("%02d", $i), 'all', $viewData['regionid'], true)) {
         $notestart = '<div style="width: 100%; height: 100%;" data-placement="top" data-type="' . $D->color . '" data-bs-toggle="tooltip" title="' . $D->daynote . '">';
         $noteend = '</div>';
-        $notestyle = 'background-image: url(images/ovl_daynote.gif); background-repeat: no-repeat; background-position: top right;';
+        $notestyle = 'background-image: url(images/ovl_daynote.gif); background-repeat: no-repeat; background-position: top right; background-size: 10px 10px;';
       }
       if (isset($viewData['dayStyles']['next_' . $i]) && strlen($viewData['dayStyles']['next_' . $i])) {
         $dayStyles = ' style="' . $viewData['dayStyles']['next_' . $i] . $notestyle . '"';
@@ -115,7 +115,7 @@ view.calendarviewmonthheader (<?= $viewData['year'] . $viewData['month'] ?>)
 
       $prop = 'wday' . $i;
   ?>
-      <th class="m-weekday text-center" scope="col" <?= $dayStyles ?>><?= $LANG['weekdayShort'][$M->$prop] ?></th>
+      <th class="m-weekday text-center" scope="col" <?= $dayStyles ?>><?= isset($LANG['weekdayShort'][$M->$prop]) ? $LANG['weekdayShort'][$M->$prop] : '' ?></th>
     <?php }
     // Weekdays for next month (first 15 days)
     if (isset($vmonth['nextM'])) {
@@ -144,7 +144,7 @@ view.calendarviewmonthheader (<?= $viewData['year'] . $viewData['month'] ?>)
       }
       $prop = 'wday' . $i;
     ?>
-      <th class="m-weekday text-center" scope="col" <?= $dayStyles ?>><?= $LANG['weekdayShort'][$nextM->$prop] ?></th>
+      <th class="m-weekday text-center" scope="col" <?= $dayStyles ?>><?= isset($LANG['weekdayShort'][$nextM->$prop]) ? $LANG['weekdayShort'][$nextM->$prop] : '' ?></th>
     <?php }
   } else {
     // Standard month display
@@ -156,7 +156,7 @@ view.calendarviewmonthheader (<?= $viewData['year'] . $viewData['month'] ?>)
       }
       $prop = 'wday' . $i;
     ?>
-      <th class="m-weekday text-center" scope="col" <?= $dayStyles ?>><?= $LANG['weekdayShort'][$M->$prop] ?></th>
+      <th class="m-weekday text-center" scope="col" <?= $dayStyles ?>><?= isset($LANG['weekdayShort'][$M->$prop]) ? $LANG['weekdayShort'][$M->$prop] : '' ?></th>
   <?php }
   }
   ?>
