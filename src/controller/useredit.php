@@ -788,7 +788,7 @@ if ($notifyUserCalGroups = $UO->read($viewData['profile'], 'notifyUserCalGroups'
 }
 
 $viewData['userCalNotifyGroups'][] = array( 'val' => '0', 'name' => $LANG['none'], 'selected' => $nocalgroup );
-if ($allConfig['notificationsAllGroups']) {
+if ($allConfig['notificationsAllGroups'] || $UP->hasRole($profile, '1')) {
   $ugroups = $G->getAll();
   foreach ($ugroups as $ugroup) {
     $viewData['userCalNotifyGroups'][] = array( 'val' => $ugroup['id'], 'name' => $ugroup['name'], 'selected' => (in_array($ugroup['id'], $ngroups)) ? true : false );
