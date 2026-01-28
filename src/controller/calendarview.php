@@ -869,7 +869,10 @@ $viewData['defgroupfilter'] = $allConfig['defgroupfilter'];
 $viewData['firstDayOfWeek'] = $allConfig["firstDayOfWeek"];
 $viewData['hideManagers'] = $allConfig['hideManagers'];
 $viewData['includeSummary'] = $allConfig['includeSummary'];
-$viewData['monitorAbsence'] = $C->read('monitorAbsence');
+$viewData['monitorAbsence'] = explode(',', $C->read('monitorAbsence'));
+if (count($viewData['monitorAbsence']) == 1 && $viewData['monitorAbsence'][0] == '0') {
+  $viewData['monitorAbsence'] = array();
+}
 $viewData['pastDayColor'] = $allConfig['pastDayColor'];
 $viewData['regionalHolidays'] = $C->read("regionalHolidays");
 $viewData['regionalHolidaysColor'] = $C->read("regionalHolidaysColor");

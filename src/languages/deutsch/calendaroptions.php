@@ -52,7 +52,7 @@ $LANG['calopt_includeSummary_comment'] = 'Mit dieser Option wird eine aufklappba
 $LANG['calopt_managerOnlyIncludesAdministrator'] = 'Nur-Manager für Administrator';
 $LANG['calopt_managerOnlyIncludesAdministrator_comment'] = 'Nur-Manager Abwesenheitstypen können nur von den Gruppenmanagern gesetzt werden. Mit diesem Schalter können das auch Nutzer mit der Rolle "Administrator" tun.';
 $LANG['calopt_monitorAbsence'] = 'Monitor Abwesenheit';
-$LANG['calopt_monitorAbsence_comment'] = 'Wenn hier ein Abwesenheitstyp gewählt wird, wird der Verbleibend/Erlaubt Zähler im Namensfeld des Nutzers angezeigt.';
+$LANG['calopt_monitorAbsence_comment'] = 'Wenn hier ein oder mehrere Abwesenheitstypen gewählt werden, werden deren Verbleibend/Erlaubt Zähler im Namensfeld des Nutzers angezeigt.';
 $LANG['calopt_notificationsAllGroups'] = 'Benachrichtigungen für alle Gruppen';
 $LANG['calopt_notificationsAllGroups_comment'] = 'Standardmä&szlig;ig können Nutzer E-mail Benachrichtigungne von Kalenderereignissen nur von eigenen Gruppen abbonieren. Mit dieser Option können sie auch andere Gruppen wählen.<br>
       <i>Hinweis: Wenn diese Option ausgeschaltet wird und Benutzer während ihrer Aktivierung andere Gruppen für Benachrichtigungen ausgewählt hatten, werden diese erst entfernt, wenn deren Profil erneut gespeichert wird.</i>';

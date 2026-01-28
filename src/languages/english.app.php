@@ -329,7 +329,7 @@ $LANG['calopt_includeSummary_comment'] = 'Checking this option will add an expan
 $LANG['calopt_managerOnlyIncludesAdministrator'] = 'Manager-Only for Administrator';
 $LANG['calopt_managerOnlyIncludesAdministrator_comment'] = 'Manager-only absence types can only be set by group managers. With this switch on, also users of role "Administrator" can do so.';
 $LANG['calopt_monitorAbsence'] = 'Monitor Absence';
-$LANG['calopt_monitorAbsence_comment'] = 'If you select an absence type here, its Remainder/Allowance count will be shown in the user name field of the calendar.';
+$LANG['calopt_monitorAbsence_comment'] = 'If you select one or more absence types here, their Remainder/Allowance counts will be shown in the user name field of the calendar.';
 $LANG['calopt_notificationsAllGroups'] = 'Notifications for All Groups';
 $LANG['calopt_notificationsAllGroups_comment'] = 'Per default, users can subscribe to email notifications for user calendar events for own groups only. With this switch on, they can select from all groups.<br>
       <i>Note: Should you switch off this option and users selected other groups for their notifications while it was on, that selection will not change until their profile is saved again.</i>';

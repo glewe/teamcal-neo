@@ -152,8 +152,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST) && isset($_POST['btn
     } else {
       $newConfig["symbolAsIcon"] = "0";
     }
-    if ($_POST['sel_monitorAbsence']) {
-      $newConfig["monitorAbsence"] = $_POST['sel_monitorAbsence'];
+    if (isset($_POST['sel_monitorAbsence'])) {
+      if (is_array($_POST['sel_monitorAbsence'])) {
+        $newConfig["monitorAbsence"] = implode(',', $_POST['sel_monitorAbsence']);
+      } else {
+        $newConfig["monitorAbsence"] = $_POST['sel_monitorAbsence'];
+      }
     } else {
       $newConfig["monitorAbsence"] = 0;
     }
@@ -366,9 +370,10 @@ $viewData['showAlerts'] = $allConfig['showAlerts'];
 // Display
 //
 $absences = $A->getAll();
-$caloptData['absenceList'][] = array('val' => 0, 'name' => $LANG['none'], 'selected' => (!$allConfig['monitorAbsence']) ? true : false);
+$monAbsArr = explode(',', $allConfig['monitorAbsence']);
+$caloptData['absenceList'][] = array('val' => 0, 'name' => $LANG['none'], 'selected' => (in_array('0', $monAbsArr) || empty($allConfig['monitorAbsence'])) ? true : false);
 foreach ($absences as $abs) {
-  $caloptData['absenceList'][] = array('val' => $abs['id'], 'name' => $abs['name'], 'selected' => ($allConfig['monitorAbsence'] == $abs['id']) ? true : false);
+  $caloptData['absenceList'][] = array('val' => $abs['id'], 'name' => $abs['name'], 'selected' => (in_array($abs['id'], $monAbsArr)) ? true : false);
 }
 $caloptData['display'] = array(
   array('label' => $LANG['calopt_todayBorderColor'], 'prefix' => 'calopt', 'name' => 'todayBorderColor', 'type' => 'coloris', 'value' => (!empty($allConfig['todayBorderColor']) ? '#' . $allConfig['todayBorderColor'] : ''), 'maxlength' => '6', 'error' => (isset($inputAlert['todayBorderColor']) ? $inputAlert['todayBorderColor'] : '')),
@@ -382,7 +387,7 @@ $caloptData['display'] = array(
   array('label' => $LANG['calopt_showTooltipCount'], 'prefix' => 'calopt', 'name' => 'showTooltipCount', 'type' => 'check', 'values' => '', 'value' => $allConfig['showTooltipCount']),
   array('label' => $LANG['calopt_supportMobile'], 'prefix' => 'calopt', 'name' => 'supportMobile', 'type' => 'check', 'values' => '', 'value' => $allConfig['supportMobile']),
   array('label' => $LANG['calopt_symbolAsIcon'], 'prefix' => 'calopt', 'name' => 'symbolAsIcon', 'type' => 'check', 'values' => '', 'value' => $allConfig['symbolAsIcon']),
-  array('label' => $LANG['calopt_monitorAbsence'], 'prefix' => 'calopt', 'name' => 'monitorAbsence', 'type' => 'list', 'values' => $caloptData['absenceList']),
+  array('label' => $LANG['calopt_monitorAbsence'], 'prefix' => 'calopt', 'name' => 'monitorAbsence', 'type' => 'listmulti', 'values' => $caloptData['absenceList']),
   array('label' => $LANG['calopt_calendarFontSize'], 'prefix' => 'calopt', 'name' => 'calendarFontSize', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['calendarFontSize'], 'maxlength' => '3'),
   array('label' => $LANG['calopt_showMonths'], 'prefix' => 'calopt', 'name' => 'showMonths', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['showMonths'], 'maxlength' => '2'),
   array('label' => $LANG['calopt_regionalHolidays'], 'prefix' => 'calopt', 'name' => 'regionalHolidays', 'type' => 'check', 'values' => '', 'value' => $allConfig['regionalHolidays']),

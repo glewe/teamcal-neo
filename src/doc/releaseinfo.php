@@ -11,6 +11,7 @@ $releases = [
     ],
     'improvements' => [
       [ 'summary' => 'Increased size of daynote indicator', 'issue' => '' ],
+      [ 'summary' => 'Set focus on search input in calendar user search dialog', 'issue' => '' ],
     ],
     'removals' => [
     ],

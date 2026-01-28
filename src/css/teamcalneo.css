@@ -500,6 +500,17 @@ table.month td.m-day {
   background-color: #ffffff;
 }
 
+.abs-icon-square {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  border-radius: 4px;
+  background-color: #ffffff;
+  font-size: 12px;
+}
+
 table.month td.m-summary {
   font-size: 80%;
   vertical-align: middle;
@@ -548,6 +559,10 @@ table.month td.m-label[data-bs-toggle="collapse"][aria-expanded="true"] i {
   }
 
   table.month td.m-day {
+    background-color: var(--dark-light-light);
+  }
+  
+  .abs-icon-square {
     background-color: var(--dark-light-light);
   }
 
