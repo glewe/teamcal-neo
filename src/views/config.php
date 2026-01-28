@@ -57,6 +57,7 @@ view.config
                 [ 'id' => 'tab-homepage', 'href' => '#panel-homepage', 'label' => $LANG['config_tab_homepage'], 'active' => false ],
                 [ 'id' => 'tab-license', 'href' => '#panel-license', 'label' => $LANG['config_tab_license'] . (($LIC->status() != "active" || !$LIC->domainRegistered()) ? $attention : ''), 'active' => false ],
                 [ 'id' => 'tab-login', 'href' => '#panel-login', 'label' => $LANG['config_tab_login'], 'active' => false ],
+                [ 'id' => 'tab-registration', 'href' => '#panel-registration', 'label' => $LANG['config_tab_registration'], 'active' => false ],
                 [ 'id' => 'tab-system', 'href' => '#panel-system', 'label' => $LANG['config_tab_system'], 'active' => false ],
                 [ 'id' => 'tab-theme', 'href' => '#panel-theme', 'label' => $LANG['config_tab_theme'], 'active' => false ],
                 [ 'id' => 'tab-usercustom', 'href' => '#panel-usercustom', 'label' => $LANG['config_tab_user'], 'active' => false ],
