@@ -26,7 +26,8 @@ view.footer
             $footerCopyright .= "&copy; " . date('Y') . " by ";
             if ($copyrightUrl = $C->read("footerCopyrightUrl")) {
               $footerCopyright .= '<a href="' . $copyrightUrl . '" target="_blank">' . $copyright . '</a>';
-            } else {
+            }
+            else {
               $footerCopyright .= $copyright;
             }
           }
@@ -80,40 +81,40 @@ view.footer
 <script>
   $(document).ready(function () {
     <?php if (MAGNIFICPOPUP) { ?>
-    //
-    // Magnific Popup
-    //
-    $('.image-popup').magnificPopup({
-      type: 'image',
-      closeOnContentClick: true,
-      closeBtnInside: false,
-      fixedContentPos: true,
-      mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
-      image: {
-        verticalFit: true
-      },
-      zoom: {
-        enabled: true,
-        duration: 300 // don't forget to change the duration also in CSS
-      }
-    });
+      //
+      // Magnific Popup
+      //
+      $('.image-popup').magnificPopup({
+        type: 'image',
+        closeOnContentClick: true,
+        closeBtnInside: false,
+        fixedContentPos: true,
+        mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+        image: {
+          verticalFit: true
+        },
+        zoom: {
+          enabled: true,
+          duration: 300 // don't forget to change the duration also in CSS
+        }
+      });
 
-    $('.image-popup-vertical-fit').magnificPopup({
-      type: 'image',
-      closeOnContentClick: true,
-      mainClass: 'mfp-img-mobile',
-      image: {
-        verticalFit: true
-      }
-    });
+      $('.image-popup-vertical-fit').magnificPopup({
+        type: 'image',
+        closeOnContentClick: true,
+        mainClass: 'mfp-img-mobile',
+        image: {
+          verticalFit: true
+        }
+      });
 
-    $('.image-popup-fit-width').magnificPopup({
-      type: 'image',
-      closeOnContentClick: true,
-      image: {
-        verticalFit: false
-      }
-    });
+      $('.image-popup-fit-width').magnificPopup({
+        type: 'image',
+        closeOnContentClick: true,
+        image: {
+          verticalFit: false
+        }
+      });
 
     <?php } ?>
 
@@ -127,14 +128,31 @@ view.footer
         };
         if ($(this)[0].hasAttribute('data-type')) {
           options['template'] =
-              '<div class="tooltip ' + $(this).attr('data-type') + '" role="tooltip">' +
-              '  <div class="tooltip-arrow"></div>' +
-              '  <div class="tooltip-inner"></div>' +
-              '</div>';
+            '<div class="tooltip ' + $(this).attr('data-type') + '" role="tooltip">' +
+            '  <div class="tooltip-arrow"></div>' +
+            '  <div class="tooltip-inner"></div>' +
+            '</div>';
         }
         $(this).tooltip(options);
       } catch (e) {
         console.warn('Tooltip initialization error:', e);
+      }
+    });
+
+    //
+    // Focus search input when Search User modal is shown in calendarview
+    //
+    $('#modalSearchUser').on('shown.bs.modal', function () {
+      $('#search').focus();
+    });
+
+    //
+    // Submit search when Enter key is pressed in search input
+    //
+    $('#search').on('keypress', function (e) {
+      if (e.which == 13) {
+        $(this).closest('.modal').find('button[name="btn_search"]').click();
+        return false;
       }
     });
 
@@ -161,18 +179,19 @@ view.footer
   });
 
   <?php if ($C->read("footerViewport")) { ?>
-  /**
-   * Window size in footer
-   */
-  $(window).on('resize', showSize);
-  showSize();
+    /**
+     * Window size in footer
+     */
+    $(window).on('resize', showSize);
+    showSize();
 
-  function showSize() {
-    $('#size').html($(window).width() + ' x ' + $(window).height());
-  }
+    function showSize() {
+      $('#size').html($(window).width() + ' x ' + $(window).height());
+    }
   <?php } ?>
 
 </script>
 
 </body>
+
 </html>
