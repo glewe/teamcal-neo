@@ -762,9 +762,9 @@ function approveAbsences(string $username, string $year, string $month, array $c
  * @param boolean $useFactor Multiply count by factor
  * @param boolean $combined Count other absences that count as this one
  * 
- * @return integer Result of the count
+ * @return float Result of the count
  */
-function countAbsence(string $user = '%', string $absid = '', string $from = '', string $to = '', bool $useFactor = false, bool $combined = false): int {
+function countAbsence(string $user = '%', string $absid = '', string $from = '', string $to = '', bool $useFactor = false, bool $combined = false): float {
   global $A, $T;
   $absences = $A->getAll();
   //
@@ -1087,18 +1087,16 @@ function getAbsenceSummary(string $username, string $absid, string $year): array
     }
     $summary['totalallowance'] = $summary['allowance'] + $summary['carryover'];
     $summary['taken'] = 0;
-    if (!$A->counts_as_present) {
-      $countFrom = $year . '01' . '01';
-      $countTo = $year . '12' . '31';
-      $summary['taken'] += countAbsence($username, $A->id, $countFrom, $countTo, true, false);
-      //
-      // Also get all taken "counts as" absences
-      //
-      if ($countsAsArray = $A->getAllSub($absid)) {
-        foreach ($countsAsArray as $countsAs) {
-          if ($A2->get($countsAs['id']) && !$A2->counts_as_present) {
-            $summary['taken'] += countAbsence($username, $A2->id, $countFrom, $countTo, true, false);
-          }
+    $countFrom = $year . '01' . '01';
+    $countTo = $year . '12' . '31';
+    $summary['taken'] += countAbsence($username, $A->id, $countFrom, $countTo, true, false);
+    //
+    // Also get all taken "counts as" absences
+    //
+    if ($countsAsArray = $A->getAllSub($A->id)) {
+      foreach ($countsAsArray as $countsAs) {
+        if ($A2->get($countsAs['id'])) {
+          $summary['taken'] += countAbsence($username, $A2->id, $countFrom, $countTo, true, false);
         }
       }
     }

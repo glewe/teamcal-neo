@@ -66,10 +66,14 @@ view.calendaruserrow (<?= $viewData['year'] . $viewData['month'] ?> - <?= $fullN
       <i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="<?= $LANG['role'] ?>: <?= $RO->getNameById($thisRole) ?>"><i class="fas fa-user-circle fa-sm text-<?= $RO->getColorById($thisRole) ?>"></i></i>
     <?php } ?>
     <?= $profileName ?>
-    <?php if ($monAbsId = $viewData['monitorAbsence']) {
+    <?php foreach ($viewData['monitorAbsence'] as $monAbsId) {
+      if (!$monAbsId) continue;
       $summary = getAbsenceSummary($usr['username'], $monAbsId, $viewData['year']);
       ?>
-      <div style="text-align:right;font-style:italic;" title="<?= $A->getName($monAbsId) . ' ' . $viewData['year'] . ': ' . $LANG['remainder'] . ' / ' . $LANG['allowance'] ?>">&nbsp;<span class="text-danger"><?= $summary['remainder'] ?></span> / <?= $summary['totalallowance'] ?></div>
+      <div style="text-align:right;font-style:italic;" title="<?= $A->getName($monAbsId) . ' ' . $viewData['year'] . ': ' . $LANG['remainder'] . ' / ' . $LANG['allowance'] ?>">
+        <span class="abs-icon-square" style="color: #<?= $A->getColor($monAbsId) ?>;"><?= $viewData['symbolAsIcon'] ? $A->getSymbol($monAbsId) : '<i class="' . $A->getIcon($monAbsId) . '"></i>' ?></span>
+        &nbsp;<span class="text-danger"><?= $summary['remainder'] ?></span> / <?= $summary['totalallowance'] ?>
+      </div>
     <?php } ?>
   </td>
   <?php
