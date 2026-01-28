@@ -148,7 +148,7 @@ view.calendarview
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <input id="search" class="form-control" tabindex="<?= ++$tabindex ?>" name="txt_search" type="text" value="<?= $viewData["search"] ?>">
+              <input id="search" class="form-control" name="txt_search" type="text" value="<?= $viewData["search"] ?>">
               <?php if (isset($inputAlert["search"])) { ?>
                 <br>
                 <div class="alert alert-dismissable alert-danger fade show" role="alert">
@@ -162,6 +162,7 @@ view.calendarview
               <?php if (strlen($viewData["search"])) { ?>
                 <button type="submit" class="btn btn-danger" tabindex="<?= ++$tabindex ?>" name="btn_search_clear"><?= $LANG['btn_clear'] ?></button>
               <?php } ?>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cancel"><?= $LANG['btn_cancel'] ?></button>
             </div>
           </div>
         </div>
