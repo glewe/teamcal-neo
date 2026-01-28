@@ -143,13 +143,13 @@ view.footer
     // Focus search input when Search User modal is shown in calendarview
     //
     $('#modalSearchUser').on('shown.bs.modal', function () {
-      $('#search').focus();
+      $('#searchUser').focus();
     });
 
     //
     // Submit search when Enter key is pressed in search input
     //
-    $('#search').on('keypress', function (e) {
+    $('#searchUser').on('keypress', function (e) {
       if (e.which == 13) {
         $(this).closest('.modal').find('button[name="btn_search"]').click();
         return false;
