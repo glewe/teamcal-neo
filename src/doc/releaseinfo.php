@@ -2,16 +2,18 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
-    'version' => '4.x.x',
-    'date' => '2026-xx-xx',
-    'info' => 'Bugfix, feature and improvement release',
+    'version' => '4.3.4',
+    'date' => '2026-01-29',
+    'info' => 'Bugfix and improvement release',
     'bugfixes' => [
+      [ 'summary' => 'Fixed missing Registration tab on system settings page', 'issue' => '' ],
     ],
     'features' => [
     ],
     'improvements' => [
       [ 'summary' => 'Increased size of daynote indicator', 'issue' => '' ],
       [ 'summary' => 'Set focus on search input in calendar user search dialog', 'issue' => '' ],
+      [ 'summary' => 'Allow multiple absence types in absence monitoring underneath username', 'issue' => '' ],
     ],
     'removals' => [
     ],

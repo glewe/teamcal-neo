@@ -1,5 +1,13 @@
 # TeamCal Neo Upgrade Information
 
+## [4.3.3] -> [4.3.4]
+
+1. Backup your current files and database!
+2. Download the new release and overwrite all files.
+3. Edit config/config.app.php and change line 39 to: `define('APP_INSTALLED',"1");`
+4. Edit config/config.db.php and update your database settings from your backup.
+5. Delete file installation.php in the root directory.
+
 ## [4.3.2] -> [4.3.3]
 
 1. Backup your current files and database!
