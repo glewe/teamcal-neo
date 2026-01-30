@@ -1,6 +1,6 @@
 ![TeamCal Neo](https://github.com/glewe/teamcal-neo/blob/master/src/images/icons/tcn-icon-80.png)
 
-# TeamCal Neo 4
+# TeamCal Neo 5
 
 [![Framework](https://img.shields.io/badge/Framework-Bootstrap-563d7c.svg)](https://getbootstrap.com/)
 [![Database](https://img.shields.io/badge/Database-MySQL-00758f.svg)](https://www.mysql.com/)
@@ -11,27 +11,35 @@
 [![CSS](https://img.shields.io/badge/Language-CSS3-563d7c.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![Responsive](https://img.shields.io/badge/Responsive-Yes-44cc11.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries)
 
-![Support](https://img.shields.io/badge/Support-Yes-green.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=glewe_teamcal-neo&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=glewe_teamcal-neo)
+[![Dependabot](https://img.shields.io/badge/dependabot-enabled-025e86.svg?logo=dependabot)](https://github.com/glewe/teamcal-neo/network/updates)
 
 TeamCal Neo is a day-based online calendar that allows to easily manage your team's events and absences and displays them in an intuitive interface. You can manage absence types, holidays, regional calendars and much more.
 
-## New in Version 4.3.1
+## New in Version 5
+
+TeamCal Neo 5.0.0 is a new major release. The application has been completely refactored to make it faster and more secure, e.g.
+
+- the file and folder structure has been changed
+- the legacy language files are removed and have been replaced by the new language architecture (separate files for each controller)
+- the application follows strict PSR-4 autoloading
+- the application uses Twig for templating
+- the application uses Composer for dependency management
+- the application uses PHPStan for static analysis
+- the application uses PHPUnit for testing
+- the application uses phpDocumentor for documentation
 
 ### Features
 
-- Split month view mode. Allows to show the last and first half of two consecutive months in one table
+- Added new optional font "Poppins"
+- Added new languages Spanish and French
 
 ### Improvements
 
-- New language architecture based on controller specific language files
-- New color picker: Coloris 0.25.0
-- Update to Bootstrap 5.3.8
-- Update to Font Awesome 7.1.0
-- Updated sample character avatars to not infringe any copyrights
-- Added PHPMailer module to make TeamCal Neo independent of external email services, e.g. PEAR/MAIL
-- General performance improvements
-
+- The installation script now allows to select whether to only add core data or an additional set of sample data
+- Updated Bootstrap Icons 1.11.3 to 1.13.1
+- Updated Datatables 2.2.0 to 2.3.6
+- Replaced Securimage CAPTCHA with new internal CaptchaService (Math + Honeypot)
 
 ## Demo
 [TeamCal Neo Demo](https://tcneo.lewe.com/)
