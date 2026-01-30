@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+            <title>TeamCal Neo</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="js/template.js"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
+    </head>
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">TeamCal Neo</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
+    <section data-search-form class="phpdocumentor-search">
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
+
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
+
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -three phpdocumentor-sidebar">
+                    <section class="phpdocumentor-sidebar__category -namespaces">
+            <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="namespaces/app.html" class="">App</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="namespaces/app-controllers.html" class="">Controllers</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/app-core.html" class="">Core</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/app-models.html" class="">Models</a>
+                
+            </li>
+                    <li>
+                <a href="namespaces/app-services.html" class="">Services</a>
+                
+            </li>
+            </ul>
+
+                        </section>
+                <section class="phpdocumentor-sidebar__category -packages">
+            <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/Application.html" class="">Application</a>
+</h4>
+
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/TeamCalNeo.html" class="">TeamCalNeo</a>
+</h4>
+
+                        </section>
+            
+    <section class="phpdocumentor-sidebar__category -reports">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
+    </section>
+
+    <section class="phpdocumentor-sidebar__category -indices">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
+</aside>
+
+            <div class="phpdocumentor-column -nine phpdocumentor-content">
+                                <section>
+                                        <ul class="phpdocumentor-breadcrumbs">
+    </ul>
+
+    <article class="phpdocumentor-element -file">
+        <h2 class="phpdocumentor-content__title">config.app.php</h2>
+
+        
+        
+        
+        
+
+
+        
+<h3 id="toc">
+    Table of Contents
+    <a href="files/src-config-app.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h3>
+
+
+
+
+
+
+
+<h4 id="toc-constants">
+    Constants
+    <a href="files/src-config-app.html#toc-constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_AUTHOR">APP_AUTHOR</a>
+    <span>
+        &nbsp;= &quot;George Lewe&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_AVATAR_DIR">APP_AVATAR_DIR</a>
+    <span>
+        &nbsp;= &quot;public/upload/avatars/&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_COPYRIGHT">APP_COPYRIGHT</a>
+    <span>
+        &nbsp;= &quot;(c) &quot; . \APP_YEAR . &quot; by &quot; . \APP_AUTHOR . &quot; (&quot; . \APP_URL . &quot;)&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_DATE">APP_DATE</a>
+    <span>
+        &nbsp;= &quot;2026-01-28&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_EMAIL">APP_EMAIL</a>
+    <span>
+        &nbsp;= &quot;george@lewe.com&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_IMP_DIR">APP_IMP_DIR</a>
+    <span>
+        &nbsp;= &quot;public/upload/import/&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_INSTALLED">APP_INSTALLED</a>
+    <span>
+        &nbsp;= &quot;1&quot;                            </span>
+</dt>
+<dd>----------------------------------------------------------------------------
+TEAMCAL NEO
+----------------------------------------------------------------------------</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_LIC_ITM">APP_LIC_ITM</a>
+    <span>
+        &nbsp;= &quot;TeamCal Neo&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_LIC_KEY">APP_LIC_KEY</a>
+    <span>
+        &nbsp;= &quot;5e091d9b9cbf36.90197318&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_LIC_SRV">APP_LIC_SRV</a>
+    <span>
+        &nbsp;= &quot;https://lic.lewe.com&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_LICENSE">APP_LICENSE</a>
+    <span>
+        &nbsp;= &quot;https://lewe.gitbook.io/teamcal-neo/readme/teamcal-neo-license/&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_NAME">APP_NAME</a>
+    <span>
+        &nbsp;= &quot;TeamCal Neo&quot;                            </span>
+</dt>
+<dd>----------------------------------------------------------------------------
+APPLICATION
+----------------------------------------------------------------------------</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_POWERED">APP_POWERED</a>
+    <span>
+        &nbsp;= &quot;Powered by &quot; . \APP_NAME . &quot; &quot; . \APP_VER . &quot; &amp;copy; &quot; . \APP_YEAR . &quot; by &lt;a href=\&quot;https://www.lewe.com\&quot; class=\&quot;copyright\&quot; target=\&quot;_blank\&quot;&gt;&quot; . \APP_AUTHOR . &quot;&lt;/a&gt;&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_UPL_DIR">APP_UPL_DIR</a>
+    <span>
+        &nbsp;= &quot;public/upload/files/&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_URL">APP_URL</a>
+    <span>
+        &nbsp;= &quot;https://www.lewe.com&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_VER">APP_VER</a>
+    <span>
+        &nbsp;= &quot;5.0.0&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_APP_YEAR">APP_YEAR</a>
+    <span>
+        &nbsp;= &quot;2014-&quot; . \date(&#039;Y&#039;)                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_BOOTSTRAP_ICONS_VER">BOOTSTRAP_ICONS_VER</a>
+    <span>
+        &nbsp;= &quot;1.13.1&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_BOOTSTRAP_VER">BOOTSTRAP_VER</a>
+    <span>
+        &nbsp;= &quot;5.3.8&quot;                            </span>
+</dt>
+<dd>----------------------------------------------------------------------------
+MANDATORY MODULES
+----------------------------------------------------------------------------</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_CHARTJS_VER">CHARTJS_VER</a>
+    <span>
+        &nbsp;= &quot;4.4.7&quot;                            </span>
+</dt>
+<dd>----------------------------------------------------------------------------
+OPTIONAL MODULES
+----------------------------------------------------------------------------</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_COLORIS_VER">COLORIS_VER</a>
+    <span>
+        &nbsp;= &quot;0.25.0&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_COMPARE_LANGUAGES">COMPARE_LANGUAGES</a>
+    <span>
+        &nbsp;= \false                            </span>
+</dt>
+<dd>----------------------------------------------------------------------------
+LANGUAGE METHOD
+----------------------------------------------------------------------------</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_COOKIE_NAME">COOKIE_NAME</a>
+    <span>
+        &nbsp;= &quot;tcneo5&quot;                            </span>
+</dt>
+<dd>----------------------------------------------------------------------------
+COOKIE
+----------------------------------------------------------------------------</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_COOKIECONSENT_VER">COOKIECONSENT_VER</a>
+    <span>
+        &nbsp;= &quot;3.1.1&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_DATATABLES_VER">DATATABLES_VER</a>
+    <span>
+        &nbsp;= &quot;2.3.6&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_DEBUG_LANGUAGE">DEBUG_LANGUAGE</a>
+    <span>
+        &nbsp;= \false                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_FONTAWESOME_VER">FONTAWESOME_VER</a>
+    <span>
+        &nbsp;= &quot;7.1.0&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_JQUERY_UI_VER">JQUERY_UI_VER</a>
+    <span>
+        &nbsp;= &quot;1.14.1&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_JQUERY_VER">JQUERY_VER</a>
+    <span>
+        &nbsp;= &quot;3.7.1&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_LDAP_ADS">LDAP_ADS</a>
+    <span>
+        &nbsp;= 0                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_LDAP_CHECK_ANONYMOUS_BIND">LDAP_CHECK_ANONYMOUS_BIND</a>
+    <span>
+        &nbsp;= 0                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_LDAP_DIT">LDAP_DIT</a>
+    <span>
+        &nbsp;= &quot;cn=read-only-admin,dc=example,dc=com&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_LDAP_HOST">LDAP_HOST</a>
+    <span>
+        &nbsp;= &quot;ldap.forumsys.com&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_LDAP_PASS">LDAP_PASS</a>
+    <span>
+        &nbsp;= &quot;password&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_LDAP_PORT">LDAP_PORT</a>
+    <span>
+        &nbsp;= &quot;389&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_LDAP_SBASE">LDAP_SBASE</a>
+    <span>
+        &nbsp;= &quot;dc=example,dc=com&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_LDAP_TLS">LDAP_TLS</a>
+    <span>
+        &nbsp;= 0                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_LDAP_YES">LDAP_YES</a>
+    <span>
+        &nbsp;= 0                            </span>
+</dt>
+<dd>----------------------------------------------------------------------------
+LDAP
+----------------------------------------------------------------------------</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_MAGNIFICPOPUP">MAGNIFICPOPUP</a>
+    <span>
+        &nbsp;= \false                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_MAGNIFICPOPUP_VER">MAGNIFICPOPUP_VER</a>
+    <span>
+        &nbsp;= &quot;1.2.0&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_SYNTAXHIGHLIGHTER">SYNTAXHIGHLIGHTER</a>
+    <span>
+        &nbsp;= \false                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_SYNTAXHIGHLIGHTER_VER">SYNTAXHIGHLIGHTER_VER</a>
+    <span>
+        &nbsp;= &quot;3.0.83&quot;                            </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a class="" href="namespaces/default.html#constant_WEBSITE_URL">WEBSITE_URL</a>
+    <span>
+        &nbsp;= \substr($fullURL, 0, $pos + 1)                            </span>
+</dt>
+
+    </dl>
+
+
+
+
+
+
+        
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="files/src-config-app.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+
+        </h3>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_AUTHOR">
+        APP_AUTHOR
+        <a href="namespaces/default.html#constant_APP_AUTHOR" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">178</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_AUTHOR</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;George Lewe&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_AVATAR_DIR">
+        APP_AVATAR_DIR
+        <a href="namespaces/default.html#constant_APP_AVATAR_DIR" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">25</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_AVATAR_DIR</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;public/upload/avatars/&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_COPYRIGHT">
+        APP_COPYRIGHT
+        <a href="namespaces/default.html#constant_APP_COPYRIGHT" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">182</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_COPYRIGHT</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;(c) &quot; . \APP_YEAR . &quot; by &quot; . \APP_AUTHOR . &quot; (&quot; . \APP_URL . &quot;)&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_DATE">
+        APP_DATE
+        <a href="namespaces/default.html#constant_APP_DATE" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">176</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_DATE</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;2026-01-28&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_EMAIL">
+        APP_EMAIL
+        <a href="namespaces/default.html#constant_APP_EMAIL" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">180</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_EMAIL</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;george@lewe.com&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_IMP_DIR">
+        APP_IMP_DIR
+        <a href="namespaces/default.html#constant_APP_IMP_DIR" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">27</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_IMP_DIR</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;public/upload/import/&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_INSTALLED">
+        APP_INSTALLED
+        <a href="namespaces/default.html#constant_APP_INSTALLED" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">40</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">----------------------------------------------------------------------------
+TEAMCAL NEO
+----------------------------------------------------------------------------</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_INSTALLED</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;1&quot;</span>
+</code>
+
+
+        <section class="phpdocumentor-description"><p>A flag indicating whether the installation script has been executed.
+0 = Not run yet
+1 = Was run
+Set this to 0 if you want to run the installation.php script again.
+If not, you need to delete or rename the installation.php file.</p>
+</section>
+
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_LIC_ITM">
+        APP_LIC_ITM
+        <a href="namespaces/default.html#constant_APP_LIC_ITM" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">186</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_LIC_ITM</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;TeamCal Neo&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_LIC_KEY">
+        APP_LIC_KEY
+        <a href="namespaces/default.html#constant_APP_LIC_KEY" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">184</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_LIC_KEY</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;5e091d9b9cbf36.90197318&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_LIC_SRV">
+        APP_LIC_SRV
+        <a href="namespaces/default.html#constant_APP_LIC_SRV" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">185</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_LIC_SRV</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;https://lic.lewe.com&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_LICENSE">
+        APP_LICENSE
+        <a href="namespaces/default.html#constant_APP_LICENSE" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">181</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_LICENSE</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;https://lewe.gitbook.io/teamcal-neo/readme/teamcal-neo-license/&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_NAME">
+        APP_NAME
+        <a href="namespaces/default.html#constant_APP_NAME" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">174</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">----------------------------------------------------------------------------
+APPLICATION
+----------------------------------------------------------------------------</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_NAME</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;TeamCal Neo&quot;</span>
+</code>
+
+
+        <section class="phpdocumentor-description"><p>!Do not change anything below this line. It is protected by the license agreement!</p>
+</section>
+
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_POWERED">
+        APP_POWERED
+        <a href="namespaces/default.html#constant_APP_POWERED" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">183</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_POWERED</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;Powered by &quot; . \APP_NAME . &quot; &quot; . \APP_VER . &quot; &amp;copy; &quot; . \APP_YEAR . &quot; by &lt;a href=\&quot;https://www.lewe.com\&quot; class=\&quot;copyright\&quot; target=\&quot;_blank\&quot;&gt;&quot; . \APP_AUTHOR . &quot;&lt;/a&gt;&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_UPL_DIR">
+        APP_UPL_DIR
+        <a href="namespaces/default.html#constant_APP_UPL_DIR" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">26</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_UPL_DIR</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;public/upload/files/&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_URL">
+        APP_URL
+        <a href="namespaces/default.html#constant_APP_URL" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">179</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_URL</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;https://www.lewe.com&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_VER">
+        APP_VER
+        <a href="namespaces/default.html#constant_APP_VER" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">175</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_VER</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;5.0.0&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_APP_YEAR">
+        APP_YEAR
+        <a href="namespaces/default.html#constant_APP_YEAR" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">177</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">APP_YEAR</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;2014-&quot; . \date(&#039;Y&#039;)</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_BOOTSTRAP_ICONS_VER">
+        BOOTSTRAP_ICONS_VER
+        <a href="namespaces/default.html#constant_BOOTSTRAP_ICONS_VER" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">69</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">BOOTSTRAP_ICONS_VER</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;1.13.1&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_BOOTSTRAP_VER">
+        BOOTSTRAP_VER
+        <a href="namespaces/default.html#constant_BOOTSTRAP_VER" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">68</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">----------------------------------------------------------------------------
+MANDATORY MODULES
+----------------------------------------------------------------------------</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">BOOTSTRAP_VER</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;5.3.8&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_CHARTJS_VER">
+        CHARTJS_VER
+        <a href="namespaces/default.html#constant_CHARTJS_VER" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">86</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">----------------------------------------------------------------------------
+OPTIONAL MODULES
+----------------------------------------------------------------------------</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">CHARTJS_VER</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;4.4.7&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_COLORIS_VER">
+        COLORIS_VER
+        <a href="namespaces/default.html#constant_COLORIS_VER" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">70</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">COLORIS_VER</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;0.25.0&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_COMPARE_LANGUAGES">
+        COMPARE_LANGUAGES
+        <a href="namespaces/default.html#constant_COMPARE_LANGUAGES" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">60</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">----------------------------------------------------------------------------
+LANGUAGE METHOD
+----------------------------------------------------------------------------</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">COMPARE_LANGUAGES</span>
+    = <span class="phpdocumentor-signature__default-value">\false</span>
+</code>
+
+
+        <section class="phpdocumentor-description"><p>COMPARE_LANGUAGES - set to true to compare all language files
+DEBUG_LANGUAGE - set to true to write language statistics to the error log</p>
+</section>
+
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_COOKIE_NAME">
+        COOKIE_NAME
+        <a href="namespaces/default.html#constant_COOKIE_NAME" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">49</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">----------------------------------------------------------------------------
+COOKIE
+----------------------------------------------------------------------------</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">COOKIE_NAME</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;tcneo5&quot;</span>
+</code>
+
+
+        <section class="phpdocumentor-description"><p>The cookie name to be used on the browser client's device</p>
+</section>
+
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_COOKIECONSENT_VER">
+        COOKIECONSENT_VER
+        <a href="namespaces/default.html#constant_COOKIECONSENT_VER" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">92</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">COOKIECONSENT_VER</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;3.1.1&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_DATATABLES_VER">
+        DATATABLES_VER
+        <a href="namespaces/default.html#constant_DATATABLES_VER" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">71</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">DATATABLES_VER</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;2.3.6&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_DEBUG_LANGUAGE">
+        DEBUG_LANGUAGE
+        <a href="namespaces/default.html#constant_DEBUG_LANGUAGE" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">61</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">DEBUG_LANGUAGE</span>
+    = <span class="phpdocumentor-signature__default-value">\false</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_FONTAWESOME_VER">
+        FONTAWESOME_VER
+        <a href="namespaces/default.html#constant_FONTAWESOME_VER" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">72</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">FONTAWESOME_VER</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;7.1.0&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_JQUERY_UI_VER">
+        JQUERY_UI_VER
+        <a href="namespaces/default.html#constant_JQUERY_UI_VER" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">74</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">JQUERY_UI_VER</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;1.14.1&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_JQUERY_VER">
+        JQUERY_VER
+        <a href="namespaces/default.html#constant_JQUERY_VER" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">73</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">JQUERY_VER</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;3.7.1&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_LDAP_ADS">
+        LDAP_ADS
+        <a href="namespaces/default.html#constant_LDAP_ADS" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">158</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">LDAP_ADS</span>
+    = <span class="phpdocumentor-signature__default-value">0</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_LDAP_CHECK_ANONYMOUS_BIND">
+        LDAP_CHECK_ANONYMOUS_BIND
+        <a href="namespaces/default.html#constant_LDAP_CHECK_ANONYMOUS_BIND" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">165</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">LDAP_CHECK_ANONYMOUS_BIND</span>
+    = <span class="phpdocumentor-signature__default-value">0</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_LDAP_DIT">
+        LDAP_DIT
+        <a href="namespaces/default.html#constant_LDAP_DIT" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">162</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">LDAP_DIT</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;cn=read-only-admin,dc=example,dc=com&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_LDAP_HOST">
+        LDAP_HOST
+        <a href="namespaces/default.html#constant_LDAP_HOST" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">159</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">LDAP_HOST</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;ldap.forumsys.com&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_LDAP_PASS">
+        LDAP_PASS
+        <a href="namespaces/default.html#constant_LDAP_PASS" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">161</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">LDAP_PASS</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;password&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_LDAP_PORT">
+        LDAP_PORT
+        <a href="namespaces/default.html#constant_LDAP_PORT" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">160</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">LDAP_PORT</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;389&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_LDAP_SBASE">
+        LDAP_SBASE
+        <a href="namespaces/default.html#constant_LDAP_SBASE" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">163</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">LDAP_SBASE</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;dc=example,dc=com&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_LDAP_TLS">
+        LDAP_TLS
+        <a href="namespaces/default.html#constant_LDAP_TLS" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">164</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">LDAP_TLS</span>
+    = <span class="phpdocumentor-signature__default-value">0</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_LDAP_YES">
+        LDAP_YES
+        <a href="namespaces/default.html#constant_LDAP_YES" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">157</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">----------------------------------------------------------------------------
+LDAP
+----------------------------------------------------------------------------</p>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">LDAP_YES</span>
+    = <span class="phpdocumentor-signature__default-value">0</span>
+</code>
+
+
+        <section class="phpdocumentor-description"><p>You can enable LDAP user authentication in this section. Please read the
+requirements below.</p>
+<p>PHP Requirements
+You will need to get and compile LDAP client libraries from either
+OpenLDAP or Bind9.net in order to compile PHP with LDAP support.</p>
+<p>PHP Installation
+LDAP support in PHP is not enabled by default. You will need to use the
+--with-ldap[=DIR] configuration option when compiling PHP to enable LDAP
+support. DIR is the LDAP base install directory. To enable SASL support,
+be sure --with-ldap-sasl[=DIR] is used, and that sasl.h exists on the system.</p>
+<p>The following settings are utilizing the free online LDAP server provided by
+forumsys.com. You can use this server for testing purposes. The server provides
+a few test users as documented here:
+https://www.forumsys.com/2022/05/10/online-ldap-test-server/</p>
+<p>The sample database that comes with TeamCal Neo contains a user with username
+'einstein'. In the TeamCal Neo database this user has the password 'Qwer!1234'.
+This user also exists in the forumsys LDAP server with password 'password'.
+Set LDAP_YES to 1 here. You can then login with einstein/password.</p>
+<p>Note, that the 'admin' user will always authenticate against the TeamCal Neo database.</p>
+</section>
+
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_MAGNIFICPOPUP">
+        MAGNIFICPOPUP
+        <a href="namespaces/default.html#constant_MAGNIFICPOPUP" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">99</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">MAGNIFICPOPUP</span>
+    = <span class="phpdocumentor-signature__default-value">\false</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_MAGNIFICPOPUP_VER">
+        MAGNIFICPOPUP_VER
+        <a href="namespaces/default.html#constant_MAGNIFICPOPUP_VER" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">100</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">MAGNIFICPOPUP_VER</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;1.2.0&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_SYNTAXHIGHLIGHTER">
+        SYNTAXHIGHLIGHTER
+        <a href="namespaces/default.html#constant_SYNTAXHIGHLIGHTER" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">107</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">SYNTAXHIGHLIGHTER</span>
+    = <span class="phpdocumentor-signature__default-value">\false</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_SYNTAXHIGHLIGHTER_VER">
+        SYNTAXHIGHLIGHTER_VER
+        <a href="namespaces/default.html#constant_SYNTAXHIGHLIGHTER_VER" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">108</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">SYNTAXHIGHLIGHTER_VER</span>
+    = <span class="phpdocumentor-signature__default-value">&quot;3.0.83&quot;</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_WEBSITE_URL">
+        WEBSITE_URL
+        <a href="namespaces/default.html#constant_WEBSITE_URL" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/config.app.php"><a href="files/src-config-app.html"><abbr title="src/config.app.php">config.app.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">24</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">WEBSITE_URL</span>
+    = <span class="phpdocumentor-signature__default-value">\substr($fullURL, 0, $pos + 1)</span>
+</code>
+
+
+    
+    
+    
+
+        
+    </article>
+            </section>
+
+        
+        <div class="phpdocumentor-modal" id="source-view">
+    <div class="phpdocumentor-modal-bg" data-exit-button></div>
+    <div class="phpdocumentor-modal-container">
+        <div class="phpdocumentor-modal-content">
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/config.app.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+        </div>
+        <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        (function () {
+            function loadExternalCodeSnippet(el, url, line) {
+                Array.prototype.slice.call(el.querySelectorAll('pre[data-src]')).forEach((pre) => {
+                    const src = url || pre.getAttribute('data-src').replace(/\\/g, '/');
+                    const language = 'php';
+
+                    const code = document.createElement('code');
+                    code.className = 'language-' + language;
+                    pre.textContent = '';
+                    pre.setAttribute('data-line', line)
+                    code.textContent = 'Loading…';
+                    pre.appendChild(code);
+
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('GET', src, true);
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState !== 4) {
+                            return;
+                        }
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+                            Prism.highlightElement(code);
+                            d=document.getElementsByClassName("line-numbers");
+                            d[0].scrollTop = d[0].children[1].offsetTop;
+                            return;
+                        }
+
+                        if (xhr.status === 404) {
+                            code.textContent = '✖ Error: File could not be found';
+                            return;
+                        }
+
+                        if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                            return;
+                        }
+
+                        code.textContent = '✖ Error: An unknown error occurred';
+                    };
+
+                    xhr.send(null);
+                });
+            }
+
+            const modalButtons = document.querySelectorAll("[data-modal]");
+            const openedAsLocalFile = window.location.protocol === 'file:';
+            if (modalButtons.length > 0 && openedAsLocalFile) {
+                console.warn(
+                    'Viewing the source code is unavailable because you are opening this page from the file:// scheme; ' +
+                    'browsers block XHR requests when a page is opened this way'
+                );
+            }
+
+            modalButtons.forEach(function (trigger) {
+                if (openedAsLocalFile) {
+                    trigger.setAttribute("hidden", "hidden");
+                }
+
+                trigger.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    const modal = document.getElementById(trigger.dataset.modal);
+                    if (!modal) {
+                        console.error(`Modal with id "${trigger.dataset.modal}" could not be found`);
+                        return;
+                    }
+                    modal.classList.add("phpdocumentor-modal__open");
+
+                    loadExternalCodeSnippet(modal, trigger.dataset.src || null, trigger.dataset.line)
+                    const exits = modal.querySelectorAll("[data-exit-button]");
+                    exits.forEach(function (exit) {
+                        exit.addEventListener("click", function (event) {
+                            event.preventDefault();
+                            modal.classList.remove("phpdocumentor-modal__open");
+                        });
+                    });
+                });
+            });
+        })();
+    </script>
+
+    </article>
+                                </section>
+                <section class="phpdocumentor-on-this-page__sidebar">
+                            
+    <section class="phpdocumentor-on-this-page__content">
+        <strong class="phpdocumentor-on-this-page__title">On this page</strong>
+
+        <ul class="phpdocumentor-list -clean">
+            <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
+            <li>
+                <ul class="phpdocumentor-list -clean">
+                                                                                                                                                                    <li><a href="files/src-config-app.html#toc-constants">Constants</a></li>
+                                                        </ul>
+            </li>
+
+                            <li class="phpdocumentor-on-this-page-section__title">Constants</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_AUTHOR">APP_AUTHOR</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_AVATAR_DIR">APP_AVATAR_DIR</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_COPYRIGHT">APP_COPYRIGHT</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_DATE">APP_DATE</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_EMAIL">APP_EMAIL</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_IMP_DIR">APP_IMP_DIR</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_INSTALLED">APP_INSTALLED</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_LIC_ITM">APP_LIC_ITM</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_LIC_KEY">APP_LIC_KEY</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_LIC_SRV">APP_LIC_SRV</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_LICENSE">APP_LICENSE</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_NAME">APP_NAME</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_POWERED">APP_POWERED</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_UPL_DIR">APP_UPL_DIR</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_URL">APP_URL</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_VER">APP_VER</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_APP_YEAR">APP_YEAR</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_BOOTSTRAP_ICONS_VER">BOOTSTRAP_ICONS_VER</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_BOOTSTRAP_VER">BOOTSTRAP_VER</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_CHARTJS_VER">CHARTJS_VER</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_COLORIS_VER">COLORIS_VER</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_COMPARE_LANGUAGES">COMPARE_LANGUAGES</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_COOKIE_NAME">COOKIE_NAME</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_COOKIECONSENT_VER">COOKIECONSENT_VER</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_DATATABLES_VER">DATATABLES_VER</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_DEBUG_LANGUAGE">DEBUG_LANGUAGE</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_FONTAWESOME_VER">FONTAWESOME_VER</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_JQUERY_UI_VER">JQUERY_UI_VER</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_JQUERY_VER">JQUERY_VER</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_LDAP_ADS">LDAP_ADS</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_LDAP_CHECK_ANONYMOUS_BIND">LDAP_CHECK_ANONYMOUS_BIND</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_LDAP_DIT">LDAP_DIT</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_LDAP_HOST">LDAP_HOST</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_LDAP_PASS">LDAP_PASS</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_LDAP_PORT">LDAP_PORT</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_LDAP_SBASE">LDAP_SBASE</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_LDAP_TLS">LDAP_TLS</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_LDAP_YES">LDAP_YES</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_MAGNIFICPOPUP">MAGNIFICPOPUP</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_MAGNIFICPOPUP_VER">MAGNIFICPOPUP_VER</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_SYNTAXHIGHLIGHTER">SYNTAXHIGHLIGHTER</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_SYNTAXHIGHLIGHTER_VER">SYNTAXHIGHLIGHTER_VER</a></li>
+                                                    <li class=""><a href="namespaces/default.html#constant_WEBSITE_URL">WEBSITE_URL</a></li>
+                                            </ul>
+                </li>
+            
+                    </ul>
+    </section>
+
+                </section>
+                            </div>
+            <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
+        </div>
+        <a href="files/src-config-app.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

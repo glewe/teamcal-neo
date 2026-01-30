@@ -1,0 +1,26 @@
+==============================================================================
+TEAMCAL NEO LICENSE (BASIC AND PRO)
+==============================================================================
+
+TeamCal Neo Basic and Pro is based on the GNU Public License v3.0 license.
+
+In addition to the GPL license you agree to the following conditions if you decide to use or modify TeamCal Neo:
+
+1. You may NOT alter or disable code, comments, references, statements and displays related to the:
+  - Application information (name, version) (exception see under 3.)
+  - Author’s information (name, URL, e-mail)
+  - Author’s copyright
+  - “Powered by” information in the footer
+  - Help-About page (exception see under 3.)
+  - Licensing or license restrictions
+
+2. You may alter the footer copyright name.
+
+3. If you develop identifiable sections of code that are not derived from the original application and can be reasonably considered as independent and separate work in themselves, like an integration module for a CMS, you may identify your new sections by appropriate references to you as the modifying author. In such a case you may also alter the version number of the Application based on the original version number in order to reflect the independent additions to the Application (e.g. 3.5.002 => 3.5.002m). You may also add information about your mod to the About page.
+
+4. Creation of modifications does not change the license agreements and usage classification. All conditions still apply.
+
+5. Usage of modifications under different license conditions than the original are not allowed and still require the same support fee.
+
+6. Distribution of modifications are not allowed.
+

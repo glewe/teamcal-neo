@@ -1,0 +1,11 @@
+parameters:
+	level: 4
+	paths:
+		- src
+		- config
+	excludePaths:
+		- vendor
+		- node_modules
+		- config/config.vars.php
+	bootstrapFiles:
+		- tests/phpstan-bootstrap.php
