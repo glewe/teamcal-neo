@@ -32,7 +32,7 @@ class LdapService
     // Check availability of LDAP extension
     //
     if (!function_exists('ldap_connect')) {
-      return 90; 
+      return 90;
       // The original code assumes the extension is there if LDAP_YES is true.
       // But for safety and PHPStan, we can check.
     }
@@ -65,7 +65,7 @@ class LdapService
     //
     // Construct LDAP URI to avoid deprecation warning for 2-argument usage
     $ldapUri = "ldap://" . $host . ":" . $port;
-    $ds = ldap_connect($ldapUri);
+    $ds      = ldap_connect($ldapUri);
 
     if (!$ds) {
       return 93;
@@ -102,16 +102,18 @@ class LdapService
     //
     // Search for user UID
     //
-    $info = null;
+    $info         = null;
+    $safeUsername = ldap_escape($username, "", LDAP_ESCAPE_FILTER);
+
     // @phpstan-ignore-next-line
     if (defined('LDAP_ADS') && LDAP_ADS) {
-      $search = ldap_search($ds, $searchbase, "sAMAccountName=" . $username, $attr);
+      $search = ldap_search($ds, $searchbase, "sAMAccountName=" . $safeUsername, $attr);
       if ($search) {
         $info = ldap_first_entry($ds, $search);
       }
     }
     else {
-      $search = ldap_search($ds, $searchbase, "uid=" . $username, $attr);
+      $search = ldap_search($ds, $searchbase, "uid=" . $safeUsername, $attr);
       if ($search) {
         $info = ldap_first_entry($ds, $search);
       }
