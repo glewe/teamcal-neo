@@ -1,4 +1,4 @@
-![TeamCal Neo](https://github.com/glewe/teamcal-neo/blob/master/src/images/icons/tcn-icon-80.png)
+![TeamCal Neo](https://github.com/glewe/teamcal-neo/blob/master/public/images/icons/tcn-icon-80.png)
 
 # TeamCal Neo 5
 
