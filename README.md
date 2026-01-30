@@ -46,7 +46,10 @@ TeamCal Neo 5.0.0 is a new major release. The application has been completely re
 - Replaced Securimage CAPTCHA with new internal CaptchaService (Math + Honeypot)
 
 ## Demo
-[TeamCal Neo Demo](https://tcneo.lewe.com/)
+[TeamCal Neo Demo (stable version 4)](https://tcneo.lewe.com/)
+
+[TeamCal Neo Demo (beta version 5)](https://dev.lewe.com/tcneo)
+
 
 ## Product Page
 [TeamCal Neo](https://teamcalneo.lewe.com/)
