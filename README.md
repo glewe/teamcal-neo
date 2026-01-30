@@ -29,6 +29,11 @@ TeamCal Neo 5.0.0 is a new major release. The application has been completely re
 - the application uses PHPUnit for testing
 - the application uses phpDocumentor for documentation
 
+### Bugfixes
+
+- Fixed admin users not seeing all groups on Notification tab
+- Several minor bugfixes
+
 ### Features
 
 - Added new optional font "Poppins"
