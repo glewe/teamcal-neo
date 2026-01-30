@@ -78,7 +78,6 @@ class UploadModel
   public function checkDir(string $directory): bool {
     if (!is_dir($directory)) {
       if ($this->create_directory) {
-        umask(0000);
         mkdir($directory, 0777, true);
         return true;
       }
@@ -216,8 +215,7 @@ class UploadModel
       $newfile = $this->upload_dir . $new_file;
       if ($this->checkDir($this->upload_dir)) {
         if (move_uploaded_file($tmp_file, $newfile)) {
-          umask(0000);
-          chmod($newfile, 0666);
+          chmod($newfile, 0644);
           return true;
         }
         $this->message[] = $this->error[19];

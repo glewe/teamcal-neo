@@ -541,14 +541,6 @@ else {
 // Phase 2: Load controller-specific language files for optimal performance
 if (file_exists(WEBSITE_ROOT . '/resources/languages/' . $language . '/core.php')) {
   $langStats = LanguageLoader::loadForController($controller);
-
-  // Optional: Log performance statistics for debugging
-  if (defined('DEBUG_LANGUAGE') && DEBUG_LANGUAGE) {
-    error_log("Language loading stats for controller '$controller': " .
-      "Files: {$langStats['filesLoaded']}, " .
-      "Keys: {$langStats['keysLoaded']}, " .
-      "Memory reduction: {$langStats['memoryReduction']}%");
-  }
 }
 
 //-----------------------------------------------------------------------------
