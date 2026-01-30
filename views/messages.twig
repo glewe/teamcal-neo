@@ -1,0 +1,89 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+  view.messages
+  -->
+  <div class="container content">
+    <div class="col-lg-12">
+
+      {% set tabindex = 0 %}
+
+      <div class="card">
+        <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+          <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+          {{ LANG.msg_title }}
+          {{ UL.firstname }}
+          {{ UL.lastname }}
+          {% if C.read('pageHelp') %}
+            <a href="{{ CONF.controllers[controller].docurl }}" target="_blank" class="float-end" style="color:inherit;">
+              <i class="bi bi-question-circle-fill bi-lg"></i>
+            </a>
+          {% endif %}
+        </div>
+        <div class="card-body">
+
+          {% if msgData is not empty %}
+            <div class="card">
+              <div class="card-body">
+                <form class="form-control-horizontal" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
+              <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+                  {% set tabindex = tabindex + 1 %}
+                  <button type="button" class="btn btn-success" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalConfirmAll">{{ LANG.btn_confirm_all }}</button>
+                  {% set tabindex = tabindex + 1 %}
+                  <button type="button" class="btn btn-danger" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalDeleteAll">{{ LANG.btn_delete_all }}</button>
+
+                  <!-- Modal: Confirm all -->
+                  {{ createModalTop('modalConfirmAll', LANG.modal_confirm) }}
+                  {{ LANG.msg_confirm_all_confirm }}
+                  {{ createModalBottom('btn_confirm_all', 'success', LANG.btn_confirm_all) }}
+
+                  <!-- Modal: Delete all -->
+                  {{ createModalTop('modalDeleteAll', LANG.modal_confirm) }}
+                  {{ LANG.msg_delete_all_confirm }}
+                  {{ createModalBottom('btn_delete_all', 'danger', LANG.btn_delete_all) }}
+
+                </form>
+              </div>
+            </div>
+            <div style="height:20px;"></div>
+          {% endif %}
+          {% for msg in msgData %}
+            <form class="form-control-horizontal" action="index.php?action=messages" method="post" target="_self" accept-charset="utf-8">
+              <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+              <div class="alert alert-{{ msg.type }}">
+                <input name="hidden_id" type="hidden" class="text" value="{{ msg.umid }}">
+                <input name="hidden_subject" type="hidden" class="text" value="{{ msg.subject }}">
+
+                {% set tabindex = tabindex + 1 %}
+                <button type="button" class="btn btn-danger btn-sm float-end" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalDelete-{{ msg.umid }}">{{ LANG.btn_delete }}</button>
+
+                {% if msg.um_popup %}
+                  {% set tabindex = tabindex + 1 %}
+                  <button type="button" class="btn btn-success btn-sm float-end" style="margin-right: 4px;" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalConfirm-{{ msg.umid }}">{{ LANG.btn_confirm }}</button>
+                {% endif %}
+
+                <h5>{{ msg.timestamp }}</h5>
+                <hr>
+                <p>{{ msg.text|raw }}</p>
+                {# Assuming msg.text might contain HTML line breaks or styles #}
+              </div>
+
+              <!-- Modal: Confirm -->
+              {{ createModalTop('modalConfirm-' ~ msg.umid, LANG.modal_confirm) }}
+              {{ LANG.msg_confirm_confirm|format(msg.timestamp) }}
+              {{ createModalBottom('btn_msgConfirm', 'success', LANG.btn_confirm) }}
+
+              <!-- Modal: Delete -->
+              {{ createModalTop('modalDelete-' ~ msg.umid, LANG.modal_confirm) }}
+              {{ LANG.msg_delete_confirm|format(msg.timestamp) }}
+              {{ createModalBottom('btn_msgDelete', 'danger', LANG.btn_delete) }}
+
+            </form>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

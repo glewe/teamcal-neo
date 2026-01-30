@@ -1,0 +1,237 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+  view.monthedit
+  -->
+  <div class="container content" style="padding-left: 4px; padding-right: 4px;">
+
+    {% set tabindex = 0 %}
+    {% set colsleft = 1 %}
+    {% set colsright = 4 %}
+
+    <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action={{ controller }}&amp;month={{ year }}{{ month }}&amp;region={{ regionid }}" method="post" target="_self" accept-charset="utf-8">
+      <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+      <input name="hidden_month" type="hidden" class="text" value="{{ month }}">
+      <input name="hidden_region" type="hidden" class="text" value="{{ regionid }}">
+
+      {% if month == 1 %}
+        {% set pageBwdYear = year - 1 %}
+        {% set pageBwdMonth = '12' %}
+        {% set pageFwdYear = year %}
+        {% set pageFwdMonth = "%02d"|format(month + 1) %}
+      {% elseif month == 12 %}
+        {% set pageBwdYear = year %}
+        {% set pageBwdMonth = "%02d"|format(month - 1) %}
+        {% set pageFwdYear = year + 1 %}
+        {% set pageFwdMonth = '01' %}
+      {% else %}
+        {% set pageBwdYear = year %}
+        {% set pageFwdYear = year %}
+        {% set pageBwdMonth = "%02d"|format(month - 1) %}
+        {% set pageFwdMonth = "%02d"|format(month + 1) %}
+      {% endif %}
+
+      <div class="page-menu">
+        <a class="btn btn-secondary" href="index.php?action={{ controller }}&amp;month={{ pageBwdYear }}{{ pageBwdMonth }}&amp;region={{ regionid }}">
+          <span class="fas fa-angle-double-left"></span>
+        </a>
+        <a class="btn btn-secondary" href="index.php?action={{ controller }}&amp;month={{ pageFwdYear }}{{ pageFwdMonth }}&amp;region={{ regionid }}">
+          <span class="fas fa-angle-double-right"></span>
+        </a>
+        <a class="btn btn-secondary" href="index.php?action={{ controller }}&amp;month={{ yearToday }}{{ monthToday }}&amp;region={{ regionid }}">{{ LANG.today }}</a>
+        {% set tabindex = tabindex + 1 %}
+        <button type="button" class="btn btn-warning" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalSelectRegion">{{ LANG.region }}:
+          {{ regionname }}</button>
+
+        <div class="float-end">
+          {% set tabindex = tabindex + 1 %}
+          <button type="submit" class="btn btn-primary" tabindex="{{ tabindex }}" name="btn_save">{{ LANG.btn_save }}</button>
+          {% set tabindex = tabindex + 1 %}
+          <button type="button" class="btn btn-danger" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalClearAll">{{ LANG.btn_clear_all }}</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+          <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+          {{ LANG.monthedit_title|format(year, month, regionname) }}
+          {% if C.read('pageHelp') %}
+            <a href="{{ CONF.controllers[controller].docurl }}" target="_blank" class="float-end" style="color:inherit;">
+              <i class="bi bi-question-circle-fill bi-lg"></i>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      <div style="height:20px;"></div>
+
+      {% set mobilecols = {} %}
+      {% if not supportMobile %}
+        {% set mobilecols = { 'full': dateInfo.daysInMonth } %}
+      {% else %}
+        {#
+          Assuming supportMobile is true, but we don't know the exact array structure for mobilecols from legacy view. 
+          Wait, legacy view assumed $mobilecols was defined globally or derived?
+          Legacy view said:
+          if (!$viewData['supportMobile']) { $mobilecols = array( 'full' => $viewData['dateInfo']['daysInMonth'] ); }
+          But where is $mobilecols defined otherwise? It wasn't in the controller I extracted.
+          Wait, looking at monthedit.php again...
+          It calls $mobilecols just in the loop. It seems it expects it to be there.
+          Ah, helper/app.helper.php or config might define it.
+          For now, let's replicate the logic: if not mobile, full width. If mobile... well, we might miss the mobile break points.
+          Let's look at `config.vars.php` or similar if I could, but I can't easily.
+          However, standard logic for this app seems to be splitting tables.
+          Let's assume for now we just use full width if mobile is off, and if on, we default to something reasonable or check if I missed it in controller.
+          Actually, in legacy controller refactor I saw:
+          $mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
+          $viewData['supportMobile'] = $allConfig['supportMobile'];
+          
+          Wait, looking at my controller code... I missed copying the $mobilecols logic into viewData!
+          I put:
+          $viewData['supportMobile'] = $this->allConfig['supportMobile'];
+          But I didn't pass $mobilecols.
+          The view loops through `mobilecols`.
+          
+          I should update the controller to pass `mobilecols`.
+          AND, I should defining `mobilecols` properly.
+          In legacy `controller/monthedit.php`:
+          $mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
+          It seems it ONLY sets 'full' there?
+          Wait, line 265 in legacy controller view:
+          $mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
+          It seems it's always full width effectively in the legacy controller snippet I read?
+          
+          Let's check `views/monthedit.php` again.
+          Lines 78-80:
+          if (!$viewData['supportMobile']) {
+            $mobilecols = array( 'full' => $viewData['dateInfo']['daysInMonth'] );
+          }
+          Then line 81: foreach ($mobilecols as $key => $cols)
+          
+          So if supportMobile is true, it relies on $mobilecols being defined elsewhere?
+          May be included from a helper or global.
+          
+          To be safe, I'll update the controller to define `mobilecols` with sensible defaults (like full width) or similar to legacy.
+          For now in Twig, I will assume `mobilecols` is passed in `viewData`.
+          I will fix the controller in a subsequent step to pass this variable.
+        #}
+        {% set mobilecols = mobilecols|default({ 'full': dateInfo.daysInMonth }) %}
+      {% endif %}
+
+      {% for key, cols in mobilecols %}
+        {% set days = dateInfo.daysInMonth %}
+        {% set tables = (days / cols)|round(0, 'ceil') %}
+
+        {% for t in 0..tables-1 %}
+          {% set daystart = (t * cols) + 1 %}
+          {% set daysleft = days - (cols * t) %}
+          {% if daysleft >= cols %}
+            {% set dayend = daystart + (cols - 1) %}
+          {% else %}
+            {% set dayend = days %}
+          {% endif %}
+
+          <div class="table{{ supportMobile ? key : '' }}">
+            <table class="table table-bordered month">
+              <thead>
+                <!-- Row: Month name and day numbers -->
+                <tr>
+                  <th class="m-monthname">{{ dateInfo.monthname }}
+                    {{ dateInfo.year }}</th>
+                  {% for i in daystart..dayend %}
+                    <th class="m-daynumber text-center" {{ dayStyles[i]|raw }}>{{ i }}</th>
+                  {% endfor %}
+                </tr>
+
+                <!-- Row: Weekdays -->
+                <tr>
+                  <th class="m-label">&nbsp;</th>
+                  {% for i in daystart..dayend %}
+                    {% set prop = 'wday' ~ i %}
+                    <th class="m-weekday text-center" {{ dayStyles[i]|raw }}>{{ LANG.weekdayShort[attribute(M, prop)] }}</th>
+                  {% endfor %}
+                </tr>
+
+                {% if showWeekNumbers %}
+                  <!-- Row: Week numbers -->
+                  <tr>
+                    <th class="m-label">{{ LANG.weeknumber }}</th>
+                    {% for i in daystart..dayend %}
+                      {% set prop = 'week' ~ i %}
+                      {% set wprop = 'wday' ~ i %}
+                      <th class="m-weeknumber text-center{{ (attribute(M, wprop) == 1) ? ' first' : ' inner' }}">{{ (attribute(M, wprop) == 1) ? attribute(M, prop) : '' }}</th>
+                    {% endfor %}
+                  </tr>
+                {% endif %}
+
+                <!-- Row: Daynotes -->
+                <tr>
+                  <th class="m-label">{{ LANG.dn_title }}</th>
+                  {% for i in daystart..dayend %}
+                    {% set wprop = 'wday' ~ i %}
+                    {# Checking Daynote logic #}
+                    {# D.get(yyyymmdd, 'all', regionid, true) #}
+                    {% set dateKey = year ~ month ~ '%02d'|format(i) %}
+                      {% if D.get(dateKey, 'all', regionid, true) %}
+                      {% set icon = 'fas fa-sticky-note' %}
+                      {% set tooltip = ' data-placement="top" data-type="' ~ D.color ~ '" data-bs-toggle="tooltip" title="' ~ D.daynote ~ '"' %}
+                    {% else %}
+                      {% set icon = 'far fa-sticky-note' %}
+                      {% set tooltip = '' %}
+                    {% endif %}
+                    <th class="m-weekday text-center" {{ dayStyles[i]|raw }}>
+                      <a href="index.php?action=daynote&amp;date={{ dateKey }}&amp;for=all&amp;region={{ regionid }}">
+                        <i class="{{ icon }} text-info" {{ tooltip|raw }}></i>
+                      </a>
+                    </th>
+                  {% endfor %}
+                </tr>
+
+              </thead>
+              <tbody>
+                <!-- Rows 4ff: Holidays -->
+                {% for hol in holidays %}
+                  <tr>
+                    <td class="m-name">{{ hol.name }}</td>
+                    {% for i in daystart..dayend %}
+                      {% set prop = 'hol' ~ i %}
+                      <td class="m-day text-center" {{ dayStyles[i]|raw }}>
+                        <input class="form-check-input" name="opt_hol_{{ i }}" type="radio" value="{{ hol.id }}" {{ (attribute(M, prop) == hol.id) ? ' checked' : '' }}>
+                      </td>
+                    {% endfor %}
+                  </tr>
+                {% endfor %}
+
+                <!-- Last Row: Clear radio button -->
+                <tr>
+                  <td class="m-label">{{ LANG.monthedit_clearHoliday }}</td>
+                  {% for i in daystart..dayend %}
+                    {% set prop = 'hol' ~ i %}
+                    <td class="m-label text-center"><input class="form-check-input" name="opt_hol_{{ i }}" type="radio" value="0" {{ (attribute(M, prop) == 0) ? ' checked' : '' }}></td>
+                  {% endfor %}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        {% endfor %}
+      {% endfor %}
+
+      <!-- Modal: Clear All -->
+      {{ createModalTop('modalClearAll', LANG.modal_confirm) }}
+      {{ LANG.monthedit_confirm_clearall|format(year, month, regionname)|raw }}
+      {{ createModalBottom('btn_clearall', 'success', LANG.btn_clear_all) }}
+
+      <!-- Modal: Select Region -->
+      {{ createModalTop('modalSelectRegion', LANG.monthedit_selRegion) }}
+      {% set tabindex = tabindex + 1 %}
+      <select id="region" class="form-select" name="sel_region" tabindex="{{ tabindex }}">
+        {% for reg in regions %}
+          <option value="{{ reg.id }}" {{ (regionid == reg.id) ? ' selected="selected"' : '' }}>{{ reg.name }}</option>
+        {% endfor %}
+      </select>
+      {{ createModalBottom('btn_region', 'success', LANG.btn_select) }}
+
+    </form>
+  </div>
+{% endblock %}

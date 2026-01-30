@@ -1,0 +1,231 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+  view.log
+  -->
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and (showAlerts != 'none') %}
+        {% if (showAlerts == 'all') or (showAlerts == 'warnings' and (alertData.type == 'warning' or alertData.type == 'danger')) %}
+          {{ createAlertBox(alertData)|raw }}
+        {% endif %}
+      {% endif %}
+
+      {{ resetTabindex() }}
+      {% set colsleft = 8 %}
+      {% set colsright = 4 %}
+
+      <form class="form-control-horizontal" action="index.php?action=log&amp;sort={{ sort }}" method="post" target="_self" accept-charset="utf-8">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+        <div class="card">
+          {% set pageHelpLink = '' %}
+          {% if pageHelp %}
+            {% set pageHelpLink = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+          {% endif %}
+          <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+            <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+            {{ (LANG.mnu_admin_systemlog ~ ' ( ' ~ events|length ~ ' ' ~ LANG.log_title_events ~ ' )' ~ pageHelpLink)|raw }}</div>
+          <div class="card-body">
+
+            <div class="row mb-4">
+
+              <div class="col-lg-3">
+                <label for="sel_logPeriod">{{ LANG.period }}</label>
+                <select name="sel_logPeriod" id="sel_logPeriod" class="form-select mb-2" tabindex="{{ nextTabindex() }}">
+                  <option class="option" value="curr_all" {% if logperiod == "curr_all" %} selected {% endif %}>{{ LANG.all }}</option>
+                  <option class="option" value="curr_month" {% if logperiod == "curr_month" %} selected {% endif %}>{{ LANG.period_month }}</option>
+                  <option class="option" value="curr_quarter" {% if logperiod == "curr_quarter" %} selected {% endif %}>{{ LANG.period_quarter }}</option>
+                  <option class="option" value="curr_half" {% if logperiod == "curr_half" %} selected {% endif %}>{{ LANG.period_half }}</option>
+                  <option class="option" value="curr_year" {% if logperiod == "curr_year" %} selected {% endif %}>{{ LANG.period_year }}</option>
+                  <option class="option" value="custom" {% if logperiod == "custom" %} selected {% endif %}>{{ LANG.period_custom }}</option>
+                </select>
+                <label for="sel_logType">{{ LANG.log_header_type }}</label>
+                <select name="sel_logType" id="sel_logType" class="form-select mb-2" tabindex="{{ nextTabindex() }}">
+                  <option class="option" value="%" {% if logtype == "%" %} selected {% endif %}>{{ LANG.all }}</option>
+                  {% for type in types %}
+                    <option class="option" value="log{{ type }}" {% if logtype == "log" ~ type %} selected {% endif %}>{{ type }}</option>
+                  {% endfor %}
+                </select>
+                <label for="logSearchUser">{{ LANG.search ~ ' ' ~ LANG.user }}</label>
+                <input id="logSearchUser" class="form-control mb-2" tabindex="{{ nextTabindex() }}" name="txt_logSearchUser" maxlength="80" value="{{ logSearchUser }}" type="text">
+                <label for="logSearchEvent">{{ LANG.search ~ ' ' ~ LANG.event }}</label>
+                <input id="logSearchEvent" class="form-control mb-2" tabindex="{{ nextTabindex() }}" name="txt_logSearchEvent" maxlength="80" value="{{ logSearchEvent }}" type="text">
+              </div>
+
+              <div class="col-lg-2">
+                <label for="logPeriodFrom">{{ LANG.from }}</label>
+                <input id="logPeriodFrom" class="form-control" tabindex="{{ nextTabindex() }}" name="txt_logPeriodFrom" maxlength="10" value="{{ logfrom }}" type="text" {% if logperiod != 'custom' %} disabled="disabled" {% endif %}>
+              </div>
+
+              <div class="col-lg-2">
+                <label for="logPeriodTo">{{ LANG.to }}</label>
+                <input id="logPeriodTo" class="form-control" tabindex="{{ nextTabindex() }}" name="txt_logPeriodTo" maxlength="10" value="{{ logto }}" type="text" {% if logperiod != 'custom' %} disabled="disabled" {% endif %}>
+              </div>
+
+              <div class="col-lg-5 text-end">
+                <br>
+                <button type="submit" class="btn btn-primary" tabindex="{{ nextTabindex() }}" name="btn_filter">{{ LANG.btn_filter }}</button>
+                <button type="submit" class="btn btn-secondary" tabindex="{{ nextTabindex() }}" name="btn_reset">{{ LANG.btn_reset }}</button>
+                <button type="button" class="btn btn-danger" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalClear">{{ LANG.log_clear }}</button>
+
+                <!-- Modal: Clear -->
+                {{ createModalTop('modalClear', LANG.modal_confirm) }}
+                {{ LANG.log_clear_confirm|raw }}
+                {{ createModalBottom('btn_clear', 'danger', LANG.log_clear) }}
+              </div>
+
+            </div>
+
+            <div class="card">
+
+              <div class="card-header">
+                {% set pageTabs = [
+                { 'id': 'tab-log', 'href': '#panel-log', 'label': LANG.log_title, 'active': true },
+                { 'id': 'tab-settings', 'href': '#panel-settings', 'label': LANG.log_settings, 'active': false },
+              ] %}
+                {{ createPageTabs(pageTabs) }}
+              </div>
+
+              <div class="card-body">
+                <div
+                  class="tab-content" id="myTabContent">
+
+                  <!-- Log tab -->
+                  <div class="tab-pane fade show active" id="panel-log" role="tabpanel" aria-labelledby="tab-log">
+
+                    {% if events|length %}
+                      <table id="dataTableLog" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+                        <thead>
+                          <tr>
+                            <th class="text-end" data-ordering="false">#</th>
+                            <th class="text-start">
+                              <i class="bi-clock fa-lg me-3"></i>
+                              {{ LANG.log_header_when }}</th>
+                            <th data-ordering="true">
+                              <i class="bi-folder fa-lg me-3"></i>
+                              {{ LANG.log_header_type }}</th>
+                            <th data-ordering="true">
+                              <i class="bi-person fa-lg me-3"></i>
+                              {{ LANG.log_header_user }}</th>
+                            <th data-ordering="true">
+                              <i class="bi-display fa-lg me-3"></i>
+                              {{ LANG.log_header_ip }}</th>
+                            <th data-ordering="true">
+                              <i class="bi-pencil-square fa-lg me-3"></i>
+                              {{ LANG.log_header_event }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for event in events %}
+                            {% set typeKey = event.type|slice(3) %}
+                            {% set color = attribute(allConfig, 'logcolor' ~ typeKey) %}
+                            <tr>
+                              <td class="align-top text-end text-{{ color }}">{{ loop.index }}</td>
+                              <td class="align-top text-start text-{{ color }}">{{ event.timestamp }}</td>
+                              <td class="align-top text-{{ color }}">{{ typeKey }}</td>
+                              <td class="align-top text-{{ color }}">
+                                <a style="color: inherit;" href="index.php?action=viewprofile&amp;profile={{ event.user }}" target="_blank">{{ event.user }}</a>
+                              </td>
+                              <td class="align-top text-start text-{{ color }}">{{ event.ip }}</td>
+                              <td class="align-top text-{{ color }}">{{ event.event }}</td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    {% else %}
+                      <div class="mt-2">
+                        {% set noDataAlert = {
+                        'type': 'warning',
+                        'title': 'Oops',
+                        'subject': 'No log entries found',
+                        'text': '',
+                        'help': ''
+                      } %}
+                        {{ createAlertBox(noDataAlert) }}
+                      </div>
+                    {% endif %}
+
+                  </div>
+
+                  <!-- Log settings -->
+                  <div class="tab-pane fade" id="panel-settings" role="tabpanel" aria-labelledby="tab-settings">
+
+                    {% for type in types %}
+                      {% set colorClass = "text-" ~ attribute(allConfig, 'logcolor' ~ type) %}
+                      <div class="row" style="border-bottom: 1px dotted; padding-top: 10px; padding-bottom: 10px;">
+                        <div class="col-lg-3 {{ colorClass }}">
+                          <label>
+                            <i class="fas fa-tag fa-lg me-3"></i>
+                            {{ type }}</label>
+                        </div>
+                        <div class="col-lg-3">
+                          <input class="form-check-input" style="margin-right: 10px;" name="chk_log{{ type }}" value="chk_log{{ type }}" type="checkbox" {% if attribute(allConfig, 'log' ~ type) %} checked="" {% endif %}>{{ LANG.log_settings_log }}
+                        </div>
+                        <div class="col-lg-3">
+                          <input class="form-check-input" style="margin-right: 10px;" name="chk_logfilter{{ type }}" value="chk_logfilter{{ type }}" type="checkbox" {% if attribute(allConfig, 'logfilter' ~ type) %} checked="" {% endif %}>{{ LANG.log_settings_show }}
+                        </div>
+                        <div class="col-lg-3">
+                          {% for c in ['default', 'primary', 'info', 'success', 'warning', 'danger'] %}
+                            <div class="radio">
+                              <label><input class="form-check-input" name="opt_logcolor{{ type }}" value="{{ c }}" tabindex="{{ nextTabindex() }}" type="radio" {% if attribute(allConfig, 'logcolor' ~ type) == c %} checked="" {% endif %}><i class="fas fa-square fa-sm text-{{ c }}"></i>
+                              </label>
+                            </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    {% endfor %}
+
+                    <div class="mt-4 float-end">
+                      <button type="submit" class="btn btn-primary" tabindex="{{ nextTabindex() }}" name="btn_logSave">{{ LANG.btn_save }}</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+  <script>
+    $(document).ready(function () {
+      $("#logPeriodFrom").datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
+      $("#logPeriodTo").datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
+
+      $('#sel_logPeriod').change(function () {
+        if (this.value == "custom") {
+          $("#logPeriodFrom").prop('disabled', false);
+          $("#logPeriodTo").prop('disabled', false);
+        } else {
+          $("#logPeriodFrom").prop('disabled', true);
+          $("#logPeriodTo").prop('disabled', true);
+        }
+      });{% if events|length %}
+        $('#dataTableLog').DataTable({
+          paging: true,
+          ordering: true,
+          info: true,
+          pageLength: 50,
+          deferRender: true,
+          processing: true,
+          language: {
+            url: 'public/addons/datatables/datatables.{{ LANG.locale }}.json'
+          },
+          columnDefs: [
+            {
+              targets: [0],
+              orderable: true,
+              searchable: true
+            }
+          ]
+        });{% endif %}
+    });
+  </script>
+{% endblock %}

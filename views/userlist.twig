@@ -1,0 +1,455 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+    view.users
+    -->
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
+        {{ createAlertBox(alertData)|raw }}
+      {% endif %}
+
+      {% set tabindex = 0 %}
+
+      <form class="form-control-horizontal" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+        <div class="card">
+          <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+            <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+            {{ LANG.userlist_title }}
+            {% if C.read('pageHelp') %}
+              <a href="{{ CONF.controllers[controller].docurl }}" target="_blank" class="float-end" style="color:inherit;">
+                <i class="bi bi-question-circle-fill bi-lg"></i>
+              </a>
+            {% endif %}
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-lg-3">
+                <label for="sel_searchGroup" id="labelSearchGroup">{{ LANG.group }}</label>
+                {% set tabindex = tabindex + 1 %}
+                <select class="form-select" name="sel_searchGroup" id="sel_searchGroup" tabindex="{{ tabindex }}" aria-labelledby="labelSearchGroup" aria-label="{{ LANG.group }}">
+                  <option value="All" {{ searchGroup == 'All' ? 'selected' : '' }}>{{ LANG.all }}</option>
+                  {% for group in groups %}
+                    <option value="{{ group.id }}" {{ group.id == searchGroup ? 'selected' : '' }}>{{ group.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-lg-3">
+                <label for="sel_searchRole" id="labelSearchRole">{{ LANG.role }}</label>
+                {% set tabindex = tabindex + 1 %}
+                <select class="form-select" name="sel_searchRole" id="sel_searchRole" tabindex="{{ tabindex }}" aria-labelledby="labelSearchRole" aria-label="{{ LANG.role }}">
+                  <option value="All" {{ searchRole == 'All' ? 'selected' : '' }}>{{ LANG.all }}</option>
+                  {% for role in roles %}
+                    <option value="{{ role.id }}" {{ role.id == searchRole ? 'selected' : '' }}>{{ role.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-lg-6 text-end">
+                <br>
+                {% set tabindex = tabindex + 1 %}
+                <button type="submit" class="btn btn-primary float-start me-1" tabindex="{{ tabindex }}" name="btn_filter" aria-label="{{ LANG.btn_filter }}">{{ LANG.btn_filter }}</button>
+                {% set tabindex = tabindex + 1 %}
+                <button type="submit" class="btn btn-secondary float-start" tabindex="{{ tabindex }}" name="btn_reset" aria-label="{{ LANG.btn_reset }}">{{ LANG.btn_reset }}</button>
+                {% set tabindex = tabindex + 1 %}
+                <a href="index.php?action=useradd" class="btn btn-success" tabindex="{{ tabindex }}" aria-label="{{ LANG.btn_create_user }}">{{ LANG.btn_create_user }}</a>
+                {% set tabindex = tabindex + 1 %}
+                <a href="index.php?action=userimport" class="btn btn-info" tabindex="{{ tabindex }}" aria-label="{{ LANG.btn_import }}">{{ LANG.btn_import }}</a>
+              </div>
+            </div>
+            <div style="height:20px;"></div>
+
+
+            <div class="card">
+              <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" id="dialogTabs" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="tab-active" href="#panel-active" data-bs-toggle="tab" role="tab" aria-controls="panel-active" aria-selected="true">{{ LANG.userlist_tab_active }}</a>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="tab-archived" href="#panel-archived" data-bs-toggle="tab" role="tab" aria-controls="panel-archived" aria-selected="false">{{ LANG.userlist_tab_archived }}</a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="card-body">
+                <div
+                  class="tab-content" id="myTabContent">
+
+                  <!-- Active tab -->
+                  <div class="tab-pane fade show active" id="panel-active" role="tabpanel" aria-labelledby="tab-active">
+
+                    <table id="dataTableUsers" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+                      <thead>
+                        <tr>
+                          <th class="text-center">
+                            <i class="fas fa-check"></i>
+                          </th>
+                          <th>{{ LANG.userlist_user }}</th>
+                          <th>{{ LANG.userlist_attributes }}</th>
+                          <th>{{ LANG.userlist_created }}</th>
+                          <th>{{ LANG.userlist_last_login }}</th>
+                          <th class="text-center">{{ LANG.action }}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for user in users %}
+                          <tr>
+                            <td class="align-top text-center">
+                              {% if user.username != "admin" %}
+                                <input class="form-check-input" type="checkbox" name="chk_userActive[]" value="{{ user.username }}">&nbsp;&nbsp;
+                              {% endif %}
+                            </td>
+                            <td class="align-top">
+                              {% set avatar = avatars[user.username] ?? avatars['default'] %}
+                              <i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" data-bs-title="<img src='{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ avatar }}' style='width: 80px; height: 80px;'>"><img src="{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ avatar }}" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;{{ user.dispname }}
+                            </td>
+                            <td class="align-top">
+                              <a href="#" class="text-decoration-none" data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="{{ LANG.role }}: {{ user.role }}">
+                                <i class="fas fa-user-circle fa-sm text-{{ user.color }}"></i>
+                              </a>
+                              {% if user.locked %}
+                                <i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="{{ LANG.userlist_attribute_locked }}">
+                                  <i class="fas fa-lock fa-sm text-danger"></i>
+                                </i>
+                              {% endif %}
+                              {% if user.onhold %}
+                                <i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="{{ LANG.userlist_attribute_onhold }}">
+                                  <i class="far fa-clock fa-sm text-warning"></i>
+                                </i>
+                              {% endif %}
+                              {% if user.verify %}
+                                <i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="{{ LANG.userlist_attribute_verify }}">
+                                  <i class="fas fa-exclamation-circle fa-sm text-success"></i>
+                                </i>
+                              {% endif %}
+                              {% if user.hidden %}
+                                <i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="{{ LANG.userlist_attribute_hidden }}">
+                                  <i class="far fa-eye-slash fa-sm text-info"></i>
+                                </i>
+                              {% endif %}
+                              {% if secrets[user.username] %}
+                                <i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="{{ LANG.userlist_attribute_secret }}">
+                                  <i class="fa fa-shield fa-sm text-warning"></i>
+                                </i>
+                              {% endif %}
+                            </td>
+                            <td class="align-top">{{ user.created }}</td>
+                            <td class="align-top">{{ user.last_login != constant('DEFAULT_TIMESTAMP') ? user.last_login : "" }}</td>
+                            <td class="align-top text-center">
+                              {% set tabindex = tabindex + 1 %}
+                              <a href="index.php?action=viewprofile&amp;profile={{ user.username }}" class="btn btn-secondary btn-sm" tabindex="{{ tabindex }}">{{ LANG.btn_view }}</a>
+                              {% set tabindex = tabindex + 1 %}
+                              <a href="index.php?action=useredit&amp;profile={{ user.username }}" class="btn btn-warning btn-sm" tabindex="{{ tabindex }}">{{ LANG.btn_edit }}</a>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                    <script>
+                      $(document).ready(function () {
+                        $('#dataTableUsers').DataTable({
+                          paging: true,
+                          ordering: true,
+                          info: true,
+                          pageLength: 50,
+                          language: {
+                            url: 'public/addons/datatables/datatables. {{ LANG.locale }}.json'
+                          },
+                          columnDefs: [
+                            {
+                              targets: [
+                                0, 2, 5
+                              ],
+                              orderable: false,
+                              searchable: false
+                            }
+                          ]
+                        });
+                      });
+                    </script>
+
+                    <div class="row mt-3 pb-0">
+                      <div class="col-lg-2">
+                        <div class="form-check">
+                          <label for="chk_selectAllActive"><input class="form-check-input" type="checkbox" name="chk_selectAllActive" id="chk_selectAllActive" aria-label="{{ LANG.select_all }}">{{ LANG.select_all }}</label>
+                        </div>
+                      </div>
+                      <div class="col-lg-10 text-end">
+                        {% set tabindex = tabindex + 1 %}
+                        <button type="button" class="btn btn-info" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalRemoveSecret">{{ LANG.btn_remove_secret_selected }}</button>
+                        {% set tabindex = tabindex + 1 %}
+                        <button type="button" class="btn btn-primary" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalResetPassword">{{ LANG.btn_reset_password_selected }}</button>
+                        {% set tabindex = tabindex + 1 %}
+                        <button type="button" class="btn btn-warning" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalArchiveSelected">{{ LANG.btn_archive_selected }}</button>
+                        {% set tabindex = tabindex + 1 %}
+                        <button type="button" class="btn btn-danger" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalDeleteSelected">{{ LANG.btn_delete_selected }}</button>
+                        {% set tabindex = tabindex + 1 %}
+                        <button type="button" class="btn btn-success" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalActivateSelected">{{ LANG.btn_activate_selected }}</button>
+
+                        <!-- Modal: Activate selected -->
+                        <div class="modal fade" id="modalActivateSelected" tabindex="-1" role="dialog" aria-labelledby="modalActivateSelectedLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="modalActivateSelectedLabel">{{ LANG.modal_confirm }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body text-start">{{ LANG.userlist_confirm_activate|raw }}</div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-success" name="btn_userActivate" style="margin-top: 4px;" aria-label="{{ LANG.btn_activate_selected }}">{{ LANG.btn_activate_selected }}</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="{{ LANG.btn_cancel }}">{{ LANG.btn_cancel }}</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Modal: Archive selected -->
+                        <div class="modal fade" id="modalArchiveSelected" tabindex="-1" role="dialog" aria-labelledby="modalArchiveSelectedLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="modalArchiveSelectedLabel">{{ LANG.modal_confirm }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body text-start">{{ LANG.userlist_confirm_archive|raw }}</div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-warning" name="btn_userArchive" style="margin-top: 4px;" aria-label="{{ LANG.btn_archive_selected }}">{{ LANG.btn_archive_selected }}</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="{{ LANG.btn_cancel }}">{{ LANG.btn_cancel }}</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Modal: Delete selected -->
+                        <div class="modal fade" id="modalDeleteSelected" tabindex="-1" role="dialog" aria-labelledby="modalDeleteSelectedLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="modalDeleteSelectedLabel">{{ LANG.modal_confirm }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body text-start">{{ LANG.userlist_confirm_delete|raw }}</div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-danger" name="btn_profileDelete" style="margin-top: 4px;" aria-label="{{ LANG.btn_delete_selected }}">{{ LANG.btn_delete_selected }}</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="{{ LANG.btn_cancel }}">{{ LANG.btn_cancel }}</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Modal: Reset password -->
+                        <div class="modal fade" id="modalResetPassword" tabindex="-1" role="dialog" aria-labelledby="modalResetPasswordLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="modalResetPasswordLabel">{{ LANG.modal_confirm }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body text-start">{{ LANG.userlist_confirm_password|raw }}</div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" name="btn_userResetPassword" style="margin-top: 4px;" aria-label="{{ LANG.btn_reset_password_selected }}">{{ LANG.btn_reset_password_selected }}</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="{{ LANG.btn_cancel }}">{{ LANG.btn_cancel }}</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Modal: Remove secret -->
+                        <div class="modal fade" id="modalRemoveSecret" tabindex="-1" role="dialog" aria-labelledby="modalRemoveSecretLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="modalRemoveSecretLabel">{{ LANG.modal_confirm }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body text-start">{{ LANG.userlist_confirm_secret|raw }}</div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary" name="btn_userRemoveSecret" style="margin-top: 4px;" aria-label="{{ LANG.btn_remove_secret_selected }}">{{ LANG.btn_remove_secret_selected }}</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="{{ LANG.btn_cancel }}">{{ LANG.btn_cancel }}</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Archived tab -->
+                  <div class="tab-pane fade" id="panel-archived" role="tabpanel" aria-labelledby="tab-archived">
+
+                    <table id="dataTableUsersArchived" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+                      <thead>
+                        <tr>
+                          <th class="text-center">
+                            <i class="fas fa-check"></i>
+                          </th>
+                          <th>{{ LANG.userlist_user }}</th>
+                          <th>{{ LANG.userlist_attributes }}</th>
+                          <th>{{ LANG.userlist_created }}</th>
+                          <th>{{ LANG.userlist_last_login }}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for user1 in users1 %}
+                          <tr>
+                            <td class="align-top text-center">
+                              {% if user1.username != "admin" %}
+                                <input class="form-check-input" type="checkbox" name="chk_userArchived[]" value="{{ user1.username }}">&nbsp;&nbsp;
+                              {% endif %}
+                            </td>
+                            <td class="align-top">
+                              {% set avatar = archived_avatars[user1.username] ?? archived_avatars['default'] %}
+                              <i class="me-2" data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" data-bs-title="<img src='{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ avatar }}' style='width: 80px; height: 80px;'>">
+                                <img src="{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ avatar }}" alt="" style="width: 16px; height: 16px;">
+                              </i>
+                              {{ user1.dispname }}
+                            </td>
+                            <td class="align-top">
+                              <a href="#" class="text-decoration-none" data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="{{ LANG.role }}: {{ user1.role }}">
+                                <i class="fas fa-user-circle fa-sm text-{{ user1.color }}"></i>
+                              </a>
+                              {% if user1.locked %}
+                                <i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="{{ LANG.userlist_attribute_locked }}">
+                                  <i class="fas fa-lock fa-sm text-danger"></i>
+                                </i>
+                              {% endif %}
+                              {% if user1.onhold %}
+                                <i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="{{ LANG.userlist_attribute_onhold }}">
+                                  <i class="far fa-clock fa-sm text-warning"></i>
+                                </i>
+                              {% endif %}
+                              {% if user1.verify %}
+                                <i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="{{ LANG.userlist_attribute_verify }}">
+                                  <i class="fas fa-exclamation-circle fa-sm text-success"></i>
+                                </i>
+                              {% endif %}
+                              {% if user1.hidden %}
+                                <i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="{{ LANG.userlist_attribute_hidden }}">
+                                  <i class="far fa-eye-slash fa-sm text-info"></i>
+                                </i>
+                              {% endif %}
+                              {% if archived_secrets[user1.username] %}
+                                <i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="{{ LANG.userlist_attribute_secret }}">
+                                  <i class="fa fa-shield fa-sm text-secondary"></i>
+                                </i>
+                              {% endif %}
+                            </td>
+                            <td class="align-top">{{ user1.created }}</td>
+                            <td class="align-top">{{ user1.last_login }}</td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                    <script>
+                      $(document).ready(function () {
+                        $('#dataTableUsersArchived').DataTable({
+                          paging: true,
+                          ordering: true,
+                          info: true,
+                          pageLength: 50,
+                          language: {
+                            url: 'public/addons/datatables/datatables. {{ LANG.locale }}.json'
+                          },
+                          columnDefs: [
+                            {
+                              targets: [
+                                0, 2
+                              ],
+                              orderable: false,
+                              searchable: false
+                            }
+                          ]
+                        });
+                      });
+                    </script>
+
+                    <div class="row" style="margin-top: 10px; padding-bottom: 0px;">
+                      <div class="col-lg-2">
+                        <div class="form-check">
+                          <label for="chk_selectAllArchived"><input class="form-check-input" type="checkbox" name="chk_selectAllArchived" id="chk_selectAllArchived" aria-label="{{ LANG.select_all }}">{{ LANG.select_all }}</label>
+                        </div>
+                      </div>
+                      <div class="col-lg-10 text-end">
+                        {% set tabindex = tabindex + 1 %}
+                        <button type="button" class="btn btn-warning" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalRestoreArchived">{{ LANG.btn_restore_selected }}</button>
+                        {% set tabindex = tabindex + 1 %}
+                        <button type="button" class="btn btn-danger" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalDeleteArchived">{{ LANG.btn_delete_selected }}</button>
+
+                        <!-- Modal: Delete archived -->
+                        <div class="modal fade" id="modalDeleteArchived" tabindex="-1" role="dialog" aria-labelledby="modalDeleteArchivedLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="modalDeleteArchivedLabel">{{ LANG.modal_confirm }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body text-start">{{ LANG.userlist_confirm_delete|raw }}</div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-danger" name="btn_profileDeleteArchived" style="margin-top: 4px;" aria-label="{{ LANG.btn_delete_selected }}">{{ LANG.btn_delete_selected }}</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="{{ LANG.btn_cancel }}">{{ LANG.btn_cancel }}</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Modal: Restore archived -->
+                        <div class="modal fade" id="modalRestoreArchived" tabindex="-1" role="dialog" aria-labelledby="modalRestoreArchivedLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="modalRestoreArchivedLabel">{{ LANG.modal_confirm }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body text-start">{{ LANG.userlist_confirm_restore|raw }}</div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-warning" name="btn_profileRestore" style="margin-top: 4px;" aria-label="{{ LANG.btn_restore_selected }}">{{ LANG.btn_restore_selected }}</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="{{ LANG.btn_cancel }}">{{ LANG.btn_cancel }}</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    $('#chk_selectAllActive').click(function (event) {
+      if (this.checked) {
+        $(":checkbox[name='chk_userActive[]']").each(function () {
+          this.checked = true;
+        });
+      } else {
+        $(":checkbox[name='chk_userActive[]']").each(function () {
+          this.checked = false;
+        });
+      }
+    });
+    $('#chk_selectAllArchived').click(function (event) {
+      if (this.checked) {
+        $(":checkbox[name='chk_userArchived[]']").each(function () {
+          this.checked = true;
+        });
+      } else {
+        $(":checkbox[name='chk_userArchived[]']").each(function () {
+          this.checked = false;
+        });
+      }
+    });
+  </script>
+{% endblock %}

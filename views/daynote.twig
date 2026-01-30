@@ -1,0 +1,79 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+  view.daynote
+  -->
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and (showAlerts != 'none') %}
+        {% if (showAlerts == 'all') or (showAlerts == 'warnings' and (alertData.type == 'warning' or alertData.type == 'danger')) %}
+          {{ createAlertBox(alertData)|raw }}
+        {% endif %}
+      {% endif %}
+
+      {{ resetTabindex() }}
+      {% set colsleft = 7 %}
+      {% set colsright = 5 %}
+
+      <form class="form-control-horizontal" action="index.php?action={{ controller }}&amp;date={{ date|replace({'-': ''}) }}&amp;for={{ user }}&amp;region={{ region }}" method="post" target="_self" accept-charset="utf-8">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+        <div class="card">
+          {% set title = LANG.dn_title ~ ' ' ~ LANG.dn_title_for ~ ' ' ~ date ~ ' (' ~ LANG.user ~ ': ' ~ userFullname %}
+          {% if user == 'all' %}
+            {% set title = title ~ ', ' ~ LANG.region ~ ': ' ~ regionName %}
+          {% endif %}
+          {% set title = title ~ ')' %}
+
+          {% set pageHelpLink = '' %}
+          {% if pageHelp %}
+            {% set pageHelpLink = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+          {% endif %}
+          <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+            <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+            {{ title }}{{ pageHelpLink|raw }}</div>
+          <div class="card-body">
+
+            <div class="card">
+              <div class="card-body">
+                {% if exists %}
+                  <button type="submit" class="btn btn-warning me-2" tabindex="{{ nextTabindex() }}" name="btn_update">{{ LANG.btn_update }}</button>
+                  <button type="button" class="btn btn-danger" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalDeleteDaynote_{{ id }}">{{ LANG.btn_delete }}</button>
+                {% else %}
+                  <button type="submit" class="btn btn-primary me-2" tabindex="{{ nextTabindex() }}" name="btn_create">{{ LANG.btn_create }}</button>
+                {% endif %}
+
+                <a href="index.php?action=calendarview&rand={{ random(100, 9999) }}" class="btn btn-primary float-end" tabindex="{{ nextTabindex() }}">{{ LANG.btn_showcalendar }}</a>
+                {% if user == 'all' and isAllowed(CONF.controllers.monthedit.permission) %}
+                  <a href="index.php?action=monthedit&amp;month={{ month }}&amp;region={{ region }}" class="btn btn-info float-end" tabindex="{{ nextTabindex() }}" style="margin-right: 6px;">{{ LANG.btn_region_calendar }}</a>
+                {% else %}
+                  <a href="index.php?action=calendaredit&amp;month={{ date[:4] ~ date[5:2] }}&amp;region={{ region }}&amp;user={{ user }}" class="btn btn-info float-end" style="margin-right:6px;">{{ LANG.btn_user_calendar }}</a>
+                {% endif %}
+              </div>
+            </div>
+            <div style="height:20px;"></div>
+
+            <div class="card">
+              <div class="card-body">
+                {% for formObject in daynote %}
+                  {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                {% endfor %}
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Modal: Delete Daynote -->
+        {{ createModalTop('modalDeleteDaynote_' ~ id, LANG.btn_delete) }}
+        {{ LANG.dn_confirm_delete }}
+        {{ createModalBottom('btn_delete', 'danger', LANG.btn_delete) }}
+
+      </form>
+
+    </div>
+
+  </div>
+{% endblock %}

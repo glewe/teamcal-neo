@@ -1,0 +1,186 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and (showAlerts != 'none') %}
+        {% if (showAlerts == 'all') or (showAlerts == 'warnings' and (alertData.type == 'warning' or alertData.type == 'danger')) %}
+          {{ createAlertBox(alertData)|raw }}
+        {% endif %}
+      {% endif %}
+
+      <div class="card">
+        {% if CONF.allConfig.pageHelp %}
+          {% set pageHelp = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+        {% else %}
+          {% set pageHelp = '' %}
+        {% endif %}
+
+        <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+          <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+          {{ LANG.abs_list_title }}{{ pageHelp|raw }}
+        </div>
+
+        <div class="card-body">
+
+          <form class="row form-control-horizontal" name="form_create" action="index.php?action={{ CONF.controllers[controller].name }}" method="post" target="_self" accept-charset="utf-8">
+            <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+            <div class="mb-4">
+              <button type="button" class="btn btn-success float-end" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalCreateAbsence" aria-label="{{ LANG.btn_create_abs }}">{{ LANG.btn_create_abs }}</button>
+            </div>
+
+            <!-- Modal: Creates Absence -->
+            {{ createModalTop('modalCreateAbsence', LANG.btn_create_abs) }}
+            <label for="inputName">{{ LANG.name }}</label>
+            <input id="inputName" class="form-control" tabindex="{{ nextTabindex() }}" name="txt_name" maxlength="40" value="{{ txt_name }}" type="text">
+            {% if inputAlert.name %}
+              <br>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="btn-close float-end" data-bs-dismiss="alert">x</button>
+                {{ inputAlert.name }}
+              </div>
+            {% endif %}
+            {{ createModalBottom('btn_absCreate', 'success', LANG.btn_create_abs) }}
+
+          </form>
+
+          <table id="dataTableAbsences" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+            <thead>
+              <tr>
+                <th class="text-end">#</th>
+                <th class="text-center">{{ LANG.display }}</th>
+                <th>{{ LANG.name }}</th>
+                <th>{{ LANG.options }}</th>
+                <th class="text-center">{{ LANG.action }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% set i = 1 %}
+              {% for absence in absences %}
+                {% if not absence.counts_as %}
+                  <tr>
+                    <td class="text-end">{{ i }}</td>
+                    {% set i = i + 1 %}
+                    <td>
+                      <span {{ ("style='display: inline-block; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px;" ~ (absence.color ? " color: #" ~ absence.color ~ ";" : "") ~ (absence.bgstyle ? " " ~ absence.bgstyle : "") ~ "'")|raw }}>
+                        {% if absence.icon != "No" %}
+                          <span class="{{ absence.icon }}"></span>
+                        {% else %}
+                          {{ absence.symbol }}
+                        {% endif %}
+                      </span>
+                    </td>
+                    <td>{{ absence.name }}</td>
+                    <td>
+                      {% if absence.approval_required %}
+                        <i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="{{ LANG.abs_approval_required }}">
+                          <i class="far fa-edit fa-lg text-danger"></i>
+                        </i>
+                      {% endif %}
+                      {% if absence.manager_only %}
+                        <i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="{{ LANG.abs_manager_only }}">
+                          <i class="fas fa-user-circle fa-lg text-warning"></i>
+                        </i>
+                      {% endif %}
+                      {% if absence.hide_in_profile %}
+                        <i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="{{ LANG.abs_hide_in_profile }}">
+                          <i class="far fa-eye-slash fa-lg text-info"></i>
+                        </i>
+                      {% endif %}
+                      {% if absence.confidential %}
+                        <i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="{{ LANG.abs_confidential }}">
+                          <i class="fas fa-exclamation-circle fa-lg text-success"></i>
+                        </i>
+                      {% endif %}
+                      {% if absence.allowmonth or absence.allowweek %}
+                        <i data-bs-placement="top" data-bs-custom-class="info" data-bs-toggle="tooltip" title="{{ LANG.abs_allow_active }}">
+                          <i class="far fa-hand-paper fa-lg text-warning"></i>
+                        </i>
+                      {% endif %}
+                    </td>
+                    <td class="align-top text-center">
+                      <form class="form-control-horizontal" name="form_{{ absence.id }}" action="index.php?action={{ CONF.controllers[controller].name }}" method="post" target="_self" accept-charset="utf-8">
+                        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+                        <button type="button" class="btn btn-danger btn-sm" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalDeleteAbsence_{{ absence.id }}">{{ LANG.btn_delete }}</button>
+                        <a href="index.php?action=absenceedit&amp;id={{ absence.id }}" class="btn btn-warning btn-sm" tabindex="{{ nextTabindex() }}">{{ LANG.btn_edit }}</a>
+                        <input name="hidden_id" type="hidden" value="{{ absence.id }}">
+                        <input
+                        name="hidden_name" type="hidden" value="{{ absence.name }}">
+                        <!-- Modal: Delete Absence -->
+                        {{ createModalTop('modalDeleteAbsence_' ~ absence.id, LANG.modal_confirm, 'lg') }}
+                        {{ LANG.abs_confirm_delete|replace({'%s': absence.name|e})|raw }}
+                        {{ createModalBottom('btn_absDelete', 'danger', LANG.btn_delete_abs) }}
+                      </form>
+                    </td>
+                  </tr>
+
+                  {% for subabs in allSubAbsences[absence.id] %}
+                    <tr>
+                      <td class="text-end">{{ i }}</td>
+                      {% set i = i + 1 %}
+                      <td>
+                        <i class="fas fa-angle-double-right me-3"></i>
+                        <span {{ ("style='display: inline-block; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px;" ~ (subabs.color ? " color: #" ~ subabs.color ~ ";" : "") ~ (subabs.bgstyle ? " " ~ subabs.bgstyle : "") ~ "'")|raw }}>
+                          {% if subabs.icon != "No" %}
+                            <i class="{{ subabs.icon }}"></i>
+                          {% else %}
+                            {{ subabs.symbol }}
+                          {% endif %}
+                        </span>
+                      </td>
+                      <td>{{ subabs.name }}
+                        <i>({{ LANG.abs_counts_as }}:
+                          {{ absence.name }})</i>
+                      </td>
+                      <td></td>
+                      <td class="align-top text-center">
+                        <form class="form-control-horizontal" name="form_{{ subabs.id }}" action="index.php?action=absences" method="post" target="_self" accept-charset="utf-8">
+                          <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+                          <button type="button" class="btn btn-danger btn-sm" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalDeleteSubAbsence_{{ subabs.id }}">{{ LANG.btn_delete }}</button>
+                          <a href="index.php?action=absenceedit&amp;id={{ subabs.id }}" class="btn btn-warning btn-sm" tabindex="{{ nextTabindex() }}">{{ LANG.btn_edit }}</a>
+                          <input name="hidden_id" type="hidden" value="{{ subabs.id }}">
+                          <input
+                          name="hidden_name" type="hidden" value="{{ subabs.name }}">
+                          <!-- Modal: Delete SubAbsence -->
+                          {{ createModalTop('modalDeleteSubAbsence_' ~ subabs.id, LANG.modal_confirm, 'lg') }}
+                          {{ LANG.abs_confirm_delete|replace({'%s': subabs.name|e})|raw }}
+                          {{ createModalBottom('btn_absDelete', 'danger', LANG.btn_delete_abs) }}
+                        </form>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+
+          <script>
+            $(document).ready(function () {
+              $('#dataTableAbsences').DataTable({
+                paging: true,
+                ordering: true,
+                info: true,
+                pageLength: 50,
+                language: {
+                  url: 'public/addons/datatables/datatables.{{ LANG.locale }}.json'
+                },
+                columnDefs: [
+                  {
+                    targets: [
+                      0, 3, 4
+                    ],
+                    orderable: false,
+                    searchable: false
+                  }
+                ]
+              });
+            });
+          </script>
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "layout.twig" %}
+{% import "macros/form.twig" as forms %}
+
+{% block content %}
+  <!-- ====================================================================
+  view.regionedit
+  -->
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
+        {{ createAlertBox(alertData)|raw }}
+      {% endif %}
+
+      {% set tabindex = 0 %}
+      {% set colsleft = 8 %}
+      {% set colsright = 4 %}
+
+      <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action={{ controller }}&amp;id={{ id }}" method="post" target="_self" accept-charset="utf-8">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+        <div class="card">
+          <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+            <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+            {{ LANG.region_edit_title }}{{ name }}
+            {% if C.read('pageHelp') %}
+              <a href="{{ CONF.controllers[controller].docurl }}" target="_blank" class="float-end" style="color:inherit;">
+                <i class="bi bi-question-circle-fill bi-lg"></i>
+              </a>
+            {% endif %}
+          </div>
+          <div class="card-body">
+
+            {% for formObject in region %}
+              {% set tabindex = tabindex + 1 %}
+              {{ forms.form_group(formObject, colsleft, colsright, tabindex) }}
+            {% endfor %}
+
+            <div class="mt-4 text-end">
+              <input name="hidden_id" type="hidden" value="{{ id }}">
+              {% set tabindex = tabindex + 1 %}
+              <button type="submit" class="btn btn-primary" tabindex="{{ tabindex }}" name="btn_regionUpdate">{{ LANG.btn_save }}</button>
+              {% set tabindex = tabindex + 1 %}
+              <a href="index.php?action=regions" class="btn btn-secondary" tabindex="{{ tabindex }}">{{ LANG.btn_region_list }}</a>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

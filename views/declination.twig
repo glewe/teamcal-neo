@@ -1,0 +1,271 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+  view.declination
+  -->
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and (showAlerts != 'none') %}
+        {% if (showAlerts == 'all') or (showAlerts == 'warnings' and (alertData.type == 'warning' or alertData.type == 'danger')) %}
+          {{ createAlertBox(alertData)|raw }}
+        {% endif %}
+      {% endif %}
+
+      {{ resetTabindex() }}
+      {% set colsleft = 8 %}
+      {% set colsright = 4 %}
+
+      <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+        <div class="card">
+          {% set pageHelpLink = '' %}
+          {% if allConfig.pageHelp %}
+            {% set pageHelpLink = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+          {% endif %}
+          <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+            <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+            {{ LANG.decl_title }}{{ pageHelpLink|raw }}</div>
+          <div class="card-body">
+
+            <div class="card">
+
+              <div class="card-header">
+                {% set pageTabs = [
+                {'id': 'tab-overview', 'href': '#panel-overview', 'label': LANG.decl_tab_overview, 'active': true},
+                {'id': 'tab-absence', 'href': '#panel-absence', 'label': LANG.decl_tab_absence ~ (declAbsence ? ' <i class="fas fa-check text-danger"></i>' : ''), 'active': false},
+                {'id': 'tab-before', 'href': '#panel-before', 'label': LANG.decl_tab_before ~ (declBefore ? ' <i class="fas fa-check text-danger"></i>' : ''), 'active': false},
+                {'id': 'tab-period1', 'href': '#panel-period1', 'label': LANG.decl_tab_period1 ~ (declPeriod1 ? ' <i class="fas fa-check text-danger"></i>' : ''), 'active': false},
+                {'id': 'tab-period2', 'href': '#panel-period2', 'label': LANG.decl_tab_period2 ~ (declPeriod2 ? ' <i class="fas fa-check text-danger"></i>' : ''), 'active': false},
+                {'id': 'tab-period3', 'href': '#panel-period3', 'label': LANG.decl_tab_period3 ~ (declPeriod3 ? ' <i class="fas fa-check text-danger"></i>' : ''), 'active': false},
+                {'id': 'tab-scope', 'href': '#panel-scope', 'label': LANG.decl_tab_scope, 'active': false},
+              ] %}
+                {{ createPageTabs(pageTabs) }}
+              </div>
+
+              <div class="card-body">
+                <div
+                  class="tab-content" id="myTabContent">
+
+                  <!-- Overview tab -->
+                  <div class="tab-pane fade show active" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+
+                    {% set overviews = ['Absence', 'Before', 'Period1', 'Period2', 'Period3'] %}
+                    {% for overview in overviews %}
+                      {% set details = '' %}
+                      {% set schedule = '' %}
+
+                      {% set overviewLow = overview|lower %}
+
+                      {% if overview == 'Absence' %}
+                        {% set details = declThreshold ~ '%' %}
+                      {% elseif overview == 'Before' %}
+                        {% if declBeforeoption == 'date' %}
+                          {% set details = declBeforedate %}
+                        {% else %}
+                          {% set details = attribute(LANG, 'decl_beforeoption_' ~ declBeforeoption) %}
+                        {% endif %}
+                      {% elseif overview == 'Period1' %}
+                        {% set details = declPeriod1Start ~ ' - ' ~ declPeriod1End %}
+                      {% elseif overview == 'Period2' %}
+                        {% set details = declPeriod2Start ~ ' - ' ~ declPeriod2End %}
+                      {% elseif overview == 'Period3' %}
+                        {% set details = declPeriod3Start ~ ' - ' ~ declPeriod3End %}
+                      {% endif %}
+
+                      {% set period = attribute(_context, 'decl' ~ overview ~ 'Period') %}
+                      {% set startdate = attribute(_context, 'decl' ~ overview ~ 'Startdate') %}
+                      {% set enddate = attribute(_context, 'decl' ~ overview ~ 'Enddate') %}
+
+                      {% if period == 'nowForever' %}
+                        {% set schedule = LANG.decl_schedule_nowForever %}
+                      {% elseif period == 'nowEnddate' %}
+                        {% set schedule = LANG.decl_schedule_nowEnddate|format(enddate) %}
+                      {% elseif period == 'startdateForever' %}
+                        {% set schedule = LANG.decl_schedule_startdateForever|format(startdate) %}
+                      {% elseif period == 'startdateEnddate' %}
+                        {% set schedule = LANG.decl_schedule_startdateEnddate|format(startdate, enddate) %}
+                      {% endif %}
+
+                      <div class="form-group row" id="form-group-overview-{{ overview }}">
+                        <label class="col-lg-8 control-label">
+                          {{ attribute(LANG, 'decl_tab_' ~ overviewLow) }}<br>
+                          <span class="text-normal">{{ attribute(LANG, 'decl_summary_' ~ overviewLow) }}<br>
+                            <span class="small text-italic text-info">
+                              <strong>{{ LANG.decl_value }}:
+                              </strong>
+                              {{ details }}</span><br>
+                            <span class="small text-italic text-info">
+                              <strong>{{ LANG.decl_schedule }}:
+                              </strong>
+                              {{ schedule }}</span><br>
+                          </span>
+                        </label>
+                        <div class="col-lg-4">
+                          {% set status = attribute(_context, 'decl' ~ overview ~ 'Status') %}
+                          {% if status == 'active' %}
+                            <span class="badge text-bg-danger">{{ LANG.decl_label_active }}</span>
+                          {% elseif status == 'expired' %}
+                            <span class="badge text-bg-success">{{ LANG.decl_label_expired }}</span>
+                          {% elseif status == 'inactive' %}
+                            <span class="badge text-bg-dark">{{ LANG.decl_label_inactive }}</span>
+                          {% elseif status == 'scheduled' %}
+                            <span class="badge text-bg-warning">{{ LANG.decl_label_scheduled }}</span>
+                          {% endif %}
+                        </div>
+                        <div class="divider"><hr></div>
+                      </div>
+                    {% endfor %}
+
+                  </div>
+
+                  <!-- Absence tab -->
+                  <div class="tab-pane fade" id="panel-absence" role="tabpanel" aria-labelledby="tab-absence">
+                    {% for formObject in absence %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- Before tab -->
+                  <div class="tab-pane fade" id="panel-before" role="tabpanel" aria-labelledby="tab-before">
+                    {% for formObject in before %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- Period 1 tab -->
+                  <div class="tab-pane fade" id="panel-period1" role="tabpanel" aria-labelledby="tab-period1">
+                    {% for formObject in period1 %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- Period 2 tab -->
+                  <div class="tab-pane fade" id="panel-period2" role="tabpanel" aria-labelledby="tab-period2">
+                    {% for formObject in period2 %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- Period 3 tab -->
+                  <div class="tab-pane fade" id="panel-period3" role="tabpanel" aria-labelledby="tab-period3">
+                    {% for formObject in period3 %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- Scope tab -->
+                  <div class="tab-pane fade" id="panel-scope" role="tabpanel" aria-labelledby="tab-scope">
+                    {% for formObject in scope %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 float-end">
+              <button type="submit" class="btn btn-primary" tabindex="{{ nextTabindex() }}" name="btn_save">{{ LANG.btn_save }}</button>
+            </div>
+
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+
+      $('input[type=radio][name=opt_absencePeriod]').change(function () {
+        if (this.value === 'nowForever') {
+          $("#absenceStartdate").prop("disabled", true);
+          $("#absenceEnddate").prop("disabled", true);
+        } else if (this.value === 'nowEnddate') {
+          $("#absenceStartdate").prop("disabled", true);
+          $("#absenceEnddate").prop("disabled", false);
+        } else if (this.value === 'startdateForever') {
+          $("#absenceStartdate").prop("disabled", false);
+          $("#absenceEnddate").prop("disabled", true);
+        } else if (this.value === 'startdateEnddate') {
+          $("#absenceStartdate").prop("disabled", false);
+          $("#absenceEnddate").prop("disabled", false);
+        }
+      });
+
+      $('input[type=radio][name=opt_beforePeriod]').change(function () {
+        if (this.value === 'nowForever') {
+          $("#beforeStartdate").prop("disabled", true);
+          $("#beforeEnddate").prop("disabled", true);
+        } else if (this.value === 'nowEnddate') {
+          $("#beforeStartdate").prop("disabled", true);
+          $("#beforeEnddate").prop("disabled", false);
+        } else if (this.value === 'startdateForever') {
+          $("#beforeStartdate").prop("disabled", false);
+          $("#beforeEnddate").prop("disabled", true);
+        } else if (this.value === 'startdateEnddate') {
+          $("#beforeStartdate").prop("disabled", false);
+          $("#beforeEnddate").prop("disabled", false);
+        }
+      });
+
+      $('input[type=radio][name=opt_period1Period]').change(function () {
+        if (this.value === 'nowForever') {
+          $("#period1Startdate").prop("disabled", true);
+          $("#period1Enddate").prop("disabled", true);
+        } else if (this.value === 'nowEnddate') {
+          $("#period1Startdate").prop("disabled", true);
+          $("#period1Enddate").prop("disabled", false);
+        } else if (this.value === 'startdateForever') {
+          $("#period1Startdate").prop("disabled", false);
+          $("#period1Enddate").prop("disabled", true);
+        } else if (this.value === 'startdateEnddate') {
+          $("#period1Startdate").prop("disabled", false);
+          $("#period1Enddate").prop("disabled", false);
+        }
+      });
+
+      $('input[type=radio][name=opt_period2Period]').change(function () {
+        if (this.value === 'nowForever') {
+          $("#period2Startdate").prop("disabled", true);
+          $("#period2Enddate").prop("disabled", true);
+        } else if (this.value === 'nowEnddate') {
+          $("#period2Startdate").prop("disabled", true);
+          $("#period2Enddate").prop("disabled", false);
+        } else if (this.value === 'startdateForever') {
+          $("#period2Startdate").prop("disabled", false);
+          $("#period2Enddate").prop("disabled", true);
+        } else if (this.value === 'startdateEnddate') {
+          $("#period2Startdate").prop("disabled", false);
+          $("#period2Enddate").prop("disabled", false);
+        }
+      });
+
+      $('input[type=radio][name=opt_period3Period]').change(function () {
+        if (this.value === 'nowForever') {
+          $("#period3Startdate").prop("disabled", true);
+          $("#period3Enddate").prop("disabled", true);
+        } else if (this.value === 'nowEnddate') {
+          $("#period3Startdate").prop("disabled", true);
+          $("#period3Enddate").prop("disabled", false);
+        } else if (this.value === 'startdateForever'){
+          {% if period3Startdate is defined %}
+            $("#period3Startdate").prop("disabled", false);{% endif %}
+          $("#period3Enddate").prop("disabled", true);
+        } else if (this.value === 'startdateEnddate') {
+          $("#period3Startdate").prop("disabled", false);
+          $("#period3Enddate").prop("disabled", false);
+        }
+      });
+
+      // Trigger change on load to set initial state
+      $('input[type=radio][name^=opt_][name$=Period]:checked').trigger('change');
+
+    });
+  </script>
+{% endblock %}

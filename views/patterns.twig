@@ -1,0 +1,127 @@
+{% extends "layout.twig" %}
+{% import "macros/pattern.twig" as patterns %}
+
+{% block content %}
+  <!-- ====================================================================
+  view.patterns
+  -->
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
+        {{ createAlertBox(alertData)|raw }}
+      {% endif %}
+
+      {% set tabindex = 0 %}
+
+      <div class="card">
+        <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+          <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+          {{ LANG.ptn_list_title }}
+          {% if C.read('pageHelp') %}
+            <a href="{{ CONF.controllers[controller].docurl }}" target="_blank" class="float-end" style="color:inherit;">
+              <i class="bi bi-question-circle-fill bi-lg"></i>
+            </a>
+          {% endif %}
+        </div>
+        <div class="card-body">
+
+          <form class="form-control-horizontal" name="form_create" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
+            <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+            <div class="row mb-4">
+              <div class="col-lg-12 text-end">
+                <br>
+                {% set tabindex = tabindex + 1 %}
+                <a href="index.php?action=patternadd" class="btn btn-success" tabindex="{{ tabindex }}" aria-label="{{ LANG.btn_create_pattern }}">{{ LANG.btn_create_pattern }}</a>
+              </div>
+            </div>
+
+          </form>
+
+          <table id="dataTablePatterns" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+            <thead>
+              <tr>
+                <th>{{ LANG.ptn_name }}</th>
+                <th>{{ LANG.ptn_description }}</th>
+                <th>{{ LANG.ptn_pattern }}</th>
+                <th class="text-center">{{ LANG.action }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for pattern in patterns %}
+                {% set patternId = pattern.id %}
+                {% set patternName = pattern.name %}
+                {% set patternDesc = pattern.description %}
+                {% set modalId = 'modalDeletePattern_' ~ patternId %}
+
+                <tr>
+                  <td>{{ patternName }}</td>
+                  <td>{{ patternDesc }}</td>
+                  <td>
+                    {{ patterns.pattern_table(pattern, absences, weekdayShort) }}
+                  </td>
+                  <td class="align-top text-center">
+                    <form class="form-control-horizontal" name="form_{{ patternName }}" action="index.php?action=patterns" method="post" target="_self" accept-charset="utf-8">
+                      <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+                      {% set tabindex = tabindex + 1 %}
+                      <button type="button" class="btn btn-danger btn-sm" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#{{ modalId }}">{{ LANG.btn_delete }}</button>
+                      <input name="hidden_id" type="hidden" value="{{ patternId }}">
+                      <input name="hidden_name" type="hidden" value="{{ patternName }}">
+                      <input name="hidden_description" type="hidden" value="{{ patternDesc }}">
+                      {% set tabindex = tabindex + 1 %}
+                      <a href="index.php?action=patternedit&amp;id={{ patternId }}" class="btn btn-warning btn-sm" tabindex="{{ tabindex }}">{{ LANG.btn_edit }}</a>
+
+                      <!-- Modal: Delete Pattern -->
+                      <div class="modal fade" id="{{ modalId }}" tabindex="-1" role="dialog" aria-labelledby="{{ modalId }}Label" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header text-bg-danger">
+                              <h5 class="modal-title" id="{{ modalId }}Label">{{ LANG.modal_confirm }}</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-start">
+                              {{ LANG.ptn_confirm_delete|raw }} {{ patternName }}
+                              ?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="submit" name="btn_patternDelete" class="btn btn-danger">{{ LANG.btn_delete }}</button>
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ LANG.btn_cancel }}</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </form>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <script>
+            $(document).ready(function () {
+              $('#dataTablePatterns').DataTable({
+                paging: true,
+                ordering: true,
+                info: true,
+                pageLength: 50,
+                language: {
+                  url: 'public/addons/datatables/datatables.{{ LANG.locale }}.json'
+                },
+                columnDefs: [
+                  {
+                    targets: [
+                      2, 3
+                    ],
+                    orderable: false,
+                    searchable: false
+                  }
+                ]
+              });
+            });
+          </script>
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

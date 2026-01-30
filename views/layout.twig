@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="{{ LANG.html_locale }}" data-bs-theme="auto" data-width="narrow">
+  <head>
+    <!--
+    ===============================================================================
+    Application: {{ constant('APP_NAME') }} {{ constant('APP_VER') }}
+    Author:      {{ constant('APP_AUTHOR') }}
+    License:     {{ constant('APP_LICENSE') }}
+    Copyright:   {{ constant('APP_COPYRIGHT') }}
+                  All rights reserved.
+    ===============================================================================
+    -->
+
+    <title>{{ htmlData.title }}</title>
+
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link
+    rel="shortcut icon" href="public/images/icons/tcn-icon-16.png">
+
+    <!-- Robots -->
+    <meta name="robots" content="{{ htmlData.robots }}">
+
+    {% if not C.read('noIndex') %}
+      <!-- SEO -->
+      <link rel="canonical" href="{{ constant('WEBSITE_URL') }}">
+      <meta name="description" content="{{ htmlData.description }}">
+      <meta name="keywords" content="{{ htmlData.keywords }}">
+
+      <meta property="og:locale" content="{{ htmlData.locale }}">
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="{{ htmlData.title }}">
+      <meta property="og:description" content="{{ htmlData.description }}">
+      <meta property="og:url" content="{{ constant('WEBSITE_URL') }}">
+      <meta property="og:site_name" content="{{ htmlData.title }}">
+      <meta property="og:image" content="{{ constant('WEBSITE_URL') }}public/images/og-image.png">
+
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:title" content="{{ htmlData.title }}">
+      <meta name="twitter:description" content="{{ htmlData.description }}">
+      <meta name="twitter:image" content="{{ constant('WEBSITE_URL') }}public/images/twitter-image.png">
+    {% endif %}
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="public/themes/bootstrap/{{ constant('BOOTSTRAP_VER')}}/css/bootstrap.min.css">
+
+    {% if C.read('font') and C.read('font') != 'default' %}
+      <link rel="stylesheet" href="public/css/font-{{ C.read('font') }}.min.css">
+    {% endif %}
+    <link
+    rel="stylesheet" href="public/css/font-robotomono.min.css">
+
+    <!-- Bootstrap Icons -->
+    <link
+    rel="stylesheet" href="public/addons/bootstrap-icons-{{ constant('BOOTSTRAP_ICONS_VER') }}/bootstrap-icons.min.css">
+
+    <!-- Font Awesome -->
+    {% if htmlData.faCDN %}
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/{{ constant('FONTAWESOME_VER') }}/css/all.min.css">
+    {% else %}
+      <link rel="stylesheet" href="public/fonts/font-awesome/{{ constant('FONTAWESOME_VER') }}/css/all.min.css">
+    {% endif %}
+
+    <!-- jQuery -->
+    {% if htmlData.jQueryCDN %}
+      <script src="https://code.jquery.com/jquery-{{ constant('JQUERY_VER') }}.min.js"></script>
+      <script src="https://code.jquery.com/ui/{{ constant('JQUERY_UI_VER') }}/jquery-ui.min.js"></script>
+      <link rel="stylesheet" href="https://code.jquery.com/ui/{{ constant('JQUERY_UI_VER') }}/themes/{{ htmlData.jQueryTheme }}/jquery-ui.min.css">
+    {% else %}
+      <script src="public/js/jquery/jquery-{{ constant('JQUERY_VER') }}.min.js"></script>
+      <script src="public/js/jquery/ui/{{ constant('JQUERY_UI_VER') }}/jquery-ui.min.js"></script>
+      <link rel="stylesheet" href="public/js/jquery/ui/{{ constant('JQUERY_UI_VER') }}/themes/{{ htmlData.jQueryTheme }}/jquery-ui.min.css">
+    {% endif %}
+
+    <!-- TeamCalNeo CSS -->
+    <link
+    rel="stylesheet" href="public/css/teamcalneo.min.css">
+
+    <!-- Coloris picker -->
+    <link rel="stylesheet" href="public/addons/coloris/{{ constant('COLORIS_VER') }}/dist/coloris.min.css">
+    <script src="public/addons/coloris/{{ constant('COLORIS_VER') }}/dist/coloris.min.js"></script>
+
+    <!-- Bootstrap Color Mode Switcher -->
+    <script src="public/js/color-modes.min.js"></script>
+
+    <!-- Colorpicker -->
+    <link rel="stylesheet" media="screen" type="text/css" href="public/js/colorpicker/css/colorpicker.min.css">
+    <script src="public/js/colorpicker/js/colorpicker.min.js"></script>
+
+    <!-- Datatables -->
+    <link href="public/addons/datatables/{{ constant('DATATABLES_VER') }}/datatables.min.css" rel="stylesheet">
+
+    {% if constant('MAGNIFICPOPUP') %}
+      <!-- Magnific Popup -->
+      <link rel="stylesheet" href="public/addons/magnific/{{ constant('MAGNIFICPOPUP_VER') }}/magnific-popup.css" type="text/css">
+      <script src="public/addons/magnific/{{ constant('MAGNIFICPOPUP_VER') }}/jquery.magnific-popup.min.js"></script>
+    {% endif %}
+
+    {% if constant('SYNTAXHIGHLIGHTER') %}
+      <!-- Syntax Highlighter -->
+      <link rel="stylesheet" href="public/addons/syntaxhighlighter/styles/shCore.css" type="text/css">
+      <link rel="stylesheet" href="public/addons/syntaxhighlighter/styles/shThemeDefault.css" type="text/css">
+      <script src="public/addons/syntaxhighlighter/scripts/shCore.js"></script>
+      <script src="public/addons/syntaxhighlighter/scripts/shAutoloader.js"></script>
+    {% endif %}
+
+    {% if htmlData.cookieConsent %}
+      <!-- Cookie Consent -->
+      {% if htmlData.cookieConsentCDN %}
+        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/{{ constant('COOKIECONSENT_VER') }}/cookieconsent.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/{{ constant('COOKIECONSENT_VER') }}/cookieconsent.min.js"></script>
+      {% else %}
+        <link rel="stylesheet" type="text/css" href="public/addons/cookieconsent2/{{ constant('COOKIECONSENT_VER') }}/cookieconsent.min.css">
+        <script src="public/addons/cookieconsent2/{{ constant('COOKIECONSENT_VER') }}/cookieconsent.min.js"></script>
+      {% endif %}
+      <script>
+        window.addEventListener("load", function () {
+          window.cookieconsent.initialise({
+            "cookie": {
+              "name": "tcneo_cookieconsent"
+            },
+            "palette": {
+              "popup": {
+                "background": "#252e39"
+              },
+              "button": {
+                "background": "#14a7d0"
+              }
+            },
+            "theme": "classic",
+            "content": {
+              "message": "{{ LANG.cookie_message }}",
+              "link": "{{ LANG.cookie_learnMore }}",
+              "dismiss": "{{ LANG.cookie_dismiss }}",
+              "href": "index.php?action=dataprivacy"
+            }
+          })
+        });
+      </script>
+    {% endif %}
+
+    {% if C.read('googleAnalytics') and C.read('googleAnalyticsID') %}
+      <!-- Google Analytics (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id={{ C.read('googleAnalyticsID') }}"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', '{{ C.read('googleAnalyticsID') }}');
+      </script>
+    {% endif %}
+
+    {% if C.read('matomoAnalytics') and C.read('matomoUrl') and C.read('matomoSiteId') %}
+      <!-- Matomo Analytics -->
+      <script>
+        var _paq = window._paq = window._paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function () {
+          var u = "//   {{ C.read('matomoUrl') }}/";
+          _paq.push([
+            'setTrackerUrl',
+            u + 'matomo.php'
+          ]);
+          _paq.push(['setSiteId', '{{ C.read('matomoSiteId') }}']);
+          var d = document,
+            g = d.createElement('script'),
+            s = d.getElementsByTagName('script')[0];
+          g.async = true;
+          g.src = u + 'matomo.js';
+          s.parentNode.insertBefore(g, s);
+        })();
+      </script>
+    {% endif %}
+
+    {# Include other CSS/JS as needed #}
+
+    {% block stylesheets %}{% endblock %}
+
+  </head>
+  <body>
+
+    <!-- Back to Top -->
+    <a id="top-link-block">
+      <i class="fas fa-chevron-up fa-2x text-white"></i>
+    </a>
+
+    {# Menu/Navbar #}
+    {% include 'menu.twig' ignore missing %}
+    {# Note: navbar.twig currently acts as menu.php #}
+
+    {% block content %}{% endblock %}
+    
+    {# Footer #}
+    <footer class="footer fs-small">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-3 text-start">
+            <ul class="list-unstyled">
+              {% set footerCopyright = "" %}
+              {% if C.read('footerCopyright') %}
+                {% set footerCopyright = "&copy; " ~ "now"|date("Y") ~ " by " %}
+                {% if C.read('footerCopyrightUrl') %}
+                  {% set footerCopyright = footerCopyright ~ '<a href="' ~ C.read('footerCopyrightUrl') ~ '" target="_blank">' ~ C.read('footerCopyright') ~ '</a>' %}
+                {% else %}
+                  {% set footerCopyright = footerCopyright ~ C.read('footerCopyright') %}
+                {% endif %}
+              {% endif %}
+              <li class="text-muted fs-small">{{ footerCopyright|raw }}</li>
+            </ul>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6 text-center">
+            <ul class="list-unstyled">
+              <li class="text-muted size">
+                <a href="index.php?action=about">{{ LANG.footer_about }}</a>
+                |
+                <a href="index.php?action=imprint">{{ LANG.footer_imprint }}</a>
+                |
+                <a href="index.php?action=dataprivacy">{{ LANG.footer_dataprivacy }}</a>
+              </li>
+              <li class="text-muted fst-italic fs-small mt-1">{{ constant('APP_POWERED')|raw }}</li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-3 col-sm-3 text-end">
+            {% if C.read('footerSocialLinks') %}
+              {% set socialLinksArray = C.read('footerSocialLinks')|split(';') %}
+              {% for url in socialLinksArray %}
+                {% if url|length %}
+                  <span class="social-icon">
+                    <a href="{{ url }}" target="_blank" rel="noopener">
+                      <i class="fab fa-lg"></i>
+                    </a>
+                  </span>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+    </footer>
+    </main>
+
+    <!-- Bootstrap Javascript -->
+    <script src="public/themes/bootstrap/{{ constant('BOOTSTRAP_VER') }}/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="public/addons/datatables/{{ constant('DATATABLES_VER') }}/datatables.min.js"></script>
+
+    <!-- TeamCal Neo Width Mode Switcher -->
+    <script src="public/js/width-modes.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        {% if constant('MAGNIFICPOPUP') %}
+          $('.image-popup').magnificPopup({
+            type: 'image',
+            closeOnContentClick: true,
+            closeBtnInside: false,
+            fixedContentPos: true,
+            mainClass: 'mfp-no-margins mfp-with-zoom',
+            image: {
+              verticalFit: true
+            },
+            zoom: {
+              enabled: true,
+              duration: 300
+            }
+          });
+          $('.image-popup-vertical-fit').magnificPopup({
+            type: 'image',
+            closeOnContentClick: true,
+            mainClass: 'mfp-img-mobile',
+            image: {
+              verticalFit: true
+            }
+          });
+          $('.image-popup-fit-width').magnificPopup({
+            type: 'image',
+            closeOnContentClick: true,
+            image: {
+              verticalFit: false
+            }
+          });{% endif %}$('[data-bs-toggle="tooltip"]').each(function () {
+          try {
+            var options = {
+              html: true
+            };
+            if ($(this)[0].hasAttribute('data-type')) {
+              options['template'] = '<div class="tooltip ' + $(this).attr('data-type') + '" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>';
+            }
+            $(this).tooltip(options);
+          } catch (e) {
+            console.warn('Tooltip initialization error:', e);
+          }
+        });
+
+        //
+        // Focus search input when Search User modal is shown in calendarview
+        //
+        $('#modalSearchUser').on('shown.bs.modal', function () {
+          $('#searchUser').focus();
+        });
+
+        //
+        // Submit search when Enter key is pressed in search input
+        //
+        $('#searchUser').on('keypress', function (e) {
+          if (e.which == 13) {
+            $(this).closest('.modal').find('button[name="btn_search"]').click();
+            return false;
+          }
+        });
+
+        var btn = $('#top-link-block');
+        $(window).scroll(function () {
+          if ($(window).scrollTop() > 400) {
+            btn.addClass('show');
+          } else {
+            btn.removeClass('show');
+          }
+        });
+        btn.on('click', function (e) {
+          e.preventDefault();
+          $('html, body').animate({
+            scrollTop: 0
+          }, '400');
+        });
+      });
+    </script>
+
+    {% block javascripts %}{% endblock %}
+
+  </body>
+</html>

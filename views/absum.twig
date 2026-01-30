@@ -1,0 +1,118 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+  <div class="container content">
+
+    <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action={{ controller }}&amp;user={{ username }}" method="post" target="_self" accept-charset="utf-8">
+      <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+      <div class="page-menu">
+        <button type="button" class="btn btn-success" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalSelectUser">{{ LANG.user }}
+          <span class="badge text-bg-light">{{ fullname }}</span>
+        </button>
+        {% if not currentYearOnly %}
+          <button type="button" class="btn btn-primary" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalYear">{{ LANG.year }}
+            <span class="badge text-bg-light">{{ year }}</span>
+          </button>
+        {% endif %}
+      </div>
+      <div style="height:20px;"></div>
+
+      <div class="card">
+        {% if CONF.allConfig.pageHelp %}
+          {% set pageHelp = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+        {% else %}
+          {% set pageHelp = '' %}
+        {% endif %}
+        <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+          <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+          {{ LANG.absum_title|replace({'%1$s': year, '%2$s': fullname}) }}{{ pageHelp|raw }}</div>
+        <div class="card-body">
+
+          <table id="dataTableAbsenceSummary" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+            <thead>
+              <tr>
+                <th>{{ LANG.absum_absencetype }}</th>
+                <th class="text-end">{{ LANG.absum_contingent }}&nbsp;{{ createIconTooltip(LANG.absum_contingent_tt, 'bottom') }}</th>
+                <th class="text-end">{{ LANG.absum_taken }}</th>
+                <th class="text-end">{{ LANG.absum_remainder }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for abs in absences %}
+                {% if not abs.counts_as %}
+                  <tr>
+                    <td>
+                      <i class="{{ abs.icon }}" {{ ("style='color: #" ~ abs.color ~ "; background-color: #" ~ abs.bgcolor ~ "; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;'")|raw }}></i>
+                      {{ abs.name }}
+                    </td>
+                    <td class=" text-end">{{ abs.contingent }}
+                    </td>
+                    <td class="text-end {{ (abs.allowance matches '/^\\d+$/' and abs.taken|number_format > abs.allowance|number_format) ? 'text-warning' : '' }}">{{ abs.taken }}</td>
+                    <td class="text-end {{ (abs.allowance matches '/^\\d+$/' and abs.remainder|number_format < 0) ? 'text-danger' : 'text-success' }}">{{ abs.remainder }}</td>
+                  </tr>
+                  {% if abs.subabsences is not empty %}
+                    {% for subabs in abs.subabsences %}
+                      <tr>
+                        <td>
+                          <i class="{{ abs.icon }}" {{ ("style='color: #" ~ abs.color ~ "; background-color: #" ~ abs.bgcolor ~ "; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;'")|raw }}></i>
+                          {{ abs.name }}
+                          <i class=" fas fa-angle-double-right mx-2"></i>
+                          <i class="{{ subabs.icon }}" {{ ("style='color: #" ~ subabs.color ~ "; background-color: #" ~ subabs.bgcolor ~ "; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 6px 4px 3px 4px; margin-right: 8px;'")|raw }}></i>
+                          {{ subabs.name }}
+                        </td>
+                        <td class=" text-end text-italic">{{ subabs.contingent }}
+                        </td>
+                        <td class="text-end text-italic {{ (subabs.allowance matches '/^\\d+$/' and subabs.taken|number_format > subabs.allowance|number_format) ? 'text-warning' : '' }}">{{ subabs.taken }}</td>
+                        <td class="text-end text-italic {{ (subabs.allowance matches '/^\\d+$/' and subabs.remainder|number_format < 0) ? 'text-danger' : 'text-success' }}">{{ subabs.remainder }}</td>
+                      </tr>
+                    {% endfor %}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+          <script>
+            $(document).ready(function () {
+              $('#dataTableAbsenceSummary').DataTable({
+                paging: true,
+                ordering: true,
+                info: true,
+                pageLength: 50,
+                language: {
+                  url: 'public/addons/datatables/datatables.{{ LANG.locale }}.json'
+                }
+              });
+            });
+          </script>
+
+        </div>
+      </div>
+
+      <!-- Modal: Select User -->
+      {{ createModalTop('modalSelectUser', LANG.caledit_selUser) }}
+      <select class="form-select" name="sel_user" tabindex="{{ nextTabindex() }}">
+        {% for usr in users %}
+          <option value="{{ usr.username }}" {{ (username==usr.username) ? 'selected' : '' }}>{{ usr.lastfirst }}</option>
+        {% endfor %}
+      </select>
+      {{ createModalBottom('btn_user', 'success', LANG.btn_select) }}
+
+      <!-- Modal: Year -->
+      {{ createModalTop('modalYear', LANG.absum_modalYearTitle) }}
+      <div>
+        <span class="text-bold">{{ LANG.absum_year }}</span><br>
+        <span class="text-normal">{{ LANG.absum_year_comment }}</span>
+        <select class="form-select" id="sel_year" name="sel_year" tabindex="{{ nextTabindex() }}">
+          {% set currentYear = "now"|date("Y") %}
+          <option value="{{ currentYear - 1 }}" {{ (year==currentYear - 1) ? "selected" : "" }}>{{ currentYear - 1 }}</option>
+          <option value="{{ currentYear }}" {{ (year==currentYear) ? "selected" : "" }}>{{ currentYear }}</option>
+          <option value="{{ currentYear + 1 }}" {{ (year==currentYear + 1) ? "selected" : "" }}>{{ currentYear + 1 }}</option>
+        </select><br>
+      </div>
+      {{ createModalBottom('btn_year', 'success', LANG.btn_select) }}
+
+    </form>
+
+  </div>
+{% endblock %}

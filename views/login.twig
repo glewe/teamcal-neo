@@ -1,0 +1,62 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+  <div class="container content">
+    <div class="row">
+
+      <div class="col-lg-3"></div>
+
+      <div class="col-lg-6">
+        {{ alertHtml|raw }}
+
+        <div class="card">
+          <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+            <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+            {{ LANG.login_login }}</div>
+          <div class="card-body">
+            <div class="col-lg-12">
+              <form id="login" action="index.php?action={{ controller }}" method="post" target="_self" name="loginform" accept-charset="utf-8">
+                <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+                <fieldset>
+                  <div class="form-group row mb-3" style="padding-bottom: 12px;">
+                    <label for="inputUsername" class="col-lg-5 control-label">{{ LANG.login_username }}</label>
+                    <div class="col-lg-7">
+                      {% set tabindex = tabindex + 1 %}
+                      <input id="inputUsername" class="form-control" tabindex="{{ tabindex }}" autofocus="autofocus" name="uname" type="text" value="{{ uname }}">
+                    </div>
+                  </div>
+                  <div class="form-group row" style="padding-bottom: 12px;">
+                    <label for="pword" class="col-lg-5 control-label">{{ LANG.login_password }}</label>
+                    <div class="col-lg-7">
+                      {% set tabindex = tabindex + 1 %}
+                      <input class="form-control" id="pword" tabindex="{{ tabindex }}" name="pword" type="password" autocomplete="off">
+                    </div>
+                  </div>
+                  <hr>
+
+                  <!-- 2FA code input removed for new 2-step flow -->
+
+                  <div class="form-group row">
+                    <label for="inputSubmit" class="col-lg-5 control-label"></label>
+                    <div class="col-lg-7">
+                      {% set tabindex = tabindex + 1 %}
+                      <input id="inputSubmit" name="btn_login" tabindex="{{ tabindex }}" type="text" value="true" style="visibility: hidden; display: none">
+                      {% set tabindex = tabindex + 1 %}
+                      <button type="submit" class="btn btn-primary" tabindex="{{ tabindex }}" name="submit">{{ LANG.btn_login }}</button>
+                      {% set tabindex = tabindex + 1 %}
+                      <a href="index.php?action=passwordrequest" class="btn btn-secondary float-end" tabindex="{{ tabindex }}">{{ LANG.btn_reset_password }}</a>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3"></div>
+
+    </div>
+  </div>
+{% endblock %}

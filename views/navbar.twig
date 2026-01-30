@@ -1,0 +1,534 @@
+<!-- ====================================================================
+view.navbar
+-->
+<nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a href="{{ constant('WEBSITE_URL') }}" class="navbar-brand" style="padding: 2px 8px 0 8px;">
+      <i class="bi-calendar-week logo-gradient" style="font-size: larger;"></i>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTop">
+      <ul
+        class="navbar-nav">
+
+        <!-- App Menu -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="app" aria-haspopup="true" aria-expanded="false">{{ C.read("appTitle") }}</a>
+          <div class="dropdown-menu" aria-labelledby="app">
+            <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.home.name }}">
+              <span class="menu-icon">
+                <i class="{{ CONF.controllers.home.faIcon }} fa-lg text-{{ CONF.controllers.home.iconColor }} me-3"></i>
+              </span>
+              {{ LANG.mnu_app_homepage }}
+            </a>
+            {% if userData.isLoggedIn %}
+              <div class="dropdown-divider"></div>
+              {% for appLang in appLanguages %}
+                <a class="dropdown-item" href="index.php?{{ session.query_string|default('') }}&amp;applang={{ appLang }}">
+                  <span class="menu-icon">
+                    <i class="bi-translate"></i>
+                  </span>
+                  {{ appLang|capitalize }}
+                  {% if appLang == language %}
+                    <i class="fa fa-check ms-2 text-success"></i>
+                  {% endif %}
+                </a>
+              {% endfor %}
+            {% endif %}
+          </div>
+        </li>
+
+        <!-- View Menu -->
+        {% if (isAllowed(CONF.controllers.messages.permission) and C.read('activateMessages')) or
+          isAllowed(CONF.controllers.calendarview.permission) or
+          isAllowed(CONF.controllers.year.permission) or
+          isAllowed(CONF.controllers.remainder.permission) or
+          isAllowed(CONF.controllers.statsabsence.permission) or
+          isAllowed(CONF.controllers.statsabstype.permission) or
+          isAllowed(CONF.controllers.statspresence.permission) or
+          isAllowed(CONF.controllers.statspresencetype.permission) or
+          isAllowed(CONF.controllers.statsremainder.permission) or
+          isAllowed(CONF.controllers.absum.permission)
+        %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="view" aria-haspopup="true" aria-expanded="false">{{ LANG.mnu_view }}<span class="caret"></span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="view">
+              {% if isAllowed(CONF.controllers.calendarview.permission) %}
+                {% set urlparams = "" %}
+                {% if controller != 'logout' %}
+                  {% set urlparams = UO.read(userData.username, 'calfilter') %}
+                {% endif %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.calendarview.name ~ urlparams }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.calendarview.faIcon }} fa-lg text-{{ CONF.controllers.calendarview.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_view_calendar }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.year.permission) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.year.name }}&amp;year={{ " now"|date(" Y") }}&amp;region=1&amp;user={{ userData.username }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.year.faIcon }} fa-lg text-{{ CONF.controllers.year.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_view_year }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.absum.permission) %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.absum.name }}&amp;user={{ userData.username }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.absum.faIcon }} fa-lg text-{{ CONF.controllers.absum.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_view_stats_absum }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.remainder.permission) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.remainder.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.remainder.faIcon }} fa-lg text-{{ CONF.controllers.remainder.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_view_remainder }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.messages.permission) and C.read('activateMessages') %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.messages.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.messages.faIcon }} fa-lg text-{{ CONF.controllers.messages.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_view_messages }}
+                </a>
+              {% endif %}
+              {% if 
+                isAllowed(CONF.controllers.statsabsence.permission) or
+                isAllowed(CONF.controllers.statspresence.permission) or
+                isAllowed(CONF.controllers.statsabstype.permission) or
+                isAllowed(CONF.controllers.statspresencetype.permission) or
+                isAllowed(CONF.controllers.statsremainder.permission)
+              %}
+                <div class="dropdown-divider"></div>
+                <div class="dropend">
+                  <a class="dropdown-item dropdown-toggle" href="#" id="statisticsSubmenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="menu-icon">
+                      <i class="bi-bar-chart-fill fa-lg text-{{ CONF.menuIconColor }}"></i>
+                    </span>
+                    {{ LANG.mnu_view_stats }}
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="statisticsSubmenu">
+                    {% if isAllowed(CONF.controllers.statsabsence.permission) %}
+                      <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.statsabsence.name }}">
+                        <span class="menu-icon">
+                          <i class="{{ CONF.controllers.statsabsence.faIcon }} fa-lg text-{{ CONF.controllers.statsabsence.iconColor }}"></i>
+                        </span>
+                        {{ LANG.mnu_view_stats_absences }}
+                      </a>
+                    {% endif %}
+                    {% if isAllowed(CONF.controllers.statsabstype.permission) %}
+                      <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.statsabstype.name }}">
+                        <span class="menu-icon">
+                          <i class="{{ CONF.controllers.statsabstype.faIcon }} fa-lg text-{{ CONF.controllers.statsabstype.iconColor }}"></i>
+                        </span>
+                        {{ LANG.mnu_view_stats_abstype }}
+                      </a>
+                    {% endif %}
+                    {% if isAllowed(CONF.controllers.statspresence.permission) %}
+                      <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.statspresence.name }}">
+                        <span class="menu-icon">
+                          <i class="{{ CONF.controllers.statspresence.faIcon }} fa-lg text-{{ CONF.controllers.statspresence.iconColor }}"></i>
+                        </span>
+                        {{ LANG.mnu_view_stats_presences }}
+                      </a>
+                    {% endif %}
+                    {% if isAllowed(CONF.controllers.statspresencetype.permission) %}
+                      <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.statspresencetype.name }}">
+                        <span class="menu-icon">
+                          <i class="{{ CONF.controllers.statspresencetype.faIcon }} fa-lg text-{{ CONF.controllers.statspresencetype.iconColor }}"></i>
+                        </span>
+                        {{ LANG.mnu_view_stats_presencetype }}
+                      </a>
+                    {% endif %}
+                    {% if isAllowed(CONF.controllers.statsremainder.permission) %}
+                      <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.statsremainder.name }}">
+                        <span class="menu-icon">
+                          <i class="{{ CONF.controllers.statsremainder.faIcon }} fa-lg text-{{ CONF.controllers.statsremainder.iconColor }}"></i>
+                        </span>
+                        {{ LANG.mnu_view_stats_remainder }}
+                      </a>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          </li>
+        {% endif %}
+
+        <!-- Edit Menu -->
+        {% if 
+          isAllowed(CONF.controllers.calendaredit.permission) or
+          isAllowed(CONF.controllers.monthedit.permission) or
+          isAllowed(CONF.controllers.messageedit.permission) or
+          isAllowed(CONF.controllers.attachments.permission)
+        %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="tools" aria-haspopup="true" aria-expanded="false">{{ LANG.mnu_edit }}<span class="caret"></span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="tools">
+              {% if isAllowed(CONF.controllers.calendaredit.permission) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.calendaredit.name }}&amp;month={{ " now"|date(" Ym") }}&amp;region=1&amp;user={{ userData.username }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.calendaredit.faIcon }} fa-lg text-{{ CONF.controllers.calendaredit.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_edit_calendaredit }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.monthedit.permission) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.monthedit.name }}&amp;month={{ " now"|date(" Ym") }}&amp;region=1">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.monthedit.faIcon }} fa-lg text-{{ CONF.controllers.monthedit.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_edit_monthedit }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.messageedit.permission) and C.read('activateMessages') %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.messageedit.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.messageedit.faIcon }} fa-lg text-{{ CONF.controllers.messageedit.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_edit_messageedit }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.attachments.permission) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.attachments.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.attachments.faIcon }} fa-lg text-{{ CONF.controllers.attachments.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_edit_attachments }}
+                </a>
+              {% endif %}
+            </div>
+          </li>
+        {% endif %}
+      </ul>
+
+      <ul
+        class="navbar-nav ms-auto">
+
+        <!-- Width Menu -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="width" aria-haspopup="true" data-bs-target="#widthmode" aria-expanded="false" aria-controls="widthmode">
+            <i class="bi-fullscreen-exit width-icon-active"></i>
+            <span class="caret"></span>
+          </a>
+          <div id="widthmode" class="dropdown-menu" aria-labelledby="width" data-bs-parent="#navbar">
+            <a class="dropdown-item" href="#" data-width-value="narrow">
+              <span class="menu-icon">
+                <i class="bi-fullscreen-exit me-3 text-{{ CONF.menuIconColor }}"></i>
+              </span>
+              {{ LANG.mnu_width_narrow }}
+            </a>
+            <a class="dropdown-item" href="#" data-width-value="wide">
+              <span class="menu-icon">
+                <i class="bi-fullscreen me-3 text-{{ CONF.menuIconColor }}"></i>
+              </span>
+              {{ LANG.mnu_width_wide }}
+            </a>
+          </div>
+        </li>
+
+        <!-- Theme Menu -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="theme" aria-haspopup="true" data-bs-target="#darkmode" aria-expanded="false" aria-controls="darkmode">
+            <i class="bi bi-moon-stars-fill theme-icon-active"></i>
+            <span class="caret"></span>
+          </a>
+          <div id="darkmode" class="dropdown-menu" aria-labelledby="theme" data-bs-parent="#navbar">
+            <a class="dropdown-item" href="#" data-bs-theme-value="light">
+              <span class="menu-icon">
+                <i class="bi bi-sun-fill me-3 text-{{ CONF.menuIconColor }}"></i>
+              </span>
+              {{ LANG.mnu_theme_light }}
+            </a>
+            <a class="dropdown-item" href="#" data-bs-theme-value="dark">
+              <span class="menu-icon">
+                <i class="bi bi-moon-stars-fill me-3 text-{{ CONF.menuIconColor }}"></i>
+              </span>
+              {{ LANG.mnu_theme_dark }}
+            </a>
+            <a class="dropdown-item" href="#" data-bs-theme-value="auto">
+              <span class="menu-icon">
+                <i class="bi bi-circle-half me-3 text-{{ CONF.menuIconColor }}"></i>
+              </span>
+              {{ LANG.mnu_theme_auto }}
+            </a>
+          </div>
+        </li>
+
+        <!-- Admin Menu -->
+        {% if 
+          isAllowed(CONF.controllers.config.permission) or
+          isAllowed(CONF.controllers.calendaroptions.permission) or
+          isAllowed(CONF.controllers.permissions.permission) or
+          isAllowed(CONF.controllers.userlist.permission) or
+          isAllowed(CONF.controllers.groups.permission) or UG.isGroupManager(userData.username) or
+          isAllowed(CONF.controllers.roles.permission) or
+          isAllowed(CONF.controllers.database.permission) or
+          isAllowed(CONF.controllers.log.permission) or
+          isAllowed(CONF.controllers.phpinfo.permission) or
+          isAllowed(CONF.controllers.absences.permission) or
+          isAllowed(CONF.controllers.holidays.permission) or
+          isAllowed(CONF.controllers.patterns.permission) or
+          isAllowed(CONF.controllers.regions.permission) or
+          isAllowed(CONF.controllers.declination.permission) or
+          isAllowed(CONF.controllers.bulkedit.permission)
+        %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="admin" aria-haspopup="true" aria-expanded="false">{{ LANG.mnu_admin }}<span class="caret"></span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="admin">
+              {% if isAllowed(CONF.controllers.config.permission) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.config.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.config.faIcon }} fa-lg text-{{ CONF.controllers.config.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_admin_config }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.calendaroptions.permission) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.calendaroptions.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.calendaroptions.faIcon }} fa-lg text-{{ CONF.controllers.calendaroptions.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_admin_calendaroptions }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.permissions.permission) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.permissions.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.permissions.faIcon }} fa-lg text-{{ CONF.controllers.permissions.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_admin_perm }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.userlist.permission) %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.userlist.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.userlist.faIcon }} fa-lg text-{{ CONF.controllers.userlist.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_admin_users }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.groups.permission) or UG.isGroupManager(userData.username) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.groups.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.groups.faIcon }} fa-lg text-{{ CONF.controllers.groups.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_admin_groups }}</a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.roles.permission) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.roles.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.roles.faIcon }} fa-lg text-{{ CONF.controllers.roles.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_admin_roles }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.absences.permission) %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.absences.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.absences.faIcon }} fa-lg text-{{ CONF.controllers.absences.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_admin_absences }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.patterns.permission) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.patterns.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.patterns.faIcon }} fa-lg text-{{ CONF.controllers.patterns.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_admin_patterns }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.holidays.permission) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.holidays.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.holidays.faIcon }} fa-lg text-{{ CONF.controllers.holidays.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_admin_holidays }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.regions.permission) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.regions.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.regions.faIcon }} fa-lg text-{{ CONF.controllers.regions.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_admin_regions }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.declination.permission) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.declination.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.declination.faIcon }} fa-lg text-{{ CONF.controllers.declination.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_admin_declination }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.bulkedit.permission) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.bulkedit.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.bulkedit.faIcon }} fa-lg text-{{ CONF.controllers.bulkedit.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_admin_bulkedit }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.database.permission) %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.database.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.database.faIcon }} fa-lg text-{{ CONF.controllers.database.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_admin_database }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.log.permission) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.log.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.log.faIcon }} fa-lg text-{{ CONF.controllers.log.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_admin_systemlog }}
+                </a>
+              {% endif %}
+              {% if isAllowed(CONF.controllers.phpinfo.permission) %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.phpinfo.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.phpinfo.faIcon }} fa-lg text-{{ CONF.controllers.phpinfo.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_admin_phpinfo }}
+                </a>
+              {% endif %}
+            </div>
+          </li>
+        {% endif %}
+
+        <!-- Help Menu -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="help" aria-haspopup="true" aria-expanded="false">{{ LANG.mnu_help }}<span class="caret"></span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="help">
+            {% if C.read("userManual") %}
+              <a class="dropdown-item" tabindex="-1" href="{{ C.read("userManual")|url_decode }}" target="_blank" rel="noopener">
+                <span class="menu-icon">
+                  <i class="fas fa-book fa-lg text-{{ CONF.menuIconColor }}"></i>
+                </span>
+                {{ LANG.mnu_help_help }}
+              </a>
+              <div class="dropdown-divider"></div>
+            {% endif %}
+            {% if C.read("gdprPolicyPage") %}
+              <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.dataprivacy.name }}">
+                <span class="menu-icon">
+                  <i class="{{ CONF.controllers.dataprivacy.faIcon }} fa-lg text-{{ CONF.controllers.dataprivacy.iconColor }}"></i>
+                </span>
+                {{ LANG.mnu_help_dataprivacy }}
+              </a>
+            {% endif %}
+            <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.imprint.name }}">
+              <span class="menu-icon">
+                <i class="{{ CONF.controllers.imprint.faIcon }} fa-lg text-{{ CONF.controllers.imprint.iconColor }}"></i>
+              </span>
+              {{ LANG.mnu_help_imprint }}
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.about.name }}">
+              <span class="menu-icon">
+                <i class="{{ CONF.controllers.about.faIcon }} fa-lg text-{{ CONF.controllers.about.iconColor }}"></i>
+              </span>
+              {{ LANG.mnu_help_about }}
+            </a>
+          </div>
+        </li>
+
+        <!-- User Menu -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="user" aria-haspopup="true" aria-expanded="false">
+            <img src="{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ userData.avatar }}" width="40" height="40" alt="" style="margin: -10px 0 -10px 0;"><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="user">
+            <a class="dropdown-item" tabindex="-1" href="#">{{ userData.loginInfo|raw }}</a>
+            <div class="dropdown-divider"></div>
+            {% if userData.isLoggedIn %}
+              <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.useredit.name }}&amp;profile={{ userData.username }}">
+                <span class="menu-icon">
+                  <i class="{{ CONF.controllers.useredit.faIcon }} fa-lg text-{{ CONF.controllers.useredit.iconColor }}"></i>
+                </span>
+                {{ LANG.mnu_user_profile }}
+              </a>
+              <a class="dropdown-item" tabindex="-1" href="index.php?action=logout">
+                <span class="menu-icon">
+                  <i class="{{ CONF.controllers.logout.faIcon }} fa-lg text-{{ CONF.menuIconColor }}"></i>
+                </span>
+                {{ LANG.mnu_user_logout }}
+              </a>
+            {% else %}
+              <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.login.name }}">
+                <span class="menu-icon">
+                  <i class="{{ CONF.controllers.login.faIcon }} fa-lg text-{{ CONF.controllers.login.iconColor }}"></i>
+                </span>
+                {{ LANG.mnu_user_login }}
+              </a>
+              {% if C.read("allowRegistration") %}
+                <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.register.name }}">
+                  <span class="menu-icon">
+                    <i class="{{ CONF.controllers.register.faIcon }} fa-lg text-{{ CONF.controllers.register.iconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_user_register }}
+                </a>
+              {% endif %}
+            {% endif %}
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<script>
+  // Handle nested dropdown menus
+  document.addEventListener('DOMContentLoaded', function() {
+    const dropendToggles = document.querySelectorAll('.dropdown-menu .dropend .dropdown-toggle');
+    
+    dropendToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const dropendMenu = this.nextElementSibling;
+        const isShown = dropendMenu.classList.contains('show');
+        
+        // Close all other nested dropdowns
+        document.querySelectorAll('.dropdown-menu .dropend .dropdown-menu.show').forEach(function(menu) {
+          menu.classList.remove('show');
+        });
+        
+        // Toggle this dropdown
+        if (!isShown) {
+          dropendMenu.classList.add('show');
+        }
+      });
+    });
+    
+    // Close nested dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.dropend')) {
+        document.querySelectorAll('.dropdown-menu .dropend .dropdown-menu.show').forEach(function(menu) {
+          menu.classList.remove('show');
+        });
+      }
+    });
+  });
+</script>
