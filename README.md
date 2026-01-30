@@ -9,7 +9,6 @@
 [![JS](https://img.shields.io/badge/Language-JavaScript-f1e05a.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![HTML](https://img.shields.io/badge/Language-HTML5-e34c26.svg)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS](https://img.shields.io/badge/Language-CSS3-563d7c.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![Responsive](https://img.shields.io/badge/Responsive-Yes-44cc11.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=glewe_teamcal-neo&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=glewe_teamcal-neo)
 [![Dependabot](https://img.shields.io/badge/dependabot-enabled-025e86.svg?logo=dependabot)](https://github.com/glewe/teamcal-neo/network/updates)
@@ -60,6 +59,10 @@ TeamCal Neo 5.0.0 is a new major release. The application has been completely re
 [Lewe Service Desk](https://georgelewe.atlassian.net/servicedesk/customer/portal/5) (e.g. License requests, support requests)
 
 [GitHub Issues](https://github.com/glewe/teamcal-neo/issues) (e.g. Bug reports, feature and improvement requests)
+
+## Releases
+
+[TeamCal Neo Releases](https://github.com/glewe/teamcal-neo/releases)
   
 <br/>
 
