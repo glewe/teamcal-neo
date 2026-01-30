@@ -84,7 +84,11 @@ class Setup2faController extends BaseController
           $secret = $_POST['hidden_s'];
           $totp   = $_POST['txt_totp'];
           if ($tfa->verifyCode($secret, $totp)) {
-            $this->UO->save($profile, 'secret', openssl_encrypt($secret, "AES-128-ECB", APP_LIC_KEY));
+            $ivLen      = openssl_cipher_iv_length('AES-256-CBC');
+            $iv         = random_bytes($ivLen);
+            $key        = hash('sha256', APP_LIC_KEY, true);
+            $ciphertext = openssl_encrypt($secret, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
+            $this->UO->save($profile, 'secret', 'v2:' . base64_encode($iv . $ciphertext));
             $this->LOG->logEvent("logUser", $this->UL->username, "log_user_updated", $UP->username);
             $this->L->logout();
             $this->renderAlert('success', $this->LANG['alert_success_title'], $this->LANG['profile_alert_update'], $this->LANG['setup2fa_alert_success']);

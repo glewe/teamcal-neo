@@ -53,8 +53,19 @@ class Login2faController extends BaseController
         $this->renderAlert('warning', $this->LANG['alert_warning_title'], $this->LANG['login_error_2fa'], $this->LANG['login_error_2fa_text']);
       }
       else {
-        $userSecret = openssl_decrypt($this->UO->read($uname, 'secret'), 'AES-128-ECB', APP_LIC_KEY);
-        $totp       = $_POST['totp'];
+        $encryptedSecret = $this->UO->read($uname, 'secret');
+        if (substr($encryptedSecret, 0, 3) === 'v2:') {
+          $data       = base64_decode(substr($encryptedSecret, 3));
+          $ivLen      = openssl_cipher_iv_length('AES-256-CBC');
+          $iv         = substr($data, 0, $ivLen);
+          $ciphertext = substr($data, $ivLen);
+          $key        = hash('sha256', APP_LIC_KEY, true);
+          $userSecret = openssl_decrypt($ciphertext, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
+        }
+        else {
+          $userSecret = openssl_decrypt($encryptedSecret, 'AES-128-ECB', APP_LIC_KEY);
+        }
+        $totp = $_POST['totp'];
         if ($tfa->verifyCode($userSecret, $totp)) {
           $this->L->loginUser($uname, $pword);
           $this->LOG->logEvent('logLogin', $uname, 'log_login_success');
