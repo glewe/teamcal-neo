@@ -136,7 +136,7 @@ body {
 #main {
   min-height: 100vh;
   margin-left: 260px;
-  overflow: hidden;
+  overflow-x: auto;
   transition: all .35s ease-in-out;
 }
 
