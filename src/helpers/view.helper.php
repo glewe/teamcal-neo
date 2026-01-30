@@ -6,7 +6,7 @@ if (!defined('VALID_ROOT')) {
  * View Helper Functions
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2024 by George Lewe
+ * @copyright Copyright (c) 2014-2026 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo
@@ -27,6 +27,9 @@ if (!defined('VALID_ROOT')) {
  * @return string The HTML string for the alert box, including a script for auto-closing if applicable.
  */
 function createAlertBox(array $data): string {
+  if (empty($data) || !isset($data['type']) || !isset($data['title']) || !isset($data['subject']) || !isset($data['text'])) {
+    return '';
+  }
   global $C, $LANG;
 
   $html = '
@@ -44,8 +47,8 @@ function createAlertBox(array $data): string {
     $data['type'] === 'success' && $C->read('alertAutocloseSuccess') ||
     $data['type'] === 'warning' && $C->read('alertAutocloseWarning')
   ) {
-    $delay = (int)$C->read('alertAutocloseDelay');
-    $html .= '
+    $delay  = (int) $C->read('alertAutocloseDelay');
+    $html  .= '
       <script>
         setTimeout(function() {
           $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function(){
@@ -74,7 +77,8 @@ function createFaIconListbox(string $tabIndex = "-1", string $selected = ""): st
   foreach ($faIcons as $faIcon) {
     if ($faIcon == $selected) {
       $sel = ' selected="selected"';
-    } else {
+    }
+    else {
       $sel = "";
     }
     $listbox .= '<option value="' . $faIcon . '"' . $sel . '>' . ucwords($faIcon) . '</option>';
@@ -115,9 +119,9 @@ function createFormGroup(array $data, int $colsleft, int $colsright, int $tabind
   global $LANG;
   $langIdx1 = $data['prefix'] . '_' . $data['name'];
   $langIdx2 = $data['prefix'] . '_' . $data['name'] . '_comment';
-  $button = '';
+  $button   = '';
   if (isset($data['action']) && !empty($data['action'])) {
-    $name = 'btn_' . $data['action']['name'];
+    $name   = 'btn_' . $data['action']['name'];
     $target = $data['action']['target'];
     $button = '<button type="button" class="btn btn-primary btn-sm" style="margin-top: 8px;" tabindex="' . ($tabindex + 1) . '" name="' . $name . '" onclick="window.location=\'' . $target . '\';">' . $LANG[$name] . '</button>';
   }
@@ -337,7 +341,7 @@ function createFormGroup(array $data, int $colsleft, int $colsright, int $tabind
           </label>
           <div class="col-lg-' . $colsright . '">';
       foreach ($data['values'] as $val) {
-        $langIdx3 = $data['prefix'] . '_' . $data['name'] . '_' . $val;
+        $langIdx3   = $data['prefix'] . '_' . $data['name'] . '_' . $val;
         $formGroup .= '<div class="form-check">';
         $formGroup .= '<label><input class="form-check-input" name="opt_' . $data['name'] . '" value="' . $val . '" tabindex="' . $tabindex . '" type="radio"' . (($val == $data['value']) ? " checked" : "") . $disabled . '>' . $LANG[$langIdx3] . '</label>';
         $formGroup .= '</div>';
@@ -348,10 +352,9 @@ function createFormGroup(array $data, int $colsleft, int $colsright, int $tabind
       break;
 
     //
-    // Securimage
+    // Captcha (Math + Honeypot)
     //
-    case 'securimage':
-      $langIdx3 = $data['prefix'] . '_' . $data['name'] . '_new';
+    case 'captcha':
       $formGroup = '
         <div class="form-group row" id="form-group-' . $data['name'] . '">
           <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
@@ -359,12 +362,22 @@ function createFormGroup(array $data, int $colsleft, int $colsright, int $tabind
           <span class="text-normal">' . $LANG[$langIdx2] . '</span>
           </label>
           <div class="col-lg-' . $colsright . '">
-          <img id="captcha" src="addons/securimage/securimage_show.php" alt="CAPTCHA Image"><br>
-          [<a href="#" onclick="document.getElementById(\'captcha\').src = \'addons/securimage/securimage_show.php?\' + Math.random(); return false">' . $LANG[$langIdx3] . '</a>]
-          <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" placeholder="Code"  value="' . $data['value'] . '" type="text" maxlength="' . $data['maxlength'] . '"' . $disabled . '>
+            <div class="input-group mb-2">
+              <span class="input-group-text">' . ($data['question'] ?? 'Math?') . '</span>
+              <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" placeholder="Result"  value="' . $data['value'] . '" type="text" maxlength="' . ($data['maxlength'] ?? '10') . '"' . $disabled . ' autocomplete="off">
+            </div>
+            <input type="text" name="website" style="display:none !important" tabindex="-1" autocomplete="off">
           ' . $button . $error . '</div>
         </div>
         <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Securimage (Legacy, now using captcha)
+    //
+    case 'securimage':
+      $data['type'] = 'captcha';
+      $formGroup = createFormGroup($data, $colsleft, $colsright, $tabindex);
       break;
 
     //
@@ -398,7 +411,7 @@ function createFormGroup(array $data, int $colsleft, int $colsright, int $tabind
           <span class="text-normal">' . $LANG[$langIdx2] . '</span>
           </label>
           <div class="col-lg-' . $colsright . '">
-          <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="text" maxlength="' . $data['maxlength'] . '" value="' . $data['value'] . '" placeholder="' . $data['placeholder'] . '"' . $disabled . '>
+          <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="text" maxlength="' . ($data['maxlength'] ?? '255') . '" value="' . $data['value'] . '" placeholder="' . ($data['placeholder'] ?? '') . '"' . $disabled . '>
           ' . $button . $error . '</div>
         </div>
         <div class="divider"><hr></div>';
@@ -476,7 +489,7 @@ function createFormGroup(array $data, int $colsleft, int $colsright, int $tabind
 
 //-----------------------------------------------------------------------------
 /**
- * Creates the top part of a modal dialog
+ * Creates the top part of a modal dialog.
  *
  * @param string $id ID of the modal dialog
  * @param string $title Title of the modal dialog
@@ -510,9 +523,11 @@ function createModalTop(string $id, string $title, string $size = ''): string {
 
 //-----------------------------------------------------------------------------
 /**
- * Creates the bottom part of a modal dialog
+ * Creates the bottom part of a modal dialog.
  *
- * @param array $data Array of parameters defining the form-group type and content
+ * @param string $buttonID    ID of the submit button
+ * @param string $buttonColor Color of the submit button (Bootstrap class)
+ * @param string $buttonText  Text of the submit button
  * 
  * @return string Html
  */
@@ -535,7 +550,7 @@ function createModalBottom(string $buttonID = '', string $buttonColor = '', stri
 
 //-----------------------------------------------------------------------------
 /**
- * Creates the tabs for the top of dialog pages
+ * Creates the tabs for the top of dialog pages.
  *
  * @param array $tabs Array of tab details
  * 
@@ -546,7 +561,8 @@ function createPageTabs(array $tabs): string {
   foreach ($tabs as $tab) {
     if ($tab['active']) {
       $tabsHtml .= '<li class="nav-item" role="presentation"><a class="nav-link active" id="solid-tab" href="' . $tab['href'] . '" data-bs-toggle="tab" role="tab" aria-controls="solid" aria-selected="true">' . $tab['label'] . '</a></li>';
-    } else {
+    }
+    else {
       $tabsHtml .= '<li class="nav-item" role="presentation"><a class="nav-link" id="solid-tab" href="' . $tab['href'] . '" data-bs-toggle="tab" role="tab" aria-controls="solid" aria-selected="false">' . $tab['label'] . '</a></li>';
     }
   }
@@ -556,15 +572,16 @@ function createPageTabs(array $tabs): string {
 
 //-----------------------------------------------------------------------------
 /**
- * Creates a pattern table (showing weekdays and absences)
+ * Creates a pattern table (showing weekdays and absences).
  *
- * @param int $patternId ID of the pattern record
+ * @param string $patternId ID of the pattern record
  * 
  * @return string Html
  */
 function createPatternTable(string $patternId): string {
   global $A, $C, $LANG;
-  $PTN = new Patterns();
+  global $DB, $CONF;
+  $PTN = new App\Models\PatternModel($DB->db, $CONF);
   $PTN->get($patternId);
   $html = '
   <table class="table table-bordered month mb-0">
@@ -581,17 +598,19 @@ function createPatternTable(string $patternId): string {
   ';
 
   for ($i = 1; $i <= 7; $i++) {
-    $prop = 'abs' . $i;
+    $prop  = 'abs' . $i;
     $absId = $PTN->$prop;
     if ($A->getBgTrans($absId)) {
       $bgStyle = "";
-    } else {
+    }
+    else {
       $bgStyle = "background-color: #" . ($A->getBgColor($absId) ? $A->getBgColor($absId) : 'ffffff') . ";";
     }
     $style = 'color: #' . $A->getColor($absId) . ';' . $bgStyle;
     if ($C->read('symbolAsIcon')) {
       $icon = $A->getSymbol($absId);
-    } else {
+    }
+    else {
       $icon = '<span class="' . $A->getIcon($absId) . '"></span>';
     }
 
@@ -610,29 +629,7 @@ function createPatternTable(string $patternId): string {
 
 //-----------------------------------------------------------------------------
 /**
- * Creates a Sidebar menu item
- *
- * @param array $data Array of item details
- * 
- * @return string Html
- */
-function createSidebarItem(array $data): string {
-  global $LANG;
-  if (isset($data['suffix'])) {
-    $suffix = $data['suffix'];
-  } else {
-    $suffix = '';
-  }
-  return '
-    <li class="sidebar-item">
-      <a href="' . $data['url'] . '" class="sidebar-link sidebar-sublink"><i class="' . $data['icon'] . '"></i>' . $data['label'] . $suffix . '</a>
-    </li>';
-}
-
-
-//-----------------------------------------------------------------------------
-/**
- * Creates the Bootstrap toast
+ * Creates the Bootstrap toast.
  *
  * @param array $data Array of toast details
  * 
@@ -661,7 +658,7 @@ function createToast(array $data): string {
 
 //-----------------------------------------------------------------------------
 /**
- * Returns a tooltip span element with a Font Awesome icon
+ * Returns a tooltip span element with a Font Awesome icon.
  *
  * @param string $type BS color code (info,success,warning,danger) (Default: info)
  * @param string $icon Font Awesome icon to use (Default: question-circle)
@@ -671,11 +668,20 @@ function createToast(array $data): string {
  * @return string Hrml
  */
 function iconTooltip(string $text = 'Tooltip text', string $title = '', string $position = 'top', string $type = 'info', string $icon = 'question-circle') {
+  $ttText = "";
   if (strlen($title)) {
-    $ttText = " < div class='text-bold' style = 'padding-top: 4px; padding-bottom: 4px' > " . $title . "</div > ";
+    $ttText = "<div class='text-bold' style='padding-top: 4px; padding-bottom: 4px'>" . $title . "</div>";
   }
-  $ttText .= "<div class='text-normal' > " . $text . "</div > ";
-  return '<span data-placement="' . $position . '" data-type="' . $type . ' fas fa - ' . $icon . ' text - ' . $type . '" data-bs-toggle="tooltip" title="' . $ttText . '"></span>';
+  $ttText .= "<div class='text-normal'>" . $text . "</div>";
+  return '<span data-placement="' . $position . '" class="fas fa-' . $icon . ' text-' . $type . '" data-bs-toggle="tooltip" data-bs-html="true" title="' . $ttText . '"></span>';
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Wrapper for iconTooltip to match create* naming convention and argument order.
+ */
+function createIconTooltip(string $text, string $position = 'top', string $title = '', string $type = 'info', string $icon = 'question-circle'): string {
+  return iconTooltip($text, $title, $position, $type, $icon);
 }
 
 //-----------------------------------------------------------------------------
@@ -685,17 +691,20 @@ function iconTooltip(string $text = 'Tooltip text', string $title = '', string $
  * @param string $selectedIcon The icon that should be marked as selected (optional).
  * @return array Associative array with keys 'fabIcons', 'farIcons', 'fasIcons'.
  */
-function splitFaIcons(string $selectedIcon = ''): array {
-  global $faIcons;
+function splitFaIcons(string $selectedIcon = '', array $icons = []): array {
+  if (empty($icons)) {
+    global $faIcons;
+    $icons = $faIcons;
+  }
   $result = [
     'fabIcons' => [],
     'farIcons' => [],
     'fasIcons' => []
   ];
-  foreach ($faIcons as $faIcon) {
+  foreach ($icons as $faIcon) {
     $entry = [
-      'val' => $faIcon,
-      'name' => ucwords($faIcon),
+      'val'      => $faIcon,
+      'name'     => ucwords($faIcon),
       'selected' => ($selectedIcon === $faIcon)
     ];
     if (strstr($faIcon, 'fa-brands ')) {
@@ -725,7 +734,6 @@ function nextTabindex(): int {
 //-----------------------------------------------------------------------------
 /**
  * Resets the tabindex value for form elements.
- *
  */
 function resetTabindex() {
   static $tabindex = 0;

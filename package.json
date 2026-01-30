@@ -1,0 +1,14 @@
+{
+  "name": "tcneo",
+  "version": "5.0.0",
+  "description": "TeamCal Neo Asset Build",
+  "scripts": {
+    "build": "npm run build:css && npm run build:js",
+    "build:css": "cleancss -o public/css/teamcalneo.min.css public/css/teamcalneo.css && cleancss -o public/js/colorpicker/css/colorpicker.min.css public/js/colorpicker/css/colorpicker.css",
+    "build:js": "terser public/js/teamcalneo.js -o public/js/teamcalneo.min.js -c -m && terser public/js/colorpicker/js/colorpicker.js -o public/js/colorpicker/js/colorpicker.min.js -c -m"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "terser": "^5.29.2"
+  }
+}

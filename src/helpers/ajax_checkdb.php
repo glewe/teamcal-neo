@@ -3,7 +3,7 @@
  * Database Check
  *
  * @author George Lewe <george@lewe.com>
- * @copyright Copyright (c) 2014-2024 by George Lewe
+ * @copyright Copyright (c) 2014-2026 by George Lewe
  * @link https://www.lewe.com
  *
  * @package TeamCal Neo

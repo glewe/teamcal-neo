@@ -1,10 +1,14 @@
 <?php
-
 /**
- * --------------------------------------------------------------------------
- * Language Loading Helper
- * --------------------------------------------------------------------------
+ * Language Loader Class
  *
+ * @author George Lewe <george@lewe.com>
+ * @copyright Copyright (c) 2014-2026 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo
+ * @since 4.3.0
+ * 
  * Provides intelligent language loading system that loads only the language
  * keys required for the current controller, significantly reducing memory
  * usage compared to loading all language files at once.
@@ -17,61 +21,49 @@
  * - Performance optimization through selective loading
  */
 
-class LanguageLoader {
-  private static $language = 'english';
-  private static $loadedFiles = [];
-  private static $languageKeys = [];
+class LanguageLoader
+{
+  private static $language        = 'english';
+  private static $loadedFiles     = [];
   private static $hasNewStructure = null;
-  private static $loadingStats = [
-    'filesLoaded' => 0,
-    'keysLoaded' => 0,
+  private static $loadingStats    = [
+    'filesLoaded'     => 0,
+    'keysLoaded'      => 0,
     'memoryReduction' => 0
   ];
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Initialize Language Loader
-   * --------------------------------------------------------------------------
-   *
    * Sets the current language and prepares the loader.
    *
    * @param string $language The language to load (e.g., 'english', 'deutsch')
    */
   public static function initialize($language = 'english') {
-    self::$language = $language;
-    self::$loadedFiles = [];
-    self::$languageKeys = [];
+    self::$language        = $language;
+    self::$loadedFiles     = [];
     self::$hasNewStructure = null;
-    self::$loadingStats = [
-      'filesLoaded' => 0,
-      'keysLoaded' => 0,
+    self::$loadingStats    = [
+      'filesLoaded'     => 0,
+      'keysLoaded'      => 0,
       'memoryReduction' => 0
     ];
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Calculate Performance Statistics
-   * --------------------------------------------------------------------------
-   *
    * Calculates memory usage improvements compared to legacy loading.
    */
   private static function calculatePerformanceStats() {
     // Estimate legacy system would load ~1,870 keys
-    $legacyKeyCount = 1870;
+    $legacyKeyCount  = 1870;
     $currentKeyCount = self::$loadingStats['keysLoaded'];
 
-    if ($legacyKeyCount > 0) {
-      self::$loadingStats['memoryReduction'] =
-        round((($legacyKeyCount - $currentKeyCount) / $legacyKeyCount) * 100, 1);
-    }
+    self::$loadingStats['memoryReduction'] =
+      round((($legacyKeyCount - $currentKeyCount) / $legacyKeyCount) * 100, 1);
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Compare All Languages Against English
-   * --------------------------------------------------------------------------
-   *
    * Automatically detects all available languages and compares them against
    * English as the reference language. No need to specify languages manually.
    *
@@ -81,7 +73,7 @@ class LanguageLoader {
    * @return array Formatted error data array ready for display
    */
   public static function compareAllLanguages($title = 'Language Comparison Report', $subject = '<h4>All Languages vs English Comparison</h4>') {
-    $referenceLanguage = 'english';
+    $referenceLanguage  = 'english';
     $availableLanguages = self::getAvailableLanguages();
 
     // Remove English from the list since it's the reference
@@ -91,9 +83,9 @@ class LanguageLoader {
 
     if (empty($languagesToCompare)) {
       return [
-        'title' => $title,
+        'title'   => $title,
         'subject' => $subject,
-        'text' => '<div class="panel panel-warning">
+        'text'    => '<div class="panel panel-warning">
           <div class="panel-heading"><strong>No Languages to Compare</strong></div>
           <div class="panel-body">
             <p>Only English language files were found. No other languages available for comparison.</p>
@@ -104,18 +96,18 @@ class LanguageLoader {
     }
 
     // Generate comprehensive comparison report
-    $totalComparisons = count($languagesToCompare);
-    $allResults = [];
+    $totalComparisons  = count($languagesToCompare);
+    $allResults        = [];
     $referenceKeyCount = 0; // Track reference language key count
-    $overallStats = [
-      'total_languages' => $totalComparisons + 1, // +1 for English
-      'total_issues' => 0,
+    $overallStats      = [
+      'total_languages'       => $totalComparisons + 1, // +1 for English
+      'total_issues'          => 0,
       'languages_with_issues' => [],
-      'perfect_languages' => []
+      'perfect_languages'     => []
     ];
 
     foreach ($languagesToCompare as $language) {
-      $comparison = self::compareLanguages($referenceLanguage, $language);
+      $comparison            = self::compareLanguages($referenceLanguage, $language);
       $allResults[$language] = $comparison;
 
       // Capture reference language key count from first comparison
@@ -126,9 +118,10 @@ class LanguageLoader {
       $hasIssues = !empty($comparison['lang1_missing']) || !empty($comparison['lang2_missing']) || !empty($comparison['errors']);
 
       if ($hasIssues) {
-        $overallStats['total_issues'] += count($comparison['lang1_missing']) + count($comparison['lang2_missing']);
-        $overallStats['languages_with_issues'][] = $language;
-      } else {
+        $overallStats['total_issues']            += count($comparison['lang1_missing']) + count($comparison['lang2_missing']);
+        $overallStats['languages_with_issues'][]  = $language;
+      }
+      else {
         $overallStats['perfect_languages'][] = $language;
       }
     }
@@ -139,13 +132,10 @@ class LanguageLoader {
     return self::generateAllLanguagesReport($allResults, $overallStats, $referenceLanguage, $title, $subject);
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Compare and Display Languages
-   * --------------------------------------------------------------------------
-   *
    * Convenience method that combines comparison and report generation.
-   * 
+   *
    * @param string $lang1 Reference language
    * @param string $lang2 Language to compare
    * @param string $title Optional title for the report
@@ -158,11 +148,8 @@ class LanguageLoader {
     return self::generateComparisonReport($comparison, $title, $subject);
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Compare Languages
-   * --------------------------------------------------------------------------
-   *
    * Compares language files between two languages to identify missing keys.
    * Supports both legacy and split file structures based on USE_SPLIT_LANGUAGE_FILES.
    *
@@ -173,23 +160,19 @@ class LanguageLoader {
    */
   public static function compareLanguages($lang1, $lang2) {
     $result = [
-      'lang1' => $lang1,
-      'lang2' => $lang2,
-      'lang1_total' => 0,
-      'lang2_total' => 0,
-      'lang1_missing' => [], // Keys missing in lang2
-      'lang2_missing' => [], // Keys missing in lang1
-      'errors' => [],
-      'use_split_files' => defined('USE_SPLIT_LANGUAGE_FILES') && USE_SPLIT_LANGUAGE_FILES,
-      'files_compared' => []
+      'lang1'           => $lang1,
+      'lang2'           => $lang2,
+      'lang1_total'     => 0,
+      'lang2_total'     => 0,
+      'lang1_missing'   => [], // Keys missing in lang2
+      'lang2_missing'   => [], // Keys missing in lang1
+      'errors'          => [],
+      'use_split_files' => true,
+      'files_compared'  => []
     ];
 
     try {
-      if ($result['use_split_files']) {
-        $result = self::compareSplitLanguages($lang1, $lang2, $result);
-      } else {
-        $result = self::compareLegacyLanguages($lang1, $lang2, $result);
-      }
+      $result = self::compareSplitLanguages($lang1, $lang2, $result);
     } catch (Exception $e) {
       $result['errors'][] = "Comparison failed: " . $e->getMessage();
     }
@@ -197,83 +180,8 @@ class LanguageLoader {
     return $result;
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Compare Legacy Language Files
-   * --------------------------------------------------------------------------
-   *
-   * Compares legacy 4-file language structure between two languages.
-   *
-   * @param string $lang1 Reference language
-   * @param string $lang2 Language to compare
-   * @param array $result Result array to populate
-   *
-   * @return array Updated result array
-   */
-  private static function compareLegacyLanguages($lang1, $lang2, $result) {
-    $legacyFiles = [
-      '.php',      // Main framework file
-      '.app.php',  // Application file
-      '.gdpr.php', // GDPR file
-      '.log.php'   // Log file
-    ];
-
-    $lang1AllKeys = [];
-    $lang2AllKeys = [];
-
-    foreach ($legacyFiles as $suffix) {
-      $lang1File = WEBSITE_ROOT . "/languages/$lang1$suffix";
-      $lang2File = WEBSITE_ROOT . "/languages/$lang2$suffix";
-
-      $fileName = "$lang1$suffix";
-      $result['files_compared'][] = $fileName;
-
-      // Check if files exist
-      if (!file_exists($lang1File)) {
-        $result['errors'][] = "File '$lang1File' not found";
-        continue;
-      }
-      if (!file_exists($lang2File)) {
-        $result['errors'][] = "File '$lang2File' not found";
-        continue;
-      }
-
-      // Load keys from each file
-      $lang1Keys = self::loadKeysFromFile($lang1File);
-      $lang2Keys = self::loadKeysFromFile($lang2File);
-
-      // Merge into total key arrays
-      $lang1AllKeys = array_merge($lang1AllKeys, $lang1Keys);
-      $lang2AllKeys = array_merge($lang2AllKeys, $lang2Keys);
-
-      // Check for missing keys in this specific file
-      $missingInLang2File = array_diff($lang1Keys, $lang2Keys);
-      $missingInLang1File = array_diff($lang2Keys, $lang1Keys);
-
-      foreach ($missingInLang2File as $key) {
-        $result['lang1_missing'][] = "$key (in $fileName)";
-      }
-
-      foreach ($missingInLang1File as $key) {
-        $result['lang2_missing'][] = "$key (in $fileName)";
-      }
-    }
-
-    // Remove duplicates from merged arrays before counting
-    $lang1AllKeys = array_unique($lang1AllKeys);
-    $lang2AllKeys = array_unique($lang2AllKeys);
-
-    $result['lang1_total'] = count($lang1AllKeys);
-    $result['lang2_total'] = count($lang2AllKeys);
-
-    return $result;
-  }
-
-  /**
-   * --------------------------------------------------------------------------
-   * Compare Split Language Files
-   * --------------------------------------------------------------------------
-   *
    * Compares split language file structure between two languages.
    *
    * @param string $lang1 Reference language
@@ -283,8 +191,8 @@ class LanguageLoader {
    * @return array Updated result array
    */
   private static function compareSplitLanguages($lang1, $lang2, $result) {
-    $lang1Dir = WEBSITE_ROOT . "/languages/$lang1";
-    $lang2Dir = WEBSITE_ROOT . "/languages/$lang2";
+    $lang1Dir = WEBSITE_ROOT . "/resources/languages/$lang1";
+    $lang2Dir = WEBSITE_ROOT . "/resources/languages/$lang2";
 
     // Check if directories exist
     if (!is_dir($lang1Dir)) {
@@ -320,7 +228,7 @@ class LanguageLoader {
     }
 
     // Compare common files
-    $commonFiles = array_intersect($lang1FileNames, $lang2FileNames);
+    $commonFiles  = array_intersect($lang1FileNames, $lang2FileNames);
     $lang1AllKeys = [];
     $lang2AllKeys = [];
 
@@ -357,24 +265,17 @@ class LanguageLoader {
     return $result;
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Force Reload
-   * --------------------------------------------------------------------------
-   *
    * Clears the loaded files cache and forces a reload on next request.
    */
   public static function forceReload() {
-    self::$loadedFiles = [];
-    self::$languageKeys = [];
+    self::$loadedFiles     = [];
     self::$hasNewStructure = null;
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Generate All Languages Report
-   * --------------------------------------------------------------------------
-   *
    * Generates a comprehensive HTML report for all language comparisons.
    *
    * @param array $allResults All comparison results
@@ -387,18 +288,23 @@ class LanguageLoader {
    */
   private static function generateAllLanguagesReport($allResults, $overallStats, $referenceLanguage, $title, $subject) {
     $errorData = [
-      'title' => $title,
+      'type'    => 'success',
+      'title'   => $title,
       'subject' => $subject,
-      'text' => ''
+      'text'    => ''
     ];
 
+    if (!empty($overallStats['languages_with_issues']) || $overallStats['total_issues'] > 0) {
+      $errorData['type'] = 'warning';
+    }
+
     // Overall statistics panel
-    $fileType = (defined('USE_SPLIT_LANGUAGE_FILES') && USE_SPLIT_LANGUAGE_FILES) ? 'Split Files' : 'Legacy Files';
+    $fileType         = 'Split Files';
     $referenceKeyInfo = isset($overallStats['reference_key_count']) && $overallStats['reference_key_count'] > 0
       ? ' (' . $overallStats['reference_key_count'] . ' keys)'
       : '';
 
-    $errorData['text'] = '<div class="panel panel-info">
+    $errorData['text'] = '<div class="panel panel-' . $errorData['type'] . '">
       <div class="panel-heading"><strong>Overall Statistics</strong></div>
       <div class="panel-body">
         <p><strong>File Structure:</strong> ' . $fileType . '</p>
@@ -419,7 +325,7 @@ class LanguageLoader {
           <p>These languages have perfect parity with English:</p>
           <ul>';
       foreach ($overallStats['perfect_languages'] as $language) {
-        $keyCount = $allResults[$language]['lang2_total'];
+        $keyCount           = $allResults[$language]['lang2_total'];
         $errorData['text'] .= '<li><strong>' . $language . '</strong> (' . $keyCount . ' keys)</li>';
       }
       $errorData['text'] .= '</ul>
@@ -434,9 +340,9 @@ class LanguageLoader {
         <div class="panel-body">';
 
       foreach ($overallStats['languages_with_issues'] as $language) {
-        $comparison = $allResults[$language];
+        $comparison    = $allResults[$language];
         $missingInLang = count($comparison['lang1_missing']);
-        $extraInLang = count($comparison['lang2_missing']);
+        $extraInLang   = count($comparison['lang2_missing']);
 
         $errorData['text'] .= '<div class="panel panel-default" style="margin-top: 10px;">
           <div class="panel-heading"><strong>' . $language . '</strong></div>
@@ -489,7 +395,8 @@ class LanguageLoader {
           <p>🎉 All languages have perfect parity with English. No missing translations found!</p>
         </div>
       </div>';
-    } else {
+    }
+    else {
       $errorData['text'] .= '<div class="panel panel-info">
         <div class="panel-heading"><strong>Recommendations</strong></div>
         <div class="panel-body">
@@ -506,11 +413,8 @@ class LanguageLoader {
     return $errorData;
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Generate Comparison Report HTML
-   * --------------------------------------------------------------------------
-   *
    * Generates a formatted HTML report from language comparison results.
    *
    * @param array $comparison Comparison result from compareLanguages()
@@ -521,14 +425,19 @@ class LanguageLoader {
    */
   public static function generateComparisonReport($comparison, $title = 'Debug Info', $subject = '<h4>Language File Comparison</h4>') {
     $errorData = [
-      'title' => $title,
+      'type'    => 'success',
+      'title'   => $title,
       'subject' => $subject,
-      'text' => ''
+      'text'    => ''
     ];
 
+    if (!empty($comparison['lang1_missing']) || !empty($comparison['lang2_missing']) || !empty($comparison['errors'])) {
+      $errorData['type'] = 'warning';
+    }
+
     // Configuration info
-    $fileType = $comparison['use_split_files'] ? 'Split Files' : 'Legacy Files';
-    $errorData['text'] = '<div class="panel panel-info">
+    $fileType          = $comparison['use_split_files'] ? 'Split Files' : 'Legacy Files';
+    $errorData['text'] = '<div class="panel panel-' . $errorData['type'] . '">
       <div class="panel-heading"><strong>Configuration</strong></div>
       <div class="panel-body">
         <p><strong>File Structure:</strong> ' . $fileType . '</p>
@@ -537,7 +446,7 @@ class LanguageLoader {
     </div>';
 
     // Statistics
-    $errorData['text'] .= '<div class="panel panel-info">
+    $errorData['text'] .= '<div class="panel panel-' . $errorData['type'] . '">
       <div class="panel-heading"><strong>Statistics</strong></div>
       <div class="panel-body">
         <p><strong>' . $comparison['lang1'] . ':</strong> ' . $comparison['lang1_total'] . ' keys</p>
@@ -595,11 +504,8 @@ class LanguageLoader {
     return $errorData;
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Get Available Languages
-   * --------------------------------------------------------------------------
-   *
    * Discovers all available languages in the system based on file structure.
    * For split files: checks for directories with core.php
    * For legacy files: checks for .php files with complete 4-file set
@@ -609,52 +515,15 @@ class LanguageLoader {
   public static function getAvailableLanguages() {
     $languages = [];
 
-    if (defined('USE_SPLIT_LANGUAGE_FILES') && USE_SPLIT_LANGUAGE_FILES) {
-      // Split file mode: scan for directories with core.php
-      $languageDir = WEBSITE_ROOT . '/languages';
-      if (is_dir($languageDir)) {
-        $dirs = glob("$languageDir/*", GLOB_ONLYDIR);
-        foreach ($dirs as $dir) {
-          $langCode = basename($dir);
-          // Verify it's a valid language directory with core.php
-          if (file_exists("$dir/core.php")) {
-            $languages[] = $langCode;
-          }
-        }
-      }
-    } else {
-      // Legacy mode: scan for complete 4-file sets
-      $languageDir = WEBSITE_ROOT . '/languages';
-      if (is_dir($languageDir)) {
-        $mainFiles = glob("$languageDir/*.php");
-
-        foreach ($mainFiles as $file) {
-          $fileName = basename($file, '.php');
-
-          // Skip files with dots (like .app.php, .gdpr.php, .log.php)
-          if (strpos($fileName, '.') !== false) {
-            continue;
-          }
-
-          // Check if this language has all 4 required files
-          $requiredFiles = [
-            "$languageDir/$fileName.php",       // Main file
-            "$languageDir/$fileName.app.php",   // Application file
-            "$languageDir/$fileName.gdpr.php",  // GDPR file
-            "$languageDir/$fileName.log.php"    // Log file
-          ];
-
-          $allFilesExist = true;
-          foreach ($requiredFiles as $requiredFile) {
-            if (!file_exists($requiredFile)) {
-              $allFilesExist = false;
-              break;
-            }
-          }
-
-          if ($allFilesExist) {
-            $languages[] = $fileName;
-          }
+    // Split file mode: scan for directories with core.php
+    $languageDir = WEBSITE_ROOT . '/resources/languages';
+    if (is_dir($languageDir)) {
+      $dirs = glob("$languageDir/*", GLOB_ONLYDIR);
+      foreach ($dirs as $dir) {
+        $langCode = basename($dir);
+        // Verify it's a valid language directory with core.php
+        if (file_exists("$dir/core.php")) {
+          $languages[] = $langCode;
         }
       }
     }
@@ -662,11 +531,8 @@ class LanguageLoader {
     return array_unique($languages);
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Get Current Language
-   * --------------------------------------------------------------------------
-   *
    * Returns the currently configured language.
    *
    * @return string Current language code
@@ -675,11 +541,8 @@ class LanguageLoader {
     return self::$language;
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Get Loaded Files
-   * --------------------------------------------------------------------------
-   *
    * Returns list of language files that have been loaded.
    *
    * @return array Array of loaded file names
@@ -688,11 +551,8 @@ class LanguageLoader {
     return self::$loadedFiles;
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Get Required Files for Controller
-   * --------------------------------------------------------------------------
-   *
    * Determines which language files are needed for a specific controller.
    *
    * @param string $controller The controller name
@@ -707,69 +567,72 @@ class LanguageLoader {
 
     // Controller-specific file mapping
     $controllerFileMap = [
-      'home' => [],
-      'about' => ['about'],
-      'absenceedit' => ['absence', 'calendar'],
-      'absenceicon' => ['absence'],
-      'absences' => ['absence'],
-      'absum' => ['absence', 'statistics', 'calendar'],
-      'alert' => [],
-      'attachments' => ['attachment'],
-      'bulkedit' => ['bulkedit', 'calendar', 'profile'],
-      'calendaredit' => ['calendar', 'calendaroptions'],
-      'calendaroptions' => ['calendaroptions'],
-      'calendarview' => ['calendar', 'calendaroptions'],
-      'config' => ['config'],
-      'database' => ['database'],
-      'dataprivacy' => ['gdpr'],
-      'daynote' => ['daynote'],
-      'declination' => ['declination'],
-      'gdpr' => ['gdpr'],
-      'groupcalendaredit' => ['calendar'],
-      'groupedit' => ['group'],
-      'groups' => ['group'],
-      'holidayedit' => ['holiday'],
-      'holidays' => ['holiday'],
-      'imprint' => ['imprint'],
-      'import' => ['import'],
-      'log' => ['log'],
-      'login' => ['login'],
-      'login2fa' => ['login'],
-      'logout' => ['login'],
-      'logs' => ['log'],
-      'maintenance' => ['maintenance'],
-      'messageedit' => ['message'],
-      'messages' => ['message'],
-      'month' => ['month', 'calendar'],
-      'monthedit' => ['month'],
-      'passwordrequest' => ['password'],
-      'passwordreset' => ['password', 'login'],
-      'patternadd' => ['pattern'],
-      'patternedit' => ['pattern'],
-      'patterns' => ['pattern'],
-      'permissions' => ['permission'],
-      'phpinfo' => [],
-      'profile' => ['profile'],
-      'register' => ['register', 'password'],
-      'regionedit' => ['region'],
-      'regions' => ['region'],
-      'remainder' => ['remainder', 'calendar', 'absence', 'user'],
-      'roleedit' => ['role'],
-      'roles' => ['role'],
-      'setup2fa' => ['login'],
-      'statistics' => ['statistics'],
-      'statsabsence' => ['statistics', 'absence'],
-      'statsabstype' => ['statistics', 'absence'],
-      'statspresence' => ['statistics'],
-      'statsremainder' => ['statistics', 'remainder'],
-      'upload' => ['upload'],
-      'useradd' => ['user', 'profile', 'password'],
-      'useredit' => ['user', 'profile', 'password'],
-      'userimport' => ['user', 'import'],
-      'users' => ['user'],
-      'verify' => ['login'],
-      'viewprofile' => ['profile'],
-      'year' => ['year', 'calendar']
+      'home'              => [],
+      'about'             => ['about'],
+      'absenceedit'       => ['absence', 'calendar'],
+      'absenceicon'       => ['absence'],
+      'absences'          => ['absence'],
+      'absencesummary'    => ['absence', 'statistics', 'calendar'],
+      'absum'             => ['absence', 'statistics', 'calendar'],
+      'alert'             => [],
+      'attachments'       => ['attachment'],
+      'bulkedit'          => ['bulkedit', 'calendar', 'profile'],
+      'calendaredit'      => ['calendar', 'calendaroptions'],
+      'calendaroptions'   => ['calendaroptions'],
+      'calendarview'      => ['calendar', 'calendaroptions'],
+      'config'            => ['config'],
+      'database'          => ['database'],
+      'dataprivacy'       => ['gdpr'],
+      'daynote'           => ['daynote'],
+      'declination'       => ['declination'],
+      'gdpr'              => ['gdpr'],
+      'groupcalendaredit' => ['calendar', 'absence'],
+      'groupedit'         => ['group'],
+      'groups'            => ['group'],
+      'holidayedit'       => ['holiday'],
+      'holidays'          => ['holiday'],
+      'imprint'           => ['imprint'],
+      'import'            => ['import'],
+      'log'               => ['log'],
+      'login'             => ['login'],
+      'login2fa'          => ['login'],
+      'logout'            => ['login'],
+      'logs'              => ['log'],
+      'maintenance'       => ['maintenance'],
+      'messageedit'       => ['message'],
+      'messages'          => ['message'],
+      'month'             => ['month', 'calendar'],
+      'monthedit'         => ['month'],
+      'passwordrequest'   => ['password'],
+      'passwordreset'     => ['password', 'login'],
+      'patternadd'        => ['pattern'],
+      'patternedit'       => ['pattern'],
+      'patterns'          => ['pattern'],
+      'permissions'       => ['permission'],
+      'phpinfo'           => [],
+      'profile'           => ['profile'],
+      'register'          => ['register', 'password'],
+      'regionedit'        => ['region'],
+      'regions'           => ['region'],
+      'remainder'         => ['remainder', 'calendar', 'absence', 'userlist'],
+      'roleedit'          => ['role'],
+      'roles'             => ['role'],
+      'setup2fa'          => ['profile'],
+      'statistics'        => ['statistics'],
+      'statsabsence'      => ['statistics', 'absence'],
+      'statsabstype'      => ['statistics', 'absence'],
+      'statspresence'     => ['statistics'],
+      'statspresencetype' => ['statistics', 'absence'],
+      'statsremainder'    => ['statistics', 'remainder'],
+      'upload'            => ['upload'],
+      'useradd'           => ['userlist', 'profile', 'password'],
+      'useredit'          => ['userlist', 'profile', 'password'],
+      'userimport'        => ['userlist', 'import'],
+      'userlist'          => ['userlist'],
+      'users'             => ['userlist'],
+      'verify'            => ['login'],
+      'viewprofile'       => ['profile'],
+      'year'              => ['year', 'calendar']
     ];
 
     // Get files for this controller, or default to empty array
@@ -780,11 +643,8 @@ class LanguageLoader {
     return $files;
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Get Loading Statistics
-   * --------------------------------------------------------------------------
-   *
    * Returns performance statistics for the current loading session.
    *
    * @return array Loading statistics
@@ -793,29 +653,23 @@ class LanguageLoader {
     return self::$loadingStats;
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Check for New Structure
-   * --------------------------------------------------------------------------
-   *
    * Determines if the new split file structure is available.
    *
    * @return bool True if new structure exists, false otherwise
    */
   private static function hasNewStructure() {
     if (self::$hasNewStructure === null) {
-      $coreFile = WEBSITE_ROOT . '/languages/' . self::$language . '/core.php';
+      $coreFile              = WEBSITE_ROOT . '/resources/languages/' . self::$language . '/core.php';
       self::$hasNewStructure = file_exists($coreFile);
     }
 
     return self::$hasNewStructure;
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Load Language for Controller
-   * --------------------------------------------------------------------------
-   *
    * Loads the required language files for a specific controller.
    * Always loads core.php plus controller-specific files as needed.
    *
@@ -833,18 +687,16 @@ class LanguageLoader {
     // Check if we have the new split file structure
     if (self::hasNewStructure()) {
       self::loadModernStructure($controller);
-    } else {
+    }
+    else {
       self::loadLegacyStructure();
     }
 
     return self::$loadingStats;
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Load Keys from File
-   * --------------------------------------------------------------------------
-   *
    * Extracts language keys from a PHP language file.
    *
    * @param string $filePath Path to the language file
@@ -863,11 +715,8 @@ class LanguageLoader {
     return array_keys($LANG);
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Load Language File
-   * --------------------------------------------------------------------------
-   *
    * Loads a specific language file if it exists and hasn't been loaded yet.
    *
    * @param string $file The file name without extension
@@ -880,7 +729,7 @@ class LanguageLoader {
       return;
     }
 
-    $filePath = WEBSITE_ROOT . '/languages/' . self::$language . '/' . $file . '.php';
+    $filePath = WEBSITE_ROOT . '/resources/languages/' . self::$language . '/' . $file . '.php';
 
     if (file_exists($filePath)) {
       $keysBeforeLoad = count($LANG);
@@ -892,21 +741,18 @@ class LanguageLoader {
     }
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Load Legacy File Structure
-   * --------------------------------------------------------------------------
-   *
    * Fallback to the original 4-file language loading system.
    */
   private static function loadLegacyStructure() {
     global $LANG;
 
     $legacyFiles = [
-      WEBSITE_ROOT . '/languages/' . self::$language . '.php',
-      WEBSITE_ROOT . '/languages/' . self::$language . '.app.php',
-      WEBSITE_ROOT . '/languages/' . self::$language . '.gdpr.php',
-      WEBSITE_ROOT . '/languages/' . self::$language . '.log.php'
+      WEBSITE_ROOT . '/resources/languages/' . self::$language . '.php',
+      WEBSITE_ROOT . '/resources/languages/' . self::$language . '.app.php',
+      WEBSITE_ROOT . '/resources/languages/' . self::$language . '.gdpr.php',
+      WEBSITE_ROOT . '/resources/languages/' . self::$language . '.log.php'
     ];
 
     $keysBeforeLoad = count($LANG);
@@ -921,11 +767,8 @@ class LanguageLoader {
     self::$loadingStats['keysLoaded'] = count($LANG) - $keysBeforeLoad;
   }
 
+  //---------------------------------------------------------------------------
   /**
-   * --------------------------------------------------------------------------
-   * Load Modern Split File Structure
-   * --------------------------------------------------------------------------
-   *
    * Loads core.php plus controller-specific language files.
    *
    * @param string $controller The controller name
