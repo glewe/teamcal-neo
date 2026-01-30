@@ -1,0 +1,29 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+  view.phpinfo
+  -->
+  <div class="container content">
+    <div class="col-lg-12">
+      {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
+        {{ createAlertBox(alertData)|raw }}
+      {% endif %}
+
+      <div class="card">
+        <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+          <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+          {{ LANG.phpinfo_title }}
+          {% if C.read('pageHelp') %}
+            <a href="{{ CONF.controllers[controller].docurl }}" target="_blank" class="float-end" style="color:inherit;">
+              <i class="bi bi-question-circle-fill bi-lg"></i>
+            </a>
+          {% endif %}
+        </div>
+        <div class="card-body">
+          {{ phpInfo|raw }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

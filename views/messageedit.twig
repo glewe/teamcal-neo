@@ -1,0 +1,192 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+    view.messageedit
+    -->
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
+        {{ createAlertBox(alertData)|raw }}
+      {% endif %}
+
+      {% set tabindex = 0 %}
+      {% set colsleft = 8 %}
+      {% set colsright = 4 %}
+
+      <form class="form-control-horizontal" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+        <div class="card">
+          <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+            <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+            {{ LANG.msg_title_edit }}
+            {% if C.read('pageHelp') %}
+              <a href="{{ CONF.controllers[controller].docurl }}" target="_blank" class="float-end" style="color:inherit;">
+                <i class="bi bi-question-circle-fill bi-lg"></i>
+              </a>
+            {% endif %}
+          </div>
+          <div
+            class="card-body">
+
+            <!-- Message type -->
+            <div class="form-group row">
+              <label class="col-lg-{{ colsleft }} control-label">
+                {{ LANG.msg_type }}<br>
+                <span class="text-normal">{{ LANG.msg_type_desc }}</span>
+              </label>
+              <div class="col-lg-{{ colsright }}">
+                {% set tabindex = tabindex + 1 %}
+                <div class="form-check">
+                  <label><input class="form-check-input" name="opt_msgtype" value="email" tabindex="{{ tabindex }}" {{ (msgtype == 'email') ? 'checked' : '' }} type="radio">{{ LANG.msg_type_email }}</label>
+                </div>
+                {% set tabindex = tabindex + 1 %}
+                <div class="form-check">
+                  <label><input class="form-check-input" name="opt_msgtype" value="silent" tabindex="{{ tabindex }}" {{ (msgtype == 'silent') ? 'checked' : '' }} type="radio">{{ LANG.msg_type_silent }}</label>
+                </div>
+                {% set tabindex = tabindex + 1 %}
+                <div class="form-check">
+                  <label><input class="form-check-input" name="opt_msgtype" value="popup" tabindex="{{ tabindex }}" {{ (msgtype == 'popup') ? 'checked' : '' }} type="radio">{{ LANG.msg_type_popup }}</label>
+                </div>
+              </div>
+            </div>
+            <div class="divider">
+              <hr>
+            </div>
+
+            <!-- Content type -->
+            <div class="form-group row">
+              <label class="col-lg-{{ colsleft }} control-label">
+                {{ LANG.msg_content_type }}<br>
+                <span class="text-normal">{{ LANG.msg_content_type_desc }}</span>
+              </label>
+              <div class="col-lg-{{ colsright }}">
+                {% set tabindex = tabindex + 1 %}
+                <div class="form-check">
+                  <label><input class="form-check-input" name="opt_contenttype" value="primary" tabindex="{{ tabindex }}" {{ (contenttype == 'primary') ? 'checked' : '' }} type="radio"><span class="badge text-bg-primary">{{ LANG.msg_content_type_primary }}</span>
+                  </label>
+                </div>
+                {% set tabindex = tabindex + 1 %}
+                <div class="form-check">
+                  <label><input class="form-check-input" name="opt_contenttype" value="info" tabindex="{{ tabindex }}" {{ (contenttype == 'info') ? 'checked' : '' }} type="radio"><span class="badge text-bg-info">{{ LANG.msg_content_type_info }}</span>
+                  </label>
+                </div>
+                {% set tabindex = tabindex + 1 %}
+                <div class="form-check">
+                  <label><input class="form-check-input" name="opt_contenttype" value="success" tabindex="{{ tabindex }}" {{ (contenttype == 'success') ? 'checked' : '' }} type="radio"><span class="badge text-bg-success">{{ LANG.msg_content_type_success }}</span>
+                  </label>
+                </div>
+                {% set tabindex = tabindex + 1 %}
+                <div class="form-check">
+                  <label><input class="form-check-input" name="opt_contenttype" value="warning" tabindex="{{ tabindex }}" {{ (contenttype == 'warning') ? 'checked' : '' }} type="radio"><span class="badge text-bg-warning">{{ LANG.msg_content_type_warning }}</span>
+                  </label>
+                </div>
+                {% set tabindex = tabindex + 1 %}
+                <div class="form-check">
+                  <label><input class="form-check-input" name="opt_contenttype" value="danger" tabindex="{{ tabindex }}" {{ (contenttype == 'danger') ? 'checked' : '' }} type="radio"><span class="badge text-bg-danger">{{ LANG.msg_content_type_danger }}</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="divider">
+              <hr>
+            </div>
+
+            <!-- Send to -->
+            <div class="form-group row">
+              <label class="col-lg-{{ colsleft }} control-label">
+                {{ LANG.msg_sendto }}<br>
+                <span class="text-normal">{{ LANG.msg_sendto_desc }}</span>
+              </label>
+              <div class="col-lg-{{ colsright }}">
+                {% set tabindex = tabindex + 1 %}
+                <div class="form-check">
+                  <label><input class="form-check-input" name="opt_sendto" value="all" tabindex="{{ tabindex }}" {{ (sendto == 'all') ? 'checked' : '' }} type="radio">{{ LANG.msg_sendto_all }}</label>
+                </div>
+
+                {% set tabindex = tabindex + 1 %}
+                <div class="form-check">
+                  <label><input class="form-check-input" name="opt_sendto" value="group" tabindex="{{ tabindex }}" {{ (sendto == 'group') ? 'checked' : '' }} type="radio">{{ LANG.msg_sendto_group }}</label>
+                </div>
+                {% set tabindex = tabindex + 1 %}
+                <select class="form-select" name="sel_sendToGroup[]" multiple="multiple" size="5" tabindex="{{ tabindex }}">
+                  {% for group in groups %}
+                    <option value="{{ group }}" {{ (group in sendToGroup) ? 'selected' : '' }}>{{ group }}</option>
+                  {% endfor %}
+                </select>
+
+                {% set tabindex = tabindex + 1 %}
+                <div class="form-check">
+                  <label><input class="form-check-input" name="opt_sendto" value="user" tabindex="{{ tabindex }}" {{ (sendto == 'user') ? 'checked' : '' }} type="radio">{{ LANG.msg_sendto_user }}</label>
+                </div>
+                {% set tabindex = tabindex + 1 %}
+                <select class="form-select" name="sel_sendToUser[]" multiple="multiple" size="5" tabindex="{{ tabindex }}">
+                  {% for user in users %}
+                    <option class="option" value="{{ user.username }}" {{ (user.username in sendToUser) ? 'selected' : '' }}>{{ userDisplayNames[user.username] }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="divider">
+              <hr>
+            </div>
+
+            <!-- Subject -->
+            <div class="form-group row">
+              <label class="col-lg-6 control-label">
+                {{ LANG.msg_msg_title }}<br>
+                <span class="text-normal">{{ LANG.msg_msg_title_comment }}</span>
+              </label>
+              <div class="col-lg-6">
+                {% set tabindex = tabindex + 1 %}
+                <input class="form-control" tabindex="{{ tabindex }}" name="txt_subject" maxlength="160" value="{{ subject }}" type="text" placeholder="{{ LANG.msg_msg_title_sample }}">
+              </div>
+            </div>
+            <div class="divider">
+              <hr>
+            </div>
+
+            <!-- Body -->
+            <div class="form-group row">
+              <label class="col-lg-6 control-label">
+                {{ LANG.msg_msg_body }}<br>
+                <span class="text-normal">{{ LANG.msg_msg_body_comment }}</span>
+              </label>
+              <div class="col-lg-6">
+                {% set tabindex = tabindex + 1 %}
+                <textarea class="form-control" tabindex="{{ tabindex }}" name="txt_text" rows="8" placeholder="{{ LANG.msg_msg_body_sample }}">{{ text }}</textarea>
+              </div>
+            </div>
+            <div class="divider">
+              <hr>
+            </div>
+
+            <!-- Captcha -->
+            <div class="form-group row">
+              <label for="inputCode" class="col-lg-{{ colsleft }} control-label">
+                {{ LANG.msg_code }}<br>
+                <span class="text-normal">{{ LANG.msg_code_comment }}</span>
+              </label>
+              <div class="col-lg-{{ colsright }}">
+                <div class="input-group mb-2">
+                  <span class="input-group-text">{{ captcha_question|default('Math?') }}</span>
+                  {% set tabindex = tabindex + 1 %}
+                  <input class="form-control" name="txt_code" id="inputCode" placeholder="Result" tabindex="{{ tabindex }}" type="text" maxlength="6" autocomplete="off">
+                </div>
+                <input type="text" name="website" style="display:none !important" tabindex="-1" autocomplete="off">
+              </div>
+            </div>
+            <div class="divider">
+              <hr>
+            </div>
+            {% set tabindex = tabindex + 1 %}
+            <button type="submit" class="btn btn-primary" tabindex="{{ tabindex }}" name="btn_send">{{ LANG.btn_send }}</button>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

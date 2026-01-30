@@ -1,0 +1,65 @@
+on:
+  release:
+    types: [published]
+
+env:
+  extensions: mbstring, intl, iconv, libxml, dom, json, simplexml, zlib, fileinfo
+  key: cache-v1 # can be any string, change to clear the extension cache.
+  defaultPHPVersion: '8.1'
+
+name: Release
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        set-safe-directory: '/github/workspace'
+    - uses: ./.github/workflows/phar
+      with:
+        php-version: ${{ env.defaultPHPVersion }}
+        php-extensions: ${{ env.extensions }}
+        key: ${{ env.key }}
+        secret-key: ${{ secrets.SECRET_KEY }}
+        passphrase: ${{ secrets.PASSPHRASE }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: release phar
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ github.event.release.tag_name }}
+        files: |
+          build/phpDocumentor.phar.asc
+          build/phpDocumentor.phar
+    - name: release shim
+      uses: benc-uk/workflow-dispatch@v1.2.4
+      with:
+        workflow: Release
+        repo: phpDocumentor/shim
+        ref: '3.x'
+        token: ${{ secrets.BOT_TOKEN }}
+        inputs: '{ "tag": "${{ github.event.release.tag_name }}"}'
+
+  release-docker:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@master
+        - name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v3
+        - name: Release docker
+          uses: elgohr/Publish-Docker-Github-Action@v5
+          with:
+            name: phpdoc/phpdoc
+            username: ${{ secrets.DOCKER_HUB_USERNAME }}
+            password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+            tag_semver: true
+            buildoptions: "--target=prod"
+            platforms: linux/amd64,linux/arm64
+
+        - name: Trigger
+          uses: benc-uk/workflow-dispatch@v1.2.4
+          if: ${{ github.event.release.prerelease }} == false
+          with:
+            workflow: Docker build
+            token: ${{ secrets.BOT_TOKEN }}
+            inputs: '{ "tags": "latest,stable"}'

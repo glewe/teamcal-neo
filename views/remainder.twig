@@ -1,0 +1,293 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+  view.remainder
+  -->
+  <div class="container content" style="padding-left: 4px; padding-right: 4px;">
+
+    {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
+      {{ createAlertBox(alertData)|raw }}
+    {% endif %}
+
+    {% set tabindex = 0 %}
+    {% set formLink = 'index.php?action=' ~ controller ~ '&group=' ~ groupid %}
+
+    <form class="form-control-horizontal" enctype="multipart/form-data" action="{{ formLink }}" method="post" target="_self" accept-charset="utf-8">
+      <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+      <div class="page-menu">
+        {% set tabindex = tabindex + 1 %}
+        <button type="button" class="btn btn-warning" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalSelectGroup">{{ LANG.group }}:
+          {{ group }}</button>
+        {% set tabindex = tabindex + 1 %}
+        <button type="button" class="btn btn-info" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalSearchUser">{{ LANG.search }}:
+          {{ search }}</button>
+        {% if not currentYearOnly %}
+          {% set tabindex = tabindex + 1 %}
+          <button type="button" class="btn btn-primary" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalYear">{{ LANG.year }}
+            <span class="badge text-bg-light">{{ year }}</span>
+          </button>
+        {% endif %}
+        {% set tabindex = tabindex + 1 %}
+        <button type="submit" class="btn btn-success" tabindex="{{ tabindex }}" name="btn_reset">{{ LANG.btn_reset }}</button>
+        {% set tabindex = tabindex + 1 %}
+        <a href="index.php?action=calendarview&rand={{ random(100, 9999) }}" class="btn btn-secondary float-end" tabindex="{{ tabindex }}">{{ LANG.btn_showcalendar }}</a>
+      </div>
+
+      <div class="card">
+        <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+          <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+          {{ LANG.rem_title }}
+          {% if C.read('pageHelp') %}
+            <a href="{{ CONF.controllers[controller].docurl }}" target="_blank" class="float-end" style="color:inherit;">
+              <i class="bi bi-question-circle-fill bi-lg"></i>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      <div style="height:20px;"></div>
+
+      <!-- Remainder Table -->
+      <div class="card">
+        <div class="card-body">
+
+          <table class="table table-bordered table-hover year">
+            <thead>
+              <tr>
+                <th>{{ LANG.userlist_user }}</th>
+                {% for abs in absences %}
+                  <th class="text-center">
+                    {% if abs.bgtrans %}
+                      {% set bgstyle = "" %}
+                    {% else %}
+                      {% set bgstyle = "background-color: #" ~ abs.bgcolor ~ ";" %}
+                    {% endif %}
+                    <span style="color:#{{ abs.color }};{{ bgstyle }}border:1px solid #333333; width:32px; height:32px;padding: 4px;" class="d-inline-block text-center rounded">
+                      {% if abs.icon != "No" %}
+                        <a href="#" style="color:inherit;" data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="{{ abs.name }}">
+                          <span class="{{ abs.icon }}"></span>
+                        </a>
+                      {% else %}
+                        {{ abs.symbol }}
+                      {% endif %}
+                    </span>
+                  </th>
+                {% endfor %}
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for user in users %}
+                <tr>
+                  <td class="m-name">
+                    {% set tabindex = tabindex + 1 %}
+                    <a href="index.php?action=useredit&amp;profile={{ user.username }}" tabindex="{{ tabindex }}">{{ user.dispname }}</a>
+                  </td>
+                  {% for abs in absences %}
+                    {% set absData = user.absences[abs.id] %}
+                    <td class="m-day text-center">
+                      <span class="badge text-bg-info">{{ absData.taken }}</span>-<span class="badge text-bg-primary">{{ absData.totalAllowance }}</span>-<span class="badge text-bg-{{ (absData.remainder < 0) ? 'danger' : 'success' }}">{{ absData.remainder }}</span>
+                    </td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+          <p>
+            {{ LANG.rem_legend }}:<br>
+            <span class="badge text-bg-info">{{ LANG.rem_legend_taken }}</span>-<span class="badge bg-primary">{{ LANG.rem_legend_allowance }}</span>-<span class="badge bg-success">{{ LANG.rem_legend_remainder }}</span>
+          </p>
+
+        </div>
+      </div>
+
+      <!-- Modal: Select Group -->
+      <div class="modal fade" id="modalSelectGroup" tabindex="-1" role="dialog" aria-labelledby="modalSelectGroupLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-bg-success">
+              <h5 class="modal-title" id="modalSelectGroupLabel">{{ LANG.cal_selGroup }}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              {% set tabindex = tabindex + 1 %}
+              <select id="group" class="form-select" name="sel_group" tabindex="{{ tabindex }}">
+                <option value="all" {{ (groupid == 'all') ? ' selected="selected"' : '' }}>{{ LANG.all }}</option>
+                {% for grp in allGroups %}
+                  <option value="{{ grp.id }}" {{ (groupid == grp.id) ? ' selected="selected"' : '' }}>{{ grp.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" name="btn_group" class="btn btn-success">{{ LANG.btn_select }}</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ LANG.btn_cancel }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal: Search User -->
+      <div class="modal fade" id="modalSearchUser" role="dialog" aria-labelledby="modalSearchUserLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalSearchUserLabel">{{ LANG.cal_search }}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              {% set tabindex = tabindex + 1 %}
+              <input id="search" class="form-control" tabindex="{{ tabindex }}" name="txt_search" type="text" value="{{ search }}">
+              {% if inputAlert.search %}
+                <br>
+                <div class="alert alert-dismissable alert-danger">
+                  <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+                  {{ inputAlert.search }}</div>
+              {% endif %}
+            </div>
+            <div class="modal-footer">
+              {% set tabindex = tabindex + 1 %}
+              <button type="submit" class="btn btn-info" tabindex="{{ tabindex }}" name="btn_search" style="margin-top: 4px;">{{ LANG.btn_search }}</button>
+              {% if search|length %}
+                {% set tabindex = tabindex + 1 %}
+                <button type="submit" class="btn btn-danger" tabindex="{{ tabindex }}" name="btn_search_clear">{{ LANG.btn_clear }}</button>
+              {% endif %}
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ LANG.btn_cancel }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal: Year -->
+      <div class="modal fade" id="modalYear" tabindex="-1" role="dialog" aria-labelledby="modalYearLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-bg-success">
+              <h5 class="modal-title" id="modalYearLabel">{{ LANG.absum_modalYearTitle }}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <span class="text-bold">{{ LANG.year }}</span><br>
+              <span class="text-normal">{{ LANG.rem_year_comment }}</span>
+              {% set tabindex = tabindex + 1 %}
+              <select id="sel_year" class="form-select" name="sel_year" tabindex="{{ tabindex }}">
+                {% set current_year = "now"|date("Y") %}
+                <option value="{{ current_year - 2 }}" {{ (year == current_year - 2) ? "selected" : "" }}>{{ current_year - 2 }}</option>
+                <option value="{{ current_year - 1 }}" {{ (year == current_year - 1) ? "selected" : "" }}>{{ current_year - 1 }}</option>
+                <option value="{{ current_year }}" {{ (year == current_year) ? "selected" : "" }}>{{ current_year }}</option>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" name="btn_year" class="btn btn-success">{{ LANG.btn_select }}</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ LANG.btn_cancel }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+    {% if usersPerPage %}
+      <nav aria-label="Paging">
+        <ul
+          class="pagination">
+
+          <!-- First Page Link -->
+          {% if page == 1 %}
+            <li class="page-item disabled">
+              <span class="page-link">
+                <span aria-hidden="true">
+                  <i class="fas fa-angle-double-left"></i>
+                </span>
+              </span>
+            </li>
+          {% else %}
+            <li class="page-item">
+              <a class="page-link" href="{{ formLink }}&amp;page=1" title="{{ LANG.page_first }}">
+                <span>
+                  <i class="fas fa-angle-double-left"></i>
+                </span>
+              </a>
+            </li>
+          {% endif %}
+
+          <!-- Previous Page Link -->
+          {% if page == 1 %}
+            <li class="page-item disabled">
+              <span class="page-link">
+                <span aria-hidden="true">
+                  <i class="fas fa-angle-left"></i>
+                </span>
+              </span>
+            </li>
+          {% else %}
+            <li class="page-item">
+              <a class="page-link" href="{{ formLink }}&amp;page={{ page - 1 }}" title="{{ LANG.page_prev }}">
+                <span>
+                  <i class="fas fa-angle-left"></i>
+                </span>
+              </a>
+            </li>
+          {% endif %}
+
+          <!-- Page Link -->
+          {% for p in 1..pages %}
+            {% if p == page %}
+              <li class="page-item active">
+                <span class="page-link">{{ p }}<span class="sr-only">(current)</span>
+                </span>
+              </li>
+            {% else %}
+              <li class="page-item">
+                <a class="page-link" href="{{ formLink }}&amp;page={{ p }}" title="{{ LANG.page_page|format(p) }}">
+                  <span>{{ p }}</span>
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+
+          <!-- Next Page Link -->
+          {% if page == pages %}
+            <li class="page-item disabled">
+              <span class="page-link">
+                <span aria-hidden="true">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+              </span>
+            </li>
+          {% else %}
+            <li class="page-item">
+              <a class="page-link" href="{{ formLink }}&amp;page={{ page + 1 }}" title="{{ LANG.page_next }}">
+                <span>
+                  <i class="fas fa-angle-right"></i>
+                </span>
+              </a>
+            </li>
+          {% endif %}
+
+          <!-- Last Page Link -->
+          {% if page == pages %}
+            <li class="page-item disabled">
+              <span class="page-link">
+                <span aria-hidden="true">
+                  <i class="fas fa-angle-double-right"></i>
+                </span>
+              </span>
+            </li>
+          {% else %}
+            <li class="page-item">
+              <a class="page-link" href="{{ formLink }}&amp;page={{ pages }}" title="{{ LANG.page_last }}">
+                <span>
+                  <i class="fas fa-angle-double-right"></i>
+                </span>
+              </a>
+            </li>
+          {% endif %}
+
+        </ul>
+      </nav>
+    {% endif %}
+
+  </div>
+{% endblock %}

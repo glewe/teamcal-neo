@@ -1,0 +1,304 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+  view.permissions
+  -->
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
+        {{ createAlertBox(alertData)|raw }}
+      {% endif %}
+
+      {% set tabindex = 0 %}
+      {% set colsleft = 8 %}
+      {% set colsright = 4 %}
+
+      {% set schemeTitle = scheme %}
+      {% if scheme == currentScheme %}
+        {% set schemeTitle = schemeTitle ~ ' ' ~ LANG.perm_active %}
+      {% else %}
+        {% set schemeTitle = schemeTitle ~ ' ' ~ LANG.perm_inactive %}
+      {% endif %}
+
+
+      <form class="form-control-horizontal" action="index.php?action={{ controller }}&amp;scheme={{ scheme }}" method="post" target="_self" accept-charset="utf-8">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+        <div class="card">
+          <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+            <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+            {{ LANG.perm_title }}:
+            {{ schemeTitle }}
+            {% if C.read('pageHelp') %}
+              <a href="{{ CONF.controllers[controller].docurl }}" target="_blank" class="float-end" style="color:inherit;">
+                <i class="bi bi-question-circle-fill bi-lg"></i>
+              </a>
+            {% endif %}
+          </div>
+          <div class="card-body">
+
+            {% set tabindex = tabindex + 1 %}
+            <button type="submit" class="btn btn-primary" tabindex="{{ tabindex }}" name="btn_permSave">{{ LANG.perm_save_scheme }}</button>
+            {% set tabindex = tabindex + 1 %}
+            <button type="button" class="btn btn-info" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalSelectScheme">{{ LANG.perm_select_scheme }}</button>
+            {% set tabindex = tabindex + 1 %}
+            <button type="button" class="btn btn-success" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalCreateScheme">{{ LANG.perm_create_scheme }}</button>
+
+            {% if scheme != currentScheme %}
+              {% set tabindex = tabindex + 1 %}
+              <button type="button" class="btn btn-warning" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalActivateScheme">{{ LANG.perm_activate_scheme }}</button>
+              {% if scheme != "Default" %}
+                {% set tabindex = tabindex + 1 %}
+                <button type="button" class="btn btn-warning" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalResetScheme">{{ LANG.perm_reset_scheme }}</button>
+                {% set tabindex = tabindex + 1 %}
+                <button type="button" class="btn btn-danger" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalDeleteScheme">{{ LANG.perm_delete_scheme }}</button>
+              {% endif %}
+            {% endif %}
+
+            {% if mode == 'byrole' %}
+              {% set tabindex = tabindex + 1 %}
+              <a href="index.php?action=permissions&amp;scheme={{ scheme }}&amp;mode=byperm" class="btn btn-secondary float-end" style="margin-right: 4px;" tabindex="{{ tabindex }}">{{ LANG.perm_view_by_perm }}</a>
+            {% else %}
+              {% set tabindex = tabindex + 1 %}
+              <a href="index.php?action=permissions&amp;scheme={{ scheme }}&amp;mode=byrole" class="btn btn-secondary float-end" style="margin-right: 4px;" tabindex="{{ tabindex }}">{{ LANG.perm_view_by_role }}</a>
+            {% endif %}
+
+            <!-- Modal: Select scheme -->
+            <div class="modal fade" id="modalSelectScheme" tabindex="-1" role="dialog" aria-labelledby="modalSelectSchemeLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header text-bg-info">
+                    <h5 class="modal-title" id="modalSelectSchemeLabel">{{ LANG.perm_select_scheme }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body text-start">
+                    <select id="sel_scheme" class="form-select" name="sel_scheme">
+                      {% for schm in schemes %}
+                        <option value="{{ schm }}" {{ schm==scheme ? 'selected' : '' }}>{{ schm }}</option>
+                      {% endfor %}
+                    </select>
+                    {{ LANG.perm_select_confirm }}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" name="btn_permSelect" class="btn btn-info">{{ LANG.btn_select }}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ LANG.btn_cancel }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal: Create scheme -->
+            <div class="modal fade" id="modalCreateScheme" tabindex="-1" role="dialog" aria-labelledby="modalCreateSchemeLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header text-bg-success">
+                    <h5 class="modal-title" id="modalCreateSchemeLabel">{{ LANG.perm_create_scheme }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body text-start">
+                    <input class="form-control" name="txt_newScheme" maxlength="80" type="text" value="">
+                    {{ LANG.perm_create_scheme_desc }}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" name="btn_permCreate" class="btn btn-success">{{ LANG.btn_create }}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ LANG.btn_cancel }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal: Reset scheme -->
+            <div class="modal fade" id="modalResetScheme" tabindex="-1" role="dialog" aria-labelledby="modalResetSchemeLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header text-bg-warning">
+                    <h5 class="modal-title" id="modalResetSchemeLabel">{{ LANG.perm_reset_scheme }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body text-start">
+                    {{ LANG.perm_reset_confirm }}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" name="btn_permReset" class="btn btn-warning">{{ LANG.btn_reset }}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ LANG.btn_cancel }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal: Activate scheme -->
+            <div class="modal fade" id="modalActivateScheme" tabindex="-1" role="dialog" aria-labelledby="modalActivateSchemeLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header text-bg-warning">
+                    <h5 class="modal-title" id="modalActivateSchemeLabel">{{ LANG.modal_confirm }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body text-start">
+                    {{ LANG.perm_activate_confirm }}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" name="btn_permActivate" class="btn btn-warning">{{ LANG.btn_activate }}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ LANG.btn_cancel }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal: Delete scheme -->
+            <div class="modal fade" id="modalDeleteScheme" tabindex="-1" role="dialog" aria-labelledby="modalDeleteSchemeLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header text-bg-danger">
+                    <h5 class="modal-title" id="modalDeleteSchemeLabel">{{ LANG.modal_confirm }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body text-start">
+                    {{ scheme }}:<br>{{ LANG.perm_delete_confirm }}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" name="btn_permDelete" class="btn btn-danger">{{ LANG.btn_delete }}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ LANG.btn_cancel }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="height:20px;"></div>
+
+            {% if mode == 'byrole' %}
+
+              <div class="card">
+                <div class="card-header">
+                  <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                    {% for role in roles %}
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link {{ role.id == 1 ? 'active' : '' }}" id="tab-{{ role.id }}" data-bs-toggle="tab" data-bs-target="#panel-{{ role.id }}" type="button" role="tab" aria-controls="panel-{{ role.id }}" aria-selected="{{ role.id == 1 ? 'true' : 'false' }}">
+                          {{ role.name }}
+                        </button>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+
+                <div class="card-body">
+                  <div class="tab-content" id="myTabContent">
+                    {% for role in roles %}
+                      <div class="tab-pane fade {{ role.id == 1 ? 'show active' : '' }}" id="panel-{{ role.id }}" role="tabpanel" aria-labelledby="tab-{{ role.id }}">
+
+                        {% for permgroup, permnames in permgroups %}
+                          {% set checked = true %}
+                          {% for permname in permnames %}
+                            {% if not matrix[permname][role.id] %}
+                              {% set checked = false %}
+                            {% endif %}
+                          {% endfor %}
+                          <div class="form-check">
+                            {% set tabindex = tabindex + 1 %}
+                            {% set inputName = 'chk_' ~ permgroup ~ '_' ~ role.id %}
+                            <label><input class="form-check-input" type="checkbox" name="{{ inputName }}" value="{{ inputName }}" tabindex="{{ tabindex }}" {{ checked ? 'checked' : '' }} {{ role.id==1 ? 'disabled="disabled"' : '' }}><strong>{{ LANG['perm_' ~ permgroup ~ '_title'] }}</strong><br>{{ LANG['perm_' ~ permgroup ~ '_desc'] }}</label>
+                          </div>
+                          <hr>
+                        {% endfor %}
+
+                        {% for fperm in fperms %}
+                          <div class="form-check">
+                            {% set tabindex = tabindex + 1 %}
+                            {% set inputName = 'chk_' ~ fperm ~ '_' ~ role.id %}
+                            <label><input class="form-check-input" type="checkbox" name="{{ inputName }}" value="{{ inputName }}" tabindex="{{ tabindex }}" {{ matrix[fperm][role.id] ? 'checked' : '' }} {{ role.id==1 ? 'disabled="disabled"' : '' }}><strong>{{ LANG['perm_' ~ fperm ~ '_title'] }}</strong><br>{{ LANG['perm_' ~ fperm ~ '_desc'] }}</label>
+                          </div>
+                          <hr>
+                        {% endfor %}
+
+                      </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+
+            {% else %}
+
+              <div class="card">
+                <div class="card-header">
+                  <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="tab-general" data-bs-toggle="tab" data-bs-target="#panel-general" type="button" role="tab" aria-controls="panel-general" aria-selected="true">{{ LANG.perm_tab_general }}</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="tab-features" data-bs-toggle="tab" data-bs-target="#panel-features" type="button" role="tab" aria-controls="panel-features" aria-selected="false">{{ LANG.perm_tab_features }}</button>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="card-body">
+                  <div
+                    class="tab-content" id="myTabContent">
+
+                    <!-- Tab: General -->
+                    <div class="tab-pane fade show active" id="panel-general" role="tabpanel" aria-labelledby="tab-general">
+                      {% for key, pages in permgroups %}
+                        <div class="form-group row">
+                          <label class="col-lg-{{ colsleft }} control-label">
+                            {{ LANG['perm_' ~ key ~ '_title'] }}<br>
+                            <span class="text-normal">{{ LANG['perm_' ~ key ~ '_desc'] }}</span>
+                          </label>
+                          <div class="col-lg-{{ colsright }}">
+                            {% for role in roles %}
+                              {% set checked = true %}
+                              {% for page in pages %}
+                                {% if not matrix[page][role.id] %}
+                                  {% set checked = false %}
+                                {% endif %}
+                              {% endfor %}
+                              <div class="form-check">
+                                {% set tabindex = tabindex + 1 %}
+                                {% set inputName = 'chk_' ~ key ~ '_' ~ role.id %}
+                                <label><input class="form-check-input" type="checkbox" name="{{ inputName }}" value="{{ inputName }}" tabindex="{{ tabindex }}" {{ checked ? 'checked' : '' }} {{ role.id==1 ? 'disabled="disabled"' : '' }}>{{ role.name }}</label>
+                              </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                        <div class="divider">
+                          <hr>
+                        </div>
+                      {% endfor %}
+                    </div>
+
+                    <!-- Tab: Features -->
+                    <div class="tab-pane fade show" id="panel-features" role="tabpanel" aria-labelledby="tab-features">
+                      {% for fperm in fperms %}
+                        <div class="form-group row">
+                          <label class="col-lg-{{ colsleft }} control-label">
+                            {{ LANG['perm_' ~ fperm ~ '_title'] }}<br>
+                            <span class="text-normal">{{ LANG['perm_' ~ fperm ~ '_desc'] }}</span>
+                          </label>
+                          <div class="col-lg-{{ colsright }}">
+                            {% for role in roles %}
+                              <div class="form-check">
+                                {% set tabindex = tabindex + 1 %}
+                                {% set inputName = 'chk_' ~ fperm ~ '_' ~ role.id %}
+                                <label><input class="form-check-input" type="checkbox" name="{{ inputName }}" value="{{ inputName }}" tabindex="{{ tabindex }}" {{ matrix[fperm][role.id] ? 'checked' : '' }} {{ role.id==1 ? 'disabled="disabled"' : '' }}>{{ role.name }}</label>
+                              </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                        <div class="divider">
+                          <hr>
+                        </div>
+                      {% endfor %}
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            {% endif %}
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

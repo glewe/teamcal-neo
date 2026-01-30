@@ -1,0 +1,78 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+  view.groupedit
+  -->
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and (showAlerts != 'none') %}
+        {% if (showAlerts == 'all') or (showAlerts == 'warnings' and (alertData.type == 'warning' or alertData.type == 'danger')) %}
+          {{ createAlertBox(alertData)|raw }}
+        {% endif %}
+      {% endif %}
+
+      {{ resetTabindex() }}
+      {% set colsleft = 8 %}
+      {% set colsright = 4 %}
+
+      <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action={{ controller }}&amp;id={{ id }}" method="post" target="_self" accept-charset="utf-8">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+        <div class="card">
+          {% set pageHelpLink = '' %}
+          {% if pageHelp %}
+            {% set pageHelpLink = '<a href="' ~ docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+          {% endif %}
+          <div class="card-header text-bg-{{ panelColor }}">
+            <i class="{{ faIcon }} fa-lg me-3"></i>
+            {{ LANG.group_edit_title ~ ' ' ~ name }}{{ pageHelpLink|raw }}</div>
+          <div class="card-body">
+
+            <div class="card">
+              <div class="card-header">
+                {% set pageTabs = [
+                { 'id': 'tab-settings', 'href': '#panel-settings', 'label': LANG.group_tab_settings, 'active': true },
+                { 'id': 'tab-members', 'href': '#panel-members', 'label': LANG.group_tab_members, 'active': false },
+              ] %}
+                {{ createPageTabs(pageTabs) }}
+              </div>
+
+              <div class="card-body">
+                <div
+                  id="myTabContent" class="tab-content">
+
+                  <!-- Group Settings -->
+                  <div class="tab-pane fade show active" id="panel-settings" role="tabpanel" aria-labelledby="tab-settings">
+                    {% for formObject in group %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- Group Members -->
+                  <div class="tab-pane fade" id="panel-members" role="tabpanel" aria-labelledby="tab-members">
+                    {% for formObject in members %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                    {% for formObject in managers %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 float-end">
+              <input name="hidden_id" type="hidden" value="{{ id }}">
+              <button type="submit" class="btn btn-primary" tabindex="{{ nextTabindex() }}" name="btn_groupUpdate">{{ LANG.btn_update }}</button>
+              <a href="index.php?action=groups" class="btn btn-secondary" tabindex="{{ nextTabindex() }}">{{ LANG.btn_group_list }}</a>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

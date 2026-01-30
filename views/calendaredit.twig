@@ -1,0 +1,397 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+<div class="container content" style="padding-left: 4px; padding-right: 4px;">
+
+  {% if showAlert and (showAlerts != 'none') %}
+    {% if (showAlerts == 'all') or (showAlerts == 'warnings' and (alertData.type == 'warning' or alertData.type == 'danger')) %}
+      {{ createAlertBox(alertData)|raw }}
+    {% endif %}
+  {% endif %}
+
+  {% set pageBwdYear = year %}
+  {% set pageBwdMonth = "now"|date("m") %}
+  {% set pageFwdYear = year %}
+  {% set pageFwdMonth = "now"|date("m") %}
+
+  {% if month == 1 %}
+    {% set pageBwdYear = year - 1 %}
+    {% set pageBwdMonth = '12' %}
+    {% set pageFwdYear = year %}
+    {% set pageFwdMonth = '%02d'|format(month + 1) %}
+  {% elseif month == 12 %}
+    {% set pageBwdYear = year %}
+    {% set pageBwdMonth = '%02d'|format(month - 1) %}
+    {% set pageFwdYear = year + 1 %}
+    {% set pageFwdMonth = '01' %}
+  {% else %}
+    {% set pageBwdYear = year %}
+    {% set pageFwdYear = year %}
+    {% set pageBwdMonth = '%02d'|format(month - 1) %}
+    {% set pageFwdMonth = '%02d'|format(month + 1) %}
+  {% endif %}
+
+  <form class="bs-example form-control-horizontal" enctype="multipart/form-data" action="index.php?action={{ controller }}&amp;month={{ year }}{{ month }}&amp;region={{ regionid }}&amp;user={{ username }}" method="post" target="_self" accept-charset="utf-8">
+    <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+    <input name="hidden_month" type="hidden" class="text" value="{{ month }}">
+    <input name="hidden_region" type="hidden" class="text" value="{{ regionid }}">
+
+    <div class="page-menu">
+      <a class="btn btn-secondary" href="index.php?action={{ controller }}&amp;month={{ pageBwdYear }}{{ pageBwdMonth }}&amp;region={{ regionid }}&amp;user={{ username }}">
+        <span class="fas fa-angle-double-left"></span>
+      </a>
+      <a class="btn btn-secondary" href="index.php?action={{ controller }}&amp;month={{ pageFwdYear }}{{ pageFwdMonth }}&amp;region={{ regionid }}&amp;user={{ username }}">
+        <span class="fas fa-angle-double-right"></span>
+      </a>
+      <a class="btn btn-secondary" href="index.php?action={{ controller }}&amp;month={{ yearToday }}{{ monthToday }}&amp;region={{ regionid }}&amp;user={{ username }}">{{ LANG.today }}</a>
+      <button type="button" class="btn btn-primary" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalPattern">{{ LANG.caledit_Pattern }}</button>
+      <button type="button" class="btn btn-primary" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalPeriod">{{ LANG.caledit_Period }}</button>
+      <button type="button" class="btn btn-primary" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalRecurring">{{ LANG.caledit_Recurring }}</button>
+      {% if showRegionButton %}
+        <button type="button" class="btn btn-warning" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalSelectRegion">{{ LANG.region ~ ': ' ~ regionname }}</button>
+      {% endif %}
+      <button type="button" class="btn btn-success" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalSelectUser">{{ LANG.user ~ ': ' ~ fullname }}</button>
+      <button type="submit" class="btn btn-primary" tabindex="{{ nextTabindex() }}" name="btn_save">{{ LANG.btn_save }}</button>
+      <button type="button" class="btn btn-danger" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalClearAll">{{ LANG.btn_clear_all }}</button>
+      {% if supportMobile %}
+        <button type="button" class="btn btn-secondary" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalSelectWidth">{{ LANG.screen ~ ': ' ~ width }}</button>
+      {% endif %}
+      <a href="index.php?action=calendarview&rand={{ random(100, 9999) }}" class="btn btn-secondary float-end" tabindex="{{ nextTabindex() }}">{{ LANG.btn_showcalendar }}</a>
+    </div>
+
+    <div class="card">
+      {% if CONF.allConfig.pageHelp %}
+        {% set pageHelp = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+      {% else %}
+        {% set pageHelp = '' %}
+      {% endif %}
+      <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+        <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+        {{ LANG.caledit_title|format(year, month, fullname)|raw }}{{ groupnames|raw }}{{ pageHelp|raw }}</div>
+    </div>
+    <div style="height:20px;"></div>
+
+    {% set mobilecols = { 'full': dateInfo.daysInMonth } %}
+    {% if supportMobile %}
+      {% if width == '1024' %}
+        {% set mobilecols = { '1024': 25 } %}
+      {% elseif width == '800' %}
+        {% set mobilecols = { '800': 17 } %}
+      {% elseif width == '640' %}
+        {% set mobilecols = { '640': 14 } %}
+      {% elseif width == '480' %}
+        {% set mobilecols = { '480': 9 } %}
+      {% elseif width == '400' %}
+        {% set mobilecols = { '400': 7 } %}
+      {% elseif width == '320' %}
+        {% set mobilecols = { '320': 5 } %}
+      {% elseif width == '240' %}
+        {% set mobilecols = { '240': 3 } %}
+      {% elseif width == '1024plus' %}
+        {% set mobilecols = { 'full': dateInfo.daysInMonth } %}
+      {% endif %}
+    {% endif %}
+
+    {% for key, cols in mobilecols %}
+      {% set days = dateInfo.daysInMonth %}
+      {% set tables = (days / cols)|round(0, 'ceil') %}
+      {% for t in 0..(tables - 1) %}
+        {% set daystart = (t * cols) + 1 %}
+        {% set daysleft = days - (cols * t) %}
+        {% if daysleft >= cols %}
+          {% set dayend = daystart + (cols - 1) %}
+        {% else %}
+          {% set dayend = days %}
+        {% endif %}
+        <div class="table{{ supportMobile ? key : '' }}">
+          <table class="table table-bordered month">
+            <thead>
+              <!-- Row: Month name and day numbers -->
+              <tr>
+                <th class="m-monthname">{{ dateInfo.monthname }}
+                  {{ dateInfo.year }}</th>
+                {% for i in daystart..dayend %}
+                  <th class="m-daynumber text-center" {{ calendarDays[i].style|raw }}>{{ i }}</th>
+                {% endfor %}
+              </tr>
+              <!-- Row: Weekdays -->
+              <tr>
+                <th class="m-label">&nbsp;</th>
+                {% for i in daystart..dayend %}
+                  <th class="m-weekday text-center" {{ calendarDays[i].style|raw }}>{{ LANG.weekdayShort[calendarDays[i].weekday] }}</th>
+                {% endfor %}
+              </tr>
+              {% if showWeekNumbers %}
+                <!-- Row: Week numbers -->
+                <tr>
+                  <th class="m-label">{{ LANG.weeknumber }}</th>
+                  {% for i in daystart..dayend %}
+                    <th class="m-weeknumber text-center {{ calendarDays[i].isFirstDayOfWeek ? 'first' : 'inner' }}">{{ calendarDays[i].isFirstDayOfWeek ? calendarDays[i].weeknum : '' }}</th>
+                  {% endfor %}
+                </tr>
+              {% endif %}
+              <!-- Row: Daynotes -->
+              <tr>
+                <th class="m-label">{{ LANG.dn_title }}</th>
+                {% for i in daystart..dayend %}
+                  <th class="m-weekday text-center" {{ calendarDays[i].style|raw }}>
+                    <a href="index.php?action=daynote&amp;date={{ calendarDays[i].date }}&amp;for={{ username }}&amp;region={{ regionid }}">
+                      <i class="{{ calendarDays[i].daynoteIcon }} text-info" {{ calendarDays[i].daynoteTooltip|raw }}></i>
+                    </a>
+                  </th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Rows: Current absence -->
+              <tr>
+                <td class="m-label">{{ LANG.caledit_currentAbsence }}</td>
+                {% for i in daystart..dayend %}
+                  <td class="m-day text-center align-middle" {{ calendarDays[i].absenceStyle|raw }}>{{ calendarDays[i].absenceIcon|raw }}</td>
+                {% endfor %}
+              </tr>
+              <!-- Rows ff: Absences -->
+              {% for row in absenceRows %}
+                <tr>
+                  <td class="m-name">{{ row.name }}</td>
+                  {% for i in daystart..dayend %}
+                    <td class="m-day text-center" {{ row.days[i].style|raw }}>
+                      <input class="form-check-input" name="opt_abs_{{ i }}" type="radio" value="{{ row.id }}" {{ row.days[i].checked ? 'checked' : '' }}>
+                    </td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+              <!-- Last Row: Clear radio button -->
+              <tr>
+                <td class="m-label">{{ LANG.caledit_clearAbsence }}</td>
+                {% for i in daystart..dayend %}
+                  <td class="m-label text-center"><input class="form-check-input" name="opt_abs_{{ i }}" type="radio" value="0"></td>
+                {% endfor %}
+              </tr>
+              {% if takeover and (UL.username != username) %}
+                <!-- Take over row -->
+                <tr>
+                  <td class="m-label">Take over</td>
+                  {% for i in daystart..dayend %}
+                    <td class="m-label text-center"><input class="form-check-input" name="opt_abs_{{ i }}" type="radio" value="takeover"></td>
+                  {% endfor %}
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      {% endfor %}
+    {% endfor %}
+
+    <!-- Modal: Clear All -->
+    {{ createModalTop('modalClearAll', LANG.modal_confirm) }}
+    {{ LANG.caledit_confirm_clearall|format(year, month, fullname)|raw }}
+    <div class="form-check mt-3">
+      <input id="clearAbsences" type="checkbox" class="form-check-input" name="chk_clearAbsences" tabindex="{{ nextTabindex() }}">
+      <label for="clearAbsences" class="fw-bold">{{ LANG.caledit_clearAbsences }}</label>
+    </div>
+    {% if isAllowed(CONF.controllers.daynote.permission) or isAllowed('daynoteglobal') %}
+      <div class="form-check">
+        <input id="clearDaynotes" type="checkbox" class="form-check-input" name="chk_clearDaynotes" tabindex="{{ nextTabindex() }}">
+        <label for="clearDaynotes" class="fw-bold">{{ LANG.caledit_clearDaynotes }}</label>
+      </div>
+    {% endif %}
+    {{ createModalBottom('btn_clearall', 'success', LANG.btn_clear_all) }}
+
+    <!-- Modal: Select Region -->
+    {{ createModalTop('modalSelectRegion', LANG.cal_selRegion) }}
+    <select class="form-select" name="sel_region" tabindex="{{ nextTabindex() }}">
+      {% for reg in regions %}
+        <option value="{{ reg.id }}" {{ (regionid == reg.id) ? 'selected' : '' }}>{{ reg.name }}</option>
+      {% endfor %}
+    </select>
+    {{ createModalBottom('btn_region', 'success', LANG.btn_select) }}
+
+    <!-- Modal: Screen Width -->
+    {{ createModalTop('modalSelectWidth', LANG.cal_selWidth) }}
+    <p>{{ LANG.cal_selWidth_comment }}</p>
+    <select class="form-select" name="sel_width" tabindex="{{ nextTabindex() }}">
+      {% for key, value in LANG.widths %}
+        <option value="{{ key }}" {{ (width == key) ? 'selected' : '' }}>{{ value }}</option>
+      {% endfor %}
+    </select>
+    {{ createModalBottom('btn_width', 'warning', LANG.btn_select) }}
+
+    <!-- Modal: Select User -->
+    {{ createModalTop('modalSelectUser', LANG.caledit_selUser) }}
+    <select class="form-select" name="sel_user" tabindex="{{ nextTabindex() }}">
+      {% for usr in users %}
+        <option value="{{ usr.username }}" {{ (username == usr.username) ? 'selected' : '' }}>{{ usr.lastfirst }}</option>
+      {% endfor %}
+    </select>
+    {{ createModalBottom('btn_user', 'success', LANG.btn_select) }}
+
+    <!-- Modal: Pattern -->
+    {{ createModalTop('modalPattern', LANG.caledit_PatternTitle, 'lg') }}
+    <div class="row">
+      <div class="col-lg-7">
+        <label for="absencePattern" class="text-bold">{{ LANG.caledit_absencePattern }}</label><br>
+        <span class="text-normal">{{ LANG.caledit_absencePattern_comment }}</span>
+      </div>
+      <div class="col-lg-5">
+        <select class="form-select" id="absencePattern" name="sel_absencePattern" tabindex="{{ nextTabindex() }}" onchange="showPattern(this.value)">
+          {% for ptn in patterns %}
+            <option value="{{ ptn.id }}">{{ ptn.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="mt-4" id="pattern-container" data-first-pattern="{{ patterns|length > 0 ? patterns[0].id : '' }}">
+      {% for ptn in patterns %}
+        <div id="pattern-{{ ptn.id }}" class="col absence-pattern" style="display: none;">
+          {{ createPatternTable(ptn.id)|raw }}
+        </div>
+      {% endfor %}
+      <script>
+        function showPattern(id) {
+          $('.absence-pattern').hide();
+          $('#pattern-' + id).show();
+        }
+        $(document).ready(function() {
+          var firstPattern = $('#pattern-container').data('first-pattern');
+          if (firstPattern) {
+            showPattern(firstPattern);
+          }
+        });
+      </script>
+    </div>
+    <div class="row mt-4">
+      <div class="col-lg-7">
+        <label for="absencePatternSkipHolidays" class="text-bold">{{ LANG.caledit_absencePatternSkipHolidays }}</label><br>
+        <span class="text-normal">{{ LANG.caledit_absencePatternSkipHolidays_comment }}</span>
+      </div>
+      <div class="col-lg-5">
+        <div class="form-check">
+          <input id="absencePatternSkipHolidays" name="chk_absencePatternSkipHolidays" value="1" tabindex="{{ nextTabindex() }}" type="checkbox" class="form-check-input">
+          <label class="form-check-label" for="absencePatternSkipHolidays">
+            {{ LANG.caledit_absencePatternSkipHolidays }}
+          </label>
+        </div>
+      </div>
+    </div>
+    {{ createModalBottom('btn_savepattern', 'success', LANG.btn_save) }}
+
+    <!-- Modal: Period -->
+    {{ createModalTop('modalPeriod', LANG.caledit_PeriodTitle, 'lg') }}
+    <div class="row">
+      <div class="col-lg-7">
+        <label for="periodAbsence" class="text-bold">{{ LANG.caledit_absenceType }}</label><br>
+        <span class="text-normal">{{ LANG.caledit_absenceType_comment }}</span>
+      </div>
+      <div class="col-lg-5">
+        <select class="form-select" id="periodAbsence" name="sel_periodAbsence" tabindex="{{ nextTabindex() }}">
+          {% for abs in absencesForUser %}
+            {% if abs.validForUser %}
+              <option value="{{ abs.id }}">{{ abs.name }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div>&nbsp;</div>
+    <div class="row">
+      <div class="col-lg-7">
+        <label for="periodStart" class="text-bold">{{ LANG.caledit_startDate }}</label><br>
+        <span class="text-normal">{{ LANG.caledit_startDate_comment }}</span>
+      </div>
+      <div class="col-lg-5">
+        <input id="periodStart" class="form-control" tabindex="{{ nextTabindex() }}" name="txt_periodStart" type="text" maxlength="10" value="">
+        <script>
+          $(function () {
+            $("#periodStart").datepicker({changeMonth: false, changeYear: false, dateFormat: "yy-mm-dd"});
+          });
+        </script>
+      </div>
+    </div>
+    <div>&nbsp;</div>
+    <div class="row">
+      <div class="col-lg-7">
+        <label for="periodEnd" class="text-bold">{{ LANG.caledit_endDate }}</label><br>
+        <span class="text-normal">{{ LANG.caledit_endDate_comment }}</span>
+      </div>
+      <div class="col-lg-5">
+        <input id="periodEnd" class="form-control" tabindex="{{ nextTabindex() }}" name="txt_periodEnd" type="text" maxlength="10" value="">
+        <script>
+          $(function () {
+            $("#periodEnd").datepicker({changeMonth: false, changeYear: false, dateFormat: "yy-mm-dd"});
+          });
+        </script>
+      </div>
+    </div>
+    {{ createModalBottom('btn_saveperiod', 'success', LANG.btn_save) }}
+
+    <!-- Modal: Recurring -->
+    {{ createModalTop('modalRecurring', LANG.caledit_RecurringTitle, 'lg') }}
+    <div class="row" style="margin-bottom:30px;padding-left:0px;">
+      <div class="col-lg-6">
+        <label for="recurringAbsence" class="fw-bold">{{ LANG.caledit_absenceType }}</label><br>
+        {{ LANG.caledit_absenceType_comment }}
+      </div>
+      <div class="col-lg-6">
+        <select id="recurringAbsence" class="form-select" name="sel_recurringAbsence" tabindex="{{ nextTabindex() }}">
+          {% for abs in absencesForUser %}
+            {% if abs.validForUser %}
+              <option value="{{ abs.id }}">{{ abs.name }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div>
+      <p><b>{{ LANG.caledit_recurrence }}</b><br>
+        {{ LANG.caledit_recurrence_comment }}</p>
+    </div>
+    <div class="row">
+      <div class="col-lg-6" style="padding-left:20px;">
+        <div class="form-check">
+          <input id="monday" name="monday" value="monday" tabindex="{{ nextTabindex() }}" type="checkbox" class="form-check-input">
+          <label class="form-check-label" for="monday">{{ LANG.weekdayLong[1] }}</label>
+        </div>
+        <div class="form-check">
+          <input id="tuesday" name="tuesday" value="tuesday" tabindex="{{ nextTabindex() }}" type="checkbox" class="form-check-input">
+          <label class="form-check-label" for="tuesday">{{ LANG.weekdayLong[2] }}</label>
+        </div>
+        <div class="form-check">
+          <input id="wednesday" name="wednesday" value="wednesday" tabindex="{{ nextTabindex() }}" type="checkbox" class="form-check-input">
+          <label class="form-check-label" for="wednesday">{{ LANG.weekdayLong[3] }}</label>
+        </div>
+        <div class="form-check">
+          <input id="thursday" name="thursday" value="thursday" tabindex="{{ nextTabindex() }}" type="checkbox" class="form-check-input">
+          <label class="form-check-label" for="thursday">{{ LANG.weekdayLong[4] }}</label>
+        </div>
+        <div class="form-check">
+          <input id="friday" name="friday" value="friday" tabindex="{{ nextTabindex() }}" type="checkbox" class="form-check-input">
+          <label class="form-check-label" for="friday">{{ LANG.weekdayLong[5] }}</label>
+        </div>
+      </div>
+      <div class="col-lg-6" style="padding-left:20px;">
+        <div class="form-check">
+          <input id="saturday" name="saturday" value="saturday" tabindex="{{ nextTabindex() }}" type="checkbox" class="form-check-input">
+          <label class="form-check-label" for="saturday">{{ LANG.weekdayLong[6] }}</label>
+        </div>
+        <div class="form-check">
+          <input id="sunday" name="sunday" value="sunday" tabindex="{{ nextTabindex() }}" type="checkbox" class="form-check-input">
+          <label class="form-check-label" for="sunday">{{ LANG.weekdayLong[7] }}</label>
+        </div>
+        <div><hr></div>
+        <div class="form-check">
+          <input id="workdays" name="workdays" value="workdays" tabindex="{{ nextTabindex() }}" type="checkbox" class="form-check-input">
+          <label class="form-check-label" for="workdays">{{ LANG.mon_fri }}</label>
+        </div>
+        <div class="form-check">
+          <input id="weekends" name="weekends" value="weekends" tabindex="{{ nextTabindex() }}" type="checkbox" class="form-check-input">
+          <label class="form-check-label" for="weekends">{{ LANG.sat_sun }}</label>
+        </div>
+      </div>
+    </div>
+    <div>&nbsp;</div>
+    {{ createModalBottom('btn_saverecurring', 'success', LANG.btn_save) }}
+
+  </form>
+</div>
+{% endblock %}

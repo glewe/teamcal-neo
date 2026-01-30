@@ -1,0 +1,329 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+    view.statspresencetype
+    -->
+  <div class="container content">
+
+    {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
+      {{ createAlertBox(alertData)|raw }}
+    {% endif %}
+
+    {% set tabindex = 0 %}
+
+    <form class="form-control-horizontal noprint" enctype="multipart/form-data" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
+      <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+      <div class="page-menu">
+        {% set tabindex = tabindex + 1 %}
+        <button type="button" class="btn btn-primary" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalGroup">{{ LANG.group }}
+          <span class="badge text-bg-light">{{ groupName }}</span>
+        </button>
+        {% set tabindex = tabindex + 1 %}
+        <button type="button" class="btn btn-primary" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalPeriod">{{ LANG.period }}
+          <span class="badge text-bg-light">{{ periodName }}</span>
+        </button>
+        {% set tabindex = tabindex + 1 %}
+        <button type="button" class="btn btn-warning" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalDiagram">{{ LANG.diagram }}</button>
+        <a class="btn btn-secondary" href="index.php?action={{ controller }}">{{ LANG.btn_reset }}</a>
+      </div>
+      <div style="height:20px;"></div>
+
+      <!-- Modal: Group -->
+      <div class="modal fade" id="modalGroup" tabindex="-1" role="dialog" aria-labelledby="modalGroupLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-bg-success">
+              <h5 class="modal-title" id="modalGroupLabel">{{ LANG.stats_modalGroupTitle }}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <span class="text-bold">{{ LANG.stats_group }}</span><br>
+              <span class="text-normal">{{ LANG.stats_group_comment }}</span>
+              {% set tabindex = tabindex + 1 %}
+              <select id="group" class="form-select" name="sel_group" tabindex="{{ tabindex }}">
+                <option value="all" {{ (groupid == 'all') ? ' selected="selected"' : '' }}>{{ LANG.all }}</option>
+                {% for grp in groups %}
+                  <option value="{{ grp.id }}" {{ (groupid == grp.id) ? 'selected="selected"' : '' }}>{{ grp.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" name="btn_apply" class="btn btn-success">{{ LANG.btn_apply }}</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ LANG.btn_cancel }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal: Period -->
+      <div class="modal fade" id="modalPeriod" tabindex="-1" role="dialog" aria-labelledby="modalPeriodLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-bg-success">
+              <h5 class="modal-title" id="modalPeriodLabel">{{ LANG.stats_modalPeriodTitle }}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <span class="text-bold">{{ LANG.stats_period }}</span><br>
+              <span class="text-normal">{{ LANG.stats_period_comment }}</span>
+              {% set tabindex = tabindex + 1 %}
+              <select id="sel_period" class="form-select" name="sel_period" tabindex="{{ tabindex }}">
+                <option value="year" {{ (period == 'year') ? "selected" : "" }}>{{ LANG.period_year }}</option>
+                <option value="half" {{ (period == 'half') ? "selected" : "" }}>{{ LANG.period_half }}</option>
+                <option value="quarter" {{ (period == 'quarter') ? "selected" : "" }}>{{ LANG.period_quarter }}</option>
+                <option value="month" {{ (period == 'month') ? "selected" : "" }}>{{ LANG.period_month }}</option>
+                {% if not currentYearOnly %}
+                  <option value="custom" {{ (period == 'custom') ? "selected" : "" }}>{{ LANG.custom }}</option>
+                {% endif %}
+              </select>
+              <script>
+                $("#sel_period").change(function () {
+                  if ($(this).val() == 'custom') {
+                    $('#from').prop('disabled', false);
+                    $('#to').prop('disabled', false);
+                  } else {
+                    $('#from').prop('disabled', true);
+                    $('#to').prop('disabled', true);
+                  }
+                });
+              </script>
+              <div>&nbsp;</div>
+
+              {% if not currentYearOnly %}
+                <span class="text-bold">{{ LANG.stats_startDate }}</span><br>
+                <span class="text-normal">{{ LANG.stats_startDate_comment }}</span>
+                {% set tabindex = tabindex + 1 %}
+                <input id="from" class="form-control" tabindex="{{ tabindex }}" name="txt_from" type="text" maxlength="10" value="{{ from }}" {{ (period == 'custom') ? "" : "disabled" }}>
+                <script>
+                  $(function () {
+                    $("#from").datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
+                  });
+                </script>
+                {% if inputAlert.from %}
+                  <br>
+                  <div class="alert alert-dismissable alert-danger">
+                    <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+                    {{ inputAlert.from }}</div>
+                {% endif %}
+                <div>&nbsp;</div>
+
+                <span class="text-bold">{{ LANG.stats_endDate }}</span><br>
+                <span class="text-normal">{{ LANG.stats_endDate_comment }}</span>
+                {% set tabindex = tabindex + 1 %}
+                <input id="to" class="form-control" tabindex="{{ tabindex }}" name="txt_to" type="text" maxlength="10" value="{{ to }}" {{ (period == 'custom') ? "" : "disabled" }}>
+                <script>
+                  $(function () {
+                    $("#to").datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
+                  });
+                </script>
+                {% if inputAlert.to %}
+                  <br>
+                  <div class="alert alert-dismissable alert-danger">
+                    <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+                    {{ inputAlert.to }}</div>
+                {% endif %}
+              {% endif %}
+            </div>
+            <div class="modal-footer">
+              <button type="submit" name="btn_apply" class="btn btn-success">{{ LANG.btn_apply }}</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ LANG.btn_cancel }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal: Diagram -->
+      <div class="modal fade" id="modalDiagram" tabindex="-1" role="dialog" aria-labelledby="modalDiagramLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-bg-success">
+              <h5 class="modal-title" id="modalDiagramLabel">{{ LANG.stats_modalDiagramTitle }}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <span class="text-bold">{{ LANG.stats_color }}</span><br>
+              <label for="sel_color" class="text-normal">{{ LANG.stats_color_comment }}</label>
+              {% set tabindex = tabindex + 1 %}
+              <select id="sel_color" class="form-select" name="sel_color" tabindex="{{ tabindex }}" {{ (showAsPieChart) ? "disabled" : "" }}>
+                <option value="blue" {{ (color == 'blue') ? "selected" : "" }}>{{ LANG.blue }}</option>
+                <option value="cyan" {{ (color == 'cyan') ? "selected" : "" }}>{{ LANG.cyan }}</option>
+                <option value="green" {{ (color == 'green') ? "selected" : "" }}>{{ LANG.green }}</option>
+                <option value="grey" {{ (color == 'grey') ? "selected" : "" }}>{{ LANG.grey }}</option>
+                <option value="magenta" {{ (color == 'magenta') ? "selected" : "" }}>{{ LANG.magenta }}</option>
+                <option value="orange" {{ (color == 'orange') ? "selected" : "" }}>{{ LANG.orange }}</option>
+                <option value="purple" {{ (color == 'purple') ? "selected" : "" }}>{{ LANG.purple }}</option>
+                <option value="red" {{ (color == 'red') ? "selected" : "" }}>{{ LANG.red }}</option>
+                <option value="yellow" {{ (color == 'yellow') ? "selected" : "" }}>{{ LANG.yellow }}</option>
+              </select><br>
+
+              <div class="form-check">
+                <label><input class="form-check-input" id="chk_showAsPieChart" name="chk_showAsPieChart" value="chk_showAsPieChart" type="checkbox" {{ (showAsPieChart) ? "checked" : "" }}>{{ LANG.stats_showAsPieChart }}</label>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" name="btn_apply" class="btn btn-success">{{ LANG.btn_apply }}</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ LANG.btn_cancel }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        $('#chk_showAsPieChart').change(function () {
+          if ($('#chk_showAsPieChart').prop('checked')) {
+            $("#sel_color").prop("disabled", true);
+          } else {
+            $("#sel_color").prop("disabled", false);
+          }
+        });
+      </script>
+    </form>
+
+    <div class="card">
+      <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+        <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+        {{ LANG.stats_title_presencetype }}&nbsp;({{ periodName }})<span class="badge text-bg-secondary float-end badge-header-right">
+          <i data-bs-placement="bottom" data-type="info" data-bs-toggle="tooltip" title="{{ LANG.stats_total }}">{{ total }}</i>
+        </span>
+        {% if C.read('pageHelp') %}
+          <a href="{{ CONF.controllers[controller].docurl }}" target="_blank" class="float-end" style="color:inherit;">
+            <i class="bi bi-question-circle-fill bi-lg"></i>
+          </a>
+        {% endif %}
+      </div>
+      <div class="card-body">
+        <p>{{ LANG.stats_presencetype_desc }}</p>
+
+        <div style="position: relative; height: {{ height }}px;">
+          <canvas id="myChart"></canvas>
+        </div>
+
+        <script src="public/addons/chart.js/{{ constant('CHARTJS_VER') }}/chart.umd.js"></script>
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('myChart');{% if not showAsPieChart %}
+              //
+              // Chart.js Bar Chart with dynamic opacity
+              //
+              const rawData = [{{ data|raw }}];
+              const colorNameMap = {
+                'blue': '#0d6efd',
+                'cyan': '#0dcaf0',
+                'green': '#198754',
+                'grey': '#6c757d',
+                'gray': '#6c757d',
+                'magenta': '#d63384',
+                'orange': '#fd7e14',
+                'purple': '#6f42c1',
+                'red': '#dc3545',
+                'yellow': '#ffc107'
+              };
+
+              let baseColorHex = '{{ color }}';
+              if (baseColorHex.indexOf('#') !== 0) {
+                let lowerColor = baseColorHex.toLowerCase();
+                if (colorNameMap[lowerColor]) {
+                  baseColorHex = colorNameMap[lowerColor];
+                }
+              }
+
+              function hexToRgb(hex) {
+                var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+                hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+                  return r + r + g + g + b + b;
+                });
+                var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? {
+                  r: parseInt(result[1], 16),
+                  g: parseInt(result[2], 16),
+                  b: parseInt(result[3], 16)
+                } : {
+                  r: 0,
+                  g: 0,
+                  b: 0
+                };
+              }
+
+              const rgb = hexToRgb(baseColorHex);
+              const maxVal = Math.max(... rawData);
+              const minVal = Math.min(... rawData);
+              const range = maxVal - minVal;
+
+              const bgColors = rawData.map(val => {
+                let alpha = 1;
+                if (range > 0) {
+                  alpha = 0.3 + 0.7 * ((val - minVal) / range);
+                }
+                return `rgba(${
+                  rgb.r
+                }, ${
+                  rgb.g
+                }, ${
+                  rgb.b
+                }, ${
+                  alpha.toFixed(2)
+                })`;
+              });
+
+              new Chart(ctx, {
+                type: 'bar',
+                data: {
+                  labels: [{{ labels|raw }}],
+                  datasets: [
+                    {
+                      label: '{{ LANG.taken }}',
+                      data: rawData,
+                      backgroundColor: bgColors,
+                      borderColor: baseColorHex,
+                      borderWidth: 1,
+                      barThickness: 40
+                    }
+                  ]
+                },
+                options: {
+                  indexAxis: 'y',
+                  maintainAspectRatio: false,
+                  responsive: true,
+                  legend: {
+                    display: false
+                  },
+                  title: {
+                    display: false
+                  }
+                }
+              });
+            {% else %}
+              //
+              // Chart.js Pie Chart
+              //
+              new Chart(ctx, {
+                type: 'pie',
+                data: {
+                  labels: [{{ labels|raw }}],
+                  datasets: [
+                    {
+                      data: [{{ data|raw }}],
+                      backgroundColor: [{{ sliceColors|raw }}],
+                      hoverBackgroundColor: [{{ sliceColors|raw }}]
+                    }
+                  ]
+                },
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  legend: {
+                    display: false
+                  },
+                  title: {
+                    display: false
+                  }
+                }
+              });{% endif %}
+          });
+        </script>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

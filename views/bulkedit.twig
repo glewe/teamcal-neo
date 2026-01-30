@@ -1,0 +1,146 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and (showAlerts != 'none') %}
+        {% if (showAlerts == 'all') or (showAlerts == 'warnings' and (alertData.type == 'warning' or alertData.type == 'danger')) %}
+          {{ createAlertBox(alertData)|raw }}
+        {% endif %}
+      {% endif %}
+
+      <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+        <input name="hidden_absid" type="hidden" class="text" value="{{ absid }}">
+        <input name="hidden_groupid" type="hidden" class="text" value="{{ groupid }}">
+
+        <div class="card">
+          {% if CONF.allConfig.pageHelp %}
+            {% set pageHelp = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+          {% else %}
+            {% set pageHelp = '' %}
+          {% endif %}
+          <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+            <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+            {{ LANG.bulkedit_title ~ ': ' ~ abs.name }}{{ pageHelp|raw }}
+          </div>
+
+          <div class="card-body">
+
+            <div class="row mb-4">
+              <div class="col-lg-4">
+                <label for="sel_absence">{{ LANG.absencetype }}</label>
+                <select class="form-select" name="sel_absence" id="sel_absence" tabindex="{{ nextTabindex() }}">
+                  {% for absence in absences %}
+                    <option value="{{ absence.id }}" {{ absence.id == absid ? 'selected' : '' }}>{{ absence.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-lg-4">
+                <label for="sel_group">{{ LANG.group }}</label>
+                <select class="form-select" name="sel_group" id="sel_group" tabindex="{{ nextTabindex() }}">
+                  <option value="All" {{ 'All' == groupid ? 'selected' : '' }}>{{ LANG.all }}</option>
+                  {% for group in groups %}
+                    <option value="{{ group.id }}" {{ group.id == groupid ? 'selected' : '' }}>{{ group.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-lg-4">
+                <label>&nbsp;</label><br>
+                <button type="submit" class="btn btn-info" tabindex="{{ nextTabindex() }}" name="btn_load" aria-label="{{ LANG.btn_load }}">{{ LANG.btn_load }}</button>
+                <button type="submit" class="btn btn-success" tabindex="{{ nextTabindex() }}" name="btn_reset" aria-label="{{ LANG.btn_reset }}">{{ LANG.btn_reset }}</button>
+              </div>
+            </div>
+
+            <div class="card">
+
+              <div class="card-header">
+                {{ createPageTabs([
+                { 'id': 'tab-absences', 'href': '#panel-absences', 'label': LANG.profile_tab_absences, 'active': true },
+              ]) }}
+              </div>
+
+              <div class="card-body">
+                <div
+                  class="tab-content" id="myTabContent">
+
+                  <!-- Absences tab -->
+                  <div class="tab-pane fade show active" id="panel-absences" role="tabpanel" aria-labelledby="tab-absences">
+                    <div class="row">
+                      <div class="col-lg-1">
+                        <strong>{{ LANG.select }}</strong><br>
+                        <div class="form-check mt-2">
+                          <label><input class="form-check-input" type="checkbox" name="chk_selectAll" id="chk_selectAll">{{ LANG.all }}</label>
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <strong>{{ LANG.user }}</strong>
+                      </div>
+                      <div class="col-lg-3">
+                        <strong>{{ LANG.absence }}</strong>
+                      </div>
+                      <div class="col-lg-2 text-center">
+                        <strong>{{ LANG.profile_abs_allowance }}</strong><br>
+                        <div class="text-center">
+                          <label for="txt_selected_{{ absid }}_allowance" class="text-italic">{{ LANG.bulkedit_for_selected }}</label>
+                          <input id="txt_selected_{{ absid }}_allowance" class="form-control text-center border-primary" tabindex="{{ nextTabindex() }}" name="txt_selected_{{ absid }}_allowance" maxlength="3" value="">
+                        </div>
+                      </div>
+                      <div class="col-lg-2 text-center">
+                        <strong>{{ LANG.profile_abs_carryover }}</strong><br>
+                        <label class="text-italic">{{ LANG.bulkedit_for_selected }}</label>
+                        <div class="text-center"><input id="txt_selected_{{ absid }}_carryover" class="form-control text-center border-primary" tabindex="{{ nextTabindex() }}" name="txt_selected_{{ absid }}_carryover" maxlength="3" value=""></div>
+                      </div>
+                    </div>
+                    <div class="divider"><hr></div>
+
+                    {% for user in bulkusers %}
+                      <div class="row">
+                        <div class="col-lg-1">
+                          {% if user.username != "admin" %}
+                            <input class="form-check-input ms-2" type="checkbox" name="chk_userSelected[]" value="{{ user.username }}">&nbsp;&nbsp;
+                          {% else %}
+                            <span style="padding-left: 16px;">&nbsp;</span>
+                          {% endif %}
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="text-normal">{{ user.dispname }}</div>
+                        </div>
+                        <div class="col-lg-3">
+                          <div class="text-normal">{{ abs.name }}</div>
+                        </div>
+                        <div class="col-lg-2">
+                          <div class="text-center"><input id="txt_{{ user.username }}_{{ absid }}_allowance" class="form-control text-center" tabindex="{{ nextTabindex() }}" name="txt_{{ user.username }}_{{ absid }}_allowance" maxlength="3" value="{{ user.allowance }}"></div>
+                        </div>
+                        <div class="col-lg-2">
+                          <div class="text-center"><input id="txt_{{ user.username }}_{{ absid }}_carryover" class="form-control text-center" tabindex="{{ nextTabindex() }}" name="txt_{{ user.username }}_{{ absid }}_carryover" maxlength="3" value="{{ user.carryover }}"></div>
+                        </div>
+                      </div>
+                      <div class="divider"><hr></div>
+                    {% endfor %}
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+            <div class="mt-4 float-end">
+              <button type="submit" class="btn btn-primary" tabindex="{{ nextTabindex() }}" name="btn_bulkUpdate" aria-label="{{ LANG.btn_update }}">{{ LANG.btn_update }}</button>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    $('#chk_selectAll').click(function (event) {
+      const isChecked = this.checked;
+      $(":checkbox[name='chk_userSelected[]']").prop('checked', isChecked);
+    });
+  </script>
+{% endblock %}

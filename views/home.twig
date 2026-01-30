@@ -1,0 +1,29 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+  <div class="container content">
+    <div class="col-lg-12">
+
+      {# Note: alert rendering is handled in header/layout usually, but home.php had it explicitly #}
+      {# BaseController captures alertData from container. #}
+        {% if alertData and (C.read('showAlerts') != 'none') %}
+          {% if (C.read('showAlerts') == 'all') or (C.read('showAlerts') == 'warnings' and (alertData.type == 'warning' or alertData.type == 'danger')) %}
+        {{ alertHtml|raw }}
+      {% endif %}
+      {% endif %}
+
+        <div class="card text-{{ CONF.controllers[controller].panelColor }}"> {% if C.read('pageHelp') %}
+          {% set pageHelp = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+        {% endif %}
+
+        <div class="card-header">
+          <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+          {{ LANG.home_title }}{{ pageHelp|raw }}</div>
+        <div class="card-body">
+          {{ C.read('welcomeText')|raw }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}

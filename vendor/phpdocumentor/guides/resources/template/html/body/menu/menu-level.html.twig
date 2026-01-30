@@ -1,0 +1,6 @@
+<ul class="menu-level">
+    {% for entry in node.menuEntries -%}
+        {{ renderNode(entry) }}
+    {% endfor %}
+</ul>
+{# force a new line at the end of the file #}

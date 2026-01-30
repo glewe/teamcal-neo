@@ -1,0 +1,177 @@
+{% extends "layout.twig" %}
+{% import "macros/form.twig" as forms %}
+
+{% block content %}
+  <!-- ====================================================================
+      view.roles
+      -->
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
+        {{ createAlertBox(alertData)|raw }}
+      {% endif %}
+
+      {% set tabindex = 0 %}
+
+      <div class="card">
+        <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+          <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+          {{ LANG.roles_title }}
+          {% if C.read('pageHelp') %}
+            <a href="{{ CONF.controllers[controller].docurl }}" target="_blank" class="float-end" style="color:inherit;">
+              <i class="bi bi-question-circle-fill bi-lg"></i>
+            </a>
+          {% endif %}
+        </div>
+
+        <div class="card-body">
+
+          <form class="form-control-horizontal" name="form_create" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
+            <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+            <div class="row mb-4">
+              <div class="col-lg-7">
+              </div>
+              <div class="col-lg-5 text-end">
+                <br>
+                {% set tabindex = tabindex + 1 %}
+                <button type="button" class="btn btn-success" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalCreateRole" aria-label="{{ LANG.btn_create_role }}">
+                  {{ LANG.btn_create_role }}
+                </button>
+              </div>
+            </div>
+
+            <!-- Modal: Create role -->
+            <div class="modal fade" id="modalCreateRole" tabindex="-1" role="dialog" aria-labelledby="modalCreateRoleLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header text-bg-success">
+                    <h5 class="modal-title" id="modalCreateRoleLabel">{{ LANG.btn_create_role }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body text-start">
+                    <label for="inputName">{{ LANG.name }}</label>
+                    {% set tabindex = tabindex + 1 %}
+                    <input id="inputName" class="form-control mb-2" tabindex="{{ tabindex }}" name="txt_name" maxlength="40" value="{{ txt_name }}" type="text" aria-label="{{ LANG.name }}">
+                    {% if inputAlert.name %}
+                      <br>
+                      <div class="alert alert-dismissable alert-danger" role="alert">
+                        <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
+                        {{ inputAlert.name }}
+                      </div>
+                    {% endif %}
+                    <label for="inputDescription">{{ LANG.description }}</label>
+                    {% set tabindex = tabindex + 1 %}
+                    <input id="inputDescription" class="form-control" tabindex="{{ tabindex }}" name="txt_description" maxlength="100" value="{{ txt_description }}" type="text" aria-label="{{ LANG.description }}">
+                    {% if inputAlert.description %}
+                      <br>
+                      <div class="alert alert-dismissable alert-danger" role="alert">
+                        <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
+                        {{ inputAlert.description }}</div>
+                    {% endif %}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" name="btn_roleCreate" class="btn btn-success">{{ LANG.btn_create_role }}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ LANG.btn_cancel }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
+
+          <table id="dataTableRoles" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+            <thead>
+              <tr>
+                <th class="text-end">#</th>
+                <th>{{ LANG.roles_name }}</th>
+                <th>{{ LANG.roles_description }}</th>
+                <th class="text-center">{{ LANG.action }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% set i = 1 %}
+              {% set protectedRoles = [1, 2, 3] %}
+              {% for role in roles %}
+                {% set isProtected = role.id in protectedRoles %}
+                <tr>
+                  <td class="text-end">{{ i }}</td>
+                  <td>
+                    <i class="fas fa-user-circle fa-lg text-{{ role.color }} me-2"></i>
+                    {{ role.name }}</td>
+                  <td>{{ role.description }}</td>
+                  <td class="align-top text-center">
+                    <form class="form-control-horizontal" name="form_{{ role.name }}" action="index.php?action=roles" method="post" target="_self" accept-charset="utf-8">
+                      <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+                      {% if not isProtected %}
+                        {% set tabindex = tabindex + 1 %}
+                        <button type="button" class="btn btn-danger btn-sm" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalDeleteRole_{{ role.id }}" aria-label="{{ LANG.btn_delete }}">
+                          {{ LANG.btn_delete }}
+                        </button>
+                        <input name="hidden_id" type="hidden" value="{{ role.id }}">
+                        <input name="hidden_name" type="hidden" value="{{ role.name }}">
+                        <input name="hidden_description" type="hidden" value="{{ role.description }}">
+                      {% endif %}
+                      {% set tabindex = tabindex + 1 %}
+                      <a href="index.php?action=roleedit&amp;id={{ role.id }}" class="btn btn-warning btn-sm" tabindex="{{ tabindex }}" aria-label="{{ LANG.btn_edit }}">
+                        {{ LANG.btn_edit }}
+                      </a>
+
+                      <!-- Modal: Delete role -->
+                      {% if not isProtected %}
+                        <div class="modal fade" id="modalDeleteRole_{{ role.id }}" tabindex="-1" role="dialog" aria-labelledby="modalDeleteRole_{{ role.id }}_Label" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header text-bg-danger">
+                                <h5 class="modal-title" id="modalDeleteRole_{{ role.id }}_Label">{{ LANG.modal_confirm }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body text-start">
+                                {{ LANG.roles_confirm_delete|raw }}
+                                {{ role.name }}
+                                ?
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" name="btn_roleDelete" class="btn btn-danger">{{ LANG.btn_delete_role }}</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ LANG.btn_cancel }}</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      {% endif %}
+
+                    </form>
+                  </td>
+                </tr>
+                {% set i = i + 1 %}
+              {% endfor %}
+            </tbody>
+          </table>
+          <script>
+            $(document).ready(function () {
+              $('#dataTableRoles').DataTable({
+                paging: true,
+                ordering: true,
+                info: true,
+                pageLength: 50,
+                language: {
+                  url: 'public/addons/datatables/datatables.{{ LANG.locale }}.json'
+                },
+                columnDefs: [
+                  {
+                    targets: [
+                      0, 3
+                    ],
+                    orderable: false,
+                    searchable: false
+                  }
+                ]
+              });
+            });
+          </script>
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

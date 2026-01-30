@@ -1,0 +1,51 @@
+{
+    "name": "phpdocumentor/guides",
+    "description": "Contains the core functionality from the phpDocumentor Guides.",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://www.phpdoc.org",
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "phpDocumentor\\Guides\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "phpDocumentor\\Guides\\": [
+                "tests/unit/"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^8.1",
+        "ext-json": "*",
+        "ext-zlib": "*",
+        "doctrine/deprecations": "^1.1",
+        "league/flysystem": "^1.1.0 || ^3.29.1",
+        "league/tactician": "^1.1",
+        "league/uri": "^7.5.1",
+        "phpdocumentor/flyfinder": "^1.1 || ^2.0",
+        "phpdocumentor/filesystem": "^1.7.4",
+        "psr/event-dispatcher": "^1.0",
+        "symfony/clock": "^6.4.8 || ^7.4 || ^8",
+        "symfony/html-sanitizer": "^6.4.8 || ^7.4 || ^8",
+        "symfony/http-client": "^6.4.9 || ^7.4 || ^8",
+        "symfony/polyfill-php84": "^1.33.0",
+        "symfony/string": "^6.4.9 || ^7.4 || ^8",
+        "symfony/translation-contracts": "^3.5.1",
+        "twig/twig": "~2.15 || ^3.0",
+        "webmozart/assert": "^1.11"
+    },
+    "require-dev": {
+        "psr/log": "^3.0.2"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.x-dev"
+        }
+    }
+}

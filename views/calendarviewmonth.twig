@@ -1,0 +1,174 @@
+{% set mobilecols = { 'full': month.dateInfo.daysInMonth } %}
+{% if supportMobile %}
+  {% if width == '1024' %}
+    {% set mobilecols = { '1024': 25 } %}
+  {% elseif width == '800' %}
+    {% set mobilecols = { '800': 17 } %}
+  {% elseif width == '640' %}
+    {% set mobilecols = { '640': 14 } %}
+  {% elseif width == '480' %}
+    {% set mobilecols = { '480': 9 } %}
+  {% elseif width == '400' %}
+    {% set mobilecols = { '400': 7 } %}
+  {% elseif width == '320' %}
+    {% set mobilecols = { '320': 5 } %}
+  {% elseif width == '240' %}
+    {% set mobilecols = { '240': 3 } %}
+  {% elseif width == '1024plus' %}
+    {% set mobilecols = { 'full': month.dateInfo.daysInMonth } %}
+  {% endif %}
+{% endif %}
+
+{% for key, cols in mobilecols %}
+  {% set days = month.dateInfo.daysInMonth %}
+  {# Special handling for Split Month view: old code said days=30 for split view #}
+  {% set isSplitMonth = month.isSplitMonth|default(false) %}
+
+  {% if isSplitMonth %}
+    {% set tables = 1 %}
+    {% set monthParts = [{ 'start': month.dayStart|default(1), 'end': month.dayEnd|default(days) }] %}
+  {% else %}
+    {% set tables = (days / cols)|round(0, 'ceil') %}
+    {% set monthParts = [] %}
+    {% for t in 0..(tables - 1) %}
+      {% set partStart = (t * cols) + 1 %}
+      {% set partLeft = days - (cols * t) %}
+      {% if partLeft >= cols %}
+        {% set partEnd = partStart + (cols - 1) %}
+      {% else %}
+        {% set partEnd = days %}
+      {% endif %}
+      {% set monthParts = monthParts|merge([{ 'start': partStart, 'end': partEnd }]) %}
+    {% endfor %}
+  {% endif %}
+
+  {% for part in monthParts %}
+    {% set monthForPart = month|merge({ 'dayStart': part.start, 'dayEnd': part.end }) %}
+    <div class="table{{ supportMobile ? key : '' }}">
+      <table class="table table-bordered month">
+        {% include 'calendarviewmonthheader.twig' with {
+          'isSplitMonth': isSplitMonth,
+          'dateInfo': month.dateInfo,
+          'nextMonthInfo': month.nextMonthInfo,
+          'dayStart': monthForPart.dayStart,
+          'dayEnd': monthForPart.dayEnd,
+          'M': month.M,
+          'nextM': month.nextM,
+          'dayStyles': month.dayStyles,
+          'headerDaynotes': month.headerDaynotes,
+          'firstDayOfWeek': firstDayOfWeek,
+          'showWeekNumbers': showWeekNumbers
+        } %}
+
+        {% if defgroupfilter == "allbygroup" %}
+          {% for grp in groups %}
+            {% set groupHeaderShown = false %}
+            {% for userRow in userRows %}
+              {% if groups|length == 1 or grp.id in userRow.groups|default([]) %}
+                {% if not groupHeaderShown %}
+                  {% set groupColspan = (isSplitMonth ? 30 : (monthForPart.dayEnd - monthForPart.dayStart + 1)) + 1 %}
+                  <tr>
+                    <th class="m-groupname" colspan="{{ groupColspan }}" scope="col">{{ grp.description }} ({{ grp.name }})</th>
+                  </tr>
+                  {% set groupHeaderShown = true %}
+                {% endif %}
+                {% include 'calendarviewuserrow.twig' with { 'userRow': userRow, 'month': monthForPart } %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        {% else %}
+          {% for userRow in userRows %}
+            {% include 'calendarviewuserrow.twig' with { 'userRow': userRow, 'month': monthForPart } %}
+          {% endfor %}
+        {% endif %}
+
+        {% if includeSummary %}
+          <!-- Row: Summary Header -->
+          <tr>
+            <td class="m-label" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target=".summary-{{ month.year }}{{ month.month }}" aria-expanded="{{ showSummary ? 'true' : 'false' }}">
+              <i class="bi-caret-right-fill" style="display: inline-block; width: 1em; transition: transform 0.3s;"></i>&nbsp;{{ LANG.cal_summary }}
+            </td>
+            {% set summaryColspan = isSplitMonth ? 15 : (monthForPart.dayEnd - monthForPart.dayStart + 1) %}
+            <td class="m-label" colspan="{{ summaryColspan }}" style="vertical-align: middle;{{ (isSplitMonth ? ' border-right: 2px solid #000;' : '') }}">
+              <span class="float-end text-normal">{{ month.businessDays }}&nbsp;{{ LANG.cal_businessDays }}</span>
+            </td>
+            {% if isSplitMonth %}
+              <td class="m-label" colspan="15" style="vertical-align: middle;">
+                <span class="float-end text-normal">{{ month.nextMonthBusinessDays|default(0) }}&nbsp;{{ LANG.cal_businessDays }}</span>
+              </td>
+            {% endif %}
+          </tr>
+
+          <!-- Row: Summary Absences -->
+          <tr class="summary-{{ month.year }}{{ month.month }} collapse {{ showSummary ? 'show' : '' }} row-summary-absence">
+            <td class="m-name">{{ LANG.sum_absent }}</td>
+            {% if isSplitMonth %}
+              {% for i in monthForPart.dayStart..monthForPart.dayEnd %}
+                {% set dayStyle = month.dayStyles[i]|default('') %}
+                {% if i == monthForPart.dayEnd %}
+                  {% set dayStyle = dayStyle ~ ' border-right: 2px solid #000;' %}
+                {% endif %}
+                <td class="m-day m-summary text-center td-summary-absence" {{ dayStyle ? ('style="' ~ dayStyle ~ '"')|raw : '' }}>{{ month.dayAbsCount[i] }}</td>
+              {% endfor %}
+              {% for i in 1..15 %}
+                {% set dayStyle = month.dayStyles['next_' ~ i]|default('') %}
+                <td class="m-day m-summary text-center td-summary-absence" {{ dayStyle ? ('style="' ~ dayStyle ~ '"')|raw : '' }}>{{ month.dayAbsCount[i + 15] }}</td>
+              {% endfor %}
+            {% else %}
+              {% for i in monthForPart.dayStart..monthForPart.dayEnd %}
+                {% set dayStyle = month.dayStyles[i]|default('') %}
+                <td class="m-day m-summary text-center td-summary-absence" {{ dayStyle ? ('style="' ~ dayStyle ~ '"')|raw : '' }}>{{ month.dayAbsCount[i] }}</td>
+              {% endfor %}
+            {% endif %}
+          </tr>
+
+          <!-- Row: Summary Presences -->
+          <tr class="summary-{{ month.year }}{{ month.month }} collapse {{ showSummary ? 'show' : '' }} row-summary-presence">
+            <td class="m-name">{{ LANG.sum_present }}</td>
+            {% if isSplitMonth %}
+              {% for i in monthForPart.dayStart..monthForPart.dayEnd %}
+                {% set dayStyle = month.dayStyles[i]|default('') %}
+                {% if i == monthForPart.dayEnd %}
+                  {% set dayStyle = dayStyle ~ ' border-right: 2px solid #000;' %}
+                {% endif %}
+                <td class="m-day m-summary text-center td-summary-presence" {{ dayStyle ? ('style="' ~ dayStyle ~ '"')|raw : '' }}>{{ month.dayPresCount[i] }}</td>
+              {% endfor %}
+              {% for i in 1..15 %}
+                {% set dayStyle = month.dayStyles['next_' ~ i]|default('') %}
+                <td class="m-day m-summary text-center td-summary-presence" {{ dayStyle ? ('style="' ~ dayStyle ~ '"')|raw : '' }}>{{ month.dayPresCount[i + 15] }}</td>
+              {% endfor %}
+            {% else %}
+
+              {% for i in monthForPart.dayStart..monthForPart.dayEnd %}
+                {% set dayStyle = month.dayStyles[i]|default('') %}
+                <td class="m-day m-summary text-center td-summary-presence" {{ dayStyle ? ('style="' ~ dayStyle ~ '"')|raw : '' }}>{{ month.dayPresCount[i] }}</td>
+              {% endfor %}
+            {% endif %}
+          </tr>
+        {% endif %}
+      </table>
+    </div>
+  {% endfor %}
+{% endfor %}
+
+{% if summaryAbsenceTextColor or summaryPresenceTextColor %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      {% if summaryAbsenceTextColor %}
+        var absenceTextColor = "#{{ summaryAbsenceTextColor }}";
+        var elements = document.getElementsByClassName("td-summary-absence");
+        for (var i = 0; i < elements.length; i++) {
+          elements[i].style.color = absenceTextColor;
+        }
+      {% endif %}
+      {% if summaryPresenceTextColor %}
+        var presenceTextColor = "#{{ summaryPresenceTextColor }}";
+        elements = document.getElementsByClassName("td-summary-presence");
+        for (var i = 0; i < elements.length; i++) {
+          elements[i].style.color = presenceTextColor;
+        }
+      {% endif %}
+    });
+  </script>
+{% endif %}
+

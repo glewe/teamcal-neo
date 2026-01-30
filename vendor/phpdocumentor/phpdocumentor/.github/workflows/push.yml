@@ -1,0 +1,479 @@
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+# Allow manually triggering the workflow.
+  workflow_dispatch:
+name: Qa workflow
+
+env:
+  extensions: mbstring, intl, iconv, libxml, dom, json, simplexml, zlib, fileinfo
+  key: cache-v1 # can be any string, change to clear the extension cache.
+  defaultPHPVersion: '8.1'
+
+jobs:
+
+  setup:
+    name: Composer checks and pre-warm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup cache environment
+        id: cache-env
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ env.defaultPHPVersion }}
+          extensions: ${{ env.extensions }}
+          key: ${{ env.key }}
+
+      - name: Cache extensions
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.cache-env.outputs.dir }}
+          key: ${{ steps.cache-env.outputs.key }}
+          restore-keys: ${{ steps.cache-env.outputs.key }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.defaultPHPVersion }}
+          extensions: ${{ env.extensions }}
+          ini-values: memory_limit=2G, display_errors=On, error_reporting=-1
+          tools: composer-require-checker:4.6.0
+
+      - name: Install Composer dependencies & cache dependencies
+        uses: "ramsey/composer-install@v3"
+        with:
+          composer-options: --optimize-autoloader
+          # Bust the cache at least once a month - output format: YYYY-MM-DD.
+          custom-cache-suffix: $(date -u -d "-0 month -$(($(date +%d)-1)) days" "+%F")
+
+      - name: composer-require-checker
+        run: composer-require-checker check --config-file $GITHUB_WORKSPACE/composer-require-config.json composer.json
+
+  phpunit-with-coverage:
+    runs-on: ubuntu-latest
+    name: Unit tests pre-flight
+    needs: setup
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Setup cache environment
+      id: cache-env
+      uses: shivammathur/cache-extensions@v1
+      with:
+        php-version: ${{ env.defaultPHPVersion }}
+        extensions: ${{ env.extensions }}
+        key: ${{ env.key }}
+
+    - name: Cache extensions
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.cache-env.outputs.dir }}
+        key: ${{ steps.cache-env.outputs.key }}
+        restore-keys: ${{ steps.cache-env.outputs.key }}
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ env.defaultPHPVersion }}
+        extensions: ${{ env.extensions }}
+        ini-values: memory_limit=2G, display_errors=On, error_reporting=-1
+        tools: pecl
+
+    - name: Install Composer dependencies & cache dependencies
+      uses: "ramsey/composer-install@v3"
+      with:
+        composer-options: --optimize-autoloader
+        # Bust the cache at least once a month - output format: YYYY-MM-DD.
+        custom-cache-suffix: $(date -u -d "-0 month -$(($(date +%d)-1)) days" "+%F")
+
+    - name: PHPUnit
+      run: ./bin/phpunit --testsuite=unit
+
+    - name: Quick check code coverage level
+      run: php tests/coverage-checker.php 64
+
+  codestyle:
+    runs-on: ubuntu-latest
+    name: Codestyle
+    needs:
+      - setup
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup cache environment
+        id: cache-env
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ env.defaultPHPVersion }}
+          extensions: ${{ env.extensions }}
+          key: ${{ env.key }}
+
+      - name: Cache extensions
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.cache-env.outputs.dir }}
+          key: ${{ steps.cache-env.outputs.key }}
+          restore-keys: ${{ steps.cache-env.outputs.key }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.defaultPHPVersion }}
+          extensions: ${{ env.extensions }}
+          ini-values: memory_limit=2G, display_errors=On, error_reporting=-1
+          tools: cs2pr
+
+      - name: Install Composer dependencies & cache dependencies
+        uses: "ramsey/composer-install@v3"
+        with:
+          composer-options: --optimize-autoloader
+          # Bust the cache at least once a month - output format: YYYY-MM-DD.
+          custom-cache-suffix: $(date -u -d "-0 month -$(($(date +%d)-1)) days" "+%F")
+
+      - name: Code style check
+        run: ./bin/phpcs -q --no-colors --report=checkstyle | cs2pr
+
+  phpstan:
+    runs-on: ubuntu-latest
+    name: Phpstan
+    needs:
+      - setup
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup cache environment
+        id: cache-env
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ env.defaultPHPVersion }}
+          extensions: ${{ env.extensions }}
+          key: ${{ env.key }}
+
+      - name: Cache extensions
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.cache-env.outputs.dir }}
+          key: ${{ steps.cache-env.outputs.key }}
+          restore-keys: ${{ steps.cache-env.outputs.key }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.defaultPHPVersion }}
+          extensions: ${{ env.extensions }}
+          ini-values: memory_limit=2G, display_errors=On, error_reporting=-1
+          tools: pecl
+
+      - name: Install Composer dependencies & cache dependencies
+        uses: "ramsey/composer-install@v3"
+        with:
+          composer-options: --optimize-autoloader
+          # Bust the cache at least once a month - output format: YYYY-MM-DD.
+          custom-cache-suffix: $(date -u -d "-0 month -$(($(date +%d)-1)) days" "+%F")
+
+      - name: phpstan
+        run: ./bin/phpstan analyse src tests --configuration phpstan.neon
+
+  build-phar:
+    runs-on: ubuntu-latest
+    name: Build PHAR
+    needs:
+      - setup
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          set-safe-directory: '/github/workspace'
+          fetch-depth: 0
+
+      - uses: ./.github/workflows/phar
+        with:
+          php-version: ${{ env.defaultPHPVersion }}
+          php-extensions: ${{ env.extensions }}
+          key: ${{ env.key }}
+          secret-key: ${{ secrets.SECRET_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload PHAR file
+        uses: actions/upload-artifact@v5.0.0
+        with:
+          name: phpDocumentor.phar
+          path: build/phpDocumentor.phar
+
+  phpunit:
+    runs-on: ${{ matrix.operating-system }}
+    continue-on-error: ${{ matrix.operating-system == 'windows-latest' }}
+    strategy:
+      matrix:
+        operating-system:
+          - ubuntu-latest
+          - windows-latest
+          - macOS-latest
+        php-versions:
+          - '8.1'
+          - '8.2'
+          - '8.3'
+          - '8.4'
+          - '8.5'
+        testsuite:
+          - 'unit'
+          - 'integration'
+#          - 'cli'
+        exclude: # already covered in pre-test with coverage above
+          - operating-system: 'ubuntu-latest'
+            php-versions: '8.1'
+    name: Unit tests
+    needs:
+    - phpunit-with-coverage
+    - phpstan
+    - codestyle
+    steps:
+    - uses: actions/checkout@v6
+    - name: Setup cache environment
+      id: cache-env
+      uses: shivammathur/cache-extensions@v1
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extensions: ${{ env.extensions }}
+        key: ${{ env.key }}
+
+    - name: Cache extensions
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.cache-env.outputs.dir }}
+        key: ${{ steps.cache-env.outputs.key }}
+        restore-keys: ${{ steps.cache-env.outputs.key }}
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extensions: ${{ env.extensions }}
+        ini-values: memory_limit=2G, display_errors=On, error_reporting=-1
+
+    - name: Install Composer dependencies & cache dependencies
+      uses: "ramsey/composer-install@v3"
+      with:
+        composer-options: --optimize-autoloader
+        # Bust the cache at least once a month - output format: YYYY-MM-DD.
+        custom-cache-suffix: $(date -u -d "-0 month -$(($(date +%d)-1)) days" "+%F")
+
+    - name: Run PHPUnit
+      run: ./bin/phpunit --testsuite=${{ matrix.testsuite }} --no-coverage
+
+  e2e:
+    runs-on: ubuntu-latest
+    name: E2E pre-flight
+    if: github.repository == 'phpDocumentor/phpDocumentor'
+    strategy:
+      matrix:
+        template:
+          - 'clean'
+          - 'default'
+    needs:
+      - setup
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup cache environment
+        id: cache-env
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ env.defaultPHPVersion }}
+          extensions: ${{ env.extensions }}
+          key: ${{ env.key }}
+
+      - name: Cache extensions
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.cache-env.outputs.dir }}
+          key: ${{ steps.cache-env.outputs.key }}
+          restore-keys: ${{ steps.cache-env.outputs.key }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.defaultPHPVersion }}
+          extensions: ${{ env.extensions }}
+          ini-values: memory_limit=2G, display_errors=On, error_reporting=-1
+          tools: pecl
+
+      - name: Install Composer dependencies & cache dependencies
+        uses: "ramsey/composer-install@v3"
+        with:
+          composer-options: --optimize-autoloader
+          # Bust the cache at least once a month - output format: YYYY-MM-DD.
+          custom-cache-suffix: $(date -u -d "-0 month -$(($(date +%d)-1)) days" "+%F")
+
+      - name: Build example project template
+        run: ./bin/phpdoc --template=${{ matrix.template }} -vvv --config=data/examples/MariosPizzeria/phpdoc.xml --target=build/${{ matrix.template }} --setting="guides.enabled=false"
+
+      - name: Test template using Cypress
+        uses: cypress-io/github-action@v6
+        with:
+          record: true
+          group: 'template/${{ matrix.template }}'
+          spec: cypress/integration/${{ matrix.template }}/*
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  smoke-tests:
+    runs-on: ${{ matrix.operating-system }}
+    if: github.repository == 'phpDocumentor/phpDocumentor'
+    strategy:
+      matrix:
+        php-versions:
+          - '8.1'
+          - '8.2'
+          - '8.3'
+          - '8.4'
+          - '8.5'
+        operating-system:
+          - ubuntu-latest
+          - windows-latest
+          - macOS-latest
+        command:
+          - 'run'
+          - 'settings:list'
+          - '--template default'
+    name: Smoke tests
+    needs:
+      - build-phar
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup cache environment
+        id: cache-env
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: ${{ env.extensions }}
+          key: ${{ env.key }}
+
+      - name: Cache extensions
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.cache-env.outputs.dir }}
+          key: ${{ steps.cache-env.outputs.key }}
+          restore-keys: ${{ steps.cache-env.outputs.key }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: ${{ env.extensions }}
+          ini-values: memory_limit=2G, display_errors=On, error_reporting=-1
+          tools: pecl
+
+      - name: Download PHAR file
+        uses: actions/download-artifact@v6
+        with:
+          name: phpDocumentor.phar
+          path: build
+
+      - name: Check version
+        run: php ./build/phpDocumentor.phar --version
+
+      - name: Run phpDocumentor on itself
+        run: php ./build/phpDocumentor.phar ${{ matrix.command }}
+
+  e2e-matrix:
+    runs-on: ${{ matrix.operating-system }}
+    if: github.repository == 'phpDocumentor/phpDocumentor'
+    strategy:
+      matrix:
+        template:
+          - 'clean'
+          - 'default'
+        php-versions:
+          - '8.1'
+          - '8.2'
+          - '8.3'
+          - '8.4'
+          - '8.5'
+        operating-system:
+          - ubuntu-latest
+          - windows-latest
+          - macOS-latest
+    name: E2E
+    needs:
+      - e2e
+      - smoke-tests
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup cache environment
+        id: cache-env
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: ${{ env.extensions }}
+          key: ${{ env.key }}
+
+      - name: Cache extensions
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.cache-env.outputs.dir }}
+          key: ${{ steps.cache-env.outputs.key }}
+          restore-keys: ${{ steps.cache-env.outputs.key }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: ${{ env.extensions }}
+          ini-values: memory_limit=2G, display_errors=On, error_reporting=-1
+          tools: pecl
+
+      - name: Download PHAR file
+        uses: actions/download-artifact@v6
+        with:
+          name: phpDocumentor.phar
+          path: build
+
+      - name: Build example project
+        run: php ./build/phpDocumentor.phar --template=${{ matrix.template }} --config=data/examples/MariosPizzeria/phpdoc.xml --target=build/${{ matrix.template }} --setting="guides.enabled=false"
+
+      - name: Test template using Cypress
+        uses: cypress-io/github-action@v6
+        with:
+          record: true
+          group: 'template/${{ matrix.template }}/${{ matrix.php-versions }}/${{ matrix.operating-system }}'
+          spec: cypress/integration/${{ matrix.template }}/*
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  website:
+    runs-on: ubuntu-latest
+    name: Trigger website build
+    if: github.repository == 'phpDocumentor/phpDocumentor' && github.ref == 'refs/heads/master'
+    needs:
+      - e2e
+      - phpunit
+    steps:
+      - name: Trigger
+        uses: benc-uk/workflow-dispatch@v1.2.4
+        with:
+          workflow: Website
+          token: ${{ secrets.BOT_TOKEN }}
+
+  docker-build:
+    runs-on: ubuntu-latest
+    name: Trigger docker build
+    if: github.repository == 'phpDocumentor/phpDocumentor' && github.ref == 'refs/heads/master'
+    needs:
+      - e2e
+      - phpunit
+    steps:
+      - name: Trigger
+        uses: benc-uk/workflow-dispatch@v1.2.4
+        with:
+          workflow: Docker build
+          token: ${{ secrets.BOT_TOKEN }}
+          inputs: '{"nightly": "true", "tags": "3-unstable"}'

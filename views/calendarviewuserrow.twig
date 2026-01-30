@@ -1,0 +1,83 @@
+{% set monthKey = month.year ~ month.month %}
+{% set mRow = userRow.months[monthKey] %}
+
+<tr>
+  <td class="{{ userRow.nameStyle }}">
+    {% if showAvatars %}
+      <i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="<img src='{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ userRow.avatar }}' style='width: 80px; height: 80px;'>"><img src="{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ userRow.avatar }}" alt="" style="width: 16px; height: 16px;"></i>
+    {% endif %}
+    {% if showRoleIcons %}
+      <i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="{{ LANG.role }}: {{ userRow.roleIcon.name }}">
+        <i class="fas fa-user-circle fa-sm text-{{ userRow.roleIcon.color }}"></i>
+      </i>
+    {% endif %}
+    {% if userRow.profileLink %}
+      <a href="{{ userRow.profileLink }}">{{ userRow.fullName }}</a>
+    {% else %}
+      {{ userRow.fullName }}
+    {% endif %}
+    {% if userRow.monitorAbs %}
+      {% for monAbs in userRow.monitorAbs %}
+        <div style="text-align:right;font-style:italic;" title="{{ monAbs.name }} {{ month.year }}: {{ LANG.remainder }} / {{ LANG.allowance }}">
+          <span class="m-day-icon-sq" style="color: #{{ monAbs.color }};">{{ monAbs.icon|raw }}</span>
+          &nbsp;<span class="text-danger">{{ monAbs.remainder }}</span> / {{ monAbs.totalallowance }}
+        </div>
+      {% endfor %}
+    {% endif %}
+  </td>
+
+  {% for i in month.dayStart|default(1)..month.dayEnd|default(month.dateInfo.daysInMonth) %}
+    {% set day = mRow.days[i] %}
+    {% set editClick = mRow.editLink ? ' onclick="window.location.href = \'' ~ mRow.editLink ~ '\';"' : '' %}
+    {% set styleAttr = (day.style or (month.isSplitMonth and i == month.dayEnd)) ? ' style="' ~ day.style ~ (month.isSplitMonth and i == month.dayEnd ? 'border-right: 2px solid #000;' : '') ~ '"' : '' %}
+    <td class="m-day text-center {{ day.hasDaynote ? ' has-daynote dn-' ~ day.daynoteColor : '' }}" {{ styleAttr|raw }} {{ editClick|raw }}>
+      {% if mRow.editLink %}
+        <i data-bs-placement="right" data-bs-custom-class="secondary" data-bs-toggle="tooltip" title="{{ LANG.cal_tt_clicktoedit }}">
+        {% endif %}
+
+        {% if day.isAbsent %}
+          <span data-bs-custom-class="{{ day.hasDaynote ? day.daynoteColor : 'danger' }}" data-bs-placement="top" data-bs-toggle="tooltip" title="{{ day.tooltip }}{{ day.hasDaynote ? ' • ' ~ day.daynoteTooltip : '' }}">
+            {{ day.icon|raw }}
+          </span>
+        {% elseif day.hasDaynote %}
+          <span data-bs-custom-class="{{ day.daynoteColor }}" data-bs-placement="bottom" data-bs-toggle="tooltip" title="{{ day.daynoteTooltip }}">
+            {{ day.icon|default('&nbsp;')|raw }}
+          </span>
+        {% else %}
+          {{ day.icon|default('&nbsp;')|raw }}
+        {% endif %}
+
+        {% if mRow.editLink %}
+        </i>
+      {% endif %}
+    </td>
+  {% endfor %}
+
+  {% if month.isSplitMonth %}
+    {% for i in 1..15 %}
+      {% set day = mRow.nextDays[i] %}
+      {% set editClick = mRow.nextMonthEditLink ? ' onclick="window.location.href = \'' ~ mRow.nextMonthEditLink ~ '\';"' : '' %}
+      <td class="m-day text-center {{ day.hasDaynote ? ' has-daynote dn-' ~ day.daynoteColor : '' }}" {{ day.style ? ('style="' ~ day.style ~ '"')|raw : '' }} {{ editClick|raw }}>
+        {% if mRow.nextMonthEditLink %}
+          <i data-bs-placement="right" data-bs-custom-class="secondary" data-bs-toggle="tooltip" title="{{ LANG.cal_tt_clicktoedit }}">
+          {% endif %}
+
+          {% if day.isAbsent %}
+            <span data-bs-custom-class="{{ day.hasDaynote ? day.daynoteColor : 'danger' }}" data-bs-placement="top" data-bs-toggle="tooltip" title="{{ day.tooltip }}{{ day.hasDaynote ? ' • ' ~ day.daynoteTooltip : '' }}">
+              {{ day.icon|raw }}
+            </span>
+          {% elseif day.hasDaynote %}
+            <span data-bs-custom-class="{{ day.daynoteColor }}" data-bs-placement="bottom" data-bs-toggle="tooltip" title="{{ day.daynoteTooltip }}">
+              {{ day.icon|default('&nbsp;')|raw }}
+            </span>
+          {% else %}
+            {{ day.icon|default('&nbsp;')|raw }}
+          {% endif %}
+
+          {% if mRow.nextMonthEditLink %}
+          </i>
+        {% endif %}
+      </td>
+    {% endfor %}
+  {% endif %}
+</tr>

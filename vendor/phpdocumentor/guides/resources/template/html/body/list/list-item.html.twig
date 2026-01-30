@@ -1,0 +1,6 @@
+<li{{- node.prefix == '-' ? ' class="dash"' : '' -}}
+{%- if node.orderNumber  %} value="{{ node.orderNumber }}"{% endif -%}>
+    {%- for child in node.children -%}
+        {{ renderNode(child) }}
+    {%- endfor -%}
+</li>

@@ -1,0 +1,376 @@
+{% macro sidebarItem(url, icon, label, suffix = '', target = '') %}
+  <li class="sidebar-item">
+    <a href="{{ url }}" class="sidebar-link sidebar-sublink" {% if target %} target="{{ target }}"{% endif %}>
+      <i class="{{ icon }}"></i>
+      {{ label }}{{ suffix|raw }}</a>
+  </li>
+{% endmacro %}
+
+{% macro sidebarSubmenu(id, icon, label) %}
+  <li class="sidebar-item">
+    <a href="#" class="sidebar-link sidebar-sublink has-dropdown-nested collapsed" data-bs-toggle="collapse" data-bs-target="#{{ id }}" aria-expanded="false" aria-controls="{{ id }}">
+      <i class="{{ icon }}"></i>
+      <span>{{ label }}</span>
+    </a>
+    <ul id="{{ id }}" class="sidebar-dropdown-nested list-unstyled collapse">
+{% endmacro %}
+
+{% macro sidebarSubmenuEnd() %}
+    </ul>
+  </li>
+{% endmacro %}
+<!-- ... -->
+
+<!-- ====================================================================
+view.sidebar
+-->
+<!--begin::Sidebar-->
+<aside id="sidebar">
+  <div class="d-flex">
+    <button class="sidebar-toggle" type="button">
+      <i class="bi-calendar-week navbar-logo logo-gradient"></i>
+    </button>
+    <div class="sidebar-logo">
+      <a href="{{ 'index.php?action=' ~ CONF.controllers.home.name }}">{{ constant('APP_NAME') }}</a>
+    </div>
+  </div>
+  <ul
+    class="sidebar-nav">
+
+    <!--Home-->
+    <li class="sidebar-item">
+      <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#home" aria-expanded="false" aria-controls="home">
+        <i class="bi-house"></i>
+        <span>{{ LANG.mnu_app }}</span>
+      </a>
+      <ul id="home" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+        {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.home.name, CONF.controllers.home.faIcon, LANG.mnu_app_homepage) }}
+        {% if userData.isLoggedIn %}
+          {% for appLang in appLanguages %}
+            {% set suffix = '' %}
+            {% if appLang == language %}
+              {% set suffix = '<i class="bi-check-lg ms-2 text-success"></i>' %}
+            {% endif %}
+            {{ _self.sidebarItem('index.php?' ~ session.query_string|default('') ~ '&applang=' ~ appLang, 'bi-translate', appLang|capitalize, suffix) }}
+          {% endfor %}
+        {% endif %}
+      </ul>
+    </li>
+
+    <!--View-->
+    {% if (isAllowed(CONF.controllers.messages.permission) and C.read('activateMessages')) or
+      isAllowed(CONF.controllers.calendarview.permission) or
+      isAllowed(CONF.controllers.year.permission) or
+      isAllowed(CONF.controllers.remainder.permission) or
+      isAllowed(CONF.controllers.statsabsence.permission) or
+      isAllowed(CONF.controllers.statsabstype.permission) or
+      isAllowed(CONF.controllers.statspresence.permission) or
+      isAllowed(CONF.controllers.statspresencetype.permission) or
+      isAllowed(CONF.controllers.statsremainder.permission) or
+      isAllowed(CONF.controllers.absum.permission)
+    %}
+      <li class="sidebar-item">
+        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#view" aria-expanded="false" aria-controls="view">
+          <i class="bi-window"></i>
+          <span>{{ LANG.mnu_view }}</span>
+        </a>
+        <ul id="view" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+          {% if isAllowed(CONF.controllers.calendarview.permission) %}
+            {% set urlparams = "" %}
+            {% if controller != 'logout' %}
+              {% set urlparams = UO.read(userData.username, 'calfilter') %}
+            {% endif %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.calendarview.name ~ urlparams, CONF.controllers.calendarview.faIcon, LANG.mnu_view_calendar) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.year.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.year.name ~ '&year=' ~ "now"|date("Y") ~ '&region=1&user=' ~ userData.username, CONF.controllers.year.faIcon, LANG.mnu_view_year) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.absum.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.absum.name ~ '&user=' ~ userData.username, CONF.controllers.absum.faIcon, LANG.mnu_view_stats_absum) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.remainder.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.remainder.name, CONF.controllers.remainder.faIcon, LANG.mnu_view_remainder) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.messages.permission) and C.read('activateMessages') %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.messages.name, CONF.controllers.messages.faIcon, LANG.mnu_view_messages) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.statsabsence.permission) or
+               isAllowed(CONF.controllers.statsabstype.permission) or
+               isAllowed(CONF.controllers.statspresence.permission) or
+               isAllowed(CONF.controllers.statspresencetype.permission) or
+               isAllowed(CONF.controllers.statsremainder.permission) or
+               isAllowed(CONF.controllers.absum.permission)
+          %}
+            {{ _self.sidebarSubmenu('statistics', 'bi-bar-chart-fill', LANG.mnu_view_stats) }}
+              {% if isAllowed(CONF.controllers.statsabsence.permission) %}
+                {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.statsabsence.name, CONF.controllers.statsabsence.faIcon, LANG.mnu_view_stats_absences) }}
+              {% endif %}
+              {% if isAllowed(CONF.controllers.statsabstype.permission) %}
+                {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.statsabstype.name, CONF.controllers.statsabstype.faIcon, LANG.mnu_view_stats_abstype) }}
+              {% endif %}
+              {% if isAllowed(CONF.controllers.statspresence.permission) %}
+                {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.statspresence.name, CONF.controllers.statspresence.faIcon, LANG.mnu_view_stats_presences) }}
+              {% endif %}
+              {% if isAllowed(CONF.controllers.statspresencetype.permission) %}
+                {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.statspresencetype.name, CONF.controllers.statspresencetype.faIcon, LANG.mnu_view_stats_presencetype) }}
+              {% endif %}
+              {% if isAllowed(CONF.controllers.statsremainder.permission) %}
+                {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.statsremainder.name, CONF.controllers.statsremainder.faIcon, LANG.mnu_view_stats_remainder) }}
+              {% endif %}
+            {{ _self.sidebarSubmenuEnd() }}
+          {% endif %}
+        </ul>
+      </li>
+    {% endif %}
+
+    <!--Edit-->
+    {% if 
+      isAllowed(CONF.controllers.calendaredit.permission) or
+      isAllowed(CONF.controllers.monthedit.permission) or
+      isAllowed(CONF.controllers.messageedit.permission) or
+      isAllowed(CONF.controllers.attachments.permission)
+    %}
+      <li class="sidebar-item">
+        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#edit" aria-expanded="false" aria-controls="edit">
+          <i class="bi-pencil-square"></i>
+          <span>{{ LANG.mnu_edit }}</span>
+        </a>
+        <ul id="edit" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+          {% if isAllowed(CONF.controllers.calendaredit.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.calendaredit.name ~ '&month=' ~ "now"|date("Ym") ~ '&region=1&user=' ~ userData.username, CONF.controllers.calendaredit.faIcon, LANG.mnu_edit_calendaredit) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.monthedit.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.monthedit.name ~ '&month=' ~ "now"|date("Ym") ~ '&region=1', CONF.controllers.monthedit.faIcon, LANG.mnu_edit_monthedit) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.messageedit.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.messageedit.name, CONF.controllers.messageedit.faIcon, LANG.mnu_edit_messageedit) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.attachments.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.attachments.name, CONF.controllers.attachments.faIcon, LANG.mnu_edit_attachments) }}
+          {% endif %}
+        </ul>
+      </li>
+    {% endif %}
+
+    <!--CalendarAdmin-->
+    {% if 
+      isAllowed(CONF.controllers.calendaroptions.permission) or
+      isAllowed(CONF.controllers.absences.permission) or
+      isAllowed(CONF.controllers.holidays.permission) or
+      isAllowed(CONF.controllers.patterns.permission) or
+      isAllowed(CONF.controllers.regions.permission) or
+      isAllowed(CONF.controllers.declination.permission) or
+      isAllowed(CONF.controllers.bulkedit.permission)
+    %}
+      <li class="sidebar-item">
+        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#caladmin" aria-expanded="false" aria-controls="caladmin">
+          <i class="bi-calendar3"></i>
+          <span>{{ LANG.mnu_admin }}</span>
+        </a>
+        <ul id="caladmin" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+          {% if isAllowed(CONF.controllers.absences.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.absences.name, CONF.controllers.absences.faIcon, LANG.mnu_admin_absences) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.holidays.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.holidays.name, CONF.controllers.holidays.faIcon, LANG.mnu_admin_holidays) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.regions.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.regions.name, CONF.controllers.regions.faIcon, LANG.mnu_admin_regions) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.patterns.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.patterns.name, CONF.controllers.patterns.faIcon, LANG.mnu_admin_patterns) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.bulkedit.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.bulkedit.name, CONF.controllers.bulkedit.faIcon, LANG.mnu_admin_bulkedit) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.declination.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.declination.name, CONF.controllers.declination.faIcon, LANG.mnu_admin_declination) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.calendaroptions.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.calendaroptions.name, CONF.controllers.calendaroptions.faIcon, LANG.mnu_admin_calendaroptions) }}
+          {% endif %}
+        </ul>
+      </li>
+    {% endif %}
+
+    <!--Admin-->
+    {% if 
+      isAllowed(CONF.controllers.config.permission) or
+      isAllowed(CONF.controllers.permissions.permission) or
+      isAllowed(CONF.controllers.userlist.permission) or
+      isAllowed(CONF.controllers.groups.permission) or UG.isGroupManager(userData.username) or
+      isAllowed(CONF.controllers.roles.permission) or
+      isAllowed(CONF.controllers.database.permission) or
+      isAllowed(CONF.controllers.log.permission) or
+      isAllowed(CONF.controllers.phpinfo.permission)
+    %}
+      <li class="sidebar-item">
+        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#admin" aria-expanded="false" aria-controls="admin">
+          <i class="bi-gear-fill"></i>
+          <span>{{ LANG.mnu_admin }}</span>
+        </a>
+        <ul id="admin" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+          {% if isAllowed(CONF.controllers.config.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.config.name, CONF.controllers.config.faIcon, LANG.mnu_admin_config) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.permissions.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.permissions.name, CONF.controllers.permissions.faIcon, LANG.mnu_admin_perm) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.userlist.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.userlist.name, CONF.controllers.userlist.faIcon, LANG.mnu_admin_users) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.groups.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.groups.name, CONF.controllers.groups.faIcon, LANG.mnu_admin_groups) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.roles.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.roles.name, CONF.controllers.roles.faIcon, LANG.mnu_admin_roles) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.database.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.database.name, CONF.controllers.database.faIcon, LANG.mnu_admin_database) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.log.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.log.name, CONF.controllers.log.faIcon, LANG.mnu_admin_systemlog) }}
+          {% endif %}
+          {% if isAllowed(CONF.controllers.phpinfo.permission) %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.phpinfo.name, CONF.controllers.phpinfo.faIcon, LANG.mnu_admin_phpinfo) }}
+          {% endif %}
+        </ul>
+      </li>
+    {% endif %}
+
+    <!--Help-->
+    <li class="sidebar-item">
+      <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#help" aria-expanded="false" aria-controls="help">
+        <i class="bi-question-circle-fill"></i>
+        <span>{{ LANG.mnu_help }}</span>
+      </a>
+      <ul id="help" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+        {% if C.read("userManual") %}
+          {{ _self.sidebarItem(C.read("userManual")|url_decode, 'fas fa-book', LANG.mnu_help_help, '', '_blank') }}
+        {% endif %}
+        {% if C.read("gdprPolicyPage") %}
+          {{ _self.sidebarItem('index.php?action=dataprivacy', 'bi-shield-shaded', LANG.mnu_help_dataprivacy) }}
+        {% endif %}
+        {{ _self.sidebarItem('index.php?action=imprint', 'bi-vector-pen', LANG.mnu_help_imprint) }}
+        {{ _self.sidebarItem('index.php?action=about', 'bi-calendar-week logo-gradient', LANG.mnu_help_about) }}
+      </ul>
+    </li>
+
+    <li class="sidebar-item mt-2 mb-2">
+      <hr class="sidebar-divider">
+    </li>
+
+    <!--User-->
+    <li class="sidebar-item">
+      <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#user" aria-expanded="false" aria-controls="user">
+        <img src="{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ userData.avatar }}" class="sidebar-avatar" alt="">
+        <span>{{ userData.isLoggedIn ? userData.username : 'Not logged in' }}</span>
+      </a>
+      <ul id="user" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+        {% if not userData.isLoggedIn %}
+          {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.login.name, 'bi-box-arrow-in-right', LANG.mnu_user_login) }}
+          {% if C.read("allowRegistration") %}
+            {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.register.name, 'bi-person-fill-add', LANG.mnu_user_register) }}
+          {% endif %}
+        {% else %}
+          {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.useredit.name ~ '&profile=' ~ userData.username, 'bi-person-square', LANG.mnu_user_profile) }}
+          {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.logout.name, 'bi-box-arrow-left', LANG.mnu_user_logout) }}
+        {% endif %}
+      </ul>
+    </li>
+
+    <!-- Width Menu -->
+    <li class="sidebar-item">
+      <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#widthmode" aria-expanded="false" aria-controls="widthmode">
+        <i class="bi-fullscreen-exit width-icon-active"></i>
+        <span>{{ LANG.mnu_width }}</span>
+      </a>
+      <ul id="widthmode" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+        <li class="sidebar-item">
+          <a class="sidebar-link sidebar-sublink d-flex align-items-center" href="#" data-width-value="narrow">
+            <i class="bi-fullscreen-exit me-3 text-{{ CONF.menuIconColor }}"></i>
+            {{ LANG.mnu_width_narrow }}
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link sidebar-sublink d-flex align-items-center" href="#" data-width-value="wide">
+            <i class="bi-fullscreen me-3 text-{{ CONF.menuIconColor }}"></i>
+            {{ LANG.mnu_width_wide }}
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!--Theme-->
+    <li class="sidebar-item">
+      <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#darkmode" aria-expanded="false" aria-controls="darkmode">
+        <i class="bi-moon-stars-fill theme-icon-active"></i>
+        <span>{{ LANG.mnu_theme }}</span>
+      </a>
+      <ul id="darkmode" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+        <li class="sidebar-item">
+          <a class="sidebar-link sidebar-sublink d-flex align-items-center" href="#" data-bs-theme-value="light">
+            <i class="bi-sun-fill me-3 text-{{ CONF.menuIconColor }}"></i>
+            {{ LANG.mnu_theme_light }}
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link sidebar-sublink d-flex align-items-center" href="#" data-bs-theme-value="dark">
+            <i class="bi-moon-stars-fill me-3 text-{{ CONF.menuIconColor }}"></i>
+            {{ LANG.mnu_theme_dark }}
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link sidebar-sublink d-flex align-items-center" href="#" data-bs-theme-value="auto">
+            <i class="bi-circle-half me-3 text-{{ CONF.menuIconColor }}"></i>
+            {{ LANG.mnu_theme_auto }}
+          </a>
+        </li>
+      </ul>
+    </li>
+
+  </ul>
+
+  <div class="sidebar-footer">
+    <ul class="sidebar-nav pb-0"></ul>
+  </div>
+
+</aside>
+<script>
+  const sidebarToggle = document.querySelector('.sidebar-toggle');
+  sidebarToggle.addEventListener('click', function () {
+    const eleSidebar = document.querySelector('#sidebar');
+    const eleNavbar = document.querySelector('#navbar');
+    const eleMain = document.querySelector('#main');
+
+    if (eleSidebar) {
+      eleSidebar.classList.toggle('expand');
+    }
+    if (eleNavbar) {
+      eleNavbar.classList.toggle('expand');
+    }
+    if (eleMain) {
+      eleMain.classList.toggle('expand');
+    }
+  });
+
+  // Handle nested submenu clicks
+  document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.querySelector('#sidebar');
+    const nestedToggles = document.querySelectorAll('.has-dropdown-nested');
+    
+    nestedToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        // Only prevent default and use collapse when sidebar is expanded
+        if (!sidebar.classList.contains('expand')) {
+          e.preventDefault();
+          e.stopPropagation();
+          // In collapsed mode, do nothing - hover will handle it
+          return false;
+        }
+        // When expanded, let Bootstrap collapse handle it normally
+      });
+    });
+  });
+</script>
+<!--end::Sidebar-->

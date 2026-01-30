@@ -1,0 +1,26 @@
+{% extends 'layout.html.twig' %}
+
+{% set topMenu = {
+    "menu": [
+        { "name": "About", "url": "https://phpdoc.org/3.0/"},
+        { "name": "Sponsors", "url": "https://phpdoc.org/#sponsors"},
+        { "name": "Components", "url": "https://phpdoc.org/components.html"},
+        { "name": "Documentation", "url": "https://docs.phpdoc.org/3.0/"},
+    ],
+    "social": [
+        { "iconClass": "fab fa-mastodon", "url": "https://phpc.social/@phpdoc"},
+        { "iconClass": "fab fa-github", "url": "https://github.com/phpdocumentor/phpdocumentor"},
+        { "iconClass": "fas fa-envelope-open-text", "url": "https://github.com/orgs/phpDocumentor/discussions"}
+    ]
+}
+%}
+
+{% block javascripts %}
+    <script
+
+            src="https://analytics.phpdoc.org/api/script.js"
+            data-site-id="1"
+            defer
+    ></script>
+    {{ parent() }}
+{% endblock %}

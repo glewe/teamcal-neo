@@ -1,0 +1,21 @@
+services:
+  phpdoc:
+    build:
+      context: .
+      target: dev
+      dockerfile: Dockerfile
+    user: ${CURRENT_UID}
+    volumes:
+      - ./:/opt/phpdoc
+      - /opt/phpdoc/vendor
+    working_dir: "/opt/phpdoc"
+  phpdoc-pcov:
+    build:
+      context: .
+      target: dev-pcov
+      dockerfile: Dockerfile
+    user: ${CURRENT_UID}
+    volumes:
+      - ./:/opt/phpdoc
+      - /opt/phpdoc/vendor
+    working_dir: "/opt/phpdoc"

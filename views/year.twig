@@ -1,0 +1,177 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+  view.year
+  -->
+  <div class="content container">
+
+    <div class="col-lg-12">
+      {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
+        {{ createAlertBox(alertData)|raw }}
+      {% endif %}
+
+      {% set tabindex = 0 %}
+
+      <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action={{ controller }}&amp;year={{ year }}&amp;region={{ regionid }}&amp;user={{ username }}" method="post" target="_self" accept-charset="utf-8">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+        <input name="hidden_user" type="hidden" class="text" value="{{ username }}">
+        <input name="hidden_year" type="hidden" class="text" value="{{ year }}">
+        <input name="hidden_region" type="hidden" class="text" value="{{ regionid }}">
+
+        <div class="page-menu">
+          {% if not currentYearOnly %}
+            <a class="btn btn-secondary" href="index.php?action={{ controller }}&amp;year={{ year - 1 }}&amp;region={{ regionid }}&amp;user={{ username }}">
+              <span class="fas fa-angle-double-left"></span>
+            </a>
+            <a class="btn btn-secondary" href="index.php?action={{ controller }}&amp;year={{ year + 1 }}&amp;region={{ regionid }}&amp;user={{ username }}">
+              <span class="fas fa-angle-double-right"></span>
+            </a>
+            <a class="btn btn-secondary" href="index.php?action={{ controller }}&amp;year={{ " now"|date(" Y") }}&amp;region={{ regionid }}&amp;user={{ username }}">{{ LANG.today }}</a>
+          {% endif %}
+          {% if showRegionButton %}
+            {% set tabindex = tabindex + 1 %}
+            <button type="button" class="btn btn-warning" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalSelectRegion">{{ LANG.region ~ ': ' ~ regionname }}</button>
+          {% endif %}
+          {% set tabindex = tabindex + 1 %}
+          <button type="button" class="btn btn-success" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalSelectUser">{{ LANG.user ~ ': ' ~ fullname }}</button>
+        </div>
+
+        <div class="card">
+          <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+            <i class="{{ CONF.controllers['year'].faIcon }} fa-lg me-3"></i>
+            {{ LANG.year_title|format(year, fullname, regionname) }}
+            {% if C.read('pageHelp') %}
+              <a href="{{ CONF.controllers[controller].docurl }}" target="_blank" class="float-end" style="color:inherit;">
+                <i class="bi bi-question-circle-fill bi-lg"></i>
+              </a>
+            {% endif %}
+          </div>
+          <div class="card-body" id="mobile">
+            <p>
+              <button type="button" class="btn btn-primary" name="btn_showmobile" onclick="javascript: $('#mobile').hide(); $('#fullscreen').show();">{{ LANG.btn_showcalendar }}</button>
+            </p>
+            {{ LANG.year_showyearmobile }}
+          </div>
+        </div>
+        <div style="height:20px;"></div>
+
+        <div id="fullscreen">
+
+          <table class="table table-bordered year">
+            <thead>
+              <!-- Row: Month name and day numbers -->
+              <tr>
+                <th class="y-year">{{ year }}</th>
+                {% for i in 1..37 %}
+                  {% set style = '' %}
+                  {% set wday = i % 7 %}
+                  {% if wday == 0 %}
+                    {% set wday = 7 %}
+                  {% endif %}
+                  {% if wday == 6 %}
+                    {% set style = satStyle %}
+                  {% endif %}
+                  {% if wday == 7 %}
+                    {% set style = sunStyle %}
+                  {% endif %}
+                  <th class="y-weekday text-center" {{ style|raw }}>{{ LANG.weekdayShort[wday] }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for m in 1..12 %}
+                <tr>
+                  <td class="y-label">{{ LANG.monthShort[m] }}</td>
+
+                  {% set startCol = month[m][1]['wday'] %}
+                  {% set endCol = startCol + monthInfo[m]['daysInMonth'] - 1 %}
+
+                  {% for i in 1..37 %}
+                    {% if i < startCol %}
+                      <td class="y-grayday"></td>
+                    {% elseif i > endCol %}
+                      <td class="y-grayday"></td>
+                    {% else %}
+                      {% set d = i - startCol + 1 %}
+                      {% if month[m][d]['wday'] == 1 %}
+                        {% set dateStr = year ~ '-' ~ m ~ '-' ~ d %}
+                        {% set wn = dateStr|date('W') %}
+                      {% else %}
+                        {% set wn = '&nbsp;' %}
+                      {% endif %}
+
+                      {% if symbolAsIcon %}
+                        {% set icon = month[m][d]['symbol'] %}
+                      {% else %}
+                        {% set icon = '<span class="fas ' ~ month[m][d]['icon'] ~ '"></span>' %}
+                      {% endif %}
+
+                      <td class="y-day text-center" {{ month[m][d]['style']|raw }}>
+                        <div class="daynumber">{{ d }}</div>
+                        <div class="absence" {{ month[m][d]['absstyle']|raw }}>{{ icon|raw }}</div>
+                        <div class="weeknumber text-info">{{ wn|raw }}</div>
+                      </td>
+                    {% endif %}
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+
+          </table>
+
+          <!-- Modal: Select Region -->
+          <div class="modal fade" id="modalSelectRegion" tabindex="-1" role="dialog" aria-labelledby="modalSelectRegionLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalSelectRegionLabel">{{ LANG.year_selRegion }}</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-start">
+                  {% set tabindex = tabindex + 1 %}
+                  <select class="form-select" name="sel_region" tabindex="{{ tabindex }}">
+                    {% for reg in regions %}
+                      <option value="{{ reg.id }}" {{ regionid == reg.id ? 'selected="selected"' : '' }}>{{ reg.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-warning" name="btn_region" style="margin-top: 4px;" aria-label="{{ LANG.btn_select }}">{{ LANG.btn_select }}</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="{{ LANG.btn_cancel }}">{{ LANG.btn_cancel }}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal: Select User -->
+          <div class="modal fade" id="modalSelectUser" tabindex="-1" role="dialog" aria-labelledby="modalSelectUserLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalSelectUserLabel">{{ LANG.year_selUser }}</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-start">
+                  {% set tabindex = tabindex + 1 %}
+                  <select class="form-select" name="sel_user" tabindex="{{ tabindex }}">
+                    {% for usr in users %}
+                      <option value="{{ usr.username }}" {{ username == usr.username ? 'selected="selected"' : '' }}>{{ usr.lastfirst }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-warning" name="btn_user" style="margin-top: 4px;" aria-label="{{ LANG.btn_select }}">{{ LANG.btn_select }}</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="{{ LANG.btn_cancel }}">{{ LANG.btn_cancel }}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

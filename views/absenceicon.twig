@@ -1,0 +1,173 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and (showAlerts != 'none') %}
+        {% if (showAlerts == 'all') or (showAlerts == 'warnings' and (alertData.type == 'warning' or alertData.type == 'danger')) %}
+          {{ createAlertBox(alertData)|raw }}
+        {% endif %}
+      {% endif %}
+
+      <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action={{ controller }}&amp;id={{ id }}" method="post" target="_self" accept-charset="utf-8">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+        <input name="hidden_id" type="hidden" class="text" value="{{ id }}">
+        <input name="hidden_name" type="hidden" class="text" value="{{ name }}">
+
+        <div class="card">
+          {% if CONF.allConfig.pageHelp %}
+            {% set pageHelp = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+          {% else %}
+            {% set pageHelp = '' %}
+          {% endif %}
+
+          <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+            <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+            {{ LANG.absico_title ~ name }}{{ pageHelp|raw }}
+          </div>
+
+          <div class="card-body">
+
+            <button type="submit" class="btn btn-primary" tabindex="{{ nextTabindex() }}" name="btn_save">{{ LANG.btn_save }}</button>
+            <a href="index.php?action=absenceedit&amp;id={{ id }}" class="btn btn-secondary float-end" style="margin-left:8px;" tabindex="{{ nextTabindex() }}">{{ LANG.btn_abs_edit }}</a>
+
+            <div style="height:20px;"></div>
+
+            <div class="row mb-2">
+              <div class="col">
+                <input id="fa-search" class="form-control form-control-sm" tabindex="{{ nextTabindex() }}" name="fa_search" type="text" value="" placeholder="{{ LANG.abs_icon_keyword }}">
+              </div>
+              <div class="col">
+                <button type="submit" class="btn btn-outline-secondary btn-sm" tabindex="{{ nextTabindex() }}" name="btn_fa_filter">{{ LANG.btn_filter }}</button>
+                <a class="btn btn-outline-secondary btn-sm" tabindex="{{ nextTabindex() }}" href="index.php?action={{ controller }}&amp;id={{ id }}">{{ LANG.btn_reset }}</a>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                {{ createPageTabs([
+                {'id': 'solid-tab', 'href': '#solid', 'label': LANG.absico_tab_solid ~ " (" ~ fasIcons|length ~ ")", 'active': true},
+                {'id': 'regular-tab', 'href': '#regular', 'label': LANG.absico_tab_regular ~ " (" ~ farIcons|length ~ ")", 'active': false},
+                {'id': 'brand-tab', 'href': '#brand', 'label': LANG.absico_tab_brand ~ " (" ~ fabIcons|length ~ ")", 'active': false}
+              ]) }}
+              </div>
+
+              <div class="card-body">
+                <div
+                  id="myTabContent" class="tab-content">
+
+                  <!-- Solid Icons -->
+                  <div class="tab-pane fade show active" id="solid" role="tabpanel" aria-labelledby="solid-tab">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row">
+                          {% for fai in fasIcons %}
+                            {% if loop.index0 > 0 and loop.index0 % 12 == 0 %}
+                            </div>
+                            <div class="row">
+                            {% endif %}
+                            {% set isSelected = (fai.val == icon) %}
+                            {% set iconTooltipHtml = '<span class="' ~ fai.val ~ ' fa-5x text-info" title="' ~ fai.val ~ '"></span>' %}
+
+                            {% if isSelected %}
+                              <div class="col-lg-1 p-1 bg-warning-subtle border border-warning">
+                              {% else %}
+                                <div class="col-lg-1 p-1">
+                                {% endif %}
+                                <div class="form-check">
+                                  <label>
+                                    <input class="form-check-input" name="opt_absIcon" value="{{ fai.val }}" tabindex="{{ nextTabindex() }}" type="radio" {{ isSelected ? " checked" : "" }}>
+                                    <i data-bs-placement="top" data-bs-type="secondary" data-bs-toggle="tooltip" title="{{ iconTooltipHtml }}">
+                                      <span class="{{ fai.val }} fa-lg text-secondary" title="{{ fai.val }}"></span>
+                                    </i>
+                                  </label>
+                                </div>
+                              </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Regular Icons -->
+                    <div class="tab-pane fade" id="regular" role="tabpanel" aria-labelledby="regular-tab">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            {% for fai in farIcons %}
+                              {% if loop.index0 > 0 and loop.index0 % 12 == 0 %}
+                              </div>
+                              <div class="row">
+                              {% endif %}
+                              {% set isSelected = (fai.val == icon) %}
+                              {% set iconTooltipHtml = '<span class="' ~ fai.val ~ ' fa-5x text-info" title="' ~ fai.val ~ '"></span>' %}
+
+                              {% if isSelected %}
+                                <div class="col-lg-1 p-1 bg-warning-subtle border border-warning">
+                                {% else %}
+                                  <div class="col-lg-1 p-1">
+                                  {% endif %}
+                                  <div class="form-check">
+                                    <label>
+                                      <input class="form-check-input" name="opt_absIcon" value="{{ fai.val }}" tabindex="{{ nextTabindex() }}" type="radio" {{ isSelected ? " checked" : "" }}>
+                                      <i data-bs-placement="top" data-bs-type="secondary" data-bs-toggle="tooltip" title="{{ iconTooltipHtml }}">
+                                        <span class="{{ fai.val }} fa-lg text-secondary" title="{{ fai.val }}"></span>
+                                      </i>
+                                    </label>
+                                  </div>
+                                </div>
+                              {% endfor %}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Brand Icons -->
+                      <div class="tab-pane fade" id="brand" role="tabpanel" aria-labelledby="brand-tab">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="row">
+                              {% for fai in fabIcons %}
+                                {% if loop.index0 > 0 and loop.index0 % 12 == 0 %}
+                                </div>
+                                <div class="row">
+                                {% endif %}
+                                {% set isSelected = (fai.val == icon) %}
+                                {% set iconTooltipHtml = '<span class="' ~ fai.val ~ ' fa-5x text-info" title="' ~ fai.val ~ '"></span>' %}
+
+                                {% if isSelected %}
+                                  <div class="col-lg-1 p-1 bg-warning-subtle border border-warning">
+                                  {% else %}
+                                    <div class="col-lg-1 p-1">
+                                    {% endif %}
+                                    <div class="form-check">
+                                      <label>
+                                        <input class="form-check-input" name="opt_absIcon" value="{{ fai.val }}" tabindex="{{ nextTabindex() }}" type="radio" {{ isSelected ? " checked" : "" }}>
+                                        <i data-bs-placement="top" data-bs-type="secondary" data-bs-toggle="tooltip" title="{{ iconTooltipHtml }}">
+                                          <span class="{{ fai.val }} fa-lg text-secondary" title="{{ fai.val }}"></span>
+                                        </i>
+                                      </label>
+                                    </div>
+                                  </div>
+                                {% endfor %}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="height:20px;"></div>
+
+                  <button type="submit" class="btn btn-primary" tabindex="{{ nextTabindex() }}" name="btn_save">{{ LANG.btn_save }}</button>
+                  <a href="index.php?action=absenceedit&amp;id={{ id }}" class="btn btn-secondary float-end" style="margin-left:8px;" tabindex="{{ nextTabindex() }}">{{ LANG.btn_abs_edit }}</a>
+
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      {% endblock %}

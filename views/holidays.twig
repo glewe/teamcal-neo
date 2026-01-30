@@ -1,0 +1,214 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+  view.holidays
+  -->
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and (showAlerts != 'none') %}
+        {% if (showAlerts == 'all') or (showAlerts == 'warnings' and (alertData.type == 'warning' or alertData.type == 'danger')) %}
+          {{ createAlertBox(alertData)|raw }}
+        {% endif %}
+      {% endif %}
+
+      {{ resetTabindex() }}
+
+      <div class="card">
+        {% set pageHelpLink = '' %}
+        {% if pageHelp %}
+          {% set pageHelpLink = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+        {% endif %}
+        <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+          <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+          {{ LANG.hol_list_title }}{{ pageHelpLink|raw }}</div>
+
+        <div class="card-body">
+
+          <form class="row form-control-horizontal" name="form_create" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
+            <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+            <div class="mb-4">
+              <button type="button" class="btn btn-success float-end" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalCreateHoliday" aria-label="{{ LANG.btn_create_holiday }}">{{ LANG.btn_create_holiday }}</button>
+            </div>
+
+            <!-- Modal: Create Holiday -->
+            {{ createModalTop('modalCreateHoliday', LANG.btn_create_holiday) }}
+            <label for="inputName">{{ LANG.name }}</label>
+            <input id="inputName" class="form-control mb-2" tabindex="{{ nextTabindex() }}" name="txt_name" maxlength="40" value="{{ txt_name }}" type="text">
+            {% if inputAlert.name is defined %}
+              <br>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="btn-close float-end" data-bs-dismiss="alert">x</button>
+                {{ inputAlert.name }}
+              </div>
+            {% endif %}
+            <label for="inputDescription">{{ LANG.description }}</label>
+            <input id="inputDescription" class="form-control" tabindex="{{ nextTabindex() }}" name="txt_description" maxlength="100" value="{{ txt_description }}" type="text">
+            {% if inputAlert.description is defined %}
+              <br>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="btn-close float-end" data-bs-dismiss="alert">x</button>
+                {{ inputAlert.description }}
+              </div>
+            {% endif %}
+            {{ createModalBottom('btn_holCreate', 'success', LANG.btn_create_holiday) }}
+
+          </form>
+
+          <table id="dataTableHolidays" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+            <thead>
+              <tr>
+                <th class="text-end">#</th>
+                <th class="text-center">{{ LANG.display }}</th>
+                <th>{{ LANG.name }}</th>
+                <th>{{ LANG.description }}</th>
+                <th>{{ LANG.options }}</th>
+                <th class="text-center">{{ LANG.action }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for holiday in holidays %}
+                <tr>
+                  <td class="text-end">{{ loop.index }}</td>
+                  <td class="text-center">
+                    <span style="color: #{{ holiday.color }}; background-color: #{{ holiday.bgcolor }}; border: 1px solid; width: 30px; height: 30px; padding: 4px;">23</span>
+                  </td>
+                  <td>{{ holiday.name }}</td>
+                  <td>{{ holiday.description }}</td>
+                  <td>
+                    {% if holiday.businessday %}
+                      <i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="{{ LANG.hol_businessday }}">
+                        <i class="fas fa-wrench fa-lg text-default"></i>
+                      </i>&nbsp;
+                    {% endif %}
+                    {% if holiday.keepweekendcolor %}
+                      <i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="{{ LANG.hol_keepweekendcolor }}">
+                        <i class="fas fa-paint-brush fa-lg text-success"></i>
+                      </i>&nbsp;
+                    {% endif %}
+                    {% if holiday.noabsence %}
+                      <i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="{{ LANG.hol_noabsence }}">
+                        <i class="fas fa-minus-circle fa-lg text-danger"></i>
+                      </i>
+                    {% endif %}
+                  </td>
+                  <td class="align-top text-center">
+                    {% if holiday.id > 3 %}
+                      <button type="button" class="btn btn-danger btn-sm delete-btn" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#sharedDeleteModal" data-id="{{ holiday.id }}" data-name="{{ holiday.name }}" data-description="{{ holiday.description }}" aria-label="{{ LANG.btn_delete }}: {{ holiday.name }}">{{ LANG.btn_delete }}</button>
+                    {% endif %}
+                    <a href="index.php?action=holidayedit&amp;id={{ holiday.id }}" class="btn btn-warning btn-sm" tabindex="{{ nextTabindex() }}" aria-label="{{ LANG.btn_edit }}: {{ holiday.name }}">{{ LANG.btn_edit }}</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+          <!-- Shared Delete Form and Modal -->
+          <form class="form-control-horizontal" id="sharedDeleteForm" action="index.php?action=holidays" method="post" target="_self" accept-charset="utf-8" style="display: none;">
+            <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+            <input type="hidden" name="btn_holDelete" value="1">
+            <input name="hidden_id" type="hidden" id="hidden_id">
+            <input name="hidden_name" type="hidden" id="hidden_name">
+            <input name="hidden_description" type="hidden" id="hidden_description">
+          </form>
+
+          <!-- Shared Modal: Delete holiday -->
+          {{ createModalTop('sharedDeleteModal', LANG.modal_confirm) }}
+          <div class="modal-body" id="sharedModalBody">
+            {{ LANG.hol_confirm_delete|replace({'%s': '<span id="deleteHolidayName"></span>'})|raw }}
+          </div>
+          {{ createModalBottom('btn_holDelete', 'danger', LANG.btn_delete_holiday, 'sharedDeleteForm') }}
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+  <script>
+    $(document).ready(function () {
+      $('#dataTableHolidays').DataTable({
+        paging: true,
+        ordering: true,
+        info: true,
+        pageLength: 50,
+        language: {
+          url: 'public/addons/datatables/datatables.{{ LANG.locale }}.json'
+        },
+        columnDefs: [
+          {
+            targets: [
+              0, 5
+            ],
+            orderable: false,
+            searchable: false
+          }
+        ]
+      });
+
+      // Handle initial delete button click (populate form, show modal)
+      $(document).on('click', '.delete-btn', function (e) {
+        e.preventDefault();
+        const $btn = $(this);
+        const id = $btn.data('id');
+        const name = $btn.data('name');
+        const description = $btn.data('description');
+
+        // Populate form
+        $('#hidden_id').val(id);
+        $('#hidden_name').val(name);
+        $('#hidden_description').val(description);
+        $('#deleteHolidayName').text(name);
+
+        // Show modal
+        const modalElement = document.getElementById('sharedDeleteModal');
+        let modal = bootstrap.Modal.getInstance(modalElement);
+        if (! modal) {
+          modal = new bootstrap.Modal(modalElement);
+        }
+        modal.show();
+      });
+
+      // Handle modal delete button click: Submit the shared form
+      $(document).on('click', '#sharedDeleteModal button[name="btn_holDelete"], #sharedDeleteModal #btn_holDelete, #sharedDeleteModal .btn-danger', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        // Prevent bubbling
+
+        // Add loading state
+        const $thisBtn = $(this);
+        $thisBtn.prop('disabled', true).text('Deleting...');
+
+        // Submit the form
+        $('#sharedDeleteForm').submit();
+
+        // Hide modal immediately for UX (page will reload on submit)
+        const modalElement = document.getElementById('sharedDeleteModal');
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        if (modal) {
+          modal.hide();
+        }
+      });
+
+      // Backdrop cleanup on modal hide
+      $('#sharedDeleteModal').on('hidden.bs.modal', function (e) {
+        $('.modal-backdrop').remove();
+        $('body').removeClass('modal-open').css({paddingRight: ''});
+        // Reset delete button
+        $('#sharedDeleteModal button[name="btn_holDelete"], #btn_holDelete').prop('disabled', false).text('{{ LANG.btn_delete_holiday }}');
+      });
+
+      // Global close handlers (X button, backdrop click)
+      $(document).on('click', '#sharedDeleteModal .btn-close, .modal-backdrop', function (e) {
+        e.preventDefault();
+        const modalElement = document.getElementById('sharedDeleteModal');
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        if (modal) {
+          modal.hide();
+        }
+      });
+    });
+  </script>
+{% endblock %}

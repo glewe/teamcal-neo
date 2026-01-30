@@ -1,0 +1,240 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+    view.config
+    -->
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and (showAlerts != 'none') %}
+        {% if (showAlerts == 'all') or (showAlerts == 'warnings' and (alertData.type == 'warning' or alertData.type == 'danger')) %}
+          {{ createAlertBox(alertData)|raw }}
+        {% endif %}
+      {% endif %}
+
+      {{ resetTabindex() }}
+      {% set colsleft = 8 %}
+      {% set colsright = 4 %}
+
+      <form class="form-control-horizontal" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+        <div class="card">
+          {% set pageHelpLink = '' %}
+          {% if pageHelp %}
+            {% set pageHelpLink = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+          {% endif %}
+          <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+            <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+            {{ LANG.config_title }}{{ pageHelpLink|raw }}</div>
+          <div class="card-body">
+
+            <div class="card">
+
+              <div class="card-header">
+                {% set attention = '<i class="fas fa-exclamation-triangle" style="color:#ffb000;margin-left: 8px;"></i>' %}
+                {% set pageTabs = [
+              { 'id': 'tab-general', 'href': '#panel-general', 'label': LANG.general, 'active': true },
+              { 'id': 'tab-email', 'href': '#panel-email', 'label': LANG.config_tab_email, 'active': false },
+              { 'id': 'tab-footer', 'href': '#panel-footer', 'label': LANG.config_tab_footer, 'active': false },
+              { 'id': 'tab-homepage', 'href': '#panel-homepage', 'label': LANG.config_tab_homepage, 'active': false },
+              { 'id': 'tab-license', 'href': '#panel-license', 'label': LANG.config_tab_license ~ ((licStatus != 'active' or not domainRegistered) ? attention : ''), 'active': false },
+              { 'id': 'tab-login', 'href': '#panel-login', 'label': LANG.config_tab_login, 'active': false },
+              { 'id': 'tab-registration', 'href': '#panel-registration', 'label': LANG.config_tab_registration, 'active': false },
+              { 'id': 'tab-system', 'href': '#panel-system', 'label': LANG.config_tab_system, 'active': false },
+              { 'id': 'tab-theme', 'href': '#panel-theme', 'label': LANG.config_tab_theme, 'active': false },
+              { 'id': 'tab-usercustom', 'href': '#panel-usercustom', 'label': LANG.config_tab_user, 'active': false },
+              { 'id': 'tab-gdpr', 'href': '#panel-gdpr', 'label': LANG.config_tab_gdpr, 'active': false },
+              ] %}
+                {{ createPageTabs(pageTabs) }}
+              </div>
+
+              <div class="card-body">
+                <div
+                  class="tab-content" id="myTabContent">
+
+                  <!-- General tab -->
+                  <div class="tab-pane fade show active" id="panel-general" role="tabpanel" aria-labelledby="tab-general">
+                    {% for formObject in general %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- E-mail tab -->
+                  <div class="tab-pane fade" id="panel-email" role="tabpanel" aria-labelledby="tab-email">
+                    {% for formObject in email %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- Footer tab -->
+                  <div class="tab-pane fade" id="panel-footer" role="tabpanel" aria-labelledby="tab-footer">
+                    {% for formObject in footer %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- Homepage tab -->
+                  <div class="tab-pane fade" id="panel-homepage" role="tabpanel" aria-labelledby="tab-homepage">
+                    {% for formObject in homepage %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- License tab -->
+                  <div class="tab-pane fade" id="panel-license" role="tabpanel" aria-labelledby="tab-license">
+                    {{ licDetails|raw }}
+                    {% for formObject in license %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+
+                    {% if licStatus == 'pending' %}
+                      <div class="form-group row" id="form-lic-activate">
+                        <label for="licActivate" class="col-lg-8 control-label">
+                          {{ LANG.config_licActivate }}<br>
+                          <span class="text-normal">{{ LANG.config_licActivate_comment|raw }}</span>
+                        </label>
+                        <div class="col-lg-4">
+                          <button type="submit" class="btn btn-success" tabindex="{{ nextTabindex() }}" name="btn_licActivate">{{ LANG.btn_activate }}</button>
+                        </div>
+                        <div class="divider">
+                          <hr>
+                        </div>
+                      </div>
+                    {% elseif licStatus == 'unregistered' %}
+                      <div class="form-group row" id="form-lic-register">
+                        <label for="licRegister" class="col-lg-8 control-label">
+                          {{ LANG.config_licRegister }}<br><br>
+                          <div class="text-normal alert alert-warning">{{ LANG.config_licRegister_comment|raw }}</div>
+                        </label>
+                        <div class="col-lg-4">
+                          <button type="submit" class="btn btn-success" tabindex="{{ nextTabindex() }}" name="btn_licRegister">{{ LANG.btn_register }}</button>
+                        </div>
+                        <div class="divider">
+                          <hr>
+                        </div>
+                      </div>
+                    {% elseif licStatus == 'active' %}
+                      <div class="form-group row" id="form-lic-deregister">
+                        <label for="licDeregister" class="col-lg-8 control-label">
+                          {{ LANG.config_licDeregister }}<br>
+                          <span class="text-normal">{{ LANG.config_licDeregister_comment|raw }}</span>
+                        </label>
+                        <div class="col-lg-4">
+                          <button type="submit" class="btn btn-warning" tabindex="{{ nextTabindex() }}" name="btn_licDeregister">{{ LANG.btn_deregister }}</button>
+                        </div>
+                        <div class="divider">
+                          <hr>
+                        </div>
+                      </div>
+                    {% endif %}
+                  </div>
+
+                  <!-- Login tab -->
+                  <div class="tab-pane fade" id="panel-login" role="tabpanel" aria-labelledby="tab-login">
+                    {% for formObject in login %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- Registration tab -->
+                  <div class="tab-pane fade" id="panel-registration" role="tabpanel" aria-labelledby="tab-registration">
+                    {% for formObject in registration %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- System tab -->
+                  <div class="tab-pane fade" id="panel-system" role="tabpanel" aria-labelledby="tab-system">
+                    {% for formObject in system %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                    
+                    <div class="form-group row">
+                      <label class="col-lg-{{ colsleft }} control-label">
+                        {{ LANG.config_clearCache }}<br>
+                        <span class="text-normal">{{ LANG.config_clearCache_comment }}</span>
+                      </label>
+                      <div class="col-lg-{{ colsright }}">
+                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalClearCache" tabindex="{{ nextTabindex() }}">{{ LANG.config_clearCache }}</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Theme tab -->
+                  <div class="tab-pane fade" id="panel-theme" role="tabpanel" aria-labelledby="tab-theme">
+                    {% for formObject in theme %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- Usericons tab -->
+                  <div class="tab-pane fade" id="panel-usercustom" role="tabpanel" aria-labelledby="tab-usercustom">
+                    {% for formObject in user %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- GDPR tab -->
+                  <div class="tab-pane fade" id="panel-gdpr" role="tabpanel" aria-labelledby="tab-gdpr">
+                    {% for formObject in gdpr %}
+                      {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
+                    {% endfor %}
+                    <div class="form-group row" id="form-group-gdprPlatforms">
+                      <label for="gdprFacebook" class="col-lg-8 control-label">
+                        {{ LANG.config_gdprPlatforms }}<br>
+                        <span class="text-normal">{{ LANG.config_gdprPlatforms_comment }}</span>
+                      </label>
+                      <div class="col-lg-4">
+                        <div class="form-check">
+                          {% for platform in gdprPlatforms %}
+                            <label>
+                              <input class="form-check-input" type="checkbox" id="gdpr{{ platform.key }}" name="chk_gdpr{{ platform.key }}" value="chk_gdpr{{ platform.key }}" tabindex="{{ nextTabindex() }}" {{ platform.checked ? 'checked' : '' }}>
+                              <i class="{{ platform.icon }}"></i>&nbsp;{{ platform.label }}
+                            </label><br>
+                          {% endfor %}
+                        </div>
+                      </div>
+                      <div class="divider">
+                        <hr>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal: Clear Cache -->
+            <div class="modal fade" id="modalClearCache" tabindex="-1" role="dialog" aria-labelledby="modalClearCacheLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalClearCacheLabel">{{ LANG.modal_confirm }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body text-start">
+                    {{ LANG.config_clearCache_confirm }}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-warning" name="btn_clearCache" aria-label="{{ LANG.config_clearCache }}">{{ LANG.config_clearCache }}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="{{ LANG.btn_cancel }}">{{ LANG.btn_cancel }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 float-end">
+              <button type="submit" class="btn btn-primary" tabindex="{{ nextTabindex() }}" name="btn_confApply">{{ LANG.btn_save }}</button>
+            </div>
+
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+{% endblock %}
