@@ -22,6 +22,18 @@ if "%VERSION%"=="" (
   exit /b 1
 )
 
+:: Check if tag already exists on remote
+echo Checking if tag v%VERSION% exists on remote...
+git ls-remote --tags origin v%VERSION% | findstr "v%VERSION%" >nul
+if %errorlevel%==0 (
+  echo.
+  echo [WARNING] Tag v%VERSION% already exists on remote!
+  echo Aborting release process to avoid conflicts.
+  echo.
+  pause
+  exit /b 1
+)
+
 echo.
 echo ========================================================
 echo  PREPARING RELEASE v%VERSION%
