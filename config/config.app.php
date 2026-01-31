@@ -172,8 +172,8 @@ define('LDAP_CHECK_ANONYMOUS_BIND', 0);                      // Set to 1 to chec
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "5.0.0-DEV");
-define('APP_DATE', "2026-01-17");
+define('APP_VER', "5.0.0-beta");
+define('APP_DATE', "2026-01-31");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "https://www.lewe.com");
