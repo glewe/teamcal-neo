@@ -14,9 +14,7 @@ if (!defined('VALID_ROOT')) {
  */
 
 /**
- * ----------------------------------------------------------------------------
  * ROUTING
- * ----------------------------------------------------------------------------
  */
 $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
 $fullURL = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -27,9 +25,7 @@ define('APP_UPL_DIR', "public/upload/files/");
 define('APP_IMP_DIR', "public/upload/import/");
 
 /**
- * ----------------------------------------------------------------------------
- * TEAMCAL NEO
- * ----------------------------------------------------------------------------
+ * INSTALLATION
  * 
  * A flag indicating whether the installation script has been executed.
  * 0 = Not run yet
@@ -40,18 +36,14 @@ define('APP_IMP_DIR', "public/upload/import/");
 define('APP_INSTALLED', "1");
 
 /**
- * ----------------------------------------------------------------------------
  * COOKIE
- * ----------------------------------------------------------------------------
  * 
  * The cookie name to be used on the browser client's device
  */
-define('COOKIE_NAME', "tcneo5");
+define('COOKIE_NAME', "teamcalneo");
 
 /**
- * ----------------------------------------------------------------------------
- * LANGUAGE METHOD
- * ----------------------------------------------------------------------------
+ * LANGUAGE DEBUGGING
  * 
  * COMPARE_LANGUAGES - set to true to compare all language files
  * DEBUG_LANGUAGE - set to true to write language statistics to the error log
@@ -61,9 +53,7 @@ define('COMPARE_LANGUAGES', false);
 define('DEBUG_LANGUAGE', false);
 
 /**
- * ----------------------------------------------------------------------------
  * MANDATORY MODULES
- * ----------------------------------------------------------------------------
  */
 define('BOOTSTRAP_VER', "5.3.8");
 define('BOOTSTRAP_ICONS_VER', "1.13.1");
@@ -74,9 +64,7 @@ define('JQUERY_VER', "3.7.1");
 define('JQUERY_UI_VER', "1.14.1");
 
 /**
- * ----------------------------------------------------------------------------
  * OPTIONAL MODULES
- * ----------------------------------------------------------------------------
  */
 //
 // Chart.js
@@ -108,9 +96,7 @@ define('SYNTAXHIGHLIGHTER', false);
 define('SYNTAXHIGHLIGHTER_VER', "3.0.83");
 
 /**
- * ----------------------------------------------------------------------------
  * FILE UPLOAD
- * ----------------------------------------------------------------------------
  */
 //
 // Defines the allowed file types for upload
@@ -124,9 +110,7 @@ $CONF['uplExtensions'] = array( 'gif', 'jpg', 'png', 'doc', 'docx', 'pdf', 'ppt'
 $CONF['uplMaxsize'] = 2048 * 1024; // 2 MB
 
 /**
- * ----------------------------------------------------------------------------
  * LDAP
- * ----------------------------------------------------------------------------
  *
  * You can enable LDAP user authentication in this section. Please read the
  * requirements below.
@@ -165,9 +149,7 @@ define('LDAP_TLS', 0);                                       // To avoid "Undefi
 define('LDAP_CHECK_ANONYMOUS_BIND', 0);                      // Set to 1 to check the LDAP server's 'anonymous bind' setting. Connection will be refused if not allowed.
 
 /**
- * ----------------------------------------------------------------------------
- * APPLICATION
- * ----------------------------------------------------------------------------
+ * APPLICATION INFORMATION
  *
  * !Do not change anything below this line. It is protected by the license agreement!
  */

@@ -24,7 +24,7 @@
   },
   "scripts": {
     "build": "php tools/build.php",
-    "docs": "php tools/phpDocumentor.phar -d src -t php_doc --title=\"TeamCal Neo\" -s template.color=blue && php tools/apply_dark_mode.php",
+    "docs": "php tools/phpDocumentor.phar -d src,config -t php_doc --title=\"TeamCal Neo\" -s template.color=blue && php tools/apply_dark_mode.php",
     "minify": "php tools/minify.php",
     "phpunit": "phpunit",
     "phpstan": "php vendor/bin/phpstan analyse",
