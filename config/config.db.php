@@ -31,10 +31,10 @@ if (isset($_ENV['DB_HOST'])) {
 else {
   // Fallback / Manual configuration
   $CONF['db_server']       = "localhost";
-  $CONF['db_name']         = "tcneo_5";
+  $CONF['db_name']         = "teamcal_neo";
   $CONF['db_user']         = "root";
   $CONF['db_pass']         = "";
-  $CONF['db_table_prefix'] = "tcneo_";
+  $CONF['db_table_prefix'] = "";
 }
 
 /**
