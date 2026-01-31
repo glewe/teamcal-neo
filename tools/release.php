@@ -102,8 +102,20 @@ fclose($handle);
 
 echo "\n";
 
-// Helper function to run commands
-function runStep(string $description, string $command): void {
+/**
+ * --------------------------------------------------------------------------
+ * Run Step
+ * --------------------------------------------------------------------------
+ *
+ * Helper function to run commands and check exit codes.
+ *
+ * @param string $description Description of the step.
+ * @param string $command     The command to execute.
+ *
+ * @return void
+ */
+function runStep(string $description, string $command): void
+{
   echo CLR_YLW . ">>> $description...\n" . CLR_RST;
   echo CLR_CYN . "$ $command\n" . CLR_RST;
   passthru($command, $returnVar);
@@ -115,8 +127,15 @@ function runStep(string $description, string $command): void {
 }
 
 // 4. Execution
-runStep("Adding files", "git add .");
-runStep("Committing changes", "git commit -m \"Release v$version\"");
+$status = shell_exec("git status --porcelain");
+if (trim($status ?? '') !== '') {
+  runStep("Adding files", "git add .");
+  runStep("Committing changes", "git commit -m \"Release v$version\"");
+}
+else {
+  echo CLR_YLW . ">>> No file changes detected. Skipping add/commit.\n" . CLR_RST;
+}
+
 runStep("Pushing to master", "git push origin master");
 
 if ($force && $tagExists) {
