@@ -20,11 +20,22 @@ if (!defined('VALID_ROOT')) {
  *
  * Enter your database parameter here
  */
-$CONF['db_server'] = "localhost";
-$CONF['db_name'] = "tcneo_5";
-$CONF['db_user'] = "root";
-$CONF['db_pass'] = "";
-$CONF['db_table_prefix'] = "tcneo_";
+if (isset($_ENV['DB_HOST'])) {
+  // Use .env configuration
+  $CONF['db_server']       = $_ENV['DB_HOST'];
+  $CONF['db_name']         = $_ENV['DB_NAME'];
+  $CONF['db_user']         = $_ENV['DB_USER'];
+  $CONF['db_pass']         = $_ENV['DB_PASS'];
+  $CONF['db_table_prefix'] = $_ENV['DB_PREFIX'];
+}
+else {
+  // Fallback / Manual configuration
+  $CONF['db_server']       = "localhost";
+  $CONF['db_name']         = "tcneo_5";
+  $CONF['db_user']         = "root";
+  $CONF['db_pass']         = "";
+  $CONF['db_table_prefix'] = "tcneo_";
+}
 
 /**
  * The ID array is used to create the table names below.

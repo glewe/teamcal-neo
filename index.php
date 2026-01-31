@@ -65,6 +65,14 @@ define('WEBSITE_ROOT', __DIR__);
 require_once __DIR__ . "/vendor/autoload.php";
 
 //-----------------------------------------------------------------------------
+// LOAD ENVIRONMENT VARIABLES
+//
+if (file_exists(__DIR__ . '/.env')) {
+  $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+  $dotenv->load();
+}
+
+//-----------------------------------------------------------------------------
 // IMPORT MODELS
 //
 use App\Core\Container;
