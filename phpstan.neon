@@ -5,7 +5,7 @@ parameters:
 		- config
 	excludePaths:
 		- vendor
-		- node_modules
+		- node_modules (?)
 		- config/config.vars.php
 	bootstrapFiles:
 		- tests/phpstan-bootstrap.php
