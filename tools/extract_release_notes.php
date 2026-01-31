@@ -4,6 +4,14 @@ declare(strict_types=1);
 /**
  * Extract Release Notes from doc/releaseinfo.php
  * Usage: php tools/extract_release_notes.php <version>
+ *
+ * @author     George Lewe <george@lewe.com>
+ * @copyright  Copyright (c) 2014-2026 by George Lewe
+ * @link       https://www.lewe.com
+ *
+ * @package    TeamCal Neo
+ * @subpackage Tools
+ * @since      5.0.0
  */
 
 if ($argc < 2) {
