@@ -21,4 +21,4 @@ vendor/
 dist/
 *.zip
 bom.json
-!/_release.cmd
+
