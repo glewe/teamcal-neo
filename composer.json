@@ -1,7 +1,7 @@
 {
   "name": "lewe/tcneo",
   "description": "TeamCal Neo",
-  "version": "5.0.0",
+  "version": "5.0.0-beta",
   "require": {
     "ext-ctype": "*",
     "ext-pdo": "*",
