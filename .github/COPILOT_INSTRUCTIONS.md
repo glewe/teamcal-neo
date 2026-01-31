@@ -1,77 +1,32 @@
 # TeamCal Neo — Quick AI contributor guide
 
-This repository is a PHP-based single-repository web application (not a framework app). The goal of these pages is to give an AI coding agent the specific, actionable context needed to make safe, useful changes.
+This repository is a PHP-based single-repository web application (TeamCal Neo v5). The goal of these pages is to give an AI coding agent the specific, actionable context needed to make safe, useful changes.
 
-High-level architecture
-- Entry point: `src/index.php` — boots the app: loads config (`src/config/*.php`), registers class autoloading (`src/classes/*.class.php`), instantiates core domain classes and dispatches controllers from `src/controller/`.
-- Controllers: `src/controller/<name>.php` are thin: they set up view rendering and include view templates in `src/views/`.
-- Views/templates: `src/views/` and `src/templates/` contain HTML/PHP UI fragments. Prefer small, safe changes here (avoid breaking language keys).
-- Domain classes: `src/classes/*.class.php` hold major business logic (e.g. `DB.class.php`, `Users.class.php`). They are instantiated in `src/index.php` and used globally (e.g. $DB, $C, $U).
-- Helpers: `src/helpers/*.php` provide utility functions used across controllers and views (not a framework DI system). Example: `src/helpers/global.helper.php`.
+## High-level architecture
+- **Entry point**: `index.php` — boots the app, loads config, initializes the DI Container, and dispatches requests via the Router.
+- **Dependency Injection**: `src/Core/Container.php` handles dependency injection. All Models and Services are registered here.
+- **Routing**: `src/Core/Router.php` maps the `action` parameter to Controllers.
+- **Controllers**: `src/Controllers/*.php` (Namespace `App\Controllers`). They extend `App\Core\BaseController` and handle business logic before rendering views.
+- **Models**: `src/Models/*.php` (Namespace `App\Models`). They handle database interactions.
+- **Views**: `views/*.twig`. The application uses a Template Engine (likely Twig-based or custom wrapper) located in `src/Core/TemplateEngine.php`.
+- **Helpers**: `src/Helpers/*.helper.php` provide utility functions.
 
-Important patterns and conventions
-- Global single-file bootstrap: many parts rely on globals (e.g. $CONF, $C, $DB, L_USER). New code should prefer existing class usage and avoid introducing new global variables.
-- Autoloading: classes are loaded via a simple spl_autoload_register in `src/index.php` which expects files named `<ClassName>.class.php` in `src/classes/`.
-- Routing: `src/index.php` sets `$controller` from config or `$_GET['action']` and includes `src/controller/<controller>.php`. Add controllers by creating a new file there and a matching view in `src/views/`.
-- Configuration: runtime constants and options live in `src/config/config.app.php` and `src/config/config.db.php`. Don't hard-code credentials — use/extend these files.
-- Internationalization: language files are in `src/languages/<language>.php` and `<language>.app.php`. Use existing keys in `$LANG` when adding text.
+## Developer workflows (discoverable)
+- **Build**: `composer run build` (or `php tools/build.php`) compiles assets and prepares the `dist` folder.
+- **Tests**: `composer test`.
+- **Static Analysis**: `composer phpstan`.
 
-Developer workflows (discoverable)
-- Build and minify: `composer run build` runs CSS lint and `php minify.php` (see `composer.json` scripts). For production: `composer run build:prod`.
-- Tests: `composer test` is mapped to `phpunit` but this repo contains few automated tests. Run phpunit only if present and configured.
+## Coding conventions
+**CRITICAL:** Please refer to [RULES.md](../RULES.md) in the root directory for all coding standards, variable naming conventions, and documentation requirements.
 
-Integration & external dependencies
-- Composer-managed PHP packages (see `composer.json`). PHP 8.1+ required per `composer.json`.
-- MySQL via PDO (see `src/classes/DB.class.php`). `src/config/config.db.php` contains DB credentials. Prefer prepared statements and existing DB wrapper methods.
-- Optional LDAP support toggled in `src/config/config.app.php` (constants like `LDAP_YES`).
+## Safe-change checklist for agents
+- **Prefer small, localized changes.**
+- **Preserve language keys:** When adding user-facing messages, add keys in `resources/languages/*` (or `src/languages` depending on structure).
+- **Follow file naming:** Classes => `PascalCase.php`; Methods => `camelCase`.
+- **Use the Container:** Avoid `new ClassName()`. Use dependency injection or the container where possible.
 
-Safe-change checklist for agents
-- Prefer small, localized changes. Update only one controller/view/class per PR.
-- Preserve language keys: when adding user-facing messages, add keys in `src/languages/*` pairs and reference `$LANG['key']`.
-- Follow file naming: classes => `Name.class.php`; controllers => `name.php` in `src/controller`; views => `name.php` in `src/views`.
-- Avoid changing `src/index.php` unless fixing boot/dispatch bugs; it's the canonical bootstrap.
-
-Examples to reference
-- Bootstrapping and globals: `src/index.php`
-- Database usage: `src/classes/DB.class.php`
-- Helpers and validators: `src/helpers/global.helper.php` (form validation, sanitize, date helpers)
-- App config & feature toggles: `src/config/config.app.php`
-- Composer scripts and build: `composer.json`
-
-Coding conventions
-- refer to .editorconfig for indentation, spacing, and other style rules.
-- PHPDoc comments for all classes
-- PHPDoc comments for all methods as follows:
-
-```
-  /**
-   * --------------------------------------------------------------------------
-   * Title of the Method
-   * --------------------------------------------------------------------------
-   *
-   * Short description of what the method does.
-   *
-   * @param string $param1     Description of the first parameter.
-   * @param int    $parameter2 Description of the second parameter.
-   *
-   * @return type Description of the return value.
-   */
-  function exampleMethod($param1, $param2) {
-    // method implementation
-  }
-```
-- Regular comments can be single line using `//` or block comments using an empty `//` line before and after the comment. For example:
-
-```
-  //
-  // This is a block comment that explains the following code section.
-  // It can span multiple lines and is separated by an empty comment
-  // line before and after.
-  //
-
-  // This is a single-line comment explaining the next line of code.
-  $variable = 'value'; // Inline comment explaining this assignment.
-```
-
-
-If anything above is unclear or you need extra examples (e.g., sample controller that reads/saves users), ask for specific files to inspect and I will extract minimal, safe change examples.
+## Examples to reference
+- **Bootstrapping**: `index.php`
+- **Controller**: `src/Controllers/HomeController.php`
+- **Model**: `src/Models/UserModel.php`
+- **Routing**: `index.php` (Route registration)
