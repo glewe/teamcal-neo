@@ -214,7 +214,7 @@ class Users {
       $this->firstname = $row['firstname'];
       $this->lastname = $row['lastname'];
       $this->email = $row['email'];
-      $this->order_key = $row['order_key'];
+      $this->order_key = (string)($row['order_key'] ?? '');
       $this->role = $row['role'];
       $this->locked = $row['locked'];
       $this->hidden = $row['hidden'];
@@ -247,7 +247,7 @@ class Users {
       $this->firstname = $row['firstname'];
       $this->lastname = $row['lastname'];
       $this->email = $row['email'];
-      $this->order_key = $row['order_key'];
+      $this->order_key = (string)($row['order_key'] ?? '');
       $this->role = $row['role'];
       $this->locked = $row['locked'];
       $this->hidden = $row['hidden'];

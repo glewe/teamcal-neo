@@ -330,25 +330,25 @@ if (file_exists(WEBSITE_ROOT . '/languages/' . $language . '/core.php')) {
 //-----------------------------------------------------------------------------
 // PREPARE VIEW
 //
-$htmlData['title'] = $allConfig['appTitle'];
+$htmlData['title'] = $allConfig['appTitle'] ?? 'TeamCal Neo';
 if (isset($CONF['controllers'][$controller])) {
   $htmlData['title'] = $allConfig['appTitle'] . ' - ' . $CONF['controllers'][$controller]->title;
 }
 
-$htmlData['description'] = $allConfig['appDescription'];
-$htmlData['keywords'] = $allConfig['appKeywords'];
+$htmlData['description'] = $allConfig['appDescription'] ?? '';
+$htmlData['keywords'] = $allConfig['appKeywords'] ?? '';
 $htmlData['version'] = APP_VER;
 $htmlData['author'] = APP_AUTHOR;
 $htmlData['copyright'] = APP_COPYRIGHT;
 $htmlData['license'] = APP_LICENSE;
 $htmlData['locale'] = $LANG['locale'];
-$htmlData['jQueryTheme'] = $allConfig['jqtheme'];
-$htmlData['cookieConsent'] = (bool)$allConfig['cookieConsent'];
-$htmlData['cookieConsentCDN'] = (bool)$allConfig['cookieConsentCDN'];
-$htmlData['faCDN'] = (bool)$allConfig['faCDN'];
-$htmlData['jQueryCDN'] = (bool)$allConfig['jQueryCDN'];
+$htmlData['jQueryTheme'] = $allConfig['jqtheme'] ?? 'base';
+$htmlData['cookieConsent'] = (bool)($allConfig['cookieConsent'] ?? false);
+$htmlData['cookieConsentCDN'] = (bool)($allConfig['cookieConsentCDN'] ?? false);
+$htmlData['faCDN'] = (bool)($allConfig['faCDN'] ?? false);
+$htmlData['jQueryCDN'] = (bool)($allConfig['jQueryCDN'] ?? false);
 
-if ($allConfig['noIndex']) {
+if ($allConfig['noIndex'] ?? false) {
   $htmlData['robots'] = 'noindex,nofollow,noopd';
 } else {
   $htmlData['robots'] = 'index,follow,noopd';
