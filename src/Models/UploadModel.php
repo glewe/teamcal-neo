@@ -27,6 +27,7 @@ class UploadModel
   public string $file_copy           = ''; // the new name
   public int    $http_error          = 0;
   public int    $max_length_filename = 100;
+  public int    $max_size            = 0;
   public array  $message             = [];
   public bool   $rename_file         = false; // if this true the file copy gets a new name
   public string $replace             = 'n';
@@ -278,7 +279,12 @@ class UploadModel
           }
         }
         else {
-          $this->message[] = $this->error[(int) $this->http_error] ?? 'Upload failed.';
+          if ((int) $this->http_error === 2) {
+            $this->message[] = sprintf($this->error[2], $this->max_size);
+          }
+          else {
+            $this->message[] = $this->error[(int) $this->http_error] ?? 'Upload failed.';
+          }
           return false;
         }
       }

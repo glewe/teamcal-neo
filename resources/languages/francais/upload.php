@@ -14,7 +14,7 @@ if (!defined('VALID_ROOT')) {
  */
 $LANG['upl_error_0'] = 'Le fichier "%s" a été téléversé avec succès.';
 $LANG['upl_error_1'] = 'Le fichier dépasse la taille maximale autorisée par la configuration du serveur (php.ini).';
-$LANG['upl_error_2'] = 'Le fichier dépasse la taille maximale (MAX_FILE_SIZE) spécifiée dans le formulaire.';
+$LANG['upl_error_2'] = 'Le fichier dépasse la taille maximale (maxsize=%s) spécifiée dans le formulaire.';
 $LANG['upl_error_3'] = 'Le fichier n\'a été que partiellement téléversé.';
 $LANG['upl_error_4'] = 'Aucun fichier n\'a été téléversé.';
 $LANG['upl_error_10'] = 'Veuillez sélectionner un fichier à téléverser.';

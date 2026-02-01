@@ -101,16 +101,26 @@ class GroupEditController extends BaseController
 
       if (!$inputError) {
         if (isset($_POST['btn_groupUpdate'])) {
-          $GG->name         = $_POST['txt_name'];
-          $GG->description  = $_POST['txt_description'];
+          $GG->name        = $_POST['txt_name'];
+          $GG->description = $_POST['txt_description'];
           // Avatar is handled separately via upload button, but ensure it's preserved or default
-          $GG->avatar = $GG->avatar ? $GG->avatar : 'default_group.png';
+          $GG->avatar       = $GG->avatar ? $GG->avatar : 'default_group.png';
           $GG->minpresent   = (int) $_POST['txt_minpresent'];
           $GG->maxabsent    = (int) $_POST['txt_maxabsent'];
           $GG->minpresentwe = (int) $_POST['txt_minpresentwe'];
           $GG->maxabsentwe  = (int) $_POST['txt_maxabsentwe'];
 
-          if (isset($_POST['opt_avatar'])) {
+          $avatarUploaded = false;
+          if (!empty($_FILES['file_avatar']['name'])) {
+            if ($this->handleUpload($GG, $showAlert, $alertData, false)) {
+              $avatarUploaded = true;
+            }
+          }
+
+          if (!$avatarUploaded && isset($_POST['opt_avatar'])) {
+            if ($GG->avatar && strpos($GG->avatar, 'default_') === false && file_exists(APP_AVATAR_DIR . $GG->avatar)) {
+               unlink(APP_AVATAR_DIR . $GG->avatar);
+            }
             $GG->avatar = $_POST['opt_avatar'];
           }
 
@@ -156,12 +166,12 @@ class GroupEditController extends BaseController
           $viewData['minpresentwe'] = $GG->minpresentwe;
           $viewData['maxabsentwe']  = $GG->maxabsentwe;
         }
-      }
-      elseif (isset($_POST['btn_uploadAvatar'])) {
-         $this->handleUpload($GG, $showAlert, $alertData);
-      }
-      elseif (isset($_POST['btn_resetAvatar'])) {
-         $this->handleReset($GG, $showAlert, $alertData);
+        elseif (isset($_POST['btn_uploadAvatar'])) {
+          $this->handleUpload($GG, $showAlert, $alertData);
+        }
+        elseif (isset($_POST['btn_resetAvatar'])) {
+          $this->handleReset($GG, $showAlert, $alertData);
+        }
       }
       else {
         $showAlert            = true;
@@ -187,9 +197,9 @@ class GroupEditController extends BaseController
       ['prefix' => 'group', 'name' => 'minpresentwe', 'type' => 'text', 'placeholder' => '0', 'value' => $viewData['minpresentwe'], 'maxlength' => '4', 'error' => ($inputAlert['minpresentwe'] ?? '')],
       ['prefix' => 'group', 'name' => 'maxabsentwe', 'type' => 'text', 'placeholder' => '9999', 'value' => $viewData['maxabsentwe'], 'maxlength' => '4', 'error' => ($inputAlert['maxabsentwe'] ?? '')],
     ];
-    
+
     // Avatar
-    $viewData['avatars'] = getFiles(APP_AVATAR_DIR, $this->CONF['avatarExtensions'], 'default_group');
+    $viewData['avatars']        = getFiles(APP_AVATAR_DIR, $this->CONF['avatarExtensions'], 'default_group');
     $viewData['avatar_maxsize'] = $this->CONF['avatarMaxsize'];
     $viewData['avatar_formats'] = implode(', ', $this->CONF['avatarExtensions']);
 
@@ -238,9 +248,9 @@ class GroupEditController extends BaseController
    * @param GroupModel $GG        Group Model
    * @param bool       $showAlert Reference to show alert flag
    * @param array      $alertData Reference to alert data array
-   * @return void
+   * @return bool
    */
-  private function handleUpload($GG, &$showAlert, &$alertData) {
+  private function handleUpload($GG, &$showAlert, &$alertData, $redirect = true) {
     $UPL                    = new UploadModel();
     $UPL->upload_dir        = APP_AVATAR_DIR;
     $UPL->extensions        = $this->CONF['avatarExtensions'];
@@ -249,15 +259,24 @@ class GroupEditController extends BaseController
     $UPL->the_temp_file     = $_FILES['file_avatar']['tmp_name'];
     $UPL->http_error        = $_FILES['file_avatar']['error'];
     $fileExtension          = getFileExtension($_FILES['file_avatar']['name']);
-    $UPL->the_file          = 'group_' . uniqid() . "." . $fileExtension;
+    $UPL->max_size          = (int) $this->CONF['avatarMaxsize'];
+    $UPL->the_file          = 'group_' . $GG->id . "." . $fileExtension;
     if ($UPL->uploadFile()) {
       $full_path = $UPL->upload_dir . $UPL->file_copy;
       $UPL->getUploadedFileInfo($full_path);
+
+      if ($GG->avatar && $GG->avatar !== $UPL->uploaded_file['name'] && strpos($GG->avatar, 'default_') === false && file_exists(APP_AVATAR_DIR . $GG->avatar)) {
+        unlink(APP_AVATAR_DIR . $GG->avatar);
+      }
+
       $GG->avatar = $UPL->uploaded_file['name'];
-      $GG->update($GG->id);
-      
-      header("Location: " . $_SERVER['PHP_SELF'] . "?action=groupedit&id=" . $GG->id);
-      die();
+
+      if ($redirect) {
+        $GG->update($GG->id);
+        header("Location: " . $_SERVER['PHP_SELF'] . "?action=groupedit&id=" . $GG->id);
+        die();
+      }
+      return true;
     }
     else {
       $showAlert            = true;
@@ -266,6 +285,7 @@ class GroupEditController extends BaseController
       $alertData['subject'] = 'Avatar ' . $this->LANG['btn_upload'];
       $alertData['text']    = $UPL->getErrors();
       $alertData['help']    = '';
+      return false;
     }
   }
 
@@ -280,13 +300,13 @@ class GroupEditController extends BaseController
    */
   private function handleReset($GG, &$showAlert, &$alertData) {
     // Delete old avatar if it's not default (optional, but good cleanup)
-     if ($GG->avatar && strpos($GG->avatar, 'default_') === false && file_exists(APP_AVATAR_DIR . $GG->avatar)) {
-        unlink(APP_AVATAR_DIR . $GG->avatar);
-     }
+    if ($GG->avatar && strpos($GG->avatar, 'default_') === false && file_exists(APP_AVATAR_DIR . $GG->avatar)) {
+      unlink(APP_AVATAR_DIR . $GG->avatar);
+    }
 
     $GG->avatar = 'default_group.png';
     $GG->update($GG->id);
-    
+
     header("Location: " . $_SERVER['PHP_SELF'] . "?action=groupedit&id=" . $GG->id);
     die();
   }

@@ -661,6 +661,7 @@ class UserEditController extends BaseController
     $UPL->the_temp_file     = $_FILES['file_avatar']['tmp_name'];
     $UPL->http_error        = $_FILES['file_avatar']['error'];
     $fileExtension          = getFileExtension($_FILES['file_avatar']['name']);
+    $UPL->max_size          = (int) $this->CONF['avatarMaxsize'];
     $UPL->the_file          = $profile . "." . $fileExtension;
     if ($UPL->uploadFile()) {
       $full_path = $UPL->upload_dir . $UPL->file_copy;

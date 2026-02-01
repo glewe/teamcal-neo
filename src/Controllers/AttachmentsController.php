@@ -115,6 +115,7 @@ class AttachmentsController extends BaseController
   private function handleUpload($UPL, $uplDir) {
     $UPL->upload_dir        = $uplDir;
     $UPL->extensions        = $this->CONF['uplExtensions'];
+    $UPL->max_size          = (int) $this->CONF['uplMaxsize'];
     $UPL->do_filename_check = "y";
     $UPL->replace           = "y";
     $UPL->the_temp_file     = $_FILES['file_image']['tmp_name'] ?? '';

@@ -14,7 +14,7 @@ if (!defined('VALID_ROOT')) {
  */
 $LANG['upl_error_0'] = 'El archivo "%s" se subió con éxito.';
 $LANG['upl_error_1'] = 'El archivo excede el tamaño máximo permitido por el servidor.';
-$LANG['upl_error_2'] = 'El archivo excede el tamaño máximo permitido por el formulario.';
+$LANG['upl_error_2'] = 'El archivo excede el tamaño máximo permitido por el formulario (maxsize=%s).';
 $LANG['upl_error_3'] = 'El archivo solo se subió parcialmente.';
 $LANG['upl_error_4'] = 'No se subió ningún archivo.';
 $LANG['upl_error_10'] = 'Seleccione un archivo para subir.';

@@ -348,10 +348,10 @@ class UserModel
     }
 
     if ($includeAdmin) {
-      $query = $this->db->prepare('SELECT * FROM ' . $table . ' ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
+      $query = $this->db->prepare('SELECT * FROM ' . $table . ' ORDER BY LOWER(' . $order1 . ') ' . $sort . ', LOWER(' . $order2 . ') ' . $sort);
     }
     else {
-      $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != :val1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
+      $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != :val1 ORDER BY LOWER(' . $order1 . ') ' . $sort . ', LOWER(' . $order2 . ') ' . $sort);
       $val1  = 'admin';
       $query->bindParam(':val1', $val1);
     }
@@ -376,7 +376,7 @@ class UserModel
    */
   public function getAllForEmail(string $email): array|false {
     $records = array();
-    $query   = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE email = :email ORDER BY lastname ASC, firstname ASC');
+    $query   = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE email = :email ORDER BY LOWER(lastname) ASC, LOWER(firstname) ASC');
     $query->bindParam(':email', $email);
     $result = $query->execute();
     if ($result) {
@@ -398,7 +398,7 @@ class UserModel
    */
   public function getAllForRole(string $role): array|false {
     $records = array();
-    $query   = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE role = :role ORDER BY lastname ASC, firstname ASC');
+    $query   = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE role = :role ORDER BY LOWER(lastname) ASC, LOWER(firstname) ASC');
     $query->bindParam(':role', $role);
     $result = $query->execute();
     if ($result) {
@@ -437,10 +437,10 @@ class UserModel
     }
 
     if ($includeAdmin) {
-      $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE hidden != 1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
+      $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE hidden != 1 ORDER BY LOWER(' . $order1 . ') ' . $sort . ', LOWER(' . $order2 . ') ' . $sort);
     }
     else {
-      $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != :val1 AND hidden != 1 ORDER BY ' . $order1 . ' ' . $sort . ', ' . $order2 . ' ' . $sort);
+      $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != :val1 AND hidden != 1 ORDER BY LOWER(' . $order1 . ') ' . $sort . ', LOWER(' . $order2 . ') ' . $sort);
     }
     $val1 = 'admin';
     $query->bindParam(':val1', $val1);
@@ -472,7 +472,7 @@ class UserModel
       'SELECT * FROM ' . $table . '
        WHERE (firstname LIKE :search1 OR lastname LIKE :search2 OR username LIKE :search3)
        AND username != :admin
-       ORDER BY lastname ASC, firstname ASC'
+       ORDER BY LOWER(lastname) ASC, LOWER(firstname) ASC'
     );
     $admin = 'admin';
     $query->bindParam(':search1', $searchTerm);
@@ -622,7 +622,7 @@ class UserModel
    */
   public function getUsernames(): array {
     $records = array();
-    $query   = $this->db->prepare('SELECT username FROM ' . $this->table . ' ORDER BY username ASC');
+    $query   = $this->db->prepare('SELECT username FROM ' . $this->table . ' ORDER BY LOWER(username) ASC');
     $result  = $query->execute();
     if ($result) {
       while ($row = $query->fetch()) {

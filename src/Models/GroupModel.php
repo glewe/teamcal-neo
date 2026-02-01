@@ -122,7 +122,7 @@ class GroupModel
    */
   public function getAll(string $sort = 'ASC'): array {
     $records = array();
-    $query   = $this->db->prepare('SELECT id, name, description, avatar, minpresent, maxabsent, minpresentwe, maxabsentwe FROM ' . $this->table . ' ORDER BY name ' . $sort);
+    $query   = $this->db->prepare('SELECT id, name, description, avatar, minpresent, maxabsent, minpresentwe, maxabsentwe FROM ' . $this->table . ' ORDER BY LOWER(name) ' . $sort);
     $query->execute();
     while ($row = $query->fetch()) {
       $records[] = $row;
@@ -160,7 +160,7 @@ class GroupModel
    */
   public function getAllLike(string $like): array {
     $records = array();
-    $query   = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name LIKE :like OR description LIKE :like ORDER BY name ASC');
+    $query   = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE name LIKE :like OR description LIKE :like ORDER BY LOWER(name) ASC');
     $val     = '%' . $like . '%';
     $query->bindParam(':like', $val);
     $query->execute();
@@ -178,7 +178,7 @@ class GroupModel
    */
   public function getAllNames(): array {
     $records = array();
-    $query   = $this->db->prepare('SELECT name FROM ' . $this->table . ' ORDER BY name ASC');
+    $query   = $this->db->prepare('SELECT name FROM ' . $this->table . ' ORDER BY LOWER(name) ASC');
     $query->execute();
     while ($row = $query->fetch()) {
       $records[] = $row['name'];

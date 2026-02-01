@@ -24,6 +24,6 @@ $LANG['upl_error_16'] = 'Die hochgeladene Datei wurde in "%s" umbenannt.';
 $LANG['upl_error_17'] = 'Die Datei "%s" existiert nicht.';
 $LANG['upl_error_18'] = 'Ein unbestimmter Fehler ist bem Hochladen aufgetreten.';
 $LANG['upl_error_19'] = 'Die Datei konnte nicht ins Zielverzeichnis geschrieben werden.';
-$LANG['upl_error_2'] = 'Die hochgeladene Datei übersteigt die MAX_FILE_SIZE Direktive des HTML Formulars.';
+$LANG['upl_error_2'] = 'Die hochgeladene Datei übersteigt die maxsize=%s Direktive des HTML Formulars.';
 $LANG['upl_error_3'] = 'Die Datei wurde nur teilweise hochgeladen.';
 $LANG['upl_error_4'] = 'Es wurde keine Datei hochgeladen.';

@@ -14,7 +14,7 @@ if (!defined('VALID_ROOT')) {
  */
 $LANG['upl_error_0'] = 'The file "%s" was successfully uploaded.';
 $LANG['upl_error_1'] = 'The uploaded file exceeds the maximum upload filesize directive in the server configuration.';
-$LANG['upl_error_2'] = 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.';
+$LANG['upl_error_2'] = 'The uploaded file exceeds the maxsize=%s directive that was specified in the HTML form.';
 $LANG['upl_error_3'] = 'The file was only partially uploaded.';
 $LANG['upl_error_4'] = 'No file was uploaded.';
 $LANG['upl_error_10'] = 'Please select a file for upload.';

@@ -250,7 +250,7 @@ class AvatarModel
           $this->message = $this->error[1];
           break;
         case 2: // UPLOAD_ERR_FORM_SIZE
-          $this->message = $this->error[2];
+          $this->message = sprintf($this->error[2], $this->maxSize);
           break;
         case 3: // UPLOAD_ERR_PARTIAL
           $this->message = $this->error[3];
