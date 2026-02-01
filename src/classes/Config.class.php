@@ -39,7 +39,7 @@ class Config {
    * @return string Value of the option or false if not found
    */
   public function read(string $name): string|false {
-    $query = $this->db->prepare("SELECT value FROM " . $this->table . " WHERE `name` = :name");
+    $query = $this->db->prepare("SELECT `value` FROM " . $this->table . " WHERE `name` = :name");
     $query->bindParam(':name', $name);
     $query->execute();
     $value = $query->fetchColumn();
@@ -53,7 +53,7 @@ class Config {
    * @return array $config Associative array of all config name=>value pairs
    */
   public function readAll(): array {
-    $query = $this->db->prepare("SELECT name, value FROM " . $this->table);
+    $query = $this->db->prepare("SELECT `name`, `value` FROM " . $this->table);
     $query->execute();
     return $query->fetchAll(PDO::FETCH_KEY_PAIR);
   }
@@ -72,7 +72,7 @@ class Config {
     $query->execute();
 
     if ($query->fetchColumn()) {
-      $query2 = $this->db->prepare("UPDATE " . $this->table . " SET value = :value WHERE name = :name");
+      $query2 = $this->db->prepare("UPDATE " . $this->table . " SET `value` = :value WHERE `name` = :name");
     } else {
       $query2 = $this->db->prepare("INSERT INTO " . $this->table . " (`name`, `value`) VALUES (:name, :value)");
     }
