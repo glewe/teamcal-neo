@@ -77,14 +77,14 @@ class LicenseModel
     $curl = curl_init();
     switch (strtoupper($method)) {
       case "POST":
-        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POST, true);
         if ($data) {
           curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         }
         break;
 
       case "PUT":
-        curl_setopt($curl, CURLOPT_PUT, 1);
+        curl_setopt($curl, CURLOPT_PUT, true);
         break;
 
       default: // Means also 'GET'
@@ -99,7 +99,7 @@ class LicenseModel
     curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:43.0) Gecko/20100101 Firefox/43.0');
 
     if ($this->disableSSL) {
-      curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+      curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
       curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
     }
 
