@@ -62,7 +62,7 @@ class ConfigModel
       }
     }
 
-    $query = $this->db->prepare("SELECT name, value FROM " . $this->table);
+    $query = $this->db->prepare("SELECT `name`, `value` FROM " . $this->table);
     $query->execute();
     $dbConf = $query->fetchAll(PDO::FETCH_KEY_PAIR);
 
@@ -110,7 +110,7 @@ class ConfigModel
     $query->execute();
 
     if ($query->fetchColumn()) {
-      $query2 = $this->db->prepare("UPDATE " . $this->table . " SET value = :value WHERE name = :name");
+      $query2 = $this->db->prepare("UPDATE " . $this->table . " SET `value` = :value WHERE `name` = :name");
     }
     else {
       $query2 = $this->db->prepare("INSERT INTO " . $this->table . " (`name`, `value`) VALUES (:name, :value)");
