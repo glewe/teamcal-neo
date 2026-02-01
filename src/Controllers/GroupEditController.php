@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use App\Core\BaseController;
 use App\Models\GroupModel;
+use App\Models\UploadModel;
 
 /**
  * Group Edit Controller
@@ -55,6 +56,7 @@ class GroupEditController extends BaseController
     $viewData['id']           = $GG->id;
     $viewData['name']         = $GG->name;
     $viewData['description']  = $GG->description;
+    $viewData['avatar']       = $GG->avatar ? $GG->avatar : 'default_group.png';
     $viewData['minpresent']   = $GG->minpresent;
     $viewData['maxabsent']    = $GG->maxabsent;
     $viewData['minpresentwe'] = $GG->minpresentwe;
@@ -101,10 +103,16 @@ class GroupEditController extends BaseController
         if (isset($_POST['btn_groupUpdate'])) {
           $GG->name         = $_POST['txt_name'];
           $GG->description  = $_POST['txt_description'];
+          // Avatar is handled separately via upload button, but ensure it's preserved or default
+          $GG->avatar = $GG->avatar ? $GG->avatar : 'default_group.png';
           $GG->minpresent   = (int) $_POST['txt_minpresent'];
           $GG->maxabsent    = (int) $_POST['txt_maxabsent'];
           $GG->minpresentwe = (int) $_POST['txt_minpresentwe'];
           $GG->maxabsentwe  = (int) $_POST['txt_maxabsentwe'];
+
+          if (isset($_POST['opt_avatar'])) {
+            $GG->avatar = $_POST['opt_avatar'];
+          }
 
           $GG->update($_POST['hidden_id']);
 
@@ -142,11 +150,18 @@ class GroupEditController extends BaseController
 
           $viewData['name']         = $GG->name;
           $viewData['description']  = $GG->description;
+          $viewData['avatar']       = $GG->avatar;
           $viewData['minpresent']   = $GG->minpresent;
           $viewData['maxabsent']    = $GG->maxabsent;
           $viewData['minpresentwe'] = $GG->minpresentwe;
           $viewData['maxabsentwe']  = $GG->maxabsentwe;
         }
+      }
+      elseif (isset($_POST['btn_uploadAvatar'])) {
+         $this->handleUpload($GG, $showAlert, $alertData);
+      }
+      elseif (isset($_POST['btn_resetAvatar'])) {
+         $this->handleReset($GG, $showAlert, $alertData);
       }
       else {
         $showAlert            = true;
@@ -172,6 +187,11 @@ class GroupEditController extends BaseController
       ['prefix' => 'group', 'name' => 'minpresentwe', 'type' => 'text', 'placeholder' => '0', 'value' => $viewData['minpresentwe'], 'maxlength' => '4', 'error' => ($inputAlert['minpresentwe'] ?? '')],
       ['prefix' => 'group', 'name' => 'maxabsentwe', 'type' => 'text', 'placeholder' => '9999', 'value' => $viewData['maxabsentwe'], 'maxlength' => '4', 'error' => ($inputAlert['maxabsentwe'] ?? '')],
     ];
+    
+    // Avatar
+    $viewData['avatars'] = getFiles(APP_AVATAR_DIR, $this->CONF['avatarExtensions'], 'default_group');
+    $viewData['avatar_maxsize'] = $this->CONF['avatarMaxsize'];
+    $viewData['avatar_formats'] = implode(', ', $this->CONF['avatarExtensions']);
 
     $isGroupManagerOfGroup = $this->UG->isGroupManagerOfGroup($this->UL->username, (string) $viewData['id']);
     $disabled              = !($isGroupAdmin || $isGroupManagerOfGroup);
@@ -209,5 +229,65 @@ class GroupEditController extends BaseController
     ];
 
     $this->render('groupedit', $viewData);
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Uploads group avatar.
+   *
+   * @param GroupModel $GG        Group Model
+   * @param bool       $showAlert Reference to show alert flag
+   * @param array      $alertData Reference to alert data array
+   * @return void
+   */
+  private function handleUpload($GG, &$showAlert, &$alertData) {
+    $UPL                    = new UploadModel();
+    $UPL->upload_dir        = APP_AVATAR_DIR;
+    $UPL->extensions        = $this->CONF['avatarExtensions'];
+    $UPL->do_filename_check = "y";
+    $UPL->replace           = "y";
+    $UPL->the_temp_file     = $_FILES['file_avatar']['tmp_name'];
+    $UPL->http_error        = $_FILES['file_avatar']['error'];
+    $fileExtension          = getFileExtension($_FILES['file_avatar']['name']);
+    $UPL->the_file          = 'group_' . uniqid() . "." . $fileExtension;
+    if ($UPL->uploadFile()) {
+      $full_path = $UPL->upload_dir . $UPL->file_copy;
+      $UPL->getUploadedFileInfo($full_path);
+      $GG->avatar = $UPL->uploaded_file['name'];
+      $GG->update($GG->id);
+      
+      header("Location: " . $_SERVER['PHP_SELF'] . "?action=groupedit&id=" . $GG->id);
+      die();
+    }
+    else {
+      $showAlert            = true;
+      $alertData['type']    = 'danger';
+      $alertData['title']   = $this->LANG['alert_danger_title'];
+      $alertData['subject'] = 'Avatar ' . $this->LANG['btn_upload'];
+      $alertData['text']    = $UPL->getErrors();
+      $alertData['help']    = '';
+    }
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Resets group avatar.
+   *
+   * @param GroupModel $GG        Group Model
+   * @param bool       $showAlert Reference to show alert flag
+   * @param array      $alertData Reference to alert data array
+   * @return void
+   */
+  private function handleReset($GG, &$showAlert, &$alertData) {
+    // Delete old avatar if it's not default (optional, but good cleanup)
+     if ($GG->avatar && strpos($GG->avatar, 'default_') === false && file_exists(APP_AVATAR_DIR . $GG->avatar)) {
+        unlink(APP_AVATAR_DIR . $GG->avatar);
+     }
+
+    $GG->avatar = 'default_group.png';
+    $GG->update($GG->id);
+    
+    header("Location: " . $_SERVER['PHP_SELF'] . "?action=groupedit&id=" . $GG->id);
+    die();
   }
 }

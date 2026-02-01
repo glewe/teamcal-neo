@@ -35,6 +35,7 @@
                 {% set pageTabs = [
                 { 'id': 'tab-settings', 'href': '#panel-settings', 'label': LANG.group_tab_settings, 'active': true },
                 { 'id': 'tab-members', 'href': '#panel-members', 'label': LANG.group_tab_members, 'active': false },
+                { 'id': 'tab-avatar', 'href': '#panel-avatar', 'label': LANG.group_tab_avatar, 'active': false },
               ] %}
                 {{ createPageTabs(pageTabs) }}
               </div>
@@ -45,6 +46,7 @@
 
                   <!-- Group Settings -->
                   <div class="tab-pane fade show active" id="panel-settings" role="tabpanel" aria-labelledby="tab-settings">
+
                     {% for formObject in group %}
                       {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
                     {% endfor %}
@@ -58,6 +60,54 @@
                     {% for formObject in managers %}
                       {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
                     {% endfor %}
+                  </div>
+
+                  <!-- Group Avatar -->
+                  <div class="tab-pane fade" id="panel-avatar" role="tabpanel" aria-labelledby="tab-avatar">
+                    <div class="form-group row">
+                      <label class="col-lg-{{ colsleft }} control-label">
+                        {{ LANG.group_avatar }}<br>
+                        <span class="text-normal">{{ LANG.group_avatar_comment }}</span>
+                      </label>
+                      <div class="col-lg-{{ colsright }}">
+                        <img src="{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ avatar }}" alt="" style="width: 80px; height: 80px;"><br>
+                        <br>
+                        {% if avatar|slice(0, 14) != 'default_group' %}
+                          <button type="submit" class="btn btn-primary btn-sm" tabindex="{{ nextTabindex() }}" name="btn_resetAvatar">{{ LANG.btn_reset }}</button>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="divider"><hr></div>
+
+                    <div class="form-group row">
+                      <label class="col-lg-{{ colsleft }} control-label">
+                        {{ LANG.group_avatar_upload }}<br>
+                        <span class="text-normal">
+                            {{ LANG.group_avatar_upload_comment|format(avatar_maxsize, avatar_formats) }}
+                          </span>
+                      </label>
+                      <div class="col-lg-{{ colsright }}">
+                        <input type="hidden" name="MAX_FILE_SIZE" value="{{ avatar_maxsize }}"><br>
+                        <input class="form-control" tabindex="{{ nextTabindex() }}" name="file_avatar" type="file"><br>
+                        <button type="submit" class="btn btn-primary btn-sm" tabindex="{{ nextTabindex() }}" name="btn_uploadAvatar">{{ LANG.btn_upload }}</button>
+                      </div>
+                    </div>
+                    <div class="divider"><hr></div>
+
+                    <div class="form-group row">
+                      <label class="col-lg-12 control-label">
+                        {{ LANG.group_avatar_available }}<br>
+                        <span class="text-normal">{{ LANG.group_avatar_available_comment|raw }}</span>
+                      </label>
+                      <div class="col-lg-12">
+                        {% for av in avatars %}
+                          <div class="float-start" style="border: 1px solid #eeeeee; padding: 4px;">
+                            <input class="form-check-input" name="opt_avatar" value="{{ av }}" tabindex="{{ nextTabindex() }}" {{ avatar == av ? ' checked="checked" ' : '' }} type="radio">
+                            <img src="{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ av }}" alt="" style="width: 80px; height: 80px;">
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
                   </div>
 
                 </div>

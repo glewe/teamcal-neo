@@ -516,6 +516,16 @@ Search.appendIndex(
             "summary": "Execute\u0020the\u0020controller\u0020logic.",
             "url": "classes/App-Controllers-GroupEditController.html#method_execute"
         },                {
+            "fqsen": "\\App\\Controllers\\GroupEditController\u003A\u003AhandleUpload\u0028\u0029",
+            "name": "handleUpload",
+            "summary": "Uploads\u0020group\u0020avatar.",
+            "url": "classes/App-Controllers-GroupEditController.html#method_handleUpload"
+        },                {
+            "fqsen": "\\App\\Controllers\\GroupEditController\u003A\u003AhandleReset\u0028\u0029",
+            "name": "handleReset",
+            "summary": "Resets\u0020group\u0020avatar.",
+            "url": "classes/App-Controllers-GroupEditController.html#method_handleReset"
+        },                {
             "fqsen": "\\App\\Controllers\\GroupsController",
             "name": "GroupsController",
             "summary": "Groups\u0020Controller",
@@ -2730,6 +2740,11 @@ Search.appendIndex(
             "name": "description",
             "summary": "",
             "url": "classes/App-Models-GroupModel.html#property_description"
+        },                {
+            "fqsen": "\\App\\Models\\GroupModel\u003A\u003A\u0024avatar",
+            "name": "avatar",
+            "summary": "",
+            "url": "classes/App-Models-GroupModel.html#property_avatar"
         },                {
             "fqsen": "\\App\\Models\\GroupModel\u003A\u003A\u0024minpresent",
             "name": "minpresent",

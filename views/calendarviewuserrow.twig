@@ -4,7 +4,7 @@
 <tr>
   <td class="{{ userRow.nameStyle }}">
     {% if showAvatars %}
-      <i data-placement="top" data-type="secondary" data-bs-toggle="tooltip" title="<img src='{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ userRow.avatar }}' style='width: 80px; height: 80px;'>"><img src="{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ userRow.avatar }}" alt="" style="width: 16px; height: 16px;"></i>
+      <i data-placement="top" data-type="avatar-popup" data-bs-toggle="tooltip" title="<img src='{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ userRow.avatar }}' style='width: 80px; height: 80px;'>"><img src="{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ userRow.avatar }}" alt="" style="width: 16px; height: 16px;"></i>
     {% endif %}
     {% if showRoleIcons %}
       <i data-placement="top" data-type="info" data-bs-toggle="tooltip" title="{{ LANG.role }}: {{ userRow.roleIcon.name }}">

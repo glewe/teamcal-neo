@@ -19,6 +19,12 @@ if (!defined('VALID_ROOT')) {
 $LANG['group_alert_edit'] = 'Gruppe aktualisieren';
 $LANG['group_alert_edit_success'] = 'Die Informationen für diese Gruppe wurden aktualisiert.';
 $LANG['group_alert_save_failed'] = 'Die neuen Informationen für diese Gruppe konnten nicht gespeichert werden. Es gab fehlerhafte Eingaben. Bitte prüfe die Fehlermeldungen.';
+$LANG['group_avatar'] = 'Avatar';
+$LANG['group_avatar_available'] = 'Verfügbare Standard-Avatare';
+$LANG['group_avatar_available_comment'] = 'Wähle einen der verfügbaren Standard-Avatare.';
+$LANG['group_avatar_comment'] = 'Wenn kein eigener Avatar hochgeladen wurde, wird ein Standard-Avatar verwendet.';
+$LANG['group_avatar_upload'] = 'Avatar hochladen';
+$LANG['group_avatar_upload_comment'] = 'Du kannst einen eigenen Avatar hochladen. Die Dateigröße ist auf %d Bytes begrenzt, die Bildgröße sollte 80x80 Pixel betragen (wird sowieso in diesen Dimensionen angezeigt) und die erlaubten Formate sind "%s".';
 $LANG['group_description'] = 'Beschreibung';
 $LANG['group_description_comment'] = '';
 $LANG['group_edit_title'] = 'Gruppe editieren: ';
@@ -36,6 +42,7 @@ $LANG['group_minpresentwe'] = 'Mindestens Anwesende Mitglieder (Wochenenden)';
 $LANG['group_minpresentwe_comment'] = 'Gib die Anzahl der mindestens anwesenden Mitglieder dieser Gruppe an Wochenenden ein (Samstag und Sonntag). Dieser Wert wird bei Abwesenheitsanfragen überprüft.<br>Gib 0 ein, um eine komplette Abwesenheit der Gruppe an Wochenenden zu erlauben.';
 $LANG['group_name'] = 'Name';
 $LANG['group_name_comment'] = '';
+$LANG['group_tab_avatar'] = 'Avatar';
 $LANG['group_tab_members'] = 'Mitgliedschaften';
 $LANG['group_tab_settings'] = 'Einstellungen';
 

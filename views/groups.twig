@@ -26,7 +26,7 @@
 
         <div class="card-body">
 
-          <form class="form-control-horizontal" name="form_create" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
+          <form class="form-control-horizontal" name="form_create" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8" enctype="multipart/form-data">
             <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
             <div class="row mb-4">
               <div class="col-lg-4">
@@ -66,6 +66,15 @@
                 {{ inputAlert.description }}
               </div>
             {% endif %}
+            <label for="inputAvatar">{{ LANG.avatar }}</label>
+            <input id="inputAvatar" class="form-control" tabindex="{{ nextTabindex() }}" name="file_avatar" type="file" accept="image/*">
+            {% if inputAlert.avatar is defined %}
+              <br>
+              <div class="alert alert-dismissable alert-danger">
+                <button type="button" class="btn-close float-end" data-bs-dismiss="alert">x</button>
+                {{ inputAlert.avatar }}
+              </div>
+            {% endif %}
             {{ createModalBottom('btn_groupCreate', 'success', LANG.btn_create_group) }}
 
           </form>
@@ -87,7 +96,13 @@
               {% for group in groups %}
                 <tr>
                   <td class="text-end">{{ loop.index }}</td>
-                  <td>{{ group.name }}</td>
+                  <td>
+                    {% set avatar = group.avatar ? group.avatar : 'default_group.png' %}
+                    <i class="me-2" data-bs-placement="top" data-type="avatar-popup" data-bs-toggle="tooltip" data-bs-title="<img src='{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ avatar }}' style='width: 80px; height: 80px;'>">
+                      <img src="{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ avatar }}" alt="" style="width: 24px; height: 24px;">
+                    </i>
+                    {{ group.name }}
+                  </td>
                   <td>{{ group.description }}</td>
                   <td>{{ group.minpresent }}</td>
                   <td>{{ group.maxabsent }}</td>

@@ -106,7 +106,7 @@
                             </td>
                             <td class="align-top">
                               {% set avatar = avatars[user.username] ?? avatars['default'] %}
-                              <i data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" data-bs-title="<img src='{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ avatar }}' style='width: 80px; height: 80px;'>"><img src="{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ avatar }}" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;{{ user.dispname }}
+                              <i data-bs-placement="top" data-type="avatar-popup" data-bs-toggle="tooltip" data-bs-title="<img src='{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ avatar }}' style='width: 80px; height: 80px;'>"><img src="{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ avatar }}" alt="" style="width: 16px; height: 16px;"></i>&nbsp;&nbsp;{{ user.dispname }}
                             </td>
                             <td class="align-top">
                               <a href="#" class="text-decoration-none" data-bs-placement="top" data-bs-type="info" data-bs-toggle="tooltip" title="{{ LANG.role }}: {{ user.role }}">

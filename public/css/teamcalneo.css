@@ -915,6 +915,21 @@ table.year div.weeknumber {
  * Tooltip
  * ----------------------------------------------------------------------------
  */
+.tooltip.avatar-popup {
+  --bs-tooltip-bg: transparent;
+  --bs-tooltip-opacity: 1;
+}
+
+.tooltip.avatar-popup .tooltip-arrow {
+  display: none;
+}
+
+.tooltip.avatar-popup .tooltip-inner {
+  padding: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+
 .tooltip.danger {
   --bs-tooltip-bg: #dc3545;
 }

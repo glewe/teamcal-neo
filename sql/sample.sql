@@ -794,6 +794,9 @@ CREATE TABLE IF NOT EXISTS `tcneo_groups` (
     `description` varchar(100) CHARACTER
   SET
     utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+    `avatar` varchar(255) CHARACTER
+  SET
+    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'default_group.png',
     `minpresent` smallint(6) NOT NULL DEFAULT 0,
     `maxabsent` smallint(6) NOT NULL DEFAULT 9999,
     `minpresentwe` smallint(6) NOT NULL DEFAULT 0,
@@ -806,12 +809,12 @@ CREATE TABLE IF NOT EXISTS `tcneo_groups` (
 -- Dumping data for table `tcneo_groups`
 --
 INSERT INTO
-  `tcneo_groups` (`id`, `name`, `description`, `minpresent`, `maxabsent`, `minpresentwe`, `maxabsentwe`)
+  `tcneo_groups` (`id`, `name`, `description`, `avatar`, `minpresent`, `maxabsent`, `minpresentwe`, `maxabsentwe`)
 VALUES
-  (1, 'Disney', 'Disney Characters', 0, 9999, 0, 9999),
-  (2, 'Marvel', 'Marvel Characters', 0, 9999, 0, 9999),
-  (3, 'Looney', 'Looney Characters', 0, 9999, 0, 9999),
-  (4, 'Pixar', 'Pixar Characters', 0, 9999, 0, 9999);
+  (1, 'Disney', 'Disney Characters', 'default_group.png', 0, 9999, 0, 9999),
+  (2, 'Marvel', 'Marvel Characters', 'default_group.png', 0, 9999, 0, 9999),
+  (3, 'Looney', 'Looney Characters', 'default_group.png', 0, 9999, 0, 9999),
+  (4, 'Pixar', 'Pixar Characters', 'default_group.png', 0, 9999, 0, 9999);
 
 -- --------------------------------------------------------
 --

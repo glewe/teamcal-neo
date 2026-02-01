@@ -91,7 +91,7 @@ class CalendarViewController extends BaseController
     $users       = $this->U->getAllButHidden();
     $groupOption = $this->isLoggedIn() ? $this->UO->read($this->UL->username, 'calfilterGroup') : false;
     $absOption   = $this->isLoggedIn() ? $this->UO->read($this->UL->username, 'calfilterAbs') : false;
-    $groupfilter = $_GET['group'] ?? ($groupOption ?: 'all');
+    $groupfilter = $_GET['group'] ?? ($groupOption ?: ($this->allConfig['defgroupfilter'] ?: 'all'));
     $absfilter   = $_GET['abs'] ?? ($absOption ?: 'all');
 
     if ($this->isLoggedIn()) {
@@ -108,7 +108,7 @@ class CalendarViewController extends BaseController
       $filteredUsers = [];
       foreach ($users as $usr) {
         $include = true;
-        if ($groupfilter !== 'all') {
+        if ($groupfilter !== 'all' && $groupfilter !== 'allbygroup') {
           $include = $this->UG->isMemberOrGuestOfGroup($usr['username'], (string) $groupfilter);
           if (!$include)
             continue;
@@ -402,7 +402,11 @@ class CalendarViewController extends BaseController
     $viewData['absences']   = $this->A->getAll();
     $viewData['allGroups']  = $this->G->getAll();
     $viewData['holidays']   = $this->H->getAllCustom();
-    $viewData['groups']     = ($groupfilter == 'all') ? $this->G->getAll() : $this->G->getRowById($groupfilter);
+    $viewData['holidays']   = $this->H->getAllCustom();
+    $viewData['groups']     = ($groupfilter == 'all' || $groupfilter == 'allbygroup') ? $this->G->getAll() : $this->G->getRowById($groupfilter);
+    if ($groupfilter == 'allbygroup') {
+      $viewData['defgroupfilter'] = 'allbygroup';
+    }
     $viewData['dayStyles']  = [];
 
     $viewData['users'] = [];
@@ -652,6 +656,7 @@ class CalendarViewController extends BaseController
           'name'  => $this->RO->getNameById($this->U->getRole($username)),
           'color' => $this->RO->getColorById($this->U->getRole($username))
         ] : null,
+        'groups'      => array_merge(array_keys($this->UG->getAllforUser2($username)), $this->UG->getGuestships($username)),
         'monitorAbs'  => null,
         'months'      => []
       ];

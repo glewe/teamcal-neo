@@ -68,7 +68,13 @@
                 {% if not groupHeaderShown %}
                   {% set groupColspan = (isSplitMonth ? 30 : (monthForPart.dayEnd - monthForPart.dayStart + 1)) + 1 %}
                   <tr>
-                    <th class="m-groupname" colspan="{{ groupColspan }}" scope="col">{{ grp.description }} ({{ grp.name }})</th>
+                    <th class="m-groupname" colspan="{{ groupColspan }}" scope="col">
+                      {% set avatar = grp.avatar ? grp.avatar : 'default_group.png' %}
+                      <i class="me-2" data-bs-placement="top" data-type="avatar-popup" data-bs-toggle="tooltip" data-bs-title="<img src='{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ avatar }}' style='width: 80px; height: 80px;'>">
+                        <img src="{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ avatar }}" alt="" style="width: 24px; height: 24px;">
+                      </i>
+                      {{ grp.description }} ({{ grp.name }})
+                    </th>
                   </tr>
                   {% set groupHeaderShown = true %}
                 {% endif %}

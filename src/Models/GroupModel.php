@@ -22,6 +22,7 @@ class GroupModel
   public string $id           = '';
   public string $name         = '';
   public string $description  = '';
+  public string $avatar       = 'default_group.png';
   public int    $minpresent   = 0;
   public int    $maxabsent    = 9999;
   public int    $minpresentwe = 0;
@@ -58,9 +59,10 @@ class GroupModel
    * @return bool Query result
    */
   public function create(): bool {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, minpresent, maxabsent, minpresentwe, maxabsentwe) VALUES (:name, :description, :minpresent, :maxabsent, :minpresentwe, :maxabsentwe)');
+    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, avatar, minpresent, maxabsent, minpresentwe, maxabsentwe) VALUES (:name, :description, :avatar, :minpresent, :maxabsent, :minpresentwe, :maxabsentwe)');
     $query->bindParam(':name', $this->name);
     $query->bindParam(':description', $this->description);
+    $query->bindParam(':avatar', $this->avatar);
     $query->bindParam(':minpresent', $this->minpresent);
     $query->bindParam(':maxabsent', $this->maxabsent);
     $query->bindParam(':minpresentwe', $this->minpresentwe);
@@ -120,7 +122,7 @@ class GroupModel
    */
   public function getAll(string $sort = 'ASC'): array {
     $records = array();
-    $query   = $this->db->prepare('SELECT id, name, description, minpresent, maxabsent, minpresentwe, maxabsentwe FROM ' . $this->table . ' ORDER BY name ' . $sort);
+    $query   = $this->db->prepare('SELECT id, name, description, avatar, minpresent, maxabsent, minpresentwe, maxabsentwe FROM ' . $this->table . ' ORDER BY name ' . $sort);
     $query->execute();
     while ($row = $query->fetch()) {
       $records[] = $row;
@@ -199,6 +201,7 @@ class GroupModel
         $this->id           = (string) $row['id'];
         $this->name         = (string) $row['name'];
         $this->description  = (string) $row['description'];
+        $this->avatar       = (string) $row['avatar'];
         $this->minpresent   = (int) $row['minpresent'];
         $this->maxabsent    = (int) $row['maxabsent'];
         $this->minpresentwe = (int) $row['minpresentwe'];
@@ -207,13 +210,14 @@ class GroupModel
       }
     }
     // Fallback to DB if not in cache (e.g., after invalidation race)
-    $query = $this->db->prepare('SELECT id, name, description, minpresent, maxabsent, minpresentwe, maxabsentwe FROM ' . $this->table . ' WHERE id = :id');
+    $query = $this->db->prepare('SELECT id, name, description, avatar, minpresent, maxabsent, minpresentwe, maxabsentwe FROM ' . $this->table . ' WHERE id = :id');
     $query->bindParam(':id', $id);
     $query->execute();
     if ($row = $query->fetch()) {
       $this->id           = (string) $row['id'];
       $this->name         = (string) $row['name'];
       $this->description  = (string) $row['description'];
+      $this->avatar       = (string) ($row['avatar'] ?? 'default_group.png');
       $this->minpresent   = (int) $row['minpresent'];
       $this->maxabsent    = (int) $row['maxabsent'];
       $this->minpresentwe = (int) $row['minpresentwe'];
@@ -241,6 +245,7 @@ class GroupModel
       $this->id           = (string) $row['id'];
       $this->name         = (string) $row['name'];
       $this->description  = (string) $row['description'];
+      $this->avatar       = (string) ($row['avatar'] ?? 'default_group.png');
       $this->minpresent   = (int) $row['minpresent'];
       $this->maxabsent    = (int) $row['maxabsent'];
       $this->minpresentwe = (int) $row['minpresentwe'];
@@ -437,9 +442,10 @@ class GroupModel
    * @return bool Query result
    */
   public function update(string|int $id): bool {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET name = :name, description = :description, minpresent = :minpresent, maxabsent = :maxabsent, minpresentwe = :minpresentwe, maxabsentwe = :maxabsentwe WHERE id = :id');
+    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET name = :name, description = :description, avatar = :avatar, minpresent = :minpresent, maxabsent = :maxabsent, minpresentwe = :minpresentwe, maxabsentwe = :maxabsentwe WHERE id = :id');
     $query->bindParam(':name', $this->name);
     $query->bindParam(':description', $this->description);
+    $query->bindParam(':avatar', $this->avatar);
     $query->bindParam(':minpresent', $this->minpresent);
     $query->bindParam(':maxabsent', $this->maxabsent);
     $query->bindParam(':minpresentwe', $this->minpresentwe);

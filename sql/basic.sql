@@ -619,6 +619,9 @@ CREATE TABLE IF NOT EXISTS `tcneo_groups` (
     `description` varchar(100) CHARACTER
   SET
     utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+    `avatar` varchar(255) CHARACTER
+  SET
+    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'default_group.png',
     `minpresent` smallint(6) NOT NULL DEFAULT 0,
     `maxabsent` smallint(6) NOT NULL DEFAULT 9999,
     `minpresentwe` smallint(6) NOT NULL DEFAULT 0,
