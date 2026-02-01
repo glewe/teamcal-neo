@@ -34,7 +34,7 @@ else {
   $CONF['db_name']         = "teamcal_neo";
   $CONF['db_user']         = "root";
   $CONF['db_pass']         = "";
-  $CONF['db_table_prefix'] = "";
+  $CONF['db_table_prefix'] = "tcneo_";
 }
 
 /**
