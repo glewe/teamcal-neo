@@ -10,6 +10,7 @@ $releases = [
     ],
     'features' => [
       [ 'summary' => 'Added new languages Spanish and French (via AI translators so forgive any mistakes)', 'issue' => '' ],
+      [ 'summary' => 'Added new demo groups and users', 'issue' => '' ],
     ],
     'improvements' => [
       [ 'summary' => 'Updated sample database (core and demo data)', 'issue' => '' ],
@@ -26,6 +27,7 @@ $releases = [
       [ 'summary' => 'Removed obsolete Securimage module', 'issue' => '' ],
       [ 'summary' => 'Removed option to display viewport info in the footer', 'issue' => '' ],
       [ 'summary' => 'Removed Google+ and Skype fields from user profile (added Instagram, TikTok and Xing)', 'issue' => '' ],
+      [ 'summary' => 'Removed the old demo groups and users', 'issue' => '' ],
     ],
   ],
   //---------------------------------------------------------------------------

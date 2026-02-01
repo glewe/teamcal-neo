@@ -118,7 +118,7 @@ class GroupEditController extends BaseController
           }
 
           if (!$avatarUploaded && isset($_POST['opt_avatar'])) {
-            if ($GG->avatar && strpos($GG->avatar, 'default_') === false && file_exists(APP_AVATAR_DIR . $GG->avatar)) {
+            if (strpos($GG->avatar, 'default_') === false && file_exists(APP_AVATAR_DIR . $GG->avatar)) {
                unlink(APP_AVATAR_DIR . $GG->avatar);
             }
             $GG->avatar = $_POST['opt_avatar'];

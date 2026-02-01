@@ -4651,6 +4651,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Models-UploadModel.html#property_max_length_filename"
         },                {
+            "fqsen": "\\App\\Models\\UploadModel\u003A\u003A\u0024max_size",
+            "name": "max_size",
+            "summary": "",
+            "url": "classes/App-Models-UploadModel.html#property_max_size"
+        },                {
             "fqsen": "\\App\\Models\\UploadModel\u003A\u003A\u0024message",
             "name": "message",
             "summary": "",
