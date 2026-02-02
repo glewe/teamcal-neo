@@ -138,6 +138,9 @@ class CalendarOptionsController extends BaseController
         $newConfig["statsDefaultColorAbsencetype"]  = $_POST['sel_statsDefaultColorAbsencetype'] ? $_POST['sel_statsDefaultColorAbsencetype'] : "cyan";
         $newConfig["statsDefaultColorPresencetype"] = $_POST['sel_statsDefaultColorPresencetype'] ? $_POST['sel_statsDefaultColorPresencetype'] : "green";
         $newConfig["statsDefaultColorRemainder"]    = $_POST['sel_statsDefaultColorRemainder'] ? $_POST['sel_statsDefaultColorRemainder'] : "orange";
+        $newConfig["statsDefaultColorTrends"]       = $_POST['sel_statsDefaultColorTrends'] ? $_POST['sel_statsDefaultColorTrends'] : "red";
+        $newConfig["statsDefaultColorDayofweek"]    = $_POST['sel_statsDefaultColorDayofweek'] ? $_POST['sel_statsDefaultColorDayofweek'] : "purple";
+        $newConfig["statsDefaultColorDuration"]     = $_POST['sel_statsDefaultColorDuration'] ? $_POST['sel_statsDefaultColorDuration'] : "orange";
 
         $newConfig["includeSummary"]           = (isset($_POST['chk_includeSummary']) && $_POST['chk_includeSummary']) ? "1" : "0";
         $newConfig["showSummary"]              = (isset($_POST['chk_showSummary']) && $_POST['chk_showSummary']) ? "1" : "0";
@@ -241,7 +244,7 @@ class CalendarOptionsController extends BaseController
       ['label' => $this->LANG['calopt_managerOnlyIncludesAdministrator'], 'prefix' => 'calopt', 'name' => 'managerOnlyIncludesAdministrator', 'type' => 'check', 'values' => '', 'value' => $allConfig['managerOnlyIncludesAdministrator']],
     ];
 
-    $statsPages      = ['Absences', 'Presences', 'Absencetype', 'Presencetype', 'Remainder'];
+    $statsPages      = ['Absences', 'Presences', 'Absencetype', 'Presencetype', 'Remainder', 'Trends', 'Dayofweek', 'Duration'];
     $colors          = [
       'blue'    => '#0d6efd',
       'cyan'    => '#0dcaf0',
@@ -257,7 +260,16 @@ class CalendarOptionsController extends BaseController
     foreach ($statsPages as $statsPage) {
       $statsColorArray[$statsPage] = [];
       foreach ($colors as $color => $hex) {
-        $currentValue                  = $allConfig['statsDefaultColor' . $statsPage] ?? ($statsPage === 'Absences' ? 'red' : ($statsPage === 'Absencetype' ? 'cyan' : ($statsPage === 'Remainder' ? 'orange' : 'green')));
+        $defaultValue                  = match ($statsPage) {
+          'Absences'    => 'red',
+          'Absencetype' => 'cyan',
+          'Remainder'   => 'orange',
+          'Trends'      => 'yellow',
+          'Dayofweek'   => 'purple',
+          'Duration'    => 'orange',
+          default       => 'green',
+        };
+        $currentValue                  = $allConfig['statsDefaultColor' . $statsPage] ?? $defaultValue;
         $isSelected                    = ($currentValue == $color || $currentValue == $hex);
         $statsColorArray[$statsPage][] = ['val' => $color, 'name' => $this->LANG[$color], 'selected' => $isSelected];
       }
@@ -268,6 +280,9 @@ class CalendarOptionsController extends BaseController
       ['label' => $this->LANG['calopt_statsDefaultColorAbsencetype'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorAbsencetype', 'type' => 'list', 'values' => $statsColorArray['Absencetype']],
       ['label' => $this->LANG['calopt_statsDefaultColorPresencetype'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorPresencetype', 'type' => 'list', 'values' => $statsColorArray['Presencetype']],
       ['label' => $this->LANG['calopt_statsDefaultColorRemainder'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorRemainder', 'type' => 'list', 'values' => $statsColorArray['Remainder']],
+      ['label' => $this->LANG['calopt_statsDefaultColorTrends'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorTrends', 'type' => 'list', 'values' => $statsColorArray['Trends']],
+      ['label' => $this->LANG['calopt_statsDefaultColorDayofweek'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorDayofweek', 'type' => 'list', 'values' => $statsColorArray['Dayofweek']],
+      ['label' => $this->LANG['calopt_statsDefaultColorDuration'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorDuration', 'type' => 'list', 'values' => $statsColorArray['Duration']],
     ];
 
     $caloptData['summary'] = [

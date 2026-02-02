@@ -1003,7 +1003,7 @@ class StatisticsController extends BaseController
     $viewData['absid']   = 'all';
     $viewData['groupid'] = 'all';
     $viewData['year']    = date("Y");
-    $viewData['color']   = 'yellow';
+    $viewData['color']   = $this->allConfig['statsDefaultColorTrends'] ?? 'red';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $_POST = sanitize($_POST);
@@ -1106,7 +1106,7 @@ class StatisticsController extends BaseController
     $viewData['absid']   = 'all';
     $viewData['groupid'] = 'all';
     $viewData['year']    = date("Y");
-    $viewData['color']   = 'purple';
+    $viewData['color']   = $this->allConfig['statsDefaultColorDayofweek'] ?? 'purple';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $_POST = sanitize($_POST);
@@ -1219,7 +1219,7 @@ class StatisticsController extends BaseController
     $viewData['absid']   = 'all';
     $viewData['groupid'] = 'all';
     $viewData['year']    = date("Y");
-    $viewData['color']   = 'orange';
+    $viewData['color']   = $this->allConfig['statsDefaultColorDuration'] ?? 'orange';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $_POST = sanitize($_POST);
