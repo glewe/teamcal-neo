@@ -1,6 +1,11 @@
 Search.appendIndex(
     [
                 {
+            "fqsen": "\\APPLICATION_URL",
+            "name": "APPLICATION_URL",
+            "summary": "\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\nROUTING\n\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D",
+            "url": "namespaces/default.html#constant_APPLICATION_URL"
+        },                {
             "fqsen": "\\WEBSITE_URL",
             "name": "WEBSITE_URL",
             "summary": "",
@@ -8,7 +13,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\APP_AVATAR_DIR",
             "name": "APP_AVATAR_DIR",
-            "summary": "",
+            "summary": "\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\nDIRECTORY\u0020LOCATIONS\n\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D",
             "url": "namespaces/default.html#constant_APP_AVATAR_DIR"
         },                {
             "fqsen": "\\APP_UPL_DIR",
@@ -23,17 +28,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\APP_INSTALLED",
             "name": "APP_INSTALLED",
-            "summary": "INSTALLATION",
+            "summary": "\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\nINSTALLATION\n\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D",
             "url": "namespaces/default.html#constant_APP_INSTALLED"
         },                {
             "fqsen": "\\COOKIE_NAME",
             "name": "COOKIE_NAME",
-            "summary": "COOKIE",
+            "summary": "\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\nCOOKIE\n\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D",
             "url": "namespaces/default.html#constant_COOKIE_NAME"
         },                {
             "fqsen": "\\COMPARE_LANGUAGES",
             "name": "COMPARE_LANGUAGES",
-            "summary": "LANGUAGE\u0020DEBUGGING",
+            "summary": "\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\nLANGUAGE\u0020DEBUGGING\n\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D",
             "url": "namespaces/default.html#constant_COMPARE_LANGUAGES"
         },                {
             "fqsen": "\\DEBUG_LANGUAGE",
@@ -43,22 +48,32 @@ Search.appendIndex(
         },                {
             "fqsen": "\\BOOTSTRAP_VER",
             "name": "BOOTSTRAP_VER",
-            "summary": "MANDATORY\u0020MODULES",
+            "summary": "Bootstrap",
             "url": "namespaces/default.html#constant_BOOTSTRAP_VER"
         },                {
             "fqsen": "\\BOOTSTRAP_ICONS_VER",
             "name": "BOOTSTRAP_ICONS_VER",
-            "summary": "",
+            "summary": "Bootstrap\u0020Icons",
             "url": "namespaces/default.html#constant_BOOTSTRAP_ICONS_VER"
+        },                {
+            "fqsen": "\\CHARTJS_VER",
+            "name": "CHARTJS_VER",
+            "summary": "Chart.js",
+            "url": "namespaces/default.html#constant_CHARTJS_VER"
         },                {
             "fqsen": "\\COLORIS_VER",
             "name": "COLORIS_VER",
-            "summary": "",
+            "summary": "Coloris",
             "url": "namespaces/default.html#constant_COLORIS_VER"
+        },                {
+            "fqsen": "\\COOKIECONSENT_VER",
+            "name": "COOKIECONSENT_VER",
+            "summary": "Cookie\u0020Consent\u0020by\u0020Silktide",
+            "url": "namespaces/default.html#constant_COOKIECONSENT_VER"
         },                {
             "fqsen": "\\DATATABLES_VER",
             "name": "DATATABLES_VER",
-            "summary": "",
+            "summary": "Datatables",
             "url": "namespaces/default.html#constant_DATATABLES_VER"
         },                {
             "fqsen": "\\FONTAWESOME_VER",
@@ -76,34 +91,14 @@ Search.appendIndex(
             "summary": "",
             "url": "namespaces/default.html#constant_JQUERY_UI_VER"
         },                {
-            "fqsen": "\\CHARTJS_VER",
-            "name": "CHARTJS_VER",
-            "summary": "OPTIONAL\u0020MODULES",
-            "url": "namespaces/default.html#constant_CHARTJS_VER"
-        },                {
-            "fqsen": "\\COOKIECONSENT_VER",
-            "name": "COOKIECONSENT_VER",
-            "summary": "",
-            "url": "namespaces/default.html#constant_COOKIECONSENT_VER"
-        },                {
-            "fqsen": "\\MAGNIFICPOPUP",
-            "name": "MAGNIFICPOPUP",
-            "summary": "",
-            "url": "namespaces/default.html#constant_MAGNIFICPOPUP"
-        },                {
             "fqsen": "\\MAGNIFICPOPUP_VER",
             "name": "MAGNIFICPOPUP_VER",
-            "summary": "",
+            "summary": "Magnific\u0020Popup",
             "url": "namespaces/default.html#constant_MAGNIFICPOPUP_VER"
-        },                {
-            "fqsen": "\\SYNTAXHIGHLIGHTER",
-            "name": "SYNTAXHIGHLIGHTER",
-            "summary": "",
-            "url": "namespaces/default.html#constant_SYNTAXHIGHLIGHTER"
         },                {
             "fqsen": "\\SYNTAXHIGHLIGHTER_VER",
             "name": "SYNTAXHIGHLIGHTER_VER",
-            "summary": "",
+            "summary": "Syntaxhighlighter",
             "url": "namespaces/default.html#constant_SYNTAXHIGHLIGHTER_VER"
         },                {
             "fqsen": "\\LDAP_YES",
@@ -150,6 +145,11 @@ Search.appendIndex(
             "name": "LDAP_CHECK_ANONYMOUS_BIND",
             "summary": "",
             "url": "namespaces/default.html#constant_LDAP_CHECK_ANONYMOUS_BIND"
+        },                {
+            "fqsen": "\\LDAP_SEARCH_BIND",
+            "name": "LDAP_SEARCH_BIND",
+            "summary": "",
+            "url": "namespaces/default.html#constant_LDAP_SEARCH_BIND"
         },                {
             "fqsen": "\\APP_NAME",
             "name": "APP_NAME",
@@ -218,7 +218,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\DEFAULT_TIMESTAMP",
             "name": "DEFAULT_TIMESTAMP",
-            "summary": "",
+            "summary": "OTHER\u0020DATABASE\u0020SETTINGS",
             "url": "namespaces/default.html#constant_DEFAULT_TIMESTAMP"
         },                {
             "fqsen": "\\App\\Controllers\\AboutController",
@@ -861,55 +861,65 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Controllers-Setup2faController.html#property_viewData"
         },                {
-            "fqsen": "\\App\\Controllers\\StatsAbsenceController",
-            "name": "StatsAbsenceController",
-            "summary": "Absence\u0020statistics\u0020page\u0020controller",
-            "url": "classes/App-Controllers-StatsAbsenceController.html"
+            "fqsen": "\\App\\Controllers\\StatisticsController",
+            "name": "StatisticsController",
+            "summary": "Statistics\u0020controller",
+            "url": "classes/App-Controllers-StatisticsController.html"
         },                {
-            "fqsen": "\\App\\Controllers\\StatsAbsenceController\u003A\u003Aexecute\u0028\u0029",
+            "fqsen": "\\App\\Controllers\\StatisticsController\u003A\u003Aexecute\u0028\u0029",
             "name": "execute",
             "summary": "Execute\u0020the\u0020controller\u0020logic.",
-            "url": "classes/App-Controllers-StatsAbsenceController.html#method_execute"
+            "url": "classes/App-Controllers-StatisticsController.html#method_execute"
         },                {
-            "fqsen": "\\App\\Controllers\\StatsAbstypeController",
-            "name": "StatsAbstypeController",
-            "summary": "Absence\u0020type\u0020statistics\u0020page\u0020controller",
-            "url": "classes/App-Controllers-StatsAbstypeController.html"
+            "fqsen": "\\App\\Controllers\\StatisticsController\u003A\u003AhandleAjaxRequest\u0028\u0029",
+            "name": "handleAjaxRequest",
+            "summary": "Handles\u0020AJAX\u0020requests\u0020for\u0020specific\u0020tabs.",
+            "url": "classes/App-Controllers-StatisticsController.html#method_handleAjaxRequest"
         },                {
-            "fqsen": "\\App\\Controllers\\StatsAbstypeController\u003A\u003Aexecute\u0028\u0029",
-            "name": "execute",
-            "summary": "Execute\u0020the\u0020controller\u0020logic.",
-            "url": "classes/App-Controllers-StatsAbstypeController.html#method_execute"
+            "fqsen": "\\App\\Controllers\\StatisticsController\u003A\u003ArenderAlert\u0028\u0029",
+            "name": "renderAlert",
+            "summary": "Renders\u0020the\u0020alert\u0020view.",
+            "url": "classes/App-Controllers-StatisticsController.html#method_renderAlert"
         },                {
-            "fqsen": "\\App\\Controllers\\StatsPresenceController",
-            "name": "StatsPresenceController",
-            "summary": "Presence\u0020statistics\u0020page\u0020controller",
-            "url": "classes/App-Controllers-StatsPresenceController.html"
+            "fqsen": "\\App\\Controllers\\StatisticsController\u003A\u003AgetAbsenceStats\u0028\u0029",
+            "name": "getAbsenceStats",
+            "summary": "Get\u0020Absence\u0020Statistics\u0020fragment.",
+            "url": "classes/App-Controllers-StatisticsController.html#method_getAbsenceStats"
         },                {
-            "fqsen": "\\App\\Controllers\\StatsPresenceController\u003A\u003Aexecute\u0028\u0029",
-            "name": "execute",
-            "summary": "Execute\u0020the\u0020controller\u0020logic.",
-            "url": "classes/App-Controllers-StatsPresenceController.html#method_execute"
+            "fqsen": "\\App\\Controllers\\StatisticsController\u003A\u003AgetAbsenceTypeStats\u0028\u0029",
+            "name": "getAbsenceTypeStats",
+            "summary": "Get\u0020Absence\u0020Type\u0020Statistics\u0020fragment.",
+            "url": "classes/App-Controllers-StatisticsController.html#method_getAbsenceTypeStats"
         },                {
-            "fqsen": "\\App\\Controllers\\StatsPresencetypeController",
-            "name": "StatsPresencetypeController",
-            "summary": "Presence\u0020type\u0020statistics\u0020page\u0020controller",
-            "url": "classes/App-Controllers-StatsPresencetypeController.html"
+            "fqsen": "\\App\\Controllers\\StatisticsController\u003A\u003AgetPresenceStats\u0028\u0029",
+            "name": "getPresenceStats",
+            "summary": "Get\u0020Presence\u0020Statistics\u0020fragment.",
+            "url": "classes/App-Controllers-StatisticsController.html#method_getPresenceStats"
         },                {
-            "fqsen": "\\App\\Controllers\\StatsPresencetypeController\u003A\u003Aexecute\u0028\u0029",
-            "name": "execute",
-            "summary": "Execute\u0020the\u0020controller\u0020logic.",
-            "url": "classes/App-Controllers-StatsPresencetypeController.html#method_execute"
+            "fqsen": "\\App\\Controllers\\StatisticsController\u003A\u003AgetPresenceTypeStats\u0028\u0029",
+            "name": "getPresenceTypeStats",
+            "summary": "Get\u0020Presence\u0020Type\u0020Statistics\u0020fragment.",
+            "url": "classes/App-Controllers-StatisticsController.html#method_getPresenceTypeStats"
         },                {
-            "fqsen": "\\App\\Controllers\\StatsRemainderController",
-            "name": "StatsRemainderController",
-            "summary": "Remainder\u0020statistics\u0020page\u0020controller",
-            "url": "classes/App-Controllers-StatsRemainderController.html"
+            "fqsen": "\\App\\Controllers\\StatisticsController\u003A\u003AgetRemainderStats\u0028\u0029",
+            "name": "getRemainderStats",
+            "summary": "Get\u0020Remainder\u0020Statistics\u0020fragment.",
+            "url": "classes/App-Controllers-StatisticsController.html#method_getRemainderStats"
         },                {
-            "fqsen": "\\App\\Controllers\\StatsRemainderController\u003A\u003Aexecute\u0028\u0029",
-            "name": "execute",
-            "summary": "Execute\u0020the\u0020controller\u0020logic.",
-            "url": "classes/App-Controllers-StatsRemainderController.html#method_execute"
+            "fqsen": "\\App\\Controllers\\StatisticsController\u003A\u003AgetAbsenceTrends\u0028\u0029",
+            "name": "getAbsenceTrends",
+            "summary": "Get\u0020Absence\u0020Trends\u0020Statistics\u0020fragment.",
+            "url": "classes/App-Controllers-StatisticsController.html#method_getAbsenceTrends"
+        },                {
+            "fqsen": "\\App\\Controllers\\StatisticsController\u003A\u003AgetDayOfWeekStats\u0028\u0029",
+            "name": "getDayOfWeekStats",
+            "summary": "Get\u0020Day\u0020of\u0020Week\u0020Statistics\u0020fragment.",
+            "url": "classes/App-Controllers-StatisticsController.html#method_getDayOfWeekStats"
+        },                {
+            "fqsen": "\\App\\Controllers\\StatisticsController\u003A\u003AgetDurationHistogram\u0028\u0029",
+            "name": "getDurationHistogram",
+            "summary": "Get\u0020Duration\u0020Histogram\u0020Statistics\u0020fragment.",
+            "url": "classes/App-Controllers-StatisticsController.html#method_getDurationHistogram"
         },                {
             "fqsen": "\\App\\Controllers\\UserAddController",
             "name": "UserAddController",

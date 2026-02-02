@@ -1017,6 +1017,7 @@ class StatisticsController extends BaseController
         // Add validations if needed
       }
 
+      // @phpstan-ignore-next-line
       if (!$inputError) {
         if (isset($_POST['btn_apply'])) {
           $viewData['absid']   = $_POST['sel_absence'];
@@ -1120,6 +1121,7 @@ class StatisticsController extends BaseController
         // Add validations if needed
       }
 
+      // @phpstan-ignore-next-line
       if (!$inputError) {
         if (isset($_POST['btn_apply'])) {
           $viewData['absid']   = $_POST['sel_absence'];
@@ -1166,9 +1168,7 @@ class StatisticsController extends BaseController
             if ($absId > 0 && in_array($absId, $targetAbsences)) {
               $date = $viewData['year'] . '-' . $month . '-' . sprintf("%02d", $d);
               $dow  = (int) date('N', strtotime($date));
-              if (isset($counts[$dow])) {
-                $counts[$dow]++;
-              }
+              $counts[$dow]++;
             }
           }
         }
@@ -1233,6 +1233,7 @@ class StatisticsController extends BaseController
         // Add validations if needed
       }
 
+      // @phpstan-ignore-next-line
       if (!$inputError) {
         if (isset($_POST['btn_apply'])) {
           $viewData['absid']   = $_POST['sel_absence'];
@@ -1308,9 +1309,9 @@ class StatisticsController extends BaseController
               $buckets['2']++;
             elseif ($currentRun == 3)
               $buckets['3']++;
-            elseif ($currentRun >= 4 && $currentRun <= 5)
+            elseif ($currentRun <= 5)
               $buckets['4-5']++;
-            elseif ($currentRun >= 6 && $currentRun <= 10)
+            elseif ($currentRun <= 10)
               $buckets['6-10']++;
             else
               $buckets['>10']++;
@@ -1326,9 +1327,9 @@ class StatisticsController extends BaseController
           $buckets['2']++;
         elseif ($currentRun == 3)
           $buckets['3']++;
-        elseif ($currentRun >= 4 && $currentRun <= 5)
+        elseif ($currentRun <= 5)
           $buckets['4-5']++;
-        elseif ($currentRun >= 6 && $currentRun <= 10)
+        elseif ($currentRun <= 10)
           $buckets['6-10']++;
         else
           $buckets['>10']++;

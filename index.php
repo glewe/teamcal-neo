@@ -17,15 +17,17 @@ global $appLanguages;
 global $LANG;
 
 //-----------------------------------------------------------------------------
-// Set PRODUCTION_MODE to true to suppress PHP errors and warnings.
-// Set to false for development and debugging.
+// Set the application environment in you .env file.
+// Set to 'production' for production or 'dev' for debugging.
+// If you don't have a .env file, copy the .env.example file to .env and adjust the values. 
 //
-define('PRODUCTION_MODE', false);
-if (PRODUCTION_MODE) {
+if (isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'production') {
+  define('PRODUCTION_MODE', true);
   error_reporting(0);
   ini_set('display_errors', 0);
 }
 else {
+  define('PRODUCTION_MODE', false);
   error_reporting(E_ALL);
   ini_set('display_errors', 1);
 }

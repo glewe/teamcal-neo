@@ -15,10 +15,12 @@ if (!defined('VALID_ROOT')) {
 
 /**
  * ----------------------------------------------------------------------------
- * DATABASE
+ * DATABASE CREDENTIALS
  * ----------------------------------------------------------------------------
  *
- * Enter your database parameter here
+ * It is recommended to set the database credentials in the .env file.
+ * If you don't have a .env file, copy the .env.example file to .env and adjust the values.
+ * Otherwise, use the fallback / manual configuration below.
  */
 if (isset($_ENV['DB_HOST'])) {
   // Use .env configuration
@@ -38,7 +40,13 @@ else {
 }
 
 /**
- * The ID array is used to create the table names below.
+ * ----------------------------------------------------------------------------
+ * DATABASE TABLES
+ * ----------------------------------------------------------------------------
+ *
+ * The table name array is used by the models.
+ * Table names, example:
+ * $CONF['db_table_config'] = "myprefix_config";
  */
 $tableIDs = array(
   'absences',
@@ -64,11 +72,6 @@ $tableIDs = array(
   'user_message',
   'user_option',
 );
-
-/**
- * Table names, example:
- * $CONF['db_table_config'] = "myprefix_config";
- */
 foreach ($tableIDs as $tid) {
   $confIndex = 'db_table_' . $tid;
   $confArchiveIndex = 'db_table_archive_' . $tid;
@@ -76,4 +79,9 @@ foreach ($tableIDs as $tid) {
   $CONF[$confArchiveIndex] = $CONF['db_table_prefix'] . 'archive_' . $tid;
 }
 
+/**
+ * ----------------------------------------------------------------------------
+ * OTHER DATABASE SETTINGS
+ * ----------------------------------------------------------------------------
+ */
 define('DEFAULT_TIMESTAMP', '1900-01-01 00:00:00');

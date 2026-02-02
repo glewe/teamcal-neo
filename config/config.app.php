@@ -14,18 +14,51 @@ if (!defined('VALID_ROOT')) {
  */
 
 /**
+ * ----------------------------------------------------------------------------
  * ROUTING
+ * ----------------------------------------------------------------------------
+ * 
+ * Application URL (optional)
+ * Set this if the auto-detection fails, e.g. behind a reverse proxy
+ * define('APPLICATION_URL', 'http://your-domain.com/tcneo/');
  */
-$protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
-$fullURL = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-$pos = strrpos($fullURL, '/');
-define('WEBSITE_URL', substr($fullURL, 0, $pos + 1));
+define('APPLICATION_URL', '');
+
+// @phpstan-ignore-next-line
+if (APPLICATION_URL !== '') {
+  $websiteUrl = APPLICATION_URL;
+  if (substr($websiteUrl, -1) !== '/') {
+    $websiteUrl .= '/';
+  }
+  define('WEBSITE_URL', $websiteUrl);
+}
+else {
+  $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+  $fullURL  = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+  $pos      = strrpos($fullURL, '/');
+  define('WEBSITE_URL', substr($fullURL, 0, $pos + 1));
+}
+
+/**
+ * ----------------------------------------------------------------------------
+ * DIRECTORY LOCATIONS AND FILE SPECS
+ * ----------------------------------------------------------------------------
+ */
 define('APP_AVATAR_DIR', "public/upload/avatars/");
 define('APP_UPL_DIR', "public/upload/files/");
 define('APP_IMP_DIR', "public/upload/import/");
 
+$CONF['avatarExtensions'] = array('gif', 'jpg', 'png');
+$CONF['avatarMaxsize']    = 2048 * 100; // 100 KB
+$CONF['imgExtensions']    = array('gif', 'jpg', 'png');
+$CONF['impExtensions']    = array('csv');
+$CONF['uplExtensions']    = array('gif', 'jpg', 'png', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'zip');
+$CONF['uplMaxsize']       = 2048 * 1024; // 2 MB
+
 /**
+ * ----------------------------------------------------------------------------
  * INSTALLATION
+ * ----------------------------------------------------------------------------
  * 
  * A flag indicating whether the installation script has been executed.
  * 0 = Not run yet
@@ -36,14 +69,18 @@ define('APP_IMP_DIR', "public/upload/import/");
 define('APP_INSTALLED', "1");
 
 /**
+ * ----------------------------------------------------------------------------
  * COOKIE
+ * ----------------------------------------------------------------------------
  * 
  * The cookie name to be used on the browser client's device
  */
 define('COOKIE_NAME', "teamcalneo");
 
 /**
+ * ----------------------------------------------------------------------------
  * LANGUAGE DEBUGGING
+ * ----------------------------------------------------------------------------
  * 
  * COMPARE_LANGUAGES - set to true to compare all language files
  * DEBUG_LANGUAGE - set to true to write language statistics to the error log
@@ -53,64 +90,94 @@ define('COMPARE_LANGUAGES', false);
 define('DEBUG_LANGUAGE', false);
 
 /**
- * MANDATORY MODULES
+ * ----------------------------------------------------------------------------
+ * ADDONS
+ * ----------------------------------------------------------------------------
+ */
+
+/**
+ * Bootstrap
+ * 
+ * Powerful, extensible, and feature-packed frontend toolkit.
+ * https://getbootstrap.com/
  */
 define('BOOTSTRAP_VER', "5.3.8");
-define('BOOTSTRAP_ICONS_VER', "1.13.1");
-define('COLORIS_VER', "0.25.0");
-define('DATATABLES_VER', "2.3.6");
-define('FONTAWESOME_VER', "7.1.0");
-define('JQUERY_VER', "3.7.1");
-define('JQUERY_UI_VER', "1.14.1");
 
 /**
- * OPTIONAL MODULES
+ * Bootstrap Icons
+ * 
+ * Free, high quality, open source icon library with over 2,000 icons.
+ * https://icons.getbootstrap.com/
  */
-//
-// Chart.js
-// Simple yet flexible JavaScript charting for designers & developers
-// https://www.chartjs.org/
-//
-define('CHARTJS_VER', "4.4.7");
+define('BOOTSTRAP_ICONS_VER', "1.13.1");
 
-//
-// Cookie Consent by Silktide
-// https://silktide.com/cookieconsent
-//
+/**
+ * Chart.js
+ * 
+ * Simple yet flexible JavaScript charting for designers & developers
+ * https://www.chartjs.org/
+ */
+define('CHARTJS_VER', "4.5.1");
+
+/**
+ * Coloris
+ * 
+ * Elegant Color Picker for the Modern Web
+ * https://coloris.js.org/
+ */
+define('COLORIS_VER', "0.25.0");
+
+/**
+ * Cookie Consent by Silktide
+ * 
+ * https://silktide.com/cookieconsent
+ */
 define('COOKIECONSENT_VER', "3.1.1");
 
-//
-// Magnific Popup
-// Magnific Popup is a responsive lightbox & dialog script
-// https://dimsemenov.com/plugins/magnific-popup/
-//
-define('MAGNIFICPOPUP', false);
-define('MAGNIFICPOPUP_VER', "1.2.0");
-
-//
-// Syntaxhighlighter
-// SyntaxHighlighter is a fully functional self-contained code syntax highlighter developed in JavaScript.
-// https://github.com/syntaxhighlighter
-//
-define('SYNTAXHIGHLIGHTER', false);
-define('SYNTAXHIGHLIGHTER_VER', "3.0.83");
-
 /**
- * FILE UPLOAD
+ * Datatables
+ * 
+ * DataTables is a Javascript HTML table enhancing library.
+ * https://datatables.net/
  */
-//
-// Defines the allowed file types for upload
-// Defines the allowed max file sizes for upload
-//
-$CONF['avatarExtensions'] = array( 'gif', 'jpg', 'png' );
-$CONF['avatarMaxsize'] = 2048 * 100; // 100 KB
-$CONF['imgExtensions'] = array( 'gif', 'jpg', 'png' );
-$CONF['impExtensions'] = array( 'csv' );
-$CONF['uplExtensions'] = array( 'gif', 'jpg', 'png', 'doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'zip' );
-$CONF['uplMaxsize'] = 2048 * 1024; // 2 MB
+define('DATATABLES_VER', "2.3.6");
 
 /**
+ * FontAwesome
+ * 
+ * The internet's favorite icon library & toolkit. 
+ * https://fontawesome.com/
+ */
+define('FONTAWESOME_VER', "7.1.0");
+
+/**
+ * jQuery
+ * 
+ * jQuery is a fast, small, and feature-rich JavaScript library.
+ * https://jquery.com/
+ */
+define('JQUERY_VER', "4.0.0");
+
+/**
+ * jQuery UI
+ * 
+ * jQuery UI is a curated set of user interface interactions, effects, widgets, and themes built on top of the jQuery JavaScript library.
+ * https://jqueryui.com/
+ */
+define('JQUERY_UI_VER', "1.14.2");
+
+/**
+ * Magnific Popup
+ * 
+ * Magnific Popup is a responsive lightbox & dialog script
+ * https://dimsemenov.com/plugins/magnific-popup/
+ */
+define('MAGNIFICPOPUP_VER', "1.2.0"); 
+
+/**
+ * ----------------------------------------------------------------------------
  * LDAP
+ * ----------------------------------------------------------------------------
  *
  * You can enable LDAP user authentication in this section. Please read the
  * requirements below.
@@ -150,7 +217,9 @@ define('LDAP_CHECK_ANONYMOUS_BIND', 0);                      // Set to 1 to chec
 define('LDAP_SEARCH_BIND', 0);                               // Set to 1 to if you want to enable search bind (try disabling this when you get search bind errors)
 
 /**
+ * ----------------------------------------------------------------------------
  * APPLICATION INFORMATION
+ * ----------------------------------------------------------------------------
  *
  * !Do not change anything below this line. It is protected by the license agreement!
  */

@@ -305,7 +305,7 @@ body {
 
 .phpdocumentor-sidebar__category-header {
   color: var(--primary-color) !important;
-font-weight: 600 !important;
+  font-weight: 600 !important;
 }
 
 .phpdocumentor-list__entry a {
@@ -434,17 +434,17 @@ pre,
 
 /* Search Box Input */
 .phpdocumentor-field {
-    background-color: var(--surface-color) !important;
-    color: var(--text-color) !important;
-    border: 1px solid var(--border-color) !important;
+  background-color: var(--surface-color) !important;
+  color: var(--text-color) !important;
+  border: 1px solid var(--border-color) !important;
 }
 
 ::placeholder {
-    color: var(--text-muted) !important;
+  color: var(--text-muted) !important;
 }
 
 /* Search Dropdown Backdrop */
 .phpdocumentor-search-results {
-    background-color: var(--surface-color) !important;
-    border: 1px solid var(--border-color) !important;
+  background-color: var(--surface-color) !important;
+  border: 1px solid var(--border-color) !important;
 }

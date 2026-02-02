@@ -113,7 +113,7 @@
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    CalendarViewController
+    StatisticsController
 
         <span class="phpdocumentor-element__extends">
         extends <a href="classes/App-Core-BaseController.html"><abbr title="\App\Core\BaseController">BaseController</abbr></a>
@@ -135,20 +135,20 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CalendarViewController.php"><a href="files/src-controllers-calendarviewcontroller.html"><abbr title="src/Controllers/CalendarViewController.php">CalendarViewController.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/StatisticsController.php"><a href="files/src-controllers-statisticscontroller.html"><abbr title="src/Controllers/StatisticsController.php">StatisticsController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Calendar View Controller</p>
+            <p class="phpdocumentor-summary">Statistics controller</p>
 
 
 
 
     <h5 class="phpdocumentor-tag-list__heading" id="tags">
         Tags
-        <a href="classes/App-Controllers-CalendarViewController.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/App-Controllers-StatisticsController.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h5>
     <dl class="phpdocumentor-tag-list">
@@ -191,7 +191,7 @@
     
 <h3 id="toc">
     Table of Contents
-    <a href="classes/App-Controllers-CalendarViewController.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/App-Controllers-StatisticsController.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
@@ -205,7 +205,7 @@
 
 <h4 id="toc-properties">
     Properties
-    <a href="classes/App-Controllers-CalendarViewController.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/App-Controllers-StatisticsController.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
@@ -456,17 +456,11 @@
                         &nbsp;: <a href="classes/App-Core-TemplateEngine.html"><abbr title="\App\Core\TemplateEngine">TemplateEngine</abbr></a>            </span>
 </dt>
 
-            <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a class="" href="classes/App-Controllers-CalendarViewController.html#property_regionMonths">$regionMonths</a>
-    <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
-</dt>
-
     </dl>
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/App-Controllers-CalendarViewController.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/App-Controllers-StatisticsController.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
@@ -492,7 +486,7 @@
 <dd>Check if a property is set.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/App-Controllers-CalendarViewController.html#method_execute">execute()</a>
+    <a class="" href="classes/App-Controllers-StatisticsController.html#method_execute">execute()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
@@ -513,25 +507,74 @@
 <dd>Renders a view file.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
-    <a class="" href="classes/App-Core-BaseController.html#method_renderAlert">renderAlert()</a>
+    <a class="" href="classes/App-Controllers-StatisticsController.html#method_renderAlert">renderAlert()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Renders the alert view.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/App-Controllers-CalendarViewController.html#method_getRegionMonth">getRegionMonth()</a>
+    <a class="" href="classes/App-Controllers-StatisticsController.html#method_getAbsenceStats">getAbsenceStats()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd>Helper to get a MonthModel for a region and cache it.</dd>
+<dd>Get Absence Statistics fragment.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a class="" href="classes/App-Controllers-CalendarViewController.html#method_prepareDayData">prepareDayData()</a>
+    <a class="" href="classes/App-Controllers-StatisticsController.html#method_getAbsenceTrends">getAbsenceTrends()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd>Prepares data for a single day in a user row</dd>
+<dd>Get Absence Trends Statistics fragment.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/App-Controllers-StatisticsController.html#method_getAbsenceTypeStats">getAbsenceTypeStats()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Get Absence Type Statistics fragment.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/App-Controllers-StatisticsController.html#method_getDayOfWeekStats">getDayOfWeekStats()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Get Day of Week Statistics fragment.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/App-Controllers-StatisticsController.html#method_getDurationHistogram">getDurationHistogram()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Get Duration Histogram Statistics fragment.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/App-Controllers-StatisticsController.html#method_getPresenceStats">getPresenceStats()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Get Presence Statistics fragment.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/App-Controllers-StatisticsController.html#method_getPresenceTypeStats">getPresenceTypeStats()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Get Presence Type Statistics fragment.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/App-Controllers-StatisticsController.html#method_getRemainderStats">getRemainderStats()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Get Remainder Statistics fragment.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/App-Controllers-StatisticsController.html#method_handleAjaxRequest">handleAjaxRequest()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Handles AJAX requests for specific tabs.</dd>
 
     </dl>
 
@@ -543,7 +586,7 @@
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/App-Controllers-CalendarViewController.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/App-Controllers-StatisticsController.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -2064,49 +2107,12 @@
         
 
 </article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -private
-                                                                    "
->
-    <h4 class="phpdocumentor-element__name" id="property_regionMonths">
-        $regionMonths
-        <a href="classes/App-Controllers-CalendarViewController.html#property_regionMonths" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                            </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CalendarViewController.php"><a href="files/src-controllers-calendarviewcontroller.html"><abbr title="src/Controllers/CalendarViewController.php">CalendarViewController.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">900</span>
-
-    </aside>
-
-    
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-        <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
-    <span class="phpdocumentor-signature__name">$regionMonths</span>
-     = <span class="phpdocumentor-signature__default-value">[]</span></code>
-
-    
-    
-    
-
-        
-        
-
-</article>
             </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/App-Controllers-CalendarViewController.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/App-Controllers-StatisticsController.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -2262,13 +2268,13 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_execute">
         execute()
-        <a href="classes/App-Controllers-CalendarViewController.html#method_execute" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/App-Controllers-StatisticsController.html#method_execute" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CalendarViewController.php"><a href="files/src-controllers-calendarviewcontroller.html"><abbr title="src/Controllers/CalendarViewController.php">CalendarViewController.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/StatisticsController.php"><a href="files/src-controllers-statisticscontroller.html"><abbr title="src/Controllers/StatisticsController.php">StatisticsController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">26</span>
 
     </aside>
 
@@ -2392,13 +2398,13 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_renderAlert">
         renderAlert()
-        <a href="classes/App-Core-BaseController.html#method_renderAlert" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/App-Controllers-StatisticsController.html#method_renderAlert" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Core/BaseController.php"><a href="files/src-core-basecontroller.html"><abbr title="src/Core/BaseController.php">BaseController.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/StatisticsController.php"><a href="files/src-controllers-statisticscontroller.html"><abbr title="src/Controllers/StatisticsController.php">StatisticsController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">287</span>
+    <span class="phpdocumentor-element-found-in__line">102</span>
 
     </aside>
 
@@ -2473,53 +2479,29 @@
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getRegionMonth">
-        getRegionMonth()
-        <a href="classes/App-Controllers-CalendarViewController.html#method_getRegionMonth" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getAbsenceStats">
+        getAbsenceStats()
+        <a href="classes/App-Controllers-StatisticsController.html#method_getAbsenceStats" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CalendarViewController.php"><a href="files/src-controllers-calendarviewcontroller.html"><abbr title="src/Controllers/CalendarViewController.php">CalendarViewController.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/StatisticsController.php"><a href="files/src-controllers-statisticscontroller.html"><abbr title="src/Controllers/StatisticsController.php">StatisticsController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">905</span>
+    <span class="phpdocumentor-element-found-in__line">124</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Helper to get a MonthModel for a region and cache it.</p>
+        <p class="phpdocumentor-summary">Get Absence Statistics fragment.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">getRegionMonth</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$year</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$month</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$region</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">getAbsenceStats</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
     
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$year</span>
-                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$month</span>
-                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$region</span>
-                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
+    
     
 
         
@@ -2532,23 +2514,268 @@
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_prepareDayData">
-        prepareDayData()
-        <a href="classes/App-Controllers-CalendarViewController.html#method_prepareDayData" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getAbsenceTrends">
+        getAbsenceTrends()
+        <a href="classes/App-Controllers-StatisticsController.html#method_getAbsenceTrends" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/CalendarViewController.php"><a href="files/src-controllers-calendarviewcontroller.html"><abbr title="src/Controllers/CalendarViewController.php">CalendarViewController.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/StatisticsController.php"><a href="files/src-controllers-statisticscontroller.html"><abbr title="src/Controllers/StatisticsController.php">StatisticsController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">786</span>
+    <span class="phpdocumentor-element-found-in__line">994</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Prepares data for a single day in a user row</p>
+        <p class="phpdocumentor-summary">Get Absence Trends Statistics fragment.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">prepareDayData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$username</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$day</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$year</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$month</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$gridStyle</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$trustedRoles</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$currDate</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$viewData</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$regionid</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$templateOverride</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">getAbsenceTrends</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+        
+    
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getAbsenceTypeStats">
+        getAbsenceTypeStats()
+        <a href="classes/App-Controllers-StatisticsController.html#method_getAbsenceTypeStats" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/StatisticsController.php"><a href="files/src-controllers-statisticscontroller.html"><abbr title="src/Controllers/StatisticsController.php">StatisticsController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">324</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get Absence Type Statistics fragment.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">getAbsenceTypeStats</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+        
+    
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getDayOfWeekStats">
+        getDayOfWeekStats()
+        <a href="classes/App-Controllers-StatisticsController.html#method_getDayOfWeekStats" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/StatisticsController.php"><a href="files/src-controllers-statisticscontroller.html"><abbr title="src/Controllers/StatisticsController.php">StatisticsController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1098</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get Day of Week Statistics fragment.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">getDayOfWeekStats</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+        
+    
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getDurationHistogram">
+        getDurationHistogram()
+        <a href="classes/App-Controllers-StatisticsController.html#method_getDurationHistogram" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/StatisticsController.php"><a href="files/src-controllers-statisticscontroller.html"><abbr title="src/Controllers/StatisticsController.php">StatisticsController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">1210</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get Duration Histogram Statistics fragment.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">getDurationHistogram</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+        
+    
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getPresenceStats">
+        getPresenceStats()
+        <a href="classes/App-Controllers-StatisticsController.html#method_getPresenceStats" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/StatisticsController.php"><a href="files/src-controllers-statisticscontroller.html"><abbr title="src/Controllers/StatisticsController.php">StatisticsController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">495</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get Presence Statistics fragment.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">getPresenceStats</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+        
+    
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getPresenceTypeStats">
+        getPresenceTypeStats()
+        <a href="classes/App-Controllers-StatisticsController.html#method_getPresenceTypeStats" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/StatisticsController.php"><a href="files/src-controllers-statisticscontroller.html"><abbr title="src/Controllers/StatisticsController.php">StatisticsController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">703</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get Presence Type Statistics fragment.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">getPresenceTypeStats</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+        
+    
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getRemainderStats">
+        getRemainderStats()
+        <a href="classes/App-Controllers-StatisticsController.html#method_getRemainderStats" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/StatisticsController.php"><a href="files/src-controllers-statisticscontroller.html"><abbr title="src/Controllers/StatisticsController.php">StatisticsController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">875</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get Remainder Statistics fragment.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">getRemainderStats</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+        
+    
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_handleAjaxRequest">
+        handleAjaxRequest()
+        <a href="classes/App-Controllers-StatisticsController.html#method_handleAjaxRequest" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/StatisticsController.php"><a href="files/src-controllers-statisticscontroller.html"><abbr title="src/Controllers/StatisticsController.php">StatisticsController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">57</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Handles AJAX requests for specific tabs.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">handleAjaxRequest</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tab</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -2557,74 +2784,13 @@
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$username</span>
-                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
+                <span class="phpdocumentor-argument-list__argument__name">$tab</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$day</span>
-                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$year</span>
-                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$month</span>
-                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$gridStyle</span>
-                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$trustedRoles</span>
-                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$currDate</span>
-                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$viewData</span>
-                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$regionid</span>
-                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-argument-list__argument__name">$templateOverride</span>
-                : <span class="phpdocumentor-argument-list__argument__type">mixed</span>
-                 = <span class="phpdocumentor-argument-list__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The tab identifier</p>
+</section>
+
             </dd>
             </dl>
 
@@ -2632,11 +2798,7 @@
 
         
     
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-            </section>
-
+    
 </article>
             </section>
 
@@ -2644,7 +2806,7 @@
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/Controllers/CalendarViewController.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/Controllers/StatisticsController.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -2745,8 +2907,8 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                            <li><a href="classes/App-Controllers-CalendarViewController.html#toc-properties">Properties</a></li>
-                                                            <li><a href="classes/App-Controllers-CalendarViewController.html#toc-methods">Methods</a></li>
+                                                            <li><a href="classes/App-Controllers-StatisticsController.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/App-Controllers-StatisticsController.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
             
@@ -2794,7 +2956,6 @@
                                                     <li class=""><a href="classes/App-Core-BaseController.html#property__instances">$_instances</a></li>
                                                     <li class=""><a href="classes/App-Core-BaseController.html#property_container">$container</a></li>
                                                     <li class=""><a href="classes/App-Core-BaseController.html#property_view">$view</a></li>
-                                                    <li class=""><a href="classes/App-Controllers-CalendarViewController.html#property_regionMonths">$regionMonths</a></li>
                                             </ul>
                 </li>
             
@@ -2804,12 +2965,19 @@
                                             <li class=""><a href="classes/App-Core-BaseController.html#method___construct">__construct()</a></li>
                                             <li class=""><a href="classes/App-Core-BaseController.html#method___get">__get()</a></li>
                                             <li class=""><a href="classes/App-Core-BaseController.html#method___isset">__isset()</a></li>
-                                            <li class=""><a href="classes/App-Controllers-CalendarViewController.html#method_execute">execute()</a></li>
+                                            <li class=""><a href="classes/App-Controllers-StatisticsController.html#method_execute">execute()</a></li>
                                             <li class=""><a href="classes/App-Core-BaseController.html#method_isLoggedIn">isLoggedIn()</a></li>
                                             <li class=""><a href="classes/App-Core-BaseController.html#method_render">render()</a></li>
-                                            <li class=""><a href="classes/App-Core-BaseController.html#method_renderAlert">renderAlert()</a></li>
-                                            <li class=""><a href="classes/App-Controllers-CalendarViewController.html#method_getRegionMonth">getRegionMonth()</a></li>
-                                            <li class=""><a href="classes/App-Controllers-CalendarViewController.html#method_prepareDayData">prepareDayData()</a></li>
+                                            <li class=""><a href="classes/App-Controllers-StatisticsController.html#method_renderAlert">renderAlert()</a></li>
+                                            <li class=""><a href="classes/App-Controllers-StatisticsController.html#method_getAbsenceStats">getAbsenceStats()</a></li>
+                                            <li class=""><a href="classes/App-Controllers-StatisticsController.html#method_getAbsenceTrends">getAbsenceTrends()</a></li>
+                                            <li class=""><a href="classes/App-Controllers-StatisticsController.html#method_getAbsenceTypeStats">getAbsenceTypeStats()</a></li>
+                                            <li class=""><a href="classes/App-Controllers-StatisticsController.html#method_getDayOfWeekStats">getDayOfWeekStats()</a></li>
+                                            <li class=""><a href="classes/App-Controllers-StatisticsController.html#method_getDurationHistogram">getDurationHistogram()</a></li>
+                                            <li class=""><a href="classes/App-Controllers-StatisticsController.html#method_getPresenceStats">getPresenceStats()</a></li>
+                                            <li class=""><a href="classes/App-Controllers-StatisticsController.html#method_getPresenceTypeStats">getPresenceTypeStats()</a></li>
+                                            <li class=""><a href="classes/App-Controllers-StatisticsController.html#method_getRemainderStats">getRemainderStats()</a></li>
+                                            <li class=""><a href="classes/App-Controllers-StatisticsController.html#method_handleAjaxRequest">handleAjaxRequest()</a></li>
                                     </ul>
             </li>
                     </ul>
@@ -2829,7 +2997,7 @@
     </section>
 </section>
         </div>
-        <a href="classes/App-Controllers-CalendarViewController.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/App-Controllers-StatisticsController.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

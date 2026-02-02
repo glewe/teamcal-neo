@@ -2,8 +2,8 @@
 
 {% block content %}
   <!-- ====================================================================
-          view.statistics
-          -->
+            view.statistics
+            -->
   <div class="container content">
 
     {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
@@ -88,7 +88,7 @@
         </div>
       </div>
     </div>
-    <script src="public/addons/chart.js/{{ constant('CHARTJS_VER') }}/chart.umd.js"></script>
+    <script src="public/addons/chart.js/{{ constant('CHARTJS_VER') }}/chart.umd.min.js"></script>
   </div>
 
   <script>
@@ -137,9 +137,12 @@
       const tabButtons = document.querySelectorAll('button[data-bs-toggle="tab"]');
       tabButtons.forEach(button => {
         button.addEventListener('show.bs.tab', event => {
-          const targetId = event.target.dataset.bsTarget; // target pane selector (e.g. #absence)
-          const url = event.target.dataset.url; // AJAX URL
-          loadTab(targetId, url);
+          const targetId = button.getAttribute('data-bs-target');
+          const url = button.getAttribute('data-url');
+
+          if (targetId && url) {
+            loadTab(targetId, url);
+          }
         });
       });
 

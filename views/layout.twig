@@ -2,14 +2,14 @@
 <html lang="{{ LANG.html_locale }}" data-bs-theme="auto" data-width="narrow">
   <head>
     <!--
-    ===============================================================================
-    Application: {{ constant('APP_NAME') }} {{ constant('APP_VER') }}
-    Author:      {{ constant('APP_AUTHOR') }}
-    License:     {{ constant('APP_LICENSE') }}
-    Copyright:   {{ constant('APP_COPYRIGHT') }}
-                  All rights reserved.
-    ===============================================================================
-    -->
+        ===============================================================================
+        Application: {{ constant('APP_NAME') }} {{ constant('APP_VER') }}
+        Author:      {{ constant('APP_AUTHOR') }}
+        License:     {{ constant('APP_LICENSE') }}
+        Copyright:   {{ constant('APP_COPYRIGHT') }}
+                      All rights reserved.
+        ===============================================================================
+        -->
 
     <title>{{ htmlData.title }}</title>
 
@@ -88,21 +88,12 @@
     <script src="public/js/colorpicker/js/colorpicker.min.js"></script>
 
     <!-- Datatables -->
-    <link href="public/addons/datatables/{{ constant('DATATABLES_VER') }}/datatables.min.css" rel="stylesheet">
+    <link
+    href="public/addons/datatables/{{ constant('DATATABLES_VER') }}/datatables.min.css" rel="stylesheet">
 
-    {% if constant('MAGNIFICPOPUP') %}
-      <!-- Magnific Popup -->
-      <link rel="stylesheet" href="public/addons/magnific/{{ constant('MAGNIFICPOPUP_VER') }}/magnific-popup.css" type="text/css">
-      <script src="public/addons/magnific/{{ constant('MAGNIFICPOPUP_VER') }}/jquery.magnific-popup.min.js"></script>
-    {% endif %}
-
-    {% if constant('SYNTAXHIGHLIGHTER') %}
-      <!-- Syntax Highlighter -->
-      <link rel="stylesheet" href="public/addons/syntaxhighlighter/styles/shCore.css" type="text/css">
-      <link rel="stylesheet" href="public/addons/syntaxhighlighter/styles/shThemeDefault.css" type="text/css">
-      <script src="public/addons/syntaxhighlighter/scripts/shCore.js"></script>
-      <script src="public/addons/syntaxhighlighter/scripts/shAutoloader.js"></script>
-    {% endif %}
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="public/addons/magnific/{{ constant('MAGNIFICPOPUP_VER') }}/magnific-popup.css" type="text/css">
+    <script src="public/addons/magnific/{{ constant('MAGNIFICPOPUP_VER') }}/jquery.magnific-popup.min.js"></script>
 
     {% if htmlData.cookieConsent %}
       <!-- Cookie Consent -->
@@ -110,11 +101,14 @@
         <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/{{ constant('COOKIECONSENT_VER') }}/cookieconsent.min.css">
         <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/{{ constant('COOKIECONSENT_VER') }}/cookieconsent.min.js"></script>
       {% else %}
-        <link rel="stylesheet" type="text/css" href="public/addons/cookieconsent2/{{ constant('COOKIECONSENT_VER') }}/cookieconsent.min.css">
-        <script src="public/addons/cookieconsent2/{{ constant('COOKIECONSENT_VER') }}/cookieconsent.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="{{ constant('WEBSITE_URL') }}public/addons/cookieconsent2/{{ constant('COOKIECONSENT_VER') }}/cookieconsent.min.css">
+        <script src="{{ constant('WEBSITE_URL') }}public/addons/cookieconsent2/{{ constant('COOKIECONSENT_VER') }}/cookieconsent.min.js"></script>
+        <style>
+          .cc-window { z-index: 999999 !important; }
+        </style>
       {% endif %}
       <script>
-        window.addEventListener("load", function () {
+        document.addEventListener("DOMContentLoaded", function () {
           window.cookieconsent.initialise({
             "cookie": {
               "name": "tcneo_cookieconsent"
@@ -159,7 +153,7 @@
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function () {
-          var u = "//    {{ C.read('matomoUrl') }}/";
+          var u = "//     {{ C.read('matomoUrl') }}/";
           _paq.push([
             'setTrackerUrl',
             u + 'matomo.php'
@@ -246,7 +240,7 @@
   </body>
 </html></main><!-- Bootstrap Javascript --><script src="public/themes/bootstrap/{{ constant('BOOTSTRAP_VER') }}/js/bootstrap.bundle.min.js"></script><!-- Datatables --><script src="public/addons/datatables/{{ constant('DATATABLES_VER') }}/datatables.min.js"></script><!-- TeamCal Neo Width Mode Switcher --><script src="public/js/width-modes.min.js"></script><script>
 $(document).ready(function () {
-  {% if constant('MAGNIFICPOPUP') %}
+  if ($.fn.magnificPopup) {
     $('.image-popup').magnificPopup({
       type: 'image',
       closeOnContentClick: true,
@@ -275,7 +269,10 @@ $(document).ready(function () {
       image: {
         verticalFit: false
       }
-    });{% endif %}$('[data-bs-toggle="tooltip"]').each(function () {
+    });
+  }
+
+  $('[data-bs-toggle="tooltip"]').each(function () {
     try {
       var options = {
         html: true

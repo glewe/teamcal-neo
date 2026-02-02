@@ -96,6 +96,7 @@ class LdapService
     //
     // LDAP Search bind
     //
+    // @phpstan-ignore-next-line
     if ($searchBind && !@ldap_bind($ds, $ldaprdn, $ldappass)) {
       return 96;
     }
