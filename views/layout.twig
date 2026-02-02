@@ -95,6 +95,9 @@
     <link rel="stylesheet" href="public/addons/magnific/{{ constant('MAGNIFICPOPUP_VER') }}/magnific-popup.css" type="text/css">
     <script src="public/addons/magnific/{{ constant('MAGNIFICPOPUP_VER') }}/jquery.magnific-popup.min.js"></script>
 
+    <!-- CKEditor 5 -->
+    <script src="{{ constant('WEBSITE_URL') }}public/addons/ckeditor5/{{ constant('CKEDITOR5_VER') }}/ckeditor.js"></script>
+
     {% if htmlData.cookieConsent %}
       <!-- Cookie Consent -->
       {% if htmlData.cookieConsentCDN %}
@@ -107,6 +110,7 @@
           .cc-window { z-index: 999999 !important; }
         </style>
       {% endif %}
+
       <script>
         document.addEventListener("DOMContentLoaded", function () {
           window.cookieconsent.initialise({

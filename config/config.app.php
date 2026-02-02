@@ -120,6 +120,14 @@ define('BOOTSTRAP_ICONS_VER', "1.13.1");
 define('CHARTJS_VER', "4.5.1");
 
 /**
+ * Ckeditor5
+ * 
+ * The rich text editor for every use case
+ * https://ckeditor.com/
+ */
+define('CKEDITOR5_VER', "41.0.0");
+
+/**
  * Coloris
  * 
  * Elegant Color Picker for the Modern Web
@@ -224,8 +232,8 @@ define('LDAP_SEARCH_BIND', 0);                               // Set to 1 to if y
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "5.0.0-beta");
-define('APP_DATE', "2026-01-31");
+define('APP_VER', "5.0.0-beta2");
+define('APP_DATE', "2026-02-02");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "https://www.lewe.com");

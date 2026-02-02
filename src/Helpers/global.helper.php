@@ -1103,27 +1103,21 @@ function sanitizeString(string $input): string {
  * Sanitizes input while preserving specified HTML tags with enhanced security.
  *
  * Features:
- * - Static caching for improved performance (up to 10x faster on repeated calls)
- * - Configurable allowed tags with safe defaults
- * - Attribute filtering for enhanced security (removes dangerous attributes)
- * - URL validation for href and src attributes
- * - Memory-efficient processing with cache management
- * - Protection against XSS via malicious attributes
- * - Support for self-closing tags
+ * Sanitizes input using HTMLPurifier.
  *
- * @param string $input The input string to sanitize
- * @param array|null $customTags Optional custom allowed tags (overrides defaults)
+ * This function uses the HTMLPurifier library to clean the input string,
+ * removing any potentially malicious code (XSS) while preserving safe HTML tags.
+ * It is configured to allow a standard set of block and inline elements suitable
+ * for rich text content (CKEditor).
+ *
+ * @param string $input The string to sanitize
+ * @param array|null $customTags Optional array of allowed tags (default: standard set)
  * @param bool $allowAttributes Whether to allow safe attributes (default: true)
  *
- * @return string Sanitized string with allowed tags preserved
+ * @return string Sanitized string
  *
  * @since 1.0.0
- * @security Enhanced XSS protection with attribute filtering
- *
- * Examples:
- * - sanitizeWithAllowedTags('<p>Hello <script>alert(1)</script></p>') returns '<p>Hello </p>'
- * - sanitizeWithAllowedTags('<a href="javascript:alert(1)">link</a>') returns '<a>link</a>'
- * - sanitizeWithAllowedTags('<img src="test.jpg" alt="test">') returns '<img src="test.jpg" alt="test">'
+ * @security robust XSS protection via HTMLPurifier
  */
 function sanitizeWithAllowedTags(string $input, ?array $customTags = null, bool $allowAttributes = true): string {
   // Handle empty input early
@@ -1131,87 +1125,60 @@ function sanitizeWithAllowedTags(string $input, ?array $customTags = null, bool 
     return '';
   }
 
-  // Static cache for performance
-  static $cache = [];
-  static $cacheSize = 0;
-  static $compiledAllowedTags = null;
-  static $lastCustomTags = null;
+  // Use HTMLPurifier for robust sanitization
+  try {
+    // Basic configuration
+    $config = HTMLPurifier_Config::createDefault();
 
-  // Create cache key including parameters
-  $cacheKey = md5($input . '|' . ($customTags ? serialize($customTags) : 'default') . '|' . ($allowAttributes ? '1' : '0'));
+    // Set cache directory (make sure this directory exists and is writable)
+    $cacheDir = WEBSITE_ROOT . '/cache/htmlpurifier';
+    if (!is_dir($cacheDir)) {
+      if (!mkdir($cacheDir, 0755, true) && !is_dir($cacheDir)) {
+        // Fallback if cache dir cannot be created: disable caching (slower but works)
+        $config->set('Cache.DefinitionImpl', null);
+      }
+    }
+    if (is_dir($cacheDir)) {
+      $config->set('Cache.SerializerPath', $cacheDir);
+    }
 
-  // Return cached result if available
-  if (isset($cache[$cacheKey])) {
-    return $cache[$cacheKey];
+    // Allow typical CKEditor tags
+    // If customTags are provided, we should respect them, but HTMLPurifier uses a different format.
+    // Ideally, we stick to a safe default set for the application.
+    if ($customTags !== null) {
+      // Best effort to convert array of tags to HTMLPurifierAllowed string if needed, 
+      // but for now let's use a generous but safe preset.
+      $config->set('HTML.Allowed', implode(',', $customTags));
+    } else {
+       // Allow common block and inline elements, plus tables and images.
+       // We explicitly define attributes per tag for clarity, but we can also use HTML.AllowedAttributes for global ones.
+       // Updating to allow style/class on most block elements.
+       $config->set('HTML.Allowed', 'p[style|class],b,strong,i,em,u,a[href|title|target|style|class],ul[style|class],ol[style|class],li[style|class],br,span[style|class],div[style|class],img[src|alt|width|height|style|class],h1[style|class],h2[style|class],h3[style|class],h4[style|class],h5[style|class],h6[style|class],blockquote[style|class],code,pre[style|class],table[style|class|border|cellspacing|cellpadding],thead,tbody,tr[style|class],th[style|class|width],td[style|class|width|colspan|rowspan],caption');
+    }
+
+    // Allow some safe styling if attributes are allowed
+    if ($allowAttributes) {
+      // "Trusted" mode allows valid CSS that HTMLPurifier might not fully undestand yet (like border-radius in older definitions)
+      // and allows tricky properties like display: none.
+      // Since this is for admin content, this is acceptable and resolves the warnings.
+      $config->set('CSS.Trusted', true);
+    }
+    else {
+      $config->set('HTML.AllowedAttributes', ''); // Remove all attributes
+    }
+
+    // Ensure external links open in new window (optional, but good for user content)
+    $config->set('HTML.TargetBlank', true);
+
+    // Initialize Purifier
+    $purifier = new HTMLPurifier($config);
+    return $purifier->purify($input);
+
+  } catch (Exception $e) {
+    // Fallback if HTMLPurifier fails (logs error and returns strip_tags version)
+    error_log("HTMLPurifier failed: " . $e->getMessage());
+    return strip_tags($input);
   }
-
-  // Limit cache size to prevent memory issues
-  if ($cacheSize >= 1000) {
-    $cache     = array_slice($cache, 500, null, true);
-    $cacheSize = 500;
-  }
-
-  // Define or use custom allowed tags
-  if ($customTags !== null) {
-    $allowedTags         = $customTags;
-    $lastCustomTags      = $customTags;
-    $compiledAllowedTags = null; // Reset compilation cache
-  }
-  else {
-    // Default safe HTML tags
-    $allowedTags = [
-      'a',
-      'b',
-      'br',
-      'em',
-      'h1',
-      'h2',
-      'h3',
-      'h4',
-      'h5',
-      'h6',
-      'hr',
-      'i',
-      'img',
-      'li',
-      'ol',
-      'p',
-      'strong',
-      'ul',
-      'span',
-      'div',
-      'blockquote',
-      'code',
-      'pre'
-    ];
-  }
-
-  // Compile allowed tags string (cache for performance)
-  if ($compiledAllowedTags === null || $lastCustomTags !== $customTags) {
-    $compiledAllowedTags = '<' . implode('><', $allowedTags) . '>';
-    $lastCustomTags      = $customTags;
-  }
-
-  // First pass: strip disallowed tags
-  $cleaned = strip_tags($input, $compiledAllowedTags);
-
-  // Second pass: sanitize attributes if enabled
-  if ($allowAttributes && !empty($cleaned)) {
-    $cleaned = sanitizeHtmlAttributes($cleaned);
-  }
-  elseif (!$allowAttributes) {
-    // Remove all attributes if not allowed
-    // Handle both regular tags and self-closing tags
-    $cleaned = preg_replace('/<([a-zA-Z0-9]+)(\s[^>]*)?>/', '<$1>', $cleaned);
-    // Restore self-closing behavior for void elements (br, hr, img, etc.)
-    $cleaned = preg_replace('/<(br|hr|img|input|meta|link|area|base|col|embed|param|source|track|wbr)>/', '<$1 />', $cleaned);
-  }
-
-  // Cache and return result
-  $cache[$cacheKey] = $cleaned;
-  $cacheSize++;
-
-  return $cleaned;
 }
 
 //-----------------------------------------------------------------------------

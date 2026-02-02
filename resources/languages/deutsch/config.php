@@ -228,8 +228,7 @@ $LANG['config_versionCompare'] = 'Versionsvergleich';
 $LANG['config_versionCompare_comment'] = 'Mit dieser Option überprüft TeamCal Neo auf der "Über TeamCal Neo" Seite die laufende Version und vergleicht sie mit der neusten verfügbaren. Dazu benötigt
       TeamCal Neo Internetzugriff. Wenn du TeamCal Neo in einer Umgebung ohne Internetzugriff betreibst, schalte diese Option aus. Bei abweichenden Versionen wird dies hinter der Versionsnummer angeziegt.';
 $LANG['config_welcomeText'] = 'Willkommen Seite Text';
-$LANG['config_welcomeText_comment'] = 'Hier kann ein Text für die Startseite eingegeben werden. Die folgenden HTML Tags sind erlaubt:<br>
-&lt;a&gt;, &lt;b&gt;, &lt;br&gt;, &lt;em&gt;, &lt;h1&gt; bis &lt;h4&gt;, &lt;hr&gt;, &lt;i&gt;, &lt;img&gt;, &lt;li&gt;, &lt;ol&gt;, &lt;p&gt;, &lt;strong&gt;, &lt;ul&gt;.';
+$LANG['config_welcomeText_comment'] = 'Hier kann ein Text für die Startseite eingegeben werden.';
 
 $LANG['config_clearCache'] = 'Cache löschen';
 $LANG['config_clearCache_comment'] = 'Klicken Sie auf diesen Button, um den Cache der Anwendung zu leeren. Dies kann notwendig sein, wenn Sie Anzeigeprobleme oder veraltete Informationen feststellen.';

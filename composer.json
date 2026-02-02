@@ -1,7 +1,7 @@
 {
   "name": "lewe/tcneo",
   "description": "TeamCal Neo",
-  "version": "5.0.0-beta",
+  "version": "5.0.0-beta2",
   "require": {
     "ext-ctype": "*",
     "ext-pdo": "*",
@@ -9,7 +9,8 @@
     "phpmailer/phpmailer": "^7.0",
     "robthree/twofactorauth": "^2.0",
     "twig/twig": "^3.22",
-    "vlucas/phpdotenv": "^5.6"
+    "vlucas/phpdotenv": "^5.6",
+    "ezyang/htmlpurifier": "^4.19"
   },
   "require-dev": {
     "phpunit/phpunit": "^10.5",

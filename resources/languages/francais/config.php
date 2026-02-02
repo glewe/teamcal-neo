@@ -187,7 +187,7 @@ $LANG['config_userManual_comment'] = 'URL de votre propre manuel utilisateur si 
 $LANG['config_versionCompare'] = 'Comparaison de version';
 $LANG['config_versionCompare_comment'] = 'Compare la version actuelle avec la dernière version disponible sur la page À propos. Nécessite un accès Internet.';
 $LANG['config_welcomeText'] = 'Texte de la page de bienvenue';
-$LANG['config_welcomeText_comment'] = 'Texte affiché sur la page d\'accueil. Certaines balises HTML sont autorisées.';
+$LANG['config_welcomeText_comment'] = 'Texte affiché sur la page d\'accueil.';
 
 $LANG['config_clearCache'] = 'Effacer le cache';
 $LANG['config_clearCache_comment'] = 'Cliquez sur ce bouton pour effacer le cache de l\'application. Cela peut être nécessaire en cas de problèmes d\'affichage.';
