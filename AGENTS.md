@@ -1,4 +1,4 @@
-# TeamCal Neo - Agent Guide
+# TeamCal Neo - Development Guide
 
 ## Project Overview
 **TeamCal Neo** is a modern PHP-based web application designed for managing team events, absences, and regional calendars. It has evolved from a legacy codebase into a structured MVC application using strict typing and Twig templating.

@@ -67,6 +67,10 @@ TeamCal Neo 5.0.0 is a new major release. The application has been completely re
 
 [TeamCal Neo Releases](https://github.com/glewe/teamcal-neo/releases)
   
+## Developer Info
+
+[Development Guide](https://github.com/glewe/teamcal-neo/blob/master/AGENTS.md)
+  
 <br/>
 
 I hope you enjoy TeamCal Neo!  
