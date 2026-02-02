@@ -2,8 +2,8 @@
 
 {% block content %}
   <!-- ====================================================================
-  view.log
-  -->
+    view.log
+    -->
   <div class="container content">
 
     <div class="col-lg-12">
@@ -207,8 +207,7 @@
           $("#logPeriodFrom").prop('disabled', true);
           $("#logPeriodTo").prop('disabled', true);
         }
-      });{% if events|length %}
-        $('#dataTableLog').DataTable({
+      });{% if events|length %}$('#dataTableLog').DataTable({
           paging: true,
           ordering: true,
           info: true,
@@ -216,7 +215,7 @@
           deferRender: true,
           processing: true,
           language: {
-            url: 'public/addons/datatables/datatables.{{ LANG.locale }}.json'
+            url: 'public/addons/datatables/datatables. {{ LANG.locale }}.json'
           },
           columnDefs: [
             {

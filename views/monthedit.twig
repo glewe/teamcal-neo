@@ -2,8 +2,8 @@
 
 {% block content %}
   <!-- ====================================================================
-  view.monthedit
-  -->
+    view.monthedit
+    -->
   <div class="container content" style="padding-left: 4px; padding-right: 4px;">
 
     {% set tabindex = 0 %}
@@ -70,51 +70,51 @@
         {% set mobilecols = { 'full': dateInfo.daysInMonth } %}
       {% else %}
         {#
-          Assuming supportMobile is true, but we don't know the exact array structure for mobilecols from legacy view. 
-          Wait, legacy view assumed $mobilecols was defined globally or derived?
-          Legacy view said:
-          if (!$viewData['supportMobile']) { $mobilecols = array( 'full' => $viewData['dateInfo']['daysInMonth'] ); }
-          But where is $mobilecols defined otherwise? It wasn't in the controller I extracted.
-          Wait, looking at monthedit.php again...
-          It calls $mobilecols just in the loop. It seems it expects it to be there.
-          Ah, helper/app.helper.php or config might define it.
-          For now, let's replicate the logic: if not mobile, full width. If mobile... well, we might miss the mobile break points.
-          Let's look at `config.vars.php` or similar if I could, but I can't easily.
-          However, standard logic for this app seems to be splitting tables.
-          Let's assume for now we just use full width if mobile is off, and if on, we default to something reasonable or check if I missed it in controller.
-          Actually, in legacy controller refactor I saw:
-          $mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
-          $viewData['supportMobile'] = $allConfig['supportMobile'];
-          
-          Wait, looking at my controller code... I missed copying the $mobilecols logic into viewData!
-          I put:
-          $viewData['supportMobile'] = $this->allConfig['supportMobile'];
-          But I didn't pass $mobilecols.
-          The view loops through `mobilecols`.
-          
-          I should update the controller to pass `mobilecols`.
-          AND, I should defining `mobilecols` properly.
-          In legacy `controller/monthedit.php`:
-          $mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
-          It seems it ONLY sets 'full' there?
-          Wait, line 265 in legacy controller view:
-          $mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
-          It seems it's always full width effectively in the legacy controller snippet I read?
-          
-          Let's check `views/monthedit.php` again.
-          Lines 78-80:
-          if (!$viewData['supportMobile']) {
-            $mobilecols = array( 'full' => $viewData['dateInfo']['daysInMonth'] );
-          }
-          Then line 81: foreach ($mobilecols as $key => $cols)
-          
-          So if supportMobile is true, it relies on $mobilecols being defined elsewhere?
-          May be included from a helper or global.
-          
-          To be safe, I'll update the controller to define `mobilecols` with sensible defaults (like full width) or similar to legacy.
-          For now in Twig, I will assume `mobilecols` is passed in `viewData`.
-          I will fix the controller in a subsequent step to pass this variable.
-        #}
+                  Assuming supportMobile is true, but we don't know the exact array structure for mobilecols from legacy view. 
+                  Wait, legacy view assumed $mobilecols was defined globally or derived?
+                  Legacy view said:
+                  if (!$viewData['supportMobile']) { $mobilecols = array( 'full' => $viewData['dateInfo']['daysInMonth'] ); }
+                  But where is $mobilecols defined otherwise? It wasn't in the controller I extracted.
+                  Wait, looking at monthedit.php again...
+                  It calls $mobilecols just in the loop. It seems it expects it to be there.
+                  Ah, helper/app.helper.php or config might define it.
+                  For now, let's replicate the logic: if not mobile, full width. If mobile... well, we might miss the mobile break points.
+                  Let's look at `config.vars.php` or similar if I could, but I can't easily.
+                  However, standard logic for this app seems to be splitting tables.
+                  Let's assume for now we just use full width if mobile is off, and if on, we default to something reasonable or check if I missed it in controller.
+                  Actually, in legacy controller refactor I saw:
+                  $mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
+                  $viewData['supportMobile'] = $allConfig['supportMobile'];
+                  
+                  Wait, looking at my controller code... I missed copying the $mobilecols logic into viewData!
+                  I put:
+                  $viewData['supportMobile'] = $this->allConfig['supportMobile'];
+                  But I didn't pass $mobilecols.
+                  The view loops through `mobilecols`.
+                  
+                  I should update the controller to pass `mobilecols`.
+                  AND, I should defining `mobilecols` properly.
+                  In legacy `controller/monthedit.php`:
+                  $mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
+                  It seems it ONLY sets 'full' there?
+                  Wait, line 265 in legacy controller view:
+                  $mobilecols['full'] = $viewData['dateInfo']['daysInMonth'];
+                  It seems it's always full width effectively in the legacy controller snippet I read?
+                  
+                  Let's check `views/monthedit.php` again.
+                  Lines 78-80:
+                  if (!$viewData['supportMobile']) {
+                    $mobilecols = array( 'full' => $viewData['dateInfo']['daysInMonth'] );
+                  }
+                  Then line 81: foreach ($mobilecols as $key => $cols)
+                  
+                  So if supportMobile is true, it relies on $mobilecols being defined elsewhere?
+                  May be included from a helper or global.
+                  
+                  To be safe, I'll update the controller to define `mobilecols` with sensible defaults (like full width) or similar to legacy.
+                  For now in Twig, I will assume `mobilecols` is passed in `viewData`.
+                  I will fix the controller in a subsequent step to pass this variable.
+                #}
         {% set mobilecols = mobilecols|default({ 'full': dateInfo.daysInMonth }) %}
       {% endif %}
 

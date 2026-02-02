@@ -407,7 +407,7 @@ class CalendarViewController extends BaseController
     if ($groupfilter == 'allbygroup') {
       $viewData['defgroupfilter'] = 'allbygroup';
     }
-    $viewData['dayStyles']  = [];
+    $viewData['dayStyles'] = [];
 
     $viewData['users'] = [];
     foreach ($users as $usr) {
@@ -662,22 +662,24 @@ class CalendarViewController extends BaseController
       ];
 
       if ($monAbsConfig = $viewData['monitorAbsence']) {
-        $monAbsIds = explode(',', (string)$monAbsConfig);
+        $monAbsIds             = explode(',', (string) $monAbsConfig);
         $userRow['monitorAbs'] = [];
         foreach ($monAbsIds as $monAbsId) {
-          if (empty($monAbsId)) continue;
-          $summary = $this->AbsenceService->getAbsenceSummary($username, (string)$monAbsId, (string)$viewData['year']);
+          if (empty($monAbsId))
+            continue;
+          $summary = $this->AbsenceService->getAbsenceSummary($username, (string) $monAbsId, (string) $viewData['year']);
           if ($this->C->read('symbolAsIcon')) {
-            $monAbsIcon = $this->A->getSymbol((string)$monAbsId);
-          } else {
-            $monAbsIcon = '<i class="' . $this->A->getIcon((string)$monAbsId) . '"></i>';
+            $monAbsIcon = $this->A->getSymbol((string) $monAbsId);
+          }
+          else {
+            $monAbsIcon = '<i class="' . $this->A->getIcon((string) $monAbsId) . '"></i>';
           }
           $userRow['monitorAbs'][] = [
-            'name' => $this->A->getName((string)$monAbsId),
-            'remainder' => $summary['remainder'],
+            'name'           => $this->A->getName((string) $monAbsId),
+            'remainder'      => $summary['remainder'],
             'totalallowance' => $summary['totalallowance'],
-            'icon' => $monAbsIcon,
-            'color' => $this->A->getColor((string)$monAbsId)
+            'icon'           => $monAbsIcon,
+            'color'          => $this->A->getColor((string) $monAbsId)
           ];
         }
       }
@@ -832,11 +834,11 @@ class CalendarViewController extends BaseController
             $daysInMonth = cal_days_in_month(CAL_GREGORIAN, (int) $month, (int) $year);
             $countTo     = $year . $month . $daysInMonth;
             $takenMonth  = $this->AbsenceService->countAbsence($username, (string) $absId, $countFrom, $countTo, true, false);
-            
+
             $countFromYear = $year . '0101';
             $countToYear   = $year . '1231';
             $takenYear     = $this->AbsenceService->countAbsence($username, (string) $absId, $countFromYear, $countToYear, true, false);
-            
+
             $taken = ' (' . $takenMonth . '/' . $takenYear . ')';
           }
           $dayData['tooltip'] = $this->A->getName((string) $absId) . $taken;

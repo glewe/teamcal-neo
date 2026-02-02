@@ -49,7 +49,7 @@ function sendAccountCreatedMail(string $email, string $username, string $passwor
     $localizedLANG = $LANG;
     $langFile      = WEBSITE_ROOT . '/resources/languages/' . $language . '/core.php';
     if (file_exists($langFile)) {
-      $loadedLang = (function() use ($langFile) {
+      $loadedLang    = (function () use ($langFile) {
         $LANG = [];
         include $langFile;
         return $LANG;
@@ -57,8 +57,8 @@ function sendAccountCreatedMail(string $email, string $username, string $passwor
       $localizedLANG = array_merge($localizedLANG, $loadedLang);
     }
     $subjectKey = 'email_subject_user_account_created';
-    $subject = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
-    $subject = str_replace('%app_name%', $appTitle, $subject);
+    $subject    = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
+    $subject    = str_replace('%app_name%', $appTitle, $subject);
 
     //
     // Load all templates at once to reduce file operations
@@ -77,8 +77,10 @@ function sendAccountCreatedMail(string $email, string $username, string $passwor
     foreach ($templates as $key => $path) {
       if (!file_exists($path)) {
         $fallbackPath = str_replace('/' . $language . '/', '/english/', $path);
-        if (file_exists($fallbackPath)) $path = $fallbackPath;
-        else throw new Exception("Missing template file: $path");
+        if (file_exists($fallbackPath))
+          $path = $fallbackPath;
+        else
+          throw new Exception("Missing template file: $path");
       }
       $templates[$key] = file_get_contents($path);
     }
@@ -150,7 +152,7 @@ function sendAccountNeedsApprovalMail(string $email, string $username, string $l
     $localizedLANG = $LANG;
     $langFile      = WEBSITE_ROOT . '/resources/languages/' . $language . '/core.php';
     if (file_exists($langFile)) {
-      $loadedLang = (function() use ($langFile) {
+      $loadedLang    = (function () use ($langFile) {
         $LANG = [];
         include $langFile;
         return $LANG;
@@ -158,8 +160,8 @@ function sendAccountNeedsApprovalMail(string $email, string $username, string $l
       $localizedLANG = array_merge($localizedLANG, $loadedLang);
     }
     $subjectKey = 'email_subject_user_account_needs_approval';
-    $subject = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
-    $subject = str_replace('%app_name%', $appTitle, $subject);
+    $subject    = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
+    $subject    = str_replace('%app_name%', $appTitle, $subject);
 
     //
     // Load all templates at once to reduce file operations
@@ -178,8 +180,10 @@ function sendAccountNeedsApprovalMail(string $email, string $username, string $l
     foreach ($templates as $key => $path) {
       if (!file_exists($path)) {
         $fallbackPath = str_replace('/' . $language . '/', '/english/', $path);
-        if (file_exists($fallbackPath)) $path = $fallbackPath;
-        else throw new Exception("Missing template file: $path");
+        if (file_exists($fallbackPath))
+          $path = $fallbackPath;
+        else
+          throw new Exception("Missing template file: $path");
       }
       $templates[$key] = file_get_contents($path);
     }
@@ -253,7 +257,7 @@ function sendAccountRegisteredMail(string $email, string $username, string $last
     $localizedLANG = $LANG;
     $langFile      = WEBSITE_ROOT . '/resources/languages/' . $language . '/core.php';
     if (file_exists($langFile)) {
-      $loadedLang = (function() use ($langFile) {
+      $loadedLang    = (function () use ($langFile) {
         $LANG = [];
         include $langFile;
         return $LANG;
@@ -261,8 +265,8 @@ function sendAccountRegisteredMail(string $email, string $username, string $last
       $localizedLANG = array_merge($localizedLANG, $loadedLang);
     }
     $subjectKey = 'email_subject_user_account_registered';
-    $subject = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
-    $subject = str_replace('%app_name%', $appTitle, $subject);
+    $subject    = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
+    $subject    = str_replace('%app_name%', $appTitle, $subject);
 
     //
     // Load all templates at once to reduce file operations
@@ -281,8 +285,10 @@ function sendAccountRegisteredMail(string $email, string $username, string $last
     foreach ($templates as $key => $path) {
       if (!file_exists($path)) {
         $fallbackPath = str_replace('/' . $language . '/', '/english/', $path);
-        if (file_exists($fallbackPath)) $path = $fallbackPath;
-        else throw new Exception("Missing template file: $path");
+        if (file_exists($fallbackPath))
+          $path = $fallbackPath;
+        else
+          throw new Exception("Missing template file: $path");
       }
       $templates[$key] = file_get_contents($path);
     }
@@ -357,7 +363,7 @@ function sendAccountVerificationMismatchMail(string $email, string $username, st
     $localizedLANG = $LANG;
     $langFile      = WEBSITE_ROOT . '/resources/languages/' . $language . '/core.php';
     if (file_exists($langFile)) {
-      $loadedLang = (function() use ($langFile) {
+      $loadedLang    = (function () use ($langFile) {
         $LANG = [];
         include $langFile;
         return $LANG;
@@ -365,8 +371,8 @@ function sendAccountVerificationMismatchMail(string $email, string $username, st
       $localizedLANG = array_merge($localizedLANG, $loadedLang);
     }
     $subjectKey = 'email_subject_user_account_mismatch';
-    $subject = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
-    $subject = str_replace('%app_name%', $appTitle, $subject);
+    $subject    = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
+    $subject    = str_replace('%app_name%', $appTitle, $subject);
 
     //
     // Load all templates at once to reduce file operations
@@ -385,8 +391,10 @@ function sendAccountVerificationMismatchMail(string $email, string $username, st
     foreach ($templates as $key => $path) {
       if (!file_exists($path)) {
         $fallbackPath = str_replace('/' . $language . '/', '/english/', $path);
-        if (file_exists($fallbackPath)) $path = $fallbackPath;
-        else throw new Exception("Missing template file: $path");
+        if (file_exists($fallbackPath))
+          $path = $fallbackPath;
+        else
+          throw new Exception("Missing template file: $path");
       }
       $templates[$key] = file_get_contents($path);
     }
@@ -468,7 +476,7 @@ function sendGroupEventNotifications(string $event, string $groupname, string $g
       $localizedLANG = $LANG;
       $langFile      = WEBSITE_ROOT . '/resources/languages/' . $language . '/core.php';
       if (file_exists($langFile)) {
-        $loadedLang = (function() use ($langFile) {
+        $loadedLang    = (function () use ($langFile) {
           $LANG = [];
           include $langFile;
           return $LANG;
@@ -476,8 +484,8 @@ function sendGroupEventNotifications(string $event, string $groupname, string $g
         $localizedLANG = array_merge($localizedLANG, $loadedLang);
       }
       $subjectKey = 'email_subject_group_' . $event;
-      $subject = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
-      $subject = str_replace('%app_name%', $appTitle, $subject);
+      $subject    = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
+      $subject    = str_replace('%app_name%', $appTitle, $subject);
 
       //
       // Load templates for this language
@@ -493,8 +501,10 @@ function sendGroupEventNotifications(string $event, string $groupname, string $g
       foreach ($templates as $key => $path) {
         if (!file_exists($path)) {
           $fallbackPath = str_replace('/' . $language . '/', '/english/', $path);
-          if (file_exists($fallbackPath)) $path = $fallbackPath;
-          else throw new Exception("Missing template file: $path");
+          if (file_exists($fallbackPath))
+            $path = $fallbackPath;
+          else
+            throw new Exception("Missing template file: $path");
         }
         $templates[$key] = file_get_contents($path);
       }
@@ -515,7 +525,7 @@ function sendGroupEventNotifications(string $event, string $groupname, string $g
         '%groupname%' => $groupname,
         '%groupdesc%' => $groupdesc
       ];
-      $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+      $message      = str_replace(array_keys($replacements), array_values($replacements), $message);
 
       //
       // Send to all users for this language
@@ -577,7 +587,7 @@ function sendPasswordResetMail(string $email, string $username, string $lastname
     $localizedLANG = $LANG;
     $langFile      = WEBSITE_ROOT . '/resources/languages/' . $language . '/core.php';
     if (file_exists($langFile)) {
-      $loadedLang = (function() use ($langFile) {
+      $loadedLang    = (function () use ($langFile) {
         $LANG = [];
         include $langFile;
         return $LANG;
@@ -585,8 +595,8 @@ function sendPasswordResetMail(string $email, string $username, string $lastname
       $localizedLANG = array_merge($localizedLANG, $loadedLang);
     }
     $subjectKey = 'email_subject_password_reset';
-    $subject = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
-    $subject = str_replace('%app_name%', $appTitle, $subject);
+    $subject    = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
+    $subject    = str_replace('%app_name%', $appTitle, $subject);
 
     //
     // Load all templates at once to reduce file operations
@@ -605,8 +615,10 @@ function sendPasswordResetMail(string $email, string $username, string $lastname
     foreach ($templates as $key => $path) {
       if (!file_exists($path)) {
         $fallbackPath = str_replace('/' . $language . '/', '/english/', $path);
-        if (file_exists($fallbackPath)) $path = $fallbackPath;
-        else throw new Exception("Missing template file: $path");
+        if (file_exists($fallbackPath))
+          $path = $fallbackPath;
+        else
+          throw new Exception("Missing template file: $path");
       }
       $templates[$key] = file_get_contents($path);
     }
@@ -689,7 +701,7 @@ function sendRoleEventNotifications(string $event, string $rolename, string $rol
       $localizedLANG = $LANG;
       $langFile      = WEBSITE_ROOT . '/resources/languages/' . $language . '/core.php';
       if (file_exists($langFile)) {
-        $loadedLang = (function() use ($langFile) {
+        $loadedLang    = (function () use ($langFile) {
           $LANG = [];
           include $langFile;
           return $LANG;
@@ -697,8 +709,8 @@ function sendRoleEventNotifications(string $event, string $rolename, string $rol
         $localizedLANG = array_merge($localizedLANG, $loadedLang);
       }
       $subjectKey = 'email_subject_role_' . $event;
-      $subject = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
-      $subject = str_replace('%app_name%', $appTitle, $subject);
+      $subject    = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
+      $subject    = str_replace('%app_name%', $appTitle, $subject);
 
       //
       // Load templates for this language
@@ -714,8 +726,10 @@ function sendRoleEventNotifications(string $event, string $rolename, string $rol
       foreach ($templates as $key => $path) {
         if (!file_exists($path)) {
           $fallbackPath = str_replace('/' . $language . '/', '/english/', $path);
-          if (file_exists($fallbackPath)) $path = $fallbackPath;
-          else throw new Exception("Missing template file: $path");
+          if (file_exists($fallbackPath))
+            $path = $fallbackPath;
+          else
+            throw new Exception("Missing template file: $path");
         }
         $templates[$key] = file_get_contents($path);
       }
@@ -736,7 +750,7 @@ function sendRoleEventNotifications(string $event, string $rolename, string $rol
         '%rolename%' => $rolename,
         '%roledesc%' => $roledesc
       ];
-      $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+      $message      = str_replace(array_keys($replacements), array_values($replacements), $message);
 
       //
       // Send to all users for this language
@@ -807,7 +821,7 @@ function sendUserEventNotifications(string $event, string $username, string $fir
       $localizedLANG = $LANG;
       $langFile      = WEBSITE_ROOT . '/resources/languages/' . $language . '/core.php';
       if (file_exists($langFile)) {
-        $loadedLang = (function() use ($langFile) {
+        $loadedLang    = (function () use ($langFile) {
           $LANG = [];
           include $langFile;
           return $LANG;
@@ -815,8 +829,8 @@ function sendUserEventNotifications(string $event, string $username, string $fir
         $localizedLANG = array_merge($localizedLANG, $loadedLang);
       }
       $subjectKey = 'email_subject_user_account_' . $event;
-      $subject = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
-      $subject = str_replace('%app_name%', $appTitle, $subject);
+      $subject    = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
+      $subject    = str_replace('%app_name%', $appTitle, $subject);
 
       //
       // Load templates for this language
@@ -832,8 +846,10 @@ function sendUserEventNotifications(string $event, string $username, string $fir
       foreach ($templates as $key => $path) {
         if (!file_exists($path)) {
           $fallbackPath = str_replace('/' . $language . '/', '/english/', $path);
-          if (file_exists($fallbackPath)) $path = $fallbackPath;
-          else throw new Exception("Missing template file: $path");
+          if (file_exists($fallbackPath))
+            $path = $fallbackPath;
+          else
+            throw new Exception("Missing template file: $path");
         }
         $templates[$key] = file_get_contents($path);
       }
@@ -855,7 +871,7 @@ function sendUserEventNotifications(string $event, string $username, string $fir
         '%firstname%' => $firstname,
         '%lastname%'  => $lastname
       ];
-      $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+      $message      = str_replace(array_keys($replacements), array_values($replacements), $message);
 
       //
       // Send to all users for this language
@@ -924,7 +940,7 @@ function sendAbsenceEventNotifications(string $event, string $absname): bool {
       $localizedLANG = $LANG;
       $langFile      = WEBSITE_ROOT . '/resources/languages/' . $language . '/core.php';
       if (file_exists($langFile)) {
-        $loadedLang = (function() use ($langFile) {
+        $loadedLang    = (function () use ($langFile) {
           $LANG = [];
           include $langFile;
           return $LANG;
@@ -932,8 +948,8 @@ function sendAbsenceEventNotifications(string $event, string $absname): bool {
         $localizedLANG = array_merge($localizedLANG, $loadedLang);
       }
       $subjectKey = 'email_subject_absence_' . $event;
-      $subject = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
-      $subject = str_replace('%app_name%', $appTitle, $subject);
+      $subject    = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
+      $subject    = str_replace('%app_name%', $appTitle, $subject);
 
       //
       // Load templates for this language
@@ -949,8 +965,10 @@ function sendAbsenceEventNotifications(string $event, string $absname): bool {
       foreach ($templates as $key => $path) {
         if (!file_exists($path)) {
           $fallbackPath = str_replace('/' . $language . '/', '/english/', $path);
-          if (file_exists($fallbackPath)) $path = $fallbackPath;
-          else throw new Exception("Missing template file: $path");
+          if (file_exists($fallbackPath))
+            $path = $fallbackPath;
+          else
+            throw new Exception("Missing template file: $path");
         }
         $templates[$key] = file_get_contents($path);
       }
@@ -970,7 +988,7 @@ function sendAbsenceEventNotifications(string $event, string $absname): bool {
         '%site_url%' => WEBSITE_URL,
         '%absname%'  => $absname
       ];
-      $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+      $message      = str_replace(array_keys($replacements), array_values($replacements), $message);
 
       //
       // Send to all users for this language
@@ -1040,7 +1058,7 @@ function sendHolidayEventNotifications(string $event, string $holname, string $h
       $localizedLANG = $LANG;
       $langFile      = WEBSITE_ROOT . '/resources/languages/' . $language . '/core.php';
       if (file_exists($langFile)) {
-        $loadedLang = (function() use ($langFile) {
+        $loadedLang    = (function () use ($langFile) {
           $LANG = [];
           include $langFile;
           return $LANG;
@@ -1048,8 +1066,8 @@ function sendHolidayEventNotifications(string $event, string $holname, string $h
         $localizedLANG = array_merge($localizedLANG, $loadedLang);
       }
       $subjectKey = 'email_subject_holiday_' . $event;
-      $subject = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
-      $subject = str_replace('%app_name%', $appTitle, $subject);
+      $subject    = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
+      $subject    = str_replace('%app_name%', $appTitle, $subject);
 
       //
       // Load templates for this language
@@ -1065,8 +1083,10 @@ function sendHolidayEventNotifications(string $event, string $holname, string $h
       foreach ($templates as $key => $path) {
         if (!file_exists($path)) {
           $fallbackPath = str_replace('/' . $language . '/', '/english/', $path);
-          if (file_exists($fallbackPath)) $path = $fallbackPath;
-          else throw new Exception("Missing template file: $path");
+          if (file_exists($fallbackPath))
+            $path = $fallbackPath;
+          else
+            throw new Exception("Missing template file: $path");
         }
         $templates[$key] = file_get_contents($path);
       }
@@ -1087,7 +1107,7 @@ function sendHolidayEventNotifications(string $event, string $holname, string $h
         '%holname%'  => $holname,
         '%holdesc%'  => $holdesc
       ];
-      $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+      $message      = str_replace(array_keys($replacements), array_values($replacements), $message);
 
       //
       // Send to all users for this language
@@ -1158,7 +1178,7 @@ function sendMonthEventNotifications(string $event, string $year, string $month,
       $localizedLANG = $LANG;
       $langFile      = WEBSITE_ROOT . '/resources/languages/' . $language . '/core.php';
       if (file_exists($langFile)) {
-        $loadedLang = (function() use ($langFile) {
+        $loadedLang    = (function () use ($langFile) {
           $LANG = [];
           include $langFile;
           return $LANG;
@@ -1166,8 +1186,8 @@ function sendMonthEventNotifications(string $event, string $year, string $month,
         $localizedLANG = array_merge($localizedLANG, $loadedLang);
       }
       $subjectKey = 'email_subject_month_' . $event;
-      $subject = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
-      $subject = str_replace('%app_name%', $appTitle, $subject);
+      $subject    = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
+      $subject    = str_replace('%app_name%', $appTitle, $subject);
 
       //
       // Load templates for this language
@@ -1183,8 +1203,10 @@ function sendMonthEventNotifications(string $event, string $year, string $month,
       foreach ($templates as $key => $path) {
         if (!file_exists($path)) {
           $fallbackPath = str_replace('/' . $language . '/', '/english/', $path);
-          if (file_exists($fallbackPath)) $path = $fallbackPath;
-          else throw new Exception("Missing template file: $path");
+          if (file_exists($fallbackPath))
+            $path = $fallbackPath;
+          else
+            throw new Exception("Missing template file: $path");
         }
         $templates[$key] = file_get_contents($path);
       }
@@ -1206,7 +1228,7 @@ function sendMonthEventNotifications(string $event, string $year, string $month,
         '%month%'    => $month,
         '%region%'   => $region
       ];
-      $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+      $message      = str_replace(array_keys($replacements), array_values($replacements), $message);
 
       //
       // Send to all users for this language
@@ -1257,23 +1279,23 @@ function sendUserCalEventNotifications(string $event, string $username, string $
     //
     // Get all groups for the user whose calendar was changed.
     //
-    $ugroups = $UG->getAllforUser($username);
+    $ugroups  = $UG->getAllforUser($username);
     $allUsers = $U->getAll('lastname', 'firstname', 'ASC', false, true);
-    
+
     //
     // Determine who needs to be notified
     //
     $recipientsByLanguage = [];
     foreach ($allUsers as $profile) {
       $sendmail = false;
-      
+
       // Check whether this user wants to get userCalEvents notifications for himself only
       if ($profile['username'] === $username && $UO->read($username, 'notifyUserCalEventsOwn')) {
         $sendmail = true;
       }
       // Check whether this user wants to get userCalEvents notifications for groups
       elseif (
-        $UO->read($profile['username'], 'notifyUserCalEvents') && 
+        $UO->read($profile['username'], 'notifyUserCalEvents') &&
         !$UO->read($profile['username'], 'notifyUserCalEventsOwn') &&
         ($notifyUserCalGroups = $UO->read($profile['username'], 'notifyUserCalGroups'))
       ) {
@@ -1288,7 +1310,8 @@ function sendUserCalEventNotifications(string $event, string $username, string $
 
       if ($sendmail) {
         $lang = $UO->read($profile['username'], 'language');
-        if (!$lang || $lang === 'default') $lang = $C->read('defaultLanguage');
+        if (!$lang || $lang === 'default')
+          $lang = $C->read('defaultLanguage');
         $recipientsByLanguage[$lang][] = $profile;
       }
     }
@@ -1301,7 +1324,7 @@ function sendUserCalEventNotifications(string $event, string $username, string $
       $localizedLANG = $LANG;
       $langFile      = WEBSITE_ROOT . '/resources/languages/' . $language . '/core.php';
       if (file_exists($langFile)) {
-        $loadedLang = (function() use ($langFile) {
+        $loadedLang    = (function () use ($langFile) {
           $LANG = [];
           include $langFile;
           return $LANG;
@@ -1309,8 +1332,8 @@ function sendUserCalEventNotifications(string $event, string $username, string $
         $localizedLANG = array_merge($localizedLANG, $loadedLang);
       }
       $subjectKey = 'email_subject_usercal_' . $event;
-      $subject = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
-      $subject = str_replace('%app_name%', $appTitle, $subject);
+      $subject    = isset($localizedLANG[$subjectKey]) ? $localizedLANG[$subjectKey] : $subjectKey;
+      $subject    = str_replace('%app_name%', $appTitle, $subject);
 
       //
       // Load templates for this language
@@ -1326,8 +1349,10 @@ function sendUserCalEventNotifications(string $event, string $username, string $
       foreach ($templates as $key => $path) {
         if (!file_exists($path)) {
           $fallbackPath = str_replace('/' . $language . '/', '/english/', $path);
-          if (file_exists($fallbackPath)) $path = $fallbackPath;
-          else throw new Exception("Missing template file: $path");
+          if (file_exists($fallbackPath))
+            $path = $fallbackPath;
+          else
+            throw new Exception("Missing template file: $path");
         }
         $templates[$key] = file_get_contents($path);
       }
@@ -1367,7 +1392,7 @@ function sendUserCalEventNotifications(string $event, string $username, string $
         '%month%'    => $year . "-" . $month,
         '%calendar%' => $calendar
       ];
-      $message = str_replace(array_keys($replacements), array_values($replacements), $message);
+      $message      = str_replace(array_keys($replacements), array_values($replacements), $message);
 
       //
       // Send to all users for this language
@@ -1487,7 +1512,7 @@ function sendEmail(string $to, string $subject, string $body, string $from = '')
     $mail->Subject = $subject;
     $mail->Body    = $body;
     $mail->CharSet = 'UTF-8';
-    
+
     // Explicitly safe-guard manual line-breaks if needed, though PHPMailer handles it.
     // $mail->Encoding = 'quoted-printable'; 
 

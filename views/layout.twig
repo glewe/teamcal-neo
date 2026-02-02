@@ -159,7 +159,7 @@
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function () {
-          var u = "//   {{ C.read('matomoUrl') }}/";
+          var u = "//    {{ C.read('matomoUrl') }}/";
           _paq.push([
             'setTrackerUrl',
             u + 'matomo.php'
@@ -192,7 +192,7 @@
     {# Note: navbar.twig currently acts as menu.php #}
 
     {% block content %}{% endblock %}
-    
+
     {# Footer #}
     <footer class="footer fs-small">
       <div class="container-fluid">
@@ -243,97 +243,81 @@
       </div>
 
     </footer>
-    </main>
-
-    <!-- Bootstrap Javascript -->
-    <script src="public/themes/bootstrap/{{ constant('BOOTSTRAP_VER') }}/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Datatables -->
-    <script src="public/addons/datatables/{{ constant('DATATABLES_VER') }}/datatables.min.js"></script>
-
-    <!-- TeamCal Neo Width Mode Switcher -->
-    <script src="public/js/width-modes.min.js"></script>
-
-    <script>
-      $(document).ready(function () {
-        {% if constant('MAGNIFICPOPUP') %}
-          $('.image-popup').magnificPopup({
-            type: 'image',
-            closeOnContentClick: true,
-            closeBtnInside: false,
-            fixedContentPos: true,
-            mainClass: 'mfp-no-margins mfp-with-zoom',
-            image: {
-              verticalFit: true
-            },
-            zoom: {
-              enabled: true,
-              duration: 300
-            }
-          });
-          $('.image-popup-vertical-fit').magnificPopup({
-            type: 'image',
-            closeOnContentClick: true,
-            mainClass: 'mfp-img-mobile',
-            image: {
-              verticalFit: true
-            }
-          });
-          $('.image-popup-fit-width').magnificPopup({
-            type: 'image',
-            closeOnContentClick: true,
-            image: {
-              verticalFit: false
-            }
-          });{% endif %}$('[data-bs-toggle="tooltip"]').each(function () {
-          try {
-            var options = {
-              html: true
-            };
-            if ($(this)[0].hasAttribute('data-type')) {
-              options['template'] = '<div class="tooltip ' + $(this).attr('data-type') + '" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>';
-            }
-            $(this).tooltip(options);
-          } catch (e) {
-            console.warn('Tooltip initialization error:', e);
-          }
-        });
-
-        //
-        // Focus search input when Search User modal is shown in calendarview
-        //
-        $('#modalSearchUser').on('shown.bs.modal', function () {
-          $('#searchUser').focus();
-        });
-
-        //
-        // Submit search when Enter key is pressed in search input
-        //
-        $('#searchUser').on('keypress', function (e) {
-          if (e.which == 13) {
-            $(this).closest('.modal').find('button[name="btn_search"]').click();
-            return false;
-          }
-        });
-
-        var btn = $('#top-link-block');
-        $(window).scroll(function () {
-          if ($(window).scrollTop() > 400) {
-            btn.addClass('show');
-          } else {
-            btn.removeClass('show');
-          }
-        });
-        btn.on('click', function (e) {
-          e.preventDefault();
-          $('html, body').animate({
-            scrollTop: 0
-          }, '400');
-        });
-      });
-    </script>
-
-    {% block javascripts %}{% endblock %}
-
   </body>
-</html>
+</html></main><!-- Bootstrap Javascript --><script src="public/themes/bootstrap/{{ constant('BOOTSTRAP_VER') }}/js/bootstrap.bundle.min.js"></script><!-- Datatables --><script src="public/addons/datatables/{{ constant('DATATABLES_VER') }}/datatables.min.js"></script><!-- TeamCal Neo Width Mode Switcher --><script src="public/js/width-modes.min.js"></script><script>
+$(document).ready(function () {
+  {% if constant('MAGNIFICPOPUP') %}
+    $('.image-popup').magnificPopup({
+      type: 'image',
+      closeOnContentClick: true,
+      closeBtnInside: false,
+      fixedContentPos: true,
+      mainClass: 'mfp-no-margins mfp-with-zoom',
+      image: {
+        verticalFit: true
+      },
+      zoom: {
+        enabled: true,
+        duration: 300
+      }
+    });
+    $('.image-popup-vertical-fit').magnificPopup({
+      type: 'image',
+      closeOnContentClick: true,
+      mainClass: 'mfp-img-mobile',
+      image: {
+        verticalFit: true
+      }
+    });
+    $('.image-popup-fit-width').magnificPopup({
+      type: 'image',
+      closeOnContentClick: true,
+      image: {
+        verticalFit: false
+      }
+    });{% endif %}$('[data-bs-toggle="tooltip"]').each(function () {
+    try {
+      var options = {
+        html: true
+      };
+      if ($(this)[0].hasAttribute('data-type')) {
+        options['template'] = '<div class="tooltip ' + $(this).attr('data-type') + '" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>';
+      }
+      $(this).tooltip(options);
+    } catch (e) {
+      console.warn('Tooltip initialization error:', e);
+    }
+  });
+
+  //
+  // Focus search input when Search User modal is shown in calendarview
+  //
+  $('#modalSearchUser').on('shown.bs.modal', function () {
+    $('#searchUser').focus();
+  });
+
+  //
+  // Submit search when Enter key is pressed in search input
+  //
+  $('#searchUser').on('keypress', function (e) {
+    if (e.which == 13) {
+      $(this).closest('.modal').find('button[name="btn_search"]').click();
+      return false;
+    }
+  });
+
+  var btn = $('#top-link-block');
+  $(window).scroll(function () {
+    if ($(window).scrollTop() > 400) {
+      btn.addClass('show');
+    } else {
+      btn.removeClass('show');
+    }
+  });
+  btn.on('click', function (e) {
+    e.preventDefault();
+    $('html, body').animate({
+      scrollTop: 0
+    }, '400');
+  });
+});</script>{% block javascripts %}{% endblock %}</body></html>

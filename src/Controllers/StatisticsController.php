@@ -32,16 +32,16 @@ class StatisticsController extends BaseController
     }
 
     $viewData = [
-        'pageHelp'   => $this->allConfig['pageHelp'],
-        'showAlerts' => $this->allConfig['showAlerts'],
-        'csrf_token' => $_SESSION['csrf_token'] ?? '',
-        'controller' => 'statistics', // For view logic using controller config
+      'pageHelp'   => $this->allConfig['pageHelp'],
+      'showAlerts' => $this->allConfig['showAlerts'],
+      'csrf_token' => $_SESSION['csrf_token'] ?? '',
+      'controller' => 'statistics', // For view logic using controller config
     ];
 
     // Check for AJAX request to fetch tab content
     if (isset($_GET['ajax']) && isset($_GET['tab'])) {
-        $this->handleAjaxRequest($_GET['tab']);
-        return;
+      $this->handleAjaxRequest($_GET['tab']);
+      return;
     }
 
     $this->render('statistics', $viewData);
@@ -54,38 +54,37 @@ class StatisticsController extends BaseController
    * @param string $tab The tab identifier
    * @return void
    */
-  private function handleAjaxRequest(string $tab): void
-  {
-      switch ($tab) {
-          case 'absence':
-              $this->getAbsenceStats();
-              break;
-          case 'abstype':
-              $this->getAbsenceTypeStats();
-              break;
-          case 'presence':
-              $this->getPresenceStats();
-              break;
-          case 'presencetype':
-              $this->getPresenceTypeStats();
-              break;
-          case 'remainder':
-              $this->getRemainderStats();
-              break;
-          case 'trends':
-              $this->getAbsenceTrends();
-              break;
-          case 'dayofweek':
-              $this->getDayOfWeekStats();
-              break;
-          case 'duration':
-              $this->getDurationHistogram();
-              break;
-          default:
-              echo '<div class="alert alert-danger">Invalid tab requested.</div>';
-              break;
-      }
-      exit;
+  private function handleAjaxRequest(string $tab): void {
+    switch ($tab) {
+      case 'absence':
+        $this->getAbsenceStats();
+        break;
+      case 'abstype':
+        $this->getAbsenceTypeStats();
+        break;
+      case 'presence':
+        $this->getPresenceStats();
+        break;
+      case 'presencetype':
+        $this->getPresenceTypeStats();
+        break;
+      case 'remainder':
+        $this->getRemainderStats();
+        break;
+      case 'trends':
+        $this->getAbsenceTrends();
+        break;
+      case 'dayofweek':
+        $this->getDayOfWeekStats();
+        break;
+      case 'duration':
+        $this->getDurationHistogram();
+        break;
+      default:
+        echo '<div class="alert alert-danger">Invalid tab requested.</div>';
+        break;
+    }
+    exit;
   }
 
   //---------------------------------------------------------------------------
@@ -112,7 +111,7 @@ class StatisticsController extends BaseController
       $this->render('fragments/alert', ['alertData' => $alertData]);
       return;
     }
-    
+
     parent::renderAlert($type, $title, $subject, $text, $help);
   }
 
@@ -123,7 +122,7 @@ class StatisticsController extends BaseController
    * @return void
    */
   private function getAbsenceStats(): void {
-    
+
     // Check permission - redundant since main controller checks 'statistics'
     // but good practice if tabs had granular permissions.
     // However, since all use 'statistics', we skip duplicate check.
@@ -309,7 +308,7 @@ class StatisticsController extends BaseController
     $viewData['labels'] = implode(',', $labels);
     $viewData['data']   = implode(',', $data);
     $viewData['height'] = count($labels) * 50 + 100;
-    
+
     // Set controller for view logic in fragment
     $viewData['controller'] = 'statistics';
 
@@ -323,7 +322,7 @@ class StatisticsController extends BaseController
    * @return void
    */
   private function getAbsenceTypeStats(): void {
-    
+
     $viewData['pageHelp']        = $this->allConfig['pageHelp'];
     $viewData['showAlerts']      = $this->allConfig['showAlerts'];
     $viewData['currentYearOnly'] = $this->allConfig['currentYearOnly'];
@@ -355,17 +354,22 @@ class StatisticsController extends BaseController
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $_POST = sanitize($_POST);
       if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== ($_SESSION['csrf_token'] ?? '')) {
-         $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_csrf_invalid_subject'], $this->LANG['alert_csrf_invalid_text'], $this->LANG['alert_csrf_invalid_help']);
-         return;
+        $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_csrf_invalid_subject'], $this->LANG['alert_csrf_invalid_text'], $this->LANG['alert_csrf_invalid_help']);
+        return;
       }
 
       $inputError = false;
       if (isset($_POST['btn_apply'])) {
-        if (!formInputValid('txt_from', 'date')) $inputError = true;
-        if (!formInputValid('txt_to', 'date')) $inputError = true;
-        if (!formInputValid('txt_scaleSmart', 'numeric')) $inputError = true;
-        if (!formInputValid('txt_scaleMax', 'numeric')) $inputError = true;
-        if (!formInputValid('txt_colorHex', 'hexadecimal')) $inputError = true;
+        if (!formInputValid('txt_from', 'date'))
+          $inputError = true;
+        if (!formInputValid('txt_to', 'date'))
+          $inputError = true;
+        if (!formInputValid('txt_scaleSmart', 'numeric'))
+          $inputError = true;
+        if (!formInputValid('txt_scaleMax', 'numeric'))
+          $inputError = true;
+        if (!formInputValid('txt_colorHex', 'hexadecimal'))
+          $inputError = true;
       }
 
       if (!$inputError) {
@@ -402,7 +406,8 @@ class StatisticsController extends BaseController
         if (date("n") <= 6) {
           $viewData['from'] = date("Y") . '-01-01';
           $viewData['to']   = date("Y") . '-06-30';
-        } else {
+        }
+        else {
           $viewData['from'] = date("Y") . '-07-01';
           $viewData['to']   = date("Y") . '-12-31';
         }
@@ -411,13 +416,16 @@ class StatisticsController extends BaseController
         if (date("n") <= 3) {
           $viewData['from'] = date("Y") . '-01-01';
           $viewData['to']   = date("Y") . '-03-31';
-        } elseif (date("n") <= 6) {
+        }
+        elseif (date("n") <= 6) {
           $viewData['from'] = date("Y") . '-04-01';
           $viewData['to']   = date("Y") . '-06-30';
-        } elseif (date("n") <= 9) {
+        }
+        elseif (date("n") <= 9) {
           $viewData['from'] = date("Y") . '-07-01';
           $viewData['to']   = date("Y") . '-09-30';
-        } else {
+        }
+        else {
           $viewData['from'] = date("Y") . '-10-01';
           $viewData['to']   = date("Y") . '-12-31';
         }
@@ -485,7 +493,7 @@ class StatisticsController extends BaseController
    * @return void
    */
   private function getPresenceStats(): void {
-    
+
     $viewData['pageHelp']        = $this->allConfig['pageHelp'];
     $viewData['showAlerts']      = $this->allConfig['showAlerts'];
     $viewData['currentYearOnly'] = $this->allConfig['currentYearOnly'];
@@ -522,17 +530,22 @@ class StatisticsController extends BaseController
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $_POST = sanitize($_POST);
       if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== ($_SESSION['csrf_token'] ?? '')) {
-         $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_csrf_invalid_subject'], $this->LANG['alert_csrf_invalid_text'], $this->LANG['alert_csrf_invalid_help']);
-         return;
+        $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_csrf_invalid_subject'], $this->LANG['alert_csrf_invalid_text'], $this->LANG['alert_csrf_invalid_help']);
+        return;
       }
 
       $inputError = false;
       if (isset($_POST['btn_apply'])) {
-        if (!formInputValid('txt_from', 'date')) $inputError = true;
-        if (!formInputValid('txt_to', 'date')) $inputError = true;
-        if (!formInputValid('txt_scaleSmart', 'numeric')) $inputError = true;
-        if (!formInputValid('txt_scaleMax', 'numeric')) $inputError = true;
-        if (!formInputValid('txt_colorHex', 'hexadecimal')) $inputError = true;
+        if (!formInputValid('txt_from', 'date'))
+          $inputError = true;
+        if (!formInputValid('txt_to', 'date'))
+          $inputError = true;
+        if (!formInputValid('txt_scaleSmart', 'numeric'))
+          $inputError = true;
+        if (!formInputValid('txt_scaleMax', 'numeric'))
+          $inputError = true;
+        if (!formInputValid('txt_colorHex', 'hexadecimal'))
+          $inputError = true;
       }
 
       if (!$inputError) {
@@ -563,7 +576,8 @@ class StatisticsController extends BaseController
         if (date("n") <= 6) {
           $viewData['from'] = date("Y") . '-01-01';
           $viewData['to']   = date("Y") . '-06-30';
-        } else {
+        }
+        else {
           $viewData['from'] = date("Y") . '-07-01';
           $viewData['to']   = date("Y") . '-12-31';
         }
@@ -572,13 +586,16 @@ class StatisticsController extends BaseController
         if (date("n") <= 3) {
           $viewData['from'] = date("Y") . '-01-01';
           $viewData['to']   = date("Y") . '-03-31';
-        } elseif (date("n") <= 6) {
+        }
+        elseif (date("n") <= 6) {
           $viewData['from'] = date("Y") . '-04-01';
           $viewData['to']   = date("Y") . '-06-30';
-        } elseif (date("n") <= 9) {
+        }
+        elseif (date("n") <= 9) {
           $viewData['from'] = date("Y") . '-07-01';
           $viewData['to']   = date("Y") . '-09-30';
-        } else {
+        }
+        else {
           $viewData['from'] = date("Y") . '-10-01';
           $viewData['to']   = date("Y") . '-12-31';
         }
@@ -670,7 +687,7 @@ class StatisticsController extends BaseController
     $viewData['labels'] = implode(',', $labels);
     $viewData['data']   = implode(',', $data);
     $viewData['height'] = count($labels) * 50 + 100;
-    
+
     // Set controller for view logic in fragment
     $viewData['controller'] = 'statistics';
 
@@ -684,7 +701,7 @@ class StatisticsController extends BaseController
    * @return void
    */
   private function getPresenceTypeStats(): void {
-    
+
     $viewData['pageHelp']        = $this->allConfig['pageHelp'];
     $viewData['showAlerts']      = $this->allConfig['showAlerts'];
     $viewData['currentYearOnly'] = $this->allConfig['currentYearOnly'];
@@ -717,17 +734,22 @@ class StatisticsController extends BaseController
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $_POST = sanitize($_POST);
       if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== ($_SESSION['csrf_token'] ?? '')) {
-         $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_csrf_invalid_subject'], $this->LANG['alert_csrf_invalid_text'], $this->LANG['alert_csrf_invalid_help']);
-         return;
+        $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_csrf_invalid_subject'], $this->LANG['alert_csrf_invalid_text'], $this->LANG['alert_csrf_invalid_help']);
+        return;
       }
 
       $inputError = false;
       if (isset($_POST['btn_apply'])) {
-        if (!formInputValid('txt_from', 'date')) $inputError = true;
-        if (!formInputValid('txt_to', 'date')) $inputError = true;
-        if (!formInputValid('txt_scaleSmart', 'numeric')) $inputError = true;
-        if (!formInputValid('txt_scaleMax', 'numeric')) $inputError = true;
-        if (!formInputValid('txt_colorHex', 'hexadecimal')) $inputError = true;
+        if (!formInputValid('txt_from', 'date'))
+          $inputError = true;
+        if (!formInputValid('txt_to', 'date'))
+          $inputError = true;
+        if (!formInputValid('txt_scaleSmart', 'numeric'))
+          $inputError = true;
+        if (!formInputValid('txt_scaleMax', 'numeric'))
+          $inputError = true;
+        if (!formInputValid('txt_colorHex', 'hexadecimal'))
+          $inputError = true;
       }
 
       if (!$inputError) {
@@ -764,7 +786,8 @@ class StatisticsController extends BaseController
         if (date("n") <= 6) {
           $viewData['from'] = date("Y") . '-01-01';
           $viewData['to']   = date("Y") . '-06-30';
-        } else {
+        }
+        else {
           $viewData['from'] = date("Y") . '-07-01';
           $viewData['to']   = date("Y") . '-12-31';
         }
@@ -773,13 +796,16 @@ class StatisticsController extends BaseController
         if (date("n") <= 3) {
           $viewData['from'] = date("Y") . '-01-01';
           $viewData['to']   = date("Y") . '-03-31';
-        } elseif (date("n") <= 6) {
+        }
+        elseif (date("n") <= 6) {
           $viewData['from'] = date("Y") . '-04-01';
           $viewData['to']   = date("Y") . '-06-30';
-        } elseif (date("n") <= 9) {
+        }
+        elseif (date("n") <= 9) {
           $viewData['from'] = date("Y") . '-07-01';
           $viewData['to']   = date("Y") . '-09-30';
-        } else {
+        }
+        else {
           $viewData['from'] = date("Y") . '-10-01';
           $viewData['to']   = date("Y") . '-12-31';
         }
@@ -833,7 +859,7 @@ class StatisticsController extends BaseController
     $viewData['sliceColors'] = implode(',', $sliceColors);
     $viewData['data']        = implode(',', $data);
     $viewData['height']      = $viewData['showAsPieChart'] ? 400 : (count($labels) * 50 + 100);
-    
+
     // Set controller for view logic in fragment
     $viewData['controller'] = 'statistics';
 
@@ -847,7 +873,7 @@ class StatisticsController extends BaseController
    * @return void
    */
   private function getRemainderStats(): void {
-    
+
     $viewData['pageHelp']        = $this->allConfig['pageHelp'];
     $viewData['showAlerts']      = $this->allConfig['showAlerts'];
     $viewData['currentYearOnly'] = $this->allConfig['currentYearOnly'];
@@ -866,25 +892,29 @@ class StatisticsController extends BaseController
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $_POST = sanitize($_POST);
       if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== ($_SESSION['csrf_token'] ?? '')) {
-         $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_csrf_invalid_subject'], $this->LANG['alert_csrf_invalid_text'], $this->LANG['alert_csrf_invalid_help']);
-         return;
+        $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_csrf_invalid_subject'], $this->LANG['alert_csrf_invalid_text'], $this->LANG['alert_csrf_invalid_help']);
+        return;
       }
 
       $inputError = false;
       if (isset($_POST['btn_apply'])) {
-        if (!formInputValid('txt_periodYear', 'numeric')) $inputError = true;
-        if (!formInputValid('txt_scaleSmart', 'numeric')) $inputError = true;
-        if (!formInputValid('txt_scaleMax', 'numeric')) $inputError = true;
-        if (!formInputValid('txt_colorHex', 'hexadecimal')) $inputError = true;
+        if (!formInputValid('txt_periodYear', 'numeric'))
+          $inputError = true;
+        if (!formInputValid('txt_scaleSmart', 'numeric'))
+          $inputError = true;
+        if (!formInputValid('txt_scaleMax', 'numeric'))
+          $inputError = true;
+        if (!formInputValid('txt_colorHex', 'hexadecimal'))
+          $inputError = true;
       }
 
       if (!$inputError) {
         if (isset($_POST['btn_apply'])) {
           $viewData['groupid'] = $_POST['sel_group'];
           if (isset($_POST['sel_year'])) {
-             $viewData['year'] = $_POST['sel_year'];
+            $viewData['year'] = $_POST['sel_year'];
           }
-          $viewData['color']   = $_POST['sel_color'];
+          $viewData['color'] = $_POST['sel_color'];
         }
       }
       else {
@@ -978,13 +1008,13 @@ class StatisticsController extends BaseController
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $_POST = sanitize($_POST);
       if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== ($_SESSION['csrf_token'] ?? '')) {
-         $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_csrf_invalid_subject'], $this->LANG['alert_csrf_invalid_text'], $this->LANG['alert_csrf_invalid_help']);
-         return;
+        $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_csrf_invalid_subject'], $this->LANG['alert_csrf_invalid_text'], $this->LANG['alert_csrf_invalid_help']);
+        return;
       }
 
       $inputError = false;
       if (isset($_POST['btn_apply'])) {
-          // Add validations if needed
+        // Add validations if needed
       }
 
       if (!$inputError) {
@@ -992,9 +1022,9 @@ class StatisticsController extends BaseController
           $viewData['absid']   = $_POST['sel_absence'];
           $viewData['groupid'] = $_POST['sel_group'];
           if (isset($_POST['sel_year'])) {
-             $viewData['year'] = $_POST['sel_year'];
+            $viewData['year'] = $_POST['sel_year'];
           }
-          $viewData['color']   = $_POST['sel_color'];
+          $viewData['color'] = $_POST['sel_color'];
         }
       }
     }
@@ -1008,37 +1038,38 @@ class StatisticsController extends BaseController
 
     // Filter absences
     $filteredAbsences = array_filter($viewData['absences'], function ($abs) {
-        return !((bool) $abs['counts_as_present']);
+      return !((bool) $abs['counts_as_present']);
     });
 
     // Get users depending on group filter
     $users = ($viewData['groupid'] == "all")
-        ? $this->U->getAll('lastname', 'firstname', 'ASC', false, false)
-        : $this->UG->getAllForGroup((string) $viewData['groupid']);
+      ? $this->U->getAll('lastname', 'firstname', 'ASC', false, false)
+      : $this->UG->getAllForGroup((string) $viewData['groupid']);
 
     for ($m = 1; $m <= 12; $m++) {
-        $monthName = date("M", mktime(0, 0, 0, $m, 10)); // Short month name
-        $labels[]  = '"' . $monthName . '"';
+      $monthName = date("M", mktime(0, 0, 0, $m, 10)); // Short month name
+      $labels[]  = '"' . $monthName . '"';
 
-        $from = $viewData['year'] . '-' . sprintf('%02d', $m) . '-01';
-        $to   = $viewData['year'] . '-' . sprintf('%02d', $m) . '-' . date('t', mktime(0, 0, 0, $m, 1, (int)$viewData['year']));
-        
-        $countFrom = str_replace('-', '', $from);
-        $countTo   = str_replace('-', '', $to);
+      $from = $viewData['year'] . '-' . sprintf('%02d', $m) . '-01';
+      $to   = $viewData['year'] . '-' . sprintf('%02d', $m) . '-' . date('t', mktime(0, 0, 0, $m, 1, (int) $viewData['year']));
 
-        $monthCount = 0;
+      $countFrom = str_replace('-', '', $from);
+      $countTo   = str_replace('-', '', $to);
 
-        foreach ($users as $user) {
-            if ($viewData['absid'] == 'all') {
-                foreach ($filteredAbsences as $abs) {
-                    $monthCount += $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
-                }
-            } else {
-                $monthCount += $this->AbsenceService->countAbsence($user['username'], (string) $viewData['absid'], $countFrom, $countTo, false, false);
-            }
+      $monthCount = 0;
+
+      foreach ($users as $user) {
+        if ($viewData['absid'] == 'all') {
+          foreach ($filteredAbsences as $abs) {
+            $monthCount += $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
+          }
         }
-        $data[] = $monthCount;
-        $total += $monthCount;
+        else {
+          $monthCount += $this->AbsenceService->countAbsence($user['username'], (string) $viewData['absid'], $countFrom, $countTo, false, false);
+        }
+      }
+      $data[]  = $monthCount;
+      $total  += $monthCount;
     }
 
     $viewData['labels'] = implode(',', $labels);
@@ -1049,8 +1080,10 @@ class StatisticsController extends BaseController
     $viewData['controller'] = 'statistics';
 
     // Temporary LANG keys if not exists (will be properly added in step 5)
-    if (!isset($this->LANG['stats_trends_title'])) $this->LANG['stats_trends_title'] = "Absence Trends";
-    if (!isset($this->LANG['stats_trends_desc'])) $this->LANG['stats_trends_desc'] = "Monthly absence trends for the selected year.";
+    if (!isset($this->LANG['stats_trends_title']))
+      $this->LANG['stats_trends_title'] = "Absence Trends";
+    if (!isset($this->LANG['stats_trends_desc']))
+      $this->LANG['stats_trends_desc'] = "Monthly absence trends for the selected year.";
 
     $this->render('fragments/stats_trends', $viewData);
   }
@@ -1078,13 +1111,13 @@ class StatisticsController extends BaseController
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $_POST = sanitize($_POST);
       if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== ($_SESSION['csrf_token'] ?? '')) {
-         $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_csrf_invalid_subject'], $this->LANG['alert_csrf_invalid_text'], $this->LANG['alert_csrf_invalid_help']);
-         return;
+        $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_csrf_invalid_subject'], $this->LANG['alert_csrf_invalid_text'], $this->LANG['alert_csrf_invalid_help']);
+        return;
       }
 
       $inputError = false;
       if (isset($_POST['btn_apply'])) {
-          // Add validations if needed
+        // Add validations if needed
       }
 
       if (!$inputError) {
@@ -1092,9 +1125,9 @@ class StatisticsController extends BaseController
           $viewData['absid']   = $_POST['sel_absence'];
           $viewData['groupid'] = $_POST['sel_group'];
           if (isset($_POST['sel_year'])) {
-             $viewData['year'] = $_POST['sel_year'];
+            $viewData['year'] = $_POST['sel_year'];
           }
-          $viewData['color']   = $_POST['sel_color'];
+          $viewData['color'] = $_POST['sel_color'];
         }
       }
     }
@@ -1108,46 +1141,48 @@ class StatisticsController extends BaseController
     // Determine target absences
     $targetAbsences = [];
     if ($viewData['absid'] == 'all') {
-         foreach ($viewData['absences'] as $a) {
-             if (!$a['counts_as_present']) $targetAbsences[] = $a['id'];
-         }
-    } else {
-         $targetAbsences[] = $viewData['absid'];
+      foreach ($viewData['absences'] as $a) {
+        if (!$a['counts_as_present'])
+          $targetAbsences[] = $a['id'];
+      }
+    }
+    else {
+      $targetAbsences[] = $viewData['absid'];
     }
 
     // Get users depending on group filter
     $users = ($viewData['groupid'] == "all")
-        ? $this->U->getAll('lastname', 'firstname', 'ASC', false, false)
-        : $this->UG->getAllForGroup((string) $viewData['groupid']);
+      ? $this->U->getAll('lastname', 'firstname', 'ASC', false, false)
+      : $this->UG->getAllForGroup((string) $viewData['groupid']);
 
     foreach ($users as $user) {
-        for ($m = 1; $m <= 12; $m++) {
-            $month = sprintf("%02d", $m);
-            if ($this->T->getTemplate($user['username'], (string)$viewData['year'], $month)) {
-                $daysInMonth = date('t', strtotime($viewData['year'] . '-' . $month . '-01'));
-                for ($d = 1; $d <= $daysInMonth; $d++) {
-                    $prop = 'abs' . $d;
-                    $absId = $this->T->$prop;
-                    if ($absId > 0 && in_array($absId, $targetAbsences)) {
-                        $date = $viewData['year'] . '-' . $month . '-' . sprintf("%02d", $d);
-                        $dow = (int)date('N', strtotime($date));
-                        if (isset($counts[$dow])) {
-                            $counts[$dow]++;
-                        }
-                    }
-                }
+      for ($m = 1; $m <= 12; $m++) {
+        $month = sprintf("%02d", $m);
+        if ($this->T->getTemplate($user['username'], (string) $viewData['year'], $month)) {
+          $daysInMonth = date('t', strtotime($viewData['year'] . '-' . $month . '-01'));
+          for ($d = 1; $d <= $daysInMonth; $d++) {
+            $prop  = 'abs' . $d;
+            $absId = $this->T->$prop;
+            if ($absId > 0 && in_array($absId, $targetAbsences)) {
+              $date = $viewData['year'] . '-' . $month . '-' . sprintf("%02d", $d);
+              $dow  = (int) date('N', strtotime($date));
+              if (isset($counts[$dow])) {
+                $counts[$dow]++;
+              }
             }
+          }
         }
+      }
     }
 
     $labels = [
-        '"' . ($this->LANG['monday'] ?? 'Monday') . '"',
-        '"' . ($this->LANG['tuesday'] ?? 'Tuesday') . '"',
-        '"' . ($this->LANG['wednesday'] ?? 'Wednesday') . '"',
-        '"' . ($this->LANG['thursday'] ?? 'Thursday') . '"',
-        '"' . ($this->LANG['friday'] ?? 'Friday') . '"',
-        '"' . ($this->LANG['saturday'] ?? 'Saturday') . '"',
-        '"' . ($this->LANG['sunday'] ?? 'Sunday') . '"',
+      '"' . ($this->LANG['monday'] ?? 'Monday') . '"',
+      '"' . ($this->LANG['tuesday'] ?? 'Tuesday') . '"',
+      '"' . ($this->LANG['wednesday'] ?? 'Wednesday') . '"',
+      '"' . ($this->LANG['thursday'] ?? 'Thursday') . '"',
+      '"' . ($this->LANG['friday'] ?? 'Friday') . '"',
+      '"' . ($this->LANG['saturday'] ?? 'Saturday') . '"',
+      '"' . ($this->LANG['sunday'] ?? 'Sunday') . '"',
     ];
 
     $viewData['labels'] = implode(',', $labels);
@@ -1158,8 +1193,10 @@ class StatisticsController extends BaseController
     $viewData['controller'] = 'statistics';
 
     // Temporary LANG keys
-    if (!isset($this->LANG['stats_dayofweek_title'])) $this->LANG['stats_dayofweek_title'] = "Day of Week Stats";
-    if (!isset($this->LANG['stats_dayofweek_desc'])) $this->LANG['stats_dayofweek_desc'] = "Total absences by day of the week for the selected year.";
+    if (!isset($this->LANG['stats_dayofweek_title']))
+      $this->LANG['stats_dayofweek_title'] = "Day of Week Stats";
+    if (!isset($this->LANG['stats_dayofweek_desc']))
+      $this->LANG['stats_dayofweek_desc'] = "Total absences by day of the week for the selected year.";
 
     $this->render('fragments/stats_dayofweek', $viewData);
   }
@@ -1187,13 +1224,13 @@ class StatisticsController extends BaseController
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $_POST = sanitize($_POST);
       if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== ($_SESSION['csrf_token'] ?? '')) {
-         $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_csrf_invalid_subject'], $this->LANG['alert_csrf_invalid_text'], $this->LANG['alert_csrf_invalid_help']);
-         return;
+        $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_csrf_invalid_subject'], $this->LANG['alert_csrf_invalid_text'], $this->LANG['alert_csrf_invalid_help']);
+        return;
       }
 
       $inputError = false;
       if (isset($_POST['btn_apply'])) {
-          // Add validations if needed
+        // Add validations if needed
       }
 
       if (!$inputError) {
@@ -1201,9 +1238,9 @@ class StatisticsController extends BaseController
           $viewData['absid']   = $_POST['sel_absence'];
           $viewData['groupid'] = $_POST['sel_group'];
           if (isset($_POST['sel_year'])) {
-             $viewData['year'] = $_POST['sel_year'];
+            $viewData['year'] = $_POST['sel_year'];
           }
-          $viewData['color']   = $_POST['sel_color'];
+          $viewData['color'] = $_POST['sel_color'];
         }
       }
     }
@@ -1212,83 +1249,99 @@ class StatisticsController extends BaseController
     $viewData['groupName'] = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->G->getNameById($viewData['groupid']);
 
     $buckets = [
-        '1'    => 0,
-        '2'    => 0,
-        '3'    => 0,
-        '4-5'  => 0,
-        '6-10' => 0,
-        '>10'  => 0,
+      '1'    => 0,
+      '2'    => 0,
+      '3'    => 0,
+      '4-5'  => 0,
+      '6-10' => 0,
+      '>10'  => 0,
     ];
 
     // Determine target absences
     $targetAbsences = [];
     if ($viewData['absid'] == 'all') {
-         foreach ($viewData['absences'] as $a) {
-             if (!$a['counts_as_present']) $targetAbsences[] = $a['id'];
-         }
-    } else {
-         $targetAbsences[] = $viewData['absid'];
+      foreach ($viewData['absences'] as $a) {
+        if (!$a['counts_as_present'])
+          $targetAbsences[] = $a['id'];
+      }
+    }
+    else {
+      $targetAbsences[] = $viewData['absid'];
     }
 
     // Get users depending on group filter
     $users = ($viewData['groupid'] == "all")
-        ? $this->U->getAll('lastname', 'firstname', 'ASC', false, false)
-        : $this->UG->getAllForGroup((string) $viewData['groupid']);
+      ? $this->U->getAll('lastname', 'firstname', 'ASC', false, false)
+      : $this->UG->getAllForGroup((string) $viewData['groupid']);
 
     foreach ($users as $user) {
-        $yearAbsences = []; // Flattened array of absence IDs for the whole year
-        
-        for ($m = 1; $m <= 12; $m++) {
-            $month = sprintf("%02d", $m);
-            $maxDays = date('t', strtotime($viewData['year'] . '-' . $month . '-01'));
+      $yearAbsences = []; // Flattened array of absence IDs for the whole year
 
-            if ($this->T->getTemplate($user['username'], (string)$viewData['year'], $month)) {
-                for ($d = 1; $d <= $maxDays; $d++) {
-                    $prop = 'abs' . $d;
-                    $yearAbsences[] = $this->T->$prop;
-                }
-            } else {
-                for ($d = 1; $d <= $maxDays; $d++) {
-                    $yearAbsences[] = 0;
-                }
-            }
-        }
+      for ($m = 1; $m <= 12; $m++) {
+        $month   = sprintf("%02d", $m);
+        $maxDays = date('t', strtotime($viewData['year'] . '-' . $month . '-01'));
 
-        // Analyze flattened array for contiguous blocks
-        $currentRun = 0;
-        foreach ($yearAbsences as $absId) {
-            if ($absId > 0 && in_array($absId, $targetAbsences)) {
-                $currentRun++;
-            } else {
-                if ($currentRun > 0) {
-                    if ($currentRun == 1) $buckets['1']++;
-                    elseif ($currentRun == 2) $buckets['2']++;
-                    elseif ($currentRun == 3) $buckets['3']++;
-                    elseif ($currentRun >= 4 && $currentRun <= 5) $buckets['4-5']++;
-                    elseif ($currentRun >= 6 && $currentRun <= 10) $buckets['6-10']++;
-                    else $buckets['>10']++;
-                    $currentRun = 0;
-                }
-            }
+        if ($this->T->getTemplate($user['username'], (string) $viewData['year'], $month)) {
+          for ($d = 1; $d <= $maxDays; $d++) {
+            $prop           = 'abs' . $d;
+            $yearAbsences[] = $this->T->$prop;
+          }
         }
-        // Check tail
-        if ($currentRun > 0) {
-            if ($currentRun == 1) $buckets['1']++;
-            elseif ($currentRun == 2) $buckets['2']++;
-            elseif ($currentRun == 3) $buckets['3']++;
-            elseif ($currentRun >= 4 && $currentRun <= 5) $buckets['4-5']++;
-            elseif ($currentRun >= 6 && $currentRun <= 10) $buckets['6-10']++;
-            else $buckets['>10']++;
+        else {
+          for ($d = 1; $d <= $maxDays; $d++) {
+            $yearAbsences[] = 0;
+          }
         }
+      }
+
+      // Analyze flattened array for contiguous blocks
+      $currentRun = 0;
+      foreach ($yearAbsences as $absId) {
+        if ($absId > 0 && in_array($absId, $targetAbsences)) {
+          $currentRun++;
+        }
+        else {
+          if ($currentRun > 0) {
+            if ($currentRun == 1)
+              $buckets['1']++;
+            elseif ($currentRun == 2)
+              $buckets['2']++;
+            elseif ($currentRun == 3)
+              $buckets['3']++;
+            elseif ($currentRun >= 4 && $currentRun <= 5)
+              $buckets['4-5']++;
+            elseif ($currentRun >= 6 && $currentRun <= 10)
+              $buckets['6-10']++;
+            else
+              $buckets['>10']++;
+            $currentRun = 0;
+          }
+        }
+      }
+      // Check tail
+      if ($currentRun > 0) {
+        if ($currentRun == 1)
+          $buckets['1']++;
+        elseif ($currentRun == 2)
+          $buckets['2']++;
+        elseif ($currentRun == 3)
+          $buckets['3']++;
+        elseif ($currentRun >= 4 && $currentRun <= 5)
+          $buckets['4-5']++;
+        elseif ($currentRun >= 6 && $currentRun <= 10)
+          $buckets['6-10']++;
+        else
+          $buckets['>10']++;
+      }
     }
 
     $labels = [
-        '"1 '     . ($this->LANG['day'] ?? 'Day') . '"',
-        '"2 '     . ($this->LANG['days'] ?? 'Days') . '"',
-        '"3 '     . ($this->LANG['days'] ?? 'Days') . '"',
-        '"4-5 '   . ($this->LANG['days'] ?? 'Days') . '"',
-        '"6-10 '  . ($this->LANG['days'] ?? 'Days') . '"',
-        '"> 10 '  . ($this->LANG['days'] ?? 'Days') . '"',
+      '"1 ' . ($this->LANG['day'] ?? 'Day') . '"',
+      '"2 ' . ($this->LANG['days'] ?? 'Days') . '"',
+      '"3 ' . ($this->LANG['days'] ?? 'Days') . '"',
+      '"4-5 ' . ($this->LANG['days'] ?? 'Days') . '"',
+      '"6-10 ' . ($this->LANG['days'] ?? 'Days') . '"',
+      '"> 10 ' . ($this->LANG['days'] ?? 'Days') . '"',
     ];
 
     $viewData['labels'] = implode(',', $labels);
@@ -1299,8 +1352,10 @@ class StatisticsController extends BaseController
     $viewData['controller'] = 'statistics';
 
     // Temporary LANG keys
-    if (!isset($this->LANG['stats_duration_title'])) $this->LANG['stats_duration_title'] = "Absence Duration Histogram";
-    if (!isset($this->LANG['stats_duration_desc'])) $this->LANG['stats_duration_desc'] = "Frequency of absence durations (contiguous days) for the selected year.";
+    if (!isset($this->LANG['stats_duration_title']))
+      $this->LANG['stats_duration_title'] = "Absence Duration Histogram";
+    if (!isset($this->LANG['stats_duration_desc']))
+      $this->LANG['stats_duration_desc'] = "Frequency of absence durations (contiguous days) for the selected year.";
 
     $this->render('fragments/stats_duration', $viewData);
   }

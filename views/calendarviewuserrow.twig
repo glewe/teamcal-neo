@@ -20,7 +20,9 @@
       {% for monAbs in userRow.monitorAbs %}
         <div style="text-align:right;font-style:italic;" title="{{ monAbs.name }} {{ month.year }}: {{ LANG.remainder }} / {{ LANG.allowance }}">
           <span class="m-day-icon-sq" style="color: #{{ monAbs.color }};">{{ monAbs.icon|raw }}</span>
-          &nbsp;<span class="text-danger">{{ monAbs.remainder }}</span> / {{ monAbs.totalallowance }}
+          &nbsp;<span class="text-danger">{{ monAbs.remainder }}</span>
+          /
+          {{ monAbs.totalallowance }}
         </div>
       {% endfor %}
     {% endif %}

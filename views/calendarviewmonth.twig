@@ -73,7 +73,8 @@
                       <i class="me-2" data-bs-placement="top" data-type="avatar-popup" data-bs-toggle="tooltip" data-bs-title="<img src='{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ avatar }}' style='width: 80px; height: 80px;'>">
                         <img src="{{ constant('WEBSITE_URL') ~ constant('APP_AVATAR_DIR') ~ avatar }}" alt="" style="width: 24px; height: 24px;">
                       </i>
-                      {{ grp.name }} ({{ grp.description }})
+                      {{ grp.name }}
+                      ({{ grp.description }})
                     </th>
                   </tr>
                   {% set groupHeaderShown = true %}
@@ -161,14 +162,14 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       {% if summaryAbsenceTextColor %}
-        var absenceTextColor = "#{{ summaryAbsenceTextColor }}";
+        var absenceTextColor = "# {{ summaryAbsenceTextColor }}";
         var elements = document.getElementsByClassName("td-summary-absence");
         for (var i = 0; i < elements.length; i++) {
           elements[i].style.color = absenceTextColor;
         }
       {% endif %}
       {% if summaryPresenceTextColor %}
-        var presenceTextColor = "#{{ summaryPresenceTextColor }}";
+        var presenceTextColor = "# {{ summaryPresenceTextColor }}";
         elements = document.getElementsByClassName("td-summary-presence");
         for (var i = 0; i < elements.length; i++) {
           elements[i].style.color = presenceTextColor;
@@ -177,4 +178,3 @@
     });
   </script>
 {% endif %}
-

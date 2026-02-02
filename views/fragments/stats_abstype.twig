@@ -1,122 +1,128 @@
-
-  <!-- ====================================================================
+<!-- ====================================================================
     view.statsabstype
     -->
-  <div class="container content">
+<div class="container content">
 
-    {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
-      {{ createAlertBox(alertData)|raw }}
-    {% endif %}
+  {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
+    {{ createAlertBox(alertData)|raw }}
+  {% endif %}
 
-    {% set tabindex = 0 %}
+  {% set tabindex = 0 %}
 
-    <form class="form-control-horizontal noprint" enctype="multipart/form-data" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
-      <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+  <form class="form-control-horizontal noprint" enctype="multipart/form-data" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
+    <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
 
-      <div class="card mb-4">
-        <div class="card-header"><i class="fa-solid fa-filter me-2"></i> {{ LANG.filter|default('Filter') }}</div>
-        <div class="card-body">
-          <div class="row g-3">
-            
-            <!-- Group -->
-            <div class="col-md-3">
-              <label for="sel_group_abstype" class="form-label">{{ LANG.group }}</label>
-              <select id="sel_group_abstype" class="form-select" name="sel_group">
-                <option value="all" {{ (groupid == 'all') ? ' selected="selected"' : '' }}>{{ LANG.all }}</option>
-                {% for grp in groups %}
-                  <option value="{{ grp.id }}" {{ (groupid == grp.id) ? 'selected="selected"' : '' }}>{{ grp.name }}</option>
-                {% endfor %}
-              </select>
-            </div>
+    <div class="card mb-4">
+      <div class="card-header">
+        <i class="fa-solid fa-filter me-2"></i>
+        {{ LANG.filter|default('Filter') }}</div>
+      <div class="card-body">
+        <div
+          class="row g-3">
 
-            <!-- Period -->
-            <div class="col-md-3">
-               <label for="sel_period_abstype" class="form-label">{{ LANG.period }}</label>
-               <select id="sel_period_abstype" class="form-select" name="sel_period">
-                 <option value="year" {{ (period == 'year') ? "selected" : "" }}>{{ LANG.period_year }}</option>
-                 <option value="half" {{ (period == 'half') ? "selected" : "" }}>{{ LANG.period_half }}</option>
-                 <option value="quarter" {{ (period == 'quarter') ? "selected" : "" }}>{{ LANG.period_quarter }}</option>
-                 <option value="month" {{ (period == 'month') ? "selected" : "" }}>{{ LANG.period_month }}</option>
-                 {% if not currentYearOnly %}
-                   <option value="custom" {{ (period == 'custom') ? "selected" : "" }}>{{ LANG.custom }}</option>
-                 {% endif %}
-               </select>
-            </div>
-
-            <!-- Color -->
-            <div class="col-md-3">
-               <label for="sel_color_abstype" class="form-label">{{ LANG.color }}</label>
-               <select id="sel_color_abstype" class="form-select" name="sel_color" {{ (showAsPieChart) ? "disabled" : "" }}>
-                 <option value="blue" {{ (color == 'blue') ? "selected" : "" }}>{{ LANG.blue }}</option>
-                 <option value="cyan" {{ (color == 'cyan') ? "selected" : "" }}>{{ LANG.cyan }}</option>
-                 <option value="green" {{ (color == 'green') ? "selected" : "" }}>{{ LANG.green }}</option>
-                 <option value="grey" {{ (color == 'grey') ? "selected" : "" }}>{{ LANG.grey }}</option>
-                 <option value="magenta" {{ (color == 'magenta') ? "selected" : "" }}>{{ LANG.magenta }}</option>
-                 <option value="orange" {{ (color == 'orange') ? "selected" : "" }}>{{ LANG.orange }}</option>
-                 <option value="purple" {{ (color == 'purple') ? "selected" : "" }}>{{ LANG.purple }}</option>
-                 <option value="red" {{ (color == 'red') ? "selected" : "" }}>{{ LANG.red }}</option>
-                 <option value="yellow" {{ (color == 'yellow') ? "selected" : "" }}>{{ LANG.yellow }}</option>
-               </select>
-            </div>
-
-            <!-- Pie Chart Checkbox -->
-            <div class="col-md-3 d-flex align-items-end">
-               <div class="form-check mb-2">
-                 <input class="form-check-input" id="chk_showAsPieChart_abstype" name="chk_showAsPieChart" value="chk_showAsPieChart" type="checkbox" {{ (showAsPieChart) ? "checked" : "" }}>
-                 <label class="form-check-label" for="chk_showAsPieChart_abstype">{{ LANG.stats_showAsPieChart }}</label>
-               </div>
-            </div>
-
-            <!-- Custom Dates -->
-            {% if not currentYearOnly %}
-            <div class="col-md-12" id="custom_dates_container_abstype" style="display: {{ (period == 'custom') ? 'block' : 'none' }};">
-                <div class="row g-3">
-                    <div class="col-md-3">
-                        <label for="from_abstype" class="form-label">{{ LANG.stats_startDate }}</label>
-                        <input id="from_abstype" class="form-control" name="txt_from" type="text" maxlength="10" value="{{ from }}">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="to_abstype" class="form-label">{{ LANG.stats_endDate }}</label>
-                        <input id="to_abstype" class="form-control" name="txt_to" type="text" maxlength="10" value="{{ to }}">
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-
-            <!-- Buttons -->
-            <div class="col-12 mt-4">
-               <button type="submit" name="btn_apply" class="btn btn-success">{{ LANG.btn_apply }}</button>
-               <a class="btn btn-secondary" href="index.php?action={{ controller }}">{{ LANG.btn_reset }}</a>
-            </div>
-
+          <!-- Group -->
+          <div class="col-md-3">
+            <label for="sel_group_abstype" class="form-label">{{ LANG.group }}</label>
+            <select id="sel_group_abstype" class="form-select" name="sel_group">
+              <option value="all" {{ (groupid == 'all') ? ' selected="selected"' : '' }}>{{ LANG.all }}</option>
+              {% for grp in groups %}
+                <option value="{{ grp.id }}" {{ (groupid == grp.id) ? 'selected="selected"' : '' }}>{{ grp.name }}</option>
+              {% endfor %}
+            </select>
           </div>
+
+          <!-- Period -->
+          <div class="col-md-3">
+            <label for="sel_period_abstype" class="form-label">{{ LANG.period }}</label>
+            <select id="sel_period_abstype" class="form-select" name="sel_period">
+              <option value="year" {{ (period == 'year') ? "selected" : "" }}>{{ LANG.period_year }}</option>
+              <option value="half" {{ (period == 'half') ? "selected" : "" }}>{{ LANG.period_half }}</option>
+              <option value="quarter" {{ (period == 'quarter') ? "selected" : "" }}>{{ LANG.period_quarter }}</option>
+              <option value="month" {{ (period == 'month') ? "selected" : "" }}>{{ LANG.period_month }}</option>
+              {% if not currentYearOnly %}
+                <option value="custom" {{ (period == 'custom') ? "selected" : "" }}>{{ LANG.custom }}</option>
+              {% endif %}
+            </select>
+          </div>
+
+          <!-- Color -->
+          <div class="col-md-3">
+            <label for="sel_color_abstype" class="form-label">{{ LANG.color }}</label>
+            <select id="sel_color_abstype" class="form-select" name="sel_color" {{ (showAsPieChart) ? "disabled" : "" }}>
+              <option value="blue" {{ (color == 'blue') ? "selected" : "" }}>{{ LANG.blue }}</option>
+              <option value="cyan" {{ (color == 'cyan') ? "selected" : "" }}>{{ LANG.cyan }}</option>
+              <option value="green" {{ (color == 'green') ? "selected" : "" }}>{{ LANG.green }}</option>
+              <option value="grey" {{ (color == 'grey') ? "selected" : "" }}>{{ LANG.grey }}</option>
+              <option value="magenta" {{ (color == 'magenta') ? "selected" : "" }}>{{ LANG.magenta }}</option>
+              <option value="orange" {{ (color == 'orange') ? "selected" : "" }}>{{ LANG.orange }}</option>
+              <option value="purple" {{ (color == 'purple') ? "selected" : "" }}>{{ LANG.purple }}</option>
+              <option value="red" {{ (color == 'red') ? "selected" : "" }}>{{ LANG.red }}</option>
+              <option value="yellow" {{ (color == 'yellow') ? "selected" : "" }}>{{ LANG.yellow }}</option>
+            </select>
+          </div>
+
+          <!-- Pie Chart Checkbox -->
+          <div class="col-md-3 d-flex align-items-end">
+            <div class="form-check mb-2">
+              <input class="form-check-input" id="chk_showAsPieChart_abstype" name="chk_showAsPieChart" value="chk_showAsPieChart" type="checkbox" {{ (showAsPieChart) ? "checked" : "" }}>
+              <label class="form-check-label" for="chk_showAsPieChart_abstype">{{ LANG.stats_showAsPieChart }}</label>
+            </div>
+          </div>
+
+          <!-- Custom Dates -->
+          {% if not currentYearOnly %}
+            <div class="col-md-12" id="custom_dates_container_abstype" style="display: {{ (period == 'custom') ? 'block' : 'none' }};">
+              <div class="row g-3">
+                <div class="col-md-3">
+                  <label for="from_abstype" class="form-label">{{ LANG.stats_startDate }}</label>
+                  <input id="from_abstype" class="form-control" name="txt_from" type="text" maxlength="10" value="{{ from }}">
+                </div>
+                <div class="col-md-3">
+                  <label for="to_abstype" class="form-label">{{ LANG.stats_endDate }}</label>
+                  <input id="to_abstype" class="form-control" name="txt_to" type="text" maxlength="10" value="{{ to }}">
+                </div>
+              </div>
+            </div>
+          {% endif %}
+
+          <!-- Buttons -->
+          <div class="col-12 mt-4">
+            <button type="submit" name="btn_apply" class="btn btn-success">{{ LANG.btn_apply }}</button>
+            <a class="btn btn-secondary" href="index.php?action={{ controller }}">{{ LANG.btn_reset }}</a>
+          </div>
+
         </div>
       </div>
-      
-      <script>
-        $(function () {
-             // Datepicker init
-            if($("#from_abstype").length) $("#from_abstype").datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
-            if($("#to_abstype").length) $("#to_abstype").datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
+    </div>
 
-             $('#chk_showAsPieChart_abstype').change(function () {
-                if ($(this).prop('checked')) {
-                    $("#sel_color_abstype").prop("disabled", true);
-                } else {
-                    $("#sel_color_abstype").prop("disabled", false);
-                }
-            });
-            
-             // Toggle custom dates
-            $("#sel_period_abstype").change(function () {
-                if ($(this).val() == 'custom') {
-                    $('#custom_dates_container_abstype').show();
-                } else {
-                    $('#custom_dates_container_abstype').hide();
-                }
-            });
+    <script>
+      $(function () {
+        // Datepicker init
+        if ($("#from_abstype").length) 
+          $("#from_abstype").datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
+        
+        if ($("#to_abstype").length) 
+          $("#to_abstype").datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
+        
+
+        $('#chk_showAsPieChart_abstype').change(function () {
+          if ($(this).prop('checked')) {
+            $("#sel_color_abstype").prop("disabled", true);
+          } else {
+            $("#sel_color_abstype").prop("disabled", false);
+          }
         });
-      </script>
+
+        // Toggle custom dates
+        $("#sel_period_abstype").change(function () {
+          if ($(this).val() == 'custom') {
+            $('#custom_dates_container_abstype').show();
+          } else {
+            $('#custom_dates_container_abstype').hide();
+          }
+        });
+      });
+    </script>
 
     <div class="card">
       <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
@@ -135,9 +141,8 @@
 
         <script>
           // Wrap in IIFE to avoid global namespace pollution
-          (function() {
-            const ctx = document.getElementById('myChart_abstype');
-            {% if not showAsPieChart %}
+          (function () {
+            const ctx = document.getElementById('myChart_abstype');{% if not showAsPieChart %}
               //
               // Chart.js Bar Chart with dynamic opacity
               //
@@ -190,7 +195,15 @@
                 if (range > 0) {
                   alpha = 0.3 + 0.7 * ((val - minVal) / range);
                 }
-                return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha.toFixed(2)})`;
+                return `rgba(${
+                  rgb.r
+                }, ${
+                  rgb.g
+                }, ${
+                  rgb.b
+                }, ${
+                  alpha.toFixed(2)
+                })`;
               });
 
               new Chart(ctx, {
@@ -246,8 +259,7 @@
                     display: false
                   }
                 }
-              });
-            {% endif %}
+              });{% endif %}
           })();
         </script>
 

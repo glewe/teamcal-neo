@@ -114,8 +114,7 @@ echo "\n";
  *
  * @return void
  */
-function runStep(string $description, string $command): void
-{
+function runStep(string $description, string $command): void {
   echo CLR_YLW . ">>> $description...\n" . CLR_RST;
   echo CLR_CYN . "$ $command\n" . CLR_RST;
   passthru($command, $returnVar);

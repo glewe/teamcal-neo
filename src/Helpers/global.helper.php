@@ -141,7 +141,7 @@ function dateInfo(string $year, string $month, string $day = '1'): array {
 
   // Calculate month boundaries
   $dateInfo['firstOfMonth'] = $yearStr . '-' . $monthStr . '-01';
-  $dateInfo['lastOfMonth']  = $yearStr . '-' . $monthStr . '-' . str_pad((string)$dateInfo['daysInMonth'], 2, '0', STR_PAD_LEFT);
+  $dateInfo['lastOfMonth']  = $yearStr . '-' . $monthStr . '-' . str_pad((string) $dateInfo['daysInMonth'], 2, '0', STR_PAD_LEFT);
 
   // Calculate year boundaries
   $dateInfo['firstOfYear'] = $yearStr . '-01-01';

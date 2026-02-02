@@ -2,8 +2,8 @@
 
 {% block content %}
   <!-- ====================================================================
-  view.messages
-  -->
+    view.messages
+    -->
   <div class="container content">
     <div class="col-lg-12">
 
@@ -27,7 +27,7 @@
             <div class="card">
               <div class="card-body">
                 <form class="form-control-horizontal" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
-              <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+                  <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
                   {% set tabindex = tabindex + 1 %}
                   <button type="button" class="btn btn-success" tabindex="{{ tabindex }}" data-bs-toggle="modal" data-bs-target="#modalConfirmAll">{{ LANG.btn_confirm_all }}</button>
                   {% set tabindex = tabindex + 1 %}

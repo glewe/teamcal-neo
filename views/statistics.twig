@@ -2,8 +2,8 @@
 
 {% block content %}
   <!-- ====================================================================
-      view.statistics
-      -->
+          view.statistics
+          -->
   <div class="container content">
 
     {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
@@ -158,6 +158,8 @@
           let url = form.getAttribute('action');
           if (! url) 
             url = window.location.href;
+          
+
 
           if (url.indexOf('?') !== -1) {
             url += '&ajax=1&tab=' + tabId;
@@ -182,6 +184,8 @@
             if (!response.ok) 
               throw new Error('Network response was not ok');
             
+
+
             return response.text();
           }).then(html => {
             tabPane.innerHTML = html;

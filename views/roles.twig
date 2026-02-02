@@ -3,8 +3,8 @@
 
 {% block content %}
   <!-- ====================================================================
-      view.roles
-      -->
+        view.roles
+        -->
   <div class="container content">
 
     <div class="col-lg-12">
@@ -30,8 +30,7 @@
           <form class="form-control-horizontal" name="form_create" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
             <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
             <div class="row mb-4">
-              <div class="col-lg-7">
-              </div>
+              <div class="col-lg-7"></div>
               <div class="col-lg-5 text-end">
                 <br>
                 {% set tabindex = tabindex + 1 %}
@@ -155,7 +154,7 @@
                 info: true,
                 pageLength: 50,
                 language: {
-                  url: 'public/addons/datatables/datatables.{{ LANG.locale }}.json'
+                  url: 'public/addons/datatables/datatables. {{ LANG.locale }}.json'
                 },
                 columnDefs: [
                   {

@@ -2,8 +2,8 @@
 
 {% block content %}
   <!-- ====================================================================
-  view.declination
-  -->
+    view.declination
+    -->
   <div class="container content">
 
     <div class="col-lg-12">
@@ -253,10 +253,8 @@
         } else if (this.value === 'nowEnddate') {
           $("#period3Startdate").prop("disabled", true);
           $("#period3Enddate").prop("disabled", false);
-        } else if (this.value === 'startdateForever'){
-          {% if period3Startdate is defined %}
-            $("#period3Startdate").prop("disabled", false);{% endif %}
-          $("#period3Enddate").prop("disabled", true);
+        } else if (this.value === 'startdateForever'){{% if period3Startdate is defined %}
+            $("#period3Startdate").prop("disabled", false);{% endif %}$("#period3Enddate").prop("disabled", true);
         } else if (this.value === 'startdateEnddate') {
           $("#period3Startdate").prop("disabled", false);
           $("#period3Enddate").prop("disabled", false);

@@ -93,7 +93,7 @@ class CalendarOptionsController extends BaseController
         else {
           $newConfig["monitorAbsence"] = '0';
         }
-        $newConfig["calendarFontSize"]  = strlen($_POST['txt_calendarFontSize']) ? intval($_POST['txt_calendarFontSize']) : 100;
+        $newConfig["calendarFontSize"] = strlen($_POST['txt_calendarFontSize']) ? intval($_POST['txt_calendarFontSize']) : 100;
 
         if (strlen($_POST['txt_showMonths'])) {
           $postValue               = intval($_POST['txt_showMonths']);
@@ -175,9 +175,9 @@ class CalendarOptionsController extends BaseController
     }
 
     // Prepare View Data
-    $absences = $this->A->getAll();
+    $absences                  = $this->A->getAll();
     $caloptData                = [];
-    $arrMonitorAbs             = explode(',', (string)$allConfig['monitorAbsence']);
+    $arrMonitorAbs             = explode(',', (string) $allConfig['monitorAbsence']);
     $caloptData['absenceList'] = [];
     foreach ($absences as $abs) {
       $caloptData['absenceList'][] = ['val' => $abs['id'], 'name' => $abs['name'], 'selected' => in_array($abs['id'], $arrMonitorAbs)];

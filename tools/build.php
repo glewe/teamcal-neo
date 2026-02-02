@@ -6,8 +6,8 @@ declare(strict_types=1);
  * prepares the distribution package.
  */
 
-$root      = dirname(__DIR__);
-$dist      = $root . '/dist';
+$root = dirname(__DIR__);
+$dist = $root . '/dist';
 
 // ANSI Color Constants
 define('CLR_RED', "\033[0;31m");
@@ -171,10 +171,10 @@ if (extension_loaded('zip')) {
         mkdir($archiveDir, 0755, true);
       }
 
-      $vParts = explode('.', $version);
-      $vMajor = str_pad($vParts[0] ?? '0', 2, '0', STR_PAD_LEFT);
-      $vMinor = str_pad($vParts[1] ?? '0', 2, '0', STR_PAD_LEFT);
-      $vPatch = str_pad($vParts[2] ?? '0', 2, '0', STR_PAD_LEFT);
+      $vParts         = explode('.', $version);
+      $vMajor         = str_pad($vParts[0] ?? '0', 2, '0', STR_PAD_LEFT);
+      $vMinor         = str_pad($vParts[1] ?? '0', 2, '0', STR_PAD_LEFT);
+      $vPatch         = str_pad($vParts[2] ?? '0', 2, '0', STR_PAD_LEFT);
       $archiveZipFile = $archiveDir . "/tcneo_{$vMajor}{$vMinor}{$vPatch}.zip";
 
       echo CLR_CYN . "\n>>> Copying archive to $archiveZipFile...\n" . CLR_RST;
@@ -208,8 +208,7 @@ echo CLR_YLW . "================================================================
  *
  * @return void
  */
-function deleteDirectory(string $dir): void
-{
+function deleteDirectory(string $dir): void {
   if (!file_exists($dir))
     return;
   $files = array_diff(scandir($dir), ['.', '..']);
@@ -227,8 +226,7 @@ function deleteDirectory(string $dir): void
  *
  * @return void
  */
-function deleteDirectoryContents(string $dir): void
-{
+function deleteDirectoryContents(string $dir): void {
   if (!file_exists($dir))
     return;
   $files = array_diff(scandir($dir), ['.', '..']);
@@ -246,8 +244,7 @@ function deleteDirectoryContents(string $dir): void
  *
  * @return void
  */
-function copyRecursive(string $src, string $dst): void
-{
+function copyRecursive(string $src, string $dst): void {
   $dir = opendir($src);
   @mkdir($dst);
   while (false !== ($file = readdir($dir))) {

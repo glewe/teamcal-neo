@@ -2,8 +2,8 @@
 
 {% block content %}
   <!-- ====================================================================
-    view.config
-    -->
+      view.config
+      -->
   <div class="container content">
 
     <div class="col-lg-12">
@@ -150,14 +150,14 @@
                     {% for formObject in system %}
                       {{ createFormGroup(formObject, colsleft, colsright, nextTabindex()) }}
                     {% endfor %}
-                    
+
                     <div class="form-group row">
                       <label class="col-lg-{{ colsleft }} control-label">
                         {{ LANG.config_clearCache }}<br>
                         <span class="text-normal">{{ LANG.config_clearCache_comment }}</span>
                       </label>
                       <div class="col-lg-{{ colsright }}">
-                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalClearCache" tabindex="{{ nextTabindex() }}">{{ LANG.config_clearCache }}</button>
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalClearCache" tabindex="{{ nextTabindex() }}">{{ LANG.config_clearCache }}</button>
                       </div>
                     </div>
                   </div>

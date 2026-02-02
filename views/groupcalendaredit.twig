@@ -2,8 +2,8 @@
 
 {% block content %}
   <!-- ====================================================================
-    view.groupcalendaredit
-    -->
+      view.groupcalendaredit
+      -->
   <div class="container content" style="padding-left: 4px; padding-right: 4px;">
 
     {% if showAlert and (showAlerts != 'none') %}
@@ -367,9 +367,8 @@
 
 {% block javascripts %}
   <script>
-    function hideAllPatterns(){
-      {% for ptn in patterns %}
-        document.getElementById('pattern-{{ ptn.id }}').style.display = "none";{% endfor %}
+    function hideAllPatterns(){{% for ptn in patterns %}
+        document.getElementById('pattern- {{ ptn.id }}').style.display = "none";{% endfor %}
     }
 
     function showPattern(id) {

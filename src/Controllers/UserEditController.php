@@ -252,7 +252,7 @@ class UserEditController extends BaseController
       }
     }
 
-    
+
     $viewData['defaultMenuList'] = [
       ['val' => 'default', 'name' => $this->LANG['profile_defaultMenu_default'], 'selected' => ($this->UO->read($profile, 'defaultMenu') == 'default')],
       ['val' => 'navbar', 'name' => $this->LANG['profile_defaultMenu_navbar'], 'selected' => ($this->UO->read($profile, 'defaultMenu') == 'navbar')],
@@ -420,15 +420,15 @@ class UserEditController extends BaseController
     $newUserOptions['id']       = $_POST['txt_id'];
     $newUserOptions['gender']   = $_POST['opt_gender'] ?? 'male';
 
-    $UP->email                  = $_POST['txt_email'];
-    $newUserOptions['phone']    = $_POST['txt_phone'];
-    $newUserOptions['mobile']   = $_POST['txt_mobilephone'];
-    $newUserOptions['facebook'] = $_POST['txt_facebook'];
+    $UP->email                   = $_POST['txt_email'];
+    $newUserOptions['phone']     = $_POST['txt_phone'];
+    $newUserOptions['mobile']    = $_POST['txt_mobilephone'];
+    $newUserOptions['facebook']  = $_POST['txt_facebook'];
     $newUserOptions['instagram'] = $_POST['txt_instagram'];
-    $newUserOptions['linkedin'] = $_POST['txt_linkedin'];
-    $newUserOptions['tiktok']   = $_POST['txt_tiktok'];
-    $newUserOptions['twitter']  = $_POST['txt_twitter'];
-    $newUserOptions['xing']     = $_POST['txt_xing'];
+    $newUserOptions['linkedin']  = $_POST['txt_linkedin'];
+    $newUserOptions['tiktok']    = $_POST['txt_tiktok'];
+    $newUserOptions['twitter']   = $_POST['txt_twitter'];
+    $newUserOptions['xing']      = $_POST['txt_xing'];
 
     if (isset($_POST['sel_language'])) {
       if ($_POST['sel_language'] != $this->UO->read($profile, 'language')) {
@@ -453,7 +453,7 @@ class UserEditController extends BaseController
     if (isset($_POST['sel_calfilterGroup'])) {
       $newUserOptions['calfilterGroup'] = $_POST['sel_calfilterGroup'];
     }
-    $newUserOptions["region"]      = $_POST['sel_region'] ?? '1';
+    $newUserOptions["region"] = $_POST['sel_region'] ?? '1';
     if (isset($_POST['sel_defaultMenu'])) {
       if ($_POST['sel_defaultMenu'] != $this->UO->read($profile, 'defaultMenu')) {
         if ($profile == $this->UL->username) {

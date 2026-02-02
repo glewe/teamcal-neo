@@ -1,167 +1,169 @@
-
-  <!-- ====================================================================
+<!-- ====================================================================
   view.statsremainder
   -->
-  <div class="container content">
+<div class="container content">
 
-    {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
-      {{ createAlertBox(alertData)|raw }}
-    {% endif %}
+  {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
+    {{ createAlertBox(alertData)|raw }}
+  {% endif %}
 
-    {% set tabindex = 0 %}
+  {% set tabindex = 0 %}
 
-    <form class="form-control-horizontal noprint" enctype="multipart/form-data" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
-      <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+  <form class="form-control-horizontal noprint" enctype="multipart/form-data" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
+    <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
 
-      <div class="card mb-4">
-        <div class="card-header"><i class="fa-solid fa-filter me-2"></i> {{ LANG.filter|default('Filter') }}</div>
-        <div class="card-body">
-          <div class="row g-3">
-            
-            <!-- Group -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <i class="fa-solid fa-filter me-2"></i>
+        {{ LANG.filter|default('Filter') }}</div>
+      <div class="card-body">
+        <div
+          class="row g-3">
+
+          <!-- Group -->
+          <div class="col-md-3">
+            <label for="group_remainder" class="form-label">{{ LANG.group }}</label>
+            <select id="group_remainder" class="form-select" name="sel_group">
+              <option value="all" {{ (groupid == 'all') ? ' selected="selected"' : '' }}>{{ LANG.all }}</option>
+              {% for grp in groups %}
+                <option value="{{ grp.id }}" {{ (groupid == grp.id) ? 'selected="selected"' : '' }}>{{ grp.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <!-- Year -->
+          {% if not currentYearOnly %}
             <div class="col-md-3">
-              <label for="group_remainder" class="form-label">{{ LANG.group }}</label>
-              <select id="group_remainder" class="form-select" name="sel_group">
-                <option value="all" {{ (groupid == 'all') ? ' selected="selected"' : '' }}>{{ LANG.all }}</option>
-                {% for grp in groups %}
-                  <option value="{{ grp.id }}" {{ (groupid == grp.id) ? 'selected="selected"' : '' }}>{{ grp.name }}</option>
-                {% endfor %}
+              <label for="sel_year_remainder" class="form-label">{{ LANG.year }}</label>
+              <select id="sel_year_remainder" class="form-select" name="sel_year">
+                <option value="{{ "now"|date("Y") - 1 }}" {{ (year == ("now"|date("Y") - 1)) ? "selected" : "" }}>{{ "now"|date("Y") - 1 }}</option>
+                <option value="{{ "now"|date("Y") }}" {{ (year == ("now"|date("Y"))) ? "selected" : "" }}>{{ "now"|date("Y") }}</option>
+                <option value="{{ "now"|date("Y") + 1 }}" {{ (year == ("now"|date("Y") + 1)) ? "selected" : "" }}>{{ "now"|date("Y") + 1 }}</option>
               </select>
             </div>
+          {% endif %}
 
-            <!-- Year -->
-            {% if not currentYearOnly %}
-            <div class="col-md-3">
-               <label for="sel_year_remainder" class="form-label">{{ LANG.year }}</label>
-               <select id="sel_year_remainder" class="form-select" name="sel_year">
-                  <option value="{{ "now"|date("Y") - 1 }}" {{ (year == ("now"|date("Y") - 1)) ? "selected" : "" }}>{{ "now"|date("Y") - 1 }}</option>
-                  <option value="{{ "now"|date("Y") }}" {{ (year == ("now"|date("Y"))) ? "selected" : "" }}>{{ "now"|date("Y") }}</option>
-                  <option value="{{ "now"|date("Y") + 1 }}" {{ (year == ("now"|date("Y") + 1)) ? "selected" : "" }}>{{ "now"|date("Y") + 1 }}</option>
-               </select>
-            </div>
-            {% endif %}
-
-            <!-- Color -->
-            <div class="col-md-3">
-               <label for="sel_color_remainder" class="form-label">{{ LANG.color }}</label>
-               <select id="sel_color_remainder" class="form-select" name="sel_color">
-                 <option value="blue" {{ (color == 'blue') ? "selected" : "" }}>{{ LANG.blue }}</option>
-                 <option value="cyan" {{ (color == 'cyan') ? "selected" : "" }}>{{ LANG.cyan }}</option>
-                 <option value="green" {{ (color == 'green') ? "selected" : "" }}>{{ LANG.green }}</option>
-                 <option value="grey" {{ (color == 'grey') ? "selected" : "" }}>{{ LANG.grey }}</option>
-                 <option value="magenta" {{ (color == 'magenta') ? "selected" : "" }}>{{ LANG.magenta }}</option>
-                 <option value="orange" {{ (color == 'orange') ? "selected" : "" }}>{{ LANG.orange }}</option>
-                 <option value="purple" {{ (color == 'purple') ? "selected" : "" }}>{{ LANG.purple }}</option>
-                 <option value="red" {{ (color == 'red') ? "selected" : "" }}>{{ LANG.red }}</option>
-                 <option value="yellow" {{ (color == 'yellow') ? "selected" : "" }}>{{ LANG.yellow }}</option>
-               </select>
-            </div>
-
-            <!-- Buttons -->
-            <div class="col-12 mt-4">
-               <button type="submit" name="btn_apply" class="btn btn-success">{{ LANG.btn_apply }}</button>
-               <a class="btn btn-secondary" href="index.php?action={{ controller }}">{{ LANG.btn_reset }}</a>
-            </div>
-
+          <!-- Color -->
+          <div class="col-md-3">
+            <label for="sel_color_remainder" class="form-label">{{ LANG.color }}</label>
+            <select id="sel_color_remainder" class="form-select" name="sel_color">
+              <option value="blue" {{ (color == 'blue') ? "selected" : "" }}>{{ LANG.blue }}</option>
+              <option value="cyan" {{ (color == 'cyan') ? "selected" : "" }}>{{ LANG.cyan }}</option>
+              <option value="green" {{ (color == 'green') ? "selected" : "" }}>{{ LANG.green }}</option>
+              <option value="grey" {{ (color == 'grey') ? "selected" : "" }}>{{ LANG.grey }}</option>
+              <option value="magenta" {{ (color == 'magenta') ? "selected" : "" }}>{{ LANG.magenta }}</option>
+              <option value="orange" {{ (color == 'orange') ? "selected" : "" }}>{{ LANG.orange }}</option>
+              <option value="purple" {{ (color == 'purple') ? "selected" : "" }}>{{ LANG.purple }}</option>
+              <option value="red" {{ (color == 'red') ? "selected" : "" }}>{{ LANG.red }}</option>
+              <option value="yellow" {{ (color == 'yellow') ? "selected" : "" }}>{{ LANG.yellow }}</option>
+            </select>
           </div>
+
+          <!-- Buttons -->
+          <div class="col-12 mt-4">
+            <button type="submit" name="btn_apply" class="btn btn-success">{{ LANG.btn_apply }}</button>
+            <a class="btn btn-secondary" href="index.php?action={{ controller }}">{{ LANG.btn_reset }}</a>
+          </div>
+
         </div>
-      </div>
-
-    </form>
-
-    <div class="card">
-      <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
-        <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
-        {{ LANG.stats_title_remainder }}&nbsp;({{ year }})<span class="badge text-bg-secondary float-end badge-header-right">
-          <i data-bs-placement="bottom" data-type="info" data-bs-toggle="tooltip" title="{{ LANG.stats_total }}">{{ total }}</i>
-        </span>
-      </div>
-      <div class="card-body">
-        <p>{{ LANG.stats_remainder_desc }}</p>
-
-        <div style="position: relative; height: {{ height }}px;">
-          <canvas id="myChart_remainder"></canvas>
-        </div>
-
-
-        <script>
-          // Wrap in IIFE
-          (function() {
-            const ctx = document.getElementById('myChart_remainder');
-
-            const colorNameMap = {
-              'blue': '#0d6efd',
-              'cyan': '#0dcaf0',
-              'green': '#198754',
-              'grey': '#6c757d',
-              'gray': '#6c757d',
-              'magenta': '#d63384',
-              'orange': '#fd7e14',
-              'purple': '#6f42c1',
-              'red': '#dc3545',
-              'yellow': '#ffc107'
-            };
-
-            let baseColorHex = '{{ color }}';
-            if (baseColorHex.indexOf('#') !== 0) {
-              let lowerColor = baseColorHex.toLowerCase();
-              if (colorNameMap[lowerColor]) {
-                baseColorHex = colorNameMap[lowerColor];
-              }
-            }
-
-            function hexToRgba(hex, alpha) {
-              var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-              hex = hex.replace(shorthandRegex, function (m, r, g, b) {
-                return r + r + g + g + b + b;
-              });
-              var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-              return result ? `rgba(${
-                parseInt(result[1], 16)
-              }, ${
-                parseInt(result[2], 16)
-              }, ${
-                parseInt(result[3], 16)
-              }, ${alpha})` : `rgba(0,0,0,${alpha})`;
-            }
-
-            new Chart(ctx, {
-              type: 'bar',
-              data: {
-                labels: [{{ labels|raw }}],
-                datasets: [
-                  {
-                    label: '{{ LANG.allowance }}',
-                    data: [{{ dataAllowance|raw }}],
-                    backgroundColor: hexToRgba('#198754', 0.4),
-                    borderColor: '#198754',
-                    borderWidth: 1,
-                    barThickness: 40
-                  }, {
-                    label: '{{ LANG.remainder }}',
-                    data: [{{ dataRemainder|raw }}],
-                    backgroundColor: hexToRgba(baseColorHex, 0.8),
-                    borderColor: baseColorHex,
-                    borderWidth: 1,
-                    barThickness: 40
-                  }
-                ]
-              },
-              options: {
-                indexAxis: 'y',
-                maintainAspectRatio: false,
-                responsive: true,
-                legend: {
-                  display: true
-                },
-                title: {
-                  display: false
-                }
-              }
-            });
-          })();
-        </script>
-
       </div>
     </div>
+
+  </form>
+
+  <div class="card">
+    <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+      <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+      {{ LANG.stats_title_remainder }}&nbsp;({{ year }})<span class="badge text-bg-secondary float-end badge-header-right">
+        <i data-bs-placement="bottom" data-type="info" data-bs-toggle="tooltip" title="{{ LANG.stats_total }}">{{ total }}</i>
+      </span>
+    </div>
+    <div class="card-body">
+      <p>{{ LANG.stats_remainder_desc }}</p>
+
+      <div style="position: relative; height: {{ height }}px;">
+        <canvas id="myChart_remainder"></canvas>
+      </div>
+
+
+      <script>
+        // Wrap in IIFE
+        (function () {
+          const ctx = document.getElementById('myChart_remainder');
+
+          const colorNameMap = {
+            'blue': '#0d6efd',
+            'cyan': '#0dcaf0',
+            'green': '#198754',
+            'grey': '#6c757d',
+            'gray': '#6c757d',
+            'magenta': '#d63384',
+            'orange': '#fd7e14',
+            'purple': '#6f42c1',
+            'red': '#dc3545',
+            'yellow': '#ffc107'
+          };
+
+          let baseColorHex = '{{ color }}';
+          if (baseColorHex.indexOf('#') !== 0) {
+            let lowerColor = baseColorHex.toLowerCase();
+            if (colorNameMap[lowerColor]) {
+              baseColorHex = colorNameMap[lowerColor];
+            }
+          }
+
+          function hexToRgba(hex, alpha) {
+            var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+            hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+              return r + r + g + g + b + b;
+            });
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? `rgba(${
+              parseInt(result[1], 16)
+            }, ${
+              parseInt(result[2], 16)
+            }, ${
+              parseInt(result[3], 16)
+            }, ${alpha})` : `rgba(0,0,0,${alpha})`;
+          }
+
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: [{{ labels|raw }}],
+              datasets: [
+                {
+                  label: '{{ LANG.allowance }}',
+                  data: [{{ dataAllowance|raw }}],
+                  backgroundColor: hexToRgba('#198754', 0.4),
+                  borderColor: '#198754',
+                  borderWidth: 1,
+                  barThickness: 40
+                }, {
+                  label: '{{ LANG.remainder }}',
+                  data: [{{ dataRemainder|raw }}],
+                  backgroundColor: hexToRgba(baseColorHex, 0.8),
+                  borderColor: baseColorHex,
+                  borderWidth: 1,
+                  barThickness: 40
+                }
+              ]
+            },
+            options: {
+              indexAxis: 'y',
+              maintainAspectRatio: false,
+              responsive: true,
+              legend: {
+                display: true
+              },
+              title: {
+                display: false
+              }
+            }
+          });
+        })();
+      </script>
+
+    </div>
   </div>
+</div>

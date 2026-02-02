@@ -73,20 +73,20 @@ class GroupsController extends BaseController
         $viewData['txt_description'] = $_POST['txt_description'] ?? '';
 
         if (!$inputError) {
-          $this->G->name         = $viewData['txt_name'];
-          $this->G->description  = $viewData['txt_description'];
+          $this->G->name        = $viewData['txt_name'];
+          $this->G->description = $viewData['txt_description'];
 
           $avatar = 'default_group.png';
           if (isset($_FILES['file_avatar']) && $_FILES['file_avatar']['error'] != UPLOAD_ERR_NO_FILE) {
-            $UPL = new UploadModel();
-            $UPL->upload_dir = APP_AVATAR_DIR;
-            $UPL->extensions = $this->CONF['avatarExtensions'];
+            $UPL                    = new UploadModel();
+            $UPL->upload_dir        = APP_AVATAR_DIR;
+            $UPL->extensions        = $this->CONF['avatarExtensions'];
             $UPL->do_filename_check = "y";
-            $UPL->replace = "y";
-            $UPL->the_temp_file = $_FILES['file_avatar']['tmp_name'];
-            $UPL->http_error = $_FILES['file_avatar']['error'];
-            $fileExtension = getFileExtension($_FILES['file_avatar']['name']);
-            $UPL->the_file = 'group_' . uniqid() . "." . $fileExtension;
+            $UPL->replace           = "y";
+            $UPL->the_temp_file     = $_FILES['file_avatar']['tmp_name'];
+            $UPL->http_error        = $_FILES['file_avatar']['error'];
+            $fileExtension          = getFileExtension($_FILES['file_avatar']['name']);
+            $UPL->the_file          = 'group_' . uniqid() . "." . $fileExtension;
             if ($UPL->uploadFile()) {
               $full_path = $UPL->upload_dir . $UPL->file_copy;
               $UPL->getUploadedFileInfo($full_path);

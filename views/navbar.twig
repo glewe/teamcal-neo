@@ -449,33 +449,33 @@ view.navbar
 </nav>
 <script>
   // Handle nested dropdown menus
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const dropendToggles = document.querySelectorAll('.dropdown-menu .dropend .dropdown-toggle');
-    
-    dropendToggles.forEach(function(toggle) {
-      toggle.addEventListener('click', function(e) {
+
+    dropendToggles.forEach(function (toggle) {
+      toggle.addEventListener('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        
+
         const dropendMenu = this.nextElementSibling;
         const isShown = dropendMenu.classList.contains('show');
-        
+
         // Close all other nested dropdowns
-        document.querySelectorAll('.dropdown-menu .dropend .dropdown-menu.show').forEach(function(menu) {
+        document.querySelectorAll('.dropdown-menu .dropend .dropdown-menu.show').forEach(function (menu) {
           menu.classList.remove('show');
         });
-        
+
         // Toggle this dropdown
-        if (!isShown) {
+        if (! isShown) {
           dropendMenu.classList.add('show');
         }
       });
     });
-    
+
     // Close nested dropdowns when clicking outside
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.dropend')) {
-        document.querySelectorAll('.dropdown-menu .dropend .dropdown-menu.show').forEach(function(menu) {
+    document.addEventListener('click', function (e) {
+      if (! e.target.closest('.dropend')) {
+        document.querySelectorAll('.dropdown-menu .dropend .dropdown-menu.show').forEach(function (menu) {
           menu.classList.remove('show');
         });
       }

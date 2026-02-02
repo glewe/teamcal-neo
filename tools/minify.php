@@ -6,7 +6,7 @@ include dirname(__DIR__) . '/vendor/autoload.php';
 use MatthiasMullie\Minify\CSS;
 use MatthiasMullie\Minify\JS;
 
-$cssDir = dirname(__DIR__) . '/public/css';
+$cssDir   = dirname(__DIR__) . '/public/css';
 $cssFiles = [
   'font-lato.css',
   'font-montserrat.css',
@@ -17,7 +17,7 @@ $cssFiles = [
   'teamcalneo.css'
 ];
 
-$jsDir = dirname(__DIR__) . '/public/js';
+$jsDir   = dirname(__DIR__) . '/public/js';
 $jsFiles = [
   'color-modes.js',
   'width-modes.js',

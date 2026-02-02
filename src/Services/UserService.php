@@ -195,7 +195,7 @@ class UserService
     $userGroups = $this->userGroupModel->getAllForUser($username);
 
     foreach ($userGroups as $group) {
-      if ($this->absenceGroupModel->isAssigned($absid, (string)$group['groupid'])) {
+      if ($this->absenceGroupModel->isAssigned($absid, (string) $group['groupid'])) {
         return true;
       }
     }
