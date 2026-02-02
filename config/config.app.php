@@ -147,6 +147,7 @@ define('LDAP_DIT', "cn=read-only-admin,dc=example,dc=com");  // Directory Inform
 define('LDAP_SBASE', "dc=example,dc=com");                   // Search base, location in the LDAP directory to search
 define('LDAP_TLS', 0);                                       // To avoid "Undefined index: LDAP_TLS" error message for LDAP bind to Active Directory
 define('LDAP_CHECK_ANONYMOUS_BIND', 0);                      // Set to 1 to check the LDAP server's 'anonymous bind' setting. Connection will be refused if not allowed.
+define('LDAP_SEARCH_BIND', 0);                               // Set to 1 to if you want to enable search bind (try disabling this when you get search bind errors)
 
 /**
  * APPLICATION INFORMATION

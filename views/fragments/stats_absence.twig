@@ -1,0 +1,241 @@
+
+  <!-- ====================================================================
+  view.statsabsence
+  -->
+  <div class="container content">
+
+    {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
+      {{ createAlertBox(alertData)|raw }}
+    {% endif %}
+
+    {% set tabindex = 0 %}
+
+    <form class="form-control-horizontal noprint" enctype="multipart/form-data" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
+      <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+      <div class="card mb-4">
+        <div class="card-header"><i class="fa-solid fa-filter me-2"></i> {{ LANG.filter|default('Filter') }}</div>
+        <div class="card-body">
+          <div class="row g-3">
+            <!-- Absence Type -->
+            <div class="col-md-3">
+              <label for="absence" class="form-label">{{ LANG.absencetype }}</label>
+              <select id="absence" class="form-select" name="sel_absence">
+                <option value="all" {{ (absid == 'all') ? "selected" : "" }}>{{ LANG.all }}</option>
+                {% for abs in absences %}
+                  <option value="{{ abs.id }}" {{ (absid == abs.id) ? "selected" : "" }}>{{ abs.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            
+            <!-- Group -->
+            <div class="col-md-3">
+              <label for="group" class="form-label">{{ LANG.group }}</label>
+              <select id="group" class="form-select" name="sel_group">
+                <option value="all" {{ (groupid == 'all') ? ' selected="selected"' : '' }}>{{ LANG.all }}</option>
+                {% for grp in groups %}
+                  <option value="{{ grp.id }}" {{ (groupid == grp.id) ? 'selected="selected"' : '' }}>{{ grp.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <!-- Period -->
+            <div class="col-md-3">
+               <label for="sel_period_absence" class="form-label">{{ LANG.period }}</label>
+               <select id="sel_period_absence" class="form-select" name="sel_period">
+                 <option value="year" {{ (period == 'year') ? "selected" : "" }}>{{ LANG.period_year }}</option>
+                 <option value="half" {{ (period == 'half') ? "selected" : "" }}>{{ LANG.period_half }}</option>
+                 <option value="quarter" {{ (period == 'quarter') ? "selected" : "" }}>{{ LANG.period_quarter }}</option>
+                 <option value="month" {{ (period == 'month') ? "selected" : "" }}>{{ LANG.period_month }}</option>
+                 {% if not currentYearOnly %}
+                   <option value="custom" {{ (period == 'custom') ? "selected" : "" }}>{{ LANG.custom }}</option>
+                 {% endif %}
+               </select>
+            </div>
+
+            <!-- Color -->
+            <div class="col-md-3">
+               <label for="sel_color" class="form-label">{{ LANG.color }}</label>
+               <select id="sel_color" class="form-select" name="sel_color">
+                 <option value="blue" {{ (color == 'blue') ? "selected" : "" }}>{{ LANG.blue }}</option>
+                 <option value="cyan" {{ (color == 'cyan') ? "selected" : "" }}>{{ LANG.cyan }}</option>
+                 <option value="green" {{ (color == 'green') ? "selected" : "" }}>{{ LANG.green }}</option>
+                 <option value="grey" {{ (color == 'grey') ? "selected" : "" }}>{{ LANG.grey }}</option>
+                 <option value="magenta" {{ (color == 'magenta') ? "selected" : "" }}>{{ LANG.magenta }}</option>
+                 <option value="orange" {{ (color == 'orange') ? "selected" : "" }}>{{ LANG.orange }}</option>
+                 <option value="purple" {{ (color == 'purple') ? "selected" : "" }}>{{ LANG.purple }}</option>
+                 <option value="red" {{ (color == 'red') ? "selected" : "" }}>{{ LANG.red }}</option>
+                 <option value="yellow" {{ (color == 'yellow') ? "selected" : "" }}>{{ LANG.yellow }}</option>
+               </select>
+            </div>
+
+            <!-- Y-Axis -->
+            <div class="col-md-6">
+                <label class="form-label">{{ LANG.stats_yaxis }}</label>
+                <div class="d-flex gap-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="opt_yaxis" id="y_groups" value="groups" {{ (yaxis == 'groups') ? "checked" : "" }}>
+                        <label class="form-check-label" for="y_groups">{{ LANG.stats_yaxis_groups }}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="opt_yaxis" id="y_users" value="users" {{ (yaxis == 'users') ? "checked" : "" }}>
+                        <label class="form-check-label" for="y_users">{{ LANG.stats_yaxis_users }}</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom Dates -->
+            {% if not currentYearOnly %}
+            <div class="col-md-12" id="custom_dates_container_absence" style="display: {{ (period == 'custom') ? 'block' : 'none' }};">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label for="from_absence" class="form-label">{{ LANG.stats_startDate }}</label>
+                        <input id="from_absence" class="form-control" name="txt_from" type="text" maxlength="10" value="{{ from }}">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="to_absence" class="form-label">{{ LANG.stats_endDate }}</label>
+                        <input id="to_absence" class="form-control" name="txt_to" type="text" maxlength="10" value="{{ to }}">
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Buttons -->
+            <div class="col-12 mt-4">
+               <button type="submit" name="btn_apply" class="btn btn-success">{{ LANG.btn_apply }}</button>
+               <a class="btn btn-secondary" href="index.php?action={{ controller }}">{{ LANG.btn_reset }}</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      
+      <script>
+         $(function () {
+            // Datepicker init
+            if($("#from_absence").length) $("#from_absence").datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
+            if($("#to_absence").length) $("#to_absence").datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
+            
+            // Toggle custom dates
+            $("#sel_period_absence").change(function () {
+                if ($(this).val() == 'custom') {
+                    $('#custom_dates_container_absence').show();
+                } else {
+                    $('#custom_dates_container_absence').hide();
+                }
+            });
+         });
+      </script>
+
+    <div class="card">
+      <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+        <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+        {{ LANG.stats_title_absences }}&nbsp;({{ periodName }})<span class="badge text-bg-secondary float-end badge-header-right">
+          <i data-bs-placement="bottom" data-type="info" data-bs-toggle="tooltip" title="{{ LANG.stats_total }}">{{ total }}</i>
+        </span>
+      </div>
+      <div class="card-body">
+        <p>{{ LANG.stats_absences_desc }}</p>
+
+        <div style="position: relative; height: {{ height }}px;">
+          <canvas id="myChart_absence"></canvas>
+        </div>
+
+
+        <script>
+          // Wrap chart initialization in a function or just execute it if scripts run
+         (function(){
+            const ctx = document.getElementById('myChart_absence');
+            
+            // Custom opacity logic
+            const rawData = [{{ data|raw }}];
+            // Color mapping for named colors (Bootstrap 5)
+            const colorNameMap = {
+              'blue': '#0d6efd',
+              'cyan': '#0dcaf0',
+              'green': '#198754',
+              'grey': '#6c757d',
+              'gray': '#6c757d',
+              'magenta': '#d63384',
+              'orange': '#fd7e14',
+              'purple': '#6f42c1',
+              'red': '#dc3545',
+              'yellow': '#ffc107'
+            };
+
+            let baseColorHex = '{{ color }}';
+            // Handle named colors
+            if (baseColorHex.indexOf('#') !== 0) {
+                 let lowerColor = baseColorHex.toLowerCase();
+                 if (colorNameMap[lowerColor]) {
+                     baseColorHex = colorNameMap[lowerColor];
+                 }
+            }
+
+            function hexToRgb(hex) {
+              // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+              var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+              hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+                return r + r + g + g + b + b;
+              });
+
+              var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+              return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+              } : { r: 0, g: 0, b: 0 };
+            }
+
+            const rgb = hexToRgb(baseColorHex);
+            const maxVal = Math.max(...rawData);
+            const minVal = Math.min(...rawData);
+            const range = maxVal - minVal;
+
+            const bgColors = rawData.map(val => {
+                let alpha = 1;
+                // If there is variety in the data, scale opacity from 0.3 to 1.0
+                if (range > 0) {
+                     alpha = 0.3 + 0.7 * ((val - minVal) / range);
+                }
+                return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha.toFixed(2)})`;
+            });
+
+            new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: [{{ labels|raw }}],
+                datasets: [
+                  {
+                    label: '{{ absid == "all" ? LANG.all ~ " " ~ LANG.abs_list_title : absName }}',
+                    data: rawData,
+                    backgroundColor: bgColors,
+                    borderColor: baseColorHex,
+                    borderWidth: 1,
+                    barThickness: 40
+                  }
+                ]
+              },
+              options: {
+                indexAxis: 'y',
+                elements: {
+                  rectangle: {
+                    borderWidth: 2
+                  }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                  display: false
+                },
+                title: {
+                  display: false
+                }
+              }
+            });
+         })();
+        </script>
+
+      </div>
+    </div>
+  </div>

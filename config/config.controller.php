@@ -123,10 +123,6 @@ $CONF['controllers']   = array(
   'regions'           => new Controller('regions', 'bi-globe', $CONF['menuIconColor'], 'primary', 'regions', 'Regions', 'https://lewe.gitbook.io/teamcal-neo/administration/regions/'),
   'regionedit'        => new Controller('regionedit', 'bi-globe', $CONF['menuIconColor'], 'primary', 'regions', 'Region Edit', 'https://lewe.gitbook.io/teamcal-neo/administration/regions/'),
   'remainder'         => new Controller('remainder', 'bi-calculator', $CONF['menuIconColor'], 'primary', 'remainder', 'Remainder View', 'https://lewe.gitbook.io/teamcal-neo/user-guide/remainder-page/'),
-  'statsabsence'      => new Controller('statsabsence', 'bi-bar-chart', $CONF['menuIconColor'], 'default', 'statistics', 'Absence Statistics', 'https://lewe.gitbook.io/teamcal-neo/user-guide/statistics/absence-statistics/'),
-  'statsabstype'      => new Controller('statsabstype', 'bi-bar-chart', $CONF['menuIconColor'], 'default', 'statistics', 'Absence Type Statistics', 'https://lewe.gitbook.io/teamcal-neo/user-guide/statistics/absence-type-statistics/'),
-  'statspresence'     => new Controller('statspresence', 'bi-bar-chart', $CONF['menuIconColor'], 'default', 'statistics', 'Presence Statistics', 'https://lewe.gitbook.io/teamcal-neo/user-guide/statistics/presence-statistics/'),
-  'statspresencetype' => new Controller('statspresencetype', 'bi-bar-chart', $CONF['menuIconColor'], 'default', 'statistics', 'Presence Type Statistics', 'https://lewe.gitbook.io/teamcal-neo/user-guide/statistics/presence-type-statistics/'),
-  'statsremainder'    => new Controller('statsremainder', 'bi-bar-chart', $CONF['menuIconColor'], 'default', 'statistics', 'Remainder Statistics', 'https://lewe.gitbook.io/teamcal-neo/user-guide/statistics/remainder-statistics/'),
+  'statistics'        => new Controller('statistics', 'bi-bar-chart-fill', $CONF['menuIconColor'], 'default', 'statistics', 'Statistics', 'https://lewe.gitbook.io/teamcal-neo/user-guide/statistics/'),
   'year'              => new Controller('year', 'bi-calendar', $CONF['menuIconColor'], 'primary', 'calendarview', 'Year Calendar', 'https://lewe.gitbook.io/teamcal-neo/user-guide/calendar-year/'),
 );

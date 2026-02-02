@@ -33,6 +33,7 @@ $LANG['avatar'] = 'Avatar';
 $LANG['back_to_top'] = 'Retour en haut';
 $LANG['blue'] = 'Bleu';
 $LANG['close_this_message'] = 'Fermer ce message';
+$LANG['color'] = 'Couleur';
 $LANG['cookie_dismiss'] = 'Compris !';
 $LANG['cookie_learnMore'] = '[Plus d\'infos...]';
 $LANG['cookie_message'] = 'Ce site utilise un cookie de session pour mémoriser votre connexion. Aucune donnée personnelle n\'est stockée dans ce cookie.';

@@ -44,6 +44,7 @@ class LdapService
     $port               = defined('LDAP_PORT') ? LDAP_PORT : 389;
     $searchbase         = defined('LDAP_SBASE') ? LDAP_SBASE : '';
     $checkAnonymousBind = defined('LDAP_CHECK_ANONYMOUS_BIND') ? LDAP_CHECK_ANONYMOUS_BIND : false;
+    $searchBind         = defined('LDAP_SEARCH_BIND') ? LDAP_SEARCH_BIND : false;
 
     //
     // Attributes to return
@@ -95,7 +96,7 @@ class LdapService
     //
     // LDAP Search bind
     //
-    if (!@ldap_bind($ds, $ldaprdn, $ldappass)) {
+    if ($searchBind && !@ldap_bind($ds, $ldaprdn, $ldappass)) {
       return 96;
     }
 

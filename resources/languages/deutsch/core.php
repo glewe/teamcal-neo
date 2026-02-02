@@ -209,6 +209,7 @@ $LANG['attribute'] = 'Attribut';
 $LANG['auto'] = 'Automatisch';
 $LANG['avatar'] = 'Avatar';
 $LANG['blue'] = 'Blau';
+$LANG['color'] = 'Farbe';
 $LANG['custom'] = 'Individuell';
 $LANG['cyan'] = 'Cyan';
 $LANG['declined'] = 'Abgelehnt';

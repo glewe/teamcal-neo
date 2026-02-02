@@ -671,6 +671,7 @@ $router->add('statsabstype', 'App\Controllers\StatsAbstypeController');
 $router->add('statspresence', 'App\Controllers\StatsPresenceController');
 $router->add('statspresencetype', 'App\Controllers\StatsPresencetypeController');
 $router->add('statsremainder', 'App\Controllers\StatsRemainderController');
+$router->add('statistics', 'App\Controllers\StatisticsController');
 $router->add('useradd', 'App\Controllers\UserAddController');
 $router->add('useredit', 'App\Controllers\UserEditController');
 $router->add('userimport', 'App\Controllers\UserImportController');

@@ -1,0 +1,204 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+      view.statistics
+      -->
+  <div class="container content">
+
+    {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
+      {{ createAlertBox(alertData)|raw }}
+    {% endif %}
+
+    <div class="card">
+      <div class="card-header text-bg-{{ CONF.controllers.statistics.panelColor }}">
+        <i class="{{ CONF.controllers.statistics.faIcon }} fa-lg me-3"></i>
+        {{ LANG.stats_title }}
+        {% if C.read('pageHelp') %}
+          <a href="{{ CONF.controllers.statistics.docurl }}" target="_blank" class="float-end" style="color:inherit;">
+            <i class="bi bi-question-circle-fill bi-lg"></i>
+          </a>
+        {% endif %}
+      </div>
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs" id="statsTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="absence-tab" data-bs-toggle="tab" data-bs-target="#absence" type="button" role="tab" aria-controls="absence" aria-selected="true" data-url="index.php?action=statistics&ajax=1&tab=absence">{{ LANG.mnu_view_stats_absences }}</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="abstype-tab" data-bs-toggle="tab" data-bs-target="#abstype" type="button" role="tab" aria-controls="abstype" aria-selected="false" data-url="index.php?action=statistics&ajax=1&tab=abstype">{{ LANG.mnu_view_stats_abstype }}</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="presence-tab" data-bs-toggle="tab" data-bs-target="#presence" type="button" role="tab" aria-controls="presence" aria-selected="false" data-url="index.php?action=statistics&ajax=1&tab=presence">{{ LANG.mnu_view_stats_presences }}</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="presencetype-tab" data-bs-toggle="tab" data-bs-target="#presencetype" type="button" role="tab" aria-controls="presencetype" aria-selected="false" data-url="index.php?action=statistics&ajax=1&tab=presencetype">{{ LANG.mnu_view_stats_presencetype }}</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="remainder-tab" data-bs-toggle="tab" data-bs-target="#remainder" type="button" role="tab" aria-controls="remainder" aria-selected="false" data-url="index.php?action=statistics&ajax=1&tab=remainder">{{ LANG.mnu_view_stats_remainder }}</button>
+          </li>
+          {# New Statistics Tabs #}
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="trends-tab" data-bs-toggle="tab" data-bs-target="#trends" type="button" role="tab" aria-controls="trends" aria-selected="false" data-url="index.php?action=statistics&ajax=1&tab=trends">Trends</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="dayofweek-tab" data-bs-toggle="tab" data-bs-target="#dayofweek" type="button" role="tab" aria-controls="dayofweek" aria-selected="false" data-url="index.php?action=statistics&ajax=1&tab=dayofweek">Day of Week</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="duration-tab" data-bs-toggle="tab" data-bs-target="#duration" type="button" role="tab" aria-controls="duration" aria-selected="false" data-url="index.php?action=statistics&ajax=1&tab=duration">Duration</button>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body">
+        <div
+          class="tab-content" id="statsTabContent">
+          {# Loading spinner partial #}
+          {% set loadingHtml %}
+          <div class="d-flex justify-content-center p-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          {% endset %}
+
+          <div class="tab-pane fade show active" id="absence" role="tabpanel" aria-labelledby="absence-tab" data-loaded="false">
+            {{ loadingHtml }}
+          </div>
+          <div class="tab-pane fade" id="abstype" role="tabpanel" aria-labelledby="abstype-tab" data-loaded="false">
+            {{ loadingHtml }}
+          </div>
+          <div class="tab-pane fade" id="presence" role="tabpanel" aria-labelledby="presence-tab" data-loaded="false">
+            {{ loadingHtml }}
+          </div>
+          <div class="tab-pane fade" id="presencetype" role="tabpanel" aria-labelledby="presencetype-tab" data-loaded="false">
+            {{ loadingHtml }}
+          </div>
+          <div class="tab-pane fade" id="remainder" role="tabpanel" aria-labelledby="remainder-tab" data-loaded="false">
+            {{ loadingHtml }}
+          </div>
+          <div class="tab-pane fade" id="trends" role="tabpanel" aria-labelledby="trends-tab" data-loaded="false">
+            {{ loadingHtml }}
+          </div>
+          <div class="tab-pane fade" id="dayofweek" role="tabpanel" aria-labelledby="dayofweek-tab" data-loaded="false">
+            {{ loadingHtml }}
+          </div>
+          <div class="tab-pane fade" id="duration" role="tabpanel" aria-labelledby="duration-tab" data-loaded="false">
+            {{ loadingHtml }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="public/addons/chart.js/{{ constant('CHARTJS_VER') }}/chart.umd.js"></script>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () { // Function to load tab content via AJAX
+      function loadTab(targetId, url) {
+        const pane = document.querySelector(targetId);
+
+        // Check if already loaded to prevent redundant requests
+        if (pane.dataset.loaded === 'true') {
+          return;
+        }
+
+        // Show loading state (if not already showing spinner)
+        // fetch...
+        fetch(url).then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text();
+        }).then(html => {
+          pane.innerHTML = html;
+          pane.dataset.loaded = 'true';
+
+          // Re-execute scripts inside the fetched HTML manually
+          // because innerHTML does not execute <script> tags for security/spec reasons.
+          const scripts = pane.querySelectorAll("script");
+          scripts.forEach(oldScript => {
+            const newScript = document.createElement("script");
+            Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+            newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+            oldScript.parentNode.replaceChild(newScript, oldScript);
+          });
+        }).catch(err => {
+          pane.innerHTML = '<div class="alert alert-danger">Error loading content: ' + err.message + '</div>';
+          console.error('Fetch error:', err);
+        });
+      }
+
+      // 1. Load active tab immediately on page load
+      const activeTabButton = document.querySelector('#statsTabs button.active');
+      if (activeTabButton) {
+        loadTab(activeTabButton.dataset.bsTarget, activeTabButton.dataset.url);
+      }
+
+      // 2. Add event listeners for tab switching
+      const tabButtons = document.querySelectorAll('button[data-bs-toggle="tab"]');
+      tabButtons.forEach(button => {
+        button.addEventListener('show.bs.tab', event => {
+          const targetId = event.target.dataset.bsTarget; // target pane selector (e.g. #absence)
+          const url = event.target.dataset.url; // AJAX URL
+          loadTab(targetId, url);
+        });
+      });
+
+      // 3. Intercept form submissions inside tab content (Filters)
+      document.addEventListener('submit', function (e) { // Check if submission comes from a form inside a tab-pane
+        const tabPane = e.target.closest('.tab-pane');
+        if (tabPane) {
+          e.preventDefault();
+          const form = e.target;
+
+          // Get the tab ID from the pane
+          const tabId = tabPane.id;
+          // 'absence', 'abstype', etc.
+
+          // Construct URL with ajax params
+          let url = form.getAttribute('action');
+          if (! url) 
+            url = window.location.href;
+
+          if (url.indexOf('?') !== -1) {
+            url += '&ajax=1&tab=' + tabId;
+          } else {
+            url += '?ajax=1&tab=' + tabId;
+          }
+
+          const formData = new FormData(form);
+
+          // Append the submit button that triggered the event (e.submitter)
+          if (e.submitter && e.submitter.name) {
+            formData.append(e.submitter.name, e.submitter.value);
+          }
+
+          // Show loading spinner
+          tabPane.innerHTML = '<div class="d-flex justify-content-center p-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+
+          fetch(url, {
+            method: 'POST',
+            body: formData
+          }).then(response => {
+            if (!response.ok) 
+              throw new Error('Network response was not ok');
+            
+            return response.text();
+          }).then(html => {
+            tabPane.innerHTML = html;
+
+            // Re-execute scripts
+            const scripts = tabPane.querySelectorAll("script");
+            scripts.forEach(oldScript => {
+              const newScript = document.createElement("script");
+              Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+              newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+              oldScript.parentNode.replaceChild(newScript, oldScript);
+            });
+          }).catch(err => {
+            tabPane.innerHTML = '<div class="alert alert-danger">Error submitting form: ' + err.message + '</div>';
+          });
+        }
+      });
+    });
+  </script>
+{% endblock %}

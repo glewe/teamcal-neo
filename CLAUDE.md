@@ -1,1 +1,1 @@
-Refer to AGENTS.md for coding standards.
+Refer to AGENTS.md for project information and coding standards.

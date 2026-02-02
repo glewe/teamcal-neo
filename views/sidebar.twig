@@ -94,30 +94,8 @@ view.sidebar
           {% if isAllowed(CONF.controllers.messages.permission) and C.read('activateMessages') %}
             {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.messages.name, CONF.controllers.messages.faIcon, LANG.mnu_view_messages) }}
           {% endif %}
-          {% if isAllowed(CONF.controllers.statsabsence.permission) or
-               isAllowed(CONF.controllers.statsabstype.permission) or
-               isAllowed(CONF.controllers.statspresence.permission) or
-               isAllowed(CONF.controllers.statspresencetype.permission) or
-               isAllowed(CONF.controllers.statsremainder.permission) or
-               isAllowed(CONF.controllers.absum.permission)
-          %}
-            {{ _self.sidebarSubmenu('statistics', 'bi-bar-chart-fill', LANG.mnu_view_stats) }}
-              {% if isAllowed(CONF.controllers.statsabsence.permission) %}
-                {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.statsabsence.name, CONF.controllers.statsabsence.faIcon, LANG.mnu_view_stats_absences) }}
-              {% endif %}
-              {% if isAllowed(CONF.controllers.statsabstype.permission) %}
-                {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.statsabstype.name, CONF.controllers.statsabstype.faIcon, LANG.mnu_view_stats_abstype) }}
-              {% endif %}
-              {% if isAllowed(CONF.controllers.statspresence.permission) %}
-                {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.statspresence.name, CONF.controllers.statspresence.faIcon, LANG.mnu_view_stats_presences) }}
-              {% endif %}
-              {% if isAllowed(CONF.controllers.statspresencetype.permission) %}
-                {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.statspresencetype.name, CONF.controllers.statspresencetype.faIcon, LANG.mnu_view_stats_presencetype) }}
-              {% endif %}
-              {% if isAllowed(CONF.controllers.statsremainder.permission) %}
-                {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.statsremainder.name, CONF.controllers.statsremainder.faIcon, LANG.mnu_view_stats_remainder) }}
-              {% endif %}
-            {{ _self.sidebarSubmenuEnd() }}
+          {% if isAllowed('statistics') %}
+            {{ _self.sidebarItem('index.php?action=statistics', 'bi-bar-chart-fill', LANG.mnu_view_stats) }}
           {% endif %}
         </ul>
       </li>

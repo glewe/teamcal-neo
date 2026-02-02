@@ -612,7 +612,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_daynotes` (
 DROP TABLE IF EXISTS `tcneo_groups`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_groups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER
   SET
     utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
@@ -625,9 +625,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_groups` (
     `minpresent` smallint(6) NOT NULL DEFAULT 0,
     `maxabsent` smallint(6) NOT NULL DEFAULT 9999,
     `minpresentwe` smallint(6) NOT NULL DEFAULT 0,
-    `maxabsentwe` smallint(6) NOT NULL DEFAULT 9999,
-    PRIMARY KEY (`id`),
-    KEY `k_name` (`name`)
+    `maxabsentwe` smallint(6) NOT NULL DEFAULT 9999
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------

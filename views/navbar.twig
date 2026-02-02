@@ -102,64 +102,14 @@ view.navbar
                   {{ LANG.mnu_view_messages }}
                 </a>
               {% endif %}
-              {% if 
-                isAllowed(CONF.controllers.statsabsence.permission) or
-                isAllowed(CONF.controllers.statspresence.permission) or
-                isAllowed(CONF.controllers.statsabstype.permission) or
-                isAllowed(CONF.controllers.statspresencetype.permission) or
-                isAllowed(CONF.controllers.statsremainder.permission)
-              %}
+              {% if isAllowed('statistics') %}
                 <div class="dropdown-divider"></div>
-                <div class="dropend">
-                  <a class="dropdown-item dropdown-toggle" href="#" id="statisticsSubmenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="menu-icon">
-                      <i class="bi-bar-chart-fill fa-lg text-{{ CONF.menuIconColor }}"></i>
-                    </span>
-                    {{ LANG.mnu_view_stats }}
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="statisticsSubmenu">
-                    {% if isAllowed(CONF.controllers.statsabsence.permission) %}
-                      <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.statsabsence.name }}">
-                        <span class="menu-icon">
-                          <i class="{{ CONF.controllers.statsabsence.faIcon }} fa-lg text-{{ CONF.controllers.statsabsence.iconColor }}"></i>
-                        </span>
-                        {{ LANG.mnu_view_stats_absences }}
-                      </a>
-                    {% endif %}
-                    {% if isAllowed(CONF.controllers.statsabstype.permission) %}
-                      <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.statsabstype.name }}">
-                        <span class="menu-icon">
-                          <i class="{{ CONF.controllers.statsabstype.faIcon }} fa-lg text-{{ CONF.controllers.statsabstype.iconColor }}"></i>
-                        </span>
-                        {{ LANG.mnu_view_stats_abstype }}
-                      </a>
-                    {% endif %}
-                    {% if isAllowed(CONF.controllers.statspresence.permission) %}
-                      <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.statspresence.name }}">
-                        <span class="menu-icon">
-                          <i class="{{ CONF.controllers.statspresence.faIcon }} fa-lg text-{{ CONF.controllers.statspresence.iconColor }}"></i>
-                        </span>
-                        {{ LANG.mnu_view_stats_presences }}
-                      </a>
-                    {% endif %}
-                    {% if isAllowed(CONF.controllers.statspresencetype.permission) %}
-                      <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.statspresencetype.name }}">
-                        <span class="menu-icon">
-                          <i class="{{ CONF.controllers.statspresencetype.faIcon }} fa-lg text-{{ CONF.controllers.statspresencetype.iconColor }}"></i>
-                        </span>
-                        {{ LANG.mnu_view_stats_presencetype }}
-                      </a>
-                    {% endif %}
-                    {% if isAllowed(CONF.controllers.statsremainder.permission) %}
-                      <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.statsremainder.name }}">
-                        <span class="menu-icon">
-                          <i class="{{ CONF.controllers.statsremainder.faIcon }} fa-lg text-{{ CONF.controllers.statsremainder.iconColor }}"></i>
-                        </span>
-                        {{ LANG.mnu_view_stats_remainder }}
-                      </a>
-                    {% endif %}
-                  </div>
-                </div>
+                <a class="dropdown-item" tabindex="-1" href="index.php?action=statistics">
+                  <span class="menu-icon">
+                    <i class="bi-bar-chart-fill fa-lg text-{{ CONF.menuIconColor }}"></i>
+                  </span>
+                  {{ LANG.mnu_view_stats }}
+                </a>
               {% endif %}
             </div>
           </li>
