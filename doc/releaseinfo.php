@@ -15,7 +15,7 @@ $releases = [
       [ 'summary' => 'Re-introduced CKEditor (CKEditor5 v41.0.0)', 'issue' => '' ],
     ],
     'improvements' => [
-      [ 'summary' => 'Updated sample database (core and demo data)', 'issue' => '' ],
+      [ 'summary' => 'Updated sample database (split in core and demo data)', 'issue' => '' ],
       [ 'summary' => 'Updated Bootstrap Icons 1.11.3 to 1.13.1', 'issue' => '' ],
       [ 'summary' => 'Updated Datatables 2.2.0 to 2.3.6', 'issue' => '' ],
       [ 'summary' => 'Updated ChartJs 4.4.7 to 4.5.1', 'issue' => '' ],
