@@ -31,19 +31,35 @@ TeamCal Neo 5.0.0 is a new major release. The application has been completely re
 ### Bugfixes
 
 - Fixed admin users not seeing all groups on Notification tab
-- Several minor bugfixes
 
 ### Features
 
-- Added new optional font "Poppins"
-- Added new languages Spanish and French
+- Added new languages Spanish and French (via AI translators so forgive any mistakes)
+- Added new demo groups and users
+- Added three new statistics: Trends, Day of Week, Duration
+- Added Summernote WYSIWYG editor
 
 ### Improvements
 
-- The installation script now allows to select whether to only add core data or an additional set of sample data
+- Updated sample database (split in core and demo data)
 - Updated Bootstrap Icons 1.11.3 to 1.13.1
 - Updated Datatables 2.2.0 to 2.3.6
+- Updated ChartJs 4.4.7 to 4.5.1
+- Updated jQuery 3.7.1 to 4.0.0
+- Updated jQuery UI 1.14.1 to 1.14.2
 - Replaced Securimage CAPTCHA with new internal CaptchaService (Math + Honeypot)
+- Set focus on search input in calendar user search dialog
+- Allow multiple absence types in absence monitoring
+- Implemented a much nicer email template for notifications
+- Added "default" to the user profile option "Menu Position" (global setting)
+- Tooltip Counter for absences in the calendar now shows (taken current month/taken current year)
+
+### Removals
+
+- Removed obsolete Securimage module
+- Removed option to display viewport info in the footer
+- Removed Google+ and Skype fields from user profile (added Instagram, TikTok and Xing)
+- Removed the old demo groups and users
 
 ## Demo
 [TeamCal Neo Demo (stable version 4)](https://tcneo.lewe.com/)

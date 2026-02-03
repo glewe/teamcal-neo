@@ -120,12 +120,12 @@ define('BOOTSTRAP_ICONS_VER', "1.13.1");
 define('CHARTJS_VER', "4.5.1");
 
 /**
- * Ckeditor5
+ * Summernote (because Ckeditor5 still sucks)
  * 
- * The rich text editor for every use case
- * https://ckeditor.com/
+ * Super simple WYSIWYG editor for Bootstrap
+ * https://summernote.org/
  */
-define('CKEDITOR5_VER', "41.0.0");
+define('SUMMERNOTE_VER', "0.9.0");
 
 /**
  * Coloris
@@ -164,7 +164,7 @@ define('FONTAWESOME_VER', "7.1.0");
  * jQuery is a fast, small, and feature-rich JavaScript library.
  * https://jquery.com/
  */
-define('JQUERY_VER', "4.0.0");
+define('JQUERY_VER', "3.7.1");
 
 /**
  * jQuery UI

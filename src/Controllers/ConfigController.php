@@ -146,7 +146,7 @@ class ConfigController extends BaseController
     $viewData['homepage'] = [
       ['prefix' => 'config', 'name' => 'defaultHomepage', 'type' => 'radio', 'values' => ['home', 'calendarview'], 'value' => $allConfig["defaultHomepage"]],
       ['prefix' => 'config', 'name' => 'homepage', 'type' => 'radio', 'values' => ['home', 'calendarview', 'messages'], 'value' => $allConfig["homepage"]],
-      ['prefix' => 'config', 'name' => 'welcomeText', 'type' => 'ckeditor', 'value' => $allConfig["welcomeText"], 'rows' => '10', 'placeholder' => ''],
+      ['prefix' => 'config', 'name' => 'welcomeText', 'type' => 'summernote', 'value' => $allConfig["welcomeText"], 'rows' => '10', 'placeholder' => ''],
     ];
 
     $LIC->load();

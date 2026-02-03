@@ -469,10 +469,12 @@ function createFormGroup(array $data, int $colsleft, int $colsright, int $tabind
         <div class="divider"><hr></div>';
       break;
 
+
+
     //
-    // CKEditor 5
+    // Summernote
     //
-    case 'ckeditor':
+    case 'summernote':
       $formGroup = '
         <div class="form-group row" id="form-group-' . $data['name'] . '">
           <label for="' . $data['name'] . '" class="control-label mb-2">
@@ -482,94 +484,32 @@ function createFormGroup(array $data, int $colsleft, int $colsright, int $tabind
           <div>
             <textarea id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" rows="' . ($data['rows'] ?? '10') . '" placeholder="' . ($data['placeholder'] ?? '') . '" ' . $disabled . '>' . $data['value'] . '</textarea>
             ' . $button . $error . '
-            <div class="mt-1 text-end">
-              <button type="button" id="toggle_' . $data['name'] . '" class="btn btn-sm btn-outline-secondary" onclick="toggleEditor(\'' . $data['name'] . '\')">Switch to Source</button>
-            </div>
-            ' . $button . $error . '
             <script>
-              if (typeof window.editor_instances === \'undefined\') {
-                window.editor_instances = {};
-              }
-
-              if (typeof window.initEditor === \'undefined\') {
-                window.initEditor = function(name) {
-                  try {
-                    // Check for ClassicEditor (Classic Build)
-                    if (typeof ClassicEditor === \'undefined\') {
-                      console.error("ClassicEditor is not defined");
-                      return;
-                    }
-
-                    ClassicEditor
-                      .create(document.querySelector("#" + name))
-                      .then(editor => {
-                        window.editor_instances[name] = editor;
-                      })
-                      .catch(error => {
-                        console.error(error);
-                      });
-                  } catch (e) {
-                    console.error(e);
-                    alert("Init Error: " + e);
-                  }
+              window.addEventListener("load", function() {
+                if (typeof jQuery === "undefined") {
+                  console.error("jQuery is not loaded");
+                  return;
                 }
-              }
-
-              if (typeof window.formatHTML === \'undefined\') {
-                window.formatHTML = function(html) {
-                  var tab = \'  \';
-                  var result = \'\';
-                  var indent = \'\';
-
-                  html.split(/>\s*</).forEach(function(element) {
-                    if (element.match(/^\/\w/)) {
-                      indent = indent.substring(tab.length);
-                    }
-
-                    result += indent + \'<\' + element + \'>\r\n\';
-
-                    if (element.match(/^<?\w[^>]*[^\/]$/) && !element.startsWith("input") && !element.startsWith("img") && !element.startsWith("br") && !element.startsWith("hr")) {
-                      indent += tab;
-                    }
-                  });
-
-                  return result.substring(1, result.length - 3);
+                if (typeof jQuery.fn.summernote === "undefined") {
+                  console.error("Summernote is not loaded");
+                  return;
                 }
-              }
-
-              if (typeof window.toggleEditor === \'undefined\') {
-                window.toggleEditor = function(name) {
-                  const btn = document.getElementById("toggle_" + name);
-                  const textarea = document.getElementById(name);
-
-                  if (window.editor_instances[name]) {
-                    // Get data from editor
-                    let htmlData = window.editor_instances[name].getData();
-
-                    // Destroy editor
-                    window.editor_instances[name].destroy()
-                      .then(() => {
-                        delete window.editor_instances[name];
-                        // Format HTML and set to textarea
-                        textarea.value = window.formatHTML(htmlData);
-                        btn.innerHTML = "Switch to Editor";
-                      });
-                  } else {
-                    // Re-create editor
-                    window.initEditor(name);
-                    btn.innerHTML = "Switch to Source";
-                  }
-                }
-              }
-
-              // Initialize immediately if library is loaded, otherwise wait for window load
-              if (typeof ClassicEditor !== "undefined") {
-                window.initEditor("' . $data['name'] . '");
-              } else {
-                window.addEventListener("load", function() {
-                  window.initEditor("' . $data['name'] . '");
+                jQuery("#' . $data['name'] . '").summernote({
+                  placeholder: "' . ($data['placeholder'] ?? '') . '",
+                  tabsize: 2,
+                  height: 300,
+                  dialogsInBody: true,
+                  toolbar: [
+                    ["style", ["style"]],
+                    ["font", ["bold", "underline", "clear"]],
+                    ["color", ["color"]],
+                    ["para", ["ul", "ol", "paragraph"]],
+                    ["table", ["table"]],
+                    ["insert", ["link", "picture", "video"]],
+                    ["view", ["fullscreen", "codeview", "help"]]
+                  ]
                 });
-              }
+              });
             </script>
           </div>
         </div>

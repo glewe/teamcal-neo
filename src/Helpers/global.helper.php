@@ -1142,33 +1142,34 @@ function sanitizeWithAllowedTags(string $input, ?array $customTags = null, bool 
       $config->set('Cache.SerializerPath', $cacheDir);
     }
 
+    // Disable caching for now to ensuring config changes take effect immediately
+    $config->set('Cache.DefinitionImpl', null);
+
     // Allow typical CKEditor tags
-    // If customTags are provided, we should respect them, but HTMLPurifier uses a different format.
-    // Ideally, we stick to a safe default set for the application.
+    // If customTags are provided, we should respect them.
     if ($customTags !== null) {
-      // Best effort to convert array of tags to HTMLPurifierAllowed string if needed, 
-      // but for now let's use a generous but safe preset.
       $config->set('HTML.Allowed', implode(',', $customTags));
     } else {
-       // Allow common block and inline elements, plus tables and images.
-       // We explicitly define attributes per tag for clarity, but we can also use HTML.AllowedAttributes for global ones.
-       // Updating to allow style/class on most block elements.
-       $config->set('HTML.Allowed', 'p[style|class],b,strong,i,em,u,a[href|title|target|style|class],ul[style|class],ol[style|class],li[style|class],br,span[style|class],div[style|class],img[src|alt|width|height|style|class],h1[style|class],h2[style|class],h3[style|class],h4[style|class],h5[style|class],h6[style|class],blockquote[style|class],code,pre[style|class],table[style|class|border|cellspacing|cellpadding],thead,tbody,tr[style|class],th[style|class|width],td[style|class|width|colspan|rowspan],caption');
+       // Switch to AllowedElements + AllowedAttributes for better handling of global attributes like class/style
+       $config->set('HTML.AllowedElements', 'p,b,strong,i,em,u,a,ul,ol,li,br,hr,span,div,img,h1,h2,h3,h4,h5,h6,blockquote,code,pre,table,thead,tbody,tr,th,td,caption');
+       $config->set('HTML.AllowedAttributes', 'src,href,alt,target,width,height,border,cellspacing,cellpadding,colspan,rowspan,align,valign,cite,rel,style,class,id,title');
     }
+
+    // configure global attributes to be permissible
+    $config->set('Attr.AllowedClasses', null); // Allow all classes
+    $config->set('Attr.EnableID', true);       // Allow IDs
 
     // Allow some safe styling if attributes are allowed
     if ($allowAttributes) {
-      // "Trusted" mode allows valid CSS that HTMLPurifier might not fully undestand yet (like border-radius in older definitions)
-      // and allows tricky properties like display: none.
-      // Since this is for admin content, this is acceptable and resolves the warnings.
       $config->set('CSS.Trusted', true);
+      $config->set('CSS.Proprietary', true); // Allow proprietary CSS like scrollbar styles
     }
     else {
       $config->set('HTML.AllowedAttributes', ''); // Remove all attributes
     }
 
     // Ensure external links open in new window (optional, but good for user content)
-    $config->set('HTML.TargetBlank', true);
+    $config->set('HTML.TargetBlank', false);
 
     // Initialize Purifier
     $purifier = new HTMLPurifier($config);

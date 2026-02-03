@@ -12,7 +12,7 @@ $releases = [
       [ 'summary' => 'Added new languages Spanish and French (via AI translators so forgive any mistakes)', 'issue' => '' ],
       [ 'summary' => 'Added new demo groups and users', 'issue' => '' ],
       [ 'summary' => 'Added three new statistics: Trends, Day of Week, Duration', 'issue' => '' ],
-      [ 'summary' => 'Re-introduced CKEditor (CKEditor5 v41.0.0)', 'issue' => '' ],
+      [ 'summary' => 'Added Summernote WYSIWYG editor', 'issue' => '' ],
     ],
     'improvements' => [
       [ 'summary' => 'Updated sample database (split in core and demo data)', 'issue' => '' ],
