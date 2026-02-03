@@ -15,7 +15,6 @@
 /temp/twig/*
 !/temp/twig/.gitkeep
 
-installation.org.php
 node_modules
 vendor/
 dist/
