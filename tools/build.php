@@ -77,6 +77,7 @@ $filesToCopy = [
   'LICENSE',
   'README.md',
   'installation.org.php',
+  '.env.example',
 ];
 
 foreach ($foldersToCopy as $folder) {
