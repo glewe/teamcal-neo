@@ -27,6 +27,7 @@ $releases = [
       [ 'summary' => 'Implemented a much nicer email template for notifications', 'issue' => '' ],
       [ 'summary' => 'Added "default" to the user profile option "Menu Position" (global setting)', 'issue' => '' ],
       [ 'summary' => 'Tooltip Counter for absences in the calendar now shows (taken current month/taken current year)', 'issue' => '' ],
+      [ 'summary' => 'Some pages have been pimped a bit. Check out the Under Maintenance page...', 'issue' => '' ],
     ],
     'removals' => [
       [ 'summary' => 'Removed obsolete Securimage module', 'issue' => '' ],
