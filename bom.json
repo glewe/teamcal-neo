@@ -2,10 +2,10 @@
     "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
     "bomFormat": "CycloneDX",
     "specVersion": "1.5",
-    "serialNumber": "urn:uuid:8f9665b8-4a77-4a1d-b035-288fda66c356",
+    "serialNumber": "urn:uuid:56bde0f6-e828-4db7-8a20-fd5a8d563284",
     "version": 1,
     "metadata": {
-        "timestamp": "2026-02-02T18:58:30Z",
+        "timestamp": "2026-02-03T19:22:51Z",
         "tools": [
             {
                 "name": "composer",
@@ -82,13 +82,13 @@
             }
         ],
         "component": {
-            "bom-ref": "lewe/tcneo-5.0.0.0-beta",
+            "bom-ref": "lewe/tcneo-5.0.0.0-beta2",
             "type": "application",
             "name": "tcneo",
-            "version": "5.0.0-beta",
+            "version": "5.0.0-beta2",
             "group": "lewe",
             "description": "TeamCal Neo",
-            "purl": "pkg:composer/lewe/tcneo@5.0.0-beta",
+            "purl": "pkg:composer/lewe/tcneo@5.0.0-beta2",
             "properties": [
                 {
                     "name": "cdx:composer:package:type",
@@ -286,6 +286,64 @@
                 {
                     "name": "cdx:composer:package:isDevRequirement",
                     "value": "true"
+                }
+            ]
+        },
+        {
+            "bom-ref": "ezyang/htmlpurifier-4.19.0.0",
+            "type": "library",
+            "name": "htmlpurifier",
+            "version": "v4.19.0",
+            "group": "ezyang",
+            "description": "Standards compliant HTML filter written in PHP",
+            "author": "Edward Z. Yang",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "LGPL-2.1-or-later"
+                    }
+                }
+            ],
+            "purl": "pkg:composer/ezyang/htmlpurifier@v4.19.0",
+            "externalReferences": [
+                {
+                    "type": "distribution",
+                    "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/b287d2a16aceffbf6e0295559b39662612b77fcf",
+                    "comment": "dist reference: b287d2a16aceffbf6e0295559b39662612b77fcf"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/ezyang/htmlpurifier.git",
+                    "comment": "source reference: b287d2a16aceffbf6e0295559b39662612b77fcf"
+                },
+                {
+                    "type": "website",
+                    "url": "http://htmlpurifier.org/",
+                    "comment": "as detected from Composer manifest 'homepage'"
+                },
+                {
+                    "type": "issue-tracker",
+                    "url": "https://github.com/ezyang/htmlpurifier/issues",
+                    "comment": "as detected from Composer manifest 'support.issues'"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/ezyang/htmlpurifier/tree/v4.19.0",
+                    "comment": "as detected from Composer manifest 'support.source'"
+                }
+            ],
+            "properties": [
+                {
+                    "name": "cdx:composer:package:distReference",
+                    "value": "b287d2a16aceffbf6e0295559b39662612b77fcf"
+                },
+                {
+                    "name": "cdx:composer:package:sourceReference",
+                    "value": "b287d2a16aceffbf6e0295559b39662612b77fcf"
+                },
+                {
+                    "name": "cdx:composer:package:type",
+                    "value": "library"
                 }
             ]
         },
@@ -3143,6 +3201,9 @@
             ]
         },
         {
+            "ref": "ezyang/htmlpurifier-4.19.0.0"
+        },
+        {
             "ref": "graham-campbell/result-type-1.1.4.0",
             "dependsOn": [
                 "phpoption/phpoption-1.9.5.0"
@@ -3369,13 +3430,14 @@
             ]
         },
         {
-            "ref": "lewe/tcneo-5.0.0.0-beta",
+            "ref": "lewe/tcneo-5.0.0.0-beta2",
             "dependsOn": [
                 "matthiasmullie/minify-1.3.75.0",
                 "phpmailer/phpmailer-7.0.2.0",
                 "robthree/twofactorauth-2.1.0.0",
                 "twig/twig-3.23.0.0",
                 "vlucas/phpdotenv-5.6.3.0",
+                "ezyang/htmlpurifier-4.19.0.0",
                 "phpunit/phpunit-10.5.63.0",
                 "phpstan/phpstan-2.1.38.0",
                 "symfony/process-6.4.33.0",

@@ -1433,7 +1433,7 @@ on repeated validations.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/global.helper.php"><a href="files/src-helpers-global-helper.html"><abbr title="src/Helpers/global.helper.php">global.helper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1128</span>
+    <span class="phpdocumentor-element-found-in__line">1122</span>
 
     </aside>
 
@@ -1444,16 +1444,12 @@ on repeated validations.</p>
     <span class="phpdocumentor-signature__visibility"></span>
                     <span class="phpdocumentor-signature__name">sanitizeWithAllowedTags</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$input</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$customTags</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$allowAttributes</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"><p>Features:</p>
-<ul>
-<li>Static caching for improved performance (up to 10x faster on repeated calls)</li>
-<li>Configurable allowed tags with safe defaults</li>
-<li>Attribute filtering for enhanced security (removes dangerous attributes)</li>
-<li>URL validation for href and src attributes</li>
-<li>Memory-efficient processing with cache management</li>
-<li>Protection against XSS via malicious attributes</li>
-<li>Support for self-closing tags</li>
-</ul>
+        <section class="phpdocumentor-description"><p>Features:
+Sanitizes input using HTMLPurifier.</p>
+<p>This function uses the HTMLPurifier library to clean the input string,
+removing any potentially malicious code (XSS) while preserving safe HTML tags.
+It is configured to allow a standard set of block and inline elements suitable
+for rich text content (CKEditor).</p>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -1463,7 +1459,7 @@ on repeated validations.</p>
                 : <span class="phpdocumentor-argument-list__argument__type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The input string to sanitize</p>
+                    <section class="phpdocumentor-description"><p>The string to sanitize</p>
 </section>
 
             </dd>
@@ -1472,7 +1468,7 @@ on repeated validations.</p>
                 : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;|null</span>
                  = <span class="phpdocumentor-argument-list__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Optional custom allowed tags (overrides defaults)</p>
+                    <section class="phpdocumentor-description"><p>Optional array of allowed tags (default: standard set)</p>
 </section>
 
             </dd>
@@ -1507,13 +1503,7 @@ on repeated validations.</p>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>Enhanced XSS protection with attribute filtering</p>
-<p>Examples:</p>
-<ul>
-<li>sanitizeWithAllowedTags('<p>Hello &lt;script>alert(1)&lt;/script></p>') returns '<p>Hello </p>'</li>
-<li>sanitizeWithAllowedTags('<a href="javascript:alert(1)">link</a>') returns '<a>link</a>'</li>
-<li>sanitizeWithAllowedTags('<img src="test.jpg" alt="test">') returns '<img src="test.jpg" alt="test">'</li>
-</ul>
+                                                 <section class="phpdocumentor-description"><p>robust XSS protection via HTMLPurifier</p>
 </section>
 
                                     </dd>
@@ -1523,7 +1513,7 @@ on repeated validations.</p>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>Sanitized string with allowed tags preserved</p>
+                <section class="phpdocumentor-description"><p>Sanitized string</p>
 </section>
 
             </section>
@@ -1538,7 +1528,7 @@ on repeated validations.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/global.helper.php"><a href="files/src-helpers-global-helper.html"><abbr title="src/Helpers/global.helper.php">global.helper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1225</span>
+    <span class="phpdocumentor-element-found-in__line">1193</span>
 
     </aside>
 
@@ -1584,7 +1574,7 @@ on repeated validations.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/global.helper.php"><a href="files/src-helpers-global-helper.html"><abbr title="src/Helpers/global.helper.php">global.helper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1311</span>
+    <span class="phpdocumentor-element-found-in__line">1279</span>
 
     </aside>
 

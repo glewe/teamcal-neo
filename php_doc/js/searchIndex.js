@@ -13,7 +13,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\APP_AVATAR_DIR",
             "name": "APP_AVATAR_DIR",
-            "summary": "\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\nDIRECTORY\u0020LOCATIONS\n\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D",
+            "summary": "\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\nDIRECTORY\u0020LOCATIONS\u0020AND\u0020FILE\u0020SPECS\n\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D",
             "url": "namespaces/default.html#constant_APP_AVATAR_DIR"
         },                {
             "fqsen": "\\APP_UPL_DIR",
@@ -61,6 +61,11 @@ Search.appendIndex(
             "summary": "Chart.js",
             "url": "namespaces/default.html#constant_CHARTJS_VER"
         },                {
+            "fqsen": "\\SUMMERNOTE_VER",
+            "name": "SUMMERNOTE_VER",
+            "summary": "Summernote\u0020\u0028because\u0020Ckeditor5\u0020still\u0020sucks\u0029",
+            "url": "namespaces/default.html#constant_SUMMERNOTE_VER"
+        },                {
             "fqsen": "\\COLORIS_VER",
             "name": "COLORIS_VER",
             "summary": "Coloris",
@@ -78,17 +83,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\FONTAWESOME_VER",
             "name": "FONTAWESOME_VER",
-            "summary": "",
+            "summary": "FontAwesome",
             "url": "namespaces/default.html#constant_FONTAWESOME_VER"
         },                {
             "fqsen": "\\JQUERY_VER",
             "name": "JQUERY_VER",
-            "summary": "",
+            "summary": "jQuery",
             "url": "namespaces/default.html#constant_JQUERY_VER"
         },                {
             "fqsen": "\\JQUERY_UI_VER",
             "name": "JQUERY_UI_VER",
-            "summary": "",
+            "summary": "jQuery\u0020UI",
             "url": "namespaces/default.html#constant_JQUERY_UI_VER"
         },                {
             "fqsen": "\\MAGNIFICPOPUP_VER",
@@ -96,14 +101,9 @@ Search.appendIndex(
             "summary": "Magnific\u0020Popup",
             "url": "namespaces/default.html#constant_MAGNIFICPOPUP_VER"
         },                {
-            "fqsen": "\\SYNTAXHIGHLIGHTER_VER",
-            "name": "SYNTAXHIGHLIGHTER_VER",
-            "summary": "Syntaxhighlighter",
-            "url": "namespaces/default.html#constant_SYNTAXHIGHLIGHTER_VER"
-        },                {
             "fqsen": "\\LDAP_YES",
             "name": "LDAP_YES",
-            "summary": "LDAP",
+            "summary": "\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\nLDAP\n\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D",
             "url": "namespaces/default.html#constant_LDAP_YES"
         },                {
             "fqsen": "\\LDAP_ADS",
@@ -153,7 +153,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\APP_NAME",
             "name": "APP_NAME",
-            "summary": "APPLICATION\u0020INFORMATION",
+            "summary": "\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\nAPPLICATION\u0020INFORMATION\n\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D",
             "url": "namespaces/default.html#constant_APP_NAME"
         },                {
             "fqsen": "\\APP_VER",
@@ -218,7 +218,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\DEFAULT_TIMESTAMP",
             "name": "DEFAULT_TIMESTAMP",
-            "summary": "OTHER\u0020DATABASE\u0020SETTINGS",
+            "summary": "\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\nOTHER\u0020DATABASE\u0020SETTINGS\n\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D\u002D",
             "url": "namespaces/default.html#constant_DEFAULT_TIMESTAMP"
         },                {
             "fqsen": "\\App\\Controllers\\AboutController",
