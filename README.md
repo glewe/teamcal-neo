@@ -15,7 +15,7 @@
 
 TeamCal Neo is a day-based online calendar that allows to easily manage your team's events and absences and displays them in an intuitive interface. You can manage absence types, holidays, regional calendars and much more.
 
-## New in Version 5
+## New in Version 5 (currently in beta)
 
 TeamCal Neo 5.0.0 is a new major release. The application has been completely refactored to make it faster and more secure, e.g.
 
