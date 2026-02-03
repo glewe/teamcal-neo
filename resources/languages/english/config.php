@@ -220,7 +220,7 @@ $LANG['config_versionCompare'] = 'Version Compare';
 $LANG['config_versionCompare_comment'] = 'With this option enabled, TeamCal Neo\'s About page will compare the running version with the newest version available. In order to do so,
  Internet access is necessary. If you are running TeamCal Neo in an environment where no Internet access is available, switch this option off. Available updates will be shown next to the version number.';
 $LANG['config_welcomeText'] = 'Welcome Page Text';
-$LANG['config_welcomeText_comment'] = 'Enter a text for the welcome message on the Home Page.';
+$LANG['config_welcomeText_comment'] = 'Enter a text for the welcome message on the Home Page.<br><i>Note: Your changes will not be saved when clicking `Save` in code view.</i>';
 
 $LANG['config_clearCache'] = 'Clear Cache';
 $LANG['config_clearCache_comment'] = 'Click this button to clear the application cache. This might be necessary if you encounter display issues or outdated information.';

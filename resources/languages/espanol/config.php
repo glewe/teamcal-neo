@@ -200,7 +200,7 @@ $LANG['config_versionCompare'] = 'Comparación de versión';
 $LANG['config_versionCompare_comment'] = 'Compara la versión actual con la más reciente disponible.';
 
 $LANG['config_welcomeText'] = 'Texto de la página de bienvenida';
-$LANG['config_welcomeText_comment'] = 'Ingrese el texto para el mensaje de bienvenida en la página de inicio.';
+$LANG['config_welcomeText_comment'] = 'Ingrese el texto para el mensaje de bienvenida en la página de inicio.<br><i>Nota: Sus cambios no se guardarán al hacer clic en `Guardar` en la vista de código.</i>';
 
 $LANG['config_clearCache'] = 'Borrar caché';
 $LANG['config_clearCache_comment'] = 'Haga clic para borrar el caché de la aplicación.';
