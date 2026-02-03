@@ -570,9 +570,7 @@ $htmlData['license']          = APP_LICENSE;
 $htmlData['locale']           = $LANG['locale'];
 $htmlData['jQueryTheme']      = $allConfig['jqtheme'];
 $htmlData['cookieConsent']    = (bool) $allConfig['cookieConsent'];
-$htmlData['cookieConsentCDN'] = (bool) $allConfig['cookieConsentCDN'];
-$htmlData['faCDN']            = (bool) $allConfig['faCDN'];
-$htmlData['jQueryCDN']        = (bool) $allConfig['jQueryCDN'];
+
 
 if ($allConfig['noIndex']) {
   $htmlData['robots'] = 'noindex,nofollow,noopd';

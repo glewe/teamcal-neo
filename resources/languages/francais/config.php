@@ -54,8 +54,7 @@ $LANG['config_badLogins'] = 'Connexions échouées';
 $LANG['config_badLogins_comment'] = 'Nombre de tentatives de connexion infructueuses après lequel le statut de l\'utilisateur passe à \'VERROUILLÉ\'. L\'utilisateur devra attendre la fin du délai de grâce avant de pouvoir se reconnecter. Réglez à 0 pour désactiver cette fonctionnalité.';
 $LANG['config_cookieConsent'] = 'Consentement aux cookies';
 $LANG['config_cookieConsent_comment'] = 'Avec cette option, une confirmation de consentement aux cookies apparaîtra en bas de l\'écran. C\'est une obligation légale dans l\'UE. Cette fonctionnalité nécessite une connexion Internet.';
-$LANG['config_cookieConsentCDN'] = 'CDN pour le consentement aux cookies';
-$LANG['config_cookieConsentCDN_comment'] = 'Les CDNs (Content Distributed Network) peuvent offrir un avantage de performance en hébergeant des modules web populaires sur des serveurs répartis dans le monde entier. Désactivez cette option si vous utilisez l\'application dans un environnement sans connexion Internet.';
+
 $LANG['config_cookieLifetime'] = 'Durée de vie du cookie';
 $LANG['config_cookieLifetime_comment'] = 'Lors d\'une connexion réussie, un cookie est stocké localement. Il a une durée de vie après laquelle il devient invalide. La durée peut être spécifiée ici en secondes (0-999999).';
 $LANG['config_defaultHomepage'] = 'Page d\'accueil par défaut';
@@ -74,8 +73,7 @@ $LANG['config_emailConfirmation'] = 'Exiger une confirmation par e-mail';
 $LANG['config_emailConfirmation_comment'] = 'Lors de l\'enregistrement, l\'utilisateur recevra un e-mail avec un lien de confirmation pour valider ses informations.';
 $LANG['config_emailNotifications'] = 'Notifications par e-mail';
 $LANG['config_emailNotifications_comment'] = 'Activer/Désactiver les notifications par e-mail automatiques. Cela ne s\'applique pas aux e-mails d\'auto-enregistrement ou aux messages envoyés manuellement.';
-$LANG['config_faCDN'] = 'CDN Fontawesome';
-$LANG['config_faCDN_comment'] = 'Utiliser un CDN pour Fontawesome afin d\'améliorer les performances. Nécessite une connexion Internet.';
+
 $LANG['config_font'] = 'Police';
 $LANG['config_font_comment'] = 'Sélectionnez la police à utiliser. Par défaut utilise la police sans-serif du navigateur. Les autres options chargent des polices Google hébergées localement.';
 $LANG['config_footerCopyright'] = 'Nom du copyright en pied de page';
@@ -108,8 +106,7 @@ $LANG['config_homepage_comment'] = 'Sélectionnez la page à afficher aux utilis
 $LANG['config_homepage_calendarview'] = 'Calendrier';
 $LANG['config_homepage_home'] = 'Page de bienvenue';
 $LANG['config_homepage_messages'] = 'Page des messages';
-$LANG['config_jQueryCDN'] = 'CDN jQuery';
-$LANG['config_jQueryCDN_comment'] = 'Utiliser un CDN pour jQuery. Nécessite une connexion Internet.';
+
 $LANG['config_jqtheme'] = 'Thème jQuery UI';
 $LANG['config_jqtheme_comment'] = 'Sélectionnez le thème pour les dialogues et autres fonctionnalités jQuery UI.';
 $LANG['config_jqthemeSample'] = 'Exemple de thème jQuery UI';

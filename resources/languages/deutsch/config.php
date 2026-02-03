@@ -45,11 +45,7 @@ $LANG['config_badLogins'] = 'Ungültige Logins';
 $LANG['config_badLogins_comment'] = 'Anzahl der ungültigen Login Versuche bevor der User Status auf \'LOCKED\' gesetzt wird. Der User muss danach solange
  warten wie in der Schonfrist angegeben, bevor er sich erneut einloggen kann. Wenn dieser Wert auf 0 gesetzt wird, ist diese Funktion deaktiviert.';
 $LANG['config_cookieConsent'] = 'Cookie Zustimmung';
-$LANG['config_cookieConsentCDN'] = 'Cookie Consent CDN';
-$LANG['config_cookieConsentCDN_comment'] = 'CDNs (Content Distributed Network) können einen Performance-Vorteil bieten dadurch dass populäre Web Module von Servern rund
- um den Globus geladen werden. Cookie Consent ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul
- für den Nutzer schon durch eine andere Anwendung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Schalte
- diese Option aus, wenn du TeamCal Neo in einer Umgebung ohne Internetverbindung betreibst.';
+
 $LANG['config_cookieConsent_comment'] = 'Mit dieser Option wird am unteren Bildschirmrand ein Popup für die Zustimmung zu Cookienutzung angezeigt.
  Dies ist legale Pflicht in der EU. Dieses Feature erfordert eine Internetverbindung.';
 $LANG['config_cookieLifetime'] = 'Cookie Lebensdauer';
@@ -77,11 +73,7 @@ $LANG['config_emailConfirmation_comment'] = 'Durch die Registrierung erhält der
 $LANG['config_emailNotifications'] = 'E-Mail Benachrichtigungen';
 $LANG['config_emailNotifications_comment'] = 'Aktivierung/Deaktivierung von E-Mail Benachrichtigungen. Wenn diese Option ausgeschaltet ist, werden keine automatischen
  Benachrichtigungen per E-Mails verschickt. Dies trifft aber nicht auf Selbst-Registrierungsmails und auf manuell gesendete Mails im Message Center und im Viewprofile Dialog zu.';
-$LANG['config_faCDN'] = 'Fontawesome CDN';
-$LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) können einen Performance-Vorteil bieten dadurch dass populäre Web Module von Servern rund
- um den Globus geladen werden. Fontawesome ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul
- für den Nutzer schon durch eine andere Anwendung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Diese Option
- funktioniert natürlich nur mit Internetverbindung. Schalte diese Option aus, wenn du TeamCal Neo in einer Umgebung ohne Internetverbindung betreibst.';
+
 $LANG['config_font'] = 'Schriftart';
 $LANG['config_font_comment'] = 'Wähle eine Schriftart aus. Optionen sind:<ul>
       <li>Default <i>(lädt keine extra Schriftart und nutzt die standard sans-serif Schriftart des Browsers)</i></li>
@@ -121,11 +113,7 @@ $LANG['config_homepage_calendarview'] = 'Kalender';
 $LANG['config_homepage_comment'] = 'Diese Option bestimmt, welche Seite registrierten Benutzern nach dem Login angezeigt wird.';
 $LANG['config_homepage_home'] = 'Willkommen Seite';
 $LANG['config_homepage_messages'] = 'Nachrichten Seite';
-$LANG['config_jQueryCDN'] = 'jQuery CDN';
-$LANG['config_jQueryCDN_comment'] = 'CDNs (Content Distributed Network) können einen Performance-Vorteil bieten dadurch dass populäre Web Module von Servern rund
- um den Globus geladen werden. jQuery ist so ein Modul. Wenn es von einem CDN Server geladen wird, von dem das gleiche Modul
- für den Nutzer schon durch eine andere Anwendung geladen wurde, ist es bereits im Cache des Nutzers und muss nicht nochmal heruntergeladen werden.<br>Schalte diese Option
- aus, wenn du TeamCal Neo in einer Umgebung ohne Internetverbindung betreibst.';
+
 $LANG['config_jqtheme'] = 'jQuery UI Theme';
 $LANG['config_jqthemeSample'] = 'jQuery UI Theme Beispiel';
 $LANG['config_jqthemeSample_comment'] = 'Probier den Datumspicker hier aus um das aktuelle jQuery Theme zu sehen. Eventuell musst du die Seite neu laden um die Änderung wirksam zu machen.<br>Das Datum wird nicht gespeichert.';

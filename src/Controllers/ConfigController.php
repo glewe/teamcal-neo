@@ -179,9 +179,6 @@ class ConfigController extends BaseController
     }
     $viewData['system'] = [
       ['prefix' => 'config', 'name' => 'cookieConsent', 'type' => 'check', 'values' => '', 'value' => $allConfig["cookieConsent"]],
-      ['prefix' => 'config', 'name' => 'cookieConsentCDN', 'type' => 'check', 'values' => '', 'value' => $allConfig["cookieConsentCDN"]],
-      ['prefix' => 'config', 'name' => 'faCDN', 'type' => 'check', 'values' => '', 'value' => $allConfig["faCDN"]],
-      ['prefix' => 'config', 'name' => 'jQueryCDN', 'type' => 'check', 'values' => '', 'value' => $allConfig["jQueryCDN"]],
       ['prefix' => 'config', 'name' => 'timeZone', 'type' => 'list', 'values' => $viewData['timezoneList']],
       ['prefix' => 'config', 'name' => 'googleAnalytics', 'type' => 'check', 'values' => '', 'value' => $allConfig["googleAnalytics"]],
       ['prefix' => 'config', 'name' => 'googleAnalyticsID', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["googleAnalyticsID"], 'maxlength' => '16'],
@@ -314,9 +311,6 @@ class ConfigController extends BaseController
     $newConfig["adminApproval"]     = (isset($_POST['chk_adminApproval']) && $_POST['chk_adminApproval']) ? "1" : "0";
 
     $newConfig["cookieConsent"]    = (isset($_POST['chk_cookieConsent']) && $_POST['chk_cookieConsent']) ? "1" : "0";
-    $newConfig["cookieConsentCDN"] = (isset($_POST['chk_cookieConsentCDN']) && $_POST['chk_cookieConsentCDN']) ? "1" : "0";
-    $newConfig["faCDN"]            = (isset($_POST['chk_faCDN']) && $_POST['chk_faCDN']) ? "1" : "0";
-    $newConfig["jQueryCDN"]        = (isset($_POST['chk_jQueryCDN']) && $_POST['chk_jQueryCDN']) ? "1" : "0";
     $newConfig["timeZone"]         = $_POST['sel_timeZone'] ?? "UTC";
 
     if (isset($_POST['chk_googleAnalytics']) && $_POST['chk_googleAnalytics']) {

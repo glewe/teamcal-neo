@@ -56,10 +56,7 @@ $LANG['config_badLogins_comment'] = 'Number of bad login attempts that will caus
  as the grace period specifies before he can login again. If you set this value to 0 the bad login feature is disabled.';
 $LANG['config_cookieConsent'] = 'Cookie Consent';
 $LANG['config_cookieConsent_comment'] = 'With this option, a cookie consent confirmation will pop up at the bottom of the screen. This is legally required in the EU. This feature requires Internet connectivity.';
-$LANG['config_cookieConsentCDN'] = 'Cookie Consent CDN';
-$LANG['config_cookieConsentCDN_comment'] = 'CDNs (Content Distributed Network) can offer a performance benefit by hosting popular web modules on servers spread
- across the globe. Cookie Consent is such a module. Pulling it from a CDN location also offers an advantage that if the visitor to your webpage has already
- downloaded a copy of it from the same CDN, it won\'t have to be re-downloaded.<br>Switch this option off if you are running the application in an environment with no Internet connectivity.';
+
 $LANG['config_cookieLifetime'] = 'Cookie Lifetime';
 $LANG['config_cookieLifetime_comment'] = 'Upon successful login a cookie is stored on the local hard drive of the user. This cookie has a certain
  lifetime after which it becomes invalid. A new login is necessary. This lifetime can be specified here in seconds (0-999999).';
@@ -82,11 +79,7 @@ $LANG['config_emailConfirmation_comment'] = 'Upon registration the user will rec
 $LANG['config_emailNotifications'] = 'E-Mail Notifications';
 $LANG['config_emailNotifications_comment'] = 'Enable/Disable E-Mail notifications. If you uncheck this option no automated notifications E-Mails are sent.
  However, this does not apply to self-registration mails and to manually sent mails via the Message Center and the Viewprofile dialog.';
-$LANG['config_faCDN'] = 'Fontawesome CDN';
-$LANG['config_faCDN_comment'] = 'CDNs (Content Distributed Network) can offer a performance benefit by hosting popular web modules on servers spread
- across the globe. Fontawesome is such a module. Pulling it from a CDN location also offers an advantage that if the visitor
- to your webpage has already downloaded a copy of it from the same CDN, it won\'t have to be re-downloaded.<br>This option only works with an
- Internet connection of course. Switch this option off if you are running the application in an environment without Internet connectivity.';
+
 $LANG['config_font'] = 'Font';
 $LANG['config_font_comment'] = 'Select the font to use. Options are:<ul>
       <li>Default <i>(will not load any extra font but use the default sans-serif font of your browser)</i></li>
@@ -124,11 +117,7 @@ $LANG['config_homepage_comment'] = 'Select what page to display to registered us
 $LANG['config_homepage_calendarview'] = 'Calendar';
 $LANG['config_homepage_home'] = 'Welcome Page';
 $LANG['config_homepage_messages'] = 'Message Page';
-$LANG['config_jQueryCDN'] = 'jQuery CDN';
-$LANG['config_jQueryCDN_comment'] = 'CDNs (Content Distributed Network) can offer a performance benefit by hosting popular web modules on servers spread
- across the globe. jQuery is such a module. Pulling it from a CDN location also offers an advantage that if the visitor
- to your webpage has already downloaded a copy of jQuery from the same CDN, it won\'t have to be re-downloaded.<br>Switch this option off if you are
- running the application in an environment with no Internet connectivity.';
+
 $LANG['config_jqtheme'] = 'jQuery UI Theme';
 $LANG['config_jqtheme_comment'] = 'TeamCal Neo uses jQuery UI, a popular collection of Javascript utilities. jQuery UI offers themes as well used for the display
  of the tabbed dialogs and other features. The default theme is "smoothness" which is a neutral gray shaded theme. Try more from the list, some of them are

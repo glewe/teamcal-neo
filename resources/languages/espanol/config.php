@@ -54,8 +54,7 @@ $LANG['config_badLogins'] = 'Inicios de sesión fallidos';
 $LANG['config_badLogins_comment'] = 'Número de intentos de inicio de sesión fallidos que harán que el estado del usuario sea BLOQUEADO.';
 $LANG['config_cookieConsent'] = 'Consentimiento de cookies';
 $LANG['config_cookieConsent_comment'] = 'Con esta opción, aparecerá una confirmación de consentimiento de cookies en la parte inferior de la pantalla.';
-$LANG['config_cookieConsentCDN'] = 'CDN de consentimiento de cookies';
-$LANG['config_cookieConsentCDN_comment'] = 'Los CDN pueden ofrecer un beneficio de rendimiento al hospedar módulos web populares en servidores repartidos por todo el mundo.';
+
 $LANG['config_cookieLifetime'] = 'Vida útil de la cookie';
 $LANG['config_cookieLifetime_comment'] = 'Tras un inicio de sesión exitoso, se almacena una cookie. Esta cookie tiene una vida útil tras la cual se vuelve inválida.';
 $LANG['config_defaultHomepage'] = 'Página de inicio predeterminada';
@@ -74,8 +73,7 @@ $LANG['config_emailConfirmation'] = 'Requerir confirmación por correo';
 $LANG['config_emailConfirmation_comment'] = 'Al registrarse, el usuario recibirá un correo con un enlace de confirmación.';
 $LANG['config_emailNotifications'] = 'Notificaciones por correo';
 $LANG['config_emailNotifications_comment'] = 'Activar/Desactivar las notificaciones por correo electrónico.';
-$LANG['config_faCDN'] = 'Fontawesome CDN';
-$LANG['config_faCDN_comment'] = 'Uso de CDN para Fontawesome.';
+
 $LANG['config_font'] = 'Fuente';
 $LANG['config_font_comment'] = 'Seleccione la fuente que desea usar.';
 $LANG['config_footerCopyright'] = 'Nombre de derechos de autor del pie de página';
@@ -110,8 +108,7 @@ $LANG['config_homepage_calendarview'] = 'Calendario';
 $LANG['config_homepage_home'] = 'Página de Bienvenida';
 $LANG['config_homepage_messages'] = 'Página de Mensajes';
 
-$LANG['config_jQueryCDN'] = 'jQuery CDN';
-$LANG['config_jQueryCDN_comment'] = 'Uso de CDN para jQuery.';
+
 $LANG['config_jqtheme'] = 'Tema de jQuery UI';
 $LANG['config_jqtheme_comment'] = 'TeamCal Neo utiliza jQuery UI para cuadros de diálogo y otras funciones.';
 $LANG['config_jqthemeSample'] = 'Muestra del tema jQuery UI';

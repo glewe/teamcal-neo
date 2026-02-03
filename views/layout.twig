@@ -51,26 +51,15 @@
     rel="stylesheet" href="public/css/font-robotomono.min.css">
 
     <!-- Bootstrap Icons -->
-    <link
-    rel="stylesheet" href="public/addons/bootstrap-icons-{{ constant('BOOTSTRAP_ICONS_VER') }}/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="public/addons/bootstrap-icons-{{ constant('BOOTSTRAP_ICONS_VER') }}/bootstrap-icons.min.css">
 
     <!-- Font Awesome -->
-    {% if htmlData.faCDN %}
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/{{ constant('FONTAWESOME_VER') }}/css/all.min.css">
-    {% else %}
-      <link rel="stylesheet" href="public/fonts/font-awesome/{{ constant('FONTAWESOME_VER') }}/css/all.min.css">
-    {% endif %}
+    <link rel="stylesheet" href="public/fonts/font-awesome/{{ constant('FONTAWESOME_VER') }}/css/all.min.css">
 
     <!-- jQuery -->
-    {% if htmlData.jQueryCDN %}
-      <script src="https://code.jquery.com/jquery-{{ constant('JQUERY_VER') }}.min.js"></script>
-      <script src="https://code.jquery.com/ui/{{ constant('JQUERY_UI_VER') }}/jquery-ui.min.js"></script>
-      <link rel="stylesheet" href="https://code.jquery.com/ui/{{ constant('JQUERY_UI_VER') }}/themes/{{ htmlData.jQueryTheme }}/jquery-ui.min.css">
-    {% else %}
-      <script src="public/js/jquery/jquery-{{ constant('JQUERY_VER') }}.min.js"></script>
-      <script src="public/js/jquery/ui/{{ constant('JQUERY_UI_VER') }}/jquery-ui.min.js"></script>
-      <link rel="stylesheet" href="public/js/jquery/ui/{{ constant('JQUERY_UI_VER') }}/themes/{{ htmlData.jQueryTheme }}/jquery-ui.min.css">
-    {% endif %}
+    <script src="public/js/jquery/jquery-{{ constant('JQUERY_VER') }}.min.js"></script>
+    <script src="public/js/jquery/ui/{{ constant('JQUERY_UI_VER') }}/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="public/js/jquery/ui/{{ constant('JQUERY_UI_VER') }}/themes/{{ htmlData.jQueryTheme }}/jquery-ui.min.css">
 
     <!-- TeamCalNeo CSS -->
     <link
@@ -101,16 +90,11 @@
 
     {% if htmlData.cookieConsent %}
       <!-- Cookie Consent -->
-      {% if htmlData.cookieConsentCDN %}
-        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/{{ constant('COOKIECONSENT_VER') }}/cookieconsent.min.css">
-        <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/{{ constant('COOKIECONSENT_VER') }}/cookieconsent.min.js"></script>
-      {% else %}
-        <link rel="stylesheet" type="text/css" href="{{ constant('WEBSITE_URL') }}public/addons/cookieconsent2/{{ constant('COOKIECONSENT_VER') }}/cookieconsent.min.css">
-        <script src="{{ constant('WEBSITE_URL') }}public/addons/cookieconsent2/{{ constant('COOKIECONSENT_VER') }}/cookieconsent.min.js"></script>
-        <style>
-          .cc-window { z-index: 999999 !important; }
-        </style>
-      {% endif %}
+      <link rel="stylesheet" type="text/css" href="{{ constant('WEBSITE_URL') }}public/addons/cookieconsent2/{{ constant('COOKIECONSENT_VER') }}/cookieconsent.min.css">
+      <script src="{{ constant('WEBSITE_URL') }}public/addons/cookieconsent2/{{ constant('COOKIECONSENT_VER') }}/cookieconsent.min.js"></script>
+      <style>
+        .cc-window { z-index: 999999 !important; }
+      </style>
 
       <script>
         document.addEventListener("DOMContentLoaded", function () {
