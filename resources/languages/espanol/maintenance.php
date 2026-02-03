@@ -13,4 +13,4 @@ if (!defined('VALID_ROOT')) {
  * @since 5.0.0
  */
 $LANG['mtce_title'] = 'En mantenimiento';
-$LANG['mtce_text'] = 'El sitio se encuentra actualmente en mantenimiento. Disculpe las molestias. Por favor, vuelva a intentarlo más tarde...';
+$LANG['mtce_text'] = 'TeamCal Neo se encuentra actualmente en mantenimiento. Disculpe las molestias. Por favor, vuelva a intentarlo más tarde...';

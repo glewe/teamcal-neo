@@ -1,34 +1,99 @@
 {% extends "layout.twig" %}
 
 {% block content %}
-  <!-- ====================================================================
-      view.maintenance
-      -->
-  <div class="container content">
-    <div class="col-lg-12">
+  <style>
+    /* Make the body take full viewport height */
+    html,
+    body {
+      height: 100%;
+      padding-top: 0 !important;
+    }
+    /* 
+      Configure #main (defined in menu.twig) to be a flex column.
+      This ensures the navbar stays at top, footer at bottom, 
+      and content can expand to fill the middle.
+    */
+    #main {
+      display: flex !important;
+      flex-direction: column !important;
+      min-height: 100vh !important;
+    }
+    /* 
+      Wrapper to center the container within the available flex space 
+    */
+    .maintenance-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+    }
 
-      <div class="card">
-        <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
-          <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
-          {{ LANG.mtce_title }}
-          {% if C.read('pageHelp') %}
-            <a href="{{ CONF.controllers[controller].docurl }}" target="_blank" class="float-end" style="color:inherit;">
-              <i class="bi bi-question-circle-fill bi-lg"></i>
-            </a>
-          {% endif %}
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-lg-3"><img src="public/images/maintenance.gif" alt="" class="img-floatleft">
+    /* Drop Shadow and Shake Animation */
+    .maintenance-card {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      animation: maintenance-shake 3s infinite;
+    }
+
+    @keyframes maintenance-shake {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      2% {
+        transform: translate(-2px, 2px) rotate(-1deg);
+      }
+      4% {
+        transform: translate(1px, -2px) rotate(1deg);
+      }
+      6% {
+        transform: translate(-2px, 0px) rotate(-1deg);
+      }
+      8% {
+        transform: translate(2px, 2px) rotate(0deg);
+      }
+      10% {
+        transform: translate(-1px, -2px) rotate(1deg);
+      }
+      12% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+    }
+  </style>
+
+  <div class="maintenance-wrapper">
+    <div class="container content">
+      <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+
+          <div class="card maintenance-card">
+            <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+              <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+              {{ LANG.mtce_title }}
+              {% if C.read('pageHelp') %}
+                <a href="{{ CONF.controllers[controller].docurl }}" target="_blank" class="float-end" style="color:inherit;">
+                  <i class="bi bi-question-circle-fill bi-lg"></i>
+                </a>
+              {% endif %}
             </div>
-            <div class="col-lg-9">
-              <h4>{{ LANG.mtce_title }}</h4>
-              <p>{{ LANG.mtce_text }}</p>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-3"><img src="public/images/maintenance.gif?v={{ "now"|date("U") }}" alt="" class="img-floatleft">
+                </div>
+                <div class="col-lg-9">
+                  <h4>{{ LANG.mtce_title }}</h4>
+                  <p>{{ LANG.mtce_text }}</p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
+        </div>
+        <div class="col-lg-3"></div>
+      </div>
     </div>
   </div>
 {% endblock %}

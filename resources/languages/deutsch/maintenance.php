@@ -12,5 +12,5 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 4.3.0
  */
-$LANG['mtce_text'] = 'Wir führen gerade Wartungsarbeiten an der Site durch. Wir entschuldigen die Unanehmlichkeit. Bitte versuche es später nochmal...';
+$LANG['mtce_text'] = 'Wir führen gerade Wartungsarbeiten an TeamCal Neo durch. Wir entschuldigen die Unanehmlichkeit. Bitte versuche es später nochmal...';
 $LANG['mtce_title'] = 'Unter Wartung';
