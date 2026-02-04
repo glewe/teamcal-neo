@@ -40,7 +40,8 @@ class UserModel
   private ?PDO   $db            = null;
   private string $table         = '';
   private string $archive_table = '';
-  private string $config_table  = '';
+  private string $config_table       = '';
+  private string $user_options_table = '';
 
   //---------------------------------------------------------------------------
   /**
@@ -53,15 +54,17 @@ class UserModel
     if ($db && $conf) {
       $this->db            = $db;
       $this->table         = $conf['db_table_users'];
-      $this->archive_table = $conf['db_table_archive_users'];
-      $this->config_table  = $conf['db_table_config'];
+      $this->archive_table      = $conf['db_table_archive_users'];
+      $this->config_table       = $conf['db_table_config'];
+      $this->user_options_table = $conf['db_table_user_option'];
     }
     else {
       global $CONF, $DB;
       $this->db            = $DB->db;
       $this->table         = $CONF['db_table_users'];
-      $this->archive_table = $CONF['db_table_archive_users'];
-      $this->config_table  = $CONF['db_table_config'];
+      $this->archive_table      = $CONF['db_table_archive_users'];
+      $this->config_table       = $CONF['db_table_config'];
+      $this->user_options_table = $CONF['db_table_user_option'];
     }
     $this->db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);         // Needed for PDO::errorInfo()
     $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Needed for PDO:errorCode()
@@ -283,7 +286,7 @@ class UserModel
    * @return bool Query result
    */
   public function findByToken(string $token): bool {
-    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE md5(CONCAT("PasswordResetRequestFor",username)) = :token');
+    $query = $this->db->prepare('SELECT u.* FROM ' . $this->table . ' u INNER JOIN ' . $this->user_options_table . ' uo ON u.username = uo.username WHERE uo.option = "pwdToken" AND uo.value = :token');
     $query->bindParam(':token', $token);
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {

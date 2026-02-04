@@ -97,6 +97,7 @@ class PasswordResetController extends BaseController
           $UP->password       = password_hash(trim($_POST['txt_password']), PASSWORD_DEFAULT);
           $UP->last_pw_change = date('YmdHis');
           $UP->update($UP->username);
+          $this->UO->deleteUserOption($UP->username, 'pwdToken');
           $this->UO->deleteUserOption($UP->username, 'pwdTokenExpiry');
 
           $this->LOG->logEvent("logUser", $this->UL->username, "log_user_pwd_reset", $UP->username);

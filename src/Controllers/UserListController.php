@@ -341,8 +341,9 @@ class UserListController extends BaseController
     $selected_users = $_POST['chk_userActive'] ?? [];
     foreach ($selected_users as $su => $value) {
       $this->U->findByName($value);
-      $token          = md5('PasswordResetRequestFor' . $this->U->username);
+      $token          = bin2hex(random_bytes(32));
       $expiryDateTime = date('YmdHis', strtotime(date('YmdHis') . ' +1 day'));
+      $this->UO->save($this->U->username, 'pwdToken', $token);
       $this->UO->save($this->U->username, 'pwdTokenExpiry', $expiryDateTime);
       sendPasswordResetMail($this->U->email, $this->U->username, $this->U->lastname, $this->U->firstname, $token);
       $this->LOG->logEvent("logUser", $this->UL->username, "log_user_pwd_reset", $this->U->username);

@@ -56,8 +56,9 @@ class PasswordRequestController extends BaseController
         if (isset($_POST['btn_request_password'])) {
           if ($pwdUsers = $this->U->getAllForEmail($email)) {
             if (count($pwdUsers) === 1) {
-              $token          = hash('md5', 'PasswordResetRequestFor' . $pwdUsers[0]['username']);
+              $token          = bin2hex(random_bytes(32));
               $expiryDateTime = date('YmdHis', strtotime(date('YmdHis') . ' +1 day'));
+              $this->UO->save($pwdUsers[0]['username'], 'pwdToken', $token);
               $this->UO->save($pwdUsers[0]['username'], 'pwdTokenExpiry', $expiryDateTime);
               sendPasswordResetMail($pwdUsers[0]['email'], $pwdUsers[0]['username'], $pwdUsers[0]['lastname'], $pwdUsers[0]['firstname'], $token);
               $this->LOG->logEvent("logUser", $this->UL->username, "log_user_pwd_request", $pwdUsers[0]['username']);
@@ -72,8 +73,9 @@ class PasswordRequestController extends BaseController
             else {
               if (isset($_POST['opt_user'])) {
                 $pwdUser        = $this->U->findByName($_POST['opt_user']);
-                $token          = hash('md5', 'PasswordResetRequestFor' . $this->U->username);
+                $token          = bin2hex(random_bytes(32));
                 $expiryDateTime = date('YmdHis', strtotime(date('YmdHis') . ' +1 day'));
+                $this->UO->save($this->U->username, 'pwdToken', $token);
                 $this->UO->save($this->U->username, 'pwdTokenExpiry', $expiryDateTime);
                 sendPasswordResetMail($this->U->email, $this->U->username, $this->U->lastname, $this->U->firstname, $token);
                 $this->LOG->logEvent("logUser", $this->UL->username, "log_user_pwd_request", $this->U->username);

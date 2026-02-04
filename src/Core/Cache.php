@@ -123,6 +123,6 @@ class Cache
    * @return string
    */
   private function getFilename(string $key): string {
-    return $this->cacheDir . md5($key) . '.cache';
+    return $this->cacheDir . hash('sha256', $key) . '.cache';
   }
 }
