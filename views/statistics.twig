@@ -159,9 +159,9 @@
 
           // Construct URL with ajax params
           let url = form.getAttribute('action');
-          if (! url) 
+          if (! url)
             url = window.location.href;
-          
+
 
 
           if (url.indexOf('?') !== -1) {
@@ -184,9 +184,9 @@
             method: 'POST',
             body: formData
           }).then(response => {
-            if (!response.ok) 
+            if (!response.ok)
               throw new Error('Network response was not ok');
-            
+
 
 
             return response.text();

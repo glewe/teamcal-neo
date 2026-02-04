@@ -193,7 +193,7 @@ class StatisticsController extends BaseController
           }
           $viewData['color'] = $_POST['sel_color'];
         }
-        // Do NOT regenerate CSRF token for AJAX partial updates unless we send it back 
+        // Do NOT regenerate CSRF token for AJAX partial updates unless we send it back
         // and update all forms on page. Keeping the session token valid is easier.
         // if (isset($_SESSION)) {
         //   $_SESSION['csrf_token'] = bin2hex(random_bytes(32));

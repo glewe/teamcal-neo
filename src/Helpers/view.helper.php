@@ -540,7 +540,7 @@ function createFormGroup(array $data, int $colsleft, int $colsright, int $tabind
  *
  * @param string $id ID of the modal dialog
  * @param string $title Title of the modal dialog
- * 
+ *
  * @return string Html
  */
 function createModalTop(string $id, string $title, string $size = ''): string {
@@ -575,7 +575,7 @@ function createModalTop(string $id, string $title, string $size = ''): string {
  * @param string $buttonID    ID of the submit button
  * @param string $buttonColor Color of the submit button (Bootstrap class)
  * @param string $buttonText  Text of the submit button
- * 
+ *
  * @return string Html
  */
 function createModalBottom(string $buttonID = '', string $buttonColor = '', string $buttonText = ''): string {
@@ -600,7 +600,7 @@ function createModalBottom(string $buttonID = '', string $buttonColor = '', stri
  * Creates the tabs for the top of dialog pages.
  *
  * @param array $tabs Array of tab details
- * 
+ *
  * @return string Html
  */
 function createPageTabs(array $tabs): string {
@@ -622,7 +622,7 @@ function createPageTabs(array $tabs): string {
  * Creates a pattern table (showing weekdays and absences).
  *
  * @param string $patternId ID of the pattern record
- * 
+ *
  * @return string Html
  */
 function createPatternTable(string $patternId): string {
@@ -679,7 +679,7 @@ function createPatternTable(string $patternId): string {
  * Creates the Bootstrap toast.
  *
  * @param array $data Array of toast details
- * 
+ *
  * @return string Html
  */
 function createToast(array $data): string {

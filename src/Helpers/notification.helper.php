@@ -1514,7 +1514,7 @@ function sendEmail(string $to, string $subject, string $body, string $from = '')
     $mail->CharSet = 'UTF-8';
 
     // Explicitly safe-guard manual line-breaks if needed, though PHPMailer handles it.
-    // $mail->Encoding = 'quoted-printable'; 
+    // $mail->Encoding = 'quoted-printable';
 
     $mail->send();
     return true;

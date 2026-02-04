@@ -13,7 +13,7 @@ header("Cache-Control: no-cache");
 header("Pragma: no-cache");
 if (strlen($_REQUEST['server']) && strlen($_REQUEST['db']) && strlen($_REQUEST['user'])) {
 
-  // 
+  //
   // Validate and sanitize server hostname
   //
   $server  = trim($_REQUEST['server']);
@@ -22,7 +22,7 @@ if (strlen($_REQUEST['server']) && strlen($_REQUEST['db']) && strlen($_REQUEST['
     die("Invalid server hostname.");
   }
 
-  // 
+  //
   // Validate and sanitize database name
   //
   $database = trim($_REQUEST['db']);
@@ -31,7 +31,7 @@ if (strlen($_REQUEST['server']) && strlen($_REQUEST['db']) && strlen($_REQUEST['
     die("Invalid database name.");
   }
 
-  // 
+  //
   // Validate and sanitize prefix
   //
   if (isset($_REQUEST['prefix']) && strlen($_REQUEST['prefix'])) {

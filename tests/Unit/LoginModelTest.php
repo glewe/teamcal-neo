@@ -51,7 +51,7 @@ class LoginModelTest extends TestCase
         $this->userMock->password = 'hashedpassword'; // Not used for LDAP but good to have
         $this->userMock->locked = 0;
         $this->userMock->onhold = 0;
-        
+
         // Mock UO read for verifying code
         $this->userOptionMock->method('read')->willReturn(false);
 
@@ -63,14 +63,14 @@ class LoginModelTest extends TestCase
 
         // Also config read needed for cookie lifetime
         $this->configMock->method('read')->willReturn('3600');
-        
+
         // Mock User update (called on successful login)
         $this->userMock->expects($this->once())->method('update');
 
         $loginModel = new LoginModel($this->configMock, [], $this->ldapMock);
-        
+
         $result = $loginModel->loginUser($username, $password);
-        
+
         $this->assertEquals(0, $result);
     }
 
@@ -79,7 +79,7 @@ class LoginModelTest extends TestCase
         // "admin" user should skip LDAP per logic in LoginModel
         // but wait, logic says: if ($ldap_yes && $loginname != "admin")
         // So for "admin", it goes to localVerify.
-        
+
         $username = 'admin';
         $password = 'password';
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -90,7 +90,7 @@ class LoginModelTest extends TestCase
         $this->userMock->password = $hashedPassword;
         $this->userMock->locked = 0;
         $this->userMock->onhold = 0;
-        
+
         $this->userOptionMock->method('read')->willReturn(false);
 
         // Expect LdapService verify NOT to be called
@@ -102,9 +102,9 @@ class LoginModelTest extends TestCase
         $this->userMock->expects($this->once())->method('update');
 
         $loginModel = new LoginModel($this->configMock, [], $this->ldapMock);
-        
+
         $result = $loginModel->loginUser($username, $password);
-        
+
         $this->assertEquals(0, $result);
     }
 }

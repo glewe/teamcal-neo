@@ -42,8 +42,8 @@ class MontheditController extends BaseController
       $LIC              = new LicenseModel();
       $LIC->check($alertData, $showAlert, (int) $licExpiryWarning, $this->LANG);
       if ($showAlert) {
-        // In legacy, this logic sets $alertData but continues or maybe shows it? 
-        // Legacy wrapper just sets variables. We'll pass it to view if needed, 
+        // In legacy, this logic sets $alertData but continues or maybe shows it?
+        // Legacy wrapper just sets variables. We'll pass it to view if needed,
         // or render alert page if critical. LicenseModel usually sets $alertData.
       }
     }

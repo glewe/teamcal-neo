@@ -19,7 +19,7 @@ global $LANG;
 //-----------------------------------------------------------------------------
 // Set the application environment in you .env file.
 // Set to 'production' for production or 'dev' for debugging.
-// If you don't have a .env file, copy the .env.example file to .env and adjust the values. 
+// If you don't have a .env file, copy the .env.example file to .env and adjust the values.
 //
 if (isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'production') {
   define('PRODUCTION_MODE', true);

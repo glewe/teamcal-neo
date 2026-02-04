@@ -68,7 +68,7 @@ use App\Services\UserService;
  * @property UserOptionModel $UO
  * @property AbsenceService $AbsenceService
  * @property UserService $UserService
- * 
+ *
  * @property array $alertData
  * @property array $allConfig
  * @property array $appJqueryUIThemes

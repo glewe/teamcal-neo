@@ -8,7 +8,7 @@
  *
  * @package TeamCal Neo
  * @since 4.3.0
- * 
+ *
  * Provides intelligent language loading system that loads only the language
  * keys required for the current controller, significantly reducing memory
  * usage compared to loading all language files at once.

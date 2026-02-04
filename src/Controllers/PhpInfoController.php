@@ -43,7 +43,7 @@ class PhpInfoController extends BaseController
    *
    * @param bool $useCache Whether to cache the phpinfo output (default: true for performance)
    * @param string $theme Theme preference: 'auto', 'light', 'dark' (default: 'auto')
-   * 
+   *
    * @return string Bootstrap formatted phpinfo() output with theme support
    */
   private function getPhpInfoBootstrap(bool $useCache = true, string $theme = 'auto'): string {

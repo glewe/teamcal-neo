@@ -21,7 +21,7 @@ use Exception;
 /**
  * AbsenceService
  *
- * This service handles complex business logic related to absences, 
+ * This service handles complex business logic related to absences,
  * thresholds, and approvals.
  *
  * @author    George Lewe <george@lewe.com>
@@ -757,7 +757,7 @@ class AbsenceService
    * @param string $to Date to count to (including)
    * @param boolean $useFactor Multiply count by factor
    * @param boolean $combined Count other absences that count as this one
-   * 
+   *
    * @return int Result of the count
    */
   public function countAbsence(string $user = '%', string|int $absid = '', string $from = '', string $to = '', bool $useFactor = false, bool $combined = false): int {
@@ -870,7 +870,7 @@ class AbsenceService
    * @param string $cntto Date to count to (including)
    * @param string $region Region to count for
    * @param boolean $cntManDays Switch whether to multiply the business days by the amount of users and return that value instead
-   * 
+   *
    * @return int Result of the count
    */
   public function countBusinessDays(string $cntfrom, string $cntto, string $region = '1', bool $cntManDays = false): int {

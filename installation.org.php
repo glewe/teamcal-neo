@@ -391,9 +391,9 @@ function writeEnv(string $var, string $value, string $file = '.env'): bool {
   $content    = file_get_contents($file);
   $cleanValue = preg_replace('/^"|"$|^\'|\'$/', '', $value); // Removing existing quotes if any
   $cleanValue = '"' . str_replace('"', '\"', $cleanValue) . '"'; // Enclose in double quotes and escape internal quotes
-  
+
   $pattern = "/^" . preg_quote($var, '/') . "=(.*)$/m";
-  
+
   if (preg_match($pattern, $content)) {
     $content = preg_replace($pattern, "$var=$cleanValue", $content);
   } else {
@@ -456,7 +456,7 @@ if (!empty($_POST)) {
       if (!file_exists($envFile) && file_exists('.env.example')) {
         copy('.env.example', $envFile);
       }
-      
+
       if (file_exists($envFile)) {
         writeEnv('DB_HOST', $_POST['txt_instDbServer'], $envFile);
         writeEnv('DB_DATABASE', $_POST['txt_instDbName'], $envFile);

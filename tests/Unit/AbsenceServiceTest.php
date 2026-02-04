@@ -85,7 +85,7 @@ class AbsenceServiceTest extends TestCase
     // Mock TemplateModel
     // Assume 5 users already absent. +1 requested = 6. 6/10 = 60% > 50%.
     // countAllAbsences called 10 times. Return 1 for first 5 users, 0 for others.
-    // Or simplified: just return 1 for half calls. 
+    // Or simplified: just return 1 for half calls.
     // Logic in service: foreach member, absences += countAllAbsences(...)
 
     $matcher = $this->exactly(10);
@@ -100,7 +100,7 @@ class AbsenceServiceTest extends TestCase
 
     $result = $this->AS->absenceThresholdReached($year, $month, $day, $base, $group);
 
-    // Calculation: 
+    // Calculation:
     // Existing Absences = 5
     // New Requested = 1 (implicit in logic `$absences++`)
     // Total = 6

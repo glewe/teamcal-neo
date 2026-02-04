@@ -63,7 +63,7 @@ $LANG['imprint'] = array(
   ),
   array(
     'title' => 'Matomo Analytics',
-    'text' => '<p>Este sitio web puede utilizar Matomo Analytics, si así lo configura el administrador, un servicio de análisis autohospedado. Matomo rastrea estadísticas sobre el uso del sitio web, 
+    'text' => '<p>Este sitio web puede utilizar Matomo Analytics, si así lo configura el administrador, un servicio de análisis autohospedado. Matomo rastrea estadísticas sobre el uso del sitio web,
       por ejemplo, número de visitas, dirección IP, tipo de navegador, sistema operativo, etc. No se almacena información personal. Para obtener más detalles al respecto, póngase en contacto con el administrador de este sitio web.</p>',
   ),
 );

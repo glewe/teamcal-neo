@@ -115,12 +115,12 @@
     <script>
       $(function () {
         // Datepicker init
-        if ($("#from_presence").length) 
+        if ($("#from_presence").length)
           $("#from_presence").datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
-        
-        if ($("#to_presence").length) 
+
+        if ($("#to_presence").length)
           $("#to_presence").datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
-        
+
 
         $("#sel_period_presence").change(function () {
           if ($(this).val() == 'custom') {
