@@ -51,7 +51,7 @@ function sendAccountCreatedMail(string $email, string $username, string $passwor
     if (file_exists($langFile)) {
       $loadedLang    = (function () use ($langFile) {
         $LANG = [];
-        include $langFile;
+        include_once $langFile;
         return $LANG;
       })();
       $localizedLANG = array_merge($localizedLANG, $loadedLang);
@@ -154,7 +154,7 @@ function sendAccountNeedsApprovalMail(string $email, string $username, string $l
     if (file_exists($langFile)) {
       $loadedLang    = (function () use ($langFile) {
         $LANG = [];
-        include $langFile;
+        include_once $langFile;
         return $LANG;
       })();
       $localizedLANG = array_merge($localizedLANG, $loadedLang);
@@ -259,7 +259,7 @@ function sendAccountRegisteredMail(string $email, string $username, string $last
     if (file_exists($langFile)) {
       $loadedLang    = (function () use ($langFile) {
         $LANG = [];
-        include $langFile;
+        include_once $langFile;
         return $LANG;
       })();
       $localizedLANG = array_merge($localizedLANG, $loadedLang);
@@ -365,7 +365,7 @@ function sendAccountVerificationMismatchMail(string $email, string $username, st
     if (file_exists($langFile)) {
       $loadedLang    = (function () use ($langFile) {
         $LANG = [];
-        include $langFile;
+        include_once $langFile;
         return $LANG;
       })();
       $localizedLANG = array_merge($localizedLANG, $loadedLang);
@@ -478,7 +478,7 @@ function sendGroupEventNotifications(string $event, string $groupname, string $g
       if (file_exists($langFile)) {
         $loadedLang    = (function () use ($langFile) {
           $LANG = [];
-          include $langFile;
+          include_once $langFile;
           return $LANG;
         })();
         $localizedLANG = array_merge($localizedLANG, $loadedLang);
@@ -589,7 +589,7 @@ function sendPasswordResetMail(string $email, string $username, string $lastname
     if (file_exists($langFile)) {
       $loadedLang    = (function () use ($langFile) {
         $LANG = [];
-        include $langFile;
+        include_once $langFile;
         return $LANG;
       })();
       $localizedLANG = array_merge($localizedLANG, $loadedLang);
@@ -703,7 +703,7 @@ function sendRoleEventNotifications(string $event, string $rolename, string $rol
       if (file_exists($langFile)) {
         $loadedLang    = (function () use ($langFile) {
           $LANG = [];
-          include $langFile;
+          include_once $langFile;
           return $LANG;
         })();
         $localizedLANG = array_merge($localizedLANG, $loadedLang);
@@ -823,7 +823,7 @@ function sendUserEventNotifications(string $event, string $username, string $fir
       if (file_exists($langFile)) {
         $loadedLang    = (function () use ($langFile) {
           $LANG = [];
-          include $langFile;
+          include_once $langFile;
           return $LANG;
         })();
         $localizedLANG = array_merge($localizedLANG, $loadedLang);
@@ -942,7 +942,7 @@ function sendAbsenceEventNotifications(string $event, string $absname): bool {
       if (file_exists($langFile)) {
         $loadedLang    = (function () use ($langFile) {
           $LANG = [];
-          include $langFile;
+          include_once $langFile;
           return $LANG;
         })();
         $localizedLANG = array_merge($localizedLANG, $loadedLang);
@@ -1060,7 +1060,7 @@ function sendHolidayEventNotifications(string $event, string $holname, string $h
       if (file_exists($langFile)) {
         $loadedLang    = (function () use ($langFile) {
           $LANG = [];
-          include $langFile;
+          include_once $langFile;
           return $LANG;
         })();
         $localizedLANG = array_merge($localizedLANG, $loadedLang);
@@ -1180,7 +1180,7 @@ function sendMonthEventNotifications(string $event, string $year, string $month,
       if (file_exists($langFile)) {
         $loadedLang    = (function () use ($langFile) {
           $LANG = [];
-          include $langFile;
+          include_once $langFile;
           return $LANG;
         })();
         $localizedLANG = array_merge($localizedLANG, $loadedLang);
@@ -1326,7 +1326,7 @@ function sendUserCalEventNotifications(string $event, string $username, string $
       if (file_exists($langFile)) {
         $loadedLang    = (function () use ($langFile) {
           $LANG = [];
-          include $langFile;
+          include_once $langFile;
           return $LANG;
         })();
         $localizedLANG = array_merge($localizedLANG, $loadedLang);

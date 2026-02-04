@@ -186,14 +186,18 @@ body {
  * Main
  * ----------------------------------------------------------------------------
  */
-#main {
+#mainSidebar {
   margin-left: 260px;
   overflow: auto;
   transition: all .35s ease-in-out;
 }
 
-#main:not(.expand) {
+#mainSidebar:not(.expand) {
   margin-left: 70px;
+}
+
+#mainNavbar {
+  overflow: auto;
 }
 
 

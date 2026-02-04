@@ -136,37 +136,37 @@
               <thead>
                 <!-- Row: Month name and day numbers -->
                 <tr>
-                  <th class="m-monthname">{{ dateInfo.monthname }}
+                  <th class="m-monthname" scope="col">{{ dateInfo.monthname }}
                     {{ dateInfo.year }}</th>
                   {% for i in daystart..dayend %}
-                    <th class="m-daynumber text-center" {{ dayStyles[i]|raw }}>{{ i }}</th>
+                    <th class="m-daynumber text-center" scope="col" {{ dayStyles[i]|raw }}>{{ i }}</th>
                   {% endfor %}
                 </tr>
 
                 <!-- Row: Weekdays -->
                 <tr>
-                  <th class="m-label">&nbsp;</th>
+                  <th class="m-label" scope="row">&nbsp;</th>
                   {% for i in daystart..dayend %}
                     {% set prop = 'wday' ~ i %}
-                    <th class="m-weekday text-center" {{ dayStyles[i]|raw }}>{{ LANG.weekdayShort[attribute(M, prop)] }}</th>
+                    <th class="m-weekday text-center" scope="col" {{ dayStyles[i]|raw }}>{{ LANG.weekdayShort[attribute(M, prop)] }}</th>
                   {% endfor %}
                 </tr>
 
                 {% if showWeekNumbers %}
                   <!-- Row: Week numbers -->
                   <tr>
-                    <th class="m-label">{{ LANG.weeknumber }}</th>
+                    <th class="m-label" scope="row">{{ LANG.weeknumber }}</th>
                     {% for i in daystart..dayend %}
                       {% set prop = 'week' ~ i %}
                       {% set wprop = 'wday' ~ i %}
-                      <th class="m-weeknumber text-center{{ (attribute(M, wprop) == 1) ? ' first' : ' inner' }}">{{ (attribute(M, wprop) == 1) ? attribute(M, prop) : '' }}</th>
+                      <th class="m-weeknumber text-center{{ (attribute(M, wprop) == 1) ? ' first' : ' inner' }}" scope="col">{{ (attribute(M, wprop) == 1) ? attribute(M, prop) : '' }}</th>
                     {% endfor %}
                   </tr>
                 {% endif %}
 
                 <!-- Row: Daynotes -->
                 <tr>
-                  <th class="m-label">{{ LANG.dn_title }}</th>
+                  <th class="m-label" scope="row">{{ LANG.dn_title }}</th>
                   {% for i in daystart..dayend %}
                     {% set wprop = 'wday' ~ i %}
                     {# Checking Daynote logic #}
@@ -179,7 +179,7 @@
                       {% set icon = 'far fa-sticky-note' %}
                       {% set tooltip = '' %}
                     {% endif %}
-                    <th class="m-weekday text-center" {{ dayStyles[i]|raw }}>
+                    <th class="m-weekday text-center" scope="col" {{ dayStyles[i]|raw }}>
                       <a href="index.php?action=daynote&amp;date={{ dateKey }}&amp;for=all&amp;region={{ regionid }}">
                         <i class="{{ icon }} text-info" {{ tooltip|raw }}></i>
                       </a>

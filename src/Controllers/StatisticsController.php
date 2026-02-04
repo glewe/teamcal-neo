@@ -283,6 +283,7 @@ class StatisticsController extends BaseController
         $data[]             = $count;
         $viewData['total'] += $count;
       }
+      unset($user);
     }
     else {
       $groups = ($viewData['groupid'] == "all") ? $viewData['groups'] : [$this->G->getRowById($viewData['groupid'])];
@@ -654,6 +655,7 @@ class StatisticsController extends BaseController
         $data[]             = $userPresences;
         $viewData['total'] += $userPresences;
       }
+      unset($user);
     }
     else {
       $groups = ($viewData['groupid'] == "all") ? $viewData['groups'] : [$this->G->getRowById($viewData['groupid'])];

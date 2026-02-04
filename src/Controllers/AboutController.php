@@ -49,7 +49,7 @@ class AboutController extends BaseController
     // Get Release Info
     $releases = [];
     ob_start();
-    require WEBSITE_ROOT . '/doc/releaseinfo.php';
+    require_once WEBSITE_ROOT . '/doc/releaseinfo.php';
     ob_end_clean();
     // $releases is now available from releaseinfo.php
 

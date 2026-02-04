@@ -55,9 +55,9 @@
           <table class="table table-bordered table-hover year">
             <thead>
               <tr>
-                <th>{{ LANG.userlist_user }}</th>
+                <th scope="col">{{ LANG.userlist_user }}</th>
                 {% for abs in absences %}
-                  <th class="text-center">
+                  <th class="text-center" scope="col">
                     {% if abs.bgtrans %}
                       {% set bgstyle = "" %}
                     {% else %}
@@ -80,7 +80,7 @@
             <tbody>
               {% for user in users %}
                 <tr>
-                  <td class="m-name">
+                  <th class="m-name" scope="row">
                     {% set tabindex = tabindex + 1 %}
                     <a href="index.php?action=useredit&amp;profile={{ user.username }}" tabindex="{{ tabindex }}">{{ user.dispname }}</a>
                   </td>

@@ -402,7 +402,6 @@ class CalendarViewController extends BaseController
     $viewData['absences']   = $this->A->getAll();
     $viewData['allGroups']  = $this->G->getAll();
     $viewData['holidays']   = $this->H->getAllCustom();
-    $viewData['holidays']   = $this->H->getAllCustom();
     $viewData['groups']     = ($groupfilter == 'all' || $groupfilter == 'allbygroup') ? $this->G->getAll() : $this->G->getRowById($groupfilter);
     if ($groupfilter == 'allbygroup') {
       $viewData['defgroupfilter'] = 'allbygroup';
@@ -774,6 +773,7 @@ class CalendarViewController extends BaseController
         $countedUsersPerMonth[$monthKey][$username] = true;
         $userRow['months'][$monthKey]               = $mRow;
       }
+      unset($vmonth);
       $viewData['userRows'][] = $userRow;
     }
 

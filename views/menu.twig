@@ -4,10 +4,10 @@
     document.body.style.paddingTop = '0';
   </script>
   {% include 'sidebar.twig' ignore missing %}
-  <main id="main" class="p-3">
+  <main id="mainSidebar" class="p-3">
   {% else %}
     {# Navbar mode #}
-    <main id="main" class="ms-0 pt-4 px-3">
+    <main id="mainNavbar" class="ms-0 pt-4 px-3">
       {% include 'navbar.twig' ignore missing %}
     {% endif %}
 

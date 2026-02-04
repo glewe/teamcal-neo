@@ -63,7 +63,7 @@
             <thead>
               <!-- Row: Month name and day numbers -->
               <tr>
-                <th class="y-year">{{ year }}</th>
+                <th class="y-year" scope="col">{{ year }}</th>
                 {% for i in 1..37 %}
                   {% set style = '' %}
                   {% set wday = i % 7 %}
@@ -76,7 +76,7 @@
                   {% if wday == 7 %}
                     {% set style = sunStyle %}
                   {% endif %}
-                  <th class="y-weekday text-center" {{ style|raw }}>{{ LANG.weekdayShort[wday] }}</th>
+                  <th class="y-weekday text-center" scope="col" {{ style|raw }}>{{ LANG.weekdayShort[wday] }}</th>
                 {% endfor %}
               </tr>
             </thead>
@@ -84,7 +84,7 @@
             <tbody>
               {% for m in 1..12 %}
                 <tr>
-                  <td class="y-label">{{ LANG.monthShort[m] }}</td>
+                  <th class="y-label" scope="row">{{ LANG.monthShort[m] }}</th>
 
                   {% set startCol = month[m][1]['wday'] %}
                   {% set endCol = startCol + monthInfo[m]['daysInMonth'] - 1 %}

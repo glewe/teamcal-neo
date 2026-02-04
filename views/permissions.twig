@@ -172,7 +172,7 @@
 
               <div class="card">
                 <div class="card-header">
-                  <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                  <ul class="nav nav-tabs card-header-tabs" id="tabsByRole" role="tablist">
                     {% for role in roles %}
                       <li class="nav-item" role="presentation">
                         <button class="nav-link {{ role.id == 1 ? 'active' : '' }}" id="tab-{{ role.id }}" data-bs-toggle="tab" data-bs-target="#panel-{{ role.id }}" type="button" role="tab" aria-controls="panel-{{ role.id }}" aria-selected="{{ role.id == 1 ? 'true' : 'false' }}">
@@ -184,7 +184,7 @@
                 </div>
 
                 <div class="card-body">
-                  <div class="tab-content" id="myTabContent">
+                  <div class="tab-content" id="tabContentByRole">
                     {% for role in roles %}
                       <div class="tab-pane fade {{ role.id == 1 ? 'show active' : '' }}" id="panel-{{ role.id }}" role="tabpanel" aria-labelledby="tab-{{ role.id }}">
 
@@ -222,7 +222,7 @@
 
               <div class="card">
                 <div class="card-header">
-                  <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                  <ul class="nav nav-tabs card-header-tabs" id="tabsByPerm" role="tablist">
                     <li class="nav-item" role="presentation">
                       <button class="nav-link active" id="tab-general" data-bs-toggle="tab" data-bs-target="#panel-general" type="button" role="tab" aria-controls="panel-general" aria-selected="true">{{ LANG.perm_tab_general }}</button>
                     </li>
@@ -233,8 +233,7 @@
                 </div>
 
                 <div class="card-body">
-                  <div
-                    class="tab-content" id="myTabContent">
+                  <div class="tab-content" id="tabContentByPerm">
 
                     <!-- Tab: General -->
                     <div class="tab-pane fade show active" id="panel-general" role="tabpanel" aria-labelledby="tab-general">
