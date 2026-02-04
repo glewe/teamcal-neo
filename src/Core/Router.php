@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Core;
 
+use App\Exceptions\RouterException;
+
 /**
  * Router Class
  *
@@ -50,7 +52,7 @@ class Router
    * @param string $action Action name
    *
    * @return void
-   * @throws \Exception If controller class is invalid
+   * @throws RouterException If controller class is invalid
    */
   public function dispatch(string $action): void {
     if (isset($this->routes[$action])) {
@@ -63,7 +65,7 @@ class Router
         $controller->execute();
       }
       else {
-        throw new \Exception("Controller class '$controllerClass' must extend BaseController");
+        throw new RouterException("Controller class '$controllerClass' must extend BaseController");
       }
     }
     else {

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Core;
 
+use App\Exceptions\ContainerException;
+
 /**
  * Dependency Injection Container
  *
@@ -40,12 +42,12 @@ class Container
    * @param string $id Service identifier
    *
    * @return mixed Service instance
-   * @throws \Exception If service is not found
+   * @throws ContainerException If service is not found
    */
   public function get(string $id): mixed {
     if (!isset($this->instances[$id])) {
       if (!isset($this->services[$id])) {
-        throw new \Exception("Service not found: " . $id);
+        throw new ContainerException("Service not found: " . $id);
       }
       $this->instances[$id] = $this->services[$id]($this);
     }

@@ -80,7 +80,7 @@ function sendAccountCreatedMail(string $email, string $username, string $passwor
         if (file_exists($fallbackPath))
           $path = $fallbackPath;
         else
-          throw new Exception("Missing template file: $path");
+          throw new \App\Exceptions\TemplateException("Missing template file: $path");
       }
       $templates[$key] = file_get_contents($path);
     }
@@ -183,7 +183,7 @@ function sendAccountNeedsApprovalMail(string $email, string $username, string $l
         if (file_exists($fallbackPath))
           $path = $fallbackPath;
         else
-          throw new Exception("Missing template file: $path");
+          throw new \App\Exceptions\TemplateException("Missing template file: $path");
       }
       $templates[$key] = file_get_contents($path);
     }
@@ -288,7 +288,7 @@ function sendAccountRegisteredMail(string $email, string $username, string $last
         if (file_exists($fallbackPath))
           $path = $fallbackPath;
         else
-          throw new Exception("Missing template file: $path");
+          throw new \App\Exceptions\TemplateException("Missing template file: $path");
       }
       $templates[$key] = file_get_contents($path);
     }
@@ -394,7 +394,7 @@ function sendAccountVerificationMismatchMail(string $email, string $username, st
         if (file_exists($fallbackPath))
           $path = $fallbackPath;
         else
-          throw new Exception("Missing template file: $path");
+          throw new \App\Exceptions\TemplateException("Missing template file: $path");
       }
       $templates[$key] = file_get_contents($path);
     }
@@ -504,7 +504,7 @@ function sendGroupEventNotifications(string $event, string $groupname, string $g
           if (file_exists($fallbackPath))
             $path = $fallbackPath;
           else
-            throw new Exception("Missing template file: $path");
+            throw new \App\Exceptions\TemplateException("Missing template file: $path");
         }
         $templates[$key] = file_get_contents($path);
       }
@@ -618,7 +618,7 @@ function sendPasswordResetMail(string $email, string $username, string $lastname
         if (file_exists($fallbackPath))
           $path = $fallbackPath;
         else
-          throw new Exception("Missing template file: $path");
+          throw new \App\Exceptions\TemplateException("Missing template file: $path");
       }
       $templates[$key] = file_get_contents($path);
     }
@@ -729,7 +729,7 @@ function sendRoleEventNotifications(string $event, string $rolename, string $rol
           if (file_exists($fallbackPath))
             $path = $fallbackPath;
           else
-            throw new Exception("Missing template file: $path");
+            throw new \App\Exceptions\TemplateException("Missing template file: $path");
         }
         $templates[$key] = file_get_contents($path);
       }
@@ -849,7 +849,7 @@ function sendUserEventNotifications(string $event, string $username, string $fir
           if (file_exists($fallbackPath))
             $path = $fallbackPath;
           else
-            throw new Exception("Missing template file: $path");
+            throw new \App\Exceptions\TemplateException("Missing template file: $path");
         }
         $templates[$key] = file_get_contents($path);
       }
@@ -968,7 +968,7 @@ function sendAbsenceEventNotifications(string $event, string $absname): bool {
           if (file_exists($fallbackPath))
             $path = $fallbackPath;
           else
-            throw new Exception("Missing template file: $path");
+            throw new \App\Exceptions\TemplateException("Missing template file: $path");
         }
         $templates[$key] = file_get_contents($path);
       }
@@ -1086,7 +1086,7 @@ function sendHolidayEventNotifications(string $event, string $holname, string $h
           if (file_exists($fallbackPath))
             $path = $fallbackPath;
           else
-            throw new Exception("Missing template file: $path");
+            throw new \App\Exceptions\TemplateException("Missing template file: $path");
         }
         $templates[$key] = file_get_contents($path);
       }
@@ -1206,7 +1206,7 @@ function sendMonthEventNotifications(string $event, string $year, string $month,
           if (file_exists($fallbackPath))
             $path = $fallbackPath;
           else
-            throw new Exception("Missing template file: $path");
+            throw new \App\Exceptions\TemplateException("Missing template file: $path");
         }
         $templates[$key] = file_get_contents($path);
       }
@@ -1352,7 +1352,7 @@ function sendUserCalEventNotifications(string $event, string $username, string $
           if (file_exists($fallbackPath))
             $path = $fallbackPath;
           else
-            throw new Exception("Missing template file: $path");
+            throw new \App\Exceptions\TemplateException("Missing template file: $path");
         }
         $templates[$key] = file_get_contents($path);
       }

@@ -13,6 +13,11 @@ declare(strict_types=1);
  * @since 3.0.0
  */
 
+/**
+ * Dedicated exception for installation and configuration errors
+ */
+class InstallationException extends \Exception {}
+
 define('VALID_ROOT', 1);
 define('WEBSITE_ROOT', __DIR__);
 
@@ -130,7 +135,7 @@ function writeDef(string $var = '', string $value = '', string $file = '', bool 
     // Read file content
     $content = file_get_contents($file);
     if ($content === false) {
-      throw new Exception("Failed to read config file");
+      throw new InstallationException("Failed to read config file");
     }
 
     // Pattern to match define() statements
@@ -150,25 +155,25 @@ function writeDef(string $var = '', string $value = '', string $file = '', bool 
 
     // Validate that replacement occurred
     if ($newContent === null || $newContent === $content) {
-      throw new Exception("Failed to update define value");
+      throw new InstallationException("Failed to update define value");
     }
 
     // Write updated content atomically
     $tempFile = $file . '.tmp.' . uniqid();
 
     if (file_put_contents($tempFile, $newContent, LOCK_EX) === false) {
-      throw new Exception("Failed to write temporary file");
+      throw new InstallationException("Failed to write temporary file");
     }
 
     // Atomic rename
     if (!rename($tempFile, $file)) {
       unlink($tempFile);
-      throw new Exception("Failed to replace config file");
+      throw new InstallationException("Failed to replace config file");
     }
 
     // Success
     return true;
-  } catch (Exception $e) {
+  } catch (InstallationException $e) {
     error_log("writeDef: " . $e->getMessage());
 
     // Restore from backup if available
@@ -287,25 +292,25 @@ function writeConfig(string $var = '', string $value = '', string $file = '', bo
 
     // Validate that replacement occurred
     if ($newContent === null || $newContent === $content) {
-      throw new Exception("Failed to update config value");
+      throw new InstallationException("Failed to update config value");
     }
 
     // Write updated content atomically
     $tempFile = $file . '.tmp.' . uniqid();
 
     if (file_put_contents($tempFile, $newContent, LOCK_EX) === false) {
-      throw new Exception("Failed to write temporary file");
+      throw new InstallationException("Failed to write temporary file");
     }
 
     // Atomic rename
     if (!rename($tempFile, $file)) {
       unlink($tempFile);
-      throw new Exception("Failed to replace config file");
+      throw new InstallationException("Failed to replace config file");
     }
 
     // Success
     return true;
-  } catch (Exception $e) {
+  } catch (InstallationException $e) {
     error_log("writeConfig: " . $e->getMessage());
 
     // Restore from backup if available
