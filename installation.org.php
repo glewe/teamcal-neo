@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * Installation
@@ -490,12 +491,11 @@ if (!empty($_POST)) {
 
         if ($installData) {
           // Replace prefix in sample file
-          if (isset($_POST['txt_instDbPrefix']) && strlen($_POST['txt_instDbPrefix'])) {
-            $query = str_replace("tcneo_", $_POST['txt_instDbPrefix'], $query);
+          $dbPrefix = '';
+          if (isset($_POST['txt_instDbPrefix'])) {
+            $dbPrefix = preg_replace('/[^a-zA-Z0-9_]/', '', $_POST['txt_instDbPrefix']);
           }
-          else {
-            $query = str_replace("tcneo_", "", $query);
-          }
+          $query = str_replace("tcneo_", $dbPrefix, $query);
 
           // Run query
           $result = $pdo->query($query);
