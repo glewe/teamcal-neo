@@ -32,7 +32,7 @@ ob_start();
 // Define dummy $LANG to prevent warnings in the HTML part of releaseinfo.php
 $LANG     = [];
 $oldLevel = error_reporting(0);
-include dirname(__DIR__) . '/doc/releaseinfo.php';
+include_once dirname(__DIR__) . '/doc/releaseinfo.php';
 error_reporting($oldLevel);
 ob_end_clean();
 
