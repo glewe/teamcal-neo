@@ -367,15 +367,15 @@ class LicenseModel
       $details  = "<div style=\"height:20px;\"></div>";
       $details .= "
                 <table class=\"table table-hover\">
-                    <tr><th style=\"background-color: inherit;\">" . $LANG['lic_product'] . ":</th><td style=\"background-color: inherit;\">" . ($data->product_ref ?? '') . "</td></tr>
-                    <tr><th style=\"background-color: inherit;\">" . $LANG['lic_key'] . ":</th><td style=\"background-color: inherit;\">" . ($data->license_key ?? '') . "</td></tr>
-                    <tr><th style=\"background-color: inherit;\">" . $LANG['lic_name'] . ":</th><td style=\"background-color: inherit;\">" . ($data->first_name ?? '') . " " . ($data->last_name ?? '') . "</td></tr>
-                    <tr><th style=\"background-color: inherit;\">" . $LANG['lic_email'] . ":</th><td style=\"background-color: inherit;\">" . ($data->email ?? '') . "</td></tr>
-                    <tr><th style=\"background-color: inherit;\">" . $LANG['lic_company'] . ":</th><td style=\"background-color: inherit;\">" . ($data->company_name ?? '') . "</td></tr>
-                    <tr><th style=\"background-color: inherit;\">" . $LANG['lic_date_created'] . ":</th><td style=\"background-color: inherit;\">" . ($data->date_created ?? '') . "</td></tr>
-                    <tr><th style=\"background-color: inherit;\">" . $LANG['lic_date_renewed'] . ":</th><td style=\"background-color: inherit;\">" . ($data->date_renewed ?? '') . "</td></tr>
-                    <tr><th style=\"background-color: inherit;\">" . $LANG['lic_date_expiry'] . ":</th><td style=\"background-color: inherit;\">" . ($data->date_expiry ?? '') . $daysleft . "</td></tr>
-                    <tr><th style=\"background-color: inherit;\">" . $LANG['lic_registered_domains'] . ":</th><td style=\"background-color: inherit;\">" . $domains . "</td></tr>
+                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_product'] . ":</th><td style=\"background-color: inherit;\">" . ($data->product_ref ?? '') . "</td></tr>
+                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_key'] . ":</th><td style=\"background-color: inherit;\">" . ($data->license_key ?? '') . "</td></tr>
+                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_name'] . ":</th><td style=\"background-color: inherit;\">" . ($data->first_name ?? '') . " " . ($data->last_name ?? '') . "</td></tr>
+                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_email'] . ":</th><td style=\"background-color: inherit;\">" . ($data->email ?? '') . "</td></tr>
+                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_company'] . ":</th><td style=\"background-color: inherit;\">" . ($data->company_name ?? '') . "</td></tr>
+                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_date_created'] . ":</th><td style=\"background-color: inherit;\">" . ($data->date_created ?? '') . "</td></tr>
+                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_date_renewed'] . ":</th><td style=\"background-color: inherit;\">" . ($data->date_renewed ?? '') . "</td></tr>
+                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_date_expiry'] . ":</th><td style=\"background-color: inherit;\">" . ($data->date_expiry ?? '') . $daysleft . "</td></tr>
+                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_registered_domains'] . ":</th><td style=\"background-color: inherit;\">" . $domains . "</td></tr>
                 </table>";
 
       switch ($this->status()) {
@@ -428,12 +428,12 @@ class LicenseModel
 
     return '
             <div class="alert alert-dismissable alert-' . ($alert['type'] ?? 'info') . '">
-                <button type="button" class="btn-close float-end" data-bs-dismiss="alert" title="' . $LANG['close_this_message'] . '"></button>
-                <h4><strong>' . ($alert['title'] ?? '') . '</strong></h4>
-                <hr>
-                <p><strong>' . ($alert['subject'] ?? '') . '</strong></p>
-                <p>' . ($alert['text'] ?? '') . '</p>
-                ' . (isset($alert['help']) && strlen($alert['help']) ? "<p><i>" . $alert['help'] . "</i></p>" : "") . (($showDetails) ? $details : '') . '
+              <button type="button" class="btn-close float-end" data-bs-dismiss="alert" title="' . $LANG['close_this_message'] . '"></button>
+              <h4><strong>' . ($alert['title'] ?? '') . '</strong></h4>
+              <hr>
+              <p><strong>' . ($alert['subject'] ?? '') . '</strong></p>
+              <p>' . ($alert['text'] ?? '') . '</p>
+              ' . (isset($alert['help']) && strlen($alert['help']) ? "<p><i>" . $alert['help'] . "</i></p>" : "") . (($showDetails) ? $details : '') . '
             </div>';
   }
 
