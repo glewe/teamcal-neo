@@ -61,17 +61,15 @@ TeamCal Neo 5.0.0 is a new major release. The application has been completely re
 - Removed Google+ and Skype fields from user profile (added Instagram, TikTok and Xing)
 - Removed the old demo groups and users
 
-## Demo
+## Resources
+
 [TeamCal Neo Demo (stable version 4)](https://tcneo.lewe.com/)
 
 [TeamCal Neo Demo (beta version 5)](https://dev.lewe.com/tcneo)
 
+[TeamCal Neo Product Page](https://teamcalneo.lewe.com/)
 
-## Product Page
-[TeamCal Neo](https://teamcalneo.lewe.com/)
-
-## User Manual
-[TeamCal Neo Manual](https://lewe.gitbook.io/teamcal-neo/)
+[TeamCal Neo User Manual](https://lewe.gitbook.io/teamcal-neo/)
 
 ## Support
 
@@ -82,6 +80,12 @@ TeamCal Neo 5.0.0 is a new major release. The application has been completely re
 ## Releases
 
 [TeamCal Neo Releases](https://github.com/glewe/teamcal-neo/releases)
+
+## Installation and Update Guide
+
+[TeamCal Neo Installation Guide](https://github.com/glewe/teamcal-neo/blob/master/doc/INSTALL.md)  
+
+[TeamCal Neo Update Guide](https://github.com/glewe/teamcal-neo/blob/master/doc/UPDATE.md)  
   
 ## Developer Info
 
