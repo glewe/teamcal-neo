@@ -685,10 +685,9 @@ class UserEditController extends BaseController
   /**
    * Resets user avatar.
    *
-   * @param string    $profile   Profile username
-   * @param UserModel $UP        User Model
-   * @param bool      $showAlert Reference to show alert flag
-   * @param array     $alertData Reference to alert data array
+   * @param string    $profile Profile username
+   * @param UserModel $UP      User Model
+   *
    * @return void
    */
   private function handleReset($profile, $UP) {

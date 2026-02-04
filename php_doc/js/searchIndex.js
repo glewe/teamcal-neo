@@ -1341,6 +1341,26 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Core-TemplateEngine.html#property_twig"
         },                {
+            "fqsen": "\\App\\Exceptions\\ContainerException",
+            "name": "ContainerException",
+            "summary": "Custom\u0020exception\u0020for\u0020DI\u0020container\u0020errors.",
+            "url": "classes/App-Exceptions-ContainerException.html"
+        },                {
+            "fqsen": "\\App\\Exceptions\\InstallationException",
+            "name": "InstallationException",
+            "summary": "Custom\u0020exception\u0020for\u0020installation\u0020and\u0020configuration\u0020related\u0020errors.",
+            "url": "classes/App-Exceptions-InstallationException.html"
+        },                {
+            "fqsen": "\\App\\Exceptions\\RouterException",
+            "name": "RouterException",
+            "summary": "Custom\u0020exception\u0020for\u0020routing\u0020errors.",
+            "url": "classes/App-Exceptions-RouterException.html"
+        },                {
+            "fqsen": "\\App\\Exceptions\\TemplateException",
+            "name": "TemplateException",
+            "summary": "Custom\u0020exception\u0020for\u0020template\u0020related\u0020errors.",
+            "url": "classes/App-Exceptions-TemplateException.html"
+        },                {
             "fqsen": "\\createMonth\u0028\u0029",
             "name": "createMonth",
             "summary": "Creates\u0020an\u0020empty\u0020month\u0020template\u0020marking\u0020Saturdays\u0020and\u0020Sundays\u0020as\u0020weekend.",
@@ -3095,6 +3115,11 @@ Search.appendIndex(
             "name": "pw_strength",
             "summary": "",
             "url": "classes/App-Models-LoginModel.html#property_pw_strength"
+        },                {
+            "fqsen": "\\App\\Models\\LoginModel\u003A\u003A\u0024isSecure",
+            "name": "isSecure",
+            "summary": "",
+            "url": "classes/App-Models-LoginModel.html#property_isSecure"
         },                {
             "fqsen": "\\App\\Models\\LoginModel\u003A\u003A\u0024ldapService",
             "name": "ldapService",
@@ -5391,6 +5416,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/App-Models-UserModel.html#property_config_table"
         },                {
+            "fqsen": "\\App\\Models\\UserModel\u003A\u003A\u0024user_options_table",
+            "name": "user_options_table",
+            "summary": "",
+            "url": "classes/App-Models-UserModel.html#property_user_options_table"
+        },                {
             "fqsen": "\\App\\Models\\UserOptionModel",
             "name": "UserOptionModel",
             "summary": "UserOptionModel",
@@ -5775,6 +5805,11 @@ Search.appendIndex(
             "name": "Core",
             "summary": "",
             "url": "namespaces/app-core.html"
+        },                {
+            "fqsen": "\\App\\Exceptions",
+            "name": "Exceptions",
+            "summary": "",
+            "url": "namespaces/app-exceptions.html"
         },                {
             "fqsen": "\\App\\Models",
             "name": "Models",

@@ -289,9 +289,9 @@ class UserListController extends BaseController
   /**
    * Deletes selected users.
    *
-   * @param UserModel $U1        User Model instance
-   * @param bool      $showAlert Reference to show alert flag
-   * @param array     $alertData Reference to alert data array
+   * @param bool  $showAlert Reference to show alert flag
+   * @param array $alertData Reference to alert data array
+   *
    * @return void
    */
   private function handleDelete(&$showAlert, &$alertData) {
