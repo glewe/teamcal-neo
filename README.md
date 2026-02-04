@@ -11,7 +11,7 @@
 [![CSS](https://img.shields.io/badge/Language-CSS3-563d7c.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=glewe_teamcal-neo&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=glewe_teamcal-neo)
-[![Dependabot](https://img.shields.io/badge/dependabot-enabled-025e86.svg?logo=dependabot)](https://github.com/glewe/teamcal-neo/network/updates)
+[![Dependency Status](https://img.shields.io/librariesio/github/glewe/teamcal-neo)](https://libraries.io/github/glewe/teamcal-neo)
 
 TeamCal Neo is a day-based online calendar that allows to easily manage your team's events and absences and displays them in an intuitive interface. You can manage absence types, holidays, regional calendars and much more.
 
