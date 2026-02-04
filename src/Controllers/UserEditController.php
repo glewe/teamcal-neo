@@ -146,7 +146,7 @@ class UserEditController extends BaseController
           $this->handleUpload($profile, $UP, $showAlert, $alertData);
         }
         elseif (isset($_POST['btn_reset'])) {
-          $this->handleReset($profile, $UP, $showAlert, $alertData);
+          $this->handleReset($profile, $UP);
         }
 
         if (isset($_SESSION)) {
@@ -691,7 +691,7 @@ class UserEditController extends BaseController
    * @param array     $alertData Reference to alert data array
    * @return void
    */
-  private function handleReset($profile, $UP, &$showAlert, &$alertData) {
+  private function handleReset($profile, $UP) {
     $this->AV->delete($profile, $this->UO->read($profile, 'avatar'));
     $this->UO->save($profile, 'avatar', 'default_' . $this->UO->read($profile, 'gender') . '.png');
     $this->LOG->logEvent("logUser", $this->UL->username, "log_user_updated", $UP->username);

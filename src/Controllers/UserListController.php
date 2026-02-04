@@ -50,7 +50,6 @@ class UserListController extends BaseController
       $LIC->check($alertData, $showAlert, (int) $licExpiryWarning, $this->LANG);
     }
 
-    $U1                      = new UserModel(); // used for sending out notifications
     $viewData                = [];
     $viewData['searchGroup'] = 'All';
     $viewData['searchRole']  = 'All';
@@ -86,7 +85,7 @@ class UserListController extends BaseController
         $this->handleRestore($showAlert, $alertData);
       }
       elseif (isset($_POST['btn_profileDelete'])) {
-        $this->handleDelete($U1, $showAlert, $alertData);
+        $this->handleDelete($showAlert, $alertData);
       }
       elseif (isset($_POST['btn_profileDeleteArchived'])) {
         $this->handleDeleteArchived($showAlert, $alertData);
@@ -295,7 +294,7 @@ class UserListController extends BaseController
    * @param array     $alertData Reference to alert data array
    * @return void
    */
-  private function handleDelete($U1, &$showAlert, &$alertData) {
+  private function handleDelete(&$showAlert, &$alertData) {
     $selected_users = $_POST['chk_userActive'] ?? [];
     foreach ($selected_users as $su => $value) {
       $this->UserService->deleteUser($value, false, (bool) ($this->allConfig['emailNotifications'] ?? false), (string) $this->UL->username);

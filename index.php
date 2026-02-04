@@ -167,66 +167,61 @@ elseif (!APP_INSTALLED) {
 $container = new Container();
 
 // Configuration
-$container->set('CONF', function ($c) use ($CONF) {
+$container->set('CONF', function () use ($CONF) {
   return $CONF;
 });
 
-$container->set('allConfig', function ($c) {
+$container->set('allConfig', function () {
   global $allConfig;
   return $allConfig;
 });
 
-$container->set('appLanguages', function ($c) {
+$container->set('appLanguages', function () {
   global $appLanguages;
   return $appLanguages;
 });
 
-$container->set('logLanguages', function ($c) {
+$container->set('logLanguages', function () {
   global $logLanguages;
   return $logLanguages;
 });
 
-$container->set('timezones', function ($c) {
+$container->set('timezones', function () {
   global $timezones;
   return $timezones;
 });
 
-$container->set('appJqueryUIThemes', function ($c) {
+$container->set('appJqueryUIThemes', function () {
   global $appJqueryUIThemes;
   return $appJqueryUIThemes;
 });
 
-$container->set('faIcons', function ($c) {
+$container->set('faIcons', function () {
   global $faIcons;
   return $faIcons;
 });
 
-$container->set('alertData', function ($c) {
+$container->set('alertData', function () {
   global $alertData;
   return $alertData;
 });
 
-$container->set('bsColors', function ($c) {
+$container->set('bsColors', function () {
   global $bsColors;
   return $bsColors;
 });
 
-$container->set('allConfig', function ($c) {
-  global $allConfig;
-  return $allConfig;
-});
-
-$container->set('htmlData', function ($c) {
+$container->set('htmlData', function () {
   global $htmlData;
   return $htmlData;
 });
 
-$container->set('LANG', function ($c) {
+$container->set('LANG', function () {
   global $LANG;
   return $LANG;
 });
 
-$container->set('TemplateEngine', function ($c) {
+$container->set('TemplateEngine', function () {
   global $allConfig;
   $options = [
     'cache'       => WEBSITE_ROOT . '/temp/twig',
@@ -270,7 +265,7 @@ $container->set('UserService', function ($c) {
 });
 
 // Primary classes
-$container->set('Request', function ($c) {
+$container->set('Request', function () {
   return new Request();
 });
 
@@ -282,7 +277,7 @@ $container->set('DbModel', function ($c) use ($CONF) {
   return $db;
 });
 
-$container->set('Cache', function ($c) {
+$container->set('Cache', function () {
   return new App\Core\Cache(WEBSITE_ROOT . '/cache');
 });
 
@@ -376,7 +371,7 @@ $container->set('UserAttachmentModel', function ($c) use ($CONF) {
   return new UserAttachmentModel($c->get('DbModel')->db, $CONF);
 });
 
-$container->set('AvatarModel', function ($c) use ($CONF) {
+$container->set('AvatarModel', function () use ($CONF) {
   global $LANG;
   return new AvatarModel($LANG, $CONF);
 });
@@ -562,15 +557,15 @@ if (isset($CONF['controllers'][$controller])) {
   $htmlData['title'] = $allConfig['appTitle'] . ' - ' . $CONF['controllers'][$controller]->title;
 }
 
-$htmlData['description']      = $allConfig['appDescription'];
-$htmlData['keywords']         = $allConfig['appKeywords'];
-$htmlData['version']          = APP_VER;
-$htmlData['author']           = APP_AUTHOR;
-$htmlData['copyright']        = APP_COPYRIGHT;
-$htmlData['license']          = APP_LICENSE;
-$htmlData['locale']           = $LANG['locale'];
-$htmlData['jQueryTheme']      = $allConfig['jqtheme'];
-$htmlData['cookieConsent']    = (bool) $allConfig['cookieConsent'];
+$htmlData['description']   = $allConfig['appDescription'];
+$htmlData['keywords']      = $allConfig['appKeywords'];
+$htmlData['version']       = APP_VER;
+$htmlData['author']        = APP_AUTHOR;
+$htmlData['copyright']     = APP_COPYRIGHT;
+$htmlData['license']       = APP_LICENSE;
+$htmlData['locale']        = $LANG['locale'];
+$htmlData['jQueryTheme']   = $allConfig['jqtheme'];
+$htmlData['cookieConsent'] = (bool) $allConfig['cookieConsent'];
 
 
 if ($allConfig['noIndex']) {

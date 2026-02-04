@@ -26,7 +26,7 @@ if (strlen($_REQUEST['server']) && strlen($_REQUEST['db']) && strlen($_REQUEST['
   // Validate and sanitize database name
   //
   $database = trim($_REQUEST['db']);
-  $pattern  = '/^[a-zA-Z0-9_]+$/';
+  $pattern  = '/^\w+$/';
   if (!preg_match($pattern, $database) || strlen($database) > 64) {
     die("Invalid database name.");
   }

@@ -77,7 +77,7 @@ function writeDef(string $var = '', string $value = '', string $file = '', bool 
   }
 
   // Validate constant name (prevent code injection)
-  if (!preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $var)) {
+  if (!preg_match('/^[a-zA-Z_]\w*$/', $var)) {
     error_log("writeDef: Invalid constant name format: {$var}");
     return false;
   }
@@ -215,7 +215,7 @@ function writeConfig(string $var = '', string $value = '', string $file = '', bo
   }
 
   // Validate variable name (prevent code injection)
-  if (!preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $var)) {
+  if (!preg_match('/^[a-zA-Z_]\w*$/', $var)) {
     error_log("writeConfig: Invalid variable name format: {$var}");
     return false;
   }
@@ -278,7 +278,8 @@ function writeConfig(string $var = '', string $value = '', string $file = '', bo
     if (preg_match($pattern, $content)) {
       // Replace existing value
       $newContent = preg_replace($pattern, '${1}' . $sanitizedValue . '${3}', $content);
-    } else {
+    }
+    else {
       // Variable not found - this might indicate a problem
       error_log("writeConfig: Variable '{$var}' not found in config file");
       return false;
@@ -396,7 +397,8 @@ function writeEnv(string $var, string $value, string $file = '.env'): bool {
 
   if (preg_match($pattern, $content)) {
     $content = preg_replace($pattern, "$var=$cleanValue", $content);
-  } else {
+  }
+  else {
     $content .= PHP_EOL . "$var=$cleanValue";
   }
 
@@ -493,7 +495,7 @@ if (!empty($_POST)) {
           // Replace prefix in sample file
           $dbPrefix = '';
           if (isset($_POST['txt_instDbPrefix'])) {
-            $dbPrefix = preg_replace('/[^a-zA-Z0-9_]/', '', $_POST['txt_instDbPrefix']);
+            $dbPrefix = preg_replace('/[^\w]/', '', $_POST['txt_instDbPrefix']);
           }
           $query = str_replace("tcneo_", $dbPrefix, $query);
 
