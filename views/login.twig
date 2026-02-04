@@ -3,17 +3,17 @@
 {% block content %}
   <style>
     /* Make the body take full viewport height */
-    /* Make the body take full viewport height */
     html, body {
       height: 100%;
       padding-top: 0 !important;
     }
     /*
-      Configure #main (defined in menu.twig) to be a flex column.
+      Configure #mainSidebar and #mainNavbar (defined in menu.twig) to be a flex column.
       This ensures the navbar stays at top, footer at bottom,
       and content can expand to fill the middle.
     */
-    #main {
+    #mainSidebar,
+    #mainNavbar {
       display: flex !important;
       flex-direction: column !important;
       min-height: 100vh !important;
