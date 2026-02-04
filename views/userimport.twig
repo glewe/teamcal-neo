@@ -34,7 +34,7 @@
             <div class="form-group row">
               <label class="col-lg-{{ colsleft }} control-label">
                 {{ LANG.imp_file }}<br>
-                <span class="text-normal">{{ LANG.imp_file_comment|format(upl_maxsize / 1024, upl_formats, constant('APP_UPL_DIR')) }}</span>
+                <span class="text-normal">{{ LANG.imp_file_comment|format(upl_maxsize / 1024, upl_formats, constant('APP_UPL_DIR'))|raw }}</span>
               </label>
               <div class="col-lg-{{ colsright }}">
                 <input type="hidden" name="MAX_FILE_SIZE" value="{{ upl_maxsize }}"><br>
