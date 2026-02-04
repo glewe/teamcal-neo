@@ -186,7 +186,7 @@
 
 {% block javascripts %}
   {% if viewData.versionCompare %}
-    <script src="https://support.lewe.com/version/tcneo.js"></script>
+    <script src="https://support.lewe.com/version/tcneo.js" crossorigin="anonymous"></script>
     <script>
       var running_version = parseVersionString("{{ constant('APP_VER') }}");
       if (running_version.major < latest_version.major) {

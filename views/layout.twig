@@ -124,7 +124,7 @@
 
     {% if C.read('googleAnalytics') and C.read('googleAnalyticsID') %}
       <!-- Google Analytics (gtag.js) -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id={{ C.read('googleAnalyticsID') }}"></script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id={{ C.read('googleAnalyticsID') }}" crossorigin="anonymous"></script>
       <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() {
