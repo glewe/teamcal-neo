@@ -2,13 +2,13 @@
 
 # TeamCal Neo 5
 
-[![Framework](https://img.shields.io/badge/Framework-Bootstrap-563d7c.svg)](https://getbootstrap.com/)
-[![Database](https://img.shields.io/badge/Database-MySQL-00758f.svg)](https://www.mysql.com/)
-
 [![PHP](https://img.shields.io/badge/Language-PHP-8892BF.svg)](https://www.php.net/)
 [![JS](https://img.shields.io/badge/Language-JavaScript-f1e05a.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![HTML](https://img.shields.io/badge/Language-HTML5-e34c26.svg)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS](https://img.shields.io/badge/Language-CSS3-563d7c.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+
+[![Framework](https://img.shields.io/badge/Framework-Bootstrap-563d7c.svg)](https://getbootstrap.com/)
+[![Database](https://img.shields.io/badge/Database-MySQL-00758f.svg)](https://www.mysql.com/)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=glewe_teamcal-neo&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=glewe_teamcal-neo)
 [![Dependency Status](https://img.shields.io/librariesio/github/glewe/teamcal-neo)](https://libraries.io/github/glewe/teamcal-neo)
