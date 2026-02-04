@@ -167,7 +167,9 @@ class LogModel
 
     for ($i = 0; $i < $count; $i++) {
       $type      = $logTypes[array_rand($logTypes)];
+      // NOSONAR - rand() is safe here: only used for generating non-sensitive test data
       $timestamp = date("YmdHis", strtotime('-' . rand(0, 365) . ' days'));
+      // NOSONAR - rand() is safe here: only used for generating non-sensitive test data
       $ip        = rand(1, 255) . '.' . rand(0, 255) . '.' . rand(0, 255) . '.' . rand(0, 255);
       $user      = $users[array_rand($users)];
       $event     = $messages[array_rand($messages)];
