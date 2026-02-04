@@ -37,11 +37,12 @@ else {
 //
 if (session_status() === PHP_SESSION_NONE) {
   $cookieParams = session_get_cookie_params();
+  $isSecure     = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443);
   session_set_cookie_params([
     'lifetime' => $cookieParams['lifetime'],
     'path'     => $cookieParams['path'],
     'domain'   => $cookieParams['domain'],
-    'secure'   => isset($_SERVER['HTTPS']), // Only if HTTPS
+    'secure'   => $isSecure,
     'httponly' => true,
     'samesite' => 'Strict'
   ]);

@@ -27,7 +27,7 @@ class LoginModel
   private string $hostName      = '';
   private int    $min_pw_length = 0;
   private int    $pw_strength   = 0;
-
+  private bool   $isSecure      = false;
   private LdapService $ldapService;
 
   public string $log      = '';
@@ -55,6 +55,7 @@ class LoginModel
     $this->php_self      = $_SERVER['PHP_SELF'] ?? '';
     $this->log           = $configuration['db_table_log'] ?? '';
     $this->hostName      = $this->getHost();
+    $this->isSecure      = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443);
     $this->ldapService   = $ldapService ?? new LdapService();
   }
 
@@ -371,10 +372,10 @@ class LoginModel
     $secret = password_hash($loginname, PASSWORD_DEFAULT);
     $value  = $loginname . ":" . $secret;
     // Clear current cookie
-    setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, false, true);
+    setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, $this->isSecure, true);
     // Set new cookie
     $cookie_lifetime = intval($C->read("cookieLifetime"));
-    setcookie($this->cookie_name, $value, time() + $cookie_lifetime, '', $this->hostName, false, true);
+    setcookie($this->cookie_name, $value, time() + $cookie_lifetime, '', $this->hostName, $this->isSecure, true);
     $U->bad_logins  = 0;
     $U->grace_start = defined('DEFAULT_TIMESTAMP') ? DEFAULT_TIMESTAMP : '19700101000000';
     $U->last_login  = date("YmdHis");
@@ -388,6 +389,6 @@ class LoginModel
    * Clears the login cookie.
    */
   public function logout(): void {
-    setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, false, true);
+    setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, $this->isSecure, true);
   }
 }
