@@ -35,7 +35,7 @@ class MontheditController extends BaseController
     // Checks when the current weekday matches a random number between 1 and 7 (legacy logic retained)
     $date    = new DateTime();
     $weekday = (int) $date->format('N');
-    if ($weekday === rand(1, 7)) {
+    if ($weekday === random_int(1, 7)) {
       $alertData        = [];
       $showAlert        = false;
       $licExpiryWarning = (int) $this->allConfig['licExpiryWarning'];

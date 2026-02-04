@@ -40,7 +40,7 @@ class HolidaysController extends BaseController
     $LIC              = new LicenseModel($this->DB->db, $this->CONF);
     $date             = new DateTime();
     $weekday          = (int) $date->format('N');
-    if ($weekday === rand(1, 7)) {
+    if ($weekday === random_int(1, 7)) {
       $LIC->check($alertData, $showAlert, (int) $licExpiryWarning, $this->LANG);
     }
 

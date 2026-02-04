@@ -36,7 +36,7 @@ class RolesController extends BaseController
 
     $date    = new DateTime();
     $weekday = $date->format('N');
-    if ($weekday == rand(1, 7)) {
+    if ($weekday == random_int(1, 7)) {
       $alertData        = array();
       $showAlert        = false;
       $licExpiryWarning = (int) $this->allConfig['licExpiryWarning'];

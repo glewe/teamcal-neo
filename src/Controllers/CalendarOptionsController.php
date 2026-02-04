@@ -36,7 +36,7 @@ class CalendarOptionsController extends BaseController
     // Check License (Randomly)
     $date    = new DateTime();
     $weekday = $date->format('N');
-    if ($weekday == (string) rand(1, 7)) {
+    if ($weekday == (string) random_int(1, 7)) {
       $alertData        = [];
       $showAlert        = false;
       $licExpiryWarning = (int) $this->C->read('licExpiryWarning');

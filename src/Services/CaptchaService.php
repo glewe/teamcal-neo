@@ -26,10 +26,10 @@ class CaptchaService
       session_start();
     }
 
-    $n1        = rand(1, 10);
-    $n2        = rand(1, 10);
+    $n1        = random_int(1, 10);
+    $n2        = random_int(1, 10);
     $operators = ['+', '-'];
-    $operator  = $operators[rand(0, 1)];
+    $operator  = $operators[random_int(0, 1)];
 
     if ($operator === '-') {
       // Ensure positive result
