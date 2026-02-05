@@ -118,8 +118,8 @@ class LogModel
     if (empty($loglang)) {
       $loglang = 'english';
     }
-    require_once WEBSITE_ROOT . '/src/Helpers/language.helper.php';
-    \LanguageLoader::loadForController('log');
+    require_once WEBSITE_ROOT . '/src/Helpers/LanguageLoader.php';
+    \App\Helpers\LanguageLoader::loadForController('log');
     $myEvent = (isset($LANG[$event]) ? $LANG[$event] : $event) . $object;
     if ($this->C->read($type)) {
       $ts    = date("YmdHis");

@@ -2,8 +2,8 @@
 
 {% block content %}
   <!-- ====================================================================
-    view.remainder
-    -->
+      view.remainder
+      -->
   <div class="container content" style="padding-left: 4px; padding-right: 4px;">
 
     {% if showAlert and showAlerts != "none" and (showAlerts == "all" or (showAlerts == "warnings" and (alertData.type == "warning" or alertData.type == "danger"))) %}
@@ -80,7 +80,7 @@
             <tbody>
               {% for user in users %}
                 <tr>
-                  <th class="m-name" scope="row">
+                  <td class="m-name" scope="row">
                     {% set tabindex = tabindex + 1 %}
                     <a href="index.php?action=useredit&amp;profile={{ user.username }}" tabindex="{{ tabindex }}">{{ user.dispname }}</a>
                   </td>

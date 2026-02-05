@@ -63,7 +63,7 @@ class UserListController extends BaseController
 
       // CSRF Check
       if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-        \LanguageLoader::loadForController('alert');
+        \App\Helpers\LanguageLoader::loadForController('alert');
         $this->renderAlert(
           'warning',
           (string) ($this->LANG['alert_alert_title'] ?? 'Alert'),

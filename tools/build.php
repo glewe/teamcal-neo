@@ -18,12 +18,23 @@ define('CLR_CYN', "\033[0;36m");
 define('CLR_RST', "\033[0m");
 
 // Read version from composer.json
-$composerJson = json_decode(file_get_contents($root . '/composer.json'), true);
-$version      = $composerJson['version'] ?? '5.0.0';
-$buildDate    = date('Y-m-d');
+$composerJsonPath = $root . '/composer.json';
+$composerJson     = json_decode(file_get_contents($composerJsonPath), true);
+$version          = $composerJson['version'] ?? '5.0.0';
+$build            = (int)($composerJson['build'] ?? 0);
+$buildNumber      = $build + 1; // Increment build
+$buildDate        = date('Y-m-d');
+
+// Update composer.json with new build number
+$composerJson['build'] = (string)$buildNumber;
+file_put_contents(
+  $composerJsonPath,
+  json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n"
+);
 
 echo CLR_CYN . "\n\n===============================================================================\n" . CLR_RST;
 echo CLR_CYN . "TeamCal Neo Build System\n" . CLR_RST;
+echo CLR_CYN . "Version: $version | Build: $buildNumber | Date: $buildDate\n" . CLR_RST;
 echo CLR_CYN . "===============================================================================\n\n" . CLR_RST;
 
 // 1. Pre-build Checks
@@ -46,6 +57,25 @@ foreach ($steps as $name => $cmd) {
   }
 }
 echo CLR_GRN . "\n[SUCCESS] Pre-build checks passed.\n\n" . CLR_RST;
+
+// Update source config/config.app.php with version and build date
+echo CLR_YLW . "\n-------------------------------------------------------------------------------\nPhase 1.5: Updating source config/config.app.php\n-------------------------------------------------------------------------------\n" . CLR_RST;
+echo CLR_CYN . "\n>>> Updating APP_VER to $version, APP_BUILD to $buildNumber, and APP_DATE to $buildDate...\n" . CLR_RST;
+
+$sourceConfigFile    = $root . '/config/config.app.php';
+$sourceConfigContent = file_get_contents($sourceConfigFile);
+
+$sourceReplacements = [
+  '/\bdefine\s*\(\s*[\'"]APP_VER[\'"]\s*,\s*[\'"][^\'\"]+[\'"]\s*\)/'   => "define('APP_VER', \"$version\")",
+  '/\bdefine\s*\(\s*[\'"]APP_BUILD[\'"]\s*,\s*[\'"][^\'\"]+[\'"]\s*\)/' => "define('APP_BUILD', \"$buildNumber\")",
+  '/\bdefine\s*\(\s*[\'"]APP_DATE[\'"]\s*,\s*[\'"][^\'\"]+[\'"]\s*\)/'  => "define('APP_DATE', \"$buildDate\")",
+];
+
+foreach ($sourceReplacements as $pattern => $replacement) {
+  $sourceConfigContent = preg_replace($pattern, $replacement, $sourceConfigContent);
+}
+file_put_contents($sourceConfigFile, $sourceConfigContent);
+echo CLR_GRN . "\n[SUCCESS] Source config updated.\n\n" . CLR_RST;
 
 // 2. Prepare Dist Folder
 echo CLR_YLW . "\n-------------------------------------------------------------------------------\nPhase 2: Preparing /dist folder\n-------------------------------------------------------------------------------\n" . CLR_RST;
@@ -105,6 +135,7 @@ $configContent = file_get_contents($configFile);
 $replacements = [
   '/\bdefine\s*\(\s*[\'"]APP_INSTALLED[\'"]\s*,\s*[\'"]\d+[\'"]\s*\)/' => "define('APP_INSTALLED', \"0\")",
   '/\bdefine\s*\(\s*[\'"]APP_VER[\'"]\s*,\s*[\'"][^\'"]+[\'"]\s*\)/'   => "define('APP_VER', \"$version\")",
+  '/\bdefine\s*\(\s*[\'"]APP_BUILD[\'"]\s*,\s*[\'"][^\'"]+[\'"]\s*\)/' => "define('APP_BUILD', \"$buildNumber\")",
   '/\bdefine\s*\(\s*[\'"]APP_DATE[\'"]\s*,\s*[\'"][^\'"]+[\'"]\s*\)/'  => "define('APP_DATE', \"$buildDate\")",
 ];
 

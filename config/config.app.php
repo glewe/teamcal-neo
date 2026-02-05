@@ -233,14 +233,15 @@ define('LDAP_SEARCH_BIND', 0);                               // Set to 1 to if y
  */
 define('APP_NAME', "TeamCal Neo");
 define('APP_VER', "5.0.0-beta2");
-define('APP_DATE', "2026-02-02");
+define('APP_BUILD', "17");
+define('APP_DATE', "2026-02-05");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "https://www.lewe.com");
 define('APP_EMAIL', "george@lewe.com");
 define('APP_LICENSE', "https://lewe.gitbook.io/teamcal-neo/readme/teamcal-neo-license/");
 define('APP_COPYRIGHT', "(c) " . APP_YEAR . " by " . APP_AUTHOR . " (" . APP_URL . ")");
-define('APP_POWERED', "Powered by " . APP_NAME . " " . APP_VER . " &copy; " . APP_YEAR . " by <a href=\"https://www.lewe.com\" class=\"copyright\" target=\"_blank\">" . APP_AUTHOR . "</a>");
+define('APP_POWERED', "Powered by " . APP_NAME . " " . APP_VER . " (Build " . APP_BUILD . ") &copy; " . APP_YEAR . " by <a href=\"https://www.lewe.com\" class=\"copyright\" target=\"_blank\">" . APP_AUTHOR . "</a>");
 define('APP_LIC_KEY', "5e091d9b9cbf36.90197318");
 define('APP_LIC_SRV', "https://lic.lewe.com");
 define('APP_LIC_ITM', "TeamCal Neo");

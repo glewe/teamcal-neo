@@ -1,4 +1,9 @@
 <?php
+
+declare(strict_types=1);
+
+namespace App\Helpers;
+
 /**
  * Language Loader Class
  *
@@ -173,7 +178,7 @@ class LanguageLoader
 
     try {
       $result = self::compareSplitLanguages($lang1, $lang2, $result);
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $result['errors'][] = "Comparison failed: " . $e->getMessage();
     }
 

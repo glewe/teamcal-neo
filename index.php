@@ -112,7 +112,7 @@ use App\Models\UserOptionModel;
 require_once WEBSITE_ROOT . '/config/config.db.php';
 require_once WEBSITE_ROOT . '/config/config.controller.php';
 require_once WEBSITE_ROOT . '/config/config.app.php';
-require_once WEBSITE_ROOT . '/src/Helpers/language.helper.php';
+require_once WEBSITE_ROOT . '/src/Helpers/LanguageLoader.php';
 global $CONF;
 
 //-----------------------------------------------------------------------------
@@ -469,11 +469,11 @@ if (!strlen($language)) {
 }
 
 // Initialize language system (works for both logged-in and public users)
-LanguageLoader::initialize($language);
+\App\Helpers\LanguageLoader::initialize($language);
 
 
 if (file_exists(WEBSITE_ROOT . '/resources/languages/' . $language . '/core.php')) {
-  LanguageLoader::loadForController('core_only');
+  \App\Helpers\LanguageLoader::loadForController('core_only');
 }
 
 // Now that language is loaded, get login info
@@ -546,7 +546,7 @@ else {
 //
 // Phase 2: Load controller-specific language files for optimal performance
 if (file_exists(WEBSITE_ROOT . '/resources/languages/' . $language . '/core.php')) {
-  $langStats = LanguageLoader::loadForController($controller);
+  $langStats = \App\Helpers\LanguageLoader::loadForController($controller);
 }
 
 //-----------------------------------------------------------------------------
@@ -587,7 +587,7 @@ else {
 //
 if (defined('COMPARE_LANGUAGES') && COMPARE_LANGUAGES) {
   // Automatically compare all available languages against English
-  $errorData = LanguageLoader::compareAllLanguages();
+  $errorData = \App\Helpers\LanguageLoader::compareAllLanguages();
 
   $view = $container->get('TemplateEngine');
   echo $view->render('error', [

@@ -161,6 +161,11 @@ Search.appendIndex(
             "summary": "",
             "url": "namespaces/default.html#constant_APP_VER"
         },                {
+            "fqsen": "\\APP_BUILD",
+            "name": "APP_BUILD",
+            "summary": "",
+            "url": "namespaces/default.html#constant_APP_BUILD"
+        },                {
             "fqsen": "\\APP_DATE",
             "name": "APP_DATE",
             "summary": "",
@@ -1471,125 +1476,125 @@ Search.appendIndex(
             "summary": "Checks\u0020whether\u0020a\u0020string\u0020starts\u0020with\u0020a\u0020given\u0020prefix\u0020with\u0020optimized\u0020performance.",
             "url": "namespaces/default.html#function_startsWith"
         },                {
-            "fqsen": "\\LanguageLoader",
+            "fqsen": "\\App\\Helpers\\LanguageLoader",
             "name": "LanguageLoader",
             "summary": "Language\u0020Loader\u0020Class",
-            "url": "classes/LanguageLoader.html"
+            "url": "classes/App-Helpers-LanguageLoader.html"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003Ainitialize\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003Ainitialize\u0028\u0029",
             "name": "initialize",
             "summary": "Sets\u0020the\u0020current\u0020language\u0020and\u0020prepares\u0020the\u0020loader.",
-            "url": "classes/LanguageLoader.html#method_initialize"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_initialize"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AcalculatePerformanceStats\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AcalculatePerformanceStats\u0028\u0029",
             "name": "calculatePerformanceStats",
             "summary": "Calculates\u0020memory\u0020usage\u0020improvements\u0020compared\u0020to\u0020legacy\u0020loading.",
-            "url": "classes/LanguageLoader.html#method_calculatePerformanceStats"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_calculatePerformanceStats"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AcompareAllLanguages\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AcompareAllLanguages\u0028\u0029",
             "name": "compareAllLanguages",
             "summary": "Automatically\u0020detects\u0020all\u0020available\u0020languages\u0020and\u0020compares\u0020them\u0020against\nEnglish\u0020as\u0020the\u0020reference\u0020language.\u0020No\u0020need\u0020to\u0020specify\u0020languages\u0020manually.",
-            "url": "classes/LanguageLoader.html#method_compareAllLanguages"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_compareAllLanguages"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AcompareAndDisplay\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AcompareAndDisplay\u0028\u0029",
             "name": "compareAndDisplay",
             "summary": "Convenience\u0020method\u0020that\u0020combines\u0020comparison\u0020and\u0020report\u0020generation.",
-            "url": "classes/LanguageLoader.html#method_compareAndDisplay"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_compareAndDisplay"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AcompareLanguages\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AcompareLanguages\u0028\u0029",
             "name": "compareLanguages",
             "summary": "Compares\u0020language\u0020files\u0020between\u0020two\u0020languages\u0020to\u0020identify\u0020missing\u0020keys.",
-            "url": "classes/LanguageLoader.html#method_compareLanguages"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_compareLanguages"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AcompareSplitLanguages\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AcompareSplitLanguages\u0028\u0029",
             "name": "compareSplitLanguages",
             "summary": "Compares\u0020split\u0020language\u0020file\u0020structure\u0020between\u0020two\u0020languages.",
-            "url": "classes/LanguageLoader.html#method_compareSplitLanguages"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_compareSplitLanguages"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AforceReload\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AforceReload\u0028\u0029",
             "name": "forceReload",
             "summary": "Clears\u0020the\u0020loaded\u0020files\u0020cache\u0020and\u0020forces\u0020a\u0020reload\u0020on\u0020next\u0020request.",
-            "url": "classes/LanguageLoader.html#method_forceReload"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_forceReload"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AgenerateAllLanguagesReport\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AgenerateAllLanguagesReport\u0028\u0029",
             "name": "generateAllLanguagesReport",
             "summary": "Generates\u0020a\u0020comprehensive\u0020HTML\u0020report\u0020for\u0020all\u0020language\u0020comparisons.",
-            "url": "classes/LanguageLoader.html#method_generateAllLanguagesReport"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_generateAllLanguagesReport"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AgenerateComparisonReport\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AgenerateComparisonReport\u0028\u0029",
             "name": "generateComparisonReport",
             "summary": "Generates\u0020a\u0020formatted\u0020HTML\u0020report\u0020from\u0020language\u0020comparison\u0020results.",
-            "url": "classes/LanguageLoader.html#method_generateComparisonReport"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_generateComparisonReport"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AgetAvailableLanguages\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AgetAvailableLanguages\u0028\u0029",
             "name": "getAvailableLanguages",
             "summary": "Discovers\u0020all\u0020available\u0020languages\u0020in\u0020the\u0020system\u0020based\u0020on\u0020file\u0020structure.",
-            "url": "classes/LanguageLoader.html#method_getAvailableLanguages"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_getAvailableLanguages"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AgetCurrentLanguage\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AgetCurrentLanguage\u0028\u0029",
             "name": "getCurrentLanguage",
             "summary": "Returns\u0020the\u0020currently\u0020configured\u0020language.",
-            "url": "classes/LanguageLoader.html#method_getCurrentLanguage"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_getCurrentLanguage"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AgetLoadedFiles\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AgetLoadedFiles\u0028\u0029",
             "name": "getLoadedFiles",
             "summary": "Returns\u0020list\u0020of\u0020language\u0020files\u0020that\u0020have\u0020been\u0020loaded.",
-            "url": "classes/LanguageLoader.html#method_getLoadedFiles"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_getLoadedFiles"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AgetRequiredFiles\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AgetRequiredFiles\u0028\u0029",
             "name": "getRequiredFiles",
             "summary": "Determines\u0020which\u0020language\u0020files\u0020are\u0020needed\u0020for\u0020a\u0020specific\u0020controller.",
-            "url": "classes/LanguageLoader.html#method_getRequiredFiles"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_getRequiredFiles"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AgetStats\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AgetStats\u0028\u0029",
             "name": "getStats",
             "summary": "Returns\u0020performance\u0020statistics\u0020for\u0020the\u0020current\u0020loading\u0020session.",
-            "url": "classes/LanguageLoader.html#method_getStats"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_getStats"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003A\u0024hasNewStructure",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003A\u0024hasNewStructure",
             "name": "hasNewStructure",
             "summary": "",
-            "url": "classes/LanguageLoader.html#property_hasNewStructure"
+            "url": "classes/App-Helpers-LanguageLoader.html#property_hasNewStructure"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AloadForController\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AloadForController\u0028\u0029",
             "name": "loadForController",
             "summary": "Loads\u0020the\u0020required\u0020language\u0020files\u0020for\u0020a\u0020specific\u0020controller.",
-            "url": "classes/LanguageLoader.html#method_loadForController"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_loadForController"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AloadKeysFromFile\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AloadKeysFromFile\u0028\u0029",
             "name": "loadKeysFromFile",
             "summary": "Extracts\u0020language\u0020keys\u0020from\u0020a\u0020PHP\u0020language\u0020file.",
-            "url": "classes/LanguageLoader.html#method_loadKeysFromFile"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_loadKeysFromFile"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AloadLanguageFile\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AloadLanguageFile\u0028\u0029",
             "name": "loadLanguageFile",
             "summary": "Loads\u0020a\u0020specific\u0020language\u0020file\u0020if\u0020it\u0020exists\u0020and\u0020hasn\u0027t\u0020been\u0020loaded\u0020yet.",
-            "url": "classes/LanguageLoader.html#method_loadLanguageFile"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_loadLanguageFile"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AloadLegacyStructure\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AloadLegacyStructure\u0028\u0029",
             "name": "loadLegacyStructure",
             "summary": "Fallback\u0020to\u0020the\u0020original\u00204\u002Dfile\u0020language\u0020loading\u0020system.",
-            "url": "classes/LanguageLoader.html#method_loadLegacyStructure"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_loadLegacyStructure"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003AloadModernStructure\u0028\u0029",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003AloadModernStructure\u0028\u0029",
             "name": "loadModernStructure",
             "summary": "Loads\u0020core.php\u0020plus\u0020controller\u002Dspecific\u0020language\u0020files.",
-            "url": "classes/LanguageLoader.html#method_loadModernStructure"
+            "url": "classes/App-Helpers-LanguageLoader.html#method_loadModernStructure"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003A\u0024language",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003A\u0024language",
             "name": "language",
             "summary": "",
-            "url": "classes/LanguageLoader.html#property_language"
+            "url": "classes/App-Helpers-LanguageLoader.html#property_language"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003A\u0024loadedFiles",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003A\u0024loadedFiles",
             "name": "loadedFiles",
             "summary": "",
-            "url": "classes/LanguageLoader.html#property_loadedFiles"
+            "url": "classes/App-Helpers-LanguageLoader.html#property_loadedFiles"
         },                {
-            "fqsen": "\\LanguageLoader\u003A\u003A\u0024loadingStats",
+            "fqsen": "\\App\\Helpers\\LanguageLoader\u003A\u003A\u0024loadingStats",
             "name": "loadingStats",
             "summary": "",
-            "url": "classes/LanguageLoader.html#property_loadingStats"
+            "url": "classes/App-Helpers-LanguageLoader.html#property_loadingStats"
         },                {
             "fqsen": "\\sendAccountCreatedMail\u0028\u0029",
             "name": "sendAccountCreatedMail",
@@ -5810,6 +5815,11 @@ Search.appendIndex(
             "name": "Exceptions",
             "summary": "",
             "url": "namespaces/app-exceptions.html"
+        },                {
+            "fqsen": "\\App\\Helpers",
+            "name": "Helpers",
+            "summary": "",
+            "url": "namespaces/app-helpers.html"
         },                {
             "fqsen": "\\App\\Models",
             "name": "Models",
