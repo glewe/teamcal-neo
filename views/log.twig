@@ -2,8 +2,8 @@
 
 {% block content %}
   <!-- ====================================================================
-    view.log
-    -->
+      view.log
+      -->
   <div class="container content">
 
     <div class="col-lg-12">
@@ -67,7 +67,7 @@
 
               <div class="col-lg-5 text-end">
                 <br>
-                <button type="submit" class="btn btn-primary" tabindex="{{ nextTabindex() }}" name="btn_filter">{{ LANG.btn_filter }}</button>
+                <button type="submit" class="btn btn-primary" tabindex="{{ nextTabindex() }}" name="btn_filter">{{ LANG.btn_save_filter }}</button>
                 <button type="submit" class="btn btn-secondary" tabindex="{{ nextTabindex() }}" name="btn_reset">{{ LANG.btn_reset }}</button>
                 <button type="button" class="btn btn-danger" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalClear">{{ LANG.log_clear }}</button>
 
@@ -85,6 +85,7 @@
                 {% set pageTabs = [
                 { 'id': 'tab-log', 'href': '#panel-log', 'label': LANG.log_title, 'active': true },
                 { 'id': 'tab-settings', 'href': '#panel-settings', 'label': LANG.log_settings, 'active': false },
+                { 'id': 'tab-statistics', 'href': '#panel-statistics', 'label': LANG.log_statistics, 'active': false },
               ] %}
                 {{ createPageTabs(pageTabs) }}
               </div>
@@ -183,6 +184,46 @@
                     </div>
                   </div>
 
+                  <!-- Statistics tab -->
+                  <div class="tab-pane fade" id="panel-statistics" role="tabpanel" aria-labelledby="tab-statistics">
+
+                    <div class="row mb-4">
+                      <div class="col-lg-3">
+                        <label for="sel_statsTimeframe">{{ LANG.log_statistics_timeframe }}</label>
+                        <select name="sel_statsTimeframe" id="sel_statsTimeframe" class="form-select mb-3" tabindex="{{ nextTabindex() }}">
+                          <option value="last_day" {% if statsTimeframe == "last_day" %} selected {% endif %}>{{ LANG.log_statistics_last_day }}</option>
+                          <option value="last_week" {% if statsTimeframe == "last_week" %} selected {% endif %}>{{ LANG.log_statistics_last_week }}</option>
+                          <option value="last_month" {% if statsTimeframe == "last_month" %} selected {% endif %}>{{ LANG.log_statistics_last_month }}</option>
+                          <option value="last_year" {% if statsTimeframe == "last_year" %} selected {% endif %}>{{ LANG.log_statistics_last_year }}</option>
+                          <option value="overall" {% if statsTimeframe == "overall" %} selected {% endif %}>{{ LANG.log_statistics_overall }}</option>
+                        </select>
+
+                        <label>{{ LANG.log_statistics_event_types }}</label>
+                        <div class="mb-3" style="max-height: 300px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 0.375rem; padding: 0.5rem;">
+                          {% for type in types %}
+                            <div class="form-check">
+                              <input class="form-check-input stats-filter-checkbox" type="checkbox" name="chk_statsTypes[]" value="{{ type }}" id="statsType{{ type }}" {% if type in statsTypes %} checked {% endif %}>
+                              <label class="form-check-label" for="statsType{{ type }}">
+                                {{ type }}
+                              </label>
+                            </div>
+                          {% endfor %}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-2" tabindex="{{ nextTabindex() }}" name="btn_statsFilter">{{ LANG.btn_save_stats_settings }}</button>
+                      </div>
+
+                      <div class="col-lg-9" id="statsChartContainer">
+                        <canvas id="statsChart" style="max-height: 400px; {% if statsTypes|length == 0 %} display: none; {% endif %}"></canvas>
+                        <div id="statsNoData" class="alert alert-info {% if statsTypes|length > 0 %} d-none {% endif %}">
+                          <i class="bi bi-info-circle me-2"></i>
+                          {{ LANG.log_statistics_no_data }}
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -194,6 +235,7 @@
 {% endblock %}
 
 {% block javascripts %}
+  <script src="public/addons/chart.js/4.5.1/chart.umd.min.js"></script>
   <script>
     $(document).ready(function () {
       $("#logPeriodFrom").datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
@@ -225,6 +267,178 @@
             }
           ]
         });{% endif %}
+
+      //
+      // Statistics Chart
+      //
+      let statsChart = null;
+      const colors = [
+        'rgb(255, 99, 132)', // Red
+        'rgb(54, 162, 235)', // Blue
+        'rgb(255, 206, 86)', // Yellow
+        'rgb(75, 192, 192)', // Teal
+        'rgb(153, 102, 255)', // Purple
+        'rgb(255, 159, 64)', // Orange
+        'rgb(201, 203, 207)', // Grey
+        'rgb(255, 99, 255)', // Pink
+        'rgb(99, 255, 132)', // Green
+        'rgb(132, 99, 255)', // Indigo
+        'rgb(255, 206, 132)', // Peach
+        'rgb(132, 206, 255)', // Sky Blue
+        'rgb(206, 132, 255)', // Lavender
+        'rgb(132, 255, 206)', // Mint
+        'rgb(255, 132, 206)', // Rose
+        'rgb(206, 255, 132)', // Lime
+        'rgb(132, 132, 255)', // Periwinkle
+        'rgb(255, 255, 132)' // Light Yellow
+      ];
+
+      function renderStatsChart(statsData, statsTypes) {
+        if (!statsTypes || statsTypes.length === 0) {
+          $('#statsChart').hide();
+          $('#statsNoData').removeClass('d-none');
+          return;
+        }
+
+        $('#statsChart').show();
+        $('#statsNoData').addClass('d-none');
+
+        const dates = [];
+        const datasets = {};
+
+        statsTypes.forEach(type => {
+          datasets['log' + type] = {
+            label: type,
+            data: [],
+            borderWidth: 2,
+            tension: 0.1,
+            fill: false
+          };
+        });
+
+        statsData.forEach(item => {
+          if (!dates.includes(item.date)) {
+            dates.push(item.date);
+          }
+        });
+
+        dates.sort();
+
+        dates.forEach(date => {
+          statsTypes.forEach(type => {
+            const fullType = 'log' + type;
+            const dataPoint = statsData.find(item => item.date === date && item.type === fullType);
+            datasets[fullType].data.push(dataPoint ? parseInt(dataPoint.count) : 0);
+          });
+        });
+
+        const chartDatasets = [];
+        let colorIndex = 0;
+        Object.keys(datasets).forEach(key => {
+          const dataset = datasets[key];
+          dataset.borderColor = colors[colorIndex % colors.length];
+          dataset.backgroundColor = colors[colorIndex % colors.length];
+          chartDatasets.push(dataset);
+          colorIndex++;
+        });
+
+        const ctx = document.getElementById('statsChart');
+        if (ctx) {
+          if (statsChart) {
+            statsChart.destroy();
+          }
+          statsChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: dates,
+              datasets: chartDatasets
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: true,
+              plugins: {
+                title: {
+                  display: true,
+                  text: '{{ LANG.log_statistics_chart_title }}'
+                },
+                legend: {
+                  display: true,
+                  position: 'top'
+                }
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  ticks: {
+                    stepSize: 1
+                  }
+                }
+              }
+            }
+          });
+        }
+      }
+
+      function loadStatsAjax() {
+        const timeframe = $('#sel_statsTimeframe').val();
+        const types = [];
+        $('.stats-filter-checkbox:checked').each(function() {
+          types.push($(this).val());
+        });
+
+        if (types.length === 0) {
+          renderStatsChart([], []);
+          return;
+        }
+
+        $.ajax({
+          url: 'index.php?action=log&method=getStats',
+          method: 'POST',
+          data: {
+            timeframe: timeframe,
+            types: types
+          },
+          success: function(response) {
+            renderStatsChart(response, types);
+          },
+          error: function() {
+            console.error('Failed to load statistics data');
+          }
+        });
+      }
+
+      // Initial chart load
+      {% if statsTypes|length > 0 %}
+        renderStatsChart({{ statsData|raw }}, {{ statsTypes|json_encode|raw }});
+      {% endif %}
+
+      //
+      // Update chart on change via AJAX
+      //
+      $('#sel_statsTimeframe').on('change', function () {
+        loadStatsAjax();
+      });
+
+      $('.stats-filter-checkbox').on('change', function () {
+        loadStatsAjax();
+      });
+
+      //
+      // Restore active tab after page load
+      //
+      const activeTab = localStorage.getItem('logActiveTab');
+      if (activeTab) {
+        // Activate the stored tab
+        const tabTrigger = new bootstrap.Tab(document.getElementById(activeTab));
+        tabTrigger.show();
+      }
+
+      //
+      // Store active tab when tabs are clicked
+      //
+      $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+        localStorage.setItem('logActiveTab', e.target.id);
+      });
     });
   </script>
 {% endblock %}

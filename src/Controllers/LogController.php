@@ -31,6 +31,11 @@ class LogController extends BaseController
       return;
     }
 
+    if (isset($_GET['method']) && $_GET['method'] === 'getStats') {
+      $this->handleAjaxStats();
+      return;
+    }
+
     // Check License
     $alertData        = [];
     $showAlert        = false;
@@ -103,6 +108,9 @@ class LogController extends BaseController
       elseif (isset($_POST['btn_logSave'])) {
         $this->handleSave($logtypes, $showAlert, $alertData);
       }
+      elseif (isset($_POST['btn_statsFilter'])) {
+        $this->handleStatsFilter($showAlert, $alertData);
+      }
 
       if (isset($_SESSION)) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -158,6 +166,47 @@ class LogController extends BaseController
     }
     $viewData['currentPage'] = $currentPage;
 
+    //
+    // Prepare statistics data
+    //
+    $statsTimeframe = 'last_week';
+    if (isset($_POST['sel_statsTimeframe'])) {
+      $statsTimeframe = $_POST['sel_statsTimeframe'];
+    }
+    elseif (isset($this->allConfig['statsTimeframe'])) {
+      $statsTimeframe = $this->allConfig['statsTimeframe'];
+    }
+
+    $statsTypes = [];
+    if (isset($_POST['chk_statsTypes'])) {
+      $statsTypes = $_POST['chk_statsTypes'];
+    }
+    elseif (isset($this->allConfig['statsTypes'])) {
+      $statsTypesStr = $this->allConfig['statsTypes'];
+      if (!empty($statsTypesStr)) {
+        $statsTypes = explode(',', $statsTypesStr);
+      }
+    }
+
+    //
+    // Calculate date range based on timeframe
+    //
+    $statsRange = $this->getStatsRange($statsTimeframe);
+    $statsFrom = $statsRange['from'];
+    $statsTo = $statsRange['to'];
+
+    //
+    // Get statistics data
+    //
+    $statsData = [];
+    if (!empty($statsTypes)) {
+      $statsData = $this->LOG->getStatistics($statsFrom, $statsTo, $statsTypes, $statsRange['granularity']);
+    }
+
+    $viewData['statsTimeframe'] = $statsTimeframe;
+    $viewData['statsTypes'] = $statsTypes;
+    $viewData['statsData'] = json_encode($statsData);
+
     $this->render('log', $viewData);
   }
 
@@ -169,6 +218,7 @@ class LogController extends BaseController
    * @param bool  $showAlert Reference to show alert flag
    * @param array $alertData Reference to alert data array
    * @param array $viewData  Reference to view data array
+   * 
    * @return void
    */
   private function handleRefresh($logToday, &$showAlert, &$alertData, &$viewData) {
@@ -257,6 +307,7 @@ class LogController extends BaseController
    * @param array $logtypes  Array of log types
    * @param bool  $showAlert Reference to show alert flag
    * @param array $alertData Reference to alert data array
+   * 
    * @return void
    */
   private function handleSave($logtypes, &$showAlert, &$alertData) {
@@ -278,6 +329,7 @@ class LogController extends BaseController
    *
    * @param bool  $showAlert Reference to show alert flag
    * @param array $alertData Reference to alert data array
+   * 
    * @return void
    */
   private function handleClear(&$showAlert, &$alertData) {
@@ -296,6 +348,7 @@ class LogController extends BaseController
    * @param array $logToday  Array containing today's date info
    * @param bool  $showAlert Reference to show alert flag
    * @param array $alertData Reference to alert data array
+   * 
    * @return void
    */
   private function handleReset($logToday, &$showAlert, &$alertData) {
@@ -311,5 +364,98 @@ class LogController extends BaseController
     $this->LOG->logEvent("logLog", $this->UL->username, "log_log_reset");
     header("Location: index.php?action=log");
     die();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Handles statistics filter settings.
+   *
+   * @param bool  $showAlert Reference to show alert flag
+   * @param array $alertData Reference to alert data array
+   * 
+   * @return void
+   */
+  private function handleStatsFilter(&$showAlert, &$alertData) {
+    $statsBatchConfigs = [];
+    
+    if (isset($_POST['sel_statsTimeframe'])) {
+      $statsBatchConfigs['statsTimeframe'] = $_POST['sel_statsTimeframe'];
+    }
+    
+    if (isset($_POST['chk_statsTypes']) && is_array($_POST['chk_statsTypes'])) {
+      $statsBatchConfigs['statsTypes'] = implode(',', $_POST['chk_statsTypes']);
+    }
+    else {
+      $statsBatchConfigs['statsTypes'] = '';
+    }
+    
+    $this->C->saveBatch($statsBatchConfigs);
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Returns the date range and granularity for a given timeframe.
+   *
+   * @param string $statsTimeframe The timeframe identifier
+   *
+   * @return array The start and end timestamps and granularity
+   */
+  private function getStatsRange(string $statsTimeframe): array {
+    $statsFrom = '';
+    $statsTo = date('Y-m-d') . ' 23:59:59';
+    $granularity = 'day';
+
+    switch ($statsTimeframe) {
+      case 'last_day':
+        // Today: from 00:00:00 today to 23:59:59 today
+        $statsFrom = date('Y-m-d') . ' 00:00:00';
+        $statsTo = date('Y-m-d') . ' 23:59:59';
+        $granularity = 'hour';
+        break;
+      case 'last_week':
+        // This Week: from Monday to Sunday
+        $statsFrom = date('Y-m-d', strtotime('monday this week')) . ' 00:00:00';
+        $statsTo = date('Y-m-d', strtotime('sunday this week')) . ' 23:59:59';
+        break;
+      case 'last_month':
+        // This Month: from 1st to last day of current month
+        $statsFrom = date('Y-m-01') . ' 00:00:00';
+        $statsTo = date('Y-m-t') . ' 23:59:59';
+        break;
+      case 'last_year':
+        // This Year: from Jan 1 to Dec 31 of current year
+        $statsFrom = date('Y-01-01') . ' 00:00:00';
+        $statsTo = date('Y-12-31') . ' 23:59:59';
+        break;
+      case 'overall':
+        // Overall: from the earliest recorded entry to now
+        $statsFrom = $this->LOG->getMinTimestamp();
+        $statsTo = date('Y-m-d H:i:s');
+        break;
+      default:
+        // Default to This Week
+        $statsFrom = date('Y-m-d', strtotime('monday this week')) . ' 00:00:00';
+        $statsTo = date('Y-m-d', strtotime('sunday this week')) . ' 23:59:59';
+    }
+
+    return ['from' => $statsFrom, 'to' => $statsTo, 'granularity' => $granularity];
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Handles AJAX request for statistics data.
+   *
+   * @return void
+   */
+  private function handleAjaxStats(): void {
+    $statsTimeframe = $_POST['timeframe'] ?? 'last_week';
+    $statsTypes = $_POST['types'] ?? [];
+
+    $statsRange = $this->getStatsRange($statsTimeframe);
+    $statsData = $this->LOG->getStatistics($statsRange['from'], $statsRange['to'], $statsTypes, $statsRange['granularity']);
+
+    header('Content-Type: application/json');
+    echo json_encode($statsData);
+    exit;
   }
 }

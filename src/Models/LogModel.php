@@ -189,6 +189,74 @@ class LogModel
 
   //---------------------------------------------------------------------------
   /**
+   * Gets event statistics grouped by date or hour and type.
+   *
+   * @param string $from        ISO formatted start date
+   * @param string $to          ISO formatted end date
+   * @param array  $typeArray   Array of event types to include (e.g., ['Login', 'User'])
+   * @param string $granularity 'day' or 'hour'
+   *
+   * @return array Array of statistics with date/hour and counts per type
+   */
+  public function getStatistics(string $from = '', string $to = '', array $typeArray = [], string $granularity = 'day'): array {
+    $stats = [];
+    
+    //
+    // Build the type filter
+    //
+    $typeFilter = '';
+    if (!empty($typeArray)) {
+      $typePlaceholders = [];
+      foreach ($typeArray as $type) {
+        $typePlaceholders[] = 'log' . $type;
+      }
+      $typeFilter = ' AND type IN (\'' . implode('\', \'', $typePlaceholders) . '\')';
+    }
+
+    $groupSql = 'DATE(timestamp)';
+    $formatSql = 'DATE(timestamp)';
+
+    if ($granularity === 'hour') {
+      $groupSql = 'DATE_FORMAT(timestamp, \'%Y-%m-%d %H:00\')';
+      $formatSql = 'DATE_FORMAT(timestamp, \'%Y-%m-%d %H:00\')';
+    }
+    
+    //
+    // Query to get counts grouped by date/hour and type
+    //
+    $sql = 'SELECT ' . $formatSql . ' as date, type, COUNT(*) as count 
+            FROM ' . $this->table . ' 
+            WHERE (timestamp >= :from AND timestamp <= :to)' . $typeFilter . '
+            GROUP BY ' . $groupSql . ', type 
+            ORDER BY ' . $groupSql . ' ASC';
+    
+    $query = $this->db->prepare($sql);
+    $query->bindParam(':from', $from);
+    $query->bindParam(':to', $to);
+    $query->execute();
+    
+    while ($row = $query->fetch()) {
+      $stats[] = $row;
+    }
+    
+    return $stats;
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Gets the earliest timestamp from the log table.
+   *
+   * @return string Earliest timestamp or '2004-01-01 00:00:00' as fallback
+   */
+  public function getMinTimestamp(): string {
+    $sql = 'SELECT MIN(timestamp) as min_ts FROM ' . $this->table;
+    $query = $this->db->query($sql);
+    $row = $query->fetch();
+    return $row['min_ts'] ?? '2004-01-01 00:00:00';
+  }
+
+  //---------------------------------------------------------------------------
+  /**
    * Determines the current client IP address.
    *
    * @return string

@@ -42,6 +42,17 @@ $LANG['log_settings_log'] = 'Registrar este tipo de evento';
 $LANG['log_settings_show'] = 'Mostrar este tipo de evento';
 $LANG['log_sort_asc'] = 'Orden ascendente...';
 $LANG['log_sort_desc'] = 'Orden descendente...';
+$LANG['log_statistics'] = 'Estadísticas';
+$LANG['log_statistics_timeframe'] = 'Período de Tiempo';
+$LANG['log_statistics_last_day'] = 'Hoy';
+$LANG['log_statistics_last_week'] = 'Esta Semana';
+$LANG['log_statistics_last_month'] = 'Este Mes';
+$LANG['log_statistics_last_year'] = 'Este Año';
+$LANG['log_statistics_overall'] = 'Total';
+$LANG['log_statistics_event_types'] = 'Tipos de Eventos';
+$LANG['log_statistics_select_types'] = 'Seleccione los tipos de eventos para mostrar en el gráfico';
+$LANG['log_statistics_chart_title'] = 'Estadísticas de Eventos';
+$LANG['log_statistics_no_data'] = 'No hay datos disponibles. Por favor, seleccione al menos un tipo de evento.';
 //
 // Log Messages
 //

@@ -42,6 +42,17 @@ $LANG['log_settings_log'] = 'Log this event type';
 $LANG['log_settings_show'] = 'Show this event type';
 $LANG['log_sort_asc'] = 'Sort ascending...';
 $LANG['log_sort_desc'] = 'Sort descending...';
+$LANG['log_statistics'] = 'Statistics';
+$LANG['log_statistics_timeframe'] = 'Time Frame';
+$LANG['log_statistics_last_day'] = 'Today';
+$LANG['log_statistics_last_week'] = 'This Week';
+$LANG['log_statistics_last_month'] = 'This Month';
+$LANG['log_statistics_last_year'] = 'This Year';
+$LANG['log_statistics_overall'] = 'Overall';
+$LANG['log_statistics_event_types'] = 'Event Types';
+$LANG['log_statistics_select_types'] = 'Select event types to display in the chart';
+$LANG['log_statistics_chart_title'] = 'Event Statistics';
+$LANG['log_statistics_no_data'] = 'No data available. Please select at least one event type.';
 //
 // Log Messages
 //
