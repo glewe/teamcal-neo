@@ -20,16 +20,18 @@ global $LANG;
 // Set the application environment in you .env file.
 // Set to 'production' for production or 'dev' for debugging.
 // If you don't have a .env file, copy the .env.example file to .env and adjust the values.
+// Note: This can be overridden by the 'productionMode' system setting in the database.
 //
-if (isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'production') {
-  define('PRODUCTION_MODE', true);
+$envProductionMode = (isset($_ENV['APP_ENV']) && $_ENV['APP_ENV'] === 'production');
+define('PRODUCTION_MODE', $envProductionMode);
+
+if (PRODUCTION_MODE) {
   error_reporting(0);
-  ini_set('display_errors', 0);
+  ini_set('display_errors', '0');
 }
 else {
-  define('PRODUCTION_MODE', false);
   error_reporting(E_ALL);
-  ini_set('display_errors', 1);
+  ini_set('display_errors', '1');
 }
 
 //-----------------------------------------------------------------------------
@@ -407,6 +409,34 @@ require_once WEBSITE_ROOT . '/config/config.vars.php';
 // Load all config records (global in controllers)
 //
 $allConfig = $C->readAll();
+
+//
+// Override production mode if database setting is enabled
+//
+if (isset($allConfig['productionMode']) && $allConfig['productionMode'] == '1') {
+  //
+  // Database setting overrides .env setting
+  //
+  if (!PRODUCTION_MODE) {
+    //
+    // Switch from dev to production mode
+    //
+    error_reporting(0);
+    ini_set('display_errors', '0');
+  }
+}
+elseif (isset($allConfig['productionMode']) && $allConfig['productionMode'] == '0') {
+  //
+  // Database explicitly disables production mode
+  //
+  if (PRODUCTION_MODE) {
+    //
+    // Switch from production to dev mode
+    //
+    error_reporting(E_ALL);
+    ini_set('display_errors', '1');
+  }
+}
 
 $language                = $allConfig["defaultLanguage"];
 $controller              = 'home';

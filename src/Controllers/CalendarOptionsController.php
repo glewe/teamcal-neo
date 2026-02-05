@@ -271,18 +271,18 @@ class CalendarOptionsController extends BaseController
         };
         $currentValue                  = $allConfig['statsDefaultColor' . $statsPage] ?? $defaultValue;
         $isSelected                    = ($currentValue == $color || $currentValue == $hex);
-        $statsColorArray[$statsPage][] = ['val' => $color, 'name' => $this->LANG[$color], 'selected' => $isSelected];
+        $statsColorArray[$statsPage][] = ['val' => $color, 'name' => $this->LANG[$color], 'hex' => $hex, 'selected' => $isSelected];
       }
     }
     $caloptData['stats'] = [
-      ['label' => $this->LANG['calopt_statsDefaultColorAbsences'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorAbsences', 'type' => 'list', 'values' => $statsColorArray['Absences']],
-      ['label' => $this->LANG['calopt_statsDefaultColorPresences'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorPresences', 'type' => 'list', 'values' => $statsColorArray['Presences']],
-      ['label' => $this->LANG['calopt_statsDefaultColorAbsencetype'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorAbsencetype', 'type' => 'list', 'values' => $statsColorArray['Absencetype']],
-      ['label' => $this->LANG['calopt_statsDefaultColorPresencetype'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorPresencetype', 'type' => 'list', 'values' => $statsColorArray['Presencetype']],
-      ['label' => $this->LANG['calopt_statsDefaultColorRemainder'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorRemainder', 'type' => 'list', 'values' => $statsColorArray['Remainder']],
-      ['label' => $this->LANG['calopt_statsDefaultColorTrends'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorTrends', 'type' => 'list', 'values' => $statsColorArray['Trends']],
-      ['label' => $this->LANG['calopt_statsDefaultColorDayofweek'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorDayofweek', 'type' => 'list', 'values' => $statsColorArray['Dayofweek']],
-      ['label' => $this->LANG['calopt_statsDefaultColorDuration'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorDuration', 'type' => 'list', 'values' => $statsColorArray['Duration']],
+      ['label' => $this->LANG['calopt_statsDefaultColorAbsences'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorAbsences', 'type' => 'colorselect', 'values' => $statsColorArray['Absences']],
+      ['label' => $this->LANG['calopt_statsDefaultColorPresences'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorPresences', 'type' => 'colorselect', 'values' => $statsColorArray['Presences']],
+      ['label' => $this->LANG['calopt_statsDefaultColorAbsencetype'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorAbsencetype', 'type' => 'colorselect', 'values' => $statsColorArray['Absencetype']],
+      ['label' => $this->LANG['calopt_statsDefaultColorPresencetype'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorPresencetype', 'type' => 'colorselect', 'values' => $statsColorArray['Presencetype']],
+      ['label' => $this->LANG['calopt_statsDefaultColorRemainder'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorRemainder', 'type' => 'colorselect', 'values' => $statsColorArray['Remainder']],
+      ['label' => $this->LANG['calopt_statsDefaultColorTrends'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorTrends', 'type' => 'colorselect', 'values' => $statsColorArray['Trends']],
+      ['label' => $this->LANG['calopt_statsDefaultColorDayofweek'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorDayofweek', 'type' => 'colorselect', 'values' => $statsColorArray['Dayofweek']],
+      ['label' => $this->LANG['calopt_statsDefaultColorDuration'], 'prefix' => 'calopt', 'name' => 'statsDefaultColorDuration', 'type' => 'colorselect', 'values' => $statsColorArray['Duration']],
     ];
 
     $caloptData['summary'] = [

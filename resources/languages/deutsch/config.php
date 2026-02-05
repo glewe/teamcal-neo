@@ -169,6 +169,8 @@ $LANG['config_pageHelp'] = 'Seitenhilfe';
 $LANG['config_pageHelp_comment'] = 'Mit diesem Schalter wird rechts in der Titelleiste einer Page ein Hilfe Icon angezeigt, dass zur Dokumentation dieser Seite verlinkt ist.';
 $LANG['config_permissionScheme'] = 'Berechtigungsschema';
 $LANG['config_permissionScheme_comment'] = 'Hiermit wird das aktive Berechtigungsschema ausgewählt. Das Schema kann auf der Berechtigungsschema Seite bearbeitet werden.';
+$LANG['config_productionMode'] = 'Produktionsmodus';
+$LANG['config_productionMode_comment'] = 'Aktiviert den Produktionsmodus, um Fehlermeldungen und Debugging-Informationen zu unterdrücken. Diese Einstellung überschreibt die .env-Datei. Wenn aktiviert, werden alle PHP-Fehler und Warnungen vor Benutzern verborgen. Deaktivieren Sie dies während der Entwicklung oder Fehlerbehebung.';
 $LANG['config_pwdStrength'] = 'Passwort Sicherheit';
 $LANG['config_pwdStrength_comment'] = 'Die Passwort Sicherheit bestimmt, welchen Anforderungen das User Passwort genügen muss. Erlaubt sind immer Groß- und Kleinbuchstaben, Zahlen und die Sonderzeichen: !@#$%^&amp;*().<br><br>
       - <strong>Niedrig:</strong> Mindestens 4 Zeichen<br>

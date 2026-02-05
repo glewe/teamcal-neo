@@ -162,6 +162,8 @@ $LANG['config_pageHelp'] = 'Ayuda de página';
 $LANG['config_pageHelp_comment'] = 'Muestra un ícono de ayuda en la barra de título de la página.';
 $LANG['config_permissionScheme'] = 'Esquema de permisos';
 $LANG['config_permissionScheme_comment'] = 'Define quién puede hacer qué.';
+$LANG['config_productionMode'] = 'Modo de producción';
+$LANG['config_productionMode_comment'] = 'Activa el modo de producción para suprimir mensajes de error e información de depuración. Esta configuración anula el archivo .env. Cuando está activado, todos los errores y advertencias de PHP se ocultarán a los usuarios. Desactívelo durante el desarrollo o la resolución de problemas.';
 
 $LANG['config_pwdStrength'] = 'Fortaleza de la contraseña';
 $LANG['config_pwdStrength_comment'] = 'Define qué tan estricta es la comprobación de la contraseña.';

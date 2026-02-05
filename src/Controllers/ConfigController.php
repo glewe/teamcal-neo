@@ -187,6 +187,7 @@ class ConfigController extends BaseController
       ['prefix' => 'config', 'name' => 'matomoSiteId', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig["matomoSiteId"], 'maxlength' => '160'],
       ['prefix' => 'config', 'name' => 'noIndex', 'type' => 'check', 'values' => '', 'value' => $allConfig["noIndex"]],
       ['prefix' => 'config', 'name' => 'noCaching', 'type' => 'check', 'values' => '', 'value' => $allConfig["noCaching"]],
+      ['prefix' => 'config', 'name' => 'productionMode', 'type' => 'check', 'values' => '', 'value' => $allConfig["productionMode"]],
       ['prefix' => 'config', 'name' => 'versionCompare', 'type' => 'check', 'values' => '', 'value' => $allConfig["versionCompare"]],
       ['prefix' => 'config', 'name' => 'underMaintenance', 'type' => 'check', 'values' => '', 'value' => $allConfig["underMaintenance"]],
     ];
@@ -240,6 +241,19 @@ class ConfigController extends BaseController
     $this->render('config', $viewData);
   }
 
+  //---------------------------------------------------------------------------
+  /**
+   * Handle the configuration apply action.
+   *
+   * Processes and saves all configuration settings from the form submission.
+   * Updates the database with new values and logs the configuration change.
+   *
+   * @param \App\Models\LicenseModel $LIC        License model instance
+   * @param bool                      &$showAlert Reference to show alert flag
+   * @param array                     &$alertData Reference to alert data array
+   *
+   * @return void
+   */
   private function handleApply($LIC, &$showAlert, &$alertData) {
     $newConfig                     = [];
     $newConfig["appURL"]           = filter_var($_POST['txt_appURL'], FILTER_VALIDATE_URL) ? $_POST['txt_appURL'] : "#";
@@ -281,17 +295,20 @@ class ConfigController extends BaseController
     $newConfig["footerCopyrightUrl"] = (strlen($_POST['txt_footerCopyrightUrl']) && filter_var($_POST['txt_footerCopyrightUrl'], FILTER_VALIDATE_URL)) ? sanitize($_POST['txt_footerCopyrightUrl']) : "";
     $newConfig["footerSocialLinks"]  = sanitize($_POST['txt_footerSocialLinks']);
 
-    if ($_POST['opt_homepage'])
+    if ($_POST['opt_homepage']) {
       $newConfig["homepage"] = $_POST['opt_homepage'];
-    if ($_POST['opt_defaultHomepage'])
+    }
+    if ($_POST['opt_defaultHomepage']) {
       $newConfig["defaultHomepage"] = $_POST['opt_defaultHomepage'];
+    }
     $newConfig["welcomeText"] = sanitizeWithAllowedTags($_POST['txt_welcomeText']);
 
     $LIC->saveKey(trim(sanitize($_POST['txt_licKey'])));
     $newConfig["licExpiryWarning"] = strlen($_POST['txt_licExpiryWarning']) ? intval(sanitize($_POST['txt_licExpiryWarning'])) : 0;
 
-    if ($_POST['opt_pwdStrength'])
+    if ($_POST['opt_pwdStrength']) {
       $newConfig["pwdStrength"] = $_POST['opt_pwdStrength'];
+    }
     $newConfig["badLogins"]      = intval(sanitize($_POST['txt_badLogins']));
     $newConfig["gracePeriod"]    = intval(sanitize($_POST['txt_gracePeriod']));
     $newConfig["cookieLifetime"] = intval(sanitize($_POST['txt_cookieLifetime']));
@@ -339,6 +356,7 @@ class ConfigController extends BaseController
 
     $newConfig["noIndex"]          = (isset($_POST['chk_noIndex']) && $_POST['chk_noIndex']) ? "1" : "0";
     $newConfig["noCaching"]        = (isset($_POST['chk_noCaching']) && $_POST['chk_noCaching']) ? "1" : "0";
+    $newConfig["productionMode"]   = (isset($_POST['chk_productionMode']) && $_POST['chk_productionMode']) ? "1" : "0";
     $newConfig["versionCompare"]   = (isset($_POST['chk_versionCompare']) && $_POST['chk_versionCompare']) ? "1" : "0";
     $newConfig["underMaintenance"] = (isset($_POST['chk_underMaintenance']) && $_POST['chk_underMaintenance']) ? "1" : "0";
 
@@ -378,6 +396,19 @@ class ConfigController extends BaseController
     }
   }
 
+  //---------------------------------------------------------------------------
+  /**
+   * Handle license activation.
+   *
+   * Attempts to activate the license with the provided license key.
+   * Sets appropriate success or error alert messages.
+   *
+   * @param \App\Models\LicenseModel $LIC        License model instance
+   * @param bool                      &$showAlert Reference to show alert flag
+   * @param array                     &$alertData Reference to alert data array
+   *
+   * @return void
+   */
   private function handleLicenseActivation($LIC, &$showAlert, &$alertData) {
     $response = $LIC->activate();
     if ($response->result == "success") {
@@ -387,8 +418,9 @@ class ConfigController extends BaseController
       $alertData['subject'] = $this->LANG['alert_license_subject'];
       $alertData['text']    = $this->LANG['lic_alert_activation_success'];
       $alertData['help']    = '';
-      if (isset($_SESSION))
+      if (isset($_SESSION)) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+      }
     }
     else {
       $showAlert            = true;
@@ -400,6 +432,19 @@ class ConfigController extends BaseController
     }
   }
 
+  //---------------------------------------------------------------------------
+  /**
+   * Handle license domain registration.
+   *
+   * Registers the current domain with the license server.
+   * Sets appropriate success or error alert messages.
+   *
+   * @param \App\Models\LicenseModel $LIC        License model instance
+   * @param bool                      &$showAlert Reference to show alert flag
+   * @param array                     &$alertData Reference to alert data array
+   *
+   * @return void
+   */
   private function handleLicenseRegistration($LIC, &$showAlert, &$alertData) {
     $response = $LIC->activate();
     if ($response->result == "success") {
@@ -409,8 +454,9 @@ class ConfigController extends BaseController
       $alertData['subject'] = $this->LANG['alert_license_subject'];
       $alertData['text']    = $this->LANG['lic_alert_registration_success'];
       $alertData['help']    = '';
-      if (isset($_SESSION))
+      if (isset($_SESSION)) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+      }
     }
     else {
       $showAlert            = true;
@@ -422,6 +468,19 @@ class ConfigController extends BaseController
     }
   }
 
+  //---------------------------------------------------------------------------
+  /**
+   * Handle license domain deregistration.
+   *
+   * Deregisters the current domain from the license server.
+   * Sets appropriate success or error alert messages.
+   *
+   * @param \App\Models\LicenseModel $LIC        License model instance
+   * @param bool                      &$showAlert Reference to show alert flag
+   * @param array                     &$alertData Reference to alert data array
+   *
+   * @return void
+   */
   private function handleLicenseDeregistration($LIC, &$showAlert, &$alertData) {
     $response = $LIC->deactivate();
     if (is_object($response) && $response->result == "success") {
@@ -431,8 +490,9 @@ class ConfigController extends BaseController
       $alertData['subject'] = $this->LANG['alert_license_subject'];
       $alertData['text']    = $this->LANG['lic_alert_deregistration_success'];
       $alertData['help']    = '';
-      if (isset($_SESSION))
+      if (isset($_SESSION)) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+      }
     }
     else {
       $showAlert            = true;
@@ -444,6 +504,18 @@ class ConfigController extends BaseController
     }
   }
 
+  //---------------------------------------------------------------------------
+  /**
+   * Handle cache clearing action.
+   *
+   * Flushes the application cache and sets appropriate success or error
+   * alert messages based on the result.
+   *
+   * @param bool  &$showAlert Reference to show alert flag
+   * @param array &$alertData Reference to alert data array
+   *
+   * @return void
+   */
   private function handleClearCache(&$showAlert, &$alertData) {
     $cache = $this->container->get('Cache');
     if ($cache->flush()) {

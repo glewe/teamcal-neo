@@ -526,6 +526,7 @@ VALUES
   ('pageHelp', '1'),
   ('pastDayColor', ''),
   ('permissionScheme', 'Default'),
+  ('productionMode', '1'),
   ('pwdStrength', 'medium'),
   ('regionalHolidays', '0'),
   ('regionalHolidaysColor', 'CC0000'),

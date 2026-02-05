@@ -174,6 +174,8 @@ $LANG['config_pageHelp'] = 'Page Help';
 $LANG['config_pageHelp_comment'] = 'With this switch on, a help icon will be displayed in the page title bar, linking to the documentation of this page.';
 $LANG['config_permissionScheme'] = 'Permission Scheme';
 $LANG['config_permissionScheme_comment'] = 'The permission defines who can do what. The permission schemes can be configured on the permissions page.';
+$LANG['config_productionMode'] = 'Production Mode';
+$LANG['config_productionMode_comment'] = 'Enable production mode to suppress error messages and debugging information. This overrides the .env file setting. When enabled, all PHP errors and warnings will be hidden from users. Disable this during development or troubleshooting.';
 $LANG['config_pwdStrength'] = 'Password Strength';
 $LANG['config_pwdStrength_comment'] = 'The password strength defines how picky you want to be with the password check. Allowed are small and capital letters, numbers and the following special characters: !@#$%^&*().<br><br>
          - <strong>Low:</strong> At least 4 characters long<br>

@@ -94,7 +94,7 @@ function createFaIconListbox(string $tabIndex = "-1", string $selected = ""): st
  * @param array $data An associative array containing the form group data:
  *  - 'prefix': The prefix for the form group.
  *  - 'name': The name of the form group.
- *  - 'type': The type of the form group (e.g., 'check', 'color', 'date', 'info', 'list', 'password', 'radio', 'text', 'textarea', 'ckeditor').
+ *  - 'type': The type of the form group (e.g., 'check', 'color', 'coloris', 'colorselect', 'date', 'info', 'list', 'password', 'radio', 'text', 'textarea', 'summernote').
  *  - 'value': The value of the form group.
  *  - 'maxlength' (optional): The maximum length for text inputs.
  *  - 'placeholder' (optional): The placeholder text for text inputs.
@@ -288,6 +288,71 @@ function createFormGroup(array $data, int $colsleft, int $colsright, int $tabind
       $formGroup .= '</select>
           ' . $button . $error . '</div>
         </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Color select list with preview square
+    //
+    case 'colorselect':
+      // Extract color map from values array
+      $colorMap = [];
+      foreach ($data['values'] as $val) {
+        $colorMap[$val['val']] = $val['hex'] ?? '#000000';
+      }
+      
+      // Determine current color
+      $currentColor = '#000000';
+      foreach ($data['values'] as $val) {
+        if ($val['selected']) {
+          $currentColor = $val['hex'] ?? '#000000';
+          break;
+        }
+      }
+      
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">
+            <div class="input-group">
+              <span class="input-group-text" id="color-preview-' . $data['name'] . '">
+                <i class="bi bi-square-fill" style="color: ' . $currentColor . '; font-size: 1.5rem;"></i>
+              </span>
+              <select id="' . $data['name'] . '" class="form-select" name="sel_' . $data['name'] . '" tabindex="' . $tabindex . '"' . $disabled . ' onchange="updateColorPreview(\'' . $data['name'] . '\', this.value)">' . "\r\n";
+      foreach ($data['values'] as $val) {
+        $formGroup .= '<option value="' . $val['val'] . '"' . (($val['selected']) ? " selected=\"selected\"" : "") . '>' . $val['name'] . '</option>' . "\r\n";
+      }
+      $formGroup .= '</select>
+            </div>
+            ' . $button . $error . '
+          </div>
+        </div>
+        <script>
+          // Initialize global color maps object if not exists
+          if (typeof window.colorMaps === "undefined") {
+            window.colorMaps = {};
+            
+            // Define global updateColorPreview function once
+            window.updateColorPreview = function(fieldName, colorName) {
+              const colorMap = window.colorMaps[fieldName];
+              if (!colorMap) {
+                console.error("Color map not found for field: " + fieldName);
+                return;
+              }
+              const hexColor = colorMap[colorName] || "#000000";
+              const previewIcon = document.querySelector("#color-preview-" + fieldName + " i");
+              if (previewIcon) {
+                previewIcon.style.color = hexColor;
+              }
+            };
+          }
+          
+          // Register color map for this field
+          window.colorMaps["' . $data['name'] . '"] = ' . json_encode($colorMap) . ';
+        </script>
         <div class="divider"><hr></div>';
       break;
 

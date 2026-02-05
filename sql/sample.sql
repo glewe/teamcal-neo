@@ -604,6 +604,7 @@ VALUES
   ('pageHelp', '1'),
   ('pastDayColor', ''),
   ('permissionScheme', 'Default'),
+  ('productionMode', '1'),
   ('pwdStrength', 'medium'),
   ('regionalHolidays', '0'),
   ('regionalHolidaysColor', 'CC0000'),
@@ -1348,7 +1349,7 @@ VALUES
   (2, 'User', 'Standard role for logged in users', 'primary', '2026-02-01 18:11:39', '2026-02-01 18:11:39'),
   (3, 'Public', 'All users not logged in', 'secondary', '2026-02-01 18:11:39', '2026-02-01 18:11:39'),
   (4, 'Manager', 'Group manager role', 'warning', '2026-08-01 06:32:01', '2026-08-01 06:32:10'),
-  (5, 'Instructor', 'Instructor role', 'default', '2026-08-01 06:34:15', '2026-08-01 06:34:15');
+  (5, 'Instructor', 'Instructor role', 'success', '2026-08-01 06:34:15', '2026-08-01 06:34:15');
 
 -- --------------------------------------------------------
 --
