@@ -393,27 +393,27 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Controllers\\ConfigController\u003A\u003AhandleApply\u0028\u0029",
             "name": "handleApply",
-            "summary": "",
+            "summary": "Handle\u0020the\u0020configuration\u0020apply\u0020action.",
             "url": "classes/App-Controllers-ConfigController.html#method_handleApply"
         },                {
             "fqsen": "\\App\\Controllers\\ConfigController\u003A\u003AhandleLicenseActivation\u0028\u0029",
             "name": "handleLicenseActivation",
-            "summary": "",
+            "summary": "Handle\u0020license\u0020activation.",
             "url": "classes/App-Controllers-ConfigController.html#method_handleLicenseActivation"
         },                {
             "fqsen": "\\App\\Controllers\\ConfigController\u003A\u003AhandleLicenseRegistration\u0028\u0029",
             "name": "handleLicenseRegistration",
-            "summary": "",
+            "summary": "Handle\u0020license\u0020domain\u0020registration.",
             "url": "classes/App-Controllers-ConfigController.html#method_handleLicenseRegistration"
         },                {
             "fqsen": "\\App\\Controllers\\ConfigController\u003A\u003AhandleLicenseDeregistration\u0028\u0029",
             "name": "handleLicenseDeregistration",
-            "summary": "",
+            "summary": "Handle\u0020license\u0020domain\u0020deregistration.",
             "url": "classes/App-Controllers-ConfigController.html#method_handleLicenseDeregistration"
         },                {
             "fqsen": "\\App\\Controllers\\ConfigController\u003A\u003AhandleClearCache\u0028\u0029",
             "name": "handleClearCache",
-            "summary": "",
+            "summary": "Handle\u0020cache\u0020clearing\u0020action.",
             "url": "classes/App-Controllers-ConfigController.html#method_handleClearCache"
         },                {
             "fqsen": "\\App\\Controllers\\DatabaseController",
@@ -610,6 +610,21 @@ Search.appendIndex(
             "name": "handleReset",
             "summary": "Resets\u0020the\u0020log\u0020filter\u0020settings\u0020to\u0020default.",
             "url": "classes/App-Controllers-LogController.html#method_handleReset"
+        },                {
+            "fqsen": "\\App\\Controllers\\LogController\u003A\u003AhandleStatsFilter\u0028\u0029",
+            "name": "handleStatsFilter",
+            "summary": "Handles\u0020statistics\u0020filter\u0020settings.",
+            "url": "classes/App-Controllers-LogController.html#method_handleStatsFilter"
+        },                {
+            "fqsen": "\\App\\Controllers\\LogController\u003A\u003AgetStatsRange\u0028\u0029",
+            "name": "getStatsRange",
+            "summary": "Returns\u0020the\u0020date\u0020range\u0020and\u0020granularity\u0020for\u0020a\u0020given\u0020timeframe.",
+            "url": "classes/App-Controllers-LogController.html#method_getStatsRange"
+        },                {
+            "fqsen": "\\App\\Controllers\\LogController\u003A\u003AhandleAjaxStats\u0028\u0029",
+            "name": "handleAjaxStats",
+            "summary": "Handles\u0020AJAX\u0020request\u0020for\u0020statistics\u0020data.",
+            "url": "classes/App-Controllers-LogController.html#method_handleAjaxStats"
         },                {
             "fqsen": "\\App\\Controllers\\Login2faController",
             "name": "Login2faController",
@@ -3175,6 +3190,16 @@ Search.appendIndex(
             "name": "generateTestLogs",
             "summary": "Generates\u0020test\u0020log\u0020records\u0020with\u0020random\u0020data.",
             "url": "classes/App-Models-LogModel.html#method_generateTestLogs"
+        },                {
+            "fqsen": "\\App\\Models\\LogModel\u003A\u003AgetStatistics\u0028\u0029",
+            "name": "getStatistics",
+            "summary": "Gets\u0020event\u0020statistics\u0020grouped\u0020by\u0020date\u0020or\u0020hour\u0020and\u0020type.",
+            "url": "classes/App-Models-LogModel.html#method_getStatistics"
+        },                {
+            "fqsen": "\\App\\Models\\LogModel\u003A\u003AgetMinTimestamp\u0028\u0029",
+            "name": "getMinTimestamp",
+            "summary": "Gets\u0020the\u0020earliest\u0020timestamp\u0020from\u0020the\u0020log\u0020table.",
+            "url": "classes/App-Models-LogModel.html#method_getMinTimestamp"
         },                {
             "fqsen": "\\App\\Models\\LogModel\u003A\u003AgetClientIp\u0028\u0029",
             "name": "getClientIp",

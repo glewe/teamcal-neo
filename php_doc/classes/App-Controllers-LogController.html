@@ -522,6 +522,20 @@
 <dd>Renders the alert view.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/App-Controllers-LogController.html#method_getStatsRange">getStatsRange()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Returns the date range and granularity for a given timeframe.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/App-Controllers-LogController.html#method_handleAjaxStats">handleAjaxStats()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Handles AJAX request for statistics data.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/App-Controllers-LogController.html#method_handleClear">handleClear()</a>
     <span>
                                 &nbsp;: void    </span>
@@ -548,6 +562,13 @@
                                 &nbsp;: void    </span>
 </dt>
 <dd>Saves the log settings.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a class="" href="classes/App-Controllers-LogController.html#method_handleStatsFilter">handleStatsFilter()</a>
+    <span>
+                                &nbsp;: void    </span>
+</dt>
+<dd>Handles statistics filter settings.</dd>
 
     </dl>
 
@@ -2452,6 +2473,96 @@
             -private
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getStatsRange">
+        getStatsRange()
+        <a href="classes/App-Controllers-LogController.html#method_getStatsRange" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/LogController.php"><a href="files/src-controllers-logcontroller.html"><abbr title="src/Controllers/LogController.php">LogController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">403</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns the date range and granularity for a given timeframe.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">getStatsRange</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$statsTimeframe</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$statsTimeframe</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The timeframe identifier</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The start and end timestamps and granularity</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_handleAjaxStats">
+        handleAjaxStats()
+        <a href="classes/App-Controllers-LogController.html#method_handleAjaxStats" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/LogController.php"><a href="files/src-controllers-logcontroller.html"><abbr title="src/Controllers/LogController.php">LogController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">456</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Handles AJAX request for statistics data.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">handleAjaxStats</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+    
+    
+
+        
+    
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_handleClear">
         handleClear()
         <a href="classes/App-Controllers-LogController.html#method_handleClear" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2460,7 +2571,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/LogController.php"><a href="files/src-controllers-logcontroller.html"><abbr title="src/Controllers/LogController.php">LogController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">283</span>
+    <span class="phpdocumentor-element-found-in__line">335</span>
 
     </aside>
 
@@ -2516,7 +2627,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/LogController.php"><a href="files/src-controllers-logcontroller.html"><abbr title="src/Controllers/LogController.php">LogController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">174</span>
+    <span class="phpdocumentor-element-found-in__line">224</span>
 
     </aside>
 
@@ -2590,7 +2701,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/LogController.php"><a href="files/src-controllers-logcontroller.html"><abbr title="src/Controllers/LogController.php">LogController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">301</span>
+    <span class="phpdocumentor-element-found-in__line">354</span>
 
     </aside>
 
@@ -2655,7 +2766,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/LogController.php"><a href="files/src-controllers-logcontroller.html"><abbr title="src/Controllers/LogController.php">LogController.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">262</span>
+    <span class="phpdocumentor-element-found-in__line">313</span>
 
     </aside>
 
@@ -2680,6 +2791,62 @@
 </section>
 
             </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$showAlert</span>
+                : <span class="phpdocumentor-argument-list__argument__type">bool</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Reference to show alert flag</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-argument-list__argument__name">$alertData</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Reference to alert data array</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        
+    
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_handleStatsFilter">
+        handleStatsFilter()
+        <a href="classes/App-Controllers-LogController.html#method_handleStatsFilter" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Controllers/LogController.php"><a href="files/src-controllers-logcontroller.html"><abbr title="src/Controllers/LogController.php">LogController.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">378</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Handles statistics filter settings.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">handleStatsFilter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$showAlert</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$alertData</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$showAlert</span>
                 : <span class="phpdocumentor-argument-list__argument__type">bool</span>
@@ -2875,10 +3042,13 @@
                                             <li class=""><a href="classes/App-Core-BaseController.html#method_isLoggedIn">isLoggedIn()</a></li>
                                             <li class=""><a href="classes/App-Core-BaseController.html#method_render">render()</a></li>
                                             <li class=""><a href="classes/App-Core-BaseController.html#method_renderAlert">renderAlert()</a></li>
+                                            <li class=""><a href="classes/App-Controllers-LogController.html#method_getStatsRange">getStatsRange()</a></li>
+                                            <li class=""><a href="classes/App-Controllers-LogController.html#method_handleAjaxStats">handleAjaxStats()</a></li>
                                             <li class=""><a href="classes/App-Controllers-LogController.html#method_handleClear">handleClear()</a></li>
                                             <li class=""><a href="classes/App-Controllers-LogController.html#method_handleRefresh">handleRefresh()</a></li>
                                             <li class=""><a href="classes/App-Controllers-LogController.html#method_handleReset">handleReset()</a></li>
                                             <li class=""><a href="classes/App-Controllers-LogController.html#method_handleSave">handleSave()</a></li>
+                                            <li class=""><a href="classes/App-Controllers-LogController.html#method_handleStatsFilter">handleStatsFilter()</a></li>
                                     </ul>
             </li>
                     </ul>
