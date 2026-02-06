@@ -410,7 +410,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_config` (
     UNIQUE KEY `uk_name` (`name`)
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
-﻿--
+--
 -- Dumping data for table `tcneo_config`
 --
 INSERT INTO
@@ -781,7 +781,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_log` (
     PRIMARY KEY (`id`)
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
-﻿--
+--
 -- Dumping data for table `tcneo_log`
 --
 
@@ -1811,7 +1811,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_templates` (
     KEY `k_username` (`username`)
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
-﻿--
+--
 -- Dumping data for table `tcneo_log`
 --
 
@@ -2504,7 +2504,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_user_option` (
     KEY `k_option` (`option`)
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
-﻿--
+--
 -- Dumping data for table `tcneo_log`
 --
 
