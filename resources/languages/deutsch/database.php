@@ -41,7 +41,7 @@ $LANG['db_clean_what_comment'] = 'Wähle hier, was aufgeräumt werden soll. Alle
  Regions- und Benutzerkalender werden nach Monat gelöscht, unabhängig vom Tag. Neuere Datensätze bleiben erhalten.';
 $LANG['db_confirm'] = 'Bestätigung';
 $LANG['db_dbURL'] = 'Datenbank URL';
-$LANG['db_dbURL_comment'] = 'Hier kann ein direkter Link zur bevorzugten Datenbank Applikation angegeben werden. Der Button unten verlinkt dorthin.';
+$LANG['db_dbURL_comment'] = 'Hier kann ein direkter Link zur bevorzugten Datenbank-Applikation für diese Website angegeben werden. Wenn hier eine gültige URL gespeichert ist, wird eine Schaltfläche angezeigt, die dorthin verlinkt.';
 $LANG['db_del_archive'] = 'Alle archivierten Datensätze löschen';
 $LANG['db_del_confirm_comment'] = 'Gib bitte "DELETE" ein, um diese Aktion zu bestätigen:';
 $LANG['db_del_groups'] = 'Alle Gruppen löschen';
