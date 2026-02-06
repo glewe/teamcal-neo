@@ -35,7 +35,7 @@
             <div class="form-group row">
               <label class="col-lg-{{ colsleft }} control-label">
                 {{ LANG.msg_type }}<br>
-                <span class="text-normal">{{ LANG.msg_type_desc }}</span>
+                <span class="text-normal">{{ LANG.msg_type_desc|raw }}</span>
               </label>
               <div class="col-lg-{{ colsright }}">
                 {% set tabindex = tabindex + 1 %}

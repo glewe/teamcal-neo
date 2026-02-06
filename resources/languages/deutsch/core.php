@@ -12,6 +12,7 @@ if (!defined('VALID_ROOT')) {
  * @package TeamCal Neo
  * @since 4.3.0
  */
+$LANG['contact_administrator'] = 'Wenden Sie sich an Ihren Administrator.';
 $LANG['locale'] = 'de_DE';
 $LANG['html_locale'] = 'de';
 

@@ -130,8 +130,9 @@ class AbsenceEditController extends BaseController
 
           $AA->update((string) $AA->id);
 
+          $mailError = '';
           if ($this->allConfig['emailNotifications']) {
-            sendAbsenceEventNotifications("changed", $AA->name);
+            sendAbsenceEventNotifications("changed", $AA->name, $mailError);
           }
           $this->LOG->logEvent("logAbsence", $this->UL->username, "log_abs_updated", $AA->name);
 
@@ -141,11 +142,14 @@ class AbsenceEditController extends BaseController
           }
 
           $showAlert            = true;
-          $alertData['type']    = 'success';
-          $alertData['title']   = $this->LANG['alert_success_title'];
+          $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+          $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'];
           $alertData['subject'] = $this->LANG['abs_alert_edit'];
           $alertData['text']    = $this->LANG['abs_alert_edit_success'];
-          $alertData['help']    = '';
+          if (!empty($mailError)) {
+            $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+          }
+          $alertData['help'] = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
         }
       }
       else {

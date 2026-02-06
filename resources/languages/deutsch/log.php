@@ -95,6 +95,7 @@ $LANG['log_msg_confirmed'] = 'Benachrichtigung bestätigt: ';
 $LANG['log_msg_deleted'] = 'Benachrichtigung gelöscht: ';
 $LANG['log_msg_email'] = 'E-Mail gesendet an ';
 $LANG['log_msg_message'] = 'Benachrichtigung gesendet: ';
+$LANG['log_email_error'] = 'E-Mail Sende-Fehler: ';
 $LANG['log_pattern_created'] = 'Abwesenheitsmuster angelegt: ';
 $LANG['log_pattern_deleted'] = 'Abwesenheitsmuster gelöscht: ';
 $LANG['log_pattern_updated'] = 'Abwesenheitsmuster aktualisiert: ';

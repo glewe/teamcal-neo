@@ -290,13 +290,24 @@ class CalendarEditController extends BaseController
         }
 
         if (!$doNotSave) {
-          $approved         = $this->AbsenceService->approveAbsences($caluser, $viewData['year'], $viewData['month'], $currentAbsences, $requestedAbsences, $viewData['regionid']);
+          $mailError        = '';
+          $approved         = $this->AbsenceService->approveAbsences($caluser, $viewData['year'], $viewData['month'], $currentAbsences, $requestedAbsences, $viewData['regionid'], $mailError);
+          $approvalResult   = $approved['approvalResult'];
+          $approvedAbsences = $approved['approvedAbsences'];
+
           $sendNotification = false;
           $alerttype        = 'success';
           $alertHelp        = '';
+          $alertText        = $this->LANG['caledit_alert_update_' . $approvalResult];
           $logText          = '<br>';
 
-          switch ($approved['approvalResult']) {
+          if (!empty($mailError)) {
+            $alerttype = 'warning';
+            $alertHelp = $this->LANG['contact_administrator'];
+            $alertText = $this->LANG['caledit_alert_update_' . $approvalResult] . '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+          }
+
+          switch ($approvalResult) {
             case 'all':
               $logText .= $this->LANG['approved'] . '<br>';
               foreach ($requestedAbsences as $key => $val) {
@@ -337,8 +348,9 @@ class CalendarEditController extends BaseController
               break;
           }
 
+          $mailError = '';
           if ($this->allConfig['emailNotifications'] && $sendNotification) {
-            sendUserCalEventNotifications("changed", $caluser, $viewData['year'], $viewData['month']);
+            sendUserCalEventNotifications("changed", $caluser, $viewData['year'], $viewData['month'], $mailError);
           }
 
           $this->LOG->logEvent("logCalendar", $this->UL->username, "log_cal_usr_tpl_chg", $caluser . " " . $viewData['year'] . $viewData['month'] . $logText);
@@ -348,11 +360,14 @@ class CalendarEditController extends BaseController
           }
 
           $showAlert            = true;
-          $alertData['type']    = $alerttype;
-          $alertData['title']   = $this->LANG['alert_' . $alerttype . '_title'];
+          $alertData['type']    = (empty($mailError)) ? $alerttype : 'warning';
+          $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_' . $alerttype . '_title'] : $this->LANG['alert_warning_title'];
           $alertData['subject'] = $this->LANG['caledit_alert_update'];
           $alertData['text']    = $this->LANG['caledit_alert_update_' . $approved['approvalResult']];
-          $alertData['help']    = $alertHelp;
+          if (!empty($mailError)) {
+            $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+          }
+          $alertData['help']    = (empty($mailError)) ? $alertHelp : $this->LANG['contact_administrator'];
         }
       }
       elseif (isset($_POST['btn_region'])) {

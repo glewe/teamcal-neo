@@ -118,35 +118,43 @@ class MontheditController extends BaseController
           }
         }
 
+        $mailError = '';
         if ($this->allConfig['emailNotifications']) {
-          sendMonthEventNotifications("changed", $viewData['year'], $viewData['month'], $viewData['regionname']);
+          sendMonthEventNotifications("changed", $viewData['year'], $viewData['month'], $viewData['regionname'], $mailError);
         }
 
         $this->LOG->logEvent("logMonth", $this->UL->username, "log_month_tpl_updated", $this->M->region . " " . $this->M->year . $this->M->month);
 
         $showAlert            = true;
-        $alertData['type']    = 'success';
-        $alertData['title']   = $this->LANG['alert_success_title'];
+        $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+        $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'];
         $alertData['subject'] = $this->LANG['monthedit_alert_update'];
         $alertData['text']    = $this->LANG['monthedit_alert_update_success'];
-        $alertData['help']    = '';
+        if (!empty($mailError)) {
+          $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+        }
+        $alertData['help'] = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
 
       }
       elseif (isset($_POST['btn_clearall'])) {
         $this->M->clearHolidays($viewData['year'], $viewData['month'], $viewData['regionid']);
 
+        $mailError = '';
         if ($this->allConfig['emailNotifications']) {
-          sendMonthEventNotifications("changed", $viewData['year'], $viewData['month'], $viewData['regionname']);
+          sendMonthEventNotifications("changed", $viewData['year'], $viewData['month'], $viewData['regionname'], $mailError);
         }
 
         $this->LOG->logEvent("logMonth", $this->UL->username, "log_month_tpl_updated", $this->M->region . " " . $this->M->year . $this->M->month);
 
         $showAlert            = true;
-        $alertData['type']    = 'success';
-        $alertData['title']   = $this->LANG['alert_success_title'];
+        $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+        $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'];
         $alertData['subject'] = $this->LANG['monthedit_alert_update'];
         $alertData['text']    = $this->LANG['monthedit_alert_update_success'];
-        $alertData['help']    = '';
+        if (!empty($mailError)) {
+          $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+        }
+        $alertData['help'] = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
 
       }
       elseif (isset($_POST['btn_region'])) {

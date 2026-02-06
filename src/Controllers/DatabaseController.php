@@ -145,7 +145,7 @@ class DatabaseController extends BaseController
           }
           if (isset($_POST['chk_delOrphMessages'])) {
             $this->deleteOrphanedMessages();
-            $this->LOG->logEvent("logMessages", $this->UL->username, "log_db_delete_msg_orph");
+            $this->LOG->logEvent("logMessage", $this->UL->username, "log_db_delete_msg_orph");
           }
           if (isset($_POST['chk_delPermissions'])) {
             $this->P->deleteAll();

@@ -102,18 +102,22 @@ class HolidayEditController extends BaseController
 
           $HH->update($id);
 
+          $mailError = '';
           if ($this->allConfig['emailNotifications']) {
-            sendHolidayEventNotifications("changed", $HH->name, $HH->description);
+            sendHolidayEventNotifications("changed", $HH->name, $HH->description, $mailError);
           }
 
           $this->LOG->logEvent("logHoliday", $this->UL->username, "log_hol_updated", $HH->name);
 
-          $showAlert              = true;
-          $alertData['type']      = 'success';
-          $alertData['title']     = $this->LANG['alert_success_title'];
-          $alertData['subject']   = $this->LANG['hol_alert_edit'];
-          $alertData['text']      = $this->LANG['hol_alert_edit_success'];
-          $alertData['help']      = '';
+          $showAlert            = true;
+          $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+          $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'];
+          $alertData['subject'] = $this->LANG['hol_alert_edit'];
+          $alertData['text']    = $this->LANG['hol_alert_edit_success'];
+          if (!empty($mailError)) {
+            $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+          }
+          $alertData['help']      = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
           $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
           $viewData['csrf_token'] = $_SESSION['csrf_token'];
         }

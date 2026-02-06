@@ -63,7 +63,8 @@ class VerifyController extends BaseController
 
         if ($this->allConfig['adminApproval']) {
           $this->U->unverify($this->U->username);
-          sendAccountNeedsApprovalMail($UA->email, $this->U->username, $this->U->lastname, $this->U->firstname);
+          $mailError = '';
+          sendAccountNeedsApprovalMail($UA->email, $this->U->username, $this->U->lastname, $this->U->firstname, $mailError);
           $this->LOG->logEvent("logRegistration", $this->U->username, "log_user_verify_approval", $this->U->username . " (" . $fullname . ")");
 
           $showAlert            = true;
@@ -71,7 +72,10 @@ class VerifyController extends BaseController
           $alertData['title']   = $this->LANG['alert_info_title'];
           $alertData['subject'] = $this->LANG['alert_reg_subject'];
           $alertData['text']    = $this->LANG['alert_reg_approval_needed'];
-          $alertData['help']    = '';
+          if (!empty($mailError)) {
+            $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+          }
+          $alertData['help']    = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
         }
         else {
           $this->U->unlock($this->U->username);
@@ -87,7 +91,8 @@ class VerifyController extends BaseController
         }
       }
       else {
-        sendAccountVerificationMismatchMail($UA->email, $ruser, $fverify, $rverify);
+        $mailError = '';
+        sendAccountVerificationMismatchMail($UA->email, $ruser, $fverify, $rverify, $mailError);
         $this->LOG->logEvent("logRegistration", $this->U->username, "log_user_verify_mismatch", $this->U->username . " (" . $fullname . "): " . $rverify . "<>" . $rverify);
 
         $showAlert            = true;
@@ -95,7 +100,10 @@ class VerifyController extends BaseController
         $alertData['title']   = $this->LANG['alert_danger_title'];
         $alertData['subject'] = $this->LANG['alert_reg_subject'];
         $alertData['text']    = $this->LANG['alert_reg_mismatch'];
-        $alertData['help']    = '';
+        if (!empty($mailError)) {
+          $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+        }
+        $alertData['help']    = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
       }
     }
     else {

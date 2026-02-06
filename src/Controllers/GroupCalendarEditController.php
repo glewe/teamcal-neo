@@ -278,21 +278,25 @@ class GroupCalendarEditController extends BaseController
             }
           }
 
+          $mailError = '';
           if ($this->allConfig['emailNotifications']) {
-            sendUserCalEventNotifications("changed", $calgroupuser, $viewData['year'], $viewData['month']);
+            sendUserCalEventNotifications("changed", $calgroupuser, $viewData['year'], $viewData['month'], $mailError);
           }
 
           $this->LOG->logEvent("logUser", $this->UL->username, "log_cal_grp_tpl_chg", $this->G->name . ": " . $viewData['year'] . $viewData['month']);
 
           $showAlert            = true;
-          $alertData['type']    = 'success';
-          $alertData['title']   = $this->LANG['alert_success_title'] ?? 'SUCCESS';
+          $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+          $alertData['title']   = (empty($mailError)) ? ($this->LANG['alert_success_title'] ?? 'SUCCESS') : $this->LANG['alert_warning_title'];
           $alertData['subject'] = $this->LANG['caledit_alert_update'] ?? 'UPDATE';
           $alertData['text']    = $this->LANG['caledit_alert_update_group'] ?? 'UPDATE SUCCESS';
           if (isset($_POST['btn_clearall'])) {
             $alertData['text'] = $this->LANG['caledit_alert_update_group_cleared'] ?? 'UPDATE SUCCESS';
           }
-          $alertData['help'] = '';
+          if (!empty($mailError)) {
+            $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+          }
+          $alertData['help'] = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
         }
       }
       elseif (isset($_POST['btn_region'])) {

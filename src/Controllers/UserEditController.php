@@ -568,8 +568,9 @@ class UserEditController extends BaseController
     }
     $UP->update($profile);
 
+    $mailError = '';
     if ($this->allConfig['emailNotifications']) {
-      sendUserEventNotifications("changed", $UP->username, $UP->firstname, $UP->lastname);
+      sendUserEventNotifications("changed", $UP->username, $UP->firstname, $UP->lastname, $mailError);
     }
 
     $this->LOG->logEvent("logUser", $this->UL->username, "log_user_updated", $UP->username);
@@ -580,11 +581,14 @@ class UserEditController extends BaseController
     }
 
     $showAlert            = true;
-    $alertData['type']    = 'success';
-    $alertData['title']   = $this->LANG['alert_success_title'];
+    $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+    $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'];
     $alertData['subject'] = $this->LANG['profile_alert_update'];
     $alertData['text']    = $this->LANG['profile_alert_update_success'];
-    $alertData['help']    = '';
+    if (!empty($mailError)) {
+      $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+    }
+    $alertData['help'] = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
   }
 
   //---------------------------------------------------------------------------

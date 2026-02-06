@@ -141,18 +141,27 @@ class GroupEditController extends BaseController
             }
           }
 
+          $mailError = '';
           if ($this->allConfig['emailNotifications']) {
-            sendGroupEventNotifications("changed", $GG->name, $GG->description);
+            if (!sendGroupEventNotifications("changed", $GG->name, $GG->description, $mailError)) {
+              // We still want to show a success alert for the group update, but with a warning about emails
+            }
           }
 
           $this->LOG->logEvent("logGroup", $this->UL->username, "log_group_updated", $GG->name);
 
           $showAlert            = true;
-          $alertData['type']    = 'success';
-          $alertData['title']   = $this->LANG['alert_success_title'];
+          $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+          $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'];
           $alertData['subject'] = $this->LANG['group_alert_edit'];
           $alertData['text']    = $this->LANG['group_alert_edit_success'];
-          $alertData['help']    = '';
+          if (!empty($mailError)) {
+            $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+            $alertData['help'] = $this->LANG['contact_administrator'];
+          }
+          else {
+            $alertData['help'] = '';
+          }
 
           if (session_status() === PHP_SESSION_ACTIVE) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));

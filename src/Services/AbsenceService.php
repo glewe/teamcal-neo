@@ -151,7 +151,7 @@ class AbsenceService
    *
    * @return array Approval result with approved and declined absences
    */
-  public function approveAbsences(string $username, string $year, string $month, array $currentAbsences, array $requestedAbsences, string $regionId): array {
+  public function approveAbsences(string $username, string $year, string $month, array $currentAbsences, array $requestedAbsences, string $regionId, string &$errorMessage = ''): array {
     $approvalResult = array(
       'approvalResult'   => 'all',
       'approvedAbsences' => array(),
@@ -449,7 +449,7 @@ class AbsenceService
       }
 
       if (!empty($approvalDays)) {
-        $this->sendAbsenceApprovalNotifications($username, $approvalDays);
+        $this->sendAbsenceApprovalNotifications($username, $approvalDays, $errorMessage);
       }
 
       for ($i = 1; $i <= $monthInfo['daysInMonth']; $i++) {
@@ -662,7 +662,7 @@ class AbsenceService
    *
    * @return void
    */
-  public function sendAbsenceApprovalNotifications(string $username, array $absences): void {
+  public function sendAbsenceApprovalNotifications(string $username, array $absences, string &$errorMessage = ''): void {
     $language = $this->C->read('defaultLanguage');
     $appTitle = $this->C->read('appTitle');
     $appURL   = $this->C->read('appURL');
@@ -690,7 +690,13 @@ class AbsenceService
     $users = $this->U->getAll('lastname', 'firstname', 'ASC', false, true);
     foreach ($users as $profile) {
       if ($this->UG->isGroupManagerOfUser($profile['username'], $username)) {
-        sendEmail($profile['email'], $subject, $message);
+        $mailError = '';
+        if (!sendEmail($profile['email'], $subject, $message, '', $mailError)) {
+          if (!empty($errorMessage)) {
+            $errorMessage .= '<br>';
+          }
+          $errorMessage .= $mailError;
+        }
       }
     }
   }

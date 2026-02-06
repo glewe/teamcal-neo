@@ -101,18 +101,22 @@ class GroupsController extends BaseController
           $this->G->maxabsentwe  = 9999;
           $this->G->create();
 
+          $mailError = '';
           if ($this->allConfig['emailNotifications']) {
-            sendGroupEventNotifications("created", $this->G->name, $this->G->description);
+            sendGroupEventNotifications("created", $this->G->name, $this->G->description, $mailError);
           }
 
           $this->LOG->logEvent("logGroup", $this->UL->username, "log_group_created", $this->G->name . " " . $this->G->description);
 
           $showAlert            = true;
-          $alertData['type']    = 'success';
-          $alertData['title']   = $this->LANG['alert_success_title'];
+          $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+          $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'];
           $alertData['subject'] = $this->LANG['btn_create_group'];
           $alertData['text']    = $this->LANG['groups_alert_group_created'];
-          $alertData['help']    = '';
+          if (!empty($mailError)) {
+            $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+          }
+          $alertData['help'] = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
         }
         else {
           $showAlert            = true;
@@ -129,18 +133,22 @@ class GroupsController extends BaseController
         // Need UO here
         $this->UO->deleteOptionByValue('calfilterGroup', $_POST['hidden_id']);
 
+        $mailError = '';
         if ($this->allConfig['emailNotifications']) {
-          sendGroupEventNotifications("deleted", $_POST['hidden_name'], $_POST['hidden_description']);
+          sendGroupEventNotifications("deleted", $_POST['hidden_name'], $_POST['hidden_description'], $mailError);
         }
 
         $this->LOG->logEvent("logGroup", $this->UL->username, "log_group_deleted", $_POST['hidden_name']);
 
         $showAlert            = true;
-        $alertData['type']    = 'success';
-        $alertData['title']   = $this->LANG['alert_success_title'];
+        $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+        $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'];
         $alertData['subject'] = $this->LANG['btn_delete_group'];
         $alertData['text']    = $this->LANG['groups_alert_group_deleted'];
-        $alertData['help']    = '';
+        if (!empty($mailError)) {
+          $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+        }
+        $alertData['help'] = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
       }
     }
 

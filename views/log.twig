@@ -131,7 +131,7 @@
                                 <a style="color: inherit;" href="index.php?action=viewprofile&amp;profile={{ event.user }}" target="_blank">{{ event.user }}</a>
                               </td>
                               <td class="align-top text-start text-{{ color }}">{{ event.ip }}</td>
-                              <td class="align-top text-{{ color }}">{{ event.event }}</td>
+                              <td class="align-top text-{{ color }}">{{ event.event|raw }}</td>
                             </tr>
                           {% endfor %}
                         </tbody>

@@ -99,19 +99,23 @@ class RolesController extends BaseController
       $this->RO->color       = 'default';
       $this->RO->create();
 
+      $mailError = '';
       if ($this->allConfig['emailNotifications']) {
-        sendRoleEventNotifications("created", $this->RO->name, $this->RO->description);
+        sendRoleEventNotifications("created", $this->RO->name, $this->RO->description, $mailError);
       }
       $this->LOG->logEvent("logRole", $this->UL->username, "log_role_created", $this->RO->name . " " . $this->RO->description);
 
       $this->viewData['showAlert'] = true;
       $this->viewData['alertData'] = [
-        'type'    => 'success',
-        'title'   => $this->LANG['alert_success_title'],
+        'type'    => (empty($mailError)) ? 'success' : 'warning',
+        'title'   => (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'],
         'subject' => $this->LANG['btn_create_role'],
         'text'    => $this->LANG['roles_alert_created'],
-        'help'    => ''
+        'help'    => (empty($mailError)) ? '' : $this->LANG['contact_administrator']
       ];
+      if (!empty($mailError)) {
+        $this->viewData['alertData']['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+      }
     }
     else {
       $this->viewData['showAlert'] = true;
@@ -136,19 +140,23 @@ class RolesController extends BaseController
       $this->RO->delete($_POST['hidden_id']);
       $this->P->deleteRole($_POST['hidden_id']);
 
+      $mailError = '';
       if ($this->allConfig['emailNotifications']) {
-        sendRoleEventNotifications("deleted", $_POST['hidden_name'], $_POST['hidden_description']);
+        sendRoleEventNotifications("deleted", $_POST['hidden_name'], $_POST['hidden_description'], $mailError);
       }
       $this->LOG->logEvent("logRole", $this->UL->username, "log_role_deleted", $_POST['hidden_name']);
 
       $this->viewData['showAlert'] = true;
       $this->viewData['alertData'] = [
-        'type'    => 'success',
-        'title'   => $this->LANG['alert_success_title'],
+        'type'    => (empty($mailError)) ? 'success' : 'warning',
+        'title'   => (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'],
         'subject' => $this->LANG['btn_delete_role'],
         'text'    => $this->LANG['roles_alert_deleted'],
-        'help'    => ''
+        'help'    => (empty($mailError)) ? '' : $this->LANG['contact_administrator']
       ];
+      if (!empty($mailError)) {
+        $this->viewData['alertData']['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+      }
     }
     else {
       $this->viewData['showAlert'] = true;

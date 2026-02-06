@@ -19,13 +19,12 @@ if (!defined('VALID_ROOT')) {
  * Esepcially when he was added he needs to know what URL to navigate to and
  * how to login.
  *
- * @param string $email Recipient's email address
- * @param string $username The username created
  * @param string $password The password created
+ * @param string $errorMessage Error message (optional, passed by reference)
  *
  * @return bool True if email was sent successfully, false otherwise
  */
-function sendAccountCreatedMail(string $email, string $username, string $password): bool {
+function sendAccountCreatedMail(string $email, string $username, string $password, string &$errorMessage = ''): bool {
   global $C, $LANG, $LOG, $UO;
 
   //
@@ -104,14 +103,12 @@ function sendAccountCreatedMail(string $email, string $username, string $passwor
 
     $message = str_replace(array_keys($replacements), array_values($replacements), $message);
 
-    return sendEmail($email, $subject, $message);
+    return sendEmail($email, $subject, $message, '', $errorMessage);
   } catch (Exception $e) {
-    //
-    // Log error using the Log class
-    //
     if (isset($LOG)) {
       $LOG->logEvent("logRegistration", "System", "Failed to send account creation email: ", $e->getMessage());
     }
+    $errorMessage = "General: " . $e->getMessage();
     return false;
   }
 }
@@ -120,14 +117,13 @@ function sendAccountCreatedMail(string $email, string $username, string $passwor
 /**
  * If a user has registered and admin approval is needed, we send a mail to admin.
  *
- * @param string $email Recipient's email address
- * @param string $username The username created
  * @param string $lastname The user's lastname
  * @param string $firstname The user's firstname
+ * @param string $errorMessage Error message (optional, passed by reference)
  *
  * @return bool True if email was sent successfully, false otherwise
  */
-function sendAccountNeedsApprovalMail(string $email, string $username, string $lastname, string $firstname): bool {
+function sendAccountNeedsApprovalMail(string $email, string $username, string $lastname, string $firstname, string &$errorMessage = ''): bool {
   global $C, $LANG, $LOG, $UO;
 
   //
@@ -208,14 +204,12 @@ function sendAccountNeedsApprovalMail(string $email, string $username, string $l
 
     $message = str_replace(array_keys($replacements), array_values($replacements), $message);
 
-    return sendEmail($email, $subject, $message);
+    return sendEmail($email, $subject, $message, '', $errorMessage);
   } catch (Exception $e) {
-    //
-    // Log error using the Log class
-    //
     if (isset($LOG)) {
       $LOG->logEvent("logRegistration", "System", "Failed to send account approval request email: ", $e->getMessage());
     }
+    $errorMessage = "General: " . $e->getMessage();
     return false;
   }
 }
@@ -224,15 +218,13 @@ function sendAccountNeedsApprovalMail(string $email, string $username, string $l
 /**
  * If a user has registered we send him a mail with the verification link.
  *
- * @param string $email Recipient's email address
- * @param string $username The username created
- * @param string $lastname The user's lastname
  * @param string $firstname The user's firstname
  * @param string $verifycode The verification code for the user
+ * @param string $errorMessage Error message (optional, passed by reference)
  *
  * @return bool True if email was sent successfully, false otherwise
  */
-function sendAccountRegisteredMail(string $email, string $username, string $lastname, string $firstname, string $verifycode): bool {
+function sendAccountRegisteredMail(string $email, string $username, string $lastname, string $firstname, string $verifycode, string &$errorMessage = ''): bool {
   global $C, $LANG, $LOG, $UO;
 
   //
@@ -314,14 +306,12 @@ function sendAccountRegisteredMail(string $email, string $username, string $last
 
     $message = str_replace(array_keys($replacements), array_values($replacements), $message);
 
-    return sendEmail($email, $subject, $message);
+    return sendEmail($email, $subject, $message, '', $errorMessage);
   } catch (Exception $e) {
-    //
-    // Log error using the Log class
-    //
     if (isset($LOG)) {
       $LOG->logEvent("logRegistration", "System", "Failed to send account registration email: ", $e->getMessage());
     }
+    $errorMessage = "General: " . $e->getMessage();
     return false;
   }
 }
@@ -331,14 +321,13 @@ function sendAccountRegisteredMail(string $email, string $username, string $last
  * If a user has tried to verify his account with an incorrect verify code
  * we send a mail to admin about it.
  *
- * @param string $email Recipient's email address
- * @param string $username The username created
  * @param string $vcode The verification code for the user
  * @param string $vcodeSubmitted The verification submitted by the user
+ * @param string $errorMessage Error message (optional, passed by reference)
  *
  * @return bool True if email was sent successfully, false otherwise
  */
-function sendAccountVerificationMismatchMail(string $email, string $username, string $vcode, string $vcodeSubmitted): bool {
+function sendAccountVerificationMismatchMail(string $email, string $username, string $vcode, string $vcodeSubmitted, string &$errorMessage = ''): bool {
   global $C, $LANG, $LOG, $UO;
 
   //
@@ -419,14 +408,12 @@ function sendAccountVerificationMismatchMail(string $email, string $username, st
 
     $message = str_replace(array_keys($replacements), array_values($replacements), $message);
 
-    return sendEmail($email, $subject, $message);
+    return sendEmail($email, $subject, $message, '', $errorMessage);
   } catch (Exception $e) {
-    //
-    // Log error using the Log class
-    //
     if (isset($LOG)) {
       $LOG->logEvent("logRegistration", "System", "Failed to send verification mismatch email: ", $e->getMessage());
     }
+    $errorMessage = "General: " . $e->getMessage();
     return false;
   }
 }
@@ -441,7 +428,17 @@ function sendAccountVerificationMismatchMail(string $email, string $username, st
  *
  * @return bool True if all emails were sent successfully, false if any failed
  */
-function sendGroupEventNotifications(string $event, string $groupname, string $groupdesc = ''): bool {
+/**
+ * Sends an email to all users that subscribed to a group change event.
+ *
+ * @param string $event The event type: added, changed, deleted
+ * @param string $groupname The group name
+ * @param string $groupdesc The group description
+ * @param string $errorMessage Error message (optional, passed by reference)
+ *
+ * @return bool True if all emails were sent successfully, false if any failed
+ */
+function sendGroupEventNotifications(string $event, string $groupname, string $groupdesc = '', string &$errorMessage = ''): bool {
   global $C, $LANG, $U, $UO, $LOG;
 
   $events = ['changed', 'created', 'deleted'];
@@ -531,21 +528,18 @@ function sendGroupEventNotifications(string $event, string $groupname, string $g
       // Send to all users for this language
       //
       foreach ($recipients as $profile) {
-        if (!sendEmail($profile['email'], $subject, $message)) {
+        if (!sendEmail($profile['email'], $subject, $message, '', $errorMessage)) {
           $allSuccessful = false;
-          if (isset($LOG)) {
-            $LOG->logEvent("logGroup", "System", "Failed to send group event notification to {$profile['email']}: ", "Email send failed");
-          }
         }
       }
     }
 
     return $allSuccessful;
   } catch (Exception $e) {
-    // ...
     if (isset($LOG)) {
       $LOG->logEvent("logGroup", "System", "Failed to send group event notifications: ", $e->getMessage());
     }
+    $errorMessage = "General: " . $e->getMessage();
     return false;
   }
 }
@@ -554,15 +548,12 @@ function sendGroupEventNotifications(string $event, string $groupname, string $g
 /**
  * Sends a password reset token mail.
  *
- * @param string $email Recipient's email address
- * @param string $username The username created
- * @param string $lastname The user's lastname
- * @param string $firstname The user's firstname
  * @param string $token The password reset token
+ * @param string $errorMessage Error message (optional, passed by reference)
  *
  * @return bool True if email was sent successfully, false otherwise
  */
-function sendPasswordResetMail(string $email, string $username, string $lastname, string $firstname, string $token): bool {
+function sendPasswordResetMail(string $email, string $username, string $lastname, string $firstname, string $token, string &$errorMessage = ''): bool {
   global $C, $LANG, $LOG, $UO;
 
   //
@@ -644,14 +635,12 @@ function sendPasswordResetMail(string $email, string $username, string $lastname
 
     $message = str_replace(array_keys($replacements), array_values($replacements), $message);
 
-    return sendEmail($email, $subject, $message);
+    return sendEmail($email, $subject, $message, '', $errorMessage);
   } catch (Exception $e) {
-    //
-    // Log error using the Log class
-    //
     if (isset($LOG)) {
       $LOG->logEvent("logUser", "System", "Failed to send password reset email: ", $e->getMessage());
     }
+    $errorMessage = "General: " . $e->getMessage();
     return false;
   }
 }
@@ -663,10 +652,11 @@ function sendPasswordResetMail(string $email, string $username, string $lastname
  * @param string $event The event type: added, changed, deleted
  * @param string $rolename The role name
  * @param string $roledesc The role description
+ * @param string $errorMessage Error message (optional, passed by reference)
  *
  * @return bool True if all emails were sent successfully, false if any failed
  */
-function sendRoleEventNotifications(string $event, string $rolename, string $roledesc = ''): bool {
+function sendRoleEventNotifications(string $event, string $rolename, string $roledesc = '', string &$errorMessage = ''): bool {
   global $C, $LANG, $U, $UO, $LOG;
 
   $events = ['changed', 'created', 'deleted'];
@@ -756,7 +746,7 @@ function sendRoleEventNotifications(string $event, string $rolename, string $rol
       // Send to all users for this language
       //
       foreach ($recipients as $profile) {
-        if (!sendEmail($profile['email'], $subject, $message)) {
+        if (!sendEmail($profile['email'], $subject, $message, '', $errorMessage)) {
           $allSuccessful = false;
           if (isset($LOG)) {
             $LOG->logEvent("logRole", "System", "Failed to send role event notification to {$profile['email']}: ", "Email send failed");
@@ -767,10 +757,10 @@ function sendRoleEventNotifications(string $event, string $rolename, string $rol
 
     return $allSuccessful;
   } catch (Exception $e) {
-    // ...
     if (isset($LOG)) {
       $LOG->logEvent("logRole", "System", "Failed to send role event notifications: ", $e->getMessage());
     }
+    $errorMessage = "General: " . $e->getMessage();
     return false;
   }
 }
@@ -783,10 +773,11 @@ function sendRoleEventNotifications(string $event, string $rolename, string $rol
  * @param string $username The username
  * @param string $firstname The firstname
  * @param string $lastname The lastname
+ * @param string $errorMessage Error message (optional, passed by reference)
  *
  * @return bool True if all emails were sent successfully, false if any failed
  */
-function sendUserEventNotifications(string $event, string $username, string $firstname, string $lastname): bool {
+function sendUserEventNotifications(string $event, string $username, string $firstname, string $lastname, string &$errorMessage = ''): bool {
   global $C, $LANG, $U, $UO, $LOG;
 
   $events = ['created', 'changed', 'deleted'];
@@ -877,7 +868,7 @@ function sendUserEventNotifications(string $event, string $username, string $fir
       // Send to all users for this language
       //
       foreach ($recipients as $profile) {
-        if (!sendEmail($profile['email'], $subject, $message)) {
+        if (!sendEmail($profile['email'], $subject, $message, '', $errorMessage)) {
           $allSuccessful = false;
           if (isset($LOG)) {
             $LOG->logEvent("logUser", "System", "Failed to send user event notification to {$profile['email']}: ", "Email send failed");
@@ -888,10 +879,10 @@ function sendUserEventNotifications(string $event, string $username, string $fir
 
     return $allSuccessful;
   } catch (Exception $e) {
-    // ...
     if (isset($LOG)) {
       $LOG->logEvent("logUser", "System", "Failed to send user event notifications: ", $e->getMessage());
     }
+    $errorMessage = "General: " . $e->getMessage();
     return false;
   }
 }
@@ -902,10 +893,11 @@ function sendUserEventNotifications(string $event, string $username, string $fir
  *
  * @param string $event The event type: added, changed, deleted
  * @param string $absname The absence name
+ * @param string $errorMessage Error message (optional, passed by reference)
  *
  * @return bool True if all emails were sent successfully, false if any failed
  */
-function sendAbsenceEventNotifications(string $event, string $absname): bool {
+function sendAbsenceEventNotifications(string $event, string $absname, string &$errorMessage = ''): bool {
   global $C, $LANG, $U, $UO, $LOG;
 
   $events = ['changed', 'created', 'deleted'];
@@ -994,7 +986,7 @@ function sendAbsenceEventNotifications(string $event, string $absname): bool {
       // Send to all users for this language
       //
       foreach ($recipients as $profile) {
-        if (!sendEmail($profile['email'], $subject, $message)) {
+        if (!sendEmail($profile['email'], $subject, $message, '', $errorMessage)) {
           $allSuccessful = false;
           if (isset($LOG)) {
             $LOG->logEvent("logAbsence", "System", "Failed to send absence event notification to {$profile['email']}: ", "Email send failed");
@@ -1005,10 +997,10 @@ function sendAbsenceEventNotifications(string $event, string $absname): bool {
 
     return $allSuccessful;
   } catch (Exception $e) {
-    // ...
     if (isset($LOG)) {
       $LOG->logEvent("logAbsence", "System", "Failed to send absence event notifications: ", $e->getMessage());
     }
+    $errorMessage = "General: " . $e->getMessage();
     return false;
   }
 }
@@ -1020,10 +1012,11 @@ function sendAbsenceEventNotifications(string $event, string $absname): bool {
  * @param string $event The event type: added, changed, deleted
  * @param string $holname The holiday name
  * @param string $holdesc The holiday description
+ * @param string $errorMessage Error message (optional, passed by reference)
  *
  * @return bool True if all emails were sent successfully, false if any failed
  */
-function sendHolidayEventNotifications(string $event, string $holname, string $holdesc = ''): bool {
+function sendHolidayEventNotifications(string $event, string $holname, string $holdesc = '', string &$errorMessage = ''): bool {
   global $C, $LANG, $U, $UO, $LOG;
 
   $events = ['changed', 'created', 'deleted'];
@@ -1113,7 +1106,7 @@ function sendHolidayEventNotifications(string $event, string $holname, string $h
       // Send to all users for this language
       //
       foreach ($recipients as $profile) {
-        if (!sendEmail($profile['email'], $subject, $message)) {
+        if (!sendEmail($profile['email'], $subject, $message, '', $errorMessage)) {
           $allSuccessful = false;
           if (isset($LOG)) {
             $LOG->logEvent("logHoliday", "System", "Failed to send holiday event notification to {$profile['email']}: ", "Email send failed");
@@ -1124,10 +1117,10 @@ function sendHolidayEventNotifications(string $event, string $holname, string $h
 
     return $allSuccessful;
   } catch (Exception $e) {
-    // ...
     if (isset($LOG)) {
       $LOG->logEvent("logHoliday", "System", "Failed to send holiday event notifications: ", $e->getMessage());
     }
+    $errorMessage = "General: " . $e->getMessage();
     return false;
   }
 }
@@ -1140,10 +1133,11 @@ function sendHolidayEventNotifications(string $event, string $holname, string $h
  * @param string $year The year
  * @param string $month The month
  * @param string $region The region
+ * @param string $errorMessage Error message (optional, passed by reference)
  *
  * @return bool True if all emails were sent successfully, false if any failed
  */
-function sendMonthEventNotifications(string $event, string $year, string $month, string $region): bool {
+function sendMonthEventNotifications(string $event, string $year, string $month, string $region, string &$errorMessage = ''): bool {
   global $C, $LANG, $U, $UO, $LOG;
 
   $events = ['created', 'changed', 'deleted'];
@@ -1234,7 +1228,7 @@ function sendMonthEventNotifications(string $event, string $year, string $month,
       // Send to all users for this language
       //
       foreach ($recipients as $profile) {
-        if (!sendEmail($profile['email'], $subject, $message)) {
+        if (!sendEmail($profile['email'], $subject, $message, '', $errorMessage)) {
           $allSuccessful = false;
           if (isset($LOG)) {
             $LOG->logEvent("logMonth", "System", "Failed to send month event notification to {$profile['email']}: ", "Email send failed");
@@ -1245,10 +1239,10 @@ function sendMonthEventNotifications(string $event, string $year, string $month,
 
     return $allSuccessful;
   } catch (Exception $e) {
-    // ...
     if (isset($LOG)) {
       $LOG->logEvent("logMonth", "System", "Failed to send month event notifications: ", $e->getMessage());
     }
+    $errorMessage = "General: " . $e->getMessage();
     return false;
   }
 }
@@ -1261,10 +1255,11 @@ function sendMonthEventNotifications(string $event, string $year, string $month,
  * @param string $username The username
  * @param string $year Numeric representation of the year
  * @param string $month Numeric representation of the month
+ * @param string $errorMessage Error message (optional, passed by reference)
  *
  * @return bool True if all emails were sent successfully, false if any failed
  */
-function sendUserCalEventNotifications(string $event, string $username, string $year, string $month): bool {
+function sendUserCalEventNotifications(string $event, string $username, string $year, string $month, string &$errorMessage = ''): bool {
   global $A, $C, $LANG, $T, $U, $UG, $UO, $LOG;
 
   $events = ['changed'];
@@ -1398,7 +1393,7 @@ function sendUserCalEventNotifications(string $event, string $username, string $
       // Send to all users for this language
       //
       foreach ($recipients as $profile) {
-        if (!sendEmail($profile['email'], $subject, $message)) {
+        if (!sendEmail($profile['email'], $subject, $message, '', $errorMessage)) {
           $allSuccessful = false;
           if (isset($LOG)) {
             $LOG->logEvent("logUser", "System", "Failed to send user calendar event notification to {$profile['email']}: ", "Email send failed");
@@ -1412,6 +1407,7 @@ function sendUserCalEventNotifications(string $event, string $username, string $
     if (isset($LOG)) {
       $LOG->logEvent("logUser", "System", "Failed to send user calendar event notifications: ", $e->getMessage());
     }
+    $errorMessage = "General: " . $e->getMessage();
     return false;
   }
 }
@@ -1425,11 +1421,12 @@ function sendUserCalEventNotifications(string $event, string $username, string $
  * @param string $subject eMail subject
  * @param string $body eMail body
  * @param string $from eMail from address (optional)
+ * @param string $errorMessage Error message (optional, passed by reference)
  *
  * @return bool Email success
  */
-function sendEmail(string $to, string $subject, string $body, string $from = ''): bool {
-  global $C;
+function sendEmail(string $to, string $subject, string $body, string $from = '', string &$errorMessage = ''): bool {
+  global $C, $LOG;
   $debug         = false;
   $from_mailonly = $C->read("mailReply");
   $replyto       = "";
@@ -1521,15 +1518,23 @@ function sendEmail(string $to, string $subject, string $body, string $from = '')
 
   } catch (PHPMailer\PHPMailer\Exception $e) {
     //
-    // Log PHPMailer error
+    // Capture PHPMailer error
     //
+    $errorMessage = "PHPMailer: " . $mail->ErrorInfo;
     error_log("PHPMailer Error: " . $mail->ErrorInfo);
+    if (isset($LOG)) {
+      $LOG->logEvent("logMessage", "System", "log_email_error", "PHPMailer: " . $mail->ErrorInfo);
+    }
     return false;
   } catch (Exception $e) {
     //
-    // Log general error
+    // Capture general error
     //
+    $errorMessage = "General: " . $e->getMessage();
     error_log("Email sending error: " . $e->getMessage());
+    if (isset($LOG)) {
+      $LOG->logEvent("logMessage", "System", "log_email_error", "General: " . $e->getMessage());
+    }
     return false;
   }
 }

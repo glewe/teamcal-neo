@@ -97,22 +97,26 @@ class UserAddController extends BaseController
           }
           $UP->create();
 
+          $mailError = '';
           if (isset($_POST['chk_create_mail'])) {
-            sendAccountCreatedMail($UP->email, $UP->username, $_POST['txt_password']);
+            sendAccountCreatedMail($UP->email, $UP->username, $_POST['txt_password'], $mailError);
           }
 
           if ($this->allConfig['emailNotifications']) {
-            sendUserEventNotifications("created", $UP->username, $UP->firstname, $UP->lastname);
+            sendUserEventNotifications("created", $UP->username, $UP->firstname, $UP->lastname, $mailError);
           }
 
           $this->LOG->logEvent("logUser", $this->UL->username, "log_user_added", $UP->username);
 
           $showAlert            = true;
-          $alertData['type']    = 'success';
-          $alertData['title']   = $this->LANG['alert_success_title'];
+          $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+          $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'];
           $alertData['subject'] = $this->LANG['profile_alert_create'];
           $alertData['text']    = $this->LANG['profile_alert_create_success'];
-          $alertData['help']    = '';
+          if (!empty($mailError)) {
+            $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+          }
+          $alertData['help'] = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
         }
 
         if (isset($_SESSION)) {

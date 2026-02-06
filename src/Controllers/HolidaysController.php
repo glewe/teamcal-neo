@@ -75,17 +75,21 @@ class HolidaysController extends BaseController
           $HH->description = $viewData['txt_description'];
           $HH->create();
 
+          $mailError = '';
           if ($this->allConfig['emailNotifications']) {
-            sendHolidayEventNotifications("created", $HH->name, $HH->description);
+            sendHolidayEventNotifications("created", $HH->name, $HH->description, $mailError);
           }
           $this->LOG->logEvent("logHoliday", $this->UL->username, "log_abs_created", $HH->name);
 
-          $showAlert              = true;
-          $alertData['type']      = 'success';
-          $alertData['title']     = $this->LANG['alert_success_title'];
-          $alertData['subject']   = $this->LANG['btn_create_abs'];
-          $alertData['text']      = $this->LANG['hol_alert_created'];
-          $alertData['help']      = '';
+          $showAlert            = true;
+          $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+          $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'];
+          $alertData['subject'] = $this->LANG['btn_create_abs'];
+          $alertData['text']    = $this->LANG['hol_alert_created'];
+          if (!empty($mailError)) {
+            $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+          }
+          $alertData['help'] = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
           $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
           $viewData['csrf_token'] = $_SESSION['csrf_token'];
         }
@@ -100,17 +104,21 @@ class HolidaysController extends BaseController
       }
       elseif (isset($_POST['btn_holDelete'])) {
         $this->H->delete($_POST['hidden_id'] ?? '');
+        $mailError = '';
         if ($this->allConfig['emailNotifications']) {
-          sendHolidayEventNotifications("deleted", $_POST['hidden_name'] ?? '', $_POST['hidden_description'] ?? '');
+          sendHolidayEventNotifications("deleted", $_POST['hidden_name'] ?? '', $_POST['hidden_description'] ?? '', $mailError);
         }
         $this->LOG->logEvent("logHoliday", $this->UL->username, "log_hol_deleted", $_POST['hidden_name'] ?? '');
 
-        $showAlert              = true;
-        $alertData['type']      = 'success';
-        $alertData['title']     = $this->LANG['alert_success_title'];
-        $alertData['subject']   = $this->LANG['btn_delete_holiday'];
-        $alertData['text']      = $this->LANG['hol_alert_deleted'];
-        $alertData['help']      = '';
+        $showAlert            = true;
+        $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+        $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'];
+        $alertData['subject'] = $this->LANG['btn_delete_holiday'];
+        $alertData['text']    = $this->LANG['hol_alert_deleted'];
+        if (!empty($mailError)) {
+          $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+        }
+        $alertData['help'] = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         $viewData['csrf_token'] = $_SESSION['csrf_token'];
       }

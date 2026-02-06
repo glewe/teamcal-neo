@@ -113,16 +113,20 @@ class RegisterController extends BaseController
             $verifycode = substr(str_shuffle($alphanum), 0, 32);
             $this->UO->save($UR->username, "verifycode", $verifycode);
 
-            sendAccountRegisteredMail($UR->email, $UR->username, $UR->lastname, $UR->firstname, $verifycode);
+            $mailError = '';
+            sendAccountRegisteredMail($UR->email, $UR->username, $UR->lastname, $UR->firstname, $verifycode, $mailError);
 
             $this->LOG->logEvent("logRegistration", $this->UL->username, "log_user_registered", $UR->username);
 
             $showAlert            = true;
-            $alertData['type']    = 'success';
-            $alertData['title']   = $this->LANG['alert_success_title'];
+            $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+            $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'];
             $alertData['subject'] = $this->LANG['register_title'];
             $alertData['text']    = $this->LANG['register_alert_success'];
-            $alertData['help']    = '';
+            if (!empty($mailError)) {
+              $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+            }
+            $alertData['help'] = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
           }
         }
 

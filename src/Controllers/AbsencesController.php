@@ -73,8 +73,9 @@ class AbsencesController extends BaseController
           $this->A->symbol = strtoupper(substr($viewData['txt_name'], 0, 1));
           $this->A->create();
 
+          $mailError = '';
           if ($this->allConfig['emailNotifications']) {
-            sendAbsenceEventNotifications('created', $this->A->name);
+            sendAbsenceEventNotifications('created', $this->A->name, $mailError);
           }
           $this->LOG->logEvent('logAbsence', $this->UL->username, 'log_abs_created', $this->A->name);
 
@@ -83,11 +84,14 @@ class AbsencesController extends BaseController
           }
 
           $showAlert            = true;
-          $alertData['type']    = 'success';
-          $alertData['title']   = $this->LANG['alert_success_title'];
+          $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+          $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'];
           $alertData['subject'] = $this->LANG['btn_create_abs'];
           $alertData['text']    = $this->LANG['abs_alert_created'];
-          $alertData['help']    = '';
+          if (!empty($mailError)) {
+            $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+          }
+          $alertData['help'] = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
         }
         else {
           $showAlert            = true;
@@ -111,8 +115,9 @@ class AbsencesController extends BaseController
         }
 
         if ($hidden_name !== '') {
+          $mailError = '';
           if ($this->allConfig['emailNotifications']) {
-            sendAbsenceEventNotifications('deleted', $hidden_name);
+            sendAbsenceEventNotifications('deleted', $hidden_name, $mailError);
           }
           $this->LOG->logEvent('logAbsence', $this->UL->username, 'log_abs_deleted', $hidden_name);
         }
@@ -122,11 +127,14 @@ class AbsencesController extends BaseController
         }
 
         $showAlert            = true;
-        $alertData['type']    = 'success';
-        $alertData['title']   = $this->LANG['alert_success_title'];
+        $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+        $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'];
         $alertData['subject'] = $this->LANG['btn_delete_abs'];
         $alertData['text']    = $this->LANG['abs_alert_deleted'];
-        $alertData['help']    = '';
+        if (!empty($mailError)) {
+          $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+        }
+        $alertData['help'] = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
       }
     }
 

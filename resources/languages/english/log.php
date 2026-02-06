@@ -119,6 +119,7 @@ $LANG['log_msg_confirmed'] = 'Message confirmed: ';
 $LANG['log_msg_deleted'] = 'Message deleted: ';
 $LANG['log_msg_email'] = 'E-mail sent by ';
 $LANG['log_msg_message'] = 'Message sent: ';
+$LANG['log_email_error'] = 'Email sending error: ';
 $LANG['log_pattern_created'] = 'Absence Pattern created: ';
 $LANG['log_pattern_updated'] = 'Absence Pattern updated: ';
 $LANG['log_pattern_deleted'] = 'Absence Pattern deleted: ';

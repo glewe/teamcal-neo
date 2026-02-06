@@ -165,14 +165,26 @@ class MessageEditController extends BaseController
             if ($sendMail) {
               $from = strlen($this->UL->email) ? ltrim(mb_encode_mimeheader($this->UL->firstname . " " . $this->UL->lastname)) . " <" . $this->UL->email . ">" : '';
               $to   = implode(',', $toEmails);
-              if (sendEmail($to, stripslashes($_POST['txt_subject']), stripslashes($_POST['txt_text']), $from)) {
-                $this->LOG->logEvent("logMessages", $this->UL->username, "log_msg_email", $this->UL->username . " -> " . $to);
+              $mailError = '';
+              if (sendEmail($to, stripslashes($_POST['txt_subject']), stripslashes($_POST['txt_text']), $from, $mailError)) {
+                $this->LOG->logEvent("logMessage", $this->UL->username, "log_msg_email", $this->UL->username . " -> " . $to);
                 $showAlert            = true;
                 $alertData['type']    = 'success';
                 $alertData['title']   = $this->LANG['alert_success_title'];
                 $alertData['subject'] = $this->LANG['msg_msg_sent'];
                 $alertData['text']    = $this->LANG['msg_msg_sent_text'];
                 $alertData['help']    = '';
+              }
+              else {
+                $showAlert            = true;
+                $alertData['type']    = 'danger';
+                $alertData['title']   = $this->LANG['alert_danger_title'];
+                $alertData['subject'] = $this->LANG['msg_msg_sent_failed'];
+                $alertData['text']    = $this->LANG['msg_msg_sent_failed_text'];
+                if (!empty($mailError)) {
+                  $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+                }
+                $alertData['help'] = $this->LANG['contact_administrator'];
               }
             }
           }

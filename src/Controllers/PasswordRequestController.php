@@ -60,15 +60,19 @@ class PasswordRequestController extends BaseController
               $expiryDateTime = date('YmdHis', strtotime(date('YmdHis') . ' +1 day'));
               $this->UO->save($pwdUsers[0]['username'], 'pwdToken', $token);
               $this->UO->save($pwdUsers[0]['username'], 'pwdTokenExpiry', $expiryDateTime);
-              sendPasswordResetMail($pwdUsers[0]['email'], $pwdUsers[0]['username'], $pwdUsers[0]['lastname'], $pwdUsers[0]['firstname'], $token);
+              $mailError = '';
+              sendPasswordResetMail($pwdUsers[0]['email'], $pwdUsers[0]['username'], $pwdUsers[0]['lastname'], $pwdUsers[0]['firstname'], $token, $mailError);
               $this->LOG->logEvent("logUser", $this->UL->username, "log_user_pwd_request", $pwdUsers[0]['username']);
 
               $showAlert            = true;
-              $alertData['type']    = 'success';
-              $alertData['title']   = $this->LANG['alert_success_title'];
+              $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+              $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'];
               $alertData['subject'] = $this->LANG['pwdreq_title'];
               $alertData['text']    = $this->LANG['pwdreq_alert_success'];
-              $alertData['help']    = '';
+              if (!empty($mailError)) {
+                $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+              }
+              $alertData['help'] = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
             }
             else {
               if (isset($_POST['opt_user'])) {
@@ -77,15 +81,19 @@ class PasswordRequestController extends BaseController
                 $expiryDateTime = date('YmdHis', strtotime(date('YmdHis') . ' +1 day'));
                 $this->UO->save($this->U->username, 'pwdToken', $token);
                 $this->UO->save($this->U->username, 'pwdTokenExpiry', $expiryDateTime);
-                sendPasswordResetMail($this->U->email, $this->U->username, $this->U->lastname, $this->U->firstname, $token);
+                $mailError = '';
+                sendPasswordResetMail($this->U->email, $this->U->username, $this->U->lastname, $this->U->firstname, $token, $mailError);
                 $this->LOG->logEvent("logUser", $this->UL->username, "log_user_pwd_request", $this->U->username);
 
                 $showAlert            = true;
-                $alertData['type']    = 'success';
-                $alertData['title']   = $this->LANG['alert_success_title'];
+                $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
+                $alertData['title']   = (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'];
                 $alertData['subject'] = $this->LANG['pwdreq_title'];
                 $alertData['text']    = $this->LANG['pwdreq_alert_success'];
-                $alertData['help']    = '';
+                if (!empty($mailError)) {
+                  $alertData['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+                }
+                $alertData['help'] = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
               }
               else {
                 $viewData['multipleUsers'] = true;

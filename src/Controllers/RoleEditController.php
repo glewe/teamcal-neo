@@ -94,19 +94,23 @@ class RoleEditController extends BaseController
           }
           $RO2->update($RO2->id);
 
+          $mailError = '';
           if ($this->allConfig['emailNotifications']) {
-            sendRoleEventNotifications("changed", $RO2->name . ' (ex: ' . $oldName . ')', $RO2->description);
+            sendRoleEventNotifications("changed", $RO2->name . ' (ex: ' . $oldName . ')', $RO2->description, $mailError);
           }
           $this->LOG->logEvent("logRole", $this->UL->username, "log_role_updated", $RO2->name . ' (ex: ' . $oldName . ')');
 
           $this->viewData['showAlert'] = true;
           $this->viewData['alertData'] = [
-            'type'    => 'success',
-            'title'   => $this->LANG['alert_success_title'],
+            'type'    => (empty($mailError)) ? 'success' : 'warning',
+            'title'   => (empty($mailError)) ? $this->LANG['alert_success_title'] : $this->LANG['alert_warning_title'],
             'subject' => $this->LANG['role_alert_edit'],
             'text'    => $this->LANG['role_alert_edit_success'],
-            'help'    => ''
+            'help'    => (empty($mailError)) ? '' : $this->LANG['contact_administrator']
           ];
+          if (!empty($mailError)) {
+            $this->viewData['alertData']['text'] .= '<br><br><strong>' . $this->LANG['log_email_error'] . '</strong><br>' . $mailError;
+          }
 
           $this->viewData['name']        = $RO2->name;
           $this->viewData['description'] = $RO2->description;
