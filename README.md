@@ -63,9 +63,7 @@ TeamCal Neo 5.0.0 is a new major release. The application has been completely re
 
 ## Resources
 
-[TeamCal Neo Demo (stable version 4)](https://tcneo.lewe.com/)
-
-[TeamCal Neo Demo (beta version 5)](https://dev.lewe.com/tcneo)
+[TeamCal Neo Demo](https://tcneo.lewe.com/)
 
 [TeamCal Neo Product Page](https://teamcalneo.lewe.com/)
 

@@ -454,8 +454,8 @@ class LogController extends BaseController
    * @return void
    */
   private function handleAjaxStats(): void {
-    $statsTimeframe = $_POST['timeframe'] ?? 'last_week';
-    $statsTypes = $_POST['types'] ?? [];
+    $statsTimeframe = sanitize($_POST['timeframe'] ?? 'last_week');
+    $statsTypes     = (isset($_POST['types']) && is_array($_POST['types'])) ? sanitize($_POST['types']) : [];
 
     $statsRange = $this->getStatsRange($statsTimeframe);
     $statsData = $this->LOG->getStatistics($statsRange['from'], $statsRange['to'], $statsTypes, $statsRange['granularity']);

@@ -207,20 +207,23 @@ class LogModel
     $typeFilter = '';
     if (!empty($typeArray)) {
       $typePlaceholders = [];
-      foreach ($typeArray as $type) {
-        $typePlaceholders[] = 'log' . $type;
+      $typeValues       = [];
+      foreach ($typeArray as $index => $type) {
+        $placeholder = ':type' . $index;
+        $typePlaceholders[] = $placeholder;
+        $typeValues[$placeholder] = 'log' . $type;
       }
-      $typeFilter = ' AND type IN (\'' . implode('\', \'', $typePlaceholders) . '\')';
+      $typeFilter = ' AND type IN (' . implode(', ', $typePlaceholders) . ')';
     }
 
-    $groupSql = 'DATE(timestamp)';
+    $groupSql  = 'DATE(timestamp)';
     $formatSql = 'DATE(timestamp)';
 
     if ($granularity === 'hour') {
-      $groupSql = 'DATE_FORMAT(timestamp, \'%Y-%m-%d %H:00\')';
+      $groupSql  = 'DATE_FORMAT(timestamp, \'%Y-%m-%d %H:00\')';
       $formatSql = 'DATE_FORMAT(timestamp, \'%Y-%m-%d %H:00\')';
     }
-    
+
     //
     // Query to get counts grouped by date/hour and type
     //
@@ -229,10 +232,17 @@ class LogModel
             WHERE (timestamp >= :from AND timestamp <= :to)' . $typeFilter . '
             GROUP BY ' . $groupSql . ', type 
             ORDER BY ' . $groupSql . ' ASC';
-    
+
     $query = $this->db->prepare($sql);
     $query->bindParam(':from', $from);
     $query->bindParam(':to', $to);
+
+    if (!empty($typeArray)) {
+      foreach ($typeValues as $placeholder => $value) {
+        $query->bindValue($placeholder, $value);
+      }
+    }
+
     $query->execute();
     
     while ($row = $query->fetch()) {
