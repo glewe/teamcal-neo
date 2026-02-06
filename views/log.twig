@@ -194,12 +194,13 @@
                           <option value="last_day" {% if statsTimeframe == "last_day" %} selected {% endif %}>{{ LANG.log_statistics_last_day }}</option>
                           <option value="last_week" {% if statsTimeframe == "last_week" %} selected {% endif %}>{{ LANG.log_statistics_last_week }}</option>
                           <option value="last_month" {% if statsTimeframe == "last_month" %} selected {% endif %}>{{ LANG.log_statistics_last_month }}</option>
+                          <option value="last_quarter" {% if statsTimeframe == "last_quarter" %} selected {% endif %}>{{ LANG.log_statistics_last_quarter }}</option>
                           <option value="last_year" {% if statsTimeframe == "last_year" %} selected {% endif %}>{{ LANG.log_statistics_last_year }}</option>
                           <option value="overall" {% if statsTimeframe == "overall" %} selected {% endif %}>{{ LANG.log_statistics_overall }}</option>
                         </select>
 
                         <label>{{ LANG.log_statistics_event_types }}</label>
-                        <div class="mb-3" style="max-height: 300px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 0.375rem; padding: 0.5rem;">
+                        <div class="mb-2" style="max-height: 300px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 0.375rem; padding: 0.5rem;">
                           {% for type in types %}
                             <div class="form-check">
                               <input class="form-check-input stats-filter-checkbox" type="checkbox" name="chk_statsTypes[]" value="{{ type }}" id="statsType{{ type }}" {% if type in statsTypes %} checked {% endif %}>
@@ -208,6 +209,11 @@
                               </label>
                             </div>
                           {% endfor %}
+                        </div>
+
+                        <div class="d-flex gap-2 mb-3">
+                          <button type="button" class="btn btn-sm btn-outline-secondary" id="btn_statsSelectAll">{{ LANG.log_statistics_select_all }}</button>
+                          <button type="button" class="btn btn-sm btn-outline-secondary" id="btn_statsUnselectAll">{{ LANG.log_statistics_unselect_all }}</button>
                         </div>
 
                         <button type="submit" class="btn btn-primary mt-2" tabindex="{{ nextTabindex() }}" name="btn_statsFilter">{{ LANG.btn_save_stats_settings }}</button>
@@ -420,6 +426,16 @@
       });
 
       $('.stats-filter-checkbox').on('change', function () {
+        loadStatsAjax();
+      });
+
+      $('#btn_statsSelectAll').on('click', function () {
+        $('.stats-filter-checkbox').prop('checked', true);
+        loadStatsAjax();
+      });
+
+      $('#btn_statsUnselectAll').on('click', function () {
+        $('.stats-filter-checkbox').prop('checked', false);
         loadStatsAjax();
       });
 

@@ -427,6 +427,12 @@ class LogController extends BaseController
         $statsFrom = date('Y-01-01') . ' 00:00:00';
         $statsTo = date('Y-12-31') . ' 23:59:59';
         break;
+      case 'last_quarter':
+        // This Quarter: from 1st day of current quarter to last day of current quarter
+        $logToday = dateInfo(date("Y"), date("m"), date("d"));
+        $statsFrom = $logToday['firstOfQuarter'] . ' 00:00:00';
+        $statsTo = $logToday['lastOfQuarter'] . ' 23:59:59';
+        break;
       case 'overall':
         // Overall: from the earliest recorded entry to now
         $statsFrom = $this->LOG->getMinTimestamp();

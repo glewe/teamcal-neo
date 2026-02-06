@@ -13,6 +13,7 @@ $releases = [
       [ 'summary' => 'Added new demo groups and users', 'issue' => '' ],
       [ 'summary' => 'Added three new statistics: Trends, Day of Week, Duration', 'issue' => '' ],
       [ 'summary' => 'Added Summernote WYSIWYG editor', 'issue' => '' ],
+      [ 'summary' => 'Added Log Statistics', 'issue' => '' ],
     ],
     'improvements' => [
       [ 'summary' => 'Updated sample database (split in core and demo data)', 'issue' => '' ],
