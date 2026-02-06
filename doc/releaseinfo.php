@@ -2,9 +2,9 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
-    'version' => '5.0.0-beta2',
-    'date' => '2026-02-03',
-    'info' => 'New major release with complete code refactoring. Beta release for testing purposes.',
+    'version' => '5.0.0',
+    'date' => '2026-02-09',
+    'info' => 'New major release with complete code refactoring.',
     'bugfixes' => [
       [ 'summary' => 'Fixed admin users not seeing all group on Notification tab', 'issue' => '' ],
       [ 'summary' => 'Fixed missing language keys in calendar view', 'issue' => '' ],
