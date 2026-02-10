@@ -61,11 +61,7 @@ view.sidebar
       isAllowed(CONF.controllers.calendarview.permission) or
       isAllowed(CONF.controllers.year.permission) or
       isAllowed(CONF.controllers.remainder.permission) or
-      isAllowed(CONF.controllers.statsabsence.permission) or
-      isAllowed(CONF.controllers.statsabstype.permission) or
-      isAllowed(CONF.controllers.statspresence.permission) or
-      isAllowed(CONF.controllers.statspresencetype.permission) or
-      isAllowed(CONF.controllers.statsremainder.permission) or
+      isAllowed(CONF.controllers.statistics.permission or 'statistics') or
       isAllowed(CONF.controllers.absum.permission)
     %}
       <li class="sidebar-item">

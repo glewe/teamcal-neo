@@ -71,7 +71,7 @@ function createMonth(string $year, string $month, string $target, string $owner)
 /**
  * Checks whether a user is authorized in the active permission scheme.
  *
- * @param string $permission The permission to check.
+ * @param string|null $permission The permission to check.
  *
  * @return boolean True if the user is allowed, false otherwise.
  * @global object $UL User login object.
@@ -80,7 +80,13 @@ function createMonth(string $year, string $month, string $target, string $owner)
  *
  * @global bool True if allowed, false if not
  */
-function isAllowed(string $permission = ''): bool {
+function isAllowed(?string $permission = ''): bool {
+  if ($permission === null) {
+    return false;
+  }
+  if ($permission === '') {
+    return true;
+  }
   global $C, $UL, $UO, $permissions;
   // @phpstan-ignore-next-line
   if (L_USER) {
