@@ -122,9 +122,12 @@ class GroupModel
    */
   public function getAll(string $sort = 'ASC'): array {
     $records = array();
-    $query   = $this->db->prepare('SELECT id, name, description, avatar, minpresent, maxabsent, minpresentwe, maxabsentwe FROM ' . $this->table . ' ORDER BY LOWER(name) ' . $sort);
+    $query   = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY LOWER(name) ' . $sort);
     $query->execute();
     while ($row = $query->fetch()) {
+      $row['avatar']       = (string) ($row['avatar'] ?? 'default_group.png');
+      $row['minpresentwe'] = (int) ($row['minpresentwe'] ?? 0);
+      $row['maxabsentwe']  = (int) ($row['maxabsentwe'] ?? 9999);
       $records[] = $row;
     }
     return $records;
@@ -201,16 +204,16 @@ class GroupModel
         $this->id           = (string) $row['id'];
         $this->name         = (string) $row['name'];
         $this->description  = (string) $row['description'];
-        $this->avatar       = (string) $row['avatar'];
+        $this->avatar       = (string) ($row['avatar'] ?? 'default_group.png');
         $this->minpresent   = (int) $row['minpresent'];
         $this->maxabsent    = (int) $row['maxabsent'];
-        $this->minpresentwe = (int) $row['minpresentwe'];
-        $this->maxabsentwe  = (int) $row['maxabsentwe'];
+        $this->minpresentwe = (int) ($row['minpresentwe'] ?? 0);
+        $this->maxabsentwe  = (int) ($row['maxabsentwe'] ?? 9999);
         return true;
       }
     }
     // Fallback to DB if not in cache (e.g., after invalidation race)
-    $query = $this->db->prepare('SELECT id, name, description, avatar, minpresent, maxabsent, minpresentwe, maxabsentwe FROM ' . $this->table . ' WHERE id = :id');
+    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :id');
     $query->bindParam(':id', $id);
     $query->execute();
     if ($row = $query->fetch()) {
@@ -220,10 +223,19 @@ class GroupModel
       $this->avatar       = (string) ($row['avatar'] ?? 'default_group.png');
       $this->minpresent   = (int) $row['minpresent'];
       $this->maxabsent    = (int) $row['maxabsent'];
-      $this->minpresentwe = (int) $row['minpresentwe'];
-      $this->maxabsentwe  = (int) $row['maxabsentwe'];
+      $this->minpresentwe = (int) ($row['minpresentwe'] ?? 0);
+      $this->maxabsentwe  = (int) ($row['maxabsentwe'] ?? 9999);
       // Add to cache
-      self::$cache[] = $row;
+      self::$cache[] = [
+        'id'           => $this->id,
+        'name'         => $this->name,
+        'description'  => $this->description,
+        'avatar'       => $this->avatar,
+        'minpresent'   => $this->minpresent,
+        'maxabsent'    => $this->maxabsent,
+        'minpresentwe' => $this->minpresentwe,
+        'maxabsentwe'  => $this->maxabsentwe,
+      ];
       return true;
     }
     return false;
@@ -248,8 +260,8 @@ class GroupModel
       $this->avatar       = (string) ($row['avatar'] ?? 'default_group.png');
       $this->minpresent   = (int) $row['minpresent'];
       $this->maxabsent    = (int) $row['maxabsent'];
-      $this->minpresentwe = (int) $row['minpresentwe'];
-      $this->maxabsentwe  = (int) $row['maxabsentwe'];
+      $this->minpresentwe = (int) ($row['minpresentwe'] ?? 0);
+      $this->maxabsentwe  = (int) ($row['maxabsentwe'] ?? 9999);
       return true;
     }
     return false;
@@ -407,6 +419,9 @@ class GroupModel
     $query->execute();
     $row = $query->fetch();
     if ($row) {
+      $row['avatar']       = (string) ($row['avatar'] ?? 'default_group.png');
+      $row['minpresentwe'] = (int) ($row['minpresentwe'] ?? 0);
+      $row['maxabsentwe']  = (int) ($row['maxabsentwe'] ?? 9999);
       return [$row];
     }
     return false;
