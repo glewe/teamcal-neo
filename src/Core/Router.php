@@ -19,6 +19,7 @@ use App\Exceptions\RouterException;
  */
 class Router
 {
+  /** @var array<string, string> */
   private array     $routes    = [];
   private Container $container;
 

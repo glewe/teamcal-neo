@@ -32,8 +32,8 @@ class UserOptionModel
   /**
    * Constructor.
    *
-   * @param PDO|null   $db   Database connection object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database connection object
+   * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db !== null && $conf !== null) {
@@ -287,8 +287,8 @@ class UserOptionModel
   /**
    * Save multiple user options in a batch.
    *
-   * @param string $username Username to find
-   * @param array  $options  Associative array of option=>value pairs
+   * @param string               $username Username to find
+   * @param array<string, string> $options  Associative array of option=>value pairs
    *
    * @return bool Query result
    */

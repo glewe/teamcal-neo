@@ -23,7 +23,10 @@ class AvatarModel
   private const DEFAULT_FEMALE = 'default_female.png';
   private const IS_PREFIX      = 'is_';
 
+  /** @var string[] */
   public array  $allowedTypes  = [];
+
+  /** @var array<int, string> */
   public array  $error         = [];
   public string $fileExtension = '';
   public string $fileName      = '';
@@ -38,8 +41,8 @@ class AvatarModel
   /**
    * Constructor.
    *
-   * @param array      $LANG Language array
-   * @param array|null $conf Configuration array
+   * @param array<string, string>      $LANG Language array
+   * @param array<string, mixed>|null $conf Configuration array
    */
   public function __construct(array $LANG, ?array $conf = null) {
     if ($conf === null) {

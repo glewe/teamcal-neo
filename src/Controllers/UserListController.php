@@ -204,11 +204,12 @@ class UserListController extends BaseController
   /**
    * Activates selected users.
    *
-   * @param bool   $showAlert Reference to show alert flag
-   * @param array  $alertData Reference to alert data array
+   * @param bool                 $showAlert  Reference to show alert flag
+   * @param array<string, mixed> $alertData  Reference to alert data array
+   *
    * @return void
    */
-  private function handleActivate(&$showAlert, &$alertData) {
+  private function handleActivate(bool &$showAlert, array &$alertData): void {
     $selected_users = $_POST['chk_userActive'] ?? [];
     foreach ($selected_users as $su => $value) {
       $this->U->activate($value);
@@ -225,11 +226,12 @@ class UserListController extends BaseController
   /**
    * Archives selected users.
    *
-   * @param bool   $showAlert Reference to show alert flag
-   * @param array  $alertData Reference to alert data array
+   * @param bool                 $showAlert  Reference to show alert flag
+   * @param array<string, mixed> $alertData  Reference to alert data array
+   *
    * @return void
    */
-  private function handleArchive(&$showAlert, &$alertData) {
+  private function handleArchive(bool &$showAlert, array &$alertData): void {
     $selected_users = $_POST['chk_userActive'] ?? [];
     $exists         = false;
     foreach ($selected_users as $su => $value) {
@@ -257,11 +259,12 @@ class UserListController extends BaseController
   /**
    * Restores selected users from archive.
    *
-   * @param bool   $showAlert Reference to show alert flag
-   * @param array  $alertData Reference to alert data array
+   * @param bool                 $showAlert  Reference to show alert flag
+   * @param array<string, mixed> $alertData  Reference to alert data array
+   *
    * @return void
    */
-  private function handleRestore(&$showAlert, &$alertData) {
+  private function handleRestore(bool &$showAlert, array &$alertData): void {
     $selected_users = $_POST['chk_userArchived'] ?? [];
     $exists         = false;
     foreach ($selected_users as $su => $value) {
@@ -289,12 +292,12 @@ class UserListController extends BaseController
   /**
    * Deletes selected users.
    *
-   * @param bool  $showAlert Reference to show alert flag
-   * @param array $alertData Reference to alert data array
+   * @param bool                 $showAlert  Reference to show alert flag
+   * @param array<string, mixed> $alertData  Reference to alert data array
    *
    * @return void
    */
-  private function handleDelete(&$showAlert, &$alertData) {
+  private function handleDelete(bool &$showAlert, array &$alertData): void {
     $selected_users = $_POST['chk_userActive'] ?? [];
     foreach ($selected_users as $su => $value) {
       $this->UserService->deleteUser($value, false, (bool) ($this->allConfig['emailNotifications'] ?? false), (string) $this->UL->username);
@@ -311,11 +314,12 @@ class UserListController extends BaseController
   /**
    * Deletes selected archived users.
    *
-   * @param bool   $showAlert Reference to show alert flag
-   * @param array  $alertData Reference to alert data array
+   * @param bool                 $showAlert  Reference to show alert flag
+   * @param array<string, mixed> $alertData  Reference to alert data array
+   *
    * @return void
    */
-  private function handleDeleteArchived(&$showAlert, &$alertData) {
+  private function handleDeleteArchived(bool &$showAlert, array &$alertData): void {
     $selected_users = $_POST['chk_userArchived'] ?? [];
     foreach ($selected_users as $su => $value) {
       $this->UserService->deleteUser($value, true, false, (string) $this->UL->username);
@@ -332,11 +336,12 @@ class UserListController extends BaseController
   /**
    * Resets password for selected users.
    *
-   * @param bool   $showAlert Reference to show alert flag
-   * @param array  $alertData Reference to alert data array
+   * @param bool                 $showAlert  Reference to show alert flag
+   * @param array<string, mixed> $alertData  Reference to alert data array
+   *
    * @return void
    */
-  private function handleResetPassword(&$showAlert, &$alertData) {
+  private function handleResetPassword(bool &$showAlert, array &$alertData): void {
     $selected_users = $_POST['chk_userActive'] ?? [];
     foreach ($selected_users as $su => $value) {
       $this->U->findByName($value);
@@ -359,11 +364,12 @@ class UserListController extends BaseController
   /**
    * Removes 2FA secret for selected users.
    *
-   * @param bool   $showAlert Reference to show alert flag
-   * @param array  $alertData Reference to alert data array
+   * @param bool                 $showAlert  Reference to show alert flag
+   * @param array<string, mixed> $alertData  Reference to alert data array
+   *
    * @return void
    */
-  private function handleRemoveSecret(&$showAlert, &$alertData) {
+  private function handleRemoveSecret(bool &$showAlert, array &$alertData): void {
     $selected_users = $_POST['chk_userActive'] ?? [];
     foreach ($selected_users as $su => $value) {
       $this->U->findByName($value);
@@ -382,14 +388,15 @@ class UserListController extends BaseController
   /**
    * Preloads user options (avatar, secret) for a list of users.
    *
-   * @param array  $users     Array of users
-   * @param array  $viewData  Reference to view data array
-   * @param string $avatarKey Key for avatar data in viewData
-   * @param string $secretKey Key for secret data in viewData
-   * @param bool   $isArchive Whether querying archived tables
+   * @param array<int, array<string, mixed>> $users     Array of users
+   * @param array<string, mixed>             $viewData  Reference to view data array
+   * @param string                           $avatarKey Key for avatar data in viewData
+   * @param string                           $secretKey Key for secret data in viewData
+   * @param bool                             $isArchive Whether querying archived tables
+   *
    * @return void
    */
-  private function preloadOptions($users, &$viewData, $avatarKey, $secretKey, $isArchive) {
+  private function preloadOptions(array $users, array &$viewData, string $avatarKey, string $secretKey, bool $isArchive): void {
     $usernames = array_column($users, 'username');
     $avatars   = ['default' => 'default_male.png'];
     $secrets   = [];

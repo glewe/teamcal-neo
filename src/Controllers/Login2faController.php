@@ -18,6 +18,7 @@ use RobThree\Auth\TwoFactorAuth;
  */
 class Login2faController extends BaseController
 {
+  /** @var array<string, mixed> */
   private array $viewData = [];
 
   //---------------------------------------------------------------------------

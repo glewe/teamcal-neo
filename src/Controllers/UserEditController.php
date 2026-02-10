@@ -399,15 +399,16 @@ class UserEditController extends BaseController
   /**
    * Updates user profile.
    *
-   * @param UserModel $UP        User Model
-   * @param string    $profile   Profile username
-   * @param array     $absences  Absences array
-   * @param array     $events    Events array
-   * @param bool      $showAlert Reference to show alert flag
-   * @param array     $alertData Reference to alert data array
+   * @param \App\Models\UserModel $UP        User Model
+   * @param string                 $profile   Profile username
+   * @param array<int, array<string, mixed>> $absences Absences array
+   * @param string[]               $events    Events array
+   * @param bool                   $showAlert  Reference to show alert flag
+   * @param array<string, mixed>   $alertData  Reference to alert data array
+   *
    * @return void
    */
-  private function handleUpdate($UP, $profile, $absences, $events, &$showAlert, &$alertData) {
+  private function handleUpdate(\App\Models\UserModel $UP, string $profile, array $absences, array $events, bool &$showAlert, array &$alertData): void {
     $reloadPage     = false;
     $newUserOptions = [];
 
@@ -595,12 +596,13 @@ class UserEditController extends BaseController
   /**
    * Archives a user.
    *
-   * @param string $profile   Profile username
-   * @param bool   $showAlert Reference to show alert flag
-   * @param array  $alertData Reference to alert data array
+   * @param string                 $profile   Profile username
+   * @param bool                   $showAlert  Reference to show alert flag
+   * @param array<string, mixed>   $alertData  Reference to alert data array
+   *
    * @return void
    */
-  private function handleArchive($profile, &$showAlert, &$alertData) {
+  private function handleArchive(string $profile, bool &$showAlert, array &$alertData): void {
     $exists = false;
     if (!$this->UserService->archiveUser($profile, (string) $this->UL->username)) {
       $exists = true;
@@ -629,12 +631,13 @@ class UserEditController extends BaseController
   /**
    * Deletes a user.
    *
-   * @param string $profile   Profile username
-   * @param bool   $showAlert Reference to show alert flag
-   * @param array  $alertData Reference to alert data array
+   * @param string                 $profile   Profile username
+   * @param bool                   $showAlert  Reference to show alert flag
+   * @param array<string, mixed>   $alertData  Reference to alert data array
+   *
    * @return void
    */
-  private function handleDelete($profile, &$showAlert, &$alertData) {
+  private function handleDelete(string $profile, bool &$showAlert, array &$alertData): void {
     $this->UserService->deleteUser($profile, false, (bool) ($this->allConfig['emailNotifications'] ?? false), (string) $this->UL->username);
     $showAlert            = true;
     $alertData['type']    = 'success';
@@ -650,13 +653,14 @@ class UserEditController extends BaseController
   /**
    * Uploads user avatar.
    *
-   * @param string    $profile   Profile username
-   * @param UserModel $UP        User Model
-   * @param bool      $showAlert Reference to show alert flag
-   * @param array     $alertData Reference to alert data array
+   * @param string                 $profile   Profile username
+   * @param \App\Models\UserModel $UP        User Model
+   * @param bool                   $showAlert  Reference to show alert flag
+   * @param array<string, mixed>   $alertData  Reference to alert data array
+   *
    * @return void
    */
-  private function handleUpload($profile, $UP, &$showAlert, &$alertData) {
+  private function handleUpload(string $profile, \App\Models\UserModel $UP, bool &$showAlert, array &$alertData): void {
     $UPL                    = new UploadModel();
     $UPL->upload_dir        = APP_AVATAR_DIR;
     $UPL->extensions        = $this->CONF['avatarExtensions'];
@@ -689,12 +693,12 @@ class UserEditController extends BaseController
   /**
    * Resets user avatar.
    *
-   * @param string    $profile Profile username
-   * @param UserModel $UP      User Model
+   * @param string                 $profile Profile username
+   * @param \App\Models\UserModel $UP      User Model
    *
    * @return void
    */
-  private function handleReset($profile, $UP) {
+  private function handleReset(string $profile, \App\Models\UserModel $UP): void {
     $this->AV->delete($profile, $this->UO->read($profile, 'avatar'));
     $this->UO->save($profile, 'avatar', 'default_' . $this->UO->read($profile, 'gender') . '.png');
     $this->LOG->logEvent("logUser", $this->UL->username, "log_user_updated", $UP->username);

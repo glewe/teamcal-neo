@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Core;
 
 /**
@@ -16,13 +18,13 @@ namespace App\Core;
  */
 class Controller
 {
-  public $name       = '';
-  public $faIcon     = 'folder-o';
-  public $iconColor  = 'default';
-  public $panelColor = 'default';
-  public $permission = '';
-  public $title      = '';
-  public $docurl     = '';
+  public string $name       = '';
+  public string $faIcon     = 'folder-o';
+  public string $iconColor  = 'default';
+  public string $panelColor = 'default';
+  public string $permission = '';
+  public string $title      = '';
+  public string $docurl     = '';
 
   //---------------------------------------------------------------------------
   /**

@@ -26,10 +26,10 @@ class AttachmentModel
   /**
    * Constructor.
    *
-   * @param \PDO|null  $db   Database connection object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database connection object
+   * @param array<string, string>|null $conf Configuration array
    */
-  public function __construct(?\PDO $db = null, ?array $conf = null) {
+  public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db !== null && $conf !== null) {
       $this->db    = $db;
       $this->table = $conf['db_table_attachments'];
@@ -122,7 +122,7 @@ class AttachmentModel
   /**
    * Reads all records into an array.
    *
-   * @return array Array with records
+   * @return array<int, array<string, mixed>> Array with records
    */
   public function getAll(): array {
     $records = [];

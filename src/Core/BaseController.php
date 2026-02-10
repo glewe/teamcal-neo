@@ -69,17 +69,17 @@ use App\Services\UserService;
  * @property AbsenceService $AbsenceService
  * @property UserService $UserService
  *
- * @property array $alertData
- * @property array $allConfig
- * @property array $appJqueryUIThemes
- * @property array $appLanguages
- * @property array $bsColors
- * @property array $CONF
- * @property array $faIcons
- * @property array $htmlData
- * @property array $LANG
- * @property array $logLanguages
- * @property array $timezones
+ * @property array<string, mixed>  $alertData
+ * @property array<string, mixed>  $allConfig
+ * @property string[]              $appJqueryUIThemes
+ * @property array<string, string> $appLanguages
+ * @property string[]              $bsColors
+ * @property array<string, mixed>  $CONF
+ * @property array<string, string> $faIcons
+ * @property array<string, mixed>  $htmlData
+ * @property array<string, string> $LANG
+ * @property array<string, string> $logLanguages
+ * @property string[]              $timezones
  */
 abstract class BaseController
 {
@@ -88,13 +88,15 @@ abstract class BaseController
 
   /**
    * Cached instances of lazy-loaded properties
-   * @var array
+   *
+   * @var array<string, mixed>
    */
   protected array $_instances = [];
 
   /**
    * Map of property names to Container keys
-   * @var array
+   *
+   * @var array<string, string>
    */
   private const DEPENDENCY_MAP = [
     'AbsenceService'    => 'AbsenceService',
@@ -224,8 +226,8 @@ abstract class BaseController
   /**
    * Renders a view file.
    *
-   * @param string $view Name of the view file (without extension)
-   * @param array  $data Associative array of data to pass to the view
+   * @param string               $view Name of the view file (without extension)
+   * @param array<string, mixed> $data Associative array of data to pass to the view
    *
    * @return void
    */

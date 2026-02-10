@@ -20,22 +20,23 @@ use App\Core\Cache;
  */
 class ConfigModel
 {
-  public $id    = null;
-  public $name  = '';
-  public $value = '';
+  public ?int   $id    = null;
+  public string $name  = '';
+  public string $value = '';
 
+  /** @var array<string, mixed> */
   private        $conf  = [];
-  private        $db    = null;
-  private        $table = '';
+  private PDO    $db;
+  private string $table = '';
   private ?Cache $cache = null;
 
   //---------------------------------------------------------------------------
   /**
    * Constructor.
    *
-   * @param array      $conf  Configuration array
-   * @param object     $db    Database object
-   * @param Cache|null $cache Cache instance
+   * @param array<string, string> $conf  Configuration array
+   * @param object                $db    Database object
+   * @param Cache|null            $cache Cache instance
    */
   public function __construct(array $conf, object $db, ?Cache $cache = null) {
     $this->conf  = $conf;
@@ -89,7 +90,7 @@ class ConfigModel
   /**
    * Read all config values into an associative array.
    *
-   * @return array $config Associative array of all config name=>value pairs
+   * @return array<string, mixed> $config Associative array of all config name=>value pairs
    */
   public function readAll(): array {
     return $this->conf;
@@ -99,12 +100,12 @@ class ConfigModel
   /**
    * Save a value.
    *
-   * @param string $name  Name of the option
-   * @param string $value Value to save
+   * @param string             $name  Name of the option
+   * @param string|int|float|bool|null $value Value to save
    *
    * @return bool $result Query result or false
    */
-  public function save(string $name, string $value): bool {
+  public function save(string $name, string|int|float|bool|null $value): bool {
     $query = $this->db->prepare("SELECT COUNT(*) FROM " . $this->table . " WHERE `name` = :name");
     $query->bindParam(':name', $name);
     $query->execute();
@@ -128,7 +129,7 @@ class ConfigModel
   /**
    * Save multiple values in a batch.
    *
-   * @param array $configs Associative array of name=>value pairs
+   * @param array<string, string|int|float|bool|null> $configs Associative array of name=>value pairs
    *
    * @return bool $result Query result or false
    */

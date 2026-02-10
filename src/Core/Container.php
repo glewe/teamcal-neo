@@ -19,7 +19,9 @@ use App\Exceptions\ContainerException;
  */
 class Container
 {
+  /** @var array<string, callable> */
   private array $services  = [];
+  /** @var array<string, mixed> */
   private array $instances = [];
 
   //---------------------------------------------------------------------------

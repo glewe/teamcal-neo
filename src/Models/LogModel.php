@@ -34,9 +34,9 @@ class LogModel
   /**
    * Constructor.
    *
-   * @param PDO|null         $db
-   * @param array|null       $conf
-   * @param ConfigModel|null $configObj
+   * @param PDO|null             $db
+   * @param array<string, string>|null $conf
+   * @param ConfigModel|null     $configObj
    */
   public function __construct(?PDO $db = null, ?array $conf = null, ?ConfigModel $configObj = null) {
     global $C, $CONF, $DB;
@@ -84,7 +84,7 @@ class LogModel
    * @param string $logsearchuser  User to search for
    * @param string $logsearchevent Event to search for
    *
-   * @return array Array of records
+   * @return array<int, array<string, mixed>> Array of records
    */
   public function read(string $sort = 'DESC', string $from = '', string $to = '', string $logtype = '%', string $logsearchuser = '%', string $logsearchevent = '%'): array {
     $records = array();
@@ -191,12 +191,12 @@ class LogModel
   /**
    * Gets event statistics grouped by date or hour and type.
    *
-   * @param string $from        ISO formatted start date
-   * @param string $to          ISO formatted end date
-   * @param array  $typeArray   Array of event types to include (e.g., ['Login', 'User'])
-   * @param string $granularity 'day' or 'hour'
+   * @param string   $from        ISO formatted start date
+   * @param string   $to          ISO formatted end date
+   * @param string[] $typeArray   Array of event types to include (e.g., ['Login', 'User'])
+   * @param string   $granularity 'day' or 'hour'
    *
-   * @return array Array of statistics with date/hour and counts per type
+   * @return array<int, array<string, mixed>> Array of statistics with date/hour and counts per type
    */
   public function getStatistics(string $from = '', string $to = '', array $typeArray = [], string $granularity = 'day'): array {
     $stats = [];

@@ -33,8 +33,8 @@ class UserGroupModel
   /**
    * Constructor.
    *
-   * @param PDO|null   $db   Database connection object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database connection object
+   * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db !== null && $conf !== null) {
@@ -241,12 +241,10 @@ class UserGroupModel
 
   //---------------------------------------------------------------------------
   /**
-   * Gets all records of a given group (managers and members).
-   *
    * @param string $groupid Group ID to search by
    * @param string $sort    Sort order (ASC or DESC)
    *
-   * @return array Array with all group records
+   * @return array<int, array<string, mixed>> Array with all group records
    */
   public function getAllforGroup(string $groupid, string $sort = 'ASC'): array {
     $records = [];
@@ -268,7 +266,7 @@ class UserGroupModel
    *
    * @param string $groupid Group ID to search by
    *
-   * @return array Array with all group records
+   * @return string[] Array with all group records
    */
   public function getAllManagerUsernames(string $groupid): array {
     $records = [];
@@ -289,7 +287,7 @@ class UserGroupModel
    *
    * @param string $groupid Group ID to search by
    *
-   * @return array Array with all group records
+   * @return string[] Array with all group records
    */
   public function getAllMemberUsernames(string $groupid): array {
     $records = [];
@@ -310,7 +308,7 @@ class UserGroupModel
    *
    * @param string $username Username
    *
-   * @return array Array with all group records
+   * @return array<int, array<string, mixed>> Array with all group records
    */
   public function getAllManagedGroupsForUser(string $username): array {
     $records = [];
@@ -334,7 +332,7 @@ class UserGroupModel
    * @param string $groupid Group ID to search by
    * @param string $sort    Sort order
    *
-   * @return array Array with all group records
+   * @return array<int, array<string, mixed>> Array with all group records
    */
   public function getAllforGroupPlusGuests(string $groupid, string $sort = 'ASC'): array {
     $records = [];
@@ -356,7 +354,7 @@ class UserGroupModel
    *
    * @param string $username Username to find
    *
-   * @return array Array with all records
+   * @return array<int, array<string, mixed>> Array with all records
    */
   public function getAllforUser(string $username): array {
     $records = [];
@@ -378,7 +376,7 @@ class UserGroupModel
    *
    * @param string $username Username to find
    *
-   * @return array Array with all records
+   * @return array<string, string> Array with all records
    */
   public function getAllforUser2(string $username): array {
     $records = [];
@@ -438,7 +436,7 @@ class UserGroupModel
    *
    * @param string $groupid Group ID to check
    *
-   * @return array Array with usernames of group managers
+   * @return string[] Array with usernames of group managers
    */
   public function getGroupManagers(string $groupid): array {
     $records = [];
@@ -461,7 +459,7 @@ class UserGroupModel
    *
    * @param string $username Username to check
    *
-   * @return array Array with usernames of group managers
+   * @return string[] Array with usernames of group managers
    */
   public function getGuestships(string $username): array {
     $records = [];
@@ -484,7 +482,7 @@ class UserGroupModel
    *
    * @param string $username Username to check
    *
-   * @return array Array with usernames of group managers
+   * @return string[] Array with usernames of group managers
    */
   public function getManagerships(string $username): array {
     $records = [];
@@ -507,7 +505,7 @@ class UserGroupModel
    *
    * @param string $username Username to check
    *
-   * @return array Array with usernames of group managers
+   * @return string[] Array with usernames of group managers
    */
   public function getMemberships(string $username): array {
     $records = [];

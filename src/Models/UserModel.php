@@ -47,8 +47,8 @@ class UserModel
   /**
    * Constructor.
    *
-   * @param PDO|null   $db   Database connection object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database connection object
+   * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db && $conf) {
@@ -321,7 +321,7 @@ class UserModel
    * @param bool   $archive      Whether to use archive table
    * @param bool   $includeAdmin Whether to include admin account or not
    *
-   * @return array Array with records
+   * @return array<int, array<string, mixed>> Array with records
    */
   public function getAll(string $order1 = 'lastname', string $order2 = 'firstname', string $sort = 'ASC', bool $archive = false, bool $includeAdmin = false): array {
     $allowedCols = ['username', 'password', 'firstname', 'lastname', 'email', 'order_key', 'role', 'locked', 'hidden', 'onhold', 'verify', 'bad_logins', 'grace_start', 'last_pw_change', 'last_login', 'created'];
@@ -375,7 +375,7 @@ class UserModel
    *
    * @param string $email Email to find
    *
-   * @return array|false Array with records
+   * @return array<int, array<string, mixed>>|false Array with records
    */
   public function getAllForEmail(string $email): array|false {
     $records = array();
@@ -397,7 +397,7 @@ class UserModel
    *
    * @param string $role Role ID
    *
-   * @return array|false
+   * @return array<int, array<string, mixed>>|false
    */
   public function getAllForRole(string $role): array|false {
     $records = array();
@@ -423,7 +423,7 @@ class UserModel
    * @param bool   $archive      Whether to use archive table
    * @param bool   $includeAdmin Whether to include admin account or not
    *
-   * @return array Array with records
+   * @return array<int, array<string, mixed>> Array with records
    */
   public function getAllButHidden(string $order1 = 'lastname', string $order2 = 'firstname', string $sort = 'ASC', bool $archive = false, bool $includeAdmin = false): array {
     if ($this->useOrderKey()) {
@@ -465,7 +465,7 @@ class UserModel
    * @param string $like    Likeness to search for
    * @param bool   $archive Whether to search in archive table
    *
-   * @return array Array with records
+   * @return array<int, array<string, mixed>> Array with records
    */
   public function getAllLike(string $like, bool $archive = false): array {
     $table      = $archive ? $this->archive_table : $this->table;
@@ -494,7 +494,7 @@ class UserModel
    * @param string $uname   Username to search for
    * @param bool   $archive Whether to use archive table
    *
-   * @return array Array with records
+   * @return array<int, array<string, mixed>> Array with records
    */
   public function getByUsername(string $uname, bool $archive = false): array {
     $records = array();
@@ -621,7 +621,7 @@ class UserModel
   /**
    * Gets all usernames.
    *
-   * @return array Array with usernames
+   * @return string[] Array with usernames
    */
   public function getUsernames(): array {
     $records = array();

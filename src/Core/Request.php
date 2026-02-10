@@ -17,8 +17,11 @@ namespace App\Core;
  */
 class Request
 {
+  /** @var array<string, mixed> */
   private array $get;
+  /** @var array<string, mixed> */
   private array $post;
+  /** @var array<string, mixed> */
   private array $request;
 
   //---------------------------------------------------------------------------

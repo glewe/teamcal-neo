@@ -26,8 +26,8 @@ class PermissionModel
   /**
    * Constructor.
    *
-   * @param PDO|null   $db   Database object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database object
+   * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db && $conf) {
@@ -84,7 +84,7 @@ class PermissionModel
   /**
    * Set multiple permissions in a single batch operation.
    *
-   * @param array $batchData Array of permission records to set
+   * @param array<int, array<string, mixed>> $batchData Array of permission records to set
    *
    * @return bool Query result
    */
@@ -119,7 +119,7 @@ class PermissionModel
    *
    * @param string $scheme The name of the permission scheme.
    *
-   * @return array An array of permissions associated with the given scheme.
+   * @return array<int, array<string, string>> An array of permissions associated with the given scheme.
    */
   public function getPermissions(string $scheme): array {
     $records = [];
@@ -143,7 +143,7 @@ class PermissionModel
   /**
    * Read all unique scheme names.
    *
-   * @return array Array of scheme names
+   * @return string[] Array of scheme names
    */
   public function getSchemes(): array {
     $records = [];

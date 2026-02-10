@@ -77,11 +77,11 @@ function cleanInput(string $input): string {
 /**
  * Computes several date related information for a given date.
  *
- * @param string $year 4 digit number of the year (example: 2014)
+ * @param string $year  4 digit number of the year (example: 2014)
  * @param string $month 2 digit number of the month (example: 11)
- * @param string $day 1 or 2 digit number of the day (example: 1, 19)
+ * @param string $day   1 or 2 digit number of the day (example: 1, 19)
  *
- * @return array $dateInfo Full dates are returned in ISO 8601 format, e.g. 2014-03-03
+ * @return array<string, mixed> $dateInfo Full dates are returned in ISO 8601 format, e.g. 2014-03-03
  */
 function dateInfo(string $year, string $month, string $day = '1'): array {
   global $LANG;
@@ -347,11 +347,11 @@ function formInputValid(string $field, string $ruleset, string $param = ''): boo
 /**
  * Generates a cryptographically secure password.
  *
- * @param int $length Desired password length (minimum 4, maximum 128)
- * @param array $options Optional configuration for password generation
- *                      - 'exclude_ambiguous' => bool (default: true) - exclude similar looking characters
- *                      - 'require_mixed' => bool (default: true) - ensure at least one from each character type
- *                      - 'custom_chars' => string - use custom character set (overrides other options)
+ * @param int                  $length  Desired password length (minimum 4, maximum 128)
+ * @param array<string, mixed> $options Optional configuration for password generation
+ *                                     - 'exclude_ambiguous' => bool (default: true) - exclude similar looking characters
+ *                                     - 'require_mixed' => bool (default: true) - ensure at least one from each character type
+ *                                     - 'custom_chars' => string - use custom character set (overrides other options)
  *
  * @return string Cryptographically secure password
  * @throws InvalidArgumentException If length is invalid or secure random bytes cannot be generated
@@ -449,11 +449,11 @@ function generatePassword(int $length = 9, array $options = []): string {
  *
  * Optionally you can specify an array of extension to look for.
  *
- * @param string $myDir Directory name to scan
- * @param array $myExt Array of extensions to scan for
- * @param string $myPrefix An optional prefix of the filename
+ * @param string   $myDir    Directory name to scan
+ * @param string[] $myExt    Array of extensions to scan for
+ * @param string   $myPrefix An optional prefix of the filename
  *
- * @return array Array containing the names of the files
+ * @return string[] Array containing the names of the files
  */
 function getFiles(string $myDir, array $myExt = [], string $myPrefix = ''): array {
   // Normalize directory path - support both forward and backward slashes
@@ -574,7 +574,7 @@ function getFilePrefix(string $str): string {
  *
  * @param string $myDir String containing the pathname
  *
- * @return array Array containing the folder names
+ * @return string[] Array containing the folder names
  */
 function getFolders(string $myDir): array {
   // Normalize directory path - support both forward and backward slashes
@@ -641,7 +641,7 @@ function getISOToday(bool $useCache = true): string {
  *
  * @param string $type Look for application ('app') or log ('log') languages
  *
- * @return array Array containing the language names (not filenames)
+ * @return string[] Array containing the language names (not filenames)
  */
 function getLanguages(string $type = 'app'): array {
   // Static cache for performance
@@ -831,12 +831,12 @@ function isValidDate(string $date): bool {
  * without security-based extension filtering. Uses caching for better performance
  * on repeated validations.
  *
- * @param string $file The filename to validate (must include extension)
- * @param array $options Optional configuration:
- *                      - 'max_length' => int (default: 255) - Maximum filename length
- *                      - 'allow_spaces' => bool (default: false) - Allow spaces in filename
- *                      - 'allow_dots' => bool (default: true) - Allow dots in filename part
- *                      - 'require_extension' => bool (default: true) - Require file extension
+ * @param string               $file    The filename to validate (must include extension)
+ * @param array<string, mixed> $options Optional configuration:
+ *                                     - 'max_length' => int (default: 255) - Maximum filename length
+ *                                     - 'allow_spaces' => bool (default: false) - Allow spaces in filename
+ *                                     - 'allow_dots' => bool (default: true) - Allow dots in filename part
+ *                                     - 'require_extension' => bool (default: true) - Require file extension
  *
  * @return bool Returns true if the filename format is valid, false otherwise
  *
@@ -994,9 +994,9 @@ function loginInfo(): string {
  * - Type preservation for arrays vs strings
  * - Enhanced error handling and input validation
  *
- * @param string|array $input Data to sanitize (string or array)
+ * @param string|array<mixed> $input Data to sanitize (string or array)
  *
- * @return string|array Sanitized data with same type as input
+ * @return string|array<mixed> Sanitized data with same type as input
  *
  * @since 1.0.0
  * @security This function provides protection against XSS attacks
@@ -1025,11 +1025,11 @@ function sanitize(string|array $input): string|array {
 /**
  * Internal helper function to sanitize arrays recursively.
  *
- * @param array $input Array to sanitize
- * @param int $depth Current recursion depth (prevents infinite recursion)
- * @param int $maxDepth Maximum allowed recursion depth
+ * @param array<mixed> $input    Array to sanitize
+ * @param int          $depth    Current recursion depth (prevents infinite recursion)
+ * @param int          $maxDepth Maximum allowed recursion depth
  *
- * @return array Sanitized array
+ * @return array<mixed> Sanitized array
  */
 function sanitizeArray(array $input, int $depth = 0, int $maxDepth = 10): array {
   // Prevent infinite recursion and potential DoS attacks
@@ -1110,9 +1110,9 @@ function sanitizeString(string $input): string {
  * It is configured to allow a standard set of block and inline elements suitable
  * for rich text content (CKEditor).
  *
- * @param string $input The string to sanitize
- * @param array|null $customTags Optional array of allowed tags (default: standard set)
- * @param bool $allowAttributes Whether to allow safe attributes (default: true)
+ * @param string        $input           The string to sanitize
+ * @param string[]|null $customTags      Optional array of allowed tags (default: standard set)
+ * @param bool          $allowAttributes Whether to allow safe attributes (default: true)
  *
  * @return string Sanitized string
  *

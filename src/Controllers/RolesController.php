@@ -19,6 +19,7 @@ use DateTime;
  */
 class RolesController extends BaseController
 {
+  /** @var array<string, mixed> */
   private array $viewData = [];
 
   //---------------------------------------------------------------------------

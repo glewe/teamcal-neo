@@ -30,14 +30,15 @@ class RegionModel
   private PDO    $db;
   private string $accessTable = '';
   private string $table       = '';
+  /** @var array<string|int, string> */
   private array  $nameCache   = [];
 
   //---------------------------------------------------------------------------
   /**
    * Constructor.
    *
-   * @param PDO|null   $db   Database object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database object
+   * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db !== null && $conf !== null) {
@@ -129,7 +130,7 @@ class RegionModel
   /**
    * Reads all region records into an array.
    *
-   * @return array Array with records
+   * @return array<int, array<string, mixed>> Array with records
    */
   public function getAll(): array {
     $records = [];
@@ -149,7 +150,7 @@ class RegionModel
    *
    * @param string $like Likeness to search for
    *
-   * @return array Array with records
+   * @return array<int, array<string, mixed>> Array with records
    */
   public function getAllLike(string $like): array {
     $records   = [];
@@ -170,7 +171,7 @@ class RegionModel
   /**
    * Reads all region names into an array.
    *
-   * @return array Array with all region names
+   * @return string[] Array with all region names
    */
   public function getAllNames(): array {
     $records = [];

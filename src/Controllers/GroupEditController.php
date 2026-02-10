@@ -252,14 +252,14 @@ class GroupEditController extends BaseController
 
   //---------------------------------------------------------------------------
   /**
-   * Uploads group avatar.
+   * @param \App\Models\GroupModel $GG        Group Model
+   * @param bool                   $showAlert Reference to show alert flag
+   * @param array<string, mixed>   $alertData Reference to alert data array
+   * @param bool                   $redirect  Whether to redirect after upload
    *
-   * @param GroupModel $GG        Group Model
-   * @param bool       $showAlert Reference to show alert flag
-   * @param array      $alertData Reference to alert data array
    * @return bool
    */
-  private function handleUpload($GG, &$showAlert, &$alertData, $redirect = true) {
+  private function handleUpload(\App\Models\GroupModel $GG, bool &$showAlert, array &$alertData, bool $redirect = true): bool {
     $UPL                    = new UploadModel();
     $UPL->upload_dir        = APP_AVATAR_DIR;
     $UPL->extensions        = $this->CONF['avatarExtensions'];
@@ -300,14 +300,13 @@ class GroupEditController extends BaseController
 
   //---------------------------------------------------------------------------
   /**
-   * Resets group avatar.
+   * @param \App\Models\GroupModel $GG        Group Model
+   * @param bool                   $showAlert Reference to show alert flag
+   * @param array<string, mixed>   $alertData Reference to alert data array
    *
-   * @param GroupModel $GG        Group Model
-   * @param bool       $showAlert Reference to show alert flag
-   * @param array      $alertData Reference to alert data array
    * @return void
    */
-  private function handleReset($GG, &$showAlert, &$alertData) {
+  private function handleReset(\App\Models\GroupModel $GG, bool &$showAlert, array &$alertData): void {
     // Delete old avatar if it's not default (optional, but good cleanup)
     if ($GG->avatar && strpos($GG->avatar, 'default_') === false && file_exists(APP_AVATAR_DIR . $GG->avatar)) {
       unlink(APP_AVATAR_DIR . $GG->avatar);

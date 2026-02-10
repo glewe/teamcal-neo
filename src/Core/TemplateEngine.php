@@ -21,8 +21,8 @@ class TemplateEngine
   /**
    * Constructor.
    *
-   * @param string $viewPath Path to the views directory
-   * @param array  $options  Twig environment options (cache, debug, etc.)
+   * @param string               $viewPath Path to the views directory
+   * @param array<string, mixed> $options  Twig environment options (cache, debug, etc.)
    */
   public function __construct(string $viewPath, array $options = []) {
     $loader     = new FilesystemLoader($viewPath);
@@ -63,8 +63,8 @@ class TemplateEngine
   /**
    * Render a template.
    *
-   * @param string $template Template name (e.g., 'login.twig')
-   * @param array  $data     Data to pass to the template
+   * @param string               $template Template name (e.g., 'login.twig')
+   * @param array<string, mixed> $data     Data to pass to the template
    *
    * @return string Rendered HTML
    */

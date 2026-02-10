@@ -17,7 +17,7 @@ if (!defined('VALID_ROOT')) {
 /**
  * Creates an alert box with the specified data and optionally includes a script to auto-close the alert.
  *
- * @param array $data An associative array containing the alert data:
+ * @param array<string, string> $data An associative array containing the alert data:
  *  - 'type': The type of alert (e.g., 'danger', 'success', 'warning').
  *  - 'title': The title of the alert.
  *  - 'subject': The subject of the alert.
@@ -91,7 +91,7 @@ function createFaIconListbox(string $tabIndex = "-1", string $selected = ""): st
 /**
  * Creates a form group with various input types based on the provided data.
  *
- * @param array $data An associative array containing the form group data:
+ * @param array<string, mixed> $data An associative array containing the form group data:
  *  - 'prefix': The prefix for the form group.
  *  - 'name': The name of the form group.
  *  - 'type': The type of the form group (e.g., 'check', 'color', 'coloris', 'colorselect', 'date', 'info', 'list', 'password', 'radio', 'text', 'textarea', 'summernote').
@@ -664,7 +664,7 @@ function createModalBottom(string $buttonID = '', string $buttonColor = '', stri
 /**
  * Creates the tabs for the top of dialog pages.
  *
- * @param array $tabs Array of tab details
+ * @param array<int, array<string, mixed>> $tabs Array of tab details
  *
  * @return string Html
  */
@@ -743,7 +743,7 @@ function createPatternTable(string $patternId): string {
 /**
  * Creates the Bootstrap toast.
  *
- * @param array $data Array of toast details
+ * @param array<string, string> $data Array of toast details
  *
  * @return string Html
  */
@@ -800,8 +800,10 @@ function createIconTooltip(string $text, string $position = 'top', string $title
 /**
  * Splits the global $faIcons array into categorized arrays for brands, regular, and solid icons.
  *
- * @param string $selectedIcon The icon that should be marked as selected (optional).
- * @return array Associative array with keys 'fabIcons', 'farIcons', 'fasIcons'.
+ * @param string   $selectedIcon The icon that should be marked as selected (optional).
+ * @param string[] $icons        Optional list of icons.
+ *
+ * @return array<string, array<int, array{val: string, name: string, selected: bool}>> Associative array with keys 'fabIcons', 'farIcons', 'fasIcons'.
  */
 function splitFaIcons(string $selectedIcon = '', array $icons = []): array {
   if (empty($icons)) {
@@ -846,8 +848,10 @@ function nextTabindex(): int {
 //-----------------------------------------------------------------------------
 /**
  * Resets the tabindex value for form elements.
+ *
+ * @return void
  */
-function resetTabindex() {
+function resetTabindex(): void {
   static $tabindex = 0;
   $tabindex = 0;
 }

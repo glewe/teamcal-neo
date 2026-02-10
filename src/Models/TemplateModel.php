@@ -63,8 +63,8 @@ class TemplateModel
   /**
    * Constructor.
    *
-   * @param PDO|null   $db   Database object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database object
+   * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db !== null && $conf !== null) {

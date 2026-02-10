@@ -35,8 +35,8 @@ class HolidayModel
   /**
    * Constructor.
    *
-   * @param PDO|null $db Database object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database object
+   * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db && $conf) {
@@ -157,7 +157,7 @@ class HolidayModel
    *
    * @param string $sort What to sort by
    *
-   * @return array Array with records
+   * @return array<int, array<string, mixed>> Array with records
    */
   public function getAll(string $sort = 'name'): array {
     $allowedSort = ['id', 'name', 'description', 'color', 'bgcolor', 'businessday', 'noabsence', 'keepweekendcolor'];
@@ -179,7 +179,7 @@ class HolidayModel
    *
    * @param string $sort What to sort by
    *
-   * @return array Array with records
+   * @return array<int, array<string, mixed>> Array with records
    */
   public function getAllCustom(string $sort = 'name'): array {
     $allowedSort = ['id', 'name', 'description', 'color', 'bgcolor', 'businessday', 'noabsence', 'keepweekendcolor'];

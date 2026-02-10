@@ -249,12 +249,12 @@ class ConfigController extends BaseController
    * Updates the database with new values and logs the configuration change.
    *
    * @param \App\Models\LicenseModel $LIC        License model instance
-   * @param bool                      &$showAlert Reference to show alert flag
-   * @param array                     &$alertData Reference to alert data array
+   * @param bool                      $showAlert  Reference to show alert flag
+   * @param array<string, mixed>      $alertData  Reference to alert data array
    *
    * @return void
    */
-  private function handleApply($LIC, &$showAlert, &$alertData) {
+  private function handleApply(\App\Models\LicenseModel $LIC, bool &$showAlert, array &$alertData): void {
     $newConfig                     = [];
     $newConfig["appURL"]           = filter_var($_POST['txt_appURL'], FILTER_VALIDATE_URL) ? $_POST['txt_appURL'] : "#";
     $newConfig["appTitle"]         = sanitize($_POST['txt_appTitle']);
@@ -404,12 +404,12 @@ class ConfigController extends BaseController
    * Sets appropriate success or error alert messages.
    *
    * @param \App\Models\LicenseModel $LIC        License model instance
-   * @param bool                      &$showAlert Reference to show alert flag
-   * @param array                     &$alertData Reference to alert data array
+   * @param bool                      $showAlert  Reference to show alert flag
+   * @param array<string, mixed>      $alertData  Reference to alert data array
    *
    * @return void
    */
-  private function handleLicenseActivation($LIC, &$showAlert, &$alertData) {
+  private function handleLicenseActivation(\App\Models\LicenseModel $LIC, bool &$showAlert, array &$alertData): void {
     $response = $LIC->activate();
     if ($response->result == "success") {
       $showAlert            = true;
@@ -440,12 +440,12 @@ class ConfigController extends BaseController
    * Sets appropriate success or error alert messages.
    *
    * @param \App\Models\LicenseModel $LIC        License model instance
-   * @param bool                      &$showAlert Reference to show alert flag
-   * @param array                     &$alertData Reference to alert data array
+   * @param bool                      $showAlert  Reference to show alert flag
+   * @param array<string, mixed>      $alertData  Reference to alert data array
    *
    * @return void
    */
-  private function handleLicenseRegistration($LIC, &$showAlert, &$alertData) {
+  private function handleLicenseRegistration(\App\Models\LicenseModel $LIC, bool &$showAlert, array &$alertData): void {
     $response = $LIC->activate();
     if ($response->result == "success") {
       $showAlert            = true;
@@ -476,12 +476,12 @@ class ConfigController extends BaseController
    * Sets appropriate success or error alert messages.
    *
    * @param \App\Models\LicenseModel $LIC        License model instance
-   * @param bool                      &$showAlert Reference to show alert flag
-   * @param array                     &$alertData Reference to alert data array
+   * @param bool                      $showAlert  Reference to show alert flag
+   * @param array<string, mixed>      $alertData  Reference to alert data array
    *
    * @return void
    */
-  private function handleLicenseDeregistration($LIC, &$showAlert, &$alertData) {
+  private function handleLicenseDeregistration(\App\Models\LicenseModel $LIC, bool &$showAlert, array &$alertData): void {
     $response = $LIC->deactivate();
     if (is_object($response) && $response->result == "success") {
       $showAlert            = true;
@@ -511,12 +511,12 @@ class ConfigController extends BaseController
    * Flushes the application cache and sets appropriate success or error
    * alert messages based on the result.
    *
-   * @param bool  &$showAlert Reference to show alert flag
-   * @param array &$alertData Reference to alert data array
+   * @param bool                 $showAlert  Reference to show alert flag
+   * @param array<string, mixed> $alertData  Reference to alert data array
    *
    * @return void
    */
-  private function handleClearCache(&$showAlert, &$alertData) {
+  private function handleClearCache(bool &$showAlert, array &$alertData): void {
     $cache = $this->container->get('Cache');
     if ($cache->flush()) {
       $showAlert            = true;

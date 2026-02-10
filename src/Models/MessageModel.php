@@ -34,8 +34,8 @@ class MessageModel
   /**
    * Constructor.
    *
-   * @param PDO|null   $db   Database connection object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database connection object
+   * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db && $conf) {
@@ -102,7 +102,7 @@ class MessageModel
   /**
    * Reads all records into an array.
    *
-   * @return array Array with all records
+   * @return array<int, array<string, mixed>> Array with all records
    */
   public function getAll(): array {
     $records = [];
@@ -120,7 +120,7 @@ class MessageModel
    *
    * @param string $username Username to search for
    *
-   * @return array Array with all records
+   * @return array<int, array<string, mixed>> Array with all records
    */
   public function getAllByUser(string $username): array {
     $records = [];

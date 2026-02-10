@@ -23,17 +23,17 @@ class AbsenceGroupModel
   public ?string $absid   = null;
   public ?string $groupid = null;
 
-  private \PDO   $db;
+  private PDO   $db;
   private string $table = '';
 
   //---------------------------------------------------------------------------
   /**
    * Constructor.
    *
-   * @param \PDO|null  $db   Database connection object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database connection object
+   * @param array<string, string>|null $conf Configuration array
    */
-  public function __construct(?\PDO $db = null, ?array $conf = null) {
+  public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db !== null && $conf !== null) {
       $this->db    = $db;
       $this->table = $conf['db_table_absence_group'];
@@ -78,13 +78,13 @@ class AbsenceGroupModel
    *
    * @param string $absid Absence ID
    *
-   * @return array Array of group IDs
+   * @return string[] Array of group IDs
    */
   public function getAssignments(string $absid): array {
     $query = $this->db->prepare('SELECT groupid FROM ' . $this->table . ' WHERE absid = :absid');
     $query->bindParam(':absid', $absid);
     $query->execute();
-    return $query->fetchAll(\PDO::FETCH_COLUMN, 0);
+    return $query->fetchAll(PDO::FETCH_COLUMN, 0);
   }
 
   //---------------------------------------------------------------------------

@@ -69,8 +69,8 @@ class DbModel
   /**
    * Execute a parameterized statement (safe wrapper).
    *
-   * @param string $sql
-   * @param array  $params
+   * @param string               $sql
+   * @param array<string, mixed> $params
    *
    * @return bool
    */
@@ -86,10 +86,10 @@ class DbModel
   /**
    * Fetch a single row for a parameterized query.
    *
-   * @param string $sql
-   * @param array  $params
+   * @param string               $sql
+   * @param array<string, mixed> $params
    *
-   * @return array|null
+   * @return array<string, mixed>|null
    */
   public function fetch(string $sql, array $params = []): ?array {
     $stmt = $this->db->prepare($sql);
@@ -102,10 +102,10 @@ class DbModel
   /**
    * Fetch all rows for a parameterized query.
    *
-   * @param string $sql
-   * @param array  $params
+   * @param string               $sql
+   * @param array<string, mixed> $params
    *
-   * @return array
+   * @return array<int, array<string, mixed>>
    */
   public function fetchAll(string $sql, array $params = []): array {
     $stmt = $this->db->prepare($sql);

@@ -28,10 +28,15 @@ namespace App\Helpers;
 
 class LanguageLoader
 {
-  private static $language        = 'english';
-  private static $loadedFiles     = [];
-  private static $hasNewStructure = null;
-  private static $loadingStats    = [
+  private static string $language = 'english';
+
+  /** @var string[] */
+  private static array $loadedFiles = [];
+
+  private static ?bool $hasNewStructure = null;
+
+  /** @var array<string, int|float> */
+  private static array $loadingStats = [
     'filesLoaded'     => 0,
     'keysLoaded'      => 0,
     'memoryReduction' => 0
@@ -42,8 +47,10 @@ class LanguageLoader
    * Sets the current language and prepares the loader.
    *
    * @param string $language The language to load (e.g., 'english', 'deutsch')
+   *
+   * @return void
    */
-  public static function initialize($language = 'english') {
+  public static function initialize(string $language = 'english'): void {
     self::$language        = $language;
     self::$loadedFiles     = [];
     self::$hasNewStructure = null;
@@ -57,8 +64,10 @@ class LanguageLoader
   //---------------------------------------------------------------------------
   /**
    * Calculates memory usage improvements compared to legacy loading.
+   *
+   * @return void
    */
-  private static function calculatePerformanceStats() {
+  private static function calculatePerformanceStats(): void {
     // Estimate legacy system would load ~1,870 keys
     $legacyKeyCount  = 1870;
     $currentKeyCount = self::$loadingStats['keysLoaded'];
@@ -75,9 +84,9 @@ class LanguageLoader
    * @param string $title Optional title for the report
    * @param string $subject Optional subject for the report
    *
-   * @return array Formatted error data array ready for display
+   * @return array<string, mixed> Formatted error data array ready for display
    */
-  public static function compareAllLanguages($title = 'Language Comparison Report', $subject = '<h4>All Languages vs English Comparison</h4>') {
+  public static function compareAllLanguages(string $title = 'Language Comparison Report', string $subject = '<h4>All Languages vs English Comparison</h4>'): array {
     $referenceLanguage  = 'english';
     $availableLanguages = self::getAvailableLanguages();
 
@@ -146,9 +155,9 @@ class LanguageLoader
    * @param string $title Optional title for the report
    * @param string $subject Optional subject for the report
    *
-   * @return array Formatted error data array ready for display
+   * @return array<string, mixed> Formatted error data array ready for display
    */
-  public static function compareAndDisplay($lang1, $lang2, $title = 'Debug Info', $subject = '<h4>Language File Comparison</h4>') {
+  public static function compareAndDisplay(string $lang1, string $lang2, string $title = 'Debug Info', string $subject = '<h4>Language File Comparison</h4>'): array {
     $comparison = self::compareLanguages($lang1, $lang2);
     return self::generateComparisonReport($comparison, $title, $subject);
   }
@@ -161,9 +170,9 @@ class LanguageLoader
    * @param string $lang1 Reference language (e.g., 'english')
    * @param string $lang2 Language to compare against (e.g., 'deutsch')
    *
-   * @return array Comparison results with statistics and missing keys
+   * @return array<string, mixed> Comparison results with statistics and missing keys
    */
-  public static function compareLanguages($lang1, $lang2) {
+  public static function compareLanguages(string $lang1, string $lang2): array {
     $result = [
       'lang1'           => $lang1,
       'lang2'           => $lang2,
@@ -189,13 +198,13 @@ class LanguageLoader
   /**
    * Compares split language file structure between two languages.
    *
-   * @param string $lang1 Reference language
-   * @param string $lang2 Language to compare
-   * @param array $result Result array to populate
+   * @param string               $lang1  Reference language
+   * @param string               $lang2  Language to compare
+   * @param array<string, mixed> $result Result array to populate
    *
-   * @return array Updated result array
+   * @return array<string, mixed> Updated result array
    */
-  private static function compareSplitLanguages($lang1, $lang2, $result) {
+  private static function compareSplitLanguages(string $lang1, string $lang2, array $result): array {
     $lang1Dir = WEBSITE_ROOT . "/resources/languages/$lang1";
     $lang2Dir = WEBSITE_ROOT . "/resources/languages/$lang2";
 
@@ -273,8 +282,10 @@ class LanguageLoader
   //---------------------------------------------------------------------------
   /**
    * Clears the loaded files cache and forces a reload on next request.
+   *
+   * @return void
    */
-  public static function forceReload() {
+  public static function forceReload(): void {
     self::$loadedFiles     = [];
     self::$hasNewStructure = null;
   }
@@ -283,15 +294,15 @@ class LanguageLoader
   /**
    * Generates a comprehensive HTML report for all language comparisons.
    *
-   * @param array $allResults All comparison results
-   * @param array $overallStats Overall statistics
-   * @param string $referenceLanguage Reference language name
-   * @param string $title Report title
-   * @param string $subject Report subject
+   * @param array<string, array<string, mixed>> $allResults        All comparison results
+   * @param array<string, mixed>                $overallStats      Overall statistics
+   * @param string                              $referenceLanguage Reference language name
+   * @param string                              $title             Report title
+   * @param string                              $subject           Report subject
    *
-   * @return array Formatted error data array
+   * @return array<string, mixed> Formatted error data array
    */
-  private static function generateAllLanguagesReport($allResults, $overallStats, $referenceLanguage, $title, $subject) {
+  private static function generateAllLanguagesReport(array $allResults, array $overallStats, string $referenceLanguage, string $title, string $subject): array {
     $errorData = [
       'type'    => 'success',
       'title'   => $title,
@@ -422,13 +433,13 @@ class LanguageLoader
   /**
    * Generates a formatted HTML report from language comparison results.
    *
-   * @param array $comparison Comparison result from compareLanguages()
-   * @param string $title Optional title for the report
-   * @param string $subject Optional subject for the report
+   * @param array<string, mixed> $comparison Comparison result from compareLanguages()
+   * @param string               $title      Optional title for the report
+   * @param string               $subject    Optional subject for the report
    *
-   * @return array Formatted error data array for display
+   * @return array<string, mixed> Formatted error data array for display
    */
-  public static function generateComparisonReport($comparison, $title = 'Debug Info', $subject = '<h4>Language File Comparison</h4>') {
+  public static function generateComparisonReport(array $comparison, string $title = 'Debug Info', string $subject = '<h4>Language File Comparison</h4>'): array {
     $errorData = [
       'type'    => 'success',
       'title'   => $title,
@@ -515,9 +526,9 @@ class LanguageLoader
    * For split files: checks for directories with core.php
    * For legacy files: checks for .php files with complete 4-file set
    *
-   * @return array Array of available language codes
+   * @return string[] Array of available language codes
    */
-  public static function getAvailableLanguages() {
+  public static function getAvailableLanguages(): array {
     $languages = [];
 
     // Split file mode: scan for directories with core.php
@@ -542,7 +553,7 @@ class LanguageLoader
    *
    * @return string Current language code
    */
-  public static function getCurrentLanguage() {
+  public static function getCurrentLanguage(): string {
     return self::$language;
   }
 
@@ -550,9 +561,9 @@ class LanguageLoader
   /**
    * Returns list of language files that have been loaded.
    *
-   * @return array Array of loaded file names
+   * @return string[] Array of loaded file names
    */
-  public static function getLoadedFiles() {
+  public static function getLoadedFiles(): array {
     return self::$loadedFiles;
   }
 
@@ -562,9 +573,9 @@ class LanguageLoader
    *
    * @param string $controller The controller name
    *
-   * @return array Array of required file names (without .php extension)
+   * @return string[] Array of required file names (without .php extension)
    */
-  private static function getRequiredFiles($controller) {
+  private static function getRequiredFiles(string $controller): array {
     // Special case: core_only for initial loading
     if ($controller === 'core_only') {
       return []; // Core, alert, and upload are already loaded in loadModernStructure
@@ -652,9 +663,9 @@ class LanguageLoader
   /**
    * Returns performance statistics for the current loading session.
    *
-   * @return array Loading statistics
+   * @return array<string, int|float> Loading statistics
    */
-  public static function getStats() {
+  public static function getStats(): array {
     return self::$loadingStats;
   }
 
@@ -664,7 +675,7 @@ class LanguageLoader
    *
    * @return bool True if new structure exists, false otherwise
    */
-  private static function hasNewStructure() {
+  private static function hasNewStructure(): bool {
     if (self::$hasNewStructure === null) {
       $coreFile              = WEBSITE_ROOT . '/resources/languages/' . self::$language . '/core.php';
       self::$hasNewStructure = file_exists($coreFile);
@@ -680,9 +691,9 @@ class LanguageLoader
    *
    * @param string $controller The controller name (e.g., 'home', 'users', 'calendar')
    *
-   * @return array Performance statistics
+   * @return array<string, int|float> Performance statistics
    */
-  public static function loadForController($controller) {
+  public static function loadForController(string $controller): array {
     global $LANG;
 
     if (!isset($LANG)) {
@@ -706,9 +717,9 @@ class LanguageLoader
    *
    * @param string $filePath Path to the language file
    *
-   * @return array Array of language keys found in the file
+   * @return string[] Array of language keys found in the file
    */
-  private static function loadKeysFromFile($filePath) {
+  private static function loadKeysFromFile(string $filePath): array {
     if (!file_exists($filePath)) {
       return [];
     }
@@ -725,8 +736,10 @@ class LanguageLoader
    * Loads a specific language file if it exists and hasn't been loaded yet.
    *
    * @param string $file The file name without extension
+   *
+   * @return void
    */
-  private static function loadLanguageFile($file) {
+  private static function loadLanguageFile(string $file): void {
     global $LANG;
 
     // Avoid loading the same file twice
@@ -749,8 +762,10 @@ class LanguageLoader
   //---------------------------------------------------------------------------
   /**
    * Fallback to the original 4-file language loading system.
+   *
+   * @return void
    */
-  private static function loadLegacyStructure() {
+  private static function loadLegacyStructure(): void {
     global $LANG;
 
     $legacyFiles = [
@@ -777,8 +792,10 @@ class LanguageLoader
    * Loads core.php plus controller-specific language files.
    *
    * @param string $controller The controller name
+   *
+   * @return void
    */
-  private static function loadModernStructure($controller) {
+  private static function loadModernStructure(string $controller): void {
     global $LANG;
 
     // Always load core files used throughout the application

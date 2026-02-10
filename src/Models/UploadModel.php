@@ -21,13 +21,16 @@ class UploadModel
 {
   public bool   $create_directory    = true;
   public string $do_filename_check   = 'n';
+  /** @var array<int, string> */
   public array  $error               = [];
   public string $ext_string          = '';
+  /** @var string[] */
   public array  $extensions          = [];
   public string $file_copy           = ''; // the new name
   public int    $http_error          = 0;
   public int    $max_length_filename = 100;
   public int    $max_size            = 0;
+  /** @var string[] */
   public array  $message             = [];
   public bool   $rename_file         = false; // if this true the file copy gets a new name
   public string $replace             = 'n';
@@ -35,13 +38,14 @@ class UploadModel
   public string $the_temp_file       = '';
   public string $the_new_file        = '';
   public string $upload_dir          = '';
+  /** @var array<string, mixed> */
   public array  $uploaded_file       = [];
 
   //---------------------------------------------------------------------------
   /**
    * Constructor.
    *
-   * @param array|null $lang Optional language array
+   * @param array<string, string>|null $lang Optional language array
    */
   public function __construct(?array $lang = null) {
     global $LANG;

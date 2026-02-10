@@ -214,14 +214,14 @@ class LogController extends BaseController
   /**
    * Refreshes the log filter settings.
    *
-   * @param array $logToday  Array containing today's date info
-   * @param bool  $showAlert Reference to show alert flag
-   * @param array $alertData Reference to alert data array
-   * @param array $viewData  Reference to view data array
-   * 
+   * @param array<string, string> $logToday  Array containing today's date info
+   * @param bool                 $showAlert Reference to show alert flag
+   * @param array<string, mixed> $alertData Reference to alert data array
+   * @param array<string, mixed> $viewData  Reference to view data array
+   *
    * @return void
    */
-  private function handleRefresh($logToday, &$showAlert, &$alertData, &$viewData) {
+  private function handleRefresh(array $logToday, bool &$showAlert, array &$alertData, array &$viewData): void {
     $refreshBatchConfigs = [];
     switch ($_POST['sel_logPeriod']) {
       case "curr_month":
@@ -304,13 +304,13 @@ class LogController extends BaseController
   /**
    * Saves the log settings.
    *
-   * @param array $logtypes  Array of log types
-   * @param bool  $showAlert Reference to show alert flag
-   * @param array $alertData Reference to alert data array
-   * 
+   * @param string[]             $logtypes  Array of log types
+   * @param bool                 $showAlert Reference to show alert flag
+   * @param array<string, mixed> $alertData Reference to alert data array
+   *
    * @return void
    */
-  private function handleSave($logtypes, &$showAlert, &$alertData) {
+  private function handleSave(array $logtypes, bool &$showAlert, array &$alertData): void {
     $newConfig = [];
     foreach ($logtypes as $lt) {
       $newConfig["log" . $lt]       = (isset($_POST['chk_log' . $lt]) && $_POST['chk_log' . $lt]) ? "1" : "0";
@@ -327,12 +327,12 @@ class LogController extends BaseController
   /**
    * Clears the log entries within the selected period.
    *
-   * @param bool  $showAlert Reference to show alert flag
-   * @param array $alertData Reference to alert data array
-   * 
+   * @param bool                 $showAlert  Reference to show alert flag
+   * @param array<string, mixed> $alertData  Reference to alert data array
+   *
    * @return void
    */
-  private function handleClear(&$showAlert, &$alertData) {
+  private function handleClear(bool &$showAlert, array &$alertData): void {
     $periodFrom = $this->allConfig['logfrom'];
     $periodTo   = $this->allConfig['logto'];
     $this->LOG->delete($periodFrom, $periodTo);
@@ -345,13 +345,13 @@ class LogController extends BaseController
   /**
    * Resets the log filter settings to default.
    *
-   * @param array $logToday  Array containing today's date info
-   * @param bool  $showAlert Reference to show alert flag
-   * @param array $alertData Reference to alert data array
-   * 
+   * @param array<string, string> $logToday  Array containing today's date info
+   * @param bool                 $showAlert Reference to show alert flag
+   * @param array<string, mixed> $alertData Reference to alert data array
+   *
    * @return void
    */
-  private function handleReset($logToday, &$showAlert, &$alertData) {
+  private function handleReset(array $logToday, bool &$showAlert, array &$alertData): void {
     $resetBatchConfigs = [
       "logperiod"      => "curr_all",
       "logfrom"        => '2004-01-01 00:00:00.000000',
@@ -370,12 +370,12 @@ class LogController extends BaseController
   /**
    * Handles statistics filter settings.
    *
-   * @param bool  $showAlert Reference to show alert flag
-   * @param array $alertData Reference to alert data array
-   * 
+   * @param bool                 $showAlert  Reference to show alert flag
+   * @param array<string, mixed> $alertData  Reference to alert data array
+   *
    * @return void
    */
-  private function handleStatsFilter(&$showAlert, &$alertData) {
+  private function handleStatsFilter(bool &$showAlert, array &$alertData): void {
     $statsBatchConfigs = [];
     
     if (isset($_POST['sel_statsTimeframe'])) {
@@ -398,7 +398,7 @@ class LogController extends BaseController
    *
    * @param string $statsTimeframe The timeframe identifier
    *
-   * @return array The start and end timestamps and granularity
+   * @return array<string, string> The start and end timestamps and granularity
    */
   private function getStatsRange(string $statsTimeframe): array {
     $statsFrom = '';

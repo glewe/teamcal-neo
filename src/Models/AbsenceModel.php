@@ -47,8 +47,8 @@ class AbsenceModel
   /**
    * Constructor.
    *
-   * @param PDO|null $db Database object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database object
+   * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db && $conf) {
@@ -221,7 +221,7 @@ class AbsenceModel
   /**
    * Reads all records into an array.
    *
-   * @return array Array with records
+   * @return array<int, array<string, mixed>> Array with records
    */
   public function getAll(): array {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY name');
@@ -235,7 +235,7 @@ class AbsenceModel
    *
    * @param string|int $id ID to search for
    *
-   * @return array|bool Array with records
+   * @return array<int, array<string, mixed>>|bool Array with records
    */
   public function getAllSub(string|int $id): array|bool {
     $records = array();
@@ -257,7 +257,7 @@ class AbsenceModel
    *
    * @param string|int $id ID to skip
    *
-   * @return array|bool Array with records
+   * @return array<int, array<string, mixed>>|bool Array with records
    */
   public function getAllPrimaryBut(string|int $id): array|bool {
     $records = array();

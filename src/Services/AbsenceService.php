@@ -44,6 +44,7 @@ class AbsenceService
   private UserGroupModel $UG;
   private UserModel      $U;
   private UserModel      $UL;
+  /** @var array<string, string> */
   private array          $LANG;
 
   //---------------------------------------------------------------------------
@@ -60,8 +61,8 @@ class AbsenceService
    * @param TemplateModel $T Template model
    * @param UserGroupModel $UG User group model
    * @param UserModel $U User model
-   * @param UserModel $UL Logged in user model
-   * @param array $LANG Language array
+   * @param UserModel            $UL   Logged in user model
+   * @param array<string, string> $LANG Language array
    */
   public function __construct(
     AbsenceModel $A,
@@ -142,14 +143,15 @@ class AbsenceService
    * Checks an array of requested absences against the declination rules and
    * other possible restrictions.
    *
-   * @param string $username Username
-   * @param string $year Year
-   * @param string $month Month
-   * @param array $currentAbsences Current absences array
-   * @param array $requestedAbsences Requested absences array
-   * @param string $regionId Region ID
+   * @param string                     $username          Username
+   * @param string                     $year              Year
+   * @param string                     $month             Month
+   * @param array<int, bool|int|string> $currentAbsences   Current absences array
+   * @param array<int, bool|int|string> $requestedAbsences Requested absences array
+   * @param string                     $regionId          Region ID
+   * @param string                     $errorMessage      Error message reference
    *
-   * @return array Approval result with approved and declined absences
+   * @return array<string, mixed> Approval result with approved and declined absences
    */
   public function approveAbsences(string $username, string $year, string $month, array $currentAbsences, array $requestedAbsences, string $regionId, string &$errorMessage = ''): array {
     $approvalResult = array(
@@ -657,8 +659,9 @@ class AbsenceService
   /**
    * Sends an email to all users that subscribed to a user calendar change event.
    *
-   * @param string $username Username
-   * @param array $absences Array of absences
+   * @param string   $username     Username
+   * @param string[] $absences     Array of absences
+   * @param string   $errorMessage Error message reference
    *
    * @return void
    */
@@ -705,11 +708,10 @@ class AbsenceService
   /**
    * Gets absence summary for a given user, absence type and month.
    *
-   * @param string $username Username
-   * @param string|int $absid Absence ID
-   * @param string $year Year
+   * @param string|int $absid    Absence ID
+   * @param string     $year     Year
    *
-   * @return array Summary array with allowance, carryover, taken, etc.
+   * @return array<string, mixed> Summary array with allowance, carryover, taken, etc.
    */
   public function getAbsenceSummary(string $username, string|int $absid, string $year): array {
     $summary = array(
@@ -979,8 +981,8 @@ class AbsenceService
   /**
    * Counts all requested absences for a month.
    *
-   * @param array $requestedAbsences Requested absences array
-   * @param string|int $absence Absence ID
+   * @param array<int, string> $requestedAbsences Requested absences array
+   * @param string|int        $absence           Absence ID
    *
    * @return int Count of requested absences
    */
@@ -998,9 +1000,9 @@ class AbsenceService
   /**
    * Counts all requested absences for a week (7 sequential values in the array).
    *
-   * @param array $requestedAbsences Requested absences array
-   * @param string|int $absence Absence ID
-   * @param int $startAt Starting index in the array
+   * @param array<int, string> $requestedAbsences Requested absences array
+   * @param string|int        $absence           Absence ID
+   * @param int               $startAt           Starting index in the array
    *
    * @return int Count of requested absences
    */

@@ -22,6 +22,7 @@ class DaynoteModel
   public ?int   $id           = null;
   public string $yyyymmdd     = '';
   public string $daynote      = '';
+  /** @var array<string, array<string, string>> */
   public array  $daynotes     = [];
   public string $username     = '';
   public string $region       = '';
@@ -36,8 +37,8 @@ class DaynoteModel
   /**
    * Constructor.
    *
-   * @param PDO|null   $db   Database connection object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database connection object
+   * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db && $conf) {
@@ -325,7 +326,7 @@ class DaynoteModel
   /**
    * Gets all daynotes with no region set.
    *
-   * @return array|bool Query result or false on failure
+   * @return array<int, array<string, mixed>>|bool Query result or false on failure
    */
   public function getAllRegionless(): array|bool {
     $records = [];

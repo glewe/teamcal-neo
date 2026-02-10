@@ -31,8 +31,8 @@ class LicenseModel
   /**
    * Constructor.
    *
-   * @param PDO|null   $db   Database object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database object
+   * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     global $CONF, $DB;
@@ -64,9 +64,9 @@ class LicenseModel
   /**
    * API Call.
    *
-   * @param string     $method POST, PUT, GET, ...
-   * @param string     $url    API host URL
-   * @param array|bool $data   URL parameter: array("param" => "value") ==> index.php?param=value
+   * @param string                     $method POST, PUT, GET, ...
+   * @param string                     $url    API host URL
+   * @param array<string, mixed>|bool $data   URL parameter: array("param" => "value") ==> index.php?param=value
    *
    * @return bool|string
    */
@@ -122,10 +122,10 @@ class LicenseModel
    * Checks the license against the license server and fills the alert array in
    * case of a problem. The alert array is used on pages to display messages.
    *
-   * @param array $alertData        Alert array. Passed by reference
-   * @param bool  $showAlert        Flag to show the alert message. Passed by reference
-   * @param int   $licExpiryWarning Number of license days left for showing the expiry warning. 0 = no warning.
-   * @param array $LANG             The language array. Passed by reference
+   * @param array<string, mixed> $alertData        Alert array. Passed by reference
+   * @param bool                 $showAlert        Flag to show the alert message. Passed by reference
+   * @param int                  $licExpiryWarning Number of license days left for showing the expiry warning. 0 = no warning.
+   * @param array<string, string> $LANG             The language array. Passed by reference
    */
   public function check(array &$alertData, bool &$showAlert, int $licExpiryWarning, array $LANG): void {
     $parms       = [

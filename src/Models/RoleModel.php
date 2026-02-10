@@ -31,8 +31,8 @@ class RoleModel
   /**
    * Constructor.
    *
-   * @param PDO|null   $db   Database object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database object
+   * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db && $conf) {
@@ -94,7 +94,7 @@ class RoleModel
   /**
    * Gets all records.
    *
-   * @return array Array with all role records
+   * @return array<int, array<string, mixed>> Array with all role records
    */
   public function getAll(): array {
     $records = [];
@@ -114,7 +114,7 @@ class RoleModel
    *
    * @param string $like Likeness to search for
    *
-   * @return array Array with all records
+   * @return array<int, array<string, mixed>> Array with all records
    */
   public function getAllLike(string $like): array {
     $records   = [];
@@ -135,7 +135,7 @@ class RoleModel
   /**
    * Gets all role names.
    *
-   * @return array Array with all role names
+   * @return string[] Array with all role names
    */
   public function getAllNames(): array {
     $records = [];

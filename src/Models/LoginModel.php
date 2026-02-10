@@ -37,9 +37,9 @@ class LoginModel
   /**
    * Constructor.
    *
-   * @param ConfigModel|null $configObj
-   * @param array|null       $conf
-   * @param LdapService|null $ldapService
+   * @param ConfigModel|null     $configObj
+   * @param array<string, string>|null $conf
+   * @param LdapService|null     $ldapService
    */
   public function __construct(?ConfigModel $configObj = null, ?array $conf = null, ?LdapService $ldapService = null) {
     global $C, $CONF, $_SERVER;

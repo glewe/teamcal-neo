@@ -37,8 +37,8 @@ class PatternModel
   /**
    * Constructor.
    *
-   * @param PDO|null   $db   Database object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database object
+   * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db !== null && $conf !== null) {
@@ -124,7 +124,7 @@ class PatternModel
   /**
    * Reads all pattern records into an array.
    *
-   * @return array Array with records
+   * @return array<int, array<string, mixed>> Array with records
    */
   public function getAll(): array {
     $records = [];
@@ -142,7 +142,7 @@ class PatternModel
    *
    * @param string $like Likeness to search for
    *
-   * @return array Array with records
+   * @return array<int, array<string, mixed>> Array with records
    */
   public function getAllLike(string $like): array {
     $records = [];
@@ -160,7 +160,7 @@ class PatternModel
   /**
    * Checks whether a given absence pattern exists.
    *
-   * @param array $absPattern Array of absences
+   * @param array<int, int> $absPattern Array of absences
    *
    * @return string|bool Pattern name or false
    */

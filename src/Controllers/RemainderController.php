@@ -17,6 +17,7 @@ use App\Core\BaseController;
  */
 class RemainderController extends BaseController
 {
+  /** @var array<string, mixed> */
   private array $viewData = [];
 
   //---------------------------------------------------------------------------
@@ -139,10 +140,11 @@ class RemainderController extends BaseController
   /**
    * Prepares the view data.
    *
-   * @param array $users Array of users to process
+   * @param array<int, array<string, mixed>> $users Array of users to process
+   *
    * @return void
    */
-  private function prepareViewData($users) {
+  private function prepareViewData(array $users): void {
     $this->viewData['currentYearOnly'] = $this->allConfig['currentYearOnly'];
     $this->viewData['usersPerPage']    = $this->allConfig['usersPerPage'];
     $this->viewData['absences']        = array_filter($this->A->getAll(), fn($abs) => $abs['show_in_remainder']);

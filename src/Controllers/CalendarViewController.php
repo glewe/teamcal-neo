@@ -781,9 +781,33 @@ class CalendarViewController extends BaseController
   }
 
   /**
-   * Prepares data for a single day in a user row
+   * Prepares data for a single day in a user row.
+   *
+   * @param string                     $username         Username for the row
+   * @param int                        $day              Day of the month
+   * @param string                     $year             Year (YYYY)
+   * @param string                     $month            Month (MM)
+   * @param string                     $gridStyle        Default CSS style for the grid cell
+   * @param string[]                   $trustedRoles     Roles that can see confidential items
+   * @param string                     $currDate         Current system date (Y-m-d)
+   * @param array<string, mixed>        $viewData         View data containing filters and settings
+   * @param string|int                 $regionid         Region ID
+   * @param \App\Models\TemplateModel|null $templateOverride Optional template override
+   *
+   * @return array<string, mixed> Data for the day
    */
-  private function prepareDayData($username, $day, $year, $month, $gridStyle, $trustedRoles, $currDate, $viewData, $regionid, $templateOverride = null): array {
+  private function prepareDayData(
+    string $username,
+    int $day,
+    string $year,
+    string $month,
+    string $gridStyle,
+    array $trustedRoles,
+    string $currDate,
+    array $viewData,
+    string|int $regionid,
+    ?\App\Models\TemplateModel $templateOverride = null
+  ): array {
     $T        = $templateOverride ?: $this->T;
     $absCol   = 'abs' . $day;
     $absId    = $T->$absCol;
@@ -897,16 +921,22 @@ class CalendarViewController extends BaseController
     return $dayData;
   }
 
+  /** @var array<string, \App\Models\MonthModel> */
   private array $regionMonths = [];
-  //---------------------------------------------------------------------------
   /**
    * Helper to get a MonthModel for a region and cache it.
+   *
+   * @param string     $year   Year (YYYY)
+   * @param string     $month  Month (MM)
+   * @param string|int $region Region ID
+   *
+   * @return \App\Models\MonthModel The month model
    */
-  private function getRegionMonth($year, $month, $region) {
-    $key = $year . $month . $region;
+  private function getRegionMonth(string $year, string $month, string|int $region): \App\Models\MonthModel {
+    $key = $year . $month . (string) $region;
     if (!isset($this->regionMonths[$key])) {
-      $M = new MonthModel();
-      $M->getMonth($year, $month, $region);
+      $M = new \App\Models\MonthModel();
+      $M->getMonth($year, $month, (string) $region);
       $this->regionMonths[$key] = $M;
     }
     return $this->regionMonths[$key];

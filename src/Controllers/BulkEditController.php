@@ -18,6 +18,7 @@ use App\Models\AbsenceModel;
  */
 class BulkEditController extends BaseController
 {
+  /** @var array<string, mixed> */
   private array $viewData = [];
 
   //---------------------------------------------------------------------------
@@ -157,20 +158,37 @@ class BulkEditController extends BaseController
     $this->render('bulkedit', $this->viewData);
   }
 
-  private function filterUsersByGroup($users, $groupid): array {
-    if ($groupid == "All")
+  /**
+   * Filters a list of users by group ID.
+   *
+   * @param array<int, array<string, mixed>> $users   List of users to filter
+   * @param string|int                      $groupid Group ID to filter by
+   *
+   * @return array<int, array<string, mixed>> Filtered list of users
+   */
+  private function filterUsersByGroup(array $users, string|int $groupid): array {
+    if ((string) $groupid === "All") {
       return $users;
+    }
     return array_filter($users, fn($user) => $this->UG->isMemberOrManagerOfGroup($user['username'] ?? '', (string) $groupid));
   }
 
-  private function getOrCreateAllowance($user, $absid): array {
-    if ($this->AL->find($user['username'], $absid)) {
+  /**
+   * Gets the allowance for a user/absence or creates it if it doesn't exist.
+   *
+   * @param array<string, mixed> $user  User record
+   * @param string|int           $absid Absence ID
+   *
+   * @return array{0: float, 1: float} Array with allowance and carryover
+   */
+  private function getOrCreateAllowance(array $user, string|int $absid): array {
+    if ($this->AL->find((string) $user['username'], $absid)) {
       return [$this->AL->allowance, $this->AL->carryover];
     }
     else {
-      $allowance           = (float) ($this->A->getAllowance($absid) ?: 0);
+      $allowance           = (float) ($this->A->getAllowance((string) $absid) ?: 0);
       $carryover           = 0.0;
-      $this->AL->username  = $user['username'];
+      $this->AL->username  = (string) $user['username'];
       $this->AL->absid     = (string) $absid;
       $this->AL->allowance = $allowance;
       $this->AL->carryover = $carryover;

@@ -27,8 +27,8 @@ class UserMessageModel
   /**
    * Constructor.
    *
-   * @param PDO|null   $db   Database connection object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database connection object
+   * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db !== null && $conf !== null) {
@@ -158,7 +158,7 @@ class UserMessageModel
    *
    * @param string $username Username
    *
-   * @return array Array with records
+   * @return array<int, array<string, mixed>> Array with records
    */
   public function getAllByUser(string $username): array {
     $records = [];
@@ -179,7 +179,7 @@ class UserMessageModel
    *
    * @param string $msgid Message ID
    *
-   * @return array Array with records
+   * @return array<int, array<string, mixed>> Array with records
    */
   public function getAllByMsgId(string $msgid): array {
     $records = [];
@@ -200,7 +200,7 @@ class UserMessageModel
    *
    * @param string $username Username
    *
-   * @return array Array with records
+   * @return array<int, array<string, mixed>> Array with records
    */
   public function getAllPopupByUser(string $username): array {
     $records = [];

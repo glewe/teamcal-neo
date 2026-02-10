@@ -18,6 +18,7 @@ use App\Models\RoleModel;
  */
 class RoleEditController extends BaseController
 {
+  /** @var array<string, mixed> */
   private array $viewData = [];
 
   //---------------------------------------------------------------------------

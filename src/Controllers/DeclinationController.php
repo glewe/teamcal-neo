@@ -200,10 +200,11 @@ class DeclinationController extends BaseController
   /**
    * Validates fields for a specific section.
    *
-   * @param array $fields Array of field definitions
+   * @param array<int, array<string, mixed>> $fields Array of field definitions
+   *
    * @return bool True if error found, false otherwise
    */
-  private function validateSectionFields($fields) {
+  private function validateSectionFields(array $fields): bool {
     $hasError = false;
     foreach ($fields as $field) {
       $args = $field['args'] ?? '';
@@ -217,10 +218,11 @@ class DeclinationController extends BaseController
   /**
    * Validates period fields.
    *
-   * @param array $periodFields Array of period field definitions
+   * @param array<int, array<string, string>> $periodFields Array of period field definitions
+   *
    * @return bool True if error found, false otherwise
    */
-  private function validatePeriodFields($periodFields) {
+  private function validatePeriodFields(array $periodFields): bool {
     $hasError = false;
     foreach ($periodFields as $periodField) {
       if (!formInputValid($periodField['name'], $periodField['rules']))
@@ -258,11 +260,12 @@ class DeclinationController extends BaseController
   /**
    * Helper to save configuration for a specific section.
    *
-   * @param array  $config      Reference to the config array
-   * @param string $sectionName Name of the section
+   * @param array<string, mixed> $config      Reference to the config array
+   * @param string               $sectionName Name of the section
+   *
    * @return void
    */
-  private function saveSectionConfig(&$config, $sectionName) {
+  private function saveSectionConfig(array &$config, string $sectionName): void {
     $config['decl' . ucfirst($sectionName)] = isset($_POST['chk_' . $sectionName]) ? '1' : '0';
     if (isset($_POST['chk_' . $sectionName])) {
       if ($sectionName == 'absence') {
@@ -320,11 +323,12 @@ class DeclinationController extends BaseController
   /**
    * Prepares view data for a specific section.
    *
-   * @param string $sectionName Name of the section
-   * @param array  $allConfig   Configuration array
+   * @param string               $sectionName Name of the section
+   * @param array<string, mixed> $allConfig   Configuration array
+   *
    * @return void
    */
-  private function prepareSectionViewData($sectionName, $allConfig) {
+  private function prepareSectionViewData(string $sectionName, array $allConfig): void {
     global $inputAlert;
     $this->viewData['decl' . ucfirst($sectionName)]               = ($allConfig['decl' . ucfirst($sectionName)] == '1');
     $this->viewData['decl' . ucfirst($sectionName) . 'Period']    = $allConfig['decl' . ucfirst($sectionName) . 'Period'];

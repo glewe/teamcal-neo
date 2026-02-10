@@ -126,8 +126,8 @@ class MonthModel
   /**
    * Constructor.
    *
-   * @param PDO|null   $db   Database connection object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database connection object
+   * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db && $conf) {
@@ -356,7 +356,7 @@ class MonthModel
    *
    * @param string $region Region ID
    *
-   * @return array Month templates of the given region
+   * @return array<int, array<string, mixed>> Month templates of the given region
    */
   public function getRegion(string $region): array {
     $records = [];

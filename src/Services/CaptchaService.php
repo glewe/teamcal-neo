@@ -71,8 +71,9 @@ class CaptchaService
   /**
    * Verifies that the honeypot field is empty.
    *
-   * @param array $post The POST data.
-   * @param string $fieldName The honeypot field name.
+   * @param array<string, mixed> $post      The POST data.
+   * @param string               $fieldName The honeypot field name.
+   *
    * @return bool True if valid (empty), false otherwise.
    */
   public function verifyHoneypot(array $post, string $fieldName = 'website'): bool {

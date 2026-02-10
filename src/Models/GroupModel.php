@@ -28,6 +28,7 @@ class GroupModel
   public int    $minpresentwe = 0;
   public int    $maxabsentwe  = 9999;
 
+  /** @var array<int, array<string, mixed>> */
   private static array $cache = [];
 
   private ?PDO   $db    = null;
@@ -37,8 +38,8 @@ class GroupModel
   /**
    * Constructor.
    *
-   * @param PDO|null $db Database object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database object
+   * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db && $conf) {
@@ -118,7 +119,7 @@ class GroupModel
    *
    * @param string $sort Sort direction (ASC or DESC)
    *
-   * @return array Array with all group records
+   * @return array<int, array<string, mixed>> Array with all group records
    */
   public function getAll(string $sort = 'ASC'): array {
     $records = array();
@@ -139,7 +140,7 @@ class GroupModel
    *
    * @param string $sort Sort direction (ASC or DESC)
    *
-   * @return array Array with all group records
+   * @return array<int, array<string, mixed>> Array with all group records
    */
   public function getAllCached(string $sort = 'ASC'): array {
     $this->loadCache();
@@ -159,7 +160,7 @@ class GroupModel
    *
    * @param string $like Likeness to search for
    *
-   * @return array Array with all records
+   * @return array<int, array<string, mixed>> Array with all records
    */
   public function getAllLike(string $like): array {
     $records = array();
@@ -177,7 +178,7 @@ class GroupModel
   /**
    * Gets all group names into an array.
    *
-   * @return array Array with all group names
+   * @return string[] Array with all group names
    */
   public function getAllNames(): array {
     $records = array();
@@ -411,7 +412,7 @@ class GroupModel
    *
    * @param string $id Group ID to find
    *
-   * @return array|bool True or false
+   * @return array<int, array<string, mixed>>|bool True or false
    */
   public function getRowById(string|int $id): array|bool {
     $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :id');
@@ -439,7 +440,7 @@ class GroupModel
   /**
    * Loads the cache if not already loaded.
    *
-   * @return array The cached groups data.
+   * @return array<int, array<string, mixed>> The cached groups data.
    */
   private function loadCache(): array {
     if (empty(self::$cache)) {

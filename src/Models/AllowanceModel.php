@@ -33,10 +33,10 @@ class AllowanceModel
   /**
    * Constructor.
    *
-   * @param \PDO|null  $db   Database object
-   * @param array|null $conf Configuration array
+   * @param PDO|null             $db   Database object
+   * @param array<string, string>|null $conf Configuration array
    */
-  public function __construct(?\PDO $db = null, ?array $conf = null) {
+  public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db !== null && $conf !== null) {
       $this->db            = $db;
       $this->table         = $conf['db_table_allowances'];
@@ -68,7 +68,7 @@ class AllowanceModel
   /**
    * Batch saves allowance records (insert or update if exists).
    *
-   * @param array $records Array of associative arrays with keys: username, absid, allowance, carryover
+   * @param array<int, array<string, mixed>> $records Array of associative arrays with keys: username, absid, allowance, carryover
    *
    * @return bool True on success, false on failure
    */
