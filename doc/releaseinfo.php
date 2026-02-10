@@ -7,6 +7,7 @@ $releases = [
     'info' => 'Bugfix release',
     'bugfixes' => [
       [ 'summary' => 'Fixed navbar/sidebar permission bug', 'issue' => '' ],
+      [ 'summary' => 'Fixed missing group table update in sql/update_4_to_5.0.0.sql', 'issue' => '' ],
     ],
     'features' => [
     ],
