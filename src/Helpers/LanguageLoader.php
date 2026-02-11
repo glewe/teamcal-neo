@@ -620,7 +620,7 @@ class LanguageLoader
       'month'             => ['month', 'calendar'],
       'monthedit'         => ['month'],
       'passwordrequest'   => ['password'],
-      'passwordreset'     => ['password', 'login'],
+      'passwordreset'     => ['password', 'login', 'profile'],
       'patternadd'        => ['pattern'],
       'patternedit'       => ['pattern'],
       'patterns'          => ['pattern'],
