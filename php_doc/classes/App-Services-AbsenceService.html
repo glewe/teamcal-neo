@@ -256,7 +256,7 @@ thresholds, and approvals.</p>
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a class="" href="classes/App-Services-AbsenceService.html#property_LANG">$LANG</a>
     <span>
-                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: array&lt;string, string&gt;            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
@@ -328,7 +328,7 @@ thresholds, and approvals.</p>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Services-AbsenceService.html#method_approveAbsences">approveAbsences()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string, mixed&gt;    </span>
 </dt>
 <dd>Checks an array of requested absences against the declination rules and
 other possible restrictions.</dd>
@@ -351,7 +351,7 @@ time period.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Services-AbsenceService.html#method_getAbsenceSummary">getAbsenceSummary()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string, mixed&gt;    </span>
 </dt>
 <dd>Gets absence summary for a given user, absence type and month.</dd>
 
@@ -642,7 +642,7 @@ time period.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Services/AbsenceService.php"><a href="files/src-services-absenceservice.html"><abbr title="src/Services/AbsenceService.php">AbsenceService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">47</span>
+    <span class="phpdocumentor-element-found-in__line">48</span>
 
     </aside>
 
@@ -650,7 +650,7 @@ time period.</dd>
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
         <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+            <span class="phpdocumentor-signature__type">array&lt;string, string&gt;</span>
     <span class="phpdocumentor-signature__name">$LANG</span>
     </code>
 
@@ -869,7 +869,7 @@ time period.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Services/AbsenceService.php"><a href="files/src-services-absenceservice.html"><abbr title="src/Services/AbsenceService.php">AbsenceService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">66</span>
+    <span class="phpdocumentor-element-found-in__line">67</span>
 
     </aside>
 
@@ -877,7 +877,7 @@ time period.</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-AbsenceModel.html"><abbr title="\App\Models\AbsenceModel">AbsenceModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$A</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-AllowanceModel.html"><abbr title="\App\Models\AllowanceModel">AllowanceModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$AL</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-ConfigModel.html"><abbr title="\App\Models\ConfigModel">ConfigModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$C</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-DaynoteModel.html"><abbr title="\App\Models\DaynoteModel">DaynoteModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$D</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-GroupModel.html"><abbr title="\App\Models\GroupModel">GroupModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$G</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-HolidayModel.html"><abbr title="\App\Models\HolidayModel">HolidayModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$H</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-MonthModel.html"><abbr title="\App\Models\MonthModel">MonthModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$M</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-TemplateModel.html"><abbr title="\App\Models\TemplateModel">TemplateModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$T</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-UserGroupModel.html"><abbr title="\App\Models\UserGroupModel">UserGroupModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$UG</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-UserModel.html"><abbr title="\App\Models\UserModel">UserModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$U</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-UserModel.html"><abbr title="\App\Models\UserModel">UserModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$UL</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$LANG</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-AbsenceModel.html"><abbr title="\App\Models\AbsenceModel">AbsenceModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$A</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-AllowanceModel.html"><abbr title="\App\Models\AllowanceModel">AllowanceModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$AL</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-ConfigModel.html"><abbr title="\App\Models\ConfigModel">ConfigModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$C</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-DaynoteModel.html"><abbr title="\App\Models\DaynoteModel">DaynoteModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$D</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-GroupModel.html"><abbr title="\App\Models\GroupModel">GroupModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$G</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-HolidayModel.html"><abbr title="\App\Models\HolidayModel">HolidayModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$H</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-MonthModel.html"><abbr title="\App\Models\MonthModel">MonthModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$M</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-TemplateModel.html"><abbr title="\App\Models\TemplateModel">TemplateModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$T</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-UserGroupModel.html"><abbr title="\App\Models\UserGroupModel">UserGroupModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$UG</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-UserModel.html"><abbr title="\App\Models\UserModel">UserModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$U</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Models-UserModel.html"><abbr title="\App\Models\UserModel">UserModel</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$UL</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$LANG</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -986,7 +986,7 @@ time period.</dd>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$LANG</span>
-                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string, string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Language array</p>
@@ -1015,7 +1015,7 @@ time period.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Services/AbsenceService.php"><a href="files/src-services-absenceservice.html"><abbr title="src/Services/AbsenceService.php">AbsenceService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">571</span>
+    <span class="phpdocumentor-element-found-in__line">573</span>
 
     </aside>
 
@@ -1097,7 +1097,7 @@ time period.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Services/AbsenceService.php"><a href="files/src-services-absenceservice.html"><abbr title="src/Services/AbsenceService.php">AbsenceService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">594</span>
+    <span class="phpdocumentor-element-found-in__line">596</span>
 
     </aside>
 
@@ -1179,7 +1179,7 @@ time period.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Services/AbsenceService.php"><a href="files/src-services-absenceservice.html"><abbr title="src/Services/AbsenceService.php">AbsenceService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">106</span>
+    <span class="phpdocumentor-element-found-in__line">107</span>
 
     </aside>
 
@@ -1270,7 +1270,7 @@ time period.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Services/AbsenceService.php"><a href="files/src-services-absenceservice.html"><abbr title="src/Services/AbsenceService.php">AbsenceService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">154</span>
+    <span class="phpdocumentor-element-found-in__line">156</span>
 
     </aside>
 
@@ -1279,7 +1279,7 @@ other possible restrictions.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">approveAbsences</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$username</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$year</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$month</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$currentAbsences</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$requestedAbsences</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$regionId</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$errorMessage</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">''</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">approveAbsences</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$username</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$year</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$month</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;int, bool|int|string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$currentAbsences</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;int, bool|int|string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$requestedAbsences</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$regionId</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$errorMessage</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">''</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1316,7 +1316,7 @@ other possible restrictions.</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$currentAbsences</span>
-                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;int, bool|int|string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Current absences array</p>
@@ -1325,7 +1325,7 @@ other possible restrictions.</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$requestedAbsences</span>
-                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;int, bool|int|string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Requested absences array</p>
@@ -1346,7 +1346,9 @@ other possible restrictions.</p>
                 : <span class="phpdocumentor-argument-list__argument__type">string</span>
                  = <span class="phpdocumentor-argument-list__argument__default-value">''</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Error message reference</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1356,7 +1358,7 @@ other possible restrictions.</p>
     
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Approval result with approved and declined absences</p>
 </section>
@@ -1378,7 +1380,7 @@ other possible restrictions.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Services/AbsenceService.php"><a href="files/src-services-absenceservice.html"><abbr title="src/Services/AbsenceService.php">AbsenceService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">769</span>
+    <span class="phpdocumentor-element-found-in__line">771</span>
 
     </aside>
 
@@ -1479,7 +1481,7 @@ time period.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Services/AbsenceService.php"><a href="files/src-services-absenceservice.html"><abbr title="src/Services/AbsenceService.php">AbsenceService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">882</span>
+    <span class="phpdocumentor-element-found-in__line">884</span>
 
     </aside>
 
@@ -1561,7 +1563,7 @@ time period.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Services/AbsenceService.php"><a href="files/src-services-absenceservice.html"><abbr title="src/Services/AbsenceService.php">AbsenceService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">714</span>
+    <span class="phpdocumentor-element-found-in__line">716</span>
 
     </aside>
 
@@ -1569,7 +1571,7 @@ time period.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getAbsenceSummary</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$username</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$absid</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$year</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">getAbsenceSummary</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$username</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$absid</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$year</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1582,9 +1584,7 @@ time period.</p>
                 : <span class="phpdocumentor-argument-list__argument__type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Username</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$absid</span>
@@ -1612,7 +1612,7 @@ time period.</p>
     
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Summary array with allowance, carryover, taken, etc.</p>
 </section>
@@ -1634,7 +1634,7 @@ time period.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Services/AbsenceService.php"><a href="files/src-services-absenceservice.html"><abbr title="src/Services/AbsenceService.php">AbsenceService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">617</span>
+    <span class="phpdocumentor-element-found-in__line">619</span>
 
     </aside>
 
@@ -1716,7 +1716,7 @@ time period.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Services/AbsenceService.php"><a href="files/src-services-absenceservice.html"><abbr title="src/Services/AbsenceService.php">AbsenceService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">642</span>
+    <span class="phpdocumentor-element-found-in__line">644</span>
 
     </aside>
 
@@ -1798,7 +1798,7 @@ time period.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Services/AbsenceService.php"><a href="files/src-services-absenceservice.html"><abbr title="src/Services/AbsenceService.php">AbsenceService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">665</span>
+    <span class="phpdocumentor-element-found-in__line">668</span>
 
     </aside>
 
@@ -1806,7 +1806,7 @@ time period.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">sendAbsenceApprovalNotifications</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$username</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$absences</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$errorMessage</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">''</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">sendAbsenceApprovalNotifications</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$username</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$absences</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$errorMessage</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">''</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1825,7 +1825,7 @@ time period.</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$absences</span>
-                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Array of absences</p>
@@ -1837,7 +1837,9 @@ time period.</p>
                 : <span class="phpdocumentor-argument-list__argument__type">string</span>
                  = <span class="phpdocumentor-argument-list__argument__default-value">''</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Error message reference</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1861,7 +1863,7 @@ time period.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Services/AbsenceService.php"><a href="files/src-services-absenceservice.html"><abbr title="src/Services/AbsenceService.php">AbsenceService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">987</span>
+    <span class="phpdocumentor-element-found-in__line">989</span>
 
     </aside>
 
@@ -1869,7 +1871,7 @@ time period.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">countAbsenceRequestedMonth</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$requestedAbsences</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$absence</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+                    <span class="phpdocumentor-signature__name">countAbsenceRequestedMonth</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$requestedAbsences</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$absence</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1879,7 +1881,7 @@ time period.</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$requestedAbsences</span>
-                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;int, string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Requested absences array</p>
@@ -1925,7 +1927,7 @@ time period.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Services/AbsenceService.php"><a href="files/src-services-absenceservice.html"><abbr title="src/Services/AbsenceService.php">AbsenceService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1007</span>
+    <span class="phpdocumentor-element-found-in__line">1009</span>
 
     </aside>
 
@@ -1933,7 +1935,7 @@ time period.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">countAbsenceRequestedWeek</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$requestedAbsences</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$absence</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$startAt</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+                    <span class="phpdocumentor-signature__name">countAbsenceRequestedWeek</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$requestedAbsences</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$absence</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$startAt</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1943,7 +1945,7 @@ time period.</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$requestedAbsences</span>
-                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;int, string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Requested absences array</p>

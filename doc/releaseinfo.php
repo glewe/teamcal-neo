@@ -2,6 +2,21 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '5.0.2',
+    'date' => '2026-02-10',
+    'info' => 'Bugfix release',
+    'bugfixes' => [
+      [ 'summary' => 'Fixed bugs on password reset page', 'issue' => '' ],
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '5.0.1',
     'date' => '2026-02-10',
     'info' => 'Bugfix release',

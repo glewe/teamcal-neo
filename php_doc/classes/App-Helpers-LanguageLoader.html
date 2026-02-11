@@ -229,25 +229,25 @@ usage compared to loading all language files at once.</p>
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#property_hasNewStructure">$hasNewStructure</a>
     <span>
-                        &nbsp;: mixed            </span>
+                        &nbsp;: bool|null            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#property_language">$language</a>
     <span>
-                        &nbsp;: mixed            </span>
+                        &nbsp;: string            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#property_loadedFiles">$loadedFiles</a>
     <span>
-                        &nbsp;: mixed            </span>
+                        &nbsp;: array&lt;string|int, string&gt;            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#property_loadingStats">$loadingStats</a>
     <span>
-                        &nbsp;: mixed            </span>
+                        &nbsp;: array&lt;string, int|float&gt;            </span>
 </dt>
 
     </dl>
@@ -261,7 +261,7 @@ usage compared to loading all language files at once.</p>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_compareAllLanguages">compareAllLanguages()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string, mixed&gt;    </span>
 </dt>
 <dd>Automatically detects all available languages and compares them against
 English as the reference language. No need to specify languages manually.</dd>
@@ -269,35 +269,35 @@ English as the reference language. No need to specify languages manually.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_compareAndDisplay">compareAndDisplay()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string, mixed&gt;    </span>
 </dt>
 <dd>Convenience method that combines comparison and report generation.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_compareLanguages">compareLanguages()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string, mixed&gt;    </span>
 </dt>
 <dd>Compares language files between two languages to identify missing keys.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_forceReload">forceReload()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Clears the loaded files cache and forces a reload on next request.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_generateComparisonReport">generateComparisonReport()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string, mixed&gt;    </span>
 </dt>
 <dd>Generates a formatted HTML report from language comparison results.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_getAvailableLanguages">getAvailableLanguages()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, string&gt;    </span>
 </dt>
 <dd>Discovers all available languages in the system based on file structure.</dd>
 
@@ -311,56 +311,56 @@ English as the reference language. No need to specify languages manually.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_getLoadedFiles">getLoadedFiles()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, string&gt;    </span>
 </dt>
 <dd>Returns list of language files that have been loaded.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_getStats">getStats()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string, int|float&gt;    </span>
 </dt>
 <dd>Returns performance statistics for the current loading session.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_initialize">initialize()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Sets the current language and prepares the loader.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_loadForController">loadForController()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string, int|float&gt;    </span>
 </dt>
 <dd>Loads the required language files for a specific controller.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_calculatePerformanceStats">calculatePerformanceStats()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Calculates memory usage improvements compared to legacy loading.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_compareSplitLanguages">compareSplitLanguages()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string, mixed&gt;    </span>
 </dt>
 <dd>Compares split language file structure between two languages.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_generateAllLanguagesReport">generateAllLanguagesReport()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string, mixed&gt;    </span>
 </dt>
 <dd>Generates a comprehensive HTML report for all language comparisons.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_getRequiredFiles">getRequiredFiles()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, string&gt;    </span>
 </dt>
 <dd>Determines which language files are needed for a specific controller.</dd>
 
@@ -374,28 +374,28 @@ English as the reference language. No need to specify languages manually.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_loadKeysFromFile">loadKeysFromFile()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, string&gt;    </span>
 </dt>
 <dd>Extracts language keys from a PHP language file.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_loadLanguageFile">loadLanguageFile()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Loads a specific language file if it exists and hasn&#039;t been loaded yet.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_loadLegacyStructure">loadLegacyStructure()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Fallback to the original 4-file language loading system.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a class="" href="classes/App-Helpers-LanguageLoader.html#method_loadModernStructure">loadModernStructure()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
 <dd>Loads core.php plus controller-specific language files.</dd>
 
@@ -429,7 +429,7 @@ English as the reference language. No need to specify languages manually.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
@@ -437,7 +437,7 @@ English as the reference language. No need to specify languages manually.</dd>
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
         <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">bool|null</span>
     <span class="phpdocumentor-signature__name">$hasNewStructure</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
@@ -474,7 +474,7 @@ English as the reference language. No need to specify languages manually.</dd>
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
         <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">$language</span>
      = <span class="phpdocumentor-signature__default-value">&#039;english&#039;</span></code>
 
@@ -503,7 +503,7 @@ English as the reference language. No need to specify languages manually.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
@@ -511,7 +511,7 @@ English as the reference language. No need to specify languages manually.</dd>
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
         <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, string&gt;</span>
     <span class="phpdocumentor-signature__name">$loadedFiles</span>
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
@@ -540,7 +540,7 @@ English as the reference language. No need to specify languages manually.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 
     </aside>
 
@@ -548,7 +548,7 @@ English as the reference language. No need to specify languages manually.</dd>
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
         <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string, int|float&gt;</span>
     <span class="phpdocumentor-signature__name">$loadingStats</span>
      = <span class="phpdocumentor-signature__default-value">[&#039;filesLoaded&#039; =&gt; 0, &#039;keysLoaded&#039; =&gt; 0, &#039;memoryReduction&#039; =&gt; 0]</span></code>
 
@@ -582,7 +582,7 @@ English as the reference language. No need to specify languages manually.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">80</span>
+    <span class="phpdocumentor-element-found-in__line">89</span>
 
     </aside>
 
@@ -591,7 +591,7 @@ English as the reference language. No need to specify languages manually.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">compareAllLanguages</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$title</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">'Language Comparison Report'</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subject</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">'<h4>All Languages vs English Comparison</h4>'</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">compareAllLanguages</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$title</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">'Language Comparison Report'</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subject</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">'<h4>All Languages vs English Comparison</h4>'</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -625,7 +625,7 @@ English as the reference language. No need to specify languages manually.</p>
     
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Formatted error data array ready for display</p>
 </section>
@@ -647,7 +647,7 @@ English as the reference language. No need to specify languages manually.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">151</span>
+    <span class="phpdocumentor-element-found-in__line">160</span>
 
     </aside>
 
@@ -655,7 +655,7 @@ English as the reference language. No need to specify languages manually.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">compareAndDisplay</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$lang1</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$lang2</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$title</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">'Debug Info'</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subject</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">'<h4>Language File Comparison</h4>'</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">compareAndDisplay</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$lang1</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$lang2</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$title</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">'Debug Info'</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subject</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">'<h4>Language File Comparison</h4>'</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -707,7 +707,7 @@ English as the reference language. No need to specify languages manually.</p>
     
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Formatted error data array ready for display</p>
 </section>
@@ -729,7 +729,7 @@ English as the reference language. No need to specify languages manually.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">166</span>
+    <span class="phpdocumentor-element-found-in__line">175</span>
 
     </aside>
 
@@ -737,7 +737,7 @@ English as the reference language. No need to specify languages manually.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">compareLanguages</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$lang1</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$lang2</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">compareLanguages</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$lang1</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$lang2</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -773,7 +773,7 @@ English as the reference language. No need to specify languages manually.</p>
     
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Comparison results with statistics and missing keys</p>
 </section>
@@ -795,7 +795,7 @@ English as the reference language. No need to specify languages manually.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">277</span>
+    <span class="phpdocumentor-element-found-in__line">288</span>
 
     </aside>
 
@@ -803,7 +803,7 @@ English as the reference language. No need to specify languages manually.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">forceReload</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">forceReload</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -830,7 +830,7 @@ English as the reference language. No need to specify languages manually.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">431</span>
+    <span class="phpdocumentor-element-found-in__line">442</span>
 
     </aside>
 
@@ -838,7 +838,7 @@ English as the reference language. No need to specify languages manually.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">generateComparisonReport</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$comparison</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$title</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">'Debug Info'</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subject</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">'<h4>Language File Comparison</h4>'</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">generateComparisonReport</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;string, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$comparison</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$title</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">'Debug Info'</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subject</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">'<h4>Language File Comparison</h4>'</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -848,7 +848,7 @@ English as the reference language. No need to specify languages manually.</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$comparison</span>
-                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Comparison result from compareLanguages()</p>
@@ -881,7 +881,7 @@ English as the reference language. No need to specify languages manually.</p>
     
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Formatted error data array for display</p>
 </section>
@@ -903,7 +903,7 @@ English as the reference language. No need to specify languages manually.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">520</span>
+    <span class="phpdocumentor-element-found-in__line">531</span>
 
     </aside>
 
@@ -911,7 +911,7 @@ English as the reference language. No need to specify languages manually.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getAvailableLanguages</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getAvailableLanguages</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -927,7 +927,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Array of available language codes</p>
 </section>
@@ -949,7 +949,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">545</span>
+    <span class="phpdocumentor-element-found-in__line">556</span>
 
     </aside>
 
@@ -992,7 +992,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">555</span>
+    <span class="phpdocumentor-element-found-in__line">566</span>
 
     </aside>
 
@@ -1000,7 +1000,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getLoadedFiles</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getLoadedFiles</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1013,7 +1013,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Array of loaded file names</p>
 </section>
@@ -1035,7 +1035,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">657</span>
+    <span class="phpdocumentor-element-found-in__line">668</span>
 
     </aside>
 
@@ -1043,7 +1043,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getStats</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getStats</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, int|float&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1056,7 +1056,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, int|float&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Loading statistics</p>
 </section>
@@ -1078,7 +1078,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">53</span>
 
     </aside>
 
@@ -1086,7 +1086,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">initialize</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$language</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">'english'</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">initialize</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$language</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">'english'</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1125,7 +1125,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">685</span>
+    <span class="phpdocumentor-element-found-in__line">696</span>
 
     </aside>
 
@@ -1133,7 +1133,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">loadForController</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$controller</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">loadForController</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$controller</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, int|float&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1160,7 +1160,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, int|float&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Performance statistics</p>
 </section>
@@ -1182,7 +1182,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">70</span>
 
     </aside>
 
@@ -1190,7 +1190,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">calculatePerformanceStats</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">calculatePerformanceStats</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1217,7 +1217,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">198</span>
+    <span class="phpdocumentor-element-found-in__line">207</span>
 
     </aside>
 
@@ -1225,7 +1225,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">compareSplitLanguages</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$lang1</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$lang2</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$result</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">compareSplitLanguages</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$lang1</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$lang2</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$result</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1253,7 +1253,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$result</span>
-                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Result array to populate</p>
@@ -1268,7 +1268,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Updated result array</p>
 </section>
@@ -1290,7 +1290,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">294</span>
+    <span class="phpdocumentor-element-found-in__line">305</span>
 
     </aside>
 
@@ -1298,7 +1298,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">generateAllLanguagesReport</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$allResults</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$overallStats</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$referenceLanguage</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$title</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subject</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">generateAllLanguagesReport</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;string, array&lt;string, mixed&gt;&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$allResults</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">array&lt;string, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$overallStats</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$referenceLanguage</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$title</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$subject</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1308,7 +1308,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$allResults</span>
-                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string, array&lt;string, mixed&gt;&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>All comparison results</p>
@@ -1317,7 +1317,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$overallStats</span>
-                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Overall statistics</p>
@@ -1359,7 +1359,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Formatted error data array</p>
 </section>
@@ -1381,7 +1381,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">567</span>
+    <span class="phpdocumentor-element-found-in__line">578</span>
 
     </aside>
 
@@ -1389,7 +1389,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getRequiredFiles</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$controller</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getRequiredFiles</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$controller</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1414,7 +1414,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Array of required file names (without .php extension)</p>
 </section>
@@ -1436,7 +1436,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">667</span>
+    <span class="phpdocumentor-element-found-in__line">678</span>
 
     </aside>
 
@@ -1479,7 +1479,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">711</span>
+    <span class="phpdocumentor-element-found-in__line">722</span>
 
     </aside>
 
@@ -1487,7 +1487,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">loadKeysFromFile</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filePath</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">loadKeysFromFile</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filePath</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1512,7 +1512,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>Array of language keys found in the file</p>
 </section>
@@ -1534,7 +1534,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">729</span>
+    <span class="phpdocumentor-element-found-in__line">742</span>
 
     </aside>
 
@@ -1542,7 +1542,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">loadLanguageFile</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$file</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">loadLanguageFile</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$file</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1581,7 +1581,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">753</span>
+    <span class="phpdocumentor-element-found-in__line">768</span>
 
     </aside>
 
@@ -1589,7 +1589,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">loadLegacyStructure</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">loadLegacyStructure</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1616,7 +1616,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Helpers/LanguageLoader.php"><a href="files/src-helpers-languageloader.html"><abbr title="src/Helpers/LanguageLoader.php">LanguageLoader.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">781</span>
+    <span class="phpdocumentor-element-found-in__line">798</span>
 
     </aside>
 
@@ -1624,7 +1624,7 @@ For legacy files: checks for .php files with complete 4-file set</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">loadModernStructure</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$controller</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">loadModernStructure</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$controller</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>

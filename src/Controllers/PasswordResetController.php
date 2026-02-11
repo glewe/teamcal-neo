@@ -29,6 +29,7 @@ class PasswordResetController extends BaseController
     $UP           = new UserModel($this->DB->db, $this->CONF);
     $missingData  = false;
     $tokenExpired = false;
+    $token        = '';
 
     if (isset($_GET['token'])) {
       $token = sanitize($_GET['token']);

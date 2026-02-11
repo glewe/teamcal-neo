@@ -219,19 +219,19 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a class="" href="classes/App-Models-ConfigModel.html#property_id">$id</a>
     <span>
-                        &nbsp;: mixed            </span>
+                        &nbsp;: int|null            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a class="" href="classes/App-Models-ConfigModel.html#property_name">$name</a>
     <span>
-                        &nbsp;: mixed            </span>
+                        &nbsp;: string            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a class="" href="classes/App-Models-ConfigModel.html#property_value">$value</a>
     <span>
-                        &nbsp;: mixed            </span>
+                        &nbsp;: string            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
@@ -243,19 +243,19 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a class="" href="classes/App-Models-ConfigModel.html#property_conf">$conf</a>
     <span>
-                        &nbsp;: mixed            </span>
+                        &nbsp;: array&lt;string, mixed&gt;            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a class="" href="classes/App-Models-ConfigModel.html#property_db">$db</a>
     <span>
-                        &nbsp;: mixed            </span>
+                        &nbsp;: <abbr title="\PDO">PDO</abbr>            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a class="" href="classes/App-Models-ConfigModel.html#property_table">$table</a>
     <span>
-                        &nbsp;: mixed            </span>
+                        &nbsp;: string            </span>
 </dt>
 
     </dl>
@@ -283,7 +283,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a class="" href="classes/App-Models-ConfigModel.html#method_readAll">readAll()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string, mixed&gt;    </span>
 </dt>
 <dd>Read all config values into an associative array.</dd>
 
@@ -346,7 +346,7 @@
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
         <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__type">mixed</span>
+            <span class="phpdocumentor-signature__type">int|null</span>
     <span class="phpdocumentor-signature__name">$id</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
@@ -383,7 +383,7 @@
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
         <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__type">mixed</span>
+            <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">$name</span>
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
@@ -420,7 +420,7 @@
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
         <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__type">mixed</span>
+            <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">$value</span>
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
@@ -449,7 +449,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/ConfigModel.php"><a href="files/src-models-configmodel.html"><abbr title="src/Models/ConfigModel.php">ConfigModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">31</span>
 
     </aside>
 
@@ -486,7 +486,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/ConfigModel.php"><a href="files/src-models-configmodel.html"><abbr title="src/Models/ConfigModel.php">ConfigModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
@@ -494,7 +494,7 @@
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
         <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__type">mixed</span>
+            <span class="phpdocumentor-signature__type">array&lt;string, mixed&gt;</span>
     <span class="phpdocumentor-signature__name">$conf</span>
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
@@ -523,7 +523,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/ConfigModel.php"><a href="files/src-models-configmodel.html"><abbr title="src/Models/ConfigModel.php">ConfigModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
@@ -531,9 +531,9 @@
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
         <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__type">mixed</span>
+            <span class="phpdocumentor-signature__type"><abbr title="\PDO">PDO</abbr></span>
     <span class="phpdocumentor-signature__name">$db</span>
-     = <span class="phpdocumentor-signature__default-value">null</span></code>
+    </code>
 
     
     
@@ -560,7 +560,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/ConfigModel.php"><a href="files/src-models-configmodel.html"><abbr title="src/Models/ConfigModel.php">ConfigModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 
     </aside>
 
@@ -568,7 +568,7 @@
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
         <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__type">mixed</span>
+            <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">$table</span>
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
@@ -602,7 +602,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/ConfigModel.php"><a href="files/src-models-configmodel.html"><abbr title="src/Models/ConfigModel.php">ConfigModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">41</span>
 
     </aside>
 
@@ -610,7 +610,7 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$conf</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$db</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Core-Cache.html"><abbr title="\App\Core\Cache">Cache</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cache</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;string, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$conf</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$db</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__type"><a href="classes/App-Core-Cache.html"><abbr title="\App\Core\Cache">Cache</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cache</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -620,7 +620,7 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$conf</span>
-                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string, string&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Configuration array</p>
@@ -667,7 +667,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/ConfigModel.php"><a href="files/src-models-configmodel.html"><abbr title="src/Models/ConfigModel.php">ConfigModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">84</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 
@@ -722,7 +722,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/ConfigModel.php"><a href="files/src-models-configmodel.html"><abbr title="src/Models/ConfigModel.php">ConfigModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">94</span>
+    <span class="phpdocumentor-element-found-in__line">95</span>
 
     </aside>
 
@@ -730,7 +730,7 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">readAll</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">readAll</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -743,7 +743,7 @@
     
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string, mixed&gt;</span>
                     &mdash;
                 <section class="phpdocumentor-description"><p>$config Associative array of all config name=&gt;value pairs</p>
 </section>
@@ -765,7 +765,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/ConfigModel.php"><a href="files/src-models-configmodel.html"><abbr title="src/Models/ConfigModel.php">ConfigModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">107</span>
+    <span class="phpdocumentor-element-found-in__line">108</span>
 
     </aside>
 
@@ -773,7 +773,7 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">save</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">save</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__type">string|int|float|bool|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -792,7 +792,7 @@
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$value</span>
-                : <span class="phpdocumentor-argument-list__argument__type">string</span>
+                : <span class="phpdocumentor-argument-list__argument__type">string|int|float|bool|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Value to save</p>
@@ -829,7 +829,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/ConfigModel.php"><a href="files/src-models-configmodel.html"><abbr title="src/Models/ConfigModel.php">ConfigModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">135</span>
+    <span class="phpdocumentor-element-found-in__line">136</span>
 
     </aside>
 
@@ -837,7 +837,7 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">saveBatch</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$configs</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">saveBatch</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__type">array&lt;string, string|int|float|bool|null&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$configs</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -847,7 +847,7 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-argument-list__argument__name">$configs</span>
-                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-argument-list__argument__type">array&lt;string, string|int|float|bool|null&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Associative array of name=&gt;value pairs</p>
@@ -884,7 +884,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Models/ConfigModel.php"><a href="files/src-models-configmodel.html"><abbr title="src/Models/ConfigModel.php">ConfigModel.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">57</span>
 
     </aside>
 

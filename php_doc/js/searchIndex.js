@@ -323,12 +323,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Controllers\\BulkEditController\u003A\u003AfilterUsersByGroup\u0028\u0029",
             "name": "filterUsersByGroup",
-            "summary": "",
+            "summary": "Filters\u0020a\u0020list\u0020of\u0020users\u0020by\u0020group\u0020ID.",
             "url": "classes/App-Controllers-BulkEditController.html#method_filterUsersByGroup"
         },                {
             "fqsen": "\\App\\Controllers\\BulkEditController\u003A\u003AgetOrCreateAllowance\u0028\u0029",
             "name": "getOrCreateAllowance",
-            "summary": "",
+            "summary": "Gets\u0020the\u0020allowance\u0020for\u0020a\u0020user\/absence\u0020or\u0020creates\u0020it\u0020if\u0020it\u0020doesn\u0027t\u0020exist.",
             "url": "classes/App-Controllers-BulkEditController.html#method_getOrCreateAllowance"
         },                {
             "fqsen": "\\App\\Controllers\\BulkEditController\u003A\u003A\u0024viewData",
@@ -368,7 +368,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Controllers\\CalendarViewController\u003A\u003AprepareDayData\u0028\u0029",
             "name": "prepareDayData",
-            "summary": "Prepares\u0020data\u0020for\u0020a\u0020single\u0020day\u0020in\u0020a\u0020user\u0020row",
+            "summary": "Prepares\u0020data\u0020for\u0020a\u0020single\u0020day\u0020in\u0020a\u0020user\u0020row.",
             "url": "classes/App-Controllers-CalendarViewController.html#method_prepareDayData"
         },                {
             "fqsen": "\\App\\Controllers\\CalendarViewController\u003A\u003AgetRegionMonth\u0028\u0029",
@@ -523,12 +523,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Controllers\\GroupEditController\u003A\u003AhandleUpload\u0028\u0029",
             "name": "handleUpload",
-            "summary": "Uploads\u0020group\u0020avatar.",
+            "summary": "",
             "url": "classes/App-Controllers-GroupEditController.html#method_handleUpload"
         },                {
             "fqsen": "\\App\\Controllers\\GroupEditController\u003A\u003AhandleReset\u0028\u0029",
             "name": "handleReset",
-            "summary": "Resets\u0020group\u0020avatar.",
+            "summary": "",
             "url": "classes/App-Controllers-GroupEditController.html#method_handleReset"
         },                {
             "fqsen": "\\App\\Controllers\\GroupsController",
@@ -4908,7 +4908,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\App\\Models\\UserGroupModel\u003A\u003AgetAllforGroup\u0028\u0029",
             "name": "getAllforGroup",
-            "summary": "Gets\u0020all\u0020records\u0020of\u0020a\u0020given\u0020group\u0020\u0028managers\u0020and\u0020members\u0029.",
+            "summary": "",
             "url": "classes/App-Models-UserGroupModel.html#method_getAllforGroup"
         },                {
             "fqsen": "\\App\\Models\\UserGroupModel\u003A\u003AgetAllManagerUsernames\u0028\u0029",
