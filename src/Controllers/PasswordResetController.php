@@ -58,6 +58,7 @@ class PasswordResetController extends BaseController
     }
 
     $viewData               = [];
+    $viewData['token']      = $token;
     $viewData['pageHelp']   = $this->allConfig['pageHelp'];
     $viewData['showAlerts'] = $this->allConfig['showAlerts'];
 
