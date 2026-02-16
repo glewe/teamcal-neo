@@ -25,6 +25,8 @@ if (!defined('VALID_ROOT')) {
 if (isset($_ENV['DB_HOST'])) {
   // Use .env configuration
   $CONF['db_server']       = $_ENV['DB_HOST'];
+  $CONF['db_port']         = $_ENV['DB_PORT'] ?? "";
+  $CONF['db_socket']       = $_ENV['DB_SOCKET'] ?? "";
   $CONF['db_name']         = $_ENV['DB_NAME'];
   $CONF['db_user']         = $_ENV['DB_USER'];
   $CONF['db_pass']         = $_ENV['DB_PASS'];
@@ -33,6 +35,8 @@ if (isset($_ENV['DB_HOST'])) {
 else {
   // Fallback / Manual configuration
   $CONF['db_server']       = "localhost";
+  $CONF['db_port']         = "";
+  $CONF['db_socket']       = "";
   $CONF['db_name']         = "teamcal_neo";
   $CONF['db_user']         = "root";
   $CONF['db_pass']         = "";

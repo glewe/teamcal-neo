@@ -361,6 +361,10 @@ $LANG['inst_dbPrefix']           = 'Database Table Prefix';
 $LANG['inst_dbPrefix_comment']   = 'Specify a prefix for your database tables or leave empty for none. E.g. "tcneo_".';
 $LANG['inst_dbServer']           = '<span class="text-bold text-danger">*&nbsp;</span>Database Server';
 $LANG['inst_dbServer_comment']   = 'Specify the URL of the database server.';
+$LANG['inst_dbPort']             = 'Database Port';
+$LANG['inst_dbPort_comment']     = 'Specify the port of the database server (default: 3306).';
+$LANG['inst_dbSocket']           = 'Database Socket';
+$LANG['inst_dbSocket_comment']   = 'Specify the Unix socket for the database connection (overrides host and port).';
 $LANG['inst_executed']           = 'Installation already executed';
 $LANG['inst_executed_comment']   = 'The configuration file shows that the installation script was already executed for this instance.<br>
       For security reasons, if you want to run it again, you need to reset the flag in the application config file:<br>
@@ -442,6 +446,8 @@ if (!empty($_POST)) {
     ) {
       // Write database info to config file
       writeConfig("db_server", $_POST['txt_instDbServer'], $configDbFile);
+      writeConfig("db_port", $_POST['txt_instDbPort'] ?? '', $configDbFile);
+      writeConfig("db_socket", $_POST['txt_instDbSocket'] ?? '', $configDbFile);
       writeConfig("db_name", $_POST['txt_instDbName'], $configDbFile);
       writeConfig("db_user", $_POST['txt_instDbUser'], $configDbFile);
 
@@ -466,6 +472,8 @@ if (!empty($_POST)) {
 
       if (file_exists($envFile)) {
         writeEnv('DB_HOST', $_POST['txt_instDbServer'], $envFile);
+        writeEnv('DB_PORT', $_POST['txt_instDbPort'] ?? '3306', $envFile);
+        writeEnv('DB_SOCKET', $_POST['txt_instDbSocket'] ?? '', $envFile);
         writeEnv('DB_DATABASE', $_POST['txt_instDbName'], $envFile);
         writeEnv('DB_USERNAME', $_POST['txt_instDbUser'], $envFile);
         writeEnv('DB_PASSWORD', $_POST['txt_instDbPassword'] ?? '', $envFile);
@@ -474,7 +482,13 @@ if (!empty($_POST)) {
       // Connect to database
       $dberror = false;
       try {
-        $pdo = new PDO('mysql:host=' . $_POST['txt_instDbServer'] . ';dbname=' . $_POST['txt_instDbName'] . ';charset=utf8', $_POST['txt_instDbUser'], $_POST['txt_instDbPassword']);
+        if (isset($_POST['txt_instDbSocket']) && strlen($_POST['txt_instDbSocket'])) {
+          $dsn = 'mysql:unix_socket=' . $_POST['txt_instDbSocket'] . ';dbname=' . $_POST['txt_instDbName'] . ';charset=utf8';
+        }
+        else {
+          $dsn = 'mysql:host=' . $_POST['txt_instDbServer'] . (isset($_POST['txt_instDbPort']) && strlen($_POST['txt_instDbPort']) ? ';port=' . $_POST['txt_instDbPort'] : '') . ';dbname=' . $_POST['txt_instDbName'] . ';charset=utf8';
+        }
+        $pdo = new PDO($dsn, $_POST['txt_instDbUser'], $_POST['txt_instDbPassword']);
       } catch (PDOException $e) {
         $dberror = true;
       }
@@ -646,6 +660,34 @@ if (!$installationComplete && APP_INSTALLED <> '0') {
                 <hr>
               </div>
 
+              <!-- DB Port -->
+              <div class="form-group row">
+                <label for="txt_instDbPort" class="col-lg-8 control-label">
+                  <?= $LANG['inst_dbPort'] ?><br>
+                  <span class="text-normal"><?= $LANG['inst_dbPort_comment'] ?></span>
+                </label>
+                <div class="col-lg-4">
+                  <input id="txt_instDbPort" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_instDbPort" type="text" maxlength="10" value="<?= getInstallConfig('db_port', $configDbFile) ?>">
+                </div>
+              </div>
+              <div class="divider">
+                <hr>
+              </div>
+
+              <!-- DB Socket -->
+              <div class="form-group row">
+                <label for="txt_instDbSocket" class="col-lg-8 control-label">
+                  <?= $LANG['inst_dbSocket'] ?><br>
+                  <span class="text-normal"><?= $LANG['inst_dbSocket_comment'] ?></span>
+                </label>
+                <div class="col-lg-4">
+                 <input id="txt_instDbSocket" class="form-control" tabindex="<?= $tabindex++ ?>" name="txt_instDbSocket" type="text" maxlength="255" value="<?= getInstallConfig('db_socket', $configDbFile) ?>">
+                </div>
+              </div>
+              <div class="divider">
+                <hr>
+              </div>
+
               <!-- DB Name -->
               <div class="form-group row">
                 <label for="txt_instDbName" class="col-lg-8 control-label">
@@ -781,11 +823,13 @@ if (!$installationComplete && APP_INSTALLED <> '0') {
   <script>
     function checkDB() {
       var myDbServer = document.getElementById('txt_instDbServer');
+      var myDbPort = document.getElementById('txt_instDbPort');
+      var myDbSocket = document.getElementById('txt_instDbSocket');
       var myDbUser = document.getElementById('txt_instDbUser');
       var myDbPass = document.getElementById('txt_instDbPassword');
       var myDbName = document.getElementById('txt_instDbName');
       var myDbPrefix = document.getElementById('txt_instDbPrefix');
-      ajaxCheckDB(myDbServer.value, myDbUser.value, myDbPass.value, myDbName.value, myDbPrefix.value, 'checkDbOutput');
+      ajaxCheckDB(myDbServer.value, myDbUser.value, myDbPass.value, myDbName.value, myDbPrefix.value, 'checkDbOutput', myDbPort.value, myDbSocket.value);
     }
 
     function checkLicense() {

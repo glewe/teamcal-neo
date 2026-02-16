@@ -49,8 +49,10 @@ if (strlen($_REQUEST['server']) && strlen($_REQUEST['db']) && strlen($_REQUEST['
     //
     // Sanitize user credentials
     //
-    $user = trim($_REQUEST['user']);
-    $pass = $_REQUEST['pass'] ?? '';
+    $user   = trim($_REQUEST['user']);
+    $pass   = $_REQUEST['pass'] ?? '';
+    $port   = $_REQUEST['port'] ?? null;
+    $socket = $_REQUEST['socket'] ?? null;
 
     // Validate username
     if (strlen($user) > 80) {
@@ -60,8 +62,15 @@ if (strlen($_REQUEST['server']) && strlen($_REQUEST['db']) && strlen($_REQUEST['
     //
     // Connect to the database with timeout and security options
     //
+    if ($socket) {
+      $dsn = 'mysql:unix_socket=' . $socket . ';dbname=' . $database . ';charset=utf8mb4';
+    }
+    else {
+      $dsn = 'mysql:host=' . $server . ($port ? ';port=' . $port : '') . ';dbname=' . $database . ';charset=utf8mb4';
+    }
+
     $pdo = new PDO(
-      'mysql:host=' . $server . ';dbname=' . $database . ';charset=utf8mb4',
+      $dsn,
       $user,
       $pass,
       [

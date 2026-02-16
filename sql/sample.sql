@@ -711,13 +711,13 @@ CREATE TABLE IF NOT EXISTS `tcneo_groups` (
 -- Dumping data for table `tcneo_groups`
 --
 INSERT INTO
-  `tcneo_groups` (`id`, `name`, `description`, `avatar`, `minpresent`, `maxabsent`, `minpresentwe`, `maxabsentwe`)
+  `tcneo_groups` (`name`, `description`, `avatar`, `minpresent`, `maxabsent`, `minpresentwe`, `maxabsentwe`)
 VALUES
-  (1, 'Detectives', 'Famous detectives', 'group_1.png', 0, 9999, 0, 9999),
-  (2, 'Scientists', 'Famous scientists', 'group_2.png', 0, 9999, 0, 9999),
-  (3, 'Mythology', 'Mythology Characters', 'group_3.png', 0, 9999, 0, 9999),
-  (4, 'Pilots', 'Famous pilots', 'group_4.png', 0, 9999, 0, 9999);
-
+  ('Detectives', 'Famous detectives', 'group_1.png', 0, 9999, 0, 9999),
+  ('Scientists', 'Famous scientists', 'group_2.png', 0, 9999, 0, 9999),
+  ('Mythology', 'Mythology Characters', 'group_3.png', 0, 9999, 0, 9999),
+  ('Pilots', 'Famous pilots', 'group_4.png', 0, 9999, 0, 9999);
+  
 -- --------------------------------------------------------
 --
 -- Table structure for table `tcneo_holidays`

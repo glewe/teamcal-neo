@@ -31,16 +31,24 @@ class DbModel
   /**
    * Class constructor.
    *
-   * @param string $server   Server address
-   * @param string $database Database name
-   * @param string $user     Database username
-   * @param string $password Password
+   * @param string      $server   Server address
+   * @param string      $database Database name
+   * @param string      $user     Database username
+   * @param string      $password Password
+   * @param string|null $port     Port
+   * @param string|null $socket   Socket
    */
-  public function __construct(string $server, string $database, string $user, string $password) {
+  public function __construct(string $server, string $database, string $user, string $password, ?string $port = null, ?string $socket = null) {
     /**
      * Connect to database
      */
-    $dsn      = 'mysql:host=' . $server . ';dbname=' . $database . ';charset=utf8mb4';
+    if ($socket) {
+      $dsn = 'mysql:unix_socket=' . $socket . ';dbname=' . $database . ';charset=utf8mb4';
+    }
+    else {
+      $dsn = 'mysql:host=' . $server . ($port ? ';port=' . $port : '') . ';dbname=' . $database . ';charset=utf8mb4';
+    }
+
     $options  = [
       PDO::ATTR_EMULATE_PREPARES   => false,
       PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,

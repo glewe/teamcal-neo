@@ -22,8 +22,8 @@
  * @param {string} prefix - The MySQL table prefix.
  * @param {string} where - The DOM element ID where the output will be displayed.
  */
-function ajaxCheckDB(server, user, pass, db, prefix, where) {
-  var url = "src/Helpers/ajax_checkdb.php?server=" + server + "&user=" + user + "&pass=" + pass + "&db=" + db + "&prefix=" + prefix;
+function ajaxCheckDB(server, user, pass, db, prefix, where, port = '', socket = '') {
+  var url = "src/Helpers/ajax_checkdb.php?server=" + server + "&user=" + user + "&pass=" + pass + "&db=" + db + "&prefix=" + prefix + "&port=" + port + "&socket=" + socket;
   xmlHttp = getXMLHttpRequest(where);
   if (xmlHttp === false) {
     alert("No Ajax possible!");

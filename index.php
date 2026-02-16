@@ -272,7 +272,7 @@ $container->set('Request', function () {
 });
 
 $container->set('DbModel', function ($c) use ($CONF) {
-  $db = new DbModel($CONF['db_server'], $CONF['db_name'], $CONF['db_user'], $CONF['db_pass']);
+  $db = new DbModel($CONF['db_server'], $CONF['db_name'], $CONF['db_user'], $CONF['db_pass'], $CONF['db_port'] ?? null, $CONF['db_socket'] ?? null);
   if ($c->has('Cache')) {
     $db->setCache($c->get('Cache'));
   }
