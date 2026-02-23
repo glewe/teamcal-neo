@@ -2,14 +2,14 @@
 <html lang="{{ LANG.html_locale }}" data-bs-theme="auto" data-width="narrow">
   <head>
     <!--
-        ===============================================================================
-        Application: {{ constant('APP_NAME') }} {{ constant('APP_VER') }}
-        Author:      {{ constant('APP_AUTHOR') }}
-        License:     {{ constant('APP_LICENSE') }}
-        Copyright:   {{ constant('APP_COPYRIGHT') }}
-                      All rights reserved.
-        ===============================================================================
-        -->
+    ===============================================================================
+    Application: {{ constant('APP_NAME') }} {{ constant('APP_VER') }}
+    Author:      {{ constant('APP_AUTHOR') }}
+    License:     {{ constant('APP_LICENSE') }}
+    Copyright:   {{ constant('APP_COPYRIGHT') }}
+                 All rights reserved.
+    ===============================================================================
+    -->
 
     <title>{{ htmlData.title }}</title>
 
@@ -38,6 +38,13 @@
       <meta name="twitter:title" content="{{ htmlData.title }}">
       <meta name="twitter:description" content="{{ htmlData.description }}">
       <meta name="twitter:image" content="{{ constant('WEBSITE_URL') }}public/images/twitter-image.png">
+    {% endif %}
+
+    {% if C.read('noCaching') %}
+      <!-- Disable Caching -->
+      <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+      <meta http-equiv="expires" content="0" />
+      <meta http-equiv="pragma" content="no-cache" />
     {% endif %}
 
     <!-- Theme CSS -->
@@ -225,84 +232,99 @@
       </div>
 
     </footer>
+
+    <!-- Bootstrap Javascript -->
+    <script src="public/themes/bootstrap/{{ constant('BOOTSTRAP_VER') }}/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="public/addons/datatables/{{ constant('DATATABLES_VER') }}/datatables.min.js"></script>
+
+    <!-- TeamCal Neo Width Mode Switcher -->
+    <script src="public/js/width-modes.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        if ($.fn.magnificPopup) {
+          $('.image-popup').magnificPopup({
+            type: 'image',
+            closeOnContentClick: true,
+            closeBtnInside: false,
+            fixedContentPos: true,
+            mainClass: 'mfp-no-margins mfp-with-zoom',
+            image: {
+              verticalFit: true
+            },
+            zoom: {
+              enabled: true,
+              duration: 300
+            }
+          });
+          $('.image-popup-vertical-fit').magnificPopup({
+            type: 'image',
+            closeOnContentClick: true,
+            mainClass: 'mfp-img-mobile',
+            image: {
+              verticalFit: true
+            }
+          });
+          $('.image-popup-fit-width').magnificPopup({
+            type: 'image',
+            closeOnContentClick: true,
+            image: {
+              verticalFit: false
+            }
+          });
+        }
+
+        $('[data-bs-toggle="tooltip"]').each(function () {
+          try {
+            var options = {
+              html: true
+            };
+            if ($(this)[0].hasAttribute('data-type')) {
+              options['template'] = '<div class="tooltip ' + $(this).attr('data-type') + '" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>';
+            }
+            $(this).tooltip(options);
+          } catch (e) {
+            console.warn('Tooltip initialization error:', e);
+          }
+        });
+
+        //
+        // Focus search input when Search User modal is shown in calendarview
+        //
+        $('#modalSearchUser').on('shown.bs.modal', function () {
+          $('#searchUser').focus();
+        });
+
+        //
+        // Submit search when Enter key is pressed in search input
+        //
+        $('#searchUser').on('keypress', function (e) {
+          if (e.which == 13) {
+            $(this).closest('.modal').find('button[name="btn_search"]').click();
+            return false;
+          }
+        });
+
+        var btn = $('#top-link-block');
+        $(window).scroll(function () {
+          if ($(window).scrollTop() > 400) {
+            btn.addClass('show');
+          } else {
+            btn.removeClass('show');
+          }
+        });
+        btn.on('click', function (e) {
+          e.preventDefault();
+          $('html, body').animate({
+            scrollTop: 0
+          }, '400');
+        });
+      });
+    </script>
+
+    {% block javascripts %}{% endblock %}
+
   </body>
-</html></main><!-- Bootstrap Javascript --><script src="public/themes/bootstrap/{{ constant('BOOTSTRAP_VER') }}/js/bootstrap.bundle.min.js"></script><!-- Datatables --><script src="public/addons/datatables/{{ constant('DATATABLES_VER') }}/datatables.min.js"></script><!-- TeamCal Neo Width Mode Switcher --><script src="public/js/width-modes.min.js"></script><script>
-$(document).ready(function () {
-  if ($.fn.magnificPopup) {
-    $('.image-popup').magnificPopup({
-      type: 'image',
-      closeOnContentClick: true,
-      closeBtnInside: false,
-      fixedContentPos: true,
-      mainClass: 'mfp-no-margins mfp-with-zoom',
-      image: {
-        verticalFit: true
-      },
-      zoom: {
-        enabled: true,
-        duration: 300
-      }
-    });
-    $('.image-popup-vertical-fit').magnificPopup({
-      type: 'image',
-      closeOnContentClick: true,
-      mainClass: 'mfp-img-mobile',
-      image: {
-        verticalFit: true
-      }
-    });
-    $('.image-popup-fit-width').magnificPopup({
-      type: 'image',
-      closeOnContentClick: true,
-      image: {
-        verticalFit: false
-      }
-    });
-  }
-
-  $('[data-bs-toggle="tooltip"]').each(function () {
-    try {
-      var options = {
-        html: true
-      };
-      if ($(this)[0].hasAttribute('data-type')) {
-        options['template'] = '<div class="tooltip ' + $(this).attr('data-type') + '" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>';
-      }
-      $(this).tooltip(options);
-    } catch (e) {
-      console.warn('Tooltip initialization error:', e);
-    }
-  });
-
-  //
-  // Focus search input when Search User modal is shown in calendarview
-  //
-  $('#modalSearchUser').on('shown.bs.modal', function () {
-    $('#searchUser').focus();
-  });
-
-  //
-  // Submit search when Enter key is pressed in search input
-  //
-  $('#searchUser').on('keypress', function (e) {
-    if (e.which == 13) {
-      $(this).closest('.modal').find('button[name="btn_search"]').click();
-      return false;
-    }
-  });
-
-  var btn = $('#top-link-block');
-  $(window).scroll(function () {
-    if ($(window).scrollTop() > 400) {
-      btn.addClass('show');
-    } else {
-      btn.removeClass('show');
-    }
-  });
-  btn.on('click', function (e) {
-    e.preventDefault();
-    $('html, body').animate({
-      scrollTop: 0
-    }, '400');
-  });
-});</script>{% block javascripts %}{% endblock %}</body></html>
+</html>

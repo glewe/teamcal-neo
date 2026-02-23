@@ -232,9 +232,9 @@ define('LDAP_SEARCH_BIND', 0);                               // Set to 1 to if y
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "5.0.2");
-define('APP_BUILD', "26");
-define('APP_DATE', "2026-02-16");
+define('APP_VER', "5.0.3");
+define('APP_BUILD', "27");
+define('APP_DATE', "2026-02-23");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "https://www.lewe.com");
