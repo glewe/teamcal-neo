@@ -6,6 +6,8 @@ $releases = [
     'date' => '2026-02-xx',
     'info' => 'Feature release',
     'bugfixes' => [
+      [ 'summary' => 'Fix missing noCaching block in head tag', 'issue' => '' ],
+      [ 'summary' => 'Fix maintenance page layout', 'issue' => '' ],
     ],
     'features' => [
       [ 'summary' => 'Allow to configure database server port and socket', 'issue' => '' ],
