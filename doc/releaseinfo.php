@@ -3,11 +3,12 @@ $releases = [
   //---------------------------------------------------------------------------
   [
     'version' => '5.0.3',
-    'date' => '2026-02-xx',
+    'date' => '2026-03-13',
     'info' => 'Feature release',
     'bugfixes' => [
       [ 'summary' => 'Fix missing noCaching block in head tag', 'issue' => '' ],
       [ 'summary' => 'Fix maintenance page layout', 'issue' => '' ],
+      [ 'summary' => 'Remove old colorpicker due to vulnerability in jQuery 1.3.2', 'issue' => '' ],
     ],
     'features' => [
       [ 'summary' => 'Allow to configure database server port and socket', 'issue' => '' ],
