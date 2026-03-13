@@ -37,7 +37,7 @@ else {
   $CONF['db_server']       = "localhost";
   $CONF['db_port']         = "";
   $CONF['db_socket']       = "";
-  $CONF['db_name']         = "teamcal_neo";
+  $CONF['db_name']         = "tcneo";
   $CONF['db_user']         = "root";
   $CONF['db_pass']         = "";
   $CONF['db_table_prefix'] = "tcneo_";
