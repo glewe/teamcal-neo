@@ -723,7 +723,7 @@ class CalendarViewController extends BaseController
         $dayend   = isset($vmonth['dayEnd']) ? $vmonth['dayEnd'] : $vmonth['dateInfo']['daysInMonth'];
 
         for ($i = $daystart; $i <= $dayend; $i++) {
-          $dayData          = $this->prepareDayData($username, $i, $vmonth['year'], $vmonth['month'], $vmonth['dayStyles'][$i] ?? '', $trustedRoles, $currDate, $viewData, (string) $viewData['regionid']);
+          $dayData          = $this->prepareDayData($username, $i, (string) $vmonth['year'], $vmonth['month'], $vmonth['dayStyles'][$i] ?? '', $trustedRoles, $currDate, $viewData, (string) $viewData['regionid']);
           $mRow['days'][$i] = $dayData;
 
           // Count for summary
