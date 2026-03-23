@@ -2,6 +2,7 @@
 -- Table updates
 --
 ALTER TABLE `tcneo_groups` ADD COLUMN `avatar` VARCHAR(255) NOT NULL DEFAULT 'default_group.png' AFTER `description`;
+ALTER TABLE `tcneo_log` ADD COLUMN `ip` VARCHAR(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL AFTER `timestamp`;
 
 --
 -- Record deletions
