@@ -33,21 +33,11 @@ DROP TABLE IF EXISTS `tcneo_absences`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_absences` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(80) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL,
-    `symbol` char(1) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'A',
-    `icon` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL,
-    `color` varchar(6) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL,
-    `bgcolor` varchar(6) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `symbol` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'A',
+    `icon` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `color` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `bgcolor` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `bgtrans` tinyint (1) NOT NULL DEFAULT 0,
     `factor` float NOT NULL,
     `allowance` float NOT NULL,
@@ -140,9 +130,7 @@ DROP TABLE IF EXISTS `tcneo_allowances`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_allowances` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL,
+  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `absid` int(11) NOT NULL,
     `carryover` smallint(6) DEFAULT 0,
     `allowance` smallint(6) DEFAULT 0,
@@ -159,9 +147,7 @@ DROP TABLE IF EXISTS `tcneo_archive_allowances`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_archive_allowances` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL,
+  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `absid` int(11) NOT NULL,
     `carryover` smallint(6) DEFAULT 0,
     `allowance` smallint(6) DEFAULT 0,
@@ -178,16 +164,10 @@ DROP TABLE IF EXISTS `tcneo_archive_daynotes`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_archive_daynotes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `yyyymmdd` varchar(8) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `username` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'all',
+  `yyyymmdd` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'all',
     `region` int(11) NOT NULL DEFAULT 1,
-    `daynote` text CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `daynote` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     `color` varchar(16) NOT NULL DEFAULT 'default',
     `confidential` tinyint (1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
@@ -203,15 +183,9 @@ DROP TABLE IF EXISTS `tcneo_archive_templates`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_archive_templates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `year` varchar(4) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `month` char(2) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `year` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `month` char(2) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     `abs1` int(11) DEFAULT NULL,
     `abs2` int(11) DEFAULT NULL,
     `abs3` int(11) DEFAULT NULL,
@@ -284,9 +258,7 @@ DROP TABLE IF EXISTS `tcneo_archive_user_attachment`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_archive_user_attachment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     `fileid` int(11) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_username_fileid` (`username`, `fileid`),
@@ -301,13 +273,9 @@ DROP TABLE IF EXISTS `tcneo_archive_user_group`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_archive_user_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     `groupid` int(11) DEFAULT NULL,
-    `type` tinytext CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `type` tinytext CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_username_groupid` (`username`, `groupid`),
     KEY `k_username` (`username`),
@@ -322,9 +290,7 @@ DROP TABLE IF EXISTS `tcneo_archive_user_message`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_archive_user_message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     `msgid` int(11) DEFAULT NULL,
     `popup` tinyint (4) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
@@ -340,15 +306,9 @@ DROP TABLE IF EXISTS `tcneo_archive_user_option`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_archive_user_option` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `option` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `value` text CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `option` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `value` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_username_option` (`username`, `option`),
     KEY `k_username` (`username`),
@@ -363,12 +323,8 @@ DROP TABLE IF EXISTS `tcneo_attachments`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_attachments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `filename` varchar(255) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `uploader` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `filename` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `uploader` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_filename` (`filename`)
 ) ENGINE = MyISAM AUTO_INCREMENT = 13 DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
@@ -400,12 +356,8 @@ DROP TABLE IF EXISTS `tcneo_config`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_config` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `value` text CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+    `value` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_name` (`name`)
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
@@ -667,16 +619,10 @@ DROP TABLE IF EXISTS `tcneo_daynotes`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_daynotes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `yyyymmdd` varchar(8) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `username` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'all',
+  `yyyymmdd` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'all',
     `region` int(11) NOT NULL DEFAULT 1,
-    `daynote` text CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `daynote` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     `color` varchar(16) NOT NULL DEFAULT 'default',
     `confidential` tinyint (1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
@@ -691,20 +637,15 @@ CREATE TABLE IF NOT EXISTS `tcneo_daynotes` (
 DROP TABLE IF EXISTS `tcneo_groups`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_groups` (
-  `id` int(11) NOT NULL,
-  `name` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `description` varchar(100) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `avatar` varchar(255) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'default_group.png',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+    `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+    `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'default_group.png',
     `minpresent` smallint(6) NOT NULL DEFAULT 0,
     `maxabsent` smallint(6) NOT NULL DEFAULT 9999,
     `minpresentwe` smallint(6) NOT NULL DEFAULT 0,
-    `maxabsentwe` smallint(6) NOT NULL DEFAULT 9999
+    `maxabsentwe` smallint(6) NOT NULL DEFAULT 9999,
+    PRIMARY KEY (`id`)
 ) ENGINE = MyISAM AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 --
@@ -726,18 +667,10 @@ DROP TABLE IF EXISTS `tcneo_holidays`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_holidays` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `description` varchar(100) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `color` varchar(6) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '000000',
-    `bgcolor` varchar(6) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'ffffff',
+  `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+    `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+    `color` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '000000',
+    `bgcolor` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'ffffff',
     `businessday` tinyint (1) NOT NULL DEFAULT 0,
     `noabsence` tinyint (1) NOT NULL DEFAULT 0,
     `keepweekendcolor` tinyint (1) NOT NULL DEFAULT 0,
@@ -765,19 +698,11 @@ DROP TABLE IF EXISTS `tcneo_log`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `type` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     `timestamp` datetime NOT NULL DEFAULT '2026-01-01 00:00:00',
-    `ip` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `user` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `event` text CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `ip` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `user` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `event` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
@@ -1197,12 +1122,8 @@ DROP TABLE IF EXISTS `tcneo_messages`;
 CREATE TABLE IF NOT EXISTS `tcneo_messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `timestamp` datetime NOT NULL DEFAULT '2026-01-01 00:00:00',
-  `text` text CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL,
-    `type` varchar(8) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL,
+  `text` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `type` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     PRIMARY KEY (`id`),
     KEY `k_type` (`type`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
@@ -1215,12 +1136,8 @@ DROP TABLE IF EXISTS `tcneo_months`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_months` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `year` varchar(4) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `month` char(2) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `year` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `month` char(2) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     `region` int(11) DEFAULT 1,
     `wday1` tinyint (1) DEFAULT NULL,
     `wday2` tinyint (1) DEFAULT NULL,
@@ -1433,12 +1350,8 @@ DROP TABLE IF EXISTS `tcneo_patterns`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_patterns` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `description` varchar(100) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
     `abs1` int(11) DEFAULT NULL,
     `abs2` int(11) DEFAULT NULL,
     `abs3` int(11) DEFAULT NULL,
@@ -1467,12 +1380,8 @@ DROP TABLE IF EXISTS `tcneo_permissions`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_permissions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `scheme` varchar(80) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL,
-    `permission` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL,
+  `scheme` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+    `permission` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `role` int(11) NOT NULL DEFAULT 1,
     `allowed` tinyint (1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
@@ -1687,12 +1596,8 @@ DROP TABLE IF EXISTS `tcneo_regions`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_regions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `description` varchar(100) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+    `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
     PRIMARY KEY (`id`),
     KEY `k_name` (`name`)
 ) ENGINE = MyISAM AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
@@ -1717,9 +1622,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_region_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `regionid` int(11) NOT NULL,
   `roleid` int(11) NOT NULL,
-  `access` varchar(4) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT 'edit',
+  `access` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'edit',
     PRIMARY KEY (`id`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
@@ -1731,15 +1634,9 @@ DROP TABLE IF EXISTS `tcneo_roles`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `description` varchar(100) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `color` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'default',
+  `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+    `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+    `color` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'default',
     `created` timestamp NOT NULL DEFAULT current_timestamp(),
     `updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
     PRIMARY KEY (`id`),
@@ -1766,15 +1663,9 @@ DROP TABLE IF EXISTS `tcneo_templates`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_templates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `year` varchar(4) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `month` char(2) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `year` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `month` char(2) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     `abs1` int(11) DEFAULT NULL,
     `abs2` int(11) DEFAULT NULL,
     `abs3` int(11) DEFAULT NULL,
@@ -2396,9 +2287,7 @@ DROP TABLE IF EXISTS `tcneo_user_attachment`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_user_attachment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     `fileid` int(11) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_username_fileid` (`username`, `fileid`),
@@ -2432,13 +2321,9 @@ DROP TABLE IF EXISTS `tcneo_user_group`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_user_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     `groupid` int(11) DEFAULT NULL,
-    `type` tinytext CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `type` tinytext CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY `k_username` (`username`),
     KEY `k_groupid` (`groupid`)
@@ -2471,9 +2356,7 @@ DROP TABLE IF EXISTS `tcneo_user_message`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_user_message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     `msgid` int(11) DEFAULT NULL,
     `popup` tinyint (4) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
@@ -2489,15 +2372,9 @@ DROP TABLE IF EXISTS `tcneo_user_option`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_user_option` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `option` varchar(40) CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `value` text CHARACTER
-  SET
-    utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `option` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `value` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_username_option` (`username`, `option`),
     KEY `k_username` (`username`),
