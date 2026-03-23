@@ -2,10 +2,10 @@
     "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
     "bomFormat": "CycloneDX",
     "specVersion": "1.5",
-    "serialNumber": "urn:uuid:28d83937-51be-4559-8c2c-c71665f06530",
+    "serialNumber": "urn:uuid:c1d9c899-e25a-4c2f-8cf3-80e92f5d1a78",
     "version": 1,
     "metadata": {
-        "timestamp": "2026-03-13T17:05:22Z",
+        "timestamp": "2026-03-23T13:09:27Z",
         "tools": [
             {
                 "name": "composer",
@@ -82,10 +82,10 @@
             }
         ],
         "component": {
-            "bom-ref": "glewe/teamcal-neo-5.0.3.0",
+            "bom-ref": "glewe/teamcal-neo-5.0.4.0",
             "type": "application",
             "name": "teamcal-neo",
-            "version": "5.0.3",
+            "version": "5.0.4",
             "group": "glewe",
             "description": "A web application of a day-based calendar and scheduling tool.",
             "author": "George Lewe",
@@ -96,7 +96,7 @@
                     }
                 }
             ],
-            "purl": "pkg:composer/glewe/teamcal-neo@5.0.3",
+            "purl": "pkg:composer/glewe/teamcal-neo@5.0.4",
             "externalReferences": [
                 {
                     "type": "website",
@@ -3445,7 +3445,7 @@
             ]
         },
         {
-            "ref": "glewe/teamcal-neo-5.0.3.0",
+            "ref": "glewe/teamcal-neo-5.0.4.0",
             "dependsOn": [
                 "matthiasmullie/minify-1.3.75.0",
                 "phpmailer/phpmailer-7.0.2.0",
