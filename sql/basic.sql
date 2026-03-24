@@ -14,13 +14,17 @@ START TRANSACTION;
 SET
   time_zone = "+00:00";
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT = @@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT = @@CHARACTER_SET_CLIENT */
+;
 
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS = @@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS = @@CHARACTER_SET_RESULTS */
+;
 
-/*!40101 SET @OLD_COLLATION_CONNECTION = @@COLLATION_CONNECTION */;
+/*!40101 SET @OLD_COLLATION_CONNECTION = @@COLLATION_CONNECTION */
+;
 
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8mb4 */
+;
 
 --
 -- Database: `tcneo`
@@ -34,25 +38,25 @@ DROP TABLE IF EXISTS `tcneo_absences`;
 CREATE TABLE IF NOT EXISTS `tcneo_absences` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    `symbol` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'A',
-    `icon` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    `color` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    `bgcolor` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    `bgtrans` tinyint (1) NOT NULL DEFAULT 0,
-    `factor` float NOT NULL,
-    `allowance` float NOT NULL,
-    `allowmonth` float NOT NULL,
-    `allowweek` float NOT NULL,
-    `counts_as` int(11) NOT NULL,
-    `show_in_remainder` tinyint (1) NOT NULL,
-    `show_totals` tinyint (1) NOT NULL,
-    `approval_required` tinyint (1) NOT NULL,
-    `counts_as_present` tinyint (1) NOT NULL,
-    `manager_only` tinyint (1) NOT NULL,
-    `hide_in_profile` tinyint (1) NOT NULL,
-    `confidential` tinyint (1) NOT NULL,
-    `takeover` tinyint (1) NOT NULL,
-    PRIMARY KEY (`id`)
+  `symbol` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'A',
+  `icon` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `color` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `bgcolor` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `bgtrans` tinyint (1) NOT NULL DEFAULT 0,
+  `factor` float NOT NULL,
+  `allowance` float NOT NULL,
+  `allowmonth` float NOT NULL,
+  `allowweek` float NOT NULL,
+  `counts_as` int(11) NOT NULL,
+  `show_in_remainder` tinyint (1) NOT NULL,
+  `show_totals` tinyint (1) NOT NULL,
+  `approval_required` tinyint (1) NOT NULL,
+  `counts_as_present` tinyint (1) NOT NULL,
+  `manager_only` tinyint (1) NOT NULL,
+  `hide_in_profile` tinyint (1) NOT NULL,
+  `confidential` tinyint (1) NOT NULL,
+  `takeover` tinyint (1) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -61,7 +65,15 @@ CREATE TABLE IF NOT EXISTS `tcneo_absences` (
 --
 DROP TABLE IF EXISTS `tcneo_absence_group`;
 
-CREATE TABLE IF NOT EXISTS `tcneo_absence_group` (`id` int(11) NOT NULL AUTO_INCREMENT, `absid` int(11) DEFAULT NULL, `groupid` int(11) DEFAULT NULL, PRIMARY KEY (`id`), UNIQUE KEY `absgroup` (`absid`, `groupid`), KEY `k_absid` (`absid`), KEY `k_groupid` (`groupid`)) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
+CREATE TABLE IF NOT EXISTS `tcneo_absence_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `absid` int(11) DEFAULT NULL,
+  `groupid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `absgroup` (`absid`, `groupid`),
+  KEY `k_absid` (`absid`),
+  KEY `k_groupid` (`groupid`)
+) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
 --
@@ -72,12 +84,12 @@ DROP TABLE IF EXISTS `tcneo_allowances`;
 CREATE TABLE IF NOT EXISTS `tcneo_allowances` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    `absid` int(11) NOT NULL,
-    `carryover` smallint(6) DEFAULT 0,
-    `allowance` smallint(6) DEFAULT 0,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_username_absid` (`username`, `absid`),
-    KEY `k_username` (`username`)
+  `absid` int(11) NOT NULL,
+  `carryover` smallint(6) DEFAULT 0,
+  `allowance` smallint(6) DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_username_absid` (`username`, `absid`),
+  KEY `k_username` (`username`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -89,12 +101,12 @@ DROP TABLE IF EXISTS `tcneo_archive_allowances`;
 CREATE TABLE IF NOT EXISTS `tcneo_archive_allowances` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    `absid` int(11) NOT NULL,
-    `carryover` smallint(6) DEFAULT 0,
-    `allowance` smallint(6) DEFAULT 0,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_username_absid` (`username`, `absid`),
-    KEY `k_username` (`username`)
+  `absid` int(11) NOT NULL,
+  `carryover` smallint(6) DEFAULT 0,
+  `allowance` smallint(6) DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_username_absid` (`username`, `absid`),
+  KEY `k_username` (`username`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -106,14 +118,14 @@ DROP TABLE IF EXISTS `tcneo_archive_daynotes`;
 CREATE TABLE IF NOT EXISTS `tcneo_archive_daynotes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `yyyymmdd` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'all',
-    `region` int(11) NOT NULL DEFAULT 1,
-    `daynote` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `color` varchar(16) NOT NULL DEFAULT 'default',
-    `confidential` tinyint (1) NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_yyyymmdd_username_region` (`yyyymmdd`, `username`, `region`),
-    KEY `k_username` (`username`)
+  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'all',
+  `region` int(11) NOT NULL DEFAULT 1,
+  `daynote` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `color` varchar(16) NOT NULL DEFAULT 'default',
+  `confidential` tinyint (1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_yyyymmdd_username_region` (`yyyymmdd`, `username`, `region`),
+  KEY `k_username` (`username`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -125,42 +137,42 @@ DROP TABLE IF EXISTS `tcneo_archive_templates`;
 CREATE TABLE IF NOT EXISTS `tcneo_archive_templates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `year` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `month` char(2) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `abs1` int(11) DEFAULT NULL,
-    `abs2` int(11) DEFAULT NULL,
-    `abs3` int(11) DEFAULT NULL,
-    `abs4` int(11) DEFAULT NULL,
-    `abs5` int(11) DEFAULT NULL,
-    `abs6` int(11) DEFAULT NULL,
-    `abs7` int(11) DEFAULT NULL,
-    `abs8` int(11) DEFAULT NULL,
-    `abs9` int(11) DEFAULT NULL,
-    `abs10` int(11) DEFAULT NULL,
-    `abs11` int(11) DEFAULT NULL,
-    `abs12` int(11) DEFAULT NULL,
-    `abs13` int(11) DEFAULT NULL,
-    `abs14` int(11) DEFAULT NULL,
-    `abs15` int(11) DEFAULT NULL,
-    `abs16` int(11) DEFAULT NULL,
-    `abs17` int(11) DEFAULT NULL,
-    `abs18` int(11) DEFAULT NULL,
-    `abs19` int(11) DEFAULT NULL,
-    `abs20` int(11) DEFAULT NULL,
-    `abs21` int(11) DEFAULT NULL,
-    `abs22` int(11) DEFAULT NULL,
-    `abs23` int(11) DEFAULT NULL,
-    `abs24` int(11) DEFAULT NULL,
-    `abs25` int(11) DEFAULT NULL,
-    `abs26` int(11) DEFAULT NULL,
-    `abs27` int(11) DEFAULT NULL,
-    `abs28` int(11) DEFAULT NULL,
-    `abs29` int(11) DEFAULT NULL,
-    `abs30` int(11) DEFAULT NULL,
-    `abs31` int(11) DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_username_year_month` (`username`, `year`, `month`),
-    KEY `k_username` (`username`)
+  `year` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `month` char(2) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `abs1` int(11) DEFAULT NULL,
+  `abs2` int(11) DEFAULT NULL,
+  `abs3` int(11) DEFAULT NULL,
+  `abs4` int(11) DEFAULT NULL,
+  `abs5` int(11) DEFAULT NULL,
+  `abs6` int(11) DEFAULT NULL,
+  `abs7` int(11) DEFAULT NULL,
+  `abs8` int(11) DEFAULT NULL,
+  `abs9` int(11) DEFAULT NULL,
+  `abs10` int(11) DEFAULT NULL,
+  `abs11` int(11) DEFAULT NULL,
+  `abs12` int(11) DEFAULT NULL,
+  `abs13` int(11) DEFAULT NULL,
+  `abs14` int(11) DEFAULT NULL,
+  `abs15` int(11) DEFAULT NULL,
+  `abs16` int(11) DEFAULT NULL,
+  `abs17` int(11) DEFAULT NULL,
+  `abs18` int(11) DEFAULT NULL,
+  `abs19` int(11) DEFAULT NULL,
+  `abs20` int(11) DEFAULT NULL,
+  `abs21` int(11) DEFAULT NULL,
+  `abs22` int(11) DEFAULT NULL,
+  `abs23` int(11) DEFAULT NULL,
+  `abs24` int(11) DEFAULT NULL,
+  `abs25` int(11) DEFAULT NULL,
+  `abs26` int(11) DEFAULT NULL,
+  `abs27` int(11) DEFAULT NULL,
+  `abs28` int(11) DEFAULT NULL,
+  `abs29` int(11) DEFAULT NULL,
+  `abs30` int(11) DEFAULT NULL,
+  `abs31` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_username_year_month` (`username`, `year`, `month`),
+  KEY `k_username` (`username`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -200,10 +212,10 @@ DROP TABLE IF EXISTS `tcneo_archive_user_attachment`;
 CREATE TABLE IF NOT EXISTS `tcneo_archive_user_attachment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `fileid` int(11) NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_username_fileid` (`username`, `fileid`),
-    KEY `k_username` (`username`)
+  `fileid` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_username_fileid` (`username`, `fileid`),
+  KEY `k_username` (`username`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -215,12 +227,12 @@ DROP TABLE IF EXISTS `tcneo_archive_user_group`;
 CREATE TABLE IF NOT EXISTS `tcneo_archive_user_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `groupid` int(11) DEFAULT NULL,
-    `type` tinytext CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_username_groupid` (`username`, `groupid`),
-    KEY `k_username` (`username`),
-    KEY `k_groupid` (`groupid`)
+  `groupid` int(11) DEFAULT NULL,
+  `type` tinytext CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_username_groupid` (`username`, `groupid`),
+  KEY `k_username` (`username`),
+  KEY `k_groupid` (`groupid`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -232,11 +244,11 @@ DROP TABLE IF EXISTS `tcneo_archive_user_message`;
 CREATE TABLE IF NOT EXISTS `tcneo_archive_user_message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `msgid` int(11) DEFAULT NULL,
-    `popup` tinyint (4) NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    KEY `k_username` (`username`),
-    KEY `k_msgid` (`msgid`)
+  `msgid` int(11) DEFAULT NULL,
+  `popup` tinyint (4) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `k_username` (`username`),
+  KEY `k_msgid` (`msgid`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -248,12 +260,12 @@ DROP TABLE IF EXISTS `tcneo_archive_user_option`;
 CREATE TABLE IF NOT EXISTS `tcneo_archive_user_option` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `option` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `value` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_username_option` (`username`, `option`),
-    KEY `k_username` (`username`),
-    KEY `k_option` (`option`)
+  `option` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `value` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_username_option` (`username`, `option`),
+  KEY `k_username` (`username`),
+  KEY `k_option` (`option`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -265,9 +277,9 @@ DROP TABLE IF EXISTS `tcneo_attachments`;
 CREATE TABLE IF NOT EXISTS `tcneo_attachments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `filename` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `uploader` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_filename` (`filename`)
+  `uploader` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_filename` (`filename`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -279,9 +291,9 @@ DROP TABLE IF EXISTS `tcneo_config`;
 CREATE TABLE IF NOT EXISTS `tcneo_config` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `value` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_name` (`name`)
+  `value` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_name` (`name`)
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 --
@@ -297,8 +309,14 @@ VALUES
   ('alertAutocloseSuccess', '1'),
   ('alertAutocloseWarning', '0'),
   ('allowRegistration', '1'),
-  ('appDescription', 'A day based online calendar to manage team events'),
-  ('appKeywords', 'lewe teamcal neo calendar absence event team'),
+  (
+    'appDescription',
+    'A day based online calendar to manage team events'
+  ),
+  (
+    'appKeywords',
+    'lewe teamcal neo calendar absence event team'
+  ),
   ('appTitle', 'TeamCal Neo'),
   ('appURL', '#'),
   ('avatarHeight', '0'),
@@ -364,15 +382,24 @@ VALUES
   ('font', 'default'),
   ('footerCopyright', 'Lewe.com'),
   ('footerCopyrightUrl', 'http://www.lewe.com'),
-  ('footerSocialLinks', 'https://www.linkedin.com/in/george-lewe-a9ab6411b'),
+  (
+    'footerSocialLinks',
+    'https://www.linkedin.com/in/george-lewe-a9ab6411b'
+  ),
   ('forceTfa', '0'),
-  ('gdprController', 'ACME Inc.\r\n123 Street\r\nHometown, XY 4567\r\nGermany\r\nEmail: info@acme.com'),
+  (
+    'gdprController',
+    'ACME Inc.\r\n123 Street\r\nHometown, XY 4567\r\nGermany\r\nEmail: info@acme.com'
+  ),
   ('gdprFacebook', '0'),
   ('gdprGoogleAnalytics', '0'),
   ('gdprGooglePlus', '0'),
   ('gdprInstagram', '0'),
   ('gdprLinkedin', '1'),
-  ('gdprOfficer', 'John Doe\r\nPhone: +49 555 12345\r\nEmail: john.doe@acme.com'),
+  (
+    'gdprOfficer',
+    'John Doe\r\nPhone: +49 555 12345\r\nEmail: john.doe@acme.com'
+  ),
   ('gdprOrganization', 'ACME Inc.'),
   ('gdprPaypal', '0'),
   ('gdprPinterest', '0'),
@@ -522,7 +549,10 @@ VALUES
   ('userCustom3', 'Custom Field 3'),
   ('userCustom4', 'Custom Field 4'),
   ('userCustom5', 'Custom Field 5'),
-  ('userManual', 'https%3A%2F%2Flewe.gitbook.io%2Fteamcal-neo%2F'),
+  (
+    'userManual',
+    'https%3A%2F%2Flewe.gitbook.io%2Fteamcal-neo%2F'
+  ),
   ('userSearch', '0'),
   ('usersPerPage', '0'),
   ('versionCompare', '1'),
@@ -542,14 +572,14 @@ DROP TABLE IF EXISTS `tcneo_daynotes`;
 CREATE TABLE IF NOT EXISTS `tcneo_daynotes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `yyyymmdd` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'all',
-    `region` int(11) NOT NULL DEFAULT 1,
-    `daynote` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `color` varchar(16) NOT NULL DEFAULT 'default',
-    `confidential` tinyint (1) NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_yyyymmdd_username_region` (`yyyymmdd`, `username`, `region`),
-    KEY `k_username` (`username`)
+  `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'all',
+  `region` int(11) NOT NULL DEFAULT 1,
+  `daynote` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `color` varchar(16) NOT NULL DEFAULT 'default',
+  `confidential` tinyint (1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_yyyymmdd_username_region` (`yyyymmdd`, `username`, `region`),
+  KEY `k_username` (`username`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -561,13 +591,13 @@ DROP TABLE IF EXISTS `tcneo_groups`;
 CREATE TABLE IF NOT EXISTS `tcneo_groups` (
   `id` int(11) NOT NULL,
   `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'default_group.png',
-    `minpresent` smallint(6) NOT NULL DEFAULT 0,
-    `maxabsent` smallint(6) NOT NULL DEFAULT 9999,
-    `minpresentwe` smallint(6) NOT NULL DEFAULT 0,
-    `maxabsentwe` smallint(6) NOT NULL DEFAULT 9999,
-    PRIMARY KEY (`id`)
+  `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'default_group.png',
+  `minpresent` smallint(6) NOT NULL DEFAULT 0,
+  `maxabsent` smallint(6) NOT NULL DEFAULT 9999,
+  `minpresentwe` smallint(6) NOT NULL DEFAULT 0,
+  `maxabsentwe` smallint(6) NOT NULL DEFAULT 9999,
+  PRIMARY KEY (`id`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -579,27 +609,81 @@ DROP TABLE IF EXISTS `tcneo_holidays`;
 CREATE TABLE IF NOT EXISTS `tcneo_holidays` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `color` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '000000',
-    `bgcolor` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'ffffff',
-    `businessday` tinyint (1) NOT NULL DEFAULT 0,
-    `noabsence` tinyint (1) NOT NULL DEFAULT 0,
-    `keepweekendcolor` tinyint (1) NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    KEY `k_name` (`name`)
+  `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `color` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '000000',
+  `bgcolor` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'ffffff',
+  `businessday` tinyint (1) NOT NULL DEFAULT 0,
+  `noabsence` tinyint (1) NOT NULL DEFAULT 0,
+  `keepweekendcolor` tinyint (1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `k_name` (`name`)
 ) ENGINE = MyISAM AUTO_INCREMENT = 6 DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 --
 -- Dumping data for table `tcneo_holidays`
 --
 INSERT INTO
-  `tcneo_holidays` (`id`, `name`, `description`, `color`, `bgcolor`, `businessday`, `noabsence`, `keepweekendcolor`)
+  `tcneo_holidays` (
+    `id`,
+    `name`,
+    `description`,
+    `color`,
+    `bgcolor`,
+    `businessday`,
+    `noabsence`,
+    `keepweekendcolor`
+  )
 VALUES
-  (1, 'Business Day', 'Regular business day', '000000', 'ffffff', 1, 0, 0),
-  (2, 'Saturday', 'Regular weekend day (Saturday)', '000000', 'fcfc9a', 1, 0, 0),
-  (3, 'Sunday', 'Regular weekend day (Sunday)', '000000', 'fcfc9a', 0, 0, 0),
-  (4, 'Public Holiday', 'Public bank holidays', '000000', 'EBAAAA', 0, 0, 0),
-  (5, 'School Holiday', 'School holidays', '000000', 'BFFFDF', 1, 0, 1);
+  (
+    1,
+    'Business Day',
+    'Regular business day',
+    '000000',
+    'ffffff',
+    1,
+    0,
+    0
+  ),
+  (
+    2,
+    'Saturday',
+    'Regular weekend day (Saturday)',
+    '000000',
+    'fcfc9a',
+    1,
+    0,
+    0
+  ),
+  (
+    3,
+    'Sunday',
+    'Regular weekend day (Sunday)',
+    '000000',
+    'fcfc9a',
+    0,
+    0,
+    0
+  ),
+  (
+    4,
+    'Public Holiday',
+    'Public bank holidays',
+    '000000',
+    'EBAAAA',
+    0,
+    0,
+    0
+  ),
+  (
+    5,
+    'School Holiday',
+    'School holidays',
+    '000000',
+    'BFFFDF',
+    1,
+    0,
+    1
+  );
 
 -- --------------------------------------------------------
 --
@@ -610,11 +694,11 @@ DROP TABLE IF EXISTS `tcneo_log`;
 CREATE TABLE IF NOT EXISTS `tcneo_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `timestamp` datetime NOT NULL DEFAULT '2026-01-01 00:00:00',
-    `ip` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `user` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `event` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    PRIMARY KEY (`id`)
+  `timestamp` datetime NOT NULL DEFAULT '2026-01-01 00:00:00',
+  `ip` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `user` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `event` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -627,9 +711,9 @@ CREATE TABLE IF NOT EXISTS `tcneo_messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `timestamp` datetime NOT NULL DEFAULT '2026-01-01 00:00:00',
   `text` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    `type` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    PRIMARY KEY (`id`),
-    KEY `k_type` (`type`)
+  `type` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `k_type` (`type`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -641,103 +725,103 @@ DROP TABLE IF EXISTS `tcneo_months`;
 CREATE TABLE IF NOT EXISTS `tcneo_months` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `year` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `month` char(2) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `region` int(11) DEFAULT 1,
-    `wday1` tinyint (1) DEFAULT NULL,
-    `wday2` tinyint (1) DEFAULT NULL,
-    `wday3` tinyint (1) DEFAULT NULL,
-    `wday4` tinyint (1) DEFAULT NULL,
-    `wday5` tinyint (1) DEFAULT NULL,
-    `wday6` tinyint (1) DEFAULT NULL,
-    `wday7` tinyint (1) DEFAULT NULL,
-    `wday8` tinyint (1) DEFAULT NULL,
-    `wday9` tinyint (1) DEFAULT NULL,
-    `wday10` tinyint (1) DEFAULT NULL,
-    `wday11` tinyint (1) DEFAULT NULL,
-    `wday12` tinyint (1) DEFAULT NULL,
-    `wday13` tinyint (1) DEFAULT NULL,
-    `wday14` tinyint (1) DEFAULT NULL,
-    `wday15` tinyint (1) DEFAULT NULL,
-    `wday16` tinyint (1) DEFAULT NULL,
-    `wday17` tinyint (1) DEFAULT NULL,
-    `wday18` tinyint (1) DEFAULT NULL,
-    `wday19` tinyint (1) DEFAULT NULL,
-    `wday20` tinyint (1) DEFAULT NULL,
-    `wday21` tinyint (1) DEFAULT NULL,
-    `wday22` tinyint (1) DEFAULT NULL,
-    `wday23` tinyint (1) DEFAULT NULL,
-    `wday24` tinyint (1) DEFAULT NULL,
-    `wday25` tinyint (1) DEFAULT NULL,
-    `wday26` tinyint (1) DEFAULT NULL,
-    `wday27` tinyint (1) DEFAULT NULL,
-    `wday28` tinyint (1) DEFAULT NULL,
-    `wday29` tinyint (1) DEFAULT NULL,
-    `wday30` tinyint (1) DEFAULT NULL,
-    `wday31` tinyint (1) DEFAULT NULL,
-    `week1` smallint(6) DEFAULT NULL,
-    `week2` smallint(6) DEFAULT NULL,
-    `week3` smallint(6) DEFAULT NULL,
-    `week4` smallint(6) DEFAULT NULL,
-    `week5` smallint(6) DEFAULT NULL,
-    `week6` smallint(6) DEFAULT NULL,
-    `week7` smallint(6) DEFAULT NULL,
-    `week8` smallint(6) DEFAULT NULL,
-    `week9` smallint(6) DEFAULT NULL,
-    `week10` smallint(6) DEFAULT NULL,
-    `week11` smallint(6) DEFAULT NULL,
-    `week12` smallint(6) DEFAULT NULL,
-    `week13` smallint(6) DEFAULT NULL,
-    `week14` smallint(6) DEFAULT NULL,
-    `week15` smallint(6) DEFAULT NULL,
-    `week16` smallint(6) DEFAULT NULL,
-    `week17` smallint(6) DEFAULT NULL,
-    `week18` smallint(6) DEFAULT NULL,
-    `week19` smallint(6) DEFAULT NULL,
-    `week20` smallint(6) DEFAULT NULL,
-    `week21` smallint(6) DEFAULT NULL,
-    `week22` smallint(6) DEFAULT NULL,
-    `week23` smallint(6) DEFAULT NULL,
-    `week24` smallint(6) DEFAULT NULL,
-    `week25` smallint(6) DEFAULT NULL,
-    `week26` smallint(6) DEFAULT NULL,
-    `week27` smallint(6) DEFAULT NULL,
-    `week28` smallint(6) DEFAULT NULL,
-    `week29` smallint(6) DEFAULT NULL,
-    `week30` smallint(6) DEFAULT NULL,
-    `week31` smallint(6) DEFAULT NULL,
-    `hol1` int(11) DEFAULT NULL,
-    `hol2` int(11) DEFAULT NULL,
-    `hol3` int(11) DEFAULT NULL,
-    `hol4` int(11) DEFAULT NULL,
-    `hol5` int(11) DEFAULT NULL,
-    `hol6` int(11) DEFAULT NULL,
-    `hol7` int(11) DEFAULT NULL,
-    `hol8` int(11) DEFAULT NULL,
-    `hol9` int(11) DEFAULT NULL,
-    `hol10` int(11) DEFAULT NULL,
-    `hol11` int(11) DEFAULT NULL,
-    `hol12` int(11) DEFAULT NULL,
-    `hol13` int(11) DEFAULT NULL,
-    `hol14` int(11) DEFAULT NULL,
-    `hol15` int(11) DEFAULT NULL,
-    `hol16` int(11) DEFAULT NULL,
-    `hol17` int(11) DEFAULT NULL,
-    `hol18` int(11) DEFAULT NULL,
-    `hol19` int(11) DEFAULT NULL,
-    `hol20` int(11) DEFAULT NULL,
-    `hol21` int(11) DEFAULT NULL,
-    `hol22` int(11) DEFAULT NULL,
-    `hol23` int(11) DEFAULT NULL,
-    `hol24` int(11) DEFAULT NULL,
-    `hol25` int(11) DEFAULT NULL,
-    `hol26` int(11) DEFAULT NULL,
-    `hol27` int(11) DEFAULT NULL,
-    `hol28` int(11) DEFAULT NULL,
-    `hol29` int(11) DEFAULT NULL,
-    `hol30` int(11) DEFAULT NULL,
-    `hol31` int(11) DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_year_month_region` (`year`, `month`, `region`)
+  `month` char(2) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `region` int(11) DEFAULT 1,
+  `wday1` tinyint (1) DEFAULT NULL,
+  `wday2` tinyint (1) DEFAULT NULL,
+  `wday3` tinyint (1) DEFAULT NULL,
+  `wday4` tinyint (1) DEFAULT NULL,
+  `wday5` tinyint (1) DEFAULT NULL,
+  `wday6` tinyint (1) DEFAULT NULL,
+  `wday7` tinyint (1) DEFAULT NULL,
+  `wday8` tinyint (1) DEFAULT NULL,
+  `wday9` tinyint (1) DEFAULT NULL,
+  `wday10` tinyint (1) DEFAULT NULL,
+  `wday11` tinyint (1) DEFAULT NULL,
+  `wday12` tinyint (1) DEFAULT NULL,
+  `wday13` tinyint (1) DEFAULT NULL,
+  `wday14` tinyint (1) DEFAULT NULL,
+  `wday15` tinyint (1) DEFAULT NULL,
+  `wday16` tinyint (1) DEFAULT NULL,
+  `wday17` tinyint (1) DEFAULT NULL,
+  `wday18` tinyint (1) DEFAULT NULL,
+  `wday19` tinyint (1) DEFAULT NULL,
+  `wday20` tinyint (1) DEFAULT NULL,
+  `wday21` tinyint (1) DEFAULT NULL,
+  `wday22` tinyint (1) DEFAULT NULL,
+  `wday23` tinyint (1) DEFAULT NULL,
+  `wday24` tinyint (1) DEFAULT NULL,
+  `wday25` tinyint (1) DEFAULT NULL,
+  `wday26` tinyint (1) DEFAULT NULL,
+  `wday27` tinyint (1) DEFAULT NULL,
+  `wday28` tinyint (1) DEFAULT NULL,
+  `wday29` tinyint (1) DEFAULT NULL,
+  `wday30` tinyint (1) DEFAULT NULL,
+  `wday31` tinyint (1) DEFAULT NULL,
+  `week1` smallint(6) DEFAULT NULL,
+  `week2` smallint(6) DEFAULT NULL,
+  `week3` smallint(6) DEFAULT NULL,
+  `week4` smallint(6) DEFAULT NULL,
+  `week5` smallint(6) DEFAULT NULL,
+  `week6` smallint(6) DEFAULT NULL,
+  `week7` smallint(6) DEFAULT NULL,
+  `week8` smallint(6) DEFAULT NULL,
+  `week9` smallint(6) DEFAULT NULL,
+  `week10` smallint(6) DEFAULT NULL,
+  `week11` smallint(6) DEFAULT NULL,
+  `week12` smallint(6) DEFAULT NULL,
+  `week13` smallint(6) DEFAULT NULL,
+  `week14` smallint(6) DEFAULT NULL,
+  `week15` smallint(6) DEFAULT NULL,
+  `week16` smallint(6) DEFAULT NULL,
+  `week17` smallint(6) DEFAULT NULL,
+  `week18` smallint(6) DEFAULT NULL,
+  `week19` smallint(6) DEFAULT NULL,
+  `week20` smallint(6) DEFAULT NULL,
+  `week21` smallint(6) DEFAULT NULL,
+  `week22` smallint(6) DEFAULT NULL,
+  `week23` smallint(6) DEFAULT NULL,
+  `week24` smallint(6) DEFAULT NULL,
+  `week25` smallint(6) DEFAULT NULL,
+  `week26` smallint(6) DEFAULT NULL,
+  `week27` smallint(6) DEFAULT NULL,
+  `week28` smallint(6) DEFAULT NULL,
+  `week29` smallint(6) DEFAULT NULL,
+  `week30` smallint(6) DEFAULT NULL,
+  `week31` smallint(6) DEFAULT NULL,
+  `hol1` int(11) DEFAULT NULL,
+  `hol2` int(11) DEFAULT NULL,
+  `hol3` int(11) DEFAULT NULL,
+  `hol4` int(11) DEFAULT NULL,
+  `hol5` int(11) DEFAULT NULL,
+  `hol6` int(11) DEFAULT NULL,
+  `hol7` int(11) DEFAULT NULL,
+  `hol8` int(11) DEFAULT NULL,
+  `hol9` int(11) DEFAULT NULL,
+  `hol10` int(11) DEFAULT NULL,
+  `hol11` int(11) DEFAULT NULL,
+  `hol12` int(11) DEFAULT NULL,
+  `hol13` int(11) DEFAULT NULL,
+  `hol14` int(11) DEFAULT NULL,
+  `hol15` int(11) DEFAULT NULL,
+  `hol16` int(11) DEFAULT NULL,
+  `hol17` int(11) DEFAULT NULL,
+  `hol18` int(11) DEFAULT NULL,
+  `hol19` int(11) DEFAULT NULL,
+  `hol20` int(11) DEFAULT NULL,
+  `hol21` int(11) DEFAULT NULL,
+  `hol22` int(11) DEFAULT NULL,
+  `hol23` int(11) DEFAULT NULL,
+  `hol24` int(11) DEFAULT NULL,
+  `hol25` int(11) DEFAULT NULL,
+  `hol26` int(11) DEFAULT NULL,
+  `hol27` int(11) DEFAULT NULL,
+  `hol28` int(11) DEFAULT NULL,
+  `hol29` int(11) DEFAULT NULL,
+  `hol30` int(11) DEFAULT NULL,
+  `hol31` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_year_month_region` (`year`, `month`, `region`)
 ) ENGINE = MyISAM AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 --
@@ -844,7 +928,105 @@ INSERT INTO
     `hol31`
   )
 VALUES
-  (1, '2026', '01', 1, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  (
+    1,
+    '2026',
+    '01',
+    1,
+    4,
+    5,
+    6,
+    7,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  );
 
 -- --------------------------------------------------------
 --
@@ -855,15 +1037,15 @@ DROP TABLE IF EXISTS `tcneo_patterns`;
 CREATE TABLE IF NOT EXISTS `tcneo_patterns` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `abs1` int(11) DEFAULT NULL,
-    `abs2` int(11) DEFAULT NULL,
-    `abs3` int(11) DEFAULT NULL,
-    `abs4` int(11) DEFAULT NULL,
-    `abs5` int(11) DEFAULT NULL,
-    `abs6` int(11) DEFAULT NULL,
-    `abs7` int(11) DEFAULT NULL,
-    PRIMARY KEY (`id`)
+  `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `abs1` int(11) DEFAULT NULL,
+  `abs2` int(11) DEFAULT NULL,
+  `abs3` int(11) DEFAULT NULL,
+  `abs4` int(11) DEFAULT NULL,
+  `abs5` int(11) DEFAULT NULL,
+  `abs6` int(11) DEFAULT NULL,
+  `abs7` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -875,13 +1057,13 @@ DROP TABLE IF EXISTS `tcneo_permissions`;
 CREATE TABLE IF NOT EXISTS `tcneo_permissions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `scheme` varchar(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    `permission` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-    `role` int(11) NOT NULL DEFAULT 1,
-    `allowed` tinyint (1) NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_scheme_permission_role` (`scheme`, `permission`, `role`),
-    KEY `k_scheme` (`scheme`),
-    KEY `k_permission` (`permission`)
+  `permission` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `role` int(11) NOT NULL DEFAULT 1,
+  `allowed` tinyint (1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_scheme_permission_role` (`scheme`, `permission`, `role`),
+  KEY `k_scheme` (`scheme`),
+  KEY `k_permission` (`permission`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 --
@@ -1093,9 +1275,9 @@ DROP TABLE IF EXISTS `tcneo_regions`;
 CREATE TABLE IF NOT EXISTS `tcneo_regions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    PRIMARY KEY (`id`),
-    KEY `k_name` (`name`)
+  `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `k_name` (`name`)
 ) ENGINE = MyISAM AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 --
@@ -1117,7 +1299,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_region_role` (
   `regionid` int(11) NOT NULL,
   `roleid` int(11) NOT NULL,
   `access` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'edit',
-    PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -1129,23 +1311,51 @@ DROP TABLE IF EXISTS `tcneo_roles`;
 CREATE TABLE IF NOT EXISTS `tcneo_roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
-    `color` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'default',
-    `created` timestamp NOT NULL DEFAULT current_timestamp(),
-    `updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_name` (`name`)
+  `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `color` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'default',
+  `created` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_name` (`name`)
 ) ENGINE = MyISAM AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 --
 -- Dumping data for table `tcneo_roles`
 --
 INSERT INTO
-  `tcneo_roles` (`id`, `name`, `description`, `color`, `created`, `updated`)
+  `tcneo_roles` (
+    `id`,
+    `name`,
+    `description`,
+    `color`,
+    `created`,
+    `updated`
+  )
 VALUES
-  (1, 'Administrator', 'Application administrator', 'danger', '2026-02-01 18:11:39', '2026-02-01 18:11:39'),
-  (2, 'User', 'Standard role for logged in users', 'primary', '2026-02-01 18:11:39', '2026-02-01 18:11:39'),
-  (3, 'Public', 'All users not logged in', 'secondary', '2026-02-01 18:11:39', '2026-02-01 18:11:39');
+  (
+    1,
+    'Administrator',
+    'Application administrator',
+    'danger',
+    '2026-02-01 18:11:39',
+    '2026-02-01 18:11:39'
+  ),
+  (
+    2,
+    'User',
+    'Standard role for logged in users',
+    'primary',
+    '2026-02-01 18:11:39',
+    '2026-02-01 18:11:39'
+  ),
+  (
+    3,
+    'Public',
+    'All users not logged in',
+    'secondary',
+    '2026-02-01 18:11:39',
+    '2026-02-01 18:11:39'
+  );
 
 -- --------------------------------------------------------
 --
@@ -1156,42 +1366,42 @@ DROP TABLE IF EXISTS `tcneo_templates`;
 CREATE TABLE IF NOT EXISTS `tcneo_templates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `year` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `month` char(2) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `abs1` int(11) DEFAULT NULL,
-    `abs2` int(11) DEFAULT NULL,
-    `abs3` int(11) DEFAULT NULL,
-    `abs4` int(11) DEFAULT NULL,
-    `abs5` int(11) DEFAULT NULL,
-    `abs6` int(11) DEFAULT NULL,
-    `abs7` int(11) DEFAULT NULL,
-    `abs8` int(11) DEFAULT NULL,
-    `abs9` int(11) DEFAULT NULL,
-    `abs10` int(11) DEFAULT NULL,
-    `abs11` int(11) DEFAULT NULL,
-    `abs12` int(11) DEFAULT NULL,
-    `abs13` int(11) DEFAULT NULL,
-    `abs14` int(11) DEFAULT NULL,
-    `abs15` int(11) DEFAULT NULL,
-    `abs16` int(11) DEFAULT NULL,
-    `abs17` int(11) DEFAULT NULL,
-    `abs18` int(11) DEFAULT NULL,
-    `abs19` int(11) DEFAULT NULL,
-    `abs20` int(11) DEFAULT NULL,
-    `abs21` int(11) DEFAULT NULL,
-    `abs22` int(11) DEFAULT NULL,
-    `abs23` int(11) DEFAULT NULL,
-    `abs24` int(11) DEFAULT NULL,
-    `abs25` int(11) DEFAULT NULL,
-    `abs26` int(11) DEFAULT NULL,
-    `abs27` int(11) DEFAULT NULL,
-    `abs28` int(11) DEFAULT NULL,
-    `abs29` int(11) DEFAULT NULL,
-    `abs30` int(11) DEFAULT NULL,
-    `abs31` int(11) DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_username_year_month` (`username`, `year`, `month`),
-    KEY `k_username` (`username`)
+  `year` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `month` char(2) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `abs1` int(11) DEFAULT NULL,
+  `abs2` int(11) DEFAULT NULL,
+  `abs3` int(11) DEFAULT NULL,
+  `abs4` int(11) DEFAULT NULL,
+  `abs5` int(11) DEFAULT NULL,
+  `abs6` int(11) DEFAULT NULL,
+  `abs7` int(11) DEFAULT NULL,
+  `abs8` int(11) DEFAULT NULL,
+  `abs9` int(11) DEFAULT NULL,
+  `abs10` int(11) DEFAULT NULL,
+  `abs11` int(11) DEFAULT NULL,
+  `abs12` int(11) DEFAULT NULL,
+  `abs13` int(11) DEFAULT NULL,
+  `abs14` int(11) DEFAULT NULL,
+  `abs15` int(11) DEFAULT NULL,
+  `abs16` int(11) DEFAULT NULL,
+  `abs17` int(11) DEFAULT NULL,
+  `abs18` int(11) DEFAULT NULL,
+  `abs19` int(11) DEFAULT NULL,
+  `abs20` int(11) DEFAULT NULL,
+  `abs21` int(11) DEFAULT NULL,
+  `abs22` int(11) DEFAULT NULL,
+  `abs23` int(11) DEFAULT NULL,
+  `abs24` int(11) DEFAULT NULL,
+  `abs25` int(11) DEFAULT NULL,
+  `abs26` int(11) DEFAULT NULL,
+  `abs27` int(11) DEFAULT NULL,
+  `abs28` int(11) DEFAULT NULL,
+  `abs29` int(11) DEFAULT NULL,
+  `abs30` int(11) DEFAULT NULL,
+  `abs31` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_username_year_month` (`username`, `year`, `month`),
+  KEY `k_username` (`username`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -1226,9 +1436,43 @@ CREATE TABLE IF NOT EXISTS `tcneo_users` (
 -- Dumping data for table `tcneo_users`
 --
 INSERT INTO
-  `tcneo_users` (`username`, `password`, `firstname`, `lastname`, `email`, `order_key`, `role`, `locked`, `hidden`, `onhold`, `verify`, `bad_logins`, `grace_start`, `last_pw_change`, `last_login`, `created`)
+  `tcneo_users` (
+    `username`,
+    `password`,
+    `firstname`,
+    `lastname`,
+    `email`,
+    `order_key`,
+    `role`,
+    `locked`,
+    `hidden`,
+    `onhold`,
+    `verify`,
+    `bad_logins`,
+    `grace_start`,
+    `last_pw_change`,
+    `last_login`,
+    `created`
+  )
 VALUES
-  ('admin', '$2y$10$4E4xGXbIs1ldd.aN/knENOF/YTenqHylHhrErESXfBDIBIF/1FT2.', '', 'Admin', 'webmaster@yourserver.com', '0', 1, 0, 0, 0, 0, 0, '2024-01-01 00:00:00', '2024-09-07 19:12:50', '2024-09-19 20:33:29', '2022-01-01 00:00:00');
+  (
+    'admin',
+    '$2y$10$4E4xGXbIs1ldd.aN/knENOF/YTenqHylHhrErESXfBDIBIF/1FT2.',
+    '',
+    'Admin',
+    'webmaster@yourserver.com',
+    '0',
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    '2024-01-01 00:00:00',
+    '2024-09-07 19:12:50',
+    '2024-09-19 20:33:29',
+    '2022-01-01 00:00:00'
+  );
 
 -- --------------------------------------------------------
 --
@@ -1239,10 +1483,10 @@ DROP TABLE IF EXISTS `tcneo_user_attachment`;
 CREATE TABLE IF NOT EXISTS `tcneo_user_attachment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `fileid` int(11) NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_username_fileid` (`username`, `fileid`),
-    KEY `k_username` (`username`)
+  `fileid` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_username_fileid` (`username`, `fileid`),
+  KEY `k_username` (`username`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -1254,11 +1498,12 @@ DROP TABLE IF EXISTS `tcneo_user_group`;
 CREATE TABLE IF NOT EXISTS `tcneo_user_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `groupid` int(11) DEFAULT NULL,
-    `type` tinytext CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    KEY `k_username` (`username`),
-    KEY `k_groupid` (`groupid`)
+  `groupid` int(11) DEFAULT NULL,
+  `type` tinytext CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_username_groupid` (`username`, `groupid`),
+  KEY `k_username` (`username`),
+  KEY `k_groupid` (`groupid`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -1270,11 +1515,11 @@ DROP TABLE IF EXISTS `tcneo_user_message`;
 CREATE TABLE IF NOT EXISTS `tcneo_user_message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `msgid` int(11) DEFAULT NULL,
-    `popup` tinyint (4) NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
-    KEY `k_username` (`username`),
-    KEY `k_msgid` (`msgid`)
+  `msgid` int(11) DEFAULT NULL,
+  `popup` tinyint (4) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `k_username` (`username`),
+  KEY `k_msgid` (`msgid`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -1286,12 +1531,12 @@ DROP TABLE IF EXISTS `tcneo_user_option`;
 CREATE TABLE IF NOT EXISTS `tcneo_user_option` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `option` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    `value` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_username_option` (`username`, `option`),
-    KEY `k_username` (`username`),
-    KEY `k_option` (`option`)
+  `option` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `value` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_username_option` (`username`, `option`),
+  KEY `k_username` (`username`),
+  KEY `k_option` (`option`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 --
@@ -1345,31 +1590,52 @@ VALUES
 -- tcneo_log
 -- Filter by type, user, timestamp and sort by timestamp are frequent operations
 --
-ALTER TABLE `tcneo_log` ADD INDEX `idx_log_timestamp` (`timestamp`);
+ALTER TABLE
+  `tcneo_log`
+ADD
+  INDEX `idx_log_timestamp` (`timestamp`);
 
-ALTER TABLE `tcneo_log` ADD INDEX `idx_log_user` (`user`);
+ALTER TABLE
+  `tcneo_log`
+ADD
+  INDEX `idx_log_user` (`user`);
 
-ALTER TABLE `tcneo_log` ADD INDEX `idx_log_type` (`type`);
+ALTER TABLE
+  `tcneo_log`
+ADD
+  INDEX `idx_log_type` (`type`);
 
 --
 -- tcneo_users
 -- Optimize sorting by Name (lastname, firstname) which is the default sort
 -- Optimize sorting by Name within Role
 --
-ALTER TABLE `tcneo_users` ADD INDEX `idx_lastname_firstname` (`lastname`, `firstname`);
+ALTER TABLE
+  `tcneo_users`
+ADD
+  INDEX `idx_lastname_firstname` (`lastname`, `firstname`);
 
-ALTER TABLE `tcneo_users` ADD INDEX `idx_role_lastname_firstname` (`role`, `lastname`, `firstname`);
+ALTER TABLE
+  `tcneo_users`
+ADD
+  INDEX `idx_role_lastname_firstname` (`role`, `lastname`, `firstname`);
 
 --
 -- tcneo_user_group
 -- Optimize retrieving group members sorted by username
 --
-ALTER TABLE `tcneo_user_group` ADD INDEX `idx_groupid_username` (`groupid`, `username`);
+ALTER TABLE
+  `tcneo_user_group`
+ADD
+  INDEX `idx_groupid_username` (`groupid`, `username`);
 
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */
+;
 
-/*!40101 SET CHARACTER_SET_RESULTS = @OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET CHARACTER_SET_RESULTS = @OLD_CHARACTER_SET_RESULTS */
+;
 
-/*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
+/*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */
+;
