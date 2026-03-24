@@ -155,6 +155,8 @@ class AbsencesController extends BaseController
     }
     $viewData['allSubAbsences'] = $allSubAbsences;
 
+    $viewData['symbolAsIcon'] = $this->allConfig['symbolAsIcon'];
+
     foreach ($viewData['absences'] as &$absence) {
       $absence['bgstyle'] = (isset($absence['bgtrans']) && $absence['bgtrans']) ? "" : (isset($absence['bgcolor']) ? "background-color: #" . $absence['bgcolor'] . ";" : "");
     }

@@ -174,7 +174,7 @@ function createFormGroup(array $data, int $colsleft, int $colsright, int $tabind
           <div class="col-lg-' . $colsright . '">
             <div class="input-group">
               <span class="input-group-text"><i id="sample-' . $data['name'] . '" class="bi-square-fill" style="color: ' . $data['value'] . '"></i></span>
-              <input id="' . $data['name'] . '" type="text" class="form-control" name="txt_' . $data['name'] . '" value="' . $data['value'] . '" maxlength="6"' . $disabled . '>
+              <input id="' . $data['name'] . '" type="text" class="form-control" name="txt_' . $data['name'] . '" value="' . $data['value'] . '" maxlength="' . ($data['maxlength'] ?? '7') . '"' . $disabled . '>
               ' . $button . $error . '
             </div>
             <script>

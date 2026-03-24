@@ -2,6 +2,21 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '5.0.5',
+    'date' => '2026-03-24',
+    'info' => 'Bugfix release',
+    'bugfixes' => [
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Absence page now honors icon or character ID setting from calendar options', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '5.0.4',
     'date' => '2026-03-22',
     'info' => 'Bugfix release',

@@ -62,7 +62,7 @@
                     <div class="form-group row">
                       <label class="col-lg-8 control-label">
                         {{ LANG.abs_sample }}<br>
-                        <span class="text-normal">{{ LANG.abs_sample_comment }}</span>
+                        <span class="text-normal">{{ LANG.abs_sample_comment|raw }}</span>
                       </label>
                       <div class="col-lg-4">
                         <div id="sample-icon" {{ ("style='border: 1px solid #333333; width: 32px; height: 32px; text-align: center; padding-top: 4px;" ~ (color ? " color: #" ~ color ~ ";" : "") ~ (not bgtrans and bgcolor ? " background-color: #" ~ bgcolor ~ ";" : "") ~ "'")|raw }} class=" mb-1">
@@ -81,7 +81,7 @@
                     <div class="form-group row">
                       <label class="col-lg-8 control-label">
                         {{ LANG.abs_icon }}<br>
-                        <span class="text-normal">{{ LANG.abs_icon_comment }}</span>
+                        <span class="text-normal">{{ LANG.abs_icon_comment|raw }}</span>
                       </label>
                       <div class="col-lg-4">
                         <span class="{{ icon }} text-{{ color }}" style="font-size: 150%; padding-right: 8px; vertical-align: middle;"></span>

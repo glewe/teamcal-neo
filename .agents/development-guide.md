@@ -49,10 +49,10 @@ The project uses **Composer** to manage dependencies and execute common developm
 ## Development Rules & Standards
 
 ### coding Standards
-Refer to **`RULES.md`** for the complete and authoritative coding standards.
+Refer to **`.agents/code-style-guide.md`** for the complete and authoritative coding standards.
 *   **Indentation:** 2 spaces (Soft tabs).
 *   **Strict Types:** `declare(strict_types=1);` is **MANDATORY** at the top of every PHP file.
-*   **DocBlocks:** Mandatory for all classes and methods. Headers must follow the specific format defined in `RULES.md`.
+*   **DocBlocks:** Mandatory for all classes and methods. Headers must follow the specific format defined in `.agents/code-style-guide.md`.
 
 ### Architecture Guidelines
 1.  **MVC Pattern:** All new logic should reside in Controllers (flow), Models (data), or Services (business logic). Avoid putting logic in Views.

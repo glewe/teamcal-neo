@@ -187,9 +187,9 @@ class CalendarOptionsController extends BaseController
     }
 
     $caloptData['display'] = [
-      ['label' => $this->LANG['calopt_todayBorderColor'], 'prefix' => 'calopt', 'name' => 'todayBorderColor', 'type' => 'coloris', 'value' => (!empty($allConfig['todayBorderColor']) ? '#' . $allConfig['todayBorderColor'] : ''), 'maxlength' => '6', 'error' => (isset($inputAlert['todayBorderColor']) ? $inputAlert['todayBorderColor'] : '')],
+      ['label' => $this->LANG['calopt_todayBorderColor'], 'prefix' => 'calopt', 'name' => 'todayBorderColor', 'type' => 'coloris', 'value' => (!empty($allConfig['todayBorderColor']) ? '#' . $allConfig['todayBorderColor'] : ''), 'maxlength' => '7', 'error' => (isset($inputAlert['todayBorderColor']) ? $inputAlert['todayBorderColor'] : '')],
       ['label' => $this->LANG['calopt_todayBorderSize'], 'prefix' => 'calopt', 'name' => 'todayBorderSize', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['todayBorderSize'], 'maxlength' => '2'],
-      ['label' => $this->LANG['calopt_pastDayColor'], 'prefix' => 'calopt', 'name' => 'pastDayColor', 'type' => 'coloris', 'value' => (!empty($allConfig['pastDayColor']) ? '#' . $allConfig['pastDayColor'] : ''), 'maxlength' => '6', 'error' => (isset($inputAlert['pastDayColor']) ? $inputAlert['pastDayColor'] : '')],
+      ['label' => $this->LANG['calopt_pastDayColor'], 'prefix' => 'calopt', 'name' => 'pastDayColor', 'type' => 'coloris', 'value' => (!empty($allConfig['pastDayColor']) ? '#' . $allConfig['pastDayColor'] : ''), 'maxlength' => '7', 'error' => (isset($inputAlert['pastDayColor']) ? $inputAlert['pastDayColor'] : '')],
       ['label' => $this->LANG['calopt_showWeekNumbers'], 'prefix' => 'calopt', 'name' => 'showWeekNumbers', 'type' => 'check', 'values' => '', 'value' => $allConfig['showWeekNumbers']],
       ['label' => $this->LANG['calopt_repeatHeaderCount'], 'prefix' => 'calopt', 'name' => 'repeatHeaderCount', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['repeatHeaderCount'], 'maxlength' => '4'],
       ['label' => $this->LANG['calopt_usersPerPage'], 'prefix' => 'calopt', 'name' => 'usersPerPage', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['usersPerPage'], 'maxlength' => '4'],
@@ -202,7 +202,7 @@ class CalendarOptionsController extends BaseController
       ['label' => $this->LANG['calopt_calendarFontSize'], 'prefix' => 'calopt', 'name' => 'calendarFontSize', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['calendarFontSize'], 'maxlength' => '3'],
       ['label' => $this->LANG['calopt_showMonths'], 'prefix' => 'calopt', 'name' => 'showMonths', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['showMonths'], 'maxlength' => '2'],
       ['label' => $this->LANG['calopt_regionalHolidays'], 'prefix' => 'calopt', 'name' => 'regionalHolidays', 'type' => 'check', 'values' => '', 'value' => $allConfig['regionalHolidays']],
-      ['label' => $this->LANG['calopt_regionalHolidaysColor'], 'prefix' => 'calopt', 'name' => 'regionalHolidaysColor', 'type' => 'coloris', 'value' => (!empty($allConfig['regionalHolidaysColor']) ? '#' . $allConfig['regionalHolidaysColor'] : ''), 'maxlength' => '6', 'error' => (isset($inputAlert['regionalHolidaysColor']) ? $inputAlert['regionalHolidaysColor'] : '')],
+      ['label' => $this->LANG['calopt_regionalHolidaysColor'], 'prefix' => 'calopt', 'name' => 'regionalHolidaysColor', 'type' => 'coloris', 'value' => (!empty($allConfig['regionalHolidaysColor']) ? '#' . $allConfig['regionalHolidaysColor'] : ''), 'maxlength' => '7', 'error' => (isset($inputAlert['regionalHolidaysColor']) ? $inputAlert['regionalHolidaysColor'] : '')],
       ['label' => $this->LANG['calopt_sortByOrderKey'], 'prefix' => 'calopt', 'name' => 'sortByOrderKey', 'type' => 'check', 'values' => '', 'value' => $allConfig['sortByOrderKey']],
     ];
 

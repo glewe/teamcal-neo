@@ -213,8 +213,8 @@ class AbsenceEditController extends BaseController
       'general' => [
         ['prefix' => 'abs', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '80', 'mandatory' => true, 'error' => $inputAlert['name'] ?? ''],
         ['prefix' => 'abs', 'name' => 'symbol', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['symbol'], 'maxlength' => '1', 'mandatory' => true, 'error' => $inputAlert['symbol'] ?? ''],
-        ['prefix' => 'abs', 'name' => 'color', 'type' => 'coloris', 'value' => (!empty($viewData['color']) ? '#' . $viewData['color'] : ''), 'maxlength' => '6', 'error' => $inputAlert['color'] ?? ''],
-        ['prefix' => 'abs', 'name' => 'bgcolor', 'type' => 'coloris', 'value' => (!empty($viewData['bgcolor']) ? '#' . $viewData['bgcolor'] : ''), 'maxlength' => '6', 'error' => $inputAlert['bgcolor'] ?? ''],
+        ['prefix' => 'abs', 'name' => 'color', 'type' => 'coloris', 'value' => (!empty($viewData['color']) ? '#' . $viewData['color'] : ''), 'maxlength' => '7', 'error' => $inputAlert['color'] ?? ''],
+        ['prefix' => 'abs', 'name' => 'bgcolor', 'type' => 'coloris', 'value' => (!empty($viewData['bgcolor']) ? '#' . $viewData['bgcolor'] : ''), 'maxlength' => '7', 'error' => $inputAlert['bgcolor'] ?? ''],
         ['prefix' => 'abs', 'name' => 'bgtrans', 'type' => 'check', 'value' => $viewData['bgtrans']],
       ],
       'options' => [

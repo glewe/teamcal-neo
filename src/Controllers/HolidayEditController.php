@@ -147,8 +147,8 @@ class HolidayEditController extends BaseController
     $viewData['holiday'] = [
       ['prefix' => 'hol', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' => ($inputAlert['name'] ?? '')],
       ['prefix' => 'hol', 'name' => 'description', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['description'], 'maxlength' => '100', 'error' => ($inputAlert['description'] ?? '')],
-      ['prefix' => 'hol', 'name' => 'color', 'type' => 'coloris', 'value' => (!empty($viewData['color']) ? '#' . $viewData['color'] : ''), 'maxlength' => '6', 'mandatory' => true, 'error' => ($inputAlert['color'] ?? '')],
-      ['prefix' => 'hol', 'name' => 'bgcolor', 'type' => 'coloris', 'value' => (!empty($viewData['bgcolor']) ? '#' . $viewData['bgcolor'] : ''), 'maxlength' => '6', 'mandatory' => true, 'error' => ($inputAlert['bgcolor'] ?? '')],
+      ['prefix' => 'hol', 'name' => 'color', 'type' => 'coloris', 'value' => (!empty($viewData['color']) ? '#' . $viewData['color'] : ''), 'maxlength' => '7', 'mandatory' => true, 'error' => ($inputAlert['color'] ?? '')],
+      ['prefix' => 'hol', 'name' => 'bgcolor', 'type' => 'coloris', 'value' => (!empty($viewData['bgcolor']) ? '#' . $viewData['bgcolor'] : ''), 'maxlength' => '7', 'mandatory' => true, 'error' => ($inputAlert['bgcolor'] ?? '')],
       ['prefix' => 'hol', 'name' => 'keepweekendcolor', 'type' => 'check', 'value' => $viewData['keepweekendcolor']],
       ['prefix' => 'hol', 'name' => 'businessday', 'type' => 'check', 'value' => $viewData['businessday']],
       ['prefix' => 'hol', 'name' => 'noabsence', 'type' => 'check', 'value' => $viewData['noabsence']],

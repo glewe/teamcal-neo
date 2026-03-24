@@ -64,8 +64,8 @@
                     <td class="text-end">{{ i }}</td>
                     {% set i = i + 1 %}
                     <td>
-                      <span {{ ("style='display: inline-block; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px;" ~ (absence.color ? " color: #" ~ absence.color ~ ";" : "") ~ (absence.bgstyle ? " " ~ absence.bgstyle : "") ~ "'")|raw }}>
-                        {% if absence.icon != "No" %}
+                      <span {{ ("style='display: inline-block; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 2px 4px 4px 4px;" ~ (absence.color ? " color: #" ~ absence.color ~ ";" : "") ~ (absence.bgstyle ? " " ~ absence.bgstyle : "") ~ "'")|raw }}>
+                        {% if absence.icon != "No" and not symbolAsIcon %}
                           <span class="{{ absence.icon }}"></span>
                         {% else %}
                           {{ absence.symbol }}
@@ -123,7 +123,7 @@
                       <td>
                         <i class="fas fa-angle-double-right me-3"></i>
                         <span {{ ("style='display: inline-block; border: 1px solid #333333; width: 30px; height: 30px; text-align: center; padding: 4px;" ~ (subabs.color ? " color: #" ~ subabs.color ~ ";" : "") ~ (subabs.bgstyle ? " " ~ subabs.bgstyle : "") ~ "'")|raw }}>
-                          {% if subabs.icon != "No" %}
+                          {% if subabs.icon != "No" and not symbolAsIcon %}
                             <i class="{{ subabs.icon }}"></i>
                           {% else %}
                             {{ subabs.symbol }}
