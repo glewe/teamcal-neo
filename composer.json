@@ -1,6 +1,6 @@
 {
     "name": "glewe/teamcal-neo",
-    "version": "5.0.4",
+    "version": "5.0.5",
     "build": "32",
     "description": "A web application of a day-based calendar and scheduling tool.",
     "type": "project",
