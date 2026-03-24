@@ -2,10 +2,10 @@
     "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
     "bomFormat": "CycloneDX",
     "specVersion": "1.5",
-    "serialNumber": "urn:uuid:b462837f-99ed-4e59-84cd-1eb1ddfe9d58",
+    "serialNumber": "urn:uuid:8c293cb9-2feb-4dc4-892f-0989c5569bcb",
     "version": 1,
     "metadata": {
-        "timestamp": "2026-03-23T15:46:24Z",
+        "timestamp": "2026-03-24T20:24:53Z",
         "tools": [
             {
                 "name": "composer",
@@ -14,17 +14,17 @@
             {
                 "vendor": "cyclonedx",
                 "name": "cyclonedx-php-composer",
-                "version": "v6.1.0",
+                "version": "v6.2.0",
                 "externalReferences": [
                     {
                         "type": "distribution",
-                        "url": "https://api.github.com/repos/CycloneDX/cyclonedx-php-composer/zipball/d718efc4c201acd0da7d2c2e5690864b2a5c7116",
-                        "comment": "dist reference: d718efc4c201acd0da7d2c2e5690864b2a5c7116"
+                        "url": "https://api.github.com/repos/CycloneDX/cyclonedx-php-composer/zipball/934440a5ef7c3c3cdb58c3c3d389d412630ccbf6",
+                        "comment": "dist reference: 934440a5ef7c3c3cdb58c3c3d389d412630ccbf6"
                     },
                     {
                         "type": "vcs",
                         "url": "https://github.com/CycloneDX/cyclonedx-php-composer.git",
-                        "comment": "source reference: d718efc4c201acd0da7d2c2e5690864b2a5c7116"
+                        "comment": "source reference: 934440a5ef7c3c3cdb58c3c3d389d412630ccbf6"
                     },
                     {
                         "type": "website",
@@ -46,17 +46,17 @@
             {
                 "vendor": "cyclonedx",
                 "name": "cyclonedx-library",
-                "version": "v3.10.0",
+                "version": "v4.0.0",
                 "externalReferences": [
                     {
                         "type": "distribution",
-                        "url": "https://api.github.com/repos/CycloneDX/cyclonedx-php-library/zipball/e6bb0fca8d89f1e34755900c361061a6f5253e49",
-                        "comment": "dist reference: e6bb0fca8d89f1e34755900c361061a6f5253e49"
+                        "url": "https://api.github.com/repos/CycloneDX/cyclonedx-php-library/zipball/c95a371894c4e32bea42bfa024f2ab5092cbb292",
+                        "comment": "dist reference: c95a371894c4e32bea42bfa024f2ab5092cbb292"
                     },
                     {
                         "type": "vcs",
                         "url": "https://github.com/CycloneDX/cyclonedx-php-library.git",
-                        "comment": "source reference: e6bb0fca8d89f1e34755900c361061a6f5253e49"
+                        "comment": "source reference: c95a371894c4e32bea42bfa024f2ab5092cbb292"
                     },
                     {
                         "type": "website",
@@ -82,10 +82,10 @@
             }
         ],
         "component": {
-            "bom-ref": "glewe/teamcal-neo-5.0.4.0",
+            "bom-ref": "glewe/teamcal-neo-5.0.5.0",
             "type": "application",
             "name": "teamcal-neo",
-            "version": "5.0.4",
+            "version": "5.0.5",
             "group": "glewe",
             "description": "A web application of a day-based calendar and scheduling tool.",
             "author": "George Lewe",
@@ -96,7 +96,7 @@
                     }
                 }
             ],
-            "purl": "pkg:composer/glewe/teamcal-neo@5.0.4",
+            "purl": "pkg:composer/glewe/teamcal-neo@5.0.5",
             "externalReferences": [
                 {
                     "type": "website",
@@ -176,10 +176,10 @@
             ]
         },
         {
-            "bom-ref": "cyclonedx/cyclonedx-library-3.10.0.0",
+            "bom-ref": "cyclonedx/cyclonedx-library-4.0.0.0",
             "type": "library",
             "name": "cyclonedx-library",
-            "version": "v3.10.0",
+            "version": "v4.0.0",
             "group": "cyclonedx",
             "description": "Work with CycloneDX documents.",
             "author": "Jan Kowalleck",
@@ -190,17 +190,17 @@
                     }
                 }
             ],
-            "purl": "pkg:composer/cyclonedx/cyclonedx-library@v3.10.0",
+            "purl": "pkg:composer/cyclonedx/cyclonedx-library@v4.0.0",
             "externalReferences": [
                 {
                     "type": "distribution",
-                    "url": "https://api.github.com/repos/CycloneDX/cyclonedx-php-library/zipball/e6bb0fca8d89f1e34755900c361061a6f5253e49",
-                    "comment": "dist reference: e6bb0fca8d89f1e34755900c361061a6f5253e49"
+                    "url": "https://api.github.com/repos/CycloneDX/cyclonedx-php-library/zipball/c95a371894c4e32bea42bfa024f2ab5092cbb292",
+                    "comment": "dist reference: c95a371894c4e32bea42bfa024f2ab5092cbb292"
                 },
                 {
                     "type": "vcs",
                     "url": "https://github.com/CycloneDX/cyclonedx-php-library.git",
-                    "comment": "source reference: e6bb0fca8d89f1e34755900c361061a6f5253e49"
+                    "comment": "source reference: c95a371894c4e32bea42bfa024f2ab5092cbb292"
                 },
                 {
                     "type": "website",
@@ -226,11 +226,11 @@
             "properties": [
                 {
                     "name": "cdx:composer:package:distReference",
-                    "value": "e6bb0fca8d89f1e34755900c361061a6f5253e49"
+                    "value": "c95a371894c4e32bea42bfa024f2ab5092cbb292"
                 },
                 {
                     "name": "cdx:composer:package:sourceReference",
-                    "value": "e6bb0fca8d89f1e34755900c361061a6f5253e49"
+                    "value": "c95a371894c4e32bea42bfa024f2ab5092cbb292"
                 },
                 {
                     "name": "cdx:composer:package:type",
@@ -243,10 +243,10 @@
             ]
         },
         {
-            "bom-ref": "cyclonedx/cyclonedx-php-composer-6.1.0.0",
+            "bom-ref": "cyclonedx/cyclonedx-php-composer-6.2.0.0",
             "type": "library",
             "name": "cyclonedx-php-composer",
-            "version": "v6.1.0",
+            "version": "v6.2.0",
             "group": "cyclonedx",
             "description": "Creates CycloneDX Software Bill-of-Materials (SBOM) from PHP Composer projects",
             "author": "Jan Kowalleck",
@@ -257,17 +257,17 @@
                     }
                 }
             ],
-            "purl": "pkg:composer/cyclonedx/cyclonedx-php-composer@v6.1.0",
+            "purl": "pkg:composer/cyclonedx/cyclonedx-php-composer@v6.2.0",
             "externalReferences": [
                 {
                     "type": "distribution",
-                    "url": "https://api.github.com/repos/CycloneDX/cyclonedx-php-composer/zipball/d718efc4c201acd0da7d2c2e5690864b2a5c7116",
-                    "comment": "dist reference: d718efc4c201acd0da7d2c2e5690864b2a5c7116"
+                    "url": "https://api.github.com/repos/CycloneDX/cyclonedx-php-composer/zipball/934440a5ef7c3c3cdb58c3c3d389d412630ccbf6",
+                    "comment": "dist reference: 934440a5ef7c3c3cdb58c3c3d389d412630ccbf6"
                 },
                 {
                     "type": "vcs",
                     "url": "https://github.com/CycloneDX/cyclonedx-php-composer.git",
-                    "comment": "source reference: d718efc4c201acd0da7d2c2e5690864b2a5c7116"
+                    "comment": "source reference: 934440a5ef7c3c3cdb58c3c3d389d412630ccbf6"
                 },
                 {
                     "type": "website",
@@ -288,11 +288,11 @@
             "properties": [
                 {
                     "name": "cdx:composer:package:distReference",
-                    "value": "d718efc4c201acd0da7d2c2e5690864b2a5c7116"
+                    "value": "934440a5ef7c3c3cdb58c3c3d389d412630ccbf6"
                 },
                 {
                     "name": "cdx:composer:package:sourceReference",
-                    "value": "d718efc4c201acd0da7d2c2e5690864b2a5c7116"
+                    "value": "934440a5ef7c3c3cdb58c3c3d389d412630ccbf6"
                 },
                 {
                     "name": "cdx:composer:package:type",
@@ -893,6 +893,130 @@
             ]
         },
         {
+            "bom-ref": "paragonie/constant_time_encoding-3.1.3.0",
+            "type": "library",
+            "name": "constant_time_encoding",
+            "version": "v3.1.3",
+            "group": "paragonie",
+            "description": "Constant-time Implementations of RFC 4648 Encoding (Base-64, Base-32, Base-16)",
+            "author": "Paragon Initiative Enterprises, Steve 'Sc00bz' Thomas",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ],
+            "purl": "pkg:composer/paragonie/constant_time_encoding@v3.1.3",
+            "externalReferences": [
+                {
+                    "type": "distribution",
+                    "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/d5b01a39b3415c2cd581d3bd3a3575c1ebbd8e77",
+                    "comment": "dist reference: d5b01a39b3415c2cd581d3bd3a3575c1ebbd8e77"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/paragonie/constant_time_encoding.git",
+                    "comment": "source reference: d5b01a39b3415c2cd581d3bd3a3575c1ebbd8e77"
+                },
+                {
+                    "type": "other",
+                    "url": "info@paragonie.com",
+                    "comment": "as detected from Composer manifest 'support.email'"
+                },
+                {
+                    "type": "issue-tracker",
+                    "url": "https://github.com/paragonie/constant_time_encoding/issues",
+                    "comment": "as detected from Composer manifest 'support.issues'"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/paragonie/constant_time_encoding",
+                    "comment": "as detected from Composer manifest 'support.source'"
+                }
+            ],
+            "properties": [
+                {
+                    "name": "cdx:composer:package:distReference",
+                    "value": "d5b01a39b3415c2cd581d3bd3a3575c1ebbd8e77"
+                },
+                {
+                    "name": "cdx:composer:package:sourceReference",
+                    "value": "d5b01a39b3415c2cd581d3bd3a3575c1ebbd8e77"
+                },
+                {
+                    "name": "cdx:composer:package:type",
+                    "value": "library"
+                },
+                {
+                    "name": "cdx:composer:package:isDevRequirement",
+                    "value": "true"
+                }
+            ]
+        },
+        {
+            "bom-ref": "paragonie/random_compat-9.99.100.0",
+            "type": "library",
+            "name": "random_compat",
+            "version": "v9.99.100",
+            "group": "paragonie",
+            "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+            "author": "Paragon Initiative Enterprises",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ],
+            "purl": "pkg:composer/paragonie/random_compat@v9.99.100",
+            "externalReferences": [
+                {
+                    "type": "distribution",
+                    "url": "https://api.github.com/repos/paragonie/random_compat/zipball/996434e5492cb4c3edcb9168db6fbb1359ef965a",
+                    "comment": "dist reference: 996434e5492cb4c3edcb9168db6fbb1359ef965a"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/paragonie/random_compat.git",
+                    "comment": "source reference: 996434e5492cb4c3edcb9168db6fbb1359ef965a"
+                },
+                {
+                    "type": "other",
+                    "url": "info@paragonie.com",
+                    "comment": "as detected from Composer manifest 'support.email'"
+                },
+                {
+                    "type": "issue-tracker",
+                    "url": "https://github.com/paragonie/random_compat/issues",
+                    "comment": "as detected from Composer manifest 'support.issues'"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/paragonie/random_compat",
+                    "comment": "as detected from Composer manifest 'support.source'"
+                }
+            ],
+            "properties": [
+                {
+                    "name": "cdx:composer:package:distReference",
+                    "value": "996434e5492cb4c3edcb9168db6fbb1359ef965a"
+                },
+                {
+                    "name": "cdx:composer:package:sourceReference",
+                    "value": "996434e5492cb4c3edcb9168db6fbb1359ef965a"
+                },
+                {
+                    "name": "cdx:composer:package:type",
+                    "value": "library"
+                },
+                {
+                    "name": "cdx:composer:package:isDevRequirement",
+                    "value": "true"
+                }
+            ]
+        },
+        {
             "bom-ref": "phar-io/manifest-2.0.4.0",
             "type": "library",
             "name": "manifest",
@@ -1113,10 +1237,72 @@
             ]
         },
         {
-            "bom-ref": "phpstan/phpstan-2.1.38.0",
+            "bom-ref": "phpseclib/phpseclib-3.0.50.0",
+            "type": "library",
+            "name": "phpseclib",
+            "version": "3.0.50",
+            "group": "phpseclib",
+            "description": "PHP Secure Communications Library - Pure-PHP implementations of RSA, AES, SSH2, SFTP, X.509 etc.",
+            "author": "Jim Wigginton, Patrick Monnerat, Andreas Fischer, Hans-J\u00fcrgen Petrich, Graham Campbell",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ],
+            "purl": "pkg:composer/phpseclib/phpseclib@3.0.50",
+            "externalReferences": [
+                {
+                    "type": "distribution",
+                    "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/aa6ad8321ed103dc3624fb600a25b66ebf78ec7b",
+                    "comment": "dist reference: aa6ad8321ed103dc3624fb600a25b66ebf78ec7b"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/phpseclib/phpseclib.git",
+                    "comment": "source reference: aa6ad8321ed103dc3624fb600a25b66ebf78ec7b"
+                },
+                {
+                    "type": "website",
+                    "url": "http://phpseclib.sourceforge.net",
+                    "comment": "as detected from Composer manifest 'homepage'"
+                },
+                {
+                    "type": "issue-tracker",
+                    "url": "https://github.com/phpseclib/phpseclib/issues",
+                    "comment": "as detected from Composer manifest 'support.issues'"
+                },
+                {
+                    "type": "vcs",
+                    "url": "https://github.com/phpseclib/phpseclib/tree/3.0.50",
+                    "comment": "as detected from Composer manifest 'support.source'"
+                }
+            ],
+            "properties": [
+                {
+                    "name": "cdx:composer:package:distReference",
+                    "value": "aa6ad8321ed103dc3624fb600a25b66ebf78ec7b"
+                },
+                {
+                    "name": "cdx:composer:package:sourceReference",
+                    "value": "aa6ad8321ed103dc3624fb600a25b66ebf78ec7b"
+                },
+                {
+                    "name": "cdx:composer:package:type",
+                    "value": "library"
+                },
+                {
+                    "name": "cdx:composer:package:isDevRequirement",
+                    "value": "true"
+                }
+            ]
+        },
+        {
+            "bom-ref": "phpstan/phpstan-2.1.42.0",
             "type": "library",
             "name": "phpstan",
-            "version": "2.1.38",
+            "version": "2.1.42",
             "group": "phpstan",
             "description": "PHPStan - PHP Static Analysis Tool",
             "licenses": [
@@ -1126,12 +1312,12 @@
                     }
                 }
             ],
-            "purl": "pkg:composer/phpstan/phpstan@2.1.38",
+            "purl": "pkg:composer/phpstan/phpstan@2.1.42",
             "externalReferences": [
                 {
                     "type": "distribution",
-                    "url": "https://api.github.com/repos/phpstan/phpstan/zipball/dfaf1f530e1663aa167bc3e52197adb221582629",
-                    "comment": "dist reference: dfaf1f530e1663aa167bc3e52197adb221582629"
+                    "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1279e1ce86ba768f0780c9d889852b4e02ff40d0",
+                    "comment": "dist reference: 1279e1ce86ba768f0780c9d889852b4e02ff40d0"
                 },
                 {
                     "type": "documentation",
@@ -1162,7 +1348,7 @@
             "properties": [
                 {
                     "name": "cdx:composer:package:distReference",
-                    "value": "dfaf1f530e1663aa167bc3e52197adb221582629"
+                    "value": "1279e1ce86ba768f0780c9d889852b4e02ff40d0"
                 },
                 {
                     "name": "cdx:composer:package:type",
@@ -1563,165 +1749,6 @@
                 {
                     "name": "cdx:composer:package:isDevRequirement",
                     "value": "true"
-                }
-            ]
-        },
-        {
-            "bom-ref": "psr/cache-3.0.0.0",
-            "type": "library",
-            "name": "cache",
-            "version": "3.0.0",
-            "group": "psr",
-            "description": "Common interface for caching libraries",
-            "author": "PHP-FIG",
-            "licenses": [
-                {
-                    "license": {
-                        "id": "MIT"
-                    }
-                }
-            ],
-            "purl": "pkg:composer/psr/cache@3.0.0",
-            "externalReferences": [
-                {
-                    "type": "distribution",
-                    "url": "https://api.github.com/repos/php-fig/cache/zipball/aa5030cfa5405eccfdcb1083ce040c2cb8d253bf",
-                    "comment": "dist reference: aa5030cfa5405eccfdcb1083ce040c2cb8d253bf"
-                },
-                {
-                    "type": "vcs",
-                    "url": "https://github.com/php-fig/cache.git",
-                    "comment": "source reference: aa5030cfa5405eccfdcb1083ce040c2cb8d253bf"
-                },
-                {
-                    "type": "vcs",
-                    "url": "https://github.com/php-fig/cache/tree/3.0.0",
-                    "comment": "as detected from Composer manifest 'support.source'"
-                }
-            ],
-            "properties": [
-                {
-                    "name": "cdx:composer:package:distReference",
-                    "value": "aa5030cfa5405eccfdcb1083ce040c2cb8d253bf"
-                },
-                {
-                    "name": "cdx:composer:package:sourceReference",
-                    "value": "aa5030cfa5405eccfdcb1083ce040c2cb8d253bf"
-                },
-                {
-                    "name": "cdx:composer:package:type",
-                    "value": "library"
-                }
-            ]
-        },
-        {
-            "bom-ref": "psr/container-2.0.2.0",
-            "type": "library",
-            "name": "container",
-            "version": "2.0.2",
-            "group": "psr",
-            "description": "Common Container Interface (PHP FIG PSR-11)",
-            "author": "PHP-FIG",
-            "licenses": [
-                {
-                    "license": {
-                        "id": "MIT"
-                    }
-                }
-            ],
-            "purl": "pkg:composer/psr/container@2.0.2",
-            "externalReferences": [
-                {
-                    "type": "distribution",
-                    "url": "https://api.github.com/repos/php-fig/container/zipball/c71ecc56dfe541dbd90c5360474fbc405f8d5963",
-                    "comment": "dist reference: c71ecc56dfe541dbd90c5360474fbc405f8d5963"
-                },
-                {
-                    "type": "vcs",
-                    "url": "https://github.com/php-fig/container.git",
-                    "comment": "source reference: c71ecc56dfe541dbd90c5360474fbc405f8d5963"
-                },
-                {
-                    "type": "website",
-                    "url": "https://github.com/php-fig/container",
-                    "comment": "as detected from Composer manifest 'homepage'"
-                },
-                {
-                    "type": "issue-tracker",
-                    "url": "https://github.com/php-fig/container/issues",
-                    "comment": "as detected from Composer manifest 'support.issues'"
-                },
-                {
-                    "type": "vcs",
-                    "url": "https://github.com/php-fig/container/tree/2.0.2",
-                    "comment": "as detected from Composer manifest 'support.source'"
-                }
-            ],
-            "properties": [
-                {
-                    "name": "cdx:composer:package:distReference",
-                    "value": "c71ecc56dfe541dbd90c5360474fbc405f8d5963"
-                },
-                {
-                    "name": "cdx:composer:package:sourceReference",
-                    "value": "c71ecc56dfe541dbd90c5360474fbc405f8d5963"
-                },
-                {
-                    "name": "cdx:composer:package:type",
-                    "value": "library"
-                }
-            ]
-        },
-        {
-            "bom-ref": "psr/event-dispatcher-1.0.0.0",
-            "type": "library",
-            "name": "event-dispatcher",
-            "version": "1.0.0",
-            "group": "psr",
-            "description": "Standard interfaces for event handling.",
-            "author": "PHP-FIG",
-            "licenses": [
-                {
-                    "license": {
-                        "id": "MIT"
-                    }
-                }
-            ],
-            "purl": "pkg:composer/psr/event-dispatcher@1.0.0",
-            "externalReferences": [
-                {
-                    "type": "distribution",
-                    "url": "https://api.github.com/repos/php-fig/event-dispatcher/zipball/dbefd12671e8a14ec7f180cab83036ed26714bb0",
-                    "comment": "dist reference: dbefd12671e8a14ec7f180cab83036ed26714bb0"
-                },
-                {
-                    "type": "vcs",
-                    "url": "https://github.com/php-fig/event-dispatcher.git",
-                    "comment": "source reference: dbefd12671e8a14ec7f180cab83036ed26714bb0"
-                },
-                {
-                    "type": "issue-tracker",
-                    "url": "https://github.com/php-fig/event-dispatcher/issues",
-                    "comment": "as detected from Composer manifest 'support.issues'"
-                },
-                {
-                    "type": "vcs",
-                    "url": "https://github.com/php-fig/event-dispatcher/tree/1.0.0",
-                    "comment": "as detected from Composer manifest 'support.source'"
-                }
-            ],
-            "properties": [
-                {
-                    "name": "cdx:composer:package:distReference",
-                    "value": "dbefd12671e8a14ec7f180cab83036ed26714bb0"
-                },
-                {
-                    "name": "cdx:composer:package:sourceReference",
-                    "value": "dbefd12671e8a14ec7f180cab83036ed26714bb0"
-                },
-                {
-                    "name": "cdx:composer:package:type",
-                    "value": "library"
                 }
             ]
         },
@@ -2759,12 +2786,12 @@
             ]
         },
         {
-            "bom-ref": "symfony/contracts-3.6.1.0",
+            "bom-ref": "symfony/deprecation-contracts-3.6.0.0",
             "type": "library",
-            "name": "contracts",
-            "version": "v3.6.1",
+            "name": "deprecation-contracts",
+            "version": "v3.6.0",
             "group": "symfony",
-            "description": "A set of abstractions extracted out of the Symfony components",
+            "description": "A generic function and convention to trigger deprecation notices",
             "author": "Nicolas Grekas, Symfony Community",
             "licenses": [
                 {
@@ -2773,17 +2800,17 @@
                     }
                 }
             ],
-            "purl": "pkg:composer/symfony/contracts@v3.6.1",
+            "purl": "pkg:composer/symfony/deprecation-contracts@v3.6.0",
             "externalReferences": [
                 {
                     "type": "distribution",
-                    "url": "https://api.github.com/repos/symfony/contracts/zipball/97a588e965e92e3f197085531cbe440d0fcf48c3",
-                    "comment": "dist reference: 97a588e965e92e3f197085531cbe440d0fcf48c3"
+                    "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/63afe740e99a13ba87ec199bb07bbdee937a5b62",
+                    "comment": "dist reference: 63afe740e99a13ba87ec199bb07bbdee937a5b62"
                 },
                 {
                     "type": "vcs",
-                    "url": "https://github.com/symfony/contracts.git",
-                    "comment": "source reference: 97a588e965e92e3f197085531cbe440d0fcf48c3"
+                    "url": "https://github.com/symfony/deprecation-contracts.git",
+                    "comment": "source reference: 63afe740e99a13ba87ec199bb07bbdee937a5b62"
                 },
                 {
                     "type": "website",
@@ -2792,18 +2819,18 @@
                 },
                 {
                     "type": "vcs",
-                    "url": "https://github.com/symfony/contracts/tree/v3.6.1",
+                    "url": "https://github.com/symfony/deprecation-contracts/tree/v3.6.0",
                     "comment": "as detected from Composer manifest 'support.source'"
                 }
             ],
             "properties": [
                 {
                     "name": "cdx:composer:package:distReference",
-                    "value": "97a588e965e92e3f197085531cbe440d0fcf48c3"
+                    "value": "63afe740e99a13ba87ec199bb07bbdee937a5b62"
                 },
                 {
                     "name": "cdx:composer:package:sourceReference",
-                    "value": "97a588e965e92e3f197085531cbe440d0fcf48c3"
+                    "value": "63afe740e99a13ba87ec199bb07bbdee937a5b62"
                 },
                 {
                     "name": "cdx:composer:package:type",
@@ -3085,10 +3112,10 @@
             ]
         },
         {
-            "bom-ref": "twig/twig-3.23.0.0",
+            "bom-ref": "twig/twig-3.24.0.0",
             "type": "library",
             "name": "twig",
-            "version": "v3.23.0",
+            "version": "v3.24.0",
             "group": "twig",
             "description": "Twig, the flexible, fast, and secure template language for PHP",
             "author": "Fabien Potencier, Twig Team, Armin Ronacher",
@@ -3099,17 +3126,17 @@
                     }
                 }
             ],
-            "purl": "pkg:composer/twig/twig@v3.23.0",
+            "purl": "pkg:composer/twig/twig@v3.24.0",
             "externalReferences": [
                 {
                     "type": "distribution",
-                    "url": "https://api.github.com/repos/twigphp/Twig/zipball/a64dc5d2cc7d6cafb9347f6cd802d0d06d0351c9",
-                    "comment": "dist reference: a64dc5d2cc7d6cafb9347f6cd802d0d06d0351c9"
+                    "url": "https://api.github.com/repos/twigphp/Twig/zipball/a6769aefb305efef849dc25c9fd1653358c148f0",
+                    "comment": "dist reference: a6769aefb305efef849dc25c9fd1653358c148f0"
                 },
                 {
                     "type": "vcs",
                     "url": "https://github.com/twigphp/Twig.git",
-                    "comment": "source reference: a64dc5d2cc7d6cafb9347f6cd802d0d06d0351c9"
+                    "comment": "source reference: a6769aefb305efef849dc25c9fd1653358c148f0"
                 },
                 {
                     "type": "website",
@@ -3123,18 +3150,18 @@
                 },
                 {
                     "type": "vcs",
-                    "url": "https://github.com/twigphp/Twig/tree/v3.23.0",
+                    "url": "https://github.com/twigphp/Twig/tree/v3.24.0",
                     "comment": "as detected from Composer manifest 'support.source'"
                 }
             ],
             "properties": [
                 {
                     "name": "cdx:composer:package:distReference",
-                    "value": "a64dc5d2cc7d6cafb9347f6cd802d0d06d0351c9"
+                    "value": "a6769aefb305efef849dc25c9fd1653358c148f0"
                 },
                 {
                     "name": "cdx:composer:package:sourceReference",
-                    "value": "a64dc5d2cc7d6cafb9347f6cd802d0d06d0351c9"
+                    "value": "a6769aefb305efef849dc25c9fd1653358c148f0"
                 },
                 {
                     "name": "cdx:composer:package:type",
@@ -3201,17 +3228,16 @@
             "ref": "composer/spdx-licenses-1.5.9.0"
         },
         {
-            "ref": "cyclonedx/cyclonedx-library-3.10.0.0",
+            "ref": "cyclonedx/cyclonedx-library-4.0.0.0",
             "dependsOn": [
-                "composer/spdx-licenses-1.5.9.0",
-                "opis/json-schema-2.6.0.0",
-                "package-url/packageurl-php-1.1.2.0"
+                "opis/json-schema-2.6.0.0"
             ]
         },
         {
-            "ref": "cyclonedx/cyclonedx-php-composer-6.1.0.0",
+            "ref": "cyclonedx/cyclonedx-php-composer-6.2.0.0",
             "dependsOn": [
-                "cyclonedx/cyclonedx-library-3.10.0.0",
+                "composer/spdx-licenses-1.5.9.0",
+                "cyclonedx/cyclonedx-library-4.0.0.0",
                 "package-url/packageurl-php-1.1.2.0"
             ]
         },
@@ -3259,6 +3285,12 @@
             "ref": "package-url/packageurl-php-1.1.2.0"
         },
         {
+            "ref": "paragonie/constant_time_encoding-3.1.3.0"
+        },
+        {
+            "ref": "paragonie/random_compat-9.99.100.0"
+        },
+        {
             "ref": "phar-io/manifest-2.0.4.0",
             "dependsOn": [
                 "phar-io/version-3.2.1.0"
@@ -3274,7 +3306,14 @@
             "ref": "phpoption/phpoption-1.9.5.0"
         },
         {
-            "ref": "phpstan/phpstan-2.1.38.0"
+            "ref": "phpseclib/phpseclib-3.0.50.0",
+            "dependsOn": [
+                "paragonie/constant_time_encoding-3.1.3.0",
+                "paragonie/random_compat-9.99.100.0"
+            ]
+        },
+        {
+            "ref": "phpstan/phpstan-2.1.42.0"
         },
         {
             "ref": "phpunit/php-code-coverage-10.1.16.0",
@@ -3325,15 +3364,6 @@
                 "sebastian/type-4.0.0.0",
                 "sebastian/version-4.0.1.0"
             ]
-        },
-        {
-            "ref": "psr/cache-3.0.0.0"
-        },
-        {
-            "ref": "psr/container-2.0.2.0"
-        },
-        {
-            "ref": "psr/event-dispatcher-1.0.0.0"
         },
         {
             "ref": "robthree/twofactorauth-2.1.0.0"
@@ -3405,12 +3435,7 @@
             "ref": "sebastian/version-4.0.1.0"
         },
         {
-            "ref": "symfony/contracts-3.6.1.0",
-            "dependsOn": [
-                "psr/cache-3.0.0.0",
-                "psr/container-2.0.2.0",
-                "psr/event-dispatcher-1.0.0.0"
-            ]
+            "ref": "symfony/deprecation-contracts-3.6.0.0"
         },
         {
             "ref": "symfony/polyfill-ctype-1.33.0.0"
@@ -3428,8 +3453,9 @@
             "ref": "theseer/tokenizer-1.3.1.0"
         },
         {
-            "ref": "twig/twig-3.23.0.0",
+            "ref": "twig/twig-3.24.0.0",
             "dependsOn": [
+                "symfony/deprecation-contracts-3.6.0.0",
                 "symfony/polyfill-ctype-1.33.0.0",
                 "symfony/polyfill-mbstring-1.33.0.0"
             ]
@@ -3445,18 +3471,19 @@
             ]
         },
         {
-            "ref": "glewe/teamcal-neo-5.0.4.0",
+            "ref": "glewe/teamcal-neo-5.0.5.0",
             "dependsOn": [
                 "matthiasmullie/minify-1.3.75.0",
                 "phpmailer/phpmailer-7.0.2.0",
                 "robthree/twofactorauth-2.1.0.0",
-                "twig/twig-3.23.0.0",
+                "twig/twig-3.24.0.0",
                 "vlucas/phpdotenv-5.6.3.0",
                 "ezyang/htmlpurifier-4.19.0.0",
                 "phpunit/phpunit-10.5.63.0",
-                "phpstan/phpstan-2.1.38.0",
+                "phpstan/phpstan-2.1.42.0",
                 "symfony/process-6.4.33.0",
-                "cyclonedx/cyclonedx-php-composer-6.1.0.0"
+                "cyclonedx/cyclonedx-php-composer-6.2.0.0",
+                "phpseclib/phpseclib-3.0.50.0"
             ]
         }
     ]

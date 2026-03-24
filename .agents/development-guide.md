@@ -38,6 +38,8 @@ The project uses **Composer** to manage dependencies and execute common developm
 | Command | Description |
 | :--- | :--- |
 | `composer build` | Execute the build script (`tools/build.php`) to compile assets and prepare for deployment. |
+| `composer deploy` | Deploy the `dist/` folder to the IONOS demo server via SFTP (`tools/deploy.php`). Requires `.env.deploy`. |
+| `composer build:deploy` | Run `composer build` followed immediately by `composer deploy`. |
 | `composer docs` | Generate API documentation using phpDocumentor (output in `php_doc/`). |
 | `composer minify` | Minify CSS and JS assets using `tools/minify.php`. |
 | `composer phpunit` | Run the project's unit test suite. |

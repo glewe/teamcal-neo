@@ -21,3 +21,4 @@ dist/
 *.zip
 bom.json
 .env
+.env.deploy
