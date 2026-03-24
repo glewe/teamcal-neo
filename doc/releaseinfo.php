@@ -11,6 +11,7 @@ $releases = [
     ],
     'improvements' => [
       [ 'summary' => 'Absence page now honors icon or character ID setting from calendar options', 'issue' => '' ],
+      [ 'summary' => 'Allow # plus 6 character color codes in color picker fields on manual entry', 'issue' => '' ],
     ],
     'removals' => [
     ],
