@@ -788,7 +788,7 @@ if (!$installationComplete && APP_INSTALLED <> '0') {
                 <hr>
               </div>
 
-              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_install" onmouseover="checkLicense();"><?= $LANG['btn_install'] ?></button>
+              <button type="submit" class="btn btn-primary" tabindex="<?= $tabindex++ ?>" name="btn_install" onmouseover="checkLicense();" onfocus="checkLicense();"><?= $LANG['btn_install'] ?></button>
 
             </div>
           </div>
