@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use phpseclib3\Net\SFTP;
+
 /**
  * TeamCal Neo Release Script
  * Automates the git commands to tag and push a release.
@@ -15,6 +17,8 @@ declare(strict_types=1);
  */
 
 $root = dirname(__DIR__);
+
+require_once $root . '/vendor/autoload.php';
 
 // ANSI Color Constants
 define('CLR_RED', "\033[0;31m");
@@ -147,3 +151,66 @@ runStep("Pushing tag", "git push origin v$version");
 
 echo CLR_GRN . "[SUCCESS] Release v$version pushed to GitHub.\n" . CLR_RST;
 echo "The GitHub Action should now pick up the tag and build the release.\n\n";
+
+// ---------------------------------------------------------------------------
+// Update version file on hosting server via SFTP
+// ---------------------------------------------------------------------------
+echo CLR_YLW . ">>> Updating version file on hosting server via SFTP...\n" . CLR_RST;
+
+$envFile = $root . '/.env.deploy';
+if (!file_exists($envFile)) {
+  echo CLR_YLW . "[WARN] .env.deploy not found – skipping version file update.\n\n" . CLR_RST;
+  exit(0);
+}
+
+$env = [];
+foreach (file($envFile) as $line) {
+  $line = trim($line);
+  if ($line === '' || str_starts_with($line, '#')) {
+    continue;
+  }
+  $line = preg_replace('/#.*$/', '', $line);
+  if (str_contains($line, '=')) {
+    [$key, $val] = explode('=', $line, 2);
+    $env[trim($key)] = trim($val);
+  }
+}
+
+foreach (['DEPLOY_HOST', 'DEPLOY_USER', 'DEPLOY_PASS', 'DEPLOY_PORT'] as $key) {
+  if (empty($env[$key])) {
+    echo CLR_YLW . "[WARN] Missing '$key' in .env.deploy – skipping version file update.\n\n" . CLR_RST;
+    exit(0);
+  }
+}
+
+$versionFilePath = 'lewe.com/support/version/tcneo.js';
+
+$sftp = new SFTP($env['DEPLOY_HOST'], (int) $env['DEPLOY_PORT']);
+if (!$sftp->login($env['DEPLOY_USER'], $env['DEPLOY_PASS'])) {
+  echo CLR_RED . "[ERROR] SFTP login failed – could not update version file.\n\n" . CLR_RST;
+  exit(1);
+}
+
+echo CLR_CYN . "     Connected to {$env['DEPLOY_HOST']}:{$env['DEPLOY_PORT']}\n" . CLR_RST;
+
+$remoteContent = $sftp->get($versionFilePath);
+if ($remoteContent === false) {
+  echo CLR_RED . "[ERROR] Could not read remote file: $versionFilePath\n\n" . CLR_RST;
+  exit(1);
+}
+
+$updatedContent = preg_replace(
+  "/var latest_version = parseVersionString\\('[^']*'\\);/",
+  "var latest_version = parseVersionString('$version');",
+  $remoteContent
+);
+
+if ($updatedContent === $remoteContent) {
+  echo CLR_YLW . "[WARN] Version line not found or already up to date in $versionFilePath\n\n" . CLR_RST;
+} else {
+  if (!$sftp->put($versionFilePath, $updatedContent)) {
+    echo CLR_RED . "[ERROR] Could not write updated file to: $versionFilePath\n\n" . CLR_RST;
+    exit(1);
+  }
+  echo CLR_GRN . "[OK] Updated $versionFilePath to v$version on hosting server.\n\n" . CLR_RST;
+}
