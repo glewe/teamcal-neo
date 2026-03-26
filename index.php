@@ -551,7 +551,7 @@ if ($allConfig['underMaintenance']) {
   if (isset($_GET['action'])) {
     $controller = sanitize($_GET['action']);
   }
-  if ($userData['roleid'] != 1 && $controller != 'login') {
+  if ($userData['roleid'] != 1 && $controller != 'login' && $controller != 'logout') {
     $controller = 'maintenance';
   }
 }
