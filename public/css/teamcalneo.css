@@ -554,6 +554,7 @@ table.month th.m-weeknumber {
 table.month td.m-day {
   padding: 0 !important;
   font-size: 120%;
+  vertical-align: middle;
   background-color: #ffffff;
 }
 

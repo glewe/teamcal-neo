@@ -849,7 +849,7 @@ class CalendarViewController extends BaseController
             $dayData['icon'] = $this->A->getSymbol((string) $absId);
           }
           else {
-            $dayData['icon'] = '<span class="' . $this->A->getIcon((string) $absId) . ' align-bottom"></span>';
+            $dayData['icon'] = '<span class="' . $this->A->getIcon((string) $absId) . '"></span>';
           }
 
           $taken = '';
