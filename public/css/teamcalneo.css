@@ -466,8 +466,22 @@ textarea.cke_source {
  * Month Table
  * ----------------------------------------------------------------------------
  */
-table.month {
+div.table {
+  border-radius: 6px;
+  overflow: hidden;
   box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, .15);
+}
+
+table.month tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 6px;
+}
+
+table.month tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 6px;
+}
+
+table.month {
+  margin-bottom: 0;
 }
 
 table.month th,
