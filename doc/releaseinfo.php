@@ -2,6 +2,22 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '5.0.6',
+    'date' => '2026-03-xx',
+    'info' => 'Improvement release',
+    'bugfixes' => [
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Improved symbol and icon alignment in calendar cells', 'issue' => '' ],
+      [ 'summary' => 'Refactor data retrieval in several controllers for improved efficiency', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '5.0.5',
     'date' => '2026-03-24',
     'info' => 'Bugfix release',
