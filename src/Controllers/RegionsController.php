@@ -47,7 +47,6 @@ class RegionsController extends BaseController
     $viewData['currentYearOnly'] = $this->allConfig['currentYearOnly'];
     $viewData['txt_name']        = '';
     $viewData['txt_description'] = '';
-    $viewData['csrf_token']      = $_SESSION['csrf_token'] ?? '';
 
     $inputAlert = [];
     $alertData  = [];
@@ -71,7 +70,7 @@ class RegionsController extends BaseController
         }
       }
 
-      if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+      if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== ($_SESSION['csrf_token'] ?? '')) {
         $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_csrf_invalid_subject'], $this->LANG['alert_csrf_invalid_text'], $this->LANG['alert_csrf_invalid_help']);
         return;
       }
@@ -102,7 +101,6 @@ class RegionsController extends BaseController
 
           if (session_status() === PHP_SESSION_ACTIVE) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-            $viewData['csrf_token'] = $_SESSION['csrf_token'];
           }
         }
         else {
@@ -134,7 +132,6 @@ class RegionsController extends BaseController
 
         if (session_status() === PHP_SESSION_ACTIVE) {
           $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-          $viewData['csrf_token'] = $_SESSION['csrf_token'];
         }
       }
       elseif (isset($_POST['btn_uploadIcal'])) {
@@ -148,7 +145,6 @@ class RegionsController extends BaseController
           $alertData['help']    = '';
           if (session_status() === PHP_SESSION_ACTIVE) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-            $viewData['csrf_token'] = $_SESSION['csrf_token'];
           }
         }
         else {

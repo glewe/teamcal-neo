@@ -51,7 +51,7 @@ class DatabaseController extends BaseController
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $_POST = sanitize($_POST);
 
-      if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+      if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== ($_SESSION['csrf_token'] ?? '')) {
         $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_csrf_invalid_subject'], $this->LANG['alert_csrf_invalid_text'], $this->LANG['alert_csrf_invalid_help']);
         return;
       }
