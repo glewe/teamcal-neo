@@ -1,6 +1,7 @@
 /.project
 /.gitignore
 /.buildpath
+/.history
 /.phpdoc
 /.phpunit.cache
 /.scannerwork
