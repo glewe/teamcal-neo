@@ -206,6 +206,8 @@ class AbsenceService
       return $approvalResult;
     }
 
+    $this->M->getMonth($year, $month, $regionId);
+
     if ($arraysDiffer) {
       for ($i = 1; $i <= $monthInfo['daysInMonth']; $i++) {
         if ($currentAbsences[$i] != $requestedAbsences[$i]) {
@@ -436,7 +438,7 @@ class AbsenceService
               $this->D->create();
             }
 
-            $isHoliday = $this->M->getHoliday($year, $month, (string) $i, $regionId);
+            $isHoliday = $this->M->{'hol' . $i};
             if ($isHoliday && $this->H->noAbsenceAllowed((string) $isHoliday)) {
               $declinedReasons[$i]    = "<strong>" . $this->T->year . "-" . $this->T->month . "-" . sprintf("%02d", ($i)) . "</strong> (" . $this->A->getName($requestedAbsences[$i]) . "): " . $this->LANG['alert_decl_holiday_noabsence'];
               $declinedReasonsLog[$i] = "- " . $this->T->year . $this->T->month . sprintf("%02d", ($i)) . ": " . $this->LANG['alert_decl_holiday_noabsence'];

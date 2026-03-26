@@ -80,6 +80,7 @@ class YearController extends BaseController
     for ($i = 1; $i <= 12; $i++) {
       if (!$this->M->getMonth($yyyy, (string) $i, $this->R->id)) {
         createMonth($yyyy, (string) $i, 'region', $this->R->id);
+        $this->M->getMonth($yyyy, (string) $i, $this->R->id);
         if ($this->allConfig['emailNotifications']) {
           sendMonthEventNotifications("created", $yyyy, (string) $i, $this->R->name);
         }
@@ -93,8 +94,8 @@ class YearController extends BaseController
       $viewData['monthInfo'][$i] = dateInfo($yyyy, (string) $i);
 
       for ($d = 1; $d <= $viewData['monthInfo'][$i]['daysInMonth']; $d++) {
-        $viewData['month'][$i][$d]['wday']     = $this->M->getWeekday($yyyy, (string) $i, (string) $d, $this->R->id);
-        $viewData['month'][$i][$d]['hol']      = $this->M->getHoliday($yyyy, (string) $i, (string) $d, $this->R->id);
+        $viewData['month'][$i][$d]['wday']     = $this->M->{'wday' . $d};
+        $viewData['month'][$i][$d]['hol']      = $this->M->{'hol' . $d};
         $viewData['month'][$i][$d]['abs']      = strlen($user) ? $this->T->getAbsence($user, $yyyy, (string) $i, (string) $d) : 0;
         $viewData['month'][$i][$d]['symbol']   = '';
         $viewData['month'][$i][$d]['icon']     = '';
