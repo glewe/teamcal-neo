@@ -186,6 +186,7 @@ class RegionsController extends BaseController
             if ($lastCachedYear !== $eventYear || $lastCachedMonth !== $eventMonth) {
               if (!$this->M->getMonth($eventYear, $eventMonth, $viewData['icalRegionID'])) {
                 createMonth($eventYear, $eventMonth, 'region', $viewData['icalRegionID']);
+                $this->M->getMonth($eventYear, $eventMonth, $viewData['icalRegionID']);
               }
               $lastCachedYear  = $eventYear;
               $lastCachedMonth = $eventMonth;
@@ -195,7 +196,7 @@ class RegionsController extends BaseController
             if ($holidayId === null)
               continue;
 
-            if ($this->M->getHoliday($eventYear, $eventMonth, (string) $eventDay, $viewData['icalRegionID']) === 0) {
+            if ($this->M->{'hol' . $eventDay} === 0) {
               $this->M->setHoliday($eventYear, $eventMonth, (string) $eventDay, $viewData['icalRegionID'], $holidayId);
             }
             else {

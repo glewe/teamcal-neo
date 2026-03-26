@@ -158,7 +158,7 @@ class CalendarEditController extends BaseController
         $declinedAbsences  = [];
 
         for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
-          $currentAbsences[$i]   = $this->T->getAbsence($caluser, $viewData['year'], $viewData['month'], (string) $i);
+          $currentAbsences[$i]   = $this->T->{'abs' . $i};
           $requestedAbsences[$i] = $currentAbsences[$i];
           $approvedAbsences[$i]  = '0';
           $declinedAbsences[$i]  = '0';
@@ -482,6 +482,7 @@ class CalendarEditController extends BaseController
       $viewData['width'] = 'full';
     }
 
+    $this->T->getTemplate($viewData['username'], $viewData['year'], $viewData['month']);
     $viewData['calendarDays'] = [];
     $currDate                 = date('Y-m-d');
     for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
@@ -494,7 +495,7 @@ class CalendarEditController extends BaseController
       $day['date']             = $viewData['year'] . $viewData['month'] . sprintf('%02d', $i);
       $day['loopDate']         = date('Y-m-d', mktime(0, 0, 0, (int) $viewData['month'], $i, (int) $viewData['year']));
       $day['isToday']          = ($day['loopDate'] == date('Y-m-d'));
-      $day['currentAbsence']   = $this->T->getAbsence($viewData['username'], $viewData['year'], $viewData['month'], (string) $i);
+      $day['currentAbsence']   = $this->T->{'abs' . $i};
       if ($day['currentAbsence']) {
         if (isset($absenceColorCache[$day['currentAbsence']])) {
           $color   = 'color:#' . $absenceColorCache[$day['currentAbsence']]['color'] . ';';
