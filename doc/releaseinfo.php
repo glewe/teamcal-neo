@@ -6,6 +6,7 @@ $releases = [
     'date' => '2026-03-xx',
     'info' => 'Improvement release',
     'bugfixes' => [
+      [ 'summary' => 'Fix some default passwords in sample.sql', 'issue' => '' ],
     ],
     'features' => [
     ],
