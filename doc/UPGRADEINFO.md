@@ -7,7 +7,7 @@
 3. Download the new release and unzip all files into the same directory
 4. Edit `config/config.app.php` and set `APP_INSTALLED` to "1"
 5. Adjust your database configuration either in `.env` or `config/config.db.php` (depending on what you use).
-7. Delete file installation.php in the root directory.
+6. Delete file installation.php in the root directory.
 
 ## [4.3.x] -> [5.0.x]
 
