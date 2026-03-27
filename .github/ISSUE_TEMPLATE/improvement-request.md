@@ -2,7 +2,7 @@
 name: Improvement request
 about: Suggest and improvement to an existing feature
 title: ''
-labels: '♦ OPEN, improvement'
+labels: '♦ OPEN, .Improvement'
 assignees: glewe
 
 ---
