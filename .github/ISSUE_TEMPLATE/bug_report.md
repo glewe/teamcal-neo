@@ -2,13 +2,13 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: 'status: OPEN, t: Bug'
+labels: 'status: ♦ OPEN, t: bug'
 assignees: glewe
 
 ---
 
 **What version are you referring to?**
-3.9.3
+5.0.5
 
 **Describe the bug**
 A clear and concise description of what the bug is.
