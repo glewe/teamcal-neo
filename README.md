@@ -1,5 +1,3 @@
-![TeamCal Neo](https://github.com/glewe/teamcal-neo/blob/master/doc/calendar-view.png)
-
 # TeamCal Neo 5
 
 [![PHP](https://img.shields.io/badge/Language-PHP-8892BF.svg)](https://www.php.net/)
@@ -15,6 +13,8 @@
 [![PHPStAn](https://img.shields.io/badge/phpstan-Level_6-029B02.svg)](https://phpstan.org/)
 
 TeamCal Neo is a day-based online calendar that allows to easily manage your team's events and absences and displays them in an intuitive interface. You can manage absence types, holidays, regional calendars and much more.
+
+![TeamCal Neo](https://github.com/glewe/teamcal-neo/blob/master/doc/calendar-view.png)
 
 ## New in Version 5
 
