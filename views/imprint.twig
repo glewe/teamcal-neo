@@ -1,0 +1,27 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+  <div class="container content">
+    <div class="col-lg-12">
+
+      <div class="card">
+        {% if C.read('pageHelp') %}
+          {% set pageHelp = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+        {% endif %}
+
+        <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+          <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+          {{ LANG.mnu_help_imprint }}{{ pageHelp|raw }}</div>
+        <div class="card-body">
+          <div class="col-lg-12">
+            {% for imprint in LANG.imprint %}
+              <h4 style="margin-top: 40px">{{ imprint.title }}</h4>
+              {{ imprint.text|raw }}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,165 @@
+{% macro form_group(data, colsleft, colsright, tabindex) %}
+  {% set label_name = data.prefix ~ '_' ~ data.name %}
+  {% set label_comment = data.prefix ~ '_' ~ data.name ~ '_comment' %}
+  {% set input_id = data.name %}
+  {% set input_name = (data.type == 'check' ? 'chk_' : 'txt_') ~ data.name %}
+
+  {% if data.type == 'check' %}
+    <div class="form-group row" id="form-group-{{ data.name }}">
+      <label for="{{ data.name }}" class="col-lg-{{ colsleft }} control-label">
+        {% if data.mandatory %}
+          <i class="text-danger">*</i>
+        {% endif %}
+        {{ LANG[label_name]|raw }}<br>
+        <span class="text-normal">{{ LANG[label_comment]|raw }}</span>
+      </label>
+      <div class="col-lg-{{ colsright }}">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="{{ data.name }}" name="{{ input_name }}" value="{{ input_name }}" {{ data.value ? ' checked' : '' }} tabindex="{{ tabindex }}" {{ data.disabled ? ' disabled="disabled"' : '' }}>
+          <label class="form-check-label">{{ LANG[label_name]|raw }}</label>
+        </div>
+        {% if data.error %}
+          <br>
+          <div class="alert alert-dismissible alert-danger fade show">
+            <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+            {{ data.error }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="divider">
+      <hr>
+    </div>
+  {% elseif data.type == 'text' or data.type == 'password' %}
+    <div class="form-group row" id="form-group-{{ data.name }}">
+      <label for="{{ data.name }}" class="col-lg-{{ colsleft }} control-label">
+        {% if data.mandatory %}
+          <i class="text-danger">*</i>
+        {% endif %}
+        {{ LANG[label_name]|raw }}<br>
+        <span class="text-normal">{{ LANG[label_comment]|raw }}</span>
+      </label>
+      <div class="col-lg-{{ colsright }}">
+        <input id="{{ data.name }}" class="form-control" tabindex="{{ tabindex }}" name="{{ input_name }}" type="{{ data.type }}" value="{{ data.value }}" maxlength="{{ data.maxlength }}" {{ data.disabled ? ' disabled="disabled"' : '' }} {{ data.placeholder ? ' placeholder="' ~ data.placeholder ~ '"' : '' }} {{ data.type == 'password' ? 'autocomplete="new-password"' : '' }}>
+        {% if data.error %}
+          <br>
+          <div class="alert alert-dismissible alert-danger fade show">
+            <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+            {{ data.error }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="divider">
+      <hr>
+    </div>
+  {% elseif data.type == 'list' %}
+    <div class="form-group row" id="form-group-{{ data.name }}">
+      <label for="{{ data.name }}" class="col-lg-{{ colsleft }} control-label">
+        {% if data.mandatory %}
+          <i class="text-danger">*</i>
+        {% endif %}
+        {{ LANG[label_name]|raw }}<br>
+        <span class="text-normal">{{ LANG[label_comment]|raw }}</span>
+      </label>
+      <div class="col-lg-{{ colsright }}">
+        <select class="form-select" id="{{ data.name }}" name="{{ (data.name starts with 'sel_') ? data.name : 'sel_' ~ data.name }}" tabindex="{{ tabindex }}" {{ data.disabled ? ' disabled="disabled"' : '' }}>
+          {% for option in data.values %}
+            <option value="{{ option.val }}" {{ option.selected ? 'selected' : '' }}>{{ option.name }}</option>
+          {% endfor %}
+        </select>
+        {% if data.error %}
+          <br>
+          <div class="alert alert-dismissible alert-danger fade show">
+            <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+            {{ data.error }}</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="divider">
+      <hr>
+    </div>
+  {% elseif data.type == 'listmulti' %}
+    <div class="form-group row" id="form-group-{{ data.name }}">
+      <label for="{{ data.name }}" class="col-lg-{{ colsleft }} control-label">
+        {% if data.mandatory %}
+          <i class="text-danger">*</i>
+        {% endif %}
+        {{ LANG[label_name]|raw }}<br>
+        <span class="text-normal">{{ LANG[label_comment]|raw }}</span>
+      </label>
+      <div class="col-lg-{{ colsright }}">
+        <select class="form-select" id="{{ data.name }}" name="{{ (data.name starts with 'sel_') ? data.name : 'sel_' ~ data.name }}[]" tabindex="{{ tabindex }}" multiple="multiple" size="10" {{ data.disabled ? ' disabled="disabled"' : '' }}>
+          {% for option in data.values %}
+            <option value="{{ option.val }}" {{ option.selected ? 'selected' : '' }}>{{ option.name }}</option>
+          {% endfor %}
+        </select>
+        {% if data.error %}
+          <br>
+          <div class="alert alert-dismissible alert-danger fade show">
+            <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+            {{ data.error }}</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="divider">
+      <hr>
+    </div>
+  {% elseif data.type == 'radio' %}
+    <div class="form-group row" id="form-group-{{ data.name }}">
+      <label for="{{ data.name }}" class="col-lg-{{ colsleft }} control-label">
+        {% if data.mandatory %}
+          <i class="text-danger">*</i>
+        {% endif %}
+        {{ LANG[label_name]|raw }}<br>
+        <span class="text-normal">{{ LANG[label_comment]|raw }}</span>
+      </label>
+      <div class="col-lg-{{ colsright }}">
+        {% for option in data.values %}
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{ (data.name starts with 'opt_') ? data.name : 'opt_' ~ data.name }}" id="{{ data.name }}_{{ option }}" value="{{ option }}" tabindex="{{ tabindex }}" {{ (data.value == option) ? 'checked' : '' }} {{ data.disabled ? ' disabled="disabled"' : '' }}>
+            <label class="form-check-label text-{{ option }}" for="{{ data.name }}_{{ option }}">
+              {% set label_option = data.prefix ~ '_' ~ data.name ~ '_' ~ option %}
+              {{ LANG[label_option]|raw }}
+            </label>
+          </div>
+        {% endfor %}
+        {% if data.error %}
+          <br>
+          <div class="alert alert-dismissible alert-danger fade show">
+            <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+            {{ data.error }}</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="divider">
+      <hr>
+    </div>
+  {% elseif data.type == 'captcha' or data.type == 'securimage' %}
+    <div class="form-group row" id="form-group-{{ data.name }}">
+      <label for="{{ data.name }}" class="col-lg-{{ colsleft }} control-label">
+        {% if data.mandatory %}
+          <i class="text-danger">*</i>
+        {% endif %}
+        {{ LANG[label_name]|raw }}<br>
+        <span class="text-normal">{{ LANG[label_comment]|raw }}</span>
+      </label>
+      <div class="col-lg-{{ colsright }}">
+        <div class="input-group mb-2">
+          <span class="input-group-text">{{ data.question|default('Math?') }}</span>
+          <input id="{{ data.name }}" class="form-control" tabindex="{{ tabindex }}" name="{{ input_name }}" type="text" value="{{ data.value }}" maxlength="{{ data.maxlength|default('10') }}" {{ data.disabled ? ' disabled="disabled"' : '' }} autocomplete="off" placeholder="Result">
+        </div>
+        <input type="text" name="website" style="display:none !important" tabindex="-1" autocomplete="off">
+        {% if data.error %}
+          <br>
+          <div class="alert alert-dismissible alert-danger fade show">
+            <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
+            {{ data.error }}</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="divider">
+      <hr>
+    </div>
+  {% endif %}
+{% endmacro %}

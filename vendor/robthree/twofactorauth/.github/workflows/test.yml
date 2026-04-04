@@ -1,0 +1,29 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ['8.1', '8.2']
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        tools: composer
+        coverage: xdebug
+        ini-values: error_reporting=E_ALL
+
+    - uses: ramsey/composer-install@v2
+
+    - run: composer lint-ci
+    - run: composer phpstan
+    - run: composer test

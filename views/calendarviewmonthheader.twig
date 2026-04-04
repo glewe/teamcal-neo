@@ -1,0 +1,90 @@
+<!-- Row: Month name and day numbers -->
+<tr>
+  {% if isSplitMonth %}
+    <th class="m-monthname" scope="col">{{ dateInfo.monthshort }}/{{ nextMonthInfo.monthshort }}
+      {{ dateInfo.year }}</th>
+  {% else %}
+    <th class="m-monthname" scope="col">{{ dateInfo.monthname }}
+      {{ dateInfo.year }}</th>
+  {% endif %}
+
+  {% for i in dayStart..dayEnd %}
+    {% set dayNote = headerDaynotes[i] ?? null %}
+    {% set currentDayStyle = dayStyles[i] ?? '' %}
+    {% set dnStyle = dayNote ? '--dn-color:' ~ dayNote.colorHex ~ ';' : '' %}
+    {% set combinedStyle = currentDayStyle ~ dnStyle ~ (i == dayEnd and isSplitMonth ? 'border-right: 2px solid #000;' : '') %}
+    {% set styleAttr = combinedStyle ? ' style="' ~ combinedStyle ~ '"' : '' %}
+
+    <th class="m-daynumber text-center {{ dayNote ? ' has-daynote dn-' ~ dayNote.color : '' }}" scope="col" {{ styleAttr|raw }}>
+      {% if dayNote %}
+        <div style="width: 100%; height: 100%;" data-placement="top" data-type="{{ dayNote.color }}" data-bs-toggle="tooltip" title="{{ dayNote.note }}">
+          {{ i }}
+        </div>
+      {% else %}
+        {{ i }}
+      {% endif %}
+    </th>
+  {% endfor %}
+
+  {% if isSplitMonth %}
+    {% for i in 1..15 %}
+      {% set dayNote = headerDaynotes['next_' ~ i] ?? null %}
+      {% set currentDayStyle = dayStyles['next_' ~ i] ?? '' %}
+      {% set dnStyle = dayNote ? '--dn-color:' ~ dayNote.colorHex ~ ';' : '' %}
+      {% set combinedStyle = currentDayStyle ~ dnStyle %}
+      {% set styleAttr = combinedStyle ? ' style="' ~ combinedStyle ~ '"' : '' %}
+
+      <th class="m-daynumber text-center {{ dayNote ? ' has-daynote dn-' ~ dayNote.color : '' }}" scope="col" {{ styleAttr|raw }}>
+        {% if dayNote %}
+          <div style="width: 100%; height: 100%;" data-placement="top" data-type="{{ dayNote.color }}" data-bs-toggle="tooltip" title="{{ dayNote.note }}">
+            {{ i }}
+          </div>
+        {% else %}
+          {{ i }}
+        {% endif %}
+      </th>
+    {% endfor %}
+  {% endif %}
+</tr>
+
+<!-- Row: Weekdays -->
+<tr>
+  <th class="m-label" scope="col"></th>
+  {% for i in dayStart..dayEnd %}
+    {% set currentDayStyle = dayStyles[i] ?? '' %}
+    {% set styleAttr = (currentDayStyle or (i == dayEnd and isSplitMonth)) ? ' style="' ~ currentDayStyle ~ (i == dayEnd and isSplitMonth ? 'border-right: 2px solid #000;' : '') ~ '"' : '' %}
+    <th class="m-weekday text-center" scope="col" {{ styleAttr|raw }}>
+      {{ LANG.weekdayShort[attribute(M, 'wday' ~ i)] }}
+    </th>
+  {% endfor %}
+
+  {% if isSplitMonth %}
+    {% for i in 1..15 %}
+      {% set dStyles = dayStyles['next_' ~ i] ?? '' %}
+      {% set styleAttr = dStyles ? ' style="' ~ dStyles ~ '"' : '' %}
+      <th class="m-weekday text-center" scope="col" {{ styleAttr|raw }}>
+        {{ LANG.weekdayShort[attribute(nextM, 'wday' ~ i)] }}
+      </th>
+    {% endfor %}
+  {% endif %}
+</tr>
+
+{% if showWeekNumbers %}
+  <!-- Row: Week numbers -->
+  <tr>
+    <th class="m-label" scope="col">{{ LANG.weeknumber }}</th>
+    {% for i in dayStart..dayEnd %}
+      <th class="m-weeknumber text-center {{ (attribute(M, 'wday' ~ i) == firstDayOfWeek) ? 'first' : 'inner' }}" scope="col">
+        {{ (attribute(M, 'wday' ~ i) == firstDayOfWeek) ? attribute(M, 'week' ~ i) : '' }}
+      </th>
+    {% endfor %}
+
+    {% if isSplitMonth %}
+      {% for i in 1..15 %}
+        <th class="m-weeknumber text-center {{ (attribute(nextM, 'wday' ~ i) == firstDayOfWeek) ? 'first' : 'inner' }}" scope="col">
+          {{ (attribute(nextM, 'wday' ~ i) == firstDayOfWeek) ? attribute(nextM, 'week' ~ i) : '' }}
+        </th>
+      {% endfor %}
+    {% endif %}
+  </tr>
+{% endif %}
