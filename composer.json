@@ -1,7 +1,7 @@
 {
     "name": "glewe/teamcal-neo",
     "version": "5.0.6",
-    "build": "37",
+    "build": "40",
     "description": "A web application of a day-based calendar and scheduling tool.",
     "type": "project",
     "license": "GPL-3.0-or-later (see LICENSE file)",
@@ -42,7 +42,7 @@
             "@build",
             "@deploy"
         ],
-        "docs": "php tools/phpDocumentor.phar -d src,config -t php_doc --title=\"TeamCal Neo\" -s template.color=blue && php tools/apply_dark_mode.php",
+        "docs": "php tools/docs.php && php tools/apply_dark_mode.php",
         "minify": "php tools/minify.php",
         "phpunit": "phpunit",
         "phpstan": "php vendor/bin/phpstan analyse",
