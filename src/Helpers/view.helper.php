@@ -1,0 +1,839 @@
+<?php
+if (!defined('VALID_ROOT')) {
+  exit('');
+}
+/**
+ * View Helper Functions
+ *
+ * @author George Lewe <george@lewe.com>
+ * @copyright Copyright (c) 2014-2026 by George Lewe
+ * @link https://www.lewe.com
+ *
+ * @package TeamCal Neo
+ * @since 3.0.0
+ */
+
+//-----------------------------------------------------------------------------
+/**
+ * Creates an alert box with the specified data and optionally includes a script to auto-close the alert.
+ *
+ * @param array<string, string> $data An associative array containing the alert data:
+ *  - 'type': The type of alert (e.g., 'danger', 'success', 'warning').
+ *  - 'title': The title of the alert.
+ *  - 'subject': The subject of the alert.
+ *  - 'text': The main text of the alert.
+ *  - 'help' (optional): Additional help text to display in the alert.
+ *
+ * @return string The HTML string for the alert box, including a script for auto-closing if applicable.
+ */
+function createAlertBox(array $data): string {
+  if (empty($data) || !isset($data['type']) || !isset($data['title']) || !isset($data['subject']) || !isset($data['text'])) {
+    return '';
+  }
+  global $C, $LANG;
+
+  $html = '
+    <div class="alert alert-dismissible alert-' . $data['type'] . ' fade show" role="alert">
+      <button type="button" class="btn-close float-end" data-bs-dismiss="alert" title="' . $LANG['close_this_message'] . '"></button>
+      <h5>' . $data['title'] . '</h5>
+      <hr>
+      <p><strong>' . $data['subject'] . '</strong></p>
+      <p>' . $data['text'] . '</p>
+      ' . (isset($data['help']) ? "<p><i>" . $data['help'] . "</i></p>" : "") . '
+    </div>';
+
+  if (
+    $data['type'] === 'danger' && $C->read('alertAutocloseDanger') ||
+    $data['type'] === 'success' && $C->read('alertAutocloseSuccess') ||
+    $data['type'] === 'warning' && $C->read('alertAutocloseWarning')
+  ) {
+    $delay  = (int) $C->read('alertAutocloseDelay');
+    $html  .= '
+      <script>
+        setTimeout(function() {
+          $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function(){
+            $(".alert-dismissible").alert("close");
+          });
+        }, ' . $delay . ');
+      </script>';
+  }
+  return $html;
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Creates a Font Awesome icon listbox.
+ *
+ * This function generates an HTML select element populated with Font Awesome icons.
+ *
+ * @param string $tabIndex The tabindex attribute for the select element. Default is "-1".
+ * @param string $selected The icon that should be selected by default. Default is an empty string.
+ *
+ * @return string The HTML string for the Font Awesome icon listbox.
+ */
+function createFaIconListbox(string $tabIndex = "-1", string $selected = ""): string {
+  global $faIcons;
+  $listbox = '<select id="faIcon" class="form-select" name="sel_faIcon" tabindex="' . $tabIndex . '">';
+  foreach ($faIcons as $faIcon) {
+    if ($faIcon == $selected) {
+      $sel = ' selected="selected"';
+    }
+    else {
+      $sel = "";
+    }
+    $listbox .= '<option value="' . $faIcon . '"' . $sel . '>' . ucwords($faIcon) . '</option>';
+  }
+  $listbox .= '</select>';
+  return $listbox;
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Creates a form group with various input types based on the provided data.
+ *
+ * @param array<string, mixed> $data An associative array containing the form group data:
+ *  - 'prefix': The prefix for the form group.
+ *  - 'name': The name of the form group.
+ *  - 'type': The type of the form group (e.g., 'check', 'coloris', 'colorselect', 'date', 'info', 'list', 'password', 'radio', 'text', 'textarea', 'summernote').
+ *  - 'value': The value of the form group.
+ *  - 'maxlength' (optional): The maximum length for text inputs.
+ *  - 'placeholder' (optional): The placeholder text for text inputs.
+ *  - 'rows' (optional): The number of rows for textarea inputs.
+ *  - 'action' (optional): An associative array containing action button data:
+ *    - 'name': The name of the action button.
+ *    - 'target': The target URL for the action button.
+ *  - 'disabled' (optional): A boolean indicating if the form group should be disabled.
+ *  - 'mandatory' (optional): A boolean indicating if the form group is mandatory.
+ *  - 'error' (optional): An error message to display.
+ *  - 'values' (optional): An array of values for select and radio inputs.
+ *  - 'imagelist' (optional): A boolean indicating if the select list should display images.
+ *  - 'imagedir' (optional): The directory for images in the select list.
+ *
+ * @param int $colsleft The number of columns for the left part of the form group.
+ * @param int $colsright The number of columns for the right part of the form group.
+ * @param int $tabindex The tabindex attribute for the form group inputs.
+ *
+ * @return string The HTML string for the form group.
+ */
+function createFormGroup(array $data, int $colsleft, int $colsright, int $tabindex): string {
+  global $LANG;
+  $langIdx1 = $data['prefix'] . '_' . $data['name'];
+  $langIdx2 = $data['prefix'] . '_' . $data['name'] . '_comment';
+  $button   = '';
+  if (isset($data['action']) && !empty($data['action'])) {
+    $name   = 'btn_' . $data['action']['name'];
+    $target = $data['action']['target'];
+    $button = '<button type="button" class="btn btn-primary btn-sm" style="margin-top: 8px;" tabindex="' . ($tabindex + 1) . '" name="' . $name . '" onclick="window.location=\'' . $target . '\';">' . $LANG[$name] . '</button>';
+  }
+
+  $disabled = '';
+  if (isset($data['disabled']) && $data['disabled']) {
+    $disabled = ' disabled="disabled"';
+  }
+
+  $mandatory = '';
+  if (isset($data['mandatory']) && $data['mandatory']) {
+    $mandatory = '<i class="text-danger">*</i> ';
+  }
+
+  $error = '';
+  if (isset($data["error"]) && strlen($data["error"])) {
+    $error = '<br><div class="alert alert-dismissible alert-danger fade show"><button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>' . $data['error'] . '</div>';
+  }
+
+  switch ($data['type']) {
+    //
+    // Checkbox
+    //
+    case 'check':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="' . $data['name'] . '" name="chk_' . $data['name'] . '" value="chk_' . $data['name'] . '"' . ((intval($data['value'])) ? " checked" : "") . ' tabindex="' . $tabindex . '"' . $disabled . '>
+            <label class="form-check-label">' . $LANG[$langIdx1] . '</label>
+          </div>
+          ' . $button . $error . '</div>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Color selection text field based on Coloris
+    //
+    case 'coloris':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">' . $mandatory . $LANG[$langIdx1] . '<br>
+            <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">
+            <div class="input-group">
+              <span class="input-group-text"><i id="sample-' . $data['name'] . '" class="bi-square-fill" style="color: ' . $data['value'] . '"></i></span>
+              <input id="' . $data['name'] . '" type="text" class="form-control" name="txt_' . $data['name'] . '" value="' . $data['value'] . '" maxlength="' . ($data['maxlength'] ?? '7') . '"' . $disabled . '>
+              ' . $button . $error . '
+            </div>
+            <script>
+              Coloris({
+                el: "#' . $data['name'] . '",
+                wrap: false,
+                theme: "polaroid",
+                themeMode: "dark",
+                alpha: true,
+                format: "hex",
+                onChange: function (color, input) {
+                  var sample = input.previousElementSibling; // This is the span.input-group-text
+                  if (sample && sample.firstElementChild) {
+                    sample.firstElementChild.style.color = color;
+                  }
+                }
+              });
+            </script>
+          </div>
+          <div class="divider"><hr></div>
+        </div>
+        ';
+      break;
+
+    //
+    // Date selection text field
+    //
+    case 'date':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">
+          <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="text" maxlength="10" value="' . $data['value'] . '"' . $disabled . '>
+          ' . $button . $error . '</div>
+          <script>$(function() { $( "#' . $data['name'] . '" ).datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });</script>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Info field
+    //
+    case 'info':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">
+            <div id="' . $data['name'] . '">' . $data['value'] . '</div>
+          </div>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Info field (wide)
+    //
+    case 'infoWide':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-12 control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Single select list
+    //
+    case 'list':
+      $style = '';
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">
+          <select id="' . $data['name'] . '" class="form-select" name="sel_' . $data['name'] . '" tabindex="' . $tabindex . '"' . $disabled . '>' . "\r\n";
+      foreach ($data['values'] as $val) {
+        if (isset($data['imagelist']) && $data['imagelist'] && isset($data['imagedir'])) {
+          $style = $style = 'style="background-image: url(\'' . $data['imagedir'] . '/' . $val['val'] . '\'); background-size: 16px 16px; background-repeat: no-repeat; padding-left: 20px;"';
+        }
+        $formGroup .= '<option ' . $style . ' value="' . $val['val'] . '"' . (($val['selected']) ? " selected=\"selected\"" : "") . '>' . $val['name'] . '</option>' . "\r\n";
+      }
+      $formGroup .= '</select>
+          ' . $button . $error . '</div>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Color select list with preview square
+    //
+    case 'colorselect':
+      // Extract color map from values array
+      $colorMap = [];
+      foreach ($data['values'] as $val) {
+        $colorMap[$val['val']] = $val['hex'] ?? '#000000';
+      }
+      
+      // Determine current color
+      $currentColor = '#000000';
+      foreach ($data['values'] as $val) {
+        if ($val['selected']) {
+          $currentColor = $val['hex'] ?? '#000000';
+          break;
+        }
+      }
+      
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">
+            <div class="input-group">
+              <span class="input-group-text" id="color-preview-' . $data['name'] . '">
+                <i class="bi bi-square-fill" style="color: ' . $currentColor . '; font-size: 1.5rem;"></i>
+              </span>
+              <select id="' . $data['name'] . '" class="form-select" name="sel_' . $data['name'] . '" tabindex="' . $tabindex . '"' . $disabled . ' onchange="updateColorPreview(\'' . $data['name'] . '\', this.value)">' . "\r\n";
+      foreach ($data['values'] as $val) {
+        $formGroup .= '<option value="' . $val['val'] . '"' . (($val['selected']) ? " selected=\"selected\"" : "") . '>' . $val['name'] . '</option>' . "\r\n";
+      }
+      $formGroup .= '</select>
+            </div>
+            ' . $button . $error . '
+          </div>
+        </div>
+        <script>
+          // Initialize global color maps object if not exists
+          if (typeof window.colorMaps === "undefined") {
+            window.colorMaps = {};
+            
+            // Define global updateColorPreview function once
+            window.updateColorPreview = function(fieldName, colorName) {
+              const colorMap = window.colorMaps[fieldName];
+              if (!colorMap) {
+                console.error("Color map not found for field: " + fieldName);
+                return;
+              }
+              const hexColor = colorMap[colorName] || "#000000";
+              const previewIcon = document.querySelector("#color-preview-" + fieldName + " i");
+              if (previewIcon) {
+                previewIcon.style.color = hexColor;
+              }
+            };
+          }
+          
+          // Register color map for this field
+          window.colorMaps["' . $data['name'] . '"] = ' . json_encode($colorMap) . ';
+        </script>
+        <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Multi select list
+    //
+    case 'listmulti':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">
+          <select id="' . $data['name'] . '" class="form-select" name="sel_' . $data['name'] . '[]" tabindex="' . $tabindex . '" multiple="multiple" size="10"' . $disabled . '>' . "\r\n";
+      foreach ($data['values'] as $val) {
+        $formGroup .= '<option value="' . $val['val'] . '"' . (($val['selected']) ? " selected=\"selected\"" : "") . '>' . $val['name'] . '</option>' . "\r\n";
+      }
+      $formGroup .= '</select>
+          ' . $button . $error . '</div>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Password text field
+    //
+    case 'password':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">
+          <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="password" maxlength="' . $data['maxlength'] . '" value="' . $data['value'] . '" placeholder="' . $LANG['enter_password'] . '" autocomplete="new-password"' . $disabled . '>
+          ' . $button . $error . '</div>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Radio box
+    //
+    case 'radio':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label class="col-lg-' . $colsleft . ' control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">';
+      foreach ($data['values'] as $val) {
+        $langIdx3   = $data['prefix'] . '_' . $data['name'] . '_' . $val;
+        $formGroup .= '<div class="form-check">';
+        $formGroup .= '<label><input class="form-check-input" name="opt_' . $data['name'] . '" value="' . $val . '" tabindex="' . $tabindex . '" type="radio"' . (($val == $data['value']) ? " checked" : "") . $disabled . '>' . $LANG[$langIdx3] . '</label>';
+        $formGroup .= '</div>';
+      }
+      $formGroup .= $button . $error . '</div>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Captcha (Math + Honeypot)
+    //
+    case 'captcha':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">
+            <div class="input-group mb-2">
+              <span class="input-group-text">' . ($data['question'] ?? 'Math?') . '</span>
+              <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" placeholder="Result"  value="' . $data['value'] . '" type="text" maxlength="' . ($data['maxlength'] ?? '10') . '"' . $disabled . ' autocomplete="off">
+            </div>
+            <input type="text" name="website" style="display:none !important" tabindex="-1" autocomplete="off">
+          ' . $button . $error . '</div>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Securimage (Legacy, now using captcha)
+    //
+    case 'securimage':
+      $data['type'] = 'captcha';
+      $formGroup = createFormGroup($data, $colsleft, $colsright, $tabindex);
+      break;
+
+    //
+    // Switch
+    //
+    case 'switch':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">
+          <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="' . $data['name'] . '" name="swi_' . $data['name'] . '" value="swi_' . $data['name'] . '"' . ((intval($data['value'])) ? " checked" : "") . ' tabindex="' . $tabindex . '"' . $disabled . '>
+              <label class="form-check-label">' . $LANG[$langIdx1] . '</label>
+          </div>
+          ' . $button . $error . '</div>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Text field
+    //
+    case 'text':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">
+          <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="text" maxlength="' . ($data['maxlength'] ?? '255') . '" value="' . $data['value'] . '" placeholder="' . ($data['placeholder'] ?? '') . '"' . $disabled . '>
+          ' . $button . $error . '</div>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Text Long. Textbox will appear underneath the label in full width.
+    //
+    case 'textlong':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-12 control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-12">
+          <input id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" type="text" maxlength="' . $data['maxlength'] . '" value="' . $data['value'] . '" placeholder="' . $data['placeholder'] . '"' . $disabled . '>
+          ' . $button . $error . '</div>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Textarea
+    //
+    case 'textarea':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="col-lg-' . $colsleft . ' control-label">
+          ' . $mandatory . $LANG[$langIdx1] . '<br>
+          <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div class="col-lg-' . $colsright . '">
+          <textarea id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" rows="' . $data['rows'] . '" placeholder="' . $data['placeholder'] . '" ' . $disabled . '>' . $data['value'] . '</textarea>
+          ' . $button . $error . '</div>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Textarea wide
+    //
+    case 'textarea-wide':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="control-label mb-2">
+            ' . $mandatory . $LANG[$langIdx1] . '<br>
+            <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div>
+            <textarea style="font-family: RobotoMono, monospace;" id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" rows="' . $data['rows'] . '" placeholder="' . $data['placeholder'] . '" ' . $disabled . '>' . $data['value'] . '</textarea>
+            ' . $button . $error . '
+          </div>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+
+
+    //
+    // Summernote
+    //
+    case 'summernote':
+      $formGroup = '
+        <div class="form-group row" id="form-group-' . $data['name'] . '">
+          <label for="' . $data['name'] . '" class="control-label mb-2">
+            ' . $mandatory . $LANG[$langIdx1] . '<br>
+            <span class="text-normal">' . $LANG[$langIdx2] . '</span>
+          </label>
+          <div>
+            <textarea id="' . $data['name'] . '" class="form-control" tabindex="' . $tabindex . '" name="txt_' . $data['name'] . '" rows="' . ($data['rows'] ?? '10') . '" placeholder="' . ($data['placeholder'] ?? '') . '" ' . $disabled . '>' . $data['value'] . '</textarea>
+            ' . $button . $error . '
+            <script>
+              window.addEventListener("load", function() {
+                if (typeof jQuery === "undefined") {
+                  console.error("jQuery is not loaded");
+                  return;
+                }
+                if (typeof jQuery.fn.summernote === "undefined") {
+                  console.error("Summernote is not loaded");
+                  return;
+                }
+                jQuery("#' . $data['name'] . '").summernote({
+                  placeholder: "' . ($data['placeholder'] ?? '') . '",
+                  tabsize: 2,
+                  height: 300,
+                  dialogsInBody: true,
+                  toolbar: [
+                    ["style", ["style"]],
+                    ["font", ["bold", "underline", "clear"]],
+                    ["color", ["color"]],
+                    ["para", ["ul", "ol", "paragraph"]],
+                    ["table", ["table"]],
+                    ["insert", ["link", "picture", "video"]],
+                    ["view", ["fullscreen", "codeview", "help"]]
+                  ]
+                });
+              });
+            </script>
+          </div>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+
+    //
+    // Default
+    //
+    default:
+      $formGroup = '
+        <div class="form-group row" id="form-group-unknown">
+          <label for="form-group-unknown" class="col-lg-' . $colsleft . ' control-label">
+          Unknown<br>
+          <span class="text-normal">Form group could not be built.</span>
+          </label>
+          <div class="col-lg-' . $colsright . '"></div>
+        </div>
+        <div class="divider"><hr></div>';
+      break;
+  }
+  return $formGroup;
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Creates the top part of a modal dialog.
+ *
+ * @param string $id ID of the modal dialog
+ * @param string $title Title of the modal dialog
+ *
+ * @return string Html
+ */
+function createModalTop(string $id, string $title, string $size = ''): string {
+  switch ($size) {
+    case 'sm':
+      $size = 'modal-sm';
+      break;
+    case 'lg':
+      $size = 'modal-lg';
+      break;
+    case 'xl':
+      $size = 'modal-xl';
+      break;
+    default:
+      $size = '';
+  }
+  return '
+    <div class="modal fade" id="' . $id . '" tabindex="-1" role="dialog" aria-labelledby="' . $id . 'Label" aria-hidden="true">
+      <div class="modal-dialog ' . $size . '" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">' . $title . '</h5>
+          <button id="' . $id . 'Label" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-start">';
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Creates the bottom part of a modal dialog.
+ *
+ * @param string $buttonID    ID of the submit button
+ * @param string $buttonColor Color of the submit button (Bootstrap class)
+ * @param string $buttonText  Text of the submit button
+ *
+ * @return string Html
+ */
+function createModalBottom(string $buttonID = '', string $buttonColor = '', string $buttonText = ''): string {
+  global $LANG;
+  $modalbottom = '
+    </div>
+    <div class="modal-footer">';
+
+  if (strlen($buttonID)) {
+    $modalbottom .= '        <button type="submit" class="btn btn-' . $buttonColor . '" name="' . $buttonID . '" style="margin-top: 4px;" aria-label="' . $buttonText . '">' . $buttonText . '</button>';
+  }
+  $modalbottom .= '        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="' . $LANG['btn_cancel'] . '">' . $LANG['btn_cancel'] . '</button>
+        </div>
+      </div>
+      </div>
+    </div>';
+  return $modalbottom;
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Creates the tabs for the top of dialog pages.
+ *
+ * @param array<int, array<string, mixed>> $tabs Array of tab details
+ *
+ * @return string Html
+ */
+function createPageTabs(array $tabs): string {
+  $tabsHtml = '<ul class="nav nav-tabs card-header-tabs" id="dialogTabs" role="tablist">';
+  foreach ($tabs as $tab) {
+    if ($tab['active']) {
+      $tabsHtml .= '<li class="nav-item" role="presentation"><a class="nav-link active" id="solid-tab" href="' . $tab['href'] . '" data-bs-toggle="tab" role="tab" aria-controls="solid" aria-selected="true">' . $tab['label'] . '</a></li>';
+    }
+    else {
+      $tabsHtml .= '<li class="nav-item" role="presentation"><a class="nav-link" id="solid-tab" href="' . $tab['href'] . '" data-bs-toggle="tab" role="tab" aria-controls="solid" aria-selected="false">' . $tab['label'] . '</a></li>';
+    }
+  }
+  $tabsHtml .= '</ul>';
+  return $tabsHtml;
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Creates a pattern table (showing weekdays and absences).
+ *
+ * @param string $patternId ID of the pattern record
+ *
+ * @return string Html
+ */
+function createPatternTable(string $patternId): string {
+  global $A, $C, $LANG;
+  global $DB, $CONF;
+  $PTN = new App\Models\PatternModel($DB->db, $CONF);
+  $PTN->get($patternId);
+  $html = '
+  <table class="table table-bordered month mb-0">
+    <tr>
+      <th class="m-weekday text-center" scope="col">' . $LANG['weekdayShort'][1] . '</th>
+      <th class="m-weekday text-center" scope="col">' . $LANG['weekdayShort'][2] . '</th>
+      <th class="m-weekday text-center" scope="col">' . $LANG['weekdayShort'][3] . '</th>
+      <th class="m-weekday text-center" scope="col">' . $LANG['weekdayShort'][4] . '</th>
+      <th class="m-weekday text-center" scope="col">' . $LANG['weekdayShort'][5] . '</th>
+      <th class="m-weekday text-center" scope="col" style="color:#000000;background-color:#fcfc9a;">' . $LANG['weekdayShort'][6] . '</th>
+      <th class="m-weekday text-center" scope="col" style="color:#000000;background-color:#fcfc9a;">' . $LANG['weekdayShort'][7] . '</th>
+    </tr>
+    <tr>
+  ';
+
+  for ($i = 1; $i <= 7; $i++) {
+    $prop  = 'abs' . $i;
+    $absId = $PTN->$prop;
+    if ($A->getBgTrans($absId)) {
+      $bgStyle = "";
+    }
+    else {
+      $bgStyle = "background-color: #" . ($A->getBgColor($absId) ? $A->getBgColor($absId) : 'ffffff') . ";";
+    }
+    $style = 'color: #' . $A->getColor($absId) . ';' . $bgStyle;
+    if ($C->read('symbolAsIcon')) {
+      $icon = $A->getSymbol($absId);
+    }
+    else {
+      $icon = '<span class="' . $A->getIcon($absId) . '"></span>';
+    }
+
+    $html .= '
+    <td class="text-center" style="' . $style . '">
+      <span data-bs-custom-class="dark" data-bs-placement="top" data-bs-toggle="tooltip" title="' . $A->getName($absId) . '">' . $icon . '
+    </td>';
+  }
+
+  $html .= '
+    </tr>
+  </table>';
+
+  return $html;
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Creates the Bootstrap toast.
+ *
+ * @param array<string, string> $data Array of toast details
+ *
+ * @return string Html
+ */
+function createToast(array $data): string {
+  global $LANG;
+  $classColor = '';
+  if (strlen($data['color'])) {
+    $classColor = 'text-bg-' . $data['color'];
+  }
+
+  return '
+  <div id="' . $data['id'] . '" class="toast ' . $classColor . '" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="6000">
+    <div class="toast - header">
+      <i class="' . $data['icon'] . ' me - 2"></i>
+      <strong class="me - auto">' . $data['title'] . '</strong>
+      <small>' . date("Y - m - d H:m", time()) . '</small>
+      <button type="button" class="btn - close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast - body">
+      ' . $data['message'] . '
+    </div>
+  </div>';
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Returns a tooltip span element with a Font Awesome icon.
+ *
+ * @param string $type BS color code (info,success,warning,danger) (Default: info)
+ * @param string $icon Font Awesome icon to use (Default: question-circle)
+ * @param string $position Tooltip position (top,right,bottom,left) (Default: top)
+ * @param string $text Tooltip text (HTML allowed)
+ *
+ * @return string Hrml
+ */
+function iconTooltip(string $text = 'Tooltip text', string $title = '', string $position = 'top', string $type = 'info', string $icon = 'question-circle') {
+  $ttText = "";
+  if (strlen($title)) {
+    $ttText = "<div class='text-bold' style='padding-top: 4px; padding-bottom: 4px'>" . $title . "</div>";
+  }
+  $ttText .= "<div class='text-normal'>" . $text . "</div>";
+  return '<span data-placement="' . $position . '" class="fas fa-' . $icon . ' text-' . $type . '" data-bs-toggle="tooltip" data-bs-html="true" title="' . $ttText . '"></span>';
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Wrapper for iconTooltip to match create* naming convention and argument order.
+ */
+function createIconTooltip(string $text, string $position = 'top', string $title = '', string $type = 'info', string $icon = 'question-circle'): string {
+  return iconTooltip($text, $title, $position, $type, $icon);
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Splits the global $faIcons array into categorized arrays for brands, regular, and solid icons.
+ *
+ * @param string   $selectedIcon The icon that should be marked as selected (optional).
+ * @param string[] $icons        Optional list of icons.
+ *
+ * @return array<string, array<int, array{val: string, name: string, selected: bool}>> Associative array with keys 'fabIcons', 'farIcons', 'fasIcons'.
+ */
+function splitFaIcons(string $selectedIcon = '', array $icons = []): array {
+  if (empty($icons)) {
+    global $faIcons;
+    $icons = $faIcons;
+  }
+  $result = [
+    'fabIcons' => [],
+    'farIcons' => [],
+    'fasIcons' => []
+  ];
+  foreach ($icons as $faIcon) {
+    $entry = [
+      'val'      => $faIcon,
+      'name'     => ucwords($faIcon),
+      'selected' => ($selectedIcon === $faIcon)
+    ];
+    if (strstr($faIcon, 'fa-brands ')) {
+      $result['fabIcons'][] = $entry;
+    }
+    if (strstr($faIcon, 'fa-regular ')) {
+      $result['farIcons'][] = $entry;
+    }
+    if (strstr($faIcon, 'fa-solid ')) {
+      $result['fasIcons'][] = $entry;
+    }
+  }
+  return $result;
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Returns the next tabindex value for form elements.
+ *
+ * @return int The next tabindex value
+ */
+function nextTabindex(): int {
+  static $tabindex = 0;
+  return ++$tabindex;
+}
+
+//-----------------------------------------------------------------------------
+/**
+ * Resets the tabindex value for form elements.
+ *
+ * @return void
+ */
+function resetTabindex(): void {
+  static $tabindex = 0;
+  $tabindex = 0;
+}

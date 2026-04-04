@@ -1,0 +1,17 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+  <div class="container content" style="padding-left: 4px; padding-right: 4px;">
+    <div class="alert alert-{{ errorData.type|default('danger') }} alert-dismissible fade show mt-3" role="alert">
+      <h5>
+        <strong>{{ errorData.title }}!</strong>
+      </h5>
+      <hr>
+      <p>
+        <strong>{{ errorData.subject }}</strong>
+      </p>
+      <p>{{ errorData.text|raw }}</p>
+      <button type="button" class="btn-close float-end" data-bs-dismiss="alert" title="{{ LANG.close_this_message }}"></button>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,460 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+  <!-- ====================================================================
+      view.log
+      -->
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and (showAlerts != 'none') %}
+        {% if (showAlerts == 'all') or (showAlerts == 'warnings' and (alertData.type == 'warning' or alertData.type == 'danger')) %}
+          {{ createAlertBox(alertData)|raw }}
+        {% endif %}
+      {% endif %}
+
+      {{ resetTabindex() }}
+      {% set colsleft = 8 %}
+      {% set colsright = 4 %}
+
+      <form class="form-control-horizontal" action="index.php?action=log&amp;sort={{ sort }}" method="post" target="_self" accept-charset="utf-8">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+        <div class="card">
+          {% set pageHelpLink = '' %}
+          {% if pageHelp %}
+            {% set pageHelpLink = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+          {% endif %}
+          <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+            <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+            {{ (LANG.mnu_admin_systemlog ~ ' ( ' ~ events|length ~ ' ' ~ LANG.log_title_events ~ ' )' ~ pageHelpLink)|raw }}</div>
+          <div class="card-body">
+
+            <div class="row mb-4">
+
+              <div class="col-lg-3">
+                <label for="sel_logPeriod">{{ LANG.period }}</label>
+                <select name="sel_logPeriod" id="sel_logPeriod" class="form-select mb-2" tabindex="{{ nextTabindex() }}">
+                  <option class="option" value="curr_all" {% if logperiod == "curr_all" %} selected {% endif %}>{{ LANG.all }}</option>
+                  <option class="option" value="curr_month" {% if logperiod == "curr_month" %} selected {% endif %}>{{ LANG.period_month }}</option>
+                  <option class="option" value="curr_quarter" {% if logperiod == "curr_quarter" %} selected {% endif %}>{{ LANG.period_quarter }}</option>
+                  <option class="option" value="curr_half" {% if logperiod == "curr_half" %} selected {% endif %}>{{ LANG.period_half }}</option>
+                  <option class="option" value="curr_year" {% if logperiod == "curr_year" %} selected {% endif %}>{{ LANG.period_year }}</option>
+                  <option class="option" value="custom" {% if logperiod == "custom" %} selected {% endif %}>{{ LANG.period_custom }}</option>
+                </select>
+                <label for="sel_logType">{{ LANG.log_header_type }}</label>
+                <select name="sel_logType" id="sel_logType" class="form-select mb-2" tabindex="{{ nextTabindex() }}">
+                  <option class="option" value="%" {% if logtype == "%" %} selected {% endif %}>{{ LANG.all }}</option>
+                  {% for type in types %}
+                    <option class="option" value="log{{ type }}" {% if logtype == "log" ~ type %} selected {% endif %}>{{ type }}</option>
+                  {% endfor %}
+                </select>
+                <label for="logSearchUser">{{ LANG.search ~ ' ' ~ LANG.user }}</label>
+                <input id="logSearchUser" class="form-control mb-2" tabindex="{{ nextTabindex() }}" name="txt_logSearchUser" maxlength="80" value="{{ logSearchUser }}" type="text">
+                <label for="logSearchEvent">{{ LANG.search ~ ' ' ~ LANG.event }}</label>
+                <input id="logSearchEvent" class="form-control mb-2" tabindex="{{ nextTabindex() }}" name="txt_logSearchEvent" maxlength="80" value="{{ logSearchEvent }}" type="text">
+              </div>
+
+              <div class="col-lg-2">
+                <label for="logPeriodFrom">{{ LANG.from }}</label>
+                <input id="logPeriodFrom" class="form-control" tabindex="{{ nextTabindex() }}" name="txt_logPeriodFrom" maxlength="10" value="{{ logfrom }}" type="text" {% if logperiod != 'custom' %} disabled="disabled" {% endif %}>
+              </div>
+
+              <div class="col-lg-2">
+                <label for="logPeriodTo">{{ LANG.to }}</label>
+                <input id="logPeriodTo" class="form-control" tabindex="{{ nextTabindex() }}" name="txt_logPeriodTo" maxlength="10" value="{{ logto }}" type="text" {% if logperiod != 'custom' %} disabled="disabled" {% endif %}>
+              </div>
+
+              <div class="col-lg-5 text-end">
+                <br>
+                <button type="submit" class="btn btn-primary" tabindex="{{ nextTabindex() }}" name="btn_filter">{{ LANG.btn_save_filter }}</button>
+                <button type="submit" class="btn btn-secondary" tabindex="{{ nextTabindex() }}" name="btn_reset">{{ LANG.btn_reset }}</button>
+                <button type="button" class="btn btn-danger" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalClear">{{ LANG.log_clear }}</button>
+
+                <!-- Modal: Clear -->
+                {{ createModalTop('modalClear', LANG.modal_confirm) }}
+                {{ LANG.log_clear_confirm|raw }}
+                {{ createModalBottom('btn_clear', 'danger', LANG.log_clear) }}
+              </div>
+
+            </div>
+
+            <div class="card">
+
+              <div class="card-header">
+                {% set pageTabs = [
+                { 'id': 'tab-log', 'href': '#panel-log', 'label': LANG.log_title, 'active': true },
+                { 'id': 'tab-settings', 'href': '#panel-settings', 'label': LANG.log_settings, 'active': false },
+                { 'id': 'tab-statistics', 'href': '#panel-statistics', 'label': LANG.log_statistics, 'active': false },
+              ] %}
+                {{ createPageTabs(pageTabs) }}
+              </div>
+
+              <div class="card-body">
+                <div
+                  class="tab-content" id="myTabContent">
+
+                  <!-- Log tab -->
+                  <div class="tab-pane fade show active" id="panel-log" role="tabpanel" aria-labelledby="tab-log">
+
+                    {% if events|length %}
+                      <table id="dataTableLog" class="table table-bordered dt-responsive nowrap table-striped align-middle data-table" style="width:100%">
+                        <thead>
+                          <tr>
+                            <th class="text-end" data-ordering="false">#</th>
+                            <th class="text-start">
+                              <i class="bi-clock fa-lg me-3"></i>
+                              {{ LANG.log_header_when }}</th>
+                            <th data-ordering="true">
+                              <i class="bi-folder fa-lg me-3"></i>
+                              {{ LANG.log_header_type }}</th>
+                            <th data-ordering="true">
+                              <i class="bi-person fa-lg me-3"></i>
+                              {{ LANG.log_header_user }}</th>
+                            <th data-ordering="true">
+                              <i class="bi-display fa-lg me-3"></i>
+                              {{ LANG.log_header_ip }}</th>
+                            <th data-ordering="true">
+                              <i class="bi-pencil-square fa-lg me-3"></i>
+                              {{ LANG.log_header_event }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for event in events %}
+                            {% set typeKey = event.type|slice(3) %}
+                            {% set color = attribute(allConfig, 'logcolor' ~ typeKey) %}
+                            <tr>
+                              <td class="align-top text-end text-{{ color }}">{{ loop.index }}</td>
+                              <td class="align-top text-start text-{{ color }}">{{ event.timestamp }}</td>
+                              <td class="align-top text-{{ color }}">{{ typeKey }}</td>
+                              <td class="align-top text-{{ color }}">
+                                <a style="color: inherit;" href="index.php?action=viewprofile&amp;profile={{ event.user }}" target="_blank">{{ event.user }}</a>
+                              </td>
+                              <td class="align-top text-start text-{{ color }}">{{ event.ip }}</td>
+                              <td class="align-top text-{{ color }}">{{ event.event|raw }}</td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    {% else %}
+                      <div class="mt-2">
+                        {% set noDataAlert = {
+                        'type': 'warning',
+                        'title': 'Oops',
+                        'subject': 'No log entries found',
+                        'text': '',
+                        'help': ''
+                      } %}
+                        {{ createAlertBox(noDataAlert) }}
+                      </div>
+                    {% endif %}
+
+                  </div>
+
+                  <!-- Log settings -->
+                  <div class="tab-pane fade" id="panel-settings" role="tabpanel" aria-labelledby="tab-settings">
+
+                    {% for type in types %}
+                      {% set colorClass = "text-" ~ attribute(allConfig, 'logcolor' ~ type) %}
+                      <div class="row" style="border-bottom: 1px dotted; padding-top: 10px; padding-bottom: 10px;">
+                        <div class="col-lg-3 {{ colorClass }}">
+                          <label>
+                            <i class="fas fa-tag fa-lg me-3"></i>
+                            {{ type }}</label>
+                        </div>
+                        <div class="col-lg-3">
+                          <input class="form-check-input" style="margin-right: 10px;" name="chk_log{{ type }}" value="chk_log{{ type }}" type="checkbox" {% if attribute(allConfig, 'log' ~ type) %} checked="" {% endif %}>{{ LANG.log_settings_log }}
+                        </div>
+                        <div class="col-lg-3">
+                          <input class="form-check-input" style="margin-right: 10px;" name="chk_logfilter{{ type }}" value="chk_logfilter{{ type }}" type="checkbox" {% if attribute(allConfig, 'logfilter' ~ type) %} checked="" {% endif %}>{{ LANG.log_settings_show }}
+                        </div>
+                        <div class="col-lg-3">
+                          {% for c in ['default', 'primary', 'info', 'success', 'warning', 'danger'] %}
+                            <div class="radio">
+                              <label><input class="form-check-input" name="opt_logcolor{{ type }}" value="{{ c }}" tabindex="{{ nextTabindex() }}" type="radio" {% if attribute(allConfig, 'logcolor' ~ type) == c %} checked="" {% endif %}><i class="fas fa-square fa-sm text-{{ c }}"></i>
+                              </label>
+                            </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    {% endfor %}
+
+                    <div class="mt-4 float-end">
+                      <button type="submit" class="btn btn-primary" tabindex="{{ nextTabindex() }}" name="btn_logSave">{{ LANG.btn_save }}</button>
+                    </div>
+                  </div>
+
+                  <!-- Statistics tab -->
+                  <div class="tab-pane fade" id="panel-statistics" role="tabpanel" aria-labelledby="tab-statistics">
+
+                    <div class="row mb-4">
+                      <div class="col-lg-3">
+                        <label for="sel_statsTimeframe">{{ LANG.log_statistics_timeframe }}</label>
+                        <select name="sel_statsTimeframe" id="sel_statsTimeframe" class="form-select mb-3" tabindex="{{ nextTabindex() }}">
+                          <option value="last_day" {% if statsTimeframe == "last_day" %} selected {% endif %}>{{ LANG.log_statistics_last_day }}</option>
+                          <option value="last_week" {% if statsTimeframe == "last_week" %} selected {% endif %}>{{ LANG.log_statistics_last_week }}</option>
+                          <option value="last_month" {% if statsTimeframe == "last_month" %} selected {% endif %}>{{ LANG.log_statistics_last_month }}</option>
+                          <option value="last_quarter" {% if statsTimeframe == "last_quarter" %} selected {% endif %}>{{ LANG.log_statistics_last_quarter }}</option>
+                          <option value="last_year" {% if statsTimeframe == "last_year" %} selected {% endif %}>{{ LANG.log_statistics_last_year }}</option>
+                          <option value="overall" {% if statsTimeframe == "overall" %} selected {% endif %}>{{ LANG.log_statistics_overall }}</option>
+                        </select>
+
+                        <label>{{ LANG.log_statistics_event_types }}</label>
+                        <div class="mb-2" style="max-height: 300px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 0.375rem; padding: 0.5rem;">
+                          {% for type in types %}
+                            <div class="form-check">
+                              <input class="form-check-input stats-filter-checkbox" type="checkbox" name="chk_statsTypes[]" value="{{ type }}" id="statsType{{ type }}" {% if type in statsTypes %} checked {% endif %}>
+                              <label class="form-check-label" for="statsType{{ type }}">
+                                {{ type }}
+                              </label>
+                            </div>
+                          {% endfor %}
+                        </div>
+
+                        <div class="d-flex gap-2 mb-3">
+                          <button type="button" class="btn btn-sm btn-outline-secondary" id="btn_statsSelectAll">{{ LANG.log_statistics_select_all }}</button>
+                          <button type="button" class="btn btn-sm btn-outline-secondary" id="btn_statsUnselectAll">{{ LANG.log_statistics_unselect_all }}</button>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-2" tabindex="{{ nextTabindex() }}" name="btn_statsFilter">{{ LANG.btn_save_stats_settings }}</button>
+                      </div>
+
+                      <div class="col-lg-9" id="statsChartContainer">
+                        <canvas id="statsChart" style="max-height: 400px; {% if statsTypes|length == 0 %} display: none; {% endif %}"></canvas>
+                        <div id="statsNoData" class="alert alert-info {% if statsTypes|length > 0 %} d-none {% endif %}">
+                          <i class="bi bi-info-circle me-2"></i>
+                          {{ LANG.log_statistics_no_data }}
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+  <script src="public/addons/chart.js/4.5.1/chart.umd.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#logPeriodFrom").datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
+      $("#logPeriodTo").datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
+
+      $('#sel_logPeriod').change(function () {
+        if (this.value == "custom") {
+          $("#logPeriodFrom").prop('disabled', false);
+          $("#logPeriodTo").prop('disabled', false);
+        } else {
+          $("#logPeriodFrom").prop('disabled', true);
+          $("#logPeriodTo").prop('disabled', true);
+        }
+      });{% if events|length %}$('#dataTableLog').DataTable({
+          paging: true,
+          ordering: true,
+          info: true,
+          pageLength: 50,
+          deferRender: true,
+          processing: true,
+          language: {
+            url: 'public/addons/datatables/datatables.{{ LANG.locale }}.json'
+          },
+          columnDefs: [
+            {
+              targets: [0],
+              orderable: true,
+              searchable: true
+            }
+          ]
+        });{% endif %}
+
+      //
+      // Statistics Chart
+      //
+      let statsChart = null;
+      const colors = [
+        'rgb(255, 99, 132)', // Red
+        'rgb(54, 162, 235)', // Blue
+        'rgb(255, 206, 86)', // Yellow
+        'rgb(75, 192, 192)', // Teal
+        'rgb(153, 102, 255)', // Purple
+        'rgb(255, 159, 64)', // Orange
+        'rgb(201, 203, 207)', // Grey
+        'rgb(255, 99, 255)', // Pink
+        'rgb(99, 255, 132)', // Green
+        'rgb(132, 99, 255)', // Indigo
+        'rgb(255, 206, 132)', // Peach
+        'rgb(132, 206, 255)', // Sky Blue
+        'rgb(206, 132, 255)', // Lavender
+        'rgb(132, 255, 206)', // Mint
+        'rgb(255, 132, 206)', // Rose
+        'rgb(206, 255, 132)', // Lime
+        'rgb(132, 132, 255)', // Periwinkle
+        'rgb(255, 255, 132)' // Light Yellow
+      ];
+
+      function renderStatsChart(statsData, statsTypes) {
+        if (!statsTypes || statsTypes.length === 0) {
+          $('#statsChart').hide();
+          $('#statsNoData').removeClass('d-none');
+          return;
+        }
+
+        $('#statsChart').show();
+        $('#statsNoData').addClass('d-none');
+
+        const dates = [];
+        const datasets = {};
+
+        statsTypes.forEach(type => {
+          datasets['log' + type] = {
+            label: type,
+            data: [],
+            borderWidth: 2,
+            tension: 0.1,
+            fill: false
+          };
+        });
+
+        statsData.forEach(item => {
+          if (!dates.includes(item.date)) {
+            dates.push(item.date);
+          }
+        });
+
+        dates.sort();
+
+        dates.forEach(date => {
+          statsTypes.forEach(type => {
+            const fullType = 'log' + type;
+            const dataPoint = statsData.find(item => item.date === date && item.type === fullType);
+            datasets[fullType].data.push(dataPoint ? parseInt(dataPoint.count) : 0);
+          });
+        });
+
+        const chartDatasets = [];
+        let colorIndex = 0;
+        Object.keys(datasets).forEach(key => {
+          const dataset = datasets[key];
+          dataset.borderColor = colors[colorIndex % colors.length];
+          dataset.backgroundColor = colors[colorIndex % colors.length];
+          chartDatasets.push(dataset);
+          colorIndex++;
+        });
+
+        const ctx = document.getElementById('statsChart');
+        if (ctx) {
+          if (statsChart) {
+            statsChart.destroy();
+          }
+          statsChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: dates,
+              datasets: chartDatasets
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: true,
+              plugins: {
+                title: {
+                  display: true,
+                  text: '{{ LANG.log_statistics_chart_title }}'
+                },
+                legend: {
+                  display: true,
+                  position: 'top'
+                }
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  ticks: {
+                    stepSize: 1
+                  }
+                }
+              }
+            }
+          });
+        }
+      }
+
+      function loadStatsAjax() {
+        const timeframe = $('#sel_statsTimeframe').val();
+        const types = [];
+        $('.stats-filter-checkbox:checked').each(function() {
+          types.push($(this).val());
+        });
+
+        if (types.length === 0) {
+          renderStatsChart([], []);
+          return;
+        }
+
+        $.ajax({
+          url: 'index.php?action=log&method=getStats',
+          method: 'POST',
+          data: {
+            timeframe: timeframe,
+            types: types
+          },
+          success: function(response) {
+            renderStatsChart(response, types);
+          },
+          error: function() {
+            console.error('Failed to load statistics data');
+          }
+        });
+      }
+
+      // Initial chart load
+      {% if statsTypes|length > 0 %}
+        renderStatsChart({{ statsData|raw }}, {{ statsTypes|json_encode|raw }});
+      {% endif %}
+
+      //
+      // Update chart on change via AJAX
+      //
+      $('#sel_statsTimeframe').on('change', function () {
+        loadStatsAjax();
+      });
+
+      $('.stats-filter-checkbox').on('change', function () {
+        loadStatsAjax();
+      });
+
+      $('#btn_statsSelectAll').on('click', function () {
+        $('.stats-filter-checkbox').prop('checked', true);
+        loadStatsAjax();
+      });
+
+      $('#btn_statsUnselectAll').on('click', function () {
+        $('.stats-filter-checkbox').prop('checked', false);
+        loadStatsAjax();
+      });
+
+      //
+      // Restore active tab after page load
+      //
+      const activeTab = localStorage.getItem('logActiveTab');
+      if (activeTab) {
+        // Activate the stored tab
+        const tabTrigger = new bootstrap.Tab(document.getElementById(activeTab));
+        tabTrigger.show();
+      }
+
+      //
+      // Store active tab when tabs are clicked
+      //
+      $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+        localStorage.setItem('logActiveTab', e.target.id);
+      });
+    });
+  </script>
+{% endblock %}

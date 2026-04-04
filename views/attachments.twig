@@ -1,0 +1,165 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and (showAlerts != 'none') %}
+        {% if (showAlerts == 'all') or (showAlerts == 'warnings' and (alertData.type == 'warning' or alertData.type == 'danger')) %}
+          {{ createAlertBox(alertData)|raw }}
+        {% endif %}
+      {% endif %}
+
+      <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+        <div class="card">
+          {% if CONF.allConfig.pageHelp %}
+            {% set pageHelp = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+          {% else %}
+            {% set pageHelp = '' %}
+          {% endif %}
+          <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+            <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+            {{ LANG.att_title }}{{ pageHelp|raw }}</div>
+          <div class="card-body">
+
+            <div class="card">
+              <div class="card-header">
+                {{ createPageTabs([
+                { 'id': 'tab-files', 'href': '#tab_files', 'label': LANG.att_tab_files, 'active': true },
+                { 'id': 'tab-upload', 'href': '#tab_upload', 'label': LANG.att_tab_upload, 'active': false },
+              ]) }}
+              </div>
+
+              <div class="card-body">
+                <div
+                  class="tab-content" id="myTabContent">
+
+                  <!-- Files -->
+                  <div class="tab-pane fade show active" id="tab_files" role="tabpanel" aria-labelledby="tab-files">
+
+                    <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px; font-weight: bold;">
+                      <div class="col-lg-5">{{ LANG.att_col_file }}</div>
+                      <div class="col-lg-2">{{ LANG.att_col_owner }}</div>
+                      <div class="col-lg-3">{{ LANG.att_col_shares }}</div>
+                      <div class="col-lg-2 text-end">{{ LANG.action }}</div>
+                    </div>
+
+                    {% for file in uplFiles %}
+                      <div class="row" style="border-bottom: 1px dotted; margin-bottom: 10px; padding-bottom: 10px;">
+                        <div class="col-lg-5">
+                          <input class="form-check-input me-1 mt-2" name="chk_file[]" value="{{ file.fname }}" tabindex="{{ nextTabindex() }}" type="checkbox" {{ not file.isOwner ? "disabled" : "" }}>
+                          {% if file.ext in CONF.imgExtensions %}
+                            <a class="image-popup" href="{{ constant('APP_UPL_DIR') ~ file.fname }}" title="{{ file.fname }}"><img src="{{ constant('APP_UPL_DIR') ~ file.fname }}" alt="" style="width: 24px; height: 24px;"></a>
+                          {% else %}
+                            <a href="{{ constant('APP_UPL_DIR') ~ file.fname }}"><img src="public/images/icons/mimetypes/{{ file.ext }}.png" alt="" style="width: 24px; height: 24px;"></a>
+                          {% endif %}
+                          {{ file.fname }}
+                        </div>
+                        <div class="col-lg-2">
+                          {{ file.owner }}
+                        </div>
+                        <div class="col-lg-3">
+                          <a class="btn btn-secondary btn-sm text-white" data-bs-toggle="collapse" data-bs-target="#shares{{ file.fid }}">{{ LANG.btn_shares }}</a>
+                          <div class="collapse" id="shares{{ file.fid }}">
+                            <select class="form-select" name="sel_shares{{ file.fid }}[]" multiple="multiple" size="10" tabindex="{{ nextTabindex() }}" {{ not file.isOwner ? "disabled" : "" }}>
+                              {% for user in users %}
+                                <option class="option" value="{{ user.username }}" {{ file.access[user.username] ? "selected" : "" }}>{{ user.lastname }}{{ user.firstname is not empty ? ', ' ~ user.firstname : '' }}</option>
+                              {% endfor %}
+                            </select>
+                            <p class="small">{{ LANG.att_owner_access }}</p>
+                            {% if file.isOwner %}
+                              <button type="submit" class="btn btn-success btn-sm" style="margin-top: 8px;" tabindex="{{ nextTabindex() }}" name="btn_updateShares{{ file.fid }}">{{ LANG.btn_update }}</button>
+                              <button type="submit" class="btn btn-danger btn-sm" style="margin-top: 8px;" tabindex="{{ nextTabindex() }}" name="btn_clearShares{{ file.fid }}">{{ LANG.btn_clear }}</button>
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="col-lg-2 text-end">
+                          <a href="{{ constant('APP_UPL_DIR') ~ file.fname }}" class="btn btn-info btn-sm" tabindex="{{ nextTabindex() }}" title="{{ file.fname }}">{{ LANG.btn_download_view }}</a>
+                        </div>
+                      </div>
+                    {% endfor %}
+
+                    <div class="mt-4">
+                      <button type="button" class="btn btn-danger" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalDeleteFiles">{{ LANG.btn_delete_selected }}</button>
+                    </div>
+
+                  </div>
+
+                  <!-- Upload File -->
+                  <div class="tab-pane fade" id="tab_upload" role="tabpanel" aria-labelledby="tab-upload">
+                    <div class="form-group row">
+                      <label class="col-lg-6 control-label">
+                        {{ LANG.att_file }}<br>
+                        <span class="text-normal">{{ LANG.att_file_comment|replace({'%1$s': upl_maxsize / 1024, '%2$s': upl_formats, '%3$s': constant('APP_UPL_DIR')}) }}</span>
+                      </label>
+                      <div class="col-lg-6">
+                        <input type="hidden" name="MAX_FILE_SIZE" value="{{ upl_maxsize }}"><br>
+                        <input class="form-control" tabindex="{{ nextTabindex() }}" name="file_image" type="file"><br>
+                      </div>
+                    </div>
+                    <div class="divider"><hr></div>
+
+                    <!-- Share with -->
+                    <div class="form-group row">
+                      <label class="col-lg-6 control-label">
+                        {{ LANG.att_shareWith }}<br>
+                        <span class="text-normal">{{ LANG.att_shareWith_comment }}</span>
+                      </label>
+                      <div class="col-lg-6">
+                        <div class="form-check">
+                          <label><input class="form-check-input" name="opt_shareWith" value="all" tabindex="{{ nextTabindex() }}" {{ shareWith == 'all' ? "checked" : "" }} type="radio">{{ LANG.att_shareWith_all }}</label>
+                        </div>
+                        <div class="form-check mt-2">
+                          <label><input class="form-check-input" name="opt_shareWith" value="group" tabindex="{{ nextTabindex() }}" {{ shareWith == 'group' ? "checked" : "" }} type="radio">{{ LANG.att_shareWith_group }}</label>
+                        </div>
+                        <select class="form-select" name="sel_shareWithGroup[]" multiple="multiple" size="5" tabindex="{{ nextTabindex() }}">
+                          {% for group in groups %}
+                            <option value="{{ group.id }}" {{ group in shareWithGroup ? "selected" : "" }}>{{ group.name }}</option>
+                          {% endfor %}
+                        </select>
+
+                        <div class="form-check mt-2">
+                          <label><input class="form-check-input" name="opt_shareWith" value="role" tabindex="{{ nextTabindex() }}" {{ shareWith == 'role' ? "checked" : "" }} type="radio">{{ LANG.att_shareWith_role }}</label>
+                        </div>
+                        <select class="form-select" name="sel_shareWithRole[]" multiple="multiple" size="5" tabindex="{{ nextTabindex() }}">
+                          {% for role in roles %}
+                            <option value="{{ role.id }}" {{ role.id in shareWithRole ? "selected" : "" }}>{{ role.name }}</option>
+                          {% endfor %}
+                        </select>
+
+                        <div class="form-check mt-2">
+                          <label><input class="form-check-input" name="opt_shareWith" value="user" tabindex="{{ nextTabindex() }}" {{ shareWith == 'user' ? "checked" : "" }} type="radio">{{ LANG.att_shareWith_user }}</label>
+                        </div>
+                        <select class="form-select" name="sel_shareWithUser[]" multiple="multiple" size="5" tabindex="{{ nextTabindex() }}">
+                          {% for user in users %}
+                            <option class="option" value="{{ user.username }}" {{ user.username in shareWithUser ? "selected" : "" }}>{{ user.lastname }}{{ user.firstname is not empty ? ', ' ~ user.firstname : '' }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="divider"><hr></div>
+                    <div style="clear: both; padding: 16px 0 0 16px;">
+                      <button type="submit" class="btn btn-primary" tabindex="{{ nextTabindex() }}" name="btn_uploadFile">{{ LANG.btn_upload }}</button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal: Delete selected files -->
+        {{ createModalTop('modalDeleteFiles', LANG.modal_confirm) }}
+        {{ LANG.att_confirm_delete }}
+        {{ createModalBottom('btn_deleteFile', 'danger', LANG.btn_delete_selected) }}
+
+      </form>
+
+    </div>
+
+  </div>
+{% endblock %}

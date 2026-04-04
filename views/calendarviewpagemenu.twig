@@ -1,0 +1,61 @@
+{% set pageBwdYear = year %}
+{% set pageBwdMonth = "now"|date("m") %}
+{% set pageFwdYear = year %}
+{% set pageFwdMonth = "now"|date("m") %}
+
+{% if month == 1 %}
+  {% set pageBwdYear = year - 1 %}
+  {% set pageBwdMonth = '12' %}
+  {% set pageFwdYear = year %}
+  {% set pageFwdMonth = '%02d'|format(month + 1) %}
+{% elseif month == 12 %}
+  {% set pageBwdYear = year %}
+  {% set pageBwdMonth = '%02d'|format(month - 1) %}
+  {% set pageFwdYear = year + 1 %}
+  {% set pageFwdMonth = '01' %}
+{% else %}
+  {% set pageBwdYear = year %}
+  {% set pageFwdYear = year %}
+  {% set pageBwdMonth = '%02d'|format(month - 1) %}
+  {% set pageFwdMonth = '%02d'|format(month + 1) %}
+{% endif %}
+
+<div class="page-menu">
+  <a class="btn btn-outline-secondary" href="index.php?action={{ controller }}&amp;month={{ year }}{{ month }}&amp;region={{ regionid }}&amp;group={{ groupid }}&amp;abs={{ absid }}&amp;viewmode={{ (viewmode == 'splitmonth' ? 'fullmonth' : 'splitmonth') }}" data-bs-placement="top" data-bs-custom-class="warning" data-bs-toggle="tooltip" title="{{ (viewmode == 'splitmonth' ? LANG.cal_switchFullmonthView : LANG.cal_switchSplitmonthView) }}">
+    <span class="bi {{ (viewmode == 'splitmonth' ? 'bi-window-split' : 'bi-window') }}"></span>
+  </a>
+  <a class="btn btn-secondary" href="index.php?action={{ controller }}&amp;month={{ pageBwdYear }}{{ pageBwdMonth }}&amp;region={{ regionid }}&amp;group={{ groupid }}&amp;abs={{ absid }}" data-bs-placement="top" data-bs-custom-class="warning" data-bs-toggle="tooltip" title="{{ LANG.cal_tt_backward }}">
+    <span class="fas fa-angle-double-left"></span>
+  </a>
+  <a class="btn btn-secondary" href="index.php?action={{ controller }}&amp;month={{ pageFwdYear }}{{ pageFwdMonth }}&amp;region={{ regionid }}&amp;group={{ groupid }}&amp;abs={{ absid }}" data-bs-placement="top" data-bs-custom-class="warning" data-bs-toggle="tooltip" title="{{ LANG.cal_tt_forward }}">
+    <span class="fas fa-angle-double-right"></span>
+  </a>
+  <a class="btn btn-secondary" href="index.php?action={{ controller }}&amp;month={{ yearToday }}{{ monthToday }}&amp;region={{ regionid }}&amp;group={{ groupid }}&amp;abs={{ absid }}">{{ LANG.today }}</a>
+  <button type="button" class="btn btn-warning" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalSelectMonth">{{ LANG.month }}:&nbsp;{{ year }}{{ month }}</button>
+  {% if showRegionButton %}
+    <button type="button" class="btn btn-warning" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalSelectRegion">{{ LANG.region }}:&nbsp;{{ regionname }}</button>
+  {% endif %}
+  <button type="button" class="btn btn-warning" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalSelectGroup">{{ LANG.group }}:&nbsp;{{ group }}</button>
+  <button type="button" class="btn btn-warning" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalSelectAbsence">{{ LANG.absencetype }}:&nbsp;{{ absence }}</button>
+  <button type="button" class="btn btn-info" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalSearchUser">{{ LANG.search }}:&nbsp;{{ search }}</button>
+  <button type="submit" class="btn btn-success" tabindex="{{ nextTabindex() }}" name="btn_reset">{{ LANG.btn_reset }}</button>
+  {% if supportMobile %}
+    <button type="button" class="btn btn-secondary" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalSelectWidth">{{ LANG.screen }}:&nbsp;{{ width }}</button>
+  {% endif %}
+  {% if isAllowed(CONF.controllers.calendaredit.permission) %}
+    <a class="btn btn-secondary float-end" tabindex="{{ nextTabindex() }}" href="index.php?action={{ CONF.controllers.calendaredit.name }}&amp;month={{ year }}{{ month }}&amp;region={{ regionid }}&amp;user={{ UL.username }}">{{ LANG.btn_cal_edit }}</a>
+  {% endif %}
+</div>
+<div style="height:20px;"></div>
+
+<div class="card">
+  {% if CONF.allConfig.pageHelp %}
+    {% set pageHelp = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+  {% else %}
+    {% set pageHelp = '' %}
+  {% endif %}
+  <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+    <i class="{{ CONF.controllers.calendarview.faIcon }} fa-lg me-3"></i>
+    {{ LANG.cal_title|format(year, month, regionname)|raw }}{{ pageHelp|raw }}</div>
+</div>
+<div style="height:20px;"></div>

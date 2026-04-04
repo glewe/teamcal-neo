@@ -1,0 +1,186 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+  <div class="container content" {{ calendarFontSize ? ('style="font-size:' ~ calendarFontSize ~ '%;"')|raw : '' }}>
+
+    {% if calendaronly %}
+
+      {% for month in months %}
+        {% include 'calendarviewmonth.twig' with { 'month': month } %}
+      {% endfor %}
+
+    {% else %}
+
+      {% if showAlert and (showAlerts|default('all') != 'none') %}
+        {% if (showAlerts|default('all') == 'all') or (showAlerts|default('all') == 'warnings' and (alertData.type|default('info') == 'warning' or alertData.type|default('info') == 'danger')) %}
+          {{ createAlertBox(alertData)|raw }}
+        {% endif %}
+      {% endif %}
+
+      <form class="form-control-horizontal" enctype="multipart/form-data" action="index.php?action={{ controller }}&amp;month={{ year }}{{ month }}&amp;region={{ regionid }}&amp;group={{ groupid }}&amp;abs={{ absid }}&amp;viewmode={{ viewmode }}" method="post" target="_self" accept-charset="utf-8">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+        <input name="hidden_month" type="hidden" value="{{ month }}">
+        <input name="hidden_region" type="hidden" value="{{ regionid }}">
+        <input name="hidden_showmonths" type="hidden" value="{{ months|length }}">
+
+        {% include 'calendarviewpagemenu.twig' %}
+
+        {% for month in months %}
+          {% include 'calendarviewmonth.twig' with { 'month': month } %}
+        {% endfor %}
+
+        <div style="text-align: right;">
+          {% if months|length < 12 %}
+            <button type="submit" name="btn_onemore" class="btn btn-secondary" data-bs-placement="top" data-bs-custom-class="secondary" data-bs-toggle="tooltip" title="{{ LANG.cal_tt_onemore }}">
+              <span class="fas fa-plus"></span>
+            </button>
+          {% endif %}
+          {% if months|length > 1 %}
+            <button type="submit" name="btn_oneless" class="btn btn-secondary" style="margin-right:4px;" data-bs-placement="tooltip-top" data-bs-custom-class="secondary" data-bs-toggle="tooltip" title="{{ LANG.cal_tt_oneless }}">
+              <span class="fas fa-minus"></span>
+            </button>
+          {% endif %}
+        </div>
+
+        <!-- Modal: Select Month -->
+        {{ createModalTop('modalSelectMonth', LANG.cal_selMonth)|raw }}
+        <div style="width:48%;float:left;">
+          {{ LANG.year }}<br>
+          <input id="year" class="form-control" tabindex="{{ nextTabindex() }}" name="txt_year" type="number" min="2000" max="2100" value="{{ year }}">
+        </div>
+        <div style="width:45%;float:right;">
+          {{ LANG.month }}<br>
+          <select id="month" class="form-select" name="sel_month" tabindex="{{ nextTabindex() }}">
+            {% for key, value in LANG.monthnames %}
+              <option value="{{ '%02d'|format(key) }}" {{ (key == month) ? 'selected="selected"' : '' }}>{{ value }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div style="height:80px;"></div>
+        {{ createModalBottom('btn_month', 'success', LANG.btn_select)|raw }}
+
+        <!-- Modal: Select Region -->
+        {{ createModalTop('modalSelectRegion', LANG.cal_selRegion)|raw }}
+        <select id="region" class="form-select" name="sel_region" tabindex="{{ nextTabindex() }}">
+          {% for reg in regions %}
+            <option value="{{ reg.id }}" {{ (regionid == reg.id) ? ' selected="selected"' : '' }}>{{ reg.name }}</option>
+          {% endfor %}
+        </select>
+        {{ createModalBottom('btn_region', 'success', LANG.btn_select)|raw }}
+
+        <!-- Modal: Select Group -->
+        {{ createModalTop('modalSelectGroup', LANG.cal_selGroup)|raw }}
+        <select id="group" class="form-select" name="sel_group" tabindex="{{ nextTabindex() }}">
+          <option value="all" {{ (groupid == 'all') ? ' selected="selected"' : '' }}>{{ LANG.all }}</option>
+          {% for grp in allGroups %}
+            {% if isAllowed("calendarviewall") or UG.isMemberOrManagerOfGroup(userData.username, grp.id) %}
+              <option value="{{ grp.id }}" {{ (groupid == grp.id) ? ' selected="selected"' : '' }}>{{ grp.name }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+        {{ createModalBottom('btn_group', 'success', LANG.btn_select)|raw }}
+
+        <!-- Modal: Select Absence -->
+        {{ createModalTop('modalSelectAbsence', LANG.cal_selAbsence)|raw }}
+        <p>{{ LANG.cal_selAbsence_comment }}</p>
+        <select id="absence" class="form-select" name="sel_absence" tabindex="{{ nextTabindex() }}">
+          <option value="all" {{ (absid == 'all') ? 'selected="selected"' : '' }}>{{ LANG.all }}</option>
+          {% for abs in absences %}
+            <option value="{{ abs.id }}" {{ (absid == abs.id) ? ' selected="selected"' : '' }}>{{ abs.name }}</option>
+          {% endfor %}
+        </select>
+        {{ createModalBottom('btn_abssearch', 'warning', LANG.btn_search)|raw }}
+
+        <!-- Modal: Screen Width -->
+        {{ createModalTop('modalSelectWidth', LANG.cal_selWidth)|raw }}
+        <p>{{ LANG.cal_selWidth_comment|raw }}</p>
+        <select id="width" class="form-select" name="sel_width" tabindex="{{ nextTabindex() }}">
+          {% for key, value in LANG.widths %}
+            <option value="{{ key }}" {{ (width == key) ? ' selected="selected"' : '' }}>{{ value }}</option>
+          {% endfor %}
+        </select>
+        {{ createModalBottom('btn_width', 'warning', LANG.btn_select)|raw }}
+
+        <!-- Modal: Search User -->
+        <div class="modal fade" id="modalSearchUser" role="dialog" aria-labelledby="modalSearchUserLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">{{ LANG.cal_search }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <input id="searchUser" class="form-control" tabindex="-1" name="txt_search" type="text" value="{{ search }}">
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-info" name="btn_search" style="margin-top: 4px;">{{ LANG.btn_search }}</button>
+                {% if search|length %}
+                  <button type="submit" class="btn btn-danger" name="btn_search_clear">{{ LANG.btn_clear }}</button>
+                {% endif %}
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ LANG.btn_cancel }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+    {% endif %}
+
+    {% if userPerPage %}
+      <nav aria-label="Paging">
+        <ul class="pagination">
+          {% set pages = (totalUsers / userPerPage)|round(0, 'ceil') %}
+          {% set currentPage = page|default(1) %}
+          {% set formLink = 'index.php?action=' ~ controller ~ '&month=' ~ year ~ month ~ '&region=' ~ regionid ~ '&group=' ~ groupid ~ '&abs=' ~ absid ~ '&viewmode=' ~ viewmode %}
+
+          <!-- First Page Link -->
+          <li class="{{ currentPage == 1 ? 'disabled' : '' }}">
+            <a href="{{ formLink }}&amp;page=1" title="{{ LANG.page_first }}">
+              <span>
+                <i class="fas fa-angle-double-left"></i>
+              </span>
+            </a>
+          </li>
+
+          <!-- Previous Page Link -->
+          <li class="{{ currentPage == 1 ? 'disabled' : '' }}">
+            <a href="{{ formLink }}&amp;page={{ currentPage - 1 }}" title="{{ LANG.page_prev }}">
+              <span>
+                <i class="fas fa-angle-left"></i>
+              </span>
+            </a>
+          </li>
+
+          <!-- Page Links -->
+          {% for p in 1..pages %}
+            <li class="{{ p == currentPage ? 'active' : '' }}">
+              <a href="{{ formLink }}&amp;page={{ p }}" title="{{ LANG.page_page|replace({'%p': p}) }}">
+                <span>{{ p }}</span>
+              </a>
+            </li>
+          {% endfor %}
+
+          <!-- Next Page Link -->
+          <li class="{{ currentPage == pages ? 'disabled' : '' }}">
+            <a href="{{ formLink }}&amp;page={{ currentPage + 1 }}" title="{{ LANG.page_next }}">
+              <span>
+                <i class="fas fa-angle-right"></i>
+              </span>
+            </a>
+          </li>
+
+          <!-- Last Page Link -->
+          <li class="{{ currentPage == pages ? 'disabled' : '' }}">
+            <a href="{{ formLink }}&amp;page={{ pages }}" title="{{ LANG.page_last }}">
+              <span>
+                <i class="fas fa-angle-double-right"></i>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    {% endif %}
+
+  </div>
+{% endblock %}

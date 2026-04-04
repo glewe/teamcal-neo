@@ -1,0 +1,33 @@
+{% macro pattern_table(pattern, absences, weekday_short) %}
+  <table class="table table-bordered month mb-0">
+    <tr>
+      {% for day in 1..7 %}
+        <th class="m-weekday text-center" scope="col" style="{{ day > 5 ? 'color:#000000;background-color:#fcfc9a;' : '' }}">
+          {{ weekday_short[day] }}
+        </th>
+      {% endfor %}
+    </tr>
+    <tr>
+      {% for day in 1..7 %}
+        {% set absId = attribute(pattern, 'abs' ~ day) %}
+        {% set absData = absences[absId] %}
+        {% set style = 'color: #' ~ absData.color ~ ';' %}
+        {% if absData.bgTrans %}
+          {% set style = style %}
+        {% else %}
+          {% set style = style ~ 'background-color: #' ~ (absData.bgColor ? absData.bgColor : 'ffffff') ~ ';' %}
+        {% endif %}
+
+        <td class="text-center" style="{{ style }}">
+          <span data-bs-custom-class="dark" data-bs-placement="top" data-bs-toggle="tooltip" title="{{ absData.name }}">
+            {% if absData.symbolAsIcon %}
+              {{ absData.symbol|raw }}
+            {% else %}
+              <span class="{{ absData.icon }}"></span>
+            {% endif %}
+          </span>
+        </td>
+      {% endfor %}
+    </tr>
+  </table>
+{% endmacro %}

@@ -1,0 +1,94 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+  <div class="container content">
+
+    <div class="col-lg-12">
+      {% if showAlert and (showAlerts != 'none') %}
+        {% if (showAlerts == 'all') or (showAlerts == 'warnings' and (alertData.type == 'warning' or alertData.type == 'danger')) %}
+          {{ createAlertBox(alertData)|raw }}
+        {% endif %}
+      {% endif %}
+
+      <form class="form-control-horizontal" action="index.php?action={{ controller }}" method="post" target="_self" accept-charset="utf-8">
+        <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
+
+        <div class="card">
+          {% if CONF.allConfig.pageHelp %}
+            {% set pageHelp = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
+          {% else %}
+            {% set pageHelp = '' %}
+          {% endif %}
+          <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
+            <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
+            {{ LANG.calopt_title }}{{ pageHelp|raw }}</div>
+          <div class="card-body">
+
+            <div class="card">
+
+              <div class="card-header">
+                {{ createPageTabs([
+                {'id': 'tab-display', 'href': '#panel-display', 'label': LANG.calopt_tab_display, 'active': true},
+                {'id': 'tab-filter', 'href': '#panel-filter', 'label': LANG.calopt_tab_filter, 'active': false},
+                {'id': 'tab-options', 'href': '#panel-options', 'label': LANG.calopt_tab_options, 'active': false},
+                {'id': 'tab-stats', 'href': '#panel-stats', 'label': LANG.calopt_tab_stats, 'active': false},
+                {'id': 'tab-summary', 'href': '#panel-summary', 'label': LANG.calopt_tab_summary, 'active': false}
+              ]) }}
+              </div>
+
+              <div class="card-body">
+                <div
+                  class="tab-content" id="myTabContent">
+
+                  <!-- Tab: Display -->
+                  <div class="tab-pane fade show active" id="panel-display" role="tabpanel" aria-labelledby="tab-display">
+                    {% for field in formFields.display %}
+                      {{ createFormGroup(field, 8, 4, nextTabindex())|raw }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- Tab: Filter -->
+                  <div class="tab-pane fade" id="panel-filter" role="tabpanel" aria-labelledby="tab-filter">
+                    {% for field in formFields.filter %}
+                      {{ createFormGroup(field, 8, 4, nextTabindex())|raw }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- Tab: Options -->
+                  <div class="tab-pane fade" id="panel-options" role="tabpanel" aria-labelledby="tab-options">
+                    {% for field in formFields.options %}
+                      {{ createFormGroup(field, 8, 4, nextTabindex())|raw }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- Statistics tab -->
+                  <div class="tab-pane fade" id="panel-stats" role="tabpanel" aria-labelledby="tab-stats">
+                    {% for field in formFields.stats %}
+                      {{ createFormGroup(field, 8, 4, nextTabindex())|raw }}
+                    {% endfor %}
+                  </div>
+
+                  <!-- Tab: Summary -->
+                  <div class="tab-pane fade" id="panel-summary" role="tabpanel" aria-labelledby="tab-summary">
+                    {% for field in formFields.summary %}
+                      {{ createFormGroup(field, 8, 4, nextTabindex())|raw }}
+                    {% endfor %}
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 float-end">
+              <button type="submit" class="btn btn-primary" tabindex="{{ nextTabindex() }}" name="btn_apply">{{ LANG.btn_apply }}</button>
+            </div>
+
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+{% endblock %}
