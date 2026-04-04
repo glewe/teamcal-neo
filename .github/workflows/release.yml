@@ -23,22 +23,20 @@ jobs:
           extensions: ctype, pdo, zip
           coverage: none
 
-      - name: Install Dependencies
-        run: composer install --prefer-dist --no-progress
+      - name: Install Production Dependencies
+        run: composer install --no-dev --prefer-dist --no-progress --optimize-autoloader
 
-      - name: Build Project
-        run: composer build
-
-      - name: Generate Release Notes
+      - name: Create ZIP Archive
         run: |
-          # Strip 'v' prefix from tag to get version (e.g. v5.0.0 -> 5.0.0)
           VERSION=${GITHUB_REF_NAME#v}
-          php tools/extract_release_notes.php $VERSION > RELEASE_NOTES.md
+          IFS='.' read -r VMAJOR VMINOR VPATCH <<< "$VERSION"
+          ZIP_NAME="tcneo_$(printf '%02d' $VMAJOR)$(printf '%02d' $VMINOR)$(printf '%02d' $VPATCH).zip"
+          zip -r "$ZIP_NAME" . -x ".git/*" -x "RELEASE_NOTES.md" -x "*.zip"
 
       - name: Create Release
         uses: softprops/action-gh-release@c062e08bd532815e2082a85e87e3ef29c3e6d191 # v2.0.8
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: dist/*.zip
+          files: "*.zip"
           body_path: RELEASE_NOTES.md
           generate_release_notes: true
