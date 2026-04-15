@@ -113,7 +113,6 @@ class LicenseModel
       echo '</pre>';
     }
 
-    curl_close($curl);
     return $response;
   }
 
@@ -366,17 +365,17 @@ class LicenseModel
 
       $details  = "<div style=\"height:20px;\"></div>";
       $details .= "
-                <table class=\"table table-hover\">
-                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_product'] . ":</th><td style=\"background-color: inherit;\">" . ($data->product_ref ?? '') . "</td></tr>
-                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_key'] . ":</th><td style=\"background-color: inherit;\">" . ($data->license_key ?? '') . "</td></tr>
-                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_name'] . ":</th><td style=\"background-color: inherit;\">" . ($data->first_name ?? '') . " " . ($data->last_name ?? '') . "</td></tr>
-                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_email'] . ":</th><td style=\"background-color: inherit;\">" . ($data->email ?? '') . "</td></tr>
-                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_company'] . ":</th><td style=\"background-color: inherit;\">" . ($data->company_name ?? '') . "</td></tr>
-                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_date_created'] . ":</th><td style=\"background-color: inherit;\">" . ($data->date_created ?? '') . "</td></tr>
-                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_date_renewed'] . ":</th><td style=\"background-color: inherit;\">" . ($data->date_renewed ?? '') . "</td></tr>
-                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_date_expiry'] . ":</th><td style=\"background-color: inherit;\">" . ($data->date_expiry ?? '') . $daysleft . "</td></tr>
-                  <tr><th style=\"background-color: inherit;\">" . $LANG['lic_registered_domains'] . ":</th><td style=\"background-color: inherit;\">" . $domains . "</td></tr>
-                </table>";
+        <table class=\"table table-hover\">
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_product'] . ":</th><td style=\"background-color: inherit;\">" . ($data->product_ref ?? '') . "</td></tr>
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_key'] . ":</th><td style=\"background-color: inherit;\">" . ($data->license_key ?? '') . "</td></tr>
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_name'] . ":</th><td style=\"background-color: inherit;\">" . ($data->first_name ?? '') . " " . ($data->last_name ?? '') . "</td></tr>
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_email'] . ":</th><td style=\"background-color: inherit;\">" . ($data->email ?? '') . "</td></tr>
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_company'] . ":</th><td style=\"background-color: inherit;\">" . ($data->company_name ?? '') . "</td></tr>
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_date_created'] . ":</th><td style=\"background-color: inherit;\">" . ($data->date_created ?? '') . "</td></tr>
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_date_renewed'] . ":</th><td style=\"background-color: inherit;\">" . ($data->date_renewed ?? '') . "</td></tr>
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_date_expiry'] . ":</th><td style=\"background-color: inherit;\">" . ($data->date_expiry ?? '') . $daysleft . "</td></tr>
+          <tr><th style=\"background-color: inherit;\">" . $LANG['lic_registered_domains'] . ":</th><td style=\"background-color: inherit;\">" . $domains . "</td></tr>
+        </table>";
 
       switch ($this->status()) {
         case "active":

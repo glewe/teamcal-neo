@@ -168,6 +168,22 @@ function dateInfo(string $year, string $month, string $day = '1'): array {
 
 //-----------------------------------------------------------------------------
 /**
+ * This function is used to dump a variable for debugging purposes.
+ *
+ * @param mixed $var The variable that you want to dump.
+ * @param bool $dieafter Optional. If set to true, the script will stop executing after the variable is dumped. Default is true.
+ */
+function dnd($var, $dieafter = true): void {
+  echo "<pre>";
+  var_dump($var);
+  echo "</pre>";
+  if ($dieafter) {
+    die();
+  }
+}
+
+//-----------------------------------------------------------------------------
+/**
  * Validates a form field against a ruleset.
  *
  * $ruleset can be a string of several rules, separated by |. However, only
