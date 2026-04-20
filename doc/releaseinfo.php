@@ -2,8 +2,23 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
-    'version' => '5.0.x',
-    'date' => '2026-04-xx',
+    'version' => '5.0.8',
+    'date' => '2026-04-20',
+    'info' => 'Improvement release',
+    'bugfixes' => [
+      [ 'summary' => 'Security update phpunit', 'issue' => '' ],
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
+    'version' => '5.0.7',
+    'date' => '2026-04-15',
     'info' => 'Improvement release',
     'bugfixes' => [
       [ 'summary' => 'Security update phpseclib to latest version', 'issue' => '' ],
