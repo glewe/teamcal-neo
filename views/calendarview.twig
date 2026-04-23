@@ -1,7 +1,7 @@
 {% extends 'layout.twig' %}
 
 {% block content %}
-  <div class="container content" {{ calendarFontSize ? ('style="font-size:' ~ calendarFontSize ~ '%;"')|raw : '' }}>
+  <div class="container content" data-cal-width="{{ width }}" {{ calendarFontSize ? ('style="font-size:' ~ calendarFontSize ~ '%;"')|raw : '' }}>
 
     {% if calendaronly %}
 
@@ -91,16 +91,6 @@
         </select>
         {{ createModalBottom('btn_abssearch', 'warning', LANG.btn_search)|raw }}
 
-        <!-- Modal: Screen Width -->
-        {{ createModalTop('modalSelectWidth', LANG.cal_selWidth)|raw }}
-        <p>{{ LANG.cal_selWidth_comment|raw }}</p>
-        <select id="width" class="form-select" name="sel_width" tabindex="{{ nextTabindex() }}">
-          {% for key, value in LANG.widths %}
-            <option value="{{ key }}" {{ (width == key) ? ' selected="selected"' : '' }}>{{ value }}</option>
-          {% endfor %}
-        </select>
-        {{ createModalBottom('btn_width', 'warning', LANG.btn_select)|raw }}
-
         <!-- Modal: Search User -->
         <div class="modal fade" id="modalSearchUser" role="dialog" aria-labelledby="modalSearchUserLabel" aria-hidden="true">
           <div class="modal-dialog">
@@ -183,4 +173,8 @@
     {% endif %}
 
   </div>
+{% endblock %}
+
+{% block javascripts %}
+  <script src="public/js/calendar-responsive.js"></script>
 {% endblock %}

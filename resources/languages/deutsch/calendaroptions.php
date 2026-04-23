@@ -111,10 +111,8 @@ $LANG['calopt_summaryPresenceTextColor_comment'] = 'Hier kannst du eine feste Te
 $LANG['calopt_sunBusi'] = 'Sonntag ist ein Arbeitstag';
 $LANG['calopt_sunBusi_comment'] = 'Normalerweise sind Samstage und Sonntage Wochenendtage und werden entsprechend im Kalender als solche angezeigt.
  Hier kann Sonntag als Arbeitstag definiert werden.';
-$LANG['calopt_supportMobile'] = 'Unterstützung von Mobilen Geräten';
-$LANG['calopt_supportMobile_comment'] = 'Mit dieser Einstellung werden die Kalendertabellen (Ansicht und Bearbeitung) für eine bestimmte Bildschirmbreite erstellt, so dass kein horizontales Scrollen notwendig ist.
- Der Benutzer kann seine Bildschirmgrö&szlig;en wählen.<br>Schalte diese Option aus, wenn der Kalender nur auf gro&szlig;en Bildschirmen genutzt wird (grö&szlig;er 1024 Pixel breit). Der Kalender wird dann immer noch auf kleineren Bildschirmen
- angezeigt, aber horizontales Scrollen ist dann notwendig.';
+$LANG['calopt_supportMobile'] = 'Unterstützung von Mobilen Geräten (Veraltet)';
+$LANG['calopt_supportMobile_comment'] = 'Diese Option ist veraltet. Der Kalender erkennt die Bildschirmbreite nun automatisch und passt die Anzeige entsprechend an. Es ist keine manuelle Konfiguration erforderlich.';
 $LANG['calopt_symbolAsIcon'] = 'Abwesenheitszeichen ID als Icon';
 $LANG['calopt_symbolAsIcon_comment'] = 'Mit dieser Option wird die Abwesenheitszeichen ID in der Kalenderanzeige benutzt anstatt des Icons.';
 $LANG['calopt_takeover'] = 'Abwesenheitsübernahme aktivieren';

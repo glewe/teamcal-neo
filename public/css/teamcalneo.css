@@ -481,7 +481,7 @@ table.month tbody tr:last-child td:last-child {
 }
 
 table.month {
-  margin-bottom: 0;
+  margin-bottom: 12px;
 }
 
 table.month th,

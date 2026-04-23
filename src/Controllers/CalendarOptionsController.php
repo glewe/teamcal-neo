@@ -116,8 +116,9 @@ class CalendarOptionsController extends BaseController
           $newConfig["trustedRoles"] = implode(',', $_POST['sel_trustedRoles']);
         }
 
-        if ($_POST['opt_firstDayOfWeek'])
+        if ($_POST['opt_firstDayOfWeek']) {
           $newConfig["firstDayOfWeek"] = $_POST['opt_firstDayOfWeek'];
+        }
         $newConfig["satBusi"]          = (isset($_POST['chk_satBusi']) && $_POST['chk_satBusi']) ? "1" : "0";
         $newConfig["sunBusi"]          = (isset($_POST['chk_sunBusi']) && $_POST['chk_sunBusi']) ? "1" : "0";
         $newConfig["defregion"]        = $_POST['sel_defregion'] ? $_POST['sel_defregion'] : "default";
@@ -159,8 +160,9 @@ class CalendarOptionsController extends BaseController
         $alertData['text']    = $this->LANG['calopt_alert_edit_success'];
         $alertData['help']    = '';
 
-        if (isset($_SESSION))
+        if (isset($_SESSION)) {
           $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
       }
       else {
         $showAlert            = true;
@@ -196,7 +198,7 @@ class CalendarOptionsController extends BaseController
       ['label' => $this->LANG['calopt_showAvatars'], 'prefix' => 'calopt', 'name' => 'showAvatars', 'type' => 'check', 'values' => '', 'value' => $allConfig['showAvatars']],
       ['label' => $this->LANG['calopt_showRoleIcons'], 'prefix' => 'calopt', 'name' => 'showRoleIcons', 'type' => 'check', 'values' => '', 'value' => $allConfig['showRoleIcons']],
       ['label' => $this->LANG['calopt_showTooltipCount'], 'prefix' => 'calopt', 'name' => 'showTooltipCount', 'type' => 'check', 'values' => '', 'value' => $allConfig['showTooltipCount']],
-      ['label' => $this->LANG['calopt_supportMobile'], 'prefix' => 'calopt', 'name' => 'supportMobile', 'type' => 'check', 'values' => '', 'value' => $allConfig['supportMobile']],
+      ['label' => $this->LANG['calopt_supportMobile'], 'prefix' => 'calopt', 'name' => 'supportMobile', 'type' => 'check', 'values' => '', 'value' => $allConfig['supportMobile'], 'disabled' => true],
       ['label' => $this->LANG['calopt_symbolAsIcon'], 'prefix' => 'calopt', 'name' => 'symbolAsIcon', 'type' => 'check', 'values' => '', 'value' => $allConfig['symbolAsIcon']],
       ['label' => $this->LANG['calopt_monitorAbsence'], 'prefix' => 'calopt', 'name' => 'monitorAbsence', 'type' => 'listmulti', 'values' => $caloptData['absenceList']],
       ['label' => $this->LANG['calopt_calendarFontSize'], 'prefix' => 'calopt', 'name' => 'calendarFontSize', 'type' => 'text', 'placeholder' => '', 'value' => $allConfig['calendarFontSize'], 'maxlength' => '3'],
@@ -310,6 +312,7 @@ class CalendarOptionsController extends BaseController
           'values'      => $field['values'] ?? [],
           'help'        => $field['help'] ?? '',
           'required'    => $field['required'] ?? false,
+          'disabled'    => $field['disabled'] ?? false,
           'error'       => $field['error'] ?? '',
         ];
       }

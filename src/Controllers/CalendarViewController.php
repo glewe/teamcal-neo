@@ -630,10 +630,12 @@ class CalendarViewController extends BaseController
     $viewData['showWeekNumbers']          = $this->allConfig['showWeekNumbers'];
     $viewData['summaryAbsenceTextColor']  = $this->allConfig['summaryAbsenceTextColor'];
     $viewData['summaryPresenceTextColor'] = $this->allConfig['summaryPresenceTextColor'];
-    $viewData['supportMobile']            = $this->allConfig['supportMobile'];
     $viewData['userPerPage']              = $this->allConfig['usersPerPage'];
 
-    $mobilecols['full'] = $viewData['months'][0]['dateInfo']['daysInMonth'];
+    $validWidths = ['full', '1024', '800', '640', '480', '400', '320', '240'];
+    if (isset($_GET['width']) && in_array($_GET['width'], $validWidths, true) && $this->isLoggedIn()) {
+      $this->UO->save($this->UL->username, 'width', $_GET['width']);
+    }
     if (!$viewData['width'] = $this->UO->read($this->UL->username, 'width')) {
       $this->UO->save($this->UL->username, 'width', 'full');
       $viewData['width'] = 'full';

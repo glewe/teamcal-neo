@@ -39,9 +39,6 @@
   <button type="button" class="btn btn-warning" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalSelectAbsence">{{ LANG.absencetype }}:&nbsp;{{ absence }}</button>
   <button type="button" class="btn btn-info" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalSearchUser">{{ LANG.search }}:&nbsp;{{ search }}</button>
   <button type="submit" class="btn btn-success" tabindex="{{ nextTabindex() }}" name="btn_reset">{{ LANG.btn_reset }}</button>
-  {% if supportMobile %}
-    <button type="button" class="btn btn-secondary" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalSelectWidth">{{ LANG.screen }}:&nbsp;{{ width }}</button>
-  {% endif %}
   {% if isAllowed(CONF.controllers.calendaredit.permission) %}
     <a class="btn btn-secondary float-end" tabindex="{{ nextTabindex() }}" href="index.php?action={{ CONF.controllers.calendaredit.name }}&amp;month={{ year }}{{ month }}&amp;region={{ regionid }}&amp;user={{ UL.username }}">{{ LANG.btn_cal_edit }}</a>
   {% endif %}

@@ -2,6 +2,24 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '5.0.9',
+    'date' => '2026-04-23',
+    'info' => 'Improvement release',
+    'bugfixes' => [
+      [ 'summary' => 'Fix Absence Type statistics', 'issue' => '' ],
+      [ 'summary' => 'Fix Presence Type statistics', 'issue' => '' ],
+      [ 'summary' => 'Fix Remainder statistics', 'issue' => '' ],
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Mobile devices (different screen widths) are now automatically supported', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '5.0.8',
     'date' => '2026-04-20',
     'info' => 'Improvement release',

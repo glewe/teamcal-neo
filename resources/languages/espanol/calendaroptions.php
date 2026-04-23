@@ -109,8 +109,8 @@ $LANG['calopt_summaryPresenceTextColor_comment'] = 'Aquí puede establecer el co
 $LANG['calopt_sunBusi'] = 'El domingo es un día laborable';
 $LANG['calopt_sunBusi_comment'] = 'Por defecto, el sábado y el domingo son días de fin de semana y se muestran como tales en el calendario.
       Marque esta opción si desea que el domingo sea un día laborable.';
-$LANG['calopt_supportMobile'] = 'Soporte para dispositivos móviles';
-$LANG['calopt_supportMobile_comment'] = 'Con este interruptor activado, TeamCal Neo preparará las tablas del calendario (Ver y Editar) para un ancho de pantalla específico de modo que no sea necesario el desplazamiento horizontal.';
+$LANG['calopt_supportMobile'] = 'Soporte para dispositivos móviles (Obsoleto)';
+$LANG['calopt_supportMobile_comment'] = 'Esta opción está obsoleta. El calendario ahora detecta automáticamente el ancho de pantalla y ajusta la visualización en consecuencia. No se requiere configuración manual.';
 $LANG['calopt_symbolAsIcon'] = 'Identificador de tipo de ausencia como ícono';
 $LANG['calopt_symbolAsIcon_comment'] = 'Con esta opción, se usará el identificador de carácter en la visualización del calendario en lugar de su ícono.';
 $LANG['calopt_takeover'] = 'Habilitar toma de posesión de ausencia';

@@ -1,22 +1,18 @@
 {% set mobilecols = { 'full': month.dateInfo.daysInMonth } %}
-{% if supportMobile %}
-  {% if width == '1024' %}
-    {% set mobilecols = { '1024': 25 } %}
-  {% elseif width == '800' %}
-    {% set mobilecols = { '800': 17 } %}
-  {% elseif width == '640' %}
-    {% set mobilecols = { '640': 14 } %}
-  {% elseif width == '480' %}
-    {% set mobilecols = { '480': 9 } %}
-  {% elseif width == '400' %}
-    {% set mobilecols = { '400': 7 } %}
-  {% elseif width == '320' %}
-    {% set mobilecols = { '320': 5 } %}
-  {% elseif width == '240' %}
-    {% set mobilecols = { '240': 3 } %}
-  {% elseif width == '1024plus' %}
-    {% set mobilecols = { 'full': month.dateInfo.daysInMonth } %}
-  {% endif %}
+{% if width == '1024' %}
+  {% set mobilecols = { '1024': 25 } %}
+{% elseif width == '800' %}
+  {% set mobilecols = { '800': 17 } %}
+{% elseif width == '640' %}
+  {% set mobilecols = { '640': 14 } %}
+{% elseif width == '480' %}
+  {% set mobilecols = { '480': 9 } %}
+{% elseif width == '400' %}
+  {% set mobilecols = { '400': 7 } %}
+{% elseif width == '320' %}
+  {% set mobilecols = { '320': 5 } %}
+{% elseif width == '240' %}
+  {% set mobilecols = { '240': 3 } %}
 {% endif %}
 
 {% for key, cols in mobilecols %}
@@ -44,7 +40,7 @@
 
   {% for part in monthParts %}
     {% set monthForPart = month|merge({ 'dayStart': part.start, 'dayEnd': part.end }) %}
-    <div class="table{{ supportMobile ? key : '' }}">
+    <div class="table{{ key != 'full' ? key : '' }}">
       <table class="table table-bordered month">
         {% include 'calendarviewmonthheader.twig' with {
           'isSplitMonth': isSplitMonth,

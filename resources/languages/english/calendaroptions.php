@@ -111,10 +111,8 @@ $LANG['calopt_summaryPresenceTextColor_comment'] = 'Here you can set the color f
 $LANG['calopt_sunBusi'] = 'Sunday is a Business Day';
 $LANG['calopt_sunBusi_comment'] = 'By default, Saturday and Sunday are weekend days and displayed accordingly in the calendar.
       Check this option if you want to make Sunday a business day.';
-$LANG['calopt_supportMobile'] = 'Support Mobile Devices';
-$LANG['calopt_supportMobile_comment'] = 'With this switch on, TeamCal Neo will prepare the calendar tables (View and Edit) for a specific screen width so that no horizontal scrolling is necessary.
-      The user can select his screen width.<br>
-      Switch this off if the calendar is only viewed on full size computer screens (greater than 1024 pixels in width). The calendar will still be displayed then but horizontal scrolling will be necessary.';
+$LANG['calopt_supportMobile'] = 'Support Mobile Devices (Deprecated)';
+$LANG['calopt_supportMobile_comment'] = 'This option is deprecated. The calendar now detects the screen width automatically and adjusts the display accordingly. No manual configuration is required.';
 $LANG['calopt_symbolAsIcon'] = 'Absence Type Character ID as Icon';
 $LANG['calopt_symbolAsIcon_comment'] = 'With this option the character ID will be used in the calendar display instead of it\'s icon.';
 $LANG['calopt_takeover'] = 'Enable Absence Take-over';

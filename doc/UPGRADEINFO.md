@@ -1,6 +1,6 @@
 # TeamCal Neo Upgrade Information
 
-## [5.0.x] -> [5.0.8]
+## [5.0.x] -> [5.0.9]
 
 1. Backup your current files and database!
 2. Delete all files and folders from your current TeamCal Neo 5 installation directory

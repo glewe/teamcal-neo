@@ -365,12 +365,6 @@ class StatisticsController extends BaseController
           $inputError = true;
         if (!formInputValid('txt_to', 'date'))
           $inputError = true;
-        if (!formInputValid('txt_scaleSmart', 'numeric'))
-          $inputError = true;
-        if (!formInputValid('txt_scaleMax', 'numeric'))
-          $inputError = true;
-        if (!formInputValid('txt_colorHex', 'hexadecimal'))
-          $inputError = true;
       }
 
       if (!$inputError) {
@@ -445,7 +439,7 @@ class StatisticsController extends BaseController
     $data                   = [];
 
     $filteredAbsences = array_filter($viewData['absences'], function ($abs) {
-      return $this->A->get((string) $abs['id']) && !$this->A->counts_as_present;
+      return !((bool) $abs['counts_as_present']);
     });
 
     $countFrom = str_replace('-', '', $viewData['from']);
@@ -457,11 +451,9 @@ class StatisticsController extends BaseController
       $sliceColors[] = '"#' . $abs['bgcolor'] . '"';
       $count         = 0;
       if ($viewData['groupid'] == "all") {
-        foreach ($viewData['groups'] as $group) {
-          $users = $this->UG->getAllforGroup((string) $group['id']);
-          foreach ($users as $user) {
-            $count += $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
-          }
+        $users = $this->U->getAll('lastname', 'firstname', 'ASC', false, false);
+        foreach ($users as $user) {
+          $count += $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
         }
         $data[]             = $count;
         $viewData['total'] += $count;
@@ -746,12 +738,6 @@ class StatisticsController extends BaseController
           $inputError = true;
         if (!formInputValid('txt_to', 'date'))
           $inputError = true;
-        if (!formInputValid('txt_scaleSmart', 'numeric'))
-          $inputError = true;
-        if (!formInputValid('txt_scaleMax', 'numeric'))
-          $inputError = true;
-        if (!formInputValid('txt_colorHex', 'hexadecimal'))
-          $inputError = true;
       }
 
       if (!$inputError) {
@@ -826,7 +812,7 @@ class StatisticsController extends BaseController
     $data                   = [];
 
     $filteredPresences = array_filter($viewData['absences'], function ($abs) {
-      return $this->A->get((string) $abs['id']) && $this->A->counts_as_present;
+      return (bool) $abs['counts_as_present'];
     });
 
     $countFrom = str_replace('-', '', $viewData['from']);
@@ -838,11 +824,9 @@ class StatisticsController extends BaseController
       $sliceColors[] = '"#' . $abs['bgcolor'] . '"';
       $count         = 0;
       if ($viewData['groupid'] == "all") {
-        foreach ($viewData['groups'] as $group) {
-          $users = $this->UG->getAllforGroup((string) $group['id']);
-          foreach ($users as $user) {
-            $count += $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
-          }
+        $users = $this->U->getAll('lastname', 'firstname', 'ASC', false, false);
+        foreach ($users as $user) {
+          $count += $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
         }
         $data[]             = $count;
         $viewData['total'] += $count;
@@ -902,12 +886,6 @@ class StatisticsController extends BaseController
       if (isset($_POST['btn_apply'])) {
         if (!formInputValid('txt_periodYear', 'numeric'))
           $inputError = true;
-        if (!formInputValid('txt_scaleSmart', 'numeric'))
-          $inputError = true;
-        if (!formInputValid('txt_scaleMax', 'numeric'))
-          $inputError = true;
-        if (!formInputValid('txt_colorHex', 'hexadecimal'))
-          $inputError = true;
       }
 
       if (!$inputError) {
@@ -935,7 +913,7 @@ class StatisticsController extends BaseController
     $dataRemainder = [];
 
     $filteredAbsences = array_filter($viewData['absences'], function ($abs) {
-      return $this->A->get((string) $abs['id']) && !$this->A->counts_as_present && intval($this->A->allowance) > 0;
+      return !((bool) $abs['counts_as_present']) && intval($abs['allowance']) > 0;
     });
 
     $countFrom = str_replace('-', '', $viewData['from']);
@@ -944,20 +922,15 @@ class StatisticsController extends BaseController
     $viewData['total'] = 0;
     foreach ($filteredAbsences as $abs) {
       $labels[]         = '"' . $abs['name'] . '"';
-      $absenceAllowance = intval($this->A->allowance);
+      $absenceAllowance = intval($abs['allowance']);
 
       if ($viewData['groupid'] == "all") {
-        $totalAbsenceAllowance = 0;
-        $totalGroupRemainder   = 0;
-        foreach ($viewData['groups'] as $group) {
-          $users                  = $this->UG->getAllforGroup((string) $group['id']);
-          $userCount              = count($users);
-          $totalAbsenceAllowance += $absenceAllowance * $userCount;
-          $groupRemainder         = $absenceAllowance * $userCount;
-          foreach ($users as $user) {
-            $groupRemainder -= $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
-          }
-          $totalGroupRemainder += $groupRemainder;
+        $users                 = $this->U->getAll('lastname', 'firstname', 'ASC', false, false);
+        $userCount             = count($users);
+        $totalAbsenceAllowance = $absenceAllowance * $userCount;
+        $totalGroupRemainder   = $absenceAllowance * $userCount;
+        foreach ($users as $user) {
+          $totalGroupRemainder -= $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
         }
         $dataAllowance[]    = $totalAbsenceAllowance;
         $dataRemainder[]    = $totalGroupRemainder;
