@@ -212,6 +212,7 @@ $LANG['btn_edit_profile'] = 'Edit Profile';
 $LANG['btn_enable'] = 'Enable';
 $LANG['btn_export'] = 'Export';
 $LANG['btn_filter'] = 'Filter';
+$LANG['btn_fix'] = 'Fix';
 $LANG['btn_save_filter'] = 'Save Filter';
 $LANG['btn_save_stats_settings'] = 'Save Diagram Settings';
 $LANG['btn_group_list'] = 'Show Group List';

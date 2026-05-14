@@ -1,5 +1,14 @@
 # TeamCal Neo Upgrade Information
 
+## [5.0.9] -> [5.1.0]
+
+1. Backup your current files and database!
+2. Delete all files and folders from your current TeamCal Neo 5 installation directory
+3. Download the new release and unzip all files into the same directory
+4. Edit `config/config.app.php` and set `APP_INSTALLED` to "1"
+5. Adjust your database configuration either in `.env` or `config/config.db.php` (depending on what you use).
+6. Delete file installation.php in the root directory.
+
 ## [5.0.x] -> [5.0.9]
 
 1. Backup your current files and database!

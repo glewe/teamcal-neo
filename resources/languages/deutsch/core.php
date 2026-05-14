@@ -82,6 +82,7 @@ $LANG['btn_edit_profile'] = 'Profil bearbeiten';
 $LANG['btn_enable'] = 'Aktivieren';
 $LANG['btn_export'] = 'Export';
 $LANG['btn_filter'] = 'Filtern';
+$LANG['btn_fix'] = 'Beheben';
 $LANG['btn_save_filter'] = 'Filter speichern';
 $LANG['btn_save_stats_settings'] = 'Diagramm-Einstellungen speichern';
 $LANG['btn_group_list'] = 'Gruppenliste';

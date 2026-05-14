@@ -78,6 +78,9 @@
                         <div class="form-check">
                           <label><input class="form-check-input" name="chk_cleanTemplates" value="chk_cleanTemplates" tabindex="{{ nextTabindex() }}" type="checkbox">{{ LANG.db_clean_templates }}</label>
                         </div>
+                        <div class="form-check">
+                          <label><input class="form-check-input" name="chk_daynoteRegions" value="chk_daynoteRegions" tabindex="{{ nextTabindex() }}" type="checkbox">{{ LANG.db_clean_daynoteRegions }}</label>
+                        </div>
                       </div>
                     </div>
                     <div class="divider"><hr></div>
@@ -125,33 +128,18 @@
                   <div class="tab-pane fade" id="panel-repair" role="tabpanel" aria-labelledby="tab-repair">
                     <div class="form-group row">
                       <div class="col-lg-{{ colsleft }}">
-                        <div class="text-bold">{{ LANG.db_repair_daynoteRegions }}</div>
-                        <div class="text-normal">{{ LANG.db_repair_daynoteRegions_comment }}</div>
+                        <div class="text-bold">{{ LANG.db_repair_dbStructure }}</div>
+                        <div class="text-normal">{{ LANG.db_repair_dbStructure_comment }}</div>
                       </div>
                       <div class="col-lg-{{ colsright }}">
                         <div class="form-check">
-                          <label><input class="form-check-input" name="chk_daynoteRegions" value="chk_daynoteRegions" tabindex="{{ nextTabindex() }}" type="checkbox">{{ LANG.db_repair_daynoteRegions }}</label>
+                          <label><input class="form-check-input" id="chk_dbStructure" name="chk_dbStructure" value="chk_dbStructure" tabindex="{{ nextTabindex() }}" type="checkbox">{{ LANG.db_repair_dbStructure }}</label>
                         </div>
                       </div>
                     </div>
                     <div class="divider"><hr></div>
-                    <div class="form-group row">
-                      <div class="col-lg-{{ colsleft }}">
-                        <div class="text-bold">{{ LANG.db_repair_confirm }}</div>
-                        <div class="text-normal">{{ LANG.db_repair_confirm_comment }}</div>
-                      </div>
-                      <div class="col-lg-{{ colsright }}">
-                        <input class="form-control" tabindex="{{ nextTabindex() }}" name="txt_repairConfirm" maxlength="7" value="" type="text">
-                        {% if inputAlert.repairConfirm is defined and inputAlert.repairConfirm|length %}
-                          <br>
-                          <div class="alert alert-dismissable alert-danger">
-                            <button type="button" class="btn-close float-end" data-bs-dismiss="alert"></button>
-                            {{ inputAlert.repairConfirm }}</div>
-                        {% endif %}
-                      </div>
-                    </div>
-                    <div class="divider"><hr></div>
-                    <button type="submit" class="btn btn-warning" tabindex="{{ nextTabindex() }}" name="btn_repair">{{ LANG.btn_repair }}</button>
+                    <div id="dbStructure-inline-warning" class="alert alert-danger d-none mb-2" role="alert"></div>
+                    <button type="button" id="btn_dbStructureCheck" class="btn btn-warning" tabindex="{{ nextTabindex() }}">{{ LANG.btn_repair }}</button>
                   </div>
 
                   <!-- Delete tab -->
@@ -286,6 +274,196 @@
         </div>
 
       </form>
+
+      <!-- Database Structure Check Modal -->
+      <div class="modal fade" id="modal-dbStructure" tabindex="-1" role="dialog" aria-labelledby="modal-dbStructure-label" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modal-dbStructure-label">{{ LANG.db_repair_dbStructure }}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-start">
+              <div id="dbStructure-warning" class="alert alert-warning d-none" role="alert"></div>
+              <div id="dbStructure-body"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="btn_dbStructureDismiss" class="btn btn-secondary" data-bs-dismiss="modal">{{ LANG.btn_cancel }}</button>
+              <button type="button" id="btn_dbStructureFix" class="btn btn-warning d-none">{{ LANG.btn_fix }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        // The Bootstrap bundle is included after the content block in
+        // layout.twig, so defer all setup until DOMContentLoaded - by
+        // then `bootstrap` is on the window.
+        document.addEventListener('DOMContentLoaded', function () {
+          const LANG = {
+            checking:       {{ LANG.db_repair_checking|json_encode|raw }},
+            applying:       {{ LANG.db_repair_applying|json_encode|raw }},
+            no_issues:      {{ LANG.db_repair_no_issues|json_encode|raw }},
+            select_option:  {{ LANG.db_repair_select_option|json_encode|raw }},
+            backup_warning: {{ LANG.db_repair_backup_warning|json_encode|raw }},
+            btn_cancel:     {{ LANG.btn_cancel|json_encode|raw }},
+            btn_close:      {{ LANG.btn_close|json_encode|raw }},
+          };
+          const csrfToken = document.querySelector('input[name="csrf_token"]').value;
+          const triggerBtn = document.getElementById('btn_dbStructureCheck');
+          const chk        = document.getElementById('chk_dbStructure');
+          const inlineWarn = document.getElementById('dbStructure-inline-warning');
+          const modalEl    = document.getElementById('modal-dbStructure');
+          const modal      = new bootstrap.Modal(modalEl);
+          const warnEl     = document.getElementById('dbStructure-warning');
+          const bodyEl     = document.getElementById('dbStructure-body');
+          const fixBtn     = document.getElementById('btn_dbStructureFix');
+          const dismissBtn = document.getElementById('btn_dbStructureDismiss');
+          let lastFindings = [];
+          let needsReload  = false;
+
+          // The dismiss button starts as 'Cancel'. Once a check has
+          // returned anything (findings, no-issues, or error), no work
+          // is still pending, so 'Close' reads better than 'Cancel'.
+          function setDismissLabel(label) {
+            dismissBtn.textContent = label;
+          }
+
+          function escapeHtml(s) {
+            return String(s).replace(/[&<>"']/g, c => ({
+              '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[c]));
+          }
+
+          function describeFinding(f) {
+            switch (f.kind) {
+              case 'missing_table':
+                return 'Missing table <code>' + escapeHtml(f.table) + '</code>';
+              case 'missing_column':
+                return 'Missing column <code>' + escapeHtml(f.column) + '</code> in table <code>' + escapeHtml(f.table) + '</code>';
+              case 'missing_index':
+                return 'Missing index <code>' + escapeHtml(f.index) + '</code> in table <code>' + escapeHtml(f.table) + '</code>';
+              case 'missing_config':
+                return 'Missing config entry <code>' + escapeHtml(f.name) + '</code>';
+              default:
+                return 'Unknown finding: ' + escapeHtml(JSON.stringify(f));
+            }
+          }
+
+          function renderFindings(findings) {
+            if (!findings.length) {
+              warnEl.classList.add('d-none');
+              bodyEl.innerHTML = '<p>' + escapeHtml(LANG.no_issues) + '</p>';
+              fixBtn.classList.add('d-none');
+              return;
+            }
+            warnEl.textContent = LANG.backup_warning;
+            warnEl.classList.remove('d-none');
+            let html = '<ol>';
+            for (const f of findings) {
+              html += '<li>' + describeFinding(f) + '</li>';
+            }
+            html += '</ol>';
+            bodyEl.innerHTML = html;
+            fixBtn.classList.remove('d-none');
+          }
+
+          function renderResults(results) {
+            warnEl.classList.add('d-none');
+            fixBtn.classList.add('d-none');
+            let html = '<ul class="list-unstyled">';
+            for (const r of results) {
+              const icon = r.status === 'ok'
+                ? '<span class="text-success me-1">&#10003;</span>'
+                : '<span class="text-danger me-1">&#10007;</span>';
+              let line = icon + describeFinding(r.finding);
+              if (r.status === 'error' && r.error) {
+                line += ' &mdash; <span class="text-danger">' + escapeHtml(r.error) + '</span>';
+              }
+              html += '<li>' + line + '</li>';
+            }
+            html += '</ul>';
+            bodyEl.innerHTML = html;
+            needsReload = true;
+          }
+
+          async function postJson(url, body) {
+            const opts = {
+              method: 'POST',
+              headers: { 'X-CSRF-Token': csrfToken },
+            };
+            if (body !== undefined) {
+              opts.headers['Content-Type'] = 'application/json';
+              opts.body = JSON.stringify(body);
+            }
+            const resp = await fetch(url, opts);
+            if (!resp.ok) {
+              const text = await resp.text();
+              throw new Error('HTTP ' + resp.status + ': ' + text);
+            }
+            return resp.json();
+          }
+
+          function setBusy(btn, label) {
+            btn.dataset.origText = btn.dataset.origText || btn.textContent;
+            btn.disabled = true;
+            btn.textContent = label;
+          }
+          function unsetBusy(btn) {
+            btn.disabled = false;
+            if (btn.dataset.origText) {
+              btn.textContent = btn.dataset.origText;
+            }
+          }
+
+          triggerBtn.addEventListener('click', async () => {
+            inlineWarn.classList.add('d-none');
+            inlineWarn.textContent = '';
+            if (!chk.checked) {
+              inlineWarn.textContent = LANG.select_option;
+              inlineWarn.classList.remove('d-none');
+              return;
+            }
+            setDismissLabel(LANG.btn_cancel);
+            setBusy(triggerBtn, LANG.checking);
+            try {
+              const data = await postJson('index.php?action=database&method=check');
+              lastFindings = data.findings || [];
+              renderFindings(lastFindings);
+              setDismissLabel(LANG.btn_close);
+              modal.show();
+            } catch (e) {
+              warnEl.classList.add('d-none');
+              fixBtn.classList.add('d-none');
+              bodyEl.innerHTML = '<div class="alert alert-danger">' + escapeHtml(e.message) + '</div>';
+              setDismissLabel(LANG.btn_close);
+              modal.show();
+            } finally {
+              unsetBusy(triggerBtn);
+            }
+          });
+
+          fixBtn.addEventListener('click', async () => {
+            setBusy(fixBtn, LANG.applying);
+            try {
+              const data = await postJson('index.php?action=database&method=fix', { findings: lastFindings });
+              renderResults(data.results || []);
+            } catch (e) {
+              warnEl.classList.add('d-none');
+              bodyEl.innerHTML = '<div class="alert alert-danger">' + escapeHtml(e.message) + '</div>';
+              needsReload = true;
+            } finally {
+              unsetBusy(fixBtn);
+            }
+          });
+
+          modalEl.addEventListener('hidden.bs.modal', () => {
+            if (needsReload) {
+              window.location.reload();
+            }
+          });
+        });
+      </script>
 
     </div>
   </div>

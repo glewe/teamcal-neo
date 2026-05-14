@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb92d728719adb0be2c83fa4cf1f82592
+class ComposerStaticInita445dbc92a065fe19dae9eb9d50838aa
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -190,6 +190,7 @@ class ComposerStaticInitb92d728719adb0be2c83fa4cf1f82592
         'App\\Models\\AttachmentModel' => __DIR__ . '/../..' . '/src/Models/AttachmentModel.php',
         'App\\Models\\AvatarModel' => __DIR__ . '/../..' . '/src/Models/AvatarModel.php',
         'App\\Models\\ConfigModel' => __DIR__ . '/../..' . '/src/Models/ConfigModel.php',
+        'App\\Models\\DatabaseStructureModel' => __DIR__ . '/../..' . '/src/Models/DatabaseStructureModel.php',
         'App\\Models\\DaynoteModel' => __DIR__ . '/../..' . '/src/Models/DaynoteModel.php',
         'App\\Models\\DbModel' => __DIR__ . '/../..' . '/src/Models/DbModel.php',
         'App\\Models\\GroupModel' => __DIR__ . '/../..' . '/src/Models/GroupModel.php',
@@ -811,10 +812,10 @@ class ComposerStaticInitb92d728719adb0be2c83fa4cf1f82592
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb92d728719adb0be2c83fa4cf1f82592::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb92d728719adb0be2c83fa4cf1f82592::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitb92d728719adb0be2c83fa4cf1f82592::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitb92d728719adb0be2c83fa4cf1f82592::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita445dbc92a065fe19dae9eb9d50838aa::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita445dbc92a065fe19dae9eb9d50838aa::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInita445dbc92a065fe19dae9eb9d50838aa::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInita445dbc92a065fe19dae9eb9d50838aa::$classMap;
 
         }, null, ClassLoader::class);
     }

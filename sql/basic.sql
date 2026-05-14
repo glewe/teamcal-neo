@@ -309,14 +309,8 @@ VALUES
   ('alertAutocloseSuccess', '1'),
   ('alertAutocloseWarning', '0'),
   ('allowRegistration', '1'),
-  (
-    'appDescription',
-    'A day based online calendar to manage team events'
-  ),
-  (
-    'appKeywords',
-    'lewe teamcal neo calendar absence event team'
-  ),
+  ('appDescription', 'A day based online calendar to manage team events'),
+  ('appKeywords', 'lewe teamcal neo calendar absence event team'),
   ('appTitle', 'TeamCal Neo'),
   ('appURL', '#'),
   ('avatarHeight', '0'),
@@ -382,24 +376,15 @@ VALUES
   ('font', 'default'),
   ('footerCopyright', 'Lewe.com'),
   ('footerCopyrightUrl', 'http://www.lewe.com'),
-  (
-    'footerSocialLinks',
-    'https://www.linkedin.com/in/george-lewe-a9ab6411b'
-  ),
+  ('footerSocialLinks', 'https://www.linkedin.com/in/george-lewe-a9ab6411b'),
   ('forceTfa', '0'),
-  (
-    'gdprController',
-    'ACME Inc.\r\n123 Street\r\nHometown, XY 4567\r\nGermany\r\nEmail: info@acme.com'
-  ),
+  ('gdprController', 'ACME Inc.\r\n123 Street\r\nHometown, XY 4567\r\nGermany\r\nEmail: info@acme.com'),
   ('gdprFacebook', '0'),
   ('gdprGoogleAnalytics', '0'),
   ('gdprGooglePlus', '0'),
   ('gdprInstagram', '0'),
   ('gdprLinkedin', '1'),
-  (
-    'gdprOfficer',
-    'John Doe\r\nPhone: +49 555 12345\r\nEmail: john.doe@acme.com'
-  ),
+  ('gdprOfficer', 'John Doe\r\nPhone: +49 555 12345\r\nEmail: john.doe@acme.com'),
   ('gdprOrganization', 'ACME Inc.'),
   ('gdprPaypal', '0'),
   ('gdprPinterest', '0'),
@@ -549,10 +534,7 @@ VALUES
   ('userCustom3', 'Custom Field 3'),
   ('userCustom4', 'Custom Field 4'),
   ('userCustom5', 'Custom Field 5'),
-  (
-    'userManual',
-    'https%3A%2F%2Flewe.gitbook.io%2Fteamcal-neo%2F'
-  ),
+  ('userManual', 'https%3A%2F%2Flewe.gitbook.io%2Fteamcal-neo%2F'),
   ('userSearch', '0'),
   ('usersPerPage', '0'),
   ('versionCompare', '1'),

@@ -77,6 +77,7 @@ return array(
     'App\\Models\\AttachmentModel' => $baseDir . '/src/Models/AttachmentModel.php',
     'App\\Models\\AvatarModel' => $baseDir . '/src/Models/AvatarModel.php',
     'App\\Models\\ConfigModel' => $baseDir . '/src/Models/ConfigModel.php',
+    'App\\Models\\DatabaseStructureModel' => $baseDir . '/src/Models/DatabaseStructureModel.php',
     'App\\Models\\DaynoteModel' => $baseDir . '/src/Models/DaynoteModel.php',
     'App\\Models\\DbModel' => $baseDir . '/src/Models/DbModel.php',
     'App\\Models\\GroupModel' => $baseDir . '/src/Models/GroupModel.php',

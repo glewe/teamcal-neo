@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Core\BaseController;
+use App\Models\DatabaseStructureModel;
 use App\Models\LicenseModel;
 
 /**
@@ -25,6 +26,13 @@ class DatabaseController extends BaseController
    * @return void
    */
   public function execute(): void {
+
+    // AJAX endpoints (?method=check / ?method=fix). Routed before the
+    // normal HTML flow so failures return JSON, not the alert template.
+    if (isset($_GET['method'])) {
+      $this->dispatchAjax((string) $_GET['method']);
+      return;
+    }
 
     if (!isAllowed($this->CONF['controllers']['database']->permission)) {
       $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_not_allowed_subject'], $this->LANG['alert_not_allowed_text'], $this->LANG['alert_not_allowed_help']);
@@ -72,30 +80,10 @@ class DatabaseController extends BaseController
         }
         $viewData['cleanBefore'] = $_POST['txt_cleanBefore'];
       }
-      if (isset($_POST['btn_repair']) && !formInputValid('txt_repairConfirm', 'required|alpha|equals_string', 'REPAIR')) {
-        $inputError = true;
-      }
 
       if (!$inputError) {
 
-        if (isset($_POST['btn_repair'])) {
-          // ,--------,
-          // | Repair |
-          // '--------'
-          if (isset($_POST['chk_daynoteRegions'])) {
-            $daynotes = $this->D->getAllRegionless();
-            foreach ($daynotes as $daynote) {
-              $this->D->setRegion($daynote['id'], '1');
-            }
-          }
-          $showAlert            = true;
-          $alertData['type']    = 'success';
-          $alertData['title']   = $this->LANG['alert_success_title'];
-          $alertData['subject'] = $this->LANG['db_alert_repair'];
-          $alertData['text']    = $this->LANG['db_alert_repair_success'];
-          $alertData['help']    = '';
-        }
-        elseif (isset($_POST['btn_cleanup'])) {
+        if (isset($_POST['btn_cleanup'])) {
           // ,----------,
           // | Cleanup  |
           // '----------'
@@ -112,6 +100,12 @@ class DatabaseController extends BaseController
           }
           if (isset($_POST['chk_cleanTemplates'])) {
             $this->T->deleteBefore($cleanBeforeYear, $cleanBeforeMonth);
+          }
+          if (isset($_POST['chk_daynoteRegions'])) {
+            $daynotes = $this->D->getAllRegionless();
+            foreach ($daynotes as $daynote) {
+              $this->D->setRegion($daynote['id'], '1');
+            }
           }
 
           $showAlert            = true;
@@ -262,5 +256,93 @@ class DatabaseController extends BaseController
         $this->MSG->delete($msg['id']);
       }
     }
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Dispatch AJAX requests for the Database Structure repair feature.
+   *
+   * Verifies admin permission and CSRF token once, then routes to the
+   * specific handler. Always returns JSON.
+   *
+   * @param string $method 'check' or 'fix'
+   */
+  private function dispatchAjax(string $method): void {
+    if (!isAllowed($this->CONF['controllers']['database']->permission)) {
+      $this->respondJson(['error' => 'forbidden'], 403);
+      return;
+    }
+    if (!$this->verifyAjaxCsrf()) {
+      $this->respondJson(['error' => 'invalid_csrf'], 403);
+      return;
+    }
+    match ($method) {
+      'check' => $this->handleAjaxCheck(),
+      'fix'   => $this->handleAjaxFix(),
+      default => $this->respondJson(['error' => 'unknown_method'], 400),
+    };
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * AJAX: run a structure check against the manifest.
+   *
+   * Returns { findings: [...] }.
+   */
+  private function handleAjaxCheck(): void {
+    try {
+      $model = new DatabaseStructureModel($this->DB->db, $this->CONF);
+      $this->respondJson(['findings' => $model->check()]);
+    } catch (\Throwable $e) {
+      $this->respondJson(['error' => $e->getMessage()], 500);
+    }
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * AJAX: apply a list of findings produced by handleAjaxCheck().
+   *
+   * Expects a JSON body { findings: [...] }. The findings are treated as
+   * identifiers only - the model regenerates SQL from the manifest, never
+   * from client-supplied data.
+   *
+   * Returns { results: [...] }.
+   */
+  private function handleAjaxFix(): void {
+    $payload  = json_decode((string) file_get_contents('php://input'), true);
+    $findings = is_array($payload['findings'] ?? null) ? $payload['findings'] : [];
+    try {
+      $model = new DatabaseStructureModel($this->DB->db, $this->CONF);
+      $this->respondJson(['results' => $model->apply($findings)]);
+    } catch (\Throwable $e) {
+      $this->respondJson(['error' => $e->getMessage()], 500);
+    }
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Verify the CSRF token sent with an AJAX request.
+   *
+   * Accepts the token via the `X-CSRF-Token` header (for JSON-body POSTs)
+   * or the `csrf_token` POST field (form-encoded fallback).
+   */
+  private function verifyAjaxCsrf(): bool {
+    $token = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? ($_POST['csrf_token'] ?? '');
+    $session = $_SESSION['csrf_token'] ?? '';
+    return is_string($token) && $token !== '' && hash_equals($session, $token);
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Emit a JSON response and terminate the request.
+   *
+   * @param array<string, mixed> $data   Response payload
+   * @param int                  $status HTTP status code
+   */
+  private function respondJson(array $data, int $status = 200): void {
+    http_response_code($status);
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($data);
+    exit;
   }
 }
