@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'glewe/teamcal-neo',
-        'pretty_version' => '5.1.0',
-        'version' => '5.1.0.0',
+        'pretty_version' => '5.1.1',
+        'version' => '5.1.1.0',
         'reference' => null,
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
@@ -20,8 +20,8 @@
             'dev_requirement' => false,
         ),
         'glewe/teamcal-neo' => array(
-            'pretty_version' => '5.1.0',
-            'version' => '5.1.0.0',
+            'pretty_version' => '5.1.1',
+            'version' => '5.1.1.0',
             'reference' => null,
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
@@ -56,9 +56,9 @@
             'dev_requirement' => false,
         ),
         'phpmailer/phpmailer' => array(
-            'pretty_version' => 'v7.0.2',
-            'version' => '7.0.2.0',
-            'reference' => 'ebf1655bd5b99b3f97e1a3ec0a69e5f4cd7ea088',
+            'pretty_version' => 'v7.1.1',
+            'version' => '7.1.1.0',
+            'reference' => '1bc1716a507a65e039d4ac9d9adebbbd0d346e15',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpmailer/phpmailer',
             'aliases' => array(),
@@ -119,9 +119,9 @@
             'dev_requirement' => false,
         ),
         'twig/twig' => array(
-            'pretty_version' => 'v3.24.0',
-            'version' => '3.24.0.0',
-            'reference' => 'a6769aefb305efef849dc25c9fd1653358c148f0',
+            'pretty_version' => 'v3.26.0',
+            'version' => '3.26.0.0',
+            'reference' => '1fcae487b180d78e6351f4e0afa91f9eab96a2bc',
             'type' => 'library',
             'install_path' => __DIR__ . '/../twig/twig',
             'aliases' => array(),

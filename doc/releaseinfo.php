@@ -6,6 +6,21 @@ $releases = [
     'date' => '2026-05-14',
     'info' => 'Feature release',
     'bugfixes' => [
+      [ 'summary' => 'Fix security alerts for twig module', 'issue' => '' ],
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
+    'version' => '5.1.0',
+    'date' => '2026-05-14',
+    'info' => 'Feature release',
+    'bugfixes' => [
     ],
     'features' => [
       [ 'summary' => 'Database structure repair feature', 'issue' => '' ],
@@ -890,6 +905,17 @@ $releases = [
     ],
     'removals' => [],
   ],
+];
+?>
+<?php
+if (!isset($LANG) || !is_array($LANG)) {
+  $LANG = [];
+}
+$LANG += [
+  'about_bugfixes' => 'Bugfixes',
+  'about_improvements' => 'Improvements',
+  'about_features_new' => 'New features',
+  'about_features_retired' => 'Retired features',
 ];
 ?>
 <!-- Release Info -->
