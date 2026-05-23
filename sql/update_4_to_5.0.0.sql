@@ -17,7 +17,7 @@ DELETE FROM `tcneo_config` WHERE `name` = "useCaptcha";
 -- Record inserts
 --
 INSERT INTO `tcneo_config` (`name`, `value`) VALUES ('productionMode', '1');
-INSERT INTO `tcneo_config` (`name`, `value`) VALUES ('statsDefaultColorPresenceType', 'magenta');
+INSERT INTO `tcneo_config` (`name`, `value`) VALUES ('statsDefaultColorPresencetype', 'magenta');
 INSERT INTO `tcneo_config` (`name`, `value`) VALUES ('statsDefaultColorRemainder', 'orange');
 INSERT INTO `tcneo_config` (`name`, `value`) VALUES ('statsDefaultColorTrends', 'red');
 INSERT INTO `tcneo_config` (`name`, `value`) VALUES ('statsDefaultColorDayofweek', 'purple');

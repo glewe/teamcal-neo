@@ -27,6 +27,19 @@
 5. Adjust your database configuration either in `.env` or `config/config.db.php` (depending on what you use).
 6. Delete file installation.php in the root directory.
 
+## [4.3.x] -> [5.1.x]
+
+1. Backup your current files and database!
+2. Delete all files and folders from your current TeamCal Neo 4 installation directory
+3. Download the new release and unzip all files into the same directory
+4. Edit `config/config.app.php` and set `APP_INSTALLED` to "1"
+5. **Configuration:**
+   - **Option A (Recommended):** Rename `.env.example` in the root directory to `.env` and enter your database credentials there.
+   - **Option B (Legacy):** Edit `config/config.db.php` and enter your database credentials directly.
+6. Delete file installation.php in the root directory.
+7. Login as admin and open the Database Management page
+8. Check the 'Database Structure' box and click 'Repair'. Confirm the dialog with the findings.
+
 ## [4.3.x] -> [5.0.x]
 
 1. Backup your current files and database!

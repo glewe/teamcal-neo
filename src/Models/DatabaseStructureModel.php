@@ -90,7 +90,7 @@ class DatabaseStructureModel
    * tables first (a missing table makes its columns/indexes implicit),
    * then columns, then indexes, then config rows.
    *
-   * @return list<array{kind: string, table?: string, column?: string, index?: string, name?: string}>
+   * @return list<array{kind: string, table?: string, column?: string, index?: string, name?: string, current?: string}>
    */
   public function check(): array {
     $manifest = $this->loadManifest();
@@ -134,11 +134,31 @@ class DatabaseStructureModel
       }
     }
 
-    // Pass 3: missing config rows (only if the config table exists)
+    // Pass 3: missing or case-mismatched config rows (only if the
+    // config table exists). The `name` column uses utf8_general_ci, so
+    // a row whose name differs from the manifest only in letter case is
+    // an *orphan* the application can never read - and a plain INSERT
+    // for the manifest spelling would fail the unique index. Detect
+    // those as a separate kind so apply() can rename them in place.
     if (in_array($this->configTable, $liveTables, true)) {
-      $liveConfig = $this->liveConfigNames();
+      $liveConfig  = $this->liveConfigNames();
+      $liveByLower = [];
+      foreach ($liveConfig as $n) {
+        $liveByLower[strtolower($n)] = $n;
+      }
       foreach (array_keys($manifest['config']) as $name) {
-        if (!in_array($name, $liveConfig, true)) {
+        if (in_array($name, $liveConfig, true)) {
+          continue;
+        }
+        $lower = strtolower($name);
+        if (isset($liveByLower[$lower])) {
+          $findings[] = [
+            'kind'    => 'mismatched_config_case',
+            'name'    => $name,
+            'current' => $liveByLower[$lower],
+          ];
+        }
+        else {
           $findings[] = ['kind' => 'missing_config', 'name' => $name];
         }
       }
@@ -153,8 +173,11 @@ class DatabaseStructureModel
    *
    * Each finding is resolved against the manifest (the client-supplied
    * shape is treated as an identifier only - the SQL is generated server-
-   * side from the manifest). Failures are collected per-finding so a
-   * single bad ALTER doesn't abort the whole repair.
+   * side from the manifest). User-supplied identifiers are additionally
+   * sanity-checked through assertSafeIdent() before any DDL is built, so
+   * even a malicious client cannot inject arbitrary SQL. Failures are
+   * collected per-finding so a single bad ALTER doesn't abort the whole
+   * repair.
    *
    * @param list<array<string, mixed>> $findings Findings from check()
    *
@@ -169,19 +192,29 @@ class DatabaseStructureModel
       try {
         switch ($kind) {
           case 'missing_table':
-            $sql = $this->buildCreateTable($manifest, (string) $f['table']);
+            $table = (string) $f['table'];
+            self::assertSafeIdent($table, 'table');
+            $sql = $this->buildCreateTable($manifest, $table);
             $this->db->exec($sql);
             $results[] = ['finding' => $f, 'status' => 'ok', 'sql' => $sql];
             break;
 
           case 'missing_column':
-            $sql = $this->buildAddColumn($manifest, (string) $f['table'], (string) $f['column']);
+            $table  = (string) $f['table'];
+            $column = (string) $f['column'];
+            self::assertSafeIdent($table, 'table');
+            self::assertSafeIdent($column, 'column');
+            $sql = $this->buildAddColumn($manifest, $table, $column);
             $this->db->exec($sql);
             $results[] = ['finding' => $f, 'status' => 'ok', 'sql' => $sql];
             break;
 
           case 'missing_index':
-            $sql = $this->buildAddIndex($manifest, (string) $f['table'], (string) $f['index']);
+            $table = (string) $f['table'];
+            $index = (string) $f['index'];
+            self::assertSafeIdent($table, 'table');
+            self::assertSafeIdent($index, 'index');
+            $sql = $this->buildAddIndex($manifest, $table, $index);
             $this->db->exec($sql);
             $results[] = ['finding' => $f, 'status' => 'ok', 'sql' => $sql];
             break;
@@ -196,6 +229,24 @@ class DatabaseStructureModel
               'INSERT INTO `' . $this->configTable . '` (`name`, `value`) VALUES (:name, :value)'
             );
             $stmt->execute([':name' => $name, ':value' => $value]);
+            $results[] = ['finding' => $f, 'status' => 'ok'];
+            break;
+
+          case 'mismatched_config_case':
+            $name    = (string) ($f['name'] ?? '');
+            $current = (string) ($f['current'] ?? '');
+            if ($name === '' || $current === '') {
+              throw new RuntimeException("mismatched_config_case requires both 'name' and 'current'");
+            }
+            if (!array_key_exists($name, $manifest['config'])) {
+              throw new RuntimeException("Config key '$name' not in manifest");
+            }
+            // Safe rename: utf8_general_ci guarantees the orphan is
+            // unique regardless of case, so UPDATE cannot duplicate.
+            $stmt = $this->db->prepare(
+              'UPDATE `' . $this->configTable . '` SET `name` = :new WHERE `name` = :old'
+            );
+            $stmt->execute([':new' => $name, ':old' => $current]);
             $results[] = ['finding' => $f, 'status' => 'ok'];
             break;
 
@@ -300,6 +351,28 @@ class DatabaseStructureModel
       'UNIQUE'  => 'UNIQUE KEY `' . $idx['name'] . '` (' . $cols . ')',
       default   => 'KEY `' . $idx['name'] . '` (' . $cols . ')',
     };
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Assert that an identifier is safe to splice into SQL.
+   *
+   * DDL (CREATE TABLE / ALTER TABLE) does not support placeholders for
+   * identifiers, so dynamic table/column/index names must be sanitised
+   * at the application layer. We whitelist the conservative ASCII set
+   * `[A-Za-z0-9_]+` - anything outside that is rejected outright. The
+   * manifest lookup performed afterwards is a second line of defence.
+   *
+   * @param string $value Identifier supplied by the caller
+   * @param string $kind  Human-readable kind for the error message
+   *
+   * @throws RuntimeException when $value contains anything other than
+   *                          letters, digits, or underscore.
+   */
+  private static function assertSafeIdent(string $value, string $kind = 'identifier'): void {
+    if (!preg_match('/^[A-Za-z0-9_]+$/', $value)) {
+      throw new RuntimeException("Unsafe $kind: '$value'");
+    }
   }
 
   //---------------------------------------------------------------------------

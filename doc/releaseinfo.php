@@ -2,9 +2,25 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
-    'version' => '5.1.0',
-    'date' => '2026-05-14',
-    'info' => 'Feature release',
+    'version' => '5.1.2',
+    'date' => '2026-05-23',
+    'info' => 'Bugfix release',
+    'bugfixes' => [
+      [ 'summary' => 'Fix update_4_to_5.0.0.sql script', 'issue' => '' ],
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Improve database repair process to find key case mismatches', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
+    'version' => '5.1.1',
+    'date' => '2026-05-19',
+    'info' => 'Bugfix release',
     'bugfixes' => [
       [ 'summary' => 'Fix security alerts for twig module', 'issue' => '' ],
     ],

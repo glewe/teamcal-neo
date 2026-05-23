@@ -345,6 +345,8 @@
                 return 'Missing index <code>' + escapeHtml(f.index) + '</code> in table <code>' + escapeHtml(f.table) + '</code>';
               case 'missing_config':
                 return 'Missing config entry <code>' + escapeHtml(f.name) + '</code>';
+              case 'mismatched_config_case':
+                return 'Config entry case mismatch: <code>' + escapeHtml(f.current) + '</code> &rarr; <code>' + escapeHtml(f.name) + '</code>';
               default:
                 return 'Unknown finding: ' + escapeHtml(JSON.stringify(f));
             }
