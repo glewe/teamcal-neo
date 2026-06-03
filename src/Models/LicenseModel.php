@@ -21,11 +21,12 @@ use Exception;
  */
 class LicenseModel
 {
-  private ?PDO   $db         = null;
-  private string $table      = '';
-  private bool   $debugCurl  = false;
-  private bool   $disableSSL = false;
-  public ?object $details    = null;
+  private ?PDO   $db             = null;
+  private string $table          = '';
+  private bool   $debugCurl      = false;
+  private bool   $disableSSL     = false;
+  private bool   $curlAvailable  = true;
+  public ?object $details        = null;
 
   //---------------------------------------------------------------------------
   /**
@@ -37,8 +38,9 @@ class LicenseModel
   public function __construct(?PDO $db = null, ?array $conf = null) {
     global $CONF, $DB;
 
-    $this->db    = $db ?? $DB->db;
-    $this->table = $conf['db_table_config'] ?? $CONF['db_table_config'];
+    $this->db             = $db ?? $DB->db;
+    $this->table          = $conf['db_table_config'] ?? $CONF['db_table_config'];
+    $this->curlAvailable  = extension_loaded('curl');
     $this->load();
   }
 
@@ -73,6 +75,10 @@ class LicenseModel
   public function callAPI(string $method, string $url, $data = false): bool|string {
     if (defined('APP_LIC_LOCAL')) {
       return constant('APP_LIC_LOCAL');
+    }
+    if (!$this->curlAvailable) {
+      // The PHP cURL extension is not loaded. License calls would fatal otherwise.
+      return false;
     }
     $curl = curl_init();
     switch (strtoupper($method)) {
@@ -127,6 +133,16 @@ class LicenseModel
    * @param array<string, string> $LANG             The language array. Passed by reference
    */
   public function check(array &$alertData, bool &$showAlert, int $licExpiryWarning, array $LANG): void {
+    if (!$this->curlAvailable) {
+      $alertData['type']    = 'danger';
+      $alertData['title']   = $LANG['lic_curl_missing'] ?? 'PHP cURL extension missing';
+      $alertData['subject'] = $LANG['lic_curl_missing_subject'] ?? 'A required PHP extension is not installed';
+      $alertData['text']    = $LANG['lic_curl_missing_text'] ?? 'TeamCal Neo requires the PHP cURL extension to communicate with the license server.';
+      $alertData['help']    = $LANG['lic_curl_missing_help'] ?? 'Install the php-curl package (e.g. "apt install php-curl") and restart your web server.';
+      $showAlert            = true;
+      return;
+    }
+
     $parms       = [
       'slm_action'  => 'slm_check',
       'secret_key'  => APP_LIC_KEY,

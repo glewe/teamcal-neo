@@ -80,6 +80,14 @@ TeamCal Neo 5.0.0 is a new major release. The application has been completely re
 
 [TeamCal Neo Releases](https://github.com/glewe/teamcal-neo/releases)
 
+## Requirements
+
+- PHP 8.1 or later
+- MySQL or MariaDB
+- PHP extensions: `curl`, `pdo`, `pdo_mysql`, `mbstring`, `json`
+
+See the [Installation Guide](https://github.com/glewe/teamcal-neo/blob/master/doc/INSTALL.md) for details.
+
 ## Installation and Update Guide
 
 [TeamCal Neo Installation Guide](https://github.com/glewe/teamcal-neo/blob/master/doc/INSTALL.md)  

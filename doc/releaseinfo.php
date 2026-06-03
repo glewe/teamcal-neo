@@ -2,6 +2,22 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '5.1.x',
+    'date' => '2026-05-xx',
+    'info' => 'Bugfix release',
+    'bugfixes' => [
+      [ 'summary' => 'Fix env variables in installation script', 'issue' => '' ],
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Add proper error message when PHP curl module is missing', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '5.1.2',
     'date' => '2026-05-23',
     'info' => 'Bugfix release',

@@ -423,6 +423,12 @@ $installationComplete = false;
 $configAppFile        = "config/config.app.php";
 $configDbFile         = "config/config.db.php";
 $showAlert            = false;
+$alertData            = [
+  'type'    => 'info',
+  'title'   => '',
+  'subject' => '',
+  'text'    => ''
+];
 $tabindex             = 1;
 
 //=============================================================================
@@ -474,9 +480,9 @@ if (!empty($_POST)) {
         writeEnv('DB_HOST', $_POST['txt_instDbServer'], $envFile);
         writeEnv('DB_PORT', $_POST['txt_instDbPort'] ?? '3306', $envFile);
         writeEnv('DB_SOCKET', $_POST['txt_instDbSocket'] ?? '', $envFile);
-        writeEnv('DB_DATABASE', $_POST['txt_instDbName'], $envFile);
-        writeEnv('DB_USERNAME', $_POST['txt_instDbUser'], $envFile);
-        writeEnv('DB_PASSWORD', $_POST['txt_instDbPassword'] ?? '', $envFile);
+        writeEnv('DB_NAME', $_POST['txt_instDbName'], $envFile);
+        writeEnv('DB_USER', $_POST['txt_instDbUser'], $envFile);
+        writeEnv('DB_PASS', $_POST['txt_instDbPassword'] ?? '', $envFile);
       }
 
       // Connect to database
@@ -496,6 +502,7 @@ if (!empty($_POST)) {
       if (!$dberror) {
         // Check whether sample data shall be installed
         $installData = false;
+        $query = '';
         switch ($_POST['opt_data']) {
           case "basic":
             $installData = true;

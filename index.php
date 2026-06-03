@@ -70,6 +70,44 @@ define('WEBSITE_ROOT', __DIR__);
 require_once __DIR__ . "/vendor/autoload.php";
 
 //-----------------------------------------------------------------------------
+// CHECK REQUIRED PHP EXTENSIONS
+// Fail fast with a clear message if a required PHP extension is missing.
+// Without these, the application crashes deeper in the stack with an HTTP 500
+// and no useful error for the administrator.
+//
+$requiredExtensions = ['curl', 'pdo', 'pdo_mysql', 'mbstring', 'json'];
+$missingExtensions  = array_values(array_filter($requiredExtensions, static fn ($ext) => !extension_loaded($ext)));
+if ($missingExtensions) {
+  $missingList = '';
+  foreach ($missingExtensions as $ext) {
+    $missingList .= '<li><code>' . htmlspecialchars($ext, ENT_QUOTES, 'UTF-8') . '</code> (e.g. install via <code>apt install php-' . htmlspecialchars($ext, ENT_QUOTES, 'UTF-8') . '</code> on Debian/Ubuntu)</li>';
+  }
+  http_response_code(500);
+  echo '
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <title>TeamCal Neo Error</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="public/themes/bootstrap/bootstrap.min.css">
+  </head>
+  <body>
+  <div class="container content" style="padding-left: 4px; padding-right: 4px;">
+    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+      <h2><strong>Application Error!</strong></h2>
+      <hr>
+      <h3>Required PHP extension(s) missing</h3>
+      <p>TeamCal Neo requires the following PHP extension(s) which are not loaded on this server:</p>
+      <ul>' . $missingList . '</ul>
+      <p>After installing the missing extension(s), restart your web server (e.g. <code>systemctl restart apache2</code>) and reload this page.</p>
+    </div>
+  </div>
+  </body>
+  </html>';
+  die();
+}
+
+//-----------------------------------------------------------------------------
 // LOAD ENVIRONMENT VARIABLES
 //
 if (file_exists(__DIR__ . '/.env')) {

@@ -375,7 +375,7 @@ VALUES
   ('firstDayOfWeek', '1'),
   ('font', 'default'),
   ('footerCopyright', 'Lewe.com'),
-  ('footerCopyrightUrl', 'http://www.lewe.com'),
+  ('footerCopyrightUrl', 'https://www.lewe.com'),
   ('footerSocialLinks', 'https://www.linkedin.com/in/george-lewe-a9ab6411b'),
   ('forceTfa', '0'),
   ('gdprController', 'ACME Inc.\r\n123 Street\r\nHometown, XY 4567\r\nGermany\r\nEmail: info@acme.com'),

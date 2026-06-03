@@ -74,7 +74,7 @@ class DatabaseStructureModel
     if (!is_file($path)) {
       throw new RuntimeException("Database manifest not found: $path. Run 'composer db:manifest' to generate it.");
     }
-    $data = require $path;
+    $data = require_once $path;
     if (!is_array($data) || !isset($data['tables'], $data['config'])) {
       throw new RuntimeException("Database manifest is malformed: $path");
     }
