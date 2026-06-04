@@ -233,7 +233,7 @@ define('LDAP_SEARCH_BIND', 0);                               // Set to 1 to if y
  */
 define('APP_NAME', "TeamCal Neo");
 define('APP_VER', "5.1.3");
-define('APP_BUILD', "69");
+define('APP_BUILD', "71");
 define('APP_DATE', "2026-06-04");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");

@@ -2,11 +2,12 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
-    'version' => '5.1.x',
-    'date' => '2026-05-xx',
+    'version' => '5.1.3',
+    'date' => '2026-06-04',
     'info' => 'Bugfix release',
     'bugfixes' => [
       [ 'summary' => 'Fix env variables in installation script', 'issue' => '' ],
+      [ 'summary' => 'Fix GitHub release workflow', 'issue' => '' ],
     ],
     'features' => [
     ],
