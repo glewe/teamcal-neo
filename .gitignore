@@ -12,7 +12,6 @@
 /temp/twig/*
 !/temp/twig/.gitkeep
 
-vendor/
 *.zip
 bom.json
 .env
