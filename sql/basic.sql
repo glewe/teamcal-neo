@@ -571,7 +571,7 @@ CREATE TABLE IF NOT EXISTS `tcneo_daynotes` (
 DROP TABLE IF EXISTS `tcneo_groups`;
 
 CREATE TABLE IF NOT EXISTS `tcneo_groups` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
   `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'default_group.png',

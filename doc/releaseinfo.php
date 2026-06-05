@@ -2,17 +2,32 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '5.1.4',
+    'date' => '2026-06-05',
+    'info' => 'Bugfix release',
+    'bugfixes' => [
+      [ 'summary' => 'Fix bug in basic.sql', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/18' ],
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '5.1.3',
     'date' => '2026-06-04',
     'info' => 'Bugfix release',
     'bugfixes' => [
       [ 'summary' => 'Fix env variables in installation script', 'issue' => '' ],
-      [ 'summary' => 'Fix GitHub release workflow', 'issue' => '' ],
+      [ 'summary' => 'Fix GitHub release workflow', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/17' ],
     ],
     'features' => [
     ],
     'improvements' => [
-      [ 'summary' => 'Add proper error message when PHP curl module is missing', 'issue' => '' ],
+      [ 'summary' => 'Add proper error message when PHP curl module is missing', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/16' ],
     ],
     'removals' => [
     ],

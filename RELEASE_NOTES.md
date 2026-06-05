@@ -1,8 +1,4 @@
 Bugfix release
 
 **Bugfixes**
-- Fix env variables in installation script
-- Fix GitHub release workflow
-
-**Improvements**
-- Add proper error message when PHP curl module is missing
+- Fix bug in basic.sql ([Issue](https://github.com/glewe/teamcal-neo/issues/18))
