@@ -63,10 +63,23 @@ $CONF['uplMaxsize']       = 2048 * 1024; // 2 MB
  * A flag indicating whether the installation script has been executed.
  * 0 = Not run yet
  * 1 = Was run
- * Set this to 0 if you want to run the installation.php script again.
+ * Set APP_INSTALLED=0 in .env (or remove the key) to run the installation script again.
  * If not, you need to delete or rename the installation.php file.
+ *
+ * Logic:
+ *  - APP_INSTALLED in .env       → use that value
+ *  - .env exists, key absent     → existing install being upgraded; assume installed (1)
+ *  - no .env at all              → fresh install (0)
  */
-define('APP_INSTALLED', "0");
+if (isset($_ENV['APP_INSTALLED'])) {
+  define('APP_INSTALLED', $_ENV['APP_INSTALLED']);
+}
+elseif (file_exists(WEBSITE_ROOT . '/.env')) {
+  define('APP_INSTALLED', "1");
+}
+else {
+  define('APP_INSTALLED', "0");
+}
 
 /**
  * ----------------------------------------------------------------------------
@@ -125,7 +138,7 @@ define('CHARTJS_VER', "4.5.1");
  * Super simple WYSIWYG editor for Bootstrap
  * https://summernote.org/
  */
-define('SUMMERNOTE_VER', "0.9.0");
+define('SUMMERNOTE_VER', "0.9.1");
 
 /**
  * Coloris
@@ -148,7 +161,7 @@ define('COOKIECONSENT_VER', "3.1.1");
  * DataTables is a Javascript HTML table enhancing library.
  * https://datatables.net/
  */
-define('DATATABLES_VER', "2.3.6");
+define('DATATABLES_VER', "2.3.8");
 
 /**
  * FontAwesome
@@ -156,7 +169,7 @@ define('DATATABLES_VER', "2.3.6");
  * The internet's favorite icon library & toolkit.
  * https://fontawesome.com/
  */
-define('FONTAWESOME_VER', "7.1.0");
+define('FONTAWESOME_VER', "7.2.0");
 
 /**
  * jQuery
@@ -164,7 +177,7 @@ define('FONTAWESOME_VER', "7.1.0");
  * jQuery is a fast, small, and feature-rich JavaScript library.
  * https://jquery.com/
  */
-define('JQUERY_VER', "3.7.1");
+define('JQUERY_VER', "4.0.0");
 
 /**
  * jQuery UI
@@ -213,16 +226,32 @@ define('MAGNIFICPOPUP_VER', "1.2.0");
  * Note, that the 'admin' user will always authenticate against the TeamCal Neo database.
  *
  */
-define('LDAP_YES', 0);                                       // Use LDAP authentication
-define('LDAP_ADS', 0);                                       // Set to 1 when authenticating against an Active Directory
-define('LDAP_HOST', "ldap.forumsys.com");                    // LDAP host name
-define('LDAP_PORT', "389");                                  // LDAP port
-define('LDAP_PASS', "password");                             // SA associated password
-define('LDAP_DIT', "cn=read-only-admin,dc=example,dc=com");  // Directory Information Tree (Relative Distinguished Name)
-define('LDAP_SBASE', "dc=example,dc=com");                   // Search base, location in the LDAP directory to search
-define('LDAP_TLS', 0);                                       // To avoid "Undefined index: LDAP_TLS" error message for LDAP bind to Active Directory
-define('LDAP_CHECK_ANONYMOUS_BIND', 0);                      // Set to 1 to check the LDAP server's 'anonymous bind' setting. Connection will be refused if not allowed.
-define('LDAP_SEARCH_BIND', 0);                               // Set to 1 to if you want to enable search bind (try disabling this when you get search bind errors)
+if (isset($_ENV['LDAP_YES'])) {
+  // Use .env LDAP configuration
+  define('LDAP_YES', (int) $_ENV['LDAP_YES']);
+  define('LDAP_ADS', (int) ($_ENV['LDAP_ADS'] ?? 0));
+  define('LDAP_HOST', $_ENV['LDAP_HOST'] ?? "");
+  define('LDAP_PORT', $_ENV['LDAP_PORT'] ?? "389");
+  define('LDAP_PASS', $_ENV['LDAP_PASS'] ?? "");
+  define('LDAP_DIT', $_ENV['LDAP_DIT'] ?? "");
+  define('LDAP_SBASE', $_ENV['LDAP_SBASE'] ?? "");
+  define('LDAP_TLS', (int) ($_ENV['LDAP_TLS'] ?? 0));
+  define('LDAP_CHECK_ANONYMOUS_BIND', (int) ($_ENV['LDAP_CHECK_ANONYMOUS_BIND'] ?? 0));
+  define('LDAP_SEARCH_BIND', (int) ($_ENV['LDAP_SEARCH_BIND'] ?? 0));
+}
+else {
+  // Fallback / Manual configuration (LDAP disabled by default)
+  define('LDAP_YES', 0);                                       // Use LDAP authentication
+  define('LDAP_ADS', 0);                                       // Set to 1 when authenticating against an Active Directory
+  define('LDAP_HOST', "ldap.forumsys.com");                    // LDAP host name
+  define('LDAP_PORT', "389");                                  // LDAP port
+  define('LDAP_PASS', "password");                             // SA associated password
+  define('LDAP_DIT', "cn=read-only-admin,dc=example,dc=com");  // Directory Information Tree (Relative Distinguished Name)
+  define('LDAP_SBASE', "dc=example,dc=com");                   // Search base, location in the LDAP directory to search
+  define('LDAP_TLS', 0);                                       // To avoid "Undefined index: LDAP_TLS" error message for LDAP bind to Active Directory
+  define('LDAP_CHECK_ANONYMOUS_BIND', 0);                      // Set to 1 to check the LDAP server's 'anonymous bind' setting. Connection will be refused if not allowed.
+  define('LDAP_SEARCH_BIND', 0);                               // Set to 1 to if you want to enable search bind (try disabling this when you get search bind errors)
+}
 
 /**
  * ----------------------------------------------------------------------------
@@ -232,9 +261,9 @@ define('LDAP_SEARCH_BIND', 0);                               // Set to 1 to if y
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "5.1.4");
-define('APP_BUILD', "77");
-define('APP_DATE', "2026-06-05");
+define('APP_VER', "5.2.0");
+define('APP_BUILD', "88");
+define('APP_DATE', "2026-06-09");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "https://www.lewe.com");

@@ -121,7 +121,7 @@ class YearController extends BaseController
           $border = 'border: ' . $this->allConfig['todayBorderSize'] . 'px solid #' . $this->allConfig['todayBorderColor'] . ';';
         }
 
-        if (strlen($color) || strlen($bgcolor) || strlen($border)) {
+        if ($color !== '' || $bgcolor !== '' || $border !== '') {
           $viewData['month'][$i][$d]['style'] = ' style="' . $color . $bgcolor . $border . '"';
         }
 

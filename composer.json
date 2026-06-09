@@ -1,7 +1,7 @@
 {
   "name": "glewe/teamcal-neo",
-  "version": "5.1.4",
-  "build": "77",
+  "version": "5.2.0",
+  "build": "88",
   "description": "A web application of a day-based calendar and scheduling tool.",
   "type": "project",
   "license": "GPL-3.0-or-later (see LICENSE file)",
@@ -18,7 +18,7 @@
     "ext-pdo": "*",
     "matthiasmullie/minify": "^1.3",
     "phpmailer/phpmailer": "^7.0",
-    "robthree/twofactorauth": "^2.0",
+    "robthree/twofactorauth": "^3.0",
     "twig/twig": "^3.27.1",
     "vlucas/phpdotenv": "^5.6",
     "ezyang/htmlpurifier": "^4.19"

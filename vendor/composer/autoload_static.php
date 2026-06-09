@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4e55b2d58b77c88dc718375e40cf05f3
+class ComposerStaticInita70b263fa5a2f4f9f7c70152401861aa
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -529,9 +529,7 @@ class ComposerStaticInit4e55b2d58b77c88dc718375e40cf05f3
         'RobThree\\Auth\\Providers\\Qr\\QRServerProvider' => __DIR__ . '/..' . '/robthree/twofactorauth/lib/Providers/Qr/QRServerProvider.php',
         'RobThree\\Auth\\Providers\\Qr\\QRicketProvider' => __DIR__ . '/..' . '/robthree/twofactorauth/lib/Providers/Qr/QRicketProvider.php',
         'RobThree\\Auth\\Providers\\Rng\\CSRNGProvider' => __DIR__ . '/..' . '/robthree/twofactorauth/lib/Providers/Rng/CSRNGProvider.php',
-        'RobThree\\Auth\\Providers\\Rng\\HashRNGProvider' => __DIR__ . '/..' . '/robthree/twofactorauth/lib/Providers/Rng/HashRNGProvider.php',
         'RobThree\\Auth\\Providers\\Rng\\IRNGProvider' => __DIR__ . '/..' . '/robthree/twofactorauth/lib/Providers/Rng/IRNGProvider.php',
-        'RobThree\\Auth\\Providers\\Rng\\OpenSSLRNGProvider' => __DIR__ . '/..' . '/robthree/twofactorauth/lib/Providers/Rng/OpenSSLRNGProvider.php',
         'RobThree\\Auth\\Providers\\Rng\\RNGException' => __DIR__ . '/..' . '/robthree/twofactorauth/lib/Providers/Rng/RNGException.php',
         'RobThree\\Auth\\Providers\\Time\\HttpTimeProvider' => __DIR__ . '/..' . '/robthree/twofactorauth/lib/Providers/Time/HttpTimeProvider.php',
         'RobThree\\Auth\\Providers\\Time\\ITimeProvider' => __DIR__ . '/..' . '/robthree/twofactorauth/lib/Providers/Time/ITimeProvider.php',
@@ -813,10 +811,10 @@ class ComposerStaticInit4e55b2d58b77c88dc718375e40cf05f3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4e55b2d58b77c88dc718375e40cf05f3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4e55b2d58b77c88dc718375e40cf05f3::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit4e55b2d58b77c88dc718375e40cf05f3::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit4e55b2d58b77c88dc718375e40cf05f3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita70b263fa5a2f4f9f7c70152401861aa::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita70b263fa5a2f4f9f7c70152401861aa::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInita70b263fa5a2f4f9f7c70152401861aa::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInita70b263fa5a2f4f9f7c70152401861aa::$classMap;
 
         }, null, ClassLoader::class);
     }

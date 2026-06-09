@@ -343,9 +343,7 @@ class LoginModel
     //
     // Now check the password
     //
-    // @phpstan-ignore-next-line
     $ldap_yes = defined('LDAP_YES') && LDAP_YES;
-    // @phpstan-ignore-next-line
     if ($ldap_yes && $loginname != "admin") {
       //
       // You need to have PHP LDAP libraries installed.

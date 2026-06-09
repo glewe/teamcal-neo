@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use App\Core\BaseController;
 use App\Models\UserModel;
+use RobThree\Auth\Providers\Qr\QRServerProvider;
 use RobThree\Auth\TwoFactorAuth;
 
 /**
@@ -63,7 +64,7 @@ class Setup2faController extends BaseController
       return;
     }
 
-    $tfa    = new TwoFactorAuth('TeamCal Neo');
+    $tfa    = new TwoFactorAuth(new QRServerProvider(), 'TeamCal Neo');
     $secret = $tfa->createSecret();
     $bcode  = $tfa->getQRCodeImageAsDataUri($this->UL->username, $secret);
 

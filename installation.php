@@ -367,8 +367,8 @@ $LANG['inst_dbSocket']           = 'Database Socket';
 $LANG['inst_dbSocket_comment']   = 'Specify the Unix socket for the database connection (overrides host and port).';
 $LANG['inst_executed']           = 'Installation already executed';
 $LANG['inst_executed_comment']   = 'The configuration file shows that the installation script was already executed for this instance.<br>
-      For security reasons, if you want to run it again, you need to reset the flag in the application config file:<br>
-      Look for <code>define(\'APP_INSTALLED\', "1");</code> in "config/config.app.php" and set the value to "0".<br>
+      For security reasons, if you want to run it again, you need to reset the flag in your <code>.env</code> file:<br>
+      Set <code>APP_INSTALLED=0</code> in your <code>.env</code> file (or remove the line entirely).<br>
       Otherwise, delete the installation script from the server. Then click the button below.<br><br><a class="btn btn-primary" href="index.php">Start</a>';
 $LANG['inst_lic']                = '<span class="text-bold text-danger">*&nbsp;</span>License Agreement';
 $LANG['inst_lic_comment']        = 'You must accept the license agreement if you want to use this application.';
@@ -379,7 +379,7 @@ $LANG['inst_congrats']           = 'Congratulations';
 $LANG['inst_success']            = 'Installation Success';
 $LANG['inst_success_comment']    = 'The installation was successful. Please delete the installation script from the server before you start.<br><br><a class="btn btn-primary" href="index.php">Start</a>';
 $LANG['inst_update']             = 'Do not run for update';
-$LANG['inst_update_comment']     = 'Do not run the installation script for updating TeamCal Neo. Instead, follow the instructions <a href="doc/Upgradeinfo.txt">here</a>.<br>
+$LANG['inst_update_comment']     = 'Do not run the installation script for updating TeamCal Neo. Instead, follow the instructions <a href="doc/UPGRADEINFO.md">here</a>.<br>
       If this is a fresh install, you can close this message in the upper right corner and continue below.';
 $LANG['inst_warning']            = 'Installation Warning';
 
@@ -472,8 +472,13 @@ if (!empty($_POST)) {
       // Update .env file
       //
       $envFile = '.env';
-      if (!file_exists($envFile) && file_exists('.env.example')) {
-        copy('.env.example', $envFile);
+      if (!file_exists($envFile)) {
+        if (file_exists('.env.example')) {
+          copy('.env.example', $envFile);
+        }
+        else {
+          file_put_contents($envFile, '');
+        }
       }
 
       if (file_exists($envFile)) {
@@ -483,6 +488,7 @@ if (!empty($_POST)) {
         writeEnv('DB_NAME', $_POST['txt_instDbName'], $envFile);
         writeEnv('DB_USER', $_POST['txt_instDbUser'], $envFile);
         writeEnv('DB_PASS', $_POST['txt_instDbPassword'] ?? '', $envFile);
+        writeEnv('DB_PREFIX', $_POST['txt_instDbPrefix'] ?? 'tcneo_', $envFile);
       }
 
       // Connect to database
@@ -529,7 +535,7 @@ if (!empty($_POST)) {
           $result = $pdo->query($query);
           if ($result) {
             // Success and sample data loaded
-            writeDef("APP_INSTALLED", "1", $configAppFile);
+            writeEnv('APP_INSTALLED', '1', $envFile);
             $installationComplete = true;
             $showAlert            = true;
             $alertData['type']    = 'success';
@@ -548,7 +554,7 @@ if (!empty($_POST)) {
         }
         else {
           // Success, No sample data loaded
-          writeDef("APP_INSTALLED", "1", $configAppFile);
+          writeEnv('APP_INSTALLED', '1', $envFile);
           $installationComplete = true;
           $showAlert            = true;
           $alertData['type']    = 'success';

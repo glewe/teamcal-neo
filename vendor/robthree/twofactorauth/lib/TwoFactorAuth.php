@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace RobThree\Auth;
 
+use function hash_equals;
+
 use RobThree\Auth\Providers\Qr\IQRCodeProvider;
-use RobThree\Auth\Providers\Qr\QRServerProvider;
 use RobThree\Auth\Providers\Rng\CSRNGProvider;
-use RobThree\Auth\Providers\Rng\HashRNGProvider;
 use RobThree\Auth\Providers\Rng\IRNGProvider;
-use RobThree\Auth\Providers\Rng\OpenSSLRNGProvider;
 use RobThree\Auth\Providers\Time\HttpTimeProvider;
 use RobThree\Auth\Providers\Time\ITimeProvider;
 use RobThree\Auth\Providers\Time\LocalMachineTimeProvider;
 use RobThree\Auth\Providers\Time\NTPTimeProvider;
+use SensitiveParameter;
 
 // Based on / inspired by: https://github.com/PHPGangsta/GoogleAuthenticator
 // Algorithms, digits, period etc. explained: https://github.com/google/google-authenticator/wiki/Key-Uri-Format
@@ -28,11 +28,11 @@ class TwoFactorAuth
     private static array $_base32lookup = array();
 
     public function __construct(
+        private IQRCodeProvider    $qrcodeprovider,
         private readonly ?string   $issuer = null,
         private readonly int       $digits = 6,
         private readonly int       $period = 30,
         private readonly Algorithm $algorithm = Algorithm::Sha1,
-        private ?IQRCodeProvider   $qrcodeprovider = null,
         private ?IRNGProvider      $rngprovider = null,
         private ?ITimeProvider     $timeprovider = null
     ) {
@@ -51,14 +51,11 @@ class TwoFactorAuth
     /**
      * Create a new secret
      */
-    public function createSecret(int $bits = 80, bool $requirecryptosecure = true): string
+    public function createSecret(int $bits = 160): string
     {
         $secret = '';
         $bytes = (int)ceil($bits / 5);   // We use 5 bits of each byte (since we have a 32-character 'alphabet' / BASE32)
         $rngprovider = $this->getRngProvider();
-        if ($requirecryptosecure && !$rngprovider->isCryptographicallySecure()) {
-            throw new TwoFactorAuthException('RNG provider is not cryptographically secure');
-        }
         $rnd = $rngprovider->getRandomBytes($bytes);
         for ($i = 0; $i < $bytes; $i++) {
             $secret .= self::$_base32[ord($rnd[$i]) & 31];  //Mask out left 3 bits for 0-31 values
@@ -69,7 +66,7 @@ class TwoFactorAuth
     /**
      * Calculate the code with given secret and point in time
      */
-    public function getCode(string $secret, ?int $time = null): string
+    public function getCode(#[SensitiveParameter] string $secret, ?int $time = null): string
     {
         $secretkey = $this->base32Decode($secret);
 
@@ -98,7 +95,7 @@ class TwoFactorAuth
         for ($i = -$discrepancy; $i <= $discrepancy; $i++) {
             $ts = $timestamp + ($i * $this->period);
             $slice = $this->getTimeSlice($ts);
-            $timeslice = $this->codeEquals($this->getCode($secret, $ts), $code) ? $slice : $timeslice;
+            $timeslice = hash_equals($this->getCode($secret, $ts), $code) ? $slice : $timeslice;
         }
 
         return $timeslice > 0;
@@ -107,17 +104,16 @@ class TwoFactorAuth
     /**
      * Get data-uri of QRCode
      */
-    public function getQRCodeImageAsDataUri(string $label, string $secret, int $size = 200): string
+    public function getQRCodeImageAsDataUri(string $label, #[SensitiveParameter] string $secret, int $size = 200): string
     {
         if ($size <= 0) {
             throw new TwoFactorAuthException('Size must be > 0');
         }
 
-        $qrcodeprovider = $this->getQrCodeProvider();
         return 'data:'
-            . $qrcodeprovider->getMimeType()
+            . $this->qrcodeprovider->getMimeType()
             . ';base64,'
-            . base64_encode($qrcodeprovider->getQRCodeImage($this->getQRText($label, $secret), $size));
+            . base64_encode($this->qrcodeprovider->getQRCodeImage($this->getQRText($label, $secret), $size));
     }
 
     /**
@@ -153,7 +149,7 @@ class TwoFactorAuth
     /**
      * Builds a string to be encoded in a QR code
      */
-    public function getQRText(string $label, string $secret): string
+    public function getQRText(string $label, #[SensitiveParameter] string $secret): string
     {
         return 'otpauth://totp/' . rawurlencode($label)
             . '?secret=' . rawurlencode($secret)
@@ -163,57 +159,18 @@ class TwoFactorAuth
             . '&digits=' . $this->digits;
     }
 
-    public function getQrCodeProvider(): IQRCodeProvider
-    {
-        // Set default QR Code provider if none was specified
-        return $this->qrcodeprovider ??= new QRServerProvider();
-    }
-
     /**
      * @throws TwoFactorAuthException
      */
     public function getRngProvider(): IRNGProvider
     {
-        if ($this->rngprovider !== null) {
-            return $this->rngprovider;
-        }
-        if (function_exists('random_bytes')) {
-            return $this->rngprovider = new CSRNGProvider();
-        }
-        if (function_exists('openssl_random_pseudo_bytes')) {
-            return $this->rngprovider = new OpenSSLRNGProvider();
-        }
-        if (function_exists('hash')) {
-            return $this->rngprovider = new HashRNGProvider();
-        }
-        throw new TwoFactorAuthException('Unable to find a suited RNGProvider');
+        return $this->rngprovider ??= new CSRNGProvider();
     }
 
     public function getTimeProvider(): ITimeProvider
     {
         // Set default time provider if none was specified
         return $this->timeprovider ??= new LocalMachineTimeProvider();
-    }
-
-    /**
-     * Timing-attack safe comparison of 2 codes (see http://blog.ircmaxell.com/2014/11/its-all-about-time.html)
-     */
-    private function codeEquals(string $safe, string $user): bool
-    {
-        if (function_exists('hash_equals')) {
-            return hash_equals($safe, $user);
-        }
-        // In general, it's not possible to prevent length leaks. So it's OK to leak the length. The important part is that
-        // we don't leak information about the difference of the two strings.
-        if (strlen($safe) === strlen($user)) {
-            $result = 0;
-            $strlen = strlen($safe);
-            for ($i = 0; $i < $strlen; $i++) {
-                $result |= (ord($safe[$i]) ^ ord($user[$i]));
-            }
-            return $result === 0;
-        }
-        return false;
     }
 
     private function getTime(?int $time = null): int

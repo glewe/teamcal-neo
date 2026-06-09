@@ -2,6 +2,28 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '5.2.0',
+    'date' => '2026-06-09',
+    'info' => 'Improvement and Bugfix release. ATTENTION: The installation procedure has changed. Please check the updated doc/UPGRADEINFO.md file.',
+    'bugfixes' => [
+      [ 'summary' => 'Fix edit group calendar bug', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/19' ],
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Improve group memebership edit behavior', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/20' ],
+      [ 'summary' => 'Improved installation and upgrade procedure', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/21' ],
+      [ 'summary' => 'Update dependency modules', 'issue' => '' ],
+      [ 'summary' => 'Update summernote addon to 0.9.1', 'issue' => '' ],
+      [ 'summary' => 'Update datatables addon to 2.3.8', 'issue' => '' ],
+      [ 'summary' => 'Update Font Awesome to 7.2.0', 'issue' => '' ],
+      [ 'summary' => 'Update jQuery to 4.0.0', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '5.1.4',
     'date' => '2026-06-05',
     'info' => 'Bugfix release',

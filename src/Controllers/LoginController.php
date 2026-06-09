@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Core\BaseController;
+use RobThree\Auth\Providers\Qr\QRServerProvider;
 use RobThree\Auth\TwoFactorAuth;
 
 /**
@@ -31,7 +32,7 @@ class LoginController extends BaseController
     // Load Controller Resources
     $viewData['pageHelp']   = $this->allConfig['pageHelp'];
     $viewData['showAlerts'] = $this->allConfig['showAlerts'];
-    $tfa                    = new TwoFactorAuth('TeamCal Neo');
+    $tfa                    = new TwoFactorAuth(new QRServerProvider(), 'TeamCal Neo');
 
     // Variable Defaults
     $showAlert = false;

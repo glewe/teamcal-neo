@@ -367,8 +367,8 @@
 
 {% block javascripts %}
   <script>
-    function hideAllPatterns(){{% for ptn in patterns %}
-        document.getElementById('pattern- {{ ptn.id }}').style.display = "none";{% endfor %}
+    function hideAllPatterns(){ {% for ptn in patterns %}
+        document.getElementById('pattern-{{ ptn.id }}').style.display = "none";{% endfor %}
     }
 
     function showPattern(id) {

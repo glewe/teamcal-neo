@@ -308,10 +308,10 @@ class CalendarOptionsController extends BaseController
           'value'       => $field['value'] ?? '',
           'maxlength'   => $field['maxlength'] ?? '',
           'placeholder' => $field['placeholder'] ?? '',
-          'options'     => $field['options'] ?? [],
+          'options'     => [],
           'values'      => $field['values'] ?? [],
-          'help'        => $field['help'] ?? '',
-          'required'    => $field['required'] ?? false,
+          'help'        => '',
+          'required'    => false,
           'disabled'    => $field['disabled'] ?? false,
           'error'       => $field['error'] ?? '',
         ];

@@ -126,3 +126,69 @@
     </div>
   </div>
 {% endblock %}
+
+{% block javascripts %}
+  <script>
+    (function () {
+      var managersSelect = document.getElementById('managers');
+      var membersSelect  = document.getElementById('members');
+
+      if (!managersSelect || !membersSelect) return;
+
+      var previousManagers = new Set(
+        Array.from(managersSelect.selectedOptions).map(function (o) { return o.value; })
+      );
+
+      managersSelect.addEventListener('change', function () {
+        var currentManagers = new Set(
+          Array.from(managersSelect.selectedOptions).map(function (o) { return o.value; })
+        );
+
+        previousManagers.forEach(function (uname) {
+          if (!currentManagers.has(uname)) {
+            // Manager removed → ensure they stay a member
+            var memberOption = Array.from(membersSelect.options).find(function (o) { return o.value === uname; });
+            if (memberOption && !memberOption.selected) {
+              memberOption.selected = true;
+            }
+          }
+        });
+
+        currentManagers.forEach(function (uname) {
+          if (!previousManagers.has(uname)) {
+            // Manager added → remove from members
+            var memberOption = Array.from(membersSelect.options).find(function (o) { return o.value === uname; });
+            if (memberOption && memberOption.selected) {
+              memberOption.selected = false;
+            }
+          }
+        });
+
+        previousManagers = currentManagers;
+      });
+
+      var previousMembers = new Set(
+        Array.from(membersSelect.selectedOptions).map(function (o) { return o.value; })
+      );
+
+      membersSelect.addEventListener('change', function () {
+        var currentMembers = new Set(
+          Array.from(membersSelect.selectedOptions).map(function (o) { return o.value; })
+        );
+
+        currentMembers.forEach(function (uname) {
+          if (!previousMembers.has(uname)) {
+            // Member added → remove from managers if present
+            var managerOption = Array.from(managersSelect.options).find(function (o) { return o.value === uname; });
+            if (managerOption && managerOption.selected) {
+              managerOption.selected = false;
+              previousManagers.delete(uname);
+            }
+          }
+        });
+
+        previousMembers = currentMembers;
+      });
+    })();
+  </script>
+{% endblock %}

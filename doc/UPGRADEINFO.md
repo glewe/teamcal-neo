@@ -1,5 +1,38 @@
 # TeamCal Neo Upgrade Information
 
+## [5.1.x] -> [5.2.x]
+
+> **Architecture change:** `APP_INSTALLED` and LDAP settings have moved from
+> `config/config.app.php` into `.env`. You no longer need to edit
+> `config/config.app.php` after an upgrade.
+
+1. Backup your current files and database!
+2. Keep a copy of your `.env` file (it holds your database credentials and will
+   be preserved, but a backup is always good practice).
+3. Delete all files and folders from your TeamCal Neo installation directory,
+   **except the `.env` file**.
+4. Download the new release and unzip all files into the same directory.
+5. **(LDAP users only)** If you use LDAP authentication, migrate your settings
+   from the old `config/config.app.php` backup into `.env`. Add the following
+   keys (see `.env.example` for reference and descriptions):
+   ```
+   LDAP_YES=1
+   LDAP_ADS=0
+   LDAP_HOST=your-ldap-host
+   LDAP_PORT=389
+   LDAP_PASS=your-ldap-password
+   LDAP_DIT=cn=admin,dc=example,dc=com
+   LDAP_SBASE=dc=example,dc=com
+   LDAP_TLS=0
+   LDAP_CHECK_ANONYMOUS_BIND=0
+   LDAP_SEARCH_BIND=0
+   ```
+   Once in `.env`, these settings survive all future upgrades automatically.
+6. Your database configuration remains in `.env` — no changes needed there.
+7. `APP_INSTALLED` is now detected automatically from the presence of your
+   `.env` file. No manual edit of `config/config.app.php` is required.
+8. Delete `installation.php` from the root directory.
+
 ## [5.1.0] -> [5.1.x]
 
 1. Backup your current files and database!

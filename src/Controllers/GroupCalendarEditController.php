@@ -368,7 +368,7 @@ class GroupCalendarEditController extends BaseController
         $border = 'border-left: ' . $this->allConfig['todayBorderSize'] . 'px solid #' . $this->allConfig['todayBorderColor'] . ';border-right: ' . $this->allConfig['todayBorderSize'] . 'px solid #' . $this->allConfig['todayBorderColor'] . ';';
       }
 
-      if (strlen($color) || strlen($bgcolor) || strlen($border)) {
+      if ($color !== '' || $bgcolor !== '' || $border !== '') {
         $viewData['dayStyles'][$i] = ' style="' . $color . $bgcolor . $border . '"';
       }
     }

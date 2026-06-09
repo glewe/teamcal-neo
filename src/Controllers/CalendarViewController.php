@@ -327,6 +327,8 @@ class CalendarViewController extends BaseController
           'nextM'         => $nextM,
           'dayStyles'     => [],
           'businessDays'  => 0,
+          'dayAbsCount'   => [],
+          'dayPresCount'  => [],
         ];
 
         $currMonth = $nextMonth;
@@ -351,6 +353,8 @@ class CalendarViewController extends BaseController
           'M'            => $M,
           'dayStyles'    => [],
           'businessDays' => 0,
+          'dayAbsCount'  => [],
+          'dayPresCount' => [],
         ],
       ];
     }
@@ -399,6 +403,8 @@ class CalendarViewController extends BaseController
           'M'            => $M,
           'dayStyles'    => [],
           'businessDays' => 0,
+          'dayAbsCount'  => [],
+          'dayPresCount' => [],
         ];
         $prevYear             = intval($nextYear);
         $prevMonth            = intval($nextMonth);
@@ -694,9 +700,8 @@ class CalendarViewController extends BaseController
       }
 
       foreach ($viewData['months'] as &$vmonth) {
-        /** @var array<string, mixed> $vmonth */
         $monthKey = $vmonth['year'] . $vmonth['month'];
-        if (!isset($vmonth['dayAbsCount'])) {
+        if (empty($vmonth['dayAbsCount'])) {
           $isSplit                = isset($vmonth['isSplitMonth']) && $vmonth['isSplitMonth'];
           $vmonth['dayAbsCount']  = array_fill(1, $isSplit ? 46 : 31, 0);
           $vmonth['dayPresCount'] = array_fill(1, $isSplit ? 46 : 31, 0);
