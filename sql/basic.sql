@@ -198,9 +198,11 @@ CREATE TABLE IF NOT EXISTS `tcneo_archive_users` (
   `last_pw_change` datetime NOT NULL DEFAULT '2026-01-01 00:00:00',
   `last_login` datetime NOT NULL DEFAULT '2026-01-01 00:00:00',
   `created` datetime NOT NULL DEFAULT '2026-01-01 00:00:00',
+  `oidc_sub` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`username`),
   KEY `k_firstname` (`firstname`),
-  KEY `k_lastname` (`lastname`)
+  KEY `k_lastname` (`lastname`),
+  UNIQUE KEY `uk_oidc_sub` (`oidc_sub`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 -- --------------------------------------------------------
@@ -1409,9 +1411,11 @@ CREATE TABLE IF NOT EXISTS `tcneo_users` (
   `last_pw_change` datetime NOT NULL DEFAULT '2026-01-01 00:00:00',
   `last_login` datetime NOT NULL DEFAULT '2026-01-01 00:00:00',
   `created` datetime NOT NULL DEFAULT '2026-01-01 00:00:00',
+  `oidc_sub` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`username`),
   KEY `k_firstname` (`firstname`),
-  KEY `k_lastname` (`lastname`)
+  KEY `k_lastname` (`lastname`),
+  UNIQUE KEY `uk_oidc_sub` (`oidc_sub`)
 ) ENGINE = MyISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
 
 --
@@ -1434,7 +1438,8 @@ INSERT INTO
     `grace_start`,
     `last_pw_change`,
     `last_login`,
-    `created`
+    `created`,
+    `oidc_sub`
   )
 VALUES
   (
@@ -1453,7 +1458,8 @@ VALUES
     '2024-01-01 00:00:00',
     '2024-09-07 19:12:50',
     '2024-09-19 20:33:29',
-    '2022-01-01 00:00:00'
+    '2022-01-01 00:00:00',
+    NULL
   );
 
 -- --------------------------------------------------------

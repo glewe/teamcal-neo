@@ -40,9 +40,10 @@ class UserAddController extends BaseController
     $alertData = [];
     $showAlert = false;
 
-    $viewData               = [];
-    $viewData['pageHelp']   = $this->allConfig['pageHelp'];
-    $viewData['showAlerts'] = $this->allConfig['showAlerts'];
+    $viewData                  = [];
+    $viewData['pageHelp']      = $this->allConfig['pageHelp'];
+    $viewData['showAlerts']    = $this->allConfig['showAlerts'];
+    $viewData['oidcEnabled']   = defined('OIDC_YES') && (bool) OIDC_YES;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $_POST = sanitize($_POST);

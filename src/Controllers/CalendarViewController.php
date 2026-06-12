@@ -869,16 +869,20 @@ class CalendarViewController extends BaseController
 
           $taken = '';
           if ($this->allConfig['showTooltipCount']) {
-            $countFrom   = $year . $month . '01';
-            $daysInMonth = cal_days_in_month(CAL_GREGORIAN, (int) $month, (int) $year);
-            $countTo     = $year . $month . $daysInMonth;
-            $takenMonth  = $this->AbsenceService->countAbsence($username, (string) $absId, $countFrom, $countTo, true, false);
+            $cacheKey = $username . '|' . $year . '|' . $month . '|' . $absId;
+            if (!isset($this->tooltipCountCache[$cacheKey])) {
+              $countFrom   = $year . $month . '01';
+              $daysInMonth = cal_days_in_month(CAL_GREGORIAN, (int) $month, (int) $year);
+              $countTo     = $year . $month . $daysInMonth;
+              $takenMonth  = $this->AbsenceService->countAbsence($username, (string) $absId, $countFrom, $countTo, true, false);
 
-            $countFromYear = $year . '0101';
-            $countToYear   = $year . '1231';
-            $takenYear     = $this->AbsenceService->countAbsence($username, (string) $absId, $countFromYear, $countToYear, true, false);
+              $countFromYear = $year . '0101';
+              $countToYear   = $year . '1231';
+              $takenYear     = $this->AbsenceService->countAbsence($username, (string) $absId, $countFromYear, $countToYear, true, false);
 
-            $taken = ' (' . $takenMonth . '/' . $takenYear . ')';
+              $this->tooltipCountCache[$cacheKey] = ' (' . $takenMonth . '/' . $takenYear . ')';
+            }
+            $taken = $this->tooltipCountCache[$cacheKey];
           }
           $dayData['tooltip'] = $this->A->getName((string) $absId) . $taken;
         }
@@ -938,6 +942,9 @@ class CalendarViewController extends BaseController
 
   /** @var array<string, \App\Models\MonthModel> */
   private array $regionMonths = [];
+
+  /** @var array<string, string> */
+  private array $tooltipCountCache = [];
   /**
    * Helper to get a MonthModel for a region and cache it.
    *

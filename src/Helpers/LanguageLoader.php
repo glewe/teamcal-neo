@@ -619,6 +619,8 @@ class LanguageLoader
       'messages'          => ['message'],
       'month'             => ['month', 'calendar'],
       'monthedit'         => ['month'],
+      'oidccallback'      => ['login'],
+      'oidclogin'         => ['login'],
       'passwordrequest'   => ['password'],
       'passwordreset'     => ['password', 'login', 'profile'],
       'patternadd'        => ['pattern'],

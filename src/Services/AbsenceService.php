@@ -735,14 +735,16 @@ class AbsenceService
       }
       $summary['totalallowance']  = $summary['allowance'] + $summary['carryover'];
       $summary['taken']           = 0;
-      $countFrom                  = $year . '01' . '01';
-      $countTo                    = $year . '12' . '31';
-      $summary['taken']          += $this->countAbsence($username, (string) $this->A->id, $countFrom, $countTo, true, false);
-      if ($countsAsArray = $this->A->getAllSub($absid)) {
-        foreach ($countsAsArray as $countsAs) {
-          $A2 = new AbsenceModel();
-          if ($A2->get($countsAs['id'])) {
-            $summary['taken'] += $this->countAbsence($username, (string) $A2->id, $countFrom, $countTo, true, false);
+      if (!$this->A->counts_as_present) {
+        $countFrom = $year . '01' . '01';
+        $countTo   = $year . '12' . '31';
+        $summary['taken'] += $this->countAbsence($username, (string) $this->A->id, $countFrom, $countTo, true, false);
+        if ($countsAsArray = $this->A->getAllSub($absid)) {
+          foreach ($countsAsArray as $countsAs) {
+            $A2 = new AbsenceModel();
+            if ($A2->get($countsAs['id']) && !$A2->counts_as_present) {
+              $summary['taken'] += $this->countAbsence($username, (string) $A2->id, $countFrom, $countTo, true, false);
+            }
           }
         }
       }

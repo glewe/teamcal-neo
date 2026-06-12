@@ -52,9 +52,10 @@ class UserEditController extends BaseController
       return;
     }
 
-    $viewData               = [];
+    $viewData                = [];
     $viewData['pageHelp']   = $this->allConfig['pageHelp'];
     $viewData['showAlerts'] = $this->allConfig['showAlerts'];
+    $viewData['oidcEnabled'] = defined('OIDC_YES') && (bool) OIDC_YES;
 
     global $inputAlert;
     /** @var array<string, string> $inputAlert */

@@ -343,8 +343,8 @@ class LoginModel
     //
     // Now check the password
     //
-    $ldap_yes = defined('LDAP_YES') && LDAP_YES;
-    if ($ldap_yes && $loginname != "admin") {
+    $ldap_yes = defined('LDAP_YES') && LDAP_YES; // @phpstan-ignore booleanAnd.rightAlwaysFalse
+    if ($ldap_yes && $loginname != "admin") { // @phpstan-ignore booleanAnd.leftAlwaysFalse
       //
       // You need to have PHP LDAP libraries installed.
       //
@@ -380,6 +380,29 @@ class LoginModel
     $U->update($U->username);
 
     return 0;
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Sets the login cookie for a user who has already been authenticated
+   * externally (e.g. via OIDC). Does not verify a password.
+   *
+   * The caller is responsible for all account-status checks (locked, verified,
+   * etc.) before calling this method.
+   *
+   * @param string $username Username of the authenticated user
+   *
+   * @return void
+   */
+  public function loginByUsername(string $username): void {
+    global $C, $U;
+    $secret          = password_hash($username, PASSWORD_DEFAULT);
+    $value           = $username . ':' . $secret;
+    setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, $this->isSecure, true);
+    $cookie_lifetime = intval($C->read('cookieLifetime'));
+    setcookie($this->cookie_name, $value, time() + $cookie_lifetime, '', $this->hostName, $this->isSecure, true);
+    $U->last_login = date('YmdHis');
+    $U->update($U->username);
   }
 
   //---------------------------------------------------------------------------

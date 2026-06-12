@@ -30,6 +30,11 @@ class Login2faController extends BaseController
    */
   public function execute(): void {
 
+    if (defined('OIDC_YES') && OIDC_YES) {
+      header('Location: index.php?action=' . $this->allConfig['homepage']);
+      exit;
+    }
+
     if (!isset($_SESSION['2fa_user'])) {
       header('Location: index.php?action=login');
       exit;

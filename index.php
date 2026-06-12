@@ -46,7 +46,7 @@ if (session_status() === PHP_SESSION_NONE) {
     'domain'   => $cookieParams['domain'],
     'secure'   => $isSecure,
     'httponly' => true,
-    'samesite' => 'Strict'
+    'samesite' => 'Lax'
   ]);
   session_start();
 }
@@ -716,6 +716,8 @@ $router->add('maintenance', 'App\Controllers\MaintenanceController');
 $router->add('messageedit', 'App\Controllers\MessageEditController');
 $router->add('messages', 'App\Controllers\MessagesController');
 $router->add('monthedit', 'App\Controllers\MontheditController');
+$router->add('oidccallback', 'App\Controllers\OidcController');
+$router->add('oidclogin', 'App\Controllers\OidcController');
 $router->add('passwordrequest', 'App\Controllers\PasswordRequestController');
 $router->add('passwordreset', 'App\Controllers\PasswordResetController');
 $router->add('patternadd', 'App\Controllers\PatternAddController');

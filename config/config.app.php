@@ -197,6 +197,40 @@ define('MAGNIFICPOPUP_VER', "1.2.0");
 
 /**
  * ----------------------------------------------------------------------------
+ * OIDC (OpenID Connect)
+ * ----------------------------------------------------------------------------
+ *
+ * You can enable OIDC authentication in this section. When OIDC is enabled,
+ * local and LDAP authentication are disabled for all users except 'admin',
+ * which always authenticates against the TeamCal Neo database.
+ *
+ * Set OIDC_YES=1 in .env and configure the remaining values to match your
+ * Identity Provider (Keycloak, MS Entra, Okta, etc.).
+ *
+ * The jumbojett/openid-connect-php library fetches the IdP's discovery
+ * document automatically from:
+ *   {OIDC_PROVIDER_URL}/.well-known/openid-configuration
+ *
+ * When OIDC_YES=1, LDAP is automatically disabled.
+ *
+ */
+if (isset($_ENV['OIDC_YES'])) {
+  define('OIDC_YES', (int) $_ENV['OIDC_YES']);
+  define('OIDC_PROVIDER_URL', $_ENV['OIDC_PROVIDER_URL'] ?? "");
+  define('OIDC_CLIENT_ID', $_ENV['OIDC_CLIENT_ID'] ?? "");
+  define('OIDC_CLIENT_SECRET', $_ENV['OIDC_CLIENT_SECRET'] ?? "");
+  define('OIDC_REDIRECT_URI', $_ENV['OIDC_REDIRECT_URI'] ?? "");
+}
+else {
+  define('OIDC_YES', 0);
+  define('OIDC_PROVIDER_URL', "");
+  define('OIDC_CLIENT_ID', "");
+  define('OIDC_CLIENT_SECRET', "");
+  define('OIDC_REDIRECT_URI', "");
+}
+
+/**
+ * ----------------------------------------------------------------------------
  * LDAP
  * ----------------------------------------------------------------------------
  *
@@ -226,7 +260,20 @@ define('MAGNIFICPOPUP_VER', "1.2.0");
  * Note, that the 'admin' user will always authenticate against the TeamCal Neo database.
  *
  */
-if (isset($_ENV['LDAP_YES'])) {
+if (OIDC_YES) {
+  // OIDC takes precedence — disable LDAP regardless of .env setting
+  define('LDAP_YES', 0);
+  define('LDAP_ADS', 0);
+  define('LDAP_HOST', "");
+  define('LDAP_PORT', "389");
+  define('LDAP_PASS', "");
+  define('LDAP_DIT', "");
+  define('LDAP_SBASE', "");
+  define('LDAP_TLS', 0);
+  define('LDAP_CHECK_ANONYMOUS_BIND', 0);
+  define('LDAP_SEARCH_BIND', 0);
+}
+elseif (isset($_ENV['LDAP_YES'])) {
   // Use .env LDAP configuration
   define('LDAP_YES', (int) $_ENV['LDAP_YES']);
   define('LDAP_ADS', (int) ($_ENV['LDAP_ADS'] ?? 0));
@@ -261,9 +308,9 @@ else {
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "5.2.0");
-define('APP_BUILD', "88");
-define('APP_DATE', "2026-06-09");
+define('APP_VER', "5.3.0");
+define('APP_BUILD', "92");
+define('APP_DATE', "2026-06-12");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "https://www.lewe.com");

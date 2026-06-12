@@ -46,5 +46,20 @@ $LANG['login_error_95'] = 'Error de LDAP: Usuario no encontrado';
 $LANG['login_error_96'] = 'Error de LDAP: Error en la vinculación de búsqueda';
 $LANG['login_error_96_text'] = 'La vinculación de búsqueda de LDAP falló. Por favor, inténtelo de nuevo.';
 
+$LANG['login_sso_button'] = 'Iniciar sesión con SSO';
+$LANG['login_admin_local'] = 'Inicio de sesión de administrador';
+$LANG['oidc_error_init'] = 'OIDC: Error de conexión al proveedor';
+$LANG['oidc_error_init_text'] = 'No se pudo conectar al Proveedor de Identidad. Por favor, inténtelo de nuevo o contacte a su administrador.';
+$LANG['oidc_error_no_sub'] = 'OIDC: Falta el identificador de sujeto';
+$LANG['oidc_error_no_sub_text'] = 'El Proveedor de Identidad no devolvió un identificador de sujeto (claim sub). Contacte a su administrador.';
+$LANG['oidc_error_no_account'] = 'No se encontró cuenta local';
+$LANG['oidc_error_no_account_text'] = 'Su identidad fue verificada en el Proveedor de Identidad, pero no existe ninguna cuenta local de TeamCal Neo correspondiente. Contacte a su administrador.';
+$LANG['oidc_local_login_blocked'] = 'El inicio de sesión SSO está activo';
+$LANG['oidc_local_login_blocked_text'] = 'El inicio de sesión local está deshabilitado mientras SSO está activo. Por favor, use el botón "Iniciar sesión con SSO". Solo la cuenta de administrador puede iniciar sesión localmente.';
+$LANG['oidc_error_admin_local_only'] = 'La cuenta admin es solo local';
+$LANG['oidc_error_admin_local_only_text'] = 'La cuenta de administrador no puede iniciar sesión mediante SSO. Por favor, use el formulario de inicio de sesión local.';
+$LANG['oidc_error_callback'] = 'OIDC: Autenticación fallida';
+$LANG['oidc_error_callback_text'] = 'La autenticación OIDC no pudo completarse. Por favor, inténtelo de nuevo o contacte a su administrador.';
+
 $LANG['logout_title'] = 'Cerrar sesión';
 $LANG['logout_comment'] = 'Has cerrado la sesión.';

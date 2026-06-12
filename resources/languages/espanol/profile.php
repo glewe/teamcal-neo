@@ -169,3 +169,6 @@ $LANG['setup2fa_alert_success'] = 'Se configuró 2FA con éxito. Por favor, proc
 $LANG['setup2fa_comment'] = 'En su aplicación de autenticación, agregue una nueva entrada escaneando el código de barras anterior (si se muestra) o ingresando la clave secreta manualmente. Después de agregar la nueva entrada, ingrese el siguiente código generado por su aplicación en el campo a continuación y haga clic en verificar.';
 $LANG['setup2fa_required_comment'] = 'El administrador ha configurado TeamCal Neo de modo que se requiera una autenticación de dos factores para iniciar sesión. Aquí puede realizar el proceso de incorporación. Necesitará un dispositivo móvil y una aplicación de autenticación como Google Authenticator o Microsoft Authenticator.';
 $LANG['setup2fa_totp'] = 'Su código de autenticación<br><i>(seis dígitos, numérico)</i>';
+$LANG['setup2fa_oidc_managed'] = '2FA gestionado por el Proveedor de Identidad';
+$LANG['setup2fa_oidc_managed_text'] = 'La autenticación de dos factores es gestionada por su Proveedor de Identidad. No se requiere configuración local de 2FA.';
+$LANG['profile_oidc_username_note'] = 'El inicio de sesión OIDC está activo. El nombre de usuario debe coincidir exactamente con la claim <strong>preferred_username</strong> devuelta por el Proveedor de Identidad, de lo contrario el usuario no podrá iniciar sesión.';

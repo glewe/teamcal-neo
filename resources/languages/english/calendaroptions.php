@@ -79,7 +79,7 @@ $LANG['calopt_showRoleIcons_comment'] = 'Checking this option will show an icons
 $LANG['calopt_showSummary'] = 'Expand Summary';
 $LANG['calopt_showSummary_comment'] = 'Checking this option will show/expand the summary section by default.';
 $LANG['calopt_showTooltipCount'] = 'Tooltip Counter';
-$LANG['calopt_showTooltipCount_comment'] = 'Checking this option will show the amount taken for an absence type as "(taken current month/taken current year)" in the absence type tooltip when hovering it in the calendar.';
+$LANG['calopt_showTooltipCount_comment'] = 'Checking this option will show the amount taken for an absence type as "(taken current month/taken current year)" in the absence type tooltip when hovering it in the calendar. Note: This setting is performance-intensive as it requires additional database queries per absence entry. Disable it for large calendars with many users or months shown.';
 $LANG['calopt_showUserRegion'] = 'Show regional holidays per user';
 $LANG['calopt_showUserRegion_comment'] = 'If this option is on, the calendar will show the regional holidays in each user row based on the default region
  set for the user. These holidays might then differ from the global regional holidays shown in the month header. This offers a better view on regional

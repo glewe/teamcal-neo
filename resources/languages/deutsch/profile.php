@@ -194,3 +194,6 @@ $LANG['setup2fa_required_comment'] = 'Der Administrator hat konfiguriert, dass e
  Dazu benötigst du ein mobiles Gerät und eine Authenticator App wie Google Authenticator oder Microsoft Authenticator.';
 $LANG['setup2fa_title'] = 'Zwei Faktor Authentifizierung einrichten für:';
 $LANG['setup2fa_totp'] = 'Dein Authenticator Code<br><i>(sechsstellig, numerisch)</i>';
+$LANG['setup2fa_oidc_managed'] = '2FA wird vom Identity Provider verwaltet';
+$LANG['setup2fa_oidc_managed_text'] = 'Die Zwei-Faktor-Authentifizierung wird von deinem Identity Provider verwaltet. Eine lokale 2FA-Einrichtung ist nicht erforderlich.';
+$LANG['profile_oidc_username_note'] = 'OIDC-Login ist aktiv. Der Benutzername muss exakt mit dem <strong>preferred_username</strong>-Claim des Identity Providers übereinstimmen, sonst kann sich der Benutzer nicht anmelden.';

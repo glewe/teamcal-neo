@@ -79,7 +79,7 @@ $LANG['calopt_showRoleIcons_comment'] = 'Mit dieser Option wird neben dem Benutz
 $LANG['calopt_showSummary'] = 'Summen Abschnitt anzeigen';
 $LANG['calopt_showSummary_comment'] = 'Mit dieser Option wird der Summen Abschnitt standardmä&szlig;ig aufgeklappt.';
 $LANG['calopt_showTooltipCount'] = 'Tooltip Zähler';
-$LANG['calopt_showTooltipCount_comment'] = 'Wenn diese Option aktiviert ist, wird die Anzahl der genommenen Abwesenheiten als "(genommen aktueller Monat/genommen aktuelles Jahr)" im Tooltip des Abwesenheitstyps angezeigt, wenn man mit der Maus im Kalender darüber fährt.';
+$LANG['calopt_showTooltipCount_comment'] = 'Wenn diese Option aktiviert ist, wird die Anzahl der genommenen Abwesenheiten als "(genommen aktueller Monat/genommen aktuelles Jahr)" im Tooltip des Abwesenheitstyps angezeigt, wenn man mit der Maus im Kalender darüber fährt. Hinweis: Diese Einstellung ist leistungsintensiv, da sie zusätzliche Datenbankabfragen pro Abwesenheitseintrag erfordert. Deaktivieren Sie sie bei großen Kalendern mit vielen Benutzern oder angezeigten Monaten.';
 $LANG['calopt_showUserRegion'] = 'Regionale Feiertage pro User anzeigen';
 $LANG['calopt_showUserRegion_comment'] = 'Mit dieser Option zeigt der Kalender in jeder Nutzerzeile die regionalen Feiertage der Region an, die in den Optionen des
       Nutzers eingestellt ist. Diese Feiertage können sich von den globalen regionalen Feiertagen unterscheiden, die im Kopf des Kalenders angezeigt werden.

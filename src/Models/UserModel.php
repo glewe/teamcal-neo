@@ -35,6 +35,7 @@ class UserModel
   public string $last_pw_change   = DEFAULT_TIMESTAMP;
   public string $last_login       = DEFAULT_TIMESTAMP;
   public string $created          = DEFAULT_TIMESTAMP;
+  public string $oidc_sub         = '';
   public string $bad_logins_start = '';
 
   private ?PDO   $db            = null;
@@ -150,8 +151,8 @@ class UserModel
    * @return bool Query result
    */
   public function create(): bool {
-    $stmt   = 'INSERT INTO ' . $this->table . ' (username, password, firstname, lastname, email, order_key, role, locked, hidden, onhold, verify, bad_logins, grace_start, last_pw_change, last_login, created) ';
-    $stmt  .= 'VALUES (:username, :password, :firstname, :lastname, :email, :order_key, :role, :locked, :hidden, :onhold, :verify, :bad_logins, :grace_start, :last_pw_change, :last_login, :created)';
+    $stmt   = 'INSERT INTO ' . $this->table . ' (username, password, firstname, lastname, email, order_key, role, locked, hidden, onhold, verify, bad_logins, grace_start, last_pw_change, last_login, created, oidc_sub) ';
+    $stmt  .= 'VALUES (:username, :password, :firstname, :lastname, :email, :order_key, :role, :locked, :hidden, :onhold, :verify, :bad_logins, :grace_start, :last_pw_change, :last_login, :created, :oidc_sub)';
     $query  = $this->db->prepare($stmt);
     $query->bindParam(':username', $this->username);
     $query->bindParam(':password', $this->password);
@@ -169,6 +170,8 @@ class UserModel
     $query->bindParam(':last_pw_change', $this->last_pw_change);
     $query->bindParam(':last_login', $this->last_login);
     $query->bindParam(':created', $this->created);
+    $oidcSub = $this->oidc_sub !== '' ? $this->oidc_sub : null;
+    $query->bindParam(':oidc_sub', $oidcSub);
     return $query->execute();
   }
 
@@ -272,6 +275,42 @@ class UserModel
       $this->last_pw_change = $row['last_pw_change'];
       $this->last_login     = $row['last_login'];
       $this->created        = $row['created'];
+      $this->oidc_sub       = $row['oidc_sub'] ?? '';
+      return true;
+    }
+    return false;
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Finds a user record by OIDC subject identifier and fills values into local variables.
+   *
+   * @param string $oidcSub The IdP's permanent subject identifier (sub claim)
+   *
+   * @return bool True if found, false if not
+   */
+  public function findByOidcSub(string $oidcSub): bool {
+    $query = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE oidc_sub = :oidc_sub');
+    $query->bindParam(':oidc_sub', $oidcSub);
+    $result = $query->execute();
+    if ($result && $row = $query->fetch()) {
+      $this->username       = $row['username'];
+      $this->password       = $row['password'];
+      $this->firstname      = $row['firstname'];
+      $this->lastname       = $row['lastname'];
+      $this->email          = $row['email'];
+      $this->order_key      = $row['order_key'];
+      $this->role           = (int) $row['role'];
+      $this->locked         = (int) $row['locked'];
+      $this->hidden         = (int) $row['hidden'];
+      $this->onhold         = (int) $row['onhold'];
+      $this->verify         = (int) $row['verify'];
+      $this->bad_logins     = (int) $row['bad_logins'];
+      $this->grace_start    = $row['grace_start'];
+      $this->last_pw_change = $row['last_pw_change'];
+      $this->last_login     = $row['last_login'];
+      $this->created        = $row['created'];
+      $this->oidc_sub       = $row['oidc_sub'] ?? '';
       return true;
     }
     return false;
@@ -306,6 +345,7 @@ class UserModel
       $this->last_pw_change = $row['last_pw_change'];
       $this->last_login     = $row['last_login'];
       $this->created        = $row['created'];
+      $this->oidc_sub       = $row['oidc_sub'] ?? '';
       return true;
     }
     return false;
@@ -791,7 +831,8 @@ class UserModel
       grace_start = :grace_start,
       last_pw_change = :last_pw_change,
       last_login = :last_login,
-      created = :created
+      created = :created,
+      oidc_sub = :oidc_sub
       WHERE username = :where_username";
     $query = $this->db->prepare($stmt);
     $query->bindParam(':username', $this->username);
@@ -810,8 +851,33 @@ class UserModel
     $query->bindParam(':last_pw_change', $this->last_pw_change);
     $query->bindParam(':last_login', $this->last_login);
     $query->bindParam(':created', $this->created);
+    $oidcSub = $this->oidc_sub !== '' ? $this->oidc_sub : null;
+    $query->bindParam(':oidc_sub', $oidcSub);
     $query->bindParam(':where_username', $username);
     return $query->execute();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Stores the OIDC subject identifier for a given user.
+   *
+   * Called on the first successful OIDC login matched by preferred_username
+   * so that subsequent logins are looked up by sub (survives username renames).
+   *
+   * @param string $username Username of the record to update
+   * @param string $oidcSub  The IdP's permanent subject identifier
+   *
+   * @return bool Query result
+   */
+  public function saveOidcSub(string $username, string $oidcSub): bool {
+    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET oidc_sub = :oidc_sub WHERE username = :username');
+    $query->bindParam(':oidc_sub', $oidcSub);
+    $query->bindParam(':username', $username);
+    $result = $query->execute();
+    if ($result) {
+      $this->oidc_sub = $oidcSub;
+    }
+    return $result;
   }
 
   //---------------------------------------------------------------------------

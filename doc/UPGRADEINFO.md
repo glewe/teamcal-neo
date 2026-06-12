@@ -1,5 +1,30 @@
 # TeamCal Neo Upgrade Information
 
+## [5.2.x] -> [5.3.0]
+
+> **New feature:** OIDC / Single Sign-On authentication via OpenID Connect.
+> See the [OIDC Authentication admin guide](https://lewe.gitbook.io/teamcal-neo/administration/oidc-authentication) for full configuration instructions.
+
+1. Backup your current files and database!
+2. Keep a copy of your `.env` file.
+3. Delete all files and folders from your TeamCal Neo installation directory, **except the `.env` file**.
+4. Download the new release and unzip all files into the same directory.
+5. Run the database upgrade script using phpMyAdmin or any other database management tool:
+   ```
+   sql/update_5.2.0_to_5.3.0.sql
+   ```
+   This adds the `oidc_sub` column to `tcneo_users` and `tcneo_archive_users`. Existing rows are unaffected (`oidc_sub` defaults to `NULL`).
+6. **(OIDC users only)** If you want to enable SSO login, add the following keys to your `.env` file (see `.env.example` for descriptions):
+   ```
+   OIDC_YES=1
+   OIDC_PROVIDER_URL=https://your-idp.example.com/realms/your-realm
+   OIDC_CLIENT_ID=teamcal-neo
+   OIDC_CLIENT_SECRET=your-client-secret
+   OIDC_REDIRECT_URI=https://your-teamcal-server.com/index.php?action=oidccallback
+   ```
+   Leave `OIDC_YES=0` (or omit the variable) to keep the existing login behaviour unchanged.
+7. Delete `installation.php` from the root directory.
+
 ## [5.1.x] -> [5.2.x]
 
 > **Architecture change:** `APP_INSTALLED` and LDAP settings have moved from

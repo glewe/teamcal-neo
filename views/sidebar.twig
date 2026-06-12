@@ -192,7 +192,7 @@ view.sidebar
           {% if isAllowed(CONF.controllers.userlist.permission) %}
             {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.userlist.name, CONF.controllers.userlist.faIcon, LANG.mnu_admin_users) }}
           {% endif %}
-          {% if isAllowed(CONF.controllers.groups.permission) %}
+          {% if isAllowed(CONF.controllers.groups.permission) or UG.isGroupManager(userData.username) %}
             {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.groups.name, CONF.controllers.groups.faIcon, LANG.mnu_admin_groups) }}
           {% endif %}
           {% if isAllowed(CONF.controllers.roles.permission) %}

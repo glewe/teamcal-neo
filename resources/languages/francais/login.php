@@ -46,5 +46,20 @@ $LANG['login_error_95'] = 'Erreur LDAP : Nom d\'utilisateur non trouvé';
 $LANG['login_error_96'] = 'Erreur LDAP : Échec de Search bind';
 $LANG['login_error_96_text'] = 'L\'opération Search bind LDAP a échoué. Veuillez réessayer.';
 
+$LANG['login_sso_button'] = 'Se connecter avec SSO';
+$LANG['login_admin_local'] = 'Connexion administrateur';
+$LANG['oidc_error_init'] = 'OIDC : Erreur de connexion au fournisseur';
+$LANG['oidc_error_init_text'] = 'Impossible de se connecter au fournisseur d\'identité. Veuillez réessayer ou contacter votre administrateur.';
+$LANG['oidc_error_no_sub'] = 'OIDC : Identifiant de sujet manquant';
+$LANG['oidc_error_no_sub_text'] = 'Le fournisseur d\'identité n\'a pas retourné d\'identifiant de sujet (claim sub). Veuillez contacter votre administrateur.';
+$LANG['oidc_error_no_account'] = 'Aucun compte local trouvé';
+$LANG['oidc_error_no_account_text'] = 'Votre identité a été vérifiée auprès du fournisseur d\'identité, mais aucun compte TeamCal Neo local correspondant n\'existe. Veuillez contacter votre administrateur.';
+$LANG['oidc_local_login_blocked'] = 'La connexion SSO est active';
+$LANG['oidc_local_login_blocked_text'] = 'La connexion locale est désactivée tant que le SSO est actif. Veuillez utiliser le bouton « Connexion avec SSO ». Seul le compte administrateur peut se connecter localement.';
+$LANG['oidc_error_admin_local_only'] = 'Le compte admin est local uniquement';
+$LANG['oidc_error_admin_local_only_text'] = 'Le compte administrateur ne peut pas se connecter via SSO. Veuillez utiliser le formulaire de connexion locale.';
+$LANG['oidc_error_callback'] = 'OIDC : Échec de l\'authentification';
+$LANG['oidc_error_callback_text'] = 'L\'authentification OIDC n\'a pas pu être finalisée. Veuillez réessayer ou contacter votre administrateur.';
+
 $LANG['logout_title'] = 'Déconnexion';
 $LANG['logout_comment'] = 'Vous avez été déconnecté.';

@@ -103,7 +103,7 @@ class LogController extends BaseController
         $this->handleReset($logToday, $showAlert, $alertData);
       }
       elseif (isset($_POST['btn_clear'])) {
-        $this->handleClear($showAlert, $alertData);
+        $this->handleClear($logToday, $showAlert, $alertData);
       }
       elseif (isset($_POST['btn_logSave'])) {
         $this->handleSave($logtypes, $showAlert, $alertData);
@@ -325,17 +325,49 @@ class LogController extends BaseController
 
   //---------------------------------------------------------------------------
   /**
+   * Resolves the log period from POST data.
+   *
+   * Returns ['from' => ..., 'to' => ...] derived from the form values so that
+   * delete operations always use what the user sees, not stale saved config.
+   *
+   * @param array<string, string> $logToday Array containing today's date info
+   *
+   * @return array{from: string, to: string}
+   */
+  private function resolvePeriodFromPost(array $logToday): array {
+    switch ($_POST['sel_logPeriod'] ?? '') {
+      case "curr_month":
+        return ['from' => $logToday['firstOfMonth'] . ' 00:00:00.000000', 'to' => $logToday['lastOfMonth'] . ' 23:59:59.999999'];
+      case "curr_quarter":
+        return ['from' => $logToday['firstOfQuarter'] . ' 00:00:00.000000', 'to' => $logToday['lastOfQuarter'] . ' 23:59:59.999999'];
+      case "curr_half":
+        return ['from' => $logToday['firstOfHalf'] . ' 00:00:00.000000', 'to' => $logToday['lastOfHalf'] . ' 23:59:59.999999'];
+      case "curr_year":
+        return ['from' => $logToday['firstOfYear'] . ' 00:00:00.000000', 'to' => $logToday['lastOfYear'] . ' 23:59:59.999999'];
+      case "curr_all":
+        return ['from' => '2004-01-01 00:00:00.000000', 'to' => $logToday['ISO'] . ' 23:59:59.999999'];
+      case "custom":
+        if (!empty($_POST['txt_logPeriodFrom']) && !empty($_POST['txt_logPeriodTo'])) {
+          return ['from' => $_POST['txt_logPeriodFrom'] . ' 00:00:00.000000', 'to' => $_POST['txt_logPeriodTo'] . ' 23:59:59.999999'];
+        }
+        // Fall through to saved config if dates are missing
+    }
+    return ['from' => $this->allConfig['logfrom'], 'to' => $this->allConfig['logto']];
+  }
+
+  //---------------------------------------------------------------------------
+  /**
    * Clears the log entries within the selected period.
    *
-   * @param bool                 $showAlert  Reference to show alert flag
-   * @param array<string, mixed> $alertData  Reference to alert data array
+   * @param array<string, string> $logToday  Array containing today's date info
+   * @param bool                  $showAlert Reference to show alert flag
+   * @param array<string, mixed>  $alertData Reference to alert data array
    *
    * @return void
    */
-  private function handleClear(bool &$showAlert, array &$alertData): void {
-    $periodFrom = $this->allConfig['logfrom'];
-    $periodTo   = $this->allConfig['logto'];
-    $this->LOG->delete($periodFrom, $periodTo);
+  private function handleClear(array $logToday, bool &$showAlert, array &$alertData): void {
+    $period = $this->resolvePeriodFromPost($logToday);
+    $this->LOG->delete($period['from'], $period['to']);
     $this->LOG->logEvent("logLog", $this->UL->username, "log_log_cleared");
     header("Location: index.php?action=log");
     die();

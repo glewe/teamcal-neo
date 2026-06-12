@@ -2,6 +2,21 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '5.3.0',
+    'date' => '2026-06-12',
+    'info' => 'Improvement release. Check the manual for the newly introduced OIDC feature.',
+    'bugfixes' => [
+    ],
+    'features' => [
+      [ 'summary' => 'New OIDC authentication feature', 'issue' => 'https://github.com/glewe/teamcal-neo/issues/23' ],
+    ],
+    'improvements' => [
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '5.2.0',
     'date' => '2026-06-09',
     'info' => 'Improvement and Bugfix release. ATTENTION: The installation procedure has changed. Please check the updated doc/UPGRADEINFO.md file.',

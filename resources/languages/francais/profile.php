@@ -172,3 +172,6 @@ $LANG['setup2fa_alert_success'] = 'Votre authentification à deux facteurs a ét
 $LANG['setup2fa_comment'] = 'Dans votre application d\'authentification, scannez le code-barres ou saisissez la clé secrète manuellement. Saisissez ensuite le code généré ci-dessous.';
 $LANG['setup2fa_required_comment'] = 'L\'administrateur a rendu obligatoire l\'authentification à deux facteurs. Vous devez effectuer cette configuration pour vous connecter.';
 $LANG['setup2fa_totp'] = 'Votre code d\'authentification<br><i>(six chiffres)</i>';
+$LANG['setup2fa_oidc_managed'] = '2FA géré par le fournisseur d\'identité';
+$LANG['setup2fa_oidc_managed_text'] = 'L\'authentification à deux facteurs est gérée par votre fournisseur d\'identité. Aucune configuration locale de 2FA n\'est requise.';
+$LANG['profile_oidc_username_note'] = 'La connexion OIDC est active. Le nom d\'utilisateur doit correspondre exactement au claim <strong>preferred_username</strong> retourné par le fournisseur d\'identité, sinon l\'utilisateur ne pourra pas se connecter.';

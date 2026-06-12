@@ -21,6 +21,13 @@ class InstallationException extends \Exception {}
 define('VALID_ROOT', 1);
 define('WEBSITE_ROOT', __DIR__);
 
+require_once WEBSITE_ROOT . '/vendor/autoload.php';
+
+if (file_exists(WEBSITE_ROOT . '/.env')) {
+  $dotenv = Dotenv\Dotenv::createImmutable(WEBSITE_ROOT);
+  $dotenv->load();
+}
+
 require_once WEBSITE_ROOT . '/config/config.app.php';
 require_once WEBSITE_ROOT . '/src/Helpers/global.helper.php';
 

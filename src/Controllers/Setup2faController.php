@@ -31,6 +31,11 @@ class Setup2faController extends BaseController
    */
   public function execute(): void {
 
+    if (defined('OIDC_YES') && OIDC_YES) {
+      $this->renderAlert('info', $this->LANG['alert_info_title'], $this->LANG['setup2fa_oidc_managed'], $this->LANG['setup2fa_oidc_managed_text']);
+      return;
+    }
+
     if ($this->allConfig['disableTfa']) {
       $this->renderAlert('info', $this->LANG['alert_info_title'], $this->LANG['alert_not_enabled_subject'], $this->LANG['alert_not_enabled_text']);
       return;

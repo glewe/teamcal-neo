@@ -46,5 +46,20 @@ $LANG['login_error_95'] = 'LDAP error: Username not found';
 $LANG['login_error_96'] = 'LDAP error: Search bind failed';
 $LANG['login_error_96_text'] = 'The LDAP search bind failed. Please try again.';
 
+$LANG['login_sso_button'] = 'Login with SSO';
+$LANG['login_admin_local'] = 'Administrator login';
+$LANG['oidc_error_init'] = 'OIDC: Provider connection error';
+$LANG['oidc_error_init_text'] = 'Could not connect to the Identity Provider. Please try again or contact your administrator.';
+$LANG['oidc_error_no_sub'] = 'OIDC: Missing subject identifier';
+$LANG['oidc_error_no_sub_text'] = 'The Identity Provider did not return a subject identifier (sub claim). Contact your administrator.';
+$LANG['oidc_error_no_account'] = 'No local account found';
+$LANG['oidc_error_no_account_text'] = 'Your identity was verified at the Identity Provider, but no matching local TeamCal Neo account exists. Contact your administrator.';
+$LANG['oidc_local_login_blocked'] = 'SSO login is active';
+$LANG['oidc_local_login_blocked_text'] = 'Local login is disabled while SSO is active. Please use the "Login with SSO" button. Only the administrator account can use local login.';
+$LANG['oidc_error_admin_local_only'] = 'Admin account is local-only';
+$LANG['oidc_error_admin_local_only_text'] = 'The administrator account cannot log in via SSO. Please use the local login form.';
+$LANG['oidc_error_callback'] = 'OIDC: Authentication failed';
+$LANG['oidc_error_callback_text'] = 'The OIDC authentication could not be completed. Please try again or contact your administrator.';
+
 $LANG['logout_title'] = 'Logout';
 $LANG['logout_comment'] = 'You have been logged out.';

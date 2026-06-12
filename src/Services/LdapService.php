@@ -80,21 +80,21 @@ class LdapService
     //
     // Test anonymous bind. If that fails: Unable to connect to LDAP server
     //
-    if ($checkAnonymousBind && !@ldap_bind($ds)) {
+    if ($checkAnonymousBind && !@ldap_bind($ds)) { // @phpstan-ignore booleanAnd.leftAlwaysFalse
       return 93;
     }
 
     //
     // Start TLS
     //
-    if ($ldaptls && !ldap_start_tls($ds)) {
+    if ($ldaptls && !ldap_start_tls($ds)) { // @phpstan-ignore booleanAnd.leftAlwaysFalse
       return 94;
     }
 
     //
     // LDAP Search bind
     //
-    if ($searchBind && !@ldap_bind($ds, $ldaprdn, $ldappass)) {
+    if ($searchBind && !@ldap_bind($ds, $ldaprdn, $ldappass)) { // @phpstan-ignore booleanAnd.leftAlwaysFalse
       return 96;
     }
 
@@ -104,7 +104,7 @@ class LdapService
     $info         = null;
     $safeUsername = ldap_escape($username, "", LDAP_ESCAPE_FILTER);
 
-    if (defined('LDAP_ADS') && LDAP_ADS) {
+    if (defined('LDAP_ADS') && LDAP_ADS) { // @phpstan-ignore booleanAnd.rightAlwaysFalse
       $search = ldap_search($ds, $searchbase, "sAMAccountName=" . $safeUsername, $attr);
       if ($search) {
         $info = ldap_first_entry($ds, $search);

@@ -35,6 +35,12 @@
             <!-- Personal tab -->
             <div class="card">
               <div class="card-body">
+                {% if oidcEnabled %}
+                  <div class="alert alert-info d-flex align-items-start gap-2 mb-3" role="alert">
+                    <i class="fas fa-circle-info mt-1 flex-shrink-0"></i>
+                    <span>{{ LANG.profile_oidc_username_note|raw }}</span>
+                  </div>
+                {% endif %}
                 {% for formObject in personal %}
                   {% set tabindex = tabindex + 1 %}
                   {{ macros.form_group(formObject, colsleft, colsright, tabindex) }}

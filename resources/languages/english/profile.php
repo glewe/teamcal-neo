@@ -187,3 +187,6 @@ $LANG['setup2fa_comment'] = 'In your authenticator app, add a new entry by scann
 $LANG['setup2fa_required_comment'] = 'The administrator has set up TeamCal Neo so that a two factor authentication is required to log in. Here you can do the onboarding process.
  You will need a mobile device and an authenticator app like Google Authenticator or Microsoft Authenticator.';
 $LANG['setup2fa_totp'] = 'Your authenticator code<br><i>(six digits, numeric)</i>';
+$LANG['setup2fa_oidc_managed'] = '2FA managed by Identity Provider';
+$LANG['setup2fa_oidc_managed_text'] = 'Two-factor authentication is managed by your Identity Provider. No local 2FA setup is required.';
+$LANG['profile_oidc_username_note'] = 'OIDC login is active. The username must exactly match the <strong>preferred_username</strong> claim returned by the Identity Provider, otherwise the user will not be able to log in.';

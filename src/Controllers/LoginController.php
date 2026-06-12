@@ -33,6 +33,7 @@ class LoginController extends BaseController
     $viewData['pageHelp']   = $this->allConfig['pageHelp'];
     $viewData['showAlerts'] = $this->allConfig['showAlerts'];
     $tfa                    = new TwoFactorAuth(new QRServerProvider(), 'TeamCal Neo');
+    $oidcEnabled            = defined('OIDC_YES') && (bool) OIDC_YES;
 
     // Variable Defaults
     $showAlert = false;
@@ -63,6 +64,17 @@ class LoginController extends BaseController
         if (isset($_POST['pword'])) {
           $pword = $_POST['pword'];
         }
+
+        // When OIDC is active only the admin account may use local login
+        if ($oidcEnabled && $uname !== 'admin') {
+          $showAlert         = true;
+          $alertData['type']    = 'warning';
+          $alertData['title']   = $this->LANG['alert_warning_title'];
+          $alertData['subject'] = $this->LANG['oidc_local_login_blocked'];
+          $alertData['text']    = $this->LANG['oidc_local_login_blocked_text'];
+          $alertData['help']    = '';
+        }
+        else {
 
         switch ($this->L->loginUser($uname, $pword)) {
           case 0:
@@ -242,6 +254,8 @@ class LoginController extends BaseController
           default:
             break;
         }
+
+        } // end else (OIDC guard)
       }
       // Renew CSRF token
       if (isset($_SESSION)) {
@@ -259,15 +273,16 @@ class LoginController extends BaseController
 
     // Show View
     $this->render('login', [
-      'viewData'   => $viewData,
-      'alertData'  => $alertData,
-      'showAlert'  => $showAlert,
-      'alertHtml'  => $alertHtml, // New variable
-      'uname'      => $uname,
-      'controller' => 'login',
-      'CONF'       => $this->CONF,
-      'LANG'       => $this->LANG,
-      'csrf_token' => $_SESSION['csrf_token'] ?? ''
+      'viewData'    => $viewData,
+      'alertData'   => $alertData,
+      'showAlert'   => $showAlert,
+      'alertHtml'   => $alertHtml,
+      'uname'       => $uname,
+      'oidcEnabled' => $oidcEnabled,
+      'controller'  => 'login',
+      'CONF'        => $this->CONF,
+      'LANG'        => $this->LANG,
+      'csrf_token'  => $_SESSION['csrf_token'] ?? ''
     ]);
   }
 }
