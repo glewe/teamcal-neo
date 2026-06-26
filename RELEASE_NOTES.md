@@ -1,4 +1,7 @@
-Improvement release. Check the manual for the newly introduced OIDC feature.
+Improvement release.
 
-**Features**
-- New OIDC authentication feature ([Issue](https://github.com/glewe/teamcal-neo/issues/23))
+**Bugfixes**
+- Fix sample.sql script (add missing id field to group table)
+
+**Improvements**
+- Each month table is lazy loaded one by one (improved performance when loading multiple months)

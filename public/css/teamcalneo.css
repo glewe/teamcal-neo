@@ -11,6 +11,22 @@
 
 /**
  * ----------------------------------------------------------------------------
+ * Calendar lazy-load placeholder (PERFORMANCE_2 Step 6)
+ * ----------------------------------------------------------------------------
+ */
+.cal-month-placeholder {
+  min-height: 4rem;
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.cal-month-loading {
+  color: var(--bs-secondary-color, #6c757d);
+}
+
+/**
+ * ----------------------------------------------------------------------------
  * Bootstrap overwrites and additions
  * ----------------------------------------------------------------------------
  */

@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'glewe/teamcal-neo',
-        'pretty_version' => '5.3.0',
-        'version' => '5.3.0.0',
+        'pretty_version' => '5.3.1',
+        'version' => '5.3.1.0',
         'reference' => null,
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
@@ -20,8 +20,8 @@
             'dev_requirement' => false,
         ),
         'glewe/teamcal-neo' => array(
-            'pretty_version' => '5.3.0',
-            'version' => '5.3.0.0',
+            'pretty_version' => '5.3.1',
+            'version' => '5.3.1.0',
             'reference' => null,
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
@@ -101,9 +101,9 @@
             'dev_requirement' => false,
         ),
         'phpseclib/phpseclib' => array(
-            'pretty_version' => '3.0.53',
-            'version' => '3.0.53.0',
-            'reference' => '511ddc8e352d5d1f1e33bea468b6f4ef48438cf9',
+            'pretty_version' => '3.0.55',
+            'version' => '3.0.55.0',
+            'reference' => 'db9744e6d47e742b1f974e965ad49bdd041105af',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpseclib/phpseclib',
             'aliases' => array(),

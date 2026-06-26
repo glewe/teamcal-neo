@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb0c2c4aa21320ee6890c7d79274e5abc
+class ComposerStaticInit5e5e593963e09858063b063bbf16bc70
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -144,6 +144,7 @@ class ComposerStaticInitb0c2c4aa21320ee6890c7d79274e5abc
         'App\\Controllers\\CalendarEditController' => __DIR__ . '/../..' . '/src/Controllers/CalendarEditController.php',
         'App\\Controllers\\CalendarOptionsController' => __DIR__ . '/../..' . '/src/Controllers/CalendarOptionsController.php',
         'App\\Controllers\\CalendarViewController' => __DIR__ . '/../..' . '/src/Controllers/CalendarViewController.php',
+        'App\\Controllers\\CalendarViewMonthController' => __DIR__ . '/../..' . '/src/Controllers/CalendarViewMonthController.php',
         'App\\Controllers\\ConfigController' => __DIR__ . '/../..' . '/src/Controllers/ConfigController.php',
         'App\\Controllers\\DatabaseController' => __DIR__ . '/../..' . '/src/Controllers/DatabaseController.php',
         'App\\Controllers\\DataprivacyController' => __DIR__ . '/../..' . '/src/Controllers/DataprivacyController.php',
@@ -227,6 +228,7 @@ class ComposerStaticInitb0c2c4aa21320ee6890c7d79274e5abc
         'App\\Models\\UserModel' => __DIR__ . '/../..' . '/src/Models/UserModel.php',
         'App\\Models\\UserOptionModel' => __DIR__ . '/../..' . '/src/Models/UserOptionModel.php',
         'App\\Services\\AbsenceService' => __DIR__ . '/../..' . '/src/Services/AbsenceService.php',
+        'App\\Services\\CalendarMonthBuilderService' => __DIR__ . '/../..' . '/src/Services/CalendarMonthBuilderService.php',
         'App\\Services\\CaptchaService' => __DIR__ . '/../..' . '/src/Services/CaptchaService.php',
         'App\\Services\\LdapService' => __DIR__ . '/../..' . '/src/Services/LdapService.php',
         'App\\Services\\UserService' => __DIR__ . '/../..' . '/src/Services/UserService.php',
@@ -1175,10 +1177,10 @@ class ComposerStaticInitb0c2c4aa21320ee6890c7d79274e5abc
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb0c2c4aa21320ee6890c7d79274e5abc::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb0c2c4aa21320ee6890c7d79274e5abc::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitb0c2c4aa21320ee6890c7d79274e5abc::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitb0c2c4aa21320ee6890c7d79274e5abc::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5e5e593963e09858063b063bbf16bc70::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5e5e593963e09858063b063bbf16bc70::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit5e5e593963e09858063b063bbf16bc70::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit5e5e593963e09858063b063bbf16bc70::$classMap;
 
         }, null, ClassLoader::class);
     }

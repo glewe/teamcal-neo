@@ -42,6 +42,7 @@ $LANG['cal_tt_backward'] = 'Einen Monat zurück...';
 $LANG['cal_tt_clicktoedit'] = 'Klicke zum Bearbeiten...';
 $LANG['cal_tt_forward'] = 'Einen Monat vorwärts...';
 $LANG['cal_tt_oneless'] = 'Einen Monat weniger anzeigen...';
+$LANG['cal_loading_month'] = 'Monat wird geladen...';
 $LANG['cal_tt_onemore'] = 'Einen Monat mehr anzeigen...';
 
 //

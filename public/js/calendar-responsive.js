@@ -24,6 +24,8 @@
       var px = entries[0].contentRect.width;
       var next = mapWidthToBreakpoint(px);
       if (next !== currentBreakpoint) {
+        var overlay = document.getElementById('tcn-loading-overlay');
+        if (overlay) overlay.style.display = 'flex';
         var url = new URL(window.location.href);
         url.searchParams.set('width', next);
         window.location.href = url.toString();

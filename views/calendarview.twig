@@ -5,8 +5,19 @@
 
     {% if calendaronly %}
 
+      {# Month 1 — server-rendered #}
       {% for month in months %}
         {% include 'calendarviewmonth.twig' with { 'month': month } %}
+      {% endfor %}
+
+      {# Months 2–N — lazy-loaded placeholders #}
+      {% for p in monthPlaceholders %}
+        <div class="cal-month-placeholder"
+             data-src="index.php?action=calendarviewmonth&month={{ p.year }}{{ p.month }}&region={{ p.region }}&group={{ p.group }}&abs={{ p.abs }}&page={{ p.page }}&viewmode={{ p.viewmode }}&calendaronly=1">
+          <div class="cal-month-loading">
+            <span class="fas fa-spinner fa-spin"></span> {{ LANG.cal_loading_month|default('Loading…') }}
+          </div>
+        </div>
       {% endfor %}
 
     {% else %}
@@ -21,21 +32,33 @@
         <input name="csrf_token" type="hidden" value="{{ csrf_token }}">
         <input name="hidden_month" type="hidden" value="{{ month }}">
         <input name="hidden_region" type="hidden" value="{{ regionid }}">
-        <input name="hidden_showmonths" type="hidden" value="{{ months|length }}">
+        <input name="hidden_showmonths" type="hidden" value="{{ months|length + monthPlaceholders|length }}">
 
         {% include 'calendarviewpagemenu.twig' %}
 
+        {# Month 1 — server-rendered #}
         {% for month in months %}
           {% include 'calendarviewmonth.twig' with { 'month': month } %}
         {% endfor %}
 
+        {# Months 2–N — lazy-loaded placeholders #}
+        {% for p in monthPlaceholders %}
+          <div class="cal-month-placeholder"
+               data-src="index.php?action=calendarviewmonth&month={{ p.year }}{{ p.month }}&region={{ p.region }}&group={{ p.group }}&abs={{ p.abs }}&page={{ p.page }}&viewmode={{ p.viewmode }}">
+            <div class="cal-month-loading">
+              <span class="fas fa-spinner fa-spin"></span> {{ LANG.cal_loading_month|default('Loading…') }}
+            </div>
+          </div>
+        {% endfor %}
+
+        {% set totalMonths = months|length + monthPlaceholders|length %}
         <div style="text-align: right;">
-          {% if months|length < 12 %}
+          {% if totalMonths < 12 %}
             <button type="submit" name="btn_onemore" class="btn btn-secondary" data-bs-placement="top" data-bs-custom-class="secondary" data-bs-toggle="tooltip" title="{{ LANG.cal_tt_onemore }}">
               <span class="fas fa-plus"></span>
             </button>
           {% endif %}
-          {% if months|length > 1 %}
+          {% if totalMonths > 1 %}
             <button type="submit" name="btn_oneless" class="btn btn-secondary" style="margin-right:4px;" data-bs-placement="tooltip-top" data-bs-custom-class="secondary" data-bs-toggle="tooltip" title="{{ LANG.cal_tt_oneless }}">
               <span class="fas fa-minus"></span>
             </button>
@@ -177,4 +200,28 @@
 
 {% block javascripts %}
   <script src="public/js/calendar-responsive.js"></script>
+  <script src="public/js/calendarLazyLoad.js"></script>
+  <script>
+    (function () {
+      function showCalendarLoadingOverlay() {
+        var overlay = document.getElementById('tcn-loading-overlay');
+        if (overlay) overlay.style.display = 'flex';
+      }
+
+      // Show on form submit (handles all submit buttons: month/region/group/absence/search/onemore/oneless/reset)
+      var form = document.querySelector('form.form-control-horizontal');
+      if (form) {
+        form.addEventListener('submit', showCalendarLoadingOverlay);
+      }
+
+      // Show on navigation and pagination link clicks (only calendarview links, not navbar/other-page links)
+      document.querySelectorAll('a[href*="action=calendarview"]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          if (!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
+            showCalendarLoadingOverlay();
+          }
+        });
+      });
+    }());
+  </script>
 {% endblock %}

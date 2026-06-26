@@ -227,6 +227,7 @@ $LANG['green'] = 'Grün';
 $LANG['grey'] = 'Grau';
 $LANG['group'] = 'Gruppe';
 $LANG['license'] = 'TeamCal Neo Lizenz';
+$LANG['loading'] = 'Laden, bitte warten...';
 $LANG['magenta'] = 'Magenta';
 $LANG['month'] = 'Monat';
 $LANG['monthShort'] = array(

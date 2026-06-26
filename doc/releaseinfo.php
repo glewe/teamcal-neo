@@ -2,6 +2,22 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '5.3.1',
+    'date' => '2026-06-26',
+    'info' => 'Improvement release.',
+    'bugfixes' => [
+      [ 'summary' => 'Fix sample.sql script (add missing id field to group table)', 'issue' => '' ],
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Each month table is lazy loaded one by one (improved performance when loading multiple months)', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '5.3.0',
     'date' => '2026-06-12',
     'info' => 'Improvement release. Check the manual for the newly introduced OIDC feature.',

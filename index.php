@@ -304,6 +304,25 @@ $container->set('UserService', function ($c) {
   );
 });
 
+$container->set('CalendarMonthBuilderService', function ($c) {
+  return new App\Services\CalendarMonthBuilderService(
+    $c->get('AbsenceModel'),
+    $c->get('ConfigModel'),
+    $c->get('DaynoteModel'),
+    $c->get('HolidayModel'),
+    $c->get('LogModel'),
+    $c->get('TemplateModel'),
+    $c->get('UserGroupModel'),
+    $c->get('UserModel'),
+    $c->get('UserLoggedIn'),
+    $c->get('UserOptionModel'),
+    $c->get('AbsenceService'),
+    $c->get('allConfig'),
+    $c->get('CONF'),
+    $c->get('LANG')
+  );
+});
+
 // Primary classes
 $container->set('Request', function () {
   return new Request();
@@ -696,6 +715,7 @@ $router->add('bulkedit', 'App\Controllers\BulkEditController');
 $router->add('calendaredit', 'App\Controllers\CalendarEditController');
 $router->add('calendaroptions', 'App\Controllers\CalendarOptionsController');
 $router->add('calendarview', 'App\Controllers\CalendarViewController');
+$router->add('calendarviewmonth', 'App\Controllers\CalendarViewMonthController');
 $router->add('config', 'App\Controllers\ConfigController');
 $router->add('database', 'App\Controllers\DatabaseController');
 $router->add('dataprivacy', 'App\Controllers\DataprivacyController');

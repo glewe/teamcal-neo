@@ -596,6 +596,7 @@ class LanguageLoader
       'calendaredit'      => ['calendar', 'calendaroptions'],
       'calendaroptions'   => ['calendaroptions'],
       'calendarview'      => ['calendar', 'calendaroptions'],
+      'calendarviewmonth' => ['calendar', 'calendaroptions'],
       'config'            => ['config'],
       'database'          => ['database'],
       'dataprivacy'       => ['gdpr'],

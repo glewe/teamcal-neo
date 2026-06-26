@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Core\BaseController;
-use App\Models\MonthModel;
 
 /**
  * Calendar View Controller
@@ -282,132 +281,90 @@ class CalendarViewController extends BaseController
 
     $viewData['viewmode'] = $viewmode;
 
-    // Build Months
+    // Build Months — month 1 fully; placeholder metadata for months 2–N (no DB queries).
+    $viewData['monthPlaceholders'] = [];
+    $lazyPage                      = $viewData['page'] ?? 1;
+
     if ($viewmode === 'splitmonth') {
       $currYear  = intval($viewData['year']);
       $currMonth = intval($viewData['month']);
 
-      for ($splitIdx = 0; $splitIdx < $showMonths; $splitIdx++) {
-        $nextMonth = $currMonth + 1;
-        $nextYear  = $currYear;
-        if ($nextMonth > 12) {
-          $nextMonth = 1;
-          $nextYear++;
-        }
+      // Build first split-pair fully
+      $viewData['months'][] = $this->CalendarMonthBuilder->buildMonthMeta(
+        (string) $currYear,
+        sprintf('%02d', $currMonth),
+        (string) $viewData['regionid'],
+        $viewData['regionname'],
+        $viewmode
+      );
+      $currMonth++;
+      if ($currMonth > 12) {
+        $currMonth = 1;
+        $currYear++;
+      }
 
-        $currMonthInfo = dateInfo((string) $currYear, sprintf('%02d', $currMonth));
-        $nextMonthInfo = dateInfo((string) $nextYear, sprintf('%02d', $nextMonth));
-
-        $M = new MonthModel();
-        if (!$M->getMonth((string) $currYear, sprintf('%02d', $currMonth), $viewData['regionid'])) {
-          createMonth((string) $currYear, sprintf('%02d', $currMonth), 'region', $viewData['regionid']);
-          $M->getMonth((string) $currYear, sprintf('%02d', $currMonth), $viewData['regionid']);
-        }
-
-        $nextM = new MonthModel();
-        if (!$nextM->getMonth((string) $nextYear, sprintf('%02d', $nextMonth), $viewData['regionid'])) {
-          createMonth((string) $nextYear, sprintf('%02d', $nextMonth), 'region', $viewData['regionid']);
-          $nextM->getMonth((string) $nextYear, sprintf('%02d', $nextMonth), $viewData['regionid']);
-          if ($this->allConfig['emailNotifications']) {
-            sendMonthEventNotifications("created", (string) $nextYear, sprintf('%02d', $nextMonth), $viewData['regionname']);
-          }
-          $this->LOG->logEvent("logMonth", $this->isLoggedIn() ? $this->UL->username : "", "log_month_tpl_created", $nextM->region . ": " . $nextM->year . "-" . $nextM->month);
-        }
-
-        $viewData['months'][] = [
-          'year'          => $currYear,
-          'month'         => sprintf('%02d', $currMonth),
-          'dateInfo'      => $currMonthInfo,
-          'dayStart'      => $currMonthInfo['daysInMonth'] - 14,
-          'dayEnd'        => $currMonthInfo['daysInMonth'],
-          'nextMonthInfo' => $nextMonthInfo,
-          'nextMonthDays' => 15,
-          'isSplitMonth'  => true,
-          'M'             => $M,
-          'nextM'         => $nextM,
-          'dayStyles'     => [],
-          'businessDays'  => 0,
-          'dayAbsCount'   => [],
-          'dayPresCount'  => [],
+      // Placeholder entries for remaining split-pairs 2..N
+      for ($splitIdx = 1; $splitIdx < $showMonths; $splitIdx++) {
+        $viewData['monthPlaceholders'][] = [
+          'year'     => sprintf('%04d', $currYear),
+          'month'    => sprintf('%02d', $currMonth),
+          'region'   => $viewData['regionid'],
+          'group'    => $groupfilter,
+          'abs'      => $absfilter,
+          'page'     => $lazyPage,
+          'viewmode' => $viewmode,
         ];
-
-        $currMonth = $nextMonth;
-        $currYear  = $nextYear;
+        $currMonth++;
+        if ($currMonth > 12) {
+          $currMonth = 1;
+          $currYear++;
+        }
       }
     }
     else {
-      $M = new MonthModel();
-      if (!$M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid'])) {
-        createMonth($viewData['year'], $viewData['month'], 'region', $viewData['regionid']);
-        $M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']);
-        if ($this->allConfig['emailNotifications']) {
-          sendMonthEventNotifications("created", $viewData['year'], $viewData['month'], $viewData['regionname']);
-        }
-        $this->LOG->logEvent("logMonth", $this->isLoggedIn() ? $this->UL->username : "", "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
-      }
-      $viewData['months'] = [
-        [
-          'year'         => $viewData['year'],
-          'month'        => $viewData['month'],
-          'dateInfo'     => dateInfo($viewData['year'], $viewData['month']),
-          'M'            => $M,
-          'dayStyles'    => [],
-          'businessDays' => 0,
-          'dayAbsCount'  => [],
-          'dayPresCount' => [],
-        ],
-      ];
-    }
+      // fullmonth: build month 1 fully
+      $viewData['months'][] = $this->CalendarMonthBuilder->buildMonthMeta(
+        $viewData['year'],
+        $viewData['month'],
+        (string) $viewData['regionid'],
+        $viewData['regionname'],
+        $viewmode
+      );
 
-    if ($showMonths > 1 && $viewmode === 'fullmonth') {
-      $prevYear  = intval($viewData['year']);
-      $prevMonth = intval($viewData['month']);
-      for ($i = 2; $i <= $showMonths; $i++) {
-        if ($prevMonth == 12) {
-          if ($this->allConfig['currentYearOnly'] && $this->allConfig["currYearRoles"]) {
-            $arrCurrYearRoles = explode(',', $this->allConfig["currYearRoles"]);
-            $userRole         = $this->U->getRole($this->isLoggedIn() ? $this->UL->username : "");
-            if (in_array($userRole, $arrCurrYearRoles)) {
-              $i = $showMonths + 1;
-              continue;
+      // Placeholder entries for months 2..N
+      if ($showMonths > 1) {
+        $prevYear  = intval($viewData['year']);
+        $prevMonth = intval($viewData['month']);
+
+        for ($i = 2; $i <= $showMonths; $i++) {
+          if ($prevMonth == 12) {
+            if ($this->allConfig['currentYearOnly'] && $this->allConfig["currYearRoles"]) {
+              $arrCurrYearRoles = explode(',', $this->allConfig["currYearRoles"]);
+              $userRole         = $this->U->getRole($this->isLoggedIn() ? $this->UL->username : "");
+              if (in_array($userRole, $arrCurrYearRoles)) {
+                break;
+              }
             }
-            else {
-              $nextMonth = "01";
-              $nextYear  = $prevYear + 1;
-            }
-          }
-          else {
             $nextMonth = "01";
             $nextYear  = $prevYear + 1;
           }
-        }
-        else {
-          $nextMonth = sprintf('%02d', $prevMonth + 1);
-          $nextYear  = $prevYear;
-        }
-
-        $M = new MonthModel();
-        if (!$M->getMonth((string) $nextYear, $nextMonth, $viewData['regionid'])) {
-          createMonth((string) $nextYear, $nextMonth, 'region', $viewData['regionid']);
-          $M->getMonth((string) $nextYear, $nextMonth, $viewData['regionid']);
-          if ($this->allConfig['emailNotifications']) {
-            sendMonthEventNotifications("created", (string) $nextYear, $nextMonth, $viewData['regionname']);
+          else {
+            $nextMonth = sprintf('%02d', $prevMonth + 1);
+            $nextYear  = $prevYear;
           }
-          $this->LOG->logEvent("logMonth", $this->isLoggedIn() ? $this->UL->username : "", "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
-        }
 
-        $viewData['months'][] = [
-          'year'         => $nextYear,
-          'month'        => $nextMonth,
-          'dateInfo'     => dateInfo((string) $nextYear, $nextMonth),
-          'M'            => $M,
-          'dayStyles'    => [],
-          'businessDays' => 0,
-          'dayAbsCount'  => [],
-          'dayPresCount' => [],
-        ];
-        $prevYear             = intval($nextYear);
-        $prevMonth            = intval($nextMonth);
+          $viewData['monthPlaceholders'][] = [
+            'year'     => (string) $nextYear,
+            'month'    => $nextMonth,
+            'region'   => $viewData['regionid'],
+            'group'    => $groupfilter,
+            'abs'      => $absfilter,
+            'page'     => $lazyPage,
+            'viewmode' => $viewmode,
+          ];
+          $prevYear  = intval($nextYear);
+          $prevMonth = intval($nextMonth);
+        }
       }
     }
 
@@ -444,171 +401,6 @@ class CalendarViewController extends BaseController
           createMonth((string) $vmonth['year'], (string) $vmonth['month'], 'user', $user['username']);
         }
       }
-    }
-
-    // Styles and Business Days (Simplified for brevity, logic is same as original)
-    // ... (Copying the style generation loop) ...
-    // I'll include the style generation loop because it's critical for the view.
-
-    $holidayColors = [];
-    $allHolidays   = $this->H->getAll();
-    foreach ($allHolidays as $holiday) {
-      $holidayColors[$holiday['id']] = ['color' => $holiday['color'], 'bgcolor' => $holiday['bgcolor']];
-    }
-
-    $weekendColors    = [];
-    $weekendColors[6] = $holidayColors[2] ?? ['color' => '000000', 'bgcolor' => 'ffffff']; // Sat
-    $weekendColors[7] = $holidayColors[3] ?? ['color' => '000000', 'bgcolor' => 'ffffff']; // Sun
-
-    $j                = 0;
-    $todayBorderStyle = 'border-left: ' . $this->allConfig["todayBorderSize"] . 'px solid #' . $this->allConfig["todayBorderColor"] . ';border-right: ' . $this->allConfig["todayBorderSize"] . 'px solid #' . $this->allConfig["todayBorderColor"] . ';';
-    $currDate         = date('Y-m-d');
-
-    foreach ($viewData['months'] as $j => $vmonth) {
-      $dayStyles = [];
-      $monthObj  = $vmonth['M'];
-      $monthNum  = intval($vmonth['month']);
-      $yearNum   = intval($vmonth['year']);
-
-      // Main Month Days
-      for ($i = 1; $i <= $vmonth['dateInfo']['daysInMonth']; $i++) {
-        $hprop     = 'hol' . $i;
-        $wprop     = 'wday' . $i;
-        $holidayId = (int) $monthObj->$hprop;
-        $weekday   = (int) $monthObj->$wprop;
-        $color     = '';
-        $bgcolor   = '';
-        $border    = '';
-
-        if ($holidayId && isset($holidayColors[$holidayId])) {
-          if ($this->H->keepWeekendColor((string) $holidayId) && ($weekday == 6 || $weekday == 7)) {
-            $wc      = $weekendColors[$weekday];
-            $color   = 'color:#' . $wc['color'] . ';';
-            $bgcolor = 'background-color:#' . $wc['bgcolor'] . ';';
-          }
-          else {
-            $color   = 'color:#' . $holidayColors[$holidayId]['color'] . ';';
-            $bgcolor = 'background-color:#' . $holidayColors[$holidayId]['bgcolor'] . ';';
-          }
-        }
-        elseif ($weekday == 6 || $weekday == 7) {
-          $wc      = $weekendColors[$weekday];
-          $color   = 'color:#' . $wc['color'] . ';';
-          $bgcolor = 'background-color:#' . $wc['bgcolor'] . ';';
-        }
-
-        if (date('Y-m-d', mktime(0, 0, 0, $monthNum, $i, $yearNum)) == $currDate) {
-          $border = $todayBorderStyle;
-        }
-
-        if ($color || $bgcolor || $border) {
-          $dayStyles[$i] = $color . $bgcolor . $border;
-        }
-      }
-
-      // Split Month Next 15 Days
-      if (isset($vmonth['isSplitMonth'])) {
-        $nextMonthObj = $vmonth['nextM'];
-        $nextMonthNum = $monthNum + 1 > 12 ? 1 : $monthNum + 1;
-        $nextYearNum  = $monthNum + 1 > 12 ? $yearNum + 1 : $yearNum;
-
-        for ($i = 1; $i <= 15; $i++) {
-          $hprop     = 'hol' . $i;
-          $wprop     = 'wday' . $i;
-          $holidayId = (int) $nextMonthObj->$hprop;
-          $weekday   = (int) $nextMonthObj->$wprop;
-          $color     = '';
-          $bgcolor   = '';
-          $border    = '';
-
-          if ($holidayId && isset($holidayColors[$holidayId])) {
-            if ($this->H->keepWeekendColor((string) $holidayId) && ($weekday == 6 || $weekday == 7)) {
-              $wc      = $weekendColors[$weekday];
-              $color   = 'color:#' . $wc['color'] . ';';
-              $bgcolor = 'background-color:#' . $wc['bgcolor'] . ';';
-            }
-            else {
-              $color   = 'color:#' . $holidayColors[$holidayId]['color'] . ';';
-              $bgcolor = 'background-color:#' . $holidayColors[$holidayId]['bgcolor'] . ';';
-            }
-          }
-          elseif ($weekday == 6 || $weekday == 7) {
-            $wc      = $weekendColors[$weekday];
-            $color   = 'color:#' . $wc['color'] . ';';
-            $bgcolor = 'background-color:#' . $wc['bgcolor'] . ';';
-          }
-
-          if (date('Y-m-d', mktime(0, 0, 0, $nextMonthNum, $i, $nextYearNum)) == $currDate) {
-            $border = $todayBorderStyle;
-          }
-
-          if ($color || $bgcolor || $border) {
-            $dayStyles['next_' . $i] = $color . $bgcolor . $border;
-          }
-        }
-      }
-      $viewData['months'][$j]['dayStyles'] = $dayStyles;
-
-
-      // Global Daynotes for Header (moved from views/calendarviewmonthheader.php)
-      $headerDaynotes = [];
-      $dnColors       = [
-        'info'    => '#0dcaf0',
-        'success' => '#198754',
-        'warning' => '#ffc107',
-        'danger'  => '#dc3545',
-      ];
-
-      for ($i = 1; $i <= $vmonth['dateInfo']['daysInMonth']; $i++) {
-        if ($this->D->get($vmonth['year'] . $vmonth['month'] . sprintf("%02d", $i), 'all', (string) $viewData['regionid'], true)) {
-          $c                  = $this->D->color;
-          $hex                = $dnColors[$c] ?? ((strpos($c, '#') === 0) ? $c : '#' . $c);
-          $headerDaynotes[$i] = [
-            'color'    => $c,
-            'colorHex' => $hex,
-            'note'     => $this->D->daynote
-          ];
-        }
-      }
-      if (isset($vmonth['isSplitMonth'])) {
-        $nextMonthNum = intval($vmonth['month']) + 1 > 12 ? 1 : intval($vmonth['month']) + 1;
-        $nextYearNum  = intval($vmonth['month']) + 1 > 12 ? intval($vmonth['year']) + 1 : intval($vmonth['year']);
-        for ($i = 1; $i <= 15; $i++) {
-          if ($this->D->get((string) $nextYearNum . sprintf("%02d", $nextMonthNum) . sprintf("%02d", $i), 'all', (string) $viewData['regionid'], true)) {
-            $c                            = $this->D->color;
-            $hex                          = $dnColors[$c] ?? ((strpos($c, '#') === 0) ? $c : '#' . $c);
-            $headerDaynotes['next_' . $i] = [
-              'color'    => $c,
-              'colorHex' => $hex,
-              'note'     => $this->D->daynote
-            ];
-          }
-        }
-      }
-      $viewData['months'][$j]['headerDaynotes'] = $headerDaynotes;
-
-      $j++;
-    }
-
-    $j = 0;
-    foreach ($viewData['months'] as $vmonth) {
-      $cntfrom                                = $vmonth['year'] . $vmonth['month'] . '01';
-      $cntto                                  = $vmonth['year'] . $vmonth['month'] . $vmonth['dateInfo']['daysInMonth'];
-      $viewData['months'][$j]['businessDays'] = $this->AbsenceService->countBusinessDays($cntfrom, $cntto, $viewData['regionid']);
-
-      if (isset($vmonth['isSplitMonth'])) {
-        $nextMonthNum = intval($vmonth['month']) + 1;
-        $nextYearNum  = intval($vmonth['year']);
-        if ($nextMonthNum > 12) {
-          $nextMonthNum = 1;
-          $nextYearNum++;
-        }
-        $nextMonthInfo                                   = dateInfo((string) $nextYearNum, sprintf('%02d', $nextMonthNum));
-        $nextCntfrom                                     = $nextYearNum . sprintf('%02d', $nextMonthNum) . '01';
-        $nextCntto                                       = $nextYearNum . sprintf('%02d', $nextMonthNum) . $nextMonthInfo['daysInMonth'];
-        $viewData['months'][$j]['nextMonthBusinessDays'] = $this->AbsenceService->countBusinessDays($nextCntfrom, $nextCntto, $viewData['regionid']);
-      }
-      $j++;
     }
 
     $todayDate              = getdate(time());
@@ -650,14 +442,11 @@ class CalendarViewController extends BaseController
     $viewData['calendaronly'] = (isset($_GET['calendaronly']) && $_GET['calendaronly'] === "1");
 
     //
-    // Prepare data for User Rows (moved from views/calendarviewuserrow.php)
+    // Prepare data for User Rows
     //
-    $trustedRoles     = explode(',', $this->allConfig['trustedRoles']);
-    $currDate         = date('Y-m-d');
-    $todayBorderStyle = 'border-left: ' . $this->allConfig["todayBorderSize"] . 'px solid #' . $this->allConfig["todayBorderColor"] . ';border-right: ' . $this->allConfig["todayBorderSize"] . 'px solid #' . $this->allConfig["todayBorderColor"] . ';';
-
+    $trustedRoles         = explode(',', $this->allConfig['trustedRoles']);
     $viewData['userRows'] = [];
-    $countedUsersPerMonth = []; // [monthKey => [username => true]]
+    $countedUsersPerMonth = [];
 
     foreach ($viewData['users'] as $usr) {
       $username = $usr['username'];
@@ -700,267 +489,19 @@ class CalendarViewController extends BaseController
       }
 
       foreach ($viewData['months'] as &$vmonth) {
-        $monthKey = $vmonth['year'] . $vmonth['month'];
-        if (empty($vmonth['dayAbsCount'])) {
-          $isSplit                = isset($vmonth['isSplitMonth']) && $vmonth['isSplitMonth'];
-          $vmonth['dayAbsCount']  = array_fill(1, $isSplit ? 46 : 31, 0);
-          $vmonth['dayPresCount'] = array_fill(1, $isSplit ? 46 : 31, 0);
-        }
-
-        $mRow = [
-          'editLink' => null,
-          'days'     => [],
-          'nextDays' => []
-        ];
-
-        // Edit Permission Check
-        $editAllowed = false;
-        if (isAllowed($this->CONF['controllers']['calendaredit']->permission)) {
-          if ($this->UL->username === $username) {
-            if (isAllowed("calendareditown"))
-              $editAllowed = true;
-          }
-          elseif ($this->UG->shareGroupMemberships($this->UL->username, $username)) {
-            if (isAllowed("calendareditgroup") || (isAllowed("calendareditgroupmanaged") && $this->UG->isGroupManagerOfUser($this->UL->username, $username)))
-              $editAllowed = true;
-          }
-          else {
-            if (isAllowed("calendareditall"))
-              $editAllowed = true;
-          }
-        }
-        if ($editAllowed) {
-          $mRow['editLink'] = 'index.php?action=calendaredit&month=' . $vmonth['year'] . $vmonth['month'] . '&region=' . $viewData['regionid'] . '&user=' . $username;
-        }
-
-        $this->T->getTemplate($username, (string) $vmonth['year'], (string) $vmonth['month']);
-        $daystart = isset($vmonth['dayStart']) ? $vmonth['dayStart'] : 1;
-        $dayend   = isset($vmonth['dayEnd']) ? $vmonth['dayEnd'] : $vmonth['dateInfo']['daysInMonth'];
-
-        for ($i = $daystart; $i <= $dayend; $i++) {
-          $dayData          = $this->prepareDayData($username, $i, (string) $vmonth['year'], $vmonth['month'], $vmonth['dayStyles'][$i] ?? '', $trustedRoles, $currDate, $viewData, (string) $viewData['regionid']);
-          $mRow['days'][$i] = $dayData;
-
-          // Count for summary
-          if (!isset($countedUsersPerMonth[$monthKey][$username])) {
-            if ($dayData['isAbsent'] && !$dayData['countsAsPresent']) {
-              $vmonth['dayAbsCount'][$i]++;
-            }
-            else {
-              $vmonth['dayPresCount'][$i]++;
-            }
-          }
-        }
-
-        if (isset($vmonth['isSplitMonth']) && $vmonth['isSplitMonth']) {
-          $nextMonthNum  = intval($vmonth['month']) + 1;
-          $nextMonthYear = intval($vmonth['year']);
-          if ($nextMonthNum > 12) {
-            $nextMonthNum = 1;
-            $nextMonthYear++;
-          }
-
-          $nextMonthTemplate = new \App\Models\TemplateModel();
-          $nextMonthTemplate->getTemplate($username, (string) $nextMonthYear, sprintf('%02d', $nextMonthNum));
-
-          $nextMonthEditLink = null;
-          if ($editAllowed) {
-            $nextMonthEditLink = 'index.php?action=calendaredit&month=' . $nextMonthYear . sprintf('%02d', $nextMonthNum) . '&region=' . $viewData['regionid'] . '&user=' . $username;
-          }
-          $mRow['nextMonthEditLink'] = $nextMonthEditLink;
-
-          for ($i = 1; $i <= 15; $i++) {
-            $dayData              = $this->prepareDayData($username, $i, (string) $nextMonthYear, sprintf('%02d', $nextMonthNum), $vmonth['dayStyles']['next_' . $i] ?? '', $trustedRoles, $currDate, $viewData, (string) $viewData['regionid'], $nextMonthTemplate);
-            $mRow['nextDays'][$i] = $dayData;
-
-            // Count for summary (using indices 16-30 for split view)
-            if (!isset($countedUsersPerMonth[$monthKey][$username])) {
-              if ($dayData['isAbsent'] && !$dayData['countsAsPresent']) {
-                $vmonth['dayAbsCount'][$i + 15]++;
-              }
-              else {
-                $vmonth['dayPresCount'][$i + 15]++;
-              }
-            }
-          }
-        }
-
-        $countedUsersPerMonth[$monthKey][$username] = true;
-        $userRow['months'][$monthKey]               = $mRow;
+        $monthKey                     = $vmonth['year'] . $vmonth['month'];
+        $userRow['months'][$monthKey] = $this->CalendarMonthBuilder->buildUserMonthRow(
+          $username,
+          $vmonth,
+          $viewData,
+          $trustedRoles,
+          $countedUsersPerMonth
+        );
       }
       unset($vmonth);
       $viewData['userRows'][] = $userRow;
     }
 
     $this->render('calendarview', $viewData);
-  }
-
-  /**
-   * Prepares data for a single day in a user row.
-   *
-   * @param string                     $username         Username for the row
-   * @param int                        $day              Day of the month
-   * @param string                     $year             Year (YYYY)
-   * @param string                     $month            Month (MM)
-   * @param string                     $gridStyle        Default CSS style for the grid cell
-   * @param string[]                   $trustedRoles     Roles that can see confidential items
-   * @param string                     $currDate         Current system date (Y-m-d)
-   * @param array<string, mixed>        $viewData         View data containing filters and settings
-   * @param string|int                 $regionid         Region ID
-   * @param \App\Models\TemplateModel|null $templateOverride Optional template override
-   *
-   * @return array<string, mixed> Data for the day
-   */
-  private function prepareDayData(
-    string $username,
-    int $day,
-    string $year,
-    string $month,
-    string $gridStyle,
-    array $trustedRoles,
-    string $currDate,
-    array $viewData,
-    string|int $regionid,
-    ?\App\Models\TemplateModel $templateOverride = null
-  ): array {
-    $T        = $templateOverride ?: $this->T;
-    $absCol   = 'abs' . $day;
-    $absId    = $T->$absCol;
-    $loopDate = date('Y-m-d', mktime(0, 0, 0, (int) $month, $day, (int) $year));
-
-    $dayData = [
-      'day'               => $day,
-      'style'             => $gridStyle,
-      'icon'              => null,
-      'tooltip'           => null,
-      'isAbsent'          => false,
-      'countsAsPresent'   => false,
-      'hasDaynote'        => false,
-      'daynoteTooltip'    => null,
-      'daynoteColor'      => null,
-      'birthdayIndicator' => false,
-      'regionalHoliday'   => false
-    ];
-
-    if ($absId) {
-      $dayData['isAbsent']        = true;
-      $dayData['countsAsPresent'] = (bool) $this->A->getCountsAsPresent((string) $absId);
-
-      $allowed = true;
-      if ($this->A->isConfidential((string) $absId)) {
-        $userRole = $this->U->getRole($this->UL->username);
-        if (!in_array($userRole, $trustedRoles) && $this->UL->username !== 'admin' && $this->UL->username !== $username) {
-          $allowed = false;
-        }
-      }
-
-      if ($allowed) {
-        if (!$viewData['absfilter'] || $absId == $viewData['absid']) {
-          $color             = 'color: #' . $this->A->getColor((string) $absId) . ';';
-          $bgcolor           = $this->A->getBgTrans((string) $absId) ? '' : 'background-color: #' . $this->A->getBgColor((string) $absId) . ';';
-          $dayData['style'] .= $color . $bgcolor;
-
-          if ($this->C->read('symbolAsIcon')) {
-            $dayData['icon'] = $this->A->getSymbol((string) $absId);
-          }
-          else {
-            $dayData['icon'] = '<span class="' . $this->A->getIcon((string) $absId) . '"></span>';
-          }
-
-          $taken = '';
-          if ($this->allConfig['showTooltipCount']) {
-            $cacheKey = $username . '|' . $year . '|' . $month . '|' . $absId;
-            if (!isset($this->tooltipCountCache[$cacheKey])) {
-              $countFrom   = $year . $month . '01';
-              $daysInMonth = cal_days_in_month(CAL_GREGORIAN, (int) $month, (int) $year);
-              $countTo     = $year . $month . $daysInMonth;
-              $takenMonth  = $this->AbsenceService->countAbsence($username, (string) $absId, $countFrom, $countTo, true, false);
-
-              $countFromYear = $year . '0101';
-              $countToYear   = $year . '1231';
-              $takenYear     = $this->AbsenceService->countAbsence($username, (string) $absId, $countFromYear, $countToYear, true, false);
-
-              $this->tooltipCountCache[$cacheKey] = ' (' . $takenMonth . '/' . $takenYear . ')';
-            }
-            $taken = $this->tooltipCountCache[$cacheKey];
-          }
-          $dayData['tooltip'] = $this->A->getName((string) $absId) . $taken;
-        }
-        else {
-          // Different absence filtered out
-          $dayData['style']   .= 'color: #d5d5d5;background-color: #d5d5d5;';
-          $dayData['tooltip']  = $this->LANG['cal_tt_anotherabsence'];
-        }
-      }
-      else {
-        // Confidential not allowed
-        $dayData['style']   .= 'color: #d5d5d5;background-color: #d5d5d5;';
-        $dayData['tooltip']  = $this->LANG['cal_tt_absent'];
-      }
-    }
-    else {
-      if ($loopDate < $currDate && $viewData['pastDayColor']) {
-        $dayData['style'] .= "background-color:#" . $viewData['pastDayColor'] . ";";
-      }
-    }
-
-    // Daynote
-    $hasDaynote = false;
-    if ($this->D->get($year . $month . sprintf("%02d", $day), $username, (string) $regionid, true)) {
-      $hasDaynote = true;
-    }
-
-    if ($hasDaynote) {
-      $allowed = true;
-      if ($this->D->isConfidential((string) $this->D->id)) {
-        $userRole = $this->U->getRole($this->UL->username);
-        if (!in_array($userRole, $trustedRoles) && $this->UL->username !== $this->D->username && $this->UL->username !== 'admin') {
-          $allowed = false;
-        }
-      }
-      if ($allowed) {
-        $dayData['hasDaynote']     = true;
-        $dayData['daynoteTooltip'] = $this->D->daynote;
-        $dayData['daynoteColor']   = $this->D->color;
-      }
-    }
-
-    // Regional Holiday
-    if ($viewData['regionalHolidays']) {
-      $userRegion = $this->UO->read($username, 'region') ?: '1';
-      if ($userRegion != $regionid) {
-        $rM   = $this->getRegionMonth($year, $month, $userRegion);
-        $prop = 'hol' . $day;
-        if ($rM->$prop) {
-          $dayData['style'] .= 'border: 2px solid #' . $viewData['regionalHolidaysColor'] . ' !important;';
-        }
-      }
-    }
-
-    return $dayData;
-  }
-
-  /** @var array<string, \App\Models\MonthModel> */
-  private array $regionMonths = [];
-
-  /** @var array<string, string> */
-  private array $tooltipCountCache = [];
-  /**
-   * Helper to get a MonthModel for a region and cache it.
-   *
-   * @param string     $year   Year (YYYY)
-   * @param string     $month  Month (MM)
-   * @param string|int $region Region ID
-   *
-   * @return \App\Models\MonthModel The month model
-   */
-  private function getRegionMonth(string $year, string $month, string|int $region): \App\Models\MonthModel {
-    $key = $year . $month . (string) $region;
-    if (!isset($this->regionMonths[$key])) {
-      $M = new \App\Models\MonthModel();
-      $M->getMonth($year, $month, (string) $region);
-      $this->regionMonths[$key] = $M;
-    }
-    return $this->regionMonths[$key];
   }
 }

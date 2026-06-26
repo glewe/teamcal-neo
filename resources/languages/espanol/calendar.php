@@ -20,6 +20,7 @@ $LANG['cal_tt_clicktoedit'] = 'Clic para editar...';
 $LANG['cal_tt_forward'] = 'Avanzar un mes...';
 $LANG['cal_tt_onemore'] = 'Mostrar un mes más...';
 $LANG['cal_tt_oneless'] = 'Mostrar un mes menos...';
+$LANG['cal_loading_month'] = 'Cargando mes...';
 $LANG['cal_search'] = 'Buscar Usuario';
 $LANG['cal_selAbsence'] = 'Seleccionar Ausencia';
 $LANG['cal_selAbsence_comment'] = 'Muestra todas las entradas que tienen este tipo de ausencia para hoy.';

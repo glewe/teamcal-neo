@@ -167,6 +167,14 @@
   </head>
   <body>
 
+    <!-- Calendar loading overlay (shown on calendarview navigation) -->
+    <div id="tcn-loading-overlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.55); z-index:9999; align-items:center; justify-content:center; flex-direction:column;">
+      <div class="spinner-border text-light" style="width:3.5rem; height:3.5rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="text-white mt-3 fw-semibold fs-5 mb-0">{{ LANG.loading }}</p>
+    </div>
+
     <!-- Back to Top -->
     <a id="top-link-block">
       <i class="fas fa-chevron-up fa-2x text-white"></i>
@@ -300,6 +308,24 @@
           if (e.which == 13) {
             $(this).closest('.modal').find('button[name="btn_search"]').click();
             return false;
+          }
+        });
+
+        // Show loading overlay when navigating to the calendar view (e.g. from menu)
+        document.querySelectorAll('a[href*="action=calendarview"]').forEach(function (link) {
+          link.addEventListener('click', function (e) {
+            if (!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
+              var overlay = document.getElementById('tcn-loading-overlay');
+              if (overlay) overlay.style.display = 'flex';
+            }
+          });
+        });
+
+        // Hide overlay if page is restored from bfcache (browser back button)
+        window.addEventListener('pageshow', function (e) {
+          if (e.persisted) {
+            var overlay = document.getElementById('tcn-loading-overlay');
+            if (overlay) overlay.style.display = 'none';
           }
         });
 

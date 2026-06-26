@@ -308,9 +308,9 @@ else {
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "5.3.0");
-define('APP_BUILD', "92");
-define('APP_DATE', "2026-06-12");
+define('APP_VER', "5.3.1");
+define('APP_BUILD', "96");
+define('APP_DATE', "2026-06-26");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "https://www.lewe.com");

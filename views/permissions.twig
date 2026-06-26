@@ -241,7 +241,7 @@
                         <div class="form-group row">
                           <label class="col-lg-{{ colsleft }} control-label">
                             {{ LANG['perm_' ~ key ~ '_title'] }}<br>
-                            <span class="text-normal">{{ LANG['perm_' ~ key ~ '_desc'] }}</span>
+                            <span class="text-normal">{{ LANG['perm_' ~ key ~ '_desc']|raw }}</span>
                           </label>
                           <div class="col-lg-{{ colsright }}">
                             {% for role in roles %}
@@ -271,7 +271,7 @@
                         <div class="form-group row">
                           <label class="col-lg-{{ colsleft }} control-label">
                             {{ LANG['perm_' ~ fperm ~ '_title'] }}<br>
-                            <span class="text-normal">{{ LANG['perm_' ~ fperm ~ '_desc'] }}</span>
+                            <span class="text-normal">{{ LANG['perm_' ~ fperm ~ '_desc']|raw }}</span>
                           </label>
                           <div class="col-lg-{{ colsright }}">
                             {% for role in roles %}

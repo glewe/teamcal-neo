@@ -52,6 +52,7 @@ $LANG['green'] = 'Vert';
 $LANG['grey'] = 'Gris';
 $LANG['group'] = 'Groupe';
 $LANG['license'] = 'Licence TeamCal Neo';
+$LANG['loading'] = 'Chargement, veuillez patienter...';
 $LANG['magenta'] = 'Magenta';
 $LANG['mon_fri'] = 'Lun-Ven';
 $LANG['month'] = 'Mois';

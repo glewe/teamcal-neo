@@ -27,6 +27,7 @@ use App\Models\UserMessageModel;
 use App\Models\UserModel;
 use App\Models\UserOptionModel;
 use App\Services\AbsenceService;
+use App\Services\CalendarMonthBuilderService;
 use App\Services\UserService;
 
 /**
@@ -67,6 +68,7 @@ use App\Services\UserService;
  * @property UserModel $UL
  * @property UserOptionModel $UO
  * @property AbsenceService $AbsenceService
+ * @property CalendarMonthBuilderService $CalendarMonthBuilder
  * @property UserService $UserService
  *
  * @property array<string, mixed>  $alertData
@@ -99,7 +101,8 @@ abstract class BaseController
    * @var array<string, string>
    */
   private const DEPENDENCY_MAP = [
-    'AbsenceService'    => 'AbsenceService',
+    'AbsenceService'         => 'AbsenceService',
+    'CalendarMonthBuilder'   => 'CalendarMonthBuilderService',
     'A'                 => 'AbsenceModel',
     'AG'                => 'AbsenceGroupModel',
     'AL'                => 'AllowanceModel',
@@ -295,5 +298,22 @@ abstract class BaseController
       'help'    => $help
     ];
     $this->render('alert', ['alertData' => $alertData]);
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Renders a Twig template as an HTML fragment (no layout wrapper) and exits.
+   *
+   * Used by fragment endpoints like CalendarViewMonthController so the browser
+   * can receive a bare HTML chunk for lazy-loading injection.
+   *
+   * @param string               $view Template name (without .twig extension)
+   * @param array<string, mixed> $data View data
+   *
+   * @return never
+   */
+  protected function renderFragment(string $view, array $data): void {
+    $this->render($view, $data);
+    exit;
   }
 }
