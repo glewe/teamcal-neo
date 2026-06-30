@@ -2,6 +2,21 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '5.3.2',
+    'date' => '2026-06-30',
+    'info' => 'Improvement release.',
+    'bugfixes' => [
+      [ 'summary' => 'Fix array_slice() error in CalendarViewController', 'issue' => '' ],
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '5.3.1',
     'date' => '2026-06-26',
     'info' => 'Improvement release.',

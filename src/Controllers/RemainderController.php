@@ -116,7 +116,8 @@ class RemainderController extends BaseController
     //
     // Pagination
     //
-    if ($limit = $this->allConfig['usersPerPage']) {
+    $limit = intval($this->allConfig['usersPerPage']);
+    if ($limit > 0) {
       $total = count($users);
       $pages = ceil($total / $limit);
       $page  = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, ['options' => ['default' => 1, 'min_range' => 1]]));

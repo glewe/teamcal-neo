@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'glewe/teamcal-neo',
-        'pretty_version' => '5.3.1',
-        'version' => '5.3.1.0',
+        'pretty_version' => '5.3.2',
+        'version' => '5.3.2.0',
         'reference' => null,
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
@@ -20,8 +20,8 @@
             'dev_requirement' => false,
         ),
         'glewe/teamcal-neo' => array(
-            'pretty_version' => '5.3.1',
-            'version' => '5.3.1.0',
+            'pretty_version' => '5.3.2',
+            'version' => '5.3.2.0',
             'reference' => null,
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
@@ -119,9 +119,9 @@
             'dev_requirement' => false,
         ),
         'symfony/deprecation-contracts' => array(
-            'pretty_version' => 'v3.7.0',
-            'version' => '3.7.0.0',
-            'reference' => '50f59d1f3ca46d41ac911f97a78626b6756af35b',
+            'pretty_version' => 'v3.7.1',
+            'version' => '3.7.1.0',
+            'reference' => 'f3202fa1b5097b0af062dc978b32ecf63404e31d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/deprecation-contracts',
             'aliases' => array(),

@@ -91,7 +91,8 @@ class CalendarViewMonthController extends BaseController
       $users = $filteredUsers;
     }
 
-    if ($limit = $this->allConfig['usersPerPage']) {
+    $limit = intval($this->allConfig['usersPerPage']);
+    if ($limit > 0) {
       $total  = count($users);
       $pages  = (int) ceil($total / $limit);
       $page   = min($pages ?: 1, $page);
