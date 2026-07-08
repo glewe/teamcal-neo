@@ -1,6 +1,6 @@
 # TeamCal Neo Upgrade Information
 
-## [5.3.1] -> [5.3.2]
+## [5.3.1] -> [5.3.2], [5.3.2] -> [5.3.3]
 
 1. Backup your current files and database!
 2. Keep a copy of your `.env` file.

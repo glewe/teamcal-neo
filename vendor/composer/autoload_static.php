@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit65ac65627b2174c840fc8322dbfa7cf1
+class ComposerStaticInit70dfe97c118e629e220addc51869ee5a
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -641,6 +641,7 @@ class ComposerStaticInit65ac65627b2174c840fc8322dbfa7cf1
         'Twig\\Markup' => __DIR__ . '/..' . '/twig/twig/src/Markup.php',
         'Twig\\NodeTraverser' => __DIR__ . '/..' . '/twig/twig/src/NodeTraverser.php',
         'Twig\\NodeVisitor\\AbstractNodeVisitor' => __DIR__ . '/..' . '/twig/twig/src/NodeVisitor/AbstractNodeVisitor.php',
+        'Twig\\NodeVisitor\\CorrectnessNodeVisitor' => __DIR__ . '/..' . '/twig/twig/src/NodeVisitor/CorrectnessNodeVisitor.php',
         'Twig\\NodeVisitor\\EscaperNodeVisitor' => __DIR__ . '/..' . '/twig/twig/src/NodeVisitor/EscaperNodeVisitor.php',
         'Twig\\NodeVisitor\\NodeVisitorInterface' => __DIR__ . '/..' . '/twig/twig/src/NodeVisitor/NodeVisitorInterface.php',
         'Twig\\NodeVisitor\\OptimizerNodeVisitor' => __DIR__ . '/..' . '/twig/twig/src/NodeVisitor/OptimizerNodeVisitor.php',
@@ -656,6 +657,7 @@ class ComposerStaticInit65ac65627b2174c840fc8322dbfa7cf1
         'Twig\\Node\\CheckSecurityNode' => __DIR__ . '/..' . '/twig/twig/src/Node/CheckSecurityNode.php',
         'Twig\\Node\\CheckToStringNode' => __DIR__ . '/..' . '/twig/twig/src/Node/CheckToStringNode.php',
         'Twig\\Node\\CoercesChildrenToStringInterface' => __DIR__ . '/..' . '/twig/twig/src/Node/CoercesChildrenToStringInterface.php',
+        'Twig\\Node\\ConfigNode' => __DIR__ . '/..' . '/twig/twig/src/Node/ConfigNode.php',
         'Twig\\Node\\DeprecatedNode' => __DIR__ . '/..' . '/twig/twig/src/Node/DeprecatedNode.php',
         'Twig\\Node\\DoNode' => __DIR__ . '/..' . '/twig/twig/src/Node/DoNode.php',
         'Twig\\Node\\EmbedNode' => __DIR__ . '/..' . '/twig/twig/src/Node/EmbedNode.php',
@@ -794,6 +796,7 @@ class ComposerStaticInit65ac65627b2174c840fc8322dbfa7cf1
         'Twig\\Sandbox\\SecurityNotAllowedMethodError' => __DIR__ . '/..' . '/twig/twig/src/Sandbox/SecurityNotAllowedMethodError.php',
         'Twig\\Sandbox\\SecurityNotAllowedPropertyError' => __DIR__ . '/..' . '/twig/twig/src/Sandbox/SecurityNotAllowedPropertyError.php',
         'Twig\\Sandbox\\SecurityNotAllowedTagError' => __DIR__ . '/..' . '/twig/twig/src/Sandbox/SecurityNotAllowedTagError.php',
+        'Twig\\Sandbox\\SecurityNotAllowedTestError' => __DIR__ . '/..' . '/twig/twig/src/Sandbox/SecurityNotAllowedTestError.php',
         'Twig\\Sandbox\\SecurityPolicy' => __DIR__ . '/..' . '/twig/twig/src/Sandbox/SecurityPolicy.php',
         'Twig\\Sandbox\\SecurityPolicyInterface' => __DIR__ . '/..' . '/twig/twig/src/Sandbox/SecurityPolicyInterface.php',
         'Twig\\Sandbox\\SourcePolicyInterface' => __DIR__ . '/..' . '/twig/twig/src/Sandbox/SourcePolicyInterface.php',
@@ -831,6 +834,7 @@ class ComposerStaticInit65ac65627b2174c840fc8322dbfa7cf1
         'Twig\\TwigFunction' => __DIR__ . '/..' . '/twig/twig/src/TwigFunction.php',
         'Twig\\TwigTest' => __DIR__ . '/..' . '/twig/twig/src/TwigTest.php',
         'Twig\\Util\\CallableArgumentsExtractor' => __DIR__ . '/..' . '/twig/twig/src/Util/CallableArgumentsExtractor.php',
+        'Twig\\Util\\CallableParameters' => __DIR__ . '/..' . '/twig/twig/src/Util/CallableParameters.php',
         'Twig\\Util\\DeprecationCollector' => __DIR__ . '/..' . '/twig/twig/src/Util/DeprecationCollector.php',
         'Twig\\Util\\ReflectionCallable' => __DIR__ . '/..' . '/twig/twig/src/Util/ReflectionCallable.php',
         'Twig\\Util\\TemplateDirIterator' => __DIR__ . '/..' . '/twig/twig/src/Util/TemplateDirIterator.php',
@@ -1177,10 +1181,10 @@ class ComposerStaticInit65ac65627b2174c840fc8322dbfa7cf1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit65ac65627b2174c840fc8322dbfa7cf1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit65ac65627b2174c840fc8322dbfa7cf1::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit65ac65627b2174c840fc8322dbfa7cf1::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit65ac65627b2174c840fc8322dbfa7cf1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit70dfe97c118e629e220addc51869ee5a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit70dfe97c118e629e220addc51869ee5a::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit70dfe97c118e629e220addc51869ee5a::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit70dfe97c118e629e220addc51869ee5a::$classMap;
 
         }, null, ClassLoader::class);
     }

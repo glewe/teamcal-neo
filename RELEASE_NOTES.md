@@ -1,4 +1,4 @@
-Improvement release.
+Bugfix release.
 
 **Bugfixes**
-- Fix array_slice() error in CalendarViewController
+- Fix All-by-group display bug

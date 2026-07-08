@@ -200,6 +200,7 @@ class CalendarViewMonthController extends BaseController
     $viewData = [
       'month'                    => $vmonth,
       'userRows'                 => $userRows,
+      'hideManagers'             => $this->allConfig['hideManagers'],
       'width'                    => $this->UO->read($this->UL->username, 'width') ?: 'full',
       'firstDayOfWeek'           => $this->allConfig['firstDayOfWeek'],
       'showWeekNumbers'          => $this->allConfig['showWeekNumbers'],
