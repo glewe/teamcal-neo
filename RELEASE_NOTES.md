@@ -1,4 +1,4 @@
 Bugfix release.
 
 **Bugfixes**
-- Fix All-by-group display bug
+- Fix repeat header row bug

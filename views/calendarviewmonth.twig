@@ -56,6 +56,10 @@
           'showWeekNumbers': showWeekNumbers
         } %}
 
+        {% if repeatHeaderCount %}
+          {% set rowcount = 1 %}
+        {% endif %}
+
         {% if defgroupfilter == "allbygroup" %}
           {% for grp in groups %}
             {% set groupHeaderShown = false %}
@@ -84,14 +88,52 @@
                       </tr>
                       {% set groupHeaderShown = true %}
                     {% endif %}
+                    {% if repeatHeaderCount and rowcount > repeatHeaderCount %}
+                      {% include 'calendarviewmonthheader.twig' with {
+                        'isSplitMonth': isSplitMonth,
+                        'dateInfo': month.dateInfo,
+                        'nextMonthInfo': month.nextMonthInfo,
+                        'dayStart': monthForPart.dayStart,
+                        'dayEnd': monthForPart.dayEnd,
+                        'M': month.M,
+                        'nextM': month.nextM,
+                        'dayStyles': month.dayStyles,
+                        'headerDaynotes': month.headerDaynotes,
+                        'firstDayOfWeek': firstDayOfWeek,
+                        'showWeekNumbers': showWeekNumbers
+                      } %}
+                      {% set rowcount = 1 %}
+                    {% endif %}
                     {% include 'calendarviewuserrow.twig' with { 'userRow': userRow, 'month': monthForPart } %}
+                    {% if repeatHeaderCount %}
+                      {% set rowcount = rowcount + 1 %}
+                    {% endif %}
                   {% endif %}
               {% endif %}
             {% endfor %}
           {% endfor %}
         {% else %}
           {% for userRow in userRows %}
+            {% if repeatHeaderCount and rowcount > repeatHeaderCount %}
+              {% include 'calendarviewmonthheader.twig' with {
+                'isSplitMonth': isSplitMonth,
+                'dateInfo': month.dateInfo,
+                'nextMonthInfo': month.nextMonthInfo,
+                'dayStart': monthForPart.dayStart,
+                'dayEnd': monthForPart.dayEnd,
+                'M': month.M,
+                'nextM': month.nextM,
+                'dayStyles': month.dayStyles,
+                'headerDaynotes': month.headerDaynotes,
+                'firstDayOfWeek': firstDayOfWeek,
+                'showWeekNumbers': showWeekNumbers
+              } %}
+              {% set rowcount = 1 %}
+            {% endif %}
             {% include 'calendarviewuserrow.twig' with { 'userRow': userRow, 'month': monthForPart } %}
+            {% if repeatHeaderCount %}
+              {% set rowcount = rowcount + 1 %}
+            {% endif %}
           {% endfor %}
         {% endif %}
 
