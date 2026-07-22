@@ -485,7 +485,13 @@ textarea.cke_source {
 div.table {
   border-radius: 6px;
   overflow: hidden;
+  overflow-x: auto;
   box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, .15);
+}
+
+.table1024, .table800, .table640, .table480, .table400, .table320, .table240 {
+  overflow-x: auto;
+  max-width: 100%;
 }
 
 table.month tbody tr:last-child td:first-child {

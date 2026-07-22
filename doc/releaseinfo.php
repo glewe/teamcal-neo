@@ -2,10 +2,28 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '5.3.6',
+    'date' => '2026-07-22',
+    'info' => 'Improvement release.',
+    'bugfixes' => [
+      [ 'summary' => 'Fix overflow rule for mobile devices', 'issue' => '' ],
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Move APPLICATION_URL to .env file', 'issue' => '' ],
+      [ 'summary' => 'Refactor redirect logic in calendar-responsive.js to prevent infinite reloads', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '5.3.5',
     'date' => '2026-07-22',
     'info' => 'Improvement release.',
     'bugfixes' => [
+      [ 'summary' => 'Fix uncaught type error bug', 'issue' => '' ],
     ],
     'features' => [
     ],

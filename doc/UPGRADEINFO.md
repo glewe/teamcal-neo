@@ -1,5 +1,15 @@
 # TeamCal Neo Upgrade Information
 
+## [5.3.5] -> [5.3.6]
+
+1. Backup your current files and database!
+2. Keep a copy of your `.env` file.
+3. Delete all files and folders from your TeamCal Neo installation directory, **except the `.env` file**.
+4. Download the new release and unzip all files into the same directory.
+5. Delete `installation.php` from the root directory.
+
+> **No database changes** — no SQL upgrade script needs to be run.
+
 ## [5.3.4] -> [5.3.5]
 
 > **Architecture change:** `APPLICATION_URL` has moved from

@@ -157,7 +157,7 @@ class CalendarViewController extends BaseController
     $limit = intval($this->allConfig['usersPerPage']);
     if ($limit > 0) {
       $total                  = count($users);
-      $pages                  = ceil($total / $limit);
+      $pages                  = (int) ceil($total / $limit);
       $page                   = min($pages, (int) filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, ['options' => ['default' => 1, 'min_range' => 1]]));
       $offset                 = ($page - 1) * $limit;
       $users                  = array_slice($users, $offset, $limit);
