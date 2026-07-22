@@ -2,6 +2,22 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '5.3.5',
+    'date' => '2026-07-22',
+    'info' => 'Improvement release.',
+    'bugfixes' => [
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Move APPLICATION_URL to .env file', 'issue' => '' ],
+      [ 'summary' => 'Refactor redirect logic in calendar-responsive.js to prevent infinite reloads', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '5.3.4',
     'date' => '2026-07-17',
     'info' => 'Bugfix release.',

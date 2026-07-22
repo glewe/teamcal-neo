@@ -16,6 +16,7 @@
   if (!container) return;
 
   var currentBreakpoint = container.getAttribute('data-cal-width');
+  var REDIRECT_FLAG = 'tcnWidthRedirected';
   var timer;
 
   var observer = new ResizeObserver(function (entries) {
@@ -23,13 +24,22 @@
     timer = setTimeout(function () {
       var px = entries[0].contentRect.width;
       var next = mapWidthToBreakpoint(px);
-      if (next !== currentBreakpoint) {
-        var overlay = document.getElementById('tcn-loading-overlay');
-        if (overlay) overlay.style.display = 'flex';
-        var url = new URL(window.location.href);
-        url.searchParams.set('width', next);
-        window.location.href = url.toString();
+
+      if (next === currentBreakpoint) {
+        sessionStorage.removeItem(REDIRECT_FLAG);
+        return;
       }
+
+      // Already auto-redirected once without the breakpoint settling —
+      // stop here instead of reloading forever.
+      if (sessionStorage.getItem(REDIRECT_FLAG)) return;
+
+      sessionStorage.setItem(REDIRECT_FLAG, '1');
+      var overlay = document.getElementById('tcn-loading-overlay');
+      if (overlay) overlay.style.display = 'flex';
+      var url = new URL(window.location.href);
+      url.searchParams.set('width', next);
+      window.location.href = url.toString();
     }, 300);
   });
 

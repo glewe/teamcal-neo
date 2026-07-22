@@ -19,12 +19,12 @@ if (!defined('VALID_ROOT')) {
  * ----------------------------------------------------------------------------
  *
  * Application URL (optional)
- * Set this if the auto-detection fails, e.g. behind a reverse proxy
- * define('APPLICATION_URL', 'http://your-domain.com/tcneo/');
+ * Set this if the auto-detection fails, e.g. behind a reverse proxy.
+ * Set APPLICATION_URL in .env, e.g.:
+ *   APPLICATION_URL=http://your-domain.com/tcneo/
  */
-define('APPLICATION_URL', '');
+define('APPLICATION_URL', $_ENV['APPLICATION_URL'] ?? '');
 
-// @phpstan-ignore-next-line
 if (APPLICATION_URL !== '') {
   $websiteUrl = APPLICATION_URL;
   if (substr($websiteUrl, -1) !== '/') {
@@ -308,9 +308,9 @@ else {
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "5.3.4");
-define('APP_BUILD', "105");
-define('APP_DATE', "2026-07-17");
+define('APP_VER', "5.3.5");
+define('APP_BUILD', "108");
+define('APP_DATE', "2026-07-22");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "https://www.lewe.com");

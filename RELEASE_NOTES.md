@@ -1,4 +1,5 @@
-Bugfix release.
+Improvement release.
 
-**Bugfixes**
-- Fix repeat header row bug
+**Improvements**
+- Move APPLICATION_URL to .env file
+- Refactor redirect logic in calendar-responsive.js to prevent infinite reloads

@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'glewe/teamcal-neo',
-        'pretty_version' => '5.3.4',
-        'version' => '5.3.4.0',
+        'pretty_version' => '5.3.5',
+        'version' => '5.3.5.0',
         'reference' => null,
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
@@ -20,8 +20,8 @@
             'dev_requirement' => false,
         ),
         'glewe/teamcal-neo' => array(
-            'pretty_version' => '5.3.4',
-            'version' => '5.3.4.0',
+            'pretty_version' => '5.3.5',
+            'version' => '5.3.5.0',
             'reference' => null,
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
