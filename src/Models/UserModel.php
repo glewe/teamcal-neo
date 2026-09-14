@@ -36,7 +36,7 @@ class UserModel
   public string $last_login       = DEFAULT_TIMESTAMP;
   public string $created          = DEFAULT_TIMESTAMP;
   public string $oidc_sub         = '';
-  public string $bad_logins_start = '';
+  public int    $bad_logins_start = 0;
 
   private ?PDO   $db            = null;
   private string $table         = '';
@@ -151,8 +151,8 @@ class UserModel
    * @return bool Query result
    */
   public function create(): bool {
-    $stmt   = 'INSERT INTO ' . $this->table . ' (username, password, firstname, lastname, email, order_key, role, locked, hidden, onhold, verify, bad_logins, grace_start, last_pw_change, last_login, created, oidc_sub) ';
-    $stmt  .= 'VALUES (:username, :password, :firstname, :lastname, :email, :order_key, :role, :locked, :hidden, :onhold, :verify, :bad_logins, :grace_start, :last_pw_change, :last_login, :created, :oidc_sub)';
+    $stmt   = 'INSERT INTO ' . $this->table . ' (username, password, firstname, lastname, email, order_key, role, locked, hidden, onhold, verify, bad_logins, bad_logins_start, grace_start, last_pw_change, last_login, created, oidc_sub) ';
+    $stmt  .= 'VALUES (:username, :password, :firstname, :lastname, :email, :order_key, :role, :locked, :hidden, :onhold, :verify, :bad_logins, :bad_logins_start, :grace_start, :last_pw_change, :last_login, :created, :oidc_sub)';
     $query  = $this->db->prepare($stmt);
     $query->bindParam(':username', $this->username);
     $query->bindParam(':password', $this->password);
@@ -166,6 +166,7 @@ class UserModel
     $query->bindParam(':onhold', $this->onhold);
     $query->bindParam(':verify', $this->verify);
     $query->bindParam(':bad_logins', $this->bad_logins);
+    $query->bindParam(':bad_logins_start', $this->bad_logins_start);
     $query->bindParam(':grace_start', $this->grace_start);
     $query->bindParam(':last_pw_change', $this->last_pw_change);
     $query->bindParam(':last_login', $this->last_login);
@@ -271,6 +272,7 @@ class UserModel
       $this->onhold         = (int) $row['onhold'];
       $this->verify         = (int) $row['verify'];
       $this->bad_logins     = (int) $row['bad_logins'];
+      $this->bad_logins_start = (int) ($row['bad_logins_start'] ?? 0);
       $this->grace_start    = $row['grace_start'];
       $this->last_pw_change = $row['last_pw_change'];
       $this->last_login     = $row['last_login'];
@@ -306,6 +308,7 @@ class UserModel
       $this->onhold         = (int) $row['onhold'];
       $this->verify         = (int) $row['verify'];
       $this->bad_logins     = (int) $row['bad_logins'];
+      $this->bad_logins_start = (int) ($row['bad_logins_start'] ?? 0);
       $this->grace_start    = $row['grace_start'];
       $this->last_pw_change = $row['last_pw_change'];
       $this->last_login     = $row['last_login'];
@@ -341,6 +344,7 @@ class UserModel
       $this->onhold         = (int) $row['onhold'];
       $this->verify         = (int) $row['verify'];
       $this->bad_logins     = (int) $row['bad_logins'];
+      $this->bad_logins_start = (int) ($row['bad_logins_start'] ?? 0);
       $this->grace_start    = $row['grace_start'];
       $this->last_pw_change = $row['last_pw_change'];
       $this->last_login     = $row['last_login'];
@@ -364,7 +368,7 @@ class UserModel
    * @return array<int, array<string, mixed>> Array with records
    */
   public function getAll(string $order1 = 'lastname', string $order2 = 'firstname', string $sort = 'ASC', bool $archive = false, bool $includeAdmin = false): array {
-    $allowedCols = ['username', 'password', 'firstname', 'lastname', 'email', 'order_key', 'role', 'locked', 'hidden', 'onhold', 'verify', 'bad_logins', 'grace_start', 'last_pw_change', 'last_login', 'created'];
+    $allowedCols = ['username', 'password', 'firstname', 'lastname', 'email', 'order_key', 'role', 'locked', 'hidden', 'onhold', 'verify', 'bad_logins', 'bad_logins_start', 'grace_start', 'last_pw_change', 'last_login', 'created'];
     if (!in_array($order1, $allowedCols)) {
       $order1 = 'lastname';
     }
@@ -828,6 +832,7 @@ class UserModel
       onhold = :onhold,
       verify = :verify,
       bad_logins = :bad_logins,
+      bad_logins_start = :bad_logins_start,
       grace_start = :grace_start,
       last_pw_change = :last_pw_change,
       last_login = :last_login,
@@ -847,6 +852,7 @@ class UserModel
     $query->bindParam(':onhold', $this->onhold);
     $query->bindParam(':verify', $this->verify);
     $query->bindParam(':bad_logins', $this->bad_logins);
+    $query->bindParam(':bad_logins_start', $this->bad_logins_start);
     $query->bindParam(':grace_start', $this->grace_start);
     $query->bindParam(':last_pw_change', $this->last_pw_change);
     $query->bindParam(':last_login', $this->last_login);

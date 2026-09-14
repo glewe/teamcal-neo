@@ -2,6 +2,25 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '5.3.7',
+    'date' => '2026-09-14',
+    'info' => 'Security release. Updating is strongly recommended.',
+    'bugfixes' => [
+      [ 'summary' => 'Fix forgeable login cookie that allowed an authentication bypass', 'issue' => '' ],
+      [ 'summary' => 'Fix bad login counter not being persisted, leaving brute force protection ineffective', 'issue' => '' ],
+      [ 'summary' => 'Fix bad login lock never expiring and being confused with an administrative account lock', 'issue' => '' ],
+      [ 'summary' => 'Fix login grace period being compared against an unparsed date string', 'issue' => '' ],
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Add license reetrieval error to TCN log', 'issue' => '' ],
+    ],
+    'removals' => [
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '5.3.6',
     'date' => '2026-07-22',
     'info' => 'Improvement release.',

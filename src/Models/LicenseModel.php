@@ -27,6 +27,7 @@ class LicenseModel
   private bool   $disableSSL     = false;
   private bool   $curlAvailable  = true;
   public ?object $details        = null;
+  public string  $lastError      = '';
 
   //---------------------------------------------------------------------------
   /**
@@ -73,11 +74,13 @@ class LicenseModel
    * @return bool|string
    */
   public function callAPI(string $method, string $url, $data = false): bool|string {
+    $this->lastError = '';
     if (defined('APP_LIC_LOCAL')) {
       return constant('APP_LIC_LOCAL');
     }
     if (!$this->curlAvailable) {
       // The PHP cURL extension is not loaded. License calls would fatal otherwise.
+      $this->lastError = 'PHP cURL extension not loaded';
       return false;
     }
     $curl = curl_init();
@@ -104,12 +107,24 @@ class LicenseModel
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:43.0) Gecko/20100101 Firefox/43.0');
 
+    // Don't rely on the host's php.ini having a CA bundle configured (common on
+    // Windows/XAMPP-style installs) - ship our own and point cURL at it explicitly.
+    $caBundle = WEBSITE_ROOT . '/resources/certs/cacert.pem';
+    if (is_file($caBundle)) {
+      curl_setopt($curl, CURLOPT_CAINFO, $caBundle);
+    }
+
     if ($this->disableSSL) {
       curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
       curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
     }
 
     $response = curl_exec($curl);
+
+    if ($response === false) {
+      $this->lastError = 'cURL error ' . curl_errno($curl) . ': ' . curl_error($curl);
+      error_log('LicenseModel::callAPI ' . $this->lastError . ' (URL: ' . parse_url($url, PHP_URL_HOST) . ')');
+    }
 
     if ($this->debugCurl) {
       echo '<pre>';
@@ -212,12 +227,28 @@ class LicenseModel
       }
     }
     else {
+      if ($this->lastError === '') {
+        if ($response === false) {
+          // callAPI() didn't set a cURL error either - defensive fallback, shouldn't normally happen.
+          $this->lastError = 'Connection to the license server failed';
+        }
+        elseif (!is_string($response) || trim($response) === '') {
+          $this->lastError = 'License server returned an empty response';
+        }
+        else {
+          // cURL succeeded but the body wasn't valid JSON - likely a proxy/firewall block page.
+          $this->lastError = 'Unexpected (non-JSON) response from license server: ' . substr($response, 0, 200);
+        }
+      }
+
       $alertData['type']    = 'warning';
       $alertData['title']   = $LANG['lic_unavailable'];
       $alertData['subject'] = $LANG['lic_unavailable_subject'];
       $alertData['text']    = $LANG['lic_unavailable_text'];
       $alertData['help']    = $LANG['lic_unavailable_help'];
       $showAlert            = true;
+
+      (new LogModel($this->db))->logEvent('logConfig', 'System', 'log_license_unavailable', $this->lastError);
     }
   }
 

@@ -93,6 +93,7 @@ $LANG['log_hol_created'] = 'Festivo creado: ';
 $LANG['log_hol_updated'] = 'Festivo actualizado: ';
 $LANG['log_hol_deleted'] = 'Festivo eliminado: ';
 $LANG['log_imp_success'] = 'Importación CSV exitosa: ';
+$LANG['log_license_unavailable'] = 'No se pudo obtener la información de la licencia: ';
 $LANG['log_log_updated'] = 'Ajustes de log actualizados';
 $LANG['log_log_cleared'] = 'Log borrado';
 $LANG['log_log_reset'] = 'Reseteo de ajustes de log';

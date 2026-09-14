@@ -1,5 +1,44 @@
 # TeamCal Neo Upgrade Information
 
+## [5.3.6] -> [5.3.7]
+
+> **Security release.** This version fixes an authentication bypass and restores
+> brute force protection on the login form. Updating is strongly recommended for
+> every installation.
+
+1. Backup your current files and database!
+2. Keep a copy of your `.env` file.
+3. Delete all files and folders from your TeamCal Neo installation directory, **except the `.env` file**.
+4. Download the new release and unzip all files into the same directory.
+5. Run the database upgrade script using phpMyAdmin or any other database management tool:
+   ```
+   sql/update_5.3.6_to_5.3.7.sql
+   ```
+   This adds the `bad_logins_start` column to `tcneo_users` and `tcneo_archive_users`.
+   Existing rows are unaffected (the column defaults to `0`).
+6. **(Optional)** Add an application secret to your `.env` file (see `.env.example`):
+   ```
+   APP_SECRET=<at least 32 characters of random data>
+   ```
+   This key signs the login cookie. If you leave it unset, TeamCal Neo generates one
+   automatically and stores it in the database, so no action is required. Setting it in
+   `.env` keeps the same key across reinstalls and keeps it out of database backups.
+7. Delete `installation.php` from the root directory.
+
+> **Everyone has to log in again.** Login cookies issued by earlier versions are no
+> longer accepted, so all active sessions end when you upgrade. This is intentional.
+
+> **Check your locked accounts.** Earlier versions could lock an account permanently
+> after repeated failed logins, using the same flag an administrator uses to disable
+> an account. The upgrade cannot tell the two apart, so any affected account stays
+> locked. Review them in **Admin -> Users**, or with:
+> ```sql
+> SELECT username, locked, bad_logins FROM `tcneo_users` WHERE locked = 1;
+> ```
+> From this version on, too many failed logins only throttles an account for the
+> configured grace period and then clears by itself. The `locked` flag is reserved
+> for administrators.
+
 ## [5.3.5] -> [5.3.6]
 
 1. Backup your current files and database!

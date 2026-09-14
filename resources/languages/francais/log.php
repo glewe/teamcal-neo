@@ -93,6 +93,7 @@ $LANG['log_hol_created'] = 'Jour férié créé : ';
 $LANG['log_hol_updated'] = 'Jour férié mis à jour : ';
 $LANG['log_hol_deleted'] = 'Jour férié supprimé : ';
 $LANG['log_imp_success'] = 'Importation CSV réussie : ';
+$LANG['log_license_unavailable'] = 'Les informations de licence n\'ont pas pu être récupérées : ';
 $LANG['log_log_updated'] = 'Paramètres du journal mis à jour';
 $LANG['log_log_cleared'] = 'Journal effacé';
 $LANG['log_log_reset'] = 'Paramètres du journal réinitialisés';

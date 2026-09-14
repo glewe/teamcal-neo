@@ -102,7 +102,7 @@ class LoginController extends BaseController
               else {
                 header("Location: index.php?action=" . $this->allConfig['homepage']);
               }
-              break;
+              exit;
             }
 
           case 1: // Username or password missing

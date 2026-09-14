@@ -61,35 +61,142 @@ class LoginModel
 
   //---------------------------------------------------------------------------
   /**
+   * Converts a stored date value to a UNIX timestamp.
+   *
+   * DATETIME columns are read back as 'Y-m-d H:i:s' but assigned in code as
+   * the compact 'YmdHis' form, so both spellings have to be accepted. Earlier
+   * releases ran intval() over the raw string, which produced a number that
+   * was not a timestamp at all and made every comparison meaningless.
+   *
+   * @param string $value Date value in 'Y-m-d H:i:s' or 'YmdHis' form
+   *
+   * @return int Seconds since the UNIX epoch, or 0 when unparsable
+   */
+  private function toTimestamp(string $value): int {
+    $value = trim($value);
+    if ($value === '') {
+      return 0;
+    }
+
+    if (ctype_digit($value) && strlen($value) === 14) {
+      $value = substr($value, 0, 4) . '-' . substr($value, 4, 2) . '-' . substr($value, 6, 2) . ' '
+        . substr($value, 8, 2) . ':' . substr($value, 10, 2) . ':' . substr($value, 12, 2);
+    }
+
+    $timestamp = strtotime($value);
+    return $timestamp === false ? 0 : $timestamp;
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Returns the per-installation secret used to sign login cookies.
+   *
+   * Prefers APP_SECRET from .env. When that is absent, a random secret is
+   * generated once and persisted in the config table, so that an upgrading
+   * installation needs no manual step.
+   *
+   * @return string Binary secret of at least 32 bytes
+   */
+  private function getCookieSecret(): string {
+    global $C;
+
+    $envSecret = $_ENV['APP_SECRET'] ?? '';
+    if (is_string($envSecret) && strlen($envSecret) >= 32) {
+      return $envSecret;
+    }
+
+    $stored = $C->read('cookieSecret');
+    if (is_string($stored) && strlen($stored) === 64 && ctype_xdigit($stored)) {
+      return (string) hex2bin($stored);
+    }
+
+    $new = random_bytes(32);
+    $C->save('cookieSecret', bin2hex($new));
+    return $new;
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Builds a signed login cookie value.
+   *
+   * The expiry is part of the signed payload. The expiry passed to
+   * setcookie() is only a client side hint and is not binding.
+   *
+   * @param string $username Username to bind the cookie to
+   * @param int    $expires  Unix timestamp at which the cookie stops being valid
+   *
+   * @return string Cookie value in the form base64(payload).hmac
+   */
+  private function signedCookieValue(string $username, int $expires): string {
+    $payload = base64_encode($username . '|' . $expires);
+    return $payload . '.' . hash_hmac('sha256', $payload, $this->getCookieSecret());
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Clears any existing login cookie and issues a freshly signed one.
+   *
+   * @param string $username Username to bind the cookie to
+   *
+   * @return void
+   */
+  private function issueCookie(string $username): void {
+    global $C;
+
+    $expires = time() + intval($C->read("cookieLifetime"));
+    setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, $this->isSecure, true);
+    setcookie($this->cookie_name, $this->signedCookieValue($username, $expires), $expires, '', $this->hostName, $this->isSecure, true);
+  }
+
+  //---------------------------------------------------------------------------
+  /**
    * Checks the login cookie and if it exists and is valid and if the user
    * is logged in we get the user info from the database.
+   *
+   * The cookie carries base64(username|expiry) and an HMAC of that payload
+   * keyed on the per-installation secret. Both halves are attacker supplied,
+   * so the signature is what makes the cookie trustworthy.
    *
    * @return string|bool Username of the user logged in, or false
    */
   public function checkLogin(): string|bool {
     global $U;
-    //
-    // If the cookie is set, look up the username in the database
-    //
-    // Cookie array[0]=username
-    // Cookie array[1]=password
-    //
-    if (isset($_COOKIE[$this->cookie_name])) {
-      $array = explode(":", $_COOKIE[$this->cookie_name]);
-      if (!isset($array[1])) {
-        $array[1] = '';
-      }
-      if (password_verify($array[0], $array[1])) {
-        $U->findByName($array[0]);
-        return $U->username;
-      }
-      else {
-        return false;
-      }
-    }
-    else {
+
+    if (!isset($_COOKIE[$this->cookie_name])) {
       return false;
     }
+
+    $raw = (string) $_COOKIE[$this->cookie_name];
+    $dot = strrpos($raw, '.');
+    if ($dot === false) {
+      return false;
+    }
+
+    $payload = substr($raw, 0, $dot);
+    $sig     = substr($raw, $dot + 1);
+
+    //
+    // Timing safe comparison against the expected signature.
+    //
+    if (!hash_equals(hash_hmac('sha256', $payload, $this->getCookieSecret()), $sig)) {
+      return false;
+    }
+
+    $decoded = base64_decode($payload, true);
+    if ($decoded === false || !str_contains($decoded, '|')) {
+      return false;
+    }
+
+    [$username, $expires] = explode('|', $decoded, 2);
+    if (!ctype_digit($expires) || intval($expires) < time()) {
+      return false;
+    }
+
+    if (!$U->findByName($username)) {
+      return false;
+    }
+
+    return $U->username;
   }
 
   //---------------------------------------------------------------------------
@@ -250,32 +357,42 @@ class LoginModel
       return 7;
     }
 
+    $now = intval(date("U"));
+
+    //
+    // A throttling window that has expired starts over. Without this the
+    // counter would never fall back to zero on its own.
+    //
+    if ($U->bad_logins && ($now - $U->bad_logins_start) >= $this->grace_period) {
+      $U->bad_logins       = 0;
+      $U->bad_logins_start = 0;
+    }
+
     if (!$U->bad_logins) {
       //
-      // 1st bad login attempt, set the counter = 1
-      // Set the timestamp to seconds since UNIX epoch (makes checking grace period easy)
+      // 1st bad login attempt of a new window. Remember when it started,
+      // as seconds since the UNIX epoch, so the window can expire.
       //
-      $U->bad_logins       = 1;
-      $U->bad_logins_start = date("U");
-      $U->update($U->username);
-      return 4;
+      $U->bad_logins_start = $now;
     }
-    elseif (++$U->bad_logins >= $this->bad_logins) {
+
+    //
+    // The counter must be persisted on EVERY failed attempt. Incrementing it
+    // in memory only, as earlier releases did, left it stuck at 1 forever.
+    //
+    $U->bad_logins++;
+    $U->update($U->username);
+
+    if ($U->bad_logins >= $this->bad_logins) {
       //
-      // That's too much! I've had it now with your bad logins.
-      // Login locked for grace period of time.
+      // That's too much! Login is throttled for the grace period. This is
+      // deliberately NOT the administrative 'locked' flag - the throttle
+      // expires by itself, an administrative lock does not.
       //
-      $U->bad_logins_start = date("U");
-      $U->locked           = 1;
-      $U->update($U->username);
       return 6;
     }
-    else {
-      //
-      // 2nd or higher bad login attempt
-      //
-      return 5;
-    }
+
+    return $U->bad_logins === 1 ? 4 : 5;
   }
 
   //---------------------------------------------------------------------------
@@ -315,21 +432,29 @@ class LoginModel
       return 1;
     }
 
-    $now = date("U");
+    $now = intval(date("U"));
 
     if (!$U->findByName($loginname)) {
       // User not found. If found U->username is now set.
       return 2;
     }
     if ($U->locked) {
-      // Account is locked or not approved
+      // Account is administratively disabled. Only an admin clears this.
       return 3;
     }
     if ($UO->read($loginname, "verifycode")) {
       // Account not verified.
       return 8;
     }
-    if ($U->onhold && ($now - intval($U->grace_start) <= $this->grace_period)) {
+    if (
+      $this->bad_logins
+      && $U->bad_logins >= $this->bad_logins
+      && ($now - $U->bad_logins_start) < $this->grace_period
+    ) {
+      // Too many recent failures. Self-expiring, unlike the 'locked' flag.
+      return 6;
+    }
+    if ($U->onhold && ($now - $this->toTimestamp($U->grace_start) <= $this->grace_period)) {
       // Login is locked for this account and grace period is not over yet.
       return 6;
     }
@@ -367,16 +492,11 @@ class LoginModel
     // Successful login!
     // Set up the tc cookie and save the uname so TeamCal can get it.
     //
-    $secret = password_hash($loginname, PASSWORD_DEFAULT);
-    $value  = $loginname . ":" . $secret;
-    // Clear current cookie
-    setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, $this->isSecure, true);
-    // Set new cookie
-    $cookie_lifetime = intval($C->read("cookieLifetime"));
-    setcookie($this->cookie_name, $value, time() + $cookie_lifetime, '', $this->hostName, $this->isSecure, true);
-    $U->bad_logins  = 0;
-    $U->grace_start = defined('DEFAULT_TIMESTAMP') ? DEFAULT_TIMESTAMP : '19700101000000';
-    $U->last_login  = date("YmdHis");
+    $this->issueCookie($loginname);
+    $U->bad_logins       = 0;
+    $U->bad_logins_start = 0;
+    $U->grace_start      = defined('DEFAULT_TIMESTAMP') ? DEFAULT_TIMESTAMP : '19700101000000';
+    $U->last_login       = date("YmdHis");
     $U->update($U->username);
 
     return 0;
@@ -395,13 +515,12 @@ class LoginModel
    * @return void
    */
   public function loginByUsername(string $username): void {
-    global $C, $U;
-    $secret          = password_hash($username, PASSWORD_DEFAULT);
-    $value           = $username . ':' . $secret;
-    setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, $this->isSecure, true);
-    $cookie_lifetime = intval($C->read('cookieLifetime'));
-    setcookie($this->cookie_name, $value, time() + $cookie_lifetime, '', $this->hostName, $this->isSecure, true);
-    $U->last_login = date('YmdHis');
+    global $U;
+
+    $this->issueCookie($username);
+    $U->bad_logins       = 0;
+    $U->bad_logins_start = 0;
+    $U->last_login       = date('YmdHis');
     $U->update($U->username);
   }
 

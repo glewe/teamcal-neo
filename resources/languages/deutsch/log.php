@@ -69,6 +69,7 @@ $LANG['log_hol_created'] = 'Feiertag angelegt: ';
 $LANG['log_hol_deleted'] = 'Feiertag gelöscht: ';
 $LANG['log_hol_updated'] = 'Feiertag aktualisiert: ';
 $LANG['log_imp_success'] = 'CSV Import: ';
+$LANG['log_license_unavailable'] = 'Lizenzinformationen konnten nicht abgerufen werden: ';
 $LANG['log_log_cleared'] = 'Logbuch geleert';
 $LANG['log_log_updated'] = 'Logbucheinstellungen aktualisiert';
 $LANG['log_log_reset'] = 'Logbucheinstellungen zurückgesetzt';
