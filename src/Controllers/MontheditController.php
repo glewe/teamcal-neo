@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Core\BaseController;
+use App\Models\CalendarDayModel;
 use App\Models\LicenseModel;
 use DateTime;
 
@@ -63,7 +64,7 @@ class MontheditController extends BaseController
         $missingData = true;
       }
 
-      if (!$this->R->getById($region)) {
+      if (!$this->regionModel->getById($region)) {
         $missingData = true;
       }
     }
@@ -86,16 +87,8 @@ class MontheditController extends BaseController
       die();
     }
 
-    $viewData['regionid']   = $this->R->id;
-    $viewData['regionname'] = $this->R->name;
-
-    // See if a template exists. If not, create one.
-    if (!$this->M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid'])) {
-      createMonth($viewData['year'], $viewData['month'], 'region', $viewData['regionid']);
-      $this->LOG->logEvent("logMonth", $this->UL->username, "log_month_tpl_created", $viewData['regionid'] . ": " . $viewData['year'] . "-" . $viewData['month']);
-      // Re-fetch after creation
-      $this->M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']);
-    }
+    $viewData['regionid']   = $this->regionModel->id;
+    $viewData['regionname'] = $this->regionModel->name;
 
     $viewData['dateInfo'] = dateInfo($viewData['year'], $viewData['month']);
 
@@ -113,7 +106,7 @@ class MontheditController extends BaseController
         for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
           $key = 'opt_hol_' . $i;
           if (isset($_POST[$key])) {
-            $this->M->setHoliday($viewData['year'], $viewData['month'], (string) $i, $viewData['regionid'], $_POST[$key]);
+            $this->calendarDayModel->setHoliday($viewData['year'], $viewData['month'], (string) $i, $viewData['regionid'], $_POST[$key]);
           }
         }
 
@@ -122,7 +115,7 @@ class MontheditController extends BaseController
           sendMonthEventNotifications("changed", $viewData['year'], $viewData['month'], $viewData['regionname'], $mailError);
         }
 
-        $this->LOG->logEvent("logMonth", $this->UL->username, "log_month_tpl_updated", $this->M->region . " " . $this->M->year . $this->M->month);
+        $this->logModel->logEvent("logMonth", $this->userLoggedIn->username, "log_month_tpl_updated", $viewData['regionid'] . " " . $viewData['year'] . $viewData['month']);
 
         $showAlert            = true;
         $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
@@ -136,14 +129,14 @@ class MontheditController extends BaseController
 
       }
       elseif (isset($_POST['btn_clearall'])) {
-        $this->M->clearHolidays($viewData['year'], $viewData['month'], $viewData['regionid']);
+        $this->calendarDayModel->clearHolidays($viewData['year'], $viewData['month'], $viewData['regionid']);
 
         $mailError = '';
         if ($this->allConfig['emailNotifications']) {
           sendMonthEventNotifications("changed", $viewData['year'], $viewData['month'], $viewData['regionname'], $mailError);
         }
 
-        $this->LOG->logEvent("logMonth", $this->UL->username, "log_month_tpl_updated", $this->M->region . " " . $this->M->year . $this->M->month);
+        $this->logModel->logEvent("logMonth", $this->userLoggedIn->username, "log_month_tpl_updated", $viewData['regionid'] . " " . $viewData['year'] . $viewData['month']);
 
         $showAlert            = true;
         $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
@@ -172,42 +165,42 @@ class MontheditController extends BaseController
     }
 
     // Prepare View Data
-    // Re-load month in case of updates
-    $this->M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']);
-    $viewData['holidays'] = $this->H->getAllCustom();
+    $viewData['M']         = CalendarDayModel::buildWeekdayGrid($viewData['year'], $viewData['month']);
+    $holidayMap            = $this->calendarDayModel->getMonthMap($viewData['year'], $viewData['month'], $viewData['regionid']);
+    $viewData['holidays']  = $this->holidayModel->getAllCustom();
 
     $viewData['dayStyles'] = [];
     $holidayColorCache     = [];
 
     foreach ($viewData['holidays'] as $hol) {
       $holidayColorCache[$hol['id']] = [
-        'color'   => $this->H->getColor((string) $hol['id']),
-        'bgcolor' => $this->H->getBgColor((string) $hol['id'])
+        'color'   => $this->holidayModel->getColor((string) $hol['id']),
+        'bgcolor' => $this->holidayModel->getBgColor((string) $hol['id'])
       ];
     }
 
     // Cache weekend colors
     for ($i = 2; $i <= 3; $i++) {
       $holidayColorCache[$i] = [
-        'color'   => $this->H->getColor((string) $i),
-        'bgcolor' => $this->H->getBgColor((string) $i)
+        'color'   => $this->holidayModel->getColor((string) $i),
+        'bgcolor' => $this->holidayModel->getBgColor((string) $i)
       ];
     }
 
     for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
       $viewData['dayStyles'][$i] = '';
-      $hprop                     = 'hol' . $i;
-      $wprop                     = 'wday' . $i;
+      $holidayId                 = $holidayMap[$i] ?? 1;
+      $weekday                   = $viewData['M']['wday' . $i];
 
-      if ($this->M->$hprop) {
-        if (isset($holidayColorCache[$this->M->$hprop])) {
-          $color                     = $holidayColorCache[$this->M->$hprop]['color'];
-          $bgcolor                   = $holidayColorCache[$this->M->$hprop]['bgcolor'];
+      if ($holidayId !== 1) {
+        if (isset($holidayColorCache[$holidayId])) {
+          $color                     = $holidayColorCache[$holidayId]['color'];
+          $bgcolor                   = $holidayColorCache[$holidayId]['bgcolor'];
           $viewData['dayStyles'][$i] = ' style="color: #' . $color . '; background-color: #' . $bgcolor . ';"';
         }
       }
-      elseif ($this->M->$wprop == 6 || $this->M->$wprop == 7) {
-        $weekendIndex = $this->M->$wprop - 4;
+      elseif ($weekday == 6 || $weekday == 7) {
+        $weekendIndex = $weekday - 4;
         if (isset($holidayColorCache[$weekendIndex])) {
           $color                     = $holidayColorCache[$weekendIndex]['color'];
           $bgcolor                   = $holidayColorCache[$weekendIndex]['bgcolor'];
@@ -219,7 +212,7 @@ class MontheditController extends BaseController
     $todayDate                   = getdate(time());
     $viewData['yearToday']       = $todayDate['year'];
     $viewData['monthToday']      = sprintf("%02d", $todayDate['mon']);
-    $viewData['regions']         = $this->R->getAll();
+    $viewData['regions']         = $this->regionModel->getAll();
     $viewData['showWeekNumbers'] = $this->allConfig['showWeekNumbers'];
     $viewData['supportMobile']   = $this->allConfig['supportMobile'];
 

@@ -37,7 +37,7 @@ class AbsencesController extends BaseController
     $alertData        = [];
     $showAlert        = false;
     $licExpiryWarning = (int) $this->allConfig['licExpiryWarning'];
-    $LIC              = new LicenseModel($this->DB->db, $this->CONF);
+    $LIC              = new LicenseModel($this->dbModel->db, $this->CONF);
     $LIC->check($alertData, $showAlert, (int) $licExpiryWarning, $this->LANG);
 
 
@@ -67,16 +67,16 @@ class AbsencesController extends BaseController
         }
 
         if (!$inputError) {
-          $this->A->name   = $viewData['txt_name'];
-          $this->A->icon   = 'fas fa-times';
-          $this->A->symbol = strtoupper(substr($viewData['txt_name'], 0, 1));
-          $this->A->create();
+          $this->absenceModel->name   = $viewData['txt_name'];
+          $this->absenceModel->icon   = 'fas fa-times';
+          $this->absenceModel->symbol = strtoupper(substr($viewData['txt_name'], 0, 1));
+          $this->absenceModel->create();
 
           $mailError = '';
           if ($this->allConfig['emailNotifications']) {
-            sendAbsenceEventNotifications('created', $this->A->name, $mailError);
+            sendAbsenceEventNotifications('created', $this->absenceModel->name, $mailError);
           }
-          $this->LOG->logEvent('logAbsence', $this->UL->username, 'log_abs_created', $this->A->name);
+          $this->logModel->logEvent('logAbsence', $this->userLoggedIn->username, 'log_abs_created', $this->absenceModel->name);
 
           if (session_status() === PHP_SESSION_ACTIVE) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -106,11 +106,11 @@ class AbsencesController extends BaseController
         $hidden_name = $_POST['hidden_name'] ?? '';
 
         if ($hidden_id !== '') {
-          $this->T->replaceAbsId((int) $hidden_id, 0);
-          $this->AG->unassignAbs($hidden_id);
-          $this->UO->deleteOptionByValue('calfilterAbs', $hidden_id);
-          $this->A->setAllSubsPrimary($hidden_id);
-          $this->A->delete($hidden_id);
+          $this->absenceDayModel->replaceAbsenceId((int) $hidden_id, 0);
+          $this->absenceGroupModel->unassignAbs($hidden_id);
+          $this->userOptionModel->deleteOptionByValue('calfilterAbs', $hidden_id);
+          $this->absenceModel->setAllSubsPrimary($hidden_id);
+          $this->absenceModel->delete($hidden_id);
         }
 
         if ($hidden_name !== '') {
@@ -118,7 +118,7 @@ class AbsencesController extends BaseController
           if ($this->allConfig['emailNotifications']) {
             sendAbsenceEventNotifications('deleted', $hidden_name, $mailError);
           }
-          $this->LOG->logEvent('logAbsence', $this->UL->username, 'log_abs_deleted', $hidden_name);
+          $this->logModel->logEvent('logAbsence', $this->userLoggedIn->username, 'log_abs_deleted', $hidden_name);
         }
 
         if (session_status() === PHP_SESSION_ACTIVE) {
@@ -142,11 +142,11 @@ class AbsencesController extends BaseController
       $viewData['showAlert'] = true;
     }
 
-    $viewData['absences'] = $this->A->getAll();
+    $viewData['absences'] = $this->absenceModel->getAll();
     $allSubAbsences       = [];
     foreach ($viewData['absences'] as $absence) {
       if (!($absence['counts_as'] ?? false)) {
-        $subAbsences = $this->A->getAllSub((string) $absence['id']);
+        $subAbsences = $this->absenceModel->getAllSub((string) $absence['id']);
         if (!empty($subAbsences)) {
           $allSubAbsences[$absence['id']] = $subAbsences;
         }

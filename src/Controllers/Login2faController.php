@@ -56,11 +56,11 @@ class Login2faController extends BaseController
       }
 
       if (!isset($_POST['totp']) || !preg_match('/^[0-9]{6}$/', $_POST['totp'])) {
-        $this->LOG->logEvent('logLogin', $uname, 'log_login_2fa');
+        $this->logModel->logEvent('logLogin', $uname, 'log_login_2fa');
         $this->renderAlert('warning', $this->LANG['alert_warning_title'], $this->LANG['login_error_2fa'], $this->LANG['login_error_2fa_text']);
       }
       else {
-        $encryptedSecret = $this->UO->read($uname, 'secret');
+        $encryptedSecret = $this->userOptionModel->read($uname, 'secret');
         if (substr($encryptedSecret, 0, 3) === 'v2:') {
           $data       = base64_decode(substr($encryptedSecret, 3));
           $ivLen      = openssl_cipher_iv_length('AES-256-CBC');
@@ -74,11 +74,11 @@ class Login2faController extends BaseController
         }
         $totp = $_POST['totp'];
         if ($tfa->verifyCode($userSecret, $totp)) {
-          $this->L->loginUser($uname, $pword);
-          $this->LOG->logEvent('logLogin', $uname, 'log_login_success');
+          $this->loginModel->loginUser($uname, $pword);
+          $this->logModel->logEvent('logLogin', $uname, 'log_login_success');
           unset($_SESSION['2fa_user'], $_SESSION['2fa_pword']);
 
-          if (count($this->UMSG->getAllPopupByUser($uname))) {
+          if (count($this->userMessageModel->getAllPopupByUser($uname))) {
             header('Location: index.php?action=messages');
           }
           else {
@@ -87,7 +87,7 @@ class Login2faController extends BaseController
           exit;
         }
         else {
-          $this->LOG->logEvent('logLogin', $uname, 'log_login_2fa');
+          $this->logModel->logEvent('logLogin', $uname, 'log_login_2fa');
           $this->renderAlert('warning', $this->LANG['alert_warning_title'], $this->LANG['login_error_2fa'], $this->LANG['login_error_2fa_text']);
         }
       }

@@ -40,7 +40,7 @@
   <button type="button" class="btn btn-info" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#modalSearchUser">{{ LANG.search }}:&nbsp;{{ search }}</button>
   <button type="submit" class="btn btn-success" tabindex="{{ nextTabindex() }}" name="btn_reset">{{ LANG.btn_reset }}</button>
   {% if isAllowed(CONF.controllers.calendaredit.permission) %}
-    <a class="btn btn-secondary float-end" tabindex="{{ nextTabindex() }}" href="index.php?action={{ CONF.controllers.calendaredit.name }}&amp;month={{ year }}{{ month }}&amp;region={{ regionid }}&amp;user={{ UL.username }}">{{ LANG.btn_cal_edit }}</a>
+    <a class="btn btn-secondary float-end" tabindex="{{ nextTabindex() }}" href="index.php?action={{ CONF.controllers.calendaredit.name }}&amp;month={{ year }}{{ month }}&amp;region={{ regionid }}&amp;user={{ userLoggedIn.username }}">{{ LANG.btn_cal_edit }}</a>
   {% endif %}
 </div>
 <div style="height:20px;"></div>

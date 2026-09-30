@@ -45,6 +45,8 @@ $LANG['login_error_94_text'] = 'El inicio de TLS de LDAP falló. Por favor, int�
 $LANG['login_error_95'] = 'Error de LDAP: Usuario no encontrado';
 $LANG['login_error_96'] = 'Error de LDAP: Error en la vinculación de búsqueda';
 $LANG['login_error_96_text'] = 'La vinculación de búsqueda de LDAP falló. Por favor, inténtelo de nuevo.';
+$LANG['login_error_97'] = 'Error de LDAP: Falló la comprobación de enlace anónimo';
+$LANG['login_error_97_text'] = 'El servidor LDAP rechazó el enlace anónimo utilizado para probar la conectividad. Por favor, compruebe la configuración de enlace anónimo en su servidor LDAP, o desactive la comprobación de enlace anónimo en la configuración.';
 
 $LANG['login_sso_button'] = 'Iniciar sesión con SSO';
 $LANG['login_admin_local'] = 'Inicio de sesión de administrador';

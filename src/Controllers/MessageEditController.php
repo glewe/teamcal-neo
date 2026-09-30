@@ -45,9 +45,9 @@ class MessageEditController extends BaseController
     $viewData['sendToUser']  = [];
     $viewData['subject']     = '';
     $viewData['text']        = '';
-    $viewData['luser']       = $this->UL->username;
+    $viewData['luser']       = $this->userLoggedIn->username;
 
-    $allUsers         = $this->U->getAll();
+    $allUsers         = $this->userModel->getAll();
     $userEmails       = [];
     $userDisplayNames = [];
     foreach ($allUsers as $user) {
@@ -125,7 +125,7 @@ class MessageEditController extends BaseController
                 if (isset($_POST['sel_sendToGroup'])) {
                   $sendMail = true;
                   foreach ($_POST['sel_sendToGroup'] as $gto) {
-                    $groupusers = $this->UG->getAllForGroup((string) $this->G->getId($gto));
+                    $groupusers = $this->userGroupModel->getAllForGroup((string) $this->groupModel->getId($gto));
                     foreach ($groupusers as $groupuser) {
                       if (isset($userEmails[$groupuser['username']])) {
                         $toEmails[] = $userEmails[$groupuser['username']];
@@ -163,11 +163,11 @@ class MessageEditController extends BaseController
             }
 
             if ($sendMail) {
-              $from = strlen($this->UL->email) ? ltrim(mb_encode_mimeheader($this->UL->firstname . " " . $this->UL->lastname)) . " <" . $this->UL->email . ">" : '';
+              $from = strlen($this->userLoggedIn->email) ? ltrim(mb_encode_mimeheader($this->userLoggedIn->firstname . " " . $this->userLoggedIn->lastname)) . " <" . $this->userLoggedIn->email . ">" : '';
               $to   = implode(',', $toEmails);
               $mailError = '';
               if (sendEmail($to, stripslashes($_POST['txt_subject']), stripslashes($_POST['txt_text']), $from, $mailError)) {
-                $this->LOG->logEvent("logMessage", $this->UL->username, "log_msg_email", $this->UL->username . " -> " . $to);
+                $this->logModel->logEvent("logMessage", $this->userLoggedIn->username, "log_msg_email", $this->userLoggedIn->username . " -> " . $to);
                 $showAlert            = true;
                 $alertData['type']    = 'success';
                 $alertData['title']   = $this->LANG['alert_success_title'];
@@ -202,23 +202,23 @@ class MessageEditController extends BaseController
           $tstamp  = date("YmdHis");
           $mmsg    = str_replace("\r\n", "<br>", $_POST['txt_text']);
 
-          $userAvatar = $this->UO->read($this->UL->username, 'avatar');
+          $userAvatar = $this->userOptionModel->read($this->userLoggedIn->username, 'avatar');
           if (!$userAvatar || !file_exists(APP_AVATAR_DIR . $userAvatar)) {
-            $userGender = $this->UO->read($this->UL->username, 'gender');
+            $userGender = $this->userOptionModel->read($this->userLoggedIn->username, 'gender');
             $userAvatar = 'default_' . $userGender . '.png';
           }
-          $signature = '<img src="' . APP_AVATAR_DIR . $userAvatar . '" width="40" height="40" alt="" style="margin: 0 8px 0 0; text-align:left;"><i>[' . ltrim($this->UL->firstname . " " . $this->UL->lastname) . ']</i>';
+          $signature = '<img src="' . APP_AVATAR_DIR . $userAvatar . '" width="40" height="40" alt="" style="margin: 0 8px 0 0; text-align:left;"><i>[' . ltrim($this->userLoggedIn->firstname . " " . $this->userLoggedIn->lastname) . ']</i>';
           $message   = "<strong>" . $_POST['txt_subject'] . "</strong><br>" . $mmsg . "<br><br>" . $signature;
 
-          $newsid = $this->MSG->create($tstamp, $message, $_POST['opt_contenttype']);
+          $newsid = $this->messageModel->create($tstamp, $message, $_POST['opt_contenttype']);
           $popup  = ($_POST['opt_msgtype'] == "popup") ? '1' : '0';
 
           switch ($_POST['opt_sendto']) {
             case "all":
               $to = "all";
-              $usernames = $this->U->getUsernames();
+              $usernames = $this->userModel->getUsernames();
               foreach ($usernames as $username) {
-                $this->UMSG->add($username, (string) $newsid, $popup);
+                $this->userMessageModel->add($username, (string) $newsid, $popup);
               }
               $msgsent = true;
               break;
@@ -227,9 +227,9 @@ class MessageEditController extends BaseController
                 $to = " Groups (";
                 foreach ($_POST['sel_sendToGroup'] as $gto) {
                   $to         .= $gto . ",";
-                  $groupusers  = $this->UG->getAllForGroup((string) $this->G->getId($gto));
+                  $groupusers  = $this->userGroupModel->getAllForGroup((string) $this->groupModel->getId($gto));
                   foreach ($groupusers as $groupuser) {
-                    $this->UMSG->add($groupuser['username'], (string) $newsid, $popup);
+                    $this->userMessageModel->add($groupuser['username'], (string) $newsid, $popup);
                   }
                 }
                 $to      = rtrim($to, ',') . ')';
@@ -249,8 +249,8 @@ class MessageEditController extends BaseController
                 $to = " Users (";
                 foreach ($_POST['sel_sendToUser'] as $uto) {
                   $to .= $uto . ",";
-                  if ($this->U->findByName($uto)) {
-                    $this->UMSG->add($uto, (string) $newsid, $popup);
+                  if ($this->userModel->findByName($uto)) {
+                    $this->userMessageModel->add($uto, (string) $newsid, $popup);
                   }
                 }
                 $to      = rtrim($to, ',') . ')';
@@ -268,7 +268,7 @@ class MessageEditController extends BaseController
           }
 
           if ($msgsent) {
-            $this->LOG->logEvent("logMessage", $this->UL->username, "log_msg_message", ": " . $this->UL->username . " -> " . $to);
+            $this->logModel->logEvent("logMessage", $this->userLoggedIn->username, "log_msg_message", ": " . $this->userLoggedIn->username . " -> " . $to);
             $showAlert            = true;
             $alertData['type']    = 'success';
             $alertData['title']   = $this->LANG['alert_success_title'];
@@ -288,7 +288,7 @@ class MessageEditController extends BaseController
     $viewData['showAlert']        = $showAlert;
     $viewData['captcha_question'] = $captchaService->generateQuestion();
 
-    $viewData['groups']           = $this->G->getAllNames();
+    $viewData['groups']           = $this->groupModel->getAllNames();
     $viewData['users']            = $allUsers;
     $viewData['userDisplayNames'] = $userDisplayNames;
 

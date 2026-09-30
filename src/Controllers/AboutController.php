@@ -34,7 +34,7 @@ class AboutController extends BaseController
     $showAlert        = false;
     $licExpiryWarning = $this->allConfig['licExpiryWarning'];
 
-    $LIC = new LicenseModel($this->DB->db, $this->CONF);
+    $LIC = new LicenseModel($this->dbModel->db, $this->CONF);
     $LIC->check($alertData, $showAlert, (int) $licExpiryWarning, $this->LANG);
 
     // Prepare Alert

@@ -34,6 +34,7 @@ $LANG['cal_selWidth_comment'] = 'Wähle deine Bildschirmbreite in Pixel so dass 
       <br>Im Moment scheinst du eine Breite von <span id="currentwidth"></span> Pixeln zu benutzen. Lade die Seite neu und öffne diesen Dialog erneut, um sicher zu gehen.';
 $LANG['cal_switchFullmonthView'] = "Wechsel zu Vollmonatsansicht";
 $LANG['cal_switchSplitmonthView'] = 'Wechsel zu Split-Monatsansicht';
+$LANG['cal_viewmode_login'] = 'Die Ansicht kann nicht geändert werden, wenn du nicht angemeldet bist.';
 $LANG['cal_summary'] = 'Summen';
 $LANG['cal_title'] = 'Kalender %s-%s (Region: %s)';
 $LANG['cal_tt_absent'] = 'Abwesend';

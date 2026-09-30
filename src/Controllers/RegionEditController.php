@@ -31,7 +31,7 @@ class RegionEditController extends BaseController
       return;
     }
 
-    $RR          = new RegionModel($this->DB->db, $this->CONF);
+    $RR          = new RegionModel($this->dbModel->db, $this->CONF);
     $missingData = false;
 
     if (isset($_GET['id'])) {
@@ -96,7 +96,7 @@ class RegionEditController extends BaseController
             }
           }
 
-          $this->LOG->logEvent("logRegion", $this->UL->username, "log_region_updated", $RR->name);
+          $this->logModel->logEvent("logRegion", $this->userLoggedIn->username, "log_region_updated", $RR->name);
 
           $showAlert            = true;
           $alertData['type']    = 'success';
@@ -128,9 +128,9 @@ class RegionEditController extends BaseController
       $viewData['showAlert'] = true;
     }
 
-    $roles = $this->RO->getAll();
+    $roles = $this->roleModel->getAll();
     foreach ($roles as $role) {
-      $viewData['viewOnlyRoles'][] = ['val' => $role['id'], 'name' => $role['name'], 'selected' => ($this->R->getAccess((string) $viewData['id'], (string) $role['id']) == "view")];
+      $viewData['viewOnlyRoles'][] = ['val' => $role['id'], 'name' => $role['name'], 'selected' => ($this->regionModel->getAccess((string) $viewData['id'], (string) $role['id']) == "view")];
     }
     $viewData['region'] = [
       ['prefix' => 'region', 'name' => 'name', 'type' => 'text', 'placeholder' => '', 'value' => $viewData['name'], 'maxlength' => '40', 'mandatory' => true, 'error' => ($inputAlert['name'] ?? '')],

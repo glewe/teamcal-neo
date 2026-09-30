@@ -42,9 +42,9 @@ class PermissionsController extends BaseController
     $viewData['pageHelp']   = $this->allConfig['pageHelp'];
     $viewData['showAlerts'] = $this->allConfig['showAlerts'];
 
-    $roles  = $this->RO->getAll();
+    $roles  = $this->roleModel->getAll();
     $scheme = $this->allConfig['permissionScheme'] ?: "Default";
-    if (isset($_GET['scheme']) && $this->P->schemeExists($_GET['scheme'])) {
+    if (isset($_GET['scheme']) && $this->permissionModel->schemeExists($_GET['scheme'])) {
       $scheme = $_GET['scheme'];
     }
 
@@ -102,16 +102,16 @@ class PermissionsController extends BaseController
       }
 
       if (isset($_POST['btn_permActivate'])) {
-        $this->C->save("permissionScheme", $_POST['sel_scheme']);
-        $this->LOG->logEvent("logPermission", $this->UL->username, "log_perm_activated", $_POST['sel_scheme']);
+        $this->configModel->save("permissionScheme", $_POST['sel_scheme']);
+        $this->logModel->logEvent("logPermission", $this->userLoggedIn->username, "log_perm_activated", $_POST['sel_scheme']);
         header("Location: index.php?action=permissions&scheme=" . $_POST['sel_scheme']);
         die();
       }
       elseif (isset($_POST['btn_permDelete'])) {
         if ($_POST['sel_scheme'] != "Default") {
-          $this->P->deleteScheme($_POST['sel_scheme']);
-          $this->C->save("permissionScheme", "Default");
-          $this->LOG->logEvent("logPermission", $this->UL->username, "log_perm_deleted", $_POST['sel_scheme']);
+          $this->permissionModel->deleteScheme($_POST['sel_scheme']);
+          $this->configModel->save("permissionScheme", "Default");
+          $this->logModel->logEvent("logPermission", $this->userLoggedIn->username, "log_perm_deleted", $_POST['sel_scheme']);
           header("Location: index.php?action=permissions&scheme=Default");
           die();
         }
@@ -127,7 +127,7 @@ class PermissionsController extends BaseController
         }
         else {
           $scheme = $_POST['txt_newScheme'];
-          if ($this->P->schemeExists($scheme)) {
+          if ($this->permissionModel->schemeExists($scheme)) {
             $showAlert            = true;
             $alertData['type']    = 'danger';
             $alertData['title']   = $this->LANG['alert_danger_title'];
@@ -138,7 +138,7 @@ class PermissionsController extends BaseController
         }
 
         if (!$showAlert) {
-          $this->P->deleteScheme($scheme);
+          $this->permissionModel->deleteScheme($scheme);
           $batchData = [];
           foreach ($perms as $perm) {
             foreach ($roles as $role) {
@@ -152,8 +152,8 @@ class PermissionsController extends BaseController
               $batchData[] = ['scheme' => $scheme, 'permission' => $fperm, 'role' => $role['id'], 'allowed' => $allowed];
             }
           }
-          $this->P->setPermissionsBatch($batchData);
-          $this->LOG->logEvent("logPermission", $this->UL->username, "log_perm_created", $scheme);
+          $this->permissionModel->setPermissionsBatch($batchData);
+          $this->logModel->logEvent("logPermission", $this->userLoggedIn->username, "log_perm_created", $scheme);
           header("Location: index.php?action=permissions&scheme=" . $scheme);
           die();
         }
@@ -163,12 +163,12 @@ class PermissionsController extends BaseController
           $defaultPermissions = [];
           foreach ($perms as $perm) {
             foreach ($roles as $role) {
-              $defaultPermissions[$perm][$role['id']] = $this->P->isAllowed("Default", $perm, $role['id']);
+              $defaultPermissions[$perm][$role['id']] = $this->permissionModel->isAllowed("Default", $perm, $role['id']);
             }
           }
           foreach ($fperms as $fperm) {
             foreach ($roles as $role) {
-              $defaultPermissions[$fperm][$role['id']] = $this->P->isAllowed("Default", $fperm, $role['id']);
+              $defaultPermissions[$fperm][$role['id']] = $this->permissionModel->isAllowed("Default", $fperm, $role['id']);
             }
           }
 
@@ -185,8 +185,8 @@ class PermissionsController extends BaseController
               $batchData[] = ['scheme' => $scheme, 'permission' => $fperm, 'role' => $role['id'], 'allowed' => $allowed];
             }
           }
-          $this->P->setPermissionsBatch($batchData);
-          $this->LOG->logEvent("logPermission", $this->UL->username, "log_perm_reset", $scheme);
+          $this->permissionModel->setPermissionsBatch($batchData);
+          $this->logModel->logEvent("logPermission", $this->userLoggedIn->username, "log_perm_reset", $scheme);
           header("Location: index.php?action=permissions&scheme=" . $scheme);
           die();
         }
@@ -219,8 +219,8 @@ class PermissionsController extends BaseController
             $batchData[] = ['scheme' => $scheme, 'permission' => $fperm, 'role' => $role['id'], 'allowed' => $allowed];
           }
         }
-        $this->P->setPermissionsBatch($batchData);
-        $this->LOG->logEvent("logPermission", $this->UL->username, "log_perm_changed", $scheme);
+        $this->permissionModel->setPermissionsBatch($batchData);
+        $this->logModel->logEvent("logPermission", $this->userLoggedIn->username, "log_perm_changed", $scheme);
         header("Location: index.php?action=permissions&scheme=" . $scheme);
         die();
       }
@@ -247,14 +247,14 @@ class PermissionsController extends BaseController
     // For regular permissions
     foreach ($perms as $perm) {
       foreach ($roles as $role) {
-        $matrix[$perm][$role['id']] = $this->P->isAllowed($scheme, $perm, $role['id']);
+        $matrix[$perm][$role['id']] = $this->permissionModel->isAllowed($scheme, $perm, $role['id']);
       }
     }
 
     // For feature permissions
     foreach ($fperms as $fperm) {
       foreach ($roles as $role) {
-        $matrix[$fperm][$role['id']] = $this->P->isAllowed($scheme, $fperm, $role['id']);
+        $matrix[$fperm][$role['id']] = $this->permissionModel->isAllowed($scheme, $fperm, $role['id']);
       }
     }
 
@@ -264,7 +264,7 @@ class PermissionsController extends BaseController
     $viewData['permgroups'] = $permgroups;
     $viewData['fperms']     = $fperms;
     $viewData['roles']      = $roles;
-    $viewData['schemes']    = $this->P->getSchemes();
+    $viewData['schemes']    = $this->permissionModel->getSchemes();
     $viewData['scheme']     = $scheme;
 
     $this->render('permissions', $viewData);

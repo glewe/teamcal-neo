@@ -25,9 +25,9 @@ class DataprivacyController extends BaseController
    */
   public function execute(): void {
     global $LANG;
-    $language = $this->C->read('defaultLanguage');
+    $language = $this->configModel->read('defaultLanguage');
 
-    if (!$this->C->read('gdprPolicyPage')) {
+    if (!$this->configModel->read('gdprPolicyPage')) {
       header("Location: index.php?action=home");
       die();
     }

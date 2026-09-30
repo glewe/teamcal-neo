@@ -67,24 +67,24 @@ class DaynoteController extends BaseController
     $viewData['month']        = substr($dnDate, 0, 6);
     $viewData['enddate']      = '';
     $viewData['user']         = $for;
-    $viewData['userFullname'] = ($for == 'all') ? $this->LANG['all'] : $this->U->getFullname($for);
+    $viewData['userFullname'] = ($for == 'all') ? $this->LANG['all'] : $this->userModel->getFullname($for);
     $viewData['region']       = $region;
     $viewData['regionName']   = 'Default';
     $viewData['daynote']      = '';
     $viewData['color']        = 'info';
     $viewData['confidential'] = '0';
     $viewData['exists']       = false;
-    $regions                  = $this->R->getAll();
+    $regions                  = $this->regionModel->getAll();
 
-    if ($this->D->get($dnDate, $for, (string) $region)) {
-      $viewData['id']           = $this->D->id;
-      $viewData['date']         = substr($this->D->yyyymmdd, 0, 4) . '-' . substr($this->D->yyyymmdd, 4, 2) . '-' . substr($this->D->yyyymmdd, 6, 2);
-      $viewData['user']         = $this->D->username;
-      $viewData['region']       = $this->D->region;
-      $viewData['regionName']   = $this->R->getNameById($this->D->region);
-      $viewData['daynote']      = $this->D->daynote;
-      $viewData['color']        = $this->D->color;
-      $viewData['confidential'] = $this->D->confidential;
+    if ($this->daynoteModel->get($dnDate, $for, (string) $region)) {
+      $viewData['id']           = $this->daynoteModel->id;
+      $viewData['date']         = substr($this->daynoteModel->yyyymmdd, 0, 4) . '-' . substr($this->daynoteModel->yyyymmdd, 4, 2) . '-' . substr($this->daynoteModel->yyyymmdd, 6, 2);
+      $viewData['user']         = $this->daynoteModel->username;
+      $viewData['region']       = $this->daynoteModel->region;
+      $viewData['regionName']   = $this->regionModel->getNameById($this->daynoteModel->region);
+      $viewData['daynote']      = $this->daynoteModel->daynote;
+      $viewData['color']        = $this->daynoteModel->color;
+      $viewData['confidential'] = $this->daynoteModel->confidential;
       $viewData['exists']       = true;
     }
 
@@ -132,31 +132,31 @@ class DaynoteController extends BaseController
 
           foreach ($period as $dt) {
             $formattedDate = $dt->format('Ymd');
-            $this->D->deleteByDateAndUser($formattedDate, $viewData['user']);
+            $this->daynoteModel->deleteByDateAndUser($formattedDate, $viewData['user']);
             foreach ((array) $_POST['sel_regions'] as $reg) {
-              $this->D->yyyymmdd     = $formattedDate;
-              $this->D->username     = $viewData['user'];
-              $this->D->region       = $reg;
-              $this->D->daynote      = $viewData['daynote'];
-              $this->D->color        = $viewData['color'];
-              $this->D->confidential = $viewData['confidential'];
-              $this->D->create();
+              $this->daynoteModel->yyyymmdd     = $formattedDate;
+              $this->daynoteModel->username     = $viewData['user'];
+              $this->daynoteModel->region       = $reg;
+              $this->daynoteModel->daynote      = $viewData['daynote'];
+              $this->daynoteModel->color        = $viewData['color'];
+              $this->daynoteModel->confidential = $viewData['confidential'];
+              $this->daynoteModel->create();
             }
           }
 
-          $logentry = ($viewData['user'] == 'all') ? $viewData['date'] . "|" . $this->R->getNameById($viewData['region']) . ": " . substr($viewData['daynote'], 0, 20) . "..." : $viewData['date'] . "|" . $viewData['user'] . ": " . substr($viewData['daynote'], 0, 20) . "...";
+          $logentry = ($viewData['user'] == 'all') ? $viewData['date'] . "|" . $this->regionModel->getNameById($viewData['region']) . ": " . substr($viewData['daynote'], 0, 20) . "..." : $viewData['date'] . "|" . $viewData['user'] . ": " . substr($viewData['daynote'], 0, 20) . "...";
 
           if (isset($_POST['btn_create'])) {
-            $this->LOG->logEvent("logDaynote", $this->UL->username, "log_dn_created", $logentry);
+            $this->logModel->logEvent("logDaynote", $this->userLoggedIn->username, "log_dn_created", $logentry);
             $this->renderAlert('success', $this->LANG['alert_success_title'], $this->LANG['dn_alert_create'], $this->LANG['dn_alert_create_success']);
           }
           else {
-            $this->LOG->logEvent("logDaynote", $this->UL->username, "log_dn_updated", $logentry);
+            $this->logModel->logEvent("logDaynote", $this->userLoggedIn->username, "log_dn_updated", $logentry);
             $this->renderAlert('success', $this->LANG['alert_success_title'], $this->LANG['dn_alert_update'], $this->LANG['dn_alert_update_success']);
           }
         }
         elseif (isset($_POST['btn_delete'])) {
-          $this->D->deleteByDateAndUser($dnDate, $viewData['user']);
+          $this->daynoteModel->deleteByDateAndUser($dnDate, $viewData['user']);
           if (isset($_POST['txt_enddate']) && strlen((string) $_POST['txt_enddate'])) {
             $start = new \DateTime($viewData['date']);
             $end   = new \DateTime($_POST['txt_enddate']);
@@ -165,12 +165,12 @@ class DaynoteController extends BaseController
               $interval = new \DateInterval('P1D');
               $period   = new \DatePeriod($start, $interval, $end);
               foreach ($period as $dt) {
-                $this->D->deleteByDateAndUser($dt->format('Ymd'), $viewData['user']);
+                $this->daynoteModel->deleteByDateAndUser($dt->format('Ymd'), $viewData['user']);
               }
             }
           }
-          $logentry = ($viewData['user'] == 'all') ? $viewData['date'] . "|" . $this->R->getNameById($viewData['region']) . ": " . substr($viewData['daynote'], 0, 20) . "..." : $viewData['date'] . "|" . $viewData['user'] . ": " . substr($viewData['daynote'], 0, 20) . "...";
-          $this->LOG->logEvent("logDaynote", $this->UL->username, "log_dn_deleted", $logentry);
+          $logentry = ($viewData['user'] == 'all') ? $viewData['date'] . "|" . $this->regionModel->getNameById($viewData['region']) . ": " . substr($viewData['daynote'], 0, 20) . "..." : $viewData['date'] . "|" . $viewData['user'] . ": " . substr($viewData['daynote'], 0, 20) . "...";
+          $this->logModel->logEvent("logDaynote", $this->userLoggedIn->username, "log_dn_deleted", $logentry);
           header("Location: index.php?action=daynote&date=" . str_replace('-', '', $viewData['date']) . '&for=' . $viewData['user'] . '&region=' . $viewData['region']);
           die();
         }
@@ -186,7 +186,7 @@ class DaynoteController extends BaseController
 
     if ($viewData['exists']) {
       foreach ($regions as $region) {
-        $viewData['regions'][] = ['val' => $region['id'], 'name' => $region['name'], 'selected' => ($this->D->get($dnDate, $for, (string) $region['id']))];
+        $viewData['regions'][] = ['val' => $region['id'], 'name' => $region['name'], 'selected' => ($this->daynoteModel->get($dnDate, $for, (string) $region['id']))];
       }
     }
     else {

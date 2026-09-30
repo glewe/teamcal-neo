@@ -36,10 +36,10 @@ class PatternsController extends BaseController
     $alertData        = [];
     $showAlert        = false;
     $licExpiryWarning = (int) $this->allConfig['licExpiryWarning'];
-    $LIC              = new LicenseModel($this->DB->db, $this->CONF);
+    $LIC              = new LicenseModel($this->dbModel->db, $this->CONF);
     $LIC->check($alertData, $showAlert, (int) $licExpiryWarning, $this->LANG);
 
-    $PTN = new PatternModel($this->DB->db, $this->CONF);
+    $patternModel = new PatternModel($this->dbModel->db, $this->CONF);
 
     $viewData                    = [];
     $viewData['pageHelp']        = $this->allConfig['pageHelp'];
@@ -68,17 +68,15 @@ class PatternsController extends BaseController
         }
 
         if (!$inputError) {
-          $PTN->name        = $viewData['txt_name'];
-          $PTN->description = $viewData['txt_description'];
-          $PTN->abs1        = $_POST['sel_abs1'];
-          $PTN->abs2        = $_POST['sel_abs2'];
-          $PTN->abs3        = $_POST['sel_abs3'];
-          $PTN->abs4        = $_POST['sel_abs4'];
-          $PTN->abs5        = $_POST['sel_abs5'];
-          $PTN->abs6        = $_POST['sel_abs6'];
-          $PTN->abs7        = $_POST['sel_abs7'];
-          $PTN->create();
-          $this->LOG->logEvent("logPattern", $this->UL->username, "log_pattern_created", $PTN->name . " " . $PTN->description);
+          $patternModel->name        = $viewData['txt_name'];
+          $patternModel->description = $viewData['txt_description'];
+          $patternModel->create();
+          $weekdayMap = [];
+          for ($i = 1; $i <= 7; $i++) {
+            $weekdayMap[$i] = (int) ($_POST['sel_abs' . $i] ?? 0);
+          }
+          $patternModel->setWeekdayMap((string) $patternModel->id, $weekdayMap);
+          $this->logModel->logEvent("logPattern", $this->userLoggedIn->username, "log_pattern_created", $patternModel->name . " " . $patternModel->description);
 
           $showAlert            = true;
           $alertData['type']    = 'success';
@@ -96,8 +94,8 @@ class PatternsController extends BaseController
         }
       }
       elseif (isset($_POST['btn_patternDelete'])) {
-        $PTN->delete($_POST['hidden_id']);
-        $this->LOG->logEvent("logRole", $this->UL->username, "log_pattern_deleted", $_POST['hidden_name']);
+        $patternModel->delete($_POST['hidden_id']);
+        $this->logModel->logEvent("logRole", $this->userLoggedIn->username, "log_pattern_deleted", $_POST['hidden_name']);
 
         $showAlert            = true;
         $alertData['type']    = 'success';
@@ -110,30 +108,30 @@ class PatternsController extends BaseController
     }
 
     // Prepare absence data for pattern macros
-    $absences = $this->A->getAll();
+    $absences = $this->absenceModel->getAll();
     $absData  = [];
     foreach ($absences as $abs) {
       $absId   = (string) $abs['id'];
       $bgStyle = '';
-      if (!$this->A->getBgTrans($absId)) {
-        $bgColor = $this->A->getBgColor($absId);
+      if (!$this->absenceModel->getBgTrans($absId)) {
+        $bgColor = $this->absenceModel->getBgColor($absId);
         $bgStyle = $bgColor ? $bgColor : 'ffffff';
       }
 
       $symbol = '';
       if ($this->allConfig['symbolAsIcon']) {
-        $symbol = $this->A->getSymbol($absId);
+        $symbol = $this->absenceModel->getSymbol($absId);
       }
       else {
-        $symbol = '<span class="' . $this->A->getIcon($absId) . '"></span>';
+        $symbol = '<span class="' . $this->absenceModel->getIcon($absId) . '"></span>';
       }
 
       $absData[$absId] = [
-        'name'         => $this->A->getName($absId),
-        'color'        => $this->A->getColor($absId),
+        'name'         => $this->absenceModel->getName($absId),
+        'color'        => $this->absenceModel->getColor($absId),
         'bgColor'      => $bgStyle,
-        'bgTrans'      => $this->A->getBgTrans($absId),
-        'icon'         => $this->A->getIcon($absId),
+        'bgTrans'      => $this->absenceModel->getBgTrans($absId),
+        'icon'         => $this->absenceModel->getIcon($absId),
         'symbol'       => $symbol,
         'symbolAsIcon' => $this->allConfig['symbolAsIcon']
       ];
@@ -149,7 +147,7 @@ class PatternsController extends BaseController
       'symbolAsIcon' => false
     ];
 
-    $viewData['patterns']      = $PTN->getAll();
+    $viewData['patterns']      = $patternModel->getAll();
     $viewData['absences']      = $absData;
     $viewData['weekdayShort']  = $this->LANG['weekdayShort'];
     $viewData['searchPattern'] = '';

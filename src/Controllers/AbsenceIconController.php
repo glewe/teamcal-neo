@@ -31,7 +31,7 @@ class AbsenceIconController extends BaseController
       return;
     }
 
-    $AA          = new AbsenceModel($this->DB->db, $this->CONF);
+    $AA          = new AbsenceModel($this->dbModel->db, $this->CONF);
     $missingData = false;
 
     if (isset($_GET['id'])) {

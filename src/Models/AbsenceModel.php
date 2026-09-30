@@ -56,8 +56,8 @@ class AbsenceModel
       $this->table = $conf['db_table_absences'];
     }
     else {
-      global $CONF, $DB;
-      $this->db    = $DB->db;
+      global $CONF, $dbModel;
+      $this->db    = $dbModel->db;
       $this->table = $CONF['db_table_absences'];
     }
   }
@@ -126,6 +126,8 @@ class AbsenceModel
       )'
     );
 
+    $countsAs = $this->counts_as !== 0 ? $this->counts_as : null;
+
     $query->bindParam('val1', $this->name);
     $query->bindParam('val2', $this->symbol);
     $query->bindParam('val3', $this->icon);
@@ -136,7 +138,7 @@ class AbsenceModel
     $query->bindParam('val8', $this->allowance);
     $query->bindParam('val9', $this->allowmonth);
     $query->bindParam('val10', $this->allowweek);
-    $query->bindParam('val11', $this->counts_as);
+    $query->bindParam('val11', $countsAs, $countsAs === null ? PDO::PARAM_NULL : PDO::PARAM_INT);
     $query->bindParam('val12', $this->show_in_remainder);
     $query->bindParam('val13', $this->show_totals);
     $query->bindParam('val14', $this->approval_required);
@@ -168,17 +170,6 @@ class AbsenceModel
 
   //---------------------------------------------------------------------------
   /**
-   * Deletes all absence type records.
-   *
-   * @return bool Query result
-   */
-  public function deleteAll(): bool {
-    $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
-    return $query->execute();
-  }
-
-  //---------------------------------------------------------------------------
-  /**
    * Gets an absence type record.
    *
    * @param string|int $id Record ID
@@ -203,7 +194,7 @@ class AbsenceModel
         $this->allowance         = (int) $row['allowance'];
         $this->allowmonth        = (int) $row['allowmonth'];
         $this->allowweek         = (int) $row['allowweek'];
-        $this->counts_as         = (int) $row['counts_as'];
+        $this->counts_as         = $row['counts_as'] !== null ? (int) $row['counts_as'] : 0;
         $this->show_in_remainder = (int) $row['show_in_remainder'];
         $this->show_totals       = (int) $row['show_totals'];
         $this->approval_required = (int) $row['approval_required'];
@@ -261,7 +252,7 @@ class AbsenceModel
    */
   public function getAllPrimaryBut(string|int $id): array|bool {
     $records = array();
-    $query   = $this->db->prepare("SELECT * FROM " . $this->table . " WHERE id != :val1 AND counts_as = '0' ORDER BY name");
+    $query   = $this->db->prepare("SELECT * FROM " . $this->table . " WHERE id != :val1 AND counts_as IS NULL ORDER BY name");
     $query->bindParam('val1', $id);
     if ($query->execute()) {
       while ($row = $query->fetch()) {
@@ -426,7 +417,7 @@ class AbsenceModel
         $this->allowance         = (int) $row['allowance'];
         $this->allowmonth        = (int) $row['allowmonth'];
         $this->allowweek         = (int) $row['allowweek'];
-        $this->counts_as         = (int) $row['counts_as'];
+        $this->counts_as         = $row['counts_as'] !== null ? (int) $row['counts_as'] : 0;
         $this->show_in_remainder = (int) $row['show_in_remainder'];
         $this->show_totals       = (int) $row['show_totals'];
         $this->approval_required = (int) $row['approval_required'];
@@ -475,7 +466,7 @@ class AbsenceModel
       $query->bindParam('val1', $id);
       $result = $query->execute();
       if ($result && $row = $query->fetch()) {
-        $rc = $row['counts_as'];
+        $rc = $row['counts_as'] !== null ? $row['counts_as'] : 0;
       }
     }
     return $rc;
@@ -551,10 +542,10 @@ class AbsenceModel
    * @return int|bool Last auto-increment ID
    */
   public function getLastId(): int|bool {
-    $query  = $this->db->prepare('SHOW TABLE STATUS LIKE ' . $this->table);
+    $query  = $this->db->prepare('SELECT MAX(id) AS maxid FROM ' . $this->table);
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {
-      return intval($row['Auto_increment']) - 1;
+      return $row['maxid'] !== null ? (int) $row['maxid'] : 0;
     }
     else {
       return false;
@@ -589,10 +580,10 @@ class AbsenceModel
    * @return string|null Next auto-increment ID
    */
   public function getNextId(): string|null {
-    $query  = $this->db->prepare('SHOW TABLE STATUS LIKE ' . $this->table);
+    $query  = $this->db->prepare('SELECT MAX(id) AS maxid FROM ' . $this->table);
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {
-      return (string) $row['Auto_increment'];
+      return (string) (($row['maxid'] !== null ? (int) $row['maxid'] : 0) + 1);
     }
     return null;
   }
@@ -687,7 +678,7 @@ class AbsenceModel
    * @return bool True or False
    */
   public function setAllSubsPrimary(string|int $id): bool {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET counts_as = 0 WHERE counts_as = :val1');
+    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET counts_as = NULL WHERE counts_as = :val1');
     $query->bindParam('val1', $id);
     return $query->execute();
   }
@@ -727,6 +718,8 @@ class AbsenceModel
        WHERE
           id = :val20');
 
+      $countsAs = $this->counts_as !== 0 ? $this->counts_as : null;
+
       $query->bindParam('val1', $this->name);
       $query->bindParam('val2', $this->symbol);
       $query->bindParam('val3', $this->icon);
@@ -737,7 +730,7 @@ class AbsenceModel
       $query->bindParam('val8', $this->allowance);
       $query->bindParam('val9', $this->allowmonth);
       $query->bindParam('val10', $this->allowweek);
-      $query->bindParam('val11', $this->counts_as);
+      $query->bindParam('val11', $countsAs, $countsAs === null ? PDO::PARAM_NULL : PDO::PARAM_INT);
       $query->bindParam('val12', $this->show_in_remainder);
       $query->bindParam('val13', $this->show_totals);
       $query->bindParam('val14', $this->approval_required);

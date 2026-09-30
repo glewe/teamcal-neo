@@ -39,8 +39,8 @@ class AbsenceGroupModel
       $this->table = $conf['db_table_absence_group'];
     }
     else {
-      global $CONF, $DB;
-      $this->db    = $DB->db;
+      global $CONF, $dbModel;
+      $this->db    = $dbModel->db;
       $this->table = $CONF['db_table_absence_group'];
     }
   }
@@ -50,14 +50,16 @@ class AbsenceGroupModel
    * Creates a record assigning an absence type to a group.
    *
    * @param string $absid   Absence ID
-   * @param string $groupid Group short name
+   * @param string $groupid Group ID
    *
    * @return bool Query result
    */
   public function assign(string $absid, string $groupid): bool {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (absid, groupid) VALUES (:absid, :groupid)');
-    $query->bindParam(':absid', $absid);
-    $query->bindParam(':groupid', $groupid);
+    $absenceId = (int) $absid;
+    $groupId   = (int) $groupid;
+    $query     = $this->db->prepare('INSERT INTO ' . $this->table . ' (absence_id, group_id) VALUES (:absid, :groupid)');
+    $query->bindParam(':absid', $absenceId, PDO::PARAM_INT);
+    $query->bindParam(':groupid', $groupId, PDO::PARAM_INT);
     return $query->execute();
   }
 
@@ -81,8 +83,9 @@ class AbsenceGroupModel
    * @return string[] Array of group IDs
    */
   public function getAssignments(string $absid): array {
-    $query = $this->db->prepare('SELECT groupid FROM ' . $this->table . ' WHERE absid = :absid');
-    $query->bindParam(':absid', $absid);
+    $absenceId = (int) $absid;
+    $query     = $this->db->prepare('SELECT group_id FROM ' . $this->table . ' WHERE absence_id = :absid');
+    $query->bindParam(':absid', $absenceId, PDO::PARAM_INT);
     $query->execute();
     return $query->fetchAll(PDO::FETCH_COLUMN, 0);
   }
@@ -97,9 +100,11 @@ class AbsenceGroupModel
    * @return bool Query result
    */
   public function isAssigned(string $absid, string $groupid): bool {
-    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE absid = :absid AND groupid = :groupid');
-    $query->bindParam(':absid', $absid);
-    $query->bindParam(':groupid', $groupid);
+    $absenceId = (int) $absid;
+    $groupId   = (int) $groupid;
+    $query     = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE absence_id = :absid AND group_id = :groupid');
+    $query->bindParam(':absid', $absenceId, PDO::PARAM_INT);
+    $query->bindParam(':groupid', $groupId, PDO::PARAM_INT);
     $query->execute();
     return (bool) $query->fetchColumn();
   }
@@ -109,14 +114,16 @@ class AbsenceGroupModel
    * Deletes a record matching absence and group (unassigns absence from group).
    *
    * @param string $absid   Absence ID
-   * @param string $groupid Group short name
+   * @param string $groupid Group ID
    *
    * @return bool Query result
    */
   public function unassign(string $absid = '', string $groupid = ''): bool {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE absid = :absid AND groupid = :groupid');
-    $query->bindParam(':absid', $absid);
-    $query->bindParam(':groupid', $groupid);
+    $absenceId = (int) $absid;
+    $groupId   = (int) $groupid;
+    $query     = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE absence_id = :absid AND group_id = :groupid');
+    $query->bindParam(':absid', $absenceId, PDO::PARAM_INT);
+    $query->bindParam(':groupid', $groupId, PDO::PARAM_INT);
     return $query->execute();
   }
 
@@ -129,8 +136,9 @@ class AbsenceGroupModel
    * @return bool Query result
    */
   public function unassignAbs(string $absid = ''): bool {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE absid = :absid');
-    $query->bindParam(':absid', $absid);
+    $absenceId = (int) $absid;
+    $query     = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE absence_id = :absid');
+    $query->bindParam(':absid', $absenceId, PDO::PARAM_INT);
     return $query->execute();
   }
 
@@ -138,13 +146,14 @@ class AbsenceGroupModel
   /**
    * Deletes all records for a group.
    *
-   * @param string $groupid Group short name
+   * @param string $groupid Group ID
    *
    * @return bool Query result
    */
   public function unassignGroup(string $groupid = ''): bool {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE groupid = :groupid');
-    $query->bindParam(':groupid', $groupid);
+    $groupId = (int) $groupid;
+    $query   = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE group_id = :groupid');
+    $query->bindParam(':groupid', $groupId, PDO::PARAM_INT);
     return $query->execute();
   }
 
@@ -155,10 +164,12 @@ class AbsenceGroupModel
    * @return bool Query result
    */
   public function update(): bool {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET absid = :absid, groupid = :groupid WHERE id = :id');
-    $query->bindParam(':absid', $this->absid);
-    $query->bindParam(':groupid', $this->groupid);
-    $query->bindParam(':id', $this->id);
+    $absenceId = $this->absid !== null ? (int) $this->absid : null;
+    $groupId   = $this->groupid !== null ? (int) $this->groupid : null;
+    $query     = $this->db->prepare('UPDATE ' . $this->table . ' SET absence_id = :absid, group_id = :groupid WHERE id = :id');
+    $query->bindParam(':absid', $absenceId, $absenceId === null ? PDO::PARAM_NULL : PDO::PARAM_INT);
+    $query->bindParam(':groupid', $groupId, $groupId === null ? PDO::PARAM_NULL : PDO::PARAM_INT);
+    $query->bindParam(':id', $this->id, PDO::PARAM_INT);
     return $query->execute();
   }
 
@@ -172,9 +183,11 @@ class AbsenceGroupModel
    * @return bool Query result
    */
   public function updateAbsence(string $absold, string $absnew): bool {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET absid = :absnew WHERE absid = :absold');
-    $query->bindParam(':absnew', $absnew);
-    $query->bindParam(':absold', $absold);
+    $absNewId = (int) $absnew;
+    $absOldId = (int) $absold;
+    $query    = $this->db->prepare('UPDATE ' . $this->table . ' SET absence_id = :absnew WHERE absence_id = :absold');
+    $query->bindParam(':absnew', $absNewId, PDO::PARAM_INT);
+    $query->bindParam(':absold', $absOldId, PDO::PARAM_INT);
     return $query->execute();
   }
 
@@ -182,15 +195,17 @@ class AbsenceGroupModel
   /**
    * Updates the group ID of an existing record.
    *
-   * @param string $groupold Old group name
-   * @param string $groupnew New group name
+   * @param string $groupold Old group ID
+   * @param string $groupnew New group ID
    *
    * @return bool Query result
    */
   public function updateGroupname(string $groupold, string $groupnew): bool {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET groupid = :groupnew WHERE groupid = :groupold');
-    $query->bindParam(':groupnew', $groupnew);
-    $query->bindParam(':groupold', $groupold);
+    $groupNewId = (int) $groupnew;
+    $groupOldId = (int) $groupold;
+    $query      = $this->db->prepare('UPDATE ' . $this->table . ' SET group_id = :groupnew WHERE group_id = :groupold');
+    $query->bindParam(':groupnew', $groupNewId, PDO::PARAM_INT);
+    $query->bindParam(':groupold', $groupOldId, PDO::PARAM_INT);
     return $query->execute();
   }
 }

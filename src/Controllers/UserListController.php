@@ -110,7 +110,7 @@ class UserListController extends BaseController
     $viewData['showAlert']  = $showAlert;
 
     // Preload Roles
-    $allRoles = $this->RO->getAll();
+    $allRoles = $this->roleModel->getAll();
     $roleMap  = [];
     foreach ($allRoles as $role) {
       $roleMap[$role['id']] = [
@@ -120,14 +120,14 @@ class UserListController extends BaseController
     }
 
     // Get Active Users
-    $users = $this->U->getAll('lastname', 'firstname', 'ASC', false, true);
+    $users = $this->userModel->getAll('lastname', 'firstname', 'ASC', false, true);
 
     if (isset($_POST['btn_filter'])) {
 
       if (isset($_POST['sel_searchGroup']) && $_POST['sel_searchGroup'] !== "All") {
         $searchGroup             = sanitize($_POST['sel_searchGroup']);
         $viewData['searchGroup'] = $searchGroup;
-        $groupMembers            = $this->UG->getAllforGroup((string) $searchGroup);
+        $groupMembers            = $this->userGroupModel->getAllforGroup((string) $searchGroup);
         $groupUsernames          = array_column($groupMembers, 'username');
         $users                   = array_filter($users, function ($user) use ($groupUsernames) {
           return in_array($user['username'], $groupUsernames);
@@ -138,7 +138,7 @@ class UserListController extends BaseController
         $searchRole             = sanitize($_POST['sel_searchRole']);
         $viewData['searchRole'] = $searchRole;
         $users                  = array_filter($users, function ($user) use ($searchRole) {
-          return $user['role'] == $searchRole;
+          return $user['role_id'] == $searchRole;
         });
       }
     }
@@ -153,7 +153,7 @@ class UserListController extends BaseController
       $viewData['users'][$i]['dispname']  = ($firstname !== "") ? $lastname . ", " . $firstname : ($lastname ?: $user['username']);
       $viewData['users'][$i]['dispname'] .= ' (' . $user['username'] . ')';
 
-      $roleData                       = $roleMap[$user['role']] ?? ['name' => '', 'color' => 'default'];
+      $roleData                       = $roleMap[$user['role_id']] ?? ['name' => '', 'color' => 'default'];
       $viewData['users'][$i]['role']  = $roleData['name'];
       $viewData['users'][$i]['color'] = $roleData['color'];
 
@@ -169,7 +169,7 @@ class UserListController extends BaseController
     // Get Archived Users
     $viewData['users1'] = [];
     $i                  = 0;
-    $users1             = $this->U->getAll('lastname', 'firstname', 'ASC', true);
+    $users1             = $this->userModel->getAll('lastname', 'firstname', 'ASC', true);
     foreach ($users1 as $user1) {
       $viewData['users1'][$i]['username']  = $user1['username'];
       $firstname                           = trim($user1['firstname'] ?? '');
@@ -177,7 +177,7 @@ class UserListController extends BaseController
       $viewData['users1'][$i]['dispname']  = ($firstname !== "") ? $lastname . ", " . $firstname : ($lastname ?: $user1['username']);
       $viewData['users1'][$i]['dispname'] .= ' (' . $user1['username'] . ')';
 
-      $roleData                        = $roleMap[$user1['role']] ?? ['name' => '', 'color' => 'default'];
+      $roleData                        = $roleMap[$user1['role_id']] ?? ['name' => '', 'color' => 'default'];
       $viewData['users1'][$i]['role']  = $roleData['name'];
       $viewData['users1'][$i]['color'] = $roleData['color'];
 
@@ -194,7 +194,7 @@ class UserListController extends BaseController
     $this->preloadOptions($users, $viewData, 'avatars', 'secrets', false);
     $this->preloadOptions($users1, $viewData, 'archived_avatars', 'archived_secrets', true);
 
-    $viewData['groups'] = $this->G->getAll();
+    $viewData['groups'] = $this->groupModel->getAll();
     $viewData['roles']  = $allRoles;
 
     $this->render('userlist', $viewData);
@@ -212,7 +212,7 @@ class UserListController extends BaseController
   private function handleActivate(bool &$showAlert, array &$alertData): void {
     $selected_users = $_POST['chk_userActive'] ?? [];
     foreach ($selected_users as $su => $value) {
-      $this->U->activate($value);
+      $this->userModel->activate($value);
     }
     $showAlert            = true;
     $alertData['type']    = 'success';
@@ -235,7 +235,7 @@ class UserListController extends BaseController
     $selected_users = $_POST['chk_userActive'] ?? [];
     $exists         = false;
     foreach ($selected_users as $su => $value) {
-      if (!$this->UserService->archiveUser($value, (string) $this->UL->username)) {
+      if (!$this->userService->archiveUser($value, (string) $this->userLoggedIn->username)) {
         $exists = true;
       }
     }
@@ -268,7 +268,7 @@ class UserListController extends BaseController
     $selected_users = $_POST['chk_userArchived'] ?? [];
     $exists         = false;
     foreach ($selected_users as $su => $value) {
-      if (!$this->UserService->restoreUser($value, (string) $this->UL->username)) {
+      if (!$this->userService->restoreUser($value, (string) $this->userLoggedIn->username)) {
         $exists = true;
       }
     }
@@ -300,7 +300,7 @@ class UserListController extends BaseController
   private function handleDelete(bool &$showAlert, array &$alertData): void {
     $selected_users = $_POST['chk_userActive'] ?? [];
     foreach ($selected_users as $su => $value) {
-      $this->UserService->deleteUser($value, false, (bool) ($this->allConfig['emailNotifications'] ?? false), (string) $this->UL->username);
+      $this->userService->deleteUser($value, false, (bool) ($this->allConfig['emailNotifications'] ?? false), (string) $this->userLoggedIn->username);
     }
     $showAlert            = true;
     $alertData['type']    = 'success';
@@ -322,7 +322,7 @@ class UserListController extends BaseController
   private function handleDeleteArchived(bool &$showAlert, array &$alertData): void {
     $selected_users = $_POST['chk_userArchived'] ?? [];
     foreach ($selected_users as $su => $value) {
-      $this->UserService->deleteUser($value, true, false, (string) $this->UL->username);
+      $this->userService->deleteUser($value, true, false, (string) $this->userLoggedIn->username);
     }
     $showAlert            = true;
     $alertData['type']    = 'success';
@@ -344,13 +344,13 @@ class UserListController extends BaseController
   private function handleResetPassword(bool &$showAlert, array &$alertData): void {
     $selected_users = $_POST['chk_userActive'] ?? [];
     foreach ($selected_users as $su => $value) {
-      $this->U->findByName($value);
+      $this->userModel->findByName($value);
       $token          = bin2hex(random_bytes(32));
       $expiryDateTime = date('YmdHis', strtotime(date('YmdHis') . ' +1 day'));
-      $this->UO->save($this->U->username, 'pwdToken', $token);
-      $this->UO->save($this->U->username, 'pwdTokenExpiry', $expiryDateTime);
-      sendPasswordResetMail($this->U->email, $this->U->username, $this->U->lastname, $this->U->firstname, $token);
-      $this->LOG->logEvent("logUser", $this->UL->username, "log_user_pwd_reset", $this->U->username);
+      $this->userOptionModel->save($this->userModel->username, 'pwdToken', $token);
+      $this->userOptionModel->save($this->userModel->username, 'pwdTokenExpiry', $expiryDateTime);
+      sendPasswordResetMail($this->userModel->email, $this->userModel->username, $this->userModel->lastname, $this->userModel->firstname, $token);
+      $this->logModel->logEvent("logUser", $this->userLoggedIn->username, "log_user_pwd_reset", $this->userModel->username);
     }
     $showAlert            = true;
     $alertData['type']    = 'success';
@@ -372,9 +372,9 @@ class UserListController extends BaseController
   private function handleRemoveSecret(bool &$showAlert, array &$alertData): void {
     $selected_users = $_POST['chk_userActive'] ?? [];
     foreach ($selected_users as $su => $value) {
-      $this->U->findByName($value);
-      $this->UO->deleteUserOption($this->U->username, 'secret');
-      $this->LOG->logEvent("logUser", $this->UL->username, "log_user_2fa_removed", $this->U->username);
+      $this->userModel->findByName($value);
+      $this->userOptionModel->deleteUserOption($this->userModel->username, 'secret');
+      $this->logModel->logEvent("logUser", $this->userLoggedIn->username, "log_user_2fa_removed", $this->userModel->username);
     }
     $showAlert            = true;
     $alertData['type']    = 'success';
@@ -401,22 +401,12 @@ class UserListController extends BaseController
     $avatars   = ['default' => 'default_male.png'];
     $secrets   = [];
 
-    if (!empty($usernames)) {
-      $placeholders = str_repeat('?,', count($usernames) - 1) . '?';
-      $table        = $isArchive ? $this->CONF['db_table_archive_user_option'] : $this->CONF['db_table_user_option'];
-      $query        = $this->DB->db->prepare("
-            SELECT username, `option`, value
-            FROM {$table}
-            WHERE `option` IN ('avatar', 'secret') AND username IN ($placeholders)
-          ");
-      $query->execute($usernames);
-      while ($row = $query->fetch()) {
-        if ($row['option'] === 'avatar') {
-          $avatars[$row['username']] = $row['value'] ?: 'default_male.png';
-        }
-        elseif ($row['option'] === 'secret') {
-          $secrets[$row['username']] = !empty($row['value']);
-        }
+    foreach ($this->userOptionModel->readForUsers($usernames, ['avatar', 'secret'], $isArchive) as $username => $opts) {
+      if (isset($opts['avatar'])) {
+        $avatars[$username] = $opts['avatar'] ?: 'default_male.png';
+      }
+      if (isset($opts['secret'])) {
+        $secrets[$username] = !empty($opts['secret']);
       }
     }
     $viewData[$avatarKey] = $avatars;

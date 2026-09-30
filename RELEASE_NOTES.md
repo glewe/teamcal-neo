@@ -1,10 +1,13 @@
-Security release. Updating is strongly recommended.
-
-**Bugfixes**
-- Fix forgeable login cookie that allowed an authentication bypass
-- Fix bad login counter not being persisted, leaving brute force protection ineffective
-- Fix bad login lock never expiring and being confused with an administrative account lock
-- Fix login grace period being compared against an unparsed date string
+New major release
 
 **Improvements**
-- Add license reetrieval error to TCN log
+- Refactor the database to a modern, secure and performing structure
+- Improve performance in calendar loading
+- Add return code 97 for LDAP anonymous bind failed
+- Update dependencies
+- Enhance LDAP configuration documentation and improve connection handling in LdapService ([Issue](#112))
+- Enhance security in dispatchLegacy by validating action names to prevent local file inclusion ([Issue](#111))
+
+**Removals**
+- Remove obsolete Chart.js 4.4.7 folder (new version installed)
+- Remove Syntaxhighlighter addon (not used anymore)

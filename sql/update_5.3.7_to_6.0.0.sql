@@ -1,0 +1,61 @@
+--
+-- TeamCal Neo update script: 5.3.7 → 6.0.0
+--
+-- THIS FILE CONTAINS NO EXECUTABLE SQL. Do not run it in phpMyAdmin.
+--
+-- 6.0.0 restructures the database and changes how your data is represented, which
+-- plain SQL cannot do. Your data is carried over in one of two ways instead:
+--
+--   A) Import (no command line needed, recommended): install 6.0.0 as a new
+--      installation next to the old one, log in as administrator, and use
+--      Administration -> Database -> "Import from 5.3.7". The old installation is
+--      only read. See doc/UPGRADEINFO.md.
+--
+--   B) Migrate in place with the PHP script below (needs command line access).
+--
+-- The rest of this file describes option B.
+--
+--   sql/migrate_5.3.7_to_6.0.0.php
+--
+-- Full step-by-step instructions are in doc/UPGRADEINFO.md. In short:
+--
+--   1. Make a full backup of your files and your database.
+--   2. Replace the application files (keep your .env file).
+--   3. From the installation directory, run:
+--
+--        php sql/migrate_5.3.7_to_6.0.0.php --dry-run          (checks only)
+--        php sql/migrate_5.3.7_to_6.0.0.php --confirm-backup   (migrates)
+--
+--   4. Verify the application, then remove the old tables:
+--
+--        php sql/migrate_5.3.7_to_6.0.0.php --drop-backup --confirm-drop
+--
+-- The script keeps your 5.3.7 tables as <prefix>v537_* until you drop them, and undoes
+-- its own changes if anything fails. You must be on 5.3.7 before running it. Requires
+-- MariaDB 10.4+ or MySQL 8.0+.
+--
+-- What the script does, table by table:
+--
+--   All tables              MyISAM -> InnoDB, utf8/latin1 -> utf8mb4 (utf8mb4_unicode_ci),
+--                           foreign keys added.
+--   tcneo_users             New numeric id (admin = 1). New is_system column (set for admin).
+--                           role -> role_id. Archived users get ids after the live users.
+--   tcneo_templates         -> tcneo_absence_days   one row per user and day (was abs1..abs31)
+--   tcneo_archive_templates -> tcneo_archive_absence_days
+--   tcneo_months            -> tcneo_calendar_days  one row per region and holiday override
+--                           (wday/week columns dropped, they are derived from the date)
+--   tcneo_patterns          abs1..abs7 -> tcneo_pattern_days (one row per weekday)
+--   tcneo_holidays          New is_system column (set for the 3 built-in types).
+--   tcneo_absences          counts_as: 0 -> NULL.
+--   All tables that held a username (allowances, attachments, user_attachment, user_group,
+--   user_message, user_option, daynotes and their archive_* counterparts)
+--                           username -> user_id. Global day notes ('all') get user_id NULL.
+--   Other renamed columns   absid -> absence_id, groupid -> group_id, msgid -> message_id,
+--                           fileid -> attachment_id, uploader -> uploader_id, regionid ->
+--                           region_id, roleid -> role_id, yyyymmdd -> day (DATE).
+--   tcneo_log               unchanged; the user column stays a plain text snapshot.
+--
+-- Rows that reference something that no longer exists (for example options of a deleted
+-- user) cannot satisfy the new foreign keys. They are skipped and listed in the report the
+-- script prints at the end.
+--

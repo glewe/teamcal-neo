@@ -45,7 +45,7 @@ class GroupEditController extends BaseController
       return;
     }
 
-    if (!isAllowed($this->CONF['controllers']['groupedit']->permission) && !$this->UG->isGroupManagerOfGroup($this->UL->username, $GG->id)) {
+    if (!isAllowed($this->CONF['controllers']['groupedit']->permission) && !$this->userGroupModel->isGroupManagerOfGroup($this->userLoggedIn->username, $GG->id)) {
       $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_not_allowed_subject'], $this->LANG['alert_not_allowed_text'], $this->LANG['alert_not_allowed_help']);
       return;
     }
@@ -126,17 +126,17 @@ class GroupEditController extends BaseController
 
           $GG->update($_POST['hidden_id']);
 
-          if (isAllowed("groupmemberships") || $this->UG->isGroupManagerOfGroup($this->UL->username, $viewData['id'])) {
+          if (isAllowed("groupmemberships") || $this->userGroupModel->isGroupManagerOfGroup($this->userLoggedIn->username, $viewData['id'])) {
             if (isset($_POST['sel_members'])) {
-              $this->UG->deleteAllMembers($_POST['hidden_id']);
+              $this->userGroupModel->deleteAllMembers($_POST['hidden_id']);
               foreach ($_POST['sel_members'] as $uname) {
-                $this->UG->save($uname, $_POST['hidden_id'], 'member');
+                $this->userGroupModel->save($uname, $_POST['hidden_id'], 'member');
               }
             }
             if (isset($_POST['sel_managers'])) {
-              $this->UG->deleteAllManagers($_POST['hidden_id']);
+              $this->userGroupModel->deleteAllManagers($_POST['hidden_id']);
               foreach ($_POST['sel_managers'] as $uname) {
-                $this->UG->save($uname, $_POST['hidden_id'], 'manager');
+                $this->userGroupModel->save($uname, $_POST['hidden_id'], 'manager');
               }
             }
           }
@@ -148,7 +148,7 @@ class GroupEditController extends BaseController
             }
           }
 
-          $this->LOG->logEvent("logGroup", $this->UL->username, "log_group_updated", $GG->name);
+          $this->logModel->logEvent("logGroup", $this->userLoggedIn->username, "log_group_updated", $GG->name);
 
           $showAlert            = true;
           $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
@@ -212,13 +212,13 @@ class GroupEditController extends BaseController
     $viewData['avatar_maxsize'] = $this->CONF['avatarMaxsize'];
     $viewData['avatar_formats'] = implode(', ', $this->CONF['avatarExtensions']);
 
-    $isGroupManagerOfGroup = $this->UG->isGroupManagerOfGroup($this->UL->username, (string) $viewData['id']);
+    $isGroupManagerOfGroup = $this->userGroupModel->isGroupManagerOfGroup($this->userLoggedIn->username, (string) $viewData['id']);
     $disabled              = !($isGroupAdmin || $isGroupManagerOfGroup);
 
-    $allUsers      = $this->U->getAll();
+    $allUsers      = $this->userModel->getAll();
     $groupId       = $viewData['id'];
-    $groupMembers  = $this->UG->getAllMemberUsernames((string) $groupId);
-    $groupManagers = $this->UG->getAllManagerUsernames((string) $groupId);
+    $groupMembers  = $this->userGroupModel->getAllMemberUsernames((string) $groupId);
+    $groupManagers = $this->userGroupModel->getAllManagerUsernames((string) $groupId);
 
     $groupMembersMap  = array_flip($groupMembers);
     $groupManagersMap = array_flip($groupManagers);

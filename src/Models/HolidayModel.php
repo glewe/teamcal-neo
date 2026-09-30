@@ -27,6 +27,7 @@ class HolidayModel
   public int    $businessday      = 0;
   public int    $noabsence        = 0;
   public int    $keepweekendcolor = 0;
+  public int    $is_system        = 0;
 
   private ?PDO   $db    = null;
   private string $table = '';
@@ -44,8 +45,8 @@ class HolidayModel
       $this->table = $conf['db_table_holidays'];
     }
     else {
-      global $CONF, $DB;
-      $this->db    = $DB->db;
+      global $CONF, $dbModel;
+      $this->db    = $dbModel->db;
       $this->table = $CONF['db_table_holidays'];
     }
   }
@@ -70,7 +71,8 @@ class HolidayModel
 
   //---------------------------------------------------------------------------
   /**
-   * Deletes a holiday record.
+   * Deletes a holiday record. System holidays (Business Day/Saturday/Sunday)
+   * are never deleted, regardless of the requested ID.
    *
    * @param string|int $id Record ID
    *
@@ -78,7 +80,7 @@ class HolidayModel
    */
   public function delete(string|int $id = ''): bool {
     if ($id !== '') {
-      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :id');
+      $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE id = :id AND is_system = 0');
       $query->bindParam(':id', $id);
       return $query->execute();
     }
@@ -92,7 +94,7 @@ class HolidayModel
    * @return bool Query result
    */
   public function deleteAll(): bool {
-    $query = $this->db->prepare("DELETE FROM " . $this->table . " WHERE id > 3;");
+    $query = $this->db->prepare("DELETE FROM " . $this->table . " WHERE is_system = 0;");
     return $query->execute();
   }
 
@@ -118,6 +120,7 @@ class HolidayModel
         $this->businessday      = (int) $row['businessday'];
         $this->noabsence        = (int) $row['noabsence'];
         $this->keepweekendcolor = (int) $row['keepweekendcolor'];
+        $this->is_system        = (int) $row['is_system'];
         return true;
       }
     }
@@ -145,6 +148,7 @@ class HolidayModel
         $this->bgcolor     = (string) $row['bgcolor'];
         $this->businessday = (int) $row['businessday'];
         $this->noabsence   = (int) $row['noabsence'];
+        $this->is_system   = (int) $row['is_system'];
         return true;
       }
     }
@@ -153,7 +157,7 @@ class HolidayModel
 
   //---------------------------------------------------------------------------
   /**
-   * Reads all records into an array. Only true holidays are selected (id > 3).
+   * Reads all records into an array, including system holidays.
    *
    * @param string $sort What to sort by
    *
@@ -175,7 +179,7 @@ class HolidayModel
 
   //---------------------------------------------------------------------------
   /**
-   * Gets all custom records. Only true holidays are selected (id > 3).
+   * Gets all custom (non-system) holiday records.
    *
    * @param string $sort What to sort by
    *
@@ -187,7 +191,7 @@ class HolidayModel
       $sort = 'name';
     }
     $records = array();
-    $query   = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id > 3 ORDER BY ' . $sort . ' ASC');
+    $query   = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE is_system = 0 ORDER BY ' . $sort . ' ASC');
     $query->execute();
     while ($row = $query->fetch()) {
       $records[] = $row;
@@ -250,6 +254,26 @@ class HolidayModel
       return $val !== false ? (int) $val : 0;
     }
     return 0;
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Checks whether the given holiday is a protected system holiday
+   * (Business Day/Saturday/Sunday).
+   *
+   * @param string|int $id Record ID
+   *
+   * @return bool True if the holiday is a system holiday
+   */
+  public function isSystem(string|int $id = ''): bool {
+    if ($id !== '') {
+      $query = $this->db->prepare('SELECT is_system FROM ' . $this->table . ' WHERE id = :id');
+      $query->bindParam(':id', $id);
+      $query->execute();
+      $val = $query->fetchColumn();
+      return $val !== false && (bool) $val;
+    }
+    return false;
   }
 
   //---------------------------------------------------------------------------

@@ -28,7 +28,7 @@ class LogModel
 
   private ?PDO         $db    = null;
   private string       $table = '';
-  private ?ConfigModel $C     = null;
+  private ?ConfigModel $configModel     = null;
 
   //---------------------------------------------------------------------------
   /**
@@ -39,10 +39,10 @@ class LogModel
    * @param ConfigModel|null     $configObj
    */
   public function __construct(?PDO $db = null, ?array $conf = null, ?ConfigModel $configObj = null) {
-    global $C, $CONF, $DB;
+    global $configModel, $CONF, $dbModel;
 
-    $this->C     = $configObj ?? $C;
-    $this->db    = $db ?? $DB->db;
+    $this->configModel     = $configObj ?? $configModel;
+    $this->db    = $db ?? $dbModel->db;
     $this->table = $conf['db_table_log'] ?? $CONF['db_table_log'];
   }
 
@@ -114,14 +114,14 @@ class LogModel
    */
   public function logEvent(string $type, string $user, string $event, string $object = ''): bool {
     global $LANG;
-    $loglang = $this->C->read("logLanguage");
+    $loglang = $this->configModel->read("logLanguage");
     if (empty($loglang)) {
       $loglang = 'english';
     }
     require_once WEBSITE_ROOT . '/src/Helpers/LanguageLoader.php';
     \App\Helpers\LanguageLoader::loadForController('log');
     $myEvent = (isset($LANG[$event]) ? $LANG[$event] : $event) . $object;
-    if ($this->C->read($type)) {
+    if ($this->configModel->read($type)) {
       $ts    = date("YmdHis");
       $ip    = $this->getClientIp();
       $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (type, timestamp, ip, user, event) VALUES (:type, :timestamp, :ip, :user, :event)');
@@ -200,20 +200,36 @@ class LogModel
    */
   public function getStatistics(string $from = '', string $to = '', array $typeArray = [], string $granularity = 'day'): array {
     $stats = [];
-    
+
     //
-    // Build the type filter
+    // Build the type filter. Placeholder names are built from a re-indexed,
+    // sequential-integer key (never the caller-supplied array's own keys),
+    // since those keys land in the raw SQL text, not a bound value -
+    // callers pass $_POST array data straight through (e.g. LogController's
+    // $_POST['chk_statsTypes']), and PHP array keys from a POST field can
+    // contain arbitrary attacker-chosen strings.
     //
     $typeFilter = '';
-    if (!empty($typeArray)) {
+    $typeValues = [];
+    $typeArrayValues = array_values($typeArray);
+    if (!empty($typeArrayValues)) {
       $typePlaceholders = [];
-      $typeValues       = [];
-      foreach ($typeArray as $index => $type) {
+      foreach ($typeArrayValues as $index => $type) {
         $placeholder = ':type' . $index;
         $typePlaceholders[] = $placeholder;
         $typeValues[$placeholder] = 'log' . $type;
       }
       $typeFilter = ' AND type IN (' . implode(', ', $typePlaceholders) . ')';
+    }
+
+    //
+    // Whitelist the granularity value - it only ever selects between two
+    // fixed SQL fragments, but validate explicitly rather than relying on
+    // an implicit "anything but 'hour' means 'day'" fallback.
+    //
+    $allowedGranularities = ['day', 'hour'];
+    if (!in_array($granularity, $allowedGranularities, true)) {
+      $granularity = 'day';
     }
 
     $groupSql  = 'DATE(timestamp)';
@@ -237,10 +253,8 @@ class LogModel
     $query->bindParam(':from', $from);
     $query->bindParam(':to', $to);
 
-    if (!empty($typeArray)) {
-      foreach ($typeValues as $placeholder => $value) {
-        $query->bindValue($placeholder, $value);
-      }
+    foreach ($typeValues as $placeholder => $value) {
+      $query->bindValue($placeholder, $value);
     }
 
     $query->execute();

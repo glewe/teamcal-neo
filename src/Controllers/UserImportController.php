@@ -88,7 +88,7 @@ class UserImportController extends BaseController
                 continue;
               }
 
-              if ($this->U->findByName($CSVusername)) {
+              if ($this->userModel->findByName($CSVusername)) {
                 $errorCount++;
                 $errorText .= '<li>' . sprintf($this->LANG['alert_imp_exists'], $line, $CSVusername) . '</li>';
                 continue;
@@ -124,37 +124,37 @@ class UserImportController extends BaseController
                 continue;
               }
 
-              $this->U->username  = $CSVusername;
-              $this->U->password  = password_hash("password", PASSWORD_DEFAULT);
-              $this->U->firstname = $CSVfirstname;
-              $this->U->lastname  = $CSVlastname;
-              $this->U->email     = $CSVemail;
+              $this->userModel->username  = $CSVusername;
+              $this->userModel->password  = password_hash("password", PASSWORD_DEFAULT);
+              $this->userModel->firstname = $CSVfirstname;
+              $this->userModel->lastname  = $CSVlastname;
+              $this->userModel->email     = $CSVemail;
 
               if (isset($_POST['sel_role'])) {
-                $this->U->role = (int) $_POST['sel_role'];
+                $this->userModel->role = (int) $_POST['sel_role'];
               }
               else {
-                $this->U->role = 2;
+                $this->userModel->role = 2;
               }
 
-              $this->U->hidden         = (isset($_POST['chk_hidden']) && $_POST['chk_hidden']) ? 1 : 0;
-              $this->U->locked         = (isset($_POST['chk_locked']) && $_POST['chk_locked']) ? 1 : 0;
-              $this->U->onhold         = 0;
-              $this->U->verify         = 0;
-              $this->U->bad_logins     = 0;
-              $this->U->grace_start    = DEFAULT_TIMESTAMP;
-              $this->U->last_login     = DEFAULT_TIMESTAMP;
-              $this->U->created        = date('YmdHis');
-              $this->U->last_pw_change = date('YmdHis');
-              $this->U->create();
+              $this->userModel->hidden         = (isset($_POST['chk_hidden']) && $_POST['chk_hidden']) ? 1 : 0;
+              $this->userModel->locked         = (isset($_POST['chk_locked']) && $_POST['chk_locked']) ? 1 : 0;
+              $this->userModel->onhold         = 0;
+              $this->userModel->verify         = 0;
+              $this->userModel->bad_logins     = 0;
+              $this->userModel->grace_start    = DEFAULT_TIMESTAMP;
+              $this->userModel->last_login     = DEFAULT_TIMESTAMP;
+              $this->userModel->created        = date('YmdHis');
+              $this->userModel->last_pw_change = date('YmdHis');
+              $this->userModel->create();
 
-              if (isset($_POST['sel_group']) && $this->G->getById($_POST['sel_group']) && $this->U->findByName($CSVusername)) {
-                $this->UG->save($CSVusername, $_POST['sel_group'], 'member');
+              if (isset($_POST['sel_group']) && $this->groupModel->getById($_POST['sel_group']) && $this->userModel->findByName($CSVusername)) {
+                $this->userGroupModel->save($CSVusername, $_POST['sel_group'], 'member');
               }
 
-              $this->UO->save($CSVusername, 'gender', $CSVgender);
-              $this->UO->save($CSVusername, 'avatar', 'default_' . $CSVgender . '.png');
-              $this->UO->save($CSVusername, 'language', 'default');
+              $this->userOptionModel->save($CSVusername, 'gender', $CSVgender);
+              $this->userOptionModel->save($CSVusername, 'avatar', 'default_' . $CSVgender . '.png');
+              $this->userOptionModel->save($CSVusername, 'language', 'default');
               $importCount++;
             }
             fclose($handle);
@@ -176,7 +176,7 @@ class UserImportController extends BaseController
               $alertData['help']    = '';
             }
 
-            $this->LOG->logEvent("logImport", $this->UL->username, "log_imp_success", $UPL->the_file . " (" . $importCount . " " . $this->LANG['user'] . ")");
+            $this->logModel->logEvent("logImport", $this->userLoggedIn->username, "log_imp_success", $UPL->the_file . " (" . $importCount . " " . $this->LANG['user'] . ")");
           }
         }
         else {
@@ -201,8 +201,8 @@ class UserImportController extends BaseController
 
     $viewData['upl_maxsize'] = $this->CONF['uplMaxsize'];
     $viewData['upl_formats'] = 'csv';
-    $groups                  = $this->G->getAll();
-    $roles                   = $this->RO->getAll();
+    $groups                  = $this->groupModel->getAll();
+    $roles                   = $this->roleModel->getAll();
 
     foreach ($groups as $group) {
       $viewData['groups'][] = ['val' => $group['id'], 'name' => $group['name'], 'selected' => false];

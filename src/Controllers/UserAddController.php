@@ -88,15 +88,16 @@ class UserAddController extends BaseController
           $UP->last_login  = DEFAULT_TIMESTAMP;
           $UP->created     = date('YmdHis');
 
-          $this->UO->save($_POST['txt_username'], 'gender', 'male');
-          $this->UO->save($_POST['txt_username'], 'avatar', 'default_male.png');
-          $this->UO->save($_POST['txt_username'], 'language', 'default');
-
           if (isset($_POST['txt_password']) && isset($_POST['txt_password2']) && $_POST['txt_password'] == $_POST['txt_password2']) {
             $UP->password       = password_hash(trim($_POST['txt_password']), PASSWORD_DEFAULT);
             $UP->last_pw_change = date('YmdHis');
           }
           $UP->create();
+
+          // The options reference the user by id, so the user has to exist before they are saved
+          $this->userOptionModel->save($_POST['txt_username'], 'gender', 'male');
+          $this->userOptionModel->save($_POST['txt_username'], 'avatar', 'default_male.png');
+          $this->userOptionModel->save($_POST['txt_username'], 'language', 'default');
 
           $mailError = '';
           if (isset($_POST['chk_create_mail'])) {
@@ -107,7 +108,7 @@ class UserAddController extends BaseController
             sendUserEventNotifications("created", $UP->username, $UP->firstname, $UP->lastname, $mailError);
           }
 
-          $this->LOG->logEvent("logUser", $this->UL->username, "log_user_added", $UP->username);
+          $this->logModel->logEvent("logUser", $this->userLoggedIn->username, "log_user_added", $UP->username);
 
           $showAlert            = true;
           $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';

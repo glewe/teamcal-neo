@@ -4,8 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Core\BaseController;
-
-
+use App\Models\CalendarDayModel;
 
 /**
  * Year Controller
@@ -40,13 +39,13 @@ class YearController extends BaseController
       }
 
       $region = sanitize($_GET['region']);
-      if (!$this->R->getById($region)) {
+      if (!$this->regionModel->getById($region)) {
         $missingData = true;
       }
 
       if (strlen($_GET['user'])) {
         $user = sanitize($_GET['user']);
-        if ($user !== 'Public' && !$this->U->exists($user)) {
+        if ($user !== 'Public' && !$this->userModel->exists($user)) {
           $missingData = true;
         }
         if ($user === 'Public') {
@@ -75,28 +74,20 @@ class YearController extends BaseController
 
     $viewData = [];
     $currDate = date('Y-m-d');
-    $users    = $this->U->getAll();
+    $users    = $this->userModel->getAll();
 
     for ($i = 1; $i <= 12; $i++) {
-      if (!$this->M->getMonth($yyyy, (string) $i, $this->R->id)) {
-        createMonth($yyyy, (string) $i, 'region', $this->R->id);
-        $this->M->getMonth($yyyy, (string) $i, $this->R->id);
-        if ($this->allConfig['emailNotifications']) {
-          sendMonthEventNotifications("created", $yyyy, (string) $i, $this->R->name);
-        }
-        $this->LOG->logEvent("logMonth", $this->UL->username, "log_month_tpl_created", $this->M->region . ": " . $this->M->year . "-" . $this->M->month);
-      }
+      $weekdayGrid = CalendarDayModel::buildWeekdayGrid($yyyy, (string) $i);
+      $holidayMap  = $this->calendarDayModel->getMonthMap($yyyy, (string) $i, $this->regionModel->id);
 
-      if (strlen($user) && !$this->T->getTemplate($user, $yyyy, (string) $i)) {
-        createMonth($yyyy, (string) $i, 'user', $user);
-      }
+      $monthMap = strlen($user) ? $this->absenceDayModel->getMonthMap($user, $yyyy, (string) $i) : [];
 
       $viewData['monthInfo'][$i] = dateInfo($yyyy, (string) $i);
 
       for ($d = 1; $d <= $viewData['monthInfo'][$i]['daysInMonth']; $d++) {
-        $viewData['month'][$i][$d]['wday']     = $this->M->{'wday' . $d};
-        $viewData['month'][$i][$d]['hol']      = $this->M->{'hol' . $d};
-        $viewData['month'][$i][$d]['abs']      = strlen($user) ? $this->T->getAbsence($user, $yyyy, (string) $i, (string) $d) : 0;
+        $viewData['month'][$i][$d]['wday']     = $weekdayGrid['wday' . $d];
+        $viewData['month'][$i][$d]['hol']      = $holidayMap[$d] ?? 1;
+        $viewData['month'][$i][$d]['abs']      = $monthMap[$d] ?? 0;
         $viewData['month'][$i][$d]['symbol']   = '';
         $viewData['month'][$i][$d]['icon']     = '';
         $viewData['month'][$i][$d]['style']    = '';
@@ -107,13 +98,13 @@ class YearController extends BaseController
         $border  = '';
 
         if ($viewData['month'][$i][$d]['wday'] == 6 || $viewData['month'][$i][$d]['wday'] == 7) {
-          $color   = 'color: #' . $this->H->getColor((string) ($viewData['month'][$i][$d]['wday'] - 4)) . ';';
-          $bgcolor = 'background-color: #' . $this->H->getBgColor((string) ($viewData['month'][$i][$d]['wday'] - 4)) . ';';
+          $color   = 'color: #' . $this->holidayModel->getColor((string) ($viewData['month'][$i][$d]['wday'] - 4)) . ';';
+          $bgcolor = 'background-color: #' . $this->holidayModel->getBgColor((string) ($viewData['month'][$i][$d]['wday'] - 4)) . ';';
         }
 
-        if ($viewData['month'][$i][$d]['hol']) {
-          $color   = 'color: #' . $this->H->getColor((string) $viewData['month'][$i][$d]['hol']) . ';';
-          $bgcolor = 'background-color: #' . $this->H->getBgColor((string) $viewData['month'][$i][$d]['hol']) . ';';
+        if ($viewData['month'][$i][$d]['hol'] !== 1) {
+          $color   = 'color: #' . $this->holidayModel->getColor((string) $viewData['month'][$i][$d]['hol']) . ';';
+          $bgcolor = 'background-color: #' . $this->holidayModel->getBgColor((string) $viewData['month'][$i][$d]['hol']) . ';';
         }
 
         $loopDate = date('Y-m-d', mktime(0, 0, 0, $i, $d, (int) $yyyy));
@@ -126,16 +117,16 @@ class YearController extends BaseController
         }
 
         if ($viewData['month'][$i][$d]['abs']) {
-          $this->A->get((string) $viewData['month'][$i][$d]['abs']);
-          $viewData['month'][$i][$d]['icon']   = $this->A->icon;
-          $viewData['month'][$i][$d]['symbol'] = $this->A->symbol;
-          if ($this->A->bgtrans) {
+          $this->absenceModel->get((string) $viewData['month'][$i][$d]['abs']);
+          $viewData['month'][$i][$d]['icon']   = $this->absenceModel->icon;
+          $viewData['month'][$i][$d]['symbol'] = $this->absenceModel->symbol;
+          if ($this->absenceModel->bgtrans) {
             $bgStyle = "";
           }
           else {
-            $bgStyle = "background-color: #" . $this->A->bgcolor . ";";
+            $bgStyle = "background-color: #" . $this->absenceModel->bgcolor . ";";
           }
-          $viewData['month'][$i][$d]['absstyle'] = ' style="color: #' . $this->A->color . ';' . $bgStyle . '"';
+          $viewData['month'][$i][$d]['absstyle'] = ' style="color: #' . $this->absenceModel->color . ';' . $bgStyle . '"';
         }
       }
     }
@@ -165,33 +156,33 @@ class YearController extends BaseController
     $viewData['symbolAsIcon']     = $this->allConfig['symbolAsIcon'];
 
     $viewData['username']   = $user ?: 'Public';
-    $viewData['fullname']   = strlen($user) ? $this->U->getFullname($user) : $this->LANG['role_public'];
+    $viewData['fullname']   = strlen($user) ? $this->userModel->getFullname($user) : $this->LANG['role_public'];
     $viewData['year']       = $yyyy;
-    $viewData['regionid']   = $this->R->id;
-    $viewData['regionname'] = $this->R->name;
-    $viewData['regions']    = $this->R->getAll();
+    $viewData['regionid']   = $this->regionModel->id;
+    $viewData['regionname'] = $this->regionModel->name;
+    $viewData['regions']    = $this->regionModel->getAll();
     $viewData['users']      = [];
 
     foreach ($users as $usr) {
       $allowed = false;
-      if ($usr['username'] == $this->UL->username) {
+      if ($usr['username'] == $this->userLoggedIn->username) {
         $allowed = true;
       }
-      elseif (!$this->U->isHidden($usr['username'])) {
-        if (isAllowed("calendarviewall") || isAllowed("calendarviewgroup") && $this->UG->shareGroups($usr['username'], $this->UL->username)) {
+      elseif (!$this->userModel->isHidden($usr['username'])) {
+        if (isAllowed("calendarviewall") || isAllowed("calendarviewgroup") && $this->userGroupModel->shareGroups($usr['username'], $this->userLoggedIn->username)) {
           $allowed = true;
         }
       }
       if ($allowed) {
-        $viewData['users'][] = ['username' => $usr['username'], 'lastfirst' => $this->U->getLastFirst($usr['username'])];
+        $viewData['users'][] = ['username' => $usr['username'], 'lastfirst' => $this->userModel->getLastFirst($usr['username'])];
       }
     }
 
-    $color                = $this->H->getColor('2');
-    $bgcolor              = $this->H->getBgColor('2');
+    $color                = $this->holidayModel->getColor('2');
+    $bgcolor              = $this->holidayModel->getBgColor('2');
     $viewData['satStyle'] = ' style="color: #' . $color . '; background-color: #' . $bgcolor . ';"';
-    $color                = $this->H->getColor('3');
-    $bgcolor              = $this->H->getBgColor('3');
+    $color                = $this->holidayModel->getColor('3');
+    $bgcolor              = $this->holidayModel->getBgColor('3');
     $viewData['sunStyle'] = ' style="color: #' . $color . '; background-color: #' . $bgcolor . ';"';
 
     $this->render('year', $viewData);

@@ -57,7 +57,7 @@ view.sidebar
     </li>
 
     <!--View-->
-    {% if (isAllowed(CONF.controllers.messages.permission) and C.read('activateMessages')) or
+    {% if (isAllowed(CONF.controllers.messages.permission) and configModel.read('activateMessages')) or
       isAllowed(CONF.controllers.calendarview.permission) or
       isAllowed(CONF.controllers.year.permission) or
       isAllowed(CONF.controllers.remainder.permission) or
@@ -73,7 +73,7 @@ view.sidebar
           {% if isAllowed(CONF.controllers.calendarview.permission) %}
             {% set urlparams = "" %}
             {% if controller != 'logout' %}
-              {% set urlparams = UO.read(userData.username, 'calfilter') %}
+              {% set urlparams = userOptionModel.read(userData.username, 'calfilter') %}
             {% endif %}
             {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.calendarview.name ~ urlparams, CONF.controllers.calendarview.faIcon, LANG.mnu_view_calendar) }}
           {% endif %}
@@ -86,7 +86,7 @@ view.sidebar
           {% if isAllowed(CONF.controllers.remainder.permission) %}
             {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.remainder.name, CONF.controllers.remainder.faIcon, LANG.mnu_view_remainder) }}
           {% endif %}
-          {% if isAllowed(CONF.controllers.messages.permission) and C.read('activateMessages') %}
+          {% if isAllowed(CONF.controllers.messages.permission) and configModel.read('activateMessages') %}
             {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.messages.name, CONF.controllers.messages.faIcon, LANG.mnu_view_messages) }}
           {% endif %}
           {% if isAllowed('statistics') %}
@@ -171,7 +171,7 @@ view.sidebar
       isAllowed(CONF.controllers.config.permission) or
       isAllowed(CONF.controllers.permissions.permission) or
       isAllowed(CONF.controllers.userlist.permission) or
-      isAllowed(CONF.controllers.groups.permission) or UG.isGroupManager(userData.username) or
+      isAllowed(CONF.controllers.groups.permission) or userGroupModel.isGroupManager(userData.username) or
       isAllowed(CONF.controllers.roles.permission) or
       isAllowed(CONF.controllers.database.permission) or
       isAllowed(CONF.controllers.log.permission) or
@@ -192,7 +192,7 @@ view.sidebar
           {% if isAllowed(CONF.controllers.userlist.permission) %}
             {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.userlist.name, CONF.controllers.userlist.faIcon, LANG.mnu_admin_users) }}
           {% endif %}
-          {% if isAllowed(CONF.controllers.groups.permission) or UG.isGroupManager(userData.username) %}
+          {% if isAllowed(CONF.controllers.groups.permission) or userGroupModel.isGroupManager(userData.username) %}
             {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.groups.name, CONF.controllers.groups.faIcon, LANG.mnu_admin_groups) }}
           {% endif %}
           {% if isAllowed(CONF.controllers.roles.permission) %}
@@ -218,10 +218,10 @@ view.sidebar
         <span>{{ LANG.mnu_help }}</span>
       </a>
       <ul id="help" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-        {% if C.read("userManual") %}
-          {{ _self.sidebarItem(C.read("userManual")|url_decode, 'fas fa-book', LANG.mnu_help_help, '', '_blank') }}
+        {% if configModel.read("userManual") %}
+          {{ _self.sidebarItem(configModel.read("userManual")|url_decode, 'fas fa-book', LANG.mnu_help_help, '', '_blank') }}
         {% endif %}
-        {% if C.read("gdprPolicyPage") %}
+        {% if configModel.read("gdprPolicyPage") %}
           {{ _self.sidebarItem('index.php?action=dataprivacy', 'bi-shield-shaded', LANG.mnu_help_dataprivacy) }}
         {% endif %}
         {{ _self.sidebarItem('index.php?action=imprint', 'bi-vector-pen', LANG.mnu_help_imprint) }}
@@ -242,7 +242,7 @@ view.sidebar
       <ul id="user" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
         {% if not userData.isLoggedIn %}
           {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.login.name, 'bi-box-arrow-in-right', LANG.mnu_user_login) }}
-          {% if C.read("allowRegistration") %}
+          {% if configModel.read("allowRegistration") %}
             {{ _self.sidebarItem('index.php?action=' ~ CONF.controllers.register.name, 'bi-person-fill-add', LANG.mnu_user_register) }}
           {% endif %}
         {% else %}

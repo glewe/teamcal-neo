@@ -23,7 +23,7 @@
           <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
             <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
             {{ LANG.profile_edit_title ~ fullname }}
-            {% if C.read('pageHelp') %}
+            {% if configModel.read('pageHelp') %}
               <a href="{{ CONF.controllers[controller].docurl }}" target="_blank" class="float-end" style="color:inherit;">
                 <i class="bi bi-question-circle-fill bi-lg"></i>
               </a>
@@ -86,7 +86,7 @@
                     </li>
                   {% endif %}
 
-                  {% if not C.read('disableTfa') %}
+                  {% if not configModel.read('disableTfa') %}
                     <li class="nav-item" role="presentation">
                       <a class="nav-link" id="tab-tfa" href="#panel-tfa" data-bs-toggle="tab" role="tab" aria-controls="panel-tfa" aria-selected="false">{{ LANG.profile_tab_tfa }}</a>
                     </li>
@@ -304,10 +304,10 @@
                     </div>
                   {% endif %}
 
-                  {% if not C.read('disableTfa') %}
+                  {% if not configModel.read('disableTfa') %}
                     <!-- 2FA tab -->
                     <div class="tab-pane fade" id="panel-tfa" role="tabpanel" aria-labelledby="tab-tfa">
-                      {% if UO.read(profile, 'secret') %}
+                      {% if userOptionModel.read(profile, 'secret') %}
                         <div class="form-group row" id="form-group-activateMessages">
                           <label for="activateMessages" class="col-lg-8 control-label">{{ LANG.profile_remove2fa }}<br>
                             <span class="text-normal">{{ LANG.profile_remove2fa_comment|raw }}</span>

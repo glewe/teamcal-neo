@@ -27,7 +27,7 @@ $bsBgColors = array( 'danger', 'dark', 'info', 'light', 'primary', 'secondary', 
  * ----------------------------------------------------------------------------
  */
 $timezones = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
-$tz = $C->read("timeZone");
+$tz = $configModel->read("timeZone");
 if (!strlen($tz) || $tz == "default") {
   date_default_timezone_set('UTC');
 } else {

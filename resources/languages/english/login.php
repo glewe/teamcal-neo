@@ -45,6 +45,8 @@ $LANG['login_error_94_text'] = 'The LDAP start TLS failed. Please try again.';
 $LANG['login_error_95'] = 'LDAP error: Username not found';
 $LANG['login_error_96'] = 'LDAP error: Search bind failed';
 $LANG['login_error_96_text'] = 'The LDAP search bind failed. Please try again.';
+$LANG['login_error_97'] = 'LDAP error: Anonymous bind check failed';
+$LANG['login_error_97_text'] = 'The LDAP server rejected the anonymous bind used to test connectivity. Please check the anonymous bind setting on your LDAP server, or disable anonymous bind checking in the configuration.';
 
 $LANG['login_sso_button'] = 'Login with SSO';
 $LANG['login_admin_local'] = 'Administrator login';

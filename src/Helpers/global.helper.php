@@ -988,12 +988,12 @@ function isValidFileName(string $file, array $options = []): bool {
  * @return string Login information
  */
 function loginInfo(): string {
-  global $L, $LANG, $RO, $UL;
+  global $loginModel, $LANG, $roleModel, $userLoggedIn;
   $loginInfo = $LANG['status_logged_out'];
-  if ($luser = $L->checkLogin()) {
-    $UL->findByName($luser);
-    $loginInfo  = $UL->getFullname($luser) . " (" . $luser . ")<br>";
-    $loginInfo .= $LANG['role'] . ': ' . $RO->getNameById($UL->role);
+  if ($luser = $loginModel->checkLogin()) {
+    $userLoggedIn->findByName($luser);
+    $loginInfo  = $userLoggedIn->getFullname($luser) . " (" . $luser . ")<br>";
+    $loginInfo .= $LANG['role'] . ': ' . $roleModel->getNameById($userLoggedIn->role);
   }
   return $loginInfo;
 }

@@ -32,6 +32,7 @@ $LANG['cal_selWidth_comment'] = 'Seleccione el ancho de su pantalla en píxeles 
       <br>Parece que actualmente está usando una pantalla con un ancho de <span id="currentwidth"></span> píxeles. Recargue la página para consultar este diálogo nuevamente para confirmar.';
 $LANG['cal_switchFullmonthView'] = 'Cambiar a vista de mes completo';
 $LANG['cal_switchSplitmonthView'] = 'Cambiar a vista de mes dividido';
+$LANG['cal_viewmode_login'] = 'El modo de vista no se puede cambiar si no ha iniciado sesión.';
 $LANG['cal_summary'] = 'Resumen';
 $LANG['cal_businessDays'] = 'Días laborables en el mes';
 $LANG['cal_caption_weeknumber'] = 'Sem';

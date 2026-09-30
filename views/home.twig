@@ -6,13 +6,13 @@
 
       {# Note: alert rendering is handled in header/layout usually, but home.php had it explicitly #}
       {# BaseController captures alertData from container. #}
-        {% if alertData and (C.read('showAlerts') != 'none') %}
-          {% if (C.read('showAlerts') == 'all') or (C.read('showAlerts') == 'warnings' and (alertData.type == 'warning' or alertData.type == 'danger')) %}
+        {% if alertData and (configModel.read('showAlerts') != 'none') %}
+          {% if (configModel.read('showAlerts') == 'all') or (configModel.read('showAlerts') == 'warnings' and (alertData.type == 'warning' or alertData.type == 'danger')) %}
         {{ alertHtml|raw }}
       {% endif %}
       {% endif %}
 
-        <div class="card text-{{ CONF.controllers[controller].panelColor }}"> {% if C.read('pageHelp') %}
+        <div class="card text-{{ CONF.controllers[controller].panelColor }}"> {% if configModel.read('pageHelp') %}
           {% set pageHelp = '<a href="' ~ CONF.controllers[controller].docurl ~ '" target="_blank" class="float-end" style="color:inherit;"><i class="bi bi-question-circle-fill bi-lg"></i></a>' %}
         {% endif %}
 
@@ -20,7 +20,7 @@
           <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
           {{ LANG.home_title }}{{ pageHelp|raw }}</div>
         <div class="card-body">
-          {{ C.read('welcomeText')|raw }}
+          {{ configModel.read('welcomeText')|raw }}
         </div>
       </div>
 

@@ -31,11 +31,11 @@ class PatternEditController extends BaseController
       return;
     }
 
-    $PTN         = new PatternModel($this->DB->db, $this->CONF);
+    $patternModel         = new PatternModel($this->dbModel->db, $this->CONF);
     $missingData = false;
     if (isset($_GET['id'])) {
       $id = sanitize($_GET['id']);
-      if (!$PTN->get($id)) {
+      if (!$patternModel->get($id)) {
         $missingData = true;
       }
     }
@@ -54,13 +54,13 @@ class PatternEditController extends BaseController
     $viewData                = [];
     $viewData['pageHelp']    = $this->allConfig['pageHelp'];
     $viewData['showAlerts']  = $this->allConfig['showAlerts'];
-    $viewData['PTN']         = $PTN;
-    $viewData['id']          = $PTN->id;
-    $viewData['name']        = $PTN->name;
-    $viewData['description'] = $PTN->description;
+    $viewData['patternModel']         = $patternModel;
+    $viewData['id']          = $patternModel->id;
+    $viewData['name']        = $patternModel->name;
+    $viewData['description'] = $patternModel->description;
+    $weekdayMap              = $patternModel->getWeekdayMap((string) $patternModel->id);
     for ($i = 1; $i <= 7; $i++) {
-      $abs            = 'abs' . $i;
-      $viewData[$abs] = $PTN->$abs;
+      $viewData['abs' . $i] = $weekdayMap[$i];
     }
 
     global $inputAlert;
@@ -95,17 +95,17 @@ class PatternEditController extends BaseController
 
       if (!$inputError) {
         if (isset($_POST['btn_update'])) {
+          $newWeekdayMap  = [];
           $patternChanged = false;
           for ($i = 1; $i <= 7; $i++) {
-            if ($PTN->{'abs' . $i} != $_POST['sel_abs' . $i]) {
+            $newWeekdayMap[$i] = (int) $_POST['sel_abs' . $i];
+            if ($weekdayMap[$i] != $newWeekdayMap[$i]) {
               $patternChanged = true;
-              break;
             }
           }
 
           if ($patternChanged) {
-            $checkPattern = [0, $_POST['sel_abs1'], $_POST['sel_abs2'], $_POST['sel_abs3'], $_POST['sel_abs4'], $_POST['sel_abs5'], $_POST['sel_abs6'], $_POST['sel_abs7']];
-            if ($name = $PTN->patternExists($checkPattern)) {
+            if ($name = $patternModel->patternExists($newWeekdayMap)) {
               $showAlert            = true;
               $alertData['type']    = 'warning';
               $alertData['title']   = $this->LANG['alert_warning_title'];
@@ -116,14 +116,12 @@ class PatternEditController extends BaseController
           }
 
           if (!$showAlert) {
-            $PTN->name        = $_POST['txt_name'];
-            $PTN->description = $_POST['txt_description'];
-            for ($i = 1; $i <= 7; $i++) {
-              $PTN->{'abs' . $i} = (int) $_POST['sel_abs' . $i];
-            }
-            $PTN->update((string) $PTN->id);
+            $patternModel->name        = $_POST['txt_name'];
+            $patternModel->description = $_POST['txt_description'];
+            $patternModel->update((string) $patternModel->id);
+            $patternModel->setWeekdayMap((string) $patternModel->id, $newWeekdayMap);
 
-            $this->LOG->logEvent("logPattern", $this->UL->username, "log_pattern_updated", $PTN->name);
+            $this->logModel->logEvent("logPattern", $this->userLoggedIn->username, "log_pattern_updated", $patternModel->name);
 
             $showAlert            = true;
             $alertData['type']    = 'success';
@@ -131,13 +129,14 @@ class PatternEditController extends BaseController
             $alertData['subject'] = $this->LANG['ptn_alert_edit'];
             $alertData['text']    = $this->LANG['ptn_alert_edit_success'];
             $alertData['help']    = '';
-            $PTN->get((string) $PTN->id);
+            $patternModel->get((string) $patternModel->id);
 
-            $viewData['PTN']         = $PTN;
-            $viewData['name']        = $PTN->name;
-            $viewData['description'] = $PTN->description;
+            $viewData['patternModel']         = $patternModel;
+            $viewData['name']        = $patternModel->name;
+            $viewData['description'] = $patternModel->description;
+            $weekdayMap              = $patternModel->getWeekdayMap((string) $patternModel->id);
             for ($i = 1; $i <= 7; $i++) {
-              $viewData['abs' . $i] = $PTN->{'abs' . $i};
+              $viewData['abs' . $i] = $weekdayMap[$i];
             }
           }
         }
@@ -159,16 +158,15 @@ class PatternEditController extends BaseController
     }
 
     $absenceOptions = [['val' => 0, 'name' => $this->LANG['none']]];
-    $absences       = $this->A->getAll();
+    $absences       = $this->absenceModel->getAll();
     foreach ($absences as $absence) {
       $absenceOptions[] = ['val' => $absence['id'], 'name' => $absence['name']];
     }
 
     for ($i = 1; $i <= 7; $i++) {
-      $absKey             = 'abs' . $i;
       $viewKey            = 'abs' . $i . 'Absences';
       $viewData[$viewKey] = [];
-      $currentValue       = $PTN->$absKey;
+      $currentValue       = $weekdayMap[$i];
       foreach ($absenceOptions as $option) {
         $viewData[$viewKey][] = [
           'val'      => $option['val'],
@@ -179,30 +177,30 @@ class PatternEditController extends BaseController
     }
 
     // Prepare absence data for pattern macros
-    $absencesAll = $this->A->getAll();
+    $absencesAll = $this->absenceModel->getAll();
     $absData     = [];
     foreach ($absencesAll as $abs) {
       $absId   = (string) $abs['id'];
       $bgStyle = '';
-      if (!$this->A->getBgTrans($absId)) {
-        $bgColor = $this->A->getBgColor($absId);
+      if (!$this->absenceModel->getBgTrans($absId)) {
+        $bgColor = $this->absenceModel->getBgColor($absId);
         $bgStyle = $bgColor ? $bgColor : 'ffffff';
       }
 
       $symbol = '';
       if ($this->allConfig['symbolAsIcon']) {
-        $symbol = $this->A->getSymbol($absId);
+        $symbol = $this->absenceModel->getSymbol($absId);
       }
       else {
-        $symbol = '<span class="' . $this->A->getIcon($absId) . '"></span>';
+        $symbol = '<span class="' . $this->absenceModel->getIcon($absId) . '"></span>';
       }
 
       $absData[$absId] = [
-        'name'         => $this->A->getName($absId),
-        'color'        => $this->A->getColor($absId),
+        'name'         => $this->absenceModel->getName($absId),
+        'color'        => $this->absenceModel->getColor($absId),
         'bgColor'      => $bgStyle,
-        'bgTrans'      => $this->A->getBgTrans($absId),
-        'icon'         => $this->A->getIcon($absId),
+        'bgTrans'      => $this->absenceModel->getBgTrans($absId),
+        'icon'         => $this->absenceModel->getIcon($absId),
         'symbol'       => $symbol,
         'symbolAsIcon' => $this->allConfig['symbolAsIcon']
       ];

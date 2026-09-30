@@ -31,7 +31,7 @@ class HolidayEditController extends BaseController
       return;
     }
 
-    $HH = new HolidayModel($this->DB->db, $this->CONF);
+    $HH = new HolidayModel($this->dbModel->db, $this->CONF);
 
     if (isset($_GET['id'])) {
       $missingData = false;
@@ -106,7 +106,7 @@ class HolidayEditController extends BaseController
             sendHolidayEventNotifications("changed", $HH->name, $HH->description, $mailError);
           }
 
-          $this->LOG->logEvent("logHoliday", $this->UL->username, "log_hol_updated", $HH->name);
+          $this->logModel->logEvent("logHoliday", $this->userLoggedIn->username, "log_hol_updated", $HH->name);
 
           $showAlert            = true;
           $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';

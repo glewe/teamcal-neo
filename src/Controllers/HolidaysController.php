@@ -37,7 +37,7 @@ class HolidaysController extends BaseController
     $alertData        = [];
     $showAlert        = false;
     $licExpiryWarning = (int) $this->allConfig['licExpiryWarning'];
-    $LIC              = new LicenseModel($this->DB->db, $this->CONF);
+    $LIC              = new LicenseModel($this->dbModel->db, $this->CONF);
     $date             = new DateTime();
     $weekday          = (int) $date->format('N');
     if ($weekday === random_int(1, 7)) {
@@ -69,7 +69,7 @@ class HolidaysController extends BaseController
         $viewData['txt_description'] = $_POST['txt_description'] ?? '';
 
         if (!$inputError) {
-          $HH              = new HolidayModel($this->DB->db, $this->CONF);
+          $HH              = new HolidayModel($this->dbModel->db, $this->CONF);
           $HH->name        = $viewData['txt_name'];
           $HH->description = $viewData['txt_description'];
           $HH->create();
@@ -78,7 +78,7 @@ class HolidaysController extends BaseController
           if ($this->allConfig['emailNotifications']) {
             sendHolidayEventNotifications("created", $HH->name, $HH->description, $mailError);
           }
-          $this->LOG->logEvent("logHoliday", $this->UL->username, "log_abs_created", $HH->name);
+          $this->logModel->logEvent("logHoliday", $this->userLoggedIn->username, "log_abs_created", $HH->name);
 
           $showAlert            = true;
           $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
@@ -101,12 +101,12 @@ class HolidaysController extends BaseController
         }
       }
       elseif (isset($_POST['btn_holDelete'])) {
-        $this->H->delete($_POST['hidden_id'] ?? '');
+        $this->holidayModel->delete($_POST['hidden_id'] ?? '');
         $mailError = '';
         if ($this->allConfig['emailNotifications']) {
           sendHolidayEventNotifications("deleted", $_POST['hidden_name'] ?? '', $_POST['hidden_description'] ?? '', $mailError);
         }
-        $this->LOG->logEvent("logHoliday", $this->UL->username, "log_hol_deleted", $_POST['hidden_name'] ?? '');
+        $this->logModel->logEvent("logHoliday", $this->userLoggedIn->username, "log_hol_deleted", $_POST['hidden_name'] ?? '');
 
         $showAlert            = true;
         $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
@@ -123,7 +123,7 @@ class HolidaysController extends BaseController
 
     $viewData['alertData'] = $alertData;
     $viewData['showAlert'] = $showAlert;
-    $viewData['holidays']  = $this->H->getAll();
+    $viewData['holidays']  = $this->holidayModel->getAll();
     asort($viewData['holidays']);
 
     $this->render('holidays', $viewData);

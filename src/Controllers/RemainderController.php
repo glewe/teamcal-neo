@@ -54,8 +54,8 @@ class RemainderController extends BaseController
 
       if (!$inputError) {
         if (isset($_POST['btn_group'])) {
-          if ($this->UL->username)
-            $this->UO->save($this->UL->username, 'calfilterGroup', $_POST['sel_group']);
+          if ($this->userLoggedIn->username)
+            $this->userOptionModel->save($this->userLoggedIn->username, 'calfilterGroup', $_POST['sel_group']);
           header("Location: index.php?action=remainder&group=" . $_POST['sel_group']);
           die();
         }
@@ -66,10 +66,10 @@ class RemainderController extends BaseController
           $this->viewData['year'] = $_POST['sel_year'];
         }
         elseif (isset($_POST['btn_reset'])) {
-          if ($this->UL->username) {
-            $this->UO->deleteUserOption($this->UL->username, 'calfilter');
-            $this->UO->deleteUserOption($this->UL->username, 'calfilterGroup');
-            $this->UO->deleteUserOption($this->UL->username, 'calfilterSearch');
+          if ($this->userLoggedIn->username) {
+            $this->userOptionModel->deleteUserOption($this->userLoggedIn->username, 'calfilter');
+            $this->userOptionModel->deleteUserOption($this->userLoggedIn->username, 'calfilterGroup');
+            $this->userOptionModel->deleteUserOption($this->userLoggedIn->username, 'calfilterSearch');
           }
           header("Location: index.php?action=remainder");
           die();
@@ -90,10 +90,10 @@ class RemainderController extends BaseController
     // Fetch users
     //
     if (!empty($this->viewData['search'])) {
-      $users = $this->U->getAllLike($this->viewData['search']);
+      $users = $this->userModel->getAllLike($this->viewData['search']);
     }
     else {
-      $users = $this->U->getAllButHidden();
+      $users = $this->userModel->getAllButHidden();
     }
 
     //
@@ -102,14 +102,14 @@ class RemainderController extends BaseController
     $groupid = $this->viewData['groupid'];
     if ($groupid == "all") {
       $this->viewData['group'] = $this->LANG['all'];
-      $users                   = array_filter($users, fn($usr) => ($this->UL->username == $usr['username'] || $this->UL->username == 'admin' || $this->UG->isGroupManagerOfUser($this->UL->username, $usr['username'])));
+      $users                   = array_filter($users, fn($usr) => ($this->userLoggedIn->username == $usr['username'] || $this->userLoggedIn->is_system || $this->userGroupModel->isGroupManagerOfUser($this->userLoggedIn->username, $usr['username'])));
     }
     else {
-      $this->viewData['group'] = $this->G->getNameById($groupid);
+      $this->viewData['group'] = $this->groupModel->getNameById($groupid);
       $users                   = array_filter($users, function ($usr) use ($groupid) {
-        if (!$this->UG->isMemberOrGuestOfGroup($usr['username'], (string) $groupid))
+        if (!$this->userGroupModel->isMemberOrGuestOfGroup($usr['username'], (string) $groupid))
           return false;
-        return ($this->UL->username == 'admin' || $this->UL->username == $usr['username'] || $this->UG->isGroupManagerOfUser($this->UL->username, $usr['username']));
+        return ($this->userLoggedIn->is_system || $this->userLoggedIn->username == $usr['username'] || $this->userGroupModel->isGroupManagerOfUser($this->userLoggedIn->username, $usr['username']));
       });
     }
 
@@ -148,36 +148,36 @@ class RemainderController extends BaseController
   private function prepareViewData(array $users): void {
     $this->viewData['currentYearOnly'] = $this->allConfig['currentYearOnly'];
     $this->viewData['usersPerPage']    = $this->allConfig['usersPerPage'];
-    $this->viewData['absences']        = array_filter($this->A->getAll(), fn($abs) => $abs['show_in_remainder']);
-    $this->viewData['allGroups']       = $this->G->getAll();
-    $this->viewData['holidays']        = $this->H->getAllCustom();
+    $this->viewData['absences']        = array_filter($this->absenceModel->getAll(), fn($abs) => $abs['show_in_remainder']);
+    $this->viewData['allGroups']       = $this->groupModel->getAll();
+    $this->viewData['holidays']        = $this->holidayModel->getAllCustom();
     $countFrom                         = $this->viewData['year'] . '0101';
     $countTo                           = $this->viewData['year'] . '1231';
-    $row                               = $this->G->getRowById($this->viewData['groupid']);
+    $row                               = $this->groupModel->getRowById($this->viewData['groupid']);
     $this->viewData['groups']          = ($this->viewData['groupid'] == 'all') ? $this->viewData['allGroups'] : ($row ? $row : []);
 
     // Need AllowanceModel
-    $AL = new \App\Models\AllowanceModel($this->DB->db, $this->CONF);
+    $allowanceModel = new \App\Models\AllowanceModel($this->dbModel->db, $this->CONF);
 
     $this->viewData['users'] = [];
     $i                       = 0;
     foreach ($users as $user) {
       $this->viewData['users'][$i]['username'] = $user['username'];
       $this->viewData['users'][$i]['dispname'] = (!empty($user['firstname'])) ? $user['lastname'] . ", " . $user['firstname'] . ' (' . $user['username'] . ')' : $user['lastname'] . ' (' . $user['username'] . ')';
-      $this->viewData['users'][$i]['role']     = $this->RO->getNameById($user['role']);
-      $this->viewData['users'][$i]['color']    = $this->RO->getColorById($user['role']);
+      $this->viewData['users'][$i]['role']     = $this->roleModel->getNameById($user['role_id']);
+      $this->viewData['users'][$i]['color']    = $this->roleModel->getColorById($user['role_id']);
 
       // Calculate remainder data for each absence type
       $this->viewData['users'][$i]['absences'] = [];
       foreach ($this->viewData['absences'] as $abs) {
-        if ($AL->find($user['username'], $abs['id'])) {
-          $carryover = $AL->carryover;
-          if (!$AL->allowance) {
+        if ($allowanceModel->find($user['username'], $abs['id'])) {
+          $carryover = $allowanceModel->carryover;
+          if (!$allowanceModel->allowance) {
             // Zero personal allowance will take over global yearly allowance
-            $AL->allowance = $abs['allowance'];
-            $AL->update();
+            $allowanceModel->allowance = $abs['allowance'];
+            $allowanceModel->update();
           }
-          $allowance = $AL->allowance;
+          $allowance = $allowanceModel->allowance;
         }
         else {
           $carryover = 0;
@@ -187,7 +187,7 @@ class RemainderController extends BaseController
         $totalAllowance = $allowance + $carryover;
         $taken          = 0;
         if (!$abs['counts_as_present']) {
-          $taken = $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
+          $taken = $this->absenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
         }
         $remainder = $allowance + $carryover - ($taken * $abs['factor']);
 

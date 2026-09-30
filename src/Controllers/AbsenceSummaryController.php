@@ -34,7 +34,7 @@ class AbsenceSummaryController extends BaseController
 
     if (isset($_GET['user'])) {
       $caluser = sanitize($_GET['user']);
-      if ($caluser !== 'Public' && !$this->U->findByName($caluser)) {
+      if ($caluser !== 'Public' && !$this->userModel->findByName($caluser)) {
         $missingData = true;
       }
       if ($caluser === 'Public') {
@@ -55,7 +55,7 @@ class AbsenceSummaryController extends BaseController
     $viewData['showAlerts']      = $this->allConfig['showAlerts'];
     $viewData['currentYearOnly'] = $this->allConfig['currentYearOnly'];
 
-    $users            = $this->U->getAll();
+    $users            = $this->userModel->getAll();
     $viewData['year'] = date("Y");
 
     $alertData = [];
@@ -83,23 +83,23 @@ class AbsenceSummaryController extends BaseController
     }
 
     $viewData['username'] = $caluser ?: 'Public';
-    $viewData['fullname'] = strlen($caluser) ? $this->U->getFullname($caluser) : $this->LANG['role_public'];
+    $viewData['fullname'] = strlen($caluser) ? $this->userModel->getFullname($caluser) : $this->LANG['role_public'];
     $viewData['users']    = [];
     foreach ($users as $usr) {
-      $viewData['users'][] = ['username' => $usr['username'], 'lastfirst' => $this->U->getLastFirst($usr['username'])];
+      $viewData['users'][] = ['username' => $usr['username'], 'lastfirst' => $this->userModel->getLastFirst($usr['username'])];
     }
     $viewData['from']     = $viewData['year'] . '-01-01';
     $viewData['to']       = $viewData['year'] . '-12-31';
     $viewData['absences'] = [];
-    $absences             = $this->A->getAll();
+    $absences             = $this->absenceModel->getAll();
 
     foreach ($absences as $abs) {
-      $summary     = $this->AbsenceService->getAbsenceSummary($caluser, (string) $abs['id'], (string) $viewData['year']);
+      $summary     = $this->absenceService->getAbsenceSummary($caluser, (string) $abs['id'], (string) $viewData['year']);
       $subabsences = [];
-      $subs        = $this->A->getAllSub((string) $abs['id']);
+      $subs        = $this->absenceModel->getAllSub((string) $abs['id']);
       if ($subs && is_array($subs)) {
         foreach ($subs as $subabs) {
-          $subsummary           = $this->AbsenceService->getAbsenceSummary($caluser, (string) $subabs['id'], (string) $viewData['year']);
+          $subsummary           = $this->absenceService->getAbsenceSummary($caluser, (string) $subabs['id'], (string) $viewData['year']);
           $subabs['contingent'] = $subsummary['totalallowance'];
           $subabs['taken']      = $subsummary['taken'];
           $subabs['remainder']  = $subsummary['remainder'];

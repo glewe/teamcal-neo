@@ -51,8 +51,8 @@ class DatabaseStructureModel
       $this->configTable = $conf['db_table_config'] ?? ($this->prefix . 'config');
     }
     else {
-      global $CONF, $DB;
-      $this->db     = $DB->db;
+      global $CONF, $dbModel;
+      $this->db     = $dbModel->db;
       $this->prefix = $CONF['db_table_prefix'] ?? 'tcneo_';
       $this->dbName = $CONF['db_name'] ?? '';
       $this->configTable = $CONF['db_table_config'] ?? ($this->prefix . 'config');
@@ -74,7 +74,9 @@ class DatabaseStructureModel
     if (!is_file($path)) {
       throw new RuntimeException("Database manifest not found: $path. Run 'composer db:manifest' to generate it.");
     }
-    $data = require_once $path;
+    // require, not require_once: the latter returns true instead of the array when the file was already
+    // included by another instance in this process.
+    $data = require $path;
     if (!is_array($data) || !isset($data['tables'], $data['config'])) {
       throw new RuntimeException("Database manifest is malformed: $path");
     }
@@ -90,7 +92,7 @@ class DatabaseStructureModel
    * tables first (a missing table makes its columns/indexes implicit),
    * then columns, then indexes, then config rows.
    *
-   * @return list<array{kind: string, table?: string, column?: string, index?: string, name?: string, current?: string}>
+   * @return list<array{kind: string, table?: string, column?: string, index?: string, constraint?: string, name?: string, current?: string}>
    */
   public function check(): array {
     $manifest = $this->loadManifest();
@@ -103,6 +105,19 @@ class DatabaseStructureModel
       $fullName = $this->prefix . $shortName;
       if (!in_array($fullName, $liveTables, true)) {
         $findings[] = ['kind' => 'missing_table', 'table' => $fullName];
+      }
+    }
+
+    // Pass 1b: wrong storage engine. Must come before the foreign keys:
+    // MyISAM tables cannot hold them.
+    foreach ($manifest['tables'] as $shortName => $tableDef) {
+      $fullName = $this->prefix . $shortName;
+      if (!in_array($fullName, $liveTables, true) || ($tableDef['engine'] ?? '') === '') {
+        continue;
+      }
+      $liveEngine = $this->liveEngine($fullName);
+      if (strcasecmp($liveEngine, $tableDef['engine']) !== 0) {
+        $findings[] = ['kind' => 'wrong_engine', 'table' => $fullName, 'current' => $liveEngine];
       }
     }
 
@@ -130,6 +145,27 @@ class DatabaseStructureModel
             'table' => $fullName,
             'index' => $idx['name'],
           ];
+        }
+      }
+    }
+
+    // Pass 2b: missing foreign keys and CHECK constraints. Covers tables
+    // that are missing altogether too (buildCreateTable() creates them
+    // without constraints), so these findings come after every table,
+    // column and index exists and the order of the tables does not matter.
+    foreach ($manifest['tables'] as $shortName => $tableDef) {
+      $fullName    = $this->prefix . $shortName;
+      $tableExists = in_array($fullName, $liveTables, true);
+      $liveFks     = $tableExists ? $this->liveConstraintNames($fullName, 'FOREIGN KEY') : [];
+      foreach ($tableDef['foreign_keys'] ?? [] as $fk) {
+        if (!in_array($fk['name'], $liveFks, true)) {
+          $findings[] = ['kind' => 'missing_foreign_key', 'table' => $fullName, 'constraint' => $fk['name']];
+        }
+      }
+      $liveChecks = $tableExists ? $this->liveConstraintNames($fullName, 'CHECK') : [];
+      foreach ($tableDef['checks'] ?? [] as $chk) {
+        if (!in_array($chk['name'], $liveChecks, true)) {
+          $findings[] = ['kind' => 'missing_check', 'table' => $fullName, 'constraint' => $chk['name']];
         }
       }
     }
@@ -215,6 +251,34 @@ class DatabaseStructureModel
             self::assertSafeIdent($table, 'table');
             self::assertSafeIdent($index, 'index');
             $sql = $this->buildAddIndex($manifest, $table, $index);
+            $this->db->exec($sql);
+            $results[] = ['finding' => $f, 'status' => 'ok', 'sql' => $sql];
+            break;
+
+          case 'wrong_engine':
+            $table = (string) $f['table'];
+            self::assertSafeIdent($table, 'table');
+            $sql = $this->buildChangeEngine($manifest, $table);
+            $this->db->exec($sql);
+            $results[] = ['finding' => $f, 'status' => 'ok', 'sql' => $sql];
+            break;
+
+          case 'missing_foreign_key':
+            $table      = (string) $f['table'];
+            $constraint = (string) $f['constraint'];
+            self::assertSafeIdent($table, 'table');
+            self::assertSafeIdent($constraint, 'constraint');
+            $sql = $this->buildAddForeignKey($manifest, $table, $constraint);
+            $this->db->exec($sql);
+            $results[] = ['finding' => $f, 'status' => 'ok', 'sql' => $sql];
+            break;
+
+          case 'missing_check':
+            $table      = (string) $f['table'];
+            $constraint = (string) $f['constraint'];
+            self::assertSafeIdent($table, 'table');
+            self::assertSafeIdent($constraint, 'constraint');
+            $sql = $this->buildAddCheck($manifest, $table, $constraint);
             $this->db->exec($sql);
             $results[] = ['finding' => $f, 'status' => 'ok', 'sql' => $sql];
             break;
@@ -337,6 +401,77 @@ class DatabaseStructureModel
 
   //---------------------------------------------------------------------------
   /**
+   * Build an ALTER TABLE statement that converts a table to the storage
+   * engine the manifest expects.
+   *
+   * @param array<string, mixed> $manifest
+   * @param string               $fullName Prefixed table name
+   *
+   * @return string SQL statement
+   */
+  private function buildChangeEngine(array $manifest, string $fullName): string {
+    $short  = $this->stripPrefix($fullName);
+    $engine = (string) ($manifest['tables'][$short]['engine'] ?? '');
+    if ($engine === '') {
+      throw new RuntimeException("No engine for table '$short' in manifest");
+    }
+    self::assertSafeIdent($engine, 'engine');
+    return 'ALTER TABLE `' . $fullName . '` ENGINE = ' . $engine;
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Build an ALTER TABLE ADD CONSTRAINT ... FOREIGN KEY statement. Fails at
+   * execution time if existing rows violate the constraint; apply() reports
+   * that per finding.
+   *
+   * @param array<string, mixed> $manifest
+   * @param string               $fullName Prefixed table name
+   * @param string               $name     Constraint name
+   *
+   * @return string SQL statement
+   */
+  private function buildAddForeignKey(array $manifest, string $fullName, string $name): string {
+    $short = $this->stripPrefix($fullName);
+    foreach ($manifest['tables'][$short]['foreign_keys'] ?? [] as $fk) {
+      if ($fk['name'] !== $name) {
+        continue;
+      }
+      $sql = 'ALTER TABLE `' . $fullName . '` ADD CONSTRAINT `' . $name . '` FOREIGN KEY (`' . implode('`, `', $fk['columns']) . '`)'
+        . ' REFERENCES `' . $this->prefix . $fk['ref_table'] . '` (`' . implode('`, `', $fk['ref_columns']) . '`)';
+      if ($fk['on_delete'] !== '') {
+        $sql .= ' ON DELETE ' . $fk['on_delete'];
+      }
+      if ($fk['on_update'] !== '') {
+        $sql .= ' ON UPDATE ' . $fk['on_update'];
+      }
+      return $sql;
+    }
+    throw new RuntimeException("Foreign key '$name' not in manifest for table '$short'");
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Build an ALTER TABLE ADD CONSTRAINT ... CHECK statement.
+   *
+   * @param array<string, mixed> $manifest
+   * @param string               $fullName Prefixed table name
+   * @param string               $name     Constraint name
+   *
+   * @return string SQL statement
+   */
+  private function buildAddCheck(array $manifest, string $fullName, string $name): string {
+    $short = $this->stripPrefix($fullName);
+    foreach ($manifest['tables'][$short]['checks'] ?? [] as $chk) {
+      if ($chk['name'] === $name) {
+        return 'ALTER TABLE `' . $fullName . '` ADD CONSTRAINT `' . $name . '` CHECK (' . $chk['expression'] . ')';
+      }
+    }
+    throw new RuntimeException("Check constraint '$name' not in manifest for table '$short'");
+  }
+
+  //---------------------------------------------------------------------------
+  /**
    * Render an index spec as the SQL fragment used in both CREATE TABLE
    * and ALTER TABLE ADD contexts.
    *
@@ -434,6 +569,39 @@ class DatabaseStructureModel
       'SELECT DISTINCT INDEX_NAME FROM information_schema.STATISTICS WHERE TABLE_SCHEMA = :db AND TABLE_NAME = :t'
     );
     $stmt->execute([':db' => $this->dbName, ':t' => $table]);
+    return array_map('strval', $stmt->fetchAll(PDO::FETCH_COLUMN));
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Storage engine of a given table.
+   *
+   * @param string $table Prefixed table name
+   *
+   * @return string Engine name, empty if the table is unknown
+   */
+  private function liveEngine(string $table): string {
+    $stmt = $this->db->prepare(
+      'SELECT ENGINE FROM information_schema.TABLES WHERE TABLE_SCHEMA = :db AND TABLE_NAME = :t'
+    );
+    $stmt->execute([':db' => $this->dbName, ':t' => $table]);
+    return (string) $stmt->fetchColumn();
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Names of the constraints of one type on a given table.
+   *
+   * @param string $table Prefixed table name
+   * @param string $type  'FOREIGN KEY' or 'CHECK'
+   *
+   * @return list<string>
+   */
+  private function liveConstraintNames(string $table, string $type): array {
+    $stmt = $this->db->prepare(
+      'SELECT CONSTRAINT_NAME FROM information_schema.TABLE_CONSTRAINTS WHERE TABLE_SCHEMA = :db AND TABLE_NAME = :t AND CONSTRAINT_TYPE = :type'
+    );
+    $stmt->execute([':db' => $this->dbName, ':t' => $table, ':type' => $type]);
     return array_map('strval', $stmt->fetchAll(PDO::FETCH_COLUMN));
   }
 

@@ -31,7 +31,7 @@ class AbsenceEditController extends BaseController
       return;
     }
 
-    $AA          = new AbsenceModel($this->DB->db, $this->CONF);
+    $AA          = new AbsenceModel($this->dbModel->db, $this->CONF);
     $missingData = false;
 
     if (isset($_GET['id'])) {
@@ -120,10 +120,10 @@ class AbsenceEditController extends BaseController
             $AA->$property = isset($_POST[$postKey]) ? 1 : 0;
           }
 
-          $this->AG->unassignAbs((string) $AA->id);
+          $this->absenceGroupModel->unassignAbs((string) $AA->id);
           if (isset($_POST['sel_groups'])) {
             foreach ($_POST['sel_groups'] as $grp) {
-              $this->AG->assign((string) $AA->id, $grp);
+              $this->absenceGroupModel->assign((string) $AA->id, $grp);
             }
           }
 
@@ -133,7 +133,7 @@ class AbsenceEditController extends BaseController
           if ($this->allConfig['emailNotifications']) {
             sendAbsenceEventNotifications("changed", $AA->name, $mailError);
           }
-          $this->LOG->logEvent("logAbsence", $this->UL->username, "log_abs_updated", $AA->name);
+          $this->logModel->logEvent("logAbsence", $this->userLoggedIn->username, "log_abs_updated", $AA->name);
 
           if (session_status() === PHP_SESSION_ACTIVE) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -200,10 +200,10 @@ class AbsenceEditController extends BaseController
     $viewData['takeover']          = $AA->takeover;
     $viewData['show_in_remainder'] = $AA->show_in_remainder;
 
-    $groups                     = $this->G->getAll();
+    $groups                     = $this->groupModel->getAll();
     $viewData['groupsAssigned'] = [];
     foreach ($groups as $group) {
-      $selected                     = $this->AG->isAssigned((string) $viewData['id'], (string) $group['id']);
+      $selected                     = $this->absenceGroupModel->isAssigned((string) $viewData['id'], (string) $group['id']);
       $viewData['groupsAssigned'][] = ['val' => $group['id'], 'name' => $group['name'], 'selected' => $selected];
     }
 

@@ -15,7 +15,7 @@ view.navbar
 
         <!-- App Menu -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="app" aria-haspopup="true" aria-expanded="false">{{ C.read("appTitle") }}</a>
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="app" aria-haspopup="true" aria-expanded="false">{{ configModel.read("appTitle") }}</a>
           <div class="dropdown-menu" aria-labelledby="app">
             <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.home.name }}">
               <span class="menu-icon">
@@ -41,7 +41,7 @@ view.navbar
         </li>
 
         <!-- View Menu -->
-        {% if (isAllowed(CONF.controllers.messages.permission) and C.read('activateMessages')) or
+        {% if (isAllowed(CONF.controllers.messages.permission) and configModel.read('activateMessages')) or
           isAllowed(CONF.controllers.calendarview.permission) or
           isAllowed(CONF.controllers.year.permission) or
           isAllowed(CONF.controllers.remainder.permission) or
@@ -55,7 +55,7 @@ view.navbar
               {% if isAllowed(CONF.controllers.calendarview.permission) %}
                 {% set urlparams = "" %}
                 {% if controller != 'logout' %}
-                  {% set urlparams = UO.read(userData.username, 'calfilter') %}
+                  {% set urlparams = userOptionModel.read(userData.username, 'calfilter') %}
                 {% endif %}
                 <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.calendarview.name ~ urlparams }}">
                   <span class="menu-icon">
@@ -89,7 +89,7 @@ view.navbar
                   {{ LANG.mnu_view_remainder }}
                 </a>
               {% endif %}
-              {% if isAllowed(CONF.controllers.messages.permission) and C.read('activateMessages') %}
+              {% if isAllowed(CONF.controllers.messages.permission) and configModel.read('activateMessages') %}
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.messages.name }}">
                   <span class="menu-icon">
@@ -138,7 +138,7 @@ view.navbar
                   {{ LANG.mnu_edit_monthedit }}
                 </a>
               {% endif %}
-              {% if isAllowed(CONF.controllers.messageedit.permission) and C.read('activateMessages') %}
+              {% if isAllowed(CONF.controllers.messageedit.permission) and configModel.read('activateMessages') %}
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.messageedit.name }}">
                   <span class="menu-icon">
@@ -219,7 +219,7 @@ view.navbar
           isAllowed(CONF.controllers.calendaroptions.permission) or
           isAllowed(CONF.controllers.permissions.permission) or
           isAllowed(CONF.controllers.userlist.permission) or
-          isAllowed(CONF.controllers.groups.permission) or UG.isGroupManager(userData.username) or
+          isAllowed(CONF.controllers.groups.permission) or userGroupModel.isGroupManager(userData.username) or
           isAllowed(CONF.controllers.roles.permission) or
           isAllowed(CONF.controllers.database.permission) or
           isAllowed(CONF.controllers.log.permission) or
@@ -268,7 +268,7 @@ view.navbar
                   {{ LANG.mnu_admin_users }}
                 </a>
               {% endif %}
-              {% if isAllowed(CONF.controllers.groups.permission) or UG.isGroupManager(userData.username) %}
+              {% if isAllowed(CONF.controllers.groups.permission) or userGroupModel.isGroupManager(userData.username) %}
                 <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.groups.name }}">
                   <span class="menu-icon">
                     <i class="{{ CONF.controllers.groups.faIcon }} fa-lg text-{{ CONF.controllers.groups.iconColor }}"></i>
@@ -366,8 +366,8 @@ view.navbar
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="help" aria-haspopup="true" aria-expanded="false">{{ LANG.mnu_help }}<span class="caret"></span>
           </a>
           <div class="dropdown-menu" aria-labelledby="help">
-            {% if C.read("userManual") %}
-              <a class="dropdown-item" tabindex="-1" href="{{ C.read("userManual")|url_decode }}" target="_blank" rel="noopener">
+            {% if configModel.read("userManual") %}
+              <a class="dropdown-item" tabindex="-1" href="{{ configModel.read("userManual")|url_decode }}" target="_blank" rel="noopener">
                 <span class="menu-icon">
                   <i class="fas fa-book fa-lg text-{{ CONF.menuIconColor }}"></i>
                 </span>
@@ -375,7 +375,7 @@ view.navbar
               </a>
               <div class="dropdown-divider"></div>
             {% endif %}
-            {% if C.read("gdprPolicyPage") %}
+            {% if configModel.read("gdprPolicyPage") %}
               <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.dataprivacy.name }}">
                 <span class="menu-icon">
                   <i class="{{ CONF.controllers.dataprivacy.faIcon }} fa-lg text-{{ CONF.controllers.dataprivacy.iconColor }}"></i>
@@ -427,7 +427,7 @@ view.navbar
                 </span>
                 {{ LANG.mnu_user_login }}
               </a>
-              {% if C.read("allowRegistration") %}
+              {% if configModel.read("allowRegistration") %}
                 <a class="dropdown-item" tabindex="-1" href="index.php?action={{ CONF.controllers.register.name }}">
                   <span class="menu-icon">
                     <i class="{{ CONF.controllers.register.faIcon }} fa-lg text-{{ CONF.controllers.register.iconColor }}"></i>

@@ -26,9 +26,10 @@ class MessageModel
   public string $popup     = '0';
   public string $type      = 'info';
 
-  private ?PDO   $db      = null;
-  private string $table   = '';
-  private string $umtable = '';
+  private ?PDO   $db         = null;
+  private string $table      = '';
+  private string $umtable    = '';
+  private string $usersTable = '';
 
   //---------------------------------------------------------------------------
   /**
@@ -39,15 +40,17 @@ class MessageModel
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db && $conf) {
-      $this->db      = $db;
-      $this->table   = $conf['db_table_messages'];
-      $this->umtable = $conf['db_table_user_message'];
+      $this->db         = $db;
+      $this->table      = $conf['db_table_messages'];
+      $this->umtable    = $conf['db_table_user_message'];
+      $this->usersTable = $conf['db_table_users'];
     }
     else {
-      global $CONF, $DB;
-      $this->db      = $DB->db;
-      $this->table   = $CONF['db_table_messages'];
-      $this->umtable = $CONF['db_table_user_message'];
+      global $CONF, $dbModel;
+      $this->db         = $dbModel->db;
+      $this->table      = $CONF['db_table_messages'];
+      $this->umtable    = $CONF['db_table_user_message'];
+      $this->usersTable = $CONF['db_table_users'];
     }
   }
 
@@ -94,7 +97,10 @@ class MessageModel
    * @return bool Query result
    */
   public function deleteAll(): bool {
-    $query = $this->db->prepare("TRUNCATE TABLE {$this->table}");
+    // Plain DELETE, not TRUNCATE: tcneo_messages is an FK target of
+    // tcneo_user_message (and its archive), and InnoDB refuses TRUNCATE on
+    // any FK-referenced table. The FK's ON DELETE CASCADE clears the links.
+    $query = $this->db->prepare("DELETE FROM {$this->table}");
     return $query->execute();
   }
 
@@ -125,7 +131,7 @@ class MessageModel
   public function getAllByUser(string $username): array {
     $records = [];
     $query   = $this->db->prepare(
-      "SELECT a.*, um.id as umid, um.popup as um_popup FROM {$this->table} as a JOIN {$this->umtable} as um ON um.msgid = a.id WHERE um.username = :username ORDER BY timestamp DESC"
+      "SELECT a.*, um.id as umid, um.popup as um_popup FROM {$this->table} as a JOIN {$this->umtable} as um ON um.message_id = a.id JOIN {$this->usersTable} as u ON u.id = um.user_id WHERE u.username = :username ORDER BY timestamp DESC"
     );
     $query->bindParam(':username', $username);
     $query->execute();

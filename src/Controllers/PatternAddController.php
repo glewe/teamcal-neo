@@ -31,7 +31,7 @@ class PatternAddController extends BaseController
       return;
     }
 
-    $PTN = new PatternModel($this->DB->db, $this->CONF);
+    $patternModel = new PatternModel($this->dbModel->db, $this->CONF);
 
     $alertData = [];
     $showAlert = false;
@@ -73,9 +73,12 @@ class PatternAddController extends BaseController
 
       if (!$inputError) {
         if (isset($_POST['btn_create'])) {
-          $showAlert    = false;
-          $checkPattern = [0, (int) $_POST['sel_abs1'], (int) $_POST['sel_abs2'], (int) $_POST['sel_abs3'], (int) $_POST['sel_abs4'], (int) $_POST['sel_abs5'], (int) $_POST['sel_abs6'], (int) $_POST['sel_abs7']];
-          if ($name = $PTN->patternExists($checkPattern)) {
+          $showAlert  = false;
+          $weekdayMap = [];
+          for ($i = 1; $i <= 7; $i++) {
+            $weekdayMap[$i] = (int) $_POST['sel_abs' . $i];
+          }
+          if ($name = $patternModel->patternExists($weekdayMap)) {
             $showAlert            = true;
             $alertData['type']    = 'warning';
             $alertData['title']   = $this->LANG['alert_warning_title'];
@@ -84,14 +87,12 @@ class PatternAddController extends BaseController
             $alertData['help']    = '';
           }
           else {
-            $PTN->name        = $_POST['txt_name'];
-            $PTN->description = $_POST['txt_description'];
-            for ($i = 1; $i <= 7; $i++) {
-              $PTN->{'abs' . $i} = (int) $_POST['sel_abs' . $i];
-            }
-            $PTN->create();
+            $patternModel->name        = $_POST['txt_name'];
+            $patternModel->description = $_POST['txt_description'];
+            $patternModel->create();
+            $patternModel->setWeekdayMap((string) $patternModel->id, $weekdayMap);
 
-            $this->LOG->logEvent("logPattern", $this->UL->username, "log_pattern_created", $PTN->name);
+            $this->logModel->logEvent("logPattern", $this->userLoggedIn->username, "log_pattern_created", $patternModel->name);
 
             $showAlert            = true;
             $alertData['type']    = 'success';
@@ -100,8 +101,8 @@ class PatternAddController extends BaseController
             $alertData['text']    = $this->LANG['ptn_alert_created'];
             $alertData['help']    = '';
 
-            $viewData['name']        = $PTN->name;
-            $viewData['description'] = $PTN->description;
+            $viewData['name']        = $patternModel->name;
+            $viewData['description'] = $patternModel->description;
           }
         }
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -122,7 +123,7 @@ class PatternAddController extends BaseController
     }
 
     $absenceOptions = [['val' => 0, 'name' => $this->LANG['none']]];
-    $absences       = $this->A->getAll();
+    $absences       = $this->absenceModel->getAll();
     foreach ($absences as $absence) {
       $absenceOptions[] = ['val' => $absence['id'], 'name' => $absence['name']];
     }

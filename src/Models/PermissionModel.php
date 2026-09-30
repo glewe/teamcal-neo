@@ -35,8 +35,8 @@ class PermissionModel
       $this->table = $conf['db_table_permissions'];
     }
     else {
-      global $CONF, $DB;
-      $this->db    = $DB->db;
+      global $CONF, $dbModel;
+      $this->db    = $dbModel->db;
       $this->table = $CONF['db_table_permissions'];
     }
   }
@@ -61,8 +61,9 @@ class PermissionModel
    * @return bool Query result
    */
   public function deleteRole(string|int $role): bool {
-    $query = $this->db->prepare("DELETE FROM {$this->table} WHERE role = :role");
-    $query->bindParam('role', $role, \PDO::PARAM_STR);
+    $roleId = (int) $role;
+    $query  = $this->db->prepare("DELETE FROM {$this->table} WHERE role_id = :role");
+    $query->bindParam('role', $roleId, \PDO::PARAM_INT);
     return $query->execute();
   }
 
@@ -100,12 +101,12 @@ class PermissionModel
       $placeholders[] = '(?, ?, ?, ?)';
       $values[]       = $record['scheme'];
       $values[]       = $record['permission'];
-      $values[]       = $record['role'];
+      $values[]       = (int) $record['role'];
       $values[]       = $record['allowed'];
     }
 
     $sql = "INSERT INTO {$this->table}
-             (scheme, permission, role, allowed)
+             (scheme, permission, role_id, allowed)
              VALUES " . implode(', ', $placeholders) . "
              ON DUPLICATE KEY UPDATE allowed = VALUES(allowed)";
 
@@ -123,7 +124,7 @@ class PermissionModel
    */
   public function getPermissions(string $scheme): array {
     $records = [];
-    $query   = $this->db->prepare("SELECT permission, role FROM {$this->table} WHERE scheme = :scheme AND allowed = :allowed");
+    $query   = $this->db->prepare("SELECT permission, role_id AS role FROM {$this->table} WHERE scheme = :scheme AND allowed = :allowed");
     $one     = 1;
     $query->bindParam('scheme', $scheme, \PDO::PARAM_STR);
     $query->bindParam('allowed', $one, \PDO::PARAM_INT);
@@ -168,10 +169,11 @@ class PermissionModel
    * @return bool True or False
    */
   public function isAllowed(string $scheme, string $permission, string|int $role): bool {
-    $query = $this->db->prepare("SELECT allowed FROM {$this->table} WHERE scheme = :scheme AND permission = :permission AND role = :role");
+    $roleId = (int) $role;
+    $query  = $this->db->prepare("SELECT allowed FROM {$this->table} WHERE scheme = :scheme AND permission = :permission AND role_id = :role");
     $query->bindParam('scheme', $scheme, \PDO::PARAM_STR);
     $query->bindParam('permission', $permission, \PDO::PARAM_STR);
-    $query->bindParam('role', $role, \PDO::PARAM_STR);
+    $query->bindParam('role', $roleId, \PDO::PARAM_INT);
     $result = $query->execute();
     if ($result && ($row = $query->fetch())) {
       return (bool) $row['allowed'];
@@ -206,22 +208,23 @@ class PermissionModel
    * @return bool Query result
    */
   public function setPermission(string $scheme, string $permission, string|int $role, bool $allowed): bool {
-    $query = $this->db->prepare("SELECT 1 FROM {$this->table} WHERE scheme = :scheme AND permission = :permission AND role = :role");
+    $roleId = (int) $role;
+    $query  = $this->db->prepare("SELECT 1 FROM {$this->table} WHERE scheme = :scheme AND permission = :permission AND role_id = :role");
     $query->bindParam('scheme', $scheme, \PDO::PARAM_STR);
     $query->bindParam('permission', $permission, \PDO::PARAM_STR);
-    $query->bindParam('role', $role, \PDO::PARAM_STR);
+    $query->bindParam('role', $roleId, \PDO::PARAM_INT);
     $result = $query->execute();
 
     if ($result) {
       if (!$query->fetch()) {
-        $query2 = $this->db->prepare("INSERT INTO {$this->table} (scheme, permission, role, allowed) VALUES (:scheme, :permission, :role, :allowed)");
+        $query2 = $this->db->prepare("INSERT INTO {$this->table} (scheme, permission, role_id, allowed) VALUES (:scheme, :permission, :role, :allowed)");
       }
       else {
-        $query2 = $this->db->prepare("UPDATE {$this->table} SET allowed = :allowed WHERE scheme = :scheme AND permission = :permission AND role = :role");
+        $query2 = $this->db->prepare("UPDATE {$this->table} SET allowed = :allowed WHERE scheme = :scheme AND permission = :permission AND role_id = :role");
       }
       $query2->bindParam('scheme', $scheme, \PDO::PARAM_STR);
       $query2->bindParam('permission', $permission, \PDO::PARAM_STR);
-      $query2->bindParam('role', $role, \PDO::PARAM_STR);
+      $query2->bindParam('role', $roleId, \PDO::PARAM_INT);
       $allowedInt = $allowed ? 1 : 0;
       $query2->bindParam('allowed', $allowedInt, \PDO::PARAM_INT);
       return $query2->execute();

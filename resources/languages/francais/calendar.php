@@ -32,6 +32,7 @@ $LANG['cal_selWidth_comment'] = 'Sélectionnez la largeur de votre écran en pix
       <br>Il semble que vous utilisiez actuellement un écran d\'une largeur de <span id="currentwidth"></span> pixels. Rechargez la page pour vérifier à nouveau ce dialogue.';
 $LANG['cal_switchFullmonthView'] = 'Passer à la vue du mois complet';
 $LANG['cal_switchSplitmonthView'] = 'Passer à la vue du mois fractionné';
+$LANG['cal_viewmode_login'] = 'Le mode d\'affichage ne peut pas être modifié lorsque vous n\'êtes pas connecté.';
 $LANG['cal_summary'] = 'Résumé';
 $LANG['cal_businessDays'] = 'Jours ouvrables dans le mois';
 $LANG['cal_caption_weeknumber'] = 'Semaine';

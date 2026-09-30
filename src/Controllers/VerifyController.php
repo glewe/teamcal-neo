@@ -31,7 +31,7 @@ class VerifyController extends BaseController
       !isset($_GET['verify']) ||
       !isset($_GET['username']) ||
       strlen($_GET['verify']) <> 32 ||
-      !in_array($_GET['username'], $this->U->getUsernames())
+      !in_array($_GET['username'], $this->userModel->getUsernames())
     ) {
       $missingData = true;
     }
@@ -45,7 +45,7 @@ class VerifyController extends BaseController
     $viewData['pageHelp']   = $this->allConfig['pageHelp'];
     $viewData['showAlerts'] = $this->allConfig['showAlerts'];
 
-    $UA = new UserModel($this->DB->db, $this->CONF);
+    $UA = new UserModel($this->dbModel->db, $this->CONF);
     $UA->findByName("admin");
 
     $ruser   = trim($_GET['username']);
@@ -54,18 +54,18 @@ class VerifyController extends BaseController
     $alertData = [];
     $showAlert = false;
 
-    if ($fverify = $this->UO->read($ruser, "verifycode")) {
-      $this->U->findByName($ruser);
-      $fullname = $this->U->firstname . " " . $this->U->lastname;
+    if ($fverify = $this->userOptionModel->read($ruser, "verifycode")) {
+      $this->userModel->findByName($ruser);
+      $fullname = $this->userModel->firstname . " " . $this->userModel->lastname;
 
       if ($fverify == $rverify) {
-        $this->UO->deleteUserOption($ruser, "verifycode");
+        $this->userOptionModel->deleteUserOption($ruser, "verifycode");
 
         if ($this->allConfig['adminApproval']) {
-          $this->U->unverify($this->U->username);
+          $this->userModel->unverify($this->userModel->username);
           $mailError = '';
-          sendAccountNeedsApprovalMail($UA->email, $this->U->username, $this->U->lastname, $this->U->firstname, $mailError);
-          $this->LOG->logEvent("logRegistration", $this->U->username, "log_user_verify_approval", $this->U->username . " (" . $fullname . ")");
+          sendAccountNeedsApprovalMail($UA->email, $this->userModel->username, $this->userModel->lastname, $this->userModel->firstname, $mailError);
+          $this->logModel->logEvent("logRegistration", $this->userModel->username, "log_user_verify_approval", $this->userModel->username . " (" . $fullname . ")");
 
           $showAlert            = true;
           $alertData['type']    = 'info';
@@ -78,9 +78,9 @@ class VerifyController extends BaseController
           $alertData['help']    = (empty($mailError)) ? '' : $this->LANG['contact_administrator'];
         }
         else {
-          $this->U->unlock($this->U->username);
-          $this->U->unverify($this->U->username);
-          $this->LOG->logEvent("logRegistration", $this->U->username, "log_user_verify_unlocked", $this->U->username . " (" . $fullname . ")");
+          $this->userModel->unlock($this->userModel->username);
+          $this->userModel->unverify($this->userModel->username);
+          $this->logModel->logEvent("logRegistration", $this->userModel->username, "log_user_verify_unlocked", $this->userModel->username . " (" . $fullname . ")");
 
           $showAlert            = true;
           $alertData['type']    = 'success';
@@ -93,7 +93,7 @@ class VerifyController extends BaseController
       else {
         $mailError = '';
         sendAccountVerificationMismatchMail($UA->email, $ruser, $fverify, $rverify, $mailError);
-        $this->LOG->logEvent("logRegistration", $this->U->username, "log_user_verify_mismatch", $this->U->username . " (" . $fullname . "): " . $rverify . "<>" . $rverify);
+        $this->logModel->logEvent("logRegistration", $this->userModel->username, "log_user_verify_mismatch", $this->userModel->username . " (" . $fullname . "): " . $rverify . "<>" . $rverify);
 
         $showAlert            = true;
         $alertData['type']    = 'danger';
@@ -107,8 +107,8 @@ class VerifyController extends BaseController
       }
     }
     else {
-      if (!$this->U->findByName($ruser)) {
-        $this->LOG->logEvent("logRegistration", $ruser, "log_user_verify_usr_notexist", $ruser . " : " . $rverify);
+      if (!$this->userModel->findByName($ruser)) {
+        $this->logModel->logEvent("logRegistration", $ruser, "log_user_verify_usr_notexist", $ruser . " : " . $rverify);
         $showAlert            = true;
         $alertData['type']    = 'danger';
         $alertData['title']   = $this->LANG['alert_danger_title'];
@@ -117,7 +117,7 @@ class VerifyController extends BaseController
         $alertData['help']    = '';
       }
       else {
-        $this->LOG->logEvent("logRegistration", $ruser, "log_user_verify_code_notexist", $ruser . " : " . $rverify);
+        $this->logModel->logEvent("logRegistration", $ruser, "log_user_verify_code_notexist", $ruser . " : " . $rverify);
         $showAlert            = true;
         $alertData['type']    = 'danger';
         $alertData['title']   = $this->LANG['alert_danger_title'];

@@ -1,5 +1,131 @@
 # TeamCal Neo Upgrade Information
 
+## [5.3.7] -> [6.0.0]
+
+> **!! Major release with breaking changes. !!**
+>
+> The database was restructured (InnoDB with
+> foreign keys, numeric user ids, one row per absence day instead of one row per month).
+> 6.0.0 is **not compatible with a 5.x database**, and the database cannot be upgraded with
+> an SQL script in phpMyAdmin. Your data is carried over by an import instead.
+> You must be on **5.3.7** first. Older installations: upgrade to 5.3.7, then to 6.0.0.
+
+**Requirements:** MariaDB 10.4 or newer, or MySQL 8.0 or newer, for the new database.
+No command line access is needed.
+
+### Upgrade by import (recommended)
+
+#### Basic steps
+
+1. Install a fresh 6.0.0 instance with Basic data next to your existing 5.7.3 one
+2. Login as admin in 6.0.0 and go to Database Administration, tab "Import from 5.3.7"
+3. Enter the information from 5.3.7 and start the import
+4. That's it. Check functionality
+
+#### Detailed steps
+
+You install 6.0.0 **next to** your old installation, in its own folder and with its own
+database, and then import the data of the old installation from within the new one.
+Your old installation and its database are only read, never changed, so you can go back
+to it at any time.
+
+1. **Backup your current files and database.** The import does not change them, but a
+   backup is always good practice. In phpMyAdmin: select your database, click **Export**,
+   choose **Custom** and save the `.sql` file.
+2. Download the new release and unzip all files into a **new folder** on your server,
+   next to the old one (for example `tcneo6` next to `tcneo5`).
+3. Create a **new, empty database** for it (or use another table prefix in the same database).
+4. Open the new folder in your browser. The installation script starts. Enter the
+   connection settings of the **new** database and choose **Basic data**.
+5. Log in to the new installation as `admin` and open **Administration -> Database**.
+6. Open the **Import from 5.3.7** tab:
+   - Enter the folder of your old installation, either the full path or relative to the
+     new installation (for example `../tcneo5`). The database connection is read from the
+     old `.env` file. If the old installation has no `.env` file, open *Database connection
+     of the old installation* and fill in the old database settings.
+   - Click **Check old installation**. It reports whether the old database can be imported
+     and shows what it contains. If it finds a problem, it tells you how to fix it in the
+     old installation; then check again.
+   - Type `IMPORT` and click **Start import**. Keep the page open until it is finished.
+     Large calendars can take a few minutes.
+7. When it is finished, check your calendar, users, groups and reports. The report shows
+   how many rows were carried over and lists anything that could not be, because it
+   referenced data that no longer exists.
+8. Delete `installation.php` from the root directory of the new installation.
+9. Copy the settings that live in the `.env` file (LDAP, OIDC, `APP_SECRET`,
+   `APPLICATION_URL`) from the old `.env` file, if you use them. They are not part of the
+   database. Point your users to the new address, or swap the folders.
+10. When you are satisfied, you can remove the old installation and its database.
+
+**What the import carries over**
+
+- All data: users, groups, absences, calendar, patterns, permissions, announcements,
+  the log and the archive.
+- **Avatars and attachments**, copied from `public/upload/avatars` and
+  `public/upload/files` of the old folder. Files that already exist in the new
+  installation are not overwritten, and script files (for example `.php`) are not copied.
+  If the server does not allow the new installation to read the old folder, leave the
+  folder field empty, import the database only, and copy the contents of those two folders
+  yourself (for example with FTP).
+- **Settings** (Framework Configuration, Calendar Options and so on) wherever they still
+  exist in 6.0.0. Settings that no longer exist are listed in the report. Two settings
+  belong to the installation itself and are not carried over: *Application URL* and
+  *Under maintenance*.
+
+The administrator password of the new installation becomes the one from your old
+installation. Other passwords and all user options are carried over as they are.
+
+If the import fails, the new installation is set back to its fresh state automatically and
+you can start again. You can also cancel an interrupted import on the same tab.
+
+The new installation has to be fresh (installed with **Basic data**, nothing added yet).
+Otherwise use the **Reset database** tab with the basic data set first.
+
+### Upgrade in place via command line (alternative)
+
+If you have command line access (`php` on the server, for example via SSH), you can also
+migrate the old database in place. This keeps the old tables as `<prefix>v537_*` until you
+remove them.
+
+1. **Backup your current files and database!** Do not skip this. The script keeps your
+   old tables, but a full backup is the only complete safety net.
+2. Make sure nobody is using TeamCal Neo while you upgrade.
+3. Keep a copy of your `.env` file.
+4. Delete all files and folders from your TeamCal Neo installation directory, **except the `.env` file**.
+5. Download the new release and unzip all files into the same directory.
+6. From the installation directory, check whether your database can be migrated. This changes nothing:
+   ```
+   php sql/migrate_5.3.7_to_6.0.0.php --dry-run
+   ```
+   If it reports problems, fix them as described and run it again.
+7. Migrate the database:
+   ```
+   php sql/migrate_5.3.7_to_6.0.0.php --confirm-backup
+   ```
+   The flag confirms that you made the backup from step 1. The script renames your old tables
+   to `<prefix>v537_*`, creates the new ones and copies your data across. If anything goes
+   wrong it undoes its changes and leaves your database as it was.
+   It ends with a table of row counts and a list of any rows that could not be carried over
+   because they referenced data that no longer exists.
+8. Log in and check your calendar, users, groups and reports.
+9. When you are satisfied, remove the old tables:
+   ```
+   php sql/migrate_5.3.7_to_6.0.0.php --drop-backup --confirm-drop
+   ```
+10. Delete `installation.php` from the root directory.
+
+**What changed for you**
+
+- **Direct database access.** Anything that reads the database directly (reports, exports,
+  other tools) must be updated. The main changes: `tcneo_templates` is now `tcneo_absence_days`
+  (one row per user and day), `tcneo_months` is now `tcneo_calendar_days` (one row per region
+  and holiday override), `tcneo_patterns.abs1..abs7` moved to `tcneo_pattern_days`, and tables
+  that referenced users by `username` now use `user_id` (see `tcneo_users.id`).
+- **Group calendar edit** no longer pre-fills the form with the last applied pattern.
+- **"Business Day" overrides** on calendar days are now the default state and are no longer stored.
+- The system account (`admin`) and the built-in holiday types are now flagged in the database
+  (`is_system`) instead of being recognised by name or id.
+
 ## [5.3.6] -> [5.3.7]
 
 > **Security release.** This version fixes an authentication bypass and restores

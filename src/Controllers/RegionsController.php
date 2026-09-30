@@ -5,7 +5,6 @@ namespace App\Controllers;
 
 use App\Core\BaseController;
 use App\Models\LicenseModel;
-use App\Models\MonthModel;
 
 /**
  * Regions Controller
@@ -86,11 +85,11 @@ class RegionsController extends BaseController
         $viewData['txt_description'] = $_POST['txt_description'] ?? '';
 
         if (!$inputError) {
-          $this->R->name        = $viewData['txt_name'];
-          $this->R->description = $viewData['txt_description'];
-          $this->R->create();
+          $this->regionModel->name        = $viewData['txt_name'];
+          $this->regionModel->description = $viewData['txt_description'];
+          $this->regionModel->create();
 
-          $this->LOG->logEvent("logRegion", $this->UL->username, "log_region_created", $this->R->name . " " . $this->R->description);
+          $this->logModel->logEvent("logRegion", $this->userLoggedIn->username, "log_region_created", $this->regionModel->name . " " . $this->regionModel->description);
 
           $showAlert            = true;
           $alertData['type']    = 'success';
@@ -116,11 +115,12 @@ class RegionsController extends BaseController
         $hiddenId   = $_POST['hidden_id'] ?? null;
         $hiddenName = $_POST['hidden_name'] ?? '';
         if ($hiddenId !== null) {
-          $this->R->delete($hiddenId);
-          $this->R->deleteAccess($hiddenId);
-          $this->M->deleteRegion($hiddenId);
-          $this->UO->deleteOptionByValue('calfilterRegion', $hiddenId);
-          $this->LOG->logEvent("logRegion", $this->UL->username, "log_region_deleted", $hiddenName);
+          // tcneo_calendar_days.fk_cd_region is ON DELETE CASCADE, so the
+          // region's holiday overrides are cleaned up automatically.
+          $this->regionModel->delete($hiddenId);
+          $this->regionModel->deleteAccess($hiddenId);
+          $this->userOptionModel->deleteOptionByValue('calfilterRegion', $hiddenId);
+          $this->logModel->logEvent("logRegion", $this->userLoggedIn->username, "log_region_deleted", $hiddenName);
         }
 
         $showAlert            = true;
@@ -149,7 +149,7 @@ class RegionsController extends BaseController
         }
         else {
           $viewData['icalRegionID']   = $_POST['sel_ical_region'] ?? '';
-          $viewData['icalRegionName'] = $this->R->getNameById($viewData['icalRegionID']);
+          $viewData['icalRegionName'] = $this->regionModel->getNameById($viewData['icalRegionID']);
 
           $iCalEvents = [];
           preg_match_all("#(?sU)BEGIN:VEVENT.*END:VEVENT#", file_get_contents($fileIcal), $events);
@@ -176,38 +176,23 @@ class RegionsController extends BaseController
             }
           }
 
-          $lastCachedMonth = null;
-          $lastCachedYear  = null;
           foreach ($iCalEvents as $i) {
             $eventYear  = substr($i, 0, 4);
             $eventMonth = substr($i, 4, 2);
             $eventDay   = intval(substr($i, 6, 2));
 
-            if ($lastCachedYear !== $eventYear || $lastCachedMonth !== $eventMonth) {
-              if (!$this->M->getMonth($eventYear, $eventMonth, $viewData['icalRegionID'])) {
-                createMonth($eventYear, $eventMonth, 'region', $viewData['icalRegionID']);
-                $this->M->getMonth($eventYear, $eventMonth, $viewData['icalRegionID']);
-              }
-              $lastCachedYear  = $eventYear;
-              $lastCachedMonth = $eventMonth;
-            }
-
             $holidayId = $_POST['sel_ical_holiday'] ?? null;
             if ($holidayId === null)
               continue;
 
-            if ($this->M->{'hol' . $eventDay} === 0) {
-              $this->M->setHoliday($eventYear, $eventMonth, (string) $eventDay, $viewData['icalRegionID'], $holidayId);
-            }
-            else {
-              if (isset($_POST['chk_ical_overwrite'])) {
-                $this->M->setHoliday($eventYear, $eventMonth, (string) $eventDay, $viewData['icalRegionID'], $holidayId);
-              }
+            $currentHoliday = $this->calendarDayModel->getHoliday($eventYear, $eventMonth, (string) $eventDay, $viewData['icalRegionID']);
+            if ($currentHoliday === 1 || isset($_POST['chk_ical_overwrite'])) {
+              $this->calendarDayModel->setHoliday($eventYear, $eventMonth, (string) $eventDay, $viewData['icalRegionID'], $holidayId);
             }
           }
 
           $fileName = $_FILES['file_ical']['name'] ?? '';
-          $this->LOG->logEvent("logRegion", $this->UL->username, "log_region_ical", $fileName . ' => ' . $viewData['icalRegionName']);
+          $this->logModel->logEvent("logRegion", $this->userLoggedIn->username, "log_region_ical", $fileName . ' => ' . $viewData['icalRegionName']);
 
           $showAlert            = true;
           $alertData['type']    = 'success';
@@ -233,34 +218,23 @@ class RegionsController extends BaseController
           $alertData['help']    = '';
         }
         else {
-          $sourceRegionName = $this->R->getNameById($sregion);
-          $targetRegionName = $this->R->getNameById($tregion);
-          $stemplates       = $this->M->getRegion($sregion);
+          $sourceRegionName = $this->regionModel->getNameById($sregion);
+          $targetRegionName = $this->regionModel->getNameById($tregion);
+          $sourceOverrides  = $this->calendarDayModel->getRegionOverrides($sregion);
 
-          foreach ($stemplates as $stpl) {
-            if (!$this->M->getMonth($stpl['year'], $stpl['month'], $tregion)) {
-              createMonth($stpl['year'], $stpl['month'], 'region', $tregion);
+          foreach ($sourceOverrides as $day => $holidayId) {
+            if ($this->holidayModel->isSystem((string) $holidayId)) {
+              // Built-in Business Day/Saturday/Sunday - nothing custom to transfer.
+              continue;
             }
-            else {
-              $this->M->getMonth($stpl['year'], $stpl['month'], $tregion);
+            [$dYear, $dMonth, $dDay] = explode('-', $day);
+            $targetHoliday = $this->calendarDayModel->getHoliday($dYear, $dMonth, $dDay, $tregion);
+            if ($this->holidayModel->isSystem((string) $targetHoliday) || isset($_POST['chk_overwrite'])) {
+              $this->calendarDayModel->setHoliday($dYear, $dMonth, $dDay, $tregion, $holidayId);
             }
-            for ($i = 1; $i <= 31; $i++) {
-              $prop = 'hol' . $i;
-              if (($stpl[$prop] ?? 0) > 3) {
-                if (($this->M->$prop ?? 0) <= 3) {
-                  $this->M->$prop = $stpl[$prop];
-                }
-                else {
-                  if (isset($_POST['chk_overwrite'])) {
-                    $this->M->$prop = $stpl[$prop];
-                  }
-                }
-              }
-            }
-            $this->M->update($stpl['year'], $stpl['month'], $tregion);
           }
 
-          $this->LOG->logEvent("logRegion", $this->UL->username, "log_region_transferred", $sourceRegionName . " => " . $targetRegionName);
+          $this->logModel->logEvent("logRegion", $this->userLoggedIn->username, "log_region_transferred", $sourceRegionName . " => " . $targetRegionName);
 
           $showAlert            = true;
           $alertData['type']    = 'success';
@@ -277,12 +251,12 @@ class RegionsController extends BaseController
       $viewData['showAlert'] = true;
     }
 
-    $viewData['regions'] = $this->R->getAll();
+    $viewData['regions'] = $this->regionModel->getAll();
     foreach ($viewData['regions'] as $region) {
       $viewData['regionList'][] = ['val' => $region['id'], 'name' => $region['name'], 'selected' => false];
     }
 
-    $holidays = $this->H->getAll();
+    $holidays = $this->holidayModel->getAll();
     foreach ($holidays as $holiday) {
       $viewData['holidayList'][] = ['val' => $holiday['id'], 'name' => $holiday['name'], 'selected' => false];
     }

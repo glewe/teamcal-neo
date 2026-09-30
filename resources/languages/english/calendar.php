@@ -32,6 +32,7 @@ $LANG['cal_selWidth_comment'] = 'Select the width of your screen in pixels so th
       <br>It looks like you are currently using a screen with a width of <span id="currentwidth"></span> pixels. Reload the page to check this dialog again to confirm.';
 $LANG['cal_switchFullmonthView'] = 'Switch to full month view';
 $LANG['cal_switchSplitmonthView'] = 'Switch to split month view';
+$LANG['cal_viewmode_login'] = 'The view mode cannot be changed when not logged in.';
 $LANG['cal_summary'] = 'Summary';
 $LANG['cal_businessDays'] = 'Business Days in Month';
 $LANG['cal_caption_weeknumber'] = 'Week';

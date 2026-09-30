@@ -33,7 +33,7 @@ class RegisterController extends BaseController
     }
 
     $captchaService = new CaptchaService();
-    $UR             = new UserModel($this->DB->db, $this->CONF);
+    $UR             = new UserModel($this->dbModel->db, $this->CONF);
     global $inputAlert;
     /** @var array<string, string> $inputAlert */
     $inputAlert = [];
@@ -107,16 +107,16 @@ class RegisterController extends BaseController
             $UR->last_pw_change = date('YmdHis');
             $UR->create();
 
-            $this->UO->save($UR->username, 'avatar', 'default_male.png');
+            $this->userOptionModel->save($UR->username, 'avatar', 'default_male.png');
 
             $alphanum   = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             $verifycode = substr(str_shuffle($alphanum), 0, 32);
-            $this->UO->save($UR->username, "verifycode", $verifycode);
+            $this->userOptionModel->save($UR->username, "verifycode", $verifycode);
 
             $mailError = '';
             sendAccountRegisteredMail($UR->email, $UR->username, $UR->lastname, $UR->firstname, $verifycode, $mailError);
 
-            $this->LOG->logEvent("logRegistration", $this->UL->username, "log_user_registered", $UR->username);
+            $this->logModel->logEvent("logRegistration", $this->userLoggedIn->username, "log_user_registered", $UR->username);
 
             $showAlert            = true;
             $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';

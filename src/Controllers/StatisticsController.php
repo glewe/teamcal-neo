@@ -133,11 +133,11 @@ class StatisticsController extends BaseController
 
     $viewData['labels']   = "";
     $viewData['data']     = "";
-    $allAbsences          = $this->A->getAll();
+    $allAbsences          = $this->absenceModel->getAll();
     $viewData['absences'] = array_filter($allAbsences, function ($abs) {
       return !((bool) $abs['counts_as_present']);
     });
-    $viewData['groups']   = $this->G->getAll('DESC');
+    $viewData['groups']   = $this->groupModel->getAll('DESC');
     $viewData['absid']    = 'all';
     $viewData['groupid']  = 'all';
     $viewData['period']   = 'year';
@@ -245,15 +245,15 @@ class StatisticsController extends BaseController
         break;
     }
 
-    $viewData['absName']     = ($viewData['absid'] == 'all') ? $this->LANG['all'] : $this->A->getName($viewData['absid']);
-    $viewData['groupName']   = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->G->getNameById($viewData['groupid']);
+    $viewData['absName']     = ($viewData['absid'] == 'all') ? $this->LANG['all'] : $this->absenceModel->getName($viewData['absid']);
+    $viewData['groupName']   = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->groupModel->getNameById($viewData['groupid']);
     $viewData['groupName']  .= ($viewData['yaxis'] == "users") ? ' ' . $this->LANG['stats_byusers'] : ' ' . $this->LANG['stats_bygroups'];
     $viewData['periodName']  = $viewData['from'] . ' - ' . $viewData['to'];
 
     $labels           = [];
     $data             = [];
     $filteredAbsences = array_filter($viewData['absences'], function ($abs) {
-      return $this->A->get((string) $abs['id']) && !$this->A->counts_as_present;
+      return $this->absenceModel->get((string) $abs['id']) && !$this->absenceModel->counts_as_present;
     });
     $countFrom        = str_replace('-', '', $viewData['from']);
     $countTo          = str_replace('-', '', $viewData['to']);
@@ -261,24 +261,24 @@ class StatisticsController extends BaseController
     $viewData['total'] = 0;
     if ($viewData['yaxis'] == 'users') {
       $users = ($viewData['groupid'] == "all")
-        ? $this->U->getAll('lastname', 'firstname', 'ASC', false, false)
-        : $this->UG->getAllForGroup((string) $viewData['groupid']);
+        ? $this->userModel->getAll('lastname', 'firstname', 'ASC', false, false)
+        : $this->userGroupModel->getAllForGroup((string) $viewData['groupid']);
 
       foreach ($users as &$user) {
         if (!isset($user['firstname']) || !isset($user['lastname'])) {
-          $this->U->findByName($user['username']);
-          $user['firstname'] = $this->U->firstname;
-          $user['lastname']  = $this->U->lastname;
+          $this->userModel->findByName($user['username']);
+          $user['firstname'] = $this->userModel->firstname;
+          $user['lastname']  = $this->userModel->lastname;
         }
         $labels[] = '"' . ($user['firstname'] ? $user['lastname'] . ", " . $user['firstname'] : $user['lastname']) . '"';
         $count    = 0;
         if ($viewData['absid'] == 'all') {
           foreach ($filteredAbsences as $abs) {
-            $count += $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
+            $count += $this->absenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
           }
         }
         else {
-          $count += $this->AbsenceService->countAbsence($user['username'], (string) $viewData['absid'], $countFrom, $countTo, false, false);
+          $count += $this->absenceService->countAbsence($user['username'], (string) $viewData['absid'], $countFrom, $countTo, false, false);
         }
         $data[]             = $count;
         $viewData['total'] += $count;
@@ -286,19 +286,19 @@ class StatisticsController extends BaseController
       unset($user);
     }
     else {
-      $groups = ($viewData['groupid'] == "all") ? $viewData['groups'] : [$this->G->getRowById($viewData['groupid'])];
+      $groups = ($viewData['groupid'] == "all") ? $viewData['groups'] : [$this->groupModel->getRowById($viewData['groupid'])];
       foreach ($groups as $group) {
         $labels[] = '"' . $group['name'] . '"';
-        $users    = $this->UG->getAllforGroup((string) $group['id']);
+        $users    = $this->userGroupModel->getAllforGroup((string) $group['id']);
         $count    = 0;
         foreach ($users as $user) {
           if ($viewData['absid'] == 'all') {
             foreach ($filteredAbsences as $abs) {
-              $count += $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
+              $count += $this->absenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
             }
           }
           else {
-            $count += $this->AbsenceService->countAbsence($user['username'], (string) $viewData['absid'], $countFrom, $countTo, false, false);
+            $count += $this->absenceService->countAbsence($user['username'], (string) $viewData['absid'], $countFrom, $countTo, false, false);
           }
         }
         $data[]             = $count;
@@ -330,8 +330,8 @@ class StatisticsController extends BaseController
 
     $viewData['labels']         = "";
     $viewData['data']           = "";
-    $viewData['absences']       = $this->A->getAll();
-    $viewData['groups']         = $this->G->getAll('DESC');
+    $viewData['absences']       = $this->absenceModel->getAll();
+    $viewData['groups']         = $this->groupModel->getAll('DESC');
     $viewData['groupid']        = 'all';
     $viewData['period']         = 'year';
     $viewData['from']           = date("Y") . '-01-01';
@@ -432,7 +432,7 @@ class StatisticsController extends BaseController
         break;
     }
 
-    $viewData['groupName']  = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->G->getNameById($viewData['groupid']);
+    $viewData['groupName']  = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->groupModel->getNameById($viewData['groupid']);
     $viewData['periodName'] = $viewData['from'] . ' - ' . $viewData['to'];
     $labels                 = [];
     $sliceColors            = [];
@@ -451,17 +451,17 @@ class StatisticsController extends BaseController
       $sliceColors[] = '"#' . $abs['bgcolor'] . '"';
       $count         = 0;
       if ($viewData['groupid'] == "all") {
-        $users = $this->U->getAll('lastname', 'firstname', 'ASC', false, false);
+        $users = $this->userModel->getAll('lastname', 'firstname', 'ASC', false, false);
         foreach ($users as $user) {
-          $count += $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
+          $count += $this->absenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
         }
         $data[]             = $count;
         $viewData['total'] += $count;
       }
       else {
-        $users = $this->UG->getAllforGroup((string) $viewData['groupid']);
+        $users = $this->userGroupModel->getAllforGroup((string) $viewData['groupid']);
         foreach ($users as $user) {
-          $count += $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
+          $count += $this->absenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
         }
         $data[]             = $count;
         $viewData['total'] += $count;
@@ -493,11 +493,11 @@ class StatisticsController extends BaseController
 
     $viewData['labels']   = "";
     $viewData['data']     = "";
-    $allAbsences          = $this->A->getAll();
+    $allAbsences          = $this->absenceModel->getAll();
     $viewData['absences'] = array_filter($allAbsences, function ($abs) {
       return (bool) $abs['counts_as_present'];
     });
-    $viewData['groups']   = $this->G->getAll('DESC');
+    $viewData['groups']   = $this->groupModel->getAll('DESC');
     $viewData['region']   = '1';
     $viewData['absid']    = 'all';
     $viewData['groupid']  = 'all';
@@ -600,8 +600,8 @@ class StatisticsController extends BaseController
         break;
     }
 
-    $viewData['absName']     = ($viewData['absid'] == 'all') ? $this->LANG['all'] : $this->A->getName($viewData['absid']);
-    $viewData['groupName']   = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->G->getNameById($viewData['groupid']);
+    $viewData['absName']     = ($viewData['absid'] == 'all') ? $this->LANG['all'] : $this->absenceModel->getName($viewData['absid']);
+    $viewData['groupName']   = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->groupModel->getNameById($viewData['groupid']);
     $viewData['groupName']  .= ($viewData['yaxis'] == "users") ? ' ' . $this->LANG['stats_byusers'] : ' ' . $this->LANG['stats_bygroups'];
     $viewData['periodName']  = $viewData['from'] . ' - ' . $viewData['to'];
 
@@ -612,29 +612,29 @@ class StatisticsController extends BaseController
     });
     $countFrom        = str_replace('-', '', $viewData['from']);
     $countTo          = str_replace('-', '', $viewData['to']);
-    $businessDays     = $this->AbsenceService->countBusinessDays($countFrom, $countTo, $viewData['region']);
+    $businessDays     = $this->absenceService->countBusinessDays($countFrom, $countTo, $viewData['region']);
 
     $viewData['total'] = 0;
     if ($viewData['yaxis'] == 'users') {
       $users = ($viewData['groupid'] == "all")
-        ? $this->U->getAll('lastname', 'firstname', 'ASC', false, false)
-        : $this->UG->getAllForGroup((string) $viewData['groupid']);
+        ? $this->userModel->getAll('lastname', 'firstname', 'ASC', false, false)
+        : $this->userGroupModel->getAllForGroup((string) $viewData['groupid']);
 
       foreach ($users as &$user) {
         if (!isset($user['firstname']) || !isset($user['lastname'])) {
-          $this->U->findByName($user['username']);
-          $user['firstname'] = $this->U->firstname;
-          $user['lastname']  = $this->U->lastname;
+          $this->userModel->findByName($user['username']);
+          $user['firstname'] = $this->userModel->firstname;
+          $user['lastname']  = $this->userModel->lastname;
         }
         $userAbsences = 0;
         $labels[]     = '"' . ($user['firstname'] ? $user['lastname'] . ", " . $user['firstname'] : $user['lastname']) . '"';
         if ($viewData['absid'] == 'all') {
           foreach ($filteredAbsences as $abs) {
-            $userAbsences += $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
+            $userAbsences += $this->absenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
           }
         }
         else {
-          $userAbsences += $this->AbsenceService->countAbsence($user['username'], (string) $viewData['absid'], $countFrom, $countTo, false, false);
+          $userAbsences += $this->absenceService->countAbsence($user['username'], (string) $viewData['absid'], $countFrom, $countTo, false, false);
         }
 
         if ($viewData['absid'] == 'all') {
@@ -650,20 +650,20 @@ class StatisticsController extends BaseController
       unset($user);
     }
     else {
-      $groups = ($viewData['groupid'] == "all") ? $viewData['groups'] : [$this->G->getRowById($viewData['groupid'])];
+      $groups = ($viewData['groupid'] == "all") ? $viewData['groups'] : [$this->groupModel->getRowById($viewData['groupid'])];
       foreach ($groups as $group) {
         $groupPresences = 0;
         $labels[]       = '"' . $group['name'] . '"';
-        $users          = $this->UG->getAllForGroup((string) $group['id']);
+        $users          = $this->userGroupModel->getAllForGroup((string) $group['id']);
         foreach ($users as $user) {
           $userAbsences = 0;
           if ($viewData['absid'] == 'all') {
             foreach ($filteredAbsences as $abs) {
-              $userAbsences += $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
+              $userAbsences += $this->absenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
             }
           }
           else {
-            $userAbsences += $this->AbsenceService->countAbsence($user['username'], (string) $viewData['absid'], $countFrom, $countTo, false, false);
+            $userAbsences += $this->absenceService->countAbsence($user['username'], (string) $viewData['absid'], $countFrom, $countTo, false, false);
           }
           if ($viewData['absid'] == 'all') {
             $userPresences = $businessDays - $userAbsences;
@@ -702,8 +702,8 @@ class StatisticsController extends BaseController
 
     $viewData['labels']   = "";
     $viewData['data']     = "";
-    $viewData['absences'] = $this->A->getAll();
-    $viewData['groups']   = $this->G->getAll('DESC');
+    $viewData['absences'] = $this->absenceModel->getAll();
+    $viewData['groups']   = $this->groupModel->getAll('DESC');
     $viewData['groupid']  = 'all';
     $viewData['period']   = 'year';
     $viewData['from']     = date("Y") . '-01-01';
@@ -805,7 +805,7 @@ class StatisticsController extends BaseController
         break;
     }
 
-    $viewData['groupName']  = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->G->getNameById($viewData['groupid']);
+    $viewData['groupName']  = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->groupModel->getNameById($viewData['groupid']);
     $viewData['periodName'] = $viewData['from'] . ' - ' . $viewData['to'];
     $labels                 = [];
     $sliceColors            = [];
@@ -824,17 +824,17 @@ class StatisticsController extends BaseController
       $sliceColors[] = '"#' . $abs['bgcolor'] . '"';
       $count         = 0;
       if ($viewData['groupid'] == "all") {
-        $users = $this->U->getAll('lastname', 'firstname', 'ASC', false, false);
+        $users = $this->userModel->getAll('lastname', 'firstname', 'ASC', false, false);
         foreach ($users as $user) {
-          $count += $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
+          $count += $this->absenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
         }
         $data[]             = $count;
         $viewData['total'] += $count;
       }
       else {
-        $users = $this->UG->getAllforGroup((string) $viewData['groupid']);
+        $users = $this->userGroupModel->getAllforGroup((string) $viewData['groupid']);
         foreach ($users as $user) {
-          $count += $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
+          $count += $this->absenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
         }
         $data[]             = $count;
         $viewData['total'] += $count;
@@ -866,8 +866,8 @@ class StatisticsController extends BaseController
 
     $viewData['labels']   = "";
     $viewData['data']     = "";
-    $viewData['absences'] = $this->A->getAll();
-    $viewData['groups']   = $this->G->getAll('DESC');
+    $viewData['absences'] = $this->absenceModel->getAll();
+    $viewData['groups']   = $this->groupModel->getAll('DESC');
     $viewData['groupid']  = 'all';
     $viewData['year']     = date("Y");
     $viewData['from']     = date("Y") . '-01-01';
@@ -905,7 +905,7 @@ class StatisticsController extends BaseController
 
     $viewData['from']       = $viewData['year'] . '-01-01';
     $viewData['to']         = $viewData['year'] . '-12-31';
-    $viewData['groupName']  = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->G->getNameById($viewData['groupid']);
+    $viewData['groupName']  = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->groupModel->getNameById($viewData['groupid']);
     $viewData['periodName'] = $viewData['from'] . ' - ' . $viewData['to'];
 
     $labels        = [];
@@ -925,24 +925,24 @@ class StatisticsController extends BaseController
       $absenceAllowance = intval($abs['allowance']);
 
       if ($viewData['groupid'] == "all") {
-        $users                 = $this->U->getAll('lastname', 'firstname', 'ASC', false, false);
+        $users                 = $this->userModel->getAll('lastname', 'firstname', 'ASC', false, false);
         $userCount             = count($users);
         $totalAbsenceAllowance = $absenceAllowance * $userCount;
         $totalGroupRemainder   = $absenceAllowance * $userCount;
         foreach ($users as $user) {
-          $totalGroupRemainder -= $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
+          $totalGroupRemainder -= $this->absenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
         }
         $dataAllowance[]    = $totalAbsenceAllowance;
         $dataRemainder[]    = $totalGroupRemainder;
         $viewData['total'] += $totalGroupRemainder;
       }
       else {
-        $users           = $this->UG->getAllforGroup((string) $viewData['groupid']);
+        $users           = $this->userGroupModel->getAllforGroup((string) $viewData['groupid']);
         $userCount       = count($users);
         $groupRemainder  = $absenceAllowance * $userCount;
         $dataAllowance[] = $groupRemainder;
         foreach ($users as $user) {
-          $groupRemainder -= $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
+          $groupRemainder -= $this->absenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
         }
         $dataRemainder[]    = $groupRemainder;
         $viewData['total'] += $groupRemainder;
@@ -972,8 +972,8 @@ class StatisticsController extends BaseController
     $viewData['showAlerts']      = $this->allConfig['showAlerts'];
     $viewData['currentYearOnly'] = $this->allConfig['currentYearOnly'];
 
-    $viewData['absences'] = $this->A->getAll();
-    $viewData['groups']   = $this->G->getAll('DESC');
+    $viewData['absences'] = $this->absenceModel->getAll();
+    $viewData['groups']   = $this->groupModel->getAll('DESC');
 
     $viewData['absid']   = 'all';
     $viewData['groupid'] = 'all';
@@ -1005,8 +1005,8 @@ class StatisticsController extends BaseController
       }
     }
 
-    $viewData['absName']   = ($viewData['absid'] == 'all') ? $this->LANG['all'] : $this->A->getName($viewData['absid']);
-    $viewData['groupName'] = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->G->getNameById($viewData['groupid']);
+    $viewData['absName']   = ($viewData['absid'] == 'all') ? $this->LANG['all'] : $this->absenceModel->getName($viewData['absid']);
+    $viewData['groupName'] = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->groupModel->getNameById($viewData['groupid']);
 
     $labels = [];
     $data   = [];
@@ -1019,8 +1019,8 @@ class StatisticsController extends BaseController
 
     // Get users depending on group filter
     $users = ($viewData['groupid'] == "all")
-      ? $this->U->getAll('lastname', 'firstname', 'ASC', false, false)
-      : $this->UG->getAllForGroup((string) $viewData['groupid']);
+      ? $this->userModel->getAll('lastname', 'firstname', 'ASC', false, false)
+      : $this->userGroupModel->getAllForGroup((string) $viewData['groupid']);
 
     for ($m = 1; $m <= 12; $m++) {
       $monthName = date("M", mktime(0, 0, 0, $m, 10)); // Short month name
@@ -1037,11 +1037,11 @@ class StatisticsController extends BaseController
       foreach ($users as $user) {
         if ($viewData['absid'] == 'all') {
           foreach ($filteredAbsences as $abs) {
-            $monthCount += $this->AbsenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
+            $monthCount += $this->absenceService->countAbsence($user['username'], (string) $abs['id'], $countFrom, $countTo, false, false);
           }
         }
         else {
-          $monthCount += $this->AbsenceService->countAbsence($user['username'], (string) $viewData['absid'], $countFrom, $countTo, false, false);
+          $monthCount += $this->absenceService->countAbsence($user['username'], (string) $viewData['absid'], $countFrom, $countTo, false, false);
         }
       }
       $data[]  = $monthCount;
@@ -1076,8 +1076,8 @@ class StatisticsController extends BaseController
     $viewData['showAlerts']      = $this->allConfig['showAlerts'];
     $viewData['currentYearOnly'] = $this->allConfig['currentYearOnly'];
 
-    $viewData['absences'] = $this->A->getAll();
-    $viewData['groups']   = $this->G->getAll('DESC');
+    $viewData['absences'] = $this->absenceModel->getAll();
+    $viewData['groups']   = $this->groupModel->getAll('DESC');
 
     $viewData['absid']   = 'all';
     $viewData['groupid'] = 'all';
@@ -1109,8 +1109,8 @@ class StatisticsController extends BaseController
       }
     }
 
-    $viewData['absName']   = ($viewData['absid'] == 'all') ? $this->LANG['all'] : $this->A->getName($viewData['absid']);
-    $viewData['groupName'] = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->G->getNameById($viewData['groupid']);
+    $viewData['absName']   = ($viewData['absid'] == 'all') ? $this->LANG['all'] : $this->absenceModel->getName($viewData['absid']);
+    $viewData['groupName'] = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->groupModel->getNameById($viewData['groupid']);
 
     // Initialize counts: 1=Mon, ..., 7=Sun
     $counts = [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0];
@@ -1129,22 +1129,20 @@ class StatisticsController extends BaseController
 
     // Get users depending on group filter
     $users = ($viewData['groupid'] == "all")
-      ? $this->U->getAll('lastname', 'firstname', 'ASC', false, false)
-      : $this->UG->getAllForGroup((string) $viewData['groupid']);
+      ? $this->userModel->getAll('lastname', 'firstname', 'ASC', false, false)
+      : $this->userGroupModel->getAllForGroup((string) $viewData['groupid']);
 
     foreach ($users as $user) {
       for ($m = 1; $m <= 12; $m++) {
-        $month = sprintf("%02d", $m);
-        if ($this->T->getTemplate($user['username'], (string) $viewData['year'], $month)) {
-          $daysInMonth = date('t', strtotime($viewData['year'] . '-' . $month . '-01'));
-          for ($d = 1; $d <= $daysInMonth; $d++) {
-            $prop  = 'abs' . $d;
-            $absId = $this->T->$prop;
-            if ($absId > 0 && in_array($absId, $targetAbsences)) {
-              $date = $viewData['year'] . '-' . $month . '-' . sprintf("%02d", $d);
-              $dow  = (int) date('N', strtotime($date));
-              $counts[$dow]++;
-            }
+        $month       = sprintf("%02d", $m);
+        $monthMap    = $this->absenceDayModel->getMonthMap($user['username'], (string) $viewData['year'], $month);
+        $daysInMonth = date('t', strtotime($viewData['year'] . '-' . $month . '-01'));
+        for ($d = 1; $d <= $daysInMonth; $d++) {
+          $absId = $monthMap[$d] ?? 0;
+          if ($absId > 0 && in_array($absId, $targetAbsences)) {
+            $date = $viewData['year'] . '-' . $month . '-' . sprintf("%02d", $d);
+            $dow  = (int) date('N', strtotime($date));
+            $counts[$dow]++;
           }
         }
       }
@@ -1188,8 +1186,8 @@ class StatisticsController extends BaseController
     $viewData['showAlerts']      = $this->allConfig['showAlerts'];
     $viewData['currentYearOnly'] = $this->allConfig['currentYearOnly'];
 
-    $viewData['absences'] = $this->A->getAll();
-    $viewData['groups']   = $this->G->getAll('DESC');
+    $viewData['absences'] = $this->absenceModel->getAll();
+    $viewData['groups']   = $this->groupModel->getAll('DESC');
 
     $viewData['absid']   = 'all';
     $viewData['groupid'] = 'all';
@@ -1221,8 +1219,8 @@ class StatisticsController extends BaseController
       }
     }
 
-    $viewData['absName']   = ($viewData['absid'] == 'all') ? $this->LANG['all'] : $this->A->getName($viewData['absid']);
-    $viewData['groupName'] = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->G->getNameById($viewData['groupid']);
+    $viewData['absName']   = ($viewData['absid'] == 'all') ? $this->LANG['all'] : $this->absenceModel->getName($viewData['absid']);
+    $viewData['groupName'] = ($viewData['groupid'] == "all") ? $this->LANG['all'] : $this->groupModel->getNameById($viewData['groupid']);
 
     $buckets = [
       '1'    => 0,
@@ -1247,26 +1245,19 @@ class StatisticsController extends BaseController
 
     // Get users depending on group filter
     $users = ($viewData['groupid'] == "all")
-      ? $this->U->getAll('lastname', 'firstname', 'ASC', false, false)
-      : $this->UG->getAllForGroup((string) $viewData['groupid']);
+      ? $this->userModel->getAll('lastname', 'firstname', 'ASC', false, false)
+      : $this->userGroupModel->getAllForGroup((string) $viewData['groupid']);
 
     foreach ($users as $user) {
       $yearAbsences = []; // Flattened array of absence IDs for the whole year
 
       for ($m = 1; $m <= 12; $m++) {
-        $month   = sprintf("%02d", $m);
-        $maxDays = date('t', strtotime($viewData['year'] . '-' . $month . '-01'));
+        $month    = sprintf("%02d", $m);
+        $maxDays  = date('t', strtotime($viewData['year'] . '-' . $month . '-01'));
+        $monthMap = $this->absenceDayModel->getMonthMap($user['username'], (string) $viewData['year'], $month);
 
-        if ($this->T->getTemplate($user['username'], (string) $viewData['year'], $month)) {
-          for ($d = 1; $d <= $maxDays; $d++) {
-            $prop           = 'abs' . $d;
-            $yearAbsences[] = $this->T->$prop;
-          }
-        }
-        else {
-          for ($d = 1; $d <= $maxDays; $d++) {
-            $yearAbsences[] = 0;
-          }
+        for ($d = 1; $d <= $maxDays; $d++) {
+          $yearAbsences[] = $monthMap[$d] ?? 0;
         }
       }
 

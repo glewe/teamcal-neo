@@ -36,7 +36,7 @@ class ViewProfileController extends BaseController
     $profile = '';
     if (isset($_GET['profile'])) {
       $profile = sanitize($_GET['profile']);
-      if (!$this->U->findByName($profile)) {
+      if (!$this->userModel->findByName($profile)) {
         $this->renderAlert('danger', $this->LANG['alert_danger_title'], $this->LANG['alert_no_data_subject'], $this->LANG['alert_no_data_text'], $this->LANG['alert_no_data_help']);
         return;
       }
@@ -50,24 +50,24 @@ class ViewProfileController extends BaseController
     $viewData['pageHelp']   = $this->allConfig['pageHelp'];
     $viewData['showAlerts'] = $this->allConfig['showAlerts'];
 
-    $this->U->findByName($profile);
+    $this->userModel->findByName($profile);
     $viewData['username'] = $profile;
-    $viewData['fullname'] = $this->U->getFullname($this->U->username);
-    $viewData['avatar']   = ($this->UO->read($this->U->username, 'avatar')) ? $this->UO->read($this->U->username, 'avatar') : 'default_' . $this->UO->read($this->U->username, 'gender') . '.png';
-    $viewData['role']     = $this->RO->getNameById((string) $this->U->role);
-    $viewData['title']    = $this->UO->read($this->U->username, 'title');
-    $viewData['position'] = $this->UO->read($this->U->username, 'position');
-    $viewData['email']    = $this->U->email;
-    $viewData['phone']    = $this->UO->read($this->U->username, 'phone');
-    $viewData['mobile']   = $this->UO->read($this->U->username, 'mobile');
-    $viewData['facebook'] = $this->UO->read($this->U->username, 'facebook');
-    $viewData['google']   = $this->UO->read($this->U->username, 'google');
-    $viewData['linkedin'] = $this->UO->read($this->U->username, 'linkedin');
-    $viewData['skype']    = $this->UO->read($this->U->username, 'skype');
-    $viewData['twitter']  = $this->UO->read($this->U->username, 'twitter');
+    $viewData['fullname'] = $this->userModel->getFullname($this->userModel->username);
+    $viewData['avatar']   = ($this->userOptionModel->read($this->userModel->username, 'avatar')) ? $this->userOptionModel->read($this->userModel->username, 'avatar') : 'default_' . $this->userOptionModel->read($this->userModel->username, 'gender') . '.png';
+    $viewData['role']     = $this->roleModel->getNameById((string) $this->userModel->role);
+    $viewData['title']    = $this->userOptionModel->read($this->userModel->username, 'title');
+    $viewData['position'] = $this->userOptionModel->read($this->userModel->username, 'position');
+    $viewData['email']    = $this->userModel->email;
+    $viewData['phone']    = $this->userOptionModel->read($this->userModel->username, 'phone');
+    $viewData['mobile']   = $this->userOptionModel->read($this->userModel->username, 'mobile');
+    $viewData['facebook'] = $this->userOptionModel->read($this->userModel->username, 'facebook');
+    $viewData['google']   = $this->userOptionModel->read($this->userModel->username, 'google');
+    $viewData['linkedin'] = $this->userOptionModel->read($this->userModel->username, 'linkedin');
+    $viewData['skype']    = $this->userOptionModel->read($this->userModel->username, 'skype');
+    $viewData['twitter']  = $this->userOptionModel->read($this->userModel->username, 'twitter');
 
     $viewData['allowEdit'] = false;
-    if (($this->L->checkLogin() && $this->UL->username == $viewData['username']) || isAllowed($this->CONF['controllers']['useredit']->permission)) {
+    if (($this->loginModel->checkLogin() && $this->userLoggedIn->username == $viewData['username']) || isAllowed($this->CONF['controllers']['useredit']->permission)) {
       $viewData['allowEdit'] = true;
     }
 

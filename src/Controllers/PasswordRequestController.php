@@ -54,15 +54,15 @@ class PasswordRequestController extends BaseController
         $viewData['email'] = $email;
 
         if (isset($_POST['btn_request_password'])) {
-          if ($pwdUsers = $this->U->getAllForEmail($email)) {
+          if ($pwdUsers = $this->userModel->getAllForEmail($email)) {
             if (count($pwdUsers) === 1) {
               $token          = bin2hex(random_bytes(32));
               $expiryDateTime = date('YmdHis', strtotime(date('YmdHis') . ' +1 day'));
-              $this->UO->save($pwdUsers[0]['username'], 'pwdToken', $token);
-              $this->UO->save($pwdUsers[0]['username'], 'pwdTokenExpiry', $expiryDateTime);
+              $this->userOptionModel->save($pwdUsers[0]['username'], 'pwdToken', $token);
+              $this->userOptionModel->save($pwdUsers[0]['username'], 'pwdTokenExpiry', $expiryDateTime);
               $mailError = '';
               sendPasswordResetMail($pwdUsers[0]['email'], $pwdUsers[0]['username'], $pwdUsers[0]['lastname'], $pwdUsers[0]['firstname'], $token, $mailError);
-              $this->LOG->logEvent("logUser", $this->UL->username, "log_user_pwd_request", $pwdUsers[0]['username']);
+              $this->logModel->logEvent("logUser", $this->userLoggedIn->username, "log_user_pwd_request", $pwdUsers[0]['username']);
 
               $showAlert            = true;
               $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
@@ -76,14 +76,14 @@ class PasswordRequestController extends BaseController
             }
             else {
               if (isset($_POST['opt_user'])) {
-                $pwdUser        = $this->U->findByName($_POST['opt_user']);
+                $pwdUser        = $this->userModel->findByName($_POST['opt_user']);
                 $token          = bin2hex(random_bytes(32));
                 $expiryDateTime = date('YmdHis', strtotime(date('YmdHis') . ' +1 day'));
-                $this->UO->save($this->U->username, 'pwdToken', $token);
-                $this->UO->save($this->U->username, 'pwdTokenExpiry', $expiryDateTime);
+                $this->userOptionModel->save($this->userModel->username, 'pwdToken', $token);
+                $this->userOptionModel->save($this->userModel->username, 'pwdTokenExpiry', $expiryDateTime);
                 $mailError = '';
-                sendPasswordResetMail($this->U->email, $this->U->username, $this->U->lastname, $this->U->firstname, $token, $mailError);
-                $this->LOG->logEvent("logUser", $this->UL->username, "log_user_pwd_request", $this->U->username);
+                sendPasswordResetMail($this->userModel->email, $this->userModel->username, $this->userModel->lastname, $this->userModel->firstname, $token, $mailError);
+                $this->logModel->logEvent("logUser", $this->userLoggedIn->username, "log_user_pwd_request", $this->userModel->username);
 
                 $showAlert            = true;
                 $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';

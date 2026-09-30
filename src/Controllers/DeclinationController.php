@@ -251,8 +251,8 @@ class DeclinationController extends BaseController
     }
     $configToSave["declScope"] = $scope;
 
-    $this->C->saveBatch($configToSave);
-    $this->LOG->logEvent("logConfig", $this->UL->username, "log_decl_updated");
+    $this->configModel->saveBatch($configToSave);
+    $this->logModel->logEvent("logConfig", $this->userLoggedIn->username, "log_decl_updated");
     $this->_instances['allConfig'] = array_merge($this->allConfig, $configToSave);
   }
 
@@ -309,7 +309,7 @@ class DeclinationController extends BaseController
     $this->prepareSectionViewData('period2', $this->allConfig);
     $this->prepareSectionViewData('period3', $this->allConfig);
 
-    $roles             = $this->RO->getAll();
+    $roles             = $this->roleModel->getAll();
     $currentScopeArray = explode(',', $this->allConfig['declScope']);
     foreach ($roles as $role) {
       $this->viewData['roles'][] = ['val' => $role['id'], 'name' => $role['name'], 'selected' => in_array($role['id'], $currentScopeArray)];

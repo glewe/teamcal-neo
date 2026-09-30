@@ -148,13 +148,13 @@
                   {% for i in daystart..dayend %}
                     {% set style = dayStyles[i]|raw %}
                     {% set icon = '' %}
-                    {% set abs = T.getAbsence(groupusername, year, month, i) %}
+                    {% set abs = currentAbsences[i] %}
                     {% if abs %}
-                      {% set style = ' style="color: #' ~ A.getColor(abs) ~ '; background-color: #' ~ A.getBgColor(abs) ~ ';' %}
+                      {% set style = ' style="color: #' ~ absenceModel.getColor(abs) ~ '; background-color: #' ~ absenceModel.getBgColor(abs) ~ ';' %}
                       {% if allConfig.symbolAsIcon %}
-                        {% set icon = A.getSymbol(abs) %}
+                        {% set icon = absenceModel.getSymbol(abs) %}
                       {% else %}
-                        {% set icon = '<span class="' ~ A.getIcon(abs) ~ '"></span>' %}
+                        {% set icon = '<span class="' ~ absenceModel.getIcon(abs) ~ '"></span>' %}
                       {% endif %}
                       {% set loopDate = year ~ '-' ~ month ~ '-' ~ "%02d"|format(i) %}
                       {% if loopDate == currDate %}
@@ -168,12 +168,11 @@
 
                 <!-- Rows ff: Absences -->
                 {% for abs in absences %}
-                  {% if (not abs.manager_only) or (abs.manager_only and (UG.isGroupManagerOfGroup(UL.username, groupid) or UL.username == 'admin')) %}
+                  {% if (not abs.manager_only) or (abs.manager_only and (userGroupModel.isGroupManagerOfGroup(userLoggedIn.username, groupid) or userLoggedIn.username == 'admin')) %}
                     <tr>
                       <td class="m-name">{{ abs.name }}</td>
                       {% for i in daystart..dayend %}
-                        {% set absProp = 'abs' ~ i %}
-                        <td class="m-day text-center" {{ dayStyles[i]|raw }}><input class="form-check-input" name="opt_abs_{{ i }}" type="radio" value="{{ abs.id }}" {{ (T[absProp] == abs.id) ? ' checked' : '' }}></td>
+                        <td class="m-day text-center" {{ dayStyles[i]|raw }}><input class="form-check-input" name="opt_abs_{{ i }}" type="radio" value="{{ abs.id }}" {{ (currentAbsences[i] == abs.id) ? ' checked' : '' }}></td>
                       {% endfor %}
                     </tr>
                   {% endif %}

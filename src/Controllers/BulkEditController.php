@@ -42,13 +42,13 @@ class BulkEditController extends BaseController
     $alertData  = [];
     $showAlert  = false;
 
-    $absences = $this->A->getAll();
+    $absences = $this->absenceModel->getAll();
     $absid    = (string) $absences[0]['id'];
-    $abs      = new AbsenceModel($this->DB->db, $this->CONF);
+    $abs      = new AbsenceModel($this->dbModel->db, $this->CONF);
     $abs->get($absid);
-    $groups  = $this->G->getAll();
+    $groups  = $this->groupModel->getAll();
     $groupid = 'All';
-    $users   = $this->U->getAll('lastname', 'firstname', 'ASC', false, false);
+    $users   = $this->userModel->getAll('lastname', 'firstname', 'ASC', false, false);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $_POST = sanitize($_POST);
@@ -92,10 +92,10 @@ class BulkEditController extends BaseController
               'carryover' => $carryover
             ];
           }
-          $this->AL->batchSave($updates);
+          $this->allowanceModel->batchSave($updates);
 
           foreach ($updates as $update) {
-            $this->LOG->logEvent("logUser", $this->UL->username, "log_user_updated", "Allowance bulk edit for user: " . $update['username']);
+            $this->logModel->logEvent("logUser", $this->userLoggedIn->username, "log_user_updated", "Allowance bulk edit for user: " . $update['username']);
           }
 
           if (isset($_SESSION))
@@ -170,7 +170,7 @@ class BulkEditController extends BaseController
     if ((string) $groupid === "All") {
       return $users;
     }
-    return array_filter($users, fn($user) => $this->UG->isMemberOrManagerOfGroup($user['username'] ?? '', (string) $groupid));
+    return array_filter($users, fn($user) => $this->userGroupModel->isMemberOrManagerOfGroup($user['username'] ?? '', (string) $groupid));
   }
 
   /**
@@ -182,17 +182,17 @@ class BulkEditController extends BaseController
    * @return array{0: float, 1: float} Array with allowance and carryover
    */
   private function getOrCreateAllowance(array $user, string|int $absid): array {
-    if ($this->AL->find((string) $user['username'], $absid)) {
-      return [$this->AL->allowance, $this->AL->carryover];
+    if ($this->allowanceModel->find((string) $user['username'], $absid)) {
+      return [$this->allowanceModel->allowance, $this->allowanceModel->carryover];
     }
     else {
-      $allowance           = (float) ($this->A->getAllowance((string) $absid) ?: 0);
+      $allowance           = (float) ($this->absenceModel->getAllowance((string) $absid) ?: 0);
       $carryover           = 0.0;
-      $this->AL->username  = (string) $user['username'];
-      $this->AL->absid     = (string) $absid;
-      $this->AL->allowance = $allowance;
-      $this->AL->carryover = $carryover;
-      $this->AL->save();
+      $this->allowanceModel->username  = (string) $user['username'];
+      $this->allowanceModel->absid     = (string) $absid;
+      $this->allowanceModel->allowance = $allowance;
+      $this->allowanceModel->carryover = $carryover;
+      $this->allowanceModel->save();
       return [$allowance, $carryover];
     }
   }

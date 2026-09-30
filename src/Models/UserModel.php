@@ -19,6 +19,7 @@ use PDO;
  */
 class UserModel
 {
+  public int    $id               = 0;
   public string $username         = '';
   public string $password         = '';
   public string $firstname        = '';
@@ -30,6 +31,7 @@ class UserModel
   public int    $hidden           = 0;
   public int    $onhold           = 0;
   public int    $verify           = 0;
+  public int    $is_system        = 0;
   public int    $bad_logins       = 0;
   public string $grace_start      = DEFAULT_TIMESTAMP;
   public string $last_pw_change   = DEFAULT_TIMESTAMP;
@@ -60,8 +62,8 @@ class UserModel
       $this->user_options_table = $conf['db_table_user_option'];
     }
     else {
-      global $CONF, $DB;
-      $this->db            = $DB->db;
+      global $CONF, $dbModel;
+      $this->db            = $dbModel->db;
       $this->table         = $CONF['db_table_users'];
       $this->archive_table      = $CONF['db_table_archive_users'];
       $this->config_table       = $CONF['db_table_config'];
@@ -151,8 +153,8 @@ class UserModel
    * @return bool Query result
    */
   public function create(): bool {
-    $stmt   = 'INSERT INTO ' . $this->table . ' (username, password, firstname, lastname, email, order_key, role, locked, hidden, onhold, verify, bad_logins, bad_logins_start, grace_start, last_pw_change, last_login, created, oidc_sub) ';
-    $stmt  .= 'VALUES (:username, :password, :firstname, :lastname, :email, :order_key, :role, :locked, :hidden, :onhold, :verify, :bad_logins, :bad_logins_start, :grace_start, :last_pw_change, :last_login, :created, :oidc_sub)';
+    $stmt   = 'INSERT INTO ' . $this->table . ' (username, password, firstname, lastname, email, order_key, role_id, locked, hidden, onhold, verify, is_system, bad_logins, bad_logins_start, grace_start, last_pw_change, last_login, created, oidc_sub) ';
+    $stmt  .= 'VALUES (:username, :password, :firstname, :lastname, :email, :order_key, :role, :locked, :hidden, :onhold, :verify, :is_system, :bad_logins, :bad_logins_start, :grace_start, :last_pw_change, :last_login, :created, :oidc_sub)';
     $query  = $this->db->prepare($stmt);
     $query->bindParam(':username', $this->username);
     $query->bindParam(':password', $this->password);
@@ -165,6 +167,7 @@ class UserModel
     $query->bindParam(':hidden', $this->hidden);
     $query->bindParam(':onhold', $this->onhold);
     $query->bindParam(':verify', $this->verify);
+    $query->bindParam(':is_system', $this->is_system);
     $query->bindParam(':bad_logins', $this->bad_logins);
     $query->bindParam(':bad_logins_start', $this->bad_logins_start);
     $query->bindParam(':grace_start', $this->grace_start);
@@ -173,7 +176,11 @@ class UserModel
     $query->bindParam(':created', $this->created);
     $oidcSub = $this->oidc_sub !== '' ? $this->oidc_sub : null;
     $query->bindParam(':oidc_sub', $oidcSub);
-    return $query->execute();
+    $result = $query->execute();
+    if ($result) {
+      $this->id = (int) $this->db->lastInsertId();
+    }
+    return $result;
   }
 
   //---------------------------------------------------------------------------
@@ -191,9 +198,7 @@ class UserModel
     else {
       $table = $this->table;
     }
-    $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username <> :val1');
-    $val1  = 'admin';
-    $query->bindParam(':val1', $val1);
+    $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE is_system = 0');
     return $query->execute();
   }
 
@@ -260,17 +265,19 @@ class UserModel
     $query->bindParam(':username', $username);
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {
+      $this->id              = (int) $row['id'];
       $this->username       = $row['username'];
       $this->password       = $row['password'];
       $this->firstname      = $row['firstname'];
       $this->lastname       = $row['lastname'];
       $this->email          = $row['email'];
       $this->order_key      = $row['order_key'];
-      $this->role           = (int) $row['role'];
+      $this->role           = (int) $row['role_id'];
       $this->locked         = (int) $row['locked'];
       $this->hidden         = (int) $row['hidden'];
       $this->onhold         = (int) $row['onhold'];
       $this->verify         = (int) $row['verify'];
+      $this->is_system      = (int) $row['is_system'];
       $this->bad_logins     = (int) $row['bad_logins'];
       $this->bad_logins_start = (int) ($row['bad_logins_start'] ?? 0);
       $this->grace_start    = $row['grace_start'];
@@ -296,17 +303,19 @@ class UserModel
     $query->bindParam(':oidc_sub', $oidcSub);
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {
+      $this->id              = (int) $row['id'];
       $this->username       = $row['username'];
       $this->password       = $row['password'];
       $this->firstname      = $row['firstname'];
       $this->lastname       = $row['lastname'];
       $this->email          = $row['email'];
       $this->order_key      = $row['order_key'];
-      $this->role           = (int) $row['role'];
+      $this->role           = (int) $row['role_id'];
       $this->locked         = (int) $row['locked'];
       $this->hidden         = (int) $row['hidden'];
       $this->onhold         = (int) $row['onhold'];
       $this->verify         = (int) $row['verify'];
+      $this->is_system      = (int) $row['is_system'];
       $this->bad_logins     = (int) $row['bad_logins'];
       $this->bad_logins_start = (int) ($row['bad_logins_start'] ?? 0);
       $this->grace_start    = $row['grace_start'];
@@ -328,21 +337,23 @@ class UserModel
    * @return bool Query result
    */
   public function findByToken(string $token): bool {
-    $query = $this->db->prepare('SELECT u.* FROM ' . $this->table . ' u INNER JOIN ' . $this->user_options_table . ' uo ON u.username = uo.username WHERE uo.option = "pwdToken" AND uo.value = :token');
+    $query = $this->db->prepare('SELECT u.* FROM ' . $this->table . ' u INNER JOIN ' . $this->user_options_table . ' uo ON u.id = uo.user_id WHERE uo.option = "pwdToken" AND uo.value = :token');
     $query->bindParam(':token', $token);
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {
+      $this->id              = (int) $row['id'];
       $this->username       = $row['username'];
       $this->password       = $row['password'];
       $this->firstname      = $row['firstname'];
       $this->lastname       = $row['lastname'];
       $this->email          = $row['email'];
       $this->order_key      = $row['order_key'];
-      $this->role           = (int) $row['role'];
+      $this->role           = (int) $row['role_id'];
       $this->locked         = (int) $row['locked'];
       $this->hidden         = (int) $row['hidden'];
       $this->onhold         = (int) $row['onhold'];
       $this->verify         = (int) $row['verify'];
+      $this->is_system      = (int) $row['is_system'];
       $this->bad_logins     = (int) $row['bad_logins'];
       $this->bad_logins_start = (int) ($row['bad_logins_start'] ?? 0);
       $this->grace_start    = $row['grace_start'];
@@ -368,7 +379,7 @@ class UserModel
    * @return array<int, array<string, mixed>> Array with records
    */
   public function getAll(string $order1 = 'lastname', string $order2 = 'firstname', string $sort = 'ASC', bool $archive = false, bool $includeAdmin = false): array {
-    $allowedCols = ['username', 'password', 'firstname', 'lastname', 'email', 'order_key', 'role', 'locked', 'hidden', 'onhold', 'verify', 'bad_logins', 'bad_logins_start', 'grace_start', 'last_pw_change', 'last_login', 'created'];
+    $allowedCols = ['username', 'password', 'firstname', 'lastname', 'email', 'order_key', 'role_id', 'locked', 'hidden', 'onhold', 'verify', 'bad_logins', 'bad_logins_start', 'grace_start', 'last_pw_change', 'last_login', 'created'];
     if (!in_array($order1, $allowedCols)) {
       $order1 = 'lastname';
     }
@@ -398,9 +409,7 @@ class UserModel
       $query = $this->db->prepare('SELECT * FROM ' . $table . ' ORDER BY LOWER(' . $order1 . ') ' . $sort . ', LOWER(' . $order2 . ') ' . $sort);
     }
     else {
-      $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != :val1 ORDER BY LOWER(' . $order1 . ') ' . $sort . ', LOWER(' . $order2 . ') ' . $sort);
-      $val1  = 'admin';
-      $query->bindParam(':val1', $val1);
+      $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE is_system = 0 ORDER BY LOWER(' . $order1 . ') ' . $sort . ', LOWER(' . $order2 . ') ' . $sort);
     }
 
     $result = $query->execute();
@@ -445,7 +454,7 @@ class UserModel
    */
   public function getAllForRole(string $role): array|false {
     $records = array();
-    $query   = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE role = :role ORDER BY LOWER(lastname) ASC, LOWER(firstname) ASC');
+    $query   = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE role_id = :role ORDER BY LOWER(lastname) ASC, LOWER(firstname) ASC');
     $query->bindParam(':role', $role);
     $result = $query->execute();
     if ($result) {
@@ -470,6 +479,18 @@ class UserModel
    * @return array<int, array<string, mixed>> Array with records
    */
   public function getAllButHidden(string $order1 = 'lastname', string $order2 = 'firstname', string $sort = 'ASC', bool $archive = false, bool $includeAdmin = false): array {
+    $allowedCols = ['username', 'password', 'firstname', 'lastname', 'email', 'order_key', 'role_id', 'locked', 'hidden', 'onhold', 'verify', 'bad_logins', 'bad_logins_start', 'grace_start', 'last_pw_change', 'last_login', 'created'];
+    if (!in_array($order1, $allowedCols)) {
+      $order1 = 'lastname';
+    }
+    if (!in_array($order2, $allowedCols)) {
+      $order2 = 'firstname';
+    }
+    $sort = strtoupper($sort);
+    if (!in_array($sort, ['ASC', 'DESC'])) {
+      $sort = 'ASC';
+    }
+
     if ($this->useOrderKey()) {
       $order1 = 'order_key';
       $order2 = 'lastname';
@@ -487,10 +508,8 @@ class UserModel
       $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE hidden != 1 ORDER BY LOWER(' . $order1 . ') ' . $sort . ', LOWER(' . $order2 . ') ' . $sort);
     }
     else {
-      $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE username != :val1 AND hidden != 1 ORDER BY LOWER(' . $order1 . ') ' . $sort . ', LOWER(' . $order2 . ') ' . $sort);
+      $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE is_system = 0 AND hidden != 1 ORDER BY LOWER(' . $order1 . ') ' . $sort . ', LOWER(' . $order2 . ') ' . $sort);
     }
-    $val1 = 'admin';
-    $query->bindParam(':val1', $val1);
 
     $result = $query->execute();
 
@@ -518,14 +537,12 @@ class UserModel
     $query = $this->db->prepare(
       'SELECT * FROM ' . $table . '
        WHERE (firstname LIKE :search1 OR lastname LIKE :search2 OR username LIKE :search3)
-       AND username != :admin
+       AND is_system = 0
        ORDER BY LOWER(lastname) ASC, LOWER(firstname) ASC'
     );
-    $admin = 'admin';
     $query->bindParam(':search1', $searchTerm);
     $query->bindParam(':search2', $searchTerm);
     $query->bindParam(':search3', $searchTerm);
-    $query->bindParam(':admin', $admin);
     $query->execute();
 
     return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -553,7 +570,7 @@ class UserModel
     $result = $query->execute();
     if ($result) {
       while ($row = $query->fetch()) {
-        if ($row['username'] != 'admin') {
+        if (!$row['is_system']) {
           $records[] = $row;
         }
       }
@@ -652,11 +669,11 @@ class UserModel
    * @return string Role or empty
    */
   public function getRole(string $username): string {
-    $query = $this->db->prepare('SELECT role FROM ' . $this->table . ' WHERE username = :username');
+    $query = $this->db->prepare('SELECT role_id FROM ' . $this->table . ' WHERE username = :username');
     $query->bindParam(':username', $username);
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {
-      return (string) $row['role'];
+      return (string) $row['role_id'];
     }
     return '';
   }
@@ -689,11 +706,11 @@ class UserModel
    * @return bool True or False
    */
   public function hasRole(string $username, string $role): bool {
-    $query = $this->db->prepare('SELECT role FROM ' . $this->table . ' WHERE username = :username');
+    $query = $this->db->prepare('SELECT role_id FROM ' . $this->table . ' WHERE username = :username');
     $query->bindParam(':username', $username);
     $result = $query->execute();
     if ($result && $row = $query->fetch()) {
-      return $row['role'] == $role;
+      return $row['role_id'] == $role;
     }
     return false;
   }
@@ -740,7 +757,7 @@ class UserModel
    * @return bool True or False
    */
   public function setRole(string $username, string $role): bool {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET role = :role WHERE username = :username');
+    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET role_id = :role WHERE username = :username');
     $query->bindParam(':role', $role);
     $query->bindParam(':username', $username);
     return $query->execute();
@@ -826,11 +843,12 @@ class UserModel
       lastname = :lastname,
       email = :email,
       order_key = :order_key,
-      role = :role,
+      role_id = :role,
       locked = :locked,
       hidden = :hidden,
       onhold = :onhold,
       verify = :verify,
+      is_system = :is_system,
       bad_logins = :bad_logins,
       bad_logins_start = :bad_logins_start,
       grace_start = :grace_start,
@@ -851,6 +869,7 @@ class UserModel
     $query->bindParam(':hidden', $this->hidden);
     $query->bindParam(':onhold', $this->onhold);
     $query->bindParam(':verify', $this->verify);
+    $query->bindParam(':is_system', $this->is_system);
     $query->bindParam(':bad_logins', $this->bad_logins);
     $query->bindParam(':bad_logins_start', $this->bad_logins_start);
     $query->bindParam(':grace_start', $this->grace_start);
@@ -876,8 +895,10 @@ class UserModel
    * @return bool Query result
    */
   public function saveOidcSub(string $username, string $oidcSub): bool {
-    $query = $this->db->prepare('UPDATE ' . $this->table . ' SET oidc_sub = :oidc_sub WHERE username = :username');
-    $query->bindParam(':oidc_sub', $oidcSub);
+    // Bind null (not '') so the UNIQUE constraint on oidc_sub still allows multiple unset rows.
+    $boundOidcSub = $oidcSub !== '' ? $oidcSub : null;
+    $query        = $this->db->prepare('UPDATE ' . $this->table . ' SET oidc_sub = :oidc_sub WHERE username = :username');
+    $query->bindParam(':oidc_sub', $boundOidcSub);
     $query->bindParam(':username', $username);
     $result = $query->execute();
     if ($result) {

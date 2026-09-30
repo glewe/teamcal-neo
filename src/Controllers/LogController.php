@@ -61,7 +61,7 @@ class LogController extends BaseController
     }
 
     $logToday = dateInfo(date("Y"), date("m"), date("d"));
-    $this->C->save("logto", $logToday['ISO'] . ' 23:59:59.999999');
+    $this->configModel->save("logto", $logToday['ISO'] . ' 23:59:59.999999');
 
     $logtypes = [
       'Calendar',
@@ -139,7 +139,7 @@ class LogController extends BaseController
       $logSearchEvent = '%';
     }
 
-    $events = $this->LOG->read($sort, $periodFrom, $periodTo, $logType, $logSearchUser, $logSearchEvent);
+    $events = $this->logModel->read($sort, $periodFrom, $periodTo, $logType, $logSearchUser, $logSearchEvent);
 
     $viewData['events'] = [];
     if (count($events)) {
@@ -200,7 +200,7 @@ class LogController extends BaseController
     //
     $statsData = [];
     if (!empty($statsTypes)) {
-      $statsData = $this->LOG->getStatistics($statsFrom, $statsTo, $statsTypes, $statsRange['granularity']);
+      $statsData = $this->logModel->getStatistics($statsFrom, $statsTo, $statsTypes, $statsRange['granularity']);
     }
 
     $viewData['statsTimeframe'] = $statsTimeframe;
@@ -296,7 +296,7 @@ class LogController extends BaseController
       $refreshBatchConfigs["logsearchevent"] = '%' . $viewData['logSearchEvent'] . '%';
     }
 
-    $this->C->saveBatch($refreshBatchConfigs);
+    $this->configModel->saveBatch($refreshBatchConfigs);
     $this->_instances['allConfig'] = array_merge($this->allConfig, $refreshBatchConfigs);
   }
 
@@ -317,8 +317,8 @@ class LogController extends BaseController
       $newConfig["logfilter" . $lt] = (isset($_POST['chk_logfilter' . $lt]) && $_POST['chk_logfilter' . $lt]) ? "1" : "0";
       $newConfig["logcolor" . $lt]  = $_POST['opt_logcolor' . $lt] ? $_POST['opt_logcolor' . $lt] : "default";
     }
-    $this->C->saveBatch($newConfig);
-    $this->LOG->logEvent("logLog", $this->UL->username, "log_log_updated");
+    $this->configModel->saveBatch($newConfig);
+    $this->logModel->logEvent("logLog", $this->userLoggedIn->username, "log_log_updated");
     header("Location: index.php?action=log");
     die();
   }
@@ -367,8 +367,8 @@ class LogController extends BaseController
    */
   private function handleClear(array $logToday, bool &$showAlert, array &$alertData): void {
     $period = $this->resolvePeriodFromPost($logToday);
-    $this->LOG->delete($period['from'], $period['to']);
-    $this->LOG->logEvent("logLog", $this->UL->username, "log_log_cleared");
+    $this->logModel->delete($period['from'], $period['to']);
+    $this->logModel->logEvent("logLog", $this->userLoggedIn->username, "log_log_cleared");
     header("Location: index.php?action=log");
     die();
   }
@@ -392,8 +392,8 @@ class LogController extends BaseController
       "logsearchuser"  => "%",
       "logsearchevent" => "%"
     ];
-    $this->C->saveBatch($resetBatchConfigs);
-    $this->LOG->logEvent("logLog", $this->UL->username, "log_log_reset");
+    $this->configModel->saveBatch($resetBatchConfigs);
+    $this->logModel->logEvent("logLog", $this->userLoggedIn->username, "log_log_reset");
     header("Location: index.php?action=log");
     die();
   }
@@ -421,7 +421,7 @@ class LogController extends BaseController
       $statsBatchConfigs['statsTypes'] = '';
     }
     
-    $this->C->saveBatch($statsBatchConfigs);
+    $this->configModel->saveBatch($statsBatchConfigs);
   }
 
   //---------------------------------------------------------------------------
@@ -467,7 +467,7 @@ class LogController extends BaseController
         break;
       case 'overall':
         // Overall: from the earliest recorded entry to now
-        $statsFrom = $this->LOG->getMinTimestamp();
+        $statsFrom = $this->logModel->getMinTimestamp();
         $statsTo = date('Y-m-d H:i:s');
         break;
       default:
@@ -490,7 +490,7 @@ class LogController extends BaseController
     $statsTypes     = (isset($_POST['types']) && is_array($_POST['types'])) ? sanitize($_POST['types']) : [];
 
     $statsRange = $this->getStatsRange($statsTimeframe);
-    $statsData = $this->LOG->getStatistics($statsRange['from'], $statsRange['to'], $statsTypes, $statsRange['granularity']);
+    $statsData = $this->logModel->getStatistics($statsRange['from'], $statsRange['to'], $statsTypes, $statsRange['granularity']);
 
     header('Content-Type: application/json');
     echo json_encode($statsData);

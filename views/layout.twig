@@ -20,7 +20,7 @@
     <!-- Robots -->
     <meta name="robots" content="{{ htmlData.robots }}">
 
-    {% if not C.read('noIndex') %}
+    {% if not configModel.read('noIndex') %}
       <!-- SEO -->
       <link rel="canonical" href="{{ constant('WEBSITE_URL') }}">
       <meta name="description" content="{{ htmlData.description }}">
@@ -40,7 +40,7 @@
       <meta name="twitter:image" content="{{ constant('WEBSITE_URL') }}public/images/twitter-image.png">
     {% endif %}
 
-    {% if C.read('noCaching') %}
+    {% if configModel.read('noCaching') %}
       <!-- Disable Caching -->
       <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
       <meta http-equiv="expires" content="0" />
@@ -50,8 +50,8 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="public/themes/bootstrap/{{ constant('BOOTSTRAP_VER')}}/css/bootstrap.min.css">
 
-    {% if C.read('font') and C.read('font') != 'default' %}
-      <link rel="stylesheet" href="public/css/font-{{ C.read('font') }}.min.css">
+    {% if configModel.read('font') and configModel.read('font') != 'default' %}
+      <link rel="stylesheet" href="public/css/font-{{ configModel.read('font') }}.min.css">
     {% endif %}
     <link
     rel="stylesheet" href="public/css/font-robotomono.min.css">
@@ -124,32 +124,32 @@
       </script>
     {% endif %}
 
-    {% if C.read('googleAnalytics') and C.read('googleAnalyticsID') %}
+    {% if configModel.read('googleAnalytics') and configModel.read('googleAnalyticsID') %}
       <!-- Google Analytics (gtag.js) -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id={{ C.read('googleAnalyticsID') }}" crossorigin="anonymous"></script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id={{ configModel.read('googleAnalyticsID') }}" crossorigin="anonymous"></script>
       <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() {
           dataLayer.push(arguments);
         }
         gtag('js', new Date());
-        gtag('config', '{{ C.read('googleAnalyticsID') }}');
+        gtag('config', '{{ configModel.read('googleAnalyticsID') }}');
       </script>
     {% endif %}
 
-    {% if C.read('matomoAnalytics') and C.read('matomoUrl') and C.read('matomoSiteId') %}
+    {% if configModel.read('matomoAnalytics') and configModel.read('matomoUrl') and configModel.read('matomoSiteId') %}
       <!-- Matomo Analytics -->
       <script>
         var _paq = window._paq = window._paq || [];
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function () {
-          var u = "//{{ C.read('matomoUrl') }}/";
+          var u = "//{{ configModel.read('matomoUrl') }}/";
           _paq.push([
             'setTrackerUrl',
             u + 'matomo.php'
           ]);
-          _paq.push(['setSiteId', '{{ C.read('matomoSiteId') }}']);
+          _paq.push(['setSiteId', '{{ configModel.read('matomoSiteId') }}']);
           var d = document,
             g = d.createElement('script'),
             s = d.getElementsByTagName('script')[0];
@@ -193,12 +193,12 @@
           <div class="col-lg-3 col-md-3 col-sm-3 text-start">
             <ul class="list-unstyled">
               {% set footerCopyright = "" %}
-              {% if C.read('footerCopyright') %}
+              {% if configModel.read('footerCopyright') %}
                 {% set footerCopyright = "&copy; " ~ "now"|date("Y") ~ " by " %}
-                {% if C.read('footerCopyrightUrl') %}
-                  {% set footerCopyright = footerCopyright ~ '<a href="' ~ C.read('footerCopyrightUrl') ~ '" target="_blank">' ~ C.read('footerCopyright') ~ '</a>' %}
+                {% if configModel.read('footerCopyrightUrl') %}
+                  {% set footerCopyright = footerCopyright ~ '<a href="' ~ configModel.read('footerCopyrightUrl') ~ '" target="_blank">' ~ configModel.read('footerCopyright') ~ '</a>' %}
                 {% else %}
-                  {% set footerCopyright = footerCopyright ~ C.read('footerCopyright') %}
+                  {% set footerCopyright = footerCopyright ~ configModel.read('footerCopyright') %}
                 {% endif %}
               {% endif %}
               <li class="text-muted fs-small">{{ footerCopyright|raw }}</li>
@@ -219,8 +219,8 @@
           </div>
 
           <div class="col-lg-3 col-md-3 col-sm-3 text-end">
-            {% if C.read('footerSocialLinks') %}
-              {% set socialLinksArray = C.read('footerSocialLinks')|split(';') %}
+            {% if configModel.read('footerSocialLinks') %}
+              {% set socialLinksArray = configModel.read('footerSocialLinks')|split(';') %}
               {% for url in socialLinksArray %}
                 {% if url|length %}
                   <span class="social-icon">

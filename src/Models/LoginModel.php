@@ -42,9 +42,9 @@ class LoginModel
    * @param LdapService|null     $ldapService
    */
   public function __construct(?ConfigModel $configObj = null, ?array $conf = null, ?LdapService $ldapService = null) {
-    global $C, $CONF, $_SERVER;
+    global $configModel, $CONF, $_SERVER;
 
-    $config        = $configObj ?? $C;
+    $config        = $configObj ?? $configModel;
     $configuration = $conf ?? $CONF;
 
     $this->cookie_name   = defined('COOKIE_NAME') ? COOKIE_NAME : 'tcneo_login';
@@ -98,20 +98,20 @@ class LoginModel
    * @return string Binary secret of at least 32 bytes
    */
   private function getCookieSecret(): string {
-    global $C;
+    global $configModel;
 
     $envSecret = $_ENV['APP_SECRET'] ?? '';
     if (is_string($envSecret) && strlen($envSecret) >= 32) {
       return $envSecret;
     }
 
-    $stored = $C->read('cookieSecret');
+    $stored = $configModel->read('cookieSecret');
     if (is_string($stored) && strlen($stored) === 64 && ctype_xdigit($stored)) {
       return (string) hex2bin($stored);
     }
 
     $new = random_bytes(32);
-    $C->save('cookieSecret', bin2hex($new));
+    $configModel->save('cookieSecret', bin2hex($new));
     return $new;
   }
 
@@ -141,9 +141,9 @@ class LoginModel
    * @return void
    */
   private function issueCookie(string $username): void {
-    global $C;
+    global $configModel;
 
-    $expires = time() + intval($C->read("cookieLifetime"));
+    $expires = time() + intval($configModel->read("cookieLifetime"));
     setcookie($this->cookie_name, '', time() - 3600, '', $this->hostName, $this->isSecure, true);
     setcookie($this->cookie_name, $this->signedCookieValue($username, $expires), $expires, '', $this->hostName, $this->isSecure, true);
   }
@@ -160,7 +160,7 @@ class LoginModel
    * @return string|bool Username of the user logged in, or false
    */
   public function checkLogin(): string|bool {
-    global $U;
+    global $userModel;
 
     if (!isset($_COOKIE[$this->cookie_name])) {
       return false;
@@ -192,11 +192,11 @@ class LoginModel
       return false;
     }
 
-    if (!$U->findByName($username)) {
+    if (!$userModel->findByName($username)) {
       return false;
     }
 
-    return $U->username;
+    return $userModel->username;
   }
 
   //---------------------------------------------------------------------------
@@ -340,9 +340,9 @@ class LoginModel
    * @return integer authentication return code
    */
   private function localVerify(string $password): int {
-    global $U;
+    global $userModel;
 
-    if (password_verify($password, $U->password)) {
+    if (password_verify($password, $userModel->password)) {
       //
       // Password correct
       //
@@ -363,27 +363,27 @@ class LoginModel
     // A throttling window that has expired starts over. Without this the
     // counter would never fall back to zero on its own.
     //
-    if ($U->bad_logins && ($now - $U->bad_logins_start) >= $this->grace_period) {
-      $U->bad_logins       = 0;
-      $U->bad_logins_start = 0;
+    if ($userModel->bad_logins && ($now - $userModel->bad_logins_start) >= $this->grace_period) {
+      $userModel->bad_logins       = 0;
+      $userModel->bad_logins_start = 0;
     }
 
-    if (!$U->bad_logins) {
+    if (!$userModel->bad_logins) {
       //
       // 1st bad login attempt of a new window. Remember when it started,
       // as seconds since the UNIX epoch, so the window can expire.
       //
-      $U->bad_logins_start = $now;
+      $userModel->bad_logins_start = $now;
     }
 
     //
     // The counter must be persisted on EVERY failed attempt. Incrementing it
     // in memory only, as earlier releases did, left it stuck at 1 forever.
     //
-    $U->bad_logins++;
-    $U->update($U->username);
+    $userModel->bad_logins++;
+    $userModel->update($userModel->username);
 
-    if ($U->bad_logins >= $this->bad_logins) {
+    if ($userModel->bad_logins >= $this->bad_logins) {
       //
       // That's too much! Login is throttled for the grace period. This is
       // deliberately NOT the administrative 'locked' flag - the throttle
@@ -392,7 +392,7 @@ class LoginModel
       return 6;
     }
 
-    return $U->bad_logins === 1 ? 4 : 5;
+    return $userModel->bad_logins === 1 ? 4 : 5;
   }
 
   //---------------------------------------------------------------------------
@@ -424,7 +424,7 @@ class LoginModel
    * @return integer Login return code
    */
   public function loginUser(string $loginname = '', string $loginpwd = ''): int {
-    global $C, $U, $UO;
+    global $configModel, $userModel, $userOptionModel;
 
     $retcode = 0;
 
@@ -434,27 +434,27 @@ class LoginModel
 
     $now = intval(date("U"));
 
-    if (!$U->findByName($loginname)) {
+    if (!$userModel->findByName($loginname)) {
       // User not found. If found U->username is now set.
       return 2;
     }
-    if ($U->locked) {
+    if ($userModel->locked) {
       // Account is administratively disabled. Only an admin clears this.
       return 3;
     }
-    if ($UO->read($loginname, "verifycode")) {
+    if ($userOptionModel->read($loginname, "verifycode")) {
       // Account not verified.
       return 8;
     }
     if (
       $this->bad_logins
-      && $U->bad_logins >= $this->bad_logins
-      && ($now - $U->bad_logins_start) < $this->grace_period
+      && $userModel->bad_logins >= $this->bad_logins
+      && ($now - $userModel->bad_logins_start) < $this->grace_period
     ) {
       // Too many recent failures. Self-expiring, unlike the 'locked' flag.
       return 6;
     }
-    if ($U->onhold && ($now - $this->toTimestamp($U->grace_start) <= $this->grace_period)) {
+    if ($userModel->onhold && ($now - $this->toTimestamp($userModel->grace_start) <= $this->grace_period)) {
       // Login is locked for this account and grace period is not over yet.
       return 6;
     }
@@ -463,7 +463,7 @@ class LoginModel
     // At this point we know that the user is not ONHOLD or the grace period is over.
     // We can safely unset it.
     //
-    $U->onhold = 0;
+    $userModel->onhold = 0;
 
     //
     // Now check the password
@@ -493,11 +493,11 @@ class LoginModel
     // Set up the tc cookie and save the uname so TeamCal can get it.
     //
     $this->issueCookie($loginname);
-    $U->bad_logins       = 0;
-    $U->bad_logins_start = 0;
-    $U->grace_start      = defined('DEFAULT_TIMESTAMP') ? DEFAULT_TIMESTAMP : '19700101000000';
-    $U->last_login       = date("YmdHis");
-    $U->update($U->username);
+    $userModel->bad_logins       = 0;
+    $userModel->bad_logins_start = 0;
+    $userModel->grace_start      = defined('DEFAULT_TIMESTAMP') ? DEFAULT_TIMESTAMP : '19700101000000';
+    $userModel->last_login       = date("YmdHis");
+    $userModel->update($userModel->username);
 
     return 0;
   }
@@ -515,13 +515,13 @@ class LoginModel
    * @return void
    */
   public function loginByUsername(string $username): void {
-    global $U;
+    global $userModel;
 
     $this->issueCookie($username);
-    $U->bad_logins       = 0;
-    $U->bad_logins_start = 0;
-    $U->last_login       = date('YmdHis');
-    $U->update($U->username);
+    $userModel->bad_logins       = 0;
+    $userModel->bad_logins_start = 0;
+    $userModel->last_login       = date('YmdHis');
+    $userModel->update($userModel->username);
   }
 
   //---------------------------------------------------------------------------

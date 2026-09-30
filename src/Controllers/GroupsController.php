@@ -27,7 +27,7 @@ class GroupsController extends BaseController
    */
   public function execute(): void {
 
-    if (!isAllowed($this->CONF['controllers']['groups']->permission) && !$this->UG->isGroupManager($this->UL->username)) {
+    if (!isAllowed($this->CONF['controllers']['groups']->permission) && !$this->userGroupModel->isGroupManager($this->userLoggedIn->username)) {
       $this->renderAlert('warning', $this->LANG['alert_alert_title'], $this->LANG['alert_not_allowed_subject'], $this->LANG['alert_not_allowed_text'], $this->LANG['alert_not_allowed_help']);
       return;
     }
@@ -73,8 +73,8 @@ class GroupsController extends BaseController
         $viewData['txt_description'] = $_POST['txt_description'] ?? '';
 
         if (!$inputError) {
-          $this->G->name        = $viewData['txt_name'];
-          $this->G->description = $viewData['txt_description'];
+          $this->groupModel->name        = $viewData['txt_name'];
+          $this->groupModel->description = $viewData['txt_description'];
 
           $avatar = 'default_group.png';
           if (isset($_FILES['file_avatar']) && $_FILES['file_avatar']['error'] != UPLOAD_ERR_NO_FILE) {
@@ -93,20 +93,20 @@ class GroupsController extends BaseController
               $avatar = $UPL->uploaded_file['name'];
             }
           }
-          $this->G->avatar = $avatar;
+          $this->groupModel->avatar = $avatar;
 
-          $this->G->minpresent   = 0;
-          $this->G->maxabsent    = 9999;
-          $this->G->minpresentwe = 0;
-          $this->G->maxabsentwe  = 9999;
-          $this->G->create();
+          $this->groupModel->minpresent   = 0;
+          $this->groupModel->maxabsent    = 9999;
+          $this->groupModel->minpresentwe = 0;
+          $this->groupModel->maxabsentwe  = 9999;
+          $this->groupModel->create();
 
           $mailError = '';
           if ($this->allConfig['emailNotifications']) {
-            sendGroupEventNotifications("created", $this->G->name, $this->G->description, $mailError);
+            sendGroupEventNotifications("created", $this->groupModel->name, $this->groupModel->description, $mailError);
           }
 
-          $this->LOG->logEvent("logGroup", $this->UL->username, "log_group_created", $this->G->name . " " . $this->G->description);
+          $this->logModel->logEvent("logGroup", $this->userLoggedIn->username, "log_group_created", $this->groupModel->name . " " . $this->groupModel->description);
 
           $showAlert            = true;
           $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
@@ -128,17 +128,17 @@ class GroupsController extends BaseController
         }
       }
       elseif (isset($_POST['btn_groupDelete'])) {
-        $this->G->delete($_POST['hidden_id']);
-        $this->UG->deleteByGroup((string) $_POST['hidden_id']);
+        $this->groupModel->delete($_POST['hidden_id']);
+        $this->userGroupModel->deleteByGroup((string) $_POST['hidden_id']);
         // Need UO here
-        $this->UO->deleteOptionByValue('calfilterGroup', $_POST['hidden_id']);
+        $this->userOptionModel->deleteOptionByValue('calfilterGroup', $_POST['hidden_id']);
 
         $mailError = '';
         if ($this->allConfig['emailNotifications']) {
           sendGroupEventNotifications("deleted", $_POST['hidden_name'], $_POST['hidden_description'], $mailError);
         }
 
-        $this->LOG->logEvent("logGroup", $this->UL->username, "log_group_deleted", $_POST['hidden_name']);
+        $this->logModel->logEvent("logGroup", $this->userLoggedIn->username, "log_group_deleted", $_POST['hidden_name']);
 
         $showAlert            = true;
         $alertData['type']    = (empty($mailError)) ? 'success' : 'warning';
@@ -157,18 +157,18 @@ class GroupsController extends BaseController
       $viewData['showAlert'] = true;
     }
 
-    $viewData['groups']      = $this->G->getAllCached();
+    $viewData['groups']      = $this->groupModel->getAllCached();
     $viewData['searchGroup'] = '';
 
-    if (!isAllowed($this->CONF['controllers']['groups']->permission) && $this->UG->isGroupManager($this->UL->username)) {
-      $viewData['groups'] = $this->UG->getAllManagedGroupsForUser($this->UL->username);
+    if (!isAllowed($this->CONF['controllers']['groups']->permission) && $this->userGroupModel->isGroupManager($this->userLoggedIn->username)) {
+      $viewData['groups'] = $this->userGroupModel->getAllManagedGroupsForUser($this->userLoggedIn->username);
     }
 
     if (isset($_POST['btn_search'])) {
       if (isset($_POST['txt_searchGroup'])) {
         $searchGroup             = sanitize($_POST['txt_searchGroup']);
         $viewData['searchGroup'] = $searchGroup;
-        $viewData['groups']      = $this->G->getAllCached();
+        $viewData['groups']      = $this->groupModel->getAllCached();
         $searchGroup             = strtolower($searchGroup);
         $viewData['groups']      = array_filter($viewData['groups'], function ($group) use ($searchGroup) {
           return stripos($group['name'], $searchGroup) !== false || stripos($group['description'], $searchGroup) !== false;

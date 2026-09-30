@@ -168,7 +168,7 @@
                     <td class="m-label text-center"><input class="form-check-input" name="opt_abs_{{ i }}" type="radio" value="0"></td>
                   {% endfor %}
                 </tr>
-                {% if takeover and (UL.username != username) %}
+                {% if takeover and (userLoggedIn.username != username) %}
                   <!-- Take over row -->
                   <tr>
                     <td class="m-label">Take over</td>

@@ -24,9 +24,9 @@ class LogoutController extends BaseController
    * @return void
    */
   public function execute(): void {
-    $username = $this->UL->username;
-    $this->L->logout();
-    $this->LOG->logEvent("logLogin", $username, "log_logout");
+    $username = $this->userLoggedIn->username;
+    $this->loginModel->logout();
+    $this->logModel->logEvent("logLogin", $username, "log_logout");
 
     header("Location: index.php");
     exit();

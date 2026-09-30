@@ -49,6 +49,8 @@ $LANG['login_error_94_text'] = 'Der Start von TLS ist fehlgeschlagen. Bitte vers
 $LANG['login_error_95'] = 'LDAP Fehler: Benutzername nicht gefunden';
 $LANG['login_error_96'] = 'LDAP Fehler: "Search bind" fehlgeschlagen';
 $LANG['login_error_96_text'] = 'Der LDAP "Search bind" ist fehlgeschlagen. Bitte versuche es erneut.';
+$LANG['login_error_97'] = 'LDAP Fehler: Anonyme Bindungsprüfung fehlgeschlagen';
+$LANG['login_error_97_text'] = 'Der LDAP Server hat die anonyme Bindung zur Verbindungsprüfung abgelehnt. Bitte überprüfe die Einstellung für die anonyme Bindung auf deinem LDAP Server oder deaktiviere die Prüfung der anonymen Bindung in der Konfiguration.';
 
 $LANG['login_sso_button'] = 'Login mit SSO';
 $LANG['login_admin_local'] = 'Administrator-Login';

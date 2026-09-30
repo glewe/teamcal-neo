@@ -122,11 +122,13 @@ use App\Core\Container;
 use App\Core\Request;
 use App\Core\Router;
 
+use App\Models\AbsenceDayModel;
 use App\Models\AbsenceGroupModel;
 use App\Models\AbsenceModel;
 use App\Models\AllowanceModel;
 use App\Models\AttachmentModel;
 use App\Models\AvatarModel;
+use App\Models\CalendarDayModel;
 use App\Models\ConfigModel;
 use App\Models\DaynoteModel;
 use App\Models\DbModel;
@@ -135,11 +137,9 @@ use App\Models\HolidayModel;
 use App\Models\LogModel;
 use App\Models\LoginModel;
 use App\Models\MessageModel;
-use App\Models\MonthModel;
 use App\Models\PermissionModel;
 use App\Models\RegionModel;
 use App\Models\RoleModel;
-use App\Models\TemplateModel;
 use App\Models\UserAttachmentModel;
 use App\Models\UserGroupModel;
 use App\Models\UserMessageModel;
@@ -275,13 +275,13 @@ $container->set('TemplateEngine', function () {
 $container->set('AbsenceService', function ($c) {
   return new App\Services\AbsenceService(
     $c->get('AbsenceModel'),
+    $c->get('AbsenceDayModel'),
     $c->get('AllowanceModel'),
     $c->get('ConfigModel'),
     $c->get('DaynoteModel'),
     $c->get('GroupModel'),
     $c->get('HolidayModel'),
-    $c->get('MonthModel'),
-    $c->get('TemplateModel'),
+    $c->get('CalendarDayModel'),
     $c->get('UserGroupModel'),
     $c->get('UserModel'),
     $c->get('UserLoggedIn'),
@@ -294,7 +294,7 @@ $container->set('UserService', function ($c) {
     $c->get('UserModel'),
     $c->get('UserGroupModel'),
     $c->get('UserOptionModel'),
-    $c->get('TemplateModel'),
+    $c->get('AbsenceDayModel'),
     $c->get('DaynoteModel'),
     $c->get('AllowanceModel'),
     $c->get('UserMessageModel'),
@@ -307,11 +307,11 @@ $container->set('UserService', function ($c) {
 $container->set('CalendarMonthBuilderService', function ($c) {
   return new App\Services\CalendarMonthBuilderService(
     $c->get('AbsenceModel'),
+    $c->get('AbsenceDayModel'),
+    $c->get('CalendarDayModel'),
     $c->get('ConfigModel'),
     $c->get('DaynoteModel'),
     $c->get('HolidayModel'),
-    $c->get('LogModel'),
-    $c->get('TemplateModel'),
     $c->get('UserGroupModel'),
     $c->get('UserModel'),
     $c->get('UserLoggedIn'),
@@ -410,16 +410,16 @@ $container->set('HolidayModel', function ($c) use ($CONF) {
   return new HolidayModel($c->get('DbModel')->db, $CONF);
 });
 
-$container->set('MonthModel', function ($c) use ($CONF) {
-  return new MonthModel($c->get('DbModel')->db, $CONF);
+$container->set('CalendarDayModel', function ($c) use ($CONF) {
+  return new CalendarDayModel($c->get('DbModel')->db, $CONF);
 });
 
 $container->set('RegionModel', function ($c) use ($CONF) {
   return new RegionModel($c->get('DbModel')->db, $CONF);
 });
 
-$container->set('TemplateModel', function ($c) use ($CONF) {
-  return new TemplateModel($c->get('DbModel')->db, $CONF);
+$container->set('AbsenceDayModel', function ($c) use ($CONF) {
+  return new AbsenceDayModel($c->get('DbModel')->db, $CONF);
 });
 
 $container->set('AttachmentModel', function ($c) use ($CONF) {
@@ -436,27 +436,27 @@ $container->set('AvatarModel', function () use ($CONF) {
 });
 
 // Retrieve instances for global legacy support (temporary)
-$DB   = $container->get('DbModel');
-$C    = $container->get('ConfigModel');
-$G    = $container->get('GroupModel');
-$L    = $container->get('LoginModel');
-$LOG  = $container->get('LogModel');
-$MSG  = $container->get('MessageModel');
-$P    = $container->get('PermissionModel');
-$RO   = $container->get('RoleModel');
-$U    = $container->get('UserModel');
-$UG   = $container->get('UserGroupModel');
-$UL   = $container->get('UserLoggedIn');
-$UMSG = $container->get('UserMessageModel');
-$UO   = $container->get('UserOptionModel');
-$A    = $container->get('AbsenceModel');
-$AG   = $container->get('AbsenceGroupModel');
-$AL   = $container->get('AllowanceModel');
-$D    = $container->get('DaynoteModel');
-$H    = $container->get('HolidayModel');
-$M    = $container->get('MonthModel');
-$R    = $container->get('RegionModel');
-$T    = $container->get('TemplateModel');
+$dbModel   = $container->get('DbModel');
+$configModel    = $container->get('ConfigModel');
+$groupModel    = $container->get('GroupModel');
+$loginModel    = $container->get('LoginModel');
+$logModel  = $container->get('LogModel');
+$messageModel  = $container->get('MessageModel');
+$permissionModel    = $container->get('PermissionModel');
+$roleModel   = $container->get('RoleModel');
+$userModel    = $container->get('UserModel');
+$userGroupModel   = $container->get('UserGroupModel');
+$userLoggedIn   = $container->get('UserLoggedIn');
+$userMessageModel = $container->get('UserMessageModel');
+$userOptionModel   = $container->get('UserOptionModel');
+$absenceModel    = $container->get('AbsenceModel');
+$absenceGroupModel   = $container->get('AbsenceGroupModel');
+$allowanceModel   = $container->get('AllowanceModel');
+$daynoteModel    = $container->get('DaynoteModel');
+$holidayModel    = $container->get('HolidayModel');
+$regionModel    = $container->get('RegionModel');
+$absenceDayModel   = $container->get('AbsenceDayModel');
+$calendarDayModel   = $container->get('CalendarDayModel');
 
 //-----------------------------------------------------------------------------
 // VARIABLE DEFAULTS
@@ -465,7 +465,7 @@ require_once WEBSITE_ROOT . '/config/config.vars.php';
 //
 // Load all config records (global in controllers)
 //
-$allConfig = $C->readAll();
+$allConfig = $configModel->readAll();
 
 //
 // Override production mode if database setting is enabled
@@ -506,11 +506,11 @@ $userData['defaultMenu'] = $allConfig['defaultMenu'];
 //
 // Load all permissions into an array so there is no need to query the database for each permission
 //
-$permissions = $P->getPermissions($allConfig['permissionScheme']);
+$permissions = $permissionModel->getPermissions($allConfig['permissionScheme']);
 //
 // Check login and make logged in username global
 //
-$luser = $L->checkLogin();
+$luser = $loginModel->checkLogin();
 if ($luser) {
   define('L_USER', $luser);
 }
@@ -525,26 +525,26 @@ if (L_USER) {
   //
   // Get the user
   //
-  $UL->findByName($luser);
+  $userLoggedIn->findByName($luser);
   //
   // Fill the user array
   //
-  $userData['username'] = $UL->username;
-  $userData['roleid']   = $UL->role;
-  $userData['fullname'] = $UL->getFullname($UL->username);
-  $userData['color']    = getRoleColor($UL->role);
+  $userData['username'] = $userLoggedIn->username;
+  $userData['roleid']   = $userLoggedIn->role;
+  $userData['fullname'] = $userLoggedIn->getFullname($userLoggedIn->username);
+  $userData['color']    = getRoleColor($userLoggedIn->role);
 
-  $userData['avatar'] = $UO->read($UL->username, 'avatar');
+  $userData['avatar'] = $userOptionModel->read($userLoggedIn->username, 'avatar');
   if ($userData['avatar'] && !file_exists(APP_AVATAR_DIR . $userData['avatar'])) {
-    $userData['avatar'] = 'default_' . $UO->read($UL->username, 'gender') . '.png';
+    $userData['avatar'] = 'default_' . $userOptionModel->read($userLoggedIn->username, 'gender') . '.png';
   }
 
-  $defaultMenu = $UO->read($UL->username, 'defaultMenu');
+  $defaultMenu = $userOptionModel->read($userLoggedIn->username, 'defaultMenu');
   if ($defaultMenu && $defaultMenu != 'default') {
     $userData['defaultMenu'] = $defaultMenu;
   }
 
-  $userlang = $UO->read($UL->username, 'language');
+  $userlang = $userOptionModel->read($userLoggedIn->username, 'language');
   if ($userlang != "default") {
     $language = $userlang;
   }
@@ -572,7 +572,7 @@ if (L_USER && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['actio
   if (isset($_GET['applang'])) {
     $appLang = sanitize($_GET['applang']);
     if (in_array($appLang, $appLanguages)) {
-      $UO->save($luser, "language", $appLang);
+      $userOptionModel->save($luser, "language", $appLang);
       $pieces = explode('&', $_SERVER['QUERY_STRING']);
       array_pop($pieces); // remove the "applang=" piece, otherwise we will always get here and redirect
       $query = implode('&', $pieces);
@@ -582,7 +582,7 @@ if (L_USER && (!isset($_GET['action']) || isset($_GET['action']) && $_GET['actio
   //
   // Check for unconfirmed popup messages. If one or more, set controller to message view.
   //
-  $messages = $MSG->getAllByUser($UL->username);
+  $messages = $messageModel->getAllByUser($userLoggedIn->username);
   foreach ($messages as $msg) {
     if ($msg['um_popup']) {
       $controller = 'messages';
@@ -598,7 +598,7 @@ if (!strlen($language)) {
   $language = 'english';
 }
 
-$AV = new AvatarModel($LANG, $CONF);
+$avatarModel = new AvatarModel($LANG, $CONF);
 
 //-----------------------------------------------------------------------------
 // DETERMINE CONTROLLER

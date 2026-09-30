@@ -85,11 +85,15 @@ class Router
    */
   private function dispatchLegacy(string $action): void {
     // Make necessary variables global for legacy scripts
-    global $allConfig, $C, $CONF, $LANG, $LOG, $U, $UMSG, $UO, $L, $G, $P, $RO, $UG, $UL, $A, $AG, $AL, $D, $H, $M, $R, $T, $AV, $appStatus, $userData, $htmlData, $showAlert, $alertData, $appTitle, $language, $controller;
+    global $allConfig, $configModel, $CONF, $LANG, $logModel, $userModel, $userMessageModel, $userOptionModel, $loginModel, $groupModel, $permissionModel, $roleModel, $userGroupModel, $userLoggedIn, $absenceModel, $absenceDayModel, $absenceGroupModel, $allowanceModel, $calendarDayModel, $daynoteModel, $holidayModel, $regionModel, $avatarModel, $appStatus, $userData, $htmlData, $showAlert, $alertData, $appTitle, $language, $controller;
 
     $controller = $action; // Ensure global $controller is set for legacy scripts
 
-    if (file_exists(WEBSITE_ROOT . '/controller/' . $action . '.php')) {
+    // Only allow bare action names (no path separators or traversal sequences) before
+    // it is used to build an include path, to prevent local file inclusion (CWE-98).
+    $isSafeAction = preg_match('/^[a-zA-Z0-9_-]+$/', $action) === 1;
+
+    if ($isSafeAction && file_exists(WEBSITE_ROOT . '/controller/' . $action . '.php')) {
       require_once WEBSITE_ROOT . '/controller/' . $action . '.php';
     }
     else {

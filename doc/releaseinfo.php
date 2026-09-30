@@ -2,6 +2,28 @@
 $releases = [
   //---------------------------------------------------------------------------
   [
+    'version' => '6.0.0',
+    'date' => '2026-10-01',
+    'info' => 'New major release',
+    'bugfixes' => [
+    ],
+    'features' => [
+    ],
+    'improvements' => [
+      [ 'summary' => 'Refactor the database to a modern, secure and performing structure', 'issue' => '' ],
+      [ 'summary' => 'Improve performance in calendar loading', 'issue' => '' ],
+      [ 'summary' => 'Add return code 97 for LDAP anonymous bind failed', 'issue' => '' ],
+      [ 'summary' => 'Update dependencies', 'issue' => '' ],
+      [ 'summary' => 'Enhance LDAP configuration documentation and improve connection handling in LdapService', 'issue' => '#112' ],
+      [ 'summary' => 'Enhance security in dispatchLegacy by validating action names to prevent local file inclusion', 'issue' => '#111' ],
+    ],
+    'removals' => [
+      [ 'summary' => 'Remove obsolete Chart.js 4.4.7 folder (new version installed)', 'issue' => '' ],
+      [ 'summary' => 'Remove Syntaxhighlighter addon (not used anymore)', 'issue' => '' ],
+    ],
+  ],
+  //---------------------------------------------------------------------------
+  [
     'version' => '5.3.7',
     'date' => '2026-09-14',
     'info' => 'Security release. Updating is strongly recommended.',

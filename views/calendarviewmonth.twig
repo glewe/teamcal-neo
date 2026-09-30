@@ -66,8 +66,8 @@
             {% for userRow in userRows %}
               {% if groups|length == 1 or grp.id in userRow.groups|default([]) %}
                   {% set hideThisUser = false %}
-                  {% if hideManagers == '1' and UG.isGroupManagerOfGroup(userRow.username, grp.id) %}
-                    {% set memberships = UG.getMemberships(userRow.username) %}
+                  {% if hideManagers == '1' and userGroupModel.isGroupManagerOfGroup(userRow.username, grp.id) %}
+                    {% set memberships = userGroupModel.getMemberships(userRow.username) %}
                     {% if memberships|length > 0 and (grp.id not in memberships) %}
                       {% set hideThisUser = true %}
                     {% endif %}

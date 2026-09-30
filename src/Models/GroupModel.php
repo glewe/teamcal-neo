@@ -47,8 +47,8 @@ class GroupModel
       $this->table = $conf['db_table_groups'];
     }
     else {
-      global $CONF, $DB;
-      $this->db    = $DB->db;
+      global $CONF, $dbModel;
+      $this->db    = $dbModel->db;
       $this->table = $CONF['db_table_groups'];
     }
   }
@@ -79,7 +79,7 @@ class GroupModel
   /**
    * Deletes a record by ID.
    *
-   * @param string $id Record ID to delete
+   * @param string|int $id Record ID to delete
    *
    * @return bool Query result
    */
@@ -103,7 +103,12 @@ class GroupModel
     $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table);
     $query->execute();
     if ($query->fetchColumn()) {
-      $query   = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
+      // Plain DELETE, not TRUNCATE: tcneo_groups is now an FK target
+      // (tcneo_absence_group, tcneo_user_group, tcneo_archive_user_group),
+      // and InnoDB refuses TRUNCATE on any table referenced by a FK
+      // constraint regardless of row counts. DELETE lets those FKs'
+      // ON DELETE CASCADE/SET NULL actions run normally.
+      $query   = $this->db->prepare('DELETE FROM ' . $this->table);
       $success = $query->execute();
       if ($success) {
         $this->invalidateCache();
@@ -194,7 +199,7 @@ class GroupModel
   /**
    * Gets a group record for a given ID.
    *
-   * @param string $id Group ID to find
+   * @param string|int $id Group ID to find
    *
    * @return bool True or false
    */
@@ -295,7 +300,7 @@ class GroupModel
   /**
    * Gets the maximum absent value for group, using cache.
    *
-   * @param string $id ID to find
+   * @param string|int $id ID to find
    *
    * @return string|int Maximum absent value
    */
@@ -318,7 +323,7 @@ class GroupModel
   /**
    * Gets the maximum absent value for group for weekends, using cache.
    *
-   * @param string $id ID to find
+   * @param string|int $id ID to find
    *
    * @return string|int Maximum absent value weekends
    */
@@ -341,7 +346,7 @@ class GroupModel
   /**
    * Gets the minimum present value for group, using cache.
    *
-   * @param string $id ID to find
+   * @param string|int $id ID to find
    *
    * @return string|int Minimum present value
    */
@@ -364,7 +369,7 @@ class GroupModel
   /**
    * Gets the minimum present value for group for weekends, using cache.
    *
-   * @param string $id ID to find
+   * @param string|int $id ID to find
    *
    * @return string|int Minimum present value weekends
    */
@@ -387,7 +392,7 @@ class GroupModel
   /**
    * Gets a group name for a given ID, using cache.
    *
-   * @param string $id ID to find
+   * @param string|int $id ID to find
    *
    * @return string|bool Group name or false
    */
@@ -410,7 +415,7 @@ class GroupModel
   /**
    * Gets a group record for a given ID.
    *
-   * @param string $id Group ID to find
+   * @param string|int $id Group ID to find
    *
    * @return array<int, array<string, mixed>>|bool True or false
    */
@@ -453,7 +458,7 @@ class GroupModel
   /**
    * Updates a record for a given ID.
    *
-   * @param string $id Record ID
+   * @param string|int $id Record ID
    *
    * @return bool Query result
    */

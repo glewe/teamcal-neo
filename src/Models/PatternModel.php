@@ -4,11 +4,17 @@ declare(strict_types=1);
 namespace App\Models;
 
 use PDO;
+use Throwable;
 
 /**
  * PatternModel
  *
  * This class provides methods and properties for attendance patterns.
+ *
+ * A pattern's weekday assignments live in `tcneo_pattern_days`, one row per
+ * weekday that actually has an absence assigned (replacing the old
+ * `abs1..abs7` columns on `tcneo_patterns`). A weekday with no assigned
+ * absence simply has no row - see getWeekdayMap()/setWeekdayMap().
  *
  * @author    George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2026 by George Lewe
@@ -22,67 +28,52 @@ class PatternModel
   public int    $id          = 0;
   public string $name        = '';
   public string $description = '';
-  public ?int   $abs1        = 0;
-  public ?int   $abs2        = 0;
-  public ?int   $abs3        = 0;
-  public ?int   $abs4        = 0;
-  public ?int   $abs5        = 0;
-  public ?int   $abs6        = 0;
-  public ?int   $abs7        = 0;
 
   private PDO    $db;
-  private string $table = '';
+  private string $table     = '';
+  private string $daysTable = '';
 
   //---------------------------------------------------------------------------
   /**
    * Constructor.
    *
-   * @param PDO|null             $db   Database object
+   * @param PDO|null                    $db   Database object
    * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
     if ($db !== null && $conf !== null) {
-      $this->db    = $db;
-      $this->table = $conf['db_table_patterns'];
+      $this->db        = $db;
+      $this->table     = $conf['db_table_patterns'];
+      $this->daysTable = $conf['db_table_pattern_days'];
     }
     else {
-      global $CONF, $DB;
-      $this->db    = $DB->db;
-      $this->table = $CONF['db_table_patterns'];
+      global $CONF, $dbModel;
+      $this->db        = $dbModel->db;
+      $this->table     = $CONF['db_table_patterns'];
+      $this->daysTable = $CONF['db_table_pattern_days'];
     }
   }
 
   //---------------------------------------------------------------------------
   /**
-   * Creates a pattern record from class variables.
+   * Creates a pattern record from class variables (name/description only -
+   * assign weekdays afterwards via setWeekdayMap($this->id, ...)).
    *
    * @return bool Query result
    */
   public function create(): bool {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description, abs1, abs2, abs3, abs4, abs5, abs6, abs7) VALUES (:name, :description, :abs1, :abs2, :abs3, :abs4, :abs5, :abs6, :abs7)');
+    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' (name, description) VALUES (:name, :description)');
     $query->bindParam(':name', $this->name, PDO::PARAM_STR);
     $query->bindParam(':description', $this->description, PDO::PARAM_STR);
-    for ($i = 1; $i <= 7; $i++) {
-      $prop = 'abs' . $i;
-      $query->bindParam(':abs' . $i, $this->$prop, PDO::PARAM_INT);
-    }
-    return $query->execute();
+    $result     = $query->execute();
+    $this->id   = (int) $this->db->lastInsertId();
+    return $result;
   }
 
   //---------------------------------------------------------------------------
   /**
-   * Deletes all records.
-   *
-   * @return bool Query result
-   */
-  public function deleteAll(): bool {
-    $query = $this->db->prepare('TRUNCATE TABLE ' . $this->table);
-    return $query->execute();
-  }
-
-  //---------------------------------------------------------------------------
-  /**
-   * Deletes a pattern record.
+   * Deletes a pattern record. `fk_pd_pattern` is ON DELETE CASCADE, so its
+   * weekday assignments in tcneo_pattern_days are removed automatically.
    *
    * @param string $id Record ID
    *
@@ -111,10 +102,6 @@ class PatternModel
       $this->id          = (int) $row['id'];
       $this->name        = (string) $row['name'];
       $this->description = (string) $row['description'];
-      for ($i = 1; $i <= 7; $i++) {
-        $prop        = 'abs' . $i;
-        $this->$prop = isset($row[$prop]) ? (int) $row[$prop] : 0;
-      }
       return true;
     }
     return false;
@@ -158,43 +145,108 @@ class PatternModel
 
   //---------------------------------------------------------------------------
   /**
-   * Checks whether a given absence pattern exists.
+   * Gets the weekday-to-absence map for a pattern.
    *
-   * @param array<int, int> $absPattern Array of absences
+   * @param string $patternId Pattern ID
+   *
+   * @return array<int, int> [weekday(1=Mon..7=Sun) => absenceId], defaulting missing weekdays to 0 (none)
+   */
+  public function getWeekdayMap(string $patternId): array {
+    $map   = array_fill(1, 7, 0);
+    $query = $this->db->prepare('SELECT weekday, absence_id FROM ' . $this->daysTable . ' WHERE pattern_id = :id');
+    $query->bindParam(':id', $patternId, PDO::PARAM_INT);
+    $query->execute();
+    while ($row = $query->fetch()) {
+      $map[(int) $row['weekday']] = (int) $row['absence_id'];
+    }
+    return $map;
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Sets the weekday-to-absence map for a pattern. An absence ID of 0 (none)
+   * removes that weekday's row instead of storing it.
+   *
+   * @param string           $patternId       Pattern ID
+   * @param array<int, int|string> $weekdayToAbsence [weekday(1..7) => absenceId]
+   *
+   * @return bool True if all weekdays were written successfully
+   */
+  public function setWeekdayMap(string $patternId, array $weekdayToAbsence): bool {
+    $this->db->beginTransaction();
+    try {
+      foreach ($weekdayToAbsence as $weekday => $absenceId) {
+        $absenceId = (int) $absenceId;
+        if ($absenceId === 0) {
+          $query = $this->db->prepare('DELETE FROM ' . $this->daysTable . ' WHERE pattern_id = :pid AND weekday = :wd');
+          $query->bindValue(':pid', (int) $patternId, PDO::PARAM_INT);
+          $query->bindValue(':wd', (int) $weekday, PDO::PARAM_INT);
+          $query->execute();
+        }
+        else {
+          $query = $this->db->prepare('
+            INSERT INTO ' . $this->daysTable . ' (pattern_id, weekday, absence_id)
+            VALUES (:pid, :wd, :aid)
+            ON DUPLICATE KEY UPDATE absence_id = :aid2
+          ');
+          $query->bindValue(':pid', (int) $patternId, PDO::PARAM_INT);
+          $query->bindValue(':wd', (int) $weekday, PDO::PARAM_INT);
+          $query->bindValue(':aid', $absenceId, PDO::PARAM_INT);
+          $query->bindValue(':aid2', $absenceId, PDO::PARAM_INT);
+          $query->execute();
+        }
+      }
+      $this->db->commit();
+      return true;
+    }
+    catch (Throwable $e) {
+      $this->db->rollBack();
+      return false;
+    }
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Checks whether a pattern with the exact same weekday-to-absence map already exists.
+   *
+   * The pattern catalog is small and admin-managed, so comparing each
+   * existing pattern's map in PHP is simpler (and just as fast in practice)
+   * than reconstructing an exact-match query against the sparse child table.
+   *
+   * @param array<int, int|string> $weekdayToAbsence [weekday(1..7) => absenceId]
    *
    * @return string|bool Pattern name or false
    */
-  public function patternExists(array $absPattern): string|bool {
-    $stmt  = 'SELECT name FROM ' . $this->table . ' WHERE abs1 = :abs1 AND abs2 = :abs2 AND abs3 = :abs3 AND abs4 = :abs4 AND abs5 = :abs5 AND abs6 = :abs6 AND abs7 = :abs7';
-    $query = $this->db->prepare($stmt);
-    for ($i = 1; $i <= 7; $i++) {
-      $query->bindParam(':abs' . $i, $absPattern[$i], PDO::PARAM_INT);
+  public function patternExists(array $weekdayToAbsence): string|bool {
+    $normalized = [];
+    foreach ($weekdayToAbsence as $weekday => $absenceId) {
+      $normalized[(int) $weekday] = (int) $absenceId;
     }
-    $query->execute();
-    $row = $query->fetch();
-    if ($row) {
-      return (string) $row['name'];
+    ksort($normalized);
+
+    foreach ($this->getAll() as $pattern) {
+      $existing = $this->getWeekdayMap((string) $pattern['id']);
+      ksort($existing);
+      if ($existing === $normalized) {
+        return (string) $pattern['name'];
+      }
     }
     return false;
   }
 
   //---------------------------------------------------------------------------
   /**
-   * Updates a pattern record.
+   * Updates a pattern record's name/description.
    *
    * @param string $id Record ID to update
    *
    * @return bool Query result
    */
   public function update(string $id): bool {
-    $stmt  = 'UPDATE ' . $this->table . ' SET name = :name, description = :description, abs1 = :abs1, abs2 = :abs2, abs3 = :abs3, abs4 = :abs4, abs5 = :abs5, abs6 = :abs6, abs7 = :abs7 WHERE id = :id';
+    $stmt  = 'UPDATE ' . $this->table . ' SET name = :name, description = :description WHERE id = :id';
     $query = $this->db->prepare($stmt);
     $query->bindParam(':name', $this->name, PDO::PARAM_STR);
     $query->bindParam(':description', $this->description, PDO::PARAM_STR);
-    for ($i = 1; $i <= 7; $i++) {
-      $prop = 'abs' . $i;
-      $query->bindParam(':abs' . $i, $this->$prop, PDO::PARAM_INT);
-    }
     $query->bindParam(':id', $id, PDO::PARAM_INT);
     return $query->execute();
   }

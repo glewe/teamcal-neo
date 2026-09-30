@@ -56,7 +56,7 @@
         <div class="card-header text-bg-{{ CONF.controllers[controller].panelColor }}">
           <i class="{{ CONF.controllers[controller].faIcon }} fa-lg me-3"></i>
           {{ LANG.monthedit_title|format(year, month, regionname) }}
-          {% if C.read('pageHelp') %}
+          {% if configModel.read('pageHelp') %}
             <a href="{{ CONF.controllers[controller].docurl }}" target="_blank" class="float-end" style="color:inherit;">
               <i class="bi bi-question-circle-fill bi-lg"></i>
             </a>
@@ -170,11 +170,11 @@
                   {% for i in daystart..dayend %}
                     {% set wprop = 'wday' ~ i %}
                     {# Checking Daynote logic #}
-                    {# D.get(yyyymmdd, 'all', regionid, true) #}
+                    {# daynoteModel.get(yyyymmdd, 'all', regionid, true) #}
                     {% set dateKey = year ~ month ~ '%02d'|format(i) %}
-                      {% if D.get(dateKey, 'all', regionid, true) %}
+                      {% if daynoteModel.get(dateKey, 'all', regionid, true) %}
                       {% set icon = 'fas fa-sticky-note' %}
-                      {% set tooltip = ' data-placement="top" data-type="' ~ D.color ~ '" data-bs-toggle="tooltip" title="' ~ D.daynote ~ '"' %}
+                      {% set tooltip = ' data-placement="top" data-type="' ~ daynoteModel.color ~ '" data-bs-toggle="tooltip" title="' ~ daynoteModel.daynote ~ '"' %}
                     {% else %}
                       {% set icon = 'far fa-sticky-note' %}
                       {% set tooltip = '' %}

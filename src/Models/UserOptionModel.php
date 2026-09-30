@@ -10,6 +10,14 @@ use PDO;
  *
  * This class provides methods and properties for user options.
  *
+ * The public API takes usernames (matching every caller's existing data -
+ * this is the most-called model in the codebase), resolving internally to
+ * the tcneo_users.id foreign key that tcneo_user_option.user_id actually
+ * stores - same approach as AbsenceDayModel/AllowanceModel. Since this
+ * model is normally instantiated once per request via the container, the
+ * per-instance resolve cache means each distinct username costs one extra
+ * lookup query for the whole request, not per call.
+ *
  * @author    George Lewe <george@lewe.com>
  * @copyright Copyright (c) 2014-2026 by George Lewe
  * @link      https://www.lewe.com
@@ -27,6 +35,11 @@ class UserOptionModel
   private PDO    $db;
   private string $table         = '';
   private string $archive_table = '';
+  private string $users_table   = '';
+  private string $archive_users_table = '';
+
+  /** @var array<string, int|null> */
+  private array $userIdCache = [];
 
   //---------------------------------------------------------------------------
   /**
@@ -40,13 +53,42 @@ class UserOptionModel
       $this->db            = $db;
       $this->table         = $conf['db_table_user_option'];
       $this->archive_table = $conf['db_table_archive_user_option'];
+      $this->users_table   = $conf['db_table_users'];
+      $this->archive_users_table = $conf['db_table_archive_users'];
     }
     else {
-      global $CONF, $DB;
-      $this->db            = $DB->db;
+      global $CONF, $dbModel;
+      $this->db            = $dbModel->db;
       $this->table         = $CONF['db_table_user_option'];
       $this->archive_table = $CONF['db_table_archive_user_option'];
+      $this->users_table   = $CONF['db_table_users'];
+      $this->archive_users_table = $CONF['db_table_archive_users'];
     }
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Resolves a username to its tcneo_users.id, caching the result.
+   *
+   * @param string $username Username to resolve
+   *
+   * @return int|null Resolved id, or null if the username is empty/unknown
+   */
+  private function resolveUserId(string $username): ?int {
+    if ($username === '') {
+      return null;
+    }
+    if (array_key_exists($username, $this->userIdCache)) {
+      return $this->userIdCache[$username];
+    }
+    $query = $this->db->prepare('SELECT id FROM ' . $this->users_table . ' WHERE username = :username');
+    $query->bindParam(':username', $username);
+    $query->execute();
+    $id = $query->fetchColumn();
+    if ($id === false) {
+      return null; // do not cache misses - the user may be created later in this request
+    }
+    return $this->userIdCache[$username] = (int) $id;
   }
 
   //---------------------------------------------------------------------------
@@ -58,8 +100,9 @@ class UserOptionModel
    * @return bool Query result
    */
   public function archive(string $username): bool {
-    $query = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE `username` = :username');
-    $query->bindParam(':username', $username);
+    $userId = $this->resolveUserId($username);
+    $query  = $this->db->prepare('INSERT INTO ' . $this->archive_table . ' SELECT t.* FROM ' . $this->table . ' t WHERE `user_id` = :user_id');
+    $query->bindValue(':user_id', $userId, PDO::PARAM_INT);
     return $query->execute();
   }
 
@@ -72,8 +115,9 @@ class UserOptionModel
    * @return bool Query result
    */
   public function restore(string $username): bool {
-    $query = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE `username` = :username');
-    $query->bindParam(':username', $username);
+    $userId = $this->resolveUserId($username);
+    $query  = $this->db->prepare('INSERT INTO ' . $this->table . ' SELECT a.* FROM ' . $this->archive_table . ' a WHERE `user_id` = :user_id');
+    $query->bindValue(':user_id', $userId, PDO::PARAM_INT);
     return $query->execute();
   }
 
@@ -87,9 +131,10 @@ class UserOptionModel
    * @return bool True if found, false if not
    */
   public function exists(string $username = '', bool $archive = false): bool {
-    $table = $archive ? $this->archive_table : $this->table;
-    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE `username` = :username');
-    $query->bindParam(':username', $username);
+    $table  = $archive ? $this->archive_table : $this->table;
+    $userId = $this->resolveUserId($username);
+    $query  = $this->db->prepare('SELECT COUNT(*) FROM ' . $table . ' WHERE `user_id` = :user_id');
+    $query->bindValue(':user_id', $userId, PDO::PARAM_INT);
     $result = $query->execute();
     return (bool) ($result && $query->fetchColumn() > 0);
   }
@@ -105,16 +150,20 @@ class UserOptionModel
    * @return bool Query result
    */
   public function create(string $username, string $option, string $value): bool {
+    $userId = $this->resolveUserId($username);
+    if ($userId === null) {
+      return false; // not a stored user (e.g. an anonymous visitor): there is nothing to attach the option to
+    }
     // Prevent duplicate entry
-    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE username = :username AND `option` = :option');
-    $query->bindParam(':username', $username);
+    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE user_id = :user_id AND `option` = :option');
+    $query->bindValue(':user_id', $userId, PDO::PARAM_INT);
     $query->bindParam(':option', $option);
     $query->execute();
     if ($query->fetchColumn() > 0) {
       return false;
     }
-    $query2 = $this->db->prepare('INSERT INTO ' . $this->table . ' (username, `option`, value) VALUES (:username, :option, :value)');
-    $query2->bindParam(':username', $username);
+    $query2 = $this->db->prepare('INSERT INTO ' . $this->table . ' (user_id, `option`, value) VALUES (:user_id, :option, :value)');
+    $query2->bindValue(':user_id', $userId, PDO::PARAM_INT);
     $query2->bindParam(':option', $option);
     $query2->bindParam(':value', $value);
     return $query2->execute();
@@ -122,7 +171,7 @@ class UserOptionModel
 
   //---------------------------------------------------------------------------
   /**
-   * Deletes all records.
+   * Deletes all records belonging to non-system users.
    *
    * @param bool $archive Whether to search in archive table
    *
@@ -130,9 +179,7 @@ class UserOptionModel
    */
   public function deleteAll(bool $archive = false): bool {
     $table = $archive ? $this->archive_table : $this->table;
-    $admin = 'admin';
-    $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE username <> :admin');
-    $query->bindParam(':admin', $admin);
+    $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE user_id NOT IN (SELECT id FROM ' . $this->users_table . ' WHERE is_system = 1)');
     return $query->execute();
   }
 
@@ -161,9 +208,10 @@ class UserOptionModel
    * @return bool Query result
    */
   public function deleteByUser(string $username = '', bool $archive = false): bool {
-    $table = $archive ? $this->archive_table : $this->table;
-    $query = $this->db->prepare('DELETE FROM ' . $table . ' WHERE `username` = :username');
-    $query->bindParam(':username', $username);
+    $table  = $archive ? $this->archive_table : $this->table;
+    $userId = $this->resolveUserId($username);
+    $query  = $this->db->prepare('DELETE FROM ' . $table . ' WHERE `user_id` = :user_id');
+    $query->bindValue(':user_id', $userId, PDO::PARAM_INT);
     return $query->execute();
   }
 
@@ -207,8 +255,9 @@ class UserOptionModel
    * @return bool Query result
    */
   public function deleteUserOption(string $username, string $option): bool {
-    $query = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE `username` = :username AND `option` = :option');
-    $query->bindParam(':username', $username);
+    $userId = $this->resolveUserId($username);
+    $query  = $this->db->prepare('DELETE FROM ' . $this->table . ' WHERE `user_id` = :user_id AND `option` = :option');
+    $query->bindValue(':user_id', $userId, PDO::PARAM_INT);
     $query->bindParam(':option', $option);
     return $query->execute();
   }
@@ -223,11 +272,46 @@ class UserOptionModel
    * @return bool True if found, false if not
    */
   public function hasOption(string $username, string $option): bool {
-    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE `username` = :username AND `option` = :option');
-    $query->bindParam(':username', $username);
+    $userId = $this->resolveUserId($username);
+    $query  = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE `user_id` = :user_id AND `option` = :option');
+    $query->bindValue(':user_id', $userId, PDO::PARAM_INT);
     $query->bindParam(':option', $option);
     $result = $query->execute();
     return (bool) ($result && $query->fetchColumn() > 0);
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Reads the given options for many users with a single query.
+   *
+   * Archived users only exist in the archive users table, so the matching
+   * users table is joined when $archive is set.
+   *
+   * @param array<int, string> $usernames Usernames to read for
+   * @param array<int, string> $options   Option names to read
+   * @param bool               $archive   Whether to read from the archive tables
+   *
+   * @return array<string, array<string, string>> [username => [option => value]]
+   */
+  public function readForUsers(array $usernames, array $options, bool $archive = false): array {
+    $result = [];
+    if (empty($usernames) || empty($options)) {
+      return $result;
+    }
+    $table      = $archive ? $this->archive_table : $this->table;
+    $usersTable = $archive ? $this->archive_users_table : $this->users_table;
+    $userMarks  = implode(',', array_fill(0, count($usernames), '?'));
+    $optMarks   = implode(',', array_fill(0, count($options), '?'));
+    $query      = $this->db->prepare(
+      'SELECT u.username, uo.`option`, uo.value FROM ' . $table . ' uo'
+      . ' JOIN ' . $usersTable . ' u ON u.id = uo.user_id'
+      . ' WHERE uo.`option` IN (' . $optMarks . ') AND u.username IN (' . $userMarks . ')'
+    );
+    $query->execute(array_merge(array_values($options), array_values($usernames)));
+    while ($row = $query->fetch()) {
+      $result[(string) $row['username']][(string) $row['option']] = (string) $row['value'];
+    }
+    return $result;
   }
 
   //---------------------------------------------------------------------------
@@ -241,9 +325,10 @@ class UserOptionModel
    * @return string|false Value of the option (or false if not found)
    */
   public function read(string $username, string $option, bool $archive = false): string|false {
-    $table = $archive ? $this->archive_table : $this->table;
-    $query = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE `username` = :username AND `option` = :option');
-    $query->bindParam(':username', $username);
+    $table  = $archive ? $this->archive_table : $this->table;
+    $userId = $this->resolveUserId($username);
+    $query  = $this->db->prepare('SELECT * FROM ' . $table . ' WHERE `user_id` = :user_id AND `option` = :option');
+    $query->bindValue(':user_id', $userId, PDO::PARAM_INT);
     $query->bindParam(':option', $option);
     $result = $query->execute();
     if ($result && ($row = $query->fetch())) {
@@ -263,20 +348,24 @@ class UserOptionModel
    * @return bool Query result
    */
   public function save(string $username, string $option, string $value): bool {
-    $query = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE `username` = :username AND `option` = :option');
-    $query->bindParam(':username', $username);
+    $userId = $this->resolveUserId($username);
+    if ($userId === null) {
+      return false; // not a stored user (e.g. an anonymous visitor): there is nothing to attach the option to
+    }
+    $query  = $this->db->prepare('SELECT COUNT(*) FROM ' . $this->table . ' WHERE `user_id` = :user_id AND `option` = :option');
+    $query->bindValue(':user_id', $userId, PDO::PARAM_INT);
     $query->bindParam(':option', $option);
     $result = $query->execute();
     if ($result && $query->fetchColumn() > 0) {
-      $query2 = $this->db->prepare('UPDATE ' . $this->table . ' SET `value` = :value WHERE `username` = :username AND `option` = :option');
+      $query2 = $this->db->prepare('UPDATE ' . $this->table . ' SET `value` = :value WHERE `user_id` = :user_id AND `option` = :option');
       $query2->bindParam(':value', $value);
-      $query2->bindParam(':username', $username);
+      $query2->bindValue(':user_id', $userId, PDO::PARAM_INT);
       $query2->bindParam(':option', $option);
       return $query2->execute();
     }
     else {
-      $query2 = $this->db->prepare('INSERT INTO ' . $this->table . ' (`username`, `option`, `value`) VALUES (:username, :option, :value)');
-      $query2->bindParam(':username', $username);
+      $query2 = $this->db->prepare('INSERT INTO ' . $this->table . ' (`user_id`, `option`, `value`) VALUES (:user_id, :option, :value)');
+      $query2->bindValue(':user_id', $userId, PDO::PARAM_INT);
       $query2->bindParam(':option', $option);
       $query2->bindParam(':value', $value);
       return $query2->execute();
@@ -296,17 +385,21 @@ class UserOptionModel
     if (empty($options)) {
       return true;
     }
+    $userId = $this->resolveUserId($username);
+    if ($userId === null) {
+      return false; // not a stored user (e.g. an anonymous visitor): there is nothing to attach the option to
+    }
 
     $placeholders = [];
     $values       = [];
     foreach ($options as $option => $value) {
       $placeholders[] = "(?, ?, ?)";
-      $values[]       = $username;
+      $values[]       = $userId;
       $values[]       = $option;
       $values[]       = $value;
     }
 
-    $sql   = "INSERT INTO " . $this->table . " (`username`, `option`, `value`) VALUES " . implode(', ', $placeholders) . " ON DUPLICATE KEY UPDATE `value` = VALUES(`value`)";
+    $sql   = "INSERT INTO " . $this->table . " (`user_id`, `option`, `value`) VALUES " . implode(', ', $placeholders) . " ON DUPLICATE KEY UPDATE `value` = VALUES(`value`)";
     $query = $this->db->prepare($sql);
     return $query->execute($values);
   }
@@ -321,8 +414,9 @@ class UserOptionModel
    * @return bool True or false
    */
   public function true(string $username, string $option): bool {
-    $query = $this->db->prepare('SELECT value FROM ' . $this->table . ' WHERE `username` = :username AND `option` = :option');
-    $query->bindParam(':username', $username);
+    $userId = $this->resolveUserId($username);
+    $query  = $this->db->prepare('SELECT value FROM ' . $this->table . ' WHERE `user_id` = :user_id AND `option` = :option');
+    $query->bindValue(':user_id', $userId, PDO::PARAM_INT);
     $query->bindParam(':option', $option);
     $result = $query->execute();
     if ($result && ($row = $query->fetch())) {

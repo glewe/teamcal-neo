@@ -30,7 +30,7 @@ function createAlertBox(array $data): string {
   if (empty($data) || !isset($data['type']) || !isset($data['title']) || !isset($data['subject']) || !isset($data['text'])) {
     return '';
   }
-  global $C, $LANG;
+  global $configModel, $LANG;
 
   $html = '
     <div class="alert alert-dismissible alert-' . $data['type'] . ' fade show" role="alert">
@@ -43,11 +43,11 @@ function createAlertBox(array $data): string {
     </div>';
 
   if (
-    $data['type'] === 'danger' && $C->read('alertAutocloseDanger') ||
-    $data['type'] === 'success' && $C->read('alertAutocloseSuccess') ||
-    $data['type'] === 'warning' && $C->read('alertAutocloseWarning')
+    $data['type'] === 'danger' && $configModel->read('alertAutocloseDanger') ||
+    $data['type'] === 'success' && $configModel->read('alertAutocloseSuccess') ||
+    $data['type'] === 'warning' && $configModel->read('alertAutocloseWarning')
   ) {
-    $delay  = (int) $C->read('alertAutocloseDelay');
+    $delay  = (int) $configModel->read('alertAutocloseDelay');
     $html  .= '
       <script>
         setTimeout(function() {
@@ -673,11 +673,12 @@ function createPageTabs(array $tabs): string {
  * @return string Html
  */
 function createPatternTable(string $patternId): string {
-  global $A, $C, $LANG;
-  global $DB, $CONF;
-  $PTN = new App\Models\PatternModel($DB->db, $CONF);
-  $PTN->get($patternId);
-  $html = '
+  global $absenceModel, $configModel, $LANG;
+  global $dbModel, $CONF;
+  $patternModel        = new App\Models\PatternModel($dbModel->db, $CONF);
+  $patternModel->get($patternId);
+  $weekdayMap = $patternModel->getWeekdayMap($patternId);
+  $html       = '
   <table class="table table-bordered month mb-0">
     <tr>
       <th class="m-weekday text-center" scope="col">' . $LANG['weekdayShort'][1] . '</th>
@@ -692,25 +693,24 @@ function createPatternTable(string $patternId): string {
   ';
 
   for ($i = 1; $i <= 7; $i++) {
-    $prop  = 'abs' . $i;
-    $absId = $PTN->$prop;
-    if ($A->getBgTrans($absId)) {
+    $absId = $weekdayMap[$i];
+    if ($absenceModel->getBgTrans($absId)) {
       $bgStyle = "";
     }
     else {
-      $bgStyle = "background-color: #" . ($A->getBgColor($absId) ? $A->getBgColor($absId) : 'ffffff') . ";";
+      $bgStyle = "background-color: #" . ($absenceModel->getBgColor($absId) ? $absenceModel->getBgColor($absId) : 'ffffff') . ";";
     }
-    $style = 'color: #' . $A->getColor($absId) . ';' . $bgStyle;
-    if ($C->read('symbolAsIcon')) {
-      $icon = $A->getSymbol($absId);
+    $style = 'color: #' . $absenceModel->getColor($absId) . ';' . $bgStyle;
+    if ($configModel->read('symbolAsIcon')) {
+      $icon = $absenceModel->getSymbol($absId);
     }
     else {
-      $icon = '<span class="' . $A->getIcon($absId) . '"></span>';
+      $icon = '<span class="' . $absenceModel->getIcon($absId) . '"></span>';
     }
 
     $html .= '
     <td class="text-center" style="' . $style . '">
-      <span data-bs-custom-class="dark" data-bs-placement="top" data-bs-toggle="tooltip" title="' . $A->getName($absId) . '">' . $icon . '
+      <span data-bs-custom-class="dark" data-bs-placement="top" data-bs-toggle="tooltip" title="' . $absenceModel->getName($absId) . '">' . $icon . '
     </td>';
   }
 
@@ -738,13 +738,13 @@ function createToast(array $data): string {
 
   return '
   <div id="' . $data['id'] . '" class="toast ' . $classColor . '" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="6000">
-    <div class="toast - header">
-      <i class="' . $data['icon'] . ' me - 2"></i>
-      <strong class="me - auto">' . $data['title'] . '</strong>
-      <small>' . date("Y - m - d H:m", time()) . '</small>
-      <button type="button" class="btn - close" data-bs-dismiss="toast" aria-label="Close"></button>
+    <div class="toast-header">
+      <i class="' . $data['icon'] . ' me-2"></i>
+      <strong class="me-auto">' . $data['title'] . '</strong>
+      <small>' . date("Y-m-d H:i", time()) . '</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
-    <div class="toast - body">
+    <div class="toast-body">
       ' . $data['message'] . '
     </div>
   </div>';

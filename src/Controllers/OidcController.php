@@ -74,7 +74,7 @@ class OidcController extends BaseController
       $oidc->authenticate(); // redirects to IdP; does not return
     }
     catch (\Throwable $e) {
-      $this->LOG->logEvent('logLogin', '', 'log_login_oidc_error', ': ' . $e->getMessage());
+      $this->logModel->logEvent('logLogin', '', 'log_login_oidc_error', ': ' . $e->getMessage());
       $this->renderAlert('danger', $this->LANG['alert_danger_title'], $this->LANG['oidc_error_init'], $this->LANG['oidc_error_init_text']);
     }
   }
@@ -98,16 +98,16 @@ class OidcController extends BaseController
       $preferredUsername = (string) ($oidc->getVerifiedClaims('preferred_username') ?? '');
 
       if ($sub === '') {
-        $this->LOG->logEvent('logLogin', '', 'log_login_oidc_error');
+        $this->logModel->logEvent('logLogin', '', 'log_login_oidc_error');
         $this->renderAlert('danger', $this->LANG['alert_danger_title'], $this->LANG['oidc_error_no_sub'], $this->LANG['oidc_error_no_sub_text']);
         return;
       }
 
       // Resolve the local account: try permanent sub first, then preferred_username
       $needsSubBinding = false;
-      if (!$this->U->findByOidcSub($sub)) {
-        if ($preferredUsername === '' || !$this->U->findByName($preferredUsername)) {
-          $this->LOG->logEvent('logLogin', $preferredUsername ?: $sub, 'log_login_oidc_no_account');
+      if (!$this->userModel->findByOidcSub($sub)) {
+        if ($preferredUsername === '' || !$this->userModel->findByName($preferredUsername)) {
+          $this->logModel->logEvent('logLogin', $preferredUsername ?: $sub, 'log_login_oidc_no_account');
           $this->renderAlert('warning', $this->LANG['alert_warning_title'], $this->LANG['oidc_error_no_account'], $this->LANG['oidc_error_no_account_text']);
           return;
         }
@@ -116,35 +116,35 @@ class OidcController extends BaseController
 
       // The admin account is local-only — check before binding the sub so no IdP
       // sub is ever written to the admin record
-      if ($this->U->username === 'admin') {
-        $this->LOG->logEvent('logLogin', 'admin', 'log_login_oidc_admin_local_only');
+      if ($this->userModel->is_system) {
+        $this->logModel->logEvent('logLogin', 'admin', 'log_login_oidc_admin_local_only');
         $this->renderAlert('warning', $this->LANG['alert_warning_title'], $this->LANG['oidc_error_admin_local_only'], $this->LANG['oidc_error_admin_local_only_text']);
         return;
       }
 
       // First OIDC login for this user — bind the IdP sub to the local account
       if ($needsSubBinding) {
-        $this->U->saveOidcSub($this->U->username, $sub);
+        $this->userModel->saveOidcSub($this->userModel->username, $sub);
       }
 
       // Account status checks (same gates as local login, minus password)
-      if ($this->U->locked) {
-        $this->LOG->logEvent('logLogin', $this->U->username, 'log_login_locked');
+      if ($this->userModel->locked) {
+        $this->logModel->logEvent('logLogin', $this->userModel->username, 'log_login_locked');
         $this->renderAlert('warning', $this->LANG['alert_warning_title'], $this->LANG['login_error_3'], $this->LANG['login_error_3_text']);
         return;
       }
 
-      if ($this->UO->read($this->U->username, 'verifycode')) {
-        $this->LOG->logEvent('logLogin', $this->U->username, 'log_login_not_verified');
+      if ($this->userOptionModel->read($this->userModel->username, 'verifycode')) {
+        $this->logModel->logEvent('logLogin', $this->userModel->username, 'log_login_not_verified');
         $this->renderAlert('warning', $this->LANG['alert_warning_title'], $this->LANG['login_error_8'], $this->LANG['login_error_8_text']);
         return;
       }
 
       // All checks passed — set session cookie and redirect
-      $this->L->loginByUsername($this->U->username);
-      $this->LOG->logEvent('logLogin', $this->U->username, 'log_login_success');
+      $this->loginModel->loginByUsername($this->userModel->username);
+      $this->logModel->logEvent('logLogin', $this->userModel->username, 'log_login_success');
 
-      $popups = $this->UMSG->getAllPopupByUser($this->U->username);
+      $popups = $this->userMessageModel->getAllPopupByUser($this->userModel->username);
       if (count($popups)) {
         header('Location: index.php?action=messages');
       }
@@ -154,7 +154,7 @@ class OidcController extends BaseController
       exit;
     }
     catch (OpenIDConnectClientException $e) {
-      $this->LOG->logEvent('logLogin', '', 'log_login_oidc_error', ': ' . $e->getMessage());
+      $this->logModel->logEvent('logLogin', '', 'log_login_oidc_error', ': ' . $e->getMessage());
       $this->renderAlert('danger', $this->LANG['alert_danger_title'], $this->LANG['oidc_error_callback'], $this->LANG['oidc_error_callback_text']);
     }
   }

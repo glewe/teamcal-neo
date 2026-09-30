@@ -295,7 +295,7 @@ else {
   define('LDAP_PASS', "password");                             // SA associated password
   define('LDAP_DIT', "cn=read-only-admin,dc=example,dc=com");  // Directory Information Tree (Relative Distinguished Name)
   define('LDAP_SBASE', "dc=example,dc=com");                   // Search base, location in the LDAP directory to search
-  define('LDAP_TLS', 0);                                       // To avoid "Undefined index: LDAP_TLS" error message for LDAP bind to Active Directory
+  define('LDAP_TLS', 0);                                       // 0 = none, 1 = STARTTLS, 2 = LDAPS (implicit TLS)
   define('LDAP_CHECK_ANONYMOUS_BIND', 0);                      // Set to 1 to check the LDAP server's 'anonymous bind' setting. Connection will be refused if not allowed.
   define('LDAP_SEARCH_BIND', 0);                               // Set to 1 to if you want to enable search bind (try disabling this when you get search bind errors)
 }
@@ -308,9 +308,9 @@ else {
  * !Do not change anything below this line. It is protected by the license agreement!
  */
 define('APP_NAME', "TeamCal Neo");
-define('APP_VER', "5.3.7");
-define('APP_BUILD', "112");
-define('APP_DATE', "2026-09-14");
+define('APP_VER', "6.0.0");
+define('APP_BUILD', "119");
+define('APP_DATE', "2026-09-30");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
 define('APP_URL', "https://www.lewe.com");

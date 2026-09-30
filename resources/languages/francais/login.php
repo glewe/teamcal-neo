@@ -45,6 +45,8 @@ $LANG['login_error_94_text'] = 'L\'opération Start TLS LDAP a échoué. Veuille
 $LANG['login_error_95'] = 'Erreur LDAP : Nom d\'utilisateur non trouvé';
 $LANG['login_error_96'] = 'Erreur LDAP : Échec de Search bind';
 $LANG['login_error_96_text'] = 'L\'opération Search bind LDAP a échoué. Veuillez réessayer.';
+$LANG['login_error_97'] = 'Erreur LDAP : Échec de la vérification de liaison anonyme';
+$LANG['login_error_97_text'] = 'Le serveur LDAP a rejeté la liaison anonyme utilisée pour tester la connectivité. Veuillez vérifier le paramètre de liaison anonyme sur votre serveur LDAP, ou désactivez la vérification de liaison anonyme dans la configuration.';
 
 $LANG['login_sso_button'] = 'Se connecter avec SSO';
 $LANG['login_admin_local'] = 'Connexion administrateur';

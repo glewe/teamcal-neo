@@ -38,7 +38,7 @@ class CalendarViewController extends BaseController
     if (isset($_GET['month'])) {
       $monthfilter = sanitize($_GET['month']);
     }
-    elseif ($this->isLoggedIn() && $monthfilter = $this->UO->read($this->UL->username, 'calfilterMonth')) {
+    elseif ($this->isLoggedIn() && $monthfilter = $this->userOptionModel->read($this->userLoggedIn->username, 'calfilterMonth')) {
       // Loaded from user option
     }
     else {
@@ -53,16 +53,16 @@ class CalendarViewController extends BaseController
     }
     else {
       if ($this->isLoggedIn())
-        $this->UO->save($this->UL->username, 'calfilterMonth', $monthfilter);
+        $this->userOptionModel->save($this->userLoggedIn->username, 'calfilterMonth', $monthfilter);
     }
 
     // Region Filter
     if (isset($_GET['region'])) {
       $regionfilter = sanitize($_GET['region']);
       if ($this->isLoggedIn())
-        $this->UO->save($this->UL->username, 'calfilterRegion', $regionfilter);
+        $this->userOptionModel->save($this->userLoggedIn->username, 'calfilterRegion', $regionfilter);
     }
-    elseif ($this->isLoggedIn() && $regionfilter = $this->UO->read($this->UL->username, 'calfilterRegion')) {
+    elseif ($this->isLoggedIn() && $regionfilter = $this->userOptionModel->read($this->userLoggedIn->username, 'calfilterRegion')) {
       // Loaded from user option
     }
     else {
@@ -70,14 +70,14 @@ class CalendarViewController extends BaseController
     }
 
     if (!$missingData) {
-      if (!$this->R->getById($regionfilter)) {
+      if (!$this->regionModel->getById($regionfilter)) {
         $missingData = true;
       }
       else {
-        $viewData['regionid']   = $this->R->id;
-        $viewData['regionname'] = $this->R->name;
+        $viewData['regionid']   = $this->regionModel->id;
+        $viewData['regionname'] = $this->regionModel->name;
         if ($this->isLoggedIn())
-          $this->UO->save($this->UL->username, 'calfilterRegion', $regionfilter);
+          $this->userOptionModel->save($this->userLoggedIn->username, 'calfilterRegion', $regionfilter);
       }
     }
 
@@ -87,17 +87,17 @@ class CalendarViewController extends BaseController
     }
 
     // Users and Filters
-    $users       = $this->U->getAllButHidden();
-    $groupOption = $this->isLoggedIn() ? $this->UO->read($this->UL->username, 'calfilterGroup') : false;
-    $absOption   = $this->isLoggedIn() ? $this->UO->read($this->UL->username, 'calfilterAbs') : false;
+    $users       = $this->userModel->getAllButHidden();
+    $groupOption = $this->isLoggedIn() ? $this->userOptionModel->read($this->userLoggedIn->username, 'calfilterGroup') : false;
+    $absOption   = $this->isLoggedIn() ? $this->userOptionModel->read($this->userLoggedIn->username, 'calfilterAbs') : false;
     $groupfilter = $_GET['group'] ?? ($groupOption ?: ($this->allConfig['defgroupfilter'] ?: 'all'));
     $absfilter   = $_GET['abs'] ?? ($absOption ?: 'all');
 
     if ($this->isLoggedIn()) {
       if (isset($_GET['group']))
-        $this->UO->save($this->UL->username, 'calfilterGroup', $groupfilter);
+        $this->userOptionModel->save($this->userLoggedIn->username, 'calfilterGroup', $groupfilter);
       if (isset($_GET['abs']))
-        $this->UO->save($this->UL->username, 'calfilterAbs', $absfilter);
+        $this->userOptionModel->save($this->userLoggedIn->username, 'calfilterAbs', $absfilter);
     }
 
     $viewData['groupid'] = $groupfilter;
@@ -108,12 +108,12 @@ class CalendarViewController extends BaseController
       foreach ($users as $usr) {
         $include = true;
         if ($groupfilter !== 'all' && $groupfilter !== 'allbygroup') {
-          $include = $this->UG->isMemberOrGuestOfGroup($usr['username'], (string) $groupfilter);
+          $include = $this->userGroupModel->isMemberOrGuestOfGroup($usr['username'], (string) $groupfilter);
           if (!$include)
             continue;
         }
         if ($absfilter !== 'all') {
-          $include = $this->T->hasAbsence($usr['username'], date('Y'), date('m'), (int) $absfilter);
+          $include = $this->absenceDayModel->hasAbsence($usr['username'], date('Y'), date('m'), (int) $absfilter);
         }
         if ($include)
           $filteredUsers[] = $usr;
@@ -121,19 +121,19 @@ class CalendarViewController extends BaseController
       $users = $filteredUsers;
     }
 
-    $viewData['group']     = ($groupfilter == "all") ? $this->LANG['all'] : $this->G->getNameById($groupfilter);
+    $viewData['group']     = ($groupfilter == "all") ? $this->LANG['all'] : $this->groupModel->getNameById($groupfilter);
     $viewData['absfilter'] = ($absfilter !== "all");
-    $viewData['absence']   = ($absfilter == "all") ? $this->LANG['all'] : $this->A->getName((string) $absfilter);
+    $viewData['absence']   = ($absfilter == "all") ? $this->LANG['all'] : $this->absenceModel->getName((string) $absfilter);
 
     $viewData['search'] = '';
-    if ($this->isLoggedIn() && $searchfilter = $this->UO->read($this->UL->username, 'calfilterSearch')) {
+    if ($this->isLoggedIn() && $searchfilter = $this->userOptionModel->read($this->userLoggedIn->username, 'calfilterSearch')) {
       $viewData['search'] = $searchfilter;
-      $users              = $this->U->getAllLike($searchfilter);
+      $users              = $this->userModel->getAllLike($searchfilter);
     }
 
     if (isset($_GET['search']) && $_GET['search'] == "reset") {
       if ($this->isLoggedIn())
-        $this->UO->deleteUserOption($this->UL->username, 'calfilterSearch');
+        $this->userOptionModel->deleteUserOption($this->userLoggedIn->username, 'calfilterSearch');
       header("Location: index.php?action=calendarview");
       die();
     }
@@ -141,7 +141,7 @@ class CalendarViewController extends BaseController
     if ($this->allConfig['currentYearOnly'] && $viewData['year'] != date('Y')) {
       if ($this->allConfig['currYearRoles']) {
         $arrCurrYearRoles = explode(',', $this->allConfig['currYearRoles']);
-        $userRole         = $this->U->getRole($this->isLoggedIn() ? $this->UL->username : "");
+        $userRole         = $this->userModel->getRole($this->isLoggedIn() ? $this->userLoggedIn->username : "");
         if (in_array($userRole, $arrCurrYearRoles)) {
           header("Location: index.php?action=calendarview&month=" . date('Ym') . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter);
           die();
@@ -165,20 +165,20 @@ class CalendarViewController extends BaseController
       $viewData['page']       = $page;
     }
 
-    if ($this->UO->read($this->UL->username, 'showMonths')) {
-      $showMonths = intval($this->UO->read($this->UL->username, 'showMonths'));
+    if ($this->userOptionModel->read($this->userLoggedIn->username, 'showMonths')) {
+      $showMonths = intval($this->userOptionModel->read($this->userLoggedIn->username, 'showMonths'));
     }
     elseif ($this->allConfig['showMonths']) {
       $showMonths = intval($this->allConfig['showMonths']);
     }
     else {
       $showMonths = 1;
-      $this->C->save('showMonths', '1');
+      $this->configModel->save('showMonths', '1');
     }
 
     $viewmode = 'fullmonth';
-    if ($this->UO->read($this->UL->username, 'calViewMode')) {
-      $viewmode = $this->UO->read($this->UL->username, 'calViewMode');
+    if ($this->userOptionModel->read($this->userLoggedIn->username, 'calViewMode')) {
+      $viewmode = $this->userOptionModel->read($this->userLoggedIn->username, 'calViewMode');
     }
     if (isset($_GET['viewmode'])) {
       $viewmode = sanitize($_GET['viewmode']);
@@ -200,7 +200,7 @@ class CalendarViewController extends BaseController
           $showMonths--;
         }
         if ($this->isLoggedIn()) {
-          $this->UO->save($this->UL->username, 'showMonths', (string) $showMonths);
+          $this->userOptionModel->save($this->userLoggedIn->username, 'showMonths', (string) $showMonths);
         }
       }
       if (isset($_POST['btn_onemore'])) {
@@ -209,74 +209,77 @@ class CalendarViewController extends BaseController
           $showMonths++;
         }
         if ($this->isLoggedIn()) {
-          $this->UO->save($this->UL->username, 'showMonths', (string) $showMonths);
+          $this->userOptionModel->save($this->userLoggedIn->username, 'showMonths', (string) $showMonths);
         }
       }
 
       if (isset($_POST['btn_month'])) {
         if ($this->isLoggedIn())
-          $this->UO->save($this->UL->username, 'calfilterMonth', $_POST['txt_year'] . $_POST['sel_month']);
+          $this->userOptionModel->save($this->userLoggedIn->username, 'calfilterMonth', $_POST['txt_year'] . $_POST['sel_month']);
         header("Location: index.php?action=calendarview&month=" . $_POST['txt_year'] . $_POST['sel_month'] . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter . "&viewmode=" . $viewmode);
         die();
       }
       elseif (isset($_POST['btn_region'])) {
         if ($this->isLoggedIn())
-          $this->UO->save($this->UL->username, 'calfilterRegion', $_POST['sel_region']);
+          $this->userOptionModel->save($this->userLoggedIn->username, 'calfilterRegion', $_POST['sel_region']);
         header("Location: index.php?action=calendarview&month=" . $monthfilter . "&region=" . $_POST['sel_region'] . "&group=" . $groupfilter . "&abs=" . $absfilter . "&viewmode=" . $viewmode);
         die();
       }
       elseif (isset($_POST['btn_group'])) {
         if ($this->isLoggedIn())
-          $this->UO->save($this->UL->username, 'calfilterGroup', $_POST['sel_group']);
+          $this->userOptionModel->save($this->userLoggedIn->username, 'calfilterGroup', $_POST['sel_group']);
         header("Location: index.php?action=calendarview&month=" . $monthfilter . "&region=" . $regionfilter . "&group=" . $_POST['sel_group'] . "&abs=" . $absfilter . "&viewmode=" . $viewmode);
         die();
       }
       elseif (isset($_POST['btn_abssearch'])) {
         if ($this->isLoggedIn())
-          $this->UO->save($this->UL->username, 'calfilterAbs', $_POST['sel_absence']);
+          $this->userOptionModel->save($this->userLoggedIn->username, 'calfilterAbs', $_POST['sel_absence']);
         header("Location: index.php?action=calendarview&month=" . $monthfilter . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $_POST['sel_absence'] . "&viewmode=" . $viewmode);
         die();
       }
       elseif (isset($_POST['btn_width'])) {
-        $this->UO->save($this->UL->username, 'width', $_POST['sel_width']);
+        $this->userOptionModel->save($this->userLoggedIn->username, 'width', $_POST['sel_width']);
         header("Location: index.php?action=calendarview&month=" . $monthfilter . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter . "&viewmode=" . $viewmode);
         die();
       }
       elseif (isset($_POST['btn_viewmode'])) {
         if ($this->isLoggedIn())
-          $this->UO->save($this->UL->username, 'calViewMode', $_POST['sel_viewmode']);
+          $this->userOptionModel->save($this->userLoggedIn->username, 'calViewMode', $_POST['sel_viewmode']);
         header("Location: index.php?action=calendarview&month=" . $monthfilter . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter . "&viewmode=" . $_POST['sel_viewmode']);
         die();
       }
       elseif (isset($_POST['btn_search'])) {
         if ($this->isLoggedIn())
-          $this->UO->save($this->UL->username, 'calfilterSearch', $_POST['txt_search']);
+          $this->userOptionModel->save($this->userLoggedIn->username, 'calfilterSearch', $_POST['txt_search']);
         $viewData['search'] = $_POST['txt_search'];
-        $users              = $this->U->getAllLike($_POST['txt_search']);
+        $users              = $this->userModel->getAllLike($_POST['txt_search']);
       }
       elseif (isset($_POST['btn_search_clear'])) {
         if ($this->isLoggedIn())
-          $this->UO->deleteUserOption($this->UL->username, 'calfilterSearch');
+          $this->userOptionModel->deleteUserOption($this->userLoggedIn->username, 'calfilterSearch');
         header("Location: index.php?action=calendarview&month=" . $monthfilter . "&region=" . $regionfilter . "&group=" . $groupfilter . "&abs=" . $absfilter . "&viewmode=" . $viewmode);
         die();
       }
       elseif (isset($_POST['btn_reset'])) {
         if ($this->isLoggedIn()) {
-          $this->UO->deleteUserOption($this->UL->username, 'calfilter');
-          $this->UO->deleteUserOption($this->UL->username, 'calfilterMonth');
-          $this->UO->deleteUserOption($this->UL->username, 'calfilterRegion');
-          $this->UO->deleteUserOption($this->UL->username, 'calfilterGroup');
-          $this->UO->deleteUserOption($this->UL->username, 'calfilterAbs');
-          $this->UO->deleteUserOption($this->UL->username, 'calfilterSearch');
+          $this->userOptionModel->deleteUserOption($this->userLoggedIn->username, 'calfilter');
+          $this->userOptionModel->deleteUserOption($this->userLoggedIn->username, 'calfilterMonth');
+          $this->userOptionModel->deleteUserOption($this->userLoggedIn->username, 'calfilterRegion');
+          $this->userOptionModel->deleteUserOption($this->userLoggedIn->username, 'calfilterGroup');
+          $this->userOptionModel->deleteUserOption($this->userLoggedIn->username, 'calfilterAbs');
+          $this->userOptionModel->deleteUserOption($this->userLoggedIn->username, 'calfilterSearch');
         }
         header("Location: index.php?action=calendarview");
         die();
       }
     }
     if ($this->isLoggedIn() && ($viewmode == 'fullmonth' || $viewmode == 'splitmonth')) {
-      $this->UO->save($this->UL->username, 'calViewMode', $viewmode);
+      $this->userOptionModel->save($this->userLoggedIn->username, 'calViewMode', $viewmode);
     }
     else {
+      if (!$this->isLoggedIn() && ($_GET['viewmode'] ?? '') === 'splitmonth') {
+        $viewData['showViewModeToast'] = true;
+      }
       $viewmode = 'fullmonth';
     }
 
@@ -291,11 +294,10 @@ class CalendarViewController extends BaseController
       $currMonth = intval($viewData['month']);
 
       // Build first split-pair fully
-      $viewData['months'][] = $this->CalendarMonthBuilder->buildMonthMeta(
+      $viewData['months'][] = $this->calendarMonthBuilderService->buildMonthMeta(
         (string) $currYear,
         sprintf('%02d', $currMonth),
         (string) $viewData['regionid'],
-        $viewData['regionname'],
         $viewmode
       );
       $currMonth++;
@@ -324,11 +326,10 @@ class CalendarViewController extends BaseController
     }
     else {
       // fullmonth: build month 1 fully
-      $viewData['months'][] = $this->CalendarMonthBuilder->buildMonthMeta(
+      $viewData['months'][] = $this->calendarMonthBuilderService->buildMonthMeta(
         $viewData['year'],
         $viewData['month'],
         (string) $viewData['regionid'],
-        $viewData['regionname'],
         $viewmode
       );
 
@@ -341,7 +342,7 @@ class CalendarViewController extends BaseController
           if ($prevMonth == 12) {
             if ($this->allConfig['currentYearOnly'] && $this->allConfig["currYearRoles"]) {
               $arrCurrYearRoles = explode(',', $this->allConfig["currYearRoles"]);
-              $userRole         = $this->U->getRole($this->isLoggedIn() ? $this->UL->username : "");
+              $userRole         = $this->userModel->getRole($this->isLoggedIn() ? $this->userLoggedIn->username : "");
               if (in_array($userRole, $arrCurrYearRoles)) {
                 break;
               }
@@ -371,10 +372,10 @@ class CalendarViewController extends BaseController
 
     $viewData['pageHelp']   = $this->allConfig['pageHelp'];
     $viewData['showAlerts'] = $this->allConfig['showAlerts'];
-    $viewData['absences']   = $this->A->getAll();
-    $viewData['allGroups']  = $this->G->getAll();
-    $viewData['holidays']   = $this->H->getAllCustom();
-    $viewData['groups']     = ($groupfilter == 'all' || $groupfilter == 'allbygroup') ? $this->G->getAll() : $this->G->getRowById($groupfilter);
+    $viewData['absences']   = $this->absenceModel->getAll();
+    $viewData['allGroups']  = $this->groupModel->getAll();
+    $viewData['holidays']   = $this->holidayModel->getAllCustom();
+    $viewData['groups']     = ($groupfilter == 'all' || $groupfilter == 'allbygroup') ? $this->groupModel->getAll() : $this->groupModel->getRowById($groupfilter);
     if ($groupfilter == 'allbygroup') {
       $viewData['defgroupfilter'] = 'allbygroup';
     }
@@ -383,11 +384,11 @@ class CalendarViewController extends BaseController
     $viewData['users'] = [];
     foreach ($users as $usr) {
       $allowed = false;
-      if ($usr['username'] == $this->UL->username) {
+      if ($usr['username'] == $this->userLoggedIn->username) {
         $allowed = true;
       }
-      elseif (!$this->U->isHidden($usr['username'])) {
-        if (isAllowed("calendarviewall") || (isAllowed("calendarviewgroup") && $this->UG->shareGroups($usr['username'], $this->UL->username))) {
+      elseif (!$this->userModel->isHidden($usr['username'])) {
+        if (isAllowed("calendarviewall") || (isAllowed("calendarviewgroup") && $this->userGroupModel->shareGroups($usr['username'], $this->userLoggedIn->username))) {
           $allowed = true;
         }
       }
@@ -396,18 +397,10 @@ class CalendarViewController extends BaseController
       }
     }
 
-    foreach ($viewData['users'] as $user) {
-      foreach ($viewData['months'] as $vmonth) {
-        if (!$this->T->getTemplate($user['username'], (string) $vmonth['year'], (string) $vmonth['month'])) {
-          createMonth((string) $vmonth['year'], (string) $vmonth['month'], 'user', $user['username']);
-        }
-      }
-    }
-
     $todayDate              = getdate(time());
     $viewData['yearToday']  = $todayDate['year'];
     $viewData['monthToday'] = sprintf("%02d", $todayDate['mon']);
-    $viewData['regions']    = $this->R->getAll();
+    $viewData['regions']    = $this->regionModel->getAll();
 
     // Config options
     $viewData['calendarFontSize']         = $this->allConfig['calendarFontSize'];
@@ -415,16 +408,16 @@ class CalendarViewController extends BaseController
     $viewData['firstDayOfWeek']           = $this->allConfig["firstDayOfWeek"];
     $viewData['hideManagers']             = $this->allConfig['hideManagers'];
     $viewData['includeSummary']           = $this->allConfig['includeSummary'];
-    $viewData['monitorAbsence']           = $this->C->read('monitorAbsence');
+    $viewData['monitorAbsence']           = $this->configModel->read('monitorAbsence');
     $viewData['pastDayColor']             = $this->allConfig['pastDayColor'];
-    $viewData['regionalHolidays']         = $this->C->read("regionalHolidays");
-    $viewData['regionalHolidaysColor']    = $this->C->read("regionalHolidaysColor");
+    $viewData['regionalHolidays']         = $this->configModel->read("regionalHolidays");
+    $viewData['regionalHolidaysColor']    = $this->configModel->read("regionalHolidaysColor");
     $viewData['repeatHeaderCount']        = $this->allConfig['repeatHeaderCount'];
     $viewData['showAvatars']              = $this->allConfig['showAvatars'];
     $viewData['showRegionButton']         = $this->allConfig['showRegionButton'];
     $viewData['showRoleIcons']            = $this->allConfig['showRoleIcons'];
     $viewData['showSummary']              = $this->allConfig['showSummary'];
-    $viewData['symbolAsIcon']             = $this->C->read('symbolAsIcon');
+    $viewData['symbolAsIcon']             = $this->configModel->read('symbolAsIcon');
     $viewData['showTooltipCount']         = $this->allConfig['showTooltipCount'];
     $viewData['showWeekNumbers']          = $this->allConfig['showWeekNumbers'];
     $viewData['summaryAbsenceTextColor']  = $this->allConfig['summaryAbsenceTextColor'];
@@ -433,10 +426,10 @@ class CalendarViewController extends BaseController
 
     $validWidths = ['full', '1024', '800', '640', '480', '400', '320', '240'];
     if (isset($_GET['width']) && in_array($_GET['width'], $validWidths, true) && $this->isLoggedIn()) {
-      $this->UO->save($this->UL->username, 'width', $_GET['width']);
+      $this->userOptionModel->save($this->userLoggedIn->username, 'width', $_GET['width']);
     }
-    if (!$viewData['width'] = $this->UO->read($this->UL->username, 'width')) {
-      $this->UO->save($this->UL->username, 'width', 'full');
+    if (!$viewData['width'] = $this->userOptionModel->read($this->userLoggedIn->username, 'width')) {
+      $this->userOptionModel->save($this->userLoggedIn->username, 'width', 'full');
       $viewData['width'] = 'full';
     }
 
@@ -453,15 +446,15 @@ class CalendarViewController extends BaseController
       $username = $usr['username'];
       $userRow  = [
         'username'    => $username,
-        'fullName'    => $this->U->getLastFirst($username),
+        'fullName'    => $this->userModel->getLastFirst($username),
         'profileLink' => isAllowed($this->CONF['controllers']['viewprofile']->permission) ? "index.php?action=viewprofile&profile=" . $username : null,
-        'nameStyle'   => ($groupfilter != "all" && !$this->UG->isMemberOrManagerOfGroup($username, (string) $groupfilter)) ? "m-name-guest" : "m-name",
-        'avatar'      => $this->allConfig['showAvatars'] ? $this->UO->read($username, 'avatar') : null,
+        'nameStyle'   => ($groupfilter != "all" && !$this->userGroupModel->isMemberOrManagerOfGroup($username, (string) $groupfilter)) ? "m-name-guest" : "m-name",
+        'avatar'      => $this->allConfig['showAvatars'] ? $this->userOptionModel->read($username, 'avatar') : null,
         'roleIcon'    => $this->allConfig['showRoleIcons'] ? [
-          'name'  => $this->RO->getNameById($this->U->getRole($username)),
-          'color' => $this->RO->getColorById($this->U->getRole($username))
+          'name'  => $this->roleModel->getNameById($this->userModel->getRole($username)),
+          'color' => $this->roleModel->getColorById($this->userModel->getRole($username))
         ] : null,
-        'groups'      => array_merge(array_keys($this->UG->getAllforUser2($username)), $this->UG->getGuestships($username)),
+        'groups'      => array_merge(array_keys($this->userGroupModel->getAllforUser2($username)), $this->userGroupModel->getGuestships($username)),
         'monitorAbs'  => null,
         'months'      => []
       ];
@@ -472,26 +465,26 @@ class CalendarViewController extends BaseController
         foreach ($monAbsIds as $monAbsId) {
           if (empty($monAbsId))
             continue;
-          $summary = $this->AbsenceService->getAbsenceSummary($username, (string) $monAbsId, (string) $viewData['year']);
-          if ($this->C->read('symbolAsIcon')) {
-            $monAbsIcon = $this->A->getSymbol((string) $monAbsId);
+          $summary = $this->absenceService->getAbsenceSummary($username, (string) $monAbsId, (string) $viewData['year']);
+          if ($this->configModel->read('symbolAsIcon')) {
+            $monAbsIcon = $this->absenceModel->getSymbol((string) $monAbsId);
           }
           else {
-            $monAbsIcon = '<i class="' . $this->A->getIcon((string) $monAbsId) . '"></i>';
+            $monAbsIcon = '<i class="' . $this->absenceModel->getIcon((string) $monAbsId) . '"></i>';
           }
           $userRow['monitorAbs'][] = [
-            'name'           => $this->A->getName((string) $monAbsId),
+            'name'           => $this->absenceModel->getName((string) $monAbsId),
             'remainder'      => $summary['remainder'],
             'totalallowance' => $summary['totalallowance'],
             'icon'           => $monAbsIcon,
-            'color'          => $this->A->getColor((string) $monAbsId)
+            'color'          => $this->absenceModel->getColor((string) $monAbsId)
           ];
         }
       }
 
       foreach ($viewData['months'] as &$vmonth) {
         $monthKey                     = $vmonth['year'] . $vmonth['month'];
-        $userRow['months'][$monthKey] = $this->CalendarMonthBuilder->buildUserMonthRow(
+        $userRow['months'][$monthKey] = $this->calendarMonthBuilderService->buildUserMonthRow(
           $username,
           $vmonth,
           $viewData,

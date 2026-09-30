@@ -37,9 +37,9 @@ class LicenseModel
    * @param array<string, string>|null $conf Configuration array
    */
   public function __construct(?PDO $db = null, ?array $conf = null) {
-    global $CONF, $DB;
+    global $CONF, $dbModel;
 
-    $this->db             = $db ?? $DB->db;
+    $this->db             = $db ?? $dbModel->db;
     $this->table          = $conf['db_table_config'] ?? $CONF['db_table_config'];
     $this->curlAvailable  = extension_loaded('curl');
     $this->load();

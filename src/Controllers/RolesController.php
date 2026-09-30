@@ -70,7 +70,7 @@ class RolesController extends BaseController
       }
     }
 
-    $this->viewData['roles'] = $this->RO->getAll();
+    $this->viewData['roles'] = $this->roleModel->getAll();
     $this->render('roles', $this->viewData);
   }
 
@@ -89,22 +89,22 @@ class RolesController extends BaseController
     $this->viewData['txt_name']        = $_POST['txt_name'];
     $this->viewData['txt_description'] = $_POST['txt_description'] ?? '';
 
-    if ($this->RO->getByName($_POST['txt_name'])) {
+    if ($this->roleModel->getByName($_POST['txt_name'])) {
       $inputError                          = true;
       $this->viewData['alertData']['text'] = $this->LANG['roles_alert_created_fail_duplicate'];
     }
 
     if (!$inputError) {
-      $this->RO->name        = $this->viewData['txt_name'];
-      $this->RO->description = $this->viewData['txt_description'];
-      $this->RO->color       = 'default';
-      $this->RO->create();
+      $this->roleModel->name        = $this->viewData['txt_name'];
+      $this->roleModel->description = $this->viewData['txt_description'];
+      $this->roleModel->color       = 'default';
+      $this->roleModel->create();
 
       $mailError = '';
       if ($this->allConfig['emailNotifications']) {
-        sendRoleEventNotifications("created", $this->RO->name, $this->RO->description, $mailError);
+        sendRoleEventNotifications("created", $this->roleModel->name, $this->roleModel->description, $mailError);
       }
-      $this->LOG->logEvent("logRole", $this->UL->username, "log_role_created", $this->RO->name . " " . $this->RO->description);
+      $this->logModel->logEvent("logRole", $this->userLoggedIn->username, "log_role_created", $this->roleModel->name . " " . $this->roleModel->description);
 
       $this->viewData['showAlert'] = true;
       $this->viewData['alertData'] = [
@@ -138,14 +138,14 @@ class RolesController extends BaseController
    */
   private function deleteRole() {
     if (isset($_POST['hidden_id'], $_POST['hidden_name'], $_POST['hidden_description'])) {
-      $this->RO->delete($_POST['hidden_id']);
-      $this->P->deleteRole($_POST['hidden_id']);
+      $this->roleModel->delete($_POST['hidden_id']);
+      $this->permissionModel->deleteRole($_POST['hidden_id']);
 
       $mailError = '';
       if ($this->allConfig['emailNotifications']) {
         sendRoleEventNotifications("deleted", $_POST['hidden_name'], $_POST['hidden_description'], $mailError);
       }
-      $this->LOG->logEvent("logRole", $this->UL->username, "log_role_deleted", $_POST['hidden_name']);
+      $this->logModel->logEvent("logRole", $this->userLoggedIn->username, "log_role_deleted", $_POST['hidden_name']);
 
       $this->viewData['showAlert'] = true;
       $this->viewData['alertData'] = [

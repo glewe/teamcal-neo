@@ -14,7 +14,7 @@
       <div class="card-header text-bg-{{ CONF.controllers.statistics.panelColor }}">
         <i class="{{ CONF.controllers.statistics.faIcon }} fa-lg me-3"></i>
         {{ LANG.stats_title }}
-        {% if C.read('pageHelp') %}
+        {% if configModel.read('pageHelp') %}
           <a href="{{ CONF.controllers.statistics.docurl }}" target="_blank" class="float-end" style="color:inherit;">
             <i class="bi bi-question-circle-fill bi-lg"></i>
           </a>

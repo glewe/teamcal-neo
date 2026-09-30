@@ -26,7 +26,7 @@ class PasswordResetController extends BaseController
    */
   public function execute(): void {
 
-    $UP           = new UserModel($this->DB->db, $this->CONF);
+    $UP           = new UserModel($this->dbModel->db, $this->CONF);
     $missingData  = false;
     $tokenExpired = false;
     $token        = '';
@@ -38,7 +38,7 @@ class PasswordResetController extends BaseController
       }
       else {
         $now    = date('YmdHis');
-        $expiry = $this->UO->read($UP->username, 'pwdTokenExpiry');
+        $expiry = $this->userOptionModel->read($UP->username, 'pwdTokenExpiry');
         if ($now > $expiry) {
           $tokenExpired = true;
         }
@@ -99,10 +99,10 @@ class PasswordResetController extends BaseController
           $UP->password       = password_hash(trim($_POST['txt_password']), PASSWORD_DEFAULT);
           $UP->last_pw_change = date('YmdHis');
           $UP->update($UP->username);
-          $this->UO->deleteUserOption($UP->username, 'pwdToken');
-          $this->UO->deleteUserOption($UP->username, 'pwdTokenExpiry');
+          $this->userOptionModel->deleteUserOption($UP->username, 'pwdToken');
+          $this->userOptionModel->deleteUserOption($UP->username, 'pwdTokenExpiry');
 
-          $this->LOG->logEvent("logUser", $this->UL->username, "log_user_pwd_reset", $UP->username);
+          $this->logModel->logEvent("logUser", $this->userLoggedIn->username, "log_user_pwd_reset", $UP->username);
 
           $showAlert            = true;
           $alertData['type']    = 'success';

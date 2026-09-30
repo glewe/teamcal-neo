@@ -18,7 +18,7 @@ use App\Core\BaseController;
  * @link      https://www.lewe.com
  *
  * @package   TeamCal Neo
- * @since     5.4.0
+ * @since     6.0.0
  */
 class CalendarViewMonthController extends BaseController
 {
@@ -53,13 +53,12 @@ class CalendarViewMonthController extends BaseController
 
     // Region
     $regionfilter = isset($_GET['region']) ? sanitize($_GET['region']) : '1';
-    if (!$this->R->getById($regionfilter)) {
+    if (!$this->regionModel->getById($regionfilter)) {
       http_response_code(400);
       echo '<div class="alert alert-danger">' . $this->LANG['alert_no_data_text'] . '</div>';
       exit;
     }
-    $regionid   = $this->R->id;
-    $regionname = $this->R->name;
+    $regionid = $this->regionModel->id;
 
     // Filters and view options
     $groupfilter = isset($_GET['group'])    ? sanitize($_GET['group'])    : 'all';
@@ -71,19 +70,19 @@ class CalendarViewMonthController extends BaseController
     $page = max(1, (int) filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, ['options' => ['default' => 1, 'min_range' => 1]]));
 
     // Build filtered user list (mirrors CalendarViewController::execute())
-    $users = $this->U->getAllButHidden();
+    $users = $this->userModel->getAllButHidden();
 
     if ($groupfilter !== 'all' || $absfilter !== 'all') {
       $filteredUsers = [];
       foreach ($users as $usr) {
         $include = true;
         if ($groupfilter !== 'all' && $groupfilter !== 'allbygroup') {
-          $include = $this->UG->isMemberOrGuestOfGroup($usr['username'], (string) $groupfilter);
+          $include = $this->userGroupModel->isMemberOrGuestOfGroup($usr['username'], (string) $groupfilter);
           if (!$include)
             continue;
         }
         if ($absfilter !== 'all') {
-          $include = $this->T->hasAbsence($usr['username'], date('Y'), date('m'), (int) $absfilter);
+          $include = $this->absenceDayModel->hasAbsence($usr['username'], date('Y'), date('m'), (int) $absfilter);
         }
         if ($include)
           $filteredUsers[] = $usr;
@@ -104,11 +103,11 @@ class CalendarViewMonthController extends BaseController
     $allowedUsers = [];
     foreach ($users as $usr) {
       $allowed = false;
-      if ($usr['username'] === $this->UL->username) {
+      if ($usr['username'] === $this->userLoggedIn->username) {
         $allowed = true;
       }
-      elseif (!$this->U->isHidden($usr['username'])) {
-        if (isAllowed("calendarviewall") || (isAllowed("calendarviewgroup") && $this->UG->shareGroups($usr['username'], $this->UL->username))) {
+      elseif (!$this->userModel->isHidden($usr['username'])) {
+        if (isAllowed("calendarviewall") || (isAllowed("calendarviewgroup") && $this->userGroupModel->shareGroups($usr['username'], $this->userLoggedIn->username))) {
           $allowed = true;
         }
       }
@@ -118,14 +117,7 @@ class CalendarViewMonthController extends BaseController
     $users = $allowedUsers;
 
     // Build month meta (one month / split-pair)
-    $vmonth = $this->CalendarMonthBuilder->buildMonthMeta($year, $month, (string) $regionid, $regionname, $viewmode);
-
-    // Ensure user template rows exist for this month
-    foreach ($users as $user) {
-      if (!$this->T->getTemplate($user['username'], $year, $month)) {
-        createMonth($year, $month, 'user', $user['username']);
-      }
-    }
+    $vmonth = $this->calendarMonthBuilderService->buildMonthMeta($year, $month, (string) $regionid, $viewmode);
 
     // Minimal context subset passed into buildUserMonthRow / prepareDayData
     $rowContext = [
@@ -133,28 +125,28 @@ class CalendarViewMonthController extends BaseController
       'absfilter'             => ($absfilter !== 'all'),
       'absid'                 => $absfilter,
       'pastDayColor'          => $this->allConfig['pastDayColor'],
-      'regionalHolidays'      => $this->C->read('regionalHolidays'),
-      'regionalHolidaysColor' => $this->C->read('regionalHolidaysColor'),
+      'regionalHolidays'      => $this->configModel->read('regionalHolidays'),
+      'regionalHolidaysColor' => $this->configModel->read('regionalHolidaysColor'),
     ];
 
     $trustedRoles         = explode(',', $this->allConfig['trustedRoles']);
     $countedUsersPerMonth = [];
     $userRows             = [];
-    $monAbsConfig         = $this->C->read('monitorAbsence');
+    $monAbsConfig         = $this->configModel->read('monitorAbsence');
 
     foreach ($users as $usr) {
       $username = $usr['username'];
       $userRow  = [
         'username'    => $username,
-        'fullName'    => $this->U->getLastFirst($username),
+        'fullName'    => $this->userModel->getLastFirst($username),
         'profileLink' => isAllowed($this->CONF['controllers']['viewprofile']->permission) ? 'index.php?action=viewprofile&profile=' . $username : null,
-        'nameStyle'   => ($groupfilter !== 'all' && !$this->UG->isMemberOrManagerOfGroup($username, (string) $groupfilter)) ? 'm-name-guest' : 'm-name',
-        'avatar'      => $this->allConfig['showAvatars'] ? $this->UO->read($username, 'avatar') : null,
+        'nameStyle'   => ($groupfilter !== 'all' && !$this->userGroupModel->isMemberOrManagerOfGroup($username, (string) $groupfilter)) ? 'm-name-guest' : 'm-name',
+        'avatar'      => $this->allConfig['showAvatars'] ? $this->userOptionModel->read($username, 'avatar') : null,
         'roleIcon'    => $this->allConfig['showRoleIcons'] ? [
-          'name'  => $this->RO->getNameById($this->U->getRole($username)),
-          'color' => $this->RO->getColorById($this->U->getRole($username))
+          'name'  => $this->roleModel->getNameById($this->userModel->getRole($username)),
+          'color' => $this->roleModel->getColorById($this->userModel->getRole($username))
         ] : null,
-        'groups'      => array_merge(array_keys($this->UG->getAllforUser2($username)), $this->UG->getGuestships($username)),
+        'groups'      => array_merge(array_keys($this->userGroupModel->getAllforUser2($username)), $this->userGroupModel->getGuestships($username)),
         'monitorAbs'  => null,
         'months'      => []
       ];
@@ -165,22 +157,22 @@ class CalendarViewMonthController extends BaseController
         foreach ($monAbsIds as $monAbsId) {
           if (empty($monAbsId))
             continue;
-          $summary = $this->AbsenceService->getAbsenceSummary($username, (string) $monAbsId, $year);
-          $monAbsIcon = $this->C->read('symbolAsIcon')
-            ? $this->A->getSymbol((string) $monAbsId)
-            : '<i class="' . $this->A->getIcon((string) $monAbsId) . '"></i>';
+          $summary = $this->absenceService->getAbsenceSummary($username, (string) $monAbsId, $year);
+          $monAbsIcon = $this->configModel->read('symbolAsIcon')
+            ? $this->absenceModel->getSymbol((string) $monAbsId)
+            : '<i class="' . $this->absenceModel->getIcon((string) $monAbsId) . '"></i>';
           $userRow['monitorAbs'][] = [
-            'name'           => $this->A->getName((string) $monAbsId),
+            'name'           => $this->absenceModel->getName((string) $monAbsId),
             'remainder'      => $summary['remainder'],
             'totalallowance' => $summary['totalallowance'],
             'icon'           => $monAbsIcon,
-            'color'          => $this->A->getColor((string) $monAbsId)
+            'color'          => $this->absenceModel->getColor((string) $monAbsId)
           ];
         }
       }
 
       $monthKey                     = $vmonth['year'] . $vmonth['month'];
-      $userRow['months'][$monthKey] = $this->CalendarMonthBuilder->buildUserMonthRow(
+      $userRow['months'][$monthKey] = $this->calendarMonthBuilderService->buildUserMonthRow(
         $username,
         $vmonth,
         $rowContext,
@@ -201,11 +193,11 @@ class CalendarViewMonthController extends BaseController
       'month'                    => $vmonth,
       'userRows'                 => $userRows,
       'hideManagers'             => $this->allConfig['hideManagers'],
-      'width'                    => $this->UO->read($this->UL->username, 'width') ?: 'full',
+      'width'                    => $this->userOptionModel->read($this->userLoggedIn->username, 'width') ?: 'full',
       'firstDayOfWeek'           => $this->allConfig['firstDayOfWeek'],
       'showWeekNumbers'          => $this->allConfig['showWeekNumbers'],
       'defgroupfilter'           => $defgroupfilter,
-      'groups'                   => ($groupfilter === 'all' || $groupfilter === 'allbygroup') ? $this->G->getAll() : $this->G->getRowById($groupfilter),
+      'groups'                   => ($groupfilter === 'all' || $groupfilter === 'allbygroup') ? $this->groupModel->getAll() : $this->groupModel->getRowById($groupfilter),
       'includeSummary'           => $this->allConfig['includeSummary'],
       'showSummary'              => $this->allConfig['showSummary'],
       'summaryAbsenceTextColor'  => $this->allConfig['summaryAbsenceTextColor'],

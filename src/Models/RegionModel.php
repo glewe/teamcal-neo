@@ -23,10 +23,6 @@ class RegionModel
   public string $name        = '';
   public string $description = '';
 
-  public string $roleid   = '';
-  public string $regionid = '';
-  public string $access   = '';
-
   private PDO    $db;
   private string $accessTable = '';
   private string $table       = '';
@@ -47,8 +43,8 @@ class RegionModel
       $this->accessTable = $conf['db_table_region_role'];
     }
     else {
-      global $CONF, $DB;
-      $this->db          = $DB->db;
+      global $CONF, $dbModel;
+      $this->db          = $dbModel->db;
       $this->table       = $CONF['db_table_regions'];
       $this->accessTable = $CONF['db_table_region_role'];
     }
@@ -90,19 +86,9 @@ class RegionModel
    * @return bool Query result
    */
   public function deleteAccess(string|int $id): bool {
-    $query = $this->db->prepare("DELETE FROM {$this->accessTable} WHERE regionid = :regionid");
-    $query->bindParam(':regionid', $id, PDO::PARAM_STR);
-    return $query->execute();
-  }
-
-  //---------------------------------------------------------------------------
-  /**
-   * Deletes all records.
-   *
-   * @return bool Query result
-   */
-  public function deleteAll(): bool {
-    $query = $this->db->prepare("TRUNCATE TABLE {$this->table}");
+    $regionId = (int) $id;
+    $query    = $this->db->prepare("DELETE FROM {$this->accessTable} WHERE region_id = :regionid");
+    $query->bindParam(':regionid', $regionId, PDO::PARAM_INT);
     return $query->execute();
   }
 
@@ -116,9 +102,11 @@ class RegionModel
    * @return string|bool Access type or false
    */
   public function getAccess(string|int $id, string|int $roleid): string|bool {
-    $query = $this->db->prepare("SELECT access FROM {$this->accessTable} WHERE regionid = :regionid AND roleid = :roleid");
-    $query->bindParam(':regionid', $id, PDO::PARAM_STR);
-    $query->bindParam(':roleid', $roleid, PDO::PARAM_STR);
+    $regionId = (int) $id;
+    $roleId   = (int) $roleid;
+    $query    = $this->db->prepare("SELECT access FROM {$this->accessTable} WHERE region_id = :regionid AND role_id = :roleid");
+    $query->bindParam(':regionid', $regionId, PDO::PARAM_INT);
+    $query->bindParam(':roleid', $roleId, PDO::PARAM_INT);
     $result = $query->execute();
     if ($result && ($row = $query->fetch())) {
       return (string) $row['access'];
@@ -278,9 +266,11 @@ class RegionModel
    * @return bool Query result
    */
   public function setAccess(string|int $id, string|int $roleid, string $access): bool {
-    $query = $this->db->prepare("INSERT INTO {$this->accessTable} (regionid, roleid, access) VALUES (:regionid, :roleid, :access)");
-    $query->bindParam(':regionid', $id, PDO::PARAM_STR);
-    $query->bindParam(':roleid', $roleid, PDO::PARAM_STR);
+    $regionId = (int) $id;
+    $roleId   = (int) $roleid;
+    $query    = $this->db->prepare("INSERT INTO {$this->accessTable} (region_id, role_id, access) VALUES (:regionid, :roleid, :access)");
+    $query->bindParam(':regionid', $regionId, PDO::PARAM_INT);
+    $query->bindParam(':roleid', $roleId, PDO::PARAM_INT);
     $query->bindParam(':access', $access, PDO::PARAM_STR);
     return $query->execute();
   }

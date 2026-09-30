@@ -76,36 +76,36 @@ class MessagesController extends BaseController
           $body      = $viewData['txt_message'];
 
           // Construct message with signature
-          $userAvatar = $this->UO->read($this->UL->username, 'avatar');
+          $userAvatar = $this->userOptionModel->read($this->userLoggedIn->username, 'avatar');
           if (!$userAvatar || !file_exists(APP_AVATAR_DIR . $userAvatar)) {
-            $userGender = $this->UO->read($this->UL->username, 'gender');
+            $userGender = $this->userOptionModel->read($this->userLoggedIn->username, 'gender');
             $userAvatar = 'default_' . $userGender . '.png';
           }
-          $signature   = '<img src="' . APP_AVATAR_DIR . $userAvatar . '" width="40" height="40" alt="" style="margin: 0 8px 0 0; text-align:left;"><i>[' . ltrim($this->UL->firstname . " " . $this->UL->lastname) . ']</i>';
+          $signature   = '<img src="' . APP_AVATAR_DIR . $userAvatar . '" width="40" height="40" alt="" style="margin: 0 8px 0 0; text-align:left;"><i>[' . ltrim($this->userLoggedIn->firstname . " " . $this->userLoggedIn->lastname) . ']</i>';
           $fullMessage = "<strong>" . $subject . "</strong><br>" . str_replace("\r\n", "<br>", $body) . "<br><br>" . $signature;
 
-          $msgId = $this->MSG->create($timestamp, $fullMessage, 'popup');
+          $msgId = $this->messageModel->create($timestamp, $fullMessage, 'popup');
 
           if ($msgId) {
             if (isset($_POST['sel_users'])) {
               foreach ($_POST['sel_users'] as $user) {
-                $this->UMSG->add($user, (string) $msgId, (string) $viewData['popup']);
+                $this->userMessageModel->add($user, (string) $msgId, (string) $viewData['popup']);
               }
             }
             if (isset($_POST['sel_groups'])) {
               foreach ($_POST['sel_groups'] as $group) {
-                $users = $this->UG->getAllForGroup((string) $group);
+                $users = $this->userGroupModel->getAllForGroup((string) $group);
                 foreach ($users as $user) {
-                  if (!$this->UMSG->exists($user['username'])) { // Check if user has messages? No, check if this message exists for user?
+                  if (!$this->userMessageModel->exists($user['username'])) { // Check if user has messages? No, check if this message exists for user?
                     // UserMessage::exists checks if ANY message exists for user.
                     // We want to avoid duplicates. add() handles duplicates.
-                    $this->UMSG->add($user['username'], (string) $msgId, (string) $viewData['popup']);
+                    $this->userMessageModel->add($user['username'], (string) $msgId, (string) $viewData['popup']);
                   }
                 }
               }
             }
 
-            $this->LOG->logEvent("logMessage", $this->UL->username, "log_msg_created", $subject);
+            $this->logModel->logEvent("logMessage", $this->userLoggedIn->username, "log_msg_created", $subject);
 
             $showAlert            = true;
             $alertData['type']    = 'success';
@@ -137,8 +137,8 @@ class MessagesController extends BaseController
         }
       }
       elseif (isset($_POST['btn_msgDelete'])) {
-        $this->UMSG->delete((int) $_POST['hidden_id']);
-        $this->LOG->logEvent("logMessage", $this->UL->username, "log_msg_deleted", $_POST['hidden_subject']);
+        $this->userMessageModel->delete((int) $_POST['hidden_id']);
+        $this->logModel->logEvent("logMessage", $this->userLoggedIn->username, "log_msg_deleted", $_POST['hidden_subject']);
 
         $showAlert            = true;
         $alertData['type']    = 'success';
@@ -148,8 +148,8 @@ class MessagesController extends BaseController
         $alertData['help']    = '';
       }
       elseif (isset($_POST['btn_msgConfirm'])) {
-        $this->UMSG->setSilent((int) $_POST['hidden_id']);
-        $this->LOG->logEvent("logMessage", $this->UL->username, "log_msg_confirmed", $_POST['hidden_subject']);
+        $this->userMessageModel->setSilent((int) $_POST['hidden_id']);
+        $this->logModel->logEvent("logMessage", $this->userLoggedIn->username, "log_msg_confirmed", $_POST['hidden_subject']);
 
         $showAlert            = true;
         $alertData['type']    = 'success';
@@ -159,8 +159,8 @@ class MessagesController extends BaseController
         $alertData['help']    = '';
       }
       elseif (isset($_POST['btn_delete_all'])) {
-        $this->UMSG->deleteByUser($this->UL->username);
-        $this->LOG->logEvent("logMessage", $this->UL->username, "log_msg_deleted", "All messages");
+        $this->userMessageModel->deleteByUser($this->userLoggedIn->username);
+        $this->logModel->logEvent("logMessage", $this->userLoggedIn->username, "log_msg_deleted", "All messages");
 
         $showAlert            = true;
         $alertData['type']    = 'success';
@@ -170,8 +170,8 @@ class MessagesController extends BaseController
         $alertData['help']    = '';
       }
       elseif (isset($_POST['btn_confirm_all'])) {
-        $this->UMSG->setSilentByUser($this->UL->username);
-        $this->LOG->logEvent("logMessage", $this->UL->username, "log_msg_confirmed", "All messages");
+        $this->userMessageModel->setSilentByUser($this->userLoggedIn->username);
+        $this->logModel->logEvent("logMessage", $this->userLoggedIn->username, "log_msg_confirmed", "All messages");
 
         $showAlert            = true;
         $alertData['type']    = 'success';
@@ -187,10 +187,10 @@ class MessagesController extends BaseController
       $viewData['showAlert'] = true;
     }
 
-    $viewData['messages'] = $this->MSG->getAll();
-    $viewData['msgData']  = $this->MSG->getAllByUser($this->UL->username); // Mapped for Twig
-    $viewData['users']    = $this->U->getAll();
-    $viewData['groups']   = $this->G->getAll();
+    $viewData['messages'] = $this->messageModel->getAll();
+    $viewData['msgData']  = $this->messageModel->getAllByUser($this->userLoggedIn->username); // Mapped for Twig
+    $viewData['users']    = $this->userModel->getAll();
+    $viewData['groups']   = $this->groupModel->getAll();
 
     $this->render('messages', $viewData);
   }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Core\BaseController;
+use App\Models\CalendarDayModel;
 use App\Models\LicenseModel;
 use App\Models\PatternModel;
 use DateTime;
@@ -43,19 +44,19 @@ class CalendarEditController extends BaseController
       }
 
       $region = sanitize($_GET['region']);
-      if (!$this->R->getById($region)) {
+      if (!$this->regionModel->getById($region)) {
         $missingData = true;
       }
       else {
-        if ($this->R->getAccess($this->R->id, $this->UL->getRole($this->UL->username)) == 'view') {
-          $this->R->getById('1');
+        if ($this->regionModel->getAccess($this->regionModel->id, $this->userLoggedIn->getRole($this->userLoggedIn->username)) == 'view') {
+          $this->regionModel->getById('1');
         }
-        $viewData['regionid']   = $this->R->id;
-        $viewData['regionname'] = $this->R->name;
+        $viewData['regionid']   = $this->regionModel->id;
+        $viewData['regionname'] = $this->regionModel->name;
       }
 
       $caluser = sanitize($_GET['user']);
-      if (!$this->U->findByName($caluser)) {
+      if (!$this->userModel->findByName($caluser)) {
         $missingData = true;
       }
     }
@@ -77,7 +78,7 @@ class CalendarEditController extends BaseController
 
     if ($viewData['currentYearOnly'] && $viewData['year'] != date('Y') && $viewData['currYearRoles']) {
       $arrCurrYearRoles = explode(',', $viewData['currYearRoles']);
-      $userRole         = $this->U->getRole($this->UL->username);
+      $userRole         = $this->userModel->getRole($this->userLoggedIn->username);
       if (in_array($userRole, $arrCurrYearRoles)) {
         header("Location: index.php?action=calendaredit&month=" . date('Ym') . "&region=" . $region . "&user=" . $caluser);
         die();
@@ -87,13 +88,13 @@ class CalendarEditController extends BaseController
     // Check Permission
     $allowed = false;
     if (isAllowed($this->CONF['controllers']['calendaredit']->permission)) {
-      if ($this->UL->username == $caluser) {
+      if ($this->userLoggedIn->username == $caluser) {
         if (isAllowed("calendareditown")) {
           $allowed = true;
         }
       }
-      elseif ($this->UG->shareGroupMemberships($this->UL->username, $caluser)) {
-        if (isAllowed("calendareditgroup") || (isAllowed("calendareditgroupmanaged") && $this->UG->isGroupManagerOfUser($this->UL->username, $caluser))) {
+      elseif ($this->userGroupModel->shareGroupMemberships($this->userLoggedIn->username, $caluser)) {
+        if (isAllowed("calendareditgroup") || (isAllowed("calendareditgroupmanaged") && $this->userGroupModel->isGroupManagerOfUser($this->userLoggedIn->username, $caluser))) {
           $allowed = true;
         }
       }
@@ -120,24 +121,14 @@ class CalendarEditController extends BaseController
       $LIC->check($alertData, $showAlert, (int) $licExpiryWarning, $this->LANG);
     }
 
-    $PTN                  = new PatternModel($this->DB->db, $this->CONF);
-    $patterns             = $PTN->getAll();
-    $users                = $this->U->getAll();
+    $patternModel                  = new PatternModel($this->dbModel->db, $this->CONF);
+    $patterns             = $patternModel->getAll();
+    $users                = $this->userModel->getAll();
     $inputAlert           = [];
     $currDate             = date('Y-m-d');
     $viewData['dateInfo'] = dateInfo($viewData['year'], $viewData['month']);
-
-    if (!$this->M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid'])) {
-      createMonth($viewData['year'], $viewData['month'], 'region', $viewData['regionid']);
-      $this->M->getMonth($viewData['year'], $viewData['month'], $viewData['regionid']);
-      $this->LOG->logEvent("logMonth", $this->UL->username, "log_month_tpl_created", $this->M->region . ": " . $this->M->year . "-" . $this->M->month);
-    }
-
-    if (!$this->T->getTemplate($caluser, $viewData['year'], $viewData['month'])) {
-      createMonth($viewData['year'], $viewData['month'], 'user', $caluser);
-      $this->T->getTemplate($caluser, $viewData['year'], $viewData['month']);
-      $this->LOG->logEvent("logMonth", $this->UL->username, "log_month_tpl_created", $caluser . ": " . $this->M->year . "-" . $this->M->month);
-    }
+    $holidayMap           = $this->calendarDayModel->getMonthMap($viewData['year'], $viewData['month'], $viewData['regionid']);
+    $weekdayGrid           = CalendarDayModel::buildWeekdayGrid($viewData['year'], $viewData['month']);
 
     $alertData = [];
     $showAlert = false;
@@ -157,8 +148,9 @@ class CalendarEditController extends BaseController
         $approvedAbsences  = [];
         $declinedAbsences  = [];
 
+        $monthMap = $this->absenceDayModel->getMonthMap($caluser, $viewData['year'], $viewData['month']);
         for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
-          $currentAbsences[$i]   = $this->T->{'abs' . $i};
+          $currentAbsences[$i]   = $monthMap[$i] ?? 0;
           $requestedAbsences[$i] = $currentAbsences[$i];
           $approvedAbsences[$i]  = '0';
           $declinedAbsences[$i]  = '0';
@@ -186,26 +178,25 @@ class CalendarEditController extends BaseController
           if (isset($_POST['chk_clearDaynotes'])) {
             for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
               $daynoteDate = $viewData['year'] . $viewData['month'] . sprintf("%02d", ($i));
-              $this->D->delete($daynoteDate, $caluser, $viewData['regionid']);
+              $this->daynoteModel->delete($daynoteDate, $caluser, $viewData['regionid']);
             }
           }
         }
         elseif (isset($_POST['btn_savepattern'])) {
-          $PTN->get($_POST['sel_absencePattern']);
+          $patternWeekdayMap = $patternModel->getWeekdayMap($_POST['sel_absencePattern']);
           for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
             $weekday = dateInfo($viewData['year'], $viewData['month'], (string) $i)['wday'];
-            $prop    = 'abs' . $weekday;
             if (isset($_POST['chk_absencePatternSkipHolidays'])) {
-              $hprop = 'hol' . $i;
-              if ($this->M->$hprop && !$this->H->isBusinessDay($this->M->$hprop)) {
+              $holidayId = $holidayMap[$i] ?? 1;
+              if ($holidayId !== 1 && !$this->holidayModel->isBusinessDay((string) $holidayId)) {
                 $requestedAbsences[$i] = $currentAbsences[$i];
               }
               else {
-                $requestedAbsences[$i] = $PTN->$prop;
+                $requestedAbsences[$i] = $patternWeekdayMap[$weekday];
               }
             }
             else {
-              $requestedAbsences[$i] = $PTN->$prop;
+              $requestedAbsences[$i] = $patternWeekdayMap[$weekday];
             }
           }
         }
@@ -291,7 +282,7 @@ class CalendarEditController extends BaseController
 
         if (!$doNotSave) {
           $mailError        = '';
-          $approved         = $this->AbsenceService->approveAbsences($caluser, $viewData['year'], $viewData['month'], $currentAbsences, $requestedAbsences, $viewData['regionid'], $mailError);
+          $approved         = $this->absenceService->approveAbsences($caluser, $viewData['year'], $viewData['month'], $currentAbsences, $requestedAbsences, $viewData['regionid'], $mailError);
           $approvalResult   = $approved['approvalResult'];
           $approvedAbsences = $approved['approvedAbsences'];
 
@@ -311,25 +302,21 @@ class CalendarEditController extends BaseController
             case 'all':
               $logText .= $this->LANG['approved'] . '<br>';
               foreach ($requestedAbsences as $key => $val) {
-                $col           = 'abs' . $key;
-                $this->T->$col = (int) $val;
                 if ($val) {
-                  $logText .= '- ' . $viewData['year'] . $viewData['month'] . sprintf("%02d", $key) . ': ' . $this->A->getName((string) $val) . '<br>';
+                  $logText .= '- ' . $viewData['year'] . $viewData['month'] . sprintf("%02d", $key) . ': ' . $this->absenceModel->getName((string) $val) . '<br>';
                 }
               }
-              $this->T->update($caluser, $viewData['year'], $viewData['month']);
+              $this->absenceDayModel->setMonthMap($caluser, $viewData['year'], $viewData['month'], $requestedAbsences);
               $sendNotification = true;
               break;
             case 'partial':
               $logText .= $this->LANG['partially_approved'] . '<br>';
               foreach ($approved['approvedAbsences'] as $key => $val) {
-                $col           = 'abs' . $key;
-                $this->T->$col = (int) $val;
                 if ($val) {
-                  $logText .= '- ' . $viewData['year'] . $viewData['month'] . sprintf("%02d", $key) . ': ' . $this->A->getName((string) $val) . '<br>';
+                  $logText .= '- ' . $viewData['year'] . $viewData['month'] . sprintf("%02d", $key) . ': ' . $this->absenceModel->getName((string) $val) . '<br>';
                 }
               }
-              $this->T->update($caluser, $viewData['year'], $viewData['month']);
+              $this->absenceDayModel->setMonthMap($caluser, $viewData['year'], $viewData['month'], $approved['approvedAbsences']);
               $sendNotification = true;
               $alerttype = 'info';
               foreach ($approved['declinedReasons'] as $reason) {
@@ -353,7 +340,7 @@ class CalendarEditController extends BaseController
             sendUserCalEventNotifications("changed", $caluser, $viewData['year'], $viewData['month'], $mailError);
           }
 
-          $this->LOG->logEvent("logCalendar", $this->UL->username, "log_cal_usr_tpl_chg", $caluser . " " . $viewData['year'] . $viewData['month'] . $logText);
+          $this->logModel->logEvent("logCalendar", $this->userLoggedIn->username, "log_cal_usr_tpl_chg", $caluser . " " . $viewData['year'] . $viewData['month'] . $logText);
 
           if (isset($_SESSION)) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -375,7 +362,7 @@ class CalendarEditController extends BaseController
         die();
       }
       elseif (isset($_POST['btn_width'])) {
-        $this->UO->save($this->UL->username, 'width', $_POST['sel_width']);
+        $this->userOptionModel->save($this->userLoggedIn->username, 'width', $_POST['sel_width']);
         header("Location: index.php?action=calendaredit&month=" . $viewData['year'] . $viewData['month'] . "&region=" . $region . "&user=" . $caluser);
         die();
       }
@@ -392,35 +379,35 @@ class CalendarEditController extends BaseController
 
     // Prepare View
     $viewData['username']  = $caluser;
-    $viewData['fullname']  = $this->U->getFullname($caluser);
-    $viewData['absences']  = $this->A->getAll();
-    $viewData['holidays']  = $this->H->getAllCustom();
+    $viewData['fullname']  = $this->userModel->getFullname($caluser);
+    $viewData['absences']  = $this->absenceModel->getAll();
+    $viewData['holidays']  = $this->holidayModel->getAllCustom();
     $viewData['dayStyles'] = [];
     $viewData['patterns']  = $patterns;
 
     $absenceColorCache = [];
     foreach ($viewData['absences'] as $abs) {
-      $absenceColorCache[$abs['id']] = ['color' => $this->A->getColor((string) $abs['id']), 'bgcolor' => $this->A->getBgColor((string) $abs['id'])];
+      $absenceColorCache[$abs['id']] = ['color' => $this->absenceModel->getColor((string) $abs['id']), 'bgcolor' => $this->absenceModel->getBgColor((string) $abs['id'])];
     }
 
     $holidayColorCache = [];
     foreach ($viewData['holidays'] as $hol) {
-      $holidayColorCache[$hol['id']] = ['color' => $this->H->getColor((string) $hol['id']), 'bgcolor' => $this->H->getBgColor((string) $hol['id'])];
+      $holidayColorCache[$hol['id']] = ['color' => $this->holidayModel->getColor((string) $hol['id']), 'bgcolor' => $this->holidayModel->getBgColor((string) $hol['id'])];
     }
     for ($i = 2; $i <= 3; $i++) {
-      $holidayColorCache[$i] = ['color' => $this->H->getColor((string) $i), 'bgcolor' => $this->H->getBgColor((string) $i)];
+      $holidayColorCache[$i] = ['color' => $this->holidayModel->getColor((string) $i), 'bgcolor' => $this->holidayModel->getBgColor((string) $i)];
     }
 
-    $usergroups             = $this->UG->getAllforUser($caluser);
+    $usergroups             = $this->userGroupModel->getAllforUser($caluser);
     $viewData['groupnames'] = " <span style=\"font-weight:normal;\">(";
     foreach ($usergroups as $ug) {
-      $viewData['groupnames'] .= $this->G->getNameByID((string) $ug['groupid']) . ", ";
+      $viewData['groupnames'] .= $this->groupModel->getNameByID((string) $ug['groupid']) . ", ";
     }
     $viewData['groupnames'] = substr($viewData['groupnames'], 0, -2) . ")</span>";
 
-    $allRegions = $this->R->getAll();
+    $allRegions = $this->regionModel->getAll();
     foreach ($allRegions as $reg) {
-      if (!$this->R->getAccess((string) $reg['id'], $this->UL->getRole($this->UL->username)) || $this->R->getAccess((string) $reg['id'], $this->UL->getRole($this->UL->username)) == 'edit') {
+      if (!$this->regionModel->getAccess((string) $reg['id'], $this->userLoggedIn->getRole($this->userLoggedIn->username)) || $this->regionModel->getAccess((string) $reg['id'], $this->userLoggedIn->getRole($this->userLoggedIn->username)) == 'edit') {
         $viewData['regions'][] = $reg;
       }
     }
@@ -428,11 +415,11 @@ class CalendarEditController extends BaseController
     $viewData['users'] = [];
     foreach ($users as $usr) {
       $allowed = false;
-      if ($usr['username'] == $this->UL->username && isAllowed("calendareditown")) {
+      if ($usr['username'] == $this->userLoggedIn->username && isAllowed("calendareditown")) {
         $allowed = true;
       }
-      elseif (!$this->U->isHidden($usr['username'])) {
-        if (isAllowed("calendareditall") || (isAllowed("calendareditgroup") && $this->UG->shareGroups($usr['username'], $this->UL->username))) {
+      elseif (!$this->userModel->isHidden($usr['username'])) {
+        if (isAllowed("calendareditall") || (isAllowed("calendareditgroup") && $this->userGroupModel->shareGroups($usr['username'], $this->userLoggedIn->username))) {
           $allowed = true;
         }
       }
@@ -446,16 +433,16 @@ class CalendarEditController extends BaseController
       $bgcolor                   = '';
       $border                    = '';
       $viewData['dayStyles'][$i] = '';
-      $hprop                     = 'hol' . $i;
-      $wprop                     = 'wday' . $i;
-      if ($this->M->$hprop) {
-        if (isset($holidayColorCache[$this->M->$hprop])) {
-          $color   = 'color:#' . $holidayColorCache[$this->M->$hprop]['color'] . ';';
-          $bgcolor = 'background-color:#' . $holidayColorCache[$this->M->$hprop]['bgcolor'] . ';';
+      $holidayId                 = $holidayMap[$i] ?? 1;
+      $weekday                   = $weekdayGrid['wday' . $i];
+      if ($holidayId !== 1) {
+        if (isset($holidayColorCache[$holidayId])) {
+          $color   = 'color:#' . $holidayColorCache[$holidayId]['color'] . ';';
+          $bgcolor = 'background-color:#' . $holidayColorCache[$holidayId]['bgcolor'] . ';';
         }
       }
-      elseif ($this->M->$wprop == 6 || $this->M->$wprop == 7) {
-        $weekendIndex = $this->M->$wprop - 4;
+      elseif ($weekday == 6 || $weekday == 7) {
+        $weekendIndex = $weekday - 4;
         if (isset($holidayColorCache[$weekendIndex])) {
           $color   = 'color:#' . $holidayColorCache[$weekendIndex]['color'] . ';';
           $bgcolor = 'background-color:#' . $holidayColorCache[$weekendIndex]['bgcolor'] . ';';
@@ -477,25 +464,25 @@ class CalendarEditController extends BaseController
     $mobilecols['full']          = $viewData['dateInfo']['daysInMonth'];
     $viewData['supportMobile']   = $this->allConfig['supportMobile'];
     $viewData['firstDayOfWeek']  = $this->allConfig['firstDayOfWeek'];
-    if (!$viewData['width'] = $this->UO->read($this->UL->username, 'width')) {
-      $this->UO->save($this->UL->username, 'width', 'full');
+    if (!$viewData['width'] = $this->userOptionModel->read($this->userLoggedIn->username, 'width')) {
+      $this->userOptionModel->save($this->userLoggedIn->username, 'width', 'full');
       $viewData['width'] = 'full';
     }
 
-    $this->T->getTemplate($viewData['username'], $viewData['year'], $viewData['month']);
+    $viewMonthMap             = $this->absenceDayModel->getMonthMap($viewData['username'], $viewData['year'], $viewData['month']);
     $viewData['calendarDays'] = [];
     $currDate                 = date('Y-m-d');
     for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
       $day                     = [];
       $day['num']              = $i;
       $day['style']            = $viewData['dayStyles'][$i];
-      $day['weekday']          = $this->M->{'wday' . $i};
-      $day['weeknum']          = $this->M->{'week' . $i};
-      $day['isFirstDayOfWeek'] = ($this->M->{'wday' . $i} == $viewData['firstDayOfWeek']);
+      $day['weekday']          = $weekdayGrid['wday' . $i];
+      $day['weeknum']          = $weekdayGrid['week' . $i];
+      $day['isFirstDayOfWeek'] = ($weekdayGrid['wday' . $i] == $viewData['firstDayOfWeek']);
       $day['date']             = $viewData['year'] . $viewData['month'] . sprintf('%02d', $i);
       $day['loopDate']         = date('Y-m-d', mktime(0, 0, 0, (int) $viewData['month'], $i, (int) $viewData['year']));
       $day['isToday']          = ($day['loopDate'] == date('Y-m-d'));
-      $day['currentAbsence']   = $this->T->{'abs' . $i};
+      $day['currentAbsence']   = $viewMonthMap[$i] ?? 0;
       if ($day['currentAbsence']) {
         if (isset($absenceColorCache[$day['currentAbsence']])) {
           $color   = 'color:#' . $absenceColorCache[$day['currentAbsence']]['color'] . ';';
@@ -510,15 +497,15 @@ class CalendarEditController extends BaseController
           $border = 'border-left: ' . $this->allConfig['todayBorderSize'] . 'px solid #' . $this->allConfig['todayBorderColor'] . ';border-right: ' . $this->allConfig['todayBorderSize'] . 'px solid #' . $this->allConfig['todayBorderColor'] . ';';
         }
         $day['absenceStyle'] = ' style="' . $color . $bgcolor . $border . '"';
-        $day['absenceIcon']  = $this->allConfig['symbolAsIcon'] ? $this->A->getSymbol((string) $day['currentAbsence']) : '<span class="' . $this->A->getIcon((string) $day['currentAbsence']) . '"></span>';
+        $day['absenceIcon']  = $this->allConfig['symbolAsIcon'] ? $this->absenceModel->getSymbol((string) $day['currentAbsence']) : '<span class="' . $this->absenceModel->getIcon((string) $day['currentAbsence']) . '"></span>';
       }
       else {
         $day['absenceStyle'] = $day['style'];
         $day['absenceIcon']  = '';
       }
-      if ($this->D->get($day['date'], $viewData['username'], $viewData['regionid'], true)) {
+      if ($this->daynoteModel->get($day['date'], $viewData['username'], $viewData['regionid'], true)) {
         $day['daynoteIcon']    = 'fas fa-sticky-note';
-        $day['daynoteTooltip'] = ' data-placement="top" data-type="' . $this->D->color . '" data-bs-toggle="tooltip" title="' . $this->D->daynote . '"';
+        $day['daynoteTooltip'] = ' data-placement="top" data-type="' . $this->daynoteModel->color . '" data-bs-toggle="tooltip" title="' . $this->daynoteModel->daynote . '"';
       }
       else {
         $day['daynoteIcon']    = 'far fa-sticky-note';
@@ -527,14 +514,14 @@ class CalendarEditController extends BaseController
       $viewData['calendarDays'][$i] = $day;
     }
 
-    $isGroupManager     = $this->UG->isGroupManagerOfUser($this->UL->username, $viewData['username']);
-    $isAdmin            = ($this->UL->username == 'admin');
+    $isGroupManager     = $this->userGroupModel->isGroupManagerOfUser($this->userLoggedIn->username, $viewData['username']);
+    $isAdmin            = (bool) $this->userLoggedIn->is_system;
     $hasManagerOnlyRole = isAllowed('manageronlyabsences');
-    $isAdminRole        = ($this->allConfig['managerOnlyIncludesAdministrator'] && $this->UL->hasRole($this->UL->username, '1'));
+    $isAdminRole        = ($this->allConfig['managerOnlyIncludesAdministrator'] && $this->userLoggedIn->hasRole($this->userLoggedIn->username, '1'));
 
     $viewData['absencesForUser'] = [];
     foreach ($viewData['absences'] as $abs) {
-      $valid                         = ($isAdmin || $this->UserService->absenceIsValidForUser((string) $abs['id'], (string) $this->UL->username) && (!$abs['manager_only'] || $isGroupManager || $hasManagerOnlyRole || $isAdminRole));
+      $valid                         = ($isAdmin || $this->userService->absenceIsValidForUser((string) $abs['id'], (string) $this->userLoggedIn->username) && (!$abs['manager_only'] || $isGroupManager || $hasManagerOnlyRole || $isAdminRole));
       $abs['validForUser']           = $valid;
       $viewData['absencesForUser'][] = $abs;
     }
@@ -544,9 +531,8 @@ class CalendarEditController extends BaseController
       if ($abs['validForUser']) {
         $row = ['id' => $abs['id'], 'name' => $abs['name'], 'days' => []];
         for ($i = 1; $i <= $viewData['dateInfo']['daysInMonth']; $i++) {
-          $prop            = 'abs' . $i;
           $row['days'][$i] = [
-            'checked' => ($this->T->$prop == $abs['id']),
+            'checked' => (($viewMonthMap[$i] ?? 0) == $abs['id']),
             'style'   => $viewData['calendarDays'][$i]['style'],
             'num'     => $i
           ];

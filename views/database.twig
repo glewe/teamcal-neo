@@ -40,6 +40,7 @@
                 {'id': 'tab-delete', 'href': '#panel-delete', 'label': LANG.db_tab_delete, 'active': false},
                 {'id': 'tab-admin', 'href': '#panel-admin', 'label': LANG.db_tab_admin, 'active': false},
                 {'id': 'tab-reset', 'href': '#panel-reset', 'label': LANG.db_tab_reset, 'active': false},
+                {'id': 'tab-import', 'href': '#panel-import', 'label': LANG.db_tab_import, 'active': false},
                 {'id': 'tab-dbinfo', 'href': '#panel-dbinfo', 'label': LANG.db_tab_dbinfo, 'active': false},
               ] %}
                 {{ createPageTabs(pageTabs) }}
@@ -237,6 +238,83 @@
                     <button type="submit" class="btn btn-danger" tabindex="{{ nextTabindex() }}" name="btn_reset">{{ LANG.btn_reset_database }}</button>
                   </div>
 
+                  <!-- Import from 5.3.7 tab -->
+                  <div class="tab-pane fade" id="panel-import" role="tabpanel" aria-labelledby="tab-import">
+                    <div class="alert alert-info">{{ LANG.db_import_intro|raw }}</div>
+
+                    {% if importInProgress %}
+                      <div id="import-resume" class="alert alert-warning">
+                        {{ LANG.db_import_resume_text }}
+                        <div class="mt-2">
+                          <button type="button" id="btn_importResume" class="btn btn-warning" tabindex="{{ nextTabindex() }}">{{ LANG.btn_import_resume }}</button>
+                          <button type="button" id="btn_importCancel" class="btn btn-danger" tabindex="{{ nextTabindex() }}">{{ LANG.btn_import_cancel }}</button>
+                        </div>
+                      </div>
+                    {% endif %}
+
+                    <div id="import-setup">
+                      <div class="form-group row">
+                        <div class="col-lg-{{ colsleft }}">
+                          <div class="text-bold">{{ LANG.db_import_folder }}</div>
+                          <div class="text-normal">{{ LANG.db_import_folder_comment|raw }}</div>
+                        </div>
+                        <div class="col-lg-{{ colsright }}">
+                          <input id="import_folder" class="form-control" tabindex="{{ nextTabindex() }}" maxlength="255" value="" placeholder="{{ LANG.db_import_folder_placeholder }}" type="text">
+                        </div>
+                      </div>
+                      <div class="divider"><hr></div>
+                      <details class="mb-3">
+                        <summary class="text-bold">{{ LANG.db_import_db_details }}</summary>
+                        <div class="text-normal mt-2 mb-2">{{ LANG.db_import_db_comment }}</div>
+                        {% set importFields = [
+                        {'id': 'import_host', 'label': LANG.db_import_host, 'type': 'text', 'value': ''},
+                        {'id': 'import_port', 'label': LANG.db_import_port, 'type': 'text', 'value': ''},
+                        {'id': 'import_name', 'label': LANG.db_import_name, 'type': 'text', 'value': ''},
+                        {'id': 'import_user', 'label': LANG.db_import_user, 'type': 'text', 'value': ''},
+                        {'id': 'import_pass', 'label': LANG.db_import_pass, 'type': 'password', 'value': ''},
+                        {'id': 'import_prefix', 'label': LANG.db_import_prefix, 'type': 'text', 'value': ''},
+                      ] %}
+                        {% for field in importFields %}
+                          <div class="form-group row mb-2">
+                            <div class="col-lg-{{ colsleft }}">{{ field.label }}</div>
+                            <div class="col-lg-{{ colsright }}">
+                              <input id="{{ field.id }}" class="form-control" tabindex="{{ nextTabindex() }}" maxlength="160" value="" type="{{ field.type }}" autocomplete="off">
+                            </div>
+                          </div>
+                        {% endfor %}
+                      </details>
+                      <button type="button" id="btn_importCheck" class="btn btn-primary" tabindex="{{ nextTabindex() }}">{{ LANG.btn_import_check }}</button>
+                    </div>
+
+                    <div id="import-check-result" class="mt-3"></div>
+
+                    <div id="import-confirm" class="d-none mt-3">
+                      <div class="divider"><hr></div>
+                      <div class="alert alert-danger">{{ LANG.db_import_danger|raw }}</div>
+                      <div class="form-group row">
+                        <div class="col-lg-{{ colsleft }}">
+                          <div class="text-bold">{{ LANG.db_confirm }}</div>
+                          <div class="text-normal">{{ LANG.db_import_confirm_comment }}</div>
+                        </div>
+                        <div class="col-lg-{{ colsright }}">
+                          <input id="import_confirm_text" class="form-control" tabindex="{{ nextTabindex() }}" maxlength="6" value="" autocomplete="off" type="text">
+                        </div>
+                      </div>
+                      <div class="divider"><hr></div>
+                      <button type="button" id="btn_importStart" class="btn btn-danger" tabindex="{{ nextTabindex() }}">{{ LANG.btn_import_start }}</button>
+                    </div>
+
+                    <div id="import-progress" class="d-none mt-3">
+                      <div class="text-bold mb-2" id="import-progress-label"></div>
+                      <div class="progress" role="progressbar" aria-label="{{ LANG.db_import_running }}">
+                        <div id="import-progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%">0%</div>
+                      </div>
+                      <div class="text-normal mt-2">{{ LANG.db_import_running_hint }}</div>
+                    </div>
+
+                    <div id="import-result" class="mt-3"></div>
+                  </div>
+
                   <!-- Database Information tab -->
                   <div class="tab-pane fade show" id="panel-dbinfo" role="tabpanel" aria-labelledby="tab-dbinfo">
                     <div class="form-group row">
@@ -343,6 +421,12 @@
                 return 'Missing column <code>' + escapeHtml(f.column) + '</code> in table <code>' + escapeHtml(f.table) + '</code>';
               case 'missing_index':
                 return 'Missing index <code>' + escapeHtml(f.index) + '</code> in table <code>' + escapeHtml(f.table) + '</code>';
+              case 'wrong_engine':
+                return 'Table <code>' + escapeHtml(f.table) + '</code> uses storage engine <code>' + escapeHtml(f.current) + '</code> instead of InnoDB';
+              case 'missing_foreign_key':
+                return 'Missing foreign key <code>' + escapeHtml(f.constraint) + '</code> in table <code>' + escapeHtml(f.table) + '</code>';
+              case 'missing_check':
+                return 'Missing check constraint <code>' + escapeHtml(f.constraint) + '</code> in table <code>' + escapeHtml(f.table) + '</code>';
               case 'missing_config':
                 return 'Missing config entry <code>' + escapeHtml(f.name) + '</code>';
               case 'mismatched_config_case':
@@ -463,6 +547,213 @@
             if (needsReload) {
               window.location.reload();
             }
+          });
+        });
+      </script>
+
+      <script>
+        // Import from a 5.3.7 installation
+        document.addEventListener('DOMContentLoaded', function () {
+          const T = {
+            checking:   {{ LANG.db_import_checking|json_encode|raw }},
+            running:    {{ LANG.db_import_running|json_encode|raw }},
+            checkOk:    {{ LANG.db_import_check_ok|json_encode|raw }},
+            colTable:   {{ LANG.db_import_col_table|json_encode|raw }},
+            colOld:     {{ LANG.db_import_col_old|json_encode|raw }},
+            colNew:     {{ LANG.db_import_col_new|json_encode|raw }},
+            confirm:    {{ LANG.db_import_err_confirm|json_encode|raw }},
+            failed:     {{ LANG.db_import_failed|json_encode|raw }},
+            doneTitle:  {{ LANG.db_import_done|json_encode|raw }},
+            doneText:   {{ LANG.db_import_done_text|json_encode|raw }},
+            notesTitle: {{ LANG.db_import_notes_title|json_encode|raw }},
+            btnHome:    {{ LANG.btn_import_home|json_encode|raw }},
+            cancelled:  {{ LANG.db_import_cancelled|json_encode|raw }},
+            confirmCancel: {{ LANG.db_import_cancel_confirm|json_encode|raw }},
+            steps: {
+              wipe:          {{ LANG.db_import_step_wipe|json_encode|raw }},
+              reference:     {{ LANG.db_import_step_reference|json_encode|raw }},
+              config:        {{ LANG.db_import_step_config|json_encode|raw }},
+              messages:      {{ LANG.db_import_step_messages|json_encode|raw }},
+              log:           {{ LANG.db_import_step_log|json_encode|raw }},
+              users:         {{ LANG.db_import_step_users|json_encode|raw }},
+              userdata:      {{ LANG.db_import_step_userdata|json_encode|raw }},
+              daynotes:      {{ LANG.db_import_step_daynotes|json_encode|raw }},
+              absence_days:  {{ LANG.db_import_step_absence_days|json_encode|raw }},
+              calendar_days: {{ LANG.db_import_step_calendar_days|json_encode|raw }},
+              verify:        {{ LANG.db_import_step_verify|json_encode|raw }},
+              files:         {{ LANG.db_import_step_files|json_encode|raw }},
+            },
+          };
+          const csrfToken = document.querySelector('input[name="csrf_token"]').value;
+          const el        = (id) => document.getElementById(id);
+          const setupEl   = el('import-setup');
+          const checkBtn  = el('btn_importCheck');
+          const resultEl  = el('import-check-result');
+          const confirmEl = el('import-confirm');
+          const startBtn  = el('btn_importStart');
+          const progEl    = el('import-progress');
+          const barEl     = el('import-progress-bar');
+          const labelEl   = el('import-progress-label');
+          const doneEl    = el('import-result');
+          if (!checkBtn) {
+            return;
+          }
+
+          const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+          const list = (items, cls) => '<ul class="' + cls + '">' + items.map((i) => '<li>' + esc(i) + '</li>').join('') + '</ul>';
+
+          async function post(method, body) {
+            const opts = {method: 'POST', headers: {'X-CSRF-Token': csrfToken}};
+            if (body !== undefined) {
+              opts.headers['Content-Type'] = 'application/json';
+              opts.body = JSON.stringify(body);
+            }
+            const resp = await fetch('index.php?action=database&method=' + method, opts);
+            let data = null;
+            try {
+              data = await resp.json();
+            } catch (e) {
+              throw new Error('HTTP ' + resp.status);
+            }
+            if (!resp.ok) {
+              throw new Error(data.error || ('HTTP ' + resp.status));
+            }
+            return data;
+          }
+
+          function countsTable(counts) {
+            let html = '<table class="table table-sm w-auto"><thead><tr><th>' + esc(T.colTable) + '</th><th class="text-end">' + esc(T.colOld) + '</th>';
+            const withNew = Object.values(counts).some((c) => typeof c === 'object' && c !== null);
+            if (withNew) {
+              html += '<th class="text-end">' + esc(T.colNew) + '</th><th></th>';
+            }
+            html += '</tr></thead><tbody>';
+            for (const [name, c] of Object.entries(counts)) {
+              if (typeof c === 'object' && c !== null) {
+                html += '<tr><td>' + esc(name) + '</td><td class="text-end">' + (c.old === null ? '' : esc(c.old)) + '</td><td class="text-end">' + esc(c.new) + '</td><td>' + (c.into !== name ? '&rarr; ' + esc(c.into) : '') + '</td></tr>';
+              } else {
+                html += '<tr><td>' + esc(name) + '</td><td class="text-end">' + esc(c) + '</td></tr>';
+              }
+            }
+            return html + '</tbody></table>';
+          }
+
+          function fail(message) {
+            progEl.classList.add('d-none');
+            setupEl.classList.remove('d-none');
+            resultEl.innerHTML = '<div class="alert alert-danger"><strong>' + esc(T.failed) + '</strong> ' + esc(message) + '</div>';
+          }
+
+          async function drive() {
+            setupEl.classList.add('d-none');
+            confirmEl.classList.add('d-none');
+            resultEl.innerHTML = '';
+            progEl.classList.remove('d-none');
+            try {
+              for (;;) {
+                const p = await post('import_step');
+                barEl.style.width = p.percent + '%';
+                barEl.textContent = p.percent + '%';
+                labelEl.textContent = T.steps[p.step] || T.running;
+                if (p.done) {
+                  progEl.classList.add('d-none');
+                  showResult(p.result);
+                  return;
+                }
+              }
+            } catch (e) {
+              fail(e.message);
+            }
+          }
+
+          function showResult(r) {
+            let html = '<div class="alert alert-success"><strong>' + esc(T.doneTitle) + '</strong> ' + T.doneText + '</div>';
+            html += countsTable(r.counts);
+            html += list(r.settings, 'mb-2') + list(r.files, 'mb-2');
+            if (r.notes.length) {
+              html += '<div class="alert alert-warning mb-2"><strong>' + esc(T.notesTitle) + '</strong>' + list(r.notes, 'mb-0') + '</div>';
+            }
+            html += '<a class="btn btn-primary" href="index.php?action=home">' + esc(T.btnHome) + '</a>';
+            doneEl.innerHTML = html;
+          }
+
+          checkBtn.addEventListener('click', async () => {
+            confirmEl.classList.add('d-none');
+            resultEl.innerHTML = '';
+            checkBtn.disabled = true;
+            const label = checkBtn.textContent;
+            checkBtn.textContent = T.checking;
+            try {
+              const data = await post('import_check', {
+                folder: el('import_folder').value, host: el('import_host').value, port: el('import_port').value,
+                name: el('import_name').value, user: el('import_user').value, pass: el('import_pass').value, prefix: el('import_prefix').value,
+              });
+              if (data.errors.length) {
+                resultEl.innerHTML = '<div class="alert alert-danger">' + list(data.errors, 'mb-0') + '</div>';
+              } else {
+                let html = '<div class="alert alert-success mb-2">' + esc(T.checkOk) + '</div>';
+                if (data.warnings.length) {
+                  html += '<div class="alert alert-warning">' + list(data.warnings, 'mb-0') + '</div>';
+                }
+                resultEl.innerHTML = html + countsTable(data.counts);
+                confirmEl.classList.remove('d-none');
+              }
+            } catch (e) {
+              resultEl.innerHTML = '<div class="alert alert-danger">' + esc(e.message) + '</div>';
+            } finally {
+              checkBtn.disabled = false;
+              checkBtn.textContent = label;
+            }
+          });
+
+          startBtn.addEventListener('click', async () => {
+            if (el('import_confirm_text').value !== 'IMPORT') {
+              resultEl.insertAdjacentHTML('beforeend', '<div class="alert alert-danger mt-2">' + esc(T.confirm) + '</div>');
+              return;
+            }
+            startBtn.disabled = true;
+            try {
+              await post('import_start', {confirm: 'IMPORT'});
+              await drive();
+            } catch (e) {
+              fail(e.message);
+            } finally {
+              startBtn.disabled = false;
+            }
+          });
+
+          // An import was interrupted (page closed): continue or go back to the fresh state
+          const resumeBtn = el('btn_importResume');
+          if (resumeBtn) {
+            resumeBtn.addEventListener('click', () => {
+              el('import-resume').classList.add('d-none');
+              drive();
+            });
+            el('btn_importCancel').addEventListener('click', async () => {
+              if (!window.confirm(T.confirmCancel)) {
+                return;
+              }
+              try {
+                await post('import_cancel');
+                el('import-resume').innerHTML = '<div class="alert alert-info mb-0">' + esc(T.cancelled) + '</div>';
+              } catch (e) {
+                fail(e.message);
+              }
+            });
+          }
+
+          // Enter in a field must not submit the page form
+          document.querySelectorAll('#panel-import input').forEach((input) => {
+            input.addEventListener('keydown', (ev) => {
+              if (ev.key === 'Enter') {
+                ev.preventDefault();
+                if (input.id === 'import_confirm_text') {
+                  startBtn.click();
+                } else {
+                  checkBtn.click();
+                }
+              }
+            });
           });
         });
       </script>

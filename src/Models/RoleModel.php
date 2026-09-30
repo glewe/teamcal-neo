@@ -40,8 +40,8 @@ class RoleModel
       $this->table = $conf['db_table_roles'];
     }
     else {
-      global $CONF, $DB;
-      $this->db    = $DB->db;
+      global $CONF, $dbModel;
+      $this->db    = $dbModel->db;
       $this->table = $CONF['db_table_roles'];
     }
   }
@@ -72,22 +72,6 @@ class RoleModel
     $query = $this->db->prepare("DELETE FROM {$this->table} WHERE id = :id");
     $query->bindParam(':id', $id, PDO::PARAM_STR);
     return $query->execute();
-  }
-
-  //---------------------------------------------------------------------------
-  /**
-   * Deletes all records.
-   *
-   * @return bool Query result
-   */
-  public function deleteAll(): bool {
-    $query  = $this->db->prepare("SELECT COUNT(*) FROM {$this->table}");
-    $result = $query->execute();
-    if ($result && $query->fetchColumn()) {
-      $query = $this->db->prepare("TRUNCATE TABLE {$this->table}");
-      return $query->execute();
-    }
-    return false;
   }
 
   //---------------------------------------------------------------------------

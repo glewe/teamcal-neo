@@ -25,7 +25,7 @@ if (!defined('VALID_ROOT')) {
  * @return bool True if email was sent successfully, false otherwise
  */
 function sendAccountCreatedMail(string $email, string $username, string $password, string &$errorMessage = ''): bool {
-  global $C, $LANG, $LOG, $UO;
+  global $configModel, $LANG, $logModel, $userOptionModel;
 
   //
   // Input validation
@@ -35,12 +35,12 @@ function sendAccountCreatedMail(string $email, string $username, string $passwor
   }
 
   try {
-    $language = $C->read('defaultLanguage');
-    $userLang = $UO->read($username, 'language');
+    $language = $configModel->read('defaultLanguage');
+    $userLang = $userOptionModel->read($username, 'language');
     if ($userLang && $userLang !== 'default') {
       $language = $userLang;
     }
-    $appTitle = $C->read('appTitle');
+    $appTitle = $configModel->read('appTitle');
 
     //
     // Load localized subject
@@ -105,8 +105,8 @@ function sendAccountCreatedMail(string $email, string $username, string $passwor
 
     return sendEmail($email, $subject, $message, '', $errorMessage);
   } catch (Exception $e) {
-    if (isset($LOG)) {
-      $LOG->logEvent("logRegistration", "System", "Failed to send account creation email: ", $e->getMessage());
+    if (isset($logModel)) {
+      $logModel->logEvent("logRegistration", "System", "Failed to send account creation email: ", $e->getMessage());
     }
     $errorMessage = "General: " . $e->getMessage();
     return false;
@@ -124,7 +124,7 @@ function sendAccountCreatedMail(string $email, string $username, string $passwor
  * @return bool True if email was sent successfully, false otherwise
  */
 function sendAccountNeedsApprovalMail(string $email, string $username, string $lastname, string $firstname, string &$errorMessage = ''): bool {
-  global $C, $LANG, $LOG, $UO;
+  global $configModel, $LANG, $logModel, $userOptionModel;
 
   //
   // Input validation
@@ -134,10 +134,10 @@ function sendAccountNeedsApprovalMail(string $email, string $username, string $l
   }
 
   try {
-    $language = $C->read('defaultLanguage');
-    $appTitle = $C->read('appTitle');
+    $language = $configModel->read('defaultLanguage');
+    $appTitle = $configModel->read('appTitle');
 
-    $userLang = $UO->read($username, 'language');
+    $userLang = $userOptionModel->read($username, 'language');
     if ($userLang && $userLang !== 'default') {
       $language = $userLang;
     }
@@ -206,8 +206,8 @@ function sendAccountNeedsApprovalMail(string $email, string $username, string $l
 
     return sendEmail($email, $subject, $message, '', $errorMessage);
   } catch (Exception $e) {
-    if (isset($LOG)) {
-      $LOG->logEvent("logRegistration", "System", "Failed to send account approval request email: ", $e->getMessage());
+    if (isset($logModel)) {
+      $logModel->logEvent("logRegistration", "System", "Failed to send account approval request email: ", $e->getMessage());
     }
     $errorMessage = "General: " . $e->getMessage();
     return false;
@@ -225,7 +225,7 @@ function sendAccountNeedsApprovalMail(string $email, string $username, string $l
  * @return bool True if email was sent successfully, false otherwise
  */
 function sendAccountRegisteredMail(string $email, string $username, string $lastname, string $firstname, string $verifycode, string &$errorMessage = ''): bool {
-  global $C, $LANG, $LOG, $UO;
+  global $configModel, $LANG, $logModel, $userOptionModel;
 
   //
   // Input validation
@@ -235,10 +235,10 @@ function sendAccountRegisteredMail(string $email, string $username, string $last
   }
 
   try {
-    $language = $C->read('defaultLanguage');
-    $appTitle = $C->read('appTitle');
+    $language = $configModel->read('defaultLanguage');
+    $appTitle = $configModel->read('appTitle');
 
-    $userLang = $UO->read($username, 'language');
+    $userLang = $userOptionModel->read($username, 'language');
     if ($userLang && $userLang !== 'default') {
       $language = $userLang;
     }
@@ -308,8 +308,8 @@ function sendAccountRegisteredMail(string $email, string $username, string $last
 
     return sendEmail($email, $subject, $message, '', $errorMessage);
   } catch (Exception $e) {
-    if (isset($LOG)) {
-      $LOG->logEvent("logRegistration", "System", "Failed to send account registration email: ", $e->getMessage());
+    if (isset($logModel)) {
+      $logModel->logEvent("logRegistration", "System", "Failed to send account registration email: ", $e->getMessage());
     }
     $errorMessage = "General: " . $e->getMessage();
     return false;
@@ -328,7 +328,7 @@ function sendAccountRegisteredMail(string $email, string $username, string $last
  * @return bool True if email was sent successfully, false otherwise
  */
 function sendAccountVerificationMismatchMail(string $email, string $username, string $vcode, string $vcodeSubmitted, string &$errorMessage = ''): bool {
-  global $C, $LANG, $LOG, $UO;
+  global $configModel, $LANG, $logModel, $userOptionModel;
 
   //
   // Input validation
@@ -338,10 +338,10 @@ function sendAccountVerificationMismatchMail(string $email, string $username, st
   }
 
   try {
-    $language = $C->read('defaultLanguage');
-    $appTitle = $C->read('appTitle');
+    $language = $configModel->read('defaultLanguage');
+    $appTitle = $configModel->read('appTitle');
 
-    $userLang = $UO->read($username, 'language');
+    $userLang = $userOptionModel->read($username, 'language');
     if ($userLang && $userLang !== 'default') {
       $language = $userLang;
     }
@@ -410,8 +410,8 @@ function sendAccountVerificationMismatchMail(string $email, string $username, st
 
     return sendEmail($email, $subject, $message, '', $errorMessage);
   } catch (Exception $e) {
-    if (isset($LOG)) {
-      $LOG->logEvent("logRegistration", "System", "Failed to send verification mismatch email: ", $e->getMessage());
+    if (isset($logModel)) {
+      $logModel->logEvent("logRegistration", "System", "Failed to send verification mismatch email: ", $e->getMessage());
     }
     $errorMessage = "General: " . $e->getMessage();
     return false;
@@ -439,7 +439,7 @@ function sendAccountVerificationMismatchMail(string $email, string $username, st
  * @return bool True if all emails were sent successfully, false if any failed
  */
 function sendGroupEventNotifications(string $event, string $groupname, string $groupdesc = '', string &$errorMessage = ''): bool {
-  global $C, $LANG, $U, $UO, $LOG;
+  global $configModel, $LANG, $userModel, $userOptionModel, $logModel;
 
   $events = ['changed', 'created', 'deleted'];
 
@@ -448,18 +448,18 @@ function sendGroupEventNotifications(string $event, string $groupname, string $g
   }
 
   try {
-    $appTitle = $C->read('appTitle');
+    $appTitle = $configModel->read('appTitle');
 
     //
     // Get all users and group them by language
     //
-    $users           = $U->getAll('lastname', 'firstname', 'ASC', false, true);
+    $users           = $userModel->getAll('lastname', 'firstname', 'ASC', false, true);
     $usersByLanguage = [];
     foreach ($users as $profile) {
-      if ($UO->read($profile['username'], 'notifyGroupEvents')) {
-        $lang = $UO->read($profile['username'], 'language');
+      if ($userOptionModel->read($profile['username'], 'notifyGroupEvents')) {
+        $lang = $userOptionModel->read($profile['username'], 'language');
         if (!$lang || $lang === 'default') {
-          $lang = $C->read('defaultLanguage');
+          $lang = $configModel->read('defaultLanguage');
         }
         $usersByLanguage[$lang][] = $profile;
       }
@@ -536,8 +536,8 @@ function sendGroupEventNotifications(string $event, string $groupname, string $g
 
     return $allSuccessful;
   } catch (Exception $e) {
-    if (isset($LOG)) {
-      $LOG->logEvent("logGroup", "System", "Failed to send group event notifications: ", $e->getMessage());
+    if (isset($logModel)) {
+      $logModel->logEvent("logGroup", "System", "Failed to send group event notifications: ", $e->getMessage());
     }
     $errorMessage = "General: " . $e->getMessage();
     return false;
@@ -554,7 +554,7 @@ function sendGroupEventNotifications(string $event, string $groupname, string $g
  * @return bool True if email was sent successfully, false otherwise
  */
 function sendPasswordResetMail(string $email, string $username, string $lastname, string $firstname, string $token, string &$errorMessage = ''): bool {
-  global $C, $LANG, $LOG, $UO;
+  global $configModel, $LANG, $logModel, $userOptionModel;
 
   //
   // Input validation
@@ -564,10 +564,10 @@ function sendPasswordResetMail(string $email, string $username, string $lastname
   }
 
   try {
-    $language = $C->read('defaultLanguage');
-    $appTitle = $C->read('appTitle');
+    $language = $configModel->read('defaultLanguage');
+    $appTitle = $configModel->read('appTitle');
 
-    $userLang = $UO->read($username, 'language');
+    $userLang = $userOptionModel->read($username, 'language');
     if ($userLang && $userLang !== 'default') {
       $language = $userLang;
     }
@@ -637,8 +637,8 @@ function sendPasswordResetMail(string $email, string $username, string $lastname
 
     return sendEmail($email, $subject, $message, '', $errorMessage);
   } catch (Exception $e) {
-    if (isset($LOG)) {
-      $LOG->logEvent("logUser", "System", "Failed to send password reset email: ", $e->getMessage());
+    if (isset($logModel)) {
+      $logModel->logEvent("logUser", "System", "Failed to send password reset email: ", $e->getMessage());
     }
     $errorMessage = "General: " . $e->getMessage();
     return false;
@@ -657,7 +657,7 @@ function sendPasswordResetMail(string $email, string $username, string $lastname
  * @return bool True if all emails were sent successfully, false if any failed
  */
 function sendRoleEventNotifications(string $event, string $rolename, string $roledesc = '', string &$errorMessage = ''): bool {
-  global $C, $LANG, $U, $UO, $LOG;
+  global $configModel, $LANG, $userModel, $userOptionModel, $logModel;
 
   $events = ['changed', 'created', 'deleted'];
 
@@ -666,18 +666,18 @@ function sendRoleEventNotifications(string $event, string $rolename, string $rol
   }
 
   try {
-    $appTitle = $C->read('appTitle');
+    $appTitle = $configModel->read('appTitle');
 
     //
     // Get all users and group them by language
     //
-    $users           = $U->getAll('lastname', 'firstname', 'ASC', false, true);
+    $users           = $userModel->getAll('lastname', 'firstname', 'ASC', false, true);
     $usersByLanguage = [];
     foreach ($users as $profile) {
-      if ($UO->read($profile['username'], 'notifyRoleEvents')) {
-        $lang = $UO->read($profile['username'], 'language');
+      if ($userOptionModel->read($profile['username'], 'notifyRoleEvents')) {
+        $lang = $userOptionModel->read($profile['username'], 'language');
         if (!$lang || $lang === 'default') {
-          $lang = $C->read('defaultLanguage');
+          $lang = $configModel->read('defaultLanguage');
         }
         $usersByLanguage[$lang][] = $profile;
       }
@@ -748,8 +748,8 @@ function sendRoleEventNotifications(string $event, string $rolename, string $rol
       foreach ($recipients as $profile) {
         if (!sendEmail($profile['email'], $subject, $message, '', $errorMessage)) {
           $allSuccessful = false;
-          if (isset($LOG)) {
-            $LOG->logEvent("logRole", "System", "Failed to send role event notification to {$profile['email']}: ", "Email send failed");
+          if (isset($logModel)) {
+            $logModel->logEvent("logRole", "System", "Failed to send role event notification to {$profile['email']}: ", "Email send failed");
           }
         }
       }
@@ -757,8 +757,8 @@ function sendRoleEventNotifications(string $event, string $rolename, string $rol
 
     return $allSuccessful;
   } catch (Exception $e) {
-    if (isset($LOG)) {
-      $LOG->logEvent("logRole", "System", "Failed to send role event notifications: ", $e->getMessage());
+    if (isset($logModel)) {
+      $logModel->logEvent("logRole", "System", "Failed to send role event notifications: ", $e->getMessage());
     }
     $errorMessage = "General: " . $e->getMessage();
     return false;
@@ -778,7 +778,7 @@ function sendRoleEventNotifications(string $event, string $rolename, string $rol
  * @return bool True if all emails were sent successfully, false if any failed
  */
 function sendUserEventNotifications(string $event, string $username, string $firstname, string $lastname, string &$errorMessage = ''): bool {
-  global $C, $LANG, $U, $UO, $LOG;
+  global $configModel, $LANG, $userModel, $userOptionModel, $logModel;
 
   $events = ['created', 'changed', 'deleted'];
 
@@ -787,18 +787,18 @@ function sendUserEventNotifications(string $event, string $username, string $fir
   }
 
   try {
-    $appTitle = $C->read('appTitle');
+    $appTitle = $configModel->read('appTitle');
 
     //
     // Get all users and group them by language
     //
-    $users           = $U->getAll('lastname', 'firstname', 'ASC', false, true);
+    $users           = $userModel->getAll('lastname', 'firstname', 'ASC', false, true);
     $usersByLanguage = [];
     foreach ($users as $profile) {
-      if ($UO->read($profile['username'], 'notifyUserEvents')) {
-        $lang = $UO->read($profile['username'], 'language');
+      if ($userOptionModel->read($profile['username'], 'notifyUserEvents')) {
+        $lang = $userOptionModel->read($profile['username'], 'language');
         if (!$lang || $lang === 'default') {
-          $lang = $C->read('defaultLanguage');
+          $lang = $configModel->read('defaultLanguage');
         }
         $usersByLanguage[$lang][] = $profile;
       }
@@ -870,8 +870,8 @@ function sendUserEventNotifications(string $event, string $username, string $fir
       foreach ($recipients as $profile) {
         if (!sendEmail($profile['email'], $subject, $message, '', $errorMessage)) {
           $allSuccessful = false;
-          if (isset($LOG)) {
-            $LOG->logEvent("logUser", "System", "Failed to send user event notification to {$profile['email']}: ", "Email send failed");
+          if (isset($logModel)) {
+            $logModel->logEvent("logUser", "System", "Failed to send user event notification to {$profile['email']}: ", "Email send failed");
           }
         }
       }
@@ -879,8 +879,8 @@ function sendUserEventNotifications(string $event, string $username, string $fir
 
     return $allSuccessful;
   } catch (Exception $e) {
-    if (isset($LOG)) {
-      $LOG->logEvent("logUser", "System", "Failed to send user event notifications: ", $e->getMessage());
+    if (isset($logModel)) {
+      $logModel->logEvent("logUser", "System", "Failed to send user event notifications: ", $e->getMessage());
     }
     $errorMessage = "General: " . $e->getMessage();
     return false;
@@ -898,7 +898,7 @@ function sendUserEventNotifications(string $event, string $username, string $fir
  * @return bool True if all emails were sent successfully, false if any failed
  */
 function sendAbsenceEventNotifications(string $event, string $absname, string &$errorMessage = ''): bool {
-  global $C, $LANG, $U, $UO, $LOG;
+  global $configModel, $LANG, $userModel, $userOptionModel, $logModel;
 
   $events = ['changed', 'created', 'deleted'];
 
@@ -907,18 +907,18 @@ function sendAbsenceEventNotifications(string $event, string $absname, string &$
   }
 
   try {
-    $appTitle = $C->read('appTitle');
+    $appTitle = $configModel->read('appTitle');
 
     //
     // Get all users and group them by language
     //
-    $users           = $U->getAll('lastname', 'firstname', 'ASC', false, true);
+    $users           = $userModel->getAll('lastname', 'firstname', 'ASC', false, true);
     $usersByLanguage = [];
     foreach ($users as $profile) {
-      if ($UO->read($profile['username'], 'notifyAbsenceEvents')) {
-        $lang = $UO->read($profile['username'], 'language');
+      if ($userOptionModel->read($profile['username'], 'notifyAbsenceEvents')) {
+        $lang = $userOptionModel->read($profile['username'], 'language');
         if (!$lang || $lang === 'default') {
-          $lang = $C->read('defaultLanguage');
+          $lang = $configModel->read('defaultLanguage');
         }
         $usersByLanguage[$lang][] = $profile;
       }
@@ -988,8 +988,8 @@ function sendAbsenceEventNotifications(string $event, string $absname, string &$
       foreach ($recipients as $profile) {
         if (!sendEmail($profile['email'], $subject, $message, '', $errorMessage)) {
           $allSuccessful = false;
-          if (isset($LOG)) {
-            $LOG->logEvent("logAbsence", "System", "Failed to send absence event notification to {$profile['email']}: ", "Email send failed");
+          if (isset($logModel)) {
+            $logModel->logEvent("logAbsence", "System", "Failed to send absence event notification to {$profile['email']}: ", "Email send failed");
           }
         }
       }
@@ -997,8 +997,8 @@ function sendAbsenceEventNotifications(string $event, string $absname, string &$
 
     return $allSuccessful;
   } catch (Exception $e) {
-    if (isset($LOG)) {
-      $LOG->logEvent("logAbsence", "System", "Failed to send absence event notifications: ", $e->getMessage());
+    if (isset($logModel)) {
+      $logModel->logEvent("logAbsence", "System", "Failed to send absence event notifications: ", $e->getMessage());
     }
     $errorMessage = "General: " . $e->getMessage();
     return false;
@@ -1017,7 +1017,7 @@ function sendAbsenceEventNotifications(string $event, string $absname, string &$
  * @return bool True if all emails were sent successfully, false if any failed
  */
 function sendHolidayEventNotifications(string $event, string $holname, string $holdesc = '', string &$errorMessage = ''): bool {
-  global $C, $LANG, $U, $UO, $LOG;
+  global $configModel, $LANG, $userModel, $userOptionModel, $logModel;
 
   $events = ['changed', 'created', 'deleted'];
 
@@ -1026,18 +1026,18 @@ function sendHolidayEventNotifications(string $event, string $holname, string $h
   }
 
   try {
-    $appTitle = $C->read('appTitle');
+    $appTitle = $configModel->read('appTitle');
 
     //
     // Get all users and group them by language
     //
-    $users           = $U->getAll('lastname', 'firstname', 'ASC', false, true);
+    $users           = $userModel->getAll('lastname', 'firstname', 'ASC', false, true);
     $usersByLanguage = [];
     foreach ($users as $profile) {
-      if ($UO->read($profile['username'], 'notifyHolidayEvents')) {
-        $lang = $UO->read($profile['username'], 'language');
+      if ($userOptionModel->read($profile['username'], 'notifyHolidayEvents')) {
+        $lang = $userOptionModel->read($profile['username'], 'language');
         if (!$lang || $lang === 'default') {
-          $lang = $C->read('defaultLanguage');
+          $lang = $configModel->read('defaultLanguage');
         }
         $usersByLanguage[$lang][] = $profile;
       }
@@ -1108,8 +1108,8 @@ function sendHolidayEventNotifications(string $event, string $holname, string $h
       foreach ($recipients as $profile) {
         if (!sendEmail($profile['email'], $subject, $message, '', $errorMessage)) {
           $allSuccessful = false;
-          if (isset($LOG)) {
-            $LOG->logEvent("logHoliday", "System", "Failed to send holiday event notification to {$profile['email']}: ", "Email send failed");
+          if (isset($logModel)) {
+            $logModel->logEvent("logHoliday", "System", "Failed to send holiday event notification to {$profile['email']}: ", "Email send failed");
           }
         }
       }
@@ -1117,8 +1117,8 @@ function sendHolidayEventNotifications(string $event, string $holname, string $h
 
     return $allSuccessful;
   } catch (Exception $e) {
-    if (isset($LOG)) {
-      $LOG->logEvent("logHoliday", "System", "Failed to send holiday event notifications: ", $e->getMessage());
+    if (isset($logModel)) {
+      $logModel->logEvent("logHoliday", "System", "Failed to send holiday event notifications: ", $e->getMessage());
     }
     $errorMessage = "General: " . $e->getMessage();
     return false;
@@ -1138,7 +1138,7 @@ function sendHolidayEventNotifications(string $event, string $holname, string $h
  * @return bool True if all emails were sent successfully, false if any failed
  */
 function sendMonthEventNotifications(string $event, string $year, string $month, string $region, string &$errorMessage = ''): bool {
-  global $C, $LANG, $U, $UO, $LOG;
+  global $configModel, $LANG, $userModel, $userOptionModel, $logModel;
 
   $events = ['created', 'changed', 'deleted'];
 
@@ -1147,18 +1147,18 @@ function sendMonthEventNotifications(string $event, string $year, string $month,
   }
 
   try {
-    $appTitle = $C->read('appTitle');
+    $appTitle = $configModel->read('appTitle');
 
     //
     // Get all users and group them by language
     //
-    $users           = $U->getAll('lastname', 'firstname', 'ASC', false, true);
+    $users           = $userModel->getAll('lastname', 'firstname', 'ASC', false, true);
     $usersByLanguage = [];
     foreach ($users as $profile) {
-      if ($UO->read($profile['username'], 'notifyMonthEvents')) {
-        $lang = $UO->read($profile['username'], 'language');
+      if ($userOptionModel->read($profile['username'], 'notifyMonthEvents')) {
+        $lang = $userOptionModel->read($profile['username'], 'language');
         if (!$lang || $lang === 'default') {
-          $lang = $C->read('defaultLanguage');
+          $lang = $configModel->read('defaultLanguage');
         }
         $usersByLanguage[$lang][] = $profile;
       }
@@ -1230,8 +1230,8 @@ function sendMonthEventNotifications(string $event, string $year, string $month,
       foreach ($recipients as $profile) {
         if (!sendEmail($profile['email'], $subject, $message, '', $errorMessage)) {
           $allSuccessful = false;
-          if (isset($LOG)) {
-            $LOG->logEvent("logMonth", "System", "Failed to send month event notification to {$profile['email']}: ", "Email send failed");
+          if (isset($logModel)) {
+            $logModel->logEvent("logMonth", "System", "Failed to send month event notification to {$profile['email']}: ", "Email send failed");
           }
         }
       }
@@ -1239,8 +1239,8 @@ function sendMonthEventNotifications(string $event, string $year, string $month,
 
     return $allSuccessful;
   } catch (Exception $e) {
-    if (isset($LOG)) {
-      $LOG->logEvent("logMonth", "System", "Failed to send month event notifications: ", $e->getMessage());
+    if (isset($logModel)) {
+      $logModel->logEvent("logMonth", "System", "Failed to send month event notifications: ", $e->getMessage());
     }
     $errorMessage = "General: " . $e->getMessage();
     return false;
@@ -1260,7 +1260,7 @@ function sendMonthEventNotifications(string $event, string $year, string $month,
  * @return bool True if all emails were sent successfully, false if any failed
  */
 function sendUserCalEventNotifications(string $event, string $username, string $year, string $month, string &$errorMessage = ''): bool {
-  global $A, $C, $LANG, $T, $U, $UG, $UO, $LOG;
+  global $absenceModel, $absenceDayModel, $configModel, $LANG, $userModel, $userGroupModel, $userOptionModel, $logModel;
 
   $events = ['changed'];
 
@@ -1269,13 +1269,13 @@ function sendUserCalEventNotifications(string $event, string $username, string $
   }
 
   try {
-    $appTitle = $C->read('appTitle');
+    $appTitle = $configModel->read('appTitle');
 
     //
     // Get all groups for the user whose calendar was changed.
     //
-    $ugroups  = $UG->getAllforUser($username);
-    $allUsers = $U->getAll('lastname', 'firstname', 'ASC', false, true);
+    $ugroups  = $userGroupModel->getAllforUser($username);
+    $allUsers = $userModel->getAll('lastname', 'firstname', 'ASC', false, true);
 
     //
     // Determine who needs to be notified
@@ -1285,14 +1285,14 @@ function sendUserCalEventNotifications(string $event, string $username, string $
       $sendmail = false;
 
       // Check whether this user wants to get userCalEvents notifications for himself only
-      if ($profile['username'] === $username && $UO->read($username, 'notifyUserCalEventsOwn')) {
+      if ($profile['username'] === $username && $userOptionModel->read($username, 'notifyUserCalEventsOwn')) {
         $sendmail = true;
       }
       // Check whether this user wants to get userCalEvents notifications for groups
       elseif (
-        $UO->read($profile['username'], 'notifyUserCalEvents') &&
-        !$UO->read($profile['username'], 'notifyUserCalEventsOwn') &&
-        ($notifyUserCalGroups = $UO->read($profile['username'], 'notifyUserCalGroups'))
+        $userOptionModel->read($profile['username'], 'notifyUserCalEvents') &&
+        !$userOptionModel->read($profile['username'], 'notifyUserCalEventsOwn') &&
+        ($notifyUserCalGroups = $userOptionModel->read($profile['username'], 'notifyUserCalGroups'))
       ) {
         $ngroups = explode(',', $notifyUserCalGroups);
         foreach ($ugroups as $ugroup) {
@@ -1304,9 +1304,9 @@ function sendUserCalEventNotifications(string $event, string $username, string $
       }
 
       if ($sendmail) {
-        $lang = $UO->read($profile['username'], 'language');
+        $lang = $userOptionModel->read($profile['username'], 'language');
         if (!$lang || $lang === 'default')
-          $lang = $C->read('defaultLanguage');
+          $lang = $configModel->read('defaultLanguage');
         $recipientsByLanguage[$lang][] = $profile;
       }
     }
@@ -1357,15 +1357,14 @@ function sendUserCalEventNotifications(string $event, string $username, string $
       //
       $monthInfo = dateInfo($year, $month, '1');
       $lastday   = $monthInfo['daysInMonth'];
-      $T->getTemplate($username, $year, $month);
+      $monthMap  = $absenceDayModel->getMonthMap($username, $year, $month);
       $calendar = '<table style="border-collapse:collapse;"><tr style="background-color:#f0f0f0;">';
       for ($i = 1; $i <= $lastday; $i++) {
         $calendar .= '<th style="border:1px solid #bababa;padding:4px;text-align:center;">' . $i . '</th>';
       }
       $calendar .= '</tr><tr>';
       for ($i = 1; $i <= $lastday; $i++) {
-        $prop      = 'abs' . $i;
-        $calendar .= '<td style="border:1px solid #bababa;padding:4px;text-align:center;">' . $A->getName($T->$prop) . '</td>';
+        $calendar .= '<td style="border:1px solid #bababa;padding:4px;text-align:center;">' . $absenceModel->getName($monthMap[$i]) . '</td>';
       }
       $calendar .= '</tr></table>';
 
@@ -1382,7 +1381,7 @@ function sendUserCalEventNotifications(string $event, string $username, string $
         '%app_name%' => $appTitle,
         '%app_url%'  => WEBSITE_URL,
         '%site_url%' => WEBSITE_URL,
-        '%fullname%' => $U->getFullname($username),
+        '%fullname%' => $userModel->getFullname($username),
         '%username%' => $username,
         '%month%'    => $year . "-" . $month,
         '%calendar%' => $calendar
@@ -1395,8 +1394,8 @@ function sendUserCalEventNotifications(string $event, string $username, string $
       foreach ($recipients as $profile) {
         if (!sendEmail($profile['email'], $subject, $message, '', $errorMessage)) {
           $allSuccessful = false;
-          if (isset($LOG)) {
-            $LOG->logEvent("logUser", "System", "Failed to send user calendar event notification to {$profile['email']}: ", "Email send failed");
+          if (isset($logModel)) {
+            $logModel->logEvent("logUser", "System", "Failed to send user calendar event notification to {$profile['email']}: ", "Email send failed");
           }
         }
       }
@@ -1404,8 +1403,8 @@ function sendUserCalEventNotifications(string $event, string $username, string $
 
     return $allSuccessful;
   } catch (Exception $e) {
-    if (isset($LOG)) {
-      $LOG->logEvent("logUser", "System", "Failed to send user calendar event notifications: ", $e->getMessage());
+    if (isset($logModel)) {
+      $logModel->logEvent("logUser", "System", "Failed to send user calendar event notifications: ", $e->getMessage());
     }
     $errorMessage = "General: " . $e->getMessage();
     return false;
@@ -1426,9 +1425,9 @@ function sendUserCalEventNotifications(string $event, string $username, string $
  * @return bool Email success
  */
 function sendEmail(string $to, string $subject, string $body, string $from = '', string &$errorMessage = ''): bool {
-  global $C, $LOG;
+  global $configModel, $logModel;
   $debug         = false;
-  $from_mailonly = $C->read("mailReply");
+  $from_mailonly = $configModel->read("mailReply");
   $replyto       = "";
 
   $from_regexp = preg_match('/<(.*?)>/', $from, $fetch);
@@ -1436,9 +1435,9 @@ function sendEmail(string $to, string $subject, string $body, string $from = '',
   //
   // Set From and ReplyTo
   //
-  if ((!strlen($from)) || ($from_regexp && ($fetch[1] == $C->read("mailReply")))) {
-    $from          = $replyto = mb_encode_mimeheader($C->read("mailFrom"), 'UTF-8') . " <" . $C->read("mailReply") . ">";
-    $from_mailonly = $C->read("mailReply");
+  if ((!strlen($from)) || ($from_regexp && ($fetch[1] == $configModel->read("mailReply")))) {
+    $from          = $replyto = mb_encode_mimeheader($configModel->read("mailFrom"), 'UTF-8') . " <" . $configModel->read("mailReply") . ">";
+    $from_mailonly = $configModel->read("mailReply");
   }
   elseif ($from_regexp) {
     $from_mailonly = $fetch[1];
@@ -1455,7 +1454,7 @@ function sendEmail(string $to, string $subject, string $body, string $from = '',
   $toValid = "";
   foreach ($toArray as $toPiece) {
     if (!validEmail($toPiece)) {
-      $toValid .= $C->read("mailReply") . ",";
+      $toValid .= $configModel->read("mailReply") . ",";
     }
     else {
       $toValid .= $toPiece . ",";
@@ -1466,25 +1465,25 @@ function sendEmail(string $to, string $subject, string $body, string $from = '',
   try {
     $mail = new PHPMailer\PHPMailer\PHPMailer(true);
 
-    if ($C->read("mailSMTP")) {
+    if ($configModel->read("mailSMTP")) {
       //
       // SMTP Mail
       //
       $mail->isSMTP();
-      $mail->Host = $C->read("mailSMTPhost");
-      $mail->Port = intval($C->read("mailSMTPport"));
+      $mail->Host = $configModel->read("mailSMTPhost");
+      $mail->Port = intval($configModel->read("mailSMTPport"));
 
-      if ($C->read("mailSMTPSSL")) {
+      if ($configModel->read("mailSMTPSSL")) {
         $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
       }
       else {
         $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
       }
 
-      if (!$C->read("mailSMTPAnonymous")) {
+      if (!$configModel->read("mailSMTPAnonymous")) {
         $mail->SMTPAuth = true;
-        $mail->Username = $C->read("mailSMTPusername");
-        $mail->Password = $C->read("mailSMTPpassword");
+        $mail->Username = $configModel->read("mailSMTPusername");
+        $mail->Password = $configModel->read("mailSMTPpassword");
       }
     }
     else {
@@ -1495,8 +1494,8 @@ function sendEmail(string $to, string $subject, string $body, string $from = '',
     }
 
     // Recipients
-    $mail->setFrom($from_mailonly, $C->read("mailFrom"));
-    $mail->addReplyTo($C->read("mailReply"));
+    $mail->setFrom($from_mailonly, $configModel->read("mailFrom"));
+    $mail->addReplyTo($configModel->read("mailReply"));
 
     // Add recipients
     $toRecipients = explode(",", $toValid);
@@ -1522,8 +1521,8 @@ function sendEmail(string $to, string $subject, string $body, string $from = '',
     //
     $errorMessage = "PHPMailer: " . $mail->ErrorInfo;
     error_log("PHPMailer Error: " . $mail->ErrorInfo);
-    if (isset($LOG)) {
-      $LOG->logEvent("logMessage", "System", "log_email_error", "PHPMailer: " . $mail->ErrorInfo);
+    if (isset($logModel)) {
+      $logModel->logEvent("logMessage", "System", "log_email_error", "PHPMailer: " . $mail->ErrorInfo);
     }
     return false;
   } catch (Exception $e) {
@@ -1532,8 +1531,8 @@ function sendEmail(string $to, string $subject, string $body, string $from = '',
     //
     $errorMessage = "General: " . $e->getMessage();
     error_log("Email sending error: " . $e->getMessage());
-    if (isset($LOG)) {
-      $LOG->logEvent("logMessage", "System", "log_email_error", "General: " . $e->getMessage());
+    if (isset($logModel)) {
+      $logModel->logEvent("logMessage", "System", "log_email_error", "General: " . $e->getMessage());
     }
     return false;
   }

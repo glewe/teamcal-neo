@@ -94,7 +94,7 @@
                     {% endif %}
                   </td>
                   <td class="align-top text-center">
-                    {% if holiday.id > 3 %}
+                    {% if not holiday.is_system %}
                       <button type="button" class="btn btn-danger btn-sm delete-btn" tabindex="{{ nextTabindex() }}" data-bs-toggle="modal" data-bs-target="#sharedDeleteModal" data-id="{{ holiday.id }}" data-name="{{ holiday.name }}" data-description="{{ holiday.description }}" aria-label="{{ LANG.btn_delete }}: {{ holiday.name }}">{{ LANG.btn_delete }}</button>
                     {% endif %}
                     <a href="index.php?action=holidayedit&amp;id={{ holiday.id }}" class="btn btn-warning btn-sm" tabindex="{{ nextTabindex() }}" aria-label="{{ LANG.btn_edit }}: {{ holiday.name }}">{{ LANG.btn_edit }}</a>

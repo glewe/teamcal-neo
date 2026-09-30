@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Core;
 
+use App\Models\AbsenceDayModel;
 use App\Models\AbsenceGroupModel;
 use App\Models\AbsenceModel;
 use App\Models\AllowanceModel;
@@ -10,17 +11,16 @@ use App\Models\AttachmentModel;
 use App\Models\ConfigModel;
 use App\Models\DbModel;
 use App\Models\AvatarModel;
+use App\Models\CalendarDayModel;
 use App\Models\DaynoteModel;
 use App\Models\GroupModel;
 use App\Models\HolidayModel;
 use App\Models\LogModel;
 use App\Models\LoginModel;
 use App\Models\MessageModel;
-use App\Models\MonthModel;
 use App\Models\PermissionModel;
 use App\Models\RegionModel;
 use App\Models\RoleModel;
-use App\Models\TemplateModel;
 use App\Models\UserAttachmentModel;
 use App\Models\UserGroupModel;
 use App\Models\UserMessageModel;
@@ -42,34 +42,34 @@ use App\Services\UserService;
  * @package   TeamCal Neo
  * @since     3.0.0
  *
- * @property AbsenceGroupModel $AG
- * @property AbsenceModel $A
- * @property AllowanceModel $AL
- * @property AttachmentModel $AT
- * @property AvatarModel $AV
- * @property ConfigModel $C
- * @property DaynoteModel $D
- * @property DbModel $DB
- * @property GroupModel $G
- * @property HolidayModel $H
- * @property LogModel $LOG
- * @property LoginModel $L
- * @property MessageModel $MSG
- * @property MonthModel $M
- * @property PermissionModel $P
- * @property RegionModel $R
+ * @property AbsenceDayModel $absenceDayModel
+ * @property AbsenceGroupModel $absenceGroupModel
+ * @property AbsenceModel $absenceModel
+ * @property AllowanceModel $allowanceModel
+ * @property AttachmentModel $attachmentModel
+ * @property AvatarModel $avatarModel
+ * @property CalendarDayModel $calendarDayModel
+ * @property ConfigModel $configModel
+ * @property DaynoteModel $daynoteModel
+ * @property DbModel $dbModel
+ * @property GroupModel $groupModel
+ * @property HolidayModel $holidayModel
+ * @property LogModel $logModel
+ * @property LoginModel $loginModel
+ * @property MessageModel $messageModel
+ * @property PermissionModel $permissionModel
+ * @property RegionModel $regionModel
  * @property Request $request
- * @property RoleModel $RO
- * @property TemplateModel $T
- * @property UserAttachmentModel $UAT
- * @property UserGroupModel $UG
- * @property UserMessageModel $UMSG
- * @property UserModel $U
- * @property UserModel $UL
- * @property UserOptionModel $UO
- * @property AbsenceService $AbsenceService
- * @property CalendarMonthBuilderService $CalendarMonthBuilder
- * @property UserService $UserService
+ * @property RoleModel $roleModel
+ * @property UserAttachmentModel $userAttachmentModel
+ * @property UserGroupModel $userGroupModel
+ * @property UserMessageModel $userMessageModel
+ * @property UserModel $userModel
+ * @property UserModel $userLoggedIn
+ * @property UserOptionModel $userOptionModel
+ * @property AbsenceService $absenceService
+ * @property CalendarMonthBuilderService $calendarMonthBuilderService
+ * @property UserService $userService
  *
  * @property array<string, mixed>  $alertData
  * @property array<string, mixed>  $allConfig
@@ -101,45 +101,45 @@ abstract class BaseController
    * @var array<string, string>
    */
   private const DEPENDENCY_MAP = [
-    'AbsenceService'         => 'AbsenceService',
-    'CalendarMonthBuilder'   => 'CalendarMonthBuilderService',
-    'A'                 => 'AbsenceModel',
-    'AG'                => 'AbsenceGroupModel',
-    'AL'                => 'AllowanceModel',
-    'AT'                => 'AttachmentModel',
-    'AV'                => 'AvatarModel',
-    'C'                 => 'ConfigModel',
-    'CONF'              => 'CONF',
-    'D'                 => 'DaynoteModel',
-    'DB'                => 'DbModel',
-    'G'                 => 'GroupModel',
-    'H'                 => 'HolidayModel',
-    'L'                 => 'LoginModel',
-    'LANG'              => 'LANG',
-    'LOG'               => 'LogModel',
-    'M'                 => 'MonthModel',
-    'MSG'               => 'MessageModel',
-    'P'                 => 'PermissionModel',
-    'R'                 => 'RegionModel',
-    'RO'                => 'RoleModel',
-    'T'                 => 'TemplateModel',
-    'U'                 => 'UserModel',
-    'UAT'               => 'UserAttachmentModel',
-    'UG'                => 'UserGroupModel',
-    'UL'                => 'UserLoggedIn',
-    'UMSG'              => 'UserMessageModel',
-    'UO'                => 'UserOptionModel',
-    'alertData'         => 'alertData',
-    'allConfig'         => 'allConfig',
-    'appJqueryUIThemes' => 'appJqueryUIThemes',
-    'appLanguages'      => 'appLanguages',
-    'bsColors'          => 'bsColors',
-    'faIcons'           => 'faIcons',
-    'htmlData'          => 'htmlData',
-    'logLanguages'      => 'logLanguages',
-    'request'           => 'Request',
-    'timezones'         => 'timezones',
-    'UserService'       => 'UserService',
+    'absenceService'              => 'AbsenceService',
+    'calendarMonthBuilderService' => 'CalendarMonthBuilderService',
+    'userService'                 => 'UserService',
+    'absenceModel'                => 'AbsenceModel',
+    'absenceDayModel'             => 'AbsenceDayModel',
+    'absenceGroupModel'           => 'AbsenceGroupModel',
+    'allowanceModel'              => 'AllowanceModel',
+    'attachmentModel'             => 'AttachmentModel',
+    'avatarModel'                 => 'AvatarModel',
+    'calendarDayModel'            => 'CalendarDayModel',
+    'configModel'                 => 'ConfigModel',
+    'daynoteModel'                => 'DaynoteModel',
+    'dbModel'                     => 'DbModel',
+    'groupModel'                  => 'GroupModel',
+    'holidayModel'                => 'HolidayModel',
+    'loginModel'                  => 'LoginModel',
+    'logModel'                    => 'LogModel',
+    'messageModel'                => 'MessageModel',
+    'permissionModel'             => 'PermissionModel',
+    'regionModel'                 => 'RegionModel',
+    'roleModel'                   => 'RoleModel',
+    'userAttachmentModel'         => 'UserAttachmentModel',
+    'userGroupModel'              => 'UserGroupModel',
+    'userLoggedIn'                => 'UserLoggedIn',
+    'userMessageModel'            => 'UserMessageModel',
+    'userModel'                   => 'UserModel',
+    'userOptionModel'             => 'UserOptionModel',
+    'CONF'                        => 'CONF',
+    'LANG'                        => 'LANG',
+    'alertData'                   => 'alertData',
+    'allConfig'                   => 'allConfig',
+    'appJqueryUIThemes'           => 'appJqueryUIThemes',
+    'appLanguages'                => 'appLanguages',
+    'bsColors'                    => 'bsColors',
+    'faIcons'                     => 'faIcons',
+    'htmlData'                    => 'htmlData',
+    'logLanguages'                => 'logLanguages',
+    'request'                     => 'Request',
+    'timezones'                   => 'timezones',
   ];
 
   //---------------------------------------------------------------------------
@@ -222,7 +222,7 @@ abstract class BaseController
    */
   public function isLoggedIn(): bool {
     // Access property via __get
-    return (isset($this->UL->username) && $this->UL->username !== "");
+    return (isset($this->userLoggedIn->username) && $this->userLoggedIn->username !== "");
   }
 
   //---------------------------------------------------------------------------
@@ -247,25 +247,23 @@ abstract class BaseController
       // Inject global data
       // Access properties via __get (this->Pname) to trigger lazy load
       global $language, $appLanguages, $userData;
-      $data['allConfig']    = array_merge($this->allConfig, $data['allConfig'] ?? []);
-      $data['htmlData']     = array_merge($this->htmlData, $data['htmlData'] ?? []);
-      $data['userData']     = $userData;
-      $data['CONF']         = $this->CONF;
-      $data['LANG']         = array_merge($this->LANG, $data['LANG'] ?? []);
-      $data['C']            = $this->C;
-      $data['UL']           = $this->UL;
-      $data['UO']           = $this->UO;
-      $data['UG']           = $this->UG;
-      $data['G']            = $this->G;
-      $data['R']            = $this->R;
-      $data['A']            = $this->A;
-      $data['H']            = $this->H;
-      $data['M']            = $this->M;
-      $data['T']            = $this->T;
-      $data['appLanguages'] = $appLanguages;
-      $data['language']     = $language;
-      $data['session']      = ['query_string' => $_SERVER['QUERY_STRING'] ?? ''];
-      $data['csrf_token']   = $_SESSION['csrf_token'] ?? '';
+      $data['allConfig']       = array_merge($this->allConfig, $data['allConfig'] ?? []);
+      $data['htmlData']        = array_merge($this->htmlData, $data['htmlData'] ?? []);
+      $data['userData']        = $userData;
+      $data['CONF']            = $this->CONF;
+      $data['LANG']            = array_merge($this->LANG, $data['LANG'] ?? []);
+      $data['configModel']     = $this->configModel;
+      $data['userLoggedIn']    = $this->userLoggedIn;
+      $data['userOptionModel'] = $this->userOptionModel;
+      $data['userGroupModel']  = $this->userGroupModel;
+      $data['groupModel']      = $this->groupModel;
+      $data['regionModel']     = $this->regionModel;
+      $data['absenceModel']    = $this->absenceModel;
+      $data['holidayModel']    = $this->holidayModel;
+      $data['appLanguages']    = $appLanguages;
+      $data['language']        = $language;
+      $data['session']         = ['query_string' => $_SERVER['QUERY_STRING'] ?? ''];
+      $data['csrf_token']      = $_SESSION['csrf_token'] ?? '';
 
       $this->view->getTwig()->addGlobal('LANG', $data['LANG']);
 

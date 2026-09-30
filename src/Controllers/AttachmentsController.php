@@ -65,24 +65,24 @@ class AttachmentsController extends BaseController
     $viewData['upl_maxsize'] = $this->CONF['uplMaxsize'];
     $viewData['upl_formats'] = implode(', ', $this->CONF['uplExtensions']);
     $files                   = getFiles(APP_UPL_DIR, $this->CONF['uplExtensions'], '');
-    $allUsers                = $this->U->getAll();
+    $allUsers                = $this->userModel->getAll();
     $fileMetadata            = [];
     foreach ($files as $file) {
-      $fid                 = $this->AT->getId($file);
-      $owner               = $this->AT->getUploader($file);
+      $fid                 = $this->attachmentModel->getId($file);
+      $owner               = $this->attachmentModel->getUploader($file);
       $fileMetadata[$file] = ['id' => $fid, 'owner' => $owner];
     }
 
     foreach ($files as $file) {
       $fid                  = $fileMetadata[$file]['id'];
       $owner                = $fileMetadata[$file]['owner'];
-      $isOwner              = ($this->UL->username == 'admin' || $this->UL->username == $owner);
-      $currentUserHasAccess = ($this->UL->username == 'admin' || $this->UAT->hasAccess($this->UL->username, $fid));
+      $isOwner              = ($this->userLoggedIn->is_system || $this->userLoggedIn->username == $owner);
+      $currentUserHasAccess = ($this->userLoggedIn->is_system || $this->userAttachmentModel->hasAccess($this->userLoggedIn->username, $fid));
 
       if ($currentUserHasAccess) {
         $access = [];
         foreach ($allUsers as $user) {
-          $access[$user['username']] = $this->UAT->hasAccess($user['username'], $fid);
+          $access[$user['username']] = $this->userAttachmentModel->hasAccess($user['username'], $fid);
         }
         $ext                    = getFileExtension($file);
         $viewData['uplFiles'][] = [
@@ -96,8 +96,8 @@ class AttachmentsController extends BaseController
       }
     }
 
-    $viewData['groups'] = $this->G->getAll();
-    $viewData['roles']  = $this->RO->getAll();
+    $viewData['groups'] = $this->groupModel->getAll();
+    $viewData['roles']  = $this->roleModel->getAll();
     $viewData['users']  = $allUsers;
 
     $this->render('attachments', $viewData);
@@ -124,26 +124,26 @@ class AttachmentsController extends BaseController
     $UPL->http_error        = $_FILES['file_image']['error'] ?? 0;
 
     if ($UPL->uploadFile()) {
-      $this->AT->create($UPL->the_file, $this->UL->username);
-      $fileid = $this->AT->getId($UPL->the_file);
-      $this->UAT->create($this->UL->username, $fileid);
+      $this->attachmentModel->create($UPL->the_file, $this->userLoggedIn->username);
+      $fileid = $this->attachmentModel->getId($UPL->the_file);
+      $this->userAttachmentModel->create($this->userLoggedIn->username, $fileid);
 
       switch ($_POST['opt_shareWith']) {
         case "admin":
-          $this->UAT->create('admin', $fileid);
+          $this->userAttachmentModel->create('admin', $fileid);
           break;
         case "all":
-          $users = $this->U->getAll();
+          $users = $this->userModel->getAll();
           foreach ($users as $user) {
-            $this->UAT->create($user['username'], $fileid);
+            $this->userAttachmentModel->create($user['username'], $fileid);
           }
           break;
         case "group":
           if (isset($_POST['sel_shareWithGroup'])) {
             foreach ($_POST['sel_shareWithGroup'] as $gto) {
-              $groupusers = $this->UG->getAllForGroup((string) $gto);
+              $groupusers = $this->userGroupModel->getAllForGroup((string) $gto);
               foreach ($groupusers as $groupuser) {
-                $this->UAT->create($groupuser['username'], $fileid);
+                $this->userAttachmentModel->create($groupuser['username'], $fileid);
               }
             }
           }
@@ -155,9 +155,9 @@ class AttachmentsController extends BaseController
         case "role":
           if (isset($_POST['sel_shareWithRole'])) {
             foreach ($_POST['sel_shareWithRole'] as $rto) {
-              $roleusers = $this->U->getAllForRole($rto);
+              $roleusers = $this->userModel->getAllForRole($rto);
               foreach ($roleusers as $roleuser) {
-                $this->UAT->create($roleuser['username'], $fileid);
+                $this->userAttachmentModel->create($roleuser['username'], $fileid);
               }
             }
           }
@@ -169,7 +169,7 @@ class AttachmentsController extends BaseController
         case "user":
           if (isset($_POST['sel_shareWithUser'])) {
             foreach ($_POST['sel_shareWithUser'] as $uto) {
-              $this->UAT->create($uto, $fileid);
+              $this->userAttachmentModel->create($uto, $fileid);
             }
           }
           else {
@@ -183,7 +183,7 @@ class AttachmentsController extends BaseController
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
       }
       $uploadedFileName = $UPL->uploaded_file['name'] ?? $UPL->the_file;
-      $this->LOG->logEvent("logUpload", $this->UL->username, "log_upload_image", $uploadedFileName);
+      $this->logModel->logEvent("logUpload", $this->userLoggedIn->username, "log_upload_image", $uploadedFileName);
       header("Location: index.php?action=attachments");
       die();
     }
@@ -203,10 +203,10 @@ class AttachmentsController extends BaseController
   private function handleDelete($uplDir) {
     if (isset($_POST['chk_file'])) {
       foreach ($_POST['chk_file'] as $file) {
-        if (isValidFileName($file) && ($this->UL->username == 'admin' || $this->UL->username == $this->AT->getUploader($file))) {
-          $fileid = $this->AT->getId($file);
-          $this->AT->delete($file);
-          $this->UAT->deleteFile($fileid);
+        if (isValidFileName($file) && ($this->userLoggedIn->is_system || $this->userLoggedIn->username == $this->attachmentModel->getUploader($file))) {
+          $fileid = $this->attachmentModel->getId($file);
+          $this->attachmentModel->delete($file);
+          $this->userAttachmentModel->deleteFile($fileid);
           @unlink($uplDir . $file);
         }
       }
@@ -223,20 +223,20 @@ class AttachmentsController extends BaseController
    * @return void
    */
   private function handleShareUpdates() {
-    $files = $this->AT->getAll();
+    $files = $this->attachmentModel->getAll();
     foreach ($files as $file) {
       if (isset($_POST['btn_updateShares' . $file['id']])) {
-        $this->UAT->deleteFile($file['id']);
+        $this->userAttachmentModel->deleteFile($file['id']);
         if (isset($_POST['sel_shares' . $file['id']])) {
           foreach ($_POST['sel_shares' . $file['id']] as $uto) {
-            $this->UAT->create($uto, $file['id']);
+            $this->userAttachmentModel->create($uto, $file['id']);
           }
         }
-        $this->UAT->create($this->AT->getUploaderById($file['id']), $file['id']);
+        $this->userAttachmentModel->create($this->attachmentModel->getUploaderById($file['id']), $file['id']);
       }
       elseif (isset($_POST['btn_clearShares' . $file['id']])) {
-        $this->UAT->deleteFile($file['id']);
-        $this->UAT->create($this->AT->getUploaderById($file['id']), $file['id']);
+        $this->userAttachmentModel->deleteFile($file['id']);
+        $this->userAttachmentModel->create($this->attachmentModel->getUploaderById($file['id']), $file['id']);
       }
     }
   }

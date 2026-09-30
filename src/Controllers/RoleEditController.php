@@ -99,7 +99,7 @@ class RoleEditController extends BaseController
           if ($this->allConfig['emailNotifications']) {
             sendRoleEventNotifications("changed", $RO2->name . ' (ex: ' . $oldName . ')', $RO2->description, $mailError);
           }
-          $this->LOG->logEvent("logRole", $this->UL->username, "log_role_updated", $RO2->name . ' (ex: ' . $oldName . ')');
+          $this->logModel->logEvent("logRole", $this->userLoggedIn->username, "log_role_updated", $RO2->name . ' (ex: ' . $oldName . ')');
 
           $this->viewData['showAlert'] = true;
           $this->viewData['alertData'] = [

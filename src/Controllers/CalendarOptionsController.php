@@ -39,8 +39,8 @@ class CalendarOptionsController extends BaseController
     if ($weekday == (string) random_int(1, 7)) {
       $alertData        = [];
       $showAlert        = false;
-      $licExpiryWarning = (int) $this->C->read('licExpiryWarning');
-      $LIC              = new LicenseModel($this->DB->db, $this->CONF);
+      $licExpiryWarning = (int) $this->configModel->read('licExpiryWarning');
+      $LIC              = new LicenseModel($this->dbModel->db, $this->CONF);
       $LIC->check($alertData, $showAlert, (int) $licExpiryWarning, $this->LANG);
     }
 
@@ -148,10 +148,10 @@ class CalendarOptionsController extends BaseController
         $newConfig["summaryAbsenceTextColor"]  = ltrim(sanitize($_POST['txt_summaryAbsenceTextColor']), '#');
         $newConfig["summaryPresenceTextColor"] = ltrim(sanitize($_POST['txt_summaryPresenceTextColor']), '#');
 
-        $this->C->saveBatch($newConfig);
+        $this->configModel->saveBatch($newConfig);
         $this->_instances['allConfig'] = array_merge($this->allConfig, $newConfig);
         $allConfig                     = $this->allConfig;
-        $this->LOG->logEvent("logCalendarOptions", $this->UL->username, "log_calopt");
+        $this->logModel->logEvent("logCalendarOptions", $this->userLoggedIn->username, "log_calopt");
 
         $showAlert            = true;
         $alertData['type']    = 'success';
@@ -180,7 +180,7 @@ class CalendarOptionsController extends BaseController
     }
 
     // Prepare View Data
-    $absences                  = $this->A->getAll();
+    $absences                  = $this->absenceModel->getAll();
     $caloptData                = [];
     $arrMonitorAbs             = explode(',', (string) $allConfig['monitorAbsence']);
     $caloptData['absenceList'] = [];
@@ -208,7 +208,7 @@ class CalendarOptionsController extends BaseController
       ['label' => $this->LANG['calopt_sortByOrderKey'], 'prefix' => 'calopt', 'name' => 'sortByOrderKey', 'type' => 'check', 'values' => '', 'value' => $allConfig['sortByOrderKey']],
     ];
 
-    $roles                  = $this->RO->getAll();
+    $roles                  = $this->roleModel->getAll();
     $arrTrustedRoles        = explode(',', $allConfig['trustedRoles']);
     $caloptData['roleList'] = [];
     foreach ($roles as $role) {
@@ -222,7 +222,7 @@ class CalendarOptionsController extends BaseController
       ['label' => $this->LANG['calopt_trustedRoles'], 'prefix' => 'calopt', 'name' => 'trustedRoles', 'type' => 'listmulti', 'values' => $caloptData['roleList']],
     ];
 
-    $regions                  = $this->R->getAllNames();
+    $regions                  = $this->regionModel->getAllNames();
     $caloptData['regionList'] = [];
     foreach ($regions as $region) {
       $caloptData['regionList'][] = ['val' => $region, 'name' => $region, 'selected' => ($allConfig['defregion'] == $region)];

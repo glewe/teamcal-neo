@@ -101,7 +101,7 @@ class ConfigController extends BaseController
     foreach ($this->logLanguages as $logLang) {
       $viewData['logLanguageList'][] = ['val' => $logLang, 'name' => ucwords($logLang), 'selected' => ($allConfig['logLanguage'] == $logLang)];
     }
-    $schemes = $this->P->getSchemes();
+    $schemes = $this->permissionModel->getSchemes();
     foreach ($schemes as $scheme) {
       $viewData['schemeList'][] = ['val' => $scheme, 'name' => $scheme, 'selected' => ($allConfig['permissionScheme'] == $scheme)];
     }
@@ -225,17 +225,17 @@ class ConfigController extends BaseController
     ];
 
     $viewData['gdprPlatforms'] = [
-      ['key' => 'Facebook', 'icon' => 'fab fa-facebook', 'label' => 'Facebook', 'checked' => $this->C->read('gdprFacebook')],
-      ['key' => 'GoogleAnalytics', 'icon' => 'fab fa-google', 'label' => 'Google Analytics', 'checked' => $this->C->read('gdprGoogleAnalytics')],
-      ['key' => 'Instagram', 'icon' => 'fab fa-instagram', 'label' => 'Instagram', 'checked' => $this->C->read('gdprInstagram')],
-      ['key' => 'Linkedin', 'icon' => 'fab fa-linkedin', 'label' => 'LinkedIn', 'checked' => $this->C->read('gdprLinkedin')],
-      ['key' => 'Paypal', 'icon' => 'fab fa-paypal', 'label' => 'Paypal', 'checked' => $this->C->read('gdprPaypal')],
-      ['key' => 'Pinterest', 'icon' => 'fab fa-pinterest', 'label' => 'Pinterest', 'checked' => $this->C->read('gdprPinterest')],
-      ['key' => 'Slideshare', 'icon' => 'fab fa-slideshare', 'label' => 'Slideshare', 'checked' => $this->C->read('gdprSlideshare')],
-      ['key' => 'Tumblr', 'icon' => 'fab fa-tumblr', 'label' => 'Tumblr', 'checked' => $this->C->read('gdprTumblr')],
-      ['key' => 'Twitter', 'icon' => 'fab fa-twitter', 'label' => 'X (Twitter)', 'checked' => $this->C->read('gdprTwitter')],
-      ['key' => 'Xing', 'icon' => 'fab fa-xing', 'label' => 'Xing', 'checked' => $this->C->read('gdprXing')],
-      ['key' => 'Youtube', 'icon' => 'fab fa-youtube', 'label' => 'Youtube', 'checked' => $this->C->read('gdprYoutube')],
+      ['key' => 'Facebook', 'icon' => 'fab fa-facebook', 'label' => 'Facebook', 'checked' => $this->configModel->read('gdprFacebook')],
+      ['key' => 'GoogleAnalytics', 'icon' => 'fab fa-google', 'label' => 'Google Analytics', 'checked' => $this->configModel->read('gdprGoogleAnalytics')],
+      ['key' => 'Instagram', 'icon' => 'fab fa-instagram', 'label' => 'Instagram', 'checked' => $this->configModel->read('gdprInstagram')],
+      ['key' => 'Linkedin', 'icon' => 'fab fa-linkedin', 'label' => 'LinkedIn', 'checked' => $this->configModel->read('gdprLinkedin')],
+      ['key' => 'Paypal', 'icon' => 'fab fa-paypal', 'label' => 'Paypal', 'checked' => $this->configModel->read('gdprPaypal')],
+      ['key' => 'Pinterest', 'icon' => 'fab fa-pinterest', 'label' => 'Pinterest', 'checked' => $this->configModel->read('gdprPinterest')],
+      ['key' => 'Slideshare', 'icon' => 'fab fa-slideshare', 'label' => 'Slideshare', 'checked' => $this->configModel->read('gdprSlideshare')],
+      ['key' => 'Tumblr', 'icon' => 'fab fa-tumblr', 'label' => 'Tumblr', 'checked' => $this->configModel->read('gdprTumblr')],
+      ['key' => 'Twitter', 'icon' => 'fab fa-twitter', 'label' => 'X (Twitter)', 'checked' => $this->configModel->read('gdprTwitter')],
+      ['key' => 'Xing', 'icon' => 'fab fa-xing', 'label' => 'Xing', 'checked' => $this->configModel->read('gdprXing')],
+      ['key' => 'Youtube', 'icon' => 'fab fa-youtube', 'label' => 'Youtube', 'checked' => $this->configModel->read('gdprYoutube')],
     ];
 
     $this->render('config', $viewData);
@@ -316,7 +316,7 @@ class ConfigController extends BaseController
     if (isset($_POST['swi_disableTfa']) && $_POST['swi_disableTfa']) {
       $newConfig["disableTfa"] = "1";
       $newConfig["forceTfa"]   = "0";
-      $this->UO->deleteOption("secret");
+      $this->userOptionModel->deleteOption("secret");
     }
     else {
       $newConfig["disableTfa"] = "0";
@@ -380,9 +380,9 @@ class ConfigController extends BaseController
       $newConfig[$check] = (isset($_POST['chk_' . $check]) && $_POST['chk_' . $check]) ? "1" : "0";
     }
 
-    $this->C->saveBatch($newConfig);
-    $this->_instances['allConfig'] = $this->C->readAll();
-    $this->LOG->logEvent("logConfig", $this->UL->username, "log_config");
+    $this->configModel->saveBatch($newConfig);
+    $this->_instances['allConfig'] = $this->configModel->readAll();
+    $this->logModel->logEvent("logConfig", $this->userLoggedIn->username, "log_config");
 
     $showAlert            = true;
     $alertData['type']    = 'success';

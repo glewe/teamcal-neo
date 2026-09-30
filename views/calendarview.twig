@@ -22,6 +22,25 @@
 
     {% else %}
 
+      {% if showViewModeToast|default(false) %}
+        <div id="toast-container" class="toast-container position-fixed top-0 end-0 p-3">
+          {{ createToast({
+      'id': 'toast-viewmode',
+      'color': 'warning',
+      'icon': 'bi-exclamation-triangle',
+      'title': 'TeamCal Neo',
+      'message': LANG.cal_viewmode_login
+      })|raw }}
+        </div>
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            // Move the toast to <body> so that no calendar container can clip or cover it
+            document.body.appendChild(document.getElementById('toast-container'));
+            new bootstrap.Toast(document.getElementById('toast-viewmode')).show();
+          });
+        </script>
+      {% endif %}
+
       {% if showAlert and (showAlerts|default('all') != 'none') %}
         {% if (showAlerts|default('all') == 'all') or (showAlerts|default('all') == 'warnings' and (alertData.type|default('info') == 'warning' or alertData.type|default('info') == 'danger')) %}
           {{ createAlertBox(alertData)|raw }}
@@ -96,7 +115,7 @@
         <select id="group" class="form-select" name="sel_group" tabindex="{{ nextTabindex() }}">
           <option value="all" {{ (groupid == 'all') ? ' selected="selected"' : '' }}>{{ LANG.all }}</option>
           {% for grp in allGroups %}
-            {% if isAllowed("calendarviewall") or UG.isMemberOrManagerOfGroup(userData.username, grp.id) %}
+            {% if isAllowed("calendarviewall") or userGroupModel.isMemberOrManagerOfGroup(userData.username, grp.id) %}
               <option value="{{ grp.id }}" {{ (groupid == grp.id) ? ' selected="selected"' : '' }}>{{ grp.name }}</option>
             {% endif %}
           {% endfor %}

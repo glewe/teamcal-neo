@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\AbsenceDayModel;
 use App\Models\AbsenceGroupModel;
 use App\Models\AbsenceModel;
 use App\Models\AllowanceModel;
 use App\Models\AvatarModel;
 use App\Models\DaynoteModel;
 use App\Models\LogModel;
-use App\Models\TemplateModel;
 use App\Models\UserGroupModel;
 use App\Models\UserMessageModel;
 use App\Models\UserModel;
@@ -25,7 +25,7 @@ class UserService
   private UserModel         $userModel;
   private UserGroupModel    $userGroupModel;
   private UserOptionModel   $userOptionModel;
-  private TemplateModel     $templateModel;
+  private AbsenceDayModel   $absenceDayModel;
   private DaynoteModel      $daynoteModel;
   private AllowanceModel    $allowanceModel;
   private UserMessageModel  $userMessageModel;
@@ -41,7 +41,7 @@ class UserService
     UserModel $userModel,
     UserGroupModel $userGroupModel,
     UserOptionModel $userOptionModel,
-    TemplateModel $templateModel,
+    AbsenceDayModel $absenceDayModel,
     DaynoteModel $daynoteModel,
     AllowanceModel $allowanceModel,
     UserMessageModel $userMessageModel,
@@ -52,7 +52,7 @@ class UserService
     $this->userModel         = $userModel;
     $this->userGroupModel    = $userGroupModel;
     $this->userOptionModel   = $userOptionModel;
-    $this->templateModel     = $templateModel;
+    $this->absenceDayModel   = $absenceDayModel;
     $this->daynoteModel      = $daynoteModel;
     $this->allowanceModel    = $allowanceModel;
     $this->userMessageModel  = $userMessageModel;
@@ -74,7 +74,7 @@ class UserService
       $this->userModel->exists($username, true) ||
       $this->userGroupModel->exists($username, true) ||
       $this->userOptionModel->exists($username, true) ||
-      $this->templateModel->exists($username, true) ||
+      $this->absenceDayModel->exists($username, true) ||
       $this->daynoteModel->exists($username, true) ||
       $this->allowanceModel->exists($username, true) ||
       $this->userMessageModel->exists($username, true)
@@ -88,7 +88,7 @@ class UserService
     $this->userModel->archive($username);
     $this->userGroupModel->archive($username);
     $this->userOptionModel->archive($username);
-    $this->templateModel->archive($username);
+    $this->absenceDayModel->archive($username);
     $this->daynoteModel->archive($username);
     $this->allowanceModel->archive($username);
     $this->userMessageModel->archive($username);
@@ -109,19 +109,29 @@ class UserService
    * @param string $loggedInUser Username of the person performing the action
    */
   public function deleteUser(string $username, bool $fromArchive = false, bool $sendNotifications = true, string $loggedInUser = 'system'): void {
-    $this->userModel->findByName($username);
+    $this->userModel->findByName($username, $fromArchive);
     $fullname = trim($this->userModel->firstname . " " . $this->userModel->lastname);
+
+    // The avatar has to be read before the archive rows are deleted (deleting the archived user
+    // cascades to its options). readForUsers() looks the user up in the archive users table, which
+    // read() cannot: it resolves the id through the live users table.
+    $avatar = '';
+    if ($fromArchive) {
+      $avatar = $this->userOptionModel->readForUsers([$username], ['avatar'], true)[$username]['avatar'] ?? '';
+    }
 
     $this->userModel->deleteByName($username, $fromArchive);
     $this->userGroupModel->deleteByUser($username, $fromArchive);
     $this->userOptionModel->deleteByUser($username, $fromArchive);
     $this->userMessageModel->deleteByUser($username, $fromArchive);
 
-    if ($fromArchive) {
-      $this->avatarModel->delete($username, $this->userOptionModel->read($username, 'avatar'));
+    // Only a permanent delete of an archived user removes the avatar file. restoreUser() also calls
+    // this to clear the archive copy, and by then the user is live again and needs the file.
+    if ($fromArchive && !$this->userModel->exists($username)) {
+      $this->avatarModel->delete($username, $avatar);
     }
 
-    $this->templateModel->deleteByUser($username, $fromArchive);
+    $this->absenceDayModel->deleteByUser($username, $fromArchive);
     $this->daynoteModel->deleteByUser($username, $fromArchive);
     $this->allowanceModel->deleteByUser($username, $fromArchive);
 
@@ -150,7 +160,7 @@ class UserService
       $this->userModel->exists($username) ||
       $this->userGroupModel->exists($username) ||
       $this->userOptionModel->exists($username) ||
-      $this->templateModel->exists($username) ||
+      $this->absenceDayModel->exists($username) ||
       $this->daynoteModel->exists($username) ||
       $this->allowanceModel->exists($username) ||
       $this->userMessageModel->exists($username)
@@ -164,7 +174,7 @@ class UserService
     $this->userModel->restore($username);
     $this->userGroupModel->restore($username);
     $this->userOptionModel->restore($username);
-    $this->templateModel->restore($username);
+    $this->absenceDayModel->restore($username);
     $this->daynoteModel->restore($username);
     $this->allowanceModel->restore($username);
     $this->userMessageModel->restore($username);

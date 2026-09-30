@@ -41,7 +41,7 @@ class Setup2faController extends BaseController
       return;
     }
 
-    $UP          = new UserModel($this->DB->db, $this->CONF);
+    $UP          = new UserModel($this->dbModel->db, $this->CONF);
     $missingData = false;
     $profile     = '';
     if (isset($_GET['profile'])) {
@@ -59,19 +59,19 @@ class Setup2faController extends BaseController
       return;
     }
 
-    if ($this->UL->username != $profile) {
+    if ($this->userLoggedIn->username != $profile) {
       $this->renderAlert('warning', $this->LANG['alert_warning_title'], $this->LANG['alert_not_allowed_subject'], $this->LANG['alert_not_allowed_text'], $this->LANG['alert_not_allowed_help']);
       return;
     }
 
-    if ($this->UO->read($profile, 'secret')) {
+    if ($this->userOptionModel->read($profile, 'secret')) {
       $this->renderAlert('warning', $this->LANG['alert_warning_title'], $this->LANG['alert_secret_exists_subject'], $this->LANG['alert_secret_exists_text'], $this->LANG['alert_secret_exists_help']);
       return;
     }
 
     $tfa    = new TwoFactorAuth(new QRServerProvider(), 'TeamCal Neo');
     $secret = $tfa->createSecret();
-    $bcode  = $tfa->getQRCodeImageAsDataUri($this->UL->username, $secret);
+    $bcode  = $tfa->getQRCodeImageAsDataUri($this->userLoggedIn->username, $secret);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
       $_POST = sanitize($_POST);
@@ -95,15 +95,15 @@ class Setup2faController extends BaseController
             $iv         = random_bytes($ivLen);
             $key        = hash('sha256', APP_LIC_KEY, true);
             $ciphertext = openssl_encrypt($secret, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
-            $this->UO->save($profile, 'secret', 'v2:' . base64_encode($iv . $ciphertext));
-            $this->LOG->logEvent("logUser", $this->UL->username, "log_user_updated", $UP->username);
-            $this->L->logout();
+            $this->userOptionModel->save($profile, 'secret', 'v2:' . base64_encode($iv . $ciphertext));
+            $this->logModel->logEvent("logUser", $this->userLoggedIn->username, "log_user_updated", $UP->username);
+            $this->loginModel->logout();
             $this->renderAlert('success', $this->LANG['alert_success_title'], $this->LANG['profile_alert_update'], $this->LANG['setup2fa_alert_success']);
             return;
           }
           else {
             $secret = $_POST['hidden_s'];
-            $bcode  = $tfa->getQRCodeImageAsDataUri($this->UL->email, $secret);
+            $bcode  = $tfa->getQRCodeImageAsDataUri($this->userLoggedIn->email, $secret);
             $this->renderAlert('warning', $this->LANG['alert_warning_title'], $this->LANG['alert_input'], $this->LANG['setup2fa_alert_mismatch']);
           }
         }

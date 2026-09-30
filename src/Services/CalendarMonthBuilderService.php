@@ -3,13 +3,12 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\AbsenceDayModel;
 use App\Models\AbsenceModel;
+use App\Models\CalendarDayModel;
 use App\Models\ConfigModel;
 use App\Models\DaynoteModel;
 use App\Models\HolidayModel;
-use App\Models\LogModel;
-use App\Models\MonthModel;
-use App\Models\TemplateModel;
 use App\Models\UserGroupModel;
 use App\Models\UserModel;
 use App\Models\UserOptionModel;
@@ -17,9 +16,9 @@ use App\Models\UserOptionModel;
 /**
  * CalendarMonthBuilderService
  *
- * Encapsulates per-month data computation for the calendar view: MonthModel
- * lookup/creation, day styles, header daynotes, business days, and user-row
- * day data. Extracted from CalendarViewController to support per-month lazy
+ * Encapsulates per-month data computation for the calendar view: holiday
+ * lookups, day styles, header daynotes, business days, and user-row day
+ * data. Extracted from CalendarViewController to support per-month lazy
  * loading (PERFORMANCE_2 Step 1).
  *
  * @author    George Lewe <george@lewe.com>
@@ -27,21 +26,21 @@ use App\Models\UserOptionModel;
  * @link      https://www.lewe.com
  *
  * @package   TeamCal Neo
- * @since     5.4.0
+ * @since     6.0.0
  */
 class CalendarMonthBuilderService
 {
-  private AbsenceModel    $A;
-  private ConfigModel     $C;
-  private DaynoteModel    $D;
-  private HolidayModel    $H;
-  private LogModel        $LOG;
-  private TemplateModel   $T;
-  private UserGroupModel  $UG;
-  private UserModel       $U;
-  private UserModel       $UL;
-  private UserOptionModel $UO;
-  private AbsenceService  $AbsenceService;
+  private AbsenceModel    $absenceModel;
+  private AbsenceDayModel $absenceDayModel;
+  private CalendarDayModel $calendarDayModel;
+  private ConfigModel     $configModel;
+  private DaynoteModel    $daynoteModel;
+  private HolidayModel    $holidayModel;
+  private UserGroupModel  $userGroupModel;
+  private UserModel       $userModel;
+  private UserModel       $userLoggedIn;
+  private UserOptionModel $userOptionModel;
+  private AbsenceService  $absenceService;
   /** @var array<string, mixed> */
   private array $allConfig;
   /** @var array<string, mixed> */
@@ -53,57 +52,62 @@ class CalendarMonthBuilderService
   private ?array $holidayColorsCache = null;
   /** @var array<int, array{color: string, bgcolor: string}> */
   private array $weekendColors = [];
-  /** @var array<string, MonthModel> */
-  private array $regionMonths = [];
+  /** @var array<string, array<int, int>> */
+  private array $regionHolidayMaps = [];
   /** @var array<string, string> */
   private array $tooltipCountCache = [];
+  /** @var array<string, array{countsAsPresent: bool, isConfidential: bool, color: string, bgTrans: bool, bgColor: string, symbol: string, icon: string, name: string}> */
+  private array $absenceCache = [];
+  /** @var array<string, string> */
+  private array $userRegionCache = [];
+  private ?string $loggedInRole = null;
 
   //---------------------------------------------------------------------------
   /**
    * Constructor.
    *
-   * @param AbsenceModel          $A
-   * @param ConfigModel           $C
-   * @param DaynoteModel          $D
-   * @param HolidayModel          $H
-   * @param LogModel              $LOG
-   * @param TemplateModel         $T
-   * @param UserGroupModel        $UG
-   * @param UserModel             $U
-   * @param UserModel             $UL   Logged-in user model
-   * @param UserOptionModel       $UO
-   * @param AbsenceService        $AbsenceService
+   * @param AbsenceModel          $absenceModel
+   * @param AbsenceDayModel       $absenceDayModel
+   * @param CalendarDayModel      $calendarDayModel
+   * @param ConfigModel           $configModel
+   * @param DaynoteModel          $daynoteModel
+   * @param HolidayModel          $holidayModel
+   * @param UserGroupModel        $userGroupModel
+   * @param UserModel             $userModel
+   * @param UserModel             $userLoggedIn   Logged-in user model
+   * @param UserOptionModel       $userOptionModel
+   * @param AbsenceService        $absenceService
    * @param array<string, mixed>  $allConfig
    * @param array<string, mixed>  $CONF
    * @param array<string, string> $LANG
    */
   public function __construct(
-    AbsenceModel    $A,
-    ConfigModel     $C,
-    DaynoteModel    $D,
-    HolidayModel    $H,
-    LogModel        $LOG,
-    TemplateModel   $T,
-    UserGroupModel  $UG,
-    UserModel       $U,
-    UserModel       $UL,
-    UserOptionModel $UO,
-    AbsenceService  $AbsenceService,
+    AbsenceModel    $absenceModel,
+    AbsenceDayModel $absenceDayModel,
+    CalendarDayModel $calendarDayModel,
+    ConfigModel     $configModel,
+    DaynoteModel    $daynoteModel,
+    HolidayModel    $holidayModel,
+    UserGroupModel  $userGroupModel,
+    UserModel       $userModel,
+    UserModel       $userLoggedIn,
+    UserOptionModel $userOptionModel,
+    AbsenceService  $absenceService,
     array           $allConfig,
     array           $CONF,
     array           $LANG
   ) {
-    $this->A              = $A;
-    $this->C              = $C;
-    $this->D              = $D;
-    $this->H              = $H;
-    $this->LOG            = $LOG;
-    $this->T              = $T;
-    $this->UG             = $UG;
-    $this->U              = $U;
-    $this->UL             = $UL;
-    $this->UO             = $UO;
-    $this->AbsenceService = $AbsenceService;
+    $this->absenceModel              = $absenceModel;
+    $this->absenceDayModel             = $absenceDayModel;
+    $this->calendarDayModel             = $calendarDayModel;
+    $this->configModel              = $configModel;
+    $this->daynoteModel              = $daynoteModel;
+    $this->holidayModel              = $holidayModel;
+    $this->userGroupModel             = $userGroupModel;
+    $this->userModel              = $userModel;
+    $this->userLoggedIn             = $userLoggedIn;
+    $this->userOptionModel             = $userOptionModel;
+    $this->absenceService = $absenceService;
     $this->allConfig      = $allConfig;
     $this->CONF           = $CONF;
     $this->LANG           = $LANG;
@@ -113,15 +117,13 @@ class CalendarMonthBuilderService
   /**
    * Build the complete month meta entry for a single month (or split-month pair).
    *
-   * Combines MonthModel lookup/creation, dayStyles, headerDaynotes, and
-   * businessDays into one call so the result is ready to push into
-   * $viewData['months'].
+   * Combines holiday-map lookup, dayStyles, headerDaynotes, and businessDays
+   * into one call so the result is ready to push into $viewData['months'].
    *
-   * @param string $year       Four-digit year (YYYY)
-   * @param string $month      Two-digit month (MM)
-   * @param string $regionId   Region ID
-   * @param string $regionName Region display name (used in email notifications)
-   * @param string $viewmode   'fullmonth' or 'splitmonth'
+   * @param string $year     Four-digit year (YYYY)
+   * @param string $month    Two-digit month (MM)
+   * @param string $regionId Region ID
+   * @param string $viewmode 'fullmonth' or 'splitmonth'
    *
    * @return array<string, mixed>
    */
@@ -129,15 +131,14 @@ class CalendarMonthBuilderService
     string $year,
     string $month,
     string $regionId,
-    string $regionName,
     string $viewmode
   ): array {
     $this->ensureHolidayColors();
 
     if ($viewmode === 'splitmonth') {
-      return $this->buildSplitMonthEntry($year, $month, $regionId, $regionName);
+      return $this->buildSplitMonthEntry($year, $month, $regionId);
     }
-    return $this->buildFullMonthEntry($year, $month, $regionId, $regionName);
+    return $this->buildFullMonthEntry($year, $month, $regionId);
   }
 
   //---------------------------------------------------------------------------
@@ -181,12 +182,12 @@ class CalendarMonthBuilderService
 
     $editAllowed = false;
     if (isAllowed($this->CONF['controllers']['calendaredit']->permission)) {
-      if ($this->UL->username === $username) {
+      if ($this->userLoggedIn->username === $username) {
         if (isAllowed("calendareditown"))
           $editAllowed = true;
       }
-      elseif ($this->UG->shareGroupMemberships($this->UL->username, $username)) {
-        if (isAllowed("calendareditgroup") || (isAllowed("calendareditgroupmanaged") && $this->UG->isGroupManagerOfUser($this->UL->username, $username)))
+      elseif ($this->userGroupModel->shareGroupMemberships($this->userLoggedIn->username, $username)) {
+        if (isAllowed("calendareditgroup") || (isAllowed("calendareditgroupmanaged") && $this->userGroupModel->isGroupManagerOfUser($this->userLoggedIn->username, $username)))
           $editAllowed = true;
       }
       else {
@@ -198,12 +199,12 @@ class CalendarMonthBuilderService
       $mRow['editLink'] = 'index.php?action=calendaredit&month=' . $vmonth['year'] . $vmonth['month'] . '&region=' . $viewData['regionid'] . '&user=' . $username;
     }
 
-    $this->T->getTemplate($username, (string) $vmonth['year'], (string) $vmonth['month']);
+    $monthMap = $this->absenceDayModel->getMonthMap($username, (string) $vmonth['year'], (string) $vmonth['month']);
     $daystart = $vmonth['dayStart'] ?? 1;
     $dayend   = $vmonth['dayEnd']   ?? $vmonth['dateInfo']['daysInMonth'];
 
     for ($i = $daystart; $i <= $dayend; $i++) {
-      $dayData          = $this->prepareDayData($username, $i, (string) $vmonth['year'], $vmonth['month'], $vmonth['dayStyles'][$i] ?? '', $trustedRoles, $currDate, $viewData, (string) $viewData['regionid']);
+      $dayData          = $this->prepareDayData($username, $i, (string) $vmonth['year'], $vmonth['month'], $vmonth['dayStyles'][$i] ?? '', $trustedRoles, $currDate, $viewData, (string) $viewData['regionid'], $monthMap[$i] ?? 0);
       $mRow['days'][$i] = $dayData;
 
       if (!isset($countedUsersPerMonth[$monthKey][$username])) {
@@ -224,8 +225,7 @@ class CalendarMonthBuilderService
         $nextMonthYear++;
       }
 
-      $nextMonthTemplate = new TemplateModel();
-      $nextMonthTemplate->getTemplate($username, (string) $nextMonthYear, sprintf('%02d', $nextMonthNum));
+      $nextMonthMap = $this->absenceDayModel->getMonthMap($username, (string) $nextMonthYear, sprintf('%02d', $nextMonthNum));
 
       $nextMonthEditLink = null;
       if ($editAllowed) {
@@ -234,7 +234,7 @@ class CalendarMonthBuilderService
       $mRow['nextMonthEditLink'] = $nextMonthEditLink;
 
       for ($i = 1; $i <= 15; $i++) {
-        $dayData              = $this->prepareDayData($username, $i, (string) $nextMonthYear, sprintf('%02d', $nextMonthNum), $vmonth['dayStyles']['next_' . $i] ?? '', $trustedRoles, $currDate, $viewData, (string) $viewData['regionid'], $nextMonthTemplate);
+        $dayData              = $this->prepareDayData($username, $i, (string) $nextMonthYear, sprintf('%02d', $nextMonthNum), $vmonth['dayStyles']['next_' . $i] ?? '', $trustedRoles, $currDate, $viewData, (string) $viewData['regionid'], $nextMonthMap[$i] ?? 0);
         $mRow['nextDays'][$i] = $dayData;
 
         if (!isset($countedUsersPerMonth[$monthKey][$username])) {
@@ -257,21 +257,14 @@ class CalendarMonthBuilderService
    * Build a full-month (non-split) meta entry.
    */
   /** @return array<string, mixed> */
-  private function buildFullMonthEntry(string $year, string $month, string $regionId, string $regionName): array {
-    $M = new MonthModel();
-    if (!$M->getMonth($year, $month, $regionId)) {
-      createMonth($year, $month, 'region', $regionId);
-      $M->getMonth($year, $month, $regionId);
-      if ($this->allConfig['emailNotifications']) {
-        sendMonthEventNotifications("created", $year, $month, $regionName);
-      }
-      $this->LOG->logEvent("logMonth", $this->loggedInUsername(), "log_month_tpl_created", $M->region . ": " . $M->year . "-" . $M->month);
-    }
+  private function buildFullMonthEntry(string $year, string $month, string $regionId): array {
+    $M          = CalendarDayModel::buildWeekdayGrid($year, $month);
+    $holidayMap = $this->calendarDayModel->getMonthMap($year, $month, $regionId);
 
     $dateInfo       = dateInfo($year, $month);
-    $dayStyles      = $this->computeFullMonthDayStyles($year, $month, $M, $dateInfo);
+    $dayStyles      = $this->computeFullMonthDayStyles($year, $month, $holidayMap, $M, $dateInfo);
     $headerDaynotes = $this->computeHeaderDaynotes($year, $month, $dateInfo['daysInMonth'], $regionId);
-    $businessDays   = $this->AbsenceService->countBusinessDays($year . $month . '01', $year . $month . $dateInfo['daysInMonth'], $regionId);
+    $businessDays   = $this->absenceService->countBusinessDays($year . $month . '01', $year . $month . $dateInfo['daysInMonth'], $regionId);
 
     return [
       'year'           => $year,
@@ -292,7 +285,7 @@ class CalendarMonthBuilderService
    * of the following month).
    */
   /** @return array<string, mixed> */
-  private function buildSplitMonthEntry(string $year, string $month, string $regionId, string $regionName): array {
+  private function buildSplitMonthEntry(string $year, string $month, string $regionId): array {
     $currYear  = intval($year);
     $currMonth = intval($month);
     $nextMonth = $currMonth + 1;
@@ -307,27 +300,17 @@ class CalendarMonthBuilderService
     $currMonthInfo = dateInfo((string) $currYear, $currFmt);
     $nextMonthInfo = dateInfo((string) $nextYear, $nextFmt);
 
-    $M = new MonthModel();
-    if (!$M->getMonth((string) $currYear, $currFmt, $regionId)) {
-      createMonth((string) $currYear, $currFmt, 'region', $regionId);
-      $M->getMonth((string) $currYear, $currFmt, $regionId);
-    }
+    $M         = CalendarDayModel::buildWeekdayGrid((string) $currYear, $currFmt);
+    $holidayMap = $this->calendarDayModel->getMonthMap((string) $currYear, $currFmt, $regionId);
 
-    $nextM = new MonthModel();
-    if (!$nextM->getMonth((string) $nextYear, $nextFmt, $regionId)) {
-      createMonth((string) $nextYear, $nextFmt, 'region', $regionId);
-      $nextM->getMonth((string) $nextYear, $nextFmt, $regionId);
-      if ($this->allConfig['emailNotifications']) {
-        sendMonthEventNotifications("created", (string) $nextYear, $nextFmt, $regionName);
-      }
-      $this->LOG->logEvent("logMonth", $this->loggedInUsername(), "log_month_tpl_created", $nextM->region . ": " . $nextM->year . "-" . $nextM->month);
-    }
+    $nextM         = CalendarDayModel::buildWeekdayGrid((string) $nextYear, $nextFmt);
+    $nextHolidayMap = $this->calendarDayModel->getMonthMap((string) $nextYear, $nextFmt, $regionId);
 
-    $dayStyles      = $this->computeSplitMonthDayStyles($currYear, $currMonth, $M, $currMonthInfo, $nextYear, $nextMonth, $nextM);
+    $dayStyles      = $this->computeSplitMonthDayStyles($currYear, $currMonth, $holidayMap, $M, $currMonthInfo, $nextYear, $nextMonth, $nextHolidayMap, $nextM);
     $headerDaynotes = $this->computeSplitHeaderDaynotes((string) $currYear, $currFmt, $currMonthInfo['daysInMonth'], $nextYear, $nextMonth, $regionId);
 
-    $businessDays          = $this->AbsenceService->countBusinessDays((string) $currYear . $currFmt . '01', (string) $currYear . $currFmt . $currMonthInfo['daysInMonth'], $regionId);
-    $nextMonthBusinessDays = $this->AbsenceService->countBusinessDays((string) $nextYear . $nextFmt . '01', (string) $nextYear . $nextFmt . $nextMonthInfo['daysInMonth'], $regionId);
+    $businessDays          = $this->absenceService->countBusinessDays((string) $currYear . $currFmt . '01', (string) $currYear . $currFmt . $currMonthInfo['daysInMonth'], $regionId);
+    $nextMonthBusinessDays = $this->absenceService->countBusinessDays((string) $nextYear . $nextFmt . '01', (string) $nextYear . $nextFmt . $nextMonthInfo['daysInMonth'], $regionId);
 
     return [
       'year'                  => $year,
@@ -358,7 +341,7 @@ class CalendarMonthBuilderService
       return;
     }
     $this->holidayColorsCache = [];
-    foreach ($this->H->getAll() as $holiday) {
+    foreach ($this->holidayModel->getAll() as $holiday) {
       $this->holidayColorsCache[(int) $holiday['id']] = ['color' => $holiday['color'], 'bgcolor' => $holiday['bgcolor']];
     }
     $this->weekendColors[6] = $this->holidayColorsCache[2] ?? ['color' => '000000', 'bgcolor' => 'ffffff'];
@@ -371,12 +354,13 @@ class CalendarMonthBuilderService
    *
    * @param string               $year
    * @param string               $month
-   * @param MonthModel           $monthObj
+   * @param array<int, int>      $holidayMap [day => holidayId]
+   * @param array<string, int>   $weekdayGrid
    * @param array<string, mixed> $dateInfo
    *
    * @return array<int, string>
    */
-  private function computeFullMonthDayStyles(string $year, string $month, MonthModel $monthObj, array $dateInfo): array {
+  private function computeFullMonthDayStyles(string $year, string $month, array $holidayMap, array $weekdayGrid, array $dateInfo): array {
     $dayStyles        = [];
     $monthNum         = intval($month);
     $yearNum          = intval($year);
@@ -384,7 +368,7 @@ class CalendarMonthBuilderService
     $todayBorderStyle = $this->todayBorderStyle();
 
     for ($i = 1; $i <= $dateInfo['daysInMonth']; $i++) {
-      $style = $this->computeDayStyle($monthObj, $monthNum, $yearNum, $i, $currDate, $todayBorderStyle);
+      $style = $this->computeDayStyle($holidayMap[$i] ?? 1, $weekdayGrid['wday' . $i], $monthNum, $yearNum, $i, $currDate, $todayBorderStyle);
       if ($style !== '') {
         $dayStyles[$i] = $style;
       }
@@ -398,22 +382,24 @@ class CalendarMonthBuilderService
    *
    * @param int                  $currYear
    * @param int                  $currMonth
-   * @param MonthModel           $M         Current month model
+   * @param array<int, int>      $holidayMap    Current month's holiday map
+   * @param array<string, int>   $weekdayGrid   Current month's weekday grid
    * @param array<string, mixed> $currMonthInfo
    * @param int                  $nextYear
    * @param int                  $nextMonth
-   * @param MonthModel           $nextM     Next month model
+   * @param array<int, int>      $nextHolidayMap  Next month's holiday map
+   * @param array<string, int>   $nextWeekdayGrid Next month's weekday grid
    *
    * @return array<int|string, string>
    */
-  private function computeSplitMonthDayStyles(int $currYear, int $currMonth, MonthModel $M, array $currMonthInfo, int $nextYear, int $nextMonth, MonthModel $nextM): array {
+  private function computeSplitMonthDayStyles(int $currYear, int $currMonth, array $holidayMap, array $weekdayGrid, array $currMonthInfo, int $nextYear, int $nextMonth, array $nextHolidayMap, array $nextWeekdayGrid): array {
     $dayStyles        = [];
     $currDate         = date('Y-m-d');
     $todayBorderStyle = $this->todayBorderStyle();
 
     // Main month days
     for ($i = 1; $i <= $currMonthInfo['daysInMonth']; $i++) {
-      $style = $this->computeDayStyle($M, $currMonth, $currYear, $i, $currDate, $todayBorderStyle);
+      $style = $this->computeDayStyle($holidayMap[$i] ?? 1, $weekdayGrid['wday' . $i], $currMonth, $currYear, $i, $currDate, $todayBorderStyle);
       if ($style !== '') {
         $dayStyles[$i] = $style;
       }
@@ -424,7 +410,7 @@ class CalendarMonthBuilderService
     $nextYearNum  = $nextMonth > 12 ? $currYear + 1 : $nextYear;
 
     for ($i = 1; $i <= 15; $i++) {
-      $style = $this->computeDayStyle($nextM, $nextMonthNum, $nextYearNum, $i, $currDate, $todayBorderStyle);
+      $style = $this->computeDayStyle($nextHolidayMap[$i] ?? 1, $nextWeekdayGrid['wday' . $i], $nextMonthNum, $nextYearNum, $i, $currDate, $todayBorderStyle);
       if ($style !== '') {
         $dayStyles['next_' . $i] = $style;
       }
@@ -436,26 +422,23 @@ class CalendarMonthBuilderService
   /**
    * Compute the CSS style string for a single day cell.
    *
-   * @param MonthModel $monthObj
-   * @param int        $monthNum
-   * @param int        $yearNum
-   * @param int        $day
-   * @param string     $currDate         Y-m-d
-   * @param string     $todayBorderStyle CSS border declaration
+   * @param int    $holidayId Holiday ID for this day (1 = Business Day / no override)
+   * @param int    $weekday   ISO weekday (1=Mon..7=Sun)
+   * @param int    $monthNum
+   * @param int    $yearNum
+   * @param int    $day
+   * @param string $currDate         Y-m-d
+   * @param string $todayBorderStyle CSS border declaration
    *
    * @return string
    */
-  private function computeDayStyle(MonthModel $monthObj, int $monthNum, int $yearNum, int $day, string $currDate, string $todayBorderStyle): string {
-    $hprop     = 'hol' . $day;
-    $wprop     = 'wday' . $day;
-    $holidayId = (int) $monthObj->$hprop;
-    $weekday   = (int) $monthObj->$wprop;
-    $color     = '';
-    $bgcolor   = '';
-    $border    = '';
+  private function computeDayStyle(int $holidayId, int $weekday, int $monthNum, int $yearNum, int $day, string $currDate, string $todayBorderStyle): string {
+    $color   = '';
+    $bgcolor = '';
+    $border  = '';
 
-    if ($holidayId && isset($this->holidayColorsCache[$holidayId])) {
-      if ($this->H->keepWeekendColor((string) $holidayId) && ($weekday == 6 || $weekday == 7)) {
+    if ($holidayId !== 1 && isset($this->holidayColorsCache[$holidayId])) {
+      if ($this->holidayModel->keepWeekendColor((string) $holidayId) && ($weekday == 6 || $weekday == 7)) {
         $wc      = $this->weekendColors[$weekday];
         $color   = 'color:#' . $wc['color'] . ';';
         $bgcolor = 'background-color:#' . $wc['bgcolor'] . ';';
@@ -499,13 +482,13 @@ class CalendarMonthBuilderService
     ];
 
     for ($i = 1; $i <= $daysInMonth; $i++) {
-      if ($this->D->get($year . $month . sprintf("%02d", $i), 'all', $regionId, true)) {
-        $c                  = $this->D->color;
+      if ($this->daynoteModel->get($year . $month . sprintf("%02d", $i), 'all', $regionId, true)) {
+        $c                  = $this->daynoteModel->color;
         $hex                = $dnColors[$c] ?? ((strpos($c, '#') === 0) ? $c : '#' . $c);
         $headerDaynotes[$i] = [
           'color'    => $c,
           'colorHex' => $hex,
-          'note'     => $this->D->daynote
+          'note'     => $this->daynoteModel->daynote
         ];
       }
     }
@@ -538,13 +521,13 @@ class CalendarMonthBuilderService
     ];
 
     for ($i = 1; $i <= 15; $i++) {
-      if ($this->D->get((string) $nextYearNum . sprintf("%02d", $nextMonthNum) . sprintf("%02d", $i), 'all', $regionId, true)) {
-        $c                            = $this->D->color;
+      if ($this->daynoteModel->get((string) $nextYearNum . sprintf("%02d", $nextMonthNum) . sprintf("%02d", $i), 'all', $regionId, true)) {
+        $c                            = $this->daynoteModel->color;
         $hex                          = $dnColors[$c] ?? ((strpos($c, '#') === 0) ? $c : '#' . $c);
         $headerDaynotes['next_' . $i] = [
           'color'    => $c,
           'colorHex' => $hex,
-          'note'     => $this->D->daynote
+          'note'     => $this->daynoteModel->daynote
         ];
       }
     }
@@ -564,25 +547,22 @@ class CalendarMonthBuilderService
    * @param string               $currDate
    * @param array<string, mixed> $viewData
    * @param string               $regionid
-   * @param TemplateModel|null   $templateOverride
+   * @param int                  $absId    Absence ID assigned to this user/day, 0 = none
    *
    * @return array<string, mixed>
    */
   private function prepareDayData(
-    string        $username,
-    int           $day,
-    string        $year,
-    string        $month,
-    string        $gridStyle,
-    array         $trustedRoles,
-    string        $currDate,
-    array         $viewData,
-    string        $regionid,
-    ?TemplateModel $templateOverride = null
+    string $username,
+    int    $day,
+    string $year,
+    string $month,
+    string $gridStyle,
+    array  $trustedRoles,
+    string $currDate,
+    array  $viewData,
+    string $regionid,
+    int    $absId
   ): array {
-    $T        = $templateOverride ?: $this->T;
-    $absCol   = 'abs' . $day;
-    $absId    = $T->$absCol;
     $loopDate = date('Y-m-d', mktime(0, 0, 0, (int) $month, $day, (int) $year));
 
     $dayData = [
@@ -600,28 +580,28 @@ class CalendarMonthBuilderService
     ];
 
     if ($absId) {
+      $absAttrs                   = $this->getAbsenceAttrs((string) $absId);
       $dayData['isAbsent']        = true;
-      $dayData['countsAsPresent'] = (bool) $this->A->getCountsAsPresent((string) $absId);
+      $dayData['countsAsPresent'] = $absAttrs['countsAsPresent'];
 
       $allowed = true;
-      if ($this->A->isConfidential((string) $absId)) {
-        $userRole = $this->U->getRole($this->UL->username);
-        if (!in_array($userRole, $trustedRoles) && $this->UL->username !== 'admin' && $this->UL->username !== $username) {
+      if ($absAttrs['isConfidential']) {
+        if (!in_array($this->getLoggedInRole(), $trustedRoles) && !$this->userLoggedIn->is_system && $this->userLoggedIn->username !== $username) {
           $allowed = false;
         }
       }
 
       if ($allowed) {
         if (!$viewData['absfilter'] || $absId == $viewData['absid']) {
-          $color             = 'color: #' . $this->A->getColor((string) $absId) . ';';
-          $bgcolor           = $this->A->getBgTrans((string) $absId) ? '' : 'background-color: #' . $this->A->getBgColor((string) $absId) . ';';
+          $color             = 'color: #' . $absAttrs['color'] . ';';
+          $bgcolor           = $absAttrs['bgTrans'] ? '' : 'background-color: #' . $absAttrs['bgColor'] . ';';
           $dayData['style'] .= $color . $bgcolor;
 
-          if ($this->C->read('symbolAsIcon')) {
-            $dayData['icon'] = $this->A->getSymbol((string) $absId);
+          if ($this->configModel->read('symbolAsIcon')) {
+            $dayData['icon'] = $absAttrs['symbol'];
           }
           else {
-            $dayData['icon'] = '<span class="' . $this->A->getIcon((string) $absId) . '"></span>';
+            $dayData['icon'] = '<span class="' . $absAttrs['icon'] . '"></span>';
           }
 
           $taken = '';
@@ -631,17 +611,17 @@ class CalendarMonthBuilderService
               $countFrom   = $year . $month . '01';
               $daysInMonth = cal_days_in_month(CAL_GREGORIAN, (int) $month, (int) $year);
               $countTo     = $year . $month . $daysInMonth;
-              $takenMonth  = $this->AbsenceService->countAbsence($username, (string) $absId, $countFrom, $countTo, true, false);
+              $takenMonth  = $this->absenceService->countAbsence($username, (string) $absId, $countFrom, $countTo, true, false);
 
               $countFromYear = $year . '0101';
               $countToYear   = $year . '1231';
-              $takenYear     = $this->AbsenceService->countAbsence($username, (string) $absId, $countFromYear, $countToYear, true, false);
+              $takenYear     = $this->absenceService->countAbsence($username, (string) $absId, $countFromYear, $countToYear, true, false);
 
               $this->tooltipCountCache[$cacheKey] = ' (' . $takenMonth . '/' . $takenYear . ')';
             }
             $taken = $this->tooltipCountCache[$cacheKey];
           }
-          $dayData['tooltip'] = $this->A->getName((string) $absId) . $taken;
+          $dayData['tooltip'] = $absAttrs['name'] . $taken;
         }
         else {
           $dayData['style']  .= 'color: #d5d5d5;background-color: #d5d5d5;';
@@ -660,28 +640,29 @@ class CalendarMonthBuilderService
     }
 
     // Daynote
-    if ($this->D->get($year . $month . sprintf("%02d", $day), $username, $regionid, true)) {
+    if ($this->daynoteModel->get($year . $month . sprintf("%02d", $day), $username, $regionid, true)) {
       $allowed = true;
-      if ($this->D->isConfidential((string) $this->D->id)) {
-        $userRole = $this->U->getRole($this->UL->username);
-        if (!in_array($userRole, $trustedRoles) && $this->UL->username !== $this->D->username && $this->UL->username !== 'admin') {
+      if ($this->daynoteModel->isConfidential((string) $this->daynoteModel->id)) {
+        if (!in_array($this->getLoggedInRole(), $trustedRoles) && $this->userLoggedIn->username !== $this->daynoteModel->username && !$this->userLoggedIn->is_system) {
           $allowed = false;
         }
       }
       if ($allowed) {
         $dayData['hasDaynote']     = true;
-        $dayData['daynoteTooltip'] = $this->D->daynote;
-        $dayData['daynoteColor']   = $this->D->color;
+        $dayData['daynoteTooltip'] = $this->daynoteModel->daynote;
+        $dayData['daynoteColor']   = $this->daynoteModel->color;
       }
     }
 
     // Regional Holiday border
     if ($viewData['regionalHolidays']) {
-      $userRegion = $this->UO->read($username, 'region') ?: '1';
+      if (!isset($this->userRegionCache[$username])) {
+        $this->userRegionCache[$username] = $this->userOptionModel->read($username, 'region') ?: '1';
+      }
+      $userRegion = $this->userRegionCache[$username];
       if ($userRegion != $regionid) {
-        $rM   = $this->getRegionMonth($year, $month, $userRegion);
-        $prop = 'hol' . $day;
-        if ($rM->$prop) {
+        $rHolidayMap = $this->getRegionHolidayMap($year, $month, $userRegion);
+        if (($rHolidayMap[$day] ?? 1) !== 1) {
           $dayData['style'] .= 'border: 2px solid #' . $viewData['regionalHolidaysColor'] . ' !important;';
         }
       }
@@ -692,22 +673,57 @@ class CalendarMonthBuilderService
 
   //---------------------------------------------------------------------------
   /**
-   * Load (and cache) a MonthModel for a given region. Used for regional-holiday lookups.
+   * Look up (and cache) the logged-in user's role. Called per day cell for
+   * confidentiality checks, so it must not hit the database every time.
+   */
+  private function getLoggedInRole(): string {
+    return $this->loggedInRole ??= $this->userModel->getRole($this->userLoggedIn->username);
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Look up (and cache) an absence type's display/behavior attributes.
+   *
+   * The absence catalog is small and static for the duration of a request,
+   * but this is looked up once per user per day in prepareDayData(), so
+   * without caching the same $absId gets re-queried repeatedly.
+   *
+   * @param string $absId
+   *
+   * @return array{countsAsPresent: bool, isConfidential: bool, color: string, bgTrans: bool, bgColor: string, symbol: string, icon: string, name: string}
+   */
+  private function getAbsenceAttrs(string $absId): array {
+    if (!isset($this->absenceCache[$absId])) {
+      $this->absenceCache[$absId] = [
+        'countsAsPresent' => (bool) $this->absenceModel->getCountsAsPresent($absId),
+        'isConfidential'  => (bool) $this->absenceModel->isConfidential($absId),
+        'color'           => $this->absenceModel->getColor($absId),
+        'bgTrans'         => (bool) $this->absenceModel->getBgTrans($absId),
+        'bgColor'         => $this->absenceModel->getBgColor($absId),
+        'symbol'          => $this->absenceModel->getSymbol($absId),
+        'icon'            => $this->absenceModel->getIcon($absId),
+        'name'            => $this->absenceModel->getName($absId),
+      ];
+    }
+    return $this->absenceCache[$absId];
+  }
+
+  //---------------------------------------------------------------------------
+  /**
+   * Load (and cache) a region's holiday map for a given month. Used for regional-holiday lookups.
    *
    * @param string     $year
    * @param string     $month
    * @param string|int $region
    *
-   * @return MonthModel
+   * @return array<int, int> [day => holidayId]
    */
-  private function getRegionMonth(string $year, string $month, string|int $region): MonthModel {
+  private function getRegionHolidayMap(string $year, string $month, string|int $region): array {
     $key = $year . $month . (string) $region;
-    if (!isset($this->regionMonths[$key])) {
-      $M = new MonthModel();
-      $M->getMonth($year, $month, (string) $region);
-      $this->regionMonths[$key] = $M;
+    if (!isset($this->regionHolidayMaps[$key])) {
+      $this->regionHolidayMaps[$key] = $this->calendarDayModel->getMonthMap($year, $month, (string) $region);
     }
-    return $this->regionMonths[$key];
+    return $this->regionHolidayMaps[$key];
   }
 
   //---------------------------------------------------------------------------
@@ -716,13 +732,5 @@ class CalendarMonthBuilderService
    */
   private function todayBorderStyle(): string {
     return 'border-left: ' . $this->allConfig['todayBorderSize'] . 'px solid #' . $this->allConfig['todayBorderColor'] . ';border-right: ' . $this->allConfig['todayBorderSize'] . 'px solid #' . $this->allConfig['todayBorderColor'] . ';';
-  }
-
-  //---------------------------------------------------------------------------
-  /**
-   * Return the logged-in username, or empty string when not logged in.
-   */
-  private function loggedInUsername(): string {
-    return $this->UL->username !== '' ? $this->UL->username : '';
   }
 }
