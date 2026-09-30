@@ -309,7 +309,7 @@ else {
  */
 define('APP_NAME', "TeamCal Neo");
 define('APP_VER', "6.0.0");
-define('APP_BUILD', "119");
+define('APP_BUILD', "120");
 define('APP_DATE', "2026-09-30");
 define('APP_YEAR', "2014-" . date('Y'));
 define('APP_AUTHOR', "George Lewe");
