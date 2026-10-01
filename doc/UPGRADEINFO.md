@@ -17,7 +17,7 @@ No command line access is needed.
 
 #### Basic steps
 
-1. Install a fresh 6.0.0 instance with Basic data next to your existing 5.7.3 one
+1. Install a fresh 6.0.0 instance with Basic data next to your existing 5.3.7 one
 2. Login as admin in 6.0.0 and go to Database Administration, tab "Import from 5.3.7"
 3. Enter the information from 5.3.7 and start the import
 4. That's it. Check functionality

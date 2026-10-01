@@ -4,7 +4,7 @@ $releases = [
   [
     'version' => '6.0.0',
     'date' => '2026-10-01',
-    'info' => 'New major release',
+    'info' => 'New major release. Must be on 5.3.7 before upgrading. Requires PHP 8.2+ and MariaDB 10.4+ / MySQL 8.0+',
     'bugfixes' => [
     ],
     'features' => [

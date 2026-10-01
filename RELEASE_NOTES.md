@@ -1,4 +1,4 @@
-New major release
+New major release. Must be on 5.3.7 before upgrading. Requires PHP 8.2+ and MariaDB 10.4+ / MySQL 8.0+
 
 **Improvements**
 - Refactor the database to a modern, secure and performing structure

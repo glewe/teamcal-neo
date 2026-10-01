@@ -1306,13 +1306,13 @@ function startsWith(string $haystack, string $needle, bool $caseInsensitive = fa
     return false;
   }
 
-  // For PHP 8.0+, use native function when available (fastest)
-  if (PHP_VERSION_ID >= 80000 && !$caseInsensitive) {
+  // Use native function for case-sensitive matches (fastest)
+  if (!$caseInsensitive) {
     return str_starts_with($haystack, $needle);
   }
 
   // Create cache key
-  $cacheKey = $haystack . '|' . $needle . '|' . ($caseInsensitive ? '1' : '0');
+  $cacheKey = $haystack . '|' . $needle;
   static $cache = [];
   static $cacheSize = 0;
 
@@ -1327,36 +1327,16 @@ function startsWith(string $haystack, string $needle, bool $caseInsensitive = fa
     $cacheSize = 750;
   }
 
-  // Choose optimal algorithm based on string characteristics
-  $result = false;
-
-  if ($caseInsensitive) {
-    // Case-insensitive comparison
-    if (function_exists('mb_substr') && function_exists('mb_strtolower')) {
-      // Unicode-aware comparison
-      $encoding       = mb_detect_encoding($haystack, 'UTF-8, ISO-8859-1', true) ?: 'UTF-8';
-      $haystackPrefix = mb_substr($haystack, 0, $needleLength, $encoding);
-      $result         = mb_strtolower($haystackPrefix, $encoding) === mb_strtolower($needle, $encoding);
-    }
-    else {
-      // Fallback to standard functions
-      $result = strncasecmp($haystack, $needle, $needleLength) === 0;
-    }
+  // Case-insensitive comparison (case-sensitive was handled above)
+  if (function_exists('mb_substr') && function_exists('mb_strtolower')) {
+    // Unicode-aware comparison
+    $encoding       = mb_detect_encoding($haystack, 'UTF-8, ISO-8859-1', true) ?: 'UTF-8';
+    $haystackPrefix = mb_substr($haystack, 0, $needleLength, $encoding);
+    $result         = mb_strtolower($haystackPrefix, $encoding) === mb_strtolower($needle, $encoding);
   }
   else {
-    // Case-sensitive comparison - use most efficient method
-    if ($needleLength === 1) {
-      // Single character optimization
-      $result = $haystack[0] === $needle;
-    }
-    elseif ($needleLength <= 8) {
-      // Short string optimization using substr
-      $result = substr($haystack, 0, $needleLength) === $needle;
-    }
-    else {
-      // Longer strings - use strncmp for better performance
-      $result = strncmp($haystack, $needle, $needleLength) === 0;
-    }
+    // Fallback to standard functions
+    $result = strncasecmp($haystack, $needle, $needleLength) === 0;
   }
 
   // Cache and return result
