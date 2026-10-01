@@ -1,5 +1,7 @@
 name: Release Build
 
+# The distribution repo is populated by tools/build.php in the development repo (composer release).
+# Tagging vX.Y.Z here turns exactly what is committed into the release ZIP - nothing is built on the runner.
 on:
   push:
     tags:
@@ -9,36 +11,21 @@ permissions:
   contents: write
 
 jobs:
-  build-and-release:
+  release:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@c541c155eee45413f5b09a52248675b1a2575231 # v2.31.1
-        with:
-          php-version: '8.2'
-          extensions: ctype, pdo, zip
-          coverage: none
-
-      - name: Install Dependencies
-        run: composer install --prefer-dist --no-progress
-
-      - name: Build Project
-        run: composer build
-
-      - name: Generate Release Notes
+      - name: Create ZIP Archive
         run: |
-          # Strip 'v' prefix from tag to get version (e.g. v5.0.0 -> 5.0.0)
           VERSION=${GITHUB_REF_NAME#v}
-          php tools/extract_release_notes.php $VERSION > RELEASE_NOTES.md
+          zip -r "teamcal-neo-$VERSION.zip" . -x ".git/*" -x ".github/*" -x "RELEASE_NOTES.md" -x "*.zip"
 
       - name: Create Release
         uses: softprops/action-gh-release@c062e08bd532815e2082a85e87e3ef29c3e6d191 # v2.0.8
-        if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: _resources/_archive/*.zip
+          files: "*.zip"
           body_path: RELEASE_NOTES.md
           generate_release_notes: true
