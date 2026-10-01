@@ -133,6 +133,7 @@ $LANG['db_import_err_restore'] = 'In addition, this installation could not be re
 $LANG['db_import_err_target_schema'] = 'This installation does not have the TeamCal Neo 6 database structure. Use the Repair tab first.';
 $LANG['db_import_err_target_not_fresh'] = 'This installation already contains data. The import needs a fresh installation. Use the Reset database tab with the basic data set first.';
 $LANG['db_import_err_source_table'] = 'Table %s was not found in the old database. Check the database settings and the table prefix.';
+$LANG['db_import_err_source_prefix'] = 'Invalid table prefix. Only letters, digits and underscores are allowed.';
 $LANG['db_import_err_source_not_537'] = 'The database you entered is already a TeamCal Neo 6 database. Enter the database of the old 5.3.7 installation.';
 $LANG['db_import_err_source_version'] = 'The old database is older than 5.3.7. Update the old installation to 5.3.7 first (see the upgrade information).';
 $LANG['db_import_err_source_templates'] = 'The old database does not have the table structure of 5.3.7.';

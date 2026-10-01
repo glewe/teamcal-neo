@@ -133,6 +133,7 @@ $LANG['db_import_err_restore'] = 'Además, esta instalación no se pudo restable
 $LANG['db_import_err_target_schema'] = 'Esta instalación no tiene la estructura de base de datos de TeamCal Neo 6. Utilice primero la pestaña Reparar.';
 $LANG['db_import_err_target_not_fresh'] = 'Esta instalación ya contiene datos. La importación requiere una instalación nueva. Utilice primero la pestaña Reiniciar base de datos con el conjunto de datos básico.';
 $LANG['db_import_err_source_table'] = 'No se encontró la tabla %s en la base de datos anterior. Compruebe la configuración de la base de datos y el prefijo de las tablas.';
+$LANG['db_import_err_source_prefix'] = 'Prefijo de tabla no válido. Solo se permiten letras, dígitos y guiones bajos.';
 $LANG['db_import_err_source_not_537'] = 'La base de datos indicada ya es una base de datos de TeamCal Neo 6. Indique la base de datos de la instalación anterior 5.3.7.';
 $LANG['db_import_err_source_version'] = 'La base de datos anterior es anterior a la 5.3.7. Actualice primero la instalación anterior a la 5.3.7 (consulte la información de actualización).';
 $LANG['db_import_err_source_templates'] = 'La base de datos anterior no tiene la estructura de tablas de la 5.3.7.';

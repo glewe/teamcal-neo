@@ -336,7 +336,8 @@ class DatabaseStructureModel
    * @return string SQL statement
    */
   private function buildCreateTable(array $manifest, string $fullName): string {
-    $short = $this->stripPrefix($fullName);
+    $short = $this->resolveShortName($manifest, $fullName);
+    $fullName = $this->prefix . $short;
     if (!isset($manifest['tables'][$short])) {
       throw new RuntimeException("Table '$short' not in manifest");
     }
@@ -364,13 +365,14 @@ class DatabaseStructureModel
    * @return string SQL statement
    */
   private function buildAddColumn(array $manifest, string $fullName, string $columnName): string {
-    $short = $this->stripPrefix($fullName);
+    $short = $this->resolveShortName($manifest, $fullName);
+    $fullName = $this->prefix . $short;
     if (!isset($manifest['tables'][$short])) {
       throw new RuntimeException("Table '$short' not in manifest");
     }
     foreach ($manifest['tables'][$short]['columns'] as $col) {
       if ($col['name'] === $columnName) {
-        return 'ALTER TABLE `' . $fullName . '` ADD COLUMN `' . $columnName . '` ' . $col['definition'];
+        return 'ALTER TABLE `' . $fullName . '` ADD COLUMN `' . $col['name'] . '` ' . $col['definition'];
       }
     }
     throw new RuntimeException("Column '$columnName' not in manifest for table '$short'");
@@ -387,7 +389,8 @@ class DatabaseStructureModel
    * @return string SQL statement
    */
   private function buildAddIndex(array $manifest, string $fullName, string $indexName): string {
-    $short = $this->stripPrefix($fullName);
+    $short = $this->resolveShortName($manifest, $fullName);
+    $fullName = $this->prefix . $short;
     if (!isset($manifest['tables'][$short])) {
       throw new RuntimeException("Table '$short' not in manifest");
     }
@@ -410,7 +413,8 @@ class DatabaseStructureModel
    * @return string SQL statement
    */
   private function buildChangeEngine(array $manifest, string $fullName): string {
-    $short  = $this->stripPrefix($fullName);
+    $short  = $this->resolveShortName($manifest, $fullName);
+    $fullName = $this->prefix . $short;
     $engine = (string) ($manifest['tables'][$short]['engine'] ?? '');
     if ($engine === '') {
       throw new RuntimeException("No engine for table '$short' in manifest");
@@ -432,12 +436,13 @@ class DatabaseStructureModel
    * @return string SQL statement
    */
   private function buildAddForeignKey(array $manifest, string $fullName, string $name): string {
-    $short = $this->stripPrefix($fullName);
+    $short = $this->resolveShortName($manifest, $fullName);
+    $fullName = $this->prefix . $short;
     foreach ($manifest['tables'][$short]['foreign_keys'] ?? [] as $fk) {
       if ($fk['name'] !== $name) {
         continue;
       }
-      $sql = 'ALTER TABLE `' . $fullName . '` ADD CONSTRAINT `' . $name . '` FOREIGN KEY (`' . implode('`, `', $fk['columns']) . '`)'
+      $sql = 'ALTER TABLE `' . $fullName . '` ADD CONSTRAINT `' . $fk['name'] . '` FOREIGN KEY (`' . implode('`, `', $fk['columns']) . '`)'
         . ' REFERENCES `' . $this->prefix . $fk['ref_table'] . '` (`' . implode('`, `', $fk['ref_columns']) . '`)';
       if ($fk['on_delete'] !== '') {
         $sql .= ' ON DELETE ' . $fk['on_delete'];
@@ -461,10 +466,11 @@ class DatabaseStructureModel
    * @return string SQL statement
    */
   private function buildAddCheck(array $manifest, string $fullName, string $name): string {
-    $short = $this->stripPrefix($fullName);
+    $short = $this->resolveShortName($manifest, $fullName);
+    $fullName = $this->prefix . $short;
     foreach ($manifest['tables'][$short]['checks'] ?? [] as $chk) {
       if ($chk['name'] === $name) {
-        return 'ALTER TABLE `' . $fullName . '` ADD CONSTRAINT `' . $name . '` CHECK (' . $chk['expression'] . ')';
+        return 'ALTER TABLE `' . $fullName . '` ADD CONSTRAINT `' . $chk['name'] . '` CHECK (' . $chk['expression'] . ')';
       }
     }
     throw new RuntimeException("Check constraint '$name' not in manifest for table '$short'");
@@ -512,17 +518,24 @@ class DatabaseStructureModel
 
   //---------------------------------------------------------------------------
   /**
-   * Strip the configured prefix from a prefixed table name.
+   * Resolve a client-supplied prefixed table name to the matching manifest
+   * table key. The returned value originates from the manifest, never from
+   * the client, so it is safe to build SQL from.
    *
-   * @param string $fullName
+   * @param array<string, mixed> $manifest
+   * @param string               $fullName Prefixed table name
    *
-   * @return string Unprefixed name
+   * @return string Unprefixed manifest table name
+   *
+   * @throws RuntimeException If the table is not a prefixed manifest table
    */
-  private function stripPrefix(string $fullName): string {
-    if (str_starts_with($fullName, $this->prefix)) {
-      return substr($fullName, strlen($this->prefix));
+  private function resolveShortName(array $manifest, string $fullName): string {
+    foreach (array_keys($manifest['tables']) as $short) {
+      if ($this->prefix . $short === $fullName) {
+        return (string) $short;
+      }
     }
-    return $fullName;
+    throw new RuntimeException("Table '$fullName' not in manifest");
   }
 
   //---------------------------------------------------------------------------

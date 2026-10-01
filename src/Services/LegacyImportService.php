@@ -193,6 +193,9 @@ class LegacyImportService
     $errors = [];
     $counts = [];
     $p      = $srcPrefix;
+    if (!preg_match('/^\w*$/', $p)) {
+      return ['errors' => ['err_source_prefix'], 'counts' => $counts];
+    }
     $tables = $this->tableSet($src);
 
     // Target: a fresh 6.0.0 installation

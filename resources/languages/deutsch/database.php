@@ -135,6 +135,7 @@ $LANG['db_import_err_restore'] = 'Außerdem konnte diese Installation nicht auto
 $LANG['db_import_err_target_schema'] = 'Diese Installation hat nicht die Datenbankstruktur von TeamCal Neo 6. Verwende zuerst den Reiter Reparieren.';
 $LANG['db_import_err_target_not_fresh'] = 'Diese Installation enthält bereits Daten. Der Import benötigt eine frische Installation. Verwende zuerst den Reiter Datenbank zurücksetzen mit dem Basis-Datensatz.';
 $LANG['db_import_err_source_table'] = 'Tabelle %s wurde in der alten Datenbank nicht gefunden. Prüfe die Datenbankeinstellungen und das Tabellenpräfix.';
+$LANG['db_import_err_source_prefix'] = 'Ungültiges Tabellenpräfix. Nur Buchstaben, Ziffern und Unterstriche sind erlaubt.';
 $LANG['db_import_err_source_not_537'] = 'Die angegebene Datenbank ist bereits eine TeamCal Neo 6 Datenbank. Gib die Datenbank der alten 5.3.7-Installation an.';
 $LANG['db_import_err_source_version'] = 'Die alte Datenbank ist älter als 5.3.7. Aktualisiere die alte Installation zuerst auf 5.3.7 (siehe Upgrade-Informationen).';
 $LANG['db_import_err_source_templates'] = 'Die alte Datenbank hat nicht die Tabellenstruktur von 5.3.7.';
