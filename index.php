@@ -17,6 +17,20 @@ global $appLanguages;
 global $LANG;
 
 //-----------------------------------------------------------------------------
+// COMPOSER AUTOLOADER
+//
+require_once __DIR__ . "/vendor/autoload.php";
+
+//-----------------------------------------------------------------------------
+// LOAD ENVIRONMENT VARIABLES
+// This must happen before APP_ENV is read below.
+//
+if (file_exists(__DIR__ . '/.env')) {
+  $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+  $dotenv->load();
+}
+
+//-----------------------------------------------------------------------------
 // Set the application environment in you .env file.
 // Set to 'production' for production or 'dev' for debugging.
 // If you don't have a .env file, copy the .env.example file to .env and adjust the values.
@@ -65,11 +79,6 @@ define('VALID_ROOT', 1);
 define('WEBSITE_ROOT', __DIR__);
 
 //-----------------------------------------------------------------------------
-// COMPOSER AUTOLOADER
-//
-require_once __DIR__ . "/vendor/autoload.php";
-
-//-----------------------------------------------------------------------------
 // CHECK REQUIRED PHP EXTENSIONS
 // Fail fast with a clear message if a required PHP extension is missing.
 // Without these, the application crashes deeper in the stack with an HTTP 500
@@ -105,14 +114,6 @@ if ($missingExtensions) {
   </body>
   </html>';
   die();
-}
-
-//-----------------------------------------------------------------------------
-// LOAD ENVIRONMENT VARIABLES
-//
-if (file_exists(__DIR__ . '/.env')) {
-  $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-  $dotenv->load();
 }
 
 //-----------------------------------------------------------------------------
